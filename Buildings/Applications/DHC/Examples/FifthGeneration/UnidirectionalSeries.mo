@@ -174,7 +174,7 @@ package UnidirectionalSeries
         tau=600,
         final energyDynamics=mixingVolumeEnergyDynamics)
         "Mixing volume to break algebraic loops and to emulate the delay of the substation"
-        annotation (Placement(transformation(extent={{-270,10},{-250,30}})));
+        annotation (Placement(transformation(extent={{-270,0},{-250,20}})));
       Buildings.Fluid.Delays.DelayFirstOrder volMix_b(
         redeclare final package Medium = Medium,
         nPorts=3,
@@ -183,7 +183,7 @@ package UnidirectionalSeries
         tau=600,
         final energyDynamics=mixingVolumeEnergyDynamics)
         "Mixing volume to break algebraic loops and to emulate the delay of the substation"
-        annotation (Placement(transformation(extent={{250,10},{270,30}})));
+        annotation (Placement(transformation(extent={{250,0},{270,20}})));
       // Components
       Buildings.Fluid.HeatPumps.Carnot_TCon heaPum(
         redeclare final package Medium1 = Medium,
@@ -200,16 +200,16 @@ package UnidirectionalSeries
         final dp1_nominal=dp_nominal,
         final dp2_nominal=dp_nominal)
         "Heat pump (index 1 for condenser side)"
-        annotation (Placement(transformation(extent={{-20,56},{0,76}})));
+        annotation (Placement(transformation(extent={{0,116},{-20,136}})));
       Examples.BaseClasses.Pump_m_flow pumEva(
         redeclare final package Medium = Medium,
         final m_flow_nominal=mEva_flow_nominal) "Evaporator pump"
-        annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+        annotation (Placement(transformation(extent={{-110,110},{-90,130}})));
       Examples.BaseClasses.Pump_m_flow pum1HexChi(
         redeclare final package Medium = Medium,
         final m_flow_nominal=m1HexChi_flow_nominal)
         "Chilled water HX primary pump"
-        annotation (Placement(transformation(extent={{10,-310},{-10,-290}})));
+        annotation (Placement(transformation(extent={{-110,-330},{-90,-310}})));
       Modelica.Blocks.Interfaces.RealOutput mHea_flow
         "Mass flow rate used for heating (heat pump evaporator)" annotation (
           Placement(transformation(extent={{280,200},{320,240}}),
@@ -255,7 +255,7 @@ package UnidirectionalSeries
         final T_a2_nominal=T2HexChiEnt_nominal,
         final allowFlowReversal1=allowFlowReversal,
         final allowFlowReversal2=allowFlowReversal) "Chilled water HX"
-        annotation (Placement(transformation(extent={{-60,-324},{-40,-344}})));
+        annotation (Placement(transformation(extent={{-20,-344},{0,-324}})));
       Modelica.Blocks.Interfaces.RealInput TSetHeaWat
         "Heating water set point"
         annotation (Placement(transformation(
@@ -270,7 +270,7 @@ package UnidirectionalSeries
         annotation (Placement(transformation(
             extent={{-20,-20},{20,20}},
             rotation=0,
-            origin={-300,-200}), iconTransformation(
+            origin={-300,-180}), iconTransformation(
             extent={{-20,-20},{20,20}},
             rotation=0,
             origin={-300,160})));
@@ -287,7 +287,7 @@ package UnidirectionalSeries
         redeclare package Medium = Medium,
         final m_flow_nominal=mCon_flow_nominal)
         "Condenser pump"
-        annotation (Placement(transformation(extent={{-110,110},{-90,130}})));
+        annotation (Placement(transformation(extent={{70,130},{50,150}})));
       Buildings.Fluid.Sensors.TemperatureTwoPort senT2HexChiLvg(
         redeclare package Medium = Medium,
         allowFlowReversal=allowFlowReversal,
@@ -295,26 +295,26 @@ package UnidirectionalSeries
         "Chilled water supply temperature (sensed)"
         annotation (Placement(
             transformation(
-            extent={{-10,-10},{10,10}},
+            extent={{10,-10},{-10,10}},
             rotation=0,
-            origin={40,-340})));
+            origin={-160,-340})));
       Buildings.Controls.OBC.CDL.Continuous.HysteresisWithHold hysWitHol(
         uLow=1E-4*mHeaWat_flow_nominal,
         uHigh=0.01*mHeaWat_flow_nominal,
         trueHoldDuration=0,
         falseHoldDuration=30)
-        annotation (Placement(transformation(extent={{-220,130},{-200,150}})));
+        annotation (Placement(transformation(extent={{-220,270},{-200,290}})));
       Buildings.Fluid.Sensors.MassFlowRate senMasFloHeaWat(
         redeclare final package Medium = Medium,
         allowFlowReversal=allowFlowReversal)
         "Heating water mass flow rate (sensed)"
         annotation (Placement(transformation(extent={{-250,430},{-230,410}})));
       Buildings.Controls.OBC.CDL.Continuous.Gain gai(k=mCon_flow_nominal)
-        annotation (Placement(transformation(extent={{-140,130},{-120,150}})));
+        annotation (Placement(transformation(extent={{-140,270},{-120,290}})));
       Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
-        annotation (Placement(transformation(extent={{-190,130},{-170,150}})));
+        annotation (Placement(transformation(extent={{-190,270},{-170,290}})));
       Buildings.Controls.OBC.CDL.Continuous.Gain gai1(k=mEva_flow_nominal)
-        annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
+        annotation (Placement(transformation(extent={{-140,210},{-120,230}})));
       Buildings.Fluid.Delays.DelayFirstOrder volChiWat(
         redeclare final package Medium = Medium,
         nPorts=5,
@@ -328,7 +328,7 @@ package UnidirectionalSeries
         redeclare package Medium = Medium,
         final m_flow_nominal=m2HexChi_flow_nominal)
         "Chilled water HX secondary pump"
-        annotation (Placement(transformation(extent={{-110,-350},{-90,-330}})));
+        annotation (Placement(transformation(extent={{70,-350},{50,-330}})));
       Buildings.Fluid.Sensors.MassFlowRate senMasFloChiWat(
         redeclare package Medium = Medium,
         allowFlowReversal=allowFlowReversal)
@@ -339,11 +339,11 @@ package UnidirectionalSeries
         uHigh=0.01*mChiWat_flow_nominal,
         trueHoldDuration=0,
         falseHoldDuration=30)
-        annotation (Placement(transformation(extent={{-220,-250},{-200,-230}})));
+        annotation (Placement(transformation(extent={{-220,-230},{-200,-210}})));
       Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1
-        annotation (Placement(transformation(extent={{-190,-250},{-170,-230}})));
+        annotation (Placement(transformation(extent={{-190,-230},{-170,-210}})));
       Buildings.Controls.OBC.CDL.Continuous.Gain gai2(k=m1HexChi_flow_nominal)
-        annotation (Placement(transformation(extent={{-140,-250},{-120,-230}})));
+        annotation (Placement(transformation(extent={{-140,-230},{-120,-210}})));
       Buildings.Fluid.Sensors.TemperatureTwoPort senTConLvg(
         redeclare final package Medium = Medium,
         allowFlowReversal=allowFlowReversal,
@@ -351,20 +351,20 @@ package UnidirectionalSeries
         "Condenser water leaving temperature (sensed)"
         annotation (Placement(
             transformation(
-            extent={{-10,-10},{10,10}},
+            extent={{10,-10},{-10,10}},
             rotation=0,
-            origin={40,80})));
+            origin={-44,140})));
       Buildings.Controls.OBC.CDL.Continuous.LimPID conTChiWat(
         each Ti=120,
         each yMax=1,
         each controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
         reverseAction=true,
         each yMin=0) "PI controller for chilled water supply"
-        annotation (Placement(transformation(extent={{-170,-190},{-150,-210}})));
+        annotation (Placement(transformation(extent={{-170,-190},{-150,-170}})));
       Buildings.Controls.OBC.CDL.Continuous.Product pro
-        annotation (Placement(transformation(extent={{-88,-250},{-68,-230}})));
+        annotation (Placement(transformation(extent={{-88,-230},{-68,-210}})));
       Buildings.Controls.OBC.CDL.Continuous.Gain gai4(k=1.1)
-        annotation (Placement(transformation(extent={{-140,-290},{-120,-270}})));
+        annotation (Placement(transformation(extent={{-140,-270},{-120,-250}})));
       Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=1)
         annotation (Placement(transformation(extent={{230,250},{250,270}})));
       Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum1(nin=2)
@@ -397,18 +397,15 @@ package UnidirectionalSeries
           noEvent(actualStream(port_b.h_outflow)),
           noEvent(actualStream(port_b.Xi_outflow))) if show_T
         "Medium properties in port_b";
-    protected
-      constant Boolean allowFlowReversal = false
+      final parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
+        Medium.specificHeatCapacityCp(Medium.setState_pTX(
+          p = Medium.p_default,
+          T = Medium.T_default,
+          X = Medium.X_default))
+        "Specific heat capacity of the fluid";
+      final parameter Boolean allowFlowReversal = false
         "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
         annotation(Dialog(tab="Assumptions"), Evaluate=true);
-      final parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(
-        T=Medium.T_default,
-        p=Medium.p_default,
-        X=Medium.X_default[1:Medium.nXi])
-        "Medium state at default properties";
-      final parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
-        Medium.specificHeatCapacityCp(sta_default)
-        "Specific heat capacity of the fluid";
     initial equation
       assert(QCoo_flow_nominal > 0,
         "In " + getInstanceName() +
@@ -419,123 +416,112 @@ package UnidirectionalSeries
         "Nominal heating rate must be strictly positive. Obtained QHea_flow_nominal = " +
         String(QHea_flow_nominal));
     equation
-      connect(pumEva.port_b, heaPum.port_a2) annotation (Line(points={{-90,0},{40,0},
-              {40,60},{0,60}}, color={0,127,255}));
-      connect(volMix_a.ports[1], port_a) annotation (Line(points={{-262.667,10},
-              {-262.667,0},{-280,0}},
-                                 color={0,127,255}));
+      connect(volMix_a.ports[1], port_a) annotation (Line(points={{-262.667,0},
+              {-280,0}},         color={0,127,255}));
       connect(pumEva.port_a, volMix_a.ports[2])
-        annotation (Line(points={{-110,0},{-260,0},{-260,10}}, color={0,127,255}));
-      connect(heaPum.port_b2, volMix_b.ports[1]) annotation (Line(points={{-20,60},
-              {-60,60},{-60,20},{200,20},{200,0},{258,0},{258,10},{257.333,10}},
+        annotation (Line(points={{-110,120},{-240,120},{-240,0},{-260,0}},
+                                                               color={0,127,255}));
+      connect(port_b, volMix_b.ports[1]) annotation (Line(points={{280,0},{
+              257.333,0}},
                     color={0,127,255}));
-      connect(port_b, volMix_b.ports[2]) annotation (Line(points={{280,0},{260,0},{260,
-              10}}, color={0,127,255}));
       connect(volHeaWat.ports[1], port_bHeaWat)
         annotation (Line(points={{-3.2,420},{280,420}}, color={0,127,255}));
-      connect(pumCon.port_b, heaPum.port_a1) annotation (Line(points={{-90,120},{-60,
-              120},{-60,72},{-20,72}}, color={0,127,255}));
-      connect(volHeaWat.ports[2], pumCon.port_a) annotation (Line(points={{-1.6,420},
-              {-1.6,400},{-260,400},{-260,120},{-110,120}}, color={0,127,255}));
-      connect(hexChi.port_b1, senT2HexChiLvg.port_a)
-        annotation (Line(points={{-40,-340},{30,-340}}, color={0,127,255}));
-      connect(hexChi.port_a2, pum1HexChi.port_b) annotation (Line(points={{-40,-328},
-              {-20,-328},{-20,-300},{-10,-300}}, color={0,127,255}));
-      connect(volMix_b.ports[3], pum1HexChi.port_a) annotation (Line(points={{262.667,
-              10},{262.667,14},{262,14},{262,8},{260,8},{260,-300},{10,-300}},
-            color={0,127,255}));
-      connect(hexChi.port_b2, volMix_a.ports[3]) annotation (Line(points={{-60,
-              -328},{-80,-328},{-80,-300},{-260,-300},{-260,10},{-257.333,10}},
-                                                                          color={0,127,
-              255}));
+      connect(volHeaWat.ports[2], pumCon.port_a) annotation (Line(points={{-1.6,
+              420},{-1.6,400},{80,400},{80,140},{70,140}},  color={0,127,255}));
       connect(port_aHeaWat, senMasFloHeaWat.port_a)
         annotation (Line(points={{-280,420},{-250,420}}, color={0,127,255}));
       connect(senMasFloHeaWat.port_b, volHeaWat.ports[3])
         annotation (Line(points={{-230,420},{0,420}}, color={0,127,255}));
-      connect(senMasFloHeaWat.m_flow, hysWitHol.u) annotation (Line(points={{-240,409},
-              {-240,140},{-222,140}}, color={0,0,127}));
-      connect(TSetHeaWat, heaPum.TSet) annotation (Line(points={{-300,200},{-30,200},
-              {-30,75},{-22,75}}, color={0,0,127}));
+      connect(senMasFloHeaWat.m_flow, hysWitHol.u) annotation (Line(points={{-240,
+              409},{-240,280},{-222,280}},
+                                      color={0,0,127}));
+      connect(TSetHeaWat, heaPum.TSet) annotation (Line(points={{-300,200},{20,
+              200},{20,135},{2,135}},
+                                  color={0,0,127}));
       connect(hysWitHol.y, booToRea.u)
-        annotation (Line(points={{-198,140},{-192,140}}, color={255,0,255}));
+        annotation (Line(points={{-198,280},{-192,280}}, color={255,0,255}));
       connect(booToRea.y, gai.u)
-        annotation (Line(points={{-168,140},{-142,140}}, color={0,0,127}));
-      connect(gai.y, pumCon.m_flow_in) annotation (Line(points={{-118,140},{-100,140},
-              {-100,132}}, color={0,0,127}));
+        annotation (Line(points={{-168,280},{-142,280}}, color={0,0,127}));
+      connect(gai.y, pumCon.m_flow_in) annotation (Line(points={{-118,280},{60,
+              280},{60,152}},
+                           color={0,0,127}));
       connect(gai1.y, pumEva.m_flow_in)
-        annotation (Line(points={{-118,80},{-100,80},{-100,12}}, color={0,0,127}));
-      connect(booToRea.y, gai1.u) annotation (Line(points={{-168,140},{-160,140},{-160,
-              80},{-142,80}}, color={0,0,127}));
+        annotation (Line(points={{-118,220},{-100,220},{-100,132}},
+                                                                 color={0,0,127}));
+      connect(booToRea.y, gai1.u) annotation (Line(points={{-168,280},{-160,280},
+              {-160,220},{-142,220}},
+                              color={0,0,127}));
       connect(volChiWat.ports[1], port_bChi)
         annotation (Line(points={{-3.2,-420},{280,-420}}, color={0,127,255}));
-      connect(hexChi.port_a1, pum2CooHex.port_b)
-        annotation (Line(points={{-60,-340},{-90,-340}}, color={0,127,255}));
-      connect(volChiWat.ports[2], pum2CooHex.port_a) annotation (Line(points={{-1.6,
-              -420},{-1.6,-400},{-200,-400},{-200,-340},{-110,-340}}, color={0,127,255}));
-      connect(senT2HexChiLvg.port_b, volChiWat.ports[3]) annotation (Line(points={{50,-340},
-              {80,-340},{80,-400},{4,-400},{4,-420},{0,-420}}, color={0,127,255}));
       connect(port_aChi, senMasFloChiWat.port_a)
         annotation (Line(points={{-280,-420},{-250,-420}}, color={0,127,255}));
-      connect(senMasFloChiWat.port_b, volChiWat.ports[4])
-        annotation (Line(points={{-230,-420},{1.6,-420}}, color={0,127,255}));
-      connect(senMasFloChiWat.m_flow, hysWitHol1.u) annotation (Line(points={{-240,-409},
-              {-240,-240},{-222,-240}}, color={0,0,127}));
+      connect(senMasFloChiWat.port_b, volChiWat.ports[2])
+        annotation (Line(points={{-230,-420},{-1.6,-420}},color={0,127,255}));
+      connect(senMasFloChiWat.m_flow, hysWitHol1.u) annotation (Line(points={{-240,
+              -409},{-240,-220},{-222,-220}},
+                                        color={0,0,127}));
       connect(hysWitHol1.y, booToRea1.u)
-        annotation (Line(points={{-198,-240},{-192,-240}}, color={255,0,255}));
+        annotation (Line(points={{-198,-220},{-192,-220}}, color={255,0,255}));
       connect(booToRea1.y, gai2.u)
-        annotation (Line(points={{-168,-240},{-142,-240}}, color={0,0,127}));
-      connect(senT2HexChiLvg.T, conTChiWat.u_m) annotation (Line(points={{40,-329},{
-              40,-180},{-160,-180},{-160,-188}}, color={0,0,127}));
-      connect(TSetChiWat, conTChiWat.u_s) annotation (Line(points={{-300,-200},{-172,
-              -200}}, color={0,0,127}));
-      connect(gai2.y, pro.u2) annotation (Line(points={{-118,-240},{-100,-240},{-100,
-              -246},{-90,-246}}, color={0,0,127}));
+        annotation (Line(points={{-168,-220},{-142,-220}}, color={0,0,127}));
+      connect(senT2HexChiLvg.T, conTChiWat.u_m) annotation (Line(points={{-160,
+              -329},{-160,-192}},                color={0,0,127}));
+      connect(TSetChiWat, conTChiWat.u_s) annotation (Line(points={{-300,-180},
+              {-172,-180}},
+                      color={0,0,127}));
+      connect(gai2.y, pro.u2) annotation (Line(points={{-118,-220},{-100,-220},
+              {-100,-226},{-90,-226}},
+                                 color={0,0,127}));
       connect(pro.y, pum1HexChi.m_flow_in)
-        annotation (Line(points={{-66,-240},{0,-240},{0,-288}}, color={0,0,127}));
-      connect(conTChiWat.y, pro.u1) annotation (Line(points={{-148,-200},{-100,-200},
-              {-100,-234},{-90,-234}}, color={0,0,127}));
-      connect(gai4.y, pum2CooHex.m_flow_in) annotation (Line(points={{-118,-280},{-100,
-              -280},{-100,-328}}, color={0,0,127}));
-      connect(senMasFloChiWat.m_flow, gai4.u) annotation (Line(points={{-240,-409},{
-              -240,-280},{-142,-280}}, color={0,0,127}));
-      connect(heaPum.port_b1, senTConLvg.port_a)
-        annotation (Line(points={{0,72},{20,72},{20,80},{30,80}},
-                                                  color={0,127,255}));
-      connect(senTConLvg.port_b, volHeaWat.ports[4]) annotation (Line(points={{50,80},
-              {80,80},{80,400},{0,400},{0,420},{1.6,420}}, color={0,127,255}));
+        annotation (Line(points={{-66,-220},{-40,-220},{-40,-280},{-100,-280},{
+              -100,-308}},                                      color={0,0,127}));
+      connect(conTChiWat.y, pro.u1) annotation (Line(points={{-148,-180},{-100,
+              -180},{-100,-214},{-90,-214}},
+                                       color={0,0,127}));
+      connect(gai4.y, pum2CooHex.m_flow_in) annotation (Line(points={{-118,-260},
+              {60,-260},{60,-328}},
+                                  color={0,0,127}));
+      connect(senMasFloChiWat.m_flow, gai4.u) annotation (Line(points={{-240,
+              -409},{-240,-260},{-142,-260}},
+                                       color={0,0,127}));
+      connect(senTConLvg.port_b, volHeaWat.ports[4]) annotation (Line(points={{-54,140},
+              {-60,140},{-60,400},{0,400},{0,420},{1.6,420}},
+                                                           color={0,127,255}));
       connect(PPum, PPum)
         annotation (Line(points={{300,340},{300,340}}, color={0,0,127}));
-      connect(heaPum.P, PCom) annotation (Line(points={{1,66},{260,66},{260,380},{300,
-              380}}, color={0,0,127}));
-      connect(gai1.y, mHea_flow) annotation (Line(points={{-118,80},{-96,80},{-96,
-              100},{268,100},{268,220},{300,220}}, color={0,0,127}));
-      connect(gai4.y, mCoo_flow) annotation (Line(points={{-118,-280},{240,-280},{
-              240,180},{300,180}},
+      connect(heaPum.P, PCom) annotation (Line(points={{-21,126},{-28,126},{-28,
+              100},{260,100},{260,380},{300,380}},
+                     color={0,0,127}));
+      connect(gai1.y, mHea_flow) annotation (Line(points={{-118,220},{300,220}},
+                                                   color={0,0,127}));
+      connect(gai4.y, mCoo_flow) annotation (Line(points={{-118,-260},{240,-260},
+              {240,180},{300,180}},
                                color={0,0,127}));
       connect(mulSum.y, PCoo)
         annotation (Line(points={{252,260},{300,260}}, color={0,0,127}));
       connect(mulSum1.y, PHea)
         annotation (Line(points={{252,300},{300,300}}, color={0,0,127}));
-      connect(pumCon.P, PPumHea.u[1]) annotation (Line(points={{-89,129},{26,129},{
-              26,128},{140,128},{140,358},{168,358},{168,361}},
+      connect(pumCon.P, PPumHea.u[1]) annotation (Line(points={{49,149},{40,149},
+              {40,260},{142,260},{142,360},{168,360},{168,361}},
                                              color={0,0,127}));
-      connect(pumEva.P, PPumHea.u[2]) annotation (Line(points={{-89,9},{-89,20},{
-              140,20},{140,360},{168,360},{168,359}},
+      connect(pumEva.P, PPumHea.u[2]) annotation (Line(points={{-89,129},{-89,
+              128},{-80,128},{-80,160},{120,160},{120,360},{168,360},{168,359}},
                                                   color={0,0,127}));
       connect(bouHea.ports[1], volHeaWat.ports[5]) annotation (Line(points={{-20,380},
               {3.2,380},{3.2,420}}, color={0,127,255}));
-      connect(bouChi.ports[1], volChiWat.ports[5]) annotation (Line(points={{-20,-380},
-              {0,-380},{0,-420},{3.2,-420}}, color={0,127,255}));
-      connect(pum1HexChi.P, PPumCoo.u[1]) annotation (Line(points={{-11,-291},{160,
-              -291},{160,320},{168,320},{168,321}},
+      connect(bouChi.ports[1], volChiWat.ports[3]) annotation (Line(points={{-20,
+              -380},{0,-380},{0,-420},{0,-420}},
+                                             color={0,127,255}));
+      connect(pum1HexChi.P, PPumCoo.u[1]) annotation (Line(points={{-89,-311},{
+              160,-311},{160,320},{168,320},{168,321}},
                                               color={0,0,127}));
-      connect(pum2CooHex.P, PPumCoo.u[2]) annotation (Line(points={{-89,-331},{-86,
-              -331},{-86,-228},{160,-228},{160,320},{168,320},{168,319}},
-                                                                    color={0,0,127}));
+      connect(pum2CooHex.P, PPumCoo.u[2]) annotation (Line(points={{49,-331},{
+              24,-331},{24,-332},{20,-332},{20,-220},{160,-220},{160,340},{168,
+              340},{168,319}},                                      color={0,0,127}));
       connect(PPumHea.y, mulSum1.u[1]) annotation (Line(points={{192,360},{220,360},
               {220,301},{228,301}}, color={0,0,127}));
-      connect(gai1.y, mulSum1.u[2]) annotation (Line(points={{-118,80},{-100,80},{-100,
-              100},{200,100},{200,300},{228,300},{228,299}}, color={0,0,127}));
+      connect(gai1.y, mulSum1.u[2]) annotation (Line(points={{-118,220},{200,
+              220},{200,300},{228,300},{228,299}},           color={0,0,127}));
       connect(PPumCoo.y, mulSum.u[1]) annotation (Line(points={{192,320},{210,320},
               {210,260},{228,260}},color={0,0,127}));
       connect(PPumHea.y, mulSum2.u[1]) annotation (Line(points={{192,360},{200,360},
@@ -545,6 +531,30 @@ package UnidirectionalSeries
                                     color={0,0,127}));
       connect(mulSum2.y, PPum)
         annotation (Line(points={{252,340},{300,340}}, color={0,0,127}));
+      connect(pum1HexChi.port_b, hexChi.port_a1) annotation (Line(points={{-90,
+              -320},{-80,-320},{-80,-328},{-20,-328}}, color={0,127,255}));
+      connect(hexChi.port_b1, volMix_b.ports[2]) annotation (Line(points={{0,
+              -328},{8,-328},{8,-320},{260,-320},{260,0}}, color={0,127,255}));
+      connect(pum2CooHex.port_b, hexChi.port_a2)
+        annotation (Line(points={{50,-340},{0,-340}}, color={0,127,255}));
+      connect(hexChi.port_b2, senT2HexChiLvg.port_a)
+        annotation (Line(points={{-20,-340},{-150,-340}}, color={0,127,255}));
+      connect(volChiWat.ports[4], pum2CooHex.port_a) annotation (Line(points={{
+              1.6,-420},{6,-420},{6,-400},{80,-400},{80,-340},{70,-340}}, color=
+             {0,127,255}));
+      connect(senT2HexChiLvg.port_b, volChiWat.ports[5]) annotation (Line(
+            points={{-170,-340},{-200,-340},{-200,-400},{3.2,-400},{3.2,-420}},
+            color={0,127,255}));
+      connect(volMix_a.ports[3], pum1HexChi.port_a) annotation (Line(points={{
+              -257.333,0},{-260,0},{-260,-320},{-110,-320}}, color={0,127,255}));
+      connect(pumEva.port_b, heaPum.port_a2)
+        annotation (Line(points={{-90,120},{-20,120}}, color={0,127,255}));
+      connect(heaPum.port_b2, volMix_b.ports[3]) annotation (Line(points={{0,120},
+              {220,120},{220,0},{262.667,0}},      color={0,127,255}));
+      connect(heaPum.port_b1, senTConLvg.port_a) annotation (Line(points={{-20,
+              132},{-30,132},{-30,140},{-34,140}}, color={0,127,255}));
+      connect(pumCon.port_b, heaPum.port_a1) annotation (Line(points={{50,140},
+              {40,140},{40,132},{0,132}}, color={0,127,255}));
       annotation (
       defaultComponentName="ets",
       Documentation(info="<html>
@@ -616,7 +626,7 @@ This is for
               fillPattern=FillPattern.Solid)}),
         Diagram(coordinateSystem(extent={{-280,-460},{280,460}},
               preserveAspectRatio=false), graphics={Text(
-              extent={{-106,-256},{-38,-284}},
+              extent={{-106,-236},{-38,-264}},
               lineColor={0,0,127},
               pattern=LinePattern.Dash,
               textString="Add minimum pump flow rate")}));
@@ -649,49 +659,6 @@ This is for
         THeaSup = THeaSupZer + u * (THeaSup_nominal - THeaSupZer);
         THeaRet = THeaSupZer + u * (THeaRet_nominal - THeaSupZer);
       end HeatingCurve;
-
-      model ReverseFlowSwitchBox
-        extends Modelica.Blocks.Icons.Block;
-        Modelica.Blocks.Interfaces.RealInput massFlowHPDHW "in kg/s"
-          annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-        Modelica.Blocks.Interfaces.RealOutput massFlow
-          annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-        Modelica.Blocks.Math.Add add
-          annotation (Placement(transformation(extent={{-72,64},{-52,84}})));
-        Modelica.Blocks.Logical.GreaterEqual greaterEqual
-          annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-        Modelica.Blocks.Logical.Switch switchMode
-          annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-        Modelica.Blocks.Sources.Constant heatingModeOn(k=0)
-          annotation (Placement(transformation(extent={{0,50},{20,70}})));
-        Modelica.Blocks.Interfaces.RealInput massFlowHPSH "in kg/s"
-          annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-        Modelica.Blocks.Interfaces.RealInput massFlowFC "in kg/s"
-          annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-        Modelica.Blocks.Math.Add coolingModeOn(k1=-1)
-          annotation (Placement(transformation(extent={{0,-84},{20,-64}})));
-      equation
-        connect(greaterEqual.y, switchMode.u2)
-          annotation (Line(points={{21,0},{58,0}}, color={255,0,255}));
-        connect(add.y, greaterEqual.u1) annotation (Line(points={{-51,74},{-40,74},{
-                -40,0},{-2,0}},   color={0,0,127}));
-        connect(heatingModeOn.y, switchMode.u1) annotation (Line(points={{21,60},{40,
-                60},{40,8},{58,8}},     color={0,0,127}));
-        connect(switchMode.y, massFlow)
-          annotation (Line(points={{81,0},{120,0}}, color={0,0,127}));
-        connect(massFlowHPSH, add.u1) annotation (Line(points={{-120,80},{-74,80}},
-                                    color={0,0,127}));
-        connect(massFlowHPDHW, add.u2) annotation (Line(points={{-120,0},{-80,0},{-80,
-                68},{-74,68}},      color={0,0,127}));
-        connect(massFlowFC, greaterEqual.u2) annotation (Line(points={{-120,-80},{-80,
-                -80},{-80,-8},{-2,-8}},       color={0,0,127}));
-        connect(massFlowFC, coolingModeOn.u2) annotation (Line(points={{-120,-80},{-2,
-                -80}},                          color={0,0,127}));
-        connect(add.y, coolingModeOn.u1) annotation (Line(points={{-51,74},{-40,74},{
-                -40,-68},{-2,-68}},       color={0,0,127}));
-        connect(coolingModeOn.y, switchMode.u3) annotation (Line(points={{21,-74},{40,
-                -74},{40,-8},{58,-8}},     color={0,0,127}));
-      end ReverseFlowSwitchBox;
     end Controls;
   end Agents;
 
@@ -701,7 +668,7 @@ This is for
         final dp_nominal=R*length);
 
       parameter Real R(unit="Pa/m") "Pressure drop per meter at m_flow_nominal";
-      final parameter Modelica.SIunits.Length length = 100 "Lenght of pipe";
+      final parameter Modelica.SIunits.Length length = 100 "Length of pipe";
 
       final parameter Modelica.SIunits.PressureDifference dpStraightPipe_nominal(displayUnit="Pa")=
           Modelica.Fluid.Pipes.BaseClasses.WallFriction.QuadraticTurbulent.pressureLoss_m_flow(
@@ -751,273 +718,7 @@ This is for
               fillColor={0,140,72})}));
     end DistributionPipe;
 
-    model SwitchBoxBorehole
-      extends Modelica.Blocks.Icons.Block;
-      parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-        "Nominal mass flow rate";
-      TJunction splSup1(
-        redeclare package Medium = MediumInSwitch,
-        m_flow_nominal={1,1,1}*m_flow_nominal,
-        energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-        from_dp=false) "Flow splitter" annotation (Placement(transformation(
-            extent={{10,10},{-10,-10}},
-            rotation=-90,
-            origin={-60,60})));
-      TJunction splSup2(
-        redeclare package Medium = MediumInSwitch,
-        m_flow_nominal={1,1,1}*m_flow_nominal,
-        energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-        from_dp=false) "Flow splitter" annotation (Placement(transformation(
-            extent={{10,10},{-10,-10}},
-            rotation=90,
-            origin={60,20})));
-      Modelica.Fluid.Interfaces.FluidPort_b port_b1(redeclare package Medium =
-            MediumInSwitch)
-        annotation (Placement(transformation(extent={{-70,90},{-50,110}})));
-      Modelica.Fluid.Interfaces.FluidPort_b port_b2(redeclare package Medium =
-            MediumInSwitch)
-        annotation (Placement(transformation(extent={{50,-110},{70,-90}})));
-      Modelica.Fluid.Interfaces.FluidPort_a port_a1(redeclare package Medium =
-            MediumInSwitch)
-        annotation (Placement(transformation(extent={{-70,-112},{-50,-90}})));
-      Modelica.Fluid.Interfaces.FluidPort_a port_a2(redeclare package Medium =
-            MediumInSwitch)
-        annotation (Placement(transformation(extent={{50,88},{70,110}})));
-      replaceable package MediumInSwitch =
-          Modelica.Media.Interfaces.PartialMedium annotation (
-          __Dymola_choicesAllMatching=true);
-      Modelica.Blocks.Interfaces.RealInput massFlow "in kg/s"
-        annotation (Placement(transformation(extent={{-146,-20},{-106,20}})));
-      Examples.BaseClasses.Pump_m_flow             pumpSwitch(
-        redeclare package Medium = MediumInSwitch,
-        final m_flow_nominal=m_flow_nominal)
-                                "Pump" annotation (Placement(transformation(
-            extent={{10,-10},{-10,10}},
-            rotation=180,
-            origin={-20,20})));
-      Examples.BaseClasses.Pump_m_flow             pumpSwitch1(
-        redeclare package Medium = MediumInSwitch,
-        final m_flow_nominal=m_flow_nominal)
-                                "Pump" annotation (Placement(transformation(
-            extent={{10,-10},{-10,10}},
-            rotation=90,
-            origin={20,-40})));
-      TJunction splSup3(
-        redeclare package Medium = MediumInSwitch,
-        m_flow_nominal={1,1,1}*m_flow_nominal,
-        energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-        from_dp=false) "Flow splitter" annotation (Placement(transformation(
-            extent={{-10,-10},{10,10}},
-            rotation=90,
-            origin={-60,20})));
-      TJunction splSup4(
-        redeclare package Medium = MediumInSwitch,
-        m_flow_nominal={1,1,1}*m_flow_nominal,
-        energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-        from_dp=false) "Flow splitter" annotation (Placement(transformation(
-            extent={{10,10},{-10,-10}},
-            rotation=90,
-            origin={60,-60})));
-      Modelica.Blocks.Math.Add add
-        annotation (Placement(transformation(extent={{88,-10},{108,10}})));
-      Modelica.Blocks.Interfaces.RealOutput PPum(final unit="W") "Pump electricity consumption"
-        annotation (Placement(transformation(extent={{120,-10},{140,10}})));
-
-    equation
-      connect(port_b1, splSup1.port_2)
-        annotation (Line(points={{-60,100},{-60,70}}, color={0,127,255}));
-      connect(port_a2, splSup2.port_1)
-        annotation (Line(points={{60,99},{60,30}}, color={0,127,255}));
-      connect(splSup1.port_1, splSup3.port_2)
-        annotation (Line(points={{-60,50},{-60,30}}, color={0,127,255}));
-      connect(splSup3.port_3, pumpSwitch.port_a)
-        annotation (Line(points={{-50,20},{-30,20}}, color={0,127,255}));
-      connect(pumpSwitch.port_b, splSup2.port_3)
-        annotation (Line(points={{-10,20},{50,20}}, color={0,127,255}));
-      connect(splSup4.port_1, splSup2.port_2)
-        annotation (Line(points={{60,-50},{60,10}}, color={0,127,255}));
-      connect(splSup4.port_2, port_b2)
-        annotation (Line(points={{60,-70},{60,-100}}, color={0,127,255}));
-      connect(splSup3.port_1, port_a1)
-        annotation (Line(points={{-60,10},{-60,-101}}, color={0,127,255}));
-      connect(splSup1.port_3, pumpSwitch1.port_a) annotation (Line(points={{-50,
-              60},{20,60},{20,-30}}, color={0,127,255}));
-      connect(pumpSwitch1.port_b, splSup4.port_3) annotation (Line(points={{20,
-              -50},{20,-60},{50,-60}}, color={0,127,255}));
-      connect(massFlow, pumpSwitch.m_flow_in)
-        annotation (Line(points={{-126,0},{-20,0},{-20,8}}, color={0,0,127}));
-      connect(massFlow, pumpSwitch1.m_flow_in) annotation (Line(points={{-126,0},
-              {-20,0},{-20,-40},{8,-40}}, color={0,0,127}));
-      connect(pumpSwitch.P, add.u1) annotation (Line(points={{-9,11},{37.5,11},{37.5,
-              6},{86,6}}, color={0,0,127}));
-      connect(add.u2, pumpSwitch1.P) annotation (Line(points={{86,-6},{40,-6},{40,-58},
-              {11,-58},{11,-51}}, color={0,0,127}));
-      connect(add.y, PPum)
-        annotation (Line(points={{109,0},{130,0}}, color={0,0,127}));
-      annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{
-                -120,-100},{120,100}})),                             Diagram(
-            coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{
-                120,100}})));
-    end SwitchBoxBorehole;
-
-    model SwitchBoxEnergyTransferStation
-      extends Modelica.Blocks.Icons.Block;
-      parameter Boolean haveHeaHotWat = true
-        "Set to true if the ETS has heating hot water production";
-      parameter Boolean haveDomHotWat = true
-        "Set to true if the ETS has domestic hot water production";
-      parameter Boolean haveChiWat = true
-        "Set to true if the ETS has chilled water production";
-      parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-        "Nominal mass flow rate";
-      TJunction splSup1(
-        redeclare package Medium = MediumInSwitch,
-        m_flow_nominal={1,1,1}*m_flow_nominal,
-        energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-        from_dp=false) "Flow splitter" annotation (Placement(transformation(
-            extent={{10,10},{-10,-10}},
-            rotation=-90,
-            origin={-60,60})));
-      TJunction splSup2(
-        redeclare package Medium = MediumInSwitch,
-        m_flow_nominal={1,1,1}*m_flow_nominal,
-        energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-        from_dp=false) "Flow splitter" annotation (Placement(transformation(
-            extent={{10,10},{-10,-10}},
-            rotation=90,
-            origin={60,-60})));
-      Modelica.Fluid.Interfaces.FluidPort_b port_b1(redeclare package Medium =
-            MediumInSwitch)
-        annotation (Placement(transformation(extent={{-70,90},{-50,110}})));
-      Modelica.Fluid.Interfaces.FluidPort_b port_b2(redeclare package Medium =
-            MediumInSwitch)
-        annotation (Placement(transformation(extent={{50,-110},{70,-90}})));
-      Modelica.Fluid.Interfaces.FluidPort_a port_a1(redeclare package Medium =
-            MediumInSwitch)
-        annotation (Placement(transformation(extent={{-70,-110},{-50,-90}}),
-            iconTransformation(extent={{-70,-110},{-50,-90}})));
-      Modelica.Fluid.Interfaces.FluidPort_a port_a2(redeclare package Medium =
-            MediumInSwitch)
-        annotation (Placement(transformation(extent={{50,90},{70,110}}),
-            iconTransformation(extent={{50,90},{70,110}})));
-      replaceable package MediumInSwitch =
-          Modelica.Media.Interfaces.PartialMedium annotation (
-          __Dymola_choicesAllMatching=true);
-      Agents.Controls.ReverseFlowSwitchBox con "Controller for pumps"
-        annotation (Placement(transformation(extent={{-86,-50},{-66,-30}})));
-      TJunction splSup3(
-        redeclare package Medium = MediumInSwitch,
-        m_flow_nominal={1,1,1}*m_flow_nominal,
-        energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-        from_dp=false) "Flow splitter" annotation (Placement(transformation(
-            extent={{-10,-10},{10,10}},
-            rotation=90,
-            origin={-62,0})));
-      TJunction splSup4(
-        redeclare package Medium = MediumInSwitch,
-        m_flow_nominal={1,1,1}*m_flow_nominal,
-        energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-        from_dp=false) "Flow splitter" annotation (Placement(transformation(
-            extent={{10,10},{-10,-10}},
-            rotation=90,
-            origin={60,0})));
-      Examples.BaseClasses.Pump_m_flow pum1(
-        redeclare package Medium = MediumInSwitch,
-        final m_flow_nominal=m_flow_nominal)
-                                "Pump" annotation (Placement(transformation(
-            extent={{10,-10},{-10,10}},
-            rotation=180,
-            origin={0,0})));
-      Examples.BaseClasses.Pump_m_flow pum2(
-        redeclare package Medium = MediumInSwitch,
-        final m_flow_nominal=m_flow_nominal)
-                                "Pump" annotation (Placement(transformation(
-            extent={{10,-10},{-10,10}},
-            rotation=90,
-            origin={20,-40})));
-      Modelica.Blocks.Math.Add add
-        annotation (Placement(transformation(extent={{88,-10},{108,10}})));
-      Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zero(k=0)
-        annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
-      Modelica.Blocks.Interfaces.RealInput mDisWatChi_flow if haveChiWat
-        "District water mass flow rate for chilled water production"
-        annotation (
-          Placement(transformation(extent={{-160,-60},{-120,-20}}),
-            iconTransformation(extent={{-120,-10},{-100,10}})));
-      Modelica.Blocks.Interfaces.RealInput mDisWatHea_flow if haveHeaHotWat
-        "District water mass flow rate for heating hot water production"
-        annotation (
-          Placement(transformation(extent={{-160,20},{-120,60}}),
-            iconTransformation(extent={{-120,70},{-100,90}})));
-      Modelica.Blocks.Interfaces.RealInput mDisWatDom_flow if haveDomHotWat
-        "District water mass flow rate for domestic hot water production"
-        annotation (Placement(transformation(extent={{-160,-20},{-120,20}}),
-            iconTransformation(extent={{-120,30},{-100,50}})));
-      Modelica.Blocks.Interfaces.RealOutput PPum(final unit="W")
-        "Power drawn by pumps motors"
-        annotation (Placement(transformation(extent={{120,-20},{160,20}}),
-          iconTransformation(extent={{100,-10},{120,10}})));
-    equation
-      connect(port_b1, splSup1.port_2)
-        annotation (Line(points={{-60,100},{-60,70}}, color={0,127,255}));
-      connect(splSup1.port_1, splSup3.port_2)
-        annotation (Line(points={{-60,50},{-60,10},{-62,10}},
-                                                     color={0,127,255}));
-      connect(splSup2.port_2, port_b2)
-        annotation (Line(points={{60,-70},{60,-100}}, color={0,127,255}));
-      connect(splSup3.port_1, port_a1)
-        annotation (Line(points={{-62,-10},{-62,-56},{-60,-56},{-60,-100}},
-                                                        color={0,127,255}));
-      connect(splSup4.port_2, splSup2.port_1)
-        annotation (Line(points={{60,-10},{60,-50}}, color={0,127,255}));
-      connect(splSup4.port_1, port_a2)
-        annotation (Line(points={{60,10},{60,100}},          color={0,127,255}));
-      connect(splSup3.port_3, pum1.port_a)
-        annotation (Line(points={{-52,0},{-10,0}}, color={0,127,255}));
-      connect(pum1.port_b, splSup4.port_3)
-        annotation (Line(points={{10,0},{50,0}}, color={0,127,255}));
-      connect(splSup1.port_3, pum2.port_a)
-        annotation (Line(points={{-50,60},{20,60},{20,-30}}, color={0,127,255}));
-      connect(pum2.port_b, splSup2.port_3)
-        annotation (Line(points={{20,-50},{20,-60},{50,-60}}, color={0,127,255}));
-      connect(con.massFlow, pum1.m_flow_in)
-        annotation (Line(points={{-64,-40},{0,-40},{0,-12}}, color={0,0,127}));
-      connect(con.massFlow, pum2.m_flow_in)
-        annotation (Line(points={{-64,-40},{8,-40}}, color={0,0,127}));
-      connect(add.y, PPum)
-        annotation (Line(points={{109,0},{140,0}}, color={0,0,127}));
-      connect(pum1.P, add.u1) annotation (Line(points={{11,-9},{40,-9},{40,20},{80,
-              20},{80,6},{86,6}}, color={0,0,127}));
-      connect(pum2.P, add.u2) annotation (Line(points={{11,-51},{10,-51},{10,-54},{
-              40,-54},{40,-20},{80,-20},{80,-6},{86,-6}}, color={0,0,127}));
-      if haveHeaHotWat then
-        connect(mDisWatHea_flow, con.massFlowHPSH) annotation (Line(points={{-140,40},
-              {-100,40},{-100,-32},{-88,-32}}, color={0,0,127}));
-      else
-        connect(zero.y, con.massFlowHPSH) annotation (Line(points={{-98,-80},{-94,-80},
-              {-94,-32},{-88,-32}}, color={0,0,127}));
-      end if;
-      if haveDomHotWat then
-        connect(mDisWatDom_flow, con.massFlowHPDHW) annotation (Line(points={{-140,0},
-              {-104,0},{-104,-40},{-88,-40}}, color={0,0,127}));
-      else
-        connect(zero.y, con.massFlowHPDHW) annotation (Line(points={{-98,-80},{-94,-80},
-              {-94,-40},{-88,-40}}, color={0,0,127}));
-      end if;
-      if not haveChiWat then
-        connect(mDisWatChi_flow, con.massFlowFC) annotation (Line(points={{-140,-40},{
-              -108,-40},{-108,-48},{-88,-48}}, color={0,0,127}));
-      else
-        connect(zero.y, con.massFlowFC) annotation (Line(points={{-98,-80},{-94,-80},{
-              -94,-48},{-88,-48}}, color={0,0,127}));
-      end if;
-      annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-                {100,100}})),
-                Diagram(
-            coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{120,100}})));
-    end SwitchBoxEnergyTransferStation;
-
-    model TJunction
+    model Junction
       extends Buildings.Fluid.FixedResistances.Junction(
       final dp_nominal={0,0,0},
       final tau=5*60);
@@ -1026,7 +727,7 @@ This is for
               lineColor={28,108,200},
               fillColor={0,127,0},
               fillPattern=FillPattern.Solid)}));
-    end TJunction;
+    end Junction;
 
     package Controls "Package with controllers"
       block MainPump "Controller for main pump"
@@ -1326,6 +1027,185 @@ DHCNetworks.Controls.Validation.MainPumpClosedLoop</a>.
                 {-40,-40},{-2,-40}},        color={0,0,127}));
       end PumpMode;
     end Controls;
+
+    model UnidirectionalDistributionSeries
+      "Partial model for an element for a distribution leg"
+
+      replaceable package Medium = Modelica.Media.Interfaces.PartialMedium "Medium model"
+        annotation (__Dymola_choicesAllMatching=true);
+      parameter Modelica.SIunits.TemperatureDifference dTHex(min=0)
+        "Temperature difference over substation heat exchanger";
+      parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal
+        "Nominal mass flow rate distribution line";
+      parameter Modelica.SIunits.MassFlowRate mSub_flow_nominal
+        "Nominal mass flow rate substation line";
+
+      parameter Modelica.SIunits.Length lDis
+        "Length of the distribution pipe (only counting warm or cold line, but not sum)";
+      parameter Modelica.SIunits.Length lSub
+        "Length of the pipe to the substation (only counting warm or cold line, but not sum)";
+      parameter Modelica.SIunits.PressureDifference dp_nominal=50000
+        "Nominal pressure difference";
+
+      Buildings.Controls.OBC.CDL.Interfaces.RealOutput PPum(unit="W")
+        "Electrical power consumed"
+        annotation (Placement(transformation(extent={{100,68},{120,88}}),
+            iconTransformation(extent={{100,70},{120,90}})));
+      Modelica.Fluid.Interfaces.FluidPort_a subSup(
+         redeclare final package Medium = Medium) "Substation supply"
+        annotation (Placement(transformation(extent={{-30,110},{-10,130}}),
+            iconTransformation(extent={{10,90},{30,110}})));
+      Modelica.Fluid.Interfaces.FluidPort_b subRet(
+        redeclare final package Medium = Medium) "Substation return"
+        annotation (Placement(transformation(extent={{10,110},{30,130}}),
+            iconTransformation(extent={{50,90},{70,110}})));
+      Modelica.Fluid.Interfaces.FluidPort_a disSup_a(
+        redeclare final package Medium = Medium) "Distribution supply line"
+        annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
+            iconTransformation(extent={{-110,-10},{-90,10}})));
+      Modelica.Fluid.Interfaces.FluidPort_b disSup_b(
+        redeclare final package Medium = Medium) "Distribution return line"
+        annotation (Placement(transformation(extent={{90,-10},{110,10}}),
+            iconTransformation(extent={{90,-10},{110,10}})));
+
+      Junction junSup(redeclare final package Medium = Medium, m_flow_nominal={
+            mDis_flow_nominal,mDis_flow_nominal,mSub_flow_nominal})
+        "Junction in supply line"
+        annotation (Placement(transformation(extent={{-30,10},{-10,-10}})));
+
+      Junction junRet(redeclare final package Medium = Medium, m_flow_nominal={
+            mDis_flow_nominal,mDis_flow_nominal,mSub_flow_nominal})
+        "Junction in return line"
+        annotation (Placement(transformation(extent={{10,10},{30,-10}})));
+
+      SidewalkQuayside.Distribution.BaseClasses.MainPipe maiPipSup(
+        redeclare final package Medium = Medium,
+        final m_flow_nominal=mDis_flow_nominal,
+        final length=lDis) "Distribution pipe"
+        annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+      SidewalkQuayside.Distribution.BaseClasses.PipeToSubstation pipToSub(
+        redeclare package Medium = Medium,
+        m_flow_nominal=mSub_flow_nominal,
+        length=2*lSub,
+        dh=dhSub) "Pipe to substation" annotation (Placement(transformation(
+            extent={{-10,-10},{10,10}},
+            rotation=90,
+            origin={-20,30})));
+      parameter Modelica.SIunits.Length dhSub
+        "Hydraulic diameter of pipe to substation";
+      Buildings.Fluid.Movers.FlowControlled_m_flow disPum(
+        redeclare package Medium = Medium,
+        energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+        addPowerToMedium=false,
+        nominalValuesDefineDefaultPressureCurve=true,
+        riseTime=10,
+        m_flow_nominal=mSub_flow_nominal,
+        per(pressure(dp={2*dp_nominal,0}, V_flow={0,2*mSub_flow_nominal/1000})),
+        use_inputFilter=false)
+        "Pump (or valve) that forces the flow rate to be set to the control signal"
+        annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+            rotation=90, origin={-20,58})));
+      Buildings.Fluid.Sensors.TemperatureTwoPort supTem(
+        allowFlowReversal=false,
+        redeclare final package Medium = Medium,
+        m_flow_nominal=mSub_flow_nominal)
+        annotation (Placement(transformation(extent={{10,10},{-10,-10}},
+            rotation=-90, origin={-20,84})));
+      Buildings.Fluid.Sensors.TemperatureTwoPort retTem(
+        allowFlowReversal=false,
+        redeclare final package Medium = Medium,
+        m_flow_nominal=mSub_flow_nominal)
+        annotation (Placement(transformation(extent={{-10,10},{10,-10}},
+            rotation=-90, origin={20,100})));
+      SidewalkQuayside.Distribution.BaseClasses.SubstationPumpControl con(dT=dTHex,
+          m_flow_nominal=mSub_flow_nominal)
+        annotation (Placement(transformation(extent={{-80,48},{-60,68}})));
+
+      Buildings.Controls.OBC.CDL.Interfaces.IntegerInput modInd "Mode index"
+        annotation (Placement(transformation(extent={{-140,46},{-100,86}}),
+            iconTransformation(extent={{-140,60},{-100,100}})));
+      Modelica.Blocks.Interfaces.RealOutput m_flow(unit="kg/s") "Mass flow rate"
+        annotation (Placement(transformation(extent={{100,34},{120,54}}),
+            iconTransformation(extent={{100,-70},{120,-50}})));
+
+    equation
+      connect(disSup_a, maiPipSup.port_a)
+        annotation (Line(points={{-100,0},{-80,0}},   color={0,127,255}));
+      connect(junSup.port_3, pipToSub.port_a)
+        annotation (Line(points={{-20,10},{-20,20}},
+                                                   color={0,127,255}));
+      connect(maiPipSup.port_b, junSup.port_1)
+        annotation (Line(points={{-60,0},{-30,0}}, color={0,127,255}));
+      connect(junSup.port_2, junRet.port_1)
+        annotation (Line(points={{-10,0},{10,0}}, color={0,127,255}));
+      connect(junRet.port_2, disSup_b)
+        annotation (Line(points={{30,0},{100,0}}, color={0,127,255}));
+      connect(disPum.port_a, pipToSub.port_b)
+        annotation (Line(points={{-20,48},{-20,40}}, color={0,127,255}));
+      connect(subSup, supTem.port_b)
+        annotation (Line(points={{-20,120},{-20,94}}, color={0,127,255}));
+      connect(supTem.port_a, disPum.port_b)
+        annotation (Line(points={{-20,74},{-20,68}}, color={0,127,255}));
+      connect(junRet.port_3, retTem.port_b)
+        annotation (Line(points={{20,10},{20,90}}, color={0,127,255}));
+      connect(retTem.port_a, subRet)
+        annotation (Line(points={{20,110},{20,110},{20,120}}, color={0,127,255}));
+      connect(con.yPum, disPum.m_flow_in) annotation (Line(points={{-59,58},{-32,58}},
+                                  color={0,0,127}));
+      connect(supTem.T, con.TSup) annotation (Line(points={{-31,84},{-90,84},{-90,58},
+              {-82,58}}, color={0,0,127}));
+      connect(retTem.T, con.TRet) annotation (Line(points={{9,100},{-94,100},{-94,50},
+              {-82,50}}, color={0,0,127}));
+      connect(modInd, con.modInd)
+        annotation (Line(points={{-120,66},{-82,66}}, color={255,127,0}));
+      connect(disPum.m_flow_actual, m_flow) annotation (Line(points={{-25,69},{-25,
+              76},{80,76},{80,44},{110,44}}, color={0,0,127}));
+      connect(disPum.P, PPum) annotation (Line(
+          points={{-29,69},{-29,78},{110,78}},
+          color={0,0,127},
+          pattern=LinePattern.Dash));
+      annotation (Icon(graphics={   Rectangle(
+            extent={{-100,-100},{100,100}},
+            lineColor={0,0,127},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+            Rectangle(
+              extent={{-100,2},{90,-2}},
+              fillColor={0,0,0},
+              fillPattern=FillPattern.Solid,
+              pattern=LinePattern.None,
+              lineColor={0,0,0}),
+            Rectangle(
+              extent={{18,2},{22,100}},
+              fillColor={0,0,0},
+              fillPattern=FillPattern.Solid,
+              pattern=LinePattern.None,
+              lineColor={0,0,0}),           Text(
+            extent={{-150,-92},{150,-132}},
+            textString="%name",
+            lineColor={0,0,255}),
+            Rectangle(
+              extent={{-74,12},{-18,-12}},
+              fillColor={0,0,0},
+              fillPattern=FillPattern.Solid,
+              pattern=LinePattern.None,
+              lineColor={0,0,0}),
+            Rectangle(
+              extent={{-25.5,11.5},{25.5,-11.5}},
+              fillColor={0,0,0},
+              fillPattern=FillPattern.Solid,
+              pattern=LinePattern.None,
+              lineColor={0,0,0},
+              origin={19.5,49.5},
+              rotation=90),
+            Rectangle(
+              extent={{58,2},{62,100}},
+              fillColor={0,0,0},
+              fillPattern=FillPattern.Solid,
+              pattern=LinePattern.None,
+              lineColor={0,0,0})}), Diagram(coordinateSystem(extent={{-100,-60},{100,
+                120}})));
+    end UnidirectionalDistributionSeries;
   end Networks;
 
   package Examples "Based on Final_steps_2019_10_21"
@@ -1343,12 +1223,13 @@ DHCNetworks.Controls.Validation.MainPumpClosedLoop</a>.
       Modelica.Blocks.Sources.Constant massFlowMainPump(
         k(final unit="kg/s")=datDes.mDisPip_flow_nominal)
         "Pump mass flow rate"
-        annotation (Placement(transformation(extent={{-20,-380},{0,-360}})));
+        annotation (Placement(transformation(extent={{-44,-390},{-24,-370}})));
     equation
-      connect(massFlowMainPump.y, pumpMainRLTN.m_flow_in) annotation (Line(points={{1,-370},
-              {68,-370}},                              color={0,0,127}));
+      connect(massFlowMainPump.y, pumpMainRLTN.m_flow_in) annotation (Line(points={{-23,
+              -380},{34,-380},{34,-360},{68,-360}},    color={0,0,127}));
       connect(pumpBHS.m_flow_in, massFlowMainPump.y)
-        annotation (Line(points={{50,-428},{50,-370},{1,-370}}, color={0,0,127}));
+        annotation (Line(points={{50,-428},{50,-380},{-23,-380}},
+                                                                color={0,0,127}));
       annotation (
       Diagram(
       coordinateSystem(preserveAspectRatio=false, extent={{-480,-480},{420,360}}),
@@ -1514,34 +1395,30 @@ Advanced.SparseActivate=true")}),
         Modelica.Blocks.Sources.RealExpression heatFromToBHF(
           y=4184*(Tml1.T - Tml5.T) *massFlowRateInRLTN.m_flow)
           "in W"
-          annotation (Placement(transformation(extent={{-60,-320},{-40,-300}})));
+          annotation (Placement(transformation(extent={{-46,-358},{-26,-338}})));
         Pump_m_flow pumpMainRLTN(
           redeclare package Medium = MediumWater,
           m_flow_nominal=datDes.mDisPip_flow_nominal)
           "Pump"
           annotation (Placement(transformation(extent={{10,-10},{-10,10}},
               rotation=90,
-              origin={80,-370})));
-        Networks.TJunction splSup3(
+              origin={80,-360})));
+        Networks.Junction splSup3(
           redeclare package Medium = MediumWater,
-          m_flow_nominal = datDes.mDisPip_flow_nominal*{1,1,1},
+          m_flow_nominal=datDes.mDisPip_flow_nominal*{1,1,1},
           energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-          from_dp=false)
-          "Flow splitter"
-          annotation (Placement(transformation(
+          from_dp=false) "Flow splitter" annotation (Placement(transformation(
               extent={{10,-10},{-10,10}},
               rotation=90,
-              origin={80,8})));
-        Networks.TJunction splSup4(
+              origin={80,-20})));
+        Networks.Junction splSup4(
           redeclare package Medium = MediumWater,
-          m_flow_nominal = datDes.mDisPip_flow_nominal*{1,1,1},
+          m_flow_nominal=datDes.mDisPip_flow_nominal*{1,1,1},
           energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-          from_dp=false)
-          "Flow splitter"
-          annotation (Placement(transformation(
+          from_dp=false) "Flow splitter" annotation (Placement(transformation(
               extent={{10,-10},{-10,10}},
               rotation=90,
-              origin={80,-72})));
+              origin={80,-60})));
         Fluid.Sensors.TemperatureTwoPort tempBeforeProsumer3(
           redeclare package Medium = MediumWater,
           allowFlowReversal=false,
@@ -1550,7 +1427,7 @@ Advanced.SparseActivate=true")}),
           annotation (Placement(transformation(
               extent={{6,6},{-6,-6}},
               rotation=180,
-              origin={120,-32})));
+              origin={120,-20})));
         Fluid.Sensors.TemperatureTwoPort tempAfterProsumer3(redeclare package
             Medium =       MediumWater,
           allowFlowReversal=false,
@@ -1559,14 +1436,14 @@ Advanced.SparseActivate=true")}),
           annotation (Placement(transformation(
               extent={{-6,-6},{6,6}},
               rotation=180,
-              origin={120,-72})));
+              origin={120,-60})));
         Buildings.Fluid.Sensors.MassFlowRate massFlowRateThroughProsumer3(
           redeclare package Medium = MediumWater,
           allowFlowReversal=true)
           annotation (Placement(transformation(
               extent={{6,-6},{-6,6}},
               rotation=0,
-              origin={100,-72})));
+              origin={100,-60})));
         Buildings.Fluid.Sensors.MassFlowRate massFlowRateInRLTN(
           redeclare package Medium = MediumWater,
           allowFlowReversal=true)
@@ -1574,18 +1451,18 @@ Advanced.SparseActivate=true")}),
               transformation(
               extent={{6,6},{-6,-6}},
               rotation=180,
-              origin={40,238})));
-        Networks.TJunction splSup5(
+              origin={40,220})));
+        Networks.Junction splSup5(
           redeclare package Medium = MediumWater,
-          m_flow_nominal = datDes.mDisPip_flow_nominal*{1,1,1},
+          m_flow_nominal=datDes.mDisPip_flow_nominal*{1,1,1},
           energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
           from_dp=false) "Flow splitter" annotation (Placement(transformation(
               extent={{10,-10},{-10,10}},
               rotation=90,
-              origin={80,218})));
-        Networks.TJunction splSup6(
+              origin={80,180})));
+        Networks.Junction splSup6(
           redeclare package Medium = MediumWater,
-          m_flow_nominal = datDes.mDisPip_flow_nominal*{1,1,1},
+          m_flow_nominal=datDes.mDisPip_flow_nominal*{1,1,1},
           energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
           from_dp=false) "Flow splitter" annotation (Placement(transformation(
               extent={{10,-10},{-10,10}},
@@ -1599,7 +1476,7 @@ Advanced.SparseActivate=true")}),
           annotation (Placement(transformation(
               extent={{6,6},{-6,-6}},
               rotation=180,
-              origin={120,178})));
+              origin={120,180})));
         Fluid.Sensors.TemperatureTwoPort tempAfterProsumer2(
           redeclare package Medium = MediumWater,
           allowFlowReversal=false,
@@ -1622,7 +1499,7 @@ Advanced.SparseActivate=true")}),
           annotation (Placement(transformation(
               extent={{-6,-6},{6,6}},
               rotation=-90,
-              origin={80,178})));
+              origin={80,160})));
         Buildings.Fluid.Sensors.MassFlowRate massFlowRateBypassSFRetail(
           redeclare package Medium = MediumWater,
           allowFlowReversal=true)
@@ -1630,7 +1507,7 @@ Advanced.SparseActivate=true")}),
             Placement(transformation(
               extent={{-6,-6},{6,6}},
               rotation=-90,
-              origin={80,-32})));
+              origin={80,-40})));
         Buildings.Applications.DHC.Examples.FifthGeneration.UnidirectionalSeries.Agents.EnergyTransferStation
           ets1(
           redeclare package Medium = MediumWater,
@@ -1638,89 +1515,89 @@ Advanced.SparseActivate=true")}),
           QHea_flow_nominal=sum(bui1.terUni.QHea_flow_nominal))
           "Energy transfer station"
           annotation (Placement(transformation(extent={{-360,-40},{-320,0}})));
-        Networks.TJunction splSup7(
+        Networks.Junction splSup7(
           redeclare package Medium = MediumWater,
-          m_flow_nominal = datDes.mDisPip_flow_nominal*{1,1,1},
+          m_flow_nominal=datDes.mDisPip_flow_nominal*{1,1,1},
           energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
           from_dp=false) "Flow splitter" annotation (Placement(transformation(
               extent={{-10,10},{10,-10}},
               rotation=90,
-              origin={-80,20})));
-        Networks.TJunction splSup8(
+              origin={-80,0})));
+        Networks.Junction splSup8(
           redeclare package Medium = MediumWater,
-          m_flow_nominal = datDes.mDisPip_flow_nominal*{1,1,1},
+          m_flow_nominal=datDes.mDisPip_flow_nominal*{1,1,1},
           energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
           from_dp=false) "Flow splitter" annotation (Placement(transformation(
               extent={{-10,10},{10,-10}},
               rotation=90,
-              origin={-80,-60})));
+              origin={-80,-40})));
         Fluid.Sensors.TemperatureTwoPort          tempBeforeProsumer1(redeclare
             package Medium = MediumWater,
           allowFlowReversal=false,        m_flow_nominal=datDes.mDisPip_flow_nominal,
           tau=0)                          annotation (Placement(transformation(
               extent={{-6,6},{6,-6}},
               rotation=180,
-              origin={-120,-20})));
+              origin={-120,-40})));
         Fluid.Sensors.TemperatureTwoPort          tempAfterProsumer1(redeclare
             package Medium = MediumWater,
           allowFlowReversal=false,        m_flow_nominal=datDes.mDisPip_flow_nominal,
           tau=0)                          annotation (Placement(transformation(
               extent={{6,6},{-6,-6}},
               rotation=180,
-              origin={-120,20})));
+              origin={-120,0})));
         Buildings.Fluid.Sensors.MassFlowRate massFlowRateThroughProsumer1(
             redeclare package Medium = MediumWater, allowFlowReversal=true)
           annotation (Placement(transformation(
               extent={{-6,6},{6,-6}},
               rotation=0,
-              origin={-100,20})));
+              origin={-100,0})));
         Buildings.Fluid.Sensors.MassFlowRate massFlowRateBypassSFLargeOfficediv4(
             redeclare package Medium = MediumWater, allowFlowReversal=true)
           annotation (Placement(transformation(
               extent={{6,6},{-6,-6}},
               rotation=-90,
               origin={-80,-20})));
-        Fluid.Sensors.TemperatureTwoPort          Tml2(redeclare package Medium
-            = MediumWater,
+        Fluid.Sensors.TemperatureTwoPort          Tml2(redeclare package Medium =
+              MediumWater,
           allowFlowReversal=false,
                            m_flow_nominal=datDes.mDisPip_flow_nominal,
           tau=0)           annotation (Placement(transformation(
               extent={{-6,-6},{6,6}},
               rotation=90,
-              origin={-80,-94})));
-        Fluid.Sensors.TemperatureTwoPort          Tml4(redeclare package Medium
-            = MediumWater,
+              origin={-80,-100})));
+        Fluid.Sensors.TemperatureTwoPort          Tml4(redeclare package Medium =
+              MediumWater,
           allowFlowReversal=false,
           m_flow_nominal=datDes.mDisPip_flow_nominal,
           tau=0)           annotation (Placement(transformation(
               extent={{6,6},{-6,-6}},
               rotation=90,
               origin={80,120})));
-        Fluid.Sensors.TemperatureTwoPort          Tml5(redeclare package Medium
-            = MediumWater,
+        Fluid.Sensors.TemperatureTwoPort          Tml5(redeclare package Medium =
+              MediumWater,
           allowFlowReversal=false,
           m_flow_nominal=datDes.mDisPip_flow_nominal,
           tau=0)           annotation (Placement(transformation(
               extent={{-6,-6},{6,6}},
               rotation=270,
               origin={80,-100})));
-        Fluid.Sensors.TemperatureTwoPort          Tml3(redeclare package Medium
-            = MediumWater, m_flow_nominal=datDes.mDisPip_flow_nominal)
+        Fluid.Sensors.TemperatureTwoPort          Tml3(redeclare package Medium =
+              MediumWater, m_flow_nominal=datDes.mDisPip_flow_nominal)
                            annotation (Placement(transformation(
               extent={{6,6},{-6,-6}},
               rotation=180,
-              origin={0,238})));
-        Networks.TJunction splSup1(
+              origin={0,220})));
+        Networks.Junction splSup1(
           redeclare package Medium = MediumWater,
-          m_flow_nominal = datDes.mDisPip_flow_nominal*{1,1,1},
+          m_flow_nominal=datDes.mDisPip_flow_nominal*{1,1,1},
           energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
           from_dp=false) "Flow splitter" annotation (Placement(transformation(
               extent={{-10,10},{10,-10}},
               rotation=90,
               origin={-80,-190})));
-        Networks.TJunction splSup2(
+        Networks.Junction splSup2(
           redeclare package Medium = MediumWater,
-          m_flow_nominal = datDes.mDisPip_flow_nominal*{1,1,1},
+          m_flow_nominal=datDes.mDisPip_flow_nominal*{1,1,1},
           energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
           from_dp=false) "Flow splitter" annotation (Placement(transformation(
               extent={{-10,10},{10,-10}},
@@ -1809,7 +1686,7 @@ Advanced.SparseActivate=true")}),
                            annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
               rotation=-90,
-              origin={80,-330})));
+              origin={80,-310})));
         Networks.DistributionPipe res1(
           redeclare package Medium = MediumWater,
           final m_flow_nominal=datDes.mDisPip_flow_nominal,
@@ -1825,7 +1702,7 @@ Advanced.SparseActivate=true")}),
                            annotation (Placement(transformation(
               extent={{10,-10},{-10,10}},
               rotation=270,
-              origin={-80,72})));
+              origin={-80,70})));
         Networks.DistributionPipe res4(
           redeclare package Medium = MediumWater,
           final m_flow_nominal=datDes.mDisPip_flow_nominal,
@@ -1833,56 +1710,32 @@ Advanced.SparseActivate=true")}),
                            annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
               rotation=-90,
-              origin={80,72})));
-        Networks.SwitchBoxEnergyTransferStation switchBoxProsumerWithPumps(
-          haveDomHotWat=false,                                             final
-            m_flow_nominal=datDes.mDisPip_flow_nominal,                    redeclare
-            package MediumInSwitch = MediumWater) annotation (Placement(
-              transformation(
-              extent={{10,10},{-10,-10}},
-              rotation=-90,
-              origin={-150,-10})));
-        Networks.SwitchBoxEnergyTransferStation switchBoxProsumerWithPumps1(
-          haveDomHotWat=false,                                              final
-            m_flow_nominal=datDes.mDisPip_flow_nominal,
-            redeclare package MediumInSwitch = MediumWater) annotation (Placement(
-              transformation(
-              extent={{-10,-10},{10,10}},
-              rotation=-90,
-              origin={150,148})));
-        Networks.SwitchBoxEnergyTransferStation switchBoxProsumerWithPumps2(
-          haveDomHotWat=false,                                              final
-            m_flow_nominal=datDes.mDisPip_flow_nominal,
-            redeclare package MediumInSwitch = MediumWater) annotation (Placement(
-              transformation(
-              extent={{-10,-10},{10,10}},
-              rotation=-90,
-              origin={150,-50})));
+              origin={80,70})));
         Buildings.Fluid.Sensors.MassFlowRate massFlowRateThroughProsumer1AfterSB(
+            redeclare package Medium = MediumWater, allowFlowReversal=true)
+          annotation (Placement(transformation(
+              extent={{6,-6},{-6,6}},
+              rotation=0,
+              origin={-100,-40})));
+        Buildings.Fluid.Sensors.MassFlowRate massFlowRateThroughProsumer2AfterSB(
             redeclare package Medium = MediumWater, allowFlowReversal=true)
           annotation (Placement(transformation(
               extent={{-6,-6},{6,6}},
               rotation=0,
-              origin={-180,0})));
-        Buildings.Fluid.Sensors.MassFlowRate massFlowRateThroughProsumer2AfterSB(
-            redeclare package Medium = MediumWater, allowFlowReversal=true)
-          annotation (Placement(transformation(
-              extent={{6,6},{-6,-6}},
-              rotation=0,
-              origin={200,140})));
+              origin={100,180})));
         Buildings.Fluid.Sensors.MassFlowRate massFlowRateThroughProsumer3AfterSB(
             redeclare package Medium = MediumWater, allowFlowReversal=true)
           annotation (Placement(transformation(
-              extent={{6,6},{-6,-6}},
+              extent={{-6,-6},{6,6}},
               rotation=0,
-              origin={200,-60})));
+              origin={100,-20})));
         Modelica.Blocks.Continuous.Integrator integrator(k=0.001*(1/3600))
-          annotation (Placement(transformation(extent={{-20,-320},{0,-300}})));
+          annotation (Placement(transformation(extent={{-6,-358},{14,-338}})));
         Buildings.Fluid.Sources.Boundary_pT bou(redeclare package Medium =
               MediumWater, nPorts=1) annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
               rotation=180,
-              origin={130,-350})));
+              origin={130,-340})));
         Networks.DistributionPipe res3(
           redeclare package Medium = MediumWater,
           final m_flow_nominal=datDes.mDisPip_flow_nominal,
@@ -1917,11 +1770,11 @@ Advanced.SparseActivate=true")}),
               origin={80,-210})));
         PowerMeter EPumPla(nu=2) "Plant pump power consumption"
           annotation (Placement(transformation(extent={{-154,-158},{-142,-146}})));
-        PowerMeter EPumPro(nu=4)
+        PowerMeter EPumPro(nu=1)
                            "Prosumer pump power consumption"
           annotation (Placement(transformation(extent={{246,282},{258,294}})));
         PowerMeter EPumDis(nu=2) "Distribution network pump power consumption"
-          annotation (Placement(transformation(extent={{106,-396},{118,-384}})));
+          annotation (Placement(transformation(extent={{222,-386},{234,-374}})));
         PowerMeter EHeaPum(nu=1)
                            "Heat pump power consumption"
           annotation (Placement(transformation(extent={{246,262},{258,274}})));
@@ -1968,22 +1821,22 @@ Advanced.SparseActivate=true")}),
               extent={{-10,10},{10,-10}},
               rotation=180,
               origin={50,-440})));
-        Networks.TJunction splSup9(
+        Networks.Junction splSup9(
           redeclare package Medium = MediumWater,
           m_flow_nominal=datDes.mDisPip_flow_nominal*{1,1,1},
           energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
           from_dp=false) "Flow splitter" annotation (Placement(transformation(
               extent={{10,10},{-10,-10}},
               rotation=90,
-              origin={80,-410})));
-        Networks.TJunction splSup10(
+              origin={80,-400})));
+        Networks.Junction splSup10(
           redeclare package Medium = MediumWater,
           m_flow_nominal=datDes.mDisPip_flow_nominal*{1,1,1},
           energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
           from_dp=false) "Flow splitter" annotation (Placement(transformation(
               extent={{10,-10},{-10,10}},
               rotation=90,
-              origin={-80,-410})));
+              origin={-80,-400})));
         ConstraintViolation TVio(
           final uMin=datDes.TLooMin,
           final uMax=datDes.TLooMax,
@@ -2036,51 +1889,45 @@ Advanced.SparseActivate=true")}),
       protected
         constant Real scaFacLoa = 10 "Scaling factor for load profiles that are read by the model";
       equation
-        connect(splSup3.port_3, tempBeforeProsumer3.port_a) annotation (Line(
-              points={{90,8},{100,8},{100,-32},{114,-32}},     color={0,127,255}));
         connect(massFlowRateThroughProsumer3.port_a, tempAfterProsumer3.port_b)
-          annotation (Line(points={{106,-72},{114,-72}},   color={0,127,255}));
+          annotation (Line(points={{106,-60},{114,-60}},   color={0,127,255}));
         connect(massFlowRateThroughProsumer3.port_b, splSup4.port_3)
-          annotation (Line(points={{94,-72},{90,-72}},    color={0,127,255}));
-        connect(splSup5.port_3, tempBeforeProsumer2.port_a) annotation (Line(
-              points={{90,218},{100,218},{100,178},{114,178}},
-                                                             color={0,127,255}));
+          annotation (Line(points={{94,-60},{90,-60}},    color={0,127,255}));
         connect(massFlowRateThroughProsumer2.port_a, tempAfterProsumer2.port_b)
           annotation (Line(points={{106,140},{114,140}},
                                                        color={0,127,255}));
         connect(massFlowRateThroughProsumer2.port_b, splSup6.port_3)
           annotation (Line(points={{94,140},{90,140}},color={0,127,255}));
         connect(massFlowRateBypassSFApartment.port_a, splSup5.port_2)
-          annotation (Line(points={{80,184},{80,208}}, color={0,127,255}));
+          annotation (Line(points={{80,166},{80,170}}, color={0,127,255}));
         connect(massFlowRateBypassSFApartment.port_b, splSup6.port_1)
-          annotation (Line(points={{80,172},{80,150}},color={0,127,255}));
+          annotation (Line(points={{80,154},{80,150}},color={0,127,255}));
         connect(massFlowRateBypassSFRetail.port_a, splSup3.port_2)
-          annotation (Line(points={{80,-26},{80,-2}},  color={0,127,255}));
+          annotation (Line(points={{80,-34},{80,-30}}, color={0,127,255}));
         connect(massFlowRateBypassSFRetail.port_b, splSup4.port_1)
-          annotation (Line(points={{80,-38},{80,-62}}, color={0,127,255}));
+          annotation (Line(points={{80,-46},{80,-50}}, color={0,127,255}));
         connect(splSup8.port_2, massFlowRateBypassSFLargeOfficediv4.port_a)
-          annotation (Line(points={{-80,-50},{-80,-26}},color={0,127,255}));
+          annotation (Line(points={{-80,-30},{-80,-26}},color={0,127,255}));
         connect(splSup7.port_1, massFlowRateBypassSFLargeOfficediv4.port_b)
-          annotation (Line(points={{-80,10},{-80,-14}},  color={0,127,255}));
-        connect(tempBeforeProsumer1.port_a, splSup8.port_3) annotation (Line(
-              points={{-114,-20},{-100,-20},{-100,-60},{-90,-60}},
-                                                               color={0,127,255}));
+          annotation (Line(points={{-80,-10},{-80,-14}}, color={0,127,255}));
         connect(massFlowRateThroughProsumer1.port_b, splSup7.port_3)
-          annotation (Line(points={{-94,20},{-90,20}},    color={0,127,255}));
+          annotation (Line(points={{-94,0},{-92,0},{-92,6.66134e-16},{-90,
+                6.66134e-16}},                            color={0,127,255}));
         connect(massFlowRateThroughProsumer1.port_a, tempAfterProsumer1.port_b)
-          annotation (Line(points={{-106,20},{-114,20}},   color={0,127,255}));
+          annotation (Line(points={{-106,0},{-110,0},{-110,-4.44089e-16},{-114,
+                -4.44089e-16}},                            color={0,127,255}));
         connect(Tml2.port_b, splSup8.port_1)
-          annotation (Line(points={{-80,-88},{-80,-70}},
+          annotation (Line(points={{-80,-94},{-80,-50}},
                                                        color={0,127,255}));
         connect(Tml4.port_a, splSup6.port_2)
           annotation (Line(points={{80,126},{80,130}},
                                                     color={0,127,255}));
         connect(massFlowRateInRLTN.port_b, splSup5.port_1) annotation (Line(
-              points={{46,238},{80,238},{80,228}},color={0,127,255}));
+              points={{46,220},{80,220},{80,190}},color={0,127,255}));
         connect(Tml3.port_b, massFlowRateInRLTN.port_a)
-          annotation (Line(points={{6,238},{34,238}},   color={0,127,255}));
+          annotation (Line(points={{6,220},{34,220}},   color={0,127,255}));
         connect(Tml5.port_a, splSup4.port_2)
-          annotation (Line(points={{80,-94},{80,-82}},   color={0,127,255}));
+          annotation (Line(points={{80,-94},{80,-70}},   color={0,127,255}));
         connect(massFlowRateBypassPlant.port_b, splSup1.port_1) annotation (Line(
               points={{-80,-224},{-80,-200}},         color={0,127,255}));
         connect(massFlowRateBypassPlant.port_a, splSup2.port_2)
@@ -2123,107 +1970,55 @@ Advanced.SparseActivate=true")}),
           annotation (Line(points={{-180,-220},{-180,-242}},
                                                            color={0,127,255}));
         connect(res.port_b, pumpMainRLTN.port_a)
-          annotation (Line(points={{80,-340},{80,-360}}, color={0,127,255}));
+          annotation (Line(points={{80,-320},{80,-350}}, color={0,127,255}));
         connect(res1.port_b, Tml1.port_a)
           annotation (Line(points={{-80,-320},{-80,-306}}, color={0,127,255}));
         connect(distributionPipe.port_b, Tml3.port_a)
-          annotation (Line(points={{-80,82},{-80,238},{-6,238}},
+          annotation (Line(points={{-80,80},{-80,220},{-6,220}},
                                                         color={0,127,255}));
-        connect(distributionPipe.port_a, splSup7.port_2) annotation (Line(points={{-80,62},
-                {-80,30}},                 color={0,127,255}));
+        connect(distributionPipe.port_a, splSup7.port_2) annotation (Line(points={{-80,60},
+                {-80,10}},                 color={0,127,255}));
         connect(res4.port_a, Tml4.port_b)
-          annotation (Line(points={{80,82},{80,114}},
+          annotation (Line(points={{80,80},{80,114}},
                                                     color={0,127,255}));
         connect(res4.port_b, splSup3.port_1)
-          annotation (Line(points={{80,62},{80,18}},   color={0,127,255}));
+          annotation (Line(points={{80,60},{80,-10}},  color={0,127,255}));
         connect(plant.port_a1, tempBeforePlantPrimSide.port_b) annotation (Line(
               points={{-140,-250},{-140,-270},{-126,-270}}, color={0,127,255}));
-        connect(tempBeforeProsumer3.port_b, switchBoxProsumerWithPumps2.port_a1)
-          annotation (Line(points={{126,-32},{130,-32},{130,-44},{140,-44}},
-              color={0,127,255}));
-        connect(tempAfterProsumer3.port_a, switchBoxProsumerWithPumps2.port_b2)
-          annotation (Line(points={{126,-72},{130,-72},{130,-56},{140,-56}},
-              color={0,127,255}));
-        connect(tempBeforeProsumer2.port_b, switchBoxProsumerWithPumps1.port_a1)
-          annotation (Line(points={{126,178},{130,178},{130,154},{140,154}},
-                                                                           color=
-                {0,127,255}));
-        connect(tempAfterProsumer2.port_a, switchBoxProsumerWithPumps1.port_b2)
-          annotation (Line(points={{126,140},{130,140},{130,142},{140,142}},
-                                                                         color={0,
-                127,255}));
-        connect(tempBeforeProsumer1.port_b, switchBoxProsumerWithPumps.port_a1)
-          annotation (Line(points={{-126,-20},{-134,-20},{-134,-16},{-140,-16}},
-              color={0,127,255}));
-        connect(tempAfterProsumer1.port_a, switchBoxProsumerWithPumps.port_b2)
-          annotation (Line(points={{-126,20},{-134,20},{-134,-4},{-140,-4}},
-              color={0,127,255}));
-        connect(ets1.port_a, switchBoxProsumerWithPumps.port_b1) annotation (Line(
-              points={{-360,-20},{-366,-20},{-366,-48},{-170,-48},{-170,-16},{-160,
-                -16}},
-              color={0,127,255}));
-        connect(ets1.mHea_flow, switchBoxProsumerWithPumps.mDisWatHea_flow)
-          annotation (Line(points={{-318.571,-12.8571},{-224,-12.8571},{-224,
-                -30},{-158,-30},{-158,-21}},
-                            color={0,0,127}));
-        connect(ets1.mCoo_flow, switchBoxProsumerWithPumps.mDisWatChi_flow)
-          annotation (Line(points={{-318.571,-15.7143},{-226,-15.7143},{-226,
-                -32},{-150,-32},{-150,-21}},
-                                       color={0,0,127}));
-        connect(massFlowRateThroughProsumer1AfterSB.port_b,
-          switchBoxProsumerWithPumps.port_a2) annotation (Line(points={{-174,0},{-170,
-                0},{-170,-4},{-160,-4}},             color={0,127,255}));
-        connect(massFlowRateThroughProsumer1AfterSB.port_a, ets1.port_b) annotation (
-            Line(points={{-186,0},{-240,0},{-240,-20},{-320.143,-20}}, color={0,127,
-                255}));
-        connect(switchBoxProsumerWithPumps1.port_a2,
-          massFlowRateThroughProsumer2AfterSB.port_b) annotation (Line(points={{160,142},
-                {178,142},{178,140},{194,140}},        color={0,127,255}));
-        connect(massFlowRateThroughProsumer3AfterSB.port_b,
-          switchBoxProsumerWithPumps2.port_a2) annotation (Line(points={{194,-60},{
-                178,-60},{178,-56},{160,-56}},       color={0,127,255}));
         connect(heatFromToBHF.y, integrator.u)
-          annotation (Line(points={{-39,-310},{-22,-310}},color={0,0,127}));
-        connect(bou.ports[1], pumpMainRLTN.port_a) annotation (Line(points={{120,-350},
-                {80,-350},{80,-360}}, color={0,127,255}));
+          annotation (Line(points={{-25,-348},{-8,-348}}, color={0,0,127}));
+        connect(bou.ports[1], pumpMainRLTN.port_a) annotation (Line(points={{120,
+                -340},{80,-340},{80,-350}},
+                                      color={0,127,255}));
         connect(res3.port_a, splSup1.port_2)
           annotation (Line(points={{-80,-140},{-80,-180}}, color={0,127,255}));
         connect(res5.port_b, Tml5.port_b)
           annotation (Line(points={{80,-120},{80,-106}}, color={0,127,255}));
         connect(res3.port_b, Tml2.port_a)
-          annotation (Line(points={{-80,-120},{-80,-100}},color={0,127,255}));
+          annotation (Line(points={{-80,-120},{-80,-106}},color={0,127,255}));
         connect(res2.port_b, res5.port_a)
           annotation (Line(points={{80,-162},{80,-140}}, color={0,127,255}));
         connect(res.port_a, res6.port_a)
-          annotation (Line(points={{80,-320},{80,-220}}, color={0,127,255}));
+          annotation (Line(points={{80,-300},{80,-220}}, color={0,127,255}));
         connect(res6.port_b, res2.port_a)
           annotation (Line(points={{80,-200},{80,-182}}, color={0,127,255}));
         connect(pumpSecondarySidePlant.P, EPumPla.u[1]) annotation (Line(points={{-189,
                 -199},{-189,-150},{-186,-150},{-186,-149.9},{-154,-149.9}},
                                                                      color={0,0,127}));
-        connect(pumpPrimarySidePlant.P, EPumPla.u[2]) annotation (Line(points={{-131,-199},
-                {-131,-174},{-164,-174},{-164,-154.1},{-154,-154.1}},
+        connect(pumpPrimarySidePlant.P, EPumPla.u[2]) annotation (Line(points={{-131,
+                -199},{-131,-174},{-160,-174},{-160,-154.1},{-154,-154.1}},
                                                                color={0,0,127}));
         connect(ets1.PPum, EPumPro.u[1]) annotation (Line(points={{-318.571,
-                -4.28571},{-264,-4.28571},{-264,291.15},{246,291.15}},
+                -4.28571},{-264,-4.28571},{-264,288},{246,288}},
                                                              color={0,0,127}));
         connect(ets1.PCom, EHeaPum.u[1]) annotation (Line(points={{-318.571,
                 -1.42857},{-260,-1.42857},{-260,268},{246,268}},
                                                            color={0,0,127}));
         connect(EPumDis.u[1], pumpMainRLTN.P)
-          annotation (Line(points={{106,-387.9},{71,-387.9},{71,-381}},
-                                                                   color={0,0,127}));
+          annotation (Line(points={{222,-377.9},{170,-377.9},{170,-386},{72,
+                -386},{72,-371},{71,-371}},                        color={0,0,127}));
         connect(EBorFie.u[1], borFie.Q_flow) annotation (Line(points={{-38,-460},{-52,
                 -460},{-52,-448},{-13,-448}}, color={0,0,127}));
-        connect(switchBoxProsumerWithPumps.PPum, EPumPro.u[2]) annotation (Line(
-              points={{-150,1},{-150,289.05},{246,289.05}},
-              color={0,0,127}));
-        connect(switchBoxProsumerWithPumps1.PPum, EPumPro.u[3]) annotation (Line(
-              points={{150,137},{150,146},{164,146},{164,290},{246,290},{246,286.95}},
-                                                                      color={0,0,127}));
-        connect(switchBoxProsumerWithPumps2.PPum, EPumPro.u[4]) annotation (Line(
-              points={{150,-61},{150,-76},{166,-76},{166,284.85},{246,284.85}},
-              color={0,0,127}));
         connect(heatFromToPlantPrimarySide.y, EPlant.u[1])
           annotation (Line(points={{-99,-250},{-66,-250}}, color={0,0,127}));
         connect(heatFromToNetwrokProsumer1.y, EProsumer1.u[1])
@@ -2250,24 +2045,26 @@ Advanced.SparseActivate=true")}),
         connect(borFie.port_a, pumpBHS.port_b)
           annotation (Line(points={{8,-440},{40,-440}}, color={0,127,255}));
         connect(res1.port_a, splSup10.port_1)
-          annotation (Line(points={{-80,-340},{-80,-400}}, color={0,127,255}));
-        connect(splSup10.port_2, borFie.port_b) annotation (Line(points={{-80,-420},{
-                -80,-440},{-12,-440}}, color={0,127,255}));
-        connect(pumpBHS.port_a, splSup9.port_2) annotation (Line(points={{60,-440},{
-                80,-440},{80,-420}}, color={0,127,255}));
+          annotation (Line(points={{-80,-340},{-80,-390}}, color={0,127,255}));
+        connect(splSup10.port_2, borFie.port_b) annotation (Line(points={{-80,
+                -410},{-80,-440},{-12,-440}},
+                                       color={0,127,255}));
+        connect(pumpBHS.port_a, splSup9.port_2) annotation (Line(points={{60,-440},
+                {80,-440},{80,-410}},color={0,127,255}));
         connect(splSup9.port_1, pumpMainRLTN.port_b)
-          annotation (Line(points={{80,-400},{80,-380}}, color={0,127,255}));
+          annotation (Line(points={{80,-390},{80,-370}}, color={0,127,255}));
         connect(splSup10.port_3, splSup9.port_3)
-          annotation (Line(points={{-70,-410},{70,-410}}, color={0,127,255}));
-        connect(pumpBHS.P, EPumDis.u[2]) annotation (Line(points={{39,-431},{18,-431},
-                {18,-422},{100,-422},{100,-392.1},{106,-392.1}}, color={0,0,127}));
+          annotation (Line(points={{-70,-400},{70,-400}}, color={0,127,255}));
+        connect(pumpBHS.P, EPumDis.u[2]) annotation (Line(points={{39,-431},{24,
+                -431},{24,-430},{20,-430},{20,-420},{200,-420},{200,-382.1},{
+                222,-382.1}},                                    color={0,0,127}));
         connect(Tml1.T, TVio.u[1]) annotation (Line(points={{-86.6,-300},{-292,-300},
                 {-292,333.36},{324,333.36}},color={0,0,127}));
-        connect(Tml2.T, TVio.u[2]) annotation (Line(points={{-86.6,-94},{-282,-94},{
-                -282,331.68},{324,331.68}},
+        connect(Tml2.T, TVio.u[2]) annotation (Line(points={{-86.6,-100},{-282,
+                -100},{-282,331.68},{324,331.68}},
                                        color={0,0,127}));
-        connect(Tml3.T, TVio.u[3]) annotation (Line(points={{4.44089e-16,244.6},{
-                4.44089e-16,330},{324,330}},
+        connect(Tml3.T, TVio.u[3]) annotation (Line(points={{6.66134e-16,226.6},
+                {6.66134e-16,330},{324,330}},
                                  color={0,0,127}));
         connect(Tml4.T, TVio.u[4]) annotation (Line(points={{86.6,120},{220,120},{220,
                 328.32},{324,328.32}}, color={0,0,127}));
@@ -2278,8 +2075,9 @@ Advanced.SparseActivate=true")}),
           annotation (Line(points={{337.02,330},{350,330}}, color={0,0,127}));
         connect(EPumPro.y, EPumTot.u[1]) annotation (Line(points={{259.02,288},{266,
                 288},{266,310.8},{284,310.8}}, color={0,0,127}));
-        connect(EPumDis.y, EPumTot.u[2]) annotation (Line(points={{119.02,-390},{268,
-                -390},{268,308},{284,308}}, color={0,0,127}));
+        connect(EPumDis.y, EPumTot.u[2]) annotation (Line(points={{235.02,-380},
+                {268,-380},{268,308},{284,308}},
+                                            color={0,0,127}));
         connect(EPumPla.y, EPumTot.u[3]) annotation (Line(points={{-140.98,-152},{
                 -132,-152},{-132,-88},{-270,-88},{-270,328},{270,328},{270,305.2},{
                 284,305.2}}, color={0,0,127}));
@@ -2305,11 +2103,6 @@ Advanced.SparseActivate=true")}),
         connect(TSetChiWatSup.y, ets1.TSetChiWat) annotation (Line(points={{-438,
                 210},{-420,210},{-420,-8.57143},{-361.429,-8.57143}},
                                                                  color={0,0,127}));
-        connect(ets2.port_b, massFlowRateThroughProsumer2AfterSB.port_a) annotation (
-            Line(points={{359.857,100},{376,100},{376,140},{206,140}}, color={0,127,
-                255}));
-        connect(switchBoxProsumerWithPumps1.port_b1, ets2.port_a) annotation (Line(
-              points={{160,154},{280,154},{280,100},{320,100}}, color={0,127,255}));
         connect(bui2.ports_b1[1], ets2.port_aHeaWat) annotation (Line(points={{360,170},
                 {400,170},{400,60},{300,60},{300,92},{320,92},{320,91.4286}},
               color={0,127,255}));
@@ -2330,19 +2123,6 @@ Advanced.SparseActivate=true")}),
         connect(TSetChiWatSup.y, ets2.TSetChiWat) annotation (Line(points={{-438,
                 210},{284,210},{284,111.429},{318.571,111.429}},
                                                             color={0,0,127}));
-        connect(ets2.mHea_flow, switchBoxProsumerWithPumps1.mDisWatHea_flow)
-          annotation (Line(points={{361.429,107.143},{408,107.143},{408,230},{
-                158,230},{158,159}},
-                       color={0,0,127}));
-        connect(ets2.mCoo_flow, switchBoxProsumerWithPumps1.mDisWatChi_flow)
-          annotation (Line(points={{361.429,104.286},{410,104.286},{410,232},{
-                150,232},{150,159}},
-                            color={0,0,127}));
-        connect(ets3.port_b, massFlowRateThroughProsumer3AfterSB.port_a) annotation (
-            Line(points={{359.857,-100},{380,-100},{380,-60},{206,-60}}, color={0,127,
-                255}));
-        connect(switchBoxProsumerWithPumps2.port_b1, ets3.port_a) annotation (Line(
-              points={{160,-44},{280,-44},{280,-100},{320,-100}}, color={0,127,255}));
         connect(bui3.ports_b1[1], ets3.port_aHeaWat) annotation (Line(points={{360,-30},
                 {400,-30},{400,-140},{300,-140},{300,-108.571},{320,-108.571}},
               color={0,127,255}));
@@ -2363,14 +2143,35 @@ Advanced.SparseActivate=true")}),
                 210},{284,210},{284,-88},{302,-88},{302,-88.5714},{318.571,
                 -88.5714}},
               color={0,0,127}));
-        connect(ets3.mHea_flow, switchBoxProsumerWithPumps2.mDisWatHea_flow)
-          annotation (Line(points={{361.429,-92.8571},{408,-92.8571},{408,24},{
-                158,24},{158,-39}},
-                            color={0,0,127}));
-        connect(ets3.mCoo_flow, switchBoxProsumerWithPumps2.mDisWatChi_flow)
-          annotation (Line(points={{361.429,-95.7143},{410,-95.7143},{410,26},{
-                150,26},{150,-39}},
-                            color={0,0,127}));
+        connect(tempBeforeProsumer1.port_a, massFlowRateThroughProsumer1AfterSB.port_b)
+          annotation (Line(points={{-114,-40},{-106,-40}}, color={0,127,255}));
+        connect(massFlowRateThroughProsumer1AfterSB.port_a, splSup8.port_3)
+          annotation (Line(points={{-94,-40},{-90,-40}}, color={0,127,255}));
+        connect(splSup3.port_3, massFlowRateThroughProsumer3AfterSB.port_a)
+          annotation (Line(points={{90,-20},{94,-20}}, color={0,127,255}));
+        connect(tempBeforeProsumer3.port_a, massFlowRateThroughProsumer3AfterSB.port_b)
+          annotation (Line(points={{114,-20},{106,-20}}, color={0,127,255}));
+        connect(tempBeforeProsumer3.port_b, ets3.port_a) annotation (Line(
+              points={{126,-20},{280,-20},{280,-100},{320,-100}}, color={0,127,
+                255}));
+        connect(ets3.port_b, tempAfterProsumer3.port_a) annotation (Line(points={{359.857,
+                -100},{380,-100},{380,-60},{126,-60}},          color={0,127,
+                255}));
+        connect(splSup5.port_3, massFlowRateThroughProsumer2AfterSB.port_a)
+          annotation (Line(points={{90,180},{94,180}}, color={0,127,255}));
+        connect(tempBeforeProsumer2.port_a, massFlowRateThroughProsumer2AfterSB.port_b)
+          annotation (Line(points={{114,180},{106,180}}, color={0,127,255}));
+        connect(tempBeforeProsumer2.port_b, ets2.port_a) annotation (Line(
+              points={{126,180},{280,180},{280,100},{320,100}}, color={0,127,
+                255}));
+        connect(ets2.port_b, tempAfterProsumer2.port_a) annotation (Line(points={{359.857,
+                100},{368,100},{368,140},{126,140}},          color={0,127,255}));
+        connect(ets1.port_b, tempAfterProsumer1.port_a) annotation (Line(points={{
+                -320.143,-20},{-140,-20},{-140,8.88178e-16},{-126,8.88178e-16}},
+              color={0,127,255}));
+        connect(tempBeforeProsumer1.port_b, ets1.port_a) annotation (Line(
+              points={{-126,-40},{-260,-40},{-260,-48},{-370,-48},{-370,-20},{
+                -360,-20}}, color={0,127,255}));
         annotation (Diagram(
               coordinateSystem(preserveAspectRatio=false, extent={{-480,-500},{480,
                   500}})),
@@ -2429,11 +2230,11 @@ Advanced.SparseActivate=true")}),
         annotation (Placement(transformation(extent={{-160,-80},{-140,-60}})));
     equation
       connect(TSetHeaWatSup.y,etsOff. TSetHeaWat) annotation (Line(points={{-138,
-              -10},{-40,-10},{-40,-41.2857},{-0.714286,-41.2857}}, color={0,0,127}));
+              -10},{-40,-10},{-40,-42.8571},{-1.42857,-42.8571}},  color={0,0,127}));
       connect(TSetChiWatSup.y,etsOff. TSetChiWat) annotation (Line(points={{-138,
-              -40},{-40,-40},{-40,-47.2857},{-0.714286,-47.2857}}, color={0,0,127}));
-      connect(etsOff.port_b, sinCoo.ports[1]) annotation (Line(points={{39.8571,-60},
-              {100,-60}},                  color={0,127,255}));
+              -40},{-40,-40},{-40,-48.5714},{-1.42857,-48.5714}},  color={0,0,127}));
+      connect(etsOff.port_b, sinCoo.ports[1]) annotation (Line(points={{39.8571,
+              -60},{100,-60}},             color={0,127,255}));
       connect(etsOff.port_bHeaWat, buiOff.ports_a1[1]) annotation (Line(points={{40,
               -68.5714},{50,-68.5714},{50,-20},{-32,-20},{-32,10},{-20,10}}, color={
               0,127,255}));
