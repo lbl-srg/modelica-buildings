@@ -1,6 +1,5 @@
 within Buildings.Applications.DHC.Examples.FifthGeneration.UnidirectionalSeries.Distribution.BaseClasses;
-model DistributionPipe
-  "DHC distribution pipe"
+model PipeDistribution "DHC distribution pipe"
   extends Buildings.Fluid.FixedResistances.HydraulicDiameter(
     dp(nominal=1E5),
     dh=0,
@@ -25,4 +24,4 @@ equation
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,140,72})}));
-end DistributionPipe;
+end PipeDistribution;

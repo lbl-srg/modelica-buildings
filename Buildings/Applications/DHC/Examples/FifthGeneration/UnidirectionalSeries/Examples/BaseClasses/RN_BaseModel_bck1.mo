@@ -53,8 +53,8 @@ partial model RN_BaseModel_bck1
         extent={{6,6},{-6,-6}},
         rotation=180,
         origin={120,-20})));
-  Fluid.Sensors.TemperatureTwoPort tempAfterProsumer3(redeclare package Medium
-      =              MediumWater,
+  Fluid.Sensors.TemperatureTwoPort tempAfterProsumer3(redeclare package Medium =
+                     MediumWater,
     allowFlowReversal=false,
     m_flow_nominal=datDes.mDisPip_flow_nominal,
     tau=0)
@@ -304,28 +304,28 @@ partial model RN_BaseModel_bck1
         tempAfterPlantPrimSide.T - tempBeforePlantPrimSide.T)*
         massFlowRateThroughPrimSidePlant.m_flow) "in W"
     annotation (Placement(transformation(extent={{-120,-260},{-100,-240}})));
-  Distribution.BaseClasses.DistributionPipe res(
+  Distribution.BaseClasses.PipeDistribution res(
     redeclare package Medium = MediumWater,
     final m_flow_nominal=datDes.mDisPip_flow_nominal,
     final R=datDes.RDisPip) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={80,-310})));
-  Distribution.BaseClasses.DistributionPipe res1(
+  Distribution.BaseClasses.PipeDistribution res1(
     redeclare package Medium = MediumWater,
     final m_flow_nominal=datDes.mDisPip_flow_nominal,
     final R=datDes.RDisPip) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-80,-330})));
-  Distribution.BaseClasses.DistributionPipe distributionPipe(
+  Distribution.BaseClasses.PipeDistribution distributionPipe(
     redeclare package Medium = MediumWater,
     final m_flow_nominal=datDes.mDisPip_flow_nominal,
     final R=datDes.RDisPip) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={-80,70})));
-  Distribution.BaseClasses.DistributionPipe res4(
+  Distribution.BaseClasses.PipeDistribution res4(
     redeclare package Medium = MediumWater,
     final m_flow_nominal=datDes.mDisPip_flow_nominal,
     final R=datDes.RDisPip) annotation (Placement(transformation(
@@ -357,28 +357,28 @@ partial model RN_BaseModel_bck1
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={130,-340})));
-  Distribution.BaseClasses.DistributionPipe res3(
+  Distribution.BaseClasses.PipeDistribution res3(
     redeclare package Medium = MediumWater,
     final m_flow_nominal=datDes.mDisPip_flow_nominal,
     final R=datDes.RDisPip) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-80,-130})));
-  Distribution.BaseClasses.DistributionPipe res5(
+  Distribution.BaseClasses.PipeDistribution res5(
     redeclare package Medium = MediumWater,
     final m_flow_nominal=datDes.mDisPip_flow_nominal,
     final R=datDes.RDisPip) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={80,-130})));
-  Distribution.BaseClasses.DistributionPipe res2(
+  Distribution.BaseClasses.PipeDistribution res2(
     redeclare package Medium = MediumWater,
     final m_flow_nominal=datDes.mDisPip_flow_nominal,
     final R=datDes.RDisPip) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={80,-172})));
-  Distribution.BaseClasses.DistributionPipe res6(
+  Distribution.BaseClasses.PipeDistribution res6(
     redeclare package Medium = MediumWater,
     final m_flow_nominal=datDes.mDisPip_flow_nominal,
     final R=datDes.RDisPip) annotation (Placement(transformation(

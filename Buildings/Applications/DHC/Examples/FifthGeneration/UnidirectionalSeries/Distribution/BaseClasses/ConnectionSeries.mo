@@ -80,13 +80,13 @@ model ConnectionSeries
     m_flow_nominal={mDis_flow_nominal,mDis_flow_nominal,mCon_flow_nominal})
     "Junction with connection return"
     annotation (Placement(transformation(extent={{10,-30},{30,-50}})));
-  DistributionPipe pipDis(
+  PipeDistribution pipDis(
     redeclare final package Medium = Medium,
     final m_flow_nominal=mDis_flow_nominal,
     dh=dhDis,
     length=lDis) "Distribution pipe"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  ConnectionPipe pipCon(
+  PipeConnection pipCon(
     redeclare package Medium = Medium,
     m_flow_nominal=mCon_flow_nominal,
     length=2*lCon,

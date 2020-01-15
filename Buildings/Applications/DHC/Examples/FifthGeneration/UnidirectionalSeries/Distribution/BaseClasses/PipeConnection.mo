@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.Examples.FifthGeneration.UnidirectionalSeries.Distribution.BaseClasses;
-model ConnectionPipe "Building service connection pipe"
+model PipeConnection "Building service connection pipe"
   extends Buildings.Fluid.FixedResistances.HydraulicDiameter(
     dp(nominal=1E5),
     dh=0,
@@ -17,4 +17,4 @@ model ConnectionPipe "Building service connection pipe"
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,140,72})}));
-end ConnectionPipe;
+end PipeConnection;

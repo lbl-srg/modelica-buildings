@@ -27,7 +27,7 @@ model UnidirectionalSeries
     each allowFlowReversal=allowFlowReversal)
     "Connection to agent"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  BaseClasses.DistributionPipe pipDisRet(
+  BaseClasses.PipeDistribution pipDisRet(
     redeclare each package Medium=Medium,
     dh=dhDis,
     length=sum(lDis),

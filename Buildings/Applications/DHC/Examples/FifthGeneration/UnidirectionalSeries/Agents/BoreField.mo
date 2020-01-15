@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.Examples.FifthGeneration.UnidirectionalSeries.Agents;
-model BoreField "Borefield model"
+model BoreField "Bore field model"
   extends Buildings.Fluid.Geothermal.Borefields.TwoUTubes(
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final tLoaAgg(displayUnit="h") = 3600,
