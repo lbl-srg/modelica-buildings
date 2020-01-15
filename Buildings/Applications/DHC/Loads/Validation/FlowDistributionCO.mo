@@ -16,6 +16,7 @@ model FlowDistributionCO
     haveVal=true,
     dp_nominal=100000)
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
+
   Buildings.Fluid.Sources.Boundary_pT souPri(
     redeclare package Medium = Medium1,
     use_T_in=true,
@@ -88,7 +89,8 @@ model FlowDistributionCO
     annotation (Placement(transformation(extent={{70,90},{90,110}})));
   Modelica.Thermal.HeatTransfer.Celsius.FromKelvin TSetSec
     annotation (Placement(transformation(extent={{-20,-150},{0,-130}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTSecRet(redeclare package Medium =
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTSecRet(redeclare package
+      Medium =
         Medium1, m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{90,50},{70,70}})));
   Buildings.Fluid.Sources.Boundary_pT sinPri(redeclare package Medium = Medium1, nPorts=1)
@@ -103,7 +105,8 @@ model FlowDistributionCO
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add
     annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTPriSup(redeclare package Medium =
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTPriSup(redeclare package
+      Medium =
         Medium1, m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{8,10},{28,30}})));
 equation

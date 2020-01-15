@@ -27,7 +27,8 @@ model TimeSeriesBuilding
     annotation (Placement(transformation(extent={{-298,210},{-278,230}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC2
     annotation (Placement(transformation(extent={{-258,210},{-238,230}})));
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.Terminal4PipesHeatReq terUni(
+  Buildings.Applications.DHC.Loads.Examples.BaseClasses.Terminal4PipesHeatReq
+    terUni(
     QHea_flow_nominal=500,
     QCoo_flow_nominal=2000,
     T_a1Hea_nominal=313.15,
@@ -35,19 +36,18 @@ model TimeSeriesBuilding
     T_b1Hea_nominal=308.15,
     T_b1Coo_nominal=285.15,
     T_a2Hea_nominal=293.15,
-    T_a2Coo_nominal=297.15)
-    "Terminal unit"
+    T_a2Coo_nominal=297.15) "Terminal unit"
     annotation (Placement(transformation(extent={{80,-24},{100,-4}})));
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
-    m_flow_nominal=terUni.m1Hea_flow_nominal, dp_nominal=100000)
+      m_flow_nominal=terUni.m1Hea_flow_nominal, dp_nominal=100000)
     "Heating water distribution system"
     annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
     m_flow_nominal=terUni.m1Coo_flow_nominal,
     disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
-    dp_nominal=100000)
-    "Chilled water distribution system"
-    annotation (Placement(transformation(extent={{120,-120},{140,-100}})));
+    dp_nominal=100000) "Chilled water distribution system" annotation (
+      Placement(transformation(extent={{120,-120},{140,-100}})));
+
 equation
   connect(minTSet.y,from_degC1. u)
     annotation (Line(points={{-276,260},{-260,260}}, color={0,0,127}));

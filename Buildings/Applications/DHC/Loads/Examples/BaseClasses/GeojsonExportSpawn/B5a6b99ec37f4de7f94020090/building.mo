@@ -80,7 +80,6 @@ model building
     zoneName="Perimeter_ZN_4") "Thermal zone"
      annotation (Placement(transformation(extent={{20,40},{60,80}})));
 
-
 equation
   connect(qRadGai_flow.y,multiplex3_1. u1[1])  annotation (Line(
       points={{-53,40},{-40,40},{-40,7},{-30,7}},

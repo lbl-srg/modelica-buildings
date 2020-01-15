@@ -72,14 +72,14 @@ model GeojsonSpawn1Z6Building
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
     m_flow_nominal=sum(terUni.m1Hea_flow_nominal),
     dp_nominal=100000,
-    nUni=nZon)
-    annotation (Placement(transformation(extent={{-238,-190},{-218,-170}})));
+    nUni=nZon) annotation (Placement(transformation(extent={{-238,-190},{
+            -218,-170}})));
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
     m_flow_nominal=sum(terUni.m1Coo_flow_nominal),
     disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
     nUni=nZon,
-    dp_nominal=100000)
-    annotation (Placement(transformation(extent={{-180,-230},{-160,-210}})));
+    dp_nominal=100000) annotation (Placement(transformation(extent={{-180,
+            -230},{-160,-210}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=6)
     annotation (Placement(transformation(extent={{220,110},{240,130}})));

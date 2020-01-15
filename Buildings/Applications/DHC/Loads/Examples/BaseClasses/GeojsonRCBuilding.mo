@@ -22,9 +22,10 @@ model GeojsonRCBuilding
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
     m_flow_nominal=sum(terUni.m1Hea_flow_nominal),
     nUni=nZon,
-    dp_nominal=100000)
-    annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.Terminal4PipesHeatPorts terUni[nZon](
+    dp_nominal=100000) annotation (Placement(transformation(extent={{-140,
+            -100},{-120,-80}})));
+  Buildings.Applications.DHC.Loads.Examples.BaseClasses.Terminal4PipesHeatPorts
+    terUni[nZon](
     QHea_flow_nominal={10000,10000,10000,10000,10000,10000},
     QCoo_flow_nominal={10000,10000,10000,10000,10000,50000},
     each T_a2Hea_nominal=293.15,
@@ -35,14 +36,14 @@ model GeojsonRCBuilding
     each T_a1Coo_nominal=7 + 273.15,
     each m2Hea_flow_nominal=1,
     each m2Coo_flow_nominal=1,
-    each final fraCon={1,1})
-    annotation (Placement(transformation(extent={{-200,-60},{-180,-40}})));
+    each final fraCon={1,1}) annotation (Placement(transformation(extent=
+            {{-200,-60},{-180,-40}})));
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
     m_flow_nominal=sum(terUni.m1Coo_flow_nominal),
     nUni=nZon,
     disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
-    dp_nominal=100000)
-    annotation (Placement(transformation(extent={{-140,-160},{-120,-140}})));
+    dp_nominal=100000) annotation (Placement(transformation(extent={{-140,
+            -160},{-120,-140}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum1(nin=nZon)
     annotation (Placement(transformation(extent={{240,270},{260,290}})));

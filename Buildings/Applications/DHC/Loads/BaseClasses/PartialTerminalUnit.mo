@@ -338,8 +338,8 @@ protected
       Medium2.setState_pTX(Medium2.p_default, T_a2Coo_nominal))
     "Load side specific heat capacity at nominal conditions in cooling mode";
 annotation (
-defaultComponentName="terUni",
-Icon(coordinateSystem(preserveAspectRatio=false,
+  defaultComponentName="terUni",
+  Icon(coordinateSystem(preserveAspectRatio=false,
   extent={{-120,-120},{120,120}}),
     graphics={
     Rectangle(extent={{-120,120},{120,-120}}, lineColor={95,95,95}),

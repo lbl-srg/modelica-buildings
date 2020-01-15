@@ -120,8 +120,8 @@ model RCBuildingPump "Building model of type RC one element"
     m_flow_nominal=terUni.m1Hea_flow_nominal,
     havePum=true,
     haveVal=true,
-    dp_nominal=100000)
-    annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
+    dp_nominal=100000) annotation (Placement(transformation(extent={{-100,
+            -120},{-80,-100}})));
   Buildings.Applications.DHC.Loads.Examples.BaseClasses.Terminal4PipesFluidPorts
     terUni(
     QHea_flow_nominal=500,
@@ -133,8 +133,8 @@ model RCBuildingPump "Building model of type RC one element"
     T_a1Hea_nominal=313.15,
     T_a1Coo_nominal=280.15,
     m2Hea_flow_nominal=1,
-    m2Coo_flow_nominal=1)
-    annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
+    m2Coo_flow_nominal=1) annotation (Placement(transformation(extent={{-160,
+            -60},{-140,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=24) "Minimum temperature setpoint"
     annotation (Placement(transformation(extent={{-300,210},{-280,230}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC2
@@ -145,8 +145,8 @@ model RCBuildingPump "Building model of type RC one element"
     disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
     havePum=true,
     haveVal=true,
-    dp_nominal=100000)
-    annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
+    dp_nominal=100000) annotation (Placement(transformation(extent={{-100,
+            -160},{-80,-140}})));
 
   Modelica.Blocks.Sources.RealExpression realExpression(y=273 + 35)
     annotation (Placement(transformation(extent={{-180,-130},{-160,-110}})));

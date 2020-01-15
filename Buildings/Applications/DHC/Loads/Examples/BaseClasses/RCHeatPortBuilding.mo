@@ -137,8 +137,8 @@ model RCHeatPortBuilding "Building model of type RC one element"
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
     m_flow_nominal=terUni.m1Coo_flow_nominal,
     disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
-    dp_nominal=100000)
-    annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
+    dp_nominal=100000) annotation (Placement(transformation(extent={{-120,
+            -160},{-100,-140}})));
 
 equation
   connect(eqAirTemp.TEqAirWin,preTem1. T)

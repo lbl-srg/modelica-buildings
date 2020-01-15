@@ -334,9 +334,8 @@ equation
   connect(pum.P, PPum) annotation (Line(points={{-29,9},{-20,9},{-20,60},{120,60}},
         color={0,0,127}));
 annotation (
-defaultComponentName="disFlo",
-Documentation(
-info="<html>
+  defaultComponentName="disFlo",
+  Documentation(info="<html>
 <p>
 This model represents a hydraulic distribution system serving multiple terminal units.
 It is primarily intended to be used in conjunction with models that derive from
@@ -407,6 +406,11 @@ tracking the supply temperature.
         extent={{-106,-142},{112,-170}},
         lineColor={28,108,200},
         horizontalAlignment=TextAlignment.Left,
-        textString=
-            "CPU time for integration is twice lower when Dynamics of valve, pump and splitter are NOT steady state!?")}));
+          textString=
+              "CPU time for integration is twice lower when Dynamics of valve or splitter are NOT steady state!?"),
+                                                                                                    Text(
+        extent={{-52,-32},{166,-60}},
+        lineColor={28,108,200},
+        horizontalAlignment=TextAlignment.Left,
+          textString="Implement PI reset for change over")}));
 end FlowDistribution;

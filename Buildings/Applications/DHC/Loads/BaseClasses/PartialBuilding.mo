@@ -84,10 +84,10 @@ partial model PartialBuilding "Partial class for building model"
   Modelica.Blocks.Interfaces.RealOutput PPum(
     final quantity="Power", final unit="W") if havePum
     "Power drawn by pumps motors"
-    annotation (Placement(transformation(extent={{300,60},{340,100}}),
+    annotation (Placement(transformation(extent={{300,40},{340,80}}),
       iconTransformation(extent={{300,40},{340,80}})));
   annotation (
-  defaultComponentName="heaFloEps",
+  defaultComponentName="bui",
   Documentation(info="<html>
 <p>
 Partial model to be used for modeling the building loads served by an energy

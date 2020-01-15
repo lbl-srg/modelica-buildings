@@ -73,15 +73,15 @@ model GeojsonSpawn1Z6BuildingPump
     m_flow_nominal=sum(terUni.m1Hea_flow_nominal),
     havePum=true,
     dp_nominal=100000,
-    nUni=nZon)
-    annotation (Placement(transformation(extent={{-238,-190},{-218,-170}})));
+    nUni=nZon) annotation (Placement(transformation(extent={{-238,-190},{
+            -218,-170}})));
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
     m_flow_nominal=sum(terUni.m1Coo_flow_nominal),
     disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
     nUni=nZon,
     havePum=true,
-    dp_nominal=100000)
-    annotation (Placement(transformation(extent={{-180,-230},{-160,-210}})));
+    dp_nominal=100000) annotation (Placement(transformation(extent={{-180,
+            -230},{-160,-210}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=6)
     annotation (Placement(transformation(extent={{260,110},{280,130}})));
@@ -181,7 +181,8 @@ equation
   connect(mulSum1.y, QHea_flow)
     annotation (Line(points={{282,280},{320,280}}, color={0,0,127}));
   connect(mulSum2.y, QCoo_flow)
-    annotation (Line(points={{282,240},{320,240}}, color={0,0,127}));
+    annotation (Line(points={{282,240},{302,240},{302,220},{320,220}},
+                                                   color={0,0,127}));
   connect(terUni.QActHea_flow, mulSum1.u[1:6]) annotation (Line(points={{-61,19},
           {79.5,19},{79.5,280},{258,280}},         color={0,0,127}));
   connect(terUni.QActCoo_flow, mulSum2.u) annotation (Line(points={{-61,17},{
@@ -193,8 +194,8 @@ equation
           {-61,-88.5},{-239,-88.5},{-239,-184}},        color={0,0,127}));
   connect(terUni.PFan, mulSum.u[1:6]) annotation (Line(points={{-61,11},{200.5,
           11},{200.5,118.333},{258,118.333}}, color={0,0,127}));
-  connect(mulSum.y, PFan) annotation (Line(points={{282,120},{320,120}},
-                      color={0,0,127}));
+  connect(mulSum.y, PFan) annotation (Line(points={{282,120},{302,120},{302,100},
+          {320,100}}, color={0,0,127}));
   connect(PPum, mulSum3.y)
     annotation (Line(points={{320,80},{282,80}}, color={0,0,127}));
   connect(disFloHea.PPum, mulSum3.u[1]) annotation (Line(points={{-217,-188},{

@@ -1,6 +1,7 @@
 within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
 model Terminal4PipesFluidPorts
-  extends Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit(
+  extends
+    Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit(
     final heaFunSpe=Buildings.Applications.DHC.Loads.Types.TerminalFunctionSpec.Water,
     final cooFunSpe=Buildings.Applications.DHC.Loads.Types.TerminalFunctionSpec.Water,
     final haveHeaPor=false,
@@ -9,8 +10,11 @@ model Terminal4PipesFluidPorts
     final haveFan=true,
     final havePum=false,
     final show_TLoa=true,
-    final m1Hea_flow_nominal=abs(QHea_flow_nominal / cp1Hea_nominal / (T_a1Hea_nominal - T_b1Hea_nominal)),
-    final m1Coo_flow_nominal=abs(QCoo_flow_nominal / cp1Coo_nominal / (T_a1Coo_nominal - T_b1Coo_nominal)));
+    final m1Hea_flow_nominal=abs(QHea_flow_nominal/cp1Hea_nominal/(
+        T_a1Hea_nominal - T_b1Hea_nominal)),
+    final m1Coo_flow_nominal=abs(QCoo_flow_nominal/cp1Coo_nominal/(
+        T_a1Coo_nominal - T_b1Coo_nominal)));
+
   Buildings.Controls.OBC.CDL.Continuous.LimPID conTMin(
     each Ti=120,
     each yMax=1,

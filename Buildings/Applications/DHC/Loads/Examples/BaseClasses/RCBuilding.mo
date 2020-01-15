@@ -131,8 +131,8 @@ model RCBuilding "Building model of type RC one element"
     T_a1Coo_nominal=280.15,
     m2Hea_flow_nominal=1,
     m2Coo_flow_nominal=1,
-    show_TSou=true)
-    annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
+    show_TSou=true) annotation (Placement(transformation(extent={{-160,-60},
+            {-140,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=24) "Minimum temperature setpoint"
     annotation (Placement(transformation(extent={{-300,210},{-280,230}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC2
@@ -140,8 +140,8 @@ model RCBuilding "Building model of type RC one element"
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
     m_flow_nominal=terUni.m1Coo_flow_nominal,
     disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
-    dp_nominal=100000)
-    annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
+    dp_nominal=100000) annotation (Placement(transformation(extent={{-100,
+            -160},{-80,-140}})));
 
 equation
   connect(eqAirTemp.TEqAirWin,preTem1. T)

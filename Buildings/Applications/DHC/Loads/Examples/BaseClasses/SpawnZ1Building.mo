@@ -25,8 +25,8 @@ model SpawnZ1Building "Spawn building model based on Urbanopt GeoJSON export"
     T_a1Hea_nominal=313.15,
     T_a1Coo_nominal=280.15,
     m2Hea_flow_nominal=5,
-    m2Coo_flow_nominal=5)
-    annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
+    m2Coo_flow_nominal=5) annotation (Placement(transformation(extent={{-160,
+            -60},{-140,-40}})));
   Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Sources.Constant qRadGai_flow(k=0) "Radiative heat gain"
@@ -61,8 +61,8 @@ model SpawnZ1Building "Spawn building model based on Urbanopt GeoJSON export"
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
     m_flow_nominal=terUni.m1Coo_flow_nominal,
     disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
-    dp_nominal=100000)
-    annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
+    dp_nominal=100000) annotation (Placement(transformation(extent={{-120,
+            -160},{-100,-140}})));
 
 equation
   connect(qRadGai_flow.y,multiplex3_1.u1[1])  annotation (Line(
