@@ -8,22 +8,22 @@ model BuildingETSConnection
       nPorts=1) "Sink for district water" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={110,-60})));
+        origin={132,-60})));
   Agents.EnergyTransferStation ets(
     redeclare package Medium = Medium1,
     QCoo_flow_nominal=sum(bui.terUni.QCoo_flow_nominal),
     QHea_flow_nominal=sum(bui.terUni.QHea_flow_nominal))
     "Energy transfer station"
-    annotation (Placement(transformation(extent={{0,-80},{40,-40}})));
+    annotation (Placement(transformation(extent={{20,-80},{60,-40}})));
   Loads.Examples.BaseClasses.GeojsonSpawn1Z6BuildingPump bui(redeclare package
       Medium1 = Medium1, nPorts1=2) "Building"
-    annotation (Placement(transformation(extent={{0,20},{20,40}})));
+    annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetHeaWatSup(k=ets.THeaWatSup_nominal)
     "Heating water supply temperature set point"
-    annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
+    annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetChiWatSup(k=ets.TChiWatSup_nominal)
     "Chilled water supply temperature set point"
-    annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
+    annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
   inner parameter Data.DesignDataDHC datDes(
     nBui=1,
     mDis_flow_nominal=25,
@@ -36,37 +36,36 @@ model BuildingETSConnection
     nPorts=1) "Source for district water" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-70,-60})));
+        origin={-50,-60})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TDis(k=273.15 + 15)
     "District water temperature"
-    annotation (Placement(transformation(extent={{-160,-90},{-140,-70}})));
+    annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
 equation
-  connect(TSetHeaWatSup.y, ets.TSetHeaWat) annotation (Line(points={{-138,0},{
-          -40,0},{-40,-42.8571},{-1.42857,-42.8571}}, color={0,0,127}));
-  connect(TSetChiWatSup.y, ets.TSetChiWat) annotation (Line(points={{-138,-40},
-          {-46,-40},{-46,-48.5714},{-1.42857,-48.5714}}, color={0,0,127}));
+  connect(TSetHeaWatSup.y, ets.TSetHeaWat) annotation (Line(points={{-118,0},{
+          -20,0},{-20,-42.8571},{18.5714,-42.8571}},  color={0,0,127}));
+  connect(TSetChiWatSup.y, ets.TSetChiWat) annotation (Line(points={{-118,-40},
+          {-26,-40},{-26,-48.5714},{18.5714,-48.5714}},  color={0,0,127}));
   connect(ets.port_b, sin.ports[1])
-    annotation (Line(points={{39.8571,-60},{100,-60}}, color={0,127,255}));
-  connect(ets.port_bHeaWat, bui.ports_a1[1]) annotation (Line(points={{40,
-          -68.5714},{50,-68.5714},{50,-20},{-32,-20},{-32,10},{-20,10}}, color=
+    annotation (Line(points={{59.8571,-60},{122,-60}}, color={0,127,255}));
+  connect(ets.port_bHeaWat, bui.ports_a1[1]) annotation (Line(points={{60,
+          -68.5714},{70,-68.5714},{70,-20},{-12,-20},{-12,10},{0,10}},   color=
           {0,127,255}));
-  connect(bui.ports_b1[1], ets.port_aHeaWat) annotation (Line(points={{40,10},{
-          60,10},{60,-100},{-20,-100},{-20,-68.5714},{0,-68.5714}}, color={0,
+  connect(bui.ports_b1[1], ets.port_aHeaWat) annotation (Line(points={{60,10},{
+          80,10},{80,-100},{0,-100},{0,-68.5714},{20,-68.5714}},    color={0,
           127,255}));
-  connect(ets.port_bChi, bui.ports_a1[2]) annotation (Line(points={{40,-77.2857},
-          {40,-78},{54,-78},{54,-16},{-36,-16},{-36,14},{-20,14}}, color={0,127,
+  connect(ets.port_bChi, bui.ports_a1[2]) annotation (Line(points={{60,-77.2857},
+          {60,-78},{74,-78},{74,-16},{-16,-16},{-16,14},{0,14}},   color={0,127,
           255}));
-  connect(bui.ports_b1[2], ets.port_aChi) annotation (Line(points={{40,14},{64,
-          14},{64,-104},{-16,-104},{-16,-77.1429},{0,-77.1429}}, color={0,127,
+  connect(bui.ports_b1[2], ets.port_aChi) annotation (Line(points={{60,14},{84,
+          14},{84,-104},{4,-104},{4,-77.1429},{20,-77.1429}},    color={0,127,
           255}));
   connect(sou.ports[1], ets.port_a)
-    annotation (Line(points={{-60,-60},{0,-60}}, color={0,127,255}));
-  connect(TDis.y, sou.T_in) annotation (Line(points={{-138,-80},{-100,-80},{
-          -100,-56},{-82,-56}},
-                           color={0,0,127}));
+    annotation (Line(points={{-40,-60},{20,-60}},color={0,127,255}));
+  connect(TDis.y, sou.T_in) annotation (Line(points={{-118,-80},{-80,-80},{-80,
+          -56},{-62,-56}}, color={0,0,127}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-120},{160,
-            120}}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-120},{
+            180,120}}),
     graphics={Text(
           extent={{-68,74},{64,100}},
           lineColor={28,108,200},
@@ -77,5 +76,6 @@ Hidden.AvoidDoubleComputation=true")}),
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
     __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Examples/FifthGenUniSeries/Validation/BuildingETSConnection.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    Icon(coordinateSystem(extent={{-180,-120},{180,120}})));
 end BuildingETSConnection;

@@ -1,6 +1,5 @@
 within Buildings.Applications.DHC.Examples.FifthGeneration.UnidirectionalSeries.Distribution.BaseClasses;
-model ConnectionSeries
-  "Partial model for an element for a distribution leg"
+model ConnectionSeries "Model for connecting an agent to the DHC system"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium "Medium model"
     annotation (__Dymola_choicesAllMatching=true);
   parameter Boolean havePum = false
