@@ -23,8 +23,8 @@ model HydraulicHeader "Hydraulic header manifold."
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Fluid.Interfaces.FluidPorts_a ports_a[nPorts_a](
     redeclare package Medium=Medium,
-    each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
+    each h_outflow(start = Medium.h_default, nominal = Medium.h_default))
     annotation (Placement(
       transformation(extent={{-110,-40},{-90,40}}),
         iconTransformation(extent={{-10,-40}, {10,40}},
