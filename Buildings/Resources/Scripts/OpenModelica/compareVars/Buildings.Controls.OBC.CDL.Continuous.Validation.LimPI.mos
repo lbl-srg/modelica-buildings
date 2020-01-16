@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "limPI.u_s",
+    "limPI.u_m",
+    "limPI.y",
+    "noLimPI.y",
+    "limP.y",
+    "resPI.y_reset_in",
+    "resPI.y",
+    "resPI.trigger"
+  };
