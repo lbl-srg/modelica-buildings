@@ -3,9 +3,7 @@ model YorkCalc
   "Test model for cooling tower using the York performance correlation"
   extends Modelica.Icons.Example;
   extends BaseClasses.PartialStaticTwoPortCoolingTower(
-    redeclare CoolingTowers.YorkCalc tow(
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-      m_flow_nominal=mWat_flow_nominal),
+    redeclare CoolingTowers.YorkCalc tow,
     weaDat(
       final computeWetBulbTemperature=true));
 
@@ -50,6 +48,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Heat
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}})),
     Documentation(info="<html>
+<p>
 This example illustrates the use of the cooling tower model
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc\">
 Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc</a>.
@@ -57,6 +56,7 @@ Heat is injected into the volume <code>vol</code>. An on/off controller
 switches the cooling loop water pump on or off based on the temperature of
 this volume.
 The cooling tower outlet temperature is controlled to track a fixed temperature.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

@@ -16,7 +16,7 @@ model MerkelEnergyPlus
     "Nominal pressure difference of cooling tower";
   parameter Modelica.SIunits.VolumeFlowRate VWat_flow_nominal = 0.00109181
     "Nominal volumetric flow rate of water (medium 2)";
-  parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal=
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
     VWat_flow_nominal * denWat
     "Nominal mass flow rate of water (medium 2)";
   parameter Real ratWatAir_nominal = 1.61599
@@ -55,11 +55,11 @@ model MerkelEnergyPlus
     dp_nominal=dp_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=TWatOut_initial,
-    mWat_flow_nominal=mWat_flow_nominal,
+    m_flow_nominal=m_flow_nominal,
     ratWatAir_nominal=ratWatAir_nominal,
     TAirInWB_nominal=TAirInWB_nominal,
     TWatIn_nominal=TWatIn_nominal,
-    TWatOut_nominal=TWatIn_nominal+Q_flow_nominal/(mWat_flow_nominal*Buildings.Utilities.Psychrometrics.Constants.cpWatLiq),
+    TWatOut_nominal=TWatIn_nominal+Q_flow_nominal/(m_flow_nominal*Buildings.Utilities.Psychrometrics.Constants.cpWatLiq),
     PFan_nominal=PFan_nominal,
     yMin=0.1,
     fraFreCon=0.1,

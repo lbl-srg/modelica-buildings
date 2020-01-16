@@ -4,7 +4,7 @@ partial model PartialStaticTwoPortCoolingTower
 
   package Medium_W = Buildings.Media.Water "Medium model for water";
 
-  parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal = 0.5
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.5
     "Design water flow rate"
       annotation (Dialog(group="Nominal condition"));
 
@@ -12,18 +12,18 @@ partial model PartialStaticTwoPortCoolingTower
     Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower tow
      constrainedby
     Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower(
-    redeclare final package Medium = Medium_W,
+    redeclare package Medium = Medium_W,
+    m_flow_nominal=m_flow_nominal,
     dp_nominal=6000,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     show_T=true) "Cooling tower"
     annotation (Placement(transformation(extent={{22,-60},{42,-40}})));
 
   Buildings.Fluid.Movers.FlowControlled_m_flow pum(
     redeclare package Medium = Medium_W,
-    m_flow_nominal=mWat_flow_nominal,
-    nominalValuesDefineDefaultPressureCurve=true,
-    use_inputFilter=false,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    m_flow_nominal=m_flow_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    nominalValuesDefineDefaultPressureCurve=true)
     "Pump for chilled water loop"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
@@ -49,13 +49,13 @@ partial model PartialStaticTwoPortCoolingTower
   Modelica.Blocks.Sources.Constant zer(k=0) "Zero flow rate"
     annotation (Placement(transformation(extent={{-20,-230},{0,-210}})));
 
-  Modelica.Blocks.Sources.Constant mWat_flow(k=mWat_flow_nominal)
+  Modelica.Blocks.Sources.Constant m_flow(k=m_flow_nominal)
     "Water flow rate"
     annotation (Placement(transformation(extent={{-20,-168},{0,-148}})));
 
   Buildings.Fluid.MixingVolumes.MixingVolume vol(nPorts=3,
     redeclare package Medium = Medium_W,
-    m_flow_nominal=mWat_flow_nominal,
+    m_flow_nominal=m_flow_nominal,
     V=0.5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{20,-120},{40,-100}})));
@@ -66,7 +66,7 @@ partial model PartialStaticTwoPortCoolingTower
     annotation (Placement(transformation(extent={{100,-130},{80,-110}})));
 
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow fixHeaFlo(
-    Q_flow=0.5*mWat_flow_nominal*4200*5) "Fixed heat flow rate"
+    Q_flow=0.5*m_flow_nominal*4200*5) "Fixed heat flow rate"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
 
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TVol
@@ -81,7 +81,7 @@ equation
   connect(zer.y, swi.u3)
    annotation (Line(points={{1,-220},{8,-220},{8,-198},{18,-198}},
      color={0,0,127}));
-  connect(mWat_flow.y, swi.u1)
+  connect(m_flow.y, swi.u1)
    annotation (Line(points={{1,-158},{8,-158},{8,-182},{18,-182}},
      color={0,0,127}));
   connect(vol.ports[1], pum.port_a)
@@ -121,6 +121,11 @@ on the temperature of the control volume to which the heat is added.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 16, 2020, by Michael Wetter:<br/>
+Changed energy balance to dynamic balance and set fan to use the input filter,
+which is the default for most applications.
+</li>
 <li>
 July 12, 2011, by Michael Wetter:<br/>
 First implementation.

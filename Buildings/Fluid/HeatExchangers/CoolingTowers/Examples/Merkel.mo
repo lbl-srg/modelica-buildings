@@ -7,9 +7,7 @@ model Merkel "Test model for cooling tower using the Merkel theory"
       TAirInWB_nominal=273.15 + 25.55,
       TWatIn_nominal=273.15 + 35,
       TWatOut_nominal=273.15 + 35 - 5.56,
-      PFan_nominal=4800,
-      show_T=true,
-      mWat_flow_nominal=mWat_flow_nominal),
+      PFan_nominal=4800),
     weaDat(final computeWetBulbTemperature=true));
 
   parameter Real ratWatAir_nominal = 0.625
@@ -58,6 +56,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Heat
     Icon(coordinateSystem(preserveAspectRatio=true,
         extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
+<p>
 This example illustrates the use of the cooling tower model
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel\">
 Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel</a>.
@@ -65,6 +64,7 @@ Heat is injected into the volume <code>vol</code>. An on/off controller
 switches the cooling loop water pump on or off based on the temperature of
 this volume.
 The cooling tower outlet temperature is controlled to track a fixed temperature.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

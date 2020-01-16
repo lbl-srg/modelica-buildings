@@ -1,6 +1,11 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers;
 model FixedApproach "Cooling tower with constant approach temperature"
-  extends Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower;
+  extends Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower(
+    final QWat_flow(y = m_flow*(
+        Medium.specificEnthalpy(Medium.setState_pTX(
+        p=port_b.p,
+        T=TAir + TApp,
+        X=inStream(port_b.Xi_outflow))) - inStream(port_a.h_outflow))));
 
   parameter Modelica.SIunits.TemperatureDifference TApp(min=0, displayUnit="K") = 2
     "Approach temperature difference";
@@ -8,9 +13,6 @@ model FixedApproach "Cooling tower with constant approach temperature"
     "Entering air dry or wet bulb temperature"
      annotation (Placement(transformation(
           extent={{-140,20},{-100,60}})));
-equation
-  TAppAct=TApp;
-  TAirHT=TAir;
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
@@ -36,6 +38,10 @@ model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 16, 2020, by Michael Wetter:<br/>
+Refactored model to avoid mixing textual equations and connect statements.
+</li>
 <li>
 July 12, 2011, by Michael Wetter:<br/>
 Introduced common base class for
