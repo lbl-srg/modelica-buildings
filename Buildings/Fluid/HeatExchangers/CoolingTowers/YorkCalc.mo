@@ -1,12 +1,7 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers;
 model YorkCalc
   "Cooling tower with variable speed using the York calculation for the approach temperature"
-  extends Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower(
-      final QWat_flow(y = m_flow*(
-        Medium.specificEnthalpy(Medium.setState_pTX(
-        p=port_b.p,
-        T=TAir + TAppAct,
-        X=inStream(port_b.Xi_outflow))) - inStream(port_a.h_outflow))));
+  extends Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower;
 
   import cha =
     Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics;
@@ -126,6 +121,15 @@ protected
   Modelica.SIunits.Temperature T_a "Temperature in port_a";
   Modelica.SIunits.Temperature T_b "Temperature in port_b";
 
+  Modelica.Blocks.Sources.RealExpression QWat_flow(
+    y = m_flow*(
+      Medium.specificEnthalpy(Medium.setState_pTX(
+        p=port_b.p,
+        T=TAir + TAppAct,
+        X=inStream(port_b.Xi_outflow))) -
+      inStream(port_a.h_outflow)))
+    "Heat input into water"
+    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
 initial equation
   TWatOut_nominal = TAirInWB_nominal + TApp_nominal;
   TRan_nominal = TWatIn0 - TWatOut_nominal; // by definition of the range temp.
@@ -194,6 +198,8 @@ equation
                                X=inStream(port_b.Xi_outflow)));
   end if;
 
+  connect(QWat_flow.y, preHea.Q_flow)
+    annotation (Line(points={{-59,-50},{-40,-50}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Text(

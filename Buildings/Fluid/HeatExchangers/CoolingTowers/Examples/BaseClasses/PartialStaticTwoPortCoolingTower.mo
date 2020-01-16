@@ -35,7 +35,13 @@ partial model PartialStaticTwoPortCoolingTower
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-70,40},{-50,60}})));
 
-  Modelica.Blocks.Logical.OnOffController onOffCon(bandwidth=2)
+  Modelica.Blocks.Logical.OnOffController onOffCon(
+    bandwidth=2,
+    reference(
+      unit="K",
+      displayUnit="degC"),
+    u(unit="K",
+      displayUnit="degC"))
     "On/off controller"
     annotation (Placement(transformation(extent={{-20,-200},{0,-180}})));
 

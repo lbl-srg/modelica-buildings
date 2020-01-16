@@ -7,16 +7,13 @@ partial model CoolingTower "Base class for cooling towers"
     final unit="K",
     displayUnit="degC") "Leaving water temperature"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
-  Modelica.SIunits.HeatFlowRate Q_flow = QWat_flow.y
+  Modelica.SIunits.HeatFlowRate Q_flow = preHea.Q_flow
     "Heat input into water circuit";
 
 protected
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea
     "Prescribed heat flow"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  Modelica.Blocks.Sources.RealExpression QWat_flow
-    "Heat input into water"
-    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor T_Vol
     "Water temperature in volume, or leaving water temperature"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
@@ -25,11 +22,6 @@ equation
   connect(preHea.port, vol.heatPort) annotation (Line(
       points={{-20,-50},{-16,-50},{-16,-10},{-9,-10}},
       color={191,0,0},
-      smooth=Smooth.None));
-  connect(QWat_flow.y, preHea.Q_flow)
-                                   annotation (Line(
-      points={{-59,-50},{-40,-50}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(T_Vol.port, vol.heatPort) annotation (Line(
       points={{20,-60},{-16,-60},{-16,-10},{-9,-10}},

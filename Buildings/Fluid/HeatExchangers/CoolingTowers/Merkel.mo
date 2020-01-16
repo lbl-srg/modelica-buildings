@@ -1,7 +1,6 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers;
 model Merkel "Cooling tower model based on Merkel's theory"
-  extends Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower(
-    final QWat_flow(y=-eps*QMax_flow));
+  extends Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower;
 
   import cha =
     Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics;
@@ -35,7 +34,7 @@ model Merkel "Cooling tower model based on Merkel's theory"
     annotation (
       Dialog(group="Heat transfer"),
       choicesAllMatching=true,
-      Placement(transformation(extent={{20,60},{40,80}})));
+      Placement(transformation(extent={{18,70},{38,90}})));
 
   parameter Real fraPFan_nominal(unit="W/(kg/s)") = 275/0.15
     "Fan power divided by water mass flow rate at design condition"
@@ -56,23 +55,16 @@ model Merkel "Cooling tower model based on Merkel's theory"
     "Fan relative power consumption as a function of control signal, fanRelPow=P(y)/P(y=1)"
     annotation (
     choicesAllMatching=true,
-    Placement(transformation(extent={{60,60},{80,80}})),
+    Placement(transformation(extent={{58,70},{78,90}})),
     Dialog(group="Fan"));
 
-  final parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(max=0)=
-    -m_flow_nominal*cpWat_nominal*(TWatIn_nominal-TWatOut_nominal)
+  final parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(max=0)=per.Q_flow_nominal
     "Nominal heat transfer, (negative)";
-  final parameter Modelica.SIunits.ThermalConductance UA_nominal=
-    NTU_nominal*CMin_flow_nominal
+  final parameter Modelica.SIunits.ThermalConductance UA_nominal=per.UA_nominal
     "Thermal conductance at nominal flow, used to compute heat capacity";
-  final parameter Real eps_nominal=
-    Q_flow_nominal/((TAirInWB_nominal - TWatIn_nominal) * CMin_flow_nominal)
+  final parameter Real eps_nominal=per.eps_nominal
     "Nominal heat transfer effectiveness";
-  final parameter Real NTU_nominal(min=0)=
-      Buildings.Fluid.HeatExchangers.BaseClasses.ntu_epsilonZ(
-      eps=min(1, max(0, eps_nominal)),
-      Z=Z_nominal,
-      flowRegime=Integer(Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow))
+  final parameter Real NTU_nominal(min=0)=per.NTU_nominal
     "Nominal number of transfer units";
 
   Modelica.Blocks.Interfaces.RealInput TAir(
@@ -87,46 +79,17 @@ model Merkel "Cooling tower model based on Merkel's theory"
 
   Modelica.Blocks.Interfaces.RealOutput PFan(
     final quantity="Power",
-    final unit="W")
+    final unit="W")=
+    Buildings.Utilities.Math.Functions.spliceFunction(
+        pos=cha.normalizedPower(per=fanRelPow, r_V=y, d=fanRelPowDer) * PFan_nominal,
+        neg=0,
+        x=y-yMin+yMin/20,
+        deltax=yMin/20)
     "Electric power consumed by fan"
     annotation (Placement(transformation(extent={{100,70},{120,90}}),
         iconTransformation(extent={{100,70},{120,90}})));
 
-  Modelica.SIunits.MassFraction FRWat
-    "Ratio actual over design water mass flow ratio";
-  Modelica.SIunits.MassFraction FRAir
-    "Ratio actual over design air mass flow ratio";
-
-  Real eps(min=0, max=1, unit="1") "Heat exchanger effectiveness";
-
-  Modelica.SIunits.SpecificHeatCapacity cpWat "Heat capacity of water";
-
-  Modelica.SIunits.MassFlowRate mAir_flow "Air mass flow rate";
-
-  Modelica.SIunits.Temperature TWatIn "Inlet temperature water";
-  Modelica.SIunits.Temperature TAirOut "Outlet temperature air";
-  Modelica.SIunits.Temperature TWatOut "Outlet temperature water";
-  Modelica.SIunits.TemperatureDifference TApp(displayUnit="K")
-    "Approach temperature difference";
-
-  Modelica.SIunits.ThermalConductance CAir_flow
-    "Heat capacity flow rate of air";
-  Modelica.SIunits.ThermalConductance CWat_flow
-    "Heat capacity flow rate of water";
-  Modelica.SIunits.ThermalConductance CMin_flow(min=0)
-    "Minimum heat capacity flow rate";
-
-  Modelica.SIunits.HeatFlowRate QMax_flow
-    "Maximum heat flow rate into air";
-
-  Modelica.SIunits.ThermalConductance UAe(min=0)
-    "Thermal conductance for equivalent fluid";
-  Modelica.SIunits.ThermalConductance UA "Thermal conductance";
-
-
 protected
-  final package Air = Buildings.Media.Air "Package of medium air";
-
   final parameter Real fanRelPowDer[size(fanRelPow.r_V,1)]=
     Buildings.Utilities.Math.Functions.splineDerivatives(
       x=fanRelPow.r_V,
@@ -137,70 +100,31 @@ protected
     "Coefficients for fan relative power consumption as a function
     of control signal";
 
-  final parameter Air.ThermodynamicState staAir_default=Air.setState_pTX(
-      T=TAirInWB_nominal,
-      p=Air.p_default,
-      X=Air.X_default[1:Air.nXi]) "Default state for air";
-  final parameter Medium.ThermodynamicState
-    staWat_default=Medium.setState_pTX(
-      T=TWatIn_nominal,
-      p=Medium.p_default,
-      X=Medium.X_default[1:Medium.nXi]) "Default state for water";
+  Modelica.Blocks.Sources.RealExpression TWatIn(
+    final y=Medium.temperature(
+      Medium.setState_phX(
+        p=port_a.p,
+        h=inStream(port_a.h_outflow),
+        X=inStream(port_a.Xi_outflow))))
+    "Water inlet temperature"
+    annotation (Placement(transformation(extent={{-70,32},{-50,50}})));
+  Modelica.Blocks.Sources.RealExpression mWat_flow(final y=port_a.m_flow)
+    "Water mass flow rate"
+    annotation (Placement(transformation(extent={{-70,12},{-50,30}})));
 
-  parameter Real delta=1E-3 "Parameter used for smoothing";
-
-  parameter Modelica.SIunits.SpecificHeatCapacity cpe_nominal=
-    Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Functions.equivalentHeatCapacity(
-      TIn = TAirInWB_nominal,
-      TOut = TAirOutWB_nominal)
-    "Specific heat capacity of the equivalent medium on medium 1 side";
-  parameter Modelica.SIunits.SpecificHeatCapacity cpAir_nominal=
-    Air.specificHeatCapacityCp(staAir_default)
-    "Specific heat capacity of air at nominal condition";
-  parameter Modelica.SIunits.SpecificHeatCapacity cpWat_nominal=
-    Medium.specificHeatCapacityCp(staWat_default)
-    "Specific heat capacity of water at nominal condition";
-
-  parameter Modelica.SIunits.ThermalConductance CAir_flow_nominal=
-    mAir_flow_nominal*cpe_nominal
-    "Nominal capacity flow rate of air";
-  parameter Modelica.SIunits.ThermalConductance CWat_flow_nominal=
-    m_flow_nominal*cpWat_nominal
-    "Nominal capacity flow rate of water";
-  parameter Modelica.SIunits.ThermalConductance CMin_flow_nominal=
-    min(CAir_flow_nominal, CWat_flow_nominal)
-    "Minimal capacity flow rate at nominal condition";
-  parameter Modelica.SIunits.ThermalConductance CMax_flow_nominal=
-    max(CAir_flow_nominal, CWat_flow_nominal)
-    "Maximum capacity flow rate at nominal condition";
-  parameter Real Z_nominal(
-    min=0,
-    max=1) = CMin_flow_nominal/CMax_flow_nominal
-    "Ratio of capacity flow rate at nominal condition";
-
-  parameter  Modelica.SIunits.Temperature TAirOutWB_nominal(fixed=false)
-    "Nominal leaving air wetbulb temperature";
-
-  Real UA_FAir "UA correction factor as function of air flow ratio";
-  Real UA_FWat "UA correction factor as function of water flow ratio";
-  Real UA_DifWB
-    "UA correction factor as function of differential wetbulb temperature";
-  Real corFac_FAir "Smooth factor as function of air flow ratio";
-  Real corFac_FWat "Smooth factor as function of water flow ratio";
-  Modelica.SIunits.SpecificHeatCapacity cpEqu
-    "Specific heat capacity of the equivalent fluid";
+  Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Merkel per(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=m_flow_nominal,
+    final ratWatAir_nominal=ratWatAir_nominal,
+    final TAirInWB_nominal=TAirInWB_nominal,
+    final TWatIn_nominal=TWatIn_nominal,
+    final TWatOut_nominal=TWatOut_nominal,
+    final fraFreCon=fraFreCon,
+    final UACor = UACor,
+    final yMin=yMin) "Model for thermal performance"
+    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 
 initial equation
-  // Heat transferred from air to water at nominal condition
-  Q_flow_nominal = mAir_flow_nominal*cpe_nominal*(TAirInWB_nominal - TAirOutWB_nominal);
-
-  assert(eps_nominal > 0 and eps_nominal < 1,
-    "eps_nominal out of bounds, eps_nominal = " + String(eps_nominal) +
-    "\n  To achieve the required heat transfer rate at epsilon=0.8, set |TAirInWB_nominal-TWatIn_nominal| = "
-     + String(abs(Q_flow_nominal/0.8*CMin_flow_nominal)) +
-    "\n  or increase flow rates. The current parameters result in " +
-    "\n  CMin_flow_nominal = " + String(CMin_flow_nominal) +
-    "\n  CMax_flow_nominal = " + String(CMax_flow_nominal));
 
   // Check validity of relative fan power consumption at y=yMin and y=1
   assert(cha.normalizedPower(per=fanRelPow, r_V=yMin, d=fanRelPowDer) > -1E-4,
@@ -216,124 +140,16 @@ initial equation
   + "\n   To increase the fan power, change fraPFan_nominal or PFan_nominal.");
 
 equation
-  // Handling of flow reversal
-   if allowFlowReversal then
-    if homotopyInitialization then
-      TWatIn=Medium.temperature(Medium.setState_phX(
-          p=port_a.p,
-          h=homotopy(actual=actualStream(port_a.h_outflow),
-                     simplified=inStream(port_a.h_outflow)),
-          X=homotopy(actual=actualStream(port_a.Xi_outflow),
-                     simplified=inStream(port_a.Xi_outflow))));
-      TWatOut=Medium.temperature(Medium.setState_phX(
-        p=port_b.p,
-        h=homotopy(actual=actualStream(port_b.h_outflow),
-                   simplified=port_b.h_outflow),
-        X=homotopy(actual=actualStream(port_b.Xi_outflow),
-                   simplified=port_b.Xi_outflow)));
-    else
-      TWatIn=Medium.temperature(Medium.setState_phX(
-        p=port_a.p,
-        h=actualStream(port_a.h_outflow),
-        X=actualStream(port_a.Xi_outflow)));
-      TWatOut=Medium.temperature(Medium.setState_phX(
-        p=port_b.p,
-        h=actualStream(port_b.h_outflow),
-        X=actualStream(port_b.Xi_outflow)));
-    end if; // homotopyInitialization
-
-  else // reverse flow not allowed
-    TWatIn=Medium.temperature(Medium.setState_phX(
-      p=port_a.p,
-      h=inStream(port_a.h_outflow),
-      X=inStream(port_a.Xi_outflow)));
-    TWatOut=Medium.temperature(Medium.setState_phX(
-      p=port_b.p,
-      h=inStream(port_b.h_outflow),
-      X=inStream(port_b.Xi_outflow)));
-   end if;
-   // For cp water, we use the inlet temperatures because the effect is small
-   // for actual water temperature differences, and in case of Buildings.Media.Water,
-   // cp is constant.
-  cpWat = Medium.specificHeatCapacityCp(Medium.setState_phX(
-    p=port_a.p,
-    h=inStream(port_a.h_outflow),
-    X=inStream(port_a.Xi_outflow)));
-
-  // Determine the airflow based on fan speed signal
-  mAir_flow = Buildings.Utilities.Math.Functions.spliceFunction(
-    pos=y*mAir_flow_nominal,
-    neg=fraFreCon*mAir_flow_nominal,
-    x=y - yMin + yMin/20,
-    deltax=yMin/20);
-  FRAir = mAir_flow/mAir_flow_nominal;
-  FRWat = m_flow/m_flow_nominal;
-
-  // UA for equivalent fluid
-  // Adjust UA
-  UA_FAir =Buildings.Fluid.Utilities.extendedPolynomial(
-    x=FRAir,
-    c=UACor.cAirFra,
-    xMin=UACor.FRAirMin,
-    xMax=UACor.FRAirMax)
-    "UA correction factor as function of air flow fraction";
-  UA_FWat =Buildings.Fluid.Utilities.extendedPolynomial(
-    x=FRWat,
-    c=UACor.cWatFra,
-    xMin=UACor.FRWatMin,
-    xMax=UACor.FRWatMax)
-    "UA correction factor as function of water flow fraction";
-  UA_DifWB =Buildings.Fluid.Utilities.extendedPolynomial(
-    x=TAirInWB_nominal - TAir,
-    c=UACor.cDifWB,
-    xMin=UACor.TDiffWBMin,
-    xMax=UACor.TDiffWBMax)
-    "UA correction factor as function of differential wet bulb temperature";
-  corFac_FAir =Buildings.Utilities.Math.Functions.smoothHeaviside(
-    x=FRAir - UACor.FRAirMin/4,
-    delta=UACor.FRAirMin/4);
-  corFac_FWat =Buildings.Utilities.Math.Functions.smoothHeaviside(
-    x=FRWat - UACor.FRWatMin/4,
-    delta=UACor.FRWatMin/4);
-
-  UA = UA_nominal*UA_FAir*UA_FWat*UA_DifWB*corFac_FAir*corFac_FWat;
-
-  UAe = UA*cpEqu/Buildings.Utilities.Psychrometrics.Constants.cpAir;
-
-  // Capacity for air and water
-  CAir_flow =abs(mAir_flow)*cpEqu;
-  CWat_flow =abs(m_flow)*cpWat;
-  CMin_flow =Buildings.Utilities.Math.Functions.smoothMin(
-    CAir_flow,
-    CWat_flow,
-    delta*CMin_flow_nominal);
-
-  // Calculate epsilon
-  eps = Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_C(
-    UA=UAe,
-    C1_flow=CAir_flow,
-    C2_flow=CWat_flow,
-    flowRegime=Integer(Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow),
-    CMin_flow_nominal=CMin_flow_nominal,
-    CMax_flow_nominal=CMax_flow_nominal,
-    delta=delta);
-  // QMax_flow is maximum heat transfer into medium air: positive means heating
-  QMax_flow = CMin_flow*(TWatIn - TAir);
-  TApp=TWatOut-TAir;
-  eps*QMax_flow =CAir_flow*(TAirOut - TAir);
-
-  // Power consumption
-  PFan = Buildings.Utilities.Math.Functions.spliceFunction(
-        pos=cha.normalizedPower(per=fanRelPow, r_V=y, d=fanRelPowDer) * PFan_nominal,
-        neg=0,
-        x=y-yMin+yMin/20,
-        deltax=yMin/20);
-
-  cpEqu =
-    Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Functions.equivalentHeatCapacity(
-      TIn=TAir,
-      TOut=TAirOut);
-
+  connect(per.y, y) annotation (Line(points={{-22,58},{-40,58},{-40,80},{-120,80}},
+        color={0,0,127}));
+  connect(per.TAir, TAir) annotation (Line(points={{-22,54},{-80,54},{-80,40},{-120,
+          40}}, color={0,0,127}));
+  connect(per.Q_flow, preHea.Q_flow) annotation (Line(points={{1,50},{20,50},{20,
+          -32},{-50,-32},{-50,-50},{-40,-50}}, color={0,0,127}));
+  connect(per.m_flow, mWat_flow.y) annotation (Line(points={{-22,42},{-34,42},{-34,
+          21},{-49,21}}, color={0,0,127}));
+  connect(TWatIn.y, per.TWatIn) annotation (Line(points={{-49,41},{-35.5,41},
+          {-35.5,46},{-22,46}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(
           extent={{-98,100},{-86,84}},
@@ -404,18 +220,8 @@ equation
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid)}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
-    Documentation(revisions="<html>
-<ul>
-<li>
-January 10, 2020, by Michael Wetter:<br/>
-Revised model, changed parameters to make model easier to use with design data.
-</li>
-<li>
-October 22, 2019, by Yangyang Fu:<br/>
-First implementation.
-</li>
-</ul>
-</html>", info="<html>
+    Documentation(
+info="<html>
 <p>
 Model for a steady-state or dynamic cooling tower with a variable speed fan
 using Merkel's calculation method.
@@ -531,5 +337,21 @@ Cycle losses are not taken into account.
 <h4>References</h4>
 <p><a href=\"https://energyplus.net/sites/all/modules/custom/nrel_custom/pdfs/pdfs_v8.9.0/EngineeringReference.pdf\">
 EnergyPlus 8.9.0 Engineering Reference</a>, March 23, 2018. </p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+January 16, 2020, by Michael Wetter:<br/>
+Revised model to put the thermal performance in a separate block.
+</li>
+<li>
+January 10, 2020, by Michael Wetter:<br/>
+Revised model, changed parameters to make model easier to use with design data.
+</li>
+<li>
+October 22, 2019, by Yangyang Fu:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end Merkel;

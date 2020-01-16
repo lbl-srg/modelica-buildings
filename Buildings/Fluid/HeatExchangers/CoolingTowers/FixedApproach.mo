@@ -1,11 +1,6 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers;
 model FixedApproach "Cooling tower with constant approach temperature"
-  extends Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower(
-    final QWat_flow(y = m_flow*(
-        Medium.specificEnthalpy(Medium.setState_pTX(
-        p=port_b.p,
-        T=TAir + TApp,
-        X=inStream(port_b.Xi_outflow))) - inStream(port_a.h_outflow))));
+  extends Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower;
 
   parameter Modelica.SIunits.TemperatureDifference TApp(min=0, displayUnit="K") = 2
     "Approach temperature difference";
@@ -14,6 +9,18 @@ model FixedApproach "Cooling tower with constant approach temperature"
      annotation (Placement(transformation(
           extent={{-140,20},{-100,60}})));
 
+protected
+  Modelica.Blocks.Sources.RealExpression QWat_flow(
+    y = m_flow*(
+      Medium.specificEnthalpy(Medium.setState_pTX(
+      p=port_b.p,
+      T=TAir + TApp,
+      X=inStream(port_b.Xi_outflow))) - inStream(port_a.h_outflow)))
+    "Heat input into water"
+    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
+equation
+  connect(QWat_flow.y, preHea.Q_flow)
+    annotation (Line(points={{-59,-50},{-40,-50}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Text(

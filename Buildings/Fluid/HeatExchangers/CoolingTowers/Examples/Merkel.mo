@@ -18,27 +18,35 @@ model Merkel "Test model for cooling tower using the Merkel theory"
     "Setpoint for leaving temperature"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 
-  Controls.Continuous.LimPID conFan(
+  Controls.OBC.CDL.Continuous.LimPID conFan(
     k=1,
     Ti=60,
     Td=10,
+    yMax=1,
+    yMin=0,
+    initType=Buildings.Controls.OBC.CDL.Types.Init.InitialState,
     reverseAction=true,
-    initType=Modelica.Blocks.Types.InitPID.InitialState)
+    u_s(
+      unit="K",
+      displayUnit="degC"),
+    u_m(
+      unit="K",
+      displayUnit="degC"))
     "Controller for tower fan"
-    annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
+    annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
 
 equation
   connect(TSetLea.y, conFan.u_s)
     annotation (Line(
-      points={{-39,-10},{-22,-10}},
+      points={{-39,-10},{-32,-10}},
       color={0,0,127}));
   connect(conFan.y, tow.y)
     annotation (Line(
-      points={{1,-10},{6,-10},{6,-42},{20,-42}},
+      points={{-8,-10},{6,-10},{6,-42},{20,-42}},
       color={0,0,127}));
   connect(tow.TLvg, conFan.u_m)
     annotation (Line(
-      points={{43,-56},{54,-56},{54,-32},{-10,-32},{-10,-22}},
+      points={{43,-56},{54,-56},{54,-32},{-20,-32},{-20,-22}},
       color={0,0,127}));
   connect(weaBus.TWetBul, tow.TAir) annotation (Line(
       points={{-60,50},{0,50},{0,-46},{20,-46}},
