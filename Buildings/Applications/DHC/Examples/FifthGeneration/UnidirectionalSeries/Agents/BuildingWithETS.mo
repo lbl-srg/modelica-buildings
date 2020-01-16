@@ -6,19 +6,43 @@ model BuildingWithETS "Model of a building with an energy transfer station"
     final m_flow_small=1E-4*m_flow_nominal,
     final show_T=false,
     final allowFlowReversal=false);
+  parameter String idfPath=
+    "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportSpawn/Resources/Data/B5a6b99ec37f4de7f94020090/RefBldgSmallOfficeNew2004_Chicago.idf"
+    "Path of the IDF file"
+    annotation(Dialog(group="Building model parameters"));
+  parameter String weaPath=
+    "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportSpawn/Resources/Data/B5a6b99ec37f4de7f94020090/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"
+    "Path of the weather file"
+    annotation(Dialog(group="Building model parameters"));
+  parameter Integer nZon=6
+    "Number of thermal zones"
+    annotation(Dialog(group="Building model parameters"), Evaluate=true);
+  parameter Integer nSup = 2
+    "Number of supply lines"
+    annotation(Dialog(group="ETS model parameters"), Evaluate=true);
   parameter Modelica.SIunits.TemperatureDifference dT_nominal=5
-    "Water temperature drop/increase accross load and source-side HX (always positive)";
+    "Water temperature drop/increase accross load and source-side HX (always positive)"
+    annotation(Dialog(group="ETS model parameters"));
   parameter Modelica.SIunits.Temperature TChiWatSup_nominal=273.15 + 18
-    "Chilled water supply temperature";
-  parameter Modelica.SIunits.Temperature TChiWatRet_nominal=TChiWatSup_nominal
-       + dT_nominal "Chilled water return temperature";
+    "Chilled water supply temperature"
+    annotation(Dialog(group="ETS model parameters"));
+  parameter Modelica.SIunits.Temperature TChiWatRet_nominal=
+     TChiWatSup_nominal + dT_nominal
+     "Chilled water return temperature"
+     annotation(Dialog(group="ETS model parameters"));
   parameter Modelica.SIunits.Temperature THeaWatSup_nominal=273.15 + 40
-    "Heating water supply temperature";
-  parameter Modelica.SIunits.Temperature THeaWatRet_nominal=THeaWatSup_nominal
-       - dT_nominal "Heating water return temperature";
+    "Heating water supply temperature"
+    annotation(Dialog(group="ETS model parameters"));
+  parameter Modelica.SIunits.Temperature THeaWatRet_nominal=
+     THeaWatSup_nominal - dT_nominal
+     "Heating water return temperature"
+     annotation(Dialog(group="ETS model parameters"));
   parameter Modelica.SIunits.Pressure dp_nominal=50000
-    "Pressure difference at nominal flow rate (for each flow leg)";
-  parameter Real COP_nominal=5 "Heat pump COP";
+    "Pressure difference at nominal flow rate (for each flow leg)"
+    annotation(Dialog(group="ETS model parameters"));
+  parameter Real COP_nominal=5
+    "Heat pump COP"
+    annotation(Dialog(group="ETS model parameters"));
   // IO CONNECTORS
   Modelica.Blocks.Interfaces.RealInput TSetChiWat
     "Chilled water set point"
@@ -43,10 +67,15 @@ model BuildingWithETS "Model of a building with an energy transfer station"
   // COMPONENTS
   replaceable Loads.Examples.BaseClasses.GeojsonSpawn1Z6BuildingPump bui(
     redeclare package Medium1=Medium,
-    nPorts1=2) "Building"
+    nZon=nZon,
+    idfPath=idfPath,
+    weaPath=weaPath,
+    nPorts1=nSup)
+    "Building"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
   replaceable EnergyTransferStation ets(
     redeclare package Medium=Medium,
+    nSup=nSup,
     QCoo_flow_nominal=sum(bui.terUni.QCoo_flow_nominal),
     QHea_flow_nominal=sum(bui.terUni.QHea_flow_nominal),
     dT_nominal=dT_nominal,
@@ -61,26 +90,20 @@ model BuildingWithETS "Model of a building with an energy transfer station"
 equation
   connect(port_a, ets.port_a) annotation (Line(points={{-100,0},{-80,0},{-80,-40},
           {-20,-40}}, color={0,127,255}));
-  connect(ets.port_b, port_b) annotation (Line(points={{19.8571,-40},{80,-40},{
-          80,0},{100,0}},
-                       color={0,127,255}));
-  connect(bui.ports_b1[1], ets.port_aHeaWat) annotation (Line(points={{30,30},{
-          60,30},{60,-14},{-40,-14},{-40,-48.5714},{-20,-48.5714}},
-                                                                 color={0,127,255}));
-  connect(ets.port_bHeaWat, bui.ports_a1[1]) annotation (Line(points={{20,
-          -48.5714},{40,-48.5714},{40,-80},{-60,-80},{-60,30},{-30,30}},
-                                                               color={0,127,255}));
-  connect(bui.ports_b1[2], ets.port_aChi) annotation (Line(points={{30,34},{54,
-          34},{54,-8},{-46,-8},{-46,-57.1429},{-20,-57.1429}},
-                                                           color={0,127,255}));
-  connect(ets.port_bChi, bui.ports_a1[2]) annotation (Line(points={{20,-57.2857},
-          {34,-57.2857},{34,-74},{-54,-74},{-54,34},{-30,34}}, color={0,127,255}));
+  connect(ets.port_b, port_b) annotation (Line(points={{20,-40},{80,-40},{80,0},
+          {100,0}},    color={0,127,255}));
   connect(TSetChiWat, ets.TSetChiWat) annotation (Line(points={{-120,40},{-74,
           40},{-74,-28.5714},{-21.4286,-28.5714}},
                                                color={0,0,127}));
   connect(TSetHeaWat, ets.TSetHeaWat) annotation (Line(points={{-120,70},{-68,
           70},{-68,-22.8571},{-21.4286,-22.8571}},
                                                color={0,0,127}));
+  connect(bui.ports_b1[1:2], ets.ports_a1) annotation (Line(points={{30,32},{60,
+          32},{60,0},{-40,0},{-40,-52.8571},{-20,-52.8571}}, color={0,127,255}));
+  connect(ets.ports_b1, bui.ports_a1[1:2]) annotation (Line(points={{20,
+          -52.8571},{28,-52.8571},{40,-52.8571},{40,-80},{-60,-80},{-60,32},{
+          -30,32}},
+        color={0,127,255}));
   annotation (
     DefaultComponentName="bui",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},

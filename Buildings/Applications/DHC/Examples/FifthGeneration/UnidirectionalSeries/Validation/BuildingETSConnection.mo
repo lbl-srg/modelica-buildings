@@ -1,6 +1,5 @@
 within Buildings.Applications.DHC.Examples.FifthGeneration.UnidirectionalSeries.Validation;
-model BuildingETSConnection
-  "Validation of building and ETS connection"
+model BuildingETSConnection "Validation of building and ETS connection"
   extends Modelica.Icons.Example;
     package Medium1 = Buildings.Media.Water
     "Source side medium";
@@ -8,66 +7,48 @@ model BuildingETSConnection
       nPorts=1) "Sink for district water" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={132,-60})));
-  Agents.EnergyTransferStation ets(
-    redeclare package Medium = Medium1,
-    QCoo_flow_nominal=sum(bui.terUni.QCoo_flow_nominal),
-    QHea_flow_nominal=sum(bui.terUni.QHea_flow_nominal))
-    "Energy transfer station"
-    annotation (Placement(transformation(extent={{20,-80},{60,-40}})));
-  Loads.Examples.BaseClasses.GeojsonSpawn1Z6BuildingPump bui(redeclare package
-      Medium1 = Medium1, nPorts1=2) "Building"
-    annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetHeaWatSup(k=ets.THeaWatSup_nominal)
+        origin={130,-40})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetHeaWatSup(k=bui.ets.THeaWatSup_nominal)
     "Heating water supply temperature set point"
-    annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetChiWatSup(k=ets.TChiWatSup_nominal)
+    annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetChiWatSup(k=bui.ets.TChiWatSup_nominal)
     "Chilled water supply temperature set point"
-    annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
-  inner parameter Data.DesignDataDHC datDes(
-    nBui=1,
-    mDis_flow_nominal=25,
-    mCon_flow_nominal={25},
-    epsPla=0.935) "Design values"
-    annotation (Placement(transformation(extent={{-160,64},{-140,84}})));
+    annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
   Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium1,
     use_T_in=true,
     nPorts=1) "Source for district water" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-50,-60})));
+        origin={-50,-40})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TDis(k=273.15 + 15)
     "District water temperature"
-    annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
+    annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
+  Agents.BuildingWithETS bui(redeclare package Medium = Medium1)
+    "Model of a building with an energy transfer station"
+    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
+  inner parameter Data.DesignDataDHC datDes(
+    nBui=1,
+    mDis_flow_nominal=25,
+    mCon_flow_nominal={25},
+    epsPla=0.935) "Design values"
+    annotation (Placement(transformation(extent={{-160,66},{-140,86}})));
 equation
-  connect(TSetHeaWatSup.y, ets.TSetHeaWat) annotation (Line(points={{-118,0},{
-          -20,0},{-20,-42.8571},{18.5714,-42.8571}},  color={0,0,127}));
-  connect(TSetChiWatSup.y, ets.TSetChiWat) annotation (Line(points={{-118,-40},
-          {-26,-40},{-26,-48.5714},{18.5714,-48.5714}},  color={0,0,127}));
-  connect(ets.port_b, sin.ports[1])
-    annotation (Line(points={{59.8571,-60},{122,-60}}, color={0,127,255}));
-  connect(ets.port_bHeaWat, bui.ports_a1[1]) annotation (Line(points={{60,
-          -68.5714},{70,-68.5714},{70,-20},{-12,-20},{-12,10},{0,10}},   color=
-          {0,127,255}));
-  connect(bui.ports_b1[1], ets.port_aHeaWat) annotation (Line(points={{60,10},{
-          80,10},{80,-100},{0,-100},{0,-68.5714},{20,-68.5714}},    color={0,
-          127,255}));
-  connect(ets.port_bChi, bui.ports_a1[2]) annotation (Line(points={{60,-77.2857},
-          {60,-78},{74,-78},{74,-16},{-16,-16},{-16,14},{0,14}},   color={0,127,
-          255}));
-  connect(bui.ports_b1[2], ets.port_aChi) annotation (Line(points={{60,14},{84,
-          14},{84,-104},{4,-104},{4,-77.1429},{20,-77.1429}},    color={0,127,
-          255}));
-  connect(sou.ports[1], ets.port_a)
-    annotation (Line(points={{-40,-60},{20,-60}},color={0,127,255}));
-  connect(TDis.y, sou.T_in) annotation (Line(points={{-118,-80},{-80,-80},{-80,
-          -56},{-62,-56}}, color={0,0,127}));
+  connect(TDis.y, sou.T_in) annotation (Line(points={{-118,-60},{-80,-60},{-80,
+          -36},{-62,-36}}, color={0,0,127}));
+  connect(sou.ports[1], bui.port_a)
+    annotation (Line(points={{-40,-40},{20,-40}},color={0,127,255}));
+  connect(bui.port_b, sin.ports[1])
+    annotation (Line(points={{40,-40},{120,-40}}, color={0,127,255}));
+  connect(TSetHeaWatSup.y, bui.TSetHeaWat) annotation (Line(points={{-118,20},{
+          0,20},{0,-32},{19,-32}},      color={0,0,127}));
+  connect(TSetChiWatSup.y, bui.TSetChiWat) annotation (Line(points={{-118,-20},
+          {-20,-20},{-20,-36},{19,-36}},color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-120},{
             180,120}}),
     graphics={Text(
-          extent={{-68,74},{64,100}},
+          extent={{-68,100},{64,74}},
           lineColor={28,108,200},
           textString="Simulation requires
 Hidden.AvoidDoubleComputation=true")}),
@@ -76,6 +57,5 @@ Hidden.AvoidDoubleComputation=true")}),
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
     __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Examples/FifthGenUniSeries/Validation/BuildingETSConnection.mos"
-        "Simulate and plot"),
-    Icon(coordinateSystem(extent={{-180,-120},{180,120}})));
+        "Simulate and plot"));
 end BuildingETSConnection;

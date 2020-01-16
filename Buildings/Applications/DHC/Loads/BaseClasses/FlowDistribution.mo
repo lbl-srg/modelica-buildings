@@ -23,7 +23,6 @@ model FlowDistribution "Model of hydraulic distribution system"
     min=0, displayUnit="Pa")
     "Pressure drop at nominal conditions (without valve)"
     annotation(Dialog(group="Nominal condition"));
-  // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
     Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
@@ -34,7 +33,21 @@ model FlowDistribution "Model of hydraulic distribution system"
   parameter Modelica.SIunits.Time tau = 120
     "Time constant of primary fluid temperature variation at nominal flow"
     annotation (Dialog(tab="Dynamics", group="Nominal condition"));
-  // IO connectors
+  // IO CONNECTORS
+  Modelica.Fluid.Interfaces.FluidPorts_a ports_a1[nUni](
+    redeclare each final package Medium=Medium,
+    each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
+    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    "Fluid connectors a (positive design flow direction is from port_a to ports_b)"
+    annotation (Placement(transformation(extent={{-110,120},{-90,200}}),
+      iconTransformation(extent={{90,20},{110,100}})));
+  Modelica.Fluid.Interfaces.FluidPorts_b ports_b1[nUni](
+    redeclare each final package Medium=Medium,
+    each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
+    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    "Fluid connectors b (positive design flow direction is from port_a to ports_b)"
+    annotation (Placement(transformation(extent={{90,120},{110,200}}),
+      iconTransformation(extent={{-110,20},{-90,100}})));
   Modelica.Blocks.Interfaces.RealInput m1Req_flow[nUni](
     each quantity="MassFlowRate")
     "Heating or chilled water flow required to meet the load"
@@ -67,7 +80,7 @@ model FlowDistribution "Model of hydraulic distribution system"
     "Power drawn by pump motor"
     annotation (Placement(transformation(extent={{100,40},{140,80}}),
       iconTransformation(extent={{100,-90},{120,-70}})));
-  // Building blocks
+  // COMPONENTS
   Buildings.Fluid.HeatExchangers.HeaterCooler_u heaCoo(
     redeclare final package Medium=Medium,
     dp_nominal=dp_nominal,
@@ -90,20 +103,6 @@ model FlowDistribution "Model of hydraulic distribution system"
     each final use_T_in=true,
     each final nPorts=1)
     annotation (Placement(transformation(extent={{40,150},{60,170}})));
-  Modelica.Fluid.Interfaces.FluidPorts_a ports_a1[nUni](
-    redeclare each final package Medium=Medium,
-    each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    "Fluid connectors b (positive design flow direction is from port_a to ports_b)"
-    annotation (Placement(transformation(extent={{-110,120},{-90,200}}),
-      iconTransformation(extent={{90,20},{110,100}})));
-  Modelica.Fluid.Interfaces.FluidPorts_b ports_b1[nUni](
-    redeclare each final package Medium=Medium,
-    each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    "Fluid connectors b (positive design flow direction is from port_a to ports_b)"
-    annotation (Placement(transformation(extent={{90,120},{110,200}}),
-      iconTransformation(extent={{-110,20},{-90,100}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare final package Medium=Medium,
     final nPorts=nUni)
@@ -229,6 +228,7 @@ model FlowDistribution "Model of hydraulic distribution system"
     haveVal and disTyp <> typ.ChangeOver
     "Fixed operating mode"
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
+  // MISCELLANEOUS VARIABLES
   Modelica.SIunits.Temperature TSup(displayUnit="degC") = Medium.temperature(
     state=Medium.setState_phX(
       p=ideSou.port_a.p,
