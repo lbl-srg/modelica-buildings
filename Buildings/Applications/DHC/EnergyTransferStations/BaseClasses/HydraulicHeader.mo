@@ -48,7 +48,9 @@ equation
     connect(pip.port_b, ports_b[i])
       annotation (Line(points={{10,0},{58,0},{58,0}, {100,0}}, color={0,127,255}));
   end for;
-  annotation (Icon(graphics={
+  annotation (
+    defaultComponentName="hea",
+    Icon(graphics={
     Rectangle(
      extent={{-100,8},{100,-6}},
      lineColor={255,170,255},
@@ -67,13 +69,12 @@ equation
      lineThickness=0.5,
      fillColor={255,170,213},
      fillPattern=FillPattern.Solid),
-                            Text(
+    Text(
      extent={{-149,93},{151,53}},
      lineColor={0,0,255},
      fillPattern=FillPattern.HorizontalCylinder,
      fillColor={0,127,255},
      textString="%name")}),
-     defaultComponentName="hydHea",
 Documentation(info="<html>
  <h4> Water hydraulic header </h4>
  <p>
