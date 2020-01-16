@@ -24,14 +24,15 @@ model BuildingETSConnection "Validation of building and ETS connection"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TDis(k=273.15 + 15)
     "District water temperature"
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
-  Agents.BuildingWithETS bui(redeclare package Medium = Medium1)
+  Agents.SpawnBuildingWithETS bui(redeclare package Medium = Medium1)
     "Model of a building with an energy transfer station"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   inner parameter Data.DesignDataDHC datDes(
     nBui=1,
     mDis_flow_nominal=25,
     mCon_flow_nominal={25},
-    epsPla=0.935) "Design values"
+    epsPla=0.935)
+    "Design values"
     annotation (Placement(transformation(extent={{-160,66},{-140,86}})));
 equation
   connect(TDis.y, sou.T_in) annotation (Line(points={{-118,-60},{-80,-60},{-80,

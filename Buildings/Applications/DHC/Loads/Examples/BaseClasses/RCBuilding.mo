@@ -8,6 +8,8 @@ model RCBuilding "Building model of type RC one element"
     nPorts1=2);
   package Medium2 = Buildings.Media.Air
     "Load side medium";
+  parameter Integer nZon = 1
+    "Number of thermal zones";
   Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil[2](
     each outSkyCon=true,
     each outGroCon=true,
@@ -48,7 +50,7 @@ model RCBuilding "Building model of type RC one element"
     nPorts=2)       "Thermal zone"
     annotation (Placement(transformation(extent={{44,-10},{92,26}})));
   Buildings.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow
-                                             eqAirTemp(
+    eqAirTemp(
     n=2,
     wfGro=0,
     wfWall={0.3043478260869566,0.6956521739130435},
@@ -117,7 +119,9 @@ model RCBuilding "Building model of type RC one element"
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC1
     annotation (Placement(transformation(extent={{-260,250},{-240,270}})));
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
-      m_flow_nominal=terUni.m1Hea_flow_nominal, dp_nominal=100000)
+    nUni=nZon,
+    m_flow_nominal=terUni.m1Hea_flow_nominal,
+    dp_nominal=100000)
     annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
   Buildings.Applications.DHC.Loads.Examples.BaseClasses.Terminal4PipesFluidPorts
     terUni(
@@ -131,18 +135,19 @@ model RCBuilding "Building model of type RC one element"
     T_a1Coo_nominal=280.15,
     m2Hea_flow_nominal=1,
     m2Coo_flow_nominal=1,
-    show_TSou=true) annotation (Placement(transformation(extent={{-160,-60},
-            {-140,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=24) "Minimum temperature setpoint"
+    show_TSou=true)
+    annotation (Placement(transformation(extent={{-160,-60}, {-140,-40}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=24)
+    "Minimum temperature setpoint"
     annotation (Placement(transformation(extent={{-300,210},{-280,230}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC2
     annotation (Placement(transformation(extent={{-260,210},{-240,230}})));
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
+    nUni=nZon,
     m_flow_nominal=terUni.m1Coo_flow_nominal,
     disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
-    dp_nominal=100000) annotation (Placement(transformation(extent={{-100,
-            -160},{-80,-140}})));
-
+    dp_nominal=100000)
+    annotation (Placement(transformation(extent={{-100, -160},{-80,-140}})));
 equation
   connect(eqAirTemp.TEqAirWin,preTem1. T)
     annotation (Line(
@@ -298,10 +303,10 @@ equation
           -144},{-200,-144},{-200,-56.6667},{-160,-56.6667}},
                                                         color={0,127,255}));
   connect(terUni.QActCoo_flow, QCoo_flow) annotation (Line(points={{-139.167,
-          -44.1667},{50,-44.1667},{50,-44},{240,-44},{240,240},{320,240}},
+          -44.1667},{50,-44.1667},{50,-44},{240,-44},{240,220},{320,220}},
                                                        color={0,0,127}));
   connect(terUni.PFan, PFan) annotation (Line(points={{-139.167,-49.1667},{60,
-          -49.1667},{60,-50},{260,-50},{260,120},{320,120}},
+          -49.1667},{60,-50},{260,-50},{260,100},{320,100}},
                                 color={0,0,127}));
   connect(terUni.m1ReqHea_flow, disFloHea.m1Req_flow[1]) annotation (Line(
         points={{-139.167,-52.5},{-139.167,-84},{-140,-84},{-140,-116},{-101,

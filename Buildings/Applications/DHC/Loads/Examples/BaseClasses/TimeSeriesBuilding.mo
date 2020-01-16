@@ -39,7 +39,8 @@ model TimeSeriesBuilding
     T_a2Coo_nominal=297.15) "Terminal unit"
     annotation (Placement(transformation(extent={{80,-24},{100,-4}})));
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
-      m_flow_nominal=terUni.m1Hea_flow_nominal, dp_nominal=100000)
+      m_flow_nominal=terUni.m1Hea_flow_nominal,
+      dp_nominal=100000)
     "Heating water distribution system"
     annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
@@ -88,7 +89,7 @@ equation
           -6.5},{100.833,-6},{240,-6},{240,280},{320,280}},
                                                       color={0,0,127}));
   connect(terUni.QActCoo_flow, QCoo_flow) annotation (Line(points={{100.833,
-          -8.16667},{100,-8.16667},{100,-8},{260,-8},{260,240},{320,240}},
+          -8.16667},{100,-8.16667},{100,-8},{260,-8},{260,220},{320,220}},
                                                                  color={0,0,127}));
   annotation (
   Documentation(info="<html>

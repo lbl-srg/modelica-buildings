@@ -22,8 +22,8 @@ model GeojsonRCBuilding
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
     m_flow_nominal=sum(terUni.m1Hea_flow_nominal),
     nUni=nZon,
-    dp_nominal=100000) annotation (Placement(transformation(extent={{-140,
-            -100},{-120,-80}})));
+    dp_nominal=100000)
+    annotation (Placement(transformation(extent={{-140, -100},{-120,-80}})));
   Buildings.Applications.DHC.Loads.Examples.BaseClasses.Terminal4PipesHeatPorts
     terUni[nZon](
     QHea_flow_nominal={10000,10000,10000,10000,10000,10000},
@@ -36,8 +36,8 @@ model GeojsonRCBuilding
     each T_a1Coo_nominal=7 + 273.15,
     each m2Hea_flow_nominal=1,
     each m2Coo_flow_nominal=1,
-    each final fraCon={1,1}) annotation (Placement(transformation(extent=
-            {{-200,-60},{-180,-40}})));
+    each final fraCon={1,1})
+    annotation (Placement(transformation(extent= {{-200,-60},{-180,-40}})));
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
     m_flow_nominal=sum(terUni.m1Coo_flow_nominal),
     nUni=nZon,
@@ -97,8 +97,8 @@ equation
                                                          color={0,0,127}));
   connect(mulSum1.y, QHea_flow) annotation (Line(points={{262,280},{286,280},{
           286,280},{320,280}}, color={0,0,127}));
-  connect(mulSum2.y, QCoo_flow) annotation (Line(points={{262,240},{284,240},{
-          284,240},{320,240}}, color={0,0,127}));
+  connect(mulSum2.y, QCoo_flow) annotation (Line(points={{262,240},{284,240},{284,
+          220},{320,220}},     color={0,0,127}));
   connect(weaBus, office.weaBus) annotation (Line(
       points={{1,300},{0,300},{0,20},{-66,20},{-66,-10.2},{-96,-10.2}},
       color={255,204,51},

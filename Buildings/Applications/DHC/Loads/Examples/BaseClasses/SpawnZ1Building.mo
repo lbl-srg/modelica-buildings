@@ -8,6 +8,8 @@ model SpawnZ1Building "Spawn building model based on Urbanopt GeoJSON export"
     nPorts1=2);
   package Medium2 = Buildings.Media.Air
     "Load side medium";
+  parameter Integer nZon = 1
+    "Number of thermal zones";
   parameter String idfPath=
     "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf"
     "Path of the IDF file";
@@ -25,7 +27,8 @@ model SpawnZ1Building "Spawn building model based on Urbanopt GeoJSON export"
     T_a1Hea_nominal=313.15,
     T_a1Coo_nominal=280.15,
     m2Hea_flow_nominal=5,
-    m2Coo_flow_nominal=5) annotation (Placement(transformation(extent={{-160,
+    m2Coo_flow_nominal=5)
+    annotation (Placement(transformation(extent={{-160,
             -60},{-140,-40}})));
   Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
@@ -38,7 +41,8 @@ model SpawnZ1Building "Spawn building model based on Urbanopt GeoJSON export"
   Buildings.Experimental.EnergyPlus.ThermalZone zon(
     redeclare package Medium = Medium2,
     zoneName="Core_ZN",
-    nPorts=2) "Thermal zone"
+    nPorts=2)
+    "Thermal zone"
     annotation (Placement(transformation(extent={{40,-20},{80,20}})));
   inner Buildings.Experimental.EnergyPlus.Building building(
     idfName=Modelica.Utilities.Files.loadResource(idfPath),
@@ -56,14 +60,16 @@ model SpawnZ1Building "Spawn building model based on Urbanopt GeoJSON export"
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC2
     annotation (Placement(transformation(extent={{-260,210},{-240,230}})));
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
-      m_flow_nominal=terUni.m1Hea_flow_nominal, dp_nominal=100000)
+    nUni=nZon,
+    m_flow_nominal=terUni.m1Hea_flow_nominal,
+    dp_nominal=100000)
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
+    nUni=nZon,
     m_flow_nominal=terUni.m1Coo_flow_nominal,
     disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
-    dp_nominal=100000) annotation (Placement(transformation(extent={{-120,
-            -160},{-100,-140}})));
-
+    dp_nominal=100000)
+    annotation (Placement(transformation(extent={{-120, -160},{-100,-140}})));
 equation
   connect(qRadGai_flow.y,multiplex3_1.u1[1])  annotation (Line(
       points={{-59,110},{-40,110},{-40,77},{-36,77}},
@@ -110,10 +116,10 @@ equation
           -42.5},{-130,-42.5},{-130,-42},{-120,-42},{-120,280},{320,280}},
                                                                     color={0,0,127}));
   connect(terUni.QActCoo_flow, QCoo_flow) annotation (Line(points={{-139.167,
-          -44.1667},{-139.167,-46},{-120,-46},{-120,240},{320,240}},
+          -44.1667},{-139.167,-46},{-120,-46},{-120,220},{320,220}},
                                                            color={0,0,127}));
   connect(terUni.PFan, PFan) annotation (Line(points={{-139.167,-49.1667},{260,
-          -49.1667},{260,120},{320,120}},
+          -49.1667},{260,100},{320,100}},
                                 color={0,0,127}));
   connect(terUni.m1ReqHea_flow, disFloHea.m1Req_flow[1]) annotation (Line(
         points={{-139.167,-52.5},{-139.167,-115.083},{-121,-115.083},{-121,-114}},

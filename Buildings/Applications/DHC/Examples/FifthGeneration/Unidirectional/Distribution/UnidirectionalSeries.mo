@@ -8,13 +8,13 @@ model UnidirectionalSeries
   parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal[nCon]
     "Nominal mass flow rate in the connection lines";
   parameter Modelica.SIunits.Length lDis[nCon]
-    "Length of the distribution pipes (only counting warm or cold line, but not sum)";
+    "Length of the distribution pipe before each connection";
   parameter Modelica.SIunits.Length lCon[nCon]
-    "Length of the connection pipes (only counting warm or cold line, but not sum)";
+    "Length of the connection pipe (supply only, not counting return line)";
   parameter Modelica.SIunits.Length dhDis
-    "Hydraulic diameter of distribution pipe";
+    "Hydraulic diameter of the distribution pipe";
   parameter Modelica.SIunits.Length dhCon[nCon]
-    "Hydraulic diameter of connection pipe";
+    "Hydraulic diameter of the connection pipe";
   BaseClasses.ConnectionSeries con[nCon](
     redeclare package Medium = Medium,
     each mDis_flow_nominal=mDis_flow_nominal,
@@ -23,16 +23,9 @@ model UnidirectionalSeries
     lCon=lCon,
     each dhDis=dhDis,
     dhCon=dhCon,
-    each allowFlowReversal=allowFlowReversal) "Connection to agent"
+    each allowFlowReversal=allowFlowReversal)
+    "Connection to agent"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  BaseClasses.PipeDistribution pipDisRet(
-    redeclare each package Medium=Medium,
-    dh=dhDis,
-    length=sum(lDis),
-    m_flow_nominal=mDis_flow_nominal,
-    allowFlowReversal=allowFlowReversal)
-    "Distribution return pipe"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 equation
   connect(port_disInl, con[1].port_disInl)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
@@ -48,10 +41,8 @@ equation
       connect(con[i-1].port_disOut, con[i].port_disInl);
     end for;
   end if;
-  connect(con[nCon].port_disOut, pipDisRet.port_a)
-    annotation (Line(points={{10,0},{40,0}}, color={0,127,255}));
-  connect(pipDisRet.port_b, port_disOut)
-    annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
+  connect(con[nCon].port_disOut, port_disOut)
+    annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
   annotation (
     defaultComponentName="dis",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={

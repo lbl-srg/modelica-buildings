@@ -10,13 +10,13 @@ model ConnectionSeries "Model for connecting an agent to the DHC system"
   parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal
     "Nominal mass flow rate in the connection line";
   parameter Modelica.SIunits.Length lDis
-    "Length of the distribution pipe (only counting warm or cold line, but not sum)";
+    "Length of the distribution pipe before the connection";
   parameter Modelica.SIunits.Length lCon
-    "Length of the connection pipe (only counting warm or cold line, but not sum)";
+    "Length of the connection pipe (supply only, not counting return line)";
   parameter Modelica.SIunits.Length dhDis
-    "Hydraulic diameter of distribution pipe";
+    "Hydraulic diameter of the distribution pipe";
   parameter Modelica.SIunits.Length dhCon
-    "Hydraulic diameter of connection pipe";
+    "Hydraulic diameter of the connection pipe";
   parameter Boolean allowFlowReversal = false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
@@ -28,37 +28,48 @@ model ConnectionSeries "Model for connecting an agent to the DHC system"
     "Specific heat capacity of medium at default medium state";
   // IO CONNECTORS
   Modelica.Fluid.Interfaces.FluidPort_a port_disInl(
-    redeclare package Medium=Medium)
+    redeclare package Medium=Medium,
+    m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
+    h_outflow(start = Medium.h_default, nominal = Medium.h_default))
     "Distribution inlet port"
     annotation (Placement(transformation(
       extent={{-110,-50},{-90,-30}}), iconTransformation(extent={{-110,-10},
         {-90,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_disOut(
-    redeclare package Medium=Medium)
+    redeclare package Medium=Medium,
+    m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
+    h_outflow(start = Medium.h_default, nominal = Medium.h_default))
     "Distribution outlet port"
     annotation (Placement(transformation(
       extent={{90,-50},{110,-30}}), iconTransformation(extent={{90,-10},{110,
         10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_conSup(
-    redeclare package Medium = Medium) "Connection supply port"
+    redeclare package Medium=Medium,
+    m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
+    h_outflow(start = Medium.h_default, nominal = Medium.h_default))
+    "Connection supply port"
     annotation (Placement(transformation(
       extent={{-50,110},{-30,130}}), iconTransformation(extent={{-10,90},{10,110}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_conRet(
-    redeclare package Medium = Medium) "Connection return port"
+    redeclare package Medium=Medium,
+    m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
+    h_outflow(start = Medium.h_default, nominal = Medium.h_default))
+    "Connection return port"
     annotation (Placement(transformation(
       extent={{30,110},{50,130}}),
       iconTransformation(extent={{50,90},{70,110}})));
   Modelica.Blocks.Interfaces.RealOutput mCon_flow
-    "Connection supply mass flow rate" annotation (Placement(transformation(
-          extent={{100,20},{140,60}}), iconTransformation(extent={{100,50},{120,
-            70}})));
+    "Connection supply mass flow rate"
+    annotation (Placement(transformation(
+      extent={{100,20},{140,60}}),
+      iconTransformation(extent={{100,50},{120, 70}})));
   Modelica.Blocks.Interfaces.RealOutput Q_flow
     "Heat flow rate transferred to the connected load (>=0 for heating)"
     annotation (Placement(transformation(extent={{100,60},{140,100}}),
       iconTransformation(extent={{100,70},{120,90}})));
   // COMPONENTS
   BaseClasses.Junction junConSup(
-    redeclare final package Medium = Medium,
+    redeclare final package Medium=Medium,
     portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
     portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
     portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving,
@@ -66,7 +77,7 @@ model ConnectionSeries "Model for connecting an agent to the DHC system"
     "Junction with connection supply"
     annotation (Placement(transformation(extent={{-50,-30},{-30,-50}})));
   BaseClasses.Junction junConRet(
-    redeclare final package Medium = Medium,
+    redeclare final package Medium=Medium,
     portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
     portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
     portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Entering,
@@ -74,56 +85,61 @@ model ConnectionSeries "Model for connecting an agent to the DHC system"
     "Junction with connection return"
     annotation (Placement(transformation(extent={{30,-30},{50,-50}})));
   PipeDistribution pipDis(
-    redeclare final package Medium = Medium,
+    redeclare final package Medium=Medium,
     final m_flow_nominal=mDis_flow_nominal,
     dh=dhDis,
-    length=lDis) "Distribution pipe"
+    length=lDis)
+    "Distribution pipe"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   PipeConnection pipCon(
-    redeclare package Medium = Medium,
+    redeclare package Medium=Medium,
     m_flow_nominal=mCon_flow_nominal,
     length=2*lCon,
-    dh=dhCon) "Connection pipe" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-40,-10})));
+    dh=dhCon)
+    "Connection pipe"
+    annotation (Placement(transformation(
+      extent={{-10,-10},{10,10}},
+      rotation=90,
+      origin={-40,-10})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTConSup(
     allowFlowReversal=allowFlowReversal,
-    redeclare final package Medium = Medium,
-    m_flow_nominal=mCon_flow_nominal) "Connection supply temperature (sensed)"
+    redeclare final package Medium=Medium,
+    m_flow_nominal=mCon_flow_nominal)
+    "Connection supply temperature (sensed)"
     annotation (Placement(transformation(
-        extent={{10,10},{-10,-10}},
-        rotation=-90,
-        origin={-40,80})));
+      extent={{10,10},{-10,-10}},
+      rotation=-90,
+      origin={-40,80})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTConRet(
     allowFlowReversal=allowFlowReversal,
-    redeclare final package Medium = Medium,
-    m_flow_nominal=mCon_flow_nominal) "Connection return temperature (sensed)"
+    redeclare final package Medium=Medium,
+    m_flow_nominal=mCon_flow_nominal)
+    "Connection return temperature (sensed)"
     annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=-90,
-        origin={40,80})));
+      extent={{-10,10},{10,-10}},
+      rotation=-90,
+      origin={40,80})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFloCon(
-    redeclare package Medium = Medium,
+    redeclare package Medium=Medium,
     allowFlowReversal=allowFlowReversal)
     "Connection supply mass flow rate (sensed)"
     annotation (Placement(
-        transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=90,
-        origin={-40,40})));
+      transformation(
+      extent={{-10,10},{10,-10}},
+      rotation=90,
+      origin={-40,40})));
   Modelica.Blocks.Sources.RealExpression QCal_flow(
     y=(senTConSup.T - senTConRet.T) * cp_default * senMasFloCon.m_flow)
     "Calculation of heat flow rate transferred to the load"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFloByp(
-    redeclare package Medium = Medium,
+    redeclare package Medium=Medium,
     allowFlowReversal=allowFlowReversal) if haveBypFloSen
     "Bypass mass flow rate (sensed)"
     annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={0,-40})));
+      extent={{-10,-10},{10,10}},
+      rotation=0,
+      origin={0,-40})));
   Modelica.Blocks.Interfaces.RealOutput mByp_flow if haveBypFloSen
     "Bypass mass flow rate"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),

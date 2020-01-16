@@ -7,6 +7,8 @@ model RCBuildingPump "Building model of type RC one element"
     nPorts1=2);
   package Medium2 = Buildings.Media.Air
     "Load side medium";
+  parameter Integer nZon = 1
+    "Number of thermal zones";
   Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil[2](
     each outSkyCon=true,
     each outGroCon=true,
@@ -116,12 +118,13 @@ model RCBuildingPump "Building model of type RC one element"
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC1
     annotation (Placement(transformation(extent={{-260,250},{-240,270}})));
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
-    redeclare package Medium = Medium1,
+    redeclare package Medium=Medium1,
+    nUni=nZon,
     m_flow_nominal=terUni.m1Hea_flow_nominal,
     havePum=true,
     haveVal=true,
-    dp_nominal=100000) annotation (Placement(transformation(extent={{-100,
-            -120},{-80,-100}})));
+    dp_nominal=100000)
+    annotation (Placement(transformation(extent={{-100, -120},{-80,-100}})));
   Buildings.Applications.DHC.Loads.Examples.BaseClasses.Terminal4PipesFluidPorts
     terUni(
     QHea_flow_nominal=500,
@@ -133,21 +136,22 @@ model RCBuildingPump "Building model of type RC one element"
     T_a1Hea_nominal=313.15,
     T_a1Coo_nominal=280.15,
     m2Hea_flow_nominal=1,
-    m2Coo_flow_nominal=1) annotation (Placement(transformation(extent={{-160,
-            -60},{-140,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=24) "Minimum temperature setpoint"
+    m2Coo_flow_nominal=1)
+    annotation (Placement(transformation(extent={{-160, -60},{-140,-40}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=24)
+    "Minimum temperature setpoint"
     annotation (Placement(transformation(extent={{-300,210},{-280,230}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC2
     annotation (Placement(transformation(extent={{-260,210},{-240,230}})));
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
     redeclare package Medium = Medium1,
+    nUni=nZon,
     m_flow_nominal=terUni.m1Coo_flow_nominal,
     disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
     havePum=true,
     haveVal=true,
-    dp_nominal=100000) annotation (Placement(transformation(extent={{-100,
-            -160},{-80,-140}})));
-
+    dp_nominal=100000)
+    annotation (Placement(transformation(extent={{-100, -160},{-80,-140}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=273 + 35)
     annotation (Placement(transformation(extent={{-180,-130},{-160,-110}})));
   Modelica.Blocks.Sources.RealExpression realExpression1(y=273 + 12)
@@ -312,26 +316,26 @@ equation
           -42.5},{82,-42.5},{82,280},{320,280}},
                                           color={0,127,255}));
   connect(terUni.QActCoo_flow, QCoo_flow) annotation (Line(points={{-139.167,
-          -44.1667},{83.4165,-44.1667},{83.4165,240},{320,240}},
+          -44.1667},{83.4165,-44.1667},{83.4165,220},{320,220}},
                                                        color={0,0,127}));
   connect(terUni.PFan, PFan) annotation (Line(points={{-139.167,-49.1667},{40,
-          -49.1667},{40,-50},{220,-50},{220,120},{320,120}},
+          -49.1667},{40,-50},{220,-50},{220,100},{320,100}},
                                 color={0,0,127}));
-  connect(realExpression.y, disFloHea.TSupSet) annotation (Line(points={{-159,
-          -120},{-130,-120},{-130,-121},{-101,-121}}, color={0,0,127}));
+  connect(realExpression.y, disFloHea.TSupSet) annotation (Line(points={{-159,-120},
+          {-130,-120},{-130,-118},{-101,-118}},       color={0,0,127}));
   connect(terUni.m1ReqHea_flow, disFloHea.m1Req_flow[1]) annotation (Line(
         points={{-139.167,-52.5},{-139.167,-115.25},{-101,-115.25},{-101,-114}},
         color={0,0,127}));
   connect(terUni.m1ReqCoo_flow, disFloCoo.m1Req_flow[1]) annotation (Line(
         points={{-139.167,-54.1667},{-139.167,-154},{-101,-154}}, color={0,0,127}));
-  connect(realExpression1.y, disFloCoo.TSupSet) annotation (Line(points={{-157,
-          -160},{-130,-160},{-130,-161},{-101,-161}}, color={0,0,127}));
+  connect(realExpression1.y, disFloCoo.TSupSet) annotation (Line(points={{-157,-160},
+          {-130,-160},{-130,-158},{-101,-158}},       color={0,0,127}));
   connect(disFloHea.PPum, mulSum.u[1]) annotation (Line(points={{-79,-118},{240,
           -118},{240,81},{258,81}}, color={0,0,127}));
   connect(disFloCoo.PPum, mulSum.u[2]) annotation (Line(points={{-79,-158},{244,
           -158},{244,80},{258,80},{258,79}}, color={0,0,127}));
-  connect(mulSum.y, PPum) annotation (Line(points={{282,80},{298,80},{298,80},{
-          320,80}}, color={0,0,127}));
+  connect(mulSum.y, PPum) annotation (Line(points={{282,80},{298,80},{298,60},{320,
+          60}},     color={0,0,127}));
   annotation (
   Documentation(info="<html>
   <p>

@@ -1,5 +1,5 @@
 ﻿within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Agents;
-model SimplifiedETS
+model ETSSimplified
   "Model of a simplified substation for heating hot water (heat pump) and chilled water (free-cooling HX) production"
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium
@@ -212,8 +212,7 @@ model SimplifiedETS
     final dp2_nominal=dp_nominal)
     "Heat pump (index 1 for condenser side)"
     annotation (Placement(transformation(extent={{10,116},{-10,136}})));
-  Distribution.BaseClasses.Pump_m_flow pumEva(redeclare final package
-      Medium =
+  Distribution.BaseClasses.Pump_m_flow pumEva(redeclare final package Medium =
         Medium, final m_flow_nominal=mEva_flow_nominal) "Evaporator pump"
     annotation (Placement(transformation(extent={{-110,110},{-90,130}})));
   Distribution.BaseClasses.Pump_m_flow pum1HexChi(redeclare final package
@@ -403,8 +402,8 @@ initial equation
     "Nominal heating rate must be strictly positive. Obtained QHea_flow_nominal = " +
     String(QHea_flow_nominal));
 equation
-  connect(volMix_a.ports[1], port_a) annotation (Line(points={{-262.667,
-          -400},{-280,-400}},color={0,127,255}));
+  connect(volMix_a.ports[1], port_a) annotation (Line(points={{-262.667,-400},{
+          -280,-400}},       color={0,127,255}));
   connect(pumEva.port_a, volMix_a.ports[2])
     annotation (Line(points={{-110,120},{-260,120},{-260,-400}},
                                                            color={0,127,255}));
@@ -602,4 +601,4 @@ This is for
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="Add minimum pump flow rate")}));
-end SimplifiedETS;
+end ETSSimplified;

@@ -1,12 +1,12 @@
 within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Examples;
-model ConstantFlow "Case with constant district water mass flow rate"
-  extends Modelica.Icons.Example;
+model ConstantFlowSpawn
+  "Case with constant district water mass flow rate, Spawn building models (6 zones)"
   extends
-    Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Examples.BaseClasses.RN_BaseModel(
+    Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Examples.BaseClasses.PartialSeriesSpawn(
       datDes(epsPla=0.935));
   Modelica.Blocks.Sources.Constant massFlowMainPump(
-    k(final unit="kg/s")=datDes.mDis_flow_nominal)
-    "Pump mass flow rate"
+    k=datDes.mDis_flow_nominal)
+    "Distribution pump mass flow rate"
     annotation (Placement(transformation(extent={{-380,-70},{-360,-50}})));
 equation
   connect(massFlowMainPump.y, pumpMainRLTN.m_flow_in)
@@ -17,11 +17,20 @@ equation
     color={0,0,127}));
   annotation (
   Diagram(
-  coordinateSystem(preserveAspectRatio=false, extent={{-480,-440},{480,440}})),
+  coordinateSystem(preserveAspectRatio=false, extent={{-480,-440},{480,440}}),
+        graphics={
+        Text(
+      extent={{-272,-296},{68,-376}},
+      lineColor={28,108,200},
+      horizontalAlignment=TextAlignment.Left,
+          textString="Simulation requires the first setting and is faster with the  second one
+
+Hidden.AvoidDoubleComputation=true;
+Advanced.SparseActivate=true")}),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/DistrictReservoirNetworks/Examples/Reservoir1Constant.mos"
   "Simulate and plot"),
   experiment(
     StopTime=172800,
     Tolerance=1e-06,
     __Dymola_Algorithm="Cvode"));
-end ConstantFlow;
+end ConstantFlowSpawn;

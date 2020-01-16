@@ -1,5 +1,7 @@
 ﻿within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Examples.BaseClasses;
-partial model RN_BaseModel
+partial model PartialSeriesSpawn
+  "Partial model for series network and Spawn building models (6 zones)"
+  extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water "Medium model";
   parameter Integer nBui = 3
     "Number of buildings connected to DHC system"
@@ -21,7 +23,7 @@ partial model RN_BaseModel
     "Design values"
     annotation (Placement(transformation(extent={{-286,230},{-266,250}})));
   // COMPONENTS
-  Agents.BuildingWithETS bui[nBui](
+  Agents.SpawnBuildingWithETS bui[nBui](
     redeclare each final package Medium = Medium,
     idfPath=idfPath,
     each weaPath=weaPath,
@@ -197,16 +199,6 @@ equation
           -90},{80,-120},{-80,-120},{-80,-100}}, color={0,127,255}));
   annotation (Diagram(
     coordinateSystem(preserveAspectRatio=false, extent={{-320,-380},{320,
-            380}}),
-                graphics={
-        Text(
-      extent={{-296,-218},{44,-298}},
-      lineColor={28,108,200},
-      horizontalAlignment=TextAlignment.Left,
-          textString="Simulation requires the first setting and is faster with the  second one
-
-Hidden.AvoidDoubleComputation=true;
-Advanced.SparseActivate=true")}),
-    experiment(StopTime=31536000, __Dymola_NumberOfIntervals=8760),
-    Icon(coordinateSystem(extent={{-320,-380},{320,380}})));
-end RN_BaseModel;
+            380}})),
+    experiment(StopTime=31536000, __Dymola_NumberOfIntervals=8760));
+end PartialSeriesSpawn;

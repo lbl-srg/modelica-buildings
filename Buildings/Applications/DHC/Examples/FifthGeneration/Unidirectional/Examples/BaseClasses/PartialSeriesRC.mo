@@ -1,38 +1,33 @@
 ﻿within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Examples.BaseClasses;
-partial model RN_BaseModel_bck3
+partial model PartialSeriesRC
+  "Partial model for series network and RC building models (1 zone)"
+  extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water "Medium model";
   parameter Integer nBui = 3
     "Number of buildings connected to DHC system"
     annotation (Evaluate=true);
-  parameter String idfPath[nBui] = {
-    "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportSpawn/Resources/Data/B5a6b99ec37f4de7f94020090/RefBldgSmallOfficeNew2004_Chicago.idf",
-    "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportSpawn/Resources/Data/B5a6b99ec37f4de7f94021950/RefBldgSmallOfficeNew2004_Chicago.idf",
-    "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportSpawn/Resources/Data/B5a6b99ec37f4de7f94020090/RefBldgSmallOfficeNew2004_Chicago.idf"}
-    "Paths of the IDF files";
-  parameter String weaPath=
-    "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportSpawn/Resources/Data/B5a6b99ec37f4de7f94020090/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"
+  parameter String weaPat=
+    "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"
     "Path of the weather file";
-  parameter Integer nZon[nBui] = fill(6, nBui)
+  parameter Integer nZon[nBui] = fill(1, nBui)
     "Number of thermal zones"
     annotation(Evaluate=true);
   inner parameter Data.DesignDataDHC datDes(
     mCon_flow_nominal={
       max(bui[i].ets.m1HexChi_flow_nominal, bui[i].ets.mEva_flow_nominal) for i in 1:nBui})
     "Design values"
-    annotation (Placement(transformation(extent={{-320,240},{-300,260}})));
+    annotation (Placement(transformation(extent={{-286,230},{-266,250}})));
   // COMPONENTS
-  Agents.BuildingWithETS bui[nBui](
+  Agents.RCBuildingWithETS bui[nBui](
     redeclare each final package Medium = Medium,
-    idfPath=idfPath,
-    each weaPath=weaPath,
     nZon=nZon)
     annotation (Placement(transformation(extent={{-10,170},{10,190}})));
   Agents.BoreField borFie(redeclare package Medium=Medium)
     annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=180,
-        origin={-2,-160})));
+        rotation=0,
+        origin={-190,-80})));
   Distribution.BaseClasses.Pump_m_flow pumpMainRLTN(
     redeclare package Medium=Medium,
     m_flow_nominal=datDes.mDis_flow_nominal) "Pump"
@@ -101,36 +96,21 @@ partial model RN_BaseModel_bck3
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
-        origin={50,-160})));
-  Distribution.BaseClasses.Junction splSup9(
-    redeclare package Medium=Medium,
-    m_flow_nominal=datDes.mDis_flow_nominal*{1,1,1},
-    from_dp=false) "Flow splitter" annotation (Placement(transformation(
-        extent={{10,10},{-10,-10}},
-        rotation=90,
-        origin={80,-120})));
-  Distribution.BaseClasses.Junction splSup10(
-    redeclare package Medium=Medium,
-    m_flow_nominal=datDes.mDis_flow_nominal*{1,1,1},
-    from_dp=false) "Flow splitter" annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=90,
-        origin={-80,-120})));
+        origin={-160,-120})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetHeaWatSup[nBui](k=
         bui.THeaWatSup_nominal) "Heating water supply temperature set point"
-    annotation (Placement(transformation(extent={{-320,190},{-300,210}})));
+    annotation (Placement(transformation(extent={{-286,188},{-266,208}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetChiWatSup[nBui](k=
         bui.TChiWatSup_nominal) "Chilled water supply temperature set point"
-    annotation (Placement(transformation(extent={{-320,150},{-300,170}})));
+    annotation (Placement(transformation(extent={{-286,150},{-266,170}})));
   Distribution.BaseClasses.ConnectionSeries conPla(
     redeclare package Medium=Medium,
-    havePum=false,
     mDis_flow_nominal=datDes.mDis_flow_nominal,
     mCon_flow_nominal=datDes.mPla_flow_nominal,
-    lDis=datDes.lDis[1],
-    lCon=datDes.lCon[1],
+    lDis=0,
+    lCon=10,
     dhDis=datDes.dhDis,
-    dhCon=datDes.dhCon[1]) "Connection to the plant" annotation (Placement(
+    dhCon=0.10) "Connection to the plant"            annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -145,6 +125,24 @@ partial model RN_BaseModel_bck3
     dhDis=datDes.dhDis,
     dhCon=datDes.dhCon)
     annotation (Placement(transformation(extent={{-20,130},{20,150}})));
+  Distribution.BaseClasses.ConnectionSeries conSto(
+    redeclare package Medium = Medium,
+    mDis_flow_nominal=datDes.mDis_flow_nominal,
+    mCon_flow_nominal=datDes.mSto_flow_nominal,
+    lDis=0,
+    lCon=0,
+    dhDis=datDes.dhDis,
+    dhCon=datDes.dhDis) "Connection to the bore field" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-80,-90})));
+  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
+    calTSky=Buildings.BoundaryConditions.Types.SkyTemperatureCalculation.HorizontalRadiation,
+    computeWetBulbTemperature=false,
+    filNam=Modelica.Utilities.Files.loadResource(weaPat))
+    "Weather data reader"
+    annotation (Placement(transformation(extent={{40,210},{20,230}})));
 protected
   constant Real scaFacLoa = 10 "Scaling factor for load profiles that are read by the model";
 equation
@@ -164,23 +162,13 @@ equation
     annotation (Line(points={{102,-40},{80,-40},{80,-70}},
                                       color={0,127,255}));
   connect(borFie.port_a, pumpBHS.port_b)
-    annotation (Line(points={{8,-160},{40,-160}}, color={0,127,255}));
-  connect(splSup10.port_2, borFie.port_b)
-    annotation (Line(points={{-80,-130},{-80,-160},{-12,-160}},
-                                        color={0,127,255}));
-  connect(pumpBHS.port_a, splSup9.port_2) annotation (Line(points={{60,-160},{
-          80,-160},{80,-130}}, color={0,127,255}));
-  connect(splSup9.port_1, pumpMainRLTN.port_b)
-    annotation (Line(points={{80,-110},{80,-90}},  color={0,127,255}));
-  connect(splSup10.port_3, splSup9.port_3)
-    annotation (Line(points={{-70,-120},{70,-120}}, color={0,127,255}));
+    annotation (Line(points={{-200,-80},{-260,-80},{-260,-120},{-170,-120}},
+                                                  color={0,127,255}));
   connect(conPla.port_conSup, plant.port_a1) annotation (Line(points={{-90,-10},
           {-100,-10},{-100,-40},{-220,-40},{-220,-30}},     color={0,127,255}));
   connect(pumpPrimarySidePlant.port_b, conPla.port_conRet) annotation (Line(
         points={{-220,20},{-220,40},{-100,40},{-100,-4},{-90,-4}},
         color={0,127,255}));
-  connect(splSup10.port_1, conPla.port_disInl) annotation (Line(points={{-80,
-          -110},{-80,-20}},                  color={0,127,255}));
   connect(conPla.port_disOut, dis.port_disInl) annotation (Line(points={{-80,0},
           {-80,140},{-20,140}},   color={0,127,255}));
   connect(dis.port_disOut, pumpMainRLTN.port_a) annotation (Line(points={{20,140},
@@ -194,22 +182,29 @@ equation
     annotation (Line(points={{-252,-40},{-260,-40},{-260,-18}},    color={0,127,255}));
   connect(sewageSourceAtConstTemp.ports[2], pumpSecondarySidePlant.port_a)
     annotation (Line(points={{-260,-22},{-260,0}},     color={0,127,255}));
-  connect(TSetHeaWatSup.y, bui.TSetHeaWat) annotation (Line(points={{-298,200},
-          {-20,200},{-20,188},{-11,188}},
+  connect(TSetHeaWatSup.y, bui.TSetHeaWat) annotation (Line(points={{-264,
+          198},{-52,198},{-52,188},{-11,188}},
                                      color={0,0,127}));
-  connect(TSetChiWatSup.y, bui.TSetChiWat) annotation (Line(points={{-298,160},
-          {-20,160},{-20,184},{-11,184}}, color={0,0,127}));
+  connect(TSetChiWatSup.y, bui.TSetChiWat) annotation (Line(points={{-264,
+          160},{-50,160},{-50,184},{-11,184}},
+                                          color={0,0,127}));
+  connect(conSto.port_disOut, conPla.port_disInl)
+    annotation (Line(points={{-80,-80},{-80,-20}}, color={0,127,255}));
+  connect(borFie.port_b, conSto.port_conRet) annotation (Line(points={{-180,-80},
+          {-100,-80},{-100,-84},{-90,-84}}, color={0,127,255}));
+  connect(pumpBHS.port_a, conSto.port_conSup) annotation (Line(points={{-150,
+          -120},{-100,-120},{-100,-90},{-90,-90}}, color={0,127,255}));
+  connect(pumpMainRLTN.port_b, conSto.port_disInl) annotation (Line(points={{80,
+          -90},{80,-120},{-80,-120},{-80,-100}}, color={0,127,255}));
+  for i in 1:nBui loop
+    connect(weaDat.weaBus, bui[i].weaBus)
+      annotation (Line(
+        points={{20,220},{-0.1,220},{-0.1,190}},
+        color={255,204,51},
+        thickness=0.5));
+  end for;
   annotation (Diagram(
-    coordinateSystem(preserveAspectRatio=false, extent={{-480,-380},{480,380}}),
-                graphics={
-        Text(
-      extent={{-478,-142},{-138,-222}},
-      lineColor={28,108,200},
-      horizontalAlignment=TextAlignment.Left,
-          textString="Simulation requires the first setting and is faster with the  second one
-
-Hidden.AvoidDoubleComputation=true;
-Advanced.SparseActivate=true")}),
-    experiment(StopTime=31536000, __Dymola_NumberOfIntervals=8760),
-    Icon(coordinateSystem(extent={{-320,-480},{380,360}})));
-end RN_BaseModel_bck3;
+    coordinateSystem(preserveAspectRatio=false, extent={{-320,-380},{320,
+            380}})),
+    experiment(StopTime=31536000, __Dymola_NumberOfIntervals=8760));
+end PartialSeriesRC;

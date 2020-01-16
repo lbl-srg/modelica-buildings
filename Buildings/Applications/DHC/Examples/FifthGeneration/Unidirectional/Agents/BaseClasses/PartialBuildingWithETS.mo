@@ -1,22 +1,12 @@
-within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Agents;
-model BuildingWithETS "Model of a building with an energy transfer station"
+within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Agents.BaseClasses;
+partial model PartialBuildingWithETS
+  "Partial model of a building with an energy transfer station"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     final m_flow_nominal=max(
       ets.m1HexChi_flow_nominal, ets.mEva_flow_nominal),
     final m_flow_small=1E-4*m_flow_nominal,
     final show_T=false,
     final allowFlowReversal=false);
-  parameter String idfPath=
-    "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportSpawn/Resources/Data/B5a6b99ec37f4de7f94020090/RefBldgSmallOfficeNew2004_Chicago.idf"
-    "Path of the IDF file"
-    annotation(Dialog(group="Building model parameters"));
-  parameter String weaPath=
-    "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportSpawn/Resources/Data/B5a6b99ec37f4de7f94020090/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"
-    "Path of the weather file"
-    annotation(Dialog(group="Building model parameters"));
-  parameter Integer nZon=6
-    "Number of thermal zones"
-    annotation(Dialog(group="Building model parameters"), Evaluate=true);
   parameter Integer nSup = 2
     "Number of supply lines"
     annotation(Dialog(group="ETS model parameters"), Evaluate=true);
@@ -65,15 +55,12 @@ model BuildingWithETS "Model of a building with an energy transfer station"
         rotation=0,
         origin={-110,80})));
   // COMPONENTS
-  replaceable Loads.Examples.BaseClasses.GeojsonSpawn1Z6BuildingPump bui(
+  replaceable Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding bui(
     redeclare package Medium1=Medium,
-    nZon=nZon,
-    idfPath=idfPath,
-    weaPath=weaPath,
     nPorts1=nSup)
     "Building"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
-  replaceable SimplifiedETS ets(
+  replaceable ETSSimplified ets(
     redeclare package Medium = Medium,
     nSup=nSup,
     QCoo_flow_nominal=sum(bui.terUni.QCoo_flow_nominal),
@@ -84,7 +71,8 @@ model BuildingWithETS "Model of a building with an energy transfer station"
     THeaWatSup_nominal=THeaWatSup_nominal,
     THeaWatRet_nominal=THeaWatRet_nominal,
     dp_nominal=dp_nominal,
-    COP_nominal=COP_nominal) "Energy transfer station"
+    COP_nominal=COP_nominal)
+    "Energy transfer station"
     annotation (Placement(transformation(extent={{-20,-60},{20,-20}})));
 equation
   connect(port_a, ets.port_a) annotation (Line(points={{-100,0},{-80,0},{-80,-40},
@@ -97,11 +85,11 @@ equation
   connect(TSetHeaWat, ets.TSetHeaWat) annotation (Line(points={{-120,70},{-68,
           70},{-68,-22.8571},{-21.4286,-22.8571}},
                                                color={0,0,127}));
-  connect(bui.ports_b1[1:2], ets.ports_a1) annotation (Line(points={{30,32},{60,
-          32},{60,0},{-40,0},{-40,-52.8571},{-20,-52.8571}}, color={0,127,255}));
+  connect(bui.ports_b1[1:2], ets.ports_a1) annotation (Line(points={{10,44},{60,
+          44},{60,0},{-40,0},{-40,-52.8571},{-20,-52.8571}}, color={0,127,255}));
   connect(ets.ports_b1, bui.ports_a1[1:2]) annotation (Line(points={{20,
-          -52.8571},{28,-52.8571},{40,-52.8571},{40,-80},{-60,-80},{-60,32},{
-          -30,32}},
+          -52.8571},{28,-52.8571},{40,-52.8571},{40,-80},{-60,-80},{-60,44},{
+          -10,44}},
         color={0,127,255}));
   annotation (
     DefaultComponentName="bui",
@@ -220,4 +208,4 @@ equation
           origin={57,-13},
           rotation=90)}),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end BuildingWithETS;
+end PartialBuildingWithETS;
