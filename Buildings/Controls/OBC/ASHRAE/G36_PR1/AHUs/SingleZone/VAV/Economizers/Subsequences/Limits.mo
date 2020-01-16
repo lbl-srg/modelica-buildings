@@ -97,6 +97,8 @@ block Limits "Single zone VAV AHU minimum outdoor air control - damper position 
     annotation (Placement(transformation(extent={{160,22},{200,62}}),
         iconTransformation(extent={{100,40},{140,80}})));
 
+  CDL.Logical.And3 and3
+    annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFanMinSig(
     final k=yFanMin) "Minimum supply fan speed"
@@ -152,8 +154,6 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch enaDis
     "Logical switch to enable damper position limit calculation or disable it (set min limit to physical minimum)"
     annotation (Placement(transformation(extent={{82,-120},{102,-100}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd and1(final nu=3) "Logical and block"
-    annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not block"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Switch enaDis1
@@ -208,8 +208,6 @@ equation
     annotation (Line(points={{-180,180},{-20,180},{-20,160},{60,160},{60,120},{98,120}}, color={0,0,127}));
   connect(uSupFanSpe, yDam_VOutDes_curSpe.u)
     annotation (Line(points={{-180,110},{-24,110},{-24,50},{14,50}}, color={0,0,127}));
-  connect(and1.y,not1. u)
-    annotation (Line(points={{-38,-70},{-22,-70}},   color={255,0,255}));
   connect(not1.y, enaDis.u2)
     annotation (Line(points={{2,-70},{2,-70},{2,-70},{0,-70},{40,-70},{40,-110},
           {80,-110}},                                                                      color={255,0,255}));
@@ -227,24 +225,23 @@ equation
     annotation (Line(points={{102,-70},{140,-70},{140,42},{180,42}}, color={0,0,127}));
   connect(not1.y, enaDis1.u2)
     annotation (Line(points={{2,-70},{78,-70}}, color={255,0,255}));
-  connect(uSupFan, and1.u[1])
-    annotation (Line(points={{-180,-80},{-122,-80},{-122,-65.3333},{-62,
-          -65.3333}},
-      color={255,0,255}));
   connect(uOpeMod, intEqu1.u1)
     annotation (Line(points={{-180,-160},{-102,-160}}, color={255,127,0}));
   connect(conInt1.y, intEqu1.u2)
     annotation (Line(points={{-118,-180},{-112,-180},{-112,-168},{-102,-168}},
       color={255,127,0}));
-  connect(intLesEqu.y, and1.u[2])
-    annotation (Line(points={{-78,-120},{-74,-120},{-74,-70},{-62,-70}}, color={255,0,255}));
-  connect(intEqu1.y, and1.u[3])
-    annotation (Line(points={{-78,-160},{-68,-160},{-68,-74.6667},{-62,-74.6667}},
-      color={255,0,255}));
   connect(intLesEqu.u2, conInt.y)
     annotation (Line(points={{-102,-128},{-110,-128},{-110,-140},{-118,-140}}, color={255,127,0}));
   connect(uFreProSta, intLesEqu.u1)
     annotation (Line(points={{-180,-120},{-102,-120}}, color={255,127,0}));
+  connect(uSupFan, and3.u1) annotation (Line(points={{-180,-80},{-80,-80},{-80,
+          -62},{-62,-62}}, color={255,0,255}));
+  connect(intLesEqu.y, and3.u2) annotation (Line(points={{-78,-120},{-74,-120},
+          {-74,-70},{-62,-70}}, color={255,0,255}));
+  connect(intEqu1.y, and3.u3) annotation (Line(points={{-78,-160},{-68,-160},{
+          -68,-78},{-62,-78}}, color={255,0,255}));
+  connect(and3.y, not1.u)
+    annotation (Line(points={{-38,-70},{-22,-70}}, color={255,0,255}));
 annotation (Placement(transformation(extent={{-20,110},{0,130}})),
                 Placement(transformation(extent={{-20,20},{0,40}})),
                 Placement(transformation(extent={{60,90},{80,110}})),
