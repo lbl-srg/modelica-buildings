@@ -246,7 +246,7 @@ Therefore, the pump speeds are calculated as shown in the figure below.
 </p>
 <p align=\"center\">
 <img alt=\"Image of the control that adjusts the pump speed\"
-src=\"modelica://DHCNetworks/Resources/Images/Controls/MainPump.png\"/>
+src=\"modelica://Buildings/Resources/Images/Examples/DistrictReservoirNetworks/Networks/Controls/MainPump.png\"/>
 </p>
 <p>
 Moreover, if the parameter <code>use_temperatureShift</code> is set to <code>true</code>,
@@ -269,8 +269,8 @@ feedback from the district heating and cooling loop.
 </p>
 <p>
 For a typical usage of this controller, see
-<a href=\"modelica://DHCNetworks.Controls.Validation.MainPumpClosedLoop\">
-DHCNetworks.Controls.Validation.MainPumpClosedLoop</a>.
+<a href=\"modelica://Buildings.Examples.DistrictReservoirNetworks.Examples.Reservoir3Variable\">
+Buildings.Examples.DistrictReservoirNetworks.Examples.Reservoir3Variable</a>.
 </p>
 </html>"));
 end MainPump;
