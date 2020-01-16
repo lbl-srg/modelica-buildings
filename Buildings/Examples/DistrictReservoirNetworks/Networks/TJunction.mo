@@ -12,8 +12,8 @@ model TJunction
 <p>
 Model that sets parameters for the T-junctions that are used in all
 the examples in
-<a href=\"Buildings.Examples.DistrictReservoirNetworks.Examples\">
-Buildings.Examples.DistrictReservoirNetworks.Examples</a>.
+<a href=\"Buildings.Examples.DistrictReservoirNetworks\">
+Buildings.Examples.DistrictReservoirNetworks</a>.
 </p>
 </html>", revisions="<html>
 <ul>

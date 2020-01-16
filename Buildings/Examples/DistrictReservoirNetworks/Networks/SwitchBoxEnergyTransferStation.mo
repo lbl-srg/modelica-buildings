@@ -163,5 +163,18 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{
             -120,-100},{120,100}})),                             Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{
-            120,100}})));
+            120,100}})),
+    Documentation(info="<html>
+<p>
+Model that is used to ensure that the substations obtain the supply from
+the upstream connection of the district loop in the reservoir network models.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 16, 2020, by Michael Wetter:<br/>
+Added documentation.
+</li>
+</ul>
+</html>"));
 end SwitchBoxEnergyTransferStation;

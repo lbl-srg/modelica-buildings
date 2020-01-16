@@ -20,5 +20,18 @@ model Pump_m_flow "Pump with prescribed mass flow rate"
           lineColor={0,0,0},
           pattern=LinePattern.None,
           fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={255,255,255})}));
+          fillColor={255,255,255})}), Documentation(info="<html>
+<p>
+Model that configures common parameters of all pumps that are used in
+<a href=\"Buildings.Examples.DistrictReservoirNetworks\">
+Buildings.Examples.DistrictReservoirNetworks</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 16, 2020, by Michael Wetter:<br/>
+Added documentation.
+</li>
+</ul>
+</html>"));
 end Pump_m_flow;

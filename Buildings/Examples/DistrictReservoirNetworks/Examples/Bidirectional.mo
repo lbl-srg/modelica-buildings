@@ -182,8 +182,8 @@ model Bidirectional "Bidirectional network"
         extent={{-6,6},{6,-6}},
         rotation=90,
         origin={-160,110})));
-  Buildings.Fluid.Sensors.MassFlowRate senMasFloPriBor(redeclare package Medium
-      = Medium, allowFlowReversal=true)
+  Buildings.Fluid.Sensors.MassFlowRate senMasFloPriBor(redeclare package Medium =
+        Medium, allowFlowReversal=true)
     "Mass flow rate sensor upstream of borefield" annotation (Placement(
         transformation(
         extent={{6,6},{-6,-6}},
@@ -592,5 +592,12 @@ In the bi-directional network, the mass flow rate in the distribution pipe
 changes direction depending on the water flow rate that the substations
 draw from the distribution pipe.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 12, 2020, by Michael Wetter:<br/>
+Added documentation.
+</li>
+</ul>
 </html>"));
 end Bidirectional;

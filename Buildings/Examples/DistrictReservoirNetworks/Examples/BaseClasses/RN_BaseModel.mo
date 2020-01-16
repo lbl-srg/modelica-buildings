@@ -362,29 +362,29 @@ equation
           170,-47},{170,-34},{180,-34}}, color={0,127,255}));
   connect(swiApa.port_b1, proApa.port_a) annotation (Line(points={{160,163},{
           170,163},{170,178},{180,178}}, color={0,127,255}));
-  connect(proApa.m_flow_HPSH, swiApa.mSpaHea_flow) annotation (Line(points={{
-          220.286,168},{224,168},{224,220},{158,220},{158,169}}, color={0,0,127}));
-  connect(proApa.m_flow_HPDHW, swiApa.mDomHotWat_flow) annotation (Line(points=
-          {{220.286,163.714},{228,163.714},{228,224},{156,224},{156,169}},
+  connect(proApa.m_flow_HPSH, swiApa.mSpaHea_flow) annotation (Line(points={{220.286,
+          168},{224,168},{224,220},{158,220},{158,169}},         color={0,0,127}));
+  connect(proApa.m_flow_HPDHW, swiApa.mDomHotWat_flow) annotation (Line(points={{220.286,
+          163.714},{228,163.714},{228,224},{156,224},{156,169}},
         color={0,0,127}));
-  connect(proApa.m_flow_FC, swiApa.mFreCoo_flow) annotation (Line(points={{
-          220.286,159.429},{230,159.429},{230,228},{154,228},{154,169}}, color=
+  connect(proApa.m_flow_FC, swiApa.mFreCoo_flow) annotation (Line(points={{220.286,
+          159.429},{230,159.429},{230,228},{154,228},{154,169}},         color=
           {0,0,127}));
-  connect(proHos.m_flow_HPSH, swiHos.mSpaHea_flow) annotation (Line(points={{
-          220.286,-44},{224,-44},{224,10},{158,10},{158,-41}}, color={0,0,127}));
-  connect(proHos.m_flow_HPDHW, swiHos.mDomHotWat_flow) annotation (Line(points=
-          {{220.286,-48.2857},{226,-48.2857},{226,14},{156,14},{156,-41}},
+  connect(proHos.m_flow_HPSH, swiHos.mSpaHea_flow) annotation (Line(points={{220.286,
+          -44},{224,-44},{224,10},{158,10},{158,-41}},         color={0,0,127}));
+  connect(proHos.m_flow_HPDHW, swiHos.mDomHotWat_flow) annotation (Line(points={{220.286,
+          -48.2857},{226,-48.2857},{226,14},{156,14},{156,-41}},
         color={0,0,127}));
-  connect(proHos.m_flow_FC, swiHos.mFreCoo_flow) annotation (Line(points={{
-          220.286,-52.5714},{228,-52.5714},{228,18},{154,18},{154,-41}}, color=
+  connect(proHos.m_flow_FC, swiHos.mFreCoo_flow) annotation (Line(points={{220.286,
+          -52.5714},{228,-52.5714},{228,18},{154,18},{154,-41}},         color=
           {0,0,127}));
   connect(proOff.port_a, swiOff.port_b1) annotation (Line(points={{-180,-20},{-170,
           -20},{-170,-5},{-160,-5}}, color={0,127,255}));
   connect(proOff.m_flow_HPSH, swiOff.mSpaHea_flow) annotation (Line(points={{
           -220.286,-30},{-224,-30},{-224,-50},{-158,-50},{-158,-11}}, color={0,
           0,127}));
-  connect(proOff.m_flow_HPDHW, swiOff.mDomHotWat_flow) annotation (Line(points=
-          {{-220.286,-34.2857},{-226,-34.2857},{-226,-52},{-156,-52},{-156,-11}},
+  connect(proOff.m_flow_HPDHW, swiOff.mDomHotWat_flow) annotation (Line(points={{
+          -220.286,-34.2857},{-226,-34.2857},{-226,-52},{-156,-52},{-156,-11}},
         color={0,0,127}));
   connect(proOff.m_flow_FC, swiOff.mFreCoo_flow) annotation (Line(points={{
           -220.286,-38.5714},{-228,-38.5714},{-228,-54},{-154,-54},{-154,-11}},
@@ -533,5 +533,19 @@ equation
   annotation (Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-320,-480},{380,360}})),
     experiment(StopTime=31536000, __Dymola_NumberOfIntervals=8760),
-    Icon(coordinateSystem(extent={{-320,-480},{380,360}})));
+    Icon(coordinateSystem(extent={{-320,-480},{380,360}})),
+    Documentation(info="<html>
+<p>
+Partial model that is used by the reservoir network models.
+The reservoir network models extend this model, add controls,
+and configure some component sizes.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 16, 2020, by Michael Wetter:<br/>
+Added documentation.
+</li>
+</ul>
+</html>"));
 end RN_BaseModel;

@@ -38,7 +38,8 @@ equation
           fillPattern=FillPattern.Solid)}),
 Documentation(info="<html>
 <p>
-Block that outputs the running fractional time during which any element <i>u<sub>i</sub></i> of the input signal
+Block that outputs the running fractional time during which any element
+<i>u<sub>i</sub></i> of the input signal
 is not within <i>u<sub>min</sub> &le; u<sub>i</sub> &le; u<sub>max</sub></i>.
 </p>
 </html>", revisions="<html>

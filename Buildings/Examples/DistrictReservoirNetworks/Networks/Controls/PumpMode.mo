@@ -29,4 +29,19 @@ equation
           -8},{58,-8}}, color={0,0,127}));
   connect(mBorFie_flow, summerMode.u) annotation (Line(points={{-120,0},{-40,0},
           {-40,-40},{-2,-40}},        color={0,0,127}));
+  annotation (Documentation(info="<html>
+<p>
+Controller that is used in the bidirectional network to set the mass flow rate
+of the pumps in the flow switch box of the borefield.
+In winter mode, the control signal is <i>0</i>, and in summer mode it is the absolute
+value of the input signal <code>mBorFie_flow</code>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 16, 2020, by Michael Wetter:<br/>
+Added documentation.
+</li>
+</ul>
+</html>"));
 end PumpMode;
