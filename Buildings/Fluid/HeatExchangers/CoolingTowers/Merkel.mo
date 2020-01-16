@@ -107,10 +107,10 @@ protected
         h=inStream(port_a.h_outflow),
         X=inStream(port_a.Xi_outflow))))
     "Water inlet temperature"
-    annotation (Placement(transformation(extent={{-70,32},{-50,50}})));
+    annotation (Placement(transformation(extent={{-70,36},{-50,54}})));
   Modelica.Blocks.Sources.RealExpression mWat_flow(final y=port_a.m_flow)
     "Water mass flow rate"
-    annotation (Placement(transformation(extent={{-70,12},{-50,30}})));
+    annotation (Placement(transformation(extent={{-70,20},{-50,38}})));
 
   Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Merkel per(
     redeclare final package Medium = Medium,
@@ -125,7 +125,6 @@ protected
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 
 initial equation
-
   // Check validity of relative fan power consumption at y=yMin and y=1
   assert(cha.normalizedPower(per=fanRelPow, r_V=yMin, d=fanRelPowDer) > -1E-4,
     "The fan relative power consumption must be non-negative for y=0."
@@ -144,12 +143,12 @@ equation
         color={0,0,127}));
   connect(per.TAir, TAir) annotation (Line(points={{-22,54},{-80,54},{-80,40},{-120,
           40}}, color={0,0,127}));
-  connect(per.Q_flow, preHea.Q_flow) annotation (Line(points={{1,50},{20,50},{20,
-          -32},{-50,-32},{-50,-50},{-40,-50}}, color={0,0,127}));
+  connect(per.Q_flow, preHea.Q_flow) annotation (Line(points={{1,50},{12,50},{12,
+          12},{-80,12},{-80,-50},{-40,-50}},   color={0,0,127}));
   connect(per.m_flow, mWat_flow.y) annotation (Line(points={{-22,42},{-34,42},{-34,
-          21},{-49,21}}, color={0,0,127}));
-  connect(TWatIn.y, per.TWatIn) annotation (Line(points={{-49,41},{-35.5,41},
-          {-35.5,46},{-22,46}}, color={0,0,127}));
+          29},{-49,29}}, color={0,0,127}));
+  connect(TWatIn.y, per.TWatIn) annotation (Line(points={{-49,45},{-35.5,45},{-35.5,
+          46},{-22,46}},        color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(
           extent={{-98,100},{-86,84}},
