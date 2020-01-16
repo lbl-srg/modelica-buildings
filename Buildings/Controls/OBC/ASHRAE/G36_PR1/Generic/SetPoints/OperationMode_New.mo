@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints;
-block OperationMode_rei "Block that outputs the operation mode"
+block OperationMode_New "Block that outputs the operation mode"
 
   parameter Integer numZon(min=1) "Number of zones";
   parameter Real preWarCooTim(unit="s") = 10800
@@ -766,4 +766,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end OperationMode_rei;
+end OperationMode_New;

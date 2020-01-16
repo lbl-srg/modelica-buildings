@@ -3,6 +3,8 @@ block ZoneStatus "Block that outputs zone status"
 
   parameter Modelica.SIunits.TemperatureDifference bouLim(min=0.5) = 1.1
     "Value limit to indicate the end of setback or setup mode";
+  parameter Boolean have_winSen=false
+    "Check if the zone has window status sensor";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput cooDowTim(
     final unit="s",
@@ -16,7 +18,7 @@ block ZoneStatus "Block that outputs zone status"
     "Warm-up time retrieved from optimal warm-up block"
     annotation (Placement(transformation(extent={{-180,140},{-140,180}}),
         iconTransformation(extent={{-140,50},{-100,90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWinSta
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWinSta if have_winSen
     "Window status: true=open, false=close"
     annotation (Placement(transformation(extent={{-180,100},{-140,140}}),
         iconTransformation(extent={{-140,30},{-100,70}})));
@@ -168,6 +170,9 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch swi1
     "Decide if the temperature difference to setpoint should be ignored: if the zone window is open, then output setpoint temperature, otherwise, output zone temperature"
     annotation (Placement(transformation(extent={{-20,-230},{0,-210}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(final k=false) if not have_winSen
+    "Constant false"
+    annotation (Placement(transformation(extent={{-128,130},{-108,150}})));
 
 equation
   connect(cooDowTim, pro.u1) annotation (Line(points={{-160,220},{-60,220},{-60,
@@ -247,6 +252,12 @@ equation
   connect(hys5.y, yHigUnoCoo)
     annotation (Line(points={{102,-220},{160,-220}}, color={255,0,255}));
 
+  connect(con.y, not1.u) annotation (Line(points={{-106,140},{-100,140},{-100,120},
+          {-22,120}}, color={255,0,255}));
+  connect(con.y, swi.u2) annotation (Line(points={{-106,140},{-100,140},{-100,-60},
+          {-22,-60}}, color={255,0,255}));
+  connect(con.y, swi1.u2) annotation (Line(points={{-106,140},{-100,140},{-100,-220},
+          {-22,-220}}, color={255,0,255}));
 annotation (
   defaultComponentName = "zonSta",
   Diagram(
