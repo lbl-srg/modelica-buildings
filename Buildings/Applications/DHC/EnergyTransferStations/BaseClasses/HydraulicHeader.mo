@@ -3,26 +3,37 @@ model HydraulicHeader "Hydraulic header manifold."
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium;
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate";
-  parameter Integer nPorts_a=1
+  parameter Integer nPorts_a = 0
     "Number of ports"
      annotation (
-       Evaluate=true, Dialog(connectorSizing=true, tab="General", group="Ports"));
-  parameter Integer nPorts_b=1
+       Dialog(connectorSizing=true, tab="General", group="Ports"),
+       Evaluate=true);
+  parameter Integer nPorts_b = 0
     "Number of ports"
-    annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
+    annotation (
+      Dialog(connectorSizing=true, tab="General",group="Ports"),
+      Evaluate=true);
+  parameter Boolean allowFlowReversal = true
+    "= false to simplify equations, assuming, but not enforcing, no flow reversal";
   Buildings.Fluid.FixedResistances.LosslessPipe pip(
     redeclare package Medium=Medium,
+    allowFlowReversal=allowFlowReversal,
     m_flow_nominal=m_flow_nominal)
+    "Dummy pipe component used to model ideal mixing at each port"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Fluid.Interfaces.FluidPorts_a ports_a[nPorts_a](
-    redeclare package Medium=Medium)
+    redeclare package Medium=Medium,
+    each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
+    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     annotation (Placement(
       transformation(extent={{-110,-40},{-90,40}}),
         iconTransformation(extent={{-10,-40}, {10,40}},
        rotation=180,
        origin={-100,0})));
   Modelica.Fluid.Interfaces.FluidPorts_b ports_b[nPorts_b](
-    redeclare package Medium=Medium)
+    redeclare package Medium=Medium,
+    each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
+    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     annotation (Placement(
        transformation(extent={{90,-40},{110,40}}),
        iconTransformation(extent={{-10,-40}, {10,40}},

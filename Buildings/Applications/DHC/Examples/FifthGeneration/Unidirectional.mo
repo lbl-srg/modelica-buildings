@@ -3983,14 +3983,16 @@ Hidden.AvoidDoubleComputation=true")}),
       connect(senMasFlo1Ret.port_b, bou1.ports[2]) annotation (Line(points={{-80,
               -20},{-120,-20},{-120,-2}}, color={0,127,255}));
       connect(senT1Sup.port_b, hydHea.ports_a[1]) annotation (Line(points={{-30,20},
-              {0.7,20},{0.7,8.2}},   color={0,127,255}));
-      connect(hydHea.ports_b[1], senT1Ret.port_a) annotation (Line(points={{-0.9,
-              -12.4},{-0.9,-20},{-30,-20}},
+              {2.66667,20},{2.66667,8}},
+                                     color={0,127,255}));
+      connect(hydHea.ports_b[1], senT1Ret.port_a) annotation (Line(points={{
+              -2.66667,-12},{-2.66667,-20},{-30,-20}},
                                       color={0,127,255}));
       connect(senT2Ret.port_b, hydHea.ports_b[2]) annotation (Line(points={{30,-20},
-              {14,-20},{14,-12.4},{0.1,-12.4}},  color={0,127,255}));
-      connect(hydHea.ports_a[2], senT2Sup.port_a) annotation (Line(points={{-0.3,
-              8.2},{20,8.2},{20,20},{30,20}},
+              {14,-20},{14,-12},{-1.77636e-15,-12}},
+                                                 color={0,127,255}));
+      connect(hydHea.ports_a[2], senT2Sup.port_a) annotation (Line(points={{
+              1.77636e-15,8},{20,8},{20,20},{30,20}},
                                          color={0,127,255}));
       connect(senT2Sup1.port_b, senMasFlo2Sup1.port_a)
         annotation (Line(points={{50,-120},{110,-120}}, color={0,127,255}));
@@ -4015,11 +4017,10 @@ Hidden.AvoidDoubleComputation=true")}),
       connect(m2.y,sou3. m_flow_in)
         annotation (Line(points={{178,-80},{160,-80},{160,-148}},
                                                               color={0,0,127}));
-      connect(senT2Ret1.port_b, hydHea.ports_b[2]) annotation (Line(points={{30,-160},
-              {14,-160},{14,-12.4},{0.1,-12.4}}, color={0,127,255}));
-      connect(hydHea.ports_a[2], senT2Sup1.port_a) annotation (Line(points={{-0.3,
-              8.2},{20,8.2},{20,-120},{30,-120}},
-                                           color={0,127,255}));
+      connect(hydHea.ports_a[3], senT2Sup1.port_a) annotation (Line(points={{
+              -2.66667,8},{20,8},{20,-120},{30,-120}}, color={0,127,255}));
+      connect(hydHea.ports_b[3], senT2Ret1.port_b) annotation (Line(points={{
+              2.66667,-12},{14,-12},{14,-160},{30,-160}}, color={0,127,255}));
       annotation (
         Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-200},{
                 220,120}})),
@@ -4027,7 +4028,8 @@ Hidden.AvoidDoubleComputation=true")}),
           StopTime=5000,
           Tolerance=1e-06,
           __Dymola_Algorithm="Cvode"),
-        __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Examples/FifthGenUniSeries/Validation/BuildingETSConnection.mos"
+        __Dymola_Commands(file=
+              "Resources/Scripts/Dymola/Applications/DHC/Examples/FifthGenUniSeries/Validation/Decoupler.mos"
             "Simulate and plot"));
     end Decoupler;
   end Validation;
