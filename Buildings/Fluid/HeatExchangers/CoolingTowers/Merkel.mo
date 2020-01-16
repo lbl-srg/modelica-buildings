@@ -219,32 +219,38 @@ equation
   // Handling of flow reversal
    if allowFlowReversal then
     if homotopyInitialization then
-      TWatIn=Medium.temperature(Medium.setState_phX(p=port_a.p,
+      TWatIn=Medium.temperature(Medium.setState_phX(
+          p=port_a.p,
           h=homotopy(actual=actualStream(port_a.h_outflow),
-            simplified=inStream(port_a.h_outflow)),
+                     simplified=inStream(port_a.h_outflow)),
           X=homotopy(actual=actualStream(port_a.Xi_outflow),
-            simplified=inStream(port_a.Xi_outflow))));
-      TWatOut=Medium.temperature(Medium.setState_phX(p=port_b.p,
-          h=homotopy(actual=actualStream(port_b.h_outflow),
-            simplified=port_b.h_outflow),
-          X=homotopy(actual=actualStream(port_b.Xi_outflow),
-            simplified=port_b.Xi_outflow)));
+                     simplified=inStream(port_a.Xi_outflow))));
+      TWatOut=Medium.temperature(Medium.setState_phX(
+        p=port_b.p,
+        h=homotopy(actual=actualStream(port_b.h_outflow),
+                   simplified=port_b.h_outflow),
+        X=homotopy(actual=actualStream(port_b.Xi_outflow),
+                   simplified=port_b.Xi_outflow)));
     else
-      TWatIn=Medium.temperature(Medium.setState_phX(p=port_a.p,
-          h=actualStream(port_a.h_outflow),
-          X=actualStream(port_a.Xi_outflow)));
-      TWatOut=Medium.temperature(Medium.setState_phX(p=port_b.p,
-          h=actualStream(port_b.h_outflow),
-          X=actualStream(port_b.Xi_outflow)));
+      TWatIn=Medium.temperature(Medium.setState_phX(
+        p=port_a.p,
+        h=actualStream(port_a.h_outflow),
+        X=actualStream(port_a.Xi_outflow)));
+      TWatOut=Medium.temperature(Medium.setState_phX(
+        p=port_b.p,
+        h=actualStream(port_b.h_outflow),
+        X=actualStream(port_b.Xi_outflow)));
     end if; // homotopyInitialization
 
   else // reverse flow not allowed
-    TWatIn=Medium.temperature(Medium.setState_phX(p=port_a.p,
-          h=inStream(port_a.h_outflow),
-          X=inStream(port_a.Xi_outflow)));
-    TWatOut=Medium.temperature(Medium.setState_phX(p=port_b.p,
-          h=inStream(port_b.h_outflow),
-          X=inStream(port_b.Xi_outflow)));
+    TWatIn=Medium.temperature(Medium.setState_phX(
+      p=port_a.p,
+      h=inStream(port_a.h_outflow),
+      X=inStream(port_a.Xi_outflow)));
+    TWatOut=Medium.temperature(Medium.setState_phX(
+      p=port_b.p,
+      h=inStream(port_b.h_outflow),
+      X=inStream(port_b.Xi_outflow)));
    end if;
    // For cp water, we use the inlet temperatures because the effect is small
    // for actual water temperature differences, and in case of Buildings.Media.Water,
