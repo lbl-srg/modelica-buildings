@@ -1,5 +1,5 @@
 ﻿within Buildings.Applications.DHC.Examples.FifthGeneration.UnidirectionalSeries.Examples.BaseClasses;
-partial model RN_BaseModel
+partial model RN_BaseModel_bck3
   package Medium = Buildings.Media.Water "Medium model";
   parameter Integer nBui = 3
     "Number of buildings connected to DHC system"
@@ -19,7 +19,7 @@ partial model RN_BaseModel
     mCon_flow_nominal={
       max(bui[i].ets.m1HexChi_flow_nominal, bui[i].ets.mEva_flow_nominal) for i in 1:nBui})
     "Design values"
-    annotation (Placement(transformation(extent={{-380,240},{-360,260}})));
+    annotation (Placement(transformation(extent={{-320,240},{-300,260}})));
   // COMPONENTS
   Agents.BuildingWithETS bui[nBui](
     redeclare each final package Medium = Medium,
@@ -31,8 +31,8 @@ partial model RN_BaseModel
     annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-190,-80})));
+        rotation=180,
+        origin={-2,-160})));
   Distribution.BaseClasses.Pump_m_flow pumpMainRLTN(
     redeclare package Medium=Medium,
     m_flow_nominal=datDes.mDis_flow_nominal) "Pump"
@@ -101,21 +101,36 @@ partial model RN_BaseModel
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
-        origin={-160,-120})));
+        origin={50,-160})));
+  Distribution.BaseClasses.Junction splSup9(
+    redeclare package Medium=Medium,
+    m_flow_nominal=datDes.mDis_flow_nominal*{1,1,1},
+    from_dp=false) "Flow splitter" annotation (Placement(transformation(
+        extent={{10,10},{-10,-10}},
+        rotation=90,
+        origin={80,-120})));
+  Distribution.BaseClasses.Junction splSup10(
+    redeclare package Medium=Medium,
+    m_flow_nominal=datDes.mDis_flow_nominal*{1,1,1},
+    from_dp=false) "Flow splitter" annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={-80,-120})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetHeaWatSup[nBui](k=
         bui.THeaWatSup_nominal) "Heating water supply temperature set point"
-    annotation (Placement(transformation(extent={{-380,190},{-360,210}})));
+    annotation (Placement(transformation(extent={{-320,190},{-300,210}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetChiWatSup[nBui](k=
         bui.TChiWatSup_nominal) "Chilled water supply temperature set point"
-    annotation (Placement(transformation(extent={{-380,150},{-360,170}})));
+    annotation (Placement(transformation(extent={{-320,150},{-300,170}})));
   Distribution.BaseClasses.ConnectionSeries conPla(
     redeclare package Medium=Medium,
+    havePum=false,
     mDis_flow_nominal=datDes.mDis_flow_nominal,
     mCon_flow_nominal=datDes.mPla_flow_nominal,
-    lDis=0,
-    lCon=10,
+    lDis=datDes.lDis[1],
+    lCon=datDes.lCon[1],
     dhDis=datDes.dhDis,
-    dhCon=0.10) "Connection to the plant"            annotation (Placement(
+    dhCon=datDes.dhCon[1]) "Connection to the plant" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -130,18 +145,6 @@ partial model RN_BaseModel
     dhDis=datDes.dhDis,
     dhCon=datDes.dhCon)
     annotation (Placement(transformation(extent={{-20,130},{20,150}})));
-  Distribution.BaseClasses.ConnectionSeries conSto(
-    redeclare package Medium = Medium,
-    mDis_flow_nominal=datDes.mDis_flow_nominal,
-    mCon_flow_nominal=datDes.mSto_flow_nominal,
-    lDis=0,
-    lCon=0,
-    dhDis=datDes.dhDis,
-    dhCon=datDes.dhDis) "Connection to the bore field" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-80,-90})));
 protected
   constant Real scaFacLoa = 10 "Scaling factor for load profiles that are read by the model";
 equation
@@ -161,13 +164,23 @@ equation
     annotation (Line(points={{102,-40},{80,-40},{80,-70}},
                                       color={0,127,255}));
   connect(borFie.port_a, pumpBHS.port_b)
-    annotation (Line(points={{-200,-80},{-260,-80},{-260,-120},{-170,-120}},
-                                                  color={0,127,255}));
+    annotation (Line(points={{8,-160},{40,-160}}, color={0,127,255}));
+  connect(splSup10.port_2, borFie.port_b)
+    annotation (Line(points={{-80,-130},{-80,-160},{-12,-160}},
+                                        color={0,127,255}));
+  connect(pumpBHS.port_a, splSup9.port_2) annotation (Line(points={{60,-160},{
+          80,-160},{80,-130}}, color={0,127,255}));
+  connect(splSup9.port_1, pumpMainRLTN.port_b)
+    annotation (Line(points={{80,-110},{80,-90}},  color={0,127,255}));
+  connect(splSup10.port_3, splSup9.port_3)
+    annotation (Line(points={{-70,-120},{70,-120}}, color={0,127,255}));
   connect(conPla.port_conSup, plant.port_a1) annotation (Line(points={{-90,-10},
           {-100,-10},{-100,-40},{-220,-40},{-220,-30}},     color={0,127,255}));
   connect(pumpPrimarySidePlant.port_b, conPla.port_conRet) annotation (Line(
         points={{-220,20},{-220,40},{-100,40},{-100,-4},{-90,-4}},
         color={0,127,255}));
+  connect(splSup10.port_1, conPla.port_disInl) annotation (Line(points={{-80,
+          -110},{-80,-20}},                  color={0,127,255}));
   connect(conPla.port_disOut, dis.port_disInl) annotation (Line(points={{-80,0},
           {-80,140},{-20,140}},   color={0,127,255}));
   connect(dis.port_disOut, pumpMainRLTN.port_a) annotation (Line(points={{20,140},
@@ -181,19 +194,11 @@ equation
     annotation (Line(points={{-252,-40},{-260,-40},{-260,-18}},    color={0,127,255}));
   connect(sewageSourceAtConstTemp.ports[2], pumpSecondarySidePlant.port_a)
     annotation (Line(points={{-260,-22},{-260,0}},     color={0,127,255}));
-  connect(TSetHeaWatSup.y, bui.TSetHeaWat) annotation (Line(points={{-358,200},
+  connect(TSetHeaWatSup.y, bui.TSetHeaWat) annotation (Line(points={{-298,200},
           {-20,200},{-20,188},{-11,188}},
                                      color={0,0,127}));
-  connect(TSetChiWatSup.y, bui.TSetChiWat) annotation (Line(points={{-358,160},
+  connect(TSetChiWatSup.y, bui.TSetChiWat) annotation (Line(points={{-298,160},
           {-20,160},{-20,184},{-11,184}}, color={0,0,127}));
-  connect(conSto.port_disOut, conPla.port_disInl)
-    annotation (Line(points={{-80,-80},{-80,-20}}, color={0,127,255}));
-  connect(borFie.port_b, conSto.port_conRet) annotation (Line(points={{-180,-80},
-          {-100,-80},{-100,-84},{-90,-84}}, color={0,127,255}));
-  connect(pumpBHS.port_a, conSto.port_conSup) annotation (Line(points={{-150,
-          -120},{-100,-120},{-100,-90},{-90,-90}}, color={0,127,255}));
-  connect(pumpMainRLTN.port_b, conSto.port_disInl) annotation (Line(points={{80,
-          -90},{80,-120},{-80,-120},{-80,-100}}, color={0,127,255}));
   annotation (Diagram(
     coordinateSystem(preserveAspectRatio=false, extent={{-480,-380},{480,380}}),
                 graphics={
@@ -207,4 +212,4 @@ Hidden.AvoidDoubleComputation=true;
 Advanced.SparseActivate=true")}),
     experiment(StopTime=31536000, __Dymola_NumberOfIntervals=8760),
     Icon(coordinateSystem(extent={{-320,-480},{380,360}})));
-end RN_BaseModel;
+end RN_BaseModel_bck3;

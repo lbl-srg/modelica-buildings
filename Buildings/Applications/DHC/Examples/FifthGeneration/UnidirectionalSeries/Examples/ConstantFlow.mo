@@ -8,12 +8,13 @@ model ConstantFlow "Case with constant district water mass flow rate"
   Modelica.Blocks.Sources.Constant massFlowMainPump(
     k(final unit="kg/s")=datDes.mDis_flow_nominal)
     "Pump mass flow rate"
-    annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
+    annotation (Placement(transformation(extent={{-380,-70},{-360,-50}})));
 equation
   connect(massFlowMainPump.y, pumpMainRLTN.m_flow_in)
-    annotation (Line(points={{11,-80},{68,-80}},color={0,0,127}));
+    annotation (Line(points={{-359,-60},{60,-60},{60,-80},{68,-80}},
+                                                color={0,0,127}));
   connect(pumpBHS.m_flow_in, massFlowMainPump.y)
-    annotation (Line(points={{50,-148},{50,-80},{11,-80}},
+    annotation (Line(points={{-160,-108},{-160,-60},{-359,-60}},
     color={0,0,127}));
   annotation (
   Diagram(

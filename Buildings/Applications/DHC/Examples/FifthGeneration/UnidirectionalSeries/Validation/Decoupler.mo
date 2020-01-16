@@ -13,11 +13,14 @@ model Decoupler "Validation of building and ETS connection"
     addPowerToMedium=false,
     nominalValuesDefineDefaultPressureCurve=true) "Primary supply"
     annotation (Placement(transformation(extent={{-110,10},{-90,30}})));
-  Agents.Decoupler dec(
+  EnergyTransferStations.BaseClasses.HydraulicHeader hydHea(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    nSec=1) "Decoupler"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    nPorts_a=2,
+    nPorts_b=2)
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={0,-2})));
   Fluid.Movers.FlowControlled_m_flow sou2(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -118,12 +121,6 @@ model Decoupler "Validation of building and ETS connection"
 equation
   connect(m1.y, sou1.m_flow_in) annotation (Line(points={{-158,60},{-100,60},{
           -100,32}},       color={0,0,127}));
-  connect(dec.ports_b2[1], senT2Sup.port_a) annotation (Line(points={{10,5},{20,
-          5},{20,20},{30,20}}, color={0,127,255}));
-  connect(senT1Sup.port_b, dec.port_a1) annotation (Line(points={{-30,20},{-20,
-          20},{-20,5},{-10,5}}, color={0,127,255}));
-  connect(senT2Ret.port_b, dec.ports_a2[1]) annotation (Line(points={{30,-20},{
-          20,-20},{20,-5.2},{10,-5.2}}, color={0,127,255}));
   connect(senMasFlo1Sup.port_b, senT1Sup.port_a)
     annotation (Line(points={{-60,20},{-50,20}}, color={0,127,255}));
   connect(senT2Sup.port_b, senMasFlo2Sup.port_a)
@@ -152,12 +149,18 @@ equation
           20},{-110,20}}, color={0,127,255}));
   connect(T1.y, bou1.T_in) annotation (Line(points={{-158,-50},{-152,-50},{-152,
           4},{-142,4}}, color={0,0,127}));
-  connect(dec.port_b1, senT1Ret.port_a) annotation (Line(points={{-10,-6},{-16,
-          -6},{-16,-20},{-30,-20}}, color={0,127,255}));
   connect(senT1Ret.port_b, senMasFlo1Ret.port_a)
     annotation (Line(points={{-50,-20},{-60,-20}}, color={0,127,255}));
   connect(senMasFlo1Ret.port_b, bou1.ports[2]) annotation (Line(points={{-80,
           -20},{-120,-20},{-120,-2}}, color={0,127,255}));
+  connect(senT1Sup.port_b, hydHea.ports_a[1]) annotation (Line(points={{-30,20},
+          {0.45,20},{0.45,8.2}}, color={0,127,255}));
+  connect(hydHea.ports_b[1], senT1Ret.port_a) annotation (Line(points={{-0.65,-12.4},
+          {-0.65,-20},{-30,-20}}, color={0,127,255}));
+  connect(senT2Ret.port_b, hydHea.ports_b[2]) annotation (Line(points={{30,-20},
+          {20,-20},{20,-12.4},{0.85,-12.4}}, color={0,127,255}));
+  connect(hydHea.ports_a[2], senT2Sup.port_a) annotation (Line(points={{-1.05,8.2},
+          {20,8.2},{20,20},{30,20}}, color={0,127,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-120},{
             220,120}})),

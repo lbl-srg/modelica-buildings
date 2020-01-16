@@ -16,52 +16,54 @@ model HydraulicHeader "Hydraulic header manifold."
  Modelica.Fluid.Interfaces.FluidPorts_a ports_a[nPorts_a](redeclare package
       Medium =Medium)
     annotation (Placement(
-       transformation(extent={{-108,-40},{-88,40}}),iconTransformation(extent={{-4,-15},
-            {4,15}},
+       transformation(extent={{-110,-40},{-90,40}}),iconTransformation(extent={{-10,-40},
+            {10,40}},
        rotation=180,
-       origin={-102,-3})));
+       origin={-100,0})));
  Modelica.Fluid.Interfaces.FluidPorts_b ports_b[nPorts_b](redeclare package
       Medium =Medium)
     annotation (Placement(
-       transformation(extent={{88,-40},{108,40}}),iconTransformation(extent={{-4,-15},
-            {4,15}},
+       transformation(extent={{90,-40},{110,40}}),iconTransformation(extent={{-10,-40},
+            {10,40}},
        rotation=0,
-       origin={104,1})));
+       origin={100,0})));
 
 equation
   if nPorts_b> 1 then
     for i in 1:nPorts_b loop
       connect(pip.port_a, ports_b[nPorts_b])
-    annotation (Line(points={{10,0},{98,0}},color={0,127,255}));
+    annotation (Line(points={{10,0},{100,0}},
+                                            color={0,127,255}));
     end for;
   end if;
   if nPorts_a> 1 then
     for i in 1:nPorts_a loop
       connect(pip.port_b, ports_a[nPorts_a])
-    annotation (Line(points={{-10,0},{-98,0}},color={0,127,255}));
+    annotation (Line(points={{-10,0},{-100,0}},
+                                              color={0,127,255}));
     end for;
   end if;
 
   connect(pip.port_b, ports_a[1])
-    annotation (Line(points={{-10,0},{-98,0}},  color={0,127,255}));
+    annotation (Line(points={{-10,0},{-100,0}}, color={0,127,255}));
   connect(pip.port_a, ports_b[1])
-    annotation (Line(points={{10,0},{98,0}}, color={0,127,255}));
+    annotation (Line(points={{10,0},{100,0}},color={0,127,255}));
 
     annotation (Icon(graphics={
        Rectangle(
-         extent={{-92,8},{88,-6}},
+         extent={{-100,8},{100,-6}},
          lineColor={255,170,255},
          lineThickness=0.5,
          fillColor={255,255,170},
          fillPattern=FillPattern.Solid),
        Rectangle(
-         extent={{-98,20},{-86,-20}},
+         extent={{-100,60},{-80,-60}},
          lineColor={217,67,180},
          lineThickness=0.5,
          fillColor={255,170,213},
          fillPattern=FillPattern.Solid),
        Rectangle(
-         extent={{88,20},{100,-20}},
+         extent={{80,60},{100,-60}},
          lineColor={217,67,180},
          lineThickness=0.5,
          fillColor={255,170,213},

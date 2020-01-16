@@ -30,9 +30,10 @@ model BoreField "Bore field model"
           eTub=0.0037,
           xC=0.08)),
     final show_T=true);
-
-  final parameter Integer dBor = 10 "Distance between boreholes";
-  Modelica.Blocks.Interfaces.RealOutput Q_flow(final unit="W") "Heat extracted from soil"
+  parameter Integer dBor = 10
+  "Distance between boreholes";
+  Modelica.Blocks.Interfaces.RealOutput Q_flow
+    "Heat extracted from soil"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
 equation
   connect(gaiQ_flow.y, Q_flow) annotation (Line(points={{1,80},{14,80},{14,54},{

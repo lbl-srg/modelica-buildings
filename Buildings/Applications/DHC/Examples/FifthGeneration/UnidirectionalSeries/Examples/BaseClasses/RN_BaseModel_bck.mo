@@ -53,8 +53,8 @@ partial model RN_BaseModel_bck
         extent={{6,6},{-6,-6}},
         rotation=180,
         origin={120,-20})));
-  Fluid.Sensors.TemperatureTwoPort tempAfterProsumer3(redeclare package Medium
-      =              MediumWater,
+  Fluid.Sensors.TemperatureTwoPort tempAfterProsumer3(redeclare package Medium =
+                     MediumWater,
     allowFlowReversal=false,
     m_flow_nominal=datDes.mDisPip_flow_nominal,
     tau=0)

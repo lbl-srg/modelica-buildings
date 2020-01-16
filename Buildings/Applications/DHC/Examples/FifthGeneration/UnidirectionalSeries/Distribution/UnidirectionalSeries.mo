@@ -17,7 +17,6 @@ model UnidirectionalSeries
     "Hydraulic diameter of connection pipe";
   BaseClasses.ConnectionSeries con[nCon](
     redeclare package Medium = Medium,
-    each havePum=false,
     each mDis_flow_nominal=mDis_flow_nominal,
     mCon_flow_nominal=mCon_flow_nominal,
     lDis=lDis,

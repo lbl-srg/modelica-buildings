@@ -359,14 +359,22 @@ model EnergyTransferStation
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={40,-80})));
-  Decoupler decHea(
-    redeclare final package Medium = Medium,
+  EnergyTransferStations.BaseClasses.HydraulicHeader decHeaWat(
+    redeclare final package Medium=Medium,
     m_flow_nominal=mHeaWat_flow_nominal,
-    nSec=1) "Primary / secondary decoupler" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={0,330})));
+    nPorts_a=2,
+    nPorts_b=2) "Primary-secondary decoupler"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={0,350})));
+  EnergyTransferStations.BaseClasses.HydraulicHeader decChiWat(
+    redeclare final package Medium=Medium,
+    m_flow_nominal=mChiWat_flow_nominal,
+    nPorts_a=2,
+    nPorts_b=2) "Primary-secondary decoupler"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={0,-90})));
   // MISCELLANEOUS VARIABLES
   Medium.ThermodynamicState sta_a=if allowFlowReversal then
     Medium.setState_phX(port_a.p,
@@ -384,14 +392,6 @@ model EnergyTransferStation
       port_b.h_outflow,
       port_b.Xi_outflow) if  show_T
     "Medium properties in port_b";
-  Decoupler decChi(
-    redeclare final package Medium = Medium,
-    m_flow_nominal=mChiWat_flow_nominal,
-    nSec=1) "Primary / secondary decoupler" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={0,-110})));
 initial equation
   assert(QCoo_flow_nominal > 0,
     "In " + getInstanceName() +
@@ -516,26 +516,28 @@ equation
   connect(bouChi.ports[1], volChiWat.ports[1]) annotation (Line(points={{40,-140},
           {40,-160},{17.3333,-160}},
                                   color={0,127,255}));
-  connect(senMasFloHeaWat.port_b, decHea.ports_a2[1]) annotation (Line(points={{
-          -210,360},{5.2,360},{5.2,340}}, color={0,127,255}));
-  connect(decHea.ports_b2[1], senTHeaWatSup.port_a) annotation (Line(points={{-5,340},
-          {-6,340},{-6,350},{20,350},{20,360},{30,360}},       color={0,127,255}));
-  connect(senTConLvg.port_b, decHea.port_a1) annotation (Line(points={{-170,160},
-          {-200,160},{-200,220},{-5,220},{-5,320}}, color={0,127,255}));
-  connect(decHea.port_b1, volHeaWatRet.ports[2])
-    annotation (Line(points={{6,320},{6,220},{22,220}}, color={0,127,255}));
-  connect(volHeaWatRet.ports[3], pumCon.port_a) annotation (Line(points={{24.6667,
-          220},{140,220},{140,160},{110,160}}, color={0,127,255}));
-  connect(senMasFloChiWat.port_b, decChi.ports_a2[1]) annotation (Line(points={{
-          -210,-80},{5.2,-80},{5.2,-100}}, color={0,127,255}));
-  connect(decChi.ports_b2[1], senTChiWatSup.port_a) annotation (Line(points={{-5,-100},
-          {-4,-100},{-4,-90},{20,-90},{20,-80},{30,-80}},        color={0,127,255}));
-  connect(senT2HexChiLvg.port_b, decChi.port_a1) annotation (Line(points={{-170,
-          -220},{-200,-220},{-200,-160},{-5,-160},{-5,-120}}, color={0,127,255}));
-  connect(decChi.port_b1, volChiWat.ports[2])
-    annotation (Line(points={{6,-120},{6,-160},{20,-160}}, color={0,127,255}));
-  connect(volChiWat.ports[3], pum2CooHex.port_a) annotation (Line(points={{22.6667,
-          -160},{140,-160},{140,-220},{110,-220}}, color={0,127,255}));
+  connect(volHeaWatRet.ports[2], pumCon.port_a) annotation (Line(points={{22,220},
+          {140,220},{140,160},{110,160}},      color={0,127,255}));
+  connect(volChiWat.ports[2], pum2CooHex.port_a) annotation (Line(points={{20,-160},
+          {140,-160},{140,-220},{110,-220}},       color={0,127,255}));
+  connect(senTConLvg.port_b, decHeaWat.ports_a[1]) annotation (Line(points={{
+          -170,160},{-200,160},{-200,220},{-20,220},{-20,360},{2,360}}, color={
+          0,127,255}));
+  connect(decHeaWat.ports_a[2], senTHeaWatSup.port_a) annotation (Line(points={
+          {-2,360},{14.85,360},{14.85,360},{30,360}}, color={0,127,255}));
+  connect(senMasFloHeaWat.port_b, decHeaWat.ports_b[1]) annotation (Line(points
+        ={{-210,360},{-40,360},{-40,340},{-2,340}}, color={0,127,255}));
+  connect(decHeaWat.ports_b[2], volHeaWatRet.ports[3]) annotation (Line(points=
+          {{2,340},{0,340},{0,220},{24.6667,220}}, color={0,127,255}));
+  connect(decChiWat.ports_a[1], senTChiWatSup.port_a) annotation (Line(points={
+          {2,-80},{14.85,-80},{14.85,-80},{30,-80}}, color={0,127,255}));
+  connect(senT2HexChiLvg.port_b, decChiWat.ports_a[2]) annotation (Line(points=
+          {{-170,-220},{-220,-220},{-220,-160},{-20,-160},{-20,-80},{-2,-80}},
+        color={0,127,255}));
+  connect(senMasFloChiWat.port_b, decChiWat.ports_b[1]) annotation (Line(points
+        ={{-210,-80},{-40,-80},{-40,-100},{-2,-100}}, color={0,127,255}));
+  connect(decChiWat.ports_b[2], volChiWat.ports[3]) annotation (Line(points={{2,
+          -100},{0,-100},{0,-160},{22.6667,-160}}, color={0,127,255}));
   annotation (
   defaultComponentName="ets",
   Documentation(info="<html>

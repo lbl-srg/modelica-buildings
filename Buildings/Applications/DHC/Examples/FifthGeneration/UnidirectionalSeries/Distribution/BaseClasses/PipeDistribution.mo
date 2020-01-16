@@ -12,9 +12,15 @@ model PipeDistribution "DHC distribution pipe"
     // PE100 straight pipe
 equation
   when terminal() then
-    Modelica.Utilities.Streams.print(
-       "Pipe nominal pressure drop per meter for '" + getInstanceName() + "' is " +
-        String(integer( floor( dp_nominal / length + 0.5)))   + " Pa/m.");
+    if length > Modelica.Constants.eps then
+      Modelica.Utilities.Streams.print(
+         "Pipe nominal pressure drop per meter for '" + getInstanceName() + "' is " +
+          String(integer( floor( dp_nominal / length + 0.5)))   + " Pa/m.");
+    else
+      Modelica.Utilities.Streams.print(
+         "Zero pipe pressure drop for '" + getInstanceName() +
+         "' as the pipe length is set to zero.");
+    end if;
   end when;
   annotation (
   DefaultComponentName="pipDis",
