@@ -1,80 +1,68 @@
 within Buildings.Applications.DHC.EnergyTransferStations.BaseClasses;
 model HydraulicHeader "Hydraulic header manifold."
- replaceable package Medium = Modelica.Media.Interfaces.PartialMedium;
-
- parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-   "Nominal mass flow rate";
- parameter Integer nPorts_a=1
-  "Number of ports"
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium;
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+    "Nominal mass flow rate";
+  parameter Integer nPorts_a=1
+    "Number of ports"
+     annotation (
+       Evaluate=true, Dialog(connectorSizing=true, tab="General", group="Ports"));
+  parameter Integer nPorts_b=1
+    "Number of ports"
     annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
- parameter Integer nPorts_b=1
-  "Number of ports"
-    annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
- Fluid.FixedResistances.LosslessPipe pip(redeclare package Medium = Medium,
-     m_flow_nominal=m_flow_nominal)
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
- Modelica.Fluid.Interfaces.FluidPorts_a ports_a[nPorts_a](redeclare package
-      Medium =Medium)
+  Buildings.Fluid.FixedResistances.LosslessPipe pip(
+    redeclare package Medium=Medium,
+    m_flow_nominal=m_flow_nominal)
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  Modelica.Fluid.Interfaces.FluidPorts_a ports_a[nPorts_a](
+    redeclare package Medium=Medium)
     annotation (Placement(
-       transformation(extent={{-110,-40},{-90,40}}),iconTransformation(extent={{-10,-40},
-            {10,40}},
+      transformation(extent={{-110,-40},{-90,40}}),
+        iconTransformation(extent={{-10,-40}, {10,40}},
        rotation=180,
        origin={-100,0})));
- Modelica.Fluid.Interfaces.FluidPorts_b ports_b[nPorts_b](redeclare package
-      Medium =Medium)
+  Modelica.Fluid.Interfaces.FluidPorts_b ports_b[nPorts_b](
+    redeclare package Medium=Medium)
     annotation (Placement(
-       transformation(extent={{90,-40},{110,40}}),iconTransformation(extent={{-10,-40},
-            {10,40}},
+       transformation(extent={{90,-40},{110,40}}),
+       iconTransformation(extent={{-10,-40}, {10,40}},
        rotation=0,
        origin={100,0})));
-
 equation
-  if nPorts_b> 1 then
-    for i in 1:nPorts_b loop
-      connect(pip.port_a, ports_b[nPorts_b])
-    annotation (Line(points={{10,0},{100,0}},
-                                            color={0,127,255}));
-    end for;
-  end if;
-  if nPorts_a> 1 then
-    for i in 1:nPorts_a loop
-      connect(pip.port_b, ports_a[nPorts_a])
-    annotation (Line(points={{-10,0},{-100,0}},
-                                              color={0,127,255}));
-    end for;
-  end if;
-
-  connect(pip.port_b, ports_a[1])
-    annotation (Line(points={{-10,0},{-100,0}}, color={0,127,255}));
-  connect(pip.port_a, ports_b[1])
-    annotation (Line(points={{10,0},{100,0}},color={0,127,255}));
-
-    annotation (Icon(graphics={
-       Rectangle(
-         extent={{-100,8},{100,-6}},
-         lineColor={255,170,255},
-         lineThickness=0.5,
-         fillColor={255,255,170},
-         fillPattern=FillPattern.Solid),
-       Rectangle(
-         extent={{-100,60},{-80,-60}},
-         lineColor={217,67,180},
-         lineThickness=0.5,
-         fillColor={255,170,213},
-         fillPattern=FillPattern.Solid),
-       Rectangle(
-         extent={{80,60},{100,-60}},
-         lineColor={217,67,180},
-         lineThickness=0.5,
-         fillColor={255,170,213},
-         fillPattern=FillPattern.Solid),
-                                Text(
-         extent={{-149,93},{151,53}},
-         lineColor={0,0,255},
-         fillPattern=FillPattern.HorizontalCylinder,
-         fillColor={0,127,255},
-         textString="%name")}),
-         defaultComponentName="hydHea",
+  for i in 1:nPorts_a loop
+    connect(ports_a[i], pip.port_a)
+      annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
+  end for;
+  for i in 1:nPorts_b loop
+    connect(pip.port_b, ports_b[i])
+      annotation (Line(points={{10,0},{58,0},{58,0}, {100,0}}, color={0,127,255}));
+  end for;
+  annotation (Icon(graphics={
+    Rectangle(
+     extent={{-100,8},{100,-6}},
+     lineColor={255,170,255},
+     lineThickness=0.5,
+     fillColor={255,255,170},
+     fillPattern=FillPattern.Solid),
+    Rectangle(
+     extent={{-100,60},{-80,-60}},
+     lineColor={217,67,180},
+     lineThickness=0.5,
+     fillColor={255,170,213},
+     fillPattern=FillPattern.Solid),
+    Rectangle(
+     extent={{80,60},{100,-60}},
+     lineColor={217,67,180},
+     lineThickness=0.5,
+     fillColor={255,170,213},
+     fillPattern=FillPattern.Solid),
+                            Text(
+     extent={{-149,93},{151,53}},
+     lineColor={0,0,255},
+     fillPattern=FillPattern.HorizontalCylinder,
+     fillColor={0,127,255},
+     textString="%name")}),
+     defaultComponentName="hydHea",
 Documentation(info="<html>
  <h4> Water hydraulic header </h4>
  <p>
