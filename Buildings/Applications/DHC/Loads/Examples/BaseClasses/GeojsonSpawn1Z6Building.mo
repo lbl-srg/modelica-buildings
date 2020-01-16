@@ -177,7 +177,8 @@ equation
   connect(mulSum1.y, QHea_flow)
     annotation (Line(points={{242,280},{320,280}}, color={0,0,127}));
   connect(mulSum2.y, QCoo_flow)
-    annotation (Line(points={{242,240},{320,240}}, color={0,0,127}));
+    annotation (Line(points={{242,240},{282,240},{282,220},{320,220}},
+                                                   color={0,0,127}));
   connect(terUni.QActHea_flow, mulSum1.u[1:6]) annotation (Line(points={{-61,19},
           {79.5,19},{79.5,280},{218,280}},         color={0,0,127}));
   connect(terUni.QActCoo_flow, mulSum2.u) annotation (Line(points={{-61,17},{78.5,
@@ -188,8 +189,8 @@ equation
           {-61,-88.5},{-239,-88.5},{-239,-184}},        color={0,0,127}));
   connect(terUni.PFan, mulSum.u[1:6]) annotation (Line(points={{-61,11},{200.5,
           11},{200.5,118.333},{218,118.333}}, color={0,0,127}));
-  connect(mulSum.y, PFan) annotation (Line(points={{242,120},{278,120},{278,120},
-          {320,120}}, color={0,0,127}));
+  connect(mulSum.y, PFan) annotation (Line(points={{242,120},{278,120},{278,100},
+          {320,100}}, color={0,0,127}));
   annotation (
   Documentation(info="
   <html>
