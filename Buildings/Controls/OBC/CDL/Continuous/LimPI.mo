@@ -171,8 +171,8 @@ equation
   connect(trigger, I.trigger)
     annotation (Line(points={{-80,-120},{-80,-88},{30,-88},{30,8}},
       color={255,0,255}));
-  connect(Izer.y, addPI.u2) annotation (Line(points={{-18,40},{-10,40},{-10,54},
-          {-2,54}}, color={0,0,127}));
+  connect(Izer.y, addPI.u2) annotation (Line(points={{-18,40},{-6,40},{-6,54},{
+          -2,54}},  color={0,0,127}));
   connect(u_s, add2.u1) annotation (Line(points={{-120,0},{-96,0},{-96,46},{-82,
           46}},
         color={0,0,127}));
@@ -189,10 +189,9 @@ equation
           -16},{-14,-16}}, color={0,0,127}));
   connect(intRes.y, I.y_reset_in) annotation (Line(points={{10,-10},{14,-10},{14,
           12},{18,12}}, color={0,0,127}));
-  connect(add2.y, intRes.u1) annotation (Line(points={{-58,40},{-50,40},{-50,-4},
-          {-14,-4}},  color={0,0,127}));
-  connect(I.y, addPI.u2) annotation (Line(points={{42,20},{50,20},{50,40},{-10,40},
-          {-10,54},{-2,54}}, color={0,0,127}));
+  connect(I.y, addPI.u2) annotation (Line(points={{42,20},{50,20},{50,40},{-6,
+          40},{-6,54},{-2,54}},
+                             color={0,0,127}));
   connect(u_s, conErr.u1) annotation (Line(points={{-120,0},{-96,0},{-96,-84},{58,
           -84}}, color={0,0,127}));
   connect(u_m, conErr.u2)
@@ -203,6 +202,8 @@ equation
           -20},{-52,-20}}, color={0,0,127}));
   connect(y_reset_in, recGai.u) annotation (Line(points={{-120,-80},{-84,-80},{-84,
           -20},{-52,-20}}, color={0,0,127}));
+  connect(P.y, intRes.u1) annotation (Line(points={{-18,80},{-10,80},{-10,12},{
+          -20,12},{-20,-4},{-14,-4}}, color={0,0,127}));
 annotation (defaultComponentName="conPI",
 Documentation(info="<html>
 <p>
