@@ -72,7 +72,7 @@ equation
          fillPattern=FillPattern.HorizontalCylinder,
          fillColor={0,127,255},
          textString="%name")}),
-         defaultComponentName="hydHed",
+         defaultComponentName="hydHea",
 Documentation(info="<html>
  <h4> Water hydraulic header </h4>
  <p>
