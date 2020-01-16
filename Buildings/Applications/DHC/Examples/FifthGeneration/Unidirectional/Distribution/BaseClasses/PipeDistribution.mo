@@ -6,7 +6,6 @@ model PipeDistribution "DHC distribution pipe"
     final fac=1.1,
     final ReC=6000,
     final roughness=7E-6,
-    allowFlowReversal=false,
     final linearized=false,
     final v_nominal=m_flow_nominal * 4 / (rho_default * dh^2 * Modelica.Constants.pi));
     // PE100 straight pipe

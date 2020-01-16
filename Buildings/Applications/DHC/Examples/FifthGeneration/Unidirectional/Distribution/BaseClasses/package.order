@@ -1,4 +1,5 @@
 Junction
+ConnectionParallel
 ConnectionSeries
 PipeConnection
 PipeDistribution

@@ -1,10 +1,10 @@
 within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
 model RCHeatPortBuilding "Building model of type RC one element"
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
-    haveFan=false,
-    havePum=false,
-    haveEleHea=false,
-    haveEleCoo=false,
+    have_fan=false,
+    have_pum=false,
+    have_eleHea=false,
+    have_eleCoo=false,
     nPorts1=2);
   package Medium2 = Buildings.Media.Air
     "Load side medium";

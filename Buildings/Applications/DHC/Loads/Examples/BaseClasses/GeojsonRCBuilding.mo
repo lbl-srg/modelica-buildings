@@ -2,10 +2,10 @@ within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
 model GeojsonRCBuilding
   "Building model of type RC based on Urbanopt GeoJSON export"
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
-    final haveEleHea=false,
-    final haveEleCoo=false,
-    final haveFan=false,
-    final havePum=false,
+    final have_eleHea=false,
+    final have_eleCoo=false,
+    final have_fan=false,
+    final have_pum=false,
     nPorts1=2);
   parameter Integer nZon = 6
     "Number of thermal zones";

@@ -1,6 +1,6 @@
 ﻿within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Agents;
 model ETSSimplified
-  "Model of a simplified substation for heating hot water (heat pump) and chilled water (free-cooling HX) production"
+  "Simplified model of a substation producing heating hot water (heat pump) and chilled water (HX)"
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium
     "Medium model for water"

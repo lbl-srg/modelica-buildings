@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Distribution.BaseClasses;
-model ConnectionSeries "Model for connecting an agent to the DHC system"
+model ConnectionParallel "Model for connecting an agent to the DHC system"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium "Medium model"
     annotation (__Dymola_choicesAllMatching=true);
   parameter Boolean haveBypFloSen = false
@@ -21,22 +21,20 @@ model ConnectionSeries "Model for connecting an agent to the DHC system"
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
   // IO CONNECTORS
-  Modelica.Fluid.Interfaces.FluidPort_a port_disInl(
-    redeclare package Medium=Medium,
+  Modelica.Fluid.Interfaces.FluidPort_a port_disSupInl(
+    redeclare package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    h_outflow(start = Medium.h_default, nominal = Medium.h_default))
-    "Distribution inlet port"
-    annotation (Placement(transformation(
-      extent={{-110,-50},{-90,-30}}), iconTransformation(extent={{-110,-10},
-        {-90,10}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_disOut(
-    redeclare package Medium=Medium,
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    "Distribution supply inlet port" annotation (Placement(transformation(
+          extent={{-110,-50},{-90,-30}}), iconTransformation(extent={{-110,-10},
+            {-90,10}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_disSupOut(
+    redeclare package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start = Medium.h_default, nominal = Medium.h_default))
-    "Distribution outlet port"
-    annotation (Placement(transformation(
-      extent={{90,-50},{110,-30}}), iconTransformation(extent={{90,-10},{110,
-        10}})));
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    "Distribution supply outlet port" annotation (Placement(transformation(
+          extent={{90,-50},{110,-30}}), iconTransformation(extent={{90,-10},{
+            110,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_conSup(
     redeclare package Medium=Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
@@ -77,20 +75,18 @@ model ConnectionSeries "Model for connecting an agent to the DHC system"
     portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Entering,
     m_flow_nominal={mDis_flow_nominal,-mDis_flow_nominal,mCon_flow_nominal})
     "Junction with connection return"
-    annotation (Placement(transformation(extent={{30,-30},{50,-50}})));
-  replaceable PipeDistribution pipDis(
-    redeclare final package Medium=Medium,
-    m_flow_nominal=mDis_flow_nominal,
+    annotation (Placement(transformation(extent={{50,-70},{30,-90}})));
+  replaceable PipeDistribution pipDisSup(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=mDis_flow_nominal,
     dh=dhDis,
-    length=lDis,
-    allowFlowReversal=allowFlowReversal) "Distribution pipe"
+    length=lDis) "Distribution supply pipe"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   replaceable PipeConnection pipCon(
     redeclare package Medium=Medium,
     m_flow_nominal=mCon_flow_nominal,
     length=2*lCon,
-    dh=dhCon,
-    allowFlowReversal=allowFlowReversal)
+    dh=dhCon)
     "Connection pipe"
     annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},
@@ -127,18 +123,26 @@ model ConnectionSeries "Model for connecting an agent to the DHC system"
     y=(senTConSup.T - senTConRet.T) * cp_default * senMasFloCon.m_flow)
     "Calculation of heat flow rate transferred to the load"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
-  Buildings.Fluid.Sensors.MassFlowRate senMasFloByp(
-    redeclare package Medium=Medium,
-    allowFlowReversal=allowFlowReversal) if haveBypFloSen
-    "Bypass mass flow rate (sensed)"
-    annotation (Placement(transformation(
-      extent={{-10,-10},{10,10}},
-      rotation=0,
-      origin={0,-40})));
-  Modelica.Blocks.Interfaces.RealOutput mByp_flow if haveBypFloSen
-    "Bypass mass flow rate"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
-        iconTransformation(extent={{100,30},{120,50}})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_disRetInl(
+    redeclare package Medium = Medium,
+    m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    "Distribution return inlet port" annotation (Placement(transformation(
+          extent={{90,-90},{110,-70}}), iconTransformation(extent={{90,-70},{
+            110,-50}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_disRetOut(
+    redeclare package Medium = Medium,
+    m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    "Distribution return outlet port" annotation (Placement(transformation(
+          extent={{-110,-90},{-90,-70}}), iconTransformation(extent={{-110,-70},
+            {-90,-50}})));
+  replaceable PipeDistribution pipDisRet(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=mDis_flow_nominal,
+    dh=dhDis,
+    length=lDis) "Distribution return pipe"
+    annotation (Placement(transformation(extent={{-60,-90},{-80,-70}})));
 protected
   parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
     Medium.specificHeatCapacityCp(Medium.setState_pTX(
@@ -149,12 +153,12 @@ protected
 equation
   connect(junConSup.port_3, pipCon.port_a)
     annotation (Line(points={{-40,-30},{-40,-20}}, color={0,127,255}));
-  connect(pipDis.port_b, junConSup.port_1)
+  connect(pipDisSup.port_b, junConSup.port_1)
     annotation (Line(points={{-60,-40},{-50,-40}}, color={0,127,255}));
   connect(port_conSup,senTConSup. port_b)
     annotation (Line(points={{-40,120},{-40,90}}, color={0,127,255}));
   connect(junConRet.port_3, senTConRet.port_b)
-    annotation (Line(points={{40,-30},{40,70}}, color={0,127,255}));
+    annotation (Line(points={{40,-70},{40,70}}, color={0,127,255}));
   connect(senTConRet.port_a, port_conRet)
     annotation (Line(points={{40,90},{40,120}}, color={0,127,255}));
   connect(senMasFloCon.port_b,senTConSup. port_a)
@@ -165,21 +169,19 @@ equation
     annotation (Line(points={{-40,0},{-40,30}}, color={0,127,255}));
   connect(QCal_flow.y, Q_flow)
     annotation (Line(points={{81,80},{120,80}}, color={0,0,127}));
-  connect(port_disInl, pipDis.port_a)
+  connect(port_disSupInl, pipDisSup.port_a)
     annotation (Line(points={{-100,-40},{-80,-40}}, color={0,127,255}));
-  connect(junConRet.port_2, port_disOut)
-    annotation (Line(points={{50,-40},{100,-40}}, color={0,127,255}));
   if haveBypFloSen then
-    connect(junConSup.port_2, senMasFloByp.port_a)
-      annotation (Line(points={{-30,-40},{-10,-40}}, color={0,127,255}));
-    connect(senMasFloByp.port_b, junConRet.port_1)
-      annotation (Line(points={{10,-40},{30,-40}}, color={0,127,255}));
-    connect(senMasFloByp.m_flow, mByp_flow)
-      annotation (Line(points={{0,-29},{0,0},{120,0}}, color={0,0,127}));
   else
-    connect(junConSup.port_2, junConRet.port_1)
-      annotation (Line(points={{-30,-40},{30,-40}}, color={0,127,255}));
   end if;
+  connect(port_disRetInl, junConRet.port_1)
+    annotation (Line(points={{100,-80},{50,-80}}, color={0,127,255}));
+  connect(junConSup.port_2, port_disSupOut)
+    annotation (Line(points={{-30,-40},{100,-40}}, color={0,127,255}));
+  connect(junConRet.port_2, pipDisRet.port_a)
+    annotation (Line(points={{30,-80},{-60,-80}}, color={0,127,255}));
+  connect(pipDisRet.port_b, port_disRetOut)
+    annotation (Line(points={{-80,-80},{-100,-80}}, color={0,127,255}));
   annotation (
     defaultComponentName="con",
     Icon(graphics={   Rectangle(
@@ -209,15 +211,33 @@ equation
           pattern=LinePattern.None,
           lineColor={0,0,0}),
         Rectangle(
-          extent={{-25.5,7.5},{25.5,-7.5}},
+          extent={{-25,8},{25,-8}},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
           lineColor={0,0,0},
-          origin={-0.5,45.5},
+          origin={0,45},
           rotation=90),
         Rectangle(
-          extent={{58,-2},{62,100}},
+          extent={{58,6},{62,100}},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0}),
+        Rectangle(
+          extent={{-100,-58},{100,-62}},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0}),
+        Rectangle(
+          extent={{-76,-48},{-20,-72}},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0}),
+        Rectangle(
+          extent={{58,-62},{62,-6}},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
@@ -229,6 +249,6 @@ equation
           pattern=LinePattern.None,
           lineColor={0,0,0},
           origin={59.5,45.5},
-          rotation=90)}),       Diagram(coordinateSystem(extent={{-100,-60},{100,
-            120}})));
-end ConnectionSeries;
+          rotation=90)}),       Diagram(coordinateSystem(extent={{-100,-100},{
+            100,120}})));
+end ConnectionParallel;

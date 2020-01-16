@@ -2,18 +2,18 @@ within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
 model GeojsonSpawn1Z6BuildingPump
   "Spawn building model based on Urbanopt GeoJSON export"
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
-    final haveEleHea=false,
-    final haveEleCoo=false,
-    final havePum=true,
-    final haveWeaBus=false,
+    final have_eleHea=false,
+    final have_eleCoo=false,
+    final have_pum=true,
+    final have_weaBus=false,
     nPorts1=2);
   package Medium2 = Buildings.Media.Air "Medium model";
   parameter Integer nZon = 6
     "Number of thermal zones";
-  parameter String idfPath=
+  parameter String idfPat=
     "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportSpawn/Resources/Data/B5a6b99ec37f4de7f94020090/RefBldgSmallOfficeNew2004_Chicago.idf"
     "Path of the IDF file";
-  parameter String weaPath=
+  parameter String weaPat=
     "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportSpawn/Resources/Data/B5a6b99ec37f4de7f94020090/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"
     "Path of the weather file";
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet[nZon](k=fill(20,
@@ -65,21 +65,22 @@ model GeojsonSpawn1Z6BuildingPump
     nPorts=2)                 "Thermal zone"
     annotation (Placement(transformation(extent={{24,-120},{64,-80}})));
   inner Buildings.Experimental.EnergyPlus.Building building(
-    idfName=Modelica.Utilities.Files.loadResource(idfPath),
-    weaName=Modelica.Utilities.Files.loadResource(weaPath))
+    idfName=Modelica.Utilities.Files.loadResource(idfPat),
+    weaName=Modelica.Utilities.Files.loadResource(weaPat))
     "Building outer component"
     annotation (Placement(transformation(extent={{30,198},{52,218}})));
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
     m_flow_nominal=sum(terUni.m1Hea_flow_nominal),
-    havePum=true,
+    have_pum=true,
     dp_nominal=100000,
-    nUni=nZon) annotation (Placement(transformation(extent={{-238,-190},{
+    nUni=nZon)
+    annotation (Placement(transformation(extent={{-238,-190},{
             -218,-170}})));
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
     m_flow_nominal=sum(terUni.m1Coo_flow_nominal),
     disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
     nUni=nZon,
-    havePum=true,
+    have_pum=true,
     dp_nominal=100000) annotation (Placement(transformation(extent={{-180,
             -230},{-160,-210}})));
 
@@ -197,7 +198,8 @@ equation
   connect(mulSum.y, PFan) annotation (Line(points={{282,120},{302,120},{302,100},
           {320,100}}, color={0,0,127}));
   connect(PPum, mulSum3.y)
-    annotation (Line(points={{320,80},{282,80}}, color={0,0,127}));
+    annotation (Line(points={{320,60},{302,60},{302,80},{282,80}},
+                                                 color={0,0,127}));
   connect(disFloHea.PPum, mulSum3.u[1]) annotation (Line(points={{-217,-188},{
           220.5,-188},{220.5,81},{258,81}}, color={0,0,127}));
   connect(disFloCoo.PPum, mulSum3.u[2]) annotation (Line(points={{-159,-228},{

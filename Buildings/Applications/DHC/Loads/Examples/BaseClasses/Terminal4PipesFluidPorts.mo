@@ -4,11 +4,11 @@ model Terminal4PipesFluidPorts
     Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit(
     final heaFunSpe=Buildings.Applications.DHC.Loads.Types.TerminalFunctionSpec.Water,
     final cooFunSpe=Buildings.Applications.DHC.Loads.Types.TerminalFunctionSpec.Water,
-    final haveHeaPor=false,
-    final haveFluPor=true,
-    final haveWeaBus=false,
-    final haveFan=true,
-    final havePum=false,
+    final have_heaPor=false,
+    final have_fluPor=true,
+    final have_weaBus=false,
+    final have_fan=true,
+    final have_pum=false,
     final show_TLoa=true,
     final m1Hea_flow_nominal=abs(QHea_flow_nominal/cp1Hea_nominal/(
         T_a1Hea_nominal - T_b1Hea_nominal)),
@@ -23,7 +23,7 @@ model Terminal4PipesFluidPorts
     each yMin=0) "PI controller for minimum indoor temperature"
     annotation (Placement(transformation(extent={{-10,210},{10,230}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
-    redeclare each final package Medium = Medium2,
+    redeclare each final package Medium=Medium2,
     energyDynamics=energyDynamics,
     m_flow_nominal=max({m2Hea_flow_nominal, m2Coo_flow_nominal}),
     redeclare Fluid.Movers.Data.Generic per,
@@ -32,8 +32,8 @@ model Terminal4PipesFluidPorts
     final allowFlowReversal=allowFlowReversal)
     annotation (Placement(transformation(extent={{90,-10},{70,10}})));
   Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hexHea(
-    redeclare final package Medium1 = Medium1,
-    redeclare final package Medium2 = Medium2,
+    redeclare final package Medium1=Medium1,
+    redeclare final package Medium2=Medium2,
     final configuration=hexConHea,
     final m1_flow_nominal=m1Hea_flow_nominal,
     final m2_flow_nominal=m2Hea_flow_nominal,
@@ -50,8 +50,8 @@ model Terminal4PipesFluidPorts
   Modelica.Blocks.Sources.RealExpression Q_flowHea(y=hexHea.Q2_flow)
     annotation (Placement(transformation(extent={{160,210},{180,230}})));
   Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hexCoo(
-    redeclare final package Medium1 = Medium1,
-    redeclare final package Medium2 = Medium2,
+    redeclare final package Medium1=Medium1,
+    redeclare final package Medium2=Medium2,
     final configuration=hexConCoo,
     final m1_flow_nominal=m1Coo_flow_nominal,
     final m2_flow_nominal=m2Coo_flow_nominal,

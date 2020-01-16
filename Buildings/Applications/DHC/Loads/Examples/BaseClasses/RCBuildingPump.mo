@@ -1,9 +1,9 @@
 within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
 model RCBuildingPump "Building model of type RC one element"
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
-    haveEleHea=false,
-    haveEleCoo=false,
-    haveWeaBus=true,
+    have_eleHea=false,
+    have_eleCoo=false,
+    have_weaBus=true,
     nPorts1=2);
   package Medium2 = Buildings.Media.Air
     "Load side medium";
@@ -121,8 +121,8 @@ model RCBuildingPump "Building model of type RC one element"
     redeclare package Medium=Medium1,
     nUni=nZon,
     m_flow_nominal=terUni.m1Hea_flow_nominal,
-    havePum=true,
-    haveVal=true,
+    have_pum=true,
+    have_val=true,
     dp_nominal=100000)
     annotation (Placement(transformation(extent={{-100, -120},{-80,-100}})));
   Buildings.Applications.DHC.Loads.Examples.BaseClasses.Terminal4PipesFluidPorts
@@ -148,8 +148,8 @@ model RCBuildingPump "Building model of type RC one element"
     nUni=nZon,
     m_flow_nominal=terUni.m1Coo_flow_nominal,
     disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
-    havePum=true,
-    haveVal=true,
+    have_pum=true,
+    have_val=true,
     dp_nominal=100000)
     annotation (Placement(transformation(extent={{-100, -160},{-80,-140}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=273 + 35)

@@ -11,31 +11,31 @@ partial model PartialBuilding "Partial class for building model"
   parameter Integer nPorts1 = 0
     "Number of source fluid streams"
      annotation(Evaluate=true, Dialog(connectorSizing=true));
-  parameter Boolean haveHeaLoa = true
+  parameter Boolean have_heaLoa = true
     "Set to true if the building has heating loads"
     annotation(Evaluate=true);
-  parameter Boolean haveCooLoa = true
+  parameter Boolean have_cooLoa = true
     "Set to true if the building has cooling loads"
     annotation(Evaluate=true);
-  parameter Boolean haveFan = true
+  parameter Boolean have_fan = true
     "Set to true if fans drawn power is computed"
     annotation(Evaluate=true);
-  parameter Boolean havePum = true
+  parameter Boolean have_pum = true
     "Set to true if pumps drawn power is computed"
     annotation(Evaluate=true);
-  parameter Boolean haveEleHea = true
+  parameter Boolean have_eleHea = true
     "Set to true if the building has electric heating"
     annotation(Evaluate=true);
-  parameter Boolean haveEleCoo = true
+  parameter Boolean have_eleCoo = true
     "Set to true if the building has electric cooling"
     annotation(Evaluate=true);
-  parameter Boolean haveWeaBus = true
+  parameter Boolean have_weaBus = true
     "Set to true for weather bus"
     annotation(Evaluate=true);
   final parameter Boolean allowFlowReversal=false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation(Evaluate=true);
-  Buildings.BoundaryConditions.WeatherData.Bus weaBus if haveWeaBus
+  Buildings.BoundaryConditions.WeatherData.Bus weaBus if have_weaBus
     "Weather data bus"
     annotation (Placement(
     transformation(extent={{-16,284},{18,316}}),
@@ -55,34 +55,34 @@ partial model PartialBuilding "Partial class for building model"
     annotation (Placement(transformation(extent={{290,-40},{310,40}}),
       iconTransformation(extent={{290,-220},{310,-140}})));
   Modelica.Blocks.Interfaces.RealOutput QCoo_flow(
-    final quantity="HeatFlowRate", final unit="W") if haveCooLoa
+    final quantity="HeatFlowRate", final unit="W") if have_cooLoa
     "Total cooling heat flow rate transferred to the loads (<=0)"
     annotation (Placement(transformation(
       extent={{300,200},{340,240}}), iconTransformation(extent={{300,200},{340,
             240}})));
   Modelica.Blocks.Interfaces.RealOutput QHea_flow(
-    final quantity="HeatFlowRate", final unit="W") if haveHeaLoa
+    final quantity="HeatFlowRate", final unit="W") if have_heaLoa
     "Total heating heat flow rate transferred to the loads (>=0)"
     annotation (Placement(transformation(
       extent={{300,260},{340,300}}), iconTransformation(extent={{300,240},{340,280}})));
   Modelica.Blocks.Interfaces.RealOutput PHea(
-    final quantity="Power", final unit="W") if haveEleHea
+    final quantity="Power", final unit="W") if have_eleHea
     "Power drawn by heating equipment"
     annotation (Placement(transformation(
       extent={{300,160},{340,200}}), iconTransformation(extent={{300,160},{340,
             200}})));
   Modelica.Blocks.Interfaces.RealOutput PCoo(
-    quantity="Power", final unit="W") if haveEleCoo
+    quantity="Power", final unit="W") if have_eleCoo
     "Power drawn by cooling equipment"
     annotation (Placement(transformation(extent={{300,120},{340,160}}),
       iconTransformation(extent={{300,120},{340,160}})));
   Modelica.Blocks.Interfaces.RealOutput PFan(
-    final quantity="Power", final unit="W") if haveFan
+    final quantity="Power", final unit="W") if have_fan
     "Power drawn by fans motors"
     annotation (Placement(transformation(extent={{300,80},{340,120}}),
       iconTransformation(extent={{300,80},{340,120}})));
   Modelica.Blocks.Interfaces.RealOutput PPum(
-    final quantity="Power", final unit="W") if havePum
+    final quantity="Power", final unit="W") if have_pum
     "Power drawn by pumps motors"
     annotation (Placement(transformation(extent={{300,40},{340,80}}),
       iconTransformation(extent={{300,40},{340,80}})));

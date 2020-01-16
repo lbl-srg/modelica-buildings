@@ -13,10 +13,10 @@ model FlowDistribution "Model of hydraulic distribution system"
   parameter typ disTyp = typ.HeatingWater
     "Type of distribution system"
     annotation(Evaluate=true);
-  parameter Boolean havePum = false
+  parameter Boolean have_pum = false
     "Set to true if the system has a pump"
     annotation(Evaluate=true);
-  parameter Boolean haveVal = false
+  parameter Boolean have_val = false
     "Set to true if the system has a mixing valve"
     annotation(Evaluate=true);
   parameter Modelica.SIunits.PressureDifference dp_nominal(
@@ -54,7 +54,7 @@ model FlowDistribution "Model of hydraulic distribution system"
     annotation (Placement(transformation(
       extent={{-20,-20},{20,20}}, rotation=0, origin={-120,220}),
       iconTransformation(extent={{-10,-10},{10,10}}, rotation=0, origin={-110,-40})));
-  Modelica.Blocks.Interfaces.IntegerInput modChaOve if haveVal and disTyp == typ.ChangeOver
+  Modelica.Blocks.Interfaces.IntegerInput modChaOve if have_val and disTyp == typ.ChangeOver
     "Operating mode in change-over (1 for heating, -1 for cooling)"
     annotation (Placement(
       transformation(
@@ -76,7 +76,7 @@ model FlowDistribution "Model of hydraulic distribution system"
     annotation (Placement(transformation(extent={{100,80},{140,120}}),
       iconTransformation(extent={{100,-70},{120,-50}})));
   Modelica.Blocks.Interfaces.RealOutput PPum(
-    quantity="Power", final unit="W") if havePum
+    quantity="Power", final unit="W") if have_pum
     "Power drawn by pump motor"
     annotation (Placement(transformation(extent={{100,40},{140,80}}),
       iconTransformation(extent={{100,-90},{120,-70}})));
@@ -133,7 +133,7 @@ model FlowDistribution "Model of hydraulic distribution system"
     nominalValuesDefineDefaultPressureCurve=true,
     use_inputFilter=false,
     dp_nominal=dp_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) if havePum
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) if have_pum
     "Distribution pump"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear val(
@@ -146,7 +146,7 @@ model FlowDistribution "Model of hydraulic distribution system"
       m_flow_nominal=m_flow_nominal,
       linearized={true,true},
       energyDynamics=energyDynamics,
-      massDynamics=massDynamics) if haveVal
+      massDynamics=massDynamics) if have_val
     "Mixing valve"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}}, origin={-80,0})));
   Buildings.Fluid.Movers.BaseClasses.IdealSource ideSou(
@@ -169,7 +169,7 @@ model FlowDistribution "Model of hydraulic distribution system"
     m_flow_nominal=m_flow_nominal*{1,1,1},
     dp_nominal=0*{1,1,1},
     energyDynamics=energyDynamics,
-    massDynamics=massDynamics) if haveVal
+    massDynamics=massDynamics) if have_val
     "Flow splitter"
     annotation (Placement(transformation(
       extent={{-10,10},{10,-10}}, origin={80,0})));
@@ -179,12 +179,12 @@ model FlowDistribution "Model of hydraulic distribution system"
     Ti=120,
     yMax=1,
     yMin=-1,
-    final reverseAction=false) if haveVal
+    final reverseAction=false) if have_val
     "PI controller tracking supply temperature"
     annotation (Placement(transformation(extent={{-90,-130},{-70,-110}})));
   Modelica.Blocks.Interfaces.RealInput TSupSet(
     quantity="ThermodynamicTemperature",
-    displayUnit="degC") if haveVal "Supply temperature set point"
+    displayUnit="degC") if have_val "Supply temperature set point"
     annotation (Placement(transformation(
       extent={{-20,-20},{20,20}},
       rotation=0,
@@ -207,25 +207,25 @@ model FlowDistribution "Model of hydraulic distribution system"
     annotation (Placement(transformation(extent={{18,10},{38,-10}})));
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(nout=nUni)
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max posPar if haveVal
+  Buildings.Controls.OBC.CDL.Continuous.Max posPar if have_val
     "Positive part of control signal"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min negPar if haveVal
+  Buildings.Controls.OBC.CDL.Continuous.Min negPar if have_val
     "Negative part of control signal"
     annotation (Placement(transformation(extent={{-40,-140},{-20,-120}})));
-  Modelica.Blocks.Sources.RealExpression zer(y=0) if haveVal
+  Modelica.Blocks.Sources.RealExpression zer(y=0) if have_val
     "Zero value"
     annotation (Placement(transformation(extent={{-90,-110},{-70,-90}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi if haveVal
+  Buildings.Controls.OBC.CDL.Logical.Switch swi if have_val
     annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum1(k={-1}, nin=1) if haveVal
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum1(k={-1}, nin=1) if have_val
     annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
   Modelica.Blocks.Math.IntegerToBoolean toBoo(threshold=0) if
-    haveVal and disTyp == typ.ChangeOver
+    have_val and disTyp == typ.ChangeOver
     "Boolean conversion (true if heating mode)"
     annotation (Placement(transformation(extent={{-90,-90},{-70,-70}})));
   Modelica.Blocks.Sources.BooleanExpression fixMod(y=disTyp == typ.HeatingWater) if
-    haveVal and disTyp <> typ.ChangeOver
+    have_val and disTyp <> typ.ChangeOver
     "Fixed operating mode"
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
   // MISCELLANEOUS VARIABLES
@@ -236,9 +236,9 @@ model FlowDistribution "Model of hydraulic distribution system"
       X=inStream(ideSou.port_a.Xi_outflow)))
     "Supply temperature";
 initial equation
-  assert(if haveVal then havePum else true,
+  assert(if have_val then have_pum else true,
     "In " + getInstanceName() +
-    ": The configuration where haveVal is true and havePum is false is not allowed.");
+    ": The configuration where have_val is true and have_pum is false is not allowed.");
 equation
   connect(mulSum.y, mReq_flow)
     annotation (Line(points={{-58,220},{120,220}},color={0,0,127}));
@@ -272,7 +272,7 @@ equation
     annotation (Line(points={{-79,80},{-22,80}}, color={0,0,127}));
   connect(reaRep.y, sou_m1_flow.T_in) annotation (Line(points={{2,80},{20,80},{20,
           164},{38,164}}, color={0,0,127}));
-  if haveVal then
+  if have_val then
     connect(port_a, val.port_1)
     annotation (Line(points={{-100,0},{-90,0}}, color={0,127,255}));
     connect(heaCoo.port_b, spl.port_1)
@@ -318,7 +318,7 @@ equation
   else
     connect(heaCoo.port_b, port_b)
       annotation (Line(points={{66,0},{100,0}}, color={0,127,255}));
-    if havePum then
+    if have_pum then
       connect(port_a, pum.port_a)
       annotation (Line(points={{-100,0},{-50,0}}, color={0,127,255}));
     else
@@ -326,7 +326,7 @@ equation
         annotation (Line(points={{-100,0},{-20,0}}, color={0,127,255}));
     end if;
   end if;
-  if havePum then
+  if have_pum then
     connect(mulSum.y, pum.m_flow_in)
       annotation (Line(points={{-58,220},{-40,220},{-40,12}},
                                     color={0,0,127}));

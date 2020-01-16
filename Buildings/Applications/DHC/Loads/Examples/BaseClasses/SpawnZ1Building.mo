@@ -2,18 +2,18 @@ within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
 model SpawnZ1Building "Spawn building model based on Urbanopt GeoJSON export"
   import Buildings;
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
-    havePum=false,
-    haveEleHea=false,
-    haveEleCoo=false,
+    have_pum=false,
+    have_eleHea=false,
+    have_eleCoo=false,
     nPorts1=2);
   package Medium2 = Buildings.Media.Air
     "Load side medium";
   parameter Integer nZon = 1
     "Number of thermal zones";
-  parameter String idfPath=
+  parameter String idfPat=
     "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf"
     "Path of the IDF file";
-  parameter String weaPath=
+  parameter String weaPat=
     "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"
     "Path of the weather file";
   Buildings.Applications.DHC.Loads.Examples.BaseClasses.Terminal4PipesFluidPorts
@@ -45,8 +45,8 @@ model SpawnZ1Building "Spawn building model based on Urbanopt GeoJSON export"
     "Thermal zone"
     annotation (Placement(transformation(extent={{40,-20},{80,20}})));
   inner Buildings.Experimental.EnergyPlus.Building building(
-    idfName=Modelica.Utilities.Files.loadResource(idfPath),
-    weaName=Modelica.Utilities.Files.loadResource(weaPath),
+    idfName=Modelica.Utilities.Files.loadResource(idfPat),
+    weaName=Modelica.Utilities.Files.loadResource(weaPat),
     fmuName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones1.fmu"),
     showWeatherData=false)
     "Building model"

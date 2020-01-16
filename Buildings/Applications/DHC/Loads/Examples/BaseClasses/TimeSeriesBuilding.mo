@@ -3,11 +3,11 @@ model TimeSeriesBuilding
   "Building model where heating and cooling loads are provided by time series and time functions"
   import Buildings;
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
-    haveFan=false,
-    havePum=false,
-    haveEleHea=false,
-    haveEleCoo=false,
-    haveWeaBus=false,
+    have_fan=false,
+    have_pum=false,
+    have_eleHea=false,
+    have_eleCoo=false,
+    have_weaBus=false,
     nPorts1=2);
   Modelica.Blocks.Sources.CombiTimeTable loa(
     tableOnFile=true,

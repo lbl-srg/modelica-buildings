@@ -25,22 +25,22 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     "Specification of the heating function";
   parameter funSpe cooFunSpe = funSpe.Water
     "Specification of the cooling function";
-  parameter Boolean haveHeaPor = false
+  parameter Boolean have_heaPor = false
     "Set to true for heat ports on the load side"
     annotation(Evaluate=true);
-  parameter Boolean haveFluPor = false
+  parameter Boolean have_fluPor = false
     "Set to true for fluid ports on the load side"
     annotation(Evaluate=true);
-  parameter Boolean haveQReq_flow = false
+  parameter Boolean have_QReq_flow = false
     "Set to true for required heat flow rate as an input"
     annotation(Evaluate=true);
-  parameter Boolean haveWeaBus = false
+  parameter Boolean have_weaBus = false
     "Set to true for weather bus"
     annotation(Evaluate=true);
-  parameter Boolean haveFan = false
+  parameter Boolean have_fan = false
     "Set to true if the system has a fan"
     annotation(Evaluate=true);
-  parameter Boolean havePum = false
+  parameter Boolean have_pum = false
     "Set to true if the system has a pump"
     annotation(Evaluate=true);
   parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(min=0) if
@@ -145,7 +145,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
         rotation=0,
         origin={-130,40})));
   Modelica.Blocks.Interfaces.RealInput QReqHea_flow(
-    quantity="HeatFlowRate") if haveQReq_flow and heaFunSpe <> funSpe.None
+    quantity="HeatFlowRate") if have_QReq_flow and heaFunSpe <> funSpe.None
     "Required heat flow rate to meet heating set point (>=0)"
     annotation (
       Placement(transformation(
@@ -156,7 +156,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
         rotation=0,
         origin={-130,0})));
   Modelica.Blocks.Interfaces.RealInput QReqCoo_flow(
-    quantity="HeatFlowRate") if haveQReq_flow and cooFunSpe <> funSpe.None
+    quantity="HeatFlowRate") if have_QReq_flow and cooFunSpe <> funSpe.None
     "Required heat flow rate to meet cooling set point (<=0)"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -188,12 +188,12 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
       Placement(transformation(extent={{200,180},{240,220}}),
         iconTransformation(extent={{120,60},{140,80}})));
   Modelica.Blocks.Interfaces.RealOutput PFan(
-    quantity="Power", final unit="W") if haveFan
+    quantity="Power", final unit="W") if have_fan
     "Power drawn by fans motors"
     annotation (Placement(transformation(extent={{200,120},{240,160}}),
         iconTransformation(extent={{120,0},{140,20}})));
   Modelica.Blocks.Interfaces.RealOutput PPum(
-    quantity="Power", final unit="W") if havePum
+    quantity="Power", final unit="W") if have_pum
     "Power drawn by pumps motors"
     annotation (Placement(transformation(extent={{200,100},{240,140}}),
         iconTransformation(extent={{120,-20},{140,0}})));
@@ -211,7 +211,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     redeclare final package Medium=Medium2,
     p(start=Medium2.p_default),
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    h_outflow(start=Medium2.h_default, nominal=Medium2.h_default)) if haveFluPor
+    h_outflow(start=Medium2.h_default, nominal=Medium2.h_default)) if have_fluPor
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (
       Placement(transformation(
@@ -221,29 +221,29 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     redeclare final package Medium=Medium2,
     p(start=Medium2.p_default),
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start=Medium2.h_default, nominal=Medium2.h_default)) if haveFluPor
+    h_outflow(start=Medium2.h_default, nominal=Medium2.h_default)) if have_fluPor
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (
       Placement(transformation(extent={{-190,-10},{-210,10}}),
       iconTransformation(extent={{-110,100},{-130,120}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b heaPorCon if haveHeaPor
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b heaPorCon if have_heaPor
     "Heat port transferring convective heat to the load"
     annotation (
       Placement(transformation(extent={{190,30},{210,50}}),
       iconTransformation(extent={{-50,-10},{-30,10}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b heaPorRad if haveHeaPor
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b heaPorRad if have_heaPor
     "Heat port transferring radiative heat to the load"
     annotation (
       Placement(transformation(extent={{190,-50},{210,-30}}),
       iconTransformation(extent={{30,-10},{50,10}})));
-  BoundaryConditions.WeatherData.Bus weaBus if haveWeaBus
+  BoundaryConditions.WeatherData.Bus weaBus if have_weaBus
     "Weather data bus"
     annotation (Placement(
       transformation(extent={{-216,44},{-182,76}}),
       iconTransformation(extent={{-18,104},{16,136}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a1Hea(
     p(start=Medium1.p_default),
-    redeclare final package Medium = Medium1,
+    redeclare final package Medium=Medium1,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium1.h_default, nominal=Medium1.h_default)) if
     heaFunSpe == funSpe.Water
@@ -252,7 +252,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
         iconTransformation(extent={{-130,-120},{-110,-100}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a1Coo(
     p(start=Medium1.p_default),
-    redeclare final package Medium = Medium1,
+    redeclare final package Medium=Medium1,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium1.h_default, nominal=Medium1.h_default)) if
     cooFunSpe == funSpe.Water or cooFunSpe == funSpe.ChangeOver
@@ -261,7 +261,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
         iconTransformation(extent={{-130,-90},{-110,-70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b1Hea(
     p(start=Medium1.p_default),
-    redeclare final package Medium = Medium1,
+    redeclare final package Medium=Medium1,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=Medium1.h_default, nominal=Medium1.h_default)) if
     heaFunSpe == funSpe.Water
@@ -270,7 +270,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
         iconTransformation(extent={{130,-120},{110,-100}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b1Coo(
     p(start=Medium1.p_default),
-    redeclare final package Medium = Medium1,
+    redeclare final package Medium=Medium1,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=Medium1.h_default, nominal=Medium1.h_default)) if
     cooFunSpe == funSpe.Water or cooFunSpe == funSpe.ChangeOver
@@ -311,14 +311,14 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
       port_a2.p,
       inStream(port_a2.h_outflow),
       inStream(port_a2.Xi_outflow)) if
-      show_TLoa and haveFluPor
+      show_TLoa and have_fluPor
     "Medium properties in port_a2";
   Medium2.ThermodynamicState sta_b2=
     Medium2.setState_phX(
       port_b2.p,
       port_b2.h_outflow,
       port_b2.Xi_outflow) if
-      show_TLoa and haveFluPor
+      show_TLoa and have_fluPor
     "Medium properties in port_b2";
 protected
   parameter Modelica.SIunits.SpecificHeatCapacity cp1Hea_nominal=

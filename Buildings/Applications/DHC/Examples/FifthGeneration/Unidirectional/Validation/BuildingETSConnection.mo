@@ -1,23 +1,30 @@
 within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Validation;
-model BuildingETSConnection "Validation of building and ETS connection"
+model BuildingETSConnection
+  "Validation of building and ETS connection"
   extends Modelica.Icons.Example;
     package Medium1 = Buildings.Media.Water
     "Source side medium";
-  Buildings.Fluid.Sources.Boundary_pT sin(redeclare package Medium = Medium1,
-      nPorts=1) "Sink for district water" annotation (Placement(transformation(
+  Buildings.Fluid.Sources.Boundary_pT sin(
+    redeclare package Medium=Medium1,
+    nPorts=1)
+    "Sink for district water"
+    annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={130,-40})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetHeaWatSup(k=bui.ets.THeaWatSup_nominal)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetHeaWatSup(
+    k=bui.ets.THeaWatSup_nominal)
     "Heating water supply temperature set point"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetChiWatSup(k=bui.ets.TChiWatSup_nominal)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetChiWatSup(
+    k=bui.ets.TChiWatSup_nominal)
     "Chilled water supply temperature set point"
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
   Fluid.Sources.Boundary_pT sou(
-    redeclare package Medium = Medium1,
+    redeclare package Medium=Medium1,
     use_T_in=true,
-    nPorts=1) "Source for district water" annotation (Placement(transformation(
+    nPorts=1) "Source for district water"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,-40})));

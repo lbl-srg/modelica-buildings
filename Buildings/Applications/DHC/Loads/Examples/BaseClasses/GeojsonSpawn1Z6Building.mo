@@ -2,18 +2,18 @@ within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
 model GeojsonSpawn1Z6Building
   "Spawn building model based on Urbanopt GeoJSON export"
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
-    final haveEleHea=false,
-    final haveEleCoo=false,
-    final havePum=false,
-    final haveWeaBus=false,
+    final have_eleHea=false,
+    final have_eleCoo=false,
+    final have_pum=false,
+    final have_weaBus=false,
     nPorts1=2);
   package Medium2 = Buildings.Media.Air "Medium model";
   parameter Integer nZon = 6
     "Number of thermal zones";
-  parameter String idfPath=
+  parameter String idfPat=
     "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportSpawn/Resources/Data/B5a6b99ec37f4de7f94020090/RefBldgSmallOfficeNew2004_Chicago.idf"
     "Path of the IDF file";
-  parameter String weaPath=
+  parameter String weaPat=
     "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportSpawn/Resources/Data/B5a6b99ec37f4de7f94020090/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"
     "Path of the weather file";
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet[nZon](k=fill(20,
@@ -65,8 +65,8 @@ model GeojsonSpawn1Z6Building
     nPorts=2)                 "Thermal zone"
     annotation (Placement(transformation(extent={{24,-120},{64,-80}})));
   inner Buildings.Experimental.EnergyPlus.Building building(
-    idfName=Modelica.Utilities.Files.loadResource(idfPath),
-    weaName=Modelica.Utilities.Files.loadResource(weaPath))
+    idfName=Modelica.Utilities.Files.loadResource(idfPat),
+    weaName=Modelica.Utilities.Files.loadResource(weaPat))
     "Building outer component"
     annotation (Placement(transformation(extent={{30,198},{52,218}})));
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(

@@ -5,7 +5,6 @@ model PipeConnection "Building service connection pipe"
     dh=0,
     final fac=1.1,
     final ReC=6000,
-    allowFlowReversal=false,
     final linearized=false,
     final v_nominal=m_flow_nominal * 4 / (rho_default * dh^2 * Modelica.Constants.pi));
     // Steel straight pipe
