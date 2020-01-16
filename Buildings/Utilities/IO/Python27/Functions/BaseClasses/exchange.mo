@@ -35,11 +35,11 @@ function exchange "Function that communicates with Python"
                                     strWri, nStrWri,
                                     pytObj,
                                     passPythonObject)
-    annotation (Library={"ModelicaBuildingsPython2.7",  "python2.7"},
+    annotation (Library={"libModelicaBuildingspython3.6",  "python3.6"},
       LibraryDirectory="modelica://Buildings/Resources/Library",
       IncludeDirectory="modelica://Buildings/Resources/C-Sources",
       Include="#include \"python27Wrapper.c\"",
-      __iti_dll = "ITI_ModelicaBuildingsPython2.7.dll",
+      __iti_dll = "ITI_libModelicaBuildingsPython3.6.dll",
       __iti_dllNoExport = true);
   annotation (Documentation(info="<html>
 <p>
