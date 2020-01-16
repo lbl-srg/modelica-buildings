@@ -67,7 +67,7 @@ Documentation(info="<html>
  <h4> Water hydraulic header </h4>
  <p>
  The model represents a header or a common pipe which hydraulically decouples
- different connected components at the system such as the EIR chiller and  stratified tanks, etc. 
+ different connected components at the system such as the EIR chiller and  stratified tanks, etc.
 </p>
 
 </html>", revisions="<html>
