@@ -22,16 +22,16 @@ model UnidirectionalParallel
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Distribution return outlet port"
     annotation (Placement(transformation(
-      extent={{-110,-70},{-90,-50}}), iconTransformation(extent={{-110,-70},
-        {-90,-50}})));
+      extent={{-110,-70},{-90,-50}}), iconTransformation(extent={{-220,-80},{
+            -180,-40}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_disRetInl(
     redeclare package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Distribution return inlet port"
     annotation (Placement(transformation(
-      extent={{90,-70},{110,-50}}), iconTransformation(extent={{90,-70},{110,
-        -50}})));
+      extent={{90,-70},{110,-50}}), iconTransformation(extent={{180,-80},{220,
+            -40}})));
   // COMPONENTS
   BaseClasses.ConnectionParallel con[nCon](
     redeclare package Medium = Medium,
@@ -84,12 +84,28 @@ equation
           origin={-120,47},
           rotation=90),
         Rectangle(
-          extent={{-53,4},{53,-4}},
+          extent={{-44,4},{44,-4}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          origin={120,47},
+          origin={120,56},
+          rotation=90),
+        Rectangle(
+          extent={{-6,-200},{6,200}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          origin={0,-60},
+          rotation=90),
+        Rectangle(
+          extent={{-27,4},{27,-4}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          origin={120,-39},
           rotation=90)}),
     Diagram( coordinateSystem(preserveAspectRatio=false)));
 end UnidirectionalParallel;

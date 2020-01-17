@@ -54,8 +54,8 @@ equation
           150},{-14,180},{-10,180}}, color={0,127,255}));
   connect(bui.port_b, dis.ports_conRet)
     annotation (Line(points={{10,180},{12,180},{12,150}}, color={0,127,255}));
-  connect(mDisPla_flow.y, sewageHeatRecovery.mPum_flow) annotation (Line(points
-        ={{-259,20},{-180,20},{-180,4},{-161,4}}, color={0,0,127}));
+  connect(mDisPla_flow.y, sewageHeatRecovery.mPum_flow) annotation (Line(points=
+         {{-259,20},{-180,20},{-180,4},{-161,4}}, color={0,0,127}));
   connect(TSewWat.y, sewageHeatRecovery.TSewWat) annotation (Line(points={{-259,
           60},{-176,60},{-176,8},{-161,8}}, color={0,0,127}));
   annotation (
