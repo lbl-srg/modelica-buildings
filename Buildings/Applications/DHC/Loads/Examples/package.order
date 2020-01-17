@@ -1,9 +1,10 @@
 CouplingTimeSeries
-CouplingRC
-CouplingRCPump
-CouplingRCHeatPort
+CouplingRCZ1
+CouplingRCZ1Pump
+CouplingRCZ1HeatPort
+CouplingRCZ6Geojson
+CouplingRCZ6GeojsonPump
 CouplingSpawnZ1
-CouplingGeojsonRC
-CouplingGeojsonSpawn1Z6
-CouplingGeojsonSpawn1Z6Pump
+CouplingSpawnZ6Geojson
+CouplingSpawnZ6GeojsonPump
 BaseClasses

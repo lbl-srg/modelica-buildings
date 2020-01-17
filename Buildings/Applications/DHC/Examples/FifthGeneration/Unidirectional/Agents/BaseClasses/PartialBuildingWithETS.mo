@@ -60,7 +60,7 @@ partial model PartialBuildingWithETS
     nPorts1=nSup)
     "Building"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
-  replaceable ETSSimplified ets(
+  replaceable EnergyTransferStation.ETSSimplified ets(
     redeclare package Medium = Medium,
     nSup=nSup,
     QCoo_flow_nominal=sum(bui.terUni.QCoo_flow_nominal),
@@ -71,8 +71,7 @@ partial model PartialBuildingWithETS
     THeaWatSup_nominal=THeaWatSup_nominal,
     THeaWatRet_nominal=THeaWatRet_nominal,
     dp_nominal=dp_nominal,
-    COP_nominal=COP_nominal)
-    "Energy transfer station"
+    COP_nominal=COP_nominal) "Energy transfer station"
     annotation (Placement(transformation(extent={{-20,-60},{20,-20}})));
 equation
   connect(port_a, ets.port_a) annotation (Line(points={{-100,0},{-80,0},{-80,-40},

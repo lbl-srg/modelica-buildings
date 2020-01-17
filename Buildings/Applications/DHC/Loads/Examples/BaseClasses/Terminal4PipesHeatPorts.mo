@@ -6,7 +6,7 @@ model Terminal4PipesHeatPorts
     final cooFunSpe=Buildings.Applications.DHC.Loads.Types.TerminalFunctionSpec.Water,
     final have_heaPor=true,
     final have_fluPor=false,
-    final haveQReq_flow=false,
+    final have_QReq_flow=false,
     final have_weaBus=false,
     final have_fan=false,
     final have_pum=false,

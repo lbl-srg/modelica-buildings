@@ -1,10 +1,10 @@
 within Buildings.Applications.DHC.Loads.Examples;
 model CouplingSpawnZ1
-  "Example illustrating the coupling of a multizone RC model to a fluid loop"
+  "Example illustrating the coupling of a single zone Spawn model to a fluid loop"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water
     "Source side medium";
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.SpawnZ1Building bui
+  Buildings.Applications.DHC.Loads.Examples.BaseClasses.BuildingSpawnZ1 bui
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Buildings.Fluid.Sources.MassFlowSource_T supHea(
     use_m_flow_in=true,
@@ -61,16 +61,16 @@ equation
   connect(mCoo_flow.y, supCoo.m_flow_in) annotation (Line(points={{-59,-56},{-40,
           -56},{-40,-62},{-22,-62}}, color={0,0,127}));
   connect(supHea.ports[1], bui.ports_a1[1])
-    annotation (Line(points={{0,10},{24,10},{24,-36},{40,-36}},
+    annotation (Line(points={{0,10},{24,10},{24,-48},{20,-48}},
                                                               color={0,127,255}));
   connect(supCoo.ports[1], bui.ports_a1[2])
-    annotation (Line(points={{0,-70},{24,-70},{24,-36},{40,-36}},
+    annotation (Line(points={{0,-70},{24,-70},{24,-48},{20,-48}},
                                                               color={0,127,255}));
   connect(bui.ports_b1[1],sinHea. ports[1])
-    annotation (Line(points={{60,-36},{94,-36},{94,10},{120,10}},
+    annotation (Line(points={{80,-48},{94,-48},{94,10},{120,10}},
                                                                 color={0,127,255}));
   connect(bui.ports_b1[2],sinCoo. ports[1])
-    annotation (Line(points={{60,-36},{94,-36},{94,-70},{120,-70}},
+    annotation (Line(points={{80,-48},{94,-48},{94,-70},{120,-70}},
                                                                 color={0,127,255}));
   annotation (
   experiment(

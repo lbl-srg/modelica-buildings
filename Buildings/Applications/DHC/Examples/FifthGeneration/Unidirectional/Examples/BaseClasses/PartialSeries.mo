@@ -7,27 +7,21 @@ partial model PartialSeries "Partial model for series network"
     annotation (Evaluate=true);
   parameter String weaPat
     "Path of the weather file";
-  parameter Integer nZon[nBui]
-    "Number of thermal zones"
-    annotation(Evaluate=true);
   inner parameter Data.DesignDataDHC datDes
     "Design data"
-    annotation (Placement(transformation(extent={{-280,260},{-260,280}})));
+    annotation (Placement(transformation(extent={{-300,220},{-280,240}})));
   // COMPONENTS
-  Agents.BoreField borFie(redeclare package Medium=Medium)
-    annotation (
-      Placement(transformation(
+  ThermalStorages.BoreField borFie(redeclare package Medium = Medium)
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-190,-80})));
-  Distribution.BaseClasses.Pump_m_flow pumpMainRLTN(
-    redeclare package Medium=Medium,
-    m_flow_nominal=datDes.mDis_flow_nominal)
-    "Pump"
-    annotation (Placement(transformation(
-      extent={{10,-10},{-10,10}},
-      rotation=90,
-      origin={80,-80})));
+  Networks.BaseClasses.Pump_m_flow pumpMainRLTN(redeclare package Medium =
+        Medium, m_flow_nominal=datDes.mDis_flow_nominal) "Pump" annotation (
+      Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={80,-80})));
   Buildings.Fluid.HeatExchangers.ConstantEffectiveness plant(
     redeclare package Medium1=Medium,
     redeclare package Medium2=Medium,
@@ -44,12 +38,10 @@ partial model PartialSeries "Partial model for series network"
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-226,-20})));
-  Distribution.BaseClasses.Pump_m_flow pumpPrimarySidePlant(
-    redeclare package Medium=Medium,
+  Networks.BaseClasses.Pump_m_flow pumpPrimarySidePlant(
+    redeclare package Medium = Medium,
     final m_flow_nominal=datDes.mPla_flow_nominal,
-    dp_nominal=50000)
-    "Pump"
-    annotation (Placement(transformation(
+    dp_nominal=50000) "Pump" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-220,10})));
@@ -63,12 +55,10 @@ partial model PartialSeries "Partial model for series network"
     nPorts=2)
     "17°C"
     annotation (Placement(transformation(extent={{-280,-30},{-260,-10}})));
-  Distribution.BaseClasses.Pump_m_flow pumpSecondarySidePlant(
-    redeclare package Medium=Medium,
+  Networks.BaseClasses.Pump_m_flow pumpSecondarySidePlant(
+    redeclare package Medium = Medium,
     final m_flow_nominal=datDes.mPla_flow_nominal,
-    dp_nominal=50000)
-    "Pump"
-    annotation (Placement(transformation(
+    dp_nominal=50000) "Pump" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-260,10})));
@@ -89,30 +79,25 @@ partial model PartialSeries "Partial model for series network"
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={112,-40})));
-  Distribution.BaseClasses.Pump_m_flow pumpBHS(
-    redeclare package Medium=Medium,
-    m_flow_nominal=datDes.mSto_flow_nominal)
-    "Pump"
-    annotation (Placement(transformation(
+  Networks.BaseClasses.Pump_m_flow pumpBHS(redeclare package Medium = Medium,
+      m_flow_nominal=datDes.mSto_flow_nominal) "Pump" annotation (Placement(
+        transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={-160,-120})));
-  Distribution.BaseClasses.ConnectionSeries conPla(
-    redeclare package Medium=Medium,
+  Networks.BaseClasses.ConnectionSeries conPla(
+    redeclare package Medium = Medium,
     mDis_flow_nominal=datDes.mDis_flow_nominal,
     mCon_flow_nominal=datDes.mPla_flow_nominal,
     lDis=0,
     lCon=10,
     dhDis=datDes.dhDis,
-    dhCon=0.10)
-    "Connection to the plant"
-    annotation (Placement(
-        transformation(
+    dhCon=0.10) "Connection to the plant" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-80,-10})));
-  Distribution.UnidirectionalSeries dis(
-    redeclare package Medium=Medium,
+  Networks.UnidirectionalSeries dis(
+    redeclare package Medium = Medium,
     nCon=nBui,
     mDis_flow_nominal=datDes.mDis_flow_nominal,
     mCon_flow_nominal=datDes.mCon_flow_nominal,
@@ -121,16 +106,14 @@ partial model PartialSeries "Partial model for series network"
     dhDis=datDes.dhDis,
     dhCon=datDes.dhCon)
     annotation (Placement(transformation(extent={{-20,130},{20,150}})));
-  Distribution.BaseClasses.ConnectionSeries conSto(
+  Networks.BaseClasses.ConnectionSeries conSto(
     redeclare package Medium = Medium,
     mDis_flow_nominal=datDes.mDis_flow_nominal,
     mCon_flow_nominal=datDes.mSto_flow_nominal,
     lDis=0,
     lCon=0,
     dhDis=datDes.dhDis,
-    dhCon=datDes.dhDis)
-    "Connection to the bore field"
-    annotation (Placement(
+    dhCon=datDes.dhDis) "Connection to the bore field" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -176,7 +159,6 @@ equation
   connect(pumpMainRLTN.port_b, conSto.port_disInl) annotation (Line(points={{80,
           -90},{80,-120},{-80,-120},{-80,-100}}, color={0,127,255}));
   annotation (Diagram(
-    coordinateSystem(preserveAspectRatio=false, extent={{-320,-380},{320,
-            380}})),
+    coordinateSystem(preserveAspectRatio=false, extent={{-320,-240},{320,240}})),
     experiment(StopTime=31536000, __Dymola_NumberOfIntervals=8760));
 end PartialSeries;

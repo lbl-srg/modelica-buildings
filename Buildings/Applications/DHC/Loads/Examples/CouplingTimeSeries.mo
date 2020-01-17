@@ -4,7 +4,7 @@ model CouplingTimeSeries
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water
     "Source side medium";
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.TimeSeriesBuilding bui
+  Buildings.Applications.DHC.Loads.Examples.BaseClasses.BuildingTimeSeries bui
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Buildings.Fluid.Sources.MassFlowSource_T supHea(
     use_m_flow_in=true,

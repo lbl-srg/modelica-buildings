@@ -257,13 +257,14 @@ equation
   connect(hydHea.ports_b[3], senT2Ret1.port_b) annotation (Line(points={{
           2.66667,-12},{14,-12},{14,-160},{30,-160}}, color={0,127,255}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-200},{
-            220,120}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},{
+            240,120}})),
    experiment(
       StopTime=5000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Applications/DHC/Examples/FifthGenUniSeries/Validation/Decoupler.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    Icon(coordinateSystem(extent={{-200,-200},{240,120}})));
 end Decoupler;
