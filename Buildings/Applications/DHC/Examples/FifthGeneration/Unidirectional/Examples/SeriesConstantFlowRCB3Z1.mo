@@ -13,7 +13,7 @@ model SeriesConstantFlowRCB3Z1
     k=datDes.mDis_flow_nominal)
     "Distribution pump mass flow rate"
     annotation (Placement(transformation(extent={{-380,-70},{-360,-50}})));
-  Agents.BuildingRCZ1WithETS bui[nBui](
+  Loads.BuildingRCZ1WithETS bui[nBui](
     redeclare each final package Medium=Medium)
     annotation (Placement(transformation(extent={{-10,170},{10,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetHeaWatSup[nBui](
@@ -65,7 +65,7 @@ equation
     extent={{-272,-296},{68,-376}},
     lineColor={28,108,200},
     horizontalAlignment=TextAlignment.Left,
-    textString="Simulation is faster with 
+    textString="Simulation is faster with
 
 Advanced.SparseActivate=true")}),
   __Dymola_Commands(file=

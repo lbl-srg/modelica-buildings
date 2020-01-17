@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Agents.BaseClasses;
+within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Loads.BaseClasses;
 partial model PartialBuildingWithETS
   "Partial model of a building with an energy transfer station"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(

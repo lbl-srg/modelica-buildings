@@ -32,7 +32,7 @@ model BuildingETSConnection
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TDis(k=273.15 + 15)
     "District water temperature"
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
-  Agents.BuildingSpawnZ6WithETS bui(redeclare package Medium = Medium1)
+  Loads.BuildingSpawnZ6WithETS bui(redeclare package Medium = Medium1)
     "Model of a building with an energy transfer station"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   inner parameter Data.DesignDataDHC datDes(

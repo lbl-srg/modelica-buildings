@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Agents;
+within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Loads;
 model BuildingSpawnZ6WithETS
   "Model of a building (Spawn 6 zones) with an energy transfer station"
   extends BaseClasses.PartialBuildingWithETS(

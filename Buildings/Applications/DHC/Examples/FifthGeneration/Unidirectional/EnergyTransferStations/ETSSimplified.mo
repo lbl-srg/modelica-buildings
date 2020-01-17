@@ -1,4 +1,4 @@
-﻿within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.EnergyTransferStation;
+﻿within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.EnergyTransferStations;
 model ETSSimplified
   "Simplified model of a substation producing heating hot water (heat pump) and chilled water (HX)"
   replaceable package Medium =
@@ -542,7 +542,7 @@ equation
   defaultComponentName="ets",
   Documentation(info="<html>
 <p>
-Heating hot water is produced at low temperature (typically 40°C) with a water-to-water heat pump. 
+Heating hot water is produced at low temperature (typically 40°C) with a water-to-water heat pump.
 Chilled water is produced at high temperature (typically 19°C) with a heat exchanger.
 </p>
 <p>
