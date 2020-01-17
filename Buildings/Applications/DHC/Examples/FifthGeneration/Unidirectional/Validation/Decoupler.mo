@@ -13,7 +13,7 @@ model Decoupler "Validation of building and ETS connection"
     addPowerToMedium=false,
     nominalValuesDefineDefaultPressureCurve=true) "Primary supply"
     annotation (Placement(transformation(extent={{-110,10},{-90,30}})));
-  EnergyTransferStations.BaseClasses.HydraulicHeader hydHea(
+  DHC.EnergyTransferStations.BaseClasses.HydraulicHeader hydHea(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     nPorts_a=3,
@@ -263,8 +263,6 @@ equation
       StopTime=5000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Applications/DHC/Examples/FifthGenUniSeries/Validation/Decoupler.mos"
-        "Simulate and plot"),
-    Icon(coordinateSystem(extent={{-200,-200},{240,120}})));
+    __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Examples/FifthGeneration/Unidirectional/Validation/Decoupler.mos"
+        "Simulate and plot"));
 end Decoupler;

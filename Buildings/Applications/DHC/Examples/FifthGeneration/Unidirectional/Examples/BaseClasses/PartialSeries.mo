@@ -1,4 +1,4 @@
-﻿within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Examples.BaseClasses;
+within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Examples.BaseClasses;
 partial model PartialSeries "Partial model for series network"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water "Medium model";
@@ -9,68 +9,19 @@ partial model PartialSeries "Partial model for series network"
     "Path of the weather file";
   inner parameter Data.DesignDataDHC datDes
     "Design data"
-    annotation (Placement(transformation(extent={{-300,220},{-280,240}})));
+    annotation (Placement(transformation(extent={{-340,218},{-320,238}})));
   // COMPONENTS
   ThermalStorages.BoreField borFie(redeclare package Medium = Medium)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-190,-80})));
-  Networks.BaseClasses.Pump_m_flow pumpMainRLTN(redeclare package Medium =
-        Medium, m_flow_nominal=datDes.mDis_flow_nominal) "Pump" annotation (
+        origin={-130,-80})));
+  Networks.BaseClasses.Pump_m_flow pumDis(redeclare package Medium = Medium,
+      m_flow_nominal=datDes.mDis_flow_nominal) "Distribution pump" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={80,-80})));
-  Buildings.Fluid.HeatExchangers.ConstantEffectiveness plant(
-    redeclare package Medium1=Medium,
-    redeclare package Medium2=Medium,
-    allowFlowReversal2=false,
-    final m1_flow_nominal=datDes.mPla_flow_nominal,
-    final m2_flow_nominal=datDes.mPla_flow_nominal,
-    show_T=true,
-    final dp1_nominal(displayUnit="bar") = 50000,
-    final dp2_nominal(displayUnit="bar") = 50000,
-    final eps=datDes.epsPla)
-    "HX"
-    annotation (Placement(
-        transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=90,
-        origin={-226,-20})));
-  Networks.BaseClasses.Pump_m_flow pumpPrimarySidePlant(
-    redeclare package Medium = Medium,
-    final m_flow_nominal=datDes.mPla_flow_nominal,
-    dp_nominal=50000) "Pump" annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=90,
-        origin={-220,10})));
-  Modelica.Blocks.Sources.Constant mFlowInputPlant(
-    final k=datDes.mPla_flow_nominal)
-    "District water flow rate to plant"
-    annotation (Placement(transformation(extent={{-158,-18},{-174,-2}})));
-  Buildings.Fluid.Sources.Boundary_pT sewageSourceAtConstTemp(
-    redeclare package Medium=Medium,
-    T=290.15,
-    nPorts=2)
-    "17°C"
-    annotation (Placement(transformation(extent={{-280,-30},{-260,-10}})));
-  Networks.BaseClasses.Pump_m_flow pumpSecondarySidePlant(
-    redeclare package Medium = Medium,
-    final m_flow_nominal=datDes.mPla_flow_nominal,
-    dp_nominal=50000) "Pump" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-260,10})));
-  Fluid.Sensors.TemperatureTwoPort tempAfterPlantSecondSide(
-      redeclare package Medium=Medium,
-    allowFlowReversal=false,
-    m_flow_nominal=datDes.mDis_flow_nominal,
-    tau=0) annotation (Placement(
-        transformation(
-        extent={{-6,6},{6,-6}},
-        rotation=180,
-        origin={-246,-40})));
   Buildings.Fluid.Sources.Boundary_pT bou(
     redeclare package Medium=Medium,
     nPorts=1)
@@ -97,7 +48,7 @@ partial model PartialSeries "Partial model for series network"
         rotation=90,
         origin={-80,-10})));
   Networks.UnidirectionalSeries dis(
-    redeclare package Medium = Medium,
+    redeclare package Medium=Medium,
     nCon=nBui,
     mDis_flow_nominal=datDes.mDis_flow_nominal,
     mCon_flow_nominal=datDes.mCon_flow_nominal,
@@ -107,58 +58,51 @@ partial model PartialSeries "Partial model for series network"
     dhCon=datDes.dhCon)
     annotation (Placement(transformation(extent={{-20,130},{20,150}})));
   Networks.BaseClasses.ConnectionSeries conSto(
-    redeclare package Medium = Medium,
+    redeclare package Medium=Medium,
     mDis_flow_nominal=datDes.mDis_flow_nominal,
     mCon_flow_nominal=datDes.mSto_flow_nominal,
     lDis=0,
     lCon=0,
     dhDis=datDes.dhDis,
-    dhCon=datDes.dhDis) "Connection to the bore field" annotation (Placement(
+    dhCon=datDes.dhDis)
+    "Connection to the bore field"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-80,-90})));
+  CentralPlants.SewageHeatRecovery sewageHeatRecovery(
+    redeclare package Medium=Medium,
+    mSew_flow_nominal=datDes.mPla_flow_nominal,
+    mDis_flow_nominal=datDes.mPla_flow_nominal,
+    dpSew_nominal=datDes.dpPla_nominal,
+    dpDis_nominal=datDes.dpPla_nominal,
+    epsHex=datDes.epsPla)
+    annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
 equation
-  connect(mFlowInputPlant.y, pumpPrimarySidePlant.m_flow_in) annotation (
-      Line(points={{-174.8,-10},{-204,-10},{-204,10},{-208,10}},       color={0,
-          0,127}));
-  connect(tempAfterPlantSecondSide.port_a, plant.port_b2) annotation (Line(
-        points={{-240,-40},{-232,-40},{-232,-30}},   color={0,127,255}));
-  connect(mFlowInputPlant.y, pumpSecondarySidePlant.m_flow_in) annotation (
-      Line(points={{-174.8,-10},{-200,-10},{-200,10},{-272,10}},       color={0,0,127}));
-  connect(pumpPrimarySidePlant.port_a, plant.port_b1)
-    annotation (Line(points={{-220,0},{-220,-10}},     color={0,127,255}));
-  connect(pumpSecondarySidePlant.port_b, plant.port_a2) annotation (Line(
-        points={{-260,20},{-260,40},{-232,40},{-232,-10}},        color={0,127,
-          255}));
-  connect(bou.ports[1], pumpMainRLTN.port_a)
-    annotation (Line(points={{102,-40},{80,-40},{80,-70}},
-                                      color={0,127,255}));
+  connect(bou.ports[1], pumDis.port_a)
+    annotation (Line(points={{102,-40},{80,-40},{80,-70}}, color={0,127,255}));
   connect(borFie.port_a, pumpBHS.port_b)
-    annotation (Line(points={{-200,-80},{-260,-80},{-260,-120},{-170,-120}},
+    annotation (Line(points={{-140,-80},{-200,-80},{-200,-120},{-170,-120}},
                                                   color={0,127,255}));
-  connect(conPla.port_conSup, plant.port_a1) annotation (Line(points={{-90,-10},
-          {-100,-10},{-100,-40},{-220,-40},{-220,-30}},     color={0,127,255}));
-  connect(pumpPrimarySidePlant.port_b, conPla.port_conRet) annotation (Line(
-        points={{-220,20},{-220,40},{-100,40},{-100,-4},{-90,-4}},
-        color={0,127,255}));
   connect(conPla.port_disOut, dis.port_disSupInl)
     annotation (Line(points={{-80,0},{-80,140},{-20,140}}, color={0,127,255}));
-  connect(dis.port_disSupOut, pumpMainRLTN.port_a)
+  connect(dis.port_disSupOut, pumDis.port_a)
     annotation (Line(points={{20,140},{80,140},{80,-70}}, color={0,127,255}));
-  connect(tempAfterPlantSecondSide.port_b, sewageSourceAtConstTemp.ports[1])
-    annotation (Line(points={{-252,-40},{-260,-40},{-260,-18}},    color={0,127,255}));
-  connect(sewageSourceAtConstTemp.ports[2], pumpSecondarySidePlant.port_a)
-    annotation (Line(points={{-260,-22},{-260,0}},     color={0,127,255}));
   connect(conSto.port_disOut, conPla.port_disInl)
     annotation (Line(points={{-80,-80},{-80,-20}}, color={0,127,255}));
-  connect(borFie.port_b, conSto.port_conRet) annotation (Line(points={{-180,-80},
+  connect(borFie.port_b, conSto.port_conRet) annotation (Line(points={{-120,-80},
           {-100,-80},{-100,-84},{-90,-84}}, color={0,127,255}));
   connect(pumpBHS.port_a, conSto.port_conSup) annotation (Line(points={{-150,
           -120},{-100,-120},{-100,-90},{-90,-90}}, color={0,127,255}));
-  connect(pumpMainRLTN.port_b, conSto.port_disInl) annotation (Line(points={{80,
-          -90},{80,-120},{-80,-120},{-80,-100}}, color={0,127,255}));
+  connect(pumDis.port_b, conSto.port_disInl) annotation (Line(points={{80,-90},
+          {80,-120},{-80,-120},{-80,-100}}, color={0,127,255}));
+  connect(sewageHeatRecovery.port_disOut, conPla.port_conRet) annotation (Line(
+        points={{-140,0},{-100,0},{-100,-4},{-90,-4}}, color={0,127,255}));
+  connect(conPla.port_conSup, sewageHeatRecovery.port_disInl) annotation (Line(
+        points={{-90,-10},{-100,-10},{-100,-20},{-200,-20},{-200,0},{-160,0}},
+        color={0,127,255}));
   annotation (Diagram(
-    coordinateSystem(preserveAspectRatio=false, extent={{-320,-240},{320,240}})),
+    coordinateSystem(preserveAspectRatio=false, extent={{-360,-240},{360,240}})),
     experiment(StopTime=31536000, __Dymola_NumberOfIntervals=8760));
 end PartialSeries;

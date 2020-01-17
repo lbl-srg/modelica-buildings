@@ -12,7 +12,7 @@ model SeriesConstantFlowRCB3Z6
   Modelica.Blocks.Sources.Constant massFlowMainPump(
     k=datDes.mDis_flow_nominal)
     "Distribution pump mass flow rate"
-    annotation (Placement(transformation(extent={{-380,-70},{-360,-50}})));
+    annotation (Placement(transformation(extent={{-280,-70},{-260,-50}})));
   Loads.BuildingRCZ6WithETS bui[nBui](
     redeclare each final package Medium=Medium)
     annotation (Placement(transformation(extent={{-10,170},{10,190}})));
@@ -30,12 +30,17 @@ model SeriesConstantFlowRCB3Z6
     filNam=Modelica.Utilities.Files.loadResource(weaPat))
     "Weather data reader"
     annotation (Placement(transformation(extent={{60,210},{40,230}})));
+  Modelica.Blocks.Sources.Constant TSewWat(k=273.15 + 17)
+    "Sewage water temperature"
+    annotation (Placement(transformation(extent={{-280,50},{-260,70}})));
+  Modelica.Blocks.Sources.Constant mDisPla_flow(k=datDes.mPla_flow_nominal)
+    "District water flow rate to plant"
+    annotation (Placement(transformation(extent={{-280,10},{-260,30}})));
 equation
-  connect(massFlowMainPump.y, pumpMainRLTN.m_flow_in)
-    annotation (Line(points={{-359,-60},{60,-60},{60,-80},{68,-80}},
-                                                color={0,0,127}));
+  connect(massFlowMainPump.y, pumDis.m_flow_in) annotation (Line(points={{-259,
+          -60},{60,-60},{60,-80},{68,-80}}, color={0,0,127}));
   connect(pumpBHS.m_flow_in, massFlowMainPump.y)
-    annotation (Line(points={{-160,-108},{-160,-60},{-359,-60}},
+    annotation (Line(points={{-160,-108},{-160,-60},{-259,-60}},
     color={0,0,127}));
   connect(TSetHeaWatSup.y,bui. TSetHeaWat)
     annotation (Line(points={{-258,220},{
@@ -57,20 +62,22 @@ equation
       color={255,204,51},
       thickness=0.5));
   end for;
+  connect(mDisPla_flow.y, sewageHeatRecovery.mPum_flow) annotation (Line(points
+        ={{-259,20},{-180,20},{-180,4},{-161,4}}, color={0,0,127}));
+  connect(TSewWat.y, sewageHeatRecovery.TSewWat) annotation (Line(points={{-259,
+          60},{-176,60},{-176,8},{-161,8}}, color={0,0,127}));
   annotation (
   Diagram(
-  coordinateSystem(preserveAspectRatio=false, extent={{-480,-440},{480,440}}),
+  coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{360,260}}),
     graphics={
     Text(
-    extent={{-272,-296},{68,-376}},
+    extent={{-338,-176},{2,-256}},
     lineColor={28,108,200},
     horizontalAlignment=TextAlignment.Left,
     textString="Simulation is faster with
 
 Advanced.SparseActivate=true")}),
-  __Dymola_Commands(file=
-  "modelica://Buildings/Resources/Scripts/Dymola/Examples/DistrictReservoirNetworks/Examples/Reservoir1Constant.mos"
-  "Simulate and plot"),
+  __Dymola_Commands,
   experiment(
     StopTime=172800,
     Tolerance=1e-06,

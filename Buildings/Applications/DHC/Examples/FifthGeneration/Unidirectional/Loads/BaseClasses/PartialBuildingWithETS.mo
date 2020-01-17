@@ -60,7 +60,7 @@ partial model PartialBuildingWithETS
     nPorts1=nSup)
     "Building"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
-  replaceable EnergyTransferStation.ETSSimplified ets(
+  replaceable EnergyTransferStations.ETSSimplified ets(
     redeclare package Medium = Medium,
     nSup=nSup,
     QCoo_flow_nominal=sum(bui.terUni.QCoo_flow_nominal),

@@ -32,7 +32,7 @@ model BuildingETSConnection
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TDis(k=273.15 + 15)
     "District water temperature"
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
-  Loads.BuildingSpawnZ6WithETS bui(redeclare package Medium = Medium1)
+  Loads.BuildingSpawnZ6WithETS bui(redeclare package Medium=Medium1)
     "Model of a building with an energy transfer station"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   inner parameter Data.DesignDataDHC datDes(
@@ -65,6 +65,7 @@ Hidden.AvoidDoubleComputation=true")}),
       StopTime=172800,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
-    __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Examples/FifthGenUniSeries/Validation/BuildingETSConnection.mos"
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Applications/DHC/Examples/FifthGeneration/Unidirectional/Validation/BuildingETSConnection.mos"
         "Simulate and plot"));
 end BuildingETSConnection;

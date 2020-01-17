@@ -25,7 +25,7 @@ model ETSSimplified
     annotation (Dialog(group="Nominal conditions"));
   parameter Modelica.SIunits.Temperature TChiWatSup_nominal = 273.15 + 18
     "Chilled water supply temperature"
-     annotation (Dialog(group="Nominal conditions"));
+    annotation (Dialog(group="Nominal conditions"));
   parameter Modelica.SIunits.Temperature TChiWatRet_nominal=
     TChiWatSup_nominal + dT_nominal
     "Chilled water return temperature"
@@ -359,7 +359,8 @@ model ETSSimplified
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={40,-80})));
-  EnergyTransferStations.BaseClasses.HydraulicHeader decHeaWat(
+  Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.HydraulicHeader
+  decHeaWat(
     redeclare final package Medium=Medium,
     m_flow_nominal=mHeaWat_flow_nominal,
     nPorts_a=2,
@@ -367,7 +368,8 @@ model ETSSimplified
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,350})));
-  EnergyTransferStations.BaseClasses.HydraulicHeader decChiWat(
+  Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.HydraulicHeader
+  decChiWat(
     redeclare final package Medium=Medium,
     m_flow_nominal=mChiWat_flow_nominal,
     nPorts_a=2,
