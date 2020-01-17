@@ -39,9 +39,8 @@ model SeriesConstantFlowRCB3Z1
 equation
   connect(massFlowMainPump.y, pumDis.m_flow_in) annotation (Line(points={{-259,
           -60},{60,-60},{60,-80},{68,-80}}, color={0,0,127}));
-  connect(pumpBHS.m_flow_in, massFlowMainPump.y)
-    annotation (Line(points={{-160,-108},{-160,-60},{-259,-60}},
-    color={0,0,127}));
+  connect(pumSto.m_flow_in, massFlowMainPump.y) annotation (Line(points={{-180,
+          -68},{-180,-60},{-259,-60}}, color={0,0,127}));
   connect(TSetHeaWatSup.y,bui. TSetHeaWat)
     annotation (Line(points={{-258,220},{
           -20,220},{-20,188},{-11,188}},
@@ -62,10 +61,10 @@ equation
       color={255,204,51},
       thickness=0.5));
   end for;
-  connect(mDisPla_flow.y, sewageHeatRecovery.mPum_flow) annotation (Line(points
-        ={{-259,20},{-180,20},{-180,4},{-161,4}}, color={0,0,127}));
-  connect(TSewWat.y, sewageHeatRecovery.TSewWat) annotation (Line(points={{-259,
-          60},{-176,60},{-176,8},{-161,8}}, color={0,0,127}));
+  connect(mDisPla_flow.y, pla.mPum_flow) annotation (Line(points={{-259,20},{-180,
+          20},{-180,4},{-161,4}}, color={0,0,127}));
+  connect(TSewWat.y, pla.TSewWat) annotation (Line(points={{-259,60},{-176,60},
+          {-176,8},{-161,8}}, color={0,0,127}));
   annotation (
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{360,260}})),

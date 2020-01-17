@@ -10,11 +10,15 @@ model UnidirectionalParallel
   parameter Modelica.SIunits.Length lDis[nCon]
     "Length of the distribution pipe before each connection";
   parameter Modelica.SIunits.Length lCon[nCon]
-    "Length of the connection pipe (supply only, not counting return line)";
-  parameter Modelica.SIunits.Length dhDis
-    "Hydraulic diameter of the distribution pipe";
+    "Length of each connection pipe (supply only, not counting return line)";
+  parameter Modelica.SIunits.Length lEnd = 0
+    "Length of the end of the distribution line (after last connection)";
+  parameter Modelica.SIunits.Length dhDis[nCon]
+    "Hydraulic diameter of the distribution pipe before each connection";
   parameter Modelica.SIunits.Length dhCon[nCon]
-    "Hydraulic diameter of the connection pipe";
+    "Hydraulic diameter of each connection pipe";
+  parameter Modelica.SIunits.Length dhEnd = dhDis[nCon]
+    "Hydraulic diameter of the end of the distribution line (after last connection)";
   // IO CONNECTORS
   Modelica.Fluid.Interfaces.FluidPort_b port_disRetOut(
     redeclare package Medium = Medium,
@@ -33,7 +37,7 @@ model UnidirectionalParallel
       extent={{90,-70},{110,-50}}), iconTransformation(extent={{180,-80},{220,
             -40}})));
   // COMPONENTS
-  BaseClasses.ConnectionParallel con[nCon](
+  replaceable BaseClasses.ConnectionParallel con[nCon](
     redeclare package Medium = Medium,
     each mDis_flow_nominal=mDis_flow_nominal,
     mCon_flow_nominal=mCon_flow_nominal,

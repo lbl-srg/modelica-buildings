@@ -26,11 +26,11 @@ model SeriesConstantFlowSpawnB3Z6
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetHeaWatSup[nBui](
     k=bui.THeaWatSup_nominal)
     "Heating water supply temperature set point"
-    annotation (Placement(transformation(extent={{-280,190},{-260,210}})));
+    annotation (Placement(transformation(extent={{-280,210},{-260,230}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetChiWatSup[nBui](
     k=bui.TChiWatSup_nominal)
     "Chilled water supply temperature set point"
-    annotation (Placement(transformation(extent={{-280,150},{-260,170}})));
+    annotation (Placement(transformation(extent={{-280,170},{-260,190}})));
   Modelica.Blocks.Sources.Constant TSewWat(k=273.15 + 17)
     "Sewage water temperature"
     annotation (Placement(transformation(extent={{-280,50},{-260,70}})));
@@ -40,24 +40,24 @@ model SeriesConstantFlowSpawnB3Z6
 equation
   connect(massFlowMainPump.y, pumDis.m_flow_in) annotation (Line(points={{-259,
           -60},{60,-60},{60,-80},{68,-80}}, color={0,0,127}));
-  connect(pumpBHS.m_flow_in, massFlowMainPump.y)
-    annotation (Line(points={{-160,-108},{-160,-60},{-259,-60}},
-    color={0,0,127}));
+  connect(pumSto.m_flow_in, massFlowMainPump.y) annotation (Line(points={{-180,
+          -68},{-180,-60},{-259,-60}}, color={0,0,127}));
   connect(TSetHeaWatSup.y, bui.TSetHeaWat)
-    annotation (Line(points={{-258,200},{
-          -20,200},{-20,188},{-11,188}}, color={0,0,127}));
+    annotation (Line(points={{-258,220},{-20,220},{-20,188},{-11,188}},
+                                         color={0,0,127}));
   connect(TSetChiWatSup.y, bui.TSetChiWat)
-    annotation (Line(points={{-258,160},{
-          -20,160},{-20,184},{-11,184}},  color={0,0,127}));
+    annotation (Line(points={{-258,180},{-20,180},{-20,184},{-11,184}},
+                                          color={0,0,127}));
   connect(dis.ports_conSup, bui.port_a)
-    annotation (Line(points={{-12,150},{-14,
-          150},{-14,180},{-10,180}}, color={0,127,255}));
+    annotation (Line(points={{-12,150},{-20,150},{-20,180},{-10,180}},
+                                     color={0,127,255}));
   connect(bui.port_b, dis.ports_conRet)
-    annotation (Line(points={{10,180},{12,180},{12,150}}, color={0,127,255}));
-  connect(mDisPla_flow.y, sewageHeatRecovery.mPum_flow) annotation (Line(points=
-         {{-259,20},{-180,20},{-180,4},{-161,4}}, color={0,0,127}));
-  connect(TSewWat.y, sewageHeatRecovery.TSewWat) annotation (Line(points={{-259,
-          60},{-176,60},{-176,8},{-161,8}}, color={0,0,127}));
+    annotation (Line(points={{10,180},{20,180},{20,150},{12,150}},
+                                                          color={0,127,255}));
+  connect(mDisPla_flow.y, pla.mPum_flow) annotation (Line(points={{-259,20},{-180,
+          20},{-180,4},{-161,4}}, color={0,0,127}));
+  connect(TSewWat.y, pla.TSewWat) annotation (Line(points={{-259,60},{-176,60},
+          {-176,8},{-161,8}}, color={0,0,127}));
   annotation (
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{360,260}}),

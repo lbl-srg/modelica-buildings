@@ -12,13 +12,13 @@ model UnidirectionalSeries
   parameter Modelica.SIunits.Length lCon[nCon]
     "Length of each connection pipe (supply only, not counting return line)";
   parameter Modelica.SIunits.Length lEnd = sum(lDis)
-    "Length of the end of the distribution line";
+    "Length of the end of the distribution line (after last connection)";
   parameter Modelica.SIunits.Length dhDis
     "Hydraulic diameter of the distribution pipe";
   parameter Modelica.SIunits.Length dhCon[nCon]
-    "Hydraulic diameter of the connection pipe";
+    "Hydraulic diameter of each connection pipe";
   // COMPONENTS
-  BaseClasses.ConnectionSeries con[nCon](
+  replaceable BaseClasses.ConnectionSeries con[nCon](
     redeclare package Medium=Medium,
     each mDis_flow_nominal=mDis_flow_nominal,
     mCon_flow_nominal=mCon_flow_nominal,
@@ -29,13 +29,13 @@ model UnidirectionalSeries
     each allowFlowReversal=allowFlowReversal)
     "Connection to agent"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  replaceable BaseClasses.PipeDistribution pipDisEnd(
+  replaceable BaseClasses.PipeDistribution pipEnd(
     redeclare package Medium=Medium,
     m_flow_nominal=mDis_flow_nominal,
     dh=dhDis,
     length=lEnd,
     allowFlowReversal=allowFlowReversal)
-    "Pipe representing the end of the distribution line"
+    "Pipe representing the end of the distribution line (after last connection)"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 equation
   connect(con.port_conSup, ports_conSup)
@@ -50,9 +50,9 @@ equation
   end if;
   connect(port_disSupInl, con[1].port_disInl)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
-  connect(con[nCon].port_disOut, pipDisEnd.port_a)
+  connect(con[nCon].port_disOut, pipEnd.port_a)
     annotation (Line(points={{10,0},{40,0}}, color={0,127,255}));
-  connect(pipDisEnd.port_b, port_disSupOut)
+  connect(pipEnd.port_b, port_disSupOut)
     annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
   annotation (
     defaultComponentName="dis",

@@ -34,8 +34,10 @@ model BoreField "Bore field model"
   "Distance between boreholes";
   Modelica.Blocks.Interfaces.RealOutput Q_flow
     "Heat extracted from soil"
-    annotation (Placement(transformation(extent={{100,70},{120,90}})));
+    annotation (Placement(transformation(extent={{100,-50},{120,-30}}),
+        iconTransformation(extent={{100,-50},{120,-30}})));
 equation
-  connect(gaiQ_flow.y, Q_flow) annotation (Line(points={{1,80},{14,80},{14,54},{
-          96,54},{96,80},{110,80}}, color={0,0,127}));
+  connect(gaiQ_flow.y, Q_flow) annotation (Line(points={{1,80},{14,80},{14,54},
+          {96,54},{96,-40},{110,-40}},
+                                    color={0,0,127}));
 end BoreField;

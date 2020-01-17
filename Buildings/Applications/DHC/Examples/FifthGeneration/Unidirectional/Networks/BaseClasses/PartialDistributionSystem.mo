@@ -56,8 +56,11 @@ partial model PartialDistributionSystem
       extent={{-149,-104},{151,-144}},
       lineColor={0,0,255},
       textString="%name"),
-      Rectangle(extent={{-200,-100},{200,100}},
-        lineColor={0,0,0})}),
+      Rectangle(
+          extent={{-200,-100},{200,100}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid)}),
       Diagram(
     coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})));
 end PartialDistributionSystem;

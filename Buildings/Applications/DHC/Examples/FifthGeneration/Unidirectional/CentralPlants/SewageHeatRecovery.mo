@@ -1,6 +1,5 @@
 within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.CentralPlants;
-model SewageHeatRecovery
-  "Model for sewage heat recovery"
+model SewageHeatRecovery "Model for sewage heat recovery plant"
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium
     "Medium model for water"
@@ -134,8 +133,13 @@ equation
                           color={0,127,255}));
   connect(mPum_flow, pumDis.m_flow_in)
     annotation (Line(points={{-120,40},{40,40},{40,-8}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-        Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,0},
+  annotation (
+  DefaultComponentName="pla",
+  Icon(coordinateSystem(preserveAspectRatio=false),
+    graphics={
+        Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
@@ -155,7 +159,7 @@ equation
           pattern=LinePattern.None,
           fillColor={238,46,47},
           fillPattern=FillPattern.Solid),
-                             Ellipse(
+          Ellipse(
           extent={{72,-14},{44,14}},
           lineColor={0,0,0},
           fillColor={255,255,255},
@@ -164,7 +168,11 @@ equation
           points={{72,0},{58,14},{58,-14},{72,0}},
           lineColor={0,0,0},
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid)}), Diagram(coordinateSystem(
+          fillPattern=FillPattern.Solid),
+                                        Text(
+        extent={{-150,-110},{150,-150}},
+        textString="%name",
+        lineColor={0,0,255})}),             Diagram(coordinateSystem(
           preserveAspectRatio=false), graphics={Rectangle(extent={{-100,100},{100,
               -100}}, lineColor={0,0,0})}));
 end SewageHeatRecovery;

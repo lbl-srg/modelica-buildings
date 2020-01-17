@@ -183,10 +183,10 @@ equation
   annotation (
     defaultComponentName="con",
     Icon(graphics={   Rectangle(
-        extent={{-100,-100},{100,100}},
-        lineColor={0,0,127},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid),
+          extent={{-100,-100},{100,100}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-100,2},{100,-2}},
           fillColor={0,0,0},
