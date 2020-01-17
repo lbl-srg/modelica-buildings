@@ -28,7 +28,7 @@ CC_FLAGS_64 = -Wall -std=c89 -pedantic -msse2 -mfpmath=sse -I$(PYTHONInc) -L$(PY
 
 SRCS = pythonInterpreter.c
 OBJS = pythonInterpreter.o
-LIB  = libModelicaBuildingspython2.7.so
+LIB  = libModelicaBuildingspython3.6.so
 
 # Note that -fPIC is recommended on Linux according to the Modelica specification
 
