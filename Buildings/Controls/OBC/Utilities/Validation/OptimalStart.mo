@@ -4,7 +4,7 @@ model OptimalStart "Validation model for the block OptimalStart"
   CDL.Continuous.Sources.Constant TSetHeaOcc(k=21 + 273.15)
     "Zone heating setpoint during occupancy"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  CDL.Continuous.Sources.Constant TSetCoo(k=24 + 273.15)
+  CDL.Continuous.Sources.Constant TSetCooOcc(k=24 + 273.15)
     "Zone cooling setpoint during occupancy"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
   CDL.Continuous.Sources.Sine TZon(
@@ -42,11 +42,11 @@ equation
   connect(TZon.y, optStaHea.TZon)
     annotation (Line(points={{-58,80},{20,80},{20,27},{38,27}},
                                                 color={0,0,127}));
-  connect(optStaCoo.TSetZonCoo, TSetCoo.y) annotation (Line(points={{38,-7},{6,
-          -7},{6,-80},{-58,-80}},  color={0,0,127}));
+  connect(optStaCoo.TSetZonCoo, TSetCooOcc.y) annotation (Line(points={{38,-7},{
+          6,-7},{6,-80},{-58,-80}}, color={0,0,127}));
   connect(TSetHeaOcc.y, optSta.TSetZonHea) annotation (Line(points={{-58,-40},{
           16,-40},{16,-42},{38,-42}}, color={0,0,127}));
-  connect(TSetCoo.y, optSta.TSetZonCoo) annotation (Line(points={{-58,-80},{6,
+  connect(TSetCooOcc.y, optSta.TSetZonCoo) annotation (Line(points={{-58,-80},{6,
           -80},{6,-47},{38,-47}}, color={0,0,127}));
   connect(TSetHeaOcc.y, optStaHea.TSetZonHea) annotation (Line(points={{-58,-40},
           {16,-40},{16,38},{38,38}}, color={0,0,127}));
@@ -66,9 +66,17 @@ equation
   "Simulate and plot"),
   Documentation(info="<html>
 <p>
-Validation model for the block
+Validation models for the block
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.OptimalStart\">
 Buildings.Controls.OBC.Utilities.OptimalStart</a>.
+</p>
+<p>
+Three models are included to validate three different types of systems: space heating,
+cooling and heat pump system. The three models use the same weekly occupancy schedule
+with no occupants on the 7th day. Each model uses its own zone temperature profile based
+on a sinusoidal function.
+The sinusoidal period of zone temperatures is not 24 hours so that a different indoor 
+condition is tested each day.
 </p>
 </html>",
 revisions="<html>

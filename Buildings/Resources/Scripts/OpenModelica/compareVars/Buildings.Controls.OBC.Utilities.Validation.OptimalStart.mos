@@ -3,11 +3,14 @@ compareVars :=
     "optStaHea.tOpt",
     "optStaHea.TSetZonHea",
     "optStaHea.TZon",
+    "optStaHea.optOn",
     "optStaCoo.tOpt",
     "optStaCoo.TSetZonCoo",
     "optStaCoo.TZon",
+    "optStaCoo.optOn",
     "optSta.tOpt",
     "optSta.TSetZonHea",
     "optSta.TSetZonCoo",
-    "optSta.TZon"
+    "optSta.TZon",
+    "optSta.optOn"
   };
