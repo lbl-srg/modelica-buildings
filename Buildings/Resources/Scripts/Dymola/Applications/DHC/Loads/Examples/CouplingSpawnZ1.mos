@@ -1,10 +1,12 @@
-removePlots(true);
+old_hidden_avoid_double_computation=Hidden.AvoidDoubleComputation;
+Hidden.AvoidDoubleComputation=true;
 simulateModel("Buildings.Applications.DHC.Loads.Examples.CouplingSpawnZ1",
     method="cvode",
     tolerance=1e-6,
     numberOfIntervals=500,
     stopTime=604800.0,
     resultFile="CouplingSpawnZ1");
+Hidden.AvoidDoubleComputation=old_hidden_avoid_double_computation;
 createPlot(
     id=1,
     position={10, 20, 670, 900},
@@ -27,13 +29,13 @@ createPlot(
 createPlot(
     id=2,
     position={700, 20, 670, 900},
-    y={"supHea.T_in", "bui.terUni.T_a1Hea_nominal"},
+    y={"supHeaWat.T_in", "bui.terUni.T_a1Hea_nominal"},
     autoscale=true,
     grid=true
 );
 createPlot(
     id=2,
-    y={"bui.disFloHea.m1Req_flow_i[1]", "bui.disFloHea.m1Act_flow_i[1].y", "bui.terUni.m1Hea_flow_nominal"},
+    y={"bui.disFloHea.m1Req_flow[1]", "bui.disFloHea.m1Act_flow[1].y", "bui.terUni.m1Hea_flow_nominal"},
     grid=true,
     subPlot=2
 );
@@ -46,13 +48,13 @@ createPlot(
 createPlot(
     id=3,
     position={1400, 20, 670, 900},
-    y={"supCoo.T_in", "bui.terUni.T_a1Coo_nominal"},
+    y={"supChiWat.T_in", "bui.terUni.T_a1Coo_nominal"},
     autoscale=true,
     grid=true
 );
 createPlot(
     id=3,
-    y={"bui.disFloCoo.m1Req_flow_i[1]", "bui.disFloCoo.m1Act_flow_i[1].y", "bui.terUni.m1Coo_flow_nominal"},
+    y={"bui.disFloCoo.m1Req_flow[1]", "bui.disFloCoo.m1Act_flow[1].y", "bui.terUni.m1Coo_flow_nominal"},
     grid=true,
     subPlot=2
 );

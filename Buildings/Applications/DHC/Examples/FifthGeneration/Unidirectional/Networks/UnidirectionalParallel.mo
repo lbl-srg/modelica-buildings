@@ -3,22 +3,24 @@ model UnidirectionalParallel
   "Hydraulic network for unidirectional parallel DHC system"
   extends BaseClasses.PartialDistributionSystem(
     final allowFlowReversal=false);
-  parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal
-    "Nominal mass flow rate in the distribution line";
+  parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal[nCon]
+    "Nominal mass flow rate in the distribution line before each connection";
   parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal[nCon]
-    "Nominal mass flow rate in the connection lines";
+    "Nominal mass flow rate in each connection line";
+  parameter Modelica.SIunits.MassFlowRate mEnd_flow_nominal = 0
+    "Nominal mass flow rate in the end of the distribution line";
   parameter Modelica.SIunits.Length lDis[nCon]
-    "Length of the distribution pipe before each connection";
+    "Length of the distribution pipe before each connection (supply only, not counting return line)";
   parameter Modelica.SIunits.Length lCon[nCon]
     "Length of each connection pipe (supply only, not counting return line)";
   parameter Modelica.SIunits.Length lEnd = 0
-    "Length of the end of the distribution line (after last connection)";
+    "Length of the end of the distribution line (supply only, not counting return line)";
   parameter Modelica.SIunits.Length dhDis[nCon]
     "Hydraulic diameter of the distribution pipe before each connection";
   parameter Modelica.SIunits.Length dhCon[nCon]
     "Hydraulic diameter of each connection pipe";
   parameter Modelica.SIunits.Length dhEnd = dhDis[nCon]
-    "Hydraulic diameter of the end of the distribution line (after last connection)";
+    "Hydraulic diameter of the end of the distribution line";
   // IO CONNECTORS
   Modelica.Fluid.Interfaces.FluidPort_b port_disRetOut(
     redeclare package Medium = Medium,
@@ -38,16 +40,24 @@ model UnidirectionalParallel
             -40}})));
   // COMPONENTS
   replaceable BaseClasses.ConnectionParallel con[nCon](
-    redeclare package Medium = Medium,
-    each mDis_flow_nominal=mDis_flow_nominal,
+    redeclare each package Medium=Medium,
+    mDis_flow_nominal=mDis_flow_nominal,
     mCon_flow_nominal=mCon_flow_nominal,
     lDis=lDis,
     lCon=lCon,
-    each dhDis=dhDis,
+    dhDis=dhDis,
     dhCon=dhCon,
     each allowFlowReversal=allowFlowReversal)
     "Connection to agent"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  replaceable BaseClasses.PipeDistribution pipEnd(
+    redeclare package Medium=Medium,
+    m_flow_nominal=mEnd_flow_nominal,
+    dh=dhEnd,
+    length=2*lEnd,
+    allowFlowReversal=allowFlowReversal)
+    "Pipe representing the end of the distribution line (after last connection)"
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 equation
   connect(con.port_conSup, ports_conSup)
     annotation (Line(points={{0,10},{0,40}, {-80,40},{-80,100}}, color={0,127,255}));
@@ -60,14 +70,16 @@ equation
       connect(con[i-1].port_disRetInl, con[i].port_disRetOut);
     end for;
   end if;
-  connect(port_disSupInl, con[1].port_disInl)
+  connect(port_disSupInl, con[1].port_disSupInl)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
   connect(port_disRetOut, con[1].port_disRetOut)
     annotation (Line(points={{-100, -60},{-20,-60},{-20,-6},{-10,-6}}, color={0,127,255}));
   connect(con[nCon].port_disRetInl, port_disRetInl)
     annotation (Line(points={{10,-6}, {20,-6},{20,-60},{100,-60}}, color={0,127,255}));
-  connect(con[nCon].port_disSupOut, port_disSupOut)
-    annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
+  connect(con[3].port_disSupOut, pipEnd.port_a)
+    annotation (Line(points={{10,0},{40,0}}, color={0,127,255}));
+  connect(pipEnd.port_b, port_disSupOut)
+    annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
   annotation (
     defaultComponentName="dis",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={

@@ -409,7 +409,7 @@ tracking the supply temperature.
           textString=
               "CPU time for integration is twice lower when Dynamics of valve or splitter are NOT steady state!?"),
                                                                                                     Text(
-        extent={{-52,-32},{166,-60}},
+        extent={{106,-144},{226,-168}},
         lineColor={28,108,200},
         horizontalAlignment=TextAlignment.Left,
           textString="Implement PI reset for change over")}));

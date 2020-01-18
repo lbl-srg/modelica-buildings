@@ -1,4 +1,3 @@
-removePlots(true);
 simulateModel("Buildings.Applications.DHC.Loads.Examples.CouplingRCZ1Pump",
     method="cvode",
     tolerance=1e-6,
@@ -10,8 +9,6 @@ createPlot(
     position={10, 20, 670, 900},
     y={"bui.maxTSet.y", "bui.minTSet.y",  "bui.thermalZoneOneElement.TAir"},
     autoscale=true,
-    // autoerase=true,
-    // autoreplot=true,
     grid=true
 );
 createPlot(
@@ -29,10 +26,8 @@ createPlot(
 createPlot(
     id=2,
     position={700, 20, 670, 900},
-    y={"souHea.T_in", "bui.disFloHea.TSup", "bui.terUni.T_a1Hea_nominal"},
+    y={"supHeaWat.T_in", "bui.disFloHea.TSup", "bui.terUni.T_a1Hea_nominal"},
     autoscale=true,
-    // autoerase=true,
-    // autoreplot=true,
     grid=true
 );
 createPlot(
@@ -50,10 +45,8 @@ createPlot(
 createPlot(
     id=3,
     position={1400, 20, 670, 900},
-    y={"souCoo.T_in",  "bui.disFloCoo.TSup", "bui.terUni.T_a1Coo_nominal"},
+    y={"supChiWat.T_in",  "bui.disFloCoo.TSup", "bui.terUni.T_a1Coo_nominal"},
     autoscale=true,
-    // autoerase=true,
-    // autoreplot=true,
     grid=true
 );
 createPlot(

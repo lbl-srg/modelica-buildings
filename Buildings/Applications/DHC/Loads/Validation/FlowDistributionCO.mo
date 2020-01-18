@@ -12,8 +12,8 @@ model FlowDistributionCO
     redeclare package Medium = Medium1,
     m_flow_nominal=m_flow_nominal,
     disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChangeOver,
-    havePum=true,
-    haveVal=true,
+    have_pum=true,
+    have_val=true,
     dp_nominal=100000)
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
 
@@ -140,11 +140,11 @@ equation
           -100},{-70,-88},{-62,-88}},
                                 color={0,0,127}));
   connect(TSetSecK.y, disFlo.TSupSet) annotation (Line(points={{-38,-80},{32,-80},
-          {32,9},{39,9}},   color={0,0,127}));
+          {32,12},{39,12}}, color={0,0,127}));
   connect(greEqu.y, modInt.u) annotation (Line(points={{-78,40},{-74,40},{-74,
           -20},{-62,-20}}, color={255,0,255}));
   connect(modInt.y, disFlo.modChaOve) annotation (Line(points={{-38,-20},{36,-20},
-          {36,13},{39,13}},      color={255,127,0}));
+          {36,14},{39,14}},      color={255,127,0}));
   connect(greEqu.y, TSetSecK.u2) annotation (Line(points={{-78,40},{-74,40},{
           -74,-80},{-62,-80}},
                            color={255,0,255}));

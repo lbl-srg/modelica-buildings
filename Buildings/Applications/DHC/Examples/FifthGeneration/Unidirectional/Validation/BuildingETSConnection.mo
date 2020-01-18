@@ -35,12 +35,11 @@ model BuildingETSConnection
   Loads.BuildingSpawnZ6WithETS bui(redeclare package Medium=Medium1)
     "Model of a building with an energy transfer station"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
-  inner parameter Data.DesignDataDHC datDes(
+  inner parameter Data.DesignDataSeries datDes(
     nBui=1,
     mDis_flow_nominal=25,
     mCon_flow_nominal={25},
-    epsPla=0.935)
-    "Design values"
+    epsPla=0.935) "Design values"
     annotation (Placement(transformation(extent={{-160,66},{-140,86}})));
 equation
   connect(TDis.y, sou.T_in) annotation (Line(points={{-118,-60},{-80,-60},{-80,

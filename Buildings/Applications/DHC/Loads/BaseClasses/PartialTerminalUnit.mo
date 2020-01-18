@@ -43,74 +43,88 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
   parameter Boolean have_pum = false
     "Set to true if the system has a pump"
     annotation(Evaluate=true);
-  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(min=0) if
-    heaFunSpe <> funSpe.None
+  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(min=0)
     "Heating thermal power at nominal conditions (always positive)"
-    annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal(min=0) if
-    cooFunSpe <> funSpe.None
+    annotation(Dialog(
+      group="Nominal condition",
+      enable=heaFunSpe <> funSpe.None));
+  parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal(min=0)
     "Cooling thermal power at nominal conditions (always positive)"
-    annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m1Hea_flow_nominal(min=0) if
-    heaFunSpe == funSpe.Water or heaFunSpe == funSpe.ChangeOver
+    annotation(Dialog(
+      group="Nominal condition",
+      enable=cooFunSpe <> funSpe.None));
+  parameter Modelica.SIunits.MassFlowRate m1Hea_flow_nominal(min=0)
     "Heating water mass flow rate at nominal conditions"
-    annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m1Coo_flow_nominal(min=0) if
-    cooFunSpe == funSpe.Water or cooFunSpe == funSpe.ChangeOver
+    annotation(Dialog(
+      group="Nominal condition",
+      enable=heaFunSpe == funSpe.Water or heaFunSpe == funSpe.ChangeOver));
+  parameter Modelica.SIunits.MassFlowRate m1Coo_flow_nominal(min=0)
     "Chilled water mass flow rate at nominal conditions"
-    annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m2Hea_flow_nominal(min=0) = 0 if
-    heaFunSpe <> funSpe.None
+    annotation(Dialog(
+      group="Nominal condition",
+      enable=cooFunSpe == funSpe.Water or cooFunSpe == funSpe.ChangeOver));
+  parameter Modelica.SIunits.MassFlowRate m2Hea_flow_nominal(min=0) = 0
     "Load side mass flow rate at nominal conditions in heating mode"
-    annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m2Coo_flow_nominal(min=0) = 0 if
-    cooFunSpe <> funSpe.None
+    annotation(Dialog(
+      group="Nominal condition",
+      enable=heaFunSpe <> funSpe.None));
+  parameter Modelica.SIunits.MassFlowRate m2Coo_flow_nominal(min=0) = 0
     "Load side mass flow rate at nominal conditions in cooling mode"
-    annotation(Dialog(group="Nominal condition"));
+    annotation(Dialog(
+      group="Nominal condition",
+      enable=cooFunSpe <> funSpe.None));
   parameter Modelica.SIunits.Temperature T_a1Hea_nominal(
-    min=Modelica.SIunits.Conversions.from_degC(0), displayUnit="degC") if
-    heaFunSpe == funSpe.Water or heaFunSpe == funSpe.ChangeOver
+    min=Modelica.SIunits.Conversions.from_degC(0), displayUnit="degC")
     "Heating water inlet temperature at nominal conditions "
-    annotation(Dialog(group="Nominal condition"));
+    annotation(Dialog(
+      group="Nominal condition",
+      enable=heaFunSpe == funSpe.Water or heaFunSpe == funSpe.ChangeOver));
   parameter Modelica.SIunits.Temperature T_b1Hea_nominal(
-    min=Modelica.SIunits.Conversions.from_degC(0), displayUnit="degC") if
-    heaFunSpe == funSpe.Water or heaFunSpe == funSpe.ChangeOver
+    min=Modelica.SIunits.Conversions.from_degC(0), displayUnit="degC")
     "Heating water outlet temperature at nominal conditions"
-    annotation(Dialog(group="Nominal condition"));
+    annotation(Dialog(
+      group="Nominal condition",
+      enable=heaFunSpe == funSpe.Water or heaFunSpe == funSpe.ChangeOver));
   parameter Modelica.SIunits.Temperature T_a1Coo_nominal(
-    min=Modelica.SIunits.Conversions.from_degC(0), displayUnit="degC") if
-    cooFunSpe == funSpe.Water or cooFunSpe == funSpe.ChangeOver
+    min=Modelica.SIunits.Conversions.from_degC(0), displayUnit="degC")
     "Chilled water inlet temperature at nominal conditions "
-    annotation(Dialog(group="Nominal condition"));
+    annotation(Dialog(
+      group="Nominal condition",
+      enable=cooFunSpe == funSpe.Water or cooFunSpe == funSpe.ChangeOver));
   parameter Modelica.SIunits.Temperature T_b1Coo_nominal(
-    min=Modelica.SIunits.Conversions.from_degC(0), displayUnit="degC") if
-    cooFunSpe == funSpe.Water or cooFunSpe == funSpe.ChangeOver
+    min=Modelica.SIunits.Conversions.from_degC(0), displayUnit="degC")
     "Chilled water outlet temperature at nominal conditions"
-    annotation(Dialog(group="Nominal condition"));
+    annotation(Dialog(
+      group="Nominal condition",
+      enable=cooFunSpe == funSpe.Water or cooFunSpe == funSpe.ChangeOver));
   parameter Modelica.SIunits.Temperature T_a2Hea_nominal(
-    min=Modelica.SIunits.Conversions.from_degC(0), displayUnit="degC") if
-    heaFunSpe == funSpe.Water or heaFunSpe == funSpe.ChangeOver
+    min=Modelica.SIunits.Conversions.from_degC(0), displayUnit="degC")
     "Load side inlet temperature at nominal conditions in heating mode"
-    annotation(Dialog(group="Nominal condition"));
+    annotation(Dialog(
+      group="Nominal condition",
+      enable=heaFunSpe == funSpe.Water or heaFunSpe == funSpe.ChangeOver));
   parameter Modelica.SIunits.Temperature T_a2Coo_nominal(
-    min=Modelica.SIunits.Conversions.from_degC(0), displayUnit="degC") if
-    cooFunSpe == funSpe.Water or cooFunSpe == funSpe.ChangeOver
+    min=Modelica.SIunits.Conversions.from_degC(0), displayUnit="degC")
     "Load side inlet temperature at nominal conditions in cooling mode"
-    annotation(Dialog(group="Nominal condition"));
+    annotation(Dialog(
+      group="Nominal condition",
+      enable=cooFunSpe == funSpe.Water or cooFunSpe == funSpe.ChangeOver));
   parameter Buildings.Fluid.Types.HeatExchangerConfiguration hexConHea=
-    Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow if
-    heaFunSpe == funSpe.Water
-    "Heating heat exchanger configuration";
+    Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow
+    "Heating heat exchanger configuration"
+    annotation(Dialog(
+      enable=heaFunSpe == funSpe.Water));
   parameter Buildings.Fluid.Types.HeatExchangerConfiguration hexConCoo=
-    Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow if
-    cooFunSpe == funSpe.Water or cooFunSpe == funSpe.ChangeOver
-    "Cooling heat exchanger configuration";
+    Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow
+    "Cooling heat exchanger configuration"
+    annotation(Dialog(
+      enable=cooFunSpe == funSpe.Water or cooFunSpe == funSpe.ChangeOver));
   parameter Boolean show_TSou = false
-    "= true, if actual temperatures at ports on the source side are computed"
-    annotation(Dialog(tab="Advanced",group="Diagnostics"));
+    "Set to true if actual temperatures at ports on the source side are computed"
+    annotation(Dialog(tab="Advanced", group="Diagnostics"));
   parameter Boolean show_TLoa = false
-    "= true, if actual temperatures at ports on the load side are computed"
-    annotation(Dialog(tab="Advanced",group="Diagnostics"));
+    "Set to true if actual temperatures at ports on the load side are computed"
+    annotation(Dialog(tab="Advanced", group="Diagnostics"));
   final parameter Boolean allowFlowReversal = false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation(Evaluate=true);

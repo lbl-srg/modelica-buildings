@@ -200,5 +200,6 @@ equation
   </p>
   </html>"),
   Diagram(coordinateSystem(extent={{-300,-300},{300,300}})), Icon(
-        coordinateSystem(extent={{-100,-100},{100,100}})));
+        coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
+          Bitmap(extent={{-108,-100},{92,100}},  fileName="modelica://Buildings/Resources/Images/Experimental/EnergyPlus/EnergyPlusLogo.png")}));
 end BuildingSpawnZ6Geojson;

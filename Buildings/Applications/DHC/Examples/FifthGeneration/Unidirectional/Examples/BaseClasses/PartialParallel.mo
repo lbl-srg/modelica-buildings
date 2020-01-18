@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Examples.BaseClasses;
-partial model PartialSeries "Partial model for series network"
+partial model PartialParallel "Partial model for parallel network"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water "Medium model";
   parameter Integer nBui = datDes.nBui
@@ -7,63 +7,76 @@ partial model PartialSeries "Partial model for series network"
     annotation (Evaluate=true);
   parameter String weaPat
     "Path of the weather file";
-  inner parameter Data.DesignDataSeries datDes "Design data"
+  inner parameter Data.DesignDataParallel datDes
+    "Design data"
     annotation (Placement(transformation(extent={{-340,220},{-320,240}})));
   // COMPONENTS
-  ThermalStorages.BoreField borFie(redeclare package Medium = Medium)
+  ThermalStorages.BoreField borFie(
+    redeclare package Medium=Medium)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-130,-80})));
-  Networks.BaseClasses.Pump_m_flow pumDis(redeclare package Medium = Medium,
-      m_flow_nominal=datDes.mDis_flow_nominal) "Distribution pump" annotation (
-      Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=90,
-        origin={80,-60})));
+  Networks.BaseClasses.Pump_m_flow pumDis(
+    redeclare package Medium=Medium,
+    m_flow_nominal=datDes.mDisPum_flow_nominal)
+    "Distribution pump"
+    annotation (Placement(transformation(
+      extent={{10,-10},{-10,10}},
+      rotation=90,
+      origin={80,-60})));
   Buildings.Fluid.Sources.Boundary_pT bou(
     redeclare package Medium=Medium,
     nPorts=1)
     "Boundary pressure condition representing the expansion vessel"
     annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=180,
-        origin={112,-20})));
-  Networks.BaseClasses.Pump_m_flow pumSto(redeclare package Medium = Medium,
-      m_flow_nominal=datDes.mSto_flow_nominal) "Bore field pump" annotation (
+      extent={{-10,-10},{10,10}},
+      rotation=180,
+      origin={112,-20})));
+  Networks.BaseClasses.Pump_m_flow pumSto(
+    redeclare package Medium=Medium,
+    m_flow_nominal=datDes.mSto_flow_nominal)
+    "Bore field pump"
+    annotation (
       Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-180,-80})));
   Networks.BaseClasses.ConnectionSeries conPla(
     redeclare package Medium=Medium,
-    mDis_flow_nominal=datDes.mDis_flow_nominal,
+    mDis_flow_nominal=datDes.mDisPum_flow_nominal,
     mCon_flow_nominal=datDes.mPla_flow_nominal,
     lDis=0,
     lCon=10,
-    dhDis=datDes.dhDis,
-    dhCon=0.10) "Connection to the plant" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-80,-10})));
-  Networks.UnidirectionalSeries dis(
+    dhDis=datDes.dhDis[1],
+    dhCon=0.10)
+    "Connection to the plant"
+    annotation (Placement(transformation(
+      extent={{-10,-10},{10,10}},
+      rotation=90,
+      origin={-80,-10})));
+  Networks.UnidirectionalParallel dis(
     redeclare package Medium=Medium,
     nCon=nBui,
     mDis_flow_nominal=datDes.mDis_flow_nominal,
     mCon_flow_nominal=datDes.mCon_flow_nominal,
+    mEnd_flow_nominal=datDes.mEnd_flow_nominal,
     lDis=datDes.lDis,
     lCon=datDes.lCon,
+    lEnd=datDes.lEnd,
     dhDis=datDes.dhDis,
-    dhCon=datDes.dhCon)
+    dhCon=datDes.dhCon,
+    dhEnd=datDes.dhEnd)
     annotation (Placement(transformation(extent={{-20,130},{20,150}})));
   Networks.BaseClasses.ConnectionSeries conSto(
     redeclare package Medium=Medium,
-    mDis_flow_nominal=datDes.mDis_flow_nominal,
+    mDis_flow_nominal=datDes.mDisPum_flow_nominal,
     mCon_flow_nominal=datDes.mSto_flow_nominal,
     lDis=0,
     lCon=0,
-    dhDis=datDes.dhDis,
-    dhCon=datDes.dhDis) "Connection to the bore field"
+    dhDis=datDes.dhDis[1],
+    dhCon=datDes.dhDis[1])
+                        "Connection to the bore field"
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -82,8 +95,6 @@ equation
     annotation (Line(points={{102,-20},{80,-20},{80,-50}}, color={0,127,255}));
   connect(conPla.port_disOut, dis.port_disSupInl)
     annotation (Line(points={{-80,0},{-80,140},{-20,140}}, color={0,127,255}));
-  connect(dis.port_disSupOut, pumDis.port_a)
-    annotation (Line(points={{20,140},{80,140},{80,-50}}, color={0,127,255}));
   connect(conSto.port_disOut, conPla.port_disInl)
     annotation (Line(points={{-80,-80},{-80,-20}}, color={0,127,255}));
   connect(borFie.port_b, conSto.port_conRet) annotation (Line(points={{-120,-80},
@@ -99,7 +110,9 @@ equation
   connect(conSto.port_conSup, pumSto.port_a) annotation (Line(points={{-90,-90},
           {-100,-90},{-100,-100},{-200,-100},{-200,-80},{-190,-80}}, color={0,
           127,255}));
+  connect(dis.port_disRetOut, pumDis.port_a) annotation (Line(points={{-20,134},
+          {-40,134},{-40,0},{80,0},{80,-50}}, color={0,127,255}));
   annotation (Diagram(
     coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{360,260}})),
     experiment(StopTime=31536000, __Dymola_NumberOfIntervals=8760));
-end PartialSeries;
+end PartialParallel;

@@ -1,10 +1,12 @@
-removePlots(true);
+old_hidden_avoid_double_computation=Hidden.AvoidDoubleComputation;
+Hidden.AvoidDoubleComputation=true;
 simulateModel("Buildings.Applications.DHC.Loads.Examples.CouplingSpawnZ6GeojsonPump",
     method="cvode",
     tolerance=1e-6,
     numberOfIntervals=500,
     stopTime=604800.0,
     resultFile="CouplingSpawnZ6GeojsonPump");
+Hidden.AvoidDoubleComputation=old_hidden_avoid_double_computation;
 createPlot(
     id=1,
     position={10, 20, 670, 900},
@@ -27,7 +29,7 @@ createPlot(
 createPlot(
     id=2,
     position={700, 20, 670, 900},
-    y={"supHea.T_in", "bui.terUni[1].T_a1Hea_nominal", "bui.terUni[2].T_a1Hea_nominal",  "bui.terUni[3].T_a1Hea_nominal", "bui.terUni[4].T_a1Hea_nominal",  "bui.terUni[5].T_a1Hea_nominal","bui.terUni[6].T_a1Hea_nominal"},
+    y={"supHeaWat.T_in", "bui.terUni[1].T_a1Hea_nominal", "bui.terUni[2].T_a1Hea_nominal",  "bui.terUni[3].T_a1Hea_nominal", "bui.terUni[4].T_a1Hea_nominal",  "bui.terUni[5].T_a1Hea_nominal","bui.terUni[6].T_a1Hea_nominal"},
     autoscale=true,
     grid=true
 );
@@ -46,7 +48,7 @@ createPlot(
 createPlot(
     id=3,
     position={1400, 20, 670, 900},
-    y={"supCoo.T_in", "bui.terUni[1].T_a1Coo_nominal", "bui.terUni[2].T_a1Coo_nominal",  "bui.terUni[3].T_a1Coo_nominal", "bui.terUni[4].T_a1Coo_nominal",  "bui.terUni[5].T_a1Coo_nominal","bui.terUni[6].T_a1Coo_nominal"},
+    y={"supChiWat.T_in", "bui.terUni[1].T_a1Coo_nominal", "bui.terUni[2].T_a1Coo_nominal",  "bui.terUni[3].T_a1Coo_nominal", "bui.terUni[4].T_a1Coo_nominal",  "bui.terUni[5].T_a1Coo_nominal","bui.terUni[6].T_a1Coo_nominal"},
     autoscale=true,
     // autoerase=true,
     // autoreplot=true,

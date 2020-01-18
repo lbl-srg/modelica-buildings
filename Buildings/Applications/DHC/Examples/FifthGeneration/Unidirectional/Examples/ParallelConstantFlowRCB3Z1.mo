@@ -1,19 +1,18 @@
 within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Examples;
-model SeriesConstantFlowRCB3Z6
-  "Example of series connection with constant district water mass flow rate, 3 RC building models (6 zones)"
-  extends BaseClasses.PartialSeries(
+model ParallelConstantFlowRCB3Z1
+  "Example of series connection with constant district water mass flow rate, 3 RC building models (1 zone)"
+  extends BaseClasses.PartialParallel(
     nBui=3,
     weaPat=
     "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos",
     datDes(
-      mCon_flow_nominal={
-        max(bui[i].ets.m1HexChi_flow_nominal, bui[i].ets.mEva_flow_nominal) for i in 1:nBui},
+      mCon_flow_nominal={max(bui[i].ets.m1HexChi_flow_nominal, bui[i].ets.mEva_flow_nominal) for i in 1:nBui},
       epsPla=0.935));
   Modelica.Blocks.Sources.Constant massFlowMainPump(
-    k=datDes.mDis_flow_nominal)
+    k=datDes.mDisPum_flow_nominal)
     "Distribution pump mass flow rate"
     annotation (Placement(transformation(extent={{-280,-70},{-260,-50}})));
-  Loads.BuildingRCZ6WithETS bui[nBui](
+  Loads.BuildingRCZ1WithETS bui[nBui](
     redeclare each final package Medium=Medium)
     annotation (Placement(transformation(extent={{-10,170},{10,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetHeaWatSup[nBui](
@@ -37,8 +36,8 @@ model SeriesConstantFlowRCB3Z6
     "District water flow rate to plant"
     annotation (Placement(transformation(extent={{-280,10},{-260,30}})));
 equation
-  connect(massFlowMainPump.y, pumDis.m_flow_in) annotation (Line(points={{-259,
-          -60},{60,-60},{60,-60},{68,-60}}, color={0,0,127}));
+  connect(massFlowMainPump.y, pumDis.m_flow_in) annotation (Line(points={{-259,-60},
+          {60,-60},{60,-60},{68,-60}},      color={0,0,127}));
   connect(pumSto.m_flow_in, massFlowMainPump.y) annotation (Line(points={{-180,
           -68},{-180,-60},{-259,-60}}, color={0,0,127}));
   connect(TSetHeaWatSup.y,bui. TSetHeaWat)
@@ -65,20 +64,14 @@ equation
           20},{-180,4},{-161,4}}, color={0,0,127}));
   connect(TSewWat.y, pla.TSewWat) annotation (Line(points={{-259,60},{-176,60},
           {-176,8},{-161,8}}, color={0,0,127}));
+  connect(dis.port_disSupOut, dis.port_disRetInl) annotation (Line(points={{20,
+          140},{40,140},{40,134},{20,134}}, color={0,127,255}));
   annotation (
   Diagram(
-  coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{360,260}}),
-    graphics={
-    Text(
-    extent={{-338,-176},{2,-256}},
-    lineColor={28,108,200},
-    horizontalAlignment=TextAlignment.Left,
-    textString="Simulation is faster with
-
-Advanced.SparseActivate=true")}),
+  coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{360,260}})),
   __Dymola_Commands,
   experiment(
     StopTime=172800,
     Tolerance=1e-06,
     __Dymola_Algorithm="Cvode"));
-end SeriesConstantFlowRCB3Z6;
+end ParallelConstantFlowRCB3Z1;

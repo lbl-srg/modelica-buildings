@@ -61,9 +61,13 @@ model ConnectionSeries "Model for connecting an agent to the DHC system"
     "Heat flow rate transferred to the connected load (>=0 for heating)"
     annotation (Placement(transformation(extent={{100,60},{140,100}}),
       iconTransformation(extent={{100,70},{120,90}})));
+  Modelica.Blocks.Interfaces.RealOutput mByp_flow if haveBypFloSen
+    "Bypass mass flow rate"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+        iconTransformation(extent={{100,30},{120,50}})));
   // COMPONENTS
   BaseClasses.Junction junConSup(
-    redeclare final package Medium=Medium,
+    redeclare package Medium=Medium,
     portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
     portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
     portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving,
@@ -71,7 +75,7 @@ model ConnectionSeries "Model for connecting an agent to the DHC system"
     "Junction with connection supply"
     annotation (Placement(transformation(extent={{-50,-30},{-30,-50}})));
   BaseClasses.Junction junConRet(
-    redeclare final package Medium=Medium,
+    redeclare package Medium=Medium,
     portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
     portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
     portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Entering,
@@ -79,11 +83,12 @@ model ConnectionSeries "Model for connecting an agent to the DHC system"
     "Junction with connection return"
     annotation (Placement(transformation(extent={{30,-30},{50,-50}})));
   replaceable PipeDistribution pipDis(
-    redeclare final package Medium=Medium,
+    redeclare package Medium=Medium,
     m_flow_nominal=mDis_flow_nominal,
     dh=dhDis,
     length=lDis,
-    allowFlowReversal=allowFlowReversal) "Distribution pipe"
+    allowFlowReversal=allowFlowReversal)
+    "Distribution pipe"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   replaceable PipeConnection pipCon(
     redeclare package Medium=Medium,
@@ -98,7 +103,7 @@ model ConnectionSeries "Model for connecting an agent to the DHC system"
       origin={-40,-10})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTConSup(
     allowFlowReversal=allowFlowReversal,
-    redeclare final package Medium=Medium,
+    redeclare package Medium=Medium,
     m_flow_nominal=mCon_flow_nominal)
     "Connection supply temperature (sensed)"
     annotation (Placement(transformation(
@@ -107,7 +112,7 @@ model ConnectionSeries "Model for connecting an agent to the DHC system"
       origin={-40,80})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTConRet(
     allowFlowReversal=allowFlowReversal,
-    redeclare final package Medium=Medium,
+    redeclare package Medium=Medium,
     m_flow_nominal=mCon_flow_nominal)
     "Connection return temperature (sensed)"
     annotation (Placement(transformation(
@@ -123,10 +128,6 @@ model ConnectionSeries "Model for connecting an agent to the DHC system"
       extent={{-10,10},{10,-10}},
       rotation=90,
       origin={-40,40})));
-  Modelica.Blocks.Sources.RealExpression QCal_flow(
-    y=(senTConSup.T - senTConRet.T) * cp_default * senMasFloCon.m_flow)
-    "Calculation of heat flow rate transferred to the load"
-    annotation (Placement(transformation(extent={{60,70},{80,90}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFloByp(
     redeclare package Medium=Medium,
     allowFlowReversal=allowFlowReversal) if haveBypFloSen
@@ -135,10 +136,10 @@ model ConnectionSeries "Model for connecting an agent to the DHC system"
       extent={{-10,-10},{10,10}},
       rotation=0,
       origin={0,-40})));
-  Modelica.Blocks.Interfaces.RealOutput mByp_flow if haveBypFloSen
-    "Bypass mass flow rate"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
-        iconTransformation(extent={{100,30},{120,50}})));
+  Modelica.Blocks.Sources.RealExpression QCal_flow(
+    y=(senTConSup.T - senTConRet.T) * cp_default * senMasFloCon.m_flow)
+    "Calculation of heat flow rate transferred to the load"
+    annotation (Placement(transformation(extent={{60,70},{80,90}})));
 protected
   parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
     Medium.specificHeatCapacityCp(Medium.setState_pTX(

@@ -91,7 +91,7 @@ model SewageHeatRecovery "Model for sewage heat recovery plant"
     annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},
       rotation=0,
-      origin={-70,62})));
+      origin={-70,60})));
   Networks.BaseClasses.Pump_m_flow pumSew(
     redeclare package Medium=Medium,
     m_flow_nominal=mSew_flow_nominal,
@@ -113,12 +113,13 @@ model SewageHeatRecovery "Model for sewage heat recovery plant"
         origin={-40,20})));
 equation
   connect(senTSewOut.port_b, souSew.ports[1])
-    annotation (Line(points={{-46,20},{-60,20},{-60,64}}, color={0,127,255}));
+    annotation (Line(points={{-46,20},{-60,20},{-60,62}}, color={0,127,255}));
   connect(souSew.ports[2], pumSew.port_a)
-    annotation (Line(points={{-60,60},{-10,60}}, color={0,127,255}));
+    annotation (Line(points={{-60,58},{-60,60},{-10,60}},
+                                                 color={0,127,255}));
   connect(pumDis.port_b, port_disOut) annotation (Line(points={{50,-20},{80,-20},
           {80,0},{100,0}}, color={0,127,255}));
-  connect(souSew.T_in, TSewWat) annotation (Line(points={{-82,66},{-91,66},{-91,
+  connect(souSew.T_in, TSewWat) annotation (Line(points={{-82,64},{-91,64},{-91,
           80},{-120,80}}, color={0,0,127}));
   connect(mPum_flow, pumSew.m_flow_in)
     annotation (Line(points={{-120,40},{0,40},{0,48}}, color={0,0,127}));

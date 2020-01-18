@@ -6,7 +6,7 @@ model UnidirectionalSeries
   parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal
     "Nominal mass flow rate in the distribution line";
   parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal[nCon]
-    "Nominal mass flow rate in the connection lines";
+    "Nominal mass flow rate in each connection line";
   parameter Modelica.SIunits.Length lDis[nCon]
     "Length of the distribution pipe before each connection";
   parameter Modelica.SIunits.Length lCon[nCon]

@@ -22,19 +22,33 @@ model ConnectionParallel "Model for connecting an agent to the DHC system"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
   // IO CONNECTORS
   Modelica.Fluid.Interfaces.FluidPort_a port_disSupInl(
-    redeclare package Medium = Medium,
+    redeclare package Medium=Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Distribution supply inlet port" annotation (Placement(transformation(
           extent={{-110,-50},{-90,-30}}), iconTransformation(extent={{-110,-10},
             {-90,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_disSupOut(
-    redeclare package Medium = Medium,
+    redeclare package Medium=Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Distribution supply outlet port" annotation (Placement(transformation(
           extent={{90,-50},{110,-30}}), iconTransformation(extent={{90,-10},{
             110,10}})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_disRetInl(
+    redeclare package Medium = Medium,
+    m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    "Distribution return inlet port" annotation (Placement(transformation(
+          extent={{90,-90},{110,-70}}), iconTransformation(extent={{90,-70},{
+            110,-50}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_disRetOut(
+    redeclare package Medium = Medium,
+    m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    "Distribution return outlet port" annotation (Placement(transformation(
+          extent={{-110,-90},{-90,-70}}), iconTransformation(extent={{-110,-70},
+            {-90,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_conSup(
     redeclare package Medium=Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
@@ -61,7 +75,7 @@ model ConnectionParallel "Model for connecting an agent to the DHC system"
       iconTransformation(extent={{100,70},{120,90}})));
   // COMPONENTS
   BaseClasses.Junction junConSup(
-    redeclare final package Medium=Medium,
+    redeclare package Medium=Medium,
     portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
     portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
     portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving,
@@ -69,7 +83,7 @@ model ConnectionParallel "Model for connecting an agent to the DHC system"
     "Junction with connection supply"
     annotation (Placement(transformation(extent={{-50,-30},{-30,-50}})));
   BaseClasses.Junction junConRet(
-    redeclare final package Medium=Medium,
+    redeclare package Medium=Medium,
     portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
     portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
     portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Entering,
@@ -77,16 +91,18 @@ model ConnectionParallel "Model for connecting an agent to the DHC system"
     "Junction with connection return"
     annotation (Placement(transformation(extent={{50,-70},{30,-90}})));
   replaceable PipeDistribution pipDisSup(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=mDis_flow_nominal,
+    redeclare package Medium=Medium,
+    m_flow_nominal=mDis_flow_nominal,
     dh=dhDis,
-    length=lDis) "Distribution supply pipe"
+    length=lDis,
+    allowFlowReversal=allowFlowReversal) "Distribution supply pipe"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   replaceable PipeConnection pipCon(
     redeclare package Medium=Medium,
     m_flow_nominal=mCon_flow_nominal,
     length=2*lCon,
-    dh=dhCon)
+    dh=dhCon,
+    allowFlowReversal=allowFlowReversal)
     "Connection pipe"
     annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},
@@ -94,7 +110,7 @@ model ConnectionParallel "Model for connecting an agent to the DHC system"
       origin={-40,-10})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTConSup(
     allowFlowReversal=allowFlowReversal,
-    redeclare final package Medium=Medium,
+    redeclare package Medium=Medium,
     m_flow_nominal=mCon_flow_nominal)
     "Connection supply temperature (sensed)"
     annotation (Placement(transformation(
@@ -103,7 +119,7 @@ model ConnectionParallel "Model for connecting an agent to the DHC system"
       origin={-40,80})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTConRet(
     allowFlowReversal=allowFlowReversal,
-    redeclare final package Medium=Medium,
+    redeclare package Medium=Medium,
     m_flow_nominal=mCon_flow_nominal)
     "Connection return temperature (sensed)"
     annotation (Placement(transformation(
@@ -123,25 +139,13 @@ model ConnectionParallel "Model for connecting an agent to the DHC system"
     y=(senTConSup.T - senTConRet.T) * cp_default * senMasFloCon.m_flow)
     "Calculation of heat flow rate transferred to the load"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_disRetInl(
-    redeclare package Medium = Medium,
-    m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    "Distribution return inlet port" annotation (Placement(transformation(
-          extent={{90,-90},{110,-70}}), iconTransformation(extent={{90,-70},{
-            110,-50}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_disRetOut(
-    redeclare package Medium = Medium,
-    m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    "Distribution return outlet port" annotation (Placement(transformation(
-          extent={{-110,-90},{-90,-70}}), iconTransformation(extent={{-110,-70},
-            {-90,-50}})));
   replaceable PipeDistribution pipDisRet(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=mDis_flow_nominal,
+    redeclare package Medium = Medium,
+    m_flow_nominal=mDis_flow_nominal,
     dh=dhDis,
-    length=lDis) "Distribution return pipe"
+    length=lDis,
+    allowFlowReversal=allowFlowReversal)
+    "Distribution return pipe"
     annotation (Placement(transformation(extent={{-60,-90},{-80,-70}})));
 protected
   parameter Modelica.SIunits.SpecificHeatCapacity cp_default=

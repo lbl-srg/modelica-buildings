@@ -6,7 +6,7 @@ model ETSSimplified
     "Medium model for water"
     annotation (choicesAllMatching = true);
   outer
-    Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Data.DesignDataDHC
+    Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Data.DesignDataSeries
     datDes "DHC systenm design data";
   // SYSTEM GENERAL
   parameter Integer nSup = 2

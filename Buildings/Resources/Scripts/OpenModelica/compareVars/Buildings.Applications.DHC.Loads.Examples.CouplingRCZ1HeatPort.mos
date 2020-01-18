@@ -2,11 +2,8 @@ compareVars :=
   {
     "bui.maxTSet.y",
     "bui.minTSet.y",
-    "bui.terUni.TLoaODE[1].TInd",
-    "bui.terUni.TLoaODE[2].TInd",
-    "bui.loa.y[1]",
+    "bui.thermalZoneOneElement.TAir",
     "bui.terUni.QActHea_flow",
-    "bui.loa.y[2]",
     "bui.terUni.QActCoo_flow",
     "supHeaWat.T_in",
     "bui.terUni.T_a1Hea_nominal",
@@ -19,6 +16,5 @@ compareVars :=
     "bui.terUni.T_a1Coo_nominal",
     "bui.disFloCoo.m1Req_flow[1]",
     "bui.disFloCoo.m1Act_flow[1].y",
-    "bui.terUni.m1Coo_flow_nominal",
-    "bui.terUni.QActCoo_flow"
+    "bui.terUni.m1Coo_flow_nominal"
   };

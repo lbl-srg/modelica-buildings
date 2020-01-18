@@ -38,7 +38,7 @@ model SeriesConstantFlowRCB3Z1
     annotation (Placement(transformation(extent={{-280,10},{-260,30}})));
 equation
   connect(massFlowMainPump.y, pumDis.m_flow_in) annotation (Line(points={{-259,
-          -60},{60,-60},{60,-80},{68,-80}}, color={0,0,127}));
+          -60},{60,-60},{60,-60},{68,-60}}, color={0,0,127}));
   connect(pumSto.m_flow_in, massFlowMainPump.y) annotation (Line(points={{-180,
           -68},{-180,-60},{-259,-60}}, color={0,0,127}));
   connect(TSetHeaWatSup.y,bui. TSetHeaWat)

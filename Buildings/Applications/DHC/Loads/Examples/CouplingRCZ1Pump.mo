@@ -13,35 +13,35 @@ model CouplingRCZ1Pump
     "Source side medium";
   BaseClasses.BuildingRCZ1Pump bui(nPorts1=2)
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
-  Buildings.Fluid.Sources.Boundary_pT sinHea(
-    redeclare package Medium = Medium1,
-    nPorts=1) "Sink for heating water"
-    annotation (Placement(transformation(
+  Buildings.Fluid.Sources.Boundary_pT sinHeaWat(redeclare package Medium =
+        Medium1, nPorts=1) "Sink for heating water" annotation (Placement(
+        transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={130,80})));
-  Modelica.Blocks.Sources.RealExpression THeaInlVal(y=bui.terUni.T_a1Hea_nominal)
-    annotation (Placement(transformation(extent={{-122,70},{-102,90}})));
-  Modelica.Blocks.Sources.RealExpression TCooInlVal(y=bui.terUni.T_a1Coo_nominal)
+  Modelica.Blocks.Sources.RealExpression THeaWatSup(y=bui.terUni.T_a1Hea_nominal)
+    "Heating water supply temperature"
+    annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
+  Modelica.Blocks.Sources.RealExpression TChiWatSup(y=bui.terUni.T_a1Coo_nominal)
+    "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
-  Buildings.Fluid.Sources.Boundary_pT sinCoo(
-    redeclare package Medium = Medium1,
-    nPorts=1) "Sink for chilled water"
-    annotation (Placement(transformation(
+  Buildings.Fluid.Sources.Boundary_pT sinChiWat(redeclare package Medium =
+        Medium1, nPorts=1) "Sink for chilled water" annotation (Placement(
+        transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={130,20})));
-  Buildings.Fluid.Sources.Boundary_pT souHea(
+  Buildings.Fluid.Sources.Boundary_pT supHeaWat(
     redeclare package Medium = Medium1,
     use_T_in=true,
-    nPorts=1) "Source for heating water" annotation (Placement(transformation(
+    nPorts=1) "Heating water supply" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,80})));
-  Buildings.Fluid.Sources.Boundary_pT souCoo(
+  Buildings.Fluid.Sources.Boundary_pT supChiWat(
     redeclare package Medium = Medium1,
     use_T_in=true,
-    nPorts=1) "Source for chilled water" annotation (Placement(transformation(
+    nPorts=1) "Chilled water supply" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,20})));
@@ -51,22 +51,18 @@ equation
       points={{40,110},{30,110},{30,71.4},{30.1,71.4}},
       color={255,204,51},
       thickness=0.5));
-  connect(bui.ports_b1[1], sinHea.ports[1])
-    annotation (Line(points={{60,30},{80,30},{80,80},{120,80}}, color={0,127,255}));
-  connect(bui.ports_b1[2], sinCoo.ports[1])
-    annotation (Line(points={{60,34},{80,34},{80,20},{120,20}}, color={0,127,255}));
-  connect(souHea.T_in, THeaInlVal.y)
-    annotation (Line(points={{-62,84},{-80,84},{-80,80},{-101,80}},
-                                                 color={0,0,127}));
-  connect(souHea.ports[1], bui.ports_a1[1]) annotation (Line(points={{-40,80},{
-          -20,80},{-20,32},{0,32},{0,30}},
-                               color={0,127,255}));
-  connect(TCooInlVal.y, souCoo.T_in)
-    annotation (Line(points={{-99,20},{-80,20},{-80,24},{-62,24}},
-                                                 color={0,0,127}));
-  connect(souCoo.ports[1], bui.ports_a1[2]) annotation (Line(points={{-40,20},{
-          -20,20},{-20,32},{0,32},{0,34}},
-                                 color={0,127,255}));
+  connect(bui.ports_b1[1], sinHeaWat.ports[1]) annotation (Line(points={{60,30},
+          {80,30},{80,80},{120,80}}, color={0,127,255}));
+  connect(bui.ports_b1[2], sinChiWat.ports[1]) annotation (Line(points={{60,34},
+          {80,34},{80,20},{120,20}}, color={0,127,255}));
+  connect(supHeaWat.T_in, THeaWatSup.y) annotation (Line(points={{-62,84},{-80,
+          84},{-80,80},{-99,80}}, color={0,0,127}));
+  connect(supHeaWat.ports[1], bui.ports_a1[1]) annotation (Line(points={{-40,80},
+          {-20,80},{-20,32},{0,32},{0,30}}, color={0,127,255}));
+  connect(TChiWatSup.y, supChiWat.T_in) annotation (Line(points={{-99,20},{-80,
+          20},{-80,24},{-62,24}}, color={0,0,127}));
+  connect(supChiWat.ports[1], bui.ports_a1[2]) annotation (Line(points={{-40,20},
+          {-20,20},{-20,32},{0,32},{0,34}}, color={0,127,255}));
   annotation (
   experiment(
       StopTime=15000000,
