@@ -1,6 +1,5 @@
 within Buildings.Examples.DistrictReservoirNetworks.Examples;
-model Reservoir3Variable
-  "Reservoir network with optimized controller"
+model Reservoir3Variable_OneTube "Reservoir network with optimized controller"
   extends Modelica.Icons.Example;
   extends
     Buildings.Examples.DistrictReservoirNetworks.Examples.BaseClasses.RN_BaseModel(
@@ -55,4 +54,4 @@ equation
       __Dymola_NumberOfIntervals=8760,
       Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"));
-end Reservoir3Variable;
+end Reservoir3Variable_OneTube;
