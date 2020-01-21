@@ -43,16 +43,16 @@ equation
   connect(pumSto.m_flow_in, massFlowMainPump.y) annotation (Line(points={{-180,
           -68},{-180,-60},{-259,-60}}, color={0,0,127}));
   connect(TSetHeaWatSup.y, bui.TSetHeaWat)
-    annotation (Line(points={{-258,220},{-20,220},{-20,188},{-11,188}},
+    annotation (Line(points={{-258,220},{-40,220},{-40,188},{-11,188}},
                                          color={0,0,127}));
   connect(TSetChiWatSup.y, bui.TSetChiWat)
-    annotation (Line(points={{-258,180},{-20,180},{-20,184},{-11,184}},
+    annotation (Line(points={{-258,180},{-40,180},{-40,184},{-11,184}},
                                           color={0,0,127}));
   connect(dis.ports_conSup, bui.port_a)
-    annotation (Line(points={{-12,150},{-20,150},{-20,180},{-10,180}},
+    annotation (Line(points={{-12,150},{-12,160},{-20,160},{-20,180},{-10,180}},
                                      color={0,127,255}));
   connect(bui.port_b, dis.ports_conRet)
-    annotation (Line(points={{10,180},{20,180},{20,150},{12,150}},
+    annotation (Line(points={{10,180},{20,180},{20,160},{12,160},{12,150}},
                                                           color={0,127,255}));
   connect(mDisPla_flow.y, pla.mPum_flow) annotation (Line(points={{-259,20},{-180,
           20},{-180,4},{-161,4}}, color={0,0,127}));

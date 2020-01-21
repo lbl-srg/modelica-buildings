@@ -20,7 +20,7 @@ model HeatFlowEffectiveness "Model computing the heat flow rate based on the eff
     "Thermal conductance"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-120,90}),
+        origin={-120,80}),
         iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
@@ -31,7 +31,7 @@ model HeatFlowEffectiveness "Model computing the heat flow rate based on the eff
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-120,10}), iconTransformation(
+        origin={-120,0}),  iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,0})));
@@ -42,7 +42,7 @@ model HeatFlowEffectiveness "Model computing the heat flow rate based on the eff
       Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-120,50}), iconTransformation(
+        origin={-120,40}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,40})));
@@ -53,7 +53,7 @@ model HeatFlowEffectiveness "Model computing the heat flow rate based on the eff
       Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-120,-70}), iconTransformation(
+        origin={-120,-80}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,-80})));
@@ -64,7 +64,7 @@ model HeatFlowEffectiveness "Model computing the heat flow rate based on the eff
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-120,-30}), iconTransformation(
+        origin={-120,-40}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,-40})));

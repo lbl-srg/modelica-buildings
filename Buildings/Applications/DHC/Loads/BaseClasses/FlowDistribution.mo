@@ -102,7 +102,7 @@ model FlowDistribution "Model of hydraulic distribution system"
     each final use_m_flow_in=true,
     each final use_T_in=true,
     each final nPorts=1)
-    annotation (Placement(transformation(extent={{40,150},{60,170}})));
+    annotation (Placement(transformation(extent={{60,150},{80,170}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare final package Medium=Medium,
     final nPorts=nUni)
@@ -245,11 +245,11 @@ equation
   connect(m1Req_flow, mulSum.u)
     annotation (Line(points={{-120,220},{-82,220}},  color={0,0,127}));
   connect(m1Act_flow.y, sou_m1_flow.m_flow_in)
-    annotation (Line(points={{1,168},{38,168}}, color={0,0,127}));
+    annotation (Line(points={{1,168},{58,168}}, color={0,0,127}));
   connect(ports_a1, sin.ports)
     annotation (Line(points={{-100,160},{-80,160}}, color={0,127,255}));
   connect(sou_m1_flow.ports[1], ports_b1)
-    annotation (Line(points={{60,160},{100,160}}, color={0,127,255}));
+    annotation (Line(points={{80,160},{100,160}}, color={0,127,255}));
   connect(val.port_2, pum.port_a)
     annotation (Line(points={{-70,0},{-50,0}}, color={0,127,255}));
   connect(pum.port_b, ideSou.port_a)
@@ -270,8 +270,9 @@ equation
           -20}},                  color={0,0,127}));
   connect(TSupVal.y, reaRep.u)
     annotation (Line(points={{-79,80},{-22,80}}, color={0,0,127}));
-  connect(reaRep.y, sou_m1_flow.T_in) annotation (Line(points={{2,80},{20,80},{20,
-          164},{38,164}}, color={0,0,127}));
+  connect(reaRep.y, sou_m1_flow.T_in) annotation (Line(points={{2,80},{20,80},{
+          20,164},{58,164}},
+                          color={0,0,127}));
   if have_val then
     connect(port_a, val.port_1)
     annotation (Line(points={{-100,0},{-90,0}}, color={0,127,255}));
@@ -409,7 +410,7 @@ tracking the supply temperature.
           textString=
               "CPU time for integration is twice lower when Dynamics of valve or splitter are NOT steady state!?"),
                                                                                                     Text(
-        extent={{106,-144},{226,-168}},
+        extent={{38,-132},{158,-156}},
         lineColor={28,108,200},
         horizontalAlignment=TextAlignment.Left,
           textString="Implement PI reset for change over")}));
