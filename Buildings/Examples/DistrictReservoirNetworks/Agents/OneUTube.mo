@@ -1,19 +1,46 @@
 within Buildings.Examples.DistrictReservoirNetworks.Agents;
 model OneUTube "Borefield model containing single U-tube boreholes"
-  extends Buildings.Fluid.Geothermal.Borefields.BaseClasses.PartialBorefield(
-    redeclare Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.OneUTube borHol,
-      borFieDat(
-      filDat=Buildings.Fluid.Geothermal.Borefields.Data.Filling.Bentonite(),
-      soiDat=Buildings.Fluid.Geothermal.Borefields.Data.Soil.SandStone(),
-      conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
-          borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.SingleUTube)));
+  extends Buildings.Fluid.Geothermal.Borefields.OneUTube(
+    nSeg=10,
+    nCel=5,
+    tLoaAgg=300,
+    show_T=true,
+    borFieDat(
+      final filDat=Buildings.Fluid.Geothermal.Borefields.Data.Filling.Bentonite(
+          kFil=2.5,
+          cFil=1000,
+          dFil=2600),
+      final soiDat=Buildings.Fluid.Geothermal.Borefields.Data.Soil.SandStone(
+          kSoi=2.5,
+          cSoi=1000,
+          dSoi=2600),
+      final conDat=
+          Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
+          borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.SingleUTube,
+          cooBor={{6*mod((i - 1), 20),6*floor((i - 1)/20)} for i in 1:400})));
+
+//    parameter Modelica.SIunits.Length xBorFie = 120 "Borefield length"
+//      annotation(Dialog(tab="Borefield"));
+//    parameter Modelica.SIunits.Length yBorFie = 120 "Borefield width"
+//      annotation(Dialog(tab="Borefield"));
+//    parameter Modelica.SIunits.Length dBorHol = 6 "Distance between two boreholes"
+//      annotation(Dialog(tab="Borefield"));
+//    final parameter Integer nXBorHol = integer((xBorFie+dBorHol)/dBorHol)
+//      "Number of boreholes in x-direction"
+//      annotation(Dialog(tab="Borefield"));
+//    final parameter Integer nYBorHol = integer((yBorFie+dBorHol)/dBorHol)
+//      "Number of boreholes in y-direction"
+//      annotation(Dialog(tab="Borefield"));
+//    final parameter Integer nBorHol = nXBorHol*nYBorHol "Number of boreholes"
+//      annotation(Dialog(tab="Borefield"));
 
   Modelica.Blocks.Interfaces.RealOutput Q_flow(final unit="W") "Heat extracted from soil"
     annotation (Placement(transformation(extent={{100,56},{120,76}}),
         iconTransformation(extent={{100,70},{120,90}})));
+
 equation
   connect(gaiQ_flow.y, Q_flow) annotation (Line(points={{1,80},{10,80},{10,66},{
-          110,66}}, color={0,0,127}));
+          110,66},{110,66}}, color={0,0,127}));
   annotation (
   defaultComponentName="borFie",
   Documentation(info="<html>

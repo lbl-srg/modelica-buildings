@@ -1,8 +1,9 @@
 within Buildings.Examples.DistrictReservoirNetworks.Examples;
-model Reservoir3Variable_OneTube "Reservoir network with optimized controller"
+model Reservoir3Variable_TOUGH
+  "Reservoir network with optimized controller"
   extends Modelica.Icons.Example;
   extends
-    Buildings.Examples.DistrictReservoirNetworks.Examples.BaseClasses.RN_BaseModel_OneTube(
+    Buildings.Examples.DistrictReservoirNetworks.Examples.BaseClasses.RN_BaseModel_TOUGH(
   datDes(
       mDisPip_flow_nominal=69.5,
       RDisPip=250,
@@ -47,11 +48,11 @@ equation
     annotation (Line(points={{50,-428},{50,-230},{40,-230}}, color={0,0,127}));
   annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-320,-480},{380,360}})),
-          __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/DistrictReservoirNetworks/Examples/Reservoir3Variable_OneTube.mos"
+          __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/DistrictReservoirNetworks/Examples/Reservoir3Variable_TOUGH.mos"
         "Simulate and plot"),
     experiment(
       StopTime=31536000,
       __Dymola_NumberOfIntervals=8760,
       Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"));
-end Reservoir3Variable_OneTube;
+end Reservoir3Variable_TOUGH;

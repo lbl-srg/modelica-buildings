@@ -9,12 +9,13 @@ model ResponsePython
     final k={273.15+10,273.15+10.2,273.15+10.4,273.15+10.6,273.15+10.8,
              273.15+11.0,273.15+11.2,273.15+11.4,273.15+11.6,273.15+11.8})
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1[10](
-    each final k=1000)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin [10](
+    each amplitude=1000,
+    each freqHz=1/3600)
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 
 equation
-  connect(con1.y, toughRes.QBor_flow)
+  connect(sin.y, toughRes.QBor_flow)
     annotation (Line(points={{-38,30},{0,30},{0,6},{39,6}}, color={0,0,127}));
   connect(con.y, toughRes.TBorWal_start) annotation (Line(points={{-38,-30},{0,-30},
           {0,-6},{39,-6}}, color={0,0,127}));

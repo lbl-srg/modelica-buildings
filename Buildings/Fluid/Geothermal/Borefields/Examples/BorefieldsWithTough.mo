@@ -8,6 +8,14 @@ model BorefieldsWithTough
   parameter Modelica.SIunits.Temperature TGro = 283.15
     "Ground temperature";
   Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example borFieUTubDat(
+    filDat=Buildings.Fluid.Geothermal.Borefields.Data.Filling.Bentonite(
+        kFil=2.5,
+        cFil=1000,
+        dFil=2600),
+    soiDat=Buildings.Fluid.Geothermal.Borefields.Data.Soil.SandStone(
+        kSoi=2.5,
+        cSoi=1000,
+        dSoi=2600),
     conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
     borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.SingleUTube))
     annotation (Placement(transformation(extent={{60,100},{80,120}})));
