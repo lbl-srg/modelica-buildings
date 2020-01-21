@@ -28,12 +28,14 @@ model Real_Real
   Real uRInt[nDblWri] "Value of integral";
   Real uRIntPre[nDblWri] "Value of integral at previous sampling instance";
   Real uRWri[nDblWri] "Value to be sent to Python";
+  Real uRWri_temp[nDblWri] "Internal value";
 protected
   Buildings.Utilities.IO.Python27.Functions.BaseClasses.PythonObject pytObj=
     Buildings.Utilities.IO.Python27.Functions.BaseClasses.PythonObject()
     "Python object, used to avoid instantiating Python in each call, and to pass python object if passPythonObject=true";
 initial equation
    uRWri    =  pre(uR);
+   uRWri_temp = pre(uR);
    uRInt    =  zeros(nDblWri);
    uRIntPre =  zeros(nDblWri);
    for i in 1:nDblWri loop
@@ -52,17 +54,24 @@ equation
 
   when {sampleTrigger} then
      // Compute value that will be sent to Python
-     for i in 1:nDblWri loop
-       if (flaDblWri[i] == 0) then
-         uRWri[i] = pre(uR[i]);                 // Send the current value.
-       else
-         uRWri[i] = uRInt[i] - pre(uRIntPre[i]);     // Integral over the sampling interval
-         if (flaDblWri[i] == 1) then
-            uRWri[i] =  uRWri[i]/samplePeriod;  // Average value over the sampling interval
-         end if;
-       end if;
+      for i in 1:nDblWri loop
+        if (flaDblWri[i] == 0) then
+          uRWri_temp[i] = pre(uR[i]);
+          uRWri[i] = pre(uR[i]);                 // Send the current value.
+        else
+          if (time > 0) then
+            uRWri_temp[i] = uRInt[i] - pre(uRIntPre[i]); // Integral over the sampling interval
+            if (flaDblWri[i] == 2) then
+              uRWri[i] = uRWri_temp[i];
+            else
+              uRWri[i] = uRWri_temp[i]/samplePeriod;  // Average value over the sampling interval
+            end if;
+          else
+            uRWri[i] = pre(uR[i]);
+            uRWri_temp[i] = pre(uR[i]);
+          end if;
+        end if;
       end for;
-
     // Exchange data
     yR = Buildings.Utilities.IO.Python27.Functions.exchange(
       moduleName=moduleName,
@@ -77,9 +86,8 @@ equation
       strWri={""},
       pytObj=pytObj,
       passPythonObject = passPythonObject);
-
     // Store current value of integral
-  uRIntPre= uRInt;
+    uRIntPre= uRInt;
   end when;
 
   annotation (defaultComponentName="pyt",
