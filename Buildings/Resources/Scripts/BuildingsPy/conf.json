@@ -1,11 +1,5 @@
 [
   {
-     "jmodelica": {
-       "simulate": false
-  },
-  "model_name": "Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case640"
-  },
-  {
     "jmodelica": {
       "simulate": false
   },
