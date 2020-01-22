@@ -1,7 +1,7 @@
 [
   {
      "jmodelica": {
-       "time_out": 2400
+       "simulate": false
   },
   "model_name": "Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case640"
   },
