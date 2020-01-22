@@ -283,6 +283,16 @@ its class name ends with the string <code>Beta</code>.
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1636\">#1636</a>.
         </td>
     </tr>
+    <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case600<br/>
+                           Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case600FF<br/>
+        </td>
+        <td valign=\"top\">Changed computation of time averaged values to avoid a time event every hour.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1714\">#1714</a>.
+        </td>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
         </td>
     </tr>
