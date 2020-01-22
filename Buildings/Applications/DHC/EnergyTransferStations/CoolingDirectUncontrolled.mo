@@ -104,35 +104,51 @@ protected
 
 equation
   connect(port_a1, senTDisSup.port_a)
-    annotation (Line(points={{-100,60},{-90,60}}, color={0,127,255}));
+    annotation (Line(points={{-100,60},{-90,60}}, color={0,127,255},
+      thickness=0.5));
   connect(senTDisSup.port_b, senMasFlo.port_a)
-    annotation (Line(points={{-70,60},{-50,60}}, color={0,127,255}));
+    annotation (Line(points={{-70,60},{-50,60}}, color={0,127,255},
+      thickness=0.5));
   connect(senMasFlo.port_b, pipSup.port_a)
-    annotation (Line(points={{-30,60},{-10,60}}, color={0,127,255}));
+    annotation (Line(points={{-30,60},{-10,60}}, color={0,127,255},
+      thickness=0.5));
   connect(pipSup.port_b, port_b1)
-    annotation (Line(points={{10,60},{100,60}}, color={0,127,255}));
+    annotation (Line(points={{10,60},{100,60}}, color={0,127,255},
+      thickness=0.5));
   connect(port_b2, senTDisRet.port_a)
-    annotation (Line(points={{-100,-60},{-70,-60}}, color={0,127,255}));
+    annotation (Line(points={{-100,-60},{-70,-60}}, color={0,127,255},
+      thickness=0.5));
   connect(senTDisRet.port_b, pipRet.port_b)
-    annotation (Line(points={{-50,-60},{-10,-60}}, color={0,127,255}));
+    annotation (Line(points={{-50,-60},{-10,-60}}, color={0,127,255},
+      thickness=0.5));
   connect(pipRet.port_a, port_a2)
-    annotation (Line(points={{10,-60},{100,-60}}, color={0,127,255}));
+    annotation (Line(points={{10,-60},{100,-60}}, color={0,127,255},
+      thickness=0.5));
   connect(int.y, Q)
-    annotation (Line(points={{91,110},{110,110}}, color={0,0,127}));
+    annotation (Line(points={{91,110},{110,110}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(senTDisSup.T, dTDis.u1)
-    annotation (Line(points={{-80,71},{-80,122},{-50,122}}, color={0,0,127}));
+    annotation (Line(points={{-80,71},{-80,122},{-50,122}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(senTDisRet.T, dTDis.u2)
-    annotation (Line(points={{-60,-49},{-60,110},{-50,110}}, color={0,0,127}));
+    annotation (Line(points={{-60,-49},{-60,110},{-50,110}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(senMasFlo.m_flow, pro.u2)
-    annotation (Line(points={{-40,71},{-40,104},{-12,104}}, color={0,0,127}));
+    annotation (Line(points={{-40,71},{-40,104},{-12,104}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(dTDis.y, pro.u1)
-    annotation (Line(points={{-27,116},{-12,116}}, color={0,0,127}));
+    annotation (Line(points={{-27,116},{-12,116}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(pro.y, cp.u)
-    annotation (Line(points={{11,110},{28,110}}, color={0,0,127}));
+    annotation (Line(points={{11,110},{28,110}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(cp.y, int.u)
-    annotation (Line(points={{51,110},{68,110}}, color={0,0,127}));
+    annotation (Line(points={{51,110},{68,110}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(cp.y, Q_flow)
-    annotation (Line(points={{51,110},{60,110},{60,150},{110,150}}, color={0,0,127}));
+    annotation (Line(points={{51,110},{60,110},{60,150},{110,150}}, color={0,0,127},
+
+      pattern=LinePattern.Dash));
 
   annotation (defaultComponentName="coo",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
