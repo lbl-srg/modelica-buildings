@@ -135,53 +135,74 @@ model CoolingIndirectClosedBuildingLoop
 equation
   connect(coo.port_b2, pumBui.port_a)
     annotation (Line(points={{40,14},{-20,14},{-20,0}},
-                                                    color={0,127,255}));
+                                                    color={0,127,255},
+      thickness=0.5));
   connect(gai.y, pumBui.m_flow_in)
     annotation (Line(points={{-39,-10},{-32,-10}}, color={0,0,127}));
   connect(exp.port_a, pumBui.port_a)
     annotation (Line(points={{30,0},{30,14},{-20,14},{-20,0}},
-                                                           color={0,127,255}));
+                                                           color={0,127,255},
+      thickness=0.5));
   connect(pro.u1, QCoo.y[1]) annotation (Line(points={{-62,-44},{-80,-44},{-80,-20},
-          {-99,-20}}, color={0,0,127}));
+          {-99,-20}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(pro.u2, ram.y)
-    annotation (Line(points={{-62,-56},{-99,-56}}, color={0,0,127}));
+    annotation (Line(points={{-62,-56},{-99,-56}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(pro.y, loa.u)
     annotation (Line(points={{-39,-50},{30,-50},{30,-70},{38,-70}},
-                                                  color={0,0,127}));
+                                                  color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(gai.u, QCoo.y[1]) annotation (Line(points={{-62,-10},{-80,-10},{-80,-20},
-          {-99,-20}}, color={0,0,127}));
+          {-99,-20}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(TSetCHWS.y, coo.TSet)
-    annotation (Line(points={{-99,20},{38,20}}, color={0,0,127}));
+    annotation (Line(points={{-99,20},{38,20}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(loa.port_b, TBuiRet.port_a)
-    annotation (Line(points={{60,-76},{70,-76}}, color={0,127,255}));
+    annotation (Line(points={{60,-76},{70,-76}}, color={0,127,255},
+      thickness=0.5));
   connect(TBuiRet.port_b, coo.port_a2) annotation (Line(points={{90,-76},{100,
           -76},{100,14},{60,14}},
-                             color={0,127,255}));
+                             color={0,127,255},
+      thickness=0.5));
   connect(pumBui.port_b, TBuiSup.port_a) annotation (Line(points={{-20,-20},{
           -20,-76},{-10,-76}},
-                           color={0,127,255}));
+                           color={0,127,255},
+      thickness=0.5));
   connect(TBuiSup.port_b, loa.port_a)
-    annotation (Line(points={{10,-76},{40,-76}}, color={0,127,255}));
+    annotation (Line(points={{10,-76},{40,-76}}, color={0,127,255},
+      thickness=0.5));
   connect(coo.port_b1, TDisRet.port_a) annotation (Line(points={{60,26},{66,26},
-          {66,70},{70,70}}, color={0,127,255}));
+          {66,70},{70,70}}, color={0,127,255},
+      thickness=0.5));
   connect(TDisRet.port_b, sinDis.ports[1])
-    annotation (Line(points={{90,70},{108,70}}, color={0,127,255}));
+    annotation (Line(points={{90,70},{108,70}}, color={0,127,255},
+      thickness=0.5));
   connect(souDis.ports[1], TDisSup.port_a)
-    annotation (Line(points={{-10,70},{10,70}}, color={0,127,255}));
+    annotation (Line(points={{-10,70},{10,70}}, color={0,127,255},
+      thickness=0.5));
   connect(TDisSup.port_b, coo.port_a1) annotation (Line(points={{30,70},{34,70},
-          {34,26},{40,26}}, color={0,127,255}));
+          {34,26},{40,26}}, color={0,127,255},
+      thickness=0.5));
   connect(TBuiSup.T, TApp.u1)
-    annotation (Line(points={{0,-65},{0,126},{38,126}}, color={0,0,127}));
+    annotation (Line(points={{0,-65},{0,126},{38,126}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(TDisSup.T, TApp.u2)
-    annotation (Line(points={{20,81},{20,114},{38,114}}, color={0,0,127}));
+    annotation (Line(points={{20,81},{20,114},{38,114}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(TDisRet.T, dTDis.u2)
-    annotation (Line(points={{80,81},{80,94},{88,94}}, color={0,0,127}));
+    annotation (Line(points={{80,81},{80,94},{88,94}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(dTDis.u1, TDisSup.T)
-    annotation (Line(points={{88,106},{20,106},{20,81}}, color={0,0,127}));
+    annotation (Line(points={{88,106},{20,106},{20,81}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(TBuiRet.T, dTBui.u2)
-    annotation (Line(points={{80,-65},{80,-36},{108,-36}}, color={0,0,127}));
+    annotation (Line(points={{80,-65},{80,-36},{108,-36}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(dTBui.u1, TBuiSup.T)
-    annotation (Line(points={{108,-24},{0,-24},{0,-65}}, color={0,0,127}));
+    annotation (Line(points={{108,-24},{0,-24},{0,-65}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-100},{100,100}})),
     Diagram(coordinateSystem(preserveAspectRatio=false,
