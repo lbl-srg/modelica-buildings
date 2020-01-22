@@ -207,27 +207,11 @@ model EnergyTransferStation
     final dTCon_nominal=dTHotWatCon_nominal,
     m2_flow_nominal = gaiMFlow*heaPumHotWat.QEva_flow_nominal/cp_default/heaPumHotWat.dTEva_nominal) "Heat pump"
     annotation (Placement(transformation(extent={{20,-92},{40,-72}})));
-  Examples.BaseClasses.Pump_m_flow pumChi(
+  Examples.BaseClasses.Pump_m_flow pumHex(
     redeclare package Medium = Medium,
     final m_flow_nominal=gaiMFlow*mCooCon_flow_nominal)
-    "Pump"
+    "Pump for heat exchanger for free cooling"
     annotation (Placement(transformation(extent={{-130,-350},{-110,-330}})));
-  Fluid.Sensors.TemperatureTwoPort
-    senTem1(redeclare package Medium = Medium,
-    allowFlowReversal=true,
-    m_flow_nominal=gaiMFlow*mCooCon_flow_nominal)
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-10,-340})));
-  Fluid.Sensors.TemperatureTwoPort
-    senTem(redeclare package Medium = Medium,
-    allowFlowReversal=true,
-    m_flow_nominal=gaiMFlow*mCooCon_flow_nominal)
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-172,-340})));
   Modelica.Blocks.Interfaces.RealOutput m_flow_HPSH "in kg/s"
     annotation (Placement(transformation(extent={{274,-150},{294,-130}}),
         iconTransformation(extent={{274,-150},{294,-130}})));
@@ -441,15 +425,15 @@ equation
           -62},{-92,403},{-157,403}},  color={0,0,127}));
   connect(TSetHotWat.y, heaPumHotWat.TSet) annotation (Line(points={{-119,-30},{
           8,-30},{8,-73},{18,-73}},   color={0,0,127}));
-  connect(pumHea.port_a, volMix_a.ports[1]) annotation (Line(points={{30,300},{-186,
-          300},{-186,4},{-206,4},{-206,8},{-205,8},{-205,10}},
+  connect(pumHea.port_a, volMix_a.ports[1]) annotation (Line(points={{30,300},{
+          -186,300},{-186,4},{-206,4},{-206,8},{-205,8},{-205,10}},
                          color={0,127,255}));
   connect(pumHotWat.port_a, volMix_a.ports[2]) annotation (Line(
       points={{30,0},{-203,0},{-203,10}},
       color={0,127,255},
       thickness=0.5));
-  connect(heaPum.port_b2, volMix_b.ports[1]) annotation (Line(points={{22,216},{
-          18,216},{18,180},{200,180},{200,10},{215,10}},
+  connect(heaPum.port_b2, volMix_b.ports[1]) annotation (Line(points={{22,216},
+          {18,216},{18,180},{200,180},{200,10},{215,10}},
                 color={0,127,255}));
   connect(heaPumHotWat.port_b2, volMix_b.ports[2]) annotation (Line(
       points={{20,-88},{10,-88},{10,-120},{217,-120},{217,10}},
@@ -473,21 +457,12 @@ equation
     annotation (Line(points={{-19,330},{-2,330},{-2,330}}, color={0,0,127}));
   connect(mPumHea_flow.y, pumHea.m_flow_in) annotation (Line(points={{21,330},{40,
           330},{40,312}},   color={0,0,127}));
-  connect(pumChi.P, PCoo) annotation (Line(points={{-109,-331},{-80,-331},{-80,-232},
+  connect(pumHex.P, PCoo) annotation (Line(points={{-109,-331},{-80,-331},{-80,-232},
           {186,-232},{186,200},{290,200}},
                       color={0,0,127}));
-  connect(senTem1.port_b, volMix_a.ports[3]) annotation (Line(
-      points={{0,-340},{0,-198},{-204,-198},{-204,10},{-201,10}},
-      color={0,127,255},
-      thickness=0.5));
   connect(deMul.y1[1], coolingLoadInPositive.u) annotation (Line(points={{-157,
           417},{-140,417},{-140,440},{-240,440},{-240,-394},{-182,-394}},
                   color={0,0,127}));
-  connect(senTem.port_a, volMix_b.ports[3]) annotation (Line(points={{-182,-340},
-          {-200,-340},{-200,-240},{260,-240},{260,-146},{219,-146},{219,10}},
-        color={0,127,255}));
-  connect(senTem.port_b, pumChi.port_a)
-    annotation (Line(points={{-162,-340},{-130,-340}}, color={0,127,255}));
   connect(mPumHea_flow.y, m_flow_HPSH) annotation (Line(points={{21,330},
           {40,330},{40,360},{180,360},{180,-140},{284,-140}}, color={0,
           0,127}));
@@ -504,7 +479,7 @@ equation
           309},{51,309}}, color={0,0,127}));
   connect(pumHotWat.P, sumPPum.u2) annotation (Line(points={{51,9},{58,9},{58,130},
           {118,130}}, color={0,0,127}));
-  connect(pumChi.P, sumPPum.u3) annotation (Line(points={{-109,-331},{-80,
+  connect(pumHex.P, sumPPum.u3) annotation (Line(points={{-109,-331},{-80,
           -331},{-80,-160},{88,-160},{88,122},{118,122}},
                                                     color={0,0,127}));
   connect(PPum, sumPPum.y) annotation (Line(points={{290,400},{206,400},{206,130},
@@ -517,9 +492,7 @@ equation
           {46,231},{43,231}}, color={0,0,127}));
   connect(deMul.y2[1], assEqu2.u1) annotation (Line(points={{-157,410},{-100,410},
           {-100,266},{58,266}}, color={0,0,127}));
-  connect(senTem1.port_a, hex.port_b)
-    annotation (Line(points={{-20,-340},{-40,-340}}, color={0,127,255}));
-  connect(hex.port_a, pumChi.port_b) annotation (Line(points={{-60,-340},
+  connect(hex.port_a,pumHex. port_b) annotation (Line(points={{-60,-340},
           {-110,-340}}, color={0,127,255}));
   connect(coolingLoadInPositive.y, hex.u) annotation (Line(points={{-159,-394},
           {-146,-394},{-146,-368},{-70,-368},{-70,-334},{-62,-334}},
@@ -538,24 +511,28 @@ equation
     annotation (Line(points={{-142,250},{-149,250}}, color={0,0,127}));
   connect(coolingLoadInPositive.y, mHea_flow1.u)
     annotation (Line(points={{-159,-394},{-124,-394}}, color={0,0,127}));
-  connect(mHea_flow1.y, pumChi.m_flow_in) annotation (Line(points={{-101,-394},
+  connect(mHea_flow1.y,pumHex. m_flow_in) annotation (Line(points={{-101,-394},
           {-90,-394},{-90,-320},{-120,-320},{-120,-328}}, color={0,0,127}));
   connect(mHea_flow1.y, m_flow_FC) annotation (Line(points={{-101,-394},{258,
           -394},{258,-260},{284,-260}}, color={0,0,127}));
-  connect(volMix_a.ports[4], senEntFloWar.port_b) annotation (Line(points={{-199,
-          10},{-199,-6.10623e-16},{-254,-6.10623e-16}}, color={0,127,255}));
+  connect(volMix_a.ports[3], senEntFloWar.port_b) annotation (Line(points={{-201,10},
+          {-201,-6.10623e-16},{-254,-6.10623e-16}},     color={0,127,255}));
   connect(senEntFloWar.port_a, port_a) annotation (Line(points={{-266,8.32667e-16},
           {-272,8.32667e-16},{-272,0},{-280,0}}, color={0,127,255}));
   connect(port_b, senEntFloCol.port_b) annotation (Line(points={{280,0},{266,0},
           {266,-6.10623e-16},{252,-6.10623e-16}}, color={0,127,255}));
-  connect(senEntFloCol.port_a, volMix_b.ports[4]) annotation (Line(points={{240,
-          8.32667e-16},{221,8.32667e-16},{221,10}}, color={0,127,255}));
+  connect(senEntFloCol.port_a, volMix_b.ports[3]) annotation (Line(points={{240,
+          8.32667e-16},{219,8.32667e-16},{219,10}}, color={0,127,255}));
   connect(sumQCon.y, QPro)
     annotation (Line(points={{273,360},{290,360}}, color={0,0,127}));
   connect(sumQCon.u1, senEntFloWar.H_flow) annotation (Line(points={{250,366},{-260,
           366},{-260,6.6}}, color={0,0,127}));
   connect(sumQCon.u2, senEntFloCol.H_flow)
     annotation (Line(points={{250,354},{246,354},{246,6.6}}, color={0,0,127}));
+  connect(pumHex.port_a, volMix_b.ports[4]) annotation (Line(points={{-130,-340},
+          {-160,-340},{-160,-260},{221,-260},{221,10}}, color={0,127,255}));
+  connect(hex.port_b, volMix_a.ports[4]) annotation (Line(points={{-40,-340},{
+          -20,-340},{-20,-180},{-199,-180},{-199,10}}, color={0,127,255}));
   annotation (
   defaultComponentName="bui",
   Documentation(info="<html>
