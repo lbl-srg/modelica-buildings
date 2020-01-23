@@ -201,13 +201,13 @@ Buildings/Controls/Discrete/Examples/package.mo
 Buildings/Controls/Discrete/Examples/package.order
 Buildings/Controls/Discrete/package.mo
 Buildings/Controls/Discrete/package.order
-Buildings/Controls/SetPoints/Examples/HotWaterTemperatureReset.mo
 Buildings/Controls/SetPoints/Examples/OccupancySchedule.mo
+Buildings/Controls/SetPoints/Examples/SupplyReturnTemperatureReset.mo
 Buildings/Controls/SetPoints/Examples/Table.mo
 Buildings/Controls/SetPoints/Examples/package.mo
 Buildings/Controls/SetPoints/Examples/package.order
-Buildings/Controls/SetPoints/HotWaterTemperatureReset.mo
 Buildings/Controls/SetPoints/OccupancySchedule.mo
+Buildings/Controls/SetPoints/SupplyReturnTemperatureReset.mo
 Buildings/Controls/SetPoints/Table.mo
 Buildings/Controls/SetPoints/Validation/OccupancyScheduleNegativeStartTime.mo
 Buildings/Controls/SetPoints/Validation/OccupancySchedulePositiveStartTime.mo
@@ -1287,8 +1287,8 @@ Buildings/Resources/Images/Controls/Continuous/Examples/PIDHysteresisTimerError.
 Buildings/Resources/Images/Controls/Continuous/Examples/PIDHysteresisTimerOutput.png
 Buildings/Resources/Images/Controls/Continuous/Examples/SignalRankerU.png
 Buildings/Resources/Images/Controls/Continuous/Examples/SignalRankerY.png
-Buildings/Resources/Images/Controls/SetPoints/Examples/HotWaterTemperatureReset.png
 Buildings/Resources/Images/Controls/SetPoints/Examples/OccupancySchedule.png
+Buildings/Resources/Images/Controls/SetPoints/Examples/SupplyReturnTemperatureReset.png
 Buildings/Resources/Images/Controls/SetPoints/Table.png
 Buildings/Resources/Images/Fluid/Actuators/Valves/Examples/TwoWayValveTable_kv.png
 Buildings/Resources/Images/Fluid/Actuators/threeWayValvePressureDropSeries.png
@@ -1465,8 +1465,8 @@ Buildings/Resources/Scripts/Dymola/Controls/Continuous/Examples/SignalRanker.mos
 Buildings/Resources/Scripts/Dymola/Controls/Continuous/Validation/LimPIDReset.mos
 Buildings/Resources/Scripts/Dymola/Controls/Continuous/Validation/OffTimerNonZeroStart.mos
 Buildings/Resources/Scripts/Dymola/Controls/Discrete/Examples/BooleanDelay.mos
-Buildings/Resources/Scripts/Dymola/Controls/SetPoints/Examples/HotWaterTemperatureReset.mos
 Buildings/Resources/Scripts/Dymola/Controls/SetPoints/Examples/OccupancySchedule.mos
+Buildings/Resources/Scripts/Dymola/Controls/SetPoints/Examples/SupplyReturnTemperatureReset.mos
 Buildings/Resources/Scripts/Dymola/Controls/SetPoints/Examples/Table.mos
 Buildings/Resources/Scripts/Dymola/Controls/SetPoints/Validation/OccupancyScheduleNegativeStartTime.mos
 Buildings/Resources/Scripts/Dymola/Controls/SetPoints/Validation/OccupancySchedulePositiveStartTime.mos

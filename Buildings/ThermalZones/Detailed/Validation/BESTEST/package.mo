@@ -42,10 +42,10 @@ Buildings.Controls.Continuous.LimPID</a>
 with anti-windup.
 </p>
 <p>
-Hourly averaged values, and annual mean values,
+Hourly averaged values and annual mean values
 are computed using an instance of
-<a href=\"modelica://Modelica.Blocks.Math.Mean\">
-Modelica.Blocks.Math.Mean</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.MovingMean\">
+Buildings.Controls.OBC.CDL.Continuous.MovingMean</a>.
 </p>
 <h4>References</h4>
 <p>
