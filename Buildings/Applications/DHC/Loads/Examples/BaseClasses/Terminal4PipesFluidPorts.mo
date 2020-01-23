@@ -9,7 +9,6 @@ model Terminal4PipesFluidPorts
     final have_weaBus=false,
     final have_fan=true,
     final have_pum=false,
-    final show_TLoa=true,
     final m1Hea_flow_nominal=abs(QHea_flow_nominal/cp1Hea_nominal/(
         T_a1Hea_nominal - T_b1Hea_nominal)),
     final m1Coo_flow_nominal=abs(QCoo_flow_nominal/cp1Coo_nominal/(
@@ -79,9 +78,13 @@ model Terminal4PipesFluidPorts
     annotation (Placement(transformation(extent={{-10,170},{10,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiCooFloNom(k=m1Coo_flow_nominal)
     annotation (Placement(transformation(extent={{20,170},{40,190}})));
-  Modelica.Blocks.Sources.RealExpression T_a2Val(y=sta_a2.T)
-    "Temperature value at port_a2"
-    annotation (Placement(transformation(extent={{-80,130},{-60,150}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
+    redeclare final package Medium=Medium2,
+    final m_flow_nominal=max(m2Hea_flow_nominal, m2Coo_flow_nominal),
+    final tau=0,
+    final allowFlowReversal=allowFlowReversal)
+    "Return air temperature (sensed, steady-state)"
+    annotation (Placement(transformation(extent={{130,-10},{110,10}})));
 equation
   connect(hexCoo.port_b2, hexHea.port_a2)
     annotation (Line(points={{0,0},{-60,0}},     color={0,127,255}));
@@ -123,10 +126,12 @@ equation
     annotation (Line(points={{181,200},{220,200}}, color={0,0,127}));
   connect(fan.P, PFan) annotation (Line(points={{69,9},{60,9},{60,140},{220,140}},
         color={0,0,127}));
-  connect(port_a2, fan.port_a)
-    annotation (Line(points={{200,0},{90,0}}, color={0,127,255}));
-  connect(T_a2Val.y, conTMax.u_m)
-    annotation (Line(points={{-59,140},{0,140},{0,168}}, color={0,0,127}));
-  connect(T_a2Val.y, conTMin.u_m) annotation (Line(points={{-59,140},{-28,140},
-          {-28,200},{0,200},{0,208}}, color={0,0,127}));
+  connect(port_a2, senTem.port_a)
+    annotation (Line(points={{200,0},{130,0}}, color={0,127,255}));
+  connect(senTem.port_b, fan.port_a)
+    annotation (Line(points={{110,0},{90,0}}, color={0,127,255}));
+  connect(senTem.T, conTMax.u_m) annotation (Line(points={{120,11},{120,40},{0,40},
+          {0,168}}, color={0,0,127}));
+  connect(senTem.T, conTMin.u_m) annotation (Line(points={{120,11},{120,40},{-20,
+          40},{-20,200},{0,200},{0,208}}, color={0,0,127}));
 end Terminal4PipesFluidPorts;

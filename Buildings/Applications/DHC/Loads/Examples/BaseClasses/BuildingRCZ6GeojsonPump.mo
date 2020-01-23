@@ -46,7 +46,6 @@ model BuildingRCZ6GeojsonPump
     have_pum=true,
     dp_nominal=100000) annotation (Placement(transformation(extent={{-140,
             -160},{-120,-140}})));
-
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum1(nin=nZon)
     annotation (Placement(transformation(extent={{240,270},{260,290}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum2(nin=nZon)

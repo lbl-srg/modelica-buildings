@@ -119,12 +119,6 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     "Cooling heat exchanger configuration"
     annotation(Dialog(
       enable=cooFunSpe == funSpe.Water or cooFunSpe == funSpe.ChangeOver));
-  parameter Boolean show_TSou = false
-    "Set to true if actual temperatures at ports on the source side are computed"
-    annotation(Dialog(tab="Advanced", group="Diagnostics"));
-  parameter Boolean show_TLoa = false
-    "Set to true if actual temperatures at ports on the load side are computed"
-    annotation(Dialog(tab="Advanced", group="Diagnostics"));
   final parameter Boolean allowFlowReversal = false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation(Evaluate=true);
@@ -291,49 +285,6 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{210,-190},{190,-170}}),
         iconTransformation(extent={{130,-90},{110,-70}})));
-  // Variables
-  Medium1.ThermodynamicState sta_a1Hea=
-    Medium1.setState_phX(
-      port_a1Hea.p,
-      inStream(port_a1Hea.h_outflow),
-      inStream(port_a1Hea.Xi_outflow)) if
-      show_TSou and heaFunSpe == funSpe.Water
-    "Medium properties in port_a1Hea";
-  Medium1.ThermodynamicState sta_b1Hea=
-    Medium1.setState_phX(
-      port_b1Hea.p,
-      port_b1Hea.h_outflow,
-      port_b1Hea.Xi_outflow) if
-      show_TSou and heaFunSpe == funSpe.Water
-    "Medium properties in port_b1Hea";
-  Medium1.ThermodynamicState sta_a1Coo=
-    Medium1.setState_phX(
-      port_a1Coo.p,
-      inStream(port_a1Coo.h_outflow),
-      inStream(port_a1Coo.Xi_outflow)) if
-      show_TSou and (cooFunSpe == funSpe.Water or cooFunSpe == funSpe.ChangeOver)
-    "Medium properties in port_a1Coo";
-  Medium1.ThermodynamicState sta_b1Coo=
-    Medium1.setState_phX(
-      port_b1Coo.p,
-      port_b1Coo.h_outflow,
-      port_b1Coo.Xi_outflow) if
-      show_TSou and (cooFunSpe == funSpe.Water or cooFunSpe == funSpe.ChangeOver)
-    "Medium properties in port_b1Coo";
-  Medium2.ThermodynamicState sta_a2=
-    Medium2.setState_phX(
-      port_a2.p,
-      inStream(port_a2.h_outflow),
-      inStream(port_a2.Xi_outflow)) if
-      show_TLoa and have_fluPor
-    "Medium properties in port_a2";
-  Medium2.ThermodynamicState sta_b2=
-    Medium2.setState_phX(
-      port_b2.p,
-      port_b2.h_outflow,
-      port_b2.Xi_outflow) if
-      show_TLoa and have_fluPor
-    "Medium properties in port_b2";
 protected
   parameter Modelica.SIunits.SpecificHeatCapacity cp1Hea_nominal=
     Medium1.specificHeatCapacityCp(

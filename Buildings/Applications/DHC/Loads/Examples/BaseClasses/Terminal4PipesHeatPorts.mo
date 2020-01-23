@@ -1,7 +1,6 @@
 within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
 model Terminal4PipesHeatPorts
-  extends
-    Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit(
+  extends Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit(
     final heaFunSpe=Buildings.Applications.DHC.Loads.Types.TerminalFunctionSpec.Water,
     final cooFunSpe=Buildings.Applications.DHC.Loads.Types.TerminalFunctionSpec.Water,
     final have_heaPor=true,
@@ -12,8 +11,6 @@ model Terminal4PipesHeatPorts
     final have_pum=false,
     final hexConHea=Buildings.Fluid.Types.HeatExchangerConfiguration.ConstantTemperaturePhaseChange,
     final hexConCoo=Buildings.Fluid.Types.HeatExchangerConfiguration.ConstantTemperaturePhaseChange,
-    final show_TSou=true,
-    final show_TLoa=true,
     final m1Hea_flow_nominal=abs(QHea_flow_nominal/cp1Hea_nominal/(
         T_a1Hea_nominal - T_b1Hea_nominal)),
     final m1Coo_flow_nominal=abs(QCoo_flow_nominal/cp1Coo_nominal/(
@@ -132,20 +129,31 @@ model Terminal4PipesHeatPorts
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiRadHea[nPorts1](k=1 .- fraCon)
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
-  Modelica.Blocks.Sources.RealExpression T_a1Val[nPorts1](y={sta_a1Hea.T,
-        sta_a1Coo.T}) "Temperature value at port_a1"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort T1HeaInl(
+    redeclare final package Medium=Medium1,
+    final m_flow_nominal=m1Hea_flow_nominal,
+    final tau=0,
+    final allowFlowReversal=allowFlowReversal)
+    "Heating water inlet temperature (sensed, steady-state)"
+    annotation (Placement(transformation(extent={{-190,-230},{-170,-210}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort T1CooInl(
+    redeclare final package Medium=Medium1,
+    final m_flow_nominal=m1Coo_flow_nominal,
+    final tau=0,
+    final allowFlowReversal=allowFlowReversal)
+    "Chilled water inlet temperature (sensed, steady-state)"
+    annotation (Placement(transformation(extent={{-190,-190},{-170,-170}})));
 equation
   connect(hexHeaCoo.UA, UAAct.y)
     annotation (Line(points={{-12,8},{-20,8},{-20,20}, {-39,20}}, color={0,0,127}));
   connect(senMasFlo.m_flow, hexHeaCoo.m1_flow)
     annotation (Line(points={{-140,-189},{-140,4},{-12,4}}, color={0,0,127}));
   connect(T2Mes.T, T2InlVec.u)
-    annotation (Line(points={{140,0},{92,0},{92,-1.55431e-15},{132,-1.55431e-15}},
+    annotation (Line(points={{140,0},{134,0},{134,-1.33227e-15},{132,-1.33227e-15}},
                                                   color={0,0,127}));
   connect(T2InlVec.y, hexHeaCoo.T2Inl)
-    annotation (Line(points={{108, 1.33227e-15},{60,1.33227e-15},{60,-20},{-20,-20},{-20,-8},{-12,-8}},
-                              color={0,0,127}));
+    annotation (Line(points={{108,1.55431e-15},{60,1.55431e-15},{60,-20},{-20,-20},
+          {-20,-8},{-12,-8}}, color={0,0,127}));
   connect(m2Act_flow.y, hexHeaCoo.m2_flow) annotation (Line(points={{-39,-20},{-26,
           -20},{-26,-4},{-12,-4}}, color={0,0,127}));
   connect(hexHeaCoo.Q_flow, heaCoo.u) annotation (Line(points={{12,0},{20,0},{
@@ -178,18 +186,12 @@ equation
                                      color={0,0,127}));
   connect(conTInd.y, gaiFloNom1.u)
     annotation (Line(points={{12,100},{158,100}}, color={0,0,127}));
-  connect(port_a1Hea, senMasFlo[1].port_a) annotation (Line(points={{-200,-220},
-          {-176,-220},{-176,-200},{-150,-200}}, color={0,127,255}));
   connect(senMasFlo.port_b, heaCoo.port_a)
     annotation (Line(points={{-130,-200},{60,-200}}, color={0,127,255}));
   connect(heaCoo[1].port_b, port_b1Hea) annotation (Line(points={{80,-200},{140,
           -200},{140,-220},{200,-220}}, color={0,127,255}));
   connect(heaCoo[2].port_b, port_b1Coo) annotation (Line(points={{80,-200},{140,
           -200},{140,-180},{200,-180}}, color={0,127,255}));
-  connect(port_a1Coo, senMasFlo[2].port_a) annotation (Line(points={{-200,-180},
-          {-176,-180},{-176,-200},{-150,-200}}, color={0,127,255}));
-  connect(T_a1Val.y, hexHeaCoo.T1Inl)
-    annotation (Line(points={{-39,0},{-12,0}}, color={0,0,127}));
   connect(TSetHea, conTInd[1].u_s) annotation (Line(points={{-220,220},{-116,220},
           {-116,100},{-12,100}}, color={0,0,127}));
   connect(TSetCoo, conTInd[2].u_s) annotation (Line(points={{-220,180},{-116,180},
@@ -202,4 +204,16 @@ equation
           0},{20,220},{220,220}}, color={0,0,127}));
   connect(hexHeaCoo[2].Q_flow, QActCoo_flow) annotation (Line(points={{12,0},{20,
           0},{20,200},{220,200}}, color={0,0,127}));
+  connect(port_a1Hea, T1HeaInl.port_a)
+    annotation (Line(points={{-200,-220},{-190,-220}}, color={0,127,255}));
+  connect(T1HeaInl.T, hexHeaCoo[1].T1Inl)
+    annotation (Line(points={{-180,-209},{-180,0},{-12,0}}, color={0,0,127}));
+  connect(T1HeaInl.port_b, senMasFlo[1].port_a) annotation (Line(points={{-170,-220},
+          {-160,-220},{-160,-200},{-150,-200}}, color={0,127,255}));
+  connect(port_a1Coo, T1CooInl.port_a)
+    annotation (Line(points={{-200,-180},{-190,-180}}, color={0,127,255}));
+  connect(T1CooInl.port_b, senMasFlo[2].port_a) annotation (Line(points={{-170,-180},
+          {-160,-180},{-160,-200},{-150,-200}}, color={0,127,255}));
+  connect(T1CooInl.T, hexHeaCoo[2].T1Inl)
+    annotation (Line(points={{-180,-169},{-180,0},{-12,0}}, color={0,0,127}));
 end Terminal4PipesHeatPorts;
