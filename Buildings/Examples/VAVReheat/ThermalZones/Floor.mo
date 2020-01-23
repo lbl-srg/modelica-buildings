@@ -233,7 +233,7 @@ model Floor "Model of a floor of the building"
     nConPar=2,
     datConPar(
       layers={conFlo,conFur},
-      A={360.0785/hRoo,262.52},
+      A={2698/hRoo,1967.01},
       til={Buildings.Types.Tilt.Floor,Buildings.Types.Tilt.Wall}),
     nConBou=0,
     nSurBou=4,
