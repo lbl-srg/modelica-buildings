@@ -95,6 +95,20 @@ model Terminal4PipesHeatReq
   Modelica.Blocks.Sources.RealExpression T_a1Val[nPorts1](y={sta_a1Hea.T,
         sta_a1Coo.T})
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+  Fluid.Sensors.TemperatureTwoPort           T1CooInl(
+    redeclare final package Medium = Medium1,
+    final m_flow_nominal=m1Coo_flow_nominal,
+    final tau=0,
+    final allowFlowReversal=allowFlowReversal)
+    "Chilled water inlet temperature (sensed, steady-state)"
+    annotation (Placement(transformation(extent={{-190,-190},{-170,-170}})));
+  Fluid.Sensors.TemperatureTwoPort           T1HeaInl(
+    redeclare final package Medium = Medium1,
+    final m_flow_nominal=m1Hea_flow_nominal,
+    final tau=0,
+    final allowFlowReversal=allowFlowReversal)
+    "Heating water inlet temperature (sensed, steady-state)"
+    annotation (Placement(transformation(extent={{-190,-230},{-170,-210}})));
 equation
   connect(hexHeaCoo.UA, UAAct.y) annotation (Line(points={{-12,8},{-26,8},{-26,20},
           {-39,20}}, color={0,0,127}));
@@ -113,10 +127,6 @@ equation
           {20,0},{20,160},{-80,160},{-80,172},{-62,172}}, color={0,0,127}));
   connect(hexHeaCoo.Q_flow, conQ_flowReq.u_m) annotation (Line(points={{12,0},{
           20,0},{20,180},{0,180},{0,208}}, color={0,0,127}));
-  connect(port_a1Hea, senMasFlo[1].port_a) annotation (Line(points={{-200,-220},
-          {-176,-220},{-176,-200},{-150,-200}}, color={0,127,255}));
-  connect(port_a1Coo, senMasFlo[2].port_a) annotation (Line(points={{-200,-180},
-          {-176,-180},{-176,-200},{-150,-200}}, color={0,127,255}));
   connect(heaCoo[1].port_b, port_b1Hea) annotation (Line(points={{80,-200},{140,
           -200},{140,-220},{200,-220}}, color={0,127,255}));
   connect(heaCoo[2].port_b, port_b1Coo) annotation (Line(points={{80,-200},{140,
@@ -145,4 +155,8 @@ equation
           0},{160,220},{220,220}}, color={0,0,127}));
   connect(hexHeaCoo[2].Q_flow, QActCoo_flow) annotation (Line(points={{12,0},{160,
           0},{160,200},{220,200}}, color={0,0,127}));
+  connect(port_a1Coo, T1CooInl.port_a)
+    annotation (Line(points={{-200,-180},{-190,-180}}, color={0,127,255}));
+  connect(port_a1Hea, T1HeaInl.port_a)
+    annotation (Line(points={{-200,-220},{-190,-220}}, color={0,127,255}));
 end Terminal4PipesHeatReq;
