@@ -1,20 +1,23 @@
 within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
 model Terminal4PipesHeatReq
-  extends Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit(
+  extends
+    Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit(
     final heaFunSpe=Buildings.Applications.DHC.Loads.Types.TerminalFunctionSpec.Water,
     final cooFunSpe=Buildings.Applications.DHC.Loads.Types.TerminalFunctionSpec.Water,
-    final haveQReq_flow=true,
-    final haveHeaPor=false,
-    final haveFluPor=false,
-    final haveWeaBus=false,
-    final haveFan=false,
-    final havePum=false,
+    final have_QReq_flow=true,
+    final have_heaPor=false,
+    final have_fluPor=false,
+    final have_weaBus=false,
+    final have_fan=false,
+    final have_pum=false,
     final hexConHea=Buildings.Fluid.Types.HeatExchangerConfiguration.ConstantTemperaturePhaseChange,
     final hexConCoo=Buildings.Fluid.Types.HeatExchangerConfiguration.ConstantTemperaturePhaseChange,
     final show_TSou=true,
     final show_TLoa=true,
-    final m1Hea_flow_nominal=abs(QHea_flow_nominal / cp1Hea_nominal / (T_a1Hea_nominal - T_b1Hea_nominal)),
-    final m1Coo_flow_nominal=abs(QCoo_flow_nominal / cp1Coo_nominal / (T_a1Coo_nominal - T_b1Coo_nominal)));
+    final m1Hea_flow_nominal=abs(QHea_flow_nominal/cp1Hea_nominal/(
+        T_a1Hea_nominal - T_b1Hea_nominal)),
+    final m1Coo_flow_nominal=abs(QCoo_flow_nominal/cp1Coo_nominal/(
+        T_a1Coo_nominal - T_b1Coo_nominal)));
   parameter Integer nPorts1 = 2
     "Number of inlet (or outlet) fluid ports on the source side";
   // TODO: assign HX flow regime based on HX configuration.

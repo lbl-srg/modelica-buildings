@@ -1,0 +1,36 @@
+old_hidden_avoid_double_computation=Hidden.AvoidDoubleComputation;
+Hidden.AvoidDoubleComputation=true;
+simulateModel(
+    "Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Validation.BuildingETSConnection",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=172800,
+    resultFile="BuildingETSConnection");
+Hidden.AvoidDoubleComputation=old_hidden_avoid_double_computation;
+createPlot(
+    id=1,
+    position={189, 15, 1074, 1540},
+    autoscale=true,
+    grid=true,
+    y={"bui.bui.znAttic.TAir", "bui.bui.znCore_ZN.TAir", "bui.bui.znPerimeter_ZN_1.TAir",
+    "bui.bui.znPerimeter_ZN_2.TAir", "bui.bui.znPerimeter_ZN_3.TAir", "bui.bui.znPerimeter_ZN_4.TAir",
+    "bui.bui.minTSet[1].y", "bui.bui.maxTSet[1].y"},
+    filename="BuildingETSConnection.mat");
+createPlot(
+    id=1,
+    grid=true,
+    y={"bui.ets.mHea_flow", "bui.ets.mCoo_flow"},
+    subPlot=2);
+createPlot(
+    id=1,
+    grid=true,
+    y={"bui.ets.senTConLvg.T", "bui.ets.senTHeaWatSup.T", "bui.ets.senT2HexChiLvg.T", "bui.ets.senTChiWatSup.T"},
+    subPlot=3);
+plotExpression(apply(BuildingETSConnection[end].bui.ets.TSetHeaWat-273.15), false, "bui.ets.TSetHeaWat", 1);
+plotExpression(apply(BuildingETSConnection[end].bui.ets.TSetChiWat-273.15), false, "bui.ets.TSetChiWat", 1);
+createPlot(
+    id=1,
+    grid=true,
+    y={"bui.ets.heaPum.P"},
+    subPlot=4);
+

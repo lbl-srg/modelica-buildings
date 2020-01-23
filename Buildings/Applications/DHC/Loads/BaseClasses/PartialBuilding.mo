@@ -11,31 +11,32 @@ partial model PartialBuilding "Partial class for building model"
   parameter Integer nPorts1 = 0
     "Number of source fluid streams"
      annotation(Evaluate=true, Dialog(connectorSizing=true));
-  parameter Boolean haveHeaLoa = true
+  parameter Boolean have_heaLoa = true
     "Set to true if the building has heating loads"
     annotation(Evaluate=true);
-  parameter Boolean haveCooLoa = true
+  parameter Boolean have_cooLoa = true
     "Set to true if the building has cooling loads"
     annotation(Evaluate=true);
-  parameter Boolean haveFan = true
+  parameter Boolean have_fan = true
     "Set to true if fans drawn power is computed"
     annotation(Evaluate=true);
-  parameter Boolean havePum = true
+  parameter Boolean have_pum = true
     "Set to true if pumps drawn power is computed"
     annotation(Evaluate=true);
-  parameter Boolean haveEleHea = true
+  parameter Boolean have_eleHea = true
     "Set to true if the building has electric heating"
     annotation(Evaluate=true);
-  parameter Boolean haveEleCoo = true
+  parameter Boolean have_eleCoo = true
     "Set to true if the building has electric cooling"
     annotation(Evaluate=true);
-  parameter Boolean haveWeaBus = true
+  parameter Boolean have_weaBus = true
     "Set to true for weather bus"
     annotation(Evaluate=true);
   final parameter Boolean allowFlowReversal=false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation(Evaluate=true);
-  Buildings.BoundaryConditions.WeatherData.Bus weaBus if haveWeaBus
+  // IO CONNECTORS
+  Buildings.BoundaryConditions.WeatherData.Bus weaBus if have_weaBus
     "Weather data bus"
     annotation (Placement(
     transformation(extent={{-16,284},{18,316}}),
@@ -54,38 +55,40 @@ partial model PartialBuilding "Partial class for building model"
     "Fluid connectors b (positive design flow direction is from port_a to ports_b)"
     annotation (Placement(transformation(extent={{290,-40},{310,40}}),
       iconTransformation(extent={{290,-220},{310,-140}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QHea_flow(
-    final quantity="HeatFlowRate", final unit="W") if haveHeaLoa
-    "Total heating heat flow rate transferred to the loads (>=0)"
-    annotation (Placement(transformation(extent={{300,260},{340,300}}),
-        iconTransformation(extent={{300,260},{340,300}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QCoo_flow(
-    final quantity="HeatFlowRate", final unit="W") if haveCooLoa
+  Modelica.Blocks.Interfaces.RealOutput QCoo_flow(
+    final quantity="HeatFlowRate", final unit="W") if have_cooLoa
     "Total cooling heat flow rate transferred to the loads (<=0)"
-    annotation (Placement(transformation(extent={{300,220},{340,260}}),
-        iconTransformation(extent={{300,220},{340,260}})));
+    annotation (Placement(transformation(
+      extent={{300,200},{340,240}}), iconTransformation(extent={{300,200},{340,
+            240}})));
+  Modelica.Blocks.Interfaces.RealOutput QHea_flow(
+    final quantity="HeatFlowRate", final unit="W") if have_heaLoa
+    "Total heating heat flow rate transferred to the loads (>=0)"
+    annotation (Placement(transformation(
+      extent={{300,260},{340,300}}), iconTransformation(extent={{300,240},{340,280}})));
   Modelica.Blocks.Interfaces.RealOutput PHea(
-    final quantity="Power", final unit="W") if haveEleHea
+    final quantity="Power", final unit="W") if have_eleHea
     "Power drawn by heating equipment"
     annotation (Placement(transformation(
-      extent={{300,180},{340,220}}), iconTransformation(extent={{300,190},{320,210}})));
+      extent={{300,160},{340,200}}), iconTransformation(extent={{300,160},{340,
+            200}})));
   Modelica.Blocks.Interfaces.RealOutput PCoo(
-    quantity="Power", final unit="W") if haveEleCoo
+    quantity="Power", final unit="W") if have_eleCoo
     "Power drawn by cooling equipment"
-    annotation (Placement(transformation(extent={{300,140},{340,180}}),
-      iconTransformation(extent={{300,150},{320,170}})));
+    annotation (Placement(transformation(extent={{300,120},{340,160}}),
+      iconTransformation(extent={{300,120},{340,160}})));
   Modelica.Blocks.Interfaces.RealOutput PFan(
-    final quantity="Power", final unit="W") if haveFan
+    final quantity="Power", final unit="W") if have_fan
     "Power drawn by fans motors"
-    annotation (Placement(transformation(extent={{300,100},{340,140}}),
-      iconTransformation(extent={{300,110},{320,130}})));
+    annotation (Placement(transformation(extent={{300,80},{340,120}}),
+      iconTransformation(extent={{300,80},{340,120}})));
   Modelica.Blocks.Interfaces.RealOutput PPum(
-    final quantity="Power", final unit="W") if havePum
+    final quantity="Power", final unit="W") if have_pum
     "Power drawn by pumps motors"
-    annotation (Placement(transformation(extent={{300,60},{340,100}}),
-      iconTransformation(extent={{300,70},{320,90}})));
+    annotation (Placement(transformation(extent={{300,40},{340,80}}),
+      iconTransformation(extent={{300,40},{340,80}})));
   annotation (
-  defaultComponentName="heaFloEps",
+  defaultComponentName="bui",
   Documentation(info="<html>
 <p>
 Partial model to be used for modeling the building loads served by an energy
@@ -96,9 +99,9 @@ Every mechanical system downstream that connection should be modeled within a
 component derived from that partial model.
 </p>
 </html>"),
-    Icon(coordinateSystem(extent={{-280,-280},{280,280}}, preserveAspectRatio=false),
-                                                           graphics={
-                                Rectangle(
+  Icon(
+  coordinateSystem(extent={{-300,-300},{300,300}}, preserveAspectRatio=false),
+  graphics={Rectangle(
         extent={{-300,-300},{300,300}},
         lineColor={0,0,127},
         fillColor={255,255,255},
@@ -179,5 +182,5 @@ component derived from that partial model.
         smooth=Smooth.None,
         fillPattern=FillPattern.Solid,
         fillColor={95,95,95})}),
-  Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-300,-300},{300,300}})));
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-300,-300},{300,300}})));
 end PartialBuilding;

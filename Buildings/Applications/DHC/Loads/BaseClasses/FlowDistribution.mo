@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.Loads.BaseClasses;
-model FlowDistribution "Model of distribution system"
+model FlowDistribution "Model of hydraulic distribution system"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     redeclare replaceable package Medium=Buildings.Media.Water,
     final m_flow_small=1E-4*m_flow_nominal,
@@ -13,17 +13,16 @@ model FlowDistribution "Model of distribution system"
   parameter typ disTyp = typ.HeatingWater
     "Type of distribution system"
     annotation(Evaluate=true);
-  parameter Boolean havePum = false
+  parameter Boolean have_pum = false
     "Set to true if the system has a pump"
     annotation(Evaluate=true);
-  parameter Boolean haveVal = false
+  parameter Boolean have_val = false
     "Set to true if the system has a mixing valve"
     annotation(Evaluate=true);
   parameter Modelica.SIunits.PressureDifference dp_nominal(
     min=0, displayUnit="Pa")
     "Pressure drop at nominal conditions (without valve)"
     annotation(Dialog(group="Nominal condition"));
-  // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
     Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
@@ -34,23 +33,38 @@ model FlowDistribution "Model of distribution system"
   parameter Modelica.SIunits.Time tau = 120
     "Time constant of primary fluid temperature variation at nominal flow"
     annotation (Dialog(tab="Dynamics", group="Nominal condition"));
-  // IO connectors
+  // IO CONNECTORS
+  Modelica.Fluid.Interfaces.FluidPorts_a ports_a1[nUni](
+    redeclare each final package Medium=Medium,
+    each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
+    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    "Fluid connectors a (positive design flow direction is from port_a to ports_b)"
+    annotation (Placement(transformation(extent={{-110,120},{-90,200}}),
+      iconTransformation(extent={{90,20},{110,100}})));
+  Modelica.Fluid.Interfaces.FluidPorts_b ports_b1[nUni](
+    redeclare each final package Medium=Medium,
+    each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
+    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    "Fluid connectors b (positive design flow direction is from port_a to ports_b)"
+    annotation (Placement(transformation(extent={{90,120},{110,200}}),
+      iconTransformation(extent={{-110,20},{-90,100}})));
   Modelica.Blocks.Interfaces.RealInput m1Req_flow[nUni](
     each quantity="MassFlowRate")
     "Heating or chilled water flow required to meet the load"
     annotation (Placement(transformation(
       extent={{-20,-20},{20,20}}, rotation=0, origin={-120,220}),
       iconTransformation(extent={{-10,-10},{10,10}}, rotation=0, origin={-110,-40})));
-  Modelica.Blocks.Interfaces.IntegerInput modChaOve if haveVal and disTyp == typ.ChangeOver
+  Modelica.Blocks.Interfaces.IntegerInput modChaOve if have_val and disTyp == typ.ChangeOver
     "Operating mode in change-over (1 for heating, -1 for cooling)"
     annotation (Placement(
-        transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=0,
-        origin={-120,-80}), iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-110,-70})));
+      transformation(
+      extent={{-20,-20},{20,20}},
+      rotation=0,
+      origin={-120,-80}),
+      iconTransformation(
+      extent={{-10,-10},{10,10}},
+      rotation=0,
+      origin={-110,-60})));
   Modelica.Blocks.Interfaces.RealOutput mReq_flow(
     quantity="MassFlowRate")
     "Heating or chilled water flow required to meet the load"
@@ -62,11 +76,11 @@ model FlowDistribution "Model of distribution system"
     annotation (Placement(transformation(extent={{100,80},{140,120}}),
       iconTransformation(extent={{100,-70},{120,-50}})));
   Modelica.Blocks.Interfaces.RealOutput PPum(
-    quantity="Power", final unit="W") if havePum
+    quantity="Power", final unit="W") if have_pum
     "Power drawn by pump motor"
     annotation (Placement(transformation(extent={{100,40},{140,80}}),
       iconTransformation(extent={{100,-90},{120,-70}})));
-  // Building blocks
+  // COMPONENTS
   Buildings.Fluid.HeatExchangers.HeaterCooler_u heaCoo(
     redeclare final package Medium=Medium,
     dp_nominal=dp_nominal,
@@ -88,21 +102,7 @@ model FlowDistribution "Model of distribution system"
     each final use_m_flow_in=true,
     each final use_T_in=true,
     each final nPorts=1)
-    annotation (Placement(transformation(extent={{40,150},{60,170}})));
-  Modelica.Fluid.Interfaces.FluidPorts_a ports_a1[nUni](
-    redeclare each final package Medium=Medium,
-    each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    "Fluid connectors b (positive design flow direction is from port_a to ports_b)"
-    annotation (Placement(transformation(extent={{-110,120},{-90,200}}),
-      iconTransformation(extent={{90,20},{110,100}})));
-  Modelica.Fluid.Interfaces.FluidPorts_b ports_b1[nUni](
-    redeclare each final package Medium=Medium,
-    each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    "Fluid connectors b (positive design flow direction is from port_a to ports_b)"
-    annotation (Placement(transformation(extent={{90,120},{110,200}}),
-      iconTransformation(extent={{-110,20},{-90,100}})));
+    annotation (Placement(transformation(extent={{60,150},{80,170}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare final package Medium=Medium,
     final nPorts=nUni)
@@ -128,11 +128,12 @@ model FlowDistribution "Model of distribution system"
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
     m_flow_nominal=m_flow_nominal,
+    per(motorCooledByFluid=false),
+    addPowerToMedium=false,
     nominalValuesDefineDefaultPressureCurve=true,
     use_inputFilter=false,
     dp_nominal=dp_nominal,
-    energyDynamics=energyDynamics,
-    massDynamics=massDynamics) if havePum
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) if have_pum
     "Distribution pump"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear val(
@@ -145,7 +146,7 @@ model FlowDistribution "Model of distribution system"
       m_flow_nominal=m_flow_nominal,
       linearized={true,true},
       energyDynamics=energyDynamics,
-      massDynamics=massDynamics) if haveVal
+      massDynamics=massDynamics) if have_val
     "Mixing valve"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}}, origin={-80,0})));
   Buildings.Fluid.Movers.BaseClasses.IdealSource ideSou(
@@ -168,7 +169,7 @@ model FlowDistribution "Model of distribution system"
     m_flow_nominal=m_flow_nominal*{1,1,1},
     dp_nominal=0*{1,1,1},
     energyDynamics=energyDynamics,
-    massDynamics=massDynamics) if haveVal
+    massDynamics=massDynamics) if have_val
     "Flow splitter"
     annotation (Placement(transformation(
       extent={{-10,10},{10,-10}}, origin={80,0})));
@@ -178,19 +179,20 @@ model FlowDistribution "Model of distribution system"
     Ti=120,
     yMax=1,
     yMin=-1,
-    final reverseAction=false) if haveVal
+    final reverseAction=false) if have_val
     "PI controller tracking supply temperature"
     annotation (Placement(transformation(extent={{-90,-130},{-70,-110}})));
   Modelica.Blocks.Interfaces.RealInput TSupSet(
     quantity="ThermodynamicTemperature",
-    displayUnit="degC") if haveVal "Supply temperature set point"
+    displayUnit="degC") if have_val "Supply temperature set point"
     annotation (Placement(transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=0,
-        origin={-120,-120}), iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-110,-110})));
+      extent={{-20,-20},{20,20}},
+      rotation=0,
+      origin={-120,-120}),
+      iconTransformation(
+      extent={{-10,-10},{10,10}},
+      rotation=0,
+      origin={-110,-80})));
   Modelica.Blocks.Sources.RealExpression TSupVal(y=TSup)
     "Supply temperature value"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},
@@ -205,27 +207,28 @@ model FlowDistribution "Model of distribution system"
     annotation (Placement(transformation(extent={{18,10},{38,-10}})));
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(nout=nUni)
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max posPar if haveVal
+  Buildings.Controls.OBC.CDL.Continuous.Max posPar if have_val
     "Positive part of control signal"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min negPar if haveVal
+  Buildings.Controls.OBC.CDL.Continuous.Min negPar if have_val
     "Negative part of control signal"
     annotation (Placement(transformation(extent={{-40,-140},{-20,-120}})));
-  Modelica.Blocks.Sources.RealExpression zer(y=0) if haveVal
+  Modelica.Blocks.Sources.RealExpression zer(y=0) if have_val
     "Zero value"
     annotation (Placement(transformation(extent={{-90,-110},{-70,-90}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi if haveVal
+  Buildings.Controls.OBC.CDL.Logical.Switch swi if have_val
     annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum1(k={-1}, nin=1) if haveVal
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum1(k={-1}, nin=1) if have_val
     annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
   Modelica.Blocks.Math.IntegerToBoolean toBoo(threshold=0) if
-    haveVal and disTyp == typ.ChangeOver
+    have_val and disTyp == typ.ChangeOver
     "Boolean conversion (true if heating mode)"
     annotation (Placement(transformation(extent={{-90,-90},{-70,-70}})));
   Modelica.Blocks.Sources.BooleanExpression fixMod(y=disTyp == typ.HeatingWater) if
-    haveVal and disTyp <> typ.ChangeOver
+    have_val and disTyp <> typ.ChangeOver
     "Fixed operating mode"
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
+  // MISCELLANEOUS VARIABLES
   Modelica.SIunits.Temperature TSup(displayUnit="degC") = Medium.temperature(
     state=Medium.setState_phX(
       p=ideSou.port_a.p,
@@ -233,19 +236,20 @@ model FlowDistribution "Model of distribution system"
       X=inStream(ideSou.port_a.Xi_outflow)))
     "Supply temperature";
 initial equation
-  assert(if haveVal then havePum else true,
-    "The configuration where haveVal is true and havePum is false is not allowed.");
+  assert(if have_val then have_pum else true,
+    "In " + getInstanceName() +
+    ": The configuration where have_val is true and have_pum is false is not allowed.");
 equation
   connect(mulSum.y, mReq_flow)
     annotation (Line(points={{-58,220},{120,220}},color={0,0,127}));
   connect(m1Req_flow, mulSum.u)
     annotation (Line(points={{-120,220},{-82,220}},  color={0,0,127}));
   connect(m1Act_flow.y, sou_m1_flow.m_flow_in)
-    annotation (Line(points={{1,168},{38,168}}, color={0,0,127}));
+    annotation (Line(points={{1,168},{58,168}}, color={0,0,127}));
   connect(ports_a1, sin.ports)
     annotation (Line(points={{-100,160},{-80,160}}, color={0,127,255}));
   connect(sou_m1_flow.ports[1], ports_b1)
-    annotation (Line(points={{60,160},{100,160}}, color={0,127,255}));
+    annotation (Line(points={{80,160},{100,160}}, color={0,127,255}));
   connect(val.port_2, pum.port_a)
     annotation (Line(points={{-70,0},{-50,0}}, color={0,127,255}));
   connect(pum.port_b, ideSou.port_a)
@@ -266,9 +270,10 @@ equation
           -20}},                  color={0,0,127}));
   connect(TSupVal.y, reaRep.u)
     annotation (Line(points={{-79,80},{-22,80}}, color={0,0,127}));
-  connect(reaRep.y, sou_m1_flow.T_in) annotation (Line(points={{2,80},{20,80},{20,
-          164},{38,164}}, color={0,0,127}));
-  if haveVal then
+  connect(reaRep.y, sou_m1_flow.T_in) annotation (Line(points={{2,80},{20,80},{
+          20,164},{58,164}},
+                          color={0,0,127}));
+  if have_val then
     connect(port_a, val.port_1)
     annotation (Line(points={{-100,0},{-90,0}}, color={0,127,255}));
     connect(heaCoo.port_b, spl.port_1)
@@ -314,7 +319,7 @@ equation
   else
     connect(heaCoo.port_b, port_b)
       annotation (Line(points={{66,0},{100,0}}, color={0,127,255}));
-    if havePum then
+    if have_pum then
       connect(port_a, pum.port_a)
       annotation (Line(points={{-100,0},{-50,0}}, color={0,127,255}));
     else
@@ -322,7 +327,7 @@ equation
         annotation (Line(points={{-100,0},{-20,0}}, color={0,127,255}));
     end if;
   end if;
-  if havePum then
+  if have_pum then
     connect(mulSum.y, pum.m_flow_in)
       annotation (Line(points={{-58,220},{-40,220},{-40,12}},
                                     color={0,0,127}));
@@ -330,9 +335,8 @@ equation
   connect(pum.P, PPum) annotation (Line(points={{-29,9},{-20,9},{-20,60},{120,60}},
         color={0,0,127}));
 annotation (
-defaultComponentName="disFlo",
-Documentation(
-info="<html>
+  defaultComponentName="disFlo",
+  Documentation(info="<html>
 <p>
 This model represents a hydraulic distribution system serving multiple terminal units.
 It is primarily intended to be used in conjunction with models that derive from
@@ -403,6 +407,11 @@ tracking the supply temperature.
         extent={{-106,-142},{112,-170}},
         lineColor={28,108,200},
         horizontalAlignment=TextAlignment.Left,
-        textString=
-            "CPU time for integration is twice lower when Dynamics of valve, pump and splitter are NOT steady state!?")}));
+          textString=
+              "CPU time for integration is twice lower when Dynamics of valve or splitter are NOT steady state!?"),
+                                                                                                    Text(
+        extent={{38,-132},{158,-156}},
+        lineColor={28,108,200},
+        horizontalAlignment=TextAlignment.Left,
+          textString="Implement PI reset for change over")}));
 end FlowDistribution;

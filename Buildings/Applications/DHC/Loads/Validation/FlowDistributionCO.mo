@@ -12,10 +12,11 @@ model FlowDistributionCO
     redeclare package Medium = Medium1,
     m_flow_nominal=m_flow_nominal,
     disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChangeOver,
-    havePum=true,
-    haveVal=true,
+    have_pum=true,
+    have_val=true,
     dp_nominal=100000)
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
+
   Buildings.Fluid.Sources.Boundary_pT souPri(
     redeclare package Medium = Medium1,
     use_T_in=true,
@@ -88,10 +89,11 @@ model FlowDistributionCO
     annotation (Placement(transformation(extent={{70,90},{90,110}})));
   Modelica.Thermal.HeatTransfer.Celsius.FromKelvin TSetSec
     annotation (Placement(transformation(extent={{-20,-150},{0,-130}})));
-  Fluid.Sensors.TemperatureTwoPort senTSecRet(redeclare package Medium =
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTSecRet(redeclare package
+      Medium =
         Medium1, m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{90,50},{70,70}})));
-  Fluid.Sources.Boundary_pT sinPri(redeclare package Medium = Medium1, nPorts=1)
+  Buildings.Fluid.Sources.Boundary_pT sinPri(redeclare package Medium = Medium1, nPorts=1)
     "Sink for primary stream" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
@@ -103,7 +105,8 @@ model FlowDistributionCO
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add
     annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
-  Fluid.Sensors.TemperatureTwoPort senTPriSup(redeclare package Medium =
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTPriSup(redeclare package
+      Medium =
         Medium1, m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{8,10},{28,30}})));
 equation
@@ -136,13 +139,12 @@ equation
   connect(from_degC4.y, TSetSecK.u3) annotation (Line(points={{-78,-100},{-70,
           -100},{-70,-88},{-62,-88}},
                                 color={0,0,127}));
-  connect(TSetSecK.y, disFlo.TSupSet) annotation (Line(points={{-38,-80},{32,
-          -80},{32,14},{39,14}},
-                            color={0,0,127}));
+  connect(TSetSecK.y, disFlo.TSupSet) annotation (Line(points={{-38,-80},{32,-80},
+          {32,12},{39,12}}, color={0,0,127}));
   connect(greEqu.y, modInt.u) annotation (Line(points={{-78,40},{-74,40},{-74,
           -20},{-62,-20}}, color={255,0,255}));
-  connect(modInt.y, disFlo.modChaOve) annotation (Line(points={{-38,-20},{36,
-          -20},{36,12},{39,12}}, color={255,127,0}));
+  connect(modInt.y, disFlo.modChaOve) annotation (Line(points={{-38,-20},{36,-20},
+          {36,14},{39,14}},      color={255,127,0}));
   connect(greEqu.y, TSetSecK.u2) annotation (Line(points={{-78,40},{-74,40},{
           -74,-80},{-62,-80}},
                            color={255,0,255}));
