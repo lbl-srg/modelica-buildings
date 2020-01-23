@@ -17,7 +17,8 @@ model OneUTubeWithTough
       conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
           borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.SingleUTube,
           cooBor={{6*mod((i - 1), 20),6*floor((i - 1)/
-          20)} for i in 1:400})));
+          20)} for i in 1:400})),
+    toughRes(samplePeriod=7200));
 
 //   parameter Modelica.SIunits.Length xBorFie = 120 "Borefield length"
 //     annotation(Dialog(tab="Borefield"));

@@ -2,6 +2,11 @@ within Buildings.Fluid.Geothermal.Borefields.BaseClasses.GroundResponse;
 model ResponsePython
 
   parameter Integer nSeg=10 "Total number of segments";
+  parameter Modelica.SIunits.Time samplePeriod=60 "Sample period of component"
+    annotation(Dialog(group="Sampling"));
+  parameter Integer flag=0
+    "Flag for double values (0: use current value, 1: use average over interval, 2: use integral over interval)"
+    annotation(Dialog(group="Sampling"));
 
   Modelica.Blocks.Interfaces.RealInput QBor_flow[nSeg](
     final unit=fill("W", nSeg))
@@ -29,7 +34,8 @@ model ResponsePython
     functionName="doStep",
     nDblRea=nSeg,
     nDblWri=2*nSeg+1,
-    samplePeriod=60,
+    samplePeriod=samplePeriod,
+    flag=flag,
     passPythonObject=true)
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Modelica.Blocks.Routing.Multiplex mul(final n=2*nSeg+1) "Multiplex"

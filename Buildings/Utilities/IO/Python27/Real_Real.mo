@@ -12,7 +12,9 @@ model Real_Real
   parameter Integer nDblWri(min=1) "Number of double values to write to Python";
   parameter Integer nDblRea(min=1)
     "Number of double values to be read from the Python";
-  parameter Integer flaDblWri[nDblWri] = zeros(nDblWri)
+  parameter Integer flag = 0
+    "Flag for double values (0: use current value, 1: use average over interval, 2: use integral over interval)";
+  final parameter Integer flaDblWri[nDblWri] = fill(flag, nDblWri)
     "Flag for double values (0: use current value, 1: use average over interval, 2: use integral over interval)";
 
   parameter Boolean passPythonObject = false
