@@ -1,6 +1,6 @@
 within Buildings.Examples.DistrictReservoirNetworks.BaseClasses.Networks.Controls;
-model PumpMode
-  "Defines m flow of pums. 0 - \"winter mode\", abs (m_flow_BN) - \"summer mode\""
+block PumpMode
+  "Controller that outputs the setpoint for the pump mass flow rate"
   extends Modelica.Blocks.Icons.Block;
   Modelica.Blocks.Interfaces.RealInput mBorFie_flow
     "Mass flow rate in borefield"
@@ -16,19 +16,25 @@ model PumpMode
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Modelica.Blocks.Math.Abs summerMode "Mass flow rate during summer"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
+    trueHoldDuration=5*60)
+    "True/false hold to remove the risk of chattering"
+    annotation (Placement(transformation(extent={{12,-10},{32,10}})));
 equation
   connect(swi.y, mPum_flow)
     annotation (Line(points={{81,0},{110,0}}, color={0,0,127}));
   connect(winterMode.y, swi.u1)
     annotation (Line(points={{21,40},{40,40},{40,8},{58,8}}, color={0,0,127}));
-  connect(isWin.y, swi.u2)
-    annotation (Line(points={{1,0},{58,0}}, color={255,0,255}));
   connect(mBorFie_flow, isWin.u)
     annotation (Line(points={{-120,0},{-22,0}}, color={0,0,127}));
   connect(summerMode.y, swi.u3) annotation (Line(points={{21,-40},{40,-40},{40,
           -8},{58,-8}}, color={0,0,127}));
   connect(mBorFie_flow, summerMode.u) annotation (Line(points={{-120,0},{-40,0},
           {-40,-40},{-2,-40}},        color={0,0,127}));
+  connect(isWin.y, truFalHol.u)
+    annotation (Line(points={{1,0},{11,0}}, color={255,0,255}));
+  connect(truFalHol.y, swi.u2)
+    annotation (Line(points={{33,0},{58,0}}, color={255,0,255}));
   annotation (Documentation(info="<html>
 <p>
 Controller that is used in the bidirectional network to set the mass flow rate
@@ -38,6 +44,12 @@ value of the input signal <code>mBorFie_flow</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 23, 2020, by Michael Wetter:<br/>
+Added <a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.TrueFalseHold\">
+Buildings.Controls.OBC.CDL.Logical.TrueFalseHold</a>
+to avoid the risk of chattering.
+</li>
 <li>
 January 16, 2020, by Michael Wetter:<br/>
 Added documentation.

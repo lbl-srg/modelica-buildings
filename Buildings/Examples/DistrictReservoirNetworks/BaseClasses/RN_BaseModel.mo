@@ -1,5 +1,5 @@
 within Buildings.Examples.DistrictReservoirNetworks.BaseClasses;
-partial model RN_BaseModel
+partial model RN_BaseModel "Partial model for the reservoir network"
   package Medium = Buildings.Media.Water "Medium model";
 
   parameter DesignValues datDes "Design values"
