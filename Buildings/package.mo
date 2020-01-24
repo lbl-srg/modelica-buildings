@@ -333,6 +333,19 @@ its class name ends with the string <code>Beta</code>.
                            This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1192\">IBPSA, #1192</a>.
         </td>
     </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Examples</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Examples.VAVReheat.ThermalZones.Floor<br/>
+                           Buildings.Examples.VAVReheat.ASHRAE2006<br/>
+                           Buildings.Examples.VAVReheat.Guideline36
+        </td>
+        <td valign=\"top\">Updated core zone geometry parameters related to room heat and mass balance.
+                           This change was done in
+                           <code>Buildings.Examples.VAVReheat.ThermalZones.Floor</code>.
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1719\">#1719</a>.
+       </td>
+    </tr>
     </table>
     <!-- Non-backward compatible changes to existing components -->
     <p>
