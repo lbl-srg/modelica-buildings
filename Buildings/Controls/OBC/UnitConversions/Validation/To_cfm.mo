@@ -41,17 +41,17 @@ protected
 
 equation
   connect(result.y, add.u2)
-    annotation (Line(points={{1,20},{10,20},{10,44},{18,44}}, color={0,0,127}));
+    annotation (Line(points={{2,20},{10,20},{10,44},{18,44}}, color={0,0,127}));
   connect(result1.y, add1.u2)
-    annotation (Line(points={{1,-60},{10,-60},{10,-36},{18,-36}}, color={0,0,127}));
+    annotation (Line(points={{2,-60},{10,-60},{10,-36},{18,-36}}, color={0,0,127}));
   connect(value1.y,to_cfm1.u)
-    annotation (Line(points={{-39,-30},{-22,-30}}, color={0,0,127}));
+    annotation (Line(points={{-38,-30},{-22,-30}}, color={0,0,127}));
   connect(to_cfm1.y, add1.u1)
-    annotation (Line(points={{1,-30},{8,-30},{8,-24},{18,-24}}, color={0,0,127}));
+    annotation (Line(points={{2,-30},{8,-30},{8,-24},{18,-24}}, color={0,0,127}));
   connect(to_cfm.y, add.u1)
-    annotation (Line(points={{1,50},{10,50},{10,56},{18,56}}, color={0,0,127}));
+    annotation (Line(points={{2,50},{10,50},{10,56},{18,56}}, color={0,0,127}));
   connect(value.y,to_cfm.u)
-    annotation (Line(points={{-39,50}, {-22,50}}, color={0,0,127}));
+    annotation (Line(points={{-38,50}, {-22,50}}, color={0,0,127}));
   annotation (Icon(graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},

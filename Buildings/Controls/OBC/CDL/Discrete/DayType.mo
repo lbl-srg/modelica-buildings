@@ -16,8 +16,7 @@ model DayType "Block that outputs a signal that indicates week-day or week-end"
 
   Interfaces.DayTypeOutput y[nout]
     "Type of the day for the current and the next (nout-1) days" annotation (
-      Placement(transformation(extent={{100,-10},{120,10}}), iconTransformation(
-          extent={{100,-10},{120,10}})));
+      Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
   parameter Modelica.SIunits.Time samplePeriod=86400

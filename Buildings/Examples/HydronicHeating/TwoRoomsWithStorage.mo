@@ -284,7 +284,7 @@ model TwoRoomsWithStorage
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
         origin={260,40})));
-  Buildings.Controls.SetPoints.HotWaterTemperatureReset heaCha(
+  Buildings.Controls.SetPoints.SupplyReturnTemperatureReset heaCha(
     dTOutHeaBal=0,
     use_TRoo_in=true,
     TSup_nominal=TSup_nominal,
@@ -935,7 +935,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus, weaDat.weaBus) annotation (Line(
@@ -1016,7 +1016,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(TRoo1.T, cooCon.TRoo) annotation (Line(

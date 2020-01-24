@@ -24,9 +24,9 @@ sys.path.append(os.path.abspath('.'))
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 #extensions = ['sphinx.ext.autodoc', 'sphinx.ext.pngmath']
-extensions = ['sphinx.ext.autodoc', 'mathjax']
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.mathjax']
 # mathjax_path is based on http://www.mathjax.org/docs/2.0/start.html
-mathjax_path = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+mathjax_path = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -42,7 +42,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Modelica Buildings library'
-copyright = u'2012-2018, The Regents of the University of California (through Lawrence Berkeley National Laboratory)'
+copyright = u'2012-2019, The Regents of the University of California (through Lawrence Berkeley National Laboratory)'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -101,7 +101,7 @@ import sphinx_bootstrap_theme
 # Activate the theme.
 html_theme = 'bootstrap'
 html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
-print "*********** {}".format(html_theme_path)
+print("*********** {}".format(html_theme_path))
 html_logo = '_static/lbl-logo.png'
 # Theme options are theme-specific and customize the look and feel of a
 # theme further.
@@ -207,6 +207,13 @@ html_favicon = "_static/lbl-icon.ico"
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+html_css_files = [
+    'bootstrap.css',
+    'bootstrap-theme.css',
+    'bootstrap_custom.css',
+    'custom.css',
+    'custom-sphinx.css' ]
 
 # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
 # using the given strftime format.

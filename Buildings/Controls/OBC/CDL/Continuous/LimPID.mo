@@ -83,7 +83,7 @@ block LimPID
       rotation=270)));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Connector of actuator output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Add addP(
     k1=revAct*wp,
@@ -168,7 +168,7 @@ protected
     "Gain for anti-windup compensation"
     annotation (
       Placement(transformation(extent={{60,-80},{40,-60}})));
-  Modelica.Blocks.Nonlinear.Limiter limiter(
+  Limiter limiter(
     final uMax=yMax,
     final uMin=yMin,
     final strict=strict) "Output limiter"
@@ -178,6 +178,90 @@ protected
        reset <> Buildings.Controls.OBC.CDL.Types.Reset.Disabled
     "Signal source for integrator reset"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
+
+  // The block Limiter below has been implemented as it is introduced in MSL 3.2.3, but
+  // not all tools include MSL 3.2.3.
+  // See https://github.com/ibpsa/modelica-ibpsa/pull/1222#issuecomment-554114617
+block Limiter "Limit the range of a signal"
+  parameter Real uMax(start=1) "Upper limits of input signals";
+  parameter Real uMin= -uMax "Lower limits of input signals";
+  parameter Boolean strict=false "= true, if strict limits with noEvent(..)"
+    annotation (Evaluate=true, choices(checkBox=true), Dialog(tab="Advanced"));
+  parameter Boolean limitsAtInit=true
+    "Has no longer an effect and is only kept for backwards compatibility (the implementation uses now the homotopy operator)"
+    annotation (Dialog(tab="Dummy"),Evaluate=true, choices(checkBox=true));
+  extends Modelica.Blocks.Interfaces.SISO;
+
+equation
+  assert(uMax >= uMin, "Limiter: Limits must be consistent. However, uMax (=" + String(uMax) +
+                       ") < uMin (=" + String(uMin) + ")");
+
+  if strict then
+    y = smooth(0, noEvent(if u > uMax then uMax else if u < uMin then uMin else u));
+  else
+    y = smooth(0,if u > uMax then uMax else if u < uMin then uMin else u);
+  end if;
+  annotation (
+     Icon(coordinateSystem(
+    preserveAspectRatio=true,
+    extent={{-100,-100},{100,100}}), graphics={
+    Line(points={{0,-90},{0,68}}, color={192,192,192}),
+    Polygon(
+      points={{0,90},{-8,68},{8,68},{0,90}},
+      lineColor={192,192,192},
+      fillColor={192,192,192},
+      fillPattern=FillPattern.Solid),
+    Line(points={{-90,0},{68,0}}, color={192,192,192}),
+    Polygon(
+      points={{90,0},{68,-8},{68,8},{90,0}},
+      lineColor={192,192,192},
+      fillColor={192,192,192},
+      fillPattern=FillPattern.Solid),
+    Line(points={{-80,-70},{-50,-70},{50,70},{80,70}}),
+    Text(
+      extent={{-150,-150},{150,-110}},
+      textString="uMax=%uMax"),
+    Line(
+      visible=strict,
+      points={{50,70},{80,70}},
+      color={255,0,0}),
+    Line(
+      visible=strict,
+      points={{-80,-70},{-50,-70}},
+      color={255,0,0})}),
+    Diagram(coordinateSystem(
+    preserveAspectRatio=true,
+    extent={{-100,-100},{100,100}}), graphics={
+    Line(points={{0,-60},{0,50}}, color={192,192,192}),
+    Polygon(
+      points={{0,60},{-5,50},{5,50},{0,60}},
+      lineColor={192,192,192},
+      fillColor={192,192,192},
+      fillPattern=FillPattern.Solid),
+    Line(points={{-60,0},{50,0}}, color={192,192,192}),
+    Polygon(
+      points={{60,0},{50,-5},{50,5},{60,0}},
+      lineColor={192,192,192},
+      fillColor={192,192,192},
+      fillPattern=FillPattern.Solid),
+    Line(points={{-50,-40},{-30,-40},{30,40},{50,40}}),
+    Text(
+      extent={{46,-6},{68,-18}},
+      lineColor={128,128,128},
+      textString="u"),
+    Text(
+      extent={{-30,70},{-5,50}},
+      lineColor={128,128,128},
+      textString="y"),
+    Text(
+      extent={{-58,-54},{-28,-42}},
+      lineColor={128,128,128},
+      textString="uMin"),
+    Text(
+      extent={{26,40},{66,56}},
+      lineColor={128,128,128},
+      textString="uMax")}));
+end Limiter;
 
 
 initial equation
@@ -210,37 +294,37 @@ equation
     annotation (Line(points={{-120,0},{-96,0},{-96,-42},{-82,-42}},
       color={0,0,127}));
   connect(addP.y, P.u)
-    annotation (Line(points={{-59,50},{-42,50}}, color={0,0,127}));
+    annotation (Line(points={{-58,50},{-42,50}}, color={0,0,127}));
   connect(addD.y, D.u)
-    annotation (Line(points={{-59,0},{-42,0}}, color={0,0,127}));
+    annotation (Line(points={{-58,0},{-42,0}}, color={0,0,127}));
   connect(addI.y, I.u)
     annotation (Line(points={{-59,-50},{-42,-50}},
       color={0,0,127}));
   connect(P.y, addPID.u1)
-    annotation (Line(points={{-19,50},{-10,50},{-10,8},{-2,8}},
+    annotation (Line(points={{-18,50},{-10,50},{-10,8},{-2,8}},
       color={0,0,127}));
   connect(D.y, addPID.u2)
-    annotation (Line(points={{-19,0},{-2,0}}, color={0,0,127}));
+    annotation (Line(points={{-18,0},{-2,0}}, color={0,0,127}));
   connect(I.y, addPID.u3)
-    annotation (Line(points={{-19,-50},{-10,-50},{-10,-8},{-2,-8}},
+    annotation (Line(points={{-18,-50},{-10,-50},{-10,-8},{-2,-8}},
       color={0,0,127}));
   connect(addPID.y, gainPID.u)
     annotation (Line(points={{21,0},{28,0}}, color={0,0,127}));
   connect(gainPID.y, addSat.u2)
-    annotation (Line(points={{51,0},{60,0},{60,-20},{74,-20},{74,-38}},
+    annotation (Line(points={{52,0},{60,0},{60,-20},{74,-20},{74,-38}},
       color={0,0,127}));
   connect(gainPID.y, limiter.u)
-    annotation (Line(points={{51,0},{68,0}}, color={0,0,127}));
+    annotation (Line(points={{52,0},{68,0}}, color={0,0,127}));
   connect(limiter.y, addSat.u1)
     annotation (Line(points={{91,0},{94,0},{94,-20},{86,-20},{86,-38}},
       color={0,0,127}));
   connect(limiter.y, y)
-    annotation (Line(points={{91,0},{110,0}}, color={0,0,127}));
+    annotation (Line(points={{91,0},{120,0}}, color={0,0,127}));
   connect(addSat.y, gainTrack.u)
-    annotation (Line(points={{80,-61},{80,-70},{62,-70}},
+    annotation (Line(points={{80,-62},{80,-70},{62,-70}},
       color={0,0,127}));
   connect(gainTrack.y, addI.u3)
-    annotation (Line(points={{39,-70},{-88,-70},{-88,-58},{-82,-58}},
+    annotation (Line(points={{38,-70},{-88,-70},{-88,-58},{-82,-58}},
       color={0,0,127}));
   connect(u_m, addP.u2)
     annotation (Line(points={{0,-120},{0,-92},{-92,-92},{-92,44},{-82,44}},
@@ -252,10 +336,10 @@ equation
     annotation (Line(points={{0,-120},{0,-92},{-92,-92},{-92,-50},{-82,-50}},
       color={0,0,127}, thickness=0.5));
   connect(Dzero.y, addPID.u2)
-    annotation (Line(points={{-19.5,25},{-14,25},{-14,0},{-2,0}},
+    annotation (Line(points={{-19,25},{-14,25},{-14,0},{-2,0}},
       color={0,0,127}));
   connect(Izero.y, addPID.u3)
-    annotation (Line(points={{-0.5,-50},{-10,-50},{-10,-8},{-2,-8}},
+    annotation (Line(points={{-1,-50},{-10,-50},{-10,-8},{-2,-8}},
       color={0,0,127}));
   connect(trigger, I.trigger)
     annotation (Line(points={{-80,-120},{-80,-88},{-30,-88},{-30,-62}},
@@ -362,6 +446,13 @@ or the control literature.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 19, 2019, by Michael Wetter:<br/>
+Disabled homotopy to ensure bounded outputs
+by copying the implementation from MSL 3.2.3 and by
+hardcoding the implementation for <code>homotopyType=NoHomotopy</code>.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1221\">issue 1221</a>.
+</li>
 <li>
 November 13, 2017, by Michael Wetter:<br/>
 Changed default controller type from PID to PI.

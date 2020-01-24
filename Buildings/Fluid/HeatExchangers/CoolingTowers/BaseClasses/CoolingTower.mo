@@ -3,27 +3,17 @@ partial model CoolingTower "Base class for cooling towers"
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol);
 
-  Modelica.Blocks.Interfaces.RealOutput TLvg "Leaving water temperature"
+  Modelica.Blocks.Interfaces.RealOutput TLvg(
+    final unit="K",
+    displayUnit="degC") "Leaving water temperature"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
-  Modelica.SIunits.HeatFlowRate Q_flow = QWat_flow.y
+  Modelica.SIunits.HeatFlowRate Q_flow = preHea.Q_flow
     "Heat input into water circuit";
-  Modelica.SIunits.TemperatureDifference TAppAct(min=0, nominal=1, displayUnit="K")
-    "Actual approach temperature";
 
 protected
-  Modelica.SIunits.Temperature TAirHT
-    "Air temperature that is used to compute the heat transfer with the water";
-
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea
     "Prescribed heat flow"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  Modelica.Blocks.Sources.RealExpression QWat_flow(y=m_flow*(
-        Medium.specificEnthalpy(Medium.setState_pTX(
-        p=port_b.p,
-        T=TAirHT + TAppAct,
-        X=inStream(port_b.Xi_outflow))) - inStream(port_a.h_outflow)))
-    "Heat input into water"
-    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor T_Vol
     "Water temperature in volume, or leaving water temperature"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
@@ -32,11 +22,6 @@ equation
   connect(preHea.port, vol.heatPort) annotation (Line(
       points={{-20,-50},{-16,-50},{-16,-10},{-9,-10}},
       color={191,0,0},
-      smooth=Smooth.None));
-  connect(QWat_flow.y, preHea.Q_flow)
-                                   annotation (Line(
-      points={{-59,-50},{-40,-50}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(T_Vol.port, vol.heatPort) annotation (Line(
       points={{20,-60},{-16,-60},{-16,-10},{-9,-10}},
@@ -78,6 +63,10 @@ For a wet cooling tower, this is equal to the wet-bulb temperature.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 16, 2020, by Michael Wetter:<br/>
+Refactored model to avoid mixing textual equations and connect statements.
+</li>
 <li>
 July 12, 2011, by Michael Wetter:<br/>
 Introduced common base class for

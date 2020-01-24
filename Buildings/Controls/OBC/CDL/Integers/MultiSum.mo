@@ -8,7 +8,8 @@ block MultiSum
   Interfaces.IntegerInput u[nin] "Connector of Integer input signals"
     annotation (Placement(transformation(extent={{-140,70},{-100,-70}})));
   Interfaces.IntegerOutput y "Connector of Integer output signal"
-    annotation (Placement(transformation(extent={{100,17},{134,-17}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+
 equation
   if size(u, 1) > 0 then
     y = k*u;

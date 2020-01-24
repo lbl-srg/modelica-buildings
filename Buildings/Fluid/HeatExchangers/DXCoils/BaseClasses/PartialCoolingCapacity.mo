@@ -195,7 +195,7 @@ if stage > 0 then
     //------------ Correction factor for flow rate outside of validity of data ---//
     corFac[iSta] =Buildings.Utilities.Math.Functions.smoothHeaviside(
        x=ff[iSta] - sta[iSta].perCur.ffMin/4,
-       delta=sta[iSta].perCur.ffMin/4);
+       delta=max(Modelica.Constants.eps, sta[iSta].perCur.ffMin/4));
 
     end for;
   else //cooling coil off
@@ -393,6 +393,12 @@ so that both are zero if <i>ff &lt; ff<sub>min</sub>/4</i>, where
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 21, 2019, by Michael Wetter:<br/>
+Ensured that transition interval for computation of <code>corFac</code> is non-zero.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1202\">issue 1202</a>.
+</li>
 <li>
 February 27, 2017 by Yangyang Fu:<br/>
 Revised the documentation.

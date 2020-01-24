@@ -28,16 +28,16 @@ model SimpleRoomTwoElements
     annotation (Placement(transformation(extent={{6,54},{26,74}})));
   RC.TwoElements thermalZoneTwoElements(
     VAir=52.5,
-    alphaExt=2.7,
-    alphaWin=2.7,
+    hConExt=2.7,
+    hConWin=2.7,
     gWin=1,
     ratioWinConRad=0.09,
     nExt=1,
     RExt={0.00331421908725},
     CExt={5259932.23},
-    alphaRad=5,
+    hRad=5,
     AInt=60.5,
-    alphaInt=2.12,
+    hConInt=2.12,
     nInt=1,
     RInt={0.000668895639141},
     CInt={12391363.86},
@@ -60,9 +60,9 @@ model SimpleRoomTwoElements
     wfWin={0.5,0.5},
     withLongwave=true,
     aExt=0.7,
-    alphaWallOut=20,
-    alphaRad=5,
-    alphaWinOut=20,
+    hConWallOut=20,
+    hRad=5,
+    hConWinOut=20,
     TGro=285.15) "Computes equivalent air temperature"
     annotation (Placement(transformation(extent={{-24,-14},{-4,6}})));
   Modelica.Blocks.Math.Add solRad[2]
@@ -107,14 +107,14 @@ model SimpleRoomTwoElements
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow macConv
     "Convective heat flow of machines"
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
-  Modelica.Blocks.Sources.Constant alphaWall(k=25*11.5)
+  Modelica.Blocks.Sources.Constant hConWall(k=25*11.5)
     "Outdoor coefficient of heat transfer for walls"
     annotation (Placement(
     transformation(
     extent={{-4,-4},{4,4}},
     rotation=90,
     origin={30,-16})));
-  Modelica.Blocks.Sources.Constant alphaWin(k=20*14)
+  Modelica.Blocks.Sources.Constant hConWin(k=20*14)
     "Outdoor coefficient of heat transfer for windows"
     annotation (Placement(
     transformation(
@@ -134,7 +134,7 @@ equation
     points={{-78,62},{-74,62},{-74,18},{-84,18},{-84,12},{-83,12},{-83,6}},
     color={255,204,51},
     thickness=0.5), Text(
-    string="%second",
+    textString="%second",
     index=1,
     extent={{6,3},{6,3}}));
   connect(weaBus.TDryBul, eqAirTemp.TDryBul)
@@ -142,7 +142,7 @@ equation
     points={{-83,6},{-83,-2},{-38,-2},{-38,-10},{-26,-10}},
     color={255,204,51},
     thickness=0.5), Text(
-    string="%first",
+    textString="%first",
     index=-1,
     extent={{-6,3},{-6,3}}));
   connect(intGai.y[1], perRad.Q_flow)
@@ -210,16 +210,16 @@ equation
     color={191,0,0}));
   connect(theConWall.fluid, preTem.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
-  connect(alphaWall.y, theConWall.Gc)
+  connect(hConWall.y, theConWall.Gc)
     annotation (Line(points={{30,-11.6},{30,-4},{31,-4}}, color={0,0,127}));
-  connect(alphaWin.y, theConWin.Gc)
+  connect(hConWin.y, theConWin.Gc)
     annotation (Line(points={{32,33.6},{32,26},{33,26}}, color={0,0,127}));
   connect(weaBus.TBlaSky, eqAirTemp.TBlaSky)
     annotation (Line(
     points={{-83,6},{-58,6},{-58,2},{-32,2},{-32,-4},{-26,-4}},
     color={255,204,51},
     thickness=0.5), Text(
-    string="%first",
+    textString="%first",
     index=-1,
     extent={{-6,3},{-6,3}}));
   connect(macConv.port, thermalZoneTwoElements.intGainsConv)
@@ -259,6 +259,11 @@ equation
   rooms and buildings - modelling of rooms.</p>
   </html>", revisions="<html>
   <ul>
+  <li>
+  July 11, 2019, by Katharina Brinkmann:<br/>
+  Renamed <code>alphaWall</code> to <code>hConWall</code>,
+  <code>alphaWin</code> to <code>hConWin</code>
+  </li>
   <li>
   April 27, 2016, by Michael Wetter:<br/>
   Removed call to <code>Modelica.Utilities.Files.loadResource</code>

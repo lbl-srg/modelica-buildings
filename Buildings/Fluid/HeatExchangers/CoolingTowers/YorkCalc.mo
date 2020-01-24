@@ -2,6 +2,7 @@ within Buildings.Fluid.HeatExchangers.CoolingTowers;
 model YorkCalc
   "Cooling tower with variable speed using the York calculation for the approach temperature"
   extends Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower;
+
   import cha =
     Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics;
 
@@ -15,20 +16,32 @@ model YorkCalc
     "Design range temperature (water in - water out)"
       annotation (Dialog(group="Nominal condition"));
   parameter Real fraPFan_nominal(unit="W/(kg/s)") = 275/0.15
-    "Fan power divided by water mass flow rate at design condition";
+    "Fan power divided by water mass flow rate at design condition"
+    annotation(Dialog(group="Fan"));
   parameter Modelica.SIunits.Power PFan_nominal = fraPFan_nominal*m_flow_nominal
-    "Fan power";
+    "Fan power"
+    annotation(Dialog(group="Fan"));
 
-  parameter cha.fan fanRelPow(
+  replaceable parameter cha.fan fanRelPow(
        r_V = {0, 0.1,   0.3,   0.6,   1},
        r_P = {0, 0.1^3, 0.3^3, 0.6^3, 1})
+    constrainedby cha.fan
     "Fan relative power consumption as a function of control signal, fanRelPow=P(y)/P(y=1)"
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+    annotation (
+    choicesAllMatching=true,
+    Placement(transformation(extent={{60,60},{80,80}})),
+    Dialog(group="Fan"));
 
-  parameter Real yMin(min=0.01, max=1) = 0.3
-    "Minimum control signal until fan is switched off (used for smoothing between forced and free convection regime)";
+  parameter Real yMin(min=0.01, max=1, unit="1") = 0.3
+    "Minimum control signal until fan is switched off (used for smoothing between forced and free convection regime)"
+    annotation(Dialog(group="Fan"));
+
   parameter Real fraFreCon(min=0, max=1) = 0.125
     "Fraction of tower capacity in free convection regime";
+
+  Modelica.Blocks.Interfaces.RealInput y(unit="1") "Fan control signal"
+     annotation (Placement(transformation(
+          extent={{-140,60},{-100,100}})));
 
   Modelica.Blocks.Interfaces.RealInput TAir(
     min=0,
@@ -38,19 +51,35 @@ model YorkCalc
      annotation (Placement(transformation(
           extent={{-140,20},{-100,60}})));
 
+  Modelica.Blocks.Interfaces.RealOutput PFan(
+    final quantity="Power",
+    final unit="W")=
+      Buildings.Utilities.Math.Functions.spliceFunction(
+        pos=cha.normalizedPower(per=fanRelPow, r_V=y, d=fanRelPowDer) * PFan_nominal,
+        neg=0,
+        x=y-yMin+yMin/20,
+        deltax=yMin/20)
+    "Electric power consumed by fan"
+    annotation (Placement(transformation(extent={{100,70},{120,90}}),
+        iconTransformation(extent={{100,70},{120,90}})));
+
   Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.BoundsYorkCalc bou
     "Bounds for correlation";
-  Modelica.Blocks.Interfaces.RealInput y(unit="1") "Fan control signal"
-     annotation (Placement(transformation(
-          extent={{-140,60},{-100,100}})));
 
-  Modelica.SIunits.TemperatureDifference TRan(nominal=1, displayUnit="K")
+  Modelica.SIunits.TemperatureDifference TRan(displayUnit="K")=
+    T_a - T_b
     "Range temperature";
-  Modelica.SIunits.MassFraction FRWat
+  Modelica.SIunits.TemperatureDifference TAppAct(displayUnit="K")=
+    Buildings.Utilities.Math.Functions.spliceFunction(
+      pos=TAppCor,
+      neg=TAppFreCon,
+      x=y-yMin+yMin/20,
+      deltax=yMin/20)
+    "Approach temperature difference";
+  Modelica.SIunits.MassFraction FRWat = m_flow/mWat_flow_nominal
     "Ratio actual over design water mass flow ratio";
-  Modelica.SIunits.MassFraction FRAir
+  Modelica.SIunits.MassFraction FRAir = y
     "Ratio actual over design air mass flow ratio";
-  Modelica.SIunits.Power PFan "Fan power";
 
 protected
   package Water =  Buildings.Media.Water "Medium package for water";
@@ -60,14 +89,30 @@ protected
     "Water inlet temperature at nominal condition";
   parameter Modelica.SIunits.Temperature TWatOut_nominal(fixed=false)
     "Water outlet temperature at nominal condition";
-  parameter Modelica.SIunits.MassFlowRate mRef_flow(min=0, start=m_flow_nominal, fixed=false)
-    "Reference water flow rate";
+  parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal(
+    min=0,
+    start=m_flow_nominal,
+    fixed=false) "Nominal water mass flow rate";
 
-  Modelica.SIunits.TemperatureDifference dTMax(nominal=1, displayUnit="K")
+  Modelica.SIunits.TemperatureDifference dTMax(displayUnit="K") = T_a - TAir
     "Maximum possible temperature difference";
-  Modelica.SIunits.TemperatureDifference TAppCor(min=0, nominal=1, displayUnit="K")
+  Modelica.SIunits.TemperatureDifference TAppCor(min=0, displayUnit="K")=
+    Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc(
+      TRan=TRan,
+      TWetBul=TAir,
+      FRWat=FRWat,
+      FRAir=Buildings.Utilities.Math.Functions.smoothMax(
+        x1=FRWat/bou.liqGasRat_max,
+        x2=FRAir,
+        deltaX=0.01))
     "Approach temperature for forced convection";
-  Modelica.SIunits.TemperatureDifference TAppFreCon(min=0, nominal=1, displayUnit="K")
+  Modelica.SIunits.TemperatureDifference TAppFreCon(min=0, displayUnit="K")=
+    (1-fraFreCon) * dTMax  + fraFreCon *
+      Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc(
+        TRan=TRan,
+        TWetBul=TAir,
+        FRWat=FRWat,
+        FRAir=1)
     "Approach temperature for free convection";
 
   final parameter Real fanRelPowDer[size(fanRelPow.r_V,1)](each fixed=false)
@@ -76,13 +121,22 @@ protected
   Modelica.SIunits.Temperature T_a "Temperature in port_a";
   Modelica.SIunits.Temperature T_b "Temperature in port_b";
 
+  Modelica.Blocks.Sources.RealExpression QWat_flow(
+    y = m_flow*(
+      Medium.specificEnthalpy(Medium.setState_pTX(
+        p=port_b.p,
+        T=TAir + TAppAct,
+        X=inStream(port_b.Xi_outflow))) -
+      inStream(port_a.h_outflow)))
+    "Heat input into water"
+    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
 initial equation
   TWatOut_nominal = TAirInWB_nominal + TApp_nominal;
   TRan_nominal = TWatIn0 - TWatOut_nominal; // by definition of the range temp.
   TApp_nominal = Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc(
                    TRan=TRan_nominal, TWetBul=TAirInWB_nominal,
                    FRWat=FRWat0, FRAir=1); // this will be solved for FRWat0
-  mRef_flow = m_flow_nominal/FRWat0;
+  mWat_flow_nominal = m_flow_nominal/FRWat0;
 
   // Derivatives for spline that interpolates the fan relative power
   fanRelPowDer = Buildings.Utilities.Math.Functions.splineDerivatives(
@@ -144,53 +198,16 @@ equation
                                X=inStream(port_b.Xi_outflow)));
   end if;
 
-  // Air temperature used for the heat transfer
-  TAirHT=TAir;
-  // Range temperature
-  TRan = T_a - T_b;
-  // Fractional mass flow rates
-  FRWat = m_flow/mRef_flow;
-  FRAir = y;
-
-  TAppCor = Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc(
-               TRan=TRan,
-               TWetBul=TAir,
-               FRWat=FRWat,
-               FRAir=Buildings.Utilities.Math.Functions.smoothMax(
-                 x1=FRWat/bou.liqGasRat_max,
-                 x2=FRAir,
-                 deltaX=0.01));
-  dTMax = T_a - TAir;
-  TAppFreCon = (1-fraFreCon) * dTMax  + fraFreCon *
-               Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc(
-                   TRan=TRan,
-                   TWetBul=TAir,
-                   FRWat=FRWat,
-                   FRAir=1);
-
-  // Actual approach temperature and fan power consumption,
-  // which depends on forced vs. free convection.
-  // The transition is for y in [yMin-yMin/10, yMin]
-  [TAppAct, PFan] = Buildings.Utilities.Math.Functions.spliceFunction(
-                                                 pos=[TAppCor,
-                                                 cha.normalizedPower(
-                                                     per=fanRelPow, r_V=y, d=fanRelPowDer) * PFan_nominal],
-                                                 neg=[TAppFreCon, 0],
-                                                 x=y-yMin+yMin/20,
-                                                 deltax=yMin/20);
-
+  connect(QWat_flow.y, preHea.Q_flow)
+    annotation (Line(points={{-59,-50},{-40,-50}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
-        Text(
-          extent={{-102,112},{-68,74}},
-          lineColor={0,0,127},
-          textString="yFan"),
         Text(
           extent={{-104,70},{-70,32}},
           lineColor={0,0,127},
           textString="TWB"),
         Text(
-          extent={{-44,6},{68,-114}},
+          extent={{-50,4},{42,-110}},
           lineColor={255,255,255},
           fillColor={0,127,0},
           fillPattern=FillPattern.Solid,
@@ -200,7 +217,59 @@ equation
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,127},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{78,-58},{102,-62}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{78,-60},{82,-4}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{70,-58},{104,-96}},
+          lineColor={0,0,127},
+          textString="TLvg"),
+        Rectangle(
+          extent={{70,56},{82,52}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{78,54},{82,80}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{64,114},{98,76}},
+          lineColor={0,0,127},
+          textString="PFan"),
+        Ellipse(
+          extent={{0,62},{54,50}},
+          lineColor={255,255,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-54,62},{0,50}},
+          lineColor={255,255,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{78,82},{100,78}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-98,100},{-86,84}},
+          lineColor={0,0,127},
+          textString="y")}),
 Documentation(info="<html>
 <p>
 Model for a steady-state or dynamic cooling tower with variable speed fan using the York calculation for the
@@ -298,6 +367,17 @@ instead of
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 16, 2020, by Michael Wetter:<br/>
+Refactored model to avoid mixing textual equations and connect statements.
+</li>
+<li>
+December, 22, 2019, by Kathryn Hinkelman:<br/>
+Corrected fan power consumption.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1691\">
+issue 1691</a>.
+</li>
 <li>
 November 3, 2016, by Michael Wetter:<br/>
 Corrected wrong type for <code>FRWat0</code>, as this variable
