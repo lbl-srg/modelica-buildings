@@ -65,6 +65,6 @@ Hidden.AvoidDoubleComputation=true")}),
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Applications/DHC/Examples/FifthGeneration/Unidirectional/Validation/BuildingETSConnection.mos"
+        "Resources/Scripts/Dymola/Applications/DHC/Examples/FifthGeneration/Unidirectional/Validation/BuildingETSConnection.mos"
         "Simulate and plot"));
 end BuildingETSConnection;

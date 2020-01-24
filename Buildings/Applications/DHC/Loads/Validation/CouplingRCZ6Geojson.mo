@@ -93,7 +93,7 @@ equation
           "Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/CouplingRCZ6Geojson.mos"
         "Simulate and plot"),
     experiment(
-      StopTime=15000000,
+      StopTime=604800,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"));
 end CouplingRCZ6Geojson;

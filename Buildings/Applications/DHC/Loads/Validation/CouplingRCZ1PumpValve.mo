@@ -65,7 +65,7 @@ equation
           {-20,20},{-20,32},{0,32},{0,34}}, color={0,127,255}));
   annotation (
   experiment(
-      StopTime=15000000,
+      StopTime=604800,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
   Documentation(info="<html>
