@@ -1,11 +1,11 @@
-within Buildings.Applications.DHC.Loads.Examples;
+within Buildings.Applications.DHC.Loads.Validation;
 model CouplingTimeSeries
   "Example illustrating the coupling of a time series building model to a fluid loop"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water
     "Source side medium";
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.BuildingTimeSeries bui
-    annotation (Placement(transformation(extent={{20,40},{40,60}})));
+  Buildings.Applications.DHC.Loads.Validation.BaseClasses.BuildingTimeSeries
+    bui annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Buildings.Fluid.Sources.MassFlowSource_T supHeaWat(
     use_m_flow_in=true,
     redeclare package Medium = Medium1,

@@ -1,8 +1,9 @@
 within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Loads;
 model BuildingRCZ6WithETS
   "Model of a building (RC 6 zones) with an energy transfer station"
-  extends BaseClasses.PartialBuildingWithETS(
-     redeclare DHC.Loads.Examples.BaseClasses.BuildingRCZ6GeojsonPump bui);
+  extends BaseClasses.PartialBuildingWithETS(redeclare
+      Buildings.Applications.DHC.Loads.Validation.BaseClasses.BuildingRCZ6GeojsonPump
+      bui);
   BoundaryConditions.WeatherData.Bus weaBus
     "Weather data bus"
     annotation (Placement(

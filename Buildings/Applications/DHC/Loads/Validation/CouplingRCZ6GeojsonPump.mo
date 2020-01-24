@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Loads.Examples;
+within Buildings.Applications.DHC.Loads.Validation;
 model CouplingRCZ6GeojsonPump
   "Example illustrating the coupling of a multizone RC model to a fluid loop"
   extends Modelica.Icons.Example;

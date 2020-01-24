@@ -1,10 +1,10 @@
-within Buildings.Applications.DHC.Loads.Examples;
+within Buildings.Applications.DHC.Loads.Validation;
 model CouplingSpawnZ1
   "Example illustrating the coupling of a single zone Spawn model to a fluid loop"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water
     "Source side medium";
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.BuildingSpawnZ1 bui
+  Buildings.Applications.DHC.Loads.Validation.BaseClasses.BuildingSpawnZ1 bui
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Buildings.Fluid.Sources.MassFlowSource_T supHeaWat(
     use_m_flow_in=true,

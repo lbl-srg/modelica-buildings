@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Loads.Examples;
+within Buildings.Applications.DHC.Loads.Validation;
 model CouplingRCZ1HeatPort
   "Example illustrating the coupling of a single zone RC building model to a fluid loop"
   extends Modelica.Icons.Example;
