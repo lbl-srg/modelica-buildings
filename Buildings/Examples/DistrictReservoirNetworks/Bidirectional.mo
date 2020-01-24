@@ -130,7 +130,7 @@ model Bidirectional "Bidirectional network"
         origin={-80,-80})));
   Modelica.Blocks.Sources.Constant mSetPla_flow(final k=datDes.mPla_flow_nominal)
     "Set point for mass flow rate of plant"
-    annotation (Placement(transformation(extent={{-32,-74},{-48,-58}})));
+    annotation (Placement(transformation(extent={{-30,-68},{-46,-52}})));
   Buildings.Fluid.Sources.Boundary_pT sewBouCon(
     redeclare package Medium = Medium,
     T=290.15,
@@ -330,7 +330,7 @@ model Bidirectional "Bidirectional network"
   BaseClasses.PowerMeter EBorFie(nu=1) "Heat from borefield"
     annotation (Placement(transformation(extent={{-28,-334},{-40,-322}})));
   BaseClasses.PowerMeter EPlant(nu=2) "Plant heat input into the district loop"
-    annotation (Placement(transformation(extent={{102,-56},{116,-42}})));
+    annotation (Placement(transformation(extent={{102,-50},{116,-36}})));
   BaseClasses.PowerMeter EProsumer1(nu=1) "Prosumer 1 power consumption"
     annotation (Placement(transformation(extent={{94,20},{106,32}})));
   BaseClasses.PowerMeter EProsumer2(nu=1) "Prosumer 2 power consumption"
@@ -387,8 +387,8 @@ protected
 equation
   connect(pumPlaPri.port_a, plant.port_b1)
     annotation (Line(points={{-70,-80},{-10,-80}}, color={0,127,255}));
-  connect(mSetPla_flow.y, pumPlaPri.m_flow_in) annotation (Line(points={{-48.8,
-          -66},{-80,-66},{-80,-68}}, color={0,0,127}));
+  connect(mSetPla_flow.y, pumPlaPri.m_flow_in) annotation (Line(points={{-46.8,
+          -60},{-80,-60},{-80,-68}}, color={0,0,127}));
   connect(pumPlaSec.port_a, sewBouCon.ports[1]) annotation (Line(points={{-90,
           -120},{-100,-120},{-100,-140},{-2,-140}},
                                               color={0,127,255}));
@@ -396,8 +396,8 @@ equation
     annotation (Line(points={{-90,-80},{-114,-80}}, color={0,127,255}));
   connect(pumPlaSec.port_b, plant.port_a2) annotation (Line(points={{-70,-120},
           {-40,-120},{-40,-92},{-10,-92}}, color={0,127,255}));
-  connect(mSetPla_flow.y, pumPlaSec.m_flow_in) annotation (Line(points={{-48.8,
-          -66},{-60,-66},{-60,-100},{-80,-100},{-80,-108}}, color={0,0,127}));
+  connect(mSetPla_flow.y, pumPlaSec.m_flow_in) annotation (Line(points={{-46.8,
+          -60},{-60,-60},{-60,-100},{-80,-100},{-80,-108}}, color={0,0,127}));
   connect(Twp1.port_b, splSup1.port_1)
     annotation (Line(points={{-160,-134},{-160,-90}}, color={0,127,255}));
   connect(splSup1.port_3, senEntPlaOut.port_b)
@@ -567,9 +567,9 @@ equation
   connect(senEntFloPlaIn.H_flow, gaiEntFlo.u)
     annotation (Line(points={{40,-73.4},{40,-62},{66,-62}}, color={0,0,127}));
   connect(senEntPlaOut.H_flow, EPlant.u[1]) annotation (Line(points={{-120,
-          -73.4},{-120,-46.55},{102,-46.55}}, color={0,0,127}));
+          -73.4},{-120,-40.55},{102,-40.55}}, color={0,0,127}));
   connect(gaiEntFlo.y, EPlant.u[2]) annotation (Line(points={{89,-62},{96,-62},
-          {96,-51.45},{102,-51.45}}, color={0,0,127}));
+          {96,-45.45},{102,-45.45}}, color={0,0,127}));
   connect(senEntFloPlaIn.port_a, splSup2.port_3)
     annotation (Line(points={{46,-80},{150,-80}}, color={0,127,255}));
   connect(plant.port_b2, sewBouCon.ports[2]) annotation (Line(points={{10,-92},

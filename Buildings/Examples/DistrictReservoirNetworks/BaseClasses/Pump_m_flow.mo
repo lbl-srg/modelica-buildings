@@ -3,7 +3,6 @@ model Pump_m_flow "Pump with prescribed mass flow rate"
   extends Buildings.Fluid.Movers.FlowControlled_m_flow(
     per(final motorCooledByFluid=false),
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    final allowFlowReversal=false,
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
     final addPowerToMedium=false,
     final nominalValuesDefineDefaultPressureCurve=true,
