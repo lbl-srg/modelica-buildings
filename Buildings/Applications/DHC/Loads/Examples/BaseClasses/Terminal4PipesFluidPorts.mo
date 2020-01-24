@@ -2,8 +2,8 @@ within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
 model Terminal4PipesFluidPorts
   extends
     Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit(
-    final heaFunSpe=Buildings.Applications.DHC.Loads.Types.TerminalFunctionSpec.Water,
-    final cooFunSpe=Buildings.Applications.DHC.Loads.Types.TerminalFunctionSpec.Water,
+    final funHeaSpe=Buildings.Applications.DHC.Loads.Types.TerminalFunctionSpec.Water,
+    final funCooSpe=Buildings.Applications.DHC.Loads.Types.TerminalFunctionSpec.Water,
     final have_heaPor=false,
     final have_fluPor=true,
     final have_weaBus=false,
@@ -15,14 +15,14 @@ model Terminal4PipesFluidPorts
         T_a1Coo_nominal - T_b1Coo_nominal)));
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID conTMin(
-    each Ti=120,
-    each yMax=1,
-    each controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    Ti=120,
+    yMax=1,
+    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     reverseAction=false,
-    each yMin=0) "PI controller for minimum indoor temperature"
+    yMin=0) "PI controller for minimum indoor temperature"
     annotation (Placement(transformation(extent={{-10,210},{10,230}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
-    redeclare each final package Medium=Medium2,
+    redeclare final package Medium=Medium2,
     energyDynamics=energyDynamics,
     m_flow_nominal=max({m2Hea_flow_nominal, m2Coo_flow_nominal}),
     redeclare Fluid.Movers.Data.Generic per,
@@ -70,11 +70,12 @@ model Terminal4PipesFluidPorts
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant sigFlo2(k=1)
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conTMax(
-    each Ti=120,
-    each yMax=1,
-    each controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    Ti=120,
+    yMax=1,
+    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     reverseAction=true,
-    each yMin=0) "PI controller for maximum indoor temperature"
+    yMin=0)
+    "PI controller for maximum indoor temperature"
     annotation (Placement(transformation(extent={{-10,170},{10,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiCooFloNom(k=m1Coo_flow_nominal)
     annotation (Placement(transformation(extent={{20,170},{40,190}})));

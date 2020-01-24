@@ -9,9 +9,9 @@ model ETSSimplified
     Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Data.DesignDataSeries
     datDes "DHC systenm design data";
   // SYSTEM GENERAL
-  parameter Integer nSup = 2
+  parameter Integer nSup = 0
     "Number of supply lines"
-    annotation(Evaluate=true);
+    annotation(Evaluate=true, Dialog(connectorSizing=true));
   parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal(
     min=Modelica.Constants.eps)
     "Design cooling thermal power (always positive)"
@@ -311,11 +311,12 @@ model ETSSimplified
         rotation=0,
         origin={-160,160})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conTChiWat(
-    each Ti=120,
-    each yMax=1,
-    each controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    Ti=120,
+    yMax=1,
+    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     reverseAction=true,
-    each yMin=0) "PI controller for chilled water supply"
+    yMin=0)
+    "PI controller for chilled water supply"
     annotation (Placement(transformation(extent={{-170,30},{-150,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Product pro
     annotation (Placement(transformation(extent={{-88,-10},{-68,10}})));
@@ -501,14 +502,14 @@ equation
           {-30,132},{-30,160},{-150,160}},     color={0,127,255}));
   connect(pumCon.port_b, heaPum.port_a1) annotation (Line(points={{90,160},{40,160},
           {40,132},{10,132}},         color={0,127,255}));
-  connect(ports_a1[1], senMasFloHeaWat.port_a) annotation (Line(points={{-280,100},
-          {-240,100},{-240,360},{-230,360}}, color={0,127,255}));
-  connect(ports_a1[2], senMasFloChiWat.port_a) annotation (Line(points={{-280,140},
-          {-240,140},{-240,-80},{-230,-80}},   color={0,127,255}));
-  connect(senTHeaWatSup.port_b, ports_b1[1]) annotation (Line(points={{50,360},
-          {180,360},{180,100},{280,100}},color={0,127,255}));
-  connect(senTChiWatSup.port_b, ports_b1[2]) annotation (Line(points={{50,-80},
-          {240,-80},{240,140},{280,140}},  color={0,127,255}));
+  connect(ports_a1[1], senMasFloHeaWat.port_a) annotation (Line(points={{-280,120},
+          {-240,120},{-240,360},{-230,360}}, color={0,127,255}));
+  connect(ports_a1[2], senMasFloChiWat.port_a) annotation (Line(points={{-280,120},
+          {-240,120},{-240,-80},{-230,-80}},   color={0,127,255}));
+  connect(senTHeaWatSup.port_b, ports_b1[1]) annotation (Line(points={{50,360},{
+          180,360},{180,120},{280,120}}, color={0,127,255}));
+  connect(senTChiWatSup.port_b, ports_b1[2]) annotation (Line(points={{50,-80},{
+          240,-80},{240,120},{280,120}},   color={0,127,255}));
   connect(pum1HexChi.m_flow_actual, mCoo_flow) annotation (Line(points={{-89,-255},
           {-80,-255},{-80,-280},{162,-280},{162,240},{300,240}}, color={0,0,127}));
   connect(pumEva.m_flow_actual, mHea_flow) annotation (Line(points={{-89,125},{-78,

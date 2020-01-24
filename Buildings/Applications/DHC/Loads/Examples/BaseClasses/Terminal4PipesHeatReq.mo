@@ -2,8 +2,8 @@ within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
 model Terminal4PipesHeatReq
   extends
     Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit(
-    final heaFunSpe=Buildings.Applications.DHC.Loads.Types.TerminalFunctionSpec.Water,
-    final cooFunSpe=Buildings.Applications.DHC.Loads.Types.TerminalFunctionSpec.Water,
+    final funHeaSpe=Buildings.Applications.DHC.Loads.Types.TerminalFunctionSpec.Water,
+    final funCooSpe=Buildings.Applications.DHC.Loads.Types.TerminalFunctionSpec.Water,
     final have_QReq_flow=true,
     final have_heaPor=false,
     final have_fluPor=false,

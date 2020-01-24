@@ -11,7 +11,7 @@ model CouplingRCZ1HeatPort
     annotation (Placement(transformation(extent={{60,100},{40,120}})));
   package Medium1 = Buildings.Media.Water
     "Source side medium";
-  BaseClasses.BuildingRCZ1HeatPort bui(nPorts1=2)
+  BaseClasses.BuildingRCZ1HeatPort bui(nPorts_a1=2, nPorts_b1=2)
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Buildings.Fluid.Sources.MassFlowSource_T supHeaWat(
     use_m_flow_in=true,
@@ -96,6 +96,6 @@ equation
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-120,-20},{120,120}})),
   __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingRCZ1HeatPort.mos"
+          "Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/CouplingRCZ1HeatPort.mos"
         "Simulate and plot"));
 end CouplingRCZ1HeatPort;

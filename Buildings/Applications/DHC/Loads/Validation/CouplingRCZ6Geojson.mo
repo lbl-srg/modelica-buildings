@@ -11,7 +11,7 @@ model CouplingRCZ6Geojson
     "Weather data reader"
     annotation (Placement(transformation(extent={{60,20},{40,40}})));
   Buildings.Applications.DHC.Loads.Validation.BaseClasses.BuildingRCZ6Geojson
-    bui(nPorts1=2)
+    bui(nPorts_a1=2, nPorts_b1=2)
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Buildings.Fluid.Sources.Boundary_pT sinHeaWat(redeclare package Medium =
         Medium1, nPorts=1) "Sink for heating water" annotation (Placement(
@@ -90,7 +90,7 @@ equation
   Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{140,60}})),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingRCZ6Geojson.mos"
+          "Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/CouplingRCZ6Geojson.mos"
         "Simulate and plot"),
     experiment(
       StopTime=15000000,

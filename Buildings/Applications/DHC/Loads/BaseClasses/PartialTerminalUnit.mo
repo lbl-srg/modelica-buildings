@@ -21,9 +21,11 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
       choice(redeclare package Medium2 =
         Buildings.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15, X_a=0.40)
         "Propylene glycol water, 40% mass fraction")));
-  parameter funSpe heaFunSpe = funSpe.Water
+  parameter Integer facSca = 1
+    "Scaling factor to be applied to on each extensive quantity";
+  parameter funSpe funHeaSpe = funSpe.Water
     "Specification of the heating function";
-  parameter funSpe cooFunSpe = funSpe.Water
+  parameter funSpe funCooSpe = funSpe.Water
     "Specification of the cooling function";
   parameter Boolean have_heaPor = false
     "Set to true for heat ports on the load side"
@@ -47,78 +49,78 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     "Heating thermal power at nominal conditions (always positive)"
     annotation(Dialog(
       group="Nominal condition",
-      enable=heaFunSpe <> funSpe.None));
+      enable=funHeaSpe <> funSpe.None));
   parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal(min=0)
     "Cooling thermal power at nominal conditions (always positive)"
     annotation(Dialog(
       group="Nominal condition",
-      enable=cooFunSpe <> funSpe.None));
+      enable=funCooSpe <> funSpe.None));
   parameter Modelica.SIunits.MassFlowRate m1Hea_flow_nominal(min=0)
     "Heating water mass flow rate at nominal conditions"
     annotation(Dialog(
       group="Nominal condition",
-      enable=heaFunSpe == funSpe.Water or heaFunSpe == funSpe.ChangeOver));
+      enable=funHeaSpe == funSpe.Water or funHeaSpe == funSpe.ChangeOver));
   parameter Modelica.SIunits.MassFlowRate m1Coo_flow_nominal(min=0)
     "Chilled water mass flow rate at nominal conditions"
     annotation(Dialog(
       group="Nominal condition",
-      enable=cooFunSpe == funSpe.Water or cooFunSpe == funSpe.ChangeOver));
+      enable=funCooSpe == funSpe.Water or funCooSpe == funSpe.ChangeOver));
   parameter Modelica.SIunits.MassFlowRate m2Hea_flow_nominal(min=0) = 0
     "Load side mass flow rate at nominal conditions in heating mode"
     annotation(Dialog(
       group="Nominal condition",
-      enable=heaFunSpe <> funSpe.None));
+      enable=funHeaSpe <> funSpe.None));
   parameter Modelica.SIunits.MassFlowRate m2Coo_flow_nominal(min=0) = 0
     "Load side mass flow rate at nominal conditions in cooling mode"
     annotation(Dialog(
       group="Nominal condition",
-      enable=cooFunSpe <> funSpe.None));
+      enable=funCooSpe <> funSpe.None));
   parameter Modelica.SIunits.Temperature T_a1Hea_nominal(
     min=Modelica.SIunits.Conversions.from_degC(0), displayUnit="degC")
     "Heating water inlet temperature at nominal conditions "
     annotation(Dialog(
       group="Nominal condition",
-      enable=heaFunSpe == funSpe.Water or heaFunSpe == funSpe.ChangeOver));
+      enable=funHeaSpe == funSpe.Water or funHeaSpe == funSpe.ChangeOver));
   parameter Modelica.SIunits.Temperature T_b1Hea_nominal(
     min=Modelica.SIunits.Conversions.from_degC(0), displayUnit="degC")
     "Heating water outlet temperature at nominal conditions"
     annotation(Dialog(
       group="Nominal condition",
-      enable=heaFunSpe == funSpe.Water or heaFunSpe == funSpe.ChangeOver));
+      enable=funHeaSpe == funSpe.Water or funHeaSpe == funSpe.ChangeOver));
   parameter Modelica.SIunits.Temperature T_a1Coo_nominal(
     min=Modelica.SIunits.Conversions.from_degC(0), displayUnit="degC")
     "Chilled water inlet temperature at nominal conditions "
     annotation(Dialog(
       group="Nominal condition",
-      enable=cooFunSpe == funSpe.Water or cooFunSpe == funSpe.ChangeOver));
+      enable=funCooSpe == funSpe.Water or funCooSpe == funSpe.ChangeOver));
   parameter Modelica.SIunits.Temperature T_b1Coo_nominal(
     min=Modelica.SIunits.Conversions.from_degC(0), displayUnit="degC")
     "Chilled water outlet temperature at nominal conditions"
     annotation(Dialog(
       group="Nominal condition",
-      enable=cooFunSpe == funSpe.Water or cooFunSpe == funSpe.ChangeOver));
+      enable=funCooSpe == funSpe.Water or funCooSpe == funSpe.ChangeOver));
   parameter Modelica.SIunits.Temperature T_a2Hea_nominal(
     min=Modelica.SIunits.Conversions.from_degC(0), displayUnit="degC")
     "Load side inlet temperature at nominal conditions in heating mode"
     annotation(Dialog(
       group="Nominal condition",
-      enable=heaFunSpe == funSpe.Water or heaFunSpe == funSpe.ChangeOver));
+      enable=funHeaSpe == funSpe.Water or funHeaSpe == funSpe.ChangeOver));
   parameter Modelica.SIunits.Temperature T_a2Coo_nominal(
     min=Modelica.SIunits.Conversions.from_degC(0), displayUnit="degC")
     "Load side inlet temperature at nominal conditions in cooling mode"
     annotation(Dialog(
       group="Nominal condition",
-      enable=cooFunSpe == funSpe.Water or cooFunSpe == funSpe.ChangeOver));
+      enable=funCooSpe == funSpe.Water or funCooSpe == funSpe.ChangeOver));
   parameter Buildings.Fluid.Types.HeatExchangerConfiguration hexConHea=
     Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow
     "Heating heat exchanger configuration"
     annotation(Dialog(
-      enable=heaFunSpe == funSpe.Water));
+      enable=funHeaSpe == funSpe.Water));
   parameter Buildings.Fluid.Types.HeatExchangerConfiguration hexConCoo=
     Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow
     "Cooling heat exchanger configuration"
     annotation(Dialog(
-      enable=cooFunSpe == funSpe.Water or cooFunSpe == funSpe.ChangeOver));
+      enable=funCooSpe == funSpe.Water or funCooSpe == funSpe.ChangeOver));
   final parameter Boolean allowFlowReversal = false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation(Evaluate=true);
@@ -134,7 +136,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
     annotation (Dialog(tab="Dynamics", group="Nominal condition"));
   // IO connectors
-  Modelica.Blocks.Interfaces.RealInput TSetHea if heaFunSpe <> funSpe.None
+  Modelica.Blocks.Interfaces.RealInput TSetHea if funHeaSpe <> funSpe.None
     "Heating set point"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -143,7 +145,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-130,80})));
-  Modelica.Blocks.Interfaces.RealInput TSetCoo if cooFunSpe <> funSpe.None
+  Modelica.Blocks.Interfaces.RealInput TSetCoo if funCooSpe <> funSpe.None
     "Cooling set point"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -153,7 +155,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
         rotation=0,
         origin={-130,40})));
   Modelica.Blocks.Interfaces.RealInput QReqHea_flow(
-    quantity="HeatFlowRate") if have_QReq_flow and heaFunSpe <> funSpe.None
+    quantity="HeatFlowRate") if have_QReq_flow and funHeaSpe <> funSpe.None
     "Required heat flow rate to meet heating set point (>=0)"
     annotation (
       Placement(transformation(
@@ -164,7 +166,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
         rotation=0,
         origin={-130,0})));
   Modelica.Blocks.Interfaces.RealInput QReqCoo_flow(
-    quantity="HeatFlowRate") if have_QReq_flow and cooFunSpe <> funSpe.None
+    quantity="HeatFlowRate") if have_QReq_flow and funCooSpe <> funSpe.None
     "Required heat flow rate to meet cooling set point (<=0)"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -175,23 +177,23 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
         origin={-130,-40})));
   Modelica.Blocks.Interfaces.RealOutput m1ReqHea_flow(
     quantity="MassFlowRate") if
-    heaFunSpe == funSpe.Water or heaFunSpe == funSpe.ChangeOver
+    funHeaSpe == funSpe.Water or funHeaSpe == funSpe.ChangeOver
     "Required heating water flow to meet heating set point" annotation (
       Placement(transformation(extent={{200,80},{240,120}}),
         iconTransformation(extent={{120,-40},{140,-20}})));
   Modelica.Blocks.Interfaces.RealOutput m1ReqCoo_flow(
     quantity="MassFlowRate") if
-    cooFunSpe == funSpe.Water or cooFunSpe == funSpe.ChangeOver
+    funCooSpe == funSpe.Water or funCooSpe == funSpe.ChangeOver
     "Required chilled water flow to meet cooling set point"
     annotation (Placement(transformation(extent={{200,60},{240,100}}),
       iconTransformation(extent={{120,-60},{140,-40}})));
   Modelica.Blocks.Interfaces.RealOutput QActHea_flow(
-    quantity="HeatFlowRate") if heaFunSpe <> funSpe.None
+    quantity="HeatFlowRate") if funHeaSpe <> funSpe.None
     "Heat flow rate transferred to the load for heating (>0)"
     annotation (Placement(transformation(extent={{200,200},{240,240}}),
         iconTransformation(extent={{120,80},{140,100}})));
   Modelica.Blocks.Interfaces.RealOutput QActCoo_flow(
-    quantity="HeatFlowRate") if cooFunSpe <> funSpe.None
+    quantity="HeatFlowRate") if funCooSpe <> funSpe.None
     "Heat flow rate transferred to the load for cooling (<=0)" annotation (
       Placement(transformation(extent={{200,180},{240,220}}),
         iconTransformation(extent={{120,60},{140,80}})));
@@ -206,12 +208,12 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     annotation (Placement(transformation(extent={{200,100},{240,140}}),
         iconTransformation(extent={{120,-20},{140,0}})));
   Modelica.Blocks.Interfaces.RealOutput PHea(
-    quantity="Power", final unit="W") if heaFunSpe == funSpe.Electric
+    quantity="Power", final unit="W") if funHeaSpe == funSpe.Electric
     "Power drawn by heating equipment"
     annotation (Placement(transformation(extent={{200,160},{240,200}}),
         iconTransformation(extent={{120,40},{140,60}})));
   Modelica.Blocks.Interfaces.RealOutput PCoo(
-    quantity="Power", final unit="W") if cooFunSpe == funSpe.Electric
+    quantity="Power", final unit="W") if funCooSpe == funSpe.Electric
     "Power drawn by cooling equipment"
     annotation (Placement(transformation(extent={{200,140},{240,180}}),
         iconTransformation(extent={{120,20},{140,40}})));
@@ -254,7 +256,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     redeclare final package Medium=Medium1,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium1.h_default, nominal=Medium1.h_default)) if
-    heaFunSpe == funSpe.Water
+    funHeaSpe == funSpe.Water
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-210,-230},{-190,-210}}),
         iconTransformation(extent={{-130,-120},{-110,-100}})));
@@ -263,7 +265,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     redeclare final package Medium=Medium1,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium1.h_default, nominal=Medium1.h_default)) if
-    cooFunSpe == funSpe.Water or cooFunSpe == funSpe.ChangeOver
+    funCooSpe == funSpe.Water or funCooSpe == funSpe.ChangeOver
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-210,-190},{-190,-170}}),
         iconTransformation(extent={{-130,-90},{-110,-70}})));
@@ -272,7 +274,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     redeclare final package Medium=Medium1,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=Medium1.h_default, nominal=Medium1.h_default)) if
-    heaFunSpe == funSpe.Water
+    funHeaSpe == funSpe.Water
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{210,-230},{190,-210}}),
         iconTransformation(extent={{130,-120},{110,-100}})));
@@ -281,10 +283,48 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     redeclare final package Medium=Medium1,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=Medium1.h_default, nominal=Medium1.h_default)) if
-    cooFunSpe == funSpe.Water or cooFunSpe == funSpe.ChangeOver
+    funCooSpe == funSpe.Water or funCooSpe == funSpe.ChangeOver
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{210,-190},{190,-170}}),
         iconTransformation(extent={{130,-90},{110,-70}})));
+  // COMPONENTS
+  Buildings.Controls.OBC.CDL.Continuous.Gain scaQReqHea_flow(k=1/facSca) if
+    have_QReq_flow and funHeaSpe <> funSpe.None
+    "Scaling"
+    annotation (Placement(transformation(extent={{-180,130},{-160,150}})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain scaQReqCoo_flow(k=1/facSca) if
+    have_QReq_flow and funCooSpe <> funSpe.None
+    "Scaling"
+    annotation (Placement(transformation(extent={{-180,90},{-160,110}})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain scaQActHea_flow(k=facSca) if
+    funHeaSpe <> funSpe.None
+    "Scaling"
+    annotation (Placement(transformation(extent={{160,210},{180,230}})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain scaQActCoo_flow(k=facSca) if
+    funCooSpe <> funSpe.None
+    "Scaling"
+    annotation (Placement(transformation(extent={{160,190},{180,210}})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain scaPHea(k=facSca) if
+    funHeaSpe == funSpe.Electric
+    "Scaling"
+    annotation (Placement(transformation(extent={{160,170},{180,190}})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain scaPCoo(k=facSca) if
+    funCooSpe == funSpe.Electric
+    "Scaling"
+    annotation (Placement(transformation(extent={{160,150},{180,170}})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain scaPFan(k=facSca) if have_fan
+    "Scaling"
+    annotation (Placement(transformation(extent={{160,130},{180,150}})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain scaPPum(k=facSca) if have_pum
+    "Scaling"
+    annotation (Placement(transformation(extent={{160,110},{180,130}})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain sca_m1ReqHea_flow(k=facSca) if
+    funHeaSpe == funSpe.Water or funHeaSpe == funSpe.ChangeOver
+    "Scaling"
+    annotation (Placement(transformation(extent={{160,90},{180,110}})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain sca_m1ReqCoo_flow(k=facSca) if
+    funCooSpe == funSpe.Water or funCooSpe == funSpe.ChangeOver
+    "Scaling" annotation (Placement(transformation(extent={{160,70},{180,90}})));
 protected
   parameter Modelica.SIunits.SpecificHeatCapacity cp1Hea_nominal=
     Medium1.specificHeatCapacityCp(
@@ -302,6 +342,28 @@ protected
     Medium2.specificHeatCapacityCp(
       Medium2.setState_pTX(Medium2.p_default, T_a2Coo_nominal))
     "Load side specific heat capacity at nominal conditions in cooling mode";
+equation
+  connect(scaQActHea_flow.y, QActHea_flow)
+    annotation (Line(points={{182,220},{220,220}}, color={0,0,127}));
+  connect(QReqHea_flow, scaQReqHea_flow.u)
+    annotation (Line(points={{-220,140},{-182,140}}, color={0,0,127}));
+  connect(QReqCoo_flow, scaQReqCoo_flow.u)
+    annotation (Line(points={{-220,100},{-182,100}}, color={0,0,127}));
+  connect(scaQActCoo_flow.y, QActCoo_flow)
+    annotation (Line(points={{182,200},{192,
+          200},{192,200},{220,200}}, color={0,0,127}));
+  connect(scaPHea.y, PHea)
+    annotation (Line(points={{182,180},{220,180}}, color={0,0,127}));
+  connect(sca_m1ReqCoo_flow.y, m1ReqCoo_flow)
+    annotation (Line(points={{182,80},{220,80}}, color={0,0,127}));
+  connect(sca_m1ReqHea_flow.y, m1ReqHea_flow)
+    annotation (Line(points={{182,100},{220,100}}, color={0,0,127}));
+  connect(scaPPum.y, PPum)
+    annotation (Line(points={{182,120},{220,120}}, color={0,0,127}));
+  connect(scaPCoo.y, PCoo)
+    annotation (Line(points={{182,160},{220,160}}, color={0,0,127}));
+  connect(scaPFan.y, PFan)
+    annotation (Line(points={{182,140},{220,140}}, color={0,0,127}));
 annotation (
   defaultComponentName="terUni",
   Icon(coordinateSystem(preserveAspectRatio=false,

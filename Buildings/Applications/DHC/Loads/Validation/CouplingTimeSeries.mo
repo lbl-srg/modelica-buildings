@@ -5,7 +5,8 @@ model CouplingTimeSeries
   package Medium1 = Buildings.Media.Water
     "Source side medium";
   Buildings.Applications.DHC.Loads.Validation.BaseClasses.BuildingTimeSeries
-    bui annotation (Placement(transformation(extent={{20,40},{40,60}})));
+    bui(nPorts_a1=2, nPorts_b1=2)
+    annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Buildings.Fluid.Sources.MassFlowSource_T supHeaWat(
     use_m_flow_in=true,
     redeclare package Medium = Medium1,
@@ -44,7 +45,9 @@ model CouplingTimeSeries
   Buildings.Fluid.Sources.Boundary_pT sinChiWat(
     redeclare package Medium = Medium1,
     p=300000,
-    nPorts=1) "Sink for chilled water" annotation (Placement(transformation(
+    nPorts=1)
+    "Sink for chilled water"
+    annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={130,20})));
@@ -58,13 +61,13 @@ equation
   connect(mChiWat_flow.y, supChiWat.m_flow_in) annotation (Line(points={{-99,40},
           {-80,40},{-80,28},{-62,28}}, color={0,0,127}));
   connect(supHeaWat.ports[1], bui.ports_a1[1]) annotation (Line(points={{-40,80},
-          {-20,80},{-20,32},{0,32}}, color={0,127,255}));
+          {-20,80},{-20,30},{0,30}}, color={0,127,255}));
   connect(supChiWat.ports[1], bui.ports_a1[2]) annotation (Line(points={{-40,20},
-          {-20,20},{-20,32},{0,32}}, color={0,127,255}));
-  connect(bui.ports_b1[1], sinHeaWat.ports[1]) annotation (Line(points={{60,32},
-          {80,32},{80,80},{120,80}}, color={0,127,255}));
-  connect(bui.ports_b1[2], sinChiWat.ports[1]) annotation (Line(points={{60,32},
-          {80,32},{80,20},{120,20}}, color={0,127,255}));
+          {-20,20},{-20,34},{0,34}}, color={0,127,255}));
+  connect(bui.ports_b1[1], sinHeaWat.ports[1]) annotation (Line(points={{60,30},
+          {80,30},{80,80},{120,80}}, color={0,127,255}));
+  connect(bui.ports_b1[2], sinChiWat.ports[1]) annotation (Line(points={{60,34},
+          {80,34},{80,20},{120,20}}, color={0,127,255}));
   annotation (
   experiment(
       StopTime=604800,
@@ -83,6 +86,6 @@ equation
   </html>"),
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-120,-20},{140,120}})),
-  __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingTimeSeries.mos"
+  __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/CouplingTimeSeries.mos"
         "Simulate and plot"));
 end CouplingTimeSeries;

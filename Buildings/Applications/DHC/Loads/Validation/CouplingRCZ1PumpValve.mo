@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.Loads.Validation;
-model CouplingRCZ1Pump
+model CouplingRCZ1PumpValve
   "Example illustrating the coupling of a single zone RC building model to a fluid loop"
   extends Modelica.Icons.Example;
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
@@ -11,7 +11,7 @@ model CouplingRCZ1Pump
     annotation (Placement(transformation(extent={{60,100},{40,120}})));
   package Medium1 = Buildings.Media.Water
     "Source side medium";
-  BaseClasses.BuildingRCZ1Pump bui(nPorts1=2)
+  BaseClasses.BuildingRCZ1PumpValve bui(nPorts_a1=2, nPorts_b1=2)
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Buildings.Fluid.Sources.Boundary_pT sinHeaWat(redeclare package Medium =
         Medium1, nPorts=1) "Sink for heating water" annotation (Placement(
@@ -82,6 +82,6 @@ equation
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-120,-20},{140,120}})),
   __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingRCZ1Pump.mos"
+          "Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/CouplingRCZ1PumpValve.mos"
         "Simulate and plot"));
-end CouplingRCZ1Pump;
+end CouplingRCZ1PumpValve;

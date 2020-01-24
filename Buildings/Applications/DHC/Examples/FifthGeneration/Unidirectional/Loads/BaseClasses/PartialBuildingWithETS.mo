@@ -55,14 +55,16 @@ partial model PartialBuildingWithETS
         rotation=0,
         origin={-110,80})));
   // COMPONENTS
-  replaceable Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding bui(
+  replaceable Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding bui
+    constrainedby Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
     redeclare package Medium1=Medium,
-    nPorts1=nSup)
+    nPorts_a1=nSup,
+    nPorts_b1=nSup)
     "Building"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
+  // TODO: declare here partial ETS model constrainedby parameters binding
   replaceable EnergyTransferStations.ETSSimplified ets(
     redeclare package Medium = Medium,
-    nSup=nSup,
     QCoo_flow_nominal=sum(bui.terUni.QCoo_flow_nominal),
     QHea_flow_nominal=sum(bui.terUni.QHea_flow_nominal),
     dT_nominal=dT_nominal,
@@ -71,7 +73,9 @@ partial model PartialBuildingWithETS
     THeaWatSup_nominal=THeaWatSup_nominal,
     THeaWatRet_nominal=THeaWatRet_nominal,
     dp_nominal=dp_nominal,
-    COP_nominal=COP_nominal) "Energy transfer station"
+    COP_nominal=COP_nominal,
+    nSup=nSup)
+    "Energy transfer station"
     annotation (Placement(transformation(extent={{-20,-60},{20,-20}})));
 equation
   connect(port_a, ets.port_a) annotation (Line(points={{-100,0},{-80,0},{-80,-40},
@@ -84,11 +88,10 @@ equation
   connect(TSetHeaWat, ets.TSetHeaWat) annotation (Line(points={{-120,70},{-68,
           70},{-68,-22.8571},{-21.4286,-22.8571}},
                                                color={0,0,127}));
-  connect(bui.ports_b1[1:2], ets.ports_a1) annotation (Line(points={{10,44},{60,
-          44},{60,0},{-40,0},{-40,-52.8571},{-20,-52.8571}}, color={0,127,255}));
-  connect(ets.ports_b1, bui.ports_a1[1:2]) annotation (Line(points={{20,
-          -52.8571},{28,-52.8571},{40,-52.8571},{40,-80},{-60,-80},{-60,44},{
-          -10,44}},
+  connect(bui.ports_b1, ets.ports_a1) annotation (Line(points={{10,44},{60,44},
+          {60,0},{-40,0},{-40,-52.8571},{-20,-52.8571}},     color={0,127,255}));
+  connect(ets.ports_b1, bui.ports_a1) annotation (Line(points={{20,-52.8571},{
+          24,-52.8571},{40,-52.8571},{40,-80},{-60,-80},{-60,44},{-10,44}},
         color={0,127,255}));
   annotation (
     DefaultComponentName="bui",

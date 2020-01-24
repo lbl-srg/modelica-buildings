@@ -10,8 +10,7 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
       have_pum=false,
       have_eleHea=false,
       have_eleCoo=false,
-      have_weaBus=false,
-      nPorts1=2);
+      have_weaBus=false);
     Modelica.Blocks.Sources.CombiTimeTable loa(
       tableOnFile=true,
       columns={2,3},
@@ -43,13 +42,19 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
       annotation (Placement(transformation(extent={{80,-24},{100,-4}})));
     Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
         m_flow_nominal=terUni.m1Hea_flow_nominal,
-        dp_nominal=100000)
+        dp_nominal=100000,
+        nPorts_a1=1,
+        nPorts_b1=1)
       "Heating water distribution system"
       annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
     Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
       m_flow_nominal=terUni.m1Coo_flow_nominal,
       disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
-      dp_nominal=100000) "Chilled water distribution system" annotation (
+      dp_nominal=100000,
+      nPorts_a1=1,
+      nPorts_b1=1)
+      "Chilled water distribution system"
+      annotation (
         Placement(transformation(extent={{120,-120},{140,-100}})));
 
   equation
@@ -57,18 +62,23 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
       annotation (Line(points={{-276,260},{-260,260}}, color={0,0,127}));
     connect(maxTSet.y,from_degC2. u)
       annotation (Line(points={{-276,220},{-260,220}}, color={0,0,127}));
-    connect(ports_a1[1], disFloHea.port_a) annotation (Line(points={{-300,-20},{-280,
-            -20},{-280,-70},{120,-70}}, color={0,127,255}));
-    connect(disFloHea.port_b, ports_b1[1]) annotation (Line(points={{140,-70},{280,
-            -70},{280,-20},{300,-20}}, color={0,127,255}));
-    connect(ports_a1[2], disFloCoo.port_a) annotation (Line(points={{-300,20},{-280,
-            20},{-280,-110},{120,-110}}, color={0,127,255}));
-    connect(disFloCoo.port_b, ports_b1[2]) annotation (Line(points={{140,-110},{280,
-            -110},{280,20},{300,20}}, color={0,127,255}));
-    connect(from_degC1.y, terUni.TSetHea) annotation (Line(points={{-236,260},{60,
-            260},{60,-7.33333},{79.1667,-7.33333}}, color={0,0,127}));
-    connect(from_degC2.y, terUni.TSetCoo) annotation (Line(points={{-236,220},{60,
-            220},{60,-10.6667},{79.1667,-10.6667}}, color={0,0,127}));
+    connect(ports_a1[1], disFloHea.port_a) annotation (Line(points={{-300,0},{
+            -280,0},{-280,-70},{120,-70}},
+                                        color={0,127,255}));
+    connect(disFloHea.port_b, ports_b1[1]) annotation (Line(points={{140,-70},{
+            280,-70},{280,0},{300,0}}, color={0,127,255}));
+    connect(ports_a1[2], disFloCoo.port_a) annotation (Line(points={{-300,0},{
+            -280,0},{-280,-110},{120,-110}},
+                                         color={0,127,255}));
+    connect(disFloCoo.port_b, ports_b1[2]) annotation (Line(points={{140,-110},
+            {280,-110},{280,0},{300,0}},
+                                      color={0,127,255}));
+    connect(from_degC1.y, terUni.TSetHea) annotation (Line(points={{-236,260},{
+            60,260},{60,-7.33333},{79.1667,-7.33333}},
+                                                    color={0,0,127}));
+    connect(from_degC2.y, terUni.TSetCoo) annotation (Line(points={{-236,220},{
+            60,220},{60,-10.6667},{79.1667,-10.6667}},
+                                                    color={0,0,127}));
     connect(terUni.port_b1Hea, disFloHea.ports_a1[1]) annotation (Line(points={{100,
             -23.1667},{100,-23.5833},{140,-23.5833},{140,-64}},     color={0,127,
             255}));
@@ -78,15 +88,18 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
             -104},{40,-104},{40,-20.6667},{80,-20.6667}},     color={0,127,255}));
     connect(disFloHea.ports_b1[1], terUni.port_a1Hea) annotation (Line(points={{120,-64},
             {60,-64},{60,-23.1667},{80,-23.1667}},          color={0,127,255}));
-    connect(loa.y[1], terUni.QReqHea_flow) annotation (Line(points={{21,0},{50,0},
-            {50,-14},{79.1667,-14}}, color={0,0,127}));
-    connect(loa.y[2], terUni.QReqCoo_flow) annotation (Line(points={{21,0},{50,0},
-            {50,-17.3333},{79.1667,-17.3333}}, color={0,0,127}));
+    connect(loa.y[1], terUni.QReqHea_flow) annotation (Line(points={{21,0},{50,
+            0},{50,-14},{79.1667,-14}},
+                                     color={0,0,127}));
+    connect(loa.y[2], terUni.QReqCoo_flow) annotation (Line(points={{21,0},{50,
+            0},{50,-17.3333},{79.1667,-17.3333}},
+                                               color={0,0,127}));
     connect(terUni.m1ReqHea_flow, disFloHea.m1Req_flow[1]) annotation (Line(
           points={{100.833,-16.5},{100.833,-46},{100,-46},{100,-76},{119,-76},{
             119,-74}}, color={0,0,127}));
     connect(terUni.m1ReqCoo_flow, disFloCoo.m1Req_flow[1]) annotation (Line(
-          points={{100.833,-18.1667},{100.833,-115.083},{119,-115.083},{119,-114}},
+          points={{100.833,-18.1667},{100.833,-115.083},{119,-115.083},{119,
+            -114}},
           color={0,0,127}));
     connect(terUni.QActHea_flow, QHea_flow) annotation (Line(points={{100.833,
             -6.5},{100.833,-6},{240,-6},{240,280},{320,280}},
@@ -128,8 +141,7 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
       have_pum=false,
       have_eleHea=false,
       have_eleCoo=false,
-      have_weaBus=true,
-      nPorts1=2);
+      have_weaBus=true);
     package Medium2 = Buildings.Media.Air
       "Load side medium";
     parameter Integer nZon = 1
@@ -215,7 +227,8 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
           57600,80,80,200; 61200,80,80,200; 61200,0,0,0; 64800,0,0,0; 72000,
           0,0,0; 75600,0,0,0; 79200,0,0,0; 82800,0,0,0; 86400,0,0,0],
       columns={2,3,4},
-      extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic) "Table with profiles for persons (radiative and convective) and machines
+      extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
+      "Table with profiles for persons (radiative and convective) and machines
     (convective)"
       annotation (Placement(transformation(extent={{-2,-40},{14,-24}})));
     Modelica.Blocks.Sources.Constant const[2](each k=0)
@@ -238,14 +251,16 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
       extent={{4,-4},{-4,4}},
       rotation=90,
       origin={32,38})));
-    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=20) "Minimum temperature setpoint"
+    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=20)
+      "Minimum temperature setpoint"
       annotation (Placement(transformation(extent={{-300,250},{-280,270}})));
     Buildings.Controls.OBC.UnitConversions.From_degC from_degC1
       annotation (Placement(transformation(extent={{-260,250},{-240,270}})));
     Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
-      nUni=nZon,
       m_flow_nominal=terUni.m1Hea_flow_nominal,
-      dp_nominal=100000)
+      dp_nominal=100000,
+      nPorts_a1=1,
+      nPorts_b1=1)
       annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
     Buildings.Applications.DHC.Loads.Validation.BaseClasses.Terminal4PipesFluidPorts
       terUni(
@@ -258,8 +273,7 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
       T_a1Hea_nominal=313.15,
       T_a1Coo_nominal=280.15,
       m2Hea_flow_nominal=1,
-      m2Coo_flow_nominal=1,
-      show_TSou=true)
+      m2Coo_flow_nominal=1)
       annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
     Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=24)
       "Minimum temperature setpoint"
@@ -267,10 +281,11 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
     Buildings.Controls.OBC.UnitConversions.From_degC from_degC2
       annotation (Placement(transformation(extent={{-260,210},{-240,230}})));
     Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
-      nUni=nZon,
       m_flow_nominal=terUni.m1Coo_flow_nominal,
       disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
-      dp_nominal=100000)
+      dp_nominal=100000,
+      nPorts_a1=1,
+      nPorts_b1=1)
       annotation (Placement(transformation(extent={{-100, -160},{-80,-140}})));
   equation
     connect(eqAirTemp.TEqAirWin,preTem1. T)
@@ -390,25 +405,21 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
     connect(minTSet.y, from_degC1.u) annotation (Line(points={{-278,260},{-262,
             260}},                                                                  color={0,0,127}));
     connect(thermalZoneOneElement.ports[1], terUni.port_a2)
-      annotation (Line(points={{81.475,-9.95},{86.5,-9.95},{86.5,-40.8333},{-140,
-            -40.8333}},                                                            color={0,127,255}));
+      annotation (Line(points={{81.475,-9.95},{86.5,-9.95},{86.5,-40.8333},{
+            -140,-40.8333}},                                                       color={0,127,255}));
     connect(terUni.port_b2, thermalZoneOneElement.ports[2])
-      annotation (Line(points={{-160,-40.8333},{-180,-40.8333},{-180,-22},{84.525,
-            -22},{84.525,-9.95}},                                                             color={0,127,255}));
-    connect(ports_a1[1], disFloHea.port_a) annotation (Line(points={{-300,-20},{
-            -280,-20},{-280,-110},{-100,-110}},
-                                         color={0,127,255}));
-    connect(disFloHea.port_b, ports_b1[1]) annotation (Line(points={{-80,-110},{
-            280,-110},{280,-20},{300,-20}},
-                                    color={0,127,255}));
+      annotation (Line(points={{-160,-40.8333},{-180,-40.8333},{-180,-22},{
+            84.525,-22},{84.525,-9.95}},                                                      color={0,127,255}));
+    connect(ports_a1[1], disFloHea.port_a) annotation (Line(points={{-300,0},{-280,
+            0},{-280,-110},{-100,-110}}, color={0,127,255}));
+    connect(disFloHea.port_b, ports_b1[1]) annotation (Line(points={{-80,-110},{280,
+            -110},{280,0},{300,0}}, color={0,127,255}));
     connect(maxTSet.y, from_degC2.u) annotation (Line(points={{-278,220},{-262,
             220}},                                                                  color={0,0,127}));
-    connect(ports_a1[2], disFloCoo.port_a) annotation (Line(points={{-300,20},{
-            -280,20},{-280,-150},{-100,-150}},
-                                         color={0,127,255}));
-    connect(disFloCoo.port_b, ports_b1[2]) annotation (Line(points={{-80,-150},{
-            280,-150},{280,20},{300,20}},
-                                    color={0,127,255}));
+    connect(ports_a1[2], disFloCoo.port_a) annotation (Line(points={{-300,0},{-280,
+            0},{-280,-150},{-100,-150}}, color={0,127,255}));
+    connect(disFloCoo.port_b, ports_b1[2]) annotation (Line(points={{-80,-150},{280,
+            -150},{280,0},{300,0}}, color={0,127,255}));
     connect(from_degC1.y, terUni.TSetHea) annotation (Line(points={{-238,260},{
             -200,260},{-200,-43.3333},{-160.833,-43.3333}},
                                                        color={0,0,127}));
@@ -467,12 +478,12 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
           coordinateSystem(extent={{-100,-100},{100,100}})));
   end BuildingRCZ1;
 
-  model BuildingRCZ1Pump "RC building model with distribution pumps (1 zone)"
+  model BuildingRCZ1PumpValve
+    "RC building model with distribution pumps and mixing valves (1 zone)"
     extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
       have_eleHea=false,
       have_eleCoo=false,
-      have_weaBus=true,
-      nPorts1=2);
+      have_weaBus=true);
     package Medium2 = Buildings.Media.Air
       "Load side medium";
     parameter Integer nZon = 1
@@ -587,11 +598,12 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
       annotation (Placement(transformation(extent={{-260,250},{-240,270}})));
     Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
       redeclare package Medium=Medium1,
-      nUni=nZon,
       m_flow_nominal=terUni.m1Hea_flow_nominal,
       have_pum=true,
       have_val=true,
-      dp_nominal=100000)
+      dp_nominal=100000,
+      nPorts_a1=1,
+      nPorts_b1=1)
       annotation (Placement(transformation(extent={{-100, -120},{-80,-100}})));
     Buildings.Applications.DHC.Loads.Validation.BaseClasses.Terminal4PipesFluidPorts
       terUni(
@@ -613,12 +625,13 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
       annotation (Placement(transformation(extent={{-260,210},{-240,230}})));
     Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
       redeclare package Medium = Medium1,
-      nUni=nZon,
       m_flow_nominal=terUni.m1Coo_flow_nominal,
       disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
       have_pum=true,
       have_val=true,
-      dp_nominal=100000)
+      dp_nominal=100000,
+      nPorts_a1=1,
+      nPorts_b1=1)
       annotation (Placement(transformation(extent={{-100, -160},{-80,-140}})));
     Modelica.Blocks.Sources.RealExpression realExpression(y=273 + 35)
       annotation (Placement(transformation(extent={{-180,-130},{-160,-110}})));
@@ -744,25 +757,21 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
     connect(minTSet.y, from_degC1.u) annotation (Line(points={{-278,260},{-262,
             260}},                                                                  color={0,0,127}));
     connect(thermalZoneOneElement.ports[1], terUni.port_a2)
-      annotation (Line(points={{81.475,-9.95},{86.5,-9.95},{86.5,-40.8333},{-142,
-            -40.8333}},                                                            color={0,127,255}));
+      annotation (Line(points={{81.475,-9.95},{86.5,-9.95},{86.5,-40.8333},{
+            -142,-40.8333}},                                                       color={0,127,255}));
     connect(terUni.port_b2, thermalZoneOneElement.ports[2])
-      annotation (Line(points={{-162,-40.8333},{-180,-40.8333},{-180,-22},{84.525,
-            -22},{84.525,-9.95}},                                                             color={0,127,255}));
-    connect(ports_a1[1], disFloHea.port_a) annotation (Line(points={{-300,-20},{
-            -280,-20},{-280,-110},{-100,-110}},
-                                         color={0,127,255}));
-    connect(disFloHea.port_b, ports_b1[1]) annotation (Line(points={{-80,-110},{
-            280,-110},{280,-20},{300,-20}},
-                                    color={0,127,255}));
+      annotation (Line(points={{-162,-40.8333},{-180,-40.8333},{-180,-22},{
+            84.525,-22},{84.525,-9.95}},                                                      color={0,127,255}));
+    connect(ports_a1[1], disFloHea.port_a) annotation (Line(points={{-300,0},{-280,
+            0},{-280,-110},{-100,-110}}, color={0,127,255}));
+    connect(disFloHea.port_b, ports_b1[1]) annotation (Line(points={{-80,-110},{280,
+            -110},{280,0},{300,0}}, color={0,127,255}));
     connect(maxTSet.y, from_degC2.u) annotation (Line(points={{-278,220},{-262,
             220}},                                                                  color={0,0,127}));
-    connect(ports_a1[2], disFloCoo.port_a) annotation (Line(points={{-300,20},{
-            -280,20},{-280,-150},{-100,-150}},
-                                         color={0,127,255}));
-    connect(disFloCoo.port_b, ports_b1[2]) annotation (Line(points={{-80,-150},{
-            280,-150},{280,20},{300,20}},
-                                    color={0,127,255}));
+    connect(ports_a1[2], disFloCoo.port_a) annotation (Line(points={{-300,0},{-280,
+            0},{-280,-150},{-100,-150}}, color={0,127,255}));
+    connect(disFloCoo.port_b, ports_b1[2]) annotation (Line(points={{-80,-150},{280,
+            -150},{280,0},{300,0}}, color={0,127,255}));
     connect(from_degC1.y, terUni.TSetHea) annotation (Line(points={{-238,260},{
             -200,260},{-200,-43.3333},{-162.833,-43.3333}},
                                                        color={0,0,127}));
@@ -828,15 +837,14 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
   </html>"),
     Diagram(coordinateSystem(extent={{-300,-300},{300,300}})), Icon(
           coordinateSystem(extent={{-100,-100},{100,100}})));
-  end BuildingRCZ1Pump;
+  end BuildingRCZ1PumpValve;
 
   model BuildingRCZ1HeatPort "RC building model (1 zone) with heat ports"
     extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
       have_fan=false,
       have_pum=false,
       have_eleHea=false,
-      have_eleCoo=false,
-      nPorts1=2);
+      have_eleCoo=false);
     package Medium2 = Buildings.Media.Air
       "Load side medium";
     parameter Integer nZon = 1
@@ -949,9 +957,10 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
     Buildings.Controls.OBC.UnitConversions.From_degC from_degC1
       annotation (Placement(transformation(extent={{-260,250},{-240,270}})));
     Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
-      nUni=nZon,
       m_flow_nominal=terUni.m1Hea_flow_nominal,
-      dp_nominal=100000)
+      dp_nominal=100000,
+      nPorts_a1=1,
+      nPorts_b1=1)
       annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
     Terminal4PipesHeatPorts terUni(
       QHea_flow_nominal=500,
@@ -971,10 +980,11 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
     Buildings.Controls.OBC.UnitConversions.From_degC from_degC2
       annotation (Placement(transformation(extent={{-260,210},{-240,230}})));
     Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
-      nUni=nZon,
       m_flow_nominal=terUni.m1Coo_flow_nominal,
       disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
-      dp_nominal=100000)
+      dp_nominal=100000,
+      nPorts_a1=1,
+      nPorts_b1=1)
       annotation (Placement(transformation(extent={{-120, -160},{-100,-140}})));
   equation
     connect(eqAirTemp.TEqAirWin,preTem1. T)
@@ -1093,20 +1103,16 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
         horizontalAlignment=TextAlignment.Left));
     connect(minTSet.y, from_degC1.u) annotation (Line(points={{-278,260},{-262,
             260}},                                                                  color={0,0,127}));
-    connect(ports_a1[1], disFloHea.port_a) annotation (Line(points={{-300,-20},{
-            -280,-20},{-280,-110},{-120,-110}},
-                                         color={0,127,255}));
-    connect(disFloHea.port_b, ports_b1[1]) annotation (Line(points={{-100,-110},{
-            280,-110},{280,-20},{300,-20}},
-                                    color={0,127,255}));
+    connect(ports_a1[1], disFloHea.port_a) annotation (Line(points={{-300,0},{-280,
+            0},{-280,-110},{-120,-110}}, color={0,127,255}));
+    connect(disFloHea.port_b, ports_b1[1]) annotation (Line(points={{-100,-110},{280,
+            -110},{280,0},{300,0}}, color={0,127,255}));
     connect(maxTSet.y, from_degC2.u) annotation (Line(points={{-278,220},{-262,
             220}},                                                                  color={0,0,127}));
-    connect(ports_a1[2], disFloCoo.port_a) annotation (Line(points={{-300,20},{
-            -280,20},{-280,-150},{-120,-150}},
-                                         color={0,127,255}));
-    connect(disFloCoo.port_b, ports_b1[2]) annotation (Line(points={{-100,-150},{
-            280,-150},{280,20},{300,20}},
-                                    color={0,127,255}));
+    connect(ports_a1[2], disFloCoo.port_a) annotation (Line(points={{-300,0},{-280,
+            0},{-280,-150},{-120,-150}}, color={0,127,255}));
+    connect(disFloCoo.port_b, ports_b1[2]) annotation (Line(points={{-100,-150},{280,
+            -150},{280,0},{300,0}}, color={0,127,255}));
     connect(terUni.heaPorRad, thermalZoneOneElement.intGainsRad) annotation (Line(
           points={{-146.667,-50},{-26,-50},{-26,16},{92,16}},
                                                             color={191,0,0}));
@@ -1171,8 +1177,7 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
       final have_eleHea=false,
       final have_eleCoo=false,
       final have_fan=false,
-      final have_pum=false,
-      nPorts1=2);
+      final have_pum=false);
     parameter Integer nZon = 6
       "Number of thermal zones";
     Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet[nZon](k=fill(20, nZon))
@@ -1187,8 +1192,9 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
       annotation (Placement(transformation(extent={{-260,200},{-240,220}})));
     Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
       m_flow_nominal=sum(terUni.m1Hea_flow_nominal),
-      nUni=nZon,
-      dp_nominal=100000)
+      dp_nominal=100000,
+      nPorts_a1=6,
+      nPorts_b1=6)
       annotation (Placement(transformation(extent={{-140, -100},{-120,-80}})));
     Buildings.Applications.DHC.Loads.Validation.BaseClasses.Terminal4PipesHeatPorts
       terUni[nZon](
@@ -1206,11 +1212,12 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
       annotation (Placement(transformation(extent={{-200,-60},{-180,-40}})));
     Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
       m_flow_nominal=sum(terUni.m1Coo_flow_nominal),
-      nUni=nZon,
       disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
-      dp_nominal=100000) annotation (Placement(transformation(extent={{-140,
+      dp_nominal=100000,
+      nPorts_a1=6,
+      nPorts_b1=6)
+      annotation (Placement(transformation(extent={{-140,
               -160},{-120,-140}})));
-
     Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum1(nin=nZon)
       annotation (Placement(transformation(extent={{240,270},{260,290}})));
     Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum2(nin=nZon)
@@ -1231,30 +1238,20 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
     connect(maxTSet.y,from_degC2. u) annotation (Line(points={{-278,210},{-262,210}},   color={0,0,127}));
     connect(minTSet.y, from_degC1.u)
       annotation (Line(points={{-278,250},{-262,250}},                       color={0,0,127}));
-    connect(ports_a1[1],disFloHea. port_a) annotation (Line(points={{-300,-20},{-252,
-            -20},{-252,-90},{-140,-90}}, color={0,127,255}));
+    connect(ports_a1[1],disFloHea. port_a) annotation (Line(points={{-300,0},{-252,
+            0},{-252,-90},{-140,-90}},   color={0,127,255}));
     connect(disFloHea.port_b, ports_b1[1]) annotation (Line(points={{-120,-90},{308,
-            -90},{308,-20},{300,-20}},
-                                    color={0,127,255}));
-    connect(ports_a1[2],disFloCoo. port_a) annotation (Line(points={{-300,20},{-252,
-            20},{-252,-150},{-140,-150}},color={0,127,255}));
+            -90},{308,0},{300,0}},  color={0,127,255}));
+    connect(ports_a1[2],disFloCoo. port_a) annotation (Line(points={{-300,0},{-252,
+            0},{-252,-150},{-140,-150}}, color={0,127,255}));
     connect(disFloCoo.port_b, ports_b1[2]) annotation (Line(points={{-120,-150},{308,
-            -150},{308,20},{300,20}},
-                                    color={0,127,255}));
+            -150},{308,0},{300,0}}, color={0,127,255}));
     connect(from_degC1.y, terUni.TSetHea) annotation (Line(points={{-238,250},{
             -220,250},{-220,-43.3333},{-200.833,-43.3333}},
                                                        color={0,0,127}));
     connect(from_degC2.y, terUni.TSetCoo) annotation (Line(points={{-238,210},{
             -220,210},{-220,-46.6667},{-200.833,-46.6667}},
                                                        color={0,0,127}));
-    connect(terUni.port_b1Hea, disFloHea.ports_a1) annotation (Line(points={{-180,
-            -59.1667},{-100,-59.1667},{-100,-84},{-120,-84}}, color={0,127,255}));
-    connect(terUni.port_b1Coo, disFloCoo.ports_a1) annotation (Line(points={{-180,
-            -56.6667},{-80,-56.6667},{-80,-144},{-120,-144}}, color={0,127,255}));
-    connect(disFloHea.ports_b1, terUni.port_a1Hea) annotation (Line(points={{-140,
-            -84},{-220,-84},{-220,-59.1667},{-200,-59.1667}}, color={0,127,255}));
-    connect(disFloCoo.ports_b1, terUni.port_a1Coo) annotation (Line(points={{-140,
-            -144},{-240,-144},{-240,-56.6667},{-200,-56.6667}}, color={0,127,255}));
     connect(terUni.QActHea_flow, mulSum1.u) annotation (Line(points={{-179.167,
             -42.5},{-160.584,-42.5},{-160.584,280},{238,280}},
                                                         color={0,0,127}));
@@ -1315,8 +1312,9 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
         horizontalAlignment=TextAlignment.Right));
     connect(terUni[1].heaPorCon, office.port_a) annotation (Line(points={{
             -193.333,-50},{-192,-50},{-192,0},{-90,0}}, color={191,0,0}));
-    connect(terUni[2].heaPorCon, floor.port_a) annotation (Line(points={{-193.333,
-            -50},{-192,-50},{-192,0},{-50,0}}, color={191,0,0}));
+    connect(terUni[2].heaPorCon, floor.port_a) annotation (Line(points={{
+            -193.333,-50},{-192,-50},{-192,0},{-50,0}},
+                                               color={191,0,0}));
     connect(terUni[3].heaPorCon, storage.port_a) annotation (Line(points={{
             -193.333,-50},{-192,-50},{-192,0},{-10,0}}, color={191,0,0}));
     connect(terUni[4].heaPorCon, meeting.port_a) annotation (Line(points={{
@@ -1327,8 +1325,9 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
             -50},{-192,-50},{-192,0},{110,0}}, color={191,0,0}));
     connect(terUni[1].heaPorRad, office.port_a) annotation (Line(points={{
             -186.667,-50},{-90,-50},{-90,0}}, color={191,0,0}));
-    connect(terUni[2].heaPorRad, floor.port_a) annotation (Line(points={{-186.667,
-            -50},{-50,-50},{-50,0}}, color={191,0,0}));
+    connect(terUni[2].heaPorRad, floor.port_a) annotation (Line(points={{
+            -186.667,-50},{-50,-50},{-50,0}},
+                                     color={191,0,0}));
     connect(terUni[3].heaPorRad, storage.port_a) annotation (Line(points={{
             -186.667,-50},{-10,-50},{-10,0}}, color={191,0,0}));
     connect(terUni[4].heaPorRad, meeting.port_a) annotation (Line(points={{
@@ -1338,11 +1337,24 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
     connect(terUni[6].heaPorRad, iCT.port_a) annotation (Line(points={{-186.667,
             -50},{110,-50},{110,0}}, color={191,0,0}));
     connect(terUni.m1ReqHea_flow, disFloHea.m1Req_flow) annotation (Line(points={{
-            -179.167,-52.5},{-179.167,-74},{-180,-74},{-180,-94},{-141,-94},{-141,
-            -94}}, color={0,0,127}));
+            -179.167,-52.5},{-179.167,-74},{-180,-74},{-180,-94},{-141,-94},{
+            -141,-94}},
+                   color={0,0,127}));
     connect(terUni.m1ReqCoo_flow, disFloCoo.m1Req_flow) annotation (Line(points={{
             -179.167,-54.1667},{-179.167,-155.083},{-141,-155.083},{-141,-154}},
           color={0,0,127}));
+    connect(terUni.port_b1Hea, disFloHea.ports_a1[1:6]) annotation (Line(points=
+           {{-180,-59.1667},{-140,-59.1667},{-140,-60},{-100,-60},{-100,
+            -80.6667},{-120,-80.6667}}, color={0,127,255}));
+    connect(disFloHea.ports_b1[1:6], terUni.port_a1Hea) annotation (Line(points=
+           {{-140,-80.6667},{-162,-80.6667},{-162,-82},{-220,-82},{-220,
+            -59.1667},{-200,-59.1667}}, color={0,127,255}));
+    connect(terUni.port_b1Coo, disFloCoo.ports_a1[1:6]) annotation (Line(points=
+           {{-180,-56.6667},{-130,-56.6667},{-130,-58},{-80,-58},{-80,-140.667},
+            {-120,-140.667}}, color={0,127,255}));
+    connect(disFloCoo.ports_b1[1:6], terUni.port_a1Coo) annotation (Line(points=
+           {{-140,-140.667},{-186,-140.667},{-186,-140},{-240,-140},{-240,
+            -56.6667},{-200,-56.6667}}, color={0,127,255}));
     annotation (
     Documentation(info="
   <html>
@@ -1361,8 +1373,7 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
       final have_eleHea=false,
       final have_eleCoo=false,
       final have_fan=false,
-      final have_pum=true,
-      nPorts1=2);
+      final have_pum=true);
     parameter Integer nZon = 6
       "Number of thermal zones";
     Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet[nZon](k=fill(20, nZon))
@@ -1377,9 +1388,10 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
       annotation (Placement(transformation(extent={{-260,200},{-240,220}})));
     Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
       m_flow_nominal=sum(terUni.m1Hea_flow_nominal),
-      nUni=nZon,
       have_pum=true,
-      dp_nominal=100000)
+      dp_nominal=100000,
+      nPorts_a1=6,
+      nPorts_b1=6)
       annotation (Placement(transformation(extent={{-140, -100},{-120,-80}})));
     Buildings.Applications.DHC.Loads.Validation.BaseClasses.Terminal4PipesHeatPorts
       terUni[nZon](
@@ -1397,10 +1409,12 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
       annotation (Placement(transformation(extent={{-200,-60},{-180,-40}})));
     Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
       m_flow_nominal=sum(terUni.m1Coo_flow_nominal),
-      nUni=nZon,
       disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
       have_pum=true,
-      dp_nominal=100000) annotation (Placement(transformation(extent={{-140,
+      dp_nominal=100000,
+      nPorts_a1=6,
+      nPorts_b1=6)
+      annotation (Placement(transformation(extent={{-140,
               -160},{-120,-140}})));
     Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum1(nin=nZon)
       annotation (Placement(transformation(extent={{240,270},{260,290}})));
@@ -1424,16 +1438,14 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
     connect(maxTSet.y,from_degC2. u) annotation (Line(points={{-278,210},{-262,210}},   color={0,0,127}));
     connect(minTSet.y, from_degC1.u)
       annotation (Line(points={{-278,250},{-262,250}},                       color={0,0,127}));
-    connect(ports_a1[1],disFloHea. port_a) annotation (Line(points={{-300,-20},{-252,
-            -20},{-252,-90},{-140,-90}}, color={0,127,255}));
+    connect(ports_a1[1],disFloHea. port_a) annotation (Line(points={{-300,0},{-252,
+            0},{-252,-90},{-140,-90}},   color={0,127,255}));
     connect(disFloHea.port_b, ports_b1[1]) annotation (Line(points={{-120,-90},{308,
-            -90},{308,-20},{300,-20}},
-                                    color={0,127,255}));
-    connect(ports_a1[2],disFloCoo. port_a) annotation (Line(points={{-300,20},{-252,
-            20},{-252,-150},{-140,-150}},color={0,127,255}));
+            -90},{308,0},{300,0}},  color={0,127,255}));
+    connect(ports_a1[2],disFloCoo. port_a) annotation (Line(points={{-300,0},{-252,
+            0},{-252,-150},{-140,-150}}, color={0,127,255}));
     connect(disFloCoo.port_b, ports_b1[2]) annotation (Line(points={{-120,-150},{308,
-            -150},{308,20},{300,20}},
-                                    color={0,127,255}));
+            -150},{308,0},{300,0}}, color={0,127,255}));
     connect(from_degC1.y, terUni.TSetHea) annotation (Line(points={{-238,250},{
             -220,250},{-220,-43.3333},{-200.833,-43.3333}},
                                                        color={0,0,127}));
@@ -1508,8 +1520,9 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
         horizontalAlignment=TextAlignment.Right));
     connect(terUni[1].heaPorCon, office.port_a) annotation (Line(points={{
             -193.333,-50},{-192,-50},{-192,0},{-90,0}}, color={191,0,0}));
-    connect(terUni[2].heaPorCon, floor.port_a) annotation (Line(points={{-193.333,
-            -50},{-192,-50},{-192,0},{-50,0}}, color={191,0,0}));
+    connect(terUni[2].heaPorCon, floor.port_a) annotation (Line(points={{
+            -193.333,-50},{-192,-50},{-192,0},{-50,0}},
+                                               color={191,0,0}));
     connect(terUni[3].heaPorCon, storage.port_a) annotation (Line(points={{
             -193.333,-50},{-192,-50},{-192,0},{-10,0}}, color={191,0,0}));
     connect(terUni[4].heaPorCon, meeting.port_a) annotation (Line(points={{
@@ -1520,8 +1533,9 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
             -50},{-192,-50},{-192,0},{110,0}}, color={191,0,0}));
     connect(terUni[1].heaPorRad, office.port_a) annotation (Line(points={{
             -186.667,-50},{-90,-50},{-90,0}}, color={191,0,0}));
-    connect(terUni[2].heaPorRad, floor.port_a) annotation (Line(points={{-186.667,
-            -50},{-50,-50},{-50,0}}, color={191,0,0}));
+    connect(terUni[2].heaPorRad, floor.port_a) annotation (Line(points={{
+            -186.667,-50},{-50,-50},{-50,0}},
+                                     color={191,0,0}));
     connect(terUni[3].heaPorRad, storage.port_a) annotation (Line(points={{
             -186.667,-50},{-10,-50},{-10,0}}, color={191,0,0}));
     connect(terUni[4].heaPorRad, meeting.port_a) annotation (Line(points={{
@@ -1531,8 +1545,9 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
     connect(terUni[6].heaPorRad, iCT.port_a) annotation (Line(points={{-186.667,
             -50},{110,-50},{110,0}}, color={191,0,0}));
     connect(terUni.m1ReqHea_flow, disFloHea.m1Req_flow) annotation (Line(points={{
-            -179.167,-52.5},{-179.167,-74},{-180,-74},{-180,-94},{-141,-94},{-141,
-            -94}}, color={0,0,127}));
+            -179.167,-52.5},{-179.167,-74},{-180,-74},{-180,-94},{-141,-94},{
+            -141,-94}},
+                   color={0,0,127}));
     connect(terUni.m1ReqCoo_flow, disFloCoo.m1Req_flow) annotation (Line(points={{
             -179.167,-54.1667},{-179.167,-155.083},{-141,-155.083},{-141,-154}},
           color={0,0,127}));
@@ -1559,8 +1574,7 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
     extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
       have_pum=false,
       have_eleHea=false,
-      have_eleCoo=false,
-      nPorts1=2);
+      have_eleCoo=false);
     package Medium2 = Buildings.Media.Air
       "Load side medium";
     parameter Integer nZon = 1
@@ -1614,15 +1628,17 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
     Buildings.Controls.OBC.UnitConversions.From_degC from_degC2
       annotation (Placement(transformation(extent={{-260,210},{-240,230}})));
     Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
-      nUni=nZon,
       m_flow_nominal=terUni.m1Hea_flow_nominal,
-      dp_nominal=100000)
+      dp_nominal=100000,
+      nPorts_a1=1,
+      nPorts_b1=1)
       annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
     Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
-      nUni=nZon,
       m_flow_nominal=terUni.m1Coo_flow_nominal,
       disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
-      dp_nominal=100000)
+      dp_nominal=100000,
+      nPorts_a1=1,
+      nPorts_b1=1)
       annotation (Placement(transformation(extent={{-120, -160},{-100,-140}})));
   equation
     connect(qRadGai_flow.y,multiplex3_1.u1[1])  annotation (Line(
@@ -1641,16 +1657,16 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
             260}},                                                                  color={0,0,127}));
     connect(maxTSet.y,from_degC2. u) annotation (Line(points={{-278,220},{-262,
             220}},                                                                  color={0,0,127}));
-    connect(ports_a1[1], disFloHea.port_a) annotation (Line(points={{-300,-20},{-280,
-            -20},{-280,-110},{-120,-110}}, color={0,127,255}));
+    connect(ports_a1[1], disFloHea.port_a) annotation (Line(points={{-300,0},{-280,
+            0},{-280,-110},{-120,-110}},   color={0,127,255}));
     connect(disFloHea.port_b, ports_b1[1]) annotation (Line(points={{-100,-110},{280,
-            -110},{280,-20},{300,-20}}, color={0,127,255}));
-    connect(ports_a1[2], disFloCoo.port_a) annotation (Line(points={{-300,20},{-280,
-            20},{-280,-150},{-120,-150}}, color={0,127,255}));
+            -110},{280,0},{300,0}},     color={0,127,255}));
+    connect(ports_a1[2], disFloCoo.port_a) annotation (Line(points={{-300,0},{-280,
+            0},{-280,-150},{-120,-150}},  color={0,127,255}));
     connect(disFloCoo.port_b, ports_b1[2]) annotation (Line(points={{-100,-150},{280,
-            -150},{280,20},{300,20}}, color={0,127,255}));
-    connect(zon.ports[1], terUni.port_a2) annotation (Line(points={{58,-19.2},{62,
-            -19.2},{62,-40.8333},{-140,-40.8333}},
+            -150},{280,0},{300,0}},   color={0,127,255}));
+    connect(zon.ports[1], terUni.port_a2) annotation (Line(points={{58,-19.2},{
+            62,-19.2},{62,-40.8333},{-140,-40.8333}},
                                          color={0,127,255}));
     connect(terUni.port_b1Hea, disFloHea.ports_a1[1]) annotation (Line(points={{-140,
             -59.1667},{-140,-59.5833},{-100,-59.5833},{-100,-104}}, color={0,127,255}));
@@ -1672,17 +1688,19 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
     connect(terUni.QActCoo_flow, QCoo_flow) annotation (Line(points={{-139.167,
             -44.1667},{-139.167,-46},{-120,-46},{-120,220},{320,220}},
                                                              color={0,0,127}));
-    connect(terUni.PFan, PFan) annotation (Line(points={{-139.167,-49.1667},{260,
-            -49.1667},{260,100},{320,100}},
+    connect(terUni.PFan, PFan) annotation (Line(points={{-139.167,-49.1667},{
+            260,-49.1667},{260,100},{320,100}},
                                   color={0,0,127}));
     connect(terUni.m1ReqHea_flow, disFloHea.m1Req_flow[1]) annotation (Line(
-          points={{-139.167,-52.5},{-139.167,-115.083},{-121,-115.083},{-121,-114}},
+          points={{-139.167,-52.5},{-139.167,-115.083},{-121,-115.083},{-121,
+            -114}},
           color={0,0,127}));
     connect(terUni.m1ReqCoo_flow, disFloCoo.m1Req_flow[1]) annotation (Line(
           points={{-139.167,-54.1667},{-139.167,-104},{-140,-104},{-140,-154},{
             -121,-154},{-121,-154}}, color={0,0,127}));
-    connect(terUni.port_b2, zon.ports[2]) annotation (Line(points={{-160,-40.8333},
-            {-172,-40.8333},{-172,-40},{-180,-40},{-180,-19.2},{62,-19.2}}, color=
+    connect(terUni.port_b2, zon.ports[2]) annotation (Line(points={{-160,
+            -40.8333},{-172,-40.8333},{-172,-40},{-180,-40},{-180,-19.2},{62,
+            -19.2}},                                                        color=
            {0,127,255}));
     annotation (
     Documentation(info="
@@ -1703,8 +1721,7 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
       final have_eleHea=false,
       final have_eleCoo=false,
       final have_pum=false,
-      final have_weaBus=false,
-      nPorts1=2);
+      final have_weaBus=false);
     package Medium2 = Buildings.Media.Air "Medium model";
     parameter Integer nZon = 6
       "Number of thermal zones";
@@ -1770,13 +1787,17 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
     Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
       m_flow_nominal=sum(terUni.m1Hea_flow_nominal),
       dp_nominal=100000,
-      nUni=nZon) annotation (Placement(transformation(extent={{-238,-190},{
+      nPorts_a1=6,
+      nPorts_b1=6)
+      annotation (Placement(transformation(extent={{-238,-190},{
               -218,-170}})));
     Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
       m_flow_nominal=sum(terUni.m1Coo_flow_nominal),
       disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
-      nUni=nZon,
-      dp_nominal=100000) annotation (Placement(transformation(extent={{-180,
+      dp_nominal=100000,
+      nPorts_a1=6,
+      nPorts_b1=6)
+      annotation (Placement(transformation(extent={{-180,
               -230},{-160,-210}})));
 
     Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=6)
@@ -1827,15 +1848,15 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
     connect(multiplex3_1.y,znPerimeter_ZN_4.qGai_flow)
       annotation (Line(points={{7,190},{20,190},{20,-90},{22,-90}}, color={0,0,127}));
     connect(ports_a1[1], disFloHea.port_a)
-      annotation (Line(points={{-300,-20},{-280,-20},{-280,-180},{-238,-180}},
+      annotation (Line(points={{-300,0},{-280,0},{-280,-180},{-238,-180}},
                                            color={0,127,255}));
     connect(disFloHea.port_b, ports_b1[1])
-      annotation (Line(points={{-218,-180},{260,-180},{260,-20},{300,-20}},
+      annotation (Line(points={{-218,-180},{260,-180},{260,0},{300,0}},
                                         color={0,127,255}));
-    connect(ports_a1[2], disFloCoo.port_a) annotation (Line(points={{-300,20},{-280,
-            20},{-280,-220},{-180,-220}}, color={0,127,255}));
+    connect(ports_a1[2], disFloCoo.port_a) annotation (Line(points={{-300,0},{-280,
+            0},{-280,-220},{-180,-220}},  color={0,127,255}));
     connect(disFloCoo.port_b, ports_b1[2]) annotation (Line(points={{-160,-220},{280,
-            -220},{280,20},{300,20}}, color={0,127,255}));
+            -220},{280,0},{300,0}},   color={0,127,255}));
     connect(from_degC1.y, terUni.TSetHea) annotation (Line(points={{-238,260},{-162,
             260},{-162,18},{-87,18}}, color={0,0,127}));
     connect(from_degC2.y, terUni.TSetCoo) annotation (Line(points={{-238,220},{-162,
@@ -1885,8 +1906,9 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
             {-61,-110.5},{-181,-110.5},{-181,-224}},        color={0,0,127}));
     connect(terUni.m1ReqHea_flow, disFloHea.m1Req_flow) annotation (Line(points={{-61,7},
             {-61,-88.5},{-239,-88.5},{-239,-184}},        color={0,0,127}));
-    connect(terUni.PFan, mulSum.u[1:6]) annotation (Line(points={{-61,11},{200.5,
-            11},{200.5,118.333},{218,118.333}}, color={0,0,127}));
+    connect(terUni.PFan, mulSum.u[1:6]) annotation (Line(points={{-61,11},{
+            200.5,11},{200.5,118.333},{218,118.333}},
+                                                color={0,0,127}));
     connect(mulSum.y, PFan) annotation (Line(points={{242,120},{278,120},{278,100},
             {320,100}}, color={0,0,127}));
     annotation (
@@ -1908,8 +1930,7 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
       final have_eleHea=false,
       final have_eleCoo=false,
       final have_pum=true,
-      final have_weaBus=false,
-      nPorts1=2);
+      final have_weaBus=false);
     package Medium2 = Buildings.Media.Air "Medium model";
     parameter Integer nZon = 6
       "Number of thermal zones";
@@ -1976,15 +1997,18 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
       m_flow_nominal=sum(terUni.m1Hea_flow_nominal),
       have_pum=true,
       dp_nominal=100000,
-      nUni=nZon)
+      nPorts_a1=6,
+      nPorts_b1=6)
       annotation (Placement(transformation(extent={{-238,-190},{
               -218,-170}})));
     Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
       m_flow_nominal=sum(terUni.m1Coo_flow_nominal),
       disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
-      nUni=nZon,
       have_pum=true,
-      dp_nominal=100000) annotation (Placement(transformation(extent={{-180,
+      dp_nominal=100000,
+      nPorts_a1=6,
+      nPorts_b1=6)
+      annotation (Placement(transformation(extent={{-180,
               -230},{-160,-210}})));
 
     Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=6)
@@ -2037,15 +2061,15 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
     connect(multiplex3_1.y,znPerimeter_ZN_4.qGai_flow)
       annotation (Line(points={{7,190},{20,190},{20,-90},{22,-90}}, color={0,0,127}));
     connect(ports_a1[1], disFloHea.port_a)
-      annotation (Line(points={{-300,-20},{-280,-20},{-280,-180},{-238,-180}},
+      annotation (Line(points={{-300,0},{-280,0},{-280,-180},{-238,-180}},
                                            color={0,127,255}));
     connect(disFloHea.port_b, ports_b1[1])
-      annotation (Line(points={{-218,-180},{260,-180},{260,-20},{300,-20}},
+      annotation (Line(points={{-218,-180},{260,-180},{260,0},{300,0}},
                                         color={0,127,255}));
-    connect(ports_a1[2], disFloCoo.port_a) annotation (Line(points={{-300,20},{-280,
-            20},{-280,-220},{-180,-220}}, color={0,127,255}));
+    connect(ports_a1[2], disFloCoo.port_a) annotation (Line(points={{-300,0},{-280,
+            0},{-280,-220},{-180,-220}},  color={0,127,255}));
     connect(disFloCoo.port_b, ports_b1[2]) annotation (Line(points={{-160,-220},{280,
-            -220},{280,20},{300,20}}, color={0,127,255}));
+            -220},{280,0},{300,0}},   color={0,127,255}));
     connect(from_degC1.y, terUni.TSetHea) annotation (Line(points={{-238,260},{-162,
             260},{-162,18},{-87,18}}, color={0,0,127}));
     connect(from_degC2.y, terUni.TSetCoo) annotation (Line(points={{-238,220},{-162,
@@ -2096,8 +2120,9 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
             {-61,-110.5},{-181,-110.5},{-181,-224}},        color={0,0,127}));
     connect(terUni.m1ReqHea_flow, disFloHea.m1Req_flow) annotation (Line(points={{-61,7},
             {-61,-88.5},{-239,-88.5},{-239,-184}},        color={0,0,127}));
-    connect(terUni.PFan, mulSum.u[1:6]) annotation (Line(points={{-61,11},{200.5,
-            11},{200.5,118.333},{258,118.333}}, color={0,0,127}));
+    connect(terUni.PFan, mulSum.u[1:6]) annotation (Line(points={{-61,11},{
+            200.5,11},{200.5,118.333},{258,118.333}},
+                                                color={0,0,127}));
     connect(mulSum.y, PFan) annotation (Line(points={{282,120},{302,120},{302,100},
             {320,100}}, color={0,0,127}));
     connect(PPum, mulSum3.y)
@@ -2122,8 +2147,8 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
 
   model Terminal4PipesFluidPorts
     extends Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit(
-      final heaFunSpe=Buildings.Applications.DHC.Loads.Types.TerminalFunctionSpec.Water,
-      final cooFunSpe=Buildings.Applications.DHC.Loads.Types.TerminalFunctionSpec.Water,
+      final funHeaSpe=Buildings.Applications.DHC.Loads.Types.TerminalFunctionSpec.Water,
+      final funCooSpe=Buildings.Applications.DHC.Loads.Types.TerminalFunctionSpec.Water,
       final have_heaPor=false,
       final have_fluPor=true,
       final have_weaBus=false,
@@ -2135,14 +2160,14 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
           T_a1Coo_nominal - T_b1Coo_nominal)));
 
     Buildings.Controls.OBC.CDL.Continuous.LimPID conTMin(
-      each Ti=120,
-      each yMax=1,
-      each controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+      Ti=120,
+      yMax=1,
+      controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
       reverseAction=false,
-      each yMin=0) "PI controller for minimum indoor temperature"
+      yMin=0) "PI controller for minimum indoor temperature"
       annotation (Placement(transformation(extent={{-10,210},{10,230}})));
     Buildings.Fluid.Movers.FlowControlled_m_flow fan(
-      redeclare each final package Medium=Medium2,
+      redeclare final package Medium=Medium2,
       energyDynamics=energyDynamics,
       m_flow_nominal=max({m2Hea_flow_nominal, m2Coo_flow_nominal}),
       redeclare Fluid.Movers.Data.Generic per,
@@ -2167,7 +2192,7 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
     Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaFloNom(k=m1Hea_flow_nominal)
       annotation (Placement(transformation(extent={{20,210},{40,230}})));
     Modelica.Blocks.Sources.RealExpression Q_flowHea(y=hexHea.Q2_flow)
-      annotation (Placement(transformation(extent={{160,210},{180,230}})));
+      annotation (Placement(transformation(extent={{120,210},{140,230}})));
     Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hexCoo(
       redeclare final package Medium1=Medium1,
       redeclare final package Medium2=Medium2,
@@ -2183,18 +2208,18 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
       final allowFlowReversal2=allowFlowReversal)
       annotation (Placement(transformation(extent={{0,4},{20,-16}})));
     Modelica.Blocks.Sources.RealExpression Q_flowCoo(y=hexCoo.Q2_flow)
-      annotation (Placement(transformation(extent={{160,190},{180,210}})));
+      annotation (Placement(transformation(extent={{120,190},{140,210}})));
     Buildings.Controls.OBC.CDL.Continuous.Gain gaiFloNom2(k=max({
       m2Hea_flow_nominal,m2Coo_flow_nominal}))
       annotation (Placement(transformation(extent={{20,90},{40,110}})));
     Buildings.Controls.OBC.CDL.Continuous.Sources.Constant sigFlo2(k=1)
       annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
     Buildings.Controls.OBC.CDL.Continuous.LimPID conTMax(
-      each Ti=120,
-      each yMax=1,
-      each controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+      Ti=120,
+      yMax=1,
+      controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
       reverseAction=true,
-      each yMin=0) "PI controller for maximum indoor temperature"
+      yMin=0) "PI controller for maximum indoor temperature"
       annotation (Placement(transformation(extent={{-10,170},{10,190}})));
     Buildings.Controls.OBC.CDL.Continuous.Gain gaiCooFloNom(k=m1Coo_flow_nominal)
       annotation (Placement(transformation(extent={{20,170},{40,190}})));
@@ -2232,20 +2257,10 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
       annotation (Line(points={{-220,220},{-12,220}}, color={0,0,127}));
     connect(conTMin.y, gaiHeaFloNom.u)
       annotation (Line(points={{12,220},{18,220}}, color={0,0,127}));
-    connect(gaiHeaFloNom.y, m1ReqHea_flow) annotation (Line(points={{42,220},{122,
-            220},{122,100},{220,100}}, color={0,0,127}));
     connect(conTMax.y, gaiCooFloNom.u)
       annotation (Line(points={{12,180},{18,180}}, color={0,0,127}));
     connect(TSetCoo, conTMax.u_s)
       annotation (Line(points={{-220,180},{-12,180}}, color={0,0,127}));
-    connect(gaiCooFloNom.y, m1ReqCoo_flow) annotation (Line(points={{42,180},{140,
-            180},{140,80},{220,80}},   color={0,0,127}));
-    connect(Q_flowHea.y, QActHea_flow)
-      annotation (Line(points={{181,220},{220,220}}, color={0,0,127}));
-    connect(Q_flowCoo.y, QActCoo_flow)
-      annotation (Line(points={{181,200},{220,200}}, color={0,0,127}));
-    connect(fan.P, PFan) annotation (Line(points={{69,9},{60,9},{60,140},{220,140}},
-          color={0,0,127}));
     connect(port_a2, senTem.port_a)
       annotation (Line(points={{200,0},{130,0}}, color={0,127,255}));
     connect(senTem.port_b, fan.port_a)
@@ -2254,12 +2269,22 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
             {0,168}}, color={0,0,127}));
     connect(senTem.T, conTMin.u_m) annotation (Line(points={{120,11},{120,40},{-20,
             40},{-20,200},{0,200},{0,208}}, color={0,0,127}));
+    connect(gaiHeaFloNom.y, sca_m1ReqHea_flow.u) annotation (Line(points={{42,
+            220},{100,220},{100,100},{158,100}}, color={0,0,127}));
+    connect(gaiCooFloNom.y, sca_m1ReqCoo_flow.u) annotation (Line(points={{42,
+            180},{100,180},{100,80},{158,80}}, color={0,0,127}));
+    connect(fan.P, scaPFan.u) annotation (Line(points={{69,9},{60,9},{60,140},{
+            158,140}}, color={0,0,127}));
+    connect(Q_flowHea.y, scaQActHea_flow.u) annotation (Line(points={{141,220},
+            {150,220},{150,220},{158,220}}, color={0,0,127}));
+    connect(Q_flowCoo.y, scaQActCoo_flow.u) annotation (Line(points={{141,200},
+            {158,200},{158,200}}, color={0,0,127}));
   end Terminal4PipesFluidPorts;
 
   model Terminal4PipesHeatPorts
     extends Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit(
-      final heaFunSpe=Buildings.Applications.DHC.Loads.Types.TerminalFunctionSpec.Water,
-      final cooFunSpe=Buildings.Applications.DHC.Loads.Types.TerminalFunctionSpec.Water,
+      final funHeaSpe=Buildings.Applications.DHC.Loads.Types.TerminalFunctionSpec.Water,
+      final funCooSpe=Buildings.Applications.DHC.Loads.Types.TerminalFunctionSpec.Water,
       final have_heaPor=true,
       final have_fluPor=false,
       final have_QReq_flow=false,
@@ -2477,8 +2502,8 @@ package BaseClasses "BaseClasses - Package with base classes for Examples"
 
   model Terminal4PipesHeatReq
     extends Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit(
-      final heaFunSpe=Buildings.Applications.DHC.Loads.Types.TerminalFunctionSpec.Water,
-      final cooFunSpe=Buildings.Applications.DHC.Loads.Types.TerminalFunctionSpec.Water,
+      final funHeaSpe=Buildings.Applications.DHC.Loads.Types.TerminalFunctionSpec.Water,
+      final funCooSpe=Buildings.Applications.DHC.Loads.Types.TerminalFunctionSpec.Water,
       final have_QReq_flow=true,
       final have_heaPor=false,
       final have_fluPor=false,

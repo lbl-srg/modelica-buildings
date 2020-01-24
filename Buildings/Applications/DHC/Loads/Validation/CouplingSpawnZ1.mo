@@ -4,7 +4,8 @@ model CouplingSpawnZ1
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water
     "Source side medium";
-  Buildings.Applications.DHC.Loads.Validation.BaseClasses.BuildingSpawnZ1 bui
+  Buildings.Applications.DHC.Loads.Validation.BaseClasses.BuildingSpawnZ1 bui(
+    nPorts_a1=2, nPorts_b1=2)
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Buildings.Fluid.Sources.MassFlowSource_T supHeaWat(
     use_m_flow_in=true,
@@ -58,13 +59,13 @@ equation
   connect(mChiWat_flow.y, supChiWat.m_flow_in) annotation (Line(points={{-59,
           -60},{-50,-60},{-50,-72},{-42,-72}}, color={0,0,127}));
   connect(supHeaWat.ports[1], bui.ports_a1[1]) annotation (Line(points={{-20,0},
-          {0,0},{0,-48},{20,-48}}, color={0,127,255}));
-  connect(supChiWat.ports[1], bui.ports_a1[2]) annotation (Line(points={{-20,
-          -80},{0,-80},{0,-48},{20,-48}}, color={0,127,255}));
-  connect(bui.ports_b1[1], sinHeaWat.ports[1]) annotation (Line(points={{80,-48},
-          {94,-48},{94,0},{120,0}}, color={0,127,255}));
-  connect(bui.ports_b1[2], sinChiWat.ports[1]) annotation (Line(points={{80,-48},
-          {94,-48},{94,-80},{120,-80}}, color={0,127,255}));
+          {0,0},{0,-50},{20,-50}}, color={0,127,255}));
+  connect(supChiWat.ports[1], bui.ports_a1[2]) annotation (Line(points={{-20,-80},
+          {0,-80},{0,-46},{20,-46}},      color={0,127,255}));
+  connect(bui.ports_b1[1], sinHeaWat.ports[1]) annotation (Line(points={{80,-50},
+          {94,-50},{94,0},{120,0}}, color={0,127,255}));
+  connect(bui.ports_b1[2], sinChiWat.ports[1]) annotation (Line(points={{80,-46},
+          {94,-46},{94,-80},{120,-80}}, color={0,127,255}));
   annotation (
   experiment(
       StopTime=604800,
@@ -83,6 +84,6 @@ equation
   </html>"),
   Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{140,80}})),
-  __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingSpawnZ1.mos"
+  __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/CouplingSpawnZ1.mos"
         "Simulate and plot"));
 end CouplingSpawnZ1;

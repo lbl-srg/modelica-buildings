@@ -7,7 +7,13 @@ model FlowDistribution "Model of hydraulic distribution system"
     final allowFlowReversal=false);
   import typ = Buildings.Applications.DHC.Loads.Types.DistributionType
     "Types of distribution system";
-  parameter Integer nUni = 1
+  parameter Integer nPorts_a1 = 0
+    "Number of inlet fluid ports on load side"
+    annotation(Dialog(connectorSizing=true), Evaluate=true);
+  parameter Integer nPorts_b1 = 0
+    "Number of outlet fluid ports on load side"
+    annotation(Dialog(connectorSizing=true), Evaluate=true);
+  final parameter Integer nUni = nPorts_a1
     "Number of served units"
     annotation(Evaluate=true);
   parameter typ disTyp = typ.HeatingWater
@@ -34,14 +40,14 @@ model FlowDistribution "Model of hydraulic distribution system"
     "Time constant of primary fluid temperature variation at nominal flow"
     annotation (Dialog(tab="Dynamics", group="Nominal condition"));
   // IO CONNECTORS
-  Modelica.Fluid.Interfaces.FluidPorts_a ports_a1[nUni](
+  Modelica.Fluid.Interfaces.FluidPorts_a ports_a1[nPorts_a1](
     redeclare each final package Medium=Medium,
     each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Fluid connectors a (positive design flow direction is from port_a to ports_b)"
     annotation (Placement(transformation(extent={{-110,120},{-90,200}}),
       iconTransformation(extent={{90,20},{110,100}})));
-  Modelica.Fluid.Interfaces.FluidPorts_b ports_b1[nUni](
+  Modelica.Fluid.Interfaces.FluidPorts_b ports_b1[nPorts_b1](
     redeclare each final package Medium=Medium,
     each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
@@ -71,7 +77,7 @@ model FlowDistribution "Model of hydraulic distribution system"
     annotation (Placement(transformation(extent={{100,200},
       {140,240}}),iconTransformation(extent={{100,-50},{120,-30}})));
   Modelica.Blocks.Interfaces.RealOutput QAct_flow(
-    each quantity="HeatFlowRate")
+    quantity="HeatFlowRate")
     "Heat flow rate transferred to the source (<0 for heating)"
     annotation (Placement(transformation(extent={{100,80},{140,120}}),
       iconTransformation(extent={{100,-70},{120,-50}})));
@@ -209,17 +215,17 @@ model FlowDistribution "Model of hydraulic distribution system"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Max posPar if have_val
     "Positive part of control signal"
-    annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
+    annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Min negPar if have_val
     "Negative part of control signal"
-    annotation (Placement(transformation(extent={{-40,-140},{-20,-120}})));
+    annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
   Modelica.Blocks.Sources.RealExpression zer(y=0) if have_val
     "Zero value"
     annotation (Placement(transformation(extent={{-90,-110},{-70,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi if have_val
-    annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
+    annotation (Placement(transformation(extent={{40,-110},{60,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum1(k={-1}, nin=1) if have_val
-    annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
+    annotation (Placement(transformation(extent={{0,-130},{20,-110}})));
   Modelica.Blocks.Math.IntegerToBoolean toBoo(threshold=0) if
     have_val and disTyp == typ.ChangeOver
     "Boolean conversion (true if heating mode)"
@@ -227,7 +233,7 @@ model FlowDistribution "Model of hydraulic distribution system"
   Modelica.Blocks.Sources.BooleanExpression fixMod(y=disTyp == typ.HeatingWater) if
     have_val and disTyp <> typ.ChangeOver
     "Fixed operating mode"
-    annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
+    annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
   // MISCELLANEOUS VARIABLES
   Modelica.SIunits.Temperature TSup(displayUnit="degC") = Medium.temperature(
     state=Medium.setState_phX(
@@ -236,6 +242,10 @@ model FlowDistribution "Model of hydraulic distribution system"
       X=inStream(ideSou.port_a.Xi_outflow)))
     "Supply temperature";
 initial equation
+  assert(nPorts_a1 == nPorts_b1,
+    "In " + getInstanceName() +
+    ": The numbers of source side inlet ports (" + String(nPorts_a1) +
+    ") and outlet ports (" + String(nPorts_b1) + ") must be equal.");
   assert(if have_val then have_pum else true,
     "In " + getInstanceName() +
     ": The configuration where have_val is true and have_pum is false is not allowed.");
@@ -287,33 +297,35 @@ equation
     connect(TSupVal.y, conTSup.u_m)
       annotation (
       Line(points={{-79,80},{-60,80},{-60,-140},{-80,-140},{-80,-132}}, color={0,0,127}));
-    connect(zer.y,negPar. u1) annotation (Line(points={{-69,-100},{-54,-100},{-54,
-            -124},{-42,-124}}, color={0,0,127}));
-    connect(zer.y, posPar.u1) annotation (Line(points={{-69,-100},{-54,-100},{-54,
-            -84},{-42,-84}}, color={0,0,127}));
+    connect(zer.y,negPar. u1) annotation (Line(points={{-69,-100},{-54,-100},{
+            -54,-114},{-42,-114}},
+                               color={0,0,127}));
+    connect(zer.y, posPar.u1) annotation (Line(points={{-69,-100},{-54,-100},{
+            -54,-74},{-42,-74}},
+                             color={0,0,127}));
     connect(conTSup.y,negPar. u2) annotation (Line(points={{-68,-120},{-48,-120},
-            {-48,-136},{-42,-136}}, color={0,0,127}));
+            {-48,-126},{-42,-126}}, color={0,0,127}));
     connect(conTSup.y, posPar.u2) annotation (Line(points={{-68,-120},{-48,-120},
-            {-48,-96},{-42,-96}}, color={0,0,127}));
-    connect(mulSum1.y, swi.u3) annotation (Line(points={{22,-130},{32,-130},{32,
-            -118},{38,-118}}, color={0,0,127}));
-    connect(swi.y, val.y) annotation (Line(points={{62,-110},{80,-110},{80,-60},
-            {-80,-60},{-80,-12}},
+            {-48,-86},{-42,-86}}, color={0,0,127}));
+    connect(mulSum1.y, swi.u3) annotation (Line(points={{22,-120},{32,-120},{32,
+            -108},{38,-108}}, color={0,0,127}));
+    connect(swi.y, val.y) annotation (Line(points={{62,-100},{80,-100},{80,-40},
+            {-80,-40},{-80,-12}},
                              color={0,0,127}));
     connect(negPar.y, mulSum1.u[1])
-      annotation (Line(points={{-18,-130},{-2,-130}}, color={0,0,127}));
+      annotation (Line(points={{-18,-120},{-2,-120}}, color={0,0,127}));
     connect(posPar.y, swi.u1)
-      annotation (Line(points={{-18,-90},{32,-90},{32,-102},{38,-102}},
+      annotation (Line(points={{-18,-80},{32,-80},{32,-92},{38,-92}},
                       color={0,0,127}));
     if disTyp == typ.ChangeOver then
       connect(modChaOve, toBoo.u)
         annotation (Line(points={{-120,-80},{-92,-80}}, color={255,127,0}));
       connect(toBoo.y, swi.u2)
-        annotation (Line(points={{-69,-80},{-64,-80},{-64,-110},{38,-110}},
+        annotation (Line(points={{-69,-80},{-64,-80},{-64,-100},{38,-100}},
                           color={255,0,255}));
     else
       connect(fixMod.y, swi.u2)
-        annotation (Line(points={{21,-100},{26,-100},{26,-110},{38,-110}},
+        annotation (Line(points={{21,-90},{26,-90},{26,-100},{38,-100}},
                         color={255,0,255}));
     end if;
   else
@@ -404,13 +416,13 @@ tracking the supply temperature.
         Rectangle(extent={{-100,100},{100,-100}}, lineColor={95,95,95})}),
       Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-160},{100,
             240}}),                                                                       graphics={Text(
-        extent={{-106,-142},{112,-170}},
+        extent={{-106,-132},{112,-160}},
         lineColor={28,108,200},
         horizontalAlignment=TextAlignment.Left,
           textString=
               "CPU time for integration is twice lower when Dynamics of valve or splitter are NOT steady state!?"),
                                                                                                     Text(
-        extent={{38,-132},{158,-156}},
+        extent={{38,-122},{158,-146}},
         lineColor={28,108,200},
         horizontalAlignment=TextAlignment.Left,
           textString="Implement PI reset for change over")}));

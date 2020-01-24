@@ -5,7 +5,9 @@ model CouplingSpawnZ6Geojson
   package Medium1 = Buildings.Media.Water
     "Source side medium";
   Buildings.Applications.DHC.Loads.Validation.BaseClasses.BuildingSpawnZ6Geojson
-    bui annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
+    bui(nPorts_a1=2, nPorts_b1=2)
+    "Building model"
+    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Buildings.Fluid.Sources.Boundary_pT sinHeaWat(redeclare package Medium =
         Medium1, nPorts=1) "Sink for heating water" annotation (Placement(
         transformation(
@@ -56,13 +58,13 @@ equation
   connect(mChiWat_flow.y, supChiWat.m_flow_in) annotation (Line(points={{-79,-60},
           {-60,-60},{-60,-72},{-42,-72}}, color={0,0,127}));
   connect(supHeaWat.ports[1], bui.ports_a1[1]) annotation (Line(points={{-20,0},
-          {0,0},{0,-48},{20,-48}}, color={0,127,255}));
+          {0,0},{0,-50},{20,-50}}, color={0,127,255}));
   connect(supChiWat.ports[1], bui.ports_a1[2]) annotation (Line(points={{-20,-80},
-          {0,-80},{0,-48},{20,-48}}, color={0,127,255}));
-  connect(bui.ports_b1[1], sinHeaWat.ports[1]) annotation (Line(points={{80,-48},
-          {100,-48},{100,20},{120,20}}, color={0,127,255}));
-  connect(bui.ports_b1[2], sinChiWat.ports[1]) annotation (Line(points={{80,-48},
-          {100,-48},{100,-80},{120,-80}}, color={0,127,255}));
+          {0,-80},{0,-46},{20,-46}}, color={0,127,255}));
+  connect(bui.ports_b1[1], sinHeaWat.ports[1]) annotation (Line(points={{80,-50},
+          {100,-50},{100,20},{120,20}}, color={0,127,255}));
+  connect(bui.ports_b1[2], sinChiWat.ports[1]) annotation (Line(points={{80,-46},
+          {100,-46},{100,-80},{120,-80}}, color={0,127,255}));
   annotation (
   experiment(
       StopTime=604800,
@@ -87,6 +89,6 @@ equation
           textString="Simulation requires
 Hidden.AvoidDoubleComputation=true")}),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingSpawnZ6Geojson.mos"
+          "Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/CouplingSpawnZ6Geojson.mos"
         "Simulate and plot"));
 end CouplingSpawnZ6Geojson;

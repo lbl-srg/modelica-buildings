@@ -311,11 +311,11 @@ model ETSSimplifiedNoSwitch
         rotation=0,
         origin={-160,160})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conTChiWat(
-    each Ti=120,
-    each yMax=1,
-    each controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    Ti=120,
+    yMax=1,
+    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     reverseAction=true,
-    each yMin=0) "PI controller for chilled water supply"
+    yMin=0) "PI controller for chilled water supply"
     annotation (Placement(transformation(extent={{-170,30},{-150,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Product pro
     annotation (Placement(transformation(extent={{-88,-10},{-68,10}})));

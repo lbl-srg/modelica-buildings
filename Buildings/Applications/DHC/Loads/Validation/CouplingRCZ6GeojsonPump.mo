@@ -10,7 +10,7 @@ model CouplingRCZ6GeojsonPump
     "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     "Weather data reader"
     annotation (Placement(transformation(extent={{60,20},{40,40}})));
-  BaseClasses.BuildingRCZ6GeojsonPump bui
+  BaseClasses.BuildingRCZ6GeojsonPump bui(nPorts_a1=2, nPorts_b1=2)
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Buildings.Fluid.Sources.Boundary_pT sinHeaWat(redeclare package Medium =
         Medium1, nPorts=1) "Sink for heating water" annotation (Placement(
@@ -50,18 +50,18 @@ equation
       points={{40,30},{30,30},{30,-8.6},{50.1,-8.6}},
       color={255,204,51},
       thickness=0.5));
-  connect(bui.ports_b1[1], sinHeaWat.ports[1]) annotation (Line(points={{80,-48},
-          {100,-48},{100,0},{120,0}}, color={0,127,255}));
-  connect(bui.ports_b1[2], sinChilWat.ports[1]) annotation (Line(points={{80,-48},
-          {100,-48},{100,-60},{120,-60}}, color={0,127,255}));
+  connect(bui.ports_b1[1], sinHeaWat.ports[1]) annotation (Line(points={{80,-50},
+          {100,-50},{100,0},{120,0}}, color={0,127,255}));
+  connect(bui.ports_b1[2], sinChilWat.ports[1]) annotation (Line(points={{80,-46},
+          {100,-46},{100,-60},{120,-60}}, color={0,127,255}));
   connect(supHeaWat.T_in, THeaWatSup.y) annotation (Line(points={{-42,4},{-60,4},
           {-60,0},{-79,0}}, color={0,0,127}));
   connect(supHeaWat.ports[1], bui.ports_a1[1]) annotation (Line(points={{-20,0},
-          {0,0},{0,-48},{20,-48}}, color={0,127,255}));
+          {0,0},{0,-50},{20,-50}}, color={0,127,255}));
   connect(TChiWatSup.y, supChiWat.T_in) annotation (Line(points={{-79,-60},{-60,
           -60},{-60,-56},{-42,-56}}, color={0,0,127}));
   connect(supChiWat.ports[1], bui.ports_a1[2]) annotation (Line(points={{-20,-60},
-          {0,-60},{0,-48},{20,-48}}, color={0,127,255}));
+          {0,-60},{0,-46},{20,-46}}, color={0,127,255}));
   annotation (
   Documentation(info="<html>
   <p>
@@ -77,7 +77,7 @@ equation
   Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{140,60}})),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingRCZ6GeojsonPump.mos"
+          "Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/CouplingRCZ6GeojsonPump.mos"
         "Simulate and plot"),
     experiment(
       StopTime=15000000,

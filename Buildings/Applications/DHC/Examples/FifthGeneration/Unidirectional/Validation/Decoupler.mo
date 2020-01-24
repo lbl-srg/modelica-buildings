@@ -99,9 +99,9 @@ model Decoupler "Validation of building and ETS connection"
   Buildings.Controls.OBC.CDL.Continuous.LimPID conTChiWat1(
     k=0.1,
     Ti=10,
-    each yMax=1,
-    each controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    each yMin=0,
+    yMax=1,
+    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    yMin=0,
     reverseAction=true)
                  "PI controller for chilled water supply"
     annotation (Placement(transformation(extent={{70,50},{90,70}})));
@@ -165,9 +165,9 @@ model Decoupler "Validation of building and ETS connection"
   Buildings.Controls.OBC.CDL.Continuous.LimPID conTChiWat2(
     k=0.1,
     Ti=10,
-    each yMax=1,
-    each controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    each yMin=0,
+    yMax=1,
+    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    yMin=0,
     reverseAction=true)
                  "PI controller for chilled water supply"
     annotation (Placement(transformation(extent={{70,-90},{90,-70}})));

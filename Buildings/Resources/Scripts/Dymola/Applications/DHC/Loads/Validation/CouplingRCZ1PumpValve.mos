@@ -1,9 +1,9 @@
-simulateModel("Buildings.Applications.DHC.Loads.Validation.CouplingRCZ1Pump",
+simulateModel("Buildings.Applications.DHC.Loads.Validation.CouplingRCZ1PumpValve",
     method="cvode",
     tolerance=1e-6,
     numberOfIntervals=500,
     stopTime=604800.0,
-    resultFile="CouplingRCZ1Pump");
+    resultFile="CouplingRCZ1PumpValve");
 createPlot(
     id=1,
     position={10, 20, 670, 900},
@@ -61,5 +61,5 @@ createPlot(
     grid=true,
     subPlot=3
 );
-plotExpression(apply(-1*CouplingRCZ1Pump[end].bui.terUni.QCoo_flow_nominal), false, "-1*bui.terUni.QCoo_flow_nominal", 3);
+plotExpression(apply(-1*CouplingRCZ1PumpValve[end].bui.terUni.QCoo_flow_nominal), false, "-1*bui.terUni.QCoo_flow_nominal", 3);
 

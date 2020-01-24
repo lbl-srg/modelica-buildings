@@ -8,8 +8,11 @@ partial model PartialBuilding "Partial class for building model"
       choice(redeclare package Medium1 =
         Buildings.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15, X_a=0.40)
           "Propylene glycol water, 40% mass fraction")));
-  parameter Integer nPorts1 = 0
-    "Number of source fluid streams"
+  parameter Integer nPorts_a1 = 0
+    "Number of inlet fluid ports on source side"
+     annotation(Evaluate=true, Dialog(connectorSizing=true));
+  parameter Integer nPorts_b1 = 0
+    "Number of outlet fluid ports on source side"
      annotation(Evaluate=true, Dialog(connectorSizing=true));
   parameter Boolean have_heaLoa = true
     "Set to true if the building has heating loads"
@@ -41,14 +44,14 @@ partial model PartialBuilding "Partial class for building model"
     annotation (Placement(
     transformation(extent={{-16,284},{18,316}}),
     iconTransformation(extent={{-16,198},{18,230}})));
-  Modelica.Fluid.Interfaces.FluidPorts_a ports_a1[nPorts1](
+  Modelica.Fluid.Interfaces.FluidPorts_a ports_a1[nPorts_a1](
     redeclare each package Medium = Medium1,
     each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     each h_outflow(start=Medium1.h_default, nominal=Medium1.h_default))
     "Fluid connectors b (positive design flow direction is from port_a to ports_b)"
     annotation (Placement(transformation(extent={{-310,-40},{-290,40}}),
       iconTransformation(extent={{-310,-220},{-290,-140}})));
-  Modelica.Fluid.Interfaces.FluidPorts_b ports_b1[nPorts1](
+  Modelica.Fluid.Interfaces.FluidPorts_b ports_b1[nPorts_b1](
     redeclare each package Medium = Medium1,
     each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     each h_outflow(start=Medium1.h_default, nominal=Medium1.h_default))
@@ -87,7 +90,12 @@ partial model PartialBuilding "Partial class for building model"
     "Power drawn by pumps motors"
     annotation (Placement(transformation(extent={{300,40},{340,80}}),
       iconTransformation(extent={{300,40},{340,80}})));
-  annotation (
+initial equation
+  assert(nPorts_a1 == nPorts_b1,
+    "In " + getInstanceName() +
+    ": The numbers of source side inlet ports (" + String(nPorts_a1) +
+    ") and outlet ports (" + String(nPorts_b1) + ") must be equal.");
+annotation (
   defaultComponentName="bui",
   Documentation(info="<html>
 <p>
