@@ -199,9 +199,9 @@ revisions="<html>
 <ul>
 <li>
 January 6, 2020, by Hagar Elarga:<br/>
-Added the equation of <code>capFunGen</code> the model to consider
-the hot water as another heat source for the generator in addition to the steam.
-and modified the model to operate in dual modes; the steam or the hot water mode.
+Added the equation of <code>capFunGen</code> to consider
+the hot water as another heat source for the generator in addition to the steam
+and modified the implementation to operate in either the steam or the hot water mode.
 </li>
 <li>
 December 13, 2019, by Michael Wetter:<br/>
