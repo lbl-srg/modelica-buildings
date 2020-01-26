@@ -289,10 +289,10 @@ model Bidirectional "Bidirectional network"
         extent={{6,-6},{-6,6}},
         rotation=0,
         origin={0,-220})));
-  BaseClasses.Pump_m_flow                      pumpBHS(
+  BaseClasses.Pump_m_flow pumpBHS(
     redeclare package Medium = Medium,
     m_flow_nominal=datDes.mSto_flow_nominal)
-                            "Pump" annotation (Placement(transformation(
+    "Pump" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={40,-320})));
@@ -313,35 +313,35 @@ model Bidirectional "Bidirectional network"
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={160,130})));
-  BaseClasses.PowerMeter
-             EPumPro(nu=3)
-                     "Prosumer pump power consumption"
+  BaseClasses.PowerMeter EPumPro(nu=3)
+  "Prosumer normalized pump power consumption"
     annotation (Placement(transformation(extent={{66,242},{78,254}})));
-  BaseClasses.PowerMeter
-             EHeaPum(nu=3)
-                     "Heat pump power consumption"
+  BaseClasses.PowerMeter EHeaPum(nu=3)
+    "Heat pump normalized power consumption"
     annotation (Placement(transformation(extent={{66,222},{78,234}})));
-  BaseClasses.PowerMeter
-             EPumPla(nu=2) "Plant pump power consumption"
+  BaseClasses.PowerMeter EPumPla(nu=2)
+    "Plant pump normalized power consumption"
     annotation (Placement(transformation(extent={{-86,-28},{-74,-16}})));
-  BaseClasses.PowerMeter
-             EPumDis(nu=2) "Distribution network pump power consumption"
+  BaseClasses.PowerMeter EPumDis(nu=2)
+    "Distribution network normalized  pump power consumption"
     annotation (Placement(transformation(extent={{162,-286},{174,-274}})));
-  BaseClasses.PowerMeter EBorFie(nu=1) "Heat from borefield"
+  BaseClasses.PowerMeter EBorFie(nu=1) "Normalized heat from borefield"
     annotation (Placement(transformation(extent={{-28,-334},{-40,-322}})));
-  BaseClasses.PowerMeter EPlant(nu=2) "Plant heat input into the district loop"
+  BaseClasses.PowerMeter EPlant(nu=2) "Plant normalized heat input into the district loop"
     annotation (Placement(transformation(extent={{102,-50},{116,-36}})));
-  BaseClasses.PowerMeter EProsumer1(nu=1) "Prosumer 1 power consumption"
+  BaseClasses.PowerMeter EProsumer1(nu=1) "Prosumer 1 normalized power consumption"
     annotation (Placement(transformation(extent={{94,20},{106,32}})));
-  BaseClasses.PowerMeter EProsumer2(nu=1) "Prosumer 2 power consumption"
+  BaseClasses.PowerMeter EProsumer2(nu=1) "Prosumer 2 normalized power consumption"
     annotation (Placement(transformation(extent={{94,100},{106,112}})));
-  BaseClasses.PowerMeter EProsumer3(nu=1) "Prosumer 3 power consumption"
+  BaseClasses.PowerMeter EProsumer3(nu=1) "Prosumer 3 normalized power consumption"
     annotation (Placement(transformation(extent={{94,180},{106,192}})));
-  BaseClasses.PowerMeter ESumProsumers(nu=3) "Prosumers power consumption"
+  BaseClasses.PowerMeter ESumProsumers(nu=3) "Prosumers normalized power consumption"
     annotation (Placement(transformation(extent={{136,214},{148,226}})));
 
-  Modelica.Blocks.Math.MultiSum EEleTot(nu=2, y(unit="J", displayUnit="kWh"))
-    "Total electrical energy"
+  Modelica.Blocks.Math.MultiSum EEleTot(
+    nu=2,
+    y(unit="1"))
+    "Total normalized electrical energy"
     annotation (Placement(transformation(extent={{166,244},{178,256}})));
   Buildings.Utilities.IO.Files.Printer pri(
     samplePeriod=8760*3600,
@@ -361,20 +361,24 @@ model Bidirectional "Bidirectional network"
     configuration=3,
     significantDigits=5)
     annotation (Placement(transformation(extent={{280,290},{300,310}})));
-  Modelica.Blocks.Math.MultiSum EPumTot(nu=3, y(unit="J", displayUnit="kWh"))
-    "Total electrical energy of pumps"
+  Modelica.Blocks.Math.MultiSum EPumTot(
+    nu=3,
+    y(unit="1"))
+    "Total normalized electrical energy of pumps"
     annotation (Placement(transformation(extent={{104,254},{116,266}})));
-  BaseClasses.PowerMeter EFroBorFie2(nu=2) "Energy from borefield"
+  BaseClasses.PowerMeter EFroBorFie2(nu=2) "Normalized energy from borefield"
     annotation (Placement(transformation(extent={{94,-186},{106,-174}})));
-  Fluid.Sensors.EnthalpyFlowRate senEntBorOut(redeclare package Medium =
-        Medium, m_flow_nominal=datDes.mDisPip_flow_nominal)
+  Fluid.Sensors.EnthalpyFlowRate senEntBorOut(
+    redeclare package Medium = Medium,
+    m_flow_nominal=datDes.mDisPip_flow_nominal)
     "Enthalpy flow rate at borefield outlet" annotation (Placement(
         transformation(
         extent={{-6,6},{6,-6}},
         rotation=180,
         origin={-120,-200})));
-  Fluid.Sensors.EnthalpyFlowRate senEntBorIn(redeclare package Medium =
-        Medium, m_flow_nominal=datDes.mDisPip_flow_nominal)
+  Fluid.Sensors.EnthalpyFlowRate senEntBorIn(
+    redeclare package Medium = Medium,
+    m_flow_nominal=datDes.mDisPip_flow_nominal)
     "Enthalpy flow rate at borefield inlet" annotation (Placement(
         transformation(
         extent={{6,6},{-6,-6}},

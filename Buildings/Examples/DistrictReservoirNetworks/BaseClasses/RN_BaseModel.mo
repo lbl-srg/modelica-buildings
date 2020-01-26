@@ -5,10 +5,10 @@ partial model RN_BaseModel "Partial model for the reservoir network"
   parameter DesignValues datDes "Design values"
     annotation (Placement(transformation(extent={{-240,222},{-220,242}})));
 
-  Buildings.Examples.DistrictReservoirNetworks.BaseClasses.Agents.EnergyTransferStation proHos(redeclare
-      package Medium =
-               Medium, filNam=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/Data/Examples/DistrictReservoirNetworks/Examples/SwissHospital_20190916.mos"))
+  Buildings.Examples.DistrictReservoirNetworks.BaseClasses.Agents.EnergyTransferStation proHos(
+    redeclare package Medium = Medium,
+      filNam=Modelica.Utilities.Files.loadResource(
+      "modelica://Buildings/Resources/Data/Examples/DistrictReservoirNetworks/Examples/SwissHospital_20190916.mos"))
     "Prosumer hospital"
     annotation (Placement(transformation(extent={{180,-54},{220,-14}})));
   Agents.BoreField borFie(redeclare package Medium = Medium) annotation (
@@ -16,59 +16,65 @@ partial model RN_BaseModel "Partial model for the reservoir network"
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-2,-440})));
-  Fluid.Sensors.TemperatureTwoPort Tml1(redeclare package Medium =
-        Medium,
+  Fluid.Sensors.TemperatureTwoPort Tml1(
+    redeclare package Medium = Medium,
     allowFlowReversal=false,
-                     m_flow_nominal=datDes.mDisPip_flow_nominal,
-    tau=0)           annotation (Placement(transformation(
+    m_flow_nominal=datDes.mDisPip_flow_nominal,
+    tau=0)
+    "Temperature sensor" annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=90,
         origin={-80,-300})));
-  Pump_m_flow pumDisLop(redeclare package Medium = Medium, m_flow_nominal=
-        datDes.mDisPip_flow_nominal) "Pump district loop" annotation (Placement(
+  Pump_m_flow pumDisLop(
+    redeclare package Medium = Medium, m_flow_nominal=
+     datDes.mDisPip_flow_nominal) "Pump district loop" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={80,-290})));
-  Buildings.Examples.DistrictReservoirNetworks.BaseClasses.Agents.EnergyTransferStation proApa(redeclare
-      package Medium =
-               Medium, filNam=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/Data/Examples/DistrictReservoirNetworks/Examples/SwissResidential_20190916.mos"))
+  Buildings.Examples.DistrictReservoirNetworks.BaseClasses.Agents.EnergyTransferStation proApa(
+    redeclare package Medium =Medium,
+    filNam=Modelica.Utilities.Files.loadResource(
+    "modelica://Buildings/Resources/Data/Examples/DistrictReservoirNetworks/Examples/SwissResidential_20190916.mos"))
     "Prosumer apartment"
     annotation (Placement(transformation(extent={{180,158},{220,198}})));
-  Buildings.Examples.DistrictReservoirNetworks.BaseClasses.Agents.EnergyTransferStation proOff(redeclare
-      package Medium =
-               Medium, filNam=Modelica.Utilities.Files.loadResource(
+  Buildings.Examples.DistrictReservoirNetworks.BaseClasses.Agents.EnergyTransferStation proOff(
+  redeclare package Medium = Medium,
+  filNam=Modelica.Utilities.Files.loadResource(
         "modelica://Buildings/Resources/Data/Examples/DistrictReservoirNetworks/Examples/SwissOffice_20190916.mos"))
     "Prosumer office"
     annotation (Placement(transformation(extent={{-180,-40},{-220,0}})));
-  Fluid.Sensors.TemperatureTwoPort Tml2(redeclare package Medium =
-        Medium,
+  Fluid.Sensors.TemperatureTwoPort Tml2(
+   redeclare package Medium = Medium,
     allowFlowReversal=false,
-                     m_flow_nominal=datDes.mDisPip_flow_nominal,
-    tau=0)           annotation (Placement(transformation(
+    m_flow_nominal=datDes.mDisPip_flow_nominal,
+    tau=0)
+    "Temperature sensor" annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=90,
         origin={-80,-94})));
-  Fluid.Sensors.TemperatureTwoPort Tml4(redeclare package Medium =
-        Medium,
+  Fluid.Sensors.TemperatureTwoPort Tml4(
+    redeclare package Medium = Medium,
     allowFlowReversal=false,
     m_flow_nominal=datDes.mDisPip_flow_nominal,
-    tau=0)           annotation (Placement(transformation(
+    tau=0)
+    "Temperature sensor" annotation (Placement(transformation(
         extent={{6,6},{-6,-6}},
         rotation=90,
         origin={80,118})));
-  Fluid.Sensors.TemperatureTwoPort Tml5(redeclare package Medium =
-        Medium,
+  Fluid.Sensors.TemperatureTwoPort Tml5(
+    redeclare package Medium = Medium,
     allowFlowReversal=false,
     m_flow_nominal=datDes.mDisPip_flow_nominal,
-    tau=0)           annotation (Placement(transformation(
+    tau=0)
+    "Temperature sensor" annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=270,
         origin={80,-92})));
-  Fluid.Sensors.TemperatureTwoPort Tml3(redeclare package Medium =
-        Medium, m_flow_nominal=datDes.mDisPip_flow_nominal)
-                     annotation (Placement(transformation(
+  Fluid.Sensors.TemperatureTwoPort Tml3(
+    redeclare package Medium = Medium,
+    m_flow_nominal=datDes.mDisPip_flow_nominal)
+    "Temperature sensor" annotation (Placement(transformation(
         extent={{6,6},{-6,-6}},
         rotation=180,
         origin={0,240})));
@@ -88,8 +94,9 @@ partial model RN_BaseModel "Partial model for the reservoir network"
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-80,-270})));
-  Buildings.Fluid.Sensors.MassFlowRate senMasFloByPasPla(redeclare package
-      Medium = Medium, allowFlowReversal=true)
+  Buildings.Fluid.Sensors.MassFlowRate senMasFloByPasPla(
+    redeclare package Medium = Medium,
+    allowFlowReversal=true)
     "Mass flow rate sensor for bypass of plant" annotation (Placement(
         transformation(
         extent={{6,6},{-6,-6}},
@@ -104,7 +111,7 @@ partial model RN_BaseModel "Partial model for the reservoir network"
     show_T=true,
     final dp1_nominal(displayUnit="bar") = 50000,
     final dp2_nominal(displayUnit="bar") = 50000,
-    final eps=datDes.epsPla)                                                 "Heat exchanger" annotation (Placement(
+    final eps=datDes.epsPla) "Heat exchanger" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
@@ -117,7 +124,8 @@ partial model RN_BaseModel "Partial model for the reservoir network"
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-200,-210})));
-  Modelica.Blocks.Sources.Constant mSetPla_flow(final k=datDes.mPla_flow_nominal)
+  Modelica.Blocks.Sources.Constant mSetPla_flow(
+    final k=datDes.mPla_flow_nominal)
     "Set point for plant mass flow rate"
     annotation (Placement(transformation(extent={{-280,-224},{-264,-240}})));
   Buildings.Fluid.Sources.Boundary_pT sewBouCon(
@@ -220,43 +228,42 @@ partial model RN_BaseModel "Partial model for the reservoir network"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={80,-210})));
-  PowerMeter EPumPla(nu=2) "Plant pump power consumption"
+  PowerMeter EPumPla(nu=2) "Normalized plant pump power consumption"
     annotation (Placement(transformation(extent={{-176,-166},{-164,-154}})));
-  PowerMeter EPumPro(nu=6)
-                     "Prosumer pump power consumption"
+  PowerMeter EPumPro(nu=6) "Prosumer normalized pump power consumption"
     annotation (Placement(transformation(extent={{246,282},{258,294}})));
-  PowerMeter EPumDis(nu=2) "Distribution network pump power consumption"
+  PowerMeter EPumDis(nu=2) "Distribution network normalized pump power consumption"
     annotation (Placement(transformation(extent={{114,-326},{126,-314}})));
-  PowerMeter EHeaPum(nu=3)
-                     "Heat pump power consumption"
+  PowerMeter EHeaPum(nu=3) "Normalized heat pump power consumption"
     annotation (Placement(transformation(extent={{246,262},{258,274}})));
-  PowerMeter EBorFie(nu=1) "Heat from borefield"
+  PowerMeter EBorFie(nu=1) "Normalized heat from borefield"
     annotation (Placement(transformation(extent={{-28,-464},{-40,-452}})));
-  PowerMeter EDisOff(nu=1) "Office heat cosumption from district loop"
+  PowerMeter EDisOff(nu=1) "Office normalized heat cosumption from district loop"
     annotation (Placement(transformation(extent={{-220,-78},{-208,-66}})));
-  PowerMeter EDisApa(nu=1) "Apartment heat consumption from district loop"
+  PowerMeter EDisApa(nu=1) "Apartment normalized heat consumption from district loop"
     annotation (Placement(transformation(extent={{284,198},{296,210}})));
-  PowerMeter EDisHos(nu=1) "Hospital heat consumption from district loop"
+  PowerMeter EDisHos(nu=1) "Hospital normalized heat consumption from district loop"
     annotation (Placement(transformation(extent={{284,-14},{296,-2}})));
-  PowerMeter EDisPro(nu=3) "Prosumer heat consumption from district loop"
+  PowerMeter EDisPro(nu=3) "Prosumer normalized heat consumption from district loop"
     annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=0,
         origin={290,-114})));
   Modelica.Blocks.Math.MultiSum EEleTot(
-    nu=2, y(unit="J", displayUnit="kWh")) "Total electrical energy"
+    nu=2,
+    y(unit="1")) "Total normalized electrical energy"
     annotation (Placement(transformation(extent={{284,274},{296,286}})));
 
   Buildings.Utilities.IO.Files.Printer pri(
     samplePeriod=8760*3600,
-    header="Total electricity use [J]",
+    header="Total normalized electricity use",
     configuration=3,
     significantDigits=5)
     annotation (Placement(transformation(extent={{352,270},{372,290}})));
-  Pump_m_flow                                  pumpBHS(
+  Pump_m_flow pumpBHS(
     redeclare package Medium = Medium,
     m_flow_nominal=datDes.mSto_flow_nominal)
-                            "Pump" annotation (Placement(transformation(
+    "Pump" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={50,-440})));
@@ -288,14 +295,17 @@ partial model RN_BaseModel "Partial model for the reservoir network"
     configuration=3,
     significantDigits=5)
     annotation (Placement(transformation(extent={{352,320},{372,340}})));
-  Modelica.Blocks.Math.MultiSum EPumTot(nu=3, y(unit="J", displayUnit="kWh"))
-    "Total electrical energy for pumps"
+  Modelica.Blocks.Math.MultiSum EPumTot(
+    nu=3,
+    y(unit="1"))
+    "Total normalized electrical energy for pumps"
     annotation (Placement(transformation(extent={{284,302},{296,314}})));
   Fluid.Sensors.EnthalpyFlowRate senEntPlaOut(
     redeclare package Medium = Medium,
     allowFlowReversal=false,
     m_flow_nominal=datDes.mDisPip_flow_nominal,
-    tau=0) "Enthalpy flow rate at plant outlet" annotation (Placement(
+    tau=0)
+    "Enthalpy flow rate at plant outlet" annotation (Placement(
         transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
@@ -309,19 +319,22 @@ partial model RN_BaseModel "Partial model for the reservoir network"
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={-160,-270})));
-  PowerMeter             EPlant(nu=2) "Plant heat input into the district loop"
+  PowerMeter EPlant(nu=2) "Plant normalized heat input into the district loop"
     annotation (Placement(transformation(extent={{-114,-228},{-100,-214}})));
-  PowerMeter EFroBorFie2(nu=2) "Energy from borefield"
+  PowerMeter EFroBorFie2(nu=2)
+    "normalized energy from borefield"
     annotation (Placement(transformation(extent={{-6,-386},{6,-374}})));
-  Fluid.Sensors.EnthalpyFlowRate senEntBorIn(redeclare package Medium =
-        Medium, m_flow_nominal=datDes.mDisPip_flow_nominal)
+  Fluid.Sensors.EnthalpyFlowRate senEntBorIn(
+    redeclare package Medium = Medium,
+    m_flow_nominal=datDes.mDisPip_flow_nominal)
     "Enthalpy flow rate at borefield inlet" annotation (Placement(
         transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={80,-360})));
-  Fluid.Sensors.EnthalpyFlowRate senEntBorOut(redeclare package Medium =
-        Medium, m_flow_nominal=datDes.mDisPip_flow_nominal)
+  Fluid.Sensors.EnthalpyFlowRate senEntBorOut(
+    redeclare package Medium = Medium,
+    m_flow_nominal=datDes.mDisPip_flow_nominal)
     "Enthalpy flow rate at borefield outlet" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},

@@ -2,6 +2,10 @@ within Buildings.Examples;
 package DistrictReservoirNetworks
  extends Modelica.Icons.ExamplesPackage;
 
+
+ constant Modelica.SIunits.Energy totalEnergyRN3 = 2.72961e+12
+   "Total energy for Reservoir 3 that is used to normalized results";
+
 annotation (Documentation(info="<html>
 <p>
 Package with models that compare the performance of a

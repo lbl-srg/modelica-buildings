@@ -22,13 +22,13 @@ model Reservoir3Variable
     annotation (Placement(transformation(extent={{20,-300},{40,-280}})));
 equation
   connect(Tml5.T, conMaiPum.TMix[1]) annotation (Line(points={{86.6,-92},{100,
-          -92},{100,-114},{28,-114},{28,-270},{-36,-270},{-36,-285.333},{-20,
-          -285.333}},                                                color={0,0,
+          -92},{100,-114},{28,-114},{28,-270},{-36,-270},{-36,-285.333},{-20,-285.333}},
+                                                                     color={0,0,
           127}));
   connect(Tml4.T, conMaiPum.TMix[2]) annotation (Line(points={{86.6,118},{26,
           118},{26,-268},{-30,-268},{-30,-284},{-20,-284}}, color={0,0,127}));
-  connect(Tml3.T, conMaiPum.TMix[3]) annotation (Line(points={{-4.44089e-16,
-          246.6},{-4.44089e-16,258},{-32,258},{-32,-282.667},{-20,-282.667}},
+  connect(Tml3.T, conMaiPum.TMix[3]) annotation (Line(points={{-4.44089e-16,246.6},
+          {-4.44089e-16,258},{-32,258},{-32,-282.667},{-20,-282.667}},
                                      color={0,0,127}));
   connect(Tml5.T, conMaiPum.TSouIn[1]) annotation (Line(points={{86.6,-92},{100,
           -92},{100,-114},{28,-114},{28,-270},{-36,-270},{-36,-291},{-20,-291}},
@@ -45,9 +45,9 @@ equation
   connect(conMaiPum.y, gaiConMaiPum.u)
     annotation (Line(points={{4,-290},{18,-290}}, color={0,0,127}));
   connect(pumDisLop.m_flow_in, gaiConMaiPum.y)
-    annotation (Line(points={{68,-290},{41,-290}}, color={0,0,127}));
+    annotation (Line(points={{68,-290},{42,-290}}, color={0,0,127}));
   connect(pumpBHS.m_flow_in, gaiConMaiPum.y)
-    annotation (Line(points={{50,-428},{50,-290},{41,-290}}, color={0,0,127}));
+    annotation (Line(points={{50,-428},{50,-290},{42,-290}}, color={0,0,127}));
   annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-320,-480},{380,360}})),
           __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/DistrictReservoirNetworks/Reservoir3Variable.mos"
