@@ -8,14 +8,14 @@ model Reservoir1Constant
       mDisPip_flow_nominal=95,
       RDisPip=250,
       epsPla=0.935));
-  Modelica.Blocks.Sources.Constant massFlowMainPump(
-    k(final unit="kg/s")=datDes.mDisPip_flow_nominal) "Pump mass flow rate"
+  Modelica.Blocks.Sources.Constant mDisPip_flow(k(final unit="kg/s") = datDes.mDisPip_flow_nominal)
+    "Pump mass flow rate"
     annotation (Placement(transformation(extent={{0,-300},{20,-280}})));
 equation
-  connect(massFlowMainPump.y, pumDisLop.m_flow_in)
+  connect(mDisPip_flow.y, pumDisLop.m_flow_in)
     annotation (Line(points={{21,-290},{68,-290}}, color={0,0,127}));
-  connect(pumpBHS.m_flow_in, massFlowMainPump.y)
-    annotation (Line(points={{50,-428},{50,-290},{21,-290}},color={0,0,127}));
+  connect(pumpBHS.m_flow_in, mDisPip_flow.y)
+    annotation (Line(points={{50,-428},{50,-290},{21,-290}}, color={0,0,127}));
   annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-320,-480},{380,360}})),
         __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/DistrictReservoirNetworks/Reservoir1Constant.mos"
