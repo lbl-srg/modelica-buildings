@@ -293,8 +293,7 @@ model Substation
         annotation (Placement(transformation(extent={{-198,200},{-178,220}})));
   Control.ChillerController chiCon "Control of the EIR chiller model and associated three way valves"
     annotation (Placement(transformation(extent={{-120,200},{-100,220}})));
-  Control.PrimaryPumpsConstantSpeed pumPrimCon(
-    mCon_flow_nominal = mCon_flow_nominal, mEva_flow_nominal=mEva_flow_nominal)
+  Control.PrimaryPumpsConstantSpeed pumPrimCon
     "Control of the primary circuit pumps"
     annotation (Placement(transformation(extent={{-120,142},{-100,162}})));
   Control.AmbientCircuitController ambCon(dTGeo=dTGeo, dTHex=dTHex) "control of the ambient hydraulic circuit"
@@ -918,7 +917,7 @@ equation
       points={{68,143},{68,194},{-124,194},{-124,201.6},{-121,201.6}},
       color={0,0,127},
       pattern=LinePattern.Dot));
-  connect(chiCon.ychiMod, chi.on) annotation (Line(points={{-98.6,211.2},{-46,211.2},
+  connect(chiCon.yChiMod, chi.on) annotation (Line(points={{-98.6,211.2},{-46,211.2},
           {-46,130},{-32,130},{-32,129}}, color={255,0,255}));
   connect(chiCon.TSetChi, chi.TSet) annotation (Line(points={{-98.6,214.6},{-42,
           214.6},{-42,123},{-32,123}}, color={0,0,127}));
@@ -985,8 +984,9 @@ equation
     annotation (Line(points={{-70,-184},{-70,-192}}, color={0,127,255}));
   connect(borFie.port_b, TBorLvg.port_a) annotation (Line(points={{-70,-212},{-70,
           -236},{-30,-236},{-30,-220}}, color={0,127,255}));
-   annotation (Icon(coordinateSystem(preserveAspectRatio=false),
-       graphics={Rectangle(
+annotation (Icon(coordinateSystem(preserveAspectRatio=false),
+   graphics={
+        Rectangle(
           extent={{-100,-100},{100,100}},
           lineColor={0,0,127},
           fillColor={255,255,255},
@@ -1029,7 +1029,7 @@ equation
                   color={28,108,200},
                   pattern=LinePattern.Dash)}),
         defaultComponentName="ETS",
- Documentation(info="<html>
+Documentation(info="<html>
 <h4> Energy Transfer Station </h4>
 <p>
 This models describes the energy transfer station for the 5<sup>th</sup> generation of the district heating and cooling i.e.

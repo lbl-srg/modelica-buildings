@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "AmbCirCon.reqHea",
+    "AmbCirCon.rejHeaFulLoa",
+    "AmbCirCon.valHea",
+    "AmbCirCon.yBorPum",
+    "AmbCirCon.yDisHexPum",
+    "AmbCirCon.TBorLvg",
+    "AmbCirCon.TBorEnt"
+  };

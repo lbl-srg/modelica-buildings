@@ -1,0 +1,32 @@
+simulateModel("Buildings.Applications.DHC.EnergyTransferStations.Validation.AmbientCircuitController", method="dassl",tolerance=1e-6, stopTime=500, resultFile="AmbientCircuitController");
+createPlot(id = 1,
+   position = {60, 10, 600, 450},
+   y = {"AmbCirCon.reqHea","AmbCirCon.rejHeaFulLoa", "AmbCirCon.valHea"},
+   autoscale = true,
+   autoerase = true,
+   autoreplot = true,
+   grid = true,
+   color = true,
+   leftTitleType = 1,
+   bottomTitleType = 1);
+createPlot(id = 1,
+   y = {"AmbCirCon.yBorPum","AmbCirCon.yDisHexPum" },
+   subPlot=2,
+   autoscale = true,
+   autoerase = true,
+   autoreplot = true,
+   grid = true,
+   color = true,
+   leftTitleType = 1,
+   bottomTitleType = 1);
+createPlot(id = 1,
+   y = {"AmbCirCon.TBorLvg","AmbCirCon.TBorEnt" },
+   subPlot=3,
+   autoscale = true,
+   autoerase = true,
+   autoreplot = true,
+   grid = true,
+   color = true,
+   leftTitleType = 1,
+   bottomTitleType = 1);
+

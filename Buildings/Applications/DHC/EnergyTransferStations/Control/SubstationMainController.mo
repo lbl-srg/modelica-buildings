@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Control;
-model SubstationMainController "Overall controller of the 5thG substation"
+model SubstationMainController "Main controller of the 5thG substation"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Modelica.SIunits.TemperatureDifference THys(min=0.1)=THys
@@ -55,15 +55,15 @@ model SubstationMainController "Overall controller of the 5thG substation"
     annotation (
       Placement(transformation(extent={{220,30},{240,50}}),   iconTransformation(extent={{100,-20},{120,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput valCooPos
-  "Cold side valve status(1:On, 0:Off)"
+    "Cold side valve status(1:On, 0:Off)"
     annotation (
       Placement(transformation(extent={{220,-110},{240,-90}}),  iconTransformation(extent={{100,-40},{120,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput reqHea
-    "True if heating is required, false otherwise"
+    "True: heating is required, false otherwise"
     annotation (Placement(transformation(extent={{220,110},
             {240,130}}),      iconTransformation(extent={{100,80},{120,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput reqCoo
-    "True if cooling is required, false otherwise"
+    "True: cooling is required, false otherwise"
     annotation (Placement(transformation(extent={{220,-50},
             {240,-30}}),        iconTransformation(extent={{100,-100},{120,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput rejColFulLoa
@@ -82,9 +82,12 @@ model SubstationMainController "Overall controller of the 5thG substation"
     "Cold side valve status, true when rejection of part or full cooling load is required"
     annotation (Placement(
         transformation(extent={{220,-90},{240,-70}}),   iconTransformation(extent={{100,40},{120,60}})));
-  HotSideController conHotSid(THys=THys) "Hot side controller"
+
+  HotSideController conHotSid(THys=THys)
+    "Hot side controller"
     annotation (Placement(transformation(extent={{-160,86},{-140,106}})));
-  ColdSideController conColSid(THys=THys) "Cold side controller"
+  ColdSideController conColSid(THys=THys)
+    "Cold side controller"
     annotation (Placement(transformation(extent={{-160,-110},{-140,-90}})));
 
 equation
@@ -129,7 +132,7 @@ Buildings.Applications.DHC.EnergyTransferStations.Control.HotSideController</a>.
 <ul>
 <li>
 December 10, 2019, by Hagar Elarga:<br/>
-Added the info section. 
+Added the documentation. 
 </li>
 <li>
 November 25, 2019, by Hagar Elarga:<br/>

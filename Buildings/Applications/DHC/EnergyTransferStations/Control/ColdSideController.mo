@@ -163,7 +163,7 @@ The table clarifies the states and associated actions
 <ul>
 <li>
 November 29, 2019, by Hagar Elarga:<br/>
-Added the info section.
+Added the the documentation.
 </li>
 </ul>
 </html>"));

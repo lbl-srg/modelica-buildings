@@ -265,7 +265,7 @@ equation
           -24,108.833},{-24,58},{-10.8,58}}, color={0,0,127}));
   connect(ETS.hotWatSup, pre.ports[1]) annotation (Line(points={{11,52.8},{32,52.8},
           {32,50},{60,50}},       color={0,127,255}));
-   annotation (Icon(coordinateSystem(preserveAspectRatio=false),
+annotation (Icon(coordinateSystem(preserveAspectRatio=false),
               graphics={
                   Ellipse(lineColor = {75,138,73},
                           fillColor={255,255,255},
@@ -291,9 +291,9 @@ equation
                        textString="District Side")}),
  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Examples/ETS_ClosedLoop.mos"
                   "Simulate and plot"),
-                  experiment(StopTime=18000,
-                              Tolerance=1e-06,
-                              __Dymola_Algorithm="Cvode"), Documentation(info="<html>
+                   experiment(StopTime=18000,Tolerance=1e-06,
+                   __Dymola_Algorithm="Cvode"),
+Documentation(info="<html>
 <p>
 Example that simulates the performance of the energy transfer station 
 <a href=\"Buildings.Applications.DHC.EnergyTransferStations.Substation\">

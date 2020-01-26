@@ -1,0 +1,34 @@
+simulateModel("Buildings.Applications.DHC.EnergyTransferStations.Validation.ETSMainController", method="dassl",
+ tolerance=1e-6, stopTime=1000, resultFile="ETSMainController");
+createPlot(id = 1,
+   position = {60, 10, 600, 450},
+   y = {"ETSCon.reqHea","ETSCon.reqCoo"},
+   autoscale = true,
+   autoerase = true,
+   autoreplot = true,
+   grid = true,
+   color = true,
+   leftTitleType = 1,
+   bottomTitleType = 1);
+createPlot(id = 1,
+   y = {"ETSCon.conHotSid.rejFulLoa","ETSCon.conColSid.rejFulLoa"},
+   subPlot =2, 
+   autoscale = true,
+   autoerase = true,
+   autoreplot = true,
+   grid = true,
+   color = true,
+   leftTitleType = 1,
+   bottomTitleType = 1);
+createPlot(id = 1,
+   y = {"ETSCon.valHea","ETSCon.valCoo"},
+   subPlot =3, 
+   autoscale = true,
+   autoerase = true,
+   autoreplot = true,
+   grid = true,
+   color = true,
+   leftTitleType = 1,
+   bottomTitleType = 1);
+
+

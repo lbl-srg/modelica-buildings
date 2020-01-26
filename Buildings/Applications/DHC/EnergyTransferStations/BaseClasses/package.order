@@ -1,5 +1,5 @@
-StratifiedTank
-HydraulicHeader
-WaterWaterHeatExchanger
 Constants
 HotColdSideController
+HydraulicHeader
+StratifiedTank
+WaterWaterHeatExchanger

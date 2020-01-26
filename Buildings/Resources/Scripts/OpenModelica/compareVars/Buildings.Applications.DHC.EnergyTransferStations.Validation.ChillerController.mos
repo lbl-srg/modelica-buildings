@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "chiCon.TSetChi",
+    "chiCon.TSetCoo",
+    "chiCon.TSetCooMin",
+    "chiCon.yChiMod",
+    "cooMod.y",
+    "heaMod.y"
+  };

@@ -1,12 +1,7 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Control;
 model PrimaryPumpsConstantSpeed
-  "The control block of the constant speed condenser and the evaporator water pumps."
-     extends Modelica.Blocks.Icons.Block;
-
-  parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal( final displayUnit="kg/s")
-     "Condenser nominal water flow rate";
-  parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal(final displayUnit="kg/s")
-     "Evaporator nominal water flow rate";
+  "Controller of the constant speed condenser and the evaporator water pumps."
+  extends Modelica.Blocks.Icons.Block;
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput reqCoo
     "Cooling is required Boolean signal"
@@ -61,22 +56,25 @@ equation
         color={0,0,127}));
   connect(swi1.u1, pumOnSig.y) annotation (Line(points={{118,40},{110,40},{110,
           50},{102,50}}, color={0,0,127}));
-  annotation (defaultComponentName="pumCon",Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})),                                  Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{200,180}})),
-        Documentation(info="<html>
+
+annotation (defaultComponentName="pumCon",Icon(
+          coordinateSystem(preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}})),
+         Diagram(
+          coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{200,180}})),
+Documentation(info="<html>
 <p>
 The block computes the control signals for
 </p>
 <h4>Chiller condenser pump</h4>
 <p>
-The heat pump condenser pump is constant speed and switched on and off based on a supervisory control signal
+The heating generating source i.e.EIR chiller condenser pump is constant speed and switched on and off based on a supervisory control signal
 generated from the <a href=\"Buildings.Applications.DHC.EnergyTransferStations.Control.HotSideController\">
 Buildings.Applications.DHC.EnergyTransferStations.Control.HotSideController</a>
 </p>
 <h4>Chiller evaporator pump</h4>
 <p>
-The chiller evaporator pump is constant speed and switched on and off based on a supervisory control signal.
+The cooling generating source i.e.EIR chiller evaporator pump is constant speed and switched on and off based on a supervisory control signal.
 generated from the <a href=\"Buildings.Applications.DHC.EnergyTransferStations.Control.ColdSideController\">
 Buildings.Applications.DHC.EnergyTransferStations.Control.ColdSideController</a>
 </p>

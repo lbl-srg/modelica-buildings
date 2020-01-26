@@ -1,6 +1,5 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Control;
-model AmbientCircuitController
-  "Generate control outputs for the borfield and district heat exchanger pumps."
+model AmbientCircuitController "Controller for the ambient water circuit"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Modelica.SIunits.TemperatureDifference dTGeo
@@ -41,15 +40,15 @@ model AmbientCircuitController
         transformation(extent={{-260,-338},{-220,-298}}), iconTransformation(
           extent={{-120,-80},{-100,-60}})));
   Modelica.Blocks.Interfaces.BooleanInput valHea
-  "Heating load side valve control"
+    "Heating load side valve control"
     annotation (Placement(transformation(extent={{-260,230},{-220,270}}),
         iconTransformation(extent={{-120,66},{-100,86}})));
   Modelica.Blocks.Interfaces.BooleanInput valCoo
-  "Cooling load side valve control"
+    "Cooling load side valve control"
     annotation (Placement(transformation(extent={{-260,200},{-220,240}}),
         iconTransformation(extent={{-120,42},{-100,62}})));
   Modelica.Blocks.Interfaces.BooleanInput reqHea
-  "True if heating is required."
+    "True if heating is required."
     annotation (Placement(transformation(extent={{-260,170},{-220,210}}),
         iconTransformation(extent={{-120,88},{-100,108}})));
   Modelica.Blocks.Interfaces.BooleanInput reqCoo
@@ -65,7 +64,7 @@ model AmbientCircuitController
     annotation (Placement(transformation(extent={{-262,-202},{-222,-162}}),
         iconTransformation(extent={{-120,20},{-100,40}})));
   Modelica.Blocks.Interfaces.IntegerOutput yModInd
-  "Surplus heat rejection mode index"
+    "Surplus heat rejection mode index"
     annotation (Placement(transformation(extent={{220,-232},{240,-212}}),
         iconTransformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealOutput yDisHexPum(final unit="1")
@@ -87,7 +86,8 @@ model AmbientCircuitController
     y_reset=yMin,
     reverseAction=true,
     yMin=yMin,
-    final controllerType=controllerType) "District heat exchanger pump control"
+    final controllerType=controllerType)
+    "District heat exchanger pump control"
     annotation (Placement(transformation(extent={{-20,-272},{0,-252}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add4(k2=-1)
     annotation (Placement(transformation(extent={{-160,-322},{-140,-302}})));
@@ -173,7 +173,7 @@ model AmbientCircuitController
     yMin=0.1,
     final controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti(displayUnit="min") = 3600)
-    "3-wy valve controls the entering water temperature to the borefield holes"
+    "3-way valve controls the entering water temperature to the borefield holes"
     annotation (Placement(transformation(extent={{-106,-10},{-86,10}})));
   Modelica.Blocks.Interfaces.RealInput TBorMaxEnt(final unit="K")
     "Maximum entering water temperature to the borefiled holes." annotation (
@@ -244,8 +244,7 @@ equation
   connect(modInd.u3, con4.y) annotation (Line(points={{118,-146},{60,-146},{60,
           -198},{42,-198}},
                           color={0,0,127}));
-  connect(modInd.y, modInd1.u1)
-    annotation (Line(points={{142,-138},{150,-138},{150,-150},{158,-150}},
+  connect(modInd.y, modInd1.u1) annotation (Line(points={{142,-138},{150,-138},{150,-150},{158,-150}},
                                                              color={0,0,127}));
   connect(modInd1.u2, opeHea.y) annotation (Line(points={{158,-158},{-60,-158},
           {-60,190},{-98,190}},
@@ -261,15 +260,11 @@ equation
                           color={0,0,127}));
   connect(reaToInt.u, modInd2.y) annotation (Line(points={{178,-222},{160,-222},
           {160,-220},{142,-220}}, color={0,0,127}));
-  connect(add1.y, abs1.u)
-    annotation (Line(points={{-18,-82},{-2,-82}},
+  connect(add1.y, abs1.u) annotation (Line(points={{-18,-82},{-2,-82}},
                                                 color={0,0,127}));
-  connect(runBorFie.y, not2.u)
-    annotation (Line(points={{102,110},{118,110}}, color={255,0,255}));
-  connect(con1.y,borPumCon. u_s)
-    annotation (Line(points={{62,-50},{78,-50}},color={0,0,127}));
-  connect(abs1.y,borPumCon. u_m)
-    annotation (Line(points={{22,-82},{90,-82},{90,-62}},
+  connect(runBorFie.y, not2.u) annotation (Line(points={{102,110},{118,110}}, color={255,0,255}));
+  connect(con1.y,borPumCon. u_s) annotation (Line(points={{62,-50},{78,-50}},color={0,0,127}));
+  connect(abs1.y,borPumCon. u_m) annotation (Line(points={{22,-82},{90,-82},{90,-62}},
                                                        color={0,0,127}));
   connect(not2.y,borPumCon. trigger) annotation (Line(points={{142,110},{150,
           110},{150,-6},{72,-6},{72,-70},{82,-70},{82,-62}},
@@ -279,8 +274,7 @@ equation
   connect(runFulLoa.u2,rejCooFulLoa)  annotation (Line(points={{-182,-190},{
           -200,-190},{-200,-242},{-240,-242}},
                                          color={255,0,255}));
-  connect(borPumCon.y, modInd3.u3)
-    annotation (Line(points={{101,-50},{138,-50}},
+  connect(borPumCon.y, modInd3.u3)  annotation (Line(points={{101,-50},{138,-50}},
                                                  color={0,0,127}));
   connect(modInd3.u2, runFulLoa.y) annotation (Line(points={{138,-42},{132,-42},
           {132,-96},{-150,-96},{-150,-182},{-158,-182}},
@@ -288,11 +282,9 @@ equation
   connect(modInd3.u1, con2.y) annotation (Line(points={{138,-34},{122,-34},{122,
           -116},{102,-116}},
                            color={0,0,127}));
-  connect(hexPumConOut.u1, hexPumCon.y)
-    annotation (Line(points={{98,-268},{50,-268},{50,-262},{1,-262}},
+  connect(hexPumConOut.u1, hexPumCon.y) annotation (Line(points={{98,-268},{50,-268},{50,-262},{1,-262}},
                                                   color={0,0,127}));
-  connect(runBor.y,yBorPum)
-    annotation (Line(points={{212,-42},{230,-42}},
+  connect(runBor.y,yBorPum) annotation (Line(points={{212,-42},{230,-42}},
                                                  color={0,0,127}));
   connect(modInd3.y,runBor. u1) annotation (Line(points={{162,-42},{174,-42},{
           174,-34},{188,-34}},
@@ -303,10 +295,8 @@ equation
   connect(con4.y,runBor. u3) annotation (Line(points={{42,-198},{60,-198},{60,
           -92},{174,-92},{174,-50},{188,-50}},
                                       color={0,0,127}));
-  connect(TBorMaxEnt, borThrWay.u_s)
-    annotation (Line(points={{-240,0},{-108,0}}, color={0,0,127}));
-  connect(borThrWay.y, yBorThrVal)
-    annotation (Line(points={{-85,0},{228,0}}, color={0,0,127}));
+  connect(TBorMaxEnt, borThrWay.u_s)  annotation (Line(points={{-240,0},{-108,0}}, color={0,0,127}));
+  connect(borThrWay.y, yBorThrVal) annotation (Line(points={{-85,0},{228,0}}, color={0,0,127}));
   connect(not2.y, borThrWay.trigger) annotation (Line(points={{142,110},{150,
           110},{150,-6},{72,-6},{72,-26},{-104,-26},{-104,-12}}, color={255,0,
           255}));
@@ -316,8 +306,7 @@ equation
           -142,-88},{-42,-88}}, color={0,0,127}));
   connect(TBorEnt, add1.u1) annotation (Line(points={{-240,-32},{-96,-32},{-96,
           -76},{-42,-76}}, color={0,0,127}));
-  connect(hexPumConOut.y, yDisHexPum)
-    annotation (Line(points={{122,-276},{230,-276}}, color={0,0,127}));
+  connect(hexPumConOut.y, yDisHexPum) annotation (Line(points={{122,-276},{230,-276}}, color={0,0,127}));
   connect(rejHeaFulLoa, runHex.u1) annotation (Line(points={{-242,-182},{-208,
           -182},{-208,-220},{-182,-220}}, color={255,0,255}));
   connect(rejCooFulLoa, runHex.u2) annotation (Line(points={{-240,-242},{-200,
@@ -329,10 +318,10 @@ equation
   connect(runHex.y, noHex.u) annotation (Line(points={{-158,-220},{-90,-220},{
           -90,-292},{-62,-292}}, color={255,0,255}));
 
-  annotation (Diagram(
-              coordinateSystem(preserveAspectRatio=false, extent={{-220,-340},{220,260}}),
-              graphics={Text(extent={{242,64},{354,-220}},
-                                        lineColor={28,108,200},
+annotation (Diagram(
+              coordinateSystem(preserveAspectRatio=false,
+              extent={{-220,-340},{220,260}}),
+              graphics={Text(extent={{242,64},{354,-220}},lineColor={28,108,200},
               textString="PI with large time constant because of long time constant
                             of borefield.yMin=0.5 to stay turbulent")}),
               defaultComponentName="ambCirCon",
@@ -368,11 +357,12 @@ to maintain the absolute measured temperature difference between <code>TDisHexEn
 <ul>
 <li>
 January 12, 2020, by Hagar Elarga:<br/>
-Updated the heat exchanger pump controller.
+Updated the heat exchanger pump controller to operate only if reject full load signal
+is true.
 </li>
 <li>
 November 2, 2019, by Hagar Elarga:<br/>
-Added the three way valve controller and info section.
+Added the three way valve controller and the documentation.
 </li>
 
 </ul>

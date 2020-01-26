@@ -9,7 +9,7 @@ block Constants "Generate constant signal of type Real"
   parameter Integer nCon=1
     "Number of constants";
 
-  Modelica.Blocks.Interfaces.RealOutput  y[nCon] = {k[i] for i}
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y[nCon] = {k[i] for i in 1:nCon}
     "Constant function"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   annotation (
