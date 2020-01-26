@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "doe2.QLoa_flow",
+    "doe2.QSou_flow"
+  };
