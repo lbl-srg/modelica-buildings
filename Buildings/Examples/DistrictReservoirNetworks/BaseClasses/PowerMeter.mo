@@ -8,9 +8,12 @@ block PowerMeter
   Modelica.Blocks.Math.MultiSum multiSum(final nu=nu)
     annotation (Placement(transformation(extent={{-34,-6},{-22,6}})));
   Modelica.Blocks.Continuous.Integrator integrator(
-    final k=1/Buildings.Examples.DistrictReservoirNetworks.totalEnergyRN3,
+    final k=1/totEneRN3,
     final initType=Modelica.Blocks.Types.Init.InitialState)
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+protected
+ constant Modelica.SIunits.Energy totEneRN3 = 2.72961e+12
+   "Total energy for Reservoir 3 that is used to normalized results";
 equation
   connect(multiSum.u, u)
     annotation (Line(points={{-34,0},{-100,0}}, color={0,0,127}));
@@ -33,7 +36,7 @@ Buildings.Examples.DistrictReservoirNetworks.totalEnergyRN3</a>.
 <ul>
 <li>
 January 25, 2020, by Michael Wetter:<br/>
-Normalized it by the total energy of the reservoir network 3.
+Normalized output by the total energy of the reservoir network 3.
 </li>
 <li>
 January 16, 2020, by Michael Wetter:<br/>

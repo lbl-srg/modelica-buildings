@@ -26,14 +26,15 @@ partial model RN_BaseModel "Partial model for the reservoir network"
         rotation=90,
         origin={-80,-300})));
   Pump_m_flow pumDisLop(
-    redeclare package Medium = Medium, m_flow_nominal=
-     datDes.mDisPip_flow_nominal) "Pump district loop" annotation (Placement(
+    redeclare package Medium = Medium,
+    m_flow_nominal = datDes.mDisPip_flow_nominal)
+    "Pump district loop" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={80,-290})));
   Buildings.Examples.DistrictReservoirNetworks.BaseClasses.Agents.EnergyTransferStation proApa(
-    redeclare package Medium =Medium,
+    redeclare package Medium = Medium,
     filNam=Modelica.Utilities.Files.loadResource(
     "modelica://Buildings/Resources/Data/Examples/DistrictReservoirNetworks/Examples/SwissResidential_20190916.mos"))
     "Prosumer apartment"
@@ -263,7 +264,7 @@ partial model RN_BaseModel "Partial model for the reservoir network"
   Pump_m_flow pumpBHS(
     redeclare package Medium = Medium,
     m_flow_nominal=datDes.mSto_flow_nominal)
-    "Pump" annotation (Placement(transformation(
+    "Pump for borefield" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={50,-440})));
@@ -271,7 +272,9 @@ partial model RN_BaseModel "Partial model for the reservoir network"
     redeclare package Medium = Medium,
     m_flow_nominal=datDes.mDisPip_flow_nominal*{1,1,1},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    from_dp=false) "Flow splitter" annotation (Placement(transformation(
+    from_dp=false)
+    "Flow splitter"
+    annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={80,-402})));
@@ -279,7 +282,9 @@ partial model RN_BaseModel "Partial model for the reservoir network"
     redeclare package Medium = Medium,
     m_flow_nominal=datDes.mDisPip_flow_nominal*{1,1,1},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    from_dp=false) "Flow splitter" annotation (Placement(transformation(
+    from_dp=false)
+    "Flow splitter"
+    annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-80,-402})));
@@ -327,7 +332,8 @@ partial model RN_BaseModel "Partial model for the reservoir network"
   Fluid.Sensors.EnthalpyFlowRate senEntBorIn(
     redeclare package Medium = Medium,
     m_flow_nominal=datDes.mDisPip_flow_nominal)
-    "Enthalpy flow rate at borefield inlet" annotation (Placement(
+    "Enthalpy flow rate at borefield inlet"
+    annotation (Placement(
         transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
@@ -335,16 +341,19 @@ partial model RN_BaseModel "Partial model for the reservoir network"
   Fluid.Sensors.EnthalpyFlowRate senEntBorOut(
     redeclare package Medium = Medium,
     m_flow_nominal=datDes.mDisPip_flow_nominal)
-    "Enthalpy flow rate at borefield outlet" annotation (Placement(
+    "Enthalpy flow rate at borefield outlet"
+    annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-80,-360})));
+
 protected
   constant Real scaFacLoa = 10 "Scaling factor for load profiles that are read by the model";
   Modelica.Blocks.Math.Gain gaiEntFlo(k=-1)
     "Gain to switch sign of enthalpy flow rate"
     annotation (Placement(transformation(extent={{-146,-258},{-126,-238}})));
+
 equation
   connect(senMasFloByPasPla.port_b, splSup1.port_1)
     annotation (Line(points={{-80,-224},{-80,-200}}, color={0,127,255}));

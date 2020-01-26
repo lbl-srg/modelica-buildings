@@ -4,11 +4,11 @@ model Reservoir3Variable
   extends Modelica.Icons.Example;
   extends
     Buildings.Examples.DistrictReservoirNetworks.BaseClasses.RN_BaseModel(
-  datDes(
-      mDisPip_flow_nominal=69.5,
-      RDisPip=250,
-      epsPla=0.91),
-      pumpBHS(m_flow_nominal=0.5*datDes.mSto_flow_nominal));
+      datDes(
+        mDisPip_flow_nominal=69.5,
+        RDisPip=250,
+        epsPla=0.91),
+        pumpBHS(m_flow_nominal=0.5*datDes.mSto_flow_nominal));
   BaseClasses.Networks.Controls.MainPump conMaiPum(
     nMix=3,
     nSou=2,

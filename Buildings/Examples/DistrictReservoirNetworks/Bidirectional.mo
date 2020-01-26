@@ -20,7 +20,7 @@ model Bidirectional "Bidirectional network"
   Fluid.Sensors.TemperatureTwoPort Twp1(redeclare package Medium =
         Medium, m_flow_nominal=datDes.mDisPip_flow_nominal)
     "Temperature sensor in distribution pipe"
-                     annotation (Placement(transformation(
+      annotation (Placement(transformation(
         extent={{-6,6},{6,-6}},
         rotation=90,
         origin={-160,-140})));
@@ -60,14 +60,14 @@ model Bidirectional "Bidirectional network"
   Fluid.Sensors.TemperatureTwoPort Twp2(redeclare package Medium =
         Medium, m_flow_nominal=datDes.mDisPip_flow_nominal)
     "Temperature sensor in distribution pipe"
-                     annotation (Placement(transformation(
+      annotation (Placement(transformation(
         extent={{-6,6},{6,-6}},
         rotation=90,
         origin={-160,-52})));
   Fluid.Sensors.TemperatureTwoPort Tcp1(redeclare package Medium =
         Medium, m_flow_nominal=datDes.mDisPip_flow_nominal)
     "Temperature sensor in distribution pipe"
-                     annotation (Placement(transformation(
+      annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=270,
         origin={160,-140})));
@@ -97,7 +97,7 @@ model Bidirectional "Bidirectional network"
     dp1_nominal(displayUnit="kPa") = 50000,
     dp2_nominal(displayUnit="kPa") = 50000,
     final eps=datDes.epsPla)
-                   "Heat exchanger" annotation (Placement(
+    "Plant heat exchanger" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
@@ -106,7 +106,9 @@ model Bidirectional "Bidirectional network"
     redeclare package Medium = Medium,
     allowFlowReversal=false,
     m_flow_nominal=datDes.mDisPip_flow_nominal,
-    tau=0) "Enthalpy flow rate at plant inlet" annotation (Placement(
+    tau=0)
+    "Enthalpy flow rate at plant inlet"
+    annotation (Placement(
         transformation(
         extent={{-6,6},{6,-6}},
         rotation=180,
@@ -115,7 +117,9 @@ model Bidirectional "Bidirectional network"
     redeclare package Medium = Medium,
     allowFlowReversal=false,
     m_flow_nominal=datDes.mDisPip_flow_nominal,
-    tau=0) "Enthalpy flow rate at plant outlet" annotation (Placement(
+    tau=0)
+    "Enthalpy flow rate at plant outlet"
+    annotation (Placement(
         transformation(
         extent={{-6,6},{6,-6}},
         rotation=180,
@@ -123,18 +127,23 @@ model Bidirectional "Bidirectional network"
   BaseClasses.Pump_m_flow pumPlaPri(
     redeclare package Medium = Medium,
     final m_flow_nominal=datDes.mPla_flow_nominal,
-    dp_nominal=50000) "Pump plant primary side" annotation (Placement(
+    dp_nominal=50000)
+    "Pump plant primary side"
+    annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={-80,-80})));
-  Modelica.Blocks.Sources.Constant mSetPla_flow(final k=datDes.mPla_flow_nominal)
+  Modelica.Blocks.Sources.Constant mSetPla_flow(
+    final k=datDes.mPla_flow_nominal)
     "Set point for mass flow rate of plant"
     annotation (Placement(transformation(extent={{-30,-68},{-46,-52}})));
   Buildings.Fluid.Sources.Boundary_pT sewBouCon(
     redeclare package Medium = Medium,
     T=290.15,
-    nPorts=2) "Boundary condition for sewage source" annotation (Placement(
+    nPorts=2)
+    "Boundary condition for sewage source"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -142,48 +151,56 @@ model Bidirectional "Bidirectional network"
   BaseClasses.Pump_m_flow pumPlaSec(
     redeclare package Medium = Medium,
     final m_flow_nominal=datDes.mPla_flow_nominal,
-    dp_nominal=50000) "Pump plant secondary side" annotation (Placement(
+    dp_nominal=50000)
+    "Pump plant secondary side"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-80,-120})));
-  Fluid.Sensors.TemperatureTwoPort Tcp2(redeclare package Medium =
-        Medium, m_flow_nominal=datDes.mDisPip_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort Tcp2(
+    redeclare package Medium = Medium,
+    m_flow_nominal=datDes.mDisPip_flow_nominal)
     "Temperature sensor in distribution pipe"
-                     annotation (Placement(transformation(
+    annotation (Placement(transformation(
         extent={{6,6},{-6,-6}},
         rotation=90,
         origin={160,-52})));
-  Fluid.Sensors.TemperatureTwoPort Tcp3(redeclare package Medium =
-        Medium, m_flow_nominal=datDes.mDisPip_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort Tcp3(
+    redeclare package Medium = Medium,
+    m_flow_nominal=datDes.mDisPip_flow_nominal)
     "Temperature sensor in distribution pipe"
-                     annotation (Placement(transformation(
+    annotation (Placement(transformation(
         extent={{6,6},{-6,-6}},
         rotation=90,
         origin={160,28})));
-  Fluid.Sensors.TemperatureTwoPort Twp3(redeclare package Medium =
-        Medium, m_flow_nominal=datDes.mDisPip_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort Twp3(
+    redeclare package Medium = Medium,
+    m_flow_nominal=datDes.mDisPip_flow_nominal)
     "Temperature sensor in distribution pipe"
-                     annotation (Placement(transformation(
+    annotation (Placement(transformation(
         extent={{-6,6},{6,-6}},
         rotation=90,
         origin={-160,28})));
-  Fluid.Sensors.TemperatureTwoPort Tcp4(redeclare package Medium =
-        Medium, m_flow_nominal=datDes.mDisPip_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort Tcp4(
+    redeclare package Medium = Medium,
+    m_flow_nominal=datDes.mDisPip_flow_nominal)
     "Temperature sensor in distribution pipe"
                      annotation (Placement(transformation(
         extent={{6,6},{-6,-6}},
         rotation=90,
         origin={160,110})));
-  Fluid.Sensors.TemperatureTwoPort Twp4(redeclare package Medium =
-        Medium, m_flow_nominal=datDes.mDisPip_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort Twp4(
+    redeclare package Medium = Medium,
+    m_flow_nominal=datDes.mDisPip_flow_nominal)
     "Temperature sensor in distribution pipe"
-                     annotation (Placement(transformation(
+    annotation (Placement(transformation(
         extent={{-6,6},{6,-6}},
         rotation=90,
         origin={-160,110})));
-  Buildings.Fluid.Sensors.MassFlowRate senMasFloPriBor(redeclare package Medium =
-        Medium, allowFlowReversal=true)
+  Buildings.Fluid.Sensors.MassFlowRate senMasFloPriBor(
+    redeclare package Medium = Medium,
+    allowFlowReversal=true)
     "Mass flow rate sensor upstream of borefield" annotation (Placement(
         transformation(
         extent={{6,6},{-6,-6}},
@@ -345,7 +362,7 @@ model Bidirectional "Bidirectional network"
     annotation (Placement(transformation(extent={{166,244},{178,256}})));
   Buildings.Utilities.IO.Files.Printer pri(
     samplePeriod=8760*3600,
-    header="Total electricity use [J]",
+    header="Total normalized electricity use [1]",
     configuration=3,
     significantDigits=5)
     annotation (Placement(transformation(extent={{200,240},{220,260}})));
