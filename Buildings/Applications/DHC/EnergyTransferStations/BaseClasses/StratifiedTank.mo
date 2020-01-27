@@ -47,16 +47,24 @@ equation
   connect(mRelative.y, wch) annotation (Line(points={{81,88},{96,88},{96,40},{
           110,40}}, color={0,0,127}));
 
- annotation(Documentation(info="<html>
+annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
+            defaultComponentName="fouConTan",
+            Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
+Documentation(info="<html>
 <p>
-The model represents a four pipes stratified tank. 
+The model represents a four pipes stratified tank. An example of the cold buffer tank 
+connections is shown in the figure below
 </p>
- 
-</html>", revisions="<html>
+<p align=\"center\">
+<img alt=\"coolingBufferTank\"
+src=\"modelica://Buildings/Resources/Images/Applications/DHC/EnergyTransferStations/coolingBufferTank.png\"/>
+</p>
+</html>",revisions="<html>
 <ul>
 <li>
 January 1, 2020 by Hagar Elarga :<br/>
-added the thermodynamic diagnostics for fluid ports a1 and b1 
+added the thermodynamic diagnostics for fluid ports a1 and b1 and 
+the documentation.
 </li>
 <li>
 by Michael Wetter:<br/>

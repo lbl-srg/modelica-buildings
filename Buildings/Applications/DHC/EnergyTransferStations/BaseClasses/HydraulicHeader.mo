@@ -65,7 +65,7 @@ equation
         annotation (Line(points={{10,0},{100,0}},   color={0,127,255}));
     end for;
 
-    annotation (Icon(graphics={
+annotation (Icon(graphics={
        Rectangle(
          extent={{-90,20},{88,-20}},
          lineColor={255,170,255},
@@ -84,7 +84,7 @@ equation
          lineThickness=0.5,
          fillColor={255,170,213},
          fillPattern=FillPattern.Solid),
-                                Text(
+       Text(
          extent={{-149,93},{151,53}},
          lineColor={0,0,255},
          fillPattern=FillPattern.HorizontalCylinder,

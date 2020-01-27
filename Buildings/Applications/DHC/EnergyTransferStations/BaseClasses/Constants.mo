@@ -115,7 +115,7 @@ block Constants "Generate constant signal of type Real"
           extent={{-9,-20},{11,-40}},
           lineColor={0,0,0},
           textString="k[i]")}),
-          Documentation(info=" <html>
+Documentation(info=" <html>
 <p>
 The Real outputs y[nCon] are constant signals, where nCon are number of constants.
 </p>
