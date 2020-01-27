@@ -338,7 +338,9 @@ its class name ends with the string <code>Beta</code>.
     </tr>
     <tr><td valign=\"top\">Buildings.Examples.VAVReheat.ThermalZones.Floor<br/>
                            Buildings.Examples.VAVReheat.ASHRAE2006<br/>
-                           Buildings.Examples.VAVReheat.Guideline36
+                           Buildings.Examples.VAVReheat.Guideline36<br/>
+                           Buildings.Examples.DualFanDualDuct
+                           
         </td>
         <td valign=\"top\">Updated core zone geometry parameters related to room heat and mass balance.
                            This change was done in
