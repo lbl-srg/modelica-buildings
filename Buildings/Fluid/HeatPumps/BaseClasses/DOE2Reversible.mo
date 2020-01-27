@@ -5,7 +5,7 @@ block DOE2Reversible
 
   parameter Buildings.Fluid.HeatPumps.Data.DOE2Reversible.Generic per
    "Performance data"
-     annotation (choicesAllMatching = true,Placement(transformation(
+    annotation (choicesAllMatching = true,Placement(transformation(
          extent={{80,80},{100,100}})));
   parameter Real scaling_factor
    "Scaling factor for heat pump capacity";
@@ -113,18 +113,18 @@ equation
   TSouLvg_degC = Modelica.SIunits.Conversions.to_degC(TSouLvg);
 
  if (uMod==1) then
-    PLR1 = Buildings.Utilities.Math.Functions.smoothMax(
-      x1 =  Q_flow_set/(Q_flow_ava + Q_flow_small),
-      x2 =  per.coo.PLRMax,
-      deltaX =  per.coo.PLRMax/100);
-    PLR2 = Buildings.Utilities.Math.Functions.smoothMax(
-      x1 =  per.coo.PLRMinUnl,
-      x2 =  PLR1,
-      deltaX = per.coo.PLRMinUnl/100);
-    CR = Buildings.Utilities.Math.Functions.smoothMin(
-      x1 =  PLR1/per.coo.PLRMin,
-      x2 =  1,
-      deltaX =  0.001);
+     PLR1 = Buildings.Utilities.Math.Functions.smoothMax(
+        x1 =  Q_flow_set/(Q_flow_ava + Q_flow_small),
+        x2 =  per.hea.PLRMax,
+        deltaX = per.hea.PLRMax/100);
+     PLR2 = Buildings.Utilities.Math.Functions.smoothMax(
+        x1 =  per.hea.PLRMinUnl,
+        x2 =  PLR1,
+        deltaX = per.hea.PLRMinUnl/100);
+     CR = Buildings.Utilities.Math.Functions.smoothMin(
+        x1 =  PLR1/per.hea.PLRMin,
+        x2 =  1,
+        deltaX =  0.001);
 
      CapFT = Buildings.Utilities.Math.Functions.smoothMax(
         x1 = 1E-7,
@@ -158,11 +158,11 @@ equation
       x1 =  Q_flow_set/(Q_flow_ava + Q_flow_small),
       x2 =  per.coo.PLRMax,
       deltaX =  per.coo.PLRMax/100);
-  PLR2 = Buildings.Utilities.Math.Functions.smoothMax(
+    PLR2 = Buildings.Utilities.Math.Functions.smoothMax(
       x1 =  per.coo.PLRMinUnl,
       x2 =  PLR1,
       deltaX = per.coo.PLRMinUnl/100);
-  CR = Buildings.Utilities.Math.Functions.smoothMin(
+    CR = Buildings.Utilities.Math.Functions.smoothMin(
       x1 =  PLR1/per.coo.PLRMin,
       x2 =  1,
       deltaX =  0.001);
