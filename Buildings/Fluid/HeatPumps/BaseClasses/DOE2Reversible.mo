@@ -18,56 +18,56 @@ block DOE2Reversible
   parameter Modelica.SIunits.HeatFlowRate Q_flow_small = - per.coo.Q_flow * 1E-9 *scaling_factor
    "Small value for heat flow rate or power, used to avoid division by zero";
 
-  Modelica.Blocks.Interfaces.RealInput TLoaLvg(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TLoaLvg(
     final unit="K",
     displayUnit="degC")
    "Load entering fluid temperature"
     annotation (Placement(transformation(extent={{-124,-52},{-100,-28}}),
         iconTransformation(extent={{-120,74},{-100,94}})));
-  Modelica.Blocks.Interfaces.RealInput TSouLvg(final unit="K", displayUnit="degC")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSouLvg(final unit="K", displayUnit="degC")
     "Source leaving fluid temperature"
     annotation (Placement(transformation(
           extent={{-124,48},{-100,72}}), iconTransformation(extent={{-120,-108},
             {-100,-88}})));
-  Modelica.Blocks.Interfaces.RealInput TSouEnt(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSouEnt(
     final unit="K",
     displayUnit="degC") "Source entering fluid temperature"
     annotation (Placement(transformation(extent={{-124,28},{-100,52}}),
         iconTransformation(extent={{-120,-36},{-100,-16}})));
-  Modelica.Blocks.Interfaces.RealInput TLoaEnt(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TLoaEnt(
     final unit="K",
     displayUnit="degC")
     "Load entering fluid temperature"
     annotation (Placement(transformation(extent={{-124,-92},{-100,-68}}),
                           iconTransformation(extent={{-120,-74},{-100,-54}})));
-  Modelica.Blocks.Interfaces.RealInput Q_flow_set(final unit="W")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput Q_flow_set(final unit="W")
     "Required heat to meet set point"
     annotation (Placement(transformation(
           extent={{-124,68},{-100,92}}), iconTransformation(extent={{-120,44},{
             -100,64}})));
 
-  Modelica.Blocks.Interfaces.RealOutput QLoa_flow(final unit="W")
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QLoa_flow(final unit="W")
     "Load heat flow rate"
     annotation (Placement(transformation(extent={{100,50},{120,70}}),
         iconTransformation(extent={{100,20},{120,40}})));
 
-  Modelica.Blocks.Interfaces.RealOutput QSou_flow(final unit="W")
-   "Source heat flow rate"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QSou_flow(final unit="W")
+    "Source heat flow rate"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}}),
         iconTransformation(extent={{100,-70},{120,-50}})));
 
-  Modelica.Blocks.Interfaces.RealOutput P(final unit="W")
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput P(final unit="W")
    "Compressor power"
     annotation (Placement(transformation(extent={{100,10},{120,30}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 
-  Modelica.Blocks.Interfaces.RealOutput COP(
+   Buildings.Controls.OBC.CDL.Interfaces.RealOutput COP(
    final min=0,
    final unit="1")
    "Coefficient of performance, assuming useful heat is at the load side (at Medium 1)"
     annotation (Placement(transformation(extent={{100,-30},{120,-10}}),
     iconTransformation(extent={{100,-40},{120,-20}})));
-  Modelica.Blocks.Interfaces.IntegerInput uMod
+   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uMod
    "Control input signal, cooling mode= -1, off=0, heating mode=+1"
     annotation (Placement(transformation(extent={{-124,-12},{-100,12}}),
         iconTransformation(extent={{-120,-10},{-100,10}})));
