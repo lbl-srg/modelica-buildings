@@ -80,7 +80,6 @@ model Terminal4PipesFluidPorts
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare final package Medium=Medium2,
     final m_flow_nominal=max(m2Hea_flow_nominal, m2Coo_flow_nominal),
-    final tau=0,
     final allowFlowReversal=allowFlowReversal)
     "Return air temperature (sensed, steady-state)"
     annotation (Placement(transformation(extent={{130,-10},{110,10}})));
