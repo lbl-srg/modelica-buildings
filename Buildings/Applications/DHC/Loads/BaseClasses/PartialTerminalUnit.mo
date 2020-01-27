@@ -189,7 +189,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
       iconTransformation(extent={{120,-60},{140,-40}})));
   Modelica.Blocks.Interfaces.RealOutput QActHea_flow(
     quantity="HeatFlowRate") if funHeaSpe <> funSpe.None
-    "Heat flow rate transferred to the load for heating (>0)"
+    "Heat flow rate transferred to the load for heating (>=0)"
     annotation (Placement(transformation(extent={{200,200},{240,240}}),
         iconTransformation(extent={{120,80},{140,100}})));
   Modelica.Blocks.Interfaces.RealOutput QActCoo_flow(
@@ -343,29 +343,76 @@ protected
       Medium2.setState_pTX(Medium2.p_default, T_a2Coo_nominal))
     "Load side specific heat capacity at nominal conditions in cooling mode";
 equation
-  connect(scaQActHea_flow.y, QActHea_flow)
-    annotation (Line(points={{182,220},{220,220}}, color={0,0,127}));
-  connect(QReqHea_flow, scaQReqHea_flow.u)
-    annotation (Line(points={{-220,140},{-182,140}}, color={0,0,127}));
-  connect(QReqCoo_flow, scaQReqCoo_flow.u)
-    annotation (Line(points={{-220,100},{-182,100}}, color={0,0,127}));
-  connect(scaQActCoo_flow.y, QActCoo_flow)
-    annotation (Line(points={{182,200},{192,
-          200},{192,200},{220,200}}, color={0,0,127}));
-  connect(scaPHea.y, PHea)
-    annotation (Line(points={{182,180},{220,180}}, color={0,0,127}));
-  connect(sca_m1ReqCoo_flow.y, m1ReqCoo_flow)
-    annotation (Line(points={{182,80},{220,80}}, color={0,0,127}));
-  connect(sca_m1ReqHea_flow.y, m1ReqHea_flow)
-    annotation (Line(points={{182,100},{220,100}}, color={0,0,127}));
-  connect(scaPPum.y, PPum)
-    annotation (Line(points={{182,120},{220,120}}, color={0,0,127}));
-  connect(scaPCoo.y, PCoo)
-    annotation (Line(points={{182,160},{220,160}}, color={0,0,127}));
-  connect(scaPFan.y, PFan)
-    annotation (Line(points={{182,140},{220,140}}, color={0,0,127}));
+  if have_QReq_flow and funHeaSpe <> funSpe.None then
+    connect(QReqHea_flow, scaQReqHea_flow.u)
+      annotation (Line(points={{-220,140},{-182,140}}, color={0,0,127}));
+  end if;
+  if have_QReq_flow and funCooSpe <> funSpe.None then
+    connect(QReqCoo_flow, scaQReqCoo_flow.u)
+      annotation (Line(points={{-220,100},{-182,100}}, color={0,0,127}));
+  end if;
+  if funHeaSpe <> funSpe.None then
+    connect(scaQActHea_flow.y, QActHea_flow)
+      annotation (Line(points={{182,220},{220,220}}, color={0,0,127}));
+  end if;
+  if funCooSpe <> funSpe.None then
+    connect(scaQActCoo_flow.y, QActCoo_flow)
+      annotation (Line(points={{182,200},{192, 200},{192,200},{220,200}}, color={0,0,127}));
+  end if;
+  if funHeaSpe == funSpe.Electric then
+    connect(scaPHea.y, PHea)
+      annotation (Line(points={{182,180},{220,180}}, color={0,0,127}));
+  end if;
+  if funCooSpe == funSpe.Electric then
+    connect(scaPCoo.y, PCoo)
+      annotation (Line(points={{182,160},{220,160}}, color={0,0,127}));
+  end if;
+  if have_fan then
+    connect(scaPFan.y, PFan)
+      annotation (Line(points={{182,140},{220,140}}, color={0,0,127}));
+  end if;
+  if have_pum then
+    connect(scaPPum.y, PPum)
+      annotation (Line(points={{182,120},{220,120}}, color={0,0,127}));
+  end if;
+  if funHeaSpe == funSpe.Water or funHeaSpe == funSpe.ChangeOver then
+    connect(sca_m1ReqHea_flow.y, m1ReqHea_flow)
+      annotation (Line(points={{182,100},{220,100}}, color={0,0,127}));
+  end if;
+  if funCooSpe == funSpe.Water or funCooSpe == funSpe.ChangeOver then
+    connect(sca_m1ReqCoo_flow.y, m1ReqCoo_flow)
+      annotation (Line(points={{182,80},{220,80}}, color={0,0,127}));
+  end if;
 annotation (
   defaultComponentName="terUni",
+  Documentation(info="<html>
+<p>
+Partial model to be used for modeling the building terminal units, in conjunction
+with
+<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
+Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>.
+</p>
+<p>
+The models derived from this class are typically used in conjunction with
+<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
+Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>. They must
+compute a so-called required mass flow rate defined as the heating or chilled 
+water mass flow rate needed to meet the load.
+It can be approximated using a control loop to avoid inverting the heat
+exchanger models as described in 
+<a href=\"modelica://Buildings.Applications.DHC.Loads.Validation\">
+Buildings.Applications.DHC.Loads.Validation</a>.
+</p>
+<p>
+The fluid ports suffixed with <code>1</code> represent the connection with the 
+heating or chilled water distribution system.
+</p>
+<p>
+The fluid ports suffixed with <code>2</code> represent the connection with the 
+fluid stream on the load side (domestic hot water or supplied air). Alternatively
+heat ports can be used to model the heat transfer to the load.
+</p>
+</html>"),
   Icon(coordinateSystem(preserveAspectRatio=false,
   extent={{-120,-120},{120,120}}),
     graphics={

@@ -374,7 +374,7 @@ individual fluid stream to the main fluid stream.
 The pressure drop in the main distribution loop corresponds to the pressure drop
 over the whole distribution system (the pump head): it is governed by an equation representing
 the control logic of the distribution pump. The pressure drop in each branch circuit is
-irrelevant: <code>dp_nominal</code> must be set to zero for each terminal unit component.
+irrelevant: <code>dp_nominal</code> (water side) must be set to zero for each terminal unit component.
 </li>
 </ul>
 <p>
@@ -416,13 +416,7 @@ tracking the supply temperature.
         Rectangle(extent={{-100,100},{100,-100}}, lineColor={95,95,95})}),
       Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-160},{100,
             240}}),                                                                       graphics={Text(
-        extent={{-106,-132},{112,-160}},
-        lineColor={28,108,200},
-        horizontalAlignment=TextAlignment.Left,
-          textString=
-              "CPU time for integration is twice lower when Dynamics of valve or splitter are NOT steady state!?"),
-                                                                                                    Text(
-        extent={{38,-122},{158,-146}},
+        extent={{-62,-140},{58,-164}},
         lineColor={28,108,200},
         horizontalAlignment=TextAlignment.Left,
           textString="Implement PI reset for change over")}));

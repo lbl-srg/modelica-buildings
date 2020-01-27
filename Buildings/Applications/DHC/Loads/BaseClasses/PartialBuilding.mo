@@ -58,37 +58,37 @@ partial model PartialBuilding "Partial class for building model"
     "Fluid connectors b (positive design flow direction is from port_a to ports_b)"
     annotation (Placement(transformation(extent={{290,-40},{310,40}}),
       iconTransformation(extent={{290,-220},{310,-140}})));
-  Modelica.Blocks.Interfaces.RealOutput QCoo_flow(
-    final quantity="HeatFlowRate", final unit="W") if have_cooLoa
-    "Total cooling heat flow rate transferred to the loads (<=0)"
-    annotation (Placement(transformation(
-      extent={{300,200},{340,240}}), iconTransformation(extent={{300,200},{340,
-            240}})));
   Modelica.Blocks.Interfaces.RealOutput QHea_flow(
     final quantity="HeatFlowRate", final unit="W") if have_heaLoa
     "Total heating heat flow rate transferred to the loads (>=0)"
     annotation (Placement(transformation(
       extent={{300,260},{340,300}}), iconTransformation(extent={{300,240},{340,280}})));
+  Modelica.Blocks.Interfaces.RealOutput QCoo_flow(
+    final quantity="HeatFlowRate", final unit="W") if have_cooLoa
+    "Total cooling heat flow rate transferred to the loads (<=0)"
+    annotation (Placement(transformation(
+      extent={{300,220},{340,260}}),
+      iconTransformation(extent={{300,200},{340, 240}})));
   Modelica.Blocks.Interfaces.RealOutput PHea(
     final quantity="Power", final unit="W") if have_eleHea
     "Power drawn by heating equipment"
     annotation (Placement(transformation(
-      extent={{300,160},{340,200}}), iconTransformation(extent={{300,160},{340,
-            200}})));
+      extent={{300,180},{340,220}}),
+      iconTransformation(extent={{300,160},{340, 200}})));
   Modelica.Blocks.Interfaces.RealOutput PCoo(
     quantity="Power", final unit="W") if have_eleCoo
     "Power drawn by cooling equipment"
-    annotation (Placement(transformation(extent={{300,120},{340,160}}),
+    annotation (Placement(transformation(extent={{300,140},{340,180}}),
       iconTransformation(extent={{300,120},{340,160}})));
   Modelica.Blocks.Interfaces.RealOutput PFan(
     final quantity="Power", final unit="W") if have_fan
     "Power drawn by fans motors"
-    annotation (Placement(transformation(extent={{300,80},{340,120}}),
+    annotation (Placement(transformation(extent={{300,100},{340,140}}),
       iconTransformation(extent={{300,80},{340,120}})));
   Modelica.Blocks.Interfaces.RealOutput PPum(
     final quantity="Power", final unit="W") if have_pum
     "Power drawn by pumps motors"
-    annotation (Placement(transformation(extent={{300,40},{340,80}}),
+    annotation (Placement(transformation(extent={{300,60},{340,100}}),
       iconTransformation(extent={{300,40},{340,80}})));
 initial equation
   assert(nPorts_a1 == nPorts_b1,
@@ -100,11 +100,9 @@ annotation (
   Documentation(info="<html>
 <p>
 Partial model to be used for modeling the building loads served by an energy
-transfer station and/or a dedicated plant.
-The fluid ports represent the connection between the production system and
-the distribution system.
-Every mechanical system downstream that connection should be modeled within a
-component derived from that partial model.
+transfer station or a dedicated plant.
+The fluid ports represent the connection between that production system and
+the building distribution system.
 </p>
 </html>"),
   Icon(
