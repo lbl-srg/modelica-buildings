@@ -180,8 +180,7 @@ model EnergyTransferStation
     final QCon_flow_nominal=QHea_flow_nominal,
     final dp1_nominal=dp_nominal,
     final dp2_nominal=dp_nominal,
-    m2_flow_nominal = gaiMFlow*heaPum.QEva_flow_nominal/cp_default/heaPum.dTEva_nominal,
-    QEva_flow(start=QHea_flow_nominal))
+    m2_flow_nominal = gaiMFlow*heaPum.QEva_flow_nominal/cp_default/heaPum.dTEva_nominal)
     "Heat pump"
     annotation (Placement(transformation(extent={{22,212},{42,232}})));
   BaseClasses.Pump_m_flow pumHea(
@@ -206,8 +205,7 @@ model EnergyTransferStation
     final dp2_nominal=dp_nominal,
     final QCon_flow_nominal=QHotWat_flow_nominal,
     final dTCon_nominal=dTHotWatCon_nominal,
-    m2_flow_nominal = gaiMFlow*heaPumHotWat.QEva_flow_nominal/cp_default/heaPumHotWat.dTEva_nominal,
-    QEva_flow(start=QHea_flow_nominal)) "Heat pump"
+    m2_flow_nominal = gaiMFlow*heaPumHotWat.QEva_flow_nominal/cp_default/heaPumHotWat.dTEva_nominal) "Heat pump"
     annotation (Placement(transformation(extent={{20,-92},{40,-72}})));
   BaseClasses.Pump_m_flow pumHex(
     redeclare package Medium = Medium,
