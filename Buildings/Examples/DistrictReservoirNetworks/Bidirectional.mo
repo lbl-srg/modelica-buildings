@@ -17,8 +17,9 @@ model Bidirectional "Bidirectional network"
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={0,-320})));
-  Fluid.Sensors.TemperatureTwoPort Twp1(redeclare package Medium =
-        Medium, m_flow_nominal=datDes.mDisPip_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort senTWarPla(
+    redeclare package Medium = Medium,
+    m_flow_nominal=datDes.mDisPip_flow_nominal)
     "Temperature sensor in distribution pipe"
       annotation (Placement(transformation(
         extent={{-6,6},{6,-6}},
@@ -57,15 +58,17 @@ model Bidirectional "Bidirectional network"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-160,0})));
-  Fluid.Sensors.TemperatureTwoPort Twp2(redeclare package Medium =
-        Medium, m_flow_nominal=datDes.mDisPip_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort senTWarOff(
+    redeclare package Medium = Medium,
+    m_flow_nominal=datDes.mDisPip_flow_nominal)
     "Temperature sensor in distribution pipe"
       annotation (Placement(transformation(
         extent={{-6,6},{6,-6}},
         rotation=90,
         origin={-160,-52})));
-  Fluid.Sensors.TemperatureTwoPort Tcp1(redeclare package Medium =
-        Medium, m_flow_nominal=datDes.mDisPip_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort senTColPla(
+    redeclare package Medium = Medium,
+    m_flow_nominal=datDes.mDisPip_flow_nominal)
     "Temperature sensor in distribution pipe"
       annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
@@ -158,7 +161,7 @@ model Bidirectional "Bidirectional network"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-80,-120})));
-  Fluid.Sensors.TemperatureTwoPort Tcp2(
+  Fluid.Sensors.TemperatureTwoPort senTColOff(
     redeclare package Medium = Medium,
     m_flow_nominal=datDes.mDisPip_flow_nominal)
     "Temperature sensor in distribution pipe"
@@ -166,7 +169,7 @@ model Bidirectional "Bidirectional network"
         extent={{6,6},{-6,-6}},
         rotation=90,
         origin={160,-52})));
-  Fluid.Sensors.TemperatureTwoPort Tcp3(
+  Fluid.Sensors.TemperatureTwoPort senTColApa(
     redeclare package Medium = Medium,
     m_flow_nominal=datDes.mDisPip_flow_nominal)
     "Temperature sensor in distribution pipe"
@@ -174,7 +177,7 @@ model Bidirectional "Bidirectional network"
         extent={{6,6},{-6,-6}},
         rotation=90,
         origin={160,28})));
-  Fluid.Sensors.TemperatureTwoPort Twp3(
+  Fluid.Sensors.TemperatureTwoPort senTWarApa(
     redeclare package Medium = Medium,
     m_flow_nominal=datDes.mDisPip_flow_nominal)
     "Temperature sensor in distribution pipe"
@@ -182,7 +185,7 @@ model Bidirectional "Bidirectional network"
         extent={{-6,6},{6,-6}},
         rotation=90,
         origin={-160,28})));
-  Fluid.Sensors.TemperatureTwoPort Tcp4(
+  Fluid.Sensors.TemperatureTwoPort senTColHos(
     redeclare package Medium = Medium,
     m_flow_nominal=datDes.mDisPip_flow_nominal)
     "Temperature sensor in distribution pipe"
@@ -190,7 +193,7 @@ model Bidirectional "Bidirectional network"
         extent={{6,6},{-6,-6}},
         rotation=90,
         origin={160,110})));
-  Fluid.Sensors.TemperatureTwoPort Twp4(
+  Fluid.Sensors.TemperatureTwoPort senTWarHos(
     redeclare package Medium = Medium,
     m_flow_nominal=datDes.mDisPip_flow_nominal)
     "Temperature sensor in distribution pipe"
@@ -300,8 +303,9 @@ model Bidirectional "Bidirectional network"
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={60,-220})));
-  Buildings.Fluid.Sensors.MassFlowRate senBorFieByPas(redeclare package Medium =
-        Medium, allowFlowReversal=true) "Mass flow rate through bypass"
+  Buildings.Fluid.Sensors.MassFlowRate senBorFieByPas(
+    redeclare package Medium = Medium,
+    allowFlowReversal=true) "Mass flow rate through bypass"
     annotation (Placement(transformation(
         extent={{6,-6},{-6,6}},
         rotation=0,
@@ -317,8 +321,9 @@ model Bidirectional "Bidirectional network"
     annotation (Placement(transformation(extent={{110,-310},{90,-290}})));
   BaseClasses.Networks.Controls.PumpMode conPumMod "Controller for pump mode"
     annotation (Placement(transformation(extent={{90,-270},{70,-250}})));
-  Buildings.Fluid.Sources.Boundary_pT bou(redeclare package Medium =
-        Medium, nPorts=1) annotation (Placement(transformation(
+  Buildings.Fluid.Sources.Boundary_pT bou(
+    redeclare package Medium = Medium,
+    nPorts=1) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-188,14})));
@@ -419,47 +424,47 @@ equation
           {-40,-120},{-40,-92},{-10,-92}}, color={0,127,255}));
   connect(mSetPla_flow.y, pumPlaSec.m_flow_in) annotation (Line(points={{-46.8,
           -60},{-60,-60},{-60,-100},{-80,-100},{-80,-108}}, color={0,0,127}));
-  connect(Twp1.port_b, splSup1.port_1)
+  connect(senTWarPla.port_b, splSup1.port_1)
     annotation (Line(points={{-160,-134},{-160,-90}}, color={0,127,255}));
   connect(splSup1.port_3, senEntPlaOut.port_b)
     annotation (Line(points={{-150,-80},{-126,-80}}, color={0,127,255}));
-  connect(Tcp2.port_b, splSup2.port_2)
+  connect(senTColOff.port_b, splSup2.port_2)
     annotation (Line(points={{160,-58},{160,-70}}, color={0,127,255}));
-  connect(Tcp3.port_b, splSup7.port_1)
+  connect(senTColApa.port_b, splSup7.port_1)
     annotation (Line(points={{160,22},{160,10}}, color={0,127,255}));
-  connect(Tcp4.port_b, splSup6.port_1)
+  connect(senTColHos.port_b, splSup6.port_1)
     annotation (Line(points={{160,104},{160,90}}, color={0,127,255}));
-  connect(disPip8.port_a, Tcp1.port_b)
+  connect(disPip8.port_a, senTColPla.port_b)
     annotation (Line(points={{160,-160},{160,-146}}, color={0,127,255}));
   connect(disPip8.port_b, senMasFloPriBor.port_a) annotation (Line(points={{160,
           -180},{160,-200},{126,-200}}, color={0,127,255}));
-  connect(disPip7.port_b, Twp1.port_a)
+  connect(disPip7.port_b, senTWarPla.port_a)
     annotation (Line(points={{-160,-160},{-160,-146}}, color={0,127,255}));
   connect(splSup8.port_1, disPip5.port_b)
     annotation (Line(points={{-160,-10},{-160,-20}}, color={0,127,255}));
-  connect(disPip5.port_a, Twp2.port_b)
+  connect(disPip5.port_a, senTWarOff.port_b)
     annotation (Line(points={{-160,-40},{-160,-46}}, color={0,127,255}));
-  connect(Twp2.port_a, splSup1.port_2)
+  connect(senTWarOff.port_a, splSup1.port_2)
     annotation (Line(points={{-160,-58},{-160,-70}}, color={0,127,255}));
-  connect(Twp3.port_a, splSup8.port_2)
+  connect(senTWarApa.port_a, splSup8.port_2)
     annotation (Line(points={{-160,22},{-160,10}}, color={0,127,255}));
-  connect(Twp4.port_a, splSup5.port_2)
+  connect(senTWarHos.port_a, splSup5.port_2)
     annotation (Line(points={{-160,104},{-160,90}}, color={0,127,255}));
-  connect(disPip3.port_a, Twp3.port_b)
+  connect(disPip3.port_a, senTWarApa.port_b)
     annotation (Line(points={{-160,40},{-160,34}}, color={0,127,255}));
   connect(splSup5.port_1, disPip3.port_b)
     annotation (Line(points={{-160,70},{-160,60}}, color={0,127,255}));
-  connect(Twp4.port_b, disPip1.port_a)
+  connect(senTWarHos.port_b, disPip1.port_a)
     annotation (Line(points={{-160,116},{-160,120}}, color={0,127,255}));
   connect(splSup6.port_2, disPip4.port_a)
     annotation (Line(points={{160,70},{160,60}}, color={0,127,255}));
-  connect(Tcp3.port_a, disPip4.port_b)
+  connect(senTColApa.port_a, disPip4.port_b)
     annotation (Line(points={{160,34},{160,40}}, color={0,127,255}));
   connect(splSup7.port_2, disPip6.port_a)
     annotation (Line(points={{160,-10},{160,-20}}, color={0,127,255}));
-  connect(Tcp2.port_a, disPip6.port_b)
+  connect(senTColOff.port_a, disPip6.port_b)
     annotation (Line(points={{160,-46},{160,-40}}, color={0,127,255}));
-  connect(splSup2.port_1, Tcp1.port_a)
+  connect(splSup2.port_1, senTColPla.port_a)
     annotation (Line(points={{160,-90},{160,-134}}, color={0,127,255}));
   connect(plant.port_a1, senEntFloPlaIn.port_b)
     annotation (Line(points={{10,-80},{34,-80}}, color={0,127,255}));
@@ -486,7 +491,7 @@ equation
         color={0,0,127}));
   connect(bou.ports[1], splSup8.port_2) annotation (Line(points={{-178,14},{-170,
           14},{-170,10},{-160,10}},      color={0,127,255}));
-  connect(Tcp4.port_a, disPip2.port_b)
+  connect(senTColHos.port_a, disPip2.port_b)
     annotation (Line(points={{160,116},{160,120}}, color={0,127,255}));
   connect(pumPlaPri.P, EPumPla.u[1]) annotation (Line(points={{-91,-71},{-94,-71},
           {-94,-19.9},{-86,-19.9}}, color={0,0,127}));
@@ -511,24 +516,24 @@ equation
                                       color={0,0,127}));
   connect(EEleTot.y, pri.x[1])
     annotation (Line(points={{179.02,250},{198,250}}, color={0,0,127}));
-  connect(Twp3.T, TVio.u[1]) annotation (Line(points={{-153.4,28},{-140,28},{
+  connect(senTWarApa.T, TVio.u[1]) annotation (Line(points={{-153.4,28},{-140,28},{
           -140,303.675},{244,303.675}},
                                    color={0,0,127}));
-  connect(Twp2.T, TVio.u[2]) annotation (Line(points={{-153.4,-52},{-136,-52},{
+  connect(senTWarOff.T, TVio.u[2]) annotation (Line(points={{-153.4,-52},{-136,-52},{
           -136,302.625},{244,302.625}},
                                    color={0,0,127}));
-  connect(Twp1.T, TVio.u[3]) annotation (Line(points={{-153.4,-140},{-134,-140},
+  connect(senTWarPla.T, TVio.u[3]) annotation (Line(points={{-153.4,-140},{-134,-140},
           {-134,301.575},{244,301.575}}, color={0,0,127}));
-  connect(Tcp4.T, TVio.u[4]) annotation (Line(points={{166.6,110},{228,110},{
+  connect(senTColHos.T, TVio.u[4]) annotation (Line(points={{166.6,110},{228,110},{
           228,300.525},{244,300.525}},
                                    color={0,0,127}));
-  connect(Tcp3.T, TVio.u[5]) annotation (Line(points={{166.6,28},{232,28},{232,
+  connect(senTColApa.T, TVio.u[5]) annotation (Line(points={{166.6,28},{232,28},{232,
           299.475},{244,299.475}},
                           color={0,0,127}));
-  connect(Tcp2.T, TVio.u[6]) annotation (Line(points={{166.6,-52},{234,-52},{
+  connect(senTColOff.T, TVio.u[6]) annotation (Line(points={{166.6,-52},{234,-52},{
           234,298.425},{244,298.425}},
                                    color={0,0,127}));
-  connect(Tcp1.T, TVio.u[7]) annotation (Line(points={{166.6,-140},{238,-140},{
+  connect(senTColPla.T, TVio.u[7]) annotation (Line(points={{166.6,-140},{238,-140},{
           238,296},{244,296},{244,297.375}},
                                          color={0,0,127}));
   connect(TVio.y, pri1.x[1])
@@ -541,7 +546,7 @@ equation
           -280},{190,240},{100,240},{100,257.2},{104,257.2}}, color={0,0,127}));
   connect(EPumTot.y, EEleTot.u[2]) annotation (Line(points={{117.02,260},{142,
           260},{142,247.9},{166,247.9}}, color={0,0,127}));
-  connect(Twp4.T, TVio.u[8]) annotation (Line(points={{-153.4,110},{-144,110},{
+  connect(senTWarHos.T, TVio.u[8]) annotation (Line(points={{-153.4,110},{-144,110},{
           -144,296.325},{244,296.325}}, color={0,0,127}));
   connect(proHos.QPro, EProsumer3.u[1]) annotation (Line(points={{20.7143,
           185.714},{82.3572,185.714},{82.3572,186},{94,186}}, color={0,0,127}));

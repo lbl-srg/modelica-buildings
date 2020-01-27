@@ -16,7 +16,7 @@ partial model RN_BaseModel "Partial model for the reservoir network"
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-2,-440})));
-  Fluid.Sensors.TemperatureTwoPort Tml1(
+  Fluid.Sensors.TemperatureTwoPort senTMixBor(
     redeclare package Medium = Medium,
     allowFlowReversal=false,
     m_flow_nominal=datDes.mDisPip_flow_nominal,
@@ -45,7 +45,7 @@ partial model RN_BaseModel "Partial model for the reservoir network"
         "modelica://Buildings/Resources/Data/Examples/DistrictReservoirNetworks/Examples/SwissOffice_20190916.mos"))
     "Prosumer office"
     annotation (Placement(transformation(extent={{-180,-40},{-220,0}})));
-  Fluid.Sensors.TemperatureTwoPort Tml2(
+  Fluid.Sensors.TemperatureTwoPort senTMixPla(
    redeclare package Medium = Medium,
     allowFlowReversal=false,
     m_flow_nominal=datDes.mDisPip_flow_nominal,
@@ -54,7 +54,7 @@ partial model RN_BaseModel "Partial model for the reservoir network"
         extent={{-6,-6},{6,6}},
         rotation=90,
         origin={-80,-94})));
-  Fluid.Sensors.TemperatureTwoPort Tml4(
+  Fluid.Sensors.TemperatureTwoPort senTMixApa(
     redeclare package Medium = Medium,
     allowFlowReversal=false,
     m_flow_nominal=datDes.mDisPip_flow_nominal,
@@ -63,7 +63,7 @@ partial model RN_BaseModel "Partial model for the reservoir network"
         extent={{6,6},{-6,-6}},
         rotation=90,
         origin={80,118})));
-  Fluid.Sensors.TemperatureTwoPort Tml5(
+  Fluid.Sensors.TemperatureTwoPort senTMixHos(
     redeclare package Medium = Medium,
     allowFlowReversal=false,
     m_flow_nominal=datDes.mDisPip_flow_nominal,
@@ -72,7 +72,7 @@ partial model RN_BaseModel "Partial model for the reservoir network"
         extent={{-6,-6},{6,6}},
         rotation=270,
         origin={80,-92})));
-  Fluid.Sensors.TemperatureTwoPort Tml3(
+  Fluid.Sensors.TemperatureTwoPort senTMixOff(
     redeclare package Medium = Medium,
     m_flow_nominal=datDes.mDisPip_flow_nominal)
     "Temperature sensor" annotation (Placement(transformation(
@@ -363,7 +363,7 @@ equation
           -232},{-180,-232},{-180,-210},{-188,-210}}, color={0,0,127}));
   connect(mSetPla_flow.y, pumPlaSec.m_flow_in) annotation (Line(points={{-263.2,
           -232},{-260,-232},{-260,-210},{-252,-210}}, color={0,0,127}));
-  connect(Tml1.port_b, splSup2.port_1)
+  connect(senTMixBor.port_b, splSup2.port_1)
     annotation (Line(points={{-80,-294},{-80,-280}}, color={0,127,255}));
   connect(pumPlaPri.port_a, plant.port_b1)
     annotation (Line(points={{-200,-220},{-200,-240}}, color={0,127,255}));
@@ -374,11 +374,11 @@ equation
           -220},{-240,-268},{-250,-268}}, color={0,127,255}));
   connect(disPip7.port_b, pumDisLop.port_a)
     annotation (Line(points={{80,-260},{80,-280}}, color={0,127,255}));
-  connect(disPip8.port_b, Tml1.port_a)
+  connect(disPip8.port_b, senTMixBor.port_a)
     annotation (Line(points={{-80,-320},{-80,-306}}, color={0,127,255}));
-  connect(disPip2.port_b, Tml3.port_a)
+  connect(disPip2.port_b, senTMixOff.port_a)
     annotation (Line(points={{-80,82},{-80,240},{-6,240}}, color={0,127,255}));
-  connect(disPip3.port_a, Tml4.port_b)
+  connect(disPip3.port_a, senTMixApa.port_b)
     annotation (Line(points={{80,82},{80,112}}, color={0,127,255}));
   connect(swiHos.port_b1, proHos.port_a) annotation (Line(points={{160,-47},{
           170,-47},{170,-34},{180,-34}}, color={0,127,255}));
@@ -415,9 +415,9 @@ equation
           80,-270},{80,-280}}, color={0,127,255}));
   connect(disPip1.port_a, splSup1.port_2)
     annotation (Line(points={{-80,-140},{-80,-180}}, color={0,127,255}));
-  connect(disPip4.port_b, Tml5.port_b)
+  connect(disPip4.port_b, senTMixHos.port_b)
     annotation (Line(points={{80,-120},{80,-98}},  color={0,127,255}));
-  connect(disPip1.port_b, Tml2.port_a)
+  connect(disPip1.port_b, senTMixPla.port_a)
     annotation (Line(points={{-80,-120},{-80,-100}}, color={0,127,255}));
   connect(disPip5.port_b, disPip4.port_a)
     annotation (Line(points={{80,-162},{80,-140}}, color={0,127,255}));
@@ -468,17 +468,17 @@ equation
     annotation (Line(points={{-70,-402},{70,-402}}, color={0,127,255}));
   connect(pumpBHS.P, EPumDis.u[2]) annotation (Line(points={{39,-431},{18,-431},
           {18,-422},{100,-422},{100,-322.1},{114,-322.1}}, color={0,0,127}));
-  connect(Tml1.T, TVio.u[1]) annotation (Line(points={{-86.6,-300},{-292,-300},
+  connect(senTMixBor.T, TVio.u[1]) annotation (Line(points={{-86.6,-300},{-292,-300},
           {-292,333.36},{324,333.36}},color={0,0,127}));
-  connect(Tml2.T, TVio.u[2]) annotation (Line(points={{-86.6,-94},{-282,-94},{
+  connect(senTMixPla.T, TVio.u[2]) annotation (Line(points={{-86.6,-94},{-282,-94},{
           -282,331.68},{324,331.68}},
                                  color={0,0,127}));
-  connect(Tml3.T, TVio.u[3]) annotation (Line(points={{4.44089e-16,246.6},{
+  connect(senTMixOff.T, TVio.u[3]) annotation (Line(points={{4.44089e-16,246.6},{
           4.44089e-16,330},{324,330}},
                            color={0,0,127}));
-  connect(Tml4.T, TVio.u[4]) annotation (Line(points={{86.6,118},{304,118},{304,
+  connect(senTMixApa.T, TVio.u[4]) annotation (Line(points={{86.6,118},{304,118},{304,
           328.32},{324,328.32}}, color={0,0,127}));
-  connect(Tml5.T, TVio.u[5]) annotation (Line(points={{86.6,-92},{308,-92},{308,
+  connect(senTMixHos.T, TVio.u[5]) annotation (Line(points={{86.6,-92},{308,-92},{308,
           326.64},{324,326.64}},                       color={0,0,127}));
   connect(TVio.y, pri1.x[1])
     annotation (Line(points={{337.02,330},{350,330}}, color={0,0,127}));
@@ -507,13 +507,13 @@ equation
           {-226,-20},{-226,20},{-172,20},{-172,5},{-159.9,5}}, color={0,127,255}));
   connect(swiOff.port_b2, disPip2.port_a)
     annotation (Line(points={{-140,5},{-80,5},{-80,62}}, color={0,127,255}));
-  connect(swiOff.port_a1, Tml2.port_b) annotation (Line(points={{-139.9,-5},{-80,
+  connect(swiOff.port_a1, senTMixPla.port_b) annotation (Line(points={{-139.9,-5},{-80,
           -5},{-80,-88}}, color={0,127,255}));
-  connect(Tml4.port_a, swiApa.port_b2)
+  connect(senTMixApa.port_a, swiApa.port_b2)
     annotation (Line(points={{80,124},{80,153},{140,153}}, color={0,127,255}));
   connect(disPip3.port_b, swiHos.port_a1) annotation (Line(points={{80,62},{80,
           -47},{139.9,-47}}, color={0,127,255}));
-  connect(swiHos.port_b2, Tml5.port_a) annotation (Line(points={{140,-57},{122,
+  connect(swiHos.port_b2, senTMixHos.port_a) annotation (Line(points={{140,-57},{122,
           -57},{122,-58},{80,-58},{80,-86}}, color={0,127,255}));
   connect(plant.port_b2, sewBouCon.ports[2]) annotation (Line(points={{-212,-260},
           {-212,-270},{-250,-270},{-250,-272}}, color={0,127,255}));
@@ -544,7 +544,7 @@ equation
           -360},{-12,-360},{-12,-377.9},{-6,-377.9}}, color={0,0,127}));
   connect(senEntBorOut.H_flow, EFroBorFie2.u[2]) annotation (Line(points={{-69,
           -360},{-16,-360},{-16,-382.1},{-6,-382.1}}, color={0,0,127}));
-  connect(Tml3.port_b, swiApa.port_a1) annotation (Line(points={{6,240},{80,240},
+  connect(senTMixOff.port_b, swiApa.port_a1) annotation (Line(points={{6,240},{80,240},
           {80,163},{139.9,163}}, color={0,127,255}));
   connect(proHos.port_b, swiHos.port_a2) annotation (Line(points={{219.857,-34},
           {234,-34},{234,-64},{170,-64},{170,-57},{159.9,-57}}, color={0,127,
