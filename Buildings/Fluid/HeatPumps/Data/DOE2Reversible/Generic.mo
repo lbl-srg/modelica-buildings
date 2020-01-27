@@ -3,17 +3,17 @@ record Generic
   "Generic data record for reverse water to water heat pump implementing the doe2 method"
   extends Modelica.Icons.Record;
 
-  parameter HeatingCoolingData coo "Performance data for heating mode";
+  parameter HeatingCoolingData coo "Performance data for cooling mode";
   parameter HeatingCoolingData hea(
      mLoa_flow = coo.mLoa_flow,
      mSou_flow = coo.mSou_flow,
      COP_nominal=coo.COP_nominal,
      Q_flow=coo.Q_flow)
-   "Performance data for cooling mode (set coo.P = 0 to disable operation in cooling mode)";
+   "Performance data for heating mode";
   parameter Modelica.SIunits.PressureDifference dpHeaLoa_nominal(min=0) = 30000
    "Nominal pressure drop at load heat exchanger side at hea.mLoa_flow";
   parameter Modelica.SIunits.PressureDifference dpHeaSou_nominal(min=0) = 30000
-   "Nominal pressure drop at load heat exchanger side at hea.mSou_flow";
+   "Nominal pressure drop at source heat exchanger side at hea.mSou_flow";
 
 protected
   record HeatingCoolingData "Record for performance data that are used for heating and cooling separately"
@@ -34,14 +34,12 @@ protected
      "Coefficients for EIRFunPLR";
     parameter Real COP_nominal
      "Reference coefficient of performance"
-      annotation (Dialog(group=
-      "Nominal condition"));
+      annotation (Dialog(group="Nominal condition"));
     parameter Real PLRMax(min=0) "
      Maximum part load ratio";
     parameter Real PLRMinUnl(min=0)
      "Minimum part unload ratio";
     parameter Real PLRMin(min=0) "Minimum part load ratio";
-
     annotation (Dialog(group="Performance coefficients"),
                 Documentation(info="<html>
 <p>

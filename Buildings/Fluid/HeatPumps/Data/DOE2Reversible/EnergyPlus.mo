@@ -24,14 +24,9 @@ record EnergyPlus =
    "Data record for DOE2 reversible heat pump used in EnergyPlus example file"
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-  defaultComponentName="EPdataHP",
+  defaultComponentName="EPdataDOE2HP",
   defaultComponentPrefixes="parameter",
   Documentation(info= "<html>
-<p>
-This data corresponds to the EnergyPlus example file <code>GSHPSimple-GLHE.idf</code>
-from EnergyPlus 9.1, with a nominal cooling capacity of <i>39890</i> Watts and
-nominal heating capacity of <i>39040</i> Watt.
-</p>
 </html>", revisions="<html>
 <ul>
 <li>
