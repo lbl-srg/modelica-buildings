@@ -1,16 +1,16 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Control;
-model ColdSideController "State machine controls the operation of the EIR chiller, two way cooling valve, borfield and district pumps "
+model ColdSideController "State machine controls the operation of the cooling generating source 
+  (EIR chiller), two way cooling valve, borfield and district pumps "
 
   extends Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.HotColdSideController(
     THys=THys,
-      redeclare model Inequality =
+    redeclare model Inequality =
   Buildings.Controls.OBC.CDL.Continuous.LessEqual,
           addPar(p=-2*THys),
           addPar1(p=-THys),
           addPar2(p=-THys),
           addPar3(p=-0.5*THys));
-
-  Modelica.Blocks.Interfaces.BooleanOutput reqCoo
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput reqCoo
     "True if cooling is required from cooling generating source, false otherwise."
     annotation (Placement(
         transformation(extent={{140,132},{160,152}}),
@@ -29,8 +29,7 @@ equation
           108},{24,142},{150,142}},color={255,0,255}));
   connect(con.y, frePro.reference) annotation (Line(points={{32,-10},{40,-10},{
           40,-22},{48,-22}}, color={0,0,127}));
-  connect(or1.u2, frePro.y)
-    annotation (Line(points={{86,-28},{72,-28}}, color={255,0,255}));
+  connect(or1.u2, frePro.y) annotation (Line(points={{86,-28},{72,-28}}, color={255,0,255}));
   connect(or1.u1, rejFulLoaSta.active) annotation (Line(points={{86,-20},{76,-20},
           {76,12},{56,12},{56,49}}, color={255,0,255}));
   connect(or1.y, rejFulLoa) annotation (Line(points={{110,-20},{116,-20},{116,-48},
@@ -39,10 +38,8 @@ equation
           {40,-48},{40,-80},{58,-80}}, color={255,0,255}));
   connect(yVal,booToRea. y) annotation (Line(points={{150,-100},{122,-100}},
                      color={0,0,127}));
-  connect(valSta,or2. y)
-    annotation (Line(points={{150,-80},{82,-80}}, color={255,0,255}));
-  connect(or2.u2, rejParLoaSta.active)
-    annotation (Line(points={{58,-88},{-6,-88},{-6,69}}, color={255,0,255}));
+  connect(valSta,or2. y)  annotation (Line(points={{150,-80},{82,-80}}, color={255,0,255}));
+  connect(or2.u2, rejParLoaSta.active) annotation (Line(points={{58,-88},{-6,-88},{-6,69}}, color={255,0,255}));
   connect(booToRea.u,or2. y) annotation (Line(points={{98,-100},{90,-100},{90,
           -80},{82,-80}}, color={255,0,255}));
   connect(or1.y,or2. u1) annotation (Line(points={{110,-20},{116,-20},{116,-48},

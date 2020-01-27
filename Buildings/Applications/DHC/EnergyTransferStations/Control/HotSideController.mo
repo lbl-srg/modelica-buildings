@@ -1,12 +1,13 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Control;
 block HotSideController
-  "State machine controls the operation of the EIR chiller, two way heating valve, borfield and district pumps"
+  "State machine controls the operation of the heating generating source (EIR chiller)
+   , two way heating valve, borfield and district pumps"
   extends Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.HotColdSideController(
         THys=THys);
 
-  Modelica.Blocks.Interfaces.BooleanOutput reqHea
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput reqHea
     "True if heating is required from heating generating source, false otherwise."
-                                                               annotation (
+    annotation (
       Placement(transformation(extent={{140,128},{160,148}}),
                                                             iconTransformation(
           extent={{100,80},{120,100}})));
@@ -31,11 +32,10 @@ equation
           -110},{-62,-110}},     color={0,0,127}));
   connect(runHP.active, reqHea) annotation (Line(points={{6,109},{6,106},{24,
           106},{24,138},{150,138}}, color={255,0,255}));
-  connect(rejFulLoaSta.active, rejFulLoa)
-    annotation (Line(points={{56,49},{56,-48},{150,-48}}, color={255,0,255}));
-  connect(rejFulLoaSta.active, or2.u1)
-    annotation (Line(points={{56,49},{56,-80},{58,-80}}, color={255,0,255}));
-  annotation ( Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
+  connect(rejFulLoaSta.active, rejFulLoa)  annotation (Line(points={{56,49},{56,-48},{150,-48}}, color={255,0,255}));
+  connect(rejFulLoaSta.active, or2.u1) annotation (Line(points={{56,49},{56,-80},{58,-80}}, color={255,0,255}));
+
+   annotation ( Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
                     defaultComponentName="conHotSid",
                     Diagram(coordinateSystem(extent={{-140,-180},{140,160}})),
 Documentation(info="<html>

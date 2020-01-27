@@ -28,15 +28,15 @@ model Substation
         annotation (Dialog(group="Design Parameter"));
   //----------------------water to water chiller or heat pump system-----------------
     parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal=datChi.mEva_flow_nominal
-     "Condenser nominal water flow rate" annotation (Dialog(group="WSHP system"));
+     "Condenser nominal water flow rate" annotation (Dialog(group="EIR CHILLER system"));
     parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal=datChi.mEva_flow_nominal
-     "Evaporator nominal water flow rate" annotation (Dialog(group="WSHP system"));
+     "Evaporator nominal water flow rate" annotation (Dialog(group="EIR Chiller system"));
     parameter Modelica.SIunits.PressureDifference dpCon_nominal
       "Pressure difference accross the condenser"
-        annotation (Dialog(group="WSHP system"));
+        annotation (Dialog(group="EIR Chiller system"));
     parameter Modelica.SIunits.PressureDifference dpEva_nominal
       "Pressure difference accross the evaporator"
-        annotation (Dialog(group="WSHP system"));
+        annotation (Dialog(group="EIR Chiller system"));
 //---------------------------------Buffer tanks-------------------
     final parameter Modelica.SIunits.Volume VTan = 5*60*mCon_flow_nominal/1000
       "Tank volume, ensure at least 5 minutes buffer flow"

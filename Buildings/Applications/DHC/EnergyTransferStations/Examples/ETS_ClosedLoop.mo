@@ -5,16 +5,16 @@ model ETS_ClosedLoop
 
   parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal=datChi.mEva_flow_nominal
     "Evaporator heat exchanger nominal mass flow rate"
-    annotation (Dialog(group="WSHP system"));
+    annotation (Dialog(group="EIR Chiller system"));
   parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal=datChi.mCon_flow_nominal
     "Condenser heat exchanger nominal mass flow rate"
-    annotation (Dialog(group="WSHP system"));
+    annotation (Dialog(group="EIR Chiller system"));
   parameter Modelica.SIunits.PressureDifference dpCon_nominal=33530
     "Pressure difference accross the condenser"
-      annotation (Dialog(group="WSHP system"));
+      annotation (Dialog(group="EIR Chiller system"));
   parameter Modelica.SIunits.PressureDifference dpEva_nominal=32460
     "Pressure difference accross the evaporator"
-      annotation (Dialog(group="WSHP system"));
+      annotation (Dialog(group="EIR Chiller system"));
   parameter Modelica.SIunits.MassFlowRate mSecHea_flow_nominal=15
    "Secondary(building side) heatig water nominal mass flow rate";
   parameter Modelica.SIunits.MassFlowRate mSecCoo_flow_nominal=8
