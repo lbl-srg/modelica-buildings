@@ -39,7 +39,8 @@ protected
      Maximum part load ratio";
     parameter Real PLRMinUnl(min=0)
      "Minimum part unload ratio";
-    parameter Real PLRMin(min=0) "Minimum part load ratio";
+    parameter Real PLRMin(min=0)
+      "Minimum part load ratio";
     annotation (Dialog(group="Performance coefficients"),
                 Documentation(info="<html>
 <p>
