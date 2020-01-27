@@ -28,15 +28,27 @@ model AmbientCircuitController "Controller for the ambient water circuit"
     annotation (Dialog(group="PID controller"));
 
   Modelica.Blocks.Interfaces.RealInput TBorEnt(final unit="K", displayUnit="degc")
-    "Borefield entering water temperature " annotation (Placement(
+    "Borefield entering water temperature "
+    annotation (Placement(
         transformation(extent={{-260,-52},{-220,-12}}), iconTransformation(
           extent={{-120,-118},{-100,-98}})));
+  Modelica.Blocks.Interfaces.RealInput TBorLvg(final unit="K",displayUnit="degc")
+    "Borefield leaving water temperature"
+    annotation (Placement(transformation(
+          extent={{-260,-80},{-220,-40}}), iconTransformation(extent={{-120,-98},
+            {-100,-78}})));
+  Modelica.Blocks.Interfaces.RealInput TBorMaxEnt(final unit="K",displayUnit="degc")
+    "Maximum entering water temperature to the borefiled holes."
+    annotation (
+      Placement(transformation(extent={{-260,-20},{-220,20}}),
+        iconTransformation(extent={{-120,-40},{-100,-20}})));
   Modelica.Blocks.Interfaces.RealInput TDisHexEnt(final unit="K", displayUnit="degc")
     "District heat exchanger entering water temperature" annotation (Placement(
         transformation(extent={{-260,-302},{-220,-262}}), iconTransformation(
           extent={{-120,-60},{-100,-40}})));
   Modelica.Blocks.Interfaces.RealInput TDisHexLvg(final unit="K", displayUnit="degc")
-    "District heat exchanger leaving water temperature" annotation (Placement(
+    "District heat exchanger leaving water temperature"
+    annotation (Placement(
         transformation(extent={{-260,-338},{-220,-298}}), iconTransformation(
           extent={{-120,-80},{-100,-60}})));
   Modelica.Blocks.Interfaces.BooleanInput valHea
@@ -55,18 +67,11 @@ model AmbientCircuitController "Controller for the ambient water circuit"
   "True if cooling is required."
     annotation (Placement(transformation(extent={{-260,138},{-220,178}}),
         iconTransformation(extent={{-120,-20},{-100,0}})));
-  Modelica.Blocks.Interfaces.BooleanInput rejCooFulLoa
-    "True if cold side requires full surplus heat rejection with district heat exchanger and/ or borfield systems"
-    annotation (Placement(transformation(extent={{-260,-262},{-220,-222}}),
-        iconTransformation(extent={{-120,0},{-100,20}})));
-  Modelica.Blocks.Interfaces.BooleanInput rejHeaFulLoa
-    "True if hot side requires full surplus heat rejection with district heat exchanger and/ or borfield systems"
-    annotation (Placement(transformation(extent={{-262,-202},{-222,-162}}),
-        iconTransformation(extent={{-120,20},{-100,40}})));
-  Modelica.Blocks.Interfaces.IntegerOutput yModInd
-    "Surplus heat rejection mode index"
-    annotation (Placement(transformation(extent={{220,-232},{240,-212}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
+  Modelica.Blocks.Interfaces.RealOutput yBorThrVal(final unit="1")
+    "Control signal for the borefiled three way valve which control the entering
+      water temperature "
+    annotation (Placement(transformation(extent={{218,-10},{238,10}}),
+        iconTransformation(extent={{100,48},{120,68}})));
   Modelica.Blocks.Interfaces.RealOutput yDisHexPum(final unit="1")
     "District heat exchanger pump control" annotation (Placement(transformation(
           extent={{220,-286},{240,-266}}), iconTransformation(extent={{100,-98},
@@ -75,7 +80,20 @@ model AmbientCircuitController "Controller for the ambient water circuit"
     "Borfield system pump control"
     annotation (Placement(transformation(extent={{220,-52},{240,-32}}),
       iconTransformation(extent={{100,-62},{120,-42}})));
-
+  Modelica.Blocks.Interfaces.IntegerOutput yModInd
+    "Surplus heat rejection mode index"
+    annotation (Placement(transformation(extent={{220,-232},{240,-212}}),
+        iconTransformation(extent={{100,-10},{120,10}})));
+  Modelica.Blocks.Interfaces.BooleanInput rejCooFulLoa
+    "True if cold side requires full surplus heat rejection with district heat exchanger 
+      and/ or borfield systems"
+    annotation (Placement(transformation(extent={{-260,-262},{-220,-222}}),
+        iconTransformation(extent={{-120,0},{-100,20}})));
+  Modelica.Blocks.Interfaces.BooleanInput rejHeaFulLoa
+    "True if hot side requires full surplus heat rejection with district heat exchanger
+      and/ or borfield systems"
+    annotation (Placement(transformation(extent={{-262,-202},{-222,-162}}),
+        iconTransformation(extent={{-120,20},{-100,40}})));
   Buildings.Controls.OBC.CDL.Logical.Or or3
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
   Buildings.Controls.Continuous.LimPID hexPumCon(
@@ -163,7 +181,6 @@ model AmbientCircuitController "Controller for the ambient water circuit"
   Buildings.Controls.OBC.CDL.Logical.Switch runBor
     "Switch that enable the borefield system pump"
     annotation (Placement(transformation(extent={{190,-52},{210,-32}})));
-
   Buildings.Controls.Continuous.LimPID borThrWay(
     final Td=Td,
     reset=Buildings.Types.Reset.Parameter,
@@ -175,32 +192,17 @@ model AmbientCircuitController "Controller for the ambient water circuit"
     Ti(displayUnit="min") = 3600)
     "3-way valve controls the entering water temperature to the borefield holes"
     annotation (Placement(transformation(extent={{-106,-10},{-86,10}})));
-  Modelica.Blocks.Interfaces.RealInput TBorMaxEnt(final unit="K")
-    "Maximum entering water temperature to the borefiled holes." annotation (
-      Placement(transformation(extent={{-260,-20},{-220,20}}),
-        iconTransformation(extent={{-120,-40},{-100,-20}})));
-  Modelica.Blocks.Interfaces.RealOutput yBorThrVal(final unit="1")
-    "Control signal for the borefiled three way valve which control the entering water temperature "
-    annotation (Placement(transformation(extent={{218,-10},{238,10}}),
-        iconTransformation(extent={{100,48},{120,68}})));
-  Modelica.Blocks.Interfaces.RealInput TBorLvg(final unit="K")
-    "Borefield leaving water temperature"
-     annotation (Placement(transformation(
-          extent={{-260,-80},{-220,-40}}), iconTransformation(extent={{-120,-98},
-            {-100,-78}})));
+
 equation
-  connect(add4.y, abs3.u)
-    annotation (Line(points={{-138,-312},{-122,-312}}, color={0,0,127}));
+  connect(add4.y, abs3.u)  annotation (Line(points={{-138,-312},{-122,-312}}, color={0,0,127}));
   connect(abs3.y,hexPumCon. u_m) annotation (Line(points={{-98,-312},{-10,-312},
           {-10,-274}}, color={0,0,127}));
-  connect(con3.y,hexPumCon. u_s)
-    annotation (Line(points={{-58,-262},{-22,-262}}, color={0,0,127}));
+  connect(con3.y,hexPumCon. u_s) annotation (Line(points={{-58,-262},{-22,-262}}, color={0,0,127}));
   connect(TDisHexEnt, add4.u1) annotation (Line(points={{-240,-282},{-200,-282},
           {-200,-306},{-162,-306}}, color={0,0,127}));
-  connect(TDisHexLvg, add4.u2) annotation (Line(points={{-240,-318},{-162,-318}},
+  connect(TDisHexLvg, add4.u2)  annotation (Line(points={{-240,-318},{-162,-318}},
                                     color={0,0,127}));
-  connect(con2.y, modInd.u1)
-    annotation (Line(points={{102,-116},{110,-116},{110,-130},{118,-130}},
+  connect(con2.y, modInd.u1)  annotation (Line(points={{102,-116},{110,-116},{110,-130},{118,-130}},
                                                   color={0,0,127}));
   connect(con5.y, cooModInd.u1) annotation (Line(points={{42,-116},{70,-116},{
           70,-170},{80,-170}},
@@ -208,8 +210,7 @@ equation
   connect(con4.y, cooModInd.u3) annotation (Line(points={{42,-198},{60,-198},{
           60,-186},{80,-186}},
                              color={0,0,127}));
-  connect(reaToInt.y, yModInd)
-    annotation (Line(points={{202,-222},{230,-222}},
+  connect(reaToInt.y, yModInd)  annotation (Line(points={{202,-222},{230,-222}},
                                                    color={255,127,0}));
   connect(valHea, valOpe.u1) annotation (Line(points={{-240,250},{-200,250},{-200,
           240},{-182,240}}, color={255,0,255}));
