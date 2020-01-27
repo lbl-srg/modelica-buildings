@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatPumps.BaseClasses;
 block DOE2Reversible
-  "DOE2 method to compute the performance of the reversable heat pump"
+  "DOE2 method to compute the performance of the reversible heat pump"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Buildings.Fluid.HeatPumps.Data.DOE2Reversible.Generic per

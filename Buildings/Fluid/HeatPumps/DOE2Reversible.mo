@@ -53,45 +53,42 @@ extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
                     {1 - sum(port_b2.Xi_outflow)}))
    "Enthalpy corresponding to set point";
 
-  Modelica.Blocks.Interfaces.RealInput TSet(final unit="K", displayUnit="degC")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet(final unit="K", displayUnit="degC")
     "Set point for leaving fluid temperature at port b1"
      annotation (Placement(transformation(extent={{-120,44},{-100,64}}),
           iconTransformation(extent={{-120,80},{-100,100}})));
-  BaseClasses.ReSetTSetCoo reSet
-    "Built-in controller to reset of the cooling set point tempeatue in case heating mode is selected."
-     annotation (Placement(transformation(extent={{-48,50},{-28,70}})));
-  Modelica.Blocks.Interfaces.IntegerInput uMod
-   "Control input signal, cooling mode=-1, off=0, heating mode=+1"
-     annotation (Placement(transformation(extent={{-124,-12},{-100,12}}),
-          iconTransformation(extent={{-120,-10},{-100,10}})));
-  Modelica.Blocks.Interfaces.RealOutput QLoa_flow(final unit="W")
-   "Heat flow rate at the load heat exchanger"
-     annotation (Placement(transformation(extent={{100,78},{120,98}}),
-        iconTransformation(extent={{100,80},{120,100}})));
-  Modelica.Blocks.Interfaces.RealOutput P(final unit="W")
-   "Compressor power "
-     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-        iconTransformation(extent={{100,-12},{120,8}})));
-  Modelica.Blocks.Interfaces.RealOutput COP(final min=0, final unit="1")
-    "Coefficient of performance, assuming useful heat is at load side (at Medium 1)"
-     annotation (Placement(transformation(extent={{100,-50},{120,-30}}),
-        iconTransformation(extent={{100,-40},{120,-20}})));
-  Modelica.Blocks.Interfaces.RealOutput QSou_flow(final unit="W")
-   "Heat flow rate at the source heat exchanger"
-     annotation (Placement(transformation(extent={{100,-98},{120,-78}}),
-        iconTransformation(extent={{100,-100},{120,-80}})));
-  Modelica.Blocks.Interfaces.RealInput TSouMinLvg(final
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSouMinLvg(final
       unit="K",
       displayUnit="degC")
     "Minimum leaving water temperature at the source side"
      annotation (Placement(transformation(extent={{-120,90},{-100,110}}),
         iconTransformation(extent={{-120,-100},{-100,-80}})));
-  Modelica.Blocks.Interfaces.RealInput TSouMaxLvg(final
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSouMaxLvg(final
      unit="K",
      displayUnit="degC") "Maximum source leaving water temperature"
     annotation (Placement(
         transformation(extent={{-120,76},{-100,96}}), iconTransformation(extent=
            {{-120,30},{-100,50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uMod
+   "Control input signal, cooling mode=-1, off=0, heating mode=+1"
+     annotation (Placement(transformation(extent={{-124,-12},{-100,12}}),
+          iconTransformation(extent={{-120,-10},{-100,10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QLoa_flow(final unit="W")
+   "Heat flow rate at the load heat exchanger"
+     annotation (Placement(transformation(extent={{100,78},{120,98}}),
+        iconTransformation(extent={{100,80},{120,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput P(final unit="W")
+   "Compressor power "
+     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
+        iconTransformation(extent={{100,-12},{120,8}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput COP(final min=0, final unit="1")
+    "Coefficient of performance, assuming useful heat is at load side (at Medium 1)"
+     annotation (Placement(transformation(extent={{100,-50},{120,-30}}),
+        iconTransformation(extent={{100,-40},{120,-20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QSou_flow(final unit="W")
+   "Heat flow rate at the source heat exchanger"
+     annotation (Placement(transformation(extent={{100,-98},{120,-78}}),
+        iconTransformation(extent={{100,-100},{120,-80}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TSouLvg
     "Leaving water temperature form source heat exchanger"
     annotation (Placement(transformation(extent={{0,-40},{-20,-20}})));
@@ -99,6 +96,9 @@ extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
     "Leaving water temperature form load heat exchanger"
     annotation (Placement(transformation(extent={{-28,20},{-48,40}})));
 
+  BaseClasses.ReSetTSetCoo reSet
+    "Built-in controller to reset of the cooling set point tempeatue in case heating mode is selected."
+    annotation (Placement(transformation(extent={{-48,50},{-28,70}})));
 protected
    BaseClasses.DOE2Reversible doe2(
      final per=per,
@@ -107,14 +107,12 @@ protected
     annotation (Placement(transformation(extent={{-6,-10},{14,10}})));
 
   Buildings.Controls.OBC.CDL.Integers.LessThreshold lesThr(
-    final threshold=0) if
-       not reverseCycle
+    final threshold=0) if not reverseCycle
     "Indicator, outputs true if in cooling mode"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
   Buildings.Controls.OBC.CDL.Utilities.Assert aleMes(
-    message="uMod cannot be -1 if reverseCycle is false.") if
-         not reverseCycle
+    message="uMod cannot be -1 if reverseCycle is false.") if not reverseCycle
     "Generate alert message if control input is not valid"
     annotation (Placement(transformation(extent={{-52,-90},{-32,-70}})));
   Modelica.Blocks.Sources.RealExpression Q_flow_set(
