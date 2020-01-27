@@ -23,7 +23,7 @@ model AmbientCircuitController "Ambient water circuit controller validation"
     offset=25 + 273.15)
     "Borefield entering water temperature"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
- Buildings.Applications.DHC.EnergyTransferStations.Control.AmbientCircuitController AmbCirCon(
+  Buildings.Applications.DHC.EnergyTransferStations.Control.AmbientCircuitController AmbCirCon(
     dTGeo=5,
     dTHex=5)
   "Ambient water circuit control"

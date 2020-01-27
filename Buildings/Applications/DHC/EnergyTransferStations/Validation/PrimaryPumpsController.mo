@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Validation;
-model PrimaryPumpsController "Constant speed primary pumps controller validation."
+model PrimaryPumpsController "Constant speed primary pumps controller validation"
 
   Control.PrimaryPumpsConstantSpeed pumCon
     "Primary pumps(ETS side) controller"
