@@ -6,17 +6,7 @@ model DistributionPipe "DHC distribution pipe"
   parameter Real R(unit="Pa/m") "Pressure drop per meter at m_flow_nominal";
   final parameter Modelica.SIunits.Length length = 100 "Lenght of pipe";
 
-  final parameter Modelica.SIunits.PressureDifference dpStraightPipe_nominal(displayUnit="Pa")=
-      Modelica.Fluid.Pipes.BaseClasses.WallFriction.QuadraticTurbulent.pressureLoss_m_flow(
-      m_flow=m_flow_nominal,
-      rho_a=rho_default,
-      rho_b=rho_default,
-      mu_a=mu_default,
-      mu_b=mu_default,
-      length=length,
-      diameter=diameter,
-      roughness=2.5E-5,
-      m_flow_small=m_flow_small)
+  final parameter Modelica.SIunits.PressureDifference dpStraightPipe_nominal(displayUnit="Pa", fixed=false)
     "Pressure loss of a straight pipe at m_flow_nominal";
 
   final parameter Modelica.SIunits.Length diameter(
@@ -44,6 +34,17 @@ protected
 
 initial equation
   R * length = dpStraightPipe_nominal;
+  dpStraightPipe_nominal =
+      Modelica.Fluid.Pipes.BaseClasses.WallFriction.QuadraticTurbulent.pressureLoss_m_flow(
+      m_flow=m_flow_nominal,
+      rho_a=rho_default,
+      rho_b=rho_default,
+      mu_a=mu_default,
+      mu_b=mu_default,
+      length=length,
+      diameter=diameter,
+      roughness=2.5E-5,
+      m_flow_small=m_flow_small);
 equation
   when terminal() then
     Modelica.Utilities.Streams.print("Pipe diameter for '" + getInstanceName() + "' is " + String(diameter) + " m.");
