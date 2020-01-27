@@ -53,7 +53,7 @@ model ETS_ClosedLoop
         rotation=180,
         origin={-30,-50})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TDisEnt(k=16 + 273.15)
-    "District entering water temperature"
+    "District heat exchanger entering water temperature"
       annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
   Buildings.Applications.DHC.EnergyTransferStations.Data.DesignDataGeothermal datGeo(
     lBorFie={70,90,40,70,120}*0.5,
@@ -73,7 +73,7 @@ model ETS_ClosedLoop
     use_inputFilter=true,
     riseTime=180,
     dp_nominal=500000)
-    "Cooling constant speed pump-secondary circuit"
+    "Cooling water pump-secondary circuit"
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse mSecCooRet(
     amplitude=mSecCoo,
@@ -111,7 +111,7 @@ model ETS_ClosedLoop
     use_inputFilter=true,
     riseTime=30,
     dp_nominal=500000)
-    "Heating constant speed pump-secondary circuit"
+    "Heating pump-secondary circuit"
       annotation (Placement(transformation(extent={{100,60},{80,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse mSecHeaRet(
     amplitude=mSecHea,
@@ -145,7 +145,7 @@ model ETS_ClosedLoop
     allowFlowReversal=false,
     m_flow_nominal=mEva_flow_nominal,
     tau=30)
-    "Evaporator leaving water temperature"
+    "Evaporator entering water temperature"
       annotation (Placement(transformation(extent={{-80,10},{-100,30}})));
     Fluid.Sensors.TemperatureTwoPort supChiWat(
     redeclare final package Medium = Medium,
@@ -163,18 +163,22 @@ model ETS_ClosedLoop
     allowFlowReversal=false,
     m_flow_nominal=mEva_flow_nominal,
     tau=30)
+    "Condenser entering water temperature"
       annotation (Placement(transformation(extent={{100,10},{120,30}})));
     Fluid.Sensors.TemperatureTwoPort supHeaWat(
     redeclare final package Medium = Medium,
     allowFlowReversal=false,
     m_flow_nominal=mEva_flow_nominal,
     tau=30)
+    "Condenser leaving water temperature"
       annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={14,30})));
-  Fluid.Sources.Boundary_pT disLoa(redeclare package Medium = Medium, nPorts=1)
-    "Volume for the district system"
+  Fluid.Sources.Boundary_pT disLoa(
+    redeclare package Medium = Medium,
+    nPorts=1)
+    "Sink for the district system"
       annotation (Placement(transformation(extent={{80,-60},{60,-40}})));
   Fluid.FixedResistances.PressureDrop disPD(
     redeclare final package Medium = Medium,
@@ -191,79 +195,100 @@ model ETS_ClosedLoop
     conNam={"TSetHea","TSetCoo","TSetCooMin","TMinConEnt","TMaxEvaEnt",
         "TBorMaxEnt"},
     nCon=6)
-    "Multiple constants functions"
+    "Multiple constant functions"
     annotation (Placement(transformation(extent={{6,98},{-14,118}})));
 
   Modelica.Fluid.Sources.FixedBoundary pre(
     redeclare package Medium = Medium,
     nPorts=1)
-    "Pressure source" annotation (Placement(transformation(
+    "Pressure source"
+   annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={70,50})));
 equation
   connect(TDisEnt.y, disPum.T_in)
-  annotation (Line(points={{-98,-50},{-70,-50},{-70,-54},{-42,-54}},
+    annotation (Line(points={{-98,-50},{-70,-50},{-70,-54},{-42,-54}},
                                                   color={0,0,127}));
-  connect(disPum.ports[1], ETS.disWatSup) annotation (Line(points={{-20,-50},{
+  connect(disPum.ports[1], ETS.disWatSup)
+    annotation (Line(points={{-20,-50},{
           -1.2,-50},{-1.2,49}},
                             color={0,127,255}));
   connect(heaFloPos.port, cooVol.heatPort)
     annotation (Line(points={{-60,-10},{-40,-10}}, color={191,0,0}));
   connect(Q_flow_Coo.y, heaFloPos.Q_flow)
     annotation (Line(points={{-99,-10},{-80,-10}},  color={0,0,127}));
-  connect(mSecCooRet.y, Q_flow_Coo.u) annotation (Line(points={{-138,70},{-128,
+  connect(mSecCooRet.y, Q_flow_Coo.u)
+    annotation (Line(points={{-138,70},{-128,
           70},{-128,-10},{-122,-10}},  color={0,0,127}));
   connect(heaVol.heatPort, heaFloNeg.port)
     annotation (Line(points={{40,-10},{60,-10}}, color={191,0,0}));
   connect(heaFloNeg.Q_flow, Q_flow_Hea.y)
     annotation (Line(points={{80,-10},{99,-10}}, color={0,0,127}));
-  connect(mSecHeaRet.y, Q_flow_Hea.u) annotation (Line(points={{138,70},{126,70},
+  connect(mSecHeaRet.y, Q_flow_Hea.u)
+    annotation (Line(points={{138,70},{126,70},
           {126,-10},{122,-10}}, color={0,0,127}));
   connect(mSecHeaRet.y, pumHea.m_flow_in)
     annotation (Line(points={{138,70},{126,70},{126,84},{90,84},{90,82}},
                                                            color={0,0,127}));
-  connect(retChiWat.port_b, pumCoo.port_a) annotation (Line(points={{-100,20},{
+  connect(retChiWat.port_b, pumCoo.port_a)
+    annotation (Line(points={{-100,20},{
           -100,70},{-80,70}},  color={0,127,255}));
-  connect(retChiWat.port_a, cooVol.ports[1]) annotation (Line(points={{-80,20},{
+  connect(retChiWat.port_a, cooVol.ports[1])
+    annotation (Line(points={{-80,20},{
           -40,20},{-40,0},{-32,0}},       color={0,127,255}));
-  connect(supChiWat.port_b, cooVol.ports[2]) annotation (Line(points={{-18,20},
+  connect(supChiWat.port_b, cooVol.ports[2])
+    annotation (Line(points={{-18,20},
           {-18,0},{-28,0}},     color={0,127,255}));
-  connect(ETS.hotWatSup, supHeaWat.port_a) annotation (Line(points={{11,52.8},{
+  connect(ETS.hotWatSup, supHeaWat.port_a)
+    annotation (Line(points={{11,52.8},{
           14,52.8},{14,40}},  color={0,127,255}));
   connect(heaVol.ports[1], supHeaWat.port_b)
     annotation (Line(points={{32,0},{14,0},{14,20}},      color={0,127,255}));
   connect(pumCoo.m_flow_in, mSecCooRet.y)
     annotation (Line(points={{-70,82},{-70,86},{-128,86},{-128,70},{-138,70}},
                                                            color={0,0,127}));
-  connect(ETS.chiWatSup, supChiWat.port_a) annotation (Line(points={{-11,52.8},
+  connect(ETS.chiWatSup, supChiWat.port_a)
+    annotation (Line(points={{-11,52.8},
           {-18,52.8},{-18,40}},  color={0,127,255}));
-  connect(heaVol.ports[2], retHeaWat.port_a) annotation (Line(points={{28,0},{40,
+  connect(heaVol.ports[2], retHeaWat.port_a)
+    annotation (Line(points={{28,0},{40,
           0},{40,20},{100,20}},        color={0,127,255}));
   connect(retHeaWat.port_b, pumHea.port_a)
     annotation (Line(points={{120,20},{120,70},{100,70}}, color={0,127,255}));
-  connect(pumHea.port_b, ETS.hotWatRet) annotation (Line(points={{80,70},{40,70},
+  connect(pumHea.port_b, ETS.hotWatRet)
+    annotation (Line(points={{80,70},{40,70},
           {40,55.2},{11,55.2}}, color={0,127,255}));
-  connect(pumCoo.port_b, ETS.chiWatRet) annotation (Line(points={{-60,70},{-40,70},
+  connect(pumCoo.port_b, ETS.chiWatRet)
+    annotation (Line(points={{-60,70},{-40,70},
           {-40,55},{-11,55}},     color={0,127,255}));
-  connect(disLoa.ports[1],disPD. port_b) annotation (Line(points={{60,-50},{40,
+  connect(disLoa.ports[1],disPD. port_b)
+    annotation (Line(points={{60,-50},{40,
           -50}},                      color={0,127,255}));
-  connect(ETS.disWatRet,disPD. port_a) annotation (Line(points={{1.2,49},{1.2,
+  connect(ETS.disWatRet,disPD. port_a)
+    annotation (Line(points={{1.2,49},{1.2,
           -50},{20,-50}},
                       color={0,127,255}));
-  connect(mulCon.y[1], ETS.TSetHea) annotation (Line(points={{-15,107.167},{-24,
-          107.167},{-24,68.8},{-10.8,68.8}}, color={0,0,127}));
-  connect(mulCon.y[2], ETS.TSetCoo) annotation (Line(points={{-15,107.5},{-24,
+  connect(mulCon.y[1], ETS.TSetHea)
+    annotation (Line(points={{-15,107.167},{-24,107.167},{-24,68.8},{-10.8,68.8}},
+                                             color={0,0,127}));
+  connect(mulCon.y[2], ETS.TSetCoo)
+    annotation (Line(points={{-15,107.5},{-24,
           107.5},{-24,70.2},{-10.8,70.2}}, color={0,0,127}));
-  connect(mulCon.y[3], ETS.TSetCooMin) annotation (Line(points={{-15,107.833},{
-          -24,107.833},{-24,67.4},{-10.8,67.4}}, color={0,0,127}));
-  connect(mulCon.y[4], ETS.TMinConEnt) annotation (Line(points={{-15,108.167},{
-          -24,108.167},{-24,65.8},{-10.8,65.8}}, color={0,0,127}));
-  connect(mulCon.y[5], ETS.TMaxEvaEnt) annotation (Line(points={{-15,108.5},{
+  connect(mulCon.y[3], ETS.TSetCooMin)
+    annotation (Line(points={{-15,107.833},{-24,107.833},{-24,67.4},{-10.8,67.4}},
+                                                 color={0,0,127}));
+  connect(mulCon.y[4], ETS.TMinConEnt)
+    annotation (Line(points={{-15,108.167},{-24,108.167},{-24,65.8},{-10.8,65.8}},
+                                                 color={0,0,127}));
+  connect(mulCon.y[5], ETS.TMaxEvaEnt)
+    annotation (Line(points={{-15,108.5},{
           -24,108.5},{-24,60.4},{-10.8,60.4}}, color={0,0,127}));
-  connect(mulCon.y[6], ETS.TMaxBorEnt) annotation (Line(points={{-15,108.833},{
-          -24,108.833},{-24,58},{-10.8,58}}, color={0,0,127}));
-  connect(ETS.hotWatSup, pre.ports[1]) annotation (Line(points={{11,52.8},{32,52.8},
+  connect(mulCon.y[6], ETS.TMaxBorEnt)
+    annotation (Line(points={{-15,108.833},{-24,108.833},{-24,58},{-10.8,58}},
+                                             color={0,0,127}));
+  connect(ETS.hotWatSup, pre.ports[1])
+    annotation (Line(points={{11,52.8},{32,52.8},
           {32,50},{60,50}},       color={0,127,255}));
 annotation (Icon(coordinateSystem(preserveAspectRatio=false),
               graphics={
@@ -286,7 +311,7 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false),
                   Text(extent={{-160,-20},{-122,-40}},
                         lineColor={28,108,200},
                         textString="Cooling Side"),
-                  Text(extent={{-30,-68},{22,-84}},
+                  Text(extent={{-20,-72},{22,-84}},
                        lineColor={217,67,180},
                        textString="District Side")}),
  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Examples/ETS_ClosedLoop.mos"
