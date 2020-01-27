@@ -22,10 +22,8 @@ to redirect the mass flow rate.
 <p>
 To simplify the configuration of the parameters, many models such as for
 the borefield, the pipes and the T-junctions are extended from the models in
-<a href\"modelica://Buildings.Fluid\">Buildings.Fluid</a>.
-In these extensions, the parameters that are common to the examples in
-<a href=\"Buildings.Examples.DistrictReservoirNetworks.Examples\">
-Buildings.Examples.DistrictReservoirNetworks.Examples</a>
+<a href=\"modelica://Buildings.Fluid\">Buildings.Fluid</a>.
+In these extensions, the parameters that are common to the examples
 are set. This ensures that the same parameters are used for all variants.
 </p>
 </html>"));
