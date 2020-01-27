@@ -3,103 +3,104 @@ model ChillerController "Controller of the EIR chiller"
 
   extends Modelica.Blocks.Icons.Block;
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetHea(final
+   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetHea(final
       unit="K",
       displayUnit="degC")
     "Setpoint for heating supply water to space loads"
      annotation (Placement(transformation(extent={{-128,-160},{-100,-132}}),
                      iconTransformation(extent={{-120,0},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetCoo(final
+   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetCoo(final
       unit="K",
       displayUnit="degC")
     "Setpoint for cooling supply water to space loads"
      annotation (Placement(transformation(extent={{-128,-14},{-100,14}}),
         iconTransformation(extent={{-120,20},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetCooMin(final
+   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetCooMin(final
       unit="K",
       displayUnit="degC")
     "Minimum setpoint for chilled water."
      annotation (Placement(transformation(extent={{-128,-228},{-100,-200}}),
                     iconTransformation(extent={{-120,-22},{-100,-2}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TConLvg(final
+   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConLvg(final
      unit="K",
      displayUnit="degC")
    "Condenser leaving water temperature"
      annotation (Placement(
         transformation(extent={{-128,-204},{-100,-176}}), iconTransformation(
           extent={{-120,-94},{-100,-74}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TConEnt(final
+   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConEnt(final
       unit="K",
       displayUnit="degC")
     "Condenser entering water temperature"
      annotation (
       Placement(transformation(extent={{-126,-354},{-98,-326}}),
         iconTransformation(extent={{-120,-108},{-100,-88}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TMinConEnt(final
+   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMinConEnt(final
       unit="K",
       displayUnit="degC")
    "Minimum condenser entering water temperature"
      annotation (Placement(transformation(extent={{-126,-326},{-98,-298}}),
         iconTransformation(extent={{-120,-38},{-100,-18}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TEvaEnt(final
+   Buildings.Controls.OBC.CDL.Interfaces.RealInput TEvaEnt(final
       unit="K",
       displayUnit="degC")
    "Evaporator entering water temperature"
      annotation (
       Placement(transformation(extent={{-128,-302},{-100,-274}}),
         iconTransformation(extent={{-120,-76},{-100,-56}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TMaxEvaEnt(final
+   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMaxEvaEnt(final
       unit="K",
       displayUnit="degC")
     "Maximum evaporator entering water temperature"
      annotation (Placement(transformation(extent={{-128,-274},{-100,-246}}),
         iconTransformation(extent={{-120,-56},{-100,-36}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput reqCoo
+   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput reqCoo
     "Cooling is required Boolean signal"
      annotation (Placement(transformation(
           extent={{-128,62},{-100,90}}), iconTransformation(extent={{-128,40},{
             -100,68}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput reqHea
+   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput reqHea
     "Heating is required Boolean signal"
      annotation (Placement(transformation(extent={{-128,32},{-100,60}}),
         iconTransformation(extent={{-128,76},{-100,104}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSetChi(final unit="K",
+   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSetChi(final
+      unit="K",
       displayUnit="degC")
     "Setpoint temperture for the chiller"
      annotation (
       Placement(transformation(extent={{100,-18},{120,2}}), iconTransformation(
           extent={{100,32},{128,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValCon
+   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValCon
     "Control signal of the modulating three way valve to maintain the condenser 
       entering temperature above the minimum value."
      annotation (Placement(transformation(extent={{102,-322},{122,-302}}),
         iconTransformation(extent={{100,-54},{128,-26}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValEva
+   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValEva
     "Control signal of the modulating three way valve to maintain the evaporator
       entering temperature below the maximum value."
      annotation (Placement(transformation(extent={{100,-270},{120,-250}}),
         iconTransformation(extent={{100,-78},{128,-50}})));
- Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChiMod
+   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChiMod
     "Chiller operational mode."
      annotation (Placement(transformation(extent={{102,44},{122,64}}),
          iconTransformation(extent={{100,-2},{128,26}})));
 
-  Modelica.Blocks.Logical.Or or1
+   Buildings.Controls.OBC.CDL.Logical.Or or2
      annotation (Placement(transformation(extent={{-46,44},{-26,64}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi
+   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi
      annotation (Placement(transformation(extent={{2,44},{22,64}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiON(k=true)
+   Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiON(k=true)
     "chiller turn on signal"
     annotation (Placement(transformation(extent={{-46,74},{-26,94}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiOff(k=false)
+   Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiOff(k=false)
     "Chiller shut off signal =0"
      annotation (Placement(transformation(extent={{-46,18},{-26,38}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2
+   Buildings.Controls.OBC.CDL.Logical.Switch swi2
      annotation (Placement(transformation(extent={{70,-18},{90,2}})));
-  Modelica.Blocks.Logical.And simHeaCoo
+   Buildings.Controls.OBC.CDL.Logical.And simHeaCoo
    "Simultaneous heating and cooling mode"
      annotation (Placement(transformation(extent={{-60,-88},{-40,-68}})));
-  Buildings.Controls.Continuous.LimPID PI(
+   Buildings.Controls.Continuous.LimPID PI(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     yMax=1,
     yMin=0,
@@ -110,29 +111,29 @@ model ChillerController "Controller of the EIR chiller"
     reverseAction=false)
     "Resetting of heating set point tempearture in case reqCoo or (reqCoo and reqHea) are true."
      annotation (Placement(transformation(extent={{-58,-172},{-38,-152}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line mapFun
+   Buildings.Controls.OBC.CDL.Continuous.Line mapFun
     "Mapping control function to reset the TsetHea"
      annotation (Placement(transformation(extent={{2,-148},{22,-128}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant X1(k=0)
+   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant X1(k=0)
     "PI minimum error"
      annotation (Placement(transformation(extent={{-34,-118},{-14,-98}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant X2(k=1)
+   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant X2(k=1)
     "PI maximum error"
      annotation (Placement(transformation(extent={{-28,-202},{-8,-182}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi4
+   Buildings.Controls.OBC.CDL.Logical.Switch swi4
      annotation (Placement(transformation(extent={{40,-102},{60,-82}})));
-  Modelica.Blocks.Logical.Or heaOnl
+   Buildings.Controls.OBC.CDL.Logical.Or heaOnl
     "Heating only mode"
      annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant X3(k=10 + 273.15)
+   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant X3(k=10 + 273.15)
     "Minimum heating setpoint temperature"
      annotation (Placement(transformation(extent={{-2,-216},{18,-196}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not1
+   Buildings.Controls.OBC.CDL.Logical.Not not1
      annotation (Placement(transformation(extent={{-48,-36},{-28,-16}})));
-  Modelica.Blocks.Logical.And cooOnl
-    "Cooling only mode"
+   Buildings.Controls.OBC.CDL.Logical.And cooOnl
+   "Cooling only mode"
      annotation (Placement(transformation(extent={{-2,-28},{18,-8}})));
-  Buildings.Controls.Continuous.LimPID valEva(
+   Buildings.Controls.Continuous.LimPID valEva(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     yMax=1,
     yMin=0,
@@ -143,7 +144,7 @@ model ChillerController "Controller of the EIR chiller"
     reverseAction=false)
    "Evaporator three way valve PI control signal "
     annotation (Placement(transformation(extent={{32,-270},{52,-250}})));
-  Buildings.Controls.Continuous.LimPID valCon(
+   Buildings.Controls.Continuous.LimPID valCon(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     yMax=1,
     yMin=0,
@@ -156,11 +157,10 @@ model ChillerController "Controller of the EIR chiller"
      annotation (Placement(transformation(extent={{30,-322},{50,-302}})));
 
 equation
-
-  connect(reqHea, or1.u2)  annotation (Line(points={{-114,46},{-48,46}}, color={255,0,255}));
-  connect(reqCoo, or1.u1) annotation (Line(points={{-114,76},{-56,76},{-56,54},
+  connect(reqHea,or2. u2)  annotation (Line(points={{-114,46},{-48,46}}, color={255,0,255}));
+  connect(reqCoo,or2. u1) annotation (Line(points={{-114,76},{-56,76},{-56,54},
           {-48,54}}, color={255,0,255}));
-  connect(or1.y, logSwi.u2) annotation (Line(points={{-25,54},{0,54}}, color={255,0,255}));
+  connect(or2.y, logSwi.u2) annotation (Line(points={{-24,54},{0,54}}, color={255,0,255}));
   connect(swi2.y, TSetChi) annotation (Line(points={{92,-8},{110,-8}}, color={0,0,127}));
   connect(reqHea, simHeaCoo.u2) annotation (Line(points={{-114,46},{-84,46},{
           -84,-86},{-62,-86}}, color={255,0,255}));
@@ -180,9 +180,9 @@ equation
           -174}}, color={0,0,127}));
   connect(TSetCoo, mapFun.f1) annotation (Line(points={{-114,1.77636e-15},{-96,
           1.77636e-15},{-96,-134},{0,-134}}, color={0,0,127}));
-  connect(heaOnl.y, swi4.u2) annotation (Line(points={{1,-70},{24,-70},{24,-92},
+  connect(heaOnl.y, swi4.u2) annotation (Line(points={{2,-70},{24,-70},{24,-92},
           {38,-92}}, color={255,0,255}));
-  connect(simHeaCoo.y,heaOnl. u2) annotation (Line(points={{-39,-78},{-22,-78}}, color={255,0,255}));
+  connect(simHeaCoo.y,heaOnl. u2) annotation (Line(points={{-38,-78},{-22,-78}}, color={255,0,255}));
   connect(reqHea,heaOnl. u1) annotation (Line(points={{-114,46},{-84,46},{-84,
           -60},{-30,-60},{-30,-70},{-22,-70}}, color={255,0,255}));
   connect(reqHea, PI.trigger) annotation (Line(points={{-114,46},{-84,46},{-84,
@@ -201,7 +201,7 @@ equation
                           color={255,0,255}));
   connect(reqCoo, cooOnl.u1) annotation (Line(points={{-114,76},{-70,76},{-70,-4},
           {-12,-4},{-12,-18},{-4,-18}}, color={255,0,255}));
-  connect(cooOnl.y, swi2.u2) annotation (Line(points={{19,-18},{36,-18},{36,-8},
+  connect(cooOnl.y, swi2.u2) annotation (Line(points={{20,-18},{36,-18},{36,-8},
           {68,-8}}, color={255,0,255}));
   connect(TMaxEvaEnt, valEva.u_s) annotation (Line(points={{-114,-260},{30,-260}}, color={0,0,127}));
   connect(TEvaEnt, valEva.u_m) annotation (Line(points={{-114,-288},{42,-288},{
@@ -211,12 +211,12 @@ equation
   connect(TConEnt, valCon.u_m) annotation (Line(points={{-112,-340},{40,-340},{
           40,-324}}, color={0,0,127}));
   connect(valCon.y, yValCon) annotation (Line(points={{51,-312},{112,-312}}, color={0,0,127}));
-  connect(or1.y, valEva.trigger) annotation (Line(
-      points={{-25,54},{-10,54},{-10,26},{26,26},{26,-280},{34,-280},{34,-272}},
+  connect(or2.y, valEva.trigger) annotation (Line(
+      points={{-24,54},{-10,54},{-10,26},{26,26},{26,-280},{34,-280},{34,-272}},
       color={255,0,255},
       pattern=LinePattern.Dash));
-  connect(or1.y, valCon.trigger) annotation (Line(
-      points={{-25,54},{-10,54},{-10,26},{26,26},{26,-336},{32,-336},{32,-324}},
+  connect(or2.y, valCon.trigger) annotation (Line(
+      points={{-24,54},{-10,54},{-10,26},{26,26},{26,-336},{32,-336},{32,-324}},
       color={255,0,255},
       pattern=LinePattern.Dash));
   connect(logSwi.y,yChiMod) annotation (Line(points={{24,54},{112,54}}, color={255,0,255}));
@@ -247,13 +247,13 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100}
         fillPattern=FillPattern.None,
         textString="Chiller operational mode"),
        Text(
-        extent={{-2,-162},{144,-168}},
+        extent={{-4,-214},{142,-220}},
         lineColor={0,0,255},
         fillColor={215,215,215},
         fillPattern=FillPattern.None,
-          textString="Reset of 
-water setpoint 
-temperature"),
+          textString="Reset of water
+                       setpoint 
+                      temperature"),
        Text(
         extent={{-86,-352},{100,-360}},
         lineColor={0,0,255},
@@ -282,7 +282,8 @@ The three way valve at the inlet stream of the condenser side is controlled with
 a P or PI controller to track a constant, minimum water inlet temperature.
 </p>
 <p>
-The block in addition, resets <code>TSetCoo</code> based on the thermal operational mode i.e. cooling only, heating only or
+The block in addition, resets <code>TSetCoo</code> based on the thermal operational 
+mode i.e. cooling only, heating only or
 simultaneous heating and cooling.
 </p>
 <h4>Reset of Chilled water setpoint temperature</h4>
@@ -291,15 +292,18 @@ As shown in the control scheme below and during
 </p>
 <ol>
   <li>
-  simultaneous heating and cooling and heating only operational modes, the control sequence resets the cooling setpoint <code>TReSetCoo</code> till the leaving heating water temperature
-  from the condenser side meets the heating setpoint <code>TSetHea</code>
+  simultaneous heating and cooling and heating only operational modes, the control 
+  sequence resets the cooling setpoint <code>TReSetCoo</code> till the leaving heating
+  water temperature from the condenser side meets the heating setpoint <code>TSetHea</code>
   <p align=\"center\">
   <img alt=\"Image PI controller to reset the TSetCoo\"
   src=\"modelica://Buildings/Resources/Images/Applications/DHC/EnergyTransferStations/chillerControlDiagram.png\"/>
   </p align=\"center\">
   <p>
-  The required decrement in <code>TSetCoo</code> is estimated by a reverse acting PI loop , with a reference set point of <code>TSetHea</code>
-  and measured temperature value of <code>TConLvg</code>. Hence, when the condenser leaving water temperature is lower than <code>TSetHea</code>,
+  The required decrement in <code>TSetCoo</code> is estimated by a reverse acting PI
+  loop , with a reference set point of <code>TSetHea</code>
+   and measured temperature value of <code>TConLvg</code>. Hence, when the condenser
+   leaving water temperature is lower than <code>TSetHea</code>,
   TSetCoo is decreased. The control mapping function is shown in
   </p>
   <p align=\"center\">
@@ -308,8 +312,10 @@ As shown in the control scheme below and during
   </p align=\"center\">
   </li>
   <li>
-  cooling only operational mode, the leaving water form the chiller evaporator side tracks the cooling setpoint <code>TSetCoo</code>
-  and the leaving water from the condenser floats depending on the entering water temperature and flow rate.
+  cooling only operational mode, the leaving water form the chiller evaporator side
+  tracks the cooling setpoint <code>TSetCoo</code>
+   and the leaving water from the condenser floats depending on the entering water 
+   temperature and flow rate.
   </li>
 </ol>
 </html>", revisions="<html>
