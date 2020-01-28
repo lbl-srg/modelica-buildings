@@ -1,17 +1,16 @@
 within Buildings.Applications.DHC.Loads.BaseClasses;
 partial model PartialBuilding "Partial class for building model"
-  replaceable package Medium1 =
-    Buildings.Media.Water
-    "Source side medium"
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+    "Source side medium (heating or chilled water)"
     annotation(choices(
-      choice(redeclare package Medium1 = Buildings.Media.Water "Water"),
-      choice(redeclare package Medium1 =
-        Buildings.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15, X_a=0.40)
-          "Propylene glycol water, 40% mass fraction")));
-  parameter Integer nPorts_a1 = 0
+      choice(redeclare package Medium = Buildings.Media.Water "Water"),
+      choice(redeclare package Medium =
+        Buildings.Media.Antifreeze.PropyleneGlycolWater (
+          property_T=293.15, X_a=0.40) "Propylene glycol water, 40% mass fraction")));
+  parameter Integer nPorts_a = 0
     "Number of inlet fluid ports on source side"
      annotation(Evaluate=true, Dialog(connectorSizing=true));
-  parameter Integer nPorts_b1 = 0
+  parameter Integer nPorts_b = 0
     "Number of outlet fluid ports on source side"
      annotation(Evaluate=true, Dialog(connectorSizing=true));
   parameter Boolean have_heaLoa = true
@@ -44,20 +43,18 @@ partial model PartialBuilding "Partial class for building model"
     annotation (Placement(
     transformation(extent={{-16,284},{18,316}}),
     iconTransformation(extent={{-16,198},{18,230}})));
-  Modelica.Fluid.Interfaces.FluidPorts_a ports_a1[nPorts_a1](
-    redeclare each package Medium = Medium1,
+  Modelica.Fluid.Interfaces.FluidPorts_a ports_a[nPorts_a](
+    redeclare each package Medium = Medium,
     each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    each h_outflow(start=Medium1.h_default, nominal=Medium1.h_default))
-    "Fluid connectors b (positive design flow direction is from port_a to ports_b)"
-    annotation (Placement(transformation(extent={{-310,-40},{-290,40}}),
-      iconTransformation(extent={{-310,-220},{-290,-140}})));
-  Modelica.Fluid.Interfaces.FluidPorts_b ports_b1[nPorts_b1](
-    redeclare each package Medium = Medium1,
+    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    "Source side inlet ports" annotation (Placement(transformation(extent={{-310,
+            -40},{-290,40}}), iconTransformation(extent={{-310,-220},{-290,-140}})));
+  Modelica.Fluid.Interfaces.FluidPorts_b ports_b[nPorts_b](
+    redeclare each package Medium = Medium,
     each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    each h_outflow(start=Medium1.h_default, nominal=Medium1.h_default))
-    "Fluid connectors b (positive design flow direction is from port_a to ports_b)"
-    annotation (Placement(transformation(extent={{290,-40},{310,40}}),
-      iconTransformation(extent={{290,-220},{310,-140}})));
+    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    "Source side outlet ports" annotation (Placement(transformation(extent={{290,
+            -40},{310,40}}), iconTransformation(extent={{290,-220},{310,-140}})));
   Modelica.Blocks.Interfaces.RealOutput QHea_flow(
     final quantity="HeatFlowRate", final unit="W") if have_heaLoa
     "Total heating heat flow rate transferred to the loads (>=0)"
@@ -91,10 +88,10 @@ partial model PartialBuilding "Partial class for building model"
     annotation (Placement(transformation(extent={{300,60},{340,100}}),
       iconTransformation(extent={{300,40},{340,80}})));
 initial equation
-  assert(nPorts_a1 == nPorts_b1,
+  assert(nPorts_a == nPorts_b,
     "In " + getInstanceName() +
-    ": The numbers of source side inlet ports (" + String(nPorts_a1) +
-    ") and outlet ports (" + String(nPorts_b1) + ") must be equal.");
+    ": The numbers of source side inlet ports (" + String(nPorts_a) +
+    ") and outlet ports (" + String(nPorts_b) + ") must be equal.");
 annotation (
   defaultComponentName="bui",
   Documentation(info="<html>

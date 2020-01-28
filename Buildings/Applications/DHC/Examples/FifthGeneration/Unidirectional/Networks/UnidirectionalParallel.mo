@@ -22,22 +22,20 @@ model UnidirectionalParallel
   parameter Modelica.SIunits.Length dhEnd = dhDis[nCon]
     "Hydraulic diameter of the end of the distribution line";
   // IO CONNECTORS
-  Modelica.Fluid.Interfaces.FluidPort_b port_disRetOut(
+  Modelica.Fluid.Interfaces.FluidPort_b port_bDisRet(
     redeclare package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    "Distribution return outlet port"
-    annotation (Placement(transformation(
-      extent={{-110,-70},{-90,-50}}), iconTransformation(extent={{-220,-80},{
-            -180,-40}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_disRetInl(
+    "Distribution return outlet port" annotation (Placement(transformation(
+          extent={{-110,-70},{-90,-50}}), iconTransformation(extent={{-220,-80},
+            {-180,-40}})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_aDisRet(
     redeclare package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    "Distribution return inlet port"
-    annotation (Placement(transformation(
-      extent={{90,-70},{110,-50}}), iconTransformation(extent={{180,-80},{220,
-            -40}})));
+    "Distribution return inlet port" annotation (Placement(transformation(
+          extent={{90,-70},{110,-50}}), iconTransformation(extent={{180,-80},{
+            220,-40}})));
   // COMPONENTS
   replaceable BaseClasses.ConnectionParallel con[nCon](
     redeclare each package Medium=Medium,
@@ -59,26 +57,26 @@ model UnidirectionalParallel
     "Pipe representing the end of the distribution line (after last connection)"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 equation
-  connect(con.port_conSup, ports_conSup)
-    annotation (Line(points={{0,10},{0,40}, {-80,40},{-80,100}}, color={0,127,255}));
-  connect(ports_conRet, con.port_conRet)
-    annotation (Line(points={{80,100},{80,40}, {6,40},{6,10}}, color={0,127,255}));
+  connect(con.port_bCon, ports_bCon) annotation (Line(points={{0,10},{0,40},{-80,
+          40},{-80,100}}, color={0,127,255}));
+  connect(ports_aCon, con.port_aCon) annotation (Line(points={{80,100},{80,40},
+          {6,40},{6,10}}, color={0,127,255}));
   // Connecting outlets to inlets for all instances of connection component
   if nCon >= 2 then
     for i in 2:nCon loop
-      connect(con[i-1].port_disSupOut, con[i].port_disSupInl);
-      connect(con[i-1].port_disRetInl, con[i].port_disRetOut);
+      connect(con[i - 1].port_bDisSup, con[i].port_aDisSup);
+      connect(con[i - 1].port_aDisRet, con[i].port_bDisRet);
     end for;
   end if;
-  connect(port_disSupInl, con[1].port_disSupInl)
+  connect(port_aDisSup, con[1].port_aDisSup)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
-  connect(port_disRetOut, con[1].port_disRetOut)
-    annotation (Line(points={{-100, -60},{-20,-60},{-20,-6},{-10,-6}}, color={0,127,255}));
-  connect(con[nCon].port_disRetInl, port_disRetInl)
-    annotation (Line(points={{10,-6}, {20,-6},{20,-60},{100,-60}}, color={0,127,255}));
-  connect(con[3].port_disSupOut, pipEnd.port_a)
+  connect(port_bDisRet, con[1].port_bDisRet) annotation (Line(points={{-100,-60},
+          {-20,-60},{-20,-6},{-10,-6}}, color={0,127,255}));
+  connect(con[nCon].port_aDisRet, port_aDisRet) annotation (Line(points={{10,-6},
+          {20,-6},{20,-60},{100,-60}}, color={0,127,255}));
+  connect(con[3].port_bDisSup, pipEnd.port_a)
     annotation (Line(points={{10,0},{40,0}}, color={0,127,255}));
-  connect(pipEnd.port_b, port_disSupOut)
+  connect(pipEnd.port_b, port_bDisSup)
     annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
   annotation (
     defaultComponentName="dis",

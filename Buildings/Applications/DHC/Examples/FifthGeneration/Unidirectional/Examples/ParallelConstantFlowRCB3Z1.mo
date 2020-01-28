@@ -46,12 +46,10 @@ equation
   connect(TSetChiWatSup.y,bui. TSetChiWat)
     annotation (Line(points={{-258,180},{-40,180},{-40,184},{-11,184}},
                                           color={0,0,127}));
-  connect(bui.port_b, dis.ports_conRet)
-    annotation (Line(points={{10,180},{20,180},{20,160},{12,160},{12,150}},
-                                       color={0,127,255}));
-  connect(dis.ports_conSup, bui.port_a)
-    annotation (Line(points={{-12,150},{-12,160},{-20,160},{-20,180},{-10,180}},
-                                     color={0,127,255}));
+  connect(bui.port_b, dis.ports_aCon) annotation (Line(points={{10,180},{20,180},
+          {20,160},{12,160},{12,150}}, color={0,127,255}));
+  connect(dis.ports_bCon, bui.port_a) annotation (Line(points={{-12,150},{-12,
+          160},{-20,160},{-20,180},{-10,180}}, color={0,127,255}));
   for i in 1:nBui loop
     connect(weaDat.weaBus, bui[i].weaBus)
       annotation (Line(
@@ -63,8 +61,8 @@ equation
           20},{-180,4},{-161,4}}, color={0,0,127}));
   connect(TSewWat.y, pla.TSewWat) annotation (Line(points={{-259,60},{-176,60},
           {-176,8},{-161,8}}, color={0,0,127}));
-  connect(dis.port_disSupOut, dis.port_disRetInl) annotation (Line(points={{20,
-          140},{40,140},{40,134},{20,134}}, color={0,127,255}));
+  connect(dis.port_bDisSup, dis.port_aDisRet) annotation (Line(points={{20,140},
+          {40,140},{40,134},{20,134}}, color={0,127,255}));
   annotation (
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{360,260}})),

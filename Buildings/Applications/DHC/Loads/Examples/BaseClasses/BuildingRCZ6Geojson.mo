@@ -20,7 +20,7 @@ model BuildingRCZ6Geojson
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC2[nZon]
     annotation (Placement(transformation(extent={{-260,200},{-240,220}})));
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
-    m_flow_nominal=sum(terUni.m1Hea_flow_nominal),
+    m_flow_nominal=sum(terUni.mHeaWat_flow_nominal),
     nUni=nZon,
     dp_nominal=100000)
     annotation (Placement(transformation(extent={{-140, -100},{-120,-80}})));
@@ -28,18 +28,18 @@ model BuildingRCZ6Geojson
     terUni[nZon](
     QHea_flow_nominal={10000,10000,10000,10000,10000,10000},
     QCoo_flow_nominal={10000,10000,10000,10000,10000,50000},
-    each T_a2Hea_nominal=293.15,
-    each T_a2Coo_nominal=297.15,
-    each T_b1Hea_nominal=35 + 273.15,
-    each T_b1Coo_nominal=12 + 273.15,
-    each T_a1Hea_nominal=40 + 273.15,
-    each T_a1Coo_nominal=7 + 273.15,
-    each m2Hea_flow_nominal=1,
-    each m2Coo_flow_nominal=1,
+    each T_aLoaHea_nominal=293.15,
+    each T_aLoaCoo_nominal=297.15,
+    each T_bHeaWat_nominal=35 + 273.15,
+    each T_bChiWat_nominal=12 + 273.15,
+    each T_aHeaWat_nominal=40 + 273.15,
+    each T_aChiWat_nominal=7 + 273.15,
+    each mLoaHea_flow_nominal=1,
+    each mLoaCoo_flow_nominal=1,
     each final fraCon={1,1})
     annotation (Placement(transformation(extent= {{-200,-60},{-180,-40}})));
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
-    m_flow_nominal=sum(terUni.m1Coo_flow_nominal),
+    m_flow_nominal=sum(terUni.mChiWat_flow_nominal),
     nUni=nZon,
     disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
     dp_nominal=100000) annotation (Placement(transformation(extent={{-140,
@@ -81,13 +81,13 @@ equation
   connect(from_degC2.y, terUni.TSetCoo) annotation (Line(points={{-238,210},{
           -220,210},{-220,-46.6667},{-200.833,-46.6667}},
                                                      color={0,0,127}));
-  connect(terUni.port_b1Hea, disFloHea.ports_a1) annotation (Line(points={{-180,
+  connect(terUni.port_bHeaWat, disFloHea.ports_a1) annotation (Line(points={{-180,
           -59.1667},{-100,-59.1667},{-100,-84},{-120,-84}}, color={0,127,255}));
-  connect(terUni.port_b1Coo, disFloCoo.ports_a1) annotation (Line(points={{-180,
+  connect(terUni.port_bChiWat, disFloCoo.ports_a1) annotation (Line(points={{-180,
           -56.6667},{-80,-56.6667},{-80,-144},{-120,-144}}, color={0,127,255}));
-  connect(disFloHea.ports_b1, terUni.port_a1Hea) annotation (Line(points={{-140,
+  connect(disFloHea.ports_b1, terUni.port_aHeaWat) annotation (Line(points={{-140,
           -84},{-220,-84},{-220,-59.1667},{-200,-59.1667}}, color={0,127,255}));
-  connect(disFloCoo.ports_b1, terUni.port_a1Coo) annotation (Line(points={{-140,
+  connect(disFloCoo.ports_b1, terUni.port_aChiWat) annotation (Line(points={{-140,
           -144},{-240,-144},{-240,-56.6667},{-200,-56.6667}}, color={0,127,255}));
   connect(terUni.QActHea_flow, mulSum1.u) annotation (Line(points={{-179.167,
           -42.5},{-160.584,-42.5},{-160.584,280},{238,280}},
@@ -171,10 +171,10 @@ equation
           -186.667,-50},{70,-50},{70,0}}, color={191,0,0}));
   connect(terUni[6].heaPorRad, iCT.port_a) annotation (Line(points={{-186.667,
           -50},{110,-50},{110,0}}, color={191,0,0}));
-  connect(terUni.m1ReqHea_flow, disFloHea.m1Req_flow) annotation (Line(points={{
+  connect(terUni.mReqHeaWat_flow, disFloHea.m1Req_flow) annotation (Line(points={{
           -179.167,-52.5},{-179.167,-74},{-180,-74},{-180,-94},{-141,-94},{-141,
           -94}}, color={0,0,127}));
-  connect(terUni.m1ReqCoo_flow, disFloCoo.m1Req_flow) annotation (Line(points={{
+  connect(terUni.mReqChiWat_flow, disFloCoo.m1Req_flow) annotation (Line(points={{
           -179.167,-54.1667},{-179.167,-155.083},{-141,-155.083},{-141,-154}},
         color={0,0,127}));
   annotation (

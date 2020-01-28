@@ -1,20 +1,17 @@
 within Buildings.Applications.DHC.Loads.Validation.BaseClasses;
 model Terminal4PipesHeatPorts
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit(
-    final funHeaSpe=Buildings.Applications.DHC.Loads.Types.TerminalFunctionSpec.Water,
-    final funCooSpe=Buildings.Applications.DHC.Loads.Types.TerminalFunctionSpec.Water,
+    redeclare package Medium1 = Buildings.Media.Water,
+    redeclare package Medium2 = Buildings.Media.Air,
+    final have_watHea=true,
+    final have_watCoo=true,
     final have_heaPor=true,
-    final have_fluPor=false,
-    final have_QReq_flow=false,
-    final have_weaBus=false,
-    final have_fan=false,
-    final have_pum=false,
     final hexConHea=Buildings.Fluid.Types.HeatExchangerConfiguration.ConstantTemperaturePhaseChange,
     final hexConCoo=Buildings.Fluid.Types.HeatExchangerConfiguration.ConstantTemperaturePhaseChange,
-    final m1Hea_flow_nominal=abs(QHea_flow_nominal/cp1Hea_nominal/(
-        T_a1Hea_nominal - T_b1Hea_nominal)),
-    final m1Coo_flow_nominal=abs(QCoo_flow_nominal/cp1Coo_nominal/(
-        T_a1Coo_nominal - T_b1Coo_nominal)));
+    final mHeaWat_flow_nominal=abs(QHea_flow_nominal/cpHeaWat_nominal/(
+      T_aHeaWat_nominal - T_bHeaWat_nominal)),
+    final mChiWat_flow_nominal=abs(QCoo_flow_nominal/cpChiWat_nominal/(
+      T_aChiWat_nominal - T_bChiWat_nominal)));
 
   parameter Integer nPorts1 = 2
     "Number of inlet (or outlet) fluid ports on the source side";
@@ -33,9 +30,8 @@ model Terminal4PipesHeatPorts
     annotation(Dialog(tab="Advanced"));
   // TODO: Update for all HX configurations.
   final parameter Modelica.SIunits.ThermalConductance CMin_nominal[nPorts1]=
-    {m1Hea_flow_nominal,m1Coo_flow_nominal} .* {cp1Hea_nominal,cp1Coo_nominal}
+    {mHeaWat_flow_nominal,mChiWat_flow_nominal} .* {cpHeaWat_nominal,cpChiWat_nominal}
     "Minimum capacity flow rate at nominal conditions";
-    // min(m1_flow_nominal * cp1_nominal, m2_flow_nominal * cp2_nominal)
   final parameter Modelica.SIunits.ThermalConductance CMax_nominal[nPorts1]=
     fill(Modelica.Constants.inf, nPorts1)
     "Maximum capacity flow rate at nominal conditions";
@@ -45,7 +41,7 @@ model Terminal4PipesHeatPorts
   final parameter Modelica.SIunits.ThermalConductance UA_nominal[nPorts1]=
     Buildings.Fluid.HeatExchangers.BaseClasses.ntu_epsilonZ(
       eps={QHea_flow_nominal, QCoo_flow_nominal} ./ abs(CMin_nominal .*
-        ({T_a1Hea_nominal, T_a1Coo_nominal} .- {T_a2Hea_nominal, T_a2Coo_nominal})),
+        ({T_aHeaWat_nominal, T_aChiWat_nominal} .- {T_aLoaHea_nominal, T_aLoaCoo_nominal})),
       Z=0,
       flowRegime=Integer(hexReg)) .* CMin_nominal
     "Thermal conductance at nominal conditions";
@@ -63,14 +59,14 @@ model Terminal4PipesHeatPorts
     each yMin=0) "PI controller for indoor temperature"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiFloNom1[nPorts1](
-    k={m1Hea_flow_nominal,m1Coo_flow_nominal})
+    k={mHeaWat_flow_nominal,mChiWat_flow_nominal})
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.HeatFlowEffectiveness hexHeaCoo[nPorts1](
+  Buildings.Applications.DHC.Loads.BaseClasses.HeatFlowEffectivenessNTU hexHeaCoo[nPorts1](
     final flowRegime=hexReg,
-    final m1_flow_nominal={m1Hea_flow_nominal,m1Coo_flow_nominal},
+    final m1_flow_nominal={mHeaWat_flow_nominal,mChiWat_flow_nominal},
     final m2_flow_nominal=fill(0, nPorts1),
-    final cp1_nominal={cp1Hea_nominal,cp1Coo_nominal},
-    final cp2_nominal={cp2Hea_nominal,cp2Coo_nominal})
+    final cp1_nominal={cpHeaWat_nominal,cpChiWat_nominal},
+    final cp2_nominal={cpLoaHea_nominal,cpLoaCoo_nominal})
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor T2Mes
     "Load side temperature sensor"
@@ -94,7 +90,7 @@ model Terminal4PipesHeatPorts
         origin={152,40})));
   Modelica.Blocks.Sources.RealExpression UAAct[nPorts1](y=1 ./ (1 ./ (
         UAInt_nominal .* Buildings.Utilities.Math.Functions.regNonZeroPower(
-        senMasFlo.m_flow ./ {m1Hea_flow_nominal,m1Coo_flow_nominal}, expUA)) .+ 1 ./ UAExt_nominal))
+        senMasFlo.m_flow ./ {mHeaWat_flow_nominal,mChiWat_flow_nominal}, expUA)) .+ 1 ./ UAExt_nominal))
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo[nPorts1](
     redeclare each final package Medium=Medium1)
@@ -109,7 +105,7 @@ model Terminal4PipesHeatPorts
   Buildings.Fluid.HeatExchangers.HeaterCooler_u heaCoo[nPorts1](
     redeclare each final package Medium = Medium1,
     each final dp_nominal=0,
-    final m_flow_nominal={m1Hea_flow_nominal,m1Coo_flow_nominal},
+    final m_flow_nominal={mHeaWat_flow_nominal,mChiWat_flow_nominal},
     each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     each final Q_flow_nominal=-1) "Heat exchange with water stream"
     annotation (Placement(transformation(extent={{60,-210},{80,-190}})));
@@ -131,14 +127,14 @@ model Terminal4PipesHeatPorts
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort T1HeaInl(
     redeclare final package Medium=Medium1,
-    final m_flow_nominal=m1Hea_flow_nominal,
+    final m_flow_nominal=mHeaWat_flow_nominal,
     final tau=0,
     final allowFlowReversal=allowFlowReversal)
     "Heating water inlet temperature (sensed, steady-state)"
     annotation (Placement(transformation(extent={{-190,-230},{-170,-210}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort T1CooInl(
     redeclare final package Medium=Medium1,
-    final m_flow_nominal=m1Coo_flow_nominal,
+    final m_flow_nominal=mChiWat_flow_nominal,
     final tau=0,
     final allowFlowReversal=allowFlowReversal)
     "Chilled water inlet temperature (sensed, steady-state)"
@@ -188,21 +184,22 @@ equation
     annotation (Line(points={{12,100},{38,100}},  color={0,0,127}));
   connect(senMasFlo.port_b, heaCoo.port_a)
     annotation (Line(points={{-130,-200},{60,-200}}, color={0,127,255}));
-  connect(heaCoo[1].port_b, port_b1Hea) annotation (Line(points={{80,-200},{140,
+  connect(heaCoo[1].port_b, port_bHeaWat) annotation (Line(points={{80,-200},{140,
           -200},{140,-220},{200,-220}}, color={0,127,255}));
-  connect(heaCoo[2].port_b, port_b1Coo) annotation (Line(points={{80,-200},{140,
+  connect(heaCoo[2].port_b, port_bChiWat) annotation (Line(points={{80,-200},{140,
           -200},{140,-180},{200,-180}}, color={0,127,255}));
   connect(TSetHea, conTInd[1].u_s) annotation (Line(points={{-220,220},{-116,220},
           {-116,100},{-12,100}}, color={0,0,127}));
   connect(TSetCoo, conTInd[2].u_s) annotation (Line(points={{-220,180},{-116,180},
           {-116,100},{-12,100}}, color={0,0,127}));
-  connect(port_a1Hea, T1HeaInl.port_a)
+  connect(port_aHeaWat, T1HeaInl.port_a)
     annotation (Line(points={{-200,-220},{-190,-220}}, color={0,127,255}));
   connect(T1HeaInl.T, hexHeaCoo[1].T1Inl)
-    annotation (Line(points={{-180,-209},{-180,0},{-12,0}}, color={0,0,127}));
+    annotation (Line(points={{-180,-209},{-180,-200},{-170,-200},{-170,0},{-12,0}},
+                                                            color={0,0,127}));
   connect(T1HeaInl.port_b, senMasFlo[1].port_a) annotation (Line(points={{-170,-220},
           {-160,-220},{-160,-200},{-150,-200}}, color={0,127,255}));
-  connect(port_a1Coo, T1CooInl.port_a)
+  connect(port_aChiWat, T1CooInl.port_a)
     annotation (Line(points={{-200,-180},{-190,-180}}, color={0,127,255}));
   connect(T1CooInl.port_b, senMasFlo[2].port_a) annotation (Line(points={{-170,-180},
           {-160,-180},{-160,-200},{-150,-200}}, color={0,127,255}));
@@ -212,8 +209,8 @@ equation
           12,0},{20,0},{20,220},{158,220}}, color={0,0,127}));
   connect(hexHeaCoo[2].Q_flow, scaQActCoo_flow.u) annotation (Line(points={{
           12,0},{20,0},{20,200},{158,200}}, color={0,0,127}));
-  connect(gaiFloNom1[1].y, sca_m1ReqHea_flow.u)
+  connect(gaiFloNom1[1].y, scaMasFloReaHeaWat.u)
     annotation (Line(points={{62,100},{158,100}}, color={0,0,127}));
-  connect(gaiFloNom1[2].y, sca_m1ReqCoo_flow.u) annotation (Line(points={{62,
+  connect(gaiFloNom1[2].y, scaMasFloReqChiWat.u) annotation (Line(points={{62,
           100},{140,100},{140,80},{158,80}}, color={0,0,127}));
 end Terminal4PipesHeatPorts;

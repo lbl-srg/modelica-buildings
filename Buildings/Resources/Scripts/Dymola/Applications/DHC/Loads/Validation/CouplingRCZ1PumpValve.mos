@@ -26,13 +26,13 @@ createPlot(
 createPlot(
     id=2,
     position={700, 20, 670, 900},
-    y={"supHeaWat.T_in", "bui.disFloHea.TSup", "bui.terUni.T_a1Hea_nominal"},
+    y={"supHeaWat.T_in", "bui.disFloHea.TSup", "bui.terUni.T_aHeaWat_nominal"},
     autoscale=true,
     grid=true
 );
 createPlot(
     id=2,
-    y={"bui.disFloHea.m1Req_flow[1]", "bui.disFloHea.m1Act_flow[1].y", "bui.terUni.m1Hea_flow_nominal"},
+    y={"bui.disFloHea.mReq_flow[1]", "bui.disFloHea.mAct_flow[1].y", "bui.terUni.mHeaWat_flow_nominal"},
     grid=true,
     subPlot=2
 );
@@ -45,13 +45,13 @@ createPlot(
 createPlot(
     id=3,
     position={1400, 20, 670, 900},
-    y={"supChiWat.T_in",  "bui.disFloCoo.TSup", "bui.terUni.T_a1Coo_nominal"},
+    y={"supChiWat.T_in",  "bui.disFloCoo.TSup", "bui.terUni.T_aChiWat_nominal"},
     autoscale=true,
     grid=true
 );
 createPlot(
     id=3,
-    y={"bui.disFloCoo.m1Req_flow[1]", "bui.disFloCoo.m1Act_flow[1].y", "bui.terUni.m1Coo_flow_nominal"},
+    y={"bui.disFloCoo.mReq_flow[1]", "bui.disFloCoo.mAct_flow[1].y", "bui.terUni.mChiWat_flow_nominal"},
     grid=true,
     subPlot=2
 );

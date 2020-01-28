@@ -14,13 +14,16 @@ model FlowDistributionCO
     disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChangeOver,
     have_pum=true,
     have_val=true,
-    dp_nominal=100000)
+    dp_nominal=100000,
+    nPorts_a1=1,
+    nPorts_b1=1)
+    "Secondary distribution system"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
-
   Buildings.Fluid.Sources.Boundary_pT souPri(
     redeclare package Medium = Medium1,
     use_T_in=true,
-    nPorts=1) "Primary supply stream"
+    nPorts=1)
+    "Primary supply stream"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -162,9 +165,8 @@ equation
     annotation (Line(points={{60,20},{80,20}},  color={0,127,255}));
   connect(senTSecSup.port_b, sinSec.ports[1])
     annotation (Line(points={{90,100},{100,100}}, color={0,127,255}));
-  connect(mSec_flow.y, disFlo.m1Req_flow[1]) annotation (Line(points={{-118,160},
-          {32,160},{32,16},{39,16}},
-                                color={0,0,127}));
+  connect(mSec_flow.y, disFlo.mReq_flow[1]) annotation (Line(points={{-118,160},
+          {32,160},{32,16},{39,16}}, color={0,0,127}));
   connect(mSec_flow.y, souSec.m_flow_in) annotation (Line(points={{-118,160},{
           140,160},{140,68},{122,68}},
                               color={0,0,127}));

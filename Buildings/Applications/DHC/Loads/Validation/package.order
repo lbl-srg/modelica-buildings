@@ -1,11 +1,9 @@
 CouplingRCZ1
-CouplingRCZ1PumpValve
 CouplingRCZ1HeatPort
-CouplingRCZ6Geojson
-CouplingRCZ6GeojsonPump
+CouplingRCZ1PumpValve
+CouplingRCZ6Pump
 CouplingSpawnZ1
-CouplingSpawnZ6Geojson
-CouplingSpawnZ6GeojsonPump
+CouplingSpawnZ6Pump
 CouplingTimeSeries
 FlowDistributionCO
 BaseClasses

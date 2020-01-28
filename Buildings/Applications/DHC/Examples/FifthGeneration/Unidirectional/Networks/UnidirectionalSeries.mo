@@ -38,21 +38,21 @@ model UnidirectionalSeries
     "Pipe representing the end of the distribution line (after last connection)"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 equation
-  connect(con.port_conSup, ports_conSup)
-    annotation (Line(points={{0,10},{0,40}, {-80,40},{-80,100}}, color={0,127,255}));
-  connect(ports_conRet, con.port_conRet)
-    annotation (Line(points={{80,100},{80,40}, {6,40},{6,10}}, color={0,127,255}));
+  connect(con.port_bCon, ports_bCon) annotation (Line(points={{0,10},{0,40},{-80,
+          40},{-80,100}}, color={0,127,255}));
+  connect(ports_aCon, con.port_aCon) annotation (Line(points={{80,100},{80,40},
+          {6,40},{6,10}}, color={0,127,255}));
   // Connecting outlets to inlets for all instances of connection component
   if nCon >= 2 then
     for i in 2:nCon loop
-      connect(con[i-1].port_disOut, con[i].port_disInl);
+      connect(con[i - 1].port_bDis, con[i].port_aDis);
     end for;
   end if;
-  connect(port_disSupInl, con[1].port_disInl)
+  connect(port_aDisSup, con[1].port_aDis)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
-  connect(con[nCon].port_disOut, pipEnd.port_a)
+  connect(con[nCon].port_bDis, pipEnd.port_a)
     annotation (Line(points={{10,0},{40,0}}, color={0,127,255}));
-  connect(pipEnd.port_b, port_disSupOut)
+  connect(pipEnd.port_b, port_bDisSup)
     annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
   annotation (
     defaultComponentName="dis",

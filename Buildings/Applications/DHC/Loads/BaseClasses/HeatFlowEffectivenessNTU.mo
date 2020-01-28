@@ -1,5 +1,6 @@
 within Buildings.Applications.DHC.Loads.BaseClasses;
-model HeatFlowEffectiveness "Model computing the heat flow rate based on the effectiveness method"
+model HeatFlowEffectivenessNTU
+  "Model computing the heat flow rate based on the effectiveness-NTU method"
   extends Modelica.Blocks.Icons.Block;
   parameter Buildings.Fluid.Types.HeatExchangerFlowRegime flowRegime
     "Heat exchanger flow regime, see  Buildings.Fluid.Types.HeatExchangerFlowRegime";
@@ -155,4 +156,4 @@ annotation (
   </p>
   </html>"),
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
-end HeatFlowEffectiveness;
+end HeatFlowEffectivenessNTU;

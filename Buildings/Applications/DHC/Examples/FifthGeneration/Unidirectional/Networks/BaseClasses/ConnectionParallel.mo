@@ -21,49 +21,46 @@ model ConnectionParallel "Model for connecting an agent to the DHC system"
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
   // IO CONNECTORS
-  Modelica.Fluid.Interfaces.FluidPort_a port_disSupInl(
-    redeclare package Medium=Medium,
+  Modelica.Fluid.Interfaces.FluidPort_a port_aDisSup(
+    redeclare package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Distribution supply inlet port" annotation (Placement(transformation(
           extent={{-110,-50},{-90,-30}}), iconTransformation(extent={{-110,-10},
             {-90,10}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_disSupOut(
-    redeclare package Medium=Medium,
+  Modelica.Fluid.Interfaces.FluidPort_b port_bDisSup(
+    redeclare package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Distribution supply outlet port" annotation (Placement(transformation(
           extent={{90,-50},{110,-30}}), iconTransformation(extent={{90,-10},{
             110,10}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_disRetInl(
+  Modelica.Fluid.Interfaces.FluidPort_a port_aDisRet(
     redeclare package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Distribution return inlet port" annotation (Placement(transformation(
           extent={{90,-90},{110,-70}}), iconTransformation(extent={{90,-70},{
             110,-50}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_disRetOut(
+  Modelica.Fluid.Interfaces.FluidPort_b port_bDisRet(
     redeclare package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Distribution return outlet port" annotation (Placement(transformation(
           extent={{-110,-90},{-90,-70}}), iconTransformation(extent={{-110,-70},
             {-90,-50}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_conSup(
-    redeclare package Medium=Medium,
+  Modelica.Fluid.Interfaces.FluidPort_b port_bCon(
+    redeclare package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start = Medium.h_default, nominal = Medium.h_default))
-    "Connection supply port"
-    annotation (Placement(transformation(
-      extent={{-50,110},{-30,130}}), iconTransformation(extent={{-10,90},{10,110}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_conRet(
-    redeclare package Medium=Medium,
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    "Connection supply port" annotation (Placement(transformation(extent={{-50,
+            110},{-30,130}}), iconTransformation(extent={{-10,90},{10,110}})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_aCon(
+    redeclare package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    h_outflow(start = Medium.h_default, nominal = Medium.h_default))
-    "Connection return port"
-    annotation (Placement(transformation(
-      extent={{30,110},{50,130}}),
-      iconTransformation(extent={{50,90},{70,110}})));
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    "Connection return port" annotation (Placement(transformation(extent={{30,
+            110},{50,130}}), iconTransformation(extent={{50,90},{70,110}})));
   Modelica.Blocks.Interfaces.RealOutput mCon_flow
     "Connection supply mass flow rate"
     annotation (Placement(transformation(
@@ -159,11 +156,11 @@ equation
     annotation (Line(points={{-40,-30},{-40,-20}}, color={0,127,255}));
   connect(pipDisSup.port_b, junConSup.port_1)
     annotation (Line(points={{-60,-40},{-50,-40}}, color={0,127,255}));
-  connect(port_conSup,senTConSup. port_b)
+  connect(port_bCon, senTConSup.port_b)
     annotation (Line(points={{-40,120},{-40,90}}, color={0,127,255}));
   connect(junConRet.port_3, senTConRet.port_b)
     annotation (Line(points={{40,-70},{40,70}}, color={0,127,255}));
-  connect(senTConRet.port_a, port_conRet)
+  connect(senTConRet.port_a, port_aCon)
     annotation (Line(points={{40,90},{40,120}}, color={0,127,255}));
   connect(senMasFloCon.port_b,senTConSup. port_a)
     annotation (Line(points={{-40,50},{-40,70}}, color={0,127,255}));
@@ -173,18 +170,18 @@ equation
     annotation (Line(points={{-40,0},{-40,30}}, color={0,127,255}));
   connect(QCal_flow.y, Q_flow)
     annotation (Line(points={{81,80},{120,80}}, color={0,0,127}));
-  connect(port_disSupInl, pipDisSup.port_a)
+  connect(port_aDisSup, pipDisSup.port_a)
     annotation (Line(points={{-100,-40},{-80,-40}}, color={0,127,255}));
   if haveBypFloSen then
   else
   end if;
-  connect(port_disRetInl, junConRet.port_1)
+  connect(port_aDisRet, junConRet.port_1)
     annotation (Line(points={{100,-80},{50,-80}}, color={0,127,255}));
-  connect(junConSup.port_2, port_disSupOut)
+  connect(junConSup.port_2, port_bDisSup)
     annotation (Line(points={{-30,-40},{100,-40}}, color={0,127,255}));
   connect(junConRet.port_2, pipDisRet.port_a)
     annotation (Line(points={{30,-80},{-60,-80}}, color={0,127,255}));
-  connect(pipDisRet.port_b, port_disRetOut)
+  connect(pipDisRet.port_b, port_bDisRet)
     annotation (Line(points={{-80,-80},{-100,-80}}, color={0,127,255}));
   annotation (
     defaultComponentName="con",

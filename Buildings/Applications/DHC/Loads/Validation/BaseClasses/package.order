@@ -1,12 +1,10 @@
 BuildingTimeSeries
 BuildingRCZ1
-BuildingRCZ1PumpValve
 BuildingRCZ1HeatPort
-BuildingRCZ6Geojson
-BuildingRCZ6GeojsonPump
+BuildingRCZ1PumpValve
+BuildingRCZ6Pump
 BuildingSpawnZ1
-BuildingSpawnZ6Geojson
-BuildingSpawnZ6GeojsonPump
+BuildingSpawnZ6Pump
 Terminal4PipesFluidPorts
 Terminal4PipesHeatPorts
 Terminal4PipesHeatReq

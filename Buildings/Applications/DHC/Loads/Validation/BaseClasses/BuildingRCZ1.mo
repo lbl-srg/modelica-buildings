@@ -1,6 +1,7 @@
 within Buildings.Applications.DHC.Loads.Validation.BaseClasses;
 model BuildingRCZ1 "RC building model (1 zone)"
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
+    redeclare package Medium = Buildings.Media.Water,
     have_pum=false,
     have_eleHea=false,
     have_eleCoo=false,
@@ -48,7 +49,8 @@ model BuildingRCZ1 "RC building model (1 zone)"
     extWallRC(thermCapExt(each der_T(fixed=true))),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=295.15,
-    nPorts=2)       "Thermal zone"
+    nPorts=2)
+    "Thermal zone"
     annotation (Placement(transformation(extent={{44,-10},{92,26}})));
   Buildings.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow
     eqAirTemp(
@@ -61,7 +63,8 @@ model BuildingRCZ1 "RC building model (1 zone)"
     hConWallOut=20.0,
     hRad=5.0,
     hConWinOut=20.0,
-    TGro=285.15) "Computes equivalent air temperature"
+    TGro=285.15)
+    "Computes equivalent air temperature"
     annotation (Placement(transformation(extent={{-24,-14},{-4,6}})));
   Modelica.Blocks.Math.Add solRad[2]
     "Sums up solar radiation of both directions"
@@ -121,38 +124,45 @@ model BuildingRCZ1 "RC building model (1 zone)"
     annotation (Placement(transformation(extent={{-300,250},{-280,270}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC1
     annotation (Placement(transformation(extent={{-260,250},{-240,270}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
-    m_flow_nominal=terUni.m1Hea_flow_nominal*terUni.facSca,
-    dp_nominal=100000,
-    nPorts_a1=1,
-    nPorts_b1=1)
-    annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
-  Buildings.Applications.DHC.Loads.Validation.BaseClasses.Terminal4PipesFluidPorts
-    terUni(
-    facSca=facSca,
-    QHea_flow_nominal=500,
-    QCoo_flow_nominal=2000,
-    T_a2Hea_nominal=293.15,
-    T_a2Coo_nominal=297.15,
-    T_b1Hea_nominal=308.15,
-    T_b1Coo_nominal=285.15,
-    T_a1Hea_nominal=313.15,
-    T_a1Coo_nominal=280.15,
-    m2Hea_flow_nominal=1,
-    m2Coo_flow_nominal=1)
-    annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=24)
     "Minimum temperature setpoint"
     annotation (Placement(transformation(extent={{-300,210},{-280,230}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC2
     annotation (Placement(transformation(extent={{-260,210},{-240,230}})));
+  Buildings.Applications.DHC.Loads.Validation.BaseClasses.Terminal4PipesFluidPorts
+    terUni(
+    redeclare package Medium1 = Medium,
+    redeclare package Medium2 = Medium2,
+    facSca=facSca,
+    QHea_flow_nominal=500,
+    QCoo_flow_nominal=2000,
+    T_aLoaHea_nominal=293.15,
+    T_aLoaCoo_nominal=297.15,
+    T_bHeaWat_nominal=308.15,
+    T_bChiWat_nominal=285.15,
+    T_aHeaWat_nominal=313.15,
+    T_aChiWat_nominal=280.15,
+    mLoaHea_flow_nominal=1,
+    mLoaCoo_flow_nominal=1)
+    "Terminal unit"
+    annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
+  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
+    redeclare package Medium = Medium,
+    m_flow_nominal=terUni.mHeaWat_flow_nominal*terUni.facSca,
+    dp_nominal=100000,
+    nPorts_a1=1,
+    nPorts_b1=1)
+    "Heating water distribution system"
+    annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
-    m_flow_nominal=terUni.m1Coo_flow_nominal*terUni.facSca,
+    redeclare package Medium = Medium,
+    m_flow_nominal=terUni.mChiWat_flow_nominal*terUni.facSca,
     disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
     dp_nominal=100000,
     nPorts_a1=1,
     nPorts_b1=1)
-    annotation (Placement(transformation(extent={{-100, -160},{-80,-140}})));
+    "Chilled water distribution system"
+    annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
 equation
   connect(eqAirTemp.TEqAirWin,preTem1. T)
     annotation (Line(
@@ -270,53 +280,55 @@ equation
       horizontalAlignment=TextAlignment.Left));
   connect(minTSet.y, from_degC1.u) annotation (Line(points={{-278,260},{-262,
           260}},                                                                  color={0,0,127}));
-  connect(thermalZoneOneElement.ports[1], terUni.port_a2)
-    annotation (Line(points={{81.475,-9.95},{86.5,-9.95},{86.5,-40.8333},{
-          -140,-40.8333}},                                                       color={0,127,255}));
-  connect(terUni.port_b2, thermalZoneOneElement.ports[2])
-    annotation (Line(points={{-160,-40.8333},{-180,-40.8333},{-180,-22},{
-          84.525,-22},{84.525,-9.95}},                                                      color={0,127,255}));
-  connect(ports_a1[1], disFloHea.port_a) annotation (Line(points={{-300,0},{-280,
+  connect(thermalZoneOneElement.ports[1], terUni.port_aLoa)
+    annotation (Line(points={{81.475,-9.95},{86.5,-9.95},{86.5,-41.6667},{-140,
+          -41.6667}},                                                            color={0,127,255}));
+  connect(terUni.port_bLoa, thermalZoneOneElement.ports[2])
+    annotation (Line(points={{-160,-41.6667},{-180,-41.6667},{-180,-22},{84.525,
+          -22},{84.525,-9.95}},                                                             color={0,127,255}));
+  connect(ports_a[1], disFloHea.port_a) annotation (Line(points={{-300,0},{-280,
           0},{-280,-110},{-100,-110}}, color={0,127,255}));
-  connect(disFloHea.port_b, ports_b1[1]) annotation (Line(points={{-80,-110},{280,
+  connect(disFloHea.port_b, ports_b[1]) annotation (Line(points={{-80,-110},{280,
           -110},{280,0},{300,0}}, color={0,127,255}));
   connect(maxTSet.y, from_degC2.u) annotation (Line(points={{-278,220},{-262,
           220}},                                                                  color={0,0,127}));
-  connect(ports_a1[2], disFloCoo.port_a) annotation (Line(points={{-300,0},{-280,
-          0},{-280,-150},{-100,-150}}, color={0,127,255}));
-  connect(disFloCoo.port_b, ports_b1[2]) annotation (Line(points={{-80,-150},{280,
-          -150},{280,0},{300,0}}, color={0,127,255}));
+  connect(ports_a[2], disFloCoo.port_a) annotation (Line(points={{-300,0},{
+          -280,0},{-280,-150},{-100,-150}},
+                                       color={0,127,255}));
+  connect(disFloCoo.port_b, ports_b[2]) annotation (Line(points={{-80,-150},{
+          280,-150},{280,0},{300,0}},
+                                  color={0,127,255}));
   connect(from_degC1.y, terUni.TSetHea) annotation (Line(points={{-238,260},{
           -200,260},{-200,-43.3333},{-160.833,-43.3333}},
                                                      color={0,0,127}));
   connect(from_degC2.y, terUni.TSetCoo) annotation (Line(points={{-238,220},{
           -200,220},{-200,-46},{-160.833,-46},{-160.833,-46.6667}},
                                                                color={0,0,127}));
-  connect(terUni.port_b1Coo, disFloCoo.ports_a1[1]) annotation (Line(points={{-140,
+  connect(terUni.port_bChiWat, disFloCoo.ports_a1[1]) annotation (Line(points={{-140,
           -56.6667},{-90,-56.6667},{-90,-56},{-40,-56},{-40,-144},{-80,-144}},
         color={0,127,255}));
-  connect(terUni.port_b1Hea, disFloHea.ports_a1[1]) annotation (Line(points={{-140,
-          -59.1667},{-100,-59.1667},{-100,-60},{-60,-60},{-60,-104},{-80,-104}},
+  connect(terUni.port_bHeaWat, disFloHea.ports_a1[1]) annotation (Line(points={{-140,
+          -58.3333},{-100,-58.3333},{-100,-60},{-60,-60},{-60,-104},{-80,-104}},
         color={0,127,255}));
-  connect(disFloHea.ports_b1[1], terUni.port_a1Hea) annotation (Line(points={{-100,
-          -104},{-180,-104},{-180,-59.1667},{-160,-59.1667}}, color={0,127,255}));
-  connect(disFloCoo.ports_b1[1], terUni.port_a1Coo) annotation (Line(points={{-100,
+  connect(disFloHea.ports_b1[1], terUni.port_aHeaWat) annotation (Line(points={{-100,
+          -104},{-180,-104},{-180,-58.3333},{-160,-58.3333}}, color={0,127,255}));
+  connect(disFloCoo.ports_b1[1], terUni.port_aChiWat) annotation (Line(points={{-100,
           -144},{-200,-144},{-200,-56.6667},{-160,-56.6667}},
                                                         color={0,127,255}));
   connect(terUni.QActCoo_flow, QCoo_flow) annotation (Line(points={{-139.167,
-          -44.1667},{50,-44.1667},{50,-44},{240,-44},{240,220},{320,220}},
+          -45},{50,-45},{50,-44},{240,-44},{240,240},{320,240}},
                                                        color={0,0,127}));
-  connect(terUni.PFan, PFan) annotation (Line(points={{-139.167,-49.1667},{60,
-          -49.1667},{60,-50},{260,-50},{260,100},{320,100}},
-                                color={0,0,127}));
-  connect(terUni.m1ReqHea_flow, disFloHea.m1Req_flow[1]) annotation (Line(
-        points={{-139.167,-52.5},{-139.167,-84},{-140,-84},{-140,-116},{-101,
-          -116},{-101,-114}}, color={0,0,127}));
-  connect(terUni.m1ReqCoo_flow, disFloCoo.m1Req_flow[1]) annotation (Line(
-        points={{-139.167,-54.1667},{-139.167,-104},{-140,-104},{-140,-154},{
-          -101,-154},{-101,-154}}, color={0,0,127}));
+  connect(terUni.PFan, PFan) annotation (Line(points={{-139.167,-50},{260,-50},
+          {260,120},{320,120}}, color={0,0,127}));
+  connect(terUni.mReqHeaWat_flow, disFloHea.mReq_flow[1]) annotation (Line(points={{
+          -139.167,-53.3333},{-139.167,-84},{-140,-84},{-140,-116},{-101,-116},
+          {-101,-114}},
+                  color={0,0,127}));
+  connect(terUni.mReqChiWat_flow, disFloCoo.mReq_flow[1]) annotation (Line(points={{
+          -139.167,-55},{-139.167,-104},{-140,-104},{-140,-154},{-101,-154}},
+                        color={0,0,127}));
   connect(terUni.QActHea_flow, QHea_flow) annotation (Line(points={{-139.167,
-          -42.5},{40,-42.5},{40,-42},{220,-42},{220,280},{320,280}},
+          -43.3333},{40,-43.3333},{40,-42},{220,-42},{220,280},{320,280}},
                                                               color={0,0,127}));
   annotation (
   Documentation(info="<html>

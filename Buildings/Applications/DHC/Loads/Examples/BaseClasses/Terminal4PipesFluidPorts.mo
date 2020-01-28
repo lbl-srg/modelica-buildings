@@ -9,10 +9,10 @@ model Terminal4PipesFluidPorts
     final have_weaBus=false,
     final have_fan=true,
     final have_pum=false,
-    final m1Hea_flow_nominal=abs(QHea_flow_nominal/cp1Hea_nominal/(
-        T_a1Hea_nominal - T_b1Hea_nominal)),
-    final m1Coo_flow_nominal=abs(QCoo_flow_nominal/cp1Coo_nominal/(
-        T_a1Coo_nominal - T_b1Coo_nominal)));
+    final mHeaWat_flow_nominal=abs(QHea_flow_nominal/cp1Hea_nominal/(
+        T_aHeaWat_nominal - T_bHeaWat_nominal)),
+    final mChiWat_flow_nominal=abs(QCoo_flow_nominal/cp1Coo_nominal/(
+        T_aChiWat_nominal - T_bChiWat_nominal)));
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID conTMin(
     Ti=120,
@@ -24,7 +24,7 @@ model Terminal4PipesFluidPorts
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
     redeclare final package Medium=Medium2,
     energyDynamics=energyDynamics,
-    m_flow_nominal=max({m2Hea_flow_nominal, m2Coo_flow_nominal}),
+    m_flow_nominal=max({mLoaHea_flow_nominal, mLoaCoo_flow_nominal}),
     redeclare Fluid.Movers.Data.Generic per,
     nominalValuesDefineDefaultPressureCurve=true,
     dp_nominal=200,
@@ -34,17 +34,17 @@ model Terminal4PipesFluidPorts
     redeclare final package Medium1=Medium1,
     redeclare final package Medium2=Medium2,
     final configuration=hexConHea,
-    final m1_flow_nominal=m1Hea_flow_nominal,
-    final m2_flow_nominal=m2Hea_flow_nominal,
+    final m1_flow_nominal=mHeaWat_flow_nominal,
+    final m2_flow_nominal=mLoaHea_flow_nominal,
     final dp1_nominal=0,
     dp2_nominal=100,
     final Q_flow_nominal=QHea_flow_nominal,
-    final T_a1_nominal=T_a1Hea_nominal,
-    final T_a2_nominal=T_a2Hea_nominal,
+    final T_a1_nominal=T_aHeaWat_nominal,
+    final T_a2_nominal=T_aLoaHea_nominal,
     final allowFlowReversal1=allowFlowReversal,
     final allowFlowReversal2=allowFlowReversal)
     annotation (Placement(transformation(extent={{-80,4}, {-60,-16}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaFloNom(k=m1Hea_flow_nominal)
+  Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaFloNom(k=mHeaWat_flow_nominal)
     annotation (Placement(transformation(extent={{20,210},{40,230}})));
   Modelica.Blocks.Sources.RealExpression Q_flowHea(y=hexHea.Q2_flow)
     annotation (Placement(transformation(extent={{160,210},{180,230}})));
@@ -52,20 +52,20 @@ model Terminal4PipesFluidPorts
     redeclare final package Medium1=Medium1,
     redeclare final package Medium2=Medium2,
     final configuration=hexConCoo,
-    final m1_flow_nominal=m1Coo_flow_nominal,
-    final m2_flow_nominal=m2Coo_flow_nominal,
+    final m1_flow_nominal=mChiWat_flow_nominal,
+    final m2_flow_nominal=mLoaCoo_flow_nominal,
     final dp1_nominal=0,
     dp2_nominal=100,
     final Q_flow_nominal=QCoo_flow_nominal,
-    final T_a1_nominal=T_a1Coo_nominal,
-    final T_a2_nominal=T_a2Coo_nominal,
+    final T_a1_nominal=T_aChiWat_nominal,
+    final T_a2_nominal=T_aLoaCoo_nominal,
     final allowFlowReversal1=allowFlowReversal,
     final allowFlowReversal2=allowFlowReversal)
     annotation (Placement(transformation(extent={{0,4},{20,-16}})));
   Modelica.Blocks.Sources.RealExpression Q_flowCoo(y=hexCoo.Q2_flow)
     annotation (Placement(transformation(extent={{160,190},{180,210}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiFloNom2(k=max({
-    m2Hea_flow_nominal,m2Coo_flow_nominal}))
+    mLoaHea_flow_nominal,mLoaCoo_flow_nominal}))
     annotation (Placement(transformation(extent={{20,90},{40,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant sigFlo2(k=1)
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
@@ -77,11 +77,11 @@ model Terminal4PipesFluidPorts
     yMin=0)
     "PI controller for maximum indoor temperature"
     annotation (Placement(transformation(extent={{-10,170},{10,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gaiCooFloNom(k=m1Coo_flow_nominal)
+  Buildings.Controls.OBC.CDL.Continuous.Gain gaiCooFloNom(k=mChiWat_flow_nominal)
     annotation (Placement(transformation(extent={{20,170},{40,190}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare final package Medium=Medium2,
-    final m_flow_nominal=max(m2Hea_flow_nominal, m2Coo_flow_nominal),
+    final m_flow_nominal=max(mLoaHea_flow_nominal, mLoaCoo_flow_nominal),
     final tau=0,
     final allowFlowReversal=allowFlowReversal)
     "Return air temperature (sensed, steady-state)"
@@ -89,7 +89,7 @@ model Terminal4PipesFluidPorts
 equation
   connect(hexCoo.port_b2, hexHea.port_a2)
     annotation (Line(points={{0,0},{-60,0}},     color={0,127,255}));
-  connect(hexHea.port_b2, port_b2)
+  connect(hexHea.port_b2, port_bLoa)
     annotation (Line(points={{-80,0},{-90,0},{-90,0},{-200,0}},       color={0,127,255}));
   connect(fan.port_b, hexCoo.port_a2)
     annotation (Line(points={{70,0},{20,0}}, color={0,127,255}));
@@ -99,27 +99,27 @@ equation
   connect(gaiFloNom2.y, fan.m_flow_in)
     annotation (Line(points={{42,100},{80,100},{80,12}},
                                                        color={0,0,127}));
-  connect(port_a1Coo, hexCoo.port_a1) annotation (Line(points={{-200,-180},{-20,
+  connect(port_aChiWat, hexCoo.port_a1) annotation (Line(points={{-200,-180},{-20,
           -180},{-20,-12},{0,-12}}, color={0,127,255}));
-  connect(hexCoo.port_b1, port_b1Coo) annotation (Line(points={{20,-12},{40,-12},
+  connect(hexCoo.port_b1, port_bChiWat) annotation (Line(points={{20,-12},{40,-12},
           {40,-180},{200,-180}}, color={0,127,255}));
-  connect(port_a1Hea, hexHea.port_a1) annotation (Line(points={{-200,-220},{
+  connect(port_aHeaWat, hexHea.port_a1) annotation (Line(points={{-200,-220},{
           -100,-220},{-100,-12},{-80,-12}},
                                        color={0,127,255}));
-  connect(hexHea.port_b1, port_b1Hea) annotation (Line(points={{-60,-12},{-40,
+  connect(hexHea.port_b1, port_bHeaWat) annotation (Line(points={{-60,-12},{-40,
           -12},{-40,-220},{200,-220}},
                                   color={0,127,255}));
   connect(TSetHea, conTMin.u_s)
     annotation (Line(points={{-220,220},{-12,220}}, color={0,0,127}));
   connect(conTMin.y, gaiHeaFloNom.u)
     annotation (Line(points={{12,220},{18,220}}, color={0,0,127}));
-  connect(gaiHeaFloNom.y, m1ReqHea_flow) annotation (Line(points={{42,220},{122,
+  connect(gaiHeaFloNom.y, mReqHeaWat_flow) annotation (Line(points={{42,220},{122,
           220},{122,100},{220,100}}, color={0,0,127}));
   connect(conTMax.y, gaiCooFloNom.u)
     annotation (Line(points={{12,180},{18,180}}, color={0,0,127}));
   connect(TSetCoo, conTMax.u_s)
     annotation (Line(points={{-220,180},{-12,180}}, color={0,0,127}));
-  connect(gaiCooFloNom.y, m1ReqCoo_flow) annotation (Line(points={{42,180},{140,
+  connect(gaiCooFloNom.y, mReqChiWat_flow) annotation (Line(points={{42,180},{140,
           180},{140,80},{220,80}},   color={0,0,127}));
   connect(Q_flowHea.y, QActHea_flow)
     annotation (Line(points={{181,220},{220,220}}, color={0,0,127}));
@@ -127,7 +127,7 @@ equation
     annotation (Line(points={{181,200},{220,200}}, color={0,0,127}));
   connect(fan.P, PFan) annotation (Line(points={{69,9},{60,9},{60,140},{220,140}},
         color={0,0,127}));
-  connect(port_a2, senTem.port_a)
+  connect(port_aLoa, senTem.port_a)
     annotation (Line(points={{200,0},{130,0}}, color={0,127,255}));
   connect(senTem.port_b, fan.port_a)
     annotation (Line(points={{110,0},{90,0}}, color={0,127,255}));

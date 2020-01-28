@@ -80,24 +80,24 @@ partial model PartialSeries "Partial model for series network"
 equation
   connect(bou.ports[1], pumDis.port_a)
     annotation (Line(points={{102,-20},{80,-20},{80,-50}}, color={0,127,255}));
-  connect(conPla.port_disOut, dis.port_disSupInl)
+  connect(conPla.port_bDis, dis.port_aDisSup)
     annotation (Line(points={{-80,0},{-80,140},{-20,140}}, color={0,127,255}));
-  connect(dis.port_disSupOut, pumDis.port_a)
+  connect(dis.port_bDisSup, pumDis.port_a)
     annotation (Line(points={{20,140},{80,140},{80,-50}}, color={0,127,255}));
-  connect(conSto.port_disOut, conPla.port_disInl)
+  connect(conSto.port_bDis, conPla.port_aDis)
     annotation (Line(points={{-80,-80},{-80,-20}}, color={0,127,255}));
-  connect(borFie.port_b, conSto.port_conRet) annotation (Line(points={{-120,-80},
+  connect(borFie.port_b, conSto.port_aCon) annotation (Line(points={{-120,-80},
           {-100,-80},{-100,-84},{-90,-84}}, color={0,127,255}));
-  connect(pumDis.port_b, conSto.port_disInl) annotation (Line(points={{80,-70},
-          {80,-120},{-80,-120},{-80,-100}}, color={0,127,255}));
-  connect(pla.port_disOut, conPla.port_conRet) annotation (Line(points={{-140,0},
+  connect(pumDis.port_b, conSto.port_aDis) annotation (Line(points={{80,-70},{
+          80,-120},{-80,-120},{-80,-100}}, color={0,127,255}));
+  connect(pla.port_disOut, conPla.port_aCon) annotation (Line(points={{-140,0},
           {-100,0},{-100,-4},{-90,-4}}, color={0,127,255}));
-  connect(conPla.port_conSup, pla.port_disInl) annotation (Line(points={{-90,-10},
+  connect(conPla.port_bCon, pla.port_disInl) annotation (Line(points={{-90,-10},
           {-100,-10},{-100,-20},{-200,-20},{-200,0},{-160,0}}, color={0,127,255}));
   connect(borFie.port_a, pumSto.port_b)
     annotation (Line(points={{-140,-80},{-170,-80}}, color={0,127,255}));
-  connect(conSto.port_conSup, pumSto.port_a) annotation (Line(points={{-90,-90},
-          {-100,-90},{-100,-100},{-200,-100},{-200,-80},{-190,-80}}, color={0,
+  connect(conSto.port_bCon, pumSto.port_a) annotation (Line(points={{-90,-90},{
+          -100,-90},{-100,-100},{-200,-100},{-200,-80},{-190,-80}}, color={0,
           127,255}));
   annotation (Diagram(
     coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{360,260}})),

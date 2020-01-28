@@ -11,7 +11,7 @@ model CouplingRCZ1PumpValve
     annotation (Placement(transformation(extent={{60,100},{40,120}})));
   package Medium1 = Buildings.Media.Water
     "Source side medium";
-  BaseClasses.BuildingRCZ1PumpValve bui(nPorts_a1=2, nPorts_b1=2)
+  BaseClasses.BuildingRCZ1PumpValve bui(nPorts_a=2, nPorts_b=2)
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Buildings.Fluid.Sources.Boundary_pT sinHeaWat(redeclare package Medium =
         Medium1, nPorts=1) "Sink for heating water" annotation (Placement(
@@ -19,10 +19,10 @@ model CouplingRCZ1PumpValve
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={130,80})));
-  Modelica.Blocks.Sources.RealExpression THeaWatSup(y=bui.terUni.T_a1Hea_nominal)
+  Modelica.Blocks.Sources.RealExpression THeaWatSup(y=bui.terUni.T_aHeaWat_nominal)
     "Heating water supply temperature"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
-  Modelica.Blocks.Sources.RealExpression TChiWatSup(y=bui.terUni.T_a1Coo_nominal)
+  Modelica.Blocks.Sources.RealExpression TChiWatSup(y=bui.terUni.T_aChiWat_nominal)
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   Buildings.Fluid.Sources.Boundary_pT sinChiWat(redeclare package Medium =
@@ -51,17 +51,17 @@ equation
       points={{40,110},{30,110},{30,71.4},{30.1,71.4}},
       color={255,204,51},
       thickness=0.5));
-  connect(bui.ports_b1[1], sinHeaWat.ports[1]) annotation (Line(points={{60,30},
+  connect(bui.ports_b[1], sinHeaWat.ports[1]) annotation (Line(points={{60,30},
           {80,30},{80,80},{120,80}}, color={0,127,255}));
-  connect(bui.ports_b1[2], sinChiWat.ports[1]) annotation (Line(points={{60,34},
+  connect(bui.ports_b[2], sinChiWat.ports[1]) annotation (Line(points={{60,34},
           {80,34},{80,20},{120,20}}, color={0,127,255}));
   connect(supHeaWat.T_in, THeaWatSup.y) annotation (Line(points={{-62,84},{-80,
           84},{-80,80},{-99,80}}, color={0,0,127}));
-  connect(supHeaWat.ports[1], bui.ports_a1[1]) annotation (Line(points={{-40,80},
+  connect(supHeaWat.ports[1], bui.ports_a[1]) annotation (Line(points={{-40,80},
           {-20,80},{-20,32},{0,32},{0,30}}, color={0,127,255}));
   connect(TChiWatSup.y, supChiWat.T_in) annotation (Line(points={{-99,20},{-80,
           20},{-80,24},{-62,24}}, color={0,0,127}));
-  connect(supChiWat.ports[1], bui.ports_a1[2]) annotation (Line(points={{-40,20},
+  connect(supChiWat.ports[1], bui.ports_a[2]) annotation (Line(points={{-40,20},
           {-20,20},{-20,32},{0,32},{0,34}}, color={0,127,255}));
   annotation (
   experiment(
