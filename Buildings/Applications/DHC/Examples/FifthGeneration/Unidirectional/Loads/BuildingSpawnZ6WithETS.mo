@@ -2,7 +2,7 @@ within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Loads;
 model BuildingSpawnZ6WithETS
   "Model of a building (Spawn 6 zones) with an energy transfer station"
   extends BaseClasses.PartialBuildingWithETS(redeclare
-      Buildings.Applications.DHC.Loads.Validation.BaseClasses.BuildingSpawnZ6GeojsonPump
+      Buildings.Applications.DHC.Loads.Validation.BaseClasses.BuildingSpawnZ6Pump
       bui(idfPat=idfPat, weaPat=weaPat));
   parameter String idfPat=
     "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportSpawn/Resources/Data/B5a6b99ec37f4de7f94020090/RefBldgSmallOfficeNew2004_Chicago.idf"

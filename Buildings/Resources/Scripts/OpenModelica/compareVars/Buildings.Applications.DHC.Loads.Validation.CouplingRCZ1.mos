@@ -18,5 +18,5 @@ compareVars :=
     "bui.terUni.T_aChiWat_nominal",
     "bui.disFloCoo.mReq_flow[1]",
     "bui.disFloCoo.mAct_flow[1].y",
-    "bui.terUni.mChiWat_flow_nominal"
+    "bui.terUni.T_aChiWat_nominal"
   };
