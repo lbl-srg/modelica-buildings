@@ -1,4 +1,4 @@
-within Buildings.Experimental.EnergyPlus.Types;
+within Buildings.ThermalZones.EnergyPlus.Types;
 type Units = enumeration(
     AngleRad        "Angle (rad)",
     AngleDeg        "Angle (deg)",
@@ -24,7 +24,7 @@ type Units = enumeration(
     Documentation(info="<html>
 <p>
 Enumeration for the units used as inputs to the block
-<a href=\"modelica://Buildings.Experimental.EnergyPlus.Schedule\">Buildings.Experimental.EnergyPlus.Schedule</a>.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Schedule\">Buildings.ThermalZones.EnergyPlus.Schedule</a>.
 </p>
 <p>
 The units are converted between Modelica and EnergyPlus as shown in the table below.

@@ -1,12 +1,12 @@
-within Buildings.Experimental.EnergyPlus.BaseClasses;
+within Buildings.ThermalZones.EnergyPlus.BaseClasses;
 partial model Writer "Block to write to an EnergyPlus actuator or schedule"
-  extends Buildings.Experimental.EnergyPlus.BaseClasses.PartialEnergyPlusObject;
+  extends Buildings.ThermalZones.EnergyPlus.BaseClasses.PartialEnergyPlusObject;
 
   parameter String name
     "Name of an EnergyPlus variable (need not be present in the idf file)";
 
-  parameter Buildings.Experimental.EnergyPlus.Types.Units unit=
-    Buildings.Experimental.EnergyPlus.Types.Units.unspecified
+  parameter Buildings.ThermalZones.EnergyPlus.Types.Units unit=
+    Buildings.ThermalZones.EnergyPlus.Types.Units.unspecified
     "Unit of variable as used in Modelica"
     annotation(Evaluate=true);
 
@@ -40,14 +40,14 @@ protected
     annotation(HideResult=true);
   constant Integer objectType "Set to 1 for Actuator and 2 for Schedule";
 
-  Buildings.Experimental.EnergyPlus.BaseClasses.FMUWriterClass adapter=
-      Buildings.Experimental.EnergyPlus.BaseClasses.FMUWriterClass(
+  Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUWriterClass adapter=
+      Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUWriterClass(
       objectType=objectType,
       modelicaNameBuilding=modelicaNameBuilding,
       modelicaNameWriter=modelicaNameWriter,
       idfName=idfName,
       weaName=weaName,
-      iddName=Buildings.Experimental.EnergyPlus.BaseClasses.iddName,
+      iddName=Buildings.ThermalZones.EnergyPlus.BaseClasses.iddName,
       writerName=name,
       unit=unit,
       componentName=componentName,
@@ -55,7 +55,7 @@ protected
       controlType=controlType,
       usePrecompiledFMU=usePrecompiledFMU,
       fmuName=fmuName,
-      buildingsLibraryRoot=Buildings.Experimental.EnergyPlus.BaseClasses.buildingsLibraryRoot,
+      buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
       verbosity=verbosity) "Class to communicate with EnergyPlus";
 
   output Boolean sampleTrigger "True, if sample time instant";
@@ -63,7 +63,7 @@ protected
   Integer counter "Counter for number of calls to EnergyPlus during time steps";
 
 initial equation
-  Buildings.Experimental.EnergyPlus.BaseClasses.writerInitialize(
+  Buildings.ThermalZones.EnergyPlus.BaseClasses.writerInitialize(
     adapter = adapter,
     startTime = time);
   counter = 0;
@@ -75,7 +75,7 @@ equation
   // This is required for the correct event handling. Otherwise the regression tests will fail.
  // when {initial(), not initial(), time >= pre(tNext)} then
   when {initial(), time >= pre(tNext), sampleTrigger, not initial()} then
-    tNext = Buildings.Experimental.EnergyPlus.BaseClasses.writerExchange(
+    tNext = Buildings.ThermalZones.EnergyPlus.BaseClasses.writerExchange(
       adapter,
       initial(),
       round(time, 1E-3),
@@ -99,10 +99,10 @@ written at each multiple of <code>samplePeriod</code>, in addition to the Energy
 The parameter <code>unit</code> specifies the unit of the signal <code>u</code>.
 This unit is then converted internally to the units required by EnergyPlus before
 the value is sent to EnergyPlus.
-See <a href=\"modelica://Buildings.Experimental.EnergyPlus.Types.Units\">Buildings.Experimental.EnergyPlus.Types.Units</a>
+See <a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Types.Units\">Buildings.ThermalZones.EnergyPlus.Types.Units</a>
 for the supported units.
 If the value of the parameter <code>unit</code> is left at its default value of
-<code>Buildings.Experimental.EnergyPlus.Types.Units.unspecified</code>, then
+<code>Buildings.ThermalZones.EnergyPlus.Types.Units.unspecified</code>, then
 the simulation will stop with an error.
 </p>
 </html>", revisions="<html>

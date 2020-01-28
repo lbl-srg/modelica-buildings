@@ -1,4 +1,4 @@
-within Buildings.Experimental.EnergyPlus.BaseClasses;
+within Buildings.ThermalZones.EnergyPlus.BaseClasses;
 class FMUWriterClass
   "Class used to couple the FMU to send values to actuators and schedules"
   extends Modelica.Icons.BasesPackage;
@@ -17,7 +17,7 @@ class FMUWriterClass
     input String weaName "Name of the weather file";
     input String iddName "Name of the IDD file";
     input String writerName "EnergyPlus name of the actuator or schedule";
-    input Buildings.Experimental.EnergyPlus.Types.Units unit "Unit of variable as used in Modelica";
+    input Buildings.ThermalZones.EnergyPlus.Types.Units unit "Unit of variable as used in Modelica";
     input String componentName "Actuated component unique name in the EnergyPlus idf file (not used for schedule)";
     input String componentType "Actuated component type (not used for schedule)";
     input String controlType   "Actuated component control type (not used for schedule)";
@@ -25,7 +25,7 @@ class FMUWriterClass
     input String fmuName
       "Specify if a pre-compiled FMU should be used instead of EnergyPlus (mainly for development)";
     input String buildingsLibraryRoot "Root directory of the Buildings library (used to find the spawn executable)";
-    input Buildings.Experimental.EnergyPlus.Types.Verbosity verbosity
+    input Buildings.ThermalZones.EnergyPlus.Types.Verbosity verbosity
     "Verbosity of EnergyPlus output"
     annotation(Dialog(tab="Debug"));
     output FMUWriterClass adapter;

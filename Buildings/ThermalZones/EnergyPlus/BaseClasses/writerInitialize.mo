@@ -1,9 +1,9 @@
-within Buildings.Experimental.EnergyPlus.BaseClasses;
+within Buildings.ThermalZones.EnergyPlus.BaseClasses;
 function writerInitialize
   "Initialization for an EnergyPlus actuator or schedule"
   extends Modelica.Icons.Function;
 
-  input Buildings.Experimental.EnergyPlus.BaseClasses.FMUWriterClass adapter
+  input Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUWriterClass adapter
     "External object";
   input Modelica.SIunits.Time startTime "Start time of the simulation";
 

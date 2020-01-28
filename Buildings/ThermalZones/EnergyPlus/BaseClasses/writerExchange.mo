@@ -1,9 +1,9 @@
-within Buildings.Experimental.EnergyPlus.BaseClasses;
+within Buildings.ThermalZones.EnergyPlus.BaseClasses;
 function writerExchange
   "Exchange the values with the EnergyPlus actuator or schedule"
   extends Modelica.Icons.Function;
 
-  input Buildings.Experimental.EnergyPlus.BaseClasses.FMUWriterClass adapter
+  input Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUWriterClass adapter
     "External object";
   input Boolean initialCall "Set to true if initial() is true, false otherwise";
   input Modelica.SIunits.Time tModel "Current model time";

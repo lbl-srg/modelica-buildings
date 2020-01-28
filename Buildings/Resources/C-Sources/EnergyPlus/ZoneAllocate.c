@@ -198,7 +198,7 @@ void* ZoneAllocate(
   /* Some tools such as OpenModelica may optimize the code resulting in initialize()
      not being called. Hence, we set a flag so we can force it to be called in exchange()
      in case it is not called in initialize().
-     This behavior was observed when simulating Buildings.Experimental.EnergyPlus.BaseClasses.Validation.FMUZoneAdapter
+     This behavior was observed when simulating Buildings.ThermalZones.EnergyPlus.BaseClasses.Validation.FMUZoneAdapter
   */
   zone->isInstantiated = fmi2False;
   zone->isInitialized = fmi2False;

@@ -25,7 +25,7 @@ void OutputVariableInstantiate(
     ModelicaFormatMessage("Entered OutputVariableInstantiate for %s at %p with value reference %lu.\n", outVar->modelicaNameOutputVariable, outVar, outVar->outputs->valRefs[0]);
   }
   if (! outVar->valueReferenceIsSet){
-    ModelicaFormatError("Value reference is not set for %s. For Dymola 2020x, make sure you set 'Hidden.AvoidDoubleComputation=true'. See Buildings.Experimental.EnergyPlus.UsersGuide.", outVar->modelicaNameOutputVariable);
+    ModelicaFormatError("Value reference is not set for %s. For Dymola 2020x, make sure you set 'Hidden.AvoidDoubleComputation=true'. See Buildings.ThermalZones.EnergyPlus.UsersGuide.", outVar->modelicaNameOutputVariable);
   }
   if (bui->fmu == NULL){
     /* EnergyPlus is not yet loaded.

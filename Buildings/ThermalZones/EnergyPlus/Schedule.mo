@@ -1,6 +1,6 @@
-within Buildings.Experimental.EnergyPlus;
+within Buildings.ThermalZones.EnergyPlus;
 model Schedule "Block to write to an EnergyPlus schedule"
-  extends Buildings.Experimental.EnergyPlus.BaseClasses.Writer(
+  extends Buildings.ThermalZones.EnergyPlus.BaseClasses.Writer(
   final objectType=2,
   final componentName="",
   final componentType="",
@@ -43,10 +43,10 @@ written at each multiple of <code>samplePeriod</code>, in addition to the Energy
 The parameter <code>unit</code> specifies the unit of the signal <code>u</code>.
 This unit is then converted internally to the units required by EnergyPlus before
 the value is sent to EnergyPlus.
-See <a href=\"modelica://Buildings.Experimental.EnergyPlus.Types.Units\">Buildings.Experimental.EnergyPlus.Types.Units</a>
+See <a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Types.Units\">Buildings.ThermalZones.EnergyPlus.Types.Units</a>
 for the supported units.
 If the value of the parameter <code>unit</code> is left at its default value of
-<code>Buildings.Experimental.EnergyPlus.Types.Units.unspecified</code>, then
+<code>Buildings.ThermalZones.EnergyPlus.Types.Units.unspecified</code>, then
 the simulation will stop with an error.
 </p>
 </html>", revisions="<html>
