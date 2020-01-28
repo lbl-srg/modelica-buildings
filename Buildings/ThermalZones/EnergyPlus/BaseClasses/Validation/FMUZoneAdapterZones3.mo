@@ -20,7 +20,7 @@ model FMUZoneAdapterZones3
     final weaName=weaName,
     final zoneName="Core_ZN",
     usePrecompiledFMU=true,
-    final fmuName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones3.fmu"),
+    final fmuName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/ThermalZones/EnergyPlus/FMUs/Zones3.fmu"),
     final nFluPor=2) "Adapter to EnergyPlus"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Modelica.Blocks.Sources.RealExpression X_w(y=0.01) "Zone absolute humidity"
@@ -48,7 +48,7 @@ model FMUZoneAdapterZones3
     final weaName=weaName,
     final zoneName="South_ZN",
     usePrecompiledFMU=true,
-    final fmuName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones3.fmu"),
+    final fmuName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/ThermalZones/EnergyPlus/FMUs/Zones3.fmu"),
     final nFluPor=2) "Adapter to EnergyPlus"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Modelica.Blocks.Continuous.Integrator TZonSou(
@@ -64,7 +64,7 @@ model FMUZoneAdapterZones3
     final weaName=weaName,
     final zoneName="North_ZN",
     usePrecompiledFMU=true,
-    final fmuName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones3.fmu"),
+    final fmuName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/ThermalZones/EnergyPlus/FMUs/Zones3.fmu"),
     final nFluPor=2) "Adapter to EnergyPlus"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Modelica.Blocks.Continuous.Integrator TZonNor(
