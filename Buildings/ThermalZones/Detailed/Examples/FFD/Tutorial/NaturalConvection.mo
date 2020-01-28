@@ -320,7 +320,7 @@ Store <code>NaturalConvection.ffd</code>, <code>NaturalConvection.dat</code>, an
 at <code>Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/Tutorial</code>.
 </li>
 <li>
-Set simulation the stop time of the Modelica model <code>7200</code> seconds and choose for example the Radau solver.
+Set simulation the stop time of the Modelica model <code>7200</code> seconds and choose for example the CVode solver.
 </li>
 <li>
 Translate the model and start the simulation.

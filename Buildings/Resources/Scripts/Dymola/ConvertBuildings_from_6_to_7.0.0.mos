@@ -7,6 +7,10 @@ convertClear();
 
 convertClass("Buildings.Controls.OBC.CDL.Discrete.MovingMean",
              "Buildings.Obsolete.Controls.OBC.CDL.Discrete.MovingMean");
+convertClass("Buildings.Controls.OBC.CDL.SetPoints.HotWaterTemperatureReset",
+             "Buildings.Controls.OBC.CDL.SetPoints.SupplyReturnTemperatureReset");
+convertClass("Buildings.Controls.SetPoints.HotWaterTemperatureReset",
+             "Buildings.Controls.SetPoints.SupplyReturnTemperatureReset");
 
 //refactoring of alpha to hCon or hRad
 convertElement(
