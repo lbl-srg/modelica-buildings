@@ -63,18 +63,16 @@ void* ZoneAllocate(
   const size_t nFMU = getBuildings_nFMU();
   /* Name used to check for duplicate zone entries in the same building */
   char* doubleZoneSpec;
-  /*const char* parInpNames[] = {"T_start"};*/
   const char* parOutNames[] = {"V", "AFlo", "mSenFac"};
   const char* inpNames[] = {"T", "X", "mInlets_flow", "TAveInlet", "QGaiRad_flow"};
   const char* outNames[] = {"TRad", "QConSen_flow", "QLat_flow", "QPeo_flow"};
 
   checkAndSetVerbosity(verbosity);
 
-  if (FMU_EP_VERBOSITY >= MEDIUM)
+  if (FMU_EP_VERBOSITY >= MEDIUM){
     ModelicaFormatMessage("Entered ZoneAllocate for zone %s.\n", modelicaNameThermalZone);
-
-  if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaFormatMessage("Buildings library root is at %s\n", buildingsLibraryRoot);
+  }
 
   /* Dymola 2019FD01 calls in some cases the allocator twice. In this case, simply return the previously instanciated zone pointer */
   setZonePointerIfAlreadyInstanciated(modelicaNameThermalZone, &zone);
@@ -105,43 +103,32 @@ void* ZoneAllocate(
   mallocString(strlen(zoneName)+1, "Not enough memory in ZoneAllocate.c. to allocate zone name.", &(zone->name));
   strcpy(zone->name, zoneName);
 
+  /* Allocate parameters, inputs and outputs */
+  mallocSpawnReals(3, &(zone->parameters));
+  mallocSpawnReals(5, &(zone->inputs));
+  mallocSpawnReals(4, &(zone->outputs));
 
   /* Assign structural data */
   buildVariableNames(
     zone->name,
     parOutNames,
-    ZONE_N_PAR_OUT,
+    zone->parameters->n,
     &(zone->parOutNames),
-    &(zone->parOutVarNames));
+    &(zone->parameters->fmiNames));
 
   buildVariableNames(
     zone->name,
     inpNames,
-    ZONE_N_INP,
+    zone->inputs->n,
     &(zone->inpNames),
-    &(zone->inpVarNames));
+    &(zone->inputs->fmiNames));
 
   buildVariableNames(
     zone->name,
     outNames,
-    ZONE_N_OUT,
+    zone->outputs->n,
     &(zone->outNames),
-    &(zone->outVarNames));
-
-  zone->parOutValReferences = NULL;
-  zone->parOutValReferences = (fmi2ValueReference*)malloc(ZONE_N_PAR_OUT * sizeof(fmi2ValueReference));
-  if ( zone->parOutValReferences == NULL)
-    ModelicaFormatError("Failed to allocate memory for parOutValReferences in ZoneAllocate.c.");
-
-  zone->inpValReferences = NULL;
-  zone->inpValReferences = (fmi2ValueReference*)malloc(ZONE_N_INP * sizeof(fmi2ValueReference));
-  if ( zone->inpValReferences == NULL)
-    ModelicaFormatError("Failed to allocate memory for inpValReferences in ZoneAllocate.c.");
-
-  zone->outValReferences = NULL;
-  zone->outValReferences = (fmi2ValueReference*)malloc(ZONE_N_OUT * sizeof(fmi2ValueReference));
-  if ( zone->outValReferences == NULL)
-    ModelicaFormatError("Failed to allocate memory for outValReferences in ZoneAllocate.c.");
+    &(zone->outputs->fmiNames));
 
   /* ********************************************************************** */
   /* Initialize the pointer for the FMU to which this zone belongs */
@@ -151,7 +138,7 @@ void* ZoneAllocate(
   for(i = 0; i < nFMU; i++){
     FMUBuilding* fmu = getBuildingsFMU(i);
     if (FMU_EP_VERBOSITY >= MEDIUM){
-      ModelicaFormatMessage("*** Testing building %s in FMU %s.\n", modelicaNameBuilding, fmu->fmuAbsPat);
+      ModelicaFormatMessage("*** Testing building %s in FMU %s for %s.\n", modelicaNameBuilding, fmu->fmuAbsPat, modelicaNameThermalZone);
     }
 
     if (strcmp(modelicaNameBuilding, fmu->modelicaNameBuilding) == 0){
@@ -217,7 +204,7 @@ void* ZoneAllocate(
   zone->isInitialized = fmi2False;
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("Exiting allocation for %s with building ptr at %p", modelicaNameThermalZone, zone);
+    ModelicaFormatMessage("Exiting allocation for %s with zone ptr at %p and building ptr at %p", modelicaNameThermalZone, zone, zone->ptrBui);
   /* Return a pointer to this zone */
   return (void*) zone;
 }

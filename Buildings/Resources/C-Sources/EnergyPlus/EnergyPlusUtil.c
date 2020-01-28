@@ -98,6 +98,41 @@ void mallocString(const size_t nChar, const char *error_message, char** str){
     ModelicaError(error_message);
 }
 
+void mallocSpawnReals(const size_t n, spawnReals** r){
+  size_t i;
+  *r = (spawnReals*)malloc(n * sizeof(spawnReals));
+  if ( *r == NULL)
+    ModelicaFormatError("Failed to allocate memory for spawnReals in EnergyPlusUtil.c.");
+
+  (*r)->valsEP = NULL;
+  (*r)->valsSI = NULL;
+  (*r)->units = NULL;
+  (*r)->valRefs = NULL;
+  (*r)->fmiNames = NULL;
+  for(i = 0; i < n; i++){
+    (*r)->valsEP = (fmi2Real*)malloc(n * sizeof(fmi2Real));
+    if ((*r)->valsEP == NULL)
+      ModelicaFormatError("Failed to allocate memory for (*r)->valsEP in EnergyPlus.c");
+
+    (*r)->valsSI = (fmi2Real*)malloc(n * sizeof(fmi2Real));
+    if ((*r)->valsSI == NULL)
+      ModelicaFormatError("Failed to allocate memory for (*r)->valsSI in EnergyPlus.c");
+
+    (*r)->units = (fmi2_import_unit_t**)malloc(n * sizeof(fmi2_import_unit_t*));
+    if ((*r)->units == NULL)
+      ModelicaFormatError("Failed to allocate memory for (*r)->units in EnergyPlus.c");
+
+    (*r)->valRefs = (fmi2ValueReference*)malloc(n * sizeof(fmi2ValueReference));
+    if ((*r)->valRefs == NULL)
+      ModelicaFormatError("Failed to allocate memory for (*r)->valRefs in EnergyPlus.c");
+
+    (*r)->fmiNames = (fmi2Byte**)malloc(n * sizeof(fmi2Byte*));
+    if ((*r)->fmiNames == NULL)
+      ModelicaFormatError("Failed to allocate memory for (*r)->fmiNames in EnergyPlus.c");
+  }
+  (*r)->n = n;
+}
+
 char* fmuModeToString(FMUMode mode){
   if (mode == instantiationMode)
     return "instantiation";
@@ -111,27 +146,90 @@ char* fmuModeToString(FMUMode mode){
   return "unknown error";
 }
 
-void setVariables(FMUBuilding* bui, const char* modelicaInstanceName, fmi2ValueReference vr[],  fmi2Real values[], size_t n){
-    fmi2_status_t status;
-    if (FMU_EP_VERBOSITY >= MEDIUM)
-      ModelicaFormatMessage("fmi2_import_set_real: Setting real variables in EnergyPlus for modelicaInstance %s, mode = %s.\n",
-        modelicaInstanceName, fmuModeToString(bui->mode));
-    status = fmi2_import_set_real(bui->fmu, vr, n, values);
-    if (status != fmi2OK) {
-      ModelicaFormatError("Failed to set variables for %s in FMU.\n",  modelicaInstanceName);
-    }
-  }
+void setVariables(FMUBuilding* bui, const char* modelicaInstanceName, const spawnReals* ptrReals){
+  size_t i;
+  fmi2_status_t status;
+  if (FMU_EP_VERBOSITY >= TIMESTEP)
+    ModelicaFormatMessage("fmi2_import_set_real: Setting real variables in EnergyPlus for modelicaInstance %s, mode = %s.\n",
+      modelicaInstanceName, fmuModeToString(bui->mode));
 
-void getVariables(FMUBuilding* bui, const char* modelicaInstanceName, fmi2ValueReference vr[], fmi2Real values[], size_t n){
-    fmi2_status_t status;
-    if (FMU_EP_VERBOSITY >= MEDIUM)
-      ModelicaFormatMessage("fmi2_import_get_real: Getting real variables from EnergyPlus for modelicaInstance %s, mode = %s.\n",
-        modelicaInstanceName, fmuModeToString(bui->mode));
-    status = fmi2_import_get_real(bui->fmu, vr, n, values);
-    if (status != fmi2OK) {
-      ModelicaFormatError("Failed to get variables for %s in FMU.\n", modelicaInstanceName);
+  for(i = 0; i < ptrReals->n; i++){
+    if (ptrReals->units[i]){ /* Units are defined */
+    /* fixme: For now, disabled until the E+ generated FMU provides UnitDefinitions
+      ptrReals->valsEP[i] = fmi2_import_convert_from_SI_base_unit(ptrReals->valsSI[i], ptrReals->units[i]);
+
+      Manual hack to provide functionality in the meantime:
+      */
+      if (!strcmp("degC", fmi2_import_get_unit_name(ptrReals->units[i])))
+        ptrReals->valsEP[i] = ptrReals->valsSI[i] - 273.15;
+      else
+        ptrReals->valsEP[i] = ptrReals->valsSI[i];
+    }
+    else
+      ptrReals->valsEP[i] = ptrReals->valsSI[i];
+  }
+  status = fmi2_import_set_real(bui->fmu, ptrReals->valRefs, ptrReals->n, ptrReals->valsEP);
+  if (status != fmi2OK) {
+    ModelicaFormatError("Failed to set variables for %s in FMU.\n",  modelicaInstanceName);
+  }
+}
+
+void stopIfResultsAreNaN(FMUBuilding* bui, const char* modelicaInstanceName, spawnReals* ptrReals){
+  size_t i;
+  fmi2_import_variable_t* fmiVar;
+  const char* varNam;
+  size_t i_nan = -1;
+  for(i=0; i < ptrReals->n; i++){
+    if (isnan(ptrReals->valsSI[i])){
+      i_nan = i;
+      break;
     }
   }
+  if (i_nan != -1){
+    for(i=0; i < ptrReals->n; i++){
+      fmiVar = fmi2_import_get_variable_by_vr(bui->fmu, fmi2_base_type_real, ptrReals->valRefs[i]);
+      varNam = fmi2_import_get_variable_name(fmiVar);
+      if (isnan(ptrReals->valsSI[i])){
+        ModelicaFormatMessage("Received nan from EnergyPlus for %s at time = %.2f:\n", modelicaInstanceName, bui->time);
+      }
+      ModelicaFormatMessage("  %s = %.2f\n", varNam, ptrReals->valsSI[i]);
+    }
+    ModelicaFormatError("Terminating simulation because EnergyPlus returned nan for %s. See Modelica log file for details.",
+      fmi2_import_get_variable_name(fmi2_import_get_variable_by_vr(bui->fmu, fmi2_base_type_real, ptrReals->valRefs[i_nan])));
+  }
+}
+
+void getVariables(FMUBuilding* bui, const char* modelicaInstanceName, spawnReals* ptrReals)
+{
+  size_t i;
+  fmi2_status_t status;
+  if (FMU_EP_VERBOSITY >= TIMESTEP)
+    ModelicaFormatMessage("fmi2_import_get_real: Getting real variables from EnergyPlus for object %s, mode = %s.\n",
+      modelicaInstanceName, fmuModeToString(bui->mode));
+  status = fmi2_import_get_real(bui->fmu, ptrReals->valRefs, ptrReals->n, ptrReals->valsEP);
+  if (status != fmi2OK) {
+    ModelicaFormatError("Failed to get variables for %s\n",
+    modelicaInstanceName);
+  }
+  /* Set SI unit value */
+  for(i = 0; i < ptrReals->n; i++){
+    if (ptrReals->units[i]){ /* Units are defined */
+    /* fixme: For now, disabled until the E+ generated FMU provides UnitDefinitions
+      ptrReals->valsSI[i] = fmi2_import_convert_to_SI_base_unit(ptrReals->valsEP[i], ptrReals->units[i]);
+
+      Manual hack to provide functionality in the meantime:
+      */
+      if (!strcmp("degC", fmi2_import_get_unit_name(ptrReals->units[i])))
+        ptrReals->valsSI[i] = ptrReals->valsEP[i] + 273.15;
+      else
+        ptrReals->valsSI[i] = ptrReals->valsEP[i];
+    }
+    else
+      ptrReals->valsSI[i] = ptrReals->valsEP[i];
+  }
+  stopIfResultsAreNaN(bui, modelicaInstanceName, ptrReals);
+}
+
 
 /* Do the event iteration
    */
@@ -148,7 +246,7 @@ double do_event_iteration(FMUBuilding* bui, const char* modelicaInstanceName){
   /* Enter event mode if the FMU is in Continuous time mode
      because fmi2NewDiscreteStates can only be called in event mode */
   if (bui->mode == continuousTimeMode){
-    ModelicaFormatError("********* FMU is in unexpected mode in do_event_iteration at t=%.2f, modelicaInstance = %s, mode = %s. Contact support.",
+    ModelicaFormatError("FMU is in unexpected mode in do_event_iteration at t=%.2f, modelicaInstance = %s, mode = %s. Contact support.",
       bui->time, modelicaInstanceName, fmuModeToString(bui->mode));
     /*
       if (FMU_EP_VERBOSITY >= TIMESTEP)
@@ -257,7 +355,7 @@ void advanceTime_completeIntegratorStep_enterEventMode(FMUBuilding* bui, const c
       modelicaInstanceName, fmi2_status_to_string(status));
   }
 
-  if (FMU_EP_VERBOSITY >= MEDIUM)
+  if (FMU_EP_VERBOSITY >= TIMESTEP)
     ModelicaFormatMessage("fmi2_import_completed_integrator_step: Calling completed integrator step at t = %.2f\n", time);
   status = fmi2_import_completed_integrator_step(bui->fmu, fmi2_true, &enterEventMode, &terminateSimulation);
   if ( status != fmi2OK ) {
@@ -291,8 +389,10 @@ void advanceTime_completeIntegratorStep_enterEventMode(FMUBuilding* bui, const c
 
 /* Wrapper to set fmu mode indicator and log the mode change for debugging */
 void setFMUMode(FMUBuilding* bui, FMUMode mode){
-  if (FMU_EP_VERBOSITY >= MEDIUM)
+  if (FMU_EP_VERBOSITY >= MEDIUM){
+    if (FMU_EP_VERBOSITY >= TIMESTEP || mode == instantiationMode || mode == initializationMode)
     ModelicaFormatMessage("Switching %s to mode %s\n", bui->modelicaNameBuilding, fmuModeToString(mode));
+  }
   bui->mode = mode;
 }
 /*
@@ -538,13 +638,14 @@ void buildVariableNames(
     for (i=0; i<nVar; i++)
       len = max(len, strlen(variableNames[i]));
 
-    *ptrVarNames = (char**)malloc(nVar * sizeof(char*));
+      *ptrVarNames = (char**)malloc(nVar * sizeof(char*));
       if (*ptrVarNames == NULL)
         ModelicaError("Failed to allocate memory for ptrVarNames in ZoneInstantiate.c.");
 
     for (i=0; i<nVar; i++){
       mallocString(len+1, "Failed to allocate memory for ptrVarNames[i] in ZoneInstantiate.c.", &((*ptrVarNames)[i]));
     }
+
     /* Copy the string */
     for (i=0; i<nVar; i++){
       memset((*ptrVarNames)[i], '\0', len+1);
@@ -572,6 +673,7 @@ void buildVariableNames(
       strcat((*ptrFullNames)[i], "_");
       strcat((*ptrFullNames)[i], variableNames[i]);
     }
+
   return;
 }
 
@@ -590,20 +692,27 @@ void loadFMU_setupExperiment_enterInitializationMode(FMUBuilding* bui, double st
 
   /* Instantiate the FMU for this building */
   generateAndInstantiateBuilding(bui);
+  if (FMU_EP_VERBOSITY >= MEDIUM)
+    ModelicaFormatMessage("Instantiate building %s.\n", bui->modelicaNameBuilding);
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("fmi2_import_setup_experiment: Setting up experiment.\n");
+    ModelicaFormatMessage("fmi2_import_setup_experiment: Setting up experiment building %s at %p with startTime = %f.\n",
+      bui->modelicaNameBuilding, bui, startTime);
   bui->time = startTime;
   setFMUMode(bui, instantiationMode);
 
   /* This function can only be called once per building FMU */
+  /*ModelicaFormatError("********* Calling setting up experiment... for building at %p", bui->fmu);*/
+
   status = fmi2_import_setup_experiment(
-      bui->fmu,    /* fmu */
+      bui->fmu,             /* fmu */
       fmi2False,            /* toleranceDefined */
       0.0,                  /* tolerance */
       startTime,            /* startTime */
       fmi2False,            /* stopTimeDefined */
       0);                   /* stopTime */
+/*  ModelicaFormatError("********* Returned from setting up experiment... for %s", bui->modelicaNameBuilding);*/
+
   if( status != fmi2_status_ok ){
     ModelicaFormatError("Failed to setup experiment for FMU with name %s.",  bui->fmuAbsPat);
   }

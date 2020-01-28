@@ -469,6 +469,8 @@ Buildings/Fluid/FixedResistances/BaseClasses/Validation/package.mo
 Buildings/Fluid/FixedResistances/BaseClasses/Validation/package.order
 Buildings/Fluid/FixedResistances/BaseClasses/package.mo
 Buildings/Fluid/FixedResistances/BaseClasses/package.order
+Buildings/Fluid/FixedResistances/CheckValve.mo
+Buildings/Fluid/FixedResistances/Examples/CheckValve.mo
 Buildings/Fluid/FixedResistances/Examples/FlowJunction.mo
 Buildings/Fluid/FixedResistances/Examples/HydraulicDiameter.mo
 Buildings/Fluid/FixedResistances/Examples/PlugFlowPipe.mo
@@ -1159,6 +1161,7 @@ Buildings/Fluid/Storage/UsersGuide.mo
 Buildings/Fluid/Storage/Validation/HeatExchangerDynamics.mo
 Buildings/Fluid/Storage/Validation/HeatExchangerLocation.mo
 Buildings/Fluid/Storage/Validation/StratifiedLoadingUnloading.mo
+Buildings/Fluid/Storage/Validation/StratifiedNonUniformInitial.mo
 Buildings/Fluid/Storage/Validation/package.mo
 Buildings/Fluid/Storage/Validation/package.order
 Buildings/Fluid/Storage/package.mo
@@ -1568,6 +1571,7 @@ Buildings/Resources/Scripts/Dymola/Fluid/FMI/Validation/HeaterFan.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FMI/Validation/HeaterFanPressureDriven.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FMI/Validation/HeaterFan_noReverseFlow.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/BaseClasses/Validation/PlugFlowCore.mos
+Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/CheckValve.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/FlowJunction.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/HydraulicDiameter.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/PlugFlowPipe.mos
@@ -1780,6 +1784,7 @@ Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/StratifiedUnloadAtMini
 Buildings/Resources/Scripts/Dymola/Fluid/Storage/Validation/HeatExchangerDynamics.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Storage/Validation/HeatExchangerLocation.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Storage/Validation/StratifiedLoadingUnloading.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Storage/Validation/StratifiedNonUniformInitial.mos
 Buildings/Resources/Scripts/Dymola/Media/Antifreeze/Validation/PropyleneGlycolWater.mos
 Buildings/Resources/Scripts/Dymola/Media/Examples/AirDerivativeCheck.mos
 Buildings/Resources/Scripts/Dymola/Media/Examples/AirProperties.mos

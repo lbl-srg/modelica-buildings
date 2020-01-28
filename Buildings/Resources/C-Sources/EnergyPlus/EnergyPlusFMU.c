@@ -111,7 +111,8 @@ size_t AllocateBuildingDataStructure(
   incrementBuildings_nFMU();
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("AllocateBuildingDataStructure: Leaving allocating data structure for building %s", modelicaNameBuilding);
+    ModelicaFormatMessage("AllocateBuildingDataStructure: Leaving allocating data structure for building number %lu, name %s, ptr %p",
+      nFMU, modelicaNameBuilding, Buildings_FMUS[nFMU]);
 
   return nFMU;
 }
@@ -148,7 +149,7 @@ void AddOutputVariableToBuilding(FMUOutputVariable* ptrOutVar){
   const size_t nOutputVariables = fmu->nOutputVariables;
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("EnergyPlusFMU.c: Adding output variable %d with name %s", nOutputVariables+1, ptrOutVar->modelicaNameOutputVariable);
+    ModelicaFormatMessage("EnergyPlusFMU.c: Adding output variable %lu with name %s", nOutputVariables+1, ptrOutVar->modelicaNameOutputVariable);
 
   if (nOutputVariables == 0){
     fmu->outputVariables=malloc(sizeof(FMUOutputVariable *));
@@ -171,6 +172,8 @@ void AddOutputVariableToBuilding(FMUOutputVariable* ptrOutVar){
 }
 
 FMUBuilding* getBuildingsFMU(size_t iFMU){
+  if (FMU_EP_VERBOSITY >= MEDIUM)
+    ModelicaFormatMessage("In getBuildingsFMU, returning pointer to building number %lu at %p", iFMU, Buildings_FMUS[iFMU]);
   return Buildings_FMUS[iFMU];
 }
 
@@ -192,11 +195,13 @@ unsigned int getBuildings_nFMU(){
 
 void FMUBuildingFree(FMUBuilding* ptrBui){
   fmi2Status status;
-  const char * log = NULL;
   if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaMessage("Entered FMUBuildingFree.");
 
   if ( ptrBui != NULL ){
+    if (FMU_EP_VERBOSITY >= MEDIUM)
+      ModelicaFormatMessage("In FMUBuildingFree, %p, nZon = %d, nOutVar = %d", ptrBui, ptrBui->nZon, ptrBui->nOutputVariables);
+
     /* Make sure no thermal zone or output variable uses this building */
     if (ptrBui->nZon > 0 || ptrBui->nOutputVariables > 0){
       if (FMU_EP_VERBOSITY >= MEDIUM)

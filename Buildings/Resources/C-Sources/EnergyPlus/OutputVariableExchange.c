@@ -36,26 +36,34 @@ void OutputVariableExchange(
 
   FMUOutputVariable* outVar = (FMUOutputVariable*) object;
   FMUBuilding* bui = outVar->ptrBui;
-  fmi2Real outputValues[1];
 
   fmi2Status status;
 
   if (FMU_EP_VERBOSITY >= TIMESTEP)
-    ModelicaFormatMessage("Exchanging data with EnergyPlus: t = %.2f, initialCall = %d, mode = %s, output variable = %s.\n",
-      time, initialCall, fmuModeToString(bui->mode), outVar->modelicaNameOutputVariable);
+    ModelicaFormatMessage("Exchanging data with EnergyPlus: t = %.2f, initialCall = %d, mode = %s, output variable = %s, valueReference = %lu.\n",
+      time, initialCall, fmuModeToString(bui->mode), outVar->modelicaNameOutputVariable, outVar->outputs->valRefs[0]);
 
   if (! outVar->isInstantiated){
-    /* This zone has not been initialized because the simulator removed the call to initialize().
+    /* In the first call, the output variable is not yet initialized.
+       The call below will initialize it.
+       Note that if such a call were to be done only from the 'initial equation' section,
+       then OpenModelica would not call it.
     */
-    ModelicaFormatError(
-      "Error, output variable %s should have been initialized. Contact support.",
-      outVar->modelicaNameOutputVariable);
+    OutputVariableInstantiate(object, time);
   }
 
   if (initialCall){
     outVar->isInitialized = true; /* Set to true as it will be initialized right below */
     if (FMU_EP_VERBOSITY >= MEDIUM)
-      ModelicaFormatMessage("Initial call for output variable %s with time = %.f\n", outVar->modelicaNameOutputVariable, time);
+      ModelicaFormatMessage("Initial call for output variable %s at %p with time = %.f\n", outVar->modelicaNameOutputVariable, outVar, time);
+
+    if (outVar->printUnit){
+      if (outVar->outputs->units[0]) /* modelDescription.xml defines unit */
+        ModelicaFormatMessage("Output %s.y has in Modelica the unit %s.\n", outVar->modelicaNameOutputVariable, outVar->outputs->units[0]);
+      else
+        ModelicaFormatMessage("Output %s.y has same unit as EnergyPlus, but EnergyPlus does not define the unit of this output.\n",
+          outVar->modelicaNameOutputVariable);
+      }
   }
   else
   {
@@ -86,13 +94,24 @@ void OutputVariableExchange(
     advanceTime_completeIntegratorStep_enterEventMode(bui, outVar->modelicaNameOutputVariable, time);
   }
 
+  /* Get next event time, unless FMU is in initialization mode */
+  if (bui->mode == initializationMode){
+    if (FMU_EP_VERBOSITY >= MEDIUM)
+      ModelicaFormatMessage(
+        "Returning current time %.0f as tNext due to initializationMode for zone = %s\n",
+        bui->time,
+        outVar->modelicaNameOutputVariable);
+    *tNext = bui->time; /* Return start time for next event time */
+  }
+  else{
+    if (FMU_EP_VERBOSITY >= TIMESTEP)
+      ModelicaFormatMessage("Calling do_event_iteration for output = %s\n", outVar->modelicaNameOutputVariable);
+    *tNext = do_event_iteration(bui, outVar->modelicaNameOutputVariable);
+  }
   /* Get output */
-  getVariables(bui, outVar->modelicaNameOutputVariable, outVar->outValReferences, outputValues, 1);
+  getVariables(bui, outVar->modelicaNameOutputVariable, outVar->outputs);
 
-  /* Get next event time */
-  *tNext = bui->time; /* Return start time for next event time */
-
-  *y = outputValues[0];
+  *y = outVar->outputs->valsEP[0];
 
   if (FMU_EP_VERBOSITY >= TIMESTEP)
     ModelicaFormatMessage("Returning from OutputVariablesExchange with nextEventTime = %.2f, y = %.2f, output variable = %s, mode = %s\n",

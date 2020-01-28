@@ -25,17 +25,8 @@ protected
   Buildings.Utilities.Psychrometrics.X_pTphi x_pTphi if
        not singleSubstance "Block to compute water vapor concentration";
 
-  Modelica.Blocks.Interfaces.RealInput X_in_internal[Medium.nX](
-    each final unit="kg/kg",
-    final quantity=Medium.substanceNames)
-    "Needed to connect to conditional connector";
   Modelica.Blocks.Interfaces.RealInput T_in_internal(final unit="K",
                                                      displayUnit="degC")
-    "Needed to connect to conditional connector";
-  Modelica.Blocks.Interfaces.RealInput p_in_internal(final unit="Pa")
-    "Needed to connect to conditional connector";
-  Modelica.Blocks.Interfaces.RealInput C_in_internal[Medium.nC](
-       quantity=Medium.extraPropertiesNames)
     "Needed to connect to conditional connector";
   Modelica.Blocks.Interfaces.RealInput h_internal = Medium.specificEnthalpy(
     Medium.setState_pTX(p_in_internal, T_in_internal, X_in_internal));
@@ -132,9 +123,15 @@ with exception of boundary pressure, do not have an effect.
 revisions="<html>
 <ul>
 <li>
+November 14, 2019, by Michael Wetter:<br/>
+Removed duplicate connector.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1248\"> #1248</a>.
+</li>
+<li>
 January 14, 2019 by Jianjun Hu:<br/>
 Changed to extend <a href=\"modelica://Buildings.Fluid.Sources.BaseClasses.PartialSource\">
-Buildings.Fluid.Sources.BaseClasses.PartialSource</a>. This is for 
+Buildings.Fluid.Sources.BaseClasses.PartialSource</a>. This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\"> #1050</a>.
 </li>
 <li>

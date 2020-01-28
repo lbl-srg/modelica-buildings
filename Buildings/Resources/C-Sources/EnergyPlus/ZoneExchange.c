@@ -46,8 +46,6 @@ void ZoneExchange(
 
   FMUZone* zone = (FMUZone*) object;
   FMUBuilding* bui = zone->ptrBui;
-  fmi2Real inputValues[ZONE_N_INP];
-  fmi2Real outputValues[ZONE_N_OUT];
 
   fmi2Status status;
 
@@ -106,30 +104,30 @@ void ZoneExchange(
   /* Set input values, which are of the order below
      const char* inpNames[] = {"T", "X", "mInlets_flow", "TAveInlet", "QGaiRad_flow"};
   */
-  inputValues[1] = X/(1.-X); /* Conversion from kg/kg_total_air to kg/kg_dry_air */
-  inputValues[2] = mInlets_flow;
-  inputValues[3] = TAveInlet;
-  inputValues[4] = QGaiRad_flow;
+  zone->inputs->valsSI[1] = X/(1.-X); /* Conversion from kg/kg_total_air to kg/kg_dry_air */
+  zone->inputs->valsSI[2] = mInlets_flow;
+  zone->inputs->valsSI[3] = TAveInlet;
+  zone->inputs->valsSI[4] = QGaiRad_flow;
 
 
   /* Forward difference for QConSen_flow */
-  inputValues[0] = T - 273.15 + dT;
+  zone->inputs->valsSI[0] = T + dT;
 
   if (FMU_EP_VERBOSITY >= TIMESTEP)
     ModelicaFormatMessage(
       "Input to fmu for zone %s: TAir = %.2f; \t QGaiRad_flow = %.2f\n",
       zone->modelicaNameThermalZone,
-      inputValues[0],
-      inputValues[4]);
+      zone->inputs->valsSI[0],
+      zone->inputs->valsSI[4]);
 
-  setVariables(bui, zone->modelicaNameThermalZone, zone->inpValReferences, inputValues, ZONE_N_INP);
-  getVariables(bui, zone->modelicaNameThermalZone, zone->outValReferences, outputValues, ZONE_N_OUT);
-  QConSenPer_flow=outputValues[1];
-  inputValues[0] = T - 273.15;
-  setVariables(bui, zone->modelicaNameThermalZone, zone->inpValReferences, inputValues, ZONE_N_INP);
-  getVariables(bui, zone->modelicaNameThermalZone, zone->outValReferences, outputValues, ZONE_N_OUT);
+  setVariables(bui, zone->modelicaNameThermalZone, zone->inputs);
+  getVariables(bui, zone->modelicaNameThermalZone, zone->outputs);
+  QConSenPer_flow = zone->outputs->valsSI[1];
+  zone->inputs->valsSI[0] = T;
+  setVariables(bui, zone->modelicaNameThermalZone, zone->inputs);
+  getVariables(bui, zone->modelicaNameThermalZone, zone->outputs);
 
-  *dQConSen_flow = (QConSenPer_flow-outputValues[1])/dT;
+  *dQConSen_flow = (QConSenPer_flow-zone->outputs->valsSI[1])/dT;
 
   /* Get next event time, unless FMU is in initialization mode */
   if (bui->mode == initializationMode){
@@ -148,27 +146,27 @@ void ZoneExchange(
        discrete output before the time event, and not after.
        To test, run SingleZone.mo in EnergyPlus/src
     */
-    getVariables(bui, zone->modelicaNameThermalZone, zone->outValReferences, outputValues, ZONE_N_OUT);
+    getVariables(bui, zone->modelicaNameThermalZone, zone->outputs);
   }
 
   /* Assign output values, which are of the order below
      const char* outNames[] = {"TRad", "QConSen_flow", "QLat_flow", "QPeo_flow"};
   */
   /* Check for what seems to be an error, possibly due to unstable simulation */
-  if (outputValues[0] > 100. || outputValues[0] < -50.)
+  if (zone->outputs->valsEP[0] > 100. || zone->outputs->valsEP[0] < -50.)
     ModelicaFormatError(
       "Radiative temperature is %.2f degC in zone %s",
-      outputValues[0],
+      zone->outputs->valsEP[0],
       zone->modelicaNameThermalZone);
 
-  *TRad = outputValues[0] + 273.15;
-  *QConSen_flow = outputValues[1];
-  *QLat_flow = outputValues[2];
-  *QPeo_flow = outputValues[3];
+  *TRad         = zone->outputs->valsSI[0];
+  *QConSen_flow = zone->outputs->valsSI[1];
+  *QLat_flow    = zone->outputs->valsSI[2];
+  *QPeo_flow    = zone->outputs->valsSI[3];
 
   if (FMU_EP_VERBOSITY >= TIMESTEP)
     ModelicaFormatMessage("Returning from ZoneExchange with nextEventTime = %.2f, TRad_degC = %.2f, zone = %s, mode = %s, ptr=%p, nZon=%d \n",
-    *tNext, outputValues[0], zone->modelicaNameThermalZone, fmuModeToString(bui->mode), zone, bui->nZon);
+    *tNext, zone->outputs->valsEP[0], zone->modelicaNameThermalZone, fmuModeToString(bui->mode), zone, bui->nZon);
 
   return;
 }
