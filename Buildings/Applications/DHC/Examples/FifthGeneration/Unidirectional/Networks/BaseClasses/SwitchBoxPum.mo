@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Networks.BaseClasses;
-model SwitchBox
+model SwitchBoxPum
   "Model for mass flow rate redirection within an energy transfer station"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model"
@@ -185,4 +185,4 @@ Added documentation.
 </li>
 </ul>
 </html>"));
-end SwitchBox;
+end SwitchBoxPum;

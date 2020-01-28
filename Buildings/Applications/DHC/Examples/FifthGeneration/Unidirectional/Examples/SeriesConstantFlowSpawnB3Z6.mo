@@ -19,7 +19,7 @@ model SeriesConstantFlowSpawnB3Z6
     "Distribution pump mass flow rate"
     annotation (Placement(transformation(extent={{-280,-70},{-260,-50}})));
   Loads.BuildingSpawnZ6WithETS bui[nBui](
-    redeclare each package Medium=Medium,
+    redeclare each package Medium = Medium,
     idfPat=idfPat,
     each weaPat=weaPat)
     annotation (Placement(transformation(extent={{-10,170},{10,190}})));

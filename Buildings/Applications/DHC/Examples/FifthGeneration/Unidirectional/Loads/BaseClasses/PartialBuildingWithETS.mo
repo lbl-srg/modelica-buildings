@@ -57,12 +57,12 @@ partial model PartialBuildingWithETS
   // COMPONENTS
   replaceable Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding bui
     constrainedby Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
-      redeclare package Medium1=Medium,
-      nPorts_a1=nSup,
-      nPorts_b1=nSup)
+      redeclare package Medium = Medium,
+      nPorts_a=nSup,
+      nPorts_b=nSup)
     "Building"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
-  // TODO: declare here partial ETS model constrainedby parameters binding
+  // TODO: declare here partial ETS model constrained by parameters binding
   replaceable EnergyTransferStations.ETSSimplified ets(
     redeclare package Medium = Medium,
     QCoo_flow_nominal=sum(bui.terUni.QCoo_flow_nominal),
@@ -88,10 +88,10 @@ equation
   connect(TSetHeaWat, ets.TSetHeaWat) annotation (Line(points={{-120,70},{-68,
           70},{-68,-22.8571},{-21.4286,-22.8571}},
                                                color={0,0,127}));
-  connect(bui.ports_b, ets.ports_a1) annotation (Line(points={{10,44},{60,44},
-          {60,0},{-40,0},{-40,-52.8571},{-20,-52.8571}},     color={0,127,255}));
-  connect(ets.ports_b1, bui.ports_a) annotation (Line(points={{20,-52.8571},{
-          24,-52.8571},{40,-52.8571},{40,-80},{-60,-80},{-60,44},{-10,44}},
+  connect(bui.ports_b, ets.ports_a1) annotation (Line(points={{10,44},{60,44},{
+          60,0},{-40,0},{-40,-52.8571},{-20,-52.8571}},      color={0,127,255}));
+  connect(ets.ports_b1, bui.ports_a) annotation (Line(points={{20,-52.8571},{24,
+          -52.8571},{40,-52.8571},{40,-80},{-60,-80},{-60,44},{-10,44}},
         color={0,127,255}));
   annotation (
     DefaultComponentName="bui",

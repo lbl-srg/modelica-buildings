@@ -14,7 +14,7 @@ model SeriesConstantFlowRCB3Z1
     "Distribution pump mass flow rate"
     annotation (Placement(transformation(extent={{-280,-70},{-260,-50}})));
   Loads.BuildingRCZ1WithETS bui[nBui](
-    redeclare each final package Medium=Medium)
+    redeclare each final package Medium = Medium)
     annotation (Placement(transformation(extent={{-10,170},{10,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetHeaWatSup[nBui](
     k=bui.THeaWatSup_nominal)

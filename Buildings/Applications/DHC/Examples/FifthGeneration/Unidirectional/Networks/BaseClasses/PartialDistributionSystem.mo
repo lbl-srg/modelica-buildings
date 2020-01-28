@@ -3,7 +3,11 @@ partial model PartialDistributionSystem
   "Partial model for distribution system"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model"
-    annotation (__Dymola_choicesAllMatching=true);
+    annotation(choices(
+      choice(redeclare package Medium = Buildings.Media.Water "Water"),
+      choice(redeclare package Medium =
+        Buildings.Media.Antifreeze.PropyleneGlycolWater (
+          property_T=293.15, X_a=0.40) "Propylene glycol water, 40% mass fraction")));
   parameter Integer nCon
     "Number of connections"
     annotation(Evaluate=true);

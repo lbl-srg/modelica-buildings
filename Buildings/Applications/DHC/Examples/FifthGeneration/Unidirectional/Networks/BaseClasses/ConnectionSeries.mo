@@ -1,7 +1,11 @@
 within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Networks.BaseClasses;
 model ConnectionSeries "Model for connecting an agent to the DHC system"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium "Medium model"
-    annotation (__Dymola_choicesAllMatching=true);
+    annotation(choices(
+      choice(redeclare package Medium = Buildings.Media.Water "Water"),
+      choice(redeclare package Medium =
+        Buildings.Media.Antifreeze.PropyleneGlycolWater (
+          property_T=293.15, X_a=0.40) "Propylene glycol water, 40% mass fraction")));
   parameter Boolean haveBypFloSen = false
     "Set to true to sense the bypass mass flow rate"
     annotation(Evaluate=true);

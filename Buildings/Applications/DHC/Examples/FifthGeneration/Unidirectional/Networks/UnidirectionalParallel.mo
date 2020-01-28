@@ -26,16 +26,16 @@ model UnidirectionalParallel
     redeclare package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    "Distribution return outlet port" annotation (Placement(transformation(
-          extent={{-110,-70},{-90,-50}}), iconTransformation(extent={{-220,-80},
-            {-180,-40}})));
+    "Distribution return outlet port"
+    annotation (Placement(transformation(extent={{-110,-70},{-90,-50}}),
+      iconTransformation(extent={{-220,-80}, {-180,-40}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aDisRet(
     redeclare package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    "Distribution return inlet port" annotation (Placement(transformation(
-          extent={{90,-70},{110,-50}}), iconTransformation(extent={{180,-80},{
-            220,-40}})));
+    "Distribution return inlet port"
+    annotation (Placement(transformation( extent={{90,-70},{110,-50}}),
+      iconTransformation(extent={{180,-80},{ 220,-40}})));
   // COMPONENTS
   replaceable BaseClasses.ConnectionParallel con[nCon](
     redeclare each package Medium=Medium,
