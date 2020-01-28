@@ -29,7 +29,7 @@ Enumeration for the units used as inputs to the block
 <p>
 The units are converted between Modelica and EnergyPlus as shown in the table below.
 </p>
-<table>
+<table summary=\"Table with unit conversions\">
 <colgroup>
 <col style=\"width: 32%\" />
 <col style=\"width: 24%\" />
