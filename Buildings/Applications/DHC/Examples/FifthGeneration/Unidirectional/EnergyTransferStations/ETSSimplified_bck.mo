@@ -1,17 +1,22 @@
 ﻿within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.EnergyTransferStations;
-model ETSSimplifiedNoSwitch
+model ETSSimplified_bck
   "Simplified model of a substation producing heating hot water (heat pump) and chilled water (HX)"
-  replaceable package Medium =
-    Modelica.Media.Interfaces.PartialMedium
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model for water"
     annotation (choicesAllMatching = true);
   outer
     Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Data.DesignDataSeries
     datDes "DHC systenm design data";
   // SYSTEM GENERAL
-  parameter Integer nSup = 2
+  parameter Boolean allowFlowReversalBui = false
+    "Set to true to allow flow reversal on the building side"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+  parameter Boolean allowFlowReversalDis = false
+    "Set to true to allow flow reversal on the district side"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+  parameter Integer nSup = 0
     "Number of supply lines"
-    annotation(Evaluate=true);
+    annotation(Evaluate=true, Dialog(connectorSizing=true));
   parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal(
     min=Modelica.Constants.eps)
     "Design cooling thermal power (always positive)"
@@ -54,9 +59,6 @@ model ETSSimplifiedNoSwitch
       T = Medium.T_default,
       X = Medium.X_default))
     "Specific heat capacity of the fluid";
-  final parameter Boolean allowFlowReversal = false
-    "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
   // HEAT PUMP
   parameter Real COP_nominal(unit="1") = 5
     "Heat pump COP"
@@ -110,28 +112,28 @@ model ETSSimplifiedNoSwitch
   // IO CONNECTORS
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium = Medium,
-    m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
+    m_flow(min=if allowFlowReversalDis then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Fluid connector a"
     annotation (Placement(transformation(extent={{-290,-410},{-270,-390}}),
-        iconTransformation(extent={{-300,-20},{-260,20}})));
+    iconTransformation(extent={{-300,-20},{-260,20}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare final package Medium = Medium,
-    m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
+    m_flow(max=if allowFlowReversalDis then +Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Fluid connector b"
     annotation (Placement(transformation(extent={{290,-410},{270,-390}}),
-        iconTransformation(extent={{300,-20},{260,20}})));
+      iconTransformation(extent={{300,-20},{260,20}})));
   Modelica.Fluid.Interfaces.FluidPorts_a ports_a1[nSup](
     redeclare each final package Medium = Medium,
-    each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
+    each m_flow(min=if allowFlowReversalBui then -Modelica.Constants.inf else 0),
     each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Fluid connectors a (positive design flow direction is from port_a to ports_b)"
     annotation (Placement(transformation(extent={{-290,80},{-270,160}}),
       iconTransformation(extent={{-300,-260},{-260,-100}})));
   Modelica.Fluid.Interfaces.FluidPorts_b ports_b1[nSup](
     redeclare each final package Medium = Medium,
-    each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
+    each m_flow(max=if allowFlowReversalBui then +Modelica.Constants.inf else 0),
     each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Fluid connectors b (positive design flow direction is from port_a to ports_b)"
     annotation (Placement(transformation(extent={{270,80},{290,160}}),
@@ -186,7 +188,7 @@ model ETSSimplifiedNoSwitch
     tau=600,
     final energyDynamics=mixingVolumeEnergyDynamics)
     "Mixing volume to break algebraic loops and to emulate the delay of the substation"
-    annotation (Placement(transformation(extent={{-270,-400},{-250,-420}})));
+    annotation (Placement(transformation(extent={{-270,-360},{-250,-380}})));
   Buildings.Fluid.Delays.DelayFirstOrder volMix_b(
     redeclare final package Medium = Medium,
     nPorts=3,
@@ -195,7 +197,7 @@ model ETSSimplifiedNoSwitch
     tau=600,
     final energyDynamics=mixingVolumeEnergyDynamics)
     "Mixing volume to break algebraic loops and to emulate the delay of the substation"
-    annotation (Placement(transformation(extent={{250,-400},{270,-420}})));
+    annotation (Placement(transformation(extent={{250,-360},{270,-380}})));
   Buildings.Fluid.HeatPumps.Carnot_TCon heaPum(
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium,
@@ -218,7 +220,7 @@ model ETSSimplifiedNoSwitch
   Networks.BaseClasses.Pump_m_flow pum1HexChi(redeclare final package Medium =
         Medium, final m_flow_nominal=m1HexChi_flow_nominal)
     "Chilled water HX primary pump"
-    annotation (Placement(transformation(extent={{-110,-270},{-90,-250}})));
+    annotation (Placement(transformation(extent={{130,-270},{110,-250}})));
   Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hexChi(
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium,
@@ -232,7 +234,7 @@ model ETSSimplifiedNoSwitch
     final T_a2_nominal=T2HexChiEnt_nominal,
     final allowFlowReversal1=allowFlowReversal,
     final allowFlowReversal2=allowFlowReversal) "Chilled water HX"
-    annotation (Placement(transformation(extent={{-10,-244},{10,-264}})));
+    annotation (Placement(transformation(extent={{10,-244},{-10,-264}})));
   Buildings.Fluid.Delays.DelayFirstOrder volHeaWatRet(
     redeclare final package Medium = Medium,
     nPorts=3,
@@ -252,9 +254,9 @@ model ETSSimplifiedNoSwitch
     "CHW HX secondary water leaving temperature (sensed)"
     annotation (Placement(
         transformation(
-        extent={{10,-10},{-10,10}},
+        extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-160,-220})));
+        origin={80,-220})));
   Buildings.Controls.OBC.CDL.Continuous.HysteresisWithHold hysWitHol(
     uLow=1E-4*mHeaWat_flow_nominal,
     uHigh=0.01*mHeaWat_flow_nominal,
@@ -280,11 +282,11 @@ model ETSSimplifiedNoSwitch
     tau=60,
     energyDynamics=mixingVolumeEnergyDynamics)
     "Mixing volume representing CHW primary"
-    annotation (Placement(transformation(extent={{10,-160},{30,-140}})));
+    annotation (Placement(transformation(extent={{-208,-160},{-188,-140}})));
   Networks.BaseClasses.Pump_m_flow pum2CooHex(redeclare package Medium = Medium,
       final m_flow_nominal=m2HexChi_flow_nominal)
     "Chilled water HX secondary pump"
-    annotation (Placement(transformation(extent={{110,-230},{90,-210}})));
+    annotation (Placement(transformation(extent={{-110,-230},{-90,-210}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFloChiWat(
     redeclare package Medium = Medium,
     allowFlowReversal=allowFlowReversal)
@@ -315,7 +317,8 @@ model ETSSimplifiedNoSwitch
     yMax=1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     reverseAction=true,
-    yMin=0) "PI controller for chilled water supply"
+    yMin=0)
+    "PI controller for chilled water supply"
     annotation (Placement(transformation(extent={{-170,30},{-150,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Product pro
     annotation (Placement(transformation(extent={{-88,-10},{-68,10}})));
@@ -335,7 +338,7 @@ model ETSSimplifiedNoSwitch
   Buildings.Fluid.Sources.Boundary_pT bouChi(
     redeclare final package Medium = Medium, nPorts=1)
               "Pressure boundary condition representing the expansion vessel"
-    annotation (Placement(transformation(extent={{60,-150},{40,-130}})));
+    annotation (Placement(transformation(extent={{-240,-150},{-220,-130}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum PPumCoo(nin=2)
     "Total power drawn by pumps motors for space cooling (ETS included, building excluded)"
     annotation (Placement(transformation(extent={{170,370},{190,390}})));
@@ -349,7 +352,7 @@ model ETSSimplifiedNoSwitch
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={40,360})));
+        origin={40,380})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTChiWatSup(
     redeclare final package Medium=Medium,
     allowFlowReversal=allowFlowReversal,
@@ -358,7 +361,7 @@ model ETSSimplifiedNoSwitch
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={40,-80})));
+        origin={40,-40})));
   Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.HydraulicHeader
   decHeaWat(
     redeclare final package Medium=Medium,
@@ -377,6 +380,11 @@ model ETSSimplifiedNoSwitch
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,-90})));
+  Networks.BaseClasses.SwitchBox switchBox(
+    redeclare final package Medium = Medium,
+    m_flow_nominal=max(mHeaWat_flow_nominal, mHeaWat_flow_nominal))
+    "Flow switch box"
+    annotation (Placement(transformation(extent={{-10,-390},{10,-370}})));
   // MISCELLANEOUS VARIABLES
   Medium.ThermodynamicState sta_a=if allowFlowReversal then
     Medium.setState_phX(port_a.p,
@@ -404,14 +412,9 @@ initial equation
     "Nominal heating rate must be strictly positive. Obtained QHea_flow_nominal = " +
     String(QHea_flow_nominal));
 equation
-  connect(volMix_a.ports[1], port_a) annotation (Line(points={{-262.667,-400},{
-          -280,-400}},       color={0,127,255}));
-  connect(pumEva.port_a, volMix_a.ports[2])
-    annotation (Line(points={{-110,120},{-260,120},{-260,-400}},
+  connect(pumEva.port_a, volMix_a.ports[1])
+    annotation (Line(points={{-110,120},{-262.667,120},{-262.667,-360}},
                                                            color={0,127,255}));
-  connect(port_b, volMix_b.ports[1]) annotation (Line(points={{280,-400},{
-          257.333,-400}},
-                color={0,127,255}));
   connect(senMasFloHeaWat.m_flow, hysWitHol.u) annotation (Line(points={{-220,349},
           {-220,280},{-212,280}}, color={0,0,127}));
   connect(TSetHeaWat, heaPum.TSet) annotation (Line(points={{-300,200},{20,200},
@@ -434,19 +437,19 @@ equation
     annotation (Line(points={{-190,0},{-188,0}},       color={255,0,255}));
   connect(booToRea1.y, gai2.u)
     annotation (Line(points={{-164,0},{-142,0}},       color={0,0,127}));
-  connect(senT2HexChiLvg.T, conTChiWat.u_m) annotation (Line(points={{-160,-209},
-          {-160,28}},                        color={0,0,127}));
+  connect(senT2HexChiLvg.T, conTChiWat.u_m) annotation (Line(points={{80,-209},{
+          80,-180},{-160,-180},{-160,28}},   color={0,0,127}));
   connect(TSetChiWat, conTChiWat.u_s) annotation (Line(points={{-300,40},{-172,40}},
                   color={0,0,127}));
   connect(gai2.y, pro.u2) annotation (Line(points={{-118,0},{-100,0},{-100,-6},{
           -90,-6}},          color={0,0,127}));
   connect(pro.y, pum1HexChi.m_flow_in)
-    annotation (Line(points={{-66,0},{-60,0},{-60,-60},{-100,-60},{-100,-248}},
+    annotation (Line(points={{-66,0},{-60,0},{-60,-60},{120,-60},{120,-248}},
                                                             color={0,0,127}));
   connect(conTChiWat.y, pro.u1) annotation (Line(points={{-148,40},{-100,40},{-100,
           6},{-90,6}},             color={0,0,127}));
-  connect(gai4.y, pum2CooHex.m_flow_in) annotation (Line(points={{-118,-40},{100,
-          -40},{100,-208}},   color={0,0,127}));
+  connect(gai4.y, pum2CooHex.m_flow_in) annotation (Line(points={{-118,-40},{-100,
+          -40},{-100,-208}},  color={0,0,127}));
   connect(senMasFloChiWat.m_flow, gai4.u) annotation (Line(points={{-220,-69},{-220,
           -40},{-142,-40}},        color={0,0,127}));
   connect(PPum, PPum)
@@ -463,11 +466,11 @@ equation
   connect(pumEva.P, PPumHea.u[2]) annotation (Line(points={{-89,129},{-89,128},{
           -80,128},{-80,180},{162,180},{162,420},{168,420},{168,419}},
                                               color={0,0,127}));
-  connect(pum1HexChi.P, PPumCoo.u[1]) annotation (Line(points={{-89,-251},{-78,-251},
-          {-78,-278},{160,-278},{160,381},{168,381}},
+  connect(pum1HexChi.P, PPumCoo.u[1]) annotation (Line(points={{109,-251},{100,-251},
+          {100,-238},{160,-238},{160,381},{168,381}},
                                           color={0,0,127}));
-  connect(pum2CooHex.P, PPumCoo.u[2]) annotation (Line(points={{89,-211},{80,-211},
-          {80,2},{162,2},{162,379},{168,379}},                  color={0,0,127}));
+  connect(pum2CooHex.P, PPumCoo.u[2]) annotation (Line(points={{-89,-211},{-89,-201},
+          {182,-201},{182,24},{264,24},{264,379},{168,379}},    color={0,0,127}));
   connect(PPumHea.y, mulSum1.u[1]) annotation (Line(points={{192,420},{220,420},
           {220,360},{228,360}}, color={0,0,127}));
   connect(PPumCoo.y, mulSum.u[1]) annotation (Line(points={{192,380},{210,380},{
@@ -479,67 +482,77 @@ equation
                                 color={0,0,127}));
   connect(mulSum2.y, PPum)
     annotation (Line(points={{252,400},{300,400}}, color={0,0,127}));
-  connect(pum1HexChi.port_b, hexChi.port_a1) annotation (Line(points={{-90,-260},
-          {-10,-260}},                             color={0,127,255}));
-  connect(hexChi.port_b1, volMix_b.ports[2]) annotation (Line(points={{10,-260},
-          {260,-260},{260,-400}},                      color={0,127,255}));
+  connect(pum1HexChi.port_b, hexChi.port_a1) annotation (Line(points={{110,-260},
+          {10,-260}},                              color={0,127,255}));
   connect(pum2CooHex.port_b, hexChi.port_a2)
-    annotation (Line(points={{90,-220},{20,-220},{20,-248},{10,-248}},
+    annotation (Line(points={{-90,-220},{-20,-220},{-20,-248},{-10,-248}},
                                                   color={0,127,255}));
-  connect(hexChi.port_b2, senT2HexChiLvg.port_a)
-    annotation (Line(points={{-10,-248},{-20,-248},{-20,-220},{-150,-220}},
-                                                      color={0,127,255}));
-  connect(volMix_a.ports[3], pum1HexChi.port_a) annotation (Line(points={{
-          -257.333,-400},{-260,-400},{-260,-260},{-110,-260}},
-                                                         color={0,127,255}));
   connect(pumEva.port_b, heaPum.port_a2)
     annotation (Line(points={{-90,120},{-10,120}}, color={0,127,255}));
-  connect(heaPum.port_b2, volMix_b.ports[3]) annotation (Line(points={{10,120},
-          {260,120},{260,-398},{262,-398},{262,-400},{262.667,-400}},
-                                               color={0,127,255}));
+  connect(heaPum.port_b2, volMix_b.ports[1]) annotation (Line(points={{10,120},
+          {257.333,120},{257.333,-360}},       color={0,127,255}));
   connect(heaPum.port_b1, senTConLvg.port_a) annotation (Line(points={{-10,132},
           {-30,132},{-30,160},{-150,160}},     color={0,127,255}));
   connect(pumCon.port_b, heaPum.port_a1) annotation (Line(points={{90,160},{40,160},
           {40,132},{10,132}},         color={0,127,255}));
-  connect(ports_a1[1], senMasFloHeaWat.port_a) annotation (Line(points={{-280,100},
-          {-240,100},{-240,360},{-230,360}}, color={0,127,255}));
-  connect(ports_a1[2], senMasFloChiWat.port_a) annotation (Line(points={{-280,140},
-          {-240,140},{-240,-80},{-230,-80}},   color={0,127,255}));
-  connect(senTHeaWatSup.port_b, ports_b1[1]) annotation (Line(points={{50,360},
-          {180,360},{180,100},{280,100}},color={0,127,255}));
-  connect(senTChiWatSup.port_b, ports_b1[2]) annotation (Line(points={{50,-80},
-          {240,-80},{240,140},{280,140}},  color={0,127,255}));
-  connect(pum1HexChi.m_flow_actual, mCoo_flow) annotation (Line(points={{-89,-255},
-          {-80,-255},{-80,-280},{162,-280},{162,240},{300,240}}, color={0,0,127}));
+  connect(ports_a1[1], senMasFloHeaWat.port_a) annotation (Line(points={{-280,120},
+          {-240,120},{-240,360},{-230,360}}, color={0,127,255}));
+  connect(ports_a1[2], senMasFloChiWat.port_a) annotation (Line(points={{-280,120},
+          {-240,120},{-240,-80},{-230,-80}},   color={0,127,255}));
+  connect(senTHeaWatSup.port_b, ports_b1[1]) annotation (Line(points={{50,380},{
+          140,380},{140,120},{280,120}}, color={0,127,255}));
+  connect(senTChiWatSup.port_b, ports_b1[2]) annotation (Line(points={{50,-40},{
+          240,-40},{240,120},{280,120}},   color={0,127,255}));
+  connect(pum1HexChi.m_flow_actual, mCoo_flow) annotation (Line(points={{109,-255},
+          {102,-255},{102,-240},{162,-240},{162,240},{300,240}}, color={0,0,127}));
   connect(pumEva.m_flow_actual, mHea_flow) annotation (Line(points={{-89,125},{-78,
           125},{-78,180},{162,180},{162,280},{300,280}}, color={0,0,127}));
   connect(bouHea.ports[1], volHeaWatRet.ports[1]) annotation (Line(points={{40,240},
           {40,220},{19.3333,220}}, color={0,127,255}));
-  connect(bouChi.ports[1], volChiWat.ports[1]) annotation (Line(points={{40,-140},
-          {40,-160},{17.3333,-160}},
+  connect(bouChi.ports[1], volChiWat.ports[1]) annotation (Line(points={{-220,
+          -140},{-220,-160},{-200.667,-160}},
                                   color={0,127,255}));
   connect(volHeaWatRet.ports[2], pumCon.port_a) annotation (Line(points={{22,220},
-          {140,220},{140,160},{110,160}},      color={0,127,255}));
-  connect(volChiWat.ports[2], pum2CooHex.port_a) annotation (Line(points={{20,-160},
-          {140,-160},{140,-220},{110,-220}},       color={0,127,255}));
+          {120,220},{120,160},{110,160}},      color={0,127,255}));
+  connect(volChiWat.ports[2], pum2CooHex.port_a) annotation (Line(points={{-198,
+          -160},{-240,-160},{-240,-220},{-110,-220}},
+                                                   color={0,127,255}));
   connect(senTConLvg.port_b, decHeaWat.ports_a[1]) annotation (Line(points={{
           -170,160},{-200,160},{-200,220},{-20,220},{-20,360},{2,360}}, color={
           0,127,255}));
-  connect(decHeaWat.ports_a[2], senTHeaWatSup.port_a) annotation (Line(points={
-          {-2,360},{14.85,360},{14.85,360},{30,360}}, color={0,127,255}));
+  connect(decHeaWat.ports_a[2], senTHeaWatSup.port_a) annotation (Line(points={{-2,360},
+          {0,360},{0,380},{30,380}},                  color={0,127,255}));
   connect(senMasFloHeaWat.port_b, decHeaWat.ports_b[1]) annotation (Line(points=
          {{-210,360},{-40,360},{-40,340},{-2,340}}, color={0,127,255}));
   connect(decHeaWat.ports_b[2], volHeaWatRet.ports[3]) annotation (Line(points={{2,340},
           {0,340},{0,220},{24.6667,220}},          color={0,127,255}));
-  connect(decChiWat.ports_a[1], senTChiWatSup.port_a) annotation (Line(points={
-          {2,-80},{14.85,-80},{14.85,-80},{30,-80}}, color={0,127,255}));
-  connect(senT2HexChiLvg.port_b, decChiWat.ports_a[2]) annotation (Line(points=
-          {{-170,-220},{-220,-220},{-220,-160},{-20,-160},{-20,-80},{-2,-80}},
-        color={0,127,255}));
-  connect(senMasFloChiWat.port_b, decChiWat.ports_b[1]) annotation (Line(points=
-         {{-210,-80},{-40,-80},{-40,-100},{-2,-100}}, color={0,127,255}));
+  connect(senMasFloChiWat.port_b, decChiWat.ports_b[1]) annotation (Line(points={{-210,
+          -80},{-24,-80},{-24,-100},{-2,-100}},       color={0,127,255}));
   connect(decChiWat.ports_b[2], volChiWat.ports[3]) annotation (Line(points={{2,-100},
-          {0,-100},{0,-160},{22.6667,-160}},       color={0,127,255}));
+          {0,-100},{0,-160},{-195.333,-160}},      color={0,127,255}));
+  connect(port_a, switchBox.port_aSup) annotation (Line(points={{-280,-400},{-4,
+          -400},{-4,-390}}, color={0,127,255}));
+  connect(switchBox.port_bRet, port_b) annotation (Line(points={{4,-390},{4,-400},
+          {280,-400}}, color={0,127,255}));
+  connect(volMix_a.ports[2], switchBox.port_bSup) annotation (Line(points={{-260,
+          -360},{-4,-360},{-4,-370}}, color={0,127,255}));
+  connect(switchBox.port_aRet, volMix_b.ports[2]) annotation (Line(points={{4,-370},
+          {4,-360},{260,-360}}, color={0,127,255}));
+  connect(pum1HexChi.m_flow_actual, switchBox.mFreCoo_flow) annotation (Line(
+        points={{109,-255},{109,-254},{100,-254},{100,-340},{-20,-340},{-20,-383.2},
+          {-11.2,-383.2}}, color={0,0,127}));
+  connect(pumEva.m_flow_actual, switchBox.mSpaHea_flow) annotation (Line(points={{-89,125},
+          {-40,125},{-40,-375.2},{-11.2,-375.2}},     color={0,0,127}));
+  connect(volMix_b.ports[3], pum1HexChi.port_a) annotation (Line(points={{262.667,
+          -360},{262,-360},{262,-260},{130,-260}}, color={0,127,255}));
+  connect(hexChi.port_b1, volMix_a.ports[3]) annotation (Line(points={{-10,-260},
+          {-257.333,-260},{-257.333,-360}}, color={0,127,255}));
+  connect(hexChi.port_b2, senT2HexChiLvg.port_a) annotation (Line(points={{10,-248},
+          {20,-248},{20,-220},{70,-220}}, color={0,127,255}));
+  connect(senT2HexChiLvg.port_b, decChiWat.ports_a[1]) annotation (Line(points={
+          {90,-220},{140,-220},{140,-80},{2,-80}}, color={0,127,255}));
+  connect(decChiWat.ports_a[2], senTChiWatSup.port_a)
+    annotation (Line(points={{-2,-80},{-2,-40},{30,-40}}, color={0,127,255}));
   annotation (
   defaultComponentName="ets",
   Documentation(info="<html>
@@ -603,4 +616,4 @@ This is for
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="Add minimum pump flow rate")}));
-end ETSSimplifiedNoSwitch;
+end ETSSimplified_bck;

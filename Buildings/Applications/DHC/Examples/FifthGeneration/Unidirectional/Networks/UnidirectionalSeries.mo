@@ -1,8 +1,7 @@
 within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Networks;
 model UnidirectionalSeries
   "Hydraulic network for unidirectional series DHC system"
-  extends BaseClasses.PartialDistributionSystem(
-    final allowFlowReversal=false);
+  extends BaseClasses.PartialDistributionSystem;
   parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal
     "Nominal mass flow rate in the distribution line";
   parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal[nCon]
@@ -19,28 +18,30 @@ model UnidirectionalSeries
     "Hydraulic diameter of each connection pipe";
   // COMPONENTS
   replaceable BaseClasses.ConnectionSeries con[nCon](
-    redeclare package Medium = Medium,
+    redeclare each final package Medium = Medium,
     each mDis_flow_nominal=mDis_flow_nominal,
     mCon_flow_nominal=mCon_flow_nominal,
     lDis=lDis,
     lCon=lCon,
     each dhDis=dhDis,
     dhCon=dhCon,
-    each allowFlowReversal=allowFlowReversal)
+    each final allowFlowReversal=allowFlowReversal)
     "Connection to agent"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   replaceable BaseClasses.PipeDistribution pipEnd(
-    redeclare package Medium=Medium,
+    redeclare final package Medium=Medium,
     m_flow_nominal=mDis_flow_nominal,
     dh=dhDis,
     length=lEnd,
-    allowFlowReversal=allowFlowReversal)
+    final allowFlowReversal=allowFlowReversal)
     "Pipe representing the end of the distribution line (after last connection)"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 equation
-  connect(con.port_bCon, ports_bCon) annotation (Line(points={{0,10},{0,40},{-80,
+  connect(con.port_bCon, ports_bCon)
+    annotation (Line(points={{0,10},{0,40},{-80,
           40},{-80,100}}, color={0,127,255}));
-  connect(ports_aCon, con.port_aCon) annotation (Line(points={{80,100},{80,40},
+  connect(ports_aCon, con.port_aCon)
+    annotation (Line(points={{80,100},{80,40},
           {6,40},{6,10}}, color={0,127,255}));
   // Connecting outlets to inlets for all instances of connection component
   if nCon >= 2 then

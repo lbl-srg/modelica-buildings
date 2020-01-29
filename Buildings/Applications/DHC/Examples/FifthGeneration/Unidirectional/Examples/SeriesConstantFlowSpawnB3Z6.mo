@@ -1,7 +1,9 @@
 within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Examples;
 model SeriesConstantFlowSpawnB3Z6
   "Example of series connection with constant district water mass flow rate, 3 Spawn building models (6 zones)"
+  // allowFlowReversal must be true when using a switch box with valve due to leakage flow.
   extends BaseClasses.PartialSeries(
+    allowFlowReversal=true,
     nBui=3,
     weaPat=
     "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportSpawn/Resources/Data/B5a6b99ec37f4de7f94020090/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
@@ -14,15 +16,18 @@ model SeriesConstantFlowSpawnB3Z6
     "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportSpawn/Resources/Data/B5a6b99ec37f4de7f94021950/RefBldgSmallOfficeNew2004_Chicago.idf",
     "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportSpawn/Resources/Data/B5a6b99ec37f4de7f94020090/RefBldgSmallOfficeNew2004_Chicago.idf"}
     "Paths of the IDF files";
+  // allowFlowReversalDis must be true when using a switch box with valve due to leakage flow.
+  Loads.BuildingSpawnZ6WithETS bui[nBui](
+    redeclare each final package Medium = Medium,
+    idfPat=idfPat,
+    each weaPat=weaPat,
+    each final allowFlowReversalBui=false,
+    each final allowFlowReversalDis=true)
+    annotation (Placement(transformation(extent={{-10,170},{10,190}})));
   Modelica.Blocks.Sources.Constant massFlowMainPump(
     k=datDes.mDis_flow_nominal)
     "Distribution pump mass flow rate"
     annotation (Placement(transformation(extent={{-280,-70},{-260,-50}})));
-  Loads.BuildingSpawnZ6WithETS bui[nBui](
-    redeclare each package Medium = Medium,
-    idfPat=idfPat,
-    each weaPat=weaPat)
-    annotation (Placement(transformation(extent={{-10,170},{10,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetHeaWatSup[nBui](
     k=bui.THeaWatSup_nominal)
     "Heating water supply temperature set point"

@@ -4,7 +4,8 @@ model BuildingETSConnection
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water "Medium model";
   Buildings.Fluid.Sources.Boundary_pT sin(
-    redeclare package Medium = Medium, nPorts=1)
+    redeclare package Medium = Medium,
+    nPorts=1)
     "Sink for district water"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -24,14 +25,6 @@ model BuildingETSConnection
     nPorts=1)
     "Source for district water"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-50,-40})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TDis(k=273.15 + 15)
-    "District water temperature"
-    annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
-  Loads.BuildingSpawnZ6WithETS bui(
-    redeclare package Medium = Medium,
-    redeclare EnergyTransferStations.ETSSimplifiedNoSwitch ets)
-    "Model of a building with an energy transfer station"
-    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   inner parameter Data.DesignDataSeries datDes(
     nBui=1,
     mDis_flow_nominal=25,
@@ -39,12 +32,22 @@ model BuildingETSConnection
     epsPla=0.935)
     "Design values"
     annotation (Placement(transformation(extent={{-160,62},{-140,82}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TDis(k=273.15 + 15)
+    "District water temperature"
+    annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
+  Loads.BuildingSpawnZ6WithETS bui(
+    redeclare final package Medium = Medium,
+    allowFlowReversalBui=false,
+    allowFlowReversalDis=true)
+    "Model of a building with an energy transfer station"
+    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
 equation
-  connect(TDis.y, sou.T_in) annotation (Line(points={{-118,-60},{-80,-60},{-80,
-          -36},{-62,-36}}, color={0,0,127}));
-  connect(TSetHeaWatSup.y, bui.TSetHeaWat) annotation (Line(points={{-118,20},{
-          0,20},{0,-32},{19,-32}},      color={0,0,127}));
-  connect(TSetChiWatSup.y, bui.TSetChiWat) annotation (Line(points={{-118,-20},
+  connect(TDis.y, sou.T_in)
+    annotation (Line(points={{-118,-60},{-80,-60},{-80,-36},{-62,-36}}, color={0,0,127}));
+  connect(TSetHeaWatSup.y, bui.TSetHeaWat)
+    annotation (Line(points={{-118,20},{0,20},{0,-32},{19,-32}},color={0,0,127}));
+  connect(TSetChiWatSup.y, bui.TSetChiWat)
+    annotation (Line(points={{-118,-20},
           {-20,-20},{-20,-36},{19,-36}},color={0,0,127}));
   connect(sou.ports[1], bui.port_a)
     annotation (Line(points={{-40,-40},{20,-40}}, color={0,127,255}));

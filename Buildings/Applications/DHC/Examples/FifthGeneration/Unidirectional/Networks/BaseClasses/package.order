@@ -6,4 +6,6 @@ PipeDistribution
 Pump_m_flow
 PartialDistributionSystem
 SwitchBox
-SwitchBoxPum
+SwitchBoxCheck
+SwitchBoxPump
+SwitchBoxValve

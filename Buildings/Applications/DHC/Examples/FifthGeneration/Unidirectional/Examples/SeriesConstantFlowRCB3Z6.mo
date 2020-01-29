@@ -1,7 +1,9 @@
 within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Examples;
 model SeriesConstantFlowRCB3Z6
   "Example of series connection with constant district water mass flow rate, 3 RC building models (6 zones)"
+  // allowFlowReversal must be true when using a switch box with valve due to leakage flow.
   extends BaseClasses.PartialSeries(
+    allowFlowReversal=allowFlowReversal,
     nBui=3,
     weaPat=
     "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos",
@@ -9,13 +11,16 @@ model SeriesConstantFlowRCB3Z6
       mCon_flow_nominal={
         max(bui[i].ets.m1HexChi_flow_nominal, bui[i].ets.mEva_flow_nominal) for i in 1:nBui},
       epsPla=0.935));
+  // allowFlowReversalDis must be true when using a switch box with valve due to leakage flow.
+  Loads.BuildingRCZ6WithETS bui[nBui](
+    redeclare each final package Medium=Medium,
+    each allowFlowReversalBui=false,
+    each allowFlowReversalDis=true)
+    annotation (Placement(transformation(extent={{-10,170},{10,190}})));
   Modelica.Blocks.Sources.Constant massFlowMainPump(
     k=datDes.mDis_flow_nominal)
     "Distribution pump mass flow rate"
     annotation (Placement(transformation(extent={{-280,-70},{-260,-50}})));
-  Loads.BuildingRCZ6WithETS bui[nBui](
-    redeclare each final package Medium=Medium)
-    annotation (Placement(transformation(extent={{-10,170},{10,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetHeaWatSup[nBui](
     k=bui.THeaWatSup_nominal)
     "Heating water supply temperature set point"

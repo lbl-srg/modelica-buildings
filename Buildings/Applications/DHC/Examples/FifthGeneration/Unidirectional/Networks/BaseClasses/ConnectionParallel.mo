@@ -30,41 +30,47 @@ model ConnectionParallel "Model for connecting an agent to the DHC system"
     redeclare package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    "Distribution supply inlet port" annotation (Placement(transformation(
+    "Distribution supply inlet port"
+    annotation (Placement(transformation(
           extent={{-110,-50},{-90,-30}}), iconTransformation(extent={{-110,-10},
             {-90,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bDisSup(
     redeclare package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    "Distribution supply outlet port" annotation (Placement(transformation(
+    "Distribution supply outlet port"
+    annotation (Placement(transformation(
           extent={{90,-50},{110,-30}}), iconTransformation(extent={{90,-10},{
             110,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aDisRet(
     redeclare package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    "Distribution return inlet port" annotation (Placement(transformation(
+    "Distribution return inlet port"
+    annotation (Placement(transformation(
           extent={{90,-90},{110,-70}}), iconTransformation(extent={{90,-70},{
             110,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bDisRet(
     redeclare package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    "Distribution return outlet port" annotation (Placement(transformation(
+    "Distribution return outlet port"
+    annotation (Placement(transformation(
           extent={{-110,-90},{-90,-70}}), iconTransformation(extent={{-110,-70},
             {-90,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bCon(
     redeclare package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    "Connection supply port" annotation (Placement(transformation(extent={{-50,
+    "Connection supply port"
+    annotation (Placement(transformation(extent={{-50,
             110},{-30,130}}), iconTransformation(extent={{-10,90},{10,110}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aCon(
     redeclare package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    "Connection return port" annotation (Placement(transformation(extent={{30,
+    "Connection return port"
+    annotation (Placement(transformation(extent={{30,
             110},{50,130}}), iconTransformation(extent={{50,90},{70,110}})));
   Modelica.Blocks.Interfaces.RealOutput mCon_flow
     "Connection supply mass flow rate"
@@ -78,17 +84,29 @@ model ConnectionParallel "Model for connecting an agent to the DHC system"
   // COMPONENTS
   BaseClasses.Junction junConSup(
     redeclare package Medium=Medium,
-    portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
-    portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    portFlowDirection_1=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
+      Modelica.Fluid.Types.PortFlowDirection.Entering,
+    portFlowDirection_2=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
+      Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    portFlowDirection_3=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
+      Modelica.Fluid.Types.PortFlowDirection.Leaving,
     m_flow_nominal={mDis_flow_nominal,-mDis_flow_nominal,-mCon_flow_nominal})
     "Junction with connection supply"
     annotation (Placement(transformation(extent={{-50,-30},{-30,-50}})));
   BaseClasses.Junction junConRet(
     redeclare package Medium=Medium,
-    portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
-    portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Entering,
+    portFlowDirection_1=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
+      Modelica.Fluid.Types.PortFlowDirection.Entering,
+    portFlowDirection_2=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
+      Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    portFlowDirection_3=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
+      Modelica.Fluid.Types.PortFlowDirection.Entering,
     m_flow_nominal={mDis_flow_nominal,-mDis_flow_nominal,mCon_flow_nominal})
     "Junction with connection return"
     annotation (Placement(transformation(extent={{50,-70},{30,-90}})));

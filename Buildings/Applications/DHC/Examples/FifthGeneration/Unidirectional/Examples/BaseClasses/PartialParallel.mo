@@ -2,6 +2,9 @@ within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Exampl
 partial model PartialParallel "Partial model for parallel network"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water "Medium model";
+  parameter Boolean allowFlowReversal = false
+    "Set to true to allow flow reversal in the distribution and connections"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
   parameter Integer nBui = datDes.nBui
     "Number of buildings connected to DHC system"
     annotation (Evaluate=true);
@@ -12,13 +15,14 @@ partial model PartialParallel "Partial model for parallel network"
     annotation (Placement(transformation(extent={{-340,220},{-320,240}})));
   // COMPONENTS
   ThermalStorages.BoreField borFie(
-    redeclare package Medium=Medium)
+    redeclare final package Medium=Medium)
+    "Bore field"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-130,-80})));
   Networks.BaseClasses.Pump_m_flow pumDis(
-    redeclare package Medium=Medium,
+    redeclare final package Medium=Medium,
     m_flow_nominal=datDes.mDisPum_flow_nominal)
     "Distribution pump"
     annotation (Placement(transformation(
@@ -26,7 +30,7 @@ partial model PartialParallel "Partial model for parallel network"
       rotation=90,
       origin={80,-60})));
   Buildings.Fluid.Sources.Boundary_pT bou(
-    redeclare package Medium=Medium,
+    redeclare final package Medium=Medium,
     nPorts=1)
     "Boundary pressure condition representing the expansion vessel"
     annotation (Placement(transformation(
@@ -34,7 +38,7 @@ partial model PartialParallel "Partial model for parallel network"
       rotation=180,
       origin={112,-20})));
   Networks.BaseClasses.Pump_m_flow pumSto(
-    redeclare package Medium=Medium,
+    redeclare final package Medium=Medium,
     m_flow_nominal=datDes.mSto_flow_nominal)
     "Bore field pump"
     annotation (
@@ -43,20 +47,21 @@ partial model PartialParallel "Partial model for parallel network"
         rotation=180,
         origin={-180,-80})));
   Networks.BaseClasses.ConnectionSeries conPla(
-    redeclare package Medium=Medium,
+    redeclare final package Medium=Medium,
     mDis_flow_nominal=datDes.mDisPum_flow_nominal,
     mCon_flow_nominal=datDes.mPla_flow_nominal,
     lDis=0,
     lCon=10,
     dhDis=datDes.dhDis[1],
-    dhCon=0.10)
+    dhCon=0.10,
+    final allowFlowReversal=allowFlowReversal)
     "Connection to the plant"
     annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},
       rotation=90,
       origin={-80,-10})));
   Networks.UnidirectionalParallel dis(
-    redeclare package Medium=Medium,
+    redeclare final package Medium=Medium,
     nCon=nBui,
     mDis_flow_nominal=datDes.mDis_flow_nominal,
     mCon_flow_nominal=datDes.mCon_flow_nominal,
@@ -66,17 +71,19 @@ partial model PartialParallel "Partial model for parallel network"
     lEnd=datDes.lEnd,
     dhDis=datDes.dhDis,
     dhCon=datDes.dhCon,
-    dhEnd=datDes.dhEnd)
+    dhEnd=datDes.dhEnd,
+    final allowFlowReversal=allowFlowReversal)
     annotation (Placement(transformation(extent={{-20,130},{20,150}})));
   Networks.BaseClasses.ConnectionSeries conSto(
-    redeclare package Medium=Medium,
+    redeclare final package Medium=Medium,
     mDis_flow_nominal=datDes.mDisPum_flow_nominal,
     mCon_flow_nominal=datDes.mSto_flow_nominal,
     lDis=0,
     lCon=0,
     dhDis=datDes.dhDis[1],
-    dhCon=datDes.dhDis[1])
-                        "Connection to the bore field"
+    dhCon=datDes.dhDis[1],
+    final allowFlowReversal=allowFlowReversal)
+    "Connection to the bore field"
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},

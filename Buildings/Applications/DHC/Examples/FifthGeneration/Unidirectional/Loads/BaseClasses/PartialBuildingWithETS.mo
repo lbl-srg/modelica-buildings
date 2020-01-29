@@ -6,7 +6,13 @@ partial model PartialBuildingWithETS
       ets.m1HexChi_flow_nominal, ets.mEva_flow_nominal),
     final m_flow_small=1E-4*m_flow_nominal,
     final show_T=false,
-    final allowFlowReversal=false);
+    final allowFlowReversal=allowFlowReversalDis);
+  parameter Boolean allowFlowReversalBui = false
+    "Set to true to allow flow reversal on the building side"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+  parameter Boolean allowFlowReversalDis = false
+    "Set to true to allow flow reversal on the district side"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
   parameter Integer nSup = 2
     "Number of supply lines"
     annotation(Dialog(group="ETS model parameters"), Evaluate=true);
@@ -57,14 +63,17 @@ partial model PartialBuildingWithETS
   // COMPONENTS
   replaceable Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding bui
     constrainedby Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
-      redeclare package Medium = Medium,
-      nPorts_a=nSup,
-      nPorts_b=nSup)
+      redeclare final package Medium = Medium,
+      final nPorts_a=nSup,
+      final nPorts_b=nSup,
+      final allowFlowReversal=allowFlowReversalBui)
     "Building"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
   // TODO: declare here partial ETS model constrained by parameters binding
   replaceable EnergyTransferStations.ETSSimplified ets(
-    redeclare package Medium = Medium,
+    final allowFlowReversalBui=allowFlowReversalBui,
+    final allowFlowReversalDis=allowFlowReversalDis,
+    redeclare final package Medium = Medium,
     QCoo_flow_nominal=sum(bui.terUni.QCoo_flow_nominal),
     QHea_flow_nominal=sum(bui.terUni.QHea_flow_nominal),
     dT_nominal=dT_nominal,

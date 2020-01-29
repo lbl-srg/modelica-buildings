@@ -34,7 +34,7 @@ partial model PartialBuilding "Partial class for building model"
   parameter Boolean have_weaBus = true
     "Set to true for weather bus"
     annotation(Evaluate=true);
-  final parameter Boolean allowFlowReversal=false
+  parameter Boolean allowFlowReversal=false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation(Evaluate=true);
   // IO CONNECTORS

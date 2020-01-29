@@ -2,6 +2,9 @@ within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Exampl
 partial model PartialSeries "Partial model for series network"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water "Medium model";
+  parameter Boolean allowFlowReversal = false
+    "Set to true to allow flow reversal in the distribution and connections"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
   parameter Integer nBui = datDes.nBui
     "Number of buildings connected to DHC system"
     annotation (Evaluate=true);
@@ -10,73 +13,87 @@ partial model PartialSeries "Partial model for series network"
   inner parameter Data.DesignDataSeries datDes "Design data"
     annotation (Placement(transformation(extent={{-340,220},{-320,240}})));
   // COMPONENTS
-  ThermalStorages.BoreField borFie(redeclare package Medium = Medium)
+  ThermalStorages.BoreField borFie(
+    redeclare final package Medium = Medium)
+    "Bore field"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-130,-80})));
-  Networks.BaseClasses.Pump_m_flow pumDis(redeclare package Medium = Medium,
-      m_flow_nominal=datDes.mDis_flow_nominal) "Distribution pump" annotation (
-      Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=90,
-        origin={80,-60})));
+  Networks.BaseClasses.Pump_m_flow pumDis(
+    redeclare final package Medium = Medium,
+    m_flow_nominal=datDes.mDis_flow_nominal)
+    "Distribution pump"
+    annotation (Placement(transformation(
+      extent={{10,-10},{-10,10}},
+      rotation=90,
+      origin={80,-60})));
   Buildings.Fluid.Sources.Boundary_pT bou(
-    redeclare package Medium=Medium,
+    redeclare final package Medium=Medium,
     nPorts=1)
     "Boundary pressure condition representing the expansion vessel"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={112,-20})));
-  Networks.BaseClasses.Pump_m_flow pumSto(redeclare package Medium = Medium,
-      m_flow_nominal=datDes.mSto_flow_nominal) "Bore field pump" annotation (
-      Placement(transformation(
-        extent={{10,10},{-10,-10}},
-        rotation=180,
-        origin={-180,-80})));
+  Networks.BaseClasses.Pump_m_flow pumSto(
+    redeclare final package Medium = Medium,
+    m_flow_nominal=datDes.mSto_flow_nominal)
+    "Bore field pump"
+    annotation (Placement(transformation(
+      extent={{10,10},{-10,-10}},
+      rotation=180,
+      origin={-180,-80})));
   Networks.BaseClasses.ConnectionSeries conPla(
-    redeclare package Medium=Medium,
+    redeclare final package Medium=Medium,
     mDis_flow_nominal=datDes.mDis_flow_nominal,
     mCon_flow_nominal=datDes.mPla_flow_nominal,
     lDis=0,
     lCon=10,
     dhDis=datDes.dhDis,
-    dhCon=0.10) "Connection to the plant" annotation (Placement(transformation(
+    dhCon=0.10,
+    final allowFlowReversal=allowFlowReversal)
+    "Connection to the plant"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-80,-10})));
-  Networks.UnidirectionalSeries dis(
-    redeclare package Medium=Medium,
-    nCon=nBui,
-    mDis_flow_nominal=datDes.mDis_flow_nominal,
-    mCon_flow_nominal=datDes.mCon_flow_nominal,
-    lDis=datDes.lDis,
-    lCon=datDes.lCon,
-    dhDis=datDes.dhDis,
-    dhCon=datDes.dhCon)
-    annotation (Placement(transformation(extent={{-20,130},{20,150}})));
   Networks.BaseClasses.ConnectionSeries conSto(
-    redeclare package Medium=Medium,
+    redeclare final package Medium=Medium,
     mDis_flow_nominal=datDes.mDis_flow_nominal,
     mCon_flow_nominal=datDes.mSto_flow_nominal,
     lDis=0,
     lCon=0,
     dhDis=datDes.dhDis,
-    dhCon=datDes.dhDis) "Connection to the bore field"
+    dhCon=datDes.dhDis,
+    final allowFlowReversal=allowFlowReversal)
+    "Connection to the bore field"
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-80,-90})));
   CentralPlants.SewageHeatRecovery pla(
-    redeclare package Medium=Medium,
+    redeclare final package Medium=Medium,
     mSew_flow_nominal=datDes.mPla_flow_nominal,
     mDis_flow_nominal=datDes.mPla_flow_nominal,
     dpSew_nominal=datDes.dpPla_nominal,
     dpDis_nominal=datDes.dpPla_nominal,
-    epsHex=datDes.epsPla) "Sewage heat recovery plant"
+    epsHex=datDes.epsPla)
+    "Sewage heat recovery plant"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
+  Networks.UnidirectionalSeries dis(
+    redeclare final package Medium = Medium,
+    nCon=nBui,
+    mDis_flow_nominal=datDes.mDis_flow_nominal,
+    mCon_flow_nominal=datDes.mCon_flow_nominal,
+    lDis=datDes.lDis,
+    lCon=datDes.lCon,
+    dhDis=datDes.dhDis,
+    dhCon=datDes.dhCon,
+    final allowFlowReversal=allowFlowReversal)
+    "Distribution network"
+    annotation (Placement(transformation(extent={{-20,130},{20,150}})));
 equation
   connect(bou.ports[1], pumDis.port_a)
     annotation (Line(points={{102,-20},{80,-20},{80,-50}}, color={0,127,255}));

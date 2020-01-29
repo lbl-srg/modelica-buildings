@@ -1,7 +1,8 @@
 ﻿within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.EnergyTransferStations;
-model ETSSimplified
+model ETSSimplifiedSwitchCheck
   "Simplified model of a substation producing heating hot water (heat pump) and chilled water (HX)"
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+  replaceable package Medium =
+    Modelica.Media.Interfaces.PartialMedium
     "Medium model for water"
     annotation (choicesAllMatching = true);
   outer
@@ -116,14 +117,14 @@ model ETSSimplified
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Fluid connector a"
     annotation (Placement(transformation(extent={{-290,-410},{-270,-390}}),
-    iconTransformation(extent={{-300,-20},{-260,20}})));
+        iconTransformation(extent={{-300,-20},{-260,20}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare final package Medium = Medium,
     m_flow(max=if allowFlowReversalDis then +Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Fluid connector b"
     annotation (Placement(transformation(extent={{290,-410},{270,-390}}),
-      iconTransformation(extent={{300,-20},{260,20}})));
+        iconTransformation(extent={{300,-20},{260,20}})));
   Modelica.Fluid.Interfaces.FluidPorts_a ports_a1[nSup](
     redeclare each final package Medium = Medium,
     each m_flow(min=if allowFlowReversalBui then -Modelica.Constants.inf else 0),
@@ -246,10 +247,8 @@ model ETSSimplified
     energyDynamics=mixingVolumeEnergyDynamics)
     "Mixing volume representing building HHW primary"
     annotation (Placement(transformation(extent={{12,220},{32,240}})));
-  Networks.BaseClasses.Pump_m_flow pumCon(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=mCon_flow_nominal)
-    "Condenser pump"
+  Networks.BaseClasses.Pump_m_flow pumCon(redeclare package Medium = Medium,
+      final m_flow_nominal=mCon_flow_nominal) "Condenser pump"
     annotation (Placement(transformation(extent={{110,150},{90,170}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senT2HexChiLvg(
     redeclare final package Medium = Medium,
@@ -287,9 +286,8 @@ model ETSSimplified
     energyDynamics=mixingVolumeEnergyDynamics)
     "Mixing volume representing building CHW primary"
     annotation (Placement(transformation(extent={{-208,-160},{-188,-140}})));
-  Networks.BaseClasses.Pump_m_flow pum2CooHex(
-    redeclare package Medium = Medium,
-    final m_flow_nominal=m2HexChi_flow_nominal)
+  Networks.BaseClasses.Pump_m_flow pum2CooHex(redeclare package Medium = Medium,
+      final m_flow_nominal=m2HexChi_flow_nominal)
     "Chilled water HX secondary pump"
     annotation (Placement(transformation(extent={{-110,-230},{-90,-210}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFloChiWat(
@@ -342,7 +340,7 @@ model ETSSimplified
     annotation (Placement(transformation(extent={{60,230},{40,250}})));
   Buildings.Fluid.Sources.Boundary_pT bouChi(
     redeclare final package Medium = Medium, nPorts=1)
-              "Pressure boundary condition representing the expansion vessel"
+    "Pressure boundary condition representing the expansion vessel"
     annotation (Placement(transformation(extent={{-240,-150},{-220,-130}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum PPumCoo(nin=2)
     "Total power drawn by pumps motors for space cooling (ETS included, building excluded)"
@@ -350,7 +348,7 @@ model ETSSimplified
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum2(nin=2)
     annotation (Placement(transformation(extent={{230,390},{250,410}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTHeaWatSup(
-    redeclare final package Medium=Medium,
+    redeclare final package Medium = Medium,
     allowFlowReversal=allowFlowReversalBui,
     m_flow_nominal=mHeaWat_flow_nominal)
     "Heating water supply temperature (sensed)"
@@ -360,7 +358,7 @@ model ETSSimplified
         rotation=0,
         origin={40,380})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTChiWatSup(
-    redeclare final package Medium=Medium,
+    redeclare final package Medium = Medium,
     allowFlowReversal=allowFlowReversalBui,
     m_flow_nominal=mHeaWat_flow_nominal)
     "Chilled water supply temperature (sensed)"
@@ -371,7 +369,7 @@ model ETSSimplified
         origin={40,-40})));
   Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.HydraulicHeader
   decHeaWat(
-    redeclare final package Medium=Medium,
+    redeclare final package Medium = Medium,
     m_flow_nominal=mHeaWat_flow_nominal,
     nPorts_a=2,
     nPorts_b=2)
@@ -381,7 +379,7 @@ model ETSSimplified
         origin={0,350})));
   Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.HydraulicHeader
   decChiWat(
-    redeclare final package Medium=Medium,
+    redeclare final package Medium = Medium,
     m_flow_nominal=mChiWat_flow_nominal,
     nPorts_a=2,
     nPorts_b=2)
@@ -389,13 +387,13 @@ model ETSSimplified
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,-90})));
-  Networks.BaseClasses.SwitchBox switchBox(
+  Networks.BaseClasses.SwitchBoxCheck switchBoxCheck(
     redeclare final package Medium = Medium,
     m_flow_nominal=max(mHeaWat_flow_nominal, mHeaWat_flow_nominal))
     "Flow switch box"
     annotation (Placement(transformation(extent={{-10,-390},{10,-370}})));
   // MISCELLANEOUS VARIABLES
-  Medium.ThermodynamicState sta_a=if allowFlowReversalDis then
+  Medium.ThermodynamicState sta_a = if allowFlowReversalDis then
     Medium.setState_phX(port_a.p,
       noEvent(actualStream(port_a.h_outflow)),
       noEvent(actualStream(port_a.Xi_outflow))) else
@@ -403,7 +401,7 @@ model ETSSimplified
       inStream(port_a.h_outflow),
       inStream(port_a.Xi_outflow)) if show_T
     "Medium properties in port_a";
-  Medium.ThermodynamicState sta_b=if allowFlowReversalDis then
+  Medium.ThermodynamicState sta_b = if allowFlowReversalDis then
     Medium.setState_phX(port_b.p,
       noEvent(actualStream(port_b.h_outflow)),
       noEvent(actualStream(port_b.Xi_outflow))) else
@@ -422,8 +420,8 @@ initial equation
     String(QHea_flow_nominal));
 equation
   connect(pumEva.port_a, volMix_a.ports[1])
-    annotation (Line(points={{-110,120},{-262.667,120},{-262.667,-360}},
-                                                           color={0,127,255}));
+    annotation (Line(points={{-110,120},{-200,120},{-200,100},{-264,100},{-264,
+          -130},{-262.667,-130},{-262.667,-360}},          color={0,127,255}));
   connect(senMasFloHeaWat.m_flow, hysWitHol.u) annotation (Line(points={{-220,349},
           {-220,280},{-212,280}}, color={0,0,127}));
   connect(TSetHeaWat, heaPum.TSet) annotation (Line(points={{-300,200},{20,200},
@@ -539,19 +537,14 @@ equation
           -80},{-24,-80},{-24,-100},{-2,-100}},       color={0,127,255}));
   connect(decChiWat.ports_b[2], volChiWat.ports[3]) annotation (Line(points={{2,-100},
           {0,-100},{0,-160},{-195.333,-160}},      color={0,127,255}));
-  connect(port_a, switchBox.port_aSup) annotation (Line(points={{-280,-400},{-4,
-          -400},{-4,-390}}, color={0,127,255}));
-  connect(switchBox.port_bRet, port_b) annotation (Line(points={{4,-390},{4,-400},
-          {280,-400}}, color={0,127,255}));
-  connect(volMix_a.ports[2], switchBox.port_bSup) annotation (Line(points={{-260,
-          -360},{-4,-360},{-4,-370}}, color={0,127,255}));
-  connect(switchBox.port_aRet, volMix_b.ports[2]) annotation (Line(points={{4,-370},
-          {4,-360},{260,-360}}, color={0,127,255}));
-  connect(pum1HexChi.m_flow_actual, switchBox.mFreCoo_flow) annotation (Line(
-        points={{109,-255},{109,-254},{100,-254},{100,-340},{-20,-340},{-20,-383.2},
-          {-11.2,-383.2}}, color={0,0,127}));
-  connect(pumEva.m_flow_actual, switchBox.mSpaHea_flow) annotation (Line(points={{-89,125},
-          {-40,125},{-40,-375.2},{-11.2,-375.2}},     color={0,0,127}));
+  connect(port_a, switchBoxCheck.port_aSup) annotation (Line(points={{-280,-400},
+          {-4,-400},{-4,-390}}, color={0,127,255}));
+  connect(switchBoxCheck.port_bRet, port_b) annotation (Line(points={{4,-390},{4,
+          -400},{280,-400}}, color={0,127,255}));
+  connect(volMix_a.ports[2], switchBoxCheck.port_bSup) annotation (Line(points={
+          {-260,-360},{-4,-360},{-4,-370}}, color={0,127,255}));
+  connect(switchBoxCheck.port_aRet, volMix_b.ports[2]) annotation (Line(points={
+          {4,-370},{4,-360},{260,-360}}, color={0,127,255}));
   connect(volMix_b.ports[3], pum1HexChi.port_a) annotation (Line(points={{262.667,
           -360},{262,-360},{262,-260},{130,-260}}, color={0,127,255}));
   connect(hexChi.port_b1, volMix_a.ports[3]) annotation (Line(points={{-10,-260},
@@ -625,4 +618,4 @@ This is for
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="Add minimum pump flow rate")}));
-end ETSSimplified;
+end ETSSimplifiedSwitchCheck;
