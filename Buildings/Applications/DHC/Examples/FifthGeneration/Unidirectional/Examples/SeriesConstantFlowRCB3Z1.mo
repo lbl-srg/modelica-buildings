@@ -3,7 +3,7 @@ model SeriesConstantFlowRCB3Z1
   "Example of series connection with constant district water mass flow rate, 3 RC building models (1 zone)"
   // allowFlowReversal must be true when using a switch box with valve due to leakage flow.
   extends BaseClasses.PartialSeries(
-    allowFlowReversal=true,
+    allowFlowReversal=false,
     nBui=3,
     weaPat=
     "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos",
@@ -15,7 +15,7 @@ model SeriesConstantFlowRCB3Z1
   Loads.BuildingRCZ1WithETS bui[nBui](
     redeclare each final package Medium = Medium,
     each allowFlowReversalBui=false,
-    each allowFlowReversalDis=true)
+    each allowFlowReversalDis=false)
     annotation (Placement(transformation(extent={{-10,170},{10,190}})));
   Modelica.Blocks.Sources.Constant massFlowMainPump(
     k=datDes.mDis_flow_nominal)

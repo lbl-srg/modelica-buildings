@@ -151,9 +151,15 @@ model FlowDistribution "Model of hydraulic distribution system"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear val(
     redeclare package Medium = Medium,
-    portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
-    portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Entering,
+    portFlowDirection_1=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
+      Modelica.Fluid.Types.PortFlowDirection.Entering,
+    portFlowDirection_2=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
+      Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    portFlowDirection_3=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
+      Modelica.Fluid.Types.PortFlowDirection.Entering,
     dpValve_nominal=1/9*dp_nominal,
     use_inputFilter=false,
     m_flow_nominal=m_flow_nominal,
