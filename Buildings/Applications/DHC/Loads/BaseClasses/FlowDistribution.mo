@@ -193,9 +193,15 @@ model FlowDistribution "Model of hydraulic distribution system"
     annotation (Placement(transformation(extent={{46,-10},{66,10}})));
   Buildings.Fluid.FixedResistances.Junction spl(
     redeclare package Medium=Medium,
-    portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
-    portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    portFlowDirection_1=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
+      Modelica.Fluid.Types.PortFlowDirection.Entering,
+    portFlowDirection_2=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
+      Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    portFlowDirection_3=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
+      Modelica.Fluid.Types.PortFlowDirection.Leaving,
     m_flow_nominal=m_flow_nominal*{1,1,1},
     dp_nominal=0*{1,1,1},
     energyDynamics=energyDynamics,

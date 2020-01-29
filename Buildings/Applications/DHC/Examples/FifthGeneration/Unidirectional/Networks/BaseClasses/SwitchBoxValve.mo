@@ -92,8 +92,8 @@ equation
   connect(port_bSup, splSup.port_2)
     annotation (Line(points={{-40,100},{-40,50}}, color={0,127,255}));
   connect(mFreCoo_flow, con.mFreCoo_flow)
-    annotation (Line(points={{-120,-40},{-108,-40},{-108,-38},{-96,-38},{-96,-8},
-          {-92,-8}},                  color={0,0,127}));
+    annotation (Line(points={{-120,-40},{-96,-40},{-96,-8},{-92,-8}},
+                                      color={0,0,127}));
   connect(mSpaHea_flow, con.mSpaHea_flow)
     annotation (Line(points={{-120,40},{-96,40},{-96,8},{-92,8}},
                                       color={0,0,127}));

@@ -3,6 +3,9 @@ model BuildingETSConnection
   "Validation of building and ETS connection"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water "Medium model";
+  parameter Boolean allowFlowReversalDis = false
+    "Set to true to allow flow reversal on the district side"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     nPorts=1)
@@ -37,8 +40,8 @@ model BuildingETSConnection
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
   Loads.BuildingSpawnZ6WithETS bui(
     redeclare final package Medium = Medium,
-    allowFlowReversalBui=false,
-    allowFlowReversalDis=true)
+    final allowFlowReversalBui=false,
+    final allowFlowReversalDis=allowFlowReversalDis)
     "Model of a building with an energy transfer station"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
 equation

@@ -624,5 +624,8 @@ This is for
           extent={{-106,-16},{-38,-44}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="Add minimum pump flow rate")}));
+          textString="Add minimum pump flow rate"), Text(
+          extent={{-152,-422},{174,-444}},
+          lineColor={28,108,200},
+          textString="allowFlowReversal for pumps")}));
 end ETSSimplified;
