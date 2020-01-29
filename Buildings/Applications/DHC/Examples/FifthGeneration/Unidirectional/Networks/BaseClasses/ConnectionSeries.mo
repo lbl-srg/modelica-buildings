@@ -113,7 +113,7 @@ model ConnectionSeries "Model for connecting an agent to the DHC system"
     annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},
       rotation=90,
-      origin={-40,-10})));
+      origin={-40,0})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTConSup(
     allowFlowReversal=allowFlowReversal,
     redeclare package Medium=Medium,
@@ -162,7 +162,7 @@ protected
     "Specific heat capacity of medium at default medium state";
 equation
   connect(junConSup.port_3, pipCon.port_a)
-    annotation (Line(points={{-40,-30},{-40,-20}}, color={0,127,255}));
+    annotation (Line(points={{-40,-30},{-40,-10}}, color={0,127,255}));
   connect(pipDis.port_b, junConSup.port_1)
     annotation (Line(points={{-60,-40},{-50,-40}}, color={0,127,255}));
   connect(port_bCon, senTConSup.port_b)
@@ -176,7 +176,7 @@ equation
   connect(senMasFloCon.m_flow, mCon_flow)
     annotation (Line(points={{-29,40},{120,40}}, color={0,0,127}));
   connect(pipCon.port_b, senMasFloCon.port_a)
-    annotation (Line(points={{-40,0},{-40,30}}, color={0,127,255}));
+    annotation (Line(points={{-40,10},{-40,30}},color={0,127,255}));
   connect(QCal_flow.y, Q_flow)
     annotation (Line(points={{81,80},{120,80}}, color={0,0,127}));
   connect(port_aDis, pipDis.port_a)
