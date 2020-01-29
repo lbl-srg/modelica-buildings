@@ -1,9 +1,9 @@
 within Buildings.Examples.DistrictReservoirNetworks.Examples;
-model Reservoir3Variable_TOUGH
+model Reservoir3Variable_StepCompare
   "Reservoir network with optimized controller"
   extends Modelica.Icons.Example;
   extends
-    Buildings.Examples.DistrictReservoirNetworks.Examples.BaseClasses.RN_BaseModel_TOUGH(
+    Buildings.Examples.DistrictReservoirNetworks.Examples.BaseClasses.RN_BaseModel_StepCompare(
   datDes(
       mDisPip_flow_nominal=69.5,
       RDisPip=250,
@@ -48,11 +48,11 @@ equation
     annotation (Line(points={{50,-428},{50,-230},{40,-230}}, color={0,0,127}));
   annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-320,-480},{380,360}})),
-          __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/DistrictReservoirNetworks/Examples/Reservoir3Variable_TOUGH.mos"
+          __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/DistrictReservoirNetworks/Examples/Reservoir3Variable_StepCompare.mos"
         "Simulate and plot"),
     experiment(
-      StopTime=1000020,
+      StopTime=31536000,
       __Dymola_NumberOfIntervals=8760,
       Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"));
-end Reservoir3Variable_TOUGH;
+end Reservoir3Variable_StepCompare;
