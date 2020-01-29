@@ -115,9 +115,9 @@ def doStep(dblInp, state):
 '''
 def empty_folder(folder):
     # empty the 'toughTemp' folder
-    touTmpFil = os.listdir(tou_tmp)
+    touTmpFil = os.listdir(folder)
     for f in touTmpFil:
-        os.remove(os.path.join(tou_tmp, f))
+        os.remove(os.path.join(folder, f))
 
 ''' Create working directory
 '''
