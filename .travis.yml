@@ -3,7 +3,7 @@ sudo: false
 
 language: python
 python:
-  - "2.7"
+  - "3.6"
 
 cache: pip
 
@@ -38,26 +38,26 @@ before_install:
 # the html output may have small formatting differences which causes
 # the test to fail
 install:
-  - pip install --upgrade pip setuptools wheel
-  - pip install --only-binary=numpy,scipy,matplotlib numpy==1.13.3 scipy==0.19.1 matplotlib==2.1.0
-  - pip install sphinx==1.8.2 \
-      sphinx-bootstrap-theme==0.6.5 \
-      sphinxcontrib-bibtex==0.4.0 \
-      sphinxcontrib-plantuml==0.12 \
+  - pip3 install --upgrade pip setuptools wheel
+  - pip3 install --only-binary=numpy,scipy,matplotlib numpy==1.13.3 scipy==0.19.1 matplotlib==2.1.0
+  - pip3 install sphinx==2.1.2 \
+      sphinx-bootstrap-theme==0.7.1 \
+      sphinxcontrib-bibtex==0.4.2 \
+      sphinxcontrib-plantuml==0.17 \
       alabaster==0.7.12 \
-      MarkupSafe==1.1.0 \
-      Pygments==2.3.1 \
-      snowballstemmer==1.2.1 \
-      docutils==0.14 \
-      Babel==2.6.0 \
-      requests==2.20.1 \
-      Jinja2==2.10 \
-      latexcodec==1.0.5 \
-      pybtex==0.21
+      MarkupSafe==1.1.1 \
+      Pygments==2.4.2 \
+      snowballstemmer==1.9.0 \
+      docutils==0.15.2 \
+      Babel==2.7.0 \
+      requests==2.22.0 \
+      Jinja2==2.10.1 \
+      latexcodec==1.0.7 \
+      pybtex==0.22.2
       pybtex-docutils==0.2.1 \
       oset==0.1.3 \
-      PyYAML==3.13
-  - pip install git+https://github.com/lbl-srg/BuildingsPy@master
+      PyYAML==5.1.2
+  - pip3 install git+https://github.com/lbl-srg/BuildingsPy@master
 
 # Execute tests
 script:
