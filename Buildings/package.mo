@@ -7671,7 +7671,7 @@ The following people have directly contributed to the implementation of the Buil
 </li>
 <li>Hagar Elarga, Lawrence Berkeley National Laboratory, USA
 </li>
-<li>Yangyang Fu, University of Colorado at Boulder, Colorado, USA
+<li>Yangyang Fu, University of Colorado Boulder, Colorado, USA
 </li>
 <li>Antoine Gautier, Lawrence Berkeley National Laboratory, USA
 </li>
@@ -7682,6 +7682,8 @@ The following people have directly contributed to the implementation of the Buil
 <li>Peter Grant, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Brandon M. Hencey, Cornell University, USA
+</li>
+<li>Kathryn Hinkelman, University of Colorado Boulder, Colorado, USA
 </li>
 <li>Jianjun Hu, Lawrence Berkeley National Laboratory, USA
 </li>
@@ -7725,7 +7727,7 @@ The following people have directly contributed to the implementation of the Buil
 </li>
 <li>Kun Zhang, Lawrence Berkeley National Laboratory, USA
 </li>
-<li>Wangda Zuo, University of Colorado at Boulder, Colorado, USA
+<li>Wangda Zuo, University of Colorado Boulder, Colorado, USA
 </li>
 </ul>
 </html>"));
