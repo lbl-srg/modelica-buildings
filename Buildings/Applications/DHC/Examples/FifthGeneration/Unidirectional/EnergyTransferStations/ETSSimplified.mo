@@ -311,7 +311,7 @@ model ETSSimplified
     "Outputs true in case of cooling request from the building"
     annotation (Placement(transformation(extent={{-214,-10},{-194,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai2(k=m1HexChi_flow_nominal)
-    annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
+    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTConLvg(
     redeclare final package Medium = Medium,
     allowFlowReversal=allowFlowReversalBui,
@@ -416,6 +416,11 @@ model ETSSimplified
       port_b.h_outflow,
       port_b.Xi_outflow) if  show_T
     "Medium properties in port_b";
+  Buildings.Controls.OBC.CDL.Continuous.Product swiOff
+    "Switch off the pump in case of no cooling request"
+    annotation (Placement(transformation(extent={{-134,-10},{-114,10}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1
+    annotation (Placement(transformation(extent={{-170,20},{-150,40}})));
 initial equation
   assert(QCoo_flow_nominal > 0,
     "In " + getInstanceName() +
@@ -566,10 +571,16 @@ equation
           0,127}));
   connect(have_reqCoo.y, conTChiWat.trigger) annotation (Line(points={{-192,0},
           {-188,0},{-188,-20},{-168,-20},{-168,-12}}, color={255,0,255}));
-  connect(conTChiWat.y, gai2.u)
-    annotation (Line(points={{-148,0},{-142,0}}, color={0,0,127}));
+  connect(booToRea1.y, swiOff.u1) annotation (Line(points={{-148,30},{-140,30},
+          {-140,6},{-136,6}}, color={0,0,127}));
+  connect(have_reqCoo.y, booToRea1.u) annotation (Line(points={{-192,0},{-188,0},
+          {-188,30},{-172,30}}, color={255,0,255}));
+  connect(swiOff.y, gai2.u)
+    annotation (Line(points={{-112,0},{-102,0}}, color={0,0,127}));
+  connect(conTChiWat.y, swiOff.u2) annotation (Line(points={{-148,0},{-140,0},{
+          -140,-6},{-136,-6}}, color={0,0,127}));
   connect(gai2.y, pum1HexChi.m_flow_in)
-    annotation (Line(points={{-118,0},{120,0},{120,-248}}, color={0,0,127}));
+    annotation (Line(points={{-78,0},{120,0},{120,-248}}, color={0,0,127}));
   annotation (
   defaultComponentName="ets",
   Documentation(info="<html>

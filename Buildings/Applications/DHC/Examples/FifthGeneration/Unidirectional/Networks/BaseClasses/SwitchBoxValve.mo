@@ -74,7 +74,7 @@ model SwitchBoxValve
     use_inputFilter=false,
     m_flow_nominal=m_flow_nominal,
     linearized={true,true},
-    energyDynamics=energyDynamics)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Directional valve"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}}, origin={-40,0},
      rotation=-90)));
@@ -84,7 +84,7 @@ model SwitchBoxValve
     use_inputFilter=false,
     m_flow_nominal=m_flow_nominal,
     linearized={true,true},
-    energyDynamics=energyDynamics)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Directional valve"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},origin={40,-40},
       rotation=-90)));

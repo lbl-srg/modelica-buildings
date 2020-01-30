@@ -1,8 +1,6 @@
 within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Examples;
 model SeriesConstantFlowSpawnB3Z6
   "Example of series connection with constant district water mass flow rate, 3 Spawn building models (6 zones)"
-  // allowFlowReversal must be true when using a switch box with valve due to leakage flow.
-  // Same with allowFlowReversalDis below.
   extends BaseClasses.PartialSeries(
     final allowFlowReversal=allowFlowReversalDis,
     nBui=3,

@@ -10,7 +10,6 @@ model SeriesConstantFlowTimeSeriesB3
       mCon_flow_nominal={
         max(bui[i].ets.m1HexChi_flow_nominal, bui[i].ets.mEva_flow_nominal) for i in 1:nBui},
       epsPla=0.935));
-  // allowFlowReversalDis must be true when using a switch box with valves due to leakage flow.
   parameter Boolean allowFlowReversalDis = false
     "Set to true to allow flow reversal on the district side"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
