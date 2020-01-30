@@ -890,7 +890,7 @@ Stanke, D., 2010. <i>Dynamic Reset for Multiple-Zone Systems.</i> ASHRAE Journal
 January 30, 2020, by Michael Wetter:<br/>
 Removed the use of <code>fill</code> when assigning the <code>unit</code> attribute.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1728">#1728</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1728\">#1728</a>.
 </li>
 <li>
 July 23, 2019, by Michael Wetter:<br/>
