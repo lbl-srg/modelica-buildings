@@ -22,7 +22,8 @@ partial model PartialSeries "Partial model for series network"
         origin={-130,-80})));
   Networks.BaseClasses.Pump_m_flow pumDis(
     redeclare final package Medium = Medium,
-    m_flow_nominal=datDes.mDis_flow_nominal)
+    m_flow_nominal=datDes.mDis_flow_nominal,
+    final allowFlowReversal=allowFlowReversal)
     "Distribution pump"
     annotation (Placement(transformation(
       extent={{10,-10},{-10,10}},

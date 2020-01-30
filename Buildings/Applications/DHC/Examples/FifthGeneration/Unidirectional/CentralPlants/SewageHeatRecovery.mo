@@ -58,10 +58,10 @@ model SewageHeatRecovery "Model for sewage heat recovery plant"
         origin={-110,40})));
   // COMPONENTS
   Fluid.HeatExchangers.ConstantEffectiveness hex(
-    redeclare package Medium1=Medium,
-    redeclare package Medium2=Medium,
-    allowFlowReversal1=allowFlowReversal,
-    allowFlowReversal2=allowFlowReversal,
+    redeclare final package Medium1=Medium,
+    redeclare final package Medium2=Medium,
+    final allowFlowReversal1=allowFlowReversal,
+    final allowFlowReversal2=allowFlowReversal,
     m1_flow_nominal=mSew_flow_nominal,
     m2_flow_nominal=mDis_flow_nominal,
     dp1_nominal=dpSew_nominal,
@@ -74,9 +74,10 @@ model SewageHeatRecovery "Model for sewage heat recovery plant"
         rotation=0,
         origin={0,6})));
   Networks.BaseClasses.Pump_m_flow pumDis(
-    redeclare package Medium=Medium,
+    redeclare final package Medium=Medium,
     m_flow_nominal=mDis_flow_nominal,
-    dp_nominal=dpDis_nominal)
+    dp_nominal=dpDis_nominal,
+    final allowFlowReversal=allowFlowReversal)
     "District water pump"
     annotation (Placement(
         transformation(
@@ -84,7 +85,7 @@ model SewageHeatRecovery "Model for sewage heat recovery plant"
         rotation=0,
         origin={40,-20})));
   Fluid.Sources.Boundary_pT souSew(
-    redeclare package Medium = Medium,
+    redeclare final package Medium = Medium,
     use_T_in=true,
     nPorts=2)
     "Source of sewage water"
@@ -93,9 +94,10 @@ model SewageHeatRecovery "Model for sewage heat recovery plant"
       rotation=0,
       origin={-70,60})));
   Networks.BaseClasses.Pump_m_flow pumSew(
-    redeclare package Medium=Medium,
+    redeclare final package Medium=Medium,
     m_flow_nominal=mSew_flow_nominal,
-    dp_nominal=dpSew_nominal)
+    dp_nominal=dpSew_nominal,
+    final allowFlowReversal=allowFlowReversal)
     "Sewage water pump"
     annotation (Placement(
         transformation(

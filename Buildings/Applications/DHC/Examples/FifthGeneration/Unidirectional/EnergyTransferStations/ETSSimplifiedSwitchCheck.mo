@@ -215,12 +215,14 @@ model ETSSimplifiedSwitchCheck
     annotation (Placement(transformation(extent={{10,116},{-10,136}})));
   Networks.BaseClasses.Pump_m_flow pumEva(
     redeclare final package Medium = Medium,
-    final m_flow_nominal=mEva_flow_nominal)
+    final m_flow_nominal=mEva_flow_nominal,
+    final allowFlowReversal=allowFlowReversalDis)
     "Evaporator pump"
     annotation (Placement(transformation(extent={{-110,110},{-90,130}})));
   Networks.BaseClasses.Pump_m_flow pum1HexChi(
     redeclare final package Medium = Medium,
-    final m_flow_nominal=m1HexChi_flow_nominal)
+    final m_flow_nominal=m1HexChi_flow_nominal,
+    final allowFlowReversal=allowFlowReversalDis)
     "Chilled water HX primary pump"
     annotation (Placement(transformation(extent={{130,-270},{110,-250}})));
   Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hexChi(
@@ -247,8 +249,10 @@ model ETSSimplifiedSwitchCheck
     energyDynamics=mixingVolumeEnergyDynamics)
     "Mixing volume representing building HHW primary"
     annotation (Placement(transformation(extent={{12,220},{32,240}})));
-  Networks.BaseClasses.Pump_m_flow pumCon(redeclare package Medium = Medium,
-      final m_flow_nominal=mCon_flow_nominal) "Condenser pump"
+  Networks.BaseClasses.Pump_m_flow pumCon(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=mCon_flow_nominal,
+    final allowFlowReversal=allowFlowReversalBui) "Condenser pump"
     annotation (Placement(transformation(extent={{110,150},{90,170}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senT2HexChiLvg(
     redeclare final package Medium = Medium,
@@ -286,8 +290,10 @@ model ETSSimplifiedSwitchCheck
     energyDynamics=mixingVolumeEnergyDynamics)
     "Mixing volume representing building CHW primary"
     annotation (Placement(transformation(extent={{-208,-160},{-188,-140}})));
-  Networks.BaseClasses.Pump_m_flow pum2CooHex(redeclare package Medium = Medium,
-      final m_flow_nominal=m2HexChi_flow_nominal)
+  Networks.BaseClasses.Pump_m_flow pum2CooHex(
+    redeclare package Medium = Medium,
+    final m_flow_nominal=m2HexChi_flow_nominal,
+    final allowFlowReversal=allowFlowReversalBui)
     "Chilled water HX secondary pump"
     annotation (Placement(transformation(extent={{-110,-230},{-90,-210}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFloChiWat(

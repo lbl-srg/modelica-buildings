@@ -39,7 +39,7 @@ model SwitchBoxPump "Model for mass flow rate redirection with pumps"
   Modelica.Fluid.Interfaces.FluidPort_a port_aRet(redeclare package Medium =
         Medium) annotation (Placement(transformation(extent={{30,90},{50,110}}),
         iconTransformation(extent={{30,90},{50,110}})));
-  Controls.ReverseFlowSwitchBoxPump con "Controller for pumps"
+  Controls.ReverseFlowSwitchBoxPump con "Switch box controller"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
   Modelica.Blocks.Interfaces.RealInput mFreCoo_flow(
     final unit="kg/s")
@@ -55,7 +55,6 @@ model SwitchBoxPump "Model for mass flow rate redirection with pumps"
     "Pump electricity consumption"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-10},{120,10}})));
-protected
   Junction splSup3(
     redeclare package Medium = Medium,
     m_flow_nominal={1,1,1}*m_flow_nominal,
@@ -74,14 +73,16 @@ protected
         origin={40,0})));
   BaseClasses.Pump_m_flow pum1(
     redeclare package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal)
+    final m_flow_nominal=m_flow_nominal,
+    final allowFlowReversal=false)
     "Pump" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={0,0})));
   BaseClasses.Pump_m_flow pum2(
     redeclare package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal)
+    final m_flow_nominal=m_flow_nominal,
+    final allowFlowReversal=false)
     "Pump" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,

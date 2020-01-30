@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Examples;
-model SeriesConstantFlowRCB3Z1
-  "Example of series connection with constant district water mass flow rate, 3 RC building models (1 zone)"
+model SeriesConstantFlowTimeSeriesB3
+  "Example of series connection with constant district water mass flow rate, 3 time series building load models"
   extends BaseClasses.PartialSeries(
     final allowFlowReversal=allowFlowReversalDis,
     nBui=3,
@@ -74,7 +74,7 @@ equation
   coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{360,260}})),
   __Dymola_Commands,
   experiment(
-      StopTime=3728000,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"));
-end SeriesConstantFlowRCB3Z1;
+    StopTime=172800,
+    Tolerance=1e-06,
+    __Dymola_Algorithm="Cvode"));
+end SeriesConstantFlowTimeSeriesB3;

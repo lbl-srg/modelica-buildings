@@ -39,7 +39,8 @@ partial model PartialParallel "Partial model for parallel network"
       origin={112,-20})));
   Networks.BaseClasses.Pump_m_flow pumSto(
     redeclare final package Medium=Medium,
-    m_flow_nominal=datDes.mSto_flow_nominal)
+    m_flow_nominal=datDes.mSto_flow_nominal,
+    final allowFlowReversal=allowFlowReversal)
     "Bore field pump"
     annotation (
       Placement(transformation(

@@ -1,4 +1,4 @@
 within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Networks.BaseClasses;
 model SwitchBox
-  extends SwitchBoxValve;
+  extends SwitchBoxPump;
 end SwitchBox;
