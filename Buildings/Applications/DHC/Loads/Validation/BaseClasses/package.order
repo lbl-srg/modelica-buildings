@@ -1,10 +1,9 @@
 BuildingTimeSeries
-BuildingRCZ1
 BuildingRCZ1HeatPort
-BuildingRCZ1PumpValve
-BuildingRCZ6Pump
+BuildingRCZ1Valve
+BuildingRCZ6
 BuildingSpawnZ1
-BuildingSpawnZ6Pump
+BuildingSpawnZ6
 Terminal4PipesFluidPorts
 Terminal4PipesHeatPorts
 Terminal4PipesHeatReq

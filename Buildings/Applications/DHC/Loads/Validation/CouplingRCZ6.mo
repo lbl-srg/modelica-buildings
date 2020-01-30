@@ -1,10 +1,17 @@
 within Buildings.Applications.DHC.Loads.Validation;
-model CouplingSpawnZ6Pump
-  "Example illustrating the coupling of a multizone Spawn model to a fluid loop"
+model CouplingRCZ6
+  "Example illustrating the coupling of a multizone RC model to a fluid loop"
   extends Modelica.Icons.Example;
-  package Medium1 = Buildings.Media.Water
-    "Source side medium";
-  BaseClasses.BuildingSpawnZ6Pump bui(nPorts_a=2, nPorts_b=2)
+  package Medium1 = Buildings.Media.Water "Fluid in the pipes";
+  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
+    calTSky=Buildings.BoundaryConditions.Types.SkyTemperatureCalculation.HorizontalRadiation,
+    computeWetBulbTemperature=false,
+    filNam=Modelica.Utilities.Files.loadResource(
+    "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
+    "Weather data reader"
+    annotation (Placement(transformation(extent={{60,20},{40,40}})));
+  BaseClasses.BuildingRCZ6 bui(nPorts_a=2, nPorts_b=2)
+    "Building"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Buildings.Fluid.Sources.Boundary_pT sinHeaWat(redeclare package Medium =
         Medium1, nPorts=1) "Sink for heating water" annotation (Placement(
@@ -12,7 +19,7 @@ model CouplingSpawnZ6Pump
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={130,0})));
-  Buildings.Fluid.Sources.Boundary_pT sinChiWat(redeclare package Medium =
+  Buildings.Fluid.Sources.Boundary_pT sinChilWat(redeclare package Medium =
         Medium1, nPorts=1) "Sink for chilled water" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
@@ -39,9 +46,14 @@ model CouplingSpawnZ6Pump
         rotation=0,
         origin={-30,-60})));
 equation
+  connect(weaDat.weaBus, bui.weaBus)
+  annotation (Line(
+      points={{40,30},{30,30},{30,-8.6},{50.1,-8.6}},
+      color={255,204,51},
+      thickness=0.5));
   connect(bui.ports_b[1], sinHeaWat.ports[1]) annotation (Line(points={{80,-50},
           {100,-50},{100,0},{120,0}}, color={0,127,255}));
-  connect(bui.ports_b[2], sinChiWat.ports[1]) annotation (Line(points={{80,-46},
+  connect(bui.ports_b[2], sinChilWat.ports[1]) annotation (Line(points={{80,-46},
           {100,-46},{100,-60},{120,-60}}, color={0,127,255}));
   connect(supHeaWat.T_in, THeaWatSup.y) annotation (Line(points={{-42,4},{-60,4},
           {-60,0},{-79,0}}, color={0,0,127}));
@@ -52,10 +64,6 @@ equation
   connect(supChiWat.ports[1], bui.ports_a[2]) annotation (Line(points={{-20,-60},
           {0,-60},{0,-46},{20,-46}}, color={0,127,255}));
   annotation (
-  experiment(
-      StopTime=604800,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
   Documentation(info="<html>
   <p>
   This example illustrates the use of
@@ -68,13 +76,12 @@ equation
   </p>
   </html>"),
   Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{140,40}}),
-        graphics={Text(
-          extent={{-28,36},{104,10}},
-          lineColor={28,108,200},
-          textString="Simulation requires
-Hidden.AvoidDoubleComputation=true")}),
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{140,60}})),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/CouplingSpawnZ6Pump.mos"
-        "Simulate and plot"));
-end CouplingSpawnZ6Pump;
+          "Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/CouplingRCZ6.mos"
+        "Simulate and plot"),
+    experiment(
+      StopTime=604800,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"));
+end CouplingRCZ6;

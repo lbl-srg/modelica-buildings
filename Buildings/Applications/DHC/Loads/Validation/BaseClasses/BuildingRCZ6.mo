@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.Loads.Validation.BaseClasses;
-model BuildingRCZ6Pump
+model BuildingRCZ6
   "RC building model (6 zones) based on URBANopt GeoJSON export, with distribution pumps"
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
     redeclare package Medium = Buildings.Media.Water,
@@ -25,10 +25,6 @@ model BuildingRCZ6Pump
             200},{-280,220}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC2[nZon]
     annotation (Placement(transformation(extent={{-260,200},{-240,220}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum1(nin=nZon)
-    annotation (Placement(transformation(extent={{240,270},{260,290}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum2(nin=nZon)
-    annotation (Placement(transformation(extent={{240,230},{260,250}})));
   GeojsonExportRC.B5a6b99ec37f4de7f94020090.Office office
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
   GeojsonExportRC.B5a6b99ec37f4de7f94020090.Floor floor
@@ -106,15 +102,6 @@ equation
           -84},{-220,-84},{-220,-58.3333},{-200,-58.3333}}, color={0,127,255}));
   connect(disFloCoo.ports_b1, terUni.port_aChiWat) annotation (Line(points={{-140,
           -144},{-240,-144},{-240,-56.6667},{-200,-56.6667}}, color={0,127,255}));
-  connect(terUni.QActHea_flow, mulSum1.u) annotation (Line(points={{-179.167,
-          -43.3333},{-160.584,-43.3333},{-160.584,280},{238,280}},
-                                                      color={0,0,127}));
-  connect(terUni.QActCoo_flow, mulSum2.u) annotation (Line(points={{-179.167,
-          -45},{-160.584,-45},{-160.584,240},{238,240}}, color={0,0,127}));
-  connect(mulSum1.y, QHea_flow) annotation (Line(points={{262,280},{286,280},{
-          286,280},{320,280}}, color={0,0,127}));
-  connect(mulSum2.y, QCoo_flow) annotation (Line(points={{262,240},{284,240},{284,240},
-          {320,240}},          color={0,0,127}));
   connect(weaBus, office.weaBus) annotation (Line(
       points={{1,300},{0,300},{0,20},{-66,20},{-66,-10.2},{-96,-10.2}},
       color={255,204,51},
@@ -201,6 +188,10 @@ equation
           -98},{240,61},{258,61}}, color={0,0,127}));
   connect(disFloCoo.PPum, mulSum.u[2]) annotation (Line(points={{-119,-158},{
           240,-158},{240,59},{258,59}}, color={0,0,127}));
+  connect(disFloHea.QActTot_flow, QHea_flow) annotation (Line(points={{-119,-96},
+          {223.5,-96},{223.5,280},{320,280}}, color={0,0,127}));
+  connect(disFloCoo.QActTot_flow, QCoo_flow) annotation (Line(points={{-119,
+          -156},{230,-156},{230,240},{320,240}}, color={0,0,127}));
   annotation (
   Documentation(info="
   <html>
@@ -211,4 +202,4 @@ equation
   </html>"),
   Diagram(coordinateSystem(extent={{-300,-300},{300,300}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})));
-end BuildingRCZ6Pump;
+end BuildingRCZ6;

@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.Loads.Validation.BaseClasses;
-model BuildingSpawnZ1 "Spawn building model (1 zone)"
+model BuildingSpawnZ1 "Spawn building model (1 zone, no distribution pump)"
   import Buildings;
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
     redeclare package Medium = Buildings.Media.Water,
@@ -122,12 +122,6 @@ equation
   connect(from_degC1.y, terUni.TSetHea) annotation (Line(points={{-238,260},{
           -200,260},{-200,-43.3333},{-160.833,-43.3333}},
                                                      color={0,0,127}));
-  connect(terUni.QActHea_flow, QHea_flow) annotation (Line(points={{-139.167,
-          -43.3333},{-130,-43.3333},{-130,-42},{-120,-42},{-120,280},{320,280}},
-                                                                    color={0,0,127}));
-  connect(terUni.QActCoo_flow, QCoo_flow) annotation (Line(points={{-139.167,
-          -45},{-139.167,-46},{-120,-46},{-120,240},{320,240}},
-                                                           color={0,0,127}));
   connect(terUni.PFan, PFan) annotation (Line(points={{-139.167,-50},{260,-50},
           {260,120},{320,120}}, color={0,0,127}));
   connect(terUni.mReqHeaWat_flow, disFloHea.mReq_flow[1]) annotation (Line(points={{
@@ -140,6 +134,10 @@ equation
           -41.6667},{-172,-41.6667},{-172,-40},{-180,-40},{-180,-19.2},{62,
           -19.2}},                                                        color=
          {0,127,255}));
+  connect(disFloHea.QActTot_flow, QHea_flow) annotation (Line(points={{-99,-116},
+          {238,-116},{238,280},{320,280}}, color={0,0,127}));
+  connect(disFloCoo.QActTot_flow, QCoo_flow) annotation (Line(points={{-99,-156},
+          {242,-156},{242,240},{320,240}}, color={0,0,127}));
   annotation (
   Documentation(info="
   <html>

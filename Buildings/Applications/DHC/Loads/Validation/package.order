@@ -1,9 +1,8 @@
-CouplingRCZ1
 CouplingRCZ1HeatPort
-CouplingRCZ1PumpValve
-CouplingRCZ6Pump
+CouplingRCZ1Valve
+CouplingRCZ6
 CouplingSpawnZ1
-CouplingSpawnZ6Pump
+CouplingSpawnZ6
 CouplingTimeSeries
 FlowDistributionCO
 BaseClasses

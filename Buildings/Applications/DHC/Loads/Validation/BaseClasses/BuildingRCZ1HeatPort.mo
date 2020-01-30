@@ -302,11 +302,6 @@ equation
   connect(from_degC1.y, terUni.TSetHea) annotation (Line(points={{-238,260},{
           -200,260},{-200,-43.3333},{-160.833,-43.3333}},
                                                      color={0,0,127}));
-  connect(terUni.QActHea_flow, QHea_flow) annotation (Line(points={{-139.167,
-          -43.3333},{80.4165,-43.3333},{80.4165,280},{320,280}},
-                                                    color={0,0,127}));
-  connect(terUni.QActCoo_flow, QCoo_flow) annotation (Line(points={{-139.167,
-          -45},{81.4165,-45},{81.4165,240},{320,240}}, color={0,0,127}));
   connect(terUni.mReqHeaWat_flow, disFloHea.mReq_flow[1]) annotation (Line(points={{
           -139.167,-53.3333},{-139.167,-84},{-140,-84},{-140,-114},{-121,-114},
           {-121,-114}},
@@ -314,6 +309,10 @@ equation
   connect(terUni.mReqChiWat_flow, disFloCoo.mReq_flow[1]) annotation (Line(points={{
           -139.167,-55},{-139.167,-106},{-140,-106},{-140,-156},{-121,-156},{
           -121,-154}},  color={0,0,127}));
+  connect(disFloHea.QActTot_flow, QHea_flow) annotation (Line(points={{-99,-116},
+          {240,-116},{240,280},{320,280}}, color={0,0,127}));
+  connect(disFloCoo.QActTot_flow, QCoo_flow) annotation (Line(points={{-99,-156},
+          {244,-156},{244,240},{320,240}}, color={0,0,127}));
   annotation (
   Documentation(info="<html>
   <p>

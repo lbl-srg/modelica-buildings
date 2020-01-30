@@ -6,6 +6,7 @@ model CouplingSpawnZ1
     "Source side medium";
   Buildings.Applications.DHC.Loads.Validation.BaseClasses.BuildingSpawnZ1 bui(
     nPorts_a=2, nPorts_b=2)
+    "Building"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Buildings.Fluid.Sources.MassFlowSource_T supHeaWat(
     use_m_flow_in=true,

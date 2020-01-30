@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.Loads.Validation.BaseClasses;
-model BuildingSpawnZ6Pump
+model BuildingSpawnZ6
   "Spawn building model (6 zones) based on URBANopt GeoJSON export, with distribution pumps"
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
     redeclare package Medium = Buildings.Media.Water,
@@ -75,10 +75,6 @@ model BuildingSpawnZ6Pump
     annotation (Placement(transformation(extent={{30,138},{52,158}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=6)
     annotation (Placement(transformation(extent={{260,110},{280,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum1(nin=nZon)
-    annotation (Placement(transformation(extent={{260,270},{280,290}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum2(nin=nZon)
-    annotation (Placement(transformation(extent={{260,230},{280,250}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum3(nin=2)
     annotation (Placement(transformation(extent={{260,70},{280,90}})));
   Buildings.Applications.DHC.Loads.Validation.BaseClasses.Terminal4PipesFluidPorts
@@ -193,16 +189,6 @@ equation
           {-260,-214},{-260,2},{-140,2}},      color={0,127,255}));
   connect(terUni.port_bChiWat, disFloCoo.ports_a1) annotation (Line(points={{-116,2},
           {-38,2},{-38,-214},{-160,-214}}, color={0,127,255}));
-  connect(mulSum1.y, QHea_flow)
-    annotation (Line(points={{282,280},{320,280}}, color={0,0,127}));
-  connect(mulSum2.y, QCoo_flow)
-    annotation (Line(points={{282,240},{302,240},{302,240},{320,240}},
-                                                   color={0,0,127}));
-  connect(terUni.QActHea_flow, mulSum1.u[1:6]) annotation (Line(points={{-115,18},{
-          -106.5,18},{-106.5,280},{258,280}},      color={0,0,127}));
-  connect(terUni.QActCoo_flow, mulSum2.u) annotation (Line(points={{-115,16},{-108,
-          16},{-108,18},{-100,18},{-100,240},{258,240}},
-                                     color={0,0,127}));
   connect(terUni.mReqChiWat_flow, disFloCoo.mReq_flow) annotation (Line(points={{-115,4},
           {-115,-110.5},{-181,-110.5},{-181,-224}},       color={0,0,127}));
   connect(terUni.mReqHeaWat_flow, disFloHea.mReq_flow) annotation (Line(points={{-115,6},
@@ -219,6 +205,12 @@ equation
           220.5,-186},{220.5,81},{258,81}}, color={0,0,127}));
   connect(disFloCoo.PPum, mulSum3.u[2]) annotation (Line(points={{-159,-228},{
           224,-228},{224,79},{258,79}}, color={0,0,127}));
+  connect(disFloHea.QActTot_flow, QHea_flow) annotation (Line(points={{-215,
+          -184},{-2,-184},{-2,-182},{212,-182},{212,280},{320,280}}, color={0,0,
+          127}));
+  connect(disFloCoo.QActTot_flow, QCoo_flow) annotation (Line(points={{-159,
+          -226},{28,-226},{28,-224},{216,-224},{216,240},{320,240}}, color={0,0,
+          127}));
   annotation (
   Documentation(info="
   <html>
@@ -230,4 +222,4 @@ equation
   Diagram(coordinateSystem(extent={{-300,-300},{300,300}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
           Bitmap(extent={{-108,-100},{92,100}},  fileName="modelica://Buildings/Resources/Images/Experimental/EnergyPlus/EnergyPlusLogo.png")}));
-end BuildingSpawnZ6Pump;
+end BuildingSpawnZ6;

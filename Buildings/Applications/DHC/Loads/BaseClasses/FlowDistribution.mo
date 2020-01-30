@@ -72,7 +72,7 @@ model FlowDistribution "Model of building hydraulic distribution system"
       transformation(
       extent={{-20,-20},{20,20}},
       rotation=0,
-      origin={-120,-80}),
+      origin={-120,-70}),
       iconTransformation(
       extent={{-10,-10},{10,10}},
       rotation=0,
@@ -83,7 +83,7 @@ model FlowDistribution "Model of building hydraulic distribution system"
     annotation (Placement(transformation(
       extent={{-20,-20},{20,20}},
       rotation=0,
-      origin={-120,-140}),
+      origin={-120,-100}),
       iconTransformation(
       extent={{-10,-10},{10,10}},
       rotation=0,
@@ -222,7 +222,7 @@ model FlowDistribution "Model of building hydraulic distribution system"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   MixingValveControl conVal(final disTyp=disTyp) if have_val
     "Mixing valve controller"
-    annotation (Placement(transformation(extent={{-48,-110},{-28,-90}})));
+    annotation (Placement(transformation(extent={{-48,-106},{-28,-86}})));
   // MISCELLANEOUS VARIABLES
   Modelica.SIunits.Temperature TSup(displayUnit="degC") = Medium.temperature(
     state=Medium.setState_phX(
@@ -280,16 +280,16 @@ equation
       annotation (Line(points={{90,0},{100,0}}, color={0,127,255}));
     connect(spl.port_3, val.port_3)
       annotation (Line(points={{80,10},{80,40},{-80,40},{-80,10}}, color={0,127,255}));
-    connect(TSupSet, conVal.TSupSet) annotation (Line(points={{-120,-140},{-92,-140},
-            {-92,-104},{-49,-104}},       color={0,0,127}));
-    connect(TSupVal.y, conVal.TSupMes) annotation (Line(points={{-79,80},{-60,80},
-            {-60,-108},{-49,-108}},     color={0,0,127}));
-    connect(conVal.yVal, val.y) annotation (Line(points={{-27,-100},{-20,-100},
-            {-20,-70},{-80,-70},{-80,-12}}, color={0,0,127}));
+    connect(TSupSet, conVal.TSupSet) annotation (Line(points={{-120,-100},{-49,
+            -100}},                       color={0,0,127}));
+    connect(TSupVal.y, conVal.TSupMes) annotation (Line(points={{-79,80},{-60,
+            80},{-60,-104},{-49,-104}}, color={0,0,127}));
+    connect(conVal.yVal, val.y) annotation (Line(points={{-27,-96},{-20,-96},{
+            -20,-70},{-80,-70},{-80,-12}},  color={0,0,127}));
     if disTyp == typ.ChangeOver then
       connect(modChaOve, conVal.modChaOve)
-        annotation (Line(points={{-120,-80},
-              {-80,-80},{-80,-92},{-49,-92}}, color={255,127,0}));
+        annotation (Line(points={{-120,-70},{-88,-70},{-88,-88},{-49,-88}},
+                                              color={255,127,0}));
     end if;
   else
     connect(heaCoo.port_b, port_b)
@@ -378,6 +378,6 @@ tracking the supply temperature.
         fillColor={0,0,255},
         fillPattern=FillPattern.Solid),
         Rectangle(extent={{-100,100},{100,-100}}, lineColor={95,95,95})}),
-      Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-180},{100,
-            240}})));
+      Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{
+            100,240}})));
 end FlowDistribution;

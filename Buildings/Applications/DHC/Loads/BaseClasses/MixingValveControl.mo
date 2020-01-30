@@ -56,7 +56,7 @@ block MixingValveControl "Controller for the mixing valve"
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea if
     disTyp == typ.ChangeOver
     "Conversion to real"
-    annotation (Placement(transformation(extent={{-70,70},{-50,90}})));
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant tru(k=true)
     "True constant"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
@@ -66,7 +66,7 @@ block MixingValveControl "Controller for the mixing valve"
   Modelica.Blocks.Math.IntegerToBoolean toBoo(threshold=0) if
     disTyp == typ.ChangeOver
     "Conversion to boolean (true if heating mode)"
-    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
+    annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conTSup(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=0.1,
@@ -81,66 +81,71 @@ block MixingValveControl "Controller for the mixing valve"
     annotation (Placement(transformation(extent={{-70,-70},{-50,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Min negPar
     "Negative part of control signal"
-    annotation (Placement(transformation(extent={{-30,-90},{-10,-70}})));
+    annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Max posPar
     "Positive part of control signal"
-    annotation (Placement(transformation(extent={{-30,-50},{-10,-30}})));
+    annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   Buildings.Controls.OBC.CDL.Logical.ZeroCrossing zerCro if
     disTyp == typ.ChangeOver
     "Zero crossing yields true signal"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain opp(k=-1)
     "Opposite value"
-    annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
+    annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     "Logical switch"
-    annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
+    annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
   Modelica.Blocks.Sources.BooleanExpression fixMod(
     final y=disTyp == typ.HeatingWater)
     "Fixed operating mode"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
   if disTyp == typ.ChangeOver then
     connect(modChaOve, intToRea.u)
-      annotation (Line(points={{-120,80},{-72,80}}, color={255,127,0}));
+      annotation (Line(points={{-120,80},{-82,80}}, color={255,127,0}));
     connect(tru.y, zerCro.enable)
       annotation (Line(points={{-18,60},{10,60},{10,68}},
                                                         color={255,0,255}));
     connect(intToRea.y, zerCro.u)
-      annotation (Line(points={{-48,80},{-2,80}},  color={0,0,127}));
+      annotation (Line(points={{-58,80},{-2,80}},  color={0,0,127}));
     connect(modChaOve, toBoo.u)
-      annotation (Line(points={{-120,80},{-90,80},{-90,20},
-          {-42,20}},color={255,127,0}));
+      annotation (Line(points={{-120,80},{-90,80},{-90,20},{-12,20}},
+                    color={255,127,0}));
     connect(toBoo.y, swi.u2)
-      annotation (Line(points={{-19,20},{30,20},{30,-40},{38,-40}},
+      annotation (Line(points={{11,20},{30,20},{30,-40},{58,-40}},
                color={255,0,255}));
     connect(zerCro.y, conTSup.trigger)
       annotation (Line(points={{22,80},{40,80},{40,
           40},{-80,40},{-80,-76},{-68,-76},{-68,-72}}, color={255,0,255}));
   else
     connect(fixMod.y, swi.u2)
-      annotation (Line(points={{-19,0},{30,0},{30,-40},{38,-40}},
+      annotation (Line(points={{11,0},{30,0},{30,-40},{58,-40}},
                      color={255,0,255}));
   end if;
-  connect(conTSup.y, posPar.u2) annotation (Line(points={{-48,-60},{-44,-60},{-44,
-          -46},{-32,-46}}, color={0,0,127}));
-  connect(zer.y, posPar.u1) annotation (Line(points={{-48,-20},{-40,-20},{-40,-34},
-          {-32,-34}}, color={0,0,127}));
-  connect(zer.y, negPar.u1) annotation (Line(points={{-48,-20},{-40,-20},{-40,-74},
-          {-32,-74}}, color={0,0,127}));
-  connect(conTSup.y, negPar.u2) annotation (Line(points={{-48,-60},{-44,-60},{-44,
-          -86},{-32,-86}}, color={0,0,127}));
+  connect(conTSup.y, posPar.u2) annotation (Line(points={{-48,-60},{-20,-60},{
+          -20,-46},{-12,-46}},
+                           color={0,0,127}));
+  connect(zer.y, posPar.u1) annotation (Line(points={{-48,-20},{-40,-20},{-40,
+          -34},{-12,-34}},
+                      color={0,0,127}));
+  connect(zer.y, negPar.u1) annotation (Line(points={{-48,-20},{-40,-20},{-40,
+          -74},{-12,-74}},
+                      color={0,0,127}));
+  connect(conTSup.y, negPar.u2) annotation (Line(points={{-48,-60},{-20,-60},{
+          -20,-86},{-12,-86}},
+                           color={0,0,127}));
   connect(negPar.y, opp.u)
-    annotation (Line(points={{-8,-80},{-2,-80}}, color={0,0,127}));
-  connect(opp.y, swi.u3) annotation (Line(points={{22,-80},{32,-80},{32,-48},{38,
-          -48}}, color={0,0,127}));
-  connect(posPar.y, swi.u1) annotation (Line(points={{-8,-40},{20,-40},{20,-32},
-          {38,-32}}, color={0,0,127}));
+    annotation (Line(points={{12,-80},{18,-80}}, color={0,0,127}));
+  connect(opp.y, swi.u3) annotation (Line(points={{42,-80},{50,-80},{50,-48},{
+          58,-48}},
+                 color={0,0,127}));
+  connect(posPar.y, swi.u1) annotation (Line(points={{12,-40},{20,-40},{20,-32},
+          {58,-32}}, color={0,0,127}));
   connect(conTSup.u_s, TSupSet) annotation (Line(points={{-72,-60},{-90,-60},{-90,
           -40},{-120,-40}}, color={0,0,127}));
   connect(TSupMes, conTSup.u_m) annotation (Line(points={{-120,-80},{-60,-80},{-60,
           -72}}, color={0,0,127}));
-  connect(swi.y, yVal) annotation (Line(points={{62,-40},{92,-40},{92,0},{120,0}},
+  connect(swi.y, yVal) annotation (Line(points={{82,-40},{92,-40},{92,0},{120,0}},
         color={0,0,127}));
 
   annotation (

@@ -1,9 +1,9 @@
-simulateModel("Buildings.Applications.DHC.Loads.Validation.CouplingRCZ6Pump",
+simulateModel("Buildings.Applications.DHC.Loads.Validation.CouplingRCZ6",
     method="cvode",
     tolerance=1e-6,
     numberOfIntervals=500,
     stopTime=604800.0,
-    resultFile="CouplingRCZ6Pump");
+    resultFile="CouplingRCZ6");
 createPlot(
     id=1,
     position={10, 20, 670, 900},
