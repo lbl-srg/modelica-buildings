@@ -121,7 +121,7 @@ model BuildingRCZ1Valve
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC1
     annotation (Placement(transformation(extent={{-260,250},{-240,270}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=24)
-    "Minimum temperature setpoint"
+    "Maximum temperature setpoint"
     annotation (Placement(transformation(extent={{-300,210},{-280,230}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC2
     annotation (Placement(transformation(extent={{-260,210},{-240,230}})));
@@ -131,8 +131,8 @@ model BuildingRCZ1Valve
     terUni(
       redeclare package Medium1 = Medium,
       redeclare package Medium2 = Medium2,
-      QHea_flow_nominal=500,
-      QCoo_flow_nominal=2000,
+      QHea_flow_nominal=1000,
+      QCoo_flow_nominal=-5000,
       T_aLoaHea_nominal=293.15,
       T_aLoaCoo_nominal=297.15,
       T_bHeaWat_nominal=308.15,

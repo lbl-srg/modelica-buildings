@@ -121,7 +121,7 @@ equation
           {0,168}}, color={0,0,127}));
   connect(senTem.T, conTMin.u_m) annotation (Line(points={{120,11},{120,40},{-20,
           40},{-20,200},{0,200},{0,208}}, color={0,0,127}));
-  connect(gaiHeaFloNom.y, scaMasFloReaHeaWat.u) annotation (Line(points={{42,
+  connect(gaiHeaFloNom.y,scaMasFloReqHeaWat.u)  annotation (Line(points={{42,
           220},{100,220},{100,100},{158,100}}, color={0,0,127}));
   connect(gaiCooFloNom.y, scaMasFloReqChiWat.u) annotation (Line(points={{42,
           180},{100,180},{100,80},{158,80}}, color={0,0,127}));

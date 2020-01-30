@@ -25,8 +25,7 @@ model BuildingSpawnZ6
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC1[nZon]
     annotation (Placement(transformation(extent={{-260,250},{-240,270}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet[nZon](
-    k=fill(24, nZon))
-    "Maximum temperature setpoint"
+    k=fill(24, nZon)) "Maximum temperature setpoint"
     annotation (Placement(transformation(extent={{-300,210},{-280,230}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC2[nZon]
     annotation (Placement(transformation(extent={{-260,210},{-240,230}})));
@@ -83,7 +82,7 @@ model BuildingSpawnZ6
       redeclare package Medium2 = Medium2,
       each facSca=facSca,
       QHea_flow_nominal={50000,10000,10000,10000,10000,10000},
-      QCoo_flow_nominal={10000,10000,10000,10000,10000,10000},
+      QCoo_flow_nominal={-10000,-10000,-10000,-10000,-10000,-10000},
       each T_aLoaHea_nominal=293.15,
       each T_aLoaCoo_nominal=297.15,
       each T_bHeaWat_nominal=308.15,

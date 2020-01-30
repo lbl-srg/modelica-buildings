@@ -4,14 +4,14 @@ model ParallelConstantFlowRCB3Z1
   extends BaseClasses.PartialParallel(
     final allowFlowReversal=allowFlowReversalDis,
     nBui=3,
-    weaPat=
-    "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos",
     datDes(
       mCon_flow_nominal={max(bui[i].ets.m1HexChi_flow_nominal, bui[i].ets.mEva_flow_nominal) for i in 1:nBui},
       epsPla=0.935));
   parameter Boolean allowFlowReversalDis = false
     "Set to true to allow flow reversal on the district side"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
+  parameter String weaPat = "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"
+    "Library path of the weather file";
   Modelica.Blocks.Sources.Constant massFlowMainPump(
     k=datDes.mDisPum_flow_nominal)
     "Distribution pump mass flow rate"

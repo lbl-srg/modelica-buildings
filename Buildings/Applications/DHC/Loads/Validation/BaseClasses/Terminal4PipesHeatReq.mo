@@ -36,8 +36,9 @@ model Terminal4PipesHeatReq
     "Ratio of capacity flow rates (CMin/CMax) at nominal conditions";
   final parameter Modelica.SIunits.ThermalConductance UA_nominal[nFun]=
     Buildings.Fluid.HeatExchangers.BaseClasses.ntu_epsilonZ(
-      eps={QHea_flow_nominal,QCoo_flow_nominal} ./ abs(CMin_nominal .*
-        ({T_aHeaWat_nominal,T_aChiWat_nominal} .- {T_aLoaHea_nominal,T_aLoaCoo_nominal})),
+      eps=abs({QHea_flow_nominal, QCoo_flow_nominal}) ./ abs(CMin_nominal .*
+        ({T_aHeaWat_nominal, T_aChiWat_nominal} .-
+        {T_aLoaHea_nominal, T_aLoaCoo_nominal})),
       Z=0,
       flowRegime=Integer(hexReg)) .* CMin_nominal
     "Thermal conductance at nominal conditions";
@@ -53,8 +54,8 @@ model Terminal4PipesHeatReq
     reverseAction={false,true},
     each yMin=0) "PI controller tracking the required heat flow rate"
     annotation (Placement(transformation(extent={{10,210},{30,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gaiFloNom[nFun](k={
-        mHeaWat_flow_nominal,mChiWat_flow_nominal})
+  Buildings.Controls.OBC.CDL.Continuous.Gain gaiFloNom[nFun](
+    k={mHeaWat_flow_nominal,mChiWat_flow_nominal})
     annotation (Placement(transformation(extent={{60,210},{80,230}})));
   Buildings.Applications.DHC.Loads.BaseClasses.HeatFlowEffectivenessNTU hexHeaCoo[nFun](
     final flowRegime=hexReg,
@@ -64,8 +65,8 @@ model Terminal4PipesHeatReq
     final cp2_nominal={cpLoaHea_nominal,cpLoaCoo_nominal})
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.RealExpression UAAct[nFun](y=1 ./ (1 ./ (
-        UAInt_nominal .* Buildings.Utilities.Math.Functions.regNonZeroPower(
-        senMasFlo.m_flow ./ {mHeaWat_flow_nominal,mChiWat_flow_nominal}, expUA)) .+ 1 ./ UAExt_nominal))
+    UAInt_nominal .* Buildings.Utilities.Math.Functions.regNonZeroPower(
+    senMasFlo.m_flow ./ {mHeaWat_flow_nominal,mChiWat_flow_nominal}, expUA)) .+ 1 ./ UAExt_nominal))
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo[nFun](
     redeclare each final package Medium=Medium1)
@@ -80,10 +81,10 @@ model Terminal4PipesHeatReq
     each final Q_flow_nominal=-1) "Heat exchange with water stream"
     annotation (Placement(transformation(extent={{60,-210},{80,-190}})));
   Buildings.Applications.DHC.Loads.BaseClasses.FirstOrderODE TLoaODE[nFun](
-    each TOutHea_nominal=268.15,
-    TIndHea_nominal={293.15,297.15},
-    each QHea_flow_nominal=500,
-    Q_flow_nominal={500,-2000})
+    each TOutHea_nominal=273.15 - 5,
+    TIndHea_nominal={T_aLoaHea_nominal, T_aLoaCoo_nominal},
+    each QHea_flow_nominal=QHea_flow_nominal,
+    Q_flow_nominal={QHea_flow_nominal, QCoo_flow_nominal})
     annotation (Placement(transformation(extent={{-60,170},{-40,190}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TChiWatInl(
     redeclare final package Medium = Medium1,
@@ -113,8 +114,8 @@ equation
                              color={0,0,127}));
   connect(TLoaODE.TInd, hexHeaCoo.T2Inl) annotation (Line(points={{-38,180},{-20,
           180},{-20,-8},{-12,-8}}, color={0,0,127}));
-  connect(hexHeaCoo.Q_flow, TLoaODE.QAct_flow) annotation (Line(points={{12,0},
-          {20,0},{20,160},{-80,160},{-80,172},{-62,172}}, color={0,0,127}));
+  connect(hexHeaCoo.Q_flow, TLoaODE.QAct_flow) annotation (Line(points={{12,0},{
+          20,0},{20,160},{-80,160},{-80,172},{-62,172}},  color={0,0,127}));
   connect(hexHeaCoo.Q_flow, conQ_flowReq.u_m) annotation (Line(points={{12,0},{20,
           0},{20,208}},                    color={0,0,127}));
   connect(heaCoo[1].port_b, port_bHeaWat) annotation (Line(points={{80,-200},{140,
@@ -140,14 +141,14 @@ equation
           0}},                                              color={0,0,127}));
   connect(TChiWatInl.T, hexHeaCoo[2].T1Inl)
     annotation (Line(points={{-180,-169},{-180,0},{-12,0}}, color={0,0,127}));
-  connect(gaiFloNom[1].y, scaMasFloReaHeaWat.u) annotation (Line(points={{82,
+  connect(gaiFloNom[1].y,scaMasFloReqHeaWat.u)  annotation (Line(points={{82,
           220},{120,220},{120,100},{158,100}}, color={0,0,127}));
   connect(gaiFloNom[2].y, scaMasFloReqChiWat.u) annotation (Line(points={{82,
           220},{120,220},{120,80},{158,80}}, color={0,0,127}));
-  connect(scaQReqHea_flow.y, TLoaODE[1].QReq_flow) annotation (Line(points={{
-          -158,140},{-100,140},{-100,180},{-62,180}}, color={0,0,127}));
-  connect(scaQReqCoo_flow.y, TLoaODE[2].QReq_flow) annotation (Line(points={{
-          -158,100},{-100,100},{-100,180},{-62,180}}, color={0,0,127}));
+  connect(scaQReqHea_flow.y, TLoaODE[1].QReq_flow) annotation (Line(points={{-158,
+          140},{-100,140},{-100,180},{-62,180}},      color={0,0,127}));
+  connect(scaQReqCoo_flow.y, TLoaODE[2].QReq_flow) annotation (Line(points={{-158,
+          100},{-100,100},{-100,180},{-62,180}},      color={0,0,127}));
   connect(scaQReqHea_flow.y, conQ_flowReq[1].u_s) annotation (Line(points={{
           -158,140},{-120,140},{-120,220},{8,220}}, color={0,0,127}));
   connect(scaQReqCoo_flow.y, conQ_flowReq[2].u_s) annotation (Line(points={{

@@ -5,7 +5,11 @@ model CouplingTimeSeries
   package Medium1 = Buildings.Media.Water
     "Source side medium";
   Buildings.Applications.DHC.Loads.Validation.BaseClasses.BuildingTimeSeries
-    bui(nPorts_a=2, nPorts_b=2)
+    bui(
+      filPat=
+      "modelica://Buildings/Applications/DHC/Examples/Resources/SwissResidential_20190916.mos",
+      nPorts_a=2,
+      nPorts_b=2)
     "Building"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Buildings.Fluid.Sources.Boundary_pT sinHeaWat(
@@ -59,7 +63,8 @@ equation
           {-20,20},{-20,34},{0,34}},        color={0,127,255}));
   annotation (
   experiment(
-      StopTime=604800,
+      StopTime=31536000,
+      __Dymola_NumberOfIntervals=8760,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
   Documentation(info="<html>

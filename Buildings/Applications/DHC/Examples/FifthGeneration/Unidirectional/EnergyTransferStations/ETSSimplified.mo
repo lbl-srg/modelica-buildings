@@ -18,12 +18,12 @@ model ETSSimplified
     "Number of supply lines"
     annotation(Evaluate=true, Dialog(connectorSizing=true));
   parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal(
-    min=Modelica.Constants.eps)
-    "Design cooling thermal power (always positive)"
+    max=0)
+    "Design cooling heat flow rate (<=0)"
     annotation (Dialog(group="Nominal conditions"));
   parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(
-    min=Modelica.Constants.eps)
-    "Design heating thermal power (always positive)"
+    min=0)
+    "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Nominal conditions"));
   parameter Modelica.SIunits.TemperatureDifference dT_nominal = 5
     "Water temperature drop/increase accross load and source-side HX (always positive)"
@@ -422,13 +422,13 @@ model ETSSimplified
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1
     annotation (Placement(transformation(extent={{-170,20},{-150,40}})));
 initial equation
-  assert(QCoo_flow_nominal > 0,
+  assert(QCoo_flow_nominal <= 0,
     "In " + getInstanceName() +
-    "Nominal cooling rate must be strictly positive. Obtained QCoo_flow_nominal = " +
+    ": Nominal cooling heat flow rate must be negative. Obtained QCoo_flow_nominal = " +
     String(QCoo_flow_nominal));
   assert(QHea_flow_nominal > 0,
     "In " + getInstanceName() +
-    "Nominal heating rate must be strictly positive. Obtained QHea_flow_nominal = " +
+    ": Nominal heating heat flow rate must be positive. Obtained QHea_flow_nominal = " +
     String(QHea_flow_nominal));
 equation
   connect(pumEva.port_a, volMix_a.ports[1])
@@ -566,8 +566,8 @@ equation
   connect(pum1HexChi.m_flow_actual, switchBox.mFreCoo_flow) annotation (Line(
         points={{109,-255},{110,-255},{110,-254},{100,-254},{100,-340},{-20,
           -340},{-20,-383.2},{-11.2,-383.2}}, color={0,0,127}));
-  connect(pumEva.m_flow_actual, switchBox.mSpaHea_flow) annotation (Line(points
-        ={{-89,125},{-89,126},{-40,126},{-40,-375.2},{-11.2,-375.2}}, color={0,
+  connect(pumEva.m_flow_actual, switchBox.mSpaHea_flow) annotation (Line(points=
+         {{-89,125},{-89,126},{-40,126},{-40,-375.2},{-11.2,-375.2}}, color={0,
           0,127}));
   connect(have_reqCoo.y, conTChiWat.trigger) annotation (Line(points={{-192,0},
           {-188,0},{-188,-20},{-168,-20},{-168,-12}}, color={255,0,255}));

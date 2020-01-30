@@ -43,7 +43,7 @@ model BuildingSpawnZ1 "Spawn building model (1 zone, no distribution pump)"
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC1
     annotation (Placement(transformation(extent={{-260,250},{-240,270}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=24)
-    "Minimum temperature setpoint"
+    "Maximum temperature setpoint"
     annotation (Placement(transformation(extent={{-300,210},{-280,230}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC2
     annotation (Placement(transformation(extent={{-260,210},{-240,230}})));
@@ -52,7 +52,7 @@ model BuildingSpawnZ1 "Spawn building model (1 zone, no distribution pump)"
       redeclare package Medium1 = Medium,
       redeclare package Medium2 = Medium2,
       QHea_flow_nominal=10000,
-      QCoo_flow_nominal=10000,
+      QCoo_flow_nominal=-10000,
       T_aLoaHea_nominal=293.15,
       T_aLoaCoo_nominal=297.15,
       T_bHeaWat_nominal=308.15,

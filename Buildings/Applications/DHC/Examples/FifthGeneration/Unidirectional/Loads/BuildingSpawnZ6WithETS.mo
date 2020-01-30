@@ -6,7 +6,7 @@ model BuildingSpawnZ6WithETS
       bui(idfPat=idfPat, weaPat=weaPat));
   parameter String idfPat=
     "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportSpawn/Resources/Data/B5a6b99ec37f4de7f94020090/RefBldgSmallOfficeNew2004_Chicago.idf"
-    "Path of the IDF file"
+    "Library path of the IDF file"
     annotation(Dialog(group="Building model parameters"));
   parameter String weaPat=
     "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportSpawn/Resources/Data/B5a6b99ec37f4de7f94020090/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"

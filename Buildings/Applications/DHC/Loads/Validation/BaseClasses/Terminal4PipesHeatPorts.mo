@@ -209,7 +209,7 @@ equation
           12,0},{20,0},{20,220},{158,220}}, color={0,0,127}));
   connect(hexHeaCoo[2].Q_flow, scaQActCoo_flow.u) annotation (Line(points={{
           12,0},{20,0},{20,200},{158,200}}, color={0,0,127}));
-  connect(gaiFloNom1[1].y, scaMasFloReaHeaWat.u)
+  connect(gaiFloNom1[1].y,scaMasFloReqHeaWat.u)
     annotation (Line(points={{62,100},{158,100}}, color={0,0,127}));
   connect(gaiFloNom1[2].y, scaMasFloReqChiWat.u) annotation (Line(points={{62,
           100},{140,100},{140,80},{158,80}}, color={0,0,127}));

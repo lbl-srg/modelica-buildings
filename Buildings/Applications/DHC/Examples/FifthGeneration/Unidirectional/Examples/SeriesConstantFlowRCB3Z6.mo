@@ -6,8 +6,6 @@ model SeriesConstantFlowRCB3Z6
   extends BaseClasses.PartialSeries(
     final allowFlowReversal=allowFlowReversalDis,
     nBui=3,
-    weaPat=
-    "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos",
     datDes(
       mCon_flow_nominal={
         max(bui[i].ets.m1HexChi_flow_nominal, bui[i].ets.mEva_flow_nominal) for i in 1:nBui},
@@ -15,6 +13,8 @@ model SeriesConstantFlowRCB3Z6
   parameter Boolean allowFlowReversalDis = false
     "Set to true to allow flow reversal on the district side"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
+  parameter String weaPat = "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"
+    "Library path of the weather file";
   Loads.BuildingRCZ6WithETS bui[nBui](
     redeclare each final package Medium = Medium,
     each final allowFlowReversalBui=false,

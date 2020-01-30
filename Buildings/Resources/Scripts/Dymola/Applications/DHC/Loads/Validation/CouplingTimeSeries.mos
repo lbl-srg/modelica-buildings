@@ -13,13 +13,13 @@ createPlot(
 );
 createPlot(
     id=1,
-    y={"bui.loa.y[1]", "bui.terUni.QActHea_flow"},
+    y={"bui.terUni.QReqHea_flow", "bui.terUni.QActHea_flow"},
     grid=true,
     subPlot=2
 );
 createPlot(
     id=1,
-    y={"bui.loa.y[2]", "bui.terUni.QActCoo_flow"},
+    y={"bui.terUni.QReqCoo_flow", "bui.terUni.QActCoo_flow"},
     grid=true,
     subPlot=3
 );

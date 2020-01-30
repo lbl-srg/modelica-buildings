@@ -4,8 +4,6 @@ model SeriesConstantFlowTimeSeriesB3
   extends BaseClasses.PartialSeries(
     final allowFlowReversal=allowFlowReversalDis,
     nBui=3,
-    weaPat=
-    "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos",
     datDes(
       mCon_flow_nominal={
         max(bui[i].ets.m1HexChi_flow_nominal, bui[i].ets.mEva_flow_nominal) for i in 1:nBui},
@@ -13,8 +11,14 @@ model SeriesConstantFlowTimeSeriesB3
   parameter Boolean allowFlowReversalDis = false
     "Set to true to allow flow reversal on the district side"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
-  Loads.BuildingRCZ1WithETS bui[nBui](
+  parameter String filPat[nBui]={
+    "modelica://Buildings/Applications/DHC/Examples/Resources/SwissOffice_20190916.mos",
+    "modelica://Buildings/Applications/DHC/Examples/Resources/SwissResidential_20190916.mos",
+    "modelica://Buildings/Applications/DHC/Examples/Resources/SwissHospital_20190916.mos"}
+    "Library paths of the files with thermal loads as time series";
+  Loads.BuildingTimeSeriesWithETS bui[nBui](
     redeclare each final package Medium = Medium,
+    final filPat=filPat,
     each final allowFlowReversalBui=false,
     each final allowFlowReversalDis=allowFlowReversalDis)
     annotation (Placement(transformation(extent={{-10,170},{10,190}})));
@@ -30,12 +34,6 @@ model SeriesConstantFlowTimeSeriesB3
     k=bui.TChiWatSup_nominal)
     "Chilled water supply temperature set point"
     annotation (Placement(transformation(extent={{-280,170},{-260,190}})));
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    calTSky=Buildings.BoundaryConditions.Types.SkyTemperatureCalculation.HorizontalRadiation,
-    computeWetBulbTemperature=false,
-    filNam=Modelica.Utilities.Files.loadResource(weaPat))
-    "Weather data reader"
-    annotation (Placement(transformation(extent={{60,210},{40,230}})));
   Modelica.Blocks.Sources.Constant TSewWat(k=273.15 + 17)
     "Sewage water temperature"
     annotation (Placement(transformation(extent={{-280,50},{-260,70}})));
@@ -58,11 +56,6 @@ equation
   connect(dis.ports_bCon, bui.port_a) annotation (Line(points={{-12,150},{-12,
           160},{-20,160},{-20,180},{-10,180}}, color={0,127,255}));
   for i in 1:nBui loop
-    connect(weaDat.weaBus, bui[i].weaBus)
-      annotation (Line(
-      points={{40,220},{-0.1,220},{-0.1,190}},
-      color={255,204,51},
-      thickness=0.5));
   end for;
   connect(mDisPla_flow.y, pla.mPum_flow) annotation (Line(points={{-259,20},{-180,
           20},{-180,4},{-161,4}}, color={0,0,127}));
@@ -73,7 +66,8 @@ equation
   coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{360,260}})),
   __Dymola_Commands,
   experiment(
-    StopTime=172800,
-    Tolerance=1e-06,
-    __Dymola_Algorithm="Cvode"));
+      StopTime=31536000,
+      __Dymola_NumberOfIntervals=8760,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"));
 end SeriesConstantFlowTimeSeriesB3;

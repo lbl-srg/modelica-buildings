@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Loads.BaseClasses;
+﻿within Buildings.Applications.DHC.Loads.BaseClasses;
 model FirstOrderODE
   "Simplified first order ODE model for computing indoor temperature"
   extends Modelica.Blocks.Icons.Block;
@@ -9,10 +9,10 @@ model FirstOrderODE
     "Indoor temperature at heating nominal conditions"
     annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal
-    "Heating (>0) heat flow rate at nominal conditions"
+    "Heating (>=0) heat flow rate at nominal conditions"
     annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = QHea_flow_nominal
-    "Heating (>0) or cooling (<0) heat flow rate at nominal conditions"
+    "Heating (>=0) or cooling (<=0) heat flow rate at nominal conditions"
     annotation(Dialog(group = "Nominal condition"));
   parameter Boolean steadyStateInitial = false
     "true initializes T with dT(0)/dt=0, false initializes T with T(0)=TIndHea_nominal"
@@ -26,16 +26,17 @@ model FirstOrderODE
       iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput QReq_flow(
     quantity="HeatFlowRate", unit="W")
-    "Required heat flow rate to meet temperature set point"
+    "Required heat flow rate to meet temperature set point (>=0 for heating)"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput QAct_flow(
     quantity="HeatFlowRate", unit="W")
-    "Actual heating or cooling heat flow rate"
+    "Actual heating or cooling heat flow rate (>=0 for heating)"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TInd(
-    quantity="ThermodynamicTemperature", unit="K", displayUnit="degC") "Indoor temperature"
+    quantity="ThermodynamicTemperature", unit="K", displayUnit="degC")
+    "Indoor temperature"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 protected
   parameter Modelica.SIunits.ThermalConductance G=
@@ -49,6 +50,8 @@ initial equation
   end if;
 equation
   der(TInd) * tau = (QAct_flow - QReq_flow) / G + TSet - TInd;
+  assert(TInd >= 273.15, "In " + getInstanceName() +
+    ": The computed indoor temperature is below 0°C.");
   annotation (
   defaultComponentName="TLoaODE",
   Documentation(info="<html>

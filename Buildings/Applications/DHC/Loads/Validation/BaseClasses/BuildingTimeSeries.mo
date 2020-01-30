@@ -10,16 +10,54 @@ model BuildingTimeSeries
     have_weaBus=false);
   package Medium2 = Buildings.Media.Air
     "Load side medium";
-  parameter String filNam=
-    "modelica://Buildings/Applications/DHC/Loads/Examples/Resources/Loads.csv"
-    "CSV file path";
+  parameter String filPat
+    "Library path of the file with thermal loads as time series";
+  parameter Modelica.SIunits.Temperature T_aHeaWat_nominal(
+    min=273.15, displayUnit="degC") = 273.15 + 40
+    "Heating water inlet temperature at nominal conditions"
+    annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.Temperature T_bHeaWat_nominal(
+    min=273.15, displayUnit="degC") = T_aHeaWat_nominal - 5
+    "Heating water outlet temperature at nominal conditions"
+    annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.Temperature T_aChiWat_nominal(
+    min=273.15, displayUnit="degC") = 273.15 + 18
+    "Chilled water inlet temperature at nominal conditions "
+    annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.Temperature T_bChiWat_nominal(
+    min=273.15, displayUnit="degC") = T_aChiWat_nominal + 5
+    "Chilled water outlet temperature at nominal conditions"
+    annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.Temperature T_aLoaHea_nominal(
+    min=273.15, displayUnit="degC") = 273.15 + 20
+    "Load side inlet temperature at nominal conditions in heating mode"
+    annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.Temperature T_aLoaCoo_nominal(
+    min=273.15, displayUnit="degC") = 273.15 + 24
+    "Load side inlet temperature at nominal conditions in cooling mode"
+    annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal(max=-Modelica.Constants.eps)=
+    Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
+    string="#Peak space cooling load",
+    filNam=Modelica.Utilities.Files.loadResource(filPat))
+    "Design cooling heat flow rate (<=0)"
+    annotation (Dialog(group="Design parameter"));
+  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(min=Modelica.Constants.eps)=
+    Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
+    string="#Peak space heating load",
+    filNam=Modelica.Utilities.Files.loadResource(filPat))
+    "Design heating heat flow rate (>=0)"
+    annotation (Dialog(group="Design parameter"));
   Modelica.Blocks.Sources.CombiTimeTable loa(
     tableOnFile=true,
-    columns={2,3},
-    tableName="csv",
-    final fileName=Modelica.Utilities.Files.loadResource(filNam),
-    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
-    "Reader for test.csv"
+    tableName="tab1",
+    fileName=Modelica.Utilities.Files.loadResource(filPat),
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    y(each unit="W"),
+    offset={0,0,0},
+    columns={2,3,4},
+    smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1)
+    "Reader for thermal loads (y[1] is cooling load, y[2] is heating load)"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=20)
     "Minimum temperature setpoint"
@@ -27,7 +65,7 @@ model BuildingTimeSeries
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC1
     annotation (Placement(transformation(extent={{-258,250},{-238,270}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=24)
-    "Minimum temperature setpoint"
+    "Maximum temperature setpoint"
     annotation (Placement(transformation(extent={{-298,210},{-278,230}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC2
     annotation (Placement(transformation(extent={{-258,210},{-238,230}})));
@@ -35,14 +73,14 @@ model BuildingTimeSeries
     terUni(
       redeclare package Medium1 = Medium,
       redeclare package Medium2 = Medium2,
-      QHea_flow_nominal=500,
-      QCoo_flow_nominal=2000,
-    T_aHeaWat_nominal=313.15,
-    T_aChiWat_nominal=280.15,
-    T_bHeaWat_nominal=308.15,
-    T_bChiWat_nominal=285.15,
-    T_aLoaHea_nominal=293.15,
-    T_aLoaCoo_nominal=297.15)
+      final QHea_flow_nominal=QHea_flow_nominal,
+      final QCoo_flow_nominal=QCoo_flow_nominal,
+      final T_aHeaWat_nominal=T_aHeaWat_nominal,
+      final T_aChiWat_nominal=T_aChiWat_nominal,
+      final T_bHeaWat_nominal=T_bHeaWat_nominal,
+      final T_bChiWat_nominal=T_bChiWat_nominal,
+      final T_aLoaHea_nominal=T_aLoaHea_nominal,
+      final T_aLoaCoo_nominal=T_aLoaCoo_nominal)
     "Terminal unit"
     annotation (Placement(transformation(extent={{70,-24},{90,-4}})));
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
@@ -95,27 +133,27 @@ equation
           -104},{40,-104},{40,-20.6667},{70,-20.6667}},     color={0,127,255}));
   connect(disFloHea.ports_b1[1], terUni.port_aHeaWat) annotation (Line(points={{120,-64},
           {60,-64},{60,-22.3333},{70,-22.3333}},          color={0,127,255}));
-  connect(loa.y[1], terUni.QReqHea_flow) annotation (Line(points={{21,0},{50,0},
+  connect(loa.y[2], terUni.QReqHea_flow) annotation (Line(points={{21,0},{50,0},
           {50,-14},{69.1667,-14}},
                                color={0,0,127}));
-  connect(loa.y[2], terUni.QReqCoo_flow) annotation (Line(points={{21,0},{50,0},
+  connect(loa.y[1], terUni.QReqCoo_flow) annotation (Line(points={{21,0},{50,0},
           {50,-17.3333},{69.1667,-17.3333}}, color={0,0,127}));
   connect(terUni.mReqHeaWat_flow, disFloHea.mReq_flow[1]) annotation (Line(points={{90.8333,
           -17.3333},{92,-17.3333},{92,-18},{100,-18},{100,-74},{119,-74}},
-        color={0,0,127}));
-  connect(terUni.mReqChiWat_flow, disFloCoo.mReq_flow[1]) annotation (Line(points={{90.8333,
-          -19},{90.8333,-20},{98,-20},{98,-114},{119,-114}},
         color={0,0,127}));
   connect(disFloHea.QActTot_flow, QHea_flow) annotation (Line(points={{141,-76},
           {260,-76},{260,280},{320,280}}, color={0,0,127}));
   connect(disFloCoo.QActTot_flow, QCoo_flow) annotation (Line(points={{141,-116},
           {268,-116},{268,240},{320,240}}, color={0,0,127}));
-  connect(mulSum.y, PPum) annotation (Line(points={{234,78},{308,78},{308,80},{
-          320,80}}, color={0,0,127}));
-  connect(disFloHea.PPum, mulSum.u[1]) annotation (Line(points={{141,-78},{176,
-          -78},{176,79},{210,79}}, color={0,0,127}));
+  connect(mulSum.y, PPum) annotation (Line(points={{234,78},{308,78},{308,80},{320,
+          80}}, color={0,0,127}));
+  connect(disFloHea.PPum, mulSum.u[1]) annotation (Line(points={{141,-78},{176,-78},
+          {176,79},{210,79}}, color={0,0,127}));
   connect(disFloCoo.PPum, mulSum.u[2]) annotation (Line(points={{141,-118},{180,
           -118},{180,77},{210,77}}, color={0,0,127}));
+  connect(terUni.mReqChiWat_flow, disFloCoo.mReq_flow[1]) annotation (Line(
+        points={{90.8333,-19},{90.8333,-20},{98,-20},{98,-114},{119,-114}},
+        color={0,0,127}));
   annotation (
   Documentation(info="<html>
   <p>

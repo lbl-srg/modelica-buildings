@@ -45,7 +45,7 @@ model BuildingRCZ6
       redeclare each package Medium2 = Medium2,
       each facSca=facSca,
       QHea_flow_nominal={10000,10000,10000,10000,10000,10000},
-      QCoo_flow_nominal={10000,10000,10000,10000,10000,50000},
+      QCoo_flow_nominal={-10000,-10000,-10000,-10000,-10000,-50000},
       each T_aLoaHea_nominal=293.15,
       each T_aLoaCoo_nominal=297.15,
       each T_bHeaWat_nominal=35 + 273.15,

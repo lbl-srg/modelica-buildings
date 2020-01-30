@@ -56,7 +56,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     annotation(Dialog(
       group="Nominal condition",
       enable=have_watHea));
-  parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal(min=0)
+  parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal(max=0)
     "Heat flow rate for water based cooling at nominal conditions (<=0)"
     annotation(Dialog(
       group="Nominal condition",
@@ -83,7 +83,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
       enable=have_watCoo));
   parameter Modelica.SIunits.Temperature T_aHeaWat_nominal(
     min=273.15, displayUnit="degC")
-    "Heating water inlet temperature at nominal conditions "
+    "Heating water inlet temperature at nominal conditions"
     annotation(Dialog(
       group="Nominal condition",
       enable=have_watHea and not have_chaOve));
@@ -317,7 +317,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
   Buildings.Controls.OBC.CDL.Continuous.Gain scaPPum(k=facSca) if have_pum
     "Scaling"
     annotation (Placement(transformation(extent={{160,110},{180,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain scaMasFloReaHeaWat(k=facSca) if
+  Buildings.Controls.OBC.CDL.Continuous.Gain scaMasFloReqHeaWat(k=facSca) if
     have_watHea
     "Scaling"
     annotation (Placement(transformation(extent={{160,90},{180,110}})));
@@ -376,7 +376,7 @@ equation
       annotation (Line(points={{182,120},{220,120}}, color={0,0,127}));
   end if;
   if have_watHea then
-    connect(scaMasFloReaHeaWat.y, mReqHeaWat_flow)
+    connect(scaMasFloReqHeaWat.y, mReqHeaWat_flow)
       annotation (Line(points={{182,100},{220,100}}, color={0,0,127}));
   end if;
   if have_watCoo then

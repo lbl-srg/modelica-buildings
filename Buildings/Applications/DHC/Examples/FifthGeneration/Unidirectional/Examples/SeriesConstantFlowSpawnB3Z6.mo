@@ -4,8 +4,6 @@ model SeriesConstantFlowSpawnB3Z6
   extends BaseClasses.PartialSeries(
     final allowFlowReversal=allowFlowReversalDis,
     nBui=3,
-    weaPat=
-    "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportSpawn/Resources/Data/B5a6b99ec37f4de7f94020090/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
     datDes(
       mCon_flow_nominal={
         max(bui[i].ets.m1HexChi_flow_nominal, bui[i].ets.mEva_flow_nominal) for i in 1:nBui},
@@ -14,11 +12,12 @@ model SeriesConstantFlowSpawnB3Z6
     "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportSpawn/Resources/Data/B5a6b99ec37f4de7f94020090/RefBldgSmallOfficeNew2004_Chicago.idf",
     "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportSpawn/Resources/Data/B5a6b99ec37f4de7f94021950/RefBldgSmallOfficeNew2004_Chicago.idf",
     "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportSpawn/Resources/Data/B5a6b99ec37f4de7f94020090/RefBldgSmallOfficeNew2004_Chicago.idf"}
-    "Paths of the IDF files";
-  // allowFlowReversalDis must be true when using a switch box with valves due to leakage flow.
+    "Library paths of the IDF files";
   parameter Boolean allowFlowReversalDis = false
     "Set to true to allow flow reversal on the district side"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
+  parameter String weaPat = "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"
+    "Library path of the weather file";
   Loads.BuildingSpawnZ6WithETS bui[nBui](
     redeclare each final package Medium = Medium,
     idfPat=idfPat,
