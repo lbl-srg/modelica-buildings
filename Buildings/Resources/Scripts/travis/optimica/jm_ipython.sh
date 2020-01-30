@@ -10,7 +10,7 @@
 #################################################
 set -e
 
-IMG_NAME=travis-ubuntu-1804-oct
+IMG_NAME=travis-ubuntu-1804-optimica
 DOCKER_USERNAME=michaelwetter
 
 NAME=${DOCKER_USERNAME}/${IMG_NAME}
