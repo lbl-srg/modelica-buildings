@@ -153,7 +153,9 @@ First implementation.
 </ul>
 </html>"),
     experiment(
-      StopTime=36000,Tolerance=1e-6),
+      StopTime=72000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Dassl"),
     Diagram(coordinateSystem(extent={{-180,-140},{100,140}}), graphics={Text(
           extent={{-40,40},{26,28}},
           lineColor={0,0,0},
