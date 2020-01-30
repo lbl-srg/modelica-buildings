@@ -6,7 +6,7 @@ block OutsideAirFlow
     "Total number of zones that the system serves";
 
   parameter Real VOutPerAre_flow[numZon](
-    final unit = fill("m3/(s.m2)", numZon))=fill(3e-4, numZon)
+    each final unit = "m3/(s.m2)")=fill(3e-4, numZon)
     "Outdoor air rate per unit area"
     annotation(Dialog(group="Nominal condition"));
 
@@ -26,25 +26,25 @@ block OutsideAirFlow
     "Set to true if zones have window status sensor";
 
   parameter Real occDen[numZon](
-    final unit=fill("1/m2", numZon)) = fill(0.05, numZon)
+    each final unit = "1/m2") = fill(0.05, numZon)
     "Default number of person in unit area";
 
   parameter Real zonDisEffHea[numZon](
-    final unit=fill("1", numZon)) = fill(0.8, numZon)
+    each final unit = "1") = fill(0.8, numZon)
     "Zone air distribution effectiveness during heating";
 
   parameter Real zonDisEffCoo[numZon](
-    final unit=fill("1", numZon)) = fill(1.0, numZon)
+    each final unit = "1") = fill(1.0, numZon)
     "Zone air distribution effectiveness during cooling";
 
   parameter Real desZonDisEff[numZon](
-    final unit=fill("1", numZon)) = fill(1.0, numZon)
+    each final unit = "1") = fill(1.0, numZon)
     "Design zone air distribution effectiveness"
     annotation(Dialog(group="Nominal condition"));
 
   parameter Real desZonPop[numZon](
     final min={occDen[i]*AFlo[i] for i in 1:numZon},
-    final unit=fill("1",numZon)) = {occDen[i]*AFlo[i] for i in 1:numZon}
+    each final unit = "1") = {occDen[i]*AFlo[i] for i in 1:numZon}
     "Design zone population during peak occupancy"
     annotation(Dialog(group="Nominal condition"));
 
@@ -82,9 +82,9 @@ block OutsideAirFlow
     annotation (Placement(transformation(extent={{-260,60},{-220,100}}),
         iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow[numZon](
-    final min=fill(0,numZon),
-    final unit=fill("m3/s",numZon),
-    final quantity=fill("VolumeFlowRate",numZon))
+    each final min=0,
+    each final unit = "m3/s",
+    each final quantity"VolumeFlowRate")
     "Primary airflow rate to the ventilation zone from the air handler, including outdoor air and recirculated air"
     annotation (Placement(transformation(extent={{-260,-272},{-220,-232}}),
       iconTransformation(extent={{-140,-110},{-100,-70}})));
@@ -884,9 +884,14 @@ ANSI/ASHRAE Standard 62.1-2013,
 Stanke, D., 2010. <i>Dynamic Reset for Multiple-Zone Systems.</i> ASHRAE Journal, March
 2010.
 </p>
-
 </html>", revisions="<html>
 <ul>
+<li>
+January 30, 2020, by Michael Wetter:<br/>
+Removed the use of <code>fill</code> when assigning the <code>unit</code> attribute.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1728">#1728</a>.
+</li>
 <li>
 July 23, 2019, by Michael Wetter:<br/>
 Improved documentation.
