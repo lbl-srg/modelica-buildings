@@ -44,21 +44,25 @@
     },
     "model_name": "Buildings.Examples.DualFanDualDuct.ClosedLoop"
   },
+  {
        "optimica": {
          "simulate": false
     },
     "model_name:": "Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.MSLAIT2Nodes"
   },
+  {
        "optimica": {
          "simulate": false
     },
     "model_name:": "or: Simulation of Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT"
   },
+  {
        "optimica": {
          "simulate": false
     },
     "model_name:": "Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.MSLAIT"
   },
+  {
        "optimica": {
          "simulate": false
     },
