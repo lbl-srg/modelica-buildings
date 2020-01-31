@@ -262,6 +262,7 @@ Buildings/Fluid/Actuators/Valves/Examples/package.mo
 Buildings/Fluid/Actuators/Valves/Examples/package.order
 Buildings/Fluid/Actuators/Valves/ThreeWayEqualPercentageLinear.mo
 Buildings/Fluid/Actuators/Valves/ThreeWayLinear.mo
+Buildings/Fluid/Actuators/Valves/ThreeWayTable.mo
 Buildings/Fluid/Actuators/Valves/TwoWayEqualPercentage.mo
 Buildings/Fluid/Actuators/Valves/TwoWayLinear.mo
 Buildings/Fluid/Actuators/Valves/TwoWayPolynomial.mo

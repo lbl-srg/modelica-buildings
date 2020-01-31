@@ -169,6 +169,11 @@ its class name ends with the string <code>Beta</code>.
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
         </td>
     </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.Actuators.Valves.ThreeWayTable
+        </td>
+        <td valign=\"top\">Three way valves with opening characteristics based on a user-provided table.
+        </td>
+    </tr>
     <tr><td valign=\"top\">Buildings.Fluid.Chillers.AbsorptionIndirectSteam
         </td>
         <td valign=\"top\">Indirect steam heated absorption chiller based on performance curves.
