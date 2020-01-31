@@ -165,7 +165,7 @@ def update_infile(preTim, curTim, infile, outfile):
         count += 1
         if count == 18:
             endStr=line[20:]
-            staStr='%10.4E%10.4E' % (preTim, curTim)
+            staStr='%10.1f%10.1f' % (preTim, curTim)
             fout.write(staStr + endStr)
         else:
             fout.write(line)
@@ -185,11 +185,11 @@ def update_writeincon(infile, preTim, curTim, boreholeTem, heatFlux):
         count += 1
         # assign initial time
         if count == 6:
-            tempStr = '% 10.3f' % preTim
+            tempStr = '% 10.1f' % preTim
             fout.write(tempStr.strip() + os.linesep)
         # assign final time
         elif count ==  8:
-            tempStr = '% 10.3f' % curTim
+            tempStr = '% 10.1f' % curTim
             fout.write(tempStr.strip() + os.linesep)
         # assign borehole wall temperature to each segment
         elif (count >= 10 and count <= 19):
