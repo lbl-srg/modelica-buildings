@@ -340,11 +340,11 @@ its class name ends with the string <code>Beta</code>.
                            Buildings.Examples.VAVReheat.ASHRAE2006<br/>
                            Buildings.Examples.VAVReheat.Guideline36<br/>
                            Buildings.Examples.DualFanDualDuct
-                           
+
         </td>
         <td valign=\"top\">Updated core zone geometry parameters related to room heat and mass balance.
                            This change was done in
-                           <code>Buildings.Examples.VAVReheat.ThermalZones.Floor</code>.
+                           <code>Buildings.Examples.VAVReheat.ThermalZones.Floor</code>.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1719\">#1719</a>.
        </td>
     </tr>
