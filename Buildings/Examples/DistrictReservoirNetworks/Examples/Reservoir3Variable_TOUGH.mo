@@ -47,7 +47,53 @@ equation
   connect(pumpBHS.m_flow_in, gaiConMaiPum.y)
     annotation (Line(points={{50,-428},{50,-230},{40,-230}}, color={0,0,127}));
   annotation (
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-320,-480},{380,360}})),
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-320,-480},{380,360}}),
+        graphics={
+        Text(
+          extent={{-254,64},{-162,34}},
+          lineColor={0,0,0},
+          textStyle={TextStyle.Italic},
+          fontName="aakar",
+          fontSize=28,
+          textString="Office"),
+        Text(
+          extent={{228,200},{356,162}},
+          lineColor={0,0,0},
+          textStyle={TextStyle.Italic},
+          fontName="aakar",
+          fontSize=28,
+          textString="Apartment"),
+        Text(
+          extent={{228,-14},{320,-44}},
+          lineColor={0,0,0},
+          textStyle={TextStyle.Italic},
+          fontName="aakar",
+          fontSize=28,
+          textString="Hospital"),
+        Text(
+          extent={{-6,-458},{86,-488}},
+          lineColor={0,0,0},
+          textStyle={TextStyle.Italic},
+          fontName="aakar",
+          fontSize=28,
+          textString="Borefield"),
+        Line(
+          points={{-274,-368},{-230,-368}},
+          color={28,108,200},
+          thickness=0.5),
+        Line(points={{-274,-394},{-230,-394}}, color={0,0,0}),
+        Text(
+          extent={{-230,-356},{-80,-382}},
+          lineColor={0,0,0},
+          fontSize=28,
+          fontName="aakar",
+          textString="Water flow path"),
+        Text(
+          extent={{-228,-388},{-134,-406}},
+          lineColor={0,0,0},
+          fontSize=26,
+          fontName="aakar",
+          textString="Data line")}),
           __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/DistrictReservoirNetworks/Examples/Reservoir3Variable_TOUGH.mos"
         "Simulate and plot"),
     experiment(
