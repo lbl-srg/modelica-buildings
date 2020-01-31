@@ -38,20 +38,26 @@ model OneUTubeWithTough
   Modelica.Blocks.Interfaces.RealOutput Q_flow(final unit="W") "Heat extracted from soil"
     annotation (Placement(transformation(extent={{100,70},{120,90}}),
         iconTransformation(extent={{100,70},{120,90}})));
+  Modelica.Blocks.Interfaces.RealOutput Q_flow_single(final unit="W") "Heat extracted from soilConnector of Real output signal"
+                                      annotation (Placement(transformation(
+          extent={{100,90},{120,110}}), iconTransformation(extent={{100,90},{
+            120,110}})));
 protected
   Modelica.Blocks.Math.Sum QTotSeg_flow(final nin=nSeg, final k=ones(nSeg))
     "Total heat flow rate for all segments of this borehole"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   Modelica.Blocks.Math.Gain gaiQ_flow(k=borFieDat.conDat.nBor)
     "Gain to multiply the heat extracted by one borehole by the number of boreholes"
-    annotation (Placement(transformation(extent={{0,70},{20,90}})));
+    annotation (Placement(transformation(extent={{20,70},{40,90}})));
 equation
   connect(QBorHol.Q_flow, QTotSeg_flow.u) annotation (Line(points={{-10,-10},{-60,
           -10},{-60,80},{-42,80}}, color={0,0,127}));
   connect(QTotSeg_flow.y, gaiQ_flow.u)
-    annotation (Line(points={{-19,80},{-2,80}}, color={0,0,127}));
+    annotation (Line(points={{-19,80},{18,80}}, color={0,0,127}));
   connect(gaiQ_flow.y, Q_flow)
-    annotation (Line(points={{21,80},{110,80}}, color={0,0,127}));
+    annotation (Line(points={{41,80},{110,80}}, color={0,0,127}));
+  connect(QTotSeg_flow.y, Q_flow_single) annotation (Line(points={{-19,80},{0,
+          80},{0,100},{110,100}}, color={0,0,127}));
   annotation (
   defaultComponentName="borFie",
   Documentation(info="<html>
