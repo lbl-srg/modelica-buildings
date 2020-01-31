@@ -46,8 +46,8 @@ function update_path_variable()
 }
 
 # Make sure MAC_ADDRESS is set
-if [ -z ${MAC_ADDRESS+x} ]; then
-    echo "Error: Environment variable MAC_ADDRESS is not set."
+if [ -z ${OPTIMICA_MAC_ADDRESS+x} ]; then
+    echo "Error: Environment variable OPTIMICA_MAC_ADDRESS is not set."
     exit 1
 fi
 
@@ -96,7 +96,7 @@ done
 # --user=${UID} \
 
 DOCKER_FLAGS="\
-	--mac-address=${MAC_ADDRESS} \
+	--mac-address=${OPTIMICA_MAC_ADDRESS} \
 	--detach=false \
 	--rm \
 	--user=developer \
