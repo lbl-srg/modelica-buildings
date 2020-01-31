@@ -1,4 +1,4 @@
-optimicaoptimicadist: trusty
+dist: trusty
 sudo: false
 
 language: python
