@@ -69,5 +69,5 @@ equation
       StopTime=31536000,
       __Dymola_NumberOfIntervals=8760,
       Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"));
+      __Dymola_Algorithm="Radau"));
 end SeriesConstantFlowTimeSeriesB3;

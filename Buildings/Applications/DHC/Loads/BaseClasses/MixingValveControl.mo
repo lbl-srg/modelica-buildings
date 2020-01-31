@@ -1,5 +1,6 @@
 within Buildings.Applications.DHC.Loads.BaseClasses;
 block MixingValveControl "Controller for the mixing valve"
+  extends Modelica.Blocks.Icons.Block;
   import typ = Buildings.Applications.DHC.Loads.Types.DistributionType
     "Types of distribution system";
   parameter typ disTyp = typ.HeatingWater
@@ -150,11 +151,6 @@ equation
 
   annotation (
   defaultComponentName="conVal",
-  Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-                                Rectangle(
-        extent={{-100,-100},{100,100}},
-        lineColor={0,0,127},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid)}),                        Diagram(
+  Icon(coordinateSystem(preserveAspectRatio=false)),             Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end MixingValveControl;
