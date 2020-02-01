@@ -117,16 +117,6 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     annotation(Dialog(
       group="Nominal condition",
       enable=have_watCoo));
-  parameter Buildings.Fluid.Types.HeatExchangerConfiguration hexConHea=
-    Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow
-    "Heating heat exchanger configuration"
-    annotation(Dialog(
-      enable=have_watHea and not have_chaOve));
-  parameter Buildings.Fluid.Types.HeatExchangerConfiguration hexConCoo=
-    Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow
-    "Cooling heat exchanger configuration"
-    annotation(Dialog(
-      enable=have_watCoo));
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
     Modelica.Fluid.Types.Dynamics.FixedInitial

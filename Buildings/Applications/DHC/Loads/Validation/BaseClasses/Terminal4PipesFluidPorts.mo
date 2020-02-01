@@ -11,7 +11,13 @@ model Terminal4PipesFluidPorts
       T_aHeaWat_nominal - T_bHeaWat_nominal)),
     final mChiWat_flow_nominal=abs(QCoo_flow_nominal/cpChiWat_nominal/(
       T_aChiWat_nominal - T_bChiWat_nominal)));
-
+  import hexConfiguration = Buildings.Fluid.Types.HeatExchangerConfiguration;
+  parameter hexConfiguration hexConHea=
+    hexConfiguration.CounterFlow
+    "Heating heat exchanger configuration";
+  parameter hexConfiguration hexConCoo=
+    hexConfiguration.CounterFlow
+    "Cooling heat exchanger configuration";
   Buildings.Controls.OBC.CDL.Continuous.LimPID conTMin(
     Ti=120,
     yMax=1,

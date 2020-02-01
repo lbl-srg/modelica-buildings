@@ -1,5 +1,5 @@
 ﻿within Buildings.Applications.DHC.Loads.BaseClasses;
-block FirstOrderODE
+model FirstOrderODE
   "Simplified first order ODE model for computing indoor temperature"
   extends Modelica.Blocks.Icons.Block;
   parameter Modelica.SIunits.Temperature TOutHea_nominal(displayUnit="degC")

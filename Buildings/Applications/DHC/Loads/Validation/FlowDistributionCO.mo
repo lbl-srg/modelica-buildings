@@ -4,8 +4,6 @@ model FlowDistributionCO
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water
     "Source side medium";
-  package Medium2 = Buildings.Media.Air
-    "Load side medium";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 1
     "Mass flow rate at nominal conditions";
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFlo(

@@ -1,9 +1,6 @@
 FirstOrderODE
 FlowDistribution
-HeatFlowEffectivenessNTU
 PartialBuilding
 PartialTerminalUnit
 MixingValveControl
-HeatFlowEffectivenessNTU_bck
-EffectivenessNTU
-HeatFlowEffectivenessNTU_fromDryCoil
+EffectivenessNTUUniform
