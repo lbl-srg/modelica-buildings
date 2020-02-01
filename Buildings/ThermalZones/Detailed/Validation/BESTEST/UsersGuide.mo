@@ -23,6 +23,35 @@ package UsersGuide "User's Guide"
   For free floating cases, the annual hourly integrated minimum (and maximum)
   zone air temperature, and the annual mean zone air temperature.
   </li>
+  <li>
+  For cases with heating and cooling, the annual heating and cooling energy,
+  and the annual hourly integrated minimum (and maximum) peak heating and cooling power.
+  </li>
+  </ul>
+  <p>
+  Note that in addition to the BESTESTs, the window model has been validated separately
+  in Nouidui et al. (2012).
+  </p>
+  <h4>Implementation</h4>
+  <p>
+  Heating and cooling is controlled using the PI controller
+  <a href=\"modelica://Buildings.Controls.Continuous.LimPID\">
+  Buildings.Controls.Continuous.LimPID</a>
+  with anti-windup.
+  </p>
+  <p>
+  Hourly averaged values and annual mean values are computed using an instance of
+  <a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.MovingMean\">
+  Buildings.Controls.OBC.CDL.Continuous.MovingMean</a>.
+  </p>
+  <h4>Validation results</h4>
+  <p>Following plots shows the results of free floating cases. The first plot is to show
+  if the simuations could track the zone air temperature within standard minimium and maximum
+  values. The annual mean zone air temperatures are shown in the second plot. It indicates that
+  in the simulation, if the annual mean zone air temperature (last value of the data set) is
+  within the standard minimum and maximum values. The datailed comparisons are
+  shown in the table subsequently.
+  </p>
   <p align=\"center\">
   <img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Validation/BESTEST/hourly_temp.png\"
        alt=\"hourly_temp.png\" />
@@ -37,9 +66,9 @@ package UsersGuide "User's Guide"
   <tr>
   <th>Case</th>
   <th>Maximum</th>
-  <th>Minimum of Standard Maximum</th>
-  <th>Maximum of Standard Maximum</th>
-  <th>Mean of Standard Maximum</th>
+  <th>Standard_Maximum<sub>min</sub></th>
+  <th>Standard_Maximum<sub>max</sub></th>
+  <th>Standard_Maximum<sub>mean</sub></th>
   </tr>
   <tr>
   <td>Case600FF</td>
@@ -75,9 +104,9 @@ package UsersGuide "User's Guide"
   <tr>
   <th>Case</th>
   <th>Minimum</th>
-  <th>Minimum of Standard Minimum</th>
-  <th>Maximum of Standard Minimum</th>
-  <th>Mean of Standard Minimum</th>
+  <th>Standard_Minimum<sub>min</sub></th>
+  <th>Standard_Minimum<sub>max</sub></th>
+  <th>Standard_Minimum<sub>mean</sub></th>
   </tr>
   <tr>
   <td>Case600FF</td>
@@ -113,9 +142,9 @@ package UsersGuide "User's Guide"
   <tr>
   <th>Case</th>
   <th>Mean</th>
-  <th>Minimum of Standard Mean</th>
-  <th>Maximum of Standard Mean</th>
-  <th>Mean of Standard Mean</th>
+  <th>Standard_Mean<sub>min</sub></th>
+  <th>Standard_Mean<sub>max</sub></th>
+  <th>Standard_Mean<sub>mean</sub></th>
   </tr>
   <tr>
   <td>Case600FF</td>
@@ -147,34 +176,302 @@ package UsersGuide "User's Guide"
   </tr>
   </table>
   <br/>
-  <li>
-  For cases with heating and cooling, the annual heating and cooling energy,
-  and the annual hourly integrated minimum (and maximum) peak heating and cooling power.
-  </li>
+  <p>
+  The plots below shows the results for the cases with heating and cooling. They compares
+  the annual heating and cooling energy, peak heating and cooling demand with their
+  corresponded minimum and maximum values in the standard. The datailed comparisons are
+  shown in the table subsequently.
+  </p>
   <p align=\"center\">
   <img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Validation/BESTEST/annual_energy.png\"
        alt=\"annual_energy.png\" />
   <img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Validation/BESTEST/peak_demand.png\"
        alt=\"peak_demand.png\" />
-  </p>      
-  </ul>
+  </p>
+  <table border = \"1\" summary=\"Annual energy and peak load\">
+  <tr><td colspan=\"9\"><b>Annual energy (MWh)</b>
+      </td>
+  </tr>
+  <tr>
+  <th rowspan=\"2\" valign=\"middle\">Case</th>
+  <th colspan=\"4\">Heating</th>
+  <th colspan=\"4\">Cooling</th>
+  </tr>
+  <tr>
+  <td><b>Energy</b></td>
+  <td><b>Standard_Minimum</b></td>
+  <td><b>Standard_Maximum</b></td>
+  <td><b>Standard_Mean</b></td>
+  <td><b>Energy</b></td>
+  <td><b>Standard_Minimum</b></td>
+  <td><b>Standard_Maximum</b></td>
+  <td><b>Standard_Mean</b></td>
+  </tr>
+  <tr>
+<td>Case600</td>
+<td>5.3</td>
+<td>4.3</td>
+<td>5.7</td>
+<td>5.1</td>
+<td>6.7</td>
+<td>6.1</td>
+<td>8.0</td>
+<td>6.8</td>
+</tr>
+<tr>
+<td>Case610</td>
+<td>5.3</td>
+<td>4.4</td>
+<td>5.8</td>
+<td>5.1</td>
+<td>5.2</td>
+<td>3.9</td>
+<td>5.8</td>
+<td>5.0</td>
+</tr>
+<tr>
+<td>Case620</td>
+<td>5.5</td>
+<td>4.6</td>
+<td>5.9</td>
+<td>5.4</td>
+<td>4.1</td>
+<td>3.4</td>
+<td>5.0</td>
+<td>4.2</td>
+</tr>
+<tr>
+<td>Case630</td>
+<td>5.7</td>
+<td>5.0</td>
+<td>6.5</td>
+<td>5.8</td>
+<td>3.2</td>
+<td>2.1</td>
+<td>3.7</td>
+<td>2.8</td>
+</tr>
+<tr>
+<td>Case640</td>
+<td>3.4</td>
+<td>2.8</td>
+<td>3.8</td>
+<td>3.2</td>
+<td>6.5</td>
+<td>6.0</td>
+<td>7.8</td>
+<td>6.6</td>
+</tr>
+<tr>
+<td>Case650</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>5.4</td>
+<td>4.8</td>
+<td>6.5</td>
+<td>5.5</td>
+</tr>
+<tr>
+<td>Case900</td>
+<td>1.8</td>
+<td>1.2</td>
+<td>2.0</td>
+<td>1.7</td>
+<td>2.2</td>
+<td>2.1</td>
+<td>3.4</td>
+<td>2.7</td>
+</tr>
+<tr>
+<td>Case920</td>
+<td>3.9</td>
+<td>3.3</td>
+<td>4.3</td>
+<td>4.0</td>
+<td>2.3</td>
+<td>1.8</td>
+<td>3.1</td>
+<td>2.6</td>
+</tr>
+<tr>
+<td>Case940</td>
+<td>1.2</td>
+<td>0.8</td>
+<td>1.4</td>
+<td>1.2</td>
+<td>2.1</td>
+<td>2.1</td>
+<td>3.2</td>
+<td>2.6</td>
+</tr>
+<tr>
+<td>Case950</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.5</td>
+<td>0.4</td>
+<td>0.9</td>
+<td>0.6</td>
+</tr>
+<tr>
+<td>Case960</td>
+<td>3.1</td>
+<td>2.3</td>
+<td>3.4</td>
+<td>2.8</td>
+<td>0.6</td>
+<td>0.4</td>
+<td>0.8</td>
+<td>0.6</td>
+</tr>
+  <tr><td colspan=\"9\"><b>Peak load (kW)</b>
+      </td>
+  </tr>
+  <tr>
+  <th rowspan=\"2\" valign=\"middle\">Case</th>
+  <th colspan=\"4\">Heating</th>
+  <th colspan=\"4\">Cooling</th>
+  </tr>
+  <tr>
+  <td><b>Peak</b></td>
+  <td><b>Standard_Minimum</b></td>
+  <td><b>Standard_Maximum</b></td>
+  <td><b>Standard_Mean</b></td>
+  <td><b>Peak</b></td>
+  <td><b>Standard_Minimum</b></td>
+  <td><b>Standard_Maximum</b></td>
+  <td><b>Standard_Mean</b></td>
+  </tr>
+  <tr>
+<td>Case600</td>
+<td>4.2</td>
+<td>3.4</td>
+<td>4.4</td>
+<td>4.0</td>
+<td>6.6</td>
+<td>6.0</td>
+<td>6.8</td>
+<td>6.5</td>
+</tr>
+<tr>
+<td>Case610</td>
+<td>4.2</td>
+<td>3.4</td>
+<td>4.4</td>
+<td>4.0</td>
+<td>6.3</td>
+<td>5.7</td>
+<td>6.4</td>
+<td>6.0</td>
+</tr>
+<tr>
+<td>Case620</td>
+<td>4.2</td>
+<td>3.6</td>
+<td>4.4</td>
+<td>4.1</td>
+<td>4.1</td>
+<td>3.6</td>
+<td>5.1</td>
+<td>4.3</td>
+</tr>
+<tr>
+<td>Case630</td>
+<td>4.2</td>
+<td>3.6</td>
+<td>4.3</td>
+<td>4.0</td>
+<td>3.6</td>
+<td>3.1</td>
+<td>4.1</td>
+<td>3.6</td>
+</tr>
+<tr>
+<td>Case640</td>
+<td>7.0</td>
+<td>5.2</td>
+<td>7.0</td>
+<td>6.0</td>
+<td>6.6</td>
+<td>5.9</td>
+<td>6.8</td>
+<td>6.4</td>
+</tr>
+<tr>
+<td>Case650</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>6.5</td>
+<td>5.8</td>
+<td>6.7</td>
+<td>6.3</td>
+</tr>
+<tr>
+<td>Case900</td>
+<td>3.6</td>
+<td>2.9</td>
+<td>3.8</td>
+<td>3.5</td>
+<td>3.2</td>
+<td>2.9</td>
+<td>3.9</td>
+<td>3.4</td>
+</tr>
+<tr>
+<td>Case920</td>
+<td>3.9</td>
+<td>3.3</td>
+<td>4.1</td>
+<td>3.8</td>
+<td>2.9</td>
+<td>2.4</td>
+<td>3.5</td>
+<td>3.1</td>
+</tr>
+<tr>
+<td>Case940</td>
+<td>6.1</td>
+<td>4.0</td>
+<td>6.4</td>
+<td>5.5</td>
+<td>3.2</td>
+<td>2.9</td>
+<td>3.9</td>
+<td>3.4</td>
+</tr>
+<tr>
+<td>Case950</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>2.4</td>
+<td>2.0</td>
+<td>3.2</td>
+<td>2.7</td>
+</tr>
+<tr>
+<td>Case960</td>
+<td>2.9</td>
+<td>2.4</td>
+<td>2.9</td>
+<td>2.7</td>
+<td>1.3</td>
+<td>1.0</td>
+<td>1.4</td>
+<td>1.2</td>
+</tr>
+  </table>
   <br/>
-  <p>
-  Note that in addition to the BESTESTs, the window model has been validated separately
-  in Nouidui et al. (2012).
-  </p>
-  <h4>Implementation</h4>
-  <p>
-  Heating and cooling is controlled using the PI controller
-  <a href=\"modelica://Buildings.Controls.Continuous.LimPID\">
-  Buildings.Controls.Continuous.LimPID</a>
-  with anti-windup.
-  </p>
-  <p>
-  Hourly averaged values and annual mean values are computed using an instance of
-  <a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.MovingMean\">
-  Buildings.Controls.OBC.CDL.Continuous.MovingMean</a>.
-  </p>
+  
+  
+  
   <h4>References</h4>
   <p>
   ANSI/ASHRAE. 2007. ANSI/ASHRAE Standard 140-2007, Standard Method of Test for the Evaluation of Building Energy Analysis Computer Programs.
