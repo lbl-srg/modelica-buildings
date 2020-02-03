@@ -265,7 +265,7 @@ block Change "Calculates the chiller stage signal"
         iconTransformation(extent={{100,50},{140,90}})));
 
   Buildings.Controls.OBC.CDL.Integers.OnCounter onCouUp(
-    final y_start=0)
+    final y_start=0, y_reset=1)
     "Counts stage up signal rising edges"
     annotation (Placement(transformation(extent={{100,-80},{120,-60}})));
 
@@ -282,7 +282,7 @@ block Change "Calculates the chiller stage signal"
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     annotation (Placement(transformation(extent={{210,-100},{230,-80}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(final k=0)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(final k=1)
     annotation (Placement(transformation(extent={{140,-180},{160,-160}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre
