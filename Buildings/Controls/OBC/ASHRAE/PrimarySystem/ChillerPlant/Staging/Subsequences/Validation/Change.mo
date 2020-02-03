@@ -17,6 +17,8 @@ model Change "Validates chiller stage signal"
     cha(
     chiDesCap={500000,1000000},
     chiMinCap={100000,200000},
+    chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.constantSpeedCentrifugal},
     anyVsdCen=false,
     hasWSE=false) "Stage change"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
@@ -31,7 +33,7 @@ model Change "Validates chiller stage signal"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine chiWatFlow(
     final offset=0,
     final freqHz=1/21600,
-    final amplitude=0.0376)
+    final amplitude=0.065)
     "Chilled water flow"
     annotation (Placement(transformation(extent={{-200,-20},{-180,0}})));
 
@@ -50,10 +52,6 @@ model Change "Validates chiller stage signal"
     "Operating at a highes available stage"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant chaPro(final k=false)
-    "Stage change is in process "
-    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
-
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol(samplePeriod=1)
     annotation (Placement(transformation(extent={{140,20},{160,40}})));
 
@@ -63,6 +61,10 @@ model Change "Validates chiller stage signal"
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     annotation (Placement(transformation(extent={{180,20},{200,40}})));
 
+  CDL.Logical.TrueFalseHold truFalHol(trueHoldDuration=0, falseHoldDuration=900)
+    annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
+  CDL.Logical.Pre pre
+    annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWat(
     final k=65*6895)
@@ -125,8 +127,6 @@ equation
           30},{-130,25},{58,25}}, color={0,0,127}));
   connect(higSta.y, cha.uHigSta) annotation (Line(points={{2,-10},{20,-10},{20,15},
           {58,15}}, color={255,0,255}));
-  connect(chaPro.y, cha.chaPro) annotation (Line(points={{2,-50},{40,-50},{40,13},
-          {58,13}}, color={255,0,255}));
   connect(cha.y, intToRea.u)
     annotation (Line(points={{82,30},{98,30}}, color={255,127,0}));
   connect(intToRea.y, zerOrdHol.u)
@@ -135,6 +135,12 @@ equation
     annotation (Line(points={{162,30},{178,30}}, color={0,0,127}));
   connect(reaToInt.y, cha.u) annotation (Line(points={{202,30},{210,30},{210,-20},
           {50,-20},{50,19},{58,19}}, color={255,127,0}));
+  connect(cha.yCha, truFalHol.u) annotation (Line(points={{82,37},{90,37},{90,-50},
+          {98,-50}}, color={255,0,255}));
+  connect(truFalHol.y, pre.u)
+    annotation (Line(points={{122,-50},{138,-50}}, color={255,0,255}));
+  connect(pre.y, cha.chaPro) annotation (Line(points={{162,-50},{170,-50},{170,-70},
+          {40,-70},{40,13},{58,13}}, color={255,0,255}));
 annotation (
  experiment(StopTime=20000.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Change.mos"

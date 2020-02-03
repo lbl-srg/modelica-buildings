@@ -15,7 +15,7 @@ block Configurator "Configures chiller staging"
 
   parameter Integer chiTyp[nChi]={
     Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.variableSpeedCentrifugal}
+    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.constantSpeedCentrifugal}
     "Chiller type. Recommended staging order: positive displacement, variable speed centrifugal, constant speed centrifugal";
 
   parameter Integer staMat[nSta, nChi] = {{1,0},{0,1},{1,1}}

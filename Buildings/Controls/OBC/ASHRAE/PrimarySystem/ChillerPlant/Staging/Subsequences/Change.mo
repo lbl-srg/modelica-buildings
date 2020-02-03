@@ -196,6 +196,7 @@ block Change "Calculates the chiller stage signal"
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Configurator conf(
     final nSta = nSta,
     final nChi = nChi,
+    final chiTyp = chiTyp,
     final chiDesCap = chiDesCap,
     final chiMinCap = chiMinCap,
     final staMat = staMat)
@@ -273,8 +274,7 @@ block Change "Calculates the chiller stage signal"
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     annotation (Placement(transformation(extent={{210,-100},{230,-80}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
-    final k=1)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(final k=0)
     annotation (Placement(transformation(extent={{140,-180},{160,-160}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre
