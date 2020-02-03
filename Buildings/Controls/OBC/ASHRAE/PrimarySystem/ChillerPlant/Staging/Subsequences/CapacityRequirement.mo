@@ -39,8 +39,6 @@ block CapacityRequirement
     annotation (Placement(transformation(extent={{140,110},{180,150}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
-  CDL.Logical.Or or2
-    annotation (Placement(transformation(extent={{20,70},{40,90}})));
 protected
   constant Modelica.SIunits.Density rhoWat = 1000 "Water density";
 
@@ -135,12 +133,8 @@ equation
     annotation (Line(points={{102,130},{160,130}},color={0,0,127}));
   connect(chaPro, truFalHol.u) annotation (Line(points={{-160,110},{-130,110},{-130,
           80},{-42,80}}, color={255,0,255}));
-  connect(or2.y, swi.u2) annotation (Line(points={{42,80},{50,80},{50,130},{78,130}},
-        color={255,0,255}));
-  connect(truFalHol.y, or2.u1)
-    annotation (Line(points={{-18,80},{18,80}}, color={255,0,255}));
-  connect(chaPro, or2.u2) annotation (Line(points={{-160,110},{-130,110},{-130,60},
-          {0,60},{0,72},{18,72}}, color={255,0,255}));
+  connect(truFalHol.y, swi.u2) annotation (Line(points={{-18,80},{40,80},{40,
+          130},{78,130}}, color={255,0,255}));
   annotation (defaultComponentName = "capReq",
         Icon(graphics={
         Rectangle(

@@ -33,7 +33,7 @@ model Change "Validates chiller stage signal"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine chiWatFlow(
     final offset=0,
     final freqHz=1/21600,
-    final amplitude=0.065)
+    final amplitude=0.037)
     "Chilled water flow"
     annotation (Placement(transformation(extent={{-200,-20},{-180,0}})));
 
