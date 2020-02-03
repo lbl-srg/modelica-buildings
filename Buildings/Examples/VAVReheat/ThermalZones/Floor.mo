@@ -233,7 +233,7 @@ model Floor "Model of a floor of the building"
     nConPar=2,
     datConPar(
       layers={conFlo,conFur},
-      A={360.0785/hRoo,262.52},
+      A={2698/hRoo,1967.01},
       til={Buildings.Types.Tilt.Floor,Buildings.Types.Tilt.Wall}),
     nConBou=0,
     nSurBou=4,
@@ -837,6 +837,11 @@ equation
 May 1, 2013, by Michael Wetter:<br/>
 Declared the parameter record to be a parameter, as declaring its elements
 to be parameters does not imply that the whole record has the variability of a parameter.
+</li>
+<li>
+January 23, 2020, by Milica Grahovac:<br/>
+Updated core zone geometry parameters related to 
+room heat and mass balance.
 </li>
 </ul>
 </html>"));
