@@ -278,7 +278,7 @@ block Change "Calculates the chiller stage signal"
     annotation (Placement(transformation(extent={{140,-180},{160,-160}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre
-    annotation (Placement(transformation(extent={{240,-86},{260,-66}})));
+    annotation (Placement(transformation(extent={{240,-100},{260,-80}})));
 
 equation
   connect(uChiAva, conf.uChiAva)
@@ -406,12 +406,12 @@ equation
           -98},{178,-98}}, color={255,127,0}));
   connect(addInt.y, intEqu.u1)
     annotation (Line(points={{162,-90},{178,-90}}, color={255,127,0}));
-  connect(edg.y, pre.u) annotation (Line(points={{232,-90},{236,-90},{236,-76},{
-          238,-76}}, color={255,0,255}));
-  connect(pre.y, onCouUp.reset) annotation (Line(points={{262,-76},{280,-76},{280,
-          -120},{128,-120},{128,-110},{110,-110},{110,-82}}, color={255,0,255}));
-  connect(pre.y, onCouDown.reset) annotation (Line(points={{262,-76},{280,-76},{
-          280,-148},{110,-148},{110,-142}}, color={255,0,255}));
+  connect(edg.y, pre.u) annotation (Line(points={{232,-90},{238,-90}},
+                     color={255,0,255}));
+  connect(pre.y, onCouUp.reset) annotation (Line(points={{262,-90},{280,-90},{
+          280,-110},{110,-110},{110,-82}},                   color={255,0,255}));
+  connect(pre.y, onCouDown.reset) annotation (Line(points={{262,-90},{280,-90},
+          {280,-148},{110,-148},{110,-142}},color={255,0,255}));
   annotation (defaultComponentName = "cha",
         Icon(graphics={
         Rectangle(
