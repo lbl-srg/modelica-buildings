@@ -45,12 +45,13 @@ package UsersGuide "User's Guide"
   Buildings.Controls.OBC.CDL.Continuous.MovingMean</a>.
   </p>
   <h4>Validation results</h4>
-  <p>Following plots shows the results of free floating cases. The first plot is to show
-  if the simuations could track the zone air temperature within standard minimium and maximum
-  values. The annual mean zone air temperatures are shown in the second plot. It indicates that
-  in the simulation, if the annual mean zone air temperature (last value of the data set) is
-  within the standard minimum and maximum values. The datailed comparisons are
-  shown in the table subsequently.
+  <p>Following plots shows the results of free floating cases. The first plot shows
+  whether the simuations track the zone air temperature within minimium and maximum
+  values published in the BESTEST.
+  The annual mean zone air temperatures are shown in the second plot. It checks whether
+  the annual mean zone air temperature (last value of the data set) is
+  within the standard minimum and maximum values. The detailed comparisons are
+  shown in the table below.
   </p>
   <p align=\"center\">
   <img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Validation/BESTEST/hourly_temp.png\"
@@ -177,10 +178,10 @@ package UsersGuide "User's Guide"
   </table>
   <br/>
   <p>
-  The plots below shows the results for the cases with heating and cooling. They compares
+  The plots below shows the results for the cases with heating and cooling. They compare
   the annual heating and cooling energy, peak heating and cooling demand with their
-  corresponded minimum and maximum values in the standard. The datailed comparisons are
-  shown in the table subsequently.
+  corresponding minimum and maximum values from the standard. The detailed comparisons are
+  shown in the table below.
   </p>
   <p align=\"center\">
   <img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Validation/BESTEST/annual_energy.png\"
@@ -469,12 +470,10 @@ package UsersGuide "User's Guide"
 </tr>
   </table>
   <br/>
-  
-  
-  
   <h4>References</h4>
   <p>
-  ANSI/ASHRAE. 2007. ANSI/ASHRAE Standard 140-2007, Standard Method of Test for the Evaluation of Building Energy Analysis Computer Programs.
+  ANSI/ASHRAE. 2007. ANSI/ASHRAE Standard 140-2007,
+  Standard Method of Test for the Evaluation of Building Energy Analysis Computer Programs.
   </p>
   <p>
   Thierry Stephane Nouidui, Michael Wetter, and Wangda Zuo.
