@@ -105,7 +105,7 @@ protected
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 
   BaseClasses.EquationFitReversible equFit(final per=per,
-                                         final scaling_factor=scaling_factor)
+                                           final scaling_factor=scaling_factor)
    "Performance model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
@@ -117,14 +117,12 @@ protected
     annotation (Placement(transformation(extent={{59,-70},{39,-50}})));
 
   Buildings.Controls.OBC.CDL.Integers.LessThreshold lesThr(
-    final threshold=0) if
-       not per.reverseCycle
+    final threshold=0) if not per.canCool
     "Indicator, outputs true if in cooling mode"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
   Buildings.Controls.OBC.CDL.Utilities.Assert aleMes(
-    message="uMod cannot be -1 if reverseCycle is false.") if
-         not per.reverseCycle
+    message="uMod cannot be -1 if per.coo.P = 0.") if not per.canCool
     "Generate alert message if control input is not valid"
     annotation (Placement(transformation(extent={{-52,-90},{-32,-70}})));
 
