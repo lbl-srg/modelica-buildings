@@ -14,15 +14,15 @@ block EfficiencyCondition
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uStaUp(final unit="1")
     "Staging part load ratio of the next stage up" annotation (Placement(
-        transformation(extent={{-140,-40},{-100,0}}), iconTransformation(extent
-          ={{-140,-70},{-100,-30}})));
+        transformation(extent={{-140,-40},{-100,0}}), iconTransformation(extent=
+           {{-140,-70},{-100,-30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Efficiency condition for chiller staging"
     annotation (Placement(transformation(extent={{80,-20},{120,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
-protected
+//protected
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
     final delayTime=delayStaCha,
     final delayOnInit=true)

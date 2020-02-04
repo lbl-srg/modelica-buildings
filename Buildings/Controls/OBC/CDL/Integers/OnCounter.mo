@@ -19,6 +19,7 @@ block OnCounter "Increment the output if the input switches to true"
   Interfaces.IntegerOutput y "Integer output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
+
 initial equation
   pre(y) = y_start;
 
@@ -29,9 +30,7 @@ equation
 
   annotation (
     defaultComponentName="onCouInt",
-    Icon(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}},
-        initialScale=0.06), graphics={
+    Icon(graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},

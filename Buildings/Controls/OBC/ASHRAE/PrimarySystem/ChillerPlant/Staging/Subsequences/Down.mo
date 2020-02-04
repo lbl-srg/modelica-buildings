@@ -104,7 +104,7 @@ block Down "Generates a stage down signal"
   CDL.Logical.Not not2
     "If change is not in process or the hold time has expired the stage change is enabled"
     annotation (Placement(transformation(extent={{-80,-200},{-60,-180}})));
-protected
+//protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.FailsafeCondition faiSafCon(
     final delayStaCha = delayStaCha,
     final TDif = TDif,
