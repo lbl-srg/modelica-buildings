@@ -4,10 +4,10 @@ model DOE2Reversible
 
    package Medium = Buildings.Media.Water "Medium model";
 
-   parameter Modelica.SIunits.MassFlowRate mSou_flow_nominal=per.coo.mSou_flow
-   "Source heat exchanger nominal mass flow rate";
-   parameter Modelica.SIunits.MassFlowRate mLoa_flow_nominal=per.coo.mLoa_flow
-   "Load heat exchanger nominal mass flow rate";
+  parameter Modelica.SIunits.MassFlowRate mSou_flow_nominal=per.m2_flow_nominal
+    "Source heat exchanger nominal mass flow rate";
+  parameter Modelica.SIunits.MassFlowRate mLoa_flow_nominal=per.m1_flow_nominal
+    "Load heat exchanger nominal mass flow rate";
 
   Buildings.Fluid.HeatPumps.BaseClasses.DOE2Reversible doe2(
     per=per,
@@ -76,9 +76,9 @@ equation
           -58},{38,-58}}, color={255,0,255}));
   connect(isHea.y, TLvgPer.u2) annotation (Line(points={{12,-30},{26,-30},{26,
           42},{38,42}}, color={255,0,255}));
-  connect(doe2.TEnt, TEntPer.y) annotation (Line(points={{73,10},{64,10},{64,
+  connect(doe2.TConEnt, TEntPer.y) annotation (Line(points={{73,10},{64,10},{64,
           -58},{62,-58}}, color={0,0,127}));
-  connect(doe2.TLvg, TLvgPer.y)
+  connect(doe2.TEvaLvg, TLvgPer.y)
     annotation (Line(points={{73,6},{68,6},{68,42},{62,42}}, color={0,0,127}));
   connect(TSouLvg.y, TLvgPer.u1)
     annotation (Line(points={{-58,50},{38,50}}, color={0,0,127}));

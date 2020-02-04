@@ -3,19 +3,19 @@ model DOE2Reversible
   "Test model for reverse heat pump based on performance curves"
  package Medium = Buildings.Media.Water "Medium model";
 
-  parameter Real scaling_factor=0.7
+  parameter Data.DOE2Reversible.EnergyPlus per "Performance data"
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+
+  parameter Real scaling_factor=1
    "Scaling factor for heat pump capacity";
 
   Buildings.Fluid.HeatPumps.DOE2Reversible chiDOE2(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
-    m1_flow_nominal=per.coo.mLoa_flow,
-    m2_flow_nominal=per.coo.mSou_flow,
     show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     per=per,
-    scaling_factor=scaling_factor,
-    reverseCycle=true) "Chiller model with DOE2 method"
+    scaling_factor=scaling_factor) "Chiller model with DOE2 method"
     annotation (Placement(transformation(extent={{40,-2},{60,18}})));
   Modelica.Blocks.Math.RealToInteger reaToInt
    "Real to integer conversion"
@@ -23,24 +23,21 @@ model DOE2Reversible
   Sources.MassFlowSource_T loaPum(
     redeclare package Medium = Medium,
     use_m_flow_in=false,
-    m_flow=per.coo.mSou_flow,
+    m_flow=per.m2_flow_nominal,
     use_T_in=true,
-    nPorts=1)
-   "Load Side water pump"
-   annotation (Placement(transformation(
-      extent={{10,-10},{-10,10}},
-      rotation=180,
-      origin={70,70})));
+    nPorts=1) "Load Side water pump" annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=180,
+        origin={70,70})));
   Sources.MassFlowSource_T souPum(
     redeclare package Medium = Medium,
-    m_flow=per.coo.mSou_flow,
+    m_flow=per.m2_flow_nominal,
     nPorts=1,
-    use_T_in=true)
-   "Source side water pump"
-   annotation (Placement(transformation(
-      extent={{-10,-10},{10,10}},
-      rotation=180,
-      origin={92,-8})));
+    use_T_in=true) "Source side water pump" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={92,-8})));
   Modelica.Fluid.Sources.FixedBoundary loaVol(
      redeclare package Medium = Medium,
      nPorts=1)
@@ -50,16 +47,13 @@ model DOE2Reversible
      redeclare package Medium = Medium, nPorts=1)
    "Volume for source side"
    annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant
-                                           THeaLoaSet(k=35 + 273.15)
+  Controls.OBC.CDL.Continuous.Sources.Constant THeaLoaSet(k=35 + 273.15)
    "Heating load side setpoint water temperature"
    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant
-                                           TCooLoaSet(k=7 + 273.15)
+  Controls.OBC.CDL.Continuous.Sources.Constant TCooLoaSet(k=7 + 273.15)
                        "Cooling load setpoint water temperature"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Controls.OBC.CDL.Integers.GreaterEqualThreshold
-                                             intGreEquThr(threshold=1)
+  Controls.OBC.CDL.Integers.GreaterEqualThreshold intGreEquThr(threshold=1)
    "Integer threshold"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Controls.OBC.CDL.Logical.Switch swi "Switch for set point temperature"
@@ -102,11 +96,10 @@ model DOE2Reversible
   Modelica.Blocks.Sources.Constant TSouLvgMin(k=6 + 273.15)
     "Minimum source side leaving temperature in case of heating mode"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
-  parameter Data.DOE2Reversible.EnergyPlus per "Performance data"
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+
   Modelica.Blocks.Sources.Constant TSouLvgMax(k=20 + 273.15)
     "Maximum source side leaving temperature in case of heating mode "
-    annotation (Placement(transformation(extent={{-20,-42},{0,-22}})));
+    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 equation
   connect(souPum.ports[1], chiDOE2.port_a2) annotation (Line(points={{82,-8},{
           72,-8},{72,2},{60,2}}, color={0,127,255}));
@@ -147,12 +140,12 @@ equation
       points={{-38,-30},{-32,-30},{-32,2},{-22,2}},
       color={0,0,127},
       pattern=LinePattern.Dot));
-  connect(reaToInt.y, chiDOE2.uMod) annotation (Line(points={{-65,10},{-62,10},
-          {-62,-6},{6,-6},{6,8},{39,8}},   color={255,127,0}));
+  connect(reaToInt.y, chiDOE2.uMod) annotation (Line(points={{-65,10},{-62,10},{
+          -62,-6},{6,-6},{6,11},{39,11}},  color={255,127,0}));
   connect(TSouLvgMin.y,chiDOE2.TSouMinLvg)  annotation (Line(points={{1,-80},{26,
-          -80},{26,-1},{39,-1}},  color={0,0,127}));
-  connect(TSouLvgMax.y,chiDOE2.TSouMaxLvg)  annotation (Line(points={{1,-32},{8,
-          -32},{8,12},{39,12}}, color={0,0,127}));
+          -80},{26,5},{39,5}},    color={0,0,127}));
+  connect(TSouLvgMax.y,chiDOE2.TSouMaxLvg)  annotation (Line(points={{1,-30},{8,
+          -30},{8,8},{39,8}},   color={0,0,127}));
   connect(chiDOE2.port_b2, souVol.ports[1]) annotation (Line(points={{40,2},{20,
           2},{20,-60},{-80,-60}}, color={0,127,255}));
   connect(loaPum.ports[1], chiDOE2.port_a1) annotation (Line(points={{80,70},{

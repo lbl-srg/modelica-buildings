@@ -3,27 +3,37 @@ record Generic
   "Generic data record for reverse water to water heat pump implementing the doe2 method"
   extends Modelica.Icons.Record;
 
-  parameter HeatingCoolingData coo "Performance data for cooling mode";
-  parameter HeatingCoolingData hea(
-     mLoa_flow = coo.mLoa_flow,
-     mSou_flow = coo.mSou_flow,
-     COP_nominal=coo.COP_nominal+1,
-     Q_flow=coo.Q_flow)
+  parameter HeatingCoolingData hea
    "Performance data for heating mode";
-  parameter Modelica.SIunits.PressureDifference dpHeaLoa_nominal(min=0) = 30000
-   "Nominal pressure drop at load heat exchanger side at hea.mLoa_flow";
-  parameter Modelica.SIunits.PressureDifference dpHeaSou_nominal(min=0) = 30000
-   "Nominal pressure drop at source heat exchanger side at hea.mSou_flow";
+
+  parameter HeatingCoolingData coo(COPCoo_nominal=hea.COPCoo_nominal - 1)
+    "Performance data for cooling mode";
+
+  Modelica.SIunits.MassFlowRate m1_flow_nominal
+    "Nominal mass flow rate used to compute pressure drop at medium 1";
+  Modelica.SIunits.MassFlowRate m2_flow_nominal
+    "Nominal mass flow rate used to compute pressure drop at medium 2";
+  parameter Modelica.SIunits.PressureDifference dp1_nominal(
+    final min=0,
+    displayUnit="Pa") = 30000
+    "Nominal pressure drop at hea.m1_flow_nominal";
+  parameter Modelica.SIunits.PressureDifference dp2_nominal(
+    final min=0,
+    displayUnit="Pa") = 30000
+    "Nominal pressure drop at hea.m2_flow_nominal";
+
+  final parameter Boolean canHeat=hea.QEva_flow_nominal < -Modelica.Constants.eps
+    "= true, if the heat pump can be operated in heating mode"
+    annotation (Evaluate=true);
+  final parameter Boolean canCool=coo.QEva_flow_nominal < -Modelica.Constants.eps
+    "= true, if the heat pump can be operated in cooling mode"
+    annotation (Evaluate=true);
 
 protected
   record HeatingCoolingData "Record for performance data that are used for heating and cooling separately"
-    Modelica.SIunits.HeatFlowRate Q_flow
-     "Nominal capacity"
-      annotation (Dialog(group="Nominal conditions at load heat exchanger side"));
-    Modelica.SIunits.MassFlowRate mLoa_flow
-     "Nominal mass flow rate at load heat exchanger side";
-    Modelica.SIunits.MassFlowRate mSou_flow
-     "Nominal mass flow rate at source heat exchanger side";
+    Modelica.SIunits.HeatFlowRate QEva_flow_nominal(max=0)
+      "Nominal capacity at evaporator (negative number)"
+      annotation (Dialog(group="Nominal conditions at evaporator"));
     Real capFunT[6]
      "Biquadratic coefficients for capFunT"
       annotation (Dialog(group="Performance coefficients"));
@@ -32,8 +42,8 @@ protected
       annotation (Dialog(group="Performance coefficients"));
     Real EIRFunPLR[4]
      "Coefficients for EIRFunPLR";
-    Real COP_nominal
-     "Reference coefficient of performance"
+    Real COPCoo_nominal
+      "Reference coefficient of performance, using the evaporator heat flow rate as useful heat"
       annotation (Dialog(group="Nominal condition"));
     Real PLRMax(min=0) "
      Maximum part load ratio";
