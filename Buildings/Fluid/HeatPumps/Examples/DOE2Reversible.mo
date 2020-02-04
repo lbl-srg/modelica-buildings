@@ -11,10 +11,8 @@ model DOE2Reversible
     redeclare package Medium2 = Medium,
     m1_flow_nominal=per.coo.mLoa_flow,
     m2_flow_nominal=per.coo.mSou_flow,
-    dp1_nominal=6000,
-    dp2_nominal=6000,
+    show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     per=per,
     scaling_factor=scaling_factor,
     reverseCycle=true) "Chiller model with DOE2 method"
@@ -139,10 +137,6 @@ equation
           22,20},{22,17},{39,17}}, color={0,0,127}));
   connect(swi2.y, souPum.T_in)
     annotation (Line(points={{102,-50},{110,-50},{110,-12},{104,-12}}, color={0,0,127}));
-  connect(loaPum.ports[1], chiDOE2.port_a1) annotation (Line(
-      points={{80,70},{80,40},{26,40},{26,14},{40,14}},
-      color={0,127,255},
-      pattern=LinePattern.Dash));
   connect(THeaLoaSet.y, swi.u1)
     annotation (Line(
       points={{-38,50},{-32,50},{-32,18},{-22,18}},
@@ -161,6 +155,8 @@ equation
           -32},{8,12},{39,12}}, color={0,0,127}));
   connect(chiDOE2.port_b2, souVol.ports[1]) annotation (Line(points={{40,2},{20,
           2},{20,-60},{-80,-60}}, color={0,127,255}));
+  connect(loaPum.ports[1], chiDOE2.port_a1) annotation (Line(points={{80,70},{
+          84,70},{84,50},{32,50},{32,14},{40,14}}, color={0,127,255}));
      annotation (Icon(coordinateSystem(preserveAspectRatio=false),
                                graphics={
         Ellipse(lineColor = {75,138,73},

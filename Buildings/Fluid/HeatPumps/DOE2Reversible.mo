@@ -2,16 +2,16 @@ within Buildings.Fluid.HeatPumps;
 model DOE2Reversible
   "Model for a reversible heat pump based on the DOE2 method"
 extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
-        dp2_nominal=200,
-        dp1_nominal=200,
-        show_T=true,
+      final dp1_nominal = per.dpHeaLoa_nominal,
+      final dp2_nominal = per.dpHeaSou_nominal,
+      final massDynamics = energyDynamics,
       redeclare final Buildings.Fluid.MixingVolumes.MixingVolume
-        vol2( V=m2_flow_nominal*tau2/rho2_nominal,
-              nPorts=2,
-              final prescribedHeatFlowRate=true),
-        vol1( V=m1_flow_nominal*tau1/rho1_nominal,
-              nPorts=2,
-              final prescribedHeatFlowRate=true));
+        vol2(final V=m2_flow_nominal*tau2/rho2_nominal,
+             final nPorts=2,
+             final prescribedHeatFlowRate=true),
+        vol1(final V=m1_flow_nominal*tau1/rho1_nominal,
+             final nPorts=2,
+             final prescribedHeatFlowRate=true));
 
   parameter Buildings.Fluid.HeatPumps.Data.DOE2Reversible.Generic per
    "Performance data"
@@ -91,20 +91,33 @@ extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
         iconTransformation(extent={{100,-100},{120,-80}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TSouLvg
     "Leaving water temperature form source heat exchanger"
-    annotation (Placement(transformation(extent={{0,-40},{-20,-20}})));
+    annotation (Placement(transformation(extent={{-10,-54},{-30,-34}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TLoaLvg
     "Leaving water temperature form load heat exchanger"
-    annotation (Placement(transformation(extent={{-28,20},{-48,40}})));
+    annotation (Placement(transformation(extent={{-28,30},{-48,50}})));
 
   BaseClasses.ReSetTSetCoo reSet
     "Built-in controller to reset of the cooling set point tempeatue in case heating mode is selected."
-    annotation (Placement(transformation(extent={{-48,50},{-28,70}})));
+    annotation (Placement(transformation(extent={{-42,56},{-22,76}})));
 protected
+  Controls.OBC.CDL.Integers.GreaterThreshold isHea(final threshold=0)
+    "Output true if in heating mode"
+    annotation (Placement(transformation(extent={{-34,10},{-14,30}})));
+  Controls.OBC.CDL.Logical.Switch TEntPer(
+    y(final unit = "K",
+      displayUnit = "degC"))
+    "Entering temperature used to compute the performance"
+    annotation (Placement(transformation(extent={{0,10},{20,30}})));
+  Controls.OBC.CDL.Logical.Switch TLvgPer(
+    y(final unit = "K",
+      displayUnit = "degC"))
+    "Leaving temperature used to compute the performance"
+    annotation (Placement(transformation(extent={{0,-32},{20,-12}})));
    BaseClasses.DOE2Reversible doe2(
      final per=per,
      final scaling_factor=scaling_factor)
    "Performance model"
-    annotation (Placement(transformation(extent={{-6,-10},{14,10}})));
+    annotation (Placement(transformation(extent={{40,-14},{60,6}})));
 
   Buildings.Controls.OBC.CDL.Integers.LessThreshold lesThr(
     final threshold=0) if not reverseCycle
@@ -123,24 +136,22 @@ protected
       then m1_flow*(hSet -inStream(port_a1.h_outflow))
     else   0)
     "Required heat flow rate to meet set point"
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Modelica.Blocks.Sources.RealExpression TSouEnt(
-    final y=Medium2.temperature(
+    annotation (Placement(transformation(extent={{-86,20},{-66,40}})));
+  Modelica.Blocks.Sources.RealExpression T_a2(final y=Medium2.temperature(
         Medium2.setState_phX(
         port_a2.p,
         inStream(port_a2.h_outflow),
         inStream(port_a2.Xi_outflow)))) "Source side leaving fluid temperature"
-    annotation (Placement(transformation(extent={{-80,-22},{-60,-2}})));
-  Modelica.Blocks.Sources.RealExpression TLoaEnt(
-    final y=Medium1.temperature(
+    annotation (Placement(transformation(extent={{-84,-20},{-64,0}})));
+  Modelica.Blocks.Sources.RealExpression T_a1(final y=Medium1.temperature(
         Medium1.setState_phX(
         port_a1.p,
         inStream(port_a1.h_outflow),
         inStream(port_a1.Xi_outflow)))) "Load side entering fluid temperature"
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+    annotation (Placement(transformation(extent={{-86,-36},{-66,-16}})));
   HeatTransfer.Sources.PrescribedHeatFlow preHeaFloLoa
    "Prescribed load side heat flow rate"
-    annotation (Placement(transformation(extent={{61,10},{41,30}})));
+    annotation (Placement(transformation(extent={{61,30},{41,50}})));
   HeatTransfer.Sources.PrescribedHeatFlow preHeaFloSou
    "Prescribed source side heat flow rate"
     annotation (Placement(transformation(extent={{59,-70},{39,-50}})));
@@ -149,77 +160,84 @@ equation
   connect(aleMes.u,lesThr.y)
   annotation (Line(points={{-54,-80},{-58,-80}}, color={255,0,255}));
   connect(uMod, doe2.uMod)
-  annotation (Line(points={{-112,0},{-7,0}},  color={255,127,0}));
+  annotation (Line(points={{-112,0},{39,0}},  color={255,127,0}));
   connect(uMod, lesThr.u)
   annotation (Line(points={{-112,0},{-88,0},{-88,-80},{-82,
           -80}}, color={255,127,0}));
   connect(Q_flow_set.y, doe2.Q_flow_set)
-  annotation (Line(points={{-59,30},{-58,30},{-58,5.4},{-7,5.4}},
+  annotation (Line(points={{-65,30},{-60,30},{-60,4},{39,4}},
                                 color={0,0,127}));
   connect(doe2.QLoa_flow, QLoa_flow)
   annotation (Line(
-      points={{15,3},{84,3},{84,88},{110,88}},
+      points={{61,-1},{84,-1},{84,88},{110,88}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(doe2.P, P)
   annotation (Line(
-      points={{15,0},{110,0}},
+      points={{61,-4},{86,-4},{86,0},{110,0}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(doe2.COP, COP)
   annotation (Line(
-      points={{15,-3},{84,-3},{84,-40},{110,-40}},
+      points={{61,-7},{84,-7},{84,-40},{110,-40}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(doe2.QSou_flow, QSou_flow)
   annotation (Line(
-      points={{15,-6},{82,-6},{82,-88},{110,-88}},
+      points={{61,-10},{82,-10},{82,-88},{110,-88}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(doe2.QLoa_flow, preHeaFloLoa.Q_flow)
-  annotation (Line(points={{15,3},{68,3},{68,20},{61,20}}, color={0,0,127}));
+  annotation (Line(points={{61,-1},{68,-1},{68,40},{61,40}},
+                                                           color={0,0,127}));
   connect(doe2.QSou_flow, preHeaFloSou.Q_flow)
-  annotation (Line(points={{15,-6},{68,-6},{68,-60},{59,-60}},
+  annotation (Line(points={{61,-10},{68,-10},{68,-60},{59,-60}},
                                       color={0,0,127}));
   connect(TSet,reSet. TSet)
-  annotation (Line(points={{-110,54},{-56,54},{-56,62.8},{-49,62.8}},
+  annotation (Line(points={{-110,54},{-56,54},{-56,68.8},{-43,68.8}},
                      color={0,0,127}));
   connect(uMod,reSet. uMod)
-  annotation (Line(points={{-112,0},{-88,0},{-88,60},{
-          -49,60}}, color={255,127,0}));
+  annotation (Line(points={{-112,0},{-88,0},{-88,66},{-43,66}},
+                    color={255,127,0}));
   connect(preHeaFloLoa.port, vol1.heatPort)
-  annotation (Line(points={{41,20},{-20,
-          20},{-20,60},{-10,60}},     color={191,0,0}));
+  annotation (Line(points={{41,40},{-20,40},{-20,60},{-10,60}},
+                                      color={191,0,0}));
   connect(preHeaFloSou.port, vol2.heatPort)
   annotation (Line(points={{39,-60},{12,-60}}, color={191,0,0}));
-  connect(TLoaEnt.y, doe2.TLoaEnt)
-  annotation (Line(points={{-59,-30},{-48,-30},{-48,-6.4},{-7,-6.4}},
-                             color={0,0,127}));
-  connect(TSouEnt.y, doe2.TSouEnt)
-  annotation (Line(points={{-59,-12},{-52,-12},{-52,-2.6},{-7,-2.6}},
-                             color={0,0,127}));
   connect(TSouMinLvg,reSet.TSouLvgMin)
-  annotation (Line(points={{-110,100},{
-          -52,100},{-52,69.2},{-49,69.2}},
+  annotation (Line(points={{-110,100},{-52,100},{-52,75.2},{-43,75.2}},
                                        color={0,0,127}));
   connect(TSouMaxLvg,reSet.TSouLvgMax)
-  annotation (Line(points={{-110,86},{-56,
-          86},{-56,66},{-49,66}}, color={0,0,127}));
+  annotation (Line(points={{-110,86},{-56,86},{-56,72},{-43,72}},
+                                  color={0,0,127}));
   connect(vol2.heatPort, TSouLvg.port)
-  annotation (Line(points={{12,-60},{20,-60},
-          {20,-30},{0,-30}}, color={191,0,0}));
-  connect(TSouLvg.T, doe2.TSouLvg)
-  annotation (Line(points={{-20,-30},{-34,-30},{-34,-9.8},{-7,-9.8}},
-                           color={0,0,127}));
+  annotation (Line(points={{12,-60},{20,-60},{20,-44},{-10,-44}},
+                             color={191,0,0}));
   connect(vol1.heatPort, TLoaLvg.port)
-  annotation (Line(points={{-10,60},{-20,60},
-          {-20,30},{-28,30}}, color={191,0,0}));
+  annotation (Line(points={{-10,60},{-20,60},{-20,40},{-28,40}},
+                              color={191,0,0}));
   connect(TLoaLvg.T, reSet.TLoaLvg)
-  annotation (Line(points={{-48,30},{-54,30},{
-          -54,52},{-49,52}}, color={0,0,127}));
-  connect(TLoaLvg.T, doe2.TLoaLvg)
-  annotation (Line(points={{-48,30},{-54,30},{-54,8.4},{-7,8.4}},
-                          color={0,0,127}));
+  annotation (Line(points={{-48,40},{-52,40},{-52,58},{-43,58}},
+                             color={0,0,127}));
+  connect(uMod, isHea.u) annotation (Line(points={{-112,0},{-74,0},{-74,20},{-36,
+          20}},      color={255,127,0}));
+  connect(TEntPer.u2, isHea.y)
+    annotation (Line(points={{-2,20},{-12,20}}, color={255,0,255}));
+  connect(doe2.TEnt, TEntPer.y) annotation (Line(points={{39,-8},{30,-8},{30,20},
+          {22,20}}, color={0,0,127}));
+  connect(doe2.TLvg, TLvgPer.y) annotation (Line(points={{39,-12},{30,-12},{30,-22},
+          {22,-22}},      color={0,0,127}));
+  connect(TLvgPer.u1, TSouLvg.T) annotation (Line(points={{-2,-14},{-36,-14},{-36,
+          -44},{-30,-44}}, color={0,0,127}));
+  connect(TLvgPer.u3, TLoaLvg.T) annotation (Line(points={{-2,-30},{-52,-30},{-52,
+          40},{-48,40}}, color={0,0,127}));
+  connect(TLvgPer.u2, isHea.y) annotation (Line(points={{-2,-22},{-6,-22},{-6,20},
+          {-12,20}}, color={255,0,255}));
+  connect(TEntPer.u3, T_a2.y) annotation (Line(points={{-2,12},{-8,12},{-8,-10},
+          {-63,-10}}, color={0,0,127}));
+  connect(TEntPer.u1, T_a1.y) annotation (Line(points={{-2,28},{-10,28},{-10,
+          -26},{-65,-26}},
+                      color={0,0,127}));
 annotation (Icon(coordinateSystem(preserveAspectRatio=false),
      graphics={
         Ellipse(
@@ -455,7 +473,7 @@ The performance of the heat pump is computed as follows:
 It is important to highlight that the DOE2 equations are assoiciated only to the evaporator
 perfromance. Hence in case of <code>uMod</code>=+1, the evaporator is the source heat exchanger and
 Q&#775;<sub>0</sub> &nbsp; is multiplied by a load ratio<code>loaRat</code> as stated
-in EnergyPlus-InputOutput Reference.
+in the EnergyPlus InputOutput Reference.
 </li>
 <li>
 If <code>uMod = 1</code>, the heat pump is in heating mode and the source side (Evaporator) available heat is

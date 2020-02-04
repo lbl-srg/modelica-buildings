@@ -7,7 +7,7 @@ record Generic
   parameter HeatingCoolingData hea(
      mLoa_flow = coo.mLoa_flow,
      mSou_flow = coo.mSou_flow,
-     COP_nominal=coo.COP_nominal,
+     COP_nominal=coo.COP_nominal+1,
      Q_flow=coo.Q_flow)
    "Performance data for heating mode";
   parameter Modelica.SIunits.PressureDifference dpHeaLoa_nominal(min=0) = 30000
@@ -17,29 +17,29 @@ record Generic
 
 protected
   record HeatingCoolingData "Record for performance data that are used for heating and cooling separately"
-    parameter Modelica.SIunits.HeatFlowRate Q_flow
+    Modelica.SIunits.HeatFlowRate Q_flow
      "Nominal capacity"
       annotation (Dialog(group="Nominal conditions at load heat exchanger side"));
-    parameter Modelica.SIunits.MassFlowRate mLoa_flow
+    Modelica.SIunits.MassFlowRate mLoa_flow
      "Nominal mass flow rate at load heat exchanger side";
-    parameter Modelica.SIunits.MassFlowRate mSou_flow
+    Modelica.SIunits.MassFlowRate mSou_flow
      "Nominal mass flow rate at source heat exchanger side";
-    parameter Real CapFunT[6]
+    Real capFunT[6]
      "Biquadratic coefficients for capFunT"
       annotation (Dialog(group="Performance coefficients"));
-    parameter Real EIRFunT[6]
+    Real EIRFunT[6]
      "Biquadratic coefficients for EIRFunT"
       annotation (Dialog(group="Performance coefficients"));
-    parameter Real EIRFunPLR[4]
+    Real EIRFunPLR[4]
      "Coefficients for EIRFunPLR";
-    parameter Real COP_nominal
+    Real COP_nominal
      "Reference coefficient of performance"
       annotation (Dialog(group="Nominal condition"));
-    parameter Real PLRMax(min=0) "
+    Real PLRMax(min=0) "
      Maximum part load ratio";
-    parameter Real PLRMinUnl(min=0)
+    Real PLRMinUnl(min=0)
      "Minimum part unload ratio";
-    parameter Real PLRMin(min=0)
+    Real PLRMin(min=0)
       "Minimum part load ratio";
     annotation (Dialog(group="Performance coefficients"),
                 Documentation(info="<html>

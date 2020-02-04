@@ -13,29 +13,29 @@ model DOE2Reversible
     per=per,
     scaling_factor=1)
     "Performance model for DOE2 method"
-    annotation (Placement(transformation(extent={{40,6},{60,26}})));
+    annotation (Placement(transformation(extent={{74,4},{94,24}})));
   Modelica.Blocks.Math.RealToInteger reaToInt
     "Real to integer conversion"
-    annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
+    annotation (Placement(transformation(extent={{-50,-20},{-30,0}})));
   Modelica.Blocks.Sources.Sine  uMod(amplitude=1, freqHz=1/2600)
                  "Heat pump operates in heating mode"
-    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
+    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Modelica.Blocks.Sources.Constant
                                Q_flow_set(k=-40000)
     "Set point for heat flow rate"
-    annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Controls.OBC.CDL.Continuous.Sources.Sine TLoaLvg(
     amplitude=5,
     freqHz=1/2600,
     offset=30 + 273.15,
     startTime=0) "Load side entering water temperature"
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+    annotation (Placement(transformation(extent={{-82,10},{-62,30}})));
   Controls.OBC.CDL.Continuous.Sources.Sine TLoaEnt(
     amplitude=5,
     freqHz=1/2600,
     offset=25 + 273.15,
     startTime=0) "Load side entering water temperature"
-    annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
+    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   parameter Data.DOE2Reversible.EnergyPlus per
     annotation (Placement(transformation(extent={{52,74},{72,94}})));
   Controls.OBC.CDL.Continuous.Sources.Sine TSouLvg(
@@ -43,32 +43,51 @@ model DOE2Reversible
     freqHz=1/2600,
     offset=6 + 273.15,
     startTime=0) "Source side leaving water temperature"
-    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
+    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Controls.OBC.CDL.Continuous.Sources.Sine TSouEnt(
     amplitude=2,
     freqHz=1/2600,
     offset=12 + 273.15,
     startTime=0) "Source side entering water temperature"
-    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
+    annotation (Placement(transformation(extent={{-80,-92},{-60,-72}})));
+  Controls.OBC.CDL.Integers.GreaterThreshold isHea(final threshold=0)
+    "Output true if in heating mode"
+    annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
+protected
+  Controls.OBC.CDL.Logical.Switch TEntPer(y(final unit="K", displayUnit="degC"))
+    "Entering temperature used to compute the performance"
+    annotation (Placement(transformation(extent={{40,-68},{60,-48}})));
+  Controls.OBC.CDL.Logical.Switch TLvgPer(y(final unit="K", displayUnit="degC"))
+    "Leaving temperature used to compute the performance"
+    annotation (Placement(transformation(extent={{40,32},{60,52}})));
 equation
   connect(reaToInt.u,uMod. y)
-    annotation (Line(points={{-22,-10},{-39,-10}},
+    annotation (Line(points={{-52,-10},{-59,-10}},
                                              color={0,0,127}));
   connect(reaToInt.y, doe2.uMod)
-    annotation (Line(points={{1,-10},{20,-10},{20,16},{39,16}},
+    annotation (Line(points={{-29,-10},{20,-10},{20,18},{73,18}},
                        color={255,127,0}));
   connect(Q_flow_set.y, doe2.Q_flow_set)
-    annotation (Line(points={{-39,80},{34,80},{34,25},{39,25}},
+    annotation (Line(points={{-59,80},{34,80},{34,22},{73,22}},
                             color={0,0,127}));
-  connect(TLoaLvg.y, doe2.TLoaLvg)
-    annotation (Line(points={{-38,50},{22,50},{22,20.8},{39,20.8}},
-                        color={0,0,127}));
-  connect(TLoaEnt.y, doe2.TLoaEnt) annotation (Line(points={{-38,-80},{30,-80},
-          {30,8},{39,8}},     color={0,0,127}));
-  connect(TSouLvg.y, doe2.TSouLvg) annotation (Line(points={{-38,20},{22,20},{
-          22,18},{39,18}},    color={0,0,127}));
-  connect(TSouEnt.y, doe2.TSouEnt) annotation (Line(points={{-38,-50},{26,-50},
-          {26,12},{39,12}}, color={0,0,127}));
+  connect(reaToInt.y, isHea.u) annotation (Line(points={{-29,-10},{-20,-10},{
+          -20,-30},{-12,-30}}, color={255,127,0}));
+  connect(isHea.y, TEntPer.u2) annotation (Line(points={{12,-30},{26,-30},{26,
+          -58},{38,-58}}, color={255,0,255}));
+  connect(isHea.y, TLvgPer.u2) annotation (Line(points={{12,-30},{26,-30},{26,
+          42},{38,42}}, color={255,0,255}));
+  connect(doe2.TEnt, TEntPer.y) annotation (Line(points={{73,10},{64,10},{64,
+          -58},{62,-58}}, color={0,0,127}));
+  connect(doe2.TLvg, TLvgPer.y)
+    annotation (Line(points={{73,6},{68,6},{68,42},{62,42}}, color={0,0,127}));
+  connect(TSouLvg.y, TLvgPer.u1)
+    annotation (Line(points={{-58,50},{38,50}}, color={0,0,127}));
+  connect(TLoaLvg.y, TLvgPer.u3) annotation (Line(points={{-60,20},{-10,20},{
+          -10,34},{38,34}}, color={0,0,127}));
+  connect(TSouEnt.y, TEntPer.u3) annotation (Line(points={{-58,-82},{32,-82},{
+          32,-66},{38,-66}}, color={0,0,127}));
+  connect(TEntPer.u1, TLoaEnt.y)
+    annotation (Line(points={{38,-50},{-58,-50}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,
             -100},{100,100}}),
                graphics={
