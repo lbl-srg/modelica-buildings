@@ -2,7 +2,6 @@ compareVars :=
   {
     "TRoo.T",
     "TRooSet.y",
-    "heaPum.TSet",
     "heaPum.uMod",
     "heaPum.Q1_flow",
     "heaPum.Q2_flow",

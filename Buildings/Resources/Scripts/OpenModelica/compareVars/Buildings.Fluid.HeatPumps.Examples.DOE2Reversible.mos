@@ -1,7 +1,7 @@
 compareVars :=
   {
-    "chiDOE2.QSou_flow",
-    "chiDOE2.QLoa_flow",
+    "chiDOE2.Q1_flow",
+    "chiDOE2.Q2_flow",
     "chiDOE2.P",
     "chiDOE2.sta_a1.T",
     "chiDOE2.sta_b1.T",

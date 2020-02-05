@@ -37,7 +37,7 @@ model DOE2Reversible
     startTime=0) "Load side entering water temperature"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   parameter Data.DOE2Reversible.EnergyPlus per
-    annotation (Placement(transformation(extent={{52,74},{72,94}})));
+    annotation (Placement(transformation(extent={{60,72},{80,92}})));
   Controls.OBC.CDL.Continuous.Sources.Sine TSouLvg(
     amplitude=2,
     freqHz=1/2600,
@@ -59,7 +59,7 @@ protected
     annotation (Placement(transformation(extent={{40,-68},{60,-48}})));
   Controls.OBC.CDL.Logical.Switch TLvgPer(y(final unit="K", displayUnit="degC"))
     "Leaving temperature used to compute the performance"
-    annotation (Placement(transformation(extent={{40,32},{60,52}})));
+    annotation (Placement(transformation(extent={{36,20},{56,40}})));
 equation
   connect(reaToInt.u,uMod. y)
     annotation (Line(points={{-52,-10},{-59,-10}},
@@ -67,27 +67,27 @@ equation
   connect(reaToInt.y, doe2.uMod)
     annotation (Line(points={{-29,-10},{20,-10},{20,18},{73,18}},
                        color={255,127,0}));
-  connect(Q_flow_set.y, doe2.Q_flow_set)
-    annotation (Line(points={{-59,80},{34,80},{34,22},{73,22}},
-                            color={0,0,127}));
   connect(reaToInt.y, isHea.u) annotation (Line(points={{-29,-10},{-20,-10},{
           -20,-30},{-12,-30}}, color={255,127,0}));
   connect(isHea.y, TEntPer.u2) annotation (Line(points={{12,-30},{26,-30},{26,
           -58},{38,-58}}, color={255,0,255}));
   connect(isHea.y, TLvgPer.u2) annotation (Line(points={{12,-30},{26,-30},{26,
-          42},{38,42}}, color={255,0,255}));
+          30},{34,30}}, color={255,0,255}));
   connect(doe2.TConEnt, TEntPer.y) annotation (Line(points={{73,10},{64,10},{64,
           -58},{62,-58}}, color={0,0,127}));
   connect(doe2.TEvaLvg, TLvgPer.y)
-    annotation (Line(points={{73,6},{68,6},{68,42},{62,42}}, color={0,0,127}));
+    annotation (Line(points={{73,6},{68,6},{68,30},{58,30}}, color={0,0,127}));
   connect(TSouLvg.y, TLvgPer.u1)
-    annotation (Line(points={{-58,50},{38,50}}, color={0,0,127}));
+    annotation (Line(points={{-58,50},{-10,50},{-10,38},{34,38}},
+                                                color={0,0,127}));
   connect(TLoaLvg.y, TLvgPer.u3) annotation (Line(points={{-60,20},{-10,20},{
-          -10,34},{38,34}}, color={0,0,127}));
+          -10,22},{34,22}}, color={0,0,127}));
   connect(TSouEnt.y, TEntPer.u3) annotation (Line(points={{-58,-82},{32,-82},{
           32,-66},{38,-66}}, color={0,0,127}));
   connect(TEntPer.u1, TLoaEnt.y)
     annotation (Line(points={{38,-50},{-58,-50}}, color={0,0,127}));
+  connect(Q_flow_set.y, doe2.QSet_flow) annotation (Line(points={{-59,80},{0,80},
+          {0,48},{70,48},{70,22},{73,22}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,
             -100},{100,100}}),
                graphics={

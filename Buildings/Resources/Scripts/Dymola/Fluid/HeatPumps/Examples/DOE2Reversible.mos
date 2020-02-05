@@ -1,7 +1,7 @@
 simulateModel("Buildings.Fluid.HeatPumps.Examples.DOE2Reversible", method="CVode", tolerance=1e-6, stopTime=2600, resultFile="DOE2Reversible");
 createPlot(id = 1,
    position = {60, 10, 600, 450},
-   y = {"chiDOE2.QSou_flow", "chiDOE2.QLoa_flow"},
+   y = {"chiDOE2.Q1_flow", "chiDOE2.Q2_flow"},
    autoscale = true,
    autoerase = true,
    autoreplot = true,
