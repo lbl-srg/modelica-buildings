@@ -88,7 +88,7 @@ model DOE2Reversible
   Modelica.SIunits.Efficiency COPHea(final min=0) = thePer.COPHea
     "Coefficient of performance for heating. If heating mode, useful heat is at medium 2, else at medium 1";
 
-  BaseClasses.ReSetTSetCoo conHeaMod
+  BaseClasses.EvaporatorSetpoint conHeaMod
     "Built-in controller to reset the cooling set point temperature in heating mode"
     annotation (Placement(transformation(extent={{-20,118},{0,138}})));
 
@@ -320,8 +320,8 @@ In heating mode, the fluid 1 transfers heat with the condenser, and hence
 this set point is converted internally to a set point that will be used to control the
 evaporator leaving water temperature, which is equal to the temperature of <code>port_b2</code>.
 This set point conversion is done using
-<a href=\"Buildings.Fluid.HeatPumps.BaseClasses.ReSetTSetCoo\">
-Buildings.Fluid.HeatPumps.BaseClasses.ReSetTSetCoo</a>.
+<a href=\"Buildings.Fluid.HeatPumps.BaseClasses.EvaporatorSetpoint\">
+Buildings.Fluid.HeatPumps.BaseClasses.EvaporatorSetpoint</a>.
 </li>
 </ul>
 <p>
@@ -458,8 +458,8 @@ For cooling mode (<code>uMod = -1</code>), this set point is equal to the input 
 For heating mode (<code>uMod = +1</code>), the input signal <code>TSet</code> is the set point for the condenser leaving
 temperature. Hence, the model internally converts <code>TSet</code> to an auxiliary set point
 for the evaporator leaving water temperature. This conversion is done using the model
-<a href=\"Buildings.Fluid.HeatPumps.BaseClasses.ReSetTSetCoo\">
-Buildings.Fluid.HeatPumps.BaseClasses.ReSetTSetCoo</a>.
+<a href=\"Buildings.Fluid.HeatPumps.BaseClasses.EvaporatorSetpoint\">
+Buildings.Fluid.HeatPumps.BaseClasses.EvaporatorSetpoint</a>.
 </p>
 <p>
 The corresponding power consumption is

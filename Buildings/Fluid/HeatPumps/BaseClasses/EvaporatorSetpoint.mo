@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatPumps.BaseClasses;
-block ReSetTSetCoo "Reset of TSetCoo for heating mode"
+block EvaporatorSetpoint "Reset of TSetCoo for heating mode"
   extends Modelica.Blocks.Icons.Block;
 
   Modelica.Blocks.Interfaces.RealInput TSet(final unit="K", displayUnit="degC")
@@ -106,4 +106,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ReSetTSetCoo;
+end EvaporatorSetpoint;

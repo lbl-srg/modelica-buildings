@@ -7,5 +7,5 @@ compareVars :=
     "chiDOE2.sta_b1.T",
     "chiDOE2.sta_a2.T",
     "chiDOE2.sta_b2.T",
-    "chiDOE2.COP"
+    "chiDOE2.COPCoo"
   };

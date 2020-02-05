@@ -1,4 +1,4 @@
-within Buildings.Fluid.HeatPumps.Examples;
+within Buildings.Fluid.HeatPumps.Validation;
 model DOE2Reversible
   "Test model for reverse heat pump based on performance curves"
  package Medium = Buildings.Media.Water "Medium model";
@@ -165,7 +165,7 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{120,
             120}}), graphics={Line(points={{-14,-8}}, color={28,108,200})}),
              __Dymola_Commands(
-  file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Examples/DOE2Reversible.mos"
+  file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/DOE2Reversible.mos"
         "Simulate and plot"),
          experiment(StopTime=4000, Tolerance=1e-06),
 Documentation(info="<html>
