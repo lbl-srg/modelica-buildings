@@ -1,7 +1,6 @@
 within Buildings.Controls.OBC.Utilities.BaseClasses;
 block OptimalStartCalculation
   "Base class for the block OptimalStart"
-  extends Modelica.Blocks.Icons.Block;
   parameter Modelica.SIunits.Time tOptMax "Maximum optimal start time";
   parameter Modelica.SIunits.Time tOptIni
     "Initial optimal start time";
@@ -144,7 +143,7 @@ protected
       "Switch to default optimal start time when time duration is 0"
       annotation (Placement(transformation(extent={{60,-10},{80,10}})));
     Buildings.Controls.OBC.CDL.Logical.Switch swi1
-      "Switch to default value value when the calculated temperature slope is 0"
+      "Switch to default value when the calculated temperature slope is 0"
       annotation (Placement(transformation(extent={{220,-10},{240,10}})));
 equation
   connect(tim.y, triSam.u)  annotation (Line(points={{-118,10},{-62,10}},
@@ -252,5 +251,15 @@ First implementation.
 </li>
 </ul>
 </html>"),
-Diagram(coordinateSystem(extent={{-280,-160},{400,160}})));
+Diagram(coordinateSystem(extent={{-280,-160},{400,160}})),
+    Icon(graphics={
+          Rectangle(
+            extent={{-100,-100},{100,100}},
+            lineColor={0,0,127},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Text(
+            extent={{-98,160},{102,106}},
+            lineColor={0,0,255},
+            textString="%name")}));
 end OptimalStartCalculation;

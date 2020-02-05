@@ -1,26 +1,27 @@
 within Buildings.Controls.OBC.Utilities;
 block OptimalStart
   "Block that outputs optimal start time for an HVAC system before occupancy"
-  parameter Modelica.SIunits.Time tOptMax=10800
+  parameter Modelica.SIunits.Time tOptMax(
+    displayUnit="h", min=0,max=21600)=10800
     "Maximum optimal start time";
-  parameter Integer nDay = 3
+  parameter Integer nDay(min=1) = 3
     "Number of previous days for averaging the temperature slope";
-  parameter Boolean heating_only = false
-    "Set to true if the HVAC system is heating only"  annotation(Dialog(enable=not cooling_only));
-  parameter Boolean cooling_only = false
-    "Set to true if the HVAC system is cooling only"  annotation(Dialog(enable=not heating_only));
+  parameter Boolean computeHeating = false
+    "Set to true if the HVAC system is heating only"  annotation(Dialog(enable=not computeCooling));
+  parameter Boolean computeCooling = false
+    "Set to true if the HVAC system is cooling only"  annotation(Dialog(enable=not computeHeating));
   parameter Modelica.SIunits.TemperatureDifference uLow = 0
     "Threshold to determine if the zone temperature reaches the occupied setpoint, 
-     should be a non-negative number";
+     must be a non-negative number";
   parameter Modelica.SIunits.TemperatureDifference uHigh = 0.5
     "Threshold to determine the need to start the HVAC system before occupancy,
-     should be greater than uLow";
+     must be greater than uLow";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetZonHea(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC",
-    min=200) if not cooling_only
+    min=200) if not computeCooling
     "Zone heating setpoint temperature during occupancy" annotation (Placement(
         transformation(extent={{-180,60},{-140,100}}), iconTransformation(
           extent={{-140,60},{-100,100}})));
@@ -34,7 +35,7 @@ block OptimalStart
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC",
-    min=200) if not heating_only
+    min=200) if not computeHeating
     "Zone cooling setpoint temperature during occupancy" annotation (Placement(
         transformation(extent={{-180,10},{-140,50}}),    iconTransformation(
           extent={{-140,10},{-100,50}})));
@@ -59,12 +60,12 @@ block OptimalStart
 
   Buildings.Controls.OBC.CDL.Continuous.Add dTHea(
     final k1=+1,
-    final k2=-1) if not cooling_only
+    final k2=-1) if not computeCooling
     "Temperature difference between heating setpoint and zone temperature"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Add dTCoo(
     final k1=+1,
-    final k2=-1) if not heating_only
+    final k2=-1) if not computeHeating
     "Temperature difference between zone temperature and cooling setpoint"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Buildings.Controls.OBC.Utilities.BaseClasses.OptimalStartCalculation optHea(
@@ -72,7 +73,7 @@ block OptimalStart
     final tOptIni=tOptIni,
     final nDay=nDay,
     final uLow=uLow,
-    final uHigh=uHigh) if not cooling_only
+    final uHigh=uHigh) if not computeCooling
     "Optimal start time for heating system"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
   Buildings.Controls.OBC.Utilities.BaseClasses.OptimalStartCalculation optCoo(
@@ -80,7 +81,7 @@ block OptimalStart
     final tOptIni=tOptIni,
     final nDay=nDay,
     final uLow=uLow,
-    final uHigh=uHigh) if not heating_only
+    final uHigh=uHigh) if not computeHeating
     "Optimal start time for cooling system"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max
@@ -98,7 +99,7 @@ block OptimalStart
     "Get the optimal start boolean output"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
 protected
-    parameter Modelica.SIunits.Time tOptIni = tOptMax/2
+    parameter Modelica.SIunits.Time tOptIni = 3600
     "Initial optimal start time";
     Buildings.Controls.OBC.CDL.Logical.Edge edg
     "Start calculation"
@@ -106,16 +107,16 @@ protected
     Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
     "Stop calculation"
     annotation (Placement(transformation(extent={{-30,-40},{-10,-20}})));
-    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2(final k=0) if cooling_only
+    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2(final k=0) if computeCooling
     "Becomes effective when optimal start is only for heating"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
-    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(final k=0) if heating_only
+    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(final k=0) if computeHeating
     "Becomes effective when optimal start is only for cooling"
     annotation (Placement(transformation(extent={{60,6},{80,26}})));
-    Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(final k=false) if cooling_only
+    Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(final k=false) if computeCooling
     "Becomes effective when optimal start is only for heating"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
-    Buildings.Controls.OBC.CDL.Logical.Sources.Constant con3(final k=false) if heating_only
+    Buildings.Controls.OBC.CDL.Logical.Sources.Constant con3(final k=false) if computeHeating
     "Becomes effective when optimal start is only for cooling"
     annotation (Placement(transformation(extent={{60,-94},{80,-74}})));
 equation
@@ -227,7 +228,7 @@ then there is no need for the system to start before the occupancy.
 </p>
 <p>
 The block can be used for heating system only or cooling system only or heat pumps.
-The two parameters <code>heating_only</code> and <code>cooling_only</code> are
+The two parameters <code>computeHeating</code> and <code>computeCooling</code> are
 used to configure the block for these three types of systems.
 </p>
 <p>
@@ -307,16 +308,11 @@ This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1589\
 </html>"),
 Diagram(coordinateSystem(extent={{-140,-100},{140,100}})),
     Icon(graphics={
-        Rectangle(
-          lineColor={128,128,128},
-          extent={{-100,-100},{100,100}},
-          radius=25.0),
-        Rectangle(
-          lineColor={200,200,200},
-          fillColor={248,248,248},
-          fillPattern=FillPattern.HorizontalCylinder,
-          extent={{-100,-100},{100,100}},
-          radius=25.0),
+          Rectangle(
+            extent={{-100,-100},{100,100}},
+            lineColor={0,0,127},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
         Line(points={{-70,40},{10,40},{10,-28},{70,-28}}, color={28,108,200}),
        Line(
           points={{-34,40},{-20,32},{-12,22},{-6,2},{0,-16},{10,-28}},
@@ -326,10 +322,6 @@ Diagram(coordinateSystem(extent={{-140,-100},{140,100}})),
           extent={{-68,56},{-44,40}},
           lineColor={28,108,200},
           textString="TSet"),
-        Rectangle(
-          lineColor={128,128,128},
-          extent={{-100,-100},{100,100}},
-          radius=25.0),
           Text(
             extent={{-98,160},{102,106}},
             lineColor={0,0,255},
