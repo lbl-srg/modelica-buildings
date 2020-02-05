@@ -3,10 +3,14 @@ record Generic
   "Generic data record for reverse water to water heat pump implementing the doe2 method"
   extends Modelica.Icons.Record;
 
+  Real COPCoo_nominal
+    "Reference coefficient of performance, using the evaporator heat flow rate as useful heat"
+    annotation (Dialog(group="Nominal condition"));
+
   parameter HeatingCoolingData hea
    "Performance data for heating mode";
 
-  parameter HeatingCoolingData coo(COPCoo_nominal=hea.COPCoo_nominal - 1)
+  parameter HeatingCoolingData coo
     "Performance data for cooling mode";
 
   Modelica.SIunits.MassFlowRate m1_flow_nominal
@@ -42,9 +46,6 @@ protected
       annotation (Dialog(group="Performance coefficients"));
     Real EIRFunPLR[4]
      "Coefficients for EIRFunPLR";
-    Real COPCoo_nominal
-      "Reference coefficient of performance, using the evaporator heat flow rate as useful heat"
-      annotation (Dialog(group="Nominal condition"));
     Real PLRMax(min=0) "
      Maximum part load ratio";
     Real PLRMinUnl(min=0)

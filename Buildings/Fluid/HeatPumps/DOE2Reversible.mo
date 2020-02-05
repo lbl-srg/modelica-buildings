@@ -24,8 +24,10 @@ model DOE2Reversible
   parameter Real scaling_factor = 1
    "Scaling factor for heat pump capacity";
 
-  output Real PLR(min=0, nominal=1, unit="1") = doe2.PLR1
-    "Part load ratio";
+  output Real PLR(
+    min=0,
+    nominal=1,
+    unit="1") = thePer.PLR1 "Part load ratio";
 
   constant Modelica.SIunits.SpecificEnergy h1_default=
      Medium1.specificEnthalpy_pTX(
@@ -73,29 +75,37 @@ model DOE2Reversible
    "Heat flow rate at the load heat exchanger"
      annotation (Placement(transformation(extent={{100,78},{120,98}}),
         iconTransformation(extent={{100,80},{120,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput P(final unit="W")
-   "Compressor power "
-     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-        iconTransformation(extent={{100,-12},{120,8}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput COP(final min=0, final unit="1")
-    "Coefficient of performance, assuming useful heat is at load side (at Medium 1)"
-     annotation (Placement(transformation(extent={{100,-50},{120,-30}}),
-        iconTransformation(extent={{100,-40},{120,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QSou_flow(final unit="W")
    "Heat flow rate at the source heat exchanger"
      annotation (Placement(transformation(extent={{100,-98},{120,-78}}),
         iconTransformation(extent={{100,-100},{120,-80}})));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TSouLvg
-    "Leaving water temperature form source heat exchanger"
-    annotation (Placement(transformation(extent={{10,-42},{-10,-22}})));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TLoaLvg
-    "Leaving water temperature form load heat exchanger"
-    annotation (Placement(transformation(extent={{-20,20},{-40,40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput P(final unit="W")
+   "Compressor power "
+     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
+        iconTransformation(extent={{100,-12},{120,8}})));
+  Modelica.SIunits.Efficiency COPCoo(final min=0) = thePer.COPCoo
+    "Coefficient of performance for cooling. If cooling mode, useful heat is at medium 1, else at medium 2";
+  Modelica.SIunits.Efficiency COPHea(final min=0) = thePer.COPHea
+    "Coefficient of performance for heating. If heating mode, useful heat is at medium 2, else at medium 1";
 
   BaseClasses.ReSetTSetCoo conHeaMod
     "Built-in controller to reset the cooling set point temperature in heating mode"
     annotation (Placement(transformation(extent={{-20,118},{0,138}})));
+
+   BaseClasses.DOE2Reversible thePer(
+     final per=per,
+     final scaling_factor=scaling_factor) "Thermal performance"
+    annotation (Placement(transformation(extent={{40,-14},{60,6}})));
+
 protected
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TLoaLvg
+    "Leaving water temperature form load heat exchanger"
+    annotation (Placement(transformation(extent={{-20,20},{-40,40}})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TSouLvg
+    "Leaving water temperature form source heat exchanger"
+    annotation (Placement(transformation(extent={{10,-42},{-10,-22}})));
+
+
   Controls.OBC.CDL.Integers.GreaterThreshold isHea(final threshold=0)
     "Output true if in heating mode"
     annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
@@ -107,12 +117,6 @@ protected
     y(final unit = "K",
       displayUnit = "degC")) "Evaporator leaving temperature"
     annotation (Placement(transformation(extent={{40,150},{60,170}})));
-   BaseClasses.DOE2Reversible doe2(
-     final per=per,
-     final scaling_factor=scaling_factor)
-   "Performance model"
-    annotation (Placement(transformation(extent={{40,-14},{60,6}})));
-
   Modelica.Blocks.Sources.RealExpression Q_flow_set(
     final y=if (uMod == 1) then
       min(0, m2_flow*(hEvaSet - inStream(port_a2.h_outflow)))
@@ -144,37 +148,26 @@ protected
     "Set point for evaporator leaving temperature"
     annotation (Placement(transformation(extent={{20,100},{40,120}})));
 equation
-  connect(uMod, doe2.uMod)
-  annotation (Line(points={{-110,130},{-88,130},{-88,10},{-20,10},{-20,0},{39,0}},
-                                              color={255,127,0}));
-  connect(Q_flow_set.y, doe2.Q_flow_set)
-  annotation (Line(points={{13,14},{20,14},{20,4},{39,4}},
-                                color={0,0,127}));
-  connect(doe2.QLoa_flow, QLoa_flow)
-  annotation (Line(
-      points={{61,2},{84,2},{84,88},{110,88}},
+  connect(uMod, thePer.uMod) annotation (Line(points={{-110,130},{-88,130},{-88,
+          10},{-20,10},{-20,0},{39,0}}, color={255,127,0}));
+  connect(Q_flow_set.y, thePer.Q_flow_set)
+    annotation (Line(points={{13,14},{20,14},{20,4},{39,4}}, color={0,0,127}));
+  connect(thePer.QLoa_flow, QLoa_flow) annotation (Line(
+      points={{61,4},{84,4},{84,88},{110,88}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(doe2.P, P)
-  annotation (Line(
-      points={{61,-2},{86,-2},{86,0},{110,0}},
+  connect(thePer.P, P) annotation (Line(
+      points={{61,0},{86,0},{86,0},{110,0}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(doe2.COP, COP)
-  annotation (Line(
-      points={{61,-6},{84,-6},{84,-40},{110,-40}},
+  connect(thePer.QSou_flow, QSou_flow) annotation (Line(
+      points={{61,-4},{82,-4},{82,-88},{110,-88}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(doe2.QSou_flow, QSou_flow)
-  annotation (Line(
-      points={{61,-10},{82,-10},{82,-88},{110,-88}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(doe2.QLoa_flow, preHeaFloLoa.Q_flow)
-  annotation (Line(points={{61,2},{68,2},{68,30},{61,30}}, color={0,0,127}));
-  connect(doe2.QSou_flow, preHeaFloSou.Q_flow)
-  annotation (Line(points={{61,-10},{68,-10},{68,-32},{61,-32}},
-                                      color={0,0,127}));
+  connect(thePer.QLoa_flow, preHeaFloLoa.Q_flow)
+    annotation (Line(points={{61,4},{68,4},{68,30},{61,30}}, color={0,0,127}));
+  connect(thePer.QSou_flow, preHeaFloSou.Q_flow) annotation (Line(points={{61,-4},
+          {68,-4},{68,-32},{61,-32}}, color={0,0,127}));
   connect(TSet, conHeaMod.TSet) annotation (Line(points={{-110,150},{-48,150},{-48,
           130.8},{-21,130.8}}, color={0,0,127}));
   connect(preHeaFloSou.port, vol2.heatPort)
@@ -197,10 +190,10 @@ equation
   connect(TConEnt.u2, isHea.y)
     annotation (Line(points={{38,190},{-54,190},{-54,130},{-58,130}},
                                                 color={255,0,255}));
-  connect(doe2.TConEnt, TConEnt.y) annotation (Line(points={{39,-8},{28,-8},{28,
+  connect(thePer.TConEnt, TConEnt.y) annotation (Line(points={{39,-8},{28,-8},{28,
           18},{82,18},{82,190},{62,190}}, color={0,0,127}));
-  connect(doe2.TEvaLvg, TEvaLvg.y) annotation (Line(points={{39,-12},{26,-12},{26,
-          20},{80,20},{80,160},{62,160}}, color={0,0,127}));
+  connect(thePer.TEvaLvg, TEvaLvg.y) annotation (Line(points={{39,-12},{26,-12},
+          {26,20},{80,20},{80,160},{62,160}}, color={0,0,127}));
   connect(TEvaLvg.u1, TSouLvg.T) annotation (Line(points={{38,168},{4,168},{4,96},
           {-42,96},{-42,-32},{-10,-32}},
                            color={0,0,127}));

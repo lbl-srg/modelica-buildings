@@ -3,10 +3,10 @@ model DOE2Reversible_CoolingHeating
   "Test model for a closed loop of a reverse heat pump based on the DOE 2 model"
  package Medium = Buildings.Media.Water "Medium model";
 
-  parameter Buildings.Fluid.HeatPumps.Data.DOE2Reversible.EnergyPlus per(hea(
-        COPCoo_nominal=3), coo(COPCoo_nominal=3))
+  parameter Buildings.Fluid.HeatPumps.Data.DOE2Reversible.EnergyPlus per(
+   COPCoo_nominal=3)
    "Heat pump performance data"
-   annotation (Placement(transformation(extent={{-170,-90},{-150,-70}})));
+   annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal=per.m2_flow_nominal
    "Source heat exchanger nominal mass flow rate";
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal=per.m1_flow_nominal
@@ -195,8 +195,8 @@ equation
         graphics={Text(
           extent={{-10,-48},{82,-80}},
           lineColor={28,108,200},
-          textString="fixme: Check COP at t=2500")}),
-             __Dymola_Commands(
+          textString="fixme: Check COP at t=2500
+Check CR")}),__Dymola_Commands(
   file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Examples/DOE2Reversible_CoolingHeating.mos"
         "Simulate and plot"),
          experiment(
