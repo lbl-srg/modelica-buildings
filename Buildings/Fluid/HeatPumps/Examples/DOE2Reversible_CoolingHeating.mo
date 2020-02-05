@@ -17,8 +17,7 @@ model DOE2Reversible_CoolingHeating
     redeclare package Medium2 = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T1_start=281.4,
-    per=per,
-    scaling_factor=1)
+    per=per)
    "Water to Water heat pump"
    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Sources.MassFlowSource_T souPum(
@@ -93,22 +92,22 @@ model DOE2Reversible_CoolingHeating
     k=1,
     yMax=1) "Controller"
     annotation (Placement(transformation(extent={{50,30},{70,50}})));
-  Controls.OBC.CDL.Continuous.Add THeaPumSet(k1=5) "Set point for heat pump"
-    annotation (Placement(transformation(extent={{92,24},{112,44}})));
+  Controls.OBC.CDL.Continuous.Add THeaPumSet(k1=4) "Set point for heat pump"
+    annotation (Placement(transformation(extent={{160,30},{180,50}})));
   Controls.OBC.CDL.Continuous.Hysteresis heaOn(uLow=0.01, uHigh=0.05)
     "Heating on"
-    annotation (Placement(transformation(extent={{128,-10},{148,10}})));
+    annotation (Placement(transformation(extent={{120,-10},{140,10}})));
   Controls.OBC.CDL.Continuous.Hysteresis cooOn(uLow=0.01, uHigh=0.05)
     "Cooling on"
-    annotation (Placement(transformation(extent={{128,-48},{148,-28}})));
+    annotation (Placement(transformation(extent={{120,-50},{140,-30}})));
   Controls.OBC.CDL.Conversions.BooleanToInteger booToInt(integerTrue=1,
       integerFalse=0) "Type conversion"
-    annotation (Placement(transformation(extent={{158,-10},{178,10}})));
+    annotation (Placement(transformation(extent={{150,-10},{170,10}})));
   Controls.OBC.CDL.Integers.Add uMod "Heat pump modus"
-    annotation (Placement(transformation(extent={{198,-30},{218,-10}})));
+    annotation (Placement(transformation(extent={{180,-30},{200,-10}})));
   Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1(integerTrue=-1,
       integerFalse=0) "Type conversion"
-    annotation (Placement(transformation(extent={{158,-48},{178,-28}})));
+    annotation (Placement(transformation(extent={{150,-50},{170,-30}})));
   Controls.OBC.CDL.Continuous.Sources.Constant TSouMaxLvg(k=273.15 + 30, y(
         final unit="K", displayUnit="degC"))
     "Maximum leaving temperature on source side"
@@ -118,10 +117,12 @@ model DOE2Reversible_CoolingHeating
     "Minimum leaving temperature on source side"
     annotation (Placement(transformation(extent={{-174,-66},{-154,-46}})));
   Controls.OBC.CDL.Continuous.Gain gai(k=-1) "Change of control signal sign"
-    annotation (Placement(transformation(extent={{100,-48},{120,-28}})));
+    annotation (Placement(transformation(extent={{88,-50},{108,-30}})));
   Controls.OBC.CDL.Continuous.Gain gai1(k=per.hea.QEva_flow_nominal)
     "Gain for heat flow rate"
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
+  Controls.OBC.CDL.Conversions.IntegerToReal sig "Sign for heating or cooling"
+    annotation (Placement(transformation(extent={{120,30},{140,50}})));
 equation
   connect(souPum.ports[1], heaPum.port_a2)
    annotation (Line(points={{-40,-60},{-48,-60},{-48,-36},{-60,-36}},
@@ -149,36 +150,38 @@ equation
     annotation (Line(points={{42,40},{48,40}}, color={0,0,127}));
   connect(con.u_m, TRoo.T)
     annotation (Line(points={{60,28},{60,0},{40,0}}, color={0,0,127}));
-  connect(con.y, THeaPumSet.u1)
-    annotation (Line(points={{72,40},{90,40}}, color={0,0,127}));
-  connect(TRoo.T, THeaPumSet.u2)
-    annotation (Line(points={{40,0},{76,0},{76,28},{90,28}}, color={0,0,127}));
-  connect(THeaPumSet.y, heaPum.TSet) annotation (Line(points={{114,34},{120,34},
-          {120,58},{-90,58},{-90,-21},{-81,-21}}, color={0,0,127}));
-  connect(heaOn.u, con.y) annotation (Line(points={{126,0},{80,0},{80,40},{72,
-          40}}, color={0,0,127}));
+  connect(heaOn.u, con.y) annotation (Line(points={{118,0},{80,0},{80,40},{72,40}},
+                color={0,0,127}));
   connect(heaOn.y, booToInt.u)
-    annotation (Line(points={{150,0},{156,0}}, color={255,0,255}));
+    annotation (Line(points={{142,0},{148,0}}, color={255,0,255}));
   connect(cooOn.y, booToInt1.u)
-    annotation (Line(points={{150,-38},{156,-38}}, color={255,0,255}));
-  connect(booToInt.y, uMod.u1) annotation (Line(points={{180,0},{188,0},{188,-14},
-          {196,-14}}, color={255,127,0}));
-  connect(booToInt1.y, uMod.u2) annotation (Line(points={{180,-38},{188,-38},{188,
-          -26},{196,-26}}, color={255,127,0}));
-  connect(uMod.y, heaPum.uMod) annotation (Line(points={{220,-20},{230,-20},{230,
+    annotation (Line(points={{142,-40},{148,-40}}, color={255,0,255}));
+  connect(booToInt.y, uMod.u1) annotation (Line(points={{172,0},{174,0},{174,-14},
+          {178,-14}}, color={255,127,0}));
+  connect(booToInt1.y, uMod.u2) annotation (Line(points={{172,-40},{174,-40},{174,
+          -26},{178,-26}}, color={255,127,0}));
+  connect(uMod.y, heaPum.uMod) annotation (Line(points={{202,-20},{230,-20},{230,
           62},{-94,62},{-94,-27},{-81,-27}}, color={255,127,0}));
   connect(TSouMin.y, heaPum.TSouMinLvg) annotation (Line(points={{-152,-56},{-144,
           -56},{-144,-33},{-81,-33}}, color={0,0,127}));
   connect(TSouMaxLvg.y, heaPum.TSouMaxLvg) annotation (Line(points={{-152,-20},{
           -144,-20},{-144,-30},{-81,-30}}, color={0,0,127}));
   connect(cooOn.u, gai.y)
-    annotation (Line(points={{126,-38},{122,-38}}, color={0,0,127}));
-  connect(gai.u, con.y) annotation (Line(points={{98,-38},{80,-38},{80,40},{72,
-          40}}, color={0,0,127}));
+    annotation (Line(points={{118,-40},{110,-40}}, color={0,0,127}));
+  connect(gai.u, con.y) annotation (Line(points={{86,-40},{80,-40},{80,40},{72,40}},
+                color={0,0,127}));
   connect(gai1.y, heaFlo.Q_flow)
     annotation (Line(points={{-28,30},{-24,30}}, color={0,0,127}));
   connect(timeTable.y[1], gai1.u)
     annotation (Line(points={{-58,30},{-52,30}}, color={0,0,127}));
+  connect(uMod.y, sig.u) annotation (Line(points={{202,-20},{208,-20},{208,20},{
+          100,20},{100,40},{118,40}}, color={255,127,0}));
+  connect(THeaPumSet.y, heaPum.TSet) annotation (Line(points={{182,40},{190,40},
+          {190,56},{-90,56},{-90,-21},{-81,-21}}, color={0,0,127}));
+  connect(THeaPumSet.u1, sig.y) annotation (Line(points={{158,46},{150,46},{150,
+          40},{142,40}}, color={0,0,127}));
+  connect(THeaPumSet.u2, TRoo.T) annotation (Line(points={{158,34},{150,34},{150,
+          24},{60,24},{60,0},{40,0}}, color={0,0,127}));
      annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Ellipse(lineColor = {75,138,73},

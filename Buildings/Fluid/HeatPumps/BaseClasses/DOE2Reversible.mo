@@ -27,21 +27,23 @@ block DOE2Reversible
       Placement(transformation(extent={{-124,-92},{-100,-68}}),
         iconTransformation(extent={{-120,-90},{-100,-70}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput Q_flow_set(final unit="W")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput QSet_flow(final unit="W")
     "Required heat to meet set point"
     annotation (Placement(transformation(
           extent={{-124,68},{-100,92}}), iconTransformation(extent={{-120,70},{
             -100,90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QLoa_flow(final unit="W")
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput Q1_flow(final unit="W")
     "Load heat flow rate"
     annotation (Placement(transformation(extent={{100,70},{120,90}}),
         iconTransformation(extent={{100,70},{120,90}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QSou_flow(final unit="W")
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput Q2_flow(final unit="W")
     "Source heat flow rate"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 
+  Modelica.SIunits.HeatFlowRate QFalLoa_flow
+    "False loading of the compressor (e.g., hot gas bypass)";
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput P(final unit="W")
    "Compressor power"
     annotation (Placement(transformation(extent={{100,30},{120,50}}),
@@ -55,10 +57,10 @@ block DOE2Reversible
    "Control input signal, cooling mode= -1, off=0, heating mode=+1"
     annotation (Placement(transformation(extent={{-124,28},{-100,52}}),
         iconTransformation(extent={{-120,30},{-100,50}})));
-  Modelica.SIunits.HeatFlowRate Q_flow_ava
+  Modelica.SIunits.HeatFlowRate QAva_flow
    "Heating (or cooling) capacity available";
-  Modelica.SIunits.HeatFlowRate Q_flow_act
-   "Actual heating (or cooling) capacity available";
+  Modelica.SIunits.HeatFlowRate QAct_flow
+   "Actual heat transfer rate at evaporator";
   Modelica.SIunits.Efficiency EIRFT
    "Power input to load side capacity ratio function of temperature curve";
   Modelica.SIunits.Efficiency EIRFPLR
@@ -146,8 +148,9 @@ equation
     PLR1=0;
     PLR2=0;
     CR=0;
-    Q_flow_ava = 0;
-    Q_flow_act = 0;
+    QAva_flow = 0;
+    QAct_flow = 0;
+    QFalLoa_flow = 0;
     P = 0;
     COPCoo = 0;
     COPHea = 0;
@@ -155,11 +158,29 @@ equation
     TConEnt_degC = Modelica.SIunits.Conversions.to_degC(TConEnt);
     TEvaLvg_degC = Modelica.SIunits.Conversions.to_degC(TEvaLvg);
 
-    // capFunT is strictly positive, hence Q_flow_ava is bounded away from zero.
-    PLR1 = Buildings.Utilities.Math.Functions.smoothMax(
-      x1 =  Q_flow_set/Q_flow_ava,
+    capFunT = Buildings.Utilities.Math.Functions.biquadratic(
+        a=datPer.capFunT,
+        x1=TEvaLvg_degC,
+        x2=TConEnt_degC);
+    EIRFT =Buildings.Utilities.Math.Functions.biquadratic(
+      a=datPer.EIRFunT,
+      x1=TEvaLvg_degC,
+      x2=TConEnt_degC);
+
+    QAva_flow = Buildings.Utilities.Math.Functions.smoothMin(
+      x1 = datPer.QEva_flow_nominal*capFunT*scaling_factor,
+      x2 = -Q_flow_small,
+      deltaX = Q_flow_small/10);
+    QAct_flow = Buildings.Utilities.Math.Functions.smoothMax(
+      x1 = QSet_flow,
+      x2 = QAva_flow,
+      deltaX = Q_flow_small/10);
+
+    // capFunT is strictly positive, hence QAva_flow is bounded away from zero.
+    PLR1 = Buildings.Utilities.Math.Functions.smoothMin(
+      x1 =  QSet_flow/QAva_flow,
       x2 =  datPer.PLRMax,
-      deltaX =  datPer.PLRMax/100);
+      deltaX = datPer.PLRMax/100);
     PLR2 = Buildings.Utilities.Math.Functions.smoothMax(
       x1 =  datPer.PLRMinUnl,
       x2 =  PLR1,
@@ -167,49 +188,36 @@ equation
     CR = Buildings.Utilities.Math.Functions.smoothMin(
       x1 =  PLR1/datPer.PLRMin,
       x2 =  1,
-      deltaX =  0.001);
-
-    capFunT =Buildings.Utilities.Math.Functions.smoothMax(
-      x1=1E-7,
-      x2=Buildings.Utilities.Math.Functions.biquadratic(
-        a=datPer.capFunT,
-        x1=TEvaLvg_degC,
-        x2=TConEnt_degC),
-      deltaX=5E-8);
-    EIRFT =Buildings.Utilities.Math.Functions.biquadratic(
-      a=datPer.EIRFunT,
-      x1=TEvaLvg_degC,
-      x2=TConEnt_degC);
+      deltaX = 0.001);
 
     EIRFPLR = Buildings.Utilities.Math.Functions.polynomial(
       x = PLR2,
       a = datPer.EIRFunPLR);
 
-    Q_flow_ava =datPer.QEva_flow_nominal*capFunT*scaling_factor;
-    Q_flow_act = Buildings.Utilities.Math.Functions.smoothMax(
-      x1 = Q_flow_set,
-      x2 = Q_flow_ava,
-      deltaX = -Q_flow_small/10);
+    // QAva_flow is always at the evaporator, hence this is for COPCoo
+    P = Buildings.Utilities.Math.Functions.smoothMax(
+      x1 = (-QAva_flow*PLR1*CR/per.COPCoo_nominal) * EIRFT*EIRFPLR,
+      x2 = Q_flow_small,
+      deltaX = Q_flow_small/10);
+    QFalLoa_flow = QAva_flow*PLR2*CR - QAct_flow;
 
-
-    // Q_flow_ava is always at the evaporator, hence this is for COPCoo
-    P =(-Q_flow_ava/per.COPCoo_nominal)*PLR1*EIRFT*EIRFPLR*CR*scaling_factor; // fixme: scaling_factor is used here squared!
-    COPCoo = -Q_flow_ava/(P + Q_flow_small);
+    // P is always strictly positive
+    COPCoo = -QAva_flow/P;
     COPHea = COPCoo + 1;
   end if;
 
   // Calculation of source and load side heat flow rates
   if (uMod == +1) then
     // Heating mode
-    QSou_flow = Q_flow_act;
-    QLoa_flow = -QSou_flow + P;
+    Q2_flow = QAct_flow;
+    Q1_flow = -Q2_flow + P;
   elseif (uMod==-1) then
     // Cooling mode
-    QLoa_flow = Q_flow_act;
-    QSou_flow = -QLoa_flow + P;
+    Q1_flow = QAct_flow;
+    Q2_flow = -Q1_flow + P;
   else
-    QSou_flow = 0;
-    QLoa_flow = 0;
+    Q2_flow = 0;
+    Q1_flow = 0;
   end if;
 
 

@@ -117,13 +117,10 @@ protected
     y(final unit = "K",
       displayUnit = "degC")) "Evaporator leaving temperature"
     annotation (Placement(transformation(extent={{40,150},{60,170}})));
-  Modelica.Blocks.Sources.RealExpression Q_flow_set(
-    final y=if (uMod == 1) then
-      min(0, m2_flow*(hEvaSet - inStream(port_a2.h_outflow)))
-    elseif (uMod == -1) then
-      min(0, m1_flow*(hEvaSet - inStream(port_a1.h_outflow)))
-    else 0)
-    "Required heat flow rate to meet set point"
+  Modelica.Blocks.Sources.RealExpression QEvaSet_flow(final y=if (uMod == 1)
+         then min(0, m2_flow*(hEvaSet - inStream(port_a2.h_outflow))) elseif (
+        uMod == -1) then min(0, m1_flow*(hEvaSet - inStream(port_a1.h_outflow)))
+         else 0) "Required heat flow rate to meet set point"
     annotation (Placement(transformation(extent={{-8,4},{12,24}})));
   Modelica.Blocks.Sources.RealExpression T_a2(final y=Medium2.temperature(
         Medium2.setState_phX(
@@ -150,9 +147,7 @@ protected
 equation
   connect(uMod, thePer.uMod) annotation (Line(points={{-110,130},{-88,130},{-88,
           10},{-20,10},{-20,0},{39,0}}, color={255,127,0}));
-  connect(Q_flow_set.y, thePer.Q_flow_set)
-    annotation (Line(points={{13,14},{20,14},{20,4},{39,4}}, color={0,0,127}));
-  connect(thePer.QLoa_flow, QLoa_flow) annotation (Line(
+  connect(thePer.Q1_flow, QLoa_flow) annotation (Line(
       points={{61,4},{84,4},{84,88},{110,88}},
       color={0,0,127},
       pattern=LinePattern.Dash));
@@ -160,13 +155,13 @@ equation
       points={{61,0},{86,0},{86,0},{110,0}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(thePer.QSou_flow, QSou_flow) annotation (Line(
+  connect(thePer.Q2_flow, QSou_flow) annotation (Line(
       points={{61,-4},{82,-4},{82,-88},{110,-88}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(thePer.QLoa_flow, preHeaFloLoa.Q_flow)
+  connect(thePer.Q1_flow, preHeaFloLoa.Q_flow)
     annotation (Line(points={{61,4},{68,4},{68,30},{61,30}}, color={0,0,127}));
-  connect(thePer.QSou_flow, preHeaFloSou.Q_flow) annotation (Line(points={{61,-4},
+  connect(thePer.Q2_flow, preHeaFloSou.Q_flow) annotation (Line(points={{61,-4},
           {68,-4},{68,-32},{61,-32}}, color={0,0,127}));
   connect(TSet, conHeaMod.TSet) annotation (Line(points={{-110,150},{-48,150},{-48,
           130.8},{-21,130.8}}, color={0,0,127}));
@@ -217,6 +212,8 @@ equation
           {18,102}}, color={0,0,127}));
   connect(preHeaFloLoa.port, TLoaLvg.port)
     annotation (Line(points={{41,30},{-20,30}}, color={191,0,0}));
+  connect(QEvaSet_flow.y, thePer.QSet_flow)
+    annotation (Line(points={{13,14},{20,14},{20,4},{39,4}}, color={0,0,127}));
 annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),
      graphics={
