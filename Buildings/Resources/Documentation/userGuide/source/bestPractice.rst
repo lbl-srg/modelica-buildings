@@ -444,21 +444,22 @@ the relation changes its value. Determining this time interval
 often requires an iterative solution, which can significantly
 increase the computing time if the iteration require
 the evaluation of a large system of equations.
-An example where such an event occurs is the relation
+An example where such an event occurs is the following relation
+that computes the enthalpy of the medium that streams through ``port_a`` as
 
 .. code-block:: modelica
 
 		if port_a.m_flow > 0 then
-		  T_in = port_a.T;
+		  h_a = inStream(port_a.h_outflow);
 		else
-		  T_in = port_b.T;
+		  h_a = port_a.h_outflow;
 		end if;
 
 or, equivalently,
 
 .. code-block:: modelica
 
-		T_in = if port_a.m_flow > 0 then port_a.T else port_b.T;
+		h_a = if port_a.m_flow > 0 then inStream(port_a.h_outflow) else port_a.h_outflow;
 
 When simulating a model that contains such code, a time integrator
 will iterate to find the time instant where ``port_a.m_flow`` crosses zero.
@@ -470,8 +471,8 @@ approximated as
 
 .. code-block:: modelica
 
-		T = Modelica.Fluid.Utilities.regStep(
-		  port_a.m_flow, T_a_inflow, T_b_inflow,
+		T_a = Modelica.Fluid.Utilities.regStep(
+		  port_a.m_flow, inStream(port_a.h_outflow), port_a.h_outflow,
 		  m_flow_nominal*1E-4);
 
 
@@ -483,7 +484,6 @@ and below that value, an approximation is used. However, for such small
 flow rates, not much energy is transported and hence the error introduced
 by the approximation is generally negligible.
 
-
 In some cases, adding dynamics to the model can further improve
 the computing time, because the return value of the function
 `Modelica.Fluid.Utilities.regStep() <http://simulationresearch.lbl.gov/modelica/releases/msl/3.2/help/Modelica_Fluid_Utilities.html#Modelica.Fluid.Utilities.regStep>`_
@@ -494,17 +494,18 @@ Adding dynamics may be achieved using a formulation such as
 
 .. code-block:: modelica
 
-		TMed = Modelica.Fluid.Utilities.regStep(
-		  port_a.m_flow, T_a_inflow, T_b_inflow,
+		hMed = Modelica.Fluid.Utilities.regStep(
+		  port_a.m_flow, inStream(port_a.h_outflow), port_a.h_outflow,
 		  m_flow_nominal*1E-4);
-		der(T)=(TMed-T)/tau;
+		der(h)=(hMed-h)/tau;
 
 where ``tau``>0 is a time constant. See, for example,
-`Buildings.Fluid.Sensors.TemperatureTwoPort <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort>`_
+`Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort>`_
 for a robust implementation.
 
 .. note::
-   In the package `Buildings.Utilities.Math <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Utilities_Math.html#Buildings.Utilities.Math>`_
+   In the package
+   `Buildings.Utilities.Math <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Utilities_Math.html#Buildings.Utilities.Math>`_
    the functions and blocks whose names start with ``smooth`` can be used to avoid events.
 
 Controls
