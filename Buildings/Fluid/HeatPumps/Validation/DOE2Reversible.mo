@@ -167,7 +167,7 @@ equation
              __Dymola_Commands(
   file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/DOE2Reversible.mos"
         "Simulate and plot"),
-         experiment(StopTime=4000, Tolerance=1e-06),
+         experiment(StopTime=2600, Tolerance=1e-06),
 Documentation(info="<html>
 <p>
 Example that simulates the performance of

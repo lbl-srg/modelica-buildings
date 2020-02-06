@@ -105,7 +105,7 @@ equation
             100}})),
                  __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/BaseClasses/Validation/DOE2Reversible.mos"
         "Simulate and plot"),
-    experiment(StopTime=5000, Tolerance=1e-06),
+    experiment(StopTime=2600, Tolerance=1e-06),
 Documentation(info="<html>
 <p>
 This model implements a validation of the block

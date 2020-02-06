@@ -203,7 +203,7 @@ Check CR")}),__Dymola_Commands(
   file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Examples/DOE2Reversible_CoolingHeating.mos"
         "Simulate and plot"),
          experiment(
-      StopTime=3600,
+      StopTime=7200,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
 Documentation(info="<html>
