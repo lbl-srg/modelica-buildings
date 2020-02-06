@@ -35,7 +35,7 @@ model EffectivenessNTUUniform
   parameter Modelica.SIunits.Temperature T_a2_nominal
     "Secondary fluid inlet temperature at nominal conditions"
     annotation (Dialog(group="Nominal condition"));
-  parameter Real r_nominal(min=0, max=1) = 2/3
+  parameter Real r_nominal(min=0, max=1) = 1E-3
     "Ratio between secondary side and primary side convective heat transfer coefficient";
   final parameter Modelica.SIunits.ThermalConductance UA_nominal=
     Buildings.Fluid.HeatExchangers.BaseClasses.ntu_epsilonZ(
@@ -132,6 +132,8 @@ protected
   Real m1_flow_inv(unit="s/kg")
     "Regularization of 1/m_flow";
   Fluid.HeatExchangers.BaseClasses.HACoilInside hA1(
+    flowDependent=false,
+    temperatureDependent=false,
     final m_flow_nominal=m1_flow_nominal,
     final hA_nominal=UA_nominal * (r_nominal+1)/r_nominal,
     final T_nominal=T_a1_nominal)
@@ -151,6 +153,19 @@ annotation (
   defaultComponentName="heaFloEff",
   Documentation(info="
 <html>
+<p>
+TODO: refine modeling and benchmark with
+
+https://bigladdersoftware.com/epx/docs/8-7/engineering-reference/radiant-system-models.html#simple-cooling-panel
+
+https://bigladdersoftware.com/epx/docs/8-8/engineering-reference/baseboard-heaters.html#hot-water-baseboard-heater-with-radiation-and-convection
+
+e.g. eps-NTU for heat transfer between liquid and mean surface temperature and hc+hr 
+between surface and air or surfaces
+
+hOut / hIn has an order of magnitude of 10-3 for free convection: no need to 
+have a correlation for hIn as hOut is the primary driver of the overall UA value.
+</p>
 <p>
 This model computes the heat flow rate transferred to a load at uniform temperature, 
 based on the effectiveness method:

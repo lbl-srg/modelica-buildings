@@ -4,7 +4,7 @@ model EffectivenessNTU
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water;
   package Medium2 = Buildings.Media.Air;
-  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal = 2
+  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal = 0.2
    "Nominal mass flow rate medium 1";
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal=
    10
@@ -15,6 +15,8 @@ model EffectivenessNTU
     "Nominal heat flow rate";
   final parameter Modelica.SIunits.Temperature T_b1_nominal=
     T_a1_nominal - Q_flow_nominal / cp1 / m1_flow_nominal;
+  parameter Modelica.SIunits.TemperatureDifference dT_nominal=
+    (T_a1_nominal+T_b1_nominal)/2 - T_a2_nominal;
   Modelica.Blocks.Sources.Ramp T1(
     height=-10,
     duration=60,
@@ -33,7 +35,8 @@ model EffectivenessNTU
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     show_T=true,
     T_a1_nominal=T_a1_nominal,
-    T_a2_nominal=T_a2_nominal)
+    T_a2_nominal=T_a2_nominal,
+    r_nominal=0.001)
     "Heat exchanger"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   Buildings.Applications.DHC.Loads.BaseClasses.EffectivenessNTUUniform heaFloEffCst(
@@ -42,7 +45,8 @@ model EffectivenessNTU
     m1_flow_nominal=m1_flow_nominal,
     Q_flow_nominal=Q_flow_nominal,
     T_a1_nominal=T_a1_nominal,
-    T_a2_nominal=T_a2_nominal)
+    T_a2_nominal=T_a2_nominal,
+    r_nominal=0.1)
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
   Fluid.Sources.MassFlowSource_T masFloSou1(
     redeclare package Medium = Medium1,
@@ -84,6 +88,7 @@ model EffectivenessNTU
   Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad(
     redeclare package Medium = Medium1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    nEle=20,
     Q_flow_nominal=Q_flow_nominal,
     T_a_nominal=T_a1_nominal,
     T_b_nominal=T_b1_nominal,
@@ -113,8 +118,8 @@ protected
       Medium2.setState_pTX(Medium2.p_default, Medium2.T_default, Medium2.X_default))
    "Specific heat capacity of medium 2";
 equation
-  connect(T1.y, heaFloEffCst.T_in1) annotation (Line(points={{-99,40},{-90,40},{
-          -90,-50},{-12,-50}},   color={0,0,127}));
+  connect(T1.y, heaFloEffCst.T_in1)
+    annotation (Line(points={{-99,40},{-90,40},{-90,-50},{-12,-50}},   color={0,0,127}));
   connect(masFloSou1.ports[1], hexCou.port_a1)
     annotation (Line(points={{-42,20},{-20,20},{-20,16},{-10,16}},
                                                  color={0,127,255}));
