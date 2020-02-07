@@ -52,7 +52,7 @@
         <div class="collapse navbar-collapse nav-collapse">
           <ul class="nav navbar-nav">
             
-                <li><a href="http://simulationresearch.lbl.gov/modelica">Home</a></li>
+                <li><a href="https://simulationresearch.lbl.gov/modelica">Home</a></li>
                 <li><a href="index.html">User Guide</a></li>
             
             
@@ -194,8 +194,8 @@ If during the course of the development of application-specific models, some mod
 </div>
 <div class="section" id="building-large-system-models">
 <h2>2.2. Building large system models<a class="headerlink" href="#building-large-system-models" title="Permalink to this headline">¶</a></h2>
-<p>When creating a large system model, it is typically easier to build the system model through the composition of subsystem models that can be tested in isolation. For example, the package <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Examples_ChillerPlant_BaseClasses_Controls_Examples.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples">Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples</a>
-contains small test models that are used to test individual components in the large system model <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant">Buildings.Examples.ChillerPlant</a>.
+<p>When creating a large system model, it is typically easier to build the system model through the composition of subsystem models that can be tested in isolation. For example, the package <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Examples_ChillerPlant_BaseClasses_Controls_Examples.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples">Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples</a>
+contains small test models that are used to test individual components in the large system model <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant">Buildings.Examples.ChillerPlant</a>.
 Creating small test models typically saves time as the proper response of controls, and the proper operation of subsystems, can be tested in isolation of complex system-interactions that are often present in large models.</p>
 </div>
 <div class="section" id="propagating-parameters-and-media-packages">
@@ -448,8 +448,8 @@ In some situation, such as the configuration below, connecting multiple connecto
 <p class="caption"><span class="caption-number">Fig. 2.2 </span><span class="caption-text">Connection of three components without explicitly introducing a mixer or splitter model.</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
 </div>
 <p>However, in more complex flow configurations, one may want to explicitly control what branches of a piping or duct network mix. This may be achieved by using an instance of the model
-<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.PressureDrop">PressureDrop</a> as shown in the left figure below, which is the test model
-<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Boilers_Examples.html#Buildings.Fluid.Boilers.Examples.BoilerPolynomialClosedLoop">BoilerPolynomialClosedLoop</a></p>
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.PressureDrop">PressureDrop</a> as shown in the left figure below, which is the test model
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Boilers_Examples.html#Buildings.Fluid.Boilers.Examples.BoilerPolynomialClosedLoop">BoilerPolynomialClosedLoop</a></p>
 <div class="figure align-default" id="id11">
 <img alt="_images/fluidJunctionMixingSplitter.png" src="_images/fluidJunctionMixingSplitter.png" />
 <p class="caption"><span class="caption-number">Fig. 2.3 </span><span class="caption-text">Correct (left) and wrong (right) connection of components with use of a mixer or splitter model.</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
@@ -460,10 +460,10 @@ However, in the figure on the right, the flow that leaves port A is mixing at po
 <div class="section" id="use-of-sensors-in-fluid-flow-systems">
 <h3>2.4.3. Use of sensors in fluid flow systems<a class="headerlink" href="#use-of-sensors-in-fluid-flow-systems" title="Permalink to this headline">¶</a></h3>
 <p>When selecting a sensor model, a distinction needs to be made whether the measured quantity depends on the direction of the flow or not. If the quantity depends on the flow direction, such as temperature or relative humidity, then sensors with two ports from the
-<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors">Buildings.Fluid.Sensors</a> library should be used. These sensors have a more efficient implementation than sensors with one port for situations where the flow reverses its direction.
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors">Buildings.Fluid.Sensors</a> library should be used. These sensors have a more efficient implementation than sensors with one port for situations where the flow reverses its direction.
 The proper use sensors is described in the
-<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors_UsersGuide.html">User’s Guide</a> of the
-<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors">Buildings.Fluid.Sensors</a> package.</p>
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors_UsersGuide.html">User’s Guide</a> of the
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors">Buildings.Fluid.Sensors</a> package.</p>
 </div>
 <div class="section" id="reference-pressure-for-incompressible-fluids-such-as-water">
 <span id="referencepressureincompressiblefluids"></span><h3>2.4.4. Reference pressure for incompressible fluids such as water<a class="headerlink" href="#reference-pressure-for-incompressible-fluids-such-as-water" title="Permalink to this headline">¶</a></h3>
@@ -477,14 +477,14 @@ thermal expansion of the fluid.</span><a class="headerlink" href="#id12" title="
 </div>
 <p>When this model is used with a medium model that models
 <a class="reference internal" href="glossary.html#term-compressible-flow"><span class="xref std std-term">compressible flow</span></a>, such as
-the medium model <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Media_Air.html#Buildings.Media.Air">Buildings.Media.Air</a>,
+the medium model <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Media_Air.html#Buildings.Media.Air">Buildings.Media.Air</a>,
 then the model is well defined because the gas medium implements the
 equation <span class="math notranslate nohighlight">\(p=\rho \, R \, T\)</span>,
 where <span class="math notranslate nohighlight">\(p\)</span> is the static pressure, <span class="math notranslate nohighlight">\(\rho\)</span> is the mass density,
 <span class="math notranslate nohighlight">\(R\)</span> is the gas constant and <span class="math notranslate nohighlight">\(T\)</span> is the absolute temperature.</p>
 <p>However, when the medium model is changed to a model that models
 <a class="reference internal" href="glossary.html#term-incompressible-flow"><span class="xref std std-term">incompressible flow</span></a>, such as
-<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Media_Water.html#Buildings.Media.Water">Buildings.Media.Water</a>,
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Media_Water.html#Buildings.Media.Water">Buildings.Media.Water</a>,
 then the density is constant. Consequently, there is no equation that
 can be used to compute the pressure based on the volume.
 In this situation, attempting to translate the model leads, in Dymola, to the following error message:</p>
@@ -495,7 +495,7 @@ The number of scalar Real unknown elements are 58.
 The number of scalar Real equation elements are 58.
 </pre></div>
 </div>
-<p>Similarly, if the medium model <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Media_Specialized_Water_TemperatureDependentDensity.html#Buildings.Media.Specialized.Water.TemperatureDependentDensity">Buildings.Media.Specialized.Water.TemperatureDependentDensity</a>,
+<p>Similarly, if the medium model <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Media_Specialized_Water_TemperatureDependentDensity.html#Buildings.Media.Specialized.Water.TemperatureDependentDensity">Buildings.Media.Specialized.Water.TemperatureDependentDensity</a>,
 which models density as a function of pressure and enthalpy, is used, then
 the model is well-defined, but the pressure increases the longer the pump runs.
 The reason is that the pump adds heat to the water. When the water temperature
@@ -504,7 +504,7 @@ the pressure increases from <span class="math notranslate nohighlight">\(1 \, \m
 <p>To avoid this singularity or increase in pressure,
 use a model that imposes a pressure source and that accounts for the expansion of the fluid.
 For example, use
-<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel">Buildings.Fluid.Storage.ExpansionVessel</a>
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel">Buildings.Fluid.Storage.ExpansionVessel</a>
 to form the system model shown below.</p>
 <div class="figure align-default" id="id13">
 <a class="reference internal image-reference" href="_images/flowCircuitWithExpansionVessel.png"><img alt="_images/flowCircuitWithExpansionVessel.png" src="_images/flowCircuitWithExpansionVessel.png" style="width: 459.59999999999997px; height: 404.4px;" /></a>
@@ -513,14 +513,14 @@ adds a pressure source and accounts for the thermal expansion
 of the medium.</span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
 </div>
 <p>Alternatively, you may use
-<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary">Buildings.Fluid.Sources.FixedBoundary</a>, which sets the pressure to a constant value
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary">Buildings.Fluid.Sources.FixedBoundary</a>, which sets the pressure to a constant value
 and adds or removes fluid as needed to maintain the pressure.
-The model <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary">Buildings.Fluid.Sources.FixedBoundary</a> usually leads to simpler equations than
-<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel">Buildings.Fluid.Storage.ExpansionVessel</a>.
+The model <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary">Buildings.Fluid.Sources.FixedBoundary</a> usually leads to simpler equations than
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel">Buildings.Fluid.Storage.ExpansionVessel</a>.
 Note that the medium that flows out of the fluid port of
-<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary">Buildings.Fluid.Sources.FixedBoundary</a>
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary">Buildings.Fluid.Sources.FixedBoundary</a>
 is at a fixed temperature, while the model
-<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel">Buildings.Fluid.Storage.ExpansionVessel</a> conserves energy.
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel">Buildings.Fluid.Storage.ExpansionVessel</a> conserves energy.
 However, since the thermal expansion of the fluid is usually small, this effect can be neglected in most building HVAC applications.</p>
 <div class="figure align-default" id="id14">
 <a class="reference internal image-reference" href="_images/flowCircuitWithBoundary.png"><img alt="_images/flowCircuitWithBoundary.png" src="_images/flowCircuitWithBoundary.png" style="width: 475.2px; height: 415.2px;" /></a>
@@ -531,9 +531,9 @@ of the medium.</span><a class="headerlink" href="#id14" title="Permalink to this
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>In each water circuit, there must be one, and only one, instance of
-<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel">Buildings.Fluid.Storage.ExpansionVessel</a>,
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel">Buildings.Fluid.Storage.ExpansionVessel</a>,
 or instance of
-<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary">Buildings.Fluid.Sources.FixedBoundary</a>.
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary">Buildings.Fluid.Sources.FixedBoundary</a>.
 If there is no such device, then the absolute pressure
 may not be defined, or it may raise to an unrealistically large
 value if the medium density changes.
@@ -573,7 +573,7 @@ parameters in various model to help the user understand how they are used.</p>
 <td><p>These parameters may be used to define a point on the flow rate
 versus pressure drop curve. For other mass flow rates, the pressure drop
 is typically adjusted using similarity laws.
-See <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.PressureDrop">PressureDrop</a>.</p></td>
+See <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.PressureDrop">PressureDrop</a>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">m_flow_nominal</span></code>
 <code class="docutils literal notranslate"><span class="pre">m_flow_small</span></code></p></td>
@@ -625,7 +625,7 @@ gives the specified time response. For most components,
 engineering experience can be used to estimate a
 reasonable value for <code class="docutils literal notranslate"><span class="pre">tau</span></code>, and where generally applicable values
 can be used, components already set a default value for <code class="docutils literal notranslate"><span class="pre">tau.</span></code>
-See for example <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.WetCoilDiscretized">WetCoilDiscretized</a>.</p>
+See for example <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.WetCoilDiscretized">WetCoilDiscretized</a>.</p>
 </td>
 </tr>
 </tbody>
@@ -660,16 +660,17 @@ the relation changes its value. Determining this time interval
 often requires an iterative solution, which can significantly
 increase the computing time if the iteration require
 the evaluation of a large system of equations.
-An example where such an event occurs is the relation</p>
+An example where such an event occurs is the following relation
+that computes the enthalpy of the medium that streams through <code class="docutils literal notranslate"><span class="pre">port_a</span></code> as</p>
 <div class="highlight-modelica notranslate"><div class="highlight"><pre><span></span><span class="kr">if</span> <span class="n">port_a</span><span class="o">.</span><span class="n">m_flow</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="kr">then</span>
-  <span class="n">T_in</span> <span class="o">=</span> <span class="n">port_a</span><span class="o">.</span><span class="n">T</span><span class="p">;</span>
+  <span class="n">h_a</span> <span class="o">=</span> <span class="nb">inStream</span><span class="p">(</span><span class="n">port_a</span><span class="o">.</span><span class="n">h_outflow</span><span class="p">);</span>
 <span class="kr">else</span>
-  <span class="n">T_in</span> <span class="o">=</span> <span class="n">port_b</span><span class="o">.</span><span class="n">T</span><span class="p">;</span>
+  <span class="n">h_a</span> <span class="o">=</span> <span class="n">port_a</span><span class="o">.</span><span class="n">h_outflow</span><span class="p">;</span>
 <span class="kr">end</span> <span class="kr">if</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>or, equivalently,</p>
-<div class="highlight-modelica notranslate"><div class="highlight"><pre><span></span><span class="n">T_in</span> <span class="o">=</span> <span class="kr">if</span> <span class="n">port_a</span><span class="o">.</span><span class="n">m_flow</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="kr">then</span> <span class="n">port_a</span><span class="o">.</span><span class="n">T</span> <span class="kr">else</span> <span class="n">port_b</span><span class="o">.</span><span class="n">T</span><span class="p">;</span>
+<div class="highlight-modelica notranslate"><div class="highlight"><pre><span></span><span class="n">h_a</span> <span class="o">=</span> <span class="kr">if</span> <span class="n">port_a</span><span class="o">.</span><span class="n">m_flow</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="kr">then</span> <span class="nb">inStream</span><span class="p">(</span><span class="n">port_a</span><span class="o">.</span><span class="n">h_outflow</span><span class="p">)</span> <span class="kr">else</span> <span class="n">port_a</span><span class="o">.</span><span class="n">h_outflow</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>When simulating a model that contains such code, a time integrator
@@ -679,8 +680,8 @@ a neighborhood around <code class="docutils literal notranslate"><span class="pr
 with an approximation that does not require an event iteration can
 reduce computing time. For example, the above equation could be
 approximated as</p>
-<div class="highlight-modelica notranslate"><div class="highlight"><pre><span></span><span class="n">T</span> <span class="o">=</span> <span class="n">Modelica</span><span class="o">.</span><span class="n">Fluid</span><span class="o">.</span><span class="n">Utilities</span><span class="o">.</span><span class="n">regStep</span><span class="p">(</span>
-  <span class="n">port_a</span><span class="o">.</span><span class="n">m_flow</span><span class="p">,</span> <span class="n">T_a_inflow</span><span class="p">,</span> <span class="n">T_b_inflow</span><span class="p">,</span>
+<div class="highlight-modelica notranslate"><div class="highlight"><pre><span></span><span class="n">T_a</span> <span class="o">=</span> <span class="n">Modelica</span><span class="o">.</span><span class="n">Fluid</span><span class="o">.</span><span class="n">Utilities</span><span class="o">.</span><span class="n">regStep</span><span class="p">(</span>
+  <span class="n">port_a</span><span class="o">.</span><span class="n">m_flow</span><span class="p">,</span> <span class="nb">inStream</span><span class="p">(</span><span class="n">port_a</span><span class="o">.</span><span class="n">h_outflow</span><span class="p">),</span> <span class="n">port_a</span><span class="o">.</span><span class="n">h_outflow</span><span class="p">,</span>
   <span class="n">m_flow_nominal</span><span class="o">*</span><span class="mf">1E-4</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -693,23 +694,24 @@ flow rates, not much energy is transported and hence the error introduced
 by the approximation is generally negligible.</p>
 <p>In some cases, adding dynamics to the model can further improve
 the computing time, because the return value of the function
-<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/msl/3.2/help/Modelica_Fluid_Utilities.html#Modelica.Fluid.Utilities.regStep">Modelica.Fluid.Utilities.regStep()</a>
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/msl/3.2/help/Modelica_Fluid_Utilities.html#Modelica.Fluid.Utilities.regStep">Modelica.Fluid.Utilities.regStep()</a>
 above can change abruptly if its argument <code class="docutils literal notranslate"><span class="pre">port_a.m_flow</span></code> oscillates in the range of
 <code class="docutils literal notranslate"><span class="pre">+/-</span> <span class="pre">1E-4*m_flow_nominal</span></code>,
 for example due to <a class="reference internal" href="glossary.html#term-numerical-noise"><span class="xref std std-term">numerical noise</span></a>.
 Adding dynamics may be achieved using a formulation such as</p>
-<div class="highlight-modelica notranslate"><div class="highlight"><pre><span></span><span class="n">TMed</span> <span class="o">=</span> <span class="n">Modelica</span><span class="o">.</span><span class="n">Fluid</span><span class="o">.</span><span class="n">Utilities</span><span class="o">.</span><span class="n">regStep</span><span class="p">(</span>
-  <span class="n">port_a</span><span class="o">.</span><span class="n">m_flow</span><span class="p">,</span> <span class="n">T_a_inflow</span><span class="p">,</span> <span class="n">T_b_inflow</span><span class="p">,</span>
+<div class="highlight-modelica notranslate"><div class="highlight"><pre><span></span><span class="n">hMed</span> <span class="o">=</span> <span class="n">Modelica</span><span class="o">.</span><span class="n">Fluid</span><span class="o">.</span><span class="n">Utilities</span><span class="o">.</span><span class="n">regStep</span><span class="p">(</span>
+  <span class="n">port_a</span><span class="o">.</span><span class="n">m_flow</span><span class="p">,</span> <span class="nb">inStream</span><span class="p">(</span><span class="n">port_a</span><span class="o">.</span><span class="n">h_outflow</span><span class="p">),</span> <span class="n">port_a</span><span class="o">.</span><span class="n">h_outflow</span><span class="p">,</span>
   <span class="n">m_flow_nominal</span><span class="o">*</span><span class="mf">1E-4</span><span class="p">);</span>
-<span class="kr">der</span><span class="p">(</span><span class="n">T</span><span class="p">)</span><span class="o">=</span><span class="p">(</span><span class="n">TMed</span><span class="o">-</span><span class="n">T</span><span class="p">)</span><span class="o">/</span><span class="n">tau</span><span class="p">;</span>
+<span class="kr">der</span><span class="p">(</span><span class="n">h</span><span class="p">)</span><span class="o">=</span><span class="p">(</span><span class="n">hMed</span><span class="o">-</span><span class="n">h</span><span class="p">)</span><span class="o">/</span><span class="n">tau</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>where <code class="docutils literal notranslate"><span class="pre">tau</span></code>&gt;0 is a time constant. See, for example,
-<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort">Buildings.Fluid.Sensors.TemperatureTwoPort</a>
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort">Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort</a>
 for a robust implementation.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>In the package <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Utilities_Math.html#Buildings.Utilities.Math">Buildings.Utilities.Math</a>
+<p>In the package
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Utilities_Math.html#Buildings.Utilities.Math">Buildings.Utilities.Math</a>
 the functions and blocks whose names start with <code class="docutils literal notranslate"><span class="pre">smooth</span></code> can be used to avoid events.</p>
 </div>
 </div>
