@@ -47,7 +47,7 @@ model DOE2Reversible
      redeclare package Medium = Medium, nPorts=1)
    "Volume for source side"
    annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant THeaLoaSet(k=35 + 273.15)
+  Controls.OBC.CDL.Continuous.Sources.Constant THeaLoaSet(k=40 + 273.15)
    "Heating load side setpoint water temperature"
    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Controls.OBC.CDL.Continuous.Sources.Constant TCooLoaSet(k=7 + 273.15)
@@ -59,9 +59,9 @@ model DOE2Reversible
   Controls.OBC.CDL.Logical.Switch swi "Switch for set point temperature"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Controls.OBC.CDL.Continuous.Sources.Ramp TSouEntCoo(
-    height=1,
+    height=3,
     duration(displayUnit="s") = 2600,
-    offset=28 + 273.15)
+    offset=27 + 273.15)
   "Source side entering water temperature in cooling mode"
     annotation (Placement(transformation(extent={{52,-80},{72,-60}})));
   Modelica.Blocks.Sources.Ramp uMod(
@@ -76,19 +76,19 @@ model DOE2Reversible
    "Switch for set point temperature"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
   Controls.OBC.CDL.Continuous.Sources.Ramp TSouEntHea(
-    height=0,
+    height=2,
     duration(displayUnit="s") = 2600,
-    offset=12 + 273.15)
+    offset=14 + 273.15)
    "Source side entering water temperature in heating mode"
     annotation (Placement(transformation(extent={{50,-40},{70,-20}})));
   Controls.OBC.CDL.Continuous.Sources.Ramp TLoaEntHea(
-    height=1,
+    height=-3,
     duration(displayUnit="s") = 2600,
     offset=33 + 273.15)
    "Load side entering water temperature  in heating mode"
     annotation (Placement(transformation(extent={{-20,80},{0,100}})));
   Controls.OBC.CDL.Continuous.Sources.Ramp TLoaEntCoo(
-    height=1,
+    height=3,
     duration(displayUnit="s") = 2000,
     offset=11 + 273.15)
    "Load side entering water temperature in cooling mode"
@@ -172,10 +172,10 @@ Documentation(info="<html>
 <p>
 Example that simulates the performance of
 <a href=\"modelica://Buildings.Fluid.HeatPumps.DOE2Reversible\">
-Buildings.Fluid.HeatPumps.DOE2Reversible</a> based on the equation fit method.
+Buildings.Fluid.HeatPumps.DOE2Reversible</a> based on the DOE2 method.
 The heat pump takes as an input the set point for the heating or the chilled leaving
-water temperature and an integer input to
-specify the heat pump operational mode.
+water temperature, the minimum and maximum evaporator leaving water temperature  and
+an integer input to specify the heat pump operational mode.
 </p>
 </html>", revisions="<html>
 <ul>
