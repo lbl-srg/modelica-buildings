@@ -1,11 +1,10 @@
 within Buildings.Applications.DHC.Loads.Validation.BaseClasses;
-model Terminal4PipesFluidPorts
+partial model PartialFanCoil4Pipes
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit(
     redeclare package Medium1 = Buildings.Media.Water,
     redeclare package Medium2 = Buildings.Media.Air,
     final have_watHea=true,
     final have_watCoo=true,
-    final have_fluPor=true,
     final have_fan=true,
     final mHeaWat_flow_nominal=abs(QHea_flow_nominal/cpHeaWat_nominal/(
       T_aHeaWat_nominal - T_bHeaWat_nominal)),
@@ -18,12 +17,12 @@ model Terminal4PipesFluidPorts
   parameter hexConfiguration hexConCoo=
     hexConfiguration.CounterFlow
     "Cooling heat exchanger configuration";
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conTMin(
+  Buildings.Controls.OBC.CDL.Continuous.LimPID conHea(
     Ti=120,
     yMax=1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     reverseAction=false,
-    yMin=0) "PI controller for minimum indoor temperature"
+    yMin=0) "PI controller for heating"
     annotation (Placement(transformation(extent={{-10,210},{10,230}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
     redeclare final package Medium=Medium2,
@@ -73,12 +72,12 @@ model Terminal4PipesFluidPorts
     annotation (Placement(transformation(extent={{20,90},{40,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant sigFlo2(k=1)
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conTMax(
+  Buildings.Controls.OBC.CDL.Continuous.LimPID conCoo(
     Ti=120,
     yMax=1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     reverseAction=true,
-    yMin=0) "PI controller for maximum indoor temperature"
+    yMin=0) "PI controller for cooling"
     annotation (Placement(transformation(extent={{-10,170},{10,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiCooFloNom(k=mChiWat_flow_nominal)
     annotation (Placement(transformation(extent={{20,170},{40,190}})));
@@ -89,18 +88,18 @@ model Terminal4PipesFluidPorts
     "Return air temperature (sensed, steady-state)"
     annotation (Placement(transformation(extent={{130,-10},{110,10}})));
 equation
+  if have_fluPor then
+  end if;
+  if not have_QReq_flow then
+  end if;
   connect(hexCoo.port_b2, hexHea.port_a2)
     annotation (Line(points={{0,0},{-60,0}},     color={0,127,255}));
-  connect(hexHea.port_b2, port_bLoa)
-    annotation (Line(points={{-80,0},{-90,0},{-90,0},{-200,0}},       color={0,127,255}));
   connect(fan.port_b, hexCoo.port_a2)
     annotation (Line(points={{70,0},{20,0}}, color={0,127,255}));
   connect(gaiFloNom2.u, sigFlo2.y)
-    annotation (Line(points={{18,100},{-58,100}},
-                                                color={0,0,127}));
+    annotation (Line(points={{18,100},{-58,100}}, color={0,0,127}));
   connect(gaiFloNom2.y, fan.m_flow_in)
-    annotation (Line(points={{42,100},{80,100},{80,12}},
-                                                       color={0,0,127}));
+    annotation (Line(points={{42,100},{80,100},{80,12}}, color={0,0,127}));
   connect(port_aChiWat, hexCoo.port_a1) annotation (Line(points={{-200,-180},{-20,
           -180},{-20,-12},{0,-12}}, color={0,127,255}));
   connect(hexCoo.port_b1, port_bChiWat) annotation (Line(points={{20,-12},{40,-12},
@@ -109,24 +108,15 @@ equation
           -100,-220},{-100,-12},{-80,-12}},
                                        color={0,127,255}));
   connect(hexHea.port_b1, port_bHeaWat) annotation (Line(points={{-60,-12},{-40,
-          -12},{-40,-220},{200,-220}},
-                                  color={0,127,255}));
-  connect(TSetHea, conTMin.u_s)
-    annotation (Line(points={{-220,220},{-12,220}}, color={0,0,127}));
-  connect(conTMin.y, gaiHeaFloNom.u)
+          -12},{-40,-220},{200,-220}}, color={0,127,255}));
+
+  connect(conHea.y, gaiHeaFloNom.u)
     annotation (Line(points={{12,220},{18,220}}, color={0,0,127}));
-  connect(conTMax.y, gaiCooFloNom.u)
+  connect(conCoo.y, gaiCooFloNom.u)
     annotation (Line(points={{12,180},{18,180}}, color={0,0,127}));
-  connect(TSetCoo, conTMax.u_s)
-    annotation (Line(points={{-220,180},{-12,180}}, color={0,0,127}));
-  connect(port_aLoa, senTem.port_a)
-    annotation (Line(points={{200,0},{130,0}}, color={0,127,255}));
+
   connect(senTem.port_b, fan.port_a)
     annotation (Line(points={{110,0},{90,0}}, color={0,127,255}));
-  connect(senTem.T, conTMax.u_m) annotation (Line(points={{120,11},{120,40},{0,40},
-          {0,168}}, color={0,0,127}));
-  connect(senTem.T, conTMin.u_m) annotation (Line(points={{120,11},{120,40},{-20,
-          40},{-20,200},{0,200},{0,208}}, color={0,0,127}));
   connect(gaiHeaFloNom.y,scaMasFloReqHeaWat.u)  annotation (Line(points={{42,
           220},{100,220},{100,100},{158,100}}, color={0,0,127}));
   connect(gaiCooFloNom.y, scaMasFloReqChiWat.u) annotation (Line(points={{42,
@@ -137,4 +127,4 @@ equation
           {150,220},{150,220},{158,220}}, color={0,0,127}));
   connect(Q_flowCoo.y, scaQActCoo_flow.u) annotation (Line(points={{141,200},
           {158,200},{158,200}}, color={0,0,127}));
-end Terminal4PipesFluidPorts;
+end PartialFanCoil4Pipes;

@@ -4,8 +4,11 @@ BuildingRCZ1Valve
 BuildingRCZ6
 BuildingSpawnZ1
 BuildingSpawnZ6
-Terminal4PipesFluidPorts
-Terminal4PipesHeatPorts
-Terminal4PipesHeatReq
+FanCoil2PipesCooling
+FanCoil2PipesHeating
+FanCoil2PipesHeatingValve
+FanCoil4PipesFluidPorts
+FanCoil4PipesHeatPorts
+PartialFanCoil4Pipes
 GeojsonExportSpawn
 GeojsonExportRC

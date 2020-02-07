@@ -47,21 +47,20 @@ model BuildingSpawnZ1 "Spawn building model (1 zone, no distribution pump)"
     annotation (Placement(transformation(extent={{-300,210},{-280,230}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC2
     annotation (Placement(transformation(extent={{-260,210},{-240,230}})));
-  Buildings.Applications.DHC.Loads.Validation.BaseClasses.Terminal4PipesFluidPorts
+  Buildings.Applications.DHC.Loads.Validation.BaseClasses.FanCoil4PipesFluidPorts
     terUni(
-      redeclare package Medium1 = Medium,
-      redeclare package Medium2 = Medium2,
-      QHea_flow_nominal=10000,
-      QCoo_flow_nominal=-10000,
-      T_aLoaHea_nominal=293.15,
-      T_aLoaCoo_nominal=297.15,
-      T_bHeaWat_nominal=308.15,
-      T_bChiWat_nominal=285.15,
-      T_aHeaWat_nominal=313.15,
-      T_aChiWat_nominal=280.15,
-      mLoaHea_flow_nominal=5,
-      mLoaCoo_flow_nominal=5)
-    "Terminal unit"
+    redeclare package Medium1 = Medium,
+    redeclare package Medium2 = Medium2,
+    QHea_flow_nominal=10000,
+    QCoo_flow_nominal=-10000,
+    T_aLoaHea_nominal=293.15,
+    T_aLoaCoo_nominal=297.15,
+    T_bHeaWat_nominal=308.15,
+    T_bChiWat_nominal=285.15,
+    T_aHeaWat_nominal=313.15,
+    T_aChiWat_nominal=280.15,
+    mLoaHea_flow_nominal=5,
+    mLoaCoo_flow_nominal=5) "Terminal unit"
     annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
     redeclare package Medium = Medium,

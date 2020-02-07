@@ -28,10 +28,10 @@ model CouplingTimeSeries
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={130,20})));
-  Modelica.Blocks.Sources.RealExpression THeaWatSup(y=bui.terUni.T_aHeaWat_nominal)
+  Modelica.Blocks.Sources.RealExpression THeaWatSup(y=bui.terUniHea.T_aHeaWat_nominal)
     "Heating water supply temperature"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
-  Modelica.Blocks.Sources.RealExpression TChiWatSup(y=bui.terUni.T_aChiWat_nominal)
+  Modelica.Blocks.Sources.RealExpression TChiWatSup(y=bui.terUniCoo.T_aChiWat_nominal)
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   Fluid.Sources.Boundary_pT           supHeaWat(
@@ -63,8 +63,8 @@ equation
           {-20,20},{-20,34},{0,34}},        color={0,127,255}));
   annotation (
   experiment(
-      StopTime=31536000,
-      __Dymola_NumberOfIntervals=8760,
+      StopTime=24048000,
+      __Dymola_NumberOfIntervals=5000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
   Documentation(info="<html>

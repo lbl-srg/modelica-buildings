@@ -76,22 +76,21 @@ model BuildingSpawnZ6
     annotation (Placement(transformation(extent={{260,110},{280,130}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum3(nin=2)
     annotation (Placement(transformation(extent={{260,70},{280,90}})));
-  Buildings.Applications.DHC.Loads.Validation.BaseClasses.Terminal4PipesFluidPorts
+  Buildings.Applications.DHC.Loads.Validation.BaseClasses.FanCoil4PipesFluidPorts
     terUni[nZon](
-      redeclare package Medium1 = Medium,
-      redeclare package Medium2 = Medium2,
-      each facSca=facSca,
-      QHea_flow_nominal={50000,10000,10000,10000,10000,10000},
-      QCoo_flow_nominal={-10000,-10000,-10000,-10000,-10000,-10000},
-      each T_aLoaHea_nominal=293.15,
-      each T_aLoaCoo_nominal=297.15,
-      each T_bHeaWat_nominal=308.15,
-      each T_bChiWat_nominal=285.15,
-      each T_aHeaWat_nominal=313.15,
-      each T_aChiWat_nominal=280.15,
-      each mLoaHea_flow_nominal=5,
-      each mLoaCoo_flow_nominal=5)
-      "Terminal unit"
+    redeclare package Medium1 = Medium,
+    redeclare package Medium2 = Medium2,
+    each facSca=facSca,
+    QHea_flow_nominal={50000,10000,10000,10000,10000,10000},
+    QCoo_flow_nominal={-10000,-10000,-10000,-10000,-10000,-10000},
+    each T_aLoaHea_nominal=293.15,
+    each T_aLoaCoo_nominal=297.15,
+    each T_bHeaWat_nominal=308.15,
+    each T_bChiWat_nominal=285.15,
+    each T_aHeaWat_nominal=313.15,
+    each T_aChiWat_nominal=280.15,
+    each mLoaHea_flow_nominal=5,
+    each mLoaCoo_flow_nominal=5) "Terminal unit"
     annotation (Placement(transformation(extent={{-140,-2},{-116,22}})));
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
     redeclare package Medium = Medium,

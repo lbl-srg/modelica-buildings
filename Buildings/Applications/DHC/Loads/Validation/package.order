@@ -4,6 +4,7 @@ CouplingRCZ6
 CouplingSpawnZ1
 CouplingSpawnZ6
 CouplingTimeSeries
-EffectivenessNTU
 FlowDistributionCO
+BenchmarkFlowDistribution1
+BenchmarkFlowDistribution2
 BaseClasses

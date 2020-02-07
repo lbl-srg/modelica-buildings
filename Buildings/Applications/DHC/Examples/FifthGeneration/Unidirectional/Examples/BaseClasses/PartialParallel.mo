@@ -8,8 +8,6 @@ partial model PartialParallel "Partial model for parallel network"
   parameter Integer nBui = datDes.nBui
     "Number of buildings connected to DHC system"
     annotation (Evaluate=true);
-  parameter String weaPat
-    "Path of the weather file";
   inner parameter Data.DesignDataParallel datDes
     "Design data"
     annotation (Placement(transformation(extent={{-340,220},{-320,240}})));

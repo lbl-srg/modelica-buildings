@@ -127,21 +127,20 @@ model BuildingRCZ1Valve
     annotation (Placement(transformation(extent={{-260,210},{-240,230}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=2)
     annotation (Placement(transformation(extent={{260,70},{280,90}})));
-  Buildings.Applications.DHC.Loads.Validation.BaseClasses.Terminal4PipesFluidPorts
+  Buildings.Applications.DHC.Loads.Validation.BaseClasses.FanCoil4PipesFluidPorts
     terUni(
-      redeclare package Medium1 = Medium,
-      redeclare package Medium2 = Medium2,
-      QHea_flow_nominal=1000,
-      QCoo_flow_nominal=-5000,
-      T_aLoaHea_nominal=293.15,
-      T_aLoaCoo_nominal=297.15,
-      T_bHeaWat_nominal=308.15,
-      T_bChiWat_nominal=285.15,
-      T_aHeaWat_nominal=313.15,
-      T_aChiWat_nominal=280.15,
-      mLoaHea_flow_nominal=1,
-      mLoaCoo_flow_nominal=1)
-    "Terminal unit"
+    redeclare package Medium1 = Medium,
+    redeclare package Medium2 = Medium2,
+    QHea_flow_nominal=1000,
+    QCoo_flow_nominal=-5000,
+    T_aLoaHea_nominal=293.15,
+    T_aLoaCoo_nominal=297.15,
+    T_bHeaWat_nominal=308.15,
+    T_bChiWat_nominal=285.15,
+    T_aHeaWat_nominal=313.15,
+    T_aChiWat_nominal=280.15,
+    mLoaHea_flow_nominal=1,
+    mLoaCoo_flow_nominal=1) "Terminal unit"
     annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
     redeclare package Medium = Medium,

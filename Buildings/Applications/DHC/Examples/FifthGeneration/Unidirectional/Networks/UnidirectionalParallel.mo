@@ -53,7 +53,7 @@ model UnidirectionalParallel
     m_flow_nominal=mEnd_flow_nominal,
     dh=dhEnd,
     length=2*lEnd,
-    final allowFlowReversal=allowFlowReversal)
+    final allowFlowReversal=allowFlowReversal) if mEnd_flow_nominal > 0
     "Pipe representing the end of the distribution line (after last connection)"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 equation
@@ -74,10 +74,15 @@ equation
           {-20,-60},{-20,-6},{-10,-6}}, color={0,127,255}));
   connect(con[nCon].port_aDisRet, port_aDisRet) annotation (Line(points={{10,-6},
           {20,-6},{20,-60},{100,-60}}, color={0,127,255}));
-  connect(con[3].port_bDisSup, pipEnd.port_a)
-    annotation (Line(points={{10,0},{40,0}}, color={0,127,255}));
-  connect(pipEnd.port_b, port_bDisSup)
-    annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
+  if mEnd_flow_nominal > 0 then
+    connect(con[nCon].port_bDisSup, pipEnd.port_a)
+      annotation (Line(points={{10,0},{40,0}}, color={0,127,255}));
+    connect(pipEnd.port_b, port_bDisSup)
+      annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
+  else
+    connect(con[nCon].port_bDisSup, port_bDisSup)
+    annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
+  end if;
   annotation (
     defaultComponentName="dis",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={

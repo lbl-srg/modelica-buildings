@@ -371,13 +371,17 @@ tracking the supply temperature.
   Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-100},{100,100}}),
     graphics={
+        Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={95,95,95},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
       Rectangle(
         extent={{-101,5},{100,-4}},
         lineColor={0,0,255},
         pattern=LinePattern.None,
         fillColor={0,0,255},
-        fillPattern=FillPattern.Solid),
-        Rectangle(extent={{-100,100},{100,-100}}, lineColor={95,95,95})}),
+        fillPattern=FillPattern.Solid)}),
       Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{
             100,240}})));
 end FlowDistribution;

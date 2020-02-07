@@ -51,22 +51,22 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
   parameter Boolean have_pum = false
     "Set to true if the system has a pump"
     annotation(Evaluate=true);
-  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(min=0)
+  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(min=0) = 0
     "Heat flow rate for water based heating at nominal conditions (>=0)"
     annotation(Dialog(
       group="Nominal condition",
       enable=have_watHea));
-  parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal(max=0)
+  parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal(max=0) = 0
     "Heat flow rate for water based cooling at nominal conditions (<=0)"
     annotation(Dialog(
       group="Nominal condition",
       enable=have_watCoo));
-  parameter Modelica.SIunits.MassFlowRate mHeaWat_flow_nominal(min=0)
+  parameter Modelica.SIunits.MassFlowRate mHeaWat_flow_nominal(min=0) = 0
     "Heating water mass flow rate at nominal conditions"
     annotation(Dialog(
       group="Nominal condition",
       enable=have_watHea));
-  parameter Modelica.SIunits.MassFlowRate mChiWat_flow_nominal(min=0)
+  parameter Modelica.SIunits.MassFlowRate mChiWat_flow_nominal(min=0) = 0
     "Chilled water mass flow rate at nominal conditions"
     annotation(Dialog(
       group="Nominal condition",
@@ -81,38 +81,40 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     annotation(Dialog(
       group="Nominal condition",
       enable=have_watCoo));
+  // AHRI 440 Standard Heating
   parameter Modelica.SIunits.Temperature T_aHeaWat_nominal(
-    min=273.15, displayUnit="degC")
+    min=273.15, displayUnit="degC") = 273.15 + 60
     "Heating water inlet temperature at nominal conditions"
     annotation(Dialog(
       group="Nominal condition",
       enable=have_watHea and not have_chaOve));
   parameter Modelica.SIunits.Temperature T_bHeaWat_nominal(
-    min=273.15, displayUnit="degC")
+    min=273.15, displayUnit="degC") = T_aHeaWat_nominal - 22.2
     "Heating water outlet temperature at nominal conditions"
     annotation(Dialog(
       group="Nominal condition",
       enable=have_watHea and not have_chaOve));
+  // AHRI 440 Standard Cooling
   parameter Modelica.SIunits.Temperature T_aChiWat_nominal(
-    min=273.15, displayUnit="degC")
+    min=273.15, displayUnit="degC") = 273.15 + 7.2
     "Chilled water inlet temperature at nominal conditions "
     annotation(Dialog(
       group="Nominal condition",
       enable=have_watCoo));
   parameter Modelica.SIunits.Temperature T_bChiWat_nominal(
-    min=273.15, displayUnit="degC")
+    min=273.15, displayUnit="degC") = T_aChiWat_nominal + 5.6
     "Chilled water outlet temperature at nominal conditions"
     annotation(Dialog(
       group="Nominal condition",
       enable=have_watCoo));
   parameter Modelica.SIunits.Temperature T_aLoaHea_nominal(
-    min=273.15, displayUnit="degC")
+    min=273.15, displayUnit="degC") = 273.15 + 21.1
     "Load side inlet temperature at nominal conditions in heating mode"
     annotation(Dialog(
       group="Nominal condition",
       enable=have_watHea and not have_chaOve));
   parameter Modelica.SIunits.Temperature T_aLoaCoo_nominal(
-    min=273.15, displayUnit="degC")
+    min=273.15, displayUnit="degC") = 273.15 + 26.7
     "Load side inlet temperature at nominal conditions in cooling mode"
     annotation(Dialog(
       group="Nominal condition",
@@ -435,7 +437,9 @@ The computed required mass flow rate must be connected to
   Icon(coordinateSystem(preserveAspectRatio=false,
   extent={{-120,-120},{120,120}}),
     graphics={
-    Rectangle(extent={{-120,120},{120,-120}}, lineColor={95,95,95}),
+    Rectangle(extent={{-120,120},{120,-120}}, lineColor={95,95,95},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
     Rectangle(
     extent={{-80,80},{80,-80}},
     lineColor={0,0,255},
