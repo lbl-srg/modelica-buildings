@@ -75,7 +75,7 @@ model AbsorptionIndirectSteam_EnergyPlus
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     tableOnFile=true,
     fileName=ModelicaServices.ExternalReferences.loadResource(
-        "modelica://Buildings/Resources/Data/Fluid/Chillers/IndirectAbsorptionChiller/modelica.csv"),
+        "modelica://Buildings/Resources/Data/Fluid/Chillers/IndirectAbsorptionChiller/Validation/modelica.csv"),
     columns=2:11,
     tableName="modelica",
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
