@@ -100,12 +100,11 @@ DOCKER_FLAGS="\
 	--detach=false \
 	--rm \
 	--user=developer \
-    ${MOD_MOUNT} \
-    ${PYT_MOUNT} \
+	${MOD_MOUNT} \
+	${PYT_MOUNT} \
 	-v /tmp/.X11-unix:/tmp/.X11-unix \
 	-e DISPLAY=${DISPLAY} \
-	-v ${MODELICA_LIB}:/mnt/modelica_lib \
-    -v ${sha_dir}:/mnt/shared \
+	-v ${sha_dir}:/mnt/shared \
 	${NAME}"
 
 docker run ${DOCKER_FLAGS} /bin/bash -c \
