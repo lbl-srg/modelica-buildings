@@ -32,12 +32,18 @@ also be directed to an external program as an output.
 </p>
 <p>
 It is important to add a brief description of the signal using the
-<code>description</code> parameter and assign a type if needed for KPI
+<code>description</code> parameter, assign a <code>unit</code> to the output 
+variable <code>y</code>, and assign a type if needed for KPI
 calculation using the <code>KPIs</code> parameter.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 9, 2020 by David Blum:<br/>
+Updated documentation to prompt user to add unit to output.  
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1276\">#1276</a>.
+</li>
 <li>
 July 17, 2019 by Michael Wetter:<br/>
 Changed parameter name from <code>Description</code> to <code>description</code>.
