@@ -169,13 +169,31 @@ FMILIB_EXPORT unsigned int fmi1_import_get_number_of_continuous_states(fmi1_impo
 /** \brief Get the number of event indicators. */
 FMILIB_EXPORT unsigned int fmi1_import_get_number_of_event_indicators(fmi1_import_t* fmu);
 
-/** \brief Get the start time for default experiment  as specified in the XML file. */
+/** \brief Check if the start time for default experiment is specified in the XML file. */
+FMILIB_EXPORT int fmi1_import_get_default_experiment_has_start(fmi1_import_t* fmu);
+
+/** \brief Check if the stop time for default experiment is specified in the XML file. */
+FMILIB_EXPORT int fmi1_import_get_default_experiment_has_stop(fmi1_import_t* fmu);
+
+/** \brief Check if the tolerance for default experiment is specified in the XML file. */
+FMILIB_EXPORT int fmi1_import_get_default_experiment_has_tolerance(fmi1_import_t* fmu);
+
+/** \brief Get the start time for default experiment as specified in the XML file.
+    If it is not specified, a default value of 0.0 is returned.
+    To determine if it is specified, use the following function: #fmi1_import_get_default_experiment_has_start
+*/
 FMILIB_EXPORT double fmi1_import_get_default_experiment_start(fmi1_import_t* fmu);
 
-/** \brief Get the stop time for default experiment  as specified in the XML file. */
+/** \brief Get the stop time for default experiment as specified in the XML file.
+    If it is not specified, a default value of 1.0 is returned.
+    To determine if it is specified, use the following function: #fmi1_import_get_default_experiment_has_stop
+*/
 FMILIB_EXPORT double fmi1_import_get_default_experiment_stop(fmi1_import_t* fmu);
 
-/** \brief Get the tolerance default experiment as specified in the XML file. */
+/** \brief Get the tolerance for default experiment as specified in the XML file.
+    If it is not specified, a default value of 1e-4 is returned.
+    To determine if it is specified, use the following function: #fmi1_import_get_default_experiment_has_tolerance
+*/
 FMILIB_EXPORT double fmi1_import_get_default_experiment_tolerance(fmi1_import_t* fmu);
 
 /** \brief Get the type of the FMU (model exchange or co-simulation) */
