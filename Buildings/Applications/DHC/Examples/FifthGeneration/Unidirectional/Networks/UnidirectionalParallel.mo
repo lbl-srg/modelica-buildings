@@ -1,8 +1,7 @@
 within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Networks;
 model UnidirectionalParallel
   "Hydraulic network for unidirectional parallel DHC system"
-  extends BaseClasses.PartialDistributionSystem(
-    allowFlowReversal=false);
+  extends BaseClasses.PartialDistributionSystem;
   parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal[nCon]
     "Nominal mass flow rate in the distribution line before each connection";
   parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal[nCon]

@@ -16,6 +16,8 @@ model FanCoil2PipesHeatingValve
   parameter hexConfiguration hexConCoo=
     hexConfiguration.CounterFlow
     "Cooling heat exchanger configuration";
+  parameter Modelica.SIunits.PressureDifference dp_nominal = 30000
+    "Nominal pressure drop on source side";
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
     redeclare final package Medium=Medium2,
     energyDynamics=energyDynamics,
@@ -85,16 +87,18 @@ model FanCoil2PipesHeatingValve
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
   Fluid.Actuators.Valves.TwoWayEqualPercentage val(
     redeclare final package Medium=Medium1,
-    allowFlowReversal=false,
     m_flow_nominal=mHeaWat_flow_nominal,
     dpValve_nominal=5000,
     use_inputFilter=false,
-    dpFixed_nominal=30000) annotation (Placement(transformation(
+    final allowFlowReversal=allowFlowReversal,
+    dpFixed_nominal=dp_nominal - 5000)
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-40,-80})));
   Fluid.Sensors.MassFlowRate senMasFlo(
-    redeclare final package Medium=Medium1)
+    redeclare final package Medium=Medium1,
+    final allowFlowReversal=allowFlowReversal)
   annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,

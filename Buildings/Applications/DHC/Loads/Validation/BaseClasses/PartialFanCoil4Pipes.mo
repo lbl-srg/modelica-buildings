@@ -88,10 +88,6 @@ partial model PartialFanCoil4Pipes
     "Return air temperature (sensed, steady-state)"
     annotation (Placement(transformation(extent={{130,-10},{110,10}})));
 equation
-  if have_fluPor then
-  end if;
-  if not have_QReq_flow then
-  end if;
   connect(hexCoo.port_b2, hexHea.port_a2)
     annotation (Line(points={{0,0},{-60,0}},     color={0,127,255}));
   connect(fan.port_b, hexCoo.port_a2)
@@ -109,16 +105,14 @@ equation
                                        color={0,127,255}));
   connect(hexHea.port_b1, port_bHeaWat) annotation (Line(points={{-60,-12},{-40,
           -12},{-40,-220},{200,-220}}, color={0,127,255}));
-
   connect(conHea.y, gaiHeaFloNom.u)
     annotation (Line(points={{12,220},{18,220}}, color={0,0,127}));
   connect(conCoo.y, gaiCooFloNom.u)
     annotation (Line(points={{12,180},{18,180}}, color={0,0,127}));
-
   connect(senTem.port_b, fan.port_a)
     annotation (Line(points={{110,0},{90,0}}, color={0,127,255}));
-  connect(gaiHeaFloNom.y,scaMasFloReqHeaWat.u)  annotation (Line(points={{42,
-          220},{100,220},{100,100},{158,100}}, color={0,0,127}));
+  connect(gaiHeaFloNom.y,scaMasFloReqHeaWat.u)  annotation (Line(points={{42,220},
+          {108,220},{108,100},{158,100}},      color={0,0,127}));
   connect(gaiCooFloNom.y, scaMasFloReqChiWat.u) annotation (Line(points={{42,
           180},{100,180},{100,80},{158,80}}, color={0,0,127}));
   connect(fan.P, scaPFan.u) annotation (Line(points={{69,9},{60,9},{60,140},{
@@ -127,4 +121,12 @@ equation
           {150,220},{150,220},{158,220}}, color={0,0,127}));
   connect(Q_flowCoo.y, scaQActCoo_flow.u) annotation (Line(points={{141,200},
           {158,200},{158,200}}, color={0,0,127}));
+  connect(senTem.T, conCoo.u_m) annotation (Line(points={{120,11},{120,40},{0,40},
+          {0,168}}, color={0,0,127}));
+  connect(senTem.T, conHea.u_m) annotation (Line(points={{120,11},{120,40},{0,40},
+          {0,160},{-20,160},{-20,200},{0,200},{0,208}}, color={0,0,127}));
+  connect(TSetCoo, conCoo.u_s)
+    annotation (Line(points={{-220,180},{-12,180}}, color={0,0,127}));
+  connect(TSetHea, conHea.u_s)
+    annotation (Line(points={{-220,220},{-12,220}}, color={0,0,127}));
 end PartialFanCoil4Pipes;

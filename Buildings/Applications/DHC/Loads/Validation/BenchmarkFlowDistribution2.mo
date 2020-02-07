@@ -33,7 +33,9 @@ model BenchmarkFlowDistribution2
     sum(terUniHea.mHeaWat_flow_nominal)
     "Nominal mass flow rate in the distribution line";
   final parameter Modelica.SIunits.PressureDifference dp_nominal=
-    sum(dis.con.pipDisSup.dp_nominal) + sum(dis.con.pipDisRet.dp_nominal) + 50000
+    sum(dis.con.pipDisSup.dp_nominal) +
+    sum(dis.con.pipDisRet.dp_nominal) +
+    max(terUniHea.dp_nominal)
     "Nominal pressure drop in the distribution line";
   final parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(min=Modelica.Constants.eps)=
     Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
@@ -50,7 +52,7 @@ model BenchmarkFlowDistribution2
     each final T_bHeaWat_nominal=T_bHeaWat_nominal,
     each final T_aLoaHea_nominal=T_aLoaHea_nominal)
     "Heating terminal unit"
-    annotation (Placement(transformation(extent={{40,32},{60,52}})));
+    annotation (Placement(transformation(extent={{50,30},{70,50}})));
   Modelica.Blocks.Sources.CombiTimeTable loa(
     tableOnFile=true,
     tableName="tab1",
@@ -80,7 +82,7 @@ model BenchmarkFlowDistribution2
     nPorts=2) "Heating water supply" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-52,-84})));
+        origin={-50,-80})));
   Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Networks.UnidirectionalParallel
     dis(
     redeclare package Medium = Medium1,
@@ -92,7 +94,7 @@ model BenchmarkFlowDistribution2
     lCon=fill(3, nLoa),
     dhDis=fill(0.15, nLoa),
     dhCon=fill(0.5, nLoa))
-    annotation (Placement(transformation(extent={{34,-90},{74,-70}})));
+    annotation (Placement(transformation(extent={{40,-90},{80,-70}})));
   Fluid.Movers.FlowControlled_dp pum(
     redeclare package Medium = Medium1,
     per(final motorCooledByFluid=false),
@@ -102,7 +104,7 @@ model BenchmarkFlowDistribution2
     nominalValuesDefineDefaultPressureCurve=true,
     use_inputFilter=false,
     dp_nominal=dp_nominal)
-    annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
+    annotation (Placement(transformation(extent={{10,-90},{30,-70}})));
   Modelica.Blocks.Sources.RealExpression dpPum(y=dp_nominal) "Pump head"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
   Fluid.MixingVolumes.MixingVolume vol(
@@ -130,27 +132,25 @@ equation
   connect(from_degC1.y, reaRep.u)
     annotation (Line(points={{-38,70},{-22,70}}, color={0,0,127}));
   connect(reaRep.y, terUniHea.TSetHea) annotation (Line(points={{2,70},{20,70},
-          {20,48.6667},{39.1667,48.6667}},color={0,0,127}));
+          {20,46.6667},{49.1667,46.6667}},color={0,0,127}));
   connect(reaRep1.y, terUniHea.QReqHea_flow) annotation (Line(points={{-38,0},{
-          -20,0},{-20,42},{39.1667,42}},
-                                     color={0,0,127}));
-  connect(THeaWatSup.y, supHeaWat.T_in) annotation (Line(points={{-79,-80},{-64,
-          -80}},                     color={0,0,127}));
-  connect(terUniHea.port_bHeaWat, dis.ports_aCon) annotation (Line(points={{60,
-          33.6667},{70,33.6667},{70,34},{80,34},{80,0},{66,0},{66,-70}},
-                                                                color={0,127,255}));
-  connect(dis.ports_bCon, terUniHea.port_aHeaWat) annotation (Line(points={{42,-70},
-          {42,0},{20,0},{20,33.6667},{40,33.6667}}, color={0,127,255}));
+          0,0},{0,40},{49.1667,40}}, color={0,0,127}));
+  connect(THeaWatSup.y, supHeaWat.T_in) annotation (Line(points={{-79,-80},{-72,
+          -80},{-72,-76},{-62,-76}}, color={0,0,127}));
+  connect(terUniHea.port_bHeaWat, dis.ports_aCon) annotation (Line(points={{70,
+          31.6667},{80,31.6667},{80,0},{72,0},{72,-70}},        color={0,127,255}));
+  connect(dis.ports_bCon, terUniHea.port_aHeaWat) annotation (Line(points={{48,-70},
+          {48,0},{20,0},{20,31.6667},{50,31.6667}}, color={0,127,255}));
   connect(pum.port_b, dis.port_aDisSup)
-    annotation (Line(points={{20,-80},{34,-80}}, color={0,127,255}));
-  connect(dis.port_bDisRet, supHeaWat.ports[1]) annotation (Line(points={{34,-86},
-          {20,-86},{20,-96},{-42,-96},{-42,-82}}, color={0,127,255}));
+    annotation (Line(points={{30,-80},{40,-80}}, color={0,127,255}));
+  connect(dis.port_bDisRet, supHeaWat.ports[1]) annotation (Line(points={{40,-86},
+          {32,-86},{32,-98},{-40,-98},{-40,-78}}, color={0,127,255}));
   connect(dpPum.y, pum.dp_in)
-    annotation (Line(points={{-79,-40},{10,-40},{10,-68}}, color={0,0,127}));
+    annotation (Line(points={{-79,-40},{20,-40},{20,-68}}, color={0,0,127}));
   connect(vol.ports[1], pum.port_a)
-    annotation (Line(points={{-23,-80},{0,-80}}, color={0,127,255}));
-  connect(supHeaWat.ports[2], vol.ports[2]) annotation (Line(points={{-42,-86},{
-          -34,-86},{-34,-80},{-19,-80}}, color={0,127,255}));
+    annotation (Line(points={{-23,-80},{10,-80}},color={0,127,255}));
+  connect(supHeaWat.ports[2], vol.ports[2]) annotation (Line(points={{-40,-82},{
+          -40,-80},{-19,-80}},           color={0,127,255}));
   annotation (
     experiment(
       StopTime=8E6,
