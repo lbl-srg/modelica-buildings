@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.Utilities;
 block OptimalStart
   "Block that outputs optimal start time for an HVAC system before occupancy"
   parameter Modelica.SIunits.Time tOptMax(
-    displayUnit="h", min=0, max=21600) = 10800
+    min=0, max=21600) = 10800
     "Maximum optimal start time";
   parameter Integer nDay(min=1) = 3
     "Number of previous days for averaging the temperature slope";
@@ -10,12 +10,15 @@ block OptimalStart
     "Set to true if only computing for space heating"  annotation(Dialog(enable=not computeCooling));
   parameter Boolean computeCooling = false
     "Set to true if only computing for space cooling"  annotation(Dialog(enable=not computeHeating));
-  parameter Modelica.SIunits.TemperatureDifference uLow = 0
+  parameter Modelica.SIunits.TemperatureDifference uLow(min=0) = 0
     "Threshold to determine if the zone temperature reaches the occupied setpoint, 
      must be a non-negative number";
-  parameter Modelica.SIunits.TemperatureDifference uHigh = 0.5
+  parameter Modelica.SIunits.TemperatureDifference uHigh(min=0) = 0.5
     "Threshold to determine the need to start the HVAC system before occupancy,
      must be greater than uLow";
+  parameter Modelica.SIunits.Time thrOptOn(
+    min=0, max=10800) = 60
+    "Threshold time for the output optOn to become true";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetZonHea(
     final quantity="ThermodynamicTemperature",
@@ -60,6 +63,7 @@ block OptimalStart
 
   Buildings.Controls.OBC.Utilities.BaseClasses.OptimalStartCalculation optHea(
     final tOptMax=tOptMax,
+    final thrOptOn=thrOptOn,
     final tOptIni=tOptIni,
     final nDay=nDay,
     final uLow=uLow,
@@ -68,6 +72,7 @@ block OptimalStart
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
   Buildings.Controls.OBC.Utilities.BaseClasses.OptimalStartCalculation optCoo(
     final tOptMax=tOptMax,
+    final thrOptOn=thrOptOn,
     final tOptIni=tOptIni,
     final nDay=nDay,
     final uLow=uLow,
@@ -179,8 +184,7 @@ This block predicts the shortest time for an HVAC system to achieve occupied set
 prior to the scheduled occupancy. The block requires inputs of zone temperature, 
 occupied zone setpoint(s) and next occupancy. The two outputs are the optimal start 
 duration <code>tOpt</code> and the optimal start on signal <code>optOn</code> for
-the HVAC system. Note that the boolean output <code>optOn</code> does not become true
-if <code>tOpt</code> is less than 60 seconds. 
+the HVAC system.  
 </p>
 <p>
 The block quantifies the mass/capacity factor of a zone using temperature slope 
@@ -224,6 +228,11 @@ start the HVAC system before the occupancy. If
 <code>TSetZonHea-TZon &le; uHigh</code> for heating case or
 <code>TZon-TSetZonCoo &le; uHigh</code> for cooling case,
 then there is no need for the system to start before the occupancy.
+</p>
+<p>
+<code>thrOptOn</code> is the threshold time period for the boolean output <code>optOn</code>
+to become true. By default, <code>optOn</code> does not become true
+if <code>tOpt</code> is less than 60 seconds.
 </p>
 <p>
 <h4>Configuration for HVAC system</h4>

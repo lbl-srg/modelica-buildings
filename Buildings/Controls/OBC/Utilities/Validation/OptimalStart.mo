@@ -1,12 +1,13 @@
 within Buildings.Controls.OBC.Utilities.Validation;
 model OptimalStart "Validation model for the block OptimalStart"
 
-  Buildings.Controls.OBC.Utilities.OptimalStart optStaHea(computeHeating=true,
-      computeCooling=false)
+  Buildings.Controls.OBC.Utilities.OptimalStart optStaHea(
+    computeHeating=true, computeCooling=false)
+    "Optimal start for heating system"
     annotation (Placement(transformation(extent={{40,76},{60,96}})));
-  Modelica.Blocks.Continuous.Integrator integrator(k=0.00001, y_start=20 +
-        273.15)
-    "Integrate temperature derivative with k indicates the inverse of thermal capacitance"
+  Modelica.Blocks.Continuous.Integrator integrator(
+    k=0.00001, y_start=20+273.15)
+    "Integrate temperature derivative with k indicating the inverse of zone thermal capacitance"
     annotation (Placement(transformation(extent={{0,76},{20,96}})));
   CDL.Continuous.Sources.Constant TSetHeaOcc(k=21 + 273.15)
     "Zone heating setpoint during occupancy"
@@ -15,7 +16,7 @@ model OptimalStart "Validation model for the block OptimalStart"
     "Daily schedule"
     annotation (Placement(transformation(extent={{0,36},{20,56}})));
   CDL.Continuous.Gain UA(k=1000)
-                                "Overall heat loss coefficient"
+    "Overall heat loss coefficient"
     annotation (Placement(transformation(extent={{-80,76},{-60,96}})));
   CDL.Continuous.Add dT(k1=-1)
     "Temperature difference between zone and outdoor"
@@ -24,28 +25,29 @@ model OptimalStart "Validation model for the block OptimalStart"
     annotation (Placement(transformation(extent={{-40,76},{-20,96}})));
   CDL.Continuous.Gain QHea(k=3500) "Heat injection in the zone"
     annotation (Placement(transformation(extent={{-80,36},{-60,56}})));
-  CDL.Logical.Or or2
+  CDL.Logical.Or or2 "Either optimal start or occupied becomes true"
     annotation (Placement(transformation(extent={{80,76},{100,96}})));
-  CDL.Conversions.BooleanToReal booToRea
+  CDL.Conversions.BooleanToReal booToRea "Convert Boolean to Real signal"
     annotation (Placement(transformation(extent={{120,76},{140,96}})));
-  Buildings.Controls.OBC.Utilities.OptimalStart optStaCoo(computeHeating=false,
-      computeCooling=true)
+  Buildings.Controls.OBC.Utilities.OptimalStart optStaCoo(
+    computeHeating=false,computeCooling=true)
+    "Optimal start for cooling system"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
-  Modelica.Blocks.Continuous.Integrator integrator1(k=0.001, y_start=25 +
-        273.15)
-    "Integrate temperature derivative with k indicates the inverse of thermal capacitance"
+  Modelica.Blocks.Continuous.Integrator integrator1(
+    k=0.001, y_start=25 +273.15)
+    "Integrate temperature derivative with k indicating the inverse of zone thermal capacitance"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   CDL.Continuous.Sources.Constant TSetCooOcc(k=24 + 273.15)
     "Zone cooling setpoint during occupancy"
     annotation (Placement(transformation(extent={{-20,-140},{0,-120}})));
-  CDL.Continuous.Sources.Sine TOut1(
+  CDL.Continuous.Sources.Sine TOutCoo(
     amplitude=2,
     freqHz=1/86400,
     offset=25 + 273.15,
-    startTime(displayUnit="h") = 0) "Outdoor dry bulb temperature"
+    startTime(displayUnit="h") = 0)
+    "Outdoor dry bulb temperature to test cooling system"
     annotation (Placement(transformation(extent={{-160,-80},{-140,-60}})));
-  CDL.Continuous.Gain UA1(k=1000)
-                                "Overall heat loss coefficient"
+  CDL.Continuous.Gain UA1(k=1000) "Overall heat loss coefficient"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   CDL.Continuous.Add dT1(k1=-1)
     "Temperature difference between zone and outdoor"
@@ -54,26 +56,24 @@ model OptimalStart "Validation model for the block OptimalStart"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   CDL.Continuous.Gain QCoo(k=-2500) "Heat extraction in the zone"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
-  CDL.Logical.Or or1
+  CDL.Logical.Or or1 "Either optimal start or occupied becomes true"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
-  CDL.Conversions.BooleanToReal booToRea1
+  CDL.Conversions.BooleanToReal booToRea1 "Convert Boolean to Real signal"
     annotation (Placement(transformation(extent={{120,-60},{140,-40}})));
-  CDL.Continuous.Sources.Sine TOut(
+  CDL.Continuous.Sources.Sine TOutHea(
     amplitude=2,
     freqHz=1/86400,
     phase=3.1415926535898,
     offset=20 + 273.15,
-    startTime(displayUnit="h") = 0) "Outdoor dry bulb temperature"
+    startTime(displayUnit="h") = 0)
+    "Outdoor dry bulb temperature to test heating system"
     annotation (Placement(transformation(extent={{-160,56},{-140,76}})));
 equation
-  connect(dT.y, UA.u)
-    annotation (Line(points={{-98,86},{-82,86}}, color={0,0,127}));
-  connect(dTdt.y, integrator.u)
-    annotation (Line(points={{-18,86},{-2,86}}, color={0,0,127}));
+  connect(dT.y, UA.u)    annotation (Line(points={{-98,86},{-82,86}}, color={0,0,127}));
+  connect(dTdt.y, integrator.u)   annotation (Line(points={{-18,86},{-2,86}}, color={0,0,127}));
   connect(optStaHea.optOn, or2.u1) annotation (Line(points={{62,82},{68,82},{68,
           86},{78,86}}, color={255,0,255}));
-  connect(or2.y, booToRea.u)
-    annotation (Line(points={{102,86},{118,86}}, color={255,0,255}));
+  connect(or2.y, booToRea.u)   annotation (Line(points={{102,86},{118,86}}, color={255,0,255}));
   connect(QHea.y, dTdt.u2) annotation (Line(points={{-58,46},{-48,46},{-48,80},
           {-42,80}}, color={0,0,127}));
   connect(integrator.y, optStaHea.TZon) annotation (Line(points={{21,86},{28,86},
@@ -84,14 +84,11 @@ equation
           {32,130},{32,94},{38,94}}, color={0,0,127}));
   connect(integrator.y, dT.u1) annotation (Line(points={{21,86},{28,86},{28,110},
           {-126,110},{-126,92},{-122,92}}, color={0,0,127}));
-  connect(dT1.y, UA1.u)
-    annotation (Line(points={{-98,-50},{-82,-50}}, color={0,0,127}));
-  connect(TOut1.y, dT1.u2) annotation (Line(points={{-138,-70},{-126,-70},{-126,
+  connect(dT1.y, UA1.u)   annotation (Line(points={{-98,-50},{-82,-50}}, color={0,0,127}));
+  connect(TOutCoo.y, dT1.u2) annotation (Line(points={{-138,-70},{-126,-70},{-126,
           -56},{-122,-56}}, color={0,0,127}));
-  connect(dTdt1.y, integrator1.u)
-    annotation (Line(points={{-18,-50},{-2,-50}}, color={0,0,127}));
-  connect(or1.y, booToRea1.u)
-    annotation (Line(points={{102,-50},{118,-50}}, color={255,0,255}));
+  connect(dTdt1.y, integrator1.u)   annotation (Line(points={{-18,-50},{-2,-50}}, color={0,0,127}));
+  connect(or1.y, booToRea1.u)   annotation (Line(points={{102,-50},{118,-50}}, color={255,0,255}));
   connect(QCoo.y, dTdt1.u2) annotation (Line(points={{-58,-90},{-48,-90},{-48,
           -56},{-42,-56}}, color={0,0,127}));
   connect(integrator1.y, optStaCoo.TZon) annotation (Line(points={{21,-50},{28,
@@ -112,8 +109,8 @@ equation
           22},{-88,22},{-88,46},{-82,46}}, color={0,0,127}));
   connect(booToRea1.y, QCoo.u) annotation (Line(points={{142,-50},{152,-50},{
           152,-108},{-88,-108},{-88,-90},{-82,-90}}, color={0,0,127}));
-  connect(TOut.y, dT.u2) annotation (Line(points={{-138,66},{-126,66},{-126,80},
-          {-122,80}}, color={0,0,127}));
+  connect(TOutHea.y, dT.u2) annotation (Line(points={{-138,66},{-126,66},{-126,
+          80},{-122,80}}, color={0,0,127}));
   connect(UA.y, dTdt.u1) annotation (Line(points={{-58,86},{-50,86},{-50,92},{
           -42,92}}, color={0,0,127}));
   connect(UA1.y, dTdt1.u1) annotation (Line(points={{-58,-50},{-50,-50},{-50,
@@ -122,7 +119,7 @@ equation
   experiment(
       StopTime=864000,
       Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),             __Dymola_Commands(file=
+      __Dymola_Algorithm="Dassl"),__Dymola_Commands(file=
   "modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/Utilities/Validation/OptimalStart.mos"
   "Simulate and plot"),
   Documentation(info="<html>
@@ -136,22 +133,23 @@ Two models are included to validate two different types of systems: space heatin
 and cooling.
 </p>
 <p>
-In the heating case, the space heating system has a very large heating capacity,
+In the heating case, the heating system has a very large heating capacity,
 with a heat injection that is large enough to increase the zone temperature to
-heating setpoint in a short amount of time. The optimal start block therefore outputs
-a very small time period after a few days, even though it is the same outdoor
-condition every day.
+heating setpoint in a short period. The optimal start block therefore outputs
+a very small optimal start time <code>tOpt</code> after the three initialization days.
 </p>
 <p>
 In the cooling case, the capacity of the cooling system is not big enough to cool
-down the space as quick as in the heating case. The optimal start block outputs
-remain relatively stable in this test case.
+down the space as quick as in the heating case. The optimal start time
+remains relatively stable because the outdoor condition is the same every day and
+the indoor condition slightly varies each day.
 </p>
 <p>
-Another difference between the heating and cooling cases is the heat capacity
+Another difference between the heating and cooling cases is the thermal capacitance
 of their serving zone. This parameter also impacts the temperature change rate of
-a zone. The heating zone has a higher heat capacity than the cooling zone; however,
-the heating/cooling power plays a dominant row in these two test cases.
+a zone. The heating zone has a higher thermal capacitance than the cooling zone; however,
+the difference between the heating and cooling power plays a dominant row than the difference
+of thermal capacitance in these two test cases.
 </p>
 </html>",
 revisions="<html>
@@ -163,7 +161,7 @@ First implementation.
 </ul>
 </html>"),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-                                                    graphics={
+        graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
                 fillPattern = FillPattern.Solid,
@@ -173,9 +171,10 @@ First implementation.
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points={{-36,60},{64,0},{-36,-60},{-36,60}})}),
-                                                     Diagram(
+        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-180,-160},{180,
-            160}}), graphics={
+            160}}),
+        graphics={
         Rectangle(
           extent={{-168,152},{164,10}},
           lineColor={215,215,215},

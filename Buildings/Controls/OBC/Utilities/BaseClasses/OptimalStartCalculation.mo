@@ -2,6 +2,8 @@ within Buildings.Controls.OBC.Utilities.BaseClasses;
 block OptimalStartCalculation
   "Base class for the block OptimalStart"
   parameter Modelica.SIunits.Time tOptMax "Maximum optimal start time";
+  parameter Modelica.SIunits.Time thrOptOn
+    "Threshold time for the output optOn to become true";
   parameter Modelica.SIunits.Time tOptIni
     "Initial optimal start time";
   parameter Integer nDay "Number of previous days for averaging the temperature slope";
@@ -80,7 +82,7 @@ protected
       annotation (Placement(transformation(extent={{-260,70},{-240,90}})));
     Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysOpt(
       final pre_y_start=false,
-      final uHigh=60,
+      final uHigh=thrOptOn,
       final uLow=-60) "Hysteresis to activate the optimal start"
       annotation (Placement(transformation(extent={{330,-90},{350,-70}})));
     Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr
@@ -90,7 +92,7 @@ protected
       "Avoid zero division"
       annotation (Placement(transformation(extent={{180,-10},{200,10}})));
     Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxStaTim(
-      final k=tOptMax-60)
+      final k=tOptMax-thrOptOn)
       "Maximum optimal start time"
       annotation (Placement(transformation(extent={{240,-60},{260,-40}})));
     Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol(
