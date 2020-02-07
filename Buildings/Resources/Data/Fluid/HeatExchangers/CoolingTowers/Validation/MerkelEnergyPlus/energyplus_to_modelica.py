@@ -1,10 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # coding: utf-8
 import os
 
 import pandas as pd
 
-def energyplus_to_modelica_data(file_path, timestep, data_type, file_name):
+def _convert(file_path, timestep, data_type, file_name):
     '''
     Parameters:
     file_path: the file path of the existing energyplus data
@@ -33,4 +33,4 @@ file_path = os.path.abspath(os.path.join('EnergyPlus', 'eplusout.csv'))
 timestep =  60
 data_type = 'float'
 file_name = 'modelica'
-energyplus_to_modelica_data(file_path, timestep, data_type, file_name)
+_convert(file_path, timestep, data_type, file_name)
