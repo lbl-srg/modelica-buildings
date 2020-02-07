@@ -83,25 +83,29 @@ model BenchmarkFlowDistribution2
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,-80})));
-//    Validation.BaseClasses.Distribution2Pipes dis(
-//      redeclare package Medium = Medium1,
-//      nCon=nLoa,
-//      allowFlowReversal=true,
-//      mDis_flow_nominal={sum(terUniHea[i:nLoa].mHeaWat_flow_nominal) for i in 1:nLoa},
-//      mCon_flow_nominal=terUniHea.mHeaWat_flow_nominal,
-//      dpDis_nominal=fill(1500, nLoa),
-//      dpCon_nominal=fill(500, nLoa))
-//      annotation (Placement(transformation(extent={{40,-90},{80,-70}})));
-   DHC.Examples.FifthGeneration.Unidirectional.Networks.UnidirectionalParallel dis(
+   Validation.BaseClasses.Distribution2Pipes dis(
      redeclare package Medium = Medium1,
      nCon=nLoa,
      allowFlowReversal=true,
      mDis_flow_nominal={sum(terUniHea[i:nLoa].mHeaWat_flow_nominal) for i in 1:nLoa},
      mCon_flow_nominal=terUniHea.mHeaWat_flow_nominal,
-     lDis=fill(10, nLoa),
-     lCon=fill(3, nLoa),
-     dhDis=fill(0.15, nLoa),
-     dhCon=fill(0.1, nLoa));
+     mEnd_flow_nominal=1,
+     dpDis_nominal=fill(1500, nLoa),
+     dpCon_nominal=fill(500, nLoa),
+     dpEnd_nominal=0)
+     annotation (Placement(transformation(extent={{40,-90},{80,-70}})));
+//     DHC.Examples.FifthGeneration.Unidirectional.Networks.UnidirectionalParallel dis(
+//       redeclare package Medium = Medium1,
+//       nCon=nLoa,
+//       allowFlowReversal=true,
+//       mDis_flow_nominal={sum(terUniHea[i:nLoa].mHeaWat_flow_nominal) for i in 1:nLoa},
+//       mCon_flow_nominal=terUniHea.mHeaWat_flow_nominal,
+//       mEnd_flow_nominal=1,
+//       lDis=fill(10, nLoa),
+//       lCon=fill(3, nLoa),
+//       dhDis=fill(0.15, nLoa),
+//       dhCon=fill(0.1, nLoa))
+//       annotation (Placement(transformation(extent={{40,-90},{80,-70}})));
   Fluid.Movers.FlowControlled_dp pum(
     redeclare package Medium = Medium1,
     per(final motorCooledByFluid=false),
@@ -144,8 +148,8 @@ equation
           0,0},{0,40},{49.1667,40}}, color={0,0,127}));
   connect(THeaWatSup.y, supHeaWat.T_in) annotation (Line(points={{-79,-80},{-72,
           -80},{-72,-76},{-62,-76}}, color={0,0,127}));
-  connect(terUniHea.port_bHeaWat, dis.ports_aCon) annotation (Line(points={{70,31.6667},
-          {80,31.6667},{80,0},{72,0},{72,-70}},                 color={0,127,255}));
+  connect(terUniHea.port_bHeaWat, dis.ports_aCon) annotation (Line(points={{70,
+          31.6667},{80,31.6667},{80,0},{72,0},{72,-70}},        color={0,127,255}));
   connect(dis.ports_bCon, terUniHea.port_aHeaWat) annotation (Line(points={{48,-70},
           {48,0},{20,0},{20,31.6667},{50,31.6667}}, color={0,127,255}));
   connect(pum.port_b, dis.port_aDisSup)

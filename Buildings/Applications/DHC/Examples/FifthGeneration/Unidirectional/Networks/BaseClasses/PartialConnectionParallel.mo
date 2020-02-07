@@ -8,14 +8,16 @@ partial model PartialConnectionParallel
       choice(redeclare package Medium =
         Buildings.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15, X_a=0.40) "Propylene glycol water, 40% mass fraction")));
-  replaceable model PipeDisModel = BaseClasses.PipeDistribution (
-    redeclare final package Medium=Medium,
-    final m_flow_nominal=mDis_flow_nominal,
-    final allowFlowReversal=allowFlowReversal);
-  replaceable model PipeConModel = BaseClasses.PipeConnection (
-    redeclare final package Medium=Medium,
-    final m_flow_nominal=mCon_flow_nominal,
-    final allowFlowReversal=allowFlowReversal);
+  replaceable model PipeDisModel = BaseClasses.PipeDistribution constrainedby
+    BaseClasses.BasePipe(
+      redeclare package Medium=Medium,
+      m_flow_nominal=mDis_flow_nominal,
+      allowFlowReversal=allowFlowReversal);
+  replaceable model PipeConModel = BaseClasses.PipeConnection constrainedby
+    BaseClasses.BasePipe(
+      redeclare package Medium=Medium,
+      m_flow_nominal=mCon_flow_nominal,
+      allowFlowReversal=allowFlowReversal);
   parameter Boolean haveBypFloSen = false
     "Set to true to sense the bypass mass flow rate"
     annotation(Evaluate=true);
@@ -83,6 +85,18 @@ partial model PartialConnectionParallel
     annotation (Placement(transformation(extent={{100,60},{140,100}}),
       iconTransformation(extent={{100,70},{120,90}})));
   // COMPONENTS
+  PipeDisModel pipDisSup
+  "Distribution supply pipe"
+  annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+  PipeDisModel pipDisRet
+    "Distribution return pipe"
+    annotation (Placement(transformation(extent={{-60,-90},{-80,-70}})));
+  PipeConModel pipCon
+    "Connection pipe"
+    annotation (Placement(transformation(
+      extent={{-10,-10},{10,10}},
+      rotation=90,
+      origin={-40,-10})));
   BaseClasses.Junction junConSup(
     redeclare package Medium=Medium,
     portFlowDirection_1=if allowFlowReversal then
@@ -111,18 +125,6 @@ partial model PartialConnectionParallel
     m_flow_nominal={mDis_flow_nominal,-mDis_flow_nominal,mCon_flow_nominal})
     "Junction with connection return"
     annotation (Placement(transformation(extent={{50,-70},{30,-90}})));
-  PipeDisModel pipDisSup
-    "Distribution supply pipe"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  PipeDisModel pipDisRet
-    "Distribution return pipe"
-    annotation (Placement(transformation(extent={{-60,-90},{-80,-70}})));
-  PipeConModel pipCon
-    "Connection pipe"
-    annotation (Placement(transformation(
-      extent={{-10,-10},{10,10}},
-      rotation=90,
-      origin={-40,-10})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTConSup(
     allowFlowReversal=allowFlowReversal,
     redeclare package Medium=Medium,

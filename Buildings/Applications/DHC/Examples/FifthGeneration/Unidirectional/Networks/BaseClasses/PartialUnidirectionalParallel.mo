@@ -2,11 +2,19 @@ within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Networ
 partial model PartialUnidirectionalParallel
   "Hydraulic network for unidirectional parallel DHC system"
   extends BaseClasses.PartialDistributionSystem;
+  replaceable model PipeDisModel = BaseClasses.PipeDistribution constrainedby
+    BaseClasses.BasePipe(
+      redeclare package Medium = Medium,
+      allowFlowReversal=allowFlowReversal);
+  replaceable model PipeConModel = BaseClasses.PipeConnection constrainedby
+    BaseClasses.BasePipe(
+      redeclare package Medium=Medium,
+      allowFlowReversal=allowFlowReversal);
   parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal[nCon]
     "Nominal mass flow rate in the distribution line before each connection";
   parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal[nCon]
     "Nominal mass flow rate in each connection line";
-  parameter Modelica.SIunits.MassFlowRate mEnd_flow_nominal = 0
+  parameter Modelica.SIunits.MassFlowRate mEnd_flow_nominal
     "Nominal mass flow rate in the end of the distribution line";
   // IO CONNECTORS
   Modelica.Fluid.Interfaces.FluidPort_b port_bDisRet(
@@ -24,17 +32,15 @@ partial model PartialUnidirectionalParallel
     annotation (Placement(transformation( extent={{90,-70},{110,-50}}),
       iconTransformation(extent={{180,-80},{ 220,-40}})));
   // COMPONENTS
-  replaceable BaseClasses.PartialConnectionParallel con[nCon](
-    redeclare each final package Medium=Medium,
-    final mDis_flow_nominal=mDis_flow_nominal,
-    final mCon_flow_nominal=mCon_flow_nominal,
-    each final allowFlowReversal=allowFlowReversal)
+  replaceable BaseClasses.ConnectionParallel con[nCon] constrainedby
+    BaseClasses.PartialConnectionParallel(
+      redeclare each package Medium=Medium,
+      mDis_flow_nominal=mDis_flow_nominal,
+      mCon_flow_nominal=mCon_flow_nominal,
+      each allowFlowReversal=allowFlowReversal)
     "Connection to agent"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  replaceable BaseClasses.PipeDistribution pipEnd(
-    redeclare final package Medium=Medium,
-    final m_flow_nominal=mEnd_flow_nominal,
-    final allowFlowReversal=allowFlowReversal)
+  PipeDisModel pipEnd(m_flow_nominal=mEnd_flow_nominal)
     "Pipe representing the end of the distribution line (after last connection)"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 equation
