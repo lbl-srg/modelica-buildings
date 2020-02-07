@@ -43,7 +43,7 @@ model BenchmarkFlowDistribution1
     nPorts_a1=nLoa,
     nPorts_b1=nLoa)
     "Heating water distribution system"
-    annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
+    annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
   BaseClasses.FanCoil2PipesHeating terUniHea[nLoa](
     redeclare each final package Medium1 = Medium1,
     redeclare each final package Medium2 = Medium2,
@@ -95,10 +95,10 @@ equation
   connect(minTSet.y, from_degC1.u)
     annotation (Line(points={{-78,70},{-62,70}}, color={0,0,127}));
   connect(terUniHea.port_bHeaWat, disFloHea.ports_a1) annotation (Line(
-        points={{60,33.6667},{70,33.6667},{70,34},{80,34},{80,-54},{60,-54}},
+        points={{60,33.6667},{70,33.6667},{70,34},{80,34},{80,-74},{60,-74}},
         color={0,127,255}));
   connect(disFloHea.ports_b1, terUniHea.port_aHeaWat) annotation (Line(
-        points={{40,-54},{0,-54},{0,33.6667},{40,33.6667}}, color={0,127,255}));
+        points={{40,-74},{0,-74},{0,33.6667},{40,33.6667}}, color={0,127,255}));
   connect(from_degC1.y, reaRep.u)
     annotation (Line(points={{-38,70},{-22,70}}, color={0,0,127}));
   connect(reaRep.y, terUniHea.TSetHea) annotation (Line(points={{2,70},{20,70},
@@ -111,18 +111,18 @@ equation
   connect(THeaWatSup.y, supHeaWat.T_in) annotation (Line(points={{-79,-80},{-72,
           -80},{-72,-76},{-62,-76}}, color={0,0,127}));
   connect(supHeaWat.ports[1], disFloHea.port_a) annotation (Line(points={{-40,-80},
-          {0,-80},{0,-60},{40,-60}}, color={0,127,255}));
-  connect(disFloHea.port_b, sinHeaWat.ports[1]) annotation (Line(points={{60,-60},
-          {70,-60},{70,-80},{80,-80}}, color={0,127,255}));
+          {40,-80}},                 color={0,127,255}));
+  connect(disFloHea.port_b, sinHeaWat.ports[1]) annotation (Line(points={{60,-80},
+          {80,-80}},                   color={0,127,255}));
   connect(terUniHea.mReqHeaWat_flow, disFloHea.mReq_flow) annotation (Line(
-        points={{60.8333,38.6667},{88,38.6667},{88,-40},{20,-40},{20,-64},{39,
-          -64}},
+        points={{60.8333,38.6667},{88,38.6667},{88,-40},{20,-40},{20,-84},{39,
+          -84}},
         color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(
-      StopTime=24048000,
-      __Dymola_NumberOfIntervals=8760,
+      StopTime=24000000,
+      __Dymola_NumberOfIntervals=5000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"));
 end BenchmarkFlowDistribution1;

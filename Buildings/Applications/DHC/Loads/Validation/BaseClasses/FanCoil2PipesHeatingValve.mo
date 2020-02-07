@@ -27,7 +27,7 @@ model FanCoil2PipesHeatingValve
     final allowFlowReversal=allowFlowReversal)
     annotation (Placement(transformation(extent={{90,-10},{70,10}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID con(
-    Ti=120,
+    Ti=10,
     yMax=1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     reverseAction=false,
@@ -99,6 +99,13 @@ model FanCoil2PipesHeatingValve
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-40,-120})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaFlo(k=1/QHea_flow_nominal)
+    annotation (Placement(transformation(extent={{-40,210},{-20,230}})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaFlo1(k=1/QHea_flow_nominal)
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={0,190})));
 equation
   if have_fluPor then
   end if;
@@ -121,18 +128,13 @@ equation
     annotation (Line(points={{70,0},{-60,0}}, color={0,127,255}));
   connect(hex.port_b2, sinAir.ports[1])
     annotation (Line(points={{-80,0},{-142,0}}, color={0,127,255}));
-  connect(scaQReqHea_flow.y, con.u_s) annotation (Line(points={{-158,140},{-100,
-          140},{-100,220},{-12,220}},
-                                color={0,0,127}));
-  connect(Q_flowHea.y, con.u_m) annotation (Line(points={{141,220},{150,220},{150,
-          180},{0,180},{0,208}}, color={0,0,127}));
   connect(TSetHea, TLoaODE.TSet)
     annotation (Line(points={{-220,220},{-120,220},{-120,68},{-12,68}},
                                                      color={0,0,127}));
   connect(scaQReqHea_flow.y, TLoaODE.QReq_flow) annotation (Line(points={{-158,140},
           {-100,140},{-100,60},{-12,60}},         color={0,0,127}));
-  connect(Q_flowHea.y, TLoaODE.QAct_flow) annotation (Line(points={{141,220},{150,
-          220},{150,180},{-20,180},{-20,52},{-12,52}},          color={0,0,127}));
+  connect(Q_flowHea.y, TLoaODE.QAct_flow) annotation (Line(points={{141,220},{
+          150,220},{150,160},{-20,160},{-20,52},{-12,52}},      color={0,0,127}));
   connect(senTem.port_a, retAir.ports[1])
     annotation (Line(points={{130,0},{140,0}}, color={0,127,255}));
   connect(TLoaODE.TInd, retAir.T_in) annotation (Line(points={{12,60},{180,60},{
@@ -148,4 +150,12 @@ equation
                  color={0,0,127}));
   connect(senMasFlo.m_flow, scaMasFloReqHeaWat.u) annotation (Line(points={{-29,
           -120},{100,-120},{100,100},{158,100}}, color={0,0,127}));
+  connect(scaQReqHea_flow.y, gaiHeaFlo.u) annotation (Line(points={{-158,140},{
+          -100,140},{-100,220},{-42,220}}, color={0,0,127}));
+  connect(gaiHeaFlo.y, con.u_s)
+    annotation (Line(points={{-18,220},{-12,220}}, color={0,0,127}));
+  connect(Q_flowHea.y, gaiHeaFlo1.u) annotation (Line(points={{141,220},{150,
+          220},{150,160},{0,160},{0,178},{-8.88178e-16,178}}, color={0,0,127}));
+  connect(con.u_m, gaiHeaFlo1.y) annotation (Line(points={{0,208},{0,207},{
+          6.66134e-16,207},{6.66134e-16,202}}, color={0,0,127}));
 end FanCoil2PipesHeatingValve;

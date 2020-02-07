@@ -120,7 +120,8 @@ model FlowDistribution "Model of building hydraulic distribution system"
   Buildings.Controls.OBC.CDL.Continuous.MultiSum Q_flowSum(
     final nin=nUni)
     annotation (Placement(transformation(extent={{-70,90},{-50,110}})));
-  Modelica.Blocks.Sources.RealExpression mAct_flow[nUni](y=mReq_flow .*
+  Modelica.Blocks.Sources.RealExpression mAct_flow[nUni](y=if have_pum then
+        mReq_flow else mReq_flow .*
         Buildings.Utilities.Math.Functions.smoothMin(
         1,
         senMasFlo.m_flow/Buildings.Utilities.Math.Functions.smoothMax(
@@ -383,5 +384,8 @@ tracking the supply temperature.
         fillColor={0,0,255},
         fillPattern=FillPattern.Solid)}),
       Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{
-            100,240}})));
+            100,240}}), graphics={Text(
+          extent={{-8,-42},{112,-84}},
+          lineColor={28,108,200},
+          textString="Implement constant flow V3V")}));
 end FlowDistribution;

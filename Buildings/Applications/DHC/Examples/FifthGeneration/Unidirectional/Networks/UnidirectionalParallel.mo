@@ -57,9 +57,11 @@ model UnidirectionalParallel
     "Pipe representing the end of the distribution line (after last connection)"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 equation
-  connect(con.port_bCon, ports_bCon) annotation (Line(points={{0,10},{0,40},{-80,
+  connect(con.port_bCon, ports_bCon)
+    annotation (Line(points={{0,10},{0,40},{-80,
           40},{-80,100}}, color={0,127,255}));
-  connect(ports_aCon, con.port_aCon) annotation (Line(points={{80,100},{80,40},
+  connect(ports_aCon, con.port_aCon)
+    annotation (Line(points={{80,100},{80,40},
           {6,40},{6,10}}, color={0,127,255}));
   // Connecting outlets to inlets for all instances of connection component
   if nCon >= 2 then
@@ -70,9 +72,11 @@ equation
   end if;
   connect(port_aDisSup, con[1].port_aDisSup)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
-  connect(port_bDisRet, con[1].port_bDisRet) annotation (Line(points={{-100,-60},
+  connect(port_bDisRet, con[1].port_bDisRet)
+    annotation (Line(points={{-100,-60},
           {-20,-60},{-20,-6},{-10,-6}}, color={0,127,255}));
-  connect(con[nCon].port_aDisRet, port_aDisRet) annotation (Line(points={{10,-6},
+  connect(con[nCon].port_aDisRet, port_aDisRet)
+    annotation (Line(points={{10,-6},
           {20,-6},{20,-60},{100,-60}}, color={0,127,255}));
   if mEnd_flow_nominal > 0 then
     connect(con[nCon].port_bDisSup, pipEnd.port_a)

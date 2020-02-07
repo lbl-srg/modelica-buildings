@@ -33,7 +33,7 @@ model BenchmarkFlowDistribution2
     sum(terUniHea.mHeaWat_flow_nominal)
     "Nominal mass flow rate in the distribution line";
   final parameter Modelica.SIunits.PressureDifference dp_nominal=
-    sum(dis.con.pipDisSup.dp_nominal) + sum(dis.con.pipDisRet.dp_nominal)
+    sum(dis.con.pipDisSup.dp_nominal) + sum(dis.con.pipDisRet.dp_nominal) + 50000
     "Nominal pressure drop in the distribution line";
   final parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(min=Modelica.Constants.eps)=
     Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
@@ -85,12 +85,13 @@ model BenchmarkFlowDistribution2
     dis(
     redeclare package Medium = Medium1,
     nCon=nLoa,
+    allowFlowReversal=true,
     mDis_flow_nominal={sum(terUniHea[i:nLoa].mHeaWat_flow_nominal) for i in 1:nLoa},
     mCon_flow_nominal=terUniHea.mHeaWat_flow_nominal,
     lDis=fill(10, nLoa),
     lCon=fill(3, nLoa),
     dhDis=fill(0.15, nLoa),
-    dhCon=fill(0.02, nLoa))
+    dhCon=fill(0.5, nLoa))
     annotation (Placement(transformation(extent={{34,-90},{74,-70}})));
   Fluid.Movers.FlowControlled_dp pum(
     redeclare package Medium = Medium1,
@@ -102,14 +103,12 @@ model BenchmarkFlowDistribution2
     use_inputFilter=false,
     dp_nominal=dp_nominal)
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
-  Modelica.Blocks.Sources.RealExpression heaPum(y=dp_nominal)
-    "Nominal pump head"
+  Modelica.Blocks.Sources.RealExpression dpPum(y=dp_nominal) "Pump head"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
   Fluid.MixingVolumes.MixingVolume vol(
     final prescribedHeatFlowRate=true,
     redeclare final package Medium = Medium1,
     V=m_flow_nominal*tau/rho_default,
-    final allowFlowReversal=false,
     final mSenFac=1,
     final m_flow_nominal=m_flow_nominal,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -142,18 +141,22 @@ equation
                                                                 color={0,127,255}));
   connect(dis.ports_bCon, terUniHea.port_aHeaWat) annotation (Line(points={{42,-70},
           {42,0},{20,0},{20,33.6667},{40,33.6667}}, color={0,127,255}));
-  connect(dis.port_bDisSup, dis.port_aDisRet) annotation (Line(points={{74,-80},
-          {80,-80},{80,-86},{74,-86}}, color={0,127,255}));
   connect(pum.port_b, dis.port_aDisSup)
     annotation (Line(points={{20,-80},{34,-80}}, color={0,127,255}));
   connect(dis.port_bDisRet, supHeaWat.ports[1]) annotation (Line(points={{34,-86},
           {20,-86},{20,-96},{-42,-96},{-42,-82}}, color={0,127,255}));
-  connect(heaPum.y, pum.dp_in)
+  connect(dpPum.y, pum.dp_in)
     annotation (Line(points={{-79,-40},{10,-40},{10,-68}}, color={0,0,127}));
-  connect(supHeaWat.ports[2], vol.ports[1]) annotation (Line(points={{-42,-86},{
-          -32,-86},{-32,-80},{-23,-80}}, color={0,127,255}));
-  connect(vol.ports[2], pum.port_a)
-    annotation (Line(points={{-19,-80},{0,-80}}, color={0,127,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  connect(vol.ports[1], pum.port_a)
+    annotation (Line(points={{-23,-80},{0,-80}}, color={0,127,255}));
+  connect(supHeaWat.ports[2], vol.ports[2]) annotation (Line(points={{-42,-86},{
+          -34,-86},{-34,-80},{-19,-80}}, color={0,127,255}));
+  annotation (
+    experiment(
+      StopTime=8E6,
+      __Dymola_NumberOfIntervals=5000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"),
+  Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end BenchmarkFlowDistribution2;

@@ -64,7 +64,6 @@ equation
   annotation (
   experiment(
       StopTime=24048000,
-      __Dymola_NumberOfIntervals=5000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
   Documentation(info="<html>
