@@ -29,7 +29,7 @@ def energyplus_to_modelica_data(file_path, timestep, data_type, file_name):
         f.write('{}\n{}\n'.format(line1,line2))
         energyplus_data.to_csv(f, header=True)
 
-file_path = os.path.abspath('eplusout.csv')
+file_path = os.path.abspath(os.path.join('EnergyPlus', 'eplusout.csv'))
 timestep =  60
 data_type = 'float'
 file_name = 'modelica'
