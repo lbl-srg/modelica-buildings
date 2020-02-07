@@ -8,6 +8,16 @@ partial model PartialDistributionSystem
       choice(redeclare package Medium =
         Buildings.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15, X_a=0.40) "Propylene glycol water, 40% mass fraction")));
+  replaceable model PipeDisModel =
+    DHC.Examples.FifthGeneration.Unidirectional.Networks.BaseClasses.PipeDistribution
+      (
+      redeclare package Medium = Medium,
+      allowFlowReversal=allowFlowReversal);
+  replaceable model PipeConModel =
+    DHC.Examples.FifthGeneration.Unidirectional.Networks.BaseClasses.PipeConnection
+      (
+      redeclare package Medium = Medium,
+      allowFlowReversal=allowFlowReversal);
   parameter Integer nCon
     "Number of connections"
     annotation(Evaluate=true);

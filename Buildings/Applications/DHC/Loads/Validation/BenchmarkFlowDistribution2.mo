@@ -83,7 +83,7 @@ model BenchmarkFlowDistribution2
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,-80})));
-  Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Networks.UnidirectionalParallel
+  DHC.Examples.FifthGeneration.Unidirectional.Networks.UnidirectionalParallel
     dis(
     redeclare package Medium = Medium1,
     nCon=nLoa,
@@ -154,7 +154,7 @@ equation
   annotation (
     experiment(
       StopTime=8E6,
-      __Dymola_NumberOfIntervals=5000,
+      __Dymola_NumberOfIntervals=500,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

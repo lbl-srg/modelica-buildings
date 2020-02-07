@@ -121,8 +121,8 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(
-      StopTime=24000000,
-      __Dymola_NumberOfIntervals=5000,
+      StopTime=8E6,
+      __Dymola_NumberOfIntervals=500,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"));
 end BenchmarkFlowDistribution1;

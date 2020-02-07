@@ -38,6 +38,8 @@ model UnidirectionalParallel
   // COMPONENTS
   replaceable BaseClasses.ConnectionParallel con[nCon](
     redeclare each final package Medium=Medium,
+    redeclare each final model PipeDisModel=PipeDisModel,
+    redeclare each final model PipeConModel=PipeConModel,
     mDis_flow_nominal=mDis_flow_nominal,
     mCon_flow_nominal=mCon_flow_nominal,
     lDis=lDis,
@@ -47,12 +49,10 @@ model UnidirectionalParallel
     each final allowFlowReversal=allowFlowReversal)
     "Connection to agent"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  replaceable BaseClasses.PipeDistribution pipEnd(
-    redeclare final package Medium=Medium,
+  PipeDisModel pipEnd(
     m_flow_nominal=mEnd_flow_nominal,
     dh=dhEnd,
-    length=2*lEnd,
-    final allowFlowReversal=allowFlowReversal) if mEnd_flow_nominal > 0
+    length=2*lEnd) if mEnd_flow_nominal > 0
     "Pipe representing the end of the distribution line (after last connection)"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 equation

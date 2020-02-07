@@ -7,6 +7,18 @@ model ConnectionParallel "Model for connecting an agent to the DHC system"
       choice(redeclare package Medium =
         Buildings.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15, X_a=0.40) "Propylene glycol water, 40% mass fraction")));
+  replaceable model PipeDisModel =
+    DHC.Examples.FifthGeneration.Unidirectional.Networks.BaseClasses.PipeDistribution
+      (
+    redeclare package Medium=Medium,
+    m_flow_nominal=mDis_flow_nominal,
+    allowFlowReversal=allowFlowReversal);
+  replaceable model PipeConModel =
+      DHC.Examples.FifthGeneration.Unidirectional.Networks.BaseClasses.PipeConnection
+      (
+    redeclare package Medium=Medium,
+    m_flow_nominal=mCon_flow_nominal,
+    allowFlowReversal=allowFlowReversal);
   parameter Boolean haveBypFloSen = false
     "Set to true to sense the bypass mass flow rate"
     annotation(Evaluate=true);
@@ -110,19 +122,19 @@ model ConnectionParallel "Model for connecting an agent to the DHC system"
     m_flow_nominal={mDis_flow_nominal,-mDis_flow_nominal,mCon_flow_nominal})
     "Junction with connection return"
     annotation (Placement(transformation(extent={{50,-70},{30,-90}})));
-  replaceable PipeDistribution pipDisSup(
-    redeclare package Medium=Medium,
-    m_flow_nominal=mDis_flow_nominal,
+  PipeDisModel pipDisSup(
     dh=dhDis,
-    length=lDis,
-    allowFlowReversal=allowFlowReversal) "Distribution supply pipe"
+    length=lDis)
+    "Distribution supply pipe"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  replaceable PipeConnection pipCon(
-    redeclare package Medium=Medium,
-    m_flow_nominal=mCon_flow_nominal,
+  PipeDisModel pipDisRet(
+    dh=dhDis,
+    length=lDis)
+    "Distribution return pipe"
+    annotation (Placement(transformation(extent={{-60,-90},{-80,-70}})));
+  PipeConModel pipCon(
     length=2*lCon,
-    dh=dhCon,
-    allowFlowReversal=allowFlowReversal)
+    dh=dhCon)
     "Connection pipe"
     annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},
@@ -159,14 +171,6 @@ model ConnectionParallel "Model for connecting an agent to the DHC system"
     y=(senTConSup.T - senTConRet.T) * cp_default * senMasFloCon.m_flow)
     "Calculation of heat flow rate transferred to the load"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
-  replaceable PipeDistribution pipDisRet(
-    redeclare package Medium = Medium,
-    m_flow_nominal=mDis_flow_nominal,
-    dh=dhDis,
-    length=lDis,
-    allowFlowReversal=allowFlowReversal)
-    "Distribution return pipe"
-    annotation (Placement(transformation(extent={{-60,-90},{-80,-70}})));
 protected
   parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
     Medium.specificHeatCapacityCp(Medium.setState_pTX(
