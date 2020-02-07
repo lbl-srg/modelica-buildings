@@ -45,7 +45,8 @@ protected
      "Biquadratic coefficients for EIRFunT"
       annotation (Dialog(group="Performance coefficients"));
     Real EIRFunPLR[4]
-     "Coefficients for EIRFunPLR";
+     "Coefficients for EIRFunPLR"
+      annotation (Dialog(group="Performance coefficients"));
     Real PLRMax(min=0) "
      Maximum part load ratio";
     Real PLRMinUnl(min=0)
