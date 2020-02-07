@@ -76,25 +76,32 @@ model BenchmarkFlowDistribution2
   Modelica.Blocks.Sources.RealExpression THeaWatSup(y=max(terUniHea.T_aHeaWat_nominal))
     "Heating water supply temperature"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
-  Fluid.Sources.Boundary_pT           supHeaWat(
+  Fluid.Sources.Boundary_pT supHeaWat(
     redeclare package Medium = Medium1,
     use_T_in=true,
     nPorts=2) "Heating water supply" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,-80})));
-  DHC.Examples.FifthGeneration.Unidirectional.Networks.UnidirectionalParallel
-    dis(
-    redeclare package Medium = Medium1,
-    nCon=nLoa,
-    allowFlowReversal=true,
-    mDis_flow_nominal={sum(terUniHea[i:nLoa].mHeaWat_flow_nominal) for i in 1:nLoa},
-    mCon_flow_nominal=terUniHea.mHeaWat_flow_nominal,
-    lDis=fill(10, nLoa),
-    lCon=fill(3, nLoa),
-    dhDis=fill(0.15, nLoa),
-    dhCon=fill(0.5, nLoa))
-    annotation (Placement(transformation(extent={{40,-90},{80,-70}})));
+//    Validation.BaseClasses.Distribution2Pipes dis(
+//      redeclare package Medium = Medium1,
+//      nCon=nLoa,
+//      allowFlowReversal=true,
+//      mDis_flow_nominal={sum(terUniHea[i:nLoa].mHeaWat_flow_nominal) for i in 1:nLoa},
+//      mCon_flow_nominal=terUniHea.mHeaWat_flow_nominal,
+//      dpDis_nominal=fill(1500, nLoa),
+//      dpCon_nominal=fill(500, nLoa))
+//      annotation (Placement(transformation(extent={{40,-90},{80,-70}})));
+   DHC.Examples.FifthGeneration.Unidirectional.Networks.UnidirectionalParallel dis(
+     redeclare package Medium = Medium1,
+     nCon=nLoa,
+     allowFlowReversal=true,
+     mDis_flow_nominal={sum(terUniHea[i:nLoa].mHeaWat_flow_nominal) for i in 1:nLoa},
+     mCon_flow_nominal=terUniHea.mHeaWat_flow_nominal,
+     lDis=fill(10, nLoa),
+     lCon=fill(3, nLoa),
+     dhDis=fill(0.15, nLoa),
+     dhCon=fill(0.1, nLoa));
   Fluid.Movers.FlowControlled_dp pum(
     redeclare package Medium = Medium1,
     per(final motorCooledByFluid=false),
@@ -137,8 +144,8 @@ equation
           0,0},{0,40},{49.1667,40}}, color={0,0,127}));
   connect(THeaWatSup.y, supHeaWat.T_in) annotation (Line(points={{-79,-80},{-72,
           -80},{-72,-76},{-62,-76}}, color={0,0,127}));
-  connect(terUniHea.port_bHeaWat, dis.ports_aCon) annotation (Line(points={{70,
-          31.6667},{80,31.6667},{80,0},{72,0},{72,-70}},        color={0,127,255}));
+  connect(terUniHea.port_bHeaWat, dis.ports_aCon) annotation (Line(points={{70,31.6667},
+          {80,31.6667},{80,0},{72,0},{72,-70}},                 color={0,127,255}));
   connect(dis.ports_bCon, terUniHea.port_aHeaWat) annotation (Line(points={{48,-70},
           {48,0},{20,0},{20,31.6667},{50,31.6667}}, color={0,127,255}));
   connect(pum.port_b, dis.port_aDisSup)
@@ -151,7 +158,7 @@ equation
     annotation (Line(points={{-23,-80},{10,-80}},color={0,127,255}));
   connect(supHeaWat.ports[2], vol.ports[2]) annotation (Line(points={{-40,-82},{
           -40,-80},{-19,-80}},           color={0,127,255}));
-  annotation (
+    annotation (Placement(transformation(extent={{40,-90},{80,-70}})),
     experiment(
       StopTime=8E6,
       __Dymola_NumberOfIntervals=500,
