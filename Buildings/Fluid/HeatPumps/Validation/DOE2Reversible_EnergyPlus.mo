@@ -21,10 +21,10 @@ model DOE2Reversible_EnergyPlus "Validation with EnergyPlus model"
   Sources.MassFlowSource_T loaPum(
     redeclare package Medium = Medium,
     use_m_flow_in=false,
-    m_flow=0.346,
+    m_flow=0.35,
     T=328.15,
-    nPorts=1,
-    use_T_in=true)
+    use_T_in=true,
+    nPorts=1)
     "Load water pump"
      annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=180,
        origin={-10,100})));
@@ -33,98 +33,69 @@ model DOE2Reversible_EnergyPlus "Validation with EnergyPlus model"
     use_m_flow_in=false,
     m_flow=0.35,
     T=280.65,
-    nPorts=1,
-    use_T_in=true)
+    use_T_in=true,
+    nPorts=1)
     "Source side water pump"
       annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=180,
        origin={70,10})));
-  Buildings.Fluid.Sources.Boundary_pT cooVol(
-    redeclare package Medium = Medium, nPorts=1)
-    "Volume for cooling load"
-      annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
   Buildings.Fluid.Sources.Boundary_pT heaVol(
-    redeclare package Medium = Medium, nPorts=1)
-    "Volume for heating load"
-      annotation (Placement(transformation(extent={{100,40},{80,60}})));
+    redeclare package Medium = Medium, nPorts=1) "Volume for heating load"
+      annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
+  Buildings.Fluid.Sources.Boundary_pT cooVol(redeclare package Medium = Medium,
+      nPorts=1) "Volume for cooling load"
+    annotation (Placement(transformation(extent={{100,40},{80,60}})));
 
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     tableOnFile=true,
     fileName=ModelicaServices.ExternalReferences.loadResource(
      "modelica://Buildings//Resources/Data/Fluid/HeatPumps/Validation/DOE2Reversible_EnergyPlus/modelica.csv"),
-    columns=2:81,
+    columns=2:18,
     tableName="modelica",
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
-      annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
-  Buildings.Controls.OBC.UnitConversions.From_degC TLoaEnt
-    "Block that converts entering water temperature of the load side"
-      annotation (Placement(transformation(extent={{-60,86},{-40,106}})));
-  Buildings.Controls.OBC.UnitConversions.From_degC TSouEnt
-    "Block that converts entering water temperature of the source side"
-      annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  Buildings.Controls.OBC.UnitConversions.From_degC TSetCoo
-    "Block that converts set point for leaving heating water temperature "
-      annotation (Placement(transformation(extent={{-60,56},{-40,76}})));
-  Modelica.Blocks.Sources.RealExpression P_EP(y=datRea.y[18])
+      annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
+  Modelica.Blocks.Sources.RealExpression P_EP(y=datRea.y[4])
     "EnergyPlus results: compressor power "
-      annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant TSouLvgMin(k=35 + 273.15)
+      annotation (Placement(transformation(extent={{-114,-54},{-94,-34}})));
+  Controls.OBC.CDL.Continuous.Sources.Constant TEvaLvgMin(k=5 + 273.15)
+    "Minimum evaporator leaving water temperature "
       annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant TSouLvgMax(k=60 + 273.15)
+  Controls.OBC.CDL.Continuous.Sources.Constant TEvaLvgMax(k=10 + 273.15)
+    "Maximum evaporator leaving water temperature"
       annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  Modelica.Blocks.Sources.RealExpression QLoa_flow_EP(y=-1*datRea.y[19])
+  Modelica.Blocks.Sources.RealExpression QLoa_flow_EP(y=-1*datRea.y[6])
     "EnergyPlus results: load side heat flow rate"
-      annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+      annotation (Placement(transformation(extent={{-114,-72},{-94,-52}})));
   Modelica.Blocks.Math.RealToInteger realToInteger1
-      annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Modelica.Blocks.Math.Product product
-      annotation (Placement(transformation(extent={{-110,0},{-90,20}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant cons(k=-1)
-      annotation (Placement(transformation(extent={{-110,-40},{-90,-20}})));
+      annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+  Modelica.Blocks.Sources.RealExpression QSou_flow_EP(y=1*datRea.y[11])
+    "EnergyPlus results: source side heat flow rate"
+    annotation (Placement(transformation(extent={{-114,-90},{-94,-70}})));
 equation
-  connect(heaPum.port_a1,loaPum. ports[1])
-    annotation (Line(points={{30,36},{20,36},{20,100},{-1.77636e-15,100}},
-                                                                      color={0,127,255}));
-  connect(souPum.ports[1], heaPum.port_a2)
-    annotation (Line(points={{60,10},{58,10},{58,24},{50,24}},
-                                                        color={0,127,255}));
-  connect(cooVol.ports[1], heaPum.port_b2)
-    annotation (Line(points={{0,-70},{20,-70},{20,24},{30,24}}, color={0,127,255}));
-  connect(heaPum.port_b1, heaVol.ports[1])
-    annotation (Line(points={{50,36},{56,36},{56,50},{80,50}},
-                                                             color={0,127,255}));
-  connect(loaPum.T_in, TLoaEnt.y)
-    annotation (Line(points={{-22,96},{-38,96}}, color={0,0,127}));
-  connect(TSouEnt.y, souPum.T_in)
-    annotation (Line(points={{-38,-10},{92,-10},{92,6},{82,6}},     color={0,0,127}));
-  connect(TSetCoo.y, heaPum.TSet)
-    annotation (Line(points={{-38,66},{16,66},{16,39},{29,39}},
-                        color={0,0,127}));
-  connect(datRea.y[21], TLoaEnt.u)
-    annotation (Line(points={{-99,90},{-80,90},{-80,96},{-62,96}},
-                                                 color={0,0,127}));
-  connect(datRea.y[22],TSetCoo. u)
-    annotation (Line(points={{-99,90},{-80,90},{-80,66},{-62,66}}, color={0,0,127}));
-  connect(datRea.y[28], TSouEnt.u)
-    annotation (Line(points={{-99,90},{-80,90},{-80,-10},{-62,-10}},
-                                                                   color={0,0,127}));
   connect(realToInteger1.y, heaPum.uMod)
-    annotation (Line(points={{-39,30},{-4,30},{-4,33},{29,33}},
+    annotation (Line(points={{-39,50},{-4,50},{-4,33},{29,33}},
                                                 color={255,127,0}));
-  connect(datRea.y[16], product.u1)
-    annotation (Line(points={{-99,90},{-80,90},{
-          -80,38},{-114,38},{-114,16},{-112,16}},  color={0,0,127}));
-  connect(cons.y, product.u2)
-    annotation (Line(points={{-88,-30},{-88,-2},{-114,
-          -2},{-114,4},{-112,4}},             color={0,0,127}));
-  connect(product.y, realToInteger1.u)
-    annotation (Line(points={{-89,10},{-74,10},
-          {-74,30},{-62,30}},     color={0,0,127}));
-  connect(heaPum.TSouMaxLvg, TSouLvgMax.y)
+  connect(heaPum.TSouMaxLvg,TEvaLvgMax. y)
     annotation (Line(points={{29,30},{16,
           30},{16,10},{2,10}}, color={0,0,127}));
-  connect(heaPum.TSouMinLvg, TSouLvgMin.y)
+  connect(heaPum.TSouMinLvg,TEvaLvgMin. y)
     annotation (Line(points={{29,27},{18,
           27},{18,-30},{2,-30}}, color={0,0,127}));
+  connect(datRea.y[1], realToInteger1.u)
+    annotation (Line(points={{-99,50},{-62,50}}, color={0,0,127}));
+  connect(datRea.y[8], loaPum.T_in) annotation (Line(points={{-99,50},{-80,50},
+          {-80,96},{-22,96}}, color={0,0,127}));
+  connect(datRea.y[15], souPum.T_in) annotation (Line(points={{-99,50},{-80,50},
+          {-80,-88},{102,-88},{102,6},{82,6}}, color={0,0,127}));
+  connect(datRea.y[9], heaPum.TSet) annotation (Line(points={{-99,50},{-80,50},
+          {-80,76},{6,76},{6,39},{29,39}}, color={0,0,127}));
+  connect(souPum.ports[1], heaPum.port_a2) annotation (Line(points={{60,10},{54,
+          10},{54,24},{50,24}}, color={0,127,255}));
+  connect(heaPum.port_b2, heaVol.ports[1]) annotation (Line(points={{30,24},{22,
+          24},{22,-70},{0,-70}}, color={0,127,255}));
+  connect(heaPum.port_b1, cooVol.ports[1]) annotation (Line(points={{50,36},{58,
+          36},{58,50},{80,50}}, color={0,127,255}));
+  connect(heaPum.port_a1, loaPum.ports[1]) annotation (Line(points={{30,36},{22,
+          36},{22,100},{-1.77636e-15,100}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},
             {120,120}}),
                graphics={
