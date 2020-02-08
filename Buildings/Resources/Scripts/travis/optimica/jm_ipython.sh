@@ -98,18 +98,17 @@ DOCKER_FLAGS="\
 	--detach=false \
 	--rm \
 	--user=developer \
+	-v /tmp/.X11-unix:/tmp/.X11-unix \
+	-v ${cur_dir}:/mnt/shared \
 	${MOD_MOUNT} \
 	${PYT_MOUNT} \
-	-v /tmp/.X11-unix:/tmp/.X11-unix \
 	-e DISPLAY=${DISPLAY} \
-	-v ${cur_dir}:/mnt/shared \
 	${NAME}"
 
 docker run ${DOCKER_FLAGS} /bin/bash -c \
   "export MODELICAPATH=${DOCKER_MODELICAPATH}:/opt/oct/ThirdParty/MSL && \
    export PYTHONPATH=${DOCKER_PYTHONPATH} && \
-  cd /mnt/shared && \
-  alias ipython=ipython3 && \
-  /opt/oct/bin/jm_ipython.sh ${arg_lis}"
+   alias ipython=ipython3 && \
+   /opt/oct/bin/jm_ipython.sh ${arg_lis}"
 
 exit $?
