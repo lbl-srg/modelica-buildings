@@ -4,8 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>5. Development &#8212; Buildings Library User Guide</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -18,11 +17,8 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
     <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
     <link rel="shortcut icon" href="_static/lbl-icon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -32,6 +28,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
 
   </head><body>
 
@@ -52,7 +52,7 @@
         <div class="collapse navbar-collapse nav-collapse">
           <ul class="nav navbar-nav">
             
-                <li><a href="http://simulationresearch.lbl.gov/modelica">Home</a></li>
+                <li><a href="https://simulationresearch.lbl.gov/modelica">Home</a></li>
                 <li><a href="index.html">User Guide</a></li>
             
             
@@ -122,6 +122,7 @@
 <li><a class="reference internal" href="#adding-a-new-class">5.2. Adding a new class</a><ul>
 <li><a class="reference internal" href="#thermofluid-flow-device">5.2.1. Thermofluid flow device</a></li>
 <li><a class="reference internal" href="#pressure-drop">5.2.2. Pressure drop</a></li>
+<li><a class="reference internal" href="#validation">5.2.3. Validation</a></li>
 </ul>
 </li>
 </ul>
@@ -167,7 +168,7 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-12 content">
+    <div class="body col-md-12 content" role="main">
       
   <div class="section" id="development">
 <span id="id1"></span><h1>5. Development<a class="headerlink" href="#development" title="Permalink to this headline">¶</a></h1>
@@ -179,53 +180,65 @@ welcome.
 Models that are contributed need to adhere to the following guidelines, as this is needed to integrate them in the library, make them accessible to users and further maintain them:</p>
 <blockquote>
 <div><ul class="simple">
-<li>They should be of general interest to other users and well documented and tested.</li>
-<li>They need to follow the coding conventions described in</li>
+<li><p>They should be of general interest to other users and well documented and tested.</p></li>
+<li><p>They need to follow the coding conventions described in</p></li>
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li>the <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html#Buildings.UsersGuide.Conventions">Buildings library user guide</a>,</li>
-<li>the <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/msl/3.2/help/Modelica_UsersGuide_Conventions.html#Modelica.UsersGuide.Conventions">Modelica Standard Library user guide</a>, and</li>
-<li>the <a class="reference external" href="https://github.com/lbl-srg/modelica-buildings/wiki/Style-Guide">Buildings library style guide</a>.</li>
+<li><p>the <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html#Buildings.UsersGuide.Conventions">Buildings library user guide</a>,</p></li>
+<li><p>the <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/msl/3.2/help/Modelica_UsersGuide_Conventions.html#Modelica.UsersGuide.Conventions">Modelica Standard Library user guide</a>, and</p></li>
+<li><p>the <a class="reference external" href="https://github.com/lbl-srg/modelica-buildings/wiki/Style-Guide">Buildings library style guide</a>.</p></li>
 </ul>
 </div></blockquote>
 <ul class="simple">
-<li>They need to be made available under the <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html#Buildings.UsersGuide.License">Modelica license</a>.</li>
-<li>For models of fluid flow components, they need to be based on the base classes in <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Interfaces.html">Buildings.Fluid.Interfaces</a>, which are described in the <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Interfaces_UsersGuide.html#Buildings.Fluid.Interfaces.UsersGuide">user guide</a> of this package. Otherwise, it becomes difficult to ensure that the implementation is numerically robust.</li>
+<li><p>They need to be made available under the <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html#Buildings.UsersGuide.License">Modelica license</a>.</p></li>
+<li><p>For models of fluid flow components, they need to be based on the base classes in <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Interfaces.html">Buildings.Fluid.Interfaces</a>, which are described in the <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Interfaces_UsersGuide.html#Buildings.Fluid.Interfaces.UsersGuide">user guide</a> of this package. Otherwise, it becomes difficult to ensure that the implementation is numerically robust.</p></li>
 </ul>
 </div></blockquote>
 <p>The website for the development of the library is <a class="reference external" href="https://github.com/lbl-srg/modelica-buildings">https://github.com/lbl-srg/modelica-buildings</a></p>
 </div>
 <div class="section" id="adding-a-new-class">
 <h2>5.2. Adding a new class<a class="headerlink" href="#adding-a-new-class" title="Permalink to this headline">¶</a></h2>
-<p>Adding a new class, such as a model or a function, is usually easiest by extending, or copying and modifying, an existing class. In many cases, the similar component already exists. In this situation, it is recommended to copy and modify a similar component. If both components share a significant amount of similar code, then a base class should be introduced that implements the common code. See for example <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor">Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor</a> which is shared by all sensors with one fluid port in the package <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors">Buildings.Fluid.Sensors</a>.</p>
+<p>Adding a new class, such as a model or a function, is usually easiest by extending, or copying and modifying, an existing class. In many cases, the similar component already exists. In this situation, it is recommended to copy and modify a similar component. If both components share a significant amount of similar code, then a base class should be introduced that implements the common code. See for example <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor">Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor</a> which is shared by all sensors with one fluid port in the package <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors">Buildings.Fluid.Sensors</a>.</p>
 <p>The next sections give guidance that is specific to the implementation of thermofluid flow devices and to pressure drop models.</p>
 <div class="section" id="thermofluid-flow-device">
 <h3>5.2.1. Thermofluid flow device<a class="headerlink" href="#thermofluid-flow-device" title="Permalink to this headline">¶</a></h3>
 <p>To add a component of a thermofluid flow device, the package
-<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Interfaces.html">Buildings.Fluid.Interface</a>  contains basic classes that can be extended.
-See <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Interfaces_UsersGuide.html#Buildings.Fluid.Interfaces.UsersGuide">Buildings.Fluid.Interface.UsersGuide</a> for a description of these classes.
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Interfaces.html">Buildings.Fluid.Interface</a>  contains basic classes that can be extended.
+See <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Interfaces_UsersGuide.html#Buildings.Fluid.Interfaces.UsersGuide">Buildings.Fluid.Interface.UsersGuide</a> for a description of these classes.
 Alternatively, simple models such as the models below may be used as a starting point for implementing new models for thermofluid flow devices:</p>
-<dl class="docutils">
-<dt><a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.HeaterCooler_u">Buildings.Fluid.HeatExchangers.HeaterCooler_u</a></dt>
-<dd>For a device that adds heat to a fluid stream.</dd>
-<dt><a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Humidifiers.html#Buildings.Fluid.Humidifiers.Humidifier_u">Buildings.Fluid.Humidifiers.Humidifier_u</a></dt>
-<dd>For a device that adds humidity to a fluid stream.</dd>
-<dt><a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Chillers.html#Buildings.Fluid.Chillers.Carnot_y">Buildings.Fluid.Chillers.Carnot_y</a></dt>
-<dd>For a device that exchanges heat between two fluid streams.</dd>
-<dt><a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_MassExchangers.html#Buildings.Fluid.MassExchangers.ConstantEffectiveness">Buildings.Fluid.MassExchangers.ConstantEffectiveness</a></dt>
-<dd>For a device that exchanges heat and humidity between two fluid streams.</dd>
+<dl class="simple">
+<dt><a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.HeaterCooler_u">Buildings.Fluid.HeatExchangers.HeaterCooler_u</a></dt><dd><p>For a device that adds heat to a fluid stream.</p>
+</dd>
+<dt><a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Humidifiers.html#Buildings.Fluid.Humidifiers.Humidifier_u">Buildings.Fluid.Humidifiers.Humidifier_u</a></dt><dd><p>For a device that adds humidity to a fluid stream.</p>
+</dd>
+<dt><a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Chillers.html#Buildings.Fluid.Chillers.Carnot_y">Buildings.Fluid.Chillers.Carnot_y</a></dt><dd><p>For a device that exchanges heat between two fluid streams.</p>
+</dd>
+<dt><a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_MassExchangers.html#Buildings.Fluid.MassExchangers.ConstantEffectiveness">Buildings.Fluid.MassExchangers.ConstantEffectiveness</a></dt><dd><p>For a device that exchanges heat and humidity between two fluid streams.</p>
+</dd>
 </dl>
+<div class="figure align-default" id="id2">
+<span id="fig-merkel"></span><a class="reference internal image-reference" href="_images/Merkel.png"><img alt="_images/Merkel.png" src="_images/Merkel.png" style="width: 546.7px; height: 369.90000000000003px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 5.1 </span><span class="caption-text">Schematic diagram of the cooling tower model based on the Merkel theory.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+<p>If models involve complex calculations, then these models are generally easiest to understand
+for users if these calculations are in a separate block that then interfaces to the fluid flow model
+using the above basic class. An example is the model <cite>Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel</cite>
+that will be released with Buildings 6.0.0.
+<a class="reference internal" href="#fig-merkel"><span class="std std-numref">Fig. 5.1</span></a> shows the schematic diagram of the model. The block <cite>per</cite> in the figure implements the
+thermodynamic calculations. The model shows that the cooling tower performance only depends on
+the control signal <cite>y</cite>, the air inlet temperature <cite>TAir</cite>, the water inlet temperature <cite>TWatIn</cite> and the
+water mass flow rate <cite>mWat_flow</cite>.</p>
 </div>
 <div class="section" id="pressure-drop">
 <h3>5.2.2. Pressure drop<a class="headerlink" href="#pressure-drop" title="Permalink to this headline">¶</a></h3>
 <p>When implementing equations for pressure drop, it is recommended
 to expand the base class
-<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClasses.PartialResistance">Buildings.Fluid.BaseClasses.PartialResistance</a>.
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClasses.PartialResistance">Buildings.Fluid.BaseClasses.PartialResistance</a>.
 Models should allow computing the flow resistance as a quadratic function
 with regularization near zero as implemented in
-<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_BaseClasses_FlowModels.html#Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp">Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp</a> and in
-<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_BaseClasses_FlowModels.html#Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow">Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow</a>.
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_BaseClasses_FlowModels.html#Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp">Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp</a> and in
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_BaseClasses_FlowModels.html#Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow">Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow</a>.
 The governing equation is</p>
 <div class="math notranslate nohighlight">
 \[k = \frac{\dot m}{\sqrt{\Delta p}}\]</div>
@@ -241,8 +254,8 @@ the equation by a linear model of the form</p>
 <div class="math notranslate nohighlight">
 \[\dot m \, \dot m_0 = \bar k^2 \, \Delta p\]</div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Equations for pressure drop are implemented as a function of mass flow rate
+<p class="admonition-title">Note</p>
+<p>Equations for pressure drop are implemented as a function of mass flow rate
 and not volume flow rate. For some models, this allows decoupling
 the mass flow balance from the energy balance.
 Otherwise, computing the mass flow distribution would require knowledge
@@ -251,8 +264,8 @@ known after solving the energy balance.</p>
 </div>
 <p>When implementing the pressure drop model, also provide means to</p>
 <ol class="arabic simple">
-<li>use homotopy, which should be used by default, and</li>
-<li>disable the pressure-drop model.</li>
+<li><p>use homotopy, which should be used by default, and</p></li>
+<li><p>disable the pressure-drop model.</p></li>
 </ol>
 <p>Disabling the pressure-drop model allows, for example, a user to
 set in a series connection of a heating coil and a cooling coil
@@ -260,6 +273,40 @@ the pressure drop of the heating coil to zero, and
 to lump the pressure drop of the heating coil into the pressure drop model
 of the cooling coil.
 This often reduces the size of the system of nonlinear equations.</p>
+</div>
+<div class="section" id="validation">
+<h3>5.2.3. Validation<a class="headerlink" href="#validation" title="Permalink to this headline">¶</a></h3>
+<p>All models that are implemented need to be validated for a range of
+realistic operating modes.
+These validations need to be part of the
+<a class="reference external" href="https://github.com/lbl-srg/modelica-buildings/wiki/Unit-Tests">unit tests</a>.</p>
+<p>For simple models, the validation can be against analytic solutions.
+This is for example done in
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances_Examples.html#Buildings.Fluid.FixedResistances.Examples.PressureDrop">Buildings.Fluid.FixedResistances.PressureDrop</a>
+which uses a regression tests that checks the correct relation between mass flow rate and pressure drop.
+For complex models, a comparative model validation needs to be done, for example
+by comparing the result of the Modelica model against the results from EnergyPlus.
+An example is
+<cite>Buildings.Fluid.HeatExchangers.CoolingTowers.Validation.MerkelEnergyPlus</cite>.
+For such validations, the following files also need to be added to the repository:</p>
+<blockquote>
+<div><ul>
+<li><p>The EnergyPlus input data file. Please make sure it only requires a weather data file that already exists in the Buildings library.</p></li>
+<li><p>A bash script called <cite>run.sh</cite> that</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>runs the EnergyPlus model on Linux, and</p></li>
+<li><p>invokes a Python script that converts the EnergyPlus output file (see next item).</p></li>
+</ol>
+</div></blockquote>
+<p>This file will automatically be
+executed as part of the continuous integration testing.</p>
+</li>
+<li><p>A Python script that converts the EnergyPlus output file to the data file that can
+be read by the Modelica data reader.</p></li>
+</ul>
+</div></blockquote>
+<p>See for example <cite>Buildings/Resources/Data/Fluid/HeatExchangers/CoolingTowers/Validation</cite> for an implementation.</p>
 </div>
 </div>
 </div>
@@ -281,7 +328,7 @@ This often reduces the size of the system of nonlinear equations.</p>
     </p>
     <p>
         &copy; Copyright 2012-2019, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
     </p>
   </div>
 </footer>
