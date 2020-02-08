@@ -77,8 +77,6 @@ cur_dir=`pwd`
 bas_nam=`basename ${cur_dir}`
 arg_lis=`echo $@ | sed -e "s|${cur_dir}|.|g"`
 
-# Set variable for shared directory
-sha_dir=`dirname ${cur_dir}`
 
 # Check if the python script should be run interactively (if -i is specified)
 while [ $# -ne 0 ]
@@ -104,13 +102,13 @@ DOCKER_FLAGS="\
 	${PYT_MOUNT} \
 	-v /tmp/.X11-unix:/tmp/.X11-unix \
 	-e DISPLAY=${DISPLAY} \
-	-v ${sha_dir}:/mnt/shared \
+	-v ${cur_dir}:/mnt/shared \
 	${NAME}"
 
 docker run ${DOCKER_FLAGS} /bin/bash -c \
   "export MODELICAPATH=${DOCKER_MODELICAPATH}:/opt/oct/ThirdParty/MSL && \
    export PYTHONPATH=${DOCKER_PYTHONPATH} && \
-  cd /mnt/shared/${bas_nam} && \
+  cd /mnt/shared && \
   alias ipython=ipython3 && \
   /opt/oct/bin/jm_ipython.sh ${arg_lis}"
 
