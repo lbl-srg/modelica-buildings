@@ -9,7 +9,7 @@ model BenchmarkFlowDistribution2
   parameter String filPat=
     "modelica://Buildings/Applications/DHC/Examples/Resources/SwissResidential_20190916.mos"
     "Library path of the file with thermal loads as time series";
-  parameter Integer nLoa=5
+  parameter Integer nLoa=10
     "Number of served loads";
   parameter Modelica.SIunits.Temperature T_aHeaWat_nominal(
     min=273.15, displayUnit="degC") = 273.15 + 40
@@ -86,7 +86,7 @@ model BenchmarkFlowDistribution2
    Validation.BaseClasses.Distribution2Pipes dis(
      redeclare package Medium = Medium1,
      nCon=nLoa,
-     allowFlowReversal=true,
+    allowFlowReversal=false,
      mDis_flow_nominal={sum(terUniHea[i:nLoa].mHeaWat_flow_nominal) for i in 1:nLoa},
      mCon_flow_nominal=terUniHea.mHeaWat_flow_nominal,
      mEnd_flow_nominal=1,
@@ -164,7 +164,7 @@ equation
           -40,-80},{-19,-80}},           color={0,127,255}));
     annotation (Placement(transformation(extent={{40,-90},{80,-70}})),
     experiment(
-      StopTime=8E6,
+      StopTime=4E6,
       __Dymola_NumberOfIntervals=500,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),

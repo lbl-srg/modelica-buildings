@@ -51,7 +51,7 @@ model FanCoil2PipesHeating
   Modelica.Blocks.Sources.RealExpression Q_flowHea(y=hex.Q2_flow)
     annotation (Placement(transformation(extent={{120,210},{140,230}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiFloNom2(k=mLoaHea_flow_nominal)
-    annotation (Placement(transformation(extent={{20,90},{40,110}})));
+    annotation (Placement(transformation(extent={{46,176},{66,196}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant sigFlo2(k=1)
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
@@ -96,10 +96,8 @@ equation
   end if;
   if not have_QReq_flow then
   end if;
-  connect(gaiFloNom2.u, sigFlo2.y)
-    annotation (Line(points={{18,100},{-58,100}}, color={0,0,127}));
   connect(gaiFloNom2.y, fan.m_flow_in)
-    annotation (Line(points={{42,100},{80,100},{80,12}}, color={0,0,127}));
+    annotation (Line(points={{68,186},{80,186},{80,12}}, color={0,0,127}));
   connect(port_aHeaWat, hex.port_a1) annotation (Line(points={{-200,-220},{-100,
           -220},{-100,-12},{-80,-12}}, color={0,127,255}));
   connect(hex.port_b1, port_bHeaWat) annotation (Line(points={{-60,-12},{-40,-12},
@@ -139,4 +137,6 @@ equation
           8.88178e-16,207},{8.88178e-16,202}}, color={0,0,127}));
   connect(Q_flowHea.y, gaiHeaFlo1.u) annotation (Line(points={{141,220},{150,
           220},{150,160},{0,160},{0,178},{-6.66134e-16,178}}, color={0,0,127}));
+  connect(con.y, gaiFloNom2.u) annotation (Line(points={{12,220},{28,220},{28,
+          186},{44,186}}, color={0,0,127}));
 end FanCoil2PipesHeating;

@@ -4,6 +4,8 @@ BuildingRCZ1Valve
 BuildingRCZ6
 BuildingSpawnZ1
 BuildingSpawnZ6
+ConnectionParallel
+Distribution2Pipes
 FanCoil2PipesCooling
 FanCoil2PipesHeating
 FanCoil2PipesHeatingValve
@@ -12,5 +14,3 @@ FanCoil4PipesHeatPorts
 PartialFanCoil4Pipes
 GeojsonExportSpawn
 GeojsonExportRC
-Distribution2Pipes
-ConnectionParallel

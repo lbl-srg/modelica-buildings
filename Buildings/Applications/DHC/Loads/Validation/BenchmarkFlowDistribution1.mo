@@ -9,7 +9,7 @@ model BenchmarkFlowDistribution1
   parameter String filPat=
     "modelica://Buildings/Applications/DHC/Examples/Resources/SwissResidential_20190916.mos"
     "Library path of the file with thermal loads as time series";
-  parameter Integer nLoa=5
+  parameter Integer nLoa=10
     "Number of served loads";
   parameter Modelica.SIunits.Temperature T_aHeaWat_nominal(
     min=273.15, displayUnit="degC") = 273.15 + 40
@@ -26,6 +26,9 @@ model BenchmarkFlowDistribution1
   parameter Modelica.SIunits.MassFlowRate mLoaHea_flow_nominal(min=0) = 10
     "Load side mass flow rate at nominal conditions in heating mode"
     annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.PressureDifference dp_nominal=
+    nLoa * 1500 * 2 + 2 * 500 + 30000
+    "Nominal pressure drop in the distribution line";
   final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
     sum(terUniHea.mHeaWat_flow_nominal)
     "Nominal mass flow rate in the distribution line";
@@ -39,7 +42,7 @@ model BenchmarkFlowDistribution1
     redeclare package Medium = Medium1,
     m_flow_nominal=m_flow_nominal,
     have_pum=true,
-    dp_nominal=100000,
+    dp_nominal=dp_nominal,
     nPorts_a1=nLoa,
     nPorts_b1=nLoa)
     "Heating water distribution system"
@@ -121,7 +124,7 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(
-      StopTime=8E6,
+      StopTime=4E6,
       __Dymola_NumberOfIntervals=500,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"));

@@ -166,7 +166,7 @@ model FlowDistribution "Model of building hydraulic distribution system"
     massDynamics=massDynamics) if have_val
     "Mixing valve"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}}, origin={-80,0})));
-  Buildings.Fluid.Movers.BaseClasses.IdealSource ideSou(
+  Buildings.Fluid.Movers.BaseClasses.IdealSource preHea(
     redeclare package Medium = Medium,
     dp_start=dp_nominal,
     m_flow_start=m_flow_nominal,
@@ -175,8 +175,7 @@ model FlowDistribution "Model of building hydraulic distribution system"
     control_m_flow=false,
     control_dp=true,
     allowFlowReversal=allowFlowReversal,
-    m_flow_small=m_flow_small)
-    "Fictitious pipe used to prescribe total pressure drop"
+    m_flow_small=m_flow_small) "Fictitious pipe used to prescribe pump head"
     annotation (Placement(transformation(extent={{-20,10},{0,-10}})));
   Buildings.Fluid.HeatExchangers.HeaterCooler_u heaCoo(
     redeclare final package Medium=Medium,
@@ -227,10 +226,9 @@ model FlowDistribution "Model of building hydraulic distribution system"
   // MISCELLANEOUS VARIABLES
   Modelica.SIunits.Temperature TSup(displayUnit="degC") = Medium.temperature(
     state=Medium.setState_phX(
-      p=ideSou.port_a.p,
-      h=inStream(ideSou.port_a.h_outflow),
-      X=inStream(ideSou.port_a.Xi_outflow)))
-    "Supply temperature";
+    p=preHea.port_a.p,
+    h=inStream(preHea.port_a.h_outflow),
+    X=inStream(preHea.port_a.Xi_outflow))) "Supply temperature";
 initial equation
   assert(nPorts_a1 == nPorts_b1,
     "In " + getInstanceName() +
@@ -252,9 +250,9 @@ equation
     annotation (Line(points={{80,160},{100,160}}, color={0,127,255}));
   connect(val.port_2, pum.port_a)
     annotation (Line(points={{-70,0},{-50,0}}, color={0,127,255}));
-  connect(pum.port_b, ideSou.port_a)
+  connect(pum.port_b, preHea.port_a)
     annotation (Line(points={{-30,0},{-20,0}}, color={0,127,255}));
-  connect(ideSou.port_b, senMasFlo.port_a)
+  connect(preHea.port_b, senMasFlo.port_a)
     annotation (Line(points={{0,0},{18,0}}, color={0,127,255}));
   connect(senMasFlo.port_b, heaCoo.port_a)
     annotation (Line(points={{38,0},{46,0}}, color={0,127,255}));
@@ -264,8 +262,8 @@ equation
     annotation (Line(points={{-79,100},{-72,100}}, color={0,0,127}));
   connect(Q_flowSum.y, heaCoo.u) annotation (Line(points={{-48,100},{40,100},{40,
           6},{44,6}}, color={0,0,127}));
-  connect(pol.y, ideSou.dp_in)
-    annotation (Line(points={{-1,-20},{-4,-20},{-4,-8}},   color={0,0,127}));
+  connect(pol.y, preHea.dp_in)
+    annotation (Line(points={{-1,-20},{-4,-20},{-4,-8}}, color={0,0,127}));
   connect(senMasFlo.m_flow, pol.u) annotation (Line(points={{28,-11},{28,-20},{22,
           -20}},                  color={0,0,127}));
   connect(TSupVal.y, reaRep.u)
@@ -299,7 +297,7 @@ equation
       connect(port_a, pum.port_a)
       annotation (Line(points={{-100,0},{-50,0}}, color={0,127,255}));
     else
-      connect(port_a, ideSou.port_a)
+      connect(port_a, preHea.port_a)
         annotation (Line(points={{-100,0},{-20,0}}, color={0,127,255}));
     end if;
   end if;
@@ -385,7 +383,7 @@ tracking the supply temperature.
         fillPattern=FillPattern.Solid)}),
       Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{
             100,240}}), graphics={Text(
-          extent={{-8,-42},{112,-84}},
+          extent={{-8,-78},{112,-120}},
           lineColor={28,108,200},
           textString="Implement constant flow V3V")}));
 end FlowDistribution;

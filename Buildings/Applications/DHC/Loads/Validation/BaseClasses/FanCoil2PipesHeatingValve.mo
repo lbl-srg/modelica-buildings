@@ -29,7 +29,7 @@ model FanCoil2PipesHeatingValve
     final allowFlowReversal=allowFlowReversal)
     annotation (Placement(transformation(extent={{90,-10},{70,10}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID con(
-    Ti=10,
+    Ti=120,
     yMax=1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     reverseAction=false,
@@ -52,7 +52,7 @@ model FanCoil2PipesHeatingValve
   Modelica.Blocks.Sources.RealExpression Q_flowHea(y=hex.Q2_flow)
     annotation (Placement(transformation(extent={{120,210},{140,230}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiFloNom2(k=mLoaHea_flow_nominal)
-    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
+    annotation (Placement(transformation(extent={{56,208},{76,228}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant sigFlo2(k=1)
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
@@ -115,10 +115,8 @@ equation
   end if;
   if not have_QReq_flow then
   end if;
-  connect(gaiFloNom2.u, sigFlo2.y)
-    annotation (Line(points={{-42,20},{-58,20}},  color={0,0,127}));
   connect(gaiFloNom2.y, fan.m_flow_in)
-    annotation (Line(points={{-18,20},{80,20},{80,12}},  color={0,0,127}));
+    annotation (Line(points={{78,218},{80,218},{80,12}}, color={0,0,127}));
   connect(port_aHeaWat, hex.port_a1) annotation (Line(points={{-200,-220},{-100,
           -220},{-100,-12},{-80,-12}}, color={0,127,255}));
 
@@ -162,4 +160,6 @@ equation
           220},{150,160},{0,160},{0,178},{-8.88178e-16,178}}, color={0,0,127}));
   connect(con.u_m, gaiHeaFlo1.y) annotation (Line(points={{0,208},{0,207},{
           6.66134e-16,207},{6.66134e-16,202}}, color={0,0,127}));
+  connect(con.y, gaiFloNom2.u) annotation (Line(points={{12,220},{34,220},{34,
+          218},{54,218}}, color={0,0,127}));
 end FanCoil2PipesHeatingValve;
