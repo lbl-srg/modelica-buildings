@@ -110,9 +110,12 @@ DOCKER_FLAGS="\
 docker run ${DOCKER_FLAGS} /bin/bash -c \
   "export MODELICAPATH=${DOCKER_MODELICAPATH}:/opt/oct/ThirdParty/MSL && \
    export PYTHONPATH=${DOCKER_PYTHONPATH} && \
-   ls -la /mnt/shared && \
-   pwd &&
+   ls -la /mnt/shared > diagnostics.txt && \
+   pwd >> diagnostics.txt &&
    alias ipython=ipython3 && \
    /opt/oct/bin/jm_ipython.sh ${arg_lis}"
-
-exit $?
+retVal=$?
+echo "**** Content of diagnostics.txt"
+cat diagnostics.txt
+echo "**** Content of **********"
+exit $retVal
