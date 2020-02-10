@@ -48,7 +48,7 @@ function update_path_variable()
 # Make sure MAC_ADDRESS is set
 if [ -z ${OPTIMICA_MAC_ADDRESS+x} ]; then
     echo "Error: Environment variable OPTIMICA_MAC_ADDRESS is not set."
-##    exit 1
+    exit 1
 fi
 
 # Export the MODELICAPATH
@@ -95,7 +95,7 @@ done
 
 DOCKER_FLAGS="\
 	--mac-address=${OPTIMICA_MAC_ADDRESS} \
-	--user=${UID} \
+	--user=1000 \
 	-i \
 	$DOCKER_INTERACTIVE \
 	--detach=false \
@@ -114,15 +114,15 @@ echo "*** PYT_MOUNT is          ---${PYT_MOUNT}---"
 echo "*** --user=${UID}"
 ls -lh ${sha_dir}
 echo "**************************"
-#docker run ${DOCKER_FLAGS} /bin/bash -c \
-#  "export MODELICAPATH=${DOCKER_MODELICAPATH}:/opt/oct/ThirdParty/MSL && \
-#   export PYTHONPATH=${DOCKER_PYTHONPATH} && \
-#   ls -la /home/developer > /home/devloper/diagnostics.txt && \
-#   pwd >> /home/devloper/diagnostics.txt && \
-#   cd /home/devloper && \
-#   alias ipython=ipython3 && \
-#   echo \"Directory is\" && \
-#   echo `pwd`"
+docker run ${DOCKER_FLAGS} /bin/bash -c \
+  "export MODELICAPATH=${DOCKER_MODELICAPATH}:/opt/oct/ThirdParty/MSL && \
+   export PYTHONPATH=${DOCKER_PYTHONPATH} && \
+   ls -la /home/developer > /home/devloper/diagnostics.txt && \
+   pwd >> /home/devloper/diagnostics.txt && \
+   cd /home/devloper && \
+   alias ipython=ipython3 && \
+   echo \"Directory is\" && \
+   echo `pwd`"
 #   /opt/oct/bin/jm_ipython.sh ${arg_lis}"
 retVal=$?
 echo "**** Content of diagnostics.txt"
