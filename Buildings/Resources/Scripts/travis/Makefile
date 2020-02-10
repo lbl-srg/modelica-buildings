@@ -39,8 +39,8 @@ test-dymola:
 test-optimica:
 	(cd $(ROOT)/Buildings && \
 	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/Buildings/Resources/Python-Sources; \
-	  chmod +x $(ROOT)/Buildings/Resources/Scripts/travis/optimica/jm_ipython.sh; \
-	  $(ROOT)/Buildings/Resources/Scripts/travis/optimica/jm_ipython.sh  )
+	  chmod +x $(TRAVIS_BUILD_DIR)/Buildings/Resources/Scripts/travis/optimica/jm_ipython.sh; \
+	  $(TRAVIS_BUILD_DIR)/Buildings/Resources/Scripts/travis/optimica/jm_ipython.sh  )
 #	  python ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool optimica --skip-verification)
 
 test-jmodelica:
