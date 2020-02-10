@@ -67,31 +67,25 @@ model ConnectionSeries "Model for connecting an agent to the DHC system"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
         iconTransformation(extent={{100,30},{120,50}})));
   // COMPONENTS
-  BaseClasses.Junction junConSup(
-    redeclare package Medium=Medium,
-    portFlowDirection_1=if allowFlowReversal then
-      Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
-      Modelica.Fluid.Types.PortFlowDirection.Entering,
-    portFlowDirection_2=if allowFlowReversal then
-      Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
-      Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    portFlowDirection_3=if allowFlowReversal then
-      Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
-      Modelica.Fluid.Types.PortFlowDirection.Leaving,
+  Buildings.Applications.DHC.Networks.BaseClasses.Junction junConSup(
+    redeclare package Medium = Medium,
+    portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     m_flow_nominal={mDis_flow_nominal,-mDis_flow_nominal,-mCon_flow_nominal})
     "Junction with connection supply"
     annotation (Placement(transformation(extent={{-50,-30},{-30,-50}})));
-  BaseClasses.Junction junConRet(
-    redeclare package Medium=Medium,
-    portFlowDirection_1=if allowFlowReversal then
-      Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
-      Modelica.Fluid.Types.PortFlowDirection.Entering,
-    portFlowDirection_2=if allowFlowReversal then
-      Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
-      Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    portFlowDirection_3=if allowFlowReversal then
-      Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
-      Modelica.Fluid.Types.PortFlowDirection.Entering,
+  Buildings.Applications.DHC.Networks.BaseClasses.Junction junConRet(
+    redeclare package Medium = Medium,
+    portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Entering,
     m_flow_nominal={mDis_flow_nominal,-mDis_flow_nominal,mCon_flow_nominal})
     "Junction with connection return"
     annotation (Placement(transformation(extent={{30,-30},{50,-50}})));

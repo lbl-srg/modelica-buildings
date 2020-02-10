@@ -1,6 +1,6 @@
-within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Networks.BaseClasses;
-partial model PartialConnectionParallel
-  "Model for connecting an agent to the DHC system"
+within Buildings.Applications.DHC.Networks.BaseClasses;
+partial model PartialTwoPipeConnection
+  "Partial model for connecting an agent to a two-pipe distribution network"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model"
     annotation(choices(
@@ -8,16 +8,18 @@ partial model PartialConnectionParallel
       choice(redeclare package Medium =
         Buildings.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15, X_a=0.40) "Propylene glycol water, 40% mass fraction")));
-  replaceable model PipeDisModel = BaseClasses.PipeDistribution constrainedby
-    BaseClasses.BasePipe(
-      redeclare package Medium=Medium,
-      m_flow_nominal=mDis_flow_nominal,
-      allowFlowReversal=allowFlowReversal);
-  replaceable model PipeConModel = BaseClasses.PipeConnection constrainedby
-    BaseClasses.BasePipe(
-      redeclare package Medium=Medium,
-      m_flow_nominal=mCon_flow_nominal,
-      allowFlowReversal=allowFlowReversal);
+  replaceable model PipeDisModel =
+      Examples.FifthGeneration.Unidirectional.Networks.BaseClasses.PipeDistribution
+    constrainedby PartialPipe(
+    redeclare package Medium = Medium,
+    m_flow_nominal=mDis_flow_nominal,
+    allowFlowReversal=allowFlowReversal);
+  replaceable model PipeConModel =
+      Examples.FifthGeneration.Unidirectional.Networks.BaseClasses.PipeConnection
+    constrainedby PartialPipe(
+    redeclare package Medium = Medium,
+    m_flow_nominal=mCon_flow_nominal,
+    allowFlowReversal=allowFlowReversal);
   parameter Boolean haveBypFloSen = false
     "Set to true to sense the bypass mass flow rate"
     annotation(Evaluate=true);
@@ -97,31 +99,25 @@ partial model PartialConnectionParallel
       extent={{-10,-10},{10,10}},
       rotation=90,
       origin={-40,-10})));
-  BaseClasses.Junction junConSup(
-    redeclare package Medium=Medium,
-    portFlowDirection_1=if allowFlowReversal then
-      Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
-      Modelica.Fluid.Types.PortFlowDirection.Entering,
-    portFlowDirection_2=if allowFlowReversal then
-      Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
-      Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    portFlowDirection_3=if allowFlowReversal then
-      Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
-      Modelica.Fluid.Types.PortFlowDirection.Leaving,
+  Junction junConSup(
+    redeclare package Medium = Medium,
+    portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     m_flow_nominal={mDis_flow_nominal,-mDis_flow_nominal,-mCon_flow_nominal})
     "Junction with connection supply"
     annotation (Placement(transformation(extent={{-50,-30},{-30,-50}})));
-  BaseClasses.Junction junConRet(
-    redeclare package Medium=Medium,
-    portFlowDirection_1=if allowFlowReversal then
-      Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
-      Modelica.Fluid.Types.PortFlowDirection.Entering,
-    portFlowDirection_2=if allowFlowReversal then
-      Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
-      Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    portFlowDirection_3=if allowFlowReversal then
-      Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
-      Modelica.Fluid.Types.PortFlowDirection.Entering,
+  Junction junConRet(
+    redeclare package Medium = Medium,
+    portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Entering,
     m_flow_nominal={mDis_flow_nominal,-mDis_flow_nominal,mCon_flow_nominal})
     "Junction with connection return"
     annotation (Placement(transformation(extent={{50,-70},{30,-90}})));
@@ -264,4 +260,4 @@ equation
           origin={59.5,45.5},
           rotation=90)}),       Diagram(coordinateSystem(extent={{-100,-100},{
             100,120}})));
-end PartialConnectionParallel;
+end PartialTwoPipeConnection;

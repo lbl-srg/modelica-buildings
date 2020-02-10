@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Networks.BaseClasses;
 model ConnectionParallel "Model for connecting an agent to the DHC system"
-  extends BaseClasses.PartialConnectionParallel(
+  extends Buildings.Applications.DHC.Networks.BaseClasses.PartialTwoPipeConnection(
     pipDisSup(dh=dhDis, length=lDis),
     pipDisRet(dh=dhDis, length=lDis),
     pipCon(length=2*lCon, dh=dhCon));

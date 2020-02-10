@@ -101,7 +101,8 @@ equation
         points={{60,39.6667},{80,39.6667},{80,-74},{60,-74}},
         color={0,127,255}));
   connect(disFloHea.ports_b1, terUniHea.port_aHeaWat) annotation (Line(
-        points={{40,-74},{0,-74},{0,39.6667},{40,39.6667}}, color={0,127,255}));
+        points={{40,-74},{20,-74},{20,39.6667},{40,39.6667}},
+                                                            color={0,127,255}));
   connect(from_degC1.y, reaRep.u)
     annotation (Line(points={{-38,70},{-22,70}}, color={0,0,127}));
   connect(reaRep.y, terUniHea.TSetHea) annotation (Line(points={{2,70},{20,70},
@@ -109,7 +110,7 @@ equation
   connect(loa.y[2], reaRep1.u)
     annotation (Line(points={{-79,0},{-62,0}}, color={0,0,127}));
   connect(reaRep1.y, terUniHea.QReqHea_flow) annotation (Line(points={{-38,0},{
-          -20,0},{-20,46.3333},{39.1667,46.3333}},
+          0,0},{0,46.3333},{39.1667,46.3333}},
                                      color={0,0,127}));
   connect(THeaWatSup.y, supHeaWat.T_in) annotation (Line(points={{-79,-80},{-72,
           -80},{-72,-76},{-62,-76}}, color={0,0,127}));
@@ -118,7 +119,7 @@ equation
   connect(disFloHea.port_b, sinHeaWat.ports[1]) annotation (Line(points={{60,-80},
           {80,-80}},                   color={0,127,255}));
   connect(terUniHea.mReqHeaWat_flow, disFloHea.mReq_flow) annotation (Line(
-        points={{60.8333,44.6667},{88,44.6667},{88,-40},{20,-40},{20,-84},{39,
+        points={{60.8333,44.6667},{86,44.6667},{86,-60},{26,-60},{26,-84},{39,
           -84}},
         color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

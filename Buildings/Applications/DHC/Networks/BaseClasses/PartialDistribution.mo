@@ -1,6 +1,6 @@
-within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Networks.BaseClasses;
-partial model PartialDistributionSystem
-  "Partial model for distribution system"
+within Buildings.Applications.DHC.Networks.BaseClasses;
+partial model PartialDistribution
+  "Partial model for distribution network"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model"
     annotation(choices(
@@ -68,4 +68,4 @@ partial model PartialDistributionSystem
           fillPattern=FillPattern.Solid)}),
       Diagram(
     coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})));
-end PartialDistributionSystem;
+end PartialDistribution;

@@ -1,7 +1,7 @@
 within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Networks;
 model UnidirectionalSeries
   "Hydraulic network for unidirectional series DHC system"
-  extends BaseClasses.PartialDistributionSystem;
+  extends Buildings.Applications.DHC.Networks.BaseClasses.PartialDistribution;
   parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal
     "Nominal mass flow rate in the distribution line";
   parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal[nCon]

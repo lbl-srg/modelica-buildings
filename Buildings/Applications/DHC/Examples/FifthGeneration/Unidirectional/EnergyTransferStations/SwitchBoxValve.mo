@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Networks.BaseClasses;
+within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.EnergyTransferStations;
 model SwitchBoxValve
   "Model for mass flow rate redirection with three-port two-position directional valves"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
@@ -50,16 +50,14 @@ model SwitchBoxValve
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
       iconTransformation(extent={{-124,36},{-100,60}})));
   // COMPONENTS
-  Junction splSup(
+  Buildings.Applications.DHC.Networks.BaseClasses.Junction splSup(
     redeclare package Medium = Medium,
     m_flow_nominal={1,1,1}*m_flow_nominal,
-    from_dp=false)
-    "Flow splitter"
-    annotation (Placement(transformation(
+    from_dp=false) "Flow splitter" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={-40,40})));
-  Junction splRet(
+  Buildings.Applications.DHC.Networks.BaseClasses.Junction splRet(
     redeclare package Medium = Medium,
     m_flow_nominal={1,1,1}*m_flow_nominal,
     from_dp=false) "Flow splitter" annotation (Placement(transformation(

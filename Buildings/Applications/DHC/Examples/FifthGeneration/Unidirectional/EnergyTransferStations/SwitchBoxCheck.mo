@@ -1,6 +1,5 @@
-within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Networks.BaseClasses;
-model SwitchBoxCheck
-  "Model for mass flow rate redirection with check valves"
+within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.EnergyTransferStations;
+model SwitchBoxCheck "Model for mass flow rate redirection with check valves"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model"
     annotation(choices(
@@ -40,32 +39,28 @@ model SwitchBoxCheck
     annotation (Placement(transformation(
           extent={{30,90},{50,110}}), iconTransformation(extent={{30,90},{50,110}})));
   // COMPONENTS
-  Junction splSup(
+  Buildings.Applications.DHC.Networks.BaseClasses.Junction splSup(
     redeclare package Medium = Medium,
     m_flow_nominal={1,1,1}*m_flow_nominal,
-    from_dp=false)
-    "Flow splitter"
-    annotation (Placement(transformation(
+    from_dp=false) "Flow splitter" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={-40,40})));
-  Junction splRet(
+  Buildings.Applications.DHC.Networks.BaseClasses.Junction splRet(
     redeclare package Medium = Medium,
     m_flow_nominal={1,1,1}*m_flow_nominal,
     from_dp=false) "Flow splitter" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={40,40})));
-  Junction splSup1(
+  Buildings.Applications.DHC.Networks.BaseClasses.Junction splSup1(
     redeclare package Medium = Medium,
     m_flow_nominal={1,1,1}*m_flow_nominal,
-    from_dp=false)
-    "Flow splitter"
-    annotation (Placement(transformation(
+    from_dp=false) "Flow splitter" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={-40,-40})));
-  Junction splRet1(
+  Buildings.Applications.DHC.Networks.BaseClasses.Junction splRet1(
     redeclare package Medium = Medium,
     m_flow_nominal={1,1,1}*m_flow_nominal,
     from_dp=false) "Flow splitter" annotation (Placement(transformation(

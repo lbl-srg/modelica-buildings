@@ -394,10 +394,8 @@ model ETSSimplified
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,-90})));
-  Networks.BaseClasses.SwitchBox switchBox(
-    redeclare final package Medium = Medium, m_flow_nominal=max(
-        mHeaWat_flow_nominal, mChiWat_flow_nominal))
-    "Flow switch box"
+  SwitchBox switchBox(redeclare final package Medium = Medium, m_flow_nominal=
+        max(mHeaWat_flow_nominal, mChiWat_flow_nominal)) "Flow switch box"
     annotation (Placement(transformation(extent={{-10,-390},{10,-370}})));
   // MISCELLANEOUS VARIABLES
   Medium.ThermodynamicState sta_a=if allowFlowReversalDis then
