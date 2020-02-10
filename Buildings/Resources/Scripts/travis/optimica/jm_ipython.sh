@@ -99,7 +99,7 @@ DOCKER_FLAGS="\
 	--mac-address=${OPTIMICA_MAC_ADDRESS} \
 	--detach=false \
 	--rm \
-	--user=developer \
+	--user=${UID} \
 	-v /tmp/.X11-unix:/tmp/.X11-unix \
 	-v ${sha_dir}:/mnt/shared \
 	${MOD_MOUNT} \
@@ -111,7 +111,7 @@ docker run ${DOCKER_FLAGS} /bin/bash -c \
   "export MODELICAPATH=${DOCKER_MODELICAPATH}:/opt/oct/ThirdParty/MSL && \
    export PYTHONPATH=${DOCKER_PYTHONPATH} && \
    ls -la /mnt/shared > diagnostics.txt && \
-   pwd >> diagnostics.txt &&
+   pwd >> diagnostics.txt && \
    alias ipython=ipython3 && \
    /opt/oct/bin/jm_ipython.sh ${arg_lis}"
 retVal=$?
