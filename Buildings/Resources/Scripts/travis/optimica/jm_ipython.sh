@@ -48,7 +48,7 @@ function update_path_variable()
 # Make sure MAC_ADDRESS is set
 if [ -z ${OPTIMICA_MAC_ADDRESS+x} ]; then
     echo "Error: Environment variable OPTIMICA_MAC_ADDRESS is not set."
-    exit 1
+##    exit 1
 fi
 
 # Export the MODELICAPATH
