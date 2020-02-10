@@ -99,6 +99,7 @@ DOCKER_FLAGS="\
 	--mac-address=${OPTIMICA_MAC_ADDRESS} \
 	--detach=false \
 	--rm \
+	- i \
 	--user=${UID} \
 	-v /tmp/.X11-unix:/tmp/.X11-unix \
 	-v ${sha_dir}:/mnt/shared \
@@ -107,6 +108,9 @@ DOCKER_FLAGS="\
 	-e DISPLAY=${DISPLAY} \
 	${NAME}"
 
+echo "*** Shared directory is ${sha_dir}***"
+ls -lh ${sha_dir}
+echo "**************************"
 docker run ${DOCKER_FLAGS} /bin/bash -c \
   "export MODELICAPATH=${DOCKER_MODELICAPATH}:/opt/oct/ThirdParty/MSL && \
    export PYTHONPATH=${DOCKER_PYTHONPATH} && \
