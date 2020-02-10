@@ -109,17 +109,20 @@ DOCKER_FLAGS="\
 
 echo "*** Shared directory is ---${sha_dir}---"
 echo "*** arg_lis is          ---${arg_lis}---"
+echo "*** MOD_MOUNT is          ---${MOD_MOUNT}---"
+echo "*** PYT_MOUNT is          ---${PYT_MOUNT}---"
+
 ls -lh ${sha_dir}
 echo "**************************"
-docker run ${DOCKER_FLAGS} /bin/bash -c \
-  "export MODELICAPATH=${DOCKER_MODELICAPATH}:/opt/oct/ThirdParty/MSL && \
-   export PYTHONPATH=${DOCKER_PYTHONPATH} && \
-   ls -la /home/developer > /home/devloper/diagnostics.txt && \
-   pwd >> /home/devloper/diagnostics.txt && \
-   cd /home/devloper && \
-   alias ipython=ipython3 && \
-   echo \"Directory is\" && \
-   echo `pwd`"
+#docker run ${DOCKER_FLAGS} /bin/bash -c \
+#  "export MODELICAPATH=${DOCKER_MODELICAPATH}:/opt/oct/ThirdParty/MSL && \
+#   export PYTHONPATH=${DOCKER_PYTHONPATH} && \
+#   ls -la /home/developer > /home/devloper/diagnostics.txt && \
+#   pwd >> /home/devloper/diagnostics.txt && \
+#   cd /home/devloper && \
+#   alias ipython=ipython3 && \
+#   echo \"Directory is\" && \
+#   echo `pwd`"
 #   /opt/oct/bin/jm_ipython.sh ${arg_lis}"
 retVal=$?
 echo "**** Content of diagnostics.txt"
