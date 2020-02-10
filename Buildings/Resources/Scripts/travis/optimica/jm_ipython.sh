@@ -116,6 +116,7 @@ docker run ${DOCKER_FLAGS} /bin/bash -c \
    export PYTHONPATH=${DOCKER_PYTHONPATH} && \
    ls -la /home/developer > /home/devloper/diagnostics.txt && \
    pwd >> /home/devloper/diagnostics.txt && \
+   cd /home/devloper && \
    alias ipython=ipython3 && \
    /opt/oct/bin/jm_ipython.sh ${arg_lis}"
 retVal=$?
