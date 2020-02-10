@@ -101,7 +101,7 @@ DOCKER_FLAGS="\
 	--detach=false \
 	${MOD_MOUNT} \
 	${PYT_MOUNT} \
-	-v ${sha_dir}:/mnt/shared \
+	-v ${sha_dir}:/home/devloper \
 	-e DISPLAY=${DISPLAY} \
 	-v /tmp/.X11-unix:/tmp/.X11-unix \
 	--rm \
@@ -114,7 +114,7 @@ echo "**************************"
 docker run ${DOCKER_FLAGS} /bin/bash -c \
   "export MODELICAPATH=${DOCKER_MODELICAPATH}:/opt/oct/ThirdParty/MSL && \
    export PYTHONPATH=${DOCKER_PYTHONPATH} && \
-   ls -la /mnt/shared > diagnostics.txt && \
+   ls -la /home/developer > diagnostics.txt && \
    pwd >> diagnostics.txt && \
    alias ipython=ipython3 && \
    /opt/oct/bin/jm_ipython.sh ${arg_lis}"

@@ -108,5 +108,6 @@ docker run \
   cd /mnt/shared/${bas_nam} && \
    ls -la /mnt/shared > diagnostics.txt && \
    pwd >> diagnostics.txt && \
+   cat diagnostics.txt && \
   /usr/local/JModelica/bin/jm_ipython.sh ${arg_lis}"
 exit $?
