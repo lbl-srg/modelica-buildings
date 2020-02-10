@@ -86,6 +86,11 @@ done
 
 # --user=${UID} \
 
+echo "*** Shared directory is ---${sha_dir}---"
+echo "*** arg_lis is          ---${arg_lis}---"
+ls -lh ${sha_dir}
+echo "**************************"
+
 docker run \
   --user=${UID} \
   -i \
@@ -101,5 +106,7 @@ docker run \
   "export MODELICAPATH=${DOCKER_MODELICAPATH}:/usr/local/JModelica/ThirdParty/MSL && \
    export PYTHONPATH=${DOCKER_PYTHONPATH} && \
   cd /mnt/shared/${bas_nam} && \
+   ls -la /mnt/shared > diagnostics.txt && \
+   pwd >> diagnostics.txt && \
   /usr/local/JModelica/bin/jm_ipython.sh ${arg_lis}"
 exit $?

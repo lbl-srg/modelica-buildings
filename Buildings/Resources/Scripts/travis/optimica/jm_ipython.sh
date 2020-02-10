@@ -93,22 +93,22 @@ do
     shift
 done
 
-# --user=${UID} \
-
 DOCKER_FLAGS="\
 	--mac-address=${OPTIMICA_MAC_ADDRESS} \
-	--detach=false \
-	--rm \
-	- i \
 	--user=${UID} \
-	-v /tmp/.X11-unix:/tmp/.X11-unix \
-	-v ${sha_dir}:/mnt/shared \
+	-i \
+	$DOCKER_INTERACTIVE \
+	--detach=false \
 	${MOD_MOUNT} \
 	${PYT_MOUNT} \
+	-v ${sha_dir}:/mnt/shared \
 	-e DISPLAY=${DISPLAY} \
+	-v /tmp/.X11-unix:/tmp/.X11-unix \
+	--rm \
 	${NAME}"
 
-echo "*** Shared directory is ${sha_dir}***"
+echo "*** Shared directory is ---${sha_dir}---"
+echo "*** arg_lis is          ---${arg_lis}---"
 ls -lh ${sha_dir}
 echo "**************************"
 docker run ${DOCKER_FLAGS} /bin/bash -c \
