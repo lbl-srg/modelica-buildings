@@ -114,12 +114,12 @@ echo "**************************"
 docker run ${DOCKER_FLAGS} /bin/bash -c \
   "export MODELICAPATH=${DOCKER_MODELICAPATH}:/opt/oct/ThirdParty/MSL && \
    export PYTHONPATH=${DOCKER_PYTHONPATH} && \
-   ls -la /home/developer > diagnostics.txt && \
-   pwd >> diagnostics.txt && \
+   ls -la /home/developer > /home/devloper/diagnostics.txt && \
+   pwd >> /home/devloper/diagnostics.txt && \
    alias ipython=ipython3 && \
    /opt/oct/bin/jm_ipython.sh ${arg_lis}"
 retVal=$?
 echo "**** Content of diagnostics.txt"
-cat diagnostics.txt
+cat ${sha_dir}/diagnostics.txt
 echo "**** Content of **********"
 exit $retVal
