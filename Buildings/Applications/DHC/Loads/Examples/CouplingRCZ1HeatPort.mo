@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Loads.Validation;
+within Buildings.Applications.DHC.Loads.Examples;
 model CouplingRCZ1HeatPort
   "Example illustrating the coupling of a single zone RC building model to a fluid loop"
   extends Modelica.Icons.Example;
@@ -11,9 +11,8 @@ model CouplingRCZ1HeatPort
     annotation (Placement(transformation(extent={{60,100},{40,120}})));
   package Medium1 = Buildings.Media.Water
     "Source side medium";
-  BaseClasses.BuildingRCZ1HeatPort bui(nPorts_a=2, nPorts_b=2)
-    "Building"
-    annotation (Placement(transformation(extent={{20,40},{40,60}})));
+  Validation.BaseClasses.BuildingRCZ1HeatPort bui(nPorts_a=2, nPorts_b=2)
+    "Building" annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Buildings.Fluid.Sources.MassFlowSource_T supHeaWat(
     use_m_flow_in=true,
     redeclare package Medium = Medium1,
@@ -97,6 +96,6 @@ equation
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-120,-20},{120,120}})),
   __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/CouplingRCZ1HeatPort.mos"
+          "Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingRCZ1HeatPort.mos"
         "Simulate and plot"));
 end CouplingRCZ1HeatPort;

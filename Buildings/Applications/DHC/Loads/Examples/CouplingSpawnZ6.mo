@@ -1,11 +1,10 @@
-within Buildings.Applications.DHC.Loads.Validation;
+within Buildings.Applications.DHC.Loads.Examples;
 model CouplingSpawnZ6
   "Example illustrating the coupling of a multizone Spawn model to a fluid loop"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water
     "Source side medium";
-  BaseClasses.BuildingSpawnZ6 bui(nPorts_a=2, nPorts_b=2)
-    "Building"
+  Validation.BaseClasses.BuildingSpawnZ6 bui(nPorts_a=2, nPorts_b=2) "Building"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Buildings.Fluid.Sources.Boundary_pT sinHeaWat(redeclare package Medium =
         Medium1, nPorts=1) "Sink for heating water" annotation (Placement(
@@ -76,6 +75,6 @@ equation
           textString="Simulation requires
 Hidden.AvoidDoubleComputation=true")}),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/CouplingSpawnZ6.mos"
+          "Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingSpawnZ6.mos"
         "Simulate and plot"));
 end CouplingSpawnZ6;

@@ -1,11 +1,5 @@
 BenchmarkFlowDistribution1
 BenchmarkFlowDistribution2
-CouplingRCZ1HeatPort
-CouplingRCZ1Valve
-CouplingRCZ6
-CouplingSpawnZ1
-CouplingSpawnZ6
-CouplingTimeSeries
 FlowDistributionCO
 HeatExchanger
 ScalingTerminalUnit

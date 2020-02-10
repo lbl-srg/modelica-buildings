@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Loads.Validation;
+within Buildings.Applications.DHC.Loads.Examples;
 model CouplingRCZ6
   "Example illustrating the coupling of a multizone RC model to a fluid loop"
   extends Modelica.Icons.Example;
@@ -10,8 +10,7 @@ model CouplingRCZ6
     "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     "Weather data reader"
     annotation (Placement(transformation(extent={{60,20},{40,40}})));
-  BaseClasses.BuildingRCZ6 bui(nPorts_a=2, nPorts_b=2)
-    "Building"
+  Validation.BaseClasses.BuildingRCZ6 bui(nPorts_a=2, nPorts_b=2) "Building"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Buildings.Fluid.Sources.Boundary_pT sinHeaWat(redeclare package Medium =
         Medium1, nPorts=1) "Sink for heating water" annotation (Placement(
@@ -78,7 +77,7 @@ equation
   Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{140,60}})),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/CouplingRCZ6.mos"
+          "Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingRCZ6.mos"
         "Simulate and plot"),
     experiment(
       StopTime=6404800,

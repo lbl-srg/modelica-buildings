@@ -1,10 +1,10 @@
-within Buildings.Applications.DHC.Loads.Validation;
+within Buildings.Applications.DHC.Loads.Examples;
 model CouplingTimeSeries
   "Example illustrating the coupling of a time series building model to a fluid loop"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water
     "Source side medium";
-  Buildings.Applications.DHC.Loads.Validation.BaseClasses.BuildingTimeSeries
+  Buildings.Applications.DHC.Loads.Examples.BaseClasses.BuildingTimeSeries
     bui(
       filPat=
       "modelica://Buildings/Applications/DHC/Examples/Resources/SwissResidential_20190916.mos",
@@ -80,6 +80,6 @@ equation
   </html>"),
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-120,-20},{140,120}})),
-  __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/CouplingTimeSeries.mos"
+  __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingTimeSeries.mos"
         "Simulate and plot"));
 end CouplingTimeSeries;

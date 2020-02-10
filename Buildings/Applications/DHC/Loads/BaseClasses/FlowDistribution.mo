@@ -72,11 +72,7 @@ model FlowDistribution "Model of building hydraulic distribution system"
       transformation(
       extent={{-20,-20},{20,20}},
       rotation=0,
-      origin={-120,-70}),
-      iconTransformation(
-      extent={{-10,-10},{10,10}},
-      rotation=0,
-      origin={-110,-60})));
+      origin={-120,-60}), iconTransformation(extent={{-120,-70},{-100,-50}})));
   Modelica.Blocks.Interfaces.RealInput TSupSet(
     quantity="ThermodynamicTemperature",
     displayUnit="degC") if have_val "Supply temperature set point"
@@ -287,7 +283,7 @@ equation
             -20,-70},{-80,-70},{-80,-12}},  color={0,0,127}));
     if disTyp == typ.ChangeOver then
       connect(modChaOve, conVal.modChaOve)
-        annotation (Line(points={{-120,-70},{-88,-70},{-88,-88},{-49,-88}},
+        annotation (Line(points={{-120,-60},{-88,-60},{-88,-88},{-49,-88}},
                                               color={255,127,0}));
     end if;
   else

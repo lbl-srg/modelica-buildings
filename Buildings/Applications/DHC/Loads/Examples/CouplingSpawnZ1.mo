@@ -1,10 +1,10 @@
-within Buildings.Applications.DHC.Loads.Validation;
+within Buildings.Applications.DHC.Loads.Examples;
 model CouplingSpawnZ1
   "Example illustrating the coupling of a single zone Spawn model to a fluid loop"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water
     "Source side medium";
-  Buildings.Applications.DHC.Loads.Validation.BaseClasses.BuildingSpawnZ1 bui(
+  Buildings.Applications.DHC.Loads.Examples.BaseClasses.BuildingSpawnZ1 bui(
     nPorts_a=2, nPorts_b=2)
     "Building"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
@@ -85,6 +85,6 @@ equation
   </html>"),
   Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{140,80}})),
-  __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/CouplingSpawnZ1.mos"
+  __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingSpawnZ1.mos"
         "Simulate and plot"));
 end CouplingSpawnZ1;
