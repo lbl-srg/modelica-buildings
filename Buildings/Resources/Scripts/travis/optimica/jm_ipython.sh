@@ -111,7 +111,7 @@ echo "*** Shared directory is ---${sha_dir}---"
 echo "*** arg_lis is          ---${arg_lis}---"
 echo "*** MOD_MOUNT is          ---${MOD_MOUNT}---"
 echo "*** PYT_MOUNT is          ---${PYT_MOUNT}---"
-
+echo "*** --user=${UID}"
 ls -lh ${sha_dir}
 echo "**************************"
 #docker run ${DOCKER_FLAGS} /bin/bash -c \
