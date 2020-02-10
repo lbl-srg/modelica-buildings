@@ -156,16 +156,6 @@ First implementation.
       StopTime=72000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"),
-    Diagram(coordinateSystem(extent={{-180,-140},{100,140}}), graphics={Text(
-          extent={{-40,40},{26,28}},
-          lineColor={0,0,0},
-          fontSize=24,
-          fontName="aakar",
-          textString="Modelica with g-function"), Text(
-          extent={{-42,-10},{24,-22}},
-          lineColor={0,0,0},
-          fontSize=24,
-          textString="Modelica + TOUGH",
-          fontName="aakar")}),
+    Diagram(coordinateSystem(extent={{-180,-140},{100,140}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end BorefieldsWithTough;

@@ -25,75 +25,39 @@ model Reservoir3Variable_TOUGH
     annotation (Placement(transformation(extent={{0,-400},{20,-380}})));
 equation
   connect(Tml5.T, conMaiPum.TMix[1]) annotation (Line(points={{86.6,-100},{28,
-          -100},{28,-182},{-36,-182},{-36,-225.333},{-22,-225.333}}, color={0,0,
-          127}));
+          -100},{28,-182},{-36,-182},{-36,-225.333},{-22,-225.333}}, color={0,0,127},
+
+      pattern=LinePattern.Dash));
   connect(Tml4.T, conMaiPum.TMix[2]) annotation (Line(points={{86.6,118},{26,118},
-          {26,-180},{-30,-180},{-30,-224},{-22,-224}},      color={0,0,127}));
+          {26,-180},{-30,-180},{-30,-224},{-22,-224}},      color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(Tml3.T, conMaiPum.TMix[3]) annotation (Line(points={{-4.44089e-16,
           244.6},{-4.44089e-16,-38},{-32,-38},{-32,-222},{-28,-222},{-28,
-          -222.667},{-22,-222.667}}, color={0,0,127}));
+          -222.667},{-22,-222.667}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(Tml5.T, conMaiPum.TSouIn[1]) annotation (Line(points={{86.6,-100},{28,
-          -100},{28,-182},{-36,-182},{-36,-231},{-22,-231}}, color={0,0,127}));
+          -100},{28,-182},{-36,-182},{-36,-231},{-22,-231}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(Tml1.T, conMaiPum.TSouOut[1]) annotation (Line(points={{-86.6,-300},{-38,
-          -300},{-38,-237},{-22,-237}},     color={0,0,127}));
+          -300},{-38,-237},{-22,-237}},     color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(Tml1.T, conMaiPum.TSouIn[2]) annotation (Line(points={{-86.6,-300},{-38,
-          -300},{-38,-229},{-22,-229}},     color={0,0,127}));
+          -300},{-38,-229},{-22,-229}},     color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(conMaiPum.TSouOut[2], Tml2.T) annotation (Line(points={{-22,-235},{-60,
-          -235},{-60,-94},{-86.6,-94}},     color={0,0,127}));
+          -235},{-60,-94},{-86.6,-94}},     color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(conMaiPum.y, gaiConMaiPum.u)
-    annotation (Line(points={{2,-230},{16,-230}}, color={0,0,127}));
+    annotation (Line(points={{2,-230},{16,-230}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(pumpMainRLTN.m_flow_in, gaiConMaiPum.y) annotation (Line(points={{68,-370},
-          {50,-370},{50,-230},{40,-230}},       color={0,0,127}));
+          {50,-370},{50,-230},{40,-230}},       color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(pumpBHS.m_flow_in, gaiConMaiPum.y)
-    annotation (Line(points={{50,-428},{50,-230},{40,-230}}, color={0,0,127}));
+    annotation (Line(points={{50,-428},{50,-230},{40,-230}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   annotation (
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-320,-480},{380,360}}),
-        graphics={
-        Text(
-          extent={{-254,64},{-162,34}},
-          lineColor={0,0,0},
-          textStyle={TextStyle.Italic},
-          fontName="aakar",
-          fontSize=28,
-          textString="Office"),
-        Text(
-          extent={{228,200},{356,162}},
-          lineColor={0,0,0},
-          textStyle={TextStyle.Italic},
-          fontName="aakar",
-          fontSize=28,
-          textString="Apartment"),
-        Text(
-          extent={{228,-14},{320,-44}},
-          lineColor={0,0,0},
-          textStyle={TextStyle.Italic},
-          fontName="aakar",
-          fontSize=28,
-          textString="Hospital"),
-        Text(
-          extent={{-6,-458},{86,-488}},
-          lineColor={0,0,0},
-          textStyle={TextStyle.Italic},
-          fontName="aakar",
-          fontSize=28,
-          textString="Borefield"),
-        Line(
-          points={{-274,-368},{-230,-368}},
-          color={28,108,200},
-          thickness=0.5),
-        Line(points={{-274,-394},{-230,-394}}, color={0,0,0}),
-        Text(
-          extent={{-230,-356},{-80,-382}},
-          lineColor={0,0,0},
-          fontSize=28,
-          fontName="aakar",
-          textString="Water flow path"),
-        Text(
-          extent={{-228,-388},{-134,-406}},
-          lineColor={0,0,0},
-          fontSize=26,
-          fontName="aakar",
-          textString="Data line")}),
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-320,-480},{380,360}})),
           __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/DistrictReservoirNetworks/Examples/Reservoir3Variable_TOUGH.mos"
         "Simulate and plot"),
     experiment(

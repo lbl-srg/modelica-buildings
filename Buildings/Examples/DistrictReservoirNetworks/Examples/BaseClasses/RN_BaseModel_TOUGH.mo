@@ -501,347 +501,401 @@ protected
 equation
   connect(splSup3.port_3, tempBeforeProsumer3.port_a) annotation (Line(
         points={{90,8},{100,8},{100,-32},{114,-32}},     color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(massFlowRateThroughProsumer3.port_a, tempAfterProsumer3.port_b)
     annotation (Line(points={{106,-72},{114,-72}},   color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(massFlowRateThroughProsumer3.port_b, splSup4.port_3)
-    annotation (Line(points={{94,-72},{90,-72}},    color={0,127,255}));
+    annotation (Line(points={{94,-72},{90,-72}},    color={0,127,255},
+      thickness=1));
   connect(splSup5.port_3, tempBeforeProsumer2.port_a) annotation (Line(
         points={{90,218},{100,218},{100,178},{114,178}},
                                                        color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(massFlowRateThroughProsumer2.port_a, tempAfterProsumer2.port_b)
     annotation (Line(points={{106,138},{114,138}},
-                                                 color={0,127,255}));
+                                                 color={0,127,255},
+      thickness=1));
   connect(massFlowRateThroughProsumer2.port_b, splSup6.port_3)
-    annotation (Line(points={{94,138},{90,138}},color={0,127,255}));
+    annotation (Line(points={{94,138},{90,138}},color={0,127,255},
+      thickness=1));
   connect(massFlowRateBypassSFApartment.port_a, splSup5.port_2)
     annotation (Line(points={{80,184},{80,208}}, color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(massFlowRateBypassSFApartment.port_b, splSup6.port_1)
     annotation (Line(points={{80,172},{80,148}},color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(massFlowRateBypassSFRetail.port_a, splSup3.port_2)
     annotation (Line(points={{80,-26},{80,-2}},  color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(massFlowRateBypassSFRetail.port_b, splSup4.port_1)
     annotation (Line(points={{80,-38},{80,-62}}, color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(splSup8.port_2, massFlowRateBypassSFLargeOfficediv4.port_a)
     annotation (Line(points={{-80,-50},{-80,-26}},color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(splSup7.port_1, massFlowRateBypassSFLargeOfficediv4.port_b)
     annotation (Line(points={{-80,10},{-80,-14}},  color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(tempBeforeProsumer1.port_a, splSup8.port_3) annotation (Line(
         points={{-114,-20},{-100,-20},{-100,-60},{-90,-60}},
                                                          color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(massFlowRateThroughProsumer1.port_b, splSup7.port_3)
-    annotation (Line(points={{-94,20},{-90,20}},    color={0,127,255}));
+    annotation (Line(points={{-94,20},{-90,20}},    color={0,127,255},
+      thickness=1));
   connect(massFlowRateThroughProsumer1.port_a, tempAfterProsumer1.port_b)
     annotation (Line(points={{-106,20},{-114,20}},   color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(Tml2.port_b, splSup8.port_1)
     annotation (Line(points={{-80,-88},{-80,-70}},
                                                  color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(Tml4.port_a, splSup6.port_2)
     annotation (Line(points={{80,124},{80,128}},
-                                              color={0,127,255}));
+                                              color={0,127,255},
+      thickness=1));
   connect(massFlowRateInRLTN.port_b, splSup5.port_1) annotation (Line(
         points={{46,238},{80,238},{80,228}},color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(Tml3.port_b, massFlowRateInRLTN.port_a)
     annotation (Line(points={{6,238},{34,238}},   color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(Tml5.port_a, splSup4.port_2)
     annotation (Line(points={{80,-94},{80,-82}},   color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(massFlowRateBypassPlant.port_b, splSup1.port_1) annotation (Line(
         points={{-80,-224},{-80,-200}},         color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(massFlowRateBypassPlant.port_a, splSup2.port_2)
     annotation (Line(points={{-80,-236},{-80,-260}},
                                                    color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(tempBeforePlantPrimSide.port_a, splSup2.port_3)
     annotation (Line(points={{-114,-270},{-90,-270}}, color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(massFlowRateThroughPrimSidePlant.port_b, splSup1.port_3)
     annotation (Line(points={{-94,-190},{-90,-190}},
-                                                   color={0,127,255}));
+                                                   color={0,127,255},
+      thickness=1));
   connect(tempAfterPlantPrimSide.port_b, massFlowRateThroughPrimSidePlant.port_a)
     annotation (Line(points={{-114,-190},{-106,-190}},
                                                      color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(mFlowInputPlant.y, pumpPrimarySidePlant.m_flow_in) annotation (
       Line(points={{-116.8,-230},{-120,-230},{-120,-210},{-128,-210}},
-                                                                   color={0,
-          0,127}));
+                                                                   color={0,0,127},
+
+      pattern=LinePattern.Dash));
   connect(tempAfterPlantSecondSide.port_a, plant.port_b2) annotation (Line(
         points={{-160,-270},{-152,-270},{-152,-250}},color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(tempAfterPlantSecondSide.port_b, sewageSourceAtConstTemp.ports[1])
     annotation (Line(points={{-172,-270},{-180,-270},{-180,-238}},color={0,127,
           255},
-      thickness=0.5));
+      thickness=1));
   connect(mFlowInputPlant.y, pumpSecondarySidePlant.m_flow_in) annotation (
       Line(points={{-116.8,-230},{-122,-230},{-122,-224},{-200,-224},{-200,-210},
-          {-192,-210}},color={0,0,127}));
+          {-192,-210}},color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(Tml1.port_b, splSup2.port_1)
     annotation (Line(points={{-80,-294},{-80,-280}}, color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(pumpPrimarySidePlant.port_b, tempAfterPlantPrimSide.port_a)
     annotation (Line(points={{-140,-200},{-140,-190},{-126,-190}},
                                                                 color={0,127,
           255},
-      thickness=0.5));
+      thickness=1));
   connect(pumpPrimarySidePlant.port_a, plant.port_b1)
     annotation (Line(points={{-140,-220},{-140,-230}},
-                                                     color={0,127,255}));
+                                                     color={0,127,255},
+      thickness=1));
   connect(pumpSecondarySidePlant.port_b, plant.port_a2) annotation (Line(
         points={{-180,-200},{-180,-190},{-152,-190},{-152,-230}},
                                                               color={0,127,255},
+      thickness=1));
 
-      thickness=0.5));
   connect(pumpSecondarySidePlant.port_a, sewageSourceAtConstTemp.ports[2])
     annotation (Line(points={{-180,-220},{-180,-242}},
                                                      color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(res.port_b, pumpMainRLTN.port_a)
     annotation (Line(points={{80,-340},{80,-360}}, color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(res1.port_b, Tml1.port_a)
     annotation (Line(points={{-80,-320},{-80,-306}}, color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(distributionPipe.port_b, Tml3.port_a)
     annotation (Line(points={{-80,82},{-80,238},{-6,238}},
                                                   color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(distributionPipe.port_a, splSup7.port_2) annotation (Line(points={{-80,62},
           {-80,30}},                 color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(res4.port_a, Tml4.port_b)
     annotation (Line(points={{80,82},{80,112}},
                                               color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(res4.port_b, splSup3.port_1)
     annotation (Line(points={{80,62},{80,18}},   color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(plant.port_a1, tempBeforePlantPrimSide.port_b) annotation (Line(
         points={{-140,-250},{-140,-270},{-126,-270}}, color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(tempBeforeProsumer3.port_b, switchBoxProsumerWithPumps2.port_a1)
     annotation (Line(points={{126,-32},{130,-32},{130,-47},{139.9,-47}},
         color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(tempAfterProsumer3.port_a, switchBoxProsumerWithPumps2.port_b2)
     annotation (Line(points={{126,-72},{130,-72},{130,-57},{140,-57}},
         color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(switchBoxProsumerWithPumps2.port_b1, proHos.port_a) annotation (Line(
         points={{160,-47},{170,-47},{170,-34},{180,-34}}, color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(tempBeforeProsumer2.port_b, switchBoxProsumerWithPumps1.port_a1)
     annotation (Line(points={{126,178},{130,178},{130,163},{139.9,163}},
                                                                      color={0,127,
           255},
-      thickness=0.5));
+      thickness=1));
   connect(tempAfterProsumer2.port_a, switchBoxProsumerWithPumps1.port_b2)
     annotation (Line(points={{126,138},{130,138},{130,153},{140,153}},
                                                                    color={0,127,
           255},
-      thickness=0.5));
+      thickness=1));
   connect(switchBoxProsumerWithPumps1.port_b1, proApa.port_a) annotation (Line(
         points={{160,163},{170,163},{170,178},{180,178}}, color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(proApa.m_flow_HPSH, switchBoxProsumerWithPumps1.mFHPSH) annotation (
       Line(points={{220.286,168},{224,168},{224,220},{158,220},{158,169}},
-        color={0,0,127}));
+        color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(proApa.m_flow_HPDHW, switchBoxProsumerWithPumps1.mFHPDHW) annotation (
      Line(points={{220.286,163.714},{228,163.714},{228,224},{156,224},{156,169}},
-        color={0,0,127}));
+        color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(proApa.m_flow_FC, switchBoxProsumerWithPumps1.mFFC) annotation (Line(
         points={{220.286,159.429},{230,159.429},{230,228},{154,228},{154,169}},
-        color={0,0,127}));
+        color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(proHos.m_flow_HPSH, switchBoxProsumerWithPumps2.mFHPSH) annotation (
-      Line(points={{220.286,-44},{224,-44},{224,10},{158,10},{158,-41}}, color=
-          {0,0,127}));
+      Line(points={{220.286,-44},{224,-44},{224,10},{158,10},{158,-41}}, color={0,0,127},
+
+      pattern=LinePattern.Dash));
   connect(proHos.m_flow_HPDHW, switchBoxProsumerWithPumps2.mFHPDHW) annotation (
      Line(points={{220.286,-48.2857},{226,-48.2857},{226,14},{156,14},{156,-41}},
-        color={0,0,127}));
+        color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(proHos.m_flow_FC, switchBoxProsumerWithPumps2.mFFC) annotation (Line(
         points={{220.286,-52.5714},{228,-52.5714},{228,18},{154,18},{154,-41}},
-        color={0,0,127}));
+        color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(tempBeforeProsumer1.port_b, switchBoxProsumerWithPumps.port_a1)
     annotation (Line(points={{-126,-20},{-134,-20},{-134,-5},{-139.9,-5}},
         color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(tempAfterProsumer1.port_a, switchBoxProsumerWithPumps.port_b2)
     annotation (Line(points={{-126,20},{-134,20},{-134,5},{-140,5}},
         color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(proOff.port_a, switchBoxProsumerWithPumps.port_b1) annotation (Line(
         points={{-180,-20},{-170,-20},{-170,-5},{-160,-5}}, color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(proOff.m_flow_HPSH, switchBoxProsumerWithPumps.mFHPSH) annotation (
       Line(points={{-220.286,-30},{-224,-30},{-224,-50},{-158,-50},{-158,-11}},
-        color={0,0,127}));
+        color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(proOff.m_flow_HPDHW, switchBoxProsumerWithPumps.mFHPDHW) annotation (
       Line(points={{-220.286,-34.2857},{-226,-34.2857},{-226,-52},{-156,-52},{
-          -156,-11}}, color={0,0,127}));
+          -156,-11}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(proOff.m_flow_FC, switchBoxProsumerWithPumps.mFFC) annotation (Line(
         points={{-220.286,-38.5714},{-228,-38.5714},{-228,-54},{-154,-54},{-154,
-          -11}}, color={0,0,127}));
+          -11}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(massFlowRateThroughProsumer1AfterSB.port_b,
     switchBoxProsumerWithPumps.port_a2) annotation (Line(points={{-194,32},{-170,
           32},{-170,5},{-159.9,5}},            color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(massFlowRateThroughProsumer1AfterSB.port_a, proOff.port_b)
     annotation (Line(points={{-206,32},{-240,32},{-240,-20},{-219.857,-20}},
         color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(massFlowRateThroughProsumer2AfterSB.port_a, proApa.port_b)
     annotation (Line(points={{206,138},{240,138},{240,178},{219.857,178}},
         color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(switchBoxProsumerWithPumps1.port_a2,
     massFlowRateThroughProsumer2AfterSB.port_b) annotation (Line(points={{159.9,
           153},{170,153},{170,138},{194,138}},   color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(massFlowRateThroughProsumer3AfterSB.port_a, proHos.port_b)
     annotation (Line(points={{206,-72},{240,-72},{240,-34},{219.857,-34}},
         color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(massFlowRateThroughProsumer3AfterSB.port_b,
     switchBoxProsumerWithPumps2.port_a2) annotation (Line(points={{194,-72},{
           170,-72},{170,-57},{159.9,-57}},     color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(heatFromToBHF.y, integrator.u)
-    annotation (Line(points={{-39,-310},{-22,-310}},color={0,0,127}));
+    annotation (Line(points={{-39,-310},{-22,-310}},color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(bou.ports[1], pumpMainRLTN.port_a) annotation (Line(points={{120,-350},
           {80,-350},{80,-360}}, color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(res3.port_a, splSup1.port_2)
     annotation (Line(points={{-80,-140},{-80,-180}}, color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(res5.port_b, Tml5.port_b)
     annotation (Line(points={{80,-120},{80,-106}}, color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(res3.port_b, Tml2.port_a)
     annotation (Line(points={{-80,-120},{-80,-100}},color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(res2.port_b, res5.port_a)
     annotation (Line(points={{80,-162},{80,-140}}, color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(res.port_a, res6.port_a)
     annotation (Line(points={{80,-320},{80,-220}}, color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(res6.port_b, res2.port_a)
     annotation (Line(points={{80,-200},{80,-182}}, color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(pumpSecondarySidePlant.P, EPumPla.u[1]) annotation (Line(points={{-189,
           -199},{-189,-150},{-186,-150},{-186,-149.9},{-154,-149.9}},
-                                                               color={0,0,127}));
+                                                               color={0,0,127},
+
+      pattern=LinePattern.Dash));
   connect(pumpPrimarySidePlant.P, EPumPla.u[2]) annotation (Line(points={{-131,-199},
           {-131,-174},{-164,-174},{-164,-154.1},{-154,-154.1}},
-                                                         color={0,0,127}));
+                                                         color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(proOff.PPum, EPumPro.u[1]) annotation (Line(points={{-220.714,8.57143},
-          {-264,8.57143},{-264,291.5},{246,291.5}}, color={0,0,127}));
+          {-264,8.57143},{-264,291.5},{246,291.5}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(proApa.PPum, EPumPro.u[2]) annotation (Line(points={{220.714,206.571},
-          {234,206.571},{234,290.1},{246,290.1}}, color={0,0,127}));
+          {234,206.571},{234,290.1},{246,290.1}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(proHos.PPum, EPumPro.u[3]) annotation (Line(points={{220.714,-5.42857},
-          {236,-5.42857},{236,288.7},{246,288.7}}, color={0,0,127}));
+          {236,-5.42857},{236,288.7},{246,288.7}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(proOff.PCom, EHeaPum.u[1]) annotation (Line(points={{-220.714,11.4286},
-          {-260,11.4286},{-260,270.8},{246,270.8}}, color={0,0,127}));
+          {-260,11.4286},{-260,270.8},{246,270.8}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(proApa.PCom, EHeaPum.u[2]) annotation (Line(points={{220.714,209.429},
-          {230,209.429},{230,210},{238,210},{238,268},{246,268}}, color={0,0,
-          127}));
+          {230,209.429},{230,210},{238,210},{238,268},{246,268}}, color={0,0,127},
+
+      pattern=LinePattern.Dash));
   connect(proHos.PCom, EHeaPum.u[3]) annotation (Line(points={{220.714,-2.57143},
-          {242,-2.57143},{242,265.2},{246,265.2}}, color={0,0,127}));
+          {242,-2.57143},{242,265.2},{246,265.2}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(EPumDis.u[1], pumpMainRLTN.P)
     annotation (Line(points={{106,-387.9},{71,-387.9},{71,-381}},
-                                                             color={0,0,127}));
+                                                             color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(EBorFie.u[1], borFie.Q_flow) annotation (Line(points={{-38,-460},{-52,
-          -460},{-52,-448},{-13,-448}}, color={0,0,127}));
+          -460},{-52,-448},{-13,-448}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(switchBoxProsumerWithPumps.PPum, EPumPro.u[4]) annotation (Line(
         points={{-150,10.8333},{-150,287.3},{246,287.3}},
-        color={0,0,127}));
+        color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(switchBoxProsumerWithPumps1.PPum, EPumPro.u[5]) annotation (Line(
         points={{150,147.167},{150,146},{164,146},{164,290},{246,290},{246,
-          285.9}},                                              color={0,0,127}));
+          285.9}},                                              color={0,0,127},
+
+      pattern=LinePattern.Dash));
   connect(switchBoxProsumerWithPumps2.PPum, EPumPro.u[6]) annotation (Line(
         points={{150,-62.8333},{150,-76},{166,-76},{166,284.5},{246,284.5}},
-        color={0,0,127}));
+        color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(heatFromToPlantPrimarySide.y, EPlant.u[1])
-    annotation (Line(points={{-99,-250},{-66,-250}}, color={0,0,127}));
+    annotation (Line(points={{-99,-250},{-66,-250}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(heatFromToNetwrokProsumer1.y, EProsumer1.u[1])
-    annotation (Line(points={{-159,-80},{-118,-80}}, color={0,0,127}));
+    annotation (Line(points={{-159,-80},{-118,-80}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(EProsumer2.u[1], heatFromToNetwrokProsumer2.y) annotation (Line(
-        points={{180,100},{190,100},{190,100},{199,100}}, color={0,0,127}));
+        points={{180,100},{190,100},{190,100},{199,100}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(EProsumer3.u[1], heatFromToNetwrokProsumer3.y)
-    annotation (Line(points={{182,-100},{199,-100}}, color={0,0,127}));
+    annotation (Line(points={{182,-100},{199,-100}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(heatFromToNetwrokProsumer1.y, ESumProsumers.u[1]) annotation (Line(
         points={{-159,-80},{-132,-80},{-132,-110},{288,-110},{288,-111.2}},
-        color={0,0,127}));
+        color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(heatFromToNetwrokProsumer3.y, ESumProsumers.u[2]) annotation (Line(
         points={{199,-100},{194,-100},{194,-114},{288,-114}},
-                              color={0,0,127}));
+                              color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(heatFromToNetwrokProsumer2.y, ESumProsumers.u[3]) annotation (Line(
         points={{199,100},{190,100},{190,60},{276,60},{276,-118},{288,-118},{
-          288,-116.8}},                                           color={0,0,
-          127}));
+          288,-116.8}},                                           color={0,0,127},
+
+      pattern=LinePattern.Dash));
   connect(EHeaPum.y, EEleTot.u[1]) annotation (Line(points={{259.02,268},{266,
           268},{266,282.1},{284,282.1}},
-                                      color={0,0,127}));
+                                      color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(EEleTot.y, pri.x[1])
-    annotation (Line(points={{297.02,280},{350,280}}, color={0,0,127}));
+    annotation (Line(points={{297.02,280},{350,280}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(borFie.port_a, pumpBHS.port_b)
     annotation (Line(points={{8,-440},{40,-440}}, color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(res1.port_a, splSup10.port_1)
     annotation (Line(points={{-80,-340},{-80,-400}}, color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(splSup10.port_2, borFie.port_b) annotation (Line(points={{-80,-420},{
           -80,-440},{-12,-440}}, color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(pumpBHS.port_a, splSup9.port_2) annotation (Line(points={{60,-440},{
           80,-440},{80,-420}}, color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(splSup9.port_1, pumpMainRLTN.port_b)
     annotation (Line(points={{80,-400},{80,-380}}, color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(splSup10.port_3, splSup9.port_3)
     annotation (Line(points={{-70,-410},{70,-410}}, color={0,127,255},
-      thickness=0.5));
+      thickness=1));
   connect(pumpBHS.P, EPumDis.u[2]) annotation (Line(points={{39,-431},{18,-431},
-          {18,-422},{100,-422},{100,-392.1},{106,-392.1}}, color={0,0,127}));
+          {18,-422},{100,-422},{100,-392.1},{106,-392.1}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(Tml1.T, TVio.u[1]) annotation (Line(points={{-86.6,-300},{-292,-300},
-          {-292,333.36},{324,333.36}},color={0,0,127}));
+          {-292,333.36},{324,333.36}},color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(Tml2.T, TVio.u[2]) annotation (Line(points={{-86.6,-94},{-282,-94},{
           -282,331.68},{324,331.68}},
-                                 color={0,0,127}));
+                                 color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(Tml3.T, TVio.u[3]) annotation (Line(points={{4.44089e-16,244.6},{
           4.44089e-16,330},{324,330}},
-                           color={0,0,127}));
+                           color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(Tml4.T, TVio.u[4]) annotation (Line(points={{86.6,118},{304,118},{304,
-          328.32},{324,328.32}}, color={0,0,127}));
+          328.32},{324,328.32}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(Tml5.T, TVio.u[5]) annotation (Line(points={{86.6,-100},{140,-100},{
           140,-132},{310,-132},{310,326.64},{324,326.64}},
-                                                       color={0,0,127}));
+                                                       color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(TVio.y, pri1.x[1])
-    annotation (Line(points={{337.02,330},{350,330}}, color={0,0,127}));
+    annotation (Line(points={{337.02,330},{350,330}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(EPumPro.y, EPumTot.u[1]) annotation (Line(points={{259.02,288},{266,
-          288},{266,310.8},{284,310.8}}, color={0,0,127}));
+          288},{266,310.8},{284,310.8}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(EPumDis.y, EPumTot.u[2]) annotation (Line(points={{119.02,-390},{268,
-          -390},{268,308},{284,308}}, color={0,0,127}));
+          -390},{268,308},{284,308}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(EPumPla.y, EPumTot.u[3]) annotation (Line(points={{-140.98,-152},{
           -132,-152},{-132,-88},{-270,-88},{-270,328},{270,328},{270,305.2},{
-          284,305.2}}, color={0,0,127}));
+          284,305.2}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(EPumTot.y, EEleTot.u[2]) annotation (Line(points={{297.02,308},{300,
-          308},{300,294},{276,294},{276,277.9},{284,277.9}}, color={0,0,127}));
+          308},{300,294},{276,294},{276,277.9},{284,277.9}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   annotation (Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-320,-480},{380,360}})),
     experiment(StopTime=31536000, __Dymola_NumberOfIntervals=8760),
