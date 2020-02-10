@@ -8,7 +8,7 @@
 # updated for the docker, and to mount the
 # required directories.
 #################################################
-set -e
+#set -e
 
 IMG_NAME=travis-ubuntu-1804-optimica
 DOCKER_USERNAME=michaelwetter
@@ -118,9 +118,14 @@ docker run ${DOCKER_FLAGS} /bin/bash -c \
    pwd >> /home/devloper/diagnostics.txt && \
    cd /home/devloper && \
    alias ipython=ipython3 && \
-   /opt/oct/bin/jm_ipython.sh ${arg_lis}"
+   echo \"Directory is\" && \
+   echo `pwd`"
+#   /opt/oct/bin/jm_ipython.sh ${arg_lis}"
 retVal=$?
 echo "**** Content of diagnostics.txt"
 cat ${sha_dir}/diagnostics.txt
-echo "**** Content of **********"
+echo "**************"
+echo "**** Content of simulator-optimica.log"
+cat simulator-optimica.log
+echo "**************"
 exit $retVal
