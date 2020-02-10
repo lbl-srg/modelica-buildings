@@ -27,7 +27,7 @@ partial model MixingVolumeReverseFlow
         rotation=180,
         origin={70,-20})));
   replaceable Buildings.Fluid.MixingVolumes.MixingVolume volDyn
-    constrainedby Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume(
+    constrainedby Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort(
         redeclare package Medium = Medium,
         V=1,
         nPorts=2,
@@ -37,7 +37,7 @@ partial model MixingVolumeReverseFlow
     annotation (Placement(transformation(extent={{10,0},{30,20}})));
 
   replaceable Buildings.Fluid.MixingVolumes.MixingVolume volSte
-    constrainedby Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume(
+    constrainedby Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort(
         redeclare package Medium = Medium,
         final prescribedHeatFlowRate = prescribedHeatFlowRate,
         V=1,
@@ -92,6 +92,12 @@ The mass flow rate starts positive and reverses its direction at <i>t=5</i> seco
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 23, 2019, by Michael Wetter:<br/>
+Changed constraining clause to ensure that heat port is present.<br/>
+This is for
+<a href=\"modelica://https://github.com/ibpsa/modelica-ibpsa/issues/1268\">Buildings, #1268</a>.
+</li>
 <li>
 January 19, 2016, by Michael Wetter:<br/>
 First implementation.

@@ -19,9 +19,9 @@ block CheckTemperature "Check the validity of temperature data"
 
 equation
   TOut = TIn;
-  assert(TOut > TMin, "Temperature out of bounds.\n" + "   TOut = " + String(
+  assert(TOut > TMin, "In " + getInstanceName() + ": Weather data dry bulb temperature out of bounds.\n" + "   TOut = " + String(
     TOut));
-  assert(TOut < TMax, "Temperature out of bounds.\n" + "   TOut = " + String(
+  assert(TOut < TMax, "In " + getInstanceName() + ": Weather data dry bulb temperature out of bounds.\n" + "   TOut = " + String(
     TOut));
 
   annotation (
@@ -34,6 +34,10 @@ the simulation will stop with an error.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 31, 2020 by Filip Jorissen:<br/>
+Improved error message.
+</li>
 <li>
 October 27, 2011, by Wangda Zuo:<br/>
 Delete the unit conversion part and name it from ConvertTemperature to CheckTemperature.
