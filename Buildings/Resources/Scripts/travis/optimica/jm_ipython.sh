@@ -99,7 +99,7 @@ DOCKER_FLAGS="\
 	-i \
 	$DOCKER_INTERACTIVE \
 	--detach=false \
-	${MOD_MOUNT} \
+    -v /home/travis/build/lbl-srg/modelica-buildings/Buildings:/mnt/home/travis/build/lbl-srg/modelica-buildings/Buildings \
 	${PYT_MOUNT} \
 	-v ${sha_dir}:/home/devloper \
 	-e DISPLAY=${DISPLAY} \
