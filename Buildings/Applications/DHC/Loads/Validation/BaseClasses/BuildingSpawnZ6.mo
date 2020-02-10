@@ -110,7 +110,7 @@ model BuildingSpawnZ6
     nPorts_a1=nZon,
     nPorts_b1=nZon)
     "Chilled water distribution system"
-    annotation (Placement(transformation(extent={{-180, -230},{-160,-210}})));
+    annotation (Placement(transformation(extent={{-160,-230},{-140,-210}})));
 equation
   connect(maxTSet.y,from_degC2.u)
     annotation (Line(points={{-278,220},{-262,220}}, color={0,0,127}));
@@ -146,11 +146,12 @@ equation
     annotation (Line(points={{-216,-178},{260,-178},{260,0},{300,0}},
                                       color={0,127,255}));
   connect(ports_a[2], disFloCoo.port_a) annotation (Line(points={{-300,0},{-280,
-          0},{-280,-220},{-180,-220}},  color={0,127,255}));
-  connect(disFloCoo.port_b, ports_b[2]) annotation (Line(points={{-160,-220},{280,
-          -220},{280,0},{300,0}},   color={0,127,255}));
+          0},{-280,-220},{-160,-220}},  color={0,127,255}));
+  connect(disFloCoo.port_b, ports_b[2]) annotation (Line(points={{-140,-220},{
+          280,-220},{280,0},{300,0}},
+                                    color={0,127,255}));
   connect(from_degC1.y, terUni.TSetHea) annotation (Line(points={{-238,260},{
-          -162,260},{-162,18},{-141,18}},
+          -162,260},{-162,16},{-141,16}},
                                     color={0,0,127}));
   connect(from_degC2.y, terUni.TSetCoo) annotation (Line(points={{-238,220},{
           -162,220},{-162,14},{-141,14}},
@@ -183,16 +184,18 @@ equation
           {-40,0},{-40,-172},{-216,-172}},  color={0,127,255}));
   connect(disFloHea.ports_b1, terUni.port_aHeaWat) annotation (Line(points={{-236,-172},
           {-260,-172},{-260,0},{-140,0}},        color={0,127,255}));
-  connect(disFloCoo.ports_b1, terUni.port_aChiWat) annotation (Line(points={{-180,-214},
-          {-260,-214},{-260,2},{-140,2}},      color={0,127,255}));
+  connect(disFloCoo.ports_b1, terUni.port_aChiWat) annotation (Line(points={{-160,
+          -214},{-260,-214},{-260,2},{-140,2}},color={0,127,255}));
   connect(terUni.port_bChiWat, disFloCoo.ports_a1) annotation (Line(points={{-116,2},
-          {-38,2},{-38,-214},{-160,-214}}, color={0,127,255}));
+          {-38,2},{-38,-214},{-140,-214}}, color={0,127,255}));
   connect(terUni.mReqChiWat_flow, disFloCoo.mReq_flow) annotation (Line(points={{-115,4},
-          {-115,-110.5},{-181,-110.5},{-181,-224}},       color={0,0,127}));
+          {-104,4},{-104,-80},{-180,-80},{-180,-224},{-161,-224}},
+                                                          color={0,0,127}));
   connect(terUni.mReqHeaWat_flow, disFloHea.mReq_flow) annotation (Line(points={{-115,6},
-          {-115,-88.5},{-237,-88.5},{-237,-182}},       color={0,0,127}));
-  connect(terUni.PFan, mulSum.u[1:6]) annotation (Line(points={{-115,10},{-102,
-          10},{-102,12},{-90,12},{-90,220},{220,220},{220,118.333},{258,118.333}},
+          {-100,6},{-100,-90.5},{-237,-90.5},{-237,-182}},
+                                                        color={0,0,127}));
+  connect(terUni.PFan, mulSum.u[1:6]) annotation (Line(points={{-115,10},{-100,
+          10},{-100,220},{220,220},{220,118.333},{258,118.333}},
                                               color={0,0,127}));
   connect(mulSum.y, PFan) annotation (Line(points={{282,120},{302,120},{302,120},
           {320,120}}, color={0,0,127}));
@@ -201,14 +204,32 @@ equation
                                                  color={0,0,127}));
   connect(disFloHea.PPum, mulSum3.u[1]) annotation (Line(points={{-215,-186},{
           220.5,-186},{220.5,81},{258,81}}, color={0,0,127}));
-  connect(disFloCoo.PPum, mulSum3.u[2]) annotation (Line(points={{-159,-228},{
+  connect(disFloCoo.PPum, mulSum3.u[2]) annotation (Line(points={{-139,-228},{
           224,-228},{224,79},{258,79}}, color={0,0,127}));
   connect(disFloHea.QActTot_flow, QHea_flow) annotation (Line(points={{-215,
           -184},{-2,-184},{-2,-182},{212,-182},{212,280},{320,280}}, color={0,0,
           127}));
-  connect(disFloCoo.QActTot_flow, QCoo_flow) annotation (Line(points={{-159,
+  connect(disFloCoo.QActTot_flow, QCoo_flow) annotation (Line(points={{-139,
           -226},{28,-226},{28,-224},{216,-224},{216,240},{320,240}}, color={0,0,
           127}));
+  connect(znAttic.TAir, terUni[1].TSen) annotation (Line(points={{65,117.8},{72,
+          118},{80,118},{80,160},{-152,160},{-152,12},{-141,12}}, color={0,0,
+          127}));
+  connect(znCore_ZN.TAir, terUni[2].TSen) annotation (Line(points={{65,75.8},{
+          65,76},{80,76},{80,160},{-152,160},{-152,12},{-141,12}}, color={0,0,
+          127}));
+  connect(znPerimeter_ZN_1.TAir, terUni[3].TSen) annotation (Line(points={{65,
+          33.8},{72,33.8},{72,34},{80,34},{80,160},{-152,160},{-152,12},{-141,
+          12}}, color={0,0,127}));
+  connect(znPerimeter_ZN_2.TAir, terUni[4].TSen) annotation (Line(points={{65,
+          -6.2},{80,-6.2},{80,-140},{-152,-140},{-152,12},{-141,12}}, color={0,
+          0,127}));
+  connect(znPerimeter_ZN_3.TAir, terUni[5].TSen) annotation (Line(points={{65,
+          -46.2},{80,-46.2},{80,-140},{-152,-140},{-152,12},{-141,12}}, color={
+          0,0,127}));
+  connect(znPerimeter_ZN_4.TAir, terUni[6].TSen) annotation (Line(points={{65,
+          -86.2},{80,-86.2},{80,-140},{-152,-140},{-152,12},{-141,12}}, color={
+          0,0,127}));
   annotation (
   Documentation(info="
   <html>

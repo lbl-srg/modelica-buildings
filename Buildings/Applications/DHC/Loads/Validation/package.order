@@ -8,4 +8,5 @@ CouplingSpawnZ6
 CouplingTimeSeries
 FlowDistributionCO
 HeatExchanger
+ScalingTerminalUnit
 BaseClasses

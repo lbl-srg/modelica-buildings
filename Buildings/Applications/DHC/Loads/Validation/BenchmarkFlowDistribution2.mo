@@ -9,7 +9,7 @@ model BenchmarkFlowDistribution2
   parameter String filPat=
     "modelica://Buildings/Applications/DHC/Examples/Resources/SwissResidential_20190916.mos"
     "Library path of the file with thermal loads as time series";
-  parameter Integer nLoa=10
+  parameter Integer nLoa=25
     "Number of served loads";
   parameter Modelica.SIunits.Temperature T_aHeaWat_nominal(
     min=273.15, displayUnit="degC") = 273.15 + 40
@@ -37,10 +37,10 @@ model BenchmarkFlowDistribution2
     sum(dis.con.pipDisRet.dp_nominal) +
     max(terUniHea.dp_nominal)
     "Nominal pressure drop in the distribution line";
-  final parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(min=Modelica.Constants.eps)=
-    Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
-    string="#Peak space heating load",
-    filNam=Modelica.Utilities.Files.loadResource(filPat))
+  final parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal=
+    Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
+      string="#Peak space heating load",
+      filNam=Modelica.Utilities.Files.loadResource(filPat))
     "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Design parameter"));
   BaseClasses.FanCoil2PipesHeatingValve terUniHea[nLoa](
@@ -84,28 +84,14 @@ model BenchmarkFlowDistribution2
         rotation=0,
         origin={-50,-80})));
    Validation.BaseClasses.Distribution2Pipes dis(
-     redeclare package Medium = Medium1,
+     redeclare final package Medium = Medium1,
      nCon=nLoa,
-    allowFlowReversal=false,
+     allowFlowReversal=false,
      mDis_flow_nominal={sum(terUniHea[i:nLoa].mHeaWat_flow_nominal) for i in 1:nLoa},
      mCon_flow_nominal=terUniHea.mHeaWat_flow_nominal,
      mEnd_flow_nominal=1,
-     dpDis_nominal=fill(1500, nLoa),
-     dpCon_nominal=fill(500, nLoa),
-     dpEnd_nominal=0)
+     dpDis_nominal=fill(1500, nLoa))
      annotation (Placement(transformation(extent={{40,-90},{80,-70}})));
-//     DHC.Examples.FifthGeneration.Unidirectional.Networks.UnidirectionalParallel dis(
-//       redeclare package Medium = Medium1,
-//       nCon=nLoa,
-//       allowFlowReversal=true,
-//       mDis_flow_nominal={sum(terUniHea[i:nLoa].mHeaWat_flow_nominal) for i in 1:nLoa},
-//       mCon_flow_nominal=terUniHea.mHeaWat_flow_nominal,
-//       mEnd_flow_nominal=1,
-//       lDis=fill(10, nLoa),
-//       lCon=fill(3, nLoa),
-//       dhDis=fill(0.15, nLoa),
-//       dhCon=fill(0.1, nLoa))
-//       annotation (Placement(transformation(extent={{40,-90},{80,-70}})));
   Fluid.Movers.FlowControlled_dp pum(
     redeclare package Medium = Medium1,
     per(final motorCooledByFluid=false),
@@ -143,9 +129,10 @@ equation
   connect(from_degC1.y, reaRep.u)
     annotation (Line(points={{-38,70},{-22,70}}, color={0,0,127}));
   connect(reaRep.y, terUniHea.TSetHea) annotation (Line(points={{2,70},{20,70},
-          {20,46.6667},{49.1667,46.6667}},color={0,0,127}));
+          {20,45},{49.1667,45}},          color={0,0,127}));
   connect(reaRep1.y, terUniHea.QReqHea_flow) annotation (Line(points={{-38,0},{
-          0,0},{0,40},{49.1667,40}}, color={0,0,127}));
+          0,0},{0,38.3333},{49.1667,38.3333}},
+                                     color={0,0,127}));
   connect(THeaWatSup.y, supHeaWat.T_in) annotation (Line(points={{-79,-80},{-72,
           -80},{-72,-76},{-62,-76}}, color={0,0,127}));
   connect(terUniHea.port_bHeaWat, dis.ports_aCon) annotation (Line(points={{70,
@@ -164,8 +151,8 @@ equation
           -40,-80},{-19,-80}},           color={0,127,255}));
     annotation (Placement(transformation(extent={{40,-90},{80,-70}})),
     experiment(
-      StopTime=4E6,
-      __Dymola_NumberOfIntervals=500,
+      StopTime=4000000,
+      __Dymola_NumberOfIntervals=5000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

@@ -117,7 +117,6 @@ model HeatExchanger
     redeclare final package Medium2 = Medium2,
     show_T=true,
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
-
     T_a1_nominal=T_a1_nominal,
     T_a2_nominal=T_a2_nominal,
     Q_flow_nominal=Q_flow_nominal,
@@ -126,12 +125,12 @@ model HeatExchanger
     dp1_nominal=0,
     dp2_nominal=0)
     annotation (Placement(transformation(extent={{-10,-36},{10,-16}})));
+
   Fluid.HeatExchangers.DryCoilEffectivenessNTU hex3(
     redeclare final package Medium1 = Medium1,
     redeclare final package Medium2 = Medium2,
     show_T=true,
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
-
     T_a1_nominal=T_a1_nominal,
     T_a2_nominal=T_a2_nominal,
     Q_flow_nominal=Q_flow_nominal,
@@ -140,6 +139,7 @@ model HeatExchanger
     dp1_nominal=0,
     dp2_nominal=0)
     annotation (Placement(transformation(extent={{-10,-76},{10,-56}})));
+
   Fluid.Sources.MassFlowSource_T sou_m1_flow1(
     redeclare each final package Medium = Medium1,
     use_m_flow_in=true,

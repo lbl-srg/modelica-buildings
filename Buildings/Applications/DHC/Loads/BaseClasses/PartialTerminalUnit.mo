@@ -16,7 +16,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
   parameter Boolean allowFlowReversal = false
     "Set to true to allow flow reversal on the source side."
     annotation(tab="Assumptions", Evaluate=true);
-  parameter Integer facSca = 1
+  parameter Real facSca = 1
     "Scaling factor to be applied to each extensive quantity";
   parameter Boolean have_watHea = false
     "Set to true if the system has a heating water based heat exchanger"
@@ -38,6 +38,9 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     annotation(Evaluate=true);
   parameter Boolean have_fluPor = false
     "Set to true for fluid ports on the load side"
+    annotation(Evaluate=true);
+  parameter Boolean have_TSen = false
+    "Set to true for sensed temperature as an input"
     annotation(Evaluate=true);
   parameter Boolean have_QReq_flow = false
     "Set to true for required heat flow rate as an input"
@@ -131,6 +134,17 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
     annotation (Dialog(tab="Dynamics", group="Nominal condition"));
   // IO connectors
+  Modelica.Blocks.Interfaces.RealInput TSen(
+    final quantity="ThermodynamicTemperature", final displayUnit="degC") if
+    have_TSen
+    "Temperature (sensed)"
+    annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={-220,140}), iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-130,20})));
   Modelica.Blocks.Interfaces.RealInput TSetHea(
     quantity="ThermodynamicTemperature",
     displayUnit="degC") if have_watHea or have_chaOve or have_eleHea
@@ -141,7 +155,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
         origin={-220,220}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-130,80})));
+        origin={-130,60})));
   Modelica.Blocks.Interfaces.RealInput TSetCoo(
     quantity="ThermodynamicTemperature",
     displayUnit="degC") if have_watCoo or have_eleCoo
@@ -161,10 +175,10 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
       Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-220,140}), iconTransformation(
+        origin={-220,100}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-130,0})));
+        origin={-130,-20})));
   Modelica.Blocks.Interfaces.RealInput QReqCoo_flow(
     quantity="HeatFlowRate") if
     have_QReq_flow and (have_watCoo or have_eleCoo)
@@ -172,10 +186,10 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-220,100}), iconTransformation(
+        origin={-220,60}),  iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-130,-40})));
+        origin={-130,-42})));
   Modelica.Blocks.Interfaces.RealOutput QActHea_flow(
     quantity="HeatFlowRate") if have_watHea or have_chaOve or have_eleHea
     "Heat flow rate transferred to the load for heating (>=0)"
@@ -244,7 +258,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
       iconTransformation(extent={{30,-10},{50,10}})));
   BoundaryConditions.WeatherData.Bus weaBus if have_weaBus
     "Weather data bus"
-    annotation (Placement(transformation(extent={{-216,44},{-182,76}}),
+    annotation (Placement(transformation(extent={{-16,224},{18,256}}),
       iconTransformation(extent={{-18,104},{16,136}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aHeaWat(
     p(start=Medium1.p_default),
@@ -282,11 +296,11 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
   Buildings.Controls.OBC.CDL.Continuous.Gain scaQReqHea_flow(k=1/facSca) if
     have_QReq_flow and (have_watHea or have_chaOve or have_eleHea)
     "Scaling"
-    annotation (Placement(transformation(extent={{-180,130},{-160,150}})));
+    annotation (Placement(transformation(extent={{-180,90},{-160,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain scaQReqCoo_flow(k=1/facSca) if
     have_QReq_flow and (have_watCoo or have_eleCoo)
     "Scaling"
-    annotation (Placement(transformation(extent={{-180,90},{-160,110}})));
+    annotation (Placement(transformation(extent={{-180,50},{-160,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain scaQActHea_flow(k=facSca) if
     have_watHea or have_chaOve or have_eleHea
     "Scaling"
@@ -337,11 +351,11 @@ protected
 equation
   if have_QReq_flow and (have_watHea or have_chaOve or have_eleHea) then
     connect(QReqHea_flow, scaQReqHea_flow.u)
-      annotation (Line(points={{-220,140},{-182,140}}, color={0,0,127}));
+      annotation (Line(points={{-220,100},{-182,100}}, color={0,0,127}));
   end if;
   if have_QReq_flow and (have_watCoo or have_eleCoo) then
     connect(QReqCoo_flow, scaQReqCoo_flow.u)
-      annotation (Line(points={{-220,100},{-182,100}}, color={0,0,127}));
+      annotation (Line(points={{-220,60},{-182,60}},   color={0,0,127}));
   end if;
   if have_watHea or have_chaOve or have_eleHea then
     connect(scaQActHea_flow.y, QActHea_flow)
