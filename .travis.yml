@@ -68,24 +68,24 @@ env:
 #  - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Utilities\""
 #  - TEST_ARG="make test-jmodelica PACKAGE=\"Buildings.Utilities\""
 
-before_install:
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - if [[ "$TEST_ARG" == *test-dymola* ]]; then
-       docker pull "$DOCKER_USERNAME"/travis_ubuntu-1804_dymola-2020x-x86_64;
-       chmod +x Buildings/Resources/Scripts/travis/dymola/dymola;
-       cp Buildings/Resources/Scripts/travis/dymola/dymola $HOME/bin/;
-    fi;
-  - if [[ "$TEST_ARG" == *test-optimica* ]]; then
-      echo "Skipping download"
+#before_install:
+#  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+#  - if [[ "$TEST_ARG" == *test-dymola* ]]; then
+#       docker pull "$DOCKER_USERNAME"/travis_ubuntu-1804_dymola-2020x-x86_64;
+#       chmod +x Buildings/Resources/Scripts/travis/dymola/dymola;
+#       cp Buildings/Resources/Scripts/travis/dymola/dymola $HOME/bin/;
+#    fi;
+#  - if [[ "$TEST_ARG" == *test-optimica* ]]; then
+#      echo "Skipping download"
 #       docker pull "$DOCKER_USERNAME"/travis-ubuntu-1804-optimica;
 #       chmod +x Buildings/Resources/Scripts/travis/optimica/jm_ipython.sh;
 #       cp Buildings/Resources/Scripts/travis/optimica/jm_ipython.sh $HOME/bin/jm_ipython.sh;
-    fi;
-  - if [[ "$TEST_ARG" == *test-jmodelica* ]]; then
-       docker pull "$DOCKER_USERNAME"/ubuntu-1804_jmodelica_trunk;
-       chmod +x Buildings/Resources/Scripts/travis/jmodelica/jm_ipython.sh;
-       cp Buildings/Resources/Scripts/travis/jmodelica/jm_ipython.sh $HOME/bin/jm_ipython.sh;
-    fi;
+#    fi;
+#  - if [[ "$TEST_ARG" == *test-jmodelica* ]]; then
+#       docker pull "$DOCKER_USERNAME"/ubuntu-1804_jmodelica_trunk;
+#       chmod +x Buildings/Resources/Scripts/travis/jmodelica/jm_ipython.sh;
+#       cp Buildings/Resources/Scripts/travis/jmodelica/jm_ipython.sh $HOME/bin/jm_ipython.sh;
+#    fi;
 
 # Install dependencies
 # For sphinx, we need to install specific package versions, otherwise
