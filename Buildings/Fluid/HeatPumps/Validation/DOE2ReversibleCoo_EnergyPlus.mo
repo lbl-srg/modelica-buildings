@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatPumps.Validation;
-model DOE2Reversible_EnergyPlus "Validation with EnergyPlus model"
+model DOE2ReversibleCoo_EnergyPlus "Validation with EnergyPlus model"
 
   package Medium = Buildings.Media.Water "Medium model";
 
@@ -45,29 +45,29 @@ model DOE2Reversible_EnergyPlus "Validation with EnergyPlus model"
       nPorts=1) "Volume for cooling load"
     annotation (Placement(transformation(extent={{100,40},{80,60}})));
 
-  Modelica.Blocks.Sources.CombiTimeTable datRea(
+  Modelica.Blocks.Sources.CombiTimeTable datReaC(
     tableOnFile=true,
-    fileName=ModelicaServices.ExternalReferences.loadResource(
-     "modelica://Buildings//Resources/Data/Fluid/HeatPumps/Validation/DOE2Reversible_EnergyPlus/modelica.csv"),
+    fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings//Resources/Data/Fluid/HeatPumps/Validation/DOE2Reversible_EnergyPlus/modelicaC.csv"),
     columns=2:18,
-    tableName="modelica",
+    tableName="modelicaC",
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
-      annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
-  Modelica.Blocks.Sources.RealExpression P_EP(y=datRea.y[4])
+    annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
+
+  Modelica.Blocks.Sources.RealExpression PCoo_EP(y=datReaC.y[4])
     "EnergyPlus results: compressor power "
-      annotation (Placement(transformation(extent={{-114,-54},{-94,-34}})));
+    annotation (Placement(transformation(extent={{-114,-54},{-94,-34}})));
   Controls.OBC.CDL.Continuous.Sources.Constant TEvaLvgMin(k=5 + 273.15)
     "Minimum evaporator leaving water temperature "
       annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   Controls.OBC.CDL.Continuous.Sources.Constant TEvaLvgMax(k=10 + 273.15)
     "Maximum evaporator leaving water temperature"
       annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  Modelica.Blocks.Sources.RealExpression QLoa_flow_EP(y=-1*datRea.y[6])
+  Modelica.Blocks.Sources.RealExpression QLoa_flow_EP(y=-1*datReaC.y[6])
     "EnergyPlus results: load side heat flow rate"
-      annotation (Placement(transformation(extent={{-114,-72},{-94,-52}})));
+    annotation (Placement(transformation(extent={{-114,-72},{-94,-52}})));
   Modelica.Blocks.Math.RealToInteger realToInteger1
       annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Modelica.Blocks.Sources.RealExpression QSou_flow_EP(y=1*datRea.y[11])
+  Modelica.Blocks.Sources.RealExpression QSou_flow_EP(y=1*datReaC.y[11])
     "EnergyPlus results: source side heat flow rate"
     annotation (Placement(transformation(extent={{-114,-90},{-94,-70}})));
 equation
@@ -80,13 +80,13 @@ equation
   connect(heaPum.TSouMinLvg,TEvaLvgMin. y)
     annotation (Line(points={{29,27},{18,
           27},{18,-30},{2,-30}}, color={0,0,127}));
-  connect(datRea.y[1], realToInteger1.u)
+  connect(datReaC.y[1], realToInteger1.u)
     annotation (Line(points={{-99,50},{-62,50}}, color={0,0,127}));
-  connect(datRea.y[8], loaPum.T_in) annotation (Line(points={{-99,50},{-80,50},
+  connect(datReaC.y[8], loaPum.T_in) annotation (Line(points={{-99,50},{-80,50},
           {-80,96},{-22,96}}, color={0,0,127}));
-  connect(datRea.y[15], souPum.T_in) annotation (Line(points={{-99,50},{-80,50},
+  connect(datReaC.y[15], souPum.T_in) annotation (Line(points={{-99,50},{-80,50},
           {-80,-88},{102,-88},{102,6},{82,6}}, color={0,0,127}));
-  connect(datRea.y[9], heaPum.TSet) annotation (Line(points={{-99,50},{-80,50},
+  connect(datReaC.y[9], heaPum.TSet) annotation (Line(points={{-99,50},{-80,50},
           {-80,76},{6,76},{6,39},{29,39}}, color={0,0,127}));
   connect(souPum.ports[1], heaPum.port_a2) annotation (Line(points={{60,10},{54,
           10},{54,24},{50,24}}, color={0,127,255}));
@@ -96,7 +96,7 @@ equation
           36},{58,50},{80,50}}, color={0,127,255}));
   connect(heaPum.port_a1, loaPum.ports[1]) annotation (Line(points={{30,36},{22,
           36},{22,100},{-1.77636e-15,100}}, color={0,127,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},
+annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},
             {120,120}}),
                graphics={
         Ellipse(lineColor = {75,138,73},
@@ -110,30 +110,26 @@ equation
                 points={{-30,64},{70,4},{-30,-56},{-30,64}})}),
         Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{120,120}})),
-                 __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/DOE2_EnergyPlus.mos"
+                 __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/DOE2_EnergyPlusCoo.mos"
         "Simulate and plot"),
     experiment(StopTime=3000, Tolerance=1e-06),
 Documentation(info="<html>
 <p>
 This model implements a comparative model validation of
-<a href=\"Buildings.Fluid.HeatPumps.EquationFitReversible\">
-Buildings.Fluid.HeatPumps.EquationFitReversible</a>
-against results obtained using EnergyPlus 9.1.
+<a href=\"Buildings.Fluid.HeatPumps.DOE2Reversible\">
+Buildings.Fluid.HeatPumps.DOE2Reversible</a>
+against results obtained using EnergyPlus 9.2.
 <p>
-The EnergyPlus results were generated using the example file <code>GSHPSimple-GLHE-ReverseHeatPump.idf</code>
-from EnergyPlus 9.1, with a nominal cooling capacity of <i>39890</i> Watts and
-nominal heating capacity of <i>39040</i> Watts.
+The EnergyPlus results were generated using the example file 
+<code>CentralChillerHeaterSystem_Cooling_Heating.idf</code>
+from EnergyPlus 9.2, with a nominal cooling capacity of <i>12500</i> Watts.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-September 17, 2019, by Michael Wetter:<br/>
-Revised implementation.
-</li>
-<li>
-May 3, 2019, by Hagar Elarga:<br/>
+February 10, 2020, by Hagar Elarga:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
-end DOE2Reversible_EnergyPlus;
+end DOE2ReversibleCoo_EnergyPlus;

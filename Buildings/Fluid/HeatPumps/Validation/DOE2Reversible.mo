@@ -150,8 +150,8 @@ equation
           2},{20,-60},{-80,-60}}, color={0,127,255}));
   connect(loaPum.ports[1], chiDOE2.port_a1) annotation (Line(points={{80,70},{
           84,70},{84,50},{32,50},{32,14},{40,14}}, color={0,127,255}));
-     annotation (Icon(coordinateSystem(preserveAspectRatio=false),
-                               graphics={
+annotation (Icon(coordinateSystem(preserveAspectRatio=false),
+      graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
                 fillPattern = FillPattern.Solid,

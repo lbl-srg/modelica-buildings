@@ -195,7 +195,7 @@ equation
 
     // QAva_flow is always at the evaporator, hence this is for COPCoo
     P = Buildings.Utilities.Math.Functions.smoothMax(
-      x1 = (-QAva_flow*PLR1*CR/per.COPCoo_nominal) * EIRFT*EIRFPLR,
+      x1 = (-QAva_flow*CR/per.COPCoo_nominal) * EIRFT*EIRFPLR,
       x2 = Q_flow_small,
       deltaX = Q_flow_small/10);
     QFalLoa_flow = QAva_flow*PLR2*CR - QAct_flow;
@@ -209,7 +209,7 @@ equation
   if (uMod == +1) then
     // Heating mode
     Q2_flow = QAct_flow;
-    Q1_flow = -Q2_flow + P;
+    Q1_flow = -Q2_flow + (P *powRat);
   elseif (uMod==-1) then
     // Cooling mode
     Q1_flow = QAct_flow;
@@ -218,8 +218,6 @@ equation
     Q2_flow = 0;
     Q1_flow = 0;
   end if;
-
-
 annotation (
 defaultComponentName="doe2",
 Documentation(info="<html>

@@ -5,7 +5,8 @@ Carnot_TCon_reverseFlow
 Carnot_y_etaCar
 Carnot_y_etaPL
 DOE2Reversible
-DOE2Reversible_EnergyPlus
+DOE2ReversibleCoo_EnergyPlus
+DOE2Reversible_ScalingFactor
 EquationFitReversible_EnergyPlus
 EquationFitReversible_ScalingFactor
 ReciprocatingWaterToWater_Dynamic
