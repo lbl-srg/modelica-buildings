@@ -118,7 +118,6 @@ docker run ${DOCKER_FLAGS} /bin/bash -c \
   "export MODELICAPATH=${DOCKER_MODELICAPATH}:/opt/oct/ThirdParty/MSL && \
    export PYTHONPATH=${DOCKER_PYTHONPATH} && \
   cd /mnt/shared/${bas_nam} && \
-  alias ipython=ipython3 && \
   /opt/oct/bin/jm_ipython.sh ${arg_lis}"
 retVal=$?
 echo "*** dir is `pwd`"
