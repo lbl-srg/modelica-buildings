@@ -39,7 +39,7 @@ test-dymola:
 test-optimica:
 	(cd $(ROOT)/Buildings && \
 	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/Buildings/Resources/Python-Sources && \
-	  cd $(ROOT) && \
+	  cd .. && \
 	  echo "In makefile, pwd is `pwd`" && \
 	  echo "In makefile, ls -lhtr is" && \
 	  ls -lhtr && \
