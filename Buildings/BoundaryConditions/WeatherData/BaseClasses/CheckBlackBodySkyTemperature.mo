@@ -20,9 +20,9 @@ block CheckBlackBodySkyTemperature
 
 equation
   TOut = TIn;
-  assert(TOut > TMin, "Temperature out of bounds.\n" + "   TOut = " + String(
+  assert(TOut > TMin, "In " + getInstanceName() + ": Weather data black-body sky temperature out of bounds.\n" + "   TOut = " + String(
     TOut));
-  assert(TOut < TMax, "Temperature out of bounds.\n" + "   TOut = " + String(
+  assert(TOut < TMax, "In " + getInstanceName() + ": Weather data black-body sky temperature out of bounds.\n" + "   TOut = " + String(
     TOut));
 
   annotation (
@@ -35,6 +35,10 @@ the simulation will stop with an error.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 31, 2020 by Filip Jorissen:<br/>
+Improved error message.
+</li>
 <li>
 January 5, 2015 by Michael Wetter:<br/>
 First implementation, based on

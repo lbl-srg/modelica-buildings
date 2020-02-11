@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant;
 package SetPoints
+
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains chilled water plant reset control sequences.
@@ -21,5 +22,4 @@ The implementation is based on section 5.2.5.2. in ASHRAE RP-1711, Draft 6 (July
         extent={{-100,100},{100,-100}},
         lineColor={0,0,0},
         textString="S")}));
-
 end SetPoints;
