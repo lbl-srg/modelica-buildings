@@ -117,12 +117,9 @@ ls -lhtr .
 echo "**************************"
 docker run ${DOCKER_FLAGS} /bin/bash -c \
   "export MODELICAPATH=${DOCKER_MODELICAPATH}:/opt/oct/ThirdParty/MSL && \
-   export PYTHONPATH=${DOCKER_PYTHONPATH} && \
-   ls -la /home/developer > /home/developer/diagnostics.txt && \
-   pwd >> /home/developer/diagnostics.txt && \
-   cd /home/developer && \
+   export PYTHONPATH=${DOCKER_PYTHONPATH} &&
    alias ipython=ipython3 && \
-   echo \"Directory is\" && \
+   echo \"Directory in Docker is\" && \
    echo `pwd` && \
    /opt/oct/bin/jm_ipython.sh ${arg_lis}"
 retVal=$?
