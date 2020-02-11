@@ -97,11 +97,12 @@ DOCKER_FLAGS="\
     --detach=false \
     --rm \
 	--user=developer \
-    --mount 'type=bind,src=/home/travis/build/lbl-srg,dst=/mnt/shared' \
+    -v /home/travis/build/lbl-srg:/mnt/shared \
     -e DISPLAY=${DISPLAY} \
     -w /mnt/shared/lbl-srg \
     nginx:latest"
 
+#    --mount 'type=bind,src=/home/travis/build/lbl-srg,dst=/mnt/shared' \
 #    --mac-address=${OPTIMICA_MAC_ADDRESS} \
 #	--mount 'type=bind,src=/tmp/.X11-unix,dst=/tmp/.X11-unix' \
 #    -v ${sha_dir}:/mnt/shared \
