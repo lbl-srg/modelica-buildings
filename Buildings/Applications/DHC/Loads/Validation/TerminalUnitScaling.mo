@@ -6,7 +6,7 @@ model TerminalUnitScaling
     "Source side medium";
   package Medium2 = Buildings.Media.Air
     "Load side medium";
-  parameter Real facSca=30
+  parameter Real facSca=10
     "Scaling factor";
   parameter Modelica.SIunits.Temperature T_aHeaWat_nominal(
     min=273.15, displayUnit="degC") = 273.15 + 40
@@ -50,14 +50,14 @@ model TerminalUnitScaling
     "Heating water supply" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-70,80})));
+        origin={-50,80})));
   Buildings.Fluid.Sources.Boundary_pT sinHeaWat(
     redeclare package Medium = Medium1,
     p=300000,
     nPorts=2) "Sink for heating water" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={110,0})));
+        origin={90,0})));
   BaseClasses.FanCoil2PipeHeating terUniNoSca(
     have_speVar=false,
     redeclare package Medium1 = Medium1,
@@ -67,12 +67,12 @@ model TerminalUnitScaling
     final T_aHeaWat_nominal=T_aHeaWat_nominal,
     final T_bHeaWat_nominal=T_bHeaWat_nominal,
     final T_aLoaHea_nominal=T_aLoaHea_nominal) "Terminal unit no scaling"
-    annotation (Placement(transformation(extent={{-12,78},{12,102}})));
+    annotation (Placement(transformation(extent={{8,78},{32,102}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=20)
     "Minimum temperature setpoint"
-    annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
+    annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC1
-    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   BaseClasses.FanCoil2PipeHeating terUniSca(
     have_speVar=false,
     redeclare package Medium1 = Medium1,
@@ -83,7 +83,7 @@ model TerminalUnitScaling
     final T_aHeaWat_nominal=T_aHeaWat_nominal,
     final T_bHeaWat_nominal=T_bHeaWat_nominal,
     final T_aLoaHea_nominal=T_aLoaHea_nominal) "Terminal unit with scaling"
-    annotation (Placement(transformation(extent={{-14,-82},{10,-58}})));
+    annotation (Placement(transformation(extent={{6,-82},{30,-58}})));
   Fluid.Sources.MassFlowSource_T supHeaWat1(
     use_m_flow_in=true,
     redeclare package Medium = Medium1,
@@ -93,35 +93,36 @@ model TerminalUnitScaling
     "Heating water supply" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-70,-80})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(height=
+        origin={-50,-80})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(height=1.2*
         QHea_flow_nominal, duration=500)
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
+    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
 equation
   connect(terUniNoSca.mReqHeaWat_flow, supHeaWat.m_flow_in) annotation (Line(
-        points={{13,86},{20,86},{20,110},{-100,110},{-100,88},{-82,88}}, color={
+        points={{33,86},{40,86},{40,110},{-80,110},{-80,88},{-62,88}},   color={
           0,0,127}));
   connect(minTSet.y, from_degC1.u)
-    annotation (Line(points={{-98,40},{-82,40}}, color={0,0,127}));
-  connect(from_degC1.y, terUniNoSca.TSetHea) annotation (Line(points={{-58,40},{
-          -40,40},{-40,96},{-13,96}}, color={0,0,127}));
+    annotation (Line(points={{-78,40},{-62,40}}, color={0,0,127}));
+  connect(from_degC1.y, terUniNoSca.TSetHea) annotation (Line(points={{-38,40},
+          {-20,40},{-20,96},{7,96}},  color={0,0,127}));
   connect(supHeaWat.ports[1], terUniNoSca.port_aHeaWat)
-    annotation (Line(points={{-60,80},{-12,80}}, color={0,127,255}));
-  connect(terUniNoSca.port_bHeaWat, sinHeaWat.ports[1]) annotation (Line(points={{12,80},
-          {40,80},{40,2},{100,2}},         color={0,127,255}));
-  connect(terUniSca.port_bHeaWat, sinHeaWat.ports[2]) annotation (Line(points={{10,-80},
-          {40,-80},{40,-2},{100,-2}},         color={0,127,255}));
+    annotation (Line(points={{-40,80},{8,80}},   color={0,127,255}));
+  connect(terUniNoSca.port_bHeaWat, sinHeaWat.ports[1]) annotation (Line(points={{32,80},
+          {60,80},{60,2},{80,2}},          color={0,127,255}));
+  connect(terUniSca.port_bHeaWat, sinHeaWat.ports[2]) annotation (Line(points={{30,-80},
+          {60,-80},{60,-2},{80,-2}},          color={0,127,255}));
   connect(supHeaWat1.ports[1], terUniSca.port_aHeaWat)
-    annotation (Line(points={{-60,-80},{-14,-80}}, color={0,127,255}));
+    annotation (Line(points={{-40,-80},{6,-80}},   color={0,127,255}));
   connect(terUniSca.mReqHeaWat_flow, supHeaWat1.m_flow_in) annotation (Line(
-        points={{11,-74},{20,-74},{20,-100},{-100,-100},{-100,-72},{-82,-72}},
+        points={{31,-74},{40,-74},{40,-100},{-80,-100},{-80,-72},{-62,-72}},
         color={0,0,127}));
-  connect(from_degC1.y, terUniSca.TSetHea) annotation (Line(points={{-58,40},{-40,
-          40},{-40,-64},{-15,-64}}, color={0,0,127}));
-  connect(ram.y, terUniNoSca.QReqHea_flow) annotation (Line(points={{-98,0},{-20,
-          0},{-20,88},{-13,88}}, color={0,0,127}));
-  connect(ram.y, terUniSca.QReqHea_flow) annotation (Line(points={{-98,0},{-20,0},
-          {-20,-72},{-15,-72}}, color={0,0,127}));
+  connect(from_degC1.y, terUniSca.TSetHea) annotation (Line(points={{-38,40},{
+          -20,40},{-20,-64},{5,-64}},
+                                    color={0,0,127}));
+  connect(ram.y, terUniNoSca.QReqHea_flow) annotation (Line(points={{-78,0},{0,
+          0},{0,88},{7,88}},     color={0,0,127}));
+  connect(ram.y, terUniSca.QReqHea_flow) annotation (Line(points={{-78,0},{0,0},
+          {0,-72},{5,-72}},     color={0,0,127}));
   annotation (
   experiment(
       StopTime=1000,
@@ -141,5 +142,7 @@ equation
   </html>"),
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
-  __Dymola_Commands);
+  __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/TerminalUnitScaling.mos"
+        "Simulate and plot"));
 end TerminalUnitScaling;
