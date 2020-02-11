@@ -3,5 +3,6 @@ BenchmarkFlowDistribution2
 FlowDistributionChangeOver
 FlowDistributionPumpControl
 HeatExchanger
-ScalingTerminalUnit
+TerminalUnitScaling
+SimpleRoomODE
 BaseClasses

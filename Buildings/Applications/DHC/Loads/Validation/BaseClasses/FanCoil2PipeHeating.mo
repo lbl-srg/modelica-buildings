@@ -7,6 +7,13 @@ model FanCoil2PipeHeating
     final have_watHea=true,
     final have_watCoo=false,
     final have_QReq_flow=true,
+    final allowFlowReversal=false,
+    final have_chaOve=false,
+    final have_eleHea=false,
+    final have_eleCoo=false,
+    final have_TSen=false,
+    final have_weaBus=false,
+    final have_pum=false,
     final mHeaWat_flow_nominal=abs(QHea_flow_nominal/cpHeaWat_nominal/(
       T_aHeaWat_nominal - T_bHeaWat_nominal)));
   import hexConfiguration = Buildings.Fluid.Types.HeatExchangerConfiguration;
@@ -73,11 +80,10 @@ model FanCoil2PipeHeating
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={150,0})));
-  Buildings.Applications.DHC.Loads.BaseClasses.FirstOrderODE TLoaODE(
+  Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoomODE TLoaODE(
     TOutHea_nominal=273.15 - 5,
     TIndHea_nominal=T_aLoaHea_nominal,
-    QHea_flow_nominal=QHea_flow_nominal,
-    Q_flow_nominal=QHea_flow_nominal)
+    QHea_flow_nominal=QHea_flow_nominal)
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaFlo(k=1/QHea_flow_nominal)
     annotation (Placement(transformation(extent={{-40,210},{-20,230}})));
@@ -119,7 +125,7 @@ equation
   connect(TSetHea, TLoaODE.TSet)
     annotation (Line(points={{-220,220},{-120,220},{-120,48},{-12,48}},
                                                      color={0,0,127}));
-  connect(TLoaODE.TInd, retAir.T_in) annotation (Line(points={{12,40},{180,40},{
+  connect(TLoaODE.TAir, retAir.T_in) annotation (Line(points={{12,40},{180,40},{
           180,4},{162,4}}, color={0,0,127}));
   connect(gaiHeaFlo.y, con.u_s)
     annotation (Line(points={{-18,220},{-12,220}}, color={0,0,127}));
@@ -145,6 +151,6 @@ equation
           150,220},{150,160},{-20,160},{-20,32},{-12,32}}, color={0,0,127}));
   connect(scaHeaWatFloInl.port_b, hex.port_a1) annotation (Line(points={{-160,
           -220},{-120,-220},{-120,-12},{-80,-12}}, color={0,127,255}));
-  connect(hex.port_b1, scaHeaWatFloOut.port_a) annotation (Line(points={{-60,
-          -12},{-38,-12},{-38,-220},{162,-220}}, color={0,127,255}));
+  connect(hex.port_b1, scaHeaWatFloOut.port_a) annotation (Line(points={{-60,-12},
+          {-38,-12},{-38,-220},{160,-220}},      color={0,127,255}));
 end FanCoil2PipeHeating;

@@ -2,7 +2,8 @@ within Buildings.Applications.DHC.Loads.Validation.BaseClasses;
 model FanCoil4PipeFluidPorts
   extends PartialFanCoil4Pipe(
     final have_TSen=true,
-    final have_fluPor=true);
+    final have_fluPor=true,
+    final have_heaPor=false);
 equation
   connect(hexHea.port_b2, port_bLoa)
     annotation (Line(points={{-80,0},{-200,0}}, color={0,127,255}));

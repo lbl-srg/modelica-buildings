@@ -1,23 +1,21 @@
 ﻿within Buildings.Applications.DHC.Loads.BaseClasses;
-model FirstOrderODE
+model SimpleRoomODE
   "Simplified first order ODE model for computing indoor temperature"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.SIunits.Temperature TOutHea_nominal(displayUnit="degC")
-    "Outdoor temperature at heating nominal conditions"
+  parameter Modelica.SIunits.Temperature TOutHea_nominal(final displayUnit="degC")
+    "Outdoor air temperature at heating nominal conditions"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.Temperature TIndHea_nominal(displayUnit="degC")
-    "Indoor temperature at heating nominal conditions"
+  parameter Modelica.SIunits.Temperature TIndHea_nominal(final displayUnit="degC")
+    "Indoor air temperature at heating nominal conditions"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal
-    "Heating (>=0) heat flow rate at nominal conditions"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = QHea_flow_nominal
-    "Heating (>=0) or cooling (<=0) heat flow rate at nominal conditions"
+  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(min=0)
+    "Heating heat flow rate (for TInd=TIndHea_nominal, TOut=TOutHea_nominal,
+    with no internal gains, no solar radiation)"
     annotation(Dialog(group = "Nominal condition"));
   parameter Boolean steadyStateInitial = false
     "true initializes T with dT(0)/dt=0, false initializes T with T(0)=TIndHea_nominal"
      annotation (Dialog(group="Initialization"), Evaluate=true);
-  parameter Modelica.SIunits.Time tau = 7200
+  parameter Modelica.SIunits.Time tau = 1800
     "Time constant of the indoor temperature";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet(
     quantity="ThermodynamicTemperature", unit="K", displayUnit="degC")
@@ -34,26 +32,26 @@ model FirstOrderODE
     "Actual heating or cooling heat flow rate (>=0 for heating)"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TInd(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TAir(
     quantity="ThermodynamicTemperature", unit="K", displayUnit="degC")
-    "Indoor temperature"
+    "Room air temperature"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 protected
   parameter Modelica.SIunits.ThermalConductance G=
     -QHea_flow_nominal / (TOutHea_nominal - TIndHea_nominal)
-    "Lumped thermal conductance representing all deltaT dependent heat transfer mechanisms";
+    "Lumped thermal conductance representing all temperature dependent heat transfer mechanisms";
 initial equation
   if steadyStateInitial then
-    der(TInd) = 0;
+    der(TAir) = 0;
   else
-    TInd = TIndHea_nominal;
+    TAir = TIndHea_nominal;
   end if;
 equation
-  der(TInd) * tau = (QAct_flow - QReq_flow) / G + TSet - TInd;
-  assert(TInd >= 273.15, "In " + getInstanceName() +
+  der(TAir) * tau = (QAct_flow - QReq_flow) / G + TSet -TAir;
+  assert(TAir >= 273.15, "In " + getInstanceName() +
     ": The computed indoor temperature is below 0°C.");
   annotation (
-  defaultComponentName="TLoaODE",
+  defaultComponentName="rooOde",
   Documentation(info="<html>
   <p>
   This is a first order ODE model for assessing the indoor temperature based on the difference between the 
@@ -103,4 +101,4 @@ equation
   </html>"),
   Icon(coordinateSystem(preserveAspectRatio=false)),
   Diagram(coordinateSystem(preserveAspectRatio=false)));
-end FirstOrderODE;
+end SimpleRoomODE;

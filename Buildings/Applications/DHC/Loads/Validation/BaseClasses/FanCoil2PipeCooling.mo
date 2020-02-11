@@ -7,6 +7,13 @@ model FanCoil2PipeCooling
     final have_watHea=false,
     final have_watCoo=true,
     final have_QReq_flow=true,
+    final allowFlowReversal=false,
+    final have_chaOve=false,
+    final have_eleHea=false,
+    final have_eleCoo=false,
+    final have_TSen=false,
+    final have_weaBus=false,
+    final have_pum=false,
     final mHeaWat_flow_nominal=abs(QHea_flow_nominal/cpHeaWat_nominal/(
           T_aHeaWat_nominal - T_bHeaWat_nominal)),
     final mChiWat_flow_nominal=abs(QCoo_flow_nominal/cpChiWat_nominal/(
@@ -73,11 +80,10 @@ model FanCoil2PipeCooling
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={150,0})));
-  Buildings.Applications.DHC.Loads.BaseClasses.FirstOrderODE TLoaODE(
+  Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoomODE TLoaODE(
     TOutHea_nominal=273.15 - 5,
     TIndHea_nominal=T_aLoaHea_nominal,
-    QHea_flow_nominal=QHea_flow_nominal,
-    Q_flow_nominal=QCoo_flow_nominal)
+    QHea_flow_nominal=QHea_flow_nominal)
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaFlo(k=1/QCoo_flow_nominal)
     annotation (Placement(transformation(extent={{-40,210},{-20,230}})));
@@ -105,7 +111,7 @@ equation
     annotation (Line(points={{-80,0},{-142,0}}, color={0,127,255}));
   connect(Q_flowCoo.y, TLoaODE.QAct_flow) annotation (Line(points={{141,200},{
           150,200},{150,160},{-20,160},{-20,32},{-12,32}},      color={0,0,127}));
-  connect(TLoaODE.TInd, retAir.T_in) annotation (Line(points={{12,40},{180,40},{
+  connect(TLoaODE.TAir, retAir.T_in) annotation (Line(points={{12,40},{180,40},{
           180,4},{162,4}}, color={0,0,127}));
   connect(gaiMasFlo.y, scaMasFloReqChiWat.u) annotation (Line(points={{62,220},
           {100,220},{100,80},{158,80}},color={0,0,127}));

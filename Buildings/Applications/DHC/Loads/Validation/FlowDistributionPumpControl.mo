@@ -47,7 +47,7 @@ model FlowDistributionPumpControl
       string="#Peak space heating load",
       filNam=Modelica.Utilities.Files.loadResource(filPat))
     "Design heating heat flow rate (>=0)"
-    annotation (Dialog(group="Design parameter"));
+    annotation (Dialog(group="Nominal condition"));
   BaseClasses.FanCoil2PipeHeatingValve terUniHea[nLoa](
     redeclare each final package Medium1 = Medium1,
     redeclare each final package Medium2 = Medium2,

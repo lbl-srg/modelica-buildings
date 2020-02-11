@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.Loads.Validation;
-model ScalingTerminalUnit
-  "Validation case for the scaling factor of the terminal unit model"
+model TerminalUnitScaling
+  "Validation of the scaling factor of the terminal unit model"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water
     "Source side medium";
@@ -142,4 +142,4 @@ equation
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
   __Dymola_Commands);
-end ScalingTerminalUnit;
+end TerminalUnitScaling;

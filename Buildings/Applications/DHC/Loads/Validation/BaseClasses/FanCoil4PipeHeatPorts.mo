@@ -1,7 +1,9 @@
 within Buildings.Applications.DHC.Loads.Validation.BaseClasses;
 model FanCoil4PipeHeatPorts
   extends PartialFanCoil4Pipe(
-    final have_heaPor=true);
+    final have_heaPor=true,
+    final have_fluPor=false,
+    final have_TSen=false);
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaFloHeaCon
     "Convective heat flow rate to load"
     annotation (Placement(

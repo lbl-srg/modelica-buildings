@@ -334,15 +334,27 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
   Fluid.BaseClasses.MassFlowRateMultiplier scaHeaWatFloInl(
     redeclare final package Medium = Medium1,
     final k=1/facSca,
-    final allowFlowReversal=allowFlowReversal)
+    final allowFlowReversal=allowFlowReversal) if have_watHea
     "Flow rate scaling"
     annotation (Placement(transformation(extent={{-180,-230},{-160,-210}})));
   Fluid.BaseClasses.MassFlowRateMultiplier scaHeaWatFloOut(
     redeclare final package Medium = Medium1,
     final k=facSca,
-    final allowFlowReversal=allowFlowReversal)
+    final allowFlowReversal=allowFlowReversal) if have_watHea
     "Flow rate scaling"
-    annotation (Placement(transformation(extent={{162,-230},{182,-210}})));
+    annotation (Placement(transformation(extent={{160,-230},{180,-210}})));
+  Fluid.BaseClasses.MassFlowRateMultiplier scaChiWatFloInl(
+    redeclare final package Medium = Medium1,
+    final k=1/facSca,
+    final allowFlowReversal=allowFlowReversal) if have_watCoo
+    "Flow rate scaling"
+    annotation (Placement(transformation(extent={{-180,-190},{-160,-170}})));
+  Fluid.BaseClasses.MassFlowRateMultiplier scaChiWatFloOut(
+    redeclare final package Medium = Medium1,
+    final k=facSca,
+    final allowFlowReversal=allowFlowReversal) if have_watCoo
+    "Flow rate scaling"
+    annotation (Placement(transformation(extent={{160,-190},{180,-170}})));
 protected
   parameter Modelica.SIunits.SpecificHeatCapacity cpHeaWat_nominal=
     Medium1.specificHeatCapacityCp(
@@ -405,7 +417,11 @@ equation
   connect(port_aHeaWat, scaHeaWatFloInl.port_a)
     annotation (Line(points={{-200,-220},{-180,-220}}, color={0,127,255}));
   connect(scaHeaWatFloOut.port_b, port_bHeaWat)
-    annotation (Line(points={{182,-220},{200,-220}}, color={0,127,255}));
+    annotation (Line(points={{180,-220},{200,-220}}, color={0,127,255}));
+  connect(port_aChiWat, scaChiWatFloInl.port_a)
+    annotation (Line(points={{-200,-180},{-180,-180}}, color={0,127,255}));
+  connect(scaChiWatFloOut.port_b, port_bChiWat) annotation (Line(points={{180,
+          -180},{192,-180},{192,-180},{200,-180}}, color={0,127,255}));
 annotation (
   defaultComponentName="terUni",
   Documentation(info="<html>

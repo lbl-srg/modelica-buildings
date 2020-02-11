@@ -7,6 +7,13 @@ model FanCoil2PipeHeatingValve
     final have_watHea=true,
     final have_watCoo=false,
     final have_QReq_flow=true,
+    final allowFlowReversal=false,
+    final have_chaOve=false,
+    final have_eleHea=false,
+    final have_eleCoo=false,
+    final have_TSen=false,
+    final have_weaBus=false,
+    final have_pum=false,
     final mHeaWat_flow_nominal=abs(QHea_flow_nominal/cpHeaWat_nominal/(
       T_aHeaWat_nominal - T_bHeaWat_nominal)));
   import hexConfiguration = Buildings.Fluid.Types.HeatExchangerConfiguration;
@@ -74,12 +81,11 @@ model FanCoil2PipeHeatingValve
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={150,0})));
-  Buildings.Applications.DHC.Loads.BaseClasses.FirstOrderODE TLoaODE(
+  Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoomODE TLoaODE(
     TOutHea_nominal=273.15 - 5,
     TIndHea_nominal=T_aLoaHea_nominal,
-    QHea_flow_nominal=QHea_flow_nominal,
-    Q_flow_nominal=QHea_flow_nominal)
-    annotation (Placement(transformation(extent={{-10,50},{10,70}})));
+    QHea_flow_nominal=QHea_flow_nominal)
+    annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   Fluid.Actuators.Valves.TwoWayEqualPercentage val(
     redeclare final package Medium=Medium1,
     m_flow_nominal=mHeaWat_flow_nominal,
@@ -132,14 +138,14 @@ equation
   connect(hex.port_b2, sinAir.ports[1])
     annotation (Line(points={{-80,0},{-142,0}}, color={0,127,255}));
   connect(TSetHea, TLoaODE.TSet)
-    annotation (Line(points={{-220,220},{-120,220},{-120,68},{-12,68}},
+    annotation (Line(points={{-220,220},{-120,220},{-120,48},{-12,48}},
                                                      color={0,0,127}));
-  connect(scaQReqHea_flow.y, TLoaODE.QReq_flow) annotation (Line(points={{-158,100},
-          {-100,100},{-100,60},{-12,60}},         color={0,0,127}));
+  connect(scaQReqHea_flow.y, TLoaODE.QReq_flow) annotation (Line(points={{-158,
+          100},{-100,100},{-100,40},{-12,40}},    color={0,0,127}));
   connect(Q_flowHea.y, TLoaODE.QAct_flow) annotation (Line(points={{141,220},{
-          150,220},{150,160},{-20,160},{-20,52},{-12,52}},      color={0,0,127}));
-  connect(TLoaODE.TInd, retAir.T_in) annotation (Line(points={{12,60},{180,60},{
-          180,4},{162,4}}, color={0,0,127}));
+          150,220},{150,160},{-20,160},{-20,32},{-12,32}},      color={0,0,127}));
+  connect(TLoaODE.TAir, retAir.T_in) annotation (Line(points={{12,40},{180,40},
+          {180,4},{162,4}},color={0,0,127}));
   connect(hex.port_b1, val.port_a) annotation (Line(points={{-60,-12},{-40,-12},
           {-40,-70}}, color={0,127,255}));
   connect(val.port_b, senMasFlo.port_a)

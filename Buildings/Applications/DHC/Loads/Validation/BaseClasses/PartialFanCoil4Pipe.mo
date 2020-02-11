@@ -6,15 +6,23 @@ partial model PartialFanCoil4Pipe
     final have_watHea=true,
     final have_watCoo=true,
     final have_fan=true,
+    final allowFlowReversal=false,
+    final have_chaOve=false,
+    final have_eleHea=false,
+    final have_eleCoo=false,
+    final have_QReq_flow=false,
+    final have_weaBus=false,
+    final have_pum=false,
     final mHeaWat_flow_nominal=abs(QHea_flow_nominal/cpHeaWat_nominal/(
       T_aHeaWat_nominal - T_bHeaWat_nominal)),
     final mChiWat_flow_nominal=abs(QCoo_flow_nominal/cpChiWat_nominal/(
       T_aChiWat_nominal - T_bChiWat_nominal)));
+
   import hexConfiguration = Buildings.Fluid.Types.HeatExchangerConfiguration;
-  parameter hexConfiguration hexConHea=
+  final parameter hexConfiguration hexConHea=
     hexConfiguration.CounterFlow
     "Heating heat exchanger configuration";
-  parameter hexConfiguration hexConCoo=
+  final parameter hexConfiguration hexConCoo=
     hexConfiguration.CounterFlow
     "Cooling heat exchanger configuration";
   Buildings.Controls.OBC.CDL.Continuous.LimPID conHea(
@@ -89,15 +97,6 @@ equation
     annotation (Line(points={{70,0},{20,0}}, color={0,127,255}));
   connect(gaiFloNom2.y, fan.m_flow_in)
     annotation (Line(points={{62,140},{80,140},{80,12}}, color={0,0,127}));
-  connect(port_aChiWat, hexCoo.port_a1) annotation (Line(points={{-200,-180},{-20,
-          -180},{-20,-12},{0,-12}}, color={0,127,255}));
-  connect(hexCoo.port_b1, port_bChiWat) annotation (Line(points={{20,-12},{40,-12},
-          {40,-180},{200,-180}}, color={0,127,255}));
-  connect(port_aHeaWat, hexHea.port_a1) annotation (Line(points={{-200,-220},{
-          -100,-220},{-100,-12},{-80,-12}},
-                                       color={0,127,255}));
-  connect(hexHea.port_b1, port_bHeaWat) annotation (Line(points={{-60,-12},{-40,
-          -12},{-40,-220},{200,-220}}, color={0,127,255}));
   connect(conHea.y, gaiHeaFloNom.u)
     annotation (Line(points={{12,220},{38,220}}, color={0,0,127}));
   connect(conCoo.y, gaiCooFloNom.u)
@@ -121,9 +120,17 @@ equation
                                                     color={0,0,127}));
   connect(smoothMax.y, gaiFloNom2.u)
     annotation (Line(points={{11,140},{38,140}}, color={0,0,127}));
-  connect(conHea.y, smoothMax.u1) annotation (Line(points={{12,220},{20,220},{
-          20,116},{-20,116},{-20,146},{-12,146}}, color={0,0,127}));
-  connect(conCoo.y, smoothMax.u2) annotation (Line(points={{12,180},{16,180},{
-          16,120},{-16,120},{-16,134},{-12,134}}, color={0,0,127}));
+  connect(conHea.y, smoothMax.u1) annotation (Line(points={{12,220},{20,220},{20,
+          200},{-20,200},{-20,146},{-12,146}},    color={0,0,127}));
+  connect(conCoo.y, smoothMax.u2) annotation (Line(points={{12,180},{20,180},{20,
+          120},{-20,120},{-20,134},{-12,134}},    color={0,0,127}));
+  connect(scaChiWatFloInl.port_b, hexCoo.port_a1) annotation (Line(points={{
+          -160,-180},{-20,-180},{-20,-12},{0,-12}}, color={0,127,255}));
+  connect(hexCoo.port_b1, scaChiWatFloOut.port_a) annotation (Line(points={{20,
+          -12},{40,-12},{40,-180},{160,-180}}, color={0,127,255}));
+  connect(hexHea.port_b1, scaHeaWatFloOut.port_a) annotation (Line(points={{-60,
+          -12},{-40,-12},{-40,-220},{160,-220}}, color={0,127,255}));
+  connect(scaHeaWatFloInl.port_b, hexHea.port_a1) annotation (Line(points={{
+          -160,-220},{-100,-220},{-100,-12},{-80,-12}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(extent={{-200,-240},{200,240}})));
 end PartialFanCoil4Pipe;
