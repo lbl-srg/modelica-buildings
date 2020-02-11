@@ -102,7 +102,6 @@ DOCKER_FLAGS="\
     ${PYT_MOUNT} \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     -e DISPLAY=${DISPLAY} \
-    -v ${MODELICA_LIB}:/mnt/modelica_lib \
     -v ${sha_dir}:/mnt/shared \
     ${NAME}"
 
