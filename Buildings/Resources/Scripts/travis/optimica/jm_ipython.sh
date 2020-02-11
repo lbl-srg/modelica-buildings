@@ -98,7 +98,7 @@ DOCKER_FLAGS="\
     --rm \
     -v /home/travis/build/lbl-srg:/mnt/shared \
     -e DISPLAY=${DISPLAY} \
-    -w /mnt/shared/lbl-srg \
+    -w /mnt/shared/lbl-srg/modelica-buildings \
     ubuntu:18.04"
 
 docker pull ubuntu:18.04
