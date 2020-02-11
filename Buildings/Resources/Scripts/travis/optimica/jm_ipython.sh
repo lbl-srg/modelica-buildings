@@ -99,8 +99,9 @@ DOCKER_FLAGS="\
     -v /home/travis/build/lbl-srg:/mnt/shared \
     -e DISPLAY=${DISPLAY} \
     -w /mnt/shared/lbl-srg \
-    nginx:latest"
+    ubuntu:18.04"
 
+docker pull ubuntu:18.04
 #    --mount 'type=bind,src=/home/travis/build/lbl-srg,dst=/mnt/shared' \
 #    --mac-address=${OPTIMICA_MAC_ADDRESS} \
 #	--mount 'type=bind,src=/tmp/.X11-unix,dst=/tmp/.X11-unix' \
