@@ -98,7 +98,7 @@ DOCKER_FLAGS="\
     --rm \
     --user==1000 \
     -e DISPLAY=${DISPLAY} \
-    --mount source=/home/travis/build/lbl-srg,target=/mnt/shared \
+    --mount type=volume,src=/home/travis/build/lbl-srg,dst=/mnt/shared \
     -w /mnt/shared \
     ${NAME}"
 
