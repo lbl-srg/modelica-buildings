@@ -96,7 +96,7 @@ done
 DOCKER_FLAGS="\
     --detach=false \
     --rm \
-    --mount src=/home/travis/build/lbl-srg,dst=/mnt/shared \
+    -v /home/travis/build/lbl-srg:/mnt/shared \
     -e DISPLAY=${DISPLAY} \
     -w /mnt/shared/lbl-srg/modelica-buildings \
     ubuntu:18.04"
@@ -121,6 +121,7 @@ echo "**************************"
 docker run ${DOCKER_FLAGS} /bin/bash -c \
   "export MODELICAPATH=${DOCKER_MODELICAPATH}:/opt/oct/ThirdParty/MSL && \
    export PYTHONPATH=${DOCKER_PYTHONPATH} && \
+   cd /mnt/shared/lbl-srg/modelica-buildings && \
    echo \"This is just a test.\" > /mnt/shared/lbl-srg/modelica-buildings/Buildings_Controls_OBC_CDL_Continuous_Validation_LimPID_log.txt"
 
 #  /opt/oct/bin/jm_ipython.sh modelica-buildings/${arg_lis}"
