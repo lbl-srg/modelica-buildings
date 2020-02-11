@@ -16,6 +16,11 @@ git:
 services:
   - docker
 
+addons:
+  apt:
+    packages:
+      - docker-ce
+
 env:
   - TEST_ARG="make test-optimica PACKAGE=\"Buildings.Controls.Continuous.Examples\""
 
