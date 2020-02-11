@@ -119,7 +119,7 @@ echo "**************************"
 docker run ${DOCKER_FLAGS} /bin/bash -c \
   "export MODELICAPATH=${DOCKER_MODELICAPATH}:/opt/oct/ThirdParty/MSL && \
    export PYTHONPATH=${DOCKER_PYTHONPATH} && \
-  /opt/oct/bin/jm_ipython.sh ${arg_lis}"
+  /opt/oct/bin/jm_ipython.sh modelica-buildings/${arg_lis}"
 retVal=$?
 echo "*** dir is `pwd`"
 ls -lhtr .

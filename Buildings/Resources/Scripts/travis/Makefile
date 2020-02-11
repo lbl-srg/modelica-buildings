@@ -43,7 +43,7 @@ test-optimica:
 	  echo "In makefile, pwd is `pwd`" && \
 	  echo "In makefile, ls -lhtr is" && \
 	  ls -lhtr && \
-	  jm_ipython.sh $(TRAVIS_BUILD_DIR)/jmodelica.py Modelica.Blocks.Examples.Filter ; \
+	  jm_ipython.sh jmodelica.py Modelica.Blocks.Examples.Filter ; \
 	  ls -lhtr; \
 	  cat Buildings_Controls_OBC_CDL_Continuous_Validation_LimPID_log.txt )
 
