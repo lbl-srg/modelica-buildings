@@ -17,6 +17,7 @@ services:
   - docker
 
 # Update to latest docker, see https://docs.travis-ci.com/user/docker/#installing-a-newer-docker-version
+# This tests a work-around because --mount with type=bind fails.
 addons:
   apt:
     packages:
