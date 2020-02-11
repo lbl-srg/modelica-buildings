@@ -131,6 +131,7 @@ docker run --detach=false --rm -v ${PWD}:/mnt/shared -w /mnt/shared ubuntu:18.04
   "export MODELICAPATH=${DOCKER_MODELICAPATH}:/opt/oct/ThirdParty/MSL && \
    export PYTHONPATH=${DOCKER_PYTHONPATH} && \
    echo \"This is a test.\" > Buildings_Controls_OBC_CDL_Continuous_Validation_LimPID_log.txt"
+retVal=$?
 ls -lhtr .
 cat Buildings_Controls_OBC_CDL_Continuous_Validation_LimPID_log.txt
 exit $retVal
