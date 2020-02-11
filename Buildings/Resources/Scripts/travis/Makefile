@@ -40,11 +40,12 @@ test-optimica:
 	(cd $(ROOT)/Buildings && \
 	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/Buildings/Resources/Python-Sources && \
 	  cd $(ROOT) && \
+	  echo "In makefile, pwd is `pwd`" && \
+	  echo "In makefile, ls -lhtr is" && \
+	  ls -lhtr && \
 	  jm_ipython.sh jmodelica.py  Buildings.Controls.OBC.CDL.Continuous.Validation.LimPID ; \
-	  ls -la; \
+	  ls -lhtr; \
 	  cat Buildings_Controls_OBC_CDL_Continuous_Validation_LimPID_log.txt )
-
-#	  cat simulator-optimica.log)
 
 #	  python ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool optimica --skip-verification; \
 

@@ -112,7 +112,8 @@ echo "*** arg_lis is          ---${arg_lis}---"
 echo "*** MOD_MOUNT is          ---${MOD_MOUNT}---"
 echo "*** PYT_MOUNT is          ---${PYT_MOUNT}---"
 echo "*** --user=${UID}"
-ls -lh ${sha_dir}
+echo "*** dir is `pwd`"
+ls -lhtr .
 echo "**************************"
 docker run ${DOCKER_FLAGS} /bin/bash -c \
   "export MODELICAPATH=${DOCKER_MODELICAPATH}:/opt/oct/ThirdParty/MSL && \
@@ -125,10 +126,6 @@ docker run ${DOCKER_FLAGS} /bin/bash -c \
    echo `pwd` && \
    /opt/oct/bin/jm_ipython.sh ${arg_lis}"
 retVal=$?
-echo "**** Content of diagnostics.txt"
-cat ${sha_dir}/diagnostics.txt
-echo "**************"
-echo "**** Content of simulator-optimica.log"
-cat simulator-optimica.log
-echo "**************"
+echo "*** dir is `pwd`"
+ls -lhtr .
 exit $retVal
