@@ -94,18 +94,17 @@ do
 done
 
 DOCKER_FLAGS="\
-	--mac-address=${OPTIMICA_MAC_ADDRESS} \
-	--user=1000 \
-	-i \
-	$DOCKER_INTERACTIVE \
-	--detach=false \
-    -v /home/travis/build/lbl-srg/modelica-buildings/Buildings:/mnt/home/travis/build/lbl-srg/modelica-buildings/Buildings \
-	${PYT_MOUNT} \
-	-v ${sha_dir}:/home/developer \
-	-e DISPLAY=${DISPLAY} \
-	-v /tmp/.X11-unix:/tmp/.X11-unix \
-	--rm \
-	${NAME}"
+    --mac-address=${OPTIMICA_MAC_ADDRESS} \
+    --detach=false \
+    --rm \
+    --user=developer \
+    ${MOD_MOUNT} \
+    ${PYT_MOUNT} \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -e DISPLAY=${DISPLAY} \
+    -v ${MODELICA_LIB}:/mnt/modelica_lib \
+    -v ${sha_dir}:/mnt/shared \
+    ${NAME}"
 
 echo "*** Shared directory is ---${sha_dir}---"
 echo "*** arg_lis is          ---${arg_lis}---"
@@ -117,12 +116,10 @@ ls -lhtr .
 echo "**************************"
 docker run ${DOCKER_FLAGS} /bin/bash -c \
   "export MODELICAPATH=${DOCKER_MODELICAPATH}:/opt/oct/ThirdParty/MSL && \
-   export PYTHONPATH=${DOCKER_PYTHONPATH} &&
-   alias ipython=ipython3 && \
-   cd /mnt/home/travis/build/lbl-srg/modelica-buildings && \
-   echo \"Directory in Docker is\" && \
-   echo `pwd` && \
-   /opt/oct/bin/jm_ipython.sh ${arg_lis}"
+   export PYTHONPATH=${DOCKER_PYTHONPATH} && \
+  cd /mnt/shared/${bas_nam} && \
+  alias ipython=ipython3 && \
+  /opt/oct/bin/jm_ipython.sh ${arg_lis}"
 retVal=$?
 echo "*** dir is `pwd`"
 ls -lhtr .
