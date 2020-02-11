@@ -77,7 +77,7 @@ before_install:
     fi;
   - if [[ "$TEST_ARG" == *test-optimica* ]]; then
       echo "Skipping download"
-       docker pull "$DOCKER_USERNAME"/travis-ubuntu-1804-optimica;
+#       docker pull "$DOCKER_USERNAME"/travis-ubuntu-1804-optimica;
        chmod +x Buildings/Resources/Scripts/travis/optimica/jm_ipython.sh;
        cp Buildings/Resources/Scripts/travis/optimica/jm_ipython.sh $HOME/bin/jm_ipython.sh;
     fi;

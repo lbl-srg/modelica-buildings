@@ -10,10 +10,10 @@
 #################################################
 #set -e
 
-IMG_NAME=travis-ubuntu-1804-optimica
-DOCKER_USERNAME=michaelwetter
+#IMG_NAME=travis-ubuntu-1804-optimica
+#DOCKER_USERNAME=michaelwetter
 
-NAME=${DOCKER_USERNAME}/${IMG_NAME}
+#NAME=${DOCKER_USERNAME}/${IMG_NAME}
 
 # Function declarations
 function create_mount_command()
@@ -97,13 +97,13 @@ DOCKER_FLAGS="\
     --detach=false \
     --rm \
 	--user=developer \
-	--mount 'type=bind,src=/tmp/.X11-unix,dst=/tmp/.X11-unix' \
     --mount 'type=bind,src=/home/travis/build/lbl-srg,dst=/mnt/shared' \
     -e DISPLAY=${DISPLAY} \
     -w /mnt/shared/lbl-srg \
-    ${NAME}"
+    nginx:latest"
 
 #    --mac-address=${OPTIMICA_MAC_ADDRESS} \
+#	--mount 'type=bind,src=/tmp/.X11-unix,dst=/tmp/.X11-unix' \
 #    -v ${sha_dir}:/mnt/shared \
 #    -w /mnt/shared/${bas_nam} \
 #    ${MOD_MOUNT} \
