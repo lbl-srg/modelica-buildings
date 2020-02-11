@@ -96,7 +96,6 @@ done
 DOCKER_FLAGS="\
     --detach=false \
     --rm \
-	--user=developer \
     -v /home/travis/build/lbl-srg:/mnt/shared \
     -e DISPLAY=${DISPLAY} \
     -w /mnt/shared/lbl-srg \
