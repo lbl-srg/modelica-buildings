@@ -98,8 +98,8 @@ DOCKER_FLAGS="\
     --rm \
     --user==1000 \
     -e DISPLAY=${DISPLAY} \
-    --mount type=volume,src=/home/travis/build/lbl-srg,dst=/mnt/shared \
-    -w /mnt/shared \
+    --mount type=volume,src=/home/travis/build,dst=/mnt/shared \
+    -w /mnt/shared/lbl-srg \
     ${NAME}"
 
 #    --mac-address=${OPTIMICA_MAC_ADDRESS} \
