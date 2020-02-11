@@ -96,10 +96,12 @@ done
 DOCKER_FLAGS="\
     --detach=false \
     --rm \
-    -v /home/travis/build/lbl-srg:/mnt/shared \
+    ${MOD_MOUNT} \
     -e DISPLAY=${DISPLAY} \
     -w /mnt/shared/lbl-srg/modelica-buildings \
     ${NAME}"
+
+# -v /home/travis/build/lbl-srg:/mnt/shared \
 
 #    --mount 'type=bind,src=/home/travis/build/lbl-srg,dst=/mnt/shared' \
 #    --mac-address=${OPTIMICA_MAC_ADDRESS} \
