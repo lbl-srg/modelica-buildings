@@ -94,16 +94,16 @@ do
 done
 
 DOCKER_FLAGS="\
-    --mac-address=${OPTIMICA_MAC_ADDRESS} \
     --detach=false \
     --rm \
-    --user=developer \
-    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    --user==${UID} \
     -e DISPLAY=${DISPLAY} \
-    -v ${sha_dir}:/mnt/shared \
+    -v /home/travis/build/lbl-srg:/mnt/shared \
     -w /mnt/shared \
     ${NAME}"
 
+#    --mac-address=${OPTIMICA_MAC_ADDRESS} \
+#    -v ${sha_dir}:/mnt/shared \
 #    -w /mnt/shared/${bas_nam} \
 #    ${MOD_MOUNT} \
 #    ${PYT_MOUNT} \
