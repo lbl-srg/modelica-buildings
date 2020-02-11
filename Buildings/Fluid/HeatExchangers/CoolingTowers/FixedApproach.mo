@@ -17,10 +17,10 @@ protected
       T=TAir + TApp,
       X=inStream(port_b.Xi_outflow))) - inStream(port_a.h_outflow)))
     "Heat input into water"
-    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
+    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
 equation
   connect(QWat_flow.y, preHea.Q_flow)
-    annotation (Line(points={{-59,-50},{-40,-50}}, color={0,0,127}));
+    annotation (Line(points={{-59,-60},{-40,-60}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Text(

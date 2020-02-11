@@ -51,6 +51,24 @@ Alternatively, simple models such as the models below may be used as a starting 
 `Buildings.Fluid.MassExchangers.ConstantEffectiveness <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_MassExchangers.html#Buildings.Fluid.MassExchangers.ConstantEffectiveness>`_
   For a device that exchanges heat and humidity between two fluid streams.
 
+.. _fig_merkel:
+
+.. figure:: img/Merkel.png
+   :scale: 10%
+
+   Schematic diagram of the cooling tower model based on the Merkel theory.
+
+If models involve complex calculations, then these models are generally easiest to understand
+for users if these calculations are in a separate block that then interfaces to the fluid flow model
+using the above basic class. An example is the model `Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel`
+that will be released with Buildings 6.0.0.
+:numref:`fig_merkel` shows the schematic diagram of the model. The block `per` in the figure implements the
+thermodynamic calculations. The model shows that the cooling tower performance only depends on
+the control signal `y`, the air inlet temperature `TAir`, the water inlet temperature `TWatIn` and the
+water mass flow rate `mWat_flow`.
+
+
+
 Pressure drop
 ~~~~~~~~~~~~~
 
@@ -102,3 +120,35 @@ the pressure drop of the heating coil to zero, and
 to lump the pressure drop of the heating coil into the pressure drop model
 of the cooling coil.
 This often reduces the size of the system of nonlinear equations.
+
+
+Validation
+~~~~~~~~~~
+
+All models that are implemented need to be validated for a range of
+realistic operating modes.
+These validations need to be part of the
+`unit tests <https://github.com/lbl-srg/modelica-buildings/wiki/Unit-Tests>`_.
+
+For simple models, the validation can be against analytic solutions.
+This is for example done in
+`Buildings.Fluid.FixedResistances.PressureDrop <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances_Examples.html#Buildings.Fluid.FixedResistances.Examples.PressureDrop>`_
+which uses a regression tests that checks the correct relation between mass flow rate and pressure drop.
+For complex models, a comparative model validation needs to be done, for example
+by comparing the result of the Modelica model against the results from EnergyPlus.
+An example is
+`Buildings.Fluid.HeatExchangers.CoolingTowers.Validation.MerkelEnergyPlus`.
+For such validations, the following files also need to be added to the repository:
+
+ - The EnergyPlus input data file. Please make sure it only requires a weather data file that already exists in the Buildings library.
+ - A bash script called `run.sh` that
+
+    1. runs the EnergyPlus model on Linux, and
+    2. invokes a Python script that converts the EnergyPlus output file (see next item).
+
+   This file will automatically be
+   executed as part of the continuous integration testing.
+ - A Python script that converts the EnergyPlus output file to the data file that can
+   be read by the Modelica data reader.
+
+See for example `Buildings/Resources/Data/Fluid/HeatExchangers/CoolingTowers/Validation` for an implementation.

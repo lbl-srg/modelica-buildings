@@ -122,6 +122,7 @@
 <li><a class="reference internal" href="#adding-a-new-class">5.2. Adding a new class</a><ul>
 <li><a class="reference internal" href="#thermofluid-flow-device">5.2.1. Thermofluid flow device</a></li>
 <li><a class="reference internal" href="#pressure-drop">5.2.2. Pressure drop</a></li>
+<li><a class="reference internal" href="#validation">5.2.3. Validation</a></li>
 </ul>
 </li>
 </ul>
@@ -216,6 +217,18 @@ Alternatively, simple models such as the models below may be used as a starting 
 <dt><a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_MassExchangers.html#Buildings.Fluid.MassExchangers.ConstantEffectiveness">Buildings.Fluid.MassExchangers.ConstantEffectiveness</a></dt><dd><p>For a device that exchanges heat and humidity between two fluid streams.</p>
 </dd>
 </dl>
+<div class="figure align-default" id="id2">
+<span id="fig-merkel"></span><a class="reference internal image-reference" href="_images/Merkel.png"><img alt="_images/Merkel.png" src="_images/Merkel.png" style="width: 546.7px; height: 369.90000000000003px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 5.1 </span><span class="caption-text">Schematic diagram of the cooling tower model based on the Merkel theory.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+<p>If models involve complex calculations, then these models are generally easiest to understand
+for users if these calculations are in a separate block that then interfaces to the fluid flow model
+using the above basic class. An example is the model <cite>Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel</cite>
+that will be released with Buildings 6.0.0.
+<a class="reference internal" href="#fig-merkel"><span class="std std-numref">Fig. 5.1</span></a> shows the schematic diagram of the model. The block <cite>per</cite> in the figure implements the
+thermodynamic calculations. The model shows that the cooling tower performance only depends on
+the control signal <cite>y</cite>, the air inlet temperature <cite>TAir</cite>, the water inlet temperature <cite>TWatIn</cite> and the
+water mass flow rate <cite>mWat_flow</cite>.</p>
 </div>
 <div class="section" id="pressure-drop">
 <h3>5.2.2. Pressure drop<a class="headerlink" href="#pressure-drop" title="Permalink to this headline">¶</a></h3>
@@ -260,6 +273,40 @@ the pressure drop of the heating coil to zero, and
 to lump the pressure drop of the heating coil into the pressure drop model
 of the cooling coil.
 This often reduces the size of the system of nonlinear equations.</p>
+</div>
+<div class="section" id="validation">
+<h3>5.2.3. Validation<a class="headerlink" href="#validation" title="Permalink to this headline">¶</a></h3>
+<p>All models that are implemented need to be validated for a range of
+realistic operating modes.
+These validations need to be part of the
+<a class="reference external" href="https://github.com/lbl-srg/modelica-buildings/wiki/Unit-Tests">unit tests</a>.</p>
+<p>For simple models, the validation can be against analytic solutions.
+This is for example done in
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances_Examples.html#Buildings.Fluid.FixedResistances.Examples.PressureDrop">Buildings.Fluid.FixedResistances.PressureDrop</a>
+which uses a regression tests that checks the correct relation between mass flow rate and pressure drop.
+For complex models, a comparative model validation needs to be done, for example
+by comparing the result of the Modelica model against the results from EnergyPlus.
+An example is
+<cite>Buildings.Fluid.HeatExchangers.CoolingTowers.Validation.MerkelEnergyPlus</cite>.
+For such validations, the following files also need to be added to the repository:</p>
+<blockquote>
+<div><ul>
+<li><p>The EnergyPlus input data file. Please make sure it only requires a weather data file that already exists in the Buildings library.</p></li>
+<li><p>A bash script called <cite>run.sh</cite> that</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>runs the EnergyPlus model on Linux, and</p></li>
+<li><p>invokes a Python script that converts the EnergyPlus output file (see next item).</p></li>
+</ol>
+</div></blockquote>
+<p>This file will automatically be
+executed as part of the continuous integration testing.</p>
+</li>
+<li><p>A Python script that converts the EnergyPlus output file to the data file that can
+be read by the Modelica data reader.</p></li>
+</ul>
+</div></blockquote>
+<p>See for example <cite>Buildings/Resources/Data/Fluid/HeatExchangers/CoolingTowers/Validation</cite> for an implementation.</p>
 </div>
 </div>
 </div>
