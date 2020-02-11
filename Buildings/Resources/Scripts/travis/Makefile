@@ -39,9 +39,14 @@ test-dymola:
 test-optimica:
 	(cd $(ROOT)/Buildings && \
 	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/Buildings/Resources/Python-Sources && \
-	  python ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool optimica --skip-verification; \
+	  cd $(ROOT) && \
+	  jm_ipython.sh jmodelica.py  Buildings.Controls.OBC.CDL.Continuous.Validation.LimPID ; \
 	  ls -la; \
-	  cat simulator-optimica.log)
+	  cat Buildings_Controls_OBC_CDL_Continuous_Validation_LimPID_log.txt )
+
+#	  cat simulator-optimica.log)
+
+#	  python ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool optimica --skip-verification; \
 
 test-jmodelica:
 	(cd $(ROOT)/Buildings && \
