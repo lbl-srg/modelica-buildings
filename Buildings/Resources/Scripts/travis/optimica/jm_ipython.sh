@@ -118,14 +118,16 @@ echo "*** Docker version is `docker -v`"
 echo "*** dir is `pwd`"
 ls -lhtr .
 echo "**************************"
-docker run ${DOCKER_FLAGS} /bin/bash -c \
-  "export MODELICAPATH=${DOCKER_MODELICAPATH}:/opt/oct/ThirdParty/MSL && \
-   export PYTHONPATH=${DOCKER_PYTHONPATH} && \
-   cd /mnt/shared/lbl-srg/modelica-buildings && \
-   echo \"This is just a test.\" > /mnt/shared/lbl-srg/modelica-buildings/Buildings_Controls_OBC_CDL_Continuous_Validation_LimPID_log.txt"
+#docker run ${DOCKER_FLAGS} /bin/bash -c \
+#  "export MODELICAPATH=${DOCKER_MODELICAPATH}:/opt/oct/ThirdParty/MSL && \
+#   export PYTHONPATH=${DOCKER_PYTHONPATH} && \
+#   cd /mnt/shared/lbl-srg/modelica-buildings && \
+#   echo \"This is just a test.\" > /mnt/shared/lbl-srg/modelica-buildings/Buildings_Controls_OBC_CDL_Continuous_Validation_LimPID_log.txt"
 
 #  /opt/oct/bin/jm_ipython.sh modelica-buildings/${arg_lis}"
-retVal=$?
-echo "*** dir is `pwd`"
+#retVal=$?
+#echo "*** dir is `pwd`"
+docker run --detach=false --rm -v ${PWD}:/mnt/shared -w /mnt/shared ubuntu:18.04 /bin/bash -c "echo \"This is a test.\" > myTest.txt"
 ls -lhtr .
+cat myTest.txt
 exit $retVal
