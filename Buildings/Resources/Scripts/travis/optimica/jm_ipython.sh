@@ -95,7 +95,7 @@ done
 
 DOCKER_FLAGS="\
 	--mac-address=${OPTIMICA_MAC_ADDRESS} \
-	--user=developer \
+	--user=1000 \
 	-i \
 	$DOCKER_INTERACTIVE \
 	--detach=false \
