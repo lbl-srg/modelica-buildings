@@ -101,7 +101,7 @@ DOCKER_FLAGS="\
 	--detach=false \
     -v /home/travis/build/lbl-srg/modelica-buildings/Buildings:/mnt/home/travis/build/lbl-srg/modelica-buildings/Buildings \
 	${PYT_MOUNT} \
-	-v ${sha_dir}:/home/devloper \
+	-v ${sha_dir}:/home/developer \
 	-e DISPLAY=${DISPLAY} \
 	-v /tmp/.X11-unix:/tmp/.X11-unix \
 	--rm \
@@ -117,13 +117,13 @@ echo "**************************"
 docker run ${DOCKER_FLAGS} /bin/bash -c \
   "export MODELICAPATH=${DOCKER_MODELICAPATH}:/opt/oct/ThirdParty/MSL && \
    export PYTHONPATH=${DOCKER_PYTHONPATH} && \
-   ls -la /home/developer > /home/devloper/diagnostics.txt && \
-   pwd >> /home/devloper/diagnostics.txt && \
-   cd /home/devloper && \
+   ls -la /home/developer > /home/developer/diagnostics.txt && \
+   pwd >> /home/developer/diagnostics.txt && \
+   cd /home/developer && \
    alias ipython=ipython3 && \
    echo \"Directory is\" && \
-   echo `pwd`"
-#   /opt/oct/bin/jm_ipython.sh ${arg_lis}"
+   echo `pwd` && \
+   /opt/oct/bin/jm_ipython.sh ${arg_lis}"
 retVal=$?
 echo "**** Content of diagnostics.txt"
 cat ${sha_dir}/diagnostics.txt
