@@ -96,7 +96,7 @@ done
 DOCKER_FLAGS="\
     --detach=false \
     --rm \
-    -v /home/travis/build/lbl-srg:/mnt/shared \
+    --mount src=/home/travis/build/lbl-srg,dst=/mnt/shared \
     -e DISPLAY=${DISPLAY} \
     -w /mnt/shared/lbl-srg/modelica-buildings \
     ubuntu:18.04"
