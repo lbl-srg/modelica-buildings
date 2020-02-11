@@ -127,7 +127,10 @@ echo "**************************"
 #  /opt/oct/bin/jm_ipython.sh modelica-buildings/${arg_lis}"
 #retVal=$?
 #echo "*** dir is `pwd`"
-docker run --detach=false --rm -v ${PWD}:/mnt/shared -w /mnt/shared ubuntu:18.04 /bin/bash -c "echo \"This is a test.\" > myTest.txt"
+docker run --detach=false --rm -v ${PWD}:/mnt/shared -w /mnt/shared ubuntu:18.04 /bin/bash -c \
+  "export MODELICAPATH=${DOCKER_MODELICAPATH}:/opt/oct/ThirdParty/MSL && \
+   export PYTHONPATH=${DOCKER_PYTHONPATH} && \
+   echo \"This is a test.\" > Buildings_Controls_OBC_CDL_Continuous_Validation_LimPID_log.txt"
 ls -lhtr .
-cat myTest.txt
+cat Buildings_Controls_OBC_CDL_Continuous_Validation_LimPID_log.txt
 exit $retVal
