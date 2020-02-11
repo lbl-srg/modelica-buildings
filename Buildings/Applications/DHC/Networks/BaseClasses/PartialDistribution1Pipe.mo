@@ -1,38 +1,38 @@
-within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Networks;
-model UnidirectionalSeries
-  "Hydraulic network for unidirectional series DHC system"
-  extends Applications.DHC.Networks.BaseClasses.PartialDistribution;
+within Buildings.Applications.DHC.Networks.BaseClasses;
+partial model PartialDistribution1Pipe
+  "Partial model for one-pipe distribution network"
+  extends PartialDistribution;
+
+  replaceable model Model_pipDis = Fluid.Interfaces.PartialTwoPortInterface (
+    redeclare final package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal)
+    "Model for distribution pipe";
+  parameter Integer iConPreRel(min=0, max=nCon) = 0
+    "Index of the connection where the pressure drop is sensed (0 for no sensor)"
+    annotation(Dialog(tab="General"), Evaluate=true);
   parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal
-    "Nominal mass flow rate in the distribution line";
+    "Nominal mass flow rate in the distribution line"
+    annotation(Dialog(tab="General", group="Nominal condition"));
   parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal[nCon]
-    "Nominal mass flow rate in each connection line";
-  parameter Modelica.SIunits.Length lDis[nCon]
-    "Length of the distribution pipe before each connection";
-  parameter Modelica.SIunits.Length lCon[nCon]
-    "Length of each connection pipe (supply only, not counting return line)";
-  parameter Modelica.SIunits.Length lEnd = sum(lDis)
-    "Length of the end of the distribution line (after last connection)";
-  parameter Modelica.SIunits.Length dhDis
-    "Hydraulic diameter of the distribution pipe";
-  parameter Modelica.SIunits.Length dhCon[nCon]
-    "Hydraulic diameter of each connection pipe";
+    "Nominal mass flow rate in each connection line"
+    annotation(Dialog(tab="General", group="Nominal condition"));
+  // IO CONNECTORS
+  Modelica.Blocks.Interfaces.RealOutput dp(
+    final quantity="PressureDifference", final displayUnit="Pa") if iConPreRel > 0
+    "Pressure difference at given location (sensed)"
+    annotation (Placement(transformation(extent={{100,40},{140,80}}),
+      iconTransformation(extent={{200,50}, {220,70}})));
   // COMPONENTS
-  replaceable BaseClasses.ConnectionSeries con[nCon](
+  replaceable PartialConnection1Pipe con[nCon](
     redeclare each final package Medium = Medium,
-    each mDis_flow_nominal=mDis_flow_nominal,
-    mCon_flow_nominal=mCon_flow_nominal,
-    lDis=lDis,
-    lCon=lCon,
-    each dhDis=dhDis,
-    dhCon=dhCon,
+    each final mDis_flow_nominal=mDis_flow_nominal,
+    final mCon_flow_nominal=mCon_flow_nominal,
     each final allowFlowReversal=allowFlowReversal)
     "Connection to agent"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  replaceable BaseClasses.PipeDistribution pipEnd(
-    redeclare final package Medium=Medium,
-    m_flow_nominal=mDis_flow_nominal,
-    dh=dhDis,
-    length=lEnd,
+  Model_pipDis pipEnd(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=mDis_flow_nominal,
     final allowFlowReversal=allowFlowReversal)
     "Pipe representing the end of the distribution line (after last connection)"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
@@ -83,4 +83,4 @@ equation
           origin={120,47},
           rotation=90)}),
     Diagram( coordinateSystem(preserveAspectRatio=false)));
-end UnidirectionalSeries;
+end PartialDistribution1Pipe;

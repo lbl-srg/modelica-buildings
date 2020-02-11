@@ -2,13 +2,12 @@ within Buildings.Applications.DHC.Networks.BaseClasses;
 partial model PartialDistribution2Pipe
   "Partial model for two-pipe distribution network"
   extends PartialDistribution;
-  replaceable model PipeDisModel =
-      Examples.FifthGeneration.Unidirectional.Networks.BaseClasses.PipeDistribution
-    constrainedby PartialPipe(
-      redeclare package Medium = Medium, allowFlowReversal=allowFlowReversal)
+  replaceable model Model_pipDis = Fluid.Interfaces.PartialTwoPortInterface (
+    redeclare final package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal)
     "Model for distribution pipe";
   parameter Integer iConPreRel(min=0, max=nCon) = 0
-    "Index of the connection before which relative pressure is sensed (0 for no sensor)"
+    "Index of the connection where the pressure drop is sensed (0 for no sensor)"
     annotation(Dialog(tab="General"), Evaluate=true);
   parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal[nCon]
     "Nominal mass flow rate in the distribution line before each connection"
@@ -34,31 +33,25 @@ partial model PartialDistribution2Pipe
     "Distribution return inlet port"
     annotation (Placement(transformation( extent={{90,-70},{110,-50}}),
       iconTransformation(extent={{180,-80},{ 220,-40}})));
-  Modelica.Blocks.Interfaces.RealOutput dp(final displayUnit="Pa") if iConPreRel > 0
+  Modelica.Blocks.Interfaces.RealOutput dp(
+    final quantity="PressureDifference", final displayUnit="Pa") if iConPreRel > 0
     "Pressure difference at given location (sensed)"
-    annotation (Placement(
-        transformation(extent={{100,40},{140,80}}), iconTransformation(extent={{200,50},
-            {220,70}})));
+    annotation (Placement(transformation(extent={{100,40},{140,80}}),
+      iconTransformation(extent={{200,50}, {220,70}})));
   // COMPONENTS
-  replaceable
-    Examples.FifthGeneration.Unidirectional.Networks.BaseClasses.ConnectionParallel
-    con[nCon] constrainedby
-    Buildings.Applications.DHC.Networks.BaseClasses.PartialConnection2Pipe(
-    redeclare each package Medium = Medium,
-    mDis_flow_nominal=mDis_flow_nominal,
-    mCon_flow_nominal=mCon_flow_nominal,
-    each allowFlowReversal=allowFlowReversal) "Connection to agent"
+  replaceable BaseClasses.PartialConnection2Pipe con[nCon](
+    redeclare each final package Medium = Medium,
+    final have_dpSen={i==iConPreRel for i in 1:nCon},
+    final mDis_flow_nominal=mDis_flow_nominal,
+    final mCon_flow_nominal=mCon_flow_nominal,
+    each final allowFlowReversal=allowFlowReversal)
+    "Connection to agent"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  PipeDisModel pipEnd(m_flow_nominal=mEnd_flow_nominal)
+  Model_pipDis pipEnd(
+    final m_flow_nominal=mEnd_flow_nominal,
+    final allowFlowReversal=allowFlowReversal)
     "Pipe representing the end of the distribution line (after last connection)"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Fluid.Sensors.RelativePressure senRelPre(
-   redeclare final package Medium = Medium) if iConPreRel > 0
-   "Relative pressure sensor"
-    annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=0,
-        origin={-20,20})));
 equation
   connect(con.port_bCon, ports_bCon)
     annotation (Line(points={{0,10},{0,40},{-80,
@@ -86,14 +79,9 @@ equation
     connect(pipEnd.port_b, port_bDisSup)
       annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
   if iConPreRel > 0 then
-    connect(senRelPre.port_a, con[iConPreRel].port_aDisSup)
-      annotation (Line(points={{-30,20},
-          {-40,20},{-40,8},{-20,8},{-20,0},{-10,0}}, color={0,127,255}));
-    connect(senRelPre.port_b, con[iConPreRel].port_bDisRet)
-      annotation (Line(points={{-10,20},
-          {20,20},{20,-20},{-20,-20},{-20,-6},{-10,-6}}, color={0,127,255}));
-    connect(senRelPre.p_rel, dp)
-    annotation (Line(points={{-20,29},{-20,60},{120,60}}, color={0,0,127}));
+    connect(con[iConPreRel].dp, dp)
+      annotation (Line(points={{11,4},{20,4},{20,60},{120,60}},
+          color={0,0,127}));
   end if;
   annotation (
     defaultComponentName="dis",

@@ -1,8 +1,8 @@
 within Buildings.Applications.DHC.Loads.Validation.BaseClasses;
 model Distribution2Pipe
   extends Networks.BaseClasses.PartialDistribution2Pipe(
-      redeclare final Connection2Pipe con[nCon](dpDis_nominal=dpDis_nominal),
-      redeclare final model PipeDisModel = Fluid.FixedResistances.LosslessPipe,
+      redeclare Connection2Pipe con[nCon](final dpDis_nominal=dpDis_nominal),
+      redeclare model Model_pipDis = Fluid.FixedResistances.LosslessPipe,
       final mEnd_flow_nominal=0);
   parameter Modelica.SIunits.PressureDifference dpDis_nominal[nCon]
     "Pressure drop in distribution line (supply only, not counting return line)"

@@ -1,0 +1,21 @@
+simulateModel(
+    "Buildings.Applications.DHC.Loads.Validation.FlowDistributionPumpControl",
+    method="cvode",
+    tolerance=1e-6,
+    numberOfIntervals=500,
+    stopTime=400000.0,
+    resultFile="FlowDistributionPumpControl");
+createPlot(
+    id=1,
+    position={35, 35, 1084, 1370},
+    y={"pum.m_flow", "disFloHea.pum.m_flow"},
+    grid=true,
+    color=true,
+    filename="FlowDistributionPumpControl.mat");
+createPlot(
+    id=1,
+    position={35, 35, 1084, 681},
+    y={"pum.dpMachine", "disFloHea.pum.dpMachine"},
+    grid=true,
+    color=true,
+    subPlot=2);

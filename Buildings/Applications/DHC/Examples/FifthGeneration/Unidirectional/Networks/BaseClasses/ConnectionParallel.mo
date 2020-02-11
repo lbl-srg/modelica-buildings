@@ -1,9 +1,10 @@
 within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Networks.BaseClasses;
 model ConnectionParallel "Model for connecting an agent to the DHC system"
-  extends Buildings.Applications.DHC.Networks.BaseClasses.PartialConnection2Pipe(
-    pipDisSup(dh=dhDis, length=lDis),
-    pipDisRet(dh=dhDis, length=lDis),
-    pipCon(length=2*lCon, dh=dhCon));
+  extends Applications.DHC.Networks.BaseClasses.PartialConnection2Pipe(
+    redeclare model Model_pipDis = PipeDistribution (
+      final dh=dhDis, final length=lDis),
+    redeclare model Model_pipCon = PipeConnection (
+      final length=2*lCon, final dh=dhCon));
   parameter Modelica.SIunits.Length lDis
     "Length of the distribution pipe before the connection";
   parameter Modelica.SIunits.Length lCon

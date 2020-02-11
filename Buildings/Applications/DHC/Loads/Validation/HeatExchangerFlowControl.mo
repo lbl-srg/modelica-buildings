@@ -177,21 +177,20 @@ model HeatExchangerFlowControl
 equation
   connect(hex.port_a1, val.port_b) annotation (Line(points={{-10,66},{-16,66},{-16,
           60},{-20,60}}, color={0,127,255}));
-  connect(supHeaWat.ports[1], val.port_a) annotation (Line(points={{-80,42},{
-          -60,42},{-60,60},{-40,60}},
-                                 color={0,127,255}));
+  connect(supHeaWat.ports[1], val.port_a) annotation (Line(points={{-80,42},{-60,
+          42},{-60,60},{-40,60}},color={0,127,255}));
   connect(ram.y, val.y)
     annotation (Line(points={{-78,100},{-30,100},{-30,72}},
                                                           color={0,0,127}));
   connect(sou_m2_flow.ports[1], hex.port_a2) annotation (Line(points={{60,54},{
           10,54}},             color={0,127,255}));
-  connect(sin2.ports[1], hex.port_b2) annotation (Line(points={{-80,3},{-70,3},
-          {-70,0},{-48,0},{-48,54},{-10,54}},
+  connect(sin2.ports[1], hex.port_b2) annotation (Line(points={{-80,3},{-70,3},{
+          -70,0},{-48,0},{-48,54},{-10,54}},
                              color={0,127,255}));
   connect(sou_m1_flow.ports[1], hex1.port_a1) annotation (Line(points={{-20,26},
           {-20,28},{-16,28},{-16,26},{-10,26}}, color={0,127,255}));
-  connect(hex1.port_b2, sin2.ports[2]) annotation (Line(points={{-10,14},{-48,
-          14},{-48,0},{-70,0},{-70,1},{-80,1}},
+  connect(hex1.port_b2, sin2.ports[2]) annotation (Line(points={{-10,14},{-48,14},
+          {-48,0},{-70,0},{-70,1},{-80,1}},
                               color={0,127,255}));
   connect(sou_m2_flow1.ports[1], hex1.port_a2)
     annotation (Line(points={{62,14},{10,14}}, color={0,127,255}));
@@ -201,41 +200,39 @@ equation
     annotation (Line(points={{-20,-20},{-10,-20}}, color={0,127,255}));
   connect(sou_m1_flow1.ports[1], hex3.port_a1)
     annotation (Line(points={{-20,-60},{-10,-60}}, color={0,127,255}));
-  connect(hex2.port_b1, sin1.ports[1]) annotation (Line(points={{10,-20},{40,
-          -20},{40,83},{60,83}}, color={0,127,255}));
-  connect(hex3.port_b1, sin1.ports[2]) annotation (Line(points={{10,-60},{40,
-          -60},{40,81},{60,81}}, color={0,127,255}));
-  connect(ram.y, val1.y) annotation (Line(points={{-78,100},{-70,100},{-70,0},{
-          -30,0},{-30,-8}},
+  connect(hex2.port_b1, sin1.ports[1]) annotation (Line(points={{10,-20},{40,-20},
+          {40,83},{60,83}},      color={0,127,255}));
+  connect(hex3.port_b1, sin1.ports[2]) annotation (Line(points={{10,-60},{40,-60},
+          {40,81},{60,81}},      color={0,127,255}));
+  connect(ram.y, val1.y) annotation (Line(points={{-78,100},{-70,100},{-70,0},{-30,
+          0},{-30,-8}},
                     color={0,0,127}));
-  connect(ram.y, sou_m1_flow1.m_flow_in) annotation (Line(points={{-78,100},{
-          -70,100},{-70,-52},{-42,-52}},
-                                    color={0,0,127}));
+  connect(ram.y, sou_m1_flow1.m_flow_in) annotation (Line(points={{-78,100},{-70,
+          100},{-70,-52},{-42,-52}},color={0,0,127}));
   connect(sou_m2_flow2.ports[1], hex2.port_a2) annotation (Line(points={{60,-32},
           {36,-32},{36,-32},{10,-32}}, color={0,127,255}));
   connect(sou_m2_flow3.ports[1], hex3.port_a2)
     annotation (Line(points={{60,-72},{10,-72}}, color={0,127,255}));
-  connect(sin2.ports[3], hex2.port_b2) annotation (Line(points={{-80,-1},{-48,
-          -1},{-48,-32},{-10,-32}}, color={0,127,255}));
-  connect(sin2.ports[4], hex3.port_b2) annotation (Line(points={{-80,-3},{-48,
-          -3},{-48,-70},{-30,-70},{-30,-72},{-10,-72}},
+  connect(sin2.ports[3], hex2.port_b2) annotation (Line(points={{-80,-1},{-48,-1},
+          {-48,-32},{-10,-32}},     color={0,127,255}));
+  connect(sin2.ports[4], hex3.port_b2) annotation (Line(points={{-80,-3},{-48,-3},
+          {-48,-70},{-30,-70},{-30,-72},{-10,-72}},
                                     color={0,127,255}));
   connect(ram.y, gai.u) annotation (Line(points={{-78,100},{-70,100},{-70,-100},
           {-62,-100}},
                      color={0,0,127}));
-  connect(gai.y, sou_m2_flow3.m_flow_in) annotation (Line(points={{-38,-100},{
-          92,-100},{92,-64},{82,-64}},               color={0,0,127}));
-  connect(gai.y, sou_m2_flow2.m_flow_in) annotation (Line(points={{-38,-100},{
-          100,-100},{100,-24},{82,-24}},
+  connect(gai.y, sou_m2_flow3.m_flow_in) annotation (Line(points={{-38,-100},{92,
+          -100},{92,-64},{82,-64}},                  color={0,0,127}));
+  connect(gai.y, sou_m2_flow2.m_flow_in) annotation (Line(points={{-38,-100},{100,
+          -100},{100,-24},{82,-24}},
         color={0,0,127}));
   connect(supHeaWat.ports[2], val1.port_a) annotation (Line(points={{-80,38},{
           -60,38},{-60,-20},{-40,-20}}, color={0,127,255}));
-  connect(hex.port_b1, sin1.ports[3]) annotation (Line(points={{10,66},{40,66},
-          {40,79},{60,79}}, color={0,127,255}));
+  connect(hex.port_b1, sin1.ports[3]) annotation (Line(points={{10,66},{40,66},{
+          40,79},{60,79}},  color={0,127,255}));
   connect(hex1.port_b1, sin1.ports[4]) annotation (Line(points={{10,26},{40,26},
           {40,77},{60,77}}, color={0,127,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,
-            -120},{120,120}})),                                  Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,
-            120}})));
+  annotation (
+            Diagram(
+        coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})));
 end HeatExchangerFlowControl;

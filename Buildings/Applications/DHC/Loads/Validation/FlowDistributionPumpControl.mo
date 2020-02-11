@@ -250,5 +250,8 @@ equation
       __Dymola_Algorithm="Cvode"),
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-180,-200},{180,
-            200}})));
+            200}})),
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/FlowDistributionPumpControl.mos"
+        "Simulate and plot"));
 end FlowDistributionPumpControl;
