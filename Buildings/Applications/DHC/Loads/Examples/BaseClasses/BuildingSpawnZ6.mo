@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Loads.Validation.BaseClasses;
+within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
 model BuildingSpawnZ6
   "Spawn building model (6 zones) based on URBANopt GeoJSON export, with distribution pumps"
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
@@ -76,7 +76,7 @@ model BuildingSpawnZ6
     annotation (Placement(transformation(extent={{260,110},{280,130}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum3(nin=2)
     annotation (Placement(transformation(extent={{260,70},{280,90}})));
-  Buildings.Applications.DHC.Loads.Validation.BaseClasses.FanCoil4PipesFluidPorts
+  Buildings.Applications.DHC.Loads.Validation.BaseClasses.FanCoil4PipeFluidPorts
     terUni[nZon](
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium2,
@@ -104,7 +104,7 @@ model BuildingSpawnZ6
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
     redeclare package Medium = Medium,
     m_flow_nominal=sum(terUni.mChiWat_flow_nominal .* terUni.facSca),
-    disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
+    typDis=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
     have_pum=true,
     dp_nominal=100000,
     nPorts_a1=nZon,

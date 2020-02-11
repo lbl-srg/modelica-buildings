@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.Networks.BaseClasses;
-partial model PartialTwoPipeConnection
+partial model PartialConnection2Pipe
   "Partial model for connecting an agent to a two-pipe distribution network"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model"
@@ -20,13 +20,12 @@ partial model PartialTwoPipeConnection
     redeclare package Medium = Medium,
     m_flow_nominal=mCon_flow_nominal,
     allowFlowReversal=allowFlowReversal);
-  parameter Boolean haveBypFloSen = false
-    "Set to true to sense the bypass mass flow rate"
-    annotation(Evaluate=true);
   parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal
-    "Nominal mass flow rate in the distribution line";
+    "Nominal mass flow rate in the distribution line"
+    annotation(Dialog(tab="General", group="Nominal condition"));
   parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal
-    "Nominal mass flow rate in the connection line";
+    "Nominal mass flow rate in the connection line"
+    annotation(Dialog(tab="General", group="Nominal condition"));
   parameter Boolean allowFlowReversal = false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
@@ -68,15 +67,15 @@ partial model PartialTwoPipeConnection
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Connection supply port"
-    annotation (Placement(transformation(extent={{-50,
-            110},{-30,130}}), iconTransformation(extent={{-10,90},{10,110}})));
+    annotation (Placement(transformation(extent={{-30,110},{-10,130}}),
+                              iconTransformation(extent={{-10,90},{10,110}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aCon(
     redeclare package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Connection return port"
-    annotation (Placement(transformation(extent={{30,
-            110},{50,130}}), iconTransformation(extent={{50,90},{70,110}})));
+    annotation (Placement(transformation(extent={{10,110},{30,130}}),
+                             iconTransformation(extent={{50,90},{70,110}})));
   Modelica.Blocks.Interfaces.RealOutput mCon_flow
     "Connection supply mass flow rate"
     annotation (Placement(transformation(
@@ -89,16 +88,16 @@ partial model PartialTwoPipeConnection
   // COMPONENTS
   PipeDisModel pipDisSup
   "Distribution supply pipe"
-  annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+  annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
   PipeDisModel pipDisRet
     "Distribution return pipe"
-    annotation (Placement(transformation(extent={{-60,-90},{-80,-70}})));
+    annotation (Placement(transformation(extent={{-40,-90},{-60,-70}})));
   PipeConModel pipCon
     "Connection pipe"
     annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},
       rotation=90,
-      origin={-40,-10})));
+      origin={-20,-10})));
   Junction junConSup(
     redeclare package Medium = Medium,
     portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
@@ -109,7 +108,7 @@ partial model PartialTwoPipeConnection
          else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     m_flow_nominal={mDis_flow_nominal,-mDis_flow_nominal,-mCon_flow_nominal})
     "Junction with connection supply"
-    annotation (Placement(transformation(extent={{-50,-30},{-30,-50}})));
+    annotation (Placement(transformation(extent={{-30,-30},{-10,-50}})));
   Junction junConRet(
     redeclare package Medium = Medium,
     portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
@@ -120,7 +119,7 @@ partial model PartialTwoPipeConnection
          else Modelica.Fluid.Types.PortFlowDirection.Entering,
     m_flow_nominal={mDis_flow_nominal,-mDis_flow_nominal,mCon_flow_nominal})
     "Junction with connection return"
-    annotation (Placement(transformation(extent={{50,-70},{30,-90}})));
+    annotation (Placement(transformation(extent={{30,-70},{10,-90}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTConSup(
     allowFlowReversal=allowFlowReversal,
     redeclare package Medium=Medium,
@@ -129,7 +128,7 @@ partial model PartialTwoPipeConnection
     annotation (Placement(transformation(
       extent={{10,10},{-10,-10}},
       rotation=-90,
-      origin={-40,80})));
+      origin={-20,80})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTConRet(
     allowFlowReversal=allowFlowReversal,
     redeclare package Medium=Medium,
@@ -138,7 +137,7 @@ partial model PartialTwoPipeConnection
     annotation (Placement(transformation(
       extent={{-10,10},{10,-10}},
       rotation=-90,
-      origin={40,80})));
+      origin={20,80})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFloCon(
     redeclare package Medium=Medium,
     allowFlowReversal=allowFlowReversal)
@@ -147,7 +146,7 @@ partial model PartialTwoPipeConnection
       transformation(
       extent={{-10,10},{10,-10}},
       rotation=90,
-      origin={-40,40})));
+      origin={-20,40})));
   Modelica.Blocks.Sources.RealExpression QCal_flow(
     y=(senTConSup.T - senTConRet.T) * cp_default * senMasFloCon.m_flow)
     "Calculation of heat flow rate transferred to the load"
@@ -161,36 +160,33 @@ protected
     "Specific heat capacity of medium at default medium state";
 equation
   connect(junConSup.port_3, pipCon.port_a)
-    annotation (Line(points={{-40,-30},{-40,-20}}, color={0,127,255}));
+    annotation (Line(points={{-20,-30},{-20,-20}}, color={0,127,255}));
   connect(pipDisSup.port_b, junConSup.port_1)
-    annotation (Line(points={{-60,-40},{-50,-40}}, color={0,127,255}));
+    annotation (Line(points={{-40,-40},{-30,-40}}, color={0,127,255}));
   connect(port_bCon, senTConSup.port_b)
-    annotation (Line(points={{-40,120},{-40,90}}, color={0,127,255}));
+    annotation (Line(points={{-20,120},{-20,90}}, color={0,127,255}));
   connect(junConRet.port_3, senTConRet.port_b)
-    annotation (Line(points={{40,-70},{40,70}}, color={0,127,255}));
+    annotation (Line(points={{20,-70},{20,70}}, color={0,127,255}));
   connect(senTConRet.port_a, port_aCon)
-    annotation (Line(points={{40,90},{40,120}}, color={0,127,255}));
+    annotation (Line(points={{20,90},{20,120}}, color={0,127,255}));
   connect(senMasFloCon.port_b,senTConSup. port_a)
-    annotation (Line(points={{-40,50},{-40,70}}, color={0,127,255}));
+    annotation (Line(points={{-20,50},{-20,70}}, color={0,127,255}));
   connect(senMasFloCon.m_flow, mCon_flow)
-    annotation (Line(points={{-29,40},{120,40}}, color={0,0,127}));
+    annotation (Line(points={{-9,40},{120,40}},  color={0,0,127}));
   connect(pipCon.port_b, senMasFloCon.port_a)
-    annotation (Line(points={{-40,0},{-40,30}}, color={0,127,255}));
+    annotation (Line(points={{-20,0},{-20,30}}, color={0,127,255}));
   connect(QCal_flow.y, Q_flow)
     annotation (Line(points={{81,80},{120,80}}, color={0,0,127}));
   connect(port_aDisSup, pipDisSup.port_a)
-    annotation (Line(points={{-100,-40},{-80,-40}}, color={0,127,255}));
-  if haveBypFloSen then
-  else
-  end if;
+    annotation (Line(points={{-100,-40},{-60,-40}}, color={0,127,255}));
   connect(port_aDisRet, junConRet.port_1)
-    annotation (Line(points={{100,-80},{50,-80}}, color={0,127,255}));
+    annotation (Line(points={{100,-80},{30,-80}}, color={0,127,255}));
   connect(junConSup.port_2, port_bDisSup)
-    annotation (Line(points={{-30,-40},{100,-40}}, color={0,127,255}));
+    annotation (Line(points={{-10,-40},{100,-40}}, color={0,127,255}));
   connect(junConRet.port_2, pipDisRet.port_a)
-    annotation (Line(points={{30,-80},{-60,-80}}, color={0,127,255}));
+    annotation (Line(points={{10,-80},{-40,-80}}, color={0,127,255}));
   connect(pipDisRet.port_b, port_bDisRet)
-    annotation (Line(points={{-80,-80},{-100,-80}}, color={0,127,255}));
+    annotation (Line(points={{-60,-80},{-100,-80}}, color={0,127,255}));
   annotation (
     defaultComponentName="con",
     Icon(graphics={   Rectangle(
@@ -258,6 +254,6 @@ equation
           pattern=LinePattern.None,
           lineColor={0,0,0},
           origin={59.5,45.5},
-          rotation=90)}),       Diagram(coordinateSystem(extent={{-100,-100},{
-            100,120}})));
-end PartialTwoPipeConnection;
+          rotation=90)}),       Diagram(coordinateSystem(extent={{-100,-100},{100,
+            120}})));
+end PartialConnection2Pipe;

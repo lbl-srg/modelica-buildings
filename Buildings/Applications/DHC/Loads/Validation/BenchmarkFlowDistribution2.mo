@@ -9,8 +9,9 @@ model BenchmarkFlowDistribution2
   parameter String filPat=
     "modelica://Buildings/Applications/DHC/Examples/Resources/SwissResidential_20190916.mos"
     "Library path of the file with thermal loads as time series";
-  parameter Integer nLoa=25
-    "Number of served loads";
+  parameter Integer nLoa=5
+    "Number of served loads"
+    annotation(Evaluate=true);
   parameter Modelica.SIunits.Temperature T_aHeaWat_nominal(
     min=273.15, displayUnit="degC") = 273.15 + 40
     "Heating water inlet temperature at nominal conditions"
@@ -43,15 +44,14 @@ model BenchmarkFlowDistribution2
       filNam=Modelica.Utilities.Files.loadResource(filPat))
     "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Design parameter"));
-  BaseClasses.FanCoil2PipesHeatingValve terUniHea[nLoa](
+  BaseClasses.FanCoil2PipeHeatingValve terUniHea[nLoa](
     redeclare each final package Medium1 = Medium1,
     redeclare each final package Medium2 = Medium2,
     each final QHea_flow_nominal=QHea_flow_nominal,
     each final mLoaHea_flow_nominal=mLoaHea_flow_nominal,
     each final T_aHeaWat_nominal=T_aHeaWat_nominal,
     each final T_bHeaWat_nominal=T_bHeaWat_nominal,
-    each final T_aLoaHea_nominal=T_aLoaHea_nominal)
-    "Heating terminal unit"
+    each final T_aLoaHea_nominal=T_aLoaHea_nominal) "Heating terminal unit"
     annotation (Placement(transformation(extent={{40,38},{60,58}})));
   Modelica.Blocks.Sources.CombiTimeTable loa(
     tableOnFile=true,
@@ -83,15 +83,15 @@ model BenchmarkFlowDistribution2
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,-80})));
-   Validation.BaseClasses.Distribution2Pipes dis(
-     redeclare final package Medium = Medium1,
-     nCon=nLoa,
-     allowFlowReversal=false,
-     mDis_flow_nominal={sum(terUniHea[i:nLoa].mHeaWat_flow_nominal) for i in 1:nLoa},
-     mCon_flow_nominal=terUniHea.mHeaWat_flow_nominal,
-     mEnd_flow_nominal=1,
-     dpDis_nominal=fill(1500, nLoa))
-     annotation (Placement(transformation(extent={{40,-90},{80,-70}})));
+  BaseClasses.Distribution2Pipe dis(
+    redeclare final package Medium = Medium1,
+    nCon=nLoa,
+    allowFlowReversal=false,
+    mDis_flow_nominal={sum(terUniHea[i:nLoa].mHeaWat_flow_nominal) for i in 1:
+        nLoa},
+    mCon_flow_nominal=terUniHea.mHeaWat_flow_nominal,
+    dpDis_nominal=fill(1500, nLoa))
+    annotation (Placement(transformation(extent={{40,-90},{80,-70}})));
   Fluid.Movers.FlowControlled_dp pum(
     redeclare package Medium = Medium1,
     per(final motorCooledByFluid=false),
@@ -156,5 +156,7 @@ equation
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    __Dymola_Commands(executeCall=plot({"bui.terUniCoo.QActCoo_flow"}, colors={
+          {28,108,200}})));
 end BenchmarkFlowDistribution2;

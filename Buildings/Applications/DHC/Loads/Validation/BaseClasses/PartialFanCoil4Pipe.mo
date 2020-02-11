@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.Loads.Validation.BaseClasses;
-partial model PartialFanCoil4Pipes
+partial model PartialFanCoil4Pipe
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit(
     redeclare package Medium1 = Buildings.Media.Water,
     redeclare package Medium2 = Buildings.Media.Air,
@@ -18,7 +18,7 @@ partial model PartialFanCoil4Pipes
     hexConfiguration.CounterFlow
     "Cooling heat exchanger configuration";
   Buildings.Controls.OBC.CDL.Continuous.LimPID conHea(
-    Ti=120,
+    Ti=10,
     yMax=1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     reverseAction=false,
@@ -72,7 +72,7 @@ partial model PartialFanCoil4Pipes
     mLoaHea_flow_nominal,mLoaCoo_flow_nominal}))
     annotation (Placement(transformation(extent={{40,130},{60,150}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conCoo(
-    Ti=120,
+    Ti=10,
     yMax=1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     reverseAction=true,
@@ -126,4 +126,4 @@ equation
   connect(conCoo.y, smoothMax.u2) annotation (Line(points={{12,180},{16,180},{
           16,120},{-16,120},{-16,134},{-12,134}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-200,-240},{200,240}})));
-end PartialFanCoil4Pipes;
+end PartialFanCoil4Pipe;

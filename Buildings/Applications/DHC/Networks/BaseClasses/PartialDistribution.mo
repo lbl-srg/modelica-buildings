@@ -10,7 +10,7 @@ partial model PartialDistribution
           property_T=293.15, X_a=0.40) "Propylene glycol water, 40% mass fraction")));
   parameter Integer nCon
     "Number of connections"
-    annotation(Evaluate=true);
+    annotation(Dialog(tab="General"), Evaluate=true);
   parameter Boolean allowFlowReversal = false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);

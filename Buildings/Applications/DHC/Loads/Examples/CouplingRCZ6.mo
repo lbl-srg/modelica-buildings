@@ -10,7 +10,7 @@ model CouplingRCZ6
     "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     "Weather data reader"
     annotation (Placement(transformation(extent={{60,20},{40,40}})));
-  Validation.BaseClasses.BuildingRCZ6 bui(nPorts_a=2, nPorts_b=2) "Building"
+  BaseClasses.BuildingRCZ6 bui(nPorts_a=2, nPorts_b=2) "Building"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Buildings.Fluid.Sources.Boundary_pT sinHeaWat(redeclare package Medium =
         Medium1, nPorts=1) "Sink for heating water" annotation (Placement(

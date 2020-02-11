@@ -331,6 +331,18 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     have_watCoo
     "Scaling"
     annotation (Placement(transformation(extent={{160,70},{180,90}})));
+  Fluid.BaseClasses.MassFlowRateMultiplier scaHeaWatFloInl(
+    redeclare final package Medium = Medium1,
+    final k=1/facSca,
+    final allowFlowReversal=allowFlowReversal)
+    "Flow rate scaling"
+    annotation (Placement(transformation(extent={{-180,-230},{-160,-210}})));
+  Fluid.BaseClasses.MassFlowRateMultiplier scaHeaWatFloOut(
+    redeclare final package Medium = Medium1,
+    final k=facSca,
+    final allowFlowReversal=allowFlowReversal)
+    "Flow rate scaling"
+    annotation (Placement(transformation(extent={{162,-230},{182,-210}})));
 protected
   parameter Modelica.SIunits.SpecificHeatCapacity cpHeaWat_nominal=
     Medium1.specificHeatCapacityCp(
@@ -348,6 +360,7 @@ protected
     Medium2.specificHeatCapacityCp(
       Medium2.setState_pTX(Medium2.p_default, T_aLoaCoo_nominal))
     "Load side specific heat capacity at nominal conditions in cooling mode";
+
 equation
   if have_QReq_flow and (have_watHea or have_chaOve or have_eleHea) then
     connect(QReqHea_flow, scaQReqHea_flow.u)
@@ -389,6 +402,10 @@ equation
     connect(scaMasFloReqChiWat.y, mReqChiWat_flow)
       annotation (Line(points={{182,80},{220,80}}, color={0,0,127}));
   end if;
+  connect(port_aHeaWat, scaHeaWatFloInl.port_a)
+    annotation (Line(points={{-200,-220},{-180,-220}}, color={0,127,255}));
+  connect(scaHeaWatFloOut.port_b, port_bHeaWat)
+    annotation (Line(points={{182,-220},{200,-220}}, color={0,127,255}));
 annotation (
   defaultComponentName="terUni",
   Documentation(info="<html>

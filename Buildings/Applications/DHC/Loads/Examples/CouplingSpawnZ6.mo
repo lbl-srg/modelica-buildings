@@ -4,7 +4,7 @@ model CouplingSpawnZ6
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water
     "Source side medium";
-  Validation.BaseClasses.BuildingSpawnZ6 bui(nPorts_a=2, nPorts_b=2) "Building"
+  BaseClasses.BuildingSpawnZ6 bui(nPorts_a=2, nPorts_b=2) "Building"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Buildings.Fluid.Sources.Boundary_pT sinHeaWat(redeclare package Medium =
         Medium1, nPorts=1) "Sink for heating water" annotation (Placement(

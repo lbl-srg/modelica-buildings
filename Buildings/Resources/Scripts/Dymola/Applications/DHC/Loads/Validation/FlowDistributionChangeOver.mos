@@ -1,17 +1,17 @@
 Advanced.StoreProtectedVariables = true;
 simulateModel(
-    "Buildings.Applications.DHC.Loads.Validation.FlowDistributionCO",
+    "Buildings.Applications.DHC.Loads.Validation.FlowDistributionChangeOver",
     method="cvode",
     tolerance=1e-6,
     numberOfIntervals=500,
     stopTime=1000.0,
-    resultFile="FlowDistributionCO");
+    resultFile="FlowDistributionChangeOver");
 createPlot(
     id=1,
     position={111, 107, 796, 818},
     y={"senTPriSup.T", "TSetSec.Celsius", "senTSecRet.T", "senTSecSup.T"},
     range={0.0, 1000.0, 6.0, 42.0},
-    filename="FlowDistributionCO.mat",
+    filename="FlowDistributionChangeOver.mat",
     grid = true,
     color = true,
     displayUnits={"degC", "", "degC", "degC"});

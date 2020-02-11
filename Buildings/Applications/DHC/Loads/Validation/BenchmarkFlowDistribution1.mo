@@ -9,8 +9,9 @@ model BenchmarkFlowDistribution1
   parameter String filPat=
     "modelica://Buildings/Applications/DHC/Examples/Resources/SwissResidential_20190916.mos"
     "Library path of the file with thermal loads as time series";
-  parameter Integer nLoa=10
-    "Number of served loads";
+  parameter Integer nLoa=5
+    "Number of served loads"
+    annotation(Evaluate=true);
   parameter Modelica.SIunits.Temperature T_aHeaWat_nominal(
     min=273.15, displayUnit="degC") = 273.15 + 40
     "Heating water inlet temperature at nominal conditions"
@@ -47,15 +48,14 @@ model BenchmarkFlowDistribution1
     nPorts_b1=nLoa)
     "Heating water distribution system"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
-  BaseClasses.FanCoil2PipesHeating terUniHea[nLoa](
+  BaseClasses.FanCoil2PipeHeating terUniHea[nLoa](
     redeclare each final package Medium1 = Medium1,
     redeclare each final package Medium2 = Medium2,
     each final QHea_flow_nominal=QHea_flow_nominal,
     each final mLoaHea_flow_nominal=mLoaHea_flow_nominal,
     each final T_aHeaWat_nominal=T_aHeaWat_nominal,
     each final T_bHeaWat_nominal=T_bHeaWat_nominal,
-    each final T_aLoaHea_nominal=T_aLoaHea_nominal)
-    "Heating terminal unit"
+    each final T_aLoaHea_nominal=T_aLoaHea_nominal) "Heating terminal unit"
     annotation (Placement(transformation(extent={{40,38},{60,58}})));
   Modelica.Blocks.Sources.CombiTimeTable loa(
     tableOnFile=true,

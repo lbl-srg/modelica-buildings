@@ -6,7 +6,7 @@ model ConnectionSeries "Model for connecting an agent to the DHC system"
       choice(redeclare package Medium =
         Buildings.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15, X_a=0.40) "Propylene glycol water, 40% mass fraction")));
-  parameter Boolean haveBypFloSen = false
+  parameter Boolean have_bypFloSen = false
     "Set to true to sense the bypass mass flow rate"
     annotation(Evaluate=true);
   parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal
@@ -62,7 +62,7 @@ model ConnectionSeries "Model for connecting an agent to the DHC system"
     "Heat flow rate transferred to the connected load (>=0 for heating)"
     annotation (Placement(transformation(extent={{100,60},{140,100}}),
       iconTransformation(extent={{100,70},{120,90}})));
-  Modelica.Blocks.Interfaces.RealOutput mByp_flow if haveBypFloSen
+  Modelica.Blocks.Interfaces.RealOutput mByp_flow if have_bypFloSen
     "Bypass mass flow rate"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
         iconTransformation(extent={{100,30},{120,50}})));
@@ -137,7 +137,7 @@ model ConnectionSeries "Model for connecting an agent to the DHC system"
       origin={-40,40})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFloByp(
     redeclare package Medium=Medium,
-    allowFlowReversal=allowFlowReversal) if haveBypFloSen
+    allowFlowReversal=allowFlowReversal) if have_bypFloSen
     "Bypass mass flow rate (sensed)"
     annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},
@@ -177,7 +177,7 @@ equation
     annotation (Line(points={{-100,-40},{-80,-40}}, color={0,127,255}));
   connect(junConRet.port_2, port_bDis)
     annotation (Line(points={{50,-40},{100,-40}}, color={0,127,255}));
-  if haveBypFloSen then
+  if have_bypFloSen then
     connect(junConSup.port_2, senMasFloByp.port_a)
       annotation (Line(points={{-30,-40},{-10,-40}}, color={0,127,255}));
     connect(senMasFloByp.port_b, junConRet.port_1)

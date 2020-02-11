@@ -11,8 +11,8 @@ model CouplingRCZ1Valve
     annotation (Placement(transformation(extent={{60,100},{40,120}})));
   package Medium1 = Buildings.Media.Water
     "Source side medium";
-  Validation.BaseClasses.BuildingRCZ1Valve bui(nPorts_a=2, nPorts_b=2)
-    "Building" annotation (Placement(transformation(extent={{20,40},{40,60}})));
+  BaseClasses.BuildingRCZ1Valve bui(nPorts_a=2, nPorts_b=2) "Building"
+    annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Buildings.Fluid.Sources.Boundary_pT sinHeaWat(redeclare package Medium =
         Medium1, nPorts=1) "Sink for heating water" annotation (Placement(
         transformation(

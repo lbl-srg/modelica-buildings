@@ -1,6 +1,7 @@
 BenchmarkFlowDistribution1
 BenchmarkFlowDistribution2
-FlowDistributionCO
+FlowDistributionChangeOver
+FlowDistributionPumpControl
 HeatExchanger
 ScalingTerminalUnit
 BaseClasses

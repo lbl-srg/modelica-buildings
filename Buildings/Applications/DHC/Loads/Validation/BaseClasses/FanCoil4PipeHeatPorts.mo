@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.Loads.Validation.BaseClasses;
-model FanCoil4PipesHeatPorts
-  extends PartialFanCoil4Pipes(
+model FanCoil4PipeHeatPorts
+  extends PartialFanCoil4Pipe(
     final have_heaPor=true);
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaFloHeaCon
     "Convective heat flow rate to load"
@@ -78,4 +78,4 @@ equation
           160},{0,160},{0,168}}, color={0,0,127}));
   connect(senT.T, conHea.u_m) annotation (Line(points={{160,20},{-40,20},{-40,
           200},{0,200},{0,208}}, color={0,0,127}));
-end FanCoil4PipesHeatPorts;
+end FanCoil4PipeHeatPorts;

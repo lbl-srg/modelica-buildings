@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.Loads.Validation;
-model FlowDistributionCO
+model FlowDistributionChangeOver
   "Validation of FlowDistribution in change-over mode"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water
@@ -9,7 +9,7 @@ model FlowDistributionCO
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFlo(
     redeclare package Medium = Medium1,
     m_flow_nominal=m_flow_nominal,
-    disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChangeOver,
+    typDis=Buildings.Applications.DHC.Loads.Types.DistributionType.ChangeOver,
     have_pum=true,
     have_val=true,
     dp_nominal=100000,
@@ -196,6 +196,6 @@ in change-over mode.
       StopTime=604800,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
-  __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/FlowDistributionCO.mos"
+  __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/FlowDistributionChangeOver.mos"
     "Simulate and plot"));
-end FlowDistributionCO;
+end FlowDistributionChangeOver;

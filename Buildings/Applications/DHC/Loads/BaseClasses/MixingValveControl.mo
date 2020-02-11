@@ -1,9 +1,9 @@
 within Buildings.Applications.DHC.Loads.BaseClasses;
 block MixingValveControl "Controller for the mixing valve"
   extends Modelica.Blocks.Icons.Block;
-  import typ = Buildings.Applications.DHC.Loads.Types.DistributionType
+  import Type_dis = Buildings.Applications.DHC.Loads.Types.DistributionType
     "Types of distribution system";
-  parameter typ disTyp = typ.HeatingWater
+  parameter Type_dis typDis = Type_dis.HeatingWater
     "Type of distribution system"
     annotation(Evaluate=true);
   // IO CONNECTORS
@@ -20,7 +20,7 @@ block MixingValveControl "Controller for the mixing valve"
       rotation=0,
       origin={-110,-40})));
   Modelica.Blocks.Interfaces.IntegerInput modChaOve if
-    disTyp == typ.ChangeOver
+    typDis == Type_dis.ChangeOver
     "Operating mode in change-over (1 for heating, -1 for cooling)"
     annotation (Placement(
       transformation(
@@ -55,7 +55,7 @@ block MixingValveControl "Controller for the mixing valve"
         origin={110,0})));
   // COMPONENTS
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea if
-    disTyp == typ.ChangeOver
+    typDis == Type_dis.ChangeOver
     "Conversion to real"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant tru(k=true)
@@ -65,7 +65,7 @@ block MixingValveControl "Controller for the mixing valve"
     "Zero constant"
     annotation (Placement(transformation(extent={{-70,-30},{-50,-10}})));
   Modelica.Blocks.Math.IntegerToBoolean toBoo(threshold=0) if
-    disTyp == typ.ChangeOver
+    typDis == Type_dis.ChangeOver
     "Conversion to boolean (true if heating mode)"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conTSup(
@@ -75,7 +75,7 @@ block MixingValveControl "Controller for the mixing valve"
     yMax=1,
     yMin=-1,
     reverseAction=false,
-    reset=if disTyp == typ.ChangeOver then
+    reset=if typDis == Type_dis.ChangeOver then
       Buildings.Controls.OBC.CDL.Types.Reset.Parameter else
       Buildings.Controls.OBC.CDL.Types.Reset.Disabled)
     "PI controller tracking supply temperature"
@@ -87,7 +87,7 @@ block MixingValveControl "Controller for the mixing valve"
     "Positive part of control signal"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   Buildings.Controls.OBC.CDL.Logical.ZeroCrossing zerCro if
-    disTyp == typ.ChangeOver
+    typDis == Type_dis.ChangeOver
     "Zero crossing yields true signal"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain opp(k=-1)
@@ -97,11 +97,11 @@ block MixingValveControl "Controller for the mixing valve"
     "Logical switch"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
   Modelica.Blocks.Sources.BooleanExpression fixMod(
-    final y=disTyp == typ.HeatingWater)
+    final y=typDis == Type_dis.HeatingWater)
     "Fixed operating mode"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
-  if disTyp == typ.ChangeOver then
+  if typDis == Type_dis.ChangeOver then
     connect(modChaOve, intToRea.u)
       annotation (Line(points={{-120,80},{-82,80}}, color={255,127,0}));
     connect(tru.y, zerCro.enable)

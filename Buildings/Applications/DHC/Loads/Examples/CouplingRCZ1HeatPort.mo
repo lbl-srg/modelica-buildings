@@ -11,8 +11,8 @@ model CouplingRCZ1HeatPort
     annotation (Placement(transformation(extent={{60,100},{40,120}})));
   package Medium1 = Buildings.Media.Water
     "Source side medium";
-  Validation.BaseClasses.BuildingRCZ1HeatPort bui(nPorts_a=2, nPorts_b=2)
-    "Building" annotation (Placement(transformation(extent={{20,40},{40,60}})));
+  BaseClasses.BuildingRCZ1HeatPort bui(nPorts_a=2, nPorts_b=2) "Building"
+    annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Buildings.Fluid.Sources.MassFlowSource_T supHeaWat(
     use_m_flow_in=true,
     redeclare package Medium = Medium1,

@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.Loads.Validation.BaseClasses;
-model FanCoil2PipesCooling
+model FanCoil2PipeCooling
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit(
     redeclare package Medium1 = Buildings.Media.Water,
     redeclare package Medium2 = Buildings.Media.Air,
@@ -19,7 +19,7 @@ model FanCoil2PipesCooling
     hexConfiguration.CounterFlow
     "Cooling heat exchanger configuration";
   Buildings.Controls.OBC.CDL.Continuous.LimPID con(
-    Ti=120,
+    Ti=10,
     yMax=1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     reverseAction=false,
@@ -131,4 +131,4 @@ equation
           180},{36,180}}, color={0,0,127}));
   connect(retAir.ports[1], fan.port_a)
     annotation (Line(points={{140,0},{90,0}}, color={0,127,255}));
-end FanCoil2PipesCooling;
+end FanCoil2PipeCooling;

@@ -6,8 +6,8 @@ model ScalingTerminalUnit
     "Source side medium";
   package Medium2 = Buildings.Media.Air
     "Load side medium";
-  parameter String filPat=
-      "modelica://Buildings/Applications/DHC/Examples/Resources/SwissResidential_20190916.mos";
+  parameter Real facSca=30
+    "Scaling factor";
   parameter Modelica.SIunits.Temperature T_aHeaWat_nominal(
     min=273.15, displayUnit="degC") = 273.15 + 40
     "Heating water inlet temperature at nominal conditions"
@@ -30,19 +30,17 @@ model ScalingTerminalUnit
       Medium2.p_default, T_aLoaHea_nominal))
     "Load side mass flow rate at nominal conditions for 1 unit"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mLoaHea_flow_nominal(min=0)=
+  final parameter Modelica.SIunits.MassFlowRate mLoaHea_flow_nominal(min=0)=
     mLoaHeaUni_flow_nominal * facSca
     "Load side mass flow rate at nominal conditions"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.HeatFlowRate QHeaUni_flow_nominal(min=0) = 1000
     "Design heating heat flow rate (>=0) for 1 unit"
     annotation(Dialog(group="Nominal condition"));
-  parameter Real facSca = 10
-    "Scaling factor";
-  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal=
+  final parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal=
     QHeaUni_flow_nominal * facSca
     "Design heating heat flow rate (>=0)"
-    annotation (Dialog(group="Design parameter"));
+    annotation (Dialog(group="Nominal condition"));
   Buildings.Fluid.Sources.MassFlowSource_T supHeaWat(
     use_m_flow_in=true,
     redeclare package Medium = Medium1,
@@ -60,22 +58,23 @@ model ScalingTerminalUnit
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={110,0})));
-  BaseClasses.FanCoil2PipesHeating terUniNoSca(
+  BaseClasses.FanCoil2PipeHeating terUniNoSca(
+    have_speVar=false,
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     final QHea_flow_nominal=QHea_flow_nominal,
     final mLoaHea_flow_nominal=mLoaHea_flow_nominal,
     final T_aHeaWat_nominal=T_aHeaWat_nominal,
     final T_bHeaWat_nominal=T_bHeaWat_nominal,
-    final T_aLoaHea_nominal=T_aLoaHea_nominal)
-    "Terminal unit no scaling"
+    final T_aLoaHea_nominal=T_aLoaHea_nominal) "Terminal unit no scaling"
     annotation (Placement(transformation(extent={{-12,78},{12,102}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=20)
     "Minimum temperature setpoint"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC1
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  BaseClasses.FanCoil2PipesHeating terUniSca(
+  BaseClasses.FanCoil2PipeHeating terUniSca(
+    have_speVar=false,
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     final QHea_flow_nominal=QHeaUni_flow_nominal,
@@ -83,8 +82,7 @@ model ScalingTerminalUnit
     final mLoaHea_flow_nominal=mLoaHeaUni_flow_nominal,
     final T_aHeaWat_nominal=T_aHeaWat_nominal,
     final T_bHeaWat_nominal=T_bHeaWat_nominal,
-    final T_aLoaHea_nominal=T_aLoaHea_nominal)
-    "Terminal unit with scaling"
+    final T_aLoaHea_nominal=T_aLoaHea_nominal) "Terminal unit with scaling"
     annotation (Placement(transformation(extent={{-14,-82},{10,-58}})));
   Fluid.Sources.MassFlowSource_T supHeaWat1(
     use_m_flow_in=true,
@@ -97,7 +95,7 @@ model ScalingTerminalUnit
         rotation=0,
         origin={-70,-80})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(height=
-        QHea_flow_nominal*1.1, duration=900)
+        QHea_flow_nominal, duration=500)
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 equation
   connect(terUniNoSca.mReqHeaWat_flow, supHeaWat.m_flow_in) annotation (Line(
@@ -127,6 +125,7 @@ equation
   annotation (
   experiment(
       StopTime=1000,
+      __Dymola_NumberOfIntervals=5000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
   Documentation(info="<html>
@@ -142,7 +141,5 @@ equation
   </html>"),
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
-  __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/CouplingRCZ1HeatPort.mos"
-        "Simulate and plot"));
+  __Dymola_Commands);
 end ScalingTerminalUnit;
