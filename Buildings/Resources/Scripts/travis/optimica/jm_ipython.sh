@@ -97,8 +97,10 @@ DOCKER_FLAGS="\
     --detach=false \
     --rm \
     --user==1000 \
-    -e DISPLAY=${DISPLAY} \
+	--user=developer \
+	--mount 'type=bind,src=/tmp/.X11-unix,dst=/tmp/.X11-unix' \
     --mount 'type=bind,src=/home/travis/build/lbl-srg,dst=/mnt/shared' \
+    -e DISPLAY=${DISPLAY} \
     -w /mnt/shared/lbl-srg \
     ${NAME}"
 
