@@ -98,18 +98,18 @@ DOCKER_FLAGS="\
     --detach=false \
     --rm \
     --user=developer \
-    ${MOD_MOUNT} \
-    ${PYT_MOUNT} \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     -e DISPLAY=${DISPLAY} \
     -v ${sha_dir}:/mnt/shared \
     ${NAME}"
 
+#    ${MOD_MOUNT} \
+#    ${PYT_MOUNT} \
+
 echo "*** Shared directory is ---${sha_dir}---"
 echo "*** arg_lis is          ---${arg_lis}---"
 echo "*** MOD_MOUNT is          ---${MOD_MOUNT}---"
 echo "*** PYT_MOUNT is          ---${PYT_MOUNT}---"
-echo "*** --user=${UID}"
 echo "*** Docker version is `docker -v`"
 echo "*** dir is `pwd`"
 ls -lhtr .
