@@ -101,8 +101,10 @@ DOCKER_FLAGS="\
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     -e DISPLAY=${DISPLAY} \
     -v ${sha_dir}:/mnt/shared \
+    -w /mnt/shared \
     ${NAME}"
 
+#    -w /mnt/shared/${bas_nam} \
 #    ${MOD_MOUNT} \
 #    ${PYT_MOUNT} \
 
@@ -117,7 +119,6 @@ echo "**************************"
 docker run ${DOCKER_FLAGS} /bin/bash -c \
   "export MODELICAPATH=${DOCKER_MODELICAPATH}:/opt/oct/ThirdParty/MSL && \
    export PYTHONPATH=${DOCKER_PYTHONPATH} && \
-  cd /mnt/shared/${bas_nam} && \
   /opt/oct/bin/jm_ipython.sh ${arg_lis}"
 retVal=$?
 echo "*** dir is `pwd`"
