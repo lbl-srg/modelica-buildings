@@ -7,15 +7,20 @@ simulateModel(
     resultFile="FlowDistributionPumpControl");
 createPlot(
     id=1,
-    position={35, 35, 1084, 1370},
-    y={"pum.m_flow", "disFloHea.pum.m_flow"},
+    position={425, 129, 936, 1336},
+    y={"pumCstDp.dpMachine", "disCstDp.pumFlo.dpMachine", "pumCstSpe.dpMachine", "disCstSpe.pumSpe.dpMachine"},
     grid=true,
     color=true,
     filename="FlowDistributionPumpControl.mat");
 createPlot(
     id=1,
-    position={35, 35, 1084, 681},
-    y={"pum.dpMachine", "disFloHea.pum.dpMachine"},
+    y={"pumCstDp.m_flow", "disCstDp.pumFlo.m_flow", "pumCstSpe.m_flow", "disCstSpe.pumSpe.m_flow"},
     grid=true,
     color=true,
     subPlot=2);
+createPlot(
+    id=1,
+    y={"pumCstDp.P", "disCstDp.pumFlo.P", "pumCstSpe.P", "disCstSpe.pumSpe.P"},
+    grid=true,
+    color=true,
+    subPlot=3);
