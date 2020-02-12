@@ -36,6 +36,30 @@
     "model_name": "Buildings.Utilities.IO.Python27.Functions.Examples.Exchange"
   },
   {
+       "optimica": {
+         "simulate": false
+    },
+    "model_name": "Buildings.Utilities.IO.Python27.Examples.KalmanFilter"
+  },
+  {
+       "optimica": {
+         "simulate": false
+    },
+    "model_name": "Buildings.Utilities.IO.Python27.Functions.Examples.Exchange"
+  },
+  {
+       "optimica": {
+         "simulate": false
+    },
+    "model_name": "Buildings.Utilities.IO.Python27.Functions.Examples.ExchangeWithPassPythonObject"
+  },
+  {
+       "optimica": {
+         "simulate": false
+    },
+    "model_name": "Buildings.Utilities.IO.Python27.Examples.SimpleRoom"
+  },
+  {
        "jmodelica": {
          "rtol": 1E-8
     },
@@ -54,7 +78,7 @@
        "optimica": {
          "simulate": false
     },
-    "model_name": "or: Simulation of Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT"
+    "model_name": "Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT"
   },
   {
        "optimica": {

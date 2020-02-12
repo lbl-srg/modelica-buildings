@@ -1,7 +1,7 @@
 #!/bin/bash
 #################################################
-# Shell script that simulates JModelica using
-# a docker image of JModelica.
+# Shell script that simulates OPTIMICA using
+# a docker image of OPTIMICA.
 #
 # The main purpose of this script is to export
 # MODELICAPATH and PYTHONPATH with their values
@@ -93,25 +93,23 @@ do
     shift
 done
 
-# --user=${UID} \
-
 DOCKER_FLAGS="\
-	--mac-address=${OPTIMICA_MAC_ADDRESS} \
-	--detach=false \
-	--rm \
-	--user=developer \
-	${MOD_MOUNT} \
-	${PYT_MOUNT} \
-	-v /tmp/.X11-unix:/tmp/.X11-unix \
-	-e DISPLAY=${DISPLAY} \
-	-v ${sha_dir}:/mnt/shared \
-	${NAME}"
+  --mac-address=${OPTIMICA_MAC_ADDRESS} \
+  --detach=false \
+  --rm \
+  --user=${UID} \
+  ${MOD_MOUNT} \
+  ${PYT_MOUNT} \
+  -v /tmp/.X11-unix:/tmp/.X11-unix \
+  -e DISPLAY=${DISPLAY} \
+  -v ${sha_dir}:/mnt/shared \
+  -w /mnt/shared/${bas_nam} \
+  ${NAME}"
 
 docker run ${DOCKER_FLAGS} /bin/bash -c \
   "export MODELICAPATH=${DOCKER_MODELICAPATH}:/opt/oct/ThirdParty/MSL && \
    export PYTHONPATH=${DOCKER_PYTHONPATH} && \
-  cd /mnt/shared/${bas_nam} && \
-  alias ipython=ipython3 && \
-  /opt/oct/bin/jm_ipython.sh ${arg_lis}"
-
+   export IPYTHONDIR=/mnt/shared &&
+   alias ipython=ipython3 && \
+   /opt/oct/bin/jm_ipython.sh ${arg_lis}"
 exit $?
