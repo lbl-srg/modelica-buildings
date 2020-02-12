@@ -146,7 +146,7 @@ docker run ${DOCKER_FLAGS} /bin/bash -c \
    export PYTHONPATH=${DOCKER_PYTHONPATH} && \
    export IPYTHONDIR=${sha_dir} && \
    echo \"This is a test.\" > Buildings_Controls_OBC_CDL_Continuous_Validation_LimPID_log.txt && \
-   /opt/oct/bin/jm_python.sh modelica-buildings/${arg_lis}"
+   /opt/oct/bin/jm_ipython.sh modelica-buildings/${arg_lis}"
 retVal=$?
 ls -lhtrn .
 cat Buildings_Controls_OBC_CDL_Continuous_Validation_LimPID_log.txt
