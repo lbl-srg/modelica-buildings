@@ -423,7 +423,7 @@ equation
   connect(scaChiWatFloOut.port_b, port_bChiWat) annotation (Line(points={{180,
           -180},{192,-180},{192,-180},{200,-180}}, color={0,127,255}));
 annotation (
-  defaultComponentName="terUni",
+  defaultComponentName="ter",
   Documentation(info="<html>
 <p>
 Partial model to be used for modeling the building terminal units, in conjunction
@@ -492,7 +492,11 @@ The computed required mass flow rate must be connected to
     lineColor={0,0,255},
     pattern=LinePattern.None,
     fillColor={95,95,95},
-    fillPattern=FillPattern.Solid)}),
+    fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-150,-130},{150,-170}},
+          lineColor={0,0,255},
+          textString="%name")}),
     Diagram(coordinateSystem(
     extent={{-200,-240},{200,240}})));
 end PartialTerminalUnit;

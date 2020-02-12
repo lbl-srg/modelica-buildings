@@ -37,37 +37,37 @@ model BuildingSpawnZ6
     annotation (Placement(transformation(extent={{-20,128},{0,148}})));
   Modelica.Blocks.Sources.Constant qLatGai_flow(k=0) "Latent heat gain"
     annotation (Placement(transformation(extent={{-66,88},{-46,108}})));
-  Buildings.Experimental.EnergyPlus.ThermalZone znAttic(
+  Buildings.ThermalZones.EnergyPlus.ThermalZone znAttic(
     redeclare package Medium = Medium2,
     zoneName="Attic",
     nPorts=2) "Thermal zone"
     annotation (Placement(transformation(extent={{24,84},{64,124}})));
-  Buildings.Experimental.EnergyPlus.ThermalZone znCore_ZN(
+  Buildings.ThermalZones.EnergyPlus.ThermalZone znCore_ZN(
     redeclare package Medium = Medium2,
     zoneName="Core_ZN",
     nPorts=2) "Thermal zone"
     annotation (Placement(transformation(extent={{24,42},{64,82}})));
-  Buildings.Experimental.EnergyPlus.ThermalZone znPerimeter_ZN_1(
+  Buildings.ThermalZones.EnergyPlus.ThermalZone znPerimeter_ZN_1(
     redeclare package Medium = Medium2,
     zoneName="Perimeter_ZN_1",
     nPorts=2) "Thermal zone"
     annotation (Placement(transformation(extent={{24,0},{64,40}})));
-  Buildings.Experimental.EnergyPlus.ThermalZone znPerimeter_ZN_2(
+  Buildings.ThermalZones.EnergyPlus.ThermalZone znPerimeter_ZN_2(
     redeclare package Medium = Medium2,
     zoneName="Perimeter_ZN_2",
     nPorts=2) "Thermal zone"
     annotation (Placement(transformation(extent={{24,-40},{64,0}})));
-  Buildings.Experimental.EnergyPlus.ThermalZone znPerimeter_ZN_3(
+  Buildings.ThermalZones.EnergyPlus.ThermalZone znPerimeter_ZN_3(
     redeclare package Medium = Medium2,
     zoneName="Perimeter_ZN_3",
     nPorts=2) "Thermal zone"
     annotation (Placement(transformation(extent={{24,-80},{64,-40}})));
-  Buildings.Experimental.EnergyPlus.ThermalZone znPerimeter_ZN_4(
+  Buildings.ThermalZones.EnergyPlus.ThermalZone znPerimeter_ZN_4(
     redeclare package Medium = Medium2,
     zoneName="Perimeter_ZN_4",
     nPorts=2) "Thermal zone"
     annotation (Placement(transformation(extent={{24,-120},{64,-80}})));
-  inner Buildings.Experimental.EnergyPlus.Building building(
+  inner Buildings.ThermalZones.EnergyPlus.Building building(
     idfName=Modelica.Utilities.Files.loadResource(idfPat),
     weaName=Modelica.Utilities.Files.loadResource(weaPat))
     "Building outer component"
@@ -240,5 +240,5 @@ equation
   </html>"),
   Diagram(coordinateSystem(extent={{-300,-300},{300,300}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
-          Bitmap(extent={{-108,-100},{92,100}},  fileName="modelica://Buildings/Resources/Images/Experimental/EnergyPlus/EnergyPlusLogo.png")}));
+          Bitmap(extent={{-108,-100},{92,100}},  fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/EnergyPlusLogo.png")}));
 end BuildingSpawnZ6;

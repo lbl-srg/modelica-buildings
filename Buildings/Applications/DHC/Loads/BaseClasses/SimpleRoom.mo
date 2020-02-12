@@ -1,5 +1,5 @@
 ﻿within Buildings.Applications.DHC.Loads.BaseClasses;
-model SimpleRoomODE
+model SimpleRoom
   "Simplified first order ODE model for computing indoor temperature"
   extends Modelica.Blocks.Icons.Block;
   parameter Modelica.SIunits.Temperature TOutHea_nominal(final displayUnit="degC")
@@ -53,7 +53,7 @@ equation
   assert(TAir >= 273.15, "In " + getInstanceName() +
     ": The computed indoor temperature is below 0°C.");
   annotation (
-  defaultComponentName="rooOde",
+  defaultComponentName="roo",
   Documentation(info="<html>
   <p>
   This is a first order ODE model for assessing the indoor temperature based on the difference between the 
@@ -103,4 +103,4 @@ equation
   </html>"),
   Icon(coordinateSystem(preserveAspectRatio=false)),
   Diagram(coordinateSystem(preserveAspectRatio=false)));
-end SimpleRoomODE;
+end SimpleRoom;

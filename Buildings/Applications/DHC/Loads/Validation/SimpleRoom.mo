@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.Loads.Validation;
-model SimpleRoomODE "Validation of the model SimpleRoomODE"
+model SimpleRoom "Validation of the model SimpleRoom"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water
     "Source side medium";
@@ -43,12 +43,11 @@ model SimpleRoomODE "Validation of the model SimpleRoomODE"
     annotation (Placement(transformation(extent={{92,90},{112,110}})));
   HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow1
     annotation (Placement(transformation(extent={{82,70},{62,90}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoomODE rooOdeHea(
+  Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom rooOdeHea(
     TOutHea_nominal=273.15,
     TIndHea_nominal=293.15,
     QHea_flow_nominal=QHea_flow_nominal,
-    tau=tau)
-    "ODE heated room model"
+    tau=tau) "ODE heated room model"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=24)
     "Maximum temperature setpoint"
@@ -61,18 +60,17 @@ model SimpleRoomODE "Validation of the model SimpleRoomODE"
     annotation (Placement(transformation(extent={{30,-110},{50,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai2(k=QCoo_flow_nominal)
     annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoomODE rooOdeCoo(
+  Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom rooOdeCoo(
     TOutHea_nominal=273.15,
     TIndHea_nominal=293.15,
     QHea_flow_nominal=QHea_flow_nominal,
-    tau=tau)
-    "ODE cooled room model"
+    tau=tau) "ODE cooled room model"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai3(k=0.9)
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai3(k=0.8)
     annotation (Placement(transformation(extent={{92,-90},{112,-70}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat1(
     TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
-    TDryBul=295.15,
+    TDryBul=293.15,
     calTSky=Buildings.BoundaryConditions.Types.SkyTemperatureCalculation.HorizontalRadiation,
     computeWetBulbTemperature=false,
     filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
@@ -166,7 +164,7 @@ equation
       StopTime=1209600,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
-  __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/SimpleRoomODE.mos"
+  __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/SimpleRoom.mos"
   "Simulate and plot"),
     Diagram(coordinateSystem(extent={{-160,-180},{160,180}})));
-end SimpleRoomODE;
+end SimpleRoom;

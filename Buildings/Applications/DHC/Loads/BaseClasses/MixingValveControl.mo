@@ -138,8 +138,7 @@ equation
   connect(negPar.y, opp.u)
     annotation (Line(points={{12,-80},{18,-80}}, color={0,0,127}));
   connect(opp.y, swi.u3) annotation (Line(points={{42,-80},{50,-80},{50,-48},{
-          58,-48}},
-                 color={0,0,127}));
+          58,-48}}, color={0,0,127}));
   connect(posPar.y, swi.u1) annotation (Line(points={{12,-40},{20,-40},{20,-32},
           {58,-32}}, color={0,0,127}));
   connect(conTSup.u_s, TSupSet) annotation (Line(points={{-72,-60},{-90,-60},{-90,
@@ -151,6 +150,7 @@ equation
 
   annotation (
   defaultComponentName="conVal",
-  Icon(coordinateSystem(preserveAspectRatio=false)),             Diagram(
+  Icon(coordinateSystem(preserveAspectRatio=false)),
+  Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end MixingValveControl;

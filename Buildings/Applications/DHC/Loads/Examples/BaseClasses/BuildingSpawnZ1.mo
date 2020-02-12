@@ -11,7 +11,7 @@ model BuildingSpawnZ1 "Spawn building model (1 zone, no distribution pump)"
   parameter Integer nZon = 1
     "Number of thermal zones";
   parameter String idfPat=
-    "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf"
+    "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf"
     "Path of the IDF file";
   parameter String weaPat=
     "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"
@@ -24,16 +24,15 @@ model BuildingSpawnZ1 "Spawn building model (1 zone, no distribution pump)"
     annotation (Placement(transformation(extent={{-34,60},{-14,80}})));
   Modelica.Blocks.Sources.Constant qLatGai_flow(k=0) "Latent heat gain"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Buildings.Experimental.EnergyPlus.ThermalZone zon(
+  Buildings.ThermalZones.EnergyPlus.ThermalZone zon(
     redeclare package Medium = Medium2,
     zoneName="Core_ZN",
     nPorts=2)
     "Thermal zone"
     annotation (Placement(transformation(extent={{40,-20},{80,20}})));
-  inner Buildings.Experimental.EnergyPlus.Building building(
+  inner Buildings.ThermalZones.EnergyPlus.Building building(
     idfName=Modelica.Utilities.Files.loadResource(idfPat),
     weaName=Modelica.Utilities.Files.loadResource(weaPat),
-    fmuName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones1.fmu"),
     showWeatherData=false)
     "Building model"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
@@ -136,6 +135,8 @@ equation
           {238,-116},{238,280},{320,280}}, color={0,0,127}));
   connect(disFloCoo.QActTot_flow, QCoo_flow) annotation (Line(points={{-99,-156},
           {242,-156},{242,240},{320,240}}, color={0,0,127}));
+  connect(zon.TAir, terUni.TSen) annotation (Line(points={{81,13.8},{100,13.8},
+          {100,-32},{-166,-32},{-166,-48.3333},{-160.833,-48.3333}},color={0,0,127}));
   annotation (
   Documentation(info="
   <html>
@@ -146,5 +147,5 @@ equation
   </html>"),
   Diagram(coordinateSystem(extent={{-300,-300},{300,300}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
-          Bitmap(extent={{-108,-100},{92,100}},  fileName="modelica://Buildings/Resources/Images/Experimental/EnergyPlus/EnergyPlusLogo.png")}));
+          Bitmap(extent={{-108,-100},{92,100}},  fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/EnergyPlusLogo.png")}));
 end BuildingSpawnZ1;

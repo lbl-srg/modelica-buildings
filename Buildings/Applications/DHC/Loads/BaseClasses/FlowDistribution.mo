@@ -368,7 +368,7 @@ equation
   connect(masFloPum.y, pum.m_flow_in)
     annotation (Line(points={{-79,40},{-40,40},{-40,12}}, color={0,0,127}));
 annotation (
-  defaultComponentName="disFlo",
+  defaultComponentName="dis",
   Documentation(info="<html>
 <p>
 This model represents a hydraulic distribution system serving multiple terminal units.

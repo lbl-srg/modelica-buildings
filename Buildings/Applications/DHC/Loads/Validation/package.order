@@ -4,5 +4,5 @@ FlowDistributionChangeOver
 FlowDistributionPumpControl
 HeatExchangerFlowControl
 TerminalUnitScaling
-SimpleRoomODE
+SimpleRoom
 BaseClasses
