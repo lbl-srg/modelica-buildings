@@ -96,6 +96,7 @@ done
 DOCKER_FLAGS="\
     --detach=false \
     --rm \
+    --user ${UID} \
     ${MOD_MOUNT} \
     -e DISPLAY=${DISPLAY} \
     -v ${PWD}:/mnt/shared \
