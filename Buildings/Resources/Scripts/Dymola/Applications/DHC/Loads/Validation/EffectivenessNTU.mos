@@ -1,6 +1,0 @@
-simulateModel("Buildings.Applications.DHC.Loads.Validation.EffectivenessNTU", stopTime=360, method="cvode", tolerance=1e-6, resultFile="EffectivenessNTU");
-createPlot(id=1, position={611, 47, 1060, 1264}, y={"Q_flow_nominal", "hexCou.Q2_flow", "heaFloEffCst.Q2_flow"}, range={0.0, 360.0, -200.0, 1200.0}, erase=false, grid=true, filename="EffectivenessNTU.mat", colors={{28,108,200}, {238,46,47}, {0,140,72}});
-
-createPlot(id=1, position={611, 47, 1060, 416}, y={"T_a2_nominal", "hexCou.T_in2", "hexCou.sta_b2.T", "T_a1_nominal",
-"hexCou.T_in1"}, range={0.0, 360.0, -10.0, 40.0}, erase=false, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}}, displayUnits={"degC", "degC", "degC", "degC", "degC"});
-createPlot(id=1, position={611, 47, 1060, 416}, y={"m1_flow_nominal", "m1_flow.y", "m2_flow_nominal", "m2_flow.y"}, range={0.0, 360.0, -5.0, 25.0}, erase=false, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});

@@ -399,7 +399,7 @@ equation
     connect(val.port_2, pumFlo.port_a)
       annotation (Line(points={{-70,0},{-50,0}}, color={0,127,255}));
     connect(val.port_2, pumSpe.port_a)
-      annotation (Line(points={{-70,0},{-56,0},{-56, -40},{-50,-40}}, color={0,127,255}));
+      annotation (Line(points={{-70,0},{-56,0},{-56,-40},{-50,-40}},  color={0,127,255}));
 
   else
     connect(heaCoo.port_b, port_b)
@@ -408,7 +408,7 @@ equation
       connect(port_a, pumFlo.port_a)
         annotation (Line(points={{-100,0},{-50,0}}, color={0,127,255}));
       connect(port_a, pumSpe.port_a)
-        annotation (Line(points={{-100,0},{-75,0},{-75, -40},{-50,-40}}, color={0,127,255}));
+        annotation (Line(points={{-100,0},{-56,0},{-56,-40},{-50,-40}},  color={0,127,255}));
     else
       connect(port_a, pipPre.port_a)
         annotation (Line(points={{-100,0},{-16,0}}, color={0,127,255}));
@@ -418,14 +418,14 @@ equation
   connect(pumFlo.port_b, pipPre.port_a)
     annotation (Line(points={{-30,0},{-16,0}}, color={0,127,255}));
   connect(pumSpe.port_b, pipPre.port_a)
-    annotation (Line(points={{-30,-40},{-20, -40},{-20,0},{-16,0}}, color={0,127,255}));
+    annotation (Line(points={{-30,-40},{-24,-40},{-24,0},{-16,0}},  color={0,127,255}));
 
   connect(pumFlo.P, PPum)
     annotation (Line(points={{-29,9},{-20,9},{-20,20},{90,
         20},{90,120},{120,120}}, color={0,0,127}));
   connect(pumSpe.P, PPum)
-    annotation (Line(points={{-29,-31},{90,-31},{90,120},{
-      120,120}}, color={0,0,127}));
+    annotation (Line(points={{-29,-31},{90,-31},{90,120},{120,120}},
+                 color={0,0,127}));
 
   connect(dpNetVal.y, pipPre.dp_in)
     annotation (Line(points={{-79,120},{0,120},{0,8}}, color={0,0,127}));
@@ -435,7 +435,7 @@ equation
   connect(masFloPum.y, pumFlo.m_flow_in)
     annotation (Line(points={{-79,100},{-40,100},{-40,12}}, color={0,0,127}));
   connect(spePum.y, pumSpe.y)
-    annotation (Line(points={{-79,80},{-46,80},{-46,-20}, {-40,-20},{-40,-28}}, color={0,0,127}));
+    annotation (Line(points={{-79,80},{-46,80},{-46,-20},{-40,-20},{-40,-28}},  color={0,0,127}));
 
 annotation (
   defaultComponentName="dis",
