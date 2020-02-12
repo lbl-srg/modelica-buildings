@@ -51,11 +51,7 @@ test-optimica:
 	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/Buildings/Resources/Python-Sources && \
 	  cd .. && \
 	  echo "In makefile, pwd is `pwd`" && \
-	  echo "In makefile, ls -lhtr is" && \
-	  ls -lhtr && \
-	  jm_ipython.sh jmodelica.py Modelica.Blocks.Examples.Filter ; \
-	  ls -lhtr; \
-	  cat Buildings_Controls_OBC_CDL_Continuous_Validation_LimPID_log.txt )
+	  jm_ipython.sh jmodelica.py Modelica.Blocks.Examples.Filter )
 
 #	  python ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool optimica --skip-verification; \
 
