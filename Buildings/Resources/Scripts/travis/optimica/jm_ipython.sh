@@ -97,7 +97,7 @@ DOCKER_FLAGS="\
     --mac-address=${OPTIMICA_MAC_ADDRESS} \
     --detach=false \
     --rm \
-    --user developer:${GID} \
+    --user ${UID} \
     ${MOD_MOUNT} \
     -e DISPLAY=${DISPLAY} \
     -v ${PWD}:/mnt/shared \
@@ -145,7 +145,7 @@ docker run ${DOCKER_FLAGS} /bin/bash -c \
   "export MODELICAPATH=${DOCKER_MODELICAPATH}:/opt/oct/ThirdParty/MSL && \
    export PYTHONPATH=${DOCKER_PYTHONPATH} && \
    echo \"This is a test.\" > Buildings_Controls_OBC_CDL_Continuous_Validation_LimPID_log.txt && \
-   /opt/oct/bin/jm_ipython.sh modelica-buildings/${arg_lis}"
+   /opt/oct/bin/jm_python.sh modelica-buildings/${arg_lis}"
 retVal=$?
 ls -lhtrn .
 cat Buildings_Controls_OBC_CDL_Continuous_Validation_LimPID_log.txt
