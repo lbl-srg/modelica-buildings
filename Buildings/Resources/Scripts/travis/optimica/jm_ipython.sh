@@ -117,7 +117,7 @@ echo "*** MOD_MOUNT is          ---${MOD_MOUNT}---"
 echo "*** PYT_MOUNT is          ---${PYT_MOUNT}---"
 echo "*** Docker version is `docker -v`"
 echo "*** dir is `pwd`"
-ls -lhtr .
+ls -lhtrn .
 echo "**************************"
 #docker run ${DOCKER_FLAGS} /bin/bash -c \
 #  "export MODELICAPATH=${DOCKER_MODELICAPATH}:/opt/oct/ThirdParty/MSL && \
@@ -132,11 +132,15 @@ echo "**************************"
 #docker run --detach=false --rm -v ${PWD}:/mnt/shared -w /mnt/shared ubuntu:18.04 /bin/bash -c \
 #docker run ${DOCKER_FLAGS} /bin/bash -c \
 
-docker run --detach=false --rm -v ${PWD}:/mnt/shared -w /mnt/shared michaelwetter/travis-ubuntu-1804-optimica /bin/bash -c \
+docker run --detach=false --rm \
+   --user ${UID}:${GID} \
+   -v ${PWD}:/mnt/shared \
+   -w /mnt/shared michaelwetter/travis-ubuntu-1804-optimica \
+   /bin/bash -c \
   "export MODELICAPATH=${DOCKER_MODELICAPATH}:/opt/oct/ThirdParty/MSL && \
    export PYTHONPATH=${DOCKER_PYTHONPATH} && \
    echo \"This is a test.\" > Buildings_Controls_OBC_CDL_Continuous_Validation_LimPID_log.txt"
 retVal=$?
-ls -lhtr .
+ls -lhtrn .
 cat Buildings_Controls_OBC_CDL_Continuous_Validation_LimPID_log.txt
 exit $retVal
