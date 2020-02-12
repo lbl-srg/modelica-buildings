@@ -97,7 +97,7 @@ DOCKER_FLAGS="\
     --mac-address=${OPTIMICA_MAC_ADDRESS} \
     --detach=false \
     --rm \
-    --user ${UID} \
+    --user developer:${GID} \
     ${MOD_MOUNT} \
     -e DISPLAY=${DISPLAY} \
     -v ${PWD}:/mnt/shared \
