@@ -88,6 +88,7 @@ partial model PartialSeries "Partial model for series network"
     mCon_flow_nominal=datDes.mCon_flow_nominal,
     lDis=datDes.lDis,
     lCon=datDes.lCon,
+    lEnd=datDes.lEnd,
     dhDis=datDes.dhDis,
     dhCon=datDes.dhCon,
     final allowFlowReversal=allowFlowReversal)

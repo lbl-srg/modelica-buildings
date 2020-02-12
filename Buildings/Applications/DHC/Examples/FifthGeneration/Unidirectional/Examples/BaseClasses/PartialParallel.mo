@@ -61,16 +61,16 @@ partial model PartialParallel "Partial model for parallel network"
       origin={-80,-10})));
   Networks.UnidirectionalParallel dis(
     redeclare final package Medium=Medium,
-    nCon=nBui,
-    mDis_flow_nominal=datDes.mDis_flow_nominal,
-    mCon_flow_nominal=datDes.mCon_flow_nominal,
-    mEnd_flow_nominal=datDes.mEnd_flow_nominal,
-    lDis=datDes.lDis,
-    lCon=datDes.lCon,
-    lEnd=datDes.lEnd,
-    dhDis=datDes.dhDis,
-    dhCon=datDes.dhCon,
-    dhEnd=datDes.dhEnd,
+    final nCon=nBui,
+    final mDis_flow_nominal=datDes.mDis_flow_nominal,
+    final mCon_flow_nominal=datDes.mCon_flow_nominal,
+    final mEnd_flow_nominal=datDes.mEnd_flow_nominal,
+    final lDis=datDes.lDis,
+    final lCon=datDes.lCon,
+    final lEnd=datDes.lEnd,
+    final dhDis=datDes.dhDis,
+    final dhCon=datDes.dhCon,
+    final dhEnd=datDes.dhEnd,
     final allowFlowReversal=allowFlowReversal)
     annotation (Placement(transformation(extent={{-20,130},{20,150}})));
   Networks.BaseClasses.ConnectionSeries conSto(

@@ -6,7 +6,7 @@ partial model PartialDistribution2Pipe
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal)
     "Model for distribution pipe";
-  parameter Integer iConPreRel(min=0, max=nCon) = 0
+  parameter Integer iConDpSen(min=0, max=nCon) = 0
     "Index of the connection where the pressure drop is sensed (0 for no sensor)"
     annotation(Dialog(tab="General"), Evaluate=true);
   parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal[nCon]
@@ -34,20 +34,20 @@ partial model PartialDistribution2Pipe
     annotation (Placement(transformation( extent={{90,-70},{110,-50}}),
       iconTransformation(extent={{180,-80},{ 220,-40}})));
   Modelica.Blocks.Interfaces.RealOutput dp(
-    final quantity="PressureDifference", final displayUnit="Pa") if iConPreRel > 0
+    final quantity="PressureDifference", final displayUnit="Pa") if iConDpSen > 0
     "Pressure difference at given location (sensed)"
     annotation (Placement(transformation(extent={{100,40},{140,80}}),
       iconTransformation(extent={{200,50}, {220,70}})));
   // COMPONENTS
   replaceable BaseClasses.PartialConnection2Pipe con[nCon](
     redeclare each final package Medium = Medium,
-    final have_dpSen={i==iConPreRel for i in 1:nCon},
+    final have_dpSen={i==iConDpSen for i in 1:nCon},
     final mDis_flow_nominal=mDis_flow_nominal,
     final mCon_flow_nominal=mCon_flow_nominal,
     each final allowFlowReversal=allowFlowReversal)
     "Connection to agent"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  replaceable Model_pipDis pipEnd(
+  Model_pipDis pipEnd(
     final m_flow_nominal=mEnd_flow_nominal)
     "Pipe representing the end of the distribution line (after last connection)"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
@@ -77,8 +77,8 @@ equation
       annotation (Line(points={{10,0},{60,0}}, color={0,127,255}));
     connect(pipEnd.port_b, port_bDisSup)
       annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
-  if iConPreRel > 0 then
-    connect(con[iConPreRel].dp, dp)
+  if iConDpSen > 0 then
+    connect(con[iConDpSen].dp, dp)
       annotation (Line(points={{11,4},{20,4},{20,60},{120,60}},
           color={0,0,127}));
   end if;

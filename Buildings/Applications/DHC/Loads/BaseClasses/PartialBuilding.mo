@@ -56,34 +56,34 @@ partial model PartialBuilding "Partial class for building model"
     "Source side outlet ports" annotation (Placement(transformation(extent={{290,
             -40},{310,40}}), iconTransformation(extent={{290,-220},{310,-140}})));
   Modelica.Blocks.Interfaces.RealOutput QHea_flow(
-    final quantity="HeatFlowRate", final unit="W") if have_heaLoa
+    final quantity="HeatFlowRate") if have_heaLoa
     "Total heating heat flow rate transferred to the loads (>=0)"
     annotation (Placement(transformation(
       extent={{300,260},{340,300}}), iconTransformation(extent={{300,240},{340,280}})));
   Modelica.Blocks.Interfaces.RealOutput QCoo_flow(
-    final quantity="HeatFlowRate", final unit="W") if have_cooLoa
+    final quantity="HeatFlowRate") if have_cooLoa
     "Total cooling heat flow rate transferred to the loads (<=0)"
     annotation (Placement(transformation(
       extent={{300,220},{340,260}}),
       iconTransformation(extent={{300,200},{340, 240}})));
   Modelica.Blocks.Interfaces.RealOutput PHea(
-    final quantity="Power", final unit="W") if have_eleHea
+    final quantity="Power") if have_eleHea
     "Power drawn by heating equipment"
     annotation (Placement(transformation(
       extent={{300,180},{340,220}}),
       iconTransformation(extent={{300,160},{340, 200}})));
   Modelica.Blocks.Interfaces.RealOutput PCoo(
-    quantity="Power", final unit="W") if have_eleCoo
+    quantity="Power") if have_eleCoo
     "Power drawn by cooling equipment"
     annotation (Placement(transformation(extent={{300,140},{340,180}}),
       iconTransformation(extent={{300,120},{340,160}})));
   Modelica.Blocks.Interfaces.RealOutput PFan(
-    final quantity="Power", final unit="W") if have_fan
+    final quantity="Power") if have_fan
     "Power drawn by fans motors"
     annotation (Placement(transformation(extent={{300,100},{340,140}}),
       iconTransformation(extent={{300,80},{340,120}})));
   Modelica.Blocks.Interfaces.RealOutput PPum(
-    final quantity="Power", final unit="W") if have_pum
+    final quantity="Power") if have_pum
     "Power drawn by pumps motors"
     annotation (Placement(transformation(extent={{300,60},{340,100}}),
       iconTransformation(extent={{300,40},{340,80}})));

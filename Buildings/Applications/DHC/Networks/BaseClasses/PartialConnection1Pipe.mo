@@ -31,28 +31,28 @@ partial model PartialConnection1Pipe
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
   // IO CONNECTORS
   Modelica.Fluid.Interfaces.FluidPort_a port_aDis(
-    redeclare package Medium = Medium,
+    redeclare final package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Distribution inlet port"
     annotation (Placement(transformation(extent={{-110,-50},{-90,-30}}),
       iconTransformation(extent={{-110,-10},{-90,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bDis(
-    redeclare package Medium = Medium,
+    redeclare final package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Distribution outlet port"
     annotation (Placement(transformation(extent={{90,-50},{110,-30}}),
       iconTransformation(extent={{90,-10},{110,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aCon(
-    redeclare package Medium = Medium,
+    redeclare final package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Connection return port"
     annotation (Placement(transformation(extent={{30, 110},{50,130}}),
       iconTransformation(extent={{50,90},{70,110}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bCon(
-    redeclare package Medium = Medium,
+    redeclare final package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Connection supply port"
@@ -103,7 +103,7 @@ partial model PartialConnection1Pipe
       else Modelica.Fluid.Types.PortFlowDirection.Entering,
     final dp_nominal = {0, 0, 0},
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    m_flow_nominal={mDis_flow_nominal,-mDis_flow_nominal,mCon_flow_nominal})
+    final m_flow_nominal={mDis_flow_nominal,-mDis_flow_nominal,mCon_flow_nominal})
     "Junction with connection return"
     annotation (Placement(transformation(extent={{30,-30},{50,-50}})));
   Model_pipDis pipDis
@@ -117,8 +117,8 @@ partial model PartialConnection1Pipe
         rotation=90,
         origin={-40,10})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFloCon(
-    redeclare package Medium=Medium,
-    allowFlowReversal=allowFlowReversal)
+    redeclare final package Medium=Medium,
+    final allowFlowReversal=allowFlowReversal)
     "Connection supply mass flow rate (sensed)"
     annotation (Placement(
       transformation(
@@ -126,19 +126,19 @@ partial model PartialConnection1Pipe
       rotation=90,
       origin={-40,60})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFloByp(
-    redeclare package Medium=Medium,
-    allowFlowReversal=allowFlowReversal) if have_bypFloSen
+    redeclare final package Medium=Medium,
+    final allowFlowReversal=allowFlowReversal) if have_bypFloSen
     "Bypass mass flow rate (sensed)"
     annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},
       rotation=0,
       origin={0,-40})));
   Modelica.Blocks.Sources.RealExpression QCal_flow(
-    y=(senTConSup.T - senTConRet.T) * cp_default * senMasFloCon.m_flow)
+    final y=(senTConSup.T - senTConRet.T) * cp_default * senMasFloCon.m_flow)
     "Calculation of heat flow rate transferred to the load"
     annotation (Placement(transformation(extent={{60,90},{80,110}})));
-  Fluid.Sensors.RelativePressure senRelPre(redeclare final package Medium =
-        Medium) if                            have_dpSen
+  Fluid.Sensors.RelativePressure senRelPre(
+    redeclare final package Medium = Medium) if have_dpSen
     "Relative pressure sensor"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
@@ -149,6 +149,27 @@ partial model PartialConnection1Pipe
     "Pressure drop accross the connection (sensed)"
     annotation (Placement(transformation(extent={{100,-40},{140,0}}),
       iconTransformation(extent={{100,10},{120,30}})));
+  Fluid.Sensors.TemperatureTwoPort senTConSup(
+    redeclare final package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal,
+    final m_flow_nominal=mCon_flow_nominal,
+    final tau=if allowFlowReversal then 1 else 0)
+    "Connection supply temperature sensor"
+    annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-40,90})));
+  Fluid.Sensors.TemperatureTwoPort senTConRet(
+    redeclare final package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal,
+    final m_flow_nominal=mCon_flow_nominal,
+    final tau=if allowFlowReversal then 1 else 0)
+    "Connection return temperature sensor"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={40,90})));
 protected
   parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
     Medium.specificHeatCapacityCp(Medium.setState_pTX(
@@ -191,10 +212,14 @@ equation
           {-20,-40},{-20,-80},{-10,-80}},color={0,127,255}));
   connect(senRelPre.port_b, junConRet.port_1) annotation (Line(points={{10,-80},
           {20,-80},{20,-40},{30,-40}}, color={0,127,255}));
-  connect(port_aCon, junConRet.port_3)
-    annotation (Line(points={{40,120},{40,-30}}, color={0,127,255}));
-  connect(senMasFloCon.port_b, port_bCon)
-    annotation (Line(points={{-40,70},{-40,120}}, color={0,127,255}));
+  connect(senMasFloCon.port_b, senTConSup.port_a)
+    annotation (Line(points={{-40,70},{-40,80}}, color={0,127,255}));
+  connect(senTConSup.port_b, port_bCon)
+    annotation (Line(points={{-40,100},{-40,120}}, color={0,127,255}));
+  connect(port_aCon, senTConRet.port_a)
+    annotation (Line(points={{40,120},{40,100}}, color={0,127,255}));
+  connect(senTConRet.port_b, junConRet.port_3)
+    annotation (Line(points={{40,80},{40,-30}}, color={0,127,255}));
   annotation (
     defaultComponentName="con",
     Icon(graphics={   Rectangle(

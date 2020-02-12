@@ -93,7 +93,7 @@ model FlowDistributionPumpControl
     redeclare final package Medium = Medium1,
     nCon=nLoa,
     allowFlowReversal=false,
-    iConPreRel=nLoa,
+    iConDpSen=nLoa,
     mDis_flow_nominal={sum(terUniHea[i:nLoa].mHeaWat_flow_nominal) for i in 1:
         nLoa},
     mCon_flow_nominal=terUniHea.mHeaWat_flow_nominal,

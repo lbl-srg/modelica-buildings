@@ -30,42 +30,42 @@ partial model PartialConnection2Pipe
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
   // IO CONNECTORS
   Modelica.Fluid.Interfaces.FluidPort_a port_aDisSup(
-    redeclare package Medium = Medium,
+    redeclare final package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Distribution supply inlet port"
     annotation (Placement(transformation(extent={{-110,-50},{-90,-30}}),
       iconTransformation(extent={{-110,-10}, {-90,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bDisSup(
-    redeclare package Medium = Medium,
+    redeclare final package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Distribution supply outlet port"
     annotation (Placement(transformation(extent={{90,-50},{110,-30}}),
       iconTransformation(extent={{90,-10},{ 110,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aDisRet(
-    redeclare package Medium = Medium,
+    redeclare final package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Distribution return inlet port"
     annotation (Placement(transformation(extent={{90,-90},{110,-70}}),
       iconTransformation(extent={{90,-70},{ 110,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bDisRet(
-    redeclare package Medium = Medium,
+    redeclare final package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Distribution return outlet port"
     annotation (Placement(transformation(extent={{-110,-90},{-90,-70}}),
       iconTransformation(extent={{-110,-70}, {-90,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bCon(
-    redeclare package Medium = Medium,
+    redeclare final package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Connection supply port"
     annotation (Placement(transformation(extent={{-30,110},{-10,130}}),
       iconTransformation(extent={{-10,90},{10,110}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aCon(
-    redeclare package Medium = Medium,
+    redeclare final package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Connection return port"
@@ -89,8 +89,8 @@ partial model PartialConnection2Pipe
       iconTransformation(extent={{100,30},{120,50}})));
   // COMPONENTS
   Model_pipDis pipDisSup
-  "Distribution supply pipe"
-  annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+    "Distribution supply pipe"
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Model_pipDis pipDisRet
     "Distribution return pipe"
     annotation (Placement(transformation(extent={{-60,-90},{-80,-70}})));
@@ -142,7 +142,7 @@ partial model PartialConnection2Pipe
       rotation=90,
       origin={-20,40})));
   Modelica.Blocks.Sources.RealExpression QCal_flow(
-    y=(senTConSup.T - senTConRet.T) * cp_default * senMasFloCon.m_flow)
+    final y=(senTConSup.T - senTConRet.T) * cp_default * senMasFloCon.m_flow)
     "Calculation of heat flow rate transferred to the load"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
   Fluid.Sensors.RelativePressure senRelPre(

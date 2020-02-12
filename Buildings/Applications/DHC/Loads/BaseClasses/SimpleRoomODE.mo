@@ -18,22 +18,24 @@ model SimpleRoomODE
   parameter Modelica.SIunits.Time tau = 1800
     "Time constant of the indoor temperature";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet(
-    quantity="ThermodynamicTemperature", unit="K", displayUnit="degC")
+    final quantity="ThermodynamicTemperature",
+    final unit="K", final displayUnit="degC")
     "Temperature set point for heating or cooling"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput QReq_flow(
-    quantity="HeatFlowRate", unit="W")
+    final quantity="HeatFlowRate")
     "Required heat flow rate to meet temperature set point (>=0 for heating)"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput QAct_flow(
-    quantity="HeatFlowRate", unit="W")
+    final quantity="HeatFlowRate")
     "Actual heating or cooling heat flow rate (>=0 for heating)"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TAir(
-    quantity="ThermodynamicTemperature", unit="K", displayUnit="degC")
+    final quantity="ThermodynamicTemperature",
+    final unit="K", final displayUnit="degC")
     "Room air temperature"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 protected

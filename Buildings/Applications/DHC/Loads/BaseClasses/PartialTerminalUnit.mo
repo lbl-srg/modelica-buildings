@@ -135,8 +135,8 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     annotation (Dialog(tab="Dynamics", group="Nominal condition"));
   // IO connectors
   Modelica.Blocks.Interfaces.RealInput TSen(
-    final quantity="ThermodynamicTemperature", final displayUnit="degC") if
-    have_TSen
+    final quantity="ThermodynamicTemperature",
+    final unit="K", final displayUnit="degC") if have_TSen
     "Temperature (sensed)"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -147,7 +147,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
         origin={-130,20})));
   Modelica.Blocks.Interfaces.RealInput TSetHea(
     quantity="ThermodynamicTemperature",
-    displayUnit="degC") if have_watHea or have_chaOve or have_eleHea
+    final unit="K", displayUnit="degC") if have_watHea or have_chaOve or have_eleHea
     "Heating set point"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -158,7 +158,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
         origin={-130,60})));
   Modelica.Blocks.Interfaces.RealInput TSetCoo(
     quantity="ThermodynamicTemperature",
-    displayUnit="degC") if have_watCoo or have_eleCoo
+    final unit="K", displayUnit="degC") if have_watCoo or have_eleCoo
     "Cooling set point"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},

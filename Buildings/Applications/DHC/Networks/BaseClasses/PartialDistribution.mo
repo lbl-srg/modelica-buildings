@@ -16,7 +16,7 @@ partial model PartialDistribution
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
   // IO CONNECTORS
   Modelica.Fluid.Interfaces.FluidPorts_a ports_aCon[nCon](
-    redeclare each package Medium = Medium,
+    redeclare each final package Medium = Medium,
     each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Connection return ports"
@@ -40,7 +40,7 @@ partial model PartialDistribution
       rotation=90,
       origin={-120,100})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aDisSup(
-    redeclare package Medium = Medium,
+    redeclare final package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Distribution supply inlet port"

@@ -9,7 +9,7 @@ partial model PartialDistribution1Pipe
   parameter Integer iConDpSen(min=0, max=nCon) = 0
     "Index of the connection where the pressure drop is sensed (0 for no sensor)"
     annotation(Dialog(tab="General"), Evaluate=true);
-  parameter Integer iConBypFloSen = false
+  parameter Integer iConBypFloSen = 0
     "Index of the connection where the bypass flow rate is sensed (0 for no sensor)"
     annotation(Evaluate=true);
   parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal
@@ -20,10 +20,10 @@ partial model PartialDistribution1Pipe
     annotation(Dialog(tab="General", group="Nominal condition"));
   // IO CONNECTORS
   Modelica.Blocks.Interfaces.RealOutput mByp_flow(
-    final quantity="MassFlowRate") if iConFloSen > 0
+    final quantity="MassFlowRate") if iConBypFloSen > 0
     "Bypass mass flow rate (sensed)"
     annotation (Placement(transformation(extent={{100,0},{140,40}}),
-        iconTransformation(extent={{100,30},{120,50}})));
+      iconTransformation(extent={{100,30},{120,50}})));
   Modelica.Blocks.Interfaces.RealOutput dp(
     final quantity="PressureDifference",
     final displayUnit="Pa") if iConDpSen > 0
