@@ -99,6 +99,7 @@ DOCKER_FLAGS="\
     --user ${UID}:${GID} \
     ${MOD_MOUNT} \
     -e DISPLAY=${DISPLAY} \
+    -v ${PWD}:/mnt/shared \
     -w /mnt/shared \
     ${NAME}"
 
@@ -139,15 +140,7 @@ echo "**************************"
 #   -w /mnt/shared michaelwetter/travis-ubuntu-1804-optimica \
 #   /bin/bash -c \
 
-docker run \
-    --detach=false \
-    --rm \
-    --user ${UID}:${GID} \
-    ${MOD_MOUNT} \
-    -e DISPLAY=${DISPLAY} \
-    -v ${PWD}:/mnt/shared \
-    -w /mnt/shared \
-    ${NAME} /bin/bash -c \
+docker run ${DOCKER_FLAGS} /bin/bash -c \
   "export MODELICAPATH=${DOCKER_MODELICAPATH}:/opt/oct/ThirdParty/MSL && \
    export PYTHONPATH=${DOCKER_PYTHONPATH} && \
    echo \"This is a test.\" > Buildings_Controls_OBC_CDL_Continuous_Validation_LimPID_log.txt"
