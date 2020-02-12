@@ -352,7 +352,7 @@ Put the files <code>MixedConvection.ffd</code>, <code>MixedConvection.dat</code>
 directory <code>Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/Tutorial/</code>.
 </li>
 <li>
-Set the simulation stop time of the Modelica model to <code>180</code> seconds and choose, for example, the Radau solver.
+Set the simulation stop time of the Modelica model to <code>180</code> seconds and choose, for example, the CVode solver.
 </li>
 <li>
 Translate the model and start the simulation.

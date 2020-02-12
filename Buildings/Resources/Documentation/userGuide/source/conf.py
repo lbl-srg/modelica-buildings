@@ -120,10 +120,10 @@ html_theme_options = {
     # Note the "1" or "True" value above as the third argument to indicate
     # an arbitrary url.
     'navbar_links': [
-        ("Home", "http://simulationresearch.lbl.gov/modelica", True),
+        ("Home", "https://simulationresearch.lbl.gov/modelica", True),
         ("User Guide", "index"),
 #        ("Download", "download"),
-#        ("Python", "http://simulationresearch.lbl.gov/modelica/buildingspy", True),
+#        ("Python", "https://simulationresearch.lbl.gov/modelica/buildingspy", True),
 #        ("Development", "https://github.com/lbl-srg/modelica-buildings", True),
 #        ("Publications", "publications"),
 #        ("Help", "help"),

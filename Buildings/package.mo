@@ -169,13 +169,29 @@ its class name ends with the string <code>Beta</code>.
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
         </td>
     </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.Actuators.Valves.ThreeWayTable
+        </td>
+        <td valign=\"top\">Three way valves with opening characteristics based on a user-provided table.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.Chillers.AbsorptionIndirectSteam
+        </td>
+        <td valign=\"top\">Indirect steam heated absorption chiller based on performance curves.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.FixedResistances.CheckValve
+        </td>
+        <td valign=\"top\">Check valve that prevents backflow, except for a small leakage flow rate.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1198\">IBPSA, #1198</a>
+        </td>
+    </tr>
     <tr><td valign=\"top\">Buildings.Fluid.HeatPumps.EquationFitReversible
         </td>
         <td valign=\"top\">Heat pump model that can be reversed between heating and cooling mode,
                            that takes as a set point the leaving fluid temperature, and that computes
                            its performance based on an equation fit.
         </td>
-        </tr>
+    </tr>
     </table>
     <!-- Backward compatible changes -->
     <p>
@@ -190,7 +206,7 @@ its class name ends with the string <code>Beta</code>.
     <tr><td valign=\"top\">Buildings.Controls.Continuous.LimPID
         </td>
         <td valign=\"top\">Removed homotopy that may be used during initialization to ensure that outputs are bounded.<br/>
-                         This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1221\">IBPSA, #1221</a>.
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1221\">IBPSA, #1221</a>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
@@ -272,6 +288,16 @@ its class name ends with the string <code>Beta</code>.
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1636\">#1636</a>.
         </td>
     </tr>
+    <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case600<br/>
+                           Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case600FF<br/>
+        </td>
+        <td valign=\"top\">Changed computation of time averaged values to avoid a time event every hour.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1714\">#1714</a>.
+        </td>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
         </td>
     </tr>
@@ -312,6 +338,21 @@ its class name ends with the string <code>Beta</code>.
                            This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1192\">IBPSA, #1192</a>.
         </td>
     </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Examples</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Examples.VAVReheat.ThermalZones.Floor<br/>
+                           Buildings.Examples.VAVReheat.ASHRAE2006<br/>
+                           Buildings.Examples.VAVReheat.Guideline36<br/>
+                           Buildings.Examples.DualFanDualDuct
+
+        </td>
+        <td valign=\"top\">Updated core zone geometry parameters related to room heat and mass balance.
+                           This change was done in
+                           <code>Buildings.Examples.VAVReheat.ThermalZones.Floor</code>.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1719\">#1719</a>.
+       </td>
+    </tr>
     </table>
     <!-- Non-backward compatible changes to existing components -->
     <p>
@@ -320,7 +361,17 @@ its class name ends with the string <code>Beta</code>.
     <b style=\"color:blue\">non-backward compatible</b> way:
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1</b>
+    <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.SetPoints.SupplyReturnTemperatureReset
+        </td>
+        <td valign=\"top\">Changed name from <code>HotWaterTemperatureReset</code> to <code>SupplyReturnTemperatureReset</code>.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/860\">#860</a>.<br/>
+                           For Dymola, a conversion script makes this change.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1</b>
         </td>
     </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller
@@ -351,6 +402,16 @@ its class name ends with the string <code>Beta</code>.
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Discrete.MovingMean
         </td>
         <td valign=\"top\">This block became obsolete, use <code>Buildings.Controls.OBC.CDL.Discrete.TriggeredMovingMean</code> instead.<br/>
+                           For Dymola, a conversion script makes this change.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Controls.SetPoints</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.SetPoints.SupplyReturnTemperatureReset
+        </td>
+        <td valign=\"top\">Changed name from <code>HotWaterTemperatureReset</code> to <code>SupplyReturnTemperatureReset</code>.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/860\">#860</a>.<br/>
                            For Dymola, a conversion script makes this change.
         </td>
     </tr>
@@ -405,6 +466,16 @@ its class name ends with the string <code>Beta</code>.
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1577\">1577</a>.
         </td>
     </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc<br/>
+                           Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.normalizedPower
+        </td>
+        <td valign=\"top\">Corrected error in computing the cooling tower fan power consumption.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1691\">1691</a>.
+        </td>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.Utilities</b>
         </td>
     </tr>
@@ -414,6 +485,15 @@ its class name ends with the string <code>Beta</code>.
         <td valign=\"top\">Changed the temporary file format from <code>pickle</code> to <code>json</code> as the former can trigger a
                            segfault with JModelica simulation run in a subprocess.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1587\">Buildings, #1587</a>.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings/Resources</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings/Resources/C-Sources/cryptographicsHash.c
+        </td>
+        <td valign=\"top\">Add a <code>#ifndef</code> clause.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1278\">IBPSA, #1278</a>.
         </td>
     </tr>
     </table>
@@ -7611,7 +7691,7 @@ The following people have directly contributed to the implementation of the Buil
 </li>
 <li>Hagar Elarga, Lawrence Berkeley National Laboratory, USA
 </li>
-<li>Yangyang Fu, University of Colorado at Boulder, Colorado, USA
+<li>Yangyang Fu, University of Colorado Boulder, Colorado, USA
 </li>
 <li>Antoine Gautier, Lawrence Berkeley National Laboratory, USA
 </li>
@@ -7622,6 +7702,8 @@ The following people have directly contributed to the implementation of the Buil
 <li>Peter Grant, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Brandon M. Hencey, Cornell University, USA
+</li>
+<li>Kathryn Hinkelman, University of Colorado Boulder, Colorado, USA
 </li>
 <li>Jianjun Hu, Lawrence Berkeley National Laboratory, USA
 </li>
@@ -7665,7 +7747,7 @@ The following people have directly contributed to the implementation of the Buil
 </li>
 <li>Kun Zhang, Lawrence Berkeley National Laboratory, USA
 </li>
-<li>Wangda Zuo, University of Colorado at Boulder, Colorado, USA
+<li>Wangda Zuo, University of Colorado Boulder, Colorado, USA
 </li>
 </ul>
 </html>"));
