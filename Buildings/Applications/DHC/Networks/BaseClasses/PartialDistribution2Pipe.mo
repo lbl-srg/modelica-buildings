@@ -47,9 +47,8 @@ partial model PartialDistribution2Pipe
     each final allowFlowReversal=allowFlowReversal)
     "Connection to agent"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Model_pipDis pipEnd(
-    final m_flow_nominal=mEnd_flow_nominal,
-    final allowFlowReversal=allowFlowReversal)
+  replaceable Model_pipDis pipEnd(
+    final m_flow_nominal=mEnd_flow_nominal)
     "Pipe representing the end of the distribution line (after last connection)"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 equation

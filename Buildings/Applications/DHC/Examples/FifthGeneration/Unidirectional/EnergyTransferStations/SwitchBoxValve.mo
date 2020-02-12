@@ -50,14 +50,16 @@ model SwitchBoxValve
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
       iconTransformation(extent={{-124,36},{-100,60}})));
   // COMPONENTS
-  Buildings.Applications.DHC.Networks.BaseClasses.Junction splSup(
+  Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Networks.BaseClasses.Junction
+    splSup(
     redeclare package Medium = Medium,
     m_flow_nominal={1,1,1}*m_flow_nominal,
     from_dp=false) "Flow splitter" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={-40,40})));
-  Buildings.Applications.DHC.Networks.BaseClasses.Junction splRet(
+  Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Networks.BaseClasses.Junction
+    splRet(
     redeclare package Medium = Medium,
     m_flow_nominal={1,1,1}*m_flow_nominal,
     from_dp=false) "Flow splitter" annotation (Placement(transformation(

@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Networks.BaseClasses;
+within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Networks.BaseClasses;
 model Junction
   extends Buildings.Fluid.FixedResistances.Junction(
     final dp_nominal = {0, 0, 0},

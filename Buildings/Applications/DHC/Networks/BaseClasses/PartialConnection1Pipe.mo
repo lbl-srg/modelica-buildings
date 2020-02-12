@@ -58,12 +58,14 @@ partial model PartialConnection1Pipe
     "Connection supply port"
     annotation (Placement(transformation(extent={{-50,110},{-30,130}}),
     iconTransformation(extent={{-10,90},{10,110}})));
-  Modelica.Blocks.Interfaces.RealOutput mCon_flow
-    "Connection supply mass flow rate"
+  Modelica.Blocks.Interfaces.RealOutput mCon_flow(
+    final quantity="MassFlowRate")
+    "Connection supply mass flow rate (sensed)"
     annotation (Placement(transformation(
       extent={{100,40},{140,80}}),
       iconTransformation(extent={{100,50},{120, 70}})));
-  Modelica.Blocks.Interfaces.RealOutput Q_flow
+  Modelica.Blocks.Interfaces.RealOutput Q_flow(
+    final quantity="HeatFlowRate")
     "Heat flow rate transferred to the connected load (>=0 for heating)"
     annotation (Placement(transformation(extent={{100,80},{140,120}}),
       iconTransformation(extent={{100,70},{120,90}})));
@@ -104,16 +106,10 @@ partial model PartialConnection1Pipe
     m_flow_nominal={mDis_flow_nominal,-mDis_flow_nominal,mCon_flow_nominal})
     "Junction with connection return"
     annotation (Placement(transformation(extent={{30,-30},{50,-50}})));
-  Model_pipDis pipDis(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=mDis_flow_nominal,
-    final allowFlowReversal=allowFlowReversal)
+  Model_pipDis pipDis
     "Distribution pipe"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Model_pipCon pipCon(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=mCon_flow_nominal,
-    final allowFlowReversal=allowFlowReversal)
+  Model_pipCon pipCon
     "Connection pipe"
     annotation (
       Placement(transformation(

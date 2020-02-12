@@ -9,14 +9,16 @@ model SwitchBoxPump "Model for mass flow rate redirection with pumps"
           property_T=293.15, X_a=0.40) "Propylene glycol water, 40% mass fraction")));
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate";
-  Buildings.Applications.DHC.Networks.BaseClasses.Junction splSup1(
+  Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Networks.BaseClasses.Junction
+    splSup1(
     redeclare package Medium = Medium,
     m_flow_nominal={1,1,1}*m_flow_nominal,
     from_dp=false) "Flow splitter" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={-40,60})));
-  Buildings.Applications.DHC.Networks.BaseClasses.Junction splSup2(
+  Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Networks.BaseClasses.Junction
+    splSup2(
     redeclare package Medium = Medium,
     m_flow_nominal={1,1,1}*m_flow_nominal,
     from_dp=false) "Flow splitter" annotation (Placement(transformation(
@@ -51,14 +53,16 @@ model SwitchBoxPump "Model for mass flow rate redirection with pumps"
     "Pump electricity consumption"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-10},{120,10}})));
-  Buildings.Applications.DHC.Networks.BaseClasses.Junction splSup3(
+  Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Networks.BaseClasses.Junction
+    splSup3(
     redeclare package Medium = Medium,
     m_flow_nominal={1,1,1}*m_flow_nominal,
     from_dp=false) "Flow splitter" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-40,0})));
-  Buildings.Applications.DHC.Networks.BaseClasses.Junction splSup4(
+  Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Networks.BaseClasses.Junction
+    splSup4(
     redeclare package Medium = Medium,
     m_flow_nominal={1,1,1}*m_flow_nominal,
     from_dp=false) "Flow splitter" annotation (Placement(transformation(

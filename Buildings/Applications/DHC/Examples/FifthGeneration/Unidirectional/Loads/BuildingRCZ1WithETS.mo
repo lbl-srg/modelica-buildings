@@ -3,7 +3,7 @@ model BuildingRCZ1WithETS
   "Model of a building (RC 1 zone) with an energy transfer station"
   extends BaseClasses.PartialBuildingWithETS(
     redeclare
-    Buildings.Applications.DHC.Loads.Validation.BaseClasses.BuildingRCZ1Valve
+    Buildings.Applications.DHC.Loads.Examples.BaseClasses.BuildingRCZ1Valve
     bui);
   BoundaryConditions.WeatherData.Bus weaBus
     "Weather data bus"

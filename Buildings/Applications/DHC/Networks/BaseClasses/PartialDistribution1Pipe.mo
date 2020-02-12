@@ -2,14 +2,16 @@ within Buildings.Applications.DHC.Networks.BaseClasses;
 partial model PartialDistribution1Pipe
   "Partial model for one-pipe distribution network"
   extends PartialDistribution;
-
   replaceable model Model_pipDis = Fluid.Interfaces.PartialTwoPortInterface (
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal)
     "Model for distribution pipe";
-  parameter Integer iConPreRel(min=0, max=nCon) = 0
+  parameter Integer iConDpSen(min=0, max=nCon) = 0
     "Index of the connection where the pressure drop is sensed (0 for no sensor)"
     annotation(Dialog(tab="General"), Evaluate=true);
+  parameter Integer iConBypFloSen = false
+    "Index of the connection where the bypass flow rate is sensed (0 for no sensor)"
+    annotation(Evaluate=true);
   parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal
     "Nominal mass flow rate in the distribution line"
     annotation(Dialog(tab="General", group="Nominal condition"));
@@ -17,8 +19,14 @@ partial model PartialDistribution1Pipe
     "Nominal mass flow rate in each connection line"
     annotation(Dialog(tab="General", group="Nominal condition"));
   // IO CONNECTORS
+  Modelica.Blocks.Interfaces.RealOutput mByp_flow(
+    final quantity="MassFlowRate") if iConFloSen > 0
+    "Bypass mass flow rate (sensed)"
+    annotation (Placement(transformation(extent={{100,0},{140,40}}),
+        iconTransformation(extent={{100,30},{120,50}})));
   Modelica.Blocks.Interfaces.RealOutput dp(
-    final quantity="PressureDifference", final displayUnit="Pa") if iConPreRel > 0
+    final quantity="PressureDifference",
+    final displayUnit="Pa") if iConDpSen > 0
     "Pressure difference at given location (sensed)"
     annotation (Placement(transformation(extent={{100,40},{140,80}}),
       iconTransformation(extent={{200,50}, {220,70}})));
@@ -27,13 +35,13 @@ partial model PartialDistribution1Pipe
     redeclare each final package Medium = Medium,
     each final mDis_flow_nominal=mDis_flow_nominal,
     final mCon_flow_nominal=mCon_flow_nominal,
+    final have_dpSen={i==iConDpSen for i in 1:nCon},
+    final have_bypFloSen={i==iConBypFloSen for i in 1:nCon},
     each final allowFlowReversal=allowFlowReversal)
     "Connection to agent"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Model_pipDis pipEnd(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=mDis_flow_nominal,
-    final allowFlowReversal=allowFlowReversal)
+    final m_flow_nominal=mDis_flow_nominal)
     "Pipe representing the end of the distribution line (after last connection)"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 equation
@@ -55,6 +63,16 @@ equation
     annotation (Line(points={{10,0},{40,0}}, color={0,127,255}));
   connect(pipEnd.port_b, port_bDisSup)
     annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
+  if iConDpSen > 0 then
+    connect(con[iConDpSen].dp, dp)
+    annotation (Line(points={{11,2},{20,2},{20,60},{120,60}},
+        color={0,0,127}));
+  end if;
+  if iConBypFloSen > 0 then
+  connect(con[iConBypFloSen].mByp_flow, mByp_flow)
+    annotation (Line(points={{11,4},{18,4},{18,
+          20},{120,20}}, color={0,0,127}));
+  end if;
   annotation (
     defaultComponentName="dis",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
