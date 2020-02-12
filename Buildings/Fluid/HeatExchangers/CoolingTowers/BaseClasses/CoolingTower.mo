@@ -13,21 +13,21 @@ partial model CoolingTower "Base class for cooling towers"
 protected
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea
     "Prescribed heat flow"
-    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor T_Vol
-    "Water temperature in volume, or leaving water temperature"
+    annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TVol
+    "Water temperature in volume, leaving at port_b"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 
 equation
   connect(preHea.port, vol.heatPort) annotation (Line(
-      points={{-20,-50},{-16,-50},{-16,-10},{-9,-10}},
+      points={{-20,-60},{-16,-60},{-16,-10},{-9,-10}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(T_Vol.port, vol.heatPort) annotation (Line(
+  connect(TVol.port, vol.heatPort) annotation (Line(
       points={{20,-60},{-16,-60},{-16,-10},{-9,-10}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(T_Vol.T, TLvg) annotation (Line(
+  connect(TVol.T, TLvg) annotation (Line(
       points={{40,-60},{110,-60}},
       color={0,0,127},
       smooth=Smooth.None));
