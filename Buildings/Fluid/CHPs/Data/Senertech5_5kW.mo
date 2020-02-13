@@ -1,6 +1,6 @@
 within Buildings.Fluid.CHPs.Data;
 record Senertech5_5kW "SENERTECH5_5kW"
-  extends CHPs.Data.Generic(
+  extends Buildings.Fluid.CHPs.Data.Generic(
     coeEtaQ={0.66,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
     coeEtaE={0.27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
     coolingWaterControl=true,
@@ -17,7 +17,7 @@ record Senertech5_5kW "SENERTECH5_5kW"
     PEleMax=5500,
     PEleMin=0,
     mWatMin=0,
-    TWatMax=(273.15 + 80),
+    TWatMax=273.15 + 80,
     dPEleLim=true,
     dmFueLim=true,
     dPEleMax=1000000000,

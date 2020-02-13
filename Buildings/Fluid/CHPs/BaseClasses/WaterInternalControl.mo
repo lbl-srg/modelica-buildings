@@ -79,8 +79,8 @@ annotation (
 The model calculates the water flow rate that is determined by the internal controller.
 In CHPs that use this type of internal control the cooling water flow rate is 
 regulated to optimize engine performance and heat recovery. 
-In the main model of the CHP unit (<a href=\"modelica://Buildings.Fluid.CHPs.ElectricalFollowing\"> 
-Buildings.Fluid.CHPs.ElectricalFollowing</a>) 
+In the main model of the CHP unit (<a href=\"modelica://Buildings.Fluid.CHPs.ThermalElectricalFollowing\"> 
+Buildings.Fluid.CHPs.ThermalElectricalFollowing</a>) 
 this optimum water flow rate is specified as the set point signal for the external pump controller. 
 </p>
 </html>", revisions="<html>

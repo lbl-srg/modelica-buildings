@@ -2,7 +2,7 @@ within Buildings.Fluid.CHPs;
 model ThermalElectricalFollowing
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
     final vol(V=per.MCcw/rhoWat/cWat),
-    final dp_nominal=3458*m_flow_nominal + 5282);
+    final dp_nominal=3458*m_flow_nominal + 5282 "The correlation between nominal pressure drop and mass flow rate is derived from manufacturers data");
 
   replaceable parameter Buildings.Fluid.CHPs.Data.Generic per
     "CHP unit performance data"
@@ -289,6 +289,13 @@ annotation (
     Documentation(info="<html>
 <p>
 Add description of the model. 
+</p>
+<h4>References</h4>
+<p>
+Beausoleil-Morrison, Ian and Kelly, Nick, 2007. <i>Specifications for modelling fuel cell
+and combustion-based residential cogeneration device within whole-building simulation
+programs</i>, Section III. <a href=\"https://strathprints.strath.ac.uk/6704/\"> 
+[Report]</a>
 </p>
 </html>", revisions="<html>
 <ul>

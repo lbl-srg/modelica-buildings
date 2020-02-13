@@ -140,8 +140,8 @@ equation
           14},{-64,14}}, color={0,0,127}));
   connect(valDat.y[4], TRoo.u) annotation (Line(points={{-139,80},{-120,80},{-120,
           -70},{-102,-70}}, color={0,0,127}));
-  connect(TRoo.y, preTem.T)
-    annotation (Line(points={{-78,-70},{-62,-70}}, color={0,0,127}));
+  connect(TRoo.y, preTem.T) annotation (Line(points={{-78,-70},{-62,-70}},
+          color={0,0,127}));
   connect(valDat.y[12], TWatOutSet.u) annotation (Line(points={{-139,80},{-120,80},
           {-120,50},{-102,50}}, color={0,0,127}));
   connect(TWatOutSet.y,theFol. TWatOutSet) annotation (Line(points={{-78,50},{-30,

@@ -134,8 +134,8 @@ equation
           -70,-16},{-62,-16}}, color={0,0,127}));
   connect(valDat.y[4], TRoo.u) annotation (Line(points={{-139,30},{-120,30},{-120,
           -60},{-102,-60}}, color={0,0,127}));
-  connect(TRoo.y, preTem.T)
-    annotation (Line(points={{-78,-60},{-62,-60}}, color={0,0,127}));
+  connect(TRoo.y, preTem.T) annotation (Line(points={{-78,-60},{-62,-60}},
+          color={0,0,127}));
   connect(valDat.y[10], TWatOutVal.u) annotation (Line(points={{-139,30},{50,30},
           {50,60},{58,60}},color={0,0,127}));
   connect(valDat.y[11], TEngVal.u) annotation (Line(points={{-139,30},{58,30}},

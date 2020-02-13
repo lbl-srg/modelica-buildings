@@ -1,6 +1,6 @@
 within Buildings.Fluid.CHPs.Data;
 record ValidationData3 "Validation data set 3"
-  extends CHPs.Data.Generic(
+  extends Buildings.Fluid.CHPs.Data.Generic(
     coeEtaQ={0.66,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
     coeEtaE={0.27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
     coolingWaterControl=true,
@@ -17,7 +17,7 @@ record ValidationData3 "Validation data set 3"
     PEleMax=5500,
     PEleMin=0,
     mWatMin=0,
-    TWatMax=(273.15 + 80),
+    TWatMax=273.15 + 80,
     dPEleLim=false,
     dmFueLim=false,
     PStaBy=100,
@@ -29,9 +29,18 @@ record ValidationData3 "Validation data set 3"
   Documentation(preferredView="info",
   info="<html>
 <p>
-This is the record of parameters for CHP models from EnergyPlus example
-<code>MicroCogeneration</code>.
+This is the record of parameters for CHP models derived from the parameters of 
+EnergyPlus example <code>MicroCogeneration</code>, with following changes:
 </p>
+<ul>
+<li>
+the net electrical power rate of change and the fuel flow rate of change, become unlimitted.
+</li>
+<li>
+changed electric power consumptions during standby <code>PStaBy</code> and cool-down
+<code>PCooDow</code> mode from 0 W to 100 W and 200 W respectively.
+</li>
+</ul>
 </html>",revisions="<html>
 <ul>
 <li>
