@@ -64,7 +64,9 @@ equation
         Text(
           extent={{-86,36},{80,2}},
           lineColor={0,0,255},
-          textString="%name")}),
+          textString="%name"),
+      Text(extent={{-90,-96},{100,-28}},
+        textString=DynamicSelect("0.0", String(y, significantDigits=2)))}),
     Documentation(info="<html>
 <p>
 Block that retrieves an output variable from EnergyPlus.

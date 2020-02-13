@@ -139,15 +139,18 @@ initial equation
   + "\n   To increase the fan power, change fraPFan_nominal or PFan_nominal.");
 
 equation
-  connect(per.y, y) annotation (Line(points={{-22,58},{-40,58},{-40,80},{-120,80}},
+  connect(per.y, y) annotation (Line(points={{-22,58},{-40,58},{-40,80},{-120,
+          80}},
         color={0,0,127}));
-  connect(per.TAir, TAir) annotation (Line(points={{-22,54},{-80,54},{-80,40},{-120,
-          40}}, color={0,0,127}));
-  connect(per.Q_flow, preHea.Q_flow) annotation (Line(points={{1,50},{12,50},{12,
-          12},{-80,12},{-80,-50},{-40,-50}},   color={0,0,127}));
-  connect(per.m_flow, mWat_flow.y) annotation (Line(points={{-22,42},{-34,42},{-34,
-          29},{-49,29}}, color={0,0,127}));
-  connect(TWatIn.y, per.TWatIn) annotation (Line(points={{-49,45},{-35.5,45},{-35.5,
+  connect(per.TAir, TAir) annotation (Line(points={{-22,54},{-80,54},{-80,40},{
+          -120,40}},
+                color={0,0,127}));
+  connect(per.Q_flow, preHea.Q_flow) annotation (Line(points={{1,50},{12,50},{
+          12,12},{-80,12},{-80,-60},{-40,-60}},color={0,0,127}));
+  connect(per.m_flow, mWat_flow.y) annotation (Line(points={{-22,42},{-34,42},{
+          -34,29},{-49,29}},
+                         color={0,0,127}));
+  connect(TWatIn.y, per.TWatIn) annotation (Line(points={{-49,45},{-40,45},{-40,
           46},{-22,46}},        color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(

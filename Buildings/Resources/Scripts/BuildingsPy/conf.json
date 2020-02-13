@@ -1,32 +1,95 @@
 [
   {
-    "jmodelica": {
-      "simulate": false
-  },
-  "model_name": "Buildings.Fluid.Examples.FlowSystem.Basic"
-  },
-  {
-    "jmodelica": {
-      "simulate": false
-  },
-  "model_name": "Buildings.Fluid.Examples.FlowSystem.Simplified1"
+      "jmodelica": {
+        "simulate": false
+    },
+      "optimica": {
+        "simulate": false
+    },
+    "model_name": "Buildings.Fluid.Examples.FlowSystem.Basic"
   },
   {
-    "jmodelica": {
-      "simulate": false
-  },
-  "model_name": "Buildings.Fluid.Examples.FlowSystem.Simplified2"
-  },
-  {
-     "jmodelica": {
-       "simulate": false
-  },
-  "model_name": "Buildings.Utilities.IO.Python27.Functions.Examples.Exchange"
+      "jmodelica": {
+        "simulate": false
+    },
+      "optimica": {
+        "simulate": false
+    },
+    "model_name": "Buildings.Fluid.Examples.FlowSystem.Simplified1"
   },
   {
-     "jmodelica": {
-       "rtol": 1E-8
+      "jmodelica": {
+        "simulate": false
+    },
+      "optimica": {
+        "simulate": false
+    },
+    "model_name": "Buildings.Fluid.Examples.FlowSystem.Simplified2"
   },
-  "model_name": "Buildings.Examples.DualFanDualDuct.ClosedLoop"
+  {
+       "jmodelica": {
+         "simulate": false
+    },
+       "optimica": {
+         "translate": false
+    },
+    "model_name": "Buildings.Utilities.IO.Python27.Functions.Examples.Exchange"
+  },
+  {
+       "optimica": {
+         "translate": false
+    },
+    "model_name": "Buildings.Utilities.IO.Python27.Examples.KalmanFilter"
+  },
+  {
+       "optimica": {
+         "translate": false
+    },
+    "model_name": "Buildings.Utilities.IO.Python27.Functions.Examples.Exchange"
+  },
+  {
+       "optimica": {
+         "translate": false
+    },
+    "model_name": "Buildings.Utilities.IO.Python27.Functions.Examples.ExchangeWithPassPythonObject"
+  },
+  {
+       "optimica": {
+         "translate": false
+    },
+    "model_name": "Buildings.Utilities.IO.Python27.Examples.SimpleRoom"
+  },
+  {
+       "jmodelica": {
+         "rtol": 1E-8
+    },
+       "optimica": {
+         "rtol": 1E-8
+    },
+    "model_name": "Buildings.Examples.DualFanDualDuct.ClosedLoop"
+  },
+  {
+       "optimica": {
+         "simulate": false
+    },
+    "model_name": "Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.MSLAIT2Nodes"
+  },
+  {
+       "optimica": {
+         "simulate": false
+    },
+    "model_name": "Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT"
+  },
+  {
+       "optimica": {
+         "simulate": false
+    },
+    "model_name": "Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.MSLAIT"
+  },
+  {
+       "optimica": {
+         "simulate": false
+    },
+    "model_name": "Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.Data.TestData"
   }
 ]

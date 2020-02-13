@@ -43,7 +43,7 @@ extern "C" {
 */
 
 /** \brief Allocate an empty list */
-fmi2_import_variable_list_t* fmi2_import_alloc_variable_list(fmi2_import_t* fmu, size_t size);
+FMILIB_EXPORT fmi2_import_variable_list_t* fmi2_import_alloc_variable_list(fmi2_import_t* fmu, size_t size);
 
 /**  \brief Free a variable list. Note that variable lists are allocated dynamically and must be freed when not needed any longer 
 	\param vl A variable list.
