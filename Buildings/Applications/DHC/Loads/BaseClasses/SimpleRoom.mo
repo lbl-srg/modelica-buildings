@@ -1,6 +1,6 @@
 ﻿within Buildings.Applications.DHC.Loads.BaseClasses;
 model SimpleRoom
-  "Simplified first order ODE model for computing indoor temperature"
+  "Simplified model for assessing room air temperature variations around a setpoint"
   extends Modelica.Blocks.Icons.Block;
   parameter Modelica.SIunits.Temperature TOutHea_nominal(final displayUnit="degC")
     "Outdoor air temperature at heating nominal conditions"
@@ -54,53 +54,62 @@ equation
     ": The computed indoor temperature is below 0°C.");
   annotation (
   defaultComponentName="roo",
-  Documentation(info="<html>
-  <p>
-  This is a first order ODE model for assessing the indoor temperature based on the difference between the 
-  required and actual heating or cooling heat flow rate and a minimum set of parameters at nominal conditions.
-  </p>
-  <p>
-  The lumped thermal conductance <i>G</i> representing all heat transfer mechanisms that depend on the 
-  temperature difference with the outside (transmission, infiltration and ventilation) is assessed from
-  the steady-state energy balance at heating nominal conditions:
-  </p>
-  <p align=\"center\" style=\"font-style:italic;\">
-  0 = Q&#775;<sub>heating, nom</sub> + G * (T<sub>out, heating, nom</sub> - T<sub>ind, heating, nom</sub>)
-  </p>
-  <p>
-  This coefficient is then considered constant for all operating conditions.
-  </p>
-  <p>
-  The required heating or cooling heat flow rate <i>Q&#775;<sub>heat_cool, req</sub></i> corresponds to 
-  a steady-state control error equal to zero:
-  </p>
-  <p align=\"center\" style=\"font-style:italic;\">
-  0 = Q&#775;<sub>heat_cool, req</sub> +
-  G * (T<sub>out</sub> - T<sub>ind, set</sub>) +
-  Q&#775;<sub>various</sub>
-  </p>
-  <p>
-  where <i>Q&#775;<sub>various</sub></i> represent the miscellaneous heat gains.
-  The indoor temperature variation rate due to an unmet load is given by:
-  </p>
-  <p align=\"center\" style=\"font-style:italic;\">
-  C * &part;T<sub>ind</sub> / &part;t = Q&#775;<sub>heat_cool, act</sub> +
-  G * (T<sub>out</sub> - T<sub>ind</sub>) + Q&#775;<sub>various</sub>
-  </p>
-  <p>
-  where
-  <i>Q&#775;<sub>heat_cool, act</sub></i> is the actual heating or cooling heat flow rate and
-  <i>C</i> (J/K) is the thermal capacitance of the indoor volume.
-  The two previous equations lead to:
-  </p>
-  <p align=\"center\" style=\"font-style:italic;\">
-  &tau; * &part;T<sub>ind</sub> / &part;t = (Q&#775;<sub>heat_cool, act</sub> - Q&#775;<sub>heat_cool, req</sub>) / G
-  - T<sub>ind</sub> + T<sub>ind, set</sub>
-  </p>
-  <p>
-  where <i>&tau; = C / G</i> (s) is the time constant of the indoor temperature.
-  </p>
-  </html>"),
+  Documentation(info="
+<html>
+<p>
+This is a first order ODE model assessing the indoor air temperature variations
+around a setpoint, based on the difference between the required and actual 
+heating or cooling heat flow rate and a minimum set of parameters at nominal conditions.
+</p>
+<p>
+The lumped thermal conductance <i>G</i> representing all heat transfer mechanisms 
+that depend on the temperature difference with the outside (transmission, 
+infiltration and ventilation) is assessed from the steady-state energy balance 
+at heating nominal conditions:
+</p>
+<p style=\"font-style:italic;\">
+0 = Q&#775;<sub>heating, nom</sub> + G * (T<sub>out, heating, nom</sub> - T<sub>ind, heating, nom</sub>)
+</p>
+<p>
+(Note that it is important for the model representativeness that
+Q&#775;<sub>heating, nom</sub> be evaluated in close to steady-state conditions
+with no internal heat gains nor solar heat gains.)
+</p>
+<p>
+This coefficient is then considered constant for all operating conditions.
+</p>
+<p>
+The required heating or cooling heat flow rate <i>Q&#775;<sub>heat_cool, req</sub></i> corresponds to 
+a steady-state control error equal to zero:
+</p>
+<p style=\"font-style:italic;\">
+0 = Q&#775;<sub>heat_cool, req</sub> +
+G * (T<sub>out</sub> - T<sub>ind, set</sub>) +
+Q&#775;<sub>various</sub>
+</p>
+<p>
+where <i>Q&#775;<sub>various</sub></i> represent the miscellaneous heat gains.
+The indoor temperature variation rate due to an unmet load is given by:
+</p>
+<p style=\"font-style:italic;\">
+C * &part;T<sub>ind</sub> / &part;t = Q&#775;<sub>heat_cool, act</sub> +
+G * (T<sub>out</sub> - T<sub>ind</sub>) + Q&#775;<sub>various</sub>
+</p>
+<p>
+where
+<i>Q&#775;<sub>heat_cool, act</sub></i> is the actual heating or cooling heat flow rate and
+<i>C</i> (J/K) is the thermal capacitance of the indoor volume.
+The two previous equations yield:
+</p>
+<p style=\"font-style:italic;\">
+&tau; * &part;T<sub>ind</sub> / &part;t = (Q&#775;<sub>heat_cool, act</sub> - Q&#775;<sub>heat_cool, req</sub>) / G
+- T<sub>ind</sub> + T<sub>ind, set</sub>
+</p>
+<p>
+where <i>&tau; = C / G</i> (s) is the time constant of the indoor temperature.
+</p>
+</html>
+  "),
   Icon(coordinateSystem(preserveAspectRatio=false)),
   Diagram(coordinateSystem(preserveAspectRatio=false)));
 end SimpleRoom;

@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Loads.Validation.BaseClasses;
+within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
 model FanCoil4PipeFluidPorts
   extends PartialFanCoil4Pipe(
     final have_TSen=true,

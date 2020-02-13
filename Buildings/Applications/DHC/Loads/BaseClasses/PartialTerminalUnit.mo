@@ -157,8 +157,8 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
         rotation=0,
         origin={-130,60})));
   Modelica.Blocks.Interfaces.RealInput TSetCoo(
-    quantity="ThermodynamicTemperature",
-    final unit="K", displayUnit="degC") if have_watCoo or have_eleCoo
+    final quantity="ThermodynamicTemperature",
+    final unit="K", final displayUnit="degC") if have_watCoo or have_eleCoo
     "Cooling set point"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -168,7 +168,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
         rotation=0,
         origin={-130,40})));
   Modelica.Blocks.Interfaces.RealInput QReqHea_flow(
-    quantity="HeatFlowRate") if
+    final quantity="HeatFlowRate") if
     have_QReq_flow and (have_watHea or have_chaOve or have_eleHea)
     "Required heat flow rate to meet heating set point (>=0)"
     annotation (
@@ -180,7 +180,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
         rotation=0,
         origin={-130,-20})));
   Modelica.Blocks.Interfaces.RealInput QReqCoo_flow(
-    quantity="HeatFlowRate") if
+    final quantity="HeatFlowRate") if
     have_QReq_flow and (have_watCoo or have_eleCoo)
     "Required heat flow rate to meet cooling set point (<=0)"
     annotation (Placement(transformation(
@@ -191,42 +191,42 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
         rotation=0,
         origin={-130,-42})));
   Modelica.Blocks.Interfaces.RealOutput QActHea_flow(
-    quantity="HeatFlowRate") if have_watHea or have_chaOve or have_eleHea
-    "Heat flow rate transferred to the load for heating (>=0)"
+    final quantity="HeatFlowRate") if have_watHea or have_chaOve or have_eleHea
+    "Heating heat flow rate transferred to the load (>=0)"
     annotation (Placement(transformation(extent={{200,200},{240,240}}),
       iconTransformation(extent={{120,70},{140,90}})));
   Modelica.Blocks.Interfaces.RealOutput QActCoo_flow(
-    quantity="HeatFlowRate") if have_watCoo or have_eleCoo
-    "Heat flow rate transferred to the load for cooling (<=0)"
+    final quantity="HeatFlowRate") if have_watCoo or have_eleCoo
+    "Cooling heat flow rate transferred to the load (<=0)"
     annotation (Placement(transformation(extent={{200,180},{240,220}}),
         iconTransformation(extent={{120,50},{140,70}})));
   Modelica.Blocks.Interfaces.RealOutput PHea(
-    quantity="Power") if have_eleHea
+    final quantity="Power") if have_eleHea
     "Power drawn by heating equipment"
     annotation (Placement(transformation(extent={{200,160},{240,200}}),
       iconTransformation(extent={{120,30},{140,50}})));
   Modelica.Blocks.Interfaces.RealOutput PCoo(
-    quantity="Power") if have_eleCoo
+    final quantity="Power") if have_eleCoo
     "Power drawn by cooling equipment"
     annotation (Placement(transformation(extent={{200,140},{240,180}}),
       iconTransformation(extent={{120,10},{140,30}})));
   Modelica.Blocks.Interfaces.RealOutput PFan(
-    quantity="Power", final unit="W") if have_fan
+    final quantity="Power") if have_fan
     "Power drawn by fans motors"
     annotation (Placement(transformation(extent={{200,120},{240,160}}),
       iconTransformation(extent={{120,-10},{140,10}})));
   Modelica.Blocks.Interfaces.RealOutput PPum(
-    quantity="Power", final unit="W") if have_pum
+    final quantity="Power") if have_pum
     "Power drawn by pumps motors"
     annotation (Placement(transformation(extent={{200,100},{240,140}}),
       iconTransformation(extent={{120,-30},{140,-10}})));
   Modelica.Blocks.Interfaces.RealOutput mReqHeaWat_flow(
-    quantity="MassFlowRate") if have_watHea
+    final quantity="MassFlowRate") if have_watHea
     "Required heating water flow rate to meet heating set point"
     annotation (Placement(transformation(extent={{200,80},{240,120}}),
       iconTransformation(extent={{120,-50},{140,-30}})));
   Modelica.Blocks.Interfaces.RealOutput mReqChiWat_flow(
-    quantity="MassFlowRate") if have_watCoo
+    final quantity="MassFlowRate") if have_watCoo
     "Required chilled water flow rate to meet cooling set point"
     annotation (Placement(transformation(extent={{200,60},{240,100}}),
       iconTransformation(extent={{120,-70},{140,-50}})));
@@ -335,44 +335,43 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     redeclare final package Medium = Medium1,
     final k=1/facSca,
     final allowFlowReversal=allowFlowReversal) if have_watHea
-    "Flow rate scaling"
+    "Mass flow rate scaling"
     annotation (Placement(transformation(extent={{-180,-230},{-160,-210}})));
   Fluid.BaseClasses.MassFlowRateMultiplier scaHeaWatFloOut(
     redeclare final package Medium = Medium1,
     final k=facSca,
     final allowFlowReversal=allowFlowReversal) if have_watHea
-    "Flow rate scaling"
+    "Mass flow rate scaling"
     annotation (Placement(transformation(extent={{160,-230},{180,-210}})));
   Fluid.BaseClasses.MassFlowRateMultiplier scaChiWatFloInl(
     redeclare final package Medium = Medium1,
     final k=1/facSca,
     final allowFlowReversal=allowFlowReversal) if have_watCoo
-    "Flow rate scaling"
+    "Mass flow rate scaling"
     annotation (Placement(transformation(extent={{-180,-190},{-160,-170}})));
   Fluid.BaseClasses.MassFlowRateMultiplier scaChiWatFloOut(
     redeclare final package Medium = Medium1,
     final k=facSca,
     final allowFlowReversal=allowFlowReversal) if have_watCoo
-    "Flow rate scaling"
+    "Mass flow rate scaling"
     annotation (Placement(transformation(extent={{160,-190},{180,-170}})));
 protected
   parameter Modelica.SIunits.SpecificHeatCapacity cpHeaWat_nominal=
     Medium1.specificHeatCapacityCp(
       Medium1.setState_pTX(Medium1.p_default, T_aHeaWat_nominal))
-    "Source side specific heat capacity at nominal conditions in heating mode";
+    "Heating water specific heat capacity at nominal conditions";
   parameter Modelica.SIunits.SpecificHeatCapacity cpChiWat_nominal=
     Medium1.specificHeatCapacityCp(
       Medium1.setState_pTX(Medium1.p_default, T_aChiWat_nominal))
-    "Source side specific heat capacity at nominal conditions in cooling mode";
+    "Chilled water specific heat capacity at nominal conditions";
   parameter Modelica.SIunits.SpecificHeatCapacity cpLoaHea_nominal=
     Medium2.specificHeatCapacityCp(
       Medium2.setState_pTX(Medium2.p_default, T_aLoaHea_nominal))
-    "Load side specific heat capacity at nominal conditions in heating mode";
+    "Load side fluid specific heat capacity at nominal conditions in heating mode";
   parameter Modelica.SIunits.SpecificHeatCapacity cpLoaCoo_nominal=
     Medium2.specificHeatCapacityCp(
       Medium2.setState_pTX(Medium2.p_default, T_aLoaCoo_nominal))
-    "Load side specific heat capacity at nominal conditions in cooling mode";
-
+    "Load side fluid specific heat capacity at nominal conditions in cooling mode";
 equation
   if have_QReq_flow and (have_watHea or have_chaOve or have_eleHea) then
     connect(QReqHea_flow, scaQReqHea_flow.u)
@@ -426,31 +425,47 @@ annotation (
   defaultComponentName="ter",
   Documentation(info="<html>
 <p>
-Partial model to be used for modeling the building terminal units, in conjunction
-with
-<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>.
+Partial model to be used for modeling the building HVAC terminal units.
 </p>
 <p>
-The models derived from this class are typically used in conjunction with
+The models inheriting from this class are typically used in conjunction with
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
 Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>. They must
 compute a so-called required mass flow rate defined as the heating or chilled 
 water mass flow rate needed to meet the load.
-It can be approximated using a control loop to avoid inverting the heat
-exchanger models as described in 
-<a href=\"modelica://Buildings.Applications.DHC.Loads.Validation\">
-Buildings.Applications.DHC.Loads.Validation</a>.
+It can be approximated using a control loop to avoid inverting a heat
+exchanger models as illustrated in 
+<a href=\"modelica://Buildings.Applications.DHC.Loads.Examples\">
+Buildings.Applications.DHC.Loads.Examples</a>.
 </p>
 <p>
-The fluid ports suffixed with <code>1</code> represent the connection with the 
-heating or chilled water distribution system.
+The model connectivity can be modified to address various use cases:
 </p>
-<p>
-The fluid ports suffixed with <code>2</code> represent the connection with the 
-fluid stream on the load side (domestic hot water or supplied air). Alternatively
-heat ports can be used to model the heat transfer to the load.
-</p>
+<ul>
+<li>
+On the source side (typically connected to 
+<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
+Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>):
+<ul>
+<li>
+Fluid ports for chilled water and heating water can be conditionally 
+instantiated by respectively setting <code>have_watCoo</code> and  
+<code>have_watHea</code> to true.
+</li>
+</ul>
+<li>
+On the load side (typically connected to a room model):
+<ul>
+<li>
+Fluid ports can be conditionally instantiated by setting 
+<code>have_fluPor</code> to true.
+</li>
+<li>
+Alternatively heat ports can be conditionally instantiated by setting 
+<code>have_heaPor</code> to true.
+</li>
+</ul>
+</ul>
 <p>
 The heating or cooling nominal capacity is provided for the water based heat
 exchangers only: electric heating and cooling equipment is supposed to have

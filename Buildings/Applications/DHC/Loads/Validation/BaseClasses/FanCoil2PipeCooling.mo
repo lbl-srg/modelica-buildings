@@ -3,6 +3,8 @@ model FanCoil2PipeCooling
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit(
     redeclare package Medium1 = Buildings.Media.Water,
     redeclare package Medium2 = Buildings.Media.Air,
+    final have_heaPor=false,
+    final have_fluPor=false,
     final have_fan=true,
     final have_watHea=false,
     final have_watCoo=true,
@@ -19,10 +21,10 @@ model FanCoil2PipeCooling
     final mChiWat_flow_nominal=abs(QCoo_flow_nominal/cpChiWat_nominal/(
       T_aChiWat_nominal - T_bChiWat_nominal)));
   import hexConfiguration = Buildings.Fluid.Types.HeatExchangerConfiguration;
-  parameter hexConfiguration hexConHea=
+  final parameter hexConfiguration hexConHea=
     hexConfiguration.CounterFlow
     "Heating heat exchanger configuration";
-  parameter hexConfiguration hexConCoo=
+  final parameter hexConfiguration hexConCoo=
     hexConfiguration.CounterFlow
     "Cooling heat exchanger configuration";
   Buildings.Controls.OBC.CDL.Continuous.LimPID con(

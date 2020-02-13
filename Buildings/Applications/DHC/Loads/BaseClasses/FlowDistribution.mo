@@ -26,10 +26,10 @@ model FlowDistribution "Model of building hydraulic distribution system"
   final parameter Integer nUni = nPorts_a1
     "Number of served units"
     annotation(Evaluate=true);
-  parameter Boolean have_pum = false
+  parameter Boolean have_pum
     "Set to true if the system has a pump"
     annotation(Evaluate=true);
-  parameter Boolean have_val = false
+  parameter Boolean have_val
     "Set to true if the system has a mixing valve"
     annotation(Evaluate=true);
   parameter Type_dis typDis = Type_dis.HeatingWater
@@ -511,16 +511,16 @@ tracking the supply temperature.
           pattern=LinePattern.None,
           lineColor={0,0,0}),
         Rectangle(
-          extent={{-44,6},{44,-6}},
+          extent={{-50,6},{50,-6}},
           lineThickness=1,
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
           lineColor={0,0,0},
-          origin={66,50},
+          origin={66,44},
           rotation=90),
         Rectangle(
-          extent={{60,6},{100,-6}},
+          extent={{72,6},{100,-6}},
           lineThickness=1,
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
@@ -543,40 +543,41 @@ tracking the supply temperature.
           origin={-8.88178e-16,42},
           rotation=90),
         Rectangle(
-          extent={{-10,56},{20,16}},
+          extent={{-15,20},{15,-20}},
           lineColor={0,0,0},
           lineThickness=1,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
-          visible=have_val),
+          visible=have_val,
+          origin={-42,-3},
+          rotation=-90),
         Polygon(
           points={{-10,12},{-10,-8},{10,2},{-10,12}},
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          origin={2,26},
+          origin={-52,-2},
+          rotation=0,
+          lineThickness=0.5),
+        Polygon(
+          points={{-10,12},{-10,-8},{10,2},{-10,12}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          origin={-40,-10},
           rotation=90,
-          visible=have_val),
-        Polygon(
-          points={{-10,12},{-10,-8},{10,2},{-10,12}},
-          lineColor={0,0,0},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          origin={10,38},
-          rotation=180,
-          visible=have_val),
+          lineThickness=0.5),
         Polygon(
           points={{-10,12},{-10,-8},{10,2},{-10,12}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          origin={-2,46},
-          rotation=270,
-          lineThickness=1,
-          visible=have_val),
+          origin={-32,2},
+          rotation=180,
+          lineThickness=0.5),
         Rectangle(
-          extent={{20,42},{60,30}},
+          extent={{-48,-56},{72,-68}},
           lineThickness=1,
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
@@ -635,12 +636,11 @@ tracking the supply temperature.
           pattern=LinePattern.None,
           lineColor={0,0,0}),
         Ellipse(
-          extent={{-52,92},{-12,52}},
+          extent={{-20,56},{20,16}},
           lineColor={0,0,0},
-          lineThickness=1,
+          lineThickness=0.5,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          visible=have_pum,
           startAngle=0,
           endAngle=360),
         Polygon(
@@ -648,9 +648,29 @@ tracking the supply temperature.
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          origin={-36,72},
-          rotation=180,
-          visible=have_pum)}),
+          origin={0,40},
+          rotation=90,
+          visible=have_pum),
+        Rectangle(
+          extent={{-18,6},{18,-6}},
+          lineThickness=1,
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0},
+          origin={-42,-38},
+          rotation=90,
+          visible=have_val),
+        Rectangle(
+          extent={{-25,6},{25,-6}},
+          lineThickness=1,
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0},
+          origin={66,-31},
+          rotation=90,
+          visible=have_val)}),
       Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{100,
             280}})));
 end FlowDistribution;

@@ -3,6 +3,8 @@ model FanCoil2PipeHeatingValve
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit(
     redeclare package Medium1 = Buildings.Media.Water,
     redeclare package Medium2 = Buildings.Media.Air,
+    final have_heaPor=false,
+    final have_fluPor=false,
     final have_fan=true,
     final have_watHea=true,
     final have_watCoo=false,
@@ -17,10 +19,10 @@ model FanCoil2PipeHeatingValve
     final mHeaWat_flow_nominal=abs(QHea_flow_nominal/cpHeaWat_nominal/(
       T_aHeaWat_nominal - T_bHeaWat_nominal)));
   import hexConfiguration = Buildings.Fluid.Types.HeatExchangerConfiguration;
-  parameter hexConfiguration hexConHea=
+  final parameter hexConfiguration hexConHea=
     hexConfiguration.CounterFlow
     "Heating heat exchanger configuration";
-  parameter hexConfiguration hexConCoo=
+  final parameter hexConfiguration hexConCoo=
     hexConfiguration.CounterFlow
     "Cooling heat exchanger configuration";
   parameter Boolean have_speVar = true

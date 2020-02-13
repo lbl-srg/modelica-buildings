@@ -14,8 +14,8 @@ model SimpleRoom "Validation of the model SimpleRoom"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Time tau = 1800
     "Time constant of the indoor temperature";
-  BaseClasses.GeojsonExportRC.B5a6b99ec37f4de7f94020090.Office romHeaMet
-    "ROM where the heating load is always met"
+  Examples.BaseClasses.GeojsonExportRC.B5a6b99ec37f4de7f94020090.Office
+    romHeaMet "ROM where the heating load is always met"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
@@ -28,16 +28,17 @@ model SimpleRoom "Validation of the model SimpleRoom"
   Buildings.Controls.Continuous.LimPID conHea(controllerType=Modelica.Blocks.Types.SimpleController.PI, Ti=10)
     annotation (Placement(transformation(extent={{30,110},{50,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=20)
-    "Minimum temperature setpoint"
+    "Minimum temperature setpoint (C)"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC1
+    "Minimum temperature setpoint (K) "
     annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai(k=QHea_flow_nominal)
     annotation (Placement(transformation(extent={{60,110},{80,130}})));
   HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow
     annotation (Placement(transformation(extent={{82,130},{62,150}})));
-  BaseClasses.GeojsonExportRC.B5a6b99ec37f4de7f94020090.Office romHeaUnm
-    "ROM where the heating load is not met"
+  Examples.BaseClasses.GeojsonExportRC.B5a6b99ec37f4de7f94020090.Office
+    romHeaUnm "ROM where the heating load is not met"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai1(k=0.7)
     annotation (Placement(transformation(extent={{92,90},{112,110}})));
@@ -50,9 +51,10 @@ model SimpleRoom "Validation of the model SimpleRoom"
     tau=tau) "ODE heated room model"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=24)
-    "Maximum temperature setpoint"
+    "Maximum temperature setpoint (C)"
     annotation (Placement(transformation(extent={{-140,-170},{-120,-150}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC2
+    "Maximum temperature setpoint (K)"
     annotation (Placement(transformation(extent={{-100,-170},{-80,-150}})));
   Buildings.Controls.Continuous.LimPID conCoo(controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=10,
@@ -76,11 +78,11 @@ model SimpleRoom "Validation of the model SimpleRoom"
     filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     "Weather data reader"
     annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
-  BaseClasses.GeojsonExportRC.B5a6b99ec37f4de7f94020090.Office romCooMet
-    "ROM where the cooling load is always met"
+  Examples.BaseClasses.GeojsonExportRC.B5a6b99ec37f4de7f94020090.Office
+    romCooMet "ROM where the cooling load is always met"
     annotation (Placement(transformation(extent={{-10,-130},{10,-110}})));
-  BaseClasses.GeojsonExportRC.B5a6b99ec37f4de7f94020090.Office romCooUnm
-    "ROM where the cooling load is not met"
+  Examples.BaseClasses.GeojsonExportRC.B5a6b99ec37f4de7f94020090.Office
+    romCooUnm "ROM where the cooling load is not met"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
   HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow2
     annotation (Placement(transformation(extent={{80,-70},{60,-50}})));
@@ -164,6 +166,26 @@ equation
       StopTime=1209600,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
+  Documentation(info="
+<html>
+<p>
+This example validates 
+<a href=\"Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom\">
+Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom</a> by comparison with
+<a href=\"Buildings.ThermalZones.ReducedOrder.RC.TwoElements\">
+Buildings.ThermalZones.ReducedOrder.RC.TwoElements</a>.
+<p>
+A first instance of the reduced order model is used to assess the heating or 
+cooling load. A second instance is used to assess the indoor air temperature
+variation when the rate at which heating or cooling is provided is lower than
+the load. That second instance is used as a reference for the validation. 
+</p>
+</p> 
+Eventually the validation is performed with two sets of ambient conditions: 
+one requiring heating, the second requiring cooling. 
+</p>
+</html>
+  "),
   __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/SimpleRoom.mos"
   "Simulate and plot"),
     Diagram(coordinateSystem(extent={{-160,-180},{160,180}})));

@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Loads.Validation.BaseClasses;
+within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
 model FanCoil4PipeHeatPorts
   extends PartialFanCoil4Pipe(
     final have_heaPor=true,

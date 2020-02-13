@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Loads.Validation.BaseClasses;
+within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
 partial model PartialFanCoil4Pipe
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit(
     redeclare package Medium1 = Buildings.Media.Water,

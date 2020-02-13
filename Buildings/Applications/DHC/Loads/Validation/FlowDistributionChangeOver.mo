@@ -36,6 +36,7 @@ model FlowDistributionChangeOver
   Buildings.Controls.OBC.UnitConversions.From_degC TPriChi_K
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
   Buildings.Controls.OBC.CDL.Logical.Switch TPriK
+    "Computation of actual primary supply temperature (K)"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse mod(
     amplitude=2,
@@ -47,16 +48,19 @@ model FlowDistributionChangeOver
   Modelica.Blocks.Sources.Constant zero(k=0)
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSecHea(k=30)
-    "Heating water secondary supply temperature setpoint"
+    "Heating water secondary supply temperature setpoint (C)"
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
   Buildings.Controls.OBC.UnitConversions.From_degC TSetSecHea_K
+    "Heating water secondary supply temperature setpoint (K)"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSecChi(k=18)
-    "Chilled water secondary supply temperature setpoint"
+    "Chilled water secondary supply temperature setpoint (C)"
     annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
   Buildings.Controls.OBC.UnitConversions.From_degC TSetSecChi_K
+    "Chilled water secondary supply temperature setpoint (K)"
     annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Switch TSetSecK
+    "Computation of actual secondary supply temperature setpoint (K)"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger modInt(integerFalse=-1)
     "Operating mode in integer format "
@@ -79,19 +83,21 @@ model FlowDistributionChangeOver
         rotation=0,
         origin={110,100})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dTSec(k=-5)
-    "Secondary dT"
+    "Secondary temperature difference between supply and return"
     annotation (Placement(transformation(extent={{20,-110},{40,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro
+  Buildings.Controls.OBC.CDL.Continuous.Product pro "Product"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTSecSup(
     redeclare package Medium = Medium1,
-    m_flow_nominal=m_flow_nominal)
+    m_flow_nominal=m_flow_nominal) "Secondary supply temperature (sensed)"
     annotation (Placement(transformation(extent={{70,90},{90,110}})));
   Modelica.Thermal.HeatTransfer.Celsius.FromKelvin TSetSec
+    "Actual secondary supply temperature setpoint (C)"
     annotation (Placement(transformation(extent={{0,-150},{20,-130}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTSecRet(redeclare package
       Medium =
         Medium1, m_flow_nominal=m_flow_nominal)
+    "Secondary return temperature (sensed)"
     annotation (Placement(transformation(extent={{90,50},{70,70}})));
   Buildings.Fluid.Sources.Boundary_pT sinPri(redeclare package Medium = Medium1, nPorts=1)
     "Sink for primary stream" annotation (Placement(transformation(
@@ -104,10 +110,12 @@ model FlowDistributionChangeOver
     offset=0) "Secondary mass flow rate"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add
+    "Computation of secondary return temperature"
     annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTPriSup(redeclare package
       Medium =
         Medium1, m_flow_nominal=m_flow_nominal)
+    "Primary supply temperature (sensed)"
     annotation (Placement(transformation(extent={{8,10},{28,30}})));
 equation
   connect(TPriHea.y, TPriHea_K.u)

@@ -196,7 +196,6 @@ model FlowDistributionPumpControl
     m_flow_nominal=m_flow_nominal,
     have_pum=true,
     typCtr=Buildings.Applications.DHC.Loads.Types.PumpControlType.ConstantSpeed,
-
     dp_nominal=dp_nominal,
     dpDis_nominal=dpDis_nominal,
     dpMin=dpSet,
@@ -204,6 +203,7 @@ model FlowDistributionPumpControl
     nPorts_a1=5,
     nPorts_b1=5) "Distribution system with pump controlled at constant speed"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSup(k=
         T_aHeaWat_nominal) "Heating water supply temperature"
     annotation (Placement(transformation(extent={{-180,-10},{-160,10}})));
@@ -290,8 +290,8 @@ equation
   connect(disCstSpe.port_b, sinHeaWat.ports[3]) annotation (Line(points={{10,80},
           {120,80},{120,-2.66667},{140,-2.66667}}, color={0,127,255}));
   connect(disCstSpe.ports_b1[1:5], terUniHea2.port_aHeaWat) annotation (Line(
-        points={{-10,89.2},{-20,89.2},{-20,120},{-10,120},{-10,119.667}}, color
-        ={0,127,255}));
+        points={{-10,89.2},{-20,89.2},{-20,120},{-10,120},{-10,119.667}}, color=
+         {0,127,255}));
   connect(terUniHea2.port_bHeaWat, disCstSpe.ports_a1[1:5]) annotation (Line(
         points={{10,119.667},{20,119.667},{20,89.2},{10,89.2}}, color={0,127,
           255}));
@@ -301,8 +301,8 @@ equation
   connect(reaRep.y, terUniHea2.TSetHea) annotation (Line(points={{-106,70},{-40,
           70},{-40,132},{-10.8333,132},{-10.8333,133}}, color={0,0,127}));
   connect(reaRep1.y, terUniHea2.QReqHea_flow) annotation (Line(points={{-132,30},
-          {-46,30},{-46,126},{-30,126},{-30,126.333},{-10.8333,126.333}}, color
-        ={0,0,127}));
+          {-46,30},{-46,126},{-30,126},{-30,126.333},{-10.8333,126.333}}, color=
+         {0,0,127}));
   connect(disCstSpe.mReqTot_flow, pipPre.m_flow_in) annotation (Line(points={{
           11,76},{40,76},{40,200},{-4,200},{-4,188}}, color={0,0,127}));
   connect(THeaWatSup.y, supHeaWat1.T_in) annotation (Line(points={{-158,0},{

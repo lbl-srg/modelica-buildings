@@ -25,21 +25,21 @@ model BuildingRCZ6
             200},{-280,220}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC2[nZon]
     annotation (Placement(transformation(extent={{-260,200},{-240,220}})));
-  Validation.BaseClasses.GeojsonExportRC.B5a6b99ec37f4de7f94020090.Office office
+  GeojsonExportRC.B5a6b99ec37f4de7f94020090.Office office
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
-  Validation.BaseClasses.GeojsonExportRC.B5a6b99ec37f4de7f94020090.Floor floor
+  GeojsonExportRC.B5a6b99ec37f4de7f94020090.Floor floor
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  Validation.BaseClasses.GeojsonExportRC.B5a6b99ec37f4de7f94020090.Storage storage
+  GeojsonExportRC.B5a6b99ec37f4de7f94020090.Storage storage
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-  Validation.BaseClasses.GeojsonExportRC.B5a6b99ec37f4de7f94020090.Meeting meeting
+  GeojsonExportRC.B5a6b99ec37f4de7f94020090.Meeting meeting
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  Validation.BaseClasses.GeojsonExportRC.B5a6b99ec37f4de7f94020090.Restroom restroom
+  GeojsonExportRC.B5a6b99ec37f4de7f94020090.Restroom restroom
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
-  Validation.BaseClasses.GeojsonExportRC.B5a6b99ec37f4de7f94020090.ICT iCT
+  GeojsonExportRC.B5a6b99ec37f4de7f94020090.ICT iCT
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=2)
     annotation (Placement(transformation(extent={{260,50},{280,70}})));
-  Buildings.Applications.DHC.Loads.Validation.BaseClasses.FanCoil4PipeHeatPorts
+  Buildings.Applications.DHC.Loads.Examples.BaseClasses.FanCoil4PipeHeatPorts
     terUni[nZon](
     redeclare each package Medium1 = Medium,
     redeclare each package Medium2 = Medium2,

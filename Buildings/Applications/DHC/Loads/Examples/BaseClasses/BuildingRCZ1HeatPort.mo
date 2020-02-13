@@ -123,7 +123,7 @@ model BuildingRCZ1HeatPort "RC building model (1 zone) with heat ports"
     annotation (Placement(transformation(extent={{-300,210},{-280,230}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC2
     annotation (Placement(transformation(extent={{-260,210},{-240,230}})));
-  Validation.BaseClasses.FanCoil4PipeHeatPorts terUni(
+  FanCoil4PipeHeatPorts terUni(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium2,
     QHea_flow_nominal=1000,
