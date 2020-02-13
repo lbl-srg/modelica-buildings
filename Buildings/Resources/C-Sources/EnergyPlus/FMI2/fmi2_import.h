@@ -180,16 +180,40 @@ FMILIB_EXPORT size_t fmi2_import_get_number_of_continuous_states(fmi2_import_t* 
 /** \brief Get the number of event indicators. */
 FMILIB_EXPORT size_t fmi2_import_get_number_of_event_indicators(fmi2_import_t* fmu);
 
-/** \brief Get the start time for default experiment as specified in the XML file. */
+/** \brief Check if the start time for default experiment is specified in the XML file. */
+FMILIB_EXPORT int fmi2_import_get_default_experiment_has_start(fmi2_import_t* fmu);
+
+/** \brief Check if the stop time for default experiment is specified in the XML file. */
+FMILIB_EXPORT int fmi2_import_get_default_experiment_has_stop(fmi2_import_t* fmu);
+
+/** \brief Check if the tolerance for default experiment is specified in the XML file. */
+FMILIB_EXPORT int fmi2_import_get_default_experiment_has_tolerance(fmi2_import_t* fmu);
+
+/** \brief Check if the step size time for default experiment is specified in the XML file. */
+FMILIB_EXPORT int fmi2_import_get_default_experiment_has_step(fmi2_import_t* fmu);
+
+/** \brief Get the start time for default experiment as specified in the XML file.
+    If it is not specified, a default value of 0.0 is returned.
+    To determine if it is specified, use the following function: #fmi2_import_get_default_experiment_has_start
+*/
 FMILIB_EXPORT double fmi2_import_get_default_experiment_start(fmi2_import_t* fmu);
 
-/** \brief Get the stop time for default experiment as specified in the XML file. */
+/** \brief Get the stop time for default experiment as specified in the XML file.
+    If it is not specified, a default value of 1.0 is returned.
+    To determine if it is specified, use the following function: #fmi2_import_get_default_experiment_has_stop
+*/
 FMILIB_EXPORT double fmi2_import_get_default_experiment_stop(fmi2_import_t* fmu);
 
-/** \brief Get the tolerance for default experiment as specified in the XML file. */
+/** \brief Get the tolerance for default experiment as specified in the XML file.
+    If it is not specified, a default value of 1e-4 is returned.
+    To determine if it is specified, use the following function: #fmi2_import_get_default_experiment_has_tolerance
+*/
 FMILIB_EXPORT double fmi2_import_get_default_experiment_tolerance(fmi2_import_t* fmu);
 
-/** \brief Get the step size for default experiment as specified in the XML file. */
+/** \brief Get the step size for default experiment as specified in the XML file.
+    If it is not specified, a default value of 1e-2 is returned.
+    To determine if it is specified, use the following function: #fmi2_import_get_default_experiment_has_step
+*/
 FMILIB_EXPORT double fmi2_import_get_default_experiment_step(fmi2_import_t* fmu);
 
 /** \brief Get the type of the FMU (model exchange or co-simulation) */
