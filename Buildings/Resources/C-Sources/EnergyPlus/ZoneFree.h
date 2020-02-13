@@ -6,10 +6,8 @@
 #ifndef Buildings_ZoneFree_h
 #define Buildings_ZoneFree_h
 
-#include "EnergyPlusStructure.h"
+#include "EnergyPlusFMU.h"
 #include "FMI2/fmi2_import.h"
-
-void FMUBuildingFree(FMUBuilding* ptrBui);
 
 void ZoneFree(void* object);
 

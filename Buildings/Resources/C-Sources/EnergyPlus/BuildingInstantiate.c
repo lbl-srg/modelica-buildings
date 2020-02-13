@@ -6,7 +6,10 @@
  */
 
 #include "BuildingInstantiate.h"
-#include "EnergyPlusStructure.h"
+#ifndef Buildings_BuildingInstantiate_c
+#define Buildings_BuildingInstantiate_c
+
+#include "EnergyPlusFMU.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -15,8 +18,9 @@
 
 void buildJSONModelStructureForEnergyPlus(
   const FMUBuilding* bui, char* *buffer, size_t* size, char** modelHash){
-  int iZon;
+  int i;
   FMUZone** zones = (FMUZone**)bui->zones;
+  FMUOutputVariable** outVars;
 
   saveAppend(buffer, "{\n", size);
   saveAppend(buffer, "  \"version\": \"0.1\",\n", size);
@@ -40,19 +44,53 @@ void buildJSONModelStructureForEnergyPlus(
   /* model information */
   saveAppend(buffer, "  \"model\": {\n", size);
   saveAppend(buffer, "    \"zones\": [\n", size);
-  for(iZon = 0; iZon < bui->nZon; iZon++){
-    /* Write zone name */
-    if (FMU_EP_VERBOSITY >= MEDIUM)
-      ModelicaFormatMessage("Writing zone data %s.\n", zones[iZon]->name);
+  /* Write zone names */
+  for(i = 0; i < bui->nZon; i++){
     saveAppend(buffer, "        { \"name\": \"", size);
-    saveAppend(buffer, zones[iZon]->name, size);
-    if (iZon < (bui->nZon) - 1)
+    saveAppend(buffer, zones[i]->name, size);
+    if (i < (bui->nZon) - 1)
       saveAppend(buffer, "\" },\n", size);
     else
       saveAppend(buffer, "\" }\n", size);
   }
   /* Close json array for zones */
-  saveAppend(buffer, "    ]\n  },\n", size);
+  saveAppend(buffer, "    ]", size);
+  if (bui->nOutputVariables == 0){
+    /* There are no more other objects */
+    saveAppend(buffer, "\n", size);
+  }
+  else{
+    /* There are other objects that belong to "model" */
+    saveAppend(buffer, ",\n", size);
+  }
+  /* Write output names */
+  if (bui->nOutputVariables > 0){
+    outVars = (FMUOutputVariable**)bui->outputVariables;
+    saveAppend(buffer, "    \"outputVariables\": [\n", size);
+  }
+  for(i = 0; i < bui->nOutputVariables; i++){
+    saveAppend(buffer, "        {\n", size);
+    /* name */
+    saveAppend(buffer, "          \"name\": \"", size);
+    saveAppend(buffer, outVars[i]->name, size);
+    saveAppend(buffer, "\",\n", size);
+    /* key */
+    saveAppend(buffer, "          \"key\": \"", size);
+    saveAppend(buffer, outVars[i]->key, size);
+    saveAppend(buffer, "\",\n", size);
+    /* fmiName */
+    saveAppend(buffer, "          \"fmiName\": \"", size);
+    saveAppend(buffer, outVars[i]->outputs->fmiNames[0], size);
+    saveAppend(buffer, "\"\n", size);
+    /* closing the outputVariables item */
+    saveAppend(buffer, "        }", size);
+    if (i < (bui->nOutputVariables) - 1)
+      saveAppend(buffer, ",\n", size);
+    else
+      saveAppend(buffer, "\n    ]\n", size);
+  }
+  /* Close json object for model */
+  saveAppend(buffer, "  },\n", size);
 
   *modelHash = (char*)(cryptographicsHash(*buffer));
 
@@ -82,9 +120,7 @@ void writeModelStructureForEnergyPlus(const FMUBuilding* bui, char** modelicaBui
   /* Initial size which will grow as needed */
   size = 1024;
 
-  buffer = (char*)malloc((size+1) * sizeof(char));
-  if ( buffer == NULL)
-    ModelicaFormatError("Failed to allocate memory for json buffer.");
+  mallocString(size+1, "Failed to allocate memory for json buffer.", &buffer);
   memset(buffer, '\0', size + 1);
 
   /* Build the json structure */
@@ -93,9 +129,8 @@ void writeModelStructureForEnergyPlus(const FMUBuilding* bui, char** modelicaBui
   /* Write to file */
   /* Build the file name */
   lenNam = strlen(bui->tmpDir) + strlen(SEPARATOR) + strlen(MOD_BUI_JSON);
-  *modelicaBuildingsJsonFile = malloc((lenNam+1) * sizeof(char));
-  if (modelicaBuildingsJsonFile == NULL)
-    ModelicaFormatError("Failed to allocate memory for name of '%s' file.", MOD_BUI_JSON);
+
+  mallocString(lenNam+1, "Failed to allocate memory for json file name.", modelicaBuildingsJsonFile);
   memset(*modelicaBuildingsJsonFile, '\0', lenNam+1);
   strcpy(*modelicaBuildingsJsonFile, bui->tmpDir);
   strcat(*modelicaBuildingsJsonFile, SEPARATOR);
@@ -109,75 +144,91 @@ void writeModelStructureForEnergyPlus(const FMUBuilding* bui, char** modelicaBui
   fclose(fp);
 }
 
-void setValueReference(
+void setAttributesReal(
   const char* fmuNam,
   const char* inpSrcNam,
   fmi2_import_variable_list_t* varLis,
   const fmi2_value_reference_t varValRef[],
-  size_t nVar,
-  fmi2Byte** modNames,
-  const size_t nNam,
-  fmi2ValueReference** modValRef){
+  const size_t nVar,
+  const spawnReals* ptrSpawnReals){
 
-  size_t iMod;
   size_t iFMI;
   fmi2_import_variable_t* fmiVar;
   fmi2_value_reference_t vr;
   fmi2_import_variable_t* var;
+  bool found;
+  size_t i;
 
-  for (iMod = 0; iMod < nNam; iMod++){
+  for(i = 0; i < ptrSpawnReals->n; i++){
+    found = false;
+    if (FMU_EP_VERBOSITY >= TIMESTEP)
+        ModelicaFormatMessage("Setting variable reference for %s.", ptrSpawnReals->fmiNames[i]);
+
     for (iFMI = 0; iFMI < nVar; iFMI++){
       var = fmi2_import_get_variable(varLis, iFMI);
-      if (strcmp(modNames[iMod], fmi2_import_get_variable_name(var)) == 0){
+      if (strcmp(ptrSpawnReals->fmiNames[i], fmi2_import_get_variable_name(var)) == 0){
         /* Found the variable */
-        (*modValRef)[iMod] = varValRef[iFMI];
+        fmi2_import_real_variable_t* varRea = fmi2_import_get_variable_as_real(var);
+        ptrSpawnReals->units[i] = fmi2_import_get_real_variable_unit(varRea);
+        /* If a unit is not specified in modelDescription.xml, then unit is NULL */
+
+        if (ptrSpawnReals->units[i] == NULL){
+          ModelicaFormatMessage("Warning: Variable %s does not specify units in %s. It will not be converted to SI units.\n",
+            ptrSpawnReals->fmiNames[i], fmuNam);
+        }
+
+        if (FMU_EP_VERBOSITY >= MEDIUM){
+          if (ptrSpawnReals->units[i] == NULL)
+            ModelicaFormatMessage("Variable with name %s has no units and valRef= %d.", ptrSpawnReals->fmiNames[i], varValRef[iFMI]);
+          else{
+            const char* unitName = fmi2_import_get_unit_name(ptrSpawnReals->units[i]); /* This is 'W', 'm2', etc. */
+            ModelicaFormatMessage("Variable with name %s has unit = %s and valRef= %d.", ptrSpawnReals->fmiNames[i], unitName, varValRef[iFMI]);
+          }
+        }
+        ptrSpawnReals->valRefs[i] = varValRef[iFMI];
+        found = true;
         break;
       }
     }
-    if (iFMI == nVar){
-      ModelicaFormatError("Failed to find variable %s in %s. Make sure it exists in %s.", modNames[iMod], fmuNam, inpSrcNam);
-      }
-    }
- }
+    if (!found)
+      ModelicaFormatError("Failed to find variable %s in %s. Make sure it exists in %s.",
+        ptrSpawnReals->fmiNames[i], fmuNam, inpSrcNam);
+  }
+}
 
 void setValueReferences(FMUBuilding* fmuBui){
   size_t i;
-  size_t iZon;
+  size_t iVar;
   size_t vr;
   FMUZone* zone;
+  FMUOutputVariable* outVar;
 
   fmi2_import_variable_list_t* vl = fmi2_import_get_variable_list(fmuBui->fmu, 0);
   const fmi2_value_reference_t* vrl = fmi2_import_get_value_referece_list(vl);
   size_t nv = fmi2_import_get_variable_list_size(vl);
 
+
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("Searching for variable reference.");
-  /* Set value references for the parameters by assigning the values obtained from the FMU */
-  for(iZon = 0; iZon < fmuBui->nZon; iZon++){
-    zone = (FMUZone*) fmuBui->zones[iZon];
-    setValueReference(
-      fmuBui->fmuAbsPat,
-      fmuBui->idfName,
-      vl, vrl, nv,
-      zone->parOutVarNames,
-      ZONE_N_PAR_OUT,
-      &(zone->parOutValReferences));
-   setValueReference(
-      fmuBui->fmuAbsPat,
-      fmuBui->idfName,
-      vl, vrl, nv,
-      zone->inpVarNames,
-      ZONE_N_INP,
-      &(zone->inpValReferences));
-   setValueReference(
-     fmuBui->fmuAbsPat,
-     fmuBui->idfName,
-     vl, vrl, nv,
-     zone->outVarNames,
-     ZONE_N_OUT,
-     &(zone->outValReferences));
+    ModelicaFormatMessage("Setting variable references for zones.");
+
+  /* Set value references for the zones by assigning the values obtained from the FMU */
+  for(i = 0; i < fmuBui->nZon; i++){
+    zone = (FMUZone*) fmuBui->zones[i];
+    setAttributesReal(fmuBui->fmuAbsPat, fmuBui->idfName, vl, vrl, nv, zone->parameters);
+    setAttributesReal(fmuBui->fmuAbsPat, fmuBui->idfName, vl, vrl, nv, zone->inputs);
+    setAttributesReal(fmuBui->fmuAbsPat, fmuBui->idfName, vl, vrl, nv, zone->outputs);
   }
+
+  /* Set value references for the output variables by assigning the values obtained from the FMU */
+  for(i = 0; i < fmuBui->nOutputVariables; i++){
+    outVar = (FMUOutputVariable*) fmuBui->outputVariables[i];
+    setAttributesReal(fmuBui->fmuAbsPat, fmuBui->idfName, vl, vrl, nv, outVar->outputs);
+    outVar->valueReferenceIsSet = true;
+  }
+
+  /* Free the variable list */
   fmi2_import_free_variable_list(vl);
+
   return;
 }
 
@@ -205,10 +256,8 @@ void generateFMU(
     }
     cmd = "cp -p ";
     len = strlen(cmd) + strlen(FMUPath) + 1 + strlen(precompiledFMUPath) + 1;
-    fulCmd = malloc(len * sizeof(char));
-    if (fulCmd == NULL){
-      ModelicaFormatError("Failed to allocate memory in generateFMU().");
-    }
+    mallocString(len, "Failed to allocate memory in generateFMU().", &fulCmd);
+
     memset(fulCmd, '\0', len);
     strcpy(fulCmd, cmd);
     strcat(fulCmd, precompiledFMUPath);
@@ -224,10 +273,8 @@ void generateFMU(
     /* The + 1 are for spaces, the quotes around the file name (needed if the Modelica name has array brackets) and
        the end of line character */
     len = strlen(buildingsLibraryRoot) + strlen(cmd) + 1 + strlen(cmdFla) + 1 + 1 + strlen(modelicaBuildingsJsonFile) + 1 + 1;
-    fulCmd = malloc(len * sizeof(char));
-    if (fulCmd == NULL){
-      ModelicaFormatError("Failed to allocate memory in generateFMU().");
-    }
+
+    mallocString(len, "Failed to allocate memory in generateFMU().", &fulCmd);
     memset(fulCmd, '\0', len);
     strcpy(fulCmd, buildingsLibraryRoot); /* This is for example /mtn/shared/Buildings */
     strcat(fulCmd, cmd);
@@ -371,7 +418,7 @@ void importEnergyPlusFMU(FMUBuilding* bui){
 
   /* Get model statistics
   fmi2_import_collect_model_counts(bui->fmu, &mc);
-  printf("*** Number of discrete variables %u.\n", mc.num_discrete);
+  printf("*** Number of discrete variables %lu.\n", mc.num_discrete);
  */
   callBackFunctions.logger = fmi2_log_forwarding; /* fmilogger; */
   callBackFunctions.allocateMemory = calloc;
@@ -467,5 +514,9 @@ void generateAndInstantiateBuilding(FMUBuilding* bui){
   /* Set the value references for all parameters, inputs and outputs */
   setValueReferences(bui);
 
+  if (FMU_EP_VERBOSITY >= MEDIUM)
+    ModelicaFormatMessage("FMU for building %s returns from generateAndInstantiateBuilding.\n", bui->modelicaNameBuilding);
+
   return;
 }
+#endif

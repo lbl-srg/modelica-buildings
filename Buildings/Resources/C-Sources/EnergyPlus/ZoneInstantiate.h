@@ -6,7 +6,7 @@
 #ifndef Buildings_ZoneInstantiate_h
 #define Buildings_ZoneInstantiate_h
 
-#include "EnergyPlusStructure.h"
+#include "EnergyPlusFMU.h"
 #include "BuildingInstantiate.h"
 
 #include <stdio.h>
