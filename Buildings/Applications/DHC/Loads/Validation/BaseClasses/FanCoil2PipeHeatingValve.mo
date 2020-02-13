@@ -88,7 +88,7 @@ model FanCoil2PipeHeatingValve
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   Fluid.Actuators.Valves.TwoWayEqualPercentage val(
     redeclare final package Medium=Medium1,
-    m_flow_nominal=mHeaWat_flow_nominal,
+    final m_flow_nominal=mHeaWat_flow_nominal,
     dpValve_nominal=5000,
     use_inputFilter=false,
     final allowFlowReversal=allowFlowReversal,

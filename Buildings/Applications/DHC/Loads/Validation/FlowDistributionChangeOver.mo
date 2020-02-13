@@ -14,8 +14,7 @@ model FlowDistributionChangeOver
     have_val=true,
     dp_nominal=100000,
     nPorts_a1=1,
-    nPorts_b1=1)
-    "Secondary distribution system"
+    nPorts_b1=1) "Secondary distribution system"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
   Buildings.Fluid.Sources.Boundary_pT souPri(
     redeclare package Medium = Medium1,
@@ -29,12 +28,12 @@ model FlowDistributionChangeOver
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TPriHea(k=40)
     "Heating water primary supply temperature"
     annotation (Placement(transformation(extent={{-140,110},{-120,130}})));
-  Buildings.Controls.OBC.UnitConversions.From_degC from_degC1
+  Buildings.Controls.OBC.UnitConversions.From_degC TPriHea_K
     annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TPriChi(k=7)
     "Chilled water primary supply temperature"
     annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
-  Buildings.Controls.OBC.UnitConversions.From_degC from_degC2
+  Buildings.Controls.OBC.UnitConversions.From_degC TPriChi_K
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
   Buildings.Controls.OBC.CDL.Logical.Switch TPriK
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
@@ -50,12 +49,12 @@ model FlowDistributionChangeOver
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSecHea(k=30)
     "Heating water secondary supply temperature setpoint"
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
-  Buildings.Controls.OBC.UnitConversions.From_degC from_degC3
+  Buildings.Controls.OBC.UnitConversions.From_degC TSetSecHea_K
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSecChi(k=18)
     "Chilled water secondary supply temperature setpoint"
     annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
-  Buildings.Controls.OBC.UnitConversions.From_degC from_degC4
+  Buildings.Controls.OBC.UnitConversions.From_degC TSetSecChi_K
     annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Switch TSetSecK
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
@@ -89,7 +88,7 @@ model FlowDistributionChangeOver
     m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{70,90},{90,110}})));
   Modelica.Thermal.HeatTransfer.Celsius.FromKelvin TSetSec
-    annotation (Placement(transformation(extent={{-20,-150},{0,-130}})));
+    annotation (Placement(transformation(extent={{0,-150},{20,-130}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTSecRet(redeclare package
       Medium =
         Medium1, m_flow_nominal=m_flow_nominal)
@@ -98,7 +97,7 @@ model FlowDistributionChangeOver
     "Sink for primary stream" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={90,20})));
+        origin={110,20})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse mSec_flow(
     amplitude=m_flow_nominal,
     period=200,
@@ -111,14 +110,14 @@ model FlowDistributionChangeOver
         Medium1, m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{8,10},{28,30}})));
 equation
-  connect(TPriHea.y,from_degC1. u) annotation (Line(points={{-118,120},{-102,
-          120}},                                                                  color={0,0,127}));
-  connect(TPriChi.y,from_degC2. u) annotation (Line(points={{-118,80},{-102,80}}, color={0,0,127}));
-  connect(from_degC1.y, TPriK.u1) annotation (Line(points={{-78,120},{-70,120},
-          {-70,98},{-62,98}},color={0,0,127}));
-  connect(from_degC2.y, TPriK.u3) annotation (Line(points={{-78,80},{-70,80},{
-          -70,82},{-62,82}},
-                         color={0,0,127}));
+  connect(TPriHea.y, TPriHea_K.u)
+    annotation (Line(points={{-118,120},{-102,120}}, color={0,0,127}));
+  connect(TPriChi.y, TPriChi_K.u)
+    annotation (Line(points={{-118,80},{-102,80}}, color={0,0,127}));
+  connect(TPriHea_K.y, TPriK.u1) annotation (Line(points={{-78,120},{-70,120},{
+          -70,98},{-62,98}}, color={0,0,127}));
+  connect(TPriChi_K.y, TPriK.u3) annotation (Line(points={{-78,80},{-70,80},{-70,
+          82},{-62,82}}, color={0,0,127}));
   connect(mod.y, greEqu.u1)
     annotation (Line(points={{-118,40},{-102,40}}, color={0,0,127}));
   connect(greEqu.y, TPriK.u2) annotation (Line(points={{-78,40},{-74,40},{-74,
@@ -129,38 +128,36 @@ equation
                         color={0,0,127}));
   connect(TPriK.y, souPri.T_in) annotation (Line(points={{-38,90},{-32,90},{-32,
           24},{-22,24}}, color={0,0,127}));
-  connect(TSetSecHea.y, from_degC3.u)
+  connect(TSetSecHea.y, TSetSecHea_K.u)
     annotation (Line(points={{-118,-60},{-102,-60}}, color={0,0,127}));
-  connect(TSetSecChi.y, from_degC4.u)
-    annotation (Line(points={{-118,-100},{-102,-100}},
-                                                     color={0,0,127}));
-  connect(from_degC3.y, TSetSecK.u1) annotation (Line(points={{-78,-60},{-70,
-          -60},{-70,-72},{-62,-72}},
-                                color={0,0,127}));
-  connect(from_degC4.y, TSetSecK.u3) annotation (Line(points={{-78,-100},{-70,
-          -100},{-70,-88},{-62,-88}},
-                                color={0,0,127}));
+  connect(TSetSecChi.y, TSetSecChi_K.u)
+    annotation (Line(points={{-118,-100},{-102,-100}}, color={0,0,127}));
+  connect(TSetSecHea_K.y, TSetSecK.u1) annotation (Line(points={{-78,-60},{-70,
+          -60},{-70,-72},{-62,-72}}, color={0,0,127}));
+  connect(TSetSecChi_K.y, TSetSecK.u3) annotation (Line(points={{-78,-100},{-70,
+          -100},{-70,-88},{-62,-88}}, color={0,0,127}));
   connect(TSetSecK.y, disFlo.TSupSet) annotation (Line(points={{-38,-80},{32,-80},
           {32,12},{39,12}}, color={0,0,127}));
   connect(greEqu.y, modInt.u) annotation (Line(points={{-78,40},{-74,40},{-74,
           -20},{-62,-20}}, color={255,0,255}));
   connect(modInt.y, disFlo.modChaOve) annotation (Line(points={{-38,-20},{36,-20},
-          {36,14},{39,14}},      color={255,127,0}));
+          {36,14},{39,14}}, color={255,127,0}));
   connect(greEqu.y, TSetSecK.u2) annotation (Line(points={{-78,40},{-74,40},{
           -74,-80},{-62,-80}},
                            color={255,0,255}));
   connect(dTSec.y, pro.u2) annotation (Line(points={{42,-100},{56,-100},{56,-66},
           {58,-66}}, color={0,0,127}));
-  connect(disFlo.ports_b1[1], senTSecSup.port_a)
-    annotation (Line(points={{40,26},{36,26},{36,100},{70,100}}, color={0,127,255}));
-  connect(TSetSecK.y, TSetSec.Kelvin) annotation (Line(points={{-38,-80},{-34,-80},
-          {-34,-140},{-22,-140}}, color={0,0,127}));
+  connect(disFlo.ports_b1[1], senTSecSup.port_a) annotation (Line(points={{40,
+          26},{36,26},{36,100},{70,100}}, color={0,127,255}));
+  connect(TSetSecK.y, TSetSec.Kelvin) annotation (Line(points={{-38,-80},{-20,
+          -80},{-20,-140},{-2,-140}},
+                                  color={0,0,127}));
   connect(souSec.ports[1], senTSecRet.port_a)
     annotation (Line(points={{100,60},{90,60}}, color={0,127,255}));
-  connect(senTSecRet.port_b, disFlo.ports_a1[1]) annotation (Line(points={{70,60},
-          {64,60},{64,26},{60,26}}, color={0,127,255}));
+  connect(senTSecRet.port_b, disFlo.ports_a1[1]) annotation (Line(points={{70,
+          60},{64,60},{64,26},{60,26}}, color={0,127,255}));
   connect(disFlo.port_b, sinPri.ports[1])
-    annotation (Line(points={{60,20},{80,20}},  color={0,127,255}));
+    annotation (Line(points={{60,20},{100,20}}, color={0,127,255}));
   connect(senTSecSup.port_b, sinSec.ports[1])
     annotation (Line(points={{90,100},{100,100}}, color={0,127,255}));
   connect(mSec_flow.y, disFlo.mReq_flow[1]) annotation (Line(points={{-118,160},
@@ -172,8 +169,8 @@ equation
           -86},{98,-86}}, color={0,0,127}));
   connect(pro.y, add.u1) annotation (Line(points={{82,-60},{94,-60},{94,-74},{
           98,-74}}, color={0,0,127}));
-  connect(add.y, souSec.T_in) annotation (Line(points={{122,-80},{132,-80},{132,
-          -82},{140,-82},{140,64},{122,64}}, color={0,0,127}));
+  connect(add.y, souSec.T_in) annotation (Line(points={{122,-80},{140,-80},{140,
+          64},{122,64}},                     color={0,0,127}));
   connect(souPri.ports[1], senTPriSup.port_a)
     annotation (Line(points={{0,20},{8,20}}, color={0,127,255}));
   connect(senTPriSup.port_b, disFlo.port_a)

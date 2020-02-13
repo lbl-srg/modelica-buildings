@@ -30,8 +30,7 @@ model BenchmarkFlowDistribution1
   parameter Modelica.SIunits.PressureDifference dp_nominal=
     nLoa * 1500 * 2 + 2 * 500 + 30000
     "Nominal pressure drop in the distribution line";
-  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
-    sum(terUniHea.mHeaWat_flow_nominal)
+  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=sum(ter.mHeaWat_flow_nominal)
     "Nominal mass flow rate in the distribution line";
   final parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(min=Modelica.Constants.eps)=
     Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
@@ -48,7 +47,7 @@ model BenchmarkFlowDistribution1
     nPorts_b1=nLoa)
     "Heating water distribution system"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
-  BaseClasses.FanCoil2PipeHeating terUniHea[nLoa](
+  BaseClasses.FanCoil2PipeHeating ter[nLoa](
     redeclare each final package Medium1 = Medium1,
     redeclare each final package Medium2 = Medium2,
     each final QHea_flow_nominal=QHea_flow_nominal,
@@ -71,15 +70,13 @@ model BenchmarkFlowDistribution1
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=20)
     "Minimum temperature setpoint"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  Buildings.Controls.OBC.UnitConversions.From_degC from_degC1
+  Buildings.Controls.OBC.UnitConversions.From_degC minTSet_K
+    "Minimum temperature setpoint (K)"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(nout=nLoa)
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep1(nout=nLoa)
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Modelica.Blocks.Sources.RealExpression THeaWatSup(y=max(terUniHea.T_aHeaWat_nominal))
-    "Heating water supply temperature"
-    annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
   Fluid.Sources.Boundary_pT           supHeaWat(
     redeclare package Medium = Medium1,
     use_T_in=true,
@@ -94,39 +91,42 @@ model BenchmarkFlowDistribution1
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={90,-80})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSup(k=max(ter.T_aHeaWat_nominal))
+    "Supply temperature"
+    annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
 equation
-  connect(minTSet.y, from_degC1.u)
+  connect(minTSet.y, minTSet_K.u)
     annotation (Line(points={{-78,70},{-62,70}}, color={0,0,127}));
-  connect(terUniHea.port_bHeaWat, disFloHea.ports_a1) annotation (Line(
-        points={{60,39.6667},{80,39.6667},{80,-74},{60,-74}},
-        color={0,127,255}));
-  connect(disFloHea.ports_b1, terUniHea.port_aHeaWat) annotation (Line(
-        points={{40,-74},{20,-74},{20,39.6667},{40,39.6667}},
-                                                            color={0,127,255}));
-  connect(from_degC1.y, reaRep.u)
+  connect(ter.port_bHeaWat, disFloHea.ports_a1) annotation (Line(points={{60,
+          39.6667},{80,39.6667},{80,-74},{60,-74}},
+                                           color={0,127,255}));
+  connect(disFloHea.ports_b1, ter.port_aHeaWat) annotation (Line(points={{40,-74},
+          {20,-74},{20,39.6667},{40,39.6667}}, color={0,127,255}));
+  connect(minTSet_K.y, reaRep.u)
     annotation (Line(points={{-38,70},{-22,70}}, color={0,0,127}));
-  connect(reaRep.y, terUniHea.TSetHea) annotation (Line(points={{2,70},{20,70},
-          {20,53},{39.1667,53}},          color={0,0,127}));
+  connect(reaRep.y, ter.TSetHea) annotation (Line(points={{2,70},{20,70},{20,53},
+          {39.1667,53}}, color={0,0,127}));
   connect(loa.y[2], reaRep1.u)
     annotation (Line(points={{-79,0},{-62,0}}, color={0,0,127}));
-  connect(reaRep1.y, terUniHea.QReqHea_flow) annotation (Line(points={{-38,0},{
-          0,0},{0,46.3333},{39.1667,46.3333}},
-                                     color={0,0,127}));
-  connect(THeaWatSup.y, supHeaWat.T_in) annotation (Line(points={{-79,-80},{-72,
-          -80},{-72,-76},{-62,-76}}, color={0,0,127}));
+  connect(reaRep1.y, ter.QReqHea_flow) annotation (Line(points={{-38,0},{0,0},{
+          0,46.3333},{39.1667,46.3333}},
+                                       color={0,0,127}));
   connect(supHeaWat.ports[1], disFloHea.port_a) annotation (Line(points={{-40,-80},
           {40,-80}},                 color={0,127,255}));
   connect(disFloHea.port_b, sinHeaWat.ports[1]) annotation (Line(points={{60,-80},
           {80,-80}},                   color={0,127,255}));
-  connect(terUniHea.mReqHeaWat_flow, disFloHea.mReq_flow) annotation (Line(
-        points={{60.8333,44.6667},{86,44.6667},{86,-60},{26,-60},{26,-84},{39,
-          -84}},
-        color={0,0,127}));
+  connect(ter.mReqHeaWat_flow, disFloHea.mReq_flow) annotation (Line(points={{60.8333,
+          44.6667},{86,44.6667},{86,-60},{26,-60},{26,-84},{39,-84}}, color={0,0,
+          127}));
+  connect(THeaWatSup.y, supHeaWat.T_in) annotation (Line(points={{-78,-80},{-72,
+          -80},{-72,-76},{-62,-76}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(
-      StopTime=4000000,
-      __Dymola_NumberOfIntervals=5000,
+      StopTime=2000000,
+      __Dymola_NumberOfIntervals=500,
       Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"));
+      __Dymola_Algorithm="Cvode"),
+    __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/BenchmarkFlowDistribution1.mos"
+        "Simulate and plot"));
 end BenchmarkFlowDistribution1;

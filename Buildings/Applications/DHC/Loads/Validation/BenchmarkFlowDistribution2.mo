@@ -30,13 +30,10 @@ model BenchmarkFlowDistribution2
   parameter Modelica.SIunits.Time tau = 120
     "Time constant of fluid temperature variation at nominal flow rate"
     annotation (Dialog(tab="Dynamics", group="Nominal condition"));
-  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
-    sum(terUniHea.mHeaWat_flow_nominal)
+  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=sum(ter.mHeaWat_flow_nominal)
     "Nominal mass flow rate in the distribution line";
-  final parameter Modelica.SIunits.PressureDifference dp_nominal=
-    sum(dis.con.pipDisSup.dp_nominal) +
-    sum(dis.con.pipDisRet.dp_nominal) +
-    max(terUniHea.dp_nominal)
+  final parameter Modelica.SIunits.PressureDifference dp_nominal=sum(dis.con.pipDisSup.dp_nominal)
+       + sum(dis.con.pipDisRet.dp_nominal) + max(ter.dp_nominal)
     "Nominal pressure drop in the distribution line";
   final parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal=
     Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
@@ -44,7 +41,7 @@ model BenchmarkFlowDistribution2
       filNam=Modelica.Utilities.Files.loadResource(filPat))
     "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Design parameter"));
-  BaseClasses.FanCoil2PipeHeatingValve terUniHea[nLoa](
+  BaseClasses.FanCoil2PipeHeatingValve ter[nLoa](
     redeclare each final package Medium1 = Medium1,
     redeclare each final package Medium2 = Medium2,
     each final QHea_flow_nominal=QHea_flow_nominal,
@@ -67,15 +64,13 @@ model BenchmarkFlowDistribution2
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=20)
     "Minimum temperature setpoint"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  Buildings.Controls.OBC.UnitConversions.From_degC from_degC1
+  Buildings.Controls.OBC.UnitConversions.From_degC minTSet_K
+    "Minimum temperature setpoint (K)"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(nout=nLoa)
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep1(nout=nLoa)
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Modelica.Blocks.Sources.RealExpression THeaWatSup(y=max(terUniHea.T_aHeaWat_nominal))
-    "Heating water supply temperature"
-    annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
   Fluid.Sources.Boundary_pT supHeaWat(
     redeclare package Medium = Medium1,
     use_T_in=true,
@@ -87,9 +82,8 @@ model BenchmarkFlowDistribution2
     redeclare final package Medium = Medium1,
     nCon=nLoa,
     allowFlowReversal=false,
-    mDis_flow_nominal={sum(terUniHea[i:nLoa].mHeaWat_flow_nominal) for i in 1:
-        nLoa},
-    mCon_flow_nominal=terUniHea.mHeaWat_flow_nominal,
+    mDis_flow_nominal={sum(ter[i:nLoa].mHeaWat_flow_nominal) for i in 1:nLoa},
+    mCon_flow_nominal=ter.mHeaWat_flow_nominal,
     dpDis_nominal=fill(1500, nLoa))
     annotation (Placement(transformation(extent={{40,-90},{80,-70}})));
   Fluid.Movers.FlowControlled_dp pum(
@@ -102,8 +96,6 @@ model BenchmarkFlowDistribution2
     use_inputFilter=false,
     dp_nominal=dp_nominal)
     annotation (Placement(transformation(extent={{10,-90},{30,-70}})));
-  Modelica.Blocks.Sources.RealExpression dpPum(y=dp_nominal) "Pump head"
-    annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
   Fluid.MixingVolumes.MixingVolume vol(
     final prescribedHeatFlowRate=true,
     redeclare final package Medium = Medium1,
@@ -114,6 +106,12 @@ model BenchmarkFlowDistribution2
     nPorts=2)
     "Volume for fluid stream"
      annotation (Placement(transformation(extent={{-31,-80},{-11,-60}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpPum(k=dp_nominal)
+    "Prescribed head"
+    annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSup(k=max(ter.T_aHeaWat_nominal))
+    "Supply temperature"
+    annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
 protected
   parameter Medium1.ThermodynamicState sta_default=Medium1.setState_pTX(
       T=Medium1.T_default,
@@ -124,39 +122,41 @@ protected
 equation
   connect(loa.y[2], reaRep1.u)
     annotation (Line(points={{-79,0},{-62,0}}, color={0,0,127}));
-  connect(minTSet.y, from_degC1.u)
+  connect(minTSet.y, minTSet_K.u)
     annotation (Line(points={{-78,70},{-62,70}}, color={0,0,127}));
-  connect(from_degC1.y, reaRep.u)
+  connect(minTSet_K.y, reaRep.u)
     annotation (Line(points={{-38,70},{-22,70}}, color={0,0,127}));
-  connect(reaRep.y, terUniHea.TSetHea) annotation (Line(points={{2,70},{20,70},
-          {20,53},{39.1667,53}},          color={0,0,127}));
-  connect(reaRep1.y, terUniHea.QReqHea_flow) annotation (Line(points={{-38,0},{
-          0,0},{0,46.3333},{39.1667,46.3333}},
-                                     color={0,0,127}));
-  connect(THeaWatSup.y, supHeaWat.T_in) annotation (Line(points={{-79,-80},{-72,
-          -80},{-72,-76},{-62,-76}}, color={0,0,127}));
-  connect(terUniHea.port_bHeaWat, dis.ports_aCon) annotation (Line(points={{60,
-          39.6667},{80,39.6667},{80,0},{72,0},{72,-70}},        color={0,127,255}));
-  connect(dis.ports_bCon, terUniHea.port_aHeaWat) annotation (Line(points={{48,-70},
-          {48,0},{20,0},{20,39.6667},{40,39.6667}}, color={0,127,255}));
+  connect(reaRep.y, ter.TSetHea) annotation (Line(points={{2,70},{20,70},{20,53},
+          {39.1667,53}}, color={0,0,127}));
+  connect(reaRep1.y, ter.QReqHea_flow) annotation (Line(points={{-38,0},{0,0},{
+          0,46.3333},{39.1667,46.3333}},
+                                       color={0,0,127}));
+  connect(ter.port_bHeaWat, dis.ports_aCon) annotation (Line(points={{60,
+          39.6667},{80,39.6667},{80,0},{72,0},{72,-70}},
+                                                color={0,127,255}));
+  connect(dis.ports_bCon, ter.port_aHeaWat) annotation (Line(points={{48,-70},{
+          48,0},{20,0},{20,39.6667},{40,39.6667}},
+                                                color={0,127,255}));
   connect(pum.port_b, dis.port_aDisSup)
     annotation (Line(points={{30,-80},{40,-80}}, color={0,127,255}));
   connect(dis.port_bDisRet, supHeaWat.ports[1]) annotation (Line(points={{40,-86},
           {32,-86},{32,-98},{-40,-98},{-40,-78}}, color={0,127,255}));
-  connect(dpPum.y, pum.dp_in)
-    annotation (Line(points={{-79,-40},{20,-40},{20,-68}}, color={0,0,127}));
   connect(vol.ports[1], pum.port_a)
     annotation (Line(points={{-23,-80},{10,-80}},color={0,127,255}));
   connect(supHeaWat.ports[2], vol.ports[2]) annotation (Line(points={{-40,-82},{
           -40,-80},{-19,-80}},           color={0,127,255}));
+  connect(THeaWatSup.y, supHeaWat.T_in) annotation (Line(points={{-78,-80},{-70,
+          -80},{-70,-76},{-62,-76}}, color={0,0,127}));
+  connect(dpPum.y, pum.dp_in)
+    annotation (Line(points={{-78,-40},{20,-40},{20,-68}}, color={0,0,127}));
     annotation (Placement(transformation(extent={{40,-90},{80,-70}})),
     experiment(
-      StopTime=4000000,
-      __Dymola_NumberOfIntervals=5000,
+      StopTime=2000000,
+      __Dymola_NumberOfIntervals=500,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(executeCall=plot({"bui.terUniCoo.QActCoo_flow"}, colors={
-          {28,108,200}})));
+  __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/BenchmarkFlowDistribution2.mos"
+        "Simulate and plot"));
 end BenchmarkFlowDistribution2;
