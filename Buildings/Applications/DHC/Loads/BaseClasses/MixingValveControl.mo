@@ -7,9 +7,9 @@ block MixingValveControl "Mixing valve controller"
     "Type of distribution system"
     annotation(Evaluate=true);
   parameter Real k(
-    min=0,
-    unit="1") = 0.1 "Gain of controller";
-  parameter Modelica.SIunits.Time Ti(min=Constants.small) = 10
+    final min=0,
+    final unit="1") = 0.1 "Gain of controller";
+  parameter Modelica.SIunits.Time Ti(final min=Modelica.Constants.small) = 10
     "Time constant of integrator block";
   // IO CONNECTORS
   Modelica.Blocks.Interfaces.RealInput TSupSet(
@@ -24,8 +24,8 @@ block MixingValveControl "Mixing valve controller"
       iconTransformation(
       extent={{-10,-10},{10,10}},
       rotation=0,
-      origin={-110,-40})));
-  Modelica.Blocks.Interfaces.IntegerInput modChaOve(final unit="1") if
+      origin={-110,40})));
+  Modelica.Blocks.Interfaces.IntegerInput modChaOve if
     typDis == Type_dis.ChangeOver
     "Operating mode in change-over (1 for heating, -1 for cooling)"
     annotation (Placement(
@@ -49,7 +49,7 @@ block MixingValveControl "Mixing valve controller"
         origin={-120,-80}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-110,-80})));
+        origin={-110,-40})));
   Modelica.Blocks.Interfaces.RealOutput yVal(final unit="1")
     "Valve control signal"
     annotation (
@@ -190,7 +190,40 @@ for a simulation with change-over.
 </p>
 </html>
 "),
-  Icon(coordinateSystem(preserveAspectRatio=false)),
+  Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+        Text(
+          extent={{-90,96},{-10,66}},
+          lineColor={244,125,35},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          fontSize=48,
+          horizontalAlignment=TextAlignment.Left,
+          textString="modChaOve",
+          visible=typDis==Type_dis.ChangeOver),
+        Text(
+          extent={{-90,56},{-10,26}},
+          lineColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          fontSize=48,
+          horizontalAlignment=TextAlignment.Left,
+          textString="TSupSet"),
+        Text(
+          extent={{-90,-26},{-10,-56}},
+          lineColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          fontSize=48,
+          horizontalAlignment=TextAlignment.Left,
+          textString="TSupMes"),
+        Text(
+          extent={{8,16},{88,-14}},
+          lineColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          fontSize=48,
+          horizontalAlignment=TextAlignment.Right,
+          textString="yVal")}),
   Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end MixingValveControl;

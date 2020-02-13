@@ -26,10 +26,10 @@ model FlowDistribution "Model of building hydraulic distribution system"
   final parameter Integer nUni = nPorts_a1
     "Number of served units"
     annotation(Evaluate=true);
-  parameter Boolean have_pum
+  parameter Boolean have_pum = false
     "Set to true if the system has a pump"
     annotation(Evaluate=true);
-  parameter Boolean have_val
+  parameter Boolean have_val = false
     "Set to true if the system has a mixing valve"
     annotation(Evaluate=true);
   parameter Type_dis typDis = Type_dis.HeatingWater
@@ -78,7 +78,9 @@ model FlowDistribution "Model of building hydraulic distribution system"
     annotation(Evaluate=true, Dialog(tab="Dynamics", group="Equations"));
   parameter Modelica.SIunits.Time tau = 120
     "Time constant of fluid temperature variation at nominal flow rate"
-    annotation (Dialog(tab="Dynamics", group="Nominal condition"));
+    annotation (
+      Dialog(tab="Dynamics", group="Nominal condition"),
+      enable=energyDynamics<> Modelica.Fluid.Types.Dynamics.SteadyState);
   // IO CONNECTORS
   Modelica.Fluid.Interfaces.FluidPorts_a ports_a1[nPorts_a1](
     redeclare each final package Medium=Medium,
@@ -210,11 +212,11 @@ model FlowDistribution "Model of building hydraulic distribution system"
     redeclare final package Medium=Medium,
     final dp_nominal=0,
     final m_flow_nominal=m_flow_nominal,
-    final tau=tau,
     final Q_flow_nominal=-1,
     final allowFlowReversal=allowFlowReversal,
     final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics)
+    final massDynamics=massDynamics,
+    final tau=tau)
     "Heat transfer from the terminal units to the distribution system"
     annotation (Placement(transformation(extent={{46,-10},{66,10}})));
   Buildings.Fluid.FixedResistances.Junction spl(
@@ -384,12 +386,14 @@ equation
     connect(spl.port_3, val.port_3)
       annotation (Line(points={{80,10},{80,40},{-80,40},{-80,10}}, color={0,127,255}));
     connect(TSupSet, conVal.TSupSet)
-      annotation (Line(points={{-120,-100},{-49, -100}}, color={0,0,127}));
+      annotation (Line(points={{-120,-100},{-84,-100},{-84,-92},{-49,-92}},
+                                                         color={0,0,127}));
     connect(TSupVal.y, conVal.TSupMes)
-      annotation (Line(points={{-79,140},{-60,140}, {-60,-104},{-49,-104}}, color={0,0,127}));
+      annotation (Line(points={{-79,140},{-60,140},{-60,-100},{-49,-100}},  color={0,0,127}));
     connect(conVal.yVal, val.y)
       annotation (Line(points={{-27,-96},{-20,-96},{-20,-80},{-80,-80},{-80,-12}},
       color={0,0,127}));
+
     if typDis == Type_dis.ChangeOver then
       connect(modChaOve, conVal.modChaOve)
         annotation (Line(points={{-120,-60},{-88,-60},{-88,-88},{-49,-88}},
@@ -399,26 +403,29 @@ equation
     connect(val.port_2, pumFlo.port_a)
       annotation (Line(points={{-70,0},{-50,0}}, color={0,127,255}));
     connect(val.port_2, pumSpe.port_a)
-      annotation (Line(points={{-70,0},{-56,0},{-56,-40},{-50,-40}},  color={0,127,255}));
+      annotation (Line(points={{-70,0},{-56,0},{-56,-40},{-50,-40}},color={0,127,255}));
 
   else
+
     connect(heaCoo.port_b, port_b)
       annotation (Line(points={{66,0},{100,0}}, color={0,127,255}));
+
     if have_pum then
       connect(port_a, pumFlo.port_a)
         annotation (Line(points={{-100,0},{-50,0}}, color={0,127,255}));
       connect(port_a, pumSpe.port_a)
-        annotation (Line(points={{-100,0},{-56,0},{-56,-40},{-50,-40}},  color={0,127,255}));
+        annotation (Line(points={{-100,0},{-56,0},{-56,-40},{-50,-40}},color={0,127,255}));
     else
       connect(port_a, pipPre.port_a)
         annotation (Line(points={{-100,0},{-16,0}}, color={0,127,255}));
     end if;
+
   end if;
 
   connect(pumFlo.port_b, pipPre.port_a)
     annotation (Line(points={{-30,0},{-16,0}}, color={0,127,255}));
   connect(pumSpe.port_b, pipPre.port_a)
-    annotation (Line(points={{-30,-40},{-24,-40},{-24,0},{-16,0}},  color={0,127,255}));
+    annotation (Line(points={{-30,-40},{-24,-40},{-24,0},{-16,0}},color={0,127,255}));
 
   connect(pumFlo.P, PPum)
     annotation (Line(points={{-29,9},{-20,9},{-20,20},{90,
@@ -435,42 +442,45 @@ equation
   connect(masFloPum.y, pumFlo.m_flow_in)
     annotation (Line(points={{-79,100},{-40,100},{-40,12}}, color={0,0,127}));
   connect(spePum.y, pumSpe.y)
-    annotation (Line(points={{-79,80},{-46,80},{-46,-20},{-40,-20},{-40,-28}},  color={0,0,127}));
+    annotation (Line(points={{-79,80},{-46,80},{-46,-20},{-40,-20},{-40,-28}},color={0,0,127}));
 
 annotation (
   defaultComponentName="dis",
   Documentation(info="<html>
 <p>
-This model represents a hydraulic distribution system serving multiple terminal units.
+This model represents a hydraulic distribution system serving multiple 
+terminal units.
 It is primarily intended to be used in conjunction with models that derive from
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit\">
 Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit</a>.
 </p>
 <p>
-The fluid flow modeling is decoupled between a main distribution loop and several terminal
-branch circuits:
+The pipe network modeling is decoupled between a main distribution 
+loop and several terminal branch circuits:
 </p>
 <ul>
 <li>
-The flow rate in each branch circuit is equal to the flow rate demand yielded by the terminal
-unit model, constrained by the condition that the sum of all demands is lower or equal to
-the flow rate in the main loop.
+The flow rate in each branch circuit is equal to the flow rate demand yielded 
+by the terminal unit model, constrained by the condition that the sum of all 
+demands is lower or equal to the flow rate in the main loop.
 </li>
 <li>
-The inlet temperature in each branch circuit is equal to the supply temperature in the main loop.
-The outlet temperature in the main loop results from transferring the enthalpy flow rate of each
-individual fluid stream to the main fluid stream.
+The inlet temperature in each branch circuit is equal to the supply temperature 
+in the main loop.
+The outlet temperature in the main loop results from transferring the enthalpy 
+flow rate of each individual fluid stream to the main fluid stream.
 </li>
 <li>
 The pressure drop in the main distribution loop corresponds to the pressure drop
-over the whole distribution system (the pump head): it is governed by an equation representing
-the control logic of the distribution pump. The pressure drop in each branch circuit is
-irrelevant: <code>dp_nominal</code> (water side) must be set to zero for each terminal unit component.
+over the whole distribution system (the pump head): it is governed by an equation 
+representing the control logic of the distribution pump. 
+The pressure drop in each branch circuit is irrelevant: <code>dp_nominal</code> 
+(water side) must be set to zero for each terminal unit component.
 </li>
 </ul>
 <p>
-This modeling approach aims to minimize the number of algebraic equations by avoiding an explicit
-modeling of the terminal actuators and the whole flow network.
+This modeling approach aims to minimize the number of algebraic equations by 
+avoiding an explicit modeling of the terminal actuators and the whole flow network.
 </p>
 <p>
 In addition the assumption <code>allowFlowReversal=false</code> is used systematically
@@ -559,7 +569,8 @@ tracking the supply temperature.
           fillPattern=FillPattern.Solid,
           origin={-52,-2},
           rotation=0,
-          lineThickness=0.5),
+          lineThickness=0.5,
+          visible=have_val),
         Polygon(
           points={{-10,12},{-10,-8},{10,2},{-10,12}},
           lineColor={0,0,0},
@@ -567,7 +578,8 @@ tracking the supply temperature.
           fillPattern=FillPattern.Solid,
           origin={-40,-10},
           rotation=90,
-          lineThickness=0.5),
+          lineThickness=0.5,
+          visible=have_val),
         Polygon(
           points={{-10,12},{-10,-8},{10,2},{-10,12}},
           lineColor={0,0,0},
@@ -575,7 +587,8 @@ tracking the supply temperature.
           fillPattern=FillPattern.Solid,
           origin={-32,2},
           rotation=180,
-          lineThickness=0.5),
+          lineThickness=0.5,
+          visible=have_val),
         Rectangle(
           extent={{-48,-56},{72,-68}},
           lineThickness=1,
@@ -642,7 +655,8 @@ tracking the supply temperature.
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           startAngle=0,
-          endAngle=360),
+          endAngle=360,
+          visible=have_pum),
         Polygon(
           points={{-16,16},{-16,-16},{16,0},{-16,16}},
           lineColor={0,0,0},

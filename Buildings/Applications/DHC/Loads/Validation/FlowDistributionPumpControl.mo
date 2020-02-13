@@ -262,10 +262,10 @@ equation
                        color={0,0,127}));
   connect(one.y, conPID.u_s)
     annotation (Line(points={{-158,-100},{-112,-100}}, color={0,0,127}));
-  connect(terUniHea1.port_bHeaWat, disCstDp.ports_a1) annotation (Line(points={
-          {10,-20.3333},{20,-20.3333},{20,-54},{10,-54}}, color={0,127,255}));
-  connect(disCstDp.ports_b1, terUniHea1.port_aHeaWat) annotation (Line(points={
-          {-10,-54},{-20,-54},{-20,-20.3333},{-10,-20.3333}}, color={0,127,255}));
+  connect(terUniHea1.port_bHeaWat, disCstDp.ports_a1) annotation (Line(points={{10,
+          -20.3333},{20,-20.3333},{20,-54},{10,-54}},     color={0,127,255}));
+  connect(disCstDp.ports_b1, terUniHea1.port_aHeaWat) annotation (Line(points={{-10,-54},
+          {-20,-54},{-20,-20.3333},{-10,-20.3333}},           color={0,127,255}));
   connect(reaRep.y, terUniHea1.TSetHea) annotation (Line(points={{-106,70},{-40,
           70},{-40,-7},{-10.8333,-7}},
                                      color={0,0,127}));

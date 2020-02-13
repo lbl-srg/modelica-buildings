@@ -29,6 +29,17 @@ partial model PartialConnection1Pipe
   parameter Boolean allowFlowReversal = false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+  final parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
+    "Type of mass balance: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+  parameter Modelica.SIunits.Time tau=10
+    "Time constant at nominal flow for dynamic energy and momentum balance"
+    annotation (
+      Dialog(tab="Dynamics", group="Nominal condition",
+      enable=not energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState));
   // IO CONNECTORS
   Modelica.Fluid.Interfaces.FluidPort_a port_aDis(
     redeclare final package Medium = Medium,
@@ -86,7 +97,9 @@ partial model PartialConnection1Pipe
       Modelica.Fluid.Types.PortFlowDirection.Bidirectional
       else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     final dp_nominal = {0, 0, 0},
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
+    final tau=tau,
     final m_flow_nominal={mDis_flow_nominal,-mDis_flow_nominal,-mCon_flow_nominal})
     "Junction with connection supply"
     annotation (Placement(transformation(extent={{-50,-30},{-30,-50}})));
@@ -102,7 +115,9 @@ partial model PartialConnection1Pipe
       Modelica.Fluid.Types.PortFlowDirection.Bidirectional
       else Modelica.Fluid.Types.PortFlowDirection.Entering,
     final dp_nominal = {0, 0, 0},
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
+    final tau=tau,
     final m_flow_nominal={mDis_flow_nominal,-mDis_flow_nominal,mCon_flow_nominal})
     "Junction with connection return"
     annotation (Placement(transformation(extent={{30,-30},{50,-50}})));

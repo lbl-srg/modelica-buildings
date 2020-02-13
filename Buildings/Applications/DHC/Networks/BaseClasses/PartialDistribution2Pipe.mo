@@ -18,6 +18,14 @@ partial model PartialDistribution2Pipe
   parameter Modelica.SIunits.MassFlowRate mEnd_flow_nominal
     "Nominal mass flow rate in the end of the distribution line"
     annotation(Dialog(tab="General", group="Nominal condition"));
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+  parameter Modelica.SIunits.Time tau=10
+    "Time constant at nominal flow for dynamic energy and momentum balance"
+    annotation (
+      Dialog(tab="Dynamics", group="Nominal condition",
+      enable=not energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState));
   // IO CONNECTORS
   Modelica.Fluid.Interfaces.FluidPort_b port_bDisRet(
     redeclare final package Medium = Medium,
@@ -44,7 +52,9 @@ partial model PartialDistribution2Pipe
     final have_dpSen={i==iConDpSen for i in 1:nCon},
     final mDis_flow_nominal=mDis_flow_nominal,
     final mCon_flow_nominal=mCon_flow_nominal,
-    each final allowFlowReversal=allowFlowReversal)
+    each final allowFlowReversal=allowFlowReversal,
+    each final energyDynamics=energyDynamics,
+    each final tau=tau)
     "Connection to agent"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Model_pipDis pipEnd(

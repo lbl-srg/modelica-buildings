@@ -14,7 +14,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
       choice(redeclare package Medium2 = Buildings.Media.Air "Moist air"),
       choice(redeclare package Medium2 = Buildings.Media.Water "Water")));
   parameter Boolean allowFlowReversal = false
-    "Set to true to allow flow reversal on the source side."
+    "Set to true to allow flow reversal on the source side"
     annotation(tab="Assumptions", Evaluate=true);
   parameter Real facSca = 1
     "Scaling factor to be applied to each extensive quantity";
@@ -251,11 +251,11 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b heaPorCon if have_heaPor
     "Heat port transferring convective heat to the load"
     annotation (Placement(transformation(extent={{190,30},{210,50}}),
-      iconTransformation(extent={{-50,-10},{-30,10}})));
+      iconTransformation(extent={{-40,-10},{-20,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b heaPorRad if have_heaPor
     "Heat port transferring radiative heat to the load"
     annotation (Placement(transformation(extent={{190,-50},{210,-30}}),
-      iconTransformation(extent={{30,-10},{50,10}})));
+      iconTransformation(extent={{20,-10},{40,10}})));
   BoundaryConditions.WeatherData.Bus weaBus if have_weaBus
     "Weather data bus"
     annotation (Placement(transformation(extent={{-16,224},{18,256}}),
@@ -425,7 +425,7 @@ annotation (
   defaultComponentName="ter",
   Documentation(info="<html>
 <p>
-Partial model to be used for modeling the building HVAC terminal units.
+Partial model to be used for modeling an HVAC terminal unit.
 </p>
 <p>
 The models inheriting from this class are typically used in conjunction with
@@ -461,18 +461,75 @@ Fluid ports can be conditionally instantiated by setting
 <code>have_fluPor</code> to true.
 </li>
 <li>
-Alternatively heat ports can be conditionally instantiated by setting 
-<code>have_heaPor</code> to true.
+Alternatively heat ports (for convective and radiative heat transfer)
+can be conditionally instantiated by setting <code>have_heaPor</code> to true.
+</li>
+<li>
+Eventually real input connectors can be conditionally instantiated by setting 
+<code>have_QReq_flow</code> to true. Those connectors can be used to provide
+heating and cooling loads as time series. The impact on the room air temperature
+of an unmet load can then be assessed with
+<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom\">
+Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom</a>. 
+See 
+<a href=\"modelica://Buildings.Applications.DHC.Loads.Examples.CouplingTimeSeries\">
+Buildings.Applications.DHC.Loads.Examples.CouplingTimeSeries</a>
+for an illustration of that use case.
 </li>
 </ul>
 </ul>
 <p>
 The heating or cooling nominal capacity is provided for the water based heat
-exchangers only: electric heating and cooling equipment is supposed to have
+exchangers only: electric heating or cooling equipment is supposed to have
 an infinite capacity.
 </p>
+<h4>Connection with the flow distribution model</h4>
 <p>
-When modeling a change-over coil:
+When connecting the model to
+<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
+Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>:
+<ul>
+<li>
+The nominal pressure drop on the source side (heating or chilled water) must be set
+to zero as the computation of the pump head relies on a specific algorithm 
+described in 
+<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
+Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>.
+</li>
+<li>
+<code>allowFlowReversal</code> must be set to <code>false</code> (default) in
+consistency with 
+<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
+Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>. 
+Note that it 
+only concerns the source side. On the load side one is free to use 
+whatever option suitable for the modeling needs: typically for an air flow 
+network connected to the outdoor (either at the room level for modeling 
+infiltration or at the system level for the fresh air source), the 
+unidirectional air flow condition cannot be guaranted.
+</li>
+</ul>
+</p>
+<h4>Scaling factor</h4>
+<p>
+Scaling is implemented by means of a scaling factor <code>facSca</code> being
+applied on each extensive quantity (mass and heat flow rate, electric power), 
+except the fluid mass flow rate (at fluid ports) on the load side. 
+This allows modeling multiple identical units serving multiple identical rooms 
+with a unique instance of a terminal unit model, connected to a unique 
+instance of a room model. 
+The scaling factor type is real (not integer) to allow idealized modeling of 
+a set of terminal units based on manufacturer data, while still being able to 
+size the full set based on a peak load.
+See
+<a href=\"modelica://Buildings.Applications.DHC.Loads.Validation.TerminalUnitScaling\">
+Buildings.Applications.DHC.Loads.Validation.TerminalUnitScaling</a>
+for an illustration of the use case when heating and cooling loads are
+provided by means of time series.
+</p>
+<h4>Change-over mode</h4>
+<p>
+When modeling a change-over system:
 </p>
 <ul>
 <li>
@@ -495,6 +552,7 @@ The computed required mass flow rate must be connected to
 <code>mReqChiWat_flow</code>. 
 </li>
 </ul>
+
 </html>"),
   Icon(coordinateSystem(preserveAspectRatio=false,
   extent={{-120,-120},{120,120}}),
@@ -502,16 +560,33 @@ The computed required mass flow rate must be connected to
     Rectangle(extent={{-120,120},{120,-120}}, lineColor={95,95,95},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-    Rectangle(
-    extent={{-80,80},{80,-80}},
-    lineColor={0,0,255},
-    pattern=LinePattern.None,
-    fillColor={95,95,95},
-    fillPattern=FillPattern.Solid),
         Text(
           extent={{-150,-130},{150,-170}},
           lineColor={0,0,255},
-          textString="%name")}),
+          textString="%name"),
+        Ellipse(
+          extent={{-80,80},{80,-80}},
+          lineColor={28,108,200},
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Line(
+          points={{-80,-1.46958e-14},{-60,-1.10218e-14},{-20,40},{20,-40},{60,
+              1.10218e-14},{80,1.46958e-14}},
+          color={255,255,255},
+          thickness=1,
+          origin={0,0},
+          rotation=180),
+        Line(
+          points={{-56,-56},{40,40}},
+          color={255,255,255},
+          thickness=1),
+        Polygon(
+          points={{32,48},{56,56},{48,32},{32,48}},
+          lineColor={255,255,255},
+          lineThickness=1,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid)}),
     Diagram(coordinateSystem(
     extent={{-200,-240},{200,240}})));
 end PartialTerminalUnit;

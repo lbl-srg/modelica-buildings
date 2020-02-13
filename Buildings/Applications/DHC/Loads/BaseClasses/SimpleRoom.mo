@@ -110,6 +110,39 @@ where <i>&tau; = C / G</i> (s) is the time constant of the indoor temperature.
 </p>
 </html>
   "),
-  Icon(coordinateSystem(preserveAspectRatio=false)),
+  Icon(coordinateSystem(preserveAspectRatio=false),
+  graphics={
+        Text(
+          extent={{-88,16},{-8,-14}},
+          lineColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          fontSize=48,
+          horizontalAlignment=TextAlignment.Left,
+          textString="QReq_flow"),
+        Text(
+          extent={{-88,96},{-8,66}},
+          lineColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          fontSize=48,
+          horizontalAlignment=TextAlignment.Left,
+          textString="TSet"),
+        Text(
+          extent={{-88,-64},{-8,-94}},
+          lineColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          fontSize=48,
+          horizontalAlignment=TextAlignment.Left,
+          textString="QAct_flow"),
+        Text(
+          extent={{10,16},{90,-14}},
+          lineColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          fontSize=48,
+          horizontalAlignment=TextAlignment.Right,
+          textString="TAir")}),
   Diagram(coordinateSystem(preserveAspectRatio=false)));
 end SimpleRoom;
