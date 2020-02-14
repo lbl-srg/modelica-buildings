@@ -714,14 +714,13 @@ Declared the parameter record to be a parameter, as declaring its elements
 to be parameters does not imply that the whole record has the variability of a parameter.
 </li>
 <li>
-<<<<<<< HEAD
 November 15, 2019, by Milica Grahovac:<br/>
 Added extend from a partial floor model.
-=======
+</li>
+<li>
 January 23, 2020, by Milica Grahovac:<br/>
 Updated core zone geometry parameters related to
 room heat and mass balance.
->>>>>>> origin
 </li>
 </ul>
 </html>"));

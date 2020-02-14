@@ -19,6 +19,8 @@ model ASHRAE2006
     annotation (Placement(transformation(extent={{240,-10},{260,10}})));
   Controls.ModeSelector modeSelector
     annotation (Placement(transformation(extent={{-200,-320},{-180,-300}})));
+  Controls.ControlBus controlBus
+    annotation (Placement(transformation(extent={{-250,-352},{-230,-332}})));
 
   Controls.Economizer conEco(
     dT=1,
