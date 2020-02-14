@@ -167,8 +167,8 @@ The following rules need to be followed, in addition to the guidelines described
    or to the configuration of the trim and respond logic, should be grouped together with the
    ``Dialog(group=STRING))`` annotation. See for example
    `G36_PR1.TerminalUnits.Controller <https://github.com/lbl-srg/modelica-buildings/blob/94d5919dbe1b2f2e317e7b69800f3b3ad07be930/Buildings/Controls/OBC/ASHRAE/G36_PR1/TerminalUnits/Controller.mo>`_.
-   Do not use ``Dialog(tab=STRING))``, unless generally applicable default values are provided
-   and these parameter values are not of interest to typical users.
+   Do not use ``Dialog(tab=STRING))``, unless the parameter is declared with a default value
+   and this parameter and its value is of no interest to typical users.
 
 #. Each block must have a ``defaultComponentName`` annotation.
 
@@ -183,7 +183,7 @@ The following rules need to be followed, in addition to the guidelines described
    as default values.
 
 #. For PI controllers, normalize the inputs for setpoint and measured value so
-   that the control error is of the order one.
+   that the control error is of the order of one.
    As control errors for temperature tracking are usually in the order of one,
    these need not be normalized. But for pressure differentials, which can be
    thousands of Pascal, normalization aids in providing reasonable control gains
@@ -191,14 +191,14 @@ The following rules need to be followed, in addition to the guidelines described
 
 #. Never use an inequality comparison without a hysteresis or a time delay if the variable that is used in the inequality test
    is computed using an iterative solver, or is obtained from a measurement and hence can contain measurement noise.
-   An exception are sampled values as the output of a sampler remain constant until the next sampling instant.
+   An exception is a sampled value because the output of a sampler remains constant until the next sampling instant.
    See :numref:`sec_bes_pra_con`.
 
 #. CDL uses the following units, which also need to be used in controllers, including
    their parameters:
 
    =======================  =====  ============================
-   Quantity                 Unit   Note
+   Physical Quantity        Unit   Note
    =======================  =====  ============================
    Temperature              K      Use `displayUnit=degC`
    Temperature difference   K
@@ -210,14 +210,37 @@ The following rules need to be followed, in addition to the guidelines described
    Range of control signal  1
    =======================  =====  ============================
 
+   Hence, for example, a controller that takes as an input a temperature and a temperature difference
+   and produces as an output a damper position signal, use a declaration such as shown in the code snippet below
+   in which graphical annotations are omitted.
+
+   .. code-block:: modelica
+
+
+    Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
+      final unit="K",
+      displayUnit="degC") "Measured zone air temperature";
+
+    Buildings.Controls.OBC.CDL.Interfaces.RealInput dTSup(
+      final unit="K") "Temperature difference supply air minus exhaust air";
+
+    Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDam(
+      min=0,
+      max=1,
+      final unit="1") "Exhaust damper position";
+
+   Here, units are declared as ``final`` to avoid users to be able to change them, as
+   a change in unit may cause the control logic to be incorrect.
+
    Conversion of these units to non-SI units can be done programmatically by tools that
    process CDL.
 
-#. For simple, small controllers, provide a unit test in a `Validation` or `Examples` package
+#. For simple, small controllers, provide a unit test in a ``Validation`` or ``Examples`` package
    that is in the hierarchy one level below the implemented controller.
    See :numref:`sec_val` for unit test implementation.
    For equipment and system controllers, provide also a closed loop example outside of the
-   ``Buildings.Controls.OBC`` package.
+   ``Buildings.Controls.OBC`` package because some control logic errors may only be noticed
+   when used in a closed loop test.
 
 
 .. _sec_val:

@@ -572,8 +572,8 @@ because the ``if-then-else`` construct triggers an event iteration whenever
    * is obtained from a measurement and hence can contain measurement
      noise.
 
-   An exception are sampled values as the output of a sampler remains
-   constant until the next sampling instant.
+   An exception is a sampled value because the output of a sampler remains constant
+   until the next sampling instant.
 
    See :ref:`sec-example-event-debugging` for what can happen in
    such tests.
