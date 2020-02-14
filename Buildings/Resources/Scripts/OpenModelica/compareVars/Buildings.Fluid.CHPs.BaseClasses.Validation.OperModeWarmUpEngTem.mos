@@ -1,5 +1,11 @@
 compareVars :=
   {
     "opeModWarUpEngTem.PEleNet",
-    "opeModWarUpEngTem.mFue_flow"
+    "opeModWarUpEngTem.TWatIn",
+    "opeModWarUpEngTem.TRoo",
+    "opeModWarUpEngTem.TEng",
+    "opeModWarUpEngTem.PEleNet",
+    "opeModWarUpEngTem.QGen",
+    "opeModWarUpEngTem.mFue_flow",
+    "opeModWarUpEngTem.mAir_flow"
   };

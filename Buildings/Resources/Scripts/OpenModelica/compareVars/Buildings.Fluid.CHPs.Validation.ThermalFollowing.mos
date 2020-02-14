@@ -10,6 +10,7 @@ compareVars :=
     "dQLos.u2",
     "dTWatOut.u1",
     "dTWatOut.u2",
+    "TWatOutSet.y",
     "dTEng.u1",
     "dTEng.u2"
   };

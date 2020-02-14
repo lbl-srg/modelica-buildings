@@ -288,8 +288,67 @@ annotation (
     extent={{-100,-100},{100,100}}, lineColor={0,0,127})}),
     Documentation(info="<html>
 <p>
-Add description of the model. 
+This model for combined heat and power device uses empirical data contained within
+a \"performance map\" to represent device-specific performance characteristics
+coupled with thermally massive elements to characterize the device's dynamic thermal
+performance. It was developed based on the specification described in
+Beausoleil-Morrison (2007)
 </p>
+<h4>Model topology</h4>
+<p>
+Three control volumes are used to model the cogeneration unit dynamic thermal
+characteristics:
+</p>
+<ul>
+<li>
+The <i>energy conversion control volume</i>
+(<a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.EnergyConversion\">
+Buildings.Fluid.CHPs.BaseClasses.EnergyConversion</a>)
+represents the engine working fluid, combustion gases and engine alternator. It
+feeds information from the engine unit performance map into the thermal model.
+</li>
+<li>
+The <i>thermal mass control volume</i>
+(<a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.EngineConVol\">
+Buildings.Fluid.CHPs.BaseClasses.EngineConVol</a>)
+represents the aggregated thermal capacitance
+associated with the engine block and the majority of the heat exchanger shells.
+</li>
+<li>
+The <i>cooling water control volume</i> (<code>vol</code>)
+represents the cooling water flowing
+through the device and the elements of the heat exchanger in immediate thermal
+contact.
+</li>
+</ul>
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Fluid/CHPs/control_volumes.png\"
+     alt=\"Control_Volumes.png\" />
+</p>
+<p>
+Depending on the current mode, control signals and plant boundary conditions, the
+CHP plant switches between six possible operating modes: <i>off</i> mode,
+<i>stand-by</i> mode, <i>pump-on</i> mode, <i>warm-up</i> mode,
+<i>normal operation</i> mode, <i>cool-down</i> mode. The mode switch control is
+implemented in <a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.Controller\">
+Buildings.Fluid.CHPs.BaseClasses.Controller</a>.
+</p>
+<h4>Limitations</h4>
+<p>
+In the early stages of the project, the advantages of the this modeling approach
+over the detailed modeling are the model simplicity, the ease of calibration
+and much less data collection. The disadvantages, however, are:
+</p>
+<ul>
+<li>
+Although the model structure reflects the underlying physical processes, it
+relies entirely on empirical data. 
+</li>
+<li>
+Once calibrated, the model is applicable to only one engine and fuel type, and 
+each new cogeneration device must be characterized in a laboratory environment.
+</li>
+</ul>
 <h4>References</h4>
 <p>
 Beausoleil-Morrison, Ian and Kelly, Nick, 2007. <i>Specifications for modelling fuel cell
@@ -299,6 +358,10 @@ programs</i>, Section III. <a href=\"https://strathprints.strath.ac.uk/6704/\">
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 14, 2020, by Jianjun Hu:<br/>
+Added documentation.
+</li>
 <li>
 June 01, 2019 by Tea Zakula:<br/>
 First implementation.

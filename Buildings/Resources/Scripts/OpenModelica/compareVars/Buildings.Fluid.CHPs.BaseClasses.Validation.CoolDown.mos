@@ -1,4 +1,6 @@
 compareVars :=
   {
-    "actMod"
+    "actMod",
+    "runSig.y",
+    "cooDowOpt.y"
   };
