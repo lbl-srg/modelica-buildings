@@ -251,11 +251,11 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b heaPorCon if have_heaPor
     "Heat port transferring convective heat to the load"
     annotation (Placement(transformation(extent={{190,30},{210,50}}),
-      iconTransformation(extent={{-40,-10},{-20,10}})));
+      iconTransformation(extent={{-50,-10},{-30,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b heaPorRad if have_heaPor
     "Heat port transferring radiative heat to the load"
     annotation (Placement(transformation(extent={{190,-50},{210,-30}}),
-      iconTransformation(extent={{20,-10},{40,10}})));
+      iconTransformation(extent={{30,-10},{50,10}})));
   BoundaryConditions.WeatherData.Bus weaBus if have_weaBus
     "Weather data bus"
     annotation (Placement(transformation(extent={{-16,224},{18,256}}),
@@ -434,7 +434,7 @@ Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>. They must
 compute a so-called required mass flow rate defined as the heating or chilled 
 water mass flow rate needed to meet the load.
 It can be approximated using a control loop to avoid inverting a heat
-exchanger models as illustrated in 
+exchanger model as illustrated in 
 <a href=\"modelica://Buildings.Applications.DHC.Loads.Examples\">
 Buildings.Applications.DHC.Loads.Examples</a>.
 </p>
@@ -538,7 +538,7 @@ When modeling a change-over system:
 </li>
 <li>
 The heat exchanger is sized by providing the nominal parameters for the cooling
-configuration (suffix <code>ChiWat</code>). The monimal mass flow rate on the 
+configuration (suffix <code>ChiWat</code>). The nominal mass flow rate on the 
 source and the load side must also be provided for the heating configuration
 (suffix <code>HeaWat</code>) as it can differ from the cooling configuration.
 </li>
@@ -565,24 +565,24 @@ The computed required mass flow rate must be connected to
           lineColor={0,0,255},
           textString="%name"),
         Ellipse(
-          extent={{-80,80},{80,-80}},
+          extent={{-100,100},{100,-100}},
           lineColor={28,108,200},
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Line(
-          points={{-80,-1.46958e-14},{-60,-1.10218e-14},{-20,40},{20,-40},{60,
-              1.10218e-14},{80,1.46958e-14}},
+          points={{-120,-1.46958e-14},{-80,-9.79717e-15},{-40,60},{40,-60},{80,9.79717e-15},
+              {120,1.46958e-14}},
           color={255,255,255},
           thickness=1,
           origin={0,0},
           rotation=180),
         Line(
-          points={{-56,-56},{40,40}},
+          points={{-118,-118},{120,120}},
           color={255,255,255},
           thickness=1),
         Polygon(
-          points={{32,48},{56,56},{48,32},{32,48}},
+          points={{46,62},{70,70},{62,46},{46,62}},
           lineColor={255,255,255},
           lineThickness=1,
           fillColor={255,255,255},

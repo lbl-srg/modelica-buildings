@@ -175,12 +175,12 @@ Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom</a> by comparison with
 <a href=\"Buildings.ThermalZones.ReducedOrder.RC.TwoElements\">
 Buildings.ThermalZones.ReducedOrder.RC.TwoElements</a>.
 <p>
-A first instance of the reduced order model is used to assess the heating or 
-cooling load. A second instance is used to assess the indoor air temperature
+A first instance of the reduced order model is used to assess the heating and 
+cooling loads. A second instance is used to assess the indoor air temperature
 variation when the rate at which heating or cooling is provided is lower than
 the load. That second instance is used as a reference for the validation. 
 </p>
-</p> 
+<p> 
 Eventually the validation is performed with two sets of ambient conditions: 
 one requiring heating, the second requiring cooling. 
 </p>
