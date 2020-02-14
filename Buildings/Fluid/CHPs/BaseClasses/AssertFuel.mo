@@ -22,8 +22,9 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant cheDmLim(
     final k=per.dmFueLim) "Check if change of fuel flow rate should be limited"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(final uLow=0.99*per.dmFueMax
-         - 2e-6, final uHigh=1.01*per.dmFueMax - 1e-6)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+    final uLow=0.99*per.dmFueMax - 2e-6,
+    final uHigh=1.01*per.dmFueMax - 1e-6)
     "Check if fuel flow rate is changing too much"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Derivative floChaRat(

@@ -56,8 +56,7 @@ protected
 
 equation
   connect(warmUpState.active, timer.u) annotation (Line(points={{-20,-17.6},{
-          -20,-70},{-2,-70}},
-                          color={255,0,255}));
+          -20,-70},{-2,-70}}, color={255,0,255}));
   connect(timer.y, timeDel.u) annotation (Line(points={{22,-70},{38,-70}},
           color={0,0,255}));
   connect(inPort, warmUpState.inPort[1]) annotation (Line(points={{-160,0},{-80,

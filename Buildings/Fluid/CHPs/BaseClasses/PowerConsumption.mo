@@ -54,8 +54,7 @@ equation
   connect(cooDow.y, switch1.u2) annotation (Line(points={{21,0},{58,0}},
           color={255,0,255}));
   connect(const.y, switch1.u3) annotation (Line(points={{22,-30},{40,-30},{40,
-          -8},{58,-8}},
-                    color={0,0,127}));
+          -8},{58,-8}}, color={0,0,127}));
   connect(cooDowCon.y, switch.u3) annotation (Line(points={{-58,0},{-40,0},{-40,
           22},{-22,22}}, color={0,0,127}));
   connect(switch.y, switch1.u1) annotation (Line(points={{2,30},{40,30},{40,8},

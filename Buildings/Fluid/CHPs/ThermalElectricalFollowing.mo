@@ -149,11 +149,11 @@ model ThermalElectricalFollowing
     final Ti=Ti,
     final Td=Td,
     final yMax=yMax,
-    final yMin=yMin) if  optionalFollowing
+    final yMin=yMin) if optionalFollowing
     "Cooling water outplet controller"
     annotation (Placement(transformation(extent={{-80,340},{-60,360}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold neeFolThe(
-    final threshold=273.15 + 1) if     optionalFollowing
+    final threshold=273.15 + 1) if optionalFollowing
     "Check if it should active thermal following"
     annotation (Placement(transformation(extent={{-80,300},{-60,320}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
