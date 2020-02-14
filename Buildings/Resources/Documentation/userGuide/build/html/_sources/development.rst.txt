@@ -4,32 +4,52 @@ Development
 ===========
 
 This section describes the development of the `Buildings` library.
+The development of the library is conducted at https://github.com/lbl-srg/modelica-buildings
 
 Contributing
 ------------
+
 Contributions of new models and suggestions for how to improve the library are
 welcome.
+Contributions are ideally made by first opening an issue at https://github.com/lbl-srg/modelica-buildings
+and by providing a pull request with the new code.
+
+
+
+.. _sec_dev_gui_con:
+
+Guidelines for contributions
+----------------------------
+
 Models that are contributed need to adhere to the following guidelines, as this is needed to integrate them in the library, make them accessible to users and further maintain them:
 
  * They should be of general interest to other users and well documented and tested.
  * They need to follow the coding conventions described in
 
-  - the `Buildings library user guide <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html#Buildings.UsersGuide.Conventions>`_,
-  - the `Modelica Standard Library user guide <https://simulationresearch.lbl.gov/modelica/releases/msl/3.2/help/Modelica_UsersGuide_Conventions.html#Modelica.UsersGuide.Conventions>`_, and
-  - the `Buildings library style guide <https://github.com/lbl-srg/modelica-buildings/wiki/Style-Guide>`_.
+   - the `Buildings library user guide <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html#Buildings.UsersGuide.Conventions>`_,
+   - the `Modelica Standard Library user guide <https://simulationresearch.lbl.gov/modelica/releases/msl/3.2/help/Modelica_UsersGuide_Conventions.html#Modelica.UsersGuide.Conventions>`_, and
+   - the `Buildings library style guide <https://github.com/lbl-srg/modelica-buildings/wiki/Style-Guide>`_.
 
- * They need to be made available under the `Modelica license <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html#Buildings.UsersGuide.License>`_.
- * For models of fluid flow components, they need to be based on the base classes in `Buildings.Fluid.Interfaces <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Interfaces.html>`_, which are described in the `user guide <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Interfaces_UsersGuide.html#Buildings.Fluid.Interfaces.UsersGuide>`_ of this package. Otherwise, it becomes difficult to ensure that the implementation is numerically robust.
+ * They need to be made available under the `Modelica Buildings Library license <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html#Buildings.UsersGuide.License>`_.
+ * For models of thermofluid flow components, they need to be based on the base classes in
+   `Buildings.Fluid.Interfaces <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Interfaces.html>`_,
+   which are described in the `user guide <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Interfaces_UsersGuide.html#Buildings.Fluid.Interfaces.UsersGuide>`_ of this package.
+   Otherwise, it becomes difficult to ensure that the implementation is numerically robust.
 
-The website for the development of the library is https://github.com/lbl-srg/modelica-buildings
+
 
 
 Adding a new class
 ------------------
 
-Adding a new class, such as a model or a function, is usually easiest by extending, or copying and modifying, an existing class. In many cases, the similar component already exists. In this situation, it is recommended to copy and modify a similar component. If both components share a significant amount of similar code, then a base class should be introduced that implements the common code. See for example `Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor>`_ which is shared by all sensors with one fluid port in the package `Buildings.Fluid.Sensors <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors>`_.
+Adding a new class, such as a model or a function, is usually easiest by extending, or copying and modifying, an existing class.
+In many cases, the similar component already exists.
+In this situation, it is recommended to copy and modify a similar component.
+If both components share a significant amount of similar code, then a base class should be introduced that implements the common code.
+See for example `Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor>`_ which is shared by all sensors with one fluid port in the package
+`Buildings.Fluid.Sensors <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors>`_.
 
-The next sections give guidance that is specific to the implementation of thermofluid flow devices and to pressure drop models.
+The next sections give guidance that is specific to the implementation of thermofluid flow devices, pressure drop models and control sequences.
 
 Thermofluid flow device
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -122,6 +142,86 @@ of the cooling coil.
 This often reduces the size of the system of nonlinear equations.
 
 
+Control Sequences using the Control Description Language
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To implement reusable control sequences, such as done within
+the `OpenBuildingControl <https://obc.lbl.gov>`_ project, the
+sequences need to comply with the
+`specification of the Control Description Language <https://obc.lbl.gov/specification/cdl.html>`_.
+
+The following rules need to be followed, in addition to the guidelines described in :numref:`sec_dev_gui_con`.
+
+
+#. The naming of parameters, inputs, outputs and instances must follow the naming
+   conventions in
+   `Buildings.UsersGuide.Conventions <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html#Buildings.UsersGuide.Conventions>`_.
+
+#. Each block must have an ``info`` section that explains its functionality.
+   In this ``info`` section, names of ``parameters``, ``inputs`` and ``outputs``
+   need to be referenced using the html ``<code>...</code>`` element.
+   In the ``info`` section, units need to be provided in SI units, or in dual units. For SI units,
+   use Kelvin for temperature *differences* and degree Celsius for actual temperatures.
+
+#. Parameters that can be grouped together, such as parameters relating to temperature setpoints
+   or to the configuration of the trim and respond logic, should be grouped together with the
+   ``Dialog(group=STRING))`` annotation. See for example
+   `G36_PR1.TerminalUnits.Controller <https://github.com/lbl-srg/modelica-buildings/blob/94d5919dbe1b2f2e317e7b69800f3b3ad07be930/Buildings/Controls/OBC/ASHRAE/G36_PR1/TerminalUnits/Controller.mo>`_.
+   Do not use ``Dialog(tab=STRING))``, unless generally applicable default values are provided
+   and these paramater values are not of interest to typical users.
+
+#. Each block must have a ``defaultComponentName`` annotation.
+
+#. To aid readability, the formatting of the Modelica source code file must be consistent with other
+   implemented blocks, e.g., use two spaces for indentation (no tabulators),
+   assign each parameter value on a new line, list first all parameters, then all inputs, all
+   outputs, and finally all instances of other blocks.
+   See for example
+   `G36_PR1.AHUs.SingleZone.VAV.SetPoints.ExhaustDamper <https://github.com/lbl-srg/modelica-buildings/blob/94d5919dbe1b2f2e317e7b69800f3b3ad07be930/Buildings/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/SetPoints/ExhaustDamper.mo>`_.
+
+#. For parameters, where generally valid values can be provided, provide them
+   as default values.
+
+#. For PI controllers, normalize the inputs for setpoint and measured value so
+   that the control error is of the order one.
+   As control errors for temperature tracking are usually in the order of one,
+   these need not be normalized. But for pressure differentials, which can be
+   thousands of Pascal, normalization aids in providing reasonable control gains
+   and it aids in tuning.
+
+#. Never use an inequality comparison without a hysteresis or a time delay if the variable that is used in the inequality test
+   is computed using an iterative solver, or is obtained from a measurement and hence can contain measurement noise.
+   An exception are sampled values as the output of a sampler remain constant until the next sampling instant.
+   See :numref:`sec_bes_pra_con`.
+
+#. CDL uses the following units, which also need to be used in controllers, including
+   their parameters:
+
+   =======================  =====  ============================
+   Quantity                 Unit   Note
+   =======================  =====  ============================
+   Temperature              K      Use `displayUnit=degC`
+   Temperature difference   K
+   Volume flow rate         m3/s
+   Mass flow rate           kg/s
+   Pressure                 Pa     Use `displayUnit=bar`
+   Pressure differential    Pa
+   Relative humidity        1
+   Range of control signal  1
+   =======================  =====  ============================
+
+   Conversion of these units to non-SI units can be done programmatically by tools that
+   process CDL.
+
+#. For simple, small controllers, provide a unit test in a `Validation` or `Example` package
+   that is in the hierarchy one level below the implemented controller.
+   See :numref:`sec_val` for unit test implementation.
+   For equipment and system controllers, provide also a closed loop example outside of the
+   ``Buildings.Controls.OBC`` package.
+
+
+.. _sec_val:
+
 Validation
 ~~~~~~~~~~
 
@@ -134,7 +234,7 @@ For simple models, the validation can be against analytic solutions.
 This is for example done in
 `Buildings.Fluid.FixedResistances.PressureDrop <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances_Examples.html#Buildings.Fluid.FixedResistances.Examples.PressureDrop>`_
 which uses a regression tests that checks the correct relation between mass flow rate and pressure drop.
-For complex models, a comparative model validation needs to be done, for example
+For complex thermofluid flow devicess, a comparative model validation needs to be done, for example
 by comparing the result of the Modelica model against the results from EnergyPlus.
 An example is
 `Buildings.Fluid.HeatExchangers.CoolingTowers.Validation.MerkelEnergyPlus`.

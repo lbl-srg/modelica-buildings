@@ -96,7 +96,8 @@
 <li class="toctree-l1"><a class="reference internal" href="prePostProcessing.html">4. Pre- and Post-Processing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="development.html">5. Development</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="development.html#contributing">5.1. Contributing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="development.html#adding-a-new-class">5.2. Adding a new class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#guidelines-for-contributions">5.2. Guidelines for contributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#adding-a-new-class">5.3. Adding a new class</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="help.html">6. Help</a></li>
@@ -716,7 +717,7 @@ the functions and blocks whose names start with <code class="docutils literal no
 </div>
 </div>
 <div class="section" id="controls">
-<h2>2.7. Controls<a class="headerlink" href="#controls" title="Permalink to this headline">¶</a></h2>
+<span id="sec-bes-pra-con"></span><h2>2.7. Controls<a class="headerlink" href="#controls" title="Permalink to this headline">¶</a></h2>
 <div class="figure align-default" id="id15">
 <a class="reference internal image-reference" href="_images/controlHysteresis.png"><img alt="_images/controlHysteresis.png" src="_images/controlHysteresis.png" style="width: 270.0px; height: 401.0px;" /></a>
 <p class="caption"><span class="caption-number">Fig. 2.7 </span><span class="caption-text">Schematic diagram of a controller that switches a coil on and off.
@@ -771,6 +772,8 @@ inequality test</p>
 <li><p>is obtained from a measurement and hence can contain measurement
 noise.</p></li>
 </ul>
+<p>An exception are sampled values as the output of a sampler remains
+constant until the next sampling instant.</p>
 <p>See <a class="reference internal" href="#sec-example-event-debugging"><span class="std std-ref">Examples for how to debug and correct slow simulations</span></a> for what can happen in
 such tests.</p>
 </div>
