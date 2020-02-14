@@ -168,7 +168,7 @@ The following rules need to be followed, in addition to the guidelines described
    ``Dialog(group=STRING))`` annotation. See for example
    `G36_PR1.TerminalUnits.Controller <https://github.com/lbl-srg/modelica-buildings/blob/94d5919dbe1b2f2e317e7b69800f3b3ad07be930/Buildings/Controls/OBC/ASHRAE/G36_PR1/TerminalUnits/Controller.mo>`_.
    Do not use ``Dialog(tab=STRING))``, unless generally applicable default values are provided
-   and these paramater values are not of interest to typical users.
+   and these parameter values are not of interest to typical users.
 
 #. Each block must have a ``defaultComponentName`` annotation.
 
@@ -213,7 +213,7 @@ The following rules need to be followed, in addition to the guidelines described
    Conversion of these units to non-SI units can be done programmatically by tools that
    process CDL.
 
-#. For simple, small controllers, provide a unit test in a `Validation` or `Example` package
+#. For simple, small controllers, provide a unit test in a `Validation` or `Examples` package
    that is in the hierarchy one level below the implemented controller.
    See :numref:`sec_val` for unit test implementation.
    For equipment and system controllers, provide also a closed loop example outside of the
@@ -234,7 +234,7 @@ For simple models, the validation can be against analytic solutions.
 This is for example done in
 `Buildings.Fluid.FixedResistances.PressureDrop <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances_Examples.html#Buildings.Fluid.FixedResistances.Examples.PressureDrop>`_
 which uses a regression tests that checks the correct relation between mass flow rate and pressure drop.
-For complex thermofluid flow devicess, a comparative model validation needs to be done, for example
+For complex thermofluid flow devices, a comparative model validation needs to be done, for example
 by comparing the result of the Modelica model against the results from EnergyPlus.
 An example is
 `Buildings.Fluid.HeatExchangers.CoolingTowers.Validation.MerkelEnergyPlus`.
