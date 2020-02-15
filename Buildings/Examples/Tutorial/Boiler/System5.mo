@@ -264,7 +264,7 @@ model System5
 //--------------------------------------------------------------------------------//
 
 //----------------------Step 3: Radiator loop valve control-----------------------//
-  Controls.SetPoints.Table TSetSup(table=[273.15 + 19, 273.15 + 50;
+  Buildings.Controls.SetPoints.Table TSetSup(table=[273.15 + 19, 273.15 + 50;
                                           273.15 + 21, 273.15 + 21])
     "Setpoint for supply water temperature"
     annotation (Placement(transformation(extent={{-220,-20},{-200,0}})));
@@ -567,7 +567,7 @@ control sequence shown in the figure below.
 Its configuration is
 </p>
 <pre>
-  Controls.SetPoints.Table TSetSup(table=[273.15 + 19, 273.15 + 50;
+  Buildings.Controls.SetPoints.Table TSetSup(table=[273.15 + 19, 273.15 + 50;
                                           273.15 + 21, 273.15 + 21])
                                           \"Setpoint for supply water temperature\";
 </pre>

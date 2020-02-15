@@ -252,7 +252,7 @@ model System6
     annotation (Placement(transformation(extent={{160,-270},{180,-250}})));
 //--------------------------------------------------------------------------------//
 
-  Controls.SetPoints.Table TSetSup(table=[273.15 + 19, 273.15 + 50;
+  Buildings.Controls.SetPoints.Table TSetSup(table=[273.15 + 19, 273.15 + 50;
                                           273.15 + 21, 273.15 + 21])
     "Setpoint for supply water temperature"
     annotation (Placement(transformation(extent={{-220,-20},{-200,0}})));
