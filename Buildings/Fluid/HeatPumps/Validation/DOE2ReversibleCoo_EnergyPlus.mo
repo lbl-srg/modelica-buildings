@@ -121,8 +121,8 @@ Buildings.Fluid.HeatPumps.DOE2Reversible</a>
 against results obtained using EnergyPlus 9.2.
 <p>
 The EnergyPlus results were generated using the example file 
-<code>CentralChillerHeaterSystem_Cooling_Heating.idf</code>
-from EnergyPlus 9.2, with a nominal cooling capacity of <i>12500</i> Watts.
+<code>CentralChillerHeaterSystem_Cooling_Heating.idf</code>, 
+with a nominal cooling capacity of <i>12500</i> Watts.
 </p>
 </html>", revisions="<html>
 <ul>
