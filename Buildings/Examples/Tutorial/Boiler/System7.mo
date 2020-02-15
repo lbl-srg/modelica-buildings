@@ -100,7 +100,6 @@ model System7
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal={mBoi_flow_nominal,-mRadVal_flow_nominal,-mBoi_flow_nominal},
-
     dp_nominal={200,-200,-50}) "Splitter of boiler loop bypass" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -202,34 +201,38 @@ model System7
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTOut
     "Outdoor temperature sensor"
     annotation (Placement(transformation(extent={{-318,20},{-298,40}})));
-  Modelica.Blocks.Math.BooleanToReal booToReaRad1(realTrue=mBoi_flow_nominal)
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaRad1(realTrue=mBoi_flow_nominal)
     "Radiator pump signal"
     annotation (Placement(transformation(extent={{-120,-290},{-100,-270}})));
-  Modelica.Blocks.Math.BooleanToReal booToReaRad2(realTrue=1)
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaRad2(realTrue=1)
     "Radiator pump signal"
     annotation (Placement(transformation(extent={{-100,-340},{-80,-320}})));
-  Modelica.Blocks.Math.BooleanToReal booToReaRad(realTrue=mRad_flow_nominal)
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaRad(realTrue=mRad_flow_nominal)
     "Radiator pump signal"
     annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
-  Modelica.Blocks.Sources.Constant TSetBoiRet(k=TBoiRet_min)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetBoiRet(k=TBoiRet_min)
     "Temperature setpoint for boiler return"
     annotation (Placement(transformation(extent={{120,-270},{140,-250}})));
-  Buildings.Controls.Continuous.LimPID conPIDBoi(
+  Buildings.Controls.OBC.CDL.Continuous.LimPID conPIDBoi(
     Td=1,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.1,
     Ti=120,
+    yMax=1,
+    yMin=0,
     reverseAction=true) "Controller for valve in boiler loop"
     annotation (Placement(transformation(extent={{160,-270},{180,-250}})));
   Buildings.Controls.SetPoints.Table TSetSup(table=[273.15 + 19, 273.15 + 50;
                                           273.15 + 21, 273.15 + 21])
     "Setpoint for supply water temperature"
     annotation (Placement(transformation(extent={{-220,-20},{-200,0}})));
-  Buildings.Controls.Continuous.LimPID conPIDRad(
+  Buildings.Controls.OBC.CDL.Continuous.LimPID conPIDRad(
     Td=1,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.1,
-    Ti=120) "Controller for valve in radiator loop"
+    Ti=120,
+    yMax=1,
+    yMin=0) "Controller for valve in radiator loop"
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
@@ -276,7 +279,7 @@ model System7
     annotation (Placement(transformation(extent={{-420,-210},{-400,-190}})));
   Modelica.Blocks.Logical.LessThreshold lessThreshold1(threshold=273.15 + 16)
     annotation (Placement(transformation(extent={{-420,-240},{-400,-220}})));
-  Modelica.Blocks.Logical.And and3
+  Buildings.Controls.OBC.CDL.Logical.And and3
     annotation (Placement(transformation(extent={{-380,-232},{-360,-212}})));
   Modelica.Blocks.Logical.LessThreshold lessThreshold2(threshold=273.15 + 70)
     "Threshold for boiler control"
@@ -287,9 +290,9 @@ model System7
   Modelica.Blocks.Logical.GreaterThreshold greThrTROut(threshold=273.15 + 17)
     "Threshold for room temperature"
     annotation (Placement(transformation(extent={{-420,-160},{-400,-140}})));
-  Modelica.Blocks.Logical.And and1
+  Buildings.Controls.OBC.CDL.Logical.And and1
     annotation (Placement(transformation(extent={{-380,-152},{-360,-132}})));
-  Modelica.Blocks.Logical.Not not1 "Negate output of hysteresis"
+  Buildings.Controls.OBC.CDL.Logical.Not not1 "Negate output of hysteresis"
     annotation (Placement(transformation(extent={{-180,-80},{-160,-60}})));
 
 equation
@@ -405,7 +408,7 @@ equation
       smooth=Smooth.None));
 
   connect(booToReaRad2.y, boi.y) annotation (Line(
-      points={{-79,-330},{40,-330},{40,-302},{22,-302}},
+      points={{-78,-330},{40,-330},{40,-302},{22,-302}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(temRoo.T, TSetSup.u) annotation (Line(
@@ -501,11 +504,11 @@ equation
       smooth=Smooth.None));
 
   connect(not1.y, booToReaRad.u) annotation (Line(
-      points={{-159,-70},{-122,-70}},
+      points={{-158,-70},{-122,-70}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(not1.y, booToReaRad1.u) annotation (Line(
-      points={{-159,-70},{-140,-70},{-140,-280},{-122,-280}},
+      points={{-158,-70},{-140,-70},{-140,-280},{-122,-280}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(T4.outPort, allOff.inPort[1]) annotation (Line(
@@ -513,33 +516,33 @@ equation
       color={0,0,0},
       smooth=Smooth.None));
   connect(conPIDRad.y, valRad.y) annotation (Line(
-      points={{-159,-10},{-80,-10},{-80,-150},{-62,-150}},
+      points={{-158,-10},{-80,-10},{-80,-150},{-62,-150}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(booToReaRad.y, pumRad.m_flow_in) annotation (Line(
-      points={{-99,-70},{-90.5,-70},{-90.5,-70.2},{-62,-70.2}},
+      points={{-98,-70},{-90.5,-70},{-90.5,-70},{-62,-70}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conPIDBoi.y, valBoi.y) annotation (Line(
-      points={{181,-260},{200,-260},{200,-230},{72,-230}},
+      points={{182,-260},{200,-260},{200,-230},{72,-230}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(booToReaRad1.y, pumBoi.m_flow_in) annotation (Line(
-      points={{-99,-280},{-64,-280},{-64,-280.2},{-62,-280.2}},
+      points={{-98,-280},{-64,-280},{-64,-280},{-62,-280}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TSetBoiRet.y, conPIDBoi.u_s)
-    annotation (Line(points={{141,-260},{158,-260}}, color={0,0,127}));
+    annotation (Line(points={{142,-260},{158,-260}}, color={0,0,127}));
   connect(temRet.T, conPIDBoi.u_m) annotation (Line(points={{71,-280},{120,-280},
           {170,-280},{170,-272}}, color={0,0,127}));
   connect(T1.condition, and3.y) annotation (Line(points={{-200,-162},{-200,-162},
-          {-200,-222},{-359,-222}},                         color={255,0,255}));
+          {-200,-222},{-358,-222}},                         color={255,0,255}));
   connect(booToReaRad2.u, boilerOn.active) annotation (Line(points={{-102,-330},
           {-102,-330},{-218,-330},{-218,-201}}, color={255,0,255}));
   connect(lessThreshold2.y, T2.condition) annotation (Line(points={{-399,-280},{
           -400,-280},{-332,-280},{-248,-280},{-248,-202}}, color={255,0,255}));
   connect(T4.condition, and1.y) annotation (Line(points={{-260,-162},{-260,-162},
-          {-260,-170},{-260,-216},{-338,-216},{-338,-142},{-359,-142}}, color={255,
+          {-260,-170},{-260,-216},{-338,-216},{-338,-142},{-358,-142}}, color={255,
           0,255}));
   connect(T3.condition, greThrBoi.y) annotation (Line(points={{-186,-202},{-186,
           -202},{-186,-310},{-399,-310}}, color={255,0,255}));
@@ -551,13 +554,16 @@ equation
           -170},{-146,-170},{-146,-120},{-328,-120},{-328,-170},{-321,-170}},
         color={0,0,0}));
   connect(T4.inPort, alternative.split[1]) annotation (Line(points={{-264,-150},
-          {-264,-150},{-275.72,-150}}, color={0,0,0}));
+          {-264,-170},{-275.72,-170}}, color={0,0,0}));
   connect(T2.inPort, alternative.split[2]) annotation (Line(points={{-252,-190},
-          {-264,-190},{-275.72,-190}}, color={0,0,0}));
+          {-275.72,-190},{-275.72,-170}},
+                                       color={0,0,0}));
   connect(T1.outPort, alternative.join[1])
-    annotation (Line(points={{-198.5,-150},{-168.28,-150}}, color={0,0,0}));
+    annotation (Line(points={{-198.5,-150},{-184,-150},{-184,-170},{-168.28,
+          -170}},                                           color={0,0,0}));
   connect(T3.outPort, alternative.join[2])
-    annotation (Line(points={{-184.5,-190},{-168.28,-190}}, color={0,0,0}));
+    annotation (Line(points={{-184.5,-190},{-176,-190},{-176,-170},{-168.28,
+          -170}},                                           color={0,0,0}));
   annotation (Documentation(info="<html>
 <p>
 This part of the system model changes the implementation of the control in

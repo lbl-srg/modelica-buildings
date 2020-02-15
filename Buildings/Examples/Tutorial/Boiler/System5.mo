@@ -105,7 +105,6 @@ model System5
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal={mBoi_flow_nominal,-mRadVal_flow_nominal,-mBoi_flow_nominal},
-
     dp_nominal={200,-200,-50}) "Splitter of boiler loop bypass" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -204,10 +203,10 @@ model System5
         origin={-50,-230})));
 
 //---------------------Step 2: Outdoor temperature sensor and control------------------//
-  Modelica.Blocks.Logical.Hysteresis hysTOut(uLow=273.15 + 16, uHigh=273.15 + 17)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTOut(uLow=273.15 + 16, uHigh=273.15 + 17)
     "Hysteresis for on/off based on outside temperature"
     annotation (Placement(transformation(extent={{-260,-200},{-240,-180}})));
-  Modelica.Blocks.Logical.Not not2
+  Buildings.Controls.OBC.CDL.Logical.Not not2
     annotation (Placement(transformation(extent={{-220,-200},{-200,-180}})));
 
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTOut
@@ -216,49 +215,52 @@ model System5
 //------------------------------------------------------------------------------------//
 
 //-------------------------------Step 4: Boiler hysteresis----------------------------//
-  Modelica.Blocks.Logical.Hysteresis hysTBoi(uHigh=273.15 + 90,
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTBoi(uHigh=273.15 + 90,
                                              uLow=273.15 + 70)
     "Hysteresis for on/off of boiler"
     annotation (Placement(transformation(extent={{-260,-348},{-240,-328}})));
-  Modelica.Blocks.Logical.Not not3
+  Buildings.Controls.OBC.CDL.Logical.Not not3
     annotation (Placement(transformation(extent={{-220,-348},{-200,-328}})));
-  Modelica.Blocks.Logical.And and1
+  Buildings.Controls.OBC.CDL.Logical.And and1
     annotation (Placement(transformation(extent={{-180,-160},{-160,-140}})));
 //------------------------------------------------------------------------------------//
 
 //-------------------------Step 3: Boolean to real: Boiler Pump-----------------------//
-  Modelica.Blocks.Math.BooleanToReal booToReaRad1(realTrue=mBoi_flow_nominal)
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaRad1(realTrue=mBoi_flow_nominal)
     "Radiator pump signal"
     annotation (Placement(transformation(extent={{-140,-290},{-120,-270}})));
 //------------------------------------------------------------------------------------//
 
-  Modelica.Blocks.Logical.And and2
+  Buildings.Controls.OBC.CDL.Logical.And and2
     annotation (Placement(transformation(extent={{-140,-340},{-120,-320}})));
 
 //---------------------------------Step 4: Boiler signal------------------------------//
- Modelica.Blocks.Math.BooleanToReal booToReaRad2(realTrue=1) "Boiler signal"
+ Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaRad2(realTrue=1) "Boiler signal"
     annotation (Placement(transformation(extent={{-100,-340},{-80,-320}})));
 //------------------------------------------------------------------------------------//
 
-  Modelica.Blocks.Logical.Hysteresis hysPum(uLow=273.15 + 19,
-                                            uHigh=273.15 + 21)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysPum(
+    uLow=273.15 + 19,
+    uHigh=273.15 + 21)
     "Pump hysteresis"
     annotation (Placement(transformation(extent={{-260,-82},{-240,-62}})));
-  Modelica.Blocks.Math.BooleanToReal booToReaRad(realTrue=mRad_flow_nominal)
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaRad(realTrue=mRad_flow_nominal)
     "Radiator pump signal"
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
-  Modelica.Blocks.Logical.Not not1 "Negate output of hysteresis"
+  Buildings.Controls.OBC.CDL.Logical.Not not1 "Negate output of hysteresis"
     annotation (Placement(transformation(extent={{-220,-82},{-200,-62}})));
 
 //------------------------Step 2: Boiler loop valve control-----------------------//
- Modelica.Blocks.Sources.Constant TSetBoiRet(k=TBoiRet_min)
+ Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetBoiRet(k=TBoiRet_min)
     "Temperature setpoint for boiler return"
     annotation (Placement(transformation(extent={{120,-270},{140,-250}})));
-  Buildings.Controls.Continuous.LimPID conPIDBoi(
+  Buildings.Controls.OBC.CDL.Continuous.LimPID conPIDBoi(
     Td=1,
     Ti=120,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.1,
+    yMax=1,
+    yMin=0,
     reverseAction=true) "Controller for valve in boiler loop"
     annotation (Placement(transformation(extent={{160,-270},{180,-250}})));
 //--------------------------------------------------------------------------------//
@@ -268,11 +270,14 @@ model System5
                                           273.15 + 21, 273.15 + 21])
     "Setpoint for supply water temperature"
     annotation (Placement(transformation(extent={{-220,-20},{-200,0}})));
-  Buildings.Controls.Continuous.LimPID conPIDRad(
+  Buildings.Controls.OBC.CDL.Continuous.LimPID conPIDRad(
     Td=1,
     Ti=120,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k=0.1) "Controller for valve in radiator loop"
+    k=0.1,
+    yMax=1,
+    yMin=0)
+           "Controller for valve in radiator loop"
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
 //--------------------------------------------------------------------------------//
 
@@ -393,7 +398,7 @@ equation
       smooth=Smooth.None));
 
   connect(hysTOut.y, not2.u) annotation (Line(
-      points={{-239,-190},{-222,-190}},
+      points={{-238,-190},{-222,-190}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(senTOut.port, TOut.port) annotation (Line(
@@ -401,11 +406,11 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(hysTBoi.y, not3.u) annotation (Line(
-      points={{-239,-338},{-222,-338}},
+      points={{-238,-338},{-222,-338}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(not2.y, and1.u2) annotation (Line(
-      points={{-199,-190},{-192,-190},{-192,-158},{-182,-158}},
+      points={{-198,-190},{-192,-190},{-192,-158},{-182,-158}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(boi.T, hysTBoi.u) annotation (Line(
@@ -417,23 +422,23 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(and1.y, booToReaRad1.u) annotation (Line(
-      points={{-159,-150},{-152,-150},{-152,-280},{-142,-280}},
+      points={{-158,-150},{-152,-150},{-152,-280},{-142,-280}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(and1.y, and2.u1) annotation (Line(
-      points={{-159,-150},{-152,-150},{-152,-330},{-142,-330}},
+      points={{-158,-150},{-152,-150},{-152,-330},{-142,-330}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(not3.y, and2.u2) annotation (Line(
-      points={{-199,-338},{-142,-338}},
+      points={{-198,-338},{-142,-338}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(and2.y, booToReaRad2.u) annotation (Line(
-      points={{-119,-330},{-102,-330}},
+      points={{-118,-330},{-102,-330}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(booToReaRad2.y, boi.y) annotation (Line(
-      points={{-79,-330},{40,-330},{40,-302},{22,-302}},
+      points={{-78,-330},{40,-330},{40,-302},{22,-302}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(temRoo.T,hysPum. u) annotation (Line(
@@ -441,15 +446,15 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(hysPum.y,not1. u) annotation (Line(
-      points={{-239,-72},{-222,-72}},
+      points={{-238,-72},{-222,-72}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(not1.y, and1.u1) annotation (Line(
-      points={{-199,-72},{-192,-72},{-192,-150},{-182,-150}},
+      points={{-198,-72},{-192,-72},{-192,-150},{-182,-150}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(and1.y, booToReaRad.u) annotation (Line(
-      points={{-159,-150},{-152,-150},{-152,-70},{-142,-70}},
+      points={{-158,-150},{-152,-150},{-152,-70},{-142,-70}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(temRoo.T, TSetSup.u) annotation (Line(
@@ -465,22 +470,22 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(conPIDRad.y, valRad.y) annotation (Line(
-      points={{-159,-10},{-90,-10},{-90,-150},{-62,-150}},
+      points={{-158,-10},{-90,-10},{-90,-150},{-62,-150}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(booToReaRad.y, pumRad.m_flow_in) annotation (Line(
-      points={{-119,-70},{-90.5,-70},{-90.5,-70.2},{-62,-70.2}},
+      points={{-118,-70},{-90.5,-70},{-90.5,-70},{-62,-70}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(booToReaRad1.y, pumBoi.m_flow_in) annotation (Line(
-      points={{-119,-280},{-90.5,-280},{-90.5,-280.2},{-62,-280.2}},
+      points={{-118,-280},{-90.5,-280},{-90.5,-280},{-62,-280}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conPIDBoi.y, valBoi.y) annotation (Line(
-      points={{181,-260},{200,-260},{200,-230},{72,-230}},
+      points={{182,-260},{200,-260},{200,-230},{72,-230}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TSetBoiRet.y, conPIDBoi.u_s) annotation (Line(points={{141,-260},{150,
+  connect(TSetBoiRet.y, conPIDBoi.u_s) annotation (Line(points={{142,-260},{142,
           -260},{158,-260}}, color={0,0,127}));
   connect(temRet.T, conPIDBoi.u_m) annotation (Line(points={{71,-280},{110,-280},
           {170,-280},{170,-272}}, color={0,0,127}));
@@ -515,19 +520,21 @@ shown in the figure below.
 </p>
 <p>
 This is implemented using the constant block
-<a href=\"modelica://Modelica.Blocks.Sources.Constant\">
-Modelica.Blocks.Sources.Constant</a> for the set point,
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Sources.Constant\">
+Buildings.Controls.OBC.CDL.Continuous.Sources.Constant</a> for the set point,
 the PID controller with output limitation
-<a href=\"modelica://Buildings.Controls.Continuous.LimPID\">
-Buildings.Controls.Continuous.LimPID</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.LimPID\">
+Buildings.Controls.OBC.CDL.Continuous.LimPID</a>.
 We configured the controller as
 </p>
 <pre>
-  Buildings.Controls.Continuous.LimPID conPIDBoi(
+  Buildings.Controls.OBC.CDL.Continuous.LimPID conPIDBoi(
     controllerType=Modelica.Blocks.Types.SimpleController.P,
     k=0.1,
     Ti=120,
     Td=1,
+    yMax=1,
+    yMin=0,
     reverseAction=true) \"Controller for valve in boiler loop\";
 </pre>
 <p>

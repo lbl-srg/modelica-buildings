@@ -102,15 +102,16 @@ Buildings.Fluid.Movers.FlowControlled_m_flow pumRad(
         origin={-50,-110})));
 
 //--------------------------Step 6: Pump control--------------------------//
-  Modelica.Blocks.Logical.Hysteresis hysPum(uLow=273.15 + 19,
-                                            uHigh=273.15 + 21)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysPum(
+    uLow=273.15 + 19,
+    uHigh=273.15 + 21)
     "Pump hysteresis"
     annotation (Placement(transformation(extent={{-220,-80},{-200,-60}})));
 
-  Modelica.Blocks.Math.BooleanToReal booToReaRad(realTrue=mRad_flow_nominal)
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaRad(realTrue=mRad_flow_nominal)
     "Radiator pump signal"
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
-  Modelica.Blocks.Logical.Not not1 "Negate output of hysteresis"
+  Buildings.Controls.OBC.CDL.Logical.Not not1 "Negate output of hysteresis"
     annotation (Placement(transformation(extent={{-180,-80},{-160,-60}})));
 //------------------------------------------------------------------------//
 
@@ -311,12 +312,12 @@ we implemented the control blocks as shown in the figure below.
 <p>
 In this control sequence, the first block is a hysteresis element,
 which is modeled by
-<a href=\"modelica://Modelica.Blocks.Logical.Hysteresis\">
-Modelica.Blocks.Logical.Hysteresis</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Hysteresis\">
+Buildings.Controls.OBC.CDL.Continuous.Hysteresis</a>.
 It is configured as
 </p>
 <pre>
-  Modelica.Blocks.Logical.Hysteresis hysPum(
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysPum(
     uLow=273.15 + 19,
     uHigh=273.15 + 21)
     \"Pump hysteresis\";
@@ -334,12 +335,12 @@ to negate the signal.
 The output of this signal is a boolean value, but the pump
 input signal is the required mass flow rate.
 Thus, we used the block
-<a href=\"modelica://Modelica.Blocks.Math.BooleanToReal\">
-Modelica.Blocks.Math.BooleanToReal</a> to convert the signal.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Conversions.BooleanToReal\">
+Buildings.Controls.OBC.CDL.Conversions.BooleanToReal</a> to convert the signal.
 We set the parameters of the boolean to real converter as
 </p>
 <pre>
-  Modelica.Blocks.Math.BooleanToReal booToReaRad(
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaRad(
         realTrue=mRad_flow_nominal,
         realFalse=0) \"Radiator pump signal\";
 </pre>
