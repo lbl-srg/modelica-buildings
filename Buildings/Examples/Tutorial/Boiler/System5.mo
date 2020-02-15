@@ -56,9 +56,9 @@ model System5
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap(C=2*V*1.2*1006)
     "Heat capacity for furniture and walls"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Modelica.Blocks.Sources.CombiTimeTable timTab(
-      extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-      smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTab(
+      extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic,
+      smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
       table=[-6, 0;
               8, QRooInt_flow;
              18, 0],
@@ -257,7 +257,7 @@ model System5
   Buildings.Controls.OBC.CDL.Continuous.LimPID conPIDBoi(
     Td=1,
     Ti=120,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=0.1,
     yMax=1,
     yMin=0,
@@ -273,7 +273,7 @@ model System5
   Buildings.Controls.OBC.CDL.Continuous.LimPID conPIDRad(
     Td=1,
     Ti=120,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=0.1,
     yMax=1,
     yMin=0)
@@ -529,7 +529,7 @@ We configured the controller as
 </p>
 <pre>
   Buildings.Controls.OBC.CDL.Continuous.LimPID conPIDBoi(
-    controllerType=Modelica.Blocks.Types.SimpleController.P,
+    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     k=0.1,
     Ti=120,
     Td=1,
