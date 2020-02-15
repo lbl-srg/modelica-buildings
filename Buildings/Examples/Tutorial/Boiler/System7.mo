@@ -222,10 +222,6 @@ model System7
     yMin=0,
     reverseAction=true) "Controller for valve in boiler loop"
     annotation (Placement(transformation(extent={{160,-270},{180,-250}})));
-  Buildings.Controls.SetPoints.Table TSetSup(table=[273.15 + 19, 273.15 + 50;
-                                          273.15 + 21, 273.15 + 21])
-    "Setpoint for supply water temperature"
-    annotation (Placement(transformation(extent={{-220,-20},{-200,0}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conPIDRad(
     Td=1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
@@ -234,6 +230,19 @@ model System7
     yMax=1,
     yMin=0) "Controller for valve in radiator loop"
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
+  Buildings.Controls.OBC.CDL.Continuous.Line TSetSup
+    "Setpoint for supply water temperature"
+    annotation (Placement(transformation(extent={{-220,-70},{-200,-50}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMin(k=273.15 + 21)
+    "Minimum heating supply temperature"
+    annotation (Placement(transformation(extent={{-260,-100},{-240,-80}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMax(k=273.15 + 50)
+    "Maximum heating supply temperature"
+    annotation (Placement(transformation(extent={{-260,-40},{-240,-20}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TRooMin(k=273.15 + 19)
+    "Minimum room air temperature"
+    annotation (Placement(transformation(extent={{-260,0},{-240,20}})));
+
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Weather data reader"
@@ -309,7 +318,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(timTab.y[1], preHea.Q_flow) annotation (Line(
-      points={{1,80},{20,80}},
+      points={{2,80},{20,80}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(temSup.port_b, rad.port_a) annotation (Line(
@@ -409,14 +418,6 @@ equation
 
   connect(booToReaRad2.y, boi.y) annotation (Line(
       points={{-78,-330},{40,-330},{40,-302},{22,-302}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(temRoo.T, TSetSup.u) annotation (Line(
-      points={{-50,30},{-270,30},{-270,-10},{-222,-10}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(TSetSup.y, conPIDRad.u_s) annotation (Line(
-      points={{-199,-10},{-182,-10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(temSup.T, conPIDRad.u_m) annotation (Line(
@@ -547,7 +548,8 @@ equation
   connect(T3.condition, greThrBoi.y) annotation (Line(points={{-186,-202},{-186,
           -202},{-186,-310},{-399,-310}}, color={255,0,255}));
   connect(allOff.active, not1.u) annotation (Line(points={{-230,-161},{-230,-166},
-          {-210,-166},{-210,-70},{-182,-70}}, color={255,0,255}));
+          {-210,-166},{-210,-82},{-190,-82},{-190,-70},{-182,-70}},
+                                              color={255,0,255}));
   connect(pumpsOn.outPort[1], alternative.inPort)
     annotation (Line(points={{-299.5,-170},{-292.04,-170}}, color={0,0,0}));
   connect(alternative.outPort, pumpsOn.inPort[1]) annotation (Line(points={{-152.64,
@@ -564,6 +566,19 @@ equation
   connect(T3.outPort, alternative.join[2])
     annotation (Line(points={{-184.5,-190},{-176,-190},{-176,-170},{-168.28,
           -170}},                                           color={0,0,0}));
+  connect(TSetSup.x1,TRooMin. y) annotation (Line(points={{-222,-52},{-230,-52},
+          {-230,10},{-238,10}},
+                              color={0,0,127}));
+  connect(TSupMax.y,TSetSup. f1) annotation (Line(points={{-238,-30},{-234,-30},
+          {-234,-56},{-222,-56}}, color={0,0,127}));
+  connect(TSupMin.y,TSetSup. f2) annotation (Line(points={{-238,-90},{-230,-90},
+          {-230,-68},{-222,-68}}, color={0,0,127}));
+  connect(TSupMin.y,TSetSup. x2) annotation (Line(points={{-238,-90},{-230,-90},
+          {-230,-64},{-222,-64}}, color={0,0,127}));
+  connect(TSetSup.u, temRoo.T) annotation (Line(points={{-222,-60},{-270,-60},{-270,
+          30},{-50,30}}, color={0,0,127}));
+  connect(conPIDRad.u_s,TSetSup. y) annotation (Line(points={{-182,-10},{-188,-10},
+          {-188,-60},{-198,-60}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 This part of the system model changes the implementation of the control in

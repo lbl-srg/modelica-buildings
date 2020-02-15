@@ -243,12 +243,12 @@ model System5
     uLow=273.15 + 19,
     uHigh=273.15 + 21)
     "Pump hysteresis"
-    annotation (Placement(transformation(extent={{-260,-82},{-240,-62}})));
+    annotation (Placement(transformation(extent={{-260,-160},{-240,-140}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaRad(realTrue=mRad_flow_nominal)
     "Radiator pump signal"
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Negate output of hysteresis"
-    annotation (Placement(transformation(extent={{-220,-82},{-200,-62}})));
+    annotation (Placement(transformation(extent={{-220,-160},{-200,-140}})));
 
 //------------------------Step 2: Boiler loop valve control-----------------------//
  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetBoiRet(k=TBoiRet_min)
@@ -266,10 +266,6 @@ model System5
 //--------------------------------------------------------------------------------//
 
 //----------------------Step 3: Radiator loop valve control-----------------------//
-  Buildings.Controls.SetPoints.Table TSetSup(table=[273.15 + 19, 273.15 + 50;
-                                          273.15 + 21, 273.15 + 21])
-    "Setpoint for supply water temperature"
-    annotation (Placement(transformation(extent={{-220,-20},{-200,0}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conPIDRad(
     Td=1,
     Ti=120,
@@ -280,7 +276,18 @@ model System5
            "Controller for valve in radiator loop"
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
 //--------------------------------------------------------------------------------//
-
+  Buildings.Controls.OBC.CDL.Continuous.Line TSetSup
+    "Setpoint for supply water temperature"
+    annotation (Placement(transformation(extent={{-220,-90},{-200,-70}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMin(k=273.15 + 21)
+    "Minimum heating supply temperature"
+    annotation (Placement(transformation(extent={{-260,-120},{-240,-100}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMax(k=273.15 + 50)
+    "Maximum heating supply temperature"
+    annotation (Placement(transformation(extent={{-260,-60},{-240,-40}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TRooMin(k=273.15 + 19)
+    "Minimum room air temperature"
+    annotation (Placement(transformation(extent={{-260,-20},{-240,0}})));
 equation
   connect(TOut.port, theCon.port_a) annotation (Line(
       points={{-340,50},{20,50}},
@@ -299,7 +306,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(timTab.y[1], preHea.Q_flow) annotation (Line(
-      points={{1,80},{20,80}},
+      points={{2,80},{20,80}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(temSup.port_b, rad.port_a) annotation (Line(
@@ -442,28 +449,20 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(temRoo.T,hysPum. u) annotation (Line(
-      points={{-50,30},{-270,30},{-270,-72},{-262,-72}},
+      points={{-50,30},{-270,30},{-270,-150},{-262,-150}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(hysPum.y,not1. u) annotation (Line(
-      points={{-238,-72},{-222,-72}},
+      points={{-238,-150},{-222,-150}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(not1.y, and1.u1) annotation (Line(
-      points={{-198,-72},{-192,-72},{-192,-150},{-182,-150}},
+      points={{-198,-150},{-182,-150}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(and1.y, booToReaRad.u) annotation (Line(
       points={{-158,-150},{-152,-150},{-152,-70},{-142,-70}},
       color={255,0,255},
-      smooth=Smooth.None));
-  connect(temRoo.T, TSetSup.u) annotation (Line(
-      points={{-50,30},{-270,30},{-270,-10},{-222,-10}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(TSetSup.y, conPIDRad.u_s) annotation (Line(
-      points={{-199,-10},{-182,-10}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(temSup.T, conPIDRad.u_m) annotation (Line(
       points={{-61,-40},{-170,-40},{-170,-22}},
@@ -489,6 +488,18 @@ equation
           -260},{158,-260}}, color={0,0,127}));
   connect(temRet.T, conPIDBoi.u_m) annotation (Line(points={{71,-280},{110,-280},
           {170,-280},{170,-272}}, color={0,0,127}));
+  connect(conPIDRad.u_s, TSetSup.y) annotation (Line(points={{-182,-10},{-190,-10},{-190,
+          -80},{-198,-80}},       color={0,0,127}));
+  connect(TSetSup.x1, TRooMin.y) annotation (Line(points={{-222,-72},{-230,-72},{-230,
+          -10},{-238,-10}},   color={0,0,127}));
+  connect(TSupMax.y, TSetSup.f1) annotation (Line(points={{-238,-50},{-234,-50},{-234,
+          -76},{-222,-76}},       color={0,0,127}));
+  connect(TSupMin.y, TSetSup.f2) annotation (Line(points={{-238,-110},{-230,-110},{-230,
+          -88},{-222,-88}},       color={0,0,127}));
+  connect(TSupMin.y, TSetSup.x2) annotation (Line(points={{-238,-110},{-230,-110},{-230,
+          -84},{-222,-84}},       color={0,0,127}));
+  connect(TSetSup.u, temRoo.T) annotation (Line(points={{-222,-80},{-270,-80},{-270,30},
+          {-50,30}},     color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 This part of the system model adds to the model that is implemented in
@@ -561,23 +572,19 @@ can open.
 The valve control for the radiator loop is implemented similar to
 the boiler loop, with the exception that the setpoint is computed
 using the model
-<a href=\"modelica://Buildings.Controls.SetPoints.Table\">
-Buildings.Controls.SetPoints.Table</a> to implement
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Line\">
+Buildings.Controls.OBC.CDL.Continuous.Line</a> to implement
 a set point that shifts as a function of the room temperature.
 This instance is called <code>TSetSup</code> in the
-control sequence shown in the figure below.
+control sequence shown in the figure below, and takes as an input
+the room temperature, and the points for the
+<i>(x<sub>1</sub>, f<sub>1</sub>)</i> and
+<i>(x<sub>2</sub>, f<sub>2</sub>)</i> coordinates through which the setpoint
+goes.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System5RadiatorValve.png\" border=\"1\"/>
 </p>
-<p>
-Its configuration is
-</p>
-<pre>
-  Buildings.Controls.SetPoints.Table TSetSup(table=[273.15 + 19, 273.15 + 50;
-                                          273.15 + 21, 273.15 + 21])
-                                          \"Setpoint for supply water temperature\";
-</pre>
 </li>
 </ol>
 <!-- ============================================== -->
