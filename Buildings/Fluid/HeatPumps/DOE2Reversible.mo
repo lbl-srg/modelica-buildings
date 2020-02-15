@@ -104,8 +104,6 @@ protected
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TSouLvg
     "Leaving water temperature form source heat exchanger"
     annotation (Placement(transformation(extent={{10,-42},{-10,-22}})));
-
-
   Controls.OBC.CDL.Integers.GreaterThreshold isHea(final threshold=0)
     "Output true if in heating mode"
     annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
@@ -145,75 +143,96 @@ protected
     "Set point for evaporator leaving temperature"
     annotation (Placement(transformation(extent={{20,100},{40,120}})));
 equation
-  connect(uMod, thePer.uMod) annotation (Line(points={{-110,130},{-88,130},{-88,
+  connect(uMod, thePer.uMod)
+   annotation (Line(points={{-110,130},{-88,130},{-88,
           10},{-20,10},{-20,0},{39,0}}, color={255,127,0}));
-  connect(thePer.Q1_flow, QLoa_flow) annotation (Line(
+  connect(thePer.Q1_flow, QLoa_flow)
+   annotation (Line(
       points={{61,4},{84,4},{84,88},{110,88}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(thePer.P, P) annotation (Line(
+  connect(thePer.P, P)
+   annotation (Line(
       points={{61,0},{86,0},{86,0},{110,0}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(thePer.Q2_flow, QSou_flow) annotation (Line(
+  connect(thePer.Q2_flow, QSou_flow)
+   annotation (Line(
       points={{61,-4},{82,-4},{82,-88},{110,-88}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(thePer.Q1_flow, preHeaFloLoa.Q_flow)
-    annotation (Line(points={{61,4},{68,4},{68,30},{61,30}}, color={0,0,127}));
-  connect(thePer.Q2_flow, preHeaFloSou.Q_flow) annotation (Line(points={{61,-4},
+   annotation (Line(points={{61,4},{68,4},{68,30},{61,30}}, color={0,0,127}));
+  connect(thePer.Q2_flow, preHeaFloSou.Q_flow)
+   annotation (Line(points={{61,-4},
           {68,-4},{68,-32},{61,-32}}, color={0,0,127}));
-  connect(TSet, conHeaMod.TSet) annotation (Line(points={{-110,150},{-48,150},{-48,
+  connect(TSet, conHeaMod.TSet)
+   annotation (Line(points={{-110,150},{-48,150},{-48,
           130.8},{-21,130.8}}, color={0,0,127}));
   connect(preHeaFloSou.port, vol2.heatPort)
-  annotation (Line(points={{41,-32},{26,-32},{26,-60},{12,-60}},
+   annotation (Line(points={{41,-32},{26,-32},{26,-60},{12,-60}},
                                                color={191,0,0}));
-  connect(TSouMinLvg, conHeaMod.TSouLvgMin) annotation (Line(points={{-110,-20},
+  connect(TSouMinLvg, conHeaMod.TSouLvgMin)
+   annotation (Line(points={{-110,-20},
           {-52,-20},{-52,137},{-21,137}}, color={0,0,127}));
-  connect(TSouMaxLvg, conHeaMod.TSouLvgMax) annotation (Line(points={{-110,0},{-56,
+  connect(TSouMaxLvg, conHeaMod.TSouLvgMax)
+   annotation (Line(points={{-110,0},{-56,
           0},{-56,134},{-21,134}}, color={0,0,127}));
   connect(vol2.heatPort, TSouLvg.port)
-  annotation (Line(points={{12,-60},{26,-60},{26,-32},{10,-32}},
+   annotation (Line(points={{12,-60},{26,-60},{26,-32},{10,-32}},
                              color={191,0,0}));
   connect(vol1.heatPort, TLoaLvg.port)
-  annotation (Line(points={{-10,60},{-20,60},{-20,30}},
+   annotation (Line(points={{-10,60},{-20,60},{-20,30}},
                               color={191,0,0}));
-  connect(TLoaLvg.T, conHeaMod.TLoaLvg) annotation (Line(points={{-40,30},{-46,30},
+  connect(TLoaLvg.T, conHeaMod.TLoaLvg)
+   annotation (Line(points={{-40,30},{-46,30},
           {-46,128},{-21,128}}, color={0,0,127}));
-  connect(uMod, isHea.u) annotation (Line(points={{-110,130},{-82,130}},
+  connect(uMod, isHea.u)
+   annotation (Line(points={{-110,130},{-82,130}},
                      color={255,127,0}));
   connect(TConEnt.u2, isHea.y)
-    annotation (Line(points={{38,190},{-54,190},{-54,130},{-58,130}},
+   annotation (Line(points={{38,190},{-54,190},{-54,130},{-58,130}},
                                                 color={255,0,255}));
-  connect(thePer.TConEnt, TConEnt.y) annotation (Line(points={{39,-8},{28,-8},{28,
+  connect(thePer.TConEnt, TConEnt.y)
+   annotation (Line(points={{39,-8},{28,-8},{28,
           18},{82,18},{82,190},{62,190}}, color={0,0,127}));
-  connect(thePer.TEvaLvg, TEvaLvg.y) annotation (Line(points={{39,-12},{26,-12},
+  connect(thePer.TEvaLvg, TEvaLvg.y)
+   annotation (Line(points={{39,-12},{26,-12},
           {26,20},{80,20},{80,160},{62,160}}, color={0,0,127}));
-  connect(TEvaLvg.u1, TSouLvg.T) annotation (Line(points={{38,168},{4,168},{4,96},
+  connect(TEvaLvg.u1, TSouLvg.T)
+   annotation (Line(points={{38,168},{4,168},{4,96},
           {-42,96},{-42,-32},{-10,-32}},
                            color={0,0,127}));
-  connect(TEvaLvg.u3, TLoaLvg.T) annotation (Line(points={{38,152},{8,152},{8,88},
+  connect(TEvaLvg.u3, TLoaLvg.T)
+   annotation (Line(points={{38,152},{8,152},{8,88},
           {-46,88},{-46,30},{-40,30}},
                          color={0,0,127}));
-  connect(TEvaLvg.u2, isHea.y) annotation (Line(points={{38,160},{-54,160},{-54,
+  connect(TEvaLvg.u2, isHea.y)
+   annotation (Line(points={{38,160},{-54,160},{-54,
           130},{-58,130}},
                      color={255,0,255}));
-  connect(TConEnt.u3, T_a2.y) annotation (Line(points={{38,182},{21,182}},
+  connect(TConEnt.u3, T_a2.y)
+   annotation (Line(points={{38,182},{21,182}},
                       color={0,0,127}));
-  connect(TConEnt.u1, T_a1.y) annotation (Line(points={{38,198},{21,198}},
+  connect(TConEnt.u1, T_a1.y)
+   annotation (Line(points={{38,198},{21,198}},
                       color={0,0,127}));
-  connect(isHea.y, conHeaMod.isHea) annotation (Line(points={{-58,130},{-54,130},
+  connect(isHea.y, conHeaMod.isHea)
+   annotation (Line(points={{-58,130},{-54,130},
           {-54,124},{-22,124}}, color={255,0,255}));
-  connect(TSetEva.u2, isHea.y) annotation (Line(points={{18,110},{-54,110},{-54,
+  connect(TSetEva.u2, isHea.y)
+   annotation (Line(points={{18,110},{-54,110},{-54,
           130},{-58,130}}, color={255,0,255}));
-  connect(TSetEva.u1, conHeaMod.TSetEvaLvg) annotation (Line(points={{18,118},{10,
+  connect(TSetEva.u1, conHeaMod.TSetEvaLvg)
+   annotation (Line(points={{18,118},{10,
           118},{10,128},{1,128}}, color={0,0,127}));
-  connect(TSet, TSetEva.u3) annotation (Line(points={{-110,150},{-48,150},{-48,102},
+  connect(TSet, TSetEva.u3)
+   annotation (Line(points={{-110,150},{-48,150},{-48,102},
           {18,102}}, color={0,0,127}));
   connect(preHeaFloLoa.port, TLoaLvg.port)
-    annotation (Line(points={{41,30},{-20,30}}, color={191,0,0}));
+   annotation (Line(points={{41,30},{-20,30}}, color={191,0,0}));
   connect(QEvaSet_flow.y, thePer.QSet_flow)
-    annotation (Line(points={{13,14},{20,14},{20,4},{39,4}}, color={0,0,127}));
+   annotation (Line(points={{13,14},{20,14},{20,4},{39,4}}, color={0,0,127}));
 annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),
      graphics={

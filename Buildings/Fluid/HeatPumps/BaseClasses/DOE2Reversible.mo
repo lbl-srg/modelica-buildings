@@ -15,8 +15,6 @@ block DOE2Reversible
     "Evaporator capacity in heating mode to the reference cooling capacity";
   parameter Modelica.SIunits.Efficiency powRat=1.4
     "Compressor power in heating mode to the reference cooling power power";
-  parameter Modelica.SIunits.HeatFlowRate QCoo_flow=per.coo.QEva_flow_nominal*
-      scaling_factor "Nominal cooling capacity at the load side";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConEnt(final unit="K",
       displayUnit="degC") "Condenser entering temperature" annotation (
@@ -48,9 +46,14 @@ block DOE2Reversible
    "Compressor power"
     annotation (Placement(transformation(extent={{100,30},{120,50}}),
         iconTransformation(extent={{100,30},{120,50}})));
-
-   Buildings.Controls.OBC.CDL.Interfaces.RealOutput COPCoo(final min=0, final
-      unit="1") "Coefficient of performance for cooling" annotation (Placement(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput COPHea(final min=0, final unit="1")
+    "Coefficient of performance for heating"
+    annotation (Placement(
+        transformation(extent={{100,-90},{120,-70}}), iconTransformation(extent=
+           {{100,-50},{120,-30}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput COPCoo(final min=0, final unit="1")
+    "Coefficient of performance for cooling"
+    annotation (Placement(
         transformation(extent={{100,-50},{120,-30}}), iconTransformation(extent=
            {{100,-50},{120,-30}})));
    Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uMod
@@ -82,10 +85,6 @@ block DOE2Reversible
     unit="1")
    "Cycling ratio";
 
-  Controls.OBC.CDL.Interfaces.RealOutput COPHea(final min=0, final unit="1")
-    "Coefficient of performance for heating" annotation (Placement(
-        transformation(extent={{100,-90},{120,-70}}), iconTransformation(extent=
-           {{100,-50},{120,-30}})));
 protected
   parameter Modelica.SIunits.HeatFlowRate Q_flow_small=-per.coo.QEva_flow_nominal*1E-6*scaling_factor
     "Small value for heat flow rate or power, used to avoid division by zero";
@@ -196,7 +195,7 @@ equation
 
     // QAva_flow is always at the evaporator, hence this is for COPCoo
     P = Buildings.Utilities.Math.Functions.smoothMax(
-      x1 = (-QAva_flow*PLR1*CR/per.COPCoo_nominal) * EIRFT*EIRFPLR,
+      x1 = (-QAva_flow*CR/per.COPCoo_nominal) * EIRFT*EIRFPLR,
       x2 = Q_flow_small,
       deltaX = Q_flow_small/10);
     QFalLoa_flow = QAva_flow*PLR2*CR - QAct_flow;
@@ -210,7 +209,7 @@ equation
   if (uMod == +1) then
     // Heating mode
     Q2_flow = QAct_flow;
-    Q1_flow = -Q2_flow + P;
+    Q1_flow = -Q2_flow + (P *powRat);
   elseif (uMod==-1) then
     // Cooling mode
     Q1_flow = QAct_flow;
@@ -219,8 +218,6 @@ equation
     Q2_flow = 0;
     Q1_flow = 0;
   end if;
-
-
 annotation (
 defaultComponentName="doe2",
 Documentation(info="<html>
