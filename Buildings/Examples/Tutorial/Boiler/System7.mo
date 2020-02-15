@@ -272,7 +272,7 @@ model System7
     annotation (Placement(transformation(extent={{-228,-200},{-208,-180}})));
   Modelica.StateGraph.TransitionWithSignal T2 "Transition to boiler on"
     annotation (Placement(transformation(extent={{-258,-200},{-238,-180}})));
-  Modelica.Blocks.Logical.GreaterThreshold greThrBoi(threshold=273.15 + 90)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrBoi(threshold=273.15 + 90)
     "Threshold for boiler control"
     annotation (Placement(transformation(extent={{-420,-320},{-400,-300}})));
   Modelica.StateGraph.TransitionWithSignal T3(
@@ -284,19 +284,19 @@ model System7
   Modelica.StateGraph.Step pumpsOn(nIn=1, nOut=1) "Pumps are on"
     annotation (Placement(transformation(extent={{-320,-180},{-300,-160}})));
 //--------------------------------------------------------------------------------------//
-  Modelica.Blocks.Logical.LessThreshold lessThreshold(threshold=273.15 + 19)
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lessThreshold(threshold=273.15 + 19)
     annotation (Placement(transformation(extent={{-420,-210},{-400,-190}})));
-  Modelica.Blocks.Logical.LessThreshold lessThreshold1(threshold=273.15 + 16)
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lessThreshold1(threshold=273.15 + 16)
     annotation (Placement(transformation(extent={{-420,-240},{-400,-220}})));
   Buildings.Controls.OBC.CDL.Logical.And and3
     annotation (Placement(transformation(extent={{-380,-232},{-360,-212}})));
-  Modelica.Blocks.Logical.LessThreshold lessThreshold2(threshold=273.15 + 70)
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lessThreshold2(threshold=273.15 + 70)
     "Threshold for boiler control"
     annotation (Placement(transformation(extent={{-420,-290},{-400,-270}})));
-  Modelica.Blocks.Logical.GreaterThreshold greThrTRoo(threshold=273.15 + 21)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrTRoo(threshold=273.15 + 21)
     "Threshold for room temperature"
     annotation (Placement(transformation(extent={{-420,-130},{-400,-110}})));
-  Modelica.Blocks.Logical.GreaterThreshold greThrTROut(threshold=273.15 + 17)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrTROut(threshold=273.15 + 17)
     "Threshold for room temperature"
     annotation (Placement(transformation(extent={{-420,-160},{-400,-140}})));
   Buildings.Controls.OBC.CDL.Logical.And and1
