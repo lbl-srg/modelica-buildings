@@ -70,17 +70,18 @@ partial model PartialConnection1Pipe
     annotation (Placement(transformation(extent={{-50,110},{-30,130}}),
     iconTransformation(extent={{-10,90},{10,110}})));
   Modelica.Blocks.Interfaces.RealOutput mCon_flow(
-    final quantity="MassFlowRate")
+    final quantity="MassFlowRate", final unit="kg/s")
     "Connection supply mass flow rate (sensed)"
     annotation (Placement(transformation(
       extent={{100,40},{140,80}}),
       iconTransformation(extent={{100,50},{120, 70}})));
   Modelica.Blocks.Interfaces.RealOutput Q_flow(
-    final quantity="HeatFlowRate")
+    final quantity="HeatFlowRate", final unit="W")
     "Heat flow rate transferred to the connected load (>=0 for heating)"
     annotation (Placement(transformation(extent={{100,80},{140,120}}),
       iconTransformation(extent={{100,70},{120,90}})));
-  Modelica.Blocks.Interfaces.RealOutput mByp_flow if have_bypFloSen
+  Modelica.Blocks.Interfaces.RealOutput mByp_flow(
+    final quantity="MassFlowRate", final unit="kg/s") if have_bypFloSen
     "Bypass mass flow rate"
     annotation (Placement(transformation(extent={{100,0},{140,40}}),
         iconTransformation(extent={{100,30},{120,50}})));

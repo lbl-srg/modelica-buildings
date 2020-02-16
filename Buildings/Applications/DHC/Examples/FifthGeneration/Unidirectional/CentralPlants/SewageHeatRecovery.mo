@@ -38,7 +38,9 @@ model SewageHeatRecovery "Model for sewage heat recovery plant"
     annotation (Placement(transformation(
       extent={{90,-10},{110,10}}),  iconTransformation(extent={{90,-10},{110,
         10}})));
-  Modelica.Blocks.Interfaces.RealInput TSewWat
+  Modelica.Blocks.Interfaces.RealInput TSewWat(
+    final quantity="ThermodynamicTemperature",
+    final unit="K", final displayUnit="degC")
     "Sewage water temperature"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -47,7 +49,9 @@ model SewageHeatRecovery "Model for sewage heat recovery plant"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-110,80})));
-  Modelica.Blocks.Interfaces.RealInput mPum_flow
+  Modelica.Blocks.Interfaces.RealInput mPum_flow(
+    final quantity="MassFlowRate",
+    final unit="kg/s")
     "Pumps mass flow rate"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},

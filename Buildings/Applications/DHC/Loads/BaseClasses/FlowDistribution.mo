@@ -32,6 +32,8 @@ model FlowDistribution "Model of building hydraulic distribution system"
   parameter Boolean have_val = false
     "Set to true if the system has a mixing valve"
     annotation(Evaluate=true);
+  parameter Boolean have_twoPip = true
+    "Set to true in case of a two-pipe system";
   parameter Type_dis typDis = Type_dis.HeatingWater
     "Type of distribution system"
     annotation(Dialog(enable=have_val), Evaluate=true);
@@ -128,17 +130,17 @@ model FlowDistribution "Model of building hydraulic distribution system"
       rotation=0,
       origin={-110,-80})));
   Modelica.Blocks.Interfaces.RealOutput mReqTot_flow(
-    final quantity="MassFlowRate")
+    final quantity="MassFlowRate", final unit="kg/s")
     "Total heating or chilled water flow rate required to meet the loads"
     annotation (Placement(transformation(extent={{100,240},{140,280}}),
       iconTransformation(extent={{100,-50},{120,-30}})));
   Modelica.Blocks.Interfaces.RealOutput QActTot_flow(
-    final quantity="HeatFlowRate")
+    final quantity="HeatFlowRate", final unit="W")
     "Total heat flow rate transferred to the loads (>=0 for heating)"
     annotation (Placement(transformation(extent={{100,140},{140,180}}),
       iconTransformation(extent={{100,-70},{120,-50}})));
   Modelica.Blocks.Interfaces.RealOutput PPum(
-    final quantity="Power") if have_pum
+    final quantity="Power", final unit="W") if have_pum
     "Power drawn by pump motor"
     annotation (Placement(transformation(extent={{100,100},{140,140}}),
       iconTransformation(extent={{100,-90},{120,-70}})));
@@ -252,13 +254,6 @@ model FlowDistribution "Model of building hydraulic distribution system"
   MixingValveControl conVal(final typDis=typDis) if have_val
     "Mixing valve controller"
     annotation (Placement(transformation(extent={{-48,-106},{-28,-86}})));
-  // MISCELLANEOUS VARIABLES
-  Modelica.SIunits.Temperature TSup(final displayUnit="degC")=
-    Medium.temperature(state=Medium.setState_phX(
-    p=pipPre.port_a.p,
-    h=inStream(pipPre.port_a.h_outflow),
-    X=inStream(pipPre.port_a.Xi_outflow)))
-    "Supply temperature";
   Modelica.Blocks.Sources.RealExpression dpNetVal(final y=dpPum - dpVal_nominal)
     "Pressure drop over the distribution network (excluding mixing valve)"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},
@@ -272,6 +267,13 @@ model FlowDistribution "Model of building hydraulic distribution system"
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-90,60})));
+  // MISCELLANEOUS VARIABLES
+  Modelica.SIunits.Temperature TSup(final displayUnit="degC")=
+    Medium.temperature(state=Medium.setState_phX(
+    p=pipPre.port_a.p,
+    h=inStream(pipPre.port_a.h_outflow),
+    X=inStream(pipPre.port_a.Xi_outflow)))
+    "Supply temperature";
   Buildings.Fluid.Movers.FlowControlled_m_flow pumFlo(
     redeclare final package Medium = Medium,
     per(
@@ -350,6 +352,13 @@ initial equation
     "In " + getInstanceName() +
     ": The configuration where have_val is true and have_pum is false is not allowed.");
 equation
+
+  assert(mReqTot_flow < m_flow_nominal,
+    "In " + getInstanceName() + ": The total required mass flow rate equals "
+    + String(mReqTot_flow) + " (kg/s) which is higher than the nominal mass
+    flow rate value of " + String(m_flow_nominal) + " (kg/s).",
+    AssertionLevel.error);
+
   connect(sumMasFloReq.y, mReqTot_flow)
     annotation (Line(points={{-58,260},{120,260}}, color={0,0,127}));
   connect(mReq_flow, sumMasFloReq.u)
@@ -366,7 +375,7 @@ equation
   connect(senMasFlo.port_b, heaCoo.port_a)
     annotation (Line(points={{30,0},{46,0}}, color={0,127,255}));
   connect(Q_flowSum.y, QActTot_flow)
-    annotation (Line(points={{-48,140},{40,140},{40,160},{120,160}},
+    annotation (Line(points={{-48,140},{94,140},{94,160},{120,160}},
                                                    color={0,0,127}));
   connect(QAct_flow.y, Q_flowSum.u)
     annotation (Line(points={{-79,140},{-72,140}}, color={0,0,127}));
@@ -451,62 +460,124 @@ annotation (
   defaultComponentName="dis",
   Documentation(info="<html>
 <p>
-This model represents a hydraulic distribution system serving multiple 
+This model represents a hydraulic distribution system serving multiple
 terminal units.
 It is primarily intended to be used in conjunction with models that derive from
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit\">
 Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit</a>.
 </p>
 <p>
-The pipe network modeling is decoupled between a main distribution 
+The pipe network modeling is decoupled between a main distribution
 loop and several terminal branch circuits:
 </p>
 <ul>
 <li>
-The flow rate in each branch circuit is equal to the flow rate demand yielded 
-by the terminal unit model, constrained by the condition that the sum of all 
+The flow rate in each branch circuit is equal to the flow rate demand yielded
+by the terminal unit model, constrained by the condition that the sum of all
 demands is lower or equal to the flow rate in the main loop.
+Additionallyi if the total flow rate demand exceeds the
+nominal mass flow rate the model throws an error.
 </li>
 <li>
-The inlet temperature in each branch circuit is equal to the supply temperature 
+The inlet temperature in each branch circuit is equal to the supply temperature
 in the main loop.
-The outlet temperature in the main loop results from transferring the enthalpy 
+The outlet temperature in the main loop results from transferring the enthalpy
 flow rate of each individual fluid stream to the main fluid stream.
 </li>
 <li>
 The pressure drop in the main distribution loop corresponds to the pressure drop
-over the whole distribution system (the pump head): it is governed by an equation 
-representing the control logic of the distribution pump. 
-The pressure drop in each branch circuit is irrelevant: <code>dp_nominal</code> 
+over the whole distribution system (the pump head): it is governed by an equation
+representing the control logic of the distribution pump.
+The pressure drop in each branch circuit is irrelevant: <code>dp_nominal</code>
 (water side) must be set to zero for each terminal unit component.
 </li>
 </ul>
-<p>
-This modeling approach aims to minimize the number of algebraic equations by 
-avoiding an explicit modeling of the terminal actuators and the whole flow network.
-</p>
-<p>
-In addition the assumption <code>allowFlowReversal=false</code> is used systematically
-together with boundary conditions which actually ensure that no reverse flow conditions are
-encountered in simulation. This allows directly accessing the inlet enthalpy value of a
-component from the fluid port <code>port_a</code> with the built-in function <code>inStream</code>.
-This approach is preferred to the use of two-port sensors which introduce a state to ensure
-a smooth transition at flow reversal.
-All connected components must meet the same requirements.
-</p>
 <p>
 Optionally:
 </p>
 <ul>
 <li>
-a distribution pump can be modeled with a prescribed flow rate corresponding to the total flow rate
-demand,
+A distribution pump can be modeled with a prescribed flow rate corresponding
+to the total flow rate demand.
 </li>
 <li>
-a mixing valve can be modeled (together with a distribution pump) with a control loop
-tracking the supply temperature.
+A mixing valve can be modeled (together with a distribution pump) with a
+control loop tracking the supply temperature.
 </li>
 </ul>
+<h4>Pump head computation</h4>
+<p>
+The pump head is computed according to the schematics hereunder, under the
+assumption of a two-pipe distribution system.
+</p>
+<ul>
+<li>
+In case of a constant pump head:
+<p style=\"font-style:italic;\">
+&Delta;P<sub>pump</sub> = dp_nominal
+</p>
+</li>
+<li>
+In case of a constant flow rate (three-way valves) the network flow
+characteristics is considered independent from the actuator positions.
+Thus:
+<p style=\"font-style:italic;\">
+&Delta;P<sub>pump</sub> = dp_nominal
+</p>
+<li>
+In case of a linear head:
+<p style=\"font-style:italic;\">
+&Delta;P<sub>pump</sub> = dpMin + (dp_nominal - dpMin) * m&#775; / m_flow_nominal
+</p>
+</li>
+<li>
+In case of a constant speed the pump head is computed based on the pump pressure
+curve and the total required mass flow rate.
+<li>
+In case of a constant pressure difference at a given location:
+<p style=\"font-style:italic;\">
+&Delta;P<sub>pump</sub> = &Sigma;<sub>i</sub> 1 / K<sub>i</sub><sup>2</sup> *
+m&#775;<sub>i</sub><sup>2</sup>
+</p>
+<p>
+Where:
+</p>
+<ul>
+<li>
+<i>m&#775;<sub>i</sub></i> is the mass flow rate in the network branch directly
+upstream the i<sup>th</sup> connection:
+<i>m&#775;<sub>i</sub> = &Sigma;<sub>i to nUni</sub> mReq_flow[i]</i>
+</li>
+<li>
+<i>K<sub>i</sub></i> is the flow coefficient of the network branch directly
+upstream the i<sup>th</sup> connection. It is considered constant and computed
+at nominal conditions with:
+<i>K<sub>i</sub> = (&Sigma;<sub>i to nUni</sub> mUni_flow_nominal[i]) /
+dpDis_nominal[i]<sup>0.5</sup></i>
+</li>
+</ul>
+</li>
+</ul>
+<h4>Computational performance</h4>
+<p>
+The general modeling approach aims to minimize the number of algebraic
+equations by avoiding an explicit modeling of the terminal actuators and
+the whole flow network.
+</p>
+<p>
+In addition the assumption <code>allowFlowReversal=false</code> is used
+systematically together with boundary conditions which actually ensure that
+no reverse flow conditions are encountered in simulation.
+This allows directly accessing the inlet enthalpy value of a component from
+the fluid port <code>port_a</code> with the built-in function <code>inStream</code>.
+This approach is preferred to the use of two-port sensors which introduce a
+state to ensure a smooth transition at flow reversal.
+All connected components must meet the same requirements.
+</p>
+<p>
+  <img alt=\"image\"
+  src=\"modelica://Buildings/Resources/Images/Applications/DHC/Loads/FlowDistribution.png\"/>
+</p>
 </html>"),
   Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-100},{100,100}}),
@@ -524,13 +595,13 @@ tracking the supply temperature.
           pattern=LinePattern.None,
           lineColor={0,0,0}),
         Rectangle(
-          extent={{-50,6},{50,-6}},
+          extent={{-49,6},{49,-6}},
           lineThickness=1,
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
           lineColor={0,0,0},
-          origin={66,44},
+          origin={66,43},
           rotation=90),
         Rectangle(
           extent={{72,6},{100,-6}},
@@ -540,20 +611,20 @@ tracking the supply temperature.
           pattern=LinePattern.None,
           lineColor={0,0,0}),
         Rectangle(
-          extent={{-60,78},{-6,66}},
+          extent={{-60,92},{-6,80}},
           lineThickness=1,
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
           lineColor={0,0,0}),
         Rectangle(
-          extent={{-36,6},{36,-6}},
+          extent={{-43,6},{43,-6}},
           lineThickness=1,
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
           lineColor={0,0,0},
-          origin={-8.88178e-16,42},
+          origin={-2.66454e-15,49},
           rotation=90),
         Rectangle(
           extent={{-15,20},{15,-20}},
@@ -601,16 +672,16 @@ tracking the supply temperature.
           lineColor={0,0,0},
           visible=have_val),
         Rectangle(
-          extent={{-33,6},{33,-6}},
+          extent={{-32,6},{32,-6}},
           lineThickness=1,
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
           lineColor={0,0,0},
-          origin={-66,61},
+          origin={-66,60},
           rotation=90),
         Rectangle(
-          extent={{-100,94},{-72,82}},
+          extent={{-100,92},{-72,80}},
           lineThickness=1,
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
@@ -638,7 +709,7 @@ tracking the supply temperature.
           pattern=LinePattern.None,
           lineColor={0,0,0}),
         Rectangle(
-          extent={{72,94},{100,82}},
+          extent={{72,92},{100,80}},
           lineThickness=1,
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
@@ -652,7 +723,7 @@ tracking the supply temperature.
           pattern=LinePattern.None,
           lineColor={0,0,0}),
         Ellipse(
-          extent={{-20,56},{20,16}},
+          extent={{-20,68},{20,28}},
           lineColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
@@ -665,7 +736,7 @@ tracking the supply temperature.
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          origin={0,40},
+          origin={0,52},
           rotation=90,
           visible=have_pum),
         Rectangle(

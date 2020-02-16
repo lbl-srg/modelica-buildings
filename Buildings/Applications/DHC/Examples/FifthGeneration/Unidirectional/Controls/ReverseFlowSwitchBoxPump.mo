@@ -13,7 +13,8 @@ block ReverseFlowSwitchBoxPump
   Modelica.Blocks.Interfaces.RealOutput m_flow(
     final unit="kg/s") "Mass flow rate"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-  Modelica.Blocks.Logical.GreaterEqual heaDom
+  Modelica.Blocks.Logical.GreaterEqual heaDom(
+    final unit="1")
     "Output true if heating mass flow rate dominates"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Modelica.Blocks.Logical.Switch switchMode "Switch to select the mode"

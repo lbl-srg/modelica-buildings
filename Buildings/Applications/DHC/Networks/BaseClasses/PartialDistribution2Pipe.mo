@@ -42,7 +42,8 @@ partial model PartialDistribution2Pipe
     annotation (Placement(transformation( extent={{90,-70},{110,-50}}),
       iconTransformation(extent={{180,-80},{ 220,-40}})));
   Modelica.Blocks.Interfaces.RealOutput dp(
-    final quantity="PressureDifference", final displayUnit="Pa") if iConDpSen > 0
+    final quantity="PressureDifference",
+    final unit="Pa", displayUnit="Pa") if iConDpSen > 0
     "Pressure difference at given location (sensed)"
     annotation (Placement(transformation(extent={{100,40},{140,80}}),
       iconTransformation(extent={{200,50}, {220,70}})));

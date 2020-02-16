@@ -83,18 +83,19 @@ partial model PartialConnection2Pipe
     annotation (Placement(transformation(extent={{10,110},{30,130}}),
       iconTransformation(extent={{50,90},{70,110}})));
   Modelica.Blocks.Interfaces.RealOutput mCon_flow(
-    final quantity="MassFlowRate")
+    final quantity="MassFlowRate", final unit="kg/s")
     "Connection supply mass flow rate"
     annotation (Placement(transformation(
       extent={{100,20},{140,60}}),
       iconTransformation(extent={{100,50},{120, 70}})));
   Modelica.Blocks.Interfaces.RealOutput Q_flow(
-    final quantity="HeatFlowRate")
+    final quantity="HeatFlowRate", final unit="W")
     "Heat flow rate transferred to the connected load (>=0 for heating)"
     annotation (Placement(transformation(extent={{100,60},{140,100}}),
       iconTransformation(extent={{100,70},{120,90}})));
   Modelica.Blocks.Interfaces.RealOutput dp(
-    final quantity="PressureDifference", final displayUnit="Pa") if have_dpSen
+    final quantity="PressureDifference",
+    final unit="Pa", final displayUnit="Pa") if have_dpSen
     "Pressure drop accross the connection (sensed)"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,30},{120,50}})));

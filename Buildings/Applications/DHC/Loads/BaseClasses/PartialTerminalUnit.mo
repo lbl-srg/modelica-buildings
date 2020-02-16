@@ -168,7 +168,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
         rotation=0,
         origin={-130,40})));
   Modelica.Blocks.Interfaces.RealInput QReqHea_flow(
-    final quantity="HeatFlowRate") if
+    final quantity="HeatFlowRate", final unit="W") if
     have_QReq_flow and (have_watHea or have_chaOve or have_eleHea)
     "Required heat flow rate to meet heating set point (>=0)"
     annotation (
@@ -180,7 +180,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
         rotation=0,
         origin={-130,-20})));
   Modelica.Blocks.Interfaces.RealInput QReqCoo_flow(
-    final quantity="HeatFlowRate") if
+    final quantity="HeatFlowRate", final unit="W") if
     have_QReq_flow and (have_watCoo or have_eleCoo)
     "Required heat flow rate to meet cooling set point (<=0)"
     annotation (Placement(transformation(
@@ -191,42 +191,44 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
         rotation=0,
         origin={-130,-42})));
   Modelica.Blocks.Interfaces.RealOutput QActHea_flow(
-    final quantity="HeatFlowRate") if have_watHea or have_chaOve or have_eleHea
+    final quantity="HeatFlowRate", final unit="W") if
+    have_watHea or have_chaOve or have_eleHea
     "Heating heat flow rate transferred to the load (>=0)"
     annotation (Placement(transformation(extent={{200,200},{240,240}}),
       iconTransformation(extent={{120,70},{140,90}})));
   Modelica.Blocks.Interfaces.RealOutput QActCoo_flow(
-    final quantity="HeatFlowRate") if have_watCoo or have_eleCoo
+    final quantity="HeatFlowRate", final unit="W") if
+    have_watCoo or have_eleCoo
     "Cooling heat flow rate transferred to the load (<=0)"
     annotation (Placement(transformation(extent={{200,180},{240,220}}),
         iconTransformation(extent={{120,50},{140,70}})));
   Modelica.Blocks.Interfaces.RealOutput PHea(
-    final quantity="Power") if have_eleHea
+    final quantity="Power", final unit="W") if have_eleHea
     "Power drawn by heating equipment"
     annotation (Placement(transformation(extent={{200,160},{240,200}}),
       iconTransformation(extent={{120,30},{140,50}})));
   Modelica.Blocks.Interfaces.RealOutput PCoo(
-    final quantity="Power") if have_eleCoo
+    final quantity="Power", final unit="W") if have_eleCoo
     "Power drawn by cooling equipment"
     annotation (Placement(transformation(extent={{200,140},{240,180}}),
       iconTransformation(extent={{120,10},{140,30}})));
   Modelica.Blocks.Interfaces.RealOutput PFan(
-    final quantity="Power") if have_fan
+    final quantity="Power", final unit="W") if have_fan
     "Power drawn by fans motors"
     annotation (Placement(transformation(extent={{200,120},{240,160}}),
       iconTransformation(extent={{120,-10},{140,10}})));
   Modelica.Blocks.Interfaces.RealOutput PPum(
-    final quantity="Power") if have_pum
+    final quantity="Power", final unit="W") if have_pum
     "Power drawn by pumps motors"
     annotation (Placement(transformation(extent={{200,100},{240,140}}),
       iconTransformation(extent={{120,-30},{140,-10}})));
   Modelica.Blocks.Interfaces.RealOutput mReqHeaWat_flow(
-    final quantity="MassFlowRate") if have_watHea
+    final quantity="MassFlowRate", final unit="kg/s") if have_watHea
     "Required heating water flow rate to meet heating set point"
     annotation (Placement(transformation(extent={{200,80},{240,120}}),
       iconTransformation(extent={{120,-50},{140,-30}})));
   Modelica.Blocks.Interfaces.RealOutput mReqChiWat_flow(
-    final quantity="MassFlowRate") if have_watCoo
+    final quantity="MassFlowRate", final unit="kg/s") if have_watCoo
     "Required chilled water flow rate to meet cooling set point"
     annotation (Placement(transformation(extent={{200,60},{240,100}}),
       iconTransformation(extent={{120,-70},{140,-50}})));
@@ -431,10 +433,10 @@ Partial model to be used for modeling an HVAC terminal unit.
 The models inheriting from this class are typically used in conjunction with
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
 Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>. They must
-compute a so-called required mass flow rate defined as the heating or chilled 
+compute a so-called required mass flow rate defined as the heating or chilled
 water mass flow rate needed to meet the load.
 It can be approximated using a control loop to avoid inverting a heat
-exchanger model as illustrated in 
+exchanger model as illustrated in
 <a href=\"modelica://Buildings.Applications.DHC.Loads.Examples\">
 Buildings.Applications.DHC.Loads.Examples</a>.
 </p>
@@ -443,13 +445,13 @@ The model connectivity can be modified to address various use cases:
 </p>
 <ul>
 <li>
-On the source side (typically connected to 
+On the source side (typically connected to
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
 Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>):
 <ul>
 <li>
-Fluid ports for chilled water and heating water can be conditionally 
-instantiated by respectively setting <code>have_watCoo</code> and  
+Fluid ports for chilled water and heating water can be conditionally
+instantiated by respectively setting <code>have_watCoo</code> and
 <code>have_watHea</code> to true.
 </li>
 </ul>
@@ -457,7 +459,7 @@ instantiated by respectively setting <code>have_watCoo</code> and
 On the load side (typically connected to a room model):
 <ul>
 <li>
-Fluid ports can be conditionally instantiated by setting 
+Fluid ports can be conditionally instantiated by setting
 <code>have_fluPor</code> to true.
 </li>
 <li>
@@ -465,13 +467,13 @@ Alternatively heat ports (for convective and radiative heat transfer)
 can be conditionally instantiated by setting <code>have_heaPor</code> to true.
 </li>
 <li>
-Eventually real input connectors can be conditionally instantiated by setting 
+Eventually real input connectors can be conditionally instantiated by setting
 <code>have_QReq_flow</code> to true. Those connectors can be used to provide
 heating and cooling loads as time series. The impact on the room air temperature
 of an unmet load can then be assessed with
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom\">
-Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom</a>. 
-See 
+Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom</a>.
+See
 <a href=\"modelica://Buildings.Applications.DHC.Loads.Examples.CouplingTimeSeries\">
 Buildings.Applications.DHC.Loads.Examples.CouplingTimeSeries</a>
 for an illustration of that use case.
@@ -491,21 +493,21 @@ Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>:
 <ul>
 <li>
 The nominal pressure drop on the source side (heating or chilled water) must be set
-to zero as the computation of the pump head relies on a specific algorithm 
-described in 
+to zero as the computation of the pump head relies on a specific algorithm
+described in
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
 Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>.
 </li>
 <li>
 <code>allowFlowReversal</code> must be set to <code>false</code> (default) in
-consistency with 
+consistency with
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>. 
-Note that it 
-only concerns the source side. On the load side one is free to use 
-whatever option suitable for the modeling needs: typically for an air flow 
-network connected to the outdoor (either at the room level for modeling 
-infiltration or at the system level for the fresh air source), the 
+Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>.
+Note that it
+only concerns the source side. On the load side one is free to use
+whatever option suitable for the modeling needs: typically for an air flow
+network connected to the outdoor (either at the room level for modeling
+infiltration or at the system level for the fresh air source), the
 unidirectional air flow condition cannot be guaranted.
 </li>
 </ul>
@@ -513,13 +515,13 @@ unidirectional air flow condition cannot be guaranted.
 <h4>Scaling factor</h4>
 <p>
 Scaling is implemented by means of a scaling factor <code>facSca</code> being
-applied on each extensive quantity (mass and heat flow rate, electric power), 
-except the fluid mass flow rate (at fluid ports) on the load side. 
-This allows modeling multiple identical units serving multiple identical rooms 
-with a unique instance of a terminal unit model, connected to a unique 
-instance of a room model. 
-The scaling factor type is real (not integer) to allow idealized modeling of 
-a set of terminal units based on manufacturer data, while still being able to 
+applied on each extensive quantity (mass and heat flow rate, electric power),
+except the fluid mass flow rate (at fluid ports) on the load side.
+This allows modeling multiple identical units serving multiple identical rooms
+with a unique instance of a terminal unit model, connected to a unique
+instance of a room model.
+The scaling factor type is real (not integer) to allow idealized modeling of
+a set of terminal units based on manufacturer data, while still being able to
 size the full set based on a peak load.
 See
 <a href=\"modelica://Buildings.Applications.DHC.Loads.Validation.TerminalUnitScaling\">
@@ -533,23 +535,23 @@ When modeling a change-over system:
 </p>
 <ul>
 <li>
-<code>have_watCoo</code> and <code>have_chaOve</code> must both be set to 
+<code>have_watCoo</code> and <code>have_chaOve</code> must both be set to
 <code>true</code> and <code>have_watHea</code> must be set to <code>false</code>.
 </li>
 <li>
 The heat exchanger is sized by providing the nominal parameters for the cooling
-configuration (suffix <code>ChiWat</code>). The nominal mass flow rate on the 
+configuration (suffix <code>ChiWat</code>). The nominal mass flow rate on the
 source and the load side must also be provided for the heating configuration
 (suffix <code>HeaWat</code>) as it can differ from the cooling configuration.
 </li>
 <li>
 The computed heat flow rate must be split into its positive part that gets
-connected to <code>QActHea_flow</code> and its negative part that gets connected 
+connected to <code>QActHea_flow</code> and its negative part that gets connected
 to <code>QActCoo_flow</code>.
 </li>
 <li>
-The computed required mass flow rate must be connected to 
-<code>mReqChiWat_flow</code>. 
+The computed required mass flow rate must be connected to
+<code>mReqChiWat_flow</code>.
 </li>
 </ul>
 

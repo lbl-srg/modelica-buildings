@@ -17,23 +17,23 @@ model SimpleRoom
      annotation (Dialog(group="Initialization"), Evaluate=true);
   parameter Modelica.SIunits.Time tau = 1800
     "Time constant of the indoor temperature";
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet(
+  Modelica.Blocks.Interfaces.RealInput TSet(
     final quantity="ThermodynamicTemperature",
     final unit="K", final displayUnit="degC")
     "Temperature set point for heating or cooling"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput QReq_flow(
-    final quantity="HeatFlowRate")
+  Modelica.Blocks.Interfaces.RealInput QReq_flow(
+    final quantity="HeatFlowRate", final unit="W")
     "Required heat flow rate to meet temperature set point (>=0 for heating)"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput QAct_flow(
-    final quantity="HeatFlowRate")
+  Modelica.Blocks.Interfaces.RealInput QAct_flow(
+    final quantity="HeatFlowRate", final unit="W")
     "Actual heating or cooling heat flow rate (>=0 for heating)"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TAir(
+  Modelica.Blocks.Interfaces.RealOutput TAir(
     final quantity="ThermodynamicTemperature",
     final unit="K", final displayUnit="degC")
     "Room air temperature"
@@ -58,13 +58,13 @@ equation
 <html>
 <p>
 This is a first order ODE model assessing the indoor air temperature variations
-around a setpoint, based on the difference between the required and actual 
+around a setpoint, based on the difference between the required and actual
 heating or cooling heat flow rate and a minimum set of parameters at nominal conditions.
 </p>
 <p>
-The lumped thermal conductance <i>G</i> representing all heat transfer mechanisms 
-that depend on the temperature difference with the outside (transmission, 
-infiltration and ventilation) is assessed from the steady-state energy balance 
+The lumped thermal conductance <i>G</i> representing all heat transfer mechanisms
+that depend on the temperature difference with the outside (transmission,
+infiltration and ventilation) is assessed from the steady-state energy balance
 at heating nominal conditions:
 </p>
 <p style=\"font-style:italic;\">
@@ -79,7 +79,7 @@ with no internal heat gains nor solar heat gains.)
 This coefficient is then considered constant for all operating conditions.
 </p>
 <p>
-The required heating or cooling heat flow rate <i>Q&#775;<sub>heat_cool, req</sub></i> corresponds to 
+The required heating or cooling heat flow rate <i>Q&#775;<sub>heat_cool, req</sub></i> corresponds to
 a steady-state control error equal to zero:
 </p>
 <p style=\"font-style:italic;\">

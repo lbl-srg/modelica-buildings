@@ -13,9 +13,7 @@ block MixingValveControl "Mixing valve controller"
     "Time constant of integrator block";
   // IO CONNECTORS
   Modelica.Blocks.Interfaces.RealInput TSupSet(
-    final quantity="ThermodynamicTemperature",
-    final unit="K",
-    final displayUnit="degC")
+    final quantity="ThermodynamicTemperature", final unit="K", final displayUnit="degC")
     "Supply temperature set point"
     annotation (Placement(transformation(
       extent={{-20,-20},{20,20}},
@@ -25,8 +23,8 @@ block MixingValveControl "Mixing valve controller"
       extent={{-10,-10},{10,10}},
       rotation=0,
       origin={-110,40})));
-  Modelica.Blocks.Interfaces.IntegerInput modChaOve if
-    typDis == Type_dis.ChangeOver
+  Modelica.Blocks.Interfaces.IntegerInput modChaOve(
+    final unit="1") if typDis == Type_dis.ChangeOver
     "Operating mode in change-over (1 for heating, -1 for cooling)"
     annotation (Placement(
       transformation(
@@ -38,9 +36,7 @@ block MixingValveControl "Mixing valve controller"
       rotation=0,
       origin={-110,80})));
   Modelica.Blocks.Interfaces.RealInput TSupMes(
-    final quantity="ThermodynamicTemperature",
-    final unit="K",
-    final displayUnit="degC")
+    final quantity="ThermodynamicTemperature",  final unit="K", final displayUnit="degC")
     "Supply temperature (sensed)"
     annotation (Placement(
         transformation(
@@ -161,7 +157,7 @@ equation
   Documentation(info="
 <html>
 <p>
-This model implements a generic controller for a three-way mixing valve. 
+This model implements a generic controller for a three-way mixing valve.
 Three operating modes are supported:
 </p>
 <ul>
@@ -174,16 +170,16 @@ Cooling: the controller tracks a maximum supplied temperature.
 <li>
 Change-over: the controller tracks either a minimum or a maximum
 supplied temperature depending on the actual value of the integer input
-variable <code>modChaOve</code> (+1 for heating, -1 for cooling). 
-The model instantiates only one PI block to limit the number of state 
-variables in large models. Therefore the PI gain 
-is independent from the change-over mode: the reverse action is modeled 
-by taking the opposite value of the PI block output. Eventually the 
+variable <code>modChaOve</code> (+1 for heating, -1 for cooling).
+The model instantiates only one PI block to limit the number of state
+variables in large models. Therefore the PI gain
+is independent from the change-over mode: the reverse action is modeled
+by taking the opposite value of the PI block output. Eventually the
 integral part is reset whenever the change-over mode is switched.
 </li>
 </ul>
 <p>
-See 
+See
 <a href=\"modelica://Buildings.Applications.DHC.Loads.Validation.FlowDistributionChangeOver\">
 Buildings.Applications.DHC.Loads.Validation.FlowDistributionChangeOver</a>
 for a simulation with change-over.
