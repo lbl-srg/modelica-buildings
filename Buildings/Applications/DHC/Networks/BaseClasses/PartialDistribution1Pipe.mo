@@ -31,10 +31,10 @@ partial model PartialDistribution1Pipe
     final quantity="MassFlowRate", final unit="kg/s") if iConBypFloSen > 0
     "Bypass mass flow rate (sensed)"
     annotation (Placement(transformation(extent={{100,0},{140,40}}),
-      iconTransformation(extent={{100,30},{120,50}})));
+      iconTransformation(extent={{200,-70},{220,-50}})));
   Modelica.Blocks.Interfaces.RealOutput dp(
     final quantity="PressureDifference",
-    , final unit="Pa", final displayUnit="Pa") if iConDpSen > 0
+      final unit="Pa", final displayUnit="Pa") if iConDpSen > 0
     "Pressure difference at given location (sensed)"
     annotation (Placement(transformation(extent={{100,40},{140,80}}),
       iconTransformation(extent={{200,50}, {220,70}})));

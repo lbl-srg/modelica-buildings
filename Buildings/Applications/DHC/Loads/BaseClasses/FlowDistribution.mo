@@ -57,7 +57,8 @@ model FlowDistribution "Model of building hydraulic distribution system"
     if nUni==1 then {1/2*(dp_nominal-dpVal_nominal-dpMin)} else
     1/2 .* cat(1, {(dp_nominal-dpVal_nominal-dpMin)*0.2},
     fill((dp_nominal-dpVal_nominal-dpMin)*0.8 / (nUni-1), nUni-1))
-    "Pressure drop between each connected unit at nominal conditions (supply line)"
+    "Pressure drop between each connected unit at nominal conditions (supply line): 
+    use zero for each connection downstream the differential pressure sensor"
     annotation(Dialog(
       group="Nominal condition",
       enable=typCtr==Type_ctr.ConstantDp));
@@ -475,8 +476,8 @@ loop and several terminal branch circuits:
 The flow rate in each branch circuit is equal to the flow rate demand yielded
 by the terminal unit model, constrained by the condition that the sum of all
 demands is lower or equal to the flow rate in the main loop.
-Additionallyi if the total flow rate demand exceeds the
-nominal mass flow rate the model throws an error.
+Additionally if the total flow rate demand exceeds the nominal mass flow rate
+the model throws an error.
 </li>
 <li>
 The inlet temperature in each branch circuit is equal to the supply temperature
@@ -489,9 +490,25 @@ The pressure drop in the main distribution loop corresponds to the pressure drop
 over the whole distribution system (the pump head): it is governed by an equation
 representing the control logic of the distribution pump.
 The pressure drop in each branch circuit is irrelevant: <code>dp_nominal</code>
-(water side) must be set to zero for each terminal unit component.
+(water side) must be set to zero for each terminal unit model being connected
+to that component.
 </li>
 </ul>
+<p>
+That modeling approach aims to minimize the number of algebraic
+equations by avoiding an explicit modeling of the terminal actuators and
+the whole flow network.
+In addition, the assumption <code>allowFlowReversal=false</code> is used
+systematically together with boundary conditions which actually ensure that
+no reverse flow conditions are encountered in simulation.
+This allows directly accessing the inlet enthalpy value of a component from
+the fluid port <code>port_a</code> with the built-in function <code>inStream</code>.
+This approach is preferred to the use of two-port sensors which introduce a
+state to ensure a smooth transition at flow reversal.
+All connected components must meet the same requirements.
+The impact on the computational performance is illustrated 
+<a href=\"#my_comp\">below</a>.
+</p>
 <p>
 Optionally:
 </p>
@@ -502,19 +519,20 @@ to the total flow rate demand.
 </li>
 <li>
 A mixing valve can be modeled (together with a distribution pump) with a
-control loop tracking the supply temperature.
+control loop tracking the supply temperature. Note that the nominal pressure
+drop of the valve is not an exposed parameter: it is set by default to 10%
+of the nominal total pressure drop.
 </li>
 </ul>
 <h4>Pump head computation</h4>
 <p>
-The pump head is computed according to the schematics hereunder, under the
-assumption of a two-pipe distribution system.
+The pump head is computed as follows.
 </p>
 <ul>
 <li>
 In case of a constant pump head:
 <p style=\"font-style:italic;\">
-&Delta;P<sub>pump</sub> = dp_nominal
+dpPum = dp_nominal
 </p>
 </li>
 <li>
@@ -522,61 +540,97 @@ In case of a constant flow rate (three-way valves) the network flow
 characteristics is considered independent from the actuator positions.
 Thus:
 <p style=\"font-style:italic;\">
-&Delta;P<sub>pump</sub> = dp_nominal
+dpPum = dp_nominal
 </p>
 <li>
 In case of a linear head:
 <p style=\"font-style:italic;\">
-&Delta;P<sub>pump</sub> = dpMin + (dp_nominal - dpMin) * m&#775; / m_flow_nominal
+dpPum = dpMin + (dp_nominal - dpMin) * m_flow / m_flow_nominal
 </p>
 </li>
 <li>
-In case of a constant speed the pump head is computed based on the pump pressure
+In case of a constant speed, the pump head is computed based on the pump pressure
 curve and the total required mass flow rate.
 <li>
-In case of a constant pressure difference at a given location:
+In case of a constant pressure difference at a given location, the pump head
+is computed according to the schematics hereunder, under the
+assumption of a two-pipe distribution system:
 <p style=\"font-style:italic;\">
-&Delta;P<sub>pump</sub> = &Sigma;<sub>i</sub> 1 / K<sub>i</sub><sup>2</sup> *
-m&#775;<sub>i</sub><sup>2</sup>
+dpPum = dpMin + dpVal + 2 * &Sigma;<sub>i</sub> dpDis[i]
 </p>
 <p>
 Where:
 </p>
 <ul>
 <li>
-<i>m&#775;<sub>i</sub></i> is the mass flow rate in the network branch directly
-upstream the i<sup>th</sup> connection:
-<i>m&#775;<sub>i</sub> = &Sigma;<sub>i to nUni</sub> mReq_flow[i]</i>
+<i>dpMin</i> is the differential pressure setpoint.
 </li>
 <li>
-<i>K<sub>i</sub></i> is the flow coefficient of the network branch directly
-upstream the i<sup>th</sup> connection. It is considered constant and computed
-at nominal conditions with:
-<i>K<sub>i</sub> = (&Sigma;<sub>i to nUni</sub> mUni_flow_nominal[i]) /
-dpDis_nominal[i]<sup>0.5</sup></i>
+<i>dpVal</i> is the pressure drop accross the optional mixing valve. 
+It is considered independent from the valve position: 
+<i>dpVal = dpVal_nominal</i>.
+</li>
+<li>
+<i>dpDis[i]</i> is the pressure drop in the supply pipe segment directly
+upstream the i<sup>th</sup> connection:
+<p>
+<i>dpDis[i] = 1 / K[i]<sup>2</sup></i> * mDis_flow[i] <sup>2</sup></i>
+</p>
+Where:
+<p> 
+<i>mDis_flow[i]  = &Sigma;<sub>i to nUni</sub> mReq_flow[i]</i>
+is the mass flow rate in the same pipe segment.
+</p> 
+<p>
+<i>K[i] = (&Sigma;<sub>i to nUni</sub> mUni_flow_nominal[i]) /
+dpDis_nominal[i]<sup>0.5</sup></i> 
+is the corresponding flow coefficient (constant).
+</p>
+<p>
+The pressure drop in the corresponding pipe segment of the return line
+is considered equal, hence the factor 2 in the above equation.
+</p>
+<p>
+The default value for <code>dpDis_nominal</code> corresponds to a configuration
+where the differential pressure sensor is located before the most remote 
+connected unit, 20% of the nominal pressure drop in the distribution network 
+occurs between the pump and the first connected unit (supply and return), 
+the remaining pressure drop is evenly distributed over each pipe segment 
+between the other connected units. 
+The user can override those default values with the requirement that the 
+nominal pressure drop of each pipe segment downstream the differential pressure 
+sensor must be set to zero.
+</p>
 </li>
 </ul>
 </li>
 </ul>
-<h4>Computational performance</h4>
 <p>
-The general modeling approach aims to minimize the number of algebraic
-equations by avoiding an explicit modeling of the terminal actuators and
-the whole flow network.
+<img alt=\"image\"
+src=\"modelica://Buildings/Resources/Images/Applications/DHC/Loads/FlowDistribution1.png\"/>
 </p>
+<h4 id=\"my_comp\">Computational performance</h4>
 <p>
-In addition the assumption <code>allowFlowReversal=false</code> is used
-systematically together with boundary conditions which actually ensure that
-no reverse flow conditions are encountered in simulation.
-This allows directly accessing the inlet enthalpy value of a component from
-the fluid port <code>port_a</code> with the built-in function <code>inStream</code>.
-This approach is preferred to the use of two-port sensors which introduce a
-state to ensure a smooth transition at flow reversal.
-All connected components must meet the same requirements.
+The figure below compares the computational performance of that model
+(<code>simple</code>) with an explicit modeling of the distribution network and 
+the terminal unit actuators (<code>detailed</code>). 
+The impact of a varying number of connected loads (<code>nLoa</code>) is
+assessed on:
 </p>
+<ol>
+<li>
+the total time for all model evaluations, 
+</li>
+<li>
+the total time spent between model evaluations,
+</li>
+<li>
+the number of continuous state variables.
+</li>
+</ol>
 <p>
-  <img alt=\"image\"
-  src=\"modelica://Buildings/Resources/Images/Applications/DHC/Loads/FlowDistribution.png\"/>
+<img alt=\"image\"
+src=\"modelica://Buildings/Resources/Images/Applications/DHC/Loads/FlowDistribution2.png\"/>
 </p>
 </html>"),
   Icon(coordinateSystem(preserveAspectRatio=false,

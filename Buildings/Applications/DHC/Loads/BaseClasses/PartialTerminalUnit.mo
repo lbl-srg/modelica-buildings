@@ -503,8 +503,8 @@ Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>.
 consistency with
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
 Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>.
-Note that it
-only concerns the source side. On the load side one is free to use
+Note that this requirement only applies to the source side. 
+On the load side one is free to use
 whatever option suitable for the modeling needs: typically for an air flow
 network connected to the outdoor (either at the room level for modeling
 infiltration or at the system level for the fresh air source), the

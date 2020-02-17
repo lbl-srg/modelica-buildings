@@ -23,8 +23,7 @@ block MixingValveControl "Mixing valve controller"
       extent={{-10,-10},{10,10}},
       rotation=0,
       origin={-110,40})));
-  Modelica.Blocks.Interfaces.IntegerInput modChaOve(
-    final unit="1") if typDis == Type_dis.ChangeOver
+  Modelica.Blocks.Interfaces.IntegerInput modChaOve if typDis == Type_dis.ChangeOver
     "Operating mode in change-over (1 for heating, -1 for cooling)"
     annotation (Placement(
       transformation(
