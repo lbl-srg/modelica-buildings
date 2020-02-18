@@ -77,7 +77,8 @@ model Office
     annotation (Placement(transformation(extent={{-20,14},{-14,20}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(
-    transformation(extent={{-100,-10},{-66,22}}),iconTransformation(
+    transformation(extent={{-158,-10},{-124,22}}),
+                                                 iconTransformation(
     extent={{-70,-12},{-50,8}})));
   Modelica.Blocks.Sources.Constant alphaWall(k=25.0*2800.69829830438)
     "Outdoor coefficient of heat transfer for walls"
@@ -126,7 +127,7 @@ equation
     color={0,0,127}));
   connect(weaBus, weaBus)
     annotation (Line(
-    points={{-78,62},{-74,62},{-74,18},{-84,18},{-84,12},{-83,12},{-83,6}},
+    points={{-141,6},{-74,6},{-74,18},{-84,18},{-84,12},{-141,12},{-141,6}},
     color={255,204,51},
     thickness=0.5), Text(
     string="%second",
@@ -134,7 +135,7 @@ equation
     extent={{6,3},{6,3}}));
   connect(weaBus.TDryBul, eqAirTemp.TDryBul)
     annotation (Line(
-    points={{-83,6},{-83,-2},{-38,-2},{-38,-10},{-26,-10}},
+    points={{-141,6},{-141,-2},{-38,-2},{-38,-10},{-26,-10}},
     color={255,204,51},
     thickness=0.5), Text(
     string="%first",
@@ -173,75 +174,75 @@ equation
     color={0,0,127}));
     connect(weaBus, HDifTil[1].weaBus)
     annotation (Line(
-    points={{-78,62},{-74,62},{-74,30},{-68,30}},
+    points={{-141,6},{-74,6},{-74,30},{-68,30}},
     color={255,204,51},
     thickness=0.5));
     connect(weaBus, HDirTil[1].weaBus)
     annotation (Line(
-    points={{-78,62},{-73,62},{-68,62}},
+    points={{-141,6},{-68,6},{-68,62}},
     color={255,204,51},
     thickness=0.5));
     connect(weaBus, HDifTil[2].weaBus)
     annotation (Line(
-    points={{-78,62},{-74,62},{-74,30},{-68,30}},
+    points={{-141,6},{-74,6},{-74,30},{-68,30}},
     color={255,204,51},
     thickness=0.5));
     connect(weaBus, HDirTil[2].weaBus)
     annotation (Line(
-    points={{-78,62},{-73,62},{-68,62}},
+    points={{-141,6},{-68,6},{-68,62}},
     color={255,204,51},
     thickness=0.5));
     connect(weaBus, HDifTil[3].weaBus)
     annotation (Line(
-    points={{-78,62},{-74,62},{-74,30},{-68,30}},
+    points={{-141,6},{-74,6},{-74,30},{-68,30}},
     color={255,204,51},
     thickness=0.5));
     connect(weaBus, HDirTil[3].weaBus)
     annotation (Line(
-    points={{-78,62},{-73,62},{-68,62}},
+    points={{-141,6},{-68,6},{-68,62}},
     color={255,204,51},
     thickness=0.5));
     connect(weaBus, HDifTil[4].weaBus)
     annotation (Line(
-    points={{-78,62},{-74,62},{-74,30},{-68,30}},
+    points={{-141,6},{-74,6},{-74,30},{-68,30}},
     color={255,204,51},
     thickness=0.5));
     connect(weaBus, HDirTil[4].weaBus)
     annotation (Line(
-    points={{-78,62},{-73,62},{-68,62}},
+    points={{-141,6},{-68,6},{-68,62}},
     color={255,204,51},
     thickness=0.5));
     connect(weaBus, HDifTil[5].weaBus)
     annotation (Line(
-    points={{-78,62},{-74,62},{-74,30},{-68,30}},
+    points={{-141,6},{-74,6},{-74,30},{-68,30}},
     color={255,204,51},
     thickness=0.5));
     connect(weaBus, HDirTil[5].weaBus)
     annotation (Line(
-    points={{-78,62},{-73,62},{-68,62}},
+    points={{-141,6},{-68,6},{-68,62}},
     color={255,204,51},
     thickness=0.5));
     connect(weaBus, HDifTil[6].weaBus)
     annotation (Line(
-    points={{-78,62},{-74,62},{-74,30},{-68,30}},
+    points={{-141,6},{-74,6},{-74,30},{-68,30}},
     color={255,204,51},
     thickness=0.5));
     connect(weaBus, HDirTil[6].weaBus)
     annotation (Line(
-    points={{-78,62},{-73,62},{-68,62}},
+    points={{-141,6},{-68,6},{-68,62}},
     color={255,204,51},
     thickness=0.5));
   connect(personsRad.port, thermalZoneTwoElements.intGainsRad)
     annotation (Line(
-    points={{68,-32},{84,-32},{100,-32},{100,24},{92.2,24}},
+    points={{68,-32},{84,-32},{100,-32},{100,24},{92,24}},
     color={191,0,0}));
   connect(thermalConductorWin.solid, thermalZoneTwoElements.window)
     annotation (
-     Line(points={{38,21},{40,21},{40,20},{43.8,20}}, color={191,0,0}));
+     Line(points={{38,21},{40,21},{40,20},{44,20}},   color={191,0,0}));
   connect(prescribedTemperature1.port, thermalConductorWin.fluid)
     annotation (Line(points={{20,20},{28,20},{28,21}}, color={191,0,0}));
   connect(thermalZoneTwoElements.extWall, thermalConductorWall.solid)
-    annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}},
+    annotation (Line(points={{44,12},{40,12},{40,1},{36,1}},
     color={191,0,0}));
   connect(thermalConductorWall.fluid, prescribedTemperature.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
@@ -251,7 +252,7 @@ equation
     annotation (Line(points={{32,33.6},{32,26},{33,26}}, color={0,0,127}));
   connect(weaBus.TBlaSky, eqAirTemp.TBlaSky)
     annotation (Line(
-    points={{-83,6},{-58,6},{-58,2},{-32,2},{-32,-4},{-26,-4}},
+    points={{-141,6},{-58,6},{-58,2},{-32,2},{-32,-4},{-26,-4}},
     color={255,204,51},
     thickness=0.5), Text(
     string="%first",

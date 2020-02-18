@@ -93,22 +93,22 @@ equation
     annotation (Line(points={{-30,-7},{-40,-7},{-40,-40},{-53,-40}},color={0,0,127}));
 
   connect(multiplex3_1.y, znAttic.qGai_flow)
-      annotation (Line(points={{-7,0},{20,0},{20,12},{38,12}}, color={0,0,127}));
+      annotation (Line(points={{-7,0},{20,0},{20,70},{18,70}}, color={0,0,127}));
 
   connect(multiplex3_1.y, znCore_ZN.qGai_flow)
-      annotation (Line(points={{-7,0},{20,0},{20,12},{38,12}}, color={0,0,127}));
+      annotation (Line(points={{-7,0},{20,0},{20,70},{18,70}}, color={0,0,127}));
 
   connect(multiplex3_1.y, znPerimeter_ZN_1.qGai_flow)
-      annotation (Line(points={{-7,0},{20,0},{20,12},{38,12}}, color={0,0,127}));
+      annotation (Line(points={{-7,0},{20,0},{20,70},{18,70}}, color={0,0,127}));
 
   connect(multiplex3_1.y, znPerimeter_ZN_2.qGai_flow)
-      annotation (Line(points={{-7,0},{20,0},{20,12},{38,12}}, color={0,0,127}));
+      annotation (Line(points={{-7,0},{20,0},{20,70},{18,70}}, color={0,0,127}));
 
   connect(multiplex3_1.y, znPerimeter_ZN_3.qGai_flow)
-      annotation (Line(points={{-7,0},{20,0},{20,12},{38,12}}, color={0,0,127}));
+      annotation (Line(points={{-7,0},{20,0},{20,70},{18,70}}, color={0,0,127}));
 
   connect(multiplex3_1.y, znPerimeter_ZN_4.qGai_flow)
-      annotation (Line(points={{-7,0},{20,0},{20,12},{38,12}}, color={0,0,127}));
+      annotation (Line(points={{-7,0},{20,0},{20,70},{18,70}}, color={0,0,127}));
 
   // TODO: determine how to handle the "lines"
 
