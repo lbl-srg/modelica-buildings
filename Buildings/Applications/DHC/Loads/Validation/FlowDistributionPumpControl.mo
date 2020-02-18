@@ -252,8 +252,7 @@ equation
   connect(supHeaWat1.ports[1], disCstDp.port_a) annotation (Line(points={{-120,
           2.66667},{-100,2.66667},{-100,-60},{-10,-60}}, color={0,127,255}));
   connect(conPID.y, gai.u)
-    annotation (Line(points={{-89,-100},{-88,-100},{-88,-112},{-86,-112},{-86,
-          -100},{-82,-100}},                         color={0,0,127}));
+    annotation (Line(points={{-89,-100},{-82,-100}}, color={0,0,127}));
   connect(gai.y, pumCstDp.dp_in)
     annotation (Line(points={{-58,-100},{0,-100},{0,-148}}, color={0,0,127}));
   connect(dis.dp, gai1.u) annotation (Line(points={{81,-164},{120,-164},{120,

@@ -354,7 +354,7 @@ initial equation
     ": The configuration where have_val is true and have_pum is false is not allowed.");
 equation
 
-  assert(mReqTot_flow < m_flow_nominal,
+  assert(mReqTot_flow + m_flow_small < m_flow_nominal,
     "In " + getInstanceName() + ": The total required mass flow rate equals "
     + String(mReqTot_flow) + " (kg/s) which is higher than the nominal mass
     flow rate value of " + String(m_flow_nominal) + " (kg/s).",
@@ -490,7 +490,7 @@ The pressure drop in the main distribution loop corresponds to the pressure drop
 over the whole distribution system (the pump head): it is governed by an equation
 representing the control logic of the distribution pump.
 The pressure drop in each branch circuit is irrelevant: <code>dp_nominal</code>
-(water side) must be set to zero for each terminal unit model being connected
+must be set to zero for each terminal unit model being connected
 to that component.
 </li>
 </ul>
@@ -566,7 +566,7 @@ Where:
 <i>dpMin</i> is the differential pressure setpoint.
 </li>
 <li>
-<i>dpVal</i> is the pressure drop accross the optional mixing valve. 
+<i>dpVal</i> is the pressure drop across the optional mixing valve. 
 It is considered independent from the valve position: 
 <i>dpVal = dpVal_nominal</i>.
 </li>
@@ -612,8 +612,13 @@ src=\"modelica://Buildings/Resources/Images/Applications/DHC/Loads/FlowDistribut
 <h4 id=\"my_comp\">Computational performance</h4>
 <p>
 The figure below compares the computational performance of that model
-(<code>simple</code>) with an explicit modeling of the distribution network and 
-the terminal unit actuators (<code>detailed</code>). 
+(labelled <code>simple</code>, see model 
+<a href=\"modelica://Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution1\">
+Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution1</a>) 
+with an explicit modeling of the distribution network and 
+the terminal unit actuators (labelled <code>detailed</code>, see model
+<a href=\"modelica://Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution2\">
+Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution2</a>).
 The impact of a varying number of connected loads (<code>nLoa</code>) is
 assessed on:
 </p>

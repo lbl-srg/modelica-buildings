@@ -4,7 +4,10 @@ model BuildingRCZ1WithETS
   extends BaseClasses.PartialBuildingWithETS(
     redeclare
     Buildings.Applications.DHC.Loads.Examples.BaseClasses.BuildingRCZ1Valve
-    bui);
+    bui,
+    ets(
+      QCoo_flow_nominal=sum(bui.terUni.QCoo_flow_nominal),
+      QHea_flow_nominal=sum(bui.terUni.QHea_flow_nominal)));
   BoundaryConditions.WeatherData.Bus weaBus
     "Weather data bus"
     annotation (Placement(

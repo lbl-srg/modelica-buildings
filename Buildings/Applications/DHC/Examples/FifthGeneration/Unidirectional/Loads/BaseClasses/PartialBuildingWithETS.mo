@@ -74,8 +74,6 @@ partial model PartialBuildingWithETS
     final allowFlowReversalBui=allowFlowReversalBui,
     final allowFlowReversalDis=allowFlowReversalDis,
     redeclare final package Medium = Medium,
-    QCoo_flow_nominal=sum(bui.terUni.QCoo_flow_nominal),
-    QHea_flow_nominal=sum(bui.terUni.QHea_flow_nominal),
     dT_nominal=dT_nominal,
     TChiWatSup_nominal=TChiWatSup_nominal,
     TChiWatRet_nominal=TChiWatRet_nominal,

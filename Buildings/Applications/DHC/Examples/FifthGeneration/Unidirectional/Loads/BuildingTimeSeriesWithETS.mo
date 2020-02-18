@@ -4,7 +4,10 @@ model BuildingTimeSeriesWithETS
   extends BaseClasses.PartialBuildingWithETS(
     redeclare
     Buildings.Applications.DHC.Loads.Examples.BaseClasses.BuildingTimeSeries
-    bui(final filPat=filPat));
+    bui(final filPat=filPat),
+    ets(
+      QCoo_flow_nominal=sum(bui.terUniCoo.QCoo_flow_nominal),
+      QHea_flow_nominal=sum(bui.terUniHea.QHea_flow_nominal)));
   parameter String filPat
     "Library path of the file with thermal loads as time series";
   annotation (Line(

@@ -3,18 +3,17 @@ block ReverseFlowSwitchBoxPump
   "Controller for flow switch box with pumps"
   extends Modelica.Blocks.Icons.Block;
   Modelica.Blocks.Interfaces.RealInput mSpaHea_flow(
-    final unit="kg/s")
+    final quantity="MassFlowRate", final unit="kg/s")
     "Mass flow rate for space heating"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealInput mFreCoo_flow(
-    final unit="kg/s")
+    final quantity="MassFlowRate", final unit="kg/s")
     "Mass flow rate for free cooling"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   Modelica.Blocks.Interfaces.RealOutput m_flow(
-    final unit="kg/s") "Mass flow rate"
+    final quantity="MassFlowRate", final unit="kg/s") "Mass flow rate"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-  Modelica.Blocks.Logical.GreaterEqual heaDom(
-    final unit="1")
+  Modelica.Blocks.Logical.GreaterEqual heaDom
     "Output true if heating mass flow rate dominates"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Modelica.Blocks.Logical.Switch switchMode "Switch to select the mode"
