@@ -532,6 +532,17 @@ its class name ends with the string <code>Beta</code>.
                            <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1205\">Buildings, #1205</a>.
         </td>
     </tr>
+    <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Constructions.Examples.ExteriorWallTwoWindows<br/>
+                           Buildings.ThermalZones.Detailed.Constructions.Examples.ExteriorWallWithWindow
+        </td>
+        <td valign=\"top\">Corrected wrong assignment of a parameter.<br/>
+                           This is for
+                           <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1766\">Buildings, #1766</a>.
+        </td>
+    </tr>
     </table>
     <!-- Obsolete components -->
     <p>
