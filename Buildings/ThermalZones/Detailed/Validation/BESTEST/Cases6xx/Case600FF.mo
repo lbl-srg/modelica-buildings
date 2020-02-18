@@ -201,10 +201,10 @@ model Case600FF
     annotation (Placement(transformation(extent={{80,40},{94,54}})));
   Modelica.Blocks.Math.MultiSum multiSum(nu=1)
     annotation (Placement(transformation(extent={{-78,-80},{-66,-68}})));
-  Modelica.Blocks.Math.Mean TRooHou(f=1/3600, y(start=293.15))
+  Controls.OBC.CDL.Continuous.MovingMean TRooHou(delta=3600)
     "Hourly averaged room air temperature"
     annotation (Placement(transformation(extent={{-68,-28},{-60,-20}})));
-  Modelica.Blocks.Math.Mean TRooAnn(f=1/86400/365, y(start=293.15))
+  Controls.OBC.CDL.Continuous.MovingMean TRooAnn(delta=86400*365)
     "Annual averaged room air temperature"
     annotation (Placement(transformation(extent={{-68,-40},{-60,-32}})));
 
@@ -312,6 +312,15 @@ The room temperature is free floating.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 21, 2020, by Michael Wetter:<br/>
+Changed calculation of time averaged values to use
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.MovingMean\">
+Buildings.Controls.OBC.CDL.Continuous.MovingMean</a>
+because this does not trigger a time event every hour.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1714\">issue 1714</a>.
+</li>
 <li>
 October 29, 2016, by Michael Wetter:<br/>
 Placed a capacity at the room-facing surface
