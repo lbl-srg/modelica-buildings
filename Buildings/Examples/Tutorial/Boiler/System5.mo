@@ -228,7 +228,7 @@ model System5
 //-------------------------Step 3: Boolean to real: Boiler Pump-----------------------//
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaRad1(realTrue=mBoi_flow_nominal)
     "Radiator pump signal"
-    annotation (Placement(transformation(extent={{-140,-290},{-120,-270}})));
+    annotation (Placement(transformation(extent={{-140,-180},{-120,-160}})));
 //------------------------------------------------------------------------------------//
 
   Buildings.Controls.OBC.CDL.Logical.And and2
@@ -246,7 +246,7 @@ model System5
     annotation (Placement(transformation(extent={{-260,-160},{-240,-140}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaRad(realTrue=mRad_flow_nominal)
     "Radiator pump signal"
-    annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
+    annotation (Placement(transformation(extent={{-140,-140},{-120,-120}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Negate output of hysteresis"
     annotation (Placement(transformation(extent={{-220,-160},{-200,-140}})));
 
@@ -429,7 +429,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(and1.y, booToReaRad1.u) annotation (Line(
-      points={{-158,-150},{-152,-150},{-152,-280},{-142,-280}},
+      points={{-158,-150},{-152,-150},{-152,-170},{-142,-170}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(and1.y, and2.u1) annotation (Line(
@@ -461,7 +461,7 @@ equation
       color={255,0,255},
       smooth=Smooth.None));
   connect(and1.y, booToReaRad.u) annotation (Line(
-      points={{-158,-150},{-152,-150},{-152,-70},{-142,-70}},
+      points={{-158,-150},{-152,-150},{-152,-130},{-142,-130}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(temSup.T, conPIDRad.u_m) annotation (Line(
@@ -473,11 +473,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(booToReaRad.y, pumRad.m_flow_in) annotation (Line(
-      points={{-118,-70},{-90.5,-70},{-90.5,-70},{-62,-70}},
+      points={{-118,-130},{-100,-130},{-100,-70},{-62,-70}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(booToReaRad1.y, pumBoi.m_flow_in) annotation (Line(
-      points={{-118,-280},{-90.5,-280},{-90.5,-280},{-62,-280}},
+      points={{-118,-170},{-100,-170},{-100,-280},{-62,-280}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conPIDBoi.y, valBoi.y) annotation (Line(

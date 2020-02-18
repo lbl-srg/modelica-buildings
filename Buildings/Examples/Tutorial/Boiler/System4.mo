@@ -231,7 +231,7 @@ model System4
 //-------------------------Step 3: Boolean to real: Boiler Pump-----------------------//
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaRad1(realTrue=mBoi_flow_nominal)
     "Radiator pump signal"
-    annotation (Placement(transformation(extent={{-140,-290},{-120,-270}})));
+    annotation (Placement(transformation(extent={{-140,-190},{-120,-170}})));
 //------------------------------------------------------------------------------------//
 
   Buildings.Controls.OBC.CDL.Logical.And and2
@@ -249,7 +249,7 @@ model System4
     annotation (Placement(transformation(extent={{-260,-82},{-240,-62}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaRad(realTrue=mRad_flow_nominal)
     "Radiator pump signal"
-    annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
+    annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Negate output of hysteresis"
     annotation (Placement(transformation(extent={{-220,-82},{-200,-62}})));
 equation
@@ -270,7 +270,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(timTab.y[1], preHea.Q_flow) annotation (Line(
-      points={{1,80},{20,80}},
+      points={{2,80},{20,80}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(temSup.port_b, rad.port_a) annotation (Line(
@@ -374,7 +374,7 @@ equation
       smooth=Smooth.None));
   connect(const.y, valBoi.y)
                            annotation (Line(
-      points={{-118,-150},{-100,-150},{-100,-220},{80,-220},{80,-250},{72,-250}},
+      points={{-118,-150},{-80,-150},{-80,-220},{80,-220},{80,-250},{72,-250}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -403,7 +403,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(and1.y, booToReaRad1.u) annotation (Line(
-      points={{-158,-150},{-152,-150},{-152,-280},{-142,-280}},
+      points={{-158,-150},{-152,-150},{-152,-180},{-142,-180}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(and1.y, and2.u1) annotation (Line(
@@ -435,15 +435,15 @@ equation
       color={255,0,255},
       smooth=Smooth.None));
   connect(and1.y, booToReaRad.u) annotation (Line(
-      points={{-158,-150},{-152,-150},{-152,-70},{-142,-70}},
+      points={{-158,-150},{-152,-150},{-152,-120},{-142,-120}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(booToReaRad.y, pumRad.m_flow_in) annotation (Line(
-      points={{-118,-70},{-90.5,-70},{-90.5,-70},{-62,-70}},
+      points={{-118,-120},{-80,-120},{-80,-70},{-62,-70}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(booToReaRad1.y, pumBoi.m_flow_in) annotation (Line(
-      points={{-118,-280},{-88,-280},{-88,-280},{-62,-280}},
+      points={{-118,-180},{-88,-180},{-88,-280},{-62,-280}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Documentation(info="<html>
@@ -556,7 +556,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-400,-360},{200,
+    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-400,-360},{240,
             100}})),
     __Dymola_Commands(file=
      "modelica://Buildings/Resources/Scripts/Dymola/Examples/Tutorial/Boiler/System4.mos"
