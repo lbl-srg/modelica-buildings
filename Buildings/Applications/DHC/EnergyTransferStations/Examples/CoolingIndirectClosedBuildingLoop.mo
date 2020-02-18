@@ -3,7 +3,7 @@ model CoolingIndirectClosedBuildingLoop
   "Example model for indirect cooling energy transfer station that has a closed chilled water loop on the building side"
   extends Modelica.Icons.Example;
 
-  package Medium = Buildings.Media.Water;
+  package Medium = Buildings.Media.Water "Water medium";
 
   parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal = 0.5
     "Nominal mass flow rate on district-side (primary)";
@@ -20,7 +20,7 @@ model CoolingIndirectClosedBuildingLoop
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   Buildings.Fluid.Sources.Boundary_pT souDis(
     redeclare package Medium = Medium,
-    p(displayUnit="Pa") = 300000 + 800,
+    p(displayUnit="Pa") = 300000 + 10000,
     use_T_in=false,
     T=278.15,
     nPorts=1)
@@ -34,8 +34,9 @@ model CoolingIndirectClosedBuildingLoop
     annotation (Placement(transformation(extent={{128,60},{108,80}})));
   Buildings.Applications.DHC.EnergyTransferStations.CoolingIndirect coo(
     redeclare package Medium = Medium,
-    m1_flow_nominal=mDis_flow_nominal,
-    m2_flow_nominal=mBui_flow_nominal,
+    mDis_flow_nominal=mDis_flow_nominal,
+    mBui_flow_nominal=mBui_flow_nominal,
+    dpValve_nominal=9000,
     dp1_nominal = 500,
     dp2_nominal = 500,
     Q_flow_nominal=18514,
@@ -199,6 +200,10 @@ The secondary (building) chilled water is varaible flow, with the mass flow rate
 depending on the total building load.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 10, 2019 by Kathryn Hinkelman:<br/>
+Corrected pressure drops.
+</li>
 <li>
 November 1, 2019, by Kathryn Hinkelman:<br/>
 First implementation. 
