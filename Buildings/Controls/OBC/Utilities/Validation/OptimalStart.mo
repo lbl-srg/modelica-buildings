@@ -4,117 +4,171 @@ model OptimalStart "Validation model for the block OptimalStart"
   Buildings.Controls.OBC.Utilities.OptimalStart optStaHea(
     computeHeating=true, computeCooling=false)
     "Optimal start for heating system"
-    annotation (Placement(transformation(extent={{40,76},{60,96}})));
-  Modelica.Blocks.Continuous.Integrator integrator(
-    k=0.00001, y_start=20+273.15)
+    annotation (Placement(transformation(extent={{6,80},{26,100}})));
+  Modelica.Blocks.Continuous.Integrator integrator(k=0.000005, y_start=21 +
+        273.15)
     "Integrate temperature derivative with k indicating the inverse of zone thermal capacitance"
-    annotation (Placement(transformation(extent={{0,76},{20,96}})));
+    annotation (Placement(transformation(extent={{-34,80},{-14,100}})));
   CDL.Continuous.Sources.Constant TSetHeaOcc(k=21 + 273.15)
     "Zone heating setpoint during occupancy"
-    annotation (Placement(transformation(extent={{-20,120},{0,140}})));
+    annotation (Placement(transformation(extent={{-34,130},{-14,150}})));
   SetPoints.OccupancySchedule occSch(occupancy=3600*{7,19}, period=24*3600)
     "Daily schedule"
-    annotation (Placement(transformation(extent={{0,36},{20,56}})));
-  CDL.Continuous.Gain UA(k=1000)
+    annotation (Placement(transformation(extent={{-34,40},{-14,60}})));
+  CDL.Continuous.Gain UA(k=10)
     "Overall heat loss coefficient"
-    annotation (Placement(transformation(extent={{-80,76},{-60,96}})));
+    annotation (Placement(transformation(extent={{-114,80},{-94,100}})));
   CDL.Continuous.Add dT(k1=-1)
     "Temperature difference between zone and outdoor"
-    annotation (Placement(transformation(extent={{-120,76},{-100,96}})));
+    annotation (Placement(transformation(extent={{-154,80},{-134,100}})));
   CDL.Continuous.Add dTdt "Temperature derivative"
-    annotation (Placement(transformation(extent={{-40,76},{-20,96}})));
-  CDL.Continuous.Gain QHea(k=3500) "Heat injection in the zone"
-    annotation (Placement(transformation(extent={{-80,36},{-60,56}})));
-  CDL.Logical.Or or2 "Either optimal start or occupied becomes true"
-    annotation (Placement(transformation(extent={{80,76},{100,96}})));
+    annotation (Placement(transformation(extent={{-74,80},{-54,100}})));
+  CDL.Continuous.Gain QHea(k=1000) "Heat injection in the zone"
+    annotation (Placement(transformation(extent={{-114,40},{-94,60}})));
   CDL.Conversions.BooleanToReal booToRea "Convert Boolean to Real signal"
-    annotation (Placement(transformation(extent={{120,76},{140,96}})));
+    annotation (Placement(transformation(extent={{46,80},{66,100}})));
   Buildings.Controls.OBC.Utilities.OptimalStart optStaCoo(
     computeHeating=false,computeCooling=true)
     "Optimal start for cooling system"
-    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
-  Modelica.Blocks.Continuous.Integrator integrator1(
-    k=0.001, y_start=25 +273.15)
+    annotation (Placement(transformation(extent={{6,-60},{26,-40}})));
+  Modelica.Blocks.Continuous.Integrator integrator1(k=0.000005,   y_start=24 +
+        273.15)
     "Integrate temperature derivative with k indicating the inverse of zone thermal capacitance"
-    annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
+    annotation (Placement(transformation(extent={{-34,-60},{-14,-40}})));
   CDL.Continuous.Sources.Constant TSetCooOcc(k=24 + 273.15)
     "Zone cooling setpoint during occupancy"
-    annotation (Placement(transformation(extent={{-20,-140},{0,-120}})));
+    annotation (Placement(transformation(extent={{-34,-120},{-14,-100}})));
   CDL.Continuous.Sources.Sine TOutCoo(
-    amplitude=2,
+    amplitude=5,
     freqHz=1/86400,
-    offset=25 + 273.15,
+    offset=28 + 273.15,
     startTime(displayUnit="h") = 0)
     "Outdoor dry bulb temperature to test cooling system"
-    annotation (Placement(transformation(extent={{-160,-80},{-140,-60}})));
-  CDL.Continuous.Gain UA1(k=1000) "Overall heat loss coefficient"
-    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
+    annotation (Placement(transformation(extent={{-194,-80},{-174,-60}})));
+  CDL.Continuous.Gain UA1(k=10)   "Overall heat loss coefficient"
+    annotation (Placement(transformation(extent={{-114,-60},{-94,-40}})));
   CDL.Continuous.Add dT1(k1=-1)
     "Temperature difference between zone and outdoor"
-    annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
+    annotation (Placement(transformation(extent={{-154,-60},{-134,-40}})));
   CDL.Continuous.Add dTdt1 "Temperature derivative"
-    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  CDL.Continuous.Gain QCoo(k=-2500) "Heat extraction in the zone"
-    annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
-  CDL.Logical.Or or1 "Either optimal start or occupied becomes true"
-    annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
+    annotation (Placement(transformation(extent={{-74,-60},{-54,-40}})));
+  CDL.Continuous.Gain QCoo(k=-800)  "Heat extraction in the zone"
+    annotation (Placement(transformation(extent={{-114,-100},{-94,-80}})));
   CDL.Conversions.BooleanToReal booToRea1 "Convert Boolean to Real signal"
-    annotation (Placement(transformation(extent={{120,-60},{140,-40}})));
+    annotation (Placement(transformation(extent={{46,-60},{66,-40}})));
   CDL.Continuous.Sources.Sine TOutHea(
-    amplitude=2,
+    amplitude=10,
     freqHz=1/86400,
     phase=3.1415926535898,
-    offset=20 + 273.15,
+    offset=10 + 273.15,
     startTime(displayUnit="h") = 0)
     "Outdoor dry bulb temperature to test heating system"
-    annotation (Placement(transformation(extent={{-160,56},{-140,76}})));
+    annotation (Placement(transformation(extent={{-194,60},{-174,80}})));
+  CDL.Continuous.LimPID conPID(
+    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    Ti(displayUnit="s") = 1,
+    yMax=1,
+    yMin=0) annotation (Placement(transformation(extent={{158,80},{178,100}})));
+  Modelica.Blocks.Sources.CombiTimeTable TSetRooHea(
+    table=[0,15 + 273.15; 7*3600,21 + 273.15; 19*3600,15 + 273.15; 24*3600,15
+         + 273.15],
+    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
+    "Heating setpoint for room temperature"
+    annotation (Placement(transformation(extent={{86,130},{106,150}})));
+  CDL.Continuous.Add add2
+    annotation (Placement(transformation(extent={{124,80},{144,100}})));
+  CDL.Continuous.Gain TSetBac(k=6)
+    "Heating setpoint temperature setback in the unoccupied period"
+    annotation (Placement(transformation(extent={{86,80},{106,100}})));
+  CDL.Continuous.Gain TSetUp(k=-6)
+    "Cooling setpoint temperature setup during unoccupied period"
+    annotation (Placement(transformation(extent={{86,-60},{106,-40}})));
+  Modelica.Blocks.Sources.CombiTimeTable TSetRooCoo(
+    table=[0,30 + 273.15; 7*3600,24 + 273.15; 19*3600,30 + 273.15; 24*3600,30
+         + 273.15],
+    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
+    "Cooling setpoint for room temperature"
+    annotation (Placement(transformation(extent={{86,-120},{106,-100}})));
+  CDL.Continuous.Add add1
+    annotation (Placement(transformation(extent={{124,-60},{144,-40}})));
+  CDL.Continuous.LimPID conPID1(
+    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    Ti(displayUnit="s") = 2,
+    yMax=1,
+    yMin=0,
+    reverseAction=true)
+            annotation (Placement(transformation(extent={{158,-60},{178,-40}})));
 equation
-  connect(dT.y, UA.u)    annotation (Line(points={{-98,86},{-82,86}}, color={0,0,127}));
-  connect(dTdt.y, integrator.u)   annotation (Line(points={{-18,86},{-2,86}}, color={0,0,127}));
-  connect(optStaHea.optOn, or2.u1) annotation (Line(points={{62,82},{68,82},{68,
-          86},{78,86}}, color={255,0,255}));
-  connect(or2.y, booToRea.u)   annotation (Line(points={{102,86},{118,86}}, color={255,0,255}));
-  connect(QHea.y, dTdt.u2) annotation (Line(points={{-58,46},{-48,46},{-48,80},
-          {-42,80}}, color={0,0,127}));
-  connect(integrator.y, optStaHea.TZon) annotation (Line(points={{21,86},{28,86},
-          {28,83},{38,83}}, color={0,0,127}));
-  connect(occSch.tNexOcc, optStaHea.tNexOcc) annotation (Line(points={{21,52},{
-          30,52},{30,78},{38,78}}, color={0,0,127}));
-  connect(TSetHeaOcc.y, optStaHea.TSetZonHea) annotation (Line(points={{2,130},
-          {32,130},{32,94},{38,94}}, color={0,0,127}));
-  connect(integrator.y, dT.u1) annotation (Line(points={{21,86},{28,86},{28,110},
-          {-126,110},{-126,92},{-122,92}}, color={0,0,127}));
-  connect(dT1.y, UA1.u)   annotation (Line(points={{-98,-50},{-82,-50}}, color={0,0,127}));
-  connect(TOutCoo.y, dT1.u2) annotation (Line(points={{-138,-70},{-126,-70},{-126,
-          -56},{-122,-56}}, color={0,0,127}));
-  connect(dTdt1.y, integrator1.u)   annotation (Line(points={{-18,-50},{-2,-50}}, color={0,0,127}));
-  connect(or1.y, booToRea1.u)   annotation (Line(points={{102,-50},{118,-50}}, color={255,0,255}));
-  connect(QCoo.y, dTdt1.u2) annotation (Line(points={{-58,-90},{-48,-90},{-48,
-          -56},{-42,-56}}, color={0,0,127}));
-  connect(integrator1.y, optStaCoo.TZon) annotation (Line(points={{21,-50},{28,
-          -50},{28,-53},{38,-53}}, color={0,0,127}));
-  connect(occSch.tNexOcc, optStaCoo.tNexOcc) annotation (Line(points={{21,52},{
-          30,52},{30,-58},{38,-58}}, color={0,0,127}));
-  connect(integrator1.y, dT1.u1) annotation (Line(points={{21,-50},{28,-50},{28,
-          -24},{-126,-24},{-126,-44},{-122,-44}}, color={0,0,127}));
-  connect(TSetCooOcc.y, optStaCoo.TSetZonCoo) annotation (Line(points={{2,-130},
-          {34,-130},{34,-47},{38,-47}}, color={0,0,127}));
-  connect(occSch.occupied, or2.u2) annotation (Line(points={{21,40},{72,40},{72,
-          78},{78,78}}, color={255,0,255}));
-  connect(optStaCoo.optOn, or1.u2) annotation (Line(points={{62,-54},{68,-54},{
-          68,-58},{78,-58}}, color={255,0,255}));
-  connect(occSch.occupied, or1.u1) annotation (Line(points={{21,40},{72,40},{72,
-          -50},{78,-50}}, color={255,0,255}));
-  connect(booToRea.y, QHea.u) annotation (Line(points={{142,86},{152,86},{152,
-          22},{-88,22},{-88,46},{-82,46}}, color={0,0,127}));
-  connect(booToRea1.y, QCoo.u) annotation (Line(points={{142,-50},{152,-50},{
-          152,-108},{-88,-108},{-88,-90},{-82,-90}}, color={0,0,127}));
-  connect(TOutHea.y, dT.u2) annotation (Line(points={{-138,66},{-126,66},{-126,
-          80},{-122,80}}, color={0,0,127}));
-  connect(UA.y, dTdt.u1) annotation (Line(points={{-58,86},{-50,86},{-50,92},{
-          -42,92}}, color={0,0,127}));
-  connect(UA1.y, dTdt1.u1) annotation (Line(points={{-58,-50},{-50,-50},{-50,
-          -44},{-42,-44}}, color={0,0,127}));
+  connect(dT.y, UA.u)    annotation (Line(points={{-132,90},{-116,90}},
+                                                                      color={0,0,127}));
+  connect(dTdt.y, integrator.u)   annotation (Line(points={{-52,90},{-36,90}},color={0,0,127}));
+  connect(QHea.y, dTdt.u2) annotation (Line(points={{-92,50},{-82,50},{-82,84},
+          {-76,84}}, color={0,0,127}));
+  connect(integrator.y, optStaHea.TZon) annotation (Line(points={{-13,90},{-6,
+          90},{-6,87},{4,87}},
+                            color={0,0,127}));
+  connect(occSch.tNexOcc, optStaHea.tNexOcc) annotation (Line(points={{-13,56},
+          {-2,56},{-2,82},{4,82}}, color={0,0,127}));
+  connect(TSetHeaOcc.y, optStaHea.TSetZonHea) annotation (Line(points={{-12,140},
+          {-2,140},{-2,98},{4,98}},  color={0,0,127}));
+  connect(integrator.y, dT.u1) annotation (Line(points={{-13,90},{-6,90},{-6,
+          112},{-160,112},{-160,96},{-156,96}},
+                                           color={0,0,127}));
+  connect(dT1.y, UA1.u)   annotation (Line(points={{-132,-50},{-116,-50}},
+                                                                         color={0,0,127}));
+  connect(TOutCoo.y, dT1.u2) annotation (Line(points={{-172,-70},{-160,-70},{
+          -160,-56},{-156,-56}},
+                            color={0,0,127}));
+  connect(dTdt1.y, integrator1.u)   annotation (Line(points={{-52,-50},{-36,-50}},color={0,0,127}));
+  connect(QCoo.y, dTdt1.u2) annotation (Line(points={{-92,-90},{-82,-90},{-82,
+          -56},{-76,-56}}, color={0,0,127}));
+  connect(integrator1.y, optStaCoo.TZon) annotation (Line(points={{-13,-50},{-8,
+          -50},{-8,-54},{-2,-54},{-2,-53},{4,-53}},
+                                   color={0,0,127}));
+  connect(occSch.tNexOcc, optStaCoo.tNexOcc) annotation (Line(points={{-13,56},
+          {-2,56},{-2,-58},{4,-58}}, color={0,0,127}));
+  connect(integrator1.y, dT1.u1) annotation (Line(points={{-13,-50},{-8,-50},{
+          -8,-24},{-160,-24},{-160,-44},{-156,-44}},
+                                                  color={0,0,127}));
+  connect(TSetCooOcc.y, optStaCoo.TSetZonCoo) annotation (Line(points={{-12,
+          -110},{0,-110},{0,-47},{4,-47}},
+                                        color={0,0,127}));
+  connect(TOutHea.y, dT.u2) annotation (Line(points={{-172,70},{-160,70},{-160,
+          84},{-156,84}}, color={0,0,127}));
+  connect(UA.y, dTdt.u1) annotation (Line(points={{-92,90},{-84,90},{-84,96},{
+          -76,96}}, color={0,0,127}));
+  connect(UA1.y, dTdt1.u1) annotation (Line(points={{-92,-50},{-84,-50},{-84,
+          -44},{-76,-44}}, color={0,0,127}));
+  connect(booToRea.y, TSetBac.u)
+    annotation (Line(points={{68,90},{84,90}}, color={0,0,127}));
+  connect(add2.y, conPID.u_s)
+    annotation (Line(points={{146,90},{156,90}}, color={0,0,127}));
+  connect(conPID.y, QHea.u) annotation (Line(points={{180,90},{186,90},{186,30},
+          {-122,30},{-122,50},{-116,50}}, color={0,0,127}));
+  connect(integrator.y, conPID.u_m) annotation (Line(points={{-13,90},{-6,90},{
+          -6,64},{168,64},{168,78}}, color={0,0,127}));
+  connect(TSetBac.y, add2.u2) annotation (Line(points={{108,90},{112,90},{112,84},
+          {122,84}}, color={0,0,127}));
+  connect(TSetRooHea.y[1], add2.u1) annotation (Line(points={{107,140},{116,140},
+          {116,96},{122,96}}, color={0,0,127}));
+  connect(optStaHea.optOn, booToRea.u) annotation (Line(points={{28,86},{36,86},
+          {36,90},{44,90}}, color={255,0,255}));
+  connect(optStaCoo.optOn, booToRea1.u) annotation (Line(points={{28,-54},{36,
+          -54},{36,-50},{44,-50}}, color={255,0,255}));
+  connect(booToRea1.y, TSetUp.u)
+    annotation (Line(points={{68,-50},{84,-50}}, color={0,0,127}));
+  connect(TSetUp.y, add1.u1) annotation (Line(points={{108,-50},{116,-50},{116,-44},
+          {122,-44}}, color={0,0,127}));
+  connect(TSetRooCoo.y[1], add1.u2) annotation (Line(points={{107,-110},{118,-110},
+          {118,-56},{122,-56}}, color={0,0,127}));
+  connect(add1.y, conPID1.u_s)
+    annotation (Line(points={{146,-50},{156,-50}}, color={0,0,127}));
+  connect(integrator1.y, conPID1.u_m) annotation (Line(points={{-13,-50},{-8,
+          -50},{-8,-80},{168,-80},{168,-62}}, color={0,0,127}));
+  connect(conPID1.y, QCoo.u) annotation (Line(points={{180,-50},{184,-50},{184,
+          -130},{-124,-130},{-124,-90},{-116,-90}}, color={0,0,127}));
   annotation (
   experiment(
       StopTime=864000,
@@ -172,27 +226,27 @@ First implementation.
                 fillPattern = FillPattern.Solid,
                 points={{-36,60},{64,0},{-36,-60},{-36,60}})}),
         Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-180,-160},{180,
+        coordinateSystem(preserveAspectRatio=false, extent={{-200,-160},{200,
             160}}),
         graphics={
         Rectangle(
-          extent={{-168,152},{164,10}},
-          lineColor={215,215,215},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-168,-16},{164,-152}},
+          extent={{-196,156},{196,14}},
           lineColor={215,215,215},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-160,146},{-96,118}},
+          extent={{-194,146},{-130,118}},
           lineColor={255,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Tests space heating"),
+        Rectangle(
+          extent={{-196,-12},{196,-154}},
+          lineColor={215,215,215},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid),
         Text(
-          extent={{-160,-128},{-96,-156}},
+          extent={{-190,-126},{-126,-154}},
           lineColor={255,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
