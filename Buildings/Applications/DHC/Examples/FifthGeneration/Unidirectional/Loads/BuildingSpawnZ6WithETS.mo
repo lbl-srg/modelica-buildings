@@ -13,5 +13,6 @@ model BuildingSpawnZ6WithETS
     "Path of the weather file"
     annotation(Dialog(group="Building model parameters"));
   annotation (Icon(graphics={
-          Bitmap(extent={{-30,-10},{30,50}},     fileName="modelica://Buildings/Resources/Images/Experimental/EnergyPlus/EnergyPlusLogo.png")}));
+          Bitmap(extent={{-30,-10},{30,50}},
+          fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/EnergyPlusLogo.png")}));
 end BuildingSpawnZ6WithETS;
