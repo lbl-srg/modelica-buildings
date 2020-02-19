@@ -202,10 +202,10 @@ model System7
     "Outdoor temperature sensor"
     annotation (Placement(transformation(extent={{-318,20},{-298,40}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaRad1(realTrue=mBoi_flow_nominal)
-    "Radiator pump signal"
+    "Boiler pump signal"
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaRad2(realTrue=1)
-    "Radiator pump signal"
+    "Boiler on/off signal"
     annotation (Placement(transformation(extent={{-100,-340},{-80,-320}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaRad(realTrue=mRad_flow_nominal)
     "Radiator pump signal"

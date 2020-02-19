@@ -230,7 +230,7 @@ model System4
 
 //-------------------------Step 3: Boolean to real: Boiler Pump-----------------------//
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaRad1(realTrue=mBoi_flow_nominal)
-    "Radiator pump signal"
+    "Boiler pump signal"
     annotation (Placement(transformation(extent={{-140,-190},{-120,-170}})));
 //------------------------------------------------------------------------------------//
 

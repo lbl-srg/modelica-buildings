@@ -1,6 +1,5 @@
-within Buildings.Examples.Tutorial.Boiler;
-model System6
-  "6th part of the system model, which adds weather data and changes to PI control"
+within Buildings.Examples.Tutorial.ControlDescriptionLanguage;
+model System3 "Open loop model with control architecture implemented"
   extends Modelica.Icons.Example;
   replaceable package MediumA =
       Buildings.Media.Air;
@@ -79,7 +78,9 @@ model System6
   Buildings.Fluid.Movers.FlowControlled_m_flow pumRad(
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=mRad_flow_nominal) "Pump for radiator"
+    m_flow_nominal=mRad_flow_nominal,
+    nominalValuesDefineDefaultPressureCurve=true)
+    "Pump for radiator"
       annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},
       rotation=90,
@@ -136,10 +137,12 @@ model System6
 //----------------------------------------------------------------------------//
 
   Buildings.Fluid.Movers.FlowControlled_m_flow pumBoi(
-      redeclare package Medium = MediumW,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-      m_flow_nominal=mBoi_flow_nominal) "Pump for boiler"
-                        annotation (Placement(transformation(
+    redeclare package Medium = MediumW,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal=mBoi_flow_nominal,
+    nominalValuesDefineDefaultPressureCurve=true)
+                                      "Pump for boiler"
+      annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,-280})));
@@ -161,7 +164,7 @@ model System6
     m_flow_nominal=mRadVal_flow_nominal,
     l={0.01,0.01},
     dpValve_nominal=6000) "Three-way valve for radiator loop"
-                        annotation (Placement(transformation(
+      annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,-150})));
@@ -177,13 +180,14 @@ model System6
     m_flow_nominal=mBoi_flow_nominal,
     l={0.01,0.01},
     dpValve_nominal=6000) "Three-way valve for boiler"
-                        annotation (Placement(transformation(
+      annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={60,-230})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort temRet(redeclare package Medium =
-        MediumW, m_flow_nominal=mBoi_flow_nominal) "Return water temperature"
-                                          annotation (Placement(transformation(
+  Buildings.Fluid.Sensors.TemperatureTwoPort temRet(
+    redeclare package Medium = MediumW,
+    m_flow_nominal=mBoi_flow_nominal) "Return water temperature"
+      annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={60,-280})));
@@ -197,86 +201,12 @@ model System6
         origin={-50,-230})));
 
 //--------------------------------------------------------------------------------//
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTOut(uLow=273.15 + 16, uHigh=273.15 + 17)
-    "Hysteresis for on/off based on outside temperature"
-    annotation (Placement(transformation(extent={{-260,-200},{-240,-180}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not2
-    annotation (Placement(transformation(extent={{-220,-200},{-200,-180}})));
 
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTOut
     "Outdoor temperature sensor"
-    annotation (Placement(transformation(extent={{-318,20},{-298,40}})));
-//--------------------------------------------------------------------------------//
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTBoi(uHigh=273.15 + 90,
-                                             uLow=273.15 + 70)
-    "Hysteresis for on/off of boiler"
-    annotation (Placement(transformation(extent={{-260,-348},{-240,-328}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not3
-    annotation (Placement(transformation(extent={{-220,-348},{-200,-328}})));
-  Buildings.Controls.OBC.CDL.Logical.And and1
-    annotation (Placement(transformation(extent={{-180,-160},{-160,-140}})));
+    annotation (Placement(transformation(extent={{-316,10},{-296,30}})));
 //--------------------------------------------------------------------------------//
 
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaRad1(realTrue=mBoi_flow_nominal)
-    "Boiler pump signal"
-    annotation (Placement(transformation(extent={{-140,-180},{-120,-160}})));
-//--------------------------------------------------------------------------------//
-
-  Buildings.Controls.OBC.CDL.Logical.And and2
-    annotation (Placement(transformation(extent={{-140,-340},{-120,-320}})));
-
- Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaRad2(realTrue=1)
-    "Boiler signal"
-    annotation (Placement(transformation(extent={{-100,-340},{-80,-320}})));
-
-//--------------------------------------------------------------------------------//
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysPum(
-    uLow=273.15 + 19,
-    uHigh=273.15 + 21)
-    "Pump hysteresis"
-    annotation (Placement(transformation(extent={{-260,-160},{-240,-140}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaRad(realTrue=mRad_flow_nominal)
-    "Radiator pump signal"
-    annotation (Placement(transformation(extent={{-140,-140},{-120,-120}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not1 "Negate output of hysteresis"
-    annotation (Placement(transformation(extent={{-220,-160},{-200,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetBoiRet(k=TBoiRet_min)
-    "Temperature setpoint for boiler return"
-    annotation (Placement(transformation(extent={{120,-270},{140,-250}})));
-
- Buildings.Controls.OBC.CDL.Continuous.LimPID conPIDBoi(
-    Td=1,
-    Ti=120,
-    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    k=0.1,
-    yMax=1,
-    yMin=0,
-    reverseAction=true) "Controller for valve in boiler loop"
-    annotation (Placement(transformation(extent={{160,-270},{180,-250}})));
-//--------------------------------------------------------------------------------//
-
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPIDRad(
-    Td=1,
-    Ti=120,
-    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    k=0.1,
-    yMax=1,
-    yMin=0)
-           "Controller for valve in radiator loop"
-    annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
-//------------------------------------------------------------------------------//
-  Buildings.Controls.OBC.CDL.Continuous.Line TSetSup
-    "Setpoint for supply water temperature"
-    annotation (Placement(transformation(extent={{-220,-90},{-200,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMin(k=273.15 + 21)
-    "Minimum heating supply temperature"
-    annotation (Placement(transformation(extent={{-260,-120},{-240,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMax(k=273.15 + 50)
-    "Maximum heating supply temperature"
-    annotation (Placement(transformation(extent={{-260,-60},{-240,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TRooMin(k=273.15 + 19)
-    "Minimum room air temperature"
-    annotation (Placement(transformation(extent={{-260,-20},{-240,0}})));
 //--- Weather data -------------------------------------------------------------//
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
@@ -289,6 +219,23 @@ model System6
     annotation (Placement(transformation(extent={{-260,60},{-240,80}})));
 //------------------------------------------------------------------------------//
 
+  Controls.BoilerReturn conBoiRet
+    annotation (Placement(transformation(extent={{100,-290},{120,-270}})));
+  Controls.OpenLoopSystemOnOff conSysSta
+    annotation (Placement(transformation(extent={{-260,-60},{-240,-40}})));
+  Controls.OpenLoopRadiatorSupply conRadSup
+    annotation (Placement(transformation(extent={{-260,-160},{-240,-140}})));
+  Controls.OpenLoopEquipmentOnOff conEquSta
+    annotation (Placement(transformation(extent={{-200,-220},{-180,-200}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal radPumCon(realTrue=
+        mRad_flow_nominal) "Radiator pump signal"
+    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal boiPumCon(realTrue=
+        mBoi_flow_nominal) "Boiler pump signal"
+    annotation (Placement(transformation(extent={{-100,-290},{-80,-270}})));
+ Buildings.Controls.OBC.CDL.Conversions.BooleanToReal boiSigCon(realTrue=1)
+    "Boiler signal"
+    annotation (Placement(transformation(extent={{-100,-260},{-80,-240}})));
 equation
   connect(theCon.port_b, vol.heatPort) annotation (Line(
       points={{40,50},{50,50},{50,30},{60,30}},
@@ -401,66 +348,6 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
 
-  connect(hysTOut.y, not2.u) annotation (Line(
-      points={{-238,-190},{-222,-190}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(hysTBoi.y, not3.u) annotation (Line(
-      points={{-238,-338},{-222,-338}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(not2.y, and1.u2) annotation (Line(
-      points={{-198,-190},{-192,-190},{-192,-158},{-182,-158}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(boi.T, hysTBoi.u) annotation (Line(
-      points={{-1,-302},{-280,-302},{-280,-338},{-262,-338}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(senTOut.T, hysTOut.u) annotation (Line(
-      points={{-298,30},{-292,30},{-292,-190},{-262,-190}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(and1.y, booToReaRad1.u) annotation (Line(
-      points={{-158,-150},{-152,-150},{-152,-170},{-142,-170}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(and1.y, and2.u1) annotation (Line(
-      points={{-158,-150},{-152,-150},{-152,-330},{-142,-330}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(not3.y, and2.u2) annotation (Line(
-      points={{-198,-338},{-142,-338}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(and2.y, booToReaRad2.u) annotation (Line(
-      points={{-118,-330},{-102,-330}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(booToReaRad2.y, boi.y) annotation (Line(
-      points={{-78,-330},{40,-330},{40,-302},{22,-302}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(temRoo.T,hysPum. u) annotation (Line(
-      points={{-50,30},{-270,30},{-270,-150},{-262,-150}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(hysPum.y,not1. u) annotation (Line(
-      points={{-238,-150},{-222,-150}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(not1.y, and1.u1) annotation (Line(
-      points={{-198,-150},{-182,-150}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(and1.y, booToReaRad.u) annotation (Line(
-      points={{-158,-150},{-152,-150},{-152,-130},{-142,-130}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(temSup.T, conPIDRad.u_m) annotation (Line(
-      points={{-61,-40},{-170,-40},{-170,-22}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(weaDat.weaBus, weaBus) annotation (Line(
       points={{-360,70},{-310,70}},
       color={255,204,51},
@@ -482,48 +369,42 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(TOut.port, senTOut.port) annotation (Line(
-      points={{-240,70},{-220,70},{-220,50},{-340,50},{-340,30},{-318,30}},
+      points={{-240,70},{-220,70},{-220,50},{-340,50},{-340,20},{-316,20}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(booToReaRad.y, pumRad.m_flow_in) annotation (Line(
-      points={{-118,-130},{-100,-130},{-100,-70},{-62,-70}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(conPIDRad.y, valRad.y) annotation (Line(
-      points={{-158,-10},{-90,-10},{-90,-150},{-62,-150}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(booToReaRad1.y, pumBoi.m_flow_in) annotation (Line(
-      points={{-118,-170},{-100,-170},{-100,-280},{-62,-280}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(conPIDBoi.y, valBoi.y) annotation (Line(
-      points={{182,-260},{200,-260},{200,-230},{72,-230}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(TSetBoiRet.y, conPIDBoi.u_s) annotation (Line(points={{142,-260},{142,
-          -260},{158,-260}},       color={0,0,127}));
-  connect(temRet.T, conPIDBoi.u_m) annotation (Line(points={{71,-280},{114,-280},
-          {170,-280},{170,-272}}, color={0,0,127}));
-  connect(TSetSup.x1,TRooMin. y) annotation (Line(points={{-222,-72},{-230,-72},
-          {-230,-10},{-238,-10}},
-                              color={0,0,127}));
-  connect(TSupMax.y,TSetSup. f1) annotation (Line(points={{-238,-50},{-234,-50},
-          {-234,-76},{-222,-76}}, color={0,0,127}));
-  connect(TSupMin.y,TSetSup. f2) annotation (Line(points={{-238,-110},{-230,-110},
-          {-230,-88},{-222,-88}}, color={0,0,127}));
-  connect(TSupMin.y,TSetSup. x2) annotation (Line(points={{-238,-110},{-230,-110},
-          {-230,-84},{-222,-84}}, color={0,0,127}));
-  connect(TSetSup.u, temRoo.T) annotation (Line(points={{-222,-80},{-270,-80},{-270,
-          30},{-50,30}}, color={0,0,127}));
-  connect(conPIDRad.u_s,TSetSup. y) annotation (Line(points={{-182,-10},{-190,-10},
-          {-190,-80},{-198,-80}}, color={0,0,127}));
+  connect(conBoiRet.TRet, temRet.T)
+    annotation (Line(points={{98,-280},{71,-280}}, color={0,0,127}));
+  connect(conBoiRet.yVal, valBoi.y) annotation (Line(points={{122,-280},{130,-280},
+          {130,-230},{72,-230}}, color={0,0,127}));
+  connect(conSysSta.TOut, senTOut.T) annotation (Line(points={{-262,-44},{-288,-44},
+          {-288,20},{-296,20}}, color={0,0,127}));
+  connect(conSysSta.TRoo, temRoo.T) annotation (Line(points={{-262,-56},{-280,-56},
+          {-280,30},{-50,30},{-50,30}}, color={0,0,127}));
+  connect(conRadSup.TRoo, temRoo.T) annotation (Line(points={{-262,-144},{-280,-144},
+          {-280,30},{-50,30}}, color={0,0,127}));
+  connect(conRadSup.TOut, senTOut.T) annotation (Line(points={{-262,-156},{-288,
+          -156},{-288,20},{-296,20}}, color={0,0,127}));
+  connect(conRadSup.yVal, valRad.y)
+    annotation (Line(points={{-238,-150},{-62,-150}}, color={0,0,127}));
+  connect(conEquSta.TBoi, boi.T) annotation (Line(points={{-202,-204},{-230,-204},
+          {-230,-302},{-1,-302}}, color={0,0,127}));
+  connect(conSysSta.onSys, conEquSta.onSys) annotation (Line(points={{-238,-50},
+          {-212,-50},{-212,-216},{-202,-216}}, color={255,0,255}));
+  connect(radPumCon.y, pumRad.m_flow_in)
+    annotation (Line(points={{-78,-70},{-62,-70}}, color={0,0,127}));
+  connect(pumBoi.m_flow_in, boiPumCon.y)
+    annotation (Line(points={{-62,-280},{-78,-280}}, color={0,0,127}));
+  connect(conEquSta.onPum, boiPumCon.u) annotation (Line(points={{-178,-216},{-120,
+          -216},{-120,-280},{-102,-280}}, color={255,0,255}));
+  connect(radPumCon.u, conEquSta.onPum) annotation (Line(points={{-102,-70},{-120,
+          -70},{-120,-216},{-178,-216}}, color={255,0,255}));
+  connect(boiSigCon.u, conEquSta.onBoi) annotation (Line(points={{-102,-250},{-108,
+          -250},{-108,-204},{-178,-204}}, color={255,0,255}));
+  connect(boiSigCon.y, boi.y) annotation (Line(points={{-78,-250},{32,-250},{32,
+          -302},{22,-302}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
-This part of the system model adds to the model that is implemented in
-<a href=\"modelica://Buildings.Examples.Tutorial.Boiler.System5\">
-Buildings.Examples.Tutorial.Boiler.System5</a>
-weather data, and it changes the control to PI control.
+In this step, we added the controller for the boiler return water temperature.
 </p>
 <h4>Implementation</h4>
 <p>
@@ -532,101 +413,59 @@ This model was built as follows:
 <ol>
 <li>
 <p>
-First, we copied the model
-<a href=\"modelica://Buildings.Examples.Tutorial.Boiler.System5\">
-Buildings.Examples.Tutorial.Boiler.System5</a>
-and called it
-<code>Buildings.Examples.Tutorial.Boiler.System6</code>.
+First, we copied the controller
+<a href=\"modelica://Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.OpenLoopBoilerReturn\">
+Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.OpenLoopBoilerReturn</a>
+to create the block
+<a href=\"modelica://Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.BoilerReturn\">
+Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.BoilerReturn</a>.
 </p>
 </li>
 <li>
 <p>
-Next, we added the weather data as shown in the figure below.
+In this new block, we used a constant output signal
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Sources.Constant\">
+Buildings.Controls.OBC.CDL.Continuous.Sources.Constant</a>
+and a PID controller
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.LimPID\">
+Buildings.Controls.OBC.CDL.Continuous.LimPID</a>,
+which we configured as a PI-controller with a p gain of <i>0.1</i>
+and a time constant of <i>120</i> seconds, which is about the time it takes to open
+and close a valve. As the control error is in Kelvin, which is typically of the order of <i>1</i>
+to <i>10</i>, there is no need to normalize the control input. (If pressure were used, it would make sense
+to divide the measured signal and the set point so that the control error is usually of the order of one,
+which simplifies the tuning.)
 </p>
-<p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System6Weather.png\" border=\"1\"/>
-</p>
+</li>
+<li>
 <p>
-The weather data reader is implemented using
-</p>
-<pre>
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    filNam=\"modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos\")
-    \"Weather data reader\";
-</pre>
-<p>
-The yellow icon in the middle of the figure is an instance of
-<a href=\"modelica://Buildings.BoundaryConditions.WeatherData.Bus\">
-Buildings.BoundaryConditions.WeatherData.Bus</a>.
-This is required to extract the dry bulb temperature from the weather data bus.
-</p>
-<p>
-Note that we changed the instance <code>TOut</code> from
-<a href=\"modelica://Modelica.Thermal.HeatTransfer.Sources.FixedTemperature\">
-Modelica.Thermal.HeatTransfer.Sources.FixedTemperature</a>
-to
-<a href=\"modelica://Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature\">
-Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature</a>
-in order to use the dry-bulb temperature as an input signal.
+To allow this controller to be tuned, we exposed at the top-level the parameters
+for the set point temperature and the control gains.
 </p>
 </li>
 </ol>
-<!-- ============================================== -->
 <p>
-This completes the closed loop control.
-When simulating the model
-for <i>2</i> days, or <i>172800</i> seconds, the
-response shown below should be seen.
+Simulating the system will show that the valve is controlled to maintain a return water temperature
+of at least <i>60</i>&circ;C as shown below.
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System6Temperatures1.png\" border=\"1\"/>
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System6Temperatures2.png\" border=\"1\"/>
+<img alt=\"Open loop temperatures.\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/ControlDescriptionLanguage/System3/TemperaturesValve.png\" border=\"1\"/>
 </p>
-<p>
-The figure shows that the boiler temperature is regulated between
-<i>70</i>&deg;C and
-<i>90</i>&deg;C,
-that
-the boiler inlet temperature is above
-<i>60</i>&deg;C,
-and that the room temperature and the supply water temperature are
-maintained at their set point.
-</p>
-</html>", revisions="<html>
+</html>",
+revisions="<html>
 <ul>
 <li>
-March 6, 2017, by Michael Wetter:<br/>
-Added missing density to computation of air mass flow rate.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/673\">#673</a>.
-</li>
-<li>
-July 2, 2015, by Michael Wetter:<br/>
-Changed control input for <code>conPIDBoi</code> and set
-<code>reverseAction=true</code>
-to address issue
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/436\">#436</a>.
-</li>
-<li>
-December 22, 2014 by Michael Wetter:<br/>
-Removed <code>Modelica.Fluid.System</code>
-to address issue
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
-</li>
-<li>
-March 1, 2013, by Michael Wetter:<br/>
-Added nominal pressure drop for valves as
-this parameter no longer has a default value.
-</li>
-<li>
-January 27, 2012, by Michael Wetter:<br/>
+February 18, 2020, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-360},{240,
-            100}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-360},{240, 100}})),
     __Dymola_Commands(file=
-     "modelica://Buildings/Resources/Scripts/Dymola/Examples/Tutorial/Boiler/System6.mos"
+     "modelica://Buildings/Resources/Scripts/Dymola/Examples/Tutorial/ControlDescriptionLanguage/System3.mos"
         "Simulate and plot"),
-    experiment(Tolerance=1e-6, StopTime=172800));
-end System6;
+    experiment(
+      StopTime=172800,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"));
+end System3;
