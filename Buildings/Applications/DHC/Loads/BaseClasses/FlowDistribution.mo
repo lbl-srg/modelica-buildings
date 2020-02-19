@@ -354,7 +354,7 @@ initial equation
     ": The configuration where have_val is true and have_pum is false is not allowed.");
 equation
 
-  assert(mReqTot_flow + m_flow_small < m_flow_nominal,
+  assert(mReqTot_flow < m_flow_nominal + m_flow_small,
     "In " + getInstanceName() + ": The total required mass flow rate equals "
     + String(mReqTot_flow) + " (kg/s) which is higher than the nominal mass
     flow rate value of " + String(m_flow_nominal) + " (kg/s).",

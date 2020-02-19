@@ -7,7 +7,7 @@ simulateModel("Buildings.Applications.DHC.Loads.Examples.CouplingTimeSeries",
 createPlot(
     id=1,
     position={10, 20, 670, 900},
-    y={"bui.maxTSet.y", "bui.minTSet.y", "bui.terUniCoo.TLoaODE.TInd", "bui.terUniHea.TLoaODE.TInd"},
+    y={"bui.maxTSet.y", "bui.minTSet.y", "bui.terUniCoo.TLoaODE.TAir", "bui.terUniHea.TLoaODE.TAir"},
     autoscale=true,
     grid=true
 );

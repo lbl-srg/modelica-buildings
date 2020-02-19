@@ -78,7 +78,7 @@ equation
     extent={{-338,-176},{2,-256}},
     lineColor={28,108,200},
     horizontalAlignment=TextAlignment.Left,
-    textString="Simulation is faster with
+          textString="Simulation is faster with
 
 Advanced.SparseActivate=true")}),
   __Dymola_Commands,

@@ -2,8 +2,8 @@ compareVars :=
   {
     "bui.maxTSet.y",
     "bui.minTSet.y",
-    "bui.terUniCoo.TLoaODE.TInd",
-    "bui.terUniHea.TLoaODE.TInd",
+    "bui.terUniCoo.TLoaODE.TAir",
+    "bui.terUniHea.TLoaODE.TAir",
     "bui.terUniHea.QReqHea_flow",
     "bui.terUniHea.QActHea_flow",
     "bui.terUniCoo.QReqCoo_flow",

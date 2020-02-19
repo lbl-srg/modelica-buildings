@@ -1,7 +1,6 @@
 old_flag = Advanced.StoreProtectedVariables;
 Advanced.StoreProtectedVariables = true;
-simulateModel(
-    "Buildings.Applications.DHC.Loads.Validation.FlowDistributionChangeOver",
+simulateModel("Buildings.Applications.DHC.Loads.Validation.FlowDistributionChangeOver",
     method="cvode",
     tolerance=1e-6,
     numberOfIntervals=500,
