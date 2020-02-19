@@ -72,6 +72,7 @@ model OptimalStart "Validation model for the block OptimalStart"
   Modelica.Blocks.Sources.CombiTimeTable TSetRooHea(
     table=[0,15 + 273.15; 7*3600,21 + 273.15; 19*3600,15 + 273.15; 24*3600,15
          + 273.15],
+    y(unit="K"),
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     "Heating setpoint for room temperature"
