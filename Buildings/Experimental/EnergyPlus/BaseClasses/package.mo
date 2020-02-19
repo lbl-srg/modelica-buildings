@@ -1,6 +1,6 @@
-within Buildings.Experimental.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice;
+within Buildings.Experimental.EnergyPlus;
 package BaseClasses "Package with base classes for Buildings.Experimental.EnergyPlus"
-extends Modelica.Icons.BasesPackage;
+ extends Modelica.Icons.BasesPackage;
 
 
   annotation (preferredView="info",

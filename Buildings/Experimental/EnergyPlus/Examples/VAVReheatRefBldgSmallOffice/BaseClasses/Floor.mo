@@ -33,7 +33,7 @@ model Floor "Model of a floor of the building"
   Modelica.SIunits.Temperature TAirWes = wes.TAir
     "Air temperature west zone";
 
-  ThermalZone sou(
+  Buildings.Experimental.EnergyPlus.ThermalZone sou(
     redeclare package Medium = Medium,
     nPorts=5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -41,7 +41,7 @@ model Floor "Model of a floor of the building"
     weaName=weaName,
     zoneName="Perimeter_ZN_1") "South zone"
     annotation (Placement(transformation(extent={{144,-44},{184,-4}})));
-  ThermalZone eas(
+  Buildings.Experimental.EnergyPlus.ThermalZone eas(
     redeclare package Medium = Medium,
     nPorts=5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -49,7 +49,7 @@ model Floor "Model of a floor of the building"
     weaName=weaName,
     zoneName="Perimeter_ZN_2") "East zone"
     annotation (Placement(transformation(extent={{304,56},{344,96}})));
-  ThermalZone nor(
+  Buildings.Experimental.EnergyPlus.ThermalZone nor(
     redeclare package Medium = Medium,
     nPorts=5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -57,7 +57,7 @@ model Floor "Model of a floor of the building"
     weaName=weaName,
     zoneName="Perimeter_ZN_3") "North zone"
     annotation (Placement(transformation(extent={{144,116},{184,156}})));
-  ThermalZone wes(
+  Buildings.Experimental.EnergyPlus.ThermalZone wes(
     redeclare package Medium = Medium,
     nPorts=5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -65,7 +65,7 @@ model Floor "Model of a floor of the building"
     weaName=weaName,
     zoneName="Perimeter_ZN_4") "West zone"
     annotation (Placement(transformation(extent={{12,36},{52,76}})));
-  ThermalZone cor(
+  Buildings.Experimental.EnergyPlus.ThermalZone cor(
     redeclare package Medium = Medium,
     nPorts=11,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -74,7 +74,7 @@ model Floor "Model of a floor of the building"
     zoneName="Core_ZN") "Core zone"
     annotation (Placement(transformation(extent={{144,36},{184,76}})));
 
-  ThermalZone att(
+  Buildings.Experimental.EnergyPlus.ThermalZone att(
     redeclare package Medium = Medium,
     idfName=idfName,
     weaName=weaName,
