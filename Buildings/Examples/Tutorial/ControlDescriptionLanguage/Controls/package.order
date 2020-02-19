@@ -1,5 +1,6 @@
-BoilerReturn
 OpenLoopBoilerReturn
-OpenLoopEquipmentOnOff
-OpenLoopRadiatorSupply
 OpenLoopSystemOnOff
+OpenLoopRadiatorSupply
+OpenLoopEquipmentOnOff
+BoilerReturn
+EquipmentOnOff

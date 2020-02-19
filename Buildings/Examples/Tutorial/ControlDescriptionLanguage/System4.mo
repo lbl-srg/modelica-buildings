@@ -1,5 +1,5 @@
 within Buildings.Examples.Tutorial.ControlDescriptionLanguage;
-model System3 "Open loop model with boiler return temperature control"
+model System4 "Open loop model with equipment on/off control"
   extends Modelica.Icons.Example;
   replaceable package MediumA =
       Buildings.Media.Air;
@@ -225,7 +225,7 @@ model System3 "Open loop model with boiler return temperature control"
     annotation (Placement(transformation(extent={{-260,-60},{-240,-40}})));
   Controls.OpenLoopRadiatorSupply conRadSup
     annotation (Placement(transformation(extent={{-260,-160},{-240,-140}})));
-  Controls.OpenLoopEquipmentOnOff conEquSta
+  Controls.EquipmentOnOff conEquSta
     annotation (Placement(transformation(extent={{-200,-220},{-180,-200}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal radPumCon(realTrue=
         mRad_flow_nominal) "Radiator pump signal"
@@ -404,7 +404,7 @@ equation
           -302},{22,-302}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
-In this step, we added the controller for the boiler return water temperature.
+In this step, we added the controller for the boiler on/off control.
 </p>
 <h4>Implementation</h4>
 <p>
@@ -414,42 +414,37 @@ This model was built as follows:
 <li>
 <p>
 First, we copied the controller
-<a href=\"modelica://Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.OpenLoopBoilerReturn\">
-Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.OpenLoopBoilerReturn</a>
+<a href=\"modelica://Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.OpenLoopEquipmentOnOff\">
+Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.OpenLoopEquipmentOnOff</a>
 to create the block
-<a href=\"modelica://Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.BoilerReturn\">
-Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.BoilerReturn</a>.
+<a href=\"modelica://Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.EquipmentOnOff\">
+Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.EquipmentOnOff</a>.
 </p>
 </li>
 <li>
 <p>
-In this new block, we used a constant output signal
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Sources.Constant\">
-Buildings.Controls.OBC.CDL.Continuous.Sources.Constant</a>
-and a PID controller
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.LimPID\">
-Buildings.Controls.OBC.CDL.Continuous.LimPID</a>,
-which we configured as a PI-controller with a p gain of <i>0.1</i>
-and a time constant of <i>120</i> seconds, which is about the time it takes to open
-and close a valve. As the control error is in Kelvin, which is typically of the order of <i>1</i>
-to <i>10</i>, there is no need to normalize the control input. (If pressure were used, it would make sense
-to divide the measured signal and the set point so that the control error is usually of the order of one,
-which simplifies the tuning.)
-</p>
-</li>
-<li>
-<p>
-To allow this controller to be tuned, we exposed at the top-level the parameters
-for the set point temperature and the control gains.
+In this new block, we used a hysteresis block
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Hysteresis\">
+Buildings.Controls.OBC.CDL.Continuous.Hysteresis</a> to switch the boiler,
+and negated its output because the boiler needs to be off if the temperature exceeds the
+value <code>uHigh</code> of this hysteresis.
+We also used an instance of
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.And\">
+Buildings.Controls.OBC.CDL.Logical.And</a>
+to switch the boiler only on if the system control signal is on.
+Otherwise, the boiler would be heated up in summer.
 </p>
 </li>
 </ol>
 <p>
 Simulating the system will show that the valve is controlled to maintain a return water temperature
-of at least <i>60</i>&circ;C as shown below.
+of at least <i>60</i>&circ;C, and that the boiler is switched off when the temperature exceeds <i>90</i>&circ;C
+and switched on again if it reaches <i>70</i>&circ;C as shown below.
+Note that for this simulation, we changed the simulation period to be from day 15 to 16, as for the previous
+simulation period, the boiler did not reach <i>90</i>&circ;C.
 </p>
 <p align=\"center\">
-<img alt=\"Open loop temperatures.\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/ControlDescriptionLanguage/System3/TemperaturesValve.png\" border=\"1\"/>
+<img alt=\"Open loop temperatures.\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/ControlDescriptionLanguage/System4/TemperaturesControl.png\" border=\"1\"/>
 </p>
 </html>",
 revisions="<html>
@@ -462,10 +457,11 @@ First implementation.
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-360},{240, 100}})),
     __Dymola_Commands(file=
-     "modelica://Buildings/Resources/Scripts/Dymola/Examples/Tutorial/ControlDescriptionLanguage/System3.mos"
+     "modelica://Buildings/Resources/Scripts/Dymola/Examples/Tutorial/ControlDescriptionLanguage/System4.mos"
         "Simulate and plot"),
     experiment(
-      StopTime=172800,
+      StartTime=1296000,
+      StopTime=1382400,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"));
-end System3;
+end System4;
