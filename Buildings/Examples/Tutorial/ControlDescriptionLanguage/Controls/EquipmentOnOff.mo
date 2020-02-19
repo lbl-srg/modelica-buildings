@@ -20,8 +20,9 @@ block EquipmentOnOff "Control for equipment on/off control"
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Negation of output signal, because boiler should be off if temperature exceed uHigh"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(uHigh=273.15 + 90, uLow=273.15
-         + 70) "Hysteresis for on/off of boiler"
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+  uHigh=273.15 + 90,
+  uLow=273.15  + 70) "Hysteresis for on/off of boiler"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
 equation
 
@@ -80,7 +81,7 @@ The pump on status is the same as the system on status.
 The boiler is switched on if the boiler temperature <code>TBoi</code> falls below
 <i>70</i>&circ;C and if <code>onSys=true</code>, and it switches off
 if either <code>TBoi</code> exceeds <i>90</i>&circ;C or if <code>onSys=false</code>.
-</p></p>
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
