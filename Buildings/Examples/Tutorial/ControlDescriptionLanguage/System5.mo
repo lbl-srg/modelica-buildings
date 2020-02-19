@@ -4,12 +4,16 @@ model System5 "Open loop model with system on/off control"
     Buildings.Examples.Tutorial.ControlDescriptionLanguage.BaseClasses.PartialOpenLoop;
 
   Controls.BoilerReturn conBoiRet
+   "Controller for boiler return water temperature"
     annotation (Placement(transformation(extent={{100,-290},{120,-270}})));
   Controls.SystemOnOff conSysSta
+    "Controller that switches the system on and off"
     annotation (Placement(transformation(extent={{-260,-60},{-240,-40}})));
   Controls.OpenLoopRadiatorSupply conRadSup
+    "Controller for the mixing valve for the radiator supply water"
     annotation (Placement(transformation(extent={{-200,-160},{-180,-140}})));
   Controls.EquipmentOnOff conEquSta
+    "Controller that switches the equipment on and off"
     annotation (Placement(transformation(extent={{-200,-220},{-180,-200}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal radPumCon(
     realTrue=mRad_flow_nominal) "Type conversion for radiator pump signal"

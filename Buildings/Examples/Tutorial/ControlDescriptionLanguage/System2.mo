@@ -61,7 +61,11 @@ In this step, we added the control architecture.
 How the control is partitioned into various subcontrollers depends usually on
 the need to avoid communication over the network and on how control is distributed to
 different field controllers. Here, we
-used three controllers, one for switching the pumps and boiler on and off,
+used the four controllers indicated by the shaded background in the figure of
+<a href=\"modelica://Buildings.Examples.Tutorial.ControlDescriptionLanguage\">
+Buildings.Examples.Tutorial.ControlDescriptionLanguage</a>,
+one for switching the overall system on and off,
+one for switching the boiler on and off,
 one to track the supply water temperature to the room and one to
 track the return water temperature into the boiler.
 </p>

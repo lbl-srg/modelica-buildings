@@ -10,7 +10,7 @@ The example starts with an open-loop model of a boiler, a simple room and a radi
 The figure below shows the system architecture and the control charts.
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/schematics.png\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/ControlDescriptionLanguage/schematics.png\"/>
 </p>
 <p>
 The controls intent is as follows:
@@ -18,7 +18,7 @@ The controls intent is as follows:
 <ol>
 <li>
 <p>
-The space heating shall be switched on if the outdoor temperature is below
+The overall system shall be switched on if the outdoor temperature is below
 <i>16</i>&deg;C and the room temperature is below
 <i>20</i>&deg;C.
 It shall be switched off if either the outdoor temperature is above
@@ -30,6 +30,10 @@ It shall be switched off if either the outdoor temperature is above
 <p>
 The boiler shall have on/off control that regulates its temperature
 between <i>70</i>&circ;C and <i>90</i>&circ;C.
+</p>
+</li>
+<li>
+<p>
 The three-way valve at the boiler return shall be modulated with a PI controller
 to track a return water temperature of <i>60</i>&circ;C.
 </p>
