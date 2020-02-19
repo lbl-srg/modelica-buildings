@@ -74,8 +74,10 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-Open loop controller that outputs a constant control signal for the valve
-of the boiler return.
+Controller that takes as an input the boiler return water temperature <code>TRet</code>
+and outputs the valve control signal <code>yVal</code>.
+The valve control signal is computed using a PI-controller that tracks a constant
+set point of <code>TSet</code>.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -4,3 +4,5 @@ OpenLoopRadiatorSupply
 OpenLoopEquipmentOnOff
 BoilerReturn
 EquipmentOnOff
+SystemOnOff
+RadiatorSupply

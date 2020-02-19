@@ -1,10 +1,11 @@
 within Buildings.Examples.Tutorial.ControlDescriptionLanguage;
-model System4 "Open loop model with equipment on/off control"
-  extends Buildings.Examples.Tutorial.ControlDescriptionLanguage.BaseClasses.PartialOpenLoop;
+model System5 "Open loop model with system on/off control"
+  extends
+    Buildings.Examples.Tutorial.ControlDescriptionLanguage.BaseClasses.PartialOpenLoop;
 
   Controls.BoilerReturn conBoiRet
     annotation (Placement(transformation(extent={{100,-290},{120,-270}})));
-  Controls.OpenLoopSystemOnOff conSysSta
+  Controls.SystemOnOff conSysSta
     annotation (Placement(transformation(extent={{-260,-60},{-240,-40}})));
   Controls.OpenLoopRadiatorSupply conRadSup
     annotation (Placement(transformation(extent={{-200,-160},{-180,-140}})));
@@ -35,15 +36,14 @@ equation
     annotation (Line(points={{-78,-280},{-62,-280}}, color={0,0,127}));
   connect(boiSigCon.y, boi.y) annotation (Line(points={{-78,-250},{34,-250},{34,
           -302},{22,-302}}, color={0,0,127}));
-  connect(conRadSup.yVal, valRad.y) annotation (Line(points={{-178,-150},{-62,
-          -150}},      color={0,0,127}));
+  connect(conRadSup.yVal, valRad.y) annotation (Line(points={{-178,-150},{-62,-150}},
+                       color={0,0,127}));
   connect(conEquSta.TBoi, boi.T) annotation (Line(points={{-202,-204},{-240,-204},
           {-240,-302},{-1,-302}}, color={0,0,127}));
   connect(conSysSta.TOut, senTOut.T) annotation (Line(points={{-262,-44},{-280,-44},
           {-280,30},{-298,30}}, color={0,0,127}));
-  connect(conRadSup.TRoo, temRoo.T) annotation (Line(points={{-202,-144},{-268,
-          -144},{-268,30},{-50,30}},
-                               color={0,0,127}));
+  connect(conRadSup.TRoo, temRoo.T) annotation (Line(points={{-202,-144},{-268,-144},
+          {-268,30},{-50,30}}, color={0,0,127}));
   connect(conSysSta.TRoo, temRoo.T) annotation (Line(points={{-262,-56},{-268,-56},
           {-268,30},{-50,30}}, color={0,0,127}));
   connect(temRet.T, conBoiRet.TRet)
@@ -51,11 +51,11 @@ equation
   connect(conBoiRet.yVal, valBoi.y) annotation (Line(points={{122,-280},{140,-280},
           {140,-230},{72,-230}}, color={0,0,127}));
 
-  connect(temSup.T, conRadSup.TSup) annotation (Line(points={{-61,-40},{-210,
-          -40},{-210,-156},{-202,-156}}, color={0,0,127}));
+  connect(temSup.T, conRadSup.TSup) annotation (Line(points={{-61,-40},{-210,-40},
+          {-210,-156},{-202,-156}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
-In this step, we added the controller for the boiler on/off control.
+In this step, we added the controller for the system on/off control.
 </p>
 <h4>Implementation</h4>
 <p>
@@ -65,35 +65,30 @@ This model was built as follows:
 <li>
 <p>
 First, we copied the controller
-<a href=\"modelica://Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.OpenLoopEquipmentOnOff\">
-Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.OpenLoopEquipmentOnOff</a>
+<a href=\"modelica://Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.OpenLoopSystemOnOff\">
+Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.OpenLoopSystemOnOff</a>
 to create the block
-<a href=\"modelica://Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.EquipmentOnOff\">
-Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.EquipmentOnOff</a>.
+<a href=\"modelica://Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.SystemOnOff\">
+Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.SystemOnOff</a>.
 </p>
 </li>
 <li>
 <p>
-In this new block, we used a hysteresis block
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Hysteresis\">
-Buildings.Controls.OBC.CDL.Continuous.Hysteresis</a> to switch the boiler,
-and negated its output because the boiler needs to be off if the temperature exceeds the
-value <code>uHigh</code> of this hysteresis.
-We also used an instance of
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.And\">
-Buildings.Controls.OBC.CDL.Logical.And</a>
-to switch the boiler only on if the system control signal is on.
-Otherwise, the boiler would be heated up in summer.
+In this new block, we used two on/off controllers
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.OnOffController\">
+Buildings.Controls.OBC.CDL.Logical.OnOffController</a> to determine
+whether the system should be on, which is the case if both, the outside air temperature and
+the room air temperature are below a limit. If either is above this limit, plus a deadband,
+the system is off.
 </p>
 </li>
 </ol>
 <p>
-Simulating the system will show that the valve is controlled to maintain a return water temperature
-of at least <i>60</i>&circ;C, and that the boiler is switched off when the temperature exceeds <i>90</i>&circ;C
-and switched on again if it reaches <i>70</i>&circ;C as shown below.
+Simulating the system will show that the system is switched off if the room
+temperature exceeeds its set point plus half the dead band.
 </p>
 <p align=\"center\">
-<img alt=\"Temperatures and control signal.\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/ControlDescriptionLanguage/System4/TemperaturesControl.png\" border=\"1\"/>
+<img alt=\"Temperatures and control signals.\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/ControlDescriptionLanguage/System5/TemperaturesControl.png\" border=\"1\"/>
 </p>
 </html>",
 revisions="<html>
@@ -106,11 +101,11 @@ First implementation.
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-360},{240, 100}})),
     __Dymola_Commands(file=
-     "modelica://Buildings/Resources/Scripts/Dymola/Examples/Tutorial/ControlDescriptionLanguage/System4.mos"
+     "modelica://Buildings/Resources/Scripts/Dymola/Examples/Tutorial/ControlDescriptionLanguage/System5.mos"
         "Simulate and plot"),
     experiment(
       StartTime=1296000,
       StopTime=1382400,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"));
-end System4;
+end System5;

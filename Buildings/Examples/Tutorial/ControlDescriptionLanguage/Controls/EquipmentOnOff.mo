@@ -20,15 +20,14 @@ block EquipmentOnOff "Control for equipment on/off control"
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Negation of output signal, because boiler should be off if temperature exceed uHigh"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTBoi(uHigh=273.15 + 90,
-      uLow=273.15 + 70)
-    "Hysteresis for on/off of boiler"
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(uHigh=273.15 + 90, uLow=273.15
+         + 70) "Hysteresis for on/off of boiler"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
 equation
 
-  connect(TBoi, hysTBoi.u)
+  connect(TBoi, hys.u)
     annotation (Line(points={{-120,60},{-62,60}}, color={0,0,127}));
-  connect(hysTBoi.y, not1.u)
+  connect(hys.y, not1.u)
     annotation (Line(points={{-38,60},{-22,60}}, color={255,0,255}));
   connect(onSys, onPum)
     annotation (Line(points={{-120,-60},{120,-60}}, color={255,0,255}));
@@ -72,8 +71,16 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-Open loop controller that outputs a constant control signal for the system status.
+Controller that takes as an input the boiler water temperature <code>TBoi</code>
+and the system on status <code>onSys</code>, and outputs
+the on status for the pumps <code>onPum</code> and the boiler <code>onBoi</code>.
 </p>
+<p>
+The pump on status is the same as the system on status.
+The boiler is switched on if the boiler temperature <code>TBoi</code> falls below
+<i>70</i>&circ;C and if <code>onSys=true</code>, and it switches off
+if either <code>TBoi</code> exceeds <i>90</i>&circ;C or if <code>onSys=false</code>.
+</p></p>
 </html>", revisions="<html>
 <ul>
 <li>

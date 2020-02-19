@@ -1,12 +1,13 @@
 within Buildings.Examples.Tutorial.ControlDescriptionLanguage;
-model System4 "Open loop model with equipment on/off control"
-  extends Buildings.Examples.Tutorial.ControlDescriptionLanguage.BaseClasses.PartialOpenLoop;
+model System6 "Closed loop model with all controls implemented"
+  extends
+    Buildings.Examples.Tutorial.ControlDescriptionLanguage.BaseClasses.PartialOpenLoop;
 
   Controls.BoilerReturn conBoiRet
     annotation (Placement(transformation(extent={{100,-290},{120,-270}})));
-  Controls.OpenLoopSystemOnOff conSysSta
+  Controls.SystemOnOff conSysSta
     annotation (Placement(transformation(extent={{-260,-60},{-240,-40}})));
-  Controls.OpenLoopRadiatorSupply conRadSup
+  Controls.RadiatorSupply conRadSup
     annotation (Placement(transformation(extent={{-200,-160},{-180,-140}})));
   Controls.EquipmentOnOff conEquSta
     annotation (Placement(transformation(extent={{-200,-220},{-180,-200}})));
@@ -35,15 +36,14 @@ equation
     annotation (Line(points={{-78,-280},{-62,-280}}, color={0,0,127}));
   connect(boiSigCon.y, boi.y) annotation (Line(points={{-78,-250},{34,-250},{34,
           -302},{22,-302}}, color={0,0,127}));
-  connect(conRadSup.yVal, valRad.y) annotation (Line(points={{-178,-150},{-62,
-          -150}},      color={0,0,127}));
+  connect(conRadSup.yVal, valRad.y) annotation (Line(points={{-178,-150},{-62,-150}},
+                       color={0,0,127}));
   connect(conEquSta.TBoi, boi.T) annotation (Line(points={{-202,-204},{-240,-204},
           {-240,-302},{-1,-302}}, color={0,0,127}));
   connect(conSysSta.TOut, senTOut.T) annotation (Line(points={{-262,-44},{-280,-44},
           {-280,30},{-298,30}}, color={0,0,127}));
-  connect(conRadSup.TRoo, temRoo.T) annotation (Line(points={{-202,-144},{-268,
-          -144},{-268,30},{-50,30}},
-                               color={0,0,127}));
+  connect(conRadSup.TRoo, temRoo.T) annotation (Line(points={{-202,-144},{-268,-144},
+          {-268,30},{-50,30}}, color={0,0,127}));
   connect(conSysSta.TRoo, temRoo.T) annotation (Line(points={{-262,-56},{-268,-56},
           {-268,30},{-50,30}}, color={0,0,127}));
   connect(temRet.T, conBoiRet.TRet)
@@ -51,11 +51,12 @@ equation
   connect(conBoiRet.yVal, valBoi.y) annotation (Line(points={{122,-280},{140,-280},
           {140,-230},{72,-230}}, color={0,0,127}));
 
-  connect(temSup.T, conRadSup.TSup) annotation (Line(points={{-61,-40},{-210,
-          -40},{-210,-156},{-202,-156}}, color={0,0,127}));
+  connect(temSup.T, conRadSup.TSup) annotation (Line(points={{-61,-40},{-210,-40},
+          {-210,-156},{-202,-156}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
-In this step, we added the controller for the boiler on/off control.
+In this step, we added the last controller, which is controlling the mixing valve for the
+radiator supply water temperature.
 </p>
 <h4>Implementation</h4>
 <p>
@@ -65,35 +66,38 @@ This model was built as follows:
 <li>
 <p>
 First, we copied the controller
-<a href=\"modelica://Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.OpenLoopEquipmentOnOff\">
-Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.OpenLoopEquipmentOnOff</a>
+<a href=\"modelica://Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.OpenLoopRadiatorSupply\">
+Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.OpenLoopRadiatorSupply</a>
 to create the block
-<a href=\"modelica://Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.EquipmentOnOff\">
-Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.EquipmentOnOff</a>.
+<a href=\"modelica://Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.RadiatorSupply\">
+Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.RadiatorSupply</a>.
 </p>
 </li>
 <li>
 <p>
-In this new block, we used a hysteresis block
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Hysteresis\">
-Buildings.Controls.OBC.CDL.Continuous.Hysteresis</a> to switch the boiler,
-and negated its output because the boiler needs to be off if the temperature exceeds the
-value <code>uHigh</code> of this hysteresis.
-We also used an instance of
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.And\">
-Buildings.Controls.OBC.CDL.Logical.And</a>
-to switch the boiler only on if the system control signal is on.
-Otherwise, the boiler would be heated up in summer.
+In this new block, we used
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Line\">
+Buildings.Controls.OBC.CDL.Continuous.Line</a> to compute the set point for the supply water temperature
+based on the room air temperature. This set point is then used in a PI controller
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.LimPID\">
+Buildings.Controls.OBC.CDL.Continuous.LimPID</a> to modulate the mixing valve position
+in order to track the supply water temperature set point.
+</p>
+</li>
+<li>
+<p>
+To allow configuring the temperatures and the control gains, we exposed the main parameters of the controller,
+see <a href=\"modelica://Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.RadiatorSupply\">
+Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.RadiatorSupply</a>.
 </p>
 </li>
 </ol>
 <p>
-Simulating the system will show that the valve is controlled to maintain a return water temperature
-of at least <i>60</i>&circ;C, and that the boiler is switched off when the temperature exceeds <i>90</i>&circ;C
-and switched on again if it reaches <i>70</i>&circ;C as shown below.
+Simulating the system will show that the mixing valve <code>conRadSup</code> is modulated and
+the room air temperature <code>temRoo.T</code> is well tracked.
 </p>
 <p align=\"center\">
-<img alt=\"Temperatures and control signal.\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/ControlDescriptionLanguage/System4/TemperaturesControl.png\" border=\"1\"/>
+<img alt=\"Temperatures and control signals.\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/ControlDescriptionLanguage/System6/TemperaturesControl.png\" border=\"1\"/>
 </p>
 </html>",
 revisions="<html>
@@ -106,11 +110,11 @@ First implementation.
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-360},{240, 100}})),
     __Dymola_Commands(file=
-     "modelica://Buildings/Resources/Scripts/Dymola/Examples/Tutorial/ControlDescriptionLanguage/System4.mos"
+     "modelica://Buildings/Resources/Scripts/Dymola/Examples/Tutorial/ControlDescriptionLanguage/System6.mos"
         "Simulate and plot"),
     experiment(
       StartTime=1296000,
       StopTime=1382400,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"));
-end System4;
+end System6;
