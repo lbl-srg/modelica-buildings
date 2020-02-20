@@ -35,6 +35,7 @@ partial model PartialOpenLoop "Partial model with open loop system"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mA_flow_nominal,
     V=V)
+    "Room air volume"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=20000/30)
     "Thermal conductance with the ambient"
@@ -113,7 +114,8 @@ partial model PartialOpenLoop "Partial model with open loop system"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     dp_nominal={0,0,0},
     m_flow_nominal={mRad_flow_nominal,-mRadVal_flow_nominal,-mRad_flow_nominal
-         + mRadVal_flow_nominal}) annotation (Placement(transformation(
+         + mRadVal_flow_nominal}) "Flow splitter in return from radiator"
+                                  annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={60,-110})));
@@ -213,7 +215,7 @@ partial model PartialOpenLoop "Partial model with open loop system"
     filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Weather data reader"
     annotation (Placement(transformation(extent={{-380,60},{-360,80}})));
-  BoundaryConditions.WeatherData.Bus weaBus
+  BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-320,60},{-300,80}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TOut
     "Outside temperature"

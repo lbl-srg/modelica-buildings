@@ -9,7 +9,8 @@ model EquipmentOnOff
     offset=333.15) "Boiler temperature"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Examples.Tutorial.CDL.Controls.EquipmentOnOff
-    conEquSta annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
+    conEquSta "Controller for equipment on/off"
+              annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse onSys(period=600)
     "System on signal"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));

@@ -9,7 +9,8 @@ model RadiatorSupply
     offset=297.15) "Room air temperature"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Examples.Tutorial.CDL.Controls.RadiatorSupply
-    conRadSup annotation (Placement(transformation(extent={{10,-10},{30,10}})));
+    conRadSup "Controller for radiator supply water temperature"
+              annotation (Placement(transformation(extent={{10,-10},{30,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TSup(
     amplitude=20,
     freqHz=1/720,

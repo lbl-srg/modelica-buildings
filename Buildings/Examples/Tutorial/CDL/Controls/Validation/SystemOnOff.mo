@@ -4,7 +4,8 @@ model SystemOnOff
     extends Modelica.Icons.Example;
 
   Buildings.Examples.Tutorial.CDL.Controls.SystemOnOff
-    conSysSta annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+    conSysSta "Controller for system on/off"
+              annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TOut(
     amplitude=5,
     freqHz=1/720,
