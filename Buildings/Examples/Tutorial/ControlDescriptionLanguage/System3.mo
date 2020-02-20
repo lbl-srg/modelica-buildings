@@ -135,7 +135,8 @@ First implementation.
      "modelica://Buildings/Resources/Scripts/Dymola/Examples/Tutorial/ControlDescriptionLanguage/System3.mos"
         "Simulate and plot"),
     experiment(
-      StopTime=172800,
+      StartTime=1296000,
+      StopTime=1382400,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"));
 end System3;

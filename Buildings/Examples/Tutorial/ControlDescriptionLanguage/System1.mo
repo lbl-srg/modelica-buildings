@@ -49,7 +49,8 @@ and connected them to the pumps, the boiler and the valves.
 </p>
 <p>
 Simulate the model for January 15 to 16 and plot the open loop temperatures
-as shown below.
+as shown below, which corresponds to a start time of <i>15*24*3600=1296000</i> seconds and a
+stop time of <i>1382400</i> seconds.
 </p>
 <p align=\"center\">
 <img alt=\"Open loop temperatures.\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/ControlDescriptionLanguage/System1/OpenLoopTemperatures.png\" border=\"1\"/>
