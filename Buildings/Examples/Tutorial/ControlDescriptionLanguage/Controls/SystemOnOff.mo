@@ -82,7 +82,7 @@ equation
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.None,
-          textString="TRet"),
+          textString="TRoo"),
         Text(
           lineColor={0,0,255},
           extent={{-152,104},{148,144}},

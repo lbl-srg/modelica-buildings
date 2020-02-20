@@ -98,6 +98,22 @@ To allow this controller to be tuned, we exposed at the top-level the parameters
 for the set point temperature and the control gains.
 </p>
 </li>
+<li>
+<p>
+While the controller
+<a href=\"modelica://Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.BoilerReturn\">
+Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.BoilerReturn</a>
+is very simple, for demonstration purposes we also implemented a validation model for this controller.
+This is done in
+<a href=\"modelica://Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.Validation.BoilerReturn\">
+Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.Validation.BoilerReturn</a>.
+Such validation models help detect implementation errors which may be difficult to diagnose once the controller
+is used as part of a larger system model. In our experience, implementing small scale validation leads to better
+code and overall faster development as errors are detected early on when they can be corrected quickly.
+For more information about how to implement a validation model, see the
+<a href=\"https://simulationresearch.lbl.gov/modelica/userGuide/development.html\">Modelica Buildings Library User Guide</a>.
+</p>
+</li>
 </ol>
 <p>
 Simulating the system will show that the valve is controlled to maintain a return water temperature

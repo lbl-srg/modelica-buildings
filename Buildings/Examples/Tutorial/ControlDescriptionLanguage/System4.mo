@@ -90,6 +90,14 @@ to switch the boiler only on if the system control signal is on.
 Otherwise, the boiler would be heated up in summer.
 </p>
 </li>
+<li>
+<p>
+We also implemented the open loop validation
+<a href=\"modelica://Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.Validation.EquipmentOnOff\">
+Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.Validation.EquipmentOnOff</a>
+to ensure that the controller is implemented correctly.
+</p>
+</li>
 </ol>
 <p>
 Simulating the system will show that the valve is controlled to maintain a return water temperature

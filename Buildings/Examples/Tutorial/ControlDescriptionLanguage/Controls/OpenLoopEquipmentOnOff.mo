@@ -30,30 +30,36 @@ equation
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
-          fillColor={255,255,255},
+          fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-90,82},{-42,42}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.None,
-          textString="TOut"),
+          lineColor={0,0,255},
+          extent={{-148,104},{152,144}},
+          textString="%name"),
         Text(
-          extent={{40,24},{88,-16}},
+          extent={{-94,-40},{-46,-80}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.None,
           textString="onSys"),
         Text(
-          extent={{-92,-40},{-44,-80}},
+          extent={{36,-38},{84,-78}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.None,
-          textString="TRet"),
+          textString="onPum"),
         Text(
-          lineColor={0,0,255},
-          extent={{-148,104},{152,144}},
-          textString="%name")}),
+          extent={{42,82},{90,42}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.None,
+          textString="onBoi"),
+        Text(
+          extent={{-92,82},{-44,42}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.None,
+          textString="TBoi")}),
         Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>

@@ -98,7 +98,7 @@ equation
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.None,
-          textString="TOut"),
+          textString="TSup"),
         Text(
           lineColor={0,0,255},
           extent={{-154,104},{146,144}},

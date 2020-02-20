@@ -86,6 +86,14 @@ the room air temperature are below a limit. If either is above this limit, plus 
 the system is off.
 </p>
 </li>
+<li>
+<p>
+We also implemented the open loop validation
+<a href=\"modelica://Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.Validation.SystemOnOff\">
+Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.Validation.SystemOnOff</a>
+to ensure that the controller is implemented correctly.
+</p>
+</li>
 </ol>
 <p>
 Simulating the system will show that the system is switched off if the room

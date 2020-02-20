@@ -51,23 +51,29 @@ equation
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.None,
-          textString="TOut"),
+          textString="TBoi"),
         Text(
-          extent={{40,24},{88,-16}},
+          extent={{38,-38},{86,-78}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.None,
-          textString="onSys"),
+          textString="onPum"),
         Text(
           extent={{-92,-40},{-44,-80}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.None,
-          textString="TRet"),
+          textString="onSys"),
         Text(
           lineColor={0,0,255},
           extent={{-148,104},{152,144}},
-          textString="%name")}),
+          textString="%name"),
+        Text(
+          extent={{44,82},{92,42}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.None,
+          textString="onBoi")}),
         Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>

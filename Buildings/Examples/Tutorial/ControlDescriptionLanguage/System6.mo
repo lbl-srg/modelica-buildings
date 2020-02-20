@@ -95,6 +95,14 @@ see <a href=\"modelica://Buildings.Examples.Tutorial.ControlDescriptionLanguage.
 Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.RadiatorSupply</a>.
 </p>
 </li>
+<li>
+<p>
+We also implemented the open loop validation
+<a href=\"modelica://Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.Validation.RadiatorSupply\">
+Buildings.Examples.Tutorial.ControlDescriptionLanguage.Controls.Validation.RadiatorSupply</a>
+to ensure that the controller is implemented correctly.
+</p>
+</li>
 </ol>
 <p>
 Simulating the system will show that the mixing valve <code>conRadSup</code> is modulated and

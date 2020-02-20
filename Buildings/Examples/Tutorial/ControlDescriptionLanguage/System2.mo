@@ -144,6 +144,11 @@ a <code>defaultComponentName</code>, as well as graphical elements so that it is
 in a schematic diagram.
 We also added the <code>unit</code> and <code>displayUnit</code> attributes.
 </p>
+<p>
+In the next systems of this tutorial, we will replace this, as well as the other open loop controllers,
+with an actual implementation of the controller. To better distinguish these open loop controllers, we
+color the icon grey, and will change this color back to white when we implement the actual control logic.
+</p>
 </li>
 <li>
 <p>
