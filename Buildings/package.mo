@@ -192,6 +192,15 @@ its class name ends with the string <code>Beta</code>.
                            its performance based on an equation fit.
         </td>
     </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Examples.Tutorial</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Examples.Tutorial.CDL
+        </td>
+        <td valign=\"top\">Tutorial that explains how to implement control sequences using
+                           the <a href=\"https://obc.lbl.gov\">Control Description Language</a>.
+        </td>
+    </tr>
     </table>
     <!-- Backward compatible changes -->
     <p>
@@ -8003,10 +8012,10 @@ particular package.<br/>
 </table><br/>
 </li>
 <li>
-There is also a tutorial available at
+There are also tutorials available at
 <a href=\"modelica://Buildings.Examples.Tutorial\">
 Buildings.Examples.Tutorial</a>.
-The tutorial contains step by step instructions for how to build system models.
+These tutorials contain step by step instructions for how to build system models.
 </li>
 </ol>
 </html>"));
