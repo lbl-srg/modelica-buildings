@@ -1,0 +1,3 @@
+simulateModel("Buildings.Examples.Tutorial.CDL.Controls.Validation.SystemOnOff", stopTime=3600, method="Cvode", tolerance=1e-06, resultFile="SystemOnOff");
+createPlot(id=3, position={75, 75, 758, 583}, y={"conSysSta.TRoo", "conSysSta.TRooSet", "conSysSta.TOut", "conSysSta.TOutLow"}, range={0.0, 4000.0, 10.0, 25.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, displayUnits={"degC", "degC", "degC", "degC"});
+createPlot(id=3, position={75, 75, 758, 289}, y={"conSysSta.onSys"}, range={0.0, 4000.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}});
