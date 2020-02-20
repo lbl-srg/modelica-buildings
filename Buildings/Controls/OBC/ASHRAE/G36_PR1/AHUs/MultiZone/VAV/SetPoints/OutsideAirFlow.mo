@@ -84,7 +84,7 @@ block OutsideAirFlow
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow[numZon](
     each final min=0,
     each final unit = "m3/s",
-    each final quantity"VolumeFlowRate")
+    each final quantity = "VolumeFlowRate")
     "Primary airflow rate to the ventilation zone from the air handler, including outdoor air and recirculated air"
     annotation (Placement(transformation(extent={{-260,-272},{-220,-232}}),
       iconTransformation(extent={{-140,-110},{-100,-70}})));
