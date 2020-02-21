@@ -38,7 +38,7 @@ model BuildingRCZ6
   GeojsonExportRC.B5a6b99ec37f4de7f94020090.ICT iCT
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=2)
-    annotation (Placement(transformation(extent={{260,50},{280,70}})));
+    annotation (Placement(transformation(extent={{260,70},{280,90}})));
   Buildings.Applications.DHC.Loads.Examples.BaseClasses.FanCoil4PipeHeatPorts
     terUni[nZon](
     redeclare each package Medium1 = Medium,
@@ -172,31 +172,36 @@ equation
   connect(terUni[6].heaPorRad, iCT.port_a) annotation (Line(points={{-186.667,
           -50},{110,-50},{110,0}}, color={191,0,0}));
   connect(terUni.mReqHeaWat_flow, disFloHea.mReq_flow) annotation (Line(points={{
-          -179.167,-53.3333},{-179.167,-74},{-180,-74},{-180,-94},{-141,-94},{
-          -141,-94}},
+          -179.167,-53.3333},{-179.167,-54},{-170,-54},{-170,-94},{-141,-94}},
                  color={0,0,127}));
   connect(terUni.mReqChiWat_flow, disFloCoo.mReq_flow) annotation (Line(points={{
-          -179.167,-55},{-179.167,-155.083},{-141,-155.083},{-141,-154}},
+          -179.167,-55},{-179.167,-56},{-172,-56},{-172,-154},{-141,-154}},
         color={0,0,127}));
   connect(mulSum.y, PPum)
-    annotation (Line(points={{282,60},{302,60},{302,80},{320,80}},
-                                                 color={0,0,127}));
+    annotation (Line(points={{282,80},{320,80}}, color={0,0,127}));
   connect(disFloHea.PPum, mulSum.u[1]) annotation (Line(points={{-119,-98},{240,
-          -98},{240,61},{258,61}}, color={0,0,127}));
-  connect(disFloCoo.PPum, mulSum.u[2]) annotation (Line(points={{-119,-158},{
-          240,-158},{240,59},{258,59}}, color={0,0,127}));
+          -98},{240,81},{258,81}}, color={0,0,127}));
+  connect(disFloCoo.PPum, mulSum.u[2]) annotation (Line(points={{-119,-158},{240,
+          -158},{240,79},{258,79}},     color={0,0,127}));
   connect(disFloHea.QActTot_flow, QHea_flow) annotation (Line(points={{-119,-96},
           {223.5,-96},{223.5,280},{320,280}}, color={0,0,127}));
   connect(disFloCoo.QActTot_flow, QCoo_flow) annotation (Line(points={{-119,
           -156},{230,-156},{230,240},{320,240}}, color={0,0,127}));
   annotation (
   Documentation(info="
-  <html>
-  <p>
-  This is a simplified multizone RC model resulting from the translation of a GeoJSON model specified
-  within Urbanopt UI. It is composed of 6 thermal zones corresponding to the different load patterns.
-  </p>
-  </html>"),
+<html>
+<p>
+This is a simplified six-zone building model based on two-element reduced order 
+model.
+It was generated from translating a GeoJSON model specified within URBANopt UI. 
+The heating and cooling loads are computed with a four-pipe 
+fan coil unit model derived from
+<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit\">
+Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit</a>
+and connected to the room model by means of heat ports.
+</p>
+</html>
+"),
   Diagram(coordinateSystem(extent={{-300,-300},{300,300}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})));
 end BuildingRCZ6;

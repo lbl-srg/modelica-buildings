@@ -16,9 +16,9 @@ partial model PartialConnection2Pipe
     redeclare final package Medium = Medium,
     final m_flow_nominal=mCon_flow_nominal,
     final allowFlowReversal=allowFlowReversal);
-  parameter Boolean have_dpSen = false
-    "Set to true to sense the pressure drop across the connection"
-    annotation(Dialog(tab="General"), Evaluate=true);
+  parameter Boolean have_heaFloOut = false
+    "Set to true to output the heat flow rate transferred to the connected load"
+    annotation(Evaluate=true);
   parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal
     "Nominal mass flow rate in the distribution line"
     annotation(Dialog(tab="General", group="Nominal condition"));
@@ -89,13 +89,13 @@ partial model PartialConnection2Pipe
       extent={{100,20},{140,60}}),
       iconTransformation(extent={{100,50},{120, 70}})));
   Modelica.Blocks.Interfaces.RealOutput Q_flow(
-    final quantity="HeatFlowRate", final unit="W")
+    final quantity="HeatFlowRate", final unit="W") if have_heaFloOut
     "Heat flow rate transferred to the connected load (>=0 for heating)"
     annotation (Placement(transformation(extent={{100,60},{140,100}}),
       iconTransformation(extent={{100,70},{120,90}})));
   Modelica.Blocks.Interfaces.RealOutput dp(
     final quantity="PressureDifference",
-    final unit="Pa", final displayUnit="Pa") if have_dpSen
+    final unit="Pa", final displayUnit="Pa")
     "Pressure drop accross the connection (sensed)"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,30},{120,50}})));
@@ -157,12 +157,8 @@ partial model PartialConnection2Pipe
       extent={{-10,10},{10,-10}},
       rotation=90,
       origin={-20,40})));
-  Modelica.Blocks.Sources.RealExpression QCal_flow(
-    final y=(senTConSup.T - senTConRet.T) * cp_default * senMasFloCon.m_flow)
-    "Calculation of heat flow rate transferred to the load"
-    annotation (Placement(transformation(extent={{60,70},{80,90}})));
   Fluid.Sensors.RelativePressure senRelPre(
-    redeclare final package Medium=Medium) if have_dpSen
+    redeclare final package Medium=Medium)
     "Relative pressure sensor"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
@@ -172,7 +168,7 @@ partial model PartialConnection2Pipe
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=mCon_flow_nominal,
-    final tau=if allowFlowReversal then 1 else 0)
+    final tau=if allowFlowReversal then 1 else 0) if have_heaFloOut
     "Connection supply temperature sensor"
     annotation (Placement(
         transformation(
@@ -183,11 +179,26 @@ partial model PartialConnection2Pipe
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=mCon_flow_nominal,
-    final tau=if allowFlowReversal then 1 else 0)
-    "Connection return temperature sensor" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
+    final tau=if allowFlowReversal then 1 else 0) if have_heaFloOut
+    "Connection return temperature sensor"
+    annotation (Placement(transformation(
+        extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={20,90})));
+  Buildings.Controls.OBC.CDL.Continuous.Add sub(final k1=-1) if have_heaFloOut
+    "Delta T"
+    annotation (Placement(transformation(extent={{-8,50},{12,70}})));
+  Buildings.Controls.OBC.CDL.Continuous.Product pro if have_heaFloOut
+    "Delta T times flow rate"
+    annotation (Placement(transformation(extent={{40,50},{60,70}})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai(
+    final k=cp_default) if have_heaFloOut
+    "Times cp"
+    annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={82,80})));
 protected
   parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
     Medium.specificHeatCapacityCp(Medium.setState_pTX(
@@ -204,8 +215,6 @@ equation
     annotation (Line(points={{-9,40},{120,40}},  color={0,0,127}));
   connect(pipCon.port_b, senMasFloCon.port_a)
     annotation (Line(points={{-20,0},{-20,30}}, color={0,127,255}));
-  connect(QCal_flow.y, Q_flow)
-    annotation (Line(points={{81,80},{120,80}}, color={0,0,127}));
   connect(port_aDisSup, pipDisSup.port_a)
     annotation (Line(points={{-100,-40},{-80,-40}}, color={0,127,255}));
   connect(port_aDisRet, junConRet.port_1)
@@ -222,16 +231,62 @@ equation
           {-40,-80},{10,-80}}, color={0,127,255}));
   connect(senRelPre.p_rel, dp) annotation (Line(points={{-31,-60},{80,-60},{80,0},
           {120,0}}, color={0,0,127}));
-  connect(senMasFloCon.port_b, senTConSup.port_a)
-    annotation (Line(points={{-20,50},{-20,80}}, color={0,127,255}));
-  connect(senTConSup.port_b, port_bCon)
-    annotation (Line(points={{-20,100},{-20,120}}, color={0,127,255}));
-  connect(port_aCon, senTConRet.port_a)
-    annotation (Line(points={{20,120},{20,100}}, color={0,127,255}));
-  connect(senTConRet.port_b, junConRet.port_3)
-    annotation (Line(points={{20,80},{20,-70}}, color={0,127,255}));
+  if have_heaFloOut then
+    connect(senMasFloCon.port_b, senTConSup.port_a)
+      annotation (Line(points={{-20,50},{-20,80}}, color={0,127,255}));
+    connect(senTConSup.port_b, port_bCon)
+      annotation (Line(points={{-20,100},{-20,120}}, color={0,127,255}));
+    connect(port_aCon, senTConRet.port_a)
+      annotation (Line(points={{20,120},{20,100}}, color={0,127,255}));
+    connect(senTConRet.port_b, junConRet.port_3)
+      annotation (Line(points={{20,80},{20,-70}}, color={0,127,255}));
+  else
+    connect(port_bCon, senMasFloCon.port_b)
+      annotation (Line(points={{-20,120},{-20,50}}, color={0,127,255}));
+    connect(port_aCon, junConRet.port_3)
+      annotation (Line(points={{20,120},{20,-70}}, color={0,127,255}));
+    end if;
+  connect(Q_flow, gai.y)
+    annotation (Line(points={{120,80},{94,80}}, color={0,0,127}));
+  connect(pro.y, gai.u) annotation (Line(points={{62,60},{66,60},{66,80},{70,80}},
+        color={0,0,127}));
+  connect(senMasFloCon.m_flow, pro.u2) annotation (Line(points={{-9,40},{30,40},
+          {30,54},{38,54}}, color={0,0,127}));
+  connect(sub.y, pro.u1) annotation (Line(points={{14,60},{30,60},{30,66},{38,66}},
+        color={0,0,127}));
+  connect(senTConSup.T, sub.u2) annotation (Line(points={{-31,90},{-40,90},{-40,
+          54},{-10,54}}, color={0,0,127}));
+  connect(senTConRet.T, sub.u1) annotation (Line(points={{9,90},{0,90},{0,76},{-16,
+          76},{-16,66},{-10,66}}, color={0,0,127}));
   annotation (
     defaultComponentName="con",
+    Documentation(info="
+<html>
+<p>
+Partial model to be used for connecting an agent (e.g. energy transfer station)
+to a two-pipe distribution network.
+</p>
+<p>
+Three instances of a replaceable partial model are used to represent the pipes:
+</p>
+<ul>
+<li>
+One representing the main distribution supply pipe immediately upstream 
+the connection.
+</li>
+<li>
+Another one representing the main distribution return pipe immediately downstream
+the connection.
+</li>
+<li>
+The last one representing both the supply and return lines of the connection.
+When replacing that model with a pipe model computing the pressure drop, 
+one must double the length so that both the supply and return lines are
+accounted for.
+</li>
+</ul>
+</html>
+    "),
     Icon(graphics={   Rectangle(
           extent={{-100,-100},{100,100}},
           lineColor={0,0,127},

@@ -122,14 +122,15 @@ equation
   connect(terUni.PFan, PFan) annotation (Line(points={{-139.167,-50},{260,-50},
           {260,120},{320,120}}, color={0,0,127}));
   connect(terUni.mReqHeaWat_flow, disFloHea.mReq_flow[1]) annotation (Line(points={{
-          -139.167,-53.3333},{-139.167,-115.083},{-121,-115.083},{-121,-114}},
+          -139.167,-53.3333},{-132,-53.3333},{-126,-53.3333},{-126,-114},{-121,
+          -114}},
         color={0,0,127}));
   connect(terUni.mReqChiWat_flow, disFloCoo.mReq_flow[1]) annotation (Line(points={{
-          -139.167,-55},{-139.167,-104},{-140,-104},{-140,-154},{-121,-154},{
-          -121,-154}},  color={0,0,127}));
+          -139.167,-55},{-139.167,-56},{-130,-56},{-130,-154},{-121,-154}},
+                        color={0,0,127}));
   connect(terUni.port_bLoa, zon.ports[2]) annotation (Line(points={{-160,
-          -41.6667},{-172,-41.6667},{-172,-40},{-180,-40},{-180,-19.2},{62,
-          -19.2}},                                                        color=
+          -41.6667},{-172,-41.6667},{-180,-41.6667},{-180,-19.2},{62,-19.2}},
+                                                                          color=
          {0,127,255}));
   connect(disFloHea.QActTot_flow, QHea_flow) annotation (Line(points={{-99,-116},
           {238,-116},{238,280},{320,280}}, color={0,0,127}));
@@ -139,12 +140,18 @@ equation
           {100,-32},{-166,-32},{-166,-48.3333},{-160.833,-48.3333}},color={0,0,127}));
   annotation (
   Documentation(info="
-  <html>
-  <p>
-  This is a simplified multizone RC model resulting from the translation of a GeoJSON model specified
-  within Urbanopt UI. It is composed of 6 thermal zones corresponding to the different load patterns.
-  </p>
-  </html>"),
+<html>
+<p>
+This is a simplified one-zone building model based on EnergyPlus 
+building envelope model.
+The heating and cooling loads are computed with a four-pipe 
+fan coil unit model derived from
+<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit\">
+Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit</a>
+and connected to the room model by means of fluid ports.
+</p>
+</html>
+  "),
   Diagram(coordinateSystem(extent={{-300,-300},{300,300}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
           Bitmap(extent={{-108,-100},{92,100}},  fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/EnergyPlusLogo.png")}));

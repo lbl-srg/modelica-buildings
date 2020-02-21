@@ -54,6 +54,15 @@ partial model PartialDistribution
     annotation (Placement(transformation( extent={{90,-10},{110,10}}),
       iconTransformation(extent={{180,-20},{220,20}})));
   annotation (
+    defaultComponentName="dis",
+    Documentation(info="
+<html>
+<p>
+Partial model to be used for modeling various distribution networks e.g. 
+one-pipe or two-pipe hydraulic distribution.
+</p>
+</html>
+    "),
   Icon(coordinateSystem(preserveAspectRatio=false,
    extent={{-200,-100},{200,100}}),
    graphics={
@@ -68,4 +77,5 @@ partial model PartialDistribution
           fillPattern=FillPattern.Solid)}),
       Diagram(
     coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})));
+
 end PartialDistribution;

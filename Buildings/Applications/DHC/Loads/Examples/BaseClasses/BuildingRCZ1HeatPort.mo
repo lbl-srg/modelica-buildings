@@ -282,11 +282,11 @@ equation
   connect(disFloCoo.port_b, ports_b[2]) annotation (Line(points={{-100,-150},{280,
           -150},{280,0},{300,0}}, color={0,127,255}));
   connect(terUni.heaPorRad, thermalZoneOneElement.intGainsRad) annotation (Line(
-        points={{-146.667,-50},{-26,-50},{-26,16},{92,16}},
+        points={{-146.667,-50},{-14,-50},{-14,-80},{122,-80},{122,16},{92,16}},
                                                           color={191,0,0}));
   connect(terUni.heaPorCon, thermalZoneOneElement.intGainsConv) annotation (
-      Line(points={{-153.333,-50},{-30,-50},{-30,12},{92,12}},
-                                                             color={191,0,0}));
+      Line(points={{-153.333,-50},{-154,-50},{-154,-52},{-16,-52},{-16,-82},{
+          124,-82},{124,12},{92,12}},                        color={191,0,0}));
   connect(terUni.port_bHeaWat, disFloHea.ports_a1[1]) annotation (Line(points={{-140,
           -58.3333},{-80,-58.3333},{-80,-104},{-100,-104}}, color={0,127,255}));
   connect(terUni.port_bChiWat, disFloCoo.ports_a1[1]) annotation (Line(points={{-140,
@@ -301,38 +301,30 @@ equation
   connect(from_degC1.y, terUni.TSetHea) annotation (Line(points={{-238,260},{
           -200,260},{-200,-45},{-160.833,-45}},      color={0,0,127}));
   connect(terUni.mReqHeaWat_flow, disFloHea.mReq_flow[1]) annotation (Line(points={{
-          -139.167,-53.3333},{-139.167,-84},{-140,-84},{-140,-114},{-121,-114},
+          -139.167,-53.3333},{-140,-53.3333},{-140,-54},{-130,-54},{-130,-114},
           {-121,-114}},
                   color={0,0,127}));
   connect(terUni.mReqChiWat_flow, disFloCoo.mReq_flow[1]) annotation (Line(points={{
-          -139.167,-55},{-139.167,-106},{-140,-106},{-140,-156},{-121,-156},{
-          -121,-154}},  color={0,0,127}));
+          -139.167,-55},{-139.167,-56},{-136,-56},{-136,-154},{-121,-154}},
+                        color={0,0,127}));
   connect(disFloHea.QActTot_flow, QHea_flow) annotation (Line(points={{-99,-116},
           {240,-116},{240,280},{320,280}}, color={0,0,127}));
   connect(disFloCoo.QActTot_flow, QCoo_flow) annotation (Line(points={{-99,-156},
           {244,-156},{244,240},{320,240}}, color={0,0,127}));
   annotation (
-  Documentation(info="<html>
-  <p>
-  This is a simplified building model with:
-  </p>
-  <ul>
-  <li> one instance of
-  <a href=\"modelica://Buildings.ThermalZones.ReducedOrder.RC.OneElement\">
-  Buildings.ThermalZones.ReducedOrder.RC.OneElement</a> providing the temperature of one cooling load and one
-  heating load. The required cooling and heating heat flow rates to maintain the maximum and minimum
-  temperature setpoints are computed by means of a PI controller;
-  </li>
-  <li>
-  one additional heating load which temperature is computed with
-  <a href=\"modelica://Buildings.DistrictEnergySystem.Loads.BaseClasses.FirstOrderODE\">
-  Buildings.DistrictEnergySystem.Loads.BaseClasses.FirstOrderODE</a>
-  and the required heating heat flow rate is provided by a time function.
-  </li>
-  </ul>
-  <p>
-  </p>
-  </html>"),
+  Documentation(info="
+<html>
+<p>
+This is a simplified one-zone building model based on a one-element 
+reduced order room model.
+The heating and cooling loads are computed with a four-pipe 
+fan coil unit model derived from
+<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit\">
+Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit</a>
+and connected to the room model by means of heat ports.
+</p>
+</html>
+"),
   Diagram(coordinateSystem(extent={{-300,-300},{300,300}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})));
 end BuildingRCZ1HeatPort;

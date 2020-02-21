@@ -195,8 +195,7 @@ model FlowDistribution "Model of building hydraulic distribution system"
     final use_inputFilter=false,
     final m_flow_nominal=m_flow_nominal,
     final linearized={true,true},
-    final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics) if have_val
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) if have_val
     "Mixing valve"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}}, origin={-80,0})));
   Buildings.Fluid.Movers.BaseClasses.IdealSource pipPre(
@@ -235,8 +234,7 @@ model FlowDistribution "Model of building hydraulic distribution system"
       Modelica.Fluid.Types.PortFlowDirection.Leaving,
     final m_flow_nominal=m_flow_nominal*{1,1,1},
     final dp_nominal=0*{1,1,1},
-    final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics) if have_val
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) if have_val
     "Flow splitter"
     annotation (Placement(transformation(
       extent={{-10,10},{10,-10}}, origin={80,0})));
@@ -609,6 +607,33 @@ sensor must be set to zero.
 <img alt=\"image\"
 src=\"modelica://Buildings/Resources/Images/Applications/DHC/Loads/FlowDistribution1.png\"/>
 </p>
+<h4>Energy and mass dynamics</h4>
+<p>
+The energy dynamics and the time constant used in the ideal heater and cooler 
+model are exposed as advanced parameters. 
+They are used to represent the typical dynamics over the whole 
+piping network, from supply to return.
+The mass dynamics are by default identical to the energy dynamics.
+</p>
+<p>
+Simplifying assumptions are used otherwise:
+</p>
+<ul>
+<li>
+The pump is modeled in steady-state.
+</li>
+<li>
+The valve and the flow splitter are modeled with fixed initial conditions.
+This is because the temperature of the fluid leaving the valve is used 
+as a control input signal. If a steady-state model is used, that temperature
+is computed by assuming ideal mixing at the inner fluid ports of the valve.
+In case of zero flow rate, the temperature value results from regularizing
+the corresponding equation that is not well defined in that domain. 
+That triggers non-physical temperature variations which themselves lead to
+control transients when the flow rate gets reestablished. Those effects 
+turn out to be detrimental to computational performance.
+</li>
+</ul>
 <h4 id=\"my_comp\">Computational performance</h4>
 <p>
 The figure below compares the computational performance of that model

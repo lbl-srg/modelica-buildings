@@ -56,17 +56,29 @@ equation
       StopTime=604800,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
-  Documentation(info="<html>
-  <p>
-  This example illustrates the use of
-  <a href=\"modelica://Buildings.DistrictEnergySystem.Loads.BaseClasses.HeatingOrCooling\">
-  Buildings.DistrictEnergySystem.Loads.BaseClasses.HeatingOrCooling</a>
-  to transfer heat from a fluid stream to a simplified multizone RC model resulting
-  from the translation of a GeoJSON model specified within Urbanopt UI, see
-  <a href=\"modelica://Buildings.DistrictEnergySystem.Loads.Examples.BaseClasses.GeojsonExportBuilding\">
-  Buildings.DistrictEnergySystem.Loads.Examples.BaseClasses.GeojsonExportBuilding</a>.
-  </p>
-  </html>"),
+  Documentation(info="
+<html>
+<p>
+This example illustrates the use of
+<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding\">
+Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding</a>,
+<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit\">
+Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit</a>
+and
+<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
+Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>
+in a configuration with:
+</p>
+<ul>
+<li>
+six-zone building model based on EnergyPlus envelope model, 
+</li>
+<li>
+secondary pumps.
+</li>
+</ul>
+</html>
+"),
   Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{140,40}}),
         graphics={Text(

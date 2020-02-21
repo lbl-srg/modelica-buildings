@@ -232,12 +232,19 @@ equation
           0,0,127}));
   annotation (
   Documentation(info="
-  <html>
-  <p>
-  This is a simplified multizone RC model resulting from the translation of a GeoJSON model specified
-  within Urbanopt UI. It is composed of 6 thermal zones corresponding to the different load patterns.
-  </p>
-  </html>"),
+<html>
+<p>
+This is a simplified six-zone building model based on EnergyPlus 
+building envelope model.
+It was generated from translating a GeoJSON model specified within URBANopt UI. 
+The heating and cooling loads are computed with a four-pipe 
+fan coil unit model derived from
+<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit\">
+Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit</a>
+and connected to the room model by means of fluid ports.
+</p>
+</html>
+  "),
   Diagram(coordinateSystem(extent={{-300,-300},{300,300}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
           Bitmap(extent={{-108,-100},{92,100}},  fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/EnergyPlusLogo.png")}));

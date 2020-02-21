@@ -69,17 +69,30 @@ equation
       __Dymola_NumberOfIntervals=5000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
-  Documentation(info="<html>
-  <p>
-  This example illustrates the use of
-  <a href=\"modelica://Buildings.DistrictEnergySystem.Loads.BaseClasses.HeatingOrCooling\">
-  Buildings.DistrictEnergySystem.Loads.BaseClasses.HeatingOrCooling</a>
-  to transfer heat from a fluid stream to a simplified building model consisting in two heating loads and one cooling
-  load as described in
-  <a href=\"modelica://Buildings.DistrictEnergySystem.Loads.Examples.BaseClasses.RCBuilding\">
-  Buildings.DistrictEnergySystem.Loads.Examples.BaseClasses.RCBuilding</a>.
-  </p>
-  </html>"),
+  Documentation(info="
+<html>
+<p>
+This example illustrates the use of
+<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding\">
+Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding</a>,
+<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit\">
+Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit</a>
+and
+<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
+Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>
+in a configuration with:
+</p>
+<ul>
+<li>
+one-zone building model based on one-element reduced order model, 
+</li>
+<li>
+secondary pumps and mixing valves controlling the heating and chilled water
+supply temperature.
+</li>
+</ul>
+</html>
+"),
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-120,-20},{140,120}})),
   __Dymola_Commands(file=

@@ -167,30 +167,13 @@ equation
   connect(terUniCoo.mReqChiWat_flow, disFloCoo.mReq_flow[1]) annotation (Line(
         points={{90.8333,15},{108,15},{108,-114},{119,-114}}, color={0,0,127}));
   annotation (
-  Documentation(info="<html>
-  <p>
-  This is a simplified building model with:
-  </p>
-  <ul>
-  <li> one heating load which temperature is computed with
-  <a href=\"modelica://Buildings.DistrictEnergySystem.Loads.BaseClasses.FirstOrderODE\">
-  Buildings.DistrictEnergySystem.Loads.BaseClasses.FirstOrderODE</a>
-  and the required heating heat flow rate is provided by a time series;
-  </li>
-  <li>
-  one additional heating load which temperature is prescribed with a time function
-  and the required heating heat flow rate is also provided by a time function;
-  </li>
-  <li>
-  one cooling load which temperature is computed with
-  <a href=\"modelica://Buildings.DistrictEnergySystem.Loads.BaseClasses.FirstOrderODE\">
-  Buildings.DistrictEnergySystem.Loads.BaseClasses.FirstOrderODE</a>
-  and the required cooling heat flow rate is provided by a time series.
-  </li>
-  </ul>
-  <p>
-  </p>
-  </html>"),
+  Documentation(info="
+<html>
+<p>
+This is a simplified building model where the space heating and cooling loads
+are provided by means of time series.
+</p>
+</html>"),
   Diagram(coordinateSystem(extent={{-300,-300},{300,300}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})));
 end BuildingTimeSeries;

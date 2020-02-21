@@ -6,9 +6,12 @@ partial model PartialDistribution2Pipe
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal)
     "Model for distribution pipe";
-  parameter Integer iConDpSen(min=0, max=nCon) = 0
+  parameter Integer iConDpSen(final min=1, final max=nCon) = nCon
     "Index of the connection where the pressure drop is sensed (0 for no sensor)"
     annotation(Dialog(tab="General"), Evaluate=true);
+  parameter Boolean have_heaFloOut = true
+    "Set to true to output the heat flow rate transferred to each connected load"
+    annotation(Evaluate=true);
   parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal[nCon]
     "Nominal mass flow rate in the distribution line before each connection"
     annotation(Dialog(tab="General", group="Nominal condition"));
@@ -45,12 +48,12 @@ partial model PartialDistribution2Pipe
     final quantity="PressureDifference",
     final unit="Pa", displayUnit="Pa") if iConDpSen > 0
     "Pressure difference at given location (sensed)"
-    annotation (Placement(transformation(extent={{100,40},{140,80}}),
+    annotation (Placement(transformation(extent={{100,20},{140,60}}),
       iconTransformation(extent={{200,50}, {220,70}})));
   // COMPONENTS
   replaceable BaseClasses.PartialConnection2Pipe con[nCon](
     redeclare each final package Medium = Medium,
-    final have_dpSen={i==iConDpSen for i in 1:nCon},
+    each final have_heaFloOut=have_heaFloOut,
     final mDis_flow_nominal=mDis_flow_nominal,
     final mCon_flow_nominal=mCon_flow_nominal,
     each final allowFlowReversal=allowFlowReversal,
@@ -62,6 +65,15 @@ partial model PartialDistribution2Pipe
     final m_flow_nominal=mEnd_flow_nominal)
     "Pipe representing the end of the distribution line (after last connection)"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+  Modelica.Blocks.Interfaces.RealOutput Q_flow[nCon](
+    each final quantity="HeatFlowRate", each final unit="W") if have_heaFloOut
+    "Heat flow rate transferred to the connected load (>=0 for heating)"
+    annotation (Placement(transformation(extent={{100,60},{140,100}}),
+      iconTransformation(extent={{100,70},{120,90}})));
+initial equation
+  assert(iConDpSen >= 1 and iConDpSen <= nCon, "In " + getInstanceName() +
+    ": iConDpSen = " + String(iConDpSen) + " whereas it must be between 
+    1 and " + String(nCon) + ".");
 equation
   connect(con.port_bCon, ports_bCon)
     annotation (Line(points={{0,10},{0,40},{-80,
@@ -84,17 +96,16 @@ equation
   connect(con[nCon].port_aDisRet, port_aDisRet)
     annotation (Line(points={{10,-6},{40,-6},{40,-60},{100,-60}},
                                        color={0,127,255}));
-    connect(con[nCon].port_bDisSup, pipEnd.port_a)
-      annotation (Line(points={{10,0},{60,0}}, color={0,127,255}));
-    connect(pipEnd.port_b, port_bDisSup)
-      annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
-  if iConDpSen > 0 then
-    connect(con[iConDpSen].dp, dp)
-      annotation (Line(points={{11,4},{20,4},{20,60},{120,60}},
-          color={0,0,127}));
-  end if;
+  connect(con[nCon].port_bDisSup, pipEnd.port_a)
+    annotation (Line(points={{10,0},{60,0}}, color={0,127,255}));
+  connect(pipEnd.port_b, port_bDisSup)
+    annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
+  connect(con[iConDpSen].dp, dp)
+    annotation (Line(points={{11,4},{20,4},{20,20},{90,20},{90,40},{120,40}},
+        color={0,0,127}));
+  connect(con.Q_flow, Q_flow) annotation (Line(points={{11,8},{18,8},{18,22},{88,
+          22},{88,80},{120,80}}, color={0,0,127}));
   annotation (
-    defaultComponentName="dis",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-6,-200},{6,200}},

@@ -96,10 +96,26 @@ annotation (
   defaultComponentName="bui",
   Documentation(info="<html>
 <p>
-Partial model to be used for modeling the building loads served by an energy
+Partial model to be used for modeling the thermal loads on an energy
 transfer station or a dedicated plant.
-The fluid ports represent the connection between that production system and
-the building distribution system.
+Models extending this class are typically used in conjunction with
+<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
+Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>
+and models extending
+<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit\">
+Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit</a>
+as described in the schematics here under. 
+The fluid ports represent the connection between the production system and
+the building distribution system. 
+</p>
+<p>
+See various use cases in 
+<a href=\"modelica://Buildings.Applications.DHC.Loads.Examples\">
+Buildings.Applications.DHC.Loads.Examples</a>.
+</p>
+<p>
+<img alt=\"image\"
+src=\"modelica://Buildings/Resources/Images/Applications/DHC/Loads/PartialBuilding.png\"/>
 </p>
 </html>"),
   Icon(

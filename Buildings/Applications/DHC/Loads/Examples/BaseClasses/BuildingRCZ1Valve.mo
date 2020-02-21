@@ -297,8 +297,8 @@ equation
     annotation (Line(points={{55.475,68.05},{86.5,68.05},{86.5,-39.6667},{-140,
           -39.6667}},                                                            color={0,127,255}));
   connect(terUni.port_bLoa, thermalZoneOneElement.ports[2])
-    annotation (Line(points={{-160,-39.6667},{-206,-39.6667},{-206,56},{58.525,
-          56},{58.525,68.05}},                                                              color={0,127,255}));
+    annotation (Line(points={{-160,-39.6667},{-170,-39.6667},{-170,0},{58.525,0},
+          {58.525,68.05}},                                                                  color={0,127,255}));
   connect(ports_a[1], disFloHea.port_a) annotation (Line(points={{-300,0},{-280,
           0},{-280,-110},{-100,-110}}, color={0,127,255}));
   connect(disFloHea.port_b, ports_b[1]) annotation (Line(points={{-80,-110},{280,
@@ -331,7 +331,7 @@ equation
           -139.167,-51.3333},{-139.167,-52},{-120,-52},{-120,-114},{-101,-114}},
         color={0,0,127}));
   connect(terUni.mReqChiWat_flow, disFloCoo.mReq_flow[1]) annotation (Line(points={{
-          -139.167,-53},{-139.167,-54},{-140,-54},{-140,-154},{-101,-154}},
+          -139.167,-53},{-139.167,-54},{-122,-54},{-122,-154},{-101,-154}},
                                                             color={0,0,127}));
   connect(disFloHea.PPum, mulSum.u[1]) annotation (Line(points={{-79,-118},{240,
           -118},{240,81},{258,81}}, color={0,0,127}));
@@ -355,27 +355,26 @@ equation
           {80,102},{80,-20},{-180,-20},{-180,-46.3333},{-160.833,-46.3333}},
         color={0,0,127}));
   annotation (
-  Documentation(info="<html>
-  <p>
-  This is a simplified building model with:
-  </p>
-  <ul>
-  <li> one instance of
-  <a href=\"modelica://Buildings.ThermalZones.ReducedOrder.RC.OneElement\">
-  Buildings.ThermalZones.ReducedOrder.RC.OneElement</a> providing the temperature of one cooling load and one
-  heating load. The required cooling and heating heat flow rates to maintain the maximum and minimum
-  temperature setpoints are computed by means of a PI controller;
-  </li>
-  <li>
-  one additional heating load which temperature is computed with
-  <a href=\"modelica://Buildings.DistrictEnergySystem.Loads.BaseClasses.FirstOrderODE\">
-  Buildings.DistrictEnergySystem.Loads.BaseClasses.FirstOrderODE</a>
-  and the required heating heat flow rate is provided by a time function.
-  </li>
-  </ul>
-  <p>
-  </p>
-  </html>"),
+  Documentation(info="
+<html>
+<p>
+This is a simplified one-zone building model based on a one-element 
+reduced order room model.
+The corresponding heating and cooling loads are computed with a four-pipe 
+fan coil unit model derived from
+<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit\">
+Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit</a>
+and connected to the room model by means of fluid ports.
+</p>
+<p>
+The heating and chilled water distribution to the terminal units is modeled
+with an instance of
+<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
+Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>
+including a mixing valve to control the supply temperature.
+</p>
+</html>
+"),
   Diagram(coordinateSystem(extent={{-300,-300},{300,300}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})));
 end BuildingRCZ1Valve;
