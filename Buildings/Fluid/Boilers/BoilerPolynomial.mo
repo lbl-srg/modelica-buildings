@@ -132,11 +132,6 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation ( Icon(graphics={
-        Ellipse(
-          extent={{-20,22},{20,-20}},
-          fillColor={127,0,0},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None),
         Polygon(
           points={{0,-34},{-12,-52},{14,-52},{0,-34}},
           pattern=LinePattern.None,
@@ -156,9 +151,13 @@ equation
           lineColor={0,0,127},
           textString="T"),
         Line(
-          points={{100,80},{80,80},{80,20},{6,20}},
+          points={{100,80},{80,80},{80,4}},
           color={0,0,127},
-          smooth=Smooth.None)}),
+          smooth=Smooth.None),
+        Text(
+          extent={{60,58},{-60,8}},
+          lineColor={255,255,255},
+          textString=DynamicSelect("", String(T-273.15, format=".1f")))}),
 defaultComponentName="boi",
 Documentation(info="<html>
 <p>
