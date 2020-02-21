@@ -1,7 +1,0 @@
-simulateModel("Buildings.Controls.OBC.Utilities.Validation.OptimalStart", method="Cvode", stopTime=864000, tolerance=1e-06, resultFile="OptimalStart1");
-createPlot(id=1, position={2, 1, 449, 335}, subPlot=1, y={"optStaHea.tOpt"}, range={0.0, 604800.0, 0, 20000.0}, grid=true, colors={{28,108,200}});
-createPlot(id=1, position={2, 1, 449, 335}, subPlot=2, y={"TSetRooHea.y[1]", "optStaHea.TZon"}, range={0.0, 604800.0, 16, 24}, grid=true, colors={{238,46,47}, {0,140,72}});
-createPlot(id=1, position={2, 1, 449, 335}, subPlot=3, y={"optStaHea.optOn"}, range={0.0, 604800.0, 0, 20000.0}, grid=true, colors={{28,108,200}});
-createPlot(id=2, position={458, 1, 445, 332}, subPlot=1, y={"optStaCoo.tOpt"}, range={0.0, 604800.0, 0, 20000.0}, grid=true, colors={{28,108,200}});
-createPlot(id=2, position={458, 1, 445, 332}, subPlot=2, y={"optStaCoo.TSetZonCoo", "optStaCoo.TZon"}, range={0.0, 604800.0, 16, 24}, grid=true, colors={{238,46,47}, {0,140,72}});
-createPlot(id=2, position={458, 1, 445, 332}, subPlot=3, y={"optStaCoo.optOn"}, range={0.0, 604800.0, 0, 20000.0}, grid=true, colors={{28,108,200}});
