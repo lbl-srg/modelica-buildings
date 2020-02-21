@@ -302,7 +302,11 @@ Revised implementation to allow zero flow rate.
           lineColor={0,0,0},
           fillColor=DynamicSelect({135,135,135}, dp_actual/dp_nominal*{0,140,72}+(1-dp_actual/dp_nominal)*{238,46,47}),
           fillPattern=FillPattern.Solid),
-               Text(
+        Text(
+          extent={{-24,106},{-144,56}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", if inputType == Buildings.Fluid.Types.InputType.Continuous then String(dp_in, format=".f") else String(stage))),
+        Text(
           visible=use_inputFilter,
           extent={{-22,92},{20,46}},
           lineColor={0,0,0},

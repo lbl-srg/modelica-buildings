@@ -99,6 +99,10 @@ equation
           fillColor=DynamicSelect({135,135,135}, y_actual*{0,140,72}+(1-y_actual)*{238,46,47}),
           fillPattern=FillPattern.Solid),
         Text(
+          extent={{-24,106},{-144,56}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", if inputType == Buildings.Fluid.Types.InputType.Continuous then String(y, format=".1f") else String(stage))),
+        Text(
           visible=use_inputFilter,
           extent={{-22,92},{20,46}},
           lineColor={0,0,0},

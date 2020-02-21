@@ -96,7 +96,11 @@ equation
           fillColor=DynamicSelect({135,135,135}, y_actual*{0,140,72}+(1-y_actual)*{238,46,47}),
           fillPattern=FillPattern.Solid,
           textString="M",
-          textStyle={TextStyle.Bold})}),
+          textStyle={TextStyle.Bold}),
+        Text(
+          extent={{-24,116},{-144,66}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(y, format=".1f")))}),
 Documentation(info="<html>
 <p>
 This model implements the filter that is used to approximate the travel
