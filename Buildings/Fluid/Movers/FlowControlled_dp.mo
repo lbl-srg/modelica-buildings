@@ -157,6 +157,12 @@ Buildings.Fluid.Movers.Validation.FlowControlled_dpSystem</a>.
       revisions="<html>
 <ul>
 <li>
+February 21, 2020, by Michael Wetter:<br/>
+Changed icon to display its operating stage.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
+</li>
+<li>
 May 5, 2017, by Filip Jorissen:<br/>
 Added parameters, documentation and functionality for
 <code>prescribeSystemPressure</code>.<br/>
@@ -255,6 +261,12 @@ Revised implementation to allow zero flow rate.
 </ul>
 </html>"),
     Icon(graphics={
+        Rectangle(
+          extent={{-14,100},{14,60}},
+          lineColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          fillColor=DynamicSelect({255,255,255}, dp_actual/dp_nominal*{0,140,72}+(1-dp_actual/dp_nominal)*{238,46,47}),
+          radius=10),
         Line(
           points={{2,50},{100,50}},
           color={0,0,0},
@@ -266,19 +278,31 @@ Revised implementation to allow zero flow rate.
         Text(extent={{60,66},{110,52}},
           lineColor={0,0,127},
           textString="dp"),
+        Line(
+          points={{0,70},{100,70}},
+          color={0,0,0},
+          smooth=Smooth.None),
+        Line(
+          points={{0,90},{100,90}},
+          color={0,0,0},
+          smooth=Smooth.None),
+        Line(
+          points={{0,100},{0,50}},
+          color={0,0,0},
+          smooth=Smooth.None),
         Rectangle(
           visible=use_inputFilter,
           extent={{-34,40},{32,100}},
           lineColor={0,0,0},
-          fillColor={135,135,135},
+          fillColor=DynamicSelect({135,135,135}, dp_actual/dp_nominal*{0,140,72}+(1-dp_actual/dp_nominal)*{238,46,47}),
           fillPattern=FillPattern.Solid),
         Ellipse(
           visible=use_inputFilter,
           extent={{-34,100},{32,40}},
           lineColor={0,0,0},
-          fillColor={135,135,135},
+          fillColor=DynamicSelect({135,135,135}, dp_actual/dp_nominal*{0,140,72}+(1-dp_actual/dp_nominal)*{238,46,47}),
           fillPattern=FillPattern.Solid),
-        Text(
+               Text(
           visible=use_inputFilter,
           extent={{-22,92},{20,46}},
           lineColor={0,0,0},

@@ -60,21 +60,38 @@ equation
   annotation (defaultComponentName="pump",
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics={
-            Text(
-              extent={{26,136},{124,114}},
+        Rectangle(
+          extent={{-14,100},{14,58}},
+          lineColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          fillColor=DynamicSelect({255,255,255}, y_actual*{0,140,72}+(1-y_actual)*{238,46,47}),
+          radius=10),
+        Text( extent={{26,136},{124,114}},
           textString="Nrpm [rpm]",
           lineColor={0,0,127}),
+        Line(
+          points={{0,70},{100,70}},
+          color={0,0,0},
+          smooth=Smooth.None),
+        Line(
+          points={{0,90},{100,90}},
+          color={0,0,0},
+          smooth=Smooth.None),
+        Line(
+          points={{0,100},{0,50}},
+          color={0,0,0},
+          smooth=Smooth.None),
         Rectangle(
           visible=use_inputFilter,
           extent={{-34,40},{32,100}},
           lineColor={0,0,0},
-          fillColor={135,135,135},
+          fillColor=DynamicSelect({135,135,135}, y_actual*{0,140,72}+(1-y_actual)*{238,46,47}),
           fillPattern=FillPattern.Solid),
         Ellipse(
           visible=use_inputFilter,
           extent={{-34,100},{32,40}},
           lineColor={0,0,0},
-          fillColor={135,135,135},
+          fillColor=DynamicSelect({135,135,135}, y_actual*{0,140,72}+(1-y_actual)*{238,46,47}),
           fillPattern=FillPattern.Solid),
         Text(
           visible=use_inputFilter,
@@ -102,6 +119,12 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+February 21, 2020, by Michael Wetter:<br/>
+Changed icon to display its operating stage.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
+</li>
 <li>
 March 24, 2017, by Michael Wetter:<br/>
 Renamed <code>filteredSpeed</code> to <code>use_inputFilter</code>.<br/>
