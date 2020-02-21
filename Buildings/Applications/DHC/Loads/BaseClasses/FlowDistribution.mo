@@ -250,7 +250,8 @@ model FlowDistribution "Model of building hydraulic distribution system"
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
     final nout=nUni)
     annotation (Placement(transformation(extent={{-20,110},{0,130}})));
-  MixingValveControl conVal(final typDis=typDis) if have_val
+  Controls.MixingValveControl conVal(final typDis=typDis) if
+                                                    have_val
     "Mixing valve controller"
     annotation (Placement(transformation(extent={{-48,-106},{-28,-86}})));
   Modelica.Blocks.Sources.RealExpression dpNetVal(final y=dpPum - dpVal_nominal)
@@ -524,7 +525,10 @@ of the nominal total pressure drop.
 </ul>
 <h4>Pump head computation</h4>
 <p>
-The pump head is computed as follows.
+The pump head is computed as follows (see also
+<a href=\"modelica://Buildings.Applications.DHC.Loads.Validation.FlowDistributionPumpControl\">
+Buildings.Applications.DHC.Loads.Validation.FlowDistributionPumpControl</a>
+for a comparison with an explicit modeling of the piping network).
 </p>
 <ul>
 <li>

@@ -9,12 +9,12 @@ record DesignDataParallel
     "Nominal mass flow rate of the distribution pump";
   parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal[nBui]=
     mDisPum_flow_nominal .- cat(
-      1, {0}, {mCon_flow_nominal[i] for i in 1:nBui-1})
+      1, {0}, {sum(mCon_flow_nominal[1:i]) for i in 1:nBui-1})
     "Nominal mass flow rate in the distribution line before each connection";
   parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal[nBui]
     "Nominal mass flow rate in each connection line";
   parameter Modelica.SIunits.MassFlowRate mEnd_flow_nominal=
-    mDis_flow_nominal[nBui] - mCon_flow_nominal[nBui]
+    mDisPum_flow_nominal - mDis_flow_nominal[nBui]
     "Nominal mass flow rate in the end of the distribution line";
   parameter Modelica.SIunits.MassFlowRate mPla_flow_nominal = 11.45
     "Plant HX nominal mass flow rate (primary = secondary)";

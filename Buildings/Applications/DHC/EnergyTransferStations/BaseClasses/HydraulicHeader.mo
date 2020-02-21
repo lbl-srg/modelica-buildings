@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.EnergyTransferStations.BaseClasses;
-model HydraulicHeader "Hydraulic header manifold."
+model HydraulicHeader "Hydraulic header manifold"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium;
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate";

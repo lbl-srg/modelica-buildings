@@ -49,7 +49,7 @@ model BenchmarkFlowDistribution2
     each final T_aHeaWat_nominal=T_aHeaWat_nominal,
     each final T_bHeaWat_nominal=T_bHeaWat_nominal,
     each final T_aLoaHea_nominal=T_aLoaHea_nominal) "Heating terminal unit"
-    annotation (Placement(transformation(extent={{40,38},{60,58}})));
+    annotation (Placement(transformation(extent={{50,38},{70,58}})));
   Modelica.Blocks.Sources.CombiTimeTable loa(
     tableOnFile=true,
     tableName="tab1",
@@ -127,15 +127,15 @@ equation
   connect(minTSet_K.y, reaRep.u)
     annotation (Line(points={{-38,70},{-22,70}}, color={0,0,127}));
   connect(reaRep.y, ter.TSetHea) annotation (Line(points={{2,70},{20,70},{20,53},
-          {39.1667,53}}, color={0,0,127}));
+          {49.1667,53}}, color={0,0,127}));
   connect(reaRep1.y, ter.QReqHea_flow) annotation (Line(points={{-38,0},{0,0},{
-          0,46.3333},{39.1667,46.3333}},
+          0,46.3333},{49.1667,46.3333}},
                                        color={0,0,127}));
-  connect(ter.port_bHeaWat, dis.ports_aCon) annotation (Line(points={{60,
+  connect(ter.port_bHeaWat, dis.ports_aCon) annotation (Line(points={{70,
           39.6667},{80,39.6667},{80,0},{72,0},{72,-70}},
                                                 color={0,127,255}));
   connect(dis.ports_bCon, ter.port_aHeaWat) annotation (Line(points={{48,-70},{
-          48,0},{20,0},{20,39.6667},{40,39.6667}},
+          48,0},{40,0},{40,39.6667},{50,39.6667}},
                                                 color={0,127,255}));
   connect(pum.port_b, dis.port_aDisSup)
     annotation (Line(points={{30,-80},{40,-80}}, color={0,127,255}));

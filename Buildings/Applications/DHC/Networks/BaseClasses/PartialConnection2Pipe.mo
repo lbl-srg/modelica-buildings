@@ -156,7 +156,7 @@ partial model PartialConnection2Pipe
       transformation(
       extent={{-10,10},{10,-10}},
       rotation=90,
-      origin={-20,40})));
+      origin={-20,30})));
   Fluid.Sensors.RelativePressure senRelPre(
     redeclare final package Medium=Medium)
     "Relative pressure sensor"
@@ -187,7 +187,7 @@ partial model PartialConnection2Pipe
         origin={20,90})));
   Buildings.Controls.OBC.CDL.Continuous.Add sub(final k1=-1) if have_heaFloOut
     "Delta T"
-    annotation (Placement(transformation(extent={{-8,50},{12,70}})));
+    annotation (Placement(transformation(extent={{-10,50},{10,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Product pro if have_heaFloOut
     "Delta T times flow rate"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
@@ -212,9 +212,10 @@ equation
   connect(pipDisSup.port_b, junConSup.port_1)
     annotation (Line(points={{-60,-40},{-30,-40}}, color={0,127,255}));
   connect(senMasFloCon.m_flow, mCon_flow)
-    annotation (Line(points={{-9,40},{120,40}},  color={0,0,127}));
+    annotation (Line(points={{-9,30},{54,30},{54,40},{120,40}},
+                                                 color={0,0,127}));
   connect(pipCon.port_b, senMasFloCon.port_a)
-    annotation (Line(points={{-20,0},{-20,30}}, color={0,127,255}));
+    annotation (Line(points={{-20,0},{-20,20}}, color={0,127,255}));
   connect(port_aDisSup, pipDisSup.port_a)
     annotation (Line(points={{-100,-40},{-80,-40}}, color={0,127,255}));
   connect(port_aDisRet, junConRet.port_1)
@@ -233,7 +234,7 @@ equation
           {120,0}}, color={0,0,127}));
   if have_heaFloOut then
     connect(senMasFloCon.port_b, senTConSup.port_a)
-      annotation (Line(points={{-20,50},{-20,80}}, color={0,127,255}));
+      annotation (Line(points={{-20,40},{-20,80}}, color={0,127,255}));
     connect(senTConSup.port_b, port_bCon)
       annotation (Line(points={{-20,100},{-20,120}}, color={0,127,255}));
     connect(port_aCon, senTConRet.port_a)
@@ -242,7 +243,7 @@ equation
       annotation (Line(points={{20,80},{20,-70}}, color={0,127,255}));
   else
     connect(port_bCon, senMasFloCon.port_b)
-      annotation (Line(points={{-20,120},{-20,50}}, color={0,127,255}));
+      annotation (Line(points={{-20,120},{-20,40}}, color={0,127,255}));
     connect(port_aCon, junConRet.port_3)
       annotation (Line(points={{20,120},{20,-70}}, color={0,127,255}));
     end if;
@@ -250,14 +251,16 @@ equation
     annotation (Line(points={{120,80},{94,80}}, color={0,0,127}));
   connect(pro.y, gai.u) annotation (Line(points={{62,60},{66,60},{66,80},{70,80}},
         color={0,0,127}));
-  connect(senMasFloCon.m_flow, pro.u2) annotation (Line(points={{-9,40},{30,40},
+  connect(senMasFloCon.m_flow, pro.u2) annotation (Line(points={{-9,30},{30,30},
           {30,54},{38,54}}, color={0,0,127}));
-  connect(sub.y, pro.u1) annotation (Line(points={{14,60},{30,60},{30,66},{38,66}},
+  connect(sub.y, pro.u1) annotation (Line(points={{12,60},{30,60},{30,66},{38,
+          66}},
         color={0,0,127}));
   connect(senTConSup.T, sub.u2) annotation (Line(points={{-31,90},{-40,90},{-40,
-          54},{-10,54}}, color={0,0,127}));
-  connect(senTConRet.T, sub.u1) annotation (Line(points={{9,90},{0,90},{0,76},{-16,
-          76},{-16,66},{-10,66}}, color={0,0,127}));
+          54},{-12,54}}, color={0,0,127}));
+  connect(senTConRet.T, sub.u1) annotation (Line(points={{9,90},{0,90},{0,80},{
+          -16,80},{-16,66},{-12,66}},
+                                  color={0,0,127}));
   annotation (
     defaultComponentName="con",
     Documentation(info="

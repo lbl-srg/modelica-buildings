@@ -92,7 +92,7 @@ secondary pumps.
           "Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingRCZ6.mos"
         "Simulate and plot"),
     experiment(
-      StopTime=6404800,
+      StopTime=604800,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"));
 end CouplingRCZ6;

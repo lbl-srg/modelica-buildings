@@ -27,17 +27,22 @@ partial model PartialDistribution1Pipe
       Dialog(tab="Dynamics", group="Nominal condition",
       enable=not energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState));
   // IO CONNECTORS
-  Modelica.Blocks.Interfaces.RealOutput dp(
-    final quantity="PressureDifference",
-      final unit="Pa", final displayUnit="Pa")
-    "Pressure difference at given location (sensed)"
-    annotation (Placement(transformation(extent={{100,20},{140,60}}),
-      iconTransformation(extent={{200,50}, {220,70}})));
   Modelica.Blocks.Interfaces.RealOutput Q_flow[nCon](
     each final quantity="HeatFlowRate",each final unit="W") if have_heaFloOut
     "Heat flow rate transferred to the connected load (>=0 for heating)"
     annotation (Placement(transformation(extent={{100,60},{140,100}}),
-      iconTransformation(extent={{100,70},{120,90}})));
+      iconTransformation(extent={{200,60},{220,80}})));
+  Modelica.Blocks.Interfaces.RealOutput mCon_flow[nCon](
+    each final quantity="MassFlowRate", each final unit="kg/s")
+    "Connection supply mass flow rate (sensed)"
+    annotation (Placement(transformation(
+      extent={{100,40},{140,80}}),
+      iconTransformation(extent={{200,40},{220,60}})));
+  Modelica.Blocks.Interfaces.RealOutput mByp_flow[nCon](
+    each final quantity="MassFlowRate", each final unit="kg/s")
+    "Bypass mass flow rate"
+    annotation (Placement(transformation(extent={{100,20},{140,60}}),
+        iconTransformation(extent={{200,20},{220,40}})));
   // COMPONENTS
   replaceable PartialConnection1Pipe con[nCon](
     redeclare each final package Medium = Medium,
@@ -76,9 +81,6 @@ equation
     annotation (Line(points={{10,0},{40,0}}, color={0,127,255}));
   connect(pipEnd.port_b, port_bDisSup)
     annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
-  connect(con[iConDpSen].dp, dp)
-    annotation (Line(points={{11,2},{20,2},{20,20},{90,20},{90,40},{120,40}},
-        color={0,0,127}));
   connect(con.Q_flow, Q_flow)
     annotation (Line(points={{11,8},{18,8},{18,22},{88, 22},{88,80},{120,80}}, color={0,0,127}));
   annotation (
@@ -88,24 +90,17 @@ equation
 Partial model of a one-pipe distribution network.
 </p>
 <p>
-Three instances of a replaceable partial model are used to represent the pipes:
+An array of replaceable partial models is used to represent the  
+connections along the network, including the pipe segment immediately 
+upstream each connection. 
 </p>
-<ul>
-<li>
-One representing the main distribution supply pipe immediately upstream 
-the connection.
-</li>
-<li>
-Another one representing the main distribution return pipe immediately downstream
-the connection.
-</li>
-<li>
-The last one representing both the supply and return lines of the connection.
-When replacing that model with a pipe model computing the pressure drop, 
-one must double the length so that both the supply and return lines are
-accounted for.
-</li>
-</ul>
+<p>
+A replaceable partial model is used to represent the pipe segment of 
+the return line after the last connection.
+</p>
+<p>
+Optionally the heat flow rate transferred to each connected load can be output.
+</p>
 </html>
     "),
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={

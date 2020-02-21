@@ -77,17 +77,19 @@ model BenchmarkFlowDistribution1
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep1(nout=nLoa)
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Fluid.Sources.Boundary_pT           supHeaWat(
+  Fluid.Sources.Boundary_pT supHeaWat(
     redeclare package Medium = Medium1,
     use_T_in=true,
-    nPorts=1) "Heating water supply" annotation (Placement(transformation(
+    nPorts=1) "Heating water supply"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,-80})));
-  Fluid.Sources.Boundary_pT           sinHeaWat(
+  Fluid.Sources.Boundary_pT sinHeaWat(
     redeclare package Medium = Medium1,
     p=300000,
-    nPorts=1) "Sink for heating water" annotation (Placement(transformation(
+    nPorts=1) "Sink for heating water"
+    annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={90,-80})));
@@ -98,10 +100,10 @@ equation
   connect(minTSet.y, minTSet_K.u)
     annotation (Line(points={{-78,70},{-62,70}}, color={0,0,127}));
   connect(ter.port_bHeaWat, disFloHea.ports_a1) annotation (Line(points={{60,
-          39.6667},{80,39.6667},{80,-74},{60,-74}},
+          39.6667},{70,39.6667},{70,-74},{60,-74}},
                                            color={0,127,255}));
   connect(disFloHea.ports_b1, ter.port_aHeaWat) annotation (Line(points={{40,-74},
-          {20,-74},{20,39.6667},{40,39.6667}}, color={0,127,255}));
+          {30,-74},{30,39.6667},{40,39.6667}}, color={0,127,255}));
   connect(minTSet_K.y, reaRep.u)
     annotation (Line(points={{-38,70},{-22,70}}, color={0,0,127}));
   connect(reaRep.y, ter.TSetHea) annotation (Line(points={{2,70},{20,70},{20,53},
@@ -116,7 +118,7 @@ equation
   connect(disFloHea.port_b, sinHeaWat.ports[1]) annotation (Line(points={{60,-80},
           {80,-80}},                   color={0,127,255}));
   connect(ter.mReqHeaWat_flow, disFloHea.mReq_flow) annotation (Line(points={{60.8333,
-          44.6667},{86,44.6667},{86,-60},{26,-60},{26,-84},{39,-84}}, color={0,0,
+          44.6667},{80,44.6667},{80,-60},{20,-60},{20,-84},{39,-84}}, color={0,0,
           127}));
   connect(THeaWatSup.y, supHeaWat.T_in) annotation (Line(points={{-78,-80},{-72,
           -80},{-72,-76},{-62,-76}}, color={0,0,127}));

@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Loads.BaseClasses;
+within Buildings.Applications.DHC.Controls;
 block MixingValveControl "Mixing valve controller"
   extends Modelica.Blocks.Icons.Block;
   import Type_dis = Buildings.Applications.DHC.Loads.Types.DistributionType

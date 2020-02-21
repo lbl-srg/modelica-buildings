@@ -31,7 +31,7 @@ model FlowDistributionPumpControl
     "Time constant of fluid temperature variation at nominal flow rate"
     annotation (Dialog(tab="Dynamics", group="Nominal condition"));
   parameter Modelica.SIunits.PressureDifference dpDis_nominal[nLoa](
-    min=0, displayUnit="Pa")=
+    each min=0, each displayUnit="Pa")=
     1/2 .* cat(1, {dp_nominal*0.2}, fill(dp_nominal*0.8 / (nLoa-1), nLoa-1))
     "Pressure drop between each connected unit at nominal conditions (supply line)";
   parameter Modelica.SIunits.PressureDifference dpSet=max(terUniHea.dp_nominal)

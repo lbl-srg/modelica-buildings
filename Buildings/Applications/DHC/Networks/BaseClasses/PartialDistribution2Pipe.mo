@@ -7,9 +7,9 @@ partial model PartialDistribution2Pipe
     final allowFlowReversal=allowFlowReversal)
     "Model for distribution pipe";
   parameter Integer iConDpSen(final min=1, final max=nCon) = nCon
-    "Index of the connection where the pressure drop is sensed (0 for no sensor)"
+    "Index of the connection where the pressure drop is sensed"
     annotation(Dialog(tab="General"), Evaluate=true);
-  parameter Boolean have_heaFloOut = true
+  parameter Boolean have_heaFloOut = false
     "Set to true to output the heat flow rate transferred to each connected load"
     annotation(Evaluate=true);
   parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal[nCon]
@@ -49,7 +49,18 @@ partial model PartialDistribution2Pipe
     final unit="Pa", displayUnit="Pa") if iConDpSen > 0
     "Pressure difference at given location (sensed)"
     annotation (Placement(transformation(extent={{100,20},{140,60}}),
-      iconTransformation(extent={{200,50}, {220,70}})));
+      iconTransformation(extent={{200,20},{220,40}})));
+  Modelica.Blocks.Interfaces.RealOutput Q_flow[nCon](
+    each final quantity="HeatFlowRate", each final unit="W") if have_heaFloOut
+    "Heat flow rate transferred to the connected load (>=0 for heating)"
+    annotation (Placement(transformation(extent={{100,60},{140,100}}),
+      iconTransformation(extent={{200,60},{220,80}})));
+  Modelica.Blocks.Interfaces.RealOutput mCon_flow[nCon](
+    each final quantity="MassFlowRate", each final unit="kg/s")
+    "Connection supply mass flow rate (sensed)"
+    annotation (Placement(transformation(
+      extent={{100,40},{140,80}}),
+      iconTransformation(extent={{200,40},{220,60}})));
   // COMPONENTS
   replaceable BaseClasses.PartialConnection2Pipe con[nCon](
     redeclare each final package Medium = Medium,
@@ -65,11 +76,6 @@ partial model PartialDistribution2Pipe
     final m_flow_nominal=mEnd_flow_nominal)
     "Pipe representing the end of the distribution line (after last connection)"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Modelica.Blocks.Interfaces.RealOutput Q_flow[nCon](
-    each final quantity="HeatFlowRate", each final unit="W") if have_heaFloOut
-    "Heat flow rate transferred to the connected load (>=0 for heating)"
-    annotation (Placement(transformation(extent={{100,60},{140,100}}),
-      iconTransformation(extent={{100,70},{120,90}})));
 initial equation
   assert(iConDpSen >= 1 and iConDpSen <= nCon, "In " + getInstanceName() +
     ": iConDpSen = " + String(iConDpSen) + " whereas it must be between 
@@ -103,9 +109,30 @@ equation
   connect(con[iConDpSen].dp, dp)
     annotation (Line(points={{11,4},{20,4},{20,20},{90,20},{90,40},{120,40}},
         color={0,0,127}));
-  connect(con.Q_flow, Q_flow) annotation (Line(points={{11,8},{18,8},{18,22},{88,
-          22},{88,80},{120,80}}, color={0,0,127}));
+  connect(con.Q_flow, Q_flow) annotation (Line(points={{11,8},{16,8},{16,24},{86,
+          24},{86,80},{120,80}}, color={0,0,127}));
+  connect(con.mCon_flow, mCon_flow) annotation (Line(points={{11,6},{18,6},{18,22},
+          {88,22},{88,60},{120,60}}, color={0,0,127}));
   annotation (
+    Documentation(info="
+<html>
+<p>
+Partial model of a two-pipe distribution network.
+</p>
+<p>
+An array of replaceable partial models is used to represent the  
+connections along the network, including the pipe segment immediately 
+upstream each connection. 
+</p>
+<p>
+A replaceable partial model is used to represent the pipe segment of 
+the supply and return line after the last connection.
+</p>
+<p>
+Optionally the heat flow rate transferred to each connected load can be output.
+</p>
+</html>
+    "),
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-6,-200},{6,200}},

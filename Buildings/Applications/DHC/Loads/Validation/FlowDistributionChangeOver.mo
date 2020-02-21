@@ -198,7 +198,7 @@ in change-over mode.
   Diagram(
     coordinateSystem(preserveAspectRatio=false, extent={{-160,-180},{160,180}})),
   experiment(
-      StopTime=604800,
+      StopTime=1000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
   __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/FlowDistributionChangeOver.mos"

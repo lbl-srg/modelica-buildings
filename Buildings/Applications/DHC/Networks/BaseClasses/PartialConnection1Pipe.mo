@@ -146,18 +146,6 @@ partial model PartialConnection1Pipe
       extent={{-10,-10},{10,10}},
       rotation=0,
       origin={0,-40})));
-  Fluid.Sensors.RelativePressure senRelPre(
-    redeclare final package Medium = Medium)
-    "Relative pressure sensor"
-    annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=0,
-        origin={0,-80})));
-  Modelica.Blocks.Interfaces.RealOutput dp(
-    final quantity="PressureDifference", final displayUnit="Pa")
-    "Pressure drop accross the connection (sensed)"
-    annotation (Placement(transformation(extent={{100,-40},{140,0}}),
-      iconTransformation(extent={{100,10},{120,30}})));
   Fluid.Sensors.TemperatureTwoPort senTConSup(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
@@ -220,15 +208,6 @@ equation
     annotation (Line(points={{10,-40},{30,-40}}, color={0,127,255}));
   connect(senMasFloByp.m_flow, mByp_flow)
     annotation (Line(points={{0,-29},{0,20},{120,20}}, color={0,0,127}));
-  connect(senRelPre.p_rel, dp)
-    annotation (Line(points={{0,-71},{0,-60},{80,-60},
-          {80,-20},{120,-20}}, color={0,0,127}));
-  connect(junConSup.port_2, senRelPre.port_a)
-    annotation (Line(points={{-30,-40},
-          {-20,-40},{-20,-80},{-10,-80}},color={0,127,255}));
-  connect(senRelPre.port_b, junConRet.port_1)
-    annotation (Line(points={{10,-80},
-          {20,-80},{20,-40},{30,-40}}, color={0,127,255}));
 
   if have_heaFloOut then
     connect(senMasFloCon.port_b, senTConSup.port_a)
