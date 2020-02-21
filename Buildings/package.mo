@@ -169,6 +169,11 @@ its class name ends with the string <code>Beta</code>.
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
         </td>
     </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.Actuators.Valves.ThreeWayTable
+        </td>
+        <td valign=\"top\">Three way valves with opening characteristics based on a user-provided table.
+        </td>
+    </tr>
     <tr><td valign=\"top\">Buildings.Fluid.Chillers.AbsorptionIndirectSteam
         </td>
         <td valign=\"top\">Indirect steam heated absorption chiller based on performance curves.
@@ -244,6 +249,16 @@ its class name ends with the string <code>Beta</code>.
         </td>
         <td valign=\"top\">Added a boolean input to reset the accumulated timer.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1221\">#1221</a>.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Examples.Tutorial</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Examples.Tutorial.Boiler<br/>
+                           Buildings.Examples.Tutorial.SpaceCooling
+        </td>
+        <td valign=\"top\">Updated examples to use the control blocks from the Control Description Language package
+                           <code>Buildings.Controls.OBC.CDL</code>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
@@ -332,6 +347,21 @@ its class name ends with the string <code>Beta</code>.
                            Added option unix time stamp GMT.<br/>
                            This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1192\">IBPSA, #1192</a>.
         </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Examples</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Examples.VAVReheat.ThermalZones.Floor<br/>
+                           Buildings.Examples.VAVReheat.ASHRAE2006<br/>
+                           Buildings.Examples.VAVReheat.Guideline36<br/>
+                           Buildings.Examples.DualFanDualDuct
+
+        </td>
+        <td valign=\"top\">Updated core zone geometry parameters related to room heat and mass balance.
+                           This change was done in
+                           <code>Buildings.Examples.VAVReheat.ThermalZones.Floor</code>.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1719\">#1719</a>.
+       </td>
     </tr>
     </table>
     <!-- Non-backward compatible changes to existing components -->
@@ -500,6 +530,17 @@ its class name ends with the string <code>Beta</code>.
                            Prior to this change, use of these media led to a translation error.<br/>
                            This is for
                            <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1205\">Buildings, #1205</a>.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Constructions.Examples.ExteriorWallTwoWindows<br/>
+                           Buildings.ThermalZones.Detailed.Constructions.Examples.ExteriorWallWithWindow
+        </td>
+        <td valign=\"top\">Corrected wrong assignment of a parameter.<br/>
+                           This is for
+                           <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1766\">Buildings, #1766</a>.
         </td>
     </tr>
     </table>
