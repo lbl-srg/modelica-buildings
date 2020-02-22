@@ -317,10 +317,10 @@ annotation (
           rotation=90)}),
     Documentation(info="<html>
 <p>  
-The CHP plant switches between six possible operating modes depending on the current mode, 
-control signals and plant boundary conditions. The regular transition between them 
+The CHP plant switches between six possible operating modes depending on the current mode,
+control signals and plant boundary conditions. The regular transition between them
 is as follows:
-</p>  
+</p>
 <ul>
 <li>
 off 
@@ -350,8 +350,8 @@ From the off mode
 </p>
 <ul>
 <li>
-The transition from the off to the stand-by mode will occur when the plant availability 
-signal <code>avaSig</code> becomes true. 
+The transition from the off to the stand-by mode will occur when the plant availability
+signal <code>avaSig</code> becomes true.
 </li>
 </ul>
 <p>
@@ -359,8 +359,8 @@ From the stand-by mode
 </p>
 <ul>
 <li>
-The transition from the stand-by to the pump-on mode will occur when the plant 
-running signal <code>runSig</code> becomes true. 
+The transition from the stand-by to the pump-on mode will occur when the plant
+running signal <code>runSig</code> becomes true.
 </li>
 <li>
 If <code>runSig</code> becomes false, the CHP will automatically change to the off mode.
@@ -371,12 +371,12 @@ From the pump-on mode
 </p>
 <ul>
 <li>
-The transition from the pump-on to stand-by mode will occur after the specified 
-time delay and if the water flow rate <code>mWat_flow</code> is greater than 
-the minimum <code>per.mWatMin<code>. 
+The transition from the pump-on to stand-by mode will occur after the specified
+time delay and if the water flow rate <code>mWat_flow</code> is greater than
+the minimum <code>per.mWatMin</code>.
 </li>
 <li>
-If <code>avaSig</code> becomes false or if <code>runSig</code> becomes false, 
+If <code>avaSig</code> becomes false or if <code>runSig</code> becomes false,
 the CHP will automatically change to the off mode.
 </li>
 </ul>
@@ -385,15 +385,15 @@ From the warm-up mode
 </p>
 <ul>
 <li>
-The transition from the warm-up mode to the normal operation will occur after the 
+The transition from the warm-up mode to the normal operation will occur after the
 specified time delay (if <code>per.warmUpByTimeDelay</code> is true) 
-or when the engine temperature <code>TEng</code> becomes higher than the 
-nominal temperature <code>per.TEngNom</code> (if <code>per.warmUpByTimeDelay</code> 
-is false). 
+or when the engine temperature <code>TEng</code> becomes higher than the
+nominal temperature <code>per.TEngNom</code> (if <code>per.warmUpByTimeDelay</code>
+is false).
 </li>
 <li>
-If <code>runSig</code> becomes false or if the water flow rate <code>mWat_flow</code> 
-becomes less than the minimum <code>per.mWatMin<code>, the CHP will automatically 
+If <code>runSig</code> becomes false or if the water flow rate <code>mWat_flow</code>
+becomes less than the minimum <code>per.mWatMin</code>, the CHP will automatically
 change to the cool-down mode.
 </li>
 </ul>
@@ -402,9 +402,9 @@ From the normal mode
 </p>
 <ul>
 <li>
-The transition from the normal operation to the cool-down mode will occur when 
+The transition from the normal operation to the cool-down mode will occur when
 <code>runSig</code> becomes false or if the water flow rate <code>mWat_flow</code>
-becomes less than the minimum <code>per.mWatMin<code>. 
+becomes less than the minimum <code>per.mWatMin</code>.
 </li>
 </ul>
 <p>
@@ -412,15 +412,15 @@ From the cool-down mode
 </p>
 <ul>
 <li>
-The transition from the cool-down mode will occur after the specified time delay. 
-If <code>avaSig</code> is true, the CHP will change to the stand-by mode; else, 
-it will change to the off mode. 
+The transition from the cool-down mode will occur after the specified time delay.
+If <code>avaSig</code> is true, the CHP will change to the stand-by mode; else,
+it will change to the off mode.
 </li>
 <li>
-If the CHP has the mandatory cool-down configuration (if <code>per.coolDownOptional</code> 
+If the CHP has the mandatory cool-down configuration (if <code>per.coolDownOptional</code>
 is false), the plant has to complete the cool-down period before it can be reactivated.
-If the CHP has the optional cool-down configuration (if <code>per.coolDownOptional</code> 
-is true), the plant may imediatelly change to the warm-up mode if it gets reactivated 
+If the CHP has the optional cool-down configuration (if <code>per.coolDownOptional</code>
+is true), the plant may imediatelly change to the warm-up mode if it gets reactivated
 (<code>runSig</code> = true).
 </li>
 </ul>
