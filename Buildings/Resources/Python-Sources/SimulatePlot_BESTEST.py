@@ -41,7 +41,7 @@ def save_plot(figure, file_name):
     """ Save the figure to a pdf and png file in the directory `img`
     """
 
-    out_dir = "img"
+    out_dir = "../Images/ThermalZones/Detailed/Validation/BESTEST"
     if not os.path.exists(out_dir):
         os.makedirs(out_dir)
     figure.savefig(os.path.join(out_dir, '{}.pdf'.format(file_name)))
