@@ -46,8 +46,7 @@ model BuildingSpawnZ1 "Spawn building model (1 zone, no distribution pump)"
     annotation (Placement(transformation(extent={{-300,210},{-280,230}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC2
     annotation (Placement(transformation(extent={{-260,210},{-240,230}})));
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.FanCoil4PipeFluidPorts
-    terUni(
+  Buildings.Applications.DHC.Loads.Examples.BaseClasses.FanCoil4Pipe terUni(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium2,
     QHea_flow_nominal=10000,

@@ -10,7 +10,7 @@ model SeriesConstantFlowRCB3Z6
       mCon_flow_nominal={
         max(bui[i].ets.m1HexChi_flow_nominal, bui[i].ets.mEva_flow_nominal) for i in 1:nBui},
       epsPla=0.935));
-  parameter Boolean allowFlowReversalDis = false
+  parameter Boolean allowFlowReversalDis = true
     "Set to true to allow flow reversal on the district side"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
   parameter String weaPat = "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"

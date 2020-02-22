@@ -122,7 +122,28 @@ equation
           127}));
   connect(THeaWatSup.y, supHeaWat.T_in) annotation (Line(points={{-78,-80},{-72,
           -80},{-72,-76},{-62,-76}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (
+    Documentation(info="<html>
+<p>
+This model is part of a computational performance benchmark between:
+</p>
+<ul>
+<li>
+a simplified modeling of the piping network as implemented in 
+<a href=\"Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
+Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>,
+see the corresponding example: 
+<a href=\"Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution1\">
+Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution1</a>,
+</li>
+<li>
+an explicit modeling of the piping network, see the corresponding example:
+<a href=\"Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution2\">
+Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution2</a>.
+</li>
+</ul>
+</html>"),
+  Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(
       StopTime=2000000,

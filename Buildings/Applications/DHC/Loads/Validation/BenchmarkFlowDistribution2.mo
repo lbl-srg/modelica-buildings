@@ -149,7 +149,28 @@ equation
           -80},{-70,-76},{-62,-76}}, color={0,0,127}));
   connect(dpPum.y, pum.dp_in)
     annotation (Line(points={{-78,-40},{20,-40},{20,-68}}, color={0,0,127}));
-    annotation (Placement(transformation(extent={{40,-90},{80,-70}})),
+    annotation (
+        Documentation(info="<html>
+<p>
+This model is part of a computational performance benchmark between:
+</p>
+<ul>
+<li>
+a simplified modeling of the piping network as implemented in 
+<a href=\"Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
+Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>,
+see the corresponding example: 
+<a href=\"Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution1\">
+Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution1</a>,
+</li>
+<li>
+an explicit modeling of the piping network, see the corresponding example:
+<a href=\"Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution2\">
+Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution2</a>.
+</li>
+</ul>
+</html>"),
+    Placement(transformation(extent={{40,-90},{80,-70}})),
     experiment(
       StopTime=2000000,
       __Dymola_NumberOfIntervals=500,

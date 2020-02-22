@@ -1,5 +1,6 @@
 within Buildings.Applications.DHC.Loads.Validation.BaseClasses;
 model FanCoil2PipeCooling
+  "Model of a purely sensible two-pipe fan coil unit computing a required chilled water mass flow rate"
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit(
     redeclare package Medium1 = Buildings.Media.Water,
     redeclare package Medium2 = Buildings.Media.Air,
@@ -139,4 +140,46 @@ equation
           180},{36,180}}, color={0,0,127}));
   connect(retAir.ports[1], fan.port_a)
     annotation (Line(points={{140,0},{90,0}}, color={0,127,255}));
+annotation (
+Documentation(
+info="<html>
+<p>
+This is a simplified model of a two-pipe fan coil unit for cooling. It is 
+intended to be used:
+</p>
+<ul>
+<li>
+in a case where the room thermal loads are provided as time series: it thus
+takes the load as an input,
+</li>
+<li>
+in conjunction with
+<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
+Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>: 
+it thus computes the water mass flow rate required to meet the load.
+</li>
+</ul>
+<p>
+For the sake of simplicity, a purely sensible heat exchanger model is considered.
+</p>
+<p>
+For the sake of computational performance, a PI controller is used instead of an inverse 
+model of the heat exchanger to assess the required water mass flow rate. 
+The controller output signal is mapped linearly to both: 
+</p>
+<ul>
+<li>
+the water mass flow rate, from zero to its nominal value,
+</li>
+<li>
+the air mass flow rate, from zero to its nominal value.
+</li>
+</ul>
+<p>
+The controller tracks the load while the impact of an unmet load on the room 
+air temperature is assessed with
+<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom\">
+Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom</a>.
+</p>
+</html>"));
 end FanCoil2PipeCooling;

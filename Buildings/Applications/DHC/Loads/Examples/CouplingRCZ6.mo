@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.Loads.Examples;
 model CouplingRCZ6
-  "Example illustrating the coupling of a multizone RC model to a fluid loop"
+  "Example illustrating the coupling of a building model to heating water and chilled water loops"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water "Fluid in the pipes";
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
@@ -78,7 +78,8 @@ in a configuration with:
 </p>
 <ul>
 <li>
-six-zone building model based on two-element reduced order model, 
+six-zone building model based on two-element reduced order model (from 
+GeoJSON export),
 </li>
 <li>
 secondary pumps.

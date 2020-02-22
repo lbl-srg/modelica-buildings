@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.Loads.Examples;
 model CouplingSpawnZ6
-  "Example illustrating the coupling of a multizone Spawn model to a fluid loop"
+  "Example illustrating the coupling of a building model to heating water and chilled water loops"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water
     "Source side medium";
@@ -71,7 +71,8 @@ in a configuration with:
 </p>
 <ul>
 <li>
-six-zone building model based on EnergyPlus envelope model, 
+six-zone building model based on EnergyPlus envelope model (from 
+GeoJSON export),
 </li>
 <li>
 secondary pumps.

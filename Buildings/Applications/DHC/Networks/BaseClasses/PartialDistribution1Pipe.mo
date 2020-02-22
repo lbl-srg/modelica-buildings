@@ -82,7 +82,11 @@ equation
   connect(pipEnd.port_b, port_bDisSup)
     annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
   connect(con.Q_flow, Q_flow)
-    annotation (Line(points={{11,8},{18,8},{18,22},{88, 22},{88,80},{120,80}}, color={0,0,127}));
+    annotation (Line(points={{11,8},{16,8},{16,24},{88,24},{88,80},{120,80}},  color={0,0,127}));
+  connect(con.mByp_flow, mByp_flow) annotation (Line(points={{11,4},{20,4},{20,
+          20},{92,20},{92,40},{120,40}}, color={0,0,127}));
+  connect(con.mCon_flow, mCon_flow) annotation (Line(points={{11,6},{18,6},{18,
+          22},{90,22},{90,60},{120,60}}, color={0,0,127}));
   annotation (
       Documentation(info="
 <html>

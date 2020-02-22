@@ -127,8 +127,7 @@ model BuildingRCZ1Valve
     annotation (Placement(transformation(extent={{-260,210},{-240,230}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=2)
     annotation (Placement(transformation(extent={{260,70},{280,90}})));
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.FanCoil4PipeFluidPorts
-    terUni(
+  Buildings.Applications.DHC.Loads.Examples.BaseClasses.FanCoil4Pipe terUni(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium2,
     QHea_flow_nominal=1000,

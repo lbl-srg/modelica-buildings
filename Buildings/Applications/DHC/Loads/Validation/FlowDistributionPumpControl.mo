@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.Loads.Validation;
 model FlowDistributionPumpControl
-  "Validation of the pump head computation in the flow distribution model"
+  "Validation of the pump head computation in FlowDistribution"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water
     "Source side medium";
@@ -255,8 +255,8 @@ equation
     annotation (Line(points={{-89,-100},{-82,-100}}, color={0,0,127}));
   connect(gai.y, pumCstDp.dp_in)
     annotation (Line(points={{-58,-100},{0,-100},{0,-148}}, color={0,0,127}));
-  connect(dis.dp, gai1.u) annotation (Line(points={{81,-164},{120,-164},{120,
-          -190},{-100,-190},{-100,-142}},       color={0,0,127}));
+  connect(dis.dp, gai1.u) annotation (Line(points={{81,-167},{120,-167},{120,-190},
+          {-100,-190},{-100,-142}},             color={0,0,127}));
   connect(gai1.y, conPID.u_m) annotation (Line(points={{-100,-118},{-100,-112}},
                        color={0,0,127}));
   connect(one.y, conPID.u_s)
@@ -312,7 +312,16 @@ equation
           {-120,-174},{-80,-174},{-80,-160},{-47,-160}}, color={0,127,255}));
   connect(THeaWatSup.y, supHeaWat.T_in) annotation (Line(points={{-158,0},{-152,
           0},{-152,-176},{-142,-176}}, color={0,0,127}));
-    annotation (Placement(transformation(extent={{40,-90},{80,-70}})),
+    annotation (
+Documentation(
+info="<html>
+<p>
+This model validates the pump head computation algorithm implemented in 
+<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
+Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>.
+</p>
+</html>"),
+    Placement(transformation(extent={{40,-90},{80,-70}})),
     experiment(
       StopTime=400000,
       __Dymola_NumberOfIntervals=500,

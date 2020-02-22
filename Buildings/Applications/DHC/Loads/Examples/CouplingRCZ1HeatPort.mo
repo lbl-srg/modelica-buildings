@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.Loads.Examples;
 model CouplingRCZ1HeatPort
-  "Example illustrating the coupling of a single zone RC building model to a fluid loop"
+  "Example illustrating the coupling of a building model to heating water and chilled water loops"
   extends Modelica.Icons.Example;
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     calTSky=Buildings.BoundaryConditions.Types.SkyTemperatureCalculation.HorizontalRadiation,
@@ -97,7 +97,7 @@ in a configuration with:
 </p>
 <ul>
 <li>
-one-zone building model based on one-element reduced order model, 
+one-zone building model based on one-element reduced order model,
 </li>
 <li>
 no secondary pump.

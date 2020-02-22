@@ -76,8 +76,8 @@ model BuildingSpawnZ6
     annotation (Placement(transformation(extent={{260,110},{280,130}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum3(nin=2)
     annotation (Placement(transformation(extent={{260,70},{280,90}})));
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.FanCoil4PipeFluidPorts
-    terUni[nZon](
+  Buildings.Applications.DHC.Loads.Examples.BaseClasses.FanCoil4Pipe terUni[
+    nZon](
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium2,
     each facSca=facSca,

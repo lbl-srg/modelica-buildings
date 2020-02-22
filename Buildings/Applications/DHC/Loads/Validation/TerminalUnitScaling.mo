@@ -129,15 +129,14 @@ equation
       __Dymola_NumberOfIntervals=5000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
-  Documentation(info="
-<html>
+  Documentation(info=
+"<html>
 <p>
 This example validates the scaling factor in terminal unit models inheriting from 
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit\">
 Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit</a>.
 </p>
-</html>
-  "),
+</html>"),
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
   __Dymola_Commands(file=

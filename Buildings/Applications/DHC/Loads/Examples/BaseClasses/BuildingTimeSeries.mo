@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
 model BuildingTimeSeries
-  "Building model where heating and cooling loads are provided by time series and time functions"
+  "Building model where heating and cooling loads are provided as time series"
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
     redeclare package Medium = Buildings.Media.Water,
     have_fan=false,
@@ -171,7 +171,7 @@ equation
 <html>
 <p>
 This is a simplified building model where the space heating and cooling loads
-are provided by means of time series.
+are provided as time series.
 </p>
 </html>"),
   Diagram(coordinateSystem(extent={{-300,-300},{300,300}})), Icon(
