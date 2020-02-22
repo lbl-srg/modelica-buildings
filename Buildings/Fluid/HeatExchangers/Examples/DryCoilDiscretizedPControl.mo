@@ -15,22 +15,22 @@ model DryCoilDiscretizedPControl
     m1_flow_nominal*4200/1000*(T_a1_nominal-T_b1_nominal)/(T_b2_nominal-T_a2_nominal)
     "Nominal mass flow rate medium 2";
 
-  Sources.MassFlowSource_T            sin_2(                       redeclare package
-              Medium = Medium2,
+  Sources.MassFlowSource_T            sin_2(                       redeclare
+      package Medium = Medium2,
     nPorts=1,
     m_flow=-10.5,
     T=303.15)             annotation (Placement(transformation(extent={{-52,10},
             {-32,30}})));
-  Buildings.Fluid.Sources.Boundary_pT sou_2(                       redeclare package
-              Medium = Medium2,
+  Buildings.Fluid.Sources.Boundary_pT sou_2(                       redeclare
+      package Medium = Medium2,
     nPorts=1,
     use_p_in=false,
     use_T_in=false,
     p(displayUnit="Pa") = 101625,
     T=T_a2_nominal)              annotation (Placement(transformation(extent={{140,10},
             {120,30}})));
-  Buildings.Fluid.Sources.Boundary_pT sin_1(                       redeclare package
-              Medium = Medium1,
+  Buildings.Fluid.Sources.Boundary_pT sin_1(                       redeclare
+      package Medium = Medium1,
     p=300000,
     T=293.15,
     use_p_in=true,

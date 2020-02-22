@@ -54,8 +54,8 @@ equation
     ": The computed indoor temperature is below 0°C.");
   annotation (
   defaultComponentName="roo",
-  Documentation(info="
-<html>
+  Documentation(info=
+"<html>
 <p>
 This is a first order ODE model assessing the indoor air temperature variations
 around a setpoint, based on the difference between the required and actual
@@ -108,8 +108,16 @@ The two previous equations yield:
 <p>
 where <i>&tau; = C / G</i> (s) is the time constant of the indoor temperature.
 </p>
-</html>
-  "),
+</html>",
+revisions=
+"<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
   Icon(coordinateSystem(preserveAspectRatio=false),
   graphics={
         Text(

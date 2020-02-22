@@ -13,7 +13,7 @@ type PumpControlType = enumeration(
   "Enumeration for the type of distribution pump control"
 annotation(Documentation(info="<html>
 <p>
-Enumeration to define the type of distribution system.
+Enumeration to define the type of distribution pump control.
 </p>
 </html>",
   revisions=

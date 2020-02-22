@@ -63,8 +63,8 @@ equation
   connect(supChiWat.ports[1], bui.ports_a[2]) annotation (Line(points={{-20,-60},
           {0,-60},{0,-46},{20,-46}}, color={0,127,255}));
   annotation (
-  Documentation(info="
-<html>
+  Documentation(info=
+"<html>
 <p>
 This example illustrates the use of
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding\">
@@ -85,8 +85,16 @@ GeoJSON export),
 secondary pumps.
 </li>
 </ul>
-</html>
-"),
+</html>",
+revisions=
+"<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
   Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{140,60}})),
     __Dymola_Commands(file=

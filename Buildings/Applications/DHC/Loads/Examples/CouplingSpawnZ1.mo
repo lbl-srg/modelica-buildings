@@ -72,8 +72,8 @@ equation
       StopTime=604800,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
-  Documentation(info="
-<html>
+  Documentation(info=
+"<html>
 <p>
 This example illustrates the use of
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding\">
@@ -93,8 +93,16 @@ one-zone building model based on EnergyPlus envelope model,
 no secondary pumps.
 </li>
 </ul>
-</html>
-"),
+</html>",
+revisions=
+"<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
   Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{140,80}})),
   __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingSpawnZ1.mos"

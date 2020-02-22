@@ -576,7 +576,7 @@ It is considered independent from the valve position:
 <i>dpDis[i]</i> is the pressure drop in the supply pipe segment directly
 upstream the i<sup>th</sup> connection:
 <p>
-<i>dpDis[i] = 1 / K[i]<sup>2</sup></i> * mDis_flow[i] <sup>2</sup></i>
+<i>dpDis[i] = 1 / K[i]<sup>2</sup> * mDis_flow[i] <sup>2</sup></i>
 </p>
 Where:
 <p> 
@@ -666,6 +666,15 @@ the number of continuous state variables.
 <img alt=\"image\"
 src=\"modelica://Buildings/Resources/Images/Applications/DHC/Loads/FlowDistribution2.png\"/>
 </p>
+</html>",
+revisions=
+"<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"),
   Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-100},{100,100}}),

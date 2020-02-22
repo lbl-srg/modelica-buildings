@@ -425,7 +425,8 @@ equation
           -180},{192,-180},{192,-180},{200,-180}}, color={0,127,255}));
 annotation (
   defaultComponentName="ter",
-  Documentation(info="<html>
+  Documentation(info=
+"<html>
 <p>
 Partial model to be used for modeling an HVAC terminal unit.
 </p>
@@ -490,6 +491,7 @@ an infinite capacity.
 When connecting the model to
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
 Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>:
+</p>
 <ul>
 <li>
 The nominal pressure drop on the source side (heating or chilled water) must be set
@@ -511,7 +513,6 @@ infiltration or at the system level for the fresh air source), the
 unidirectional air flow condition cannot be guaranted.
 </li>
 </ul>
-</p>
 <h4>Scaling factor</h4>
 <p>
 Scaling is implemented by means of a scaling factor <code>facSca</code> being
@@ -554,7 +555,15 @@ The computed required mass flow rate must be connected to
 <code>mReqChiWat_flow</code>.
 </li>
 </ul>
-
+</html>",
+revisions=
+"<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"),
   Icon(coordinateSystem(preserveAspectRatio=false,
   extent={{-120,-120},{120,120}}),

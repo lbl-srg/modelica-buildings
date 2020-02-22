@@ -117,6 +117,15 @@ Buildings.Applications.DHC.Loads.Examples</a>.
 <img alt=\"image\"
 src=\"modelica://Buildings/Resources/Images/Applications/DHC/Loads/PartialBuilding.png\"/>
 </p>
+</html>",
+revisions=
+"<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"),
   Icon(
   coordinateSystem(extent={{-300,-300},{300,300}}, preserveAspectRatio=false),
