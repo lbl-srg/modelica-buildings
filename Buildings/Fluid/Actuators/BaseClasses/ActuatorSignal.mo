@@ -67,12 +67,6 @@ equation
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
-        Rectangle(
-          extent={{-14,100},{12,20}},
-          lineColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          fillColor=DynamicSelect({255,255,255}, y_actual*{0,140,72}+(1-y_actual)*{238,46,47}),
-          radius=10),
         Line(
           points={{0,48},{0,108}}),
         Line(
@@ -81,26 +75,26 @@ equation
           visible=use_inputFilter,
           extent={{-32,40},{34,100}},
           lineColor={0,0,0},
-          fillColor=DynamicSelect({135,135,135}, y_actual*{0,140,72}+(1-y_actual)*{238,46,47}),
+          fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Ellipse(
           visible=use_inputFilter,
           extent={{-32,100},{34,40}},
           lineColor={0,0,0},
-          fillColor=DynamicSelect({135,135,135}, y_actual*{0,140,72}+(1-y_actual)*{238,46,47}),
+          fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Text(
           visible=use_inputFilter,
           extent={{-20,94},{22,48}},
           lineColor={0,0,0},
-          fillColor=DynamicSelect({135,135,135}, y_actual*{0,140,72}+(1-y_actual)*{238,46,47}),
+          fillColor={135,135,135},
           fillPattern=FillPattern.Solid,
           textString="M",
           textStyle={TextStyle.Bold}),
         Text(
-          extent={{-24,116},{-144,66}},
+          extent={{-40,126},{-160,76}},
           lineColor={0,0,0},
-          textString=DynamicSelect("", String(y, format=".1f")))}),
+          textString=DynamicSelect("", String(y, format=".2f")))}),
 Documentation(info="<html>
 <p>
 This model implements the filter that is used to approximate the travel

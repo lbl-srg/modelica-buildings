@@ -111,7 +111,14 @@ equation
   connect(senRelPre.p_rel, dp_actual) annotation (Line(points={{50.5,-26.35},{
           50.5,-38},{74,-38},{74,50},{110,50}},
                                            color={0,0,127}));
-  annotation (defaultComponentName="fan",
+  annotation (
+    Icon(graphics={
+        Text(
+          extent={{-40,126},{-160,76}},
+          lineColor={0,0,127},
+          visible=inputType == Buildings.Fluid.Types.InputType.Continuous or inputType == Buildings.Fluid.Types.InputType.Stages,
+          textString=DynamicSelect("dp", if inputType == Buildings.Fluid.Types.InputType.Continuous then String(dp_in, format=".0f") else String(stage)))}),
+  defaultComponentName="fan",
   Documentation(info="<html>
 <p>
 This model describes a fan or pump with prescribed head.
@@ -259,59 +266,5 @@ Revised implementation to allow zero flow rate.
     by Michael Wetter:<br/>
        Added model to the Buildings library.
 </ul>
-</html>"),
-    Icon(graphics={
-        Rectangle(
-          extent={{-14,100},{14,60}},
-          lineColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          fillColor=DynamicSelect({255,255,255}, dp_actual/dp_nominal*{0,140,72}+(1-dp_actual/dp_nominal)*{238,46,47}),
-          radius=10),
-        Line(
-          points={{2,50},{100,50}},
-          color={0,0,0},
-          smooth=Smooth.None),
-        Text(
-          visible = inputType == Buildings.Fluid.Types.InputType.Continuous,
-          extent={{20,142},{104,108}},
-          textString="dp_in"),
-        Text(extent={{60,66},{110,52}},
-          lineColor={0,0,127},
-          textString="dp"),
-        Line(
-          points={{0,70},{100,70}},
-          color={0,0,0},
-          smooth=Smooth.None),
-        Line(
-          points={{0,90},{100,90}},
-          color={0,0,0},
-          smooth=Smooth.None),
-        Line(
-          points={{0,100},{0,50}},
-          color={0,0,0},
-          smooth=Smooth.None),
-        Rectangle(
-          visible=use_inputFilter,
-          extent={{-34,40},{32,100}},
-          lineColor={0,0,0},
-          fillColor=DynamicSelect({135,135,135}, dp_actual/dp_nominal*{0,140,72}+(1-dp_actual/dp_nominal)*{238,46,47}),
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          visible=use_inputFilter,
-          extent={{-34,100},{32,40}},
-          lineColor={0,0,0},
-          fillColor=DynamicSelect({135,135,135}, dp_actual/dp_nominal*{0,140,72}+(1-dp_actual/dp_nominal)*{238,46,47}),
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-24,106},{-144,56}},
-          lineColor={0,0,0},
-          textString=DynamicSelect("", if inputType == Buildings.Fluid.Types.InputType.Continuous then String(dp_in, format=".f") else String(stage))),
-        Text(
-          visible=use_inputFilter,
-          extent={{-22,92},{20,46}},
-          lineColor={0,0,0},
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid,
-          textString="M",
-          textStyle={TextStyle.Bold})}));
+</html>"));
 end FlowControlled_dp;

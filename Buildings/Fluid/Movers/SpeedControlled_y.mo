@@ -65,51 +65,11 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}),
          graphics={
-        Rectangle(
-          extent={{-14,100},{14,60}},
-          lineColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          fillColor=DynamicSelect({255,255,255}, y_actual*{0,140,72}+(1-y_actual)*{238,46,47}),
-          radius=10),
-        Text( extent={{6,136},{104,114}},
+        Text(
+          extent={{-40,126},{-160,76}},
           lineColor={0,0,127},
-          textString="y [0..1]"),
-        Line(
-          points={{0,70},{100,70}},
-          color={0,0,0},
-          smooth=Smooth.None),
-        Line(
-          points={{0,90},{100,90}},
-          color={0,0,0},
-          smooth=Smooth.None),
-        Line(
-          points={{0,100},{0,50}},
-          color={0,0,0},
-          smooth=Smooth.None),
-        Rectangle(
-          visible=use_inputFilter,
-          extent={{-34,40},{32,100}},
-          lineColor={0,0,0},
-          fillColor=DynamicSelect({135,135,135}, y_actual*{0,140,72}+(1-y_actual)*{238,46,47}),
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          visible=use_inputFilter,
-          extent={{-34,100},{32,40}},
-          lineColor={0,0,0},
-          fillColor=DynamicSelect({135,135,135}, y_actual*{0,140,72}+(1-y_actual)*{238,46,47}),
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-24,106},{-144,56}},
-          lineColor={0,0,0},
-          textString=DynamicSelect("", if inputType == Buildings.Fluid.Types.InputType.Continuous then String(y, format=".1f") else String(stage))),
-        Text(
-          visible=use_inputFilter,
-          extent={{-22,92},{20,46}},
-          lineColor={0,0,0},
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid,
-          textString="M",
-          textStyle={TextStyle.Bold})}),
+          visible=inputType == Buildings.Fluid.Types.InputType.Continuous or inputType == Buildings.Fluid.Types.InputType.Stages,
+          textString=DynamicSelect("y", if inputType == Buildings.Fluid.Types.InputType.Continuous then String(y, format=".2f") else String(stage)))}),
     Documentation(info="<html>
 <p>
 This model describes a fan or pump with prescribed normalized speed.
