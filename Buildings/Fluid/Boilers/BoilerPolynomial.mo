@@ -142,22 +142,18 @@ equation
         Line(
           points={{-100,80},{-80,80},{-80,-44},{-6,-44}},
           smooth=Smooth.None),
-        Text(
-          extent={{-140,138},{-94,100}},
-          lineColor={0,0,127},
-          textString="y"),
-        Text(
-          extent={{88,128},{134,90}},
-          lineColor={0,0,127},
-          textString="T"),
         Line(
           points={{100,80},{80,80},{80,4}},
           color={0,0,127},
           smooth=Smooth.None),
         Text(
-          extent={{60,58},{-60,8}},
-          lineColor={255,255,255},
-          textString=DynamicSelect("", String(T-273.15, format=".1f")))}),
+          extent={{160,144},{40,94}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("T", String(T-273.15, format=".1f"))),
+        Text(
+          extent={{-38,146},{-158,96}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("y", String(y, format=".2f")))}),
 defaultComponentName="boi",
 Documentation(info="<html>
 <p>
