@@ -1,6 +1,6 @@
 within Buildings.Examples.Tutorial.CDL.Controls;
 block OpenLoopRadiatorSupply
-  "Open loop control for mixing valve in radiator loop"
+  "Open loop controller for mixing valve in radiator loop"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRoo(
     final unit="K",
     displayUnit="degC")

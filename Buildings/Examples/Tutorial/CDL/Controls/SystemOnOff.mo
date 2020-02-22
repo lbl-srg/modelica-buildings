@@ -1,5 +1,5 @@
 within Buildings.Examples.Tutorial.CDL.Controls;
-block SystemOnOff "Control for system on/off"
+block SystemOnOff "Controller for system on/off"
   parameter Real TRooSet(
     final unit="K",
     displayUnit="degC") = 293.65

@@ -1,5 +1,5 @@
 within Buildings.Examples.Tutorial.CDL.Controls;
-block EquipmentOnOff "Control for equipment on/off control"
+block EquipmentOnOff "Controller for equipment on/off control"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TBoi(
     final unit="K",
     displayUnit="degC")

@@ -1,5 +1,5 @@
 within Buildings.Examples.Tutorial.CDL.Controls;
-block BoilerReturn "Closed loop control for boiler return"
+block BoilerReturn "Control for boiler return"
   parameter Real TSet(
     final unit="K",
     displayUnit="degC") = 333.15

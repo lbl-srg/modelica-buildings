@@ -1,7 +1,6 @@
 within Buildings.Examples.Tutorial.CDL;
 model System5 "Open loop model with system on/off control"
-  extends
-    Buildings.Examples.Tutorial.CDL.BaseClasses.PartialOpenLoop;
+  extends Buildings.Examples.Tutorial.CDL.BaseClasses.PartialOpenLoop;
 
   Controls.BoilerReturn conBoiRet
    "Controller for boiler return water temperature"
@@ -16,13 +15,15 @@ model System5 "Open loop model with system on/off control"
     "Controller that switches the equipment on and off"
     annotation (Placement(transformation(extent={{-200,-220},{-180,-200}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal radPumCon(
-    realTrue=mRad_flow_nominal) "Type conversion for radiator pump signal"
+    realTrue=mRad_flow_nominal)
+    "Type conversion for radiator pump signal"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal boiPumCon(
-    realTrue=mBoi_flow_nominal) "Type conversion for boiler pump signal"
+    realTrue=mBoi_flow_nominal)
+    "Type conversion for boiler pump signal"
     annotation (Placement(transformation(extent={{-100,-290},{-80,-270}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal boiSigCon(
-   realTrue=1)
+    realTrue=1)
     "Type conversion for boiler signal"
     annotation (Placement(transformation(extent={{-100,-260},{-80,-240}})));
 equation
@@ -95,8 +96,35 @@ to ensure that the controller is implemented correctly.
 </p>
 </li>
 </ol>
+<h4>Exercise</h4>
 <p>
-Simulating the system will show that the system is switched off if the room
+Create a model, such as this model.
+To do so,
+</p>
+<ol>
+<li>
+<p>
+Copy
+<a href=\"modelica://Buildings.Examples.Tutorial.CDL.System4\">
+Buildings.Examples.Tutorial.CDL.System4</a>.
+</p>
+</li>
+<li>
+<p>
+Implement the controller for the system on/off control.
+</p>
+<p>
+Make a small unit test to verify that the controller is implemented correctly.
+</p>
+</li>
+<li>
+<p>
+Use this new controller instead of the open loop controller <code>conSysSta</code>.
+</p>
+</li>
+</ol>
+<p>
+Simulate the system to verify that the system is switched off if the room
 temperature exceeeds its set point plus half the dead band.
 </p>
 <p align=\"center\">

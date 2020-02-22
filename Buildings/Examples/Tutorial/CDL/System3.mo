@@ -15,13 +15,15 @@ model System3 "Open loop model with boiler return temperature control"
     "Controller that switches the equipment on and off"
     annotation (Placement(transformation(extent={{-200,-220},{-180,-200}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal radPumCon(
-    realTrue=mRad_flow_nominal) "Type conversion for radiator pump signal"
+    realTrue=mRad_flow_nominal)
+    "Type conversion for radiator pump signal"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal boiPumCon(
-    realTrue=mBoi_flow_nominal) "Type conversion for boiler pump signal"
+    realTrue=mBoi_flow_nominal)
+    "Type conversion for boiler pump signal"
     annotation (Placement(transformation(extent={{-100,-290},{-80,-270}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal boiSigCon(
-   realTrue=1)
+    realTrue=1)
     "Type conversion for boiler signal"
     annotation (Placement(transformation(extent={{-100,-260},{-80,-240}})));
 equation
@@ -84,12 +86,18 @@ Buildings.Controls.OBC.CDL.Continuous.Sources.Constant</a>
 and a PID controller
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.LimPID\">
 Buildings.Controls.OBC.CDL.Continuous.LimPID</a>,
-which we configured as a PI-controller with a p gain of <i>0.1</i>
-and a time constant of <i>120</i> seconds, which is about the time it takes to open
-and close a valve. As the control error is in Kelvin, which is typically of the order of <i>1</i>
+which we configured as a PI-controller.
+We set the proportial gain to <i>0.1</i> as then, in absence of the integral action,
+a control error of <i>10</i> Kelvin changes the control output by <i>1</i>.
+We set the time constant to <i>120</i> seconds, which is about the time it takes to open
+and close a valve.
+These values give typically good closed loop performance.
+</p>
+<p>
+As the control error is in Kelvin, which is typically of the order of <i>1</i>
 to <i>10</i>, there is no need to normalize the control input. (If pressure were used, it would make sense
 to divide the measured signal and the set point so that the control error is usually of the order of one,
-which simplifies the tuning.)
+which makes tuning easier.)
 </p>
 </li>
 <li>
@@ -108,15 +116,42 @@ This is done in
 <a href=\"modelica://Buildings.Examples.Tutorial.CDL.Controls.Validation.BoilerReturn\">
 Buildings.Examples.Tutorial.CDL.Controls.Validation.BoilerReturn</a>.
 Such validation models help detect implementation errors which may be difficult to diagnose once the controller
-is used as part of a larger system model. In our experience, implementing small scale validation leads to better
+is used as part of a larger system model. In our experience, implementing small scale validation tests leads to better
 code and overall faster development as errors are detected early on when they can be corrected quickly.
 For more information about how to implement a validation model, see the
 <a href=\"https://simulationresearch.lbl.gov/modelica/userGuide/development.html\">Modelica Buildings Library User Guide</a>.
 </p>
 </li>
 </ol>
+<h4>Exercise</h4>
 <p>
-Simulating the system will show that the valve is controlled to maintain a return water temperature
+Create a model, such as this model.
+To do so,
+</p>
+<ol>
+<li>
+<p>
+Copy
+<a href=\"modelica://Buildings.Examples.Tutorial.CDL.System2\">
+Buildings.Examples.Tutorial.CDL.System2</a>.
+</p>
+</li>
+<li>
+<p>
+Implement the controller for the boiler return water temperature.
+</p>
+<p>
+Make a small unit test to verify that the controller is implemented correctly.
+</p>
+</li>
+<li>
+<p>
+Use this new controller instead of the open loop controller <code>conBoiRet</code>.
+</p>
+</li>
+</ol>
+<p>
+Simulate the system to verify that the valve is controlled to maintain a return water temperature
 of at least <i>60</i>&circ;C as shown below.
 </p>
 <p align=\"center\">

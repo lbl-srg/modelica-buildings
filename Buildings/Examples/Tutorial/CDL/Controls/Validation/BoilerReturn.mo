@@ -3,8 +3,8 @@ model BoilerReturn
   "Validation model for the return temperature controller of the boiler"
     extends Modelica.Icons.Example;
 
-  Buildings.Examples.Tutorial.CDL.Controls.BoilerReturn
-    conBoiRet "Controller for boiler return water temperature"
+  Buildings.Examples.Tutorial.CDL.Controls.BoilerReturn conBoiRet
+    "Controller for boiler return water temperature"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TRet(
     height=50,

@@ -15,13 +15,15 @@ model System4 "Open loop model with equipment on/off control"
     "Controller that switches the equipment on and off"
     annotation (Placement(transformation(extent={{-200,-220},{-180,-200}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal radPumCon(
-    realTrue=mRad_flow_nominal) "Type conversion for radiator pump signal"
+    realTrue=mRad_flow_nominal)
+    "Type conversion for radiator pump signal"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal boiPumCon(
-    realTrue=mBoi_flow_nominal) "Type conversion for boiler pump signal"
+    realTrue=mBoi_flow_nominal)
+    "Type conversion for boiler pump signal"
     annotation (Placement(transformation(extent={{-100,-290},{-80,-270}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal boiSigCon(
-   realTrue=1)
+    realTrue=1)
     "Type conversion for boiler signal"
     annotation (Placement(transformation(extent={{-100,-260},{-80,-240}})));
 equation
@@ -87,7 +89,11 @@ We also used an instance of
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.And\">
 Buildings.Controls.OBC.CDL.Logical.And</a>
 to switch the boiler only on if the system control signal is on.
-Otherwise, the boiler would be heated up in summer.
+Otherwise, the boiler would be kept warm in summer.
+(Note that in the simulations, the boiler has no heat loss to the ambient and, hence, if
+the boiler and its circulation pump are switched off, its temperature remains constant.
+To model heat losses to the ambient, the heat port <code>boi.heatPort</code>
+would need to be connected to a model that simulates heat conduction to ambient conditions.)
 </p>
 </li>
 <li>
@@ -99,8 +105,35 @@ to ensure that the controller is implemented correctly.
 </p>
 </li>
 </ol>
+<h4>Exercise</h4>
 <p>
-Simulating the system will show that the valve is controlled to maintain a return water temperature
+Create a model, such as this model.
+To do so,
+</p>
+<ol>
+<li>
+<p>
+Copy
+<a href=\"modelica://Buildings.Examples.Tutorial.CDL.System3\">
+Buildings.Examples.Tutorial.CDL.System3</a>.
+</p>
+</li>
+<li>
+<p>
+Implement the controller for the equipment on/off control.
+</p>
+<p>
+Make a small unit test to verify that the controller is implemented correctly.
+</p>
+</li>
+<li>
+<p>
+Use this new controller instead of the open loop controller <code>conEquSta</code>.
+</p>
+</li>
+</ol>
+<p>
+Simulate the system to verify that the valve is controlled to maintain a return water temperature
 of at least <i>60</i>&circ;C, and that the boiler is switched off when the temperature exceeds <i>90</i>&circ;C
 and switched on again if it reaches <i>70</i>&circ;C as shown below.
 </p>

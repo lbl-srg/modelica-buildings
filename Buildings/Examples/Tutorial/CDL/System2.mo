@@ -15,13 +15,15 @@ model System2 "Open loop model with control architecture implemented"
     "Controller that switches the equipment on and off"
     annotation (Placement(transformation(extent={{-200,-220},{-180,-200}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal radPumCon(
-    realTrue=mRad_flow_nominal) "Type conversion for radiator pump signal"
+    realTrue=mRad_flow_nominal)
+    "Type conversion for radiator pump signal"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal boiPumCon(
-    realTrue=mBoi_flow_nominal) "Type conversion for boiler pump signal"
+    realTrue=mBoi_flow_nominal)
+    "Type conversion for boiler pump signal"
     annotation (Placement(transformation(extent={{-100,-290},{-80,-270}})));
- Buildings.Controls.OBC.CDL.Conversions.BooleanToReal boiSigCon(
-   realTrue=1)
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal boiSigCon(
+    realTrue=1)
     "Type conversion for boiler signal"
     annotation (Placement(transformation(extent={{-100,-260},{-80,-240}})));
 equation
@@ -63,11 +65,11 @@ the need to avoid communication over the network and on how control is distribut
 different field controllers. Here, we
 used the four controllers indicated by the shaded background in the figure of
 <a href=\"modelica://Buildings.Examples.Tutorial.CDL\">
-Buildings.Examples.Tutorial.CDL</a>,
-one for switching the overall system on and off,
-one for switching the boiler on and off,
-one to track the supply water temperature to the room and one to
-track the return water temperature into the boiler.
+Buildings.Examples.Tutorial.CDL</a>.
+One controller switches the overall system on and off,
+one switches the boiler on and off,
+one tracks the supply water temperature to the room and
+one tracks the return water temperature that is fed to the boiler.
 </p>
 <h4>Implementation</h4>
 <p>
@@ -76,7 +78,7 @@ This model was built as follows:
 <ol>
 <li>
 <p>
-The first step is to determine what functionality is in which controller, and what their inputs and outputs are.
+First, we determined what functionality should be implemented in which controller, and what the inputs and outputs of the controllers are.
 In this example, we used these controllers:
 </p>
 <ul>
@@ -126,7 +128,7 @@ Buildings.Controls.OBC.CDL.Interfaces.RealInput</a>, called it <code>TRet</code>
 for the measured return water temperature, and an
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Interfaces.RealOutput\">
 Buildings.Controls.OBC.CDL.Interfaces.RealOutput</a>
-for the valve control signal, which we call <code>yVal</code>.
+for the valve control signal, which we called <code>yVal</code>.
 </p>
 <p>
 To output the valve control signal, which we set for now to a constant value of <i>1</i>,
@@ -145,9 +147,9 @@ in a schematic diagram.
 We also added the <code>unit</code> and <code>displayUnit</code> attributes.
 </p>
 <p>
-In the next systems of this tutorial, we will replace this, as well as the other open loop controllers,
-with an actual implementation of the controller. To better distinguish these open loop controllers, we
-color the icon grey, and will change this color back to white when we implement the actual control logic.
+In the next step of this tutorial, we will provide an actual implementation of the controller.
+To better distinguish the open loop controller from the closed loop controller, we
+color the icon of open loop controllers grey, and will change this color to white when we implement the actual control logic.
 </p>
 </li>
 <li>
@@ -167,12 +169,38 @@ controller or done outside the controller is an individual design decision.
 </p>
 </li>
 </ol>
+<h4>Exercise</h4>
 <p>
+Create a model, such as this model.
+To do so,
+</p>
+<ol>
+<li>
+<p>
+Copy
+<a href=\"modelica://Buildings.Examples.Tutorial.CDL.System1\">
+Buildings.Examples.Tutorial.CDL.System1</a>.
+</p>
+</li>
+<li>
+<p>
+Implement all four open loop controllers.
+</p>
+</li>
+<li>
+<p>
+Delete the constant control inputs, instantiate the open loop controllers,
+convert the signal as needed from <code>Boolean</code> to <code>Real</code>,
+and connect the control inputs and outputs.
+</p>
+</li>
+</ol>
+<p>
+Simulate the system to verify that you get the response shown below.
 As we have not changed any of the control logic, simulating the system should give the same
 response as for
 <a href=\"modelica://Buildings.Examples.Tutorial.CDL.System1\">
-Buildings.Examples.Tutorial.CDL.System1</a>
-and shown below.
+Buildings.Examples.Tutorial.CDL.System1</a>.
 </p>
 <p align=\"center\">
 <img alt=\"Open loop temperatures.\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/CDL/System1/OpenLoopTemperatures.png\" border=\"1\"/>

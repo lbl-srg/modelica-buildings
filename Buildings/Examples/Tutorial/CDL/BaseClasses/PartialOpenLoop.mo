@@ -1,10 +1,8 @@
 within Buildings.Examples.Tutorial.CDL.BaseClasses;
 partial model PartialOpenLoop "Partial model with open loop system"
   extends Modelica.Icons.Example;
-  replaceable package MediumA =
-      Buildings.Media.Air;
-  replaceable package MediumW =
-      Buildings.Media.Water "Medium model";
+  replaceable package MediumA = Buildings.Media.Air "Medium model for air";
+  replaceable package MediumW = Buildings.Media.Water "Medium model for water";
 
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 20000
     "Nominal heat flow rate of radiator";
@@ -23,9 +21,7 @@ partial model PartialOpenLoop "Partial model with open loop system"
   parameter Modelica.SIunits.MassFlowRate mBoi_flow_nominal=
     Q_flow_nominal/4200/(TBoiSup_nominal-TBoiRet_min)
     "Boiler nominal mass flow rate";
-//------------------------------------------------------------------------------//
 
-//----------------Radiator loop: Three-way valve: mass flow rate----------------//
   parameter Modelica.SIunits.MassFlowRate mRadVal_flow_nominal=
     Q_flow_nominal/4200/(TBoiSup_nominal-TRadRet_nominal)
     "Radiator nominal mass flow rate";
@@ -82,13 +78,12 @@ partial model PartialOpenLoop "Partial model with open loop system"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mRad_flow_nominal,
     nominalValuesDefineDefaultPressureCurve=true)
-                                      "Pump for radiator"
+    "Pump for radiator"
       annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},
       rotation=90,
       origin={-50,-70})));
 
-//----------------------------------------------------------------------------//
   Buildings.Fluid.FixedResistances.Junction mix(
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -137,7 +132,6 @@ partial model PartialOpenLoop "Partial model with open loop system"
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={60,-150})));
-//----------------------------------------------------------------------------//
 
   Buildings.Fluid.Movers.FlowControlled_m_flow pumBoi(
     redeclare package Medium = MediumW,
@@ -149,7 +143,7 @@ partial model PartialOpenLoop "Partial model with open loop system"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,-280})));
-//----------------------------------------------------------------------------//
+
 
   Buildings.Fluid.Boilers.BoilerPolynomial boi(
     redeclare package Medium = MediumW,
@@ -159,7 +153,6 @@ partial model PartialOpenLoop "Partial model with open loop system"
     Q_flow_nominal=Q_flow_nominal,
     fue=Buildings.Fluid.Data.Fuels.HeatingOilLowerHeatingValue()) "Boiler"
     annotation (Placement(transformation(extent={{20,-320},{0,-300}})));
-//----------------------------------------------------------------------------//
 
   Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valRad(
     redeclare package Medium = MediumW,
@@ -171,7 +164,6 @@ partial model PartialOpenLoop "Partial model with open loop system"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,-150})));
-//----------------------------------------------------------------------------//
 
   Buildings.Fluid.Sources.Boundary_pT preSou(redeclare package Medium = MediumW,
       nPorts=1)
@@ -203,14 +195,10 @@ partial model PartialOpenLoop "Partial model with open loop system"
         rotation=90,
         origin={-50,-230})));
 
-//--------------------------------------------------------------------------------//
-
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTOut
     "Outdoor temperature sensor"
     annotation (Placement(transformation(extent={{-318,20},{-298,40}})));
-//--------------------------------------------------------------------------------//
 
-//--- Weather data -------------------------------------------------------------//
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Weather data reader"
@@ -220,7 +208,6 @@ partial model PartialOpenLoop "Partial model with open loop system"
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TOut
     "Outside temperature"
     annotation (Placement(transformation(extent={{-260,60},{-240,80}})));
-//------------------------------------------------------------------------------//
 
 equation
   connect(theCon.port_b, vol.heatPort) annotation (Line(
@@ -366,6 +353,11 @@ as a first order response. (More detailed room models are available in
 but for this tutorial it suffices to use this room model.)
 The control inputs are not connected as these will be connected in the
 tutorials that extend this model.
+</p>
+<p>
+For instructions of how to build this model, see
+<a href=\"modelica://Buildings.Examples.Tutorial.Boiler\">
+Buildings.Examples.Tutorial.Boiler</a>
 </p>
 </html>",
 revisions="<html>

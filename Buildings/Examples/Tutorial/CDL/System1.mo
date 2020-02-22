@@ -20,7 +20,6 @@ model System1 "Open loop model"
     "Control signal of 1"
     annotation (Placement(transformation(extent={{-120,-290},{-100,-270}})));
 equation
-
   connect(y1.y, pumRad.m_flow_in)
     annotation (Line(points={{-98,-70},{-62,-70}}, color={0,0,127}));
   connect(y3.y, boi.y) annotation (Line(points={{-98,-250},{32,-250},{32,-302},{
@@ -46,6 +45,16 @@ To set control inputs, we instantiated
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Sources.Constant\">
 Buildings.Controls.OBC.CDL.Continuous.Sources.Constant</a>
 and connected them to the pumps, the boiler and the valves.
+</p>
+<h4>Exercise</h4>
+<p>
+Create a model, such as this model, that extends from
+<a href=\"modelica://Buildings.Examples.Tutorial.CDL.BaseClasses.PartialOpenLoop\">
+Buildings.Examples.Tutorial.CDL.BaseClasses.PartialOpenLoop</a>
+and adds constant input signals for the valves, pumps and the boiler.
+Valves should be fully open (<i>y=1</i>), the boiler should be operating (<i>y=1</i>)
+and the mass flow rates of the pumps should be set to the parameter value of
+<code>mRad_flow_nominal</code> and <code>mBoi_flow_nominal</code>.
 </p>
 <p>
 Simulate the model for January 15 to 16 and plot the open loop temperatures

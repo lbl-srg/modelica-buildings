@@ -1,5 +1,5 @@
 within Buildings.Examples.Tutorial.CDL.Controls;
-block OpenLoopBoilerReturn "Open loop control for boiler return"
+block OpenLoopBoilerReturn "Open loop controller for boiler return"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRet(
     final unit="K",
     displayUnit="degC")

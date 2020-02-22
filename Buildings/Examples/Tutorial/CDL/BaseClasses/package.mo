@@ -1,5 +1,5 @@
 within Buildings.Examples.Tutorial.CDL;
-package BaseClasses "Package with base classes for Buildings.Examples.Tutorial.CDL"
+package BaseClasses "Package that contains the model of the HVAC system and the building load"
   extends Modelica.Icons.BasesPackage;
 
 annotation (preferredView="info", Documentation(info="<html>

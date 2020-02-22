@@ -1,12 +1,24 @@
 within Buildings.Examples.Tutorial;
-package CDL "Package with example for how to build a model for boiler with a heating load"
+package CDL "Package with examples for how to implement a control sequence using CDL"
   extends Modelica.Icons.ExamplesPackage;
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains examples with step-by-step instructions for how to
-implement control sequences using the Control Description Language.
+implement control sequences using the Control Description Language (CDL).
+The CDL is described at
+<a href=\"https://obc.lbl.gov\">obc.lbl.gov</a> and elementary building blocks are
+available at
+<a href=\"modelica://Buildings.Controls.OBC.CDL\">
+Buildings.Controls.OBC.CDL</a>.
+</p>
+<p>
 The example starts with an open-loop model of a boiler, a simple room and a radiator.
+In subsequent steps, controllers are added, starting with open loop control and then closed loop control.
+The tutorial also demonstrates how to add open loop validation tests for the controllers.
+At the end, you should be able to implement, document and test your own controllers.
+</p>
+<p>
 The figure below shows the system architecture and the control charts.
 </p>
 <p align=\"center\">
@@ -19,7 +31,7 @@ The controls intent is as follows:
 <li>
 <p>
 The overall system shall be switched on if the outdoor temperature is below
-<i>16</i>&deg;C and the room temperature is below
+<i>16</i>&deg;C and, in addition, the room temperature is below
 <i>20</i>&deg;C.
 It shall be switched off if either the outdoor temperature is above
 <i>17</i>&deg;C or the room temperature is above
@@ -55,41 +67,39 @@ the stages described below.
 In
 <a href=\"modelica://Buildings.Examples.Tutorial.CDL.System1\">
 Buildings.Examples.Tutorial.CDL.System1</a>
-we already implemented the open loop model that is the starting point for this tutorial.
-For instructions of how to build this model, see
-<a href=\"modelica://Buildings.Examples.Tutorial.Boiler\">
-Buildings.Examples.Tutorial.Boiler</a>
+we connected constant control signals to the open loop model that is the starting point for this tutorial.
 </li>
 <li>
 In
 <a href=\"modelica://Buildings.Examples.Tutorial.CDL.System2\">
 Buildings.Examples.Tutorial.CDL.System2</a>
-we implement four distinct controllers, which are all open loop and will be refined in the next steps.
-This will determine the control architecture.
+we implement four distinct controllers, which are all open loop but have the correct control input and output connectors.
+These controllers will be refined in the next steps.
+This determines the control architecture.
 </li>
 <li>
 In
 <a href=\"modelica://Buildings.Examples.Tutorial.CDL.System3\">
 Buildings.Examples.Tutorial.CDL.System3</a>
-we implement the controller that regulates the return water temperature to its setpoint.
+we implemented the controller that regulates the return water temperature to its setpoint.
 </li>
 <li>
 In
 <a href=\"modelica://Buildings.Examples.Tutorial.CDL.System4\">
 Buildings.Examples.Tutorial.CDL.System4</a>
-we add the controller that switches the boiler on and off.
+we implemented the controller that switches the boiler on and off.
 </li>
 <li>
 In
 <a href=\"modelica://Buildings.Examples.Tutorial.CDL.System5\">
 Buildings.Examples.Tutorial.CDL.System5</a>
-we implement the controller that switches the whole system on and off.
+we implemented the controller that switches the whole system on and off.
 </li>
 <li>
 In
 <a href=\"modelica://Buildings.Examples.Tutorial.CDL.System6\">
 Buildings.Examples.Tutorial.CDL.System6</a>
-we add the control that tracks the room temperature set point.
+we implemented the controller that tracks the room temperature set point.
 </li>
 </ol>
 </html>"));

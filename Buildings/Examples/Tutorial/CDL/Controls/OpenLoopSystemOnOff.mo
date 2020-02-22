@@ -1,6 +1,6 @@
 within Buildings.Examples.Tutorial.CDL.Controls;
 block OpenLoopSystemOnOff
-  "Open loop control for system on/off"
+  "Open loop controller for system on/off"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
     displayUnit="degC")
