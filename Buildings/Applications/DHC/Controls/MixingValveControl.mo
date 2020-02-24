@@ -179,8 +179,8 @@ integral part is reset whenever the change-over mode is switched.
 </ul>
 <p>
 See
-<a href=\"modelica://Buildings.Applications.DHC.Loads.Validation.FlowDistributionChangeOver\">
-Buildings.Applications.DHC.Loads.Validation.FlowDistributionChangeOver</a>
+<a href=\"modelica://Buildings.Applications.DHC.Controls.Validation.MixingValveControl\">
+Buildings.Applications.DHC.Controls.Validation.MixingValveControl</a>
 for a simulation with change-over.
 </p>
 </html>

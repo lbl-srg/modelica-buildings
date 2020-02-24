@@ -1,8 +1,7 @@
 BenchmarkFlowDistribution1
 BenchmarkFlowDistribution2
-FlowDistributionChangeOver
 FlowDistributionPumpControl
 HeatExchangerFlowControl
-TerminalUnitScaling
 SimpleRoom
+TerminalUnitScaling
 BaseClasses

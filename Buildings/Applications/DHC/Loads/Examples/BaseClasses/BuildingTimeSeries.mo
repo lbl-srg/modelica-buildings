@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
 model BuildingTimeSeries
-  "Building model where heating and cooling loads are provided as time series"
+  "Building model with heating and cooling loads provided as time series"
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
     redeclare package Medium = Buildings.Media.Water,
     have_fan=false,

@@ -1,18 +1,18 @@
 old_flag = Advanced.StoreProtectedVariables;
 Advanced.StoreProtectedVariables = true;
-simulateModel("Buildings.Applications.DHC.Loads.Validation.FlowDistributionChangeOver",
+simulateModel("Buildings.Applications.DHC.Controls.Validation.MixingValveControl",
     method="cvode",
     tolerance=1e-6,
     numberOfIntervals=500,
     stopTime=1000.0,
-    resultFile="FlowDistributionChangeOver");
+    resultFile="MixingValveControl");
 Advanced.StoreProtectedVariables = old_flag;
 createPlot(
     id=1,
     position={111, 107, 796, 818},
     y={"senTPriSup.T", "TSetSec.Celsius", "senTSecRet.T", "senTSecSup.T"},
     range={0.0, 1000.0, 6.0, 42.0},
-    filename="FlowDistributionChangeOver.mat",
+    filename="MixingValveControl.mat",
     grid = true,
     color = true,
     displayUnits={"degC", "", "degC", "degC"});

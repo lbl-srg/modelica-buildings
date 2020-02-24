@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
-model BuildingSpawnZ1 "Spawn building model (1 zone, no distribution pump)"
+model BuildingSpawnZ1 "One-zone EnergyPlus building model"
   import Buildings;
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
     redeclare package Medium = Buildings.Media.Water,

@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
-model BuildingRCZ1HeatPort "RC building model (1 zone) with heat ports"
+model BuildingRCZ1HeatPort "One-zone RC building model"
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
     redeclare package Medium = Buildings.Media.Water,
     have_fan=false,
@@ -315,7 +315,7 @@ equation
   Documentation(info="
 <html>
 <p>
-This is a simplified one-zone building model based on a one-element 
+This is a simplified one-zone building model based on one-element 
 reduced order room model.
 The heating and cooling loads are computed with a four-pipe 
 fan coil unit model derived from

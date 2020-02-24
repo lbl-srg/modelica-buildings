@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
 model BuildingSpawnZ6
-  "Spawn building model (6 zones) based on URBANopt GeoJSON export, with distribution pumps"
+  "Six-zone EnergyPlus building model based on URBANopt GeoJSON export, with distribution pumps"
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
     redeclare package Medium = Buildings.Media.Water,
     final have_eleHea=false,

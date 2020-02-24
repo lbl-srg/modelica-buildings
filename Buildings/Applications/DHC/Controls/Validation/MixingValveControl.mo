@@ -1,6 +1,6 @@
-within Buildings.Applications.DHC.Loads.Validation;
-model FlowDistributionChangeOver
-  "Validation of FlowDistribution in change-over mode"
+within Buildings.Applications.DHC.Controls.Validation;
+model MixingValveControl
+  "Validation of mixing valve control in change-over mode"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water
     "Source side medium";
@@ -190,8 +190,11 @@ Documentation(
 info="<html>
 <p>
 This model validates 
+<a href=\"modelica://Buildings.Applications.DHC.Controls.MixingValveControl\">
+Buildings.Applications.DHC.Controls.MixingValveControl</a> 
+(as part of 
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>
+Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>)
 in change-over mode.
 </p>
 </html>"),
@@ -201,6 +204,6 @@ in change-over mode.
       StopTime=1000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
-  __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/FlowDistributionChangeOver.mos"
+  __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Controls/Validation/MixingValveControl.mos"
     "Simulate and plot"));
-end FlowDistributionChangeOver;
+end MixingValveControl;

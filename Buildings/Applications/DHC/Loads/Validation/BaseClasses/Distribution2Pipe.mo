@@ -1,5 +1,6 @@
 within Buildings.Applications.DHC.Loads.Validation.BaseClasses;
 model Distribution2Pipe
+  "Model of a two-pipe distribution network, using fixed resistance pipe model"
   extends Networks.BaseClasses.PartialDistribution2Pipe(
       redeclare Connection2Pipe con[nCon](final dpDis_nominal=dpDis_nominal),
       redeclare model Model_pipDis = Fluid.FixedResistances.LosslessPipe,
@@ -7,6 +8,21 @@ model Distribution2Pipe
   parameter Modelica.SIunits.PressureDifference dpDis_nominal[nCon]
     "Pressure drop in distribution line (supply only, not counting return line)"
     annotation(Dialog(tab="General", group="Nominal condition"));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+annotation (
+Documentation(
+info="<html>
+<p>
+This is a model of a two-pipe distribution network using:
+</p>
+<ul>
+<li>
+a connection model with fixed hydraulic resistance with no heat loss as pipe
+model,
+</li>
+<li>
+a dummy pipe model with no hydraulic resistance and no heat loss for the end of
+the distribution line (after last connection). 
+</li>
+</ul>
+</html>"));
 end Distribution2Pipe;
