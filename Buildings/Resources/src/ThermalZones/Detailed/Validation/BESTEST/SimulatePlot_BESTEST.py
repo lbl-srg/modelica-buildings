@@ -25,7 +25,7 @@ BRANCH = 'master'
 TOOL = 'jmodelica'
 
 # standard data file
-ASHRAE_DATA = '../Data/ThermalZones/Detailed/Validation/BESTEST/ASHRAE140_data.txt'
+ASHRAE_DATA = './ASHRAE140_data.txt'
 PACKAGES = ['Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx', \
             'Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx']
 CASES = ['Case600', 'Case600FF', 'Case610', 'Case620', 'Case630', 'Case640', 'Case650', 'Case650FF', \
@@ -41,7 +41,7 @@ def save_plot(figure, file_name):
     """ Save the figure to a pdf and png file in the directory `img`
     """
 
-    out_dir = "../Images/ThermalZones/Detailed/Validation/BESTEST"
+    out_dir = "../../../../../Images/ThermalZones/Detailed/Validation/BESTEST"
     if not os.path.exists(out_dir):
         os.makedirs(out_dir)
     figure.savefig(os.path.join(out_dir, '{}.pdf'.format(file_name)))
@@ -237,7 +237,7 @@ def _extract_data(matFile, relVal):
         r = Reader(matFile, TOOL)
     except IOError:
         raise ValueError("Failed to read {}.".format(matFile))
-    
+
     result = list()
     for var in relVal:
         time = []
@@ -468,7 +468,7 @@ def get_mo_data(data_set):
                      'Jan4': ['{:.2f}'.format(ele / 1000) for ele in load[73:97]],
                      'eCoo': '{:.3f}'.format(abs(eCoo / MWh)),
                      'eHea': '{:.3f}'.format(abs(eHea / MWh))}
-        temp['extData'] = list() 
+        temp['extData'] = list()
         temp['extData'].append(temp1)
         results.append(temp)
     return results
@@ -608,7 +608,7 @@ def get_line_data(line, table):
     Return the data from one line, as dictionary like {'name': 'Case600', 'value': []}
 
     :param line: the line text needs to be parsed
-    :param table: table type 
+    :param table: table type
     """
     data_set = table['data_set']
     # split the line
@@ -635,7 +635,7 @@ def get_line_data(line, table):
         temp = {'firstCol': lineList[0]}
         lineList.pop(5)
         temp['value'] = lineList[1:]
-    # hourly temperature bin data 
+    # hourly temperature bin data
     else:
         temp = {'firstCol': lineList[0]}
         temp['value'] = lineList[1:]
