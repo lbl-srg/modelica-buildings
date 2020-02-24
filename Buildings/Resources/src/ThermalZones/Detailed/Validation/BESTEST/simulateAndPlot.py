@@ -20,7 +20,8 @@ DelTemDir = True
 
 CWD = os.getcwd()
 FROM_GIT_HUB = False
-BRANCH = 'master'
+MBL_BRANCH = 'master'
+BP_BRANCH = 'issue335_high_ncp'
 # simulator, JModelica and optimica are supported
 TOOL = 'optimica'
 
@@ -91,37 +92,11 @@ def checkout_repository(working_directory, repoNam, from_git_hub, branch):
         des = working_directory
         shutil.rmtree(des)
         print("*** Copying library to {}".format(des))
-        localPath = "/home/jianjun/GitFolder/modelica-buildings" if repoNam == 'MBL' else "/home/jianjun/GitFolder/BuildingsPy"
+        localPath = "../../../../../../../../modelica-buildings" if repoNam == 'MBL' else "../../../../../../../../BuildingsPy"
         shutil.copytree(localPath, des)
         g = git.Git(des)
         g.checkout(branch)
     return d
-
-def _update_ncp(bpDir):
-    """
-    Update the ncp number in buildingspy for regresstion test
-
-    :param bpDir: temporary directory for BuildingSpy
-    """
-    regCode = os.path.join(bpDir, 'buildingspy', 'development', 'regressiontest.py')
-    newCOde = regCode
-    fin = open(regCode)
-    tempFile = 'regressiontest.py'
-    tempPath = os.path.join(CWD, tempFile)
-    if os.path.exists(tempFile):
-        os.remove(tempFile)
-    fout = open(tempFile, 'wt')
-    for line in fin:
-        if "'ncp': 500," in line:
-            temp = line.replace('500', '8761')
-            fout.write(temp)
-        else:
-            fout.write(line)
-    fin.close()
-    fout.close()
-    os.remove(regCode)
-    shutil.move(tempFile, newCOde)
-
 
 def _runTests(tool, package, lib_dir, n_pro, bp_dir):
     ''' Run regression test, return the temporary directory path for the test.
@@ -972,12 +947,11 @@ if __name__=="__main__":
     if not POST_PROCESS_ONLY:
         # create directory to be as temporary buildings library directory
         mbl_dir = create_library_directory('MBL')
-        d = checkout_repository(mbl_dir, 'MBL', FROM_GIT_HUB, BRANCH)
+        d = checkout_repository(mbl_dir, 'MBL', FROM_GIT_HUB, MBL_BRANCH)
 
         # create directory to be as temporary buildingspy directory
         bp_dir = create_library_directory('BP')
-        d2 = checkout_repository(bp_dir, 'BP', FROM_GIT_HUB, BRANCH)
-        _update_ncp(bp_dir)
+        d2 = checkout_repository(bp_dir, 'BP', FROM_GIT_HUB, BP_BRANCH)
 
         # find temporary directories that were used for run simulations
         resultDirs = _get_results_directory(mbl_dir, bp_dir)
