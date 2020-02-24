@@ -16,6 +16,9 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
   parameter Boolean allowFlowReversal = false
     "Set to true to allow flow reversal on the source side"
     annotation(tab="Assumptions", Evaluate=true);
+  parameter Boolean allowFlowReversalLoa = true
+    "Set to true to allow flow reversal on the load side"
+    annotation(tab="Assumptions", Evaluate=true);
   parameter Real facSca = 1
     "Scaling factor to be applied to each extensive quantity";
   parameter Boolean have_watHea = false
@@ -235,7 +238,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
   Modelica.Fluid.Interfaces.FluidPort_a port_aLoa(
     redeclare final package Medium = Medium2,
     p(start=Medium2.p_default),
-    m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
+    m_flow(min=if allowFlowReversalLoa then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium2.h_default, nominal=Medium2.h_default)) if have_fluPor
     "Fluid stream inlet port on the load side"
     annotation (Placement(transformation(
@@ -244,7 +247,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
   Modelica.Fluid.Interfaces.FluidPort_b port_bLoa(
     redeclare final package Medium = Medium2,
     p(start=Medium2.p_default),
-    m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
+    m_flow(max=if allowFlowReversalLoa then +Modelica.Constants.inf else 0),
     h_outflow(start=Medium2.h_default, nominal=Medium2.h_default)) if have_fluPor
     "Fluid stream outlet port on the load side"
     annotation (Placement(transformation(

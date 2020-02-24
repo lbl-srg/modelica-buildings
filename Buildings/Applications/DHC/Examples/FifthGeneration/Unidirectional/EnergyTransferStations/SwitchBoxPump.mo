@@ -72,14 +72,18 @@ model SwitchBoxPump "Model for mass flow rate redirection with pumps"
   Networks.BaseClasses.Pump_m_flow pum1(
     redeclare package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
-    final allowFlowReversal=false) "Pump" annotation (Placement(transformation(
+    final allowFlowReversal=false)
+    "Pump"
+    annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={0,0})));
   Networks.BaseClasses.Pump_m_flow pum2(
     redeclare package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
-    final allowFlowReversal=false) "Pump" annotation (Placement(transformation(
+    final allowFlowReversal=false)
+    "Pump"
+    annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={0,60})));

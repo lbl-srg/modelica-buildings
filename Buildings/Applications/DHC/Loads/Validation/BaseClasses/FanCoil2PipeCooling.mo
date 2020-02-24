@@ -11,6 +11,7 @@ model FanCoil2PipeCooling
     final have_watCoo=true,
     final have_QReq_flow=true,
     final allowFlowReversal=false,
+    final allowFlowReversalLoa=true,
     final have_chaOve=false,
     final have_eleHea=false,
     final have_eleCoo=false,
@@ -37,13 +38,13 @@ model FanCoil2PipeCooling
     annotation (Placement(transformation(extent={{-10,210},{10,230}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
     redeclare final package Medium=Medium2,
-    energyDynamics=energyDynamics,
+    final energyDynamics=energyDynamics,
+    final allowFlowReversal=allowFlowReversalLoa,
     m_flow_nominal=mLoaCoo_flow_nominal,
     redeclare Fluid.Movers.Data.Generic per,
     nominalValuesDefineDefaultPressureCurve=true,
     use_inputFilter=true,
-    dp_nominal=200,
-    final allowFlowReversal=allowFlowReversal)
+    dp_nominal=200)
     annotation (Placement(transformation(extent={{90,-10},{70,10}})));
   Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hex(
     redeclare final package Medium1 = Medium1,
@@ -57,7 +58,7 @@ model FanCoil2PipeCooling
     final T_a1_nominal=T_aChiWat_nominal,
     final T_a2_nominal=T_aLoaCoo_nominal,
     final allowFlowReversal1=allowFlowReversal,
-    final allowFlowReversal2=allowFlowReversal)
+    final allowFlowReversal2=allowFlowReversalLoa)
     annotation (Placement(transformation(extent={{-80,4},{-60,-16}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiMasFlo(k=mChiWat_flow_nominal)
     annotation (Placement(transformation(extent={{40,210},{60,230}})));

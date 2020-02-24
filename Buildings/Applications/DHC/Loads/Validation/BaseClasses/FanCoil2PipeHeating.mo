@@ -11,6 +11,7 @@ model FanCoil2PipeHeating
     final have_watCoo=false,
     final have_QReq_flow=true,
     final allowFlowReversal=false,
+    final allowFlowReversalLoa=true,
     final have_chaOve=false,
     final have_eleHea=false,
     final have_eleCoo=false,
@@ -30,12 +31,12 @@ model FanCoil2PipeHeating
     "Set to true for a variable speed fan (otherwise fan is always on)";
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
     redeclare final package Medium=Medium2,
-    energyDynamics=energyDynamics,
+    final energyDynamics=energyDynamics,
+    final allowFlowReversal=allowFlowReversalLoa,
     m_flow_nominal=mLoaHea_flow_nominal,
     redeclare Fluid.Movers.Data.Generic per,
     nominalValuesDefineDefaultPressureCurve=true,
-    dp_nominal=200,
-    final allowFlowReversal=allowFlowReversal)
+    dp_nominal=200)
     annotation (Placement(transformation(extent={{90,-10},{70,10}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID con(
     Ti=10,
@@ -56,7 +57,7 @@ model FanCoil2PipeHeating
     final T_a1_nominal=T_aHeaWat_nominal,
     final T_a2_nominal=T_aLoaHea_nominal,
     final allowFlowReversal1=allowFlowReversal,
-    final allowFlowReversal2=allowFlowReversal)
+    final allowFlowReversal2=allowFlowReversalLoa)
     annotation (Placement(transformation(extent={{-80,4},{-60,-16}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiMasFlo(k=mHeaWat_flow_nominal)
     annotation (Placement(transformation(extent={{40,210},{60,230}})));

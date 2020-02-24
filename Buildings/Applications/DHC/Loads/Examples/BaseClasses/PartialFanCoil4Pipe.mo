@@ -8,6 +8,7 @@ partial model PartialFanCoil4Pipe
     final have_watCoo=true,
     final have_fan=true,
     final allowFlowReversal=false,
+    final allowFlowReversalLoa=true,
     final have_chaOve=false,
     final have_eleHea=false,
     final have_eleCoo=false,
@@ -41,7 +42,7 @@ partial model PartialFanCoil4Pipe
     nominalValuesDefineDefaultPressureCurve=true,
     use_inputFilter=false,
     dp_nominal=400,
-    final allowFlowReversal=allowFlowReversal)
+    final allowFlowReversal=allowFlowReversalLoa)
     annotation (Placement(transformation(extent={{90,-10},{70,10}})));
   Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hexHea(
     redeclare final package Medium1=Medium1,
@@ -55,7 +56,7 @@ partial model PartialFanCoil4Pipe
     final T_a1_nominal=T_aHeaWat_nominal,
     final T_a2_nominal=T_aLoaHea_nominal,
     final allowFlowReversal1=allowFlowReversal,
-    final allowFlowReversal2=allowFlowReversal)
+    final allowFlowReversal2=allowFlowReversalLoa)
     annotation (Placement(transformation(extent={{-80,4}, {-60,-16}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaFloNom(k=mHeaWat_flow_nominal)
     annotation (Placement(transformation(extent={{40,210},{60,230}})));
@@ -73,7 +74,7 @@ partial model PartialFanCoil4Pipe
     final T_a1_nominal=T_aChiWat_nominal,
     final T_a2_nominal=T_aLoaCoo_nominal,
     final allowFlowReversal1=allowFlowReversal,
-    final allowFlowReversal2=allowFlowReversal)
+    final allowFlowReversal2=allowFlowReversalLoa)
     annotation (Placement(transformation(extent={{0,4},{20,-16}})));
   Modelica.Blocks.Sources.RealExpression Q_flowCoo(y=hexCoo.Q2_flow)
     annotation (Placement(transformation(extent={{120,190},{140,210}})));
