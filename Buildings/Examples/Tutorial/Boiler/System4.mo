@@ -56,9 +56,9 @@ model System4
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap(C=2*V*1.2*1006)
     "Heat capacity for furniture and walls"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Modelica.Blocks.Sources.CombiTimeTable timTab(
-      extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-      smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTab(
+      extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic,
+      smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
       table=[-6, 0;
               8, QRooInt_flow;
              18, 0],
@@ -201,15 +201,15 @@ model System4
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,-250})));
-  Modelica.Blocks.Sources.Constant const(k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(k=1)
     "Constant control signal for valves"
     annotation (Placement(transformation(extent={{-140,-160},{-120,-140}})));
 
 //---------------------Step 2: Outdoor temperature sensor and control------------------//
-  Modelica.Blocks.Logical.Hysteresis hysTOut(uLow=273.15 + 16, uHigh=273.15 + 17)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTOut(uLow=273.15 + 16, uHigh=273.15 + 17)
     "Hysteresis for on/off based on outside temperature"
     annotation (Placement(transformation(extent={{-260,-200},{-240,-180}})));
-  Modelica.Blocks.Logical.Not not2
+  Buildings.Controls.OBC.CDL.Logical.Not not2
     annotation (Placement(transformation(extent={{-220,-200},{-200,-180}})));
 
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTOut
@@ -218,38 +218,39 @@ model System4
 //------------------------------------------------------------------------------------//
 
 //-------------------------------Step 4: Boiler hysteresis----------------------------//
-  Modelica.Blocks.Logical.Hysteresis hysTBoi(uHigh=273.15 + 90,
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTBoi(uHigh=273.15 + 90,
                                              uLow=273.15 + 70)
     "Hysteresis for on/off of boiler"
     annotation (Placement(transformation(extent={{-260,-348},{-240,-328}})));
-  Modelica.Blocks.Logical.Not not3
+  Buildings.Controls.OBC.CDL.Logical.Not not3
     annotation (Placement(transformation(extent={{-220,-348},{-200,-328}})));
-  Modelica.Blocks.Logical.And and1
+  Buildings.Controls.OBC.CDL.Logical.And and1
     annotation (Placement(transformation(extent={{-180,-160},{-160,-140}})));
 //------------------------------------------------------------------------------------//
 
 //-------------------------Step 3: Boolean to real: Boiler Pump-----------------------//
-  Modelica.Blocks.Math.BooleanToReal booToReaRad1(realTrue=mBoi_flow_nominal)
-    "Radiator pump signal"
-    annotation (Placement(transformation(extent={{-140,-290},{-120,-270}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaRad1(realTrue=mBoi_flow_nominal)
+    "Boiler pump signal"
+    annotation (Placement(transformation(extent={{-140,-190},{-120,-170}})));
 //------------------------------------------------------------------------------------//
 
-  Modelica.Blocks.Logical.And and2
+  Buildings.Controls.OBC.CDL.Logical.And and2
     annotation (Placement(transformation(extent={{-140,-340},{-120,-320}})));
 
 //---------------------------------Step 4: Boiler signal------------------------------//
- Modelica.Blocks.Math.BooleanToReal booToReaRad2(realTrue=1) "Boiler signal"
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaRad2(realTrue=1) "Boiler signal"
     annotation (Placement(transformation(extent={{-100,-340},{-80,-320}})));
 //------------------------------------------------------------------------------------//
 
-  Modelica.Blocks.Logical.Hysteresis hysPum(uLow=273.15 + 19,
-                                            uHigh=273.15 + 21)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysPum(
+    uLow=273.15 + 19,
+    uHigh=273.15 + 21)
     "Pump hysteresis"
     annotation (Placement(transformation(extent={{-260,-82},{-240,-62}})));
-  Modelica.Blocks.Math.BooleanToReal booToReaRad(realTrue=mRad_flow_nominal)
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaRad(realTrue=mRad_flow_nominal)
     "Radiator pump signal"
-    annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
-  Modelica.Blocks.Logical.Not not1 "Negate output of hysteresis"
+    annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not1 "Negate output of hysteresis"
     annotation (Placement(transformation(extent={{-220,-82},{-200,-62}})));
 equation
   connect(TOut.port, theCon.port_a) annotation (Line(
@@ -269,7 +270,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(timTab.y[1], preHea.Q_flow) annotation (Line(
-      points={{1,80},{20,80}},
+      points={{2,80},{20,80}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(temSup.port_b, rad.port_a) annotation (Line(
@@ -368,17 +369,17 @@ equation
       smooth=Smooth.None));
   connect(const.y, valRad.y)
                           annotation (Line(
-      points={{-119,-150},{-62,-150}},
+      points={{-118,-150},{-62,-150}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(const.y, valBoi.y)
                            annotation (Line(
-      points={{-119,-150},{-100,-150},{-100,-220},{80,-220},{80,-250},{72,-250}},
+      points={{-118,-150},{-80,-150},{-80,-220},{80,-220},{80,-250},{72,-250}},
       color={0,0,127},
       smooth=Smooth.None));
 
   connect(hysTOut.y, not2.u) annotation (Line(
-      points={{-239,-190},{-222,-190}},
+      points={{-238,-190},{-222,-190}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(senTOut.port, TOut.port) annotation (Line(
@@ -386,11 +387,11 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(hysTBoi.y, not3.u) annotation (Line(
-      points={{-239,-338},{-222,-338}},
+      points={{-238,-338},{-222,-338}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(not2.y, and1.u2) annotation (Line(
-      points={{-199,-190},{-192,-190},{-192,-158},{-182,-158}},
+      points={{-198,-190},{-192,-190},{-192,-158},{-182,-158}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(boi.T, hysTBoi.u) annotation (Line(
@@ -402,23 +403,23 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(and1.y, booToReaRad1.u) annotation (Line(
-      points={{-159,-150},{-152,-150},{-152,-280},{-142,-280}},
+      points={{-158,-150},{-152,-150},{-152,-180},{-142,-180}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(and1.y, and2.u1) annotation (Line(
-      points={{-159,-150},{-152,-150},{-152,-330},{-142,-330}},
+      points={{-158,-150},{-152,-150},{-152,-330},{-142,-330}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(not3.y, and2.u2) annotation (Line(
-      points={{-199,-338},{-142,-338}},
+      points={{-198,-338},{-142,-338}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(and2.y, booToReaRad2.u) annotation (Line(
-      points={{-119,-330},{-102,-330}},
+      points={{-118,-330},{-102,-330}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(booToReaRad2.y, boi.y) annotation (Line(
-      points={{-79,-330},{40,-330},{40,-302},{22,-302}},
+      points={{-78,-330},{40,-330},{40,-302},{22,-302}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(temRoo.T,hysPum. u) annotation (Line(
@@ -426,23 +427,23 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(hysPum.y,not1. u) annotation (Line(
-      points={{-239,-72},{-222,-72}},
+      points={{-238,-72},{-222,-72}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(not1.y, and1.u1) annotation (Line(
-      points={{-199,-72},{-192,-72},{-192,-150},{-182,-150}},
+      points={{-198,-72},{-192,-72},{-192,-150},{-182,-150}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(and1.y, booToReaRad.u) annotation (Line(
-      points={{-159,-150},{-152,-150},{-152,-70},{-142,-70}},
+      points={{-158,-150},{-152,-150},{-152,-120},{-142,-120}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(booToReaRad.y, pumRad.m_flow_in) annotation (Line(
-      points={{-119,-70},{-90.5,-70},{-90.5,-70.2},{-62,-70.2}},
+      points={{-118,-120},{-80,-120},{-80,-70},{-62,-70}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(booToReaRad1.y, pumBoi.m_flow_in) annotation (Line(
-      points={{-119,-280},{-88,-280},{-88,-280.2},{-62,-280.2}},
+      points={{-118,-180},{-88,-180},{-88,-280},{-62,-280}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Documentation(info="<html>
@@ -493,8 +494,8 @@ Next, for the boiler on/off control, we use again a hysteresis block
 (instance <code>hysTBoi</code>), which we configured as
 </p>
 <pre>
-  Modelica.Blocks.Logical.Hysteresis hysTBoi(uLow=273.15 + 70,
-                                             uHigh=273.15 + 90)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTBoi(uLow=273.15 + 70,
+                                                           uHigh=273.15 + 90)
     \"Hysteresis for on/off of boiler\";
 </pre>
 <p>
@@ -555,7 +556,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-400,-360},{200,
+    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-400,-360},{240,
             100}})),
     __Dymola_Commands(file=
      "modelica://Buildings/Resources/Scripts/Dymola/Examples/Tutorial/Boiler/System4.mos"

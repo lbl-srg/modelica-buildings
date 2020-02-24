@@ -299,6 +299,12 @@ Buildings.Fluid.MixingVolumes</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+February 21, 2020, by Michael Wetter:<br/>
+Changed icon to display its operating state.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
+</li>
+<li>
 October 30, 2019 by Filip Jorissen:<br/>
 Added <code>getInstanceName()</code> to flow
 reversal check.
@@ -534,15 +540,22 @@ Buildings.Fluid.MixingVolumes.BaseClasses.ClosedVolume</a>.
 </ul>
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics={Ellipse(
+            100}}), graphics={
+       Ellipse(
           extent={{-100,98},{100,-102}},
           lineColor={0,0,0},
           fillPattern=FillPattern.Sphere,
-          fillColor={170,213,255}), Text(
-          extent={{-58,14},{58,-18}},
-          lineColor={0,0,0},
-          textString="V=%V"),         Text(
+          fillColor=DynamicSelect({170,213,255}, (1-(T-273.15)/50)*{28,108,200}+(T-273.15)/50*{255,0,0})),
+       Text(
+          extent={{-60,-26},{56,-58}},
+          lineColor={255,255,255},
+          textString="V=%V"),
+        Text(
           extent={{-152,100},{148,140}},
           textString="%name",
-          lineColor={0,0,255})}));
+          lineColor={0,0,255}),
+        Text(
+          extent={{64,40},{-56,-10}},
+          lineColor={255,255,255},
+          textString=DynamicSelect("", String(T-273.15, format=".1f")))}));
 end PartialMixingVolume;
