@@ -6,29 +6,28 @@ model OptimalStartHeating
     computeHeating=true, computeCooling=false)
     "Optimal start for heating system"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Modelica.Blocks.Continuous.Integrator integrator(k=0.000005, y_start=21 +
-        273.15)
+  Modelica.Blocks.Continuous.Integrator integrator(k=0.000005,y_start=21+273.15)
     "Integrate temperature derivative with k indicating the inverse of zone thermal capacitance"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  CDL.Continuous.Sources.Constant TSetHeaOcc(k=21 + 273.15)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetHeaOcc(k=21+273.15)
     "Zone heating setpoint during occupancy"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  SetPoints.OccupancySchedule occSch(occupancy=3600*{7,19}, period=24*3600)
+  Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{7,19},period=24*3600)
     "Daily schedule"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  CDL.Continuous.Gain UA(k=10)
+  Buildings.Controls.OBC.CDL.Continuous.Gain UA(k=10)
     "Overall heat loss coefficient"
     annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
-  CDL.Continuous.Add dT(k1=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Add dT(k1=-1)
     "Temperature difference between zone and outdoor"
     annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
-  CDL.Continuous.Add dTdt "Temperature derivative"
+  Buildings.Controls.OBC.CDL.Continuous.Add dTdt "Temperature derivative"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  CDL.Continuous.Gain QHea(k=1000) "Heat injection in the zone"
+  Buildings.Controls.OBC.CDL.Continuous.Gain QHea(k=1000) "Heat injection in the zone"
     annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
-  CDL.Conversions.BooleanToReal booToRea "Convert Boolean to Real signal"
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea "Convert Boolean to Real signal"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  CDL.Continuous.Sources.Sine TOut(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TOut(
     amplitude=10,
     freqHz=1/86400,
     phase=3.1415926535898,
@@ -36,11 +35,12 @@ model OptimalStartHeating
     startTime(displayUnit="h") = 0)
     "Outdoor dry bulb temperature to test heating system"
     annotation (Placement(transformation(extent={{-192,-20},{-172,0}})));
-  CDL.Continuous.LimPID conPID(
+  Buildings.Controls.OBC.CDL.Continuous.LimPID conPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    Ti(displayUnit="s") = 1,
+    Ti(displayUnit="s") = 1.5,
     yMax=1,
-    yMin=0) annotation (Placement(transformation(extent={{160,0},{180,20}})));
+    yMin=0) "PI control for space heating"
+            annotation (Placement(transformation(extent={{160,0},{180,20}})));
   Modelica.Blocks.Sources.CombiTimeTable TSetHea(
     table=[0,15 + 273.15; 7*3600,21 + 273.15; 19*3600,15 + 273.15; 24*3600,15
          + 273.15],
@@ -49,9 +49,10 @@ model OptimalStartHeating
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     "Heating setpoint for room temperature"
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
-  CDL.Continuous.Add add2
+  Buildings.Controls.OBC.CDL.Continuous.Add add
+    "Reset temperature from unoccupied to occupied for optimal start period"
     annotation (Placement(transformation(extent={{120,0},{140,20}})));
-  CDL.Continuous.Gain TSetBac(k=6)
+  Buildings.Controls.OBC.CDL.Continuous.Gain TSetBac(k=6)
     "Heating setpoint temperature setback in the unoccupied period"
     annotation (Placement(transformation(extent={{80,0},{100,20}})));
 equation
@@ -72,20 +73,18 @@ equation
                                            color={0,0,127}));
   connect(UA.y, dTdt.u1) annotation (Line(points={{-98,10},{-90,10},{-90,16},{
           -82,16}}, color={0,0,127}));
-  connect(booToRea.y, TSetBac.u)
-    annotation (Line(points={{62,10},{78,10}}, color={0,0,127}));
-  connect(add2.y, conPID.u_s)
-    annotation (Line(points={{142,10},{158,10}}, color={0,0,127}));
+  connect(booToRea.y, TSetBac.u)   annotation (Line(points={{62,10},{78,10}}, color={0,0,127}));
+  connect(add.y, conPID.u_s)   annotation (Line(points={{142,10},{158,10}}, color={0,0,127}));
   connect(conPID.y, QHea.u) annotation (Line(points={{182,10},{184,10},{184,-70},
           {-126,-70},{-126,-50},{-122,-50}},
                                           color={0,0,127}));
   connect(integrator.y, conPID.u_m) annotation (Line(points={{-19,10},{-12,10},
           {-12,-16},{170,-16},{170,-2}},
                                      color={0,0,127}));
-  connect(TSetBac.y, add2.u2) annotation (Line(points={{102,10},{106,10},{106,4},
-          {118,4}},  color={0,0,127}));
-  connect(TSetHea.y[1], add2.u1) annotation (Line(points={{101,80},{110,80},{
-          110,16},{118,16}}, color={0,0,127}));
+  connect(TSetBac.y, add.u2) annotation (Line(points={{102,10},{106,10},{106,4},
+          {118,4}}, color={0,0,127}));
+  connect(TSetHea.y[1], add.u1) annotation (Line(points={{101,80},{110,80},{110,
+          16},{118,16}}, color={0,0,127}));
   connect(optStaHea.optOn, booToRea.u) annotation (Line(points={{22,6},{30,6},{
           30,10},{38,10}},  color={255,0,255}));
   connect(TOut.y, dT.u2) annotation (Line(points={{-170,-10},{-166,-10},{-166,4},
@@ -95,36 +94,21 @@ equation
       StopTime=864000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"),__Dymola_Commands(file=
-  "modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/Utilities/Validation/OptimalStart.mos"
+  "modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/Utilities/Validation/OptimalStartHeating.mos"
   "Simulate and plot"),
   Documentation(info="<html>
 <p>
-Validation models for the block
+This model is to validate the block
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.OptimalStart\">
-Buildings.Controls.OBC.Utilities.OptimalStart</a>.
+Buildings.Controls.OBC.Utilities.OptimalStart</a> for space heating system.
 </p>
 <p>
-Two models are included to validate two different types of systems: space heating
-and cooling.
-</p>
-<p>
-In the heating case, the heating system has a very large heating capacity,
-with a heat injection that is large enough to increase the zone temperature to
-heating setpoint in a short period. The optimal start block therefore outputs
-a very small optimal start time <code>tOpt</code> after the three initialization days.
-</p>
-<p>
-In the cooling case, the capacity of the cooling system is not big enough to cool
-down the space as quick as in the heating case. The optimal start time
-remains relatively stable because the outdoor condition is the same every day and
-the indoor condition slightly varies each day.
-</p>
-<p>
-Another difference between the heating and cooling cases is the thermal capacitance
-of their serving zone. This parameter also impacts the temperature change rate of
-a zone. The heating zone has a higher thermal capacitance than the cooling zone; however,
-the difference between the heating and cooling power plays a dominant row than the difference
-of thermal capacitance in these two test cases.
+The room is modelled as a simple differential equation with a time constant of 
+around 5.6 hours, which is the same as the cooling case 
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.Validation.OptimalStartCooling\">
+Buildings.Controls.OBC.Utilities.Validation.OptimalStartCooling</a>. 
+The outdoor temperature is also repetitive each day; 
+the optimal start time converges to a small amount of time <code>tOpt</code> after a few days.
 </p>
 </html>",
 revisions="<html>

@@ -222,8 +222,7 @@ then there is no need for the system to start before the occupancy.
 </p>
 <p>
 <code>thrOptOn</code> is the threshold time period for the boolean output <code>optOn</code>
-to become true. By default, <code>optOn</code> does not become true
-if <code>tOpt</code> is less than 60 seconds.
+to become true.
 </p>
 <p>
 <h4>Configuration for HVAC system</h4>
@@ -295,9 +294,9 @@ The optimal start time is then calculated as <code>tOpt = |TSetZonOcc-TSam2|/TSl
 <h4>Validation</h4>
 </p>
 <p>
-Validation models can be found at
-<a href=\"modelica://Buildings.Controls.OBC.Utilities.Validation.OptimalStart\">
-Buildings.Controls.OBC.Utilities.Validation.OptimalStart</a>.
+Validation models can be found in the package
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.Validation\">
+Buildings.Controls.OBC.Utilities.Validation</a>.
 </p>
 </html>",
 revisions="<html>
