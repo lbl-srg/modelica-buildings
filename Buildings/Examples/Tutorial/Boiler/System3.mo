@@ -56,9 +56,9 @@ model System3
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap(C=2*V*1.2*1006)
     "Heat capacity for furniture and walls"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Modelica.Blocks.Sources.CombiTimeTable timTab(
-      extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-      smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTab(
+      extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic,
+      smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
       table=[-6, 0;
               8, QRooInt_flow;
              18, 0],
@@ -201,23 +201,24 @@ model System3
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,-250})));
-  Modelica.Blocks.Sources.Constant const(k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(k=1)
     "Constant control signal for valves"
     annotation (Placement(transformation(extent={{-140,-160},{-120,-140}})));
-  Modelica.Blocks.Sources.Constant conBoi(k=mBoi_flow_nominal)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conBoi(k=mBoi_flow_nominal)
     "Constant mass flow rate for boiler pump"
     annotation (Placement(transformation(extent={{-100,-290},{-80,-270}})));
-  Modelica.Blocks.Sources.Constant const1(k=0.5)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const1(k=0.5)
     "Constant control signal for valves"
     annotation (Placement(transformation(extent={{0,-290},{20,-270}})));
- Modelica.Blocks.Logical.Hysteresis hysPum(uLow=273.15 + 19,
-                                            uHigh=273.15 + 21)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysPum(
+    uLow=273.15 + 19,
+    uHigh=273.15 + 21)
     "Pump hysteresis"
     annotation (Placement(transformation(extent={{-220,-80},{-200,-60}})));
-  Modelica.Blocks.Math.BooleanToReal booToReaRad(realTrue=mRad_flow_nominal)
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaRad(realTrue=mRad_flow_nominal)
     "Radiator pump signal"
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
-  Modelica.Blocks.Logical.Not not1 "Negate output of hysteresis"
+  Buildings.Controls.OBC.CDL.Logical.Not not1 "Negate output of hysteresis"
     annotation (Placement(transformation(extent={{-180,-80},{-160,-60}})));
 equation
   connect(TOut.port, theCon.port_a) annotation (Line(
@@ -544,8 +545,8 @@ we properly defined the mixing points in the system.
 Next, we connected all fluid ports, and we set open-loop control signals
 for the valves, pumps and boilers.
 This is implemented using the block
-<a href=\"modelica://Modelica.Blocks.Sources.Constant\">
-Modelica.Blocks.Sources.Constant</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Sources.Constant\">
+Buildings.Controls.OBC.CDL.Continuous.Sources.Constant</a>.
 Using open-loop signals allows testing the model prior to
 adding the complexity of closed loop control.
 To avoid that the boiler overheats, we set its control input to

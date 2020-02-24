@@ -37,7 +37,7 @@ if __name__ == "__main__":
         # Check files with length longer than 7
         if len(filename) > 7:
             remotefile = urlopen(urlResPath + filename)
-	    localfile = open(os.path.join(directory, filename),'w')
+            localfile = open(os.path.join(directory, filename),'w')
             localfile.write(remotefile.read())
             localfile.close()
             remotefile.close()
