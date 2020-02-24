@@ -12,17 +12,17 @@ import sys
 import shutil
 
 # check if it just implements post-process
-POST_PROCESS_ONLY = True
+POST_PROCESS_ONLY = False
 # check if delete the simulation result files
-CLEAN_MAT = False
+CLEAN_MAT = True
 # check if delete the temporary working folders
 DelTemDir = True
 
 CWD = os.getcwd()
 FROM_GIT_HUB = False
 BRANCH = 'master'
-# simulator, currently, it only support JModelica and OCT
-TOOL = 'jmodelica'
+# simulator, JModelica and optimica are supported
+TOOL = 'optimica'
 
 # standard data file
 ASHRAE_DATA = './ASHRAE140_data.txt'
