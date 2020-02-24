@@ -14,7 +14,7 @@ import shutil
 # check if it just implements post-process
 POST_PROCESS_ONLY = False
 # check if delete the simulation result files
-CLEAN_MAT = False
+CLEAN_MAT = True
 # check if delete the temporary working folders
 DelTemDir = True
 
@@ -22,7 +22,9 @@ CWD = os.getcwd()
 FROM_GIT_HUB = True
 # Modelica Buildings Library working branch
 MBL_BRANCH = 'master'
-# BuildingSpy working branch
+# BuildingSpy working branch. 
+# The working branch makes the communication points ('ncp') of jmodelica or optimica to be 8761,
+# so that the regression test will generate high resolution results.
 BP_BRANCH = 'issue335_high_ncp'
 # simulator, JModelica and optimica are supported
 TOOL = 'optimica'
