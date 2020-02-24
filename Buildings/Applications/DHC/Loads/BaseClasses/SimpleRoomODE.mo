@@ -1,5 +1,5 @@
 ﻿within Buildings.Applications.DHC.Loads.BaseClasses;
-model SimpleRoom
+model SimpleRoomODE
   "Simplified model for assessing room air temperature variations around a setpoint"
   extends Modelica.Blocks.Icons.Block;
   parameter Modelica.SIunits.Temperature TOutHea_nominal(final displayUnit="degC")
@@ -153,4 +153,4 @@ First implementation.
           horizontalAlignment=TextAlignment.Right,
           textString="TAir")}),
   Diagram(coordinateSystem(preserveAspectRatio=false)));
-end SimpleRoom;
+end SimpleRoomODE;

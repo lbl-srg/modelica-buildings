@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.Loads.Validation;
-model SimpleRoom "Validation of the model SimpleRoom"
+model SimpleRoomODE "Validation of the model SimpleRoomODE"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water
     "Source side medium";
@@ -44,7 +44,7 @@ model SimpleRoom "Validation of the model SimpleRoom"
     annotation (Placement(transformation(extent={{92,90},{112,110}})));
   HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow1
     annotation (Placement(transformation(extent={{82,70},{62,90}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom rooOdeHea(
+  Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoomODE rooOdeHea(
     TOutHea_nominal=273.15,
     TIndHea_nominal=293.15,
     QHea_flow_nominal=QHea_flow_nominal,
@@ -62,7 +62,7 @@ model SimpleRoom "Validation of the model SimpleRoom"
     annotation (Placement(transformation(extent={{30,-110},{50,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai2(k=QCoo_flow_nominal)
     annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom rooOdeCoo(
+  Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoomODE rooOdeCoo(
     TOutHea_nominal=273.15,
     TIndHea_nominal=293.15,
     QHea_flow_nominal=QHea_flow_nominal,
@@ -170,8 +170,8 @@ equation
 <html>
 <p>
 This example validates 
-<a href=\"Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom\">
-Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom</a> by comparison with
+<a href=\"Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoomODE\">
+Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoomODE</a> by comparison with
 <a href=\"Buildings.ThermalZones.ReducedOrder.RC.TwoElements\">
 Buildings.ThermalZones.ReducedOrder.RC.TwoElements</a>.
 <p>
@@ -186,7 +186,7 @@ one requiring heating, the second requiring cooling.
 </p>
 </html>
   "),
-  __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/SimpleRoom.mos"
+  __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/SimpleRoomODE.mos"
   "Simulate and plot"),
     Diagram(coordinateSystem(extent={{-160,-180},{160,180}})));
-end SimpleRoom;
+end SimpleRoomODE;

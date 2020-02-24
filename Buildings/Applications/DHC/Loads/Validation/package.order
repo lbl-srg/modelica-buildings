@@ -2,6 +2,6 @@ BenchmarkFlowDistribution1
 BenchmarkFlowDistribution2
 FlowDistributionPumpControl
 HeatExchangerFlowControl
-SimpleRoom
+SimpleRoomODE
 TerminalUnitScaling
 BaseClasses
