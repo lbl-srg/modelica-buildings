@@ -14,13 +14,15 @@ import shutil
 # check if it just implements post-process
 POST_PROCESS_ONLY = False
 # check if delete the simulation result files
-CLEAN_MAT = True
+CLEAN_MAT = False
 # check if delete the temporary working folders
 DelTemDir = True
 
 CWD = os.getcwd()
-FROM_GIT_HUB = False
+FROM_GIT_HUB = True
+# Modelica Buildings Library working branch
 MBL_BRANCH = 'master'
+# BuildingSpy working branch
 BP_BRANCH = 'issue335_high_ncp'
 # simulator, JModelica and optimica are supported
 TOOL = 'optimica'
@@ -60,7 +62,6 @@ def configure_axes(axes):
     axes.spines['bottom'].set_visible(False)
     axes.grid(color='lightgrey', linewidth=0.25)
     return
-
 
 def create_library_directory(repoNam):
     ''' Create directory to be as temporary directory to save buildings library.
@@ -129,7 +130,7 @@ def _runTests(tool, package, lib_dir, n_pro, bp_dir):
     return tempDir
 
 def _get_results_directory(lib_dir, bp_dir):
-    ''' Trigger the regression test, return the list of temporary directories for regression test.
+    ''' Trigger the regression test, return the list of temporary directories of the regression tests.
     '''
     import multiprocessing
     n_pro = multiprocessing.cpu_count()
@@ -141,7 +142,7 @@ def _get_results_directory(lib_dir, bp_dir):
     return resultDirs
 
 def _move_results(resultDirs):
-    ''' Move the mat file from the temporary directory for regression test, to current directory.
+    ''' Move the mat file from the temporary directory of regression test, to current directory.
     '''
     mat_dir = os.path.join(CWD, 'mat')
     if not os.path.exists(mat_dir):
@@ -266,11 +267,10 @@ def get_time_series_result():
             resVal = ['PCoo.y', 'PHea.y', 'ECoo.y', 'EHea.y']
         # extract time and value of the variables
         time_series_data = _extract_data(case['matFile'], resVal)
-        if CLEAN_MAT:
-            # os.remove(case['matFile'])
-            shutil.rmtree('mat')
         temp['result'] = time_series_data
         results.append(temp)
+    if CLEAN_MAT:
+        shutil.rmtree('mat')
     return results
 # --------------------------------------------------------------------------------------------------
 
@@ -959,6 +959,7 @@ if __name__=="__main__":
         # find temporary directories that were used for run simulations
         resultDirs = _get_results_directory(mbl_dir, bp_dir)
         shutil.rmtree(mbl_dir)
+        shutil.rmtree(bp_dir)
 
         # move the mat files to current working directory
         _move_results(resultDirs)
