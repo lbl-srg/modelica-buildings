@@ -26,7 +26,7 @@ BP_BRANCH = 'issue335_high_ncp'
 TOOL = 'optimica'
 
 # standard data file
-ASHRAE_DATA = './ASHRAE140_data.txt'
+ASHRAE_DATA = './ASHRAE140_data.dat'
 PACKAGES = ['Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx', \
             'Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx']
 CASES = ['Case600', 'Case600FF', 'Case610', 'Case620', 'Case630', 'Case640', 'Case650', 'Case650FF', \
@@ -88,11 +88,13 @@ def checkout_repository(working_directory, repoNam, from_git_hub, branch):
         d['branch'] = branch
         d['commit'] = str(r.active_branch.commit)
     else:
+        mbl_local_path = "../../../../../../../../modelica-buildings"
+        bp_local_path = "../../../../../../../../BuildingsPy"
         # This is a hack to get the local copy of the repository
         des = working_directory
         shutil.rmtree(des)
         print("*** Copying library to {}".format(des))
-        localPath = "../../../../../../../../modelica-buildings" if repoNam == 'MBL' else "../../../../../../../../BuildingsPy"
+        localPath = mbl_local_path if repoNam == 'MBL' else bp_local_path
         shutil.copytree(localPath, des)
         g = git.Git(des)
         g.checkout(branch)
@@ -265,7 +267,8 @@ def get_time_series_result():
         # extract time and value of the variables
         time_series_data = _extract_data(case['matFile'], resVal)
         if CLEAN_MAT:
-            os.remove(case['matFile'])
+            # os.remove(case['matFile'])
+            shutil.rmtree('mat')
         temp['result'] = time_series_data
         results.append(temp)
     return results
