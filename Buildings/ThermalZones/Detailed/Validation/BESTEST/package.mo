@@ -8,6 +8,10 @@ annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains the models that were used
 for the BESTEST validation (ANSI/ASHRAE 2007).
+See
+<a href=\"modelica://Buildings.ThermalZones.Detailed.Validation.BESTEST.UsersGuide\">
+Buildings.ThermalZones.Detailed.Validation.BESTEST.UsersGuide</a>
+for details and results.
 </p>
 </html>"));
 end BESTEST;

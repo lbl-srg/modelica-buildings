@@ -5,8 +5,9 @@ package UsersGuide "User's Guide"
   annotation(preferredView="info",
   Documentation(info="<html>
 <p>
-The package <code>Buildings.ThermalZones.Detailed.Validation.BESTEST</code> contains the models 
-that were used for the BESTEST validation (ANSI/ASHRAE 2007). The basic model from which all other 
+The package <a href=\"modelica://Buildings.ThermalZones.Detailed.Validation.BESTEST\">
+Buildings.ThermalZones.Detailed.Validation.BESTEST</a> contains the models
+that were used for the BESTEST validation (ANSI/ASHRAE 2007). The basic model from which all other
 models extend from is <a href=\"modelica://Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case600FF\">
 Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case600FF</a>.
 </p>
@@ -54,10 +55,10 @@ Standard Method of Test for the Evaluation of Building Energy Analysis Computer 
 <h5>Heating and cooling cases</h5>
 <p>
 The simulations of cases with heating and cooling are validated by comparing the
-annual heating, cooling energy, peak heating and cooling demand, with the validation
-data. It also checks the simulation by comparing the one day load profiles.
+annual heating and cooling energy, the peak heating and cooling demand with the validation
+data. In addition, one day load profiles are also validated.
 The detailed comparison, which also shows the peak load hours, are shown
-in the table after the plots.
+in the table after the plots below.
 </p>
 
 <p align=\"center\">
@@ -865,11 +866,11 @@ in the table after the plots.
 
 <h5>Free floating cases</h5>
 <p>
-Following plots compare the maximum, minimum and average zone temperature simulated by
-modelica buildings library with the values simulated by other tools. The simulation
-is also validated by checking one-day simulation results in different days and
-the distribution of the annual temperature. The detailed comparison, which also
-shows the peak temperature hour, are shown in the table after the plots.
+The following plots compare the maximum, minimum and average zone temperature simulated with
+the Modelica Buildings Library with the values simulated by other tools. The simulation
+is also validated by comparing one-day simulation results in different days, and by
+comparing the distribution of the annual temperature. The detailed comparisons, which also
+show the peak temperature hour, are shown in the table after the plots.
 </p>
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Validation/BESTEST/max_temperature.png\"
