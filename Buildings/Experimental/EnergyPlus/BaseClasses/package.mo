@@ -1,6 +1,6 @@
 within Buildings.Experimental.EnergyPlus;
 package BaseClasses "Package with base classes for Buildings.Experimental.EnergyPlus"
- extends Modelica.Icons.BasesPackage;
+ extends Modelica.Icons.Package;
 
 
   annotation (preferredView="info",
