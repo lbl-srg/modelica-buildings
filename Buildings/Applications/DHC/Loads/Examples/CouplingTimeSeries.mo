@@ -7,7 +7,7 @@ model CouplingTimeSeries
   Buildings.Applications.DHC.Loads.Examples.BaseClasses.BuildingTimeSeries
     bui(
       filPat=
-      "modelica://Buildings/Applications/DHC/Examples/Resources/SwissResidential_20190916.mos",
+      "modelica://Buildings/Applications/DHC/Loads/Examples/Resources/SwissResidential_20190916.mos",
       nPorts_a=2,
       nPorts_b=2)
     "Building"

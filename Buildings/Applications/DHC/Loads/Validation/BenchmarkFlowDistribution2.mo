@@ -7,7 +7,7 @@ model BenchmarkFlowDistribution2
   package Medium2 = Buildings.Media.Air
     "Load side medium";
   parameter String filPat=
-    "modelica://Buildings/Applications/DHC/Examples/Resources/SwissResidential_20190916.mos"
+    "modelica://Buildings/Applications/DHC/Loads/Examples/Resources/SwissResidential_20190916.mos"
     "Library path of the file with thermal loads as time series";
   parameter Integer nLoa=5
     "Number of served loads"
@@ -156,10 +156,10 @@ This model is part of a computational performance benchmark between:
 </p>
 <ul>
 <li>
-a simplified modeling of the piping network as implemented in 
+a simplified modeling of the piping network as implemented in
 <a href=\"Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
 Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>,
-see the corresponding example: 
+see the corresponding example:
 <a href=\"Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution1\">
 Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution1</a>,
 </li>

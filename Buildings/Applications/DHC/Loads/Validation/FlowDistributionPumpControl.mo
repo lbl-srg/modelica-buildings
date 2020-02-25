@@ -7,7 +7,7 @@ model FlowDistributionPumpControl
   package Medium2 = Buildings.Media.Air
     "Load side medium";
   parameter String filPat=
-    "modelica://Buildings/Applications/DHC/Examples/Resources/SwissResidential_20190916.mos"
+    "modelica://Buildings/Applications/DHC/Loads/Examples/Resources/SwissResidential_20190916.mos"
     "Library path of the file with thermal loads as time series";
   parameter Integer nLoa=5
     "Number of served loads"
@@ -316,7 +316,7 @@ equation
 Documentation(
 info="<html>
 <p>
-This model validates the pump head computation algorithm implemented in 
+This model validates the pump head computation algorithm implemented in
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
 Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>.
 </p>
