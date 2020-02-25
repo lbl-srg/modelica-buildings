@@ -25,7 +25,8 @@ partial model PartialBaseLine "Partial cable line dispersion model"
 
   replaceable parameter
     Buildings.Electrical.Transmission.LowVoltageCables.Generic
-     commercialCable constrainedby Buildings.Electrical.Transmission.BaseClasses.BaseCable
+     commercialCable constrainedby
+    Buildings.Electrical.Transmission.BaseClasses.BaseCable
     "Commercial cables options"
     annotation(Evaluate=true, Dialog(tab="Tech. specification", group="Manual mode",
     enable = mode == Buildings.Electrical.Types.CableMode.commercial),

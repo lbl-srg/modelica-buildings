@@ -1,8 +1,8 @@
 within Buildings.Electrical.Interfaces;
 model Source "Partial model of a generic source."
   replaceable package PhaseSystem =
-      Buildings.Electrical.PhaseSystems.OnePhase constrainedby Buildings.Electrical.PhaseSystems.PartialPhaseSystem
-                                                         "Phase system"
+      Buildings.Electrical.PhaseSystems.OnePhase constrainedby
+    Buildings.Electrical.PhaseSystems.PartialPhaseSystem "Phase system"
     annotation (choicesAllMatching=true);
   parameter Boolean potentialReference = true
     "Serve as potential root for the reference angle theta"

@@ -7,32 +7,38 @@ model X3WithRadiantFloor
   package Water = Buildings.Media.Water
     "Water model used in the radiant slab loop";
 
-  Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3B.TestCell X3B(redeclare package Medium = Air,
+  Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3B.TestCell X3B(redeclare
+      package                                                                      Medium = Air,
       nPorts=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Test cell X3B"
     annotation (Placement(transformation(extent={{82,24},{122,64}})));
-  Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3B.Closet BClo(redeclare package Medium = Air,
+  Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3B.Closet BClo(redeclare
+      package                                                                     Medium = Air,
       nPorts=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Closet in test cell X3B"
     annotation (Placement(transformation(extent={{68,124},{108,164}})));
-  Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3B.Electrical BEle(redeclare package Medium =
+  Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3B.Electrical BEle(redeclare
+      package                                                                         Medium =
         Air, nPorts=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Electrical room in test cell X3B"
     annotation (Placement(transformation(extent={{244,124},{284,164}})));
-  Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3A.TestCellFullBed  X3A(redeclare package
+  Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3A.TestCellFullBed  X3A(redeclare
+      package
       Medium = Air, nPorts=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Test cell X3A"
     annotation (Placement(transformation(extent={{-76,24},{-36,64}})));
-  Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3A.ClosetFullBed  AClo(redeclare package
+  Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3A.ClosetFullBed  AClo(redeclare
+      package
       Medium = Air, nPorts=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Closet in test cell X3A"
     annotation (Placement(transformation(extent={{-86,124},{-46,164}})));
-  Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3A.Electrical AEle(redeclare package Medium =
+  Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3A.Electrical AEle(redeclare
+      package                                                                         Medium =
         Air, nPorts=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Electrical room in test cell X3A"
