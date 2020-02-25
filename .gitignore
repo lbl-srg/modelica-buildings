@@ -58,6 +58,7 @@ tmp-simulation*
 # .mat output files #
 #####################
 *.mat
+!**/Resources/**/*.mat
 
 # Ignore certain sphinx-generated files #
 #########################################
