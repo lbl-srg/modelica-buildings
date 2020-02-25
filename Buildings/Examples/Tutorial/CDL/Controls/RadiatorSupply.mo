@@ -49,7 +49,7 @@ block RadiatorSupply "Controller for mixing valve in radiator loop"
     "Minimum heating supply temperature"
     annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TMaxSup(
-    final k=323.15)
+    final k=TSupMax)
     "Maximum heating supply temperature"
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TMinRoo(

@@ -7,13 +7,13 @@ block OpenLoopEquipmentOnOff
     "Boiler temperature"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput onSys
-    "System on status"
+    "System on command"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput onPum
-    "Pump on status"
+    "Pump on command"
     annotation (Placement(transformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput onBoi
-    "Boiler on status"
+    "Boiler on command"
     annotation (Placement(transformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(k=true)
     "Constant control signal"
@@ -64,7 +64,7 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-Open loop controller that outputs a constant control signal for the system status.
+Open loop controller that outputs a constant control signal for the system on command.
 </p>
 </html>", revisions="<html>
 <ul>

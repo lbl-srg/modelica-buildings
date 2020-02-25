@@ -12,7 +12,7 @@ block OpenLoopSystemOnOff
     "Room air temperature"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput onSys
-    "System on status"
+    "System on command"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(k=true)
     "Constant control signal"
@@ -54,7 +54,7 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-Open loop controller that outputs a constant control signal for the system status.
+Open loop controller that outputs a constant control signal for the system on command.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -152,7 +152,7 @@ Use this new controller instead of the open loop controller <code>conBoiRet</cod
 </ol>
 <p>
 Simulate the system to verify that the valve is controlled to maintain a return water temperature
-of at least <i>60</i>&circ;C as shown below.
+of at least <i>60</i>&deg;C as shown below.
 </p>
 <p align=\"center\">
 <img alt=\"Open loop temperatures.\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/CDL/System3/TemperaturesValve.png\" border=\"1\"/>

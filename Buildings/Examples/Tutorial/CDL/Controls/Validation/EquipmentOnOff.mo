@@ -27,7 +27,7 @@ Validation model for the equipment on/off controller.
 The input to the controller is a ramp signal of increasing measured boiler water temperature,
 and a on/off signal for the overall system.
 The validation shows that the pumps are on/off based on the overall system, and the boiler is
-also on/off based on this system unless the return water temperature exceeds <i>90</i>&circ;C.
+also on/off based on this system unless the return water temperature exceeds <i>90</i>&deg;C.
 </p>
 </html>", revisions="<html>
 <ul>
