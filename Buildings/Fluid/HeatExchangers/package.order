@@ -8,6 +8,7 @@ Heater_T
 PlateHeatExchangerEffectivenessNTU
 PrescribedOutlet
 SensibleCooler_T
+SteamHeatExchanger
 WetCoilCounterFlow
 WetCoilDiscretized
 ActiveBeams
