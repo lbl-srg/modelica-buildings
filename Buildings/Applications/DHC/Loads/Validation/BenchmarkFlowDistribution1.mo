@@ -144,7 +144,8 @@ Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution2</a>.
 </ul>
 </html>"),
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
+        coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,
+            120}})),
     experiment(
       StopTime=2000000,
       __Dymola_NumberOfIntervals=500,

@@ -67,14 +67,14 @@ model BuildingTimeSeries
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=20)
     "Minimum temperature setpoint"
-    annotation (Placement(transformation(extent={{-298,250},{-278,270}})));
+    annotation (Placement(transformation(extent={{-280,250},{-260,270}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC1
-    annotation (Placement(transformation(extent={{-258,250},{-238,270}})));
+    annotation (Placement(transformation(extent={{-240,250},{-220,270}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=24)
     "Maximum temperature setpoint"
-    annotation (Placement(transformation(extent={{-298,210},{-278,230}})));
+    annotation (Placement(transformation(extent={{-280,210},{-260,230}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC2
-    annotation (Placement(transformation(extent={{-258,210},{-238,230}})));
+    annotation (Placement(transformation(extent={{-240,210},{-220,230}})));
   Buildings.Applications.DHC.Loads.Validation.BaseClasses.FanCoil2PipeHeating
     terUniHea(
     redeclare package Medium1 = Medium,
@@ -119,9 +119,9 @@ model BuildingTimeSeries
     annotation (Placement(transformation(extent={{70,10},{90,30}})));
 equation
   connect(minTSet.y,from_degC1. u)
-    annotation (Line(points={{-276,260},{-260,260}}, color={0,0,127}));
+    annotation (Line(points={{-258,260},{-242,260}}, color={0,0,127}));
   connect(maxTSet.y,from_degC2. u)
-    annotation (Line(points={{-276,220},{-260,220}}, color={0,0,127}));
+    annotation (Line(points={{-258,220},{-242,220}}, color={0,0,127}));
   connect(ports_a[1], disFloHea.port_a) annotation (Line(points={{-300,0},{
           -280,0},{-280,-70},{120,-70}},color={0,127,255}));
   connect(disFloHea.port_b, ports_b[1]) annotation (Line(points={{140,-70},{
@@ -151,9 +151,9 @@ equation
           -118},{180,77},{210,77}}, color={0,0,127}));
   connect(loa.y[1], terUniCoo.QReqCoo_flow) annotation (Line(points={{21,0},{46,
           0},{46,16.5},{69.1667,16.5}},       color={0,0,127}));
-  connect(from_degC2.y, terUniCoo.TSetCoo) annotation (Line(points={{-236,220},
+  connect(from_degC2.y, terUniCoo.TSetCoo) annotation (Line(points={{-218,220},
           {60,220},{60,23.3333},{69.1667,23.3333}},color={0,0,127}));
-  connect(from_degC1.y, terUniHea.TSetHea) annotation (Line(points={{-236,260},
+  connect(from_degC1.y, terUniHea.TSetHea) annotation (Line(points={{-218,260},
           {56,260},{56,-9},{69.1667,-9}},            color={0,0,127}));
   connect(loa.y[2], terUniHea.QReqHea_flow) annotation (Line(points={{21,0},{46,
           0},{46,-15.6667},{69.1667,-15.6667}},

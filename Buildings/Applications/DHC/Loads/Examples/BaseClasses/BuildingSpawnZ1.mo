@@ -38,14 +38,14 @@ model BuildingSpawnZ1 "One-zone EnergyPlus building model"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=20)
     "Minimum temperature setpoint"
-    annotation (Placement(transformation(extent={{-300,250},{-280,270}})));
+    annotation (Placement(transformation(extent={{-280,250},{-260,270}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC1
-    annotation (Placement(transformation(extent={{-260,250},{-240,270}})));
+    annotation (Placement(transformation(extent={{-240,250},{-220,270}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=24)
     "Maximum temperature setpoint"
-    annotation (Placement(transformation(extent={{-300,210},{-280,230}})));
+    annotation (Placement(transformation(extent={{-280,210},{-260,230}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC2
-    annotation (Placement(transformation(extent={{-260,210},{-240,230}})));
+    annotation (Placement(transformation(extent={{-240,210},{-220,230}})));
   Buildings.Applications.DHC.Loads.Examples.BaseClasses.FanCoil4Pipe terUni(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium2,
@@ -90,9 +90,9 @@ equation
     annotation (Line(points={{-36,63},{-40,63},{-40,30},{-59,30}},  color={0,0,127}));
   connect(multiplex3_1.y, zon.qGai_flow) annotation (Line(points={{-13,70},{16,70},
           {16,10},{38,10}},                                                                       color={0,0,127}));
-  connect(minTSet.y,from_degC1. u) annotation (Line(points={{-278,260},{-262,
+  connect(minTSet.y,from_degC1. u) annotation (Line(points={{-258,260},{-242,
           260}},                                                                  color={0,0,127}));
-  connect(maxTSet.y,from_degC2. u) annotation (Line(points={{-278,220},{-262,
+  connect(maxTSet.y,from_degC2. u) annotation (Line(points={{-258,220},{-242,
           220}},                                                                  color={0,0,127}));
   connect(ports_a[1], disFloHea.port_a) annotation (Line(points={{-300,0},{-280,
           0},{-280,-110},{-120,-110}},   color={0,127,255}));
@@ -113,11 +113,11 @@ equation
           -104},{-180,-104},{-180,-58.3333},{-160,-58.3333}}, color={0,127,255}));
   connect(disFloCoo.ports_b1[1], terUni.port_aChiWat) annotation (Line(points={{-120,
           -144},{-200,-144},{-200,-56.6667},{-160,-56.6667}}, color={0,127,255}));
-  connect(from_degC2.y, terUni.TSetCoo) annotation (Line(points={{-238,220},{
+  connect(from_degC2.y, terUni.TSetCoo) annotation (Line(points={{-218,220},{
           -200,220},{-200,-46.6667},{-160.833,-46.6667}},
                                                      color={0,0,127}));
-  connect(from_degC1.y, terUni.TSetHea) annotation (Line(points={{-238,260},{
-          -200,260},{-200,-45},{-160.833,-45}},      color={0,0,127}));
+  connect(from_degC1.y, terUni.TSetHea) annotation (Line(points={{-218,260},{
+          -198,260},{-198,-45},{-160.833,-45}},      color={0,0,127}));
   connect(terUni.PFan, PFan) annotation (Line(points={{-139.167,-50},{260,-50},
           {260,120},{320,120}}, color={0,0,127}));
   connect(terUni.mReqHeaWat_flow, disFloHea.mReq_flow[1]) annotation (Line(points={{

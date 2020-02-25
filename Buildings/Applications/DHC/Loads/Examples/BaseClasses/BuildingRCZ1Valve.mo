@@ -117,14 +117,14 @@ model BuildingRCZ1Valve
     origin={6,116})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=20)
     "Minimum temperature setpoint"
-    annotation (Placement(transformation(extent={{-300,250},{-280,270}})));
+    annotation (Placement(transformation(extent={{-280,250},{-260,270}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC1
-    annotation (Placement(transformation(extent={{-260,250},{-240,270}})));
+    annotation (Placement(transformation(extent={{-240,250},{-220,270}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=24)
     "Maximum temperature setpoint"
-    annotation (Placement(transformation(extent={{-300,210},{-280,230}})));
+    annotation (Placement(transformation(extent={{-280,210},{-260,230}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC2
-    annotation (Placement(transformation(extent={{-260,210},{-240,230}})));
+    annotation (Placement(transformation(extent={{-240,210},{-220,230}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=2)
     annotation (Placement(transformation(extent={{260,70},{280,90}})));
   Buildings.Applications.DHC.Loads.Examples.BaseClasses.FanCoil4Pipe terUni(
@@ -290,7 +290,7 @@ equation
       index=-1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(minTSet.y, from_degC1.u) annotation (Line(points={{-278,260},{-262,
+  connect(minTSet.y, from_degC1.u) annotation (Line(points={{-258,260},{-242,
           260}},                                                                  color={0,0,127}));
   connect(thermalZoneOneElement.ports[1], terUni.port_aLoa)
     annotation (Line(points={{55.475,68.05},{86.5,68.05},{86.5,-39.6667},{-140,
@@ -302,15 +302,15 @@ equation
           0},{-280,-110},{-100,-110}}, color={0,127,255}));
   connect(disFloHea.port_b, ports_b[1]) annotation (Line(points={{-80,-110},{280,
           -110},{280,0},{300,0}}, color={0,127,255}));
-  connect(maxTSet.y, from_degC2.u) annotation (Line(points={{-278,220},{-262,
-          220}},                                                                  color={0,0,127}));
+  connect(maxTSet.y, from_degC2.u) annotation (Line(points={{-258,220},{-268,
+          220},{-268,216},{-264,216},{-264,220},{-242,220}},                      color={0,0,127}));
   connect(ports_a[2], disFloCoo.port_a) annotation (Line(points={{-300,0},{-280,
           0},{-280,-150},{-100,-150}}, color={0,127,255}));
   connect(disFloCoo.port_b, ports_b[2]) annotation (Line(points={{-80,-150},{280,
           -150},{280,0},{300,0}}, color={0,127,255}));
-  connect(from_degC1.y, terUni.TSetHea) annotation (Line(points={{-238,260},{
-          -200,260},{-200,-43},{-160.833,-43}},      color={0,0,127}));
-  connect(from_degC2.y, terUni.TSetCoo) annotation (Line(points={{-238,220},{
+  connect(from_degC1.y, terUni.TSetHea) annotation (Line(points={{-218,260},{
+          -196,260},{-196,-43},{-160.833,-43}},      color={0,0,127}));
+  connect(from_degC2.y, terUni.TSetCoo) annotation (Line(points={{-218,220},{
           -200,220},{-200,-46},{-160.833,-46},{-160.833,-44.6667}},
                                                                color={0,0,127}));
   connect(terUni.port_bChiWat, disFloCoo.ports_a1[1]) annotation (Line(points={{-140,

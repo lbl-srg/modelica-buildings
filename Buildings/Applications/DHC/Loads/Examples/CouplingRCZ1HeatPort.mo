@@ -114,7 +114,7 @@ First implementation.
 </ul>
 </html>"),
   Diagram(
-  coordinateSystem(preserveAspectRatio=false, extent={{-120,-20},{120,120}})),
+  coordinateSystem(preserveAspectRatio=false, extent={{-140,-20},{140,140}})),
   __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingRCZ1HeatPort.mos"
         "Simulate and plot"));

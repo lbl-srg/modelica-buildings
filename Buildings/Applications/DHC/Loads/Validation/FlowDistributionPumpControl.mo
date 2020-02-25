@@ -328,7 +328,7 @@ Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>.
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-180,-220},{180,
+        coordinateSystem(preserveAspectRatio=false, extent={{-220,-240},{200,
             240}})),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/FlowDistributionPumpControl.mos"

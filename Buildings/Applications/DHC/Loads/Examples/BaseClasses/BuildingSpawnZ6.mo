@@ -21,14 +21,14 @@ model BuildingSpawnZ6
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet[nZon](
     k=fill(20, nZon))
     "Minimum temperature setpoint"
-    annotation (Placement(transformation(extent={{-300,250},{-280,270}})));
+    annotation (Placement(transformation(extent={{-280,250},{-260,270}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC1[nZon]
-    annotation (Placement(transformation(extent={{-260,250},{-240,270}})));
+    annotation (Placement(transformation(extent={{-240,250},{-220,270}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet[nZon](
     k=fill(24, nZon)) "Maximum temperature setpoint"
-    annotation (Placement(transformation(extent={{-300,210},{-280,230}})));
+    annotation (Placement(transformation(extent={{-280,210},{-260,230}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC2[nZon]
-    annotation (Placement(transformation(extent={{-260,210},{-240,230}})));
+    annotation (Placement(transformation(extent={{-240,210},{-220,230}})));
   Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
     annotation (Placement(transformation(extent={{-66,128},{-46,148}})));
   Modelica.Blocks.Sources.Constant qRadGai_flow(k=0) "Radiative heat gain"
@@ -113,9 +113,9 @@ model BuildingSpawnZ6
     annotation (Placement(transformation(extent={{-160,-230},{-140,-210}})));
 equation
   connect(maxTSet.y,from_degC2.u)
-    annotation (Line(points={{-278,220},{-262,220}}, color={0,0,127}));
+    annotation (Line(points={{-258,220},{-242,220}}, color={0,0,127}));
   connect(minTSet.y, from_degC1.u)
-    annotation (Line(points={{-278,260},{-262,260}}, color={0,0,127}));
+    annotation (Line(points={{-258,260},{-242,260}}, color={0,0,127}));
   connect(qRadGai_flow.y,multiplex3_1.u1[1])  annotation (Line(
       points={{-45,178},{-26,178},{-26,145},{-22,145}},
       color={0,0,127},
@@ -150,10 +150,10 @@ equation
   connect(disFloCoo.port_b, ports_b[2]) annotation (Line(points={{-140,-220},{
           280,-220},{280,0},{300,0}},
                                     color={0,127,255}));
-  connect(from_degC1.y, terUni.TSetHea) annotation (Line(points={{-238,260},{
-          -162,260},{-162,16},{-141,16}},
+  connect(from_degC1.y, terUni.TSetHea) annotation (Line(points={{-218,260},{
+          -160,260},{-160,16},{-141,16}},
                                     color={0,0,127}));
-  connect(from_degC2.y, terUni.TSetCoo) annotation (Line(points={{-238,220},{
+  connect(from_degC2.y, terUni.TSetCoo) annotation (Line(points={{-218,220},{
           -162,220},{-162,14},{-141,14}},
                                     color={0,0,127}));
   connect(znAttic.ports[1], terUni[1].port_aLoa) annotation (Line(points={{42,84.8},

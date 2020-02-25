@@ -78,6 +78,12 @@ GeoJSON export),
 secondary pumps.
 </li>
 </ul>
+<p>
+Simulation with Dymola requires minimum version 2020x and setting
+<code>Hidden.AvoidDoubleComputation=true</code>, see
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.UsersGuide\">
+Buildings.ThermalZones.EnergyPlus.UsersGuide</a>.
+</p>
 </html>",
 revisions=
 "<html>
@@ -89,12 +95,11 @@ First implementation.
 </ul>
 </html>"),
   Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{140,40}}),
+        coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{160,60}}),
         graphics={Text(
           extent={{-28,36},{104,10}},
           lineColor={28,108,200},
-          textString="Simulation requires
-Hidden.AvoidDoubleComputation=true")}),
+          textString="")}),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingSpawnZ6.mos"
         "Simulate and plot"));

@@ -140,7 +140,8 @@ equation
   connect(pum.port_b, dis.port_aDisSup)
     annotation (Line(points={{30,-80},{40,-80}}, color={0,127,255}));
   connect(dis.port_bDisRet, supHeaWat.ports[1]) annotation (Line(points={{40,-86},
-          {32,-86},{32,-98},{-40,-98},{-40,-78}}, color={0,127,255}));
+          {32,-86},{32,-100},{-40,-100},{-40,-78}},
+                                                  color={0,127,255}));
   connect(vol.ports[1], pum.port_a)
     annotation (Line(points={{-23,-80},{10,-80}},color={0,127,255}));
   connect(supHeaWat.ports[2], vol.ports[2]) annotation (Line(points={{-40,-82},{
@@ -177,7 +178,8 @@ Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution2</a>.
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
+        coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,
+            120}})),
   __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/BenchmarkFlowDistribution2.mos"
         "Simulate and plot"));
 end BenchmarkFlowDistribution2;

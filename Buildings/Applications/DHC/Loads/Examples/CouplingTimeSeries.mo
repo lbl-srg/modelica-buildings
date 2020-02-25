@@ -99,7 +99,7 @@ First implementation.
 </ul>
 </html>"),
   Diagram(
-  coordinateSystem(preserveAspectRatio=false, extent={{-120,-20},{140,120}})),
+  coordinateSystem(preserveAspectRatio=false, extent={{-140,-40},{160,140}})),
   __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingTimeSeries.mos"
         "Simulate and plot"));
 end CouplingTimeSeries;
