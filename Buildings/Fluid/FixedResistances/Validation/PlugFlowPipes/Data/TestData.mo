@@ -1,8 +1,8 @@
 within Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.Data;
 model TestData "Example to check pipe data records"
 extends Modelica.Icons.Example;
-replaceable PipeDataAIT151218 pipeDataToBeRead constrainedby BaseClasses.PipeDataBaseDefinition
-                                       "Measurement dataset from AIT"
+replaceable PipeDataAIT151218 pipeDataToBeRead constrainedby
+    BaseClasses.PipeDataBaseDefinition "Measurement dataset from AIT"
     annotation (Placement(transformation(extent={{-20,-8},{0,12}})));
     Modelica.Blocks.Sources.CombiTimeTable combiTimeTable(table=
         pipeDataToBeRead.data)

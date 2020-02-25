@@ -1,5 +1,6 @@
 within Buildings.ThermalZones.ReducedOrder;
-package Validation "Collection of validation models"
+package Validation
+  "Collection of validation models"
   extends Modelica.Icons.ExamplesPackage;
 
 

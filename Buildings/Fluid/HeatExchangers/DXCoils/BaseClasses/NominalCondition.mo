@@ -7,7 +7,8 @@ record NominalCondition
       annotation (choicesAllMatching=true);
   replaceable parameter
     Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues per
-     constrainedby Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues
+     constrainedby
+    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues
      "Performance data" annotation (choicesAllMatching=true);
 
   final parameter Modelica.SIunits.MassFraction XEvaIn_nominal=
