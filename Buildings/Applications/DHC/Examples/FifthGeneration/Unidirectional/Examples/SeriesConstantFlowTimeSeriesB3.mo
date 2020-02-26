@@ -12,9 +12,9 @@ model SeriesConstantFlowTimeSeriesB3
     "Set to true to allow flow reversal on the district side"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
   parameter String filPat[nBui]={
-    "modelica://Buildings/Applications/DHC/Examples/Resources/SwissOffice_20190916.mos",
-    "modelica://Buildings/Applications/DHC/Examples/Resources/SwissResidential_20190916.mos",
-    "modelica://Buildings/Applications/DHC/Examples/Resources/SwissHospital_20190916.mos"}
+    "modelica://Buildings/Applications/DHC/Loads/Examples/Resources/SwissOffice_20190916.mos",
+    "modelica://Buildings/Applications/DHC/Loads/Examples/Resources/SwissResidential_20190916.mos",
+    "modelica://Buildings/Applications/DHC/Loads/Examples/Resources/SwissHospital_20190916.mos"}
     "Library paths of the files with thermal loads as time series";
   Loads.BuildingTimeSeriesWithETS bui[nBui](
     redeclare each final package Medium = Medium,
