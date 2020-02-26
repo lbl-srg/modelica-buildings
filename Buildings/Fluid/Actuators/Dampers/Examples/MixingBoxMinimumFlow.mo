@@ -8,14 +8,15 @@ model MixingBoxMinimumFlow
 
   Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow mixBox(
     mOutMin_flow_nominal=0.3,
-    dpOutMin_nominal=20,
+    dpDamOutMin_nominal=5,
+    dpFixOutMin_nominal=20,
     mOut_flow_nominal=1,
     mRec_flow_nominal=1,
     mExh_flow_nominal=1,
     redeclare package Medium = Medium,
-    dpDamExh_nominal=(0.45)*1.2*(1)^2/2,
-    dpDamOut_nominal=(0.45)*1.2*(1)^2/2,
-    dpDamRec_nominal=(0.45)*1.2*(1)^2/2,
+    dpDamExh_nominal=10,
+    dpDamOut_nominal=10,
+    dpDamRec_nominal=10,
     dpFixExh_nominal=20,
     dpFixOut_nominal=20,
     dpFixRec_nominal=20) "mixing box"
@@ -41,11 +42,11 @@ model MixingBoxMinimumFlow
       annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
     Modelica.Blocks.Sources.Ramp PSup(
     offset=101320,
-    height=-10,
+    height=-50,
     startTime=0,
     duration=20) annotation (Placement(transformation(extent={{60,40},{80,60}})));
     Modelica.Blocks.Sources.Ramp PRet(
-    height=10,
+    height=50,
     offset=101330,
     duration=20,
     startTime=20)
