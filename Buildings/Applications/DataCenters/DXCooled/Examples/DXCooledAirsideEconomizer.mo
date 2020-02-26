@@ -142,13 +142,15 @@ model DXCooledAirsideEconomizer
   Buildings.Fluid.Actuators.Dampers.MixingBox eco(
     redeclare package Medium = Medium,
     mOut_flow_nominal=mA_flow_nominal,
-    dpOut_nominal=20,
     mRec_flow_nominal=mA_flow_nominal,
-    dpRec_nominal=20,
     mExh_flow_nominal=mA_flow_nominal,
-    dpExh_nominal=20,
-    use_inputFilter=false)
-    "Airside economizer"
+    use_inputFilter=false,
+    dpDamExh_nominal=(0.45)*1.2*(1)^2/2,
+    dpDamOut_nominal=(0.45)*1.2*(1)^2/2,
+    dpDamRec_nominal=(0.45)*1.2*(1)^2/2,
+    dpFixExh_nominal=20,
+    dpFixOut_nominal=20,
+    dpFixRec_nominal=20) "Airside economizer"
     annotation (Placement(transformation(extent={{-160,-4},{-140,16}})));
   Buildings.Fluid.Sources.Outside out(
     redeclare package Medium = Medium,

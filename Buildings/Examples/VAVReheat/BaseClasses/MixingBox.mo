@@ -141,10 +141,8 @@ model MixingBox
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{110,50},{90,70}})));
 
-  Fluid.Actuators.Dampers.VAVBoxExponential damOut(
+  Fluid.Actuators.Dampers.Exponential damOut(
     redeclare package Medium = Medium,
-    dp_nominal=dpOut_nominal,
-    dp_nominalIncludesDamper=dp_nominalIncludesDamper,
     from_dp=from_dp,
     linearized=linearized,
     use_deltaM=use_deltaM,
@@ -156,21 +154,22 @@ model MixingBox
     yL=yL,
     yU=yU,
     k0=k0,
-    k1=k1,
     use_constant_density=use_constant_density,
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=mOut_flow_nominal,
     use_inputFilter=true,
     final riseTime=riseTime,
     final init=init,
-    y_start=y_start) "Outdoor air damper"
+    y_start=y_start,
+    dpDamper_nominal=(k1)*1.2*(1)^2/2,
+    dpFixed_nominal=if (dp_nominalIncludesDamper) then (dpOut_nominal) - (k1)*
+        1.2*(1)^2/2 else (dpOut_nominal),
+    k1=k1) "Outdoor air damper"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
-  Fluid.Actuators.Dampers.VAVBoxExponential damExh(
+  Fluid.Actuators.Dampers.Exponential damExh(
     redeclare package Medium = Medium,
     m_flow_nominal=mExh_flow_nominal,
-    dp_nominal=dpExh_nominal,
-    dp_nominalIncludesDamper=dp_nominalIncludesDamper,
     from_dp=from_dp,
     linearized=linearized,
     use_deltaM=use_deltaM,
@@ -182,20 +181,21 @@ model MixingBox
     yL=yL,
     yU=yU,
     k0=k0,
-    k1=k1,
     use_constant_density=use_constant_density,
     allowFlowReversal=allowFlowReversal,
     use_inputFilter=true,
     final riseTime=riseTime,
     final init=init,
-    y_start=y_start) "Exhaust air damper"
+    y_start=y_start,
+    dpDamper_nominal=(k1)*1.2*(1)^2/2,
+    dpFixed_nominal=if (dp_nominalIncludesDamper) then (dpExh_nominal) - (k1)*
+        1.2*(1)^2/2 else (dpExh_nominal),
+    k1=k1) "Exhaust air damper"
     annotation (Placement(transformation(extent={{-20,-70},{-40,-50}})));
 
-  Fluid.Actuators.Dampers.VAVBoxExponential damRet(
+  Fluid.Actuators.Dampers.Exponential damRet(
     redeclare package Medium = Medium,
     m_flow_nominal=mRec_flow_nominal,
-    dp_nominal=dpRec_nominal,
-    dp_nominalIncludesDamper=dp_nominalIncludesDamper,
     from_dp=from_dp,
     linearized=linearized,
     use_deltaM=use_deltaM,
@@ -207,14 +207,16 @@ model MixingBox
     yL=yL,
     yU=yU,
     k0=k0,
-    k1=k1,
     use_constant_density=use_constant_density,
     allowFlowReversal=allowFlowReversal,
     use_inputFilter=true,
     final riseTime=riseTime,
     final init=init,
-    y_start=y_start) "Return air damper"        annotation (
-      Placement(transformation(
+    y_start=y_start,
+    dpDamper_nominal=(k1)*1.2*(1)^2/2,
+    dpFixed_nominal=if (dp_nominalIncludesDamper) then (dpRec_nominal) - (k1)*
+        1.2*(1)^2/2 else (dpRec_nominal),
+    k1=k1) "Return air damper" annotation (Placement(transformation(
         origin={80,0},
         extent={{-10,-10},{10,10}},
         rotation=90)));

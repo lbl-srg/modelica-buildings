@@ -45,16 +45,19 @@ Buildings.Examples.VAVCO2.BaseClasses.Suite roo(redeclare package Medium = Mediu
     annotation (Placement(transformation(extent={{206,-92},
             {310,20}})));
   Fluid.Actuators.Dampers.MixingBox mixBox(
-    dpOut_nominal=0.467,
-    dpRec_nominal=0.665,
     mOut_flow_nominal=scaM_flow*1,
     mRec_flow_nominal=scaM_flow*1,
     mExh_flow_nominal=scaM_flow*1,
     redeclare package Medium = Medium,
-    dpExh_nominal=0.467,
     allowFlowReversal=true,
     from_dp=false,
-    use_inputFilter=false) "mixing box"
+    use_inputFilter=false,
+    dpDamExh_nominal=(0.45)*1.2*(1)^2/2,
+    dpDamOut_nominal=(0.45)*1.2*(1)^2/2,
+    dpDamRec_nominal=(0.45)*1.2*(1)^2/2,
+    dpFixExh_nominal=0.467,
+    dpFixOut_nominal=0.467,
+    dpFixRec_nominal=0.665) "mixing box"
     annotation (Placement(transformation(extent={{6,-76},{30,-52}})));
   Buildings.Fluid.Sources.Boundary_pT bouIn(
     redeclare package Medium = Medium,

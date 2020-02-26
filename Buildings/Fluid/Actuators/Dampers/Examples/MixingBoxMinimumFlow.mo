@@ -10,12 +10,15 @@ model MixingBoxMinimumFlow
     mOutMin_flow_nominal=0.3,
     dpOutMin_nominal=20,
     mOut_flow_nominal=1,
-    dpOut_nominal=20,
     mRec_flow_nominal=1,
-    dpRec_nominal=20,
     mExh_flow_nominal=1,
-    dpExh_nominal=20,
-    redeclare package Medium = Medium) "mixing box"
+    redeclare package Medium = Medium,
+    dpDamExh_nominal=(0.45)*1.2*(1)^2/2,
+    dpDamOut_nominal=(0.45)*1.2*(1)^2/2,
+    dpDamRec_nominal=(0.45)*1.2*(1)^2/2,
+    dpFixExh_nominal=20,
+    dpFixOut_nominal=20,
+    dpFixRec_nominal=20) "mixing box"
     annotation (Placement(transformation(extent={{14,-22},{34,-2}})));
     Buildings.Fluid.Sources.Boundary_pT bouIn(             redeclare package
       Medium = Medium, T=273.15 + 10,
