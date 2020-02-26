@@ -72,7 +72,7 @@ annotation (defaultComponentName="senDen",
         Text(
           extent={{-20,120},{-140,70}},
           lineColor={0,0,0},
-          textString=DynamicSelect("", String(d, format=".2f")))}),
+          textString=DynamicSelect("", String(d, leftJustified = false, significantDigits=3)))}),
   Documentation(info="<html>
 <p>
 This model outputs the density of the fluid flowing from

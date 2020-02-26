@@ -68,7 +68,7 @@ annotation (defaultComponentName="senTraSub",
         Text(
           extent={{-20,120},{-140,70}},
           lineColor={0,0,0},
-          textString=DynamicSelect("", String(C, format=".2e")))}),
+          textString=DynamicSelect("", String(C, leftJustified = false, significantDigits=3)))}),
   Documentation(info="<html>
 <p>
 This model outputs the trace substance of the passing fluid.

@@ -102,7 +102,7 @@ annotation (defaultComponentName="senLatEnt",
         Text(
          extent={{-20,120},{-140,70}},
           lineColor={0,0,0},
-          textString=DynamicSelect("", String(H_flow, format=".3g")))}),
+          textString=DynamicSelect("", String(H_flow, leftJustified = false, significantDigits=3)))}),
   Documentation(info="<html>
 <p>
 This model outputs the <i>latent</i> enthalphy flow rate of the medium in the flow

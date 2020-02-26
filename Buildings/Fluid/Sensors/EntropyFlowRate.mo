@@ -70,7 +70,7 @@ annotation (defaultComponentName="senS_flow",
         Text(
          extent={{-20,120},{-140,70}},
           lineColor={0,0,0},
-          textString=DynamicSelect("", String(S_flow, format=".3g")))}),
+          textString=DynamicSelect("", String(S_flow, leftJustified = false, significantDigits=3)))}),
   Documentation(info="<html>
 <p>
 This model outputs the entropy flow rate of the medium in the flow

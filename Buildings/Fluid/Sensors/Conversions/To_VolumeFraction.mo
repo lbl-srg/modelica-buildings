@@ -54,7 +54,7 @@ equation
         Text(
           extent={{98,-46},{-22,-96}},
           lineColor={0,0,0},
-          textString=DynamicSelect("", String(V, format=".2e")))}),
+          textString=DynamicSelect("", String(V, leftJustified = false, significantDigits=3)))}),
 defaultComponentName="toVolFra",
 Documentation(info="<html>
 <p>
