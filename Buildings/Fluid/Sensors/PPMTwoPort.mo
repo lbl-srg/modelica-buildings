@@ -114,6 +114,12 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </html>", revisions="<html>
 <ul>
 <li>
+February 25, 2020, by Michael Wetter:<br/>
+Changed icon to display its operating state.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
+</li>
+<li>
 January 12, 2016, by Filip Jorissen:<br/>
 First implementation.
 See issue

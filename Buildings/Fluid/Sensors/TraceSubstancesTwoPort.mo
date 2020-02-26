@@ -82,6 +82,12 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </html>", revisions="<html>
 <ul>
 <li>
+February 25, 2020, by Michael Wetter:<br/>
+Changed icon to display its operating state.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
+</li>
+<li>
 January 26, 2016, by Michael Wetter:<br/>
 Avoided assignment of <code>CMed(nominal=0)</code> as this is
 not allowed.

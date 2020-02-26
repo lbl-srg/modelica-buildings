@@ -58,6 +58,12 @@ prior to using this model with one fluid port.
 </html>", revisions="<html>
 <ul>
 <li>
+February 25, 2020, by Michael Wetter:<br/>
+Changed icon to display its operating state.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
+</li>
+<li>
 June 10, 2015, by Michael Wetter:<br/>
 Reformulated assignment of <code>s</code> and <code>assert</code>
 statement. The reformulation of the assignment of <code>s</code> was

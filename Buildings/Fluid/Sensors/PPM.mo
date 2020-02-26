@@ -99,6 +99,12 @@ wrong.
 </html>", revisions="<html>
 <ul>
 <li>
+February 25, 2020, by Michael Wetter:<br/>
+Changed icon to display its operating state.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
+</li>
+<li>
 December 16, 2015, by Michael Wetter:<br/>
 Revised implementation, corrected error in the molar fraction which
 used the inverse ratio.
