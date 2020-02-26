@@ -174,9 +174,9 @@ equation
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{98,98},{-22,48}},
+          extent={{112,98},{-8,48}},
           lineColor={0,0,0},
-          textString=DynamicSelect("", String(y, format=".2f")))}),
+          textString=DynamicSelect("", String(y, leftJustified = false, significantDigits=3)))}),
     Documentation(info="<html>
 <p>
 Block that outputs <code>y = a + b u</code>,

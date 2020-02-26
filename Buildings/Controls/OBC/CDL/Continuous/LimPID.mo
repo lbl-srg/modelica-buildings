@@ -561,5 +561,5 @@ First implementation.
         Text(
           extent={{92,28},{-28,-22}},
           lineColor={0,0,0},
-          textString=DynamicSelect("", String(y, format=".2f")))}));
+          textString=DynamicSelect("", String(y, leftJustified = false, significantDigits=2)))}));
 end LimPID;
