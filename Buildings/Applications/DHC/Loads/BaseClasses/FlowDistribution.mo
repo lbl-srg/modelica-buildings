@@ -48,13 +48,12 @@ model FlowDistribution "Model of building hydraulic distribution system"
     "Pressure drop at nominal conditions"
     annotation(Dialog(group="Nominal condition"));
   final parameter Modelica.SIunits.PressureDifference dpVal_nominal(
-    final min=0, displayUnit="Pa")=
-    if have_val then 0.1 * dp_nominal else 0
+    final min=0, displayUnit="Pa") = if have_val then 0.1 * dp_nominal else 0
     "Mixing valve pressure drop at nominal conditions"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.PressureDifference dpDis_nominal[:](
-    final min=0, displayUnit="Pa")=
-    if nUni==1 then {1/2*(dp_nominal-dpVal_nominal-dpMin)} else
+    each final min=0, each displayUnit="Pa") = if nUni==1 then
+    {1/2*(dp_nominal-dpVal_nominal-dpMin)} else
     1/2 .* cat(1, {(dp_nominal-dpVal_nominal-dpMin)*0.2},
     fill((dp_nominal-dpVal_nominal-dpMin)*0.8 / (nUni-1), nUni-1))
     "Pressure drop between each connected unit at nominal conditions (supply line):
@@ -66,8 +65,8 @@ model FlowDistribution "Model of building hydraulic distribution system"
     final min=0, displayUnit="Pa") = dp_nominal / 2
     "Pressure difference setpoint for ConstantDp or at zero flow for LinearHead"
     annotation(Dialog(enable=typCtr==Type_ctr.ConstantDp));
-  parameter Modelica.SIunits.MassFlowRate mUni_flow_nominal[:](min=0)=
-    fill(m_flow_nominal/nUni, nUni)
+  parameter Modelica.SIunits.MassFlowRate mUni_flow_nominal[:](
+    each final min=0) = fill(m_flow_nominal/nUni, nUni)
     "Mass flow rate of each connected unit at nominal conditions"
     annotation(Dialog(
       group="Nominal condition",
@@ -82,8 +81,9 @@ model FlowDistribution "Model of building hydraulic distribution system"
   parameter Modelica.SIunits.Time tau = 120
     "Time constant of fluid temperature variation at nominal flow rate"
     annotation (
-      Dialog(tab="Dynamics", group="Nominal condition"),
-      enable=energyDynamics<> Modelica.Fluid.Types.Dynamics.SteadyState);
+      Dialog(
+        tab="Dynamics", group="Nominal condition",
+        enable=energyDynamics<> Modelica.Fluid.Types.Dynamics.SteadyState));
   // IO CONNECTORS
   Modelica.Fluid.Interfaces.FluidPorts_a ports_a1[nPorts_a1](
     redeclare each final package Medium=Medium,

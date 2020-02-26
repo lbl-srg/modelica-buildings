@@ -15,10 +15,10 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
       choice(redeclare package Medium2 = Buildings.Media.Water "Water")));
   parameter Boolean allowFlowReversal = false
     "Set to true to allow flow reversal on the source side"
-    annotation(tab="Assumptions", Evaluate=true);
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
   parameter Boolean allowFlowReversalLoa = true
     "Set to true to allow flow reversal on the load side"
-    annotation(tab="Assumptions", Evaluate=true);
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
   parameter Real facSca = 1
     "Scaling factor to be applied to each extensive quantity";
   parameter Boolean have_watHea = false

@@ -15,7 +15,9 @@ model CouplingTimeSeries
   Buildings.Fluid.Sources.Boundary_pT sinHeaWat(
     redeclare package Medium = Medium1,
     p=300000,
-    nPorts=1) "Sink for heating water" annotation (Placement(transformation(
+    nPorts=1)
+    "Sink for heating water"
+    annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={130,80})));
