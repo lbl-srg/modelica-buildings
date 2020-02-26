@@ -42,11 +42,11 @@ model MixingBoxMinimumFlow
       annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
     Modelica.Blocks.Sources.Ramp PSup(
     offset=101320,
-    height=-50,
+    height=-60,
     startTime=0,
     duration=20) annotation (Placement(transformation(extent={{60,40},{80,60}})));
     Modelica.Blocks.Sources.Ramp PRet(
-    height=50,
+    height=60,
     offset=101330,
     duration=20,
     startTime=20)
