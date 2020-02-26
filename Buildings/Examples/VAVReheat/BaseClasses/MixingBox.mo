@@ -67,9 +67,6 @@ model MixingBox
     annotation (Dialog(tab="Damper coefficients"));
   parameter Real yU=55/90 "Upper value for damper curve"
     annotation (Dialog(tab="Damper coefficients"));
-  parameter Real k0=1E6
-    "Flow coefficient for y=0, k0 = pressure drop divided by dynamic pressure"
-    annotation (Dialog(tab="Damper coefficients"));
   parameter Real k1=0.45
     "Flow coefficient for y=1, k1 = pressure drop divided by dynamic pressure"
     annotation (Dialog(tab="Damper coefficients"));
@@ -153,7 +150,6 @@ model MixingBox
     b=b,
     yL=yL,
     yU=yU,
-    k0=k0,
     use_constant_density=use_constant_density,
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=mOut_flow_nominal,
@@ -180,7 +176,6 @@ model MixingBox
     b=b,
     yL=yL,
     yU=yU,
-    k0=k0,
     use_constant_density=use_constant_density,
     allowFlowReversal=allowFlowReversal,
     use_inputFilter=true,
@@ -206,7 +201,6 @@ model MixingBox
     b=b,
     yL=yL,
     yU=yU,
-    k0=k0,
     use_constant_density=use_constant_density,
     allowFlowReversal=allowFlowReversal,
     use_inputFilter=true,
