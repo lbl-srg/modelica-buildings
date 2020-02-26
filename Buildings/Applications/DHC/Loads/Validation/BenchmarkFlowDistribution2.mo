@@ -144,8 +144,8 @@ equation
                                                   color={0,127,255}));
   connect(vol.ports[1], pum.port_a)
     annotation (Line(points={{-23,-80},{10,-80}},color={0,127,255}));
-  connect(supHeaWat.ports[2], vol.ports[2]) annotation (Line(points={{-40,-82},{
-          -40,-80},{-19,-80}},           color={0,127,255}));
+  connect(supHeaWat.ports[2], vol.ports[2]) annotation (Line(points={{-40,-82},
+          {-40,-80},{-19,-80}},          color={0,127,255}));
   connect(THeaWatSup.y, supHeaWat.T_in) annotation (Line(points={{-78,-80},{-70,
           -80},{-70,-76},{-62,-76}}, color={0,0,127}));
   connect(dpPum.y, pum.dp_in)
@@ -171,7 +171,6 @@ Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution2</a>.
 </li>
 </ul>
 </html>"),
-    Placement(transformation(extent={{40,-90},{80,-70}})),
     experiment(
       StopTime=2000000,
       __Dymola_NumberOfIntervals=500,

@@ -139,7 +139,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
   // IO connectors
   Modelica.Blocks.Interfaces.RealInput TSen(
     final quantity="ThermodynamicTemperature",
-    final unit="K", final displayUnit="degC") if have_TSen
+    final unit="K", displayUnit="degC") if have_TSen
     "Temperature (sensed)"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -161,7 +161,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
         origin={-130,60})));
   Modelica.Blocks.Interfaces.RealInput TSetCoo(
     final quantity="ThermodynamicTemperature",
-    final unit="K", final displayUnit="degC") if have_watCoo or have_eleCoo
+    final unit="K", displayUnit="degC") if have_watCoo or have_eleCoo
     "Cooling set point"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -508,7 +508,7 @@ Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>.
 consistency with
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
 Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>.
-Note that this requirement only applies to the source side. 
+Note that this requirement only applies to the source side.
 On the load side one is free to use
 whatever option suitable for the modeling needs: typically for an air flow
 network connected to the outdoor (either at the room level for modeling

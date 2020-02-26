@@ -2,10 +2,10 @@
 model SimpleRoomODE
   "Simplified model for assessing room air temperature variations around a setpoint"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.SIunits.Temperature TOutHea_nominal(final displayUnit="degC")
+  parameter Modelica.SIunits.Temperature TOutHea_nominal(displayUnit="degC")
     "Outdoor air temperature at heating nominal conditions"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.Temperature TIndHea_nominal(final displayUnit="degC")
+  parameter Modelica.SIunits.Temperature TIndHea_nominal(displayUnit="degC")
     "Indoor air temperature at heating nominal conditions"
     annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(min=0)
@@ -19,7 +19,7 @@ model SimpleRoomODE
     "Time constant of the indoor temperature";
   Modelica.Blocks.Interfaces.RealInput TSet(
     final quantity="ThermodynamicTemperature",
-    final unit="K", final displayUnit="degC")
+    final unit="K", displayUnit="degC")
     "Temperature set point for heating or cooling"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
@@ -35,7 +35,7 @@ model SimpleRoomODE
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Modelica.Blocks.Interfaces.RealOutput TAir(
     final quantity="ThermodynamicTemperature",
-    final unit="K", final displayUnit="degC")
+    final unit="K", displayUnit="degC")
     "Room air temperature"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 protected

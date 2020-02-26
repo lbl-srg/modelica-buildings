@@ -321,7 +321,6 @@ This model validates the pump head computation algorithm implemented in
 Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>.
 </p>
 </html>"),
-    Placement(transformation(extent={{40,-90},{80,-70}})),
     experiment(
       StopTime=400000,
       __Dymola_NumberOfIntervals=500,
