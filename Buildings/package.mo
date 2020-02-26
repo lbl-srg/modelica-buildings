@@ -434,6 +434,25 @@ its class name ends with the string <code>Beta</code>.
                            For Dymola, a conversion script makes this change.
         </td>
     </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Fluid.Actuators</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">
+                           Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential<br/>
+                           Buildings.Fluid.Actuators.Dampers.Exponential<br/>
+                           Buildings.Fluid.Actuators.Dampers.MixingBox<br/>
+                           Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow<br/>
+                           Buildings.Fluid.Actuators.Dampers.PressureIndependent<br/>
+                           Buildings.Fluid.Actuators.Dampers.VAVBoxExponential
+        </td>
+        <td valign=\"top\">Merged <code>VAVBoxExponential</code> (now retired) into <code>Exponential</code>.<br/>
+                           New parameters <code>dpDamper_nominal</code> and <code>dpFixed_nominal</code>
+                           have been introduced, in consistency with the valve models.<br/>
+                           Parameter <code>k0</code> has been replaced by a leakage coefficient.<br/>
+                           For Dymola, a conversion script makes this change.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1188\">IBPSA, #1188</a>.
+        </td>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
         </td>
     </tr>
