@@ -87,7 +87,7 @@ equation
           extent={{-40,126},{-160,76}},
           lineColor={0,0,127},
           visible=inputType == Buildings.Fluid.Types.InputType.Continuous or inputType == Buildings.Fluid.Types.InputType.Stages,
-          textString=DynamicSelect("m_flow", if inputType == Buildings.Fluid.Types.InputType.Continuous then String(m_flow_in, format=".1f") else String(stage)))}),
+          textString=DynamicSelect("m_flow", if inputType == Buildings.Fluid.Types.InputType.Continuous then String(m_flow_in, leftJustified = false, significantDigits=3) else String(stage)))}),
   defaultComponentName="fan",
   Documentation(
    info="<html>
