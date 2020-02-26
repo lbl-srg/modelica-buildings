@@ -199,11 +199,12 @@ in change-over mode.
 </p>
 </html>"),
   Diagram(
-    coordinateSystem(preserveAspectRatio=false, extent={{-160,-180},{160,180}})),
+    coordinateSystem(preserveAspectRatio=false, extent={{-180,-200},{180,200}})),
   experiment(
       StopTime=1000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
   __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Controls/Validation/MixingValveControl.mos"
-    "Simulate and plot"));
+    "Simulate and plot"),
+    Icon(coordinateSystem(extent={{-180,-200},{180,200}})));
 end MixingValveControl;
