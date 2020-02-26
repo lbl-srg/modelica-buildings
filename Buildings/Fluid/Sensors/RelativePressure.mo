@@ -65,7 +65,11 @@ equation
           points={{22,18},{62,3},{22,-12},{22,18}},
           lineColor={0,128,255},
           fillColor={0,128,255},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-20,-56},{-140,-106}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(p_rel, format=".3g")))}),
     Documentation(info="<html>
 <p>
 The relative pressure <code>port_a.p - port_b.p</code> is determined between

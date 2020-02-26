@@ -96,7 +96,7 @@ annotation (defaultComponentName="senRelHum",
         Line(points={{-100,0},{-70,0}}, color={0,128,255}),
         Line(points={{70,0},{100,0}}, color={0,128,255}),
         Text(
-          extent={{-40,90},{-160,40}},
+          extent={{-20,120},{-140,70}},
           lineColor={0,0,0},
           textString=DynamicSelect("", String(phi, format=".2f")))}),
   Documentation(info="<html>

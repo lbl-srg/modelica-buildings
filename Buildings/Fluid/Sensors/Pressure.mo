@@ -22,7 +22,12 @@ equation
         Text(
           extent={{151,-20},{57,-50}},
           lineColor={0,0,0},
-          textString="p")}),
+          textString="p"),
+        Line(points={{70,0},{100,0}}, color={0,0,127}),
+        Text(
+          extent={{180,90},{60,40}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(p, format=".3g")))}),
     Documentation(info="<html>
 <p>
 This model outputs the absolute pressure of the fluid connected to its port.

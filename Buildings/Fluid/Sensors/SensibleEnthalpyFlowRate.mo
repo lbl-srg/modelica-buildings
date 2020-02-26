@@ -90,7 +90,11 @@ annotation (defaultComponentName="senEntFlo",
         Line(points={{22.9,32.8},{40.2,57.3}}),
         Line(points={{0,70},{0,40}}),
         Line(points={{-22.9,32.8},{-40.2,57.3}}),
-        Line(points={{-37.6,13.7},{-65.8,23.9}})}),
+        Line(points={{-37.6,13.7},{-65.8,23.9}}),
+        Text(
+         extent={{-20,120},{-140,70}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(H_flow, format=".3g")))}),
   Documentation(info="<html>
 <p>
 This model outputs the <i>sensible</i> enthalphy flow rate of the medium in the flow

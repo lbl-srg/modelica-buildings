@@ -65,7 +65,11 @@ equation
           points={{24,18},{64,3},{24,-12},{24,18}},
           lineColor={0,128,255},
           fillColor={0,128,255},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-20,-56},{-140,-106}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(T_rel, format=".3g")))}),
     Documentation(info="<html>
 <p>
 The relative temperature <code>T(port_a) - T(port_b)</code> is determined between
