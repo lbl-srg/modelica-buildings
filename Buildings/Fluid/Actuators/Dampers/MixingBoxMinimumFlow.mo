@@ -50,6 +50,7 @@ model MixingBoxMinimumFlow
     final yL=yL,
     final yU=yU,
     final k1=k1,
+    final l=l,
     final use_constant_density=use_constant_density,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=mOutMin_flow_nominal,
