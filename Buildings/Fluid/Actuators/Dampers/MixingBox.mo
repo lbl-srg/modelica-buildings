@@ -1,6 +1,7 @@
 within Buildings.Fluid.Actuators.Dampers;
 model MixingBox "Outside air mixing box with interlocked air dampers"
-  extends Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal;
+  extends Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal(
+    final use_inputFilter=false);
 
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
@@ -28,7 +29,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
   parameter Modelica.SIunits.PressureDifference dpDamOut_nominal(min=0, displayUnit="Pa")
     "Pressure drop of damper in outside air leg"
      annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpFixOut_nominal(min=0, displayUnit="Pa")
+  parameter Modelica.SIunits.PressureDifference dpFixOut_nominal(min=0, displayUnit="Pa")=0
     "Pressure drop of duct and other resistances in outside air leg"
      annotation (Dialog(group="Nominal condition"));
 
@@ -38,7 +39,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
   parameter Modelica.SIunits.PressureDifference dpDamRec_nominal(min=0, displayUnit="Pa")
     "Pressure drop of damper in recirculation air leg"
      annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpFixRec_nominal(min=0, displayUnit="Pa")
+  parameter Modelica.SIunits.PressureDifference dpFixRec_nominal(min=0, displayUnit="Pa")=0
     "Pressure drop of duct and other resistances in recirculation air leg"
      annotation (Dialog(group="Nominal condition"));
 
@@ -48,7 +49,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
   parameter Modelica.SIunits.PressureDifference dpDamExh_nominal(min=0, displayUnit="Pa")
     "Pressure drop of damper in exhaust air leg"
      annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpFixExh_nominal(min=0, displayUnit="Pa")
+  parameter Modelica.SIunits.PressureDifference dpFixExh_nominal(min=0, displayUnit="Pa")=0
     "Pressure drop of duct and other resistances in exhaust air leg"
      annotation (Dialog(group="Nominal condition"));
 
@@ -115,7 +116,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     final k1=k1,
     final use_constant_density=use_constant_density,
     final allowFlowReversal=allowFlowReversal,
-    final use_inputFilter=false)
+    final use_inputFilter=use_inputFilter)
     "Outdoor air damper"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Buildings.Fluid.Actuators.Dampers.Exponential damExh(
@@ -137,7 +138,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     final k1=k1,
     final use_constant_density=use_constant_density,
     final allowFlowReversal=allowFlowReversal,
-    final use_inputFilter=false)
+    final use_inputFilter=use_inputFilter)
     "Exhaust air damper"
     annotation (Placement(transformation(extent={{-20,-70},{-40,-50}})));
   Buildings.Fluid.Actuators.Dampers.Exponential damRec(
@@ -159,7 +160,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     final k1=k1,
     final use_constant_density=use_constant_density,
     final allowFlowReversal=allowFlowReversal,
-    final use_inputFilter=false)
+    final use_inputFilter=use_inputFilter)
     "Recirculation air damper"
     annotation (
       Placement(transformation(
