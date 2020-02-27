@@ -15,7 +15,7 @@ model RoomVAV "Model for CO2 emitted by people"
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     from_dp=false,
-    dpDamper_nominal=(0.45)*1.2*(1)^2/2,
+    dpDamper_nominal=10,
     dpFixed_nominal=100,
     final l=l)
     annotation (Placement(transformation(
@@ -67,8 +67,7 @@ model RoomVAV "Model for CO2 emitted by people"
     MMMea=Modelica.Media.
     IdealGases.Common.SingleGasesData.CO2.MM) "CO2 volume fraction"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  DamperControl con(Kp=0.1)
-                          "Damper controller"
+  DamperControl con(Kp=5) "Damper controller"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
   Modelica.Blocks.Math.Gain peoDen(k=2.5/VRoo) "People density per m2"
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));

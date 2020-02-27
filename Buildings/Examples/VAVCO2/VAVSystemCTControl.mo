@@ -63,8 +63,7 @@ parameter Real scaDpFanRet_nominal = 1
     dpDamRec_nominal=(0.45)*1.2*(1)^2/2,
     dpFixExh_nominal=0.467,
     dpFixOut_nominal=0.467,
-    dpFixRec_nominal=0.665,
-    final l=l)
+    dpFixRec_nominal=0.665)
     "mixing box"
     annotation (Placement(transformation(extent={{6,-76},{30,-52}})));
   Buildings.Fluid.Sources.Boundary_pT bouIn(

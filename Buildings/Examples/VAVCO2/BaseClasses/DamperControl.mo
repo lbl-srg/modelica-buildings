@@ -7,8 +7,8 @@ block DamperControl "Local loop controller for damper"
   Buildings.Controls.Continuous.LimPID con(
     yMin=0,
     y_start=0.5,
-    Ti=60,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    Ti=1,
+    controllerType=Modelica.Blocks.Types.SimpleController.P,
     k=Kp,
     yMax=1,
     reverseAction=true,
