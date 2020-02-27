@@ -74,7 +74,7 @@ as required from medium model \"" + mediumName + "\".");
     dT = T - reference_T;
     h = dT*dryair.cp * X_air +
        (dT * steam.cp + h_fg) * X_steam;
-    R = dryair.R*X_air + steam.R*X_steam;
+    R_s = dryair.R*X_air + steam.R*X_steam;
 
     // Equation for ideal gas, from h=u+p*v and R*T=p*v, from which follows that  u = h-R*T.
     // u = h-R*T;
@@ -200,7 +200,7 @@ redeclare function extends gasConstant
     "Return ideal gas constant as a function from thermodynamic state, only valid for phi<1"
 
 algorithm
-    R := dryair.R*(1 - state.X[Water]) + steam.R*state.X[Water];
+    R_s := dryair.R*(1 - state.X[Water]) + steam.R*state.X[Water];
   annotation (
     smoothOrder=2,
     Inline=true,
