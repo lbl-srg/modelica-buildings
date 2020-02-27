@@ -449,7 +449,9 @@ its class name ends with the string <code>Beta</code>.
                            New parameters <code>dpDamper_nominal</code> and <code>dpFixed_nominal</code>
                            have been introduced, in consistency with the valve models.<br/>
                            Parameter <code>k0</code> has been replaced by a leakage coefficient.<br/>
-                           For Dymola, a conversion script makes this change.<br/>
+                           For Dymola, a conversion script makes this change. However the script will
+                           not make the <code>each</code> keyword persist in array declarations. The
+                           keyword will have to be manually reintroduced after applying the script.<br/>
                            This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1188\">IBPSA, #1188</a>.
         </td>
     </tr>
