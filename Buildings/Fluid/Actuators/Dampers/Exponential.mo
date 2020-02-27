@@ -64,7 +64,7 @@ Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-December 23, 2019, by Antoine Gautier:<br/>
+February 26, 2020, by Antoine Gautier:<br/>
 Added the pressure drop calculation as it is no longer in the base class.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1188\">#1188</a>.

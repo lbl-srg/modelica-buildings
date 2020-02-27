@@ -204,7 +204,7 @@ ASHRAE Final Report 825-RP, Atlanta, GA.
 revisions="<html>
 <ul>
 <li>
-December 23, 2019, by Antoine Gautier:<br/>
+February 26, 2020, by Antoine Gautier:<br/>
 Removed the equations involving <code>m_flow</code> and <code>dp</code> that now need
 to be added in each derived damper model.<br/>
 Added the declaration of <code>dpDamper_nominal</code> and <code>dpFixed_nominal</code>.<br/>

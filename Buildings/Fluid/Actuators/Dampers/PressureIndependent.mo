@@ -161,7 +161,7 @@ Please see that documentation for more information.
 revisions="<html>
 <ul>
 <li>
-December 23, 2019 by Antoine Gautier:<br/>
+February 26, 2020 by Antoine Gautier:<br/>
 Refactored as the model can now extend directly 
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential\">
 Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential</a>.<br/>

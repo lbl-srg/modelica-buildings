@@ -141,6 +141,14 @@ defaultComponentName="eco",
 Documentation(revisions="<html>
 <ul>
 <li>
+February 26, 2020, by Antoine Gautier:<br/>
+Updated parameter bindings consistently with refactoring of
+<a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential\">
+Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential</a>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1188\">#1188</a>.
+</li>
+<li>
 March 24, 2017, by Michael Wetter:<br/>
 Renamed <code>filteredInput</code> to <code>use_inputFilter</code>.<br/>
 This is for

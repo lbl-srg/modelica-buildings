@@ -292,7 +292,7 @@ defaultComponentName="eco",
 Documentation(revisions="<html>
 <ul>
 <li>
-December 23, 2019, by Antoine Gautier:<br/>
+February 26, 2020, by Antoine Gautier:<br/>
 Updated parameter bindings consistently with refactoring of
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential\">
 Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential</a>.<br/>
