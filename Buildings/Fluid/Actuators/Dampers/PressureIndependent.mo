@@ -12,7 +12,7 @@ model PressureIndependent
   parameter Real deltax(unit="1", min=1E-5) = 0.02 "Transition interval for flow rate"
     annotation(Dialog(tab="Advanced"));
 protected
-  parameter Real coeff1 = l2/dp_nominal*m_flow_nominal
+  parameter Real coeff1 = l2/dpDamper_nominal*m_flow_nominal
     "Parameter for avoiding unnecessary computations";
   parameter Real coeff2 = 1/coeff1
     "Parameter for avoiding unnecessary computations";
