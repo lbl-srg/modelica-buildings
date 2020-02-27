@@ -6,7 +6,7 @@ model ThirdOrderStratifier
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model" annotation (choicesAllMatching=true);
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0)
+  parameter Modelica.Units.SI.MassFlowRate m_flow_small(min=0)
     "Small mass flow rate for regularization of zero flow";
   parameter Integer nSeg(min=4) "Number of volume segments";
 
@@ -32,11 +32,11 @@ model ThirdOrderStratifier
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
 protected
-  Modelica.SIunits.SpecificEnthalpy[nSeg + 1] hOut
+  Modelica.Units.SI.SpecificEnthalpy[nSeg + 1] hOut
     "Extended vector with new outlet enthalpies to reduce numerical dissipation (at the boundary between two volumes)";
-  Modelica.SIunits.SpecificEnthalpy[nSeg + 2] h
+  Modelica.Units.SI.SpecificEnthalpy[nSeg + 2] h
     "Extended vector with port enthalpies, needed to simplify loop";
-  Modelica.SIunits.HeatFlowRate Q_flow[nSeg]
+  Modelica.Units.SI.HeatFlowRate Q_flow[nSeg]
     "Heat exchange computed using upwind third order discretization scheme";
   //    Modelica.SIunits.HeatFlowRate Q_flow_upWind
   //     "Heat exchange computed using upwind third order discretization scheme"; //Used to test the energy conservation

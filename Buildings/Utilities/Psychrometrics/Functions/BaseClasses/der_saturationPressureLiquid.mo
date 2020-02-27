@@ -2,7 +2,7 @@ within Buildings.Utilities.Psychrometrics.Functions.BaseClasses;
 function der_saturationPressureLiquid
   "Derivative of the function saturationPressureLiquid"
   extends Modelica.Icons.Function;
-  input Modelica.SIunits.Temperature Tsat "Saturation temperature";
+  input Modelica.Units.SI.Temperature Tsat "Saturation temperature";
   input Real dTsat(unit="K/s") "Saturation temperature derivative";
   output Real psat_der(unit="Pa/s") "Differential of saturation pressure";
 

@@ -9,7 +9,7 @@ block TimeTable
   parameter CDL.Types.Extrapolation extrapolation=CDL.Types.Extrapolation.Periodic
     "Extrapolation of data outside the definition range";
   parameter Real offset[:]={0} "Offsets of output signals";
-  parameter Modelica.SIunits.Time timeScale=1
+  parameter Modelica.Units.SI.Time timeScale=1
     "Time scale of first table column. Set to 3600 if time in table is in hours";
 
   Interfaces.RealOutput y[nout] "Output of the table"

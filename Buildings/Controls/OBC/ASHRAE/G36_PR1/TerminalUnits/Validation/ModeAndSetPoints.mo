@@ -103,8 +103,8 @@ model ModeAndSetPoints
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 
 protected
-  final parameter Modelica.SIunits.Time occSta = 7*3600 "Occupancy start time";
-  final parameter Modelica.SIunits.Time occEnd = 19*3600 "Occupancy end time";
+  final parameter Modelica.Units.SI.Time occSta=7*3600 "Occupancy start time";
+  final parameter Modelica.Units.SI.Time occEnd=19*3600 "Occupancy end time";
 
 equation
   connect(TZon1.y, setPoi.TZon[1])

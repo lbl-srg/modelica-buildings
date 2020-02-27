@@ -7,9 +7,9 @@ model CalendarTime
   parameter Integer yearRef(min=firstYear, max=lastYear) = 2016
     "Year when time = 0, used if zerTim=Custom"
     annotation(Dialog(enable=zerTim==Buildings.Controls.OBC.CDL.Types.ZeroTime.Custom));
-  parameter Modelica.SIunits.Time offset = 0
+  parameter Modelica.Units.SI.Time offset=0
     "Offset that is added to 'time', may be used for computing time in different time zone"
-    annotation(Dialog(tab="Advanced"));
+    annotation (Dialog(tab="Advanced"));
 
   discrete Interfaces.IntegerOutput  year "Year"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}}),

@@ -19,9 +19,9 @@ partial model PartialDuctPipeManifold
   // expanded by Dymola when checking for consistent start values, and hence
   // the translation will stop with an error in Dymola 2016 when using the pedantic
   // mode.
-  parameter Modelica.SIunits.MassFlowRate mStart_flow_a
+  parameter Modelica.Units.SI.MassFlowRate mStart_flow_a
     "Guess value for mass flow rate at port_a"
-    annotation(Dialog(group = "Initialization"));
+    annotation (Dialog(group="Initialization"));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
         redeclare package Medium = Medium,

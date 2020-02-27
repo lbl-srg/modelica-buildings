@@ -5,19 +5,19 @@ model PlateHeatExchangerEffectivenessNTU
     UA = 1/(1/hA1 + 1/hA2));
 
 protected
-  parameter Modelica.SIunits.ThermalConductance hA1_nominal(min=0)=2*UA_nominal
-    "Nominal convective heat transfer coefficient for medium 1";
-  parameter Modelica.SIunits.ThermalConductance hA2_nominal(min=0)=2*UA_nominal
-    "Nominal convective heat transfer coefficient for medium 2";
+  parameter Modelica.Units.SI.ThermalConductance hA1_nominal(min=0) = 2*
+    UA_nominal "Nominal convective heat transfer coefficient for medium 1";
+  parameter Modelica.Units.SI.ThermalConductance hA2_nominal(min=0) = 2*
+    UA_nominal "Nominal convective heat transfer coefficient for medium 2";
 
   parameter Real n1(min=0, max=1)=0.8
     "Exponent for convective heat transfer coefficient, h1~m1_flow^n1";
   parameter Real n2(min=0, max=1)=0.8
    "Exponent for convective heat transfer coefficient, h2~m2_flow^n2";
 
-  Modelica.SIunits.ThermalConductance hA1
+  Modelica.Units.SI.ThermalConductance hA1
     "Convective heat transfer coefficient for medium 1";
-  Modelica.SIunits.ThermalConductance hA2
+  Modelica.Units.SI.ThermalConductance hA2
     "Convective heat transfer coefficient for medium 2";
 
 equation

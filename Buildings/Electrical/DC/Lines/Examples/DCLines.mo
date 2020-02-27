@@ -5,9 +5,9 @@ model DCLines
   parameter Boolean linearLoads = false
     "Flag that selects between linearized or nonlinear load models";
   parameter Real L = 10 "Length of each cable";
-  Modelica.SIunits.Power Sloads = load1.S[1] + load2.S[1] +load3.S[1] +load4.S[1] +
-                load5.S[1] +load6.S[1] +load7.S[1] +load8.S[1] +load9.S[1] +
-                load10.S[1] "Sum of the power consumed by the loads";
+  Modelica.Units.SI.Power Sloads=load1.S[1] + load2.S[1] + load3.S[1] + load4.S[
+      1] + load5.S[1] + load6.S[1] + load7.S[1] + load8.S[1] + load9.S[1] +
+      load10.S[1] "Sum of the power consumed by the loads";
   Line line(
     P_nominal=500,
     V_nominal=50,

@@ -2,7 +2,7 @@ within Buildings.HeatTransfer.Windows.BaseClasses;
 model ThermalConductor
   "Lumped thermal element with variable area, transporting heat without storing it"
   extends Modelica.Thermal.HeatTransfer.Interfaces.Element1D;
-  parameter Modelica.SIunits.ThermalConductance G
+  parameter Modelica.Units.SI.ThermalConductance G
     "Constant thermal conductance of material";
   Modelica.Blocks.Interfaces.RealInput u(min=0)
     "Input signal for thermal conductance"

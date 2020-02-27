@@ -9,14 +9,14 @@ block ApparatusDryPoint "Calculates air properties at dry coil surface"
     min=253.15,
     max=373.15) "Dry bulb temperature of air at dry coil condition"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  output Modelica.SIunits.SpecificEnthalpy hDry
+  output Modelica.Units.SI.SpecificEnthalpy hDry
     "Enthalpy of air at coil surface";
 protected
-  Modelica.SIunits.MassFraction XEvaInVec[Medium.nX]
+  Modelica.Units.SI.MassFraction XEvaInVec[Medium.nX]
     "Mass fraction of air inlet condition";
-  Modelica.SIunits.Temperature TADP(start=283.15)
+  Modelica.Units.SI.Temperature TADP(start=283.15)
     "Apparatus dew point temperature";
-  Modelica.SIunits.SpecificEnthalpy hMin
+  Modelica.Units.SI.SpecificEnthalpy hMin
     "Minimum enthalpy of apparatus dew point";
 equation
   XEvaInVec =cat(1,{XEvaIn},{1-sum({XEvaIn})});

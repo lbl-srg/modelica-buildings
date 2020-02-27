@@ -9,7 +9,7 @@ model NormalizedPower "Validation model for the normalized power calculation"
     "Coefficients for fan relative power consumption as a function of control signal";
 
   Real y "Control signal";
-  Modelica.SIunits.Efficiency r_P(max=1) "Normalized power consumption";
+  Modelica.Units.SI.Efficiency r_P(max=1) "Normalized power consumption";
 
 initial equation
   // Derivatives for spline that interpolates the fan relative power

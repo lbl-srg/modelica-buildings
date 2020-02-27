@@ -33,9 +33,9 @@ model Enable_TOut_hOut
     annotation (Placement(transformation(extent={{220,-40},{240,-20}})));
 
 protected
-  final parameter Modelica.SIunits.Temperature TOutCutoff=297.15
+  final parameter Modelica.Units.SI.Temperature TOutCutoff=297.15
     "Outdoor temperature high limit cutoff";
-  final parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
+  final parameter Modelica.Units.SI.SpecificEnergy hOutCutoff=65100
     "Outdoor air enthalpy high limit cutoff";
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutCut(

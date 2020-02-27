@@ -13,17 +13,19 @@ model IntegratedPrimarySecondary
             Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)});
 
  // Dynamics
- parameter Modelica.SIunits.Time tauPump = 1
-   "Time constant of fluid volume for nominal flow in pumps, used if energy or mass balance is dynamic"
-   annotation (Dialog(tab = "Dynamics", group="Pump",
-     enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
+  parameter Modelica.Units.SI.Time tauPump=1
+    "Time constant of fluid volume for nominal flow in pumps, used if energy or mass balance is dynamic"
+    annotation (Dialog(
+      tab="Dynamics",
+      group="Pump",
+      enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
 
   //Pump
   parameter Integer numPum=numChi "Number of pumps"
     annotation(Dialog(group="Pump"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_pum_nominal(min=0)=m2_flow_chi_nominal
-  "Nominal flow rate of the pump"
-   annotation (Dialog(group="Pump"));
+  parameter Modelica.Units.SI.MassFlowRate m_flow_pum_nominal(min=0) =
+    m2_flow_chi_nominal "Nominal flow rate of the pump"
+    annotation (Dialog(group="Pump"));
   replaceable parameter Buildings.Fluid.Movers.Data.Generic perPum[numPum]
     "Performance data for primary pumps"
     annotation (Dialog(group="Pump"),
@@ -31,9 +33,12 @@ model IntegratedPrimarySecondary
   parameter Boolean addPowerToMedium=true
     "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)"
     annotation (Dialog(group="Pump"));
-  parameter Modelica.SIunits.Time riseTimePump = 30
+  parameter Modelica.Units.SI.Time riseTimePump=30
     "Rise time of the filter (time to reach 99.6 % of an opening step)"
-    annotation(Dialog(tab="Dynamics", group="Filtered flowrate",enable=use_inputFilter));
+    annotation (Dialog(
+      tab="Dynamics",
+      group="Filtered flowrate",
+      enable=use_inputFilter));
   parameter Modelica.Blocks.Types.Init initPum=initValve
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Filtered flowrate",enable=use_inputFilter));
@@ -53,9 +58,9 @@ model IntegratedPrimarySecondary
     "Flow coefficient of fixed resistance that may be in series with valve,
     k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
     annotation(Dialog(group="Pump"));
-  parameter Modelica.SIunits.PressureDifference dpValPum_nominal = 6000
-   "Nominal differential pressure of the shutoff valves for primary pumps"
-   annotation(Dialog(group="Pump"));
+  parameter Modelica.Units.SI.PressureDifference dpValPum_nominal=6000
+    "Nominal differential pressure of the shutoff valves for primary pumps"
+    annotation (Dialog(group="Pump"));
  //Valve
   parameter Real lVal5(min=1e-10,max=1) = 0.0001
     "Valve 5 leakage, l=Kv(y=0)/Kv(y=1)"
@@ -168,7 +173,7 @@ equation
   connect(senTem.port_b, val5.port_b)
     annotation (Line(points={{8,24},{2,24},{2,
           0},{30,0},{30,-20},{40,-20}}, color={0,127,255}));
-  connect(yPum, pum.u) annotation (Line(points={{-120,-44},{-96,-44},{-40,-44},
+  connect(yPum, pum.u) annotation (Line(points={{-120,-40},{-96,-40},{-40,-40},
           {-40,-6},{16,-6},{16,-16},{12,-16}},color={0,0,127}));
   connect(pum.port_a, val5.port_b)
     annotation (Line(points={{10,-20},{25,-20},{40,-20}}, color={0,127,255}));

@@ -17,48 +17,46 @@ model System3
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=10000/30)
     "Thermal conductance with the ambient"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
-  parameter Modelica.SIunits.Volume V=6*10*3 "Room volume";
+  parameter Modelica.Units.SI.Volume V=6*10*3 "Room volume";
   //////////////////////////////////////////////////////////
   // Heat recovery effectiveness
   parameter Real eps = 0.8 "Heat recovery effectiveness";
 
   /////////////////////////////////////////////////////////
   // Air temperatures at design conditions
-  parameter Modelica.SIunits.Temperature TASup_nominal = 273.15+18
+  parameter Modelica.Units.SI.Temperature TASup_nominal=273.15 + 18
     "Nominal air temperature supplied to room";
-  parameter Modelica.SIunits.Temperature TRooSet = 273.15+24
+  parameter Modelica.Units.SI.Temperature TRooSet=273.15 + 24
     "Nominal room air temperature";
-  parameter Modelica.SIunits.Temperature TOut_nominal = 273.15+30
+  parameter Modelica.Units.SI.Temperature TOut_nominal=273.15 + 30
     "Design outlet air temperature";
-  parameter Modelica.SIunits.Temperature THeaRecLvg=
-    TOut_nominal - eps*(TOut_nominal-TRooSet)
-    "Air temperature leaving the heat recovery";
+  parameter Modelica.Units.SI.Temperature THeaRecLvg=TOut_nominal - eps*(
+      TOut_nominal - TRooSet) "Air temperature leaving the heat recovery";
 
   /////////////////////////////////////////////////////////
   // Cooling loads and air mass flow rates
-  parameter Modelica.SIunits.HeatFlowRate QRooInt_flow=
-     1000 "Internal heat gains of the room";
-  parameter Modelica.SIunits.HeatFlowRate QRooC_flow_nominal=
-    -QRooInt_flow-10E3/30*(TOut_nominal-TRooSet)
-    "Nominal cooling load of the room";
-  parameter Modelica.SIunits.MassFlowRate mA_flow_nominal=
-    1.3*QRooC_flow_nominal/1006/(TASup_nominal-TRooSet)
+  parameter Modelica.Units.SI.HeatFlowRate QRooInt_flow=1000
+    "Internal heat gains of the room";
+  parameter Modelica.Units.SI.HeatFlowRate QRooC_flow_nominal=-QRooInt_flow -
+      10E3/30*(TOut_nominal - TRooSet) "Nominal cooling load of the room";
+  parameter Modelica.Units.SI.MassFlowRate mA_flow_nominal=1.3*
+      QRooC_flow_nominal/1006/(TASup_nominal - TRooSet)
     "Nominal air mass flow rate, increased by factor 1.3 to allow for recovery after temperature setback";
-  parameter Modelica.SIunits.TemperatureDifference dTFan = 2
+  parameter Modelica.Units.SI.TemperatureDifference dTFan=2
     "Estimated temperature raise across fan that needs to be made up by the cooling coil";
-  parameter Modelica.SIunits.HeatFlowRate QCoiC_flow_nominal=4*
-    (QRooC_flow_nominal + mA_flow_nominal*(TASup_nominal-THeaRecLvg-dTFan)*1006)
+  parameter Modelica.Units.SI.HeatFlowRate QCoiC_flow_nominal=4*(
+      QRooC_flow_nominal + mA_flow_nominal*(TASup_nominal - THeaRecLvg - dTFan)
+      *1006)
     "Cooling load of coil, taking into account economizer, and increased due to latent heat removal";
 
   /////////////////////////////////////////////////////////
   // Water temperatures and mass flow rates
-  parameter Modelica.SIunits.Temperature TWSup_nominal = 273.15+16
+  parameter Modelica.Units.SI.Temperature TWSup_nominal=273.15 + 16
     "Water supply temperature";
-  parameter Modelica.SIunits.Temperature TWRet_nominal = 273.15+12
+  parameter Modelica.Units.SI.Temperature TWRet_nominal=273.15 + 12
     "Water return temperature";
-  parameter Modelica.SIunits.MassFlowRate mW_flow_nominal=
-    QCoiC_flow_nominal/(TWRet_nominal-TWSup_nominal)/4200
-    "Nominal water mass flow rate";
+  parameter Modelica.Units.SI.MassFlowRate mW_flow_nominal=QCoiC_flow_nominal/(
+      TWRet_nominal - TWSup_nominal)/4200 "Nominal water mass flow rate";
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
                                                          TOut

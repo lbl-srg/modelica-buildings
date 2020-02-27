@@ -34,7 +34,7 @@ block CFDExchange "Block that exchanges data with the CFD code"
   parameter String portName[:]
     "Names of fluid ports as declared in the CFD input file";
   parameter Boolean verbose=false "Set to true for verbose output";
-  parameter Modelica.SIunits.Density rho_start "Density at initial state";
+  parameter Modelica.Units.SI.Density rho_start "Density at initial state";
 
   CFDThread CFDThre = CFDThread()
    "Allocate memory for cosimulation variables via constructor and send stop command to FFD via destructor";
@@ -54,7 +54,7 @@ protected
     "Number of sensors that are connected to CFD output";
   final parameter Integer nPorts=size(portName, 1)
     "Number of fluid ports for the HVAC inlet and outlets";
-  discrete Modelica.SIunits.Time modTimRea(fixed=false)
+  discrete Modelica.Units.SI.Time modTimRea(fixed=false)
     "Current model time received from CFD";
 
   discrete Integer retVal(start=0, fixed=true) "Return value from CFD";
@@ -64,8 +64,8 @@ protected
   function sendParameters
     input String cfdFilNam "CFD input file name";
     input String[nSur] name "Surface names";
-    input Modelica.SIunits.Area[nSur] A "Surface areas";
-    input Modelica.SIunits.Angle[nSur] til "Surface tilt";
+    input Modelica.Units.SI.Area[nSur] A "Surface areas";
+    input Modelica.Units.SI.Angle[nSur] til "Surface tilt";
     input Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions[nSur] bouCon
       "Type of boundary condition";
     input Integer nPorts(min=0)
@@ -85,7 +85,7 @@ protected
     input Integer nXi
       "Number of independent species concentration of the inflowing medium";
     input Integer nC "Number of trace substances of the inflowing medium";
-    input Modelica.SIunits.Density rho_start "Density at initial state";
+    input Modelica.Units.SI.Density rho_start "Density at initial state";
   protected
     Integer coSimFlag=0;
   algorithm
@@ -124,14 +124,15 @@ protected
   // Modelica and CFD.
   function exchange
     input Integer flag "Communication flag to write to CFD";
-    input Modelica.SIunits.Time t "Current simulation time in seconds to write";
-    input Modelica.SIunits.Time dt(min=100*Modelica.Constants.eps)
+    input Modelica.Units.SI.Time t
+      "Current simulation time in seconds to write";
+    input Modelica.Units.SI.Time dt(min=100*Modelica.Constants.eps)
       "Requested time step length";
     input Real[nU] u "Input for CFD";
     input Integer nU "Number of inputs for CFD";
     input Real[nY] yFixed "Fixed values (used for debugging only)";
     input Integer nY "Number of outputs from CFD";
-    output Modelica.SIunits.Time modTimRea
+    output Modelica.Units.SI.Time modTimRea
       "Current model time in seconds read from CFD";
     input Boolean verbose "Set to true for verbose output";
     output Real[nY] y "Output computed by CFD";

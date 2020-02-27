@@ -18,12 +18,11 @@ model ElectricReformulatedEIR
                 Placement(transformation(extent={{40,80},{60,100}})));
 
 protected
-  final parameter Modelica.SIunits.Conversions.NonSIunits.Temperature_degC
-    TConLvg_nominal_degC=
-    Modelica.SIunits.Conversions.to_degC(per.TConLvg_nominal)
+  final parameter Modelica.Units.NonSI.Temperature_degC TConLvg_nominal_degC=
+      Modelica.Units.Conversions.to_degC(per.TConLvg_nominal)
     "Temperature of fluid leaving condenser at nominal condition";
 
-  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TConLvg_degC
+  Modelica.Units.NonSI.Temperature_degC TConLvg_degC
     "Temperature of fluid leaving condenser";
 initial equation
   // Verify correctness of performance curves, and write warning if error is bigger than 10%
@@ -33,7 +32,7 @@ initial equation
      "Capacity as a function of temperature ",
      "per.capFunT");
 equation
-  TConLvg_degC=Modelica.SIunits.Conversions.to_degC(TConLvg);
+  TConLvg_degC=Modelica.Units.Conversions.to_degC(TConLvg);
 
   if on then
     // Compute the chiller capacity fraction, using a biquadratic curve.

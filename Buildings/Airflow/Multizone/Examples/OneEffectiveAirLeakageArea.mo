@@ -21,8 +21,8 @@ model OneEffectiveAirLeakageArea "Model with an effective air leakage area"
     annotation (Placement(transformation(extent={{70,20},{90,40}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Modelica.Blocks.Sources.Sine Sine1(freqHz=1/3600) annotation (Placement(
-        transformation(extent={{-80,20},{-60,40}})));
+  Modelica.Blocks.Sources.Sine Sine1(f=1/3600)
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Blocks.Math.Gain Gain1(k=100) annotation (Placement(transformation(
           extent={{-40,20},{-20,40}})));
   Buildings.Airflow.Multizone.EffectiveAirLeakageArea cra(redeclare package

@@ -5,21 +5,21 @@ model Carnot_TCon_reverseFlow
  package Medium1 = Buildings.Media.Water "Medium model";
  package Medium2 = Buildings.Media.Water "Medium model";
 
-  parameter Modelica.SIunits.TemperatureDifference dTEva_nominal=-10
+  parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal=-10
     "Temperature difference evaporator inlet-outlet";
-  parameter Modelica.SIunits.TemperatureDifference dTCon_nominal=10
+  parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal=10
     "Temperature difference condenser outlet-inlet";
-  parameter Modelica.SIunits.HeatFlowRate QCon_flow_nominal = 100E3
+  parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal=100E3
     "Evaporator heat flow rate";
-  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal=
-    QCon_flow_nominal/dTCon_nominal/4200 "Nominal mass flow rate at condenser";
+  parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal=QCon_flow_nominal/
+      dTCon_nominal/4200 "Nominal mass flow rate at condenser";
 
   Modelica.Blocks.Sources.Constant TConLvg(k=273.15 + 40)
     "Control signal for condenser leaving temperature"
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
 
-  final parameter Modelica.SIunits.SpecificHeatCapacity cp2_default=
-    Medium2.specificHeatCapacityCp(Medium2.setState_pTX(
+  final parameter Modelica.Units.SI.SpecificHeatCapacity cp2_default=
+      Medium2.specificHeatCapacityCp(Medium2.setState_pTX(
       Medium2.p_default,
       Medium2.T_default,
       Medium2.X_default))

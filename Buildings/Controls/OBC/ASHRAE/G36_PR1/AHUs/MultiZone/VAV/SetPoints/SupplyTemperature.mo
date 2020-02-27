@@ -2,47 +2,40 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints;
 block SupplyTemperature
   "Supply air temperature setpoint for multi zone system"
 
-  parameter Modelica.SIunits.Temperature TSupSetMin = 285.15
+  parameter Modelica.Units.SI.Temperature TSupSetMin=285.15
     "Lowest cooling supply air temperature setpoint"
     annotation (Dialog(group="Temperatures"));
-  parameter Modelica.SIunits.Temperature TSupSetMax = 291.15
-    "Highest cooling supply air temperature setpoint. It is typically 18 degC (65 degF) 
+  parameter Modelica.Units.SI.Temperature TSupSetMax=291.15 "Highest cooling supply air temperature setpoint. It is typically 18 degC (65 degF) 
     in mild and dry climates, 16 degC (60 degF) or lower in humid climates"
     annotation (Dialog(group="Temperatures"));
-  parameter Modelica.SIunits.Temperature TSupSetDes = 286.15
+  parameter Modelica.Units.SI.Temperature TSupSetDes=286.15
     "Nominal supply air temperature setpoint"
     annotation (Dialog(group="Temperatures"));
-  parameter Modelica.SIunits.Temperature TOutMin = 289.15
+  parameter Modelica.Units.SI.Temperature TOutMin=289.15
     "Lower value of the outdoor air temperature reset range. Typically value is 16 degC (60 degF)"
     annotation (Dialog(group="Temperatures"));
-  parameter Modelica.SIunits.Temperature TOutMax = 294.15
+  parameter Modelica.Units.SI.Temperature TOutMax=294.15
     "Higher value of the outdoor air temperature reset range. Typically value is 21 degC (70 degF)"
     annotation (Dialog(group="Temperatures"));
-  parameter Modelica.SIunits.Temperature iniSet = maxSet
-    "Initial setpoint"
+  parameter Modelica.Units.SI.Temperature iniSet=maxSet "Initial setpoint"
     annotation (Dialog(group="Trim and respond logic"));
-  parameter Modelica.SIunits.Temperature maxSet = TSupSetMax
-    "Maximum setpoint"
+  parameter Modelica.Units.SI.Temperature maxSet=TSupSetMax "Maximum setpoint"
     annotation (Dialog(group="Trim and respond logic"));
-  parameter Modelica.SIunits.Temperature minSet = TSupSetDes
-    "Minimum setpoint"
+  parameter Modelica.Units.SI.Temperature minSet=TSupSetDes "Minimum setpoint"
     annotation (Dialog(group="Trim and respond logic"));
-  parameter Modelica.SIunits.Time delTim = 600
-    "Delay timer"
-    annotation(Dialog(group="Trim and respond logic"));
-  parameter Modelica.SIunits.Time samplePeriod(min=1E-3) = 120
+  parameter Modelica.Units.SI.Time delTim=600 "Delay timer"
+    annotation (Dialog(group="Trim and respond logic"));
+  parameter Modelica.Units.SI.Time samplePeriod(min=1E-3) = 120
     "Sample period of component"
-    annotation(Dialog(group="Trim and respond logic"));
+    annotation (Dialog(group="Trim and respond logic"));
   parameter Integer numIgnReq = 2
     "Number of ignorable requests for TrimResponse logic"
     annotation(Dialog(group="Trim and respond logic"));
-  parameter Modelica.SIunits.TemperatureDifference triAmo = 0.1
-    "Trim amount"
+  parameter Modelica.Units.SI.TemperatureDifference triAmo=0.1 "Trim amount"
     annotation (Dialog(group="Trim and respond logic"));
-  parameter Modelica.SIunits.TemperatureDifference resAmo = -0.2
-    "Response amount"
-    annotation (Dialog(group="Trim and respond logic"));
-  parameter Modelica.SIunits.TemperatureDifference maxRes = -0.6
+  parameter Modelica.Units.SI.TemperatureDifference resAmo=-0.2
+    "Response amount" annotation (Dialog(group="Trim and respond logic"));
+  parameter Modelica.Units.SI.TemperatureDifference maxRes=-0.6
     "Maximum response per time interval"
     annotation (Dialog(group="Trim and respond logic"));
 

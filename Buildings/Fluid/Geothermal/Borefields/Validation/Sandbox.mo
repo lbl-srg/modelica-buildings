@@ -3,7 +3,7 @@ model Sandbox "Validation of BorefieldOneUTube based on the experiment of Beier 
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water;
 
-  parameter Modelica.SIunits.Temperature T_start = 273.15 + 22.09
+  parameter Modelica.Units.SI.Temperature T_start=273.15 + 22.09
     "Initial temperature of the sandbox";
 
   // mSenFac is set to its numerical value because it is a constant in the borehole model.

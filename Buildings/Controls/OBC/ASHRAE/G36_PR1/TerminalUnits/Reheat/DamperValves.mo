@@ -2,9 +2,9 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat;
 block DamperValves
   "Output signals for controlling VAV reheat box damper and valve position"
 
-  parameter Modelica.SIunits.TemperatureDifference dTDisZonSetMax=11
+  parameter Modelica.Units.SI.TemperatureDifference dTDisZonSetMax=11
     "Zone maximum discharge air temperature above heating setpoint";
-  parameter Modelica.SIunits.Temperature TDisMin=283.15
+  parameter Modelica.Units.SI.Temperature TDisMin=283.15
     "Lowest discharge air temperature";
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeVal=
@@ -16,17 +16,15 @@ block DamperValves
     "Gain of controller for valve control"
     annotation(Dialog(group="Valve"));
 
-  parameter Modelica.SIunits.Time TiVal=300
-    "Time constant of integrator block for valve control"
-    annotation(Dialog(group="Valve",
-    enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-        or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time TiVal=300
+    "Time constant of integrator block for valve control" annotation (Dialog(
+        group="Valve", enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+           or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Modelica.SIunits.Time TdVal=0.1
-    "Time constant of derivative block for valve control"
-    annotation (Dialog(group="Valve",
-      enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-          or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time TdVal=0.1
+    "Time constant of derivative block for valve control" annotation (Dialog(
+        group="Valve", enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+           or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeDam=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -37,21 +35,19 @@ block DamperValves
     "Gain of controller for damper control"
     annotation(Dialog(group="Damper"));
 
-  parameter Modelica.SIunits.Time TiDam=300
-    "Time constant of integrator block for damper control"
-    annotation(Dialog(group="Damper",
-    enable=controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-        or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time TiDam=300
+    "Time constant of integrator block for damper control" annotation (Dialog(
+        group="Damper", enable=controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+           or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Modelica.SIunits.Time TdDam=0.1
-    "Time constant of derivative block for damper control"
-    annotation (Dialog(group="Damper",
-      enable=controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-          or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time TdDam=0.1
+    "Time constant of derivative block for damper control" annotation (Dialog(
+        group="Damper", enable=controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+           or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal(min=1E-10)
+  parameter Modelica.Units.SI.VolumeFlowRate V_flow_nominal(min=1E-10)
     "Nominal volume flow rate, used to normalize control error"
-    annotation(Dialog(group="Damper"));
+    annotation (Dialog(group="Damper"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHea(
     min=0,

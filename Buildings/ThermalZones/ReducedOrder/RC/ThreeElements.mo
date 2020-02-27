@@ -3,25 +3,23 @@ model ThreeElements "Thermal Zone with three elements for exterior walls,
   interior walls and floor plate"
     extends TwoElements(AArray={ATotExt,ATotWin,AInt,AFloor});
 
-  parameter Modelica.SIunits.Area AFloor "Area of floor plate"
-    annotation(Dialog(group="Floor plate"));
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer hConFloor
+  parameter Modelica.Units.SI.Area AFloor "Area of floor plate"
+    annotation (Dialog(group="Floor plate"));
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer hConFloor
     "Convective coefficient of heat transfer of floor plate (indoor)"
-    annotation(Dialog(group="Floor plate"));
+    annotation (Dialog(group="Floor plate"));
   parameter Integer nFloor(min = 1) "Number of RC-elements of floor plate"
     annotation(Dialog(group="Floor plate"));
-  parameter Modelica.SIunits.ThermalResistance RFloor[nFloor](
-    each min=Modelica.Constants.small)
+  parameter Modelica.Units.SI.ThermalResistance RFloor[nFloor](each min=
+        Modelica.Constants.small)
     "Vector of resistances of floor plate, from inside to outside"
-    annotation(Dialog(group="Floor plate"));
-  parameter Modelica.SIunits.ThermalResistance RFloorRem(
-    min=Modelica.Constants.small)
+    annotation (Dialog(group="Floor plate"));
+  parameter Modelica.Units.SI.ThermalResistance RFloorRem(min=Modelica.Constants.small)
     "Resistance of remaining resistor RFloorRem between capacity n and outside"
-    annotation(Dialog(group="Floor plate"));
-  parameter Modelica.SIunits.HeatCapacity CFloor[nFloor](
-    each min=Modelica.Constants.small)
+    annotation (Dialog(group="Floor plate"));
+  parameter Modelica.Units.SI.HeatCapacity CFloor[nFloor](each min=Modelica.Constants.small)
     "Vector of heat capacities of floor plate, from inside to outside"
-    annotation(Dialog(group="Floor plate"));
+    annotation (Dialog(group="Floor plate"));
   parameter Boolean indoorPortFloor = false
     "Additional heat port at indoor surface of floor plate"
     annotation(Dialog(group="Floor plate"),choices(checkBox = true));

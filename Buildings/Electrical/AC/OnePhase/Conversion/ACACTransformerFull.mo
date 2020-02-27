@@ -12,13 +12,13 @@ model ACACTransformerFull "AC AC transformer with detailed equivalent circuit"
       constrainedby Interfaces.Terminal_p(
       i(start = zeros(PhaseSystem_p.n),
       each stateSelect = StateSelect.prefer)));
-  parameter Modelica.SIunits.Voltage VHigh
+  parameter Modelica.Units.SI.Voltage VHigh
     "RMS voltage on side 1 of the transformer (primary side)";
-  parameter Modelica.SIunits.Voltage VLow
+  parameter Modelica.Units.SI.Voltage VLow
     "RMS voltage on side 2 of the transformer (secondary side)";
-  parameter Modelica.SIunits.ApparentPower VABase
+  parameter Modelica.Units.SI.ApparentPower VABase
     "Nominal power of the transformer";
-  parameter Modelica.SIunits.Frequency f(start=60) "Nominal frequency";
+  parameter Modelica.Units.SI.Frequency f(start=60) "Nominal frequency";
   parameter Buildings.Electrical.Types.PerUnit R1(min=0)
     "Resistance on side 1 of the transformer (pu)";
   parameter Buildings.Electrical.Types.PerUnit L1(min=0)
@@ -40,45 +40,45 @@ model ACACTransformerFull "AC AC transformer with detailed equivalent circuit"
    annotation(Evaluate=true,Dialog(tab = "Ground", group="side 1"));
   parameter Boolean ground_2 = true "Connect side 2 of converter to ground"
    annotation(Evaluate=true, Dialog(tab = "Ground", group="side 2"));
-  parameter Modelica.SIunits.Angle phi_1 = 0
+  parameter Modelica.Units.SI.Angle phi_1=0
     "Angle of the voltage side 1 at initialization"
-     annotation(Evaluate=true,Dialog(tab = "Initialization"));
-  parameter Modelica.SIunits.Angle phi_2 = phi_1
+    annotation (Evaluate=true, Dialog(tab="Initialization"));
+  parameter Modelica.Units.SI.Angle phi_2=phi_1
     "Angle of the voltage side 2 at initialization"
-     annotation(Evaluate=true, Dialog(tab = "Initialization"));
-  Modelica.SIunits.Efficiency eta "Efficiency";
-  Modelica.SIunits.Power PLoss[2] "Loss power";
+    annotation (Evaluate=true, Dialog(tab="Initialization"));
+  Modelica.Units.SI.Efficiency eta "Efficiency";
+  Modelica.Units.SI.Power PLoss[2] "Loss power";
 
-  Modelica.SIunits.Voltage V1[2](start = PhaseSystem_n.phaseVoltages(VHigh, phi_1))
-    "Voltage at the winding - primary side";
-  Modelica.SIunits.Voltage V2[2](start = PhaseSystem_n.phaseVoltages(VLow, phi_2))
+  Modelica.Units.SI.Voltage V1[2](start=PhaseSystem_n.phaseVoltages(VHigh,
+        phi_1)) "Voltage at the winding - primary side";
+  Modelica.Units.SI.Voltage V2[2](start=PhaseSystem_n.phaseVoltages(VLow, phi_2))
     "Voltage at the winding - secondary side";
 protected
-  parameter Modelica.SIunits.AngularVelocity omega_n = 2*Modelica.Constants.pi*f;
+  parameter Modelica.Units.SI.AngularVelocity omega_n=2*Modelica.Constants.pi*f;
   parameter Real N = VHigh/VLow "Winding ratio";
-  parameter Modelica.SIunits.Resistance RBaseHigh = VHigh^2/VABase
+  parameter Modelica.Units.SI.Resistance RBaseHigh=VHigh^2/VABase
     "Base impedance of the primary side";
-  parameter Modelica.SIunits.Resistance RBaseLow = VLow^2/VABase
+  parameter Modelica.Units.SI.Resistance RBaseLow=VLow^2/VABase
     "Base impedance of the secondary side";
-  Modelica.SIunits.Impedance Z1[2] = {RBaseHigh*R1, omega*L1*RBaseHigh/omega_n}
+  Modelica.Units.SI.Impedance Z1[2]={RBaseHigh*R1,omega*L1*RBaseHigh/omega_n}
     "Impedance of the primary side of the transformer";
-  Modelica.SIunits.Impedance Z2[2] = {RBaseLow*R2, omega*L2*RBaseLow/omega_n}
+  Modelica.Units.SI.Impedance Z2[2]={RBaseLow*R2,omega*L2*RBaseLow/omega_n}
     "Impedance of the secondary side of the transformer";
-  Modelica.SIunits.Impedance Zrm[2] = {RBaseHigh*Rm, 0}
+  Modelica.Units.SI.Impedance Zrm[2]={RBaseHigh*Rm,0}
     "Magnetization impedance - resistance";
-  Modelica.SIunits.Impedance Zlm[2] = {0, omega*Lm*RBaseHigh/omega_n}
+  Modelica.Units.SI.Impedance Zlm[2]={0,omega*Lm*RBaseHigh/omega_n}
     "Magnetization impedance - impedence";
-  Modelica.SIunits.Power P_p[2] = PhaseSystem_p.phasePowers_vi(terminal_p.v, terminal_p.i)
-    "Power transmitted at pin p (secondary)";
-  Modelica.SIunits.Power P_n[2] = PhaseSystem_n.phasePowers_vi(terminal_n.v, terminal_n.i)
-    "Power transmitted at pin n (primary)";
-  Modelica.SIunits.Power S_p = Modelica.Fluid.Utilities.regRoot(P_p[1]^2 + P_p[2]^2, delta=0.1)
-    "Apparent power at terminal p";
-  Modelica.SIunits.Power S_n = Modelica.Fluid.Utilities.regRoot(P_n[1]^2 + P_n[2]^2, delta=0.1)
-    "Apparent power at terminal n";
-  Modelica.SIunits.AngularVelocity omega "Angular velocity";
-  Modelica.SIunits.Current Im[2] "Magnetization current";
-  Modelica.SIunits.Angle theRef "Absolute angle of rotating reference system";
+  Modelica.Units.SI.Power P_p[2]=PhaseSystem_p.phasePowers_vi(terminal_p.v,
+      terminal_p.i) "Power transmitted at pin p (secondary)";
+  Modelica.Units.SI.Power P_n[2]=PhaseSystem_n.phasePowers_vi(terminal_n.v,
+      terminal_n.i) "Power transmitted at pin n (primary)";
+  Modelica.Units.SI.Power S_p=Modelica.Fluid.Utilities.regRoot(P_p[1]^2 + P_p[2]
+      ^2, delta=0.1) "Apparent power at terminal p";
+  Modelica.Units.SI.Power S_n=Modelica.Fluid.Utilities.regRoot(P_n[1]^2 + P_n[2]
+      ^2, delta=0.1) "Apparent power at terminal n";
+  Modelica.Units.SI.AngularVelocity omega "Angular velocity";
+  Modelica.Units.SI.Current Im[2] "Magnetization current";
+  Modelica.Units.SI.Angle theRef "Absolute angle of rotating reference system";
 equation
   assert(sqrt(P_p[1]^2 + P_p[2]^2) <= VABase*1.01,
     "The load power of the transformer is higher than VABase");

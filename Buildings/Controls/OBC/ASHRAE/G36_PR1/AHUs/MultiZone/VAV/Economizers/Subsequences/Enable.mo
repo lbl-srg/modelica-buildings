@@ -5,19 +5,21 @@ block Enable
   parameter Boolean use_enthalpy = true
     "Set to true to evaluate outdoor air enthalpy in addition to temperature"
     annotation(Dialog(group="Conditional"));
-  parameter Modelica.SIunits.TemperatureDifference delTOutHis=1
+  parameter Modelica.Units.SI.TemperatureDifference delTOutHis=1
     "Delta between the temperature hysteresis high and low limit"
-    annotation(Evaluate=true, Dialog(tab="Advanced", group="Hysteresis"));
-  parameter Modelica.SIunits.SpecificEnergy delEntHis=1000
-    "Delta between the enthalpy hysteresis high and low limits"
-    annotation(Evaluate=true, Dialog(tab="Advanced", group="Hysteresis", enable = use_enthalpy));
-  parameter Modelica.SIunits.Time retDamFulOpeTim=180
-    "Time period to keep RA damper fully open before releasing it for minimum outdoor airflow control
-    at disable to avoid pressure fluctuations"
-    annotation(Evaluate=true, Dialog(tab="Advanced", group="Delays at disable"));
-  parameter Modelica.SIunits.Time disDel=15
+    annotation (Evaluate=true, Dialog(tab="Advanced", group="Hysteresis"));
+  parameter Modelica.Units.SI.SpecificEnergy delEntHis=1000
+    "Delta between the enthalpy hysteresis high and low limits" annotation (
+      Evaluate=true, Dialog(
+      tab="Advanced",
+      group="Hysteresis",
+      enable=use_enthalpy));
+  parameter Modelica.Units.SI.Time retDamFulOpeTim=180 "Time period to keep RA damper fully open before releasing it for minimum outdoor airflow control
+    at disable to avoid pressure fluctuations" annotation (Evaluate=true,
+      Dialog(tab="Advanced", group="Delays at disable"));
+  parameter Modelica.Units.SI.Time disDel=15
     "Short time delay before closing the OA damper at disable to avoid pressure fluctuations"
-    annotation(Evaluate=true, Dialog(tab="Advanced", group="Delays at disable"));
+    annotation (Evaluate=true, Dialog(tab="Advanced", group="Delays at disable"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
@@ -113,11 +115,11 @@ block Enable
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
 
 protected
-  final parameter Modelica.SIunits.TemperatureDifference TOutHigLimCutHig = 0
+  final parameter Modelica.Units.SI.TemperatureDifference TOutHigLimCutHig=0
     "Hysteresis high limit cutoff";
   final parameter Real TOutHigLimCutLow = TOutHigLimCutHig - delTOutHis
     "Hysteresis low limit cutoff";
-  final parameter Modelica.SIunits.SpecificEnergy hOutHigLimCutHig = 0
+  final parameter Modelica.Units.SI.SpecificEnergy hOutHigLimCutHig=0
     "Hysteresis block high limit cutoff";
   final parameter Real hOutHigLimCutLow = hOutHigLimCutHig - delEntHis
     "Hysteresis block low limit cutoff";

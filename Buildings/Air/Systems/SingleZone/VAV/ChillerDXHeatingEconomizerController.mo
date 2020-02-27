@@ -3,7 +3,7 @@ model ChillerDXHeatingEconomizerController
   "Controller for single zone VAV system"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Modelica.SIunits.Temperature TSupChi_nominal
+  parameter Modelica.Units.SI.Temperature TSupChi_nominal
     "Design value for chiller leaving water temperature";
   parameter Real minAirFlo(
     min=0,
@@ -12,11 +12,13 @@ model ChillerDXHeatingEconomizerController
     "Minimum airflow rate of system"
     annotation(Dialog(group="Air design"));
 
-  parameter Modelica.SIunits.DimensionlessRatio minOAFra "Minimum outdoor air fraction of system"
-    annotation(Dialog(group="Air design"));
+  parameter Modelica.Units.SI.DimensionlessRatio minOAFra
+    "Minimum outdoor air fraction of system"
+    annotation (Dialog(group="Air design"));
 
-  parameter Modelica.SIunits.Temperature TSetSupAir "Cooling supply air temperature setpoint"
-    annotation(Dialog(group="Air design"));
+  parameter Modelica.Units.SI.Temperature TSetSupAir
+    "Cooling supply air temperature setpoint"
+    annotation (Dialog(group="Air design"));
 
   parameter Real kHea(min=Modelica.Constants.small) = 2
     "Gain of heating controller"
@@ -186,7 +188,7 @@ equation
     annotation (Line(points={{61,-80},{110,-80}}, color={0,0,127}));
   connect(conCooVal.u_m, TSup)
     annotation (Line(points={{10,-32},{10,-90},{-120,-90}}, color={0,0,127}));
-  connect(hysChiPla.y, chiOn) annotation (Line(points={{61,-40},{80,-40},{110,
+  connect(hysChiPla.y, chiOn) annotation (Line(points={{62,-40},{62,-40},{110,
           -40}},           color={255,0,255}));
   annotation (Icon(graphics={Line(points={{-100,-100},{0,2},{-100,100}}, color=
               {0,0,0})}), Documentation(info="<html>

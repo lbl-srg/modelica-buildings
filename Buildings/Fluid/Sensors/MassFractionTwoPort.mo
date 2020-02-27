@@ -4,7 +4,7 @@ model MassFractionTwoPort "Ideal two port mass fraction sensor"
     redeclare replaceable package Medium =
         Modelica.Media.Interfaces.PartialCondensingGases);
   extends Buildings.Fluid.BaseClasses.IndexMassFraction(substanceName = "water");
-  extends Modelica.Icons.RotationalSensor;
+  extends Modelica.Icons.RoundSensor;
 
   parameter Medium.MassFraction X_start=Medium.X_default[i_x]
     "Initial or guess value of output (= state)"

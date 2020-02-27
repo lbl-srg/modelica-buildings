@@ -6,12 +6,12 @@ model Inkarojrit2008BlindsSolarIntensity
     Modelica.Blocks.Sources.BooleanStep occ(startTime=1800)
                                             "True for occupied"
       annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-    Modelica.Blocks.Sources.Sine H(
-      amplitude=250,
-      offset=300,
-      freqHz=0.001,
-      y(unit="W/m2")) "Solar intensity at the window"
-      annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
+  Modelica.Blocks.Sources.Sine H(
+    amplitude=250,
+    offset=300,
+    f=0.001,
+    y(unit="W/m2")) "Solar intensity at the window"
+    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
     Buildings.Occupants.Office.Blinds.Inkarojrit2008BlindsSolarIntensity bli(LSen= 1)
                                "Tested blinds model"
       annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

@@ -1,7 +1,7 @@
 within Buildings.Fluid.Sensors;
 model SpecificEnthalpy "Ideal one port specific enthalpy sensor"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor;
-  extends Modelica.Icons.RotationalSensor;
+  extends Modelica.Icons.RoundSensor;
   Modelica.Blocks.Interfaces.RealOutput h_out(final quantity="SpecificEnergy",
                                               final unit="J/kg")
     "Specific enthalpy in port medium"

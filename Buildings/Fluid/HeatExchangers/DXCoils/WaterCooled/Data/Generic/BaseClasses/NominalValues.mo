@@ -5,7 +5,7 @@ record NominalValues "Data record of nominal values for water-cooled DX coils"
 
 //-----------------------------Nominal conditions-----------------------------//
 
-  parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal
     "Nominal water mass flow rate at condensers"
     annotation (Dialog(group="Nominal condition"));
 

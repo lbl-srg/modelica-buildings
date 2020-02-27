@@ -2,8 +2,8 @@ within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines;
 model TwoPortInductance_N
   "Model of an inductance with two electrical ports and neutral line cable"
   extends Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.TwoPort_N;
-  parameter Modelica.SIunits.Inductance L "Inductance";
-  parameter Modelica.SIunits.Inductance Ln "Inductance of neutral cable";
+  parameter Modelica.Units.SI.Inductance L "Inductance";
+  parameter Modelica.Units.SI.Inductance Ln "Inductance of neutral cable";
   OnePhase.Lines.TwoPortInductance  phase1(
     final L=L/3) "Inductance line 1"
     annotation (Placement(transformation(extent={{-10,32},{10,52}})));

@@ -1,10 +1,12 @@
 within Buildings.Fluid.Sensors;
 model SpecificEntropyTwoPort "Ideal two port sensor for the specific entropy"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
-  extends Modelica.Icons.RotationalSensor;
-  parameter Modelica.SIunits.SpecificEntropy s_start=
-    Medium.specificEntropy_pTX(p=Medium.p_default, T=Medium.T_default, X=Medium.X_default)
-    "Initial or guess value of output (= state)"
+  extends Modelica.Icons.RoundSensor;
+  parameter Modelica.Units.SI.SpecificEntropy s_start=
+      Medium.specificEntropy_pTX(
+      p=Medium.p_default,
+      T=Medium.T_default,
+      X=Medium.X_default) "Initial or guess value of output (= state)"
     annotation (Dialog(group="Initialization"));
   Modelica.Blocks.Interfaces.RealOutput s(final quantity="SpecificEntropy",
                                           final unit="J/(kg.K)",
@@ -15,7 +17,7 @@ model SpecificEntropyTwoPort "Ideal two port sensor for the specific entropy"
         extent={{10,-10},{-10,10}},
         rotation=270)));
 protected
-  Modelica.SIunits.SpecificEntropy sMed(start=s_start)
+  Modelica.Units.SI.SpecificEntropy sMed(start=s_start)
     "Medium entropy to which the sensor is exposed";
   Medium.SpecificEntropy s_a_inflow
     "Specific entropy of inflowing fluid at port_a";

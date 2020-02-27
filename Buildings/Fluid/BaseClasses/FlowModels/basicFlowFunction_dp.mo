@@ -2,16 +2,16 @@ within Buildings.Fluid.BaseClasses.FlowModels;
 function basicFlowFunction_dp
   "Function that computes mass flow rate for given pressure drop"
 
-  input Modelica.SIunits.PressureDifference dp(displayUnit="Pa")
+  input Modelica.Units.SI.PressureDifference dp(displayUnit="Pa")
     "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
   input Real k(min=0, unit="")
     "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
-  input Modelica.SIunits.MassFlowRate m_flow_turbulent(min=0)
+  input Modelica.Units.SI.MassFlowRate m_flow_turbulent(min=0)
     "Mass flow rate where transition to turbulent flow occurs";
-  output Modelica.SIunits.MassFlowRate m_flow
+  output Modelica.Units.SI.MassFlowRate m_flow
     "Mass flow rate in design flow direction";
 protected
-  Modelica.SIunits.PressureDifference dp_turbulent = (m_flow_turbulent/k)^2
+  Modelica.Units.SI.PressureDifference dp_turbulent=(m_flow_turbulent/k)^2
     "Pressure where flow changes to turbulent";
   Real dpNorm=dp/dp_turbulent
     "Normalised pressure difference";

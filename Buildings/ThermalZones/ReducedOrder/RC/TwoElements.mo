@@ -3,21 +3,19 @@ model TwoElements
   "Thermal Zone with two elements for exterior and interior walls"
   extends OneElement(AArray={ATotExt,ATotWin,AInt});
 
-  parameter Modelica.SIunits.Area AInt "Area of interior walls"
-    annotation(Dialog(group="Interior walls"));
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer hConInt
+  parameter Modelica.Units.SI.Area AInt "Area of interior walls"
+    annotation (Dialog(group="Interior walls"));
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer hConInt
     "Convective coefficient of heat transfer of interior walls (indoor)"
-    annotation(Dialog(group="Interior walls"));
+    annotation (Dialog(group="Interior walls"));
   parameter Integer nInt(min = 1) "Number of RC-elements of interior walls"
     annotation(Dialog(group="Interior walls"));
-  parameter Modelica.SIunits.ThermalResistance RInt[nInt](
-    each min=Modelica.Constants.small)
+  parameter Modelica.Units.SI.ThermalResistance RInt[nInt](each min=Modelica.Constants.small)
     "Vector of resistances of interior walls, from port to center"
-    annotation(Dialog(group="Interior walls"));
-  parameter Modelica.SIunits.HeatCapacity CInt[nInt](
-    each min=Modelica.Constants.small)
+    annotation (Dialog(group="Interior walls"));
+  parameter Modelica.Units.SI.HeatCapacity CInt[nInt](each min=Modelica.Constants.small)
     "Vector of heat capacities of interior walls, from port to center"
-    annotation(Dialog(group="Interior walls"));
+    annotation (Dialog(group="Interior walls"));
   parameter Boolean indoorPortIntWalls = false
     "Additional heat port at indoor surface of interior walls"
     annotation(Dialog(group="Interior walls"),choices(checkBox = true));

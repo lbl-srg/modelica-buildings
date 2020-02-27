@@ -35,7 +35,7 @@ model SolarRadiationExchange
   parameter Boolean isFloorSurBou[NSurBou]
     "Flag to indicate if floor for constructions that are modeled outside of this room";
 
-  parameter Modelica.SIunits.Emissivity tauGla[NConExtWin]
+  parameter Modelica.Units.SI.Emissivity tauGla[NConExtWin]
     "Transmissivity of window";
 
   Modelica.Blocks.Interfaces.RealInput JInDifConExtWin[NConExtWin](each unit="W")
@@ -49,7 +49,7 @@ model SolarRadiationExchange
     "Outgoing solar radiation that strikes window per unit area"
     annotation (Placement(transformation(extent={{240,110},{260,130}})));
 
-  Modelica.SIunits.HeatFlowRate JOutConExtWin[NConExtWin]
+  Modelica.Units.SI.HeatFlowRate JOutConExtWin[NConExtWin]
     "Outgoing solar radiation that strikes the window";
 
 protected
@@ -57,7 +57,7 @@ protected
     "Intermediate variable for gain for direct solar radiation distribution";
   final parameter Real kDir2(fixed=false)
     "Intermediate variable for gain for solar radiation distribution";
-  Modelica.SIunits.HeatFlowRate Q_flow[NTot]
+  Modelica.Units.SI.HeatFlowRate Q_flow[NTot]
     "Total solar radiation that is absorbed by the surfaces (or transmitted back through the glass)";
   final parameter Integer NOpa = NConExt+2*NConExtWin+2*NConPar+NConBou+NSurBou
     "Number of opaque surfaces, including the window frame";
@@ -69,8 +69,9 @@ protected
     "Solar absorptivity";
   final parameter Real tau[NTot](each min=0, each max=1, each fixed=false)
     "Solar transmissivity";
-  final parameter Modelica.SIunits.Area AFlo(fixed=false) "Total floor area";
-  final parameter Modelica.SIunits.Area A[NTot](each fixed=false) "Surface areas";
+  final parameter Modelica.Units.SI.Area AFlo(fixed=false) "Total floor area";
+  final parameter Modelica.Units.SI.Area A[NTot](each fixed=false)
+    "Surface areas";
   final parameter Real kDif[NTot](
     each unit="1",
     each fixed=false)

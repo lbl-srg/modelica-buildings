@@ -3,9 +3,9 @@ partial model TestTemperatureEnthalpyInversion
   "Model to check computation of h(T) and its inverse"
    replaceable package Medium =
         Modelica.Media.Interfaces.PartialMedium;
-     parameter Modelica.SIunits.Temperature T0=273.15+20 "Temperature";
-     Modelica.SIunits.Temperature T "Temperature";
-     Modelica.SIunits.SpecificEnthalpy h "Enthalpy";
+  parameter Modelica.Units.SI.Temperature T0=273.15 + 20 "Temperature";
+  Modelica.Units.SI.Temperature T "Temperature";
+  Modelica.Units.SI.SpecificEnthalpy h "Enthalpy";
      Medium.MassFraction Xi[:] = Medium.reference_X "Mass fraction";
 equation
     h = Medium.specificEnthalpy_pTX(p=101325, T=T0, X=Xi);

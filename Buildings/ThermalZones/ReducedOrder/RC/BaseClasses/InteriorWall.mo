@@ -2,17 +2,15 @@ within Buildings.ThermalZones.ReducedOrder.RC.BaseClasses;
 model InteriorWall "Interior wall consisting of variable number of RC elements"
 
   parameter Integer n(min = 1) "Number of RC-elements";
-  parameter Modelica.SIunits.ThermalResistance RInt[n](
-   each min=Modelica.Constants.small)
+  parameter Modelica.Units.SI.ThermalResistance RInt[n](each min=Modelica.Constants.small)
     "Vector of resistors, from port to capacitor"
-    annotation(Dialog(group="Thermal mass"));
-  parameter Modelica.SIunits.HeatCapacity CInt[n](
-   each min=Modelica.Constants.small)
+    annotation (Dialog(group="Thermal mass"));
+  parameter Modelica.Units.SI.HeatCapacity CInt[n](each min=Modelica.Constants.small)
     "Vector of heat capacitors, from port to center"
-    annotation(Dialog(group="Thermal mass"));
-  parameter Modelica.SIunits.Temperature T_start
+    annotation (Dialog(group="Thermal mass"));
+  parameter Modelica.Units.SI.Temperature T_start
     "Initial temperature of capacities"
-    annotation(Dialog(group="Thermal mass"));
+    annotation (Dialog(group="Thermal mass"));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a "interior port"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
     iconTransformation(extent={{-110,-10},{-90,10}})));

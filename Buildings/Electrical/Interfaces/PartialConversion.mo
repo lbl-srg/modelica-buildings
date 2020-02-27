@@ -2,10 +2,10 @@ within Buildings.Electrical.Interfaces;
 model PartialConversion
   "Model representing a generic two port system for conversion"
   extends Buildings.Electrical.Interfaces.PartialTwoPort;
-  Modelica.SIunits.Voltage v_p "Voltage drop between the two positive pins";
-  Modelica.SIunits.Voltage v_n "Voltage drop between the two negative pins";
-  Modelica.SIunits.Current i_p "Current flowing through the positive pins";
-  Modelica.SIunits.Current i_n "Current flowing through the negative pins";
+  Modelica.Units.SI.Voltage v_p "Voltage drop between the two positive pins";
+  Modelica.Units.SI.Voltage v_n "Voltage drop between the two negative pins";
+  Modelica.Units.SI.Current i_p "Current flowing through the positive pins";
+  Modelica.Units.SI.Current i_n "Current flowing through the negative pins";
 equation
   i_p = PhaseSystem_p.systemCurrent(terminal_p.i);
   i_n = PhaseSystem_n.systemCurrent(terminal_n.i);

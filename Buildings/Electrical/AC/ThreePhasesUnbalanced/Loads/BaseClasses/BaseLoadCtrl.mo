@@ -13,22 +13,21 @@ partial model BaseLoadCtrl
     Buildings.Electrical.Types.Load.FixedZ_steady_state "Parameters that specifies the mode of the load (e.g., steady state,
     dynamic, prescribed power consumption, etc.)" annotation(Dialog(group="Modeling assumption"));
 
-  parameter Modelica.SIunits.Power P_nominal=0
-    "Nominal power (negative if consumed, positive if generated)"
-    annotation(Dialog(group="Nominal conditions",
-        enable = mode <> Buildings.Electrical.Types.Load.VariableZ_P_input));
+  parameter Modelica.Units.SI.Power P_nominal=0
+    "Nominal power (negative if consumed, positive if generated)" annotation (
+      Dialog(group="Nominal conditions", enable=mode <> Buildings.Electrical.Types.Load.VariableZ_P_input));
 
-  parameter Modelica.SIunits.Voltage V_nominal(min=0, start = 480)
+  parameter Modelica.Units.SI.Voltage V_nominal(min=0, start=480)
     "Nominal voltage (V_nominal >= 0)"
-    annotation(Dialog(group="Nominal conditions"));
+    annotation (Dialog(group="Nominal conditions"));
   parameter Boolean voltageCtrl = false "This flag enables the voltage control"
                                             annotation(Evaluate=true, Dialog(group="Voltage CTRL"));
   parameter Real vThresh(min=0.0, max=1.0) = 0.1
     "Threshold that activates voltage ctrl (ratio of nominal voltage)" annotation(Dialog(group="Voltage CTRL",
         enable = voltageCtrl));
-  parameter Modelica.SIunits.Time tDelay = 300
-    "Time to wait before plugging the load again after disconnection" annotation(Dialog(group="Voltage CTRL",
-        enable = voltageCtrl));
+  parameter Modelica.Units.SI.Time tDelay=300
+    "Time to wait before plugging the load again after disconnection"
+    annotation (Dialog(group="Voltage CTRL", enable=voltageCtrl));
   parameter Types.InitMode initMode=Buildings.Electrical.Types.InitMode.zero_current
     "Initialization mode for homotopy operator"
     annotation (Dialog(tab="Initialization"));

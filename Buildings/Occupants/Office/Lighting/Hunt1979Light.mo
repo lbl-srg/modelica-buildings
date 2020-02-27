@@ -6,7 +6,7 @@ model Hunt1979Light "A model to predict occupants' lighting behavior with illumi
  parameter Real CArriv = 1.0361 "Upon arrival";
  parameter Real MArriv = 1.8223 "Upon arrival";
  parameter Integer seed = 30 "Seed for the random number generator";
- parameter Modelica.SIunits.Time samplePeriod = 120 "Sample period";
+  parameter Modelica.Units.SI.Time samplePeriod=120 "Sample period";
 
  Modelica.Blocks.Interfaces.RealInput ill "Illuminance on the working planein units of lux" annotation (
       Placement(transformation(extent={{-140,-80},{-100,-40}}),
@@ -23,7 +23,8 @@ model Hunt1979Light "A model to predict occupants' lighting behavior with illumi
    max=1) "Probability of switch on the lighting upon arrival";
 
 protected
- parameter Modelica.SIunits.Time t0(final fixed = false) "First sample time instant";
+  parameter Modelica.Units.SI.Time t0(final fixed=false)
+    "First sample time instant";
  output Boolean sampleTrigger "True, if sample time instant";
  Real curSeed "Current value for seed as a real-valued variable";
 

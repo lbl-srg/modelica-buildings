@@ -1,10 +1,10 @@
 within Buildings.HeatTransfer.Windows.BaseClasses;
 partial model PartialWindowBoundaryCondition
   "Partial model for heat convection or radiation between a possibly shaded window that can be outside or inside the room"
-  parameter Modelica.SIunits.Area A "Heat transfer area of frame and window";
+  parameter Modelica.Units.SI.Area A "Heat transfer area of frame and window";
   parameter Real fFra "Fraction of window frame divided by total window area";
-  final parameter Modelica.SIunits.Area AFra = fFra * A "Frame area";
-  final parameter Modelica.SIunits.Area AGla = A-AFra "Glass area";
+  final parameter Modelica.Units.SI.Area AFra=fFra*A "Frame area";
+  final parameter Modelica.Units.SI.Area AGla=A - AFra "Glass area";
 
   parameter Boolean haveExteriorShade
     "Set to true if window has exterior shade (at surface a)"

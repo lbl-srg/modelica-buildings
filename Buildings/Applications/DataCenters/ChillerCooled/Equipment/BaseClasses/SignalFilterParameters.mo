@@ -5,9 +5,12 @@ record SignalFilterParameters
   parameter Boolean use_inputFilter=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Filtered opening"));
-  parameter Modelica.SIunits.Time riseTimeValve=120
+  parameter Modelica.Units.SI.Time riseTimeValve=120
     "Rise time of the filter (time to reach 99.6 % of an opening step)"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+    annotation (Dialog(
+      tab="Dynamics",
+      group="Filtered opening",
+      enable=use_inputFilter));
   parameter Modelica.Blocks.Types.Init initValve=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));

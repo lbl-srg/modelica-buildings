@@ -2,35 +2,31 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat;
 block SystemRequests
   "Output system requests for VAV reheat terminal unit control"
 
-  parameter Modelica.SIunits.Time samplePeriod=120
+  parameter Modelica.Units.SI.Time samplePeriod=120
     "Sample period of component, set to the same value as the trim and respond that process yPreSetReq";
 
   parameter Boolean have_heaWatCoi
     "Flag, true if there is a hot water coil";
   parameter Boolean have_heaPla "Flag, true if there is a boiler plant";
 
-  parameter Modelica.SIunits.TemperatureDifference errTZonCoo_1=2.8
-    "Limit value of difference between zone temperature and cooling setpoint
+  parameter Modelica.Units.SI.TemperatureDifference errTZonCoo_1=2.8 "Limit value of difference between zone temperature and cooling setpoint
     for generating 3 cooling SAT reset requests";
-  parameter Modelica.SIunits.TemperatureDifference errTZonCoo_2=1.7
-    "Limit value of difference between zone temperature and cooling setpoint
+  parameter Modelica.Units.SI.TemperatureDifference errTZonCoo_2=1.7 "Limit value of difference between zone temperature and cooling setpoint
     for generating 2 cooling SAT reset requests";
-  parameter Modelica.SIunits.TemperatureDifference errTDis_1=17
-    "Limit value of difference between discharge air temperature and its setpoint
+  parameter Modelica.Units.SI.TemperatureDifference errTDis_1=17 "Limit value of difference between discharge air temperature and its setpoint
     for generating 3 hot water reset requests";
-  parameter Modelica.SIunits.TemperatureDifference errTDis_2=8.3
-    "Limit value of difference between discharge air temperature and its setpoint
+  parameter Modelica.Units.SI.TemperatureDifference errTDis_2=8.3 "Limit value of difference between discharge air temperature and its setpoint
     for generating 2 hot water reset requests";
 
-  parameter Modelica.SIunits.Time durTimTem=120
+  parameter Modelica.Units.SI.Time durTimTem=120
     "Duration time of zone temperature exceeds setpoint"
-    annotation(Dialog(group="Duration times"));
-  parameter Modelica.SIunits.Time durTimFlo=60
+    annotation (Dialog(group="Duration times"));
+  parameter Modelica.Units.SI.Time durTimFlo=60
     "Duration time of airflow rate less than setpoint"
-    annotation(Dialog(group="Duration times"));
-  parameter Modelica.SIunits.Time durTimDisAir=300
+    annotation (Dialog(group="Duration times"));
+  parameter Modelica.Units.SI.Time durTimDisAir=300
     "Duration time of discharge air temperature is less than setpoint"
-    annotation(Dialog(group="Duration times"));
+    annotation (Dialog(group="Duration times"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",

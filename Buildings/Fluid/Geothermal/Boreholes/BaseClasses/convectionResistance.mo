@@ -3,26 +3,26 @@ function convectionResistance
   "Thermal resistance between the fluid and the tube"
 
   // Geometry of the borehole
-  input Modelica.SIunits.Height hSeg "Height of the element";
-  input Modelica.SIunits.Radius rTub "Tube radius";
+  input Modelica.Units.SI.Height hSeg "Height of the element";
+  input Modelica.Units.SI.Radius rTub "Tube radius";
 
   // Thermal properties
-  input Modelica.SIunits.ThermalConductivity kMed
+  input Modelica.Units.SI.ThermalConductivity kMed
     "Thermal conductivity of the fluid";
-  input Modelica.SIunits.DynamicViscosity mueMed
+  input Modelica.Units.SI.DynamicViscosity mueMed
     "Dynamic viscosity of the fluid";
-  input Modelica.SIunits.SpecificHeatCapacity cpMed
+  input Modelica.Units.SI.SpecificHeatCapacity cpMed
     "Specific heat capacity of the fluid";
   // Mass flow rates
-  input Modelica.SIunits.MassFlowRate m_flow "Mass flow rate";
-  input Modelica.SIunits.MassFlowRate m_flow_nominal "Nominal mass flow rate";
+  input Modelica.Units.SI.MassFlowRate m_flow "Mass flow rate";
+  input Modelica.Units.SI.MassFlowRate m_flow_nominal "Nominal mass flow rate";
 
   // Outputs
-  output Modelica.SIunits.ThermalResistance R
+  output Modelica.Units.SI.ThermalResistance R
     "Thermal resistance between the fluid and the tube";
 
 protected
-  Modelica.SIunits.CoefficientOfHeatTransfer h
+  Modelica.Units.SI.CoefficientOfHeatTransfer h
     "Convective heat transfer coefficient of the fluid";
 
   Real k(unit="s/kg")

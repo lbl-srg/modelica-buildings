@@ -3,18 +3,18 @@ model DoorDiscretizedOperable
   "Door model using discretization along height coordinate"
   extends Buildings.Airflow.Multizone.BaseClasses.DoorDiscretized;
 
-   parameter Modelica.SIunits.PressureDifference dpCloRat(min=0,
-                                                          displayUnit="Pa") = 4
-    "Pressure drop at rating condition of closed door"
-      annotation (Dialog(group="Rating conditions"));
+  parameter Modelica.Units.SI.PressureDifference dpCloRat(
+    min=0,
+    displayUnit="Pa") = 4 "Pressure drop at rating condition of closed door"
+    annotation (Dialog(group="Rating conditions"));
 
   parameter Real CDCloRat(min=0, max=1)=1
     "Discharge coefficient at rating conditions of closed door"
       annotation (Dialog(group="Rating conditions"));
 
-  parameter Modelica.SIunits.Area LClo(min=0)
+  parameter Modelica.Units.SI.Area LClo(min=0)
     "Effective leakage area of closed door"
-      annotation (Dialog(group="Closed door"));
+    annotation (Dialog(group="Closed door"));
 
   parameter Real CDOpe=0.65 "Discharge coefficient of open door"
     annotation (Dialog(group="Open door"));
@@ -30,8 +30,8 @@ model DoorDiscretizedOperable
     "Opening signal, 0=closed, 1=open"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}}), iconTransformation(extent={{-120,-10},{-100,10}})));
 protected
- parameter Modelica.SIunits.Area AOpe=wOpe*hOpe "Open aperture area";
- parameter Modelica.SIunits.Area AClo(fixed=false) "Closed aperture area";
+  parameter Modelica.Units.SI.Area AOpe=wOpe*hOpe "Open aperture area";
+  parameter Modelica.Units.SI.Area AClo(fixed=false) "Closed aperture area";
 
  Real kOpe "Open aperture flow coefficient, k = V_flow/ dp^m";
  Real kClo "Closed aperture flow coefficient, k = V_flow/ dp^m";

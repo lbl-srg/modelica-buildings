@@ -3,7 +3,7 @@ model Splice "Test model for splice"
   extends Modelica.Icons.Example;
   Buildings.Utilities.Math.Splice splice(deltax=0.2)
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Modelica.Blocks.Sources.Sine sine(freqHz=0.5)
+  Modelica.Blocks.Sources.Sine sine(f=0.5)
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Modelica.Blocks.Sources.Constant const1(k=-0.5)
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));

@@ -2,9 +2,9 @@ within Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples;
 model MultiStage "Test model for multi stage DX coil"
   package Medium = Buildings.Media.Air;
   extends Modelica.Icons.Example;
- parameter Modelica.SIunits.MassFlowRate m_flow_nominal = datCoi.sta[datCoi.nSta].nomVal.m_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=datCoi.sta[datCoi.nSta].nomVal.m_flow_nominal
     "Nominal mass flow rate";
- parameter Modelica.SIunits.PressureDifference dp_nominal = 1000
+  parameter Modelica.Units.SI.PressureDifference dp_nominal=1000
     "Pressure drop at m_flow_nominal";
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,

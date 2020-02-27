@@ -1,7 +1,7 @@
 within Buildings.Examples.VAVReheat.Controls;
 model State
   "Block that outputs the mode if the state is active, or zero otherwise"
-  extends Modelica.StateGraph.StepWithSignal;
+  extends Modelica.StateGraph.StepWithSignal(nIn=1, nOut=1);
  parameter OperationModes mode "Enter enumeration of mode";
   Modelica.Blocks.Interfaces.IntegerOutput y "Mode signal (=0 if not active)"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));

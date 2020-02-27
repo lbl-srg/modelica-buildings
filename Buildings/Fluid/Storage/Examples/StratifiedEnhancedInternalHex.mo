@@ -6,10 +6,10 @@ model StratifiedEnhancedInternalHex
   package MediumTan = Buildings.Media.Water "Medium in the tank";
   package MediumHex = Buildings.Media.Water "Medium in the heat exchanger";
 
- parameter Modelica.SIunits.PressureDifference dpHex_nominal=2500
+  parameter Modelica.Units.SI.PressureDifference dpHex_nominal=2500
     "Pressure drop across the heat exchanger at nominal conditions";
 
-  parameter Modelica.SIunits.MassFlowRate mHex_flow_nominal = 0.278
+  parameter Modelica.Units.SI.MassFlowRate mHex_flow_nominal=0.278
     "Mass flow rate of heat exchanger";
 
   Buildings.Fluid.Sources.Boundary_pT bouWat(redeclare package Medium =

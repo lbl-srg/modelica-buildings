@@ -2,13 +2,12 @@ within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Examples;
 model ThreePhases
   "Example that provides a comparison between AC one phase and three-phase balanced"
   extends Modelica.Icons.Example;
-  Modelica.SIunits.Power errorY=
-    sqrt((sen_Y.S[1] - (sen_a.S[1] + sen_b.S[1] + sen_c.S[1]))^2 +
-    (sen_Y.S[2] - (sen_a.S[2] + sen_b.S[2] + sen_c.S[2]))^2)
+  Modelica.Units.SI.Power errorY=sqrt((sen_Y.S[1] - (sen_a.S[1] + sen_b.S[1] +
+      sen_c.S[1]))^2 + (sen_Y.S[2] - (sen_a.S[2] + sen_b.S[2] + sen_c.S[2]))^2)
     "Difference of the power consumption in the star (Y) connection";
-  Modelica.SIunits.Power errorD=
-    sqrt((sen_D.S[1] - (sen_ab.S[1] + sen_bc.S[1] + sen_ca.S[1]))^2 +
-    (sen_D.S[2] - (sen_ab.S[2] + sen_bc.S[2] + sen_ca.S[2]))^2)
+  Modelica.Units.SI.Power errorD=sqrt((sen_D.S[1] - (sen_ab.S[1] + sen_bc.S[1]
+       + sen_ca.S[1]))^2 + (sen_D.S[2] - (sen_ab.S[2] + sen_bc.S[2] + sen_ca.S[
+      2]))^2)
     "Difference of the power consumption in the triangle (D) connection";
   Sources.FixedVoltage sou(definiteReference=true,
     f=60,

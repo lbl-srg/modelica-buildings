@@ -2,16 +2,16 @@ within Buildings.Applications.DataCenters.ChillerCooled.Controls;
 model ChillerStage "Chiller staging control logic"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Modelica.SIunits.Time tWai "Waiting time";
-  parameter Modelica.SIunits.Power QEva_nominal
+  parameter Modelica.Units.SI.Time tWai "Waiting time";
+  parameter Modelica.Units.SI.Power QEva_nominal
     "Nominal cooling capaciaty(Negative means cooling)";
-  parameter Modelica.SIunits.Power  criPoiLoa = 0.55*QEva_nominal
+  parameter Modelica.Units.SI.Power criPoiLoa=0.55*QEva_nominal
     "Critical point of cooling load for switching one chiller on or off";
-  parameter Modelica.SIunits.Power  dQ = 0.25*QEva_nominal
+  parameter Modelica.Units.SI.Power dQ=0.25*QEva_nominal
     "Deadband for critical point of cooling load";
-  parameter Modelica.SIunits.Temperature criPoiTem = 279.15
+  parameter Modelica.Units.SI.Temperature criPoiTem=279.15
     "Critical point of temperature for switching one chiller on or off";
-  parameter Modelica.SIunits.TemperatureDifference dT = 1
+  parameter Modelica.Units.SI.TemperatureDifference dT=1
     "Deadband width for critical point of switching temperature";
 
   Modelica.Blocks.Interfaces.IntegerInput cooMod
@@ -45,12 +45,14 @@ model ChillerStage "Chiller staging control logic"
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-50,10})));
-  Modelica.StateGraph.InitialStep off(nIn=1) "Free cooling mode"
+  Modelica.StateGraph.InitialStep off(nIn=1, nOut=1)
+                                             "Free cooling mode"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-50,70})));
-  Modelica.StateGraph.StepWithSignal twoOn "Two chillers are commanded on"
+  Modelica.StateGraph.StepWithSignal twoOn(nIn=1, nOut=1)
+                                           "Two chillers are commanded on"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
@@ -151,14 +153,16 @@ equation
   connect(oneOn.active, booToInt.u) annotation (Line(points={{-39,10},{10,10},{
           10,-40},{18,-40}},
                           color={255,0,255}));
-  connect(booToInt.y, addInt.u1) annotation (Line(points={{41,-40},{50,-40},{50,
+  connect(booToInt.y, addInt.u1) annotation (Line(points={{42,-40},{50,-40},{50,
           -54},{58,-54}}, color={255,127,0}));
-  connect(booToInt1.y, addInt.u2) annotation (Line(points={{41,-80},{50,-80},{50,
-          -66},{58,-66}}, color={255,127,0}));
-  connect(addInt.y, intToRea.u) annotation (Line(points={{81,-60},{88,-60},{88,-20},
-          {30,-20},{30,0},{38,0}}, color={255,127,0}));
+  connect(booToInt1.y, addInt.u2) annotation (Line(points={{42,-80},{50,-80},{
+          50,-66},{58,-66}},
+                          color={255,127,0}));
+  connect(addInt.y, intToRea.u) annotation (Line(points={{82,-60},{88,-60},{88,
+          -20},{30,-20},{30,0},{38,0}},
+                                   color={255,127,0}));
   connect(intToRea.y, combiTable1Ds.u)
-    annotation (Line(points={{61,0},{68,0},{68,0}}, color={0,0,127}));
+    annotation (Line(points={{62,0},{68,0},{68,0}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 This is a chiller staging control that works as follows:

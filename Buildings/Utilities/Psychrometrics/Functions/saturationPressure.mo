@@ -2,11 +2,10 @@ within Buildings.Utilities.Psychrometrics.Functions;
 function saturationPressure
   "Saturation curve valid for 223.16 <= T <= 373.16 (and slightly outside with less accuracy)"
   extends Modelica.Icons.Function;
-  input Modelica.SIunits.Temperature TSat(displayUnit="degC",
-                                          nominal=300) "Saturation temperature";
-  output Modelica.SIunits.AbsolutePressure pSat(
-                                          displayUnit="Pa",
-                                          nominal=1000) "Saturation pressure";
+  input Modelica.Units.SI.Temperature TSat(displayUnit="degC", nominal=300)
+    "Saturation temperature";
+  output Modelica.Units.SI.AbsolutePressure pSat(displayUnit="Pa", nominal=1000)
+    "Saturation pressure";
 
 algorithm
   pSat := Buildings.Utilities.Math.Functions.regStep(

@@ -4,17 +4,17 @@ partial model PartialAirHandlerMassFlow
 
   package Medium1 = Buildings.Media.Water "Medium model for water";
   package Medium2 = Buildings.Media.Air "Medium model for air";
-  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal(min=0)=2.9
+  parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal(min=0) = 2.9
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal(min=0)=3.3
+  parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal(min=0) = 3.3
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.Temperature T_a1_nominal=6 + 273.15
+  parameter Modelica.Units.SI.Temperature T_a1_nominal=6 + 273.15
     "Nominal water inlet temperature";
-  parameter Modelica.SIunits.Temperature T_b1_nominal=11 + 273.15
+  parameter Modelica.Units.SI.Temperature T_b1_nominal=11 + 273.15
     "Nominal water outlet temperature";
-  parameter Modelica.SIunits.Temperature T_a2_nominal=26 + 273.15
+  parameter Modelica.Units.SI.Temperature T_a2_nominal=26 + 273.15
     "Nominal air inlet temperature";
-  parameter Modelica.SIunits.Temperature T_b2_nominal=12 + 273.15
+  parameter Modelica.Units.SI.Temperature T_b2_nominal=12 + 273.15
     "Nominal air outlet temperature";
 
   Buildings.Fluid.Sources.Boundary_pT sin_2(
@@ -97,7 +97,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(mWat_flow.y, sin_1.m_flow_in) annotation (Line(
-      points={{-21,110},{160,110},{160,68},{150,68}},
+      points={{-21,110},{160,110},{160,68},{152,68}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(temSenWat1.port_a, sou_1.ports[1])

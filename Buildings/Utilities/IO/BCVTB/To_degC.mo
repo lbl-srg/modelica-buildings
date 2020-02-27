@@ -13,7 +13,7 @@ block To_degC "Converts Kelvin to Celsius"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 equation
-  Kelvin = Modelica.SIunits.Conversions.from_degC(Celsius);
+  Kelvin =Modelica.Units.Conversions.from_degC(Celsius);
 annotation (
 defaultComponentName="toDegC",
 Documentation(info="<html>

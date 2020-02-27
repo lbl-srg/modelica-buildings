@@ -2,7 +2,7 @@ within Buildings.HeatTransfer.Windows.BaseClasses.Validation;
 model HeatCapacityConstantShade
   "Validation model for heat capacity with constant shade signal"
   extends Modelica.Icons.Example;
-  parameter Modelica.SIunits.Area AGla = 2 "Glass area";
+  parameter Modelica.Units.SI.Area AGla=2 "Glass area";
 
   parameter Data.Solids.Glass datGla(x=0.005)
     "Thermal properties for glass"

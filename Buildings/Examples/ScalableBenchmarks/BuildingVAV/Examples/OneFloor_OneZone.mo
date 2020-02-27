@@ -8,14 +8,14 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
      annotation(Evaluate=true);
   parameter Integer nFlo(min=1) = 1  "Number of floors"
      annotation(Evaluate=true);
-  parameter Modelica.SIunits.PressureDifference dP_pre=850
+  parameter Modelica.Units.SI.PressureDifference dP_pre=850
     "Prescribed pressure difference";
-  parameter Modelica.SIunits.Volume VRoo[nZon,nFlo] = {{6*8*2.7 for j in 1:nFlo} for i in 1:nZon}
-    "Room volume";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal_each[nZon,nFlo]=
-    {{7*conv*VRoo[i,j] for j in 1:nFlo} for i in 1:nZon}
+  parameter Modelica.Units.SI.Volume VRoo[nZon,nFlo]={{6*8*2.7 for j in 1:nFlo}
+      for i in 1:nZon} "Room volume";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal_each[nZon,nFlo]={{7*
+      conv*VRoo[i, j] for j in 1:nFlo} for i in 1:nZon}
     "Nominal flow rate to each zone";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = nZon*(7*conv)*6*8*2.7
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=nZon*(7*conv)*6*8*2.7
     "Nominal system flow rate";
   constant Real conv=1.2/3600
     "Conversion factor for nominal mass flow rate";
@@ -186,7 +186,7 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
   Buildings.Controls.Continuous.LimPID cooCoiCon[nFlo](
     each reverseAction=true,
     each Td=60,
-    each initType=Modelica.Blocks.Types.InitPID.InitialState,
+    each initType=Modelica.Blocks.Types.Init.InitialState,
     each yMax=1,
     each yMin=0,
     each controllerType=Modelica.Blocks.Types.SimpleController.PI,
@@ -197,10 +197,10 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     each yMax=1,
     each yMin=0,
     each Td=60,
-    each initType=Modelica.Blocks.Types.InitPID.InitialState,
+    each initType=Modelica.Blocks.Types.Init.InitialState,
     each controllerType=Modelica.Blocks.Types.SimpleController.PI,
     each Ti=600,
-    each k=0.1)   "Controller for heating coil"
+    each k=0.1) "Controller for heating coil"
     annotation (Placement(transformation(extent={{-192,-66},{-180,-54}})));
   Buildings.Examples.VAVReheat.Controls.ModeSelector modeSelector[nFlo]
     "Finite State Machine for the operational modes"

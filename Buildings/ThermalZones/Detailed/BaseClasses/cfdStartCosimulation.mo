@@ -2,8 +2,8 @@ within Buildings.ThermalZones.Detailed.BaseClasses;
 function cfdStartCosimulation "Start the coupled simulation with CFD"
   input String cfdFilNam "CFD input file name";
   input String[nSur] name "Surface names";
-  input Modelica.SIunits.Area[nSur] A "Surface areas";
-  input Modelica.SIunits.Angle[nSur] til "Surface tilt";
+  input Modelica.Units.SI.Area[nSur] A "Surface areas";
+  input Modelica.Units.SI.Angle[nSur] til "Surface tilt";
   input Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions[nSur] bouCon
     "Type of boundary condition";
   input Integer nPorts(min=0)
@@ -20,7 +20,7 @@ function cfdStartCosimulation "Start the coupled simulation with CFD"
   input Integer nConExtWin(min=0) "number of exterior construction with window";
   input Integer nXi(min=0) "Number of independent species";
   input Integer nC(min=0) "Number of trace substances";
-  input Modelica.SIunits.Density rho_start "Density at initial state";
+  input Modelica.Units.SI.Density rho_start "Density at initial state";
   output Integer retVal
     "Return value of the function (0 indicates CFD successfully started.)";
 external"C" retVal = cfdStartCosimulation(

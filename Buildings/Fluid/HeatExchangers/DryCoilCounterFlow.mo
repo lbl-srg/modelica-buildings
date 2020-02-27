@@ -8,7 +8,7 @@ model DryCoilCounterFlow
     from_dp1=false,
     from_dp2=false);
 
-  parameter Modelica.SIunits.ThermalConductance UA_nominal(min=0)
+  parameter Modelica.Units.SI.ThermalConductance UA_nominal(min=0)
     "Thermal conductance at nominal flow, used to compute heat capacity"
     annotation (Dialog(tab="General", group="Nominal condition"));
   parameter Real r_nominal=2/3
@@ -22,15 +22,13 @@ model DryCoilCounterFlow
     "Formulation of energy balance"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
-  parameter Modelica.SIunits.Time tau1=10
-    "Time constant at nominal flow for medium 1"
-    annotation (Dialog(group="Nominal condition",
-                enable=not (energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState)));
-  parameter Modelica.SIunits.Time tau2=2
-    "Time constant at nominal flow for medium 2"
-    annotation (Dialog(group="Nominal condition",
-                enable=not (energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState)));
-  parameter Modelica.SIunits.Time tau_m=5
+  parameter Modelica.Units.SI.Time tau1=10
+    "Time constant at nominal flow for medium 1" annotation (Dialog(group=
+          "Nominal condition", enable=not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
+  parameter Modelica.Units.SI.Time tau2=2
+    "Time constant at nominal flow for medium 2" annotation (Dialog(group=
+          "Nominal condition", enable=not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
+  parameter Modelica.Units.SI.Time tau_m=5
     "Time constant of metal at nominal UA value"
     annotation (Dialog(group="Nominal condition"));
 
@@ -47,17 +45,17 @@ model DryCoilCounterFlow
     "Set to false to make air-side hA independent of temperature"
     annotation (Dialog(tab="Heat transfer"));
 
-  parameter Modelica.SIunits.ThermalConductance GDif = 1E-2*UA_nominal/(nEle - 1)
+  parameter Modelica.Units.SI.ThermalConductance GDif=1E-2*UA_nominal/(nEle - 1)
     "Thermal conductance to approximate diffusion (which improves model at near-zero flow rates"
-    annotation(Dialog(tab="Experimental"));
-  Modelica.SIunits.HeatFlowRate Q1_flow = sum(ele[i].Q1_flow for i in 1:nEle)
+    annotation (Dialog(tab="Experimental"));
+  Modelica.Units.SI.HeatFlowRate Q1_flow=sum(ele[i].Q1_flow for i in 1:nEle)
     "Heat transferred from solid into medium 1";
-  Modelica.SIunits.HeatFlowRate Q2_flow = sum(ele[i].Q2_flow for i in 1:nEle)
+  Modelica.Units.SI.HeatFlowRate Q2_flow=sum(ele[i].Q2_flow for i in 1:nEle)
     "Heat transferred from solid into medium 2";
 
-  Modelica.SIunits.Temperature T1[nEle] = ele[:].vol1.T "Water temperature";
-  Modelica.SIunits.Temperature T2[nEle] = ele[:].vol2.T "Air temperature";
-  Modelica.SIunits.Temperature T_m[nEle] = ele[:].con1.solid.T
+  Modelica.Units.SI.Temperature T1[nEle]=ele[:].vol1.T "Water temperature";
+  Modelica.Units.SI.Temperature T2[nEle]=ele[:].vol2.T "Air temperature";
+  Modelica.Units.SI.Temperature T_m[nEle]=ele[:].con1.solid.T
     "Metal temperature";
 
   BaseClasses.HADryCoil hA(

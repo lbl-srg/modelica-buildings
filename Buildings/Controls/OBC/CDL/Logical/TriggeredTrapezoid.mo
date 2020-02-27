@@ -3,10 +3,10 @@ block TriggeredTrapezoid "Triggered trapezoid generator"
 
   parameter Real amplitude "Amplitude of trapezoid";
 
-  parameter Modelica.SIunits.Time rising(final min=0) = 0
+  parameter Modelica.Units.SI.Time rising(final min=0) = 0
     "Rising duration of trapezoid";
 
-  parameter Modelica.SIunits.Time falling(final min=0) = rising
+  parameter Modelica.Units.SI.Time falling(final min=0) = rising
     "Falling duration of trapezoid";
 
   parameter Real offset=0 "Offset of output signal";
@@ -20,7 +20,7 @@ block TriggeredTrapezoid "Triggered trapezoid generator"
 protected
   discrete Real endValue "Value of y at time of recent edge";
   discrete Real rate "Current rising/falling rate";
-  discrete Modelica.SIunits.Time T
+  discrete Modelica.Units.SI.Time T
     "Predicted time of output reaching endValue";
 equation
   y = if time < T then endValue - (T - time)*rate else endValue;

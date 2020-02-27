@@ -2,22 +2,22 @@ within Buildings.Electrical.Transmission.BaseClasses;
 record BaseCable "Record that contains the properties of a generic cable"
   parameter Buildings.Electrical.Transmission.Types.Material material = Buildings.Electrical.Transmission.Types.Material.Al
     "Material of the cable";
-  parameter Modelica.SIunits.Current Amp(start=0.0)=0.0
+  parameter Modelica.Units.SI.Current Amp(start=0.0) = 0.0
     "Ampacitance of the cable";
-  parameter Modelica.SIunits.Temperature T_ref = 298.15
+  parameter Modelica.Units.SI.Temperature T_ref=298.15
     "Reference cable temperature";
-  parameter Modelica.SIunits.Temperature M = 228.1 + 273.15
+  parameter Modelica.Units.SI.Temperature M=228.1 + 273.15
     "Temperature constant of the material";
 
   replaceable partial function lineResistance
     "Function that computes the resistance of a cable"
     extends Modelica.Icons.Function;
-    input Modelica.SIunits.Length l "Length of the cable";
-    input Modelica.SIunits.Frequency f = 50
+    input Modelica.Units.SI.Length l "Length of the cable";
+    input Modelica.Units.SI.Frequency f=50
       "Frequency considered in the definition of cables properties";
-    output Modelica.SIunits.Resistance R "Resistance of the cable";
+    output Modelica.Units.SI.Resistance R "Resistance of the cable";
   protected
-    parameter Modelica.SIunits.AngularVelocity omega = 2*Modelica.Constants.pi*f;
+    parameter Modelica.Units.SI.AngularVelocity omega=2*Modelica.Constants.pi*f;
     annotation (Documentation(revisions="<html>
 <ul>
 <li>
@@ -31,12 +31,12 @@ Added function and documentation
   replaceable partial function lineInductance
     "Function that computes the inductance of a cable"
     extends Modelica.Icons.Function;
-    input Modelica.SIunits.Length l "Length of the cable";
-    input Modelica.SIunits.Frequency f = 50
+    input Modelica.Units.SI.Length l "Length of the cable";
+    input Modelica.Units.SI.Frequency f=50
       "Frequency considered in the definition of cables properties";
-    output Modelica.SIunits.Inductance L "Inductance of the cable";
+    output Modelica.Units.SI.Inductance L "Inductance of the cable";
   protected
-    parameter Modelica.SIunits.AngularVelocity omega = 2*Modelica.Constants.pi*f;
+    parameter Modelica.Units.SI.AngularVelocity omega=2*Modelica.Constants.pi*f;
     annotation (Documentation(revisions="<html>
 <ul>
 <li>
@@ -50,12 +50,12 @@ Added function and documentation
   replaceable partial function lineCapacitance
     "Function that computes the capacitance of a cable"
     extends Modelica.Icons.Function;
-    input Modelica.SIunits.Length l "Length of the cable";
-    input Modelica.SIunits.Frequency f = 50
+    input Modelica.Units.SI.Length l "Length of the cable";
+    input Modelica.Units.SI.Frequency f=50
       "Frequency considered in the definition of cables properties";
-    output Modelica.SIunits.Capacitance C "Capacitance of the cable";
+    output Modelica.Units.SI.Capacitance C "Capacitance of the cable";
   protected
-    parameter Modelica.SIunits.AngularVelocity omega = 2*Modelica.Constants.pi*f;
+    parameter Modelica.Units.SI.AngularVelocity omega=2*Modelica.Constants.pi*f;
     annotation (Documentation(revisions="<html>
 <ul>
 <li>

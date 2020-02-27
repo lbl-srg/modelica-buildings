@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.CDL.Continuous;
 block MovingMean
   "Block to output moving average"
 
-  parameter Modelica.SIunits.Time delta(min=1E-5)
+  parameter Modelica.Units.SI.Time delta(min=1E-5)
     "Time horizon over which the input is averaged";
 
   Interfaces.RealInput u "Connector of Real input signal"
@@ -11,7 +11,7 @@ block MovingMean
    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  parameter Modelica.SIunits.Time tStart(fixed=false) "Start time";
+  parameter Modelica.Units.SI.Time tStart(fixed=false) "Start time";
   Real mu "Internal integrator variable";
   Real muDel "Internal integrator variable with delay";
   Boolean mode(start=false, fixed=true) "Calculation mode";

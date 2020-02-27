@@ -6,13 +6,13 @@ partial model PartialPrescribedOutlet
     final computeFlowResistance=(abs(dp_nominal) > Modelica.Constants.eps));
 
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Nominal mass flow rate, used for regularization near zero flow"
-    annotation(Dialog(group = "Nominal condition"));
+    annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.Time tau(min=0) = 10
+  parameter Modelica.Units.SI.Time tau(min=0) = 10
     "Time constant at nominal flow rate (used if energyDynamics or massDynamics not equal Modelica.Fluid.Types.Dynamics.SteadyState)"
-    annotation(Dialog(tab = "Dynamics"));
+    annotation (Dialog(tab="Dynamics"));
 
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));

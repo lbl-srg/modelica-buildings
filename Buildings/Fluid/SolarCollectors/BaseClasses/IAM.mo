@@ -1,12 +1,12 @@
 within Buildings.Fluid.SolarCollectors.BaseClasses;
 function IAM "Function for incident angle modifer"
 
-  input Modelica.SIunits.Angle incAng "Incident angle";
+  input Modelica.Units.SI.Angle incAng "Incident angle";
   input Real B0 "1st incident angle modifer coefficient";
   input Real B1 "2nd incident angle modifer coefficient";
   output Real incAngMod "Incident angle modifier coefficient";
 protected
-  constant Modelica.SIunits.Angle incAngMin = Modelica.Constants.pi / 2 -0.1
+  constant Modelica.Units.SI.Angle incAngMin=Modelica.Constants.pi/2 - 0.1
     "Minimum incidence angle to avoid division by zero";
   constant Real delta = 0.0001 "Width of the smoothing function";
   constant Real cosIncAngMin = Modelica.Math.cos(incAngMin) "Cosine of minimum incidence angle";

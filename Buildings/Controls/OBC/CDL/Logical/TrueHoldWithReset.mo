@@ -1,7 +1,8 @@
 within Buildings.Controls.OBC.CDL.Logical;
 block TrueHoldWithReset "Block that holds a true signal for at least a requested duration"
 
-  parameter Modelica.SIunits.Time duration "Time duration of the true output signal hold";
+  parameter Modelica.Units.SI.Time duration
+    "Time duration of the true output signal hold";
 
   Interfaces.BooleanInput u "Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -16,9 +17,10 @@ protected
   Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay(
     final delayTime=duration) "Delay for the on signal"
     annotation (Placement(transformation(extent={{10,10},{30,30}})));
-  Modelica.StateGraph.InitialStep initialStep "Initial step"
+  Modelica.StateGraph.InitialStep initialStep(nIn=1, nOut=1)
+                                              "Initial step"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Modelica.StateGraph.StepWithSignal outputTrue
+  Modelica.StateGraph.StepWithSignal outputTrue(nIn=1, nOut=1)
     "Holds the output at true"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
   Modelica.StateGraph.TransitionWithSignal toOutputTrue

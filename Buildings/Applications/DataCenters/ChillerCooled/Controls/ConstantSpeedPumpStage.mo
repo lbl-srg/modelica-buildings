@@ -2,7 +2,7 @@ within Buildings.Applications.DataCenters.ChillerCooled.Controls;
 model ConstantSpeedPumpStage "Staging control for constant speed pumps"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Modelica.SIunits.Time tWai "Waiting time";
+  parameter Modelica.Units.SI.Time tWai "Waiting time";
 
   Modelica.Blocks.Interfaces.IntegerInput cooMod
     "Cooling mode - 0:off,  1: free cooling mode; 2: partially mechanical cooling; 3: fully mechanical cooling"
@@ -32,12 +32,14 @@ model ConstantSpeedPumpStage "Staging control for constant speed pumps"
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-40,10})));
-  Modelica.StateGraph.InitialStep off(nIn=1) "Free cooling mode"
+  Modelica.StateGraph.InitialStep off(nIn=1, nOut=1)
+                                             "Free cooling mode"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-40,70})));
-  Modelica.StateGraph.StepWithSignal twoOn "Two chillers are commanded on"
+  Modelica.StateGraph.StepWithSignal twoOn(nIn=1, nOut=1)
+                                           "Two chillers are commanded on"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
@@ -140,13 +142,13 @@ equation
           12,-40},{18,-40}},         color={255,0,255}));
   connect(twoOn.active, booToInt1.u)
     annotation (Line(points={{-29,-80},{18,-80}},          color={255,0,255}));
-  connect(booToInt.y, addInt.u1) annotation (Line(points={{41,-40},{48,-40},{48,
+  connect(booToInt.y, addInt.u1) annotation (Line(points={{42,-40},{48,-40},{48,
           -54},{58,-54}}, color={255,127,0}));
-  connect(booToInt1.y, addInt.u2) annotation (Line(points={{41,-80},{48,-80},{
+  connect(booToInt1.y, addInt.u2) annotation (Line(points={{42,-80},{48,-80},{
           48,-66},{58,-66}}, color={255,127,0}));
   connect(intToRea.y, combiTable1Ds.u)
-    annotation (Line(points={{61,0},{68,0}}, color={0,0,127}));
-  connect(addInt.y, intToRea.u) annotation (Line(points={{81,-60},{88,-60},{88,
+    annotation (Line(points={{62,0},{68,0}}, color={0,0,127}));
+  connect(addInt.y, intToRea.u) annotation (Line(points={{82,-60},{88,-60},{88,
           -20},{30,-20},{30,0},{38,0}}, color={255,127,0}));
   annotation (                   Documentation(info="<html>
 <p>

@@ -5,12 +5,10 @@ block OutsideAirFlow
   parameter Real VOutPerAre_flow(final unit="m3/(s.m2)") = 3e-4
     "Outdoor air rate per unit area"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.VolumeFlowRate VOutPerPer_flow = 2.5e-3
-    "Outdoor air rate per person"
-    annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Area AFlo
-    "Floor area"
-    annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.VolumeFlowRate VOutPerPer_flow=2.5e-3
+    "Outdoor air rate per person" annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.Area AFlo "Floor area"
+    annotation (Dialog(group="Nominal condition"));
   parameter Boolean have_occSen
     "Set to true if zones have occupancy sensor";
   parameter Real occDen(final unit="1/m2") = 0.05

@@ -89,8 +89,8 @@ model OperationMode "Validate block OperationModeSelector"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
 
 protected
-  final parameter Modelica.SIunits.Time occSta = 7*3600 "Occupancy start time";
-  final parameter Modelica.SIunits.Time occEnd = 19*3600 "Occupancy end time";
+  final parameter Modelica.Units.SI.Time occSta=7*3600 "Occupancy start time";
+  final parameter Modelica.Units.SI.Time occEnd=19*3600 "Occupancy end time";
 
 equation
   connect(ramp1.y, sin1.u)

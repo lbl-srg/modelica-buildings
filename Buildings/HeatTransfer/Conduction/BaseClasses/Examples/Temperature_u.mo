@@ -22,36 +22,37 @@ model Temperature_u
                d=1000,
                k=1,
                x=0.2) "Phase change material with non-monotone u-T relation";
-  parameter Modelica.SIunits.SpecificInternalEnergy ud[Buildings.HeatTransfer.Conduction.nSupPCM](each fixed=false)
-    "Support points";
-  parameter Modelica.SIunits.SpecificInternalEnergy udMonotone[Buildings.HeatTransfer.Conduction.nSupPCM](each fixed=false)
-    "Support points";
-  parameter Modelica.SIunits.Temperature Td[Buildings.HeatTransfer.Conduction.nSupPCM](each fixed=false)
-    "Support points";
-  parameter Modelica.SIunits.Temperature TdMonotone[Buildings.HeatTransfer.Conduction.nSupPCM](each fixed=false)
-    "Support points";
+  parameter Modelica.Units.SI.SpecificInternalEnergy ud[Buildings.HeatTransfer.Conduction.nSupPCM]
+    (each fixed=false) "Support points";
+  parameter Modelica.Units.SI.SpecificInternalEnergy udMonotone[Buildings.HeatTransfer.Conduction.nSupPCM]
+    (each fixed=false) "Support points";
+  parameter Modelica.Units.SI.Temperature Td[Buildings.HeatTransfer.Conduction.nSupPCM]
+    (each fixed=false) "Support points";
+  parameter Modelica.Units.SI.Temperature TdMonotone[Buildings.HeatTransfer.Conduction.nSupPCM]
+    (each fixed=false) "Support points";
   parameter Real dT_du[Buildings.HeatTransfer.Conduction.nSupPCM](each fixed=false, each unit="kg.K2/J")
     "Derivatives at the support points - non-monotone, default in Modelica PCM";
   parameter Real dT_duMonotone[Buildings.HeatTransfer.Conduction.nSupPCM](each fixed=false, each unit="kg.K2/J")
     "Derivatives at the support points for monotone increasing cubic splines";
-  Modelica.SIunits.SpecificInternalEnergy u "Specific internal energy";
-  Modelica.SIunits.Temperature T
+  Modelica.Units.SI.SpecificInternalEnergy u "Specific internal energy";
+  Modelica.Units.SI.Temperature T
     "Temperature for given u without monotone interpolation";
-  Modelica.SIunits.Temperature TMonotone
+  Modelica.Units.SI.Temperature TMonotone
     "Temperature for given u with monotone interpolation";
-  Modelica.SIunits.Temperature TExa "Exact value of temperature";
+  Modelica.Units.SI.Temperature TExa "Exact value of temperature";
   Real errMonotone
     "Relative temperature error between calculated value with monotone interpolation and exact temperature";
   Real errNonMonotone
     "Relative temperature error between calculated value with non-monotone interpolation and exact temperature";
 
- parameter Modelica.SIunits.TemperatureDifference dTCha = materialMonotone.TSol+materialMonotone.TLiq
+  parameter Modelica.Units.SI.TemperatureDifference dTCha=materialMonotone.TSol
+       + materialMonotone.TLiq
     "Characteristic temperature difference of the problem";
 protected
   function relativeError "Relative error"
-    input Modelica.SIunits.Temperature T "Approximated temperature";
-    input Modelica.SIunits.Temperature TExa "Exact temperature";
-    input Modelica.SIunits.TemperatureDifference dTCha
+    input Modelica.Units.SI.Temperature T "Approximated temperature";
+    input Modelica.Units.SI.Temperature TExa "Exact temperature";
+    input Modelica.Units.SI.TemperatureDifference dTCha
       "Characteristic temperature difference";
     output Real relErr "Relative error";
   algorithm

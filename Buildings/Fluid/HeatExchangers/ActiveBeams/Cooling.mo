@@ -25,9 +25,9 @@ model Cooling "Active beam unit for cooling"
     "= true to allow flow reversal in air circuit, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
-  parameter Modelica.SIunits.Time tau = 30
+  parameter Modelica.Units.SI.Time tau=30
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
-     annotation (Dialog(tab = "Dynamics", group="Nominal condition"));
+    annotation (Dialog(tab="Dynamics", group="Nominal condition"));
 
   // Flow resistance
   parameter Boolean from_dpWat = false
@@ -133,11 +133,11 @@ model Cooling "Active beam unit for cooling"
         origin={0,-36})));
 
   // Pressure drop
-  Modelica.SIunits.PressureDifference dpWatCoo(displayUnit="Pa") = watCoo_a.p - watCoo_b.p
-    "Pressure difference watCoo_a minus watCoo_b";
+  Modelica.Units.SI.PressureDifference dpWatCoo(displayUnit="Pa") = watCoo_a.p
+     - watCoo_b.p "Pressure difference watCoo_a minus watCoo_b";
 
-  Modelica.SIunits.PressureDifference dpAir(displayUnit="Pa") = air_a.p - air_b.p
-    "Pressure difference air_a minus air_b";
+  Modelica.Units.SI.PressureDifference dpAir(displayUnit="Pa") = air_a.p -
+    air_b.p "Pressure difference air_a minus air_b";
 
   FixedResistances.PressureDrop res(
     redeclare final package Medium = MediumAir,

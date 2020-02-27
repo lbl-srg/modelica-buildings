@@ -26,7 +26,7 @@ package TemperatureDependentDensity
     AbsolutePressure p(start=p_default) "Pressure of medium";
   end ThermodynamicState;
 
-  constant Modelica.SIunits.SpecificHeatCapacity cp_const = 4184
+  constant Modelica.Units.SI.SpecificHeatCapacity cp_const=4184
     "Specific heat capacity at constant pressure";
 
   redeclare model extends BaseProperties(
@@ -133,8 +133,8 @@ end specificEnthalpy;
 
 function enthalpyOfLiquid "Return the specific enthalpy of liquid"
   extends Modelica.Icons.Function;
-  input Modelica.SIunits.Temperature T "Temperature";
-  output Modelica.SIunits.SpecificEnthalpy h "Specific enthalpy";
+    input Modelica.Units.SI.Temperature T "Temperature";
+    output Modelica.Units.SI.SpecificEnthalpy h "Specific enthalpy";
 algorithm
   h := (T - reference_T)*cp_const;
   annotation (
@@ -671,12 +671,12 @@ end setState_psX;
 // medium model with another medium model that does not provide an
 // implementation of these classes.
 protected
-  final constant Modelica.SIunits.SpecificHeatCapacity cv_const = cp_const
+  final constant Modelica.Units.SI.SpecificHeatCapacity cv_const=cp_const
     "Specific heat capacity at constant volume";
 
-  constant Modelica.SIunits.VelocityOfSound a_const=1484
+  constant Modelica.Units.SI.VelocityOfSound a_const=1484
     "Constant velocity of sound";
-  constant Modelica.SIunits.MolarMass MM_const=0.018015268 "Molar mass";
+  constant Modelica.Units.SI.MolarMass MM_const=0.018015268 "Molar mass";
 
 replaceable function der_specificHeatCapacityCp
     "Return the derivative of the specific heat capacity at constant pressure"
@@ -734,8 +734,8 @@ end der_enthalpyOfLiquid;
 function kinematicViscosity "Return the kinematic viscosity"
   extends Modelica.Icons.Function;
 
-  input Modelica.SIunits.Temperature T "Temperature";
-  output Modelica.SIunits.KinematicViscosity kinVis "Kinematic viscosity";
+    input Modelica.Units.SI.Temperature T "Temperature";
+    output Modelica.Units.SI.KinematicViscosity kinVis "Kinematic viscosity";
 algorithm
   kinVis := smooth(1,
   if T < 278.15 then

@@ -2,26 +2,26 @@ within Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Functions;
 function equivalentHeatCapacity
   "Computes equivalent specific heat of moist air"
   extends Modelica.Icons.Function;
-  input Modelica.SIunits.Temperature TIn "Inlet temperature";
-  input Modelica.SIunits.Temperature TOut "Outlet temperature";
+  input Modelica.Units.SI.Temperature TIn "Inlet temperature";
+  input Modelica.Units.SI.Temperature TOut "Outlet temperature";
 
-  output Modelica.SIunits.SpecificHeatCapacity equivalentHeatCapacity
+  output Modelica.Units.SI.SpecificHeatCapacity equivalentHeatCapacity
     "Equivalent specific heat capacity";
 
 protected
-  constant Modelica.SIunits.TemperatureDifference deltaT=0.01
+  constant Modelica.Units.SI.TemperatureDifference deltaT=0.01
     "Small temperature difference, used for regularization";
 
-  Modelica.SIunits.Temperature TOutEps
+  Modelica.Units.SI.Temperature TOutEps
     "Outlet temperature, bounded away from TIn";
 
-  Modelica.SIunits.MassFraction XIn_w
+  Modelica.Units.SI.MassFraction XIn_w
     "Water vapor mass fraction per unit mass total air";
-  Modelica.SIunits.MassFraction XOut_w
+  Modelica.Units.SI.MassFraction XOut_w
     "Water vapor mass fraction per unit mass total air";
 
-  Modelica.SIunits.SpecificEnthalpy hIn "Inlet specific enthalpy";
-  Modelica.SIunits.SpecificEnthalpy hOut "Outlet specific enthalpy";
+  Modelica.Units.SI.SpecificEnthalpy hIn "Inlet specific enthalpy";
+  Modelica.Units.SI.SpecificEnthalpy hOut "Outlet specific enthalpy";
 
 algorithm
   TOutEps :=Buildings.Utilities.Math.Functions.smoothMax(

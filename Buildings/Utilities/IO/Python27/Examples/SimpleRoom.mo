@@ -2,7 +2,7 @@ within Buildings.Utilities.IO.Python27.Examples;
 model SimpleRoom
   "Simple room model implemented in Python that outputs the temperature and the energy"
   extends Modelica.Icons.Example;
-  Modelica.Blocks.Sources.Clock clock
+  Modelica.Blocks.Sources.ContinuousClock clock
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
   Real_Real pyt(
@@ -30,7 +30,7 @@ model SimpleRoom
     amplitude=5,
     offset=283.15,
     y(unit="K", displayUnit="degC"),
-    freqHz=1/86400,
+    f=1/86400,
     phase=-1.5707963267949) "Ambient temperature"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 equation
