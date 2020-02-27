@@ -1,7 +1,6 @@
 within Buildings.Fluid.Actuators.Dampers;
 model MixingBox "Outside air mixing box with interlocked air dampers"
-  extends Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal(
-    final use_inputFilter=false);
+  extends Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal;
 
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
@@ -116,7 +115,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     final k1=k1,
     final use_constant_density=use_constant_density,
     final allowFlowReversal=allowFlowReversal,
-    final use_inputFilter=use_inputFilter)
+    final use_inputFilter=false)
     "Outdoor air damper"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Buildings.Fluid.Actuators.Dampers.Exponential damExh(
@@ -138,7 +137,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     final k1=k1,
     final use_constant_density=use_constant_density,
     final allowFlowReversal=allowFlowReversal,
-    final use_inputFilter=use_inputFilter)
+    final use_inputFilter=false)
     "Exhaust air damper"
     annotation (Placement(transformation(extent={{-20,-70},{-40,-50}})));
   Buildings.Fluid.Actuators.Dampers.Exponential damRec(
@@ -160,7 +159,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     final k1=k1,
     final use_constant_density=use_constant_density,
     final allowFlowReversal=allowFlowReversal,
-    final use_inputFilter=use_inputFilter)
+    final use_inputFilter=false)
     "Recirculation air damper"
     annotation (
       Placement(transformation(

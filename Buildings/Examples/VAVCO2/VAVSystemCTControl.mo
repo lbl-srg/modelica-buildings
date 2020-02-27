@@ -19,7 +19,7 @@ parameter Real scaDpFanSup_nominal = 1
     "Scaling factor for supply fan pressure lift with NSui number of suites";
 parameter Real scaDpFanRet_nominal = 1
     "Scaling factor for supply fan pressure lift with NSui number of suites";
-  parameter Real l(min=1e-10, max=1) = 0.01
+  parameter Real l(min=1e-10, max=1) = 6.71E-04
     "Damper leakage, ratio of flow coefficients k(y=0)/k(y=1)"
     annotation(Dialog(tab="Damper coefficients"));
   Modelica.Blocks.Sources.Constant PAtm(k=101325)
@@ -47,7 +47,7 @@ parameter Real scaDpFanRet_nominal = 1
   Buildings.Examples.VAVCO2.BaseClasses.Suite roo(
     redeclare package Medium = Medium,
     scaM_flow=scaM_flow,
-    final l=l)
+    l=l)
     annotation (Placement(transformation(extent={{206,-92},
             {310,20}})));
   Fluid.Actuators.Dampers.MixingBox mixBox(
@@ -63,7 +63,8 @@ parameter Real scaDpFanRet_nominal = 1
     dpDamRec_nominal=(0.45)*1.2*(1)^2/2,
     dpFixExh_nominal=0.467,
     dpFixOut_nominal=0.467,
-    dpFixRec_nominal=0.665)
+    dpFixRec_nominal=0.665,
+    l=l)
     "mixing box"
     annotation (Placement(transformation(extent={{6,-76},{30,-52}})));
   Buildings.Fluid.Sources.Boundary_pT bouIn(
@@ -255,5 +256,7 @@ for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
         "Plot fan"),
     experiment(
       StopTime=172800,
-      Tolerance=1e-08));
+      __Dymola_NumberOfIntervals=5000,
+      Tolerance=1e-08,
+      __Dymola_Algorithm="Cvode"));
 end VAVSystemCTControl;
