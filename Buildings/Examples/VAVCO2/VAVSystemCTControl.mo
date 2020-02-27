@@ -256,7 +256,7 @@ for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
         "Plot fan"),
     experiment(
       StopTime=172800,
-      __Dymola_NumberOfIntervals=5000,
+      __Dymola_NumberOfIntervals=500,
       Tolerance=1e-08,
       __Dymola_Algorithm="Cvode"));
 end VAVSystemCTControl;
