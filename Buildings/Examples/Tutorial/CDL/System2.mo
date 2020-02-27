@@ -125,7 +125,7 @@ Buildings.Examples.Tutorial.CDL.Controls.OpenLoopBoilerReturn</a>.
 To implement it, we created a Modelica block, and added an input, using a
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Interfaces.RealInput\">
 Buildings.Controls.OBC.CDL.Interfaces.RealInput</a>, called it <code>TRet</code>
-for the measured return water temperature, and an
+for the measured return water temperature, and a
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Interfaces.RealOutput\">
 Buildings.Controls.OBC.CDL.Interfaces.RealOutput</a>
 for the valve control signal, which we called <code>yVal</code>.

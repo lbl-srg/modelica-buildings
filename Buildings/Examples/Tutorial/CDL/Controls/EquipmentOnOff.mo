@@ -6,13 +6,13 @@ block EquipmentOnOff "Controller for equipment on/off control"
     "Boiler temperature"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput onSys
-    "System on status"
+    "System on command"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput onPum
-    "Pump on status"
+    "Pump on command"
     annotation (Placement(transformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput onBoi
-    "Boiler on status"
+    "Boiler on command"
     annotation (Placement(transformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Logical.And and1
     "And operator to switch boiler on based on temperature and system on command"
@@ -79,14 +79,14 @@ equation
     Documentation(info="<html>
 <p>
 Controller that takes as an input the boiler water temperature <code>TBoi</code>
-and the system on status <code>onSys</code>, and outputs
-the on status for the pumps <code>onPum</code> and the boiler <code>onBoi</code>.
+and the system on command <code>onSys</code>, and outputs
+the on command for the pumps <code>onPum</code> and the boiler <code>onBoi</code>.
 </p>
 <p>
-The pump on status is the same as the system on status.
+The pump on command is the same as the system on command.
 The boiler is switched on if the boiler temperature <code>TBoi</code> falls below
-<i>70</i>&circ;C and if <code>onSys=true</code>, and it switches off
-if either <code>TBoi</code> exceeds <i>90</i>&circ;C or if <code>onSys=false</code>.
+<i>70</i>&deg;C and if <code>onSys=true</code>, and it switches off
+if either <code>TBoi</code> exceeds <i>90</i>&deg;C or if <code>onSys=false</code>.
 </p>
 </html>", revisions="<html>
 <ul>
