@@ -8,13 +8,17 @@ model RoomVAV "Model for CO2 emitted by people"
   parameter Modelica.SIunits.Area ADam "Damper face area";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate";
-
+  parameter Real l(min=1e-10, max=1) = 0.0001
+    "Damper leakage, ratio of flow coefficients k(y=0)/k(y=1)"
+    annotation(Dialog(tab="Damper coefficients"));
   Buildings.Fluid.Actuators.Dampers.Exponential vav(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     from_dp=false,
     dpDamper_nominal=(0.45)*1.2*(1)^2/2,
-    dpFixed_nominal=(1E2) - (0.45)*1.2*(1)^2/2) annotation (Placement(transformation(
+    dpFixed_nominal=100,
+    final l=l)
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,80})));
@@ -63,7 +67,8 @@ model RoomVAV "Model for CO2 emitted by people"
     MMMea=Modelica.Media.
     IdealGases.Common.SingleGasesData.CO2.MM) "CO2 volume fraction"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  DamperControl con(Kp=1) "Damper controller"
+  DamperControl con(Kp=0.1)
+                          "Damper controller"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
   Modelica.Blocks.Math.Gain peoDen(k=2.5/VRoo) "People density per m2"
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
