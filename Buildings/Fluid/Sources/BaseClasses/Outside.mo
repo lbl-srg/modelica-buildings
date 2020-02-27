@@ -81,11 +81,6 @@ equation
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}},
         grid={2,2}), graphics={
-        Ellipse(
-          extent={{-98,100},{102,-100}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.Sphere,
-          fillColor={0,127,255}),
         Text(
           extent={{-150,110},{150,150}},
           textString="%name",
@@ -100,7 +95,18 @@ equation
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          textString="C")}),
+          textString="C"),
+        Ellipse(
+          extent={{-100,100},{100,-100}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor=DynamicSelect({0,127,255},
+            min(1, max(0, (1-(weaBus.TDryBul-273.15)/50)))*{28,108,200}+
+            min(1, max(0, (weaBus.TDryBul-273.15)/50))*{255,0,0})),
+        Text(
+          extent={{62,28},{-58,-22}},
+          lineColor={255,255,255},
+          textString=DynamicSelect("", String(weaBus.TDryBul-273.15, format=".1f")))}),
     Documentation(info="<html>
 <p>
 This is the base class for models that describes boundary conditions for
@@ -122,6 +128,12 @@ with exception of boundary pressure, do not have an effect.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 25, 2020, by Michael Wetter:<br/>
+Changed icon to display its operating state.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
+</li>
 <li>
 November 14, 2019, by Michael Wetter:<br/>
 Removed duplicate connector.<br/>

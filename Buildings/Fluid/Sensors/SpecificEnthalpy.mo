@@ -20,7 +20,11 @@ annotation (defaultComponentName="senSpeEnt",
           extent={{168,-30},{52,-60}},
           lineColor={0,0,0},
           textString="h"),
-        Line(points={{70,0},{100,0}}, color={0,0,127})}),
+        Line(points={{70,0},{100,0}}, color={0,0,127}),
+        Text(
+          extent={{180,90},{60,40}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(h_out, format=".0f")))}),
   Documentation(info="<html>
 <p>
 This model outputs the specific enthalpy of the fluid connected to its port.
@@ -35,6 +39,12 @@ prior to using this model with one fluid port.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 25, 2020, by Michael Wetter:<br/>
+Changed icon to display its operating state.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
+</li>
 <li>
 September 29, 2009, by Michael Wetter:<br/>
 First implementation.

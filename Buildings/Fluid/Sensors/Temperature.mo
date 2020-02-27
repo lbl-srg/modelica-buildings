@@ -106,7 +106,7 @@ Implementation is based on <code>Modelica.Fluid</code>.
           lineColor={0,0,255}),
         Line(points={{12,0},{60,0}}, color={0,0,127}),
         Text(
-          extent={{-20,90},{-140,40}},
+          extent={{180,90},{60,40}},
           lineColor={0,0,0},
           textString=DynamicSelect("", String(T-273.15, format=".1f")))}));
 end Temperature;
