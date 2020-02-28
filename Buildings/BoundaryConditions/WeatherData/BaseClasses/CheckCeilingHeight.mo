@@ -10,7 +10,8 @@ block CheckCeilingHeight
     final quantity="Height",
     final unit="m") "Ceiling height"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  constant Modelica.SIunits.Height ceiHeiMin=0 "Minimum allowed ceiling height";
+  constant Modelica.Units.SI.Height ceiHeiMin=0
+    "Minimum allowed ceiling height";
 equation
   ceiHeiOut = Buildings.Utilities.Math.Functions.smoothMax(
     ceiHeiIn,

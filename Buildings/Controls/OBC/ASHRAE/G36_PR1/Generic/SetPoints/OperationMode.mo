@@ -2,13 +2,13 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints;
 block OperationMode "Block that outputs the operation mode"
 
   parameter Integer numZon(min=1) "Number of zones";
-  parameter Modelica.SIunits.Time preWarCooTim = 10800
+  parameter Modelica.Units.SI.Time preWarCooTim=10800
     "Maximum cool-down or warm-up time";
-  parameter Modelica.SIunits.TemperatureDifference bouLim(min=0.5) = 1.1
+  parameter Modelica.Units.SI.TemperatureDifference bouLim(min=0.5) = 1.1
     "Value limit to indicate the end of setback or setup mode";
-  parameter Modelica.SIunits.Temperature TZonFreProOn = 277.55
+  parameter Modelica.Units.SI.Temperature TZonFreProOn=277.55
     "Threshold zone temperature value to activate freeze protection mode";
-  parameter Modelica.SIunits.Temperature TZonFreProOff = 280.35
+  parameter Modelica.Units.SI.Temperature TZonFreProOff=280.35
     "Threshold zone temperature value to finish the freeze protection mode";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonHeaSetOcc(

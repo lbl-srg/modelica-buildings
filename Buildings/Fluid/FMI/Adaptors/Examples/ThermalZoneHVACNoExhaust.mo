@@ -10,12 +10,12 @@ model ThermalZoneHVACNoExhaust
     "Adaptor for an HVAC system that is exposed through an FMI interface"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
 
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 30*6*6
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal=30*6*6
     "Nominal heat loss of the room";
 
-  parameter Modelica.SIunits.Volume VRoo = 6*6*2.7 "Room volume";
+  parameter Modelica.Units.SI.Volume VRoo=6*6*2.7 "Room volume";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=VRoo*2*1.2/3600
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=VRoo*2*1.2/3600
     "Nominal mass flow rate";
 
   Buildings.Fluid.FMI.Adaptors.ThermalZone con(

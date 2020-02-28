@@ -2,13 +2,13 @@ within Buildings.Types;
 package Azimuth "List of possible constant values for surface azimuth"
    extends Modelica.Icons.TypesPackage;
 
-   constant Modelica.SIunits.Angle E = -Modelica.Constants.pi/2
+constant Modelica.Units.SI.Angle E=-Modelica.Constants.pi/2
   "Azimuth for an exterior wall whose outer surface faces east";
-   constant Modelica.SIunits.Angle N = Modelica.Constants.pi
+constant Modelica.Units.SI.Angle N=Modelica.Constants.pi
   "Azimuth for an exterior wall whose outer surface faces north";
-   constant Modelica.SIunits.Angle S = 0
+constant Modelica.Units.SI.Angle S=0
   "Azimuth for an exterior wall whose outer surface faces south";
-   constant Modelica.SIunits.Angle W = +Modelica.Constants.pi/2
+constant Modelica.Units.SI.Angle W=+Modelica.Constants.pi/2
   "Azimuth for an exterior wall whose outer surface faces west";
 
 

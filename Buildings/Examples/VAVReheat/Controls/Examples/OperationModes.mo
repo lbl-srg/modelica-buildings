@@ -45,7 +45,7 @@ model OperationModes "Test model for operation modes"
     annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo1
     annotation (Placement(transformation(extent={{112,-130},{132,-110}})));
-  Buildings.Controls.Continuous.LimPID PID(initType=Modelica.Blocks.Types.InitPID.InitialState)
+  Buildings.Controls.Continuous.LimPID PID(initType=Modelica.Blocks.Types.Init.InitialState)
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
   Modelica.Blocks.Logical.Switch switch2
     annotation (Placement(transformation(extent={{20,-130},{40,-110}})));

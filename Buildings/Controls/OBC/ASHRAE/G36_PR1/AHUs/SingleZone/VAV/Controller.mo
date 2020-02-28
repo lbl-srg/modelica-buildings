@@ -1,17 +1,13 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV;
 block Controller "Single Zone AHU controller that composes subsequences for controlling fan speed, economizer, and supply air temperature"
-  parameter Modelica.SIunits.Temperature TZonHeaOn=293.15
-    "Heating setpoint during on"
-  annotation (Dialog(group="Zone setpoints"));
-  parameter Modelica.SIunits.Temperature TZonHeaOff=285.15
-    "Heating setpoint during off"
-  annotation (Dialog(group="Zone setpoints"));
-  parameter Modelica.SIunits.Temperature TZonCooOn=297.15
-    "Cooling setpoint during on"
-  annotation (Dialog(group="Zone setpoints"));
-  parameter Modelica.SIunits.Temperature TZonCooOff=303.15
-    "Cooling setpoint during off"
-  annotation (Dialog(group="Zone setpoints"));
+  parameter Modelica.Units.SI.Temperature TZonHeaOn=293.15
+    "Heating setpoint during on" annotation (Dialog(group="Zone setpoints"));
+  parameter Modelica.Units.SI.Temperature TZonHeaOff=285.15
+    "Heating setpoint during off" annotation (Dialog(group="Zone setpoints"));
+  parameter Modelica.Units.SI.Temperature TZonCooOn=297.15
+    "Cooling setpoint during on" annotation (Dialog(group="Zone setpoints"));
+  parameter Modelica.Units.SI.Temperature TZonCooOff=303.15
+    "Cooling setpoint during off" annotation (Dialog(group="Zone setpoints"));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCoo=
      Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
@@ -19,16 +15,16 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
   parameter Real kCoo(final unit="1/K") = 0.1
     "Gain for cooling control loop signal"
     annotation(Dialog(group="Cooling loop signal"));
-  parameter Modelica.SIunits.Time TiCoo=900
+  parameter Modelica.Units.SI.Time TiCoo=900
     "Time constant of integrator block for cooling control loop signal"
-    annotation(Dialog(group="Cooling loop signal",
-      enable=controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-          or controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time TdCoo=0.1
+    annotation (Dialog(group="Cooling loop signal", enable=controllerTypeCoo
+           == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
+          controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time TdCoo=0.1
     "Time constant of derivative block for cooling control loop signal"
-    annotation (Dialog(group="Cooling loop signal",
-      enable=controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-          or controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    annotation (Dialog(group="Cooling loop signal", enable=controllerTypeCoo
+           == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
+          controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeHea=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -37,16 +33,16 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
   parameter Real kHea(final unit="1/K")=0.1
     "Gain for heating control loop signal"
     annotation(Dialog(group="Heating loop signal"));
-  parameter Modelica.SIunits.Time TiHea=900
+  parameter Modelica.Units.SI.Time TiHea=900
     "Time constant of integrator block for heating control loop signal"
-    annotation(Dialog(group="Heating loop signal",
-    enable=controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-        or controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time TdHea=0.1
+    annotation (Dialog(group="Heating loop signal", enable=controllerTypeHea
+           == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
+          controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time TdHea=0.1
     "Time constant of derivative block for heating control loop signal"
-    annotation (Dialog(group="Heating loop signal",
-      enable=controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-          or controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    annotation (Dialog(group="Heating loop signal", enable=controllerTypeHea
+           == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
+          controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCooCoi=
     Buildings.Controls.OBC.CDL.Types.SimpleController.P
@@ -55,25 +51,23 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
   parameter Real kCooCoi(final unit="1/K")=1.0
     "Gain for cooling coil control loop signal"
     annotation(Dialog(group="Cooling coil loop signal"));
-  parameter Modelica.SIunits.Time TiCooCoil=900
+  parameter Modelica.Units.SI.Time TiCooCoil=900
     "Time constant of integrator block for cooling coil control loop signal"
-    annotation(Dialog(group="Cooling coil loop signal",
-    enable=controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-        or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time TdCooCoil=0.1
+    annotation (Dialog(group="Cooling coil loop signal", enable=
+          controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+           or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time TdCooCoil=0.1
     "Time constant of derivative block for cooling coil control loop signal"
-    annotation (Dialog(group="Cooling coil loop signal",
-      enable=controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-          or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    annotation (Dialog(group="Cooling coil loop signal", enable=
+          controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+           or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Modelica.SIunits.Temperature TSupSetMax
-    "Maximum supply air temperature for heating"
-    annotation (Evaluate=true,
-      Dialog(tab="VAV Setpoints",group="Temperature limits"));
-  parameter Modelica.SIunits.Temperature TSupSetMin
-    "Minimum supply air temperature for cooling"
-    annotation (Evaluate=true,
-      Dialog(tab="VAV Setpoints",group="Temperature limits"));
+  parameter Modelica.Units.SI.Temperature TSupSetMax
+    "Maximum supply air temperature for heating" annotation (Evaluate=true,
+      Dialog(tab="VAV Setpoints", group="Temperature limits"));
+  parameter Modelica.Units.SI.Temperature TSupSetMin
+    "Minimum supply air temperature for cooling" annotation (Evaluate=true,
+      Dialog(tab="VAV Setpoints", group="Temperature limits"));
   parameter Real yHeaMax(min=0, max=1, unit="1")
     "Maximum fan speed for heating"
     annotation (Dialog(tab="VAV Setpoints",group="Speed"));
@@ -87,12 +81,11 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
   parameter Real VOutPerAre_flow(final unit="m3/(s.m2)") = 3e-4
     "Outdoor air rate per unit area"
     annotation(Dialog(tab="Outside Air Flow", group="Nominal condition"));
-  parameter Modelica.SIunits.VolumeFlowRate VOutPerPer_flow = 2.5e-3
+  parameter Modelica.Units.SI.VolumeFlowRate VOutPerPer_flow=2.5e-3
     "Outdoor air rate per person"
-    annotation(Dialog(tab="Outside Air Flow", group="Nominal condition"));
-  parameter Modelica.SIunits.Area AFlo
-    "Floor area"
-    annotation(Dialog(tab="Outside Air Flow", group="Nominal condition"));
+    annotation (Dialog(tab="Outside Air Flow", group="Nominal condition"));
+  parameter Modelica.Units.SI.Area AFlo "Floor area"
+    annotation (Dialog(tab="Outside Air Flow", group="Nominal condition"));
   parameter Boolean have_occSen
     "Set to true if zones have occupancy sensor"
     annotation(Dialog(tab="Outside Air Flow", group="Occupancy"));
@@ -118,28 +111,35 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
   parameter Boolean use_G36FrePro=false
     "Set to true if G36 freeze protection is implemented"
     annotation(Dialog(tab="Economizer", group="General"));
-  parameter Modelica.SIunits.TemperatureDifference delTOutHis=1
+  parameter Modelica.Units.SI.TemperatureDifference delTOutHis=1
     "Delta between the temperature hysteresis high and low limit"
-    annotation(Dialog(tab="Economizer", group="Advanced"));
-  parameter Modelica.SIunits.SpecificEnergy delEntHis=1000
-    "Delta between the enthalpy hysteresis high and low limits"
-     annotation(Dialog(tab="Economizer", group="Advanced", enable = use_enthalpy));
+    annotation (Dialog(tab="Economizer", group="Advanced"));
+  parameter Modelica.Units.SI.SpecificEnergy delEntHis=1000
+    "Delta between the enthalpy hysteresis high and low limits" annotation (
+      Dialog(
+      tab="Economizer",
+      group="Advanced",
+      enable=use_enthalpy));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeMod=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation(Dialog(tab="Economizer", group="Modulation"));
   parameter Real kMod(final unit="1/K")=1 "Gain of modulation controller"
     annotation(Dialog(tab="Economizer", group="Modulation"));
-  parameter Modelica.SIunits.Time TiMod=300
-    "Time constant of modulation controller integrator block"
-    annotation (Dialog(tab="Economizer", group="Modulation",
+  parameter Modelica.Units.SI.Time TiMod=300
+    "Time constant of modulation controller integrator block" annotation (
+      Dialog(
+      tab="Economizer",
+      group="Modulation",
       enable=controllerTypeMod == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-          or controllerTypeMod == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time TdMod=0.1
-    "Time constant of derivative block for modulation controller"
-    annotation (Dialog(tab="Economizer", group="Modulation",
+           or controllerTypeMod == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time TdMod=0.1
+    "Time constant of derivative block for modulation controller" annotation (
+      Dialog(
+      tab="Economizer",
+      group="Modulation",
       enable=controllerTypeMod == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-          or controllerTypeMod == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+           or controllerTypeMod == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real uMin(
     final min=0,
     final max=1,
@@ -160,28 +160,33 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
   parameter Real kFre(final unit="1/K") = 0.1
     "Gain for mixed air temperature tracking for freeze protection, used if use_TMix=true"
      annotation(Dialog(tab="Economizer", group="Freeze protection", enable=use_TMix));
-  parameter Modelica.SIunits.Time TiFre=120
+  parameter Modelica.Units.SI.Time TiFre=120
     "Time constant of controller for mixed air temperature tracking for freeze protection. Require TiFre < TiMinOut"
-     annotation(Dialog(tab="Economizer", group="Freeze protection",
-       enable=use_TMix
-         and (controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    annotation (Dialog(
+      tab="Economizer",
+      group="Freeze protection",
+      enable=use_TMix and (controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
            or controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-   parameter Modelica.SIunits.Time TdFre=0.1
-     "Time constant of derivative block for freeze protection"
-     annotation (Dialog(tab="Economizer", group="Freeze protection",
-       enable=use_TMix and
-           (controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+  parameter Modelica.Units.SI.Time TdFre=0.1
+    "Time constant of derivative block for freeze protection" annotation (
+      Dialog(
+      tab="Economizer",
+      group="Freeze protection",
+      enable=use_TMix and (controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
            or controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Modelica.SIunits.Temperature TFreSet=277.15
+  parameter Modelica.Units.SI.Temperature TFreSet=277.15
     "Lower limit for mixed air temperature for freeze protection, used if use_TMix=true"
-     annotation(Dialog(tab="Economizer", group="Freeze protection", enable=use_TMix));
+    annotation (Dialog(
+      tab="Economizer",
+      group="Freeze protection",
+      enable=use_TMix));
 
-  parameter Modelica.SIunits.VolumeFlowRate VOutMin_flow=1.0
+  parameter Modelica.Units.SI.VolumeFlowRate VOutMin_flow=1.0
     "Calculated minimum outdoor airflow rate"
-    annotation(Evaluate=true, Dialog(tab="Economizer", group="Commissioning"));
-  parameter Modelica.SIunits.VolumeFlowRate VOutDes_flow=2.0
+    annotation (Evaluate=true, Dialog(tab="Economizer", group="Commissioning"));
+  parameter Modelica.Units.SI.VolumeFlowRate VOutDes_flow=2.0
     "Calculated design outdoor airflow rate"
-    annotation(Evaluate=true, Dialog(tab="Economizer", group="Commissioning"));
+    annotation (Evaluate=true, Dialog(tab="Economizer", group="Commissioning"));
   parameter Real yDam_VOutMin_minSpe(
     final min=outDamPhyPosMin,
     final max=outDamPhyPosMax,

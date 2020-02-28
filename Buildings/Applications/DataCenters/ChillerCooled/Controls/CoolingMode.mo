@@ -3,14 +3,14 @@ model CoolingMode
   "Mode controller for integrated waterside economizer and chiller"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Modelica.SIunits.Time tWai "Waiting time";
-  parameter Modelica.SIunits.TemperatureDifference deaBan1
+  parameter Modelica.Units.SI.Time tWai "Waiting time";
+  parameter Modelica.Units.SI.TemperatureDifference deaBan1
     "Dead band width 1 for switching chiller on ";
-  parameter Modelica.SIunits.TemperatureDifference deaBan2
+  parameter Modelica.Units.SI.TemperatureDifference deaBan2
     "Dead band width 2 for switching waterside economizer off";
-  parameter Modelica.SIunits.TemperatureDifference deaBan3
+  parameter Modelica.Units.SI.TemperatureDifference deaBan3
     "Dead band width 3 for switching waterside economizer on ";
-  parameter Modelica.SIunits.TemperatureDifference deaBan4
+  parameter Modelica.Units.SI.TemperatureDifference deaBan4
     "Dead band width 4 for switching chiller off";
 
   Modelica.Blocks.Interfaces.RealInput TCHWRetWSE(
@@ -54,12 +54,14 @@ model CoolingMode
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-10,8})));
-  Modelica.StateGraph.InitialStepWithSignal freCoo(nIn=1) "Free cooling mode"
+  Modelica.StateGraph.InitialStepWithSignal freCoo(nIn=1, nOut=1)
+                                                          "Free cooling mode"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-10,70})));
-  Modelica.StateGraph.StepWithSignal fulMecCoo "Fully mechanical cooling mode"
+  Modelica.StateGraph.StepWithSignal fulMecCoo(nIn=1, nOut=1)
+                                               "Fully mechanical cooling mode"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,

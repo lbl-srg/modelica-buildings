@@ -19,11 +19,11 @@ model DayType "Block that outputs a signal that indicates week-day or week-end"
       Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  parameter Modelica.SIunits.Time samplePeriod=86400
+  parameter Modelica.Units.SI.Time samplePeriod=86400
     "Sample period of component";
   output Integer iDay(min=1, max=size(days, 1))
     "Pointer to days that determines what day type is sent to the output";
-  parameter Modelica.SIunits.Time firstSample(fixed=false)
+  parameter Modelica.Units.SI.Time firstSample(fixed=false)
     "Time when the sampling starts";
   output Boolean sampleTrigger "True, if sample time instant";
   output Boolean skipIDayIncrement

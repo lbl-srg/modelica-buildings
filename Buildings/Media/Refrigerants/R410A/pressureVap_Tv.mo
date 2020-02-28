@@ -1,15 +1,12 @@
 within Buildings.Media.Refrigerants.R410A;
 function pressureVap_Tv
 "Function that calculates the pressure R410A vapor based on temperature and specific volume"
-input Modelica.SIunits.Temperature T
-   "Temperature of refrigerant";
-input Modelica.SIunits.SpecificVolume v
-   "Specific volume of refrigerant";
-output Modelica.SIunits.AbsolutePressure p
-   "Pressure of refrigerant vapor";
+  input Modelica.Units.SI.Temperature T "Temperature of refrigerant";
+  input Modelica.Units.SI.SpecificVolume v "Specific volume of refrigerant";
+  output Modelica.Units.SI.AbsolutePressure p "Pressure of refrigerant vapor";
 
 protected
-  Modelica.SIunits.SpecificEntropy R = 114.55
+  Modelica.Units.SI.SpecificEntropy R=114.55
     "Refrigerant gas constant for Martin-Hou equation of state";
 
   Real A[:] = {-1.721781e2, 2.381558e-1, -4.329207e-4, -6.241072e-7}
@@ -27,11 +24,10 @@ protected
   Real k = 5.75
     "Coefficient K for Martin-Hou equation of state";
 
-  Modelica.SIunits.Temperature TCri = 345.25
+  Modelica.Units.SI.Temperature TCri=345.25
     "Critical temperature of refrigerant";
 
-  Modelica.SIunits.SpecificVolume v_abs
-    "Smoothed specific volume";
+  Modelica.Units.SI.SpecificVolume v_abs "Smoothed specific volume";
 
   parameter Integer n = size(A, 1);
 

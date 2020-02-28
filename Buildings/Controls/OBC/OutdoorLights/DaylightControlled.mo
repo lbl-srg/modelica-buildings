@@ -1,8 +1,9 @@
 within Buildings.Controls.OBC.OutdoorLights;
 block DaylightControlled "Controlling the outdoor lighting based on whether the sun is up"
-  parameter Modelica.SIunits.Angle lat(displayUnit="deg") "Latitude";
-  parameter Modelica.SIunits.Angle lon(displayUnit="deg") "Longitude";
-  parameter Modelica.SIunits.Time timZon(displayUnit="h") "Time zone of location";
+  parameter Modelica.Units.SI.Angle lat(displayUnit="deg") "Latitude";
+  parameter Modelica.Units.SI.Angle lon(displayUnit="deg") "Longitude";
+  parameter Modelica.Units.SI.Time timZon(displayUnit="h")
+    "Time zone of location";
 
   CDL.Interfaces.RealOutput y(
     final min = 0,

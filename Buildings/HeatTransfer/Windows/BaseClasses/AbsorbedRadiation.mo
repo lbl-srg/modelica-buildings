@@ -33,8 +33,7 @@ block AbsorbedRadiation "Absorbed radiation by window"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}}),
         iconTransformation(extent={{100,-50},{120,-30}})));
 
-  output Modelica.SIunits.Power absRad[2, N + 2, NSta]
-    "Absorbed interior and exterior radiation.
+  output Modelica.Units.SI.Power absRad[2,N + 2,NSta] "Absorbed interior and exterior radiation.
       (absRad[2,1,iSta]: exterior shading device,
       absRad[1,2 to N+1,iSta]: glass (unshaded part),
       absRad[2,2 to N+1,iSta]: glass (shaded part),

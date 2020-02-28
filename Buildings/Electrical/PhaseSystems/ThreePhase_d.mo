@@ -5,9 +5,9 @@ package ThreePhase_d "AC system covering only resistive loads with three symmetr
 
   redeclare function phaseVoltages "Return phase to neutral voltages"
     extends Modelica.Icons.Function;
-    input SI.Voltage V "system voltage";
-    input SI.Angle phi = 0 "phase angle";
-    output SI.Voltage v[n] "phase to neutral voltages";
+    input Modelica.Units.SI.Voltage V "system voltage";
+    input Modelica.Units.SI.Angle phi=0 "phase angle";
+    output Modelica.Units.SI.Voltage v[n] "phase to neutral voltages";
   algorithm
     v := {V}/sqrt(3);
   end phaseVoltages;
@@ -16,8 +16,8 @@ package ThreePhase_d "AC system covering only resistive loads with three symmetr
   redeclare function systemVoltage
   "Return system voltage as function of phase voltages"
     extends Modelica.Icons.Function;
-    input SI.Voltage v[n];
-    output SI.Voltage V;
+    input Modelica.Units.SI.Voltage v[n];
+    output Modelica.Units.SI.Voltage V;
   algorithm
     V := sqrt(3)*v[1];
   end systemVoltage;

@@ -32,8 +32,8 @@ model StepResponseEpsilonNTU
     "Slabe with embedded pipes"
     annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
-     0.167 "Nominal mass flow rate";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.167
+    "Nominal mass flow rate";
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TAirAbo(T=293.15)
     "Air temperature above the slab"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
@@ -52,7 +52,7 @@ model StepResponseEpsilonNTU
     til=Buildings.Types.Tilt.Floor)
     "Convective heat transfer above the slab"
     annotation (Placement(transformation(extent={{0,60},{-20,80}})));
-  parameter Modelica.SIunits.Area A=10 "Heat transfer area";
+  parameter Modelica.Units.SI.Area A=10 "Heat transfer area";
   HeatTransfer.Convection.Interior conBel(
     A=A,
     conMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,

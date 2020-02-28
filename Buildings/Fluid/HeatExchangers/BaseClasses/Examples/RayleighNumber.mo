@@ -5,14 +5,14 @@ model RayleighNumber "Test model for RayleighNumber"
         0.1, redeclare package Medium =
         Buildings.Media.Water)
     annotation (Placement(transformation(extent={{-10,0},{14,24}})));
-  Modelica.Blocks.Sources.Sine     TSur(
+  Modelica.Blocks.Sources.Sine TSur(
     amplitude=50,
-    freqHz=1/50,
+    f=1/50,
     offset=273.15 + 50) "Temperature of the hot surface"
     annotation (Placement(transformation(extent={{-74,10},{-54,30}})));
-  Modelica.Blocks.Sources.Sine     TFlu(
+  Modelica.Blocks.Sources.Sine TFlu(
     amplitude=50,
-    freqHz=1/25,
+    f=1/25,
     offset=273.15 + 50) "Temperature of the surrounding fluid"
     annotation (Placement(transformation(extent={{-74,-28},{-54,-8}})));
 equation

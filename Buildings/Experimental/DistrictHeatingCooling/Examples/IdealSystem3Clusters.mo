@@ -4,25 +4,25 @@ model IdealSystem3Clusters
   extends Modelica.Icons.Example;
     package Medium = Buildings.Media.Water "Fluid in the pipes";
 
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 3*2E6
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal=3*2E6
     "Nominal heat flow rate, positive for heating, negative for cooling";
 
-  parameter Modelica.SIunits.Temperature TSetHeaLea = 273.15+8
+  parameter Modelica.Units.SI.Temperature TSetHeaLea=273.15 + 8
     "Set point for leaving fluid temperature warm supply"
-    annotation(Dialog(group="Design parameter"));
+    annotation (Dialog(group="Design parameter"));
 
-  parameter Modelica.SIunits.Temperature TSetCooLea = 273.15+14
+  parameter Modelica.Units.SI.Temperature TSetCooLea=273.15 + 14
     "Set point for leaving fluid temperature cold supply"
-    annotation(Dialog(group="Design parameter"));
+    annotation (Dialog(group="Design parameter"));
 
-  parameter Modelica.SIunits.TemperatureDifference dT_nominal(
+  parameter Modelica.Units.SI.TemperatureDifference dT_nominal(
     min=0.5,
-    displayUnit="K") = TSetCooLea-TSetHeaLea
+    displayUnit="K") = TSetCooLea - TSetHeaLea
     "Temperature difference between warm and cold pipe"
-    annotation(Dialog(group="Design parameter"));
+    annotation (Dialog(group="Design parameter"));
 
-  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal = Q_flow_nominal/4200/dT_nominal
-    "Nominal mass flow rate";
+  final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=Q_flow_nominal/
+      4200/dT_nominal "Nominal mass flow rate";
   Plants.Ideal_T pla(
     redeclare package Medium = Medium,
     show_T=true,

@@ -3,17 +3,17 @@ partial model PartialAirHandlerControl
   "Partial model for testing air hanlders with temperature and humidity control"
   package Medium1 = Buildings.Media.Water "Medium model for water";
   package Medium2 = Buildings.Media.Air "Medium model for air";
-  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal(min=0)=2.9
+  parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal(min=0) = 2.9
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal(min=0)=3.3
+  parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal(min=0) = 3.3
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.Temperature T_a1_nominal=6 + 273.15
+  parameter Modelica.Units.SI.Temperature T_a1_nominal=6 + 273.15
     "Nominal water inlet temperature";
-  parameter Modelica.SIunits.Temperature T_b1_nominal=11 + 273.15
+  parameter Modelica.Units.SI.Temperature T_b1_nominal=11 + 273.15
     "Nominal water outlet temperature";
-  parameter Modelica.SIunits.Temperature T_a2_nominal=26 + 273.15
+  parameter Modelica.Units.SI.Temperature T_a2_nominal=26 + 273.15
     "Nominal air inlet temperature";
-  parameter Modelica.SIunits.Temperature T_b2_nominal=12 + 273.15
+  parameter Modelica.Units.SI.Temperature T_b2_nominal=12 + 273.15
     "Nominal air outlet temperature";
 
   Buildings.Fluid.Sources.Boundary_pT sin_2(

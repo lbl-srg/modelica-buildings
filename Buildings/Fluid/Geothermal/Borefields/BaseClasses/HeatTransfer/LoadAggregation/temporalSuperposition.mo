@@ -4,13 +4,13 @@ function temporalSuperposition
   extends Modelica.Icons.Function;
 
   input Integer i "Number of aggregation cells";
-  input Modelica.SIunits.HeatFlowRate QAgg_flow[i]
+  input Modelica.Units.SI.HeatFlowRate QAgg_flow[i]
     "Vector of aggregated loads";
-  input Modelica.SIunits.ThermalResistance kappa[i]
+  input Modelica.Units.SI.ThermalResistance kappa[i]
     "Weighting factors for each aggregation cell";
   input Integer curCel "Current occupied aggregation cell";
 
-  output Modelica.SIunits.TemperatureDifference deltaTb "Delta T at wall";
+  output Modelica.Units.SI.TemperatureDifference deltaTb "Delta T at wall";
 
 algorithm
   deltaTb := QAgg_flow[1:curCel]*kappa[1:curCel];

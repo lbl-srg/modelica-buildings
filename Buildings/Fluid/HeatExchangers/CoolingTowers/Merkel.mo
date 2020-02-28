@@ -5,22 +5,20 @@ model Merkel "Cooling tower model based on Merkel's theory"
   import cha =
     Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics;
 
-  final parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal=
-    m_flow_nominal/ratWatAir_nominal
-    "Nominal mass flow rate of air"
+  final parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=
+      m_flow_nominal/ratWatAir_nominal "Nominal mass flow rate of air"
     annotation (Dialog(group="Fan"));
 
   parameter Real ratWatAir_nominal(min=0, unit="1") = 1.2
     "Water-to-air mass flow rate ratio at design condition"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.Temperature TAirInWB_nominal
+  parameter Modelica.Units.SI.Temperature TAirInWB_nominal
     "Nominal outdoor (air inlet) wetbulb temperature"
     annotation (Dialog(group="Heat transfer"));
-  parameter Modelica.SIunits.Temperature TWatIn_nominal
-    "Nominal water inlet temperature"
-    annotation (Dialog(group="Heat transfer"));
-  parameter Modelica.SIunits.Temperature TWatOut_nominal
+  parameter Modelica.Units.SI.Temperature TWatIn_nominal
+    "Nominal water inlet temperature" annotation (Dialog(group="Heat transfer"));
+  parameter Modelica.Units.SI.Temperature TWatOut_nominal
     "Nominal water outlet temperature"
     annotation (Dialog(group="Heat transfer"));
 
@@ -39,9 +37,8 @@ model Merkel "Cooling tower model based on Merkel's theory"
   parameter Real fraPFan_nominal(unit="W/(kg/s)") = 275/0.15
     "Fan power divided by water mass flow rate at design condition"
     annotation (Dialog(group="Fan"));
-  parameter Modelica.SIunits.Power PFan_nominal = fraPFan_nominal*m_flow_nominal
-    "Fan power"
-    annotation (Dialog(group="Fan"));
+  parameter Modelica.Units.SI.Power PFan_nominal=fraPFan_nominal*m_flow_nominal
+    "Fan power" annotation (Dialog(group="Fan"));
 
   parameter Real yMin(min=0.01, max=1, final unit="1") = 0.3
     "Minimum control signal until fan is switched off (used for smoothing
@@ -58,9 +55,9 @@ model Merkel "Cooling tower model based on Merkel's theory"
     Placement(transformation(extent={{58,70},{78,90}})),
     Dialog(group="Fan"));
 
-  final parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(max=0)=per.Q_flow_nominal
+  final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(max=0) = per.Q_flow_nominal
     "Nominal heat transfer, (negative)";
-  final parameter Modelica.SIunits.ThermalConductance UA_nominal=per.UA_nominal
+  final parameter Modelica.Units.SI.ThermalConductance UA_nominal=per.UA_nominal
     "Thermal conductance at nominal flow, used to compute heat capacity";
   final parameter Real eps_nominal=per.eps_nominal
     "Nominal heat transfer effectiveness";

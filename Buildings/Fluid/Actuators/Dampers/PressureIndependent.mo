@@ -12,8 +12,8 @@ model PressureIndependent
   parameter Real deltaM = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
    annotation(Dialog(enable=use_deltaM));
-  parameter Modelica.SIunits.Velocity v_nominal = 1 "Nominal face velocity";
-  final parameter Modelica.SIunits.Area A=m_flow_nominal/rho_default/v_nominal
+  parameter Modelica.Units.SI.Velocity v_nominal=1 "Nominal face velocity";
+  final parameter Modelica.Units.SI.Area A=m_flow_nominal/rho_default/v_nominal
     "Face area";
 
   parameter Boolean roundDuct = false
@@ -24,9 +24,10 @@ model PressureIndependent
   parameter Boolean use_constant_density=true
     "Set to true to use constant density for flow friction"
    annotation (Evaluate=true, Dialog(tab="Advanced"));
-  parameter Modelica.SIunits.PressureDifference dpFixed_nominal(displayUnit="Pa", min=0) = 0
-    "Pressure drop of duct and other resistances that are in series"
-     annotation(Dialog(group = "Nominal condition"));
+  parameter Modelica.Units.SI.PressureDifference dpFixed_nominal(
+    displayUnit="Pa",
+    min=0) = 0 "Pressure drop of duct and other resistances that are in series"
+    annotation (Dialog(group="Nominal condition"));
   parameter Real l(min=1e-10, max=1) = 0.0001
     "Damper leakage, l=kDam(y=0)/kDam(y=1)"
     annotation(Dialog(tab="Advanced"));
@@ -55,17 +56,24 @@ protected
     "Parameter for avoiding unnecessary computations";
   constant Real y2dd = 0
     "Second derivative at second support point";
-  Modelica.SIunits.MassFlowRate m_flow_set
-    "Requested mass flow rate";
-  Modelica.SIunits.PressureDifference dp_min(displayUnit="Pa")
+  Modelica.Units.SI.MassFlowRate m_flow_set "Requested mass flow rate";
+  Modelica.Units.SI.PressureDifference dp_min(displayUnit="Pa")
     "Minimum pressure difference required for delivering requested mass flow rate";
-  Modelica.SIunits.PressureDifference dp_x, dp_x1, dp_x2, dp_y2, dp_y1
+  Modelica.Units.SI.PressureDifference dp_x;
+  Modelica.Units.SI.PressureDifference dp_x1;
+  Modelica.Units.SI.PressureDifference dp_x2;
+  Modelica.Units.SI.PressureDifference dp_y2;
+  Modelica.Units.SI.PressureDifference dp_y1
     "Support points for interpolation flow functions";
-  Modelica.SIunits.MassFlowRate m_flow_x, m_flow_x1, m_flow_x2, m_flow_y2, m_flow_y1
+  Modelica.Units.SI.MassFlowRate m_flow_x;
+  Modelica.Units.SI.MassFlowRate m_flow_x1;
+  Modelica.Units.SI.MassFlowRate m_flow_x2;
+  Modelica.Units.SI.MassFlowRate m_flow_y2;
+  Modelica.Units.SI.MassFlowRate m_flow_y1
     "Support points for interpolation flow functions";
-  Modelica.SIunits.MassFlowRate m_flow_smooth
+  Modelica.Units.SI.MassFlowRate m_flow_smooth
     "Smooth interpolation result between two flow regimes";
-  Modelica.SIunits.PressureDifference dp_smooth
+  Modelica.Units.SI.PressureDifference dp_smooth
     "Smooth interpolation result between two flow regimes";
 initial equation
   assert(m_flow_turbulent > 0, "m_flow_turbulent must be bigger than zero.");

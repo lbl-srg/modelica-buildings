@@ -23,12 +23,12 @@ protected
   final parameter Real yFanMin=0.1 "Minimum supply fan operation speed";
   final parameter Real yFanMax=0.9 "Maximum supply fan operation speed";
   final parameter Real fanSpe = (yFanMax + yFanMin)/2 "Constant supply fan speed";
-  final parameter Modelica.SIunits.VolumeFlowRate VOutDes_flow=2.0
+  final parameter Modelica.Units.SI.VolumeFlowRate VOutDes_flow=2.0
     "Calculated design outdoor airflow rate";
-  final parameter Modelica.SIunits.VolumeFlowRate VOutMin_flow=1.0
+  final parameter Modelica.Units.SI.VolumeFlowRate VOutMin_flow=1.0
     "Calculated minimum outdoor airflow rate";
-  final parameter Modelica.SIunits.VolumeFlowRate VOutSet_flow=(VOutDes_flow + VOutMin_flow)/2
-    "Constant minimum outdoor airflow setpoint";
+  final parameter Modelica.Units.SI.VolumeFlowRate VOutSet_flow=(VOutDes_flow
+       + VOutMin_flow)/2 "Constant minimum outdoor airflow setpoint";
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanStatus(
     final k=true) "Fan is on"

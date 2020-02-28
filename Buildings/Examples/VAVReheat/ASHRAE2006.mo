@@ -54,16 +54,15 @@ model ASHRAE2006
     yMax=1,
     yMin=0,
     Td=60,
-    initType=Modelica.Blocks.Types.InitPID.InitialState,
+    initType=Modelica.Blocks.Types.Init.InitialState,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.02,
-    Ti=300)
-           "Controller for heating coil"
+    Ti=300) "Controller for heating coil"
     annotation (Placement(transformation(extent={{-80,-212},{-60,-192}})));
   Buildings.Controls.Continuous.LimPID cooCoiCon(
     reverseAction=true,
     Td=60,
-    initType=Modelica.Blocks.Types.InitPID.InitialState,
+    initType=Modelica.Blocks.Types.Init.InitialState,
     yMax=1,
     yMin=0,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,

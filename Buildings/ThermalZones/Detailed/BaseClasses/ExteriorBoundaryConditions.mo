@@ -3,7 +3,7 @@ model ExteriorBoundaryConditions
   "Model for convection and radiation bounary condition of exterior constructions"
   parameter Integer nCon(min=1) "Number of exterior constructions"
   annotation (Dialog(group="Exterior constructions"));
-  parameter Modelica.SIunits.Angle lat "Latitude";
+  parameter Modelica.Units.SI.Angle lat "Latitude";
 
   parameter Boolean linearizeRadiation
     "Set to true to linearize emissive power";
@@ -19,10 +19,10 @@ model ExteriorBoundaryConditions
   Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind
     "Convective heat transfer model for opaque part of the constructions"
     annotation (Dialog(group="Convective heat transfer"));
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer hFixed=10.0
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer hFixed=10.0
     "Constant convection coefficient for opaque part of the constructions"
-    annotation (Dialog(group="Convective heat transfer",
-                       enable=(conMod == Buildings.HeatTransfer.Types.ExteriorConvection.Fixed)));
+    annotation (Dialog(group="Convective heat transfer", enable=(conMod ==
+          Buildings.HeatTransfer.Types.ExteriorConvection.Fixed)));
 
   // The convection coefficients are not final to allow a user to individually
   // assign them.
@@ -67,7 +67,7 @@ model ExteriorBoundaryConditions
     annotation (Placement(transformation(extent={{0,100},{-20,120}})));
 
 protected
-  parameter Modelica.SIunits.Area AOpa[nCon]=conPar[:].A
+  parameter Modelica.Units.SI.Area AOpa[nCon]=conPar[:].A
     "Area of opaque construction";
 
   Buildings.HeatTransfer.Sources.PrescribedTemperature TAirConExt[
@@ -179,8 +179,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-300,-300},
-            {300,300}})),
-                          Icon(coordinateSystem(preserveAspectRatio=true,
+            {300,300}})), Icon(coordinateSystem(preserveAspectRatio=true,
           extent={{-300,-300},{300,300}}), graphics={
         Rectangle(
           extent={{-160,280},{280,-250}},

@@ -5,22 +5,22 @@ function internalResistancesOneUTube
     Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.partialInternalResistances;
 
   // Outputs
-  output Modelica.SIunits.ThermalResistance Rgb
+  output Modelica.Units.SI.ThermalResistance Rgb
     "Thermal resistance between grout zone and borehole wall";
-  output Modelica.SIunits.ThermalResistance Rgg
+  output Modelica.Units.SI.ThermalResistance Rgg
     "Thermal resistance between the two grout zones";
-  output Modelica.SIunits.ThermalResistance RCondGro
+  output Modelica.Units.SI.ThermalResistance RCondGro
     "Thermal resistance between: pipe wall to capacity in grout";
 protected
   Real[2,2] RDelta(each unit="(m.K)/W") "Delta-circuit thermal resistances";
   Real[2,2] R(each unit="(m.K)/W") "Internal thermal resistances";
-  Modelica.SIunits.Position[2] xPip = {-sha, sha} "x-Coordinates of pipes";
-  Modelica.SIunits.Position[2] yPip = {0., 0.} "y-Coordinates of pipes";
-  Modelica.SIunits.Radius[2] rPip = {rTub, rTub} "Outer radius of pipes";
+  Modelica.Units.SI.Position[2] xPip={-sha,sha} "x-Coordinates of pipes";
+  Modelica.Units.SI.Position[2] yPip={0.,0.} "y-Coordinates of pipes";
+  Modelica.Units.SI.Radius[2] rPip={rTub,rTub} "Outer radius of pipes";
   Real[2] RFluPip(each unit="(m.K)/W") = {RCondPipe+RConv, RCondPipe+RConv} "Fluid to pipe wall thermal resistances";
-  Modelica.SIunits.ThermalResistance Rg
+  Modelica.Units.SI.ThermalResistance Rg
     "Thermal resistance between outer borehole wall and one tube";
-  Modelica.SIunits.ThermalResistance Rar
+  Modelica.Units.SI.ThermalResistance Rar
     "Thermal resistance between the two pipe outer walls";
 
   Real Ra(unit="(m.K)/W")

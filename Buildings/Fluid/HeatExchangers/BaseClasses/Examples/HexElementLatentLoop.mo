@@ -5,8 +5,10 @@ model HexElementLatentLoop
  package Medium_W = Buildings.Media.Water;
  package Medium_A = Buildings.Media.Air;
 
- parameter Modelica.SIunits.MassFlowRate mW_flow_nominal = 0.1 "Water mass flow rate";
- parameter Modelica.SIunits.MassFlowRate mA_flow_nominal = 0.14 "Air mass flow rate";
+  parameter Modelica.Units.SI.MassFlowRate mW_flow_nominal=0.1
+    "Water mass flow rate";
+  parameter Modelica.Units.SI.MassFlowRate mA_flow_nominal=0.14
+    "Air mass flow rate";
 
 
   Buildings.Fluid.Sources.Boundary_pT sin_2(

@@ -17,7 +17,7 @@ record DXCoil
     constrainedby
     Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage
     "Data record for coil performance at each stage";
-  parameter Modelica.SIunits.MassFlowRate m_flow_small = 0.0001*sta[nSta].nomVal.m_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate m_flow_small=0.0001*sta[nSta].nomVal.m_flow_nominal
     "Small mass flow rate for regularization near zero flow"
     annotation (Dialog(group="Minimum conditions"));
 annotation (preferredView="info",

@@ -4,16 +4,15 @@ model MixingBoxMinimumFlow
  extends Buildings.Fluid.Actuators.Dampers.MixingBox;
   import Modelica.Constants;
 
-  final parameter Modelica.SIunits.Area AOutMin = mOutMin_flow_nominal/rho_default/v_nominal
-    "Face area minimum outside air damper";
+  final parameter Modelica.Units.SI.Area AOutMin=mOutMin_flow_nominal/
+      rho_default/v_nominal "Face area minimum outside air damper";
 
-  parameter Modelica.SIunits.MassFlowRate mOutMin_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mOutMin_flow_nominal
     "Mass flow rate minimum outside air damper"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpOutMin_nominal(min=0,
-                                                                 displayUnit="Pa")
-    "Pressure drop minimum outside air leg"
-     annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.PressureDifference dpOutMin_nominal(min=0,
+      displayUnit="Pa") "Pressure drop minimum outside air leg"
+    annotation (Dialog(group="Nominal condition"));
 
   parameter Real yOutMin_start=y_start
     "Initial value of signal for minimum outside air damper"

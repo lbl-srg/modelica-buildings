@@ -10,10 +10,10 @@ partial block PartialSurfaceCondition
 
   constant Boolean variableSpeedCoil "Flag, set to true to interpolate data";
 
-  final parameter Modelica.SIunits.MassFlowRate m_flow_small = datCoi.m_flow_small
+  final parameter Modelica.Units.SI.MassFlowRate m_flow_small=datCoi.m_flow_small
     "Small mass flow rate for the evaporator, used for regularization";
-  final parameter Modelica.SIunits.AngularVelocity maxSpe(displayUnit="1/min")= datCoi.sta[nSta].spe
-    "Maximum rotational speed";
+  final parameter Modelica.Units.SI.AngularVelocity maxSpe(displayUnit="1/min")
+     = datCoi.sta[nSta].spe "Maximum rotational speed";
   Modelica.Blocks.Interfaces.RealInput speRat "Speed index"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
   Modelica.Blocks.Interfaces.RealInput Q_flow(
@@ -45,7 +45,7 @@ partial block PartialSurfaceCondition
     start=0.25,
     min=0,
     max=1.0) "Bypass factor";
- output Modelica.SIunits.AngularVelocity spe(displayUnit="1/min")
+  output Modelica.Units.SI.AngularVelocity spe(displayUnit="1/min")
     "Rotational speed";
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.UACp uacp[nSta](
       per=datCoi.sta.nomVal,
@@ -53,11 +53,9 @@ partial block PartialSurfaceCondition
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
 
 protected
-  output Modelica.SIunits.MassFlowRate m_flow_nonzero
+  output Modelica.Units.SI.MassFlowRate m_flow_nonzero
     "Evaporator air mass flow rate, bounded away from zero";
-  output Modelica.SIunits.SpecificEnthalpy delta_h(
-    start=40000,
-    min=0.0)
+  output Modelica.Units.SI.SpecificEnthalpy delta_h(start=40000, min=0.0)
     "Enthalpy required to be removed from the inlet air to attain apparatus dry point condition";
   output Real UAcp(
     min=0,

@@ -7,9 +7,10 @@ model HeatExchangerDynamics
 
   constant Integer nSeg = 7 "Number of segments in tank";
 
-  parameter Modelica.SIunits.HeatFlowRate QHex_flow_nominal = 2000
+  parameter Modelica.Units.SI.HeatFlowRate QHex_flow_nominal=2000
     "Design heat flow rate of heat exchanger";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal= QHex_flow_nominal/4200/4;
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=QHex_flow_nominal/
+      4200/4;
 
   Buildings.Fluid.Sources.Boundary_pT watInTan(
     redeclare package Medium = Medium,

@@ -37,7 +37,7 @@ model Tubular "Example showing the use of Tubular"
     Medium, m_flow_nominal=solCol.m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
   Modelica.Blocks.Sources.Sine sine(
-    freqHz=3/86400,
+    f=3/86400,
     offset=101325,
     amplitude=-1.5*solCol.dp_nominal)
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));

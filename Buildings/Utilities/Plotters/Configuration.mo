@@ -1,7 +1,7 @@
 within Buildings.Utilities.Plotters;
 model Configuration "Configuration for plotters"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.SIunits.Time samplePeriod(min=1E-3)
+  parameter Modelica.Units.SI.Time samplePeriod(min=1E-3)
     "Sample period of component";
   parameter String fileName = Modelica.Utilities.Files.fullPathName("plots.html")
    "Name of html file";
@@ -14,11 +14,9 @@ model Configuration "Configuration for plotters"
     "Set to true to enable an input that allows activating and deactivating the plotting"
     annotation(Dialog(group="Activation"));
 
-  parameter Modelica.SIunits.Time activationDelay(min=0)=0
+  parameter Modelica.Units.SI.Time activationDelay(min=0) = 0
     "Time that needs to elapse to enable plotting after activate becomes true"
-    annotation(Dialog(
-      group="Activation",
-      enable=(activation == Buildings.Utilities.Plotters.Types.GlobalActivation.use_input)));
+    annotation (Dialog(group="Activation", enable=(activation == Buildings.Utilities.Plotters.Types.GlobalActivation.use_input)));
 
   Modelica.Blocks.Interfaces.BooleanInput activate if
      (activation == Buildings.Utilities.Plotters.Types.GlobalActivation.use_input)
@@ -29,7 +27,8 @@ model Configuration "Configuration for plotters"
 protected
   Modelica.Blocks.Interfaces.BooleanInput activate_internal
     "Internal connector to activate plots";
-  discrete Modelica.SIunits.Time tActivateLast "Time when plotter was the last time activated";
+  discrete Modelica.Units.SI.Time tActivateLast
+    "Time when plotter was the last time activated";
 initial equation
   tActivateLast = time-2*activationDelay;
 equation

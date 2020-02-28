@@ -4,7 +4,7 @@ function normalizedPower "Normalized flow vs. normalized power characteristics f
   input Characteristics.fan per "Fan relative power consumption";
   input Real r_V(unit="1") "Volumetric flow rate divided by nominal flow rate";
   input Real d[:] "Derivatives at support points for spline interpolation";
-  output Modelica.SIunits.Efficiency r_P(max=1) "Normalized power consumption";
+  output Modelica.Units.SI.Efficiency r_P(max=1) "Normalized power consumption";
 protected
 Integer n = size(per.r_V, 1) "Number of data points";
 Integer i "Integer to select data interval";

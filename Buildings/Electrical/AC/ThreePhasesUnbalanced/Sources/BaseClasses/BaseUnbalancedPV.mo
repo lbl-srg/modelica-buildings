@@ -3,9 +3,9 @@ partial model BaseUnbalancedPV "Partial model for an unbalanced PV source"
   extends Buildings.Electrical.Interfaces.PartialPluggableUnbalanced;
   extends Buildings.Electrical.Interfaces.PartialPvBase;
   extends Buildings.Electrical.Interfaces.PartialAcDcParameters;
-  parameter Modelica.SIunits.Voltage V_nominal(min=0, start=480)
+  parameter Modelica.Units.SI.Voltage V_nominal(min=0, start=480)
     "Nominal voltage (V_nominal >= 0)"
-     annotation(Dialog(group="Nominal conditions"));
+    annotation (Dialog(group="Nominal conditions"));
   parameter Real areaFraction[3](each min=0, each max=1.0) = ones(3)/3
     "Fraction of area occupied by the PVs of each phase";
   replaceable OnePhase.Sources.PVSimple pv_phase2(

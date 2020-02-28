@@ -38,7 +38,7 @@ model MixingVolumeZeroFlow
     "Prescribed temperature"
     annotation (Placement(transformation(extent={{-56,34},{-44,46}})));
   Modelica.Blocks.Sources.Cosine cos1(
-    freqHz=1,
+    f=1,
     offset=283.15,
     amplitude=0.001) "Cosine input"
     annotation (Placement(transformation(extent={{-76,34},{-64,46}})));

@@ -1,9 +1,10 @@
 within Buildings.Controls.Predictors.BaseClasses;
 function sampleStart "Start time for sampling"
   extends Modelica.Icons.Function;
-  input Modelica.SIunits.Time t "Simulation time";
-  input Modelica.SIunits.Time samplePeriod "Sample Period";
-  output Modelica.SIunits.Time sampleStart "Time at which first sample happens";
+  input Modelica.Units.SI.Time t "Simulation time";
+  input Modelica.Units.SI.Time samplePeriod "Sample Period";
+  output Modelica.Units.SI.Time sampleStart
+    "Time at which first sample happens";
 algorithm
   sampleStart :=ceil(t/samplePeriod)*samplePeriod;
 

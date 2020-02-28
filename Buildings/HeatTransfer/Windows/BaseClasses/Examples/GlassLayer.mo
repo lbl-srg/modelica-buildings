@@ -1,7 +1,7 @@
 within Buildings.HeatTransfer.Windows.BaseClasses.Examples;
 model GlassLayer "Test model for glass layer heat transfer"
   extends Modelica.Icons.Example;
-  parameter Modelica.SIunits.Area A=1 "Window surface area";
+  parameter Modelica.Units.SI.Area A=1 "Window surface area";
   parameter Boolean linearize = false "Set to true to linearize emissive power";
 
   Buildings.HeatTransfer.Windows.BaseClasses.GlassLayer sha(

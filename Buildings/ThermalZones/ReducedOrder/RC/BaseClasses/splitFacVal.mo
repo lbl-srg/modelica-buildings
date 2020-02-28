@@ -5,12 +5,12 @@ function splitFacVal
 
   input Integer nRow "Number of rows";
   input Integer nCol "Number of columns";
-  input Modelica.SIunits.Area[:] AArray "Vector of areas";
-  input Modelica.SIunits.Area[nCol] AExt "Vector of exterior wall areas";
-  input Modelica.SIunits.Area[nCol] AWin "Vector of window areas";
+  input Modelica.Units.SI.Area[:] AArray "Vector of areas";
+  input Modelica.Units.SI.Area[nCol] AExt "Vector of exterior wall areas";
+  input Modelica.Units.SI.Area[nCol] AWin "Vector of window areas";
   output Real[nRow,nCol] splitFacValues "Split factor values for ThermSplitter";
 protected
-  Modelica.SIunits.Area ATot=sum(AArray) "Total area";
+  Modelica.Units.SI.Area ATot=sum(AArray) "Total area";
   Integer j=1 "Row counter";
   Integer k=1 "Column counter";
   Integer l=1 "AArray counter";

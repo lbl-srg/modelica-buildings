@@ -6,7 +6,7 @@ block OccupancySchedule "Occupancy schedule with look-ahead"
     "Occupancy table, each entry switching occupancy on or off";
   parameter Boolean firstEntryOccupied = true
     "Set to true if first entry in occupancy denotes a changed from unoccupied to occupied";
-  parameter Modelica.SIunits.Time period =   86400 "End time of periodicity";
+  parameter Modelica.Units.SI.Time period=86400 "End time of periodicity";
 
   Modelica.Blocks.Interfaces.RealOutput tNexNonOcc
     "Time until next non-occupancy"
@@ -21,7 +21,7 @@ protected
   final parameter Integer nRow = size(occupancy,1)
     "Number of rows in the schedule";
 
-  output Modelica.SIunits.Time offSet=integer(time/period)*period
+  output Modelica.Units.SI.Time offSet=integer(time/period)*period
     "Time off-set, in multiples of period, that is used to switch the time when doing the table lookup";
   output Integer nexStaInd "Next index when occupancy starts";
   output Integer nexStoInd "Next index when occupancy stops";
@@ -31,8 +31,8 @@ protected
   output Integer iPerSto
     "Counter for the period in which the next occupancy stops";
 
-  output Modelica.SIunits.Time tOcc "Time when next occupancy starts";
-  output Modelica.SIunits.Time tNonOcc "Time when next non-occupancy starts";
+  output Modelica.Units.SI.Time tOcc "Time when next occupancy starts";
+  output Modelica.Units.SI.Time tNonOcc "Time when next non-occupancy starts";
 
 encapsulated function switchInteger
   import Modelica;

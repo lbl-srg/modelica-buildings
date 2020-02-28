@@ -47,11 +47,11 @@ model EN12975SolarGain "Model calculating solar gains per the EN12975 standard"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 
 protected
-  constant Modelica.SIunits.TemperatureDifference dTMax = 1
+  constant Modelica.Units.SI.TemperatureDifference dTMax=1
     "Safety temperature difference to prevent TFlu > Medium.T_max";
-  final parameter Modelica.SIunits.Temperature TMedMax = Medium.T_max-dTMax
+  final parameter Modelica.Units.SI.Temperature TMedMax=Medium.T_max - dTMax
     "Fluid temperature above which there will be no heat gain computed to prevent TFlu > Medium.T_max";
-  final parameter Modelica.SIunits.Temperature TMedMax2 = TMedMax-dTMax
+  final parameter Modelica.Units.SI.Temperature TMedMax2=TMedMax - dTMax
     "Fluid temperature below which there will be no heat loss computed to prevent TFlu < Medium.T_min";
   Real iamBea "Incidence angle modifier for director solar radiation";
   Modelica.Blocks.Interfaces.RealInput shaCoe_internal "Internally used shaCoe";

@@ -1,7 +1,7 @@
 within Buildings.HeatTransfer.Windows.BaseClasses;
 model CenterOfGlass "Model for center of glass of a window construction"
   extends Buildings.HeatTransfer.Radiosity.BaseClasses.RadiosityTwoSurfaces;
-  parameter Modelica.SIunits.Angle til(displayUnit="deg")
+  parameter Modelica.Units.SI.Angle til(displayUnit="deg")
     "Surface tilt (only 90 degrees=vertical is implemented)";
 
   parameter Buildings.HeatTransfer.Data.GlazingSystems.Generic glaSys

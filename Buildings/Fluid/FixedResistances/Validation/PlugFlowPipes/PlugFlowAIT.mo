@@ -3,7 +3,7 @@ model PlugFlowAIT
   "Validation pipe against data from Austrian Institute of Technology"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water;
-  parameter Modelica.SIunits.Length Lcap=1
+  parameter Modelica.Units.SI.Length Lcap=1
     "Length over which transient effects typically take place";
   parameter Real R80(unit="(m.K)/W")=1/(2*0.024*Modelica.Constants.pi)
       *log(0.07/0.0337) + 1/(2*2.4*Modelica.Constants.pi)*log(2/0.07) "Thermal resistance per unit length of service pipes";
@@ -12,12 +12,12 @@ model PlugFlowAIT
     "Flag to decide whether volumes are included at the end points of the pipe";
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate, used for regularization near zero flow";
-  parameter Modelica.SIunits.Time tauHeaTra=6500
+  parameter Modelica.Units.SI.Time tauHeaTra=6500
     "Time constant for heat transfer, default 20 minutes";
 
-  parameter Modelica.SIunits.Length thickness=0.0032 "Pipe wall thickness";
+  parameter Modelica.Units.SI.Length thickness=0.0032 "Pipe wall thickness";
 
   Fluid.Sources.MassFlowSource_T Point1(
     redeclare package Medium = Medium,

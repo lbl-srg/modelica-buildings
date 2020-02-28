@@ -20,7 +20,7 @@ block TriggeredMovingMean
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  parameter Modelica.SIunits.Time t0(fixed=false) "First sample time instant";
+  parameter Modelica.Units.SI.Time t0(fixed=false) "First sample time instant";
   Integer iSample(start=0, fixed=true) "Sample numbering in the calculation";
   Integer counter(start=0, fixed=true)
       "Number of samples used for averaging calculation";

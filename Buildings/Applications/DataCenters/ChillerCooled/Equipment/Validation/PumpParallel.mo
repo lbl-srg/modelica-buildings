@@ -4,7 +4,7 @@ model PumpParallel "Example that tests the model pump parallels"
 
   package MediumW = Buildings.Media.Water "Medium model";
   parameter Integer numPum=2 "The number of pumps";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=6000/3600*1.2
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=6000/3600*1.2
     "Nominal mass flow rate";
   parameter Real thr1=1E-4 "Threshold for shutoff valves in parallel 1";
   parameter Real thr2=thr1*m_flow_nominal "Threshold for shutoff valves in parallel 2";

@@ -6,20 +6,21 @@ package ElectricReformulatedEIR "Performance data for chiller ElectricReformulat
         final nCapFunT=6,
         final nEIRFunT=6,
         final nEIRFunPLR=10);
-    parameter Modelica.SIunits.Temperature TConLvg_nominal
+    parameter Modelica.Units.SI.Temperature TConLvg_nominal
       "Temperature of fluid leaving condenser at nominal condition";
 
-    parameter Modelica.SIunits.Temperature TConLvgMin
+    parameter Modelica.Units.SI.Temperature TConLvgMin
       "Minimum value for leaving condenser temperature"
       annotation (Dialog(group="Performance curves"));
-    Modelica.SIunits.Temperature TConLvgMax
+    Modelica.Units.SI.Temperature TConLvgMax
       "Maximum value for leaving condenser temperature"
       annotation (Dialog(group="Performance curves"));
 
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    annotation (
+      defaultComponentName="datChi",
+      defaultComponentPrefixes="parameter",
+      Documentation(info=
+                   "<html>
 This record is used as a template for performance data
 for the chiller model
 <a href=\"Buildings.Fluid.Chillers.ElectricReformulatedEIR\">
@@ -38,7 +39,7 @@ First implementation.
   end Generic;
 
   record ReformEIRChiller_McQuay_WSC_471kW_5_89COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -471200,
       COP_nominal =         5.89,
       PLRMin =              0.10,
@@ -56,11 +57,11 @@ First implementation.
       EIRFunT =             {3.522647E-01,-3.311790E-02,-1.374491E-04,3.469525E-02,-3.624458E-04,6.749423E-04},
       EIRFunPLR =           {8.215998E-01,-2.209969E-02,-1.725652E-05,-3.831448E-02,1.896948E-01,2.308518E-02,0.000000E+00,1.349969E-02,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller McQuay WSC 471kW/5.89COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller McQuay WSC 471kW/5.89COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -91,7 +92,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YT_563kW_10_61COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -562600,
       COP_nominal =         10.61,
       PLRMin =              0.09,
@@ -109,11 +110,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {-5.308783E-01,-8.364102E-02,-4.054970E-03,1.347115E-01,-1.805617E-03,3.054789E-03},
       EIRFunPLR =           {4.931998E+00,-2.128161E-01,3.520769E-04,-8.586753E+00,1.375722E+01,1.940510E-01,0.000000E+00,-8.859038E+00,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller York YT 563kW/10.61COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller York YT 563kW/10.61COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -144,7 +145,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_McQuay_PEH_703kW_7_03COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -703300,
       COP_nominal =         7.03,
       PLRMin =              0.10,
@@ -162,11 +163,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {8.177961E-01,-1.756394E-01,2.510719E-03,2.677783E-02,-4.926551E-04,4.559008E-03},
       EIRFunPLR =           {2.342644E+00,-1.060883E-01,2.710155E-04,-2.289108E+00,3.338339E+00,9.221626E-02,0.000000E+00,-2.217954E+00,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller McQuay PEH 703kW/7.03COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller McQuay PEH 703kW/7.03COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -197,7 +198,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_23XL_724kW_6_04COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -724400,
       COP_nominal =         6.04,
       PLRMin =              0.19,
@@ -215,11 +216,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {5.899136E-01,1.976846E-02,8.755088E-04,-7.564222E-03,8.775130E-04,-2.036856E-03},
       EIRFunPLR =           {3.645490E-01,2.732140E-03,-5.356774E-05,1.212025E-01,5.491750E-01,2.083941E-04,0.000000E+00,-7.516191E-02,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 23XL 724kW/6.04COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 23XL 724kW/6.04COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -250,7 +251,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19XR_742kW_5_42COP_VSD =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -742000,
       COP_nominal =         5.42,
       PLRMin =              0.19,
@@ -268,11 +269,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {1.131963E+00,-4.201196E-02,7.571267E-04,-2.042484E-02,7.676570E-04,-2.753302E-04},
       EIRFunPLR =           {4.301853E-02,1.740092E-02,-2.733344E-05,-5.445504E-01,2.155307E+00,-1.600200E-02,0.000000E+00,-6.716912E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19XR 742kW/5.42COP/VSD"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19XR 742kW/5.42COP/VSD" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -303,7 +304,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_McQuay_WSC_816kW_6_74COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -815800,
       COP_nominal =         6.74,
       PLRMin =              0.09,
@@ -321,11 +322,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {7.251890E-01,-1.477434E-02,-3.174328E-03,4.035136E-03,-6.105556E-05,2.003152E-03},
       EIRFunPLR =           {5.166838E-01,-1.114911E-02,7.372985E-05,-7.182393E-02,8.180601E-01,7.638243E-03,0.000000E+00,-2.216516E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller McQuay WSC 816kW/6.74COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller McQuay WSC 816kW/6.74COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -356,7 +357,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_McQuay_PEH_819kW_8_11COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -819300,
       COP_nominal =         8.11,
       PLRMin =              0.09,
@@ -374,11 +375,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {4.447588E-01,-3.185710E-02,-8.260575E-04,3.712567E-02,-4.887950E-05,4.978770E-04},
       EIRFunPLR =           {1.038400E-01,1.702895E-02,-1.399515E-05,-9.140769E-03,1.077987E+00,-1.633517E-02,0.000000E+00,-1.811897E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller McQuay PEH 819kW/8.11COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller McQuay PEH 819kW/8.11COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -409,7 +410,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19XR_823kW_6_28COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -822900,
       COP_nominal =         6.28,
       PLRMin =              0.10,
@@ -427,11 +428,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {9.280652E-01,3.277907E-02,7.583449E-04,-2.536152E-02,1.204136E-03,-2.475422E-03},
       EIRFunPLR =           {1.057586E-01,1.472161E-02,-5.875508E-05,6.780787E-01,-6.310911E-02,-1.207949E-02,0.000000E+00,2.498837E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19XR 823kW/6.28COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19XR 823kW/6.28COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -462,7 +463,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19XR_869kW_5_57COP_VSD =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -868600,
       COP_nominal =         5.57,
       PLRMin =              0.18,
@@ -480,11 +481,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {5.173193E-01,7.303695E-02,-7.486318E-03,-2.613352E-03,1.000039E-04,1.264598E-03},
       EIRFunPLR =           {1.317677E-01,-7.501960E-03,5.073000E-06,8.550743E-01,-6.215987E-01,7.267902E-03,0.000000E+00,6.373549E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19XR 869kW/5.57COP/VSD"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19XR 869kW/5.57COP/VSD" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -515,7 +516,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19XR_897kW_7_23COP_VSD =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -896700,
       COP_nominal =         7.23,
       PLRMin =              0.20,
@@ -533,11 +534,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {6.970381E-01,5.701647E-02,-2.272629E-04,8.496805E-03,4.752264E-04,-2.759799E-03},
       EIRFunPLR =           {7.280764E-01,-5.949776E-02,3.161338E-05,8.871893E-01,-1.081399E+00,5.804626E-02,0.000000E+00,4.825053E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19XR 897kW/7.23COP/VSD"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19XR 897kW/7.23COP/VSD" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -568,7 +569,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19XR_897kW_6_50COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -896700,
       COP_nominal =         6.50,
       PLRMin =              0.20,
@@ -586,11 +587,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {9.192535E-01,9.218992E-03,1.241236E-03,-1.554079E-02,1.074639E-03,-2.071288E-03},
       EIRFunPLR =           {-5.497250E-01,5.035076E-02,-1.927855E-05,1.678371E+00,-1.535993E+00,-4.944902E-02,0.000000E+00,1.396972E+00,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19XR 897kW/6.50COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19XR 897kW/6.50COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -621,7 +622,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YT_897kW_7_60COP_VSD =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -896700,
       COP_nominal =         7.60,
       PLRMin =              0.10,
@@ -638,12 +639,12 @@ Chiller:Electric:ReformulatedEIR,
       capFunT =             {3.548168E-01,3.801839E-03,-2.081058E-03,5.549806E-02,-2.238902E-03,3.723197E-03},
       EIRFunT =             {4.207123E-01,5.394605E-05,-3.910848E-04,4.180526E-02,-1.982304E-04,-1.128927E-03},
       EIRFunPLR =           {-1.019329E+00,8.590218E-02,-1.293139E-04,7.442374E-01,2.883061E-02,-8.027926E-02,0.000000E+00,1.185988E+00,0.000000E+00,0.000000E+00},
-      etaMotor =            1.0)
-"ReformEIRChiller York YT 897kW/7.60COP/VSD"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+      etaMotor =            1.0) "ReformEIRChiller York YT 897kW/7.60COP/VSD"
+    annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -674,7 +675,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YT_897kW_6_27COP_VSD =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -896700,
       COP_nominal =         6.27,
       PLRMin =              0.10,
@@ -691,12 +692,12 @@ Chiller:Electric:ReformulatedEIR,
       capFunT =             {-1.279200E-01,1.653602E-01,-4.202474E-03,4.807512E-02,-9.553549E-04,-2.146733E-03},
       EIRFunT =             {3.276702E-01,-7.003986E-02,5.261779E-03,7.021494E-02,-7.368698E-04,-2.109336E-03},
       EIRFunPLR =           {-3.773762E-02,1.134114E-02,-2.659425E-05,2.639446E-01,4.805824E-01,-1.117502E-02,0.000000E+00,3.000515E-01,0.000000E+00,0.000000E+00},
-      etaMotor =            1.0)
-"ReformEIRChiller York YT 897kW/6.27COP/VSD"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+      etaMotor =            1.0) "ReformEIRChiller York YT 897kW/6.27COP/VSD"
+    annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -727,7 +728,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19XR_897kW_6_23COP_VSD =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -896700,
       COP_nominal =         6.23,
       PLRMin =              0.20,
@@ -745,11 +746,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {8.640049E-01,5.766109E-03,1.197122E-03,-2.312809E-03,4.642915E-04,-1.375629E-03},
       EIRFunPLR =           {9.617997E-01,-8.158350E-02,-5.841564E-06,1.169179E+00,-1.600491E+00,8.176055E-02,0.000000E+00,4.684331E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19XR 897kW/6.23COP/VSD"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19XR 897kW/6.23COP/VSD" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -780,7 +781,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_McQuay_PFH_932kW_5_09COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -931900,
       COP_nominal =         5.09,
       PLRMin =              0.09,
@@ -798,11 +799,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {4.854031E-01,-1.891596E-02,-1.236212E-03,1.975021E-02,-1.031869E-04,6.964845E-04},
       EIRFunPLR =           {7.391619E-03,9.094277E-03,-7.116487E-06,1.699487E-01,1.518580E+00,-8.713759E-03,0.000000E+00,-7.007499E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller McQuay PFH 932kW/5.09COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller McQuay PFH 932kW/5.09COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -833,7 +834,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YT_960kW_4_64COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -960000,
       COP_nominal =         4.64,
       PLRMin =              0.09,
@@ -850,12 +851,12 @@ Chiller:Electric:ReformulatedEIR,
       capFunT =             {-3.474613E-01,4.071500E-01,-3.270717E-02,1.187286E-02,-3.117876E-04,5.854731E-04},
       EIRFunT =             {6.522319E-01,-1.649356E-02,2.777675E-04,3.580800E-03,3.253181E-04,-2.452307E-04},
       EIRFunPLR =           {3.303041E-01,-1.499923E-03,4.911711E-06,3.166646E-01,4.011833E-01,1.242191E-03,0.000000E+00,-4.559734E-02,0.000000E+00,0.000000E+00},
-      etaMotor =            1.0)
-"ReformEIRChiller York YT 960kW/4.64COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+      etaMotor =            1.0) "ReformEIRChiller York YT 960kW/4.64COP/Vanes"
+    annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -886,7 +887,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YT_1023kW_5_81COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1023300,
       COP_nominal =         5.81,
       PLRMin =              0.09,
@@ -904,11 +905,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {6.129429E-01,-1.403780E-02,1.331529E-03,-2.182097E-04,5.502817E-04,-1.092920E-03},
       EIRFunPLR =           {2.511511E-01,8.555669E-03,-3.399815E-05,-2.271964E-01,1.450679E+00,-6.729414E-03,0.000000E+00,-4.981512E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller York YT 1023kW/5.81COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller York YT 1023kW/5.81COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -939,7 +940,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_McQuay_PEH_1030kW_8_58COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1030300,
       COP_nominal =         8.58,
       PLRMin =              0.08,
@@ -957,11 +958,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {5.347930E-01,-1.901560E-03,-1.999168E-03,2.601989E-02,-1.174414E-04,4.209479E-04},
       EIRFunPLR =           {3.869427E-01,-1.316341E-03,4.231383E-05,-9.777673E-02,8.539824E-01,-7.526877E-04,0.000000E+00,-1.180591E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller McQuay PEH 1030kW/8.58COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller McQuay PEH 1030kW/8.58COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -992,7 +993,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YT_1048kW_6_06COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1047900,
       COP_nominal =         6.06,
       PLRMin =              0.10,
@@ -1010,11 +1011,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {7.745270E-01,-3.256346E-02,2.992117E-03,-5.274460E-03,6.701377E-04,-1.236258E-03},
       EIRFunPLR =           {5.753623E-01,-1.409335E-02,-5.983885E-06,6.063425E-01,-3.090569E-01,1.412467E-02,0.000000E+00,1.296066E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller York YT 1048kW/6.06COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller York YT 1048kW/6.06COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -1045,7 +1046,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YT_1055kW_5_96COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1055000,
       COP_nominal =         5.96,
       PLRMin =              0.10,
@@ -1063,11 +1064,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {5.864611E-01,-1.981483E-02,1.189656E-03,4.468905E-03,4.366968E-04,-7.679079E-04},
       EIRFunPLR =           {2.585491E-01,8.250769E-03,-3.231494E-05,-8.921620E-02,1.025668E+00,-6.495267E-03,0.000000E+00,-2.179388E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller York YT 1055kW/5.96COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller York YT 1055kW/5.96COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -1098,7 +1099,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19XR_1076kW_5_52COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1076100,
       COP_nominal =         5.52,
       PLRMin =              0.10,
@@ -1116,11 +1117,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {7.658820E-01,1.245831E-02,-4.811737E-03,-2.449180E-03,1.633990E-04,1.270390E-03},
       EIRFunPLR =           {-4.774361E-01,5.162751E-02,-5.614109E-05,-2.035828E-01,1.353459E+00,-4.892949E-02,0.000000E+00,2.956492E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19XR 1076kW/5.52COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19XR 1076kW/5.52COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -1151,7 +1152,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Trane_CVHE_1080kW_7_39COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1079600,
       COP_nominal =         7.39,
       PLRMin =              0.20,
@@ -1169,11 +1170,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {2.583099E-01,-5.295487E-02,5.742775E-05,3.724845E-02,-1.705687E-04,7.265593E-04},
       EIRFunPLR =           {-2.528901E-01,5.293978E-02,-1.671838E-05,-7.241218E-02,1.197879E+00,-5.205361E-02,0.000000E+00,1.156312E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Trane CVHE 1080kW/7.39COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Trane CVHE 1080kW/7.39COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -1204,7 +1205,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YT_1090kW_7_57COP_VSD =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1090100,
       COP_nominal =         7.57,
       PLRMin =              0.14,
@@ -1221,12 +1222,12 @@ Chiller:Electric:ReformulatedEIR,
       capFunT =             {5.432784E-01,4.854908E-02,-8.778732E-04,2.814444E-02,-9.314140E-04,8.240584E-04},
       EIRFunT =             {8.635874E-01,-6.482460E-02,-2.524813E-04,2.842929E-02,-4.007377E-04,1.830138E-03},
       EIRFunPLR =           {-1.594094E+00,1.294337E-01,-2.100100E-04,1.659018E+00,-2.605622E+00,-1.199783E-01,0.000000E+00,3.435191E+00,0.000000E+00,0.000000E+00},
-      etaMotor =            1.0)
-"ReformEIRChiller York YT 1090kW/7.57COP/VSD"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+      etaMotor =            1.0) "ReformEIRChiller York YT 1090kW/7.57COP/VSD"
+    annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -1257,7 +1258,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_McQuay_PEH_1104kW_8_00COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1104200,
       COP_nominal =         8.00,
       PLRMin =              0.08,
@@ -1275,11 +1276,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {7.355874E-01,-1.291195E-02,-1.168928E-03,1.454443E-02,-4.975714E-06,4.941841E-04},
       EIRFunPLR =           {2.216357E-01,6.972382E-03,5.022616E-05,-3.939145E-02,9.582611E-01,-9.691500E-03,0.000000E+00,-1.039758E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller McQuay PEH 1104kW/8.00COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller McQuay PEH 1104kW/8.00COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -1310,7 +1311,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Trane_CVHE_1125kW_4_89COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1125300,
       COP_nominal =         4.89,
       PLRMin =              0.10,
@@ -1328,11 +1329,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {4.744658E-01,-3.998991E-02,-8.170569E-05,1.686296E-02,8.315397E-05,1.607491E-04},
       EIRFunPLR =           {3.526188E-01,-2.052741E-03,5.127782E-06,-3.558764E-01,1.168571E+00,1.752891E-03,0.000000E+00,-1.609826E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Trane CVHE 1125kW/4.89COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Trane CVHE 1125kW/4.89COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -1363,7 +1364,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YT_1125kW_7_92COP_VSD =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1125300,
       COP_nominal =         7.92,
       PLRMin =              0.09,
@@ -1380,12 +1381,12 @@ Chiller:Electric:ReformulatedEIR,
       capFunT =             {-1.825851E-01,-1.890742E-02,-1.452495E-03,9.494132E-02,-2.160634E-03,2.833148E-03},
       EIRFunT =             {6.772525E-01,-1.573620E-02,1.805356E-03,2.061048E-02,5.587604E-04,-2.014421E-03},
       EIRFunPLR =           {3.110875E-01,-5.972965E-03,-8.888194E-05,-5.317766E-01,1.932563E+00,1.040312E-02,0.000000E+00,-7.660775E-01,0.000000E+00,0.000000E+00},
-      etaMotor =            1.0)
-"ReformEIRChiller York YT 1125kW/7.92COP/VSD"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+      etaMotor =            1.0) "ReformEIRChiller York YT 1125kW/7.92COP/VSD"
+    annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -1416,7 +1417,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Trane_CVHE_1129kW_7_19COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1128800,
       COP_nominal =         7.19,
       PLRMin =              0.15,
@@ -1434,11 +1435,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {2.480712E-01,-5.163331E-02,-3.517164E-04,3.943482E-02,-3.224045E-04,9.124398E-04},
       EIRFunPLR =           {2.681887E-01,-1.329414E-03,-1.542108E-05,5.321500E-01,-2.230911E-01,2.236942E-03,0.000000E+00,4.101272E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Trane CVHE 1129kW/7.19COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Trane CVHE 1129kW/7.19COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -1469,7 +1470,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19XR_1143kW_6_57COP_VSD =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1142900,
       COP_nominal =         6.57,
       PLRMin =              0.20,
@@ -1487,11 +1488,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {9.612126E-01,-1.211702E-02,1.782802E-04,-2.807827E-03,2.421828E-04,1.165934E-05},
       EIRFunPLR =           {-1.922490E-02,1.026695E-02,-3.079249E-05,1.432686E-01,4.844691E-01,-8.952298E-03,0.000000E+00,3.774796E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19XR 1143kW/6.57COP/VSD"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19XR 1143kW/6.57COP/VSD" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -1522,7 +1523,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19XR_1157kW_5_62COP_VSD =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1156900,
       COP_nominal =         5.62,
       PLRMin =              0.19,
@@ -1540,11 +1541,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {1.221566E+00,-2.771462E-02,1.220059E-03,-2.228215E-02,7.578438E-04,-8.532836E-04},
       EIRFunPLR =           {2.260949E-01,-1.619690E-02,2.953765E-06,4.956395E-01,1.180777E-01,1.582337E-02,0.000000E+00,1.675772E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19XR 1157kW/5.62COP/VSD"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19XR 1157kW/5.62COP/VSD" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -1575,7 +1576,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19XR_1196kW_6_50COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1195600,
       COP_nominal =         6.50,
       PLRMin =              0.20,
@@ -1593,11 +1594,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {1.001094E+00,-1.641469E-02,3.314844E-04,-1.095655E-02,5.687863E-04,-4.694134E-04},
       EIRFunPLR =           {1.659565E-01,2.824668E-03,-4.941235E-05,9.544016E-01,-7.843794E-01,-1.991887E-04,0.000000E+00,6.294448E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19XR 1196kW/6.50COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19XR 1196kW/6.50COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -1628,7 +1629,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19XR_1213kW_7_78COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1213200,
       COP_nominal =         7.78,
       PLRMin =              0.17,
@@ -1646,11 +1647,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {1.009816E+00,-1.640134E-02,7.295439E-04,-5.050832E-03,6.901476E-04,-9.104064E-04},
       EIRFunPLR =           {2.257912E-01,3.697616E-03,-2.645195E-05,7.936322E-01,-4.424994E-01,-2.424456E-03,0.000000E+00,4.078706E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19XR 1213kW/7.78COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19XR 1213kW/7.78COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -1681,7 +1682,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_McQuay_PEH_1231kW_6_18COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1230800,
       COP_nominal =         6.18,
       PLRMin =              0.10,
@@ -1699,11 +1700,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {8.880010E-01,-9.202757E-03,-5.021594E-03,-9.074393E-03,2.554841E-04,2.313326E-03},
       EIRFunPLR =           {1.651794E-01,-3.089335E-03,2.301100E-04,1.104907E+00,-8.157905E-01,-8.477359E-03,0.000000E+00,6.893449E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller McQuay PEH 1231kW/6.18COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller McQuay PEH 1231kW/6.18COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -1734,7 +1735,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19XR_1234kW_5_39COP_VSD =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1234300,
       COP_nominal =         5.39,
       PLRMin =              0.19,
@@ -1752,11 +1753,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {4.746375E-01,9.120326E-02,-7.295060E-03,-5.662273E-03,1.928027E-04,8.244779E-04},
       EIRFunPLR =           {1.207212E-01,-9.914826E-03,1.854918E-05,9.880331E-01,-8.955866E-01,8.894574E-03,0.000000E+00,8.005552E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19XR 1234kW/5.39COP/VSD"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19XR 1234kW/5.39COP/VSD" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -1787,7 +1788,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19XR_1259kW_6_26COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1258900,
       COP_nominal =         6.26,
       PLRMin =              0.18,
@@ -1805,11 +1806,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {7.661241E-01,1.157734E-02,-8.937094E-04,-6.824770E-03,5.288283E-04,-7.378113E-04},
       EIRFunPLR =           {4.602131E-02,2.433945E-02,6.394526E-05,-3.648563E-01,1.854759E+00,-2.809346E-02,0.000000E+00,-4.821515E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19XR 1259kW/6.26COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19XR 1259kW/6.26COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -1840,7 +1841,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YK_1259kW_6_45COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1258900,
       COP_nominal =         6.45,
       PLRMin =              0.18,
@@ -1858,11 +1859,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {1.207755E+00,2.704147E-02,-1.882949E-05,-5.234106E-02,1.851447E-03,-2.375891E-03},
       EIRFunPLR =           {-3.830726E-01,3.222162E-02,7.399276E-05,3.649000E-01,1.497231E+00,-3.597905E-02,0.000000E+00,-4.321713E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller York YK 1259kW/6.45COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller York YK 1259kW/6.45COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -1893,7 +1894,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YT_1266kW_4_39COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1266000,
       COP_nominal =         4.39,
       PLRMin =              0.11,
@@ -1911,11 +1912,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {1.265473E-01,5.028662E-02,-4.704162E-03,7.913033E-03,3.096000E-04,-4.283498E-04},
       EIRFunPLR =           {1.253346E+00,-3.406609E-02,1.893094E-04,2.554443E-01,-1.655620E+00,2.220865E-02,0.000000E+00,1.319681E+00,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller York YT 1266kW/4.39COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller York YT 1266kW/4.39COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -1946,7 +1947,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19XR_1284kW_6_20COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1283500,
       COP_nominal =         6.20,
       PLRMin =              0.20,
@@ -1964,11 +1965,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {7.586434E-01,-1.231609E-02,1.784584E-03,-2.678401E-03,6.302421E-04,-1.385469E-03},
       EIRFunPLR =           {9.435414E-01,-6.553709E-02,1.115089E-04,1.530548E+00,-1.486930E+00,6.031382E-02,0.000000E+00,7.320523E-02,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19XR 1284kW/6.20COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19XR 1284kW/6.20COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -1999,7 +2000,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19XR_1294kW_7_61COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1294100,
       COP_nominal =         7.61,
       PLRMin =              0.16,
@@ -2017,11 +2018,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {1.167182E+00,-4.534610E-03,-2.394329E-03,-1.568154E-02,4.922543E-04,5.971107E-04},
       EIRFunPLR =           {-2.942311E-02,2.842914E-02,-1.096497E-05,-1.072984E+00,3.343046E+00,-2.769791E-02,0.000000E+00,-1.251621E+00,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19XR 1294kW/7.61COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19XR 1294kW/7.61COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -2052,7 +2053,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Trane_CVHE_1329kW_5_38COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1329300,
       COP_nominal =         5.38,
       PLRMin =              0.29,
@@ -2070,11 +2071,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {9.460623E-01,3.685465E-02,-7.530867E-04,-1.753701E-02,5.832929E-04,-1.143458E-03},
       EIRFunPLR =           {-9.512023E-02,8.704652E-03,-6.499682E-06,1.336749E+00,-6.968012E-01,-8.318175E-03,0.000000E+00,4.497796E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Trane CVHE 1329kW/5.38COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Trane CVHE 1329kW/5.38COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -2105,7 +2106,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19XR_1350kW_7_90COP_VSD =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1350400,
       COP_nominal =         7.90,
       PLRMin =              0.19,
@@ -2123,11 +2124,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {9.661627E-01,-1.568504E-02,2.272739E-03,-3.411051E-03,8.026386E-04,-1.764450E-03},
       EIRFunPLR =           {1.868582E+00,-1.412449E-01,2.563520E-04,8.432680E-01,-1.538206E+00,1.292323E-01,0.000000E+00,-3.507772E-02,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19XR 1350kW/7.90COP/VSD"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19XR 1350kW/7.90COP/VSD" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -2158,7 +2159,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YT_1368kW_7_35COP_VSD =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1367900,
       COP_nominal =         7.35,
       PLRMin =              0.10,
@@ -2175,12 +2176,12 @@ Chiller:Electric:ReformulatedEIR,
       capFunT =             {-1.988920E-01,-1.019014E-01,-4.605586E-03,1.364167E-01,-4.142785E-03,8.790965E-03},
       EIRFunT =             {1.787713E-01,-1.943742E-02,-5.155001E-03,4.314534E-02,-5.446713E-04,2.049096E-03},
       EIRFunPLR =           {-4.466479E-01,1.188856E-01,-5.385997E-05,-2.756308E+00,4.709118E+00,-1.161211E-01,0.000000E+00,-5.402852E-01,0.000000E+00,0.000000E+00},
-      etaMotor =            1.0)
-"ReformEIRChiller York YT 1368kW/7.35COP/VSD"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+      etaMotor =            1.0) "ReformEIRChiller York YT 1368kW/7.35COP/VSD"
+    annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -2211,7 +2212,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Trane_CVHE_1372kW_7_49COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1371500,
       COP_nominal =         7.49,
       PLRMin =              0.41,
@@ -2229,11 +2230,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {1.033692E+00,3.558404E-02,3.589722E-03,-2.717762E-02,1.379031E-03,-4.158610E-03},
       EIRFunPLR =           {4.723036E-01,8.571830E-03,4.576667E-05,-1.502847E+00,3.731872E+00,-1.107635E-02,0.000000E+00,-1.669562E+00,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Trane CVHE 1372kW/7.49COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Trane CVHE 1372kW/7.49COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -2264,7 +2265,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YT_1396kW_7_35COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1396100,
       COP_nominal =         7.35,
       PLRMin =              0.10,
@@ -2282,11 +2283,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {4.546708E-01,3.725193E-03,-1.145409E-04,1.695408E-02,3.224089E-04,-1.265009E-03},
       EIRFunPLR =           {-2.549993E-01,1.161730E-01,1.913023E-06,-3.306674E+00,5.813195E+00,-1.164290E-01,0.000000E+00,-1.247308E+00,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller York YT 1396kW/7.35COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller York YT 1396kW/7.35COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -2317,7 +2318,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19XR_1403kW_7_09COP_VSD =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1403100,
       COP_nominal =         7.09,
       PLRMin =              0.17,
@@ -2335,11 +2336,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {1.172049E+00,-1.768334E-02,3.356460E-04,-1.485826E-02,6.930197E-04,-5.461447E-04},
       EIRFunPLR =           {1.386665E-01,4.836823E-03,-5.406708E-05,-4.609915E-01,2.214035E+00,-1.925694E-03,0.000000E+00,-9.302446E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19XR 1403kW/7.09COP/VSD"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19XR 1403kW/7.09COP/VSD" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -2370,7 +2371,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YT_1403kW_6_94COP_VSD =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1403100,
       COP_nominal =         6.94,
       PLRMin =              0.10,
@@ -2387,12 +2388,12 @@ Chiller:Electric:ReformulatedEIR,
       capFunT =             {-1.721714E+00,8.594308E-02,-1.220844E-02,2.037396E-01,-4.654718E-03,4.701301E-03},
       EIRFunT =             {5.348381E-01,-1.779962E-02,-4.925343E-03,1.066975E-02,9.573974E-05,1.717894E-03},
       EIRFunPLR =           {1.005500E+00,3.906974E-02,-7.721440E-06,-5.794857E+00,9.282464E+00,-3.755116E-02,0.000000E+00,-3.524493E+00,0.000000E+00,0.000000E+00},
-      etaMotor =            1.0)
-"ReformEIRChiller York YT 1403kW/6.94COP/VSD"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+      etaMotor =            1.0) "ReformEIRChiller York YT 1403kW/6.94COP/VSD"
+    annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -2423,7 +2424,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Trane_CVHE_1407kW_7_14COP_VSD =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1406600,
       COP_nominal =         7.14,
       PLRMin =              0.30,
@@ -2441,11 +2442,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {6.391346E-01,5.159383E-02,-5.750293E-03,-9.196660E-03,7.380570E-04,-4.665422E-04},
       EIRFunPLR =           {2.754461E-01,6.701607E-02,-8.579222E-05,-4.299994E+00,7.901098E+00,-6.298243E-02,0.000000E+00,-2.924081E+00,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Trane CVHE 1407kW/7.14COP/VSD"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Trane CVHE 1407kW/7.14COP/VSD" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -2476,7 +2477,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_McQuay_PFH_1407kW_6_60COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1406600,
       COP_nominal =         6.60,
       PLRMin =              0.10,
@@ -2494,11 +2495,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {9.392120E-01,3.430098E-02,-5.178425E-03,-2.274002E-02,6.827442E-04,7.649464E-04},
       EIRFunPLR =           {-6.446736E-01,5.352860E-02,1.582353E-06,2.669373E-01,1.497456E+00,-5.364380E-02,0.000000E+00,-1.183319E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller McQuay PFH 1407kW/6.60COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller McQuay PFH 1407kW/6.60COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -2529,7 +2530,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19XR_1407kW_6_04COP_VSD =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1406600,
       COP_nominal =         6.04,
       PLRMin =              0.20,
@@ -2547,11 +2548,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {1.174615E+00,-1.237741E-02,-1.147159E-03,-2.996332E-02,8.901939E-04,-2.302077E-04},
       EIRFunPLR =           {-5.839828E-01,4.640814E-02,-7.366007E-05,-1.926398E-01,2.597682E+00,-4.268655E-02,0.000000E+00,-8.666390E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19XR 1407kW/6.04COP/VSD"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19XR 1407kW/6.04COP/VSD" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -2582,7 +2583,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19XR_1410kW_8_54COP_VSD =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1410100,
       COP_nominal =         8.54,
       PLRMin =              0.18,
@@ -2600,11 +2601,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {1.074067E+00,-6.702565E-02,3.043272E-04,6.055739E-03,4.615039E-04,3.375766E-04},
       EIRFunPLR =           {-6.984658E-02,2.103714E-02,5.767453E-05,5.267406E-01,6.390076E-01,-2.389231E-02,0.000000E+00,-6.097179E-02,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19XR 1410kW/8.54COP/VSD"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19XR 1410kW/8.54COP/VSD" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -2635,7 +2636,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Trane_CVHE_1442kW_6_61COP_VSD =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1441800,
       COP_nominal =         6.61,
       PLRMin =              0.10,
@@ -2653,11 +2654,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {6.807134E-01,-2.285082E-02,8.153057E-04,9.280487E-04,4.950540E-04,-6.106817E-04},
       EIRFunPLR =           {-5.842314E-01,5.001539E-02,-1.157444E-04,-3.287848E-03,1.916917E+00,-4.340928E-02,0.000000E+00,-4.222738E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Trane CVHE 1442kW/6.61COP/VSD"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Trane CVHE 1442kW/6.61COP/VSD" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -2688,7 +2689,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YT_1459kW_6_40COP_VSD =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1459400,
       COP_nominal =         6.40,
       PLRMin =              0.10,
@@ -2705,12 +2706,12 @@ Chiller:Electric:ReformulatedEIR,
       capFunT =             {-1.194034E+00,2.466392E-01,-1.770803E-02,1.203228E-01,-2.570051E-03,8.497187E-04},
       EIRFunT =             {-6.559788E-02,4.189764E-02,-9.367876E-03,4.551296E-02,-5.411967E-04,1.453585E-03},
       EIRFunPLR =           {-1.614787E-01,6.417258E-02,1.317124E-05,-2.149029E+00,4.405653E+00,-6.621165E-02,0.000000E+00,-1.055839E+00,0.000000E+00,0.000000E+00},
-      etaMotor =            1.0)
-"ReformEIRChiller York YT 1459kW/6.40COP/VSD"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+      etaMotor =            1.0) "ReformEIRChiller York YT 1459kW/6.40COP/VSD"
+    annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -2741,7 +2742,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Trane_CVHE_1484kW_9_96COP_VSD =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1484000,
       COP_nominal =         9.96,
       PLRMin =              0.24,
@@ -2759,11 +2760,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {-6.183288E-01,-1.151565E-01,-1.663662E-04,1.539757E-01,-2.390058E-03,2.818373E-03},
       EIRFunPLR =           {2.203029E-01,9.195177E-02,1.943558E-05,-5.815422E+00,9.366237E+00,-9.299721E-02,0.000000E+00,-2.757689E+00,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Trane CVHE 1484kW/9.96COP/VSD"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Trane CVHE 1484kW/9.96COP/VSD" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -2794,7 +2795,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YT_1495kW_7_51COP_VSD =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1494500,
       COP_nominal =         7.51,
       PLRMin =              0.11,
@@ -2811,12 +2812,12 @@ Chiller:Electric:ReformulatedEIR,
       capFunT =             {6.015487E-01,-1.630120E-01,9.951930E-03,7.452875E-02,-1.608224E-03,2.001891E-03},
       EIRFunT =             {1.954138E-01,-1.627980E-01,5.924232E-03,8.194832E-02,-8.723337E-04,7.443855E-04},
       EIRFunPLR =           {6.377828E-01,-3.620643E-02,-1.187858E-04,5.832958E-01,-9.230655E-01,4.307256E-02,0.000000E+00,6.079021E-01,0.000000E+00,0.000000E+00},
-      etaMotor =            1.0)
-"ReformEIRChiller York YT 1495kW/7.51COP/VSD"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+      etaMotor =            1.0) "ReformEIRChiller York YT 1495kW/7.51COP/VSD"
+    annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -2847,7 +2848,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_McQuay_WSC_1519kW_7_10COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1519200,
       COP_nominal =         7.10,
       PLRMin =              0.10,
@@ -2865,11 +2866,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {1.087821E+00,-2.763242E-02,-3.692617E-03,-1.419848E-02,6.903140E-05,2.920296E-03},
       EIRFunPLR =           {4.209093E-01,-1.860468E-02,1.580518E-05,8.654910E-01,-6.538795E-01,1.786849E-02,0.000000E+00,3.759658E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller McQuay WSC 1519kW/7.10COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller McQuay WSC 1519kW/7.10COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -2900,7 +2901,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19XR_1558kW_5_81COP_VSD =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1557800,
       COP_nominal =         5.81,
       PLRMin =              0.19,
@@ -2918,11 +2919,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {1.228621E+00,-2.576180E-02,5.933105E-04,-2.005035E-02,6.691169E-04,-5.915039E-04},
       EIRFunPLR =           {3.269754E-01,-2.384434E-02,1.204600E-06,3.858219E-01,1.457104E-01,2.369999E-02,0.000000E+00,1.441457E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19XR 1558kW/5.81COP/VSD"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19XR 1558kW/5.81COP/VSD" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -2953,7 +2954,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19XR_1586kW_5_53COP_VSD =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1586000,
       COP_nominal =         5.53,
       PLRMin =              0.19,
@@ -2971,11 +2972,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {1.223690E+00,-3.668987E-02,4.038915E-04,-1.595573E-02,5.080640E-04,-7.276256E-05},
       EIRFunPLR =           {3.381660E-01,-2.323866E-02,-7.810564E-06,1.017389E+00,-8.328919E-01,2.371783E-02,0.000000E+00,4.701559E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19XR 1586kW/5.53COP/VSD"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19XR 1586kW/5.53COP/VSD" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -3006,7 +3007,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_McQuay_PEH_1635kW_7_47COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1635200,
       COP_nominal =         7.47,
       PLRMin =              0.08,
@@ -3024,11 +3025,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {1.029659E+00,-6.966329E-02,2.674887E-03,9.677160E-04,5.197288E-04,1.456235E-04},
       EIRFunPLR =           {-6.247932E-02,1.538879E-02,4.295421E-05,6.945495E-01,2.544881E-01,-1.740972E-02,0.000000E+00,1.367965E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller McQuay PEH 1635kW/7.47COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller McQuay PEH 1635kW/7.47COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -3059,7 +3060,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19XR_1635kW_6_36COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1635200,
       COP_nominal =         6.36,
       PLRMin =              0.18,
@@ -3077,11 +3078,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {6.499856E-01,-6.235681E-03,-2.219743E-04,8.417414E-03,2.314691E-04,-5.679479E-04},
       EIRFunPLR =           {4.206254E-01,-1.310337E-03,8.796454E-05,6.600709E-02,4.642310E-01,-3.720394E-03,0.000000E+00,1.189466E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19XR 1635kW/6.36COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19XR 1635kW/6.36COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -3112,7 +3113,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19XR_1656kW_8_24COP_VSD =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1656300,
       COP_nominal =         8.24,
       PLRMin =              0.17,
@@ -3130,11 +3131,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {2.129183E-01,-9.725092E-02,-2.082833E-03,8.782361E-02,-1.867589E-03,3.572892E-03},
       EIRFunPLR =           {1.682264E-01,5.313899E-02,1.193363E-04,-2.621319E+00,4.728237E+00,-5.785047E-02,0.000000E+00,-1.229602E+00,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19XR 1656kW/8.24COP/VSD"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19XR 1656kW/8.24COP/VSD" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -3165,7 +3166,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YT_1663kW_9_34COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1663300,
       COP_nominal =         9.34,
       PLRMin =              0.17,
@@ -3183,11 +3184,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {9.477120E-01,-3.913396E-02,2.408597E-03,6.703909E-03,5.744537E-04,-1.084620E-03},
       EIRFunPLR =           {3.131373E-01,-3.438844E-03,-2.715303E-06,1.918294E-01,7.024552E-01,3.301543E-03,0.000000E+00,-2.040731E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller York YT 1663kW/9.34COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller York YT 1663kW/9.34COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -3218,7 +3219,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19XL_1674kW_7_89COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1673900,
       COP_nominal =         7.89,
       PLRMin =              0.32,
@@ -3236,11 +3237,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {1.038212E+00,-5.515980E-02,3.732790E-03,2.569418E-03,5.139774E-04,-7.883225E-04},
       EIRFunPLR =           {6.276299E-01,-2.633919E-02,5.269229E-05,1.008569E+00,-1.063131E+00,2.353572E-02,0.000000E+00,4.628347E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19XL 1674kW/7.89COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19XL 1674kW/7.89COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -3271,7 +3272,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Trane_CVHF_1681kW_6_59COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1680900,
       COP_nominal =         6.59,
       PLRMin =              0.10,
@@ -3289,11 +3290,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {5.325528E-01,2.791268E-02,1.983583E-03,-2.742380E-03,7.801907E-04,-2.694731E-03},
       EIRFunPLR =           {-1.598454E+00,9.989791E-02,-1.680617E-04,1.430978E+00,5.318671E-01,-8.914051E-02,0.000000E+00,4.647834E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Trane CVHF 1681kW/6.59COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Trane CVHF 1681kW/6.59COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -3324,7 +3325,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19XR_1723kW_8_32COP_VSD =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1723100,
       COP_nominal =         8.32,
       PLRMin =              0.18,
@@ -3342,11 +3343,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {-1.372893E-01,-1.137042E-01,-3.395214E-03,1.210097E-01,-2.615543E-03,4.943923E-03},
       EIRFunPLR =           {1.363743E+00,-2.534882E-02,7.213176E-05,-3.644022E+00,5.935760E+00,2.202104E-02,0.000000E+00,-2.617944E+00,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19XR 1723kW/8.32COP/VSD"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19XR 1723kW/8.32COP/VSD" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -3377,7 +3378,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19XR_1727kW_9_04COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1726600,
       COP_nominal =         9.04,
       PLRMin =              0.17,
@@ -3395,11 +3396,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {1.247058E+00,-1.353289E-02,-1.160647E-03,-2.086541E-02,9.395685E-04,-2.989847E-05},
       EIRFunPLR =           {1.552467E-02,1.482533E-02,-2.165341E-05,9.371381E-01,-5.717707E-01,-1.368813E-02,0.000000E+00,6.047782E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19XR 1727kW/9.04COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19XR 1727kW/9.04COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -3430,7 +3431,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_McQuay_WSC_1751kW_6_73COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1751300,
       COP_nominal =         6.73,
       PLRMin =              0.10,
@@ -3448,11 +3449,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {9.968396E-01,2.738711E-02,-1.295424E-03,-2.546976E-02,9.706321E-04,-9.771396E-04},
       EIRFunPLR =           {-4.199061E-01,3.348162E-02,-3.463872E-06,1.370150E+00,-1.116699E+00,-3.393707E-02,0.000000E+00,1.177655E+00,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller McQuay WSC 1751kW/6.73COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller McQuay WSC 1751kW/6.73COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -3483,7 +3484,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Trane_CVHF_1758kW_5_96COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1758300,
       COP_nominal =         5.96,
       PLRMin =              0.20,
@@ -3501,11 +3502,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {5.175819E-02,-9.767577E-02,4.582364E-03,6.527440E-02,-7.594482E-04,1.621435E-04},
       EIRFunPLR =           {-3.445966E+00,3.643598E-01,-1.697759E-04,-2.909905E+00,6.045776E+00,-3.553254E-01,0.000000E+00,1.192526E+00,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Trane CVHF 1758kW/5.96COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Trane CVHF 1758kW/5.96COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -3536,7 +3537,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YT_1758kW_5_76COP_VSD =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1758300,
       COP_nominal =         5.76,
       PLRMin =              0.10,
@@ -3553,12 +3554,12 @@ Chiller:Electric:ReformulatedEIR,
       capFunT =             {1.960842E-01,1.462778E-01,-4.568082E-03,3.185311E-02,-6.290125E-04,-1.279459E-03},
       EIRFunT =             {9.622331E-01,8.325124E-02,-2.403189E-03,-3.668907E-02,1.323874E-03,-2.828319E-03},
       EIRFunPLR =           {4.914420E-01,-3.736264E-02,-1.708310E-04,7.127945E-01,-1.838011E-01,4.633977E-02,0.000000E+00,-1.370201E-01,0.000000E+00,0.000000E+00},
-      etaMotor =            1.0)
-"ReformEIRChiller York YT 1758kW/5.76COP/VSD"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+      etaMotor =            1.0) "ReformEIRChiller York YT 1758kW/5.76COP/VSD"
+    annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -3589,7 +3590,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YT_1758kW_6_26COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1758300,
       COP_nominal =         6.26,
       PLRMin =              0.10,
@@ -3607,11 +3608,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {1.729452E-01,9.227136E-02,-5.580943E-03,1.946191E-02,3.155080E-05,-7.904242E-04},
       EIRFunPLR =           {9.471258E-01,-4.669457E-02,-4.461248E-04,5.587776E-02,6.578054E-01,7.103286E-02,0.000000E+00,-9.855688E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller York YT 1758kW/6.26COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller York YT 1758kW/6.26COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -3642,7 +3643,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YT_1758kW_5_96COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1758300,
       COP_nominal =         5.96,
       PLRMin =              0.10,
@@ -3660,11 +3661,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {2.593808E-01,-1.873181E-03,-4.808688E-04,3.822020E-02,-3.813018E-04,-2.995903E-04},
       EIRFunPLR =           {1.303414E-01,1.618347E-02,-7.157278E-05,-1.337481E-01,1.186910E+00,-1.240299E-02,0.000000E+00,-2.328976E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller York YT 1758kW/5.96COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller York YT 1758kW/5.96COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -3695,7 +3696,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Trane_CVHE_1758kW_5_96COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1758300,
       COP_nominal =         5.96,
       PLRMin =              0.20,
@@ -3713,11 +3714,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {1.583438E+00,-3.412919E-03,4.476231E-03,-5.243024E-02,1.295102E-03,-2.210725E-03},
       EIRFunPLR =           {1.466664E+00,-4.222011E-02,-1.153513E-04,-7.738226E-02,-9.896333E-01,5.014539E-02,0.000000E+00,4.671251E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Trane CVHE 1758kW/5.96COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Trane CVHE 1758kW/5.96COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -3748,7 +3749,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YT_1758kW_6_28COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1758300,
       COP_nominal =         6.28,
       PLRMin =              0.20,
@@ -3766,11 +3767,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {5.699849E-01,-9.813327E-03,4.223116E-04,4.842283E-03,4.078201E-04,-7.615896E-04},
       EIRFunPLR =           {2.911331E-01,-4.317969E-03,1.448369E-05,6.226793E-01,7.992053E-02,3.393326E-03,0.000000E+00,1.919540E-02,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller York YT 1758kW/6.28COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller York YT 1758kW/6.28COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -3801,7 +3802,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19XR_1758kW_5_86COP_VSD =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1758300,
       COP_nominal =         5.86,
       PLRMin =              0.20,
@@ -3819,11 +3820,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {-6.333861E-02,-5.533069E-02,-4.591740E-03,7.468402E-02,-1.455300E-03,3.506040E-03},
       EIRFunPLR =           {1.251509E+00,-9.433150E-02,-2.849753E-05,8.544238E-01,-1.491994E+00,9.568956E-02,0.000000E+00,3.698862E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19XR 1758kW/5.86COP/VSD"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19XR 1758kW/5.86COP/VSD" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -3854,7 +3855,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Trane_CVHF_1758kW_6_46COP_VSD =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1758300,
       COP_nominal =         6.46,
       PLRMin =              0.20,
@@ -3872,11 +3873,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {-2.601408E-01,2.870346E-02,2.635595E-04,4.992457E-02,-1.859076E-04,-1.832446E-03},
       EIRFunPLR =           {-1.842588E-01,5.105821E-02,6.142934E-05,6.478691E-01,-4.242816E-01,-5.442456E-02,0.000000E+00,1.005374E+00,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Trane CVHF 1758kW/6.46COP/VSD"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Trane CVHF 1758kW/6.46COP/VSD" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -3907,7 +3908,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Trane_CVHF_1758kW_6_87COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1758300,
       COP_nominal =         6.87,
       PLRMin =              0.20,
@@ -3925,11 +3926,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {6.428117E-01,1.299499E-02,5.872739E-04,-5.532320E-03,6.809308E-04,-1.480167E-03},
       EIRFunPLR =           {5.682807E-01,-3.888781E-02,6.619097E-06,1.715735E+00,-1.791541E+00,3.851853E-02,0.000000E+00,5.124705E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Trane CVHF 1758kW/6.87COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Trane CVHF 1758kW/6.87COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -3960,7 +3961,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19XR_1776kW_8_00COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1775900,
       COP_nominal =         8.00,
       PLRMin =              0.17,
@@ -3978,11 +3979,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {7.400829E-01,-2.067083E-02,6.695036E-04,1.727139E-02,2.554481E-04,-7.023159E-04},
       EIRFunPLR =           {8.623059E-01,-3.289272E-02,6.345837E-05,1.416109E-01,2.335827E-01,3.016537E-02,0.000000E+00,-2.083488E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19XR 1776kW/8.00COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19XR 1776kW/8.00COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -4013,7 +4014,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19XL_1779kW_6_18COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1779400,
       COP_nominal =         6.18,
       PLRMin =              0.20,
@@ -4031,11 +4032,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {5.396428E-01,-3.183208E-02,1.041725E-03,2.112772E-02,4.504330E-05,-4.947764E-04},
       EIRFunPLR =           {7.137642E-01,-3.096191E-02,1.459047E-04,8.907204E-01,-1.051301E+00,2.348095E-02,0.000000E+00,5.406677E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19XL 1779kW/6.18COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19XL 1779kW/6.18COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -4066,7 +4067,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Trane_CVHF_1779kW_6_18COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1779400,
       COP_nominal =         6.18,
       PLRMin =              0.10,
@@ -4084,11 +4085,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {3.679272E-01,3.649996E-03,-1.333659E-03,6.605569E-03,4.699578E-04,-5.527094E-04},
       EIRFunPLR =           {6.454991E-03,1.094255E-02,5.090580E-05,8.866733E-01,-4.314429E-01,-1.400320E-02,0.000000E+00,5.835670E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Trane CVHF 1779kW/6.18COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Trane CVHF 1779kW/6.18COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -4119,7 +4120,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YT_1794kW_8_11COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1793500,
       COP_nominal =         8.11,
       PLRMin =              0.10,
@@ -4137,11 +4138,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {1.190864E+00,3.400270E-01,-8.717000E-03,-1.107704E-01,3.433891E-03,-8.538300E-03},
       EIRFunPLR =           {-9.081317E-02,1.524614E-02,8.256304E-04,-6.921348E-01,4.110008E+00,-6.003188E-02,0.000000E+00,-1.751625E+00,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller York YT 1794kW/8.11COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller York YT 1794kW/8.11COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -4172,7 +4173,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YT_1794kW_7_90COP_VSD =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1793500,
       COP_nominal =         7.90,
       PLRMin =              0.10,
@@ -4189,12 +4190,12 @@ Chiller:Electric:ReformulatedEIR,
       capFunT =             {7.431766E-01,-1.738759E-01,7.863010E-03,6.780689E-02,-1.636950E-03,3.409649E-03},
       EIRFunT =             {3.622079E-01,-1.249125E-01,5.333823E-03,5.641261E-02,-3.290614E-04,8.180145E-06},
       EIRFunPLR =           {3.828090E-01,-1.598908E-02,-1.273038E-04,5.991790E-01,-5.063099E-01,2.273951E-02,0.000000E+00,4.390985E-01,0.000000E+00,0.000000E+00},
-      etaMotor =            1.0)
-"ReformEIRChiller York YT 1794kW/7.90COP/VSD"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+      etaMotor =            1.0) "ReformEIRChiller York YT 1794kW/7.90COP/VSD"
+    annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -4225,7 +4226,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19XL_1797kW_5_69COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1797000,
       COP_nominal =         5.69,
       PLRMin =              0.39,
@@ -4243,11 +4244,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {1.079738E+00,-4.447776E-02,1.617276E-03,8.485662E-04,8.268362E-05,5.543283E-05},
       EIRFunPLR =           {5.147565E+00,-1.604653E-01,2.139293E-05,-3.215408E+00,-1.636618E+00,1.592219E-01,0.000000E+00,7.224656E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19XL 1797kW/5.69COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19XL 1797kW/5.69COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -4278,7 +4279,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19XR_1801kW_6_34COP_VSD =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1800500,
       COP_nominal =         6.34,
       PLRMin =              0.20,
@@ -4296,11 +4297,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {6.993760E-01,3.436644E-03,1.120695E-03,-3.794674E-03,7.200808E-04,-1.623357E-03},
       EIRFunPLR =           {-3.986781E-03,2.064845E-02,-1.459614E-05,-5.111204E-01,2.257468E+00,-1.990453E-02,0.000000E+00,-7.517775E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19XR 1801kW/6.34COP/VSD"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19XR 1801kW/6.34COP/VSD" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -4331,7 +4332,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YT_1867kW_10_09COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1867300,
       COP_nominal =         10.09,
       PLRMin =              0.09,
@@ -4349,11 +4350,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {6.584483E-01,1.696214E-02,-3.465522E-03,2.078998E-02,2.909474E-04,-2.222756E-04},
       EIRFunPLR =           {-3.108659E-01,5.639190E-02,-6.487474E-05,-9.450752E-01,2.690004E+00,-5.309347E-02,0.000000E+00,-4.748500E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller York YT 1867kW/10.09COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller York YT 1867kW/10.09COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -4384,7 +4385,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19XL_1871kW_6_49COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1870800,
       COP_nominal =         6.49,
       PLRMin =              0.19,
@@ -4402,11 +4403,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {1.182368E+00,-6.852914E-02,2.718010E-03,-1.693531E-02,6.861400E-04,4.136164E-05},
       EIRFunPLR =           {1.085769E+00,-5.971095E-02,1.041798E-04,7.182300E-01,-5.729312E-01,5.367072E-02,0.000000E+00,-1.472327E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19XL 1871kW/6.49COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19XL 1871kW/6.49COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -4437,7 +4438,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YT_1881kW_6_77COP_VSD =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1881400,
       COP_nominal =         6.77,
       PLRMin =              0.09,
@@ -4454,12 +4455,12 @@ Chiller:Electric:ReformulatedEIR,
       capFunT =             {2.510830E-01,-3.997687E-02,-3.627911E-03,6.819530E-02,-2.135260E-03,5.245082E-03},
       EIRFunT =             {5.450343E-01,-3.893169E-02,9.377632E-04,2.314284E-02,-1.134638E-05,7.362152E-05},
       EIRFunPLR =           {4.949889E-02,2.267854E-02,-2.003269E-05,-9.059476E-01,3.032884E+00,-2.155668E-02,0.000000E+00,-1.190898E+00,0.000000E+00,0.000000E+00},
-      etaMotor =            1.0)
-"ReformEIRChiller York YT 1881kW/6.77COP/VSD"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+      etaMotor =            1.0) "ReformEIRChiller York YT 1881kW/6.77COP/VSD"
+    annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -4490,7 +4491,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YK_1881kW_6_53COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1881400,
       COP_nominal =         6.53,
       PLRMin =              0.19,
@@ -4508,11 +4509,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {4.262865E-01,4.727402E-02,-1.347198E-03,4.334960E-03,5.282605E-04,-1.449676E-03},
       EIRFunPLR =           {2.470999E-01,-4.530708E-03,2.522038E-05,-5.464802E-01,2.572647E+00,3.398388E-03,0.000000E+00,-1.261128E+00,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller York YK 1881kW/6.53COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller York YK 1881kW/6.53COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -4543,7 +4544,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_McQuay_PEH_1895kW_6_42COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1895400,
       COP_nominal =         6.42,
       PLRMin =              0.09,
@@ -4561,11 +4562,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {1.851189E-01,-3.198165E-02,-8.437565E-04,4.384625E-02,-4.446880E-04,8.645981E-04},
       EIRFunPLR =           {4.912394E-02,1.922190E-02,1.458006E-04,-1.286997E-01,1.371824E+00,-2.769626E-02,0.000000E+00,-1.782073E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller McQuay PEH 1895kW/6.42COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller McQuay PEH 1895kW/6.42COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -4596,7 +4597,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YT_1934kW_7_55COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1934100,
       COP_nominal =         7.55,
       PLRMin =              0.10,
@@ -4614,11 +4615,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {1.464148E+00,-1.335550E-01,4.793466E-03,-2.069042E-02,6.523211E-04,1.245111E-03},
       EIRFunPLR =           {7.339218E-01,-3.184317E-02,-9.387398E-05,-2.274806E-01,1.677164E+00,3.688705E-02,0.000000E+00,-1.250228E+00,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller York YT 1934kW/7.55COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller York YT 1934kW/7.55COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -4649,7 +4650,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_McQuay_PEH_1934kW_6_01COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1934100,
       COP_nominal =         6.01,
       PLRMin =              0.10,
@@ -4667,11 +4668,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {1.191090E-01,7.702949E-04,-2.852916E-03,4.290826E-02,-4.014538E-04,8.913432E-04},
       EIRFunPLR =           {1.000427E+00,-3.176111E-02,-2.412562E-04,4.886225E-01,-2.020669E+00,4.495646E-02,0.000000E+00,1.357430E+00,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller McQuay PEH 1934kW/6.01COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller McQuay PEH 1934kW/6.01COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -4702,7 +4703,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_McQuay_WDC_1973kW_6_28COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1972800,
       COP_nominal =         6.28,
       PLRMin =              0.09,
@@ -4720,11 +4721,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {1.179827E+00,-5.349290E-02,-2.095113E-03,-1.285812E-02,2.267511E-04,2.197542E-03},
       EIRFunPLR =           {-9.986603E-01,7.542346E-02,-5.753431E-05,6.665711E-02,2.154745E+00,-7.250027E-02,0.000000E+00,-2.590669E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller McQuay WDC 1973kW/6.28COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller McQuay WDC 1973kW/6.28COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -4755,7 +4756,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YK_1997kW_7_24COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1997400,
       COP_nominal =         7.24,
       PLRMin =              0.18,
@@ -4773,11 +4774,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {1.550813E-01,1.022114E-01,-6.511170E-04,-1.241272E-02,1.514358E-03,-4.090377E-03},
       EIRFunPLR =           {1.838759E-01,-1.009515E-02,1.677624E-04,9.181489E-01,-2.434151E-02,1.727052E-03,0.000000E+00,2.527075E-02,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller York YK 1997kW/7.24COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller York YK 1997kW/7.24COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -4808,7 +4809,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_McQuay_PFH_2043kW_8_44COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -2043100,
       COP_nominal =         8.44,
       PLRMin =              0.08,
@@ -4826,11 +4827,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {6.806067E-01,5.701621E-03,-1.329020E-03,1.210419E-02,2.563048E-04,-2.528032E-04},
       EIRFunPLR =           {-7.300240E-01,6.016914E-02,2.516862E-05,1.606362E-01,1.803623E+00,-6.158982E-02,0.000000E+00,-2.149832E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller McQuay PFH 2043kW/8.44COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller McQuay PFH 2043kW/8.44COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -4861,7 +4862,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Trane_CVHF_2043kW_9_08COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -2043100,
       COP_nominal =         9.08,
       PLRMin =              0.28,
@@ -4879,11 +4880,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {1.008753E+00,3.282653E-02,3.719189E-03,-2.508242E-02,1.367676E-03,-3.739705E-03},
       EIRFunPLR =           {3.696812E-01,3.068332E-02,1.965912E-05,-1.915197E+00,3.980757E+00,-3.185207E-02,0.000000E+00,-1.418416E+00,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Trane CVHF 2043kW/9.08COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Trane CVHF 2043kW/9.08COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -4914,7 +4915,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19XL_2057kW_6_05COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -2057200,
       COP_nominal =         6.05,
       PLRMin =              0.28,
@@ -4932,11 +4933,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {7.341312E-01,-7.592418E-02,-2.065951E-03,3.153945E-02,-8.888217E-04,3.650961E-03},
       EIRFunPLR =           {1.353291E-01,-5.973382E-03,-2.152787E-05,1.844856E+00,-2.868168E+00,7.003543E-03,0.000000E+00,1.875512E+00,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19XL 2057kW/6.05COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19XL 2057kW/6.05COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -4967,7 +4968,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YT_2110kW_7_15COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -2110000,
       COP_nominal =         7.15,
       PLRMin =              0.10,
@@ -4985,11 +4986,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {6.140372E-01,-4.277763E-02,9.446169E-04,1.580154E-02,1.226130E-04,3.616708E-04},
       EIRFunPLR =           {3.834325E-01,-1.806511E-03,5.390925E-05,1.510060E-02,7.165451E-01,-1.195918E-03,0.000000E+00,-7.564269E-02,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller York YT 2110kW/7.15COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller York YT 2110kW/7.15COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -5020,7 +5021,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_McQuay_PFH_2124kW_6_03COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -2124000,
       COP_nominal =         6.03,
       PLRMin =              0.09,
@@ -5038,11 +5039,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {1.198331E+00,-5.731652E-02,-4.950792E-03,-1.013222E-02,-1.112759E-04,4.138878E-03},
       EIRFunPLR =           {-1.353862E+00,9.444334E-02,-1.467992E-05,1.291373E+00,-2.276361E-01,-9.395594E-02,0.000000E+00,1.285196E+00,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller McQuay PFH 2124kW/6.03COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller McQuay PFH 2124kW/6.03COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -5073,7 +5074,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YK_2159kW_6_85COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -2159200,
       COP_nominal =         6.85,
       PLRMin =              0.14,
@@ -5091,11 +5092,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {1.013059E+00,2.176325E-03,-4.682395E-04,-1.887683E-02,7.444727E-04,-6.685547E-04},
       EIRFunPLR =           {2.315688E-02,2.746250E-02,-2.345600E-05,-4.728932E-01,1.778530E+00,-2.621741E-02,0.000000E+00,-3.448533E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller York YK 2159kW/6.85COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller York YK 2159kW/6.85COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -5126,7 +5127,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Trane_CVHF_2184kW_6_78COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -2183800,
       COP_nominal =         6.78,
       PLRMin =              0.09,
@@ -5144,11 +5145,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {1.286650E+00,3.478277E-02,2.888239E-03,-4.763798E-02,1.463610E-03,-3.194170E-03},
       EIRFunPLR =           {2.473025E+00,-1.277887E-01,-3.279364E-05,-3.156699E-01,-3.527895E-01,1.304080E-01,0.000000E+00,-8.547163E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Trane CVHF 2184kW/6.78COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Trane CVHF 2184kW/6.78COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -5179,7 +5180,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YK_2201kW_6_69COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -2201400,
       COP_nominal =         6.69,
       PLRMin =              0.14,
@@ -5197,11 +5198,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {8.761500E-01,2.513467E-02,-8.565300E-04,-1.383243E-02,6.968311E-04,-1.236275E-03},
       EIRFunPLR =           {3.515554E-03,3.070346E-02,-1.198496E-08,-5.568236E-01,1.810053E+00,-3.070120E-02,0.000000E+00,-2.564025E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller York YK 2201kW/6.69COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller York YK 2201kW/6.69COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -5232,7 +5233,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YT_2233kW_9_54COP_VSD =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -2233000,
       COP_nominal =         9.54,
       PLRMin =              0.10,
@@ -5249,12 +5250,12 @@ Chiller:Electric:ReformulatedEIR,
       capFunT =             {4.939632E-01,-9.743766E-02,6.782771E-03,7.149216E-02,-2.077461E-03,2.246608E-03},
       EIRFunT =             {7.177745E-01,-9.460212E-04,-1.451469E-03,1.431719E-02,5.149926E-04,-8.367784E-04},
       EIRFunPLR =           {4.637900E-01,-3.344690E-02,2.768776E-04,-2.457480E-03,1.477501E+00,1.903803E-02,0.000000E+00,-7.622945E-01,0.000000E+00,0.000000E+00},
-      etaMotor =            1.0)
-"ReformEIRChiller York YT 2233kW/9.54COP/VSD"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+      etaMotor =            1.0) "ReformEIRChiller York YT 2233kW/9.54COP/VSD"
+    annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -5285,7 +5286,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YK_2237kW_6_41COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -2236600,
       COP_nominal =         6.41,
       PLRMin =              0.13,
@@ -5303,11 +5304,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {9.801548E-01,2.026687E-02,1.578707E-03,-2.077442E-02,9.180399E-04,-2.105614E-03},
       EIRFunPLR =           {2.013555E-01,1.055744E-02,-2.587525E-05,-3.074339E-01,1.634011E+00,-9.188562E-03,0.000000E+00,-5.458636E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller York YK 2237kW/6.41COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller York YK 2237kW/6.41COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -5338,7 +5339,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YK_2275kW_6_32COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -2275200,
       COP_nominal =         6.32,
       PLRMin =              0.13,
@@ -5356,11 +5357,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {8.910758E-01,4.115735E-03,-2.403988E-04,-1.277389E-02,6.650664E-04,-8.163142E-04},
       EIRFunPLR =           {2.464807E-01,6.198472E-03,-2.091245E-05,-1.584035E-01,1.396936E+00,-5.134757E-03,0.000000E+00,-4.982764E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller York YK 2275kW/6.32COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller York YK 2275kW/6.32COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -5391,7 +5392,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Trane_CVHF_2300kW_8_10COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -2299900,
       COP_nominal =         8.10,
       PLRMin =              0.23,
@@ -5409,11 +5410,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {6.870347E-01,1.176508E-02,5.473075E-04,1.235577E-02,3.200085E-04,-1.378535E-03},
       EIRFunPLR =           {-8.187804E-01,9.052788E-02,-2.443564E-04,-2.116230E+00,5.680799E+00,-7.780553E-02,0.000000E+00,-1.907348E+00,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Trane CVHF 2300kW/8.10COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Trane CVHF 2300kW/8.10COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -5444,7 +5445,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Trane_CVHF_2317kW_6_33COP_VSD =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -2317400,
       COP_nominal =         6.33,
       PLRMin =              0.10,
@@ -5462,11 +5463,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {2.905409E-01,-2.093028E-02,9.792522E-04,1.493146E-02,3.511684E-04,-8.356167E-04},
       EIRFunPLR =           {-4.540034E-01,3.433262E-02,4.845589E-05,9.799190E-01,2.028044E-01,-3.705958E-02,0.000000E+00,3.066979E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Trane CVHF 2317kW/6.33COP/VSD"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Trane CVHF 2317kW/6.33COP/VSD" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -5497,7 +5498,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19XR_2391kW_6_77COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -2391300,
       COP_nominal =         6.77,
       PLRMin =              0.20,
@@ -5515,11 +5516,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {6.095032E-01,-1.108553E-02,6.938966E-04,1.166583E-02,2.514251E-04,-7.733820E-04},
       EIRFunPLR =           {4.306200E-01,-7.328716E-03,9.930747E-06,9.234623E-01,-1.158929E+00,6.792175E-03,0.000000E+00,8.117517E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19XR 2391kW/6.77COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19XR 2391kW/6.77COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -5550,7 +5551,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19XR_2391kW_6_44COP_VSD =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -2391300,
       COP_nominal =         6.44,
       PLRMin =              0.20,
@@ -5568,11 +5569,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {6.030335E-01,-1.099862E-02,6.898379E-04,1.213607E-02,2.415707E-04,-7.792847E-04},
       EIRFunPLR =           {1.309393E-01,1.443518E-02,-9.784460E-07,-8.596110E-01,2.724452E+00,-1.436270E-02,0.000000E+00,-9.969677E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19XR 2391kW/6.44COP/VSD"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19XR 2391kW/6.44COP/VSD" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -5603,7 +5604,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YK_2412kW_5_58COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -2412400,
       COP_nominal =         5.58,
       PLRMin =              0.12,
@@ -5621,11 +5622,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {3.175495E-01,-2.563749E-02,1.177157E-03,3.422467E-02,-2.556973E-04,-1.034934E-04},
       EIRFunPLR =           {-8.659288E-02,4.280342E-02,4.027354E-05,-8.726041E-01,3.432389E+00,-4.514744E-02,0.000000E+00,-1.440179E+00,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller York YK 2412kW/5.58COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller York YK 2412kW/5.58COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -5656,7 +5657,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_McQuay_PFH_2462kW_6_67COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -2461600,
       COP_nominal =         6.67,
       PLRMin =              0.10,
@@ -5674,11 +5675,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {5.570216E-01,9.193251E-03,-5.145487E-03,6.832209E-03,1.403064E-04,1.590130E-03},
       EIRFunPLR =           {-8.594949E-01,6.566973E-02,1.939985E-05,1.001788E+00,1.280680E-01,-6.652851E-02,0.000000E+00,7.389430E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller McQuay PFH 2462kW/6.67COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller McQuay PFH 2462kW/6.67COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -5709,7 +5710,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Trane_CVHG670_44_86_2490kW_6_5COP =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -2490036,
       COP_nominal =         6.505,
       PLRMin =              0.087,
@@ -5727,11 +5728,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {1.056335684,0.045975279,0.001839862,-0.028575058,0.000935916,-0.002552237},
       EIRFunPLR =           {0.243594787,-0.017680952,0.000731787,0.848300868,-0.358252903,0.000896547,-9.0516E-06,0.736449508,0.000316148,-0.022213923},
       etaMotor =            1.0)
-"ReformEIRChiller Trane CVHG670-44&amp;86 2490kW/6.5COP"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Trane CVHG670-44&amp;86 2490kW/6.5COP" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -5762,7 +5763,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Trane_CVHF_2567kW_11_77COP_VSD =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -2567100,
       COP_nominal =         11.77,
       PLRMin =              0.11,
@@ -5780,11 +5781,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {3.654848E-01,-3.708915E-02,-7.448564E-04,4.585429E-02,1.719990E-04,-3.518960E-04},
       EIRFunPLR =           {-2.955643E-01,2.586243E-02,3.917081E-05,7.440108E-01,3.533880E-01,-2.797714E-02,0.000000E+00,2.247632E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Trane CVHF 2567kW/11.77COP/VSD"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Trane CVHF 2567kW/11.77COP/VSD" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -5815,7 +5816,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YK_2771kW_6_84COP_VSD =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -2771100,
       COP_nominal =         6.84,
       PLRMin =              0.20,
@@ -5832,12 +5833,12 @@ Chiller:Electric:ReformulatedEIR,
       capFunT =             {4.744171E-01,3.178084E-02,-1.802780E-03,5.380910E-02,-1.642699E-03,1.330445E-03},
       EIRFunT =             {8.286811E-01,2.304403E-02,-6.841126E-04,-1.886483E-02,1.088152E-03,-1.846484E-03},
       EIRFunPLR =           {-6.205477E-01,5.913283E-02,-1.627433E-05,1.051821E-01,1.413365E+00,-5.839529E-02,0.000000E+00,9.424834E-02,0.000000E+00,0.000000E+00},
-      etaMotor =            1.0)
-"ReformEIRChiller York YK 2771kW/6.84COP/VSD"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+      etaMotor =            1.0) "ReformEIRChiller York YK 2771kW/6.84COP/VSD"
+    annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -5868,7 +5869,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Trane_CVHF_2799kW_6_40COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -2799200,
       COP_nominal =         6.40,
       PLRMin =              0.20,
@@ -5886,11 +5887,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {-1.986966E-02,-7.848021E-02,1.944174E-03,7.122651E-02,-9.173802E-04,5.837817E-04},
       EIRFunPLR =           {3.516172E-01,9.213025E-03,-2.382325E-05,1.223162E-01,-1.820075E-01,-7.843422E-03,0.000000E+00,6.884847E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Trane CVHF 2799kW/6.40COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Trane CVHF 2799kW/6.40COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -5921,7 +5922,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YT_3133kW_9_16COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -3133300,
       COP_nominal =         9.16,
       PLRMin =              0.07,
@@ -5939,11 +5940,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {8.749714E-01,-2.881975E-02,2.003695E-03,7.313755E-03,5.578288E-04,-1.170615E-03},
       EIRFunPLR =           {3.389568E-01,-1.864923E-02,3.548361E-04,1.107404E+00,-5.912797E-01,-4.559304E-04,0.000000E+00,3.910858E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller York YT 3133kW/9.16COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller York YT 3133kW/9.16COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -5974,7 +5975,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_McQuay_PFH_3165kW_6_48COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -3165000,
       COP_nominal =         6.48,
       PLRMin =              0.10,
@@ -5992,11 +5993,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {1.176153E+00,2.944151E-02,-1.226585E-02,-3.542539E-02,4.663835E-04,4.521499E-03},
       EIRFunPLR =           {-1.080715E+00,7.856030E-02,-1.461231E-04,1.153308E+00,-1.705463E-01,-7.105856E-02,0.000000E+00,1.002552E+00,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller McQuay PFH 3165kW/6.48COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller McQuay PFH 3165kW/6.48COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -6027,7 +6028,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_McQuay_PFH_4020kW_7_35COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -4019500,
       COP_nominal =         7.35,
       PLRMin =              0.14,
@@ -6045,11 +6046,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {9.146197E-01,-2.888281E-02,-4.194058E-04,1.312299E-03,3.957170E-04,1.747410E-04},
       EIRFunPLR =           {-6.055569E-01,4.924519E-02,-2.046580E-05,3.574244E-01,1.429584E+00,-4.800957E-02,0.000000E+00,-1.995032E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller McQuay PFH 4020kW/7.35COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller McQuay PFH 4020kW/7.35COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -6080,7 +6081,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YK_4396kW_6_63COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -4395800,
       COP_nominal =         6.63,
       PLRMin =              0.41,
@@ -6098,11 +6099,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {3.992978E-01,-5.787211E-02,4.974140E-04,4.071879E-02,-5.579169E-04,9.811292E-04},
       EIRFunPLR =           {3.551587E-01,-8.505111E-03,1.396120E-04,5.048375E-01,-1.447328E-01,1.902634E-03,0.000000E+00,3.599323E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller York YK 4396kW/6.63COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller York YK 4396kW/6.63COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -6133,7 +6134,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YK_4477kW_6_64COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -4476700,
       COP_nominal =         6.64,
       PLRMin =              0.41,
@@ -6151,11 +6152,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {1.597687E-01,-3.513678E-02,-2.666547E-03,5.561175E-02,-9.273482E-04,1.559350E-03},
       EIRFunPLR =           {6.263474E-01,-1.468760E-02,2.187947E-04,-4.940077E-01,1.448597E+00,4.085582E-03,0.000000E+00,-4.576722E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller York YK 4477kW/6.64COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller York YK 4477kW/6.64COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -6186,7 +6187,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YK_4515kW_6_22COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -4515400,
       COP_nominal =         6.22,
       PLRMin =              0.40,
@@ -6204,11 +6205,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {6.011575E-01,1.661031E-02,-2.137279E-06,4.501265E-03,5.130434E-04,-1.786025E-03},
       EIRFunPLR =           {7.069612E-01,-1.915921E-02,3.601682E-04,-2.561145E-01,1.177821E+00,2.539786E-03,0.000000E+00,-4.447869E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller York YK 4515kW/6.22COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller York YK 4515kW/6.22COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -6239,7 +6240,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YK_4537kW_6_28COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -4536500,
       COP_nominal =         6.28,
       PLRMin =              0.40,
@@ -6257,11 +6258,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {8.920183E-01,-1.501518E-02,1.467430E-03,-1.261335E-02,8.431355E-04,-1.426299E-03},
       EIRFunPLR =           {1.718938E-01,6.637990E-03,1.666991E-05,1.634153E-01,9.517270E-01,-7.705773E-03,0.000000E+00,-2.724674E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller York YK 4537kW/6.28COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller York YK 4537kW/6.28COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -6292,7 +6293,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Trane_CVHF_4610kW_6_34COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -4610300,
       COP_nominal =         6.34,
       PLRMin =              0.20,
@@ -6310,11 +6311,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {6.849506E-01,-4.909207E-02,-8.308126E-04,1.199218E-02,1.642681E-04,6.761764E-04},
       EIRFunPLR =           {-7.113458E-02,1.278078E-02,-1.151552E-05,1.228548E+00,-1.065066E+00,-1.209695E-02,0.000000E+00,8.979381E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Trane CVHF 4610kW/6.34COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Trane CVHF 4610kW/6.34COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -6345,7 +6346,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19EX_4667kW_6_16COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -4666600,
       COP_nominal =         6.16,
       PLRMin =              0.40,
@@ -6363,11 +6364,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {5.382224E-01,2.679869E-03,4.713078E-04,7.901564E-03,4.567647E-04,-1.386795E-03},
       EIRFunPLR =           {5.967050E-01,-1.472448E-02,4.216331E-05,3.682618E-01,-2.379422E-01,1.262951E-02,0.000000E+00,2.973345E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19EX 4667kW/6.16COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19EX 4667kW/6.16COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -6398,7 +6399,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Trane_CVHF_4677kW_6_27COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -4677100,
       COP_nominal =         6.27,
       PLRMin =              0.41,
@@ -6416,11 +6417,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {8.371931E-01,-1.837487E-02,3.992101E-03,-8.582353E-03,6.821892E-04,-1.443699E-03},
       EIRFunPLR =           {-3.243462E-01,1.463635E-02,-8.320365E-05,1.978667E+00,-2.019795E+00,-1.072468E-02,0.000000E+00,1.320583E+00,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Trane CVHF 4677kW/6.27COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Trane CVHF 4677kW/6.27COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -6451,7 +6452,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YK_4966kW_6_05COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -4965500,
       COP_nominal =         6.05,
       PLRMin =              0.12,
@@ -6469,11 +6470,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {8.536699E-01,3.487393E-04,1.120994E-03,-9.358730E-03,6.197745E-04,-1.128239E-03},
       EIRFunPLR =           {2.620385E-01,1.209698E-02,8.014586E-06,-1.102167E-01,1.117062E+00,-1.249449E-02,0.000000E+00,-2.641246E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller York YK 4966kW/6.05COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller York YK 4966kW/6.05COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -6504,7 +6505,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YK_4969kW_7_14COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -4969000,
       COP_nominal =         7.14,
       PLRMin =              0.16,
@@ -6522,11 +6523,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {6.916913E-01,-4.760980E-02,1.310678E-03,1.226839E-02,1.561278E-04,1.331849E-04},
       EIRFunPLR =           {3.289463E-01,6.642124E-03,-2.636011E-05,-4.910925E-01,1.639401E+00,-5.204880E-03,0.000000E+00,-4.960251E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller York YK 4969kW/7.14COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller York YK 4969kW/7.14COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -6557,7 +6558,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YK_4969kW_7_07COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -4969000,
       COP_nominal =         7.07,
       PLRMin =              0.16,
@@ -6575,11 +6576,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {7.217115E-01,-3.596981E-02,5.327502E-04,9.190024E-03,1.694811E-04,1.843438E-04},
       EIRFunPLR =           {7.117270E-01,1.022191E-03,1.205226E-05,-1.794131E+00,3.295736E+00,-1.552001E-03,0.000000E+00,-1.207188E+00,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller York YK 4969kW/7.07COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller York YK 4969kW/7.07COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -6610,7 +6611,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19EX_4997kW_6_40COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -4997200,
       COP_nominal =         6.40,
       PLRMin =              0.40,
@@ -6628,11 +6629,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {7.502378E-01,-8.546174E-03,3.952892E-03,-7.194001E-03,8.754798E-04,-2.523240E-03},
       EIRFunPLR =           {6.778244E-01,-1.674571E-02,-1.069925E-05,2.261951E-01,-1.572357E-02,1.714268E-02,0.000000E+00,1.072291E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19EX 4997kW/6.40COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19EX 4997kW/6.40COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -6663,7 +6664,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19EX_5148kW_6_34COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -5148400,
       COP_nominal =         6.34,
       PLRMin =              0.20,
@@ -6681,11 +6682,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {6.139244E-01,1.237345E-02,8.199573E-04,6.805078E-04,6.221886E-04,-1.797776E-03},
       EIRFunPLR =           {2.989462E-01,-1.736649E-02,1.922011E-05,1.534120E+00,-1.596922E+00,1.630424E-02,0.000000E+00,7.776844E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19EX 5148kW/6.34COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19EX 5148kW/6.34COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -6716,7 +6717,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YK_5170kW_7_15COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -5169500,
       COP_nominal =         7.15,
       PLRMin =              0.15,
@@ -6734,11 +6735,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {5.056958E-01,-2.296962E-02,-1.632795E-03,2.230325E-02,-1.548393E-04,8.256108E-04},
       EIRFunPLR =           {7.949169E-01,9.107817E-04,3.483284E-05,-2.015044E+00,3.394622E+00,-2.646463E-03,0.000000E+00,-1.152785E+00,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller York YK 5170kW/7.15COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller York YK 5170kW/7.15COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -6769,7 +6770,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19EX_5208kW_6_88COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -5208200,
       COP_nominal =         6.88,
       PLRMin =              0.20,
@@ -6787,11 +6788,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {5.363910E-01,-8.005283E-04,-2.759052E-05,7.405978E-03,4.159925E-04,-8.731268E-04},
       EIRFunPLR =           {3.759577E-01,-1.540144E-02,6.020001E-05,1.240869E+00,-1.267595E+00,1.195934E-02,0.000000E+00,6.977113E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19EX 5208kW/6.88COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19EX 5208kW/6.88COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -6822,7 +6823,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YK_5465kW_6_94COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -5464900,
       COP_nominal =         6.94,
       PLRMin =              0.14,
@@ -6840,11 +6841,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {5.844853E-01,-4.786810E-02,7.315110E-04,2.167930E-02,-8.850313E-05,5.184829E-04},
       EIRFunPLR =           {8.903067E-01,-1.058205E-03,4.591261E-05,-2.096863E+00,3.368956E+00,-1.380690E-03,0.000000E+00,-1.130250E+00,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller York YK 5465kW/6.94COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller York YK 5465kW/6.94COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -6875,7 +6876,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YK_5549kW_6_50COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -5549300,
       COP_nominal =         6.50,
       PLRMin =              0.14,
@@ -6893,11 +6894,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {3.302868E-01,-8.254126E-02,6.087519E-03,4.875213E-02,-5.839053E-04,-5.006909E-05},
       EIRFunPLR =           {5.179058E-01,-2.419877E-03,4.858626E-05,-8.910290E-01,2.272953E+00,-3.062303E-04,0.000000E+00,-8.631289E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller York YK 5549kW/6.50COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller York YK 5549kW/6.50COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -6928,7 +6929,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_19FA_5651kW_5_50COP_Vanes =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -5651300,
       COP_nominal =         5.50,
       PLRMin =              0.19,
@@ -6946,11 +6947,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {8.804871E-01,3.853907E-04,2.224949E-04,-1.337560E-02,5.822842E-04,-8.744742E-04},
       EIRFunPLR =           {-1.360532E-01,8.642703E-03,3.855583E-06,1.024034E+00,6.047444E-02,-8.947860E-03,0.000000E+00,5.706602E-02,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 19FA 5651kW/5.50COP/Vanes"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 19FA 5651kW/5.50COP/Vanes" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -6981,7 +6982,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Multistack_MS_172kW_3_67COP_None =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -172300,
       COP_nominal =         3.67,
       PLRMin =              0.40,
@@ -6999,11 +7000,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {8.822430E-01,-6.747171E-02,3.070641E-03,1.073323E-02,1.721572E-04,2.401500E-05},
       EIRFunPLR =           {4.368265E-01,-2.032253E-02,1.212838E-05,5.892153E-01,4.814951E-01,1.957982E-02,0.000000E+00,-4.971216E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Multistack MS 172kW/3.67COP/None"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Multistack MS 172kW/3.67COP/None" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -7034,7 +7035,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Trane_RTWA_383kW_4_17COP_Valve =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -383300,
       COP_nominal =         4.17,
       PLRMin =              0.25,
@@ -7052,11 +7053,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {6.171417E-01,-4.530431E-03,1.108471E-03,-3.373738E-04,5.176833E-04,-1.098531E-03},
       EIRFunPLR =           {-1.660765E+00,1.117605E-01,4.971509E-06,-3.472160E-02,3.399869E+00,-1.121089E-01,0.000000E+00,-6.984388E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Trane RTWA 383kW/4.17COP/Valve"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Trane RTWA 383kW/4.17COP/Valve" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -7087,7 +7088,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Trane_RTHB_531kW_4_83COP_Valve =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -531000,
       COP_nominal =         4.83,
       PLRMin =              0.30,
@@ -7105,11 +7106,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {3.048223E-01,1.023123E-02,2.011952E-04,1.296369E-02,4.087926E-04,-1.374337E-03},
       EIRFunPLR =           {4.560311E+00,-2.031290E-01,8.212225E-05,-4.899042E+00,5.087775E+00,1.981069E-01,0.000000E+00,-3.673772E+00,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Trane RTHB 531kW/4.83COP/Valve"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Trane RTHB 531kW/4.83COP/Valve" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -7140,7 +7141,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Trane_RTHB_538kW_5_12COP_Valve =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -538000,
       COP_nominal =         5.12,
       PLRMin =              0.30,
@@ -7158,11 +7159,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {4.761769E-01,-3.860230E-03,6.543433E-04,7.029128E-03,4.964676E-04,-1.113233E-03},
       EIRFunPLR =           {2.185505E+00,-9.516501E-02,2.591946E-05,-1.849602E+00,2.059148E+00,9.366870E-02,0.000000E+00,-1.373917E+00,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Trane RTHB 538kW/5.12COP/Valve"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Trane RTHB 538kW/5.12COP/Valve" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -7193,7 +7194,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Trane_RTHB_542kW_5_26COP_Valve =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -541500,
       COP_nominal =         5.26,
       PLRMin =              0.30,
@@ -7211,11 +7212,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {2.877196E-01,-1.191161E-02,7.252148E-04,2.352346E-02,2.033310E-04,-9.517160E-04},
       EIRFunPLR =           {1.837065E+00,-7.719197E-02,-1.307430E-06,-1.063492E+00,6.874543E-01,7.728359E-02,0.000000E+00,-4.626311E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Trane RTHB 542kW/5.26COP/Valve"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Trane RTHB 542kW/5.26COP/Valve" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -7246,7 +7247,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YS_672kW_7_90COP_Valve =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -671600,
       COP_nominal =         7.90,
       PLRMin =              0.09,
@@ -7263,12 +7264,12 @@ Chiller:Electric:ReformulatedEIR,
       capFunT =             {9.653043E-01,3.117948E-02,4.747822E-04,-5.778354E-03,-1.229225E-05,-2.348690E-04},
       EIRFunT =             {1.199355E-01,-6.676229E-03,4.330599E-04,4.300726E-02,1.757823E-04,-1.325426E-03},
       EIRFunPLR =           {7.456160E-01,-2.835399E-02,9.054026E-06,-3.984299E-01,2.016392E+00,2.785056E-02,0.000000E+00,-1.356679E+00,0.000000E+00,0.000000E+00},
-      etaMotor =            1.0)
-"ReformEIRChiller York YS 672kW/7.90COP/Valve"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+      etaMotor =            1.0) "ReformEIRChiller York YS 672kW/7.90COP/Valve"
+    annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -7299,7 +7300,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_23XL_686kW_5_91COP_Valve =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -685700,
       COP_nominal =         5.91,
       PLRMin =              0.20,
@@ -7317,11 +7318,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {5.449412E-01,1.058205E-02,5.610010E-04,4.494100E-04,7.827776E-04,-1.787673E-03},
       EIRFunPLR =           {3.479846E-01,-1.132553E-03,-5.082473E-05,1.944353E-01,6.340539E-01,3.457251E-03,0.000000E+00,-2.025127E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 23XL 686kW/5.91COP/Valve"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 23XL 686kW/5.91COP/Valve" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -7352,7 +7353,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Trane_RTHC_707kW_7_77COP_Valve =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -706800,
       COP_nominal =         7.77,
       PLRMin =              0.28,
@@ -7370,11 +7371,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {5.777406E-01,1.234139E-02,-3.550380E-04,9.871073E-03,7.225565E-04,-1.521275E-03},
       EIRFunPLR =           {4.383290E+00,-1.536137E-01,-3.825029E-05,-4.911866E+00,3.331498E+00,1.554529E-01,0.000000E+00,-1.824968E+00,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Trane RTHC 707kW/7.77COP/Valve"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Trane RTHC 707kW/7.77COP/Valve" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -7405,7 +7406,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YS_756kW_7_41COP_Valve =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -756000,
       COP_nominal =         7.41,
       PLRMin =              0.11,
@@ -7422,12 +7423,12 @@ Chiller:Electric:ReformulatedEIR,
       capFunT =             {9.642889E-01,2.866413E-02,3.109129E-04,-5.631322E-03,-3.762572E-05,-5.237190E-05},
       EIRFunT =             {6.354619E-01,-1.370325E-02,1.593968E-03,1.156358E-02,9.449231E-04,-1.967502E-03},
       EIRFunPLR =           {-1.261074E+00,1.245378E-01,-1.028560E-04,6.936120E-01,5.828942E-01,-1.203584E-01,0.000000E+00,9.427000E-01,0.000000E+00,0.000000E+00},
-      etaMotor =            1.0)
-"ReformEIRChiller York YS 756kW/7.41COP/Valve"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+      etaMotor =            1.0) "ReformEIRChiller York YS 756kW/7.41COP/Valve"
+    annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -7458,7 +7459,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YS_781kW_5_42COP_Valve =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -780700,
       COP_nominal =         5.42,
       PLRMin =              0.09,
@@ -7475,12 +7476,12 @@ Chiller:Electric:ReformulatedEIR,
       capFunT =             {1.033403E+00,3.515774E-02,4.288264E-04,-5.737406E-03,-2.647149E-05,-2.222927E-04},
       EIRFunT =             {4.008316E-01,-6.141937E-03,8.113800E-04,5.982224E-03,5.345503E-04,-1.142919E-03},
       EIRFunPLR =           {5.519460E-01,-1.406889E-02,3.843199E-06,7.950267E-02,8.798848E-01,1.379480E-02,0.000000E+00,-5.070156E-01,0.000000E+00,0.000000E+00},
-      etaMotor =            1.0)
-"ReformEIRChiller York YS 781kW/5.42COP/Valve"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+      etaMotor =            1.0) "ReformEIRChiller York YS 781kW/5.42COP/Valve"
+    annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -7511,7 +7512,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_23XL_830kW_6_97COP_Valve =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -829900,
       COP_nominal =         6.97,
       PLRMin =              0.20,
@@ -7529,11 +7530,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {3.680542E-01,-1.666432E-02,-2.427956E-04,2.515814E-02,-4.357417E-05,1.578686E-04},
       EIRFunPLR =           {8.035259E-01,-2.731638E-02,3.311687E-05,-3.801212E-01,1.805184E+00,2.602604E-02,0.000000E+00,-1.216514E+00,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 23XL 830kW/6.97COP/Valve"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 23XL 830kW/6.97COP/Valve" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -7564,7 +7565,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_23XL_862kW_6_11COP_Valve =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -861500,
       COP_nominal =         6.11,
       PLRMin =              0.20,
@@ -7582,11 +7583,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {6.091020E-01,-1.121376E-02,1.911380E-03,3.134795E-03,7.602337E-04,-1.864480E-03},
       EIRFunPLR =           {8.107206E-01,-2.005785E-02,-4.533858E-05,-9.361992E-01,2.154755E+00,2.196099E-02,0.000000E+00,-1.048282E+00,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 23XL 862kW/6.11COP/Valve"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 23XL 862kW/6.11COP/Valve" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -7617,7 +7618,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_23XL_862kW_6_84COP_Valve =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -861500,
       COP_nominal =         6.84,
       PLRMin =              0.30,
@@ -7635,11 +7636,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {6.678615E-01,-9.383184E-03,2.032594E-03,3.679404E-03,8.601638E-04,-2.160177E-03},
       EIRFunPLR =           {8.851376E-01,-3.243560E-02,1.524188E-05,-4.919407E-01,1.397112E+00,3.165504E-02,0.000000E+00,-7.803717E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 23XL 862kW/6.84COP/Valve"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 23XL 862kW/6.84COP/Valve" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -7670,7 +7671,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_23XL_865kW_6_05COP_Valve =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -865100,
       COP_nominal =         6.05,
       PLRMin =              0.20,
@@ -7688,11 +7689,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {5.716056E-01,1.224643E-02,5.618829E-04,-5.486870E-03,7.739394E-04,-1.685380E-03},
       EIRFunPLR =           {-1.633484E-01,2.429348E-02,-1.563508E-05,1.196860E+00,-8.284241E-01,-2.352693E-02,0.000000E+00,7.855871E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 23XL 865kW/6.05COP/Valve"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 23XL 865kW/6.05COP/Valve" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -7723,7 +7724,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YS_879kW_5_82COP_Valve =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -879100,
       COP_nominal =         5.82,
       PLRMin =              0.10,
@@ -7740,12 +7741,12 @@ Chiller:Electric:ReformulatedEIR,
       capFunT =             {1.043132E+00,3.207323E-02,-3.372567E-04,-1.802731E-03,-1.730238E-04,3.613008E-04},
       EIRFunT =             {5.260798E-01,-4.729537E-03,1.121823E-03,4.291045E-03,5.493614E-04,-1.453233E-03},
       EIRFunPLR =           {3.727519E-01,1.350521E-04,7.654504E-07,1.088683E-02,1.106991E+00,-1.844203E-04,0.000000E+00,-4.899729E-01,0.000000E+00,0.000000E+00},
-      etaMotor =            1.0)
-"ReformEIRChiller York YS 879kW/5.82COP/Valve"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+      etaMotor =            1.0) "ReformEIRChiller York YS 879kW/5.82COP/Valve"
+    annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -7776,7 +7777,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Trane_RTHC_1009kW_5_37COP_Valve =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1009200,
       COP_nominal =         5.37,
       PLRMin =              0.30,
@@ -7794,11 +7795,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {4.985801E-01,2.197522E-02,8.236831E-04,-1.956953E-02,1.366952E-03,-2.067504E-03},
       EIRFunPLR =           {1.618518E+00,-6.247569E-02,2.022982E-04,-1.604864E+00,3.518625E+00,5.149642E-02,0.000000E+00,-2.383742E+00,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Trane RTHC 1009kW/5.37COP/Valve"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Trane RTHC 1009kW/5.37COP/Valve" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -7829,7 +7830,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Trane_RTHB_1051kW_5_05COP_Valve =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1051400,
       COP_nominal =         5.05,
       PLRMin =              0.20,
@@ -7847,11 +7848,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {4.638880E-01,7.313353E-04,1.440483E-03,3.400471E-03,6.072397E-04,-1.656400E-03},
       EIRFunPLR =           {-2.132575E+01,7.315041E-01,1.435460E-05,1.774494E+01,5.234092E+00,-7.325017E-01,0.000000E+00,-6.363903E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Trane RTHB 1051kW/5.05COP/Valve"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Trane RTHB 1051kW/5.05COP/Valve" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -7882,7 +7883,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_23XL_1062kW_5_50COP_Valve =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1062000,
       COP_nominal =         5.50,
       PLRMin =              0.20,
@@ -7900,11 +7901,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {1.369592E-01,-5.681693E-03,2.795150E-04,2.407603E-02,2.142516E-04,-8.850727E-04},
       EIRFunPLR =           {1.385765E+00,-3.549685E-02,-4.110930E-06,-7.678018E-01,7.228808E-01,3.573245E-02,0.000000E+00,-3.442173E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 23XL 1062kW/5.50COP/Valve"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 23XL 1062kW/5.50COP/Valve" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -7935,7 +7936,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Trane_RTHC_1066kW_5_73COP_Valve =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1065500,
       COP_nominal =         5.73,
       PLRMin =              0.30,
@@ -7953,11 +7954,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {1.270619E+00,2.714576E-02,1.314069E-03,-7.074240E-02,2.188506E-03,-2.478095E-03},
       EIRFunPLR =           {-5.639468E-01,3.938489E-02,1.732511E-04,1.260815E+00,8.111637E-01,-4.893450E-02,0.000000E+00,-3.768289E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Trane RTHC 1066kW/5.73COP/Valve"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Trane RTHC 1066kW/5.73COP/Valve" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -7988,7 +7989,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Trane_RTHC_1094kW_6_55COP_Valve =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1093600,
       COP_nominal =         6.55,
       PLRMin =              0.25,
@@ -8006,11 +8007,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {6.406305E-01,-4.941735E-03,8.316386E-04,-1.042529E-03,6.666939E-04,-1.259813E-03},
       EIRFunPLR =           {-5.793160E-01,4.173392E-02,1.563673E-05,1.609363E+00,-3.325578E-01,-4.262129E-02,0.000000E+00,3.149494E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Trane RTHC 1094kW/6.55COP/Valve"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Trane RTHC 1094kW/6.55COP/Valve" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -8041,7 +8042,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_23XL_1108kW_6_92COP_Valve =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1107700,
       COP_nominal =         6.92,
       PLRMin =              0.20,
@@ -8059,11 +8060,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {5.272297E-01,-1.879890E-02,1.120482E-03,1.100352E-02,6.338503E-04,-1.251189E-03},
       EIRFunPLR =           {2.638449E+00,-1.139810E-01,-1.028538E-04,-2.382279E+00,2.715083E+00,1.187905E-01,0.000000E+00,-2.025240E+00,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 23XL 1108kW/6.92COP/Valve"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 23XL 1108kW/6.92COP/Valve" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -8094,7 +8095,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YS_1171kW_9_15COP_Valve =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1171000,
       COP_nominal =         9.15,
       PLRMin =              0.09,
@@ -8112,11 +8113,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {3.293911E-01,-2.105626E-02,1.769048E-03,3.636950E-02,4.158157E-04,-1.853560E-03},
       EIRFunPLR =           {-2.154861E-01,3.786873E-02,-1.127341E-05,2.109726E-01,1.287825E+00,-3.728032E-02,0.000000E+00,-2.909471E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller York YS 1171kW/9.15COP/Valve"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller York YS 1171kW/9.15COP/Valve" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -8147,7 +8148,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Carrier_23XL_1196kW_6_39COP_Valve =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1195600,
       COP_nominal =         6.39,
       PLRMin =              0.20,
@@ -8165,11 +8166,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {5.152368E-01,-1.274543E-02,1.116484E-03,5.217358E-03,6.656740E-04,-1.353664E-03},
       EIRFunPLR =           {-2.737954E-01,2.822257E-02,-8.097657E-05,9.612284E-01,3.029741E-01,-2.421933E-02,0.000000E+00,-3.885224E-02,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Carrier 23XL 1196kW/6.39COP/Valve"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Carrier 23XL 1196kW/6.39COP/Valve" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -8200,7 +8201,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YS_1554kW_9_31COP_Valve =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1554300,
       COP_nominal =         9.31,
       PLRMin =              0.10,
@@ -8218,11 +8219,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {3.556656E-01,2.393674E-02,-1.681332E-04,2.367290E-02,7.263583E-04,-2.267522E-03},
       EIRFunPLR =           {3.590292E-01,-5.404650E-03,-2.016784E-05,-2.714668E-01,2.061858E+00,6.725648E-03,0.000000E+00,-1.170629E+00,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller York YS 1554kW/9.31COP/Valve"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller York YS 1554kW/9.31COP/Valve" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -8253,7 +8254,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_York_YS_1758kW_5_84COP_Valve =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -1758300,
       COP_nominal =         5.84,
       PLRMin =              0.20,
@@ -8271,11 +8272,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {7.492787E-01,1.912506E-02,1.303486E-03,-1.981703E-02,1.003666E-03,-1.936814E-03},
       EIRFunPLR =           {-1.522140E-01,2.440667E-02,-5.691764E-05,4.875495E-01,7.490485E-01,-2.093720E-02,0.000000E+00,-1.319819E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller York YS 1758kW/5.84COP/Valve"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller York YS 1758kW/5.84COP/Valve" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -8306,7 +8307,7 @@ Chiller:Electric:ReformulatedEIR,
 </html>"));
 
   record ReformEIRChiller_Trane_CGWD_207kW_3_99COP_None =
-    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(
+    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (
       QEva_flow_nominal =  -207400,
       COP_nominal =         3.99,
       PLRMin =              0.25,
@@ -8324,11 +8325,11 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {7.327001E-01,-8.343605E-03,6.385302E-04,-3.037535E-03,4.849529E-04,-8.358498E-04},
       EIRFunPLR =           {7.086284E-02,2.787561E-03,-8.917038E-06,2.309734E-01,1.250442E+00,-2.161029E-03,0.000000E+00,-5.630094E-01,0.000000E+00,0.000000E+00},
       etaMotor =            1.0)
-"ReformEIRChiller Trane CGWD 207kW/3.99COP/None"
-annotation(
-defaultComponentName="datChi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+    "ReformEIRChiller Trane CGWD 207kW/3.99COP/None" annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>

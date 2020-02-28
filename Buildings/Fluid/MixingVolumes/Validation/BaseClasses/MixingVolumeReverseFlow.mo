@@ -6,8 +6,8 @@ partial model MixingVolumeReverseFlow
 
   constant Boolean prescribedHeatFlowRate = false
     "Flag that affects what steady state balance is used in the volume";
-  parameter Modelica.SIunits.Pressure dp_nominal = 10 "Nominal pressure drop";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 2.0
+  parameter Modelica.Units.SI.Pressure dp_nominal=10 "Nominal pressure drop";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=2.0
     "Nominal mass flow rate";
 
   Modelica.Fluid.Sources.MassFlowSource_T sou(
@@ -27,7 +27,8 @@ partial model MixingVolumeReverseFlow
         rotation=180,
         origin={70,-20})));
   replaceable Buildings.Fluid.MixingVolumes.MixingVolume volDyn
-    constrainedby Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort(
+    constrainedby
+    Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort(
         redeclare package Medium = Medium,
         V=1,
         nPorts=2,
@@ -37,7 +38,8 @@ partial model MixingVolumeReverseFlow
     annotation (Placement(transformation(extent={{10,0},{30,20}})));
 
   replaceable Buildings.Fluid.MixingVolumes.MixingVolume volSte
-    constrainedby Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort(
+    constrainedby
+    Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort(
         redeclare package Medium = Medium,
         final prescribedHeatFlowRate = prescribedHeatFlowRate,
         V=1,

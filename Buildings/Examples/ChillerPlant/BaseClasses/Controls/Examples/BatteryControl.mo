@@ -5,7 +5,7 @@ model BatteryControl "Test model for battery control"
     con "Battery control"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Modelica.Blocks.Sources.Sine SOC(
-    freqHz=1/86400,
+    f=1/86400,
     offset=0.5,
     amplitude=0.6) "State of charge"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));

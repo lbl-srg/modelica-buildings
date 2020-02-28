@@ -4,9 +4,9 @@ model SpeedControlled_y_linear
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water "Medium model";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.5
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.5
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.PressureDifference dp_nominal = 10000
+  parameter Modelica.Units.SI.PressureDifference dp_nominal=10000
     "Nominal pressure";
 
   Modelica.Blocks.Sources.Ramp y(

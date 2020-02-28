@@ -26,31 +26,30 @@ partial model PartialCompressor "Partial compressor model"
       annotation (Placement(transformation(extent={{100,50},{120,70}},
           rotation=-90)));
 
-  Modelica.SIunits.SpecificEnthalpy hEva
+  Modelica.Units.SI.SpecificEnthalpy hEva
     "Specific enthalpy of saturated vapor at evaporator temperature";
 
-  Modelica.SIunits.SpecificEnthalpy hCon
+  Modelica.Units.SI.SpecificEnthalpy hCon
     "Specific enthalpy of saturated liquid at condenser temperature";
 
-  Modelica.SIunits.AbsolutePressure pEva(start = 100e3)
+  Modelica.Units.SI.AbsolutePressure pEva(start=100e3)
     "Pressure of saturated vapor at evaporator temperature";
 
-  Modelica.SIunits.AbsolutePressure pCon(start = 1000e3)
+  Modelica.Units.SI.AbsolutePressure pCon(start=1000e3)
     "Pressure of saturated liquid at condenser temperature";
 
-  Modelica.SIunits.AbsolutePressure pDis(start = 1000e3)
+  Modelica.Units.SI.AbsolutePressure pDis(start=1000e3)
     "Discharge pressure of the compressor";
 
-  Modelica.SIunits.AbsolutePressure pSuc(start = 100e3)
+  Modelica.Units.SI.AbsolutePressure pSuc(start=100e3)
     "Suction pressure of the compressor";
 
-  Modelica.SIunits.Temperature TSuc
-    "Temperature at suction of the compressor";
+  Modelica.Units.SI.Temperature TSuc "Temperature at suction of the compressor";
 
   Boolean isOn(fixed=false)
     "State of the compressor, true if turned on";
 
-  Modelica.SIunits.SpecificVolume vSuc(start = 1e-4, min = 0)
+  Modelica.Units.SI.SpecificVolume vSuc(start=1e-4, min=0)
     "Specific volume of the refrigerant at suction of the compressor";
 
 protected

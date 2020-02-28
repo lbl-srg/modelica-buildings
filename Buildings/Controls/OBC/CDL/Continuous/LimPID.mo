@@ -8,17 +8,14 @@ block LimPID
   parameter Real k(
     min=0,
     unit="1") = 1 "Gain of controller";
-  parameter Modelica.SIunits.Time Ti(min=Constants.small) = 0.5
-    "Time constant of integrator block"
-    annotation (Dialog(enable=
-          controllerType == CDL.Types.SimpleController.PI or
-          controllerType == CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time Td(
-    min=0) = 0.1
-    "Time constant of derivative block"
-    annotation (Dialog(enable=
-          controllerType == CDL.Types.SimpleController.PD or
-          controllerType == CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time Ti(min=Constants.small) = 0.5
+    "Time constant of integrator block" annotation (Dialog(enable=
+          controllerType == CDL.Types.SimpleController.PI or controllerType ==
+          CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time Td(min=0) = 0.1
+    "Time constant of derivative block" annotation (Dialog(enable=
+          controllerType == CDL.Types.SimpleController.PD or controllerType ==
+          CDL.Types.SimpleController.PID));
   parameter Real yMax "Upper limit of output";
   parameter Real yMin=-yMax "Lower limit of output";
   parameter Real wp(min=0) = 1 "Set-point weight for Proportional block (0..1)";
@@ -125,7 +122,7 @@ block LimPID
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
 protected
-  constant Modelica.SIunits.Time unitTime=1 annotation (HideResult=true);
+  constant Modelica.Units.SI.Time unitTime=1 annotation (HideResult=true);
   final parameter Real revAct = if reverseAction then -1 else 1
     "Switch for sign for reverse action";
   parameter Boolean with_I = controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or

@@ -11,8 +11,8 @@ partial model PartialDamperExponential
  parameter Real deltaM = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
    annotation(Dialog(enable=use_deltaM));
- parameter Modelica.SIunits.Velocity v_nominal = 1 "Nominal face velocity";
- final parameter Modelica.SIunits.Area A=m_flow_nominal/rho_default/v_nominal
+  parameter Modelica.Units.SI.Velocity v_nominal=1 "Nominal face velocity";
+  final parameter Modelica.Units.SI.Area A=m_flow_nominal/rho_default/v_nominal
     "Face area";
 
  parameter Boolean roundDuct = false

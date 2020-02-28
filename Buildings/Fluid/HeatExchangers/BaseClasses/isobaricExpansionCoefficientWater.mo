@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
 function isobaricExpansionCoefficientWater
   "Returns the isobaric expansion coefficient for water"
-    input Modelica.SIunits.Temperature T "Thermodynamic state record";
+  input Modelica.Units.SI.Temperature T "Thermodynamic state record";
     output Real beta( unit="1/K") "Dynamic viscosity";
 algorithm
         beta := (-8.53296*10^(-6)*T^4+0.011562287*T^3-5.88800657*T^2+

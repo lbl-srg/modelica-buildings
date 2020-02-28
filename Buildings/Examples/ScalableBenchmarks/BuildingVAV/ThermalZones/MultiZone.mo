@@ -6,7 +6,7 @@ model MultiZone "Multiple thermal zone models"
     annotation(Evaluate=true);
   parameter Integer nFlo(min=1) = 1 "Number of floors"
     annotation(Evaluate=true);
-  parameter Modelica.SIunits.Angle lat=41.98*3.14159/180 "Latitude";
+  parameter Modelica.Units.SI.Angle lat=41.98*3.14159/180 "Latitude";
   parameter Real ampFactor[nZon]=
     if nZon<=5 then
         {abs(cos(i*3.1415926/(nZon))) for i in 1:nZon}

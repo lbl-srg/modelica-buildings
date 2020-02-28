@@ -5,7 +5,8 @@ function getTimeSpanTMY3
 
   input String filNam "Name of weather data file";
   input String tabNam "Name of table on weather file";
-  output Modelica.SIunits.Time[2] timeSpan "Start time, end time of weather data";
+  output Modelica.Units.SI.Time[2] timeSpan
+    "Start time, end time of weather data";
 
 external "C" getTimeSpan(filNam, tabNam, timeSpan)
   annotation (

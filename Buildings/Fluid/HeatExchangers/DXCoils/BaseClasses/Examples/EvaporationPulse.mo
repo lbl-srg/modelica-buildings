@@ -12,15 +12,15 @@ model EvaporationPulse "Test model for evaporation with pulse signal"
     m_flow_nominal=5000/1006/10) "Nominal values for DX coil"
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 
-  parameter Modelica.SIunits.MassFraction XEvaIn_nominal=
-    Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
-     pSat=Medium.saturationPressure(nomVal.TEvaIn_nominal),
-     p=nomVal.p_nominal,
-     phi=nomVal.phiIn_nominal) "Mass fraction at nominal inlet conditions";
+  parameter Modelica.Units.SI.MassFraction XEvaIn_nominal=
+      Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
+      pSat=Medium.saturationPressure(nomVal.TEvaIn_nominal),
+      p=nomVal.p_nominal,
+      phi=nomVal.phiIn_nominal) "Mass fraction at nominal inlet conditions";
 
-  parameter Modelica.SIunits.MassFraction XEvaOut_nominal = XEvaIn_nominal +
-   (1-nomVal.SHR_nominal) * nomVal.Q_flow_nominal/nomVal.m_flow_nominal/Medium.enthalpyOfVaporization(293.15)
-    "Nominal air outlet humidity";
+  parameter Modelica.Units.SI.MassFraction XEvaOut_nominal=XEvaIn_nominal + (1
+       - nomVal.SHR_nominal)*nomVal.Q_flow_nominal/nomVal.m_flow_nominal/
+      Medium.enthalpyOfVaporization(293.15) "Nominal air outlet humidity";
 
   Modelica.Blocks.Sources.Pulse pulSho(period=30*60)
     "Control signal for short-cycling coil"

@@ -20,10 +20,10 @@ partial model RoomHeatMassBalance "Base model for a room"
         extent={{-40,-10},{40,10}},
         rotation=90,
         origin={-150,-100})));
-  parameter Modelica.SIunits.Angle lat "Latitude";
-  final parameter Modelica.SIunits.Volume V=AFlo*hRoo "Volume";
-  parameter Modelica.SIunits.Area AFlo "Floor area";
-  parameter Modelica.SIunits.Length hRoo "Average room height";
+  parameter Modelica.Units.SI.Angle lat "Latitude";
+  final parameter Modelica.Units.SI.Volume V=AFlo*hRoo "Volume";
+  parameter Modelica.Units.SI.Area AFlo "Floor area";
+  parameter Modelica.Units.SI.Length hRoo "Average room height";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorAir
     "Heat port to air volume" annotation (Placement(transformation(extent={{-270,30},
@@ -97,18 +97,18 @@ partial model RoomHeatMassBalance "Base model for a room"
   parameter Buildings.HeatTransfer.Types.InteriorConvection intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature
     "Convective heat transfer model for room-facing surfaces of opaque constructions"
     annotation (Dialog(group="Convective heat transfer"));
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer hIntFixed=3.0
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer hIntFixed=3.0
     "Constant convection coefficient for room-facing surfaces of opaque constructions"
     annotation (Dialog(group="Convective heat transfer", enable=(intConMod ==
           Buildings.HeatTransfer.Types.InteriorConvection.Fixed)));
   parameter Buildings.HeatTransfer.Types.ExteriorConvection extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind
     "Convective heat transfer model for exterior facing surfaces of opaque constructions"
     annotation (Dialog(group="Convective heat transfer"));
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer hExtFixed=10.0
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer hExtFixed=10.0
     "Constant convection coefficient for exterior facing surfaces of opaque constructions"
     annotation (Dialog(group="Convective heat transfer", enable=(extConMod ==
           Buildings.HeatTransfer.Types.ExteriorConvection.Fixed)));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0) = V*1.2/3600
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(min=0) = V*1.2/3600
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
@@ -283,12 +283,12 @@ partial model RoomHeatMassBalance "Base model for a room"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
 
 protected
-  final parameter Modelica.SIunits.TransmissionCoefficient tauIRSha_air[NConExtWin]=
-    datConExtWin.glaSys.shade.tauIR_a
+  final parameter Modelica.Units.SI.TransmissionCoefficient tauIRSha_air[
+    NConExtWin]=datConExtWin.glaSys.shade.tauIR_a
     "Infrared transmissivity of shade for radiation coming from the exterior or the room"
     annotation (Dialog(group="Shading"));
-        final parameter Modelica.SIunits.TransmissionCoefficient tauIRSha_glass[NConExtWin]=
-    datConExtWin.glaSys.shade.tauIR_b
+  final parameter Modelica.Units.SI.TransmissionCoefficient tauIRSha_glass[
+    NConExtWin]=datConExtWin.glaSys.shade.tauIR_b
     "Infrared transmissivity of shade for radiation coming from the glass"
     annotation (Dialog(group="Shading"));
 

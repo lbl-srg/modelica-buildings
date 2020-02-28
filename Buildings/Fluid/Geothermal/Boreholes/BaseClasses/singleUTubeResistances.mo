@@ -2,39 +2,39 @@ within Buildings.Fluid.Geothermal.Boreholes.BaseClasses;
 function singleUTubeResistances "Thermal resistances for single U-tube"
 
   // Geometry of the borehole
-  input Modelica.SIunits.Height hSeg "Height of the element";
-  input Modelica.SIunits.Radius rBor "Radius of the borehole";
+  input Modelica.Units.SI.Height hSeg "Height of the element";
+  input Modelica.Units.SI.Radius rBor "Radius of the borehole";
   // Geometry of the pipe
-  input Modelica.SIunits.Radius rTub "Radius of the tube";
-  input Modelica.SIunits.Length eTub "Thickness of the tubes";
-  input Modelica.SIunits.Length xC
+  input Modelica.Units.SI.Radius rTub "Radius of the tube";
+  input Modelica.Units.SI.Length eTub "Thickness of the tubes";
+  input Modelica.Units.SI.Length xC
     "Shank spacing, defined as the distance between the center of a pipe and the center of the borehole";
 
   // Thermal properties
-  input Modelica.SIunits.ThermalConductivity kSoi
+  input Modelica.Units.SI.ThermalConductivity kSoi
     "Thermal conductivity of the soi";
-  input Modelica.SIunits.ThermalConductivity kFil
+  input Modelica.Units.SI.ThermalConductivity kFil
     "Thermal conductivity of the grout";
-  input Modelica.SIunits.ThermalConductivity kTub
+  input Modelica.Units.SI.ThermalConductivity kTub
     "Thermal conductivity of the tube";
 
   // Outputs
-  output Modelica.SIunits.ThermalResistance Rgb
+  output Modelica.Units.SI.ThermalResistance Rgb
     "Thermal resistance between the grout zone and the borehole wall";
-  output Modelica.SIunits.ThermalResistance Rgg
+  output Modelica.Units.SI.ThermalResistance Rgg
     "Thermal resistance between the two grout zones";
-  output Modelica.SIunits.ThermalResistance RCondGro
+  output Modelica.Units.SI.ThermalResistance RCondGro
     "Thermal resistance between the pipe wall ant the capacity in the grout";
   output Real x "Capacity location";
 
 protected
   Boolean test=false "Thermodynamic test for R and x value";
 
-  Modelica.SIunits.ThermalResistance Rg
+  Modelica.Units.SI.ThermalResistance Rg
     "Thermal resistance between outer borehole wall and one tube";
-  Modelica.SIunits.ThermalResistance Rar
+  Modelica.Units.SI.ThermalResistance Rar
     "Thermal resistance between the two pipe outer walls";
-  Modelica.SIunits.ThermalResistance RCondPipe
+  Modelica.Units.SI.ThermalResistance RCondPipe
     "Thermal resistance of the pipe wall";
 
   Real Rb

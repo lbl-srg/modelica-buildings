@@ -1,9 +1,9 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Economizers.Subsequences.Validation;
 model Enable_FreProSta
   "Model validates economizer disable for heating zone state and activated freeze protection"
-  parameter Modelica.SIunits.Temperature TOutCutoff=297.15
+  parameter Modelica.Units.SI.Temperature TOutCutoff=297.15
     "Outdoor temperature high limit cutoff";
-  parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
+  parameter Modelica.Units.SI.SpecificEnergy hOutCutoff=65100
     "Outdoor air enthalpy high limit cutoff";
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Economizers.Subsequences.Enable

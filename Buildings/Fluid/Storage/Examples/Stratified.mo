@@ -67,10 +67,10 @@ model Stratified "Test model for stratified tank"
     "Pressure boundary condition"
                  annotation (Placement(transformation(extent={{20,60},{40,80}})));
   Modelica.Blocks.Sources.Sine sine(
-    freqHz=1/86400,
+    f=1/86400,
     amplitude=10,
-    offset=273.15 + 20) annotation (Placement(transformation(extent={{-90,62},{
-            -70,82}})));
+    offset=273.15 + 20)
+    annotation (Placement(transformation(extent={{-90,62},{-70,82}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature TBCSid2
     "Boundary condition for tank" annotation (Placement(transformation(extent={
             {-40,50},{-28,62}})));

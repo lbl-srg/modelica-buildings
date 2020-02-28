@@ -8,17 +8,17 @@ model CoolingCoil "Controller for cooling coil valve"
     "Gain for cooling coil control loop signal"
     annotation(Dialog(group="Cooling coil loop signal"));
 
-  parameter Modelica.SIunits.Time TiCooCoi=900
+  parameter Modelica.Units.SI.Time TiCooCoi=900
     "Time constant of integrator block for cooling coil control loop signal"
-    annotation(Dialog(group="Cooling coil loop signal",
-    enable=controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-        or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    annotation (Dialog(group="Cooling coil loop signal", enable=
+          controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+           or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Modelica.SIunits.Time TdCooCoi=0.1
+  parameter Modelica.Units.SI.Time TdCooCoi=0.1
     "Time constant of derivative block for cooling coil control loop signal"
-    annotation (Dialog(group="Cooling coil loop signal",
-      enable=controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-          or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    annotation (Dialog(group="Cooling coil loop signal", enable=
+          controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+           or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   CDL.Integers.Equal intEqu
     "Logical block to check if zone is in cooling state"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));

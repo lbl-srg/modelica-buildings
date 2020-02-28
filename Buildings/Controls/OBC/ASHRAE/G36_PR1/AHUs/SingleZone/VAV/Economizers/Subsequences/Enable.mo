@@ -9,12 +9,15 @@ block Enable
     "Set to true to evaluate fixed plus differential dry bulb temperature high limit cutoff;
     shall not be used with enthalpy"
     annotation(Dialog(group="Conditional", enable=not use_enthalpy));
-  parameter Modelica.SIunits.TemperatureDifference delTOutHis=1
+  parameter Modelica.Units.SI.TemperatureDifference delTOutHis=1
     "Delta between the temperature hysteresis high and low limit"
-    annotation(Evaluate=true, Dialog(tab="Advanced", group="Hysteresis"));
-  parameter Modelica.SIunits.SpecificEnergy delEntHis=1000
-    "Delta between the enthalpy hysteresis high and low limits"
-    annotation(Evaluate=true, Dialog(tab="Advanced", group="Hysteresis", enable = use_enthalpy));
+    annotation (Evaluate=true, Dialog(tab="Advanced", group="Hysteresis"));
+  parameter Modelica.Units.SI.SpecificEnergy delEntHis=1000
+    "Delta between the enthalpy hysteresis high and low limits" annotation (
+      Evaluate=true, Dialog(
+      tab="Advanced",
+      group="Hysteresis",
+      enable=use_enthalpy));
   parameter Real retDamPhyPosMax(
     final min=0,
     final max=1,
@@ -114,11 +117,11 @@ block Enable
   CDL.Logical.Xor xor "Either fixed+differential temperature cutoff or others"
     annotation (Placement(transformation(extent={{74,242},{94,262}})));
 protected
-  final parameter Modelica.SIunits.Temperature TOutHigLimCutHig = 0
+  final parameter Modelica.Units.SI.Temperature TOutHigLimCutHig=0
     "Hysteresis high limit cutoff";
   final parameter Real TOutHigLimCutLow = TOutHigLimCutHig - delTOutHis
     "Hysteresis low limit cutoff";
-  final parameter Modelica.SIunits.SpecificEnergy hOutHigLimCutHig = 0
+  final parameter Modelica.Units.SI.SpecificEnergy hOutHigLimCutHig=0
     "Hysteresis block high limit cutoff";
   final parameter Real hOutHigLimCutLow = hOutHigLimCutHig - delEntHis
     "Hysteresis block low limit cutoff";

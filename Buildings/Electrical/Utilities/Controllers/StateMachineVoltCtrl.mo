@@ -2,11 +2,11 @@ within Buildings.Electrical.Utilities.Controllers;
 model StateMachineVoltCtrl "This model represents a simple voltage controller that unplug a load when
   there is a voltage fluctuation higher that a given threshold."
   Modelica.Blocks.Interfaces.RealInput V "Voltage of the node to be controlled";
-  parameter Modelica.SIunits.Voltage V_nominal
+  parameter Modelica.Units.SI.Voltage V_nominal
     "Nominal voltage of the node to be controlled";
   parameter Real vThresh(min=0.0, max=1.0) = 0.1
     "Threshold that activates voltage ctrl (ratio of nominal voltage)";
-  parameter Modelica.SIunits.Time tDelay = 300
+  parameter Modelica.Units.SI.Time tDelay=300
     "Time to wait before plugging the load back";
   output Real y
     "Output signal that represents whether the load should be connected to the grid or not";

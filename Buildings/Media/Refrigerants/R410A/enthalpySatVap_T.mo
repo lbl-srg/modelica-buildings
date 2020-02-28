@@ -1,9 +1,8 @@
 within Buildings.Media.Refrigerants.R410A;
 function enthalpySatVap_T
   "Function that calculates the specific enthalpy of saturated R410A vapor based on temperature"
-  input Modelica.SIunits.Temperature T
-    "Temperature of refrigerant";
-  output Modelica.SIunits.SpecificEnthalpy h
+  input Modelica.Units.SI.Temperature T "Temperature of refrigerant";
+  output Modelica.Units.SI.SpecificEnthalpy h
     "Specific enthalpy of saturated liquid refrigerant";
 
 protected
@@ -13,7 +12,7 @@ protected
   final Real x0 = 0
     "x0 for saturation pressure of liquid refrigerant";
 
-  final Modelica.SIunits.Temperature TCri = 345.25
+  final Modelica.Units.SI.Temperature TCri=345.25
     "Critical temperature of refrigerant";
 
   Real x

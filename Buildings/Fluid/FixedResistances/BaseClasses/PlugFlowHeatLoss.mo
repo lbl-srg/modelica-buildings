@@ -11,11 +11,12 @@ model PlugFlowHeatLoss
   parameter Real R(unit="(m.K)/W")
     "Thermal resistance per unit length from fluid to boundary temperature";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal "Nominal mass flow rate";
-  parameter Modelica.SIunits.Temperature T_start
-    "Initial output temperature";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
+    "Nominal mass flow rate";
+  parameter Modelica.Units.SI.Temperature T_start "Initial output temperature";
 
-  final parameter Modelica.SIunits.Time tau_char=R*C "Characteristic delay time";
+  final parameter Modelica.Units.SI.Time tau_char=R*C
+    "Characteristic delay time";
 
   Modelica.Blocks.Interfaces.RealInput tau(unit="s") "Time delay at pipe level"
     annotation (Placement(transformation(
@@ -26,18 +27,18 @@ model PlugFlowHeatLoss
     "Heat port to connect environment (negative if heat is lost to ambient)"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
 
-  Modelica.SIunits.Temperature T_a_inflow(start=T_start)
+  Modelica.Units.SI.Temperature T_a_inflow(start=T_start)
     "Temperature at port_a for inflowing fluid";
-  Modelica.SIunits.Temperature T_b_outflow(start=T_start)
+  Modelica.Units.SI.Temperature T_b_outflow(start=T_start)
     "Temperature at port_b for outflowing fluid";
-  Modelica.SIunits.Temperature TAmb=heatPort.T "Environment temperature";
+  Modelica.Units.SI.Temperature TAmb=heatPort.T "Environment temperature";
 
 protected
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
       T=Medium.T_default,
       p=Medium.p_default,
       X=Medium.X_default) "Default medium state";
-  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
+  parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
       Medium.specificHeatCapacityCp(state=sta_default)
     "Heat capacity of medium";
 

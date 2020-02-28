@@ -1,7 +1,7 @@
 within Buildings.Controls.DemandResponse.BaseClasses;
 partial block PartialDemandResponse
   "Partial block that declares common data for demand response models"
-  extends Modelica.StateGraph.Step;
+  extends Modelica.StateGraph.Step(nIn=1, nOut=1);
   parameter Integer nSam
     "Number of intervals in a day for which baseline is computed";
 
