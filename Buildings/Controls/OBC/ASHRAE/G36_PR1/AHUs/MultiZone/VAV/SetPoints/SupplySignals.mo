@@ -6,16 +6,15 @@ block SupplySignals "Multizone VAV AHU coil valve positions"
     "Type of controller for supply air temperature signal";
   parameter Real kTSup(final unit="1/K")=0.05
     "Gain of controller for supply air temperature signal";
-  parameter Modelica.SIunits.Time TiTSup=600
+  parameter Modelica.Units.SI.Time TiTSup=600
     "Time constant of integrator block for supply temperature control signal"
-    annotation(Dialog(
-      enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-          or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    annotation (Dialog(enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Modelica.SIunits.Time TdTSup=0.1
+  parameter Modelica.Units.SI.Time TdTSup=0.1
     "Time constant of derivative block for supply temperature control signal"
-    annotation(Dialog(enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-                          or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    annotation (Dialog(enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Real uHeaMax(min=-0.9)=-0.25
     "Upper limit of controller signal when heating coil is off. Require -1 < uHeaMax < uCooMin < 1.";

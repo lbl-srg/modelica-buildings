@@ -2,12 +2,13 @@ within Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.LoadAggreg
 model TemporalSuperposition "This validation case applies temporal superposition with truncated vectors"
   extends Modelica.Icons.Example;
 
-  parameter Modelica.SIunits.TemperatureDifference supPos = Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.LoadAggregation.temporalSuperposition(
+  parameter Modelica.Units.SI.TemperatureDifference supPos=
+      Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.LoadAggregation.temporalSuperposition(
       i=6,
       QAgg_flow={2,1e6,3,1e6,1e6},
       kappa={0.4,0,0.2,1,0},
       curCel=3) "Temporal superposition";
-  Modelica.SIunits.TemperatureDifference supPosErr;
+  Modelica.Units.SI.TemperatureDifference supPosErr;
 
 equation
   supPosErr = abs((2*0.4+3*0.2)-supPos);

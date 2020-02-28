@@ -17,7 +17,7 @@ record FP_GuangdongFSPTY95 =
     final G_nominal = 1000,
     final dT_nominal = 10)
   "FP - Guandong Fivestar Solar Energy Co, FS-PTY95-2.0"
-    annotation(
+    annotation (
 defaultComponentPrefixes="parameter",
 defaultComponentName="datSolCol",
 Documentation(info = "<html>

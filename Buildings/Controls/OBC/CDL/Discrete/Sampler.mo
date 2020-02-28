@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.CDL.Discrete;
 block Sampler "Ideal sampler of a continuous signal"
 
-  parameter Modelica.SIunits.Time samplePeriod(min=1E-3)
+  parameter Modelica.Units.SI.Time samplePeriod(min=1E-3)
     "Sample period of component";
 
   Interfaces.RealInput u "Continuous input signal"
@@ -11,8 +11,7 @@ block Sampler "Ideal sampler of a continuous signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  parameter Modelica.SIunits.Time t0(fixed=false)
-    "First sample time instant";
+  parameter Modelica.Units.SI.Time t0(fixed=false) "First sample time instant";
 
   output Boolean sampleTrigger "True, if sample time instant";
 

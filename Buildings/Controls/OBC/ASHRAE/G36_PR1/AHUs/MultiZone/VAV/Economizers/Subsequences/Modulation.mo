@@ -24,7 +24,7 @@ block Modulation
     final unit="1") = (uMin + uMax)/2
     "Minimum loop signal for the RA damper to be fully open"
     annotation (Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
-  parameter Modelica.SIunits.Time samplePeriod = 300
+  parameter Modelica.Units.SI.Time samplePeriod=300
     "Sample period of component, used to limit the rate of change of the dampers (to avoid quick opening that can result in frost)";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTSup(final unit="1")

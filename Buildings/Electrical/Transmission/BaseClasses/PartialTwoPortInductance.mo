@@ -2,7 +2,8 @@ within Buildings.Electrical.Transmission.BaseClasses;
 partial model PartialTwoPortInductance
   "Partial model of an inductive element that links two electrical connectors"
   extends Interfaces.PartialTwoPort;
-  parameter Modelica.SIunits.Inductance L "Inductance" annotation(Evaluate=true);
+  parameter Modelica.Units.SI.Inductance L "Inductance"
+    annotation (Evaluate=true);
 equation
   Connections.branch(terminal_p.theta, terminal_n.theta);
   terminal_p.theta = terminal_n.theta;

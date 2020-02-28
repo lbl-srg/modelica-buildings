@@ -1,9 +1,9 @@
 within Buildings.Electrical.AC.Interfaces;
 connector PowerOutput
   "Connector with real power, reactive power and power factor"
-  output Modelica.SIunits.Power real "Real power";
-  output Modelica.SIunits.ReactivePower apparent "Apparent power";
-  output Modelica.SIunits.Angle phi "Phase shift";
+  output Modelica.Units.SI.Power real "Real power";
+  output Modelica.Units.SI.ReactivePower apparent "Apparent power";
+  output Modelica.Units.SI.Angle phi "Phase shift";
   output Real cosPhi "Power factor";
 
   annotation (Icon(graphics={ Polygon(

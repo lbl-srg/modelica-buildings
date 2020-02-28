@@ -1,10 +1,9 @@
 within Buildings.Controls.OBC.CDL.Logical;
 block TrueFalseHold "Block that holds an output signal for at least a specified duration"
 
-  parameter Modelica.SIunits.Time trueHoldDuration
-    "true hold duration";
+  parameter Modelica.Units.SI.Time trueHoldDuration "true hold duration";
 
-  parameter Modelica.SIunits.Time falseHoldDuration = trueHoldDuration
+  parameter Modelica.Units.SI.Time falseHoldDuration=trueHoldDuration
     "false hold duration";
 
   Interfaces.BooleanInput u "Boolean input signal"
@@ -29,14 +28,14 @@ protected
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     "Root of state graph"
     annotation (Placement(transformation(extent={{-160,100},{-140,120}})));
-  Modelica.StateGraph.StepWithSignal        outputFalse(nIn=2)
+  Modelica.StateGraph.StepWithSignal        outputFalse(nIn=2, nOut=1)
     "State for which the block outputs false"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Modelica.StateGraph.TransitionWithSignal toTrue "Transition to true"
     annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
   CDL.Logical.Not notU "Negation of input"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
-  Modelica.StateGraph.StepWithSignal outputTrue(nIn=2)
+  Modelica.StateGraph.StepWithSignal outputTrue(nIn=2, nOut=1)
     "State with true output signal"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Modelica.StateGraph.TransitionWithSignal toFalse "Transition to false"

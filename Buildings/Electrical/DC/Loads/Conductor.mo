@@ -4,7 +4,7 @@ model Conductor "Model of a generic DC load"
      redeclare package PhaseSystem = PhaseSystems.TwoConductor,
      redeclare Interfaces.Terminal_n terminal);
 protected
-    Modelica.SIunits.Voltage absDV
+  Modelica.Units.SI.Voltage absDV
     "Absolute value of the voltage difference between the two conductors (used by the linearized model)";
 equation
 

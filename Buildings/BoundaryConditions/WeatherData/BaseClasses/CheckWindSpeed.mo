@@ -7,7 +7,7 @@ block CheckWindSpeed "Ensures that the wind speed is non-negative"
   Modelica.Blocks.Interfaces.RealOutput winSpeOut(final quantity="Velocity",
       final unit="m/s") "Wind speed"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  constant Modelica.SIunits.Velocity winSpeMin=1e-6
+  constant Modelica.Units.SI.Velocity winSpeMin=1e-6
     "Minimum allowed wind speed";
 
 equation

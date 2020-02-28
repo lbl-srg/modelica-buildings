@@ -1,12 +1,12 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BaseClasses;
 partial model IEEE4 "Base model of the IEEE 4 nodes test feeder"
   extends Modelica.Icons.Example;
-  parameter Modelica.SIunits.Voltage VLL_side1 = 12.47e3
+  parameter Modelica.Units.SI.Voltage VLL_side1=12.47e3
     "Voltage line to line side 1";
-  parameter Modelica.SIunits.Voltage VLL_side2 = 4.16e3
+  parameter Modelica.Units.SI.Voltage VLL_side2=4.16e3
     "Voltage line to line side 2";
 
-  parameter Modelica.SIunits.ApparentPower VARbase = 6000e3
+  parameter Modelica.Units.SI.ApparentPower VARbase=6000e3
     "Base VA power of the transformer";
 
   parameter Boolean line1_use_Z_y = true
@@ -14,30 +14,30 @@ partial model IEEE4 "Base model of the IEEE 4 nodes test feeder"
   parameter Boolean line2_use_Z_y = true
     "Choose between Zy or Zd impedance matrix for line 2";
 
-  parameter Modelica.SIunits.Voltage V2_ref[3] = {7107, 7140, 7121}
+  parameter Modelica.Units.SI.Voltage V2_ref[3]={7107,7140,7121}
     "Reference RMS voltage node 2 - IEEE results";
-  parameter Modelica.SIunits.Voltage V3_ref[3] = {2247, 2269, 2256}
+  parameter Modelica.Units.SI.Voltage V3_ref[3]={2247,2269,2256}
     "Reference RMS voltage node 3 - IEEE results";
-  parameter Modelica.SIunits.Voltage V4_ref[3] = {1918, 2061, 1981}
+  parameter Modelica.Units.SI.Voltage V4_ref[3]={1918,2061,1981}
     "Reference RMS voltage node 4 - IEEE results";
-  parameter Modelica.SIunits.Angle Theta2_ref[3](each displayUnit="deg") = {-0.3, -120.3, 119.6}
-    "Reference voltage phase angle node 2 - IEEE results";
-  parameter Modelica.SIunits.Angle Theta3_ref[3](each displayUnit="deg") = {-3.7, -123.5, 116.4}
-    "Reference voltage phase angle node 3 - IEEE results";
-  parameter Modelica.SIunits.Angle Theta4_ref[3](each displayUnit="deg") = {-9.1, -128.3, 110.9}
-    "Reference voltage phase angle node 4 - IEEE results";
-  Modelica.SIunits.Voltage err_V2[3] = node2.V - V2_ref
+  parameter Modelica.Units.SI.Angle Theta2_ref[3](each displayUnit="deg") = {-0.3,
+    -120.3,119.6} "Reference voltage phase angle node 2 - IEEE results";
+  parameter Modelica.Units.SI.Angle Theta3_ref[3](each displayUnit="deg") = {-3.7,
+    -123.5,116.4} "Reference voltage phase angle node 3 - IEEE results";
+  parameter Modelica.Units.SI.Angle Theta4_ref[3](each displayUnit="deg") = {-9.1,
+    -128.3,110.9} "Reference voltage phase angle node 4 - IEEE results";
+  Modelica.Units.SI.Voltage err_V2[3]=node2.V - V2_ref
     "Error on voltage at node 2";
-  Modelica.SIunits.Voltage err_V3[3] = node3.V - V3_ref
+  Modelica.Units.SI.Voltage err_V3[3]=node3.V - V3_ref
     "Error on voltage at node 3";
-  Modelica.SIunits.Voltage err_V4[3] = node4.V - V4_ref
+  Modelica.Units.SI.Voltage err_V4[3]=node4.V - V4_ref
     "Error on voltage at node 4";
-  Modelica.SIunits.Angle err_Theta2[3](each displayUnit="deg") = node2.theta - Theta2_ref
-    "Error on voltage at node 2";
-  Modelica.SIunits.Angle err_Theta3[3](each displayUnit="deg") = node3.theta - Theta3_ref
-    "Error on voltage at node 3";
-  Modelica.SIunits.Angle err_Theta4[3](each displayUnit="deg") = node4.theta - Theta4_ref
-    "Error on voltage at node 4";
+  Modelica.Units.SI.Angle err_Theta2[3](each displayUnit="deg") = node2.theta
+     - Theta2_ref "Error on voltage at node 2";
+  Modelica.Units.SI.Angle err_Theta3[3](each displayUnit="deg") = node3.theta
+     - Theta3_ref "Error on voltage at node 3";
+  Modelica.Units.SI.Angle err_Theta4[3](each displayUnit="deg") = node4.theta
+     - Theta4_ref "Error on voltage at node 4";
   Real err_V2_percent[3] = 100*{err_V2[i]/V2_ref[i] for i in 1:3}
     "Error in RMS voltage at node 2 -- percent";
   Real err_V3_percent[3] = 100*{err_V3[i]/V3_ref[i] for i in 1:3}
@@ -100,30 +100,30 @@ protected
   parameter Real L1 = 2000*(1.0/5280.0) "Length line 1 in miles";
   parameter Real L2 = 2500*(1.0/5280.0) "Length line 2 in miles";
 
-  parameter Modelica.SIunits.Impedance Z11_d[2] = {0.4013,1.4133}
+  parameter Modelica.Units.SI.Impedance Z11_d[2]={0.4013,1.4133}
     "Element [1,1] of impedance matrix";
-  parameter Modelica.SIunits.Impedance Z12_d[2] = {0.0953,0.8515}
+  parameter Modelica.Units.SI.Impedance Z12_d[2]={0.0953,0.8515}
     "Element [1,2] of impedance matrix";
-  parameter Modelica.SIunits.Impedance Z13_d[2] = {0.0953,0.7266}
+  parameter Modelica.Units.SI.Impedance Z13_d[2]={0.0953,0.7266}
     "Element [1,3] of impedance matrix";
-  parameter Modelica.SIunits.Impedance Z22_d[2] = {0.4013,1.4133}
+  parameter Modelica.Units.SI.Impedance Z22_d[2]={0.4013,1.4133}
     "Element [2,2] of impedance matrix";
-  parameter Modelica.SIunits.Impedance Z23_d[2] = {0.0953,0.7802}
+  parameter Modelica.Units.SI.Impedance Z23_d[2]={0.0953,0.7802}
     "Element [2,3] of impedance matrix";
-  parameter Modelica.SIunits.Impedance Z33_d[2] = {0.4013,1.4133}
+  parameter Modelica.Units.SI.Impedance Z33_d[2]={0.4013,1.4133}
     "Element [3,3] of impedance matrix";
 
-  parameter Modelica.SIunits.Impedance Z11_y[2] = {0.4576,1.078}
+  parameter Modelica.Units.SI.Impedance Z11_y[2]={0.4576,1.078}
     "Element [1,1] of impedance matrix";
-  parameter Modelica.SIunits.Impedance Z12_y[2] = {0.1559,0.5017}
+  parameter Modelica.Units.SI.Impedance Z12_y[2]={0.1559,0.5017}
     "Element [1,2] of impedance matrix";
-  parameter Modelica.SIunits.Impedance Z13_y[2] = {0.1535,0.3849}
+  parameter Modelica.Units.SI.Impedance Z13_y[2]={0.1535,0.3849}
     "Element [1,3] of impedance matrix";
-  parameter Modelica.SIunits.Impedance Z22_y[2] = {0.4666,1.0482}
+  parameter Modelica.Units.SI.Impedance Z22_y[2]={0.4666,1.0482}
     "Element [2,2] of impedance matrix";
-  parameter Modelica.SIunits.Impedance Z23_y[2] = {0.158,0.4236}
+  parameter Modelica.Units.SI.Impedance Z23_y[2]={0.158,0.4236}
     "Element [2,3] of impedance matrix";
-  parameter Modelica.SIunits.Impedance Z33_y[2] = {0.4615,1.0651}
+  parameter Modelica.Units.SI.Impedance Z33_y[2]={0.4615,1.0651}
     "Element [3,3] of impedance matrix";
 equation
   connect(source.terminal, line1.terminal_n) annotation (Line(

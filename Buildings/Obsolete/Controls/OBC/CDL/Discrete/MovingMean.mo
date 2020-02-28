@@ -4,7 +4,7 @@ block MovingMean "Discrete moving mean of a sampled input signal"
 
   parameter Integer n(min=2)
     "Number of samples over which the input is averaged";
-  parameter Modelica.SIunits.Time samplePeriod(min=1E-3)
+  parameter Modelica.Units.SI.Time samplePeriod(min=1E-3)
     "Sampling period of component";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u "Continuous input signal"
@@ -13,7 +13,7 @@ block MovingMean "Discrete moving mean of a sampled input signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  parameter Modelica.SIunits.Time t0(fixed=false) "First sample time instant";
+  parameter Modelica.Units.SI.Time t0(fixed=false) "First sample time instant";
   Boolean sampleTrigger "Trigger samples at each sampling instant";
   Integer iSample(start=0, fixed=true) "Sample numbering in the simulation";
   Integer counter(start=0, fixed=true)

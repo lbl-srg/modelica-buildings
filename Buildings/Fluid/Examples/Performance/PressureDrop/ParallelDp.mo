@@ -4,9 +4,9 @@ model ParallelDp
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air;
   parameter Integer nRes(min=2) = 10 "Number of resistances";
-  parameter Modelica.SIunits.PressureDifference dp_nominal=1
+  parameter Modelica.Units.SI.PressureDifference dp_nominal=1
     "Pressure drop at nominal mass flow rate";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate";
 
   Sources.Boundary_pT sou(

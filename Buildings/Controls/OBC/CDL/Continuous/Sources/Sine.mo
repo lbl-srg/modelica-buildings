@@ -1,10 +1,12 @@
 within Buildings.Controls.OBC.CDL.Continuous.Sources;
 block Sine "Generate sine signal"
   parameter Real amplitude=1 "Amplitude of sine wave";
-  parameter Modelica.SIunits.Frequency freqHz(start=1) "Frequency of sine wave";
-  parameter Modelica.SIunits.Angle phase=0 "Phase of sine wave";
+  parameter Modelica.Units.SI.Frequency freqHz(start=1)
+    "Frequency of sine wave";
+  parameter Modelica.Units.SI.Angle phase=0 "Phase of sine wave";
   parameter Real offset=0 "Offset of output signal";
-  parameter Modelica.SIunits.Time startTime=0 "Output = offset for time < startTime";
+  parameter Modelica.Units.SI.Time startTime=0
+    "Output = offset for time < startTime";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));

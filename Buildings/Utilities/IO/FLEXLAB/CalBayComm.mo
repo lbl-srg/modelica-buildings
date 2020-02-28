@@ -3,7 +3,7 @@ model CalBayComm
   "Model calling a Python script to communicate with the CalBay adapter"
   extends Modelica.Icons.Example;
   extends Modelica.Icons.UnderConstruction;
-  parameter Modelica.SIunits.Time samplePeriod = 30
+  parameter Modelica.Units.SI.Time samplePeriod=30
     "Sample period for communication";
 
   Modelica.Blocks.Sources.CombiTimeTable setPoint(
@@ -32,7 +32,7 @@ model CalBayComm
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 block lightingController "Block for control law"
   extends Modelica.Blocks.Interfaces.SISO;
-  parameter Modelica.SIunits.Time samplePeriod "Sample period of component";
+    parameter Modelica.Units.SI.Time samplePeriod "Sample period of component";
     Modelica.Blocks.Math.Gain gain(k=10)
       annotation (Placement(transformation(extent={{-68,-10},{-48,10}})));
 

@@ -15,7 +15,7 @@ block RadiatorSupply "Controller for mixing valve in radiator loop"
     "Room air temperature at which supply water temperature is at TSupMax";
 
   parameter Real k=0.1 "Gain of controller";
-  parameter Modelica.SIunits.Time Ti=120 "Time constant of integrator block";
+  parameter Modelica.Units.SI.Time Ti=120 "Time constant of integrator block";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRoo(
     final unit="K",

@@ -6,24 +6,24 @@ partial model PartialDataCenter
 
   // Chiller parameters
   parameter Integer numChi=2 "Number of chillers";
-  parameter Modelica.SIunits.MassFlowRate m1_flow_chi_nominal= 34.7
+  parameter Modelica.Units.SI.MassFlowRate m1_flow_chi_nominal=34.7
     "Nominal mass flow rate at condenser water in the chillers";
-  parameter Modelica.SIunits.MassFlowRate m2_flow_chi_nominal= 18.3
+  parameter Modelica.Units.SI.MassFlowRate m2_flow_chi_nominal=18.3
     "Nominal mass flow rate at evaporator water in the chillers";
-  parameter Modelica.SIunits.PressureDifference dp1_chi_nominal = 46.2*1000
+  parameter Modelica.Units.SI.PressureDifference dp1_chi_nominal=46.2*1000
     "Nominal pressure";
-  parameter Modelica.SIunits.PressureDifference dp2_chi_nominal = 44.8*1000
+  parameter Modelica.Units.SI.PressureDifference dp2_chi_nominal=44.8*1000
     "Nominal pressure";
-  parameter Modelica.SIunits.Power QEva_nominal = m2_flow_chi_nominal*4200*(6.67-18.56)
-    "Nominal cooling capaciaty(Negative means cooling)";
+  parameter Modelica.Units.SI.Power QEva_nominal=m2_flow_chi_nominal*4200*(6.67
+       - 18.56) "Nominal cooling capaciaty(Negative means cooling)";
  // WSE parameters
-  parameter Modelica.SIunits.MassFlowRate m1_flow_wse_nominal= 34.7
+  parameter Modelica.Units.SI.MassFlowRate m1_flow_wse_nominal=34.7
     "Nominal mass flow rate at condenser water in the chillers";
-  parameter Modelica.SIunits.MassFlowRate m2_flow_wse_nominal= 35.3
+  parameter Modelica.Units.SI.MassFlowRate m2_flow_wse_nominal=35.3
     "Nominal mass flow rate at condenser water in the chillers";
-  parameter Modelica.SIunits.PressureDifference dp1_wse_nominal = 33.1*1000
+  parameter Modelica.Units.SI.PressureDifference dp1_wse_nominal=33.1*1000
     "Nominal pressure";
-  parameter Modelica.SIunits.PressureDifference dp2_wse_nominal = 34.5*1000
+  parameter Modelica.Units.SI.PressureDifference dp2_wse_nominal=34.5*1000
     "Nominal pressure";
 
   parameter Buildings.Fluid.Movers.Data.Generic[numChi] perPumCW(
@@ -32,28 +32,28 @@ partial model PartialDataCenter
           V_flow=m1_flow_chi_nominal/1000*{0.2,0.6,1.0,1.2},
           dp=(dp1_chi_nominal+60000+6000)*{1.2,1.1,1.0,0.6}))
     "Performance data for condenser water pumps";
-  parameter Modelica.SIunits.Time tWai=1200 "Waiting time";
+  parameter Modelica.Units.SI.Time tWai=1200 "Waiting time";
 
   // AHU
-  parameter Modelica.SIunits.ThermalConductance UA_nominal=numChi*QEva_nominal/
-     Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
-        6.67,
-        11.56,
-        12,
-        25)
+  parameter Modelica.Units.SI.ThermalConductance UA_nominal=numChi*QEva_nominal
+      /Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
+      6.67,
+      11.56,
+      12,
+      25)
     "Thermal conductance at nominal flow for sensible heat, used to compute time constant";
-  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal = 161.35
+  parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=161.35
     "Nominal air mass flowrate";
   parameter Real yValMinAHU(min=0,max=1,unit="1")=0.1
     "Minimum valve openning position";
   // Set point
-  parameter Modelica.SIunits.Temperature TCHWSet = 273.15 + 8
+  parameter Modelica.Units.SI.Temperature TCHWSet=273.15 + 8
     "Chilled water temperature setpoint";
-  parameter Modelica.SIunits.Temperature TSupAirSet = TCHWSet + 10
+  parameter Modelica.Units.SI.Temperature TSupAirSet=TCHWSet + 10
     "Supply air temperature setpoint";
-  parameter Modelica.SIunits.Temperature TRetAirSet = 273.15 + 25
+  parameter Modelica.Units.SI.Temperature TRetAirSet=273.15 + 25
     "Supply air temperature setpoint";
-  parameter Modelica.SIunits.Pressure dpSetPoi = 80000
+  parameter Modelica.Units.SI.Pressure dpSetPoi=80000
     "Differential pressure setpoint";
 
   replaceable Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialChillerWSE chiWSE(

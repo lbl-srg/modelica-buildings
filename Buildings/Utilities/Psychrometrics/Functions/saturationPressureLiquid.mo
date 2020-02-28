@@ -2,11 +2,10 @@ within Buildings.Utilities.Psychrometrics.Functions;
 function saturationPressureLiquid
   "Return saturation pressure of water as a function of temperature T in the range of 273.16 to 373.16 K"
   extends Modelica.Icons.Function;
-  input Modelica.SIunits.Temperature TSat(displayUnit="degC",
-                                          nominal=300) "Saturation temperature";
-  output Modelica.SIunits.AbsolutePressure pSat(
-                                      displayUnit="Pa",
-                                      nominal=1000) "Saturation pressure";
+  input Modelica.Units.SI.Temperature TSat(displayUnit="degC", nominal=300)
+    "Saturation temperature";
+  output Modelica.Units.SI.AbsolutePressure pSat(displayUnit="Pa", nominal=1000)
+    "Saturation pressure";
 algorithm
   pSat := 611.657*Modelica.Math.exp(17.2799 - 4102.99/(TSat - 35.719));
 

@@ -4,11 +4,11 @@ model HeaterFanPressureDriven
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air "Medium model";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=Q_flow_nominal/1000/10
-    "Nominal mass flow rate";
-  parameter Modelica.SIunits.PressureDifference dp_nominal(displayUnit="Pa")=2000
-    "Pressure";
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 1000
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=Q_flow_nominal/1000/
+      10 "Nominal mass flow rate";
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")
+     = 2000 "Pressure";
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal=1000
     "Heat flow rate at u=1, positive for heating";
 
   constant Boolean use_p_in = true

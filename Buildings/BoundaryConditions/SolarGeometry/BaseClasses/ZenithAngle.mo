@@ -1,7 +1,7 @@
 within Buildings.BoundaryConditions.SolarGeometry.BaseClasses;
 block ZenithAngle "Zenith angle"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.SIunits.Angle lat "Latitude";
+  parameter Modelica.Units.SI.Angle lat "Latitude";
   Modelica.Blocks.Interfaces.RealInput solHouAng(quantity="Angle", unit="rad")
     "Solar hour angle"
     annotation (Placement(transformation(extent={{-140,-68},{-100,-28}})));

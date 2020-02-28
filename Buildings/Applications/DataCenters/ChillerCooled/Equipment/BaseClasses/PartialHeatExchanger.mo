@@ -11,16 +11,20 @@ partial model PartialHeatExchanger "Partial model for heat exchangers "
   extends
     Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.ThreeWayValveParameters;
 
-  parameter Modelica.SIunits.Efficiency eta(min=0,max=1,start=0.8)
-    "constant effectiveness";
+  parameter Modelica.Units.SI.Efficiency eta(
+    min=0,
+    max=1,
+    start=0.8) "constant effectiveness";
 
    // Filter opening
   parameter Boolean use_inputFilter=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=activate_ThrWayVal));
-  parameter Modelica.SIunits.Time riseTime=120
+  parameter Modelica.Units.SI.Time riseTime=120
     "Rise time of the filter (time to reach 99.6 % of an opening step)"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",
+    annotation (Dialog(
+      tab="Dynamics",
+      group="Filtered opening",
       enable=(activate_ThrWayVal and use_inputFilter)));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
@@ -32,18 +36,24 @@ partial model PartialHeatExchanger "Partial model for heat exchangers "
       enable=(activate_ThrWayVal and use_inputFilter)));
 
  // Time constant
-   parameter Modelica.SIunits.Time tauThrWayVal=10
+  parameter Modelica.Units.SI.Time tauThrWayVal=10
     "Time constant at nominal flow for dynamic energy and momentum balance of the three-way valve"
-    annotation(Dialog(tab="Dynamics", group="Nominal condition",
-               enable=(activate_ThrWayVal and not energyDynamics ==
-               Modelica.Fluid.Types.Dynamics.SteadyState)));
+    annotation (Dialog(
+      tab="Dynamics",
+      group="Nominal condition",
+      enable=(activate_ThrWayVal and not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
   // Advanced
   parameter Boolean homotopyInitialization = true
     "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
-  parameter Modelica.SIunits.Density rhoStd = Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)
-    "Inlet density for which valve coefficients are defined"
-    annotation(Dialog(group="Nominal condition", tab="Advanced",enable=activate_ThrWayVal));
+  parameter Modelica.Units.SI.Density rhoStd=Medium2.density_pTX(
+      101325,
+      273.15 + 4,
+      Medium2.X_default)
+    "Inlet density for which valve coefficients are defined" annotation (Dialog(
+      group="Nominal condition",
+      tab="Advanced",
+      enable=activate_ThrWayVal));
 
   Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear thrWayVal(
     redeclare package Medium = Medium2,

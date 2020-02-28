@@ -3,8 +3,8 @@ partial model PartialSimpleTestCase
   "Partial base class for simple test case of base load prediction"
   extends Modelica.Icons.Example;
 
-  parameter Modelica.SIunits.Time tPeriod = 24*3600 "Period";
-  parameter Modelica.SIunits.Time tSample = 3600 "Sampling period";
+  parameter Modelica.Units.SI.Time tPeriod=24*3600 "Period";
+  parameter Modelica.Units.SI.Time tSample=3600 "Sampling period";
   parameter Integer nPre(min=1) = 12 "Number of time steps to predict";
   ElectricalLoad baseLoad(
       final nPre=nPre,

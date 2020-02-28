@@ -19,43 +19,41 @@ block SideFins
     "Fraction of window area exposed to the sun"
   annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 // Window dimensions
-  parameter Modelica.SIunits.Length hWin "Window height"
-    annotation(Dialog(tab="General",group="Window"));
-  parameter Modelica.SIunits.Length wWin "Window width"
-    annotation(Dialog(tab="General",group="Window"));
+  parameter Modelica.Units.SI.Length hWin "Window height"
+    annotation (Dialog(tab="General", group="Window"));
+  parameter Modelica.Units.SI.Length wWin "Window width"
+    annotation (Dialog(tab="General", group="Window"));
 // Other calculation variables
 protected
-  final parameter Modelica.SIunits.Length tmpH[4]=
-                  {h+hWin, h, h+hWin, h}
+  final parameter Modelica.Units.SI.Length tmpH[4]={h + hWin,h,h + hWin,h}
     "Height of rectangular sections used for superposition";
-  final parameter Modelica.SIunits.Length tmpW[4]=
-                  {gap + wWin,gap + wWin,gap, gap}
-    "Width of rectangular sections used for superpositions; c1,c2 etc";
-  final parameter Modelica.SIunits.Length deltaL=wWin/100
+  final parameter Modelica.Units.SI.Length tmpW[4]={gap + wWin,gap + wWin,gap,
+      gap} "Width of rectangular sections used for superpositions; c1,c2 etc";
+  final parameter Modelica.Units.SI.Length deltaL=wWin/100
     "Fraction of window dimension over which min-max functions are smoothened";
-  final parameter Modelica.SIunits.Area AWin=hWin*wWin "Window area";
-  Modelica.SIunits.Length x1[4]
+  final parameter Modelica.Units.SI.Area AWin=hWin*wWin "Window area";
+  Modelica.Units.SI.Length x1[4]
     "Horizontal distance between side fin and point where shadow line and window lower edge intersects";
-  Modelica.SIunits.Length x2
+  Modelica.Units.SI.Length x2
     "Horizontal distance between side fin and shadow corner";
-  Modelica.SIunits.Length x3[4] "Window width";
-  Modelica.SIunits.Length y1[4] "Window height";
-  Modelica.SIunits.Length y2
+  Modelica.Units.SI.Length x3[4] "Window width";
+  Modelica.Units.SI.Length y1[4] "Window height";
+  Modelica.Units.SI.Length y2
     "Vertical distance between window upper edge and shadow corner";
-  Modelica.SIunits.Length y3[4]
+  Modelica.Units.SI.Length y3[4]
     "Vertical distance between window upper edge and point where shadow line and window side edge intersects";
-  Modelica.SIunits.Area area[4]
+  Modelica.Units.SI.Area area[4]
     "Shaded areas of the sections used in superposition";
-  Modelica.SIunits.Area shdArea "Shaded area";
-  Modelica.SIunits.Area crShdArea "Final value of shaded area";
-  Modelica.SIunits.Area crShdArea1
+  Modelica.Units.SI.Area shdArea "Shaded area";
+  Modelica.Units.SI.Area crShdArea "Final value of shaded area";
+  Modelica.Units.SI.Area crShdArea1
     "Shaded area, corrected for the sun behind the surface/wall";
-  Modelica.SIunits.Area crShdArea2
+  Modelica.Units.SI.Area crShdArea2
     "Shaded area, corrected for the sun below horizon";
-  Modelica.SIunits.Length minX[4];
-  Modelica.SIunits.Length minY[4];
-  Modelica.SIunits.Length minX2X3[4];
-  Modelica.SIunits.Length minY2Y3[4];
+  Modelica.Units.SI.Length minX[4];
+  Modelica.Units.SI.Length minY[4];
+  Modelica.Units.SI.Length minX2X3[4];
+  Modelica.Units.SI.Length minY2Y3[4];
   Real delta=1e-6 "Small number to avoid division by zero";
   Real tanLambda
     "Tangent of angle between horizontal and sun ray projection on vertical wall";

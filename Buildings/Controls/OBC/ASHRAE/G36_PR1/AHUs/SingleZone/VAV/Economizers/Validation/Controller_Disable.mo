@@ -34,11 +34,12 @@ model Controller_Disable
     annotation (Placement(transformation(extent={{180,-40},{200,-20}})));
 
 protected
-  final parameter Modelica.SIunits.Temperature TOutCutoff=297.15
+  final parameter Modelica.Units.SI.Temperature TOutCutoff=297.15
     "Outdoor temperature high limit cutoff";
-  final parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
+  final parameter Modelica.Units.SI.SpecificEnergy hOutCutoff=65100
     "Outdoor air enthalpy high limit cutoff";
-  final parameter Modelica.SIunits.Temperature TSupSet=291.15 "Supply air temperature setpoint";
+  final parameter Modelica.Units.SI.Temperature TSupSet=291.15
+    "Supply air temperature setpoint";
   final parameter Real yFanMin(
     final min=0,
     final max=1,
@@ -47,9 +48,9 @@ protected
     final min=0,
     final max=1,
     final unit="1")=0.9 "Maximum supply fan operation speed";
-  final parameter Modelica.SIunits.VolumeFlowRate VOutMin_flow=1.0
+  final parameter Modelica.Units.SI.VolumeFlowRate VOutMin_flow=1.0
     "Calculated minimum outdoor airflow rate";
-  final parameter Modelica.SIunits.VolumeFlowRate VOutDes_flow=2.0
+  final parameter Modelica.Units.SI.VolumeFlowRate VOutDes_flow=2.0
     "Calculated design outdoor airflow rate";
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanSta(

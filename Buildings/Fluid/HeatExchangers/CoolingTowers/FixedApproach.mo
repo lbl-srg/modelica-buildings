@@ -2,8 +2,9 @@ within Buildings.Fluid.HeatExchangers.CoolingTowers;
 model FixedApproach "Cooling tower with constant approach temperature"
   extends Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower;
 
-  parameter Modelica.SIunits.TemperatureDifference TApp(min=0, displayUnit="K") = 2
-    "Approach temperature difference";
+  parameter Modelica.Units.SI.TemperatureDifference TApp(
+    min=0,
+    displayUnit="K") = 2 "Approach temperature difference";
   Modelica.Blocks.Interfaces.RealInput TAir(min=0, unit="K")
     "Entering air dry or wet bulb temperature"
      annotation (Placement(transformation(

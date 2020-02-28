@@ -3,11 +3,11 @@ model InteriorHeatTransferConvective
   "Model for heat convection at the interior surface of a window that may have a shading device"
   extends BaseClasses.PartialWindowBoundaryCondition(final thisSideHasShade=haveInteriorShade);
 
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer hFixed=4
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer hFixed=4
     "Constant convection coefficient";
   parameter Types.InteriorConvection conMod=Buildings.HeatTransfer.Types.InteriorConvection.Fixed
     "Convective heat transfer model";
-  parameter Modelica.SIunits.Angle til "Surface tilt";
+  parameter Modelica.Units.SI.Angle til "Surface tilt";
 
  Modelica.Blocks.Interfaces.RealInput QRadAbs_flow(final unit="W") if
        haveShade

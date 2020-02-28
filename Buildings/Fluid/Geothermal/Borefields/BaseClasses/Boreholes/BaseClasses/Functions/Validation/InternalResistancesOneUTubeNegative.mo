@@ -6,39 +6,39 @@ model InternalResistancesOneUTubeNegative
   // Geometry of the borehole
   parameter Real Rb(unit="(m.K)/W") = 0.0
     "Borehole thermal resistance (Not used)";
-  parameter Modelica.SIunits.Height hSeg = 1.0 "Height of the element";
-  parameter Modelica.SIunits.Radius rBor = 0.07 "Radius of the borehole";
+  parameter Modelica.Units.SI.Height hSeg=1.0 "Height of the element";
+  parameter Modelica.Units.SI.Radius rBor=0.07 "Radius of the borehole";
   // Geometry of the pipe
-  parameter Modelica.SIunits.Radius rTub = 0.02 "Radius of the tube";
-  parameter Modelica.SIunits.Length eTub = 0.002 "Thickness of the tubes";
-  parameter Modelica.SIunits.Length sha = 0.05
+  parameter Modelica.Units.SI.Radius rTub=0.02 "Radius of the tube";
+  parameter Modelica.Units.SI.Length eTub=0.002 "Thickness of the tubes";
+  parameter Modelica.Units.SI.Length sha=0.05
     "Shank spacing, defined as the distance between the center of a pipe and the center of the borehole";
 
   // Thermal properties (Solids)
-  parameter Modelica.SIunits.ThermalConductivity kFil = 1.5
+  parameter Modelica.Units.SI.ThermalConductivity kFil=1.5
     "Thermal conductivity of the grout";
-  parameter Modelica.SIunits.ThermalConductivity kSoi = 2.5
+  parameter Modelica.Units.SI.ThermalConductivity kSoi=2.5
     "Thermal conductivity of the soi";
-  parameter Modelica.SIunits.ThermalConductivity kTub = 0.4
+  parameter Modelica.Units.SI.ThermalConductivity kTub=0.4
     "Thermal conductivity of the tube";
 
   // Thermal properties (Fluid)
-  parameter Modelica.SIunits.ThermalConductivity kMed = 0.6
+  parameter Modelica.Units.SI.ThermalConductivity kMed=0.6
     "Thermal conductivity of the fluid";
-  parameter Modelica.SIunits.DynamicViscosity muMed = 1.0e-3
+  parameter Modelica.Units.SI.DynamicViscosity muMed=1.0e-3
     "Dynamic viscosity of the fluid";
-  parameter Modelica.SIunits.SpecificHeatCapacity cpMed = 4180.0
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpMed=4180.0
     "Specific heat capacity of the fluid";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.25
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.25
     "Nominal mass flow rate";
 
   // Outputs
   parameter Real x(fixed=false) "Capacity location";
-  parameter Modelica.SIunits.ThermalResistance Rgb(fixed=false)
+  parameter Modelica.Units.SI.ThermalResistance Rgb(fixed=false)
     "Thermal resistance between grout zone and borehole wall";
-  parameter Modelica.SIunits.ThermalResistance Rgg(fixed=false)
+  parameter Modelica.Units.SI.ThermalResistance Rgg(fixed=false)
     "Thermal resistance between the two grout zones";
-  parameter Modelica.SIunits.ThermalResistance RCondGro(fixed=false)
+  parameter Modelica.Units.SI.ThermalResistance RCondGro(fixed=false)
     "Thermal resistance between: pipe wall to capacity in grout";
 
 initial equation

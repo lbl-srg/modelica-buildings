@@ -17,7 +17,7 @@ extends Modelica.Icons.Example;
   Buildings.BoundaryConditions.SolarGeometry.BaseClasses.AltitudeAngle altAng
     "Altitude angle"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-  parameter Modelica.SIunits.Angle lat=41.98*Modelica.Constants.pi/180
+  parameter Modelica.Units.SI.Angle lat=41.98*Modelica.Constants.pi/180
     "Latitude";
 equation
   connect(weaDat.weaBus, weaBus) annotation (Line(

@@ -5,16 +5,14 @@ block Modulation "Outdoor and return air damper position modulation sequence for
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller";
   parameter Real k(final unit="1/K") = 1 "Gain of controller";
-  parameter Modelica.SIunits.Time Ti=300
-    "Time constant of modulation controller integrator block"
-    annotation (Dialog(
-      enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-          or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time Td=0.1
+  parameter Modelica.Units.SI.Time Ti=300
+    "Time constant of modulation controller integrator block" annotation (
+      Dialog(enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time Td=0.1
     "Time constant of derivative block for cooling control loop signal"
-    annotation (Dialog(
-      enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-          or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    annotation (Dialog(enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Real uMin(
     final min=0.1,

@@ -2,7 +2,7 @@ within Buildings.HeatTransfer.Windows.BaseClasses;
 model InteriorConvectionCoefficient
   "Model for the heat transfer coefficient at the inside of the window"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.SIunits.Area A "Heat transfer area";
+  parameter Modelica.Units.SI.Area A "Heat transfer area";
 
   Modelica.Blocks.Interfaces.RealOutput GCon(unit="W/K")
     "Convective thermal conductance"

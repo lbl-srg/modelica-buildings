@@ -10,16 +10,16 @@ model CoolingTowerSpeed
   parameter Real k(min=0, unit="1") = 1
     "Gain of controller"
     annotation(Dialog(tab="Controller"));
-  parameter Modelica.SIunits.Time Ti(min=Modelica.Constants.small)=0.5
-    "Time constant of integrator block"
-     annotation (Dialog(enable=
-          (controllerType == Modelica.Blocks.Types.SimpleController.PI or
-          controllerType == Modelica.Blocks.Types.SimpleController.PID),tab="Controller"));
-  parameter Modelica.SIunits.Time Td(min=0)=0.1
-    "Time constant of derivative block"
-     annotation (Dialog(enable=
-          (controllerType == Modelica.Blocks.Types.SimpleController.PD or
-          controllerType == Modelica.Blocks.Types.SimpleController.PID),tab="Controller"));
+  parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small) = 0.5
+    "Time constant of integrator block" annotation (Dialog(enable=(
+          controllerType == Modelica.Blocks.Types.SimpleController.PI or
+          controllerType == Modelica.Blocks.Types.SimpleController.PID), tab=
+          "Controller"));
+  parameter Modelica.Units.SI.Time Td(min=0) = 0.1
+    "Time constant of derivative block" annotation (Dialog(enable=(
+          controllerType == Modelica.Blocks.Types.SimpleController.PD or
+          controllerType == Modelica.Blocks.Types.SimpleController.PID), tab=
+          "Controller"));
   parameter Real yMax(start=1)=1
    "Upper limit of output"
     annotation(Dialog(tab="Controller"));
@@ -33,18 +33,16 @@ model CoolingTowerSpeed
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Sine CHWST(
     amplitude=2,
-    freqHz=1/360,
-    offset=273.15 + 5)
-    "Chilled water supply temperature"
+    f=1/360,
+    offset=273.15 + 5) "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Modelica.Blocks.Sources.Constant CWSTSet(k=273.15 + 20)
     "Condenser water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Modelica.Blocks.Sources.Sine CWST(
     amplitude=5,
-    freqHz=1/360,
-    offset=273.15 + 20)
-    "Condenser water supply temperature"
+    f=1/360,
+    offset=273.15 + 20) "Condenser water supply temperature"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Modelica.Blocks.Sources.Constant CHWSTSet(k=273.15 + 6)
     "Chilled water supply temperature setpoint"

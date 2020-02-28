@@ -4,9 +4,11 @@ model InternalResistancesOneUTube
   extends
     Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PartialInternalResistances;
 
-  parameter Modelica.SIunits.ThermalResistance Rgg_val "Thermal resistance between the two grout zones";
-  parameter Modelica.SIunits.HeatCapacity Co_fil=borFieDat.filDat.dFil*borFieDat.filDat.cFil*hSeg*Modelica.Constants.pi
-    *(borFieDat.conDat.rBor^2 - 2*borFieDat.conDat.rTub^2)
+  parameter Modelica.Units.SI.ThermalResistance Rgg_val
+    "Thermal resistance between the two grout zones";
+  parameter Modelica.Units.SI.HeatCapacity Co_fil=borFieDat.filDat.dFil*
+      borFieDat.filDat.cFil*hSeg*Modelica.Constants.pi*(borFieDat.conDat.rBor^2
+       - 2*borFieDat.conDat.rTub^2)
     "Heat capacity of the whole filling material";
 
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rpg1(R=RCondGro_val)

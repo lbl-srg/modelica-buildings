@@ -3,8 +3,8 @@ record PropertyCoefficients
   "Polynomial coefficients to evaluate fluid properties"
   extends Modelica.Icons.Record;
 
-  Modelica.SIunits.MassFraction X_a_ref "Reference mass fraction";
-  Modelica.SIunits.Temperature T_ref "Reference temperature";
+  Modelica.Units.SI.MassFraction X_a_ref "Reference mass fraction";
+  Modelica.Units.SI.Temperature T_ref "Reference temperature";
   parameter Integer nX_a "Order of polynomial in x";
   Integer nT[nX_a] "Order of polynomial in y";
   parameter Integer nTot "Total number of coefficients";

@@ -11,10 +11,10 @@ block ConvertRadiation
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
-  constant Modelica.SIunits.Time Hou=3600 "1 hour";
+  constant Modelica.Units.SI.Time Hou=3600 "1 hour";
 
 equation
-  HOut = HIn/Modelica.SIunits.Conversions.to_hour(Hou);
+  HOut =HIn/Modelica.Units.Conversions.to_hour(Hou);
   annotation (
     defaultComponentName="conRad",
     Documentation(info="<html>

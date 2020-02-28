@@ -7,16 +7,19 @@ block Controller "Multi zone VAV AHU economizer control sequence"
     "Set to true if mixed air temperature measurement is enabled";
   parameter Boolean use_G36FrePro=false
     "Set to true to use G36 freeze protection";
-  parameter Modelica.SIunits.TemperatureDifference delTOutHis=1
+  parameter Modelica.Units.SI.TemperatureDifference delTOutHis=1
     "Delta between the temperature hysteresis high and low limit"
     annotation (Evaluate=true, Dialog(tab="Advanced", group="Hysteresis"));
-  parameter Modelica.SIunits.SpecificEnergy delEntHis=1000
-    "Delta between the enthalpy hysteresis high and low limits"
-    annotation (Evaluate=true, Dialog(tab="Advanced",group="Hysteresis",enable=use_enthalpy));
-  parameter Modelica.SIunits.Time retDamFulOpeTim=180
+  parameter Modelica.Units.SI.SpecificEnergy delEntHis=1000
+    "Delta between the enthalpy hysteresis high and low limits" annotation (
+      Evaluate=true, Dialog(
+      tab="Advanced",
+      group="Hysteresis",
+      enable=use_enthalpy));
+  parameter Modelica.Units.SI.Time retDamFulOpeTim=180
     "Time period to keep RA damper fully open before releasing it for minimum outdoor airflow control at disable to avoid pressure fluctuations"
     annotation (Evaluate=true, Dialog(tab="Advanced", group="Delays at disable"));
-  parameter Modelica.SIunits.Time disDel=15
+  parameter Modelica.Units.SI.Time disDel=15
     "Short time delay before closing the OA damper at disable to avoid pressure fluctuations"
     annotation (Evaluate=true, Dialog(tab="Advanced", group="Delays at disable"));
 
@@ -27,44 +30,42 @@ block Controller "Multi zone VAV AHU economizer control sequence"
   parameter Real kMinOut(final unit="1")=0.05
     "Gain of controller for minimum outdoor air"
     annotation (Dialog(group="Minimum outdoor air"));
-  parameter Modelica.SIunits.Time TiMinOut=1200
-    "Time constant of controller for minimum outdoor air intake"
-    annotation (Dialog(group="Minimum outdoor air",
-      enable=controllerTypeMinOut == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-          or controllerTypeMinOut == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time TdMinOut=0.1
+  parameter Modelica.Units.SI.Time TiMinOut=1200
+    "Time constant of controller for minimum outdoor air intake" annotation (
+      Dialog(group="Minimum outdoor air", enable=controllerTypeMinOut ==
+          Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
+          controllerTypeMinOut == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time TdMinOut=0.1
     "Time constant of derivative block for minimum outdoor air intake"
-    annotation (Dialog(group="Minimum outdoor air",
-      enable=controllerTypeMinOut == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-          or controllerTypeMinOut == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    annotation (Dialog(group="Minimum outdoor air", enable=controllerTypeMinOut
+           == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
+          controllerTypeMinOut == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeFre=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation(Dialog(group="Freeze protection", enable=use_TMix));
 
-  parameter Modelica.SIunits.Temperature TFreSet = 279.15
+  parameter Modelica.Units.SI.Temperature TFreSet=279.15
     "Lower limit for mixed air temperature for freeze protection, used if use_TMix=true"
-     annotation(Dialog(group="Freeze protection", enable=use_TMix));
+    annotation (Dialog(group="Freeze protection", enable=use_TMix));
   parameter Real kFre(final unit="1/K") = 0.1
     "Gain for mixed air temperature tracking for freeze protection, used if use_TMix=true"
      annotation(Dialog(group="Freeze protection", enable=use_TMix));
 
-  parameter Modelica.SIunits.Time TiFre(max=TiMinOut)=120
+  parameter Modelica.Units.SI.Time TiFre(max=TiMinOut) = 120
     "Time constant of controller for mixed air temperature tracking for freeze protection. Require TiFre < TiMinOut"
-    annotation(Dialog(group="Freeze protection",
-      enable=use_TMix
-        and (controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-          or controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+    annotation (Dialog(group="Freeze protection", enable=use_TMix and (
+          controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+           or controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
 
- parameter Modelica.SIunits.Time TdFre=0.1
-   "Time constant of derivative block for freeze protection"
-   annotation (Dialog(group="Economizer freeze protection",
-     enable=use_TMix and
-         (controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-         or controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+  parameter Modelica.Units.SI.Time TdFre=0.1
+    "Time constant of derivative block for freeze protection" annotation (
+      Dialog(group="Economizer freeze protection", enable=use_TMix and (
+          controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+           or controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
 
-  parameter Modelica.SIunits.Time delta=5
+  parameter Modelica.Units.SI.Time delta=5
     "Time horizon over which the outdoor air flow measurment is averaged";
   parameter Real uHeaMax=-0.25
     "Lower limit of controller input when outdoor damper opens for modulation control. Require -1 < uHeaMax < uCooMin < 1."

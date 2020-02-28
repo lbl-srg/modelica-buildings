@@ -2,9 +2,9 @@ within Buildings.BoundaryConditions.SolarIrradiation.Examples;
 model DiffusePerez
   "Test model for diffuse solar irradiation on a tilted surface using the Perez model"
   extends Modelica.Icons.Example;
-  parameter Modelica.SIunits.Angle lat=37/180*Modelica.Constants.pi "Latitude";
-  parameter Modelica.SIunits.Angle azi=0.3 "Azi angle";
-  parameter Modelica.SIunits.Angle til=0.5 "Tilted angle";
+  parameter Modelica.Units.SI.Angle lat=37/180*Modelica.Constants.pi "Latitude";
+  parameter Modelica.Units.SI.Angle azi=0.3 "Azi angle";
+  parameter Modelica.Units.SI.Angle til=0.5 "Tilted angle";
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));

@@ -1,10 +1,10 @@
 within Buildings.Controls.OBC.Shade;
 block Shade_T "Shade controller with temperature as input"
 
-  parameter Modelica.SIunits.Temperature THigh
+  parameter Modelica.Units.SI.Temperature THigh
     "if y=0 and T>=THigh, switch to y=1";
 
-  parameter Modelica.SIunits.Temperature TLow
+  parameter Modelica.Units.SI.Temperature TLow
     "if y=1 and T<=TLow, switch to y=0";
 
   CDL.Interfaces.RealInput T(final unit = "K")

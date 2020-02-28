@@ -5,12 +5,11 @@ function temperatureResponseMatrix
 
   input Integer nBor "Number of boreholes";
   input Real cooBor[nBor, 2] "Borehole coordinates";
-  input Modelica.SIunits.Height hBor "Borehole length";
-  input Modelica.SIunits.Height dBor "Borehole buried depth";
-  input Modelica.SIunits.Radius rBor "Borehole radius";
-  input Modelica.SIunits.ThermalDiffusivity aSoi
-    "Thermal diffusivity of soil";
-  input Modelica.SIunits.ThermalConductivity kSoi
+  input Modelica.Units.SI.Height hBor "Borehole length";
+  input Modelica.Units.SI.Height dBor "Borehole buried depth";
+  input Modelica.Units.SI.Radius rBor "Borehole radius";
+  input Modelica.Units.SI.ThermalDiffusivity aSoi "Thermal diffusivity of soil";
+  input Modelica.Units.SI.ThermalConductivity kSoi
     "Thermal conductivity of soil";
   input Integer nSeg "Number of line source segments per borehole";
   input Integer nTimSho "Number of time steps in short time region";
@@ -21,11 +20,12 @@ function temperatureResponseMatrix
   input Boolean forceGFunCalc
     "Set to true to force the thermal response to be calculated at the start";
 
-  output Modelica.SIunits.ThermalResistance TStep[nTimTot, 2] "Temperature step-response time series";
+  output Modelica.Units.SI.ThermalResistance TStep[nTimTot,2]
+    "Temperature step-response time series";
 
 protected
   String pathSave "Path of the folder used to save the g-function";
-  Modelica.SIunits.Time[nTimTot] tGFun "g-function evaluation times";
+  Modelica.Units.SI.Time[nTimTot] tGFun "g-function evaluation times";
   Real[nTimTot] gFun "g-function vector";
   Boolean writegFun = false "True if g-function was succesfully written to file";
 

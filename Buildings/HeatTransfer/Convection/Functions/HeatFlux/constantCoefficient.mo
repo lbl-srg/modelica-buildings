@@ -2,12 +2,12 @@ within Buildings.HeatTransfer.Convection.Functions.HeatFlux;
 function constantCoefficient "Constant convective heat transfer coefficient"
   extends
     Buildings.HeatTransfer.Convection.Functions.HeatFlux.BaseClasses.PartialHeatFlux;
-  input Modelica.SIunits.CoefficientOfHeatTransfer hCon = 3
+  input Modelica.Units.SI.CoefficientOfHeatTransfer hCon=3
     "Constant for convective heat transfer coefficient";
 algorithm
   q_flow :=hCon*dT;
 
-annotation(
+annotation (
 Documentation(info=
 "<html>
 <p>

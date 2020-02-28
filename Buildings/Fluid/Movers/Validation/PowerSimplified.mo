@@ -5,7 +5,7 @@ model PowerSimplified
 
   package Medium = Buildings.Media.Water "Medium model";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=3
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=3
     "Nominal mass flow rate";
 
   parameter Data.Pumps.Wilo.Stratos30slash1to8 per "Pump performance data"

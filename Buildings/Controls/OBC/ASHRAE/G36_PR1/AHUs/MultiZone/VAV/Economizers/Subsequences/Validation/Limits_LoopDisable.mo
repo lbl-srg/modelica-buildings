@@ -64,11 +64,11 @@ model Limits_LoopDisable
     annotation (Placement(transformation(extent={{160,-20},{180,0}})));
 
 protected
-  final parameter Modelica.SIunits.VolumeFlowRate VOutSet_flow=0.71
+  final parameter Modelica.Units.SI.VolumeFlowRate VOutSet_flow=0.71
     "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
-  final parameter Modelica.SIunits.VolumeFlowRate minVOutSet_flow=0.61
+  final parameter Modelica.Units.SI.VolumeFlowRate minVOutSet_flow=0.61
     "Volumetric airflow sensor output, minimum value in the example";
-  final parameter Modelica.SIunits.VolumeFlowRate incVOutSet_flow=0.2
+  final parameter Modelica.Units.SI.VolumeFlowRate incVOutSet_flow=0.2
     "Maximum increase in airflow volume during the example simulation";
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta(

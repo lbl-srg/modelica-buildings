@@ -5,9 +5,10 @@ model HeatExchangerLocation
 
   package Medium = Buildings.Media.Water "Medium model";
 
-  parameter Modelica.SIunits.HeatFlowRate QHex_flow_nominal = 6000
+  parameter Modelica.Units.SI.HeatFlowRate QHex_flow_nominal=6000
     "Design heat flow rate of heat exchanger";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal= QHex_flow_nominal/4200/4;
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=QHex_flow_nominal/
+      4200/4;
 
   Buildings.Fluid.Sources.Boundary_pT watInTan(
     redeclare package Medium = Medium,

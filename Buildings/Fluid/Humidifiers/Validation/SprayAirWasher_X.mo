@@ -5,11 +5,11 @@ model SprayAirWasher_X
 
   package Medium = Buildings.Media.Air;
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.1
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.1
     "Nominal mass flow rate";
 
-  parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal = m_flow_nominal * 0.004
-    "Maximum humidification water mass flow rate";
+  parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal=m_flow_nominal*
+      0.004 "Maximum humidification water mass flow rate";
 
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,

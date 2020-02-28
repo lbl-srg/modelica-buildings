@@ -6,7 +6,7 @@ model HeatCapacity
     "Parameter, equal to true if the window has a shade"
     annotation(Evaluate=true);
 
-  parameter Modelica.SIunits.HeatCapacity C
+  parameter Modelica.Units.SI.HeatCapacity C
     "Heat capacity of element (= cp*m)";
 
   Modelica.Blocks.Interfaces.RealInput ySha if
@@ -35,18 +35,16 @@ model HeatCapacity
    annotation (Placement(transformation(extent={{95,35},{105,45}}),
         iconTransformation(extent={{95,35},{105,45}})));
 
-  Modelica.SIunits.Temperature TUns(
-    start=293.15)
+  Modelica.Units.SI.Temperature TUns(start=293.15)
     "Temperature of unshaded part of window";
 
-  Modelica.SIunits.Temperature TSha(
-    start=293.15)
+  Modelica.Units.SI.Temperature TSha(start=293.15)
     "Temperature of unshaded part of window";
 
-  Modelica.SIunits.TemperatureSlope der_TUns(start=0)
+  Modelica.Units.SI.TemperatureSlope der_TUns(start=0)
     "Time derivative of temperature (= der(T))";
 
-  Modelica.SIunits.TemperatureSlope der_TSha(start=0)
+  Modelica.Units.SI.TemperatureSlope der_TSha(start=0)
     "Time derivative of temperature (= der(T))";
 
 protected
@@ -59,7 +57,7 @@ protected
   Modelica.Blocks.Interfaces.RealInput yCom_internal
     "Internal connector";
 
-  Modelica.SIunits.HeatFlowRate QSha_flow
+  Modelica.Units.SI.HeatFlowRate QSha_flow
     "Heat flow rate for shaded part of the window";
 
 equation

@@ -1,8 +1,8 @@
 within Buildings.Controls.OBC.CDL.Utilities;
 block SunRiseSet "Next sunrise and sunset time"
-  parameter Modelica.SIunits.Angle lat(displayUnit="deg") "Latitude";
-  parameter Modelica.SIunits.Angle lon(displayUnit="deg") "Longitude";
-  parameter Modelica.SIunits.Time timZon(displayUnit="h") "Time zone";
+  parameter Modelica.Units.SI.Angle lat(displayUnit="deg") "Latitude";
+  parameter Modelica.Units.SI.Angle lon(displayUnit="deg") "Longitude";
+  parameter Modelica.Units.SI.Time timZon(displayUnit="h") "Time zone";
 
   Interfaces.RealOutput nextSunRise(
     final quantity="Time",
@@ -20,28 +20,29 @@ protected
   constant Real k1 = sin(23.45*2*Modelica.Constants.pi/360) "Intermediate constant";
   constant Real k2 = 2*Modelica.Constants.pi/365.25 "Intermediate constant";
 
-  parameter Modelica.SIunits.Time staTim(fixed=false) "Simulation start time";
+  parameter Modelica.Units.SI.Time staTim(fixed=false) "Simulation start time";
 
-  Modelica.SIunits.Time eqnTim "Equation of time";
-  Modelica.SIunits.Time timDif "Time difference between local and civil time";
-  Modelica.SIunits.Time timCor "Time correction";
-  Modelica.SIunits.Angle decAng "Declination angle";
+  Modelica.Units.SI.Time eqnTim "Equation of time";
+  Modelica.Units.SI.Time timDif "Time difference between local and civil time";
+  Modelica.Units.SI.Time timCor "Time correction";
+  Modelica.Units.SI.Angle decAng "Declination angle";
   Real Bt "Intermediate variable to calculate equation of time";
   Real cosHou "Cosine of hour angle";
 
   function nextHourAngle "Calculate the hour angle when the sun rises or sets next time"
-    input Modelica.SIunits.Time t "Current simulation time";
-    input Modelica.SIunits.Angle lat "Latitude";
-    output Modelica.SIunits.Angle houAng "Solar hour angle";
-    output Modelica.SIunits.Time tNext "Timesnap when sun rises or sets next time";
-    output Modelica.SIunits.Time timCor "Time correction";
+    input Modelica.Units.SI.Time t "Current simulation time";
+    input Modelica.Units.SI.Angle lat "Latitude";
+    output Modelica.Units.SI.Angle houAng "Solar hour angle";
+    output Modelica.Units.SI.Time tNext
+      "Timesnap when sun rises or sets next time";
+    output Modelica.Units.SI.Time timCor "Time correction";
   protected
     Integer iDay;
     Boolean compute "Flag, set to false when the sun rise or sets ";
     Real Bt "Intermediate variable to calculate equation of time";
-    Modelica.SIunits.Time eqnTim "Equation of time";
-    Modelica.SIunits.Time timDif "Time difference";
-    Modelica.SIunits.Angle decAng "Declination angle";
+    Modelica.Units.SI.Time eqnTim "Equation of time";
+    Modelica.Units.SI.Time timDif "Time difference";
+    Modelica.Units.SI.Angle decAng "Declination angle";
     Real cosHou "Cosine of hour angle";
   algorithm
     iDay := 1;
@@ -61,15 +62,15 @@ protected
   end nextHourAngle;
 
   function sunRise "Output the next sunrise time"
-    input Modelica.SIunits.Time t "Current simulation time";
-    input Modelica.SIunits.Time staTim "Simulation start time";
-    input Modelica.SIunits.Angle lat "Latitude";
-    output Modelica.SIunits.Time nextSunRise;
+    input Modelica.Units.SI.Time t "Current simulation time";
+    input Modelica.Units.SI.Time staTim "Simulation start time";
+    input Modelica.Units.SI.Angle lat "Latitude";
+    output Modelica.Units.SI.Time nextSunRise;
   protected
-    Modelica.SIunits.Angle houAng "Solar hour angle";
-    Modelica.SIunits.Time tNext "Timesnap when sun rises next time";
-    Modelica.SIunits.Time timCor "Time correction";
-    Modelica.SIunits.Time sunRise "Sunrise of the same day as input time";
+    Modelica.Units.SI.Angle houAng "Solar hour angle";
+    Modelica.Units.SI.Time tNext "Timesnap when sun rises next time";
+    Modelica.Units.SI.Time timCor "Time correction";
+    Modelica.Units.SI.Time sunRise "Sunrise of the same day as input time";
     Real cosHou "Cosine of hour angle";
   algorithm
     (houAng,tNext,timCor) := nextHourAngle(t, lat);
@@ -85,15 +86,15 @@ protected
   end sunRise;
 
   function sunSet "Output the next sunset time"
-    input Modelica.SIunits.Time t "Current simulation time";
-    input Modelica.SIunits.Time staTim "Simulation start time";
-    input Modelica.SIunits.Angle lat "Latitude";
-    output Modelica.SIunits.Time nextSunSet;
+    input Modelica.Units.SI.Time t "Current simulation time";
+    input Modelica.Units.SI.Time staTim "Simulation start time";
+    input Modelica.Units.SI.Angle lat "Latitude";
+    output Modelica.Units.SI.Time nextSunSet;
   protected
-    Modelica.SIunits.Angle houAng "Solar hour angle";
-    Modelica.SIunits.Time tNext "Timesnap when sun sets next time";
-    Modelica.SIunits.Time timCor "Time correction";
-    Modelica.SIunits.Time sunSet "Sunset of the same day as input time";
+    Modelica.Units.SI.Angle houAng "Solar hour angle";
+    Modelica.Units.SI.Time tNext "Timesnap when sun sets next time";
+    Modelica.Units.SI.Time timCor "Time correction";
+    Modelica.Units.SI.Time sunSet "Sunset of the same day as input time";
     Real cosHou "Cosine of hour angle";
   algorithm
     (houAng,tNext,timCor) := nextHourAngle(t, lat);

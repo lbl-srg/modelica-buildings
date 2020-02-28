@@ -1,4 +1,4 @@
-within Buildings.Occupants.Office.Windows;
+﻿within Buildings.Occupants.Office.Windows;
 model Haldi2009WindowsTInTout "A model to predict occupants' window behavior with indoor and outdoor temperature"
   extends Modelica.Blocks.Icons.DiscreteBlock;
   parameter Real AOpenIn = 0.263 "Slope of indoor temp of the logistic relation for the opening probability";
@@ -8,7 +8,7 @@ model Haldi2009WindowsTInTout "A model to predict occupants' window behavior wit
   parameter Real ACloseOut = -0.065 "Slope of outdoor temp of the logistic relation for the closing probability";
   parameter Real BClose = -4.14 "Intercept of the logistic relation for the closing probability";
   parameter Integer seed = 10 "Seed for the random number generator";
-  parameter Modelica.SIunits.Time samplePeriod = 120 "Sample period";
+  parameter Modelica.Units.SI.Time samplePeriod=120 "Sample period";
 
   Modelica.Blocks.Interfaces.RealInput TIn(
     final unit="K",
@@ -35,7 +35,8 @@ model Haldi2009WindowsTInTout "A model to predict occupants' window behavior wit
     max=1) "Probability of closing windows";
 
 protected
-  parameter Modelica.SIunits.Time t0(final fixed = false) "First sample time instant";
+  parameter Modelica.Units.SI.Time t0(final fixed=false)
+    "First sample time instant";
   output Boolean sampleTrigger "True, if sample time instant";
   Real curSeed "Current value for seed as a real-valued variable";
 

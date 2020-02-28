@@ -9,9 +9,8 @@ model Haldi2008BlindsTOut
   Modelica.Blocks.Sources.Sine TOut(
     amplitude=15,
     offset=293,
-    freqHz=0.001,
-    y(unit="K",
-    displayUnit="degC")) "Outdoor temperature"
+    f=0.001,
+    y(unit="K", displayUnit="degC")) "Outdoor temperature"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Occupants.Office.Blinds.Haldi2008BlindsTOut bli    "Tested blinds model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

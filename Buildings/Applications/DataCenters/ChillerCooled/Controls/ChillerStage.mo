@@ -2,16 +2,16 @@ within Buildings.Applications.DataCenters.ChillerCooled.Controls;
 model ChillerStage "Chiller staging control logic"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Modelica.SIunits.Time tWai "Waiting time";
-  parameter Modelica.SIunits.Power QEva_nominal
+  parameter Modelica.Units.SI.Time tWai "Waiting time";
+  parameter Modelica.Units.SI.Power QEva_nominal
     "Nominal cooling capaciaty(Negative means cooling)";
-  parameter Modelica.SIunits.Power  criPoiLoa = 0.55*QEva_nominal
+  parameter Modelica.Units.SI.Power criPoiLoa=0.55*QEva_nominal
     "Critical point of cooling load for switching one chiller on or off";
-  parameter Modelica.SIunits.Power  dQ = 0.25*QEva_nominal
+  parameter Modelica.Units.SI.Power dQ=0.25*QEva_nominal
     "Deadband for critical point of cooling load";
-  parameter Modelica.SIunits.Temperature criPoiTem = 279.15
+  parameter Modelica.Units.SI.Temperature criPoiTem=279.15
     "Critical point of temperature for switching one chiller on or off";
-  parameter Modelica.SIunits.TemperatureDifference dT = 1
+  parameter Modelica.Units.SI.TemperatureDifference dT=1
     "Deadband width for critical point of switching temperature";
 
   Modelica.Blocks.Interfaces.IntegerInput cooMod
@@ -45,12 +45,14 @@ model ChillerStage "Chiller staging control logic"
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-50,10})));
-  Modelica.StateGraph.InitialStep off(nIn=1) "Free cooling mode"
+  Modelica.StateGraph.InitialStep off(nIn=1, nOut=1)
+                                             "Free cooling mode"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-50,70})));
-  Modelica.StateGraph.StepWithSignal twoOn "Two chillers are commanded on"
+  Modelica.StateGraph.StepWithSignal twoOn(nIn=1, nOut=1)
+                                           "Two chillers are commanded on"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,

@@ -1,13 +1,13 @@
 within Buildings.HeatTransfer.Radiosity.BaseClasses;
 model ParametersOneSurface "Parameters that are used to model one surface"
-  parameter Modelica.SIunits.Emissivity absIR "Infrared absorptivity";
-  parameter Modelica.SIunits.ReflectionCoefficient rhoIR
+  parameter Modelica.Units.SI.Emissivity absIR "Infrared absorptivity";
+  parameter Modelica.Units.SI.ReflectionCoefficient rhoIR
     "Infrared reflectivity";
-  parameter Modelica.SIunits.TransmissionCoefficient tauIR
+  parameter Modelica.Units.SI.TransmissionCoefficient tauIR
     "Infrared transmissivity";
   parameter Boolean linearize=false "Set to true to linearize emissive power"
     annotation (Evaluate=true);
-  parameter Modelica.SIunits.Temperature T0=293.15
+  parameter Modelica.Units.SI.Temperature T0=293.15
     "Temperature used to linearize radiative heat transfer"
     annotation (Dialog(enable=linearize));
 protected

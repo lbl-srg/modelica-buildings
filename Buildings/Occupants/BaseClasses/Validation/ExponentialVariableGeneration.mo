@@ -6,7 +6,8 @@ model ExponentialVariableGeneration "Test model for exponential variable generat
   Real mu "Time-varying real number as input";
   output Real y "Output";
 protected
-  parameter Modelica.SIunits.Time t0(final fixed = false) "First sample time instant";
+  parameter Modelica.Units.SI.Time t0(final fixed=false)
+    "First sample time instant";
   Real curSeed "Current value for seed as a real-valued variable";
 
 initial equation

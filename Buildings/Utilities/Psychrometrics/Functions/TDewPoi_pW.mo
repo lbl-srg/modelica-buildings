@@ -3,19 +3,19 @@ function TDewPoi_pW
   "Function to compute the water vapor partial pressure for a given dew point temperature of moist air"
   extends Modelica.Icons.Function;
 
-  input Modelica.SIunits.Pressure p_w(displayUnit="Pa", min=200)
+  input Modelica.Units.SI.Pressure p_w(displayUnit="Pa", min=200)
     "Water vapor partial pressure";
-  output Modelica.SIunits.Temperature T "Dew point temperature";
+  output Modelica.Units.SI.Temperature T "Dew point temperature";
 
 protected
-  constant Modelica.Media.Common.OneNonLinearEquation.f_nonlinear_Data dummy
-    "Dummy argument for nonlinear function solver";
+  constant ObsoleteModelica4.Media.Common.OneNonLinearEquation.f_nonlinear_Data
+    dummy "Dummy argument for nonlinear function solver";
 algorithm
   T := Internal.solve(
     y_zero=p_w,
     x_min=200,
     x_max=400,
-    f_nonlinear_data=  dummy);
+    f_nonlinear_data = dummy);
   annotation (
     Documentation(info="<html>
 <p>

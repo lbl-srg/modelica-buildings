@@ -9,7 +9,7 @@ model KalmanFilter
     moduleName="KalmanFilter",
     samplePeriod=samplePeriod) "Generate a random number in Python"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Modelica.Blocks.Sources.Clock clock
+  Modelica.Blocks.Sources.ContinuousClock clock
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Real_Real kalFil(
     moduleName="KalmanFilter",
@@ -19,9 +19,9 @@ model KalmanFilter
     samplePeriod=samplePeriod) "Kalman filter in Python"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
-  parameter Modelica.SIunits.Time samplePeriod=0.001
+  parameter Modelica.Units.SI.Time samplePeriod=0.001
     "Sample period of component";
-  Modelica.Blocks.Sources.Sine sine(freqHz=1) "Sine wave"
+  Modelica.Blocks.Sources.Sine sine(f=1) "Sine wave"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Modelica.Blocks.Math.Add add
     annotation (Placement(transformation(extent={{20,20},{40,40}})));

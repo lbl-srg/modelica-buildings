@@ -7,42 +7,42 @@ model StratifiedEnhancedInternalHex
       Modelica.Media.Interfaces.PartialMedium "Medium in the heat exchanger"
     annotation(Dialog(tab="General", group="Heat exchanger"));
 
-  parameter Modelica.SIunits.Height hHex_a
+  parameter Modelica.Units.SI.Height hHex_a
     "Height of portHex_a of the heat exchanger, measured from tank bottom"
-    annotation(Dialog(tab="General", group="Heat exchanger"));
+    annotation (Dialog(tab="General", group="Heat exchanger"));
 
-  parameter Modelica.SIunits.Height hHex_b
+  parameter Modelica.Units.SI.Height hHex_b
     "Height of portHex_b of the heat exchanger, measured from tank bottom"
-    annotation(Dialog(tab="General", group="Heat exchanger"));
+    annotation (Dialog(tab="General", group="Heat exchanger"));
 
   parameter Integer hexSegMult(min=1) = 2
     "Number of heat exchanger segments in each tank segment"
     annotation(Dialog(tab="General", group="Heat exchanger"));
 
-  parameter Modelica.SIunits.Diameter dExtHex = 0.025
+  parameter Modelica.Units.SI.Diameter dExtHex=0.025
     "Exterior diameter of the heat exchanger pipe"
-    annotation(Dialog(group="Heat exchanger"));
+    annotation (Dialog(group="Heat exchanger"));
 
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal
     "Heat transfer at nominal conditions"
-    annotation(Dialog(tab="General", group="Heat exchanger"));
-  parameter Modelica.SIunits.Temperature TTan_nominal
+    annotation (Dialog(tab="General", group="Heat exchanger"));
+  parameter Modelica.Units.SI.Temperature TTan_nominal
     "Temperature of fluid inside the tank at nominal heat transfer conditions"
-    annotation(Dialog(tab="General", group="Heat exchanger"));
-  parameter Modelica.SIunits.Temperature THex_nominal
+    annotation (Dialog(tab="General", group="Heat exchanger"));
+  parameter Modelica.Units.SI.Temperature THex_nominal
     "Temperature of fluid inside the heat exchanger at nominal heat transfer conditions"
-    annotation(Dialog(tab="General", group="Heat exchanger"));
+    annotation (Dialog(tab="General", group="Heat exchanger"));
   parameter Real r_nominal(min=0, max=1)=0.5
     "Ratio between coil inside and outside convective heat transfer at nominal heat transfer conditions"
           annotation(Dialog(tab="General", group="Heat exchanger"));
 
-  parameter Modelica.SIunits.MassFlowRate mHex_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mHex_flow_nominal
     "Nominal mass flow rate through the heat exchanger"
-    annotation(Dialog(group="Heat exchanger"));
+    annotation (Dialog(group="Heat exchanger"));
 
-  parameter Modelica.SIunits.PressureDifference dpHex_nominal(displayUnit="Pa") = 2500
-    "Pressure drop across the heat exchanger at nominal conditions"
-    annotation(Dialog(group="Heat exchanger"));
+  parameter Modelica.Units.SI.PressureDifference dpHex_nominal(displayUnit="Pa")
+     = 2500 "Pressure drop across the heat exchanger at nominal conditions"
+    annotation (Dialog(group="Heat exchanger"));
 
   parameter Boolean computeFlowResistance=true
     "=true, compute flow resistance. Set to false to assume no friction"
@@ -71,28 +71,25 @@ model StratifiedEnhancedInternalHex
     "Formulation of energy balance for heat exchanger solid mass"
     annotation(Evaluate=true, Dialog(tab = "Dynamics heat exchanger", group="Equations"));
 
-  parameter Modelica.SIunits.Length lHex=
-    rTan*abs(segHex_a-segHex_b)*Modelica.Constants.pi
-    "Approximate length of the heat exchanger"
-     annotation(Dialog(tab = "Dynamics heat exchanger", group="Equations"));
+  parameter Modelica.Units.SI.Length lHex=rTan*abs(segHex_a - segHex_b)*
+      Modelica.Constants.pi "Approximate length of the heat exchanger"
+    annotation (Dialog(tab="Dynamics heat exchanger", group="Equations"));
 
-  parameter Modelica.SIunits.Area ACroHex=
-    (dExtHex^2-(0.8*dExtHex)^2)*Modelica.Constants.pi/4
-    "Cross sectional area of the heat exchanger"
-    annotation(Dialog(tab = "Dynamics heat exchanger", group="Equations"));
+  parameter Modelica.Units.SI.Area ACroHex=(dExtHex^2 - (0.8*dExtHex)^2)*
+      Modelica.Constants.pi/4 "Cross sectional area of the heat exchanger"
+    annotation (Dialog(tab="Dynamics heat exchanger", group="Equations"));
 
-  parameter Modelica.SIunits.SpecificHeatCapacity cHex=490
+  parameter Modelica.Units.SI.SpecificHeatCapacity cHex=490
     "Specific heat capacity of the heat exchanger material"
-    annotation(Dialog(tab = "Dynamics heat exchanger", group="Equations"));
+    annotation (Dialog(tab="Dynamics heat exchanger", group="Equations"));
 
-  parameter Modelica.SIunits.Density dHex=8000
+  parameter Modelica.Units.SI.Density dHex=8000
     "Density of the heat exchanger material"
-    annotation(Dialog(tab = "Dynamics heat exchanger", group="Equations"));
+    annotation (Dialog(tab="Dynamics heat exchanger", group="Equations"));
 
-  parameter Modelica.SIunits.HeatCapacity CHex=
-    ACroHex*lHex*dHex*cHex
+  parameter Modelica.Units.SI.HeatCapacity CHex=ACroHex*lHex*dHex*cHex
     "Capacitance of the heat exchanger without the fluid"
-    annotation(Dialog(tab = "Dynamics heat exchanger", group="Equations"));
+    annotation (Dialog(tab="Dynamics heat exchanger", group="Equations"));
   parameter Boolean allowFlowReversalHex = true
     "= true to allow flow reversal in heat exchanger, false restricts to design direction (portHex_a -> portHex_b)"
     annotation(Dialog(tab="Assumptions", group="Heat exchanger"), Evaluate=true);
@@ -138,7 +135,7 @@ model StratifiedEnhancedInternalHex
         rotation=180,
         origin={-87,32})));
 
-  Modelica.SIunits.HeatFlowRate QHex_flow = -sum(indTanHex.port.Q_flow)
+  Modelica.Units.SI.HeatFlowRate QHex_flow=-sum(indTanHex.port.Q_flow)
     "Heat transferred from the heat exchanger to the tank";
 protected
   final parameter Integer segHex_a = nSeg-integer(hHex_a/segHeight)
@@ -149,15 +146,14 @@ protected
     "Tank segment in which port b1 of the heat exchanger is located in"
     annotation(Evaluate=true, Dialog(group="Heat exchanger"));
 
-  final parameter Modelica.SIunits.Height segHeight = hTan/nSeg
+  final parameter Modelica.Units.SI.Height segHeight=hTan/nSeg
     "Height of each tank segment (relative to bottom of same segment)";
 
-  final parameter Modelica.SIunits.Length dHHex = abs(hHex_a-hHex_b)
+  final parameter Modelica.Units.SI.Length dHHex=abs(hHex_a - hHex_b)
     "Vertical distance between the heat exchanger inlet and outlet";
 
-  final parameter Modelica.SIunits.Volume volHexFlu=
-    Modelica.Constants.pi * (0.8*dExtHex)^2/4 *lHex
-    "Volume of the heat exchanger";
+  final parameter Modelica.Units.SI.Volume volHexFlu=Modelica.Constants.pi*(0.8
+      *dExtHex)^2/4*lHex "Volume of the heat exchanger";
 
   final parameter Integer nSegHexTan=
     if segHex_a > segHex_b then segHex_a-segHex_b + 1 else segHex_b-segHex_a + 1

@@ -7,7 +7,7 @@ model Humidifier_u
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol(
     final prescribedHeatFlowRate=true));
 
-  parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal
     "Water mass flow rate at u=1, positive for humidification";
 
   Modelica.Blocks.Interfaces.RealInput u(unit="1") "Control input"

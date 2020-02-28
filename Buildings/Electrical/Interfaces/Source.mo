@@ -10,12 +10,10 @@ model Source "Partial model of a generic source."
   parameter Boolean definiteReference = false
     "Serve as definite root for the reference angle theta"
      annotation (Evaluate=true, Dialog(group="Reference Parameters"));
-  Modelica.SIunits.Power S[PhaseSystem.n]=
-    PhaseSystem.phasePowers_vi(terminal.v, terminal.i)
-    "Complex power S[1] = P, S[2]= Q";
-  Modelica.SIunits.Angle phi=
-    PhaseSystem.phase(terminal.v) - PhaseSystem.phase(-terminal.i)
-    "Phase shift with respect to reference angle";
+  Modelica.Units.SI.Power S[PhaseSystem.n]=PhaseSystem.phasePowers_vi(terminal.v,
+      terminal.i) "Complex power S[1] = P, S[2]= Q";
+  Modelica.Units.SI.Angle phi=PhaseSystem.phase(terminal.v) - PhaseSystem.phase(
+      -terminal.i) "Phase shift with respect to reference angle";
   replaceable Buildings.Electrical.Interfaces.Terminal terminal(
     redeclare final replaceable package PhaseSystem = PhaseSystem)
     "Generalized terminal"

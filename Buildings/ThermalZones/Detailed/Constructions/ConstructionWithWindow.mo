@@ -4,15 +4,15 @@ model ConstructionWithWindow
   extends Buildings.ThermalZones.Detailed.Constructions.BaseClasses.PartialConstruction(
     final AOpa=A-AWin);
 
-  parameter Modelica.SIunits.Area AWin "Heat transfer area of window"
-      annotation (Dialog(group="Glazing system"));
+  parameter Modelica.Units.SI.Area AWin "Heat transfer area of window"
+    annotation (Dialog(group="Glazing system"));
   parameter Real fFra(
     min=0,
     max=1) = 0.1 "Fraction of window frame divided by total window area"
     annotation (Dialog(group="Glazing system"));
-  final parameter Modelica.SIunits.Area AFra = fFra*AWin "Frame area"
+  final parameter Modelica.Units.SI.Area AFra=fFra*AWin "Frame area"
     annotation (Dialog(group="Glazing system"));
-  final parameter Modelica.SIunits.Area AGla=AWin - AFra "Glass area"
+  final parameter Modelica.Units.SI.Area AGla=AWin - AFra "Glass area"
     annotation (Dialog(group="Glazing system"));
   parameter Boolean linearizeRadiation = true
     "Set to true to linearize emissive power"

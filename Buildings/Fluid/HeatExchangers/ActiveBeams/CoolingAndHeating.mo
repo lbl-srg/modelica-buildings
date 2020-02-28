@@ -42,8 +42,8 @@ model CoolingAndHeating "Active beam unit for heating and cooling"
                           noEvent(actualStream(watHea_b.Xi_outflow))) if
           show_T "Medium properties in port watHea_b";
 
-  Modelica.SIunits.PressureDifference dpWatHea(displayUnit="Pa") = watHea_a.p - watHea_b.p
-    "Pressure difference between watHea_a and watHea_b";
+  Modelica.Units.SI.PressureDifference dpWatHea(displayUnit="Pa") = watHea_a.p
+     - watHea_b.p "Pressure difference between watHea_a and watHea_b";
 
 protected
   BaseClasses.Convector conHea(

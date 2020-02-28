@@ -15,7 +15,7 @@ model YorkCalc
     Ti=60,
     Td=10,
     reverseAction=true,
-    initType=Modelica.Blocks.Types.InitPID.InitialState)
+    initType=Modelica.Blocks.Types.Init.InitialState)
     "Controller for tower fan"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 equation

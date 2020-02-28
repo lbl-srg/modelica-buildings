@@ -1,13 +1,14 @@
 within Buildings.Airflow.Multizone.BaseClasses;
 function powerLaw "Power law used in orifice equations"
   input Real k "Flow coefficient, k = V_flow/ dp^m";
-  input Modelica.SIunits.PressureDifference dp(displayUnit="Pa") "Pressure difference";
+  input Modelica.Units.SI.PressureDifference dp(displayUnit="Pa")
+    "Pressure difference";
   input Real m(min=0.5, max=1)
     "Flow exponent, m=0.5 for turbulent, m=1 for laminar";
-  input Modelica.SIunits.PressureDifference dp_turbulent(min=0,
-                                                         displayUnit="Pa")=0.001
-    "Pressure difference where regularization starts";
-  output Modelica.SIunits.VolumeFlowRate V_flow "Volume flow rate";
+  input Modelica.Units.SI.PressureDifference dp_turbulent(
+    min=0,
+    displayUnit="Pa") = 0.001 "Pressure difference where regularization starts";
+  output Modelica.Units.SI.VolumeFlowRate V_flow "Volume flow rate";
 protected
   constant Real gamma(min=1) = 1.5
     "Normalized flow rate where dphi(0)/dpi intersects phi(1)";

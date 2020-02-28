@@ -8,9 +8,8 @@ model Nicol2001HeatingPakistan "Validating the model for heating behaviors"
   Modelica.Blocks.Sources.Sine TOut(
     amplitude=15,
     offset=288,
-    freqHz=0.001,
-    y(unit="K",
-      displayUnit="degC")) "Outdoor air temperature"
+    f=0.001,
+    y(unit="K", displayUnit="degC")) "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Occupants.Residential.Heating.Nicol2001HeatingPakistan hea "Occupancy model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

@@ -11,19 +11,19 @@ model TemperatureTwoPort "Ideal two port temperature sensor"
         origin={0,110},
         extent={{10,-10},{-10,10}},
         rotation=270)));
-  parameter Modelica.SIunits.Temperature T_start=Medium.T_default
+  parameter Modelica.Units.SI.Temperature T_start=Medium.T_default
     "Initial or guess value of output (= state)"
     annotation (Dialog(group="Initialization"));
 
   parameter Boolean transferHeat = false
     "if true, temperature T converges towards TAmb when no flow"
     annotation(Evaluate=true, Dialog(group="Heat transfer"));
-  parameter Modelica.SIunits.Temperature TAmb=Medium.T_default
+  parameter Modelica.Units.SI.Temperature TAmb=Medium.T_default
     "Fixed ambient temperature for heat transfer"
-    annotation(Dialog(enable=transferHeat, group="Heat transfer"));
-  parameter Modelica.SIunits.Time tauHeaTra(min=1)=1200
+    annotation (Dialog(enable=transferHeat, group="Heat transfer"));
+  parameter Modelica.Units.SI.Time tauHeaTra(min=1) = 1200
     "Time constant for heat transfer, default 20 minutes"
-    annotation(Dialog(enable=transferHeat, group="Heat transfer"));
+    annotation (Dialog(enable=transferHeat, group="Heat transfer"));
 
 protected
   parameter Real tauHeaTraInv(final unit = "1/s")=

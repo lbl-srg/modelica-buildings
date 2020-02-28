@@ -17,13 +17,13 @@ block TransmittedRadiation "Transmitted radiation through window"
   final parameter Real traCoeRoo[NSta](each fixed=false)
     "Transmitivity of the window glass for interior radiation without shading";
 
-  output Modelica.SIunits.Power QTraDifUns_flow[NSta]
+  output Modelica.Units.SI.Power QTraDifUns_flow[NSta]
     "Transmitted diffuse solar radiation through unshaded part of window";
-  output Modelica.SIunits.Power QTraDirUns_flow[NSta]
+  output Modelica.Units.SI.Power QTraDirUns_flow[NSta]
     "Transmitted direct solar radiation through unshaded part of window";
-  output Modelica.SIunits.Power QTraDifSha_flow[NSta]
+  output Modelica.Units.SI.Power QTraDifSha_flow[NSta]
     "Transmitted diffuse solar radiation through shaded part of window";
-  output Modelica.SIunits.Power QTraDirSha_flow[NSta]
+  output Modelica.Units.SI.Power QTraDirSha_flow[NSta]
     "Transmitted direct solar radiation through shaded part of window";
 
 protected

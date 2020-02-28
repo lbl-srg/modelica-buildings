@@ -6,33 +6,32 @@ model MerkelEnergyPlus
   package MediumAir = Buildings.Media.Air "Air medium model";
   package MediumWat = Buildings.Media.Water "Water medium model";
 
-  parameter Modelica.SIunits.Density denWat=
-    MediumWat.density(
-      MediumWat.setState_pTX(MediumWat.p_default, MediumWat.T_default, MediumWat.X_default))
-      "Default density of water";
+  parameter Modelica.Units.SI.Density denWat=MediumWat.density(
+      MediumWat.setState_pTX(
+      MediumWat.p_default,
+      MediumWat.T_default,
+      MediumWat.X_default)) "Default density of water";
 
   // Cooling tower parameters
-  parameter Modelica.SIunits.PressureDifference dp_nominal = 6000
+  parameter Modelica.Units.SI.PressureDifference dp_nominal=6000
     "Nominal pressure difference of cooling tower";
-  parameter Modelica.SIunits.VolumeFlowRate VWat_flow_nominal = 0.00109181
+  parameter Modelica.Units.SI.VolumeFlowRate VWat_flow_nominal=0.00109181
     "Nominal volumetric flow rate of water (medium 2)";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
-    VWat_flow_nominal * denWat
-    "Nominal mass flow rate of water (medium 2)";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=VWat_flow_nominal*
+      denWat "Nominal mass flow rate of water (medium 2)";
   parameter Real ratWatAir_nominal = 1.61599
     "Nominal water-to-air ratio";
-  parameter Modelica.SIunits.Temperature TAirInWB_nominal = 18.85+273.15
+  parameter Modelica.Units.SI.Temperature TAirInWB_nominal=18.85 + 273.15
     "Nominal outdoor wetbulb temperature";
-  parameter Modelica.SIunits.Temperature TWatIn_nominal = 34.16+273.15
+  parameter Modelica.Units.SI.Temperature TWatIn_nominal=34.16 + 273.15
     "Nominal water inlet temperature";
-  parameter Modelica.SIunits.Temperature TWatOut_initial = 33.019+273.15
+  parameter Modelica.Units.SI.Temperature TWatOut_initial=33.019 + 273.15
     "Nominal water inlet temperature";
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = -20286.37455
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal=-20286.37455
     "Nominal heat transfer, positive";
-  parameter Modelica.SIunits.ThermalConductance UA_nominal_EP = 2011.28668
+  parameter Modelica.Units.SI.ThermalConductance UA_nominal_EP=2011.28668
     "Nominal heat transfer, positive";
-  parameter Modelica.SIunits.Power PFan_nominal = 213.00693
-    "Nominal fan power";
+  parameter Modelica.Units.SI.Power PFan_nominal=213.00693 "Nominal fan power";
 
   parameter Real r_VEnePlu[:] = {0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1}
     "Fan control signal";

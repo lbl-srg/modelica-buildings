@@ -5,11 +5,10 @@ model Borefields
 
   package Medium = Buildings.Media.Water;
 
-  parameter Modelica.SIunits.Time tLoaAgg=300
+  parameter Modelica.Units.SI.Time tLoaAgg=300
     "Time resolution of load aggregation";
 
-  parameter Modelica.SIunits.Temperature TGro = 283.15
-    "Ground temperature";
+  parameter Modelica.Units.SI.Temperature TGro=283.15 "Ground temperature";
   Buildings.Fluid.Geothermal.Borefields.TwoUTubes borFie2UTubPar(
     redeclare package Medium = Medium,
     borFieDat=borFie2UTubParDat,

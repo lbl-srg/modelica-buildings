@@ -8,7 +8,7 @@ record RadiationData "Radiation data of a window"
       rhoShaSol_a,rhoShaSol_b}} "Shading device property";
   final parameter Integer NDIR=10 "Number of incident angles";
   final parameter Integer HEM=NDIR + 1 "Index of hemispherical integration";
-  final parameter Modelica.SIunits.Angle psi[NDIR]=
+  final parameter Modelica.Units.SI.Angle psi[NDIR]=
       Buildings.HeatTransfer.Windows.Functions.getAngle(NDIR)
     "Incident angles used for solar radiation calculation";
   final parameter Real layer[3, N, HEM, NSta]=

@@ -1,25 +1,25 @@
 within Buildings.Fluid.Sensors;
 model EntropyFlowRate "Ideal entropy flow rate sensor"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
-  extends Modelica.Icons.RotationalSensor;
+  extends Modelica.Icons.RoundSensor;
   Modelica.Blocks.Interfaces.RealOutput S_flow(final unit="W/K")
     "Entropy flow rate, positive if from port_a to port_b"
     annotation (Placement(transformation(
         origin={0,110},
         extent={{-10,-10},{10,10}},
         rotation=90)));
-  parameter Modelica.SIunits.SpecificEntropy s_out_start=
-    Medium.specificEntropy_pTX(
+  parameter Modelica.Units.SI.SpecificEntropy s_out_start=
+      Medium.specificEntropy_pTX(
       p=Medium.p_default,
       T=Medium.T_default,
       X=Medium.X_default) "Initial or guess value of measured specific entropy"
     annotation (Dialog(group="Initialization"));
 protected
-  Modelica.SIunits.SpecificEntropy sMed_out(start=s_out_start)
+  Modelica.Units.SI.SpecificEntropy sMed_out(start=s_out_start)
     "Medium entropy to which the sensor is exposed";
-  Modelica.SIunits.SpecificEntropy s_out(start=s_out_start)
+  Modelica.Units.SI.SpecificEntropy s_out(start=s_out_start)
     "Medium entropy that is used to compute the entropy flow rate";
-  Modelica.SIunits.SpecificEntropy port_b_s_outflow(start=s_out_start)
+  Modelica.Units.SI.SpecificEntropy port_b_s_outflow(start=s_out_start)
     "Medium entropy outflowing at port_b if mass flow were from port_a to port_b";
 initial equation
   if dynamic then

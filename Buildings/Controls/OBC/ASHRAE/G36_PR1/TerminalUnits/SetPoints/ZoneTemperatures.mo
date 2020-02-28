@@ -20,24 +20,24 @@ block ZoneTemperatures "Block outputs thermal zone cooling and heating setpoint"
     "Flag, set to true to exempt individual zone from demand limit setpoint adjustment"
     annotation(Dialog(group="Setpoint adjustable setting"));
 
-  parameter Modelica.SIunits.Temperature TZonCooOnMax=300.15
+  parameter Modelica.Units.SI.Temperature TZonCooOnMax=300.15
     "Maximum cooling setpoint during on"
-    annotation(Dialog(group="Setpoints limits setting"));
-  parameter Modelica.SIunits.Temperature TZonCooOnMin=295.15
+    annotation (Dialog(group="Setpoints limits setting"));
+  parameter Modelica.Units.SI.Temperature TZonCooOnMin=295.15
     "Minimum cooling setpoint during on"
-    annotation(Dialog(group="Setpoints limits setting"));
-  parameter Modelica.SIunits.Temperature TZonHeaOnMax=295.15
+    annotation (Dialog(group="Setpoints limits setting"));
+  parameter Modelica.Units.SI.Temperature TZonHeaOnMax=295.15
     "Maximum heating setpoint during on"
-    annotation(Dialog(group="Setpoints limits setting"));
-  parameter Modelica.SIunits.Temperature TZonHeaOnMin=291.15
+    annotation (Dialog(group="Setpoints limits setting"));
+  parameter Modelica.Units.SI.Temperature TZonHeaOnMin=291.15
     "Minimum heating setpoint during on"
-    annotation(Dialog(group="Setpoints limits setting"));
-  parameter Modelica.SIunits.Temperature TZonCooSetWinOpe=322.15
+    annotation (Dialog(group="Setpoints limits setting"));
+  parameter Modelica.Units.SI.Temperature TZonCooSetWinOpe=322.15
     "Cooling setpoint when window is open"
-    annotation(Dialog(group="Setpoints limits setting", enable=have_winSen));
-  parameter Modelica.SIunits.Temperature TZonHeaSetWinOpe=277.15
+    annotation (Dialog(group="Setpoints limits setting", enable=have_winSen));
+  parameter Modelica.Units.SI.Temperature TZonHeaSetWinOpe=277.15
     "Heating setpoint when window is open"
-    annotation(Dialog(group="Setpoints limits setting", enable=have_winSen));
+    annotation (Dialog(group="Setpoints limits setting", enable=have_winSen));
 
   parameter Real incTSetDem_1=0.56
     "Cooling setpoint increase value (degC) when cooling demand limit level 1 is imposed"

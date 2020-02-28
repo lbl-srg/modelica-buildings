@@ -1,13 +1,13 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV;
 block Controller "Multizone AHU controller that composes subsequences for controlling fan speed, dampers, and supply air temperature"
 
-  parameter Modelica.SIunits.Time samplePeriod=120
+  parameter Modelica.Units.SI.Time samplePeriod=120
     "Sample period of component, set to the same value to the trim and respond sequence";
 
   parameter Integer numZon(min=2) "Total number of served VAV boxes"
     annotation (Dialog(group="System and building parameters"));
 
-  parameter Modelica.SIunits.Area AFlo[numZon] "Floor area of each zone"
+  parameter Modelica.Units.SI.Area AFlo[numZon] "Floor area of each zone"
     annotation (Dialog(group="System and building parameters"));
 
   parameter Boolean have_occSen=false
@@ -35,15 +35,15 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     "Set to true if enthalpy measurement is used in addition to temperature measurement"
     annotation (Evaluate=true,Dialog(tab="Economizer"));
 
-  parameter Modelica.SIunits.Time delta=5
+  parameter Modelica.Units.SI.Time delta=5
     "Time horizon over which the outdoor air flow measurment is averaged"
-    annotation (Evaluate=true,Dialog(tab="Economizer"));
+    annotation (Evaluate=true, Dialog(tab="Economizer"));
 
-  parameter Modelica.SIunits.TemperatureDifference delTOutHis=1
+  parameter Modelica.Units.SI.TemperatureDifference delTOutHis=1
     "Delta between the temperature hysteresis high and low limit"
     annotation (Evaluate=true, Dialog(tab="Economizer"));
 
-  parameter Modelica.SIunits.SpecificEnergy delEntHis=1000
+  parameter Modelica.Units.SI.SpecificEnergy delEntHis=1000
     "Delta between the enthalpy hysteresis high and low limits"
     annotation (Evaluate=true, Dialog(tab="Economizer", enable=use_enthalpy));
 
@@ -87,17 +87,17 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     "Gain of controller for minimum outdoor air intake"
     annotation (Dialog(group="Economizer PID controller"));
 
-  parameter Modelica.SIunits.Time TiMinOut=1200
-    "Time constant of controller for minimum outdoor air intake"
-    annotation (Dialog(group="Economizer PID controller",
-      enable=controllerTypeMinOut == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-          or controllerTypeMinOut == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time TiMinOut=1200
+    "Time constant of controller for minimum outdoor air intake" annotation (
+      Dialog(group="Economizer PID controller", enable=controllerTypeMinOut ==
+          Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
+          controllerTypeMinOut == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Modelica.SIunits.Time TdMinOut=0.1
+  parameter Modelica.Units.SI.Time TdMinOut=0.1
     "Time constant of derivative block for minimum outdoor air intake"
-    annotation (Dialog(group="Economizer PID controller",
-      enable=controllerTypeMinOut == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-          or controllerTypeMinOut == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    annotation (Dialog(group="Economizer PID controller", enable=
+          controllerTypeMinOut == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+           or controllerTypeMinOut == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Boolean use_TMix=true
     "Set to true if mixed air temperature measurement is enabled"
@@ -116,23 +116,21 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     "Gain for mixed air temperature tracking for freeze protection, used if use_TMix=true"
      annotation(Dialog(group="Economizer freeze protection", enable=use_TMix));
 
-  parameter Modelica.SIunits.Time TiFre(max=TiMinOut)=120
+  parameter Modelica.Units.SI.Time TiFre(max=TiMinOut) = 120
     "Time constant of controller for mixed air temperature tracking for freeze protection. Require TiFre < TiMinOut"
-     annotation(Dialog(group="Economizer freeze protection",
-       enable=use_TMix
-         and (controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    annotation (Dialog(group="Economizer freeze protection", enable=use_TMix
+           and (controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
            or controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
 
-  parameter Modelica.SIunits.Time TdFre=0.1
-    "Time constant of derivative block for freeze protection"
-    annotation (Dialog(group="Economizer freeze protection",
-      enable=use_TMix and
-          (controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-          or controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+  parameter Modelica.Units.SI.Time TdFre=0.1
+    "Time constant of derivative block for freeze protection" annotation (
+      Dialog(group="Economizer freeze protection", enable=use_TMix and (
+          controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+           or controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
 
-  parameter Modelica.SIunits.Temperature TFreSet = 279.15
+  parameter Modelica.Units.SI.Temperature TFreSet=279.15
     "Lower limit for mixed air temperature for freeze protection, used if use_TMix=true"
-     annotation(Dialog(group="Economizer freeze protection", enable=use_TMix));
+    annotation (Dialog(group="Economizer freeze protection", enable=use_TMix));
 
   parameter Real yMinDamLim=0
     "Lower limit of damper position limits control signal output"
@@ -144,55 +142,55 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     annotation (Evaluate=true,
       Dialog(tab="Economizer", group="Damper limits"));
 
-  parameter Modelica.SIunits.Time retDamFulOpeTim=180
-    "Time period to keep RA damper fully open before releasing it for minimum outdoor airflow control
-    at disable to avoid pressure fluctuations"
-    annotation (Evaluate=true, Dialog(tab="Economizer", group="Economizer delays at disable"));
+  parameter Modelica.Units.SI.Time retDamFulOpeTim=180 "Time period to keep RA damper fully open before releasing it for minimum outdoor airflow control
+    at disable to avoid pressure fluctuations" annotation (Evaluate=true,
+      Dialog(tab="Economizer", group="Economizer delays at disable"));
 
-  parameter Modelica.SIunits.Time disDel=15
+  parameter Modelica.Units.SI.Time disDel=15
     "Short time delay before closing the OA damper at disable to avoid pressure fluctuations"
-    annotation (Evaluate=true,Dialog(tab="Economizer", group="Economizer delays at disable"));
+    annotation (Evaluate=true, Dialog(tab="Economizer", group=
+          "Economizer delays at disable"));
 
   // ----------- parameters for fan speed control  -----------
-  parameter Modelica.SIunits.PressureDifference pIniSet(displayUnit="Pa")=60
-    "Initial pressure setpoint for fan speed control"
-    annotation (Evaluate=true,
-      Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
+  parameter Modelica.Units.SI.PressureDifference pIniSet(displayUnit="Pa") = 60
+    "Initial pressure setpoint for fan speed control" annotation (Evaluate=true,
+      Dialog(tab="Fan speed", group=
+          "Trim and respond for reseting duct static pressure setpoint"));
 
-  parameter Modelica.SIunits.PressureDifference pMinSet(displayUnit="Pa")=25
-    "Minimum pressure setpoint for fan speed control"
-    annotation (Evaluate=true,
-      Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
+  parameter Modelica.Units.SI.PressureDifference pMinSet(displayUnit="Pa") = 25
+    "Minimum pressure setpoint for fan speed control" annotation (Evaluate=true,
+      Dialog(tab="Fan speed", group=
+          "Trim and respond for reseting duct static pressure setpoint"));
 
-  parameter Modelica.SIunits.PressureDifference pMaxSet(displayUnit="Pa")=400
-    "Maximum pressure setpoint for fan speed control"
-    annotation (Evaluate=true,
-      Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
+  parameter Modelica.Units.SI.PressureDifference pMaxSet(displayUnit="Pa") =
+    400 "Maximum pressure setpoint for fan speed control" annotation (Evaluate=
+        true, Dialog(tab="Fan speed", group=
+          "Trim and respond for reseting duct static pressure setpoint"));
 
-  parameter Modelica.SIunits.Time pDelTim=600
-    "Delay time after which trim and respond is activated"
-    annotation (Evaluate=true,
-      Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
+  parameter Modelica.Units.SI.Time pDelTim=600
+    "Delay time after which trim and respond is activated" annotation (Evaluate
+      =true, Dialog(tab="Fan speed", group=
+          "Trim and respond for reseting duct static pressure setpoint"));
 
   parameter Integer pNumIgnReq=2
     "Number of ignored requests for fan speed control"
     annotation (Evaluate=true,
       Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
 
-  parameter Modelica.SIunits.PressureDifference pTriAmo(displayUnit="Pa")=-12.0
-    "Trim amount for fan speed control"
-    annotation (Evaluate=true,
-      Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
+  parameter Modelica.Units.SI.PressureDifference pTriAmo(displayUnit="Pa") = -12.0
+    "Trim amount for fan speed control" annotation (Evaluate=true, Dialog(tab=
+          "Fan speed", group=
+          "Trim and respond for reseting duct static pressure setpoint"));
 
-  parameter Modelica.SIunits.PressureDifference pResAmo(displayUnit="Pa")=15
+  parameter Modelica.Units.SI.PressureDifference pResAmo(displayUnit="Pa") = 15
     "Respond amount (must be opposite in to triAmo) for fan speed control"
-    annotation (Evaluate=true,
-      Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
+    annotation (Evaluate=true, Dialog(tab="Fan speed", group=
+          "Trim and respond for reseting duct static pressure setpoint"));
 
-  parameter Modelica.SIunits.PressureDifference pMaxRes(displayUnit="Pa")=32
+  parameter Modelica.Units.SI.PressureDifference pMaxRes(displayUnit="Pa") = 32
     "Maximum response per time interval (same sign as resAmo) for fan speed control"
-    annotation (Evaluate=true,
-      Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
+    annotation (Evaluate=true, Dialog(tab="Fan speed", group=
+          "Trim and respond for reseting duct static pressure setpoint"));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController
     controllerTypeFanSpe=Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
@@ -202,17 +200,15 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     "Gain of fan fan speed controller, normalized using pMaxSet"
     annotation (Dialog(group="Fan speed PID controller"));
 
-  parameter Modelica.SIunits.Time TiFanSpe=60
-    "Time constant of integrator block for fan speed"
-    annotation (Dialog(group="Fan speed PID controller",
-      enable=controllerTypeFanSpe == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-          or controllerTypeFanSpe == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time TiFanSpe=60
+    "Time constant of integrator block for fan speed" annotation (Dialog(group=
+          "Fan speed PID controller", enable=controllerTypeFanSpe == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+           or controllerTypeFanSpe == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Modelica.SIunits.Time TdFanSpe=0.1
-    "Time constant of derivative block for fan speed"
-    annotation (Dialog(group="Fan speed PID controller",
-      enable=controllerTypeFanSpe == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-          or controllerTypeFanSpe == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time TdFanSpe=0.1
+    "Time constant of derivative block for fan speed" annotation (Dialog(group=
+          "Fan speed PID controller", enable=controllerTypeFanSpe == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+           or controllerTypeFanSpe == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Real yFanMax=1 "Maximum allowed fan speed"
     annotation (Evaluate=true,
@@ -247,21 +243,19 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     annotation (Evaluate=true,
       Dialog(tab="Minimum outdoor airflow rate", group="Nominal conditions"));
 
-  parameter Modelica.SIunits.VolumeFlowRate VOutPerPer_flow[numZon]=
-    fill(2.5e-3, outAirSetPoi.numZon)
-    "Outdoor air rate per person"
-    annotation (Evaluate=true,
-      Dialog(tab="Minimum outdoor airflow rate", group="Nominal conditions"));
+  parameter Modelica.Units.SI.VolumeFlowRate VOutPerPer_flow[numZon]=fill(
+      2.5e-3, outAirSetPoi.numZon) "Outdoor air rate per person" annotation (
+      Evaluate=true, Dialog(tab="Minimum outdoor airflow rate", group=
+          "Nominal conditions"));
 
-  parameter Modelica.SIunits.VolumeFlowRate minZonPriFlo[numZon]
-    "Minimum expected zone primary flow rate"
-    annotation (Evaluate=true,
-      Dialog(tab="Minimum outdoor airflow rate", group="Nominal conditions"));
+  parameter Modelica.Units.SI.VolumeFlowRate minZonPriFlo[numZon]
+    "Minimum expected zone primary flow rate" annotation (Evaluate=true, Dialog(
+        tab="Minimum outdoor airflow rate", group="Nominal conditions"));
 
-  parameter Modelica.SIunits.VolumeFlowRate VPriSysMax_flow
-    "Maximum expected system primary airflow at design stage"
-    annotation (Evaluate=true,
-      Dialog(tab="Minimum outdoor airflow rate", group="Nominal conditions"));
+  parameter Modelica.Units.SI.VolumeFlowRate VPriSysMax_flow
+    "Maximum expected system primary airflow at design stage" annotation (
+      Evaluate=true, Dialog(tab="Minimum outdoor airflow rate", group=
+          "Nominal conditions"));
 
   parameter Real desZonDisEff[numZon]=fill(1.0, outAirSetPoi.numZon)
     "Design zone air distribution effectiveness"
@@ -294,67 +288,68 @@ block Controller "Multizone AHU controller that composes subsequences for contro
   //    Dialog(tab="Minimum outdoor airflow rate", group="Advanced"));
 
   // ----------- parameters for supply air temperature control  -----------
-  parameter Modelica.SIunits.Temperature TSupSetMin=285.15
-    "Lowest cooling supply air temperature setpoint"
-    annotation (Evaluate=true,
+  parameter Modelica.Units.SI.Temperature TSupSetMin=285.15
+    "Lowest cooling supply air temperature setpoint" annotation (Evaluate=true,
       Dialog(tab="Supply air temperature", group="Temperature limits"));
 
-  parameter Modelica.SIunits.Temperature TSupSetMax=291.15
+  parameter Modelica.Units.SI.Temperature TSupSetMax=291.15
     "Highest cooling supply air temperature setpoint. It is typically 18 degC (65 degF) in mild and dry climates, 16 degC (60 degF) or lower in humid climates"
-    annotation (Evaluate=true,
-      Dialog(tab="Supply air temperature", group="Temperature limits"));
+    annotation (Evaluate=true, Dialog(tab="Supply air temperature", group=
+          "Temperature limits"));
 
-  parameter Modelica.SIunits.Temperature TSupSetDes=286.15
-    "Nominal supply air temperature setpoint"
-    annotation (Evaluate=true,
-      Dialog(tab="Supply air temperature", group="Temperature limits"));
+  parameter Modelica.Units.SI.Temperature TSupSetDes=286.15
+    "Nominal supply air temperature setpoint" annotation (Evaluate=true, Dialog(
+        tab="Supply air temperature", group="Temperature limits"));
 
-  parameter Modelica.SIunits.Temperature TOutMin=289.15
+  parameter Modelica.Units.SI.Temperature TOutMin=289.15
     "Lower value of the outdoor air temperature reset range. Typically value is 16 degC (60 degF)"
-    annotation (Evaluate=true,
-      Dialog(tab="Supply air temperature", group="Temperature limits"));
+    annotation (Evaluate=true, Dialog(tab="Supply air temperature", group=
+          "Temperature limits"));
 
-  parameter Modelica.SIunits.Temperature TOutMax=294.15
+  parameter Modelica.Units.SI.Temperature TOutMax=294.15
     "Higher value of the outdoor air temperature reset range. Typically value is 21 degC (70 degF)"
-    annotation (Evaluate=true,
-      Dialog(tab="Supply air temperature", group="Temperature limits"));
+    annotation (Evaluate=true, Dialog(tab="Supply air temperature", group=
+          "Temperature limits"));
 
-  parameter Modelica.SIunits.Temperature iniSetSupTem=supTemSetPoi.maxSet
+  parameter Modelica.Units.SI.Temperature iniSetSupTem=supTemSetPoi.maxSet
     "Initial setpoint for supply temperature control" annotation (Evaluate=true,
-      Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
+      Dialog(tab="Supply air temperature", group=
+          "Trim and respond for reseting TSup setpoint"));
 
-  parameter Modelica.SIunits.Temperature maxSetSupTem=supTemSetPoi.TSupSetMax
+  parameter Modelica.Units.SI.Temperature maxSetSupTem=supTemSetPoi.TSupSetMax
     "Maximum setpoint for supply temperature control" annotation (Evaluate=true,
-      Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
+      Dialog(tab="Supply air temperature", group=
+          "Trim and respond for reseting TSup setpoint"));
 
-  parameter Modelica.SIunits.Temperature minSetSupTem=supTemSetPoi.TSupSetDes
+  parameter Modelica.Units.SI.Temperature minSetSupTem=supTemSetPoi.TSupSetDes
     "Minimum setpoint for supply temperature control" annotation (Evaluate=true,
-      Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
+      Dialog(tab="Supply air temperature", group=
+          "Trim and respond for reseting TSup setpoint"));
 
-  parameter Modelica.SIunits.Time delTimSupTem=600
-    "Delay timer for supply temperature control"
-    annotation (Evaluate=true,
-      Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
+  parameter Modelica.Units.SI.Time delTimSupTem=600
+    "Delay timer for supply temperature control" annotation (Evaluate=true,
+      Dialog(tab="Supply air temperature", group=
+          "Trim and respond for reseting TSup setpoint"));
 
   parameter Integer numIgnReqSupTem=2
     "Number of ignorable requests for supply temperature control"
     annotation (Evaluate=true,
       Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
 
-  parameter Modelica.SIunits.TemperatureDifference triAmoSupTem=0.1
-    "Trim amount for supply temperature control"
-    annotation (Evaluate=true,
-      Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
+  parameter Modelica.Units.SI.TemperatureDifference triAmoSupTem=0.1
+    "Trim amount for supply temperature control" annotation (Evaluate=true,
+      Dialog(tab="Supply air temperature", group=
+          "Trim and respond for reseting TSup setpoint"));
 
-  parameter Modelica.SIunits.TemperatureDifference resAmoSupTem=-0.2
-    "Response amount for supply temperature control"
-    annotation (Evaluate=true,
-      Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
+  parameter Modelica.Units.SI.TemperatureDifference resAmoSupTem=-0.2
+    "Response amount for supply temperature control" annotation (Evaluate=true,
+      Dialog(tab="Supply air temperature", group=
+          "Trim and respond for reseting TSup setpoint"));
 
-  parameter Modelica.SIunits.TemperatureDifference maxResSupTem=-0.6
+  parameter Modelica.Units.SI.TemperatureDifference maxResSupTem=-0.6
     "Maximum response per time interval for supply temperature control"
-    annotation (Evaluate=true,
-      Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
+    annotation (Evaluate=true, Dialog(tab="Supply air temperature", group=
+          "Trim and respond for reseting TSup setpoint"));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeTSup=
       Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -365,17 +360,17 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     "Gain of controller for supply air temperature signal"
     annotation (Dialog(group="Supply air temperature"));
 
-  parameter Modelica.SIunits.Time TiTSup=600
+  parameter Modelica.Units.SI.Time TiTSup=600
     "Time constant of integrator block for supply air temperature control signal"
-    annotation (Dialog(group="Supply air temperature",
-      enable=controllerTypeTSup == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-          or controllerTypeTSup == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    annotation (Dialog(group="Supply air temperature", enable=
+          controllerTypeTSup == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+           or controllerTypeTSup == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Modelica.SIunits.Time TdTSup=0.1
+  parameter Modelica.Units.SI.Time TdTSup=0.1
     "Time constant of integrator block for supply air temperature control signal"
-    annotation (Dialog(group="Supply air temperature",
-      enable=controllerTypeTSup == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-          or controllerTypeTSup == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    annotation (Dialog(group="Supply air temperature", enable=
+          controllerTypeTSup == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+           or controllerTypeTSup == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Real uHeaMax(min=-0.9)=-0.25
     "Upper limit of controller signal when heating coil is off. Require -1 < uHeaMax < uCooMin < 1."

@@ -13,13 +13,11 @@ model Heater_T "Heater with prescribed outlet temperature"
       final T_start=T_start,
       final X_start=Medium.X_default));
 
-  parameter Modelica.SIunits.HeatFlowRate QMax_flow(min=0) = Modelica.Constants.inf
-    "Maximum heat flow rate for heating (positive)"
-    annotation (Evaluate=true);
+  parameter Modelica.Units.SI.HeatFlowRate QMax_flow(min=0) = Modelica.Constants.inf
+    "Maximum heat flow rate for heating (positive)" annotation (Evaluate=true);
 
-  parameter Modelica.SIunits.Temperature T_start=Medium.T_default
-    "Start value of temperature"
-    annotation(Dialog(tab = "Initialization"));
+  parameter Modelica.Units.SI.Temperature T_start=Medium.T_default
+    "Start value of temperature" annotation (Dialog(tab="Initialization"));
 
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState

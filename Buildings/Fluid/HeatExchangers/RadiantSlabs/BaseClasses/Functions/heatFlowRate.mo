@@ -1,22 +1,22 @@
 within Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions;
 function heatFlowRate "Heat flow rate for epsilon-NTU model"
   extends Modelica.Icons.Function;
-  input Modelica.SIunits.Temperature T_a "Temperature at port_a";
-  input Modelica.SIunits.Temperature T_b "Temperature at port_b";
-  input Modelica.SIunits.Temperature T_s "Temperature of solid";
-  input Modelica.SIunits.Temperature T_f "Temperature of fluid control volume";
+  input Modelica.Units.SI.Temperature T_a "Temperature at port_a";
+  input Modelica.Units.SI.Temperature T_b "Temperature at port_b";
+  input Modelica.Units.SI.Temperature T_s "Temperature of solid";
+  input Modelica.Units.SI.Temperature T_f "Temperature of fluid control volume";
 
-  input Modelica.SIunits.SpecificHeatCapacity c_p "Specific heat capacity";
-  input Modelica.SIunits.ThermalConductance UA "UA value";
-  input Modelica.SIunits.MassFlowRate m_flow
+  input Modelica.Units.SI.SpecificHeatCapacity c_p "Specific heat capacity";
+  input Modelica.Units.SI.ThermalConductance UA "UA value";
+  input Modelica.Units.SI.MassFlowRate m_flow
     "Mass flow rate from port_a to port_b";
-  input Modelica.SIunits.MassFlowRate m_flow_nominal
+  input Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Nominal mass flow rate from port_a to port_b";
 
-  output Modelica.SIunits.HeatFlowRate Q_flow "Heat flow rate";
+  output Modelica.Units.SI.HeatFlowRate Q_flow "Heat flow rate";
 protected
-  Modelica.SIunits.MassFlowRate m_abs_flow "Absolute value of mass flow rate";
-  Modelica.SIunits.Temperature T_in "Inlet fluid temperature";
+  Modelica.Units.SI.MassFlowRate m_abs_flow "Absolute value of mass flow rate";
+  Modelica.Units.SI.Temperature T_in "Inlet fluid temperature";
   Real eps "Heat transfer effectiveness";
 
 algorithm

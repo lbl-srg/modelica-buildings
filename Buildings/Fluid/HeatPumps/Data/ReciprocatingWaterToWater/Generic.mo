@@ -2,15 +2,14 @@ within Buildings.Fluid.HeatPumps.Data.ReciprocatingWaterToWater;
 record Generic "Record for reciprocating water to water heat pump"
   extends BaseClasses.HeatPumps;
 
-  parameter Modelica.SIunits.VolumeFlowRate pisDis
-    "Piston displacement"
+  parameter Modelica.Units.SI.VolumeFlowRate pisDis "Piston displacement"
     annotation (Dialog(group="Compressor"));
 
   parameter Real cleFac(min = 0, unit = "1")
     "Clearance factor"
     annotation (Dialog(group="Compressor"));
 
-  parameter Modelica.SIunits.AbsolutePressure pDro
+  parameter Modelica.Units.SI.AbsolutePressure pDro
     "Pressure drop at suction and discharge of the compressor"
     annotation (Dialog(group="Compressor"));
 

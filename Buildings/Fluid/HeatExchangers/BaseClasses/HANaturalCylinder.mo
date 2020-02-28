@@ -4,18 +4,18 @@ model HANaturalCylinder
   extends Modelica.Blocks.Icons.Block;
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium inside the tank";
-  parameter Modelica.SIunits.Diameter ChaLen
+  parameter Modelica.Units.SI.Diameter ChaLen
     "Characteristic length of the cylinder";
 
-  parameter Modelica.SIunits.ThermalConductance hA_nominal(min=0)
+  parameter Modelica.Units.SI.ThermalConductance hA_nominal(min=0)
     "Convective heat transfer coefficient"
-   annotation(Dialog(tab="General", group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature TFlu_nominal
+    annotation (Dialog(tab="General", group="Nominal condition"));
+  parameter Modelica.Units.SI.Temperature TFlu_nominal
     "Fluid temperature at hA_nominal"
-    annotation(Dialog(tab="General", group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature TSur_nominal
+    annotation (Dialog(tab="General", group="Nominal condition"));
+  parameter Modelica.Units.SI.Temperature TSur_nominal
     "Surface temperature at hA_nominal"
-    annotation(Dialog(tab="General", group="Nominal condition"));
+    annotation (Dialog(tab="General", group="Nominal condition"));
 
   Modelica.Blocks.Interfaces.RealInput TSur(unit = "K")
     "Temperature of the external surface of the heat exchanger"
@@ -33,12 +33,12 @@ protected
     "isobaricExpansionCoefficient";
   parameter Real nu_nominal(unit = "m2/s", fixed=false)
     "Kinematic viscosity of the medium";
-  parameter Modelica.SIunits.DynamicViscosity mu_nominal(fixed=false)
+  parameter Modelica.Units.SI.DynamicViscosity mu_nominal(fixed=false)
     "Dynamic viscosity of the medium";
-  parameter Modelica.SIunits.Density rho_nominal(fixed=false)
+  parameter Modelica.Units.SI.Density rho_nominal(fixed=false)
     "Density of the medium";
 
-  parameter Modelica.SIunits.ThermalConductivity k_nominal(fixed=false)
+  parameter Modelica.Units.SI.ThermalConductivity k_nominal(fixed=false)
     "Thermal conductivity of the fluid";
 
   parameter Real Ra_nominal(fixed=false) "Rayleigh number";
@@ -47,16 +47,16 @@ protected
 
   parameter Real h_nominal(unit="W/(m2.K)", fixed=false)
     "Convection coefficient";
-  parameter Modelica.SIunits.Area A(fixed=false)
+  parameter Modelica.Units.SI.Area A(fixed=false)
     "Surface area, deduced from hA_nominal, fluid temperatures and characteristic length";
 
-  Modelica.SIunits.ThermalConductivity k "Thermal conductivity of the fluid";
+  Modelica.Units.SI.ThermalConductivity k "Thermal conductivity of the fluid";
   Real Gr "Grashof number";
   Real B(unit="1/K") "isobaricExpansionCoefficient";
   Real nu(unit = "m2/s") "Kinematic viscosity of the medium";
-  Modelica.SIunits.DynamicViscosity mu "Dynamic viscosity of the medium";
-  Modelica.SIunits.Density rho "Density of the medium";
-  constant Modelica.SIunits.Acceleration g= Modelica.Constants.g_n
+  Modelica.Units.SI.DynamicViscosity mu "Dynamic viscosity of the medium";
+  Modelica.Units.SI.Density rho "Density of the medium";
+  constant Modelica.Units.SI.Acceleration g=Modelica.Constants.g_n
     "Acceleration due to gravity";
 
   Medium.ThermodynamicState state
@@ -66,7 +66,7 @@ protected
   Real Nusselt "Nusselt number";
 
 function nusselt
-  input Modelica.SIunits.ThermalConductivity k "Thermal conductivity";
+    input Modelica.Units.SI.ThermalConductivity k "Thermal conductivity";
   input Real Pr "Prandlt number";
   input Real Ra "Rayleigh number";
   output Real Nu(min=0) "Nusselt number";

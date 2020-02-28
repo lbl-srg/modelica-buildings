@@ -8,7 +8,7 @@ model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
     peakCoo(Min=-5.965*1000, Max=-6.827*1000, Mean=-6.461*1000)));
   Controls.Continuous.LimPID conHea(
     Td=60,
-    initType=Modelica.Blocks.Types.InitPID.InitialState,
+    initType=Modelica.Blocks.Types.Init.InitialState,
     Ti=300,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.1) "Controller for heating"
@@ -16,7 +16,7 @@ model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
   Controls.Continuous.LimPID conCoo(
     Td=60,
     reverseAction=true,
-    initType=Modelica.Blocks.Types.InitPID.InitialState,
+    initType=Modelica.Blocks.Types.Init.InitialState,
     Ti=300,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.1) "Controller for cooling"
