@@ -541,11 +541,6 @@ Buildings.Fluid.MixingVolumes.BaseClasses.ClosedVolume</a>.
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={
-       Ellipse(
-          extent={{-100,98},{100,-102}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.Sphere,
-          fillColor=DynamicSelect({170,213,255}, (1-(T-273.15)/50)*{28,108,200}+(T-273.15)/50*{255,0,0})),
        Text(
           extent={{-60,-26},{56,-58}},
           lineColor={255,255,255},
@@ -554,8 +549,13 @@ Buildings.Fluid.MixingVolumes.BaseClasses.ClosedVolume</a>.
           extent={{-152,100},{148,140}},
           textString="%name",
           lineColor={0,0,255}),
+       Ellipse(
+          extent={{-100,98},{100,-102}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor=DynamicSelect({170,213,255}, min(1, max(0, (1-(T-273.15)/50)))*{28,108,200}+min(1, max(0, (T-273.15)/50))*{255,0,0})),
         Text(
-          extent={{64,40},{-56,-10}},
+          extent={{62,28},{-58,-22}},
           lineColor={255,255,255},
           textString=DynamicSelect("", String(T-273.15, format=".1f")))}));
 end PartialMixingVolume;

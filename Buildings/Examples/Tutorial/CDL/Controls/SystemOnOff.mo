@@ -25,7 +25,7 @@ block SystemOnOff "Controller for system on/off"
     "Room air temperature"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput onSys
-    "System on status"
+    "System on command"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Logical.OnOffController onTOut(bandwidth=1)
     "On/off control based on outside air temperature"
@@ -93,15 +93,15 @@ equation
 <p>
 Controller that takes as an input the outside air temperature <code>TOut</code> and
 the room air temperature <code>TRoo</code>,
-and outputs the system on status <code>onSys</code>.
+and outputs the system on command <code>onSys</code>.
 </p>
 <p>
-The system on status is <code>true</code> if both conditions are satisfied:
-The outside air temperature is below a limit of <code>TOutLow</code>(<i>=16</i>&circ;C, adjustable)
+The system on command is <code>true</code> if both conditions are satisfied:
+The outside air temperature is below a limit of <code>TOutLow</code>(<i>=16</i>&deg;C, adjustable)
 and the room air temperature is below <code>TRooSet-dTRoo/2</code>,
-where <code>TRooSet</code> is the room air temperature setpoint (<i>=20.5</i>&circ;C, adjustable)
+where <code>TRooSet</code> is the room air temperature setpoint (<i>=20.5</i>&deg;C, adjustable)
 and <code>dTRoo</code> is the deadband (<i>=1</i> Kelvin, adjustable).
-Otherwise, the system on status is <code>false</code>.
+Otherwise, the system on command is <code>false</code>.
 </p>
 </html>", revisions="<html>
 <ul>

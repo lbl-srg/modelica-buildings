@@ -119,7 +119,7 @@ annotation (defaultComponentName="senTem",
           fillColor={0,0,0},
           visible=transferHeat),
         Text(
-          extent={{-20,90},{-140,40}},
+         extent={{-20,120},{-140,70}},
           lineColor={0,0,0},
           textString=DynamicSelect("", String(T-273.15, format=".1f")))}),
     Documentation(info="<html>
@@ -167,7 +167,7 @@ This is for
 </li>
 <li>
 October 23, 2017 by Filip Jorissen:<br/>
-Revised implementation of equations 
+Revised implementation of equations
 when <code>transferHeat=true</code>.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/840\">#840</a>.
 </li>

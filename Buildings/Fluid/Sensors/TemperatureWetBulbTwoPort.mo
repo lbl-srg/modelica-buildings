@@ -97,7 +97,7 @@ annotation (defaultComponentName="senWetBul",
           thickness=0.5),
         Line(points={{0,100},{0,50}}, color={0,0,127}),
         Text(
-          extent={{-20,90},{-140,40}},
+         extent={{-20,120},{-140,70}},
           lineColor={0,0,0},
           textString=DynamicSelect("", String(T-273.15, format=".1f")))}),
     Documentation(info="<html>

@@ -71,6 +71,12 @@ This model has no dynamics.
 revisions="<html>
 <ul>
 <li>
+February 25, 2020, by Michael Wetter:<br/>
+Changed icon to display its operating state.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
+</li>
+<li>
 April 30, 2018, by Filip Jorissen:<br/>
 First implementation.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/881\">#881</a>.

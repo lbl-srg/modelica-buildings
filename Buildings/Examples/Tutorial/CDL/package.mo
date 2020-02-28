@@ -41,20 +41,20 @@ It shall be switched off if either the outdoor temperature is above
 <li>
 <p>
 The boiler shall have on/off control that regulates its temperature
-between <i>70</i>&circ;C and <i>90</i>&circ;C.
+between <i>70</i>&deg;C and <i>90</i>&deg;C.
 </p>
 </li>
 <li>
 <p>
 The three-way valve at the boiler return shall be modulated with a PI controller
-to track a return water temperature of <i>60</i>&circ;C.
+to track a return water temperature of <i>60</i>&deg;C.
 </p>
 </li>
 <li>
 <p>
 The heating water supply temperature to the room shall be regulated with a PI controller
-to be <i>50</i>&circ;C if the room temperature is <i>19</i>&circ;C,
-and <i>21</i>&circ;C if the room temperature is <i>21</i>&circ;C,
+to be <i>50</i>&deg;C if the room temperature is <i>19</i>&deg;C,
+and <i>21</i>&deg;C if the room temperature is <i>21</i>&deg;C.
 </p>
 </li>
 </ol>
@@ -73,7 +73,7 @@ we connected constant control signals to the open loop model that is the startin
 In
 <a href=\"modelica://Buildings.Examples.Tutorial.CDL.System2\">
 Buildings.Examples.Tutorial.CDL.System2</a>
-we implement four distinct controllers, which are all open loop but have the correct control input and output connectors.
+we implemented four distinct controllers, which are all open loop but have the correct control input and output connectors.
 These controllers will be refined in the next steps.
 This determines the control architecture.
 </li>
