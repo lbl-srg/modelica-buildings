@@ -65,7 +65,7 @@ model Client "Demand response client"
     annotation (Placement(transformation(extent={{100,40},{120,60}})));
 
 protected
-  Modelica.StateGraph.InitialStep initialStep(nIn=1, nOut=1)
+  Modelica.StateGraph.InitialStep initialStep(nOut=1)
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
