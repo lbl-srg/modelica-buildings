@@ -19,7 +19,7 @@ parameter Real scaDpFanSup_nominal = 1
     "Scaling factor for supply fan pressure lift with NSui number of suites";
 parameter Real scaDpFanRet_nominal = 1
     "Scaling factor for supply fan pressure lift with NSui number of suites";
-  parameter Real l(min=1e-10, max=1) = 6.71E-04
+  parameter Real l(min=1e-10, max=1) = 6.708204E-04
     "Damper leakage, ratio of flow coefficients k(y=0)/k(y=1)"
     annotation(Dialog(tab="Damper coefficients"));
   Modelica.Blocks.Sources.Constant PAtm(k=101325)
