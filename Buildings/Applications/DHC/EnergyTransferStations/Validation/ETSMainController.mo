@@ -1,8 +1,7 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Validation;
 model ETSMainController "ETS main controller validation"
   extends Modelica.Icons.Example;
-  Control.SubstationMainController ETSCon(
-    THys=1)
+  Controls.SubstationMainController ETSCon(THys=1)
     "ETS main controller of the hot and chilled water circuits"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   BaseClasses.Constants cons(

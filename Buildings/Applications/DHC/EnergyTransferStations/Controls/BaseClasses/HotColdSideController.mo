@@ -1,46 +1,44 @@
-within Buildings.Applications.DHC.EnergyTransferStations.BaseClasses;
-block HotColdSideController "State machine"
+within Buildings.Applications.DHC.EnergyTransferStations.Controls.BaseClasses;
+partial block HotColdSideController "State machine"
   extends Modelica.Blocks.Icons.Block;
   replaceable model Inequality =
     Buildings.Controls.OBC.CDL.Continuous.GreaterEqual;
-
   parameter Modelica.SIunits.TemperatureDifference THys(min=0.1)
     "Temperature hysteresis";
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet(final
-    unit="K",
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet(
+    final unit="K",
     displayUnit="degC")
     "Set point temperature-subscript SetCoo: cooling setpoint, SetHea: heating setpoint."
     annotation (Placement(transformation(extent={{-180,
             100},{-140,140}}), iconTransformation(extent={{-120,80},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TTop(final
-    unit="K",
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TTop(
+    final unit="K",
     displayUnit="degC")
     "Temperature at top of tank"
     annotation (Placement(transformation(extent={{
             -180,40},{-140,80}}), iconTransformation(extent={{-120,40},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TBot(final
-     unit="K",
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TBot(
+     final unit="K",
      displayUnit="degC")
     "Temperature at bottom of tank"
-    annotation (Placement(transformation(extent=
-           {{-180,-80},{-140,-40}}), iconTransformation(extent={{-120,-60},{-100,
-            -40}})));
+    annotation (Placement(transformation(extent= {{-180,-80},{-140,-40}}),
+      iconTransformation(extent={{-120,-60},{-100, -40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yVal(unit="1")
     "Control signal for valve (0: closed, or 1: open)."
-    annotation (Placement(transformation(extent={{140,-110},{160,-90}}),
+    annotation (Placement(transformation(extent={{140,-120},{180,-80}}),
         iconTransformation(extent={{100,-70},{120,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput rejFulLoa
     "Reject full surplus load using the district heat exchanger and/or borefield systems."
     annotation (Placement(
-        transformation(extent={{140,-58},{160,-38}}), iconTransformation(extent=
+        transformation(extent={{140,0},{180,40}}),    iconTransformation(extent=
            {{100,50},{120,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput valSta
     "Valve status, true: valve open and part surplus load rejection to the borfield 
-      system is required, false otherwise."
-    annotation (Placement(transformation(extent={{140,-90},{160,-70}}),
+    system is required, false otherwise."
+    annotation (Placement(transformation(extent={{140,-40},{180,0}}),
       iconTransformation(extent={{100,-10},{120,10}})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
-    annotation (Placement(transformation(extent={{-134,130},{-114,150}})));
+    annotation (Placement(transformation(extent={{-130,132},{-110,152}})));
   Modelica.StateGraph.InitialStep noDemand(nIn=2)
     "State if no heat or heat rejection is required"
     annotation (Placement(transformation(extent={{-86,88},{-66,108}})));
@@ -69,16 +67,16 @@ block HotColdSideController "State machine"
   Modelica.StateGraph.TransitionWithSignal t6
     annotation (Placement(transformation(extent={{66,50},{86,70}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(k=1, p=2*THys)
-    annotation (Placement(transformation(extent={{-98,-10},{-78,10}})));
+    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar2(k=1, p=THys)
-    annotation (Placement(transformation(extent={{-90,-42},{-70,-22}})));
+    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar3(k=1, p=0.5*THys)
-    annotation (Placement(transformation(extent={{-90,-72},{-70,-52}})));
+    annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(k=1, p=THys)
     annotation (Placement(transformation(extent={{-100,-150},{-80,-130}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
-    annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
+    annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     "Boolean to real conversion"
     annotation (Placement(transformation(extent={{100,-110},{120,-90}})));
@@ -91,7 +89,7 @@ block HotColdSideController "State machine"
   Inequality greEqu3
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
   Inequality greEqu4
-    annotation (Placement(transformation(extent={{-60,-120},{-40,-100}})));
+    annotation (Placement(transformation(extent={{-60,-102},{-40,-82}})));
   Inequality greEqu5
     annotation (Placement(transformation(extent={{-60,-150},{-40,-130}})));
 equation
@@ -122,39 +120,40 @@ equation
           98}},                    color={0,0,0}));
   connect(greEqu.y, t1.condition) annotation (Line(points={{-78,40},{-46,40},{-46,
           106},{-24,106},{-24,108}}, color={255,0,255}));
-  connect(booToRea.u, or2.y) annotation (Line(points={{98,-100},{90,-100},{90,-80},{82,-80}},
-                          color={255,0,255}));
-  connect(booToRea.u,or2. y) annotation (Line(points={{98,-100},{90,-100},{90,-80},{82,-80}},
-                          color={255,0,255}));
-  connect(valSta, or2.y) annotation (Line(points={{150,-80},{82,-80}}, color={255,0,255}));
-  connect(yVal, booToRea.y) annotation (Line(points={{150,-100},{122,-100}},
+  connect(booToRea.u, or2.y) annotation (Line(points={{98,-100},{90,-100},{90,-20},
+          {82,-20}},      color={255,0,255}));
+  connect(booToRea.u,or2. y) annotation (Line(points={{98,-100},{90,-100},{90,-20},
+          {82,-20}},      color={255,0,255}));
+  connect(valSta, or2.y) annotation (Line(points={{160,-20},{82,-20}}, color={255,0,255}));
+  connect(yVal, booToRea.y) annotation (Line(points={{160,-100},{122,-100}},
                      color={0,0,127}));
   connect(TSet, greEqu4.u2) annotation (Line(points={{-160,120},{-128,120},{-128,
-          -118},{-62,-118}}, color={0,0,127}));
+          -100},{-62,-100}}, color={0,0,127}));
   connect(TSet, greEqu.u1) annotation (Line(points={{-160,120},{-128,120},{-128,
           40},{-102,40}}, color={0,0,127}));
-  connect(addPar.u, TSet) annotation (Line(points={{-100,0},{-128,0},{-128,120},
+  connect(addPar.u, TSet) annotation (Line(points={{-102,0},{-128,0},{-128,120},
           {-160,120}}, color={0,0,127}));
   connect(addPar1.u, TSet) annotation (Line(points={{-102,-140},{-128,-140},{-128,
           120},{-160,120}}, color={0,0,127}));
-  connect(addPar.y, greEqu1.u2) annotation (Line(points={{-76,0},{-62,0}}, color={0,0,127}));
-  connect(addPar3.u, addPar.y) annotation (Line(points={{-92,-62},{-100,-62},{-100,
-          -14},{-70,-14},{-70,0},{-76,0}}, color={0,0,127}));
-  connect(addPar2.u, addPar.y) annotation (Line(points={{-92,-32},{-100,-32},{-100,
-          -14},{-70,-14},{-70,0},{-76,0}}, color={0,0,127}));
-  connect(addPar2.y, greEqu2.u2) annotation (Line(points={{-68,-32},{-66,-32},{-66,-30},{-62,-30}},
+  connect(addPar.y, greEqu1.u2) annotation (Line(points={{-78,0},{-62,0}}, color={0,0,127}));
+  connect(addPar3.u, addPar.y) annotation (Line(points={{-102,-60},{-120,-60},{-120,
+          -14},{-72,-14},{-72,0},{-78,0}}, color={0,0,127}));
+  connect(addPar2.u, addPar.y) annotation (Line(points={{-102,-30},{-110,-30},{-110,
+          -14},{-72,-14},{-72,0},{-78,0}}, color={0,0,127}));
+  connect(addPar2.y, greEqu2.u2) annotation (Line(points={{-78,-30},{-62,-30}},
                                                    color={0,0,127}));
-  connect(addPar3.y, greEqu3.u1)   annotation (Line(points={{-68,-62},{-66,-62},{-66,-60},{-62,-60}},
+  connect(addPar3.y, greEqu3.u1)   annotation (Line(points={{-78,-60},{-62,-60}},
                                                    color={0,0,127}));
   connect(addPar1.y, greEqu5.u1) annotation (Line(points={{-78,-140},{-62,-140}}, color={0,0,127}));
-  connect(or2.u2, rejParLoaSta.active) annotation (Line(points={{58,-88},{-6,-88},{-6,69}}, color={255,0,255}));
+  connect(or2.u2, rejParLoaSta.active) annotation (Line(points={{58,-28},{-6,-28},
+          {-6,69}},                                                                         color={255,0,255}));
   connect(greEqu1.y, t3.condition) annotation (Line(points={{-38,8},{-28,8},{-28,
           34},{-24,34},{-24,68}}, color={255,0,255}));
   connect(greEqu2.y, t5.condition) annotation (Line(points={{-38,-22},{-24,-22},
           {-24,34},{36,34},{36,48}}, color={255,0,255}));
   connect(greEqu3.y, t6.condition) annotation (Line(points={{-38,-60},{-16,-60},
           {-16,30},{76,30},{76,48}}, color={255,0,255}));
-  connect(greEqu4.y, t2.condition) annotation (Line(points={{-38,-110},{-12,-110},
+  connect(greEqu4.y, t2.condition) annotation (Line(points={{-38,-92},{-12,-92},
           {-12,26},{4,26},{4,100},{44,100},{44,108}}, color={255,0,255}));
   connect(greEqu5.y, t4.condition) annotation (Line(points={{-38,-140},{-8,-140},{-8,22},{8,
           22},{8,84},{48,84},{48,86}},

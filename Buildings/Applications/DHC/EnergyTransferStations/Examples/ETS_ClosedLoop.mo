@@ -241,7 +241,7 @@ equation
   connect(supChiWat.port_b, cooVol.ports[2])
     annotation (Line(points={{-18,20},
           {-18,0},{-28,0}},     color={0,127,255}));
-  connect(ETS.hotWatSup, supHeaWat.port_a)
+  connect(ETS.heaWatSup, supHeaWat.port_a)
     annotation (Line(points={{10,52.2},{14,52.2},{14,40}},
                               color={0,127,255}));
   connect(heaVol.ports[1], supHeaWat.port_b)
@@ -257,7 +257,7 @@ equation
           0},{40,20},{100,20}},        color={0,127,255}));
   connect(retHeaWat.port_b, pumHea.port_a)
     annotation (Line(points={{120,20},{120,70},{100,70}}, color={0,127,255}));
-  connect(pumHea.port_b, ETS.hotWatRet)
+  connect(pumHea.port_b,ETS.heaWatRet)
     annotation (Line(points={{80,70},{40,70},{40,56},{10,56}},
                                 color={0,127,255}));
   connect(pumCoo.port_b, ETS.chiWatRet)
@@ -287,7 +287,7 @@ equation
   connect(mulCon.y[6], ETS.TMaxBorEnt)
     annotation (Line(points={{-15,108.833},{-24,108.833},{-24,58},{-11,58}},
                                              color={0,0,127}));
-  connect(ETS.hotWatSup, pre.ports[1])
+  connect(ETS.heaWatSup, pre.ports[1])
     annotation (Line(points={{10,52.2},{32,52.2},{32,50},{60,50}},
                                   color={0,127,255}));
 annotation (

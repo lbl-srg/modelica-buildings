@@ -6,76 +6,77 @@ model AmbientCircuitController "Ambient water circuit controller validation"
     period=250,
     startTime=375)
     "Reject full surplus heating load"
-    annotation (Placement(transformation(extent={{-60,-28},{-40,-8}})));
+    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Modelica.Blocks.Sources.BooleanConstant valCoo(
     k= false)
     "Status of the two way valve on the chilled water circuit side."
-    annotation (Placement(transformation(extent={{-60,2},{-40,22}})));
+    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   BaseClasses.Constants con(
     k={40 + 273.15,20 + 273.15,16 + 273.15,20 + 273.15},
     conNam={"TBorEntMax","TDisHexEnt","TDisHexLvg","TBorLvg"},
     nCon=4)
     "Multiple constant functions"
-    annotation (Placement(transformation(extent={{-20,-28},{0,-8}})));
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Modelica.Blocks.Sources.Pulse TBorEnt(
     amplitude=5,
     width=50,
     period=500,
     offset=25 + 273.15)
     "Borefield entering water temperature"
-    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
-  Buildings.Applications.DHC.EnergyTransferStations.Control.AmbientCircuitController AmbCirCon(
-    dTGeo=5,
-    dTHex=5)
-  "Ambient water circuit control"
-    annotation (Placement(transformation(extent={{22,20},{42,40}})));
+    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
+  Buildings.Applications.DHC.EnergyTransferStations.Controls.AmbientCircuitController
+    conAmbCir(dTGeo=5, dTHex=5) "Ambient water circuit controller"
+    annotation (Placement(transformation(extent={{40,20},{60,40}})));
   Modelica.Blocks.Sources.BooleanPulse reqHea(
     width=50,
     period=500)
     "Heating is required signal"
-    annotation (Placement(transformation(extent={{-60,62},{-40,82}})));
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Modelica.Blocks.Sources.BooleanPulse valHea(
     width=50,
     period=500,
     startTime=250)
     "Status of the two way valve on the hot water circuit side."
-    annotation (Placement(transformation(extent={{-60,32},{-40,52}})));
+    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Modelica.Blocks.Sources.BooleanConstant rejCooFulLoa(
     k=false)
     "Reject cooling full load"
-    annotation (Placement(transformation(extent={{-60,-58},{-40,-38}})));
+    annotation (Placement(transformation(extent={{-60,-62},{-40,-42}})));
   Modelica.Blocks.Sources.BooleanConstant reqCoo(
     k=false)
     "Cooling is required signal"
-    annotation (Placement(transformation(extent={{-60,-88},{-40,-68}})));
+    annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
 equation
-  connect(AmbCirCon.reqHea, reqHea.y) annotation (Line(points={{21,39.8},{-28,39.8},
-          {-28,72},{-39,72}},
+  connect(conAmbCir.reqHea, reqHea.y) annotation (Line(points={{39,39.8},{-28,
+          39.8},{-28,70},{-39,70}},
                            color={255,0,255}));
-  connect(valHea.y, AmbCirCon.valHea) annotation (Line(points={{-39,42},{-30,42},
-          {-30,37.6},{21,37.6}},
+  connect(valHea.y,conAmbCir. valHea) annotation (Line(points={{-39,40},{-30,40},
+          {-30,37.6},{39,37.6}},
                             color={255,0,255}));
-  connect(AmbCirCon.valCoo, valCoo.y) annotation (Line(points={{21,35.2},{-36,35.2},
-          {-36,12},{-39,12}},
+  connect(conAmbCir.valCoo, valCoo.y) annotation (Line(points={{39,35.2},{-36,
+          35.2},{-36,10},{-39,10}},
                           color={255,0,255}));
-  connect(reHeajFulLoa.y, AmbCirCon.rejHeaFulLoa) annotation (Line(points={{-39,-18},
-          {-32,-18},{-32,33},{21,33}},
+  connect(reHeajFulLoa.y,conAmbCir. rejHeaFulLoa) annotation (Line(points={{-39,-20},
+          {-32,-20},{-32,33},{39,33}},
                                    color={255,0,255}));
-  connect(rejCooFulLoa.y, AmbCirCon.rejCooFulLoa) annotation (Line(points={{-39,-48},
-          {-30,-48},{-30,31},{21,31}},
+  connect(rejCooFulLoa.y,conAmbCir. rejCooFulLoa) annotation (Line(points={{-39,-52},
+          {-30,-52},{-30,31},{39,31}},
                                      color={255,0,255}));
-  connect(reqCoo.y, AmbCirCon.reqCoo) annotation (Line(points={{-39,-78},{-28,-78},
-          {-28,29},{21,29}},color={255,0,255}));
-  connect(TBorEnt.y, AmbCirCon.TBorEnt) annotation (Line(points={{1,-50},{12,-50},
-          {12,19.2},{21,19.2}}, color={0,0,127}));
-  connect(con.y[1], AmbCirCon.TBorMaxEnt) annotation (Line(points={{1,-18.75},{2,
-          -18.75},{2,27},{21,27}}, color={0,0,127}));
-  connect(con.y[2], AmbCirCon.TDisHexEnt) annotation (Line(points={{1,-18.25},{4,
-          -18.25},{4,25},{21,25}}, color={0,0,127}));
-  connect(con.y[3], AmbCirCon.TDisHexLvg) annotation (Line(points={{1,-17.75},{6,
-          -17.75},{6,23},{21,23}}, color={0,0,127}));
-  connect(con.y[4], AmbCirCon.TBorLvg) annotation (Line(points={{1,-17.25},{8,-17.25},
-          {8,21.2},{21,21.2}}, color={0,0,127}));
+  connect(reqCoo.y,conAmbCir. reqCoo) annotation (Line(points={{-39,-80},{-28,
+          -80},{-28,29},{39,29}},
+                            color={255,0,255}));
+  connect(TBorEnt.y,conAmbCir. TBorEnt) annotation (Line(points={{1,-40},{12,
+          -40},{12,19.2},{39,19.2}},
+                                color={0,0,127}));
+  connect(con.y[1],conAmbCir. TBorMaxEnt) annotation (Line(points={{1,-0.75},{2,
+          -0.75},{2,27},{39,27}},  color={0,0,127}));
+  connect(con.y[2],conAmbCir. TDisHexEnt) annotation (Line(points={{1,-0.25},{4,
+          -0.25},{4,25},{39,25}},  color={0,0,127}));
+  connect(con.y[3],conAmbCir. TDisHexLvg) annotation (Line(points={{1,0.25},{6,
+          0.25},{6,23},{39,23}},   color={0,0,127}));
+  connect(con.y[4],conAmbCir. TBorLvg) annotation (Line(points={{1,0.75},{8,
+          0.75},{8,21.2},{39,21.2}},
+                               color={0,0,127}));
 annotation (
         Diagram(coordinateSystem(preserveAspectRatio=false,
                 extent={{-100,-100},{100,100}}),
