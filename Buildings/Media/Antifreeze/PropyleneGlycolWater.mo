@@ -43,7 +43,7 @@ package PropyleneGlycolWater
     Modelica.Units.SI.Density d=d_const "Density of medium";
     Modelica.Units.SI.MassFraction[nX] X={1}
       "Mass fractions (= (component mass)/total mass  m_i/m)";
-    final Modelica.Units.SI.SpecificHeatCapacity R=0
+    final Modelica.Units.SI.SpecificHeatCapacity R_s=0
       "Gas constant (of mixture if applicable)";
     final Modelica.Units.SI.MolarMass MM=MM_const
       "Molar mass (of mixture or single fluid)";

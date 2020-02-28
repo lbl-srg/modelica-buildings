@@ -58,10 +58,10 @@ as required from medium model \"" + mediumName + "\".");
     h = (T - reference_T)*dryair.cp * (1 - Xi[Water]) +
         ((T-reference_T) * steam.cp + h_fg) * Xi[Water];
 
-    R = dryair.R*(1 - X_steam) + steam.R*X_steam;
+    R_s = dryair.R*(1 - X_steam) + steam.R*X_steam;
     //
-    u = h - R*T;
-    d = p/(R*T);
+    u = h - R_s*T;
+    d = p/(R_s*T);
     /* Note, u and d are computed under the assumption that the volume of the liquid
          water is negligible with respect to the volume of air and of steam
       */
@@ -131,7 +131,7 @@ Function to set the state for given pressure, enthalpy and species concentration
 
 redeclare function extends gasConstant "Gas constant"
 algorithm
-    R := dryair.R*(1 - state.X[Water]) + steam.R*state.X[Water];
+    R_s := dryair.R*(1 - state.X[Water]) + steam.R*state.X[Water];
   annotation (
     Inline=true);
 end gasConstant;
