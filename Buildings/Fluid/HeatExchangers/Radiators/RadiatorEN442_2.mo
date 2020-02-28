@@ -290,7 +290,8 @@ equation
         Rectangle(
           extent={{-80,60},{80,-60}},
           lineColor={0,0,0},
-          fillColor={95,95,95},
+          fillColor=DynamicSelect({95,95,95},
+          min(1, -Q_flow/Q_flow_nominal)*{255,0,0}+(1-min(1, -Q_flow/Q_flow_nominal))*{95,95,95}),
           fillPattern=FillPattern.Solid),
         Line(
           points={{-66,30},{66,30}}),
@@ -363,6 +364,12 @@ with one plate of water carying fluid, and a height of 0.42 meters.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 21, 2020, by Michael Wetter:<br/>
+Changed icon to display its operating state.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
+</li>
 <li>
 November 17, 2016, by Filip Jorissen:<br/>
 Added pressure drop equations and parameters.<br/>
@@ -453,5 +460,6 @@ January 30, 2009 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(graphics={Rectangle(extent={{-62,78},{-46,50}}, lineColor={28,108,200})}));
 end RadiatorEN442_2;

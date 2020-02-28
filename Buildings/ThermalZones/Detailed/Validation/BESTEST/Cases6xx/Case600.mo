@@ -6,14 +6,14 @@ model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
     annualCoo(Min=-6.137*3.6e9, Max=-7.964*3.6e9, Mean=-6.832*3.6e9),
     peakHea(Min=3.437*1000, Max=4.354*1000, Mean=4.000*1000),
     peakCoo(Min=-5.965*1000, Max=-6.827*1000, Mean=-6.461*1000)));
-  Controls.Continuous.LimPID           conHea(
+  Controls.Continuous.LimPID conHea(
     Td=60,
     initType=Modelica.Blocks.Types.InitPID.InitialState,
     Ti=300,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.1) "Controller for heating"
     annotation (Placement(transformation(extent={{-72,30},{-64,38}})));
-  Controls.Continuous.LimPID           conCoo(
+  Controls.Continuous.LimPID conCoo(
     Td=60,
     reverseAction=true,
     initType=Modelica.Blocks.Types.InitPID.InitialState,
@@ -50,9 +50,11 @@ model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
     annotation (Placement(transformation(extent={{-92,30},{-84,38}})));
   BaseClasses.DaySchedule TSetCoo(table=[0.0,273.15 + 27]) "Cooling setpoint"
     annotation (Placement(transformation(extent={{-92,8},{-84,16}})));
-  Modelica.Blocks.Math.Mean PHea(f=1/3600) "Hourly averaged heating power"
+  Controls.OBC.CDL.Continuous.MovingMean PHea(delta=3600)
+  "Hourly averaged heating power"
     annotation (Placement(transformation(extent={{-20,48},{-12,56}})));
-  Modelica.Blocks.Math.Mean PCoo(f=1/3600) "Hourly averaged cooling power"
+  Controls.OBC.CDL.Continuous.MovingMean PCoo(delta=3600)
+  "Hourly averaged cooling power"
     annotation (Placement(transformation(extent={{-20,-8},{-12,0}})));
 equation
   connect(TRooAir.T,conHea. u_m) annotation (Line(
@@ -79,7 +81,7 @@ equation
       points={{-49.6,12},{-42,12},{-42,21.6},{-36.8,21.6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(multiplex2.y,sum1. u) annotation (Line(
+  connect(multiplex2.y,sum1.u) annotation (Line(
       points={{-27.6,24},{-20.8,24}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -124,6 +126,15 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
+January 21, 2020, by Michael Wetter:<br/>
+Changed calculation of time averaged values to use
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.MovingMean\">
+Buildings.Controls.OBC.CDL.Continuous.MovingMean</a>
+because this does not trigger a time event every hour.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1714\">issue 1714</a>.
+</li>
+<li>
 July 15, 2012, by Michael Wetter:<br/>
 Changed computation of power to use hourly averaged power
 instead of instantaneous power in order to avoid peaks
@@ -134,7 +145,6 @@ were obtained using simulators with discrete time steps.
 Changed base class to be
 <a href=\"modelica://Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case600FF\">
 Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case600FF</a>.
-
 </li>
 <li>
 July 14, 2012, by Michael Wetter:<br/>
