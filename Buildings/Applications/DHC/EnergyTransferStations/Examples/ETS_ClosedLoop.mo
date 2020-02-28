@@ -1,6 +1,8 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Examples;
 model ETS_ClosedLoop
   "ETS example using EIRchiller and constant speed pumps"
+  extends Modelica.Icons.Example;
+
   package Medium = Buildings.Media.Water "Medium model";
 
   parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal=datChi.mEva_flow_nominal
@@ -211,8 +213,7 @@ equation
     annotation (Line(points={{-98,-50},{-70,-50},{-70,-54},{-42,-54}},
                                                   color={0,0,127}));
   connect(disPum.ports[1], ETS.disWatSup)
-    annotation (Line(points={{-20,-50},{
-          -1.2,-50},{-1.2,49}},
+    annotation (Line(points={{-20,-50},{-2,-50},{-2,50}},
                             color={0,127,255}));
   connect(heaFloPos.port, cooVol.heatPort)
     annotation (Line(points={{-60,-10},{-40,-10}}, color={191,0,0}));
@@ -241,83 +242,72 @@ equation
     annotation (Line(points={{-18,20},
           {-18,0},{-28,0}},     color={0,127,255}));
   connect(ETS.hotWatSup, supHeaWat.port_a)
-    annotation (Line(points={{11,52.8},{
-          14,52.8},{14,40}},  color={0,127,255}));
+    annotation (Line(points={{10,52.2},{14,52.2},{14,40}},
+                              color={0,127,255}));
   connect(heaVol.ports[1], supHeaWat.port_b)
     annotation (Line(points={{32,0},{14,0},{14,20}},      color={0,127,255}));
   connect(pumCoo.m_flow_in, mSecCooRet.y)
     annotation (Line(points={{-70,82},{-70,86},{-128,86},{-128,70},{-138,70}},
                                                            color={0,0,127}));
   connect(ETS.chiWatSup, supChiWat.port_a)
-    annotation (Line(points={{-11,52.8},
-          {-18,52.8},{-18,40}},  color={0,127,255}));
+    annotation (Line(points={{-10,52.2},{-18,52.2},{-18,40}},
+                                 color={0,127,255}));
   connect(heaVol.ports[2], retHeaWat.port_a)
     annotation (Line(points={{28,0},{40,
           0},{40,20},{100,20}},        color={0,127,255}));
   connect(retHeaWat.port_b, pumHea.port_a)
     annotation (Line(points={{120,20},{120,70},{100,70}}, color={0,127,255}));
   connect(pumHea.port_b, ETS.hotWatRet)
-    annotation (Line(points={{80,70},{40,70},
-          {40,55.2},{11,55.2}}, color={0,127,255}));
+    annotation (Line(points={{80,70},{40,70},{40,56},{10,56}},
+                                color={0,127,255}));
   connect(pumCoo.port_b, ETS.chiWatRet)
-    annotation (Line(points={{-60,70},{-40,70},
-          {-40,55},{-11,55}},     color={0,127,255}));
+    annotation (Line(points={{-60,70},{-40,70},{-40,56},{-10,56}},
+                                  color={0,127,255}));
   connect(disLoa.ports[1],disPD. port_b)
     annotation (Line(points={{60,-50},{40,
           -50}},                      color={0,127,255}));
   connect(ETS.disWatRet,disPD. port_a)
-    annotation (Line(points={{1.2,49},{1.2,
-          -50},{20,-50}},
+    annotation (Line(points={{2,50},{2,-50},{20,-50}},
                       color={0,127,255}));
   connect(mulCon.y[1], ETS.TSetHea)
-    annotation (Line(points={{-15,107.167},{-24,107.167},{-24,68.8},{-10.8,68.8}},
+    annotation (Line(points={{-15,107.167},{-24,107.167},{-24,66},{-11,66}},
                                              color={0,0,127}));
   connect(mulCon.y[2], ETS.TSetCoo)
-    annotation (Line(points={{-15,107.5},{-24,
-          107.5},{-24,70.2},{-10.8,70.2}}, color={0,0,127}));
+    annotation (Line(points={{-15,107.5},{-24,107.5},{-24,67.8},{-11,67.8}},
+                                           color={0,0,127}));
   connect(mulCon.y[3], ETS.TSetCooMin)
-    annotation (Line(points={{-15,107.833},{-24,107.833},{-24,67.4},{-10.8,67.4}},
+    annotation (Line(points={{-15,107.833},{-24,107.833},{-24,64},{-11,64}},
                                                  color={0,0,127}));
   connect(mulCon.y[4], ETS.TMinConEnt)
-    annotation (Line(points={{-15,108.167},{-24,108.167},{-24,65.8},{-10.8,65.8}},
+    annotation (Line(points={{-15,108.167},{-24,108.167},{-24,62},{-11,62}},
                                                  color={0,0,127}));
   connect(mulCon.y[5], ETS.TMaxEvaEnt)
-    annotation (Line(points={{-15,108.5},{
-          -24,108.5},{-24,60.4},{-10.8,60.4}}, color={0,0,127}));
+    annotation (Line(points={{-15,108.5},{-24,108.5},{-24,60},{-11,60}},
+                                               color={0,0,127}));
   connect(mulCon.y[6], ETS.TMaxBorEnt)
-    annotation (Line(points={{-15,108.833},{-24,108.833},{-24,58},{-10.8,58}},
+    annotation (Line(points={{-15,108.833},{-24,108.833},{-24,58},{-11,58}},
                                              color={0,0,127}));
   connect(ETS.hotWatSup, pre.ports[1])
-    annotation (Line(points={{11,52.8},{32,52.8},
-          {32,50},{60,50}},       color={0,127,255}));
-annotation (Icon(coordinateSystem(preserveAspectRatio=false),
-              graphics={
-                  Ellipse(lineColor = {75,138,73},
-                          fillColor={255,255,255},
-                          fillPattern = FillPattern.Solid,
-                          extent={{-98,-100},{98,98}}),
-                  Polygon(lineColor = {0,0,255},
-                          fillColor = {75,138,73},
-                          pattern = LinePattern.None,
-                          fillPattern = FillPattern.Solid,
-                          points={{-30,64},{70,4},{-30,-56},{-30,64}})}),
-                  Diagram(coordinateSystem(
-                            preserveAspectRatio=false,
-                            extent={{-180,-80},{180,140}}),
-                            graphics={Line(points={{-22,22}}, color={28,108,200}),
-                  Text(extent={{134,-20},{174,-40}},
-                          lineColor={238,46,47},
-                          textString="Heating Side"),
-                  Text(extent={{-160,-20},{-122,-40}},
-                        lineColor={28,108,200},
-                        textString="Cooling Side"),
-                  Text(extent={{-20,-72},{22,-84}},
-                       lineColor={217,67,180},
-                       textString="District Side")}),
- __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Examples/ETS_ClosedLoop.mos"
-                  "Simulate and plot"),
-                   experiment(StopTime=18000,Tolerance=1e-06,
-                   __Dymola_Algorithm="Cvode"),
+    annotation (Line(points={{10,52.2},{32,52.2},{32,50},{60,50}},
+                                  color={0,127,255}));
+annotation (
+      Diagram(coordinateSystem(
+                preserveAspectRatio=false,
+                extent={{-180,-100},{180,140}}),
+                graphics={Line(points={{-22,22}}, color={28,108,200}),
+      Text(extent={{134,-20},{174,-40}},
+              lineColor={238,46,47},
+              textString="Heating Side"),
+      Text(extent={{-160,-20},{-122,-40}},
+            lineColor={28,108,200},
+            textString="Cooling Side"),
+      Text(extent={{-20,-72},{22,-84}},
+           lineColor={217,67,180},
+           textString="District Side")}),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Examples/ETS_ClosedLoop.mos"
+    "Simulate and plot"),
+     experiment(StopTime=18000,Tolerance=1e-06,
+     __Dymola_Algorithm="Cvode"),
 Documentation(info="<html>
 <p>
 Example that simulates the performance of the energy transfer station 

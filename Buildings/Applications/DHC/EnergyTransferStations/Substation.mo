@@ -3,7 +3,6 @@ model Substation
   "5th generation of district heating and cooling plant"
     package Medium = Buildings.Media.Water "Medium model";
 
-  //------------------------------SideWalk parameters-------------------------------
     final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
         max(mSecHea_flow_nominal,mSecCoo_flow_nominal)
     "Nominal mass flow rate";
@@ -13,8 +12,6 @@ model Substation
       "Secondary(building side) cooling circuit nominal water flow rate";
     parameter Modelica.SIunits.TemperatureDifference dTChi=2
       "Temperature difference between entering and leaving water of EIR chiller(+ve)";
-
- //----------------------------------Generanl---------------------------------------
     parameter Modelica.Fluid.Types.Dynamics fixedEnergyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
       "Formulation of energy balance for mixing volume at inlet and outlet"
       annotation (Dialog(group="Dynamics"));
@@ -22,10 +19,10 @@ model Substation
       "= true, if actual temperature at port is computed"
       annotation (Dialog(tab="Advanced"));
 
- //-------------------------------Design Parameters----------------------------------
     final parameter Modelica.SIunits.PressureDifference dp_nominal(displayUnit="Pa")=1000
       "Pressure difference at nominal flow rate"
         annotation (Dialog(group="Design Parameter"));
+
   //----------------------water to water chiller or heat pump system-----------------
     parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal=datChi.mEva_flow_nominal
      "Condenser nominal water flow rate" annotation (Dialog(group="EIR CHILLER system"));
@@ -143,35 +140,35 @@ model Substation
     Modelica.Blocks.Interfaces.RealInput TSetCooMin(final unit="K",displayUnit="degC")
     "Minimum cooling setpoint temperature"
     annotation (Placement(transformation(extent={{-320,244},{-300,264}}),
-                    iconTransformation(extent={{-116,66},{-100,82}})));
+                    iconTransformation(extent={{-120,30},{-100,50}})));
 
     Modelica.Blocks.Interfaces.RealInput TMaxBorEnt(final unit="K",displayUnit="degC")
     "Maximum allowed enetring water temperature to the borefiled holes"
          annotation (Placement(transformation(extent={{-320,-84},{-300,-64}}),
-                               iconTransformation(extent={{-116,-28},{-100,-12}})));
+                               iconTransformation(extent={{-120,-30},{-100,-10}})));
 
     Modelica.Blocks.Interfaces.RealInput TMinConEnt(final unit="K",displayUnit="degC")
       "Minimum condenser entering water temperature"
          annotation (Placement(transformation(extent={{-320,230},{-300,250}}),
-                     iconTransformation(extent={{-116,50},{-100,66}})));
+                     iconTransformation(extent={{-120,10},{-100,30}})));
     Modelica.Blocks.Interfaces.RealInput TMaxEvaEnt(final unit="K",displayUnit="degC")
     "Maximum evaporator entering water temperature"
         annotation (
-      Placement(transformation(extent={{-320,216},{-300,236}}), iconTransformation(extent={{-116,-4},
-            {-100,12}})));
+      Placement(transformation(extent={{-320,216},{-300,236}}), iconTransformation(extent={{-120,
+            -10},{-100,10}})));
 
     Modelica.Blocks.Interfaces.RealInput TSetHea( final unit="K",displayUnit="degC")
      "Heating setpoint temperature"
     annotation (Placement(transformation(extent={{-320,272},{-300,292}}),
-        iconTransformation(extent={{-116,80},{-100,96}})));
+        iconTransformation(extent={{-120,50},{-100,70}})));
     Modelica.Blocks.Interfaces.RealInput TSetCoo( final unit="K",displayUnit="degC")
      "Cooling setpoint temperature"
     annotation (Placement(transformation(extent={{-320,258},{-300,278}}),
-        iconTransformation(extent={{-116,94},{-100,110}})));
+        iconTransformation(extent={{-120,68},{-100,88}})));
     Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yRejHeaInd
     "Heat rejection index"      annotation (Placement(transformation(extent={{300,
             -100},{320,-80}}),
-                            iconTransformation(extent={{100,-2},{128,26}})));
+                            iconTransformation(extent={{100,60},{140,100}})));
 
  //--------------------------fller system------------------------------------------
   Fluid.Chillers.ElectricEIR chi(
@@ -441,14 +438,14 @@ model Substation
     p(start=Medium.p_default))
       "Chilled water return from the building."
       annotation (Placement(transformation(extent={{-314,50},{-294,70}}),
-        iconTransformation(extent={{-120,-60},{-100,-40}})));
+        iconTransformation(extent={{-110,-50},{-90,-30}})));
     Modelica.Fluid.Interfaces.FluidPort_b chiWatSup(
     h_outflow(start=Medium.h_default, nominal=Medium.h_default),
     redeclare final package Medium = Medium,
     p(start=Medium.p_default))
       "Chilled water supply to the building"
       annotation (Placement(transformation(extent={{-294,30},{-314,50}}),
-        iconTransformation(extent={{-100,-82},{-120,-62}})));
+        iconTransformation(extent={{-90,-88},{-110,-68}})));
 
     //------Building heating side connection-----------------------------------------
     Modelica.Fluid.Interfaces.FluidPort_a hotWatRet(
@@ -457,14 +454,14 @@ model Substation
       p(start=Medium.p_default)) "Hot water return from the building."
       annotation (
        Placement(transformation(extent={{290,30},{310,50}}), iconTransformation(
-       extent={{100,-58},{120,-38}})));
+       extent={{90,-50},{110,-30}})));
     Modelica.Fluid.Interfaces.FluidPort_b hotWatSup(
     h_outflow(start=Medium.h_default, nominal=Medium.h_default),
     redeclare final package Medium = Medium,
     p(start=Medium.p_default)) "Hot water supply to the building."
     annotation (
       Placement(transformation(extent={{310,50},{290,70}}), iconTransformation(
-          extent={{120,-82},{100,-62}})));
+          extent={{110,-88},{90,-68}})));
 
  //------Building distrcit circuit connection----------------------------------------
    Modelica.Fluid.Interfaces.FluidPort_a disWatSup(
@@ -472,15 +469,15 @@ model Substation
     redeclare final package Medium = Medium,
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "District water supply port." annotation (Placement(transformation(extent={
-            {290,-202},{310,-182}}), iconTransformation(extent={{-22,-120},{-2,
-            -100}})));
+            {290,-202},{310,-182}}), iconTransformation(extent={{-30,-110},{-10,
+            -90}})));
    Modelica.Fluid.Interfaces.FluidPort_b disWatRet(
       p(start=Medium.p_default),
       redeclare final package Medium = Medium,
       h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "District water return port."
       annotation (Placement(transformation(extent={{310,-160},{290,-140}}),
-          iconTransformation(extent={{22,-120},{2,-100}})));
+          iconTransformation(extent={{30,-110},{10,-90}})));
 //------hydraulic header------------------------------------------------------------
     BaseClasses.HydraulicHeader heaSupHed(
     redeclare package Medium = Medium,

@@ -1,5 +1,6 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Validation;
 model AmbientCircuitController "Ambient water circuit controller validation"
+  extends Modelica.Icons.Example;
 
   Modelica.Blocks.Sources.BooleanPulse reHeajFulLoa(width=50,
     period=250,
@@ -75,17 +76,7 @@ equation
           -17.75},{6,23},{21,23}}, color={0,0,127}));
   connect(con.y[4], AmbCirCon.TBorLvg) annotation (Line(points={{1,-17.25},{8,-17.25},
           {8,21.2},{21,21.2}}, color={0,0,127}));
-annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-80},{100,100}}),
-     graphics={
-        Ellipse(lineColor = {75,138,73},
-                fillColor={255,255,255},
-                fillPattern = FillPattern.Solid,
-                extent={{-98,-100},{98,98}}),
-        Polygon(lineColor = {0,0,255},
-                fillColor = {75,138,73},
-                pattern = LinePattern.None,
-                fillPattern = FillPattern.Solid,
-                points={{-30,64},{70,4},{-30,-56},{-30,64}})}),
+annotation (
         Diagram(coordinateSystem(preserveAspectRatio=false,
                 extent={{-100,-100},{100,100}}),
         graphics={Line(points={{-22,22}}, color={28,108,200})}),

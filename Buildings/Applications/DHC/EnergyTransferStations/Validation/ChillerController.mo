@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Validation;
 model ChillerController "Chiller controller validation"
-
+  extends Modelica.Icons.Example;
   Control.ChillerController chiCon
   "EIR chiller controller"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
@@ -53,17 +53,7 @@ equation
   connect(cons.y[8], chiCon.TConEnt) annotation (Line(points={{-19,-29.125},{
           -16,-29.125},{-16,-39.8},{39,-39.8}}, color={0,0,127}));
 
-annotation (Icon(coordinateSystem(preserveAspectRatio=false),
-      graphics={
-        Ellipse(lineColor = {75,138,73},
-                fillColor={255,255,255},
-                fillPattern = FillPattern.Solid,
-                extent={{-98,-100},{98,98}}),
-        Polygon(lineColor = {0,0,255},
-                fillColor = {75,138,73},
-                pattern = LinePattern.None,
-                fillPattern = FillPattern.Solid,
-                points={{-30,64},{70,4},{-30,-56},{-30,64}})}),
+annotation (
         Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{100,100}}),
                 graphics={Line(points={{-22,22}}, color={28,108,200})}),
        experiment(StopTime=1250,Tolerance=1e-06,__Dymola_Algorithm="Dassl"),
