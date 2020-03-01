@@ -84,6 +84,16 @@ partial model PartialOpenLoop "Partial model with open loop system"
       rotation=90,
       origin={-50,-70})));
 
+  Buildings.Fluid.FixedResistances.Junction mix(
+    redeclare package Medium = MediumW,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal={mRadVal_flow_nominal,-mRad_flow_nominal,mRad_flow_nominal
+         - mRadVal_flow_nominal},
+    dp_nominal={100,-8000,6750}) "Mixer between valve and radiators"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-50,-110})));
   Buildings.Fluid.FixedResistances.Junction spl(
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -94,6 +104,16 @@ partial model PartialOpenLoop "Partial model with open loop system"
         rotation=90,
         origin={-50,-190})));
 
+  Buildings.Fluid.FixedResistances.Junction spl2(
+    redeclare package Medium = MediumW,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    dp_nominal={0,0,0},
+    m_flow_nominal={mRad_flow_nominal,-mRadVal_flow_nominal,-mRad_flow_nominal
+         + mRadVal_flow_nominal}) "Flow splitter in return from radiator"
+                                  annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={60,-110})));
   Buildings.Fluid.FixedResistances.Junction mix2(
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -243,6 +263,11 @@ equation
       points={{-50,-180},{-50,-160}},
       color={0,127,255},
       smooth=Smooth.None));
+  connect(valRad.port_2, mix.port_1)
+                                  annotation (Line(
+      points={{-50,-140},{-50,-120}},
+      color={0,127,255},
+      smooth=Smooth.None));
   connect(spl1.port_3, valBoi.port_3)
                                     annotation (Line(
       points={{-40,-230},{50,-230}},
@@ -270,6 +295,10 @@ equation
       points={{60,-160},{60,-180}},
       color={0,127,255},
       smooth=Smooth.None));
+  connect(spl2.port_2, spl4.port_1) annotation (Line(
+      points={{60,-120},{60,-140}},
+      color={0,127,255},
+      smooth=Smooth.None));
   connect(valRad.port_3, spl4.port_3)
                                    annotation (Line(
       points={{-40,-150},{50,-150}},
@@ -277,6 +306,18 @@ equation
       smooth=Smooth.None));
   connect(spl.port_3, mix2.port_3) annotation (Line(
       points={{-40,-190},{50,-190}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(mix.port_3, spl2.port_3) annotation (Line(
+      points={{-40,-110},{50,-110}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(mix.port_2, pumRad.port_a) annotation (Line(
+      points={{-50,-100},{-50,-80}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(rad.port_b, spl2.port_1) annotation (Line(
+      points={{20,-10},{60,-10},{60,-100}},
       color={0,127,255},
       smooth=Smooth.None));
 
@@ -304,10 +345,6 @@ equation
       points={{-240,70},{-220,70},{-220,50},{-340,50},{-340,30},{-318,30}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(rad.port_b, spl4.port_1) annotation (Line(points={{20,-10},{40,-10},{
-          40,-140},{60,-140}}, color={0,127,255}));
-  connect(valRad.port_2, pumRad.port_a)
-    annotation (Line(points={{-50,-140},{-50,-80}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
 This partial model implements the HVAC system model and a simple room, which is here modeled
