@@ -1,6 +1,6 @@
 within Buildings.Examples.VAVReheat.Controls;
 model ModeSelector "Finite State Machine for the operational modes"
-  Modelica.StateGraph.InitialStep initialStep
+  Modelica.StateGraph.InitialStep initialStep(nIn=0)
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.StateGraph.Transition start "Starts the system"
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
