@@ -116,9 +116,9 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     each mOut_flow_nominal=m_flow_nominal,
     each mRec_flow_nominal=m_flow_nominal,
     each mExh_flow_nominal=m_flow_nominal,
-    each dpDamExh_nominal=(0.45)*1.2*(1)^2/2,
-    each dpDamOut_nominal=(0.45)*1.2*(1)^2/2,
-    each dpDamRec_nominal=(0.45)*1.2*(1)^2/2,
+    each dpDamExh_nominal=0.27,
+    each dpDamOut_nominal=0.27,
+    each dpDamRec_nominal=0.27,
     each dpFixExh_nominal=10,
     each dpFixOut_nominal=10,
     each dpFixRec_nominal=10) "Economizer"

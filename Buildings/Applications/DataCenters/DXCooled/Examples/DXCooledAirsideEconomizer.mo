@@ -145,9 +145,9 @@ model DXCooledAirsideEconomizer
     mRec_flow_nominal=mA_flow_nominal,
     mExh_flow_nominal=mA_flow_nominal,
     use_inputFilter=false,
-    dpDamExh_nominal=(0.45)*1.2*(1)^2/2,
-    dpDamOut_nominal=(0.45)*1.2*(1)^2/2,
-    dpDamRec_nominal=(0.45)*1.2*(1)^2/2,
+    dpDamExh_nominal=0.27,
+    dpDamOut_nominal=0.27,
+    dpDamRec_nominal=0.27,
     dpFixExh_nominal=20,
     dpFixOut_nominal=20,
     dpFixRec_nominal=20) "Airside economizer"
@@ -165,14 +165,14 @@ model DXCooledAirsideEconomizer
   Buildings.Fluid.Actuators.Dampers.Exponential dam1(
     redeclare package Medium = Medium,
     m_flow_nominal=mA_flow_nominal,
-    dpDamper_nominal=(0.45)*1.2*(1)^2/2)
+    dpDamper_nominal=0.27)
     "Open only when free cooling mode is activated"
     annotation (Placement(transformation(extent={{-20,2},{0,22}})));
   Buildings.Fluid.Actuators.Dampers.Exponential dam2(
     redeclare package Medium = Medium,
     m_flow_nominal=mA_flow_nominal,
     y_start=0,
-    dpDamper_nominal=(0.45)*1.2*(1)^2/2) "Open when mechanical cooling is activated"
+    dpDamper_nominal=0.27) "Open when mechanical cooling is activated"
     annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemMixAir(
     redeclare package Medium = Medium,

@@ -229,9 +229,9 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     linearized=true,
     riseTime=15,
     y_start=0,
-    dpDamExh_nominal=(0.45)*1.2*(1)^2/2,
-    dpDamOut_nominal=(0.45)*1.2*(1)^2/2,
-    dpDamRec_nominal=(0.45)*1.2*(1)^2/2,
+    dpDamExh_nominal=0.27,
+    dpDamOut_nominal=0.27,
+    dpDamRec_nominal=0.27,
     dpFixExh_nominal=10,
     dpFixOut_nominal=10,
     dpFixRec_nominal=10) "Economizer"

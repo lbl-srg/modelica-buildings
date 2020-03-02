@@ -37,9 +37,9 @@ model AirsideEconomizer
     mRec_flow_nominal=mA_flow_nominal,
     mExh_flow_nominal=mA_flow_nominal,
     use_inputFilter=false,
-    dpDamExh_nominal=(0.45)*1.2*(1)^2/2,
-    dpDamOut_nominal=(0.45)*1.2*(1)^2/2,
-    dpDamRec_nominal=(0.45)*1.2*(1)^2/2,
+    dpDamExh_nominal=0.27,
+    dpDamOut_nominal=0.27,
+    dpDamRec_nominal=0.27,
     dpFixExh_nominal=20,
     dpFixOut_nominal=20,
     dpFixRec_nominal=20) "Airside economizer"

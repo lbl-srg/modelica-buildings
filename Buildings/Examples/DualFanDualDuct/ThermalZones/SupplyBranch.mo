@@ -40,8 +40,8 @@ model SupplyBranch "Supply branch of a dual duct system"
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
     y_start=0,
-    dpDamper_nominal=(0.45)*1.2*(1)^2/2,
-    dpFixed_nominal=(40) - (0.45)*1.2*(1)^2/2) "VAV damper for hot deck" annotation (Placement(transformation(
+    dpDamper_nominal=0.27,
+    dpFixed_nominal=40 - 0.27) "VAV damper for hot deck" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,-30})));
@@ -51,8 +51,8 @@ model SupplyBranch "Supply branch of a dual duct system"
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
     y_start=0,
-    dpDamper_nominal=(0.45)*1.2*(1)^2/2,
-    dpFixed_nominal=(40) - (0.45)*1.2*(1)^2/2) "VAV damper for cold deck" annotation (Placement(transformation(
+    dpDamper_nominal=0.27,
+    dpFixed_nominal=40 - 0.27) "VAV damper for cold deck" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={100,-30})));

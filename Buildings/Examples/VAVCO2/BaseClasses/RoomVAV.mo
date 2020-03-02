@@ -15,8 +15,8 @@ model RoomVAV "Model for CO2 emitted by people"
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     from_dp=false,
-    dpDamper_nominal=(0.45)*1.2*(1)^2/2,
-    dpFixed_nominal=1E2 - (0.45)*1.2*(1)^2/2,
+    dpDamper_nominal=0.27,
+    dpFixed_nominal=1E2 - 0.27,
     final l=l)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

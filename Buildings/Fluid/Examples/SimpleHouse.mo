@@ -98,8 +98,8 @@ model SimpleHouse
     redeclare package Medium = MediumAir,
     from_dp=true,
     m_flow_nominal=mAir_flow_nominal,
-    dpDamper_nominal=(0.45)*1.2*(1)^2/2,
-    dpFixed_nominal=(dpAir_nominal) - (0.45)*1.2*(1)^2/2) "Damper" annotation (Placement(transformation(extent={{-10,10},{10,
+    dpDamper_nominal=0.27,
+    dpFixed_nominal=dpAir_nominal - 0.27) "Damper" annotation (Placement(transformation(extent={{-10,10},{10,
             -10}}, origin={72,120})));
 
   Movers.FlowControlled_dp fan(
