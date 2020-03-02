@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Controls;
-model SubstationMainController "Main controller of the substation"
+model Supervisory "Energy transfer station supervisory controller"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Modelica.SIunits.TemperatureDifference THys(min=0.1)=THys
@@ -80,11 +80,9 @@ model SubstationMainController "Main controller of the substation"
     "Cold side valve status, true when rejection of part or full cooling load is required"
     annotation (Placement( transformation(extent={{220,-90},{240,-70}}),
       iconTransformation(extent={{100,40},{120,60}})));
-  HotSideController conHotSid(THys=THys)
-    "Hot side controller"
+  HotSide conHotSid(THys=THys) "Hot side controller"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
-  ColdSideController conColSid(THys=THys)
-    "Cold side controller"
+  ColdSide conColSid(THys=THys) "Cold side controller"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 equation
   connect(TTanHeaTop, conHotSid.TTop) annotation (Line(points={{-120,50},{-80,
@@ -139,4 +137,4 @@ Removed the tank minimum charging flow signal because the primary pumps are cons
 </li>
 </ul>
 </html>"));
-end SubstationMainController;
+end Supervisory;

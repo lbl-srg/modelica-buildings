@@ -24,7 +24,7 @@ model AmbientCircuitController "Ambient water circuit controller validation"
     offset=25 + 273.15)
     "Borefield entering water temperature"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
-  Buildings.Applications.DHC.EnergyTransferStations.Controls.AmbientCircuitController
+  Buildings.Applications.DHC.EnergyTransferStations.Controls.AmbientCircuit
     conAmbCir(dTGeo=5, dTHex=5) "Ambient water circuit controller"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
   Modelica.Blocks.Sources.BooleanPulse reqHea(

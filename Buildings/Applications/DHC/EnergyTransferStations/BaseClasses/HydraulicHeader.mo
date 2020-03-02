@@ -73,7 +73,7 @@ annotation (Icon(graphics={
    fillPattern=FillPattern.HorizontalCylinder,
    fillColor={0,127,255},
    textString="%name")}),
-   defaultComponentName="hydHdr",
+   defaultComponentName="hdr",
 Documentation(info="<html>
 <h4>Hydraulic header</h4>
 <p>

@@ -1,7 +1,7 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Validation;
 model ChillerController "Chiller controller validation"
   extends Modelica.Icons.Example;
-  Controls.ChillerController chiCon "EIR chiller controller"
+  Controls.HRChiller chiCon "EIR chiller controller"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Modelica.Blocks.Sources.BooleanPulse heaMod(
     width=50,

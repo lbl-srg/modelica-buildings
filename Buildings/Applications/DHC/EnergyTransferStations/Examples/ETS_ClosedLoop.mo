@@ -28,7 +28,7 @@ model ETS_ClosedLoop
   parameter Modelica.SIunits.MassFlowRate mSecCoo=7
    "Secondary(building side) cooling water actual mass flow rate";
 
-  Buildings.Applications.DHC.EnergyTransferStations.Substation ETS(
+  Buildings.Applications.DHC.EnergyTransferStations.FifthGenHRChiller ETS(
     datChi=datChi,
     mCon_flow_nominal=mCon_flow_nominal,
     mEva_flow_nominal=mEva_flow_nominal,

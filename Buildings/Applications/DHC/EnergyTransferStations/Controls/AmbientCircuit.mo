@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Controls;
-model AmbientCircuitController "Controller for the ambient water circuit"
+model AmbientCircuit "Ambient water circuit controller"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Modelica.SIunits.TemperatureDifference dTGeo
@@ -363,4 +363,4 @@ Added the three way valve controller and the documentation.
 
 </ul>
 </html>"));
-end AmbientCircuitController;
+end AmbientCircuit;

@@ -1,6 +1,5 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Controls;
-block HotSideController
-  "State machine controls the operation of the heating generating source (EIR chiller)
+block HotSide "State machine controls the operation of the heating generating source (EIR chiller)
    , two way heating valve, borfield and district pumps"
   extends
     Buildings.Applications.DHC.EnergyTransferStations.Controls.BaseClasses.HotColdSideController(
@@ -127,4 +126,4 @@ Added the the documentation.
 </li>
 </ul>
 </html>"));
-end HotSideController;
+end HotSide;

@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Controls;
-model ChillerController "Controller of the EIR chiller"
+model HRChiller "Heat recovery chiller controller"
 
   extends Modelica.Blocks.Icons.Block;
 
@@ -339,4 +339,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ChillerController;
+end HRChiller;

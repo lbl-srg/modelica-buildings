@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.EnergyTransferStations;
-model Substation
-  "5th generation of district heating and cooling plant"
+model FifthGenHRChiller
+  "Energy transfer station model for fifth generation DHC systems"
     package Medium = Buildings.Media.Water "Medium model";
 
     final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
@@ -318,16 +318,14 @@ model Substation
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=270,
       origin={110,-110})));
   //// CONTROLLERS
-  Controls.SubstationMainController ETSCon(THys=THys)
-    "ETS supervisory controller"
+  Controls.Supervisory ETSCon(THys=THys) "ETS supervisory controller"
     annotation (Placement(transformation(extent={{-198,200},{-178,220}})));
-  Controls.ChillerController chiCon
+  Controls.HRChiller chiCon
     "Control of the EIR chiller model and associated three way valves"
     annotation (Placement(transformation(extent={{-120,200},{-100,220}})));
-  Controls.PrimaryPumpsConstantSpeed pumPrimCon
-    "Control of the primary pumps"
+  Controls.PrimaryPumpsConstantSpeed pumPrimCon "Control of the primary pumps"
     annotation (Placement(transformation(extent={{-120,142},{-100,162}})));
-  Controls.AmbientCircuitController ambCon(dTGeo=dTGeo, dTHex=dTHex)
+  Controls.AmbientCircuit ambCon(dTGeo=dTGeo, dTHex=dTHex)
     "Control of the ambient circuit"
     annotation (Placement(transformation(extent={{-144,-82},{-124,-62}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiMDisHex(k=mHex_flow_nominal)
@@ -695,7 +693,7 @@ equation
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(ETSCon.reqHea,pumPrimCon.reqHea)  annotation (Line(points={{-177,219},
-          {-140,219},{-140,162},{-121.4,162}},              color={255,0,255},
+          {-140,219},{-140,158},{-122,158}},                color={255,0,255},
       pattern=LinePattern.Dot));
   connect(pumHexDis.port_a, TDisHex.port_b)
     annotation (Line(points={{110,-100},{110,-80}},color={0,127,255},
@@ -795,7 +793,7 @@ equation
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(ETSCon.reqCoo,pumPrimCon.reqCoo)  annotation (Line(
-      points={{-177,201},{-166,201},{-166,142.2},{-121.4,142.2}},
+      points={{-177,201},{-166,201},{-166,146},{-122,146}},
       color={255,0,255},
       pattern=LinePattern.Dot));
   connect(ETSCon.valHeaPos, valSupHea.y) annotation (Line(
@@ -830,11 +828,11 @@ equation
       points={{-177,204.8},{-162,204.8},{-162,-66},{-145,-66}},
       color={255,0,255},
       pattern=LinePattern.Dot));
-  connect(pumPrimCon.yPumCon, pumCon.y) annotation (Line(points={{-99,160},{10,
-          160},{10,144}},                                                                      color={0,0,127},
+  connect(pumPrimCon.yPumCon, pumCon.y) annotation (Line(points={{-98,158},{10,
+          158},{10,144}},                                                                      color={0,0,127},
       pattern=LinePattern.Dot));
-  connect(pumPrimCon.yPumEva, pumEva.y) annotation (Line(points={{-99,144},{-76,
-          144},{-76,142}},                                                                       color={0,0,127},
+  connect(pumPrimCon.yPumEva, pumEva.y) annotation (Line(points={{-98,146},{-76,
+          146},{-76,142}},                                                                       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(valBor.port_2, pumBor.port_a) annotation (Line(points={{-70,-120},{
           -70,-140}},            color={0,127,255},
@@ -1110,4 +1108,4 @@ First implementation
 </li>
 </ul>
 </html>"));
-end Substation;
+end FifthGenHRChiller;

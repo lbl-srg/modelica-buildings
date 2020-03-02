@@ -1,67 +1,43 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Controls;
 model PrimaryPumpsConstantSpeed
-  "Controller of the constant speed condenser and the evaporator water pumps."
+  "Controller of constant speed condenser and evaporator pumps"
   extends Modelica.Blocks.Icons.Block;
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput reqCoo
-    "Cooling is required Boolean signal"
-    annotation (Placement(transformation(extent={{-128,4},{-100,32}}),
-        iconTransformation(extent={{-128,-112},{-100,-84}})));
+    "True if cooling is required"
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput reqHea
-    "Heating is required Boolean signal"
-    annotation (Placement(transformation(extent={{-128,26},{-100,54}}),
-        iconTransformation(extent={{-128,86},{-100,114}})));
+    "True if heating is required"
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
+        iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumCon
-    "Condenser pump speed outlet signal"  annotation (Placement(transformation(
-          extent={{200,144},{232,176}}), iconTransformation(extent={{100,70},{120,
-            90}})));
+    "Condenser pump control signal"       annotation (Placement(transformation(
+          extent={{100,40},{140,80}}),   iconTransformation(extent={{100,40},{
+            140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumEva
-    "Evaporator pump speed outlet signal" annotation (Placement(transformation(
-          extent={{200,-96},{232,-64}}), iconTransformation(extent={{100,-90},{120,
-            -70}})));
+    "Evaporator pump control signal"      annotation (Placement(transformation(
+          extent={{100,-80},{140,-40}}), iconTransformation(extent={{100,-80},{
+            140,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant shuOffSig(k=0)
-    "HeatPump, condenser pump  and evaporator pump shut off signal =0"
-   annotation (Placement(transformation(extent={{80,0},{100,20}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1
-    annotation (Placement(transformation(extent={{120,22},{140,42}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Or or2
-    annotation (Placement(transformation(extent={{-40,22},{-20,42}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant pumOnSig(k=1)
-    "Pump turn on signal "
-    annotation (Placement(transformation(extent={{80,40},{100,60}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or2 "Logical OR"
+    annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
+    "Boolean to real conversion"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
-  connect(yPumEva,yPumEva) annotation (Line(points={{216,-80},{216,-80}}, color={0,0,127}));
-  connect(reqHea, or2.u1) annotation (Line(
-      points={{-114,40},{-78,40},{-78,32},{-42,32}},
-      color={255,0,255},
-      pattern=LinePattern.Dot));
-  connect(reqCoo, or2.u2) annotation (Line(points={{-114,18},{-78,18},{-78,24},{
-          -42,24}},   color={255,0,255},
-      pattern=LinePattern.Dot));
-  connect(shuOffSig.y, swi1.u3) annotation (Line(
-      points={{102,10},{106,10},{106,24},{118,24}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(or2.y, swi1.u2) annotation (Line(points={{-18,32},{118,32}},
-                color={255,0,255}));
-  connect(yPumCon,yPumCon) annotation (Line(points={{216,160},{216,160}},
-                                                 color={0,0,127}));
-  connect(swi1.y,yPumCon)  annotation (Line(points={{142,32},{158,32},{158,160},
-          {216,160}},
-        color={0,0,127}));
-  connect(swi1.y,yPumEva)  annotation (Line(points={{142,32},{158,32},{158,-80},
-          {216,-80}},
-        color={0,0,127}));
-  connect(swi1.u1, pumOnSig.y) annotation (Line(points={{118,40},{110,40},{110,
-          50},{102,50}}, color={0,0,127}));
 
-annotation (defaultComponentName="pumCon",Icon(
-          coordinateSystem(preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}})),
-         Diagram(
-          coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{200,180}})),
+  connect(reqCoo, or2.u2) annotation (Line(points={{-120,-60},{-80,-60},{-80,-8},
+          {-72,-8}}, color={255,0,255}));
+  connect(reqHea, or2.u1) annotation (Line(points={{-120,60},{-80,60},{-80,0},{
+          -72,0}}, color={255,0,255}));
+  connect(or2.y, booToRea.u)
+    annotation (Line(points={{-48,0},{-12,0}}, color={255,0,255}));
+  connect(booToRea.y, yPumCon) annotation (Line(points={{12,0},{60,0},{60,60},{
+          120,60}}, color={0,0,127}));
+  connect(booToRea.y, yPumEva) annotation (Line(points={{12,0},{60,0},{60,-60},
+          {120,-60}}, color={0,0,127}));
+annotation (defaultComponentName="conPumPri",
 Documentation(info="<html>
 <p>
 The block computes the control signals for

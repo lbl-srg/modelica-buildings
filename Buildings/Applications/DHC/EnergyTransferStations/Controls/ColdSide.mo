@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Controls;
-model ColdSideController "State machine controls the operation of the cooling generating source 
-  (EIR chiller), two way cooling valve, borfield and district pumps "
+model ColdSide "State machine controls the operation of the cooling generating source 
+  (EIR chiller), two way cooling valve, borfield and district pumps"
   extends
     Buildings.Applications.DHC.EnergyTransferStations.Controls.BaseClasses.HotColdSideController(
     THys=THys,
@@ -166,4 +166,4 @@ Added the the documentation.
 </li>
 </ul>
 </html>"));
-end ColdSideController;
+end ColdSide;
