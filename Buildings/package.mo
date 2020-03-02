@@ -445,9 +445,13 @@ its class name ends with the string <code>Beta</code>.
                            Buildings.Fluid.Actuators.Dampers.PressureIndependent<br/>
                            Buildings.Fluid.Actuators.Dampers.VAVBoxExponential
         </td>
-        <td valign=\"top\">Merged <code>VAVBoxExponential</code> (now retired) into <code>Exponential</code>.<br/>
+        <td valign=\"top\">Merged <code>VAVBoxExponential</code> into <code>Exponential</code>.<br/>
+                           <code>Exponential</code> now provides all modeling capabilities previously
+                           implemented in <code>VAVBoxExponential</code> which is no more needed and
+                           has been retired from the library.<br/>
                            New parameters <code>dpDamper_nominal</code> and <code>dpFixed_nominal</code>
-                           have been introduced, in consistency with the valve models.<br/>
+                           have been introduced in <code>Exponential</code>, in consistency with the
+                           valve models.<br/>
                            Parameter <code>k0</code> has been replaced by a leakage coefficient.<br/>
                            For Dymola, a conversion script makes this change. However the script will
                            not make the <code>each</code> keyword persist in array declarations. The
