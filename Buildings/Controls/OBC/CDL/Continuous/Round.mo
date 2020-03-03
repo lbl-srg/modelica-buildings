@@ -37,7 +37,11 @@ Icon(coordinateSystem(
         Text(
           lineColor={0,0,127},
           extent={{-60,-88},{54,-34}},
-          textString="%n")}),
+          textString="%n"),
+        Text(
+          extent={{226,60},{106,10}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}),
 Documentation(info="<html>
 <p>
 Block that outputs the input after rounding it to <code>n</code> digits.
@@ -65,6 +69,10 @@ Hence, the block outputs
 </pre>
 </html>", revisions="<html>
 <ul>
+<li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
 <li>
 September 14, 2017, by Jianjun Hu:<br/>
 First implementation, based on the implementation of the

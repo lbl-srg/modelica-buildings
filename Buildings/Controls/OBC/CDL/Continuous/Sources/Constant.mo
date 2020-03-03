@@ -38,7 +38,11 @@ equation
         Text(
           extent={{-150,-150},{150,-110}},
           lineColor={0,0,0},
-          textString="k=%k")}),
+          textString="k=%k"),
+        Text(
+          extent={{226,60},{106,10}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}),
     Documentation(info="<html>
 <p>
 Block that outputs a constant signal <code>y = k</code>,
@@ -48,5 +52,17 @@ where <code>k</code> is a real-valued parameter.
 <img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Continuous/Constant.png\"
      alt=\"Constant.png\" />
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
+<li>
+March 16, 2017, by Jianjun Hu:<br/>
+First implementation, based on the implementation of the
+Modelica Standard Library.
+</li>
+</ul>
 </html>"));
 end Constant;

@@ -447,6 +447,10 @@ or the control literature.
 revisions="<html>
 <ul>
 <li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
+<li>
 February 25, 2020, by Michael Wetter:<br/>
 Changed icon to display the output value.
 </li>
@@ -559,7 +563,7 @@ First implementation.
           pattern=LinePattern.None,
           lineColor={0,0,0}),
         Text(
-          extent={{92,28},{-28,-22}},
+          extent={{226,60},{106,10}},
           lineColor={0,0,0},
-          textString=DynamicSelect("", String(y, leftJustified = false, significantDigits=2)))}));
+          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}));
 end LimPID;
