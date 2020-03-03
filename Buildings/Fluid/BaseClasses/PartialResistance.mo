@@ -68,7 +68,19 @@ equation
           fillPattern=FillPattern.Backward,
           fillColor={0,128,255},
           pattern=LinePattern.None,
-          lineColor={255,255,255})}),
+          lineColor={255,255,255}),
+        Rectangle(
+          extent=DynamicSelect({{-100,10},{-100,10}}, {{100,10},{100+200*max(-1, min(0, m_flow/(abs(m_flow_nominal)))),-10}}),
+          lineColor={28,108,200},
+          fillColor={255,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Rectangle(
+          extent=DynamicSelect({{-100,10},{-100,10}}, {{-100,10},{-100+200*min(1, max(0, m_flow/abs(m_flow_nominal))),-10}}),
+          lineColor={28,108,200},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None)}),
           defaultComponentName="res",
 Documentation(info="<html>
 <p>
@@ -85,6 +97,12 @@ this base class.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 26, 2020, by Michael Wetter:<br/>
+Changed icon to display its operating state.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
+</li>
 <li>
 October 25, 2019, by Jianjun Hu:<br/>
 Improved icon graphics annotation. This is for

@@ -205,6 +205,5 @@ in change-over mode.
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
   __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Controls/Validation/MixingValveControl.mos"
-    "Simulate and plot"),
-    Icon(coordinateSystem(extent={{-180,-200},{180,200}})));
+    "Simulate and plot"));
 end MixingValveControl;

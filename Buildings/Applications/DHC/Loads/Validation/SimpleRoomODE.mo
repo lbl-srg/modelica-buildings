@@ -188,6 +188,5 @@ one requiring heating, the second requiring cooling.
   "),
   __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/SimpleRoomODE.mos"
   "Simulate and plot"),
-    Diagram(coordinateSystem(extent={{-180,-200},{180,200}})),
-    Icon(coordinateSystem(extent={{-180,-200},{180,200}})));
+    Diagram(coordinateSystem(extent={{-180,-200},{180,200}})));
 end SimpleRoomODE;
