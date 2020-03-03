@@ -796,11 +796,11 @@ equation
       points={{-177,201},{-166,201},{-166,146},{-122,146}},
       color={255,0,255},
       pattern=LinePattern.Dot));
-  connect(ETSCon.valHeaPos, valSupHea.y) annotation (Line(
+  connect(ETSCon.yValCon, valSupHea.y) annotation (Line(
       points={{-177,209},{-152,209},{-152,-2},{8,-2},{8,-8}},
       color={28,108,200},
       pattern=LinePattern.DashDot));
-  connect(ETSCon.valCooPos, valSupCoo.y) annotation (Line(
+  connect(ETSCon.yValEva, valSupCoo.y) annotation (Line(
       points={{-177,207},{-152,207},{-152,-8},{-84,-8}},
       color={28,108,200},
       pattern=LinePattern.DashDot));
@@ -813,7 +813,7 @@ equation
       color={255,0,255},
       pattern=LinePattern.Dot));
   connect(ETSCon.valHea, ambCon.valHea) annotation (Line(
-      points={{-177,217},{-158,217},{-158,-64},{-145,-64}},
+      points={{-177,213},{-158,213},{-158,-64},{-145,-64}},
       color={255,0,255},
       pattern=LinePattern.Dot));
   connect(ETSCon.valCoo, ambCon.valCoo) annotation (Line(

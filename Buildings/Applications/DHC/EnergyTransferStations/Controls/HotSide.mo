@@ -8,9 +8,9 @@ block HotSide "State machine controls the operation of the heating generating so
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput reqHea
     "True if heating is required from heating generating source, false otherwise."
     annotation (
-      Placement(transformation(extent={{140,128},{160,148}}),
+      Placement(transformation(extent={{140,120},{180,160}}),
                                                             iconTransformation(
-          extent={{100,80},{120,100}})));
+          extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Continuous.Min min
     annotation (Placement(transformation(extent={{-96,-110},{-76,-90}})));
 equation
@@ -22,16 +22,18 @@ equation
           -160},{-70,-160},{-70,-148},{-62,-148}}, color={0,0,127}));
   connect(min.u2, TBot) annotation (Line(points={{-98,-106},{-112,-106},{-112,-60},
           {-160,-60}}, color={0,0,127}));
-  connect(TBot, greEqu1.u1) annotation (Line(points={{-160,-60},{-112,-60},{-112,18},
-          {-66,18},{-66,8},{-62,8}}, color={0,0,127}));
-  connect(TBot, greEqu2.u1) annotation (Line(points={{-160,-60},{-112,-60},{-112,
-          18},{-66,18},{-66,-22},{-62,-22}}, color={0,0,127}));
+  connect(TBot, greEqu1.u1) annotation (Line(points={{-160,-60},{-112,-60},{
+          -112,18},{-66,18},{-66,20},{-62,20}},
+                                     color={0,0,127}));
+  connect(TBot, greEqu2.u1) annotation (Line(points={{-160,-60},{-112,-60},{
+          -112,18},{-66,18},{-66,-20},{-62,-20}},
+                                             color={0,0,127}));
   connect(TBot, greEqu3.u2) annotation (Line(points={{-160,-60},{-112,-60},{-112,
           18},{-66,18},{-66,-68},{-62,-68}}, color={0,0,127}));
   connect(min.y, greEqu4.u1) annotation (Line(points={{-74,-100},{-70,-100},{
-          -70,-92},{-62,-92}},   color={0,0,127}));
+          -70,-100},{-62,-100}}, color={0,0,127}));
   connect(runHP.active, reqHea) annotation (Line(points={{6,109},{6,106},{24,
-          106},{24,138},{150,138}}, color={255,0,255}));
+          106},{24,140},{160,140}}, color={255,0,255}));
   connect(rejFulLoaSta.active, rejFulLoa)  annotation (Line(points={{56,49},{56,
           20},{160,20}},                                                                         color={255,0,255}));
   connect(rejFulLoaSta.active, or2.u1) annotation (Line(points={{56,49},{56,-20},

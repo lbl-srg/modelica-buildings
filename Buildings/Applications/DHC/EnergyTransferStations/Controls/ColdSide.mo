@@ -14,50 +14,49 @@ model ColdSide "State machine controls the operation of the cooling generating s
     "True if cooling is required from cooling generating source, false otherwise."
     annotation (Placement(
         transformation(extent={{140,132},{160,152}}),
-                                                    iconTransformation(extent={{100,80},{120,100}})));
+                                                    iconTransformation(extent={{100,60},
+            {140,100}})));
   Buildings.Controls.OBC.CDL.Logical.OnOffController frePro(bandwidth=1)
     "Freeze protection override"
-    annotation (Placement(transformation(extent={{50,-38},{70,-18}})));
+    annotation (Placement(transformation(extent={{50,-150},{70,-130}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=273.15 + 3.5)
-    annotation (Placement(transformation(extent={{10,-20},{30,0}})));
+    annotation (Placement(transformation(extent={{30,-110},{50,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Or or1
-    annotation (Placement(transformation(extent={{88,-30},{108,-10}})));
+    annotation (Placement(transformation(extent={{90,-110},{110,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max
     annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
 equation
   connect(runHP.active, reqCoo) annotation (Line(points={{6,109},{6,108},{24,
           108},{24,142},{150,142}},color={255,0,255}));
-  connect(con.y, frePro.reference) annotation (Line(points={{32,-10},{40,-10},{
-          40,-22},{48,-22}}, color={0,0,127}));
-  connect(or1.u2, frePro.y) annotation (Line(points={{86,-28},{72,-28}}, color={255,0,255}));
-  connect(or1.u1, rejFulLoaSta.active) annotation (Line(points={{86,-20},{76,-20},
-          {76,12},{56,12},{56,49}}, color={255,0,255}));
-  connect(or1.y, rejFulLoa) annotation (Line(points={{110,-20},{116,-20},{116,20},
-          {160,20}},  color={255,0,255}));
-  connect(or1.y, or2.u1) annotation (Line(points={{110,-20},{116,-20},{116,-48},
-          {40,-48},{40,-20},{58,-20}}, color={255,0,255}));
-  connect(yVal,booToRea. y) annotation (Line(points={{160,-100},{122,-100}},
-                     color={0,0,127}));
-  connect(valSta,or2. y)  annotation (Line(points={{160,-20},{142,-20},{142,40},
-          {122,40},{122,-20},{82,-20}},                                 color={255,0,255}));
+  connect(con.y, frePro.reference) annotation (Line(points={{52,-100},{60,-100},
+          {60,-120},{40,-120},{40,-134},{48,-134}},
+                             color={0,0,127}));
+  connect(or1.u2, frePro.y) annotation (Line(points={{88,-108},{80,-108},{80,
+          -140},{72,-140}},                                              color={255,0,255}));
+  connect(or1.u1, rejFulLoaSta.active) annotation (Line(points={{88,-100},{80,
+          -100},{80,-80},{36,-80},{36,0},{56,0},{56,49}},
+                                    color={255,0,255}));
+  connect(or1.y, rejFulLoa) annotation (Line(points={{112,-100},{130,-100},{130,
+          20},{160,20}},
+                      color={255,0,255}));
   connect(or2.u2, rejParLoaSta.active) annotation (Line(points={{58,-28},{-6,-28},
           {-6,69}},                                                                         color={255,0,255}));
-  connect(booToRea.u,or2. y) annotation (Line(points={{98,-100},{90,-100},{90,-20},
-          {82,-20}},      color={255,0,255}));
-  connect(or1.y,or2. u1) annotation (Line(points={{110,-20},{116,-20},{116,-48},
-          {40,-48},{40,-20},{58,-20}}, color={255,0,255}));
+  connect(or1.y,or2. u1) annotation (Line(points={{112,-100},{120,-100},{120,
+          -48},{40,-48},{40,-20},{58,-20}},
+                                       color={255,0,255}));
   connect(max.u1, TTop) annotation (Line(points={{-102,-94},{-112,-94},{-112,60},
           {-160,60}}, color={0,0,127}));
-  connect(frePro.u, TTop) annotation (Line(points={{48,-34},{44,-34},{44,-44},{
-          -66,-44},{-66,22},{-112,22},{-112,60},{-160,60}}, color={0,0,127}));
-  connect(TTop, greEqu1.u1) annotation (Line(points={{-160,60},{-112,60},{-112,22},{-66,
-          22},{-66,8},{-62,8}}, color={0,0,127}));
+  connect(frePro.u, TTop) annotation (Line(points={{48,-146},{0,-146},{0,-40},{
+          -66,-40},{-66,22},{-112,22},{-112,60},{-160,60}}, color={0,0,127}));
+  connect(TTop, greEqu1.u1) annotation (Line(points={{-160,60},{-112,60},{-112,
+          22},{-66,22},{-66,20},{-62,20}},
+                                color={0,0,127}));
   connect(TTop, greEqu2.u1) annotation (Line(points={{-160,60},{-112,60},{-112,
-          22},{-66,22},{-66,-22},{-62,-22}}, color={0,0,127}));
+          22},{-66,22},{-66,-20},{-62,-20}}, color={0,0,127}));
   connect(TTop, greEqu3.u2) annotation (Line(points={{-160,60},{-112,60},{-112,
           22},{-66,22},{-66,-68},{-62,-68}}, color={0,0,127}));
-  connect(max.y, greEqu4.u1) annotation (Line(points={{-78,-100},{-70,-100},{-70,
-          -92},{-62,-92}},       color={0,0,127}));
+  connect(max.y, greEqu4.u1) annotation (Line(points={{-78,-100},{-70,-100},{
+          -70,-100},{-62,-100}}, color={0,0,127}));
   connect(max.u2, TBot) annotation (Line(points={{-102,-106},{-120,-106},{-120,
           -60},{-160,-60}}, color={0,0,127}));
   connect(TBot, greEqu5.u2) annotation (Line(points={{-160,-60},{-120,-60},{-120,
@@ -66,11 +65,7 @@ equation
           32},{-102,32}}, color={0,0,127}));
   annotation (
   defaultComponentName="conColSid",
-  Diagram(coordinateSystem(extent={{-140,-160},{140,160}}), graphics={Text(
-          extent={{-36,-32},{40,-40}},
-          lineColor={28,108,200},
-          textString="reject full load if tank exceeds setpoint by 3*THys",
-          horizontalAlignment=TextAlignment.Left)}),
+  Diagram(coordinateSystem(extent={{-140,-160},{140,160}})),
           Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
 Documentation(info="<html>
 <p>
