@@ -448,9 +448,9 @@ its class name ends with the string <code>Beta</code>.
         <td valign=\"top\">Merged <code>VAVBoxExponential</code> into <code>Exponential</code>.<br/>
                            <code>Exponential</code> now provides all modeling capabilities previously
                            implemented in <code>VAVBoxExponential</code> which is no more needed and
-                           has been retired from the library.<br/>
+                           has been removed from the library.<br/>
                            New parameters <code>dpDamper_nominal</code> and <code>dpFixed_nominal</code>
-                           have been introduced in <code>Exponential</code>, in consistency with the
+                           have been introduced in <code>Exponential</code>, consistent with the
                            valve models.<br/>
                            Parameter <code>k0</code> has been replaced by a leakage coefficient.<br/>
                            For Dymola, a conversion script makes this change. However the script will
