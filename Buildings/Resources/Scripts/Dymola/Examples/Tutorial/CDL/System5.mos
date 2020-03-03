@@ -1,0 +1,5 @@
+simulateModel("Buildings.Examples.Tutorial.CDL.System5", startTime=1296000, stopTime=1382400, method="Cvode", tolerance=1e-06, resultFile="ControlDescriptionLanguageSystem5");
+createPlot(id=2, position={35, 35, 1209, 915}, y={"senTOut.T", "boi.T", "temSup.T", "temRet.T", "temRoo.T"}, autoscale=true, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}}, range2={0.20000000000000004, 0.9000000000000001}, timeUnit="d", displayUnits={"degC", "degC", "degC", "degC", "degC"});
+createPlot(id=2, position={35, 35, 1209, 216}, y={"conBoiRet.yVal"}, range={360.0, 384.0, -0.5, 1.0}, grid=true, subPlot=2, colors={{28,108,200}}, timeUnit="h");
+createPlot(id=2, position={35, 35, 1209, 281}, y={"conEquSta.onBoi", "conSysSta.onSys"}, range={360.0, 384.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}, {28,108,200}}, timeUnit="h");
+

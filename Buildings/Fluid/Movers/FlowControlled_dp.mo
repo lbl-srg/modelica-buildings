@@ -111,7 +111,14 @@ equation
   connect(senRelPre.p_rel, dp_actual) annotation (Line(points={{50.5,-26.35},{
           50.5,-38},{74,-38},{74,50},{110,50}},
                                            color={0,0,127}));
-  annotation (defaultComponentName="fan",
+  annotation (
+    Icon(graphics={
+        Text(
+          extent={{-40,126},{-160,76}},
+          lineColor={0,0,127},
+          visible=inputType == Buildings.Fluid.Types.InputType.Continuous or inputType == Buildings.Fluid.Types.InputType.Stages,
+          textString=DynamicSelect("dp", if inputType == Buildings.Fluid.Types.InputType.Continuous then String(dp_in, format=".0f") else String(stage)))}),
+  defaultComponentName="fan",
   Documentation(info="<html>
 <p>
 This model describes a fan or pump with prescribed head.
@@ -156,6 +163,12 @@ Buildings.Fluid.Movers.Validation.FlowControlled_dpSystem</a>.
 </html>",
       revisions="<html>
 <ul>
+<li>
+February 21, 2020, by Michael Wetter:<br/>
+Changed icon to display its operating stage.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
+</li>
 <li>
 May 5, 2017, by Filip Jorissen:<br/>
 Added parameters, documentation and functionality for
@@ -253,37 +266,5 @@ Revised implementation to allow zero flow rate.
     by Michael Wetter:<br/>
        Added model to the Buildings library.
 </ul>
-</html>"),
-    Icon(graphics={
-        Line(
-          points={{2,50},{100,50}},
-          color={0,0,0},
-          smooth=Smooth.None),
-        Text(
-          visible = inputType == Buildings.Fluid.Types.InputType.Continuous,
-          extent={{20,142},{104,108}},
-          textString="dp_in"),
-        Text(extent={{60,66},{110,52}},
-          lineColor={0,0,127},
-          textString="dp"),
-        Rectangle(
-          visible=use_inputFilter,
-          extent={{-34,40},{32,100}},
-          lineColor={0,0,0},
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          visible=use_inputFilter,
-          extent={{-34,100},{32,40}},
-          lineColor={0,0,0},
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid),
-        Text(
-          visible=use_inputFilter,
-          extent={{-22,92},{20,46}},
-          lineColor={0,0,0},
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid,
-          textString="M",
-          textStyle={TextStyle.Bold})}));
+</html>"));
 end FlowControlled_dp;
