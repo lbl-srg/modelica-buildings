@@ -49,7 +49,7 @@ model OptimalStartCooling
     annotation (Placement(transformation(extent={{120,0},{140,20}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    Ti(displayUnit="s") = 1,
+    Ti=1,
     yMax=1,
     yMin=0,
     reverseAction=true) "PI control signal for the cooling power"

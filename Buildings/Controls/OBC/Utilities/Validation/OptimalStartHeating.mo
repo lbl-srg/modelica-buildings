@@ -37,7 +37,7 @@ model OptimalStartHeating
     annotation (Placement(transformation(extent={{-192,-20},{-172,0}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    Ti(displayUnit="s") = 1.5,
+    Ti=1.5,
     yMax=1,
     yMin=0) "PI control for space heating"
             annotation (Placement(transformation(extent={{160,0},{180,20}})));

@@ -46,7 +46,7 @@ model OptimalStartHeatingCooling
     annotation (Placement(transformation(extent={{140,0},{160,20}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conPID1(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    Ti(displayUnit="s") = 3,
+    Ti=3,
     yMax=1,
     yMin=0,
     reverseAction=true) "PI control for space cooling"
@@ -70,7 +70,7 @@ model OptimalStartHeatingCooling
     annotation (Placement(transformation(extent={{140,40},{160,60}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    Ti(displayUnit="s") = 1,
+    Ti=1,
     yMax=1,
     yMin=0) "PI control for space heating"
     annotation (Placement(transformation(extent={{180,40},{200,60}})));
