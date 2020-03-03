@@ -1,0 +1,6 @@
+simulateModel("Buildings.Controls.OBC.Utilities.Validation.OptimalStartHeatingCooling", method="Cvode", stopTime=1728000, tolerance=1e-06, resultFile="OptimalStartHeatingCooling");
+createPlot(id=1, position={2, 1, 449, 335}, subPlot=1, y={"optSta.tOpt"}, range={0.0, 604800.0, 0, 20000.0}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={2, 1, 449, 335}, subPlot=2, y={"optSta.optCoo.tOpt","optSta.optHea.tOpt"}, range={0.0, 604800.0, 16, 24}, grid=true, colors={{238,46,47}, {0,140,72}});
+createPlot(id=2, position={458, 1, 445, 332}, subPlot=1, y={"optSta.optOn"}, range={0.0, 604800.0, 0, 20000.0}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={458, 1, 445, 332}, subPlot=2, y={"optSta.optCoo.optOn","optSta.optHea.optOn"}, range={0.0, 604800.0, 0, 20000.0}, grid=true, colors={{238,46,47}, {0,140,72}});
+createPlot(id=3, position={916, 1, 445, 332}, subPlot=1, y={"TSetHea.y[1]","TSetCoo.y[1]","optSta.TZon"}, range={0.0, 604800.0, 16, 24}, grid=true, colors={{238,46,47},{0,140,72},{28,108,200}});

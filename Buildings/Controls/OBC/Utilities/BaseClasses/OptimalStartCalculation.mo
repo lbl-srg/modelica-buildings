@@ -22,12 +22,8 @@ block OptimalStartCalculation
           extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput staCal
     "Start calculation" annotation (Placement(transformation(
-          extent={{-320,20},{-280,60}}),  iconTransformation(extent={{-140,10},{
-            -100,50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput stoCal
-    "Stop calculation" annotation (Placement(transformation(
-          extent={{-320,-80},{-280,-40}}),  iconTransformation(extent={{-140,-50},
-            {-100,-10}})));
+          extent={{-320,20},{-280,60}}),  iconTransformation(extent={{-140,-20},
+            {-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tNexOcc(
     final quantity="Time",
     final unit="s",
@@ -95,8 +91,8 @@ protected
       final k=tOptMax-thrOptOn)
       "Maximum optimal start time"
       annotation (Placement(transformation(extent={{240,-60},{260,-40}})));
-    Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol(
-      final duration=tOptMax+2*3600)
+    Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol(final duration=
+        tOptMax + 12*3600)
       "Hold the start time for timer"
       annotation (Placement(transformation(extent={{-240,0},{-220,20}})));
     Buildings.Controls.OBC.CDL.Continuous.Division temSlo
@@ -135,18 +131,12 @@ protected
     Buildings.Controls.OBC.CDL.Logical.Timer tim(final reset=true)
       "Record time duration for the zone temperature to reach setpoint"
       annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
-    Buildings.Controls.OBC.CDL.Logical.Latch latMax
-      "Stop calculation when it reaches the max optimal time"
-      annotation (Placement(transformation(extent={{-150,70},{-130,90}})));
     Buildings.Controls.OBC.CDL.Logical.Not not1
       "Becomes true when the setpoint is reached"
       annotation (Placement(transformation(extent={{-230,70},{-210,90}})));
     Buildings.Controls.OBC.CDL.Continuous.Division tOptCal
       "Calculate optimal start time using the averaged previous temperature slope"
       annotation (Placement(transformation(extent={{260,-10},{280,10}})));
-    Buildings.Controls.OBC.CDL.Logical.And and1
-      "Duration that it takes to reach the setpoint"
-      annotation (Placement(transformation(extent={{-114,70},{-94,90}})));
 equation
   connect(tim.y, triSam.u)  annotation (Line(points={{-118,10},{-62,10}},
                                               color={0,0,127}));
@@ -156,15 +146,9 @@ equation
           {-192,74}}, color={255,0,255}));
   connect(swi1.y, tOptCal.u2) annotation (Line(points={{242,0},{250,0},{250,-6},
           {258,-6}}, color={0,0,127}));
-  connect(and1.y, falEdg.u)  annotation (Line(points={{-92,80},{-88,80},{-88,-18},
-          {-82,-18}},                                                     color={255,0,255}));
-  connect(lat.y, latMax.u) annotation (Line(points={{-168,80},{-152,80}},
-                          color={255,0,255}));
   connect(temSlo.y, triMovMea.u)  annotation (Line(points={{122,0},{138,0}},   color={0,0,127}));
   connect(lesEquThr.y, swi.u2)   annotation (Line(points={{42,0},{58,0}},     color={255,0,255}));
   connect(lesEquThr1.y, swi1.u2)    annotation (Line(points={{202,0},{218,0}},     color={255,0,255}));
-  connect(stoCal, latMax.clr) annotation (Line(points={{-300,-60},{-160,-60},{-160,
-          74},{-152,74}}, color={255,0,255}));
   connect(TDif, hys.u) annotation (Line(points={{-300,120},{-272,120},{-272,80},
           {-262,80}},
                 color={0,0,127}));
@@ -191,10 +175,6 @@ equation
           {-22,6}}, color={0,0,127}));
   connect(swi.y, temSlo.u2)    annotation (Line(points={{82,0},{86,0},{86,-6},{98,-6}}, color={0,0,127}));
   connect(add1.y, lesEquThr.u)   annotation (Line(points={{2,0},{18,0}}, color={0,0,127}));
-  connect(lat.y,and1. u2) annotation (Line(points={{-168,80},{-164,80},{-164,66},
-          {-120,66},{-120,72},{-116,72}}, color={255,0,255}));
-  connect(and1.y, edg.u) annotation (Line(points={{-92,80},{-88,80},{-88,-80},{-82,
-          -80}}, color={255,0,255}));
   connect(add1.y, swi.u3) annotation (Line(points={{2,0},{10,0},{10,-18},{48,-18},
           {48,-8},{58,-8}}, color={0,0,127}));
   connect(triMovMea.y, swi1.u3) annotation (Line(points={{162,0},{168,0},{168,-18},
@@ -229,8 +209,11 @@ equation
   connect(hysOpt.y, pre.u)    annotation (Line(points={{352,-80},{362,-80}}, color={255,0,255}));
   connect(min.y, tOpt) annotation (Line(points={{316,0},{328,0},{328,60},{420,60}},
         color={0,0,127}));
-  connect(latMax.y, and1.u1)    annotation (Line(points={{-128,80},{-116,80}}, color={255,0,255}));
   connect(not1.u, hys.y)    annotation (Line(points={{-232,80},{-238,80}}, color={255,0,255}));
+  connect(lat.y, edg.u) annotation (Line(points={{-168,80},{-94,80},{-94,-80},{
+          -82,-80}}, color={255,0,255}));
+  connect(lat.y, falEdg.u) annotation (Line(points={{-168,80},{-94,80},{-94,-18},
+          {-82,-18}}, color={255,0,255}));
    annotation (
 defaultComponentName="optStaCal",
   Documentation(info="<html>

@@ -106,12 +106,9 @@ protected
     final k2=-1) if not computeHeating
     "Temperature difference between zone temperature and cooling setpoint"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  Buildings.Controls.OBC.CDL.Logical.Edge edg
-    "Start calculation"
-    annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
     "Stop calculation"
-    annotation (Placement(transformation(extent={{-30,-40},{-10,-20}})));
+    annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2(final k=0) if computeCooling
     "Becomes effective when optimal start is only for heating"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
@@ -146,10 +143,8 @@ equation
   connect(tNexOcc, addPar.u) annotation (Line(points={{-160,-80},{-120,-80},{-120,
           0},{-102,0}},     color={0,0,127}));
   connect(addPar.y, hysSta.u)   annotation (Line(points={{-78,0},{-72,0}}, color={0,0,127}));
-  connect(hysSta.y, falEdg.u) annotation (Line(points={{-48,0},{-40,0},{-40,-30},
-          {-32,-30}}, color={255,0,255}));
-  connect(hysSta.y, edg.u) annotation (Line(points={{-48,0},{-40,0},{-40,30},{-32,
-          30}}, color={255,0,255}));
+  connect(hysSta.y, falEdg.u) annotation (Line(points={{-48,0},{-32,0}},
+                      color={255,0,255}));
   connect(tNexOcc, optHea.tNexOcc) annotation (Line(points={{-160,-80},{-120,-80},
           {-120,62},{18,62}}, color={0,0,127}));
   connect(optCoo.tOpt, max.u2) annotation (Line(points={{42,-66},{88,-66},{88,28},
@@ -158,15 +153,11 @@ equation
           {98,40}}, color={0,0,127}));
   connect(tNexOcc, optCoo.tNexOcc) annotation (Line(points={{-160,-80},{-68,-80},
           {-68,-78},{18,-78}}, color={0,0,127}));
-  connect(falEdg.y, optHea.staCal) annotation (Line(points={{-8,-30},{0,-30},{0,
-          73},{18,73}}, color={255,0,255}));
+  connect(falEdg.y, optHea.staCal) annotation (Line(points={{-8,0},{0,0},{0,70},
+          {18,70}},     color={255,0,255}));
   connect(optOn,optOn)    annotation (Line(points={{160,-40},{160,-40}}, color={255,0,255}));
-  connect(falEdg.y, optCoo.staCal) annotation (Line(points={{-8,-30},{0,-30},{0,
-          -67},{18,-67}}, color={255,0,255}));
-  connect(edg.y, optHea.stoCal) annotation (Line(points={{-8,30},{8,30},{8,67},{
-          18,67}}, color={255,0,255}));
-  connect(edg.y, optCoo.stoCal) annotation (Line(points={{-8,30},{8,30},{8,-73},
-          {18,-73}}, color={255,0,255}));
+  connect(falEdg.y, optCoo.staCal) annotation (Line(points={{-8,0},{0,0},{0,-70},
+          {18,-70}},      color={255,0,255}));
   connect(or2.y,optOn)    annotation (Line(points={{122,-40},{160,-40}}, color={255,0,255}));
   connect(con.y, or2.u1) annotation (Line(points={{82,-20},{92,-20},{92,-40},{98,
           -40}}, color={255,0,255}));
@@ -231,8 +222,7 @@ then there is no need for the system to start before the occupancy.
 </p>
 <p>
 <code>thrOptOn</code> is the threshold time period for the boolean output <code>optOn</code>
-to become true. By default, <code>optOn</code> does not become true
-if <code>tOpt</code> is less than 60 seconds.
+to become true.
 </p>
 <p>
 <h4>Configuration for HVAC system</h4>
@@ -304,9 +294,9 @@ The optimal start time is then calculated as <code>tOpt = |TSetZonOcc-TSam2|/TSl
 <h4>Validation</h4>
 </p>
 <p>
-Validation models can be found at
-<a href=\"modelica://Buildings.Controls.OBC.Utilities.Validation.OptimalStart\">
-Buildings.Controls.OBC.Utilities.Validation.OptimalStart</a>.
+Validation models can be found in the package
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.Validation\">
+Buildings.Controls.OBC.Utilities.Validation</a>.
 </p>
 </html>",
 revisions="<html>
