@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Controls;
-model HRChiller "Heat recovery chiller controller"
+model Chiller "Chiller controller"
 
   extends Modelica.Blocks.Icons.Block;
 
@@ -7,11 +7,9 @@ model HRChiller "Heat recovery chiller controller"
       displayUnit="degC") "Setpoint for condenser water leaving temperature"
     annotation (Placement(transformation(extent={{-200,-160},{-160,-120}}),
         iconTransformation(extent={{-140,10},{-100,50}})));
-   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetCoo(final
-      unit="K",
-      displayUnit="degC")
-    "Setpoint for cooling supply water to space loads"
-     annotation (Placement(transformation(extent={{-200,-60},{-160,-20}}),
+   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetChiWat(final unit="K",
+      displayUnit="degC") "Chilled water supply temperature set point"
+    annotation (Placement(transformation(extent={{-200,-20},{-160,20}}),
         iconTransformation(extent={{-140,30},{-100,70}})));
    Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetCooMin(final
       unit="K",
@@ -55,38 +53,34 @@ model HRChiller "Heat recovery chiller controller"
    Buildings.Controls.OBC.CDL.Interfaces.BooleanInput reqCoo
     "Cooling is required Boolean signal"
      annotation (Placement(transformation(
-          extent={{-200,60},{-160,100}}),iconTransformation(extent={{-140,50},{
+          extent={{-200,20},{-160,60}}), iconTransformation(extent={{-140,50},{
             -100,90}})));
    Buildings.Controls.OBC.CDL.Interfaces.BooleanInput reqHea
     "Heating is required Boolean signal"
-     annotation (Placement(transformation(extent={{-200,20},{-160,60}}),
-        iconTransformation(extent={{-140,70},{-100,110}})));
+     annotation (Placement(transformation(extent={{-200,60},{-160,100}}),
+        iconTransformation(extent={{-140,68},{-100,108}})));
    Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSetChi(final
       unit="K",
-      displayUnit="degC")
-    "Setpoint temperture for the chiller"
+      displayUnit="degC") "Chilled water supply temperature set point"
      annotation (
       Placement(transformation(extent={{160,-20},{200,20}}),iconTransformation(
-          extent={{100,40},{140,80}})));
+          extent={{100,20},{140,60}})));
    Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValCon
-    "Control signal of the modulating three way valve to maintain the condenser 
-      entering temperature above the minimum value."
+    "Condenser mixing valve control signal"
      annotation (Placement(transformation(extent={{160,-340},{200,-300}}),
-        iconTransformation(extent={{100,-60},{140,-20}})));
-   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValEva
-    "Control signal of the modulating three way valve to maintain the evaporator
-      entering temperature below the maximum value."
-     annotation (Placement(transformation(extent={{160,-280},{200,-240}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
-   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChiMod
-    "Chiller operational mode."
-     annotation (Placement(transformation(extent={{160,40},{200,80}}),
-         iconTransformation(extent={{100,-20},{140,20}})));
+   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValEva "Evaporator
+mixing valve control signal"
+     annotation (Placement(transformation(extent={{160,-280},{200,-240}}),
+        iconTransformation(extent={{100,-60},{140,-20}})));
+   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput modChi
+    "Chiller operating mode" annotation (Placement(transformation(extent={{160,
+            40},{200,80}}), iconTransformation(extent={{100,60},{140,100}})));
 
    Buildings.Controls.OBC.CDL.Logical.Or or2
      annotation (Placement(transformation(extent={{-106,44},{-86,64}})));
    Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi
-     annotation (Placement(transformation(extent={{100,50},{120,70}})));
+     annotation (Placement(transformation(extent={{112,50},{132,70}})));
    Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiON(k=true)
     "chiller turn on signal"
     annotation (Placement(transformation(extent={{-106,74},{-86,94}})));
@@ -94,7 +88,7 @@ model HRChiller "Heat recovery chiller controller"
     "Chiller shut off signal =0"
      annotation (Placement(transformation(extent={{-106,18},{-86,38}})));
    Buildings.Controls.OBC.CDL.Logical.Switch swi2
-     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+     annotation (Placement(transformation(extent={{112,-10},{132,10}})));
    Buildings.Controls.OBC.CDL.Logical.And simHeaCoo
    "Simultaneous heating and cooling mode"
      annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
@@ -111,21 +105,21 @@ model HRChiller "Heat recovery chiller controller"
      annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
    Buildings.Controls.OBC.CDL.Continuous.Line mapFun
     "Mapping control function to reset the TsetHea"
-     annotation (Placement(transformation(extent={{-10,-150},{10,-130}})));
+     annotation (Placement(transformation(extent={{20,-150},{40,-130}})));
    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant X1(k=0)
     "PI minimum error"
-     annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
+     annotation (Placement(transformation(extent={{-10,-112},{10,-92}})));
    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant X2(k=1)
     "PI maximum error"
-     annotation (Placement(transformation(extent={{-40,-190},{-20,-170}})));
+     annotation (Placement(transformation(extent={{-10,-192},{10,-172}})));
    Buildings.Controls.OBC.CDL.Logical.Switch swi4
-     annotation (Placement(transformation(extent={{30,-108},{50,-88}})));
+     annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
    Buildings.Controls.OBC.CDL.Logical.Or heaOnl
     "Heating only mode"
      annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant X3(k=10 + 273.15)
     "Minimum heating setpoint temperature"
-     annotation (Placement(transformation(extent={{-10,-210},{10,-190}})));
+     annotation (Placement(transformation(extent={{20,-210},{40,-190}})));
    Buildings.Controls.OBC.CDL.Logical.Not not1
      annotation (Placement(transformation(extent={{-108,-36},{-88,-16}})));
    Buildings.Controls.OBC.CDL.Logical.And cooOnl
@@ -155,63 +149,62 @@ model HRChiller "Heat recovery chiller controller"
      annotation (Placement(transformation(extent={{-30,-330},{-10,-310}})));
 
 equation
-  connect(reqHea,or2. u2)  annotation (Line(points={{-180,40},{-144,40},{-144,
+  connect(reqHea,or2. u2)  annotation (Line(points={{-180,80},{-140,80},{-140,
           46},{-108,46}},                                                color={255,0,255}));
-  connect(reqCoo,or2. u1) annotation (Line(points={{-180,80},{-116,80},{-116,54},
+  connect(reqCoo,or2. u1) annotation (Line(points={{-180,40},{-116,40},{-116,54},
           {-108,54}},color={255,0,255}));
   connect(or2.y, logSwi.u2) annotation (Line(points={{-84,54},{-72,54},{-72,60},
-          {98,60}},                                                    color={255,0,255}));
-  connect(swi2.y, TSetChi) annotation (Line(points={{122,0},{180,0}},  color={0,0,127}));
-  connect(reqHea, simHeaCoo.u2) annotation (Line(points={{-180,40},{-144,40},{
-          -144,-88},{-122,-88}},
+          {110,60}},                                                   color={255,0,255}));
+  connect(swi2.y, TSetChi) annotation (Line(points={{134,0},{180,0}},  color={0,0,127}));
+  connect(reqHea, simHeaCoo.u2) annotation (Line(points={{-180,80},{-140,80},{
+          -140,-88},{-122,-88}},
                                color={255,0,255}));
-  connect(reqCoo, simHeaCoo.u1) annotation (Line(points={{-180,80},{-130,80},{
+  connect(reqCoo, simHeaCoo.u1) annotation (Line(points={{-180,40},{-130,40},{
           -130,-80},{-122,-80}},
                            color={255,0,255}));
   connect(PI.u_s, TSetConLvg)
     annotation (Line(points={{-122,-140},{-180,-140}}, color={0,0,127}));
-  connect(X1.y, mapFun.x1) annotation (Line(points={{-18,-100},{-18,-132},{-12,
+  connect(X1.y, mapFun.x1) annotation (Line(points={{12,-102},{12,-132},{18,
           -132}},     color={0,0,127}));
-  connect(PI.y, mapFun.u)  annotation (Line(points={{-99,-140},{-12,-140}},
+  connect(PI.y, mapFun.u)  annotation (Line(points={{-99,-140},{18,-140}},
                                                    color={0,0,127}));
   connect(TSetCooMin, mapFun.f2) annotation (Line(points={{-180,-220},{-14,-220},
-          {-14,-148},{-12,-148}},
-                                color={0,0,127}));
-  connect(X2.y, mapFun.x2) annotation (Line(points={{-18,-180},{-18,-144},{-12,
+          {-14,-148},{18,-148}},color={0,0,127}));
+  connect(X2.y, mapFun.x2) annotation (Line(points={{12,-182},{12,-144},{18,
           -144}},     color={0,0,127}));
   connect(TConLvg, PI.u_m) annotation (Line(points={{-180,-180},{-110,-180},{
           -110,-152}},
                   color={0,0,127}));
-  connect(TSetCoo, mapFun.f1) annotation (Line(points={{-180,-40},{-106,-40},{
-          -106,-136},{-12,-136}},            color={0,0,127}));
+  connect(TSetChiWat, mapFun.f1) annotation (Line(points={{-180,0},{-50,0},{-50,
+          -136},{18,-136}}, color={0,0,127}));
   connect(heaOnl.y, swi4.u2) annotation (Line(points={{-58,-80},{14,-80},{14,
-          -98},{28,-98}},
+          -100},{58,-100}},
                      color={255,0,255}));
   connect(simHeaCoo.y,heaOnl. u2) annotation (Line(points={{-98,-80},{-90,-80},
           {-90,-88},{-82,-88}},                                                  color={255,0,255}));
-  connect(reqHea,heaOnl. u1) annotation (Line(points={{-180,40},{-144,40},{-144,
-          -60},{-90,-60},{-90,-80},{-82,-80}}, color={255,0,255}));
-  connect(reqHea, PI.trigger) annotation (Line(points={{-180,40},{-144,40},{
-          -144,-172},{-118,-172},{-118,-152}},
+  connect(reqHea,heaOnl. u1) annotation (Line(points={{-180,80},{-140,80},{-140,
+          -60},{-86,-60},{-86,-80},{-82,-80}}, color={255,0,255}));
+  connect(reqHea, PI.trigger) annotation (Line(points={{-180,80},{-140,80},{
+          -140,-172},{-118,-172},{-118,-152}},
                                         color={255,0,255}));
-  connect(mapFun.y, swi4.u1) annotation (Line(points={{12,-140},{22,-140},{22,
-          -90},{28,-90}}, color={0,0,127}));
-  connect(X3.y, swi4.u3) annotation (Line(points={{12,-200},{26,-200},{26,-106},
-          {28,-106}}, color={0,0,127}));
-  connect(swi4.y, swi2.u3) annotation (Line(points={{52,-98},{56,-98},{56,-8},{
-          98,-8}},                     color={0,0,127}));
-  connect(TSetCoo, swi2.u1) annotation (Line(points={{-180,-40},{-94,-40},{-94,
-          8},{98,8}},                   color={0,0,127}));
-  connect(reqHea, not1.u) annotation (Line(points={{-180,40},{-144,40},{-144,
+  connect(mapFun.y, swi4.u1) annotation (Line(points={{42,-140},{46,-140},{46,
+          -92},{58,-92}}, color={0,0,127}));
+  connect(X3.y, swi4.u3) annotation (Line(points={{42,-200},{52,-200},{52,-108},
+          {58,-108}}, color={0,0,127}));
+  connect(swi4.y, swi2.u3) annotation (Line(points={{82,-100},{100,-100},{100,
+          -8},{110,-8}},               color={0,0,127}));
+  connect(TSetChiWat, swi2.u1) annotation (Line(points={{-180,0},{60,0},{60,8},
+          {110,8}}, color={0,0,127}));
+  connect(reqHea, not1.u) annotation (Line(points={{-180,80},{-140,80},{-140,
           -26},{-110,-26}},
                       color={255,0,255}));
   connect(not1.y,cooOnl. u2) annotation (Line(points={{-86,-26},{-72,-26},{-72,
           -28},{-42,-28}},color={255,0,255}));
-  connect(reqCoo, cooOnl.u1) annotation (Line(points={{-180,80},{-130,80},{-130,
+  connect(reqCoo, cooOnl.u1) annotation (Line(points={{-180,40},{-130,40},{-130,
           -4},{-72,-4},{-72,-20},{-42,-20}},
                                         color={255,0,255}));
-  connect(cooOnl.y, swi2.u2) annotation (Line(points={{-18,-20},{40,-20},{40,0},
-          {98,0}},  color={255,0,255}));
+  connect(cooOnl.y, swi2.u2) annotation (Line(points={{-18,-20},{80,-20},{80,0},
+          {110,0}}, color={255,0,255}));
   connect(TMaxEvaEnt, valEva.u_s) annotation (Line(points={{-180,-260},{-32,
           -260}},                                                                  color={0,0,127}));
   connect(TEvaEnt, valEva.u_m) annotation (Line(points={{-180,-294},{-20,-294},
@@ -232,11 +225,14 @@ equation
       points={{-84,54},{-60,54},{-60,-340},{-28,-340},{-28,-332}},
       color={255,0,255},
       pattern=LinePattern.Dash));
-  connect(logSwi.y,yChiMod) annotation (Line(points={{122,60},{180,60}},color={255,0,255}));
+  connect(logSwi.y, modChi)
+    annotation (Line(points={{134,60},{180,60}}, color={255,0,255}));
   connect(chiON.y, logSwi.u1) annotation (Line(points={{-84,84},{-74,84},{-74,
-          68},{98,68}},color={255,0,255}));
+          68},{110,68}},
+                       color={255,0,255}));
   connect(chiOff.y, logSwi.u3) annotation (Line(points={{-84,28},{-76,28},{-76,
-          52},{98,52}},color={255,0,255}));
+          52},{110,52}},
+                       color={255,0,255}));
 
 annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),
@@ -339,4 +335,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end HRChiller;
+end Chiller;

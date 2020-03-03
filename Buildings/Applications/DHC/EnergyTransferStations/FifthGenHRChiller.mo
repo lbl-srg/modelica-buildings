@@ -320,7 +320,7 @@ model FifthGenHRChiller
   //// CONTROLLERS
   Controls.Supervisory ETSCon(THys=THys) "ETS supervisory controller"
     annotation (Placement(transformation(extent={{-198,200},{-178,220}})));
-  Controls.HRChiller chiCon
+  Controls.Chiller chiCon
     "Control of the EIR chiller model and associated three way valves"
     annotation (Placement(transformation(extent={{-120,200},{-100,220}})));
   Controls.PrimaryPumpsConstantSpeed pumPrimCon "Control of the primary pumps"
@@ -856,7 +856,7 @@ equation
       color={238,46,47},
       pattern=LinePattern.Dash,
       thickness=0.5));
-  connect(TSetCoo, chiCon.TSetCoo) annotation (Line(
+  connect(TSetCoo, chiCon.TSetChiWat) annotation (Line(
       points={{-310,268},{-130,268},{-130,215},{-122,215}},
       color={0,128,255},
       pattern=LinePattern.Dash,
@@ -877,15 +877,15 @@ equation
       points={{68,143},{68,194},{-124,194},{-124,203},{-122,203}},
       color={0,0,127},
       pattern=LinePattern.Dot));
-  connect(chiCon.yChiMod, chi.on) annotation (Line(points={{-98,210},{-46,210},
-          {-46,130},{-32,130},{-32,129}}, color={255,0,255}));
-  connect(chiCon.TSetChi, chi.TSet) annotation (Line(points={{-98,216},{-42,216},
+  connect(chiCon.modChi, chi.on) annotation (Line(points={{-98,218},{-46,218},{
+          -46,130},{-32,130},{-32,129}}, color={255,0,255}));
+  connect(chiCon.TSetChi, chi.TSet) annotation (Line(points={{-98,214},{-42,214},
           {-42,123},{-32,123}},        color={0,0,127}));
   connect(TConEnt.port_a, hydHdrHeaRet.ports_b[1]) annotation (Line(points={{0,20},{
           50,20},{50,20},{106,20}},  color={0,127,255}));
-  connect(chiCon.yValEva, valEva.y) annotation (Line(points={{-98,202},{-96,202},
+  connect(chiCon.yValEva, valEva.y) annotation (Line(points={{-98,206},{-96,206},
           {-96,130},{-114,130},{-114,78},{-106,78}},        color={0,0,127}));
-  connect(chiCon.yValCon, valCon.y) annotation (Line(points={{-98,206},{-52,206},
+  connect(chiCon.yValCon, valCon.y) annotation (Line(points={{-98,202},{-52,202},
           {-52,52},{-46,52}}, color={0,0,127}));
   connect(ambCon.yModInd, yRejHeaInd) annotation (Line(points={{-123,-72},{60,-72},
           {60,-90},{310,-90}}, color={255,127,0}));

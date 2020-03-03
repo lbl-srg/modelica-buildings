@@ -1,7 +1,7 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Validation;
 model ChillerController "Chiller controller validation"
   extends Modelica.Icons.Example;
-  Controls.HRChiller chiCon "EIR chiller controller"
+  Controls.Chiller chiCon "EIR chiller controller"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Modelica.Blocks.Sources.BooleanPulse heaMod(
     width=50,
@@ -26,9 +26,8 @@ equation
           30},{-19,30}},color={255,0,255}));
   connect(chiCon.reqCoo, cooMod.y) annotation (Line(points={{39,-23},{-2,-23},{
           -2,0},{-19,0}},   color={255,0,255}));
-  connect(cons.y[1], chiCon.TSetCoo) annotation (Line(points={{-19,-30.875},{
-          -16,-30.875},{-16,-25},{39,-25}},
-                                    color={0,0,127}));
+  connect(cons.y[1], chiCon.TSetChiWat) annotation (Line(points={{-19,-30.875},
+          {-16,-30.875},{-16,-25},{39,-25}}, color={0,0,127}));
   connect(chiCon.TSetConLvg, cons.y[2]) annotation (Line(points={{39,-27},{-16,
           -27},{-16,-30.625},{-19,-30.625}}, color={0,0,127}));
   connect(cons.y[3], chiCon.TSetCooMin) annotation (Line(points={{-19,-30.375},
