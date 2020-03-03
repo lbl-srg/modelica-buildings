@@ -80,10 +80,10 @@ model AmbientCircuit "Ambient water circuit controller"
     "Borefield system pump control"
     annotation (Placement(transformation(extent={{220,-58},{260,-18}}),
       iconTransformation(extent={{100,-50},{120,-30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yModInd
-    "Surplus heat or cold rejection mode index"
-    annotation (Placement(transformation(extent={{220,-240},{260,-200}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput modRej
+    "Surplus heat or cold rejection mode" annotation (Placement(transformation(
+          extent={{220,-240},{260,-200}}), iconTransformation(extent={{100,-10},
+            {120,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput rejCooFulLoa
     "True if cold side requires full surplus cold rejection"
     annotation (Placement(transformation(extent={{-260,-260},{-220,-220}}),
@@ -208,8 +208,8 @@ equation
   connect(con4.y,indCooMod. u3) annotation (Line(points={{42,-198},{60,-198},{
           60,-186},{80,-186}},
                              color={0,0,127}));
-  connect(reaToInt.y, yModInd)  annotation (Line(points={{202,-220},{240,-220}},
-                                                   color={255,127,0}));
+  connect(reaToInt.y, modRej)
+    annotation (Line(points={{202,-220},{240,-220}}, color={255,127,0}));
   connect(valHea, valOpe.u1) annotation (Line(points={{-240,250},{-200,250},{-200,
           240},{-182,240}}, color={255,0,255}));
   connect(valCoo, valOpe.u2) annotation (Line(points={{-240,220},{-200,220},{-200,

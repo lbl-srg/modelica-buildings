@@ -242,7 +242,7 @@ equation
     annotation (Line(points={{-18,20},
           {-18,0},{-28,0}},     color={0,127,255}));
   connect(ETS.heaWatSup, supHeaWat.port_a)
-    annotation (Line(points={{10,52.2},{14,52.2},{14,40}},
+    annotation (Line(points={{10,52},{14,52},{14,40}},
                               color={0,127,255}));
   connect(heaVol.ports[1], supHeaWat.port_b)
     annotation (Line(points={{32,0},{14,0},{14,20}},      color={0,127,255}));
@@ -250,7 +250,7 @@ equation
     annotation (Line(points={{-70,82},{-70,86},{-128,86},{-128,70},{-138,70}},
                                                            color={0,0,127}));
   connect(ETS.chiWatSup, supChiWat.port_a)
-    annotation (Line(points={{-10,52.2},{-18,52.2},{-18,40}},
+    annotation (Line(points={{-10,52},{-18,52},{-18,40}},
                                  color={0,127,255}));
   connect(heaVol.ports[2], retHeaWat.port_a)
     annotation (Line(points={{28,0},{40,
@@ -273,7 +273,7 @@ equation
     annotation (Line(points={{-15,107.167},{-24,107.167},{-24,66},{-11,66}},
                                              color={0,0,127}));
   connect(mulCon.y[2], ETS.TSetCoo)
-    annotation (Line(points={{-15,107.5},{-24,107.5},{-24,67.8},{-11,67.8}},
+    annotation (Line(points={{-15,107.5},{-24,107.5},{-24,68},{-11,68}},
                                            color={0,0,127}));
   connect(mulCon.y[3], ETS.TSetCooMin)
     annotation (Line(points={{-15,107.833},{-24,107.833},{-24,64},{-11,64}},
@@ -288,7 +288,7 @@ equation
     annotation (Line(points={{-15,108.833},{-24,108.833},{-24,58},{-11,58}},
                                              color={0,0,127}));
   connect(ETS.heaWatSup, pre.ports[1])
-    annotation (Line(points={{10,52.2},{32,52.2},{32,50},{60,50}},
+    annotation (Line(points={{10,52},{32,52},{32,50},{60,50}},
                                   color={0,127,255}));
 annotation (
       Diagram(coordinateSystem(

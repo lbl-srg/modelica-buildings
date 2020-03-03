@@ -398,18 +398,20 @@ equation
           {-60,109},{-12,109}}, color={255,0,255}));
   connect(conChi.TSetChi, chi.TSet) annotation (Line(points={{-198,248},{-64,
           248},{-64,103},{-12,103}}, color={0,0,127}));
-  connect(reqHea, conChi.reqHea) annotation (Line(points={{-280,260},{-280,
-          252.8},{-222,252.8}}, color={255,0,255}));
+  connect(reqHea, conChi.reqHea) annotation (Line(points={{-280,260},{-240,260},
+          {-240,252.8},{-222,252.8}},
+                                color={255,0,255}));
   connect(reqCoo, conChi.reqCoo) annotation (Line(points={{-280,220},{-248,220},
           {-248,251},{-222,251}}, color={255,0,255}));
   connect(TSetChiWat, conChi.TSetChiWat) annotation (Line(points={{-280,180},{
-          -260,180},{-260,249},{-222,249}}, color={0,0,127}));
-  connect(reqHea, conPumPri.reqHea) annotation (Line(points={{-280,260},{-280,
-          220},{-222,220}}, color={255,0,255}));
+          -238,180},{-238,249},{-222,249}}, color={0,0,127}));
+  connect(reqHea, conPumPri.reqHea) annotation (Line(points={{-280,260},{-240,
+          260},{-240,220},{-222,220}},
+                            color={255,0,255}));
   connect(reqCoo, conPumPri.reqCoo) annotation (Line(points={{-280,220},{-248,
           220},{-248,208},{-222,208}}, color={255,0,255}));
-annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-260,-260},
-            {260,280}}),
+annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}}),
    graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
