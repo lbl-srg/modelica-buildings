@@ -342,5 +342,16 @@ Diagram(coordinateSystem(extent={{-140,-100},{140,100}})),
         Text(
           lineColor={0,0,255},
           extent={{-150,110},{150,150}},
-          textString="%name")}));
+          textString="%name"),
+        Ellipse(
+          extent={{79,-33},{93,-47}},
+          lineColor=DynamicSelect({235,235,235}, if optOn then {0,255,0}
+               else {235,235,235}),
+          fillColor=DynamicSelect({235,235,235}, if optOn then {0,255,0}
+               else {235,235,235}),
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{226,106},{106,56}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(tOpt, leftjustified=false, significantDigits=3)))}));
 end OptimalStart;
