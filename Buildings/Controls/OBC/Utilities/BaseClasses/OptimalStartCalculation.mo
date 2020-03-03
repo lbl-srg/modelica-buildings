@@ -17,7 +17,7 @@ block OptimalStartCalculation
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDif(
     final quantity="TemperatureDifference",
     final unit="K")
-    "Zone heating setpoint temperature during occupancy" annotation (Placement(
+    "Zone setpoint temperature during occupancy" annotation (Placement(
         transformation(extent={{-320,100},{-280,140}}),iconTransformation(
           extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput staCal
@@ -43,7 +43,7 @@ block OptimalStartCalculation
         iconTransformation(extent={{100,-60},{140,-20}})));
 
   Buildings.Controls.OBC.CDL.Discrete.TriggeredMovingMean triMovMea(final n=nDay)
-    "Calculate the averaged temperature slope of past n days"
+    "Calculate the averaged temperature slope over the past n days"
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam2
     "Get the sampled temperature difference at the same time each day"
@@ -57,15 +57,15 @@ protected
       "Default temperature slope in case of zero division";
     Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(final k=0)
       "Deadband case"
-      annotation (Placement(transformation(extent={{160,70},{180,90}})));
+      annotation (Placement(transformation(extent={{160,90},{180,110}})));
     Buildings.Controls.OBC.CDL.Continuous.Sources.Constant defOptTim(
       final k=tOptIni)
       "Default optimal start time in case of zero division"
-      annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
+      annotation (Placement(transformation(extent={{20,30},{40,50}})));
     Buildings.Controls.OBC.CDL.Continuous.Sources.Constant defTemSlo(
       final k=temSloDef)
       "Default temperature slope in case of zero division"
-      annotation (Placement(transformation(extent={{180,-60},{200,-40}})));
+      annotation (Placement(transformation(extent={{180,20},{200,40}})));
     Buildings.Controls.OBC.CDL.Logical.Edge edg "HVAC start time"
       annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
     Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
@@ -81,18 +81,20 @@ protected
       final uHigh=thrOptOn,
       final uLow=-60) "Hysteresis to activate the optimal start"
       annotation (Placement(transformation(extent={{330,-90},{350,-70}})));
-    Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr
+    Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr(
+      threshold=1E-15)
       "Avoid zero division"
       annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-    Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr1
+    Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr1(
+      threshold=1E-15)
       "Avoid zero division"
       annotation (Placement(transformation(extent={{180,-10},{200,10}})));
     Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxStaTim(
       final k=tOptMax-thrOptOn)
       "Maximum optimal start time"
       annotation (Placement(transformation(extent={{240,-60},{260,-40}})));
-    Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol(final duration=
-        tOptMax + 12*3600)
+    Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol(
+      final duration=tOptMax + 12*3600)
       "Hold the start time for timer"
       annotation (Placement(transformation(extent={{-240,0},{-220,20}})));
     Buildings.Controls.OBC.CDL.Continuous.Division temSlo
@@ -153,16 +155,17 @@ equation
           {-262,80}},
                 color={0,0,127}));
   connect(triMovMea.y, lesEquThr1.u)   annotation (Line(points={{162,0},{178,0}},     color={0,0,127}));
-  connect(defOptTim.y, swi.u1) annotation (Line(points={{42,-50},{54,-50},{54,8},
-          {58,8}},  color={0,0,127}));
-  connect(defTemSlo.y, swi1.u1) annotation (Line(points={{202,-50},{212,-50},{212,
+  connect(defOptTim.y, swi.u1) annotation (Line(points={{42,40},{54,40},{54,8},{
+          58,8}},   color={0,0,127}));
+  connect(defTemSlo.y, swi1.u1) annotation (Line(points={{202,30},{212,30},{212,
           8},{218,8}},   color={0,0,127}));
-  connect(staCal, triSam2.trigger) annotation (Line(points={{-300,40},{130,40},
-          {130,108.2}},             color={255,0,255}));
+  connect(staCal, triSam2.trigger) annotation (Line(points={{-300,40},{-160,40},
+          {-160,100},{130,100},{130,108.2}},
+                                    color={255,0,255}));
   connect(TDif,triSam3. u)   annotation (Line(points={{-300,120},{40,120},{40,80},{58,80}},
                                                    color={0,0,127}));
   connect(pre.y,triSam3. trigger) annotation (Line(points={{386,-80},{392,-80},{
-          392,50},{70,50},{70,68.2}},
+          392,48},{70,48},{70,68.2}},
                                     color={255,0,255}));
   connect(pre.y, lat.u) annotation (Line(points={{386,-80},{392,-80},{392,-100},
           {-196,-100},{-196,80},{-192,80}},
@@ -191,8 +194,8 @@ equation
   connect(min.y, add2.u1) annotation (Line(points={{316,0},{328,0},{328,-58},{290,
           -58},{290,-74},{298,-74}}, color={0,0,127}));
   connect(triSam3.y, temSlo.u1)    annotation (Line(points={{82,80},{90,80},{90,6},{98,6}}, color={0,0,127}));
-  connect(con.y, max.u2) annotation (Line(points={{182,80},{190,80},{190,108},{198,
-          108}},     color={0,0,127}));
+  connect(con.y, max.u2) annotation (Line(points={{182,100},{190,100},{190,108},
+          {198,108}},color={0,0,127}));
   connect(triSam2.y, max.u1)    annotation (Line(points={{142,120},{198,120}}, color={0,0,127}));
   connect(max.y, tOptCal.u1) annotation (Line(points={{222,114},{250,114},{250,
           6},{258,6}}, color={0,0,127}));
@@ -218,8 +221,8 @@ equation
 defaultComponentName="optStaCal",
   Documentation(info="<html>
 <p>
-This base class contains the algorithm of optimal start calculation. For the
-description of algorithm, please refer to the documentation for the block
+This base class contains the algorithm for the optimal start calculation. For the
+description of the algorithm, please refer to the documentation for the block
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.OptimalStart\">
 Buildings.Controls.OBC.Utilities.OptimalStart</a>.
 </p>

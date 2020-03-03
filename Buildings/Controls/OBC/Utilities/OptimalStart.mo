@@ -1,8 +1,10 @@
 within Buildings.Controls.OBC.Utilities;
 block OptimalStart
-  "Block that outputs optimal start time for an HVAC system before occupancy"
+  "Block that outputs the optimal start time for an HVAC system before occupancy"
   parameter Modelica.SIunits.Time tOptMax(
-    min=0, max=21600) = 10800
+    final min=0,
+    max=21600,
+    displayUnit="h") = 10800
     "Maximum optimal start time";
   parameter Integer nDay(min=1) = 3
     "Number of previous days for averaging the temperature slope";
@@ -11,7 +13,7 @@ block OptimalStart
   parameter Boolean computeCooling = false
     "Set to true if only computing for space cooling"  annotation(Dialog(enable=not computeHeating));
   parameter Modelica.SIunits.TemperatureDifference uLow(min=0) = 0
-    "Threshold to determine if the zone temperature reaches the occupied setpoint, 
+    "Threshold to determine if the zone temperature reaches the occupied setpoint,
      must be a non-negative number";
   parameter Modelica.SIunits.TemperatureDifference uHigh(min=0) = 0.5
     "Threshold to determine the need to start the HVAC system before occupancy,
@@ -84,7 +86,7 @@ protected
     "Initial optimal start time";
   Buildings.Controls.OBC.CDL.Continuous.Max max
     "Get the maximum optimal start time "
-    annotation (Placement(transformation(extent={{100,24},{120,44}})));
+    annotation (Placement(transformation(extent={{100,30},{120,50}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(p=-tOptMax,k=1)
     "Maximum optimal start time"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
@@ -114,7 +116,7 @@ protected
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(final k=0) if computeHeating
     "Becomes effective when optimal start is only for cooling"
-    annotation (Placement(transformation(extent={{60,6},{80,26}})));
+    annotation (Placement(transformation(extent={{60,10},{80,30}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(final k=false) if computeCooling
     "Becomes effective when optimal start is only for heating"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
@@ -130,12 +132,12 @@ equation
           {-82,74}}, color={0,0,127}));
   connect(TSetZonHea, dTHea.u1) annotation (Line(points={{-160,80},{-126,80},{-126,
           86},{-82,86}},  color={0,0,127}));
-  connect(max.y, tOpt) annotation (Line(points={{122,34},{128,34},{128,40},{160,
-          40}}, color={0,0,127}));
-  connect(con2.y, max.u1) annotation (Line(points={{82,50},{88,50},{88,40},{98,40}},
-                     color={0,0,127}));
-  connect(con1.y, max.u2) annotation (Line(points={{82,16},{88,16},{88,28},{98,28}},
+  connect(max.y, tOpt) annotation (Line(points={{122,40},{160,40}},
                 color={0,0,127}));
+  connect(con2.y, max.u1) annotation (Line(points={{82,50},{88,50},{88,46},{98,
+          46}},      color={0,0,127}));
+  connect(con1.y, max.u2) annotation (Line(points={{82,20},{88,20},{88,34},{98,
+          34}}, color={0,0,127}));
   connect(dTCoo.y, optCoo.TDif) annotation (Line(points={{-58,-50},{-22,-50},{-22,
           -62},{18,-62}}, color={0,0,127}));
   connect(dTHea.y, optHea.TDif)   annotation (Line(points={{-58,80},{-8,80},{-8,78},{18,78}},
@@ -147,10 +149,10 @@ equation
                       color={255,0,255}));
   connect(tNexOcc, optHea.tNexOcc) annotation (Line(points={{-160,-80},{-120,-80},
           {-120,62},{18,62}}, color={0,0,127}));
-  connect(optCoo.tOpt, max.u2) annotation (Line(points={{42,-66},{88,-66},{88,28},
-          {98,28}},      color={0,0,127}));
-  connect(optHea.tOpt, max.u1) annotation (Line(points={{42,74},{88,74},{88,40},
-          {98,40}}, color={0,0,127}));
+  connect(optCoo.tOpt, max.u2) annotation (Line(points={{42,-66},{88,-66},{88,
+          34},{98,34}},  color={0,0,127}));
+  connect(optHea.tOpt, max.u1) annotation (Line(points={{42,74},{88,74},{88,46},
+          {98,46}}, color={0,0,127}));
   connect(tNexOcc, optCoo.tNexOcc) annotation (Line(points={{-160,-80},{-68,-80},
           {-68,-78},{18,-78}}, color={0,0,127}));
   connect(falEdg.y, optHea.staCal) annotation (Line(points={{-8,0},{0,0},{0,70},
@@ -171,61 +173,62 @@ equation
 defaultComponentName="optSta",
   Documentation(info="<html>
 <p>
-This block predicts the shortest time for an HVAC system to achieve occupied setpoint 
-prior to the scheduled occupancy. The block requires inputs of zone temperature, 
-occupied zone setpoint(s) and next occupancy. The two outputs are the optimal start 
+This block predicts the shortest time for an HVAC system to meet the occupied setpoint
+prior to the scheduled occupancy. The block requires inputs of zone temperature,
+occupied zone setpoint(s) and next occupancy. The two outputs are the optimal start
 duration <code>tOpt</code> and the optimal start on signal <code>optOn</code> for
-the HVAC system.  
+the HVAC system.
 </p>
 <p>
-The block quantifies the mass/capacity factor of a zone using temperature slope 
-(also known as temperature gradient), which
-indicates the temperature change rate of a homogeneous thermal zone, with the unit
-<code>K/s</code>. Once the temperature slope of a zone is known, the optimal start 
-time can be calculated by the difference between the zone temperature 
-and the occupied setpoint divided by the temperature slope. 
+The block estimates the thermal mass of a zone using its measured air temperature gradient
+with respect to time. Once the temperature slope of a zone is known, the optimal start
+time can be calculated by the difference between the zone temperature
+and the occupied setpoint divided by the temperature slope, assuming the zone responds
+as if all thermal mass were concentrated in the room air.
 </p>
 <p>
-The temperature slope is self-tuned based on past performance. The moving 
-average of the temperature slope of past days is calculated and used for
-the prediction of optimal start time in the current day.
+The temperature slope is self-tuned based on past data. The moving
+average of the temperature slope of the past <code>nDay</code> days
+is calculated and used for
+the prediction of the optimal start time in the current day.
 </p>
 <p>
 <h4>Parameters</h4>
 </p>
 <p>
-The parameter <code>nDay</code> is used to compute the moving average of temperature 
-slope; the first <code>n</code> days of simulation is therefore
-initialization period of the block.
+The parameter <code>nDay</code> is used to compute the moving average of the temperature
+slope; the first <code>n</code> days of simulation is therefore used to
+initialize the block.
 </p>
 <p>
+The parameter
 <code>tOptMax</code> is the maximum allowed optimal start time.
 </p>
 <p>
 The block includes two hysteresis parameters <code>uLow</code> and <code>uHigh</code>.
-</p>
-<p>
-<code>uLow</code> is used by the algorithm to determine if the zone temperature reaches
-the setpoint. The algorithm sees the zone temperature has reached the setpoint if
-<code>TSetZonHea-TZon &le; uLow</code> for heating system;
-<code>TZon-TSetZonCoo &le; uLow</code> for cooling system. <code>TSetZonHea</code>
+The parameter
+<code>uLow</code> is used to determine if the zone temperature reaches
+the setpoint. The algorithm assumes that the zone temperature has reached the setpoint if
+<code>TSetZonHea-TZon &le; uLow</code> for a heating system, or
+<code>TZon-TSetZonCoo &le; uLow</code> for a cooling system, where
+<code>TSetZonHea</code>
 denotes the zone heating setpoint during occupancy, <code>TSetZonCoo</code>
 denotes the zone cooling setpoint during occupancy, and <code>TZon</code> denotes the
 zone temperature.
-</p>
-<p>
+The parameter
 <code>uHigh</code> is used by the algorithm to determine if there is a need to
-start the HVAC system before the occupancy. If
+start the HVAC system prior to occupancy. If
 <code>TSetZonHea-TZon &le; uHigh</code> for heating case or
 <code>TZon-TSetZonCoo &le; uHigh</code> for cooling case,
 then there is no need for the system to start before the occupancy.
 </p>
 <p>
+The parameter
 <code>thrOptOn</code> is the threshold time period for the boolean output <code>optOn</code>
 to become true.
 </p>
 <p>
-<h4>Configuration for HVAC system</h4>
+<h4>Configuration for HVAC systems</h4>
 </p>
 <p>
 The block can be used for heating system only or cooling system only or for both
@@ -234,8 +237,8 @@ The two parameters <code>computeHeating</code> and <code>computeCooling</code> a
 used to configure the block for these three scenarios.
 </p>
 <p>
-The block calculates optimal start time separately for heating and cooling system.
-The base class 
+The block calculates the optimal start time separately for heating and cooling systems.
+The base class
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.BaseClasses.OptimalStartCalculation\">
 Buildings.Controls.OBC.Utilities.BaseClasses.OptimalStartCalculation</a> is used
 for the calculation.
@@ -244,48 +247,48 @@ for the calculation.
 <h4>Cases of multiple zones</h4>
 </p>
 <p>When one HVAC system serves multiple zones, the maximum zone temperature of
-those zones should be used for cooling system and minimum zone temperature should
+those zones should be used for the cooling system and the minimum zone temperature should
 be used for heating system for the input <code>TZon</code>.
 </p>
 <p>
 <h4>Algorithm</h4>
 </p>
 <p>
-The algorithm is briefly described as below.
+The algorithm is as follows:
 </p>
 <p>
-<h4>Step 1: calculate temeperature slope <code>TSlo</code></h4>
+<h4>Step 1: Calculate temeperature slope <code>TSlo</code></h4>
 </p>
 <p>
 Once the HVAC system is started, a timer records the time duration
-(<code>&Delta;t</code>) for the zone temperature to reach the
-setpoint. At the time when the timer starts, the zone temperature is sampled,
-denoted as <code>TSam1</code>. The temperature slope is thus
-approximated using the equation: <code>TSlo = |TSetZonOcc-TSam1|/&Delta;t</code>,
+<code>&Delta;t</code> for the zone temperature to reach the
+setpoint. At the time when the timer starts, the zone temperature <code>TSam1</code> is sampled.
+The temperature slope is
+approximated using the equation <code>TSlo = |TSetZonOcc-TSam1|/&Delta;t</code>,
 where <code>TSetZonOcc</code> is the occupied zone setpoint. Note that if <code>
 &Delta;t</code> is greater than the maximum optimal start time <code>tOptMax</code>,
-<code>tOptMax</code> is used in the equation instead of <code>&Delta;t</code>.
+then <code>tOptMax</code> is used instead of <code>&Delta;t</code>.
 This is to avoid corner cases where the setpoint is never reached, e.g., the HVAC
-system is undersized, or there is a steady-state error associated with PID controls.
+system is undersized, or there is a steady-state error associated with the HVAC control.
 </p>
 <p>
-<h4>Step 2: calculate temperature slope moving average <code>TSloMa</code></h4>
+<h4>Step 2: Calculate temperature slope moving average <code>TSloMa</code></h4>
 </p>
 <p>
 After computing the temperature slope of each day, the moving average of the
-temperature slope <code>TSloMa</code> during the previous <code>n</code> days
+temperature slope <code>TSloMa</code> during the previous <code>nDay</code> days
 is calculated. Please refer to
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Discrete.TriggeredMovingMean\">
 Buildings.Controls.OBC.CDL.Discrete.TriggeredMovingMean</a> for details about
 the moving average algorithm.
 </p>
 <p>
-<h4>Step 3: calculate optimal start time <code>tOpt</code></h4>
+<h4>Step 3: Calculate optimal start time <code>tOpt</code></h4>
 </p>
 <p>
 Each day at a certain time before the occupancy, the algorithm takes another
-sample of the zone temperature, denoted as <code>TSam2</code>. The sampling time
-is defined as occupancy start time - <code>tOptMax</code>.
+sample of the zone temperature, denoted as <code>TSam2</code>. The sample
+takes place <code>tOptMax</code> prior to occupancy start time.
 </p>
 <p>
 The optimal start time is then calculated as <code>tOpt = |TSetZonOcc-TSam2|/TSloMa</code>.
