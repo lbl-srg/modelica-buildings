@@ -85,7 +85,7 @@ equation
     Polygon(
       points={{0,0},{-76,60},{-76,-60},{0,0}},
       lineColor={0,0,0},
-      fillColor=DynamicSelect({0,0,0}, y_actual*{255,255,255}),
+      fillColor=DynamicSelect({0,0,0}, y*{255,255,255}),
       fillPattern=FillPattern.Solid),
     Polygon(
       points={{0,0},{76,60},{76,-60},{0,0}},
@@ -105,7 +105,7 @@ equation
     Polygon(
           points={{0,0},{60,-76},{-60,-76},{0,0}},
           lineColor={0,0,0},
-          fillColor=DynamicSelect({0,0,0}, (1-y_actual)*{255,255,255}),
+          fillColor=DynamicSelect({0,0,0}, (1-y)*{255,255,255}),
           fillPattern=FillPattern.Solid),
     Line(
       visible=use_inputFilter,

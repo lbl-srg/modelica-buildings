@@ -32,6 +32,10 @@ If <code>uMax &lt; uMin</code>, an error occurs and no output is produced.
 </html>", revisions="<html>
 <ul>
 <li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
+<li>
 July 17, 2017, by Michael Wetter:<br/>
 Removed cyclical definition.
 </li>
@@ -79,5 +83,9 @@ Icon(graphics={
     Text(
       extent={{-100,-98},{-18,-72}},
       lineColor={0,0,0},
-          textString="%uMin")}));
+          textString="%uMin"),
+    Text(
+      extent={{226,60},{106,10}},
+      lineColor={0,0,0},
+      textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}));
 end Limiter;
