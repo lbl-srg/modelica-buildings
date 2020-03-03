@@ -27,7 +27,7 @@ model OptimalStartCooling
     annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Add dTdt "Temperature derivative"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain QCoo(k=-13000)
+  Buildings.Controls.OBC.CDL.Continuous.Gain QCoo(k=-2000)
     "Heat extraction in the zone"
     annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
@@ -89,8 +89,9 @@ equation
   annotation (
   experiment(
       StopTime=864000,
+      __Dymola_NumberOfIntervals=5000,
       Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),__Dymola_Commands(file=
+      __Dymola_Algorithm="Cvode"),__Dymola_Commands(file=
   "modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/Utilities/Validation/OptimalStartCooling.mos"
   "Simulate and plot"),
   Documentation(info="<html>

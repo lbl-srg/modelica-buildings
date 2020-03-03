@@ -23,7 +23,7 @@ model OptimalStartHeating
     annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Add dTdt "Temperature derivative"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain QHea(k=1000) "Heat injection in the zone"
+  Buildings.Controls.OBC.CDL.Continuous.Gain QHea(k=500)  "Heat injection in the zone"
     annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea "Convert Boolean to Real signal"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
