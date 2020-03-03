@@ -12,14 +12,15 @@ block OptimalStart
     "Set to true if only computing for space heating"  annotation(Dialog(enable=not computeCooling));
   parameter Boolean computeCooling = false
     "Set to true if only computing for space cooling"  annotation(Dialog(enable=not computeHeating));
-  parameter Modelica.SIunits.TemperatureDifference uLow(min=0) = 0
+  parameter Modelica.SIunits.TemperatureDifference uLow(final min=0) = 0
     "Threshold to determine if the zone temperature reaches the occupied setpoint,
      must be a non-negative number";
-  parameter Modelica.SIunits.TemperatureDifference uHigh(min=0) = 0.5
+  parameter Modelica.SIunits.TemperatureDifference uHigh(final min=0) = 0.5
     "Threshold to determine the need to start the HVAC system before occupancy,
      must be greater than uLow";
   parameter Modelica.SIunits.Time thrOptOn(
-    min=0, max=10800) = 60
+    final min=0,
+    max=10800) = 60
     "Threshold time for the output optOn to become true";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetZonHea(
