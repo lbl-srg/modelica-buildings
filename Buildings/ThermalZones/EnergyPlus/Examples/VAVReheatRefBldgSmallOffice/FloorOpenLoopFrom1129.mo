@@ -1,23 +1,43 @@
 within Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice;
-model FloorOpenLoop "Open loop model of one floor"
+model FloorOpenLoopFrom1129 "Open loop model of one floor"
   extends Modelica.Icons.Example;
 
   replaceable package Medium = Buildings.Media.Air "Medium for air"
     annotation (__Dymola_choicesAllMatching=true);
+
+  parameter String idfName=Modelica.Utilities.Files.loadResource(
+    "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf")
+    "Name of the IDF file";
+  parameter String weaName = Modelica.Utilities.Files.loadResource(
+    "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+    "Name of the weather file";
+
   final parameter Modelica.SIunits.Area AFlo=flo.AFlo "Floor area west";
   final parameter Modelica.SIunits.MassFlowRate mOut_flow = 2
     "Outside air infiltration for each room";
 
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+  inner Buildings.ThermalZones.EnergyPlus.Building building(
+    idfName=idfName,
+    weaName=weaName)
+    "Building-level declarations"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+
+  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
+    filNam=Modelica.Utilities.Files.loadResource(
+      "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+    "Name of the weather file";
   BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
-  replaceable Buildings.Experimental.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.Floor flo(
+  Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.FloorFrom1129
+    flo(
     redeclare package Medium = Medium,
-    use_windPressure=false) constrainedby
-    Buildings.Experimental.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.PartialFloor
-    "One floor of the office building"
+    use_windPressure=false,
+    nor(T_start=275.15),
+    wes(T_start=275.15),
+    eas(T_start=275.15),
+    sou(T_start=275.15),
+    cor(T_start=275.15),
+    att(T_start=291.15)) "One floor of the office building"
     annotation (Placement(transformation(extent={{28,-8},{84,52}})));
   Fluid.Sources.MassFlowSource_WeatherData bou[4](
     redeclare each package Medium = Medium,
@@ -42,36 +62,32 @@ model FloorOpenLoop "Open loop model of one floor"
     each dp_nominal=10,
     each linearized=true) "Small flow resistance for inlet"
     annotation (Placement(transformation(extent={{4,-30},{24,-10}})));
+
 equation
-  connect(weaDat.weaBus, weaBus) annotation (Line(
-      points={{-60,50},{-40,50}},
-      color={255,204,51},
-      thickness=0.5));
   connect(weaBus, flo.weaBus) annotation (Line(
-      points={{-40,50},{66,50},{66,56.6154},{63.3043,56.6154}},
+      points={{-40,50},{66,50},{66,22},{65,22}},
       color={255,204,51},
       thickness=0.5));
   connect(out.ports[1], res.port_a)
     annotation (Line(points={{-8,-54},{6,-54}},color={0,127,255}));
   connect(res.port_b, flo.portsCor[1])
-    annotation (Line(points={{26,-54},{60,-54},{60,4},{48.4522,4},{48.4522,
-          21.5385}},                                    color={0,127,255}));
+    annotation (Line(points={{26,-54},{60,-54},{60,4},{52,4},{52,6.6}},
+                                                        color={0,127,255}));
   connect(weaBus, out.weaBus) annotation (Line(
       points={{-40,50},{-40,-53.8},{-28,-53.8}},
       color={255,204,51},
       thickness=0.5));
   connect(bou[:].ports[1], res1[:].port_a) annotation (Line(points={{-8,-20},{-2,
-          -20},{-2,-20},{4,-20}},color={0,127,255}));
+          -20},{-2,-20},{4,-20}},
+                             color={0,127,255}));
   connect(res1[1].port_b, flo.portsWes[1])
-    annotation (Line(points={{24,-20},{33.3565,-20},{33.3565,21.5385}},color={0,127,255}));
-  connect(res1[2].port_b, flo.portsNor[1]) annotation (Line(points={{24,-20},{
-          46,-20},{46,37.2308},{48.4522,37.2308}},
-                                               color={0,127,255}));
+    annotation (Line(points={{24,-20},{40,-20},{40,6.6}}, color={0,127,255}));
+  connect(res1[2].port_b, flo.portsNor[1]) annotation (Line(points={{24,-20},{46,
+          -20},{46,14.6},{52,14.6}}, color={0,127,255}));
   connect(res1[3].port_b, flo.portsSou[1])
-    annotation (Line(points={{24,-20},{48.4522,-20},{48.4522,4.92308}}, color={0,127,255}));
-  connect(res1[4].port_b, flo.portsEas[1]) annotation (Line(points={{24,-20},{
-          76.2087,-20},{76.2087,21.5385}},
-                                  color={0,127,255}));
+    annotation (Line(points={{24,-20},{52,-20},{52,-1.4}}, color={0,127,255}));
+  connect(res1[4].port_b, flo.portsEas[1]) annotation (Line(points={{24,-20},{76.4,
+          -20},{76.4,5.6}}, color={0,127,255}));
   connect(weaBus, bou[1].weaBus) annotation (Line(
       points={{-40,50},{-40,-19.8},{-28,-19.8}},
       color={255,204,51},
@@ -88,12 +104,17 @@ equation
       points={{-40,50},{-40,-20},{-28,-20},{-28,-19.8}},
       color={255,204,51},
       thickness=0.5));
-  annotation (
- __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/EnergyPlus/Examples/VAVReheatRefBldgSmallOffice/FloorOpenLoop.mos"
+  connect(building.weaBus, weaBus) annotation (Line(
+      points={{-60,50},{-40,50}},
+      color={255,204,51},
+      thickness=0.5));
+    annotation (Placement(transformation(extent={{-80,40},{-60,60}})),
+ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/VAVReheatRefBldgSmallOffice/FloorOpenLoop.mos"
         "Simulate and plot"),
 experiment(
       StopTime=172800,
-      Tolerance=1e-06),
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"),
 Documentation(info="<html>
 <p>
 Test case of one floor of the small office DOE reference building.
@@ -105,4 +126,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end FloorOpenLoop;
+end FloorOpenLoopFrom1129;

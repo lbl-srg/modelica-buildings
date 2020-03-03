@@ -1,27 +1,51 @@
 within Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses;
-model Floor "Model of a floor of the building"
+model FloorFrom1129 "Model of a floor of the building"
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+    "Medium model for air" annotation (choicesAllMatching=true);
 
-  extends
-    Buildings.Experimental.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.PartialFloor(
-    final VRooCor=cor.V,
-    final VRooSou=sou.V,
-    final VRooNor=nor.V,
-    final VRooEas=eas.V,
-    final VRooWes=wes.V);
+  parameter Boolean use_windPressure=true
+    "Set to true to enable wind pressure";
 
-  parameter String idfName=Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf")
-    "Name of the IDF file";
-  parameter String weaName = Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw")
-    "Name of the weather file";
+  parameter Real kIntNor(min=0, max=1) = 1
+    "Gain factor to scale internal heat gain in north zone";
 
   final parameter Modelica.SIunits.Area AFloCor=cor.AFlo "Floor area corridor";
   final parameter Modelica.SIunits.Area AFloSou=sou.AFlo "Floor area south";
   final parameter Modelica.SIunits.Area AFloNor=nor.AFlo "Floor area north";
   final parameter Modelica.SIunits.Area AFloEas=eas.AFlo "Floor area east";
   final parameter Modelica.SIunits.Area AFloWes=wes.AFlo "Floor area west";
-  final parameter Modelica.SIunits.Area AFlo=AFloCor+AFloSou+AFloNor+AFloEas+AFloWes "Floor area";
+  final parameter Modelica.SIunits.Area AFlo=AFloCor+AFloSou+AFloNor+AFloEas+AFloWes "Floor area west";
+
+  ThermalZone sou(
+    redeclare package Medium = Medium,
+    nPorts=5,
+    zoneName="Perimeter_ZN_1") "South zone"
+    annotation (Placement(transformation(extent={{144,-44},{184,-4}})));
+  ThermalZone eas(
+    redeclare package Medium = Medium,
+    nPorts=5,
+    zoneName="Perimeter_ZN_2") "East zone"
+    annotation (Placement(transformation(extent={{304,56},{344,96}})));
+  ThermalZone nor(
+    redeclare package Medium = Medium,
+    nPorts=5,
+    zoneName="Perimeter_ZN_3") "North zone"
+    annotation (Placement(transformation(extent={{144,116},{184,156}})));
+  ThermalZone wes(
+    redeclare package Medium = Medium,
+    nPorts=5,
+    zoneName="Perimeter_ZN_4") "West zone"
+    annotation (Placement(transformation(extent={{12,36},{52,76}})));
+  ThermalZone cor(
+    redeclare package Medium = Medium,
+    nPorts=11,
+    zoneName="Core_ZN") "Core zone"
+    annotation (Placement(transformation(extent={{144,36},{184,76}})));
+
+  ThermalZone att(
+    redeclare package Medium = Medium,
+    zoneName="Attic") "Attic zone"
+    annotation (Placement(transformation(extent={{310,400},{350,440}})));
 
   Modelica.SIunits.Temperature TAirCor = cor.TAir
     "Air temperature corridor";
@@ -34,54 +58,143 @@ model Floor "Model of a floor of the building"
   Modelica.SIunits.Temperature TAirWes = wes.TAir
     "Air temperature west zone";
 
-  Buildings.Experimental.EnergyPlus.ThermalZone sou(
+  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsSou[2](
+      redeclare package Medium = Medium) "Fluid inlets and outlets"
+    annotation (Placement(transformation(extent={{70,-42},{110,-26}})));
+  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsEas[2](
+      redeclare package Medium = Medium) "Fluid inlets and outlets"
+    annotation (Placement(transformation(extent={{314,28},{354,44}})));
+  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsNor[2](
+      redeclare package Medium = Medium) "Fluid inlets and outlets"
+    annotation (Placement(transformation(extent={{70,118},{110,134}})));
+  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsWes[2](
+      redeclare package Medium = Medium) "Fluid inlets and outlets"
+    annotation (Placement(transformation(extent={{-50,38},{-10,54}})));
+  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsCor[2](
+      redeclare package Medium = Medium) "Fluid inlets and outlets"
+    annotation (Placement(transformation(extent={{70,38},{110,54}})));
+  Modelica.Blocks.Math.MatrixGain gai(K=20*[0.4; 0.4; 0.2])
+    "Matrix gain to split up heat gain in radiant, convective and latent gain"
+    annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
+  Modelica.Blocks.Sources.Constant uSha(k=0)
+    "Control signal for the shading device"
+    annotation (Placement(transformation(extent={{-80,170},{-60,190}})));
+  Modelica.Blocks.Routing.Replicator replicator(nout=1)
+    annotation (Placement(transformation(extent={{-40,170},{-20,190}})));
+  BoundaryConditions.WeatherData.Bus weaBus "Weather bus"
+    annotation (Placement(transformation(extent={{200,190},{220,210}})));
+  Buildings.Examples.VAVReheat.ThermalZones.RoomLeakage leaSou(
     redeclare package Medium = Medium,
-    nPorts=5,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    idfName=idfName,
-    weaName=weaName,
-    zoneName="Perimeter_ZN_1") "South zone"
-    annotation (Placement(transformation(extent={{144,-44},{184,-4}})));
-  Buildings.Experimental.EnergyPlus.ThermalZone eas(
+    VRoo=568.77,
+    s=49.91/33.27,
+    azi=Buildings.Types.Azimuth.S,
+    final use_windPressure=use_windPressure)
+    "Model for air infiltration through the envelope"
+    annotation (Placement(transformation(extent={{-58,380},{-22,420}})));
+  Buildings.Examples.VAVReheat.ThermalZones.RoomLeakage leaEas(
     redeclare package Medium = Medium,
-    nPorts=5,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    idfName=idfName,
-    weaName=weaName,
-    zoneName="Perimeter_ZN_2") "East zone"
-    annotation (Placement(transformation(extent={{304,56},{344,96}})));
-  Buildings.Experimental.EnergyPlus.ThermalZone nor(
+    VRoo=360.0785,
+    s=33.27/49.91,
+    azi=Buildings.Types.Azimuth.E,
+    final use_windPressure=use_windPressure)
+    "Model for air infiltration through the envelope"
+    annotation (Placement(transformation(extent={{-58,340},{-22,380}})));
+  Buildings.Examples.VAVReheat.ThermalZones.RoomLeakage leaNor(
     redeclare package Medium = Medium,
-    nPorts=5,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    idfName=idfName,
-    weaName=weaName,
-    zoneName="Perimeter_ZN_3") "North zone"
-    annotation (Placement(transformation(extent={{144,116},{184,156}})));
-  Buildings.Experimental.EnergyPlus.ThermalZone wes(
+    VRoo=568.77,
+    s=49.91/33.27,
+    azi=Buildings.Types.Azimuth.N,
+    final use_windPressure=use_windPressure)
+    "Model for air infiltration through the envelope"
+    annotation (Placement(transformation(extent={{-56,300},{-20,340}})));
+  Buildings.Examples.VAVReheat.ThermalZones.RoomLeakage leaWes(
     redeclare package Medium = Medium,
-    nPorts=5,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    idfName=idfName,
-    weaName=weaName,
-    zoneName="Perimeter_ZN_4") "West zone"
-    annotation (Placement(transformation(extent={{12,36},{52,76}})));
-  Buildings.Experimental.EnergyPlus.ThermalZone cor(
+    VRoo=360.0785,
+    s=33.27/49.91,
+    azi=Buildings.Types.Azimuth.W,
+    final use_windPressure=use_windPressure)
+    "Model for air infiltration through the envelope"
+    annotation (Placement(transformation(extent={{-56,260},{-20,300}})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temAirSou
+    "Air temperature sensor"
+    annotation (Placement(transformation(extent={{290,340},{310,360}})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temAirEas
+    "Air temperature sensor"
+    annotation (Placement(transformation(extent={{292,310},{312,330}})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temAirNor
+    "Air temperature sensor"
+    annotation (Placement(transformation(extent={{292,280},{312,300}})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temAirWes
+    "Air temperature sensor"
+    annotation (Placement(transformation(extent={{292,248},{312,268}})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temAirPer5
+    "Air temperature sensor"
+    annotation (Placement(transformation(extent={{294,218},{314,238}})));
+  Modelica.Blocks.Routing.Multiplex5 multiplex5_1
+    annotation (Placement(transformation(extent={{340,280},{360,300}})));
+  Modelica.Blocks.Interfaces.RealOutput TRooAir[5](
+    each unit="K",
+    each displayUnit="degC") "Room air temperatures"
+    annotation (Placement(transformation(extent={{380,150},{400,170}}),
+        iconTransformation(extent={{380,150},{400,170}})));
+  Airflow.Multizone.DoorDiscretizedOpen opeSouCor(
     redeclare package Medium = Medium,
-    nPorts=11,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    idfName=idfName,
-    weaName=weaName,
-    zoneName="Core_ZN") "Core zone"
-    annotation (Placement(transformation(extent={{144,36},{184,76}})));
+    wOpe=10,
+    forceErrorControlOnFlow=false)
+    "Opening between perimeter1 and core"
+    annotation (Placement(transformation(extent={{84,0},{104,20}})));
+  Airflow.Multizone.DoorDiscretizedOpen opeEasCor(
+    redeclare package Medium = Medium,
+    wOpe=10,
+    forceErrorControlOnFlow=false)
+    "Opening between perimeter2 and core"
+    annotation (Placement(transformation(extent={{250,38},{270,58}})));
+  Airflow.Multizone.DoorDiscretizedOpen opeNorCor(
+    redeclare package Medium = Medium,
+    wOpe=10,
+    forceErrorControlOnFlow=false)
+    "Opening between perimeter3 and core"
+    annotation (Placement(transformation(extent={{80,74},{100,94}})));
+  Airflow.Multizone.DoorDiscretizedOpen opeWesCor(
+    redeclare package Medium = Medium,
+    wOpe=10,
+    forceErrorControlOnFlow=false)
+    "Opening between perimeter3 and core"
+    annotation (Placement(transformation(extent={{20,-20},{40,0}})));
+  Modelica.Blocks.Sources.CombiTimeTable intGaiFra(
+    table=[0,0.05;
+           8,0.05;
+           9,0.9;
+           12,0.9;
+           12,0.8;
+           13,0.8;
+           13,1;
+           17,1;
+           19,0.1;
+           24,0.05],
+    timeScale=3600,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
+    "Fraction of internal heat gain"
+    annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
+  Buildings.Fluid.Sensors.RelativePressure senRelPre(redeclare package Medium
+      =                                                                         Medium)
+    "Building pressure measurement"
+    annotation (Placement(transformation(extent={{60,240},{40,260}})));
+  Buildings.Fluid.Sources.Outside out(nPorts=1, redeclare package Medium = Medium)
+    annotation (Placement(transformation(extent={{-58,240},{-38,260}})));
+  Modelica.Blocks.Interfaces.RealOutput p_rel
+    "Relative pressure signal of building static pressure" annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={-170,220})));
 
-  Buildings.Experimental.EnergyPlus.ThermalZone att(
-    redeclare package Medium = Medium,
-    idfName=idfName,
-    weaName=weaName,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    zoneName="Attic") "Attic zone"
-    annotation (Placement(transformation(extent={{310,400},{350,440}})));
+  Modelica.Blocks.Math.Gain gaiIntNor[3](each k=kIntNor)
+    "Gain for internal heat gain amplification for north zone"
+    annotation (Placement(transformation(extent={{-60,134},{-40,154}})));
+  Modelica.Blocks.Math.Gain gaiIntSou[3](each k=2 - kIntNor)
+    "Gain to change the internal heat gain for south"
+    annotation (Placement(transformation(extent={{-60,-38},{-40,-18}})));
 
   Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
     annotation (Placement(transformation(extent={{214,420},{234,440}})));
@@ -93,6 +206,11 @@ model Floor "Model of a floor of the building"
     annotation (Placement(transformation(extent={{214,380},{234,400}})));
 
 equation
+  connect(uSha.y, replicator.u) annotation (Line(
+      points={{-59,180},{-42,180}},
+      color={0,0,127},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(gai.y, cor.qGai_flow)          annotation (Line(
       points={{-79,110},{120,110},{120,66},{142,66}},
       color={0,0,127},
@@ -108,6 +226,56 @@ equation
       color={0,0,127},
       pattern=LinePattern.Dash,
       smooth=Smooth.None));
+  connect(weaBus, leaSou.weaBus) annotation (Line(
+      points={{210,200},{-80,200},{-80,400},{-58,400}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(weaBus, leaEas.weaBus) annotation (Line(
+      points={{210,200},{-80,200},{-80,360},{-58,360}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(weaBus, leaNor.weaBus) annotation (Line(
+      points={{210,200},{-80,200},{-80,320},{-56,320}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(weaBus, leaWes.weaBus) annotation (Line(
+      points={{210,200},{-80,200},{-80,280},{-56,280}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(multiplex5_1.y, TRooAir) annotation (Line(
+      points={{361,290},{372,290},{372,160},{390,160}},
+      color={0,0,127},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+  connect(temAirSou.T, multiplex5_1.u1[1]) annotation (Line(
+      points={{310,350},{328,350},{328,300},{338,300}},
+      color={0,0,127},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+  connect(temAirEas.T, multiplex5_1.u2[1]) annotation (Line(
+      points={{312,320},{324,320},{324,295},{338,295}},
+      color={0,0,127},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+  connect(temAirNor.T, multiplex5_1.u3[1]) annotation (Line(
+      points={{312,290},{338,290}},
+      color={0,0,127},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+  connect(temAirWes.T, multiplex5_1.u4[1]) annotation (Line(
+      points={{312,258},{324,258},{324,285},{338,285}},
+      color={0,0,127},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+  connect(temAirPer5.T, multiplex5_1.u5[1]) annotation (Line(
+      points={{314,228},{322,228},{322,228},{332,228},{332,280},{338,280}},
+      color={0,0,127},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(sou.heaPorAir, temAirSou.port) annotation (Line(
       points={{164,-24},{224,-24},{224,100},{264,100},{264,350},{290,350}},
       color={191,0,0},
@@ -129,37 +297,37 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(sou.ports[1], portsSou[1]) annotation (Line(
-      points={{160.8,-43.2},{114,-43.2},{114,-36},{80,-36}},
+      points={{160.8,-43.2},{114,-43.2},{114,-34},{80,-34}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou.ports[2], portsSou[2]) annotation (Line(
-      points={{162.4,-43.2},{124,-43.2},{124,-36},{100,-36}},
+      points={{162.4,-43.2},{124,-43.2},{124,-34},{100,-34}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(eas.ports[1], portsEas[1]) annotation (Line(
-      points={{320.8,56.8},{300,56.8},{300,36},{320,36}},
+      points={{320.8,56.8},{300,56.8},{300,36},{324,36}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(eas.ports[2], portsEas[2]) annotation (Line(
-      points={{322.4,56.8},{300,56.8},{300,36},{340,36}},
+      points={{322.4,56.8},{300,56.8},{300,36},{344,36}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(nor.ports[1], portsNor[1]) annotation (Line(
-      points={{160.8,116.8},{114,116.8},{114,124},{80,124}},
+      points={{160.8,116.8},{114,116.8},{114,126},{80,126}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(nor.ports[2], portsNor[2]) annotation (Line(
-      points={{162.4,116.8},{124,116.8},{124,124},{100,124}},
+      points={{162.4,116.8},{124,116.8},{124,126},{100,126}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(wes.ports[1], portsWes[1]) annotation (Line(
-      points={{28.8,36.8},{-12,36.8},{-12,44},{-40,44}},
+      points={{28.8,36.8},{-12,36.8},{-12,46},{-40,46}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(wes.ports[2], portsWes[2]) annotation (Line(
-      points={{30.4,36.8},{-2,36.8},{-2,44},{-20,44}},
+      points={{30.4,36.8},{-2,36.8},{-2,46},{-20,46}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(cor.ports[1], portsCor[1]) annotation (Line(
@@ -269,18 +437,44 @@ equation
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
+  connect(intGaiFra.y, gai.u) annotation (Line(
+      points={{-119,110},{-102,110}},
+      color={0,0,127},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(cor.ports[11], senRelPre.port_a) annotation (Line(
       points={{167.636,36.8},{110,36.8},{110,250},{60,250}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
+  connect(out.weaBus, weaBus) annotation (Line(
+      points={{-58,250.2},{-70,250.2},{-70,250},{-80,250},{-80,200},{210,200}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
   connect(out.ports[1], senRelPre.port_b) annotation (Line(
       points={{-38,250},{40,250}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
+  connect(senRelPre.p_rel, p_rel) annotation (Line(
+      points={{50,241},{50,220},{-170,220}},
+      color={0,0,127},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+  connect(gai.y, gaiIntNor.u) annotation (Line(
+      points={{-79,110},{-68,110},{-68,144},{-62,144}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(gaiIntNor.y, nor.qGai_flow) annotation (Line(
       points={{-39,144},{52,144},{52,146},{142,146}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
+  connect(gai.y, gaiIntSou.u) annotation (Line(
+      points={{-79,110},{-68,110},{-68,-28},{-62,-28}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(gaiIntSou.y, sou.qGai_flow) annotation (Line(
@@ -295,10 +489,10 @@ equation
           {258,422},{248,422},{248,390},{235,390}}, color={0,0,127}));
   connect(multiplex3_1.y, att.qGai_flow)
     annotation (Line(points={{281,430},{308,430}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true,
-        extent={{-160,-100},{380,500}},
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-100},
+            {400,500}},
         initialScale=0.1)),     Icon(coordinateSystem(
-          preserveAspectRatio=true, extent={{-80,-80},{380,180}}),   graphics={
+          preserveAspectRatio=true, extent={{-160,-100},{400,500}}), graphics={
         Rectangle(
           extent={{-80,-80},{380,180}},
           lineColor={95,95,95},
@@ -389,7 +583,11 @@ equation
           extent={{2,166},{296,174}},
           lineColor={95,95,95},
           fillColor={170,213,255},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-84,234},{-62,200}},
+          lineColor={0,0,255},
+          textString="dP")}),
     Documentation(info="<html>
 <p>
 Model of one floor of the DOE reference office building.
@@ -402,10 +600,6 @@ May 1, 2013, by Michael Wetter:<br/>
 Declared the parameter record to be a parameter, as declaring its elements
 to be parameters does not imply that the whole record has the variability of a parameter.
 </li>
-<li>
-November 15, 2019, by Milica Grahovac:<br/>
-Added extend from a partial floor model.
-</li>
 </ul>
 </html>"));
-end Floor;
+end FloorFrom1129;
