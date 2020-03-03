@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Controls.BaseClasses;
-partial block HotColdSideController "State machine"
+partial block HotColdSide "State machine"
   extends Modelica.Blocks.Icons.Block;
   replaceable model Inequality =
     Buildings.Controls.OBC.CDL.Continuous.GreaterEqual;
@@ -185,4 +185,4 @@ Added the info section.
 </li>
 </ul>
 </html>"));
-end HotColdSideController;
+end HotColdSide;

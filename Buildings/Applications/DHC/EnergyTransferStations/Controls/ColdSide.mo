@@ -2,7 +2,7 @@ within Buildings.Applications.DHC.EnergyTransferStations.Controls;
 model ColdSide "State machine controls the operation of the cooling generating source 
   (EIR chiller), two way cooling valve, borfield and district pumps"
   extends
-    Buildings.Applications.DHC.EnergyTransferStations.Controls.BaseClasses.HotColdSideController(
+    Buildings.Applications.DHC.EnergyTransferStations.Controls.BaseClasses.HotColdSide(
     THys=THys,
     redeclare model Inequality =
   Buildings.Controls.OBC.CDL.Continuous.LessEqual,

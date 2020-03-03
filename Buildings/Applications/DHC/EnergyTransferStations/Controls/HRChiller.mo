@@ -6,82 +6,82 @@ model HRChiller "Heat recovery chiller controller"
    Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetConLvg(final unit="K",
       displayUnit="degC") "Setpoint for condenser water leaving temperature"
     annotation (Placement(transformation(extent={{-200,-160},{-160,-120}}),
-        iconTransformation(extent={{-120,20},{-100,40}})));
+        iconTransformation(extent={{-140,10},{-100,50}})));
    Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetCoo(final
       unit="K",
       displayUnit="degC")
     "Setpoint for cooling supply water to space loads"
      annotation (Placement(transformation(extent={{-200,-60},{-160,-20}}),
-        iconTransformation(extent={{-120,40},{-100,60}})));
+        iconTransformation(extent={{-140,30},{-100,70}})));
    Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetCooMin(final
       unit="K",
       displayUnit="degC")
     "Minimum setpoint for chilled water."
      annotation (Placement(transformation(extent={{-200,-240},{-160,-200}}),
-                    iconTransformation(extent={{-120,0},{-100,20}})));
+                    iconTransformation(extent={{-140,-10},{-100,30}})));
    Buildings.Controls.OBC.CDL.Interfaces.RealInput TConLvg(final
      unit="K",
      displayUnit="degC")
    "Condenser leaving water temperature"
      annotation (Placement(
         transformation(extent={{-200,-200},{-160,-160}}), iconTransformation(
-          extent={{-120,-80},{-100,-60}})));
+          extent={{-140,-90},{-100,-50}})));
    Buildings.Controls.OBC.CDL.Interfaces.RealInput TConEnt(final
       unit="K",
       displayUnit="degC")
     "Condenser entering water temperature"
      annotation (
       Placement(transformation(extent={{-202,-368},{-160,-326}}),
-        iconTransformation(extent={{-120,-98},{-100,-78}})));
+        iconTransformation(extent={{-140,-110},{-100,-70}})));
    Buildings.Controls.OBC.CDL.Interfaces.RealInput TMinConEnt(final
       unit="K",
       displayUnit="degC")
    "Minimum condenser entering water temperature"
      annotation (Placement(transformation(extent={{-200,-340},{-160,-300}}),
-        iconTransformation(extent={{-120,-20},{-100,0}})));
+        iconTransformation(extent={{-140,-30},{-100,10}})));
    Buildings.Controls.OBC.CDL.Interfaces.RealInput TEvaEnt(final
       unit="K",
       displayUnit="degC")
    "Evaporator entering water temperature"
      annotation (
       Placement(transformation(extent={{-200,-314},{-160,-274}}),
-        iconTransformation(extent={{-120,-60},{-100,-40}})));
+        iconTransformation(extent={{-140,-70},{-100,-30}})));
    Buildings.Controls.OBC.CDL.Interfaces.RealInput TMaxEvaEnt(final
       unit="K",
       displayUnit="degC")
     "Maximum evaporator entering water temperature"
      annotation (Placement(transformation(extent={{-200,-280},{-160,-240}}),
-        iconTransformation(extent={{-120,-40},{-100,-20}})));
+        iconTransformation(extent={{-140,-50},{-100,-10}})));
    Buildings.Controls.OBC.CDL.Interfaces.BooleanInput reqCoo
     "Cooling is required Boolean signal"
      annotation (Placement(transformation(
-          extent={{-200,60},{-160,100}}),iconTransformation(extent={{-120,60},{
-            -100,80}})));
+          extent={{-200,60},{-160,100}}),iconTransformation(extent={{-140,50},{
+            -100,90}})));
    Buildings.Controls.OBC.CDL.Interfaces.BooleanInput reqHea
     "Heating is required Boolean signal"
      annotation (Placement(transformation(extent={{-200,20},{-160,60}}),
-        iconTransformation(extent={{-120,80},{-100,100}})));
+        iconTransformation(extent={{-140,70},{-100,110}})));
    Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSetChi(final
       unit="K",
       displayUnit="degC")
     "Setpoint temperture for the chiller"
      annotation (
       Placement(transformation(extent={{160,-20},{200,20}}),iconTransformation(
-          extent={{100,50},{120,70}})));
+          extent={{100,40},{140,80}})));
    Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValCon
     "Control signal of the modulating three way valve to maintain the condenser 
       entering temperature above the minimum value."
      annotation (Placement(transformation(extent={{160,-340},{200,-300}}),
-        iconTransformation(extent={{100,-50},{120,-30}})));
+        iconTransformation(extent={{100,-60},{140,-20}})));
    Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValEva
     "Control signal of the modulating three way valve to maintain the evaporator
       entering temperature below the maximum value."
      annotation (Placement(transformation(extent={{160,-280},{200,-240}}),
-        iconTransformation(extent={{100,-90},{120,-70}})));
+        iconTransformation(extent={{100,-100},{140,-60}})));
    Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChiMod
     "Chiller operational mode."
      annotation (Placement(transformation(extent={{160,40},{200,80}}),
-         iconTransformation(extent={{100,-10},{120,10}})));
+         iconTransformation(extent={{100,-20},{140,20}})));
 
    Buildings.Controls.OBC.CDL.Logical.Or or2
      annotation (Placement(transformation(extent={{-106,44},{-86,64}})));

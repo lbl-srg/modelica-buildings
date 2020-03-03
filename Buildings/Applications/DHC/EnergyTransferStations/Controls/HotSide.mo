@@ -2,7 +2,7 @@ within Buildings.Applications.DHC.EnergyTransferStations.Controls;
 block HotSide "State machine controls the operation of the heating generating source (EIR chiller)
    , two way heating valve, borfield and district pumps"
   extends
-    Buildings.Applications.DHC.EnergyTransferStations.Controls.BaseClasses.HotColdSideController(
+    Buildings.Applications.DHC.EnergyTransferStations.Controls.BaseClasses.HotColdSide(
         THys=THys);
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput reqHea
@@ -28,12 +28,14 @@ equation
           18},{-66,18},{-66,-22},{-62,-22}}, color={0,0,127}));
   connect(TBot, greEqu3.u2) annotation (Line(points={{-160,-60},{-112,-60},{-112,
           18},{-66,18},{-66,-68},{-62,-68}}, color={0,0,127}));
-  connect(min.y, greEqu4.u1) annotation (Line(points={{-74,-100},{-70,-100},{-70,
-          -110},{-62,-110}},     color={0,0,127}));
+  connect(min.y, greEqu4.u1) annotation (Line(points={{-74,-100},{-70,-100},{
+          -70,-92},{-62,-92}},   color={0,0,127}));
   connect(runHP.active, reqHea) annotation (Line(points={{6,109},{6,106},{24,
           106},{24,138},{150,138}}, color={255,0,255}));
-  connect(rejFulLoaSta.active, rejFulLoa)  annotation (Line(points={{56,49},{56,-48},{150,-48}}, color={255,0,255}));
-  connect(rejFulLoaSta.active, or2.u1) annotation (Line(points={{56,49},{56,-80},{58,-80}}, color={255,0,255}));
+  connect(rejFulLoaSta.active, rejFulLoa)  annotation (Line(points={{56,49},{56,
+          20},{160,20}},                                                                         color={255,0,255}));
+  connect(rejFulLoaSta.active, or2.u1) annotation (Line(points={{56,49},{56,-20},
+          {58,-20}},                                                                        color={255,0,255}));
 
    annotation ( Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
                     defaultComponentName="conHotSid",
