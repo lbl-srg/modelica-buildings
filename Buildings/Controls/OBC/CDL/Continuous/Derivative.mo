@@ -54,6 +54,7 @@ input <code>u</code> and the output <code>y</code>
 If <code>k=0</code>, the block reduces to <code>y=0</code>.
 </p>
 </html>", revisions="<html>
+<ul>
 <li>
 March 2, 2020, by Michael Wetter:<br/>
 Changed icon to display dynamically the output value.
