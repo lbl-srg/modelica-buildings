@@ -797,10 +797,10 @@ equation
       points={{210,-52},{230,-52},{230,-110}},
       color={28,108,200},
       thickness=0.5));
-  connect(gaiHeaCoi.y, souHea.m_flow_in) annotation (Line(points={{122,-210},{124,
-          -210},{124,-132}},     color={0,0,127}));
-  connect(gaiCooCoi.y, souCoo.m_flow_in) annotation (Line(points={{122,-248},{222,
-          -248},{222,-132}},     color={0,0,127}));
+  connect(gaiHeaCoi.y, souHea.m_flow_in) annotation (Line(points={{122,-210},{
+          124,-210},{124,-132}}, color={0,0,127}));
+  connect(gaiCooCoi.y, souCoo.m_flow_in) annotation (Line(points={{122,-248},{
+          222,-248},{222,-132}}, color={0,0,127}));
   connect(dpDisSupFan.port_b, amb.ports[3]) annotation (Line(
       points={{320,10},{320,14},{-88,14},{-88,-47.9333},{-114,-47.9333}},
       color={0,0,0},
@@ -828,7 +828,7 @@ equation
       color={28,108,200},
       thickness=0.5));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-380,
-            -400},{1420,600}})), Documentation(info="<html>
+            -400},{1420,660}})), Documentation(info="<html>
 <p>
 This model consist of an HVAC system, a building envelope model and a model
 for air flow through building leakage and through open doors.
@@ -927,5 +927,6 @@ November 25, 2019, by Milica Grahovac:<br/>
 Declared the floor model as replaceable.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(coordinateSystem(extent={{-380,-400},{1420,660}})));
 end PartialOpenLoop;
