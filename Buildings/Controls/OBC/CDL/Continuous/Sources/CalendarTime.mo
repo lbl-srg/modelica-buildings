@@ -88,6 +88,10 @@ This is within the 2010-2020 range and is therefore allowed.
 revisions="<html>
 <ul>
 <li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
+<li>
 August 20, 2019, by Filip Jorissen:<br/>
 Revised implementation such that the meaning of <code>time</code> is better explained
 and unix time stamps are correctly defined with respect to GMT.

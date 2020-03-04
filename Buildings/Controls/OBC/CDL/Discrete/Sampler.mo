@@ -75,7 +75,11 @@ equation
           fillPattern=FillPattern.Solid),
         Line(points={{-100,0},{-45,0}}, color={0,0,255}),
         Line(points={{45,0},{100,0}}, color={0,0,255}),
-        Line(points={{-35,0},{30,35}}, color={0,0,255})}),
+        Line(points={{-35,0},{30,35}}, color={0,0,255}),
+        Text(
+          extent={{226,60},{106,10}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}),
     Documentation(info="<html>
 <p>
 Block that outputs the input signal, sampled at a sampling rate defined
@@ -83,6 +87,10 @@ via parameter <code>samplePeriod</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
 <li>
 September 14, 2017, by Michael Wetter:<br/>
 Removed parameter <code>startTime</code> to allow model to work
