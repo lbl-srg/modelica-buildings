@@ -61,45 +61,52 @@ partial model PartialBuildingWithETS
         rotation=0,
         origin={-110,80})));
   // COMPONENTS
-  replaceable Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding bui
-    constrainedby Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
+  replaceable DHC.Loads.BaseClasses.PartialBuilding bui(
       redeclare final package Medium = Medium,
-      final nPorts_a=nSup,
-      final nPorts_b=nSup,
+      final nPorts_a=1,
+      final nPorts_b=1,
       final allowFlowReversal=allowFlowReversalBui)
     "Building"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
-  // TODO: declare here partial ETS model constrained by parameters binding
   replaceable EnergyTransferStations.ETSSimplified ets(
-    final allowFlowReversalBui=allowFlowReversalBui,
-    final allowFlowReversalDis=allowFlowReversalDis,
-    redeclare final package Medium = Medium,
-    dT_nominal=dT_nominal,
-    TChiWatSup_nominal=TChiWatSup_nominal,
-    TChiWatRet_nominal=TChiWatRet_nominal,
-    THeaWatSup_nominal=THeaWatSup_nominal,
-    THeaWatRet_nominal=THeaWatRet_nominal,
-    dp_nominal=dp_nominal,
-    COP_nominal=COP_nominal,
-    nSup=nSup)
+    final dT_nominal=dT_nominal,
+    final TChiWatSup_nominal=TChiWatSup_nominal,
+    final TChiWatRet_nominal=TChiWatRet_nominal,
+    final THeaWatSup_nominal=THeaWatSup_nominal,
+    final THeaWatRet_nominal=THeaWatRet_nominal,
+    final dp_nominal=dp_nominal,
+    final COP_nominal=COP_nominal,
+    QChiWat_flow_nominal=sum(bui.terUni.QCoo_flow_nominal),
+    QHeaWat_flow_nominal=sum(bui.terUni.QHea_flow_nominal),
+    nPorts_aBui=1,
+    nPorts_bBui=1,
+    nPorts_bDis=1,
+    nPorts_aDis=1)
+    constrainedby DHC.EnergyTransferStations.BaseClasses.PartialETS(
+      nSup=nSup,
+      redeclare final package Medium = Medium,
+      final allowFlowReversalBui=allowFlowReversalBui,
+      final allowFlowReversalDis=allowFlowReversalDis)
     "Energy transfer station"
-    annotation (Placement(transformation(extent={{-20,-60},{20,-20}})));
+    annotation (Placement(transformation(extent={{-20,-62},{20,-22}})));
+
 equation
-  connect(port_a, ets.port_a) annotation (Line(points={{-100,0},{-80,0},{-80,-40},
-          {-20,-40}}, color={0,127,255}));
-  connect(ets.port_b, port_b) annotation (Line(points={{20,-40},{80,-40},{80,0},
-          {100,0}},    color={0,127,255}));
   connect(TSetChiWat, ets.TSetChiWat) annotation (Line(points={{-120,40},{-74,
-          40},{-74,-28.5714},{-21.4286,-28.5714}},
+          40},{-74,-44.6667},{-25.3333,-44.6667}},
                                                color={0,0,127}));
   connect(TSetHeaWat, ets.TSetHeaWat) annotation (Line(points={{-120,70},{-68,
-          70},{-68,-22.8571},{-21.4286,-22.8571}},
+          70},{-68,-39.3333},{-25.3333,-39.3333}},
                                                color={0,0,127}));
-  connect(bui.ports_b, ets.ports_a1) annotation (Line(points={{10,44},{60,44},{
-          60,0},{-40,0},{-40,-52.8571},{-20,-52.8571}},      color={0,127,255}));
-  connect(ets.ports_b1, bui.ports_a) annotation (Line(points={{20,-52.8571},{24,
-          -52.8571},{40,-52.8571},{40,-80},{-60,-80},{-60,44},{-10,44}},
-        color={0,127,255}));
+  connect(bui.ports_b[1], ets.ports_aBui[1]) annotation (Line(points={{10,44},{
+          40,44},{40,0},{-60,0},{-60,-24},{-24,-24},{-24,-23.3333}}, color={0,
+          127,255}));
+  connect(ets.ports_bBui[1], bui.ports_a[1]) annotation (Line(points={{24,
+          -23.3333},{60,-23.3333},{60,20},{-40,20},{-40,44},{-10,44}}, color={0,
+          127,255}));
+  connect(ets.ports_bDis[1], port_b) annotation (Line(points={{24,-60.6667},{80,
+          -60.6667},{80,0},{100,0}}, color={0,127,255}));
+  connect(port_a, ets.ports_aDis[1]) annotation (Line(points={{-100,0},{-80,0},
+          {-80,-60.6667},{-24,-60.6667}}, color={0,127,255}));
   annotation (
     DefaultComponentName="bui",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},

@@ -2,12 +2,17 @@ within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Loads;
 model BuildingRCZ1WithETS
   "Model of a building (RC 1 zone) with an energy transfer station"
   extends BaseClasses.PartialBuildingWithETS(
-    redeclare
-    Buildings.Applications.DHC.Loads.Examples.BaseClasses.BuildingRCZ1Valve
-    bui,
-    ets(
-      QCoo_flow_nominal=sum(bui.terUni.QCoo_flow_nominal),
-      QHea_flow_nominal=sum(bui.terUni.QHea_flow_nominal)));
+    redeclare DHC.Loads.Examples.BaseClasses.BuildingRCZ1Valve bui,
+    redeclare EnergyTransferStations.ETSSimplified ets(
+      final dT_nominal=dT_nominal,
+      final TChiWatSup_nominal=TChiWatSup_nominal,
+      final TChiWatRet_nominal=TChiWatRet_nominal,
+      final THeaWatSup_nominal=THeaWatSup_nominal,
+      final THeaWatRet_nominal=THeaWatRet_nominal,
+      final dp_nominal=dp_nominal,
+      final COP_nominal=COP_nominal,
+      final QCoo_flow_nominal=sum(bui.terUni.QCoo_flow_nominal),
+      final QHea_flow_nominal=sum(bui.terUni.QHea_flow_nominal)));
   BoundaryConditions.WeatherData.Bus weaBus
     "Weather data bus"
     annotation (Placement(
