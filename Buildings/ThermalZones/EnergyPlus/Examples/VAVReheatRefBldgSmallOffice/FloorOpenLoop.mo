@@ -13,10 +13,10 @@ model FloorOpenLoop "Open loop model of one floor"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
-  replaceable Buildings.Experimental.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.Floor flo(
+  replaceable Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.Floor flo(
     redeclare package Medium = Medium,
     use_windPressure=false) constrainedby
-    Buildings.Experimental.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.PartialFloor
+    Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.PartialFloor
     "One floor of the office building"
     annotation (Placement(transformation(extent={{28,-8},{84,52}})));
   Fluid.Sources.MassFlowSource_WeatherData bou[4](
@@ -89,11 +89,12 @@ equation
       color={255,204,51},
       thickness=0.5));
   annotation (
- __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/EnergyPlus/Examples/VAVReheatRefBldgSmallOffice/FloorOpenLoop.mos"
+ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/VAVReheatRefBldgSmallOffice/FloorOpenLoop.mos"
         "Simulate and plot"),
 experiment(
       StopTime=172800,
-      Tolerance=1e-06),
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"),
 Documentation(info="<html>
 <p>
 Test case of one floor of the small office DOE reference building.
