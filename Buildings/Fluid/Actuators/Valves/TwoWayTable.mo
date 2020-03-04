@@ -164,16 +164,16 @@ First implementation.
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={
         Rectangle(
-          origin={-70,83},
+          origin={-56,-85},
           lineColor={64,64,64},
           fillColor={255,215,136},
           fillPattern=FillPattern.Solid,
           extent={{-12,-11},{12,11}},
           radius=5.0),
         Line(
-          points={{-70,94},{-70,72}}),
+          points={{-68,-90},{-44,-90}}),
         Line(
-          points={{-82,86},{-58,86}}),
+          points={{-56,-74},{-56,-96}}),
         Line(
-          points={{-82,78},{-58,78}})}));
+          points={{-68,-82},{-44,-82}})}));
 end TwoWayTable;

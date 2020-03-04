@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "conSysSta.TRoo",
+    "conSysSta.TRooSet",
+    "conSysSta.TOut",
+    "conSysSta.TOutLow",
+    "conSysSta.onSys"
+  };

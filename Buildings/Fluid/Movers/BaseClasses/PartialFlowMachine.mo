@@ -499,7 +499,27 @@ equation
         Line(
           points={{0,100},{0,50}},
           color={0,0,0},
-          smooth=Smooth.None)}),
+          smooth=Smooth.None),
+        Rectangle(
+          visible=use_inputFilter,
+          extent={{-32,40},{34,100}},
+          lineColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          visible=use_inputFilter,
+          extent={{-32,100},{34,40}},
+          lineColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
+        Text(
+          visible=use_inputFilter,
+          extent={{-20,92},{22,46}},
+          lineColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid,
+          textString="M",
+          textStyle={TextStyle.Bold})}),
     Documentation(info="<html>
 <p>
 This is the base model for fans and pumps.
