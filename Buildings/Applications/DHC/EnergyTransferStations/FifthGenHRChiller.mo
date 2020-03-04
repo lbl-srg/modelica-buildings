@@ -1,7 +1,20 @@
 within Buildings.Applications.DHC.EnergyTransferStations;
 model FifthGenHRChiller
   "Energy transfer station model for fifth generation DHC systems"
-    package Medium = Buildings.Media.Water "Medium model";
+  extends DHC.EnergyTransferStations.BaseClasses.PartialETS(
+    redeclare replaceable package MediumBui = Buildings.Media.Water,
+    redeclare replaceable package MediumDis = Buildings.Media.Water,
+    final allowFlowReversalBui=false,
+    final allowFlowReversalDis=false,
+    have_heaWat=true,
+    have_chiWat=true,
+    have_hotWat=false,
+    have_eleHea=false,
+    have_eleCoo=true,
+    have_fan=false,
+    have_weaBus=false,
+    have_pum=true);
+
 
     final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
         max(mSecHea_flow_nominal,mSecCoo_flow_nominal)
@@ -139,7 +152,7 @@ model FifthGenHRChiller
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetCooMin(
     final unit="K",displayUnit="degC")
     "Minimum cooling setpoint temperature"
-    annotation (Placement(transformation(extent={{-320,244},{-300,264}}),
+    annotation (Placement(transformation(extent={{-320,54},{-300,74}}),
     iconTransformation(extent={{-120,30},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMaxBorEnt(
     final unit="K",displayUnit="degC")
@@ -149,40 +162,26 @@ model FifthGenHRChiller
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMinConEnt(
     final unit="K",displayUnit="degC")
     "Minimum condenser entering water temperature"
-    annotation (Placement(transformation(extent={{-320,230},{-300,250}}),
+    annotation (Placement(transformation(extent={{-320,40},{-300,60}}),
       iconTransformation(extent={{-120,10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMaxEvaEnt(
     final unit="K",displayUnit="degC")
     "Maximum evaporator entering water temperature"
-    annotation (Placement(transformation(extent={{-320,216},{-300,236}}),
+    annotation (Placement(transformation(extent={{-320,26},{-300,46}}),
     iconTransformation(extent={{-120,-10},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetHea(
     final unit="K",displayUnit="degC")
     "Heating setpoint temperature"
-    annotation (Placement(transformation(extent={{-320,272},{-300,292}}),
+    annotation (Placement(transformation(extent={{-340,116},{-300,156}}),
       iconTransformation(extent={{-120,50},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetCoo( final unit="K",displayUnit="degC")
     "Cooling setpoint temperature"
-    annotation (Placement(transformation(extent={{-320,258},{-300,278}}),
+    annotation (Placement(transformation(extent={{-320,68},{-300,88}}),
     iconTransformation(extent={{-120,70},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput modRej
     "Surplus heat or cold rejection mode" annotation (Placement(transformation(
           extent={{300,-100},{320,-80}}), iconTransformation(extent={{100,60},{
             140,100}})));
-  Modelica.Fluid.Interfaces.FluidPort_a chiWatRet(
-    h_outflow(start=Medium.h_default, nominal=Medium.h_default),
-    redeclare final package Medium = Medium,
-    p(start=Medium.p_default))
-    "Chilled water return port"
-    annotation (Placement(transformation(extent={{-310,-50},{-290,-30}}),
-      iconTransformation(extent={{-110,-50},{-90,-30}})));
-  Modelica.Fluid.Interfaces.FluidPort_b chiWatSup(
-    h_outflow(start=Medium.h_default, nominal=Medium.h_default),
-    redeclare final package Medium = Medium,
-    p(start=Medium.p_default))
-    "Chilled water supply port"
-    annotation (Placement(transformation(extent={{-290,30},{-310,50}}),
-      iconTransformation(extent={{-90,-90},{-110,-70}})));
   Modelica.Fluid.Interfaces.FluidPort_a heaWatRet(
     h_outflow(start=Medium.h_default, nominal=Medium.h_default),
     redeclare final package Medium = Medium,
@@ -460,16 +459,6 @@ equation
   connect(valBor.port_2, pumBor.port_a) annotation (Line(points={{-70,-120},{
           -70,-140}},            color={0,127,255},
       thickness=0.5));
-  connect(TSetHea, ETSCon.TSetHea) annotation (Line(
-      points={{-310,282},{-214,282},{-214,215},{-199,215}},
-      color={238,46,47},
-      pattern=LinePattern.Dash,
-      thickness=0.5));
-  connect(TSetCoo, ETSCon.TSetCoo) annotation (Line(
-      points={{-310,268},{-228,268},{-228,205},{-199,205}},
-      color={0,128,255},
-      pattern=LinePattern.Dash,
-      thickness=0.5));
   connect(ambCon.modRej, modRej) annotation (Line(points={{-227,-122},{60,-122},
           {60,-90},{310,-90}}, color={255,127,0}));
   connect(pumBor.port_b, TBorEnt.port_a)
@@ -493,11 +482,6 @@ equation
       pattern=LinePattern.Dot));
   connect(tanHeaWat.port_a1,heaWatRet)  annotation (Line(points={{179.8,33},{288,
           33},{288,-40},{300,-40}}, color={0,127,255}));
-  connect(chiWatRet,tanChiWat. port_a)
-    annotation (Line(points={{-300,-40},{-280,-40},{-280,60},{-236,60}},
-                                                   color={0,127,255}));
-  connect(tanChiWat.port_b, chiWatSup) annotation (Line(points={{-216,60},{-200,
-          60},{-200,40},{-300,40}}, color={0,127,255}));
   connect(gaiBor.u, ambCon.yBorPum) annotation (Line(points={{-112,-150},{-112,
           -126},{-227,-126}},
                          color={0,0,127}));
