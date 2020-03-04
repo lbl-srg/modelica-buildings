@@ -56,6 +56,10 @@ If <code>k=0</code>, the block reduces to <code>y=0</code>.
 </html>", revisions="<html>
 <ul>
 <li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
+<li>
 March 24, 2017, by Jianjun Hu:<br/>
 First implementation, based on the implementation of the
 Modelica Standard Library.
@@ -91,8 +95,12 @@ Modelica Standard Library.
     textString="DT1"),
   Text(extent={{-150.0,-150.0},{150.0,-110.0}},
     textString="k=%k"),
-        Text(
-        extent={{-150,150},{150,110}},
-        textString="%name",
-        lineColor={0,0,255})}));
+  Text(
+    extent={{-150,150},{150,110}},
+    textString="%name",
+    lineColor={0,0,255}),
+  Text(
+    extent={{226,60},{106,10}},
+    lineColor={0,0,0},
+    textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}));
 end Derivative;

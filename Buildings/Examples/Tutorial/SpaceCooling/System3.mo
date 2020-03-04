@@ -119,7 +119,7 @@ model System3
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
   BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
-  Modelica.Blocks.Sources.Constant mAir_flow(k=mA_flow_nominal)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant mAir_flow(k=mA_flow_nominal)
     "Fan air flow rate"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemHXOut(redeclare package Medium =
@@ -130,16 +130,16 @@ model System3
         MediumA, m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for supply air"
     annotation (Placement(transformation(extent={{6,-26},{18,-14}})));
-  Modelica.Blocks.Logical.OnOffController con(bandwidth=1)
+  Buildings.Controls.OBC.CDL.Logical.OnOffController con(bandwidth=1)
     "Controller for coil water flow rate"
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
-  Modelica.Blocks.Sources.Constant TRooSetPoi(k=TRooSet)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TRooSetPoi(k=TRooSet)
     "Room temperature set point"
     annotation (Placement(transformation(extent={{-170,-90},{-150,-70}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemRoo
     "Room temperature sensor"
     annotation (Placement(transformation(extent={{70,70},{90,90}})));
-  Modelica.Blocks.Math.BooleanToReal mWat_flow(realTrue=0, realFalse=
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal mWat_flow(realTrue=0, realFalse=
         mW_flow_nominal) "Conversion from boolean to real for water flow rate"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
 equation
@@ -290,8 +290,8 @@ To add closed loop control, we proceeded as follows.
 <li>
 <p>
 First, we made an instance of the on/off controller
-<a href=\"modelica://Modelica.Blocks.Logical.OnOffController\">
-Modelica.Blocks.Logical.OnOffController</a> and set its name to <code>con</code>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.OnOffController\">
+Buildings.Controls.OBC.CDL.Logical.OnOffController</a> and set its name to <code>con</code>.
 We set the parameter for the bandwidth to <i>1</i> Kelvin.
 This model requires as an input the measured temperature and the set point.
 </p>
@@ -317,8 +317,8 @@ Since the controller output is a boolean signal, but the instance
 <code>souWat</code> needs a real signal as an input for the water mass flow rate,
 we needed to add a conversion block. We therefore replaced the instance
 <code>mWat_flow</code> from a constant block to the block
-<a href=\"modelica://Modelica.Blocks.Math.BooleanToReal\">
-Modelica.Blocks.Math.BooleanToReal</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Conversions.BooleanToReal\">
+Buildings.Controls.OBC.CDL.Conversions.BooleanToReal</a>.
 Because the cooling control has a reverse action, i.e.,
 if the measured value exceeds the set point, the system should switch
 on instead of off, we configured the parameters of the conversion block
@@ -348,8 +348,8 @@ When simulating the model, the response shown below should be seen.
 <h4>Notes</h4>
 <p>
 To add a continuous controller for the coil water flow rate, we could have used the model
-<a href=\"modelica://Buildings.Controls.Continuous.LimPID\">
-Buildings.Controls.Continuous.LimPID</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.LimPID\">
+Buildings.Controls.OBC.CDL.Continuous.LimPID</a>.
 </p>
 </html>", revisions="<html>
 <ul>
