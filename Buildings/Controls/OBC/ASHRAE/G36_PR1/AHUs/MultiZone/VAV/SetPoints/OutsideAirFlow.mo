@@ -845,7 +845,7 @@ Compute the system ventilation efficiency.
 During system operation, the system ventilation efficiency <code>sysVenEff</code> is
 </p>
 <pre>
-    sysVenEff = 1 + outAirFra - MAX(priOutAirFra[i])
+    sysVenEff = 1 + outAirFra - max(priOutAirFra[i])
 </pre>
 <p>
 The design system ventilation efficiency <code>desSysVenEff</code> is
@@ -863,7 +863,7 @@ efficiency <code>sysVenEff</code>, but it should not be larger than the design
 outdoor air rate <code>desOutAirInt</code>. Hence,
 </p>
 <pre>
-    effMinOutAirInt = MIN(sysUncOutAir/sysVenEff, desOutAirInt),
+    effMinOutAirInt = min(sysUncOutAir/sysVenEff, desOutAirInt),
 </pre>
 <p>
 where the design outdoor air rate <code>desOutAirInt</code> is
