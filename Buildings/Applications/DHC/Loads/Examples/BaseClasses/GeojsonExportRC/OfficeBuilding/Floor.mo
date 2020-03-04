@@ -1,6 +1,6 @@
-within Buildings.Applications.DHC.Loads.Validation.BaseClasses.GeojsonExportRC.B5a72287837f4de77124f946a;
-model Office
-  "This is the simulation model of Office within building B5a72287837f4de77124f946a with traceable ID None"
+within Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExportRC.OfficeBuilding;
+model Floor
+  "This is the simulation model of Floor within building OfficeBuilding with traceable ID None"
 
   Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil[6](    each outSkyCon=true,
     each outGroCon=true,
@@ -14,42 +14,42 @@ model Office
     azi={3.141592653589793, 0.0, 1.5707963267948966, -1.5707963267948966, 0.0, 0.0})
     "Calculates direct solar radiation on titled surface for all directions"
     annotation (Placement(transformation(extent={{-68,52},{-48,72}})));
-  Buildings.ThermalZones.ReducedOrder.SolarGain.CorrectionGDoublePane corGDoublePane(n=6,  UWin=1.8936557576825386)
+  Buildings.ThermalZones.ReducedOrder.SolarGain.CorrectionGDoublePane corGDoublePane(n=6,  UWin=1.8936557576825381)
     "Correction factor for solar transmission"
     annotation (Placement(transformation(extent={{6,54},{26,74}})));
   Buildings.ThermalZones.ReducedOrder.RC.TwoElements
   thermalZoneTwoElements(
     redeclare package Medium = Modelica.Media.Air.DryAirNasa,
-    VAir=1043.8601631264,
-    hConExt=1.8547827733865787,
-    hConWin=2.7,
-    gWin=0.67,
-    ratioWinConRad=0.030000000000000002,
+    VAir=3261.7921338576007,
+    hConExt=2.0490178828959134,
+    hConWin=2.7000000000000006,
+    gWin=0.6699999999999999,
+    ratioWinConRad=0.029999999999999995,
     nExt=1,
-    RExt={1.0773003154741527e-05},
-    CExt={786694415.3102263},
+    RExt={2.3174831586466932e-05},
+    CExt={408244783.5430907},
     hRad=5.0,
-    AInt=521.9300815632001,
-    hConInt=2.7000000000000006,
+    AInt=5119.003369012401,
+    hConInt=2.3902922093005254,
     nInt=1,
-    RInt={0.00023678761956083481},
-    CInt={32603332.846306838},
-    RWin=0.002234958519462838,
-    RExtRem=0.0005599853795025085,
+    RInt={1.3425684356446266e-05},
+    CInt={573809361.8851968},
+    RWin=0.002198739011727672,
+    RExtRem=0.0012526070384860479,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     extWallRC(thermCapExt(each der_T(fixed=true))),
     intWallRC(thermCapInt(each der_T(fixed=true))),
     nOrientations=6,
-    AWin={75.29154525378061, 75.29154525378061, 4.846173657882763, 4.846173657882763, 0.0, 0.0},
-    ATransparent={75.29154525378061, 75.29154525378061, 4.846173657882763, 4.846173657882763, 0.0, 0.0},
-    AExt={225.8746357613418, 225.8746357613418, 14.53852097364829, 14.53852097364829, 1312.8162593999998, 1312.8162593999998})
+    AWin={74.54769655777831, 74.54769655777831, 6.910119334253305, 6.910119334253305, 0.0, 0.0},
+    ATransparent={74.54769655777831, 74.54769655777831, 6.910119334253305, 6.910119334253305, 0.0, 0.0},
+    AExt={223.64308967333497, 223.64308967333497, 20.730358002759914, 20.730358002759914, 455.8011269000001, 455.8011269000001})
     "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Buildings.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow eqAirTemp(
     n=6,
-    wfGro=0.46752620860272986,
-    wfWall={0.0704332742708251, 0.0704332742708251, 0.004533468894272231, 0.004533468894272231, 0.3825403050670754, 0.0},
-    wfWin={0.46976346641944755, 0.46976346641944755, 0.030236533580552432, 0.030236533580552432, 0.0, 0.0},
+    wfGro=0.3626976838332763,
+    wfWall={0.15582361279765053, 0.15582361279765053, 0.014443903825944522, 0.014443903825944522, 0.2967672829195336, 0.0},
+    wfWin={0.4575846758314001, 0.4575846758314001, 0.04241532416859994, 0.04241532416859994, 0.0, 0.0},
     withLongwave=true,
     aExt=0.5,
     hConWallOut=20.0,
@@ -79,14 +79,14 @@ model Office
     annotation (Placement(
     transformation(extent={{-100,-10},{-66,22}}),iconTransformation(
     extent={{-70,-12},{-50,8}})));
-  Modelica.Blocks.Sources.Constant alphaWall(k=25.000000000000004*3106.45883226998)
+  Modelica.Blocks.Sources.Constant alphaWall(k=25.0*1400.34914915219)
     "Outdoor coefficient of heat transfer for walls"
     annotation (Placement(
     transformation(
     extent={{-4,-4},{4,4}},
     rotation=90,
     origin={30,-16})));
-  Modelica.Blocks.Sources.Constant hConWin(k=25.000000000000004*160.27543782332674)
+  Modelica.Blocks.Sources.Constant hConWin(k=25.0*162.91563178406324)
     "Outdoor coefficient of heat transfer for windows"
     annotation (Placement(
     transformation(
@@ -107,7 +107,7 @@ model Office
       extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
       tableName="Internals",
       fileName=Modelica.Utilities.Files.loadResource(
-          "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportRC/Resources/Data/B5a72287837f4de77124f946a/InternalGains_Office.mat"),
+          "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportRC/Resources/Data/OfficeBuilding/InternalGains_Floor.mat"),
       columns={2,3,4})
       "Table with profiles for persons (radiative and convective) and machines (convective)"
       annotation (Placement(transformation(extent={{6,-60},{22,-44}})));
@@ -126,7 +126,7 @@ equation
     color={0,0,127}));
   connect(weaBus, weaBus)
     annotation (Line(
-    points={{-78,62},{-74,62},{-74,18},{-84,18},{-84,12},{-83,12},{-83,6}},
+    points={{-83,6},{-74,6},{-74,18},{-84,18},{-84,12},{-83,12},{-83,6}},
     color={255,204,51},
     thickness=0.5), Text(
     string="%second",
@@ -173,75 +173,75 @@ equation
     color={0,0,127}));
     connect(weaBus, HDifTil[1].weaBus)
     annotation (Line(
-    points={{-78,62},{-74,62},{-74,30},{-68,30}},
+    points={{-83,6},{-74,6},{-74,30},{-68,30}},
     color={255,204,51},
     thickness=0.5));
     connect(weaBus, HDirTil[1].weaBus)
     annotation (Line(
-    points={{-78,62},{-73,62},{-68,62}},
+    points={{-83,6},{-68,6},{-68,62}},
     color={255,204,51},
     thickness=0.5));
     connect(weaBus, HDifTil[2].weaBus)
     annotation (Line(
-    points={{-78,62},{-74,62},{-74,30},{-68,30}},
+    points={{-83,6},{-74,6},{-74,30},{-68,30}},
     color={255,204,51},
     thickness=0.5));
     connect(weaBus, HDirTil[2].weaBus)
     annotation (Line(
-    points={{-78,62},{-73,62},{-68,62}},
+    points={{-83,6},{-68,6},{-68,62}},
     color={255,204,51},
     thickness=0.5));
     connect(weaBus, HDifTil[3].weaBus)
     annotation (Line(
-    points={{-78,62},{-74,62},{-74,30},{-68,30}},
+    points={{-83,6},{-74,6},{-74,30},{-68,30}},
     color={255,204,51},
     thickness=0.5));
     connect(weaBus, HDirTil[3].weaBus)
     annotation (Line(
-    points={{-78,62},{-73,62},{-68,62}},
+    points={{-83,6},{-68,6},{-68,62}},
     color={255,204,51},
     thickness=0.5));
     connect(weaBus, HDifTil[4].weaBus)
     annotation (Line(
-    points={{-78,62},{-74,62},{-74,30},{-68,30}},
+    points={{-83,6},{-74,6},{-74,30},{-68,30}},
     color={255,204,51},
     thickness=0.5));
     connect(weaBus, HDirTil[4].weaBus)
     annotation (Line(
-    points={{-78,62},{-73,62},{-68,62}},
+    points={{-83,6},{-68,6},{-68,62}},
     color={255,204,51},
     thickness=0.5));
     connect(weaBus, HDifTil[5].weaBus)
     annotation (Line(
-    points={{-78,62},{-74,62},{-74,30},{-68,30}},
+    points={{-83,6},{-74,6},{-74,30},{-68,30}},
     color={255,204,51},
     thickness=0.5));
     connect(weaBus, HDirTil[5].weaBus)
     annotation (Line(
-    points={{-78,62},{-73,62},{-68,62}},
+    points={{-83,6},{-68,6},{-68,62}},
     color={255,204,51},
     thickness=0.5));
     connect(weaBus, HDifTil[6].weaBus)
     annotation (Line(
-    points={{-78,62},{-74,62},{-74,30},{-68,30}},
+    points={{-83,6},{-74,6},{-74,30},{-68,30}},
     color={255,204,51},
     thickness=0.5));
     connect(weaBus, HDirTil[6].weaBus)
     annotation (Line(
-    points={{-78,62},{-73,62},{-68,62}},
+    points={{-83,6},{-68,6},{-68,62}},
     color={255,204,51},
     thickness=0.5));
   connect(personsRad.port, thermalZoneTwoElements.intGainsRad)
     annotation (Line(
-    points={{68,-32},{84,-32},{100,-32},{100,24},{92.2,24}},
+    points={{68,-32},{84,-32},{100,-32},{100,24},{92,24}},
     color={191,0,0}));
   connect(thermalConductorWin.solid, thermalZoneTwoElements.window)
     annotation (
-     Line(points={{38,21},{40,21},{40,20},{43.8,20}}, color={191,0,0}));
+     Line(points={{38,21},{40,21},{40,20},{44,20}},   color={191,0,0}));
   connect(prescribedTemperature1.port, thermalConductorWin.fluid)
     annotation (Line(points={{20,20},{28,20},{28,21}}, color={191,0,0}));
   connect(thermalZoneTwoElements.extWall, thermalConductorWall.solid)
-    annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}},
+    annotation (Line(points={{44,12},{40,12},{40,1},{36,1}},
     color={191,0,0}));
   connect(thermalConductorWall.fluid, prescribedTemperature.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
@@ -277,4 +277,4 @@ equation
   __Dymola_Algorithm="Cvode"),
   __Dymola_experimentSetupOutput(equidistant=true,
   events=false));
-end Office;
+end Floor;

@@ -23,17 +23,17 @@ model BuildingRCZ6
     annotation (Placement(transformation(extent={{-290,200},{-270,220}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC2[nZon]
     annotation (Placement(transformation(extent={{-250,200},{-230,220}})));
-  GeojsonExportRC.B5a6b99ec37f4de7f94020090.Office office
+  GeojsonExportRC.OfficeBuilding.Office office
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
-  GeojsonExportRC.B5a6b99ec37f4de7f94020090.Floor floor
+  GeojsonExportRC.OfficeBuilding.Floor floor
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  GeojsonExportRC.B5a6b99ec37f4de7f94020090.Storage storage
+  GeojsonExportRC.OfficeBuilding.Storage storage
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-  GeojsonExportRC.B5a6b99ec37f4de7f94020090.Meeting meeting
+  GeojsonExportRC.OfficeBuilding.Meeting meeting
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  GeojsonExportRC.B5a6b99ec37f4de7f94020090.Restroom restroom
+  GeojsonExportRC.OfficeBuilding.Restroom restroom
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
-  GeojsonExportRC.B5a6b99ec37f4de7f94020090.ICT iCT
+  GeojsonExportRC.OfficeBuilding.ICT iCT
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=2)
     annotation (Placement(transformation(extent={{260,70},{280,90}})));

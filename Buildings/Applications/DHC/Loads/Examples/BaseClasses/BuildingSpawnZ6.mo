@@ -13,10 +13,10 @@ model BuildingSpawnZ6
   parameter Integer facSca=1
     "Scaling factor to be applied to on each extensive quantity";
   parameter String idfPat=
-    "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportSpawn/Resources/Data/B5a6b99ec37f4de7f94020090/RefBldgSmallOfficeNew2004_Chicago.idf"
+    "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf"
     "Path of the IDF file";
   parameter String weaPat=
-    "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportSpawn/Resources/Data/B5a6b99ec37f4de7f94020090/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"
+    "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"
     "Path of the weather file";
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet[nZon](
     k=fill(20, nZon))
@@ -234,10 +234,10 @@ equation
   Documentation(info="
 <html>
 <p>
-This is a simplified six-zone building model based on EnergyPlus 
+This is a simplified six-zone building model based on EnergyPlus
 building envelope model.
-It was generated from translating a GeoJSON model specified within URBANopt UI. 
-The heating and cooling loads are computed with a four-pipe 
+It was generated from translating a GeoJSON model specified within URBANopt UI.
+The heating and cooling loads are computed with a four-pipe
 fan coil unit model derived from
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit\">
 Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit</a>
