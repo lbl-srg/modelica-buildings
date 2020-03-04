@@ -7,7 +7,7 @@ model Floor "Model of a floor of the building"
   parameter Modelica.SIunits.Area AFloEas = 360.0785/hRoo "East zone floor area";
   parameter Modelica.SIunits.Area AFloWes = 360.0785/hRoo "West zone floor area";
 
-  extends Buildings.Experimental.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.PartialFloor(
+  extends Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.PartialFloor(
     final VRooCor=cor.AFlo * hRoo,
     final VRooSou=sou.AFlo * hRoo,
     final VRooNor=nor.AFlo * hRoo,

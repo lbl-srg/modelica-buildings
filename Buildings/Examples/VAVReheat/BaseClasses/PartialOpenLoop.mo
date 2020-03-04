@@ -76,7 +76,7 @@ partial model PartialOpenLoop
     final lat=lat,
     final use_windPressure=use_windPressure,
     final sampleModel=sampleModel) constrainedby
-    Buildings.Experimental.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.PartialFloor
+    Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.PartialFloor
     "Model of a floor of the building that is served by this VAV system"
     annotation (Placement(transformation(extent={{772,396},{1100,616}})), choicesAllMatching=true);
 
@@ -661,44 +661,43 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(splRetRoo1.port_3, flo.portsCor[2]) annotation (Line(
-      points={{640,10},{640,364},{874,364},{874,472},{898,472},{898,432.667},{
-          871.571,432.667}},
+      points={{640,10},{640,364},{874,364},{874,472},{898,472},{898,504.308},{
+          906.052,504.308}},
       color={0,127,255},
       thickness=0.5));
   connect(splRetSou.port_3, flo.portsSou[2]) annotation (Line(
-      points={{822,10},{822,350},{900,350},{900,406.267},{871.571,406.267}},
+      points={{822,10},{822,350},{900,350},{900,443.385},{906.052,443.385}},
       color={0,127,255},
       thickness=0.5));
   connect(splRetEas.port_3, flo.portsEas[2]) annotation (Line(
-      points={{1002,10},{1002,368},{912.571,368},{912.571,432.667}},
+      points={{1002,10},{1002,368},{1068.63,368},{1068.63,504.308}},
       color={0,127,255},
       thickness=0.5));
   connect(splRetNor.port_3, flo.portsNor[2]) annotation (Line(
-      points={{1152,10},{1152,446},{871.571,446},{871.571,457.6}},
+      points={{1152,10},{1152,446},{906.052,446},{906.052,561.846}},
       color={0,127,255},
       thickness=0.5));
   connect(splRetNor.port_2, flo.portsWes[2]) annotation (Line(
-      points={{1162,0},{1342,0},{1342,394},{831.743,394},{831.743,432.667}},
+      points={{1162,0},{1342,0},{1342,394},{817.635,394},{817.635,504.308}},
       color={0,127,255},
       thickness=0.5));
   connect(weaBus, flo.weaBus) annotation (Line(
-      points={{-320,180},{-320,506},{988.714,506}},
+      points={{-320,180},{-320,632.923},{978.783,632.923}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(flo.TRooAir, min.u) annotation (Line(
-      points={{930.143,432.667},{1164.7,432.667},{1164.7,450},{1198,450}},
+      points={{1107.13,506},{1164.7,506},{1164.7,450},{1198,450}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(flo.TRooAir, ave.u) annotation (Line(
-      points={{930.143,432.667},{1166,432.667},{1166,420},{1198,420}},
+      points={{1107.13,506},{1166,506},{1166,420},{1198,420}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(TRooAir.u, flo.TRooAir) annotation (Line(
-      points={{488,170},{480,170},{480,538},{1164,538},{1164,432.667},{930.143,
-          432.667}},
+      points={{488,170},{480,170},{480,538},{1164,538},{1164,506},{1107.13,506}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -751,25 +750,25 @@ equation
       color={0,127,255},
       thickness=0.5));
   connect(VSupCor_flow.port_b, flo.portsCor[1]) annotation (Line(
-      points={{580,140},{580,372},{866,372},{866,480},{859.857,480},{859.857,
-          432.667}},
+      points={{580,140},{580,372},{866,372},{866,480},{891.791,480},{891.791,
+          504.308}},
       color={0,127,255},
       thickness=0.5));
 
   connect(VSupSou_flow.port_b, flo.portsSou[1]) annotation (Line(
-      points={{760,140},{760,356},{859.857,356},{859.857,406.267}},
+      points={{760,140},{760,356},{891.791,356},{891.791,443.385}},
       color={0,127,255},
       thickness=0.5));
   connect(VSupEas_flow.port_b, flo.portsEas[1]) annotation (Line(
-      points={{940,138},{940,376},{900.857,376},{900.857,432.667}},
+      points={{940,138},{940,376},{1054.37,376},{1054.37,504.308}},
       color={0,127,255},
       thickness=0.5));
   connect(VSupNor_flow.port_b, flo.portsNor[1]) annotation (Line(
-      points={{1100,142},{1100,498},{859.857,498},{859.857,457.6}},
+      points={{1100,142},{1100,498},{891.791,498},{891.791,561.846}},
       color={0,127,255},
       thickness=0.5));
   connect(VSupWes_flow.port_b, flo.portsWes[1]) annotation (Line(
-      points={{1300,138},{1300,384},{820.029,384},{820.029,432.667}},
+      points={{1300,138},{1300,384},{803.374,384},{803.374,504.308}},
       color={0,127,255},
       thickness=0.5));
   connect(VOut1.port_b, eco.port_Out) annotation (Line(
@@ -925,7 +924,7 @@ This is for
 </li>
 <li>
 November 25, 2019, by Milica Grahovac:<br/>
-Declared the thermal zone model as replaceable.
+Declared the floor model as replaceable.
 </li>
 </ul>
 </html>"));

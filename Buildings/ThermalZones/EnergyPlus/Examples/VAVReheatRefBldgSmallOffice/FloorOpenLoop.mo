@@ -18,7 +18,7 @@ model FloorOpenLoop "Open loop model of one floor"
     use_windPressure=false) constrainedby
     Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.PartialFloor
     "One floor of the office building"
-    annotation (Placement(transformation(extent={{28,-8},{84,52}})));
+    annotation (Placement(transformation(extent={{32,-2},{86,28}})));
   Fluid.Sources.MassFlowSource_WeatherData bou[4](
     redeclare each package Medium = Medium,
     each m_flow=mOut_flow,
@@ -48,14 +48,14 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(weaBus, flo.weaBus) annotation (Line(
-      points={{-40,50},{66,50},{66,56.6154},{63.3043,56.6154}},
+      points={{-40,50},{66,50},{66,30.3077},{66.0435,30.3077}},
       color={255,204,51},
       thickness=0.5));
   connect(out.ports[1], res.port_a)
     annotation (Line(points={{-8,-54},{6,-54}},color={0,127,255}));
   connect(res.port_b, flo.portsCor[1])
-    annotation (Line(points={{26,-54},{60,-54},{60,4},{48.4522,4},{48.4522,
-          21.5385}},                                    color={0,127,255}));
+    annotation (Line(points={{26,-54},{60,-54},{60,4},{51.7217,4},{51.7217,12.7692}},
+                                                        color={0,127,255}));
   connect(weaBus, out.weaBus) annotation (Line(
       points={{-40,50},{-40,-53.8},{-28,-53.8}},
       color={255,204,51},
@@ -63,15 +63,13 @@ equation
   connect(bou[:].ports[1], res1[:].port_a) annotation (Line(points={{-8,-20},{-2,
           -20},{-2,-20},{4,-20}},color={0,127,255}));
   connect(res1[1].port_b, flo.portsWes[1])
-    annotation (Line(points={{24,-20},{33.3565,-20},{33.3565,21.5385}},color={0,127,255}));
-  connect(res1[2].port_b, flo.portsNor[1]) annotation (Line(points={{24,-20},{
-          46,-20},{46,37.2308},{48.4522,37.2308}},
-                                               color={0,127,255}));
+    annotation (Line(points={{24,-20},{37.1652,-20},{37.1652,12.7692}},color={0,127,255}));
+  connect(res1[2].port_b, flo.portsNor[1]) annotation (Line(points={{24,-20},{46,
+          -20},{46,20.6154},{51.7217,20.6154}},color={0,127,255}));
   connect(res1[3].port_b, flo.portsSou[1])
-    annotation (Line(points={{24,-20},{48.4522,-20},{48.4522,4.92308}}, color={0,127,255}));
-  connect(res1[4].port_b, flo.portsEas[1]) annotation (Line(points={{24,-20},{
-          76.2087,-20},{76.2087,21.5385}},
-                                  color={0,127,255}));
+    annotation (Line(points={{24,-20},{51.7217,-20},{51.7217,4.46154}}, color={0,127,255}));
+  connect(res1[4].port_b, flo.portsEas[1]) annotation (Line(points={{24,-20},{78.487,
+          -20},{78.487,12.7692}}, color={0,127,255}));
   connect(weaBus, bou[1].weaBus) annotation (Line(
       points={{-40,50},{-40,-19.8},{-28,-19.8}},
       color={255,204,51},
@@ -103,6 +101,10 @@ Test case of one floor of the small office DOE reference building.
 <ul><li>
 March 5, 2019, by Michael Wetter:<br/>
 First implementation.
+</li>
+<ul><li>
+March 4, 2020, by Milica Grahovac:<br/>
+Declared the floor model as replaceable.
 </li>
 </ul>
 </html>"));
