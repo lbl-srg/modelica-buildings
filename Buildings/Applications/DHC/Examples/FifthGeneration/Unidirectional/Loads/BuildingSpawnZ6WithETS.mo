@@ -5,8 +5,8 @@ model BuildingSpawnZ6WithETS
     Buildings.Applications.DHC.Loads.Examples.BaseClasses.BuildingSpawnZ6
     bui(idfPat=idfPat, weaPat=weaPat),
     ets(
-      QCoo_flow_nominal=sum(bui.terUni.QCoo_flow_nominal),
-      QHea_flow_nominal=sum(bui.terUni.QHea_flow_nominal)));
+      QChiWat_flow_nominal=sum(bui.terUni.QCoo_flow_nominal),
+      QHeaWat_flow_nominal=sum(bui.terUni.QHea_flow_nominal)));
   parameter String idfPat=
     "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportSpawn/Resources/Data/B5a6b99ec37f4de7f94020090/RefBldgSmallOfficeNew2004_Chicago.idf"
     "Library path of the IDF file"

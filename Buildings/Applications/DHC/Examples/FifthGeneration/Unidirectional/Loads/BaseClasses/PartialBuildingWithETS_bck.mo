@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Loads.BaseClasses;
-partial model PartialBuildingWithETS
+partial model PartialBuildingWithETS_bck
   "Partial model of a building with an energy transfer station"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     final m_flow_nominal=max(
@@ -13,11 +13,8 @@ partial model PartialBuildingWithETS
   parameter Boolean allowFlowReversalDis = false
     "Set to true to allow flow reversal on the district side"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
-  final parameter Integer nBuiSup = 2
-    "Number of building services supply lines"
-    annotation(Dialog(group="ETS model parameters"), Evaluate=true);
-  final parameter Integer nDisSup = 1
-    "Number of district water supply lines"
+  parameter Integer nSup = 2
+    "Number of supply lines"
     annotation(Dialog(group="ETS model parameters"), Evaluate=true);
   parameter Modelica.SIunits.TemperatureDifference dT_nominal=5
     "Water temperature drop/increase accross load and source-side HX (always positive)"
@@ -64,11 +61,13 @@ partial model PartialBuildingWithETS
         rotation=0,
         origin={-110,80})));
   // COMPONENTS
-  replaceable Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding bui(
-    final nPorts_a=nBuiSup,
-    final nPorts_b=nBuiSup)
-    "Building model "
-    annotation (Placement(transformation(extent={{-32,8},{28,68}})));
+  replaceable DHC.Loads.BaseClasses.PartialBuilding bui(
+      redeclare final package Medium = Medium,
+      final nPorts_a=1,
+      final nPorts_b=1,
+      final allowFlowReversal=allowFlowReversalBui)
+    "Building"
+    annotation (Placement(transformation(extent={{-10,40},{10,60}})));
   replaceable EnergyTransferStations.ETSSimplified ets(
     final dT_nominal=dT_nominal,
     final TChiWatSup_nominal=TChiWatSup_nominal,
@@ -78,31 +77,36 @@ partial model PartialBuildingWithETS
     final dp_nominal=dp_nominal,
     final COP_nominal=COP_nominal,
     QChiWat_flow_nominal=sum(bui.terUni.QCoo_flow_nominal),
-    QHeaWat_flow_nominal=sum(bui.terUni.QHea_flow_nominal))
+    QHeaWat_flow_nominal=sum(bui.terUni.QHea_flow_nominal),
+    nPorts_aBui=1,
+    nPorts_bBui=1,
+    nPorts_bDis=1,
+    nPorts_aDis=1)
     constrainedby DHC.EnergyTransferStations.BaseClasses.PartialETS(
-      redeclare final package MediumBui = Medium,
-      redeclare final package MediumDis = Medium,
-      final nPorts_aBui=nBuiSup,
-      final nPorts_bBui=nBuiSup,
-      final nPorts_bDis=nDisSup,
-      final nPorts_aDis=nDisSup,
+      nSup=nSup,
+      redeclare final package Medium = Medium,
       final allowFlowReversalBui=allowFlowReversalBui,
       final allowFlowReversalDis=allowFlowReversalDis)
-    "Energy transfer station model"
-    annotation (Placement(transformation(extent={{-32,-84},{28,-24}})));
+    "Energy transfer station"
+    annotation (Placement(transformation(extent={{-20,-62},{20,-22}})));
+
 equation
-  connect(port_a, ets.ports_aDis[1]) annotation (Line(points={{-100,0},{-80,0},{
-          -80,-80},{-32,-80}}, color={0,127,255}));
-  connect(ets.ports_bDis[1], port_b) annotation (Line(points={{28,-80},{80,-80},
-          {80,0},{100,0}}, color={0,127,255}));
-  connect(bui.ports_a[1], ets.ports_bBui[1]) annotation (Line(points={{-32,20},{
-          -60,20},{-60,-20},{40,-20},{40,-28},{28,-28}}, color={0,127,255}));
-  connect(ets.ports_aBui[1], bui.ports_b[1]) annotation (Line(points={{-32,-28},
-          {-40,-28},{-40,0},{40,0},{40,20},{28,20}}, color={0,127,255}));
-  connect(TSetChiWat, ets.TSetChiWat) annotation (Line(points={{-120,40},{-74,40},
-          {-74,-58},{-34,-58}}, color={0,0,127}));
-  connect(TSetHeaWat, ets.TSetHeaWat) annotation (Line(points={{-120,70},{-66,70},
-          {-66,-50},{-34,-50}}, color={0,0,127}));
+  connect(TSetChiWat, ets.TSetChiWat) annotation (Line(points={{-120,40},{-74,
+          40},{-74,-44.6667},{-21.3333,-44.6667}},
+                                               color={0,0,127}));
+  connect(TSetHeaWat, ets.TSetHeaWat) annotation (Line(points={{-120,70},{-68,
+          70},{-68,-39.3333},{-21.3333,-39.3333}},
+                                               color={0,0,127}));
+  connect(bui.ports_b[1], ets.ports_aBui[1]) annotation (Line(points={{10,44},{
+          40,44},{40,0},{-60,0},{-60,-24},{-20,-24},{-20,-24.6667}}, color={0,
+          127,255}));
+  connect(ets.ports_bBui[1], bui.ports_a[1]) annotation (Line(points={{20,
+          -24.6667},{60,-24.6667},{60,20},{-40,20},{-40,44},{-10,44}}, color={0,
+          127,255}));
+  connect(ets.ports_bDis[1], port_b) annotation (Line(points={{20,-59.3333},{80,
+          -59.3333},{80,0},{100,0}}, color={0,127,255}));
+  connect(port_a, ets.ports_aDis[1]) annotation (Line(points={{-100,0},{-80,0},
+          {-80,-59.3333},{-20,-59.3333}}, color={0,127,255}));
   annotation (
     DefaultComponentName="bui",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
@@ -220,4 +224,4 @@ equation
           origin={57,-13},
           rotation=90)}),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end PartialBuildingWithETS;
+end PartialBuildingWithETS_bck;

@@ -11,8 +11,8 @@ model BuildingRCZ1WithETS
       final THeaWatRet_nominal=THeaWatRet_nominal,
       final dp_nominal=dp_nominal,
       final COP_nominal=COP_nominal,
-      final QCoo_flow_nominal=sum(bui.terUni.QCoo_flow_nominal),
-      final QHea_flow_nominal=sum(bui.terUni.QHea_flow_nominal)));
+      final QChiWat_flow_nominal=sum(bui.terUni.QCoo_flow_nominal),
+      final QHeaWat_flow_nominal=sum(bui.terUni.QHea_flow_nominal)));
   BoundaryConditions.WeatherData.Bus weaBus
     "Weather data bus"
     annotation (Placement(
@@ -21,7 +21,7 @@ model BuildingRCZ1WithETS
 equation
   connect(weaBus, bui.weaBus)
   annotation (Line(
-      points={{-1,100},{0.1,100},{0.1,71.4}},
+      points={{-1,100},{-1.7,100},{-1.7,102.2}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",

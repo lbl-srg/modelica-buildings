@@ -72,23 +72,23 @@ partial model PartialETS "Partial class for energy transfer station model"
   Buildings.BoundaryConditions.WeatherData.Bus weaBus if have_weaBus
     "Weather data bus"
     annotation (Placement(
-    transformation(extent={{-16,284},{18,316}}),
-    iconTransformation(extent={{-30,212},{30,266}})));
+    transformation(extent={{-16,250},{18,282}}), iconTransformation(extent={{
+            -16,250},{18,282}})));
   Modelica.Fluid.Interfaces.FluidPorts_a ports_aBui[nPorts_aBui](
     redeclare each package Medium = MediumBui,
     each m_flow(min=if allowFlowReversalBui then -Modelica.Constants.inf else 0),
     each h_outflow(start=MediumBui.h_default, nominal=MediumBui.h_default))
     "Building services return water"
     annotation (Placement(transformation(
-          extent={{-310,220},{-290,300}}), iconTransformation(extent={{-380,200},
-            {-340,360}})));
+          extent={{-310,220},{-290,300}}), iconTransformation(extent={{-310,220},
+            {-290,300}})));
   Modelica.Fluid.Interfaces.FluidPorts_b ports_bBui[nPorts_bBui](
     redeclare each package Medium = MediumBui,
     each m_flow(max=if allowFlowReversalBui then +Modelica.Constants.inf else 0),
     each h_outflow(start=MediumBui.h_default, nominal=MediumBui.h_default))
     "Building services supply water"
     annotation (Placement(transformation(extent={{290,220},{310,300}}),
-      iconTransformation(extent={{340,200},{380,360}})));
+      iconTransformation(extent={{290,220},{310,300}})));
   Modelica.Blocks.Interfaces.RealOutput QHeaWat_flow(
     final quantity="HeatFlowRate", final unit="W") if have_heaWat
     "Heat flow rate for heating water production (>=0)"
@@ -130,15 +130,15 @@ partial model PartialETS "Partial class for energy transfer station model"
     each m_flow(min=if allowFlowReversalDis then -Modelica.Constants.inf else 0),
     each h_outflow(start=MediumDis.h_default, nominal=MediumDis.h_default))
     "District water supply"
-    annotation (Placement(transformation(extent={{-310,-300}, {-290,-220}}),
-      iconTransformation(extent={{-380,-360},{-340,-200}})));
+    annotation (Placement(transformation(extent={{-310,-300},{-290,-220}}),
+      iconTransformation(extent={{-310,-300},{-290,-220}})));
   Modelica.Fluid.Interfaces.FluidPorts_b ports_bDis[nPorts_bDis](
     redeclare each package Medium = MediumDis,
     each m_flow(max=if allowFlowReversalDis then +Modelica.Constants.inf else 0),
     each h_outflow(start=MediumDis.h_default, nominal=MediumDis.h_default))
     "District water return"
-    annotation (Placement(transformation(extent={{290,-300}, {310,-220}}),
-      iconTransformation(extent={{340,-360},{380,-200}})));
+    annotation (Placement(transformation(extent={{290,-300},{310,-220}}),
+      iconTransformation(extent={{290,-300},{310,-220}})));
 initial equation
   assert(nPorts_aBui == nPorts_bBui,
     "In " + getInstanceName() +
@@ -188,7 +188,7 @@ First implementation.
   Icon(
   coordinateSystem(extent={{-300,-300},{300,300}}, preserveAspectRatio=false),
   graphics={Rectangle(
-        extent={{-360,-360},{360,360}},
+        extent={{-300,-300},{300,300}},
         lineColor={0,0,127},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
@@ -198,41 +198,41 @@ First implementation.
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(
-          extent={{-150,-384},{150,-424}},
+          extent={{-148,-326},{152,-366}},
           lineColor={0,0,255},
           textString="%name"),
         Rectangle(
-          extent={{4,-320},{-316,-340}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{324,-340},{4,-320}},
+          extent={{-290,-242},{-10,-226}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={255,0,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{324,-268},{4,-288}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{4,-288},{-316,-268}},
+          extent={{-290,-268},{-10,-252}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={255,0,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{324,-218},{4,-238}},
+          extent={{-290,-278},{-10,-294}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{4,-238},{-316,-218}},
+          extent={{10,-226},{290,-242}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{10,-252},{290,-268}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{10,-294},{290,-278}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={255,0,0},

@@ -5,8 +5,8 @@ model BuildingRCZ6WithETS
     Buildings.Applications.DHC.Loads.Examples.BaseClasses.BuildingRCZ6
     bui,
     ets(
-      QCoo_flow_nominal=sum(bui.terUni.QCoo_flow_nominal),
-      QHea_flow_nominal=sum(bui.terUni.QHea_flow_nominal)));
+      QChiWat_flow_nominal=sum(bui.terUni.QCoo_flow_nominal),
+      QHeaWat_flow_nominal=sum(bui.terUni.QHea_flow_nominal)));
   BoundaryConditions.WeatherData.Bus weaBus
     "Weather data bus"
     annotation (Placement(
@@ -15,7 +15,7 @@ model BuildingRCZ6WithETS
 equation
   connect(weaBus, bui.weaBus)
   annotation (Line(
-      points={{-1,100},{0.1,100},{0.1,71.4}},
+      points={{-1,100},{-1.7,100},{-1.7,102.2}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
