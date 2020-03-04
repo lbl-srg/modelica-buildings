@@ -8,19 +8,12 @@ model Floor "Model of a floor of the building"
     final VRooEas=eas.V,
     final VRooWes=wes.V);
 
-  parameter String idfName=Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf")
-    "Name of the IDF file";
-  parameter String weaName = Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw")
-    "Name of the weather file";
-
   final parameter Modelica.SIunits.Area AFloCor=cor.AFlo "Floor area corridor";
   final parameter Modelica.SIunits.Area AFloSou=sou.AFlo "Floor area south";
   final parameter Modelica.SIunits.Area AFloNor=nor.AFlo "Floor area north";
   final parameter Modelica.SIunits.Area AFloEas=eas.AFlo "Floor area east";
   final parameter Modelica.SIunits.Area AFloWes=wes.AFlo "Floor area west";
-  final parameter Modelica.SIunits.Area AFlo=AFloCor+AFloSou+AFloNor+AFloEas+AFloWes "Floor area";
+  final parameter Modelica.SIunits.Area AFlo=AFloCor+AFloSou+AFloNor+AFloEas+AFloWes "Floor area west";
 
   Modelica.SIunits.Temperature TAirCor = cor.TAir
     "Air temperature corridor";
@@ -33,52 +26,34 @@ model Floor "Model of a floor of the building"
   Modelica.SIunits.Temperature TAirWes = wes.TAir
     "Air temperature west zone";
 
-  Buildings.Experimental.EnergyPlus.ThermalZone sou(
+  ThermalZone sou(
     redeclare package Medium = Medium,
     nPorts=5,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    idfName=idfName,
-    weaName=weaName,
     zoneName="Perimeter_ZN_1") "South zone"
     annotation (Placement(transformation(extent={{144,-44},{184,-4}})));
-  Buildings.Experimental.EnergyPlus.ThermalZone eas(
+  ThermalZone eas(
     redeclare package Medium = Medium,
     nPorts=5,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    idfName=idfName,
-    weaName=weaName,
     zoneName="Perimeter_ZN_2") "East zone"
     annotation (Placement(transformation(extent={{304,56},{344,96}})));
-  Buildings.Experimental.EnergyPlus.ThermalZone nor(
+  ThermalZone nor(
     redeclare package Medium = Medium,
     nPorts=5,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    idfName=idfName,
-    weaName=weaName,
     zoneName="Perimeter_ZN_3") "North zone"
     annotation (Placement(transformation(extent={{144,116},{184,156}})));
-  Buildings.Experimental.EnergyPlus.ThermalZone wes(
+  ThermalZone wes(
     redeclare package Medium = Medium,
     nPorts=5,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    idfName=idfName,
-    weaName=weaName,
     zoneName="Perimeter_ZN_4") "West zone"
     annotation (Placement(transformation(extent={{12,36},{52,76}})));
-  Buildings.Experimental.EnergyPlus.ThermalZone cor(
+  ThermalZone cor(
     redeclare package Medium = Medium,
     nPorts=11,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    idfName=idfName,
-    weaName=weaName,
     zoneName="Core_ZN") "Core zone"
     annotation (Placement(transformation(extent={{144,36},{184,76}})));
 
-  Buildings.Experimental.EnergyPlus.ThermalZone att(
+  ThermalZone att(
     redeclare package Medium = Medium,
-    idfName=idfName,
-    weaName=weaName,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     zoneName="Attic") "Attic zone"
     annotation (Placement(transformation(extent={{310,400},{350,440}})));
 
