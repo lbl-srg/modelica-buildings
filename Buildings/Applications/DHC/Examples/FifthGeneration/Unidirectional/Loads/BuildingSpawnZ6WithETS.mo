@@ -1,18 +1,15 @@
 within Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Loads;
 model BuildingSpawnZ6WithETS
   "Model of a building (Spawn 6 zones) with an energy transfer station"
-  extends BaseClasses.PartialBuildingWithETS(redeclare
-    Buildings.Applications.DHC.Loads.Examples.BaseClasses.BuildingSpawnZ6
-    bui(idfPat=idfPat, weaPat=weaPat),
-    ets(
-      QChiWat_flow_nominal=sum(bui.terUni.QCoo_flow_nominal),
-      QHeaWat_flow_nominal=sum(bui.terUni.QHea_flow_nominal)));
+  extends BaseClasses.PartialBuildingWithETS(
+    redeclare DHC.Loads.Examples.BaseClasses.BuildingSpawnZ6 bui(
+      final idfPat=idfPat, final weaPat=weaPat));
   parameter String idfPat=
-    "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportSpawn/Resources/Data/B5a6b99ec37f4de7f94020090/RefBldgSmallOfficeNew2004_Chicago.idf"
+    "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf"
     "Library path of the IDF file"
     annotation(Dialog(group="Building model parameters"));
   parameter String weaPat=
-    "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportSpawn/Resources/Data/B5a6b99ec37f4de7f94020090/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"
+    "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"
     "Path of the weather file"
     annotation(Dialog(group="Building model parameters"));
   annotation (Icon(graphics={

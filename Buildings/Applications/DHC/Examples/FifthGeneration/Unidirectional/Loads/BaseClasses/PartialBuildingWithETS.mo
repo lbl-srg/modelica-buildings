@@ -66,9 +66,10 @@ partial model PartialBuildingWithETS
   // COMPONENTS
   replaceable Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding bui(
     final nPorts_a=nBuiSup,
-    final nPorts_b=nBuiSup)
+    final nPorts_b=nBuiSup,
+    final allowFlowReversal=allowFlowReversalBui)
     "Building model "
-    annotation (Placement(transformation(extent={{-32,8},{28,68}})));
+    annotation (Placement(transformation(extent={{-30,8},{30,68}})));
   replaceable EnergyTransferStations.ETSSimplified ets(
     final dT_nominal=dT_nominal,
     final TChiWatSup_nominal=TChiWatSup_nominal,
@@ -89,20 +90,22 @@ partial model PartialBuildingWithETS
       final allowFlowReversalBui=allowFlowReversalBui,
       final allowFlowReversalDis=allowFlowReversalDis)
     "Energy transfer station model"
-    annotation (Placement(transformation(extent={{-32,-84},{28,-24}})));
+    annotation (Placement(transformation(extent={{-30,-84},{30,-24}})));
 equation
-  connect(port_a, ets.ports_aDis[1]) annotation (Line(points={{-100,0},{-80,0},{
-          -80,-80},{-32,-80}}, color={0,127,255}));
-  connect(ets.ports_bDis[1], port_b) annotation (Line(points={{28,-80},{80,-80},
+  connect(port_a, ets.ports_aDis[1]) annotation (Line(points={{-100,0},{-80,0},
+          {-80,-80},{-30,-80}},color={0,127,255}));
+  connect(ets.ports_bDis[1], port_b) annotation (Line(points={{30,-80},{80,-80},
           {80,0},{100,0}}, color={0,127,255}));
-  connect(bui.ports_a[1], ets.ports_bBui[1]) annotation (Line(points={{-32,20},{
-          -60,20},{-60,-20},{40,-20},{40,-28},{28,-28}}, color={0,127,255}));
-  connect(ets.ports_aBui[1], bui.ports_b[1]) annotation (Line(points={{-32,-28},
-          {-40,-28},{-40,0},{40,0},{40,20},{28,20}}, color={0,127,255}));
-  connect(TSetChiWat, ets.TSetChiWat) annotation (Line(points={{-120,40},{-74,40},
-          {-74,-58},{-34,-58}}, color={0,0,127}));
-  connect(TSetHeaWat, ets.TSetHeaWat) annotation (Line(points={{-120,70},{-66,70},
-          {-66,-50},{-34,-50}}, color={0,0,127}));
+  connect(bui.ports_a, ets.ports_bBui) annotation (Line(points={{-30,20},{-60,
+          20},{-60,-20},{40,-20},{40,-28},{30,-28}},     color={0,127,255}));
+  connect(ets.ports_aBui, bui.ports_b) annotation (Line(points={{-30,-28},{-40,
+          -28},{-40,0},{40,0},{40,20},{30,20}},      color={0,127,255}));
+  connect(TSetChiWat, ets.TSetChiWat) annotation (Line(points={{-120,40},{-74,
+          40},{-74,-58},{-32,-58}},
+                                color={0,0,127}));
+  connect(TSetHeaWat, ets.TSetHeaWat) annotation (Line(points={{-120,70},{-66,
+          70},{-66,-50},{-32,-50}},
+                                color={0,0,127}));
   annotation (
     DefaultComponentName="bui",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},

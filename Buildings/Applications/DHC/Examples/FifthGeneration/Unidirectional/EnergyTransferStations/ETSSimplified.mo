@@ -212,8 +212,7 @@ model ETSSimplified
     redeclare final package Medium = MediumBui,
     allowFlowReversal=allowFlowReversalBui,
     m_flow_nominal=m2HexChi_flow_nominal,
-    tau=1)
-    "CHW HX secondary water leaving temperature (sensed)"
+    tau=1) "CHW HX secondary water leaving temperature (sensed)"
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -303,7 +302,7 @@ model ETSSimplified
         MediumBui, nPorts=1)
     "Pressure boundary condition representing the expansion vessel"
     annotation (Placement(transformation(extent={{-220,-150},{-200,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum PPumCoo(nin=2)
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum PPumCoo(nin=3)
     "Total power drawn by pumps motors for space cooling (ETS included, building excluded)"
     annotation (Placement(transformation(extent={{170,370},{190,390}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum2(nin=2)
@@ -375,6 +374,19 @@ model ETSSimplified
       ports_bDis.h_outflow,
       ports_bDis.Xi_outflow) if  show_T
     "Medium properties in port_bDis";
+  Fluid.Sensors.TemperatureTwoPort senT2HexChiEnt(
+    redeclare final package Medium = MediumBui,
+    allowFlowReversal=allowFlowReversalBui,
+    m_flow_nominal=m2HexChi_flow_nominal,
+    tau=1) "CHW HX secondary water entering temperature (sensed)" annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-150,-220})));
+  Modelica.Blocks.Sources.RealExpression heaFloChiWat(y=pum2CooHex.m_flow_actual
+        *(senT2HexChiLvg.T - senT2HexChiEnt.T)*cp_default)
+    "Heat flow rate for chilled water production (<=0)"
+    annotation (Placement(transformation(extent={{246,110},{266,130}})));
 equation
   connect(pumEva.port_a, volMixDis_a.ports[1]) annotation (Line(points={{-110,
           120},{-240,120},{-240,-340},{-260,-340},{-260,-360},{-262.667,-360}},
@@ -407,27 +419,27 @@ equation
   connect(senMasFloChiWat.m_flow, gai4.u) annotation (Line(points={{-220,-69},{-220,
           -40},{-142,-40}},        color={0,0,127}));
   connect(heaPum.P, PCom) annotation (Line(points={{-11,126},{-28,126},{-28,100},
-          {282,100},{282,-98},{302,-98},{302,-100},{320,-100}},
+          {280,100},{280,-100},{320,-100}},
                  color={0,0,127}));
   connect(pumCon.P, PPumHea.u[1]) annotation (Line(points={{89,169},{40,169},{40,
           200},{168,200},{168,421}},     color={0,0,127}));
   connect(pumEva.P, PPumHea.u[2]) annotation (Line(points={{-89,129},{-89,128},{
           -80,128},{-80,180},{162,180},{162,420},{168,420},{168,419}},
                                               color={0,0,127}));
-  connect(pum1HexChi.P, PPumCoo.u[1]) annotation (Line(points={{109,-251},{100,-251},
-          {100,-238},{160,-238},{160,381},{168,381}},
+  connect(pum1HexChi.P, PPumCoo.u[1]) annotation (Line(points={{109,-251},{100,
+          -251},{100,-238},{160,-238},{160,381.333},{168,381.333}},
                                           color={0,0,127}));
-  connect(pum2CooHex.P, PPumCoo.u[2]) annotation (Line(points={{-89,-211},{-89,-201},
-          {182,-201},{182,24},{264,24},{264,379},{168,379}},    color={0,0,127}));
+  connect(pum2CooHex.P, PPumCoo.u[2]) annotation (Line(points={{-89,-211},{-89,
+          -210},{-80,-210},{-80,-200},{158,-200},{158,380},{168,380}},
+                                                                color={0,0,127}));
   connect(PPumHea.y, mulSum1.u[1]) annotation (Line(points={{192,420},{220,420},
           {220,360},{228,360}}, color={0,0,127}));
-  connect(PPumCoo.y, mulSum.u[1]) annotation (Line(points={{192,380},{210,380},{
-          210,320},{228,320}}, color={0,0,127}));
-  connect(PPumHea.y, mulSum2.u[1]) annotation (Line(points={{192,420},{200,420},
-          {200,401},{228,401}}, color={0,0,127}));
-  connect(PPumCoo.y, mulSum2.u[2]) annotation (Line(points={{192,380},{200,380},
-          {200,340},{214,340},{214,399},{228,399}},
-                                color={0,0,127}));
+  connect(PPumCoo.y, mulSum.u[1]) annotation (Line(points={{192,380},{210,380},
+          {210,320},{228,320}},color={0,0,127}));
+  connect(PPumHea.y, mulSum2.u[1]) annotation (Line(points={{192,420},{220,420},
+          {220,401},{228,401}}, color={0,0,127}));
+  connect(PPumCoo.y, mulSum2.u[2]) annotation (Line(points={{192,380},{210,380},
+          {210,399},{228,399}}, color={0,0,127}));
   connect(pum1HexChi.port_b, hexChi.port_a1) annotation (Line(points={{110,-260},
           {10,-260}},                              color={0,127,255}));
   connect(pum2CooHex.port_b, hexChi.port_a2)
@@ -454,9 +466,6 @@ equation
           -140},{-200,-160},{-182.667,-160}}, color={0,127,255}));
   connect(volHeaWatRet.ports[2], pumCon.port_a) annotation (Line(points={{22,220},
           {120,220},{120,160},{110,160}},      color={0,127,255}));
-  connect(volChiWat.ports[2], pum2CooHex.port_a) annotation (Line(points={{-180,
-          -160},{-220,-160},{-220,-220},{-110,-220}},
-                                                   color={0,127,255}));
   connect(senTConLvg.port_b, decHeaWat.ports_a[1]) annotation (Line(points={{-170,
           160},{-220,160},{-220,220},{-20,220},{-20,360},{2,360}},      color={
           0,127,255}));
@@ -468,8 +477,8 @@ equation
           {0,340},{0,220},{24.6667,220}},          color={0,127,255}));
   connect(senMasFloChiWat.port_b, decChiWat.ports_b[1]) annotation (Line(points={{-210,
           -80},{-24,-80},{-24,-100},{-2,-100}},       color={0,127,255}));
-  connect(decChiWat.ports_b[2], volChiWat.ports[3]) annotation (Line(points={{2,-100},
-          {0,-100},{0,-160},{-177.333,-160}},      color={0,127,255}));
+  connect(decChiWat.ports_b[2], volChiWat.ports[2]) annotation (Line(points={{2,-100},
+          {0,-100},{0,-160},{-180,-160}},          color={0,127,255}));
   connect(volMixDis_a.ports[2], switchBox.port_bSup) annotation (Line(points={{-260,
           -360},{-4,-360},{-4,-370}}, color={0,127,255}));
   connect(switchBox.port_aRet, volMixDis_b.ports[2]) annotation (Line(points={{4,
@@ -519,6 +528,18 @@ equation
           {-4,-400},{-280,-400},{-280,-260},{-300,-260}}, color={0,127,255}));
   connect(mulSum2.y, PPum) annotation (Line(points={{252,400},{272,400},{272,-40},
           {320,-40}}, color={0,0,127}));
+  connect(pumCon.P, PPumCoo.u[3]) annotation (Line(points={{89,169},{40,169},{
+          40,200},{168,200},{168,378.667}}, color={0,0,127}));
+  connect(heaPum.QCon_flow, QHeaWat_flow) annotation (Line(points={{-11,135},{
+          -20,135},{-20,140},{280,140},{280,200},{320,200}}, color={0,0,127}));
+  connect(volChiWat.ports[3], senT2HexChiEnt.port_a) annotation (Line(points={{
+          -177.333,-160},{-220,-160},{-220,-220},{-160,-220}}, color={0,127,255}));
+  connect(senT2HexChiEnt.port_b, pum2CooHex.port_a)
+    annotation (Line(points={{-140,-220},{-110,-220}}, color={0,127,255}));
+  connect(heaFloChiWat.y, QChiWat_flow) annotation (Line(points={{267,120},{286,
+          120},{286,120},{320,120}}, color={0,0,127}));
+  connect(heaPum.P, PHea) annotation (Line(points={{-11,126},{-28.2353,126},{
+          -28.2353,100},{280,100},{280,80},{320,80}}, color={0,0,127}));
   annotation (
   defaultComponentName="ets",
   Documentation(info="<html>

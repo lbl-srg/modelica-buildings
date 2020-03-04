@@ -56,16 +56,13 @@ partial model PartialETS "Partial class for energy transfer station model"
   parameter Boolean allowFlowReversalDis = false
     "Set to true to allow flow reversal on district side"
     annotation(Evaluate=true);
-  parameter Modelica.SIunits.HeatFlowRate QChiWat_flow_nominal(
-    max=-Modelica.Constants.eps)
+  parameter Modelica.SIunits.HeatFlowRate QChiWat_flow_nominal = 0
     "Design heat flow rate for chilled water production (<0)"
     annotation (Dialog(group="Nominal conditions", enable=have_chiWat));
-  parameter Modelica.SIunits.HeatFlowRate QHeaWat_flow_nominal(
-    min=Modelica.Constants.eps)
+  parameter Modelica.SIunits.HeatFlowRate QHeaWat_flow_nominal = 0
     "Design heat flow rate for heating water production (>0)"
     annotation (Dialog(group="Nominal conditions", enable=have_heaWat));
-  parameter Modelica.SIunits.HeatFlowRate QHotWat_flow_nominal(
-    min=Modelica.Constants.eps)
+  parameter Modelica.SIunits.HeatFlowRate QHotWat_flow_nominal = 0
     "Design heat flow rate for hot water production (>0)"
     annotation (Dialog(group="Nominal conditions", enable=have_hotWat));
   // IO CONNECTORS
@@ -149,21 +146,21 @@ initial equation
     ": The numbers of district water supply ports (" + String(nPorts_aDis) +
     ") and return ports (" + String(nPorts_bDis) + ") must be equal.");
   if have_chiWat then
-    assert(QChiWat_flow_nominal < 0,
+    assert(QChiWat_flow_nominal < -Modelica.Constants.eps,
       "In " + getInstanceName() +
       ": Design heat flow rate for chilled water production must be strictly
       negative. Obtained QChiWat_flow_nominal = " +
       String(QChiWat_flow_nominal));
   end if;
   if have_heaWat then
-    assert(QHeaWat_flow_nominal > 0,
+    assert(QHeaWat_flow_nominal > Modelica.Constants.eps,
       "In " + getInstanceName() +
       ": Design heat flow rate for heating water production must be strictly 
       positive. Obtained QHeaWat_flow_nominal = " +
       String(QHeaWat_flow_nominal));
   end if;
   if have_hotWat then
-    assert(QHotWat_flow_nominal > 0,
+    assert(QHotWat_flow_nominal > Modelica.Constants.eps,
       "In " + getInstanceName() +
       ": Design heat flow rate for heating water production must be strictly
       positive. Obtained QHotWat_flow_nominal = " +
