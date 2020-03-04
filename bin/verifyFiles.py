@@ -138,7 +138,9 @@ for (path, dirs, files) in os.walk(LIBHOME):
             filFulNam=os.path.join(path, filNam)
             # Test .mo and .mos
             if foundMo or foundMos:
-                reportErrorIfContains(filFulNam, INVALID_IN_ALL)
+                # Skip Utilities/Plotters/BaseClasses/PartialPlotter.mo because it contains <h1>
+                if filFulNam != "./Utilities/Plotters/BaseClasses/PartialPlotter.mo":
+                    reportErrorIfContains(filFulNam, INVALID_IN_ALL)
             # Test .mos files only
             if foundMos:
                 reportErrorIfContains(filFulNam, INVALID_IN_MOS)

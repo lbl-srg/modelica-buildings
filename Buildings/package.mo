@@ -595,15 +595,7 @@ its class name ends with the string <code>Beta</code>.
         </td>
     </tr>
     </table>
-    <p>
-    Note:
-    </p>
-    <ul>
-    <li>
-    xxx
-    </li>
-    </ul>
-    </html>"));
+     </html>"));
     end Version_7_0_0;
 
     class Version_6_0_0 "Version 6.0.0"

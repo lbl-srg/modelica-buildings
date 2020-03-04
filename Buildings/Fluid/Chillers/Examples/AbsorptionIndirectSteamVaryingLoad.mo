@@ -136,8 +136,7 @@ equation
     experiment(
       StartTime=0,
       StopTime=86400,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
   Documentation(info="<html>
 <p>
 This model validates
@@ -147,7 +146,7 @@ for the case with varying cooling load.
 </p>
 <p>
 The model is constructed in a way that the temperatures which determine the performance of
-the absorption chiller are kept constant in order to monitor the effects of the part load 
+the absorption chiller are kept constant in order to monitor the effects of the part load
 behavior on the ratio of the provided cooling to the required steam.
 </p>
 </html>", revisions="<html>
