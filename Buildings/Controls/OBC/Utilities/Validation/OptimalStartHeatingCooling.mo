@@ -2,8 +2,8 @@ within Buildings.Controls.OBC.Utilities.Validation;
 model OptimalStartHeatingCooling
   "Validation model for the block OptimalStart for both heating and cooling system"
 
-  Buildings.Controls.OBC.Utilities.OptimalStart optSta(computeHeating=false,
-      computeCooling=false) "Optimal start for both heating and cooling system"
+  Buildings.Controls.OBC.Utilities.OptimalStart optSta(computeHeating=true,
+      computeCooling=true)  "Optimal start for both heating and cooling system"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Modelica.Blocks.Continuous.Integrator integrator(k=0.0000004, y_start=19 + 273.15)
     "Integrate temperature derivative with k indicating the inverse of zone thermal capacitance"

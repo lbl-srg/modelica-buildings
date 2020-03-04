@@ -9,9 +9,9 @@ block OptimalStart
   parameter Integer nDay(min=1) = 3
     "Number of previous days for averaging the temperature slope";
   parameter Boolean computeHeating = false
-    "Set to true if only computing for space heating"  annotation(Dialog(enable=not computeCooling));
+    "Set to true to compute optimal start for heating";
   parameter Boolean computeCooling = false
-    "Set to true if only computing for space cooling"  annotation(Dialog(enable=not computeHeating));
+    "Set to true to compute optimal start for cooling";
   parameter Modelica.SIunits.TemperatureDifference uLow(final min=0) = 0
     "Threshold to determine if the zone temperature reaches the occupied setpoint,
      must be a non-negative number";
@@ -21,13 +21,13 @@ block OptimalStart
   parameter Modelica.SIunits.Time thrOptOn(
     final min=0,
     max=10800) = 60
-    "Threshold time for the output optOn to become true";
+    "Threshold time, optimal start only active if larger than thrOptOn";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetZonHea(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC",
-    min=200) if not computeCooling
+    min=200) if computeHeating
     "Zone heating setpoint temperature during occupancy" annotation (Placement(
         transformation(extent={{-180,60},{-140,100}}), iconTransformation(
           extent={{-140,60},{-100,100}})));
@@ -41,7 +41,7 @@ block OptimalStart
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC",
-    min=200) if not computeHeating
+    min=200) if computeCooling
     "Zone cooling setpoint temperature during occupancy" annotation (Placement(
         transformation(extent={{-180,10},{-140,50}}),    iconTransformation(
           extent={{-140,10},{-100,50}})));
@@ -70,7 +70,7 @@ block OptimalStart
     final tOptIni=tOptIni,
     final nDay=nDay,
     final uLow=uLow,
-    final uHigh=uHigh) if not computeCooling
+    final uHigh=uHigh) if computeHeating
     "Optimal start time for heating system"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
   Buildings.Controls.OBC.Utilities.BaseClasses.OptimalStartCalculation optCoo(
@@ -79,7 +79,7 @@ block OptimalStart
     final tOptIni=tOptIni,
     final nDay=nDay,
     final uLow=uLow,
-    final uHigh=uHigh) if not computeHeating
+    final uHigh=uHigh) if computeCooling
     "Optimal start time for cooling system"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
 protected
@@ -101,27 +101,27 @@ protected
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Add dTHea(
     final k1=+1,
-    final k2=-1) if not computeCooling
+    final k2=-1) if computeHeating
     "Temperature difference between heating setpoint and zone temperature"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Add dTCoo(
     final k1=+1,
-    final k2=-1) if not computeHeating
+    final k2=-1) if computeCooling
     "Temperature difference between zone temperature and cooling setpoint"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
     "Stop calculation"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2(final k=0) if computeCooling
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2(final k=0) if not computeHeating
     "Becomes effective when optimal start is only for heating"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(final k=0) if computeHeating
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(final k=0) if not computeCooling
     "Becomes effective when optimal start is only for cooling"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(final k=false) if computeCooling
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(final k=false) if not computeHeating
     "Becomes effective when optimal start is only for heating"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con3(final k=false) if computeHeating
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con3(final k=false) if not computeCooling
     "Becomes effective when optimal start is only for cooling"
     annotation (Placement(transformation(extent={{60,-94},{80,-74}})));
 equation
@@ -193,9 +193,7 @@ average of the temperature slope of the past <code>nDay</code> days
 is calculated and used for
 the prediction of the optimal start time in the current day.
 </p>
-<p>
 <h4>Parameters</h4>
-</p>
 <p>
 The parameter <code>nDay</code> is used to compute the moving average of the temperature
 slope; the first <code>n</code> days of simulation is therefore used to
@@ -224,13 +222,10 @@ start the HVAC system prior to occupancy. If
 then there is no need for the system to start before the occupancy.
 </p>
 <p>
-The parameter
-<code>thrOptOn</code> is the threshold time period for the boolean output <code>optOn</code>
-to become true.
+The optimal start is only active if the optimal start time is larger than the parameter
+<code>thrOptOn</code>.
 </p>
-<p>
 <h4>Configuration for HVAC systems</h4>
-</p>
 <p>
 The block can be used for heating system only or cooling system only or for both
 heating and cooling system.
@@ -244,22 +239,11 @@ The base class
 Buildings.Controls.OBC.Utilities.BaseClasses.OptimalStartCalculation</a> is used
 for the calculation.
 </p>
-<p>
-<h4>Cases of multiple zones</h4>
-</p>
-<p>When one HVAC system serves multiple zones, the maximum zone temperature of
-those zones should be used for the cooling system and the minimum zone temperature should
-be used for heating system for the input <code>TZon</code>.
-</p>
-<p>
 <h4>Algorithm</h4>
-</p>
 <p>
 The algorithm is as follows:
 </p>
-<p>
-<h4>Step 1: Calculate temeperature slope <code>TSlo</code></h4>
-</p>
+<h5>Step 1: Calculate temeperature slope <code>TSlo</code></h5>
 <p>
 Once the HVAC system is started, a timer records the time duration
 <code>&Delta;t</code> for the zone temperature to reach the
@@ -272,9 +256,7 @@ then <code>tOptMax</code> is used instead of <code>&Delta;t</code>.
 This is to avoid corner cases where the setpoint is never reached, e.g., the HVAC
 system is undersized, or there is a steady-state error associated with the HVAC control.
 </p>
-<p>
-<h4>Step 2: Calculate temperature slope moving average <code>TSloMa</code></h4>
-</p>
+<h5>Step 2: Calculate temperature slope moving average <code>TSloMa</code></h5>
 <p>
 After computing the temperature slope of each day, the moving average of the
 temperature slope <code>TSloMa</code> during the previous <code>nDay</code> days
@@ -283,9 +265,7 @@ is calculated. Please refer to
 Buildings.Controls.OBC.CDL.Discrete.TriggeredMovingMean</a> for details about
 the moving average algorithm.
 </p>
-<p>
-<h4>Step 3: Calculate optimal start time <code>tOpt</code></h4>
-</p>
+<h5>Step 3: Calculate optimal start time <code>tOpt</code></h5>
 <p>
 Each day at a certain time before the occupancy, the algorithm takes another
 sample of the zone temperature, denoted as <code>TSam2</code>. The sample
@@ -294,9 +274,7 @@ takes place <code>tOptMax</code> prior to occupancy start time.
 <p>
 The optimal start time is then calculated as <code>tOpt = |TSetZonOcc-TSam2|/TSloMa</code>.
 </p>
-<p>
 <h4>Validation</h4>
-</p>
 <p>
 Validation models can be found in the package
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.Validation\">
