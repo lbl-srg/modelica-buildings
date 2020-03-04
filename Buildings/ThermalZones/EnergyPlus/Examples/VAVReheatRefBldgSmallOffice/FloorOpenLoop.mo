@@ -54,8 +54,8 @@ equation
   connect(out.ports[1], res.port_a)
     annotation (Line(points={{-8,-54},{6,-54}},color={0,127,255}));
   connect(res.port_b, flo.portsCor[1])
-    annotation (Line(points={{26,-54},{60,-54},{60,4},{51.7217,4},{51.7217,12.7692}},
-                                                        color={0,127,255}));
+    annotation (Line(points={{26,-54},{60,-54},{60,4},{51.7217,4},{51.7217,
+          12.7692}},                                    color={0,127,255}));
   connect(weaBus, out.weaBus) annotation (Line(
       points={{-40,50},{-40,-53.8},{-28,-53.8}},
       color={255,204,51},
@@ -64,12 +64,14 @@ equation
           -20},{-2,-20},{4,-20}},color={0,127,255}));
   connect(res1[1].port_b, flo.portsWes[1])
     annotation (Line(points={{24,-20},{37.1652,-20},{37.1652,12.7692}},color={0,127,255}));
-  connect(res1[2].port_b, flo.portsNor[1]) annotation (Line(points={{24,-20},{46,
-          -20},{46,20.6154},{51.7217,20.6154}},color={0,127,255}));
+  connect(res1[2].port_b, flo.portsNor[1]) annotation (Line(points={{24,-20},{
+          46,-20},{46,20.6154},{51.7217,20.6154}},
+                                               color={0,127,255}));
   connect(res1[3].port_b, flo.portsSou[1])
     annotation (Line(points={{24,-20},{51.7217,-20},{51.7217,4.46154}}, color={0,127,255}));
-  connect(res1[4].port_b, flo.portsEas[1]) annotation (Line(points={{24,-20},{78.487,
-          -20},{78.487,12.7692}}, color={0,127,255}));
+  connect(res1[4].port_b, flo.portsEas[1]) annotation (Line(points={{24,-20},{
+          78.487,-20},{78.487,12.7692}},
+                                  color={0,127,255}));
   connect(weaBus, bou[1].weaBus) annotation (Line(
       points={{-40,50},{-40,-19.8},{-28,-19.8}},
       color={255,204,51},
