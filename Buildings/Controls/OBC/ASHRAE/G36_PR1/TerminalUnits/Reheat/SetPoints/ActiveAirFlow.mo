@@ -102,9 +102,6 @@ block ActiveAirFlow
   Buildings.Controls.OBC.CDL.Continuous.Greater gre
     "Check if zone minimum airflow setpoint Vmin is less than the allowed controllable VDisConMin_flow"
     annotation (Placement(transformation(extent={{-20,-460},{0,-440}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(threshold=0) if have_occSen
-    "Check if the zone becomes unpopulated"
-    annotation (Placement(transformation(extent={{-140,-290},{-120,-270}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1
     "Check if zone minimum airflow setpoint VDisSetMin_flow is non-zero"
     annotation (Placement(transformation(extent={{-80,-410},{-60,-390}})));
@@ -126,6 +123,10 @@ block ActiveAirFlow
     annotation (Placement(transformation(extent={{80,-410},{100,-390}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 if have_winSen "Logical not"
     annotation (Placement(transformation(extent={{-240,-510},{-220,-490}})));
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+    final uLow=0.25, final uHigh=0.75) if have_occSen
+    "Check if the zone becomes unpopulated"
+    annotation (Placement(transformation(extent={{-140,-290},{-120,-270}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minZonAir1(final k=VDisSetMin_flow) if not have_CO2Sen
@@ -319,9 +320,6 @@ equation
   connect(conInt.y, intEqu.u1)
     annotation (Line(points={{-218,-90},{-160,-90},{-160,-110},{-142,-110}},
       color={255,127,0}));
-  connect(nOcc, greThr.u)
-    annotation (Line(points={{-300,-280},{-142,-280}},
-      color={0,0,127}));
   connect(nOcc, gai.u)
     annotation (Line(points={{-300,-280},{-160,-280},{-160,-320},{-142,-320}},
       color={0,0,127}));
@@ -334,9 +332,6 @@ equation
   connect(breZon.y, swi.u3)
     annotation (Line(points={{-58,-340},{-20,-340},{-20,-288},{78,-288}},
       color={0,0,127}));
-  connect(greThr.y, swi.u2)
-    annotation (Line(points={{-118,-280},{78,-280}},
-      color={255,0,255}));
   connect(lin1.y, swi.u1)
     annotation (Line(points={{42,-120},{60,-120},{60,-272},{78,-272}},
       color={0,0,127}));
@@ -403,14 +398,13 @@ equation
       color={255,0,255}));
   connect(cooMaxAir.y, swi24.u1)
     annotation (Line(points={{-218,-10},{-204,-10},{-204,16},{-140,16},{-140,168},
-          {-102,168}},
-                   color={0,0,127}));
+      {-102,168}}, color={0,0,127}));
   connect(heaMaxAir.y, maxInp.u2)
     annotation (Line(points={{-158,-10},{-120,-10},{-120,-16},{-102,-16}},
       color={0,0,127}));
   connect(maxInp.y, swi28.u1)
-    annotation (Line(points={{-78,-10},{-60,-10},{-60,22},{-124,22},{-124,48},{-102,
-          48}},   color={0,0,127}));
+    annotation (Line(points={{-78,-10},{-60,-10},{-60,22},{-124,22},{-124,48},
+      {-102,48}},   color={0,0,127}));
   connect(zerCon6.y, swi24.u3)
     annotation (Line(points={{-218,180},{-120,180},{-120,152},{-102,152}},
       color={0,0,127}));
@@ -576,6 +570,10 @@ equation
   connect(actHeaMaxAir.y, VActHeaMax_flow)
     annotation (Line(points={{242,30},{256,30},{256,10},{300,10}},
       color={0,0,127}));
+  connect(nOcc, hys.u)
+    annotation (Line(points={{-300,-280},{-142,-280}}, color={0,0,127}));
+  connect(hys.y, swi.u2)
+    annotation (Line(points={{-118,-280},{78,-280}}, color={255,0,255}));
 
 annotation (
   defaultComponentName="actAirSet_RehBox",
@@ -776,6 +774,12 @@ not in occupied mode.
 <br/>
 </html>", revisions="<html>
 <ul>
+<li>
+February 27, 2020, by Jianjun Hu:<br/>
+Used hysteresis to check occupancy.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1788\">#1788</a>.
+</li>
 <li>
 September 7, 2017, by Jianjun Hu:<br/>
 First implementation.
