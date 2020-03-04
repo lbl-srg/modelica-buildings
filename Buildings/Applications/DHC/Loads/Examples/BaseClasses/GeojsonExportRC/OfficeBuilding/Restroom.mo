@@ -1,6 +1,6 @@
-within Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExportRC.B5a7229e737f4de77124f946d;
+within Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExportRC.OfficeBuilding;
 model Restroom
-  "This is the simulation model of Restroom within building B5a7229e737f4de77124f946d with traceable ID None"
+  "This is the simulation model of Restroom within building B5a6b99ec37f4de7f94020090 with traceable ID None"
 
   Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil[6](    each outSkyCon=true,
     each outGroCon=true,
@@ -20,39 +20,39 @@ model Restroom
   Buildings.ThermalZones.ReducedOrder.RC.TwoElements
   thermalZoneTwoElements(
     redeclare package Medium = Modelica.Media.Air.DryAirNasa,
-    VAir=468.38630552371217,
-    hConExt=2.1199708957531502,
-    hConWin=2.7,
+    VAir=521.8867414172162,
+    hConExt=2.0490178828959125,
+    hConWin=2.7000000000000006,
     gWin=0.6700000000000002,
     ratioWinConRad=0.030000000000000002,
     nExt=1,
-    RExt={0.0002516506587877377},
-    CExt={38787808.93786824},
-    hRad=5.0,
-    AInt=582.4094809497601,
-    hConInt=2.370184696569921,
+    RExt={0.00014484269741541823},
+    CExt={65319165.36689455},
+    hRad=5.000000000000001,
+    AInt=688.5688536876802,
+    hConInt=2.3316080309449254,
     nInt=1,
-    RInt={0.00011467531727540473},
-    CInt={67339647.84555541},
-    RWin=0.02015637641632336,
-    RExtRem=0.013860609459663257,
+    RInt={9.201439908964808e-05},
+    CInt={84275425.00414628},
+    RWin=0.013742118823297953,
+    RExtRem=0.007828793990537798,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     extWallRC(thermCapExt(each der_T(fixed=true))),
     intWallRC(thermCapInt(each der_T(fixed=true))),
     nOrientations=6,
-    AWin={7.5073152585368685, 7.5073152585368685, 1.3784325521110339, 1.3784325521110339, 0.0, 0.0},
-    ATransparent={7.5073152585368685, 7.5073152585368685, 1.3784325521110339, 1.3784325521110339, 0.0, 0.0},
-    AExt={22.521945775610607, 22.521945775610607, 4.135297656333102, 4.135297656333102, 36.816782272000005, 36.816782272000005})
+    AWin={11.92763144924453, 11.92763144924453, 1.1056190934805288, 1.1056190934805288, 0.0, 0.0},
+    ATransparent={11.92763144924453, 11.92763144924453, 1.1056190934805288, 1.1056190934805288, 0.0, 0.0},
+    AExt={35.782894347733595, 35.782894347733595, 3.316857280441586, 3.316857280441586, 72.92818030400002, 72.92818030400002})
     "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Buildings.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow eqAirTemp(
     n=6,
-    wfGro=0.32402425378350974,
-    wfWall={0.1735585434113848, 0.1735585434113848, 0.03186741700545756, 0.03186741700545756, 0.2651238253828056, 0.0},
-    wfWin={0.42243575996725674, 0.42243575996725674, 0.07756424003274327, 0.07756424003274327, 0.0, 0.0},
+    wfGro=0.3626976838332763,
+    wfWall={0.15582361279765056, 0.15582361279765056, 0.014443903825944524, 0.014443903825944524, 0.2967672829195336, 0.0},
+    wfWin={0.45758467583140006, 0.45758467583140006, 0.04241532416859994, 0.04241532416859994, 0.0, 0.0},
     withLongwave=true,
     aExt=0.5,
-    hConWallOut=20.000000000000004,
+    hConWallOut=20.0,
     hRad=5.0,
     hConWinOut=20.0,
     TGro=286.15) "Computes equivalent air temperature"
@@ -79,14 +79,14 @@ model Restroom
     annotation (Placement(
     transformation(extent={{-100,-10},{-66,22}}),iconTransformation(
     extent={{-70,-12},{-50,8}})));
-  Modelica.Blocks.Sources.Constant alphaWall(k=25.000000000000004*126.94805140788742)
+  Modelica.Blocks.Sources.Constant alphaWall(k=25.000000000000004*224.0558638643504)
     "Outdoor coefficient of heat transfer for walls"
     annotation (Placement(
     transformation(
     extent={{-4,-4},{4,4}},
     rotation=90,
     origin={30,-16})));
-  Modelica.Blocks.Sources.Constant hConWin(k=25.0*17.771495621295802)
+  Modelica.Blocks.Sources.Constant hConWin(k=24.999999999999996*26.066501085450113)
     "Outdoor coefficient of heat transfer for windows"
     annotation (Placement(
     transformation(
@@ -107,7 +107,7 @@ model Restroom
       extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
       tableName="Internals",
       fileName=Modelica.Utilities.Files.loadResource(
-          "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportRC/Resources/Data/B5a7229e737f4de77124f946d/InternalGains_Restroom.mat"),
+          "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportRC/Resources/Data/B5a6b99ec37f4de7f94020090/InternalGains_Restroom.mat"),
       columns={2,3,4})
       "Table with profiles for persons (radiative and convective) and machines (convective)"
       annotation (Placement(transformation(extent={{6,-60},{22,-44}})));

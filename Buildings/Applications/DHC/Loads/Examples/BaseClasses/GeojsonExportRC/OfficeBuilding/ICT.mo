@@ -1,6 +1,6 @@
-within Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExportRC.B5a6b99ec37f4de7f94020090;
-model Meeting
-  "This is the simulation model of Meeting within building B5a6b99ec37f4de7f94020090 with traceable ID None"
+within Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExportRC.OfficeBuilding;
+model ICT
+  "This is the simulation model of ICT within building B5a6b99ec37f4de7f94020090 with traceable ID None"
 
   Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil[6](    each outSkyCon=true,
     each outGroCon=true,
@@ -20,29 +20,29 @@ model Meeting
   Buildings.ThermalZones.ReducedOrder.RC.TwoElements
   thermalZoneTwoElements(
     redeclare package Medium = Modelica.Media.Air.DryAirNasa,
-    VAir=521.8867414172162,
+    VAir=260.9433707086081,
     hConExt=2.0490178828959125,
     hConWin=2.7000000000000006,
     gWin=0.6700000000000002,
     ratioWinConRad=0.030000000000000002,
     nExt=1,
-    RExt={0.00014484269741541823},
-    CExt={65319165.36689455},
+    RExt={0.00028968539483083646},
+    CExt={32659582.683447275},
     hRad=5.000000000000001,
-    AInt=514.606606548608,
+    AInt=257.303303274304,
     hConInt=2.207073495341845,
     nInt=1,
-    RInt={0.0001055947003212644},
-    CInt={74230169.14357185},
-    RWin=0.013742118823297953,
-    RExtRem=0.007828793990537798,
+    RInt={0.0002111894006425288},
+    CInt={37115084.57178593},
+    RWin=0.027484237646595907,
+    RExtRem=0.015657587981075596,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     extWallRC(thermCapExt(each der_T(fixed=true))),
     intWallRC(thermCapInt(each der_T(fixed=true))),
     nOrientations=6,
-    AWin={11.92763144924453, 11.92763144924453, 1.1056190934805288, 1.1056190934805288, 0.0, 0.0},
-    ATransparent={11.92763144924453, 11.92763144924453, 1.1056190934805288, 1.1056190934805288, 0.0, 0.0},
-    AExt={35.782894347733595, 35.782894347733595, 3.316857280441586, 3.316857280441586, 72.92818030400002, 72.92818030400002})
+    AWin={5.963815724622265, 5.963815724622265, 0.5528095467402644, 0.5528095467402644, 0.0, 0.0},
+    ATransparent={5.963815724622265, 5.963815724622265, 0.5528095467402644, 0.5528095467402644, 0.0, 0.0},
+    AExt={17.891447173866798, 17.891447173866798, 1.658428640220793, 1.658428640220793, 36.46409015200001, 36.46409015200001})
     "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Buildings.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow eqAirTemp(
@@ -79,14 +79,14 @@ model Meeting
     annotation (Placement(
     transformation(extent={{-100,-10},{-66,22}}),iconTransformation(
     extent={{-70,-12},{-50,8}})));
-  Modelica.Blocks.Sources.Constant alphaWall(k=25.000000000000004*224.0558638643504)
+  Modelica.Blocks.Sources.Constant alphaWall(k=25.000000000000004*112.0279319321752)
     "Outdoor coefficient of heat transfer for walls"
     annotation (Placement(
     transformation(
     extent={{-4,-4},{4,4}},
     rotation=90,
     origin={30,-16})));
-  Modelica.Blocks.Sources.Constant hConWin(k=24.999999999999996*26.066501085450113)
+  Modelica.Blocks.Sources.Constant hConWin(k=24.999999999999996*13.033250542725057)
     "Outdoor coefficient of heat transfer for windows"
     annotation (Placement(
     transformation(
@@ -107,7 +107,7 @@ model Meeting
       extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
       tableName="Internals",
       fileName=Modelica.Utilities.Files.loadResource(
-          "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportRC/Resources/Data/B5a6b99ec37f4de7f94020090/InternalGains_Meeting.mat"),
+          "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportRC/Resources/Data/B5a6b99ec37f4de7f94020090/InternalGains_ICT.mat"),
       columns={2,3,4})
       "Table with profiles for persons (radiative and convective) and machines (convective)"
       annotation (Placement(transformation(extent={{6,-60},{22,-44}})));
@@ -277,4 +277,4 @@ equation
   __Dymola_Algorithm="Cvode"),
   __Dymola_experimentSetupOutput(equidistant=true,
   events=false));
-end Meeting;
+end ICT;
