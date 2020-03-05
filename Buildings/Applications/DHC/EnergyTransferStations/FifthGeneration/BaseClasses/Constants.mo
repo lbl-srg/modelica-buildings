@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.EnergyTransferStations.BaseClasses;
+within Buildings.Applications.DHC.EnergyTransferStations.FifthGeneration.BaseClasses;
 block Constants "Generate constant signal of type Real"
   extends Modelica.Blocks.Icons.Block;
 

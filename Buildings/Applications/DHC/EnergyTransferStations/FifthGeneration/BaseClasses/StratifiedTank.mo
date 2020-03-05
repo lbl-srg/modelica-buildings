@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.EnergyTransferStations.BaseClasses;
+within Buildings.Applications.DHC.EnergyTransferStations.FifthGeneration.BaseClasses;
 model StratifiedTank "Four pipes buffer tank model"
   extends Buildings.Fluid.Storage.Stratified(show_T=true);
 

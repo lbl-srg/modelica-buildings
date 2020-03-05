@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.EnergyTransferStations;
+within Buildings.Applications.DHC.EnergyTransferStations.FifthGeneration;
 model FifthGenHRChiller_bck
   "Energy transfer station model for fifth generation DHC systems"
     package Medium = Buildings.Media.Water "Medium model";
@@ -251,7 +251,7 @@ model FifthGenHRChiller_bck
         rotation=0,
         origin={-76,130})));
   //// TANKS
-  BaseClasses.StratifiedTank tanHeaWat(
+  FifthGeneration.BaseClasses.StratifiedTank tanHeaWat(
     redeclare final package Medium = Medium,
     VTan=VTan,
     hTan=hTan,
@@ -264,7 +264,7 @@ model FifthGenHRChiller_bck
     TFlu_start=(20 + 273.15)*ones(nSegTan),
     tau(displayUnit="s")) "Heating water buffer tank"
     annotation (Placement(transformation(extent={{160,30},{180,50}})));
-  BaseClasses.StratifiedTank tanChiWat(
+  FifthGeneration.BaseClasses.StratifiedTank tanChiWat(
     redeclare final package Medium = Medium,
     VTan=VTan,
     hTan=hTan,
@@ -290,7 +290,8 @@ model FifthGenHRChiller_bck
      annotation (Placement(transformation(extent={{10,-10},{-10,10}},
       rotation=90,  origin={-70,-150})));
   //// DISTRICT HX
-  BaseClasses.WaterWaterHeatExchanger hex(
+  Buildings.Applications.DHC.EnergyTransferStations.FifthGeneration.BaseClasses.WaterWaterHeatExchanger
+    hex(
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium,
     allowFlowReversal1=false,
@@ -299,9 +300,7 @@ model FifthGenHRChiller_bck
     eps_nominal=eps_nominal,
     dp2_nominal=dpHex_nominal,
     m1_flow_nominal=mHex_flow_nominal,
-    m2_flow_nominal=mHex_flow_nominal)
-    "Heat exchanger"
-     annotation (Placement(
+    m2_flow_nominal=mHex_flow_nominal) "Heat exchanger" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
@@ -318,14 +317,16 @@ model FifthGenHRChiller_bck
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=270,
       origin={110,-110})));
   //// CONTROLLERS
-  Controls.Supervisory ETSCon(THys=THys) "ETS supervisory controller"
+  FifthGeneration.Controls.Supervisory ETSCon(THys=THys)
+    "ETS supervisory controller"
     annotation (Placement(transformation(extent={{-198,200},{-178,220}})));
-  Controls.Chiller chiCon
+  FifthGeneration.Controls.Chiller chiCon
     "Control of the EIR chiller model and associated three way valves"
     annotation (Placement(transformation(extent={{-120,200},{-100,220}})));
-  Controls.PrimaryPumpsConstantSpeed pumPrimCon "Control of the primary pumps"
+  FifthGeneration.Controls.PrimaryPumpsConstantSpeed pumPrimCon
+    "Control of the primary pumps"
     annotation (Placement(transformation(extent={{-120,142},{-100,162}})));
-  Controls.AmbientCircuit ambCon(dTGeo=dTGeo, dTHex=dTHex)
+  FifthGeneration.Controls.AmbientCircuit ambCon(dTGeo=dTGeo, dTHex=dTHex)
     "Control of the ambient circuit"
     annotation (Placement(transformation(extent={{-144,-82},{-124,-62}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiMDisHex(k=mHex_flow_nominal)
@@ -459,39 +460,44 @@ model FifthGenHRChiller_bck
     "Heating water tank bottom temperature"
     annotation (Placement(transformation(extent={{176,-42},{196,-22}})));
 //------hydraulic header------------------------------------------------------------
-  BaseClasses.HydraulicHeader heaSupHed(
+  Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.HydraulicHeader
+    heaSupHed(
     redeclare final package Medium = Medium,
     m_flow_nominal=mCon_flow_nominal,
     nPorts_b=2,
-    nPorts_a=1)
-    "Heating supply water header"
+    nPorts_a=1) "Heating supply water header"
     annotation (Placement(transformation(extent={{92,50},{112,70}})));
-  BaseClasses.HydraulicHeader hydHdrHeaRet(
+  Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.HydraulicHeader
+    hydHdrHeaRet(
     redeclare final package Medium = Medium,
     m_flow_nominal=mCon_flow_nominal,
     nPorts_a=1,
     nPorts_b=2) "Heating water circuit return header"
     annotation (Placement(transformation(extent={{124,30},{104,10}})));
-  BaseClasses.HydraulicHeader hydHdrChiRet(
+  Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.HydraulicHeader
+    hydHdrChiRet(
     redeclare final package Medium = Medium,
     m_flow_nominal=mEva_flow_nominal,
     allowFlowReversal=true,
     nPorts_a=2,
     nPorts_b=1) "Chilled water circuit return header"
     annotation (Placement(transformation(extent={{-148,70},{-128,50}})));
-  BaseClasses.HydraulicHeader hydHdrChiSup(
+  Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.HydraulicHeader
+    hydHdrChiSup(
     redeclare final package Medium = Medium,
     m_flow_nominal=mEva_flow_nominal,
     nPorts_a=1,
     nPorts_b=2) "Chilled water circuit supply header"
     annotation (Placement(transformation(extent={{-108,10},{-128,30}})));
-  BaseClasses.HydraulicHeader hydHdrAmbRet(
+  Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.HydraulicHeader
+    hydHdrAmbRet(
     redeclare final package Medium = Medium,
     m_flow_nominal=mHex_flow_nominal + mGeo_flow_nominal,
     nPorts_a=2,
     nPorts_b=2) "Ambient circuit return header"
     annotation (Placement(transformation(extent={{-30,-58},{-50,-38}})));
-  BaseClasses.HydraulicHeader hydHdrAmbSup(
+  Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.HydraulicHeader
+    hydHdrAmbSup(
     redeclare final package Medium = Medium,
     m_flow_nominal=mHex_flow_nominal + mGeo_flow_nominal,
     nPorts_a=2,
@@ -684,12 +690,13 @@ equation
       color={28,108,200},
       pattern=LinePattern.DashDotDot,
       thickness=0.5));
-  connect(TMinConEnt, chiCon.TMinConEnt) annotation (Line(
+  connect(TMinConEnt, chiCon.TMinConWatEnt) annotation (Line(
       points={{-310,240},{-136,240},{-136,209},{-122,209}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(TMaxEvaEnt, chiCon.TMaxEvaEnt) annotation (Line(
+  connect(TMaxEvaEnt, chiCon.TMaxEvaWatEnt) annotation (Line(
       points={{-310,226},{-292,226},{-292,236},{-138,236},{-138,207},{-122,207}},
+
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(ETSCon.reqHea,pumPrimCon.reqHea)  annotation (Line(points={{-177,219},
@@ -783,13 +790,13 @@ equation
       points={{62,-252},{80,-252},{80,-110},{98,-110}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(TConEnt.T, chiCon.TConEnt) annotation (Line(
+  connect(TConEnt.T, chiCon.TConWatEnt) annotation (Line(
       points={{-10,31},{-10,40},{-126,40},{-126,201},{-122,201}},
       color={0,0,127},
       pattern=LinePattern.Dot));
-  connect(TEvaEnt.T, chiCon.TEvaEnt) annotation (Line(
-      points={{-20,107},{-20,116},{-62,116},{-62,192},{-126,192},{-126,205},{
-          -122,205}},
+  connect(TEvaEnt.T, chiCon.TEvaWatEnt) annotation (Line(
+      points={{-20,107},{-20,116},{-62,116},{-62,192},{-126,192},{-126,205},{-122,
+          205}},
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(ETSCon.reqCoo,pumPrimCon.reqCoo)  annotation (Line(
@@ -851,12 +858,12 @@ equation
       color={0,128,255},
       pattern=LinePattern.Dash,
       thickness=0.5));
-  connect(TSetHea, chiCon.TSetConLvg) annotation (Line(
+  connect(TSetHea, chiCon.TSetConWatLvg) annotation (Line(
       points={{-310,282},{-126,282},{-126,213},{-122,213}},
       color={238,46,47},
       pattern=LinePattern.Dash,
       thickness=0.5));
-  connect(TSetCoo, chiCon.TSetChiWat) annotation (Line(
+  connect(TSetCoo, chiCon.TSetChiWatSup) annotation (Line(
       points={{-310,268},{-130,268},{-130,215},{-122,215}},
       color={0,128,255},
       pattern=LinePattern.Dash,
@@ -869,18 +876,18 @@ equation
       points={{-177,201},{-150,201},{-150,217},{-122,217}},
       color={255,0,255},
       pattern=LinePattern.Dot));
-  connect(TSetCooMin, chiCon.TSetCooMin) annotation (Line(
+  connect(TSetCooMin, chiCon.TMinEvaWatLvg) annotation (Line(
       points={{-310,254},{-134,254},{-134,211},{-122,211}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(TConLvg.T, chiCon.TConLvg) annotation (Line(
+  connect(TConLvg.T, chiCon.TConWatLvg) annotation (Line(
       points={{68,143},{68,194},{-124,194},{-124,203},{-122,203}},
       color={0,0,127},
       pattern=LinePattern.Dot));
-  connect(chiCon.modChi, chi.on) annotation (Line(points={{-98,218},{-46,218},{
-          -46,130},{-32,130},{-32,129}}, color={255,0,255}));
-  connect(chiCon.TSetChi, chi.TSet) annotation (Line(points={{-98,214},{-42,214},
-          {-42,123},{-32,123}},        color={0,0,127}));
+  connect(chiCon.onCom, chi.on) annotation (Line(points={{-98,218},{-46,218},{-46,
+          130},{-32,130},{-32,129}}, color={255,0,255}));
+  connect(chiCon.TSetEvaWatLvg, chi.TSet) annotation (Line(points={{-98,214},{-42,
+          214},{-42,123},{-32,123}}, color={0,0,127}));
   connect(TConEnt.port_a, hydHdrHeaRet.ports_b[1]) annotation (Line(points={{0,20},{
           50,20},{50,20},{106,20}},  color={0,127,255}));
   connect(chiCon.yValEva, valEva.y) annotation (Line(points={{-98,206},{-96,206},

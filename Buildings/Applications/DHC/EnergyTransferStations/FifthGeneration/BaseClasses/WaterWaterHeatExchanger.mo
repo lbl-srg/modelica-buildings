@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.EnergyTransferStations.BaseClasses;
+within Buildings.Applications.DHC.EnergyTransferStations.FifthGeneration.BaseClasses;
 model WaterWaterHeatExchanger "Heat exchanger model"
   //  parameter Real eps_nominal "Nominal heat transfer effectiveness";
   //    extends Buildings.Fluid.HeatExchangers.ConstantEffectiveness(

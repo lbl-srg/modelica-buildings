@@ -4,7 +4,7 @@ package EnergyTransferStations "Package of models for energy transfer station"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains models for energy transfer station models.
+This package contains models of energy transfer station.
 </p>
 </html>"));
 end EnergyTransferStations;

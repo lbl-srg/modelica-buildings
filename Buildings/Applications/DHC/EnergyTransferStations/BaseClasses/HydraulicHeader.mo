@@ -15,7 +15,6 @@ model HydraulicHeader "Hydraulic header manifold"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
   Modelica.Fluid.Interfaces.FluidPorts_a ports_a[nPorts_a](
     redeclare each final package Medium=Medium,
-    each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Fluid connectors a (positive design flow direction is from ports_a to ports_b)"
     annotation (Placement(
@@ -25,7 +24,6 @@ model HydraulicHeader "Hydraulic header manifold"
        origin={-60,0})));
   Modelica.Fluid.Interfaces.FluidPorts_b ports_b[nPorts_b](
     redeclare each final package Medium=Medium,
-    each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Fluid connectors b (positive design flow direction is from ports_a to ports_b)"
     annotation (Placement(
@@ -39,6 +37,7 @@ model HydraulicHeader "Hydraulic header manifold"
     final m_flow_nominal=m_flow_nominal)
     "Dummy pipe component used to model ideal mixing at each port"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+initial equation
 equation
   for i in 1:nPorts_a loop
     connect(ports_a[i], pip.port_a)
@@ -80,15 +79,46 @@ annotation (Icon(graphics={
 Documentation(info="<html>
 <h4>Hydraulic header</h4>
 <p>
-The model represents a header or a common pipe which hydraulically splits
-up the entering flow into the branch circuits attached to it with zero head loss. 
+This is a model for a hydraulic header where ideal mixing is assumed for all
+fluid streams connected to <code>ports_a</code> and respectively to <code>ports_b</code>.
+Unbalanced flow rate over each of these fluid port array flows to the other 
+fluid port array, with no delay and zero pressure drop. 
+The condition <code>allowFlowReversal</code> only applies to the dummy pipe 
+model used for transporting the fluid from one port array to the other.
+Therefore the model can be used to represent a decoupler (vertical separator 
+or U-shaped pipe) between a primary loop and a secondary loop as illustrated in
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Validation.HydraulicHeader\">
+Buildings.Applications.DHC.EnergyTransferStations.Validation.HydraulicHeader</a>.
+In that case:
+</p>
+<ul>
+<li>
+The primary supply stream (inflowing) gets connected to <code>ports_a</code>
+together with the secondary supply streams (outflowing). 
+</li>
+<li> 
+The primary return stream (outflowing) gets connected to <code>ports_b</code>
+together with the secondary return streams (inflowing).
+</li>
+<li>
+The parameter <code>allowFlowReversal</code> can be set to false if the primary
+system is controlled to maintain a positive flow rate difference with the
+secondary system, i.e. an actual positive flow rate from <code>ports_a</code> 
+to <code>ports_b</code>.
+</li>
+</ul>
+<p>
+Note that the dummy pipe model is necessary to prevent any Modelica tool from
+merging <code>ports_a</code> and <code>ports_b</code> if those were to be 
+directly connected together. The model thus ensures ideal mixing over each 
+fluid port array.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
 January 16, 2020 by Antoine Gauitier:<br/>
-Updated the implementation 
+Updated implementation and documentation.
 </li>
 <li>
 September 10, 2019 by Hagar Elarga:<br/>

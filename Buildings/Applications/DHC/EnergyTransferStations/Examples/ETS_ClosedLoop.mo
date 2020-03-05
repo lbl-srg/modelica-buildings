@@ -28,7 +28,8 @@ model ETS_ClosedLoop
   parameter Modelica.SIunits.MassFlowRate mSecCoo=7
    "Secondary(building side) cooling water actual mass flow rate";
 
-  Buildings.Applications.DHC.EnergyTransferStations.FifthGenHRChiller ETS(
+  Buildings.Applications.DHC.EnergyTransferStations.FifthGeneration.HeatRecoveryChiller
+    ETS(
     datChi=datChi,
     mCon_flow_nominal=mCon_flow_nominal,
     mEva_flow_nominal=mEva_flow_nominal,
@@ -192,12 +193,12 @@ model ETS_ClosedLoop
     final dp_nominal=5000)
    "Flow resistance"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
-  BaseClasses.Constants mulCon(
+  FifthGeneration.BaseClasses.Constants mulCon(
     k={29 + 273.15,10 + 273.15,5 + 273.15,12 + 273.15,17 + 273.15,40 + 273.15},
+
     conNam={"TSetHea","TSetCoo","TSetCooMin","TMinConEnt","TMaxEvaEnt",
         "TBorMaxEnt"},
-    nCon=6)
-    "Multiple constant functions"
+    nCon=6) "Multiple constant functions"
     annotation (Placement(transformation(extent={{6,98},{-14,118}})));
 
   Modelica.Fluid.Sources.FixedBoundary pre(

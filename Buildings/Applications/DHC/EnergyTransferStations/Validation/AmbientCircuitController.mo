@@ -11,11 +11,10 @@ model AmbientCircuitController "Ambient water circuit controller validation"
     k= false)
     "Status of the two way valve on the chilled water circuit side."
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  BaseClasses.Constants con(
+  FifthGeneration.BaseClasses.Constants con(
     k={40 + 273.15,20 + 273.15,16 + 273.15,20 + 273.15},
     conNam={"TBorEntMax","TDisHexEnt","TDisHexLvg","TBorLvg"},
-    nCon=4)
-    "Multiple constant functions"
+    nCon=4) "Multiple constant functions"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Modelica.Blocks.Sources.Pulse TBorEnt(
     amplitude=5,
@@ -24,7 +23,7 @@ model AmbientCircuitController "Ambient water circuit controller validation"
     offset=25 + 273.15)
     "Borefield entering water temperature"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
-  Buildings.Applications.DHC.EnergyTransferStations.Controls.AmbientCircuit
+  Buildings.Applications.DHC.EnergyTransferStations.FifthGeneration.Controls.AmbientCircuit
     conAmbCir(dTGeo=5, dTHex=5) "Ambient water circuit controller"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
   Modelica.Blocks.Sources.BooleanPulse reqHea(

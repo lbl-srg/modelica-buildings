@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.EnergyTransferStations.Controls;
+within Buildings.Applications.DHC.EnergyTransferStations.FifthGeneration.Controls;
 model Supervisory "Energy transfer station supervisory controller"
   extends Modelica.Blocks.Icons.Block;
 

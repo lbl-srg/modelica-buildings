@@ -1,6 +1,7 @@
-within Buildings.Applications.DHC.EnergyTransferStations.BaseClasses;
-model SubsystemHRChiller "Central subsystem based on heat recovery chiller"
-  package Medium = Buildings.Media.Water "Medium model";
+within Buildings.Applications.DHC.EnergyTransferStations.FifthGeneration.BaseClasses;
+model SubsystemChiller "Central subsystem based on heat recovery chiller"
+  replaceable package Medium = Buildings.Media.Water
+    "Medium model";
   parameter Integer nPorts_aAmbWat = 0
     "Number of fluid connectors for ambient water return"
      annotation(Evaluate=true, Dialog(connectorSizing=true));
@@ -19,268 +20,28 @@ model SubsystemHRChiller "Central subsystem based on heat recovery chiller"
   parameter Integer nPorts_bHeaWat = 0
     "Number of fluid connectors for heating water supply"
     annotation(Evaluate=true, Dialog(connectorSizing=true));
-
-
-
-
-  parameter Modelica.Fluid.Types.Dynamics fixedEnergyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
-    "Formulation of energy balance for mixing volume at inlet and outlet"
-    annotation (Dialog(group="Dynamics"));
-
-
-  final parameter Modelica.SIunits.PressureDifference dpValAmb_nominal(displayUnit="Pa")=1000
-    "Pressure drop at nominal flow rate for the directional two-way valves"
-    annotation (Dialog(group="Design Parameter"));
-
-  final parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal=
-    datChi.mEva_flow_nominal
-    "Condenser nominal water flow rate" annotation (Dialog(group="Chiller"));
-  final parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal=
-    datChi.mEva_flow_nominal
-    "Evaporator nominal water flow rate" annotation (Dialog(group="Chiller"));
   parameter Modelica.SIunits.PressureDifference dpCon_nominal
     "Nominal pressure drop in condenser branch (including valve)"
     annotation (Dialog(group="Chiller"));
   parameter Modelica.SIunits.PressureDifference dpEva_nominal
     "Nominal pressure drop in evaporator branch (including valve)"
     annotation (Dialog(group="Chiller"));
-
-
   parameter Boolean allowFlowReversal = false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
-      annotation(Dialog(tab="Assumptions"), Evaluate=true);
-
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
   parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic datChi
     "Chiller performance data"
     annotation (Placement(transformation(extent={{180,-200},{200,-180}})));
-
+  final parameter Modelica.SIunits.PressureDifference dpValAmb_nominal(displayUnit="Pa")=1000
+    "Pressure drop at nominal flow rate for the directional two-way valves"
+    annotation (Dialog(group="Design Parameter"));
+  final parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal=
+    datChi.mEva_flow_nominal
+    "Condenser nominal water flow rate" annotation (Dialog(group="Chiller"));
+  final parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal=
+    datChi.mEva_flow_nominal
+    "Evaporator nominal water flow rate" annotation (Dialog(group="Chiller"));
   // IO CONNECTORS
-  // COMPONENTS
-  Fluid.Chillers.ElectricEIR chi(
-    allowFlowReversal1=false,
-    allowFlowReversal2=false,
-    from_dp1=true,
-    dp1_nominal=dpCon_nominal,
-    linearizeFlowResistance1=true,
-    from_dp2=true,
-    dp2_nominal=dpEva_nominal,
-    linearizeFlowResistance2=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    per=datChi,
-    redeclare final package Medium1 = Medium,
-    redeclare final package Medium2 = Medium)
-    "Water cooled chiller (ports indexed 1 are on condenser side)"
-    annotation (Placement(transformation(extent={{-10,96},{10,116}})));
-  Buildings.Fluid.Movers.SpeedControlled_y pumCon(
-    redeclare final package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    addPowerToMedium=false,
-    per(pressure(dp={dpCon_nominal,0}, V_flow={0,mCon_flow_nominal/1000})),
-    allowFlowReversal=false)
-    "Condenser pump"
-    annotation (Placement(transformation(extent={{-110,130},{-90,150}})));
-   Buildings.Fluid.Movers.SpeedControlled_y pumEva(
-    redeclare final package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    addPowerToMedium=false,
-    per(pressure(dp={dpEva_nominal,0}, V_flow={0,mEva_flow_nominal/1000})),
-    allowFlowReversal=false)
-    "Evaporator pump"
-    annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=0,
-        origin={-100,60})));
-  Controls.Chiller conChi "Chiller controller"
-    annotation (Placement(transformation(extent={{-220,234},{-200,254}})));
-  Controls.PrimaryPumpsConstantSpeed conPumPri "Primary pumps controller"
-    annotation (Placement(transformation(extent={{-220,204},{-200,224}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTConLvg(
-    redeclare final package Medium = Medium,
-    allowFlowReversal=false,
-    m_flow_nominal=mCon_flow_nominal,
-    tau=0) "Condenser water leaving temperature (sensed)"
-    annotation (Placement(
-      transformation(
-      extent={{10,10},{-10,-10}},
-      rotation=180,
-      origin={40,140})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTConEnt(
-    redeclare final package Medium = Medium,
-    allowFlowReversal=false,
-    m_flow_nominal=mCon_flow_nominal,
-    tau=0)
-    "Condenser water entering temperature (sensed)"
-    annotation (Placement(transformation(extent={{-50,130},{-30,150}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTEvaEnt(
-    redeclare final package Medium = Medium,
-    allowFlowReversal=false,
-    m_flow_nominal=mEva_flow_nominal,
-    tau=0)
-    "Evaporator water entering temperature (sensed)"
-    annotation (Placement(
-      transformation(
-      extent={{-10,10},{10,-10}},
-      rotation=180,
-      origin={40,60})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTEvaLvg(
-    redeclare final package Medium = Medium,
-    allowFlowReversal=false,
-    m_flow_nominal=mEva_flow_nominal,
-    tau=30)
-    "Evaporator water leaving temperature (sensed)"
-    annotation (Placement(transformation(extent={{-30,50},{-50,70}})));
-  Fluid.FixedResistances.Junction splEva(
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final dp_nominal=fill(0, 3),
-    from_dp=false,
-    m_flow_nominal=mEva_flow_nominal .* {1,-1,-1},
-    redeclare final package Medium = Medium)
-    "Flow splitter for the evaporator water circuit"
-    annotation (Placement(
-      transformation(
-      extent={{10,-10},{-10,10}},
-      rotation=0,
-      origin={-140,60})));
-  Fluid.FixedResistances.Junction splConMix(
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final dp_nominal=fill(0, 3),
-    from_dp=false,
-    m_flow_nominal=mCon_flow_nominal .* {1,-1,-1},
-    redeclare final package Medium = Medium)
-    "Flow splitter"
-    annotation (Placement(transformation(
-      extent={{-10,10},{10,-10}},
-      rotation=0,
-      origin={120,140})));
-  Fluid.Actuators.Valves.TwoWayLinear valConDir(
-    redeclare final package Medium = Medium,
-    use_inputFilter=false,
-    dpFixed_nominal=0,
-    show_T=true,
-    dpValve_nominal=dp_nominal,
-    riseTime=10,
-    l=1e-8,
-    m_flow_nominal=mGeo_flow_nominal + mHex_flow_nominal)
-    "Two-way directional valve"
-    annotation (Placement(transformation(extent={{130,-90},{110,-70}})));
-  Fluid.Actuators.Valves.TwoWayLinear valEvaDir(
-    redeclare final package Medium = Medium,
-    use_inputFilter=false,
-    dpFixed_nominal=0,
-    show_T=true,
-    dpValve_nominal=dp_nominal,
-    riseTime=10,
-    l=1e-8,
-    m_flow_nominal=mGeo_flow_nominal + mHex_flow_nominal)
-    "Two-way directional valve"
-    annotation (Placement(transformation(extent={{-110,-90},{-90,-70}})));
-  Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valEvaMix(
-    redeclare final package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    from_dp=true,
-    m_flow_nominal=mEva_flow_nominal,
-    dpValve_nominal=6000,
-    homotopyInitialization=true)
-    "Three-way mixing valve controlling evaporator water entering temperature"
-    annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=180,
-        origin={120,60})));
-  Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valConMix(
-    redeclare final package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    from_dp=true,
-    m_flow_nominal=mCon_flow_nominal,
-    dpValve_nominal=6000,
-    homotopyInitialization=true)
-    "Three-way mixing valve to controlling condenser water entering temperature"
-    annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=0,
-        origin={-140,140})));
-  Fluid.FixedResistances.Junction splEvaSup(
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final dp_nominal=fill(0, 3),
-    from_dp=false,
-    tau=1,
-    m_flow_nominal=mEva_flow_nominal .* {1,-1,-1},
-    redeclare final package Medium = Medium)
-    "Flow splitter"
-    annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-180,40})));
-  Fluid.FixedResistances.Junction splAmbRet(
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final dp_nominal=fill(0, 3),
-    from_dp=false,
-    tau=1,
-    m_flow_nominal=max(mEva_flow_nominal, mCon_flow_nominal) .* {1,1,-1},
-    redeclare final package Medium = Medium)
-    "Flow splitter"
-    annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={40,-80})));
-  Fluid.FixedResistances.Junction splConSup(
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final dp_nominal=fill(0, 3),
-    from_dp=false,
-    tau=1,
-    m_flow_nominal=mCon_flow_nominal .* {1,-1,-1},
-    redeclare final package Medium = Medium)
-    "Flow splitter"
-    annotation (
-      Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=-90,
-        origin={180,40})));
-  Fluid.FixedResistances.Junction splAmbSup(
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final dp_nominal=fill(0, 3),
-    from_dp=false,
-    tau=1,
-    m_flow_nominal=max(mEva_flow_nominal, mCon_flow_nominal) .* {-1,-1,1},
-    redeclare final package Medium = Medium)
-    "Flow splitter"
-    annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-40,-140})));
-  Fluid.FixedResistances.Junction splConRet(
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final dp_nominal=fill(0, 3),
-    from_dp=false,
-    tau=1,
-    m_flow_nominal=mCon_flow_nominal .* {1,-1,1},
-    redeclare final package Medium = Medium)
-    "Flow splitter"
-    annotation (
-      Placement(transformation(
-        extent={{10,10},{-10,-10}},
-        rotation=-90,
-        origin={-220,-40})));
-  Fluid.FixedResistances.Junction splEvaRet(
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final dp_nominal=fill(0, 3),
-    from_dp=false,
-    tau=1,
-    m_flow_nominal=mEva_flow_nominal .* {1,-1,1},
-    redeclare final package Medium = Medium)
-    "Flow splitter"
-    annotation (
-      Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=-90,
-        origin={220,-40})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetChiWat(
-    final unit="K", displayUnit="degC")
-    "Chilled water supply temperature set point"
-    annotation (Placement(transformation(extent={{-300,160},{-260,200}}),
-      iconTransformation(extent={{-160,50},{-120,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput reqHea
     "Heating is required Boolean signal"
     annotation (Placement(transformation(extent={{-300,240},{-260,280}}),
@@ -294,15 +55,15 @@ model SubsystemHRChiller "Central subsystem based on heat recovery chiller"
     each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Fluid connectors for heating water supply"
-    annotation (Placement(transformation(extent={{110,-20},{130,60}}),
-        iconTransformation(extent={{110,-20},{130,60}})));
+    annotation (Placement(transformation(extent={{250,0},{270,80}}),
+      iconTransformation(extent={{110,-20},{130,60}})));
   Modelica.Fluid.Interfaces.FluidPorts_a ports_aHeaWat[nPorts_aHeaWat](
     redeclare each package Medium = Medium,
     each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Fluid connectors for heating water return"
-    annotation (Placement(transformation(extent={{110,-112},{130,-32}}),
-        iconTransformation(extent={{110,-112},{130,-32}})));
+    annotation (Placement(transformation(extent={{250,-80},{270,0}}),
+      iconTransformation(extent={{110,-112},{130,-32}})));
   Modelica.Fluid.Interfaces.FluidPorts_a ports_aAmbWat[nPorts_aAmbWat](
     redeclare each package Medium = Medium,
     each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
@@ -349,6 +110,204 @@ model SubsystemHRChiller "Central subsystem based on heat recovery chiller"
         extent={{-10,-40},{10,40}},
         rotation=0,
         origin={-260,40}), iconTransformation(extent={{-130,-20},{-110,60}})));
+  // COMPONENTS
+  Fluid.Chillers.ElectricEIR chi(
+    allowFlowReversal1=false,
+    allowFlowReversal2=false,
+    from_dp1=true,
+    dp1_nominal=dpCon_nominal,
+    linearizeFlowResistance1=true,
+    from_dp2=true,
+    dp2_nominal=dpEva_nominal,
+    linearizeFlowResistance2=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    per=datChi,
+    redeclare final package Medium1 = Medium,
+    redeclare final package Medium2 = Medium)
+    "Water cooled chiller (ports indexed 1 are on condenser side)"
+    annotation (Placement(transformation(extent={{-10,96},{10,116}})));
+  Buildings.Fluid.Movers.SpeedControlled_y pumCon(
+    redeclare final package Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    addPowerToMedium=false,
+    per(pressure(dp={dpCon_nominal,0}, V_flow={0,mCon_flow_nominal/1000})),
+    allowFlowReversal=false)
+    "Condenser pump"
+    annotation (Placement(transformation(extent={{-110,130},{-90,150}})));
+  Buildings.Fluid.Movers.SpeedControlled_y pumEva(
+    redeclare final package Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    addPowerToMedium=false,
+    per(pressure(dp={dpEva_nominal,0}, V_flow={0,mEva_flow_nominal/1000})),
+    allowFlowReversal=false)
+    "Evaporator pump"
+    annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={-100,60})));
+  FifthGeneration.Controls.Chiller conChi "Chiller controller"
+    annotation (Placement(transformation(extent={{-220,234},{-200,254}})));
+  FifthGeneration.Controls.PrimaryPumpsConstantSpeed conPumPri
+    "Primary pumps controller"
+    annotation (Placement(transformation(extent={{-220,204},{-200,224}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTConLvg(
+    redeclare final package Medium = Medium,
+    allowFlowReversal=false,
+    m_flow_nominal=mCon_flow_nominal,
+    tau=0) "Condenser water leaving temperature (sensed)"
+    annotation (Placement(
+      transformation(
+      extent={{10,10},{-10,-10}},
+      rotation=180,
+      origin={40,140})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTConEnt(
+    redeclare final package Medium = Medium,
+    allowFlowReversal=false,
+    m_flow_nominal=mCon_flow_nominal,
+    tau=0)
+    "Condenser water entering temperature (sensed)"
+    annotation (Placement(transformation(extent={{-50,130},{-30,150}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTEvaEnt(
+    redeclare final package Medium = Medium,
+    allowFlowReversal=false,
+    m_flow_nominal=mEva_flow_nominal,
+    tau=0)
+    "Evaporator water entering temperature (sensed)"
+    annotation (Placement(
+      transformation(
+      extent={{-10,10},{10,-10}},
+      rotation=180,
+      origin={40,60})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTEvaLvg(
+    redeclare final package Medium = Medium,
+    allowFlowReversal=false,
+    m_flow_nominal=mEva_flow_nominal,
+    tau=30)
+    "Evaporator water leaving temperature (sensed)"
+    annotation (Placement(transformation(extent={{-30,50},{-50,70}})));
+  Junction splEva(
+    m_flow_nominal=mEva_flow_nominal .* {1,-1,-1},
+    redeclare final package Medium = Medium)
+    "Flow splitter for the evaporator water circuit"
+    annotation (Placement(
+      transformation(
+      extent={{10,-10},{-10,10}},
+      rotation=0,
+      origin={-140,60})));
+  Junction splConMix(
+    m_flow_nominal=mCon_flow_nominal .* {1,-1,-1},
+    redeclare final package Medium = Medium)
+    "Flow splitter"
+    annotation (Placement(transformation(
+      extent={{-10,10},{10,-10}},
+      rotation=0,
+      origin={120,140})));
+  Fluid.Actuators.Valves.TwoWayLinear valConDir(
+    redeclare final package Medium = Medium,
+    use_inputFilter=false,
+    dpFixed_nominal=0,
+    show_T=true,
+    dpValve_nominal=dpValAmb_nominal,
+    riseTime=10,
+    l=1e-8,
+    m_flow_nominal=mCon_flow_nominal)
+    "Two-way directional valve"
+    annotation (Placement(transformation(extent={{130,-90},{110,-70}})));
+  Fluid.Actuators.Valves.TwoWayLinear valEvaDir(
+    redeclare final package Medium = Medium,
+    use_inputFilter=false,
+    dpFixed_nominal=0,
+    show_T=true,
+    dpValve_nominal=dpValAmb_nominal,
+    riseTime=10,
+    l=1e-8,
+    m_flow_nominal=mEva_flow_nominal)
+    "Two-way directional valve"
+    annotation (Placement(transformation(extent={{-110,-90},{-90,-70}})));
+  Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valEvaMix(
+    redeclare final package Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    from_dp=true,
+    m_flow_nominal=mEva_flow_nominal,
+    dpValve_nominal=6000,
+    homotopyInitialization=true)
+    "Three-way mixing valve controlling evaporator water entering temperature"
+    annotation (Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=180,
+        origin={120,60})));
+  Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valConMix(
+    redeclare final package Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    from_dp=true,
+    m_flow_nominal=mCon_flow_nominal,
+    dpValve_nominal=6000,
+    homotopyInitialization=true)
+    "Three-way mixing valve to controlling condenser water entering temperature"
+    annotation (Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=0,
+        origin={-140,140})));
+  Junction splEvaSup(
+    m_flow_nominal=mEva_flow_nominal .* {1,-1,-1},
+    redeclare final package Medium = Medium)
+    "Flow splitter"
+    annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-180,40})));
+  Junction splAmbRet(
+    m_flow_nominal=max(mEva_flow_nominal, mCon_flow_nominal) .* {1,1,-1},
+    redeclare final package Medium = Medium)
+    "Flow splitter"
+    annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={40,-80})));
+  Junction splConSup(
+    m_flow_nominal=mCon_flow_nominal .* {1,-1,-1},
+    redeclare final package Medium = Medium)
+    "Flow splitter"
+    annotation (
+      Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=-90,
+        origin={180,40})));
+  Junction splAmbSup(
+    m_flow_nominal=max(mEva_flow_nominal, mCon_flow_nominal) .* {-1,-1,1},
+    redeclare final package Medium = Medium)
+    "Flow splitter"
+    annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-40,-140})));
+  Junction splConRet(
+    m_flow_nominal=mCon_flow_nominal .* {1,-1,1},
+    redeclare final package Medium = Medium)
+    "Flow splitter"
+    annotation (
+      Placement(transformation(
+        extent={{10,10},{-10,-10}},
+        rotation=-90,
+        origin={-220,-40})));
+  Junction splEvaRet(
+    m_flow_nominal=mEva_flow_nominal .* {1,-1,1},
+    redeclare final package Medium = Medium)
+    "Flow splitter"
+    annotation (
+      Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=-90,
+        origin={220,-40})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetChiWat(
+    final unit="K", displayUnit="degC")
+    "Chilled water supply temperature set point"
+    annotation (Placement(transformation(extent={{-300,160},{-260,200}}),
+      iconTransformation(extent={{-160,50},{-120,90}})));
+
 initial equation
   assert(nPorts_aAmbWat == nPorts_bAmbWat,
     "In " + getInstanceName() +
@@ -407,17 +366,17 @@ equation
           {180,140},{180,50}}, color={0,127,255}));
   connect(splConSup.port_2,valConDir. port_a) annotation (Line(points={{180,30},
           {180,-80},{130,-80}}, color={0,127,255}));
-  connect(conChi.modChi, chi.on) annotation (Line(points={{-198,252},{-60,252},
-          {-60,109},{-12,109}}, color={255,0,255}));
-  connect(conChi.TSetChi, chi.TSet) annotation (Line(points={{-198,248},{-64,
-          248},{-64,103},{-12,103}}, color={0,0,127}));
+  connect(conChi.onCom, chi.on) annotation (Line(points={{-198,252},{-60,252},{
+          -60,109},{-12,109}}, color={255,0,255}));
+  connect(conChi.TSetEvaWatLvg, chi.TSet) annotation (Line(points={{-198,248},{
+          -64,248},{-64,103},{-12,103}}, color={0,0,127}));
   connect(reqHea, conChi.reqHea) annotation (Line(points={{-280,260},{-240,260},
           {-240,252.8},{-222,252.8}},
                                 color={255,0,255}));
   connect(reqCoo, conChi.reqCoo) annotation (Line(points={{-280,220},{-248,220},
           {-248,251},{-222,251}}, color={255,0,255}));
-  connect(TSetChiWat, conChi.TSetChiWat) annotation (Line(points={{-280,180},{
-          -238,180},{-238,249},{-222,249}}, color={0,0,127}));
+  connect(TSetChiWat, conChi.TSetChiWatSup) annotation (Line(points={{-280,180},
+          {-238,180},{-238,249},{-222,249}}, color={0,0,127}));
   connect(reqHea, conPumPri.reqHea) annotation (Line(points={{-280,260},{-240,
           260},{-240,220},{-222,220}},
                             color={255,0,255}));
@@ -428,7 +387,6 @@ equation
     annotation (Line(points={{220,-30},{220,60},{130,60}}, color={0,127,255}));
   connect(splAmbSup.port_2, splEvaRet.port_1) annotation (Line(points={{-30,-140},
           {220,-140},{220,-50}}, color={0,127,255}));
-
 
   connect(splConRet.port_2, valConMix.port_1) annotation (Line(points={{-220,-30},
           {-220,140},{-150,140}}, color={0,127,255}));
@@ -453,11 +411,10 @@ equation
   end for;
   for i in 1:nPorts_aHeaWat loop
     connect(splConSup.port_3, ports_bHeaWat[i])
-      annotation (Line(points={{190,40},{198,40},{198,20},{120,20}},
-                                                   color={0,127,255}));
+      annotation (Line(points={{190,40},{260,40}}, color={0,127,255}));
     connect(splConRet.port_3, ports_aHeaWat[i])
-      annotation (Line(points={{-210,-40},{-20,-40},{-20,-20},{240,-20},{240,
-            -72},{120,-72}},                              color={0,127,255}));
+      annotation (Line(points={{-210,-40},{-20,-40},{-20,-20},{240,-20},{240,-40},
+            {260,-40}},                                   color={0,127,255}));
   end for;
 
 annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
@@ -468,15 +425,15 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100}
           lineColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-64,60},{62,-60}},
-          lineColor={27,0,55},
-          fillColor={170,213,255},
-          fillPattern=FillPattern.Solid),
        Text(
           extent={{-120,180},{120,140}},
           textString="%name",
-          lineColor={0,0,255})}),
+          lineColor={0,0,255}),
+        Rectangle(
+          extent={{-60,60},{60,-60}},
+          lineColor={27,0,55},
+          fillColor={170,213,255},
+          fillPattern=FillPattern.Solid)}),
         Diagram(coordinateSystem(preserveAspectRatio=false,
                   extent={{-260,-260},{260,280}}),
                   graphics={Line(
@@ -628,4 +585,4 @@ First implementation
 </li>
 </ul>
 </html>"));
-end SubsystemHRChiller;
+end SubsystemChiller;

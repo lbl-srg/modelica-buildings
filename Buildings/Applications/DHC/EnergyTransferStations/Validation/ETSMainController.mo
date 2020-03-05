@@ -1,14 +1,13 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Validation;
 model ETSMainController "ETS main controller validation"
   extends Modelica.Icons.Example;
-  Controls.Supervisory ETSCon(THys=1)
+  FifthGeneration.Controls.Supervisory ETSCon(THys=1)
     "ETS main controller of the hot and chilled water circuits"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  BaseClasses.Constants cons(
+  FifthGeneration.BaseClasses.Constants cons(
     k={40 + 273.15,10 + 273.15},
     conNam={"TSetHea","TSetCoo"},
-    nCon=2)
-    "Multiple constant functions"
+    nCon=2) "Multiple constant functions"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Modelica.Blocks.Sources.Pulse TTanHotTop(
     amplitude=5,

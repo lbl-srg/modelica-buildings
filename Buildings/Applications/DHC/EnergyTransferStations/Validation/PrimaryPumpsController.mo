@@ -1,7 +1,7 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Validation;
 model PrimaryPumpsController "Constant speed primary pumps controller validation"
   extends Modelica.Icons.Example;
-  Controls.PrimaryPumpsConstantSpeed pumCon
+  FifthGeneration.Controls.PrimaryPumpsConstantSpeed pumCon
     "Primary pumps(ETS side) controller"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Modelica.Blocks.Sources.BooleanPulse reqHea(
