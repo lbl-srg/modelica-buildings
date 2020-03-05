@@ -239,7 +239,6 @@ Buildings/Fluid/Actuators/Dampers/Examples/package.order
 Buildings/Fluid/Actuators/Dampers/Exponential.mo
 Buildings/Fluid/Actuators/Dampers/MixingBox.mo
 Buildings/Fluid/Actuators/Dampers/PressureIndependent.mo
-Buildings/Fluid/Actuators/Dampers/VAVBoxExponential.mo
 Buildings/Fluid/Actuators/Dampers/package.mo
 Buildings/Fluid/Actuators/Dampers/package.order
 Buildings/Fluid/Actuators/Motors/Examples/IdealMotor.mo
@@ -707,7 +706,6 @@ Buildings/Fluid/HeatExchangers/BaseClasses/Examples/package.order
 Buildings/Fluid/HeatExchangers/BaseClasses/HACoilInside.mo
 Buildings/Fluid/HeatExchangers/BaseClasses/HADryCoil.mo
 Buildings/Fluid/HeatExchangers/BaseClasses/HANaturalCylinder.mo
-Buildings/Fluid/HeatExchangers/BaseClasses/Internal.mo
 Buildings/Fluid/HeatExchangers/BaseClasses/PartialEffectiveness.mo
 Buildings/Fluid/HeatExchangers/BaseClasses/PartialEffectivenessNTU.mo
 Buildings/Fluid/HeatExchangers/BaseClasses/PartialPrescribedOutlet.mo
@@ -1651,6 +1649,7 @@ Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WaterHeater_T.m
 Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WaterHeater_u.mos
 Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Radiators/Examples/RadiatorEN442_2.mos
 Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/ConstantEffectiveness.mos
+Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/DryCoilEffectivenessNTU.mos
 Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/EvaporatorCondenser.mos
 Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/HeaterCooler_u.mos
 Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/PrescribedOutlet.mos
@@ -2219,7 +2218,6 @@ Buildings/Utilities/Psychrometrics/Functions/Examples/pW_X.mo
 Buildings/Utilities/Psychrometrics/Functions/Examples/package.mo
 Buildings/Utilities/Psychrometrics/Functions/Examples/package.order
 Buildings/Utilities/Psychrometrics/Functions/Examples/phi_pTX.mo
-Buildings/Utilities/Psychrometrics/Functions/Internal.mo
 Buildings/Utilities/Psychrometrics/Functions/TDewPoi_pW.mo
 Buildings/Utilities/Psychrometrics/Functions/TDewPoi_pW_amb.mo
 Buildings/Utilities/Psychrometrics/Functions/X_pSatpphi.mo
