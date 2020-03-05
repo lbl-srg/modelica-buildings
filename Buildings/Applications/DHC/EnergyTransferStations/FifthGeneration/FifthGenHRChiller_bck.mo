@@ -696,9 +696,9 @@ equation
       pattern=LinePattern.Dash));
   connect(TMaxEvaEnt, chiCon.TMaxEvaWatEnt) annotation (Line(
       points={{-310,226},{-292,226},{-292,236},{-138,236},{-138,207},{-122,207}},
-
       color={0,0,127},
       pattern=LinePattern.Dash));
+
   connect(ETSCon.reqHea,pumPrimCon.reqHea)  annotation (Line(points={{-177,219},
           {-140,219},{-140,158},{-122,158}},                color={255,0,255},
       pattern=LinePattern.Dot));

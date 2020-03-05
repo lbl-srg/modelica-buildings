@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Validation;
-model ETSMainController "ETS main controller validation"
+model SupervisoryController "ETS supervisory controller validation"
   extends Modelica.Icons.Example;
   FifthGeneration.Controls.Supervisory ETSCon(THys=1)
     "ETS main controller of the hot and chilled water circuits"
@@ -71,4 +71,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ETSMainController;
+end SupervisoryController;

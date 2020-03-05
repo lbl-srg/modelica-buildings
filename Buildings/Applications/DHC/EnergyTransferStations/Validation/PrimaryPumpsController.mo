@@ -16,11 +16,11 @@ model PrimaryPumpsController "Constant speed primary pumps controller validation
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
 equation
   connect(pumCon.reqHea, reqHea.y)
-   annotation (Line(points={{18.6,20},{0,20},{0,
-          32},{-19,32}}, color={255,0,255}));
+   annotation (Line(points={{18,16},{0,16},{0,32},{-19,32}},
+                         color={255,0,255}));
   connect(pumCon.reqCoo, reqCoo.y)
-   annotation (Line(points={{18.6,0.2},{0,0.2},{
-          0,-10},{-19,-10}}, color={255,0,255}));
+   annotation (Line(points={{18,4},{0,4},{0,-10},{-19,-10}},
+                             color={255,0,255}));
 
 annotation (
         Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

@@ -46,35 +46,33 @@ model AmbientCircuitController "Ambient water circuit controller validation"
     "Cooling is required signal"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
 equation
-  connect(conAmbCir.reqHea, reqHea.y) annotation (Line(points={{39,39.8},{-28,
-          39.8},{-28,70},{-39,70}},
+  connect(conAmbCir.reqHea, reqHea.y) annotation (Line(points={{39,39},{-28,39},
+          {-28,70},{-39,70}},
                            color={255,0,255}));
   connect(valHea.y,conAmbCir. valHea) annotation (Line(points={{-39,40},{-30,40},
-          {-30,37.6},{39,37.6}},
-                            color={255,0,255}));
-  connect(conAmbCir.valCoo, valCoo.y) annotation (Line(points={{39,35.2},{-36,
-          35.2},{-36,10},{-39,10}},
+          {-30,38},{39,38}},color={255,0,255}));
+  connect(conAmbCir.valCoo, valCoo.y) annotation (Line(points={{39,37},{-36,37},
+          {-36,10},{-39,10}},
                           color={255,0,255}));
   connect(reHeajFulLoa.y,conAmbCir. rejHeaFulLoa) annotation (Line(points={{-39,-20},
-          {-32,-20},{-32,33},{39,33}},
+          {-32,-20},{-32,36},{39,36}},
                                    color={255,0,255}));
   connect(rejCooFulLoa.y,conAmbCir. rejCooFulLoa) annotation (Line(points={{-39,-52},
-          {-30,-52},{-30,31},{39,31}},
+          {-30,-52},{-30,35},{39,35}},
                                      color={255,0,255}));
   connect(reqCoo.y,conAmbCir. reqCoo) annotation (Line(points={{-39,-80},{-28,
-          -80},{-28,29},{39,29}},
+          -80},{-28,34},{39,34}},
                             color={255,0,255}));
   connect(TBorEnt.y,conAmbCir. TBorEnt) annotation (Line(points={{1,-40},{12,
-          -40},{12,19.2},{39,19.2}},
-                                color={0,0,127}));
+          -40},{12,21},{39,21}},color={0,0,127}));
   connect(con.y[1],conAmbCir. TBorMaxEnt) annotation (Line(points={{1,-0.75},{2,
-          -0.75},{2,27},{39,27}},  color={0,0,127}));
+          -0.75},{2,25},{39,25}},  color={0,0,127}));
   connect(con.y[2],conAmbCir. TDisHexEnt) annotation (Line(points={{1,-0.25},{4,
-          -0.25},{4,25},{39,25}},  color={0,0,127}));
+          -0.25},{4,24},{39,24}},  color={0,0,127}));
   connect(con.y[3],conAmbCir. TDisHexLvg) annotation (Line(points={{1,0.25},{6,
           0.25},{6,23},{39,23}},   color={0,0,127}));
   connect(con.y[4],conAmbCir. TBorLvg) annotation (Line(points={{1,0.75},{8,
-          0.75},{8,21.2},{39,21.2}},
+          0.75},{8,22},{39,22}},
                                color={0,0,127}));
 annotation (
         Diagram(coordinateSystem(preserveAspectRatio=false,

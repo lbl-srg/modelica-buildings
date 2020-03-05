@@ -195,7 +195,6 @@ model ETS_ClosedLoop
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   FifthGeneration.BaseClasses.Constants mulCon(
     k={29 + 273.15,10 + 273.15,5 + 273.15,12 + 273.15,17 + 273.15,40 + 273.15},
-
     conNam={"TSetHea","TSetCoo","TSetCooMin","TMinConEnt","TMaxEvaEnt",
         "TBorMaxEnt"},
     nCon=6) "Multiple constant functions"

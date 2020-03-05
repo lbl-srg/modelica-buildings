@@ -305,9 +305,9 @@ equation
       pattern=LinePattern.Dot));
   connect(ambCon.TDisHexEnt, senTDisHX2Ent.T) annotation (Line(
       points={{-249,-128},{-162,-128},{-162,-288},{90,-288},{90,-70},{99,-70}},
-
       color={0,0,127},
       pattern=LinePattern.Dot));
+
   connect(gaiMDisHex.y, pumHexDis.m_flow_in) annotation (Line(
       points={{62,-252},{80,-252},{80,-110},{98,-110}},
       color={0,0,127},

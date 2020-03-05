@@ -201,7 +201,8 @@ equation
           -1.77636e-15,-10.6667},{0,-10.6667},{0,-20},{-30,-20}},
                                   color={0,127,255}));
   connect(senT2_1Ret.port_b, hydHea.ports_b[2]) annotation (Line(points={{30,-20},
-          {14,-20},{14,-8},{-1.77636e-15,-8}},   color={0,127,255}));
+          {16,-20},{16,-6},{0,-6},{0,-8},{-1.77636e-15,-8}},
+                                                 color={0,127,255}));
   connect(hydHea.ports_a[2], senT2_1Sup.port_a) annotation (Line(points={{
           1.77636e-15,4},{20,4},{20,20},{30,20}},
                                       color={0,127,255}));
@@ -218,14 +219,15 @@ equation
   connect(vol2.ports[1],sou3. port_a)
     annotation (Line(points={{197,-160},{170,-160}},
                                                    color={0,127,255}));
-  connect(senMasFlo2_2.port_b, vol2.ports[2]) annotation (Line(points={{130,-120},
-          {201,-120},{201,-160}}, color={0,127,255}));
+  connect(senMasFlo2_2.port_b, vol2.ports[2]) annotation (Line(points={{130,
+          -120},{201,-120},{201,-160}},
+                                  color={0,127,255}));
   connect(hydHea.ports_a[3], senT2_2Sup.port_a) annotation (Line(points={{
-          1.77636e-15,6.66667},{20,6.66667},{20,-120},{30,-120}},
+          1.77636e-15,6.66667},{0,6.66667},{0,0},{20,0},{20,-120},{30,-120}},
                                           color={0,127,255}));
   connect(hydHea.ports_b[3], senT2_2Ret.port_b) annotation (Line(points={{
-          -4.44089e-16,-5.33333},{14,-5.33333},{14,-160},{30,-160}},
-                                              color={0,127,255}));
+          -4.44089e-16,-5.33333},{-4.44089e-16,-6},{0,-6},{0,-10},{12,-10},{12,
+          -160},{30,-160}},                   color={0,127,255}));
   connect(sou3.port_b, coo1.port_a)
     annotation (Line(points={{150,-160},{80,-160}}, color={0,127,255}));
   connect(senT1Ret.port_b, bou1.ports[2]) annotation (Line(points={{-50,-20},{-120,

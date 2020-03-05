@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.EnergyTransferStations.BaseClasses;
-model HydraulicHeader "Hydraulic header manifold"
+model HydraulicHeader "Hydraulic header"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
@@ -80,13 +80,14 @@ Documentation(info="<html>
 <h4>Hydraulic header</h4>
 <p>
 This is a model for a hydraulic header where ideal mixing is assumed for all
-fluid streams connected to <code>ports_a</code> and respectively to <code>ports_b</code>.
-Unbalanced flow rate over each of these fluid port array flows to the other 
+fluid streams connected to <code>ports_a</code>, respectively to <code>ports_b</code>.
+Unbalanced flow rate (from outside components) over each of these fluid port arrays
+is compensated by the flow rate (inside the component) toward or from the other 
 fluid port array, with no delay and zero pressure drop. 
 The condition <code>allowFlowReversal</code> only applies to the dummy pipe 
 model used for transporting the fluid from one port array to the other.
 Therefore the model can be used to represent a decoupler (vertical separator 
-or U-shaped pipe) between a primary loop and a secondary loop as illustrated in
+or common pipe) between a primary loop and a secondary loop as illustrated in
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Validation.HydraulicHeader\">
 Buildings.Applications.DHC.EnergyTransferStations.Validation.HydraulicHeader</a>.
 In that case:
