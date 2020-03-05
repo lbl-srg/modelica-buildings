@@ -300,10 +300,10 @@ equation
           -240},{-59,-240}},      color={0,0,127}));
   connect(swiHeaCoi.u1, heaCoiCon.y)
     annotation (Line(points={{58,-202},{-59,-202}}, color={0,0,127}));
-  connect(coiOff.y, swiCooCoi.u3) annotation (Line(points={{-39,-162},{-28,-162},
+  connect(coiOff.y, swiCooCoi.u3) annotation (Line(points={{-38,-162},{-28,-162},
           {-28,-256},{58,-256}},
                               color={0,0,127}));
-  connect(coiOff.y, swiHeaCoi.u3) annotation (Line(points={{-39,-162},{-28,-162},
+  connect(coiOff.y, swiHeaCoi.u3) annotation (Line(points={{-38,-162},{-28,-162},
           {-28,-218},{58,-218}},
                               color={0,0,127}));
   connect(TSup.T, cooCoiCon.u_m) annotation (Line(points={{340,-29},{340,-12},{
@@ -312,9 +312,9 @@ equation
           372,-12},{372,-268},{-88,-268},{-88,-222},{-70,-222},{-70,-214}},
         color={0,0,127}));
   connect(gaiHeaCoi.u, swiHeaCoi.y)
-    annotation (Line(points={{98,-210},{81,-210},{81,-210}}, color={0,0,127}));
+    annotation (Line(points={{98,-210},{82,-210},{82,-210}}, color={0,0,127}));
   connect(gaiCooCoi.u, swiCooCoi.y) annotation (Line(points={{98,-248},{88,-248},
-          {88,-248},{81,-248}}, color={0,0,127}));
+          {88,-248},{82,-248}}, color={0,0,127}));
   connect(eco.yExh, conEco.yOA) annotation (Line(
       points={{-3,-34},{-2,-34},{-2,152},{-59.3333,152}},
       color={0,0,127},
@@ -323,14 +323,18 @@ equation
       points={{-16.8,-34},{-16.8,146.667},{-59.3333,146.667}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(freSta.y, or2.u1) annotation (Line(points={{21,-92},{21,-92},{40,-92},
+  connect(freSta.y, or2.u1) annotation (Line(points={{22,-92},{22,-92},{40,-92},
           {40,-150},{-20,-150},{-20,-170},{-2,-170}},        color={255,0,255}));
   connect(or2.u2, modeSelector.yFan) annotation (Line(points={{-2,-178},{-20,
           -178},{-20,-310},{-179.545,-310}},
                                      color={255,0,255}));
-  connect(or2.y, swiHeaCoi.u2) annotation (Line(points={{21,-170},{40,-170},{40,
+  connect(or2.y, swiHeaCoi.u2) annotation (Line(points={{22,-170},{40,-170},{40,
           -190},{40,-190},{40,-210},{58,-210}}, color={255,0,255}));
   annotation (
+    __Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/ASHRAE2006.mos"
+        "Simulate and plot"),
+    experiment(StopTime=172800, Tolerance=1e-06),
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-400},{1440,
             580}})),
     Documentation(info="<html>
@@ -418,9 +422,5 @@ This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">issue 426</a>.
 </li>
 </ul>
-</html>"),
-    __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/ASHRAE2006.mos"
-        "Simulate and plot"),
-    experiment(StopTime=172800, Tolerance=1e-06));
+</html>"));
 end ASHRAE2006;
