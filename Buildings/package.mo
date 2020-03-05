@@ -1220,7 +1220,7 @@ its class name ends with the string <code>Beta</code>.
        </td>
        <td valign=\"top\">Added <code>constrainedby</code> to declaration of chiller.<br/>
                           This is for
-                          <a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/1118\">issue 1118</a>.
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1118\">issue 1118</a>.
        </td>
    </tr>
    <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1</b>
@@ -1250,7 +1250,7 @@ its class name ends with the string <code>Beta</code>.
        </td>
        <td valign=\"top\">Improved calculation of heat loss.<br/>
                           This is for
-                          <a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/1100\">issue 1100</a>.
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1100\">issue 1100</a>.
        </td>
    </tr>
    <tr><td colspan=\"2\"><b>Buildings.Fluid.Sources</b>
