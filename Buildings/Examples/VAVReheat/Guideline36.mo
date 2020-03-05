@@ -111,7 +111,7 @@ equation
   connect(TSupNor.T, conVAVNor.TDis) annotation (Line(points={{1089,94},{1032,94},
           {1032,35},{1038,35}},     color={0,0,127}));
   connect(TSupWes.T, conVAVWes.TDis) annotation (Line(points={{1289,90},{1228,90},
-          {1228,33},{1238,33}},     color={0,0,127}));
+          {1228,33},{1238,33}}, color={0,0,127}));
   connect(cor.yVAV, conVAVCor.yDam) annotation (Line(points={{566,50},{556,50},{
           556,48},{552,48}}, color={0,0,127}));
   connect(cor.yVal, conVAVCor.yVal) annotation (Line(points={{566,34},{560,34},{
