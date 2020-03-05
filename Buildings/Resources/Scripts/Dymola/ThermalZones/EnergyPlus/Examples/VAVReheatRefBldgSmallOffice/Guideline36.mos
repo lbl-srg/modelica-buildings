@@ -1,6 +1,6 @@
 old_hidden_avoid_double_computation=Hidden.AvoidDoubleComputation;
 Hidden.AvoidDoubleComputation=true;
-simulateModel("Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.ASHRAE2006.Guideline36", stopTime=172800, method="cvode", tolerance=1e-06, resultFile="Guideline36");
+simulateModel("Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.Guideline36", stopTime=172800, method="cvode", tolerance=1e-06, resultFile="Guideline36");
 createPlot(id = 3,
  position = {26, 33, 808, 649},
  y = {"flo.sou.air.vol.T", "flo.eas.air.vol.T", "flo.nor.air.vol.T", "flo.wes.air.vol.T", "flo.cor.air.vol.T"},
