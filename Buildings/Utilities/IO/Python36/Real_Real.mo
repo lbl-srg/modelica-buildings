@@ -12,7 +12,9 @@ model Real_Real
   parameter Integer nDblWri(min=1) "Number of double values to write to Python";
   parameter Integer nDblRea(min=1)
     "Number of double values to be read from the Python";
-  parameter Integer flaDblWri[nDblWri] = zeros(nDblWri)
+  parameter Integer flag = 0
+    "Flag for double values (0: use current value, 1: use average over interval, 2: use integral over interval)";
+  final parameter Integer flaDblWri[nDblWri] = fill(flag, nDblWri)
     "Flag for double values (0: use current value, 1: use average over interval, 2: use integral over interval)";
 
   parameter Boolean passPythonObject = false
@@ -28,12 +30,14 @@ model Real_Real
   Real uRInt[nDblWri] "Value of integral";
   Real uRIntPre[nDblWri] "Value of integral at previous sampling instance";
   Real uRWri[nDblWri] "Value to be sent to Python";
+  Real uRWri_temp[nDblWri] "Internal value";
 protected
   Buildings.Utilities.IO.Python36.Functions.BaseClasses.PythonObject pytObj=
-      Buildings.Utilities.IO.Python36.Functions.BaseClasses.PythonObject()
+    Buildings.Utilities.IO.Python36.Functions.BaseClasses.PythonObject()
     "Python object, used to avoid instantiating Python in each call, and to pass python object if passPythonObject=true";
 initial equation
    uRWri    =  pre(uR);
+   uRWri_temp = pre(uR);
    uRInt    =  zeros(nDblWri);
    uRIntPre =  zeros(nDblWri);
    for i in 1:nDblWri loop
@@ -52,40 +56,46 @@ equation
 
   when {sampleTrigger} then
      // Compute value that will be sent to Python
-     for i in 1:nDblWri loop
-       if (flaDblWri[i] == 0) then
-         uRWri[i] = pre(uR[i]);                 // Send the current value.
-       else
-         uRWri[i] = uRInt[i] - pre(uRIntPre[i]);     // Integral over the sampling interval
-         if (flaDblWri[i] == 1) then
-            uRWri[i] =  uRWri[i]/samplePeriod;  // Average value over the sampling interval
-         end if;
-       end if;
+      for i in 1:nDblWri loop
+        if (flaDblWri[i] == 0) then
+          uRWri_temp[i] = pre(uR[i]);
+          uRWri[i] = pre(uR[i]);                 // Send the current value.
+        else
+          if (time > 0) then
+            uRWri_temp[i] = uRInt[i] - pre(uRIntPre[i]); // Integral over the sampling interval
+            if (flaDblWri[i] == 2) then
+              uRWri[i] = uRWri_temp[i];
+            else
+              uRWri[i] = uRWri_temp[i]/samplePeriod;  // Average value over the sampling interval
+            end if;
+          else
+            uRWri[i] = pre(uR[i]);
+            uRWri_temp[i] = pre(uR[i]);
+          end if;
+        end if;
       end for;
-
     // Exchange data
     yR = Buildings.Utilities.IO.Python36.Functions.exchange(
-        moduleName=moduleName,
-        functionName=functionName,
-        dblWri=uRWri,
-        intWri={0},
-        nDblWri=nDblWri,
-        nDblRea=nDblRea,
-        nIntWri=0,
-        nIntRea=0,
-        nStrWri=0,
-        strWri={""},
-        pytObj=pytObj,
-        passPythonObject=passPythonObject);
-
+      moduleName=moduleName,
+      functionName=functionName,
+      dblWri=uRWri,
+      intWri={0},
+      nDblWri=nDblWri,
+      nDblRea=nDblRea,
+      nIntWri=0,
+      nIntRea=0,
+      nStrWri=0,
+      strWri={""},
+      pytObj=pytObj,
+      passPythonObject = passPythonObject);
     // Store current value of integral
-  uRIntPre= uRInt;
+    uRIntPre= uRInt;
   end when;
 
   annotation (defaultComponentName="pyt",
  Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={Bitmap(
-            extent={{-88,82},{80,-78}}, fileName="modelica://Buildings/Resources/Images/Utilities/IO/Python27/python.png")}),
+            extent={{-88,82},{80,-78}}, fileName="modelica://Buildings/Resources/Images/Utilities/IO/Python36/python.png")}),
     Documentation(info="<html>
 <p>
 Block that exchanges data with a Python function that does not need to pass
@@ -139,6 +149,12 @@ Otherwise, leave it at its default value <code>passPythonObject = false</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 06, 2020, by Jianjun Hu:<br/>
+Corrected implementation so it allows different flag for double values.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1716\">issue #1716</a>.
+</li>
 <li>
 June 9, 2015 by Michael Wetter:<br/>
 Set <code>firstTrigger(fixed=true, start=false)</code> to avoid a
