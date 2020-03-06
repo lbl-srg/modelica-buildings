@@ -13,7 +13,8 @@ ARCH = $(shell getconf LONG_BIT)
 ifndef PYTHONHOME
 $(error PYTHONHOME is not set)
 endif
-PYTHONInc=$(PYTHONHOME)/include/python2.7
+# PYTHONInc=$(PYTHONHOME)/include/python2.7
+PYTHONInc=$(PYTHONHOME)/include/python3.6
 PYTHONLib=$(PYTHONHOME)/lib
 
 # Directory where executable will be copied to
@@ -23,12 +24,17 @@ BINDIR = ../../Library/linux$(ARCH)
 ## Compilation flags
 CC = gcc
 
-CC_FLAGS_32 = -Wall -std=c89 -pedantic -msse2 -mfpmath=sse -I$(PYTHONInc) -L$(PYTHONLib) -lpython2.7 -lm -m32
-CC_FLAGS_64 = -Wall -std=c89 -pedantic -msse2 -mfpmath=sse -I$(PYTHONInc) -L$(PYTHONLib) -lpython2.7 -lm -m64
+# CC_FLAGS_32 = -Wall -std=c89 -pedantic -msse2 -mfpmath=sse -I$(PYTHONInc) -L$(PYTHONLib) -lpython2.7 -lm -m32
+# CC_FLAGS_64 = -Wall -std=c89 -pedantic -msse2 -mfpmath=sse -I$(PYTHONInc) -L$(PYTHONLib) -lpython2.7 -lm -m64
+
+CC_FLAGS_32 = -Wall -std=c89 -pedantic -msse2 -mfpmath=sse -I$(PYTHONInc) -L$(PYTHONLib) -lpython3.6 -lm -m32
+# CC_FLAGS_64 = -Wall -std=c89 -pedantic -msse2 -mfpmath=sse -I$(PYTHONInc) -L$(PYTHONLib) -lpython3.6 -lm -m64
+CC_FLAGS_64 = -Wall -std=c89 -pedantic -msse2 -mfpmath=sse -I$(PYTHONInc) -L/usr/lib/python3.6/config-3.6m-x86_64-linux-gnu/ -lpython3.6 -lm -m64
 
 SRCS = pythonInterpreter.c
 OBJS = pythonInterpreter.o
-LIB  = libModelicaBuildingsPython2.7.so
+# LIB  = libModelicaBuildingsPython2.7.so
+LIB  = libModelicaBuildingsPython3.6.so
 
 # Note that -fPIC is recommended on Linux according to the Modelica specification
 
