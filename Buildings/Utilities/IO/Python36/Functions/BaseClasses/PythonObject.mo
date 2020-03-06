@@ -18,8 +18,8 @@ exactly once during the initialization.
 The function returns the object <code>PythonObject</code> that
 will be used to store a Python object and pass it from one invocation to another
 in the function
-<a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.BaseClasses.exchange\">
-Buildings.Utilities.IO.Python27.Functions.BaseClasses.exchange</a>.
+<a href=\"modelica://Buildings.Utilities.IO.Python36.Functions.BaseClasses.exchange\">
+Buildings.Utilities.IO.Python36.Functions.BaseClasses.exchange</a>.
 </p>
 </html>", revisions="<html>
 <ul>
