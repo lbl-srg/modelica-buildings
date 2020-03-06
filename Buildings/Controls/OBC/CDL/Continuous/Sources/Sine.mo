@@ -42,7 +42,11 @@ equation
               -64.2},{29.3,-73.1},{35,-78.4},{40.6,-80},{46.2,-77.6},{51.9,-71.5},
               {57.5,-61.9},{63.9,-47.2},{72,-24.8},{80,0}}, smooth = Smooth.Bezier),
         Text(extent={{-147,-152},{153,-112}},lineColor={0,0,0},
-          textString="freqHz=%freqHz")}),
+          textString="freqHz=%freqHz"),
+        Text(
+          extent={{226,60},{106,10}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}),
     Documentation(info="<html>
 <p>
 Block that outputs a <code>sine</code>.
@@ -53,6 +57,10 @@ Block that outputs a <code>sine</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
 <li>
 November 06, 2017, by Milica Grahovac:<br/>
 First CDL implementation.

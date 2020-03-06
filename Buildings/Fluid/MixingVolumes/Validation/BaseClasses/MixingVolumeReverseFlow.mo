@@ -96,7 +96,7 @@ The mass flow rate starts positive and reverses its direction at <i>t=5</i> seco
 December 23, 2019, by Michael Wetter:<br/>
 Changed constraining clause to ensure that heat port is present.<br/>
 This is for
-<a href=\"modelica://https://github.com/ibpsa/modelica-ibpsa/issues/1268\">Buildings, #1268</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1268\">Buildings, #1268</a>.
 </li>
 <li>
 January 19, 2016, by Michael Wetter:<br/>

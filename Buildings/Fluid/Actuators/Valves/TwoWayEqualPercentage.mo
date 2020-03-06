@@ -40,6 +40,12 @@ as the regularization near the origin.
 </html>", revisions="<html>
 <ul>
 <li>
+February 21, 2020, by Michael Wetter:<br/>
+Changed icon to display its operating state.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
+</li>
+<li>
 November 9, 2019, by Filip Jorissen:<br/>
 Guarded the computation of <code>phi</code> using
 <code>max(0, . )</code> to avoid
@@ -83,8 +89,7 @@ First implementation.
 </html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Text(
           extent={{-74,20},{-36,-24}},
-          lineColor={255,255,255},
-          fillColor={0,0,0},
+          lineColor=DynamicSelect({255,255,255}, (1-y)*{255,255,255}),
           fillPattern=FillPattern.Solid,
           textString="%%")}));
 end TwoWayEqualPercentage;

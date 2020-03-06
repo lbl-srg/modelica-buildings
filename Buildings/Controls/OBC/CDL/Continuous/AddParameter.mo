@@ -25,6 +25,10 @@ parameters and <code>u</code> is an input.
 </html>", revisions="<html>
 <ul>
 <li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
+<li>
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the
 Modelica Standard Library.
@@ -61,28 +65,9 @@ Modelica Standard Library.
         Ellipse(lineColor={0,0,127}, extent={{-12,-52},{88,48}},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Text(extent={{-2,-22},{74,46}},  textString="+")}),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
-            100,100}}), graphics={Rectangle(
-            extent={{-100,-100},{100,100}},
-            lineColor={0,0,127},
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid),Line(points={{-100,0},{100,0}},
-          color={0,0,255}),Line(points={{30,48},{30,0}},              color={
-          0,0,127}),                                Text(
-            extent={{16,50},{82,2}},
-            lineColor={0,0,0},
-            textString="+"),Text(
-            extent={{-16,54},{89,94}},
-            lineColor={0,0,0},
-          textString="%p"),
-        Polygon(
-          points={{-76,42},{-76,-44},{16,0},{-76,42}},
-          lineColor={28,108,200},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-                             Text(
-            extent={{-102,26},{3,-14}},
-            lineColor={0,0,0},
-          textString="%k")}));
+        Text(extent={{-2,-22},{74,46}},  textString="+"),
+        Text(
+          extent={{226,60},{106,10}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}));
 end AddParameter;
