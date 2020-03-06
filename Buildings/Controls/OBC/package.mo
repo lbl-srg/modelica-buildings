@@ -10,14 +10,16 @@ and a library that implements control sequences from the ASHRAE Guideline 36.
 </p>
 <p>
 These implementations have been developed
-through the OpenBuildingControl project
-that aims to develop a process and tools for the
+through the OpenBuildingControl (<a href=\"https://obc.lbl.gov\">obc.lbl.gov</a>) project
+that develops a process and tools for the
 performance evaluation, specification and verification
 of building control sequences.
-See
-<a href=\"http://obc.lbl.gov\">
-http://obc.lbl.gov</a>
-for further information.
+</p>
+<p>
+For a tutorial for how to implement control sequences using the
+Control Description Language (CDL), see
+<a href=\"modelica://Buildings.Examples.Tutorial.CDL\">
+Buildings.Examples.Tutorial.CDL</a>.
 </p>
 </html>"));
 end OBC;

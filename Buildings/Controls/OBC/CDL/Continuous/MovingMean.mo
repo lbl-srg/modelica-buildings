@@ -71,7 +71,11 @@ equation
         Text(
           extent={{-42,-63},{41,-106}},
           lineColor={192,192,192},
-          textString="%delta s")}),
+          textString="%delta s"),
+        Text(
+          extent={{226,60},{106,10}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}),
    Documentation(info="<html>
 <p>
 This block outputs the mean value of its input signal as
@@ -110,6 +114,10 @@ for example.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
 <li>
 October 24, 2017, by Michael Wetter:<br/>
 Set initial condition for <code>mu</code>.

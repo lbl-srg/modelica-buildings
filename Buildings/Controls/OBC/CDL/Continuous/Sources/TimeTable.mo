@@ -211,6 +211,10 @@ of <i>0.5</i> seconds outputs
 revisions="<html>
 <ul>
 <li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
+<li>
 March 14, 2017, by Michael Wetter:<br/>
 Refactored and simplified implementation.
 </li>
@@ -247,5 +251,11 @@ Initial CDL implementation.
       fillColor={255,215,136},
       fillPattern=FillPattern.Solid,
       extent={{-48.0,-50.0},{2.0,70.0}}),
-    Line(points={{-48.0,-50.0},{-48.0,70.0},{52.0,70.0},{52.0,-50.0},{-48.0,-50.0},{-48.0,-20.0},{52.0,-20.0},{52.0,10.0},{-48.0,10.0},{-48.0,40.0},{52.0,40.0},{52.0,70.0},{2.0,70.0},{2.0,-51.0}})}));
+    Line(points={{-48.0,-50.0},{-48.0,70.0},{52.0,70.0},{52.0,-50.0},
+        {-48.0,-50.0},{-48.0,-20.0},{52.0,-20.0},{52.0,10.0},{-48.0,10.0},
+        {-48.0,40.0},{52.0,40.0},{52.0,70.0},{2.0,70.0},{2.0,-51.0}}),
+        Text(
+          extent={{226,60},{106,10}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", if (nout==1) then String(y[1], leftjustified=false, significantDigits=3) else ""))}));
 end TimeTable;
