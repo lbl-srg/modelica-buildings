@@ -1,7 +1,8 @@
 within Buildings.Utilities.IO.Files.BaseClasses;
 function cacheVals
   "Function for caching results such that they can be written at destruction"
-    input Buildings.Utilities.IO.Files.BaseClasses.JSONWriterObject ID "Json writer object id";
+    input Buildings.Utilities.IO.Files.BaseClasses.JSONWriterObject ID
+    "Json writer object id";
     input Real[:] varVals "Variable values";
 
     external "C" cacheVals(ID, varVals, size(varVals,1))

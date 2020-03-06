@@ -1,4 +1,4 @@
-within Buildings.Utilities.IO.Python36.Examples;
+within Buildings.Obsolete.Utilities.IO.Python27.Examples;
 model SimpleRoom
   "Simple room model implemented in Python that outputs the temperature and the energy"
   extends Modelica.Icons.Example;
@@ -18,11 +18,10 @@ model SimpleRoom
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Modelica.Blocks.Routing.Multiplex4 mul "Multiplex"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Controls.OBC.CDL.Logical.OnOffController onOffCon(
-    bandwidth=2,
-    u(unit="K", displayUnit="degC")) "On/off controller"
+  Buildings.Controls.OBC.CDL.Logical.OnOffController onOffCon(bandwidth=2, u(
+        unit="K", displayUnit="degC")) "On/off controller"
     annotation (Placement(transformation(extent={{30,10},{50,30}})));
-  Controls.OBC.CDL.Conversions.BooleanToReal onOff(realTrue=1.2)
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal onOff(realTrue=1.2)
     "On off control"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
   Modelica.Blocks.Sources.Sine TAmb(
@@ -51,7 +50,7 @@ equation
           {-42,13}}, color={0,0,127}));
   annotation (
 experiment(Tolerance=1e-6, StopTime=86400),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/IO/Python36/Examples/SimpleRoom.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Utilities/IO/Python27/Examples/SimpleRoom.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

@@ -1,4 +1,4 @@
-within Buildings.Utilities.IO.Python36.Examples;
+within Buildings.Obsolete.Utilities.IO.Python27.Examples;
 model KalmanFilter
   "Kalman filter implemented in Python and called from Modelica"
   extends Modelica.Icons.Example;
@@ -51,7 +51,7 @@ equation
       smooth=Smooth.None));
   annotation (
 experiment(Tolerance=1e-6, StopTime=1),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/IO/Python36/Examples/KalmanFilter.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Utilities/IO/Python27/Examples/KalmanFilter.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -73,7 +73,7 @@ shows the sine wave, the sine wave plus noise, which is input to the Kalman filt
 and the estimated state which is the output of the Kalman filter.
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Utilities/IO/Python36/Examples/KalmanFilter.png\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Obsolete/Utilities/IO/Python27/Examples/KalmanFilter.png\"/>
 </p>
 <h4>Implementation</h4>
 <p>
