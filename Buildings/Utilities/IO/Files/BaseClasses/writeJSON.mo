@@ -1,8 +1,7 @@
 within Buildings.Utilities.IO.Files.BaseClasses;
 function writeJSON
   "Write a vector of Real variables to a JSON file"
-    input Buildings.Utilities.IO.Files.BaseClasses.JSONWriterObject ID
-    "JSON writer object id";
+    input Buildings.Utilities.IO.Files.BaseClasses.JSONWriterObject ID "JSON writer object id";
     input Real[:] varVals "Variable values";
 
     external "C" writeJson(ID, varVals, size(varVals,1))
