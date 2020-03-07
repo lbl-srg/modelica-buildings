@@ -25,7 +25,8 @@ protected
         insNam,
         fileName,
         outputTime==Buildings.Utilities.IO.Files.BaseClasses.OutputTime.Terminal,
-        varKeys) "File writer object";
+        varKeys)
+    "File writer object";
 equation
   if outputTime==Buildings.Utilities.IO.Files.BaseClasses.OutputTime.Terminal then
     Buildings.Utilities.IO.Files.BaseClasses.cacheVals(jsonWri, u);

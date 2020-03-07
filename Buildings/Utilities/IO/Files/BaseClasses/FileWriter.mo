@@ -37,7 +37,8 @@ protected
         insNam,
         fileName,
         nin+1,
-        isCombiTimeTable) "File writer object";
+        isCombiTimeTable)
+    "File writer object";
 
   discrete String str "Intermediate variable for constructing a single line";
   output Boolean sampleTrigger "True, if sample time instant";
@@ -45,8 +46,7 @@ protected
   function writeLine
     "Prepend a string to an existing text file"
     extends Modelica.Icons.Function;
-    input Buildings.Utilities.IO.Files.BaseClasses.FileWriterObject id
-      "ID of the file writer";
+    input Buildings.Utilities.IO.Files.BaseClasses.FileWriterObject id "ID of the file writer";
     input String string "Written string";
     input Integer isMetaData "=1, if line should not be included for row count of combiTimeTable";
     external"C" writeLine(id, string, isMetaData)
