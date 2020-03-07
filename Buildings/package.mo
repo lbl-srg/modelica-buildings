@@ -607,15 +607,7 @@ its class name ends with the string <code>Beta</code>.
         </td>
     </tr>
     </table>
-    <p>
-    Note:
-    </p>
-    <ul>
-    <li>
-    xxx
-    </li>
-    </ul>
-    </html>"));
+     </html>"));
     end Version_7_0_0;
 
     class Version_6_0_0 "Version 6.0.0"
@@ -7596,7 +7588,7 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_7_0_0\">Version 7.0.0</a> (xxx, 2019)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_7_0_0\">Version 7.0.0</a>
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_6_0_0\">Version 6.0.0</a> (July 15, 2019)
