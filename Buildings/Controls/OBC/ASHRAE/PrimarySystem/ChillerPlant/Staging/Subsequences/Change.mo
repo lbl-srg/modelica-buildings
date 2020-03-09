@@ -112,7 +112,7 @@ block Change "Calculates the chiller stage signal"
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u(
     final min=0,
     final max=nSta) "Chiller stage"
-    annotation (Placement(transformation(extent={{-280,-140},{-240,-100}}),
+    annotation (Placement(transformation(extent={{-280,-120},{-240,-80}}),
         iconTransformation(extent={{-140,-130},{-100,-90}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TWsePre(
@@ -196,8 +196,8 @@ block Change "Calculates the chiller stage signal"
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y(
     final max=fill(nSta, nSta))
     "Chiller stage setpoint"
-    annotation (Placement(transformation(extent={{300,-150},
-            {340,-110}}), iconTransformation(extent={{100,-20},{140,20}})));
+    annotation (Placement(transformation(extent={{300,-110},{340,-70}}),
+                          iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Configurator conf(
     final nSta = nSta,
@@ -265,29 +265,20 @@ block Change "Calculates the chiller stage signal"
         iconTransformation(extent={{100,50},{140,90}})));
 
   Buildings.Controls.OBC.CDL.Integers.OnCounter onCouUp(
-    final y_start=0, y_reset=1)
-    "Counts stage up signal rising edges"
+    final y_start=0, y_reset=0) "Counts stage up signal occurences"
     annotation (Placement(transformation(extent={{100,-80},{120,-60}})));
 
-  Buildings.Controls.OBC.CDL.Integers.OnCounter onCouDown "Counts stage down signal rising edges"
+  Buildings.Controls.OBC.CDL.Integers.OnCounter onCouDown
+    "Counts stage down signal occurences"
     annotation (Placement(transformation(extent={{100,-140},{120,-120}})));
 
   Buildings.Controls.OBC.CDL.Integers.Add addInt(
     final k2=-1)
     annotation (Placement(transformation(extent={{140,-100},{160,-80}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Equal intEqu
-    annotation (Placement(transformation(extent={{180,-100},{200,-80}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Edge edg
-    annotation (Placement(transformation(extent={{210,-100},{230,-80}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(final k=1)
-    annotation (Placement(transformation(extent={{140,-180},{160,-160}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Pre pre
-    annotation (Placement(transformation(extent={{240,-100},{260,-80}})));
-
+  CDL.Interfaces.BooleanInput uPla "Plant enable signal" annotation (Placement(
+        transformation(extent={{-280,-160},{-240,-120}}), iconTransformation(
+          extent={{-140,-170},{-100,-130}})));
 equation
   connect(uChiAva, conf.uChiAva)
     annotation (Line(points={{-260,-240},{-220,-240},{-220,-230},{-202,-230}},
@@ -414,10 +405,10 @@ equation
           {132,-96},{138,-96}}, color={255,127,0}));
   connect(onCouUp.y, addInt.u1) annotation (Line(points={{122,-70},{132,-70},{132,
           -84},{138,-84}}, color={255,127,0}));
-  connect(u, sta.u) annotation (Line(points={{-260,-120},{-166,-120},{-166,-264},
+  connect(u, sta.u) annotation (Line(points={{-260,-100},{-166,-100},{-166,-264},
           {-162,-264}}, color={255,127,0}));
-  connect(addInt.y, y) annotation (Line(points={{162,-90},{170,-90},{170,-130},{
-          320,-130}},  color={255,127,0}));
+  connect(addInt.y, y) annotation (Line(points={{162,-90},{320,-90}},
+                       color={255,127,0}));
   connect(sta.yChi, yChi) annotation (Line(points={{-138,-279},{-60,-279},{-60,-310},
           {320,-310}}, color={255,0,255}));
   connect(sta.y, staDow.u) annotation (Line(points={{-138,-261},{-108,-261},{
@@ -426,22 +417,14 @@ equation
   connect(sta.y, staUp.uSta) annotation (Line(points={{-138,-261},{-132,-261},{
           -132,-210},{-10,-210},{-10,-220},{58,-220}},
                                                   color={255,127,0}));
-  connect(intEqu.y, edg.u)
-    annotation (Line(points={{202,-90},{208,-90}}, color={255,0,255}));
-  connect(conInt.y, intEqu.u2) annotation (Line(points={{162,-170},{172,-170},{172,
-          -98},{178,-98}}, color={255,127,0}));
-  connect(addInt.y, intEqu.u1)
-    annotation (Line(points={{162,-90},{178,-90}}, color={255,127,0}));
-  connect(edg.y, pre.u) annotation (Line(points={{232,-90},{238,-90}},
-                     color={255,0,255}));
-  connect(pre.y, onCouUp.reset) annotation (Line(points={{262,-90},{280,-90},{
-          280,-110},{110,-110},{110,-82}},                   color={255,0,255}));
-  connect(pre.y, onCouDown.reset) annotation (Line(points={{262,-90},{280,-90},
-          {280,-148},{110,-148},{110,-142}},color={255,0,255}));
   connect(chaPro, staUp.chaPro) annotation (Line(points={{-260,-210},{-100,-210},
           {-100,-200},{-8,-200},{-8,-218},{58,-218}}, color={255,0,255}));
   connect(chaPro, staDow.chaPro) annotation (Line(points={{-260,-210},{-212,
           -210},{-212,-302},{58,-302}}, color={255,0,255}));
+  connect(uPla, onCouUp.reset) annotation (Line(points={{-260,-140},{-140,-140},
+          {-140,-100},{110,-100},{110,-82}}, color={255,0,255}));
+  connect(uPla, onCouDown.reset) annotation (Line(points={{-260,-140},{-140,
+          -140},{-140,-160},{110,-160},{110,-142}}, color={255,0,255}));
   annotation (defaultComponentName = "cha",
         Icon(graphics={
         Rectangle(
