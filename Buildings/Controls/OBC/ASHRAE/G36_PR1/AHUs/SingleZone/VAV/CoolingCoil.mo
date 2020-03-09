@@ -39,7 +39,7 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates.cooling)
     "Cooling state value"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPI  cooCoiPI(
+  Buildings.Controls.OBC.CDL.Continuous.LimPID  cooCoiPI(
     reverseAction=true,
     reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
     yMax=1,

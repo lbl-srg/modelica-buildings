@@ -8,6 +8,8 @@ block FreezeProtectionMixedAir "Freeze protection based on mixed air temperature
 
   parameter Modelica.SIunits.Time Ti=120 "Time constant of integrator block";
 
+  parameter Modelica.SIunits.Time Td=0.1 "Time constant of derivative block";
+
   parameter Modelica.SIunits.Temperature TFreSet = 279.15
     "Lower limit for mixed air temperature for freeze protection";
 
@@ -28,10 +30,11 @@ block FreezeProtectionMixedAir "Freeze protection based on mixed air temperature
     final max=1) "Inverse freeze protection control signal, 1 if no frost, 0 if TMix below TFreSet"
     annotation (Placement(transformation(extent={{100,10},{140,50}})));
 
-  CDL.Continuous.LimPI                         con(
+  Buildings.Controls.OBC.CDL.Continuous.LimPID con(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
+    Td=Td,
     final yMax=1,
     final yMin=0)
     "Controller for mixed air to track freeze protection set point"
