@@ -34,7 +34,7 @@ model ActiveAirFlow
     amplitude=2,
     freqHz=1/86400,
     offset=2) "occNum"
-    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse winSta(
     startTime=0,
     width=0.2,
@@ -45,32 +45,35 @@ model ActiveAirFlow
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(k=2) "Cool-down mode index"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
+  Buildings.Controls.OBC.CDL.Continuous.Round round1(n=0)
+    "Round real number to given digits"
+    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 
 equation
   connect(coCon.y,actAirSet_RehBox. ppmCO2)
-    annotation (Line(points={{-19,70},{-8,70},{-8,76},{59,76}},
+    annotation (Line(points={{-18,70},{-8,70},{-8,74},{58,74}},
       color={0,0,127}));
   connect(winSta.y,actAirSet_RehBox. uWin)
-    annotation (Line(points={{-19,-80},{4,-80},{4,63},{59,63}},
+    annotation (Line(points={{-18,-80},{4,-80},{4,62},{58,62}},
       color={255,0,255}));
-  connect(sine.y,actAirSet_RehBox. nOcc)
-    annotation (Line(points={{-19,30},{-4,30},{-4,72},{59,72}},
-      color={0,0,127}));
   connect(conInt.y, actAirSet_RehBox.uOpeMod)
-    annotation (Line(points={{-19,-10},{0,-10},{0,67},{59,67}},
+    annotation (Line(points={{-18,-10},{0,-10},{0,78},{58,78}},
       color={255,127,0}));
   connect(coCon.y, actAirSet_RehBox1.ppmCO2)
-    annotation (Line(points={{-19,70},{-8,70},{-8,16},{59,16}},
-      color={0,0,127}));
-  connect(sine.y, actAirSet_RehBox1.nOcc)
-    annotation (Line(points={{-19,30},{-4,30},{-4,12},{59,12}},
+    annotation (Line(points={{-18,70},{-8,70},{-8,14},{58,14}},
       color={0,0,127}));
   connect(conInt1.y, actAirSet_RehBox1.uOpeMod)
-    annotation (Line(points={{-19,-40},{8,-40},{8,7},{59,7}},
+    annotation (Line(points={{-18,-40},{8,-40},{8,18},{58,18}},
       color={255,127,0}));
   connect(winSta.y, actAirSet_RehBox1.uWin)
-    annotation (Line(points={{-19,-80},{4,-80},{4,3},{59,3}},
+    annotation (Line(points={{-18,-80},{4,-80},{4,2},{58,2}},
       color={255,0,255}));
+  connect(sine.y, round1.u)
+    annotation (Line(points={{-58,30},{-42,30}}, color={0,0,127}));
+  connect(round1.y, actAirSet_RehBox.nOcc) annotation (Line(points={{-18,30},{-4,
+          30},{-4,66},{58,66}}, color={0,0,127}));
+  connect(round1.y, actAirSet_RehBox1.nOcc) annotation (Line(points={{-18,30},{-4,
+          30},{-4,6},{58,6}}, color={0,0,127}));
 
 annotation (
   experiment(StopTime=86400, Tolerance=1e-6),
@@ -86,6 +89,10 @@ terminal unit control.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 28, 2020, by Jianjun Hu:<br/>
+Changed occupant number input.
+</li>
 <li>
 September 07, 2017, by Jianjun Hu:<br/>
 First implementation.

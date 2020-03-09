@@ -68,7 +68,7 @@ infiltration and ventilation) is assessed from the steady-state energy balance
 at heating nominal conditions:
 </p>
 <p style=\"font-style:italic;\">
-0 = Q&#775;<sub>heating, nom</sub> + G * (T<sub>out, heating, nom</sub> - T<sub>ind, heating, nom</sub>)
+0 = Q&#775;<sub>heating, nom</sub> + G (T<sub>out, heating, nom</sub> - T<sub>ind, heating, nom</sub>)
 </p>
 <p>
 (Note that it is important for the model representativeness that
@@ -84,7 +84,7 @@ a steady-state control error equal to zero:
 </p>
 <p style=\"font-style:italic;\">
 0 = Q&#775;<sub>heat_cool, req</sub> +
-G * (T<sub>out</sub> - T<sub>ind, set</sub>) +
+G (T<sub>out</sub> - T<sub>ind, set</sub>) +
 Q&#775;<sub>various</sub>
 </p>
 <p>
@@ -92,8 +92,8 @@ where <i>Q&#775;<sub>various</sub></i> represent the miscellaneous heat gains.
 The indoor temperature variation rate due to an unmet load is given by:
 </p>
 <p style=\"font-style:italic;\">
-C * &part;T<sub>ind</sub> / &part;t = Q&#775;<sub>heat_cool, act</sub> +
-G * (T<sub>out</sub> - T<sub>ind</sub>) + Q&#775;<sub>various</sub>
+C &part;T<sub>ind</sub> / &part;t = Q&#775;<sub>heat_cool, act</sub> +
+G (T<sub>out</sub> - T<sub>ind</sub>) + Q&#775;<sub>various</sub>
 </p>
 <p>
 where
@@ -102,7 +102,7 @@ where
 The two previous equations yield:
 </p>
 <p style=\"font-style:italic;\">
-&tau; * &part;T<sub>ind</sub> / &part;t = (Q&#775;<sub>heat_cool, act</sub> - Q&#775;<sub>heat_cool, req</sub>) / G
+&tau; &part;T<sub>ind</sub> / &part;t = (Q&#775;<sub>heat_cool, act</sub> - Q&#775;<sub>heat_cool, req</sub>) / G
 - T<sub>ind</sub> + T<sub>ind, set</sub>
 </p>
 <p>

@@ -94,14 +94,13 @@ model SimpleHouse
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemZonAir
     "Zone air temperature sensor"
     annotation (Placement(transformation(extent={{80,170},{60,190}})));
-  Actuators.Dampers.VAVBoxExponential vavDam(
+  Actuators.Dampers.Exponential vavDam(
     redeclare package Medium = MediumAir,
-    dp_nominal=dpAir_nominal,
     from_dp=true,
-    m_flow_nominal=mAir_flow_nominal) "Damper" annotation (Placement(
-        transformation(
-        extent={{-10,10},{10,-10}},
-        origin={72,120})));
+    m_flow_nominal=mAir_flow_nominal,
+    dpDamper_nominal=0.27,
+    dpFixed_nominal=dpAir_nominal - 0.27) "Damper" annotation (Placement(transformation(extent={{-10,10},{10,
+            -10}}, origin={72,120})));
 
   Movers.FlowControlled_dp fan(
     redeclare package Medium = MediumAir,

@@ -225,13 +225,16 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     mOut_flow_nominal=m_flow_nominal,
     mRec_flow_nominal=m_flow_nominal,
     mExh_flow_nominal=m_flow_nominal,
-    dpOut_nominal=10,
-    dpRec_nominal=10,
-    dpExh_nominal=10,
     from_dp=from_dp,
     linearized=true,
     riseTime=15,
-    y_start=0)       "Economizer"
+    y_start=0,
+    dpDamExh_nominal=0.27,
+    dpDamOut_nominal=0.27,
+    dpDamRec_nominal=0.27,
+    dpFixExh_nominal=10,
+    dpFixOut_nominal=10,
+    dpFixRec_nominal=10) "Economizer"
     annotation (Placement(transformation(extent={{-40,66},{14,12}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TCoiCoo(
     redeclare package Medium = MediumA,

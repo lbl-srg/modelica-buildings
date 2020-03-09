@@ -373,7 +373,5 @@ Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>
 including a mixing valve to control the supply temperature.
 </p>
 </html>
-"),
-  Diagram(coordinateSystem(extent={{-300,-300},{300,300}})), Icon(
-        coordinateSystem(extent={{-100,-100},{100,100}})));
+"));
 end BuildingRCZ1Valve;

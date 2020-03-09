@@ -24,6 +24,10 @@ where
 </html>", revisions="<html>
 <ul>
 <li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
+<li>
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the
 Modelica Standard Library.
@@ -54,5 +58,9 @@ Modelica Standard Library.
           extent={{-150,110},{150,150}},
           textString="%name"),
         Line(points={{-100,60},{-66,60},{-40,30}}, color={0,0,127}),
-        Line(points={{-100,-60},{0,-60},{0,-50}}, color={0,0,127})}));
+        Line(points={{-100,-60},{0,-60},{0,-50}}, color={0,0,127}),
+        Text(
+          extent={{226,60},{106,10}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}));
 end Division;

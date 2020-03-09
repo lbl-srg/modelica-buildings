@@ -49,7 +49,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     "Set to true for required heat flow rate as an input"
     annotation(Evaluate=true);
   parameter Boolean have_weaBus = false
-    "Set to true for weather bus"
+    "Set to true to enable the weather bus"
     annotation(Evaluate=true);
   parameter Boolean have_fan = false
     "Set to true if the system has a fan"
