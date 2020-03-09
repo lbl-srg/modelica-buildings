@@ -169,6 +169,11 @@ its class name ends with the string <code>Beta</code>.
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
         </td>
     </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.Actuators.Valves.ThreeWayTable
+        </td>
+        <td valign=\"top\">Three way valves with opening characteristics based on a user-provided table.
+        </td>
+    </tr>
     <tr><td valign=\"top\">Buildings.Fluid.Chillers.AbsorptionIndirectSteam
         </td>
         <td valign=\"top\">Indirect steam heated absorption chiller based on performance curves.
@@ -185,6 +190,15 @@ its class name ends with the string <code>Beta</code>.
         <td valign=\"top\">Heat pump model that can be reversed between heating and cooling mode,
                            that takes as a set point the leaving fluid temperature, and that computes
                            its performance based on an equation fit.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Examples.Tutorial</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Examples.Tutorial.CDL
+        </td>
+        <td valign=\"top\">Tutorial that explains how to implement control sequences using
+                           the <a href=\"https://obc.lbl.gov\">Control Description Language</a>.
         </td>
     </tr>
     </table>
@@ -225,6 +239,18 @@ its class name ends with the string <code>Beta</code>.
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1 </b>
         </td>
     </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SetPoints.ActiveAirFlow
+        </td>
+        <td valign=\"top\">Used hysteresis to check occupancy.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1788\">#1788</a>.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutsideAirFlow
+        </td>
+        <td valign=\"top\">Applied hysteresis for checking ventilation efficiency.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1787\">#1787</a>.
+        </td>
+    </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.TrimAndRespond
         </td>
         <td valign=\"top\">Added assertions and corrected implementation when respond amount is negative.<br/>
@@ -244,6 +270,16 @@ its class name ends with the string <code>Beta</code>.
         </td>
         <td valign=\"top\">Added a boolean input to reset the accumulated timer.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1221\">#1221</a>.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Examples.Tutorial</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Examples.Tutorial.Boiler<br/>
+                           Buildings.Examples.Tutorial.SpaceCooling
+        </td>
+        <td valign=\"top\">Updated examples to use the control blocks from the Control Description Language package
+                           <code>Buildings.Controls.OBC.CDL</code>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
@@ -281,6 +317,16 @@ its class name ends with the string <code>Beta</code>.
         </td>
         <td valign=\"top\">In volume, set <code>prescribedHeatFlowRate=false</code>.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1636\">#1636</a>.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case600<br/>
+                           Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case600FF<br/>
+        </td>
+        <td valign=\"top\">Changed computation of time averaged values to avoid a time event every hour.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1714\">#1714</a>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
@@ -322,6 +368,21 @@ its class name ends with the string <code>Beta</code>.
                            Added option unix time stamp GMT.<br/>
                            This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1192\">IBPSA, #1192</a>.
         </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Examples</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Examples.VAVReheat.ThermalZones.Floor<br/>
+                           Buildings.Examples.VAVReheat.ASHRAE2006<br/>
+                           Buildings.Examples.VAVReheat.Guideline36<br/>
+                           Buildings.Examples.DualFanDualDuct
+
+        </td>
+        <td valign=\"top\">Updated core zone geometry parameters related to room heat and mass balance.
+                           This change was done in
+                           <code>Buildings.Examples.VAVReheat.ThermalZones.Floor</code>.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1719\">#1719</a>.
+       </td>
     </tr>
     </table>
     <!-- Non-backward compatible changes to existing components -->
@@ -383,6 +444,31 @@ its class name ends with the string <code>Beta</code>.
         <td valign=\"top\">Changed name from <code>HotWaterTemperatureReset</code> to <code>SupplyReturnTemperatureReset</code>.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/860\">#860</a>.<br/>
                            For Dymola, a conversion script makes this change.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Fluid.Actuators</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">
+                           Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential<br/>
+                           Buildings.Fluid.Actuators.Dampers.Exponential<br/>
+                           Buildings.Fluid.Actuators.Dampers.MixingBox<br/>
+                           Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow<br/>
+                           Buildings.Fluid.Actuators.Dampers.PressureIndependent<br/>
+                           Buildings.Fluid.Actuators.Dampers.VAVBoxExponential
+        </td>
+        <td valign=\"top\">Merged <code>VAVBoxExponential</code> into <code>Exponential</code>.<br/>
+                           <code>Exponential</code> now provides all modeling capabilities previously
+                           implemented in <code>VAVBoxExponential</code> which is no more needed and
+                           has been removed from the library.<br/>
+                           New parameters <code>dpDamper_nominal</code> and <code>dpFixed_nominal</code>
+                           have been introduced in <code>Exponential</code>, consistent with the
+                           valve models.<br/>
+                           Parameter <code>k0</code> has been replaced by a leakage coefficient.<br/>
+                           For Dymola, a conversion script makes this change. However the script will
+                           not make the <code>each</code> keyword persist in array declarations. The
+                           keyword will have to be manually reintroduced after applying the script.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1188\">IBPSA, #1188</a>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
@@ -457,6 +543,15 @@ its class name ends with the string <code>Beta</code>.
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1587\">Buildings, #1587</a>.
         </td>
     </tr>
+    <tr><td colspan=\"2\"><b>Buildings/Resources</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings/Resources/C-Sources/cryptographicsHash.c
+        </td>
+        <td valign=\"top\">Add a <code>#ifndef</code> clause.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1278\">IBPSA, #1278</a>.
+        </td>
+    </tr>
     </table>
     <!-- Uncritical errors -->
     <p>
@@ -483,6 +578,17 @@ its class name ends with the string <code>Beta</code>.
                            <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1205\">Buildings, #1205</a>.
         </td>
     </tr>
+    <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Constructions.Examples.ExteriorWallTwoWindows<br/>
+                           Buildings.ThermalZones.Detailed.Constructions.Examples.ExteriorWallWithWindow
+        </td>
+        <td valign=\"top\">Corrected wrong assignment of a parameter.<br/>
+                           This is for
+                           <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1766\">Buildings, #1766</a>.
+        </td>
+    </tr>
     </table>
     <!-- Obsolete components -->
     <p>
@@ -501,15 +607,7 @@ its class name ends with the string <code>Beta</code>.
         </td>
     </tr>
     </table>
-    <p>
-    Note:
-    </p>
-    <ul>
-    <li>
-    xxx
-    </li>
-    </ul>
-    </html>"));
+     </html>"));
     end Version_7_0_0;
 
     class Version_6_0_0 "Version 6.0.0"
@@ -1114,7 +1212,7 @@ its class name ends with the string <code>Beta</code>.
        </td>
        <td valign=\"top\">Added <code>constrainedby</code> to declaration of chiller.<br/>
                           This is for
-                          <a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/1118\">issue 1118</a>.
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1118\">issue 1118</a>.
        </td>
    </tr>
    <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1</b>
@@ -1144,7 +1242,7 @@ its class name ends with the string <code>Beta</code>.
        </td>
        <td valign=\"top\">Improved calculation of heat loss.<br/>
                           This is for
-                          <a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/1100\">issue 1100</a>.
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1100\">issue 1100</a>.
        </td>
    </tr>
    <tr><td colspan=\"2\"><b>Buildings.Fluid.Sources</b>
@@ -7490,7 +7588,7 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_7_0_0\">Version 7.0.0</a> (xxx, 2019)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_7_0_0\">Version 7.0.0</a>
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_6_0_0\">Version 6.0.0</a> (July 15, 2019)
@@ -7652,7 +7750,7 @@ The following people have directly contributed to the implementation of the Buil
 </li>
 <li>Hagar Elarga, Lawrence Berkeley National Laboratory, USA
 </li>
-<li>Yangyang Fu, University of Colorado at Boulder, Colorado, USA
+<li>Yangyang Fu, University of Colorado Boulder, Colorado, USA
 </li>
 <li>Antoine Gautier, Lawrence Berkeley National Laboratory, USA
 </li>
@@ -7663,6 +7761,8 @@ The following people have directly contributed to the implementation of the Buil
 <li>Peter Grant, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Brandon M. Hencey, Cornell University, USA
+</li>
+<li>Kathryn Hinkelman, University of Colorado Boulder, Colorado, USA
 </li>
 <li>Jianjun Hu, Lawrence Berkeley National Laboratory, USA
 </li>
@@ -7706,7 +7806,7 @@ The following people have directly contributed to the implementation of the Buil
 </li>
 <li>Kun Zhang, Lawrence Berkeley National Laboratory, USA
 </li>
-<li>Wangda Zuo, University of Colorado at Boulder, Colorado, USA
+<li>Wangda Zuo, University of Colorado Boulder, Colorado, USA
 </li>
 </ul>
 </html>"));
@@ -7952,10 +8052,10 @@ particular package.<br/>
 </table><br/>
 </li>
 <li>
-There is also a tutorial available at
+There are also tutorials available at
 <a href=\"modelica://Buildings.Examples.Tutorial\">
 Buildings.Examples.Tutorial</a>.
-The tutorial contains step by step instructions for how to build system models.
+These tutorials contain step by step instructions for how to build system models.
 </li>
 </ol>
 </html>"));

@@ -37,7 +37,7 @@ initial equation
     Polygon(
       points={{0,0},{-76,60},{-76,-60},{0,0}},
       lineColor={0,0,0},
-      fillColor={0,0,0},
+      fillColor=DynamicSelect({0,0,0}, y*{255,255,255}),
       fillPattern=FillPattern.Solid),
     Polygon(
       points={{0,-0},{76,60},{76,-60},{0,0}},
@@ -94,6 +94,12 @@ each valve opening characteristics has different parameters.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 21, 2020, by Michael Wetter:<br/>
+Changed icon to display its operating stage.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
+</li>
 <li>
 November 9, 2019, by Filip Jorissen:<br/>
 Removed assert for <code>phi>-0.2</code>

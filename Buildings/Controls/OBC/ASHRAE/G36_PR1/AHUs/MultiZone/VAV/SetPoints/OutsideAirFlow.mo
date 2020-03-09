@@ -6,7 +6,7 @@ block OutsideAirFlow
     "Total number of zones that the system serves";
 
   parameter Real VOutPerAre_flow[numZon](
-    final unit = fill("m3/(s.m2)", numZon))=fill(3e-4, numZon)
+    each final unit = "m3/(s.m2)")=fill(3e-4, numZon)
     "Outdoor air rate per unit area"
     annotation(Dialog(group="Nominal condition"));
 
@@ -26,25 +26,25 @@ block OutsideAirFlow
     "Set to true if zones have window status sensor";
 
   parameter Real occDen[numZon](
-    final unit=fill("1/m2", numZon)) = fill(0.05, numZon)
+    each final unit = "1/m2") = fill(0.05, numZon)
     "Default number of person in unit area";
 
   parameter Real zonDisEffHea[numZon](
-    final unit=fill("1", numZon)) = fill(0.8, numZon)
+    each final unit = "1") = fill(0.8, numZon)
     "Zone air distribution effectiveness during heating";
 
   parameter Real zonDisEffCoo[numZon](
-    final unit=fill("1", numZon)) = fill(1.0, numZon)
+    each final unit = "1") = fill(1.0, numZon)
     "Zone air distribution effectiveness during cooling";
 
   parameter Real desZonDisEff[numZon](
-    final unit=fill("1", numZon)) = fill(1.0, numZon)
+    each final unit = "1") = fill(1.0, numZon)
     "Design zone air distribution effectiveness"
     annotation(Dialog(group="Nominal condition"));
 
   parameter Real desZonPop[numZon](
     final min={occDen[i]*AFlo[i] for i in 1:numZon},
-    final unit=fill("1",numZon)) = {occDen[i]*AFlo[i] for i in 1:numZon}
+    each final unit = "1") = {occDen[i]*AFlo[i] for i in 1:numZon}
     "Design zone population during peak occupancy"
     annotation(Dialog(group="Nominal condition"));
 
@@ -82,9 +82,9 @@ block OutsideAirFlow
     annotation (Placement(transformation(extent={{-260,60},{-220,100}}),
         iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow[numZon](
-    final min=fill(0,numZon),
-    final unit=fill("m3/s",numZon),
-    final quantity=fill("VolumeFlowRate",numZon))
+    each final min=0,
+    each final unit = "m3/s",
+    each final quantity = "VolumeFlowRate")
     "Primary airflow rate to the ventilation zone from the air handler, including outdoor air and recirculated air"
     annotation (Placement(transformation(extent={{-260,-272},{-220,-232}}),
       iconTransformation(extent={{-140,-110},{-100,-70}})));
@@ -394,11 +394,6 @@ protected
     "Set system ventilation efficiency to 1"
     annotation (Placement(transformation(extent={{100,-230},{120,-210}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
-    final threshold=1E-4)
-    "Check if system ventilation efficiency is greater than 0 (using 1E-4 tolerance)"
-    annotation (Placement(transformation(extent={{100,-150},{120,-130}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerOcc[numZon](
     k=fill(0, numZon)) if not have_occSen
     "Zero occupant when there is no occupancy sensor"
@@ -412,6 +407,12 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Division norVOutMin
     "Normalization for minimum outdoor air flow rate"
     annotation (Placement(transformation(extent={{200,-200},{220,-180}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
+    final uLow=1E-4,
+    final uHigh=1E-3)
+    "Check if system ventilation efficiency is greater than 0 (using 1E-4 tolerance)"
+    annotation (Placement(transformation(extent={{100,-150},{120,-130}})));
 
 equation
   connect(breZonAre.y, breZon.u1)
@@ -616,15 +617,9 @@ equation
   connect(addPar.y, sysVenEff.u1)
     annotation (Line(points={{42,-180},{60,-180},{60,-174},{78,-174}},
       color={0,0,127}));
-  connect(greEquThr.y, swi4.u2)
-    annotation (Line(points={{122,-140},{128,-140},{128,-180},{138,-180}},
-      color={255,0,255}));
   connect(conOne.y, swi4.u3)
     annotation (Line(points={{122,-220},{130,-220},{130,-188},{138,-188}},
       color={0,0,127}));
-  connect(sysVenEff.y, greEquThr.u)
-    annotation (Line(points={{102,-180},{120,-180},{120,-160},{86,-160},{86,-140},
-      {98,-140}}, color={0,0,127}));
   connect(zerOcc.y, swi.u1)
     annotation (Line(points={{-138,40},{-128,40},{-128,68},{-102,68}},
       color={0,0,127}));
@@ -654,6 +649,10 @@ equation
   connect(nOcc, intToRea.u)
     annotation (Line(points={{-240,80},{-202,80}}, color={255,127,0}));
 
+  connect(sysVenEff.y, hys1.u) annotation (Line(points={{102,-180},{120,-180},{120,
+          -160},{90,-160},{90,-140},{98,-140}}, color={0,0,127}));
+  connect(hys1.y, swi4.u2) annotation (Line(points={{122,-140},{128,-140},{128,-180},
+          {138,-180}}, color={255,0,255}));
 annotation (
   defaultComponentName="outAirSetPoi",
   Icon(graphics={Rectangle(
@@ -834,7 +833,7 @@ For design purpose, use
 Compute the zone ventilation efficiency <code>zonVenEff</code>, for design purpose, as
 </p>
 <pre>
-    zonVenEff[i] = 1 + aveOutAirFra + desZonPriOutAirRate[i]
+    zonVenEff[i] = 1 + aveOutAirFra - desZonPriOutAirRate[i]
 </pre>
 <p>
 where the <code>desZonPriOutAirRate</code> is the design zone outdoor airflow fraction.
@@ -846,7 +845,7 @@ Compute the system ventilation efficiency.
 During system operation, the system ventilation efficiency <code>sysVenEff</code> is
 </p>
 <pre>
-    sysVenEff = 1 + outAirFra + MAX(priOutAirFra[i])
+    sysVenEff = 1 + outAirFra - max(priOutAirFra[i])
 </pre>
 <p>
 The design system ventilation efficiency <code>desSysVenEff</code> is
@@ -864,7 +863,7 @@ efficiency <code>sysVenEff</code>, but it should not be larger than the design
 outdoor air rate <code>desOutAirInt</code>. Hence,
 </p>
 <pre>
-    effMinOutAirInt = MIN(sysUncOutAir/sysVenEff, desOutAirInt),
+    effMinOutAirInt = min(sysUncOutAir/sysVenEff, desOutAirInt),
 </pre>
 <p>
 where the design outdoor air rate <code>desOutAirInt</code> is
@@ -884,9 +883,20 @@ ANSI/ASHRAE Standard 62.1-2013,
 Stanke, D., 2010. <i>Dynamic Reset for Multiple-Zone Systems.</i> ASHRAE Journal, March
 2010.
 </p>
-
 </html>", revisions="<html>
 <ul>
+<li>
+February 27, 2020, by Jianjun Hu:<br/>
+Applied hysteresis for checking ventilation efficiency.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1787\">#1787</a>.
+</li>
+<li>
+January 30, 2020, by Michael Wetter:<br/>
+Removed the use of <code>fill</code> when assigning the <code>unit</code> attribute.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1728\">#1728</a>.
+</li>
 <li>
 July 23, 2019, by Michael Wetter:<br/>
 Improved documentation.

@@ -61,7 +61,11 @@ equation
         Text(
           lineColor={0,0,255},
           extent={{-150,110},{150,150}},
-          textString="%name")}),
+          textString="%name"),
+        Text(
+          extent={{226,60},{106,10}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}),
     Documentation(info="<html>
 <p>
 The Real output y is a pulse signal:
@@ -71,5 +75,17 @@ The Real output y is a pulse signal:
 <img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Continuous/Sources/Pulse.png\"
      alt=\"Pulse.png\" />
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
+<li>
+March 16, 2017, by Jianjun Hu:<br/>
+First implementation, based on the implementation of the
+Modelica Standard Library.
+</li>
+</ul>
 </html>"));
 end Pulse;

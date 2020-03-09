@@ -64,7 +64,8 @@ algorithm
     Documentation(info="<html>
 <p>
 Correlation for approach temperature for YorkCalc cooling tower model.
-See <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.Examples.YorkCalc\">Examples/YorkCalc.mo</a> for the graph.
+See <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.Examples.YorkCalc\">
+Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.Examples.YorkCalc</a> for the graph.
 </p>
 </html>", revisions="<html>
 <ul>

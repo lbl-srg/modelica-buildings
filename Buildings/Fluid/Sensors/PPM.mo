@@ -65,7 +65,11 @@ annotation (defaultComponentName="senPPM",
           extent={{160,-30},{60,-60}},
           lineColor={0,0,0},
           textString="ppm"),
-        Line(points={{70,0},{100,0}}, color={0,0,127})}),
+        Line(points={{70,0},{100,0}}, color={0,0,127}),
+        Text(
+          extent={{180,90},{60,40}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(ppm, leftjustified=false, significantDigits=3)))}),
   Documentation(info="<html>
 <p>
 This model outputs the trace substance concentration in ppm contained in the fluid connected to its port.
@@ -94,6 +98,12 @@ wrong.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 25, 2020, by Michael Wetter:<br/>
+Changed icon to display its operating state.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
+</li>
 <li>
 December 16, 2015, by Michael Wetter:<br/>
 Revised implementation, corrected error in the molar fraction which

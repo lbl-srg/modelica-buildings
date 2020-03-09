@@ -1,6 +1,6 @@
 within Buildings.Examples.VAVReheat.Controls;
 model ModeSelector "Finite State Machine for the operational modes"
-  Modelica.StateGraph.InitialStep initialStep
+  Modelica.StateGraph.InitialStep initialStep(nIn=0)
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.StateGraph.Transition start "Starts the system"
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
@@ -66,7 +66,8 @@ model ModeSelector "Finite State Machine for the operational modes"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
   Modelica.StateGraph.TransitionWithSignal t4(enableTimer=false)
     annotation (Placement(transformation(extent={{118,120},{98,140}})));
-  State morPreCoo(                                                        nIn=2,
+  State morPreCoo(
+    nIn=1,
     mode=Buildings.Examples.VAVReheat.Controls.OperationModes.unoccupiedPreCool,
     nOut=1) "Pre-cooling mode"
     annotation (Placement(transformation(extent={{-40,-140},{-20,-120}})));
@@ -218,7 +219,7 @@ equation
       color={255,0,255},
       smooth=Smooth.None));
   connect(t9.outPort, morPreCoo.inPort[1]) annotation (Line(
-      points={{-78.5,-130},{-59.75,-130},{-59.75,-129.5},{-41,-129.5}},
+      points={{-78.5,-130},{-59.75,-130},{-59.75,-130},{-41,-130}},
       color={0,0,0},
       smooth=Smooth.None));
   connect(unOccOff.outPort[3], t9.inPort) annotation (Line(

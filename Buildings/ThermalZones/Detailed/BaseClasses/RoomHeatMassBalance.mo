@@ -798,7 +798,7 @@ equation
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-140,138},{140,-140}},
+          extent={{-140,140},{140,-140}},
           pattern=LinePattern.None,
           lineColor={117,148,176},
           fillColor={170,213,255},
@@ -835,7 +835,18 @@ equation
           extent={{-198,144},{-122,112}},
           lineColor={0,0,127},
           visible=haveControllableWindow,
-          textString="uWin")}),
+          textString="uWin"),
+        Rectangle(
+          extent={{-140,140},{140,-140}},
+          lineColor={117,148,176},
+          fillPattern=FillPattern.Solid,
+          fillColor=DynamicSelect({170,213,255},
+            min(1, max(0, (1-(heaPorAir.T-295.15)/10)))*{28,108,200}+
+            min(1, max(0, (heaPorAir.T-295.15)/10))*{255,0,0})),
+        Text(
+          extent={{134,-84},{14,-134}},
+          lineColor={255,255,255},
+          textString=DynamicSelect("", String(heaPorAir.T-273.15, format=".1f")))}),
     preferredView="info",
     defaultComponentName="roo",
     Documentation(info="<html>
