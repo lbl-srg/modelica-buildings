@@ -46,6 +46,11 @@ block Status
     annotation (Placement(transformation(extent={{440,140},{480,180}}),
         iconTransformation(extent={{100,-110},{140,-70}})));
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yAvaCur
+    "Current stage availability status"
+    annotation (Placement(transformation(extent={{440,-260},{480,-220}}),
+        iconTransformation(extent={{100,-80},{140,-40}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y(
     final min=0,
     final max=nSta) "Current stage index"
@@ -347,6 +352,8 @@ equation
           -100},{170,-100},{170,-78},{178,-78}},    color={255,127,0}));
   connect(intSwi3.y, yUp)
     annotation (Line(points={{382,80},{460,80}}, color={255,127,0}));
+  connect(lesThr.y, yAvaCur) annotation (Line(points={{-138,-150},{0,-150},{0,-240},
+          {460,-240}}, color={255,0,255}));
   annotation (defaultComponentName = "sta",
         Icon(graphics={
         Rectangle(
@@ -369,11 +376,21 @@ Based on the current stage <code>u</code> and stage availability vector <code>uA
 Vector of chillers operating in the current stage <code>yChi</code>.
 </li>
 <li>
-Index of the current stage <code>y</code>, first available higher stage <code>yUp</code> and the first available lower stage <code>yDown</code>.
+Integer indices of: the current stage <code>y</code>, first available higher stage <code>yUp</code> and the first available lower stage <code>yDown</code>.
 </li>
 <li>
-Boolean indicators whether current operating stage <code>u</code> is the highest <code>yHig</code> 
-and/or the lowest <code>yLow</code> available stage.
+Boolean status outputs to show if the current operating stage <code>u</code> is: 
+<ul>
+<li>
+Available, <code>u</code>
+</li>
+<li>
+The highest available stage, <code>yHig</code>
+</li>
+<li>
+The lowest  available stage, <code>yLow</code> 
+</li>
+</ul>
 </li>
 </ul>
 <p>
@@ -385,7 +402,7 @@ Provide inputs for the stage up and down conditionals such that staging into
 unavailable stages is avoided.
 </li>
 <li>
-Change the stage to the first available lower stage in an event that the current stage 
+Change the stage to the first available higher stage in an event that the current stage 
 becomes unavailable.
 </li>
 </ul>
