@@ -239,6 +239,18 @@ its class name ends with the string <code>Beta</code>.
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1 </b>
         </td>
     </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SetPoints.ActiveAirFlow
+        </td>
+        <td valign=\"top\">Used hysteresis to check occupancy.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1788\">#1788</a>.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutsideAirFlow
+        </td>
+        <td valign=\"top\">Applied hysteresis for checking ventilation efficiency.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1787\">#1787</a>.
+        </td>
+    </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.TrimAndRespond
         </td>
         <td valign=\"top\">Added assertions and corrected implementation when respond amount is negative.<br/>
@@ -434,6 +446,31 @@ its class name ends with the string <code>Beta</code>.
                            For Dymola, a conversion script makes this change.
         </td>
     </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Fluid.Actuators</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">
+                           Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential<br/>
+                           Buildings.Fluid.Actuators.Dampers.Exponential<br/>
+                           Buildings.Fluid.Actuators.Dampers.MixingBox<br/>
+                           Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow<br/>
+                           Buildings.Fluid.Actuators.Dampers.PressureIndependent<br/>
+                           Buildings.Fluid.Actuators.Dampers.VAVBoxExponential
+        </td>
+        <td valign=\"top\">Merged <code>VAVBoxExponential</code> into <code>Exponential</code>.<br/>
+                           <code>Exponential</code> now provides all modeling capabilities previously
+                           implemented in <code>VAVBoxExponential</code> which is no more needed and
+                           has been removed from the library.<br/>
+                           New parameters <code>dpDamper_nominal</code> and <code>dpFixed_nominal</code>
+                           have been introduced in <code>Exponential</code>, consistent with the
+                           valve models.<br/>
+                           Parameter <code>k0</code> has been replaced by a leakage coefficient.<br/>
+                           For Dymola, a conversion script makes this change. However the script will
+                           not make the <code>each</code> keyword persist in array declarations. The
+                           keyword will have to be manually reintroduced after applying the script.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1188\">IBPSA, #1188</a>.
+        </td>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
         </td>
     </tr>
@@ -570,15 +607,7 @@ its class name ends with the string <code>Beta</code>.
         </td>
     </tr>
     </table>
-    <p>
-    Note:
-    </p>
-    <ul>
-    <li>
-    xxx
-    </li>
-    </ul>
-    </html>"));
+     </html>"));
     end Version_7_0_0;
 
     class Version_6_0_0 "Version 6.0.0"
@@ -1183,7 +1212,7 @@ its class name ends with the string <code>Beta</code>.
        </td>
        <td valign=\"top\">Added <code>constrainedby</code> to declaration of chiller.<br/>
                           This is for
-                          <a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/1118\">issue 1118</a>.
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1118\">issue 1118</a>.
        </td>
    </tr>
    <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1</b>
@@ -1213,7 +1242,7 @@ its class name ends with the string <code>Beta</code>.
        </td>
        <td valign=\"top\">Improved calculation of heat loss.<br/>
                           This is for
-                          <a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/1100\">issue 1100</a>.
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1100\">issue 1100</a>.
        </td>
    </tr>
    <tr><td colspan=\"2\"><b>Buildings.Fluid.Sources</b>
@@ -7559,7 +7588,7 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_7_0_0\">Version 7.0.0</a> (xxx, 2019)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_7_0_0\">Version 7.0.0</a>
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_6_0_0\">Version 6.0.0</a> (July 15, 2019)

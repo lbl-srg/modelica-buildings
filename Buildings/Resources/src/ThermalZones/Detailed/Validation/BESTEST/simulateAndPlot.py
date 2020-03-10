@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import matplotlib
 matplotlib.use('Agg')
@@ -12,16 +12,14 @@ import sys
 import shutil
 
 # check if it just implements post-process
-POST_PROCESS_ONLY = False
+DO_SIMULATIONS = True
 # check if delete the simulation result files
 CLEAN_MAT = True
 # check if delete the temporary working folders
 DelTemDir = True
 
 CWD = os.getcwd()
-FROM_GIT_HUB = True
-# Modelica Buildings Library working branch
-MBL_BRANCH = 'master'
+
 # BuildingSpy working branch. 
 # The working branch makes the communication points ('ncp') of jmodelica or optimica to be 8761,
 # so that the regression test will generate high resolution results.
@@ -31,8 +29,7 @@ TOOL = 'optimica'
 
 # standard data file
 ASHRAE_DATA = './ASHRAE140_data.dat'
-PACKAGES = ['Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx', \
-            'Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx']
+PACKAGE = 'Buildings.ThermalZones.Detailed.Validation.BESTEST'
 CASES = ['Case600', 'Case600FF', 'Case610', 'Case620', 'Case630', 'Case640', 'Case650', 'Case650FF', \
          'Case900', 'Case900FF', 'Case920', 'Case940', 'Case950', 'Case950FF', 'Case960']
 
@@ -66,44 +63,41 @@ def configure_axes(axes):
     return
 
 def create_library_directory(repoNam):
-    ''' Create directory to be as temporary directory to save buildings library.
+    ''' Create directory to be as temporary directory to save library.
     '''
     import tempfile
     import getpass
-    prefixName = 'tmp-MBL-' if repoNam == 'MBL' else 'tmp-BP-'
+    if repoNam == 'MBL':
+        prefixName = 'tmp-MBL-'
+    else:
+        prefixName = 'tmp-BP-'
     worDir = tempfile.mkdtemp( prefix=prefixName + getpass.getuser() )
     print("Created directory {}".format(worDir))
     return worDir
 
-def checkout_repository(working_directory, repoNam, from_git_hub, branch):
-    ''' Clone or copy repository to working directory.
+def checkout_buildingspy_repository(working_directory):
+    ''' Clone buildingspy repository to working directory and checkout to target branch.
     '''
     from git import Repo
     import git
-    d = {}
-    if from_git_hub:
-        print("Checking out repository branch %s" % branch)
-        git_url = "https://github.com/lbl-srg/modelica-buildings" if repoNam == 'MBL' else "https://github.com/lbl-srg/BuildingsPy.git"
-        r = Repo.clone_from(git_url, working_directory)
-        g = git.Git(working_directory)
-        g.checkout(branch)
-        # Print commit
-        d['branch'] = branch
-        d['commit'] = str(r.active_branch.commit)
-    else:
-        mbl_local_path = "../../../../../../../../modelica-buildings"
-        bp_local_path = "../../../../../../../../BuildingsPy"
-        # This is a hack to get the local copy of the repository
-        des = working_directory
-        shutil.rmtree(des)
-        print("*** Copying library to {}".format(des))
-        localPath = mbl_local_path if repoNam == 'MBL' else bp_local_path
-        shutil.copytree(localPath, des)
-        g = git.Git(des)
-        g.checkout(branch)
-    return d
+    print("*** Checking out BuildingPy repository branch {} ***".format(BP_BRANCH))
+    git_url = "https://github.com/lbl-srg/BuildingsPy.git"
+    r = Repo.clone_from(git_url, working_directory)
+    g = git.Git(working_directory)
+    g.checkout(BP_BRANCH)
 
-def _runTests(tool, package, lib_dir, n_pro, bp_dir):
+def copy_mbl(working_directory):
+    ''' Copy buildings library to working directory
+    '''
+    # This is a hack to get the local copy of the buildings library repository
+    des = working_directory
+    shutil.rmtree(des)
+    print("*** Copying Buildings library to {}".format(des))
+    mblPath = "../../../../../../../../modelica-buildings"
+    shutil.copytree(mblPath, des)
+
+
+def _runTests(tool, package, lib_dir, bp_dir):
     ''' Run regression test, return the temporary directory path for the test.
     '''
     import sys
@@ -122,7 +116,6 @@ def _runTests(tool, package, lib_dir, n_pro, bp_dir):
     ut.setLibraryRoot(path)
     if package is not None:
         ut.setSinglePackage(package)
-    ut.setNumberOfThreads(n_pro)
 
     # Run the regression tests
     retVal = ut.run()
@@ -134,13 +127,10 @@ def _runTests(tool, package, lib_dir, n_pro, bp_dir):
 def _get_results_directory(lib_dir, bp_dir):
     ''' Trigger the regression test, return the list of temporary directories of the regression tests.
     '''
-    import multiprocessing
-    n_pro = multiprocessing.cpu_count()
     resultDirs = list()
-    for package in PACKAGES:
-        tempDirs = _runTests(TOOL, package, lib_dir, n_pro, bp_dir)
-        for tempDir in tempDirs:
-            resultDirs.append(tempDir)
+    tempDirs = _runTests(TOOL, PACKAGE, lib_dir, bp_dir)
+    for tempDir in tempDirs:
+        resultDirs.append(tempDir)
     return resultDirs
 
 def _move_results(resultDirs):
@@ -949,14 +939,14 @@ def _generate_html_table(dataSet, BESTestTable):
 
 if __name__=="__main__":
 
-    if not POST_PROCESS_ONLY:
+    if DO_SIMULATIONS:
         # create directory to be as temporary buildings library directory
         mbl_dir = create_library_directory('MBL')
-        d = checkout_repository(mbl_dir, 'MBL', FROM_GIT_HUB, MBL_BRANCH)
+        d = copy_mbl(mbl_dir)
 
         # create directory to be as temporary buildingspy directory
         bp_dir = create_library_directory('BP')
-        d2 = checkout_repository(bp_dir, 'BP', FROM_GIT_HUB, BP_BRANCH)
+        d2 = checkout_buildingspy_repository(bp_dir)
 
         # find temporary directories that were used for run simulations
         resultDirs = _get_results_directory(mbl_dir, bp_dir)

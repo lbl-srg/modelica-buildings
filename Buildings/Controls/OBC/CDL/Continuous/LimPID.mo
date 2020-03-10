@@ -447,6 +447,14 @@ or the control literature.
 revisions="<html>
 <ul>
 <li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
+<li>
+February 25, 2020, by Michael Wetter:<br/>
+Changed icon to display the output value.
+</li>
+<li>
 October 19, 2019, by Michael Wetter:<br/>
 Disabled homotopy to ensure bounded outputs
 by copying the implementation from MSL 3.2.3 and by
@@ -530,14 +538,14 @@ First implementation.
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175}),
         Polygon(
-          points={{-80,90},{-88,68},{-72,68},{-80,90}},
+          points={{-80,82},{-88,60},{-72,60},{-80,82}},
           lineColor={192,192,192},
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid),
-        Line(points={{-80,78},{-80,-90}}, color={192,192,192}),
-        Line(points={{-90,-80},{82,-80}}, color={192,192,192}),
+        Line(points={{-80,68},{-80,-100}},color={192,192,192}),
+        Line(points={{-90,-80},{70,-80}}, color={192,192,192}),
         Polygon(
-          points={{90,-80},{68,-72},{68,-88},{90,-80}},
+          points={{74,-80},{52,-72},{52,-88},{74,-80}},
           lineColor={192,192,192},
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid),
@@ -547,15 +555,15 @@ First implementation.
       lineColor={0,0,255}),
         Line(points={{-80,-80},{-80,-22}}, color={0,0,0}),
         Line(points={{-80,-22},{6,56}}, color={0,0,0}),
-        Line(points={{6,56},{68,56}}, color={0,0,0})}),
-    Diagram(graphics={                             Text(
-            extent={{-102,34},{-142,24}},
-            textString="(setpoint)",
-            lineColor={0,0,255}),Text(
-            extent={{-83,-112},{-33,-102}},
-            textString=" (measurement)",
-            lineColor={0,0,255}),Text(
-            extent={{100,24},{140,14}},
-            textString="(actuator)",
-            lineColor={0,0,255})}));
+        Line(points={{6,56},{68,56}}, color={0,0,0}),
+        Rectangle(
+          extent=DynamicSelect({{100,-100},{84,-100}}, {{100,-100},{84,-100+(y-yMin)/(yMax-yMin)*200}}),
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0}),
+        Text(
+          extent={{226,60},{106,10}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}));
 end LimPID;

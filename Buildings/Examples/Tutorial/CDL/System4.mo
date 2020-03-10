@@ -88,7 +88,7 @@ value <code>uHigh</code> of this hysteresis.
 We also used an instance of
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.And\">
 Buildings.Controls.OBC.CDL.Logical.And</a>
-to switch the boiler only on if the system control signal is on.
+to switch the boiler on only if the system control signal is on.
 Otherwise, the boiler would be kept warm in summer.
 (Note that in the simulations, the boiler has no heat loss to the ambient and, hence, if
 the boiler and its circulation pump are switched off, its temperature remains constant.
@@ -134,8 +134,8 @@ Use this new controller instead of the open loop controller <code>conEquSta</cod
 </ol>
 <p>
 Simulate the system to verify that the valve is controlled to maintain a return water temperature
-of at least <i>60</i>&circ;C, and that the boiler is switched off when the temperature exceeds <i>90</i>&circ;C
-and switched on again if it reaches <i>70</i>&circ;C as shown below.
+of at least <i>60</i>&deg;C, and that the boiler is switched off when the temperature exceeds <i>90</i>&deg;C
+and switched on again if it reaches <i>70</i>&deg;C as shown below.
 </p>
 <p align=\"center\">
 <img alt=\"Temperatures and control signal.\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/CDL/System4/TemperaturesControl.png\" border=\"1\"/>
@@ -156,6 +156,5 @@ First implementation.
     experiment(
       StartTime=1296000,
       StopTime=1382400,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"));
+      Tolerance=1e-06));
 end System4;

@@ -87,7 +87,20 @@ and a PID controller
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.LimPID\">
 Buildings.Controls.OBC.CDL.Continuous.LimPID</a>,
 which we configured as a PI-controller.
-We set the proportial gain to <i>0.1</i> as then, in absence of the integral action,
+</p>
+<p>
+We set the controller logic to reverse action. That is because the tracking
+error is conventionally computed as the difference between the set point value
+and the sensed value. In our example, if the return temperature is lower than the set point,
+i.e., if the tracking error is positive, the valve control signal must tend toward zero,
+i.e., the valve bypass port must open.
+That means that the unbounded control signal must tend toward negative values so
+that the bounded output signal tends toward its minimum value. Binding a positive
+tracking error to a negative unbounded control signal or to the minimum value
+of the output signal requires a reverse action logic.
+</p>
+<p>
+Additionally we set the proportional gain to <i>0.1</i> as then, in absence of the integral action,
 a control error of <i>10</i> Kelvin changes the control output by <i>1</i>.
 We set the time constant to <i>120</i> seconds, which is about the time it takes to open
 and close a valve.
@@ -152,7 +165,7 @@ Use this new controller instead of the open loop controller <code>conBoiRet</cod
 </ol>
 <p>
 Simulate the system to verify that the valve is controlled to maintain a return water temperature
-of at least <i>60</i>&circ;C as shown below.
+of at least <i>60</i>&deg;C as shown below.
 </p>
 <p align=\"center\">
 <img alt=\"Open loop temperatures.\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/CDL/System3/TemperaturesValve.png\" border=\"1\"/>
@@ -172,6 +185,5 @@ First implementation.
     experiment(
       StartTime=1296000,
       StopTime=1382400,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"));
+      Tolerance=1e-06));
 end System3;

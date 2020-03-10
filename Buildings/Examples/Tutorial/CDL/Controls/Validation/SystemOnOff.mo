@@ -28,7 +28,7 @@ equation
 Validation model for the system on/off controller.
 The input to the controller are time varying signals for the outdoor air temperature
 and the room air temperature.
-The validation shows that the system on status is <code>true</code> if
+The validation shows that the system is commanded on (<code>onSys=true</code>) if
 the outdoor air temperature and the room air temperature are both low.
 </p>
 </html>", revisions="<html>
@@ -44,6 +44,5 @@ __Dymola_Commands(file=
         "Simulate and plot"),
     experiment(
       StopTime=3600,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"));
+      Tolerance=1e-06));
 end SystemOnOff;

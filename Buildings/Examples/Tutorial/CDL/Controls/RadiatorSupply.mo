@@ -26,7 +26,7 @@ block RadiatorSupply "Controller for mixing valve in radiator loop"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
     displayUnit="degC")
-    "Measured supply air temperature"
+    "Measured supply water temperature"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yVal(
@@ -49,7 +49,7 @@ block RadiatorSupply "Controller for mixing valve in radiator loop"
     "Minimum heating supply temperature"
     annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TMaxSup(
-    final k=323.15)
+    final k=TSupMax)
     "Maximum heating supply temperature"
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TMinRoo(
@@ -143,6 +143,12 @@ as an input to a PI-controller that computes the commanded valve position <code>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 5, 2020, by Michael Wetter:<br/>
+Corrected typo in comments.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1810\">issue 1810</a>.
+</li>
 <li>
 February 18, 2020, by Michael Wetter:<br/>
 First implementation.
