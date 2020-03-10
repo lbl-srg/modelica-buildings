@@ -480,7 +480,6 @@ equation
       color={255,0,255}));
   connect(not5.y, assMes.u)
     annotation (Line(points={{82,-150},{98,-150}},   color={255,0,255}));
-
   connect(maxCooDowTim, addPar2.u) annotation (Line(points={{-280,230},{-160,230},
           {-160,210},{-142,210}}, color={0,0,127}));
   connect(maxCooDowTim, corCooDowTim.u1) annotation (Line(points={{-280,230},{-60,
@@ -490,8 +489,7 @@ equation
   connect(maxWarUpTim, corWarUpTim.u1) annotation (Line(points={{-280,150},{-40,
           150},{-40,178},{-22,178}}, color={0,0,127}));
   connect(occHeaHigMin, lat3.u)
-    annotation (Line(points={{-280,110},{-102,110}},
-                                                   color={255,0,255}));
+    annotation (Line(points={{-280,110},{-102,110}}, color={255,0,255}));
   connect(maxHigOccCoo, lat4.u)
     annotation (Line(points={{-280,80},{-102,80}}, color={255,0,255}));
   connect(unoHeaHigMin, falEdg.u) annotation (Line(points={{-280,-70},{-120,-70},
@@ -541,7 +539,6 @@ equation
           {400,-26},{418,-26}}, color={255,127,0}));
   connect(addInt5.y, yOpeMod)
     annotation (Line(points={{442,-20},{480,-20}}, color={255,127,0}));
-
   connect(uWinSta, and3.u1)
     annotation (Line(points={{-280,50},{258,50}}, color={255,0,255}));
   connect(notOcc.y, and3.u2) annotation (Line(points={{222,30},{240,30},{240,42},
@@ -552,6 +549,7 @@ equation
           10},{180,10},{180,30},{198,30}}, color={255,127,0}));
   connect(not1.y, winOpe.u)
     annotation (Line(points={{322,50},{338,50}}, color={255,0,255}));
+
 annotation (
   defaultComponentName = "opeModSel",
   Diagram(
@@ -794,6 +792,11 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/Generic/
 </p>
 </html>",revisions="<html>
 <ul>
+<li>
+March 09, 2020, by Jianjun Hu:<br/>
+Reimplemented to remove the vector related calculation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1709\">#1709</a>.
+</li>
 <li>
 April 13, 2019, by Michael Wetter:<br/>
 Corrected wrong time in the documentation of the parameters.<br/>

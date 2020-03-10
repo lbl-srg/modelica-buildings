@@ -73,12 +73,14 @@ model Guideline36
     numZon](
     final TZonHeaOn=fill(THeaOn, numZon),
     final TZonHeaOff=fill(THeaOff, numZon),
-    final TZonCooOff=fill(TCooOff, numZon))
+    final TZonCooOff=fill(TCooOff, numZon)) "Zone setpoint temperature"
     annotation (Placement(transformation(extent={{60,300},{80,320}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(nout=numZon)
+  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+    final nout=numZon)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-120,280},{-100,300}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(nout=numZon)
+  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
+    final nout=numZon)
     "Replicate real input"
     annotation (Placement(transformation(extent={{-120,320},{-100,340}})));
 
@@ -355,6 +357,13 @@ its input.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 09, 2020, by Jianjun Hu:<br/>
+Replaced the block that calculates operation mode and zone temperature setpoint,
+with the new one that does not include vector related calculation.<br/>
+This is
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1709\">#1709</a>.
+</li>
 <li>
 May 19, 2016, by Michael Wetter:<br/>
 Changed chilled water supply temperature to <i>6&circ;C</i>.
