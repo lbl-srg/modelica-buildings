@@ -209,8 +209,8 @@ equation
           110},{-42,110}}, color={255,0,255}));
   connect(faiSafCon.y, orStaUp.u2) annotation (Line(points={{-98,90},{-70,90},{-70,
           102},{-42,102}}, color={255,0,255}));
-  connect(intGreThr.y, logSwi.u2) annotation (Line(points={{-98,-100},{0,-100},{
-          0,70},{38,70}},   color={255,0,255}));
+  connect(intGreThr.y, logSwi.u2) annotation (Line(points={{-98,-100},{-8,-100},
+          {-8,70},{38,70}}, color={255,0,255}));
   connect(orStaUp.y, logSwi.u1) annotation (Line(points={{-18,110},{-10,110},{-10,
           78},{38,78}},
                    color={255,0,255}));

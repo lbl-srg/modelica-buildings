@@ -16,6 +16,15 @@ block Change "Calculates the chiller stage signal"
   parameter Modelica.SIunits.Power chiMinCap[nChi]
     "Chiller minimum cycling loads vector";
 
+
+  parameter Integer upCouRes = 0
+    "Reset value for the stage up signal counte for plants with WSE";
+//    annotation(Evaluate=true, Dialog(enable=hasWSE));
+
+  //parameter Integer upCouRes = 1
+    //"Reset value for the stage up signal counter for plants without WSE"
+    //annotation(Evaluate=true, Dialog(enable=not hasWSE));
+
   parameter Integer chiTyp[nChi]={
     Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
     Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.variableSpeedCentrifugal}
@@ -423,8 +432,8 @@ equation
           -210},{-212,-302},{58,-302}}, color={255,0,255}));
   connect(uPla, onCouUp.reset) annotation (Line(points={{-260,-140},{-140,-140},
           {-140,-100},{110,-100},{110,-82}}, color={255,0,255}));
-  connect(uPla, onCouDown.reset) annotation (Line(points={{-260,-140},{-140,
-          -140},{-140,-160},{110,-160},{110,-142}}, color={255,0,255}));
+  connect(uPla, onCouDown.reset) annotation (Line(points={{-260,-140},{-140,-140},
+          {-140,-160},{110,-160},{110,-142}}, color={255,0,255}));
   annotation (defaultComponentName = "cha",
         Icon(graphics={
         Rectangle(

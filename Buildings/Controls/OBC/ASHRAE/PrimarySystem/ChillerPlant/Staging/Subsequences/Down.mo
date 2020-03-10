@@ -210,7 +210,7 @@ equation
     annotation (Line(points={{-98,-100},{-82,-100}}, color={255,0,255}));
   connect(uTowFanSpeMax, hys.u) annotation (
     Line(points={{-200,-100},{-122,-100}},color={0,0,127}));
-  connect(uWseSta, and1.u3) annotation (Line(points={{-200,-130},{-30,-130},{-30,
+  connect(uWseSta, and1.u3) annotation (Line(points={{-200,-130},{10,-130},{10,
           -68},{18,-68}},
                      color={255,0,255}));
   connect(hysTSup.y, and1.u1) annotation (Line(points={{-18,-60},{-10,-60},{-10,
