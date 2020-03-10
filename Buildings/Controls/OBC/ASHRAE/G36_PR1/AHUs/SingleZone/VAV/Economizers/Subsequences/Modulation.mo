@@ -10,6 +10,11 @@ block Modulation "Outdoor and return air damper position modulation sequence for
     annotation (Dialog(
       enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.SIunits.Time Td=0.1
+    "Time constant of derivative block for cooling control loop signal"
+    annotation (Dialog(
+      enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+          or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Real uMin(
     final min=0.1,
@@ -67,6 +72,12 @@ block Modulation "Outdoor and return air damper position modulation sequence for
     "Maximum return air damper position limit as returned by the economizer enable-disable sequence"
     annotation (Placement(transformation(extent={{-160,20},{-120,60}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaCoi(
+    final min=0,
+    final max=1,
+    final unit="1") "Heating coil control signal"
+    annotation (Placement(transformation(extent={{120,30},{140,50}}),
+      iconTransformation(extent={{100,30},{120,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPos(
     final min=0,
     final max=1,
@@ -80,22 +91,17 @@ block Modulation "Outdoor and return air damper position modulation sequence for
     annotation (Placement(transformation(extent={{120,-10},{140,10}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
-  CDL.Continuous.LimPI                         uTSup(
+  Buildings.Controls.OBC.CDL.Continuous.LimPID uTSup(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
+    final Td=Td,
     final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
     final yMax=1,
     final yMin=0)
     "Contoller that outputs a signal based on the error between the measured SAT and SAT heating setpoint"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaCoi(
-    final min=0,
-    final max=1,
-    final unit="1") "Heating coil control signal" annotation (Placement(
-        transformation(extent={{120,30},{140,50}}), iconTransformation(extent={{
-            100,30},{120,50}})));
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamMinLimSig(
       final k=uMin) "Minimal control loop signal for the outdoor air damper"

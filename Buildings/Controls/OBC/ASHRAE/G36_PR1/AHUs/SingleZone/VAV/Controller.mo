@@ -25,6 +25,11 @@ block Controller
     annotation(Dialog(group="Cooling loop signal",
       enable=controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.SIunits.Time TdCoo=0.1
+    "Time constant of derivative block for cooling control loop signal"
+    annotation (Dialog(group="Cooling loop signal",
+      enable=controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+          or controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeHea=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -38,6 +43,11 @@ block Controller
     annotation(Dialog(group="Heating loop signal",
     enable=controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
         or controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.SIunits.Time TdHea=0.1
+    "Time constant of derivative block for heating control loop signal"
+    annotation (Dialog(group="Heating loop signal",
+      enable=controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+          or controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCooCoi=
     Buildings.Controls.OBC.CDL.Types.SimpleController.P
@@ -51,6 +61,11 @@ block Controller
     annotation(Dialog(group="Cooling coil loop signal",
     enable=controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
         or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.SIunits.Time TdCooCoil=0.1
+    "Time constant of derivative block for cooling coil control loop signal"
+    annotation (Dialog(group="Cooling coil loop signal",
+      enable=controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+          or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Real TSupSetMax(final unit="K")
     "Maximum supply air temperature for heating"
@@ -121,6 +136,11 @@ block Controller
     annotation (Dialog(tab="Economizer", group="Modulation",
       enable=controllerTypeMod == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or controllerTypeMod == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.SIunits.Time TdMod=0.1
+    "Time constant of derivative block for modulation controller"
+    annotation (Dialog(tab="Economizer", group="Modulation",
+      enable=controllerTypeMod == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+          or controllerTypeMod == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real uMin(
     final min=0,
     final max=1,
@@ -146,6 +166,12 @@ block Controller
      annotation(Dialog(tab="Economizer", group="Freeze protection",
        enable=use_TMix
          and (controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+           or controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+  parameter Modelica.SIunits.Time TdFre=0.1
+     "Time constant of derivative block for freeze protection"
+     annotation (Dialog(tab="Economizer", group="Freeze protection",
+       enable=use_TMix and
+           (controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
            or controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TFreSet(final unit="K")=277.15
     "Lower limit for mixed air temperature for freeze protection, used if use_TMix=true"
@@ -345,6 +371,7 @@ block Controller
     final controllerType=controllerTypeCoo,
     final k=kCoo,
     final Ti=TiCoo,
+    final Td=TdCoo,
     final yMax=1,
     final yMin=0,
     final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
@@ -355,6 +382,7 @@ block Controller
     final controllerType=controllerTypeHea,
     final k=kHea,
     final Ti=TiHea,
+    final Td=TdHea,
     final yMax=1,
     final yMin=0) "Zone heating control signal"
     annotation (Placement(transformation(extent={{-50,210},{-30,230}})));
@@ -370,11 +398,13 @@ block Controller
     final controllerTypeMod=controllerTypeMod,
     final kMod=kMod,
     final TiMod=TiMod,
+    final TdMod=TdMod,
     final uMin=uMin,
     final uMax=uMax,
     final controllerTypeFre=controllerTypeFre,
     final kFre=kFre,
     final TiFre=TiFre,
+    final TdFre=TdFre,
     final TFreSet=TFreSet,
     final VOutMin_flow=VOutMin_flow,
     final VOutDes_flow=VOutDes_flow,
