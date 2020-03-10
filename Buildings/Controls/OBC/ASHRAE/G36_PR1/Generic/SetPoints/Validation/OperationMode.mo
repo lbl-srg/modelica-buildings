@@ -10,7 +10,7 @@ model OperationMode "Validate block for selecting operation mode"
     "Block that outputs the sine of the input"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final k=12.5, final p=273.15 + 22.5)
+    final k=12.5, final p=273.15 + 22.5) "Zone temperarure"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonHeaSetUno(
     final k=273.15 + 12)  "Unoccupied heating setpoint"
