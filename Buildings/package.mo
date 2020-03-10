@@ -215,7 +215,7 @@ its class name ends with the string <code>Beta</code>.
     <tr><td valign=\"top\">Buildings.Controls.Continuous.LimPID
         </td>
         <td valign=\"top\">Removed homotopy that may be used during initialization to ensure that outputs are bounded.<br/>
-                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1221\">IBPSA, #1221</a>.
+                         This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1221\">IBPSA, #1221</a>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
@@ -234,6 +234,28 @@ its class name ends with the string <code>Beta</code>.
                            and unix time stamps are correctly defined with respect to GMT.
                            Added option unix time stamp GMT.<br/>
                            This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1232\">IBPSA, #1232</a>.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Sources.CalendarTime<br/>
+                           Buildings.Controls.OBC.CDL.Types.ZeroTime
+        </td>
+        <td valign=\"top\">Revised implementation such that the meaning of <code>time</code> is better explained
+                           and unix time stamps are correctly defined with respect to GMT.
+                           Added option unix time stamp GMT.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1232\">IBPSA, #1232</a>.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Latch<br/>
+                         Buildings.Controls.OBC.CDL.Logical.Toggle
+        </td>
+        <td valign=\"top\">Simplified implementation, which makes them work with OpenModelica.<br/>
+                         This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1823\">#1823</a>.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Timer
+        </td>
+        <td valign=\"top\">Added a boolean input to reset the accumulated timer.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1221\">#1221</a>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1 </b>
@@ -255,21 +277,6 @@ its class name ends with the string <code>Beta</code>.
         </td>
         <td valign=\"top\">Added assertions and corrected implementation when respond amount is negative.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1530\">#1503</a>.
-        </td>
-    </tr>
-    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Sources.CalendarTime<br/>
-                           Buildings.Controls.OBC.CDL.Types.ZeroTime
-        </td>
-        <td valign=\"top\">Revised implementation such that the meaning of <code>time</code> is better explained
-                           and unix time stamps are correctly defined with respect to GMT.
-                           Added option unix time stamp GMT.<br/>
-                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1232\">IBPSA, #1232</a>.
-        </td>
-    </tr>
-    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Timer
-        </td>
-        <td valign=\"top\">Added a boolean input to reset the accumulated timer.<br/>
-                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1221\">#1221</a>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.Examples.Tutorial</b>
