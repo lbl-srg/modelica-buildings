@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints;
-block ZoneStatus "Block that outputs zone status"
+block ZoneStatus "Block that outputs zone temperature status"
 
   parameter Modelica.SIunits.TemperatureDifference bouLim(min=0.5) = 1.1
     "Value limit to indicate the end of setback or setup mode";
@@ -251,13 +251,13 @@ equation
     annotation (Line(points={{102,-170},{160,-170}}, color={255,0,255}));
   connect(hys5.y, yHigUnoCoo)
     annotation (Line(points={{102,-220},{160,-220}}, color={255,0,255}));
-
   connect(con.y, not1.u) annotation (Line(points={{-106,140},{-100,140},{-100,120},
           {-22,120}}, color={255,0,255}));
   connect(con.y, swi.u2) annotation (Line(points={{-106,140},{-100,140},{-100,-60},
           {-22,-60}}, color={255,0,255}));
   connect(con.y, swi1.u2) annotation (Line(points={{-106,140},{-100,140},{-100,-220},
           {-22,-220}}, color={255,0,255}));
+
 annotation (
   defaultComponentName = "zonSta",
   Diagram(
