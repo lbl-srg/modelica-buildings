@@ -17,7 +17,7 @@ block ZoneState "Select the zone state"
 
 protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToIntHea(
-    integerTrue=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates.heating)
+    final integerTrue=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates.heating)
     "Convert Boolean to Integer number"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToIntCoo(
@@ -27,22 +27,29 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Nor isDea "In deadband state"
     annotation (Placement(transformation(extent={{30,-80},{50,-60}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToIntDea(
-    integerTrue=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates.deadband)
+    final integerTrue=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates.deadband)
     "Convert Boolean to Integer number"
     annotation (Placement(transformation(extent={{70,-80},{90,-60}})));
   Buildings.Controls.OBC.CDL.Logical.And isHea "In heating state if both conditions are true"
     annotation (Placement(transformation(extent={{-72,30},{-52,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysUHea(uLow=uLow, uHigh=uHigh)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysUHea(
+    final uLow=uLow,
+    final uHigh=uHigh)
     "Check if it is in heating state"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysUCoo(uLow=uLow, uHigh=uHigh)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysUCoo(
+    final uLow=uLow,
+    final uHigh=uHigh)
     "Check if it is in cooling state"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add uHeaMinUCoo(k2=-1) "Difference between uHea and uCoo"
+  Buildings.Controls.OBC.CDL.Continuous.Add uHeaMinUCoo(
+    final k2=-1) "Difference between uHea and uCoo"
     annotation (Placement(transformation(extent={{-130,0},{-110,20}})));
   Buildings.Controls.OBC.CDL.Logical.And isCoo "In cooling state if both inputs are true"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysU(uLow=-uLow, uHigh=uLow)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysU(
+    final uLow=-uLow,
+    final uHigh=uLow)
     "Check if heating control signal is bigger than cooling control signal"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
   Buildings.Controls.OBC.CDL.Logical.Not notHea "Not in heating state"
