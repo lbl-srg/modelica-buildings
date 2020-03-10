@@ -13,6 +13,11 @@ model CoolingCoil "Controller for cooling coil valve"
     annotation(Dialog(group="Cooling coil loop signal",
     enable=controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
         or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.SIunits.Time TdCooCoi=0.1
+    "Time constant of derivative block for cooling coil control loop signal"
+    annotation (Dialog(group="Cooling coil loop signal",
+      enable=controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+          or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupCoo(
     final unit="K",
@@ -46,7 +51,8 @@ protected
     yMin=0,
     controllerType=controllerTypeCooCoi,
     k=kCooCoi,
-    Ti=TiCooCoi) "Cooling coil control signal"
+    Ti=TiCooCoi,
+    Td=TdCooCoi) "Cooling coil control signal"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
   Buildings.Controls.OBC.CDL.Logical.Switch switch "Switch to assign cooling coil control signal"
     annotation (Placement(transformation(extent={{72,-10},{92,10}})));

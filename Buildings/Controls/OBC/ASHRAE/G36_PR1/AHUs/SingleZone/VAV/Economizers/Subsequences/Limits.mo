@@ -97,8 +97,6 @@ block Limits "Single zone VAV AHU minimum outdoor air control - damper position 
     annotation (Placement(transformation(extent={{160,22},{200,62}}),
         iconTransformation(extent={{100,40},{140,80}})));
 
-  CDL.Logical.And3 and3
-    annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFanMinSig(
     final k=yFanMin) "Minimum supply fan speed"
@@ -172,6 +170,8 @@ protected
     annotation (Placement(transformation(extent={{-140,-190},{-120,-170}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1 "Check if operation mode is occupied"
     annotation (Placement(transformation(extent={{-100,-170},{-80,-150}})));
+  Buildings.Controls.OBC.CDL.Logical.And3 and3 "Logical and"
+    annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 
 equation
   connect(minVOutSig.y, minVOutSetCurFanSpePos.x1)

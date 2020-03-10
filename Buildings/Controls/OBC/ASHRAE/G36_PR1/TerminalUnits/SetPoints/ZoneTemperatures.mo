@@ -258,18 +258,6 @@ block ZoneTemperatures
     "Cooling setpoint minus 0.56 degC"
     annotation (Placement(transformation(extent={{160,-590},{180,-570}})));
 
-  CDL.Continuous.Add add3 "Add real inputs"
-    annotation (Placement(transformation(extent={{120,118},{140,138}})));
-  CDL.Continuous.Add add4 "Add real inputs"
-    annotation (Placement(transformation(extent={{120,40},{140,60}})));
-  CDL.Continuous.Add add5 "Add real inputs"
-    annotation (Placement(transformation(extent={{160,80},{180,100}})));
-  CDL.Continuous.Add add6 "Add real inputs"
-    annotation (Placement(transformation(extent={{120,-100},{140,-80}})));
-  CDL.Continuous.Add add7 "Add real inputs"
-    annotation (Placement(transformation(extent={{120,-180},{140,-160}})));
-  CDL.Continuous.Add add8 "Add real inputs"
-    annotation (Placement(transformation(extent={{160,-140},{180,-120}})));
 protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu "Check if current operation mode is warm-up mode"
     annotation (Placement(transformation(extent={{-300,600},{-280,620}})));
@@ -496,6 +484,18 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu5
     "Check if the cooling demand limit level is level 3"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add3 "Add real inputs"
+    annotation (Placement(transformation(extent={{120,118},{140,138}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add4 "Add real inputs"
+    annotation (Placement(transformation(extent={{120,40},{140,60}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add5 "Add real inputs"
+    annotation (Placement(transformation(extent={{160,80},{180,100}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add6 "Add real inputs"
+    annotation (Placement(transformation(extent={{120,-100},{140,-80}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add7 "Add real inputs"
+    annotation (Placement(transformation(extent={{120,-180},{140,-160}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add8 "Add real inputs"
+    annotation (Placement(transformation(extent={{160,-140},{180,-120}})));
 
 equation
   connect(uOpeMod, intEqu.u1)
