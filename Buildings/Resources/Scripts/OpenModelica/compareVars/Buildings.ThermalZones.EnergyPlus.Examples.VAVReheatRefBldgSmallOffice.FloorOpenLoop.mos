@@ -1,7 +1,7 @@
 compareVars :=
   {
-    "flo.att.TAir",
     "weaDat.weaBus.TDryBul",
+    "flo.att.TAir",
     "flo.sou.TAir",
     "flo.eas.TAir",
     "flo.nor.TAir",
