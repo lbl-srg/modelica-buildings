@@ -17,22 +17,24 @@ model Condensation
 //protected
   Modelica.SIunits.SpecificEnthalpy dh "Change in enthalpy";
 
-//  MediumSte.Temperature TSte= MediumSte.temperature(
-//    state=MediumSte.setState_phX(
-//      p=port_a.p, h=port_a.h_outflow, X=port_a.Xi_outflow));
+  MediumSte.Temperature TSte= MediumSte.temperature(
+    state=MediumSte.setState_phX(
+      p=port_a.p, h=inStream(port_a.h_outflow), X=inStream(port_a.Xi_outflow)));
+  MediumWat.Temperature TWat= MediumWat.temperature(
+    state=MediumWat.setState_phX(
+      p=port_b.p, h=inStream(port_b.h_outflow), X=inStream(port_b.Xi_outflow)));
 
 equation
   // State p & T remain unchanged (saturated vapor to saturated liquid)
-  sta_b.T = sta_a.T;
+  TSte = TWat;
   port_b.p = port_a.p;
 
   // Conservation of mass
   port_a.m_flow + port_b.m_flow = 0;
 
   // Enthalpy decreased with condensation process
-  //  dh = MediumSte.enthalpyOfVaporization(TSte)
-  dh = MediumSte.enthalpyOfVaporization(sta_a.T)
-    "Enthalpy is changed by a factor of h_fg @ steam state temperature";
+  dh = MediumSte.enthalpyOfVaporization(MediumSte.setSat_p(port_a.p))
+    "Enthalpy is changed by a factor of h_fg";
   port_b.h_outflow = port_a.h_outflow - dh;
 
   // Conservation of energy
