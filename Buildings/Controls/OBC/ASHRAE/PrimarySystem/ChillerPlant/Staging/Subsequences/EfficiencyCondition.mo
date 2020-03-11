@@ -65,9 +65,9 @@ annotation (defaultComponentName = "effCon",
           extent={{-100,-60},{80,60}})),
 Documentation(info="<html>
 <p>
-Efficiency condition used in staging up and down, 
-implemented according to the specification provided in the tables in section 
-5.2.4.14., July draft.
+Efficiency condition used in staging up and down for plants primary-only 
+and primary-secondary plants, both with and without a water side economizer. 
+implemented according to the specification provided in 5.2.4.15., December 2019 draft.
 </p>
 </html>",
 revisions="<html>
