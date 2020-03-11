@@ -62,7 +62,7 @@ model Floor "Model of a floor of the building"
     annotation (Placement(transformation(extent={{214,420},{234,440}})));
   Modelica.Blocks.Sources.Constant qRadGai_flow(k=0) "Radiative heat gain"
     annotation (Placement(transformation(extent={{214,460},{234,480}})));
-  Modelica.Blocks.Routing.Multiplex3 multiplex3_1
+  Modelica.Blocks.Routing.Multiplex3 multiplex3_1 "Multiplex for internal gains"
     annotation (Placement(transformation(extent={{260,420},{280,440}})));
   Modelica.Blocks.Sources.Constant qLatGai_flow(k=0) "Latent heat gain"
     annotation (Placement(transformation(extent={{214,380},{234,400}})));
@@ -369,7 +369,10 @@ equation
           extent={{2,166},{296,174}},
           lineColor={95,95,95},
           fillColor={170,213,255},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+          Bitmap(extent={{192,-58},{342,-18}},
+          fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/spawn_icon_darkbluetxmedres.png",
+          visible=not usePrecompiledFMU)}),
     Documentation(info="<html>
 <p>
 Model of one floor of the DOE reference office building.
@@ -378,13 +381,13 @@ Model of one floor of the DOE reference office building.
 revisions="<html>
 <ul>
 <li>
+November 15, 2019, by Milica Grahovac:<br/>
+Added extend from a partial floor model.
+</li>
+<li>
 May 1, 2013, by Michael Wetter:<br/>
 Declared the parameter record to be a parameter, as declaring its elements
 to be parameters does not imply that the whole record has the variability of a parameter.
-</li>
-<li>
-November 15, 2019, by Milica Grahovac:<br/>
-Added extend from a partial floor model.
 </li>
 </ul>
 </html>"));

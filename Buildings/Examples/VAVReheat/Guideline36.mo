@@ -310,8 +310,8 @@ equation
           "modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/Guideline36.mos"
         "Simulate and plot"),
     experiment(StopTime=172800, Tolerance=1e-06),
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-320},{1400,
-            640}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-380,
+            -400},{1420,660}})),
     Documentation(info="<html>
 <p>
 This model consist of an HVAC system, a building envelope model and a model

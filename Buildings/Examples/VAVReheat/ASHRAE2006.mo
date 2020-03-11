@@ -2,9 +2,7 @@ within Buildings.Examples.VAVReheat;
 model ASHRAE2006
   "Variable air volume flow system with terminal reheat and five thermal zones"
   extends Modelica.Icons.Example;
-  extends Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop(
-    heaCoi(show_T=true),
-    cooCoi(show_T=true));
+  extends Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop;
 
   Modelica.Blocks.Sources.Constant TSupSetHea(y(
       final quantity="ThermodynamicTemperature",
@@ -335,8 +333,8 @@ equation
           "modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/ASHRAE2006.mos"
         "Simulate and plot"),
     experiment(StopTime=172800, Tolerance=1e-06),
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-400},{1440,
-            580}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-380,
+            -400},{1420,660}})),
     Documentation(info="<html>
 <p>
 This model consist of an HVAC system, a building envelope model and a model

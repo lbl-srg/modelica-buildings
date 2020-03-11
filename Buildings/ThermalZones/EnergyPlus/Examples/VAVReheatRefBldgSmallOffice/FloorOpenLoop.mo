@@ -16,14 +16,14 @@ model FloorOpenLoop "Open loop model of one floor"
     "Outside air infiltration for each room";
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+        Modelica.Utilities.Files.loadResource(
+        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+    "Weather data reader"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
-  replaceable Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.Floor flo(
-    redeclare package Medium = Medium,
-    use_windPressure=false) constrainedby
-    Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.PartialFloor
+  Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.Floor flo(
+    redeclare package Medium = Medium)
     "One floor of the office building"
     annotation (Placement(transformation(extent={{32,-2},{86,28}})));
   Fluid.Sources.MassFlowSource_WeatherData bou[4](
