@@ -111,14 +111,17 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     redeclare each package Medium = MediumA,
     each nPorts=2) "Ambient conditions"
     annotation (Placement(transformation(extent={{-320,32},{-306,46}})));
-  Buildings.Fluid.Actuators.Dampers.MixingBox  eco[nFlo](
+  Buildings.Fluid.Actuators.Dampers.MixingBox eco[nFlo](
     redeclare each package Medium = MediumA,
     each mOut_flow_nominal=m_flow_nominal,
     each mRec_flow_nominal=m_flow_nominal,
     each mExh_flow_nominal=m_flow_nominal,
-    each dpOut_nominal=10,
-    each dpRec_nominal=10,
-    each dpExh_nominal=10) "Economizer"
+    each dpDamExh_nominal=0.27,
+    each dpDamOut_nominal=0.27,
+    each dpDamRec_nominal=0.27,
+    each dpFixExh_nominal=10,
+    each dpFixOut_nominal=10,
+    each dpFixRec_nominal=10) "Economizer"
     annotation (Placement(transformation(extent={{-262,46},{-232,16}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TMix[nFlo](
     redeclare each package Medium = MediumA,

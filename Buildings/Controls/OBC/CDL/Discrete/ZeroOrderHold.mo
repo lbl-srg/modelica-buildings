@@ -58,7 +58,11 @@ equation
         textString="%name",
         lineColor={0,0,255}),
       Line(points={{-78.0,-42.0},{-52.0,-42.0},{-52.0,0.0},{-26.0,0.0},{-26.0,24.0},{-6.0,24.0},{-6.0,64.0},{18.0,64.0},{18.0,20.0},{38.0,20.0},{38.0,0.0},{44.0,0.0},{44.0,0.0},{62.0,0.0}},
-        color={0,0,127})}),
+        color={0,0,127}),
+      Text(
+        extent={{226,60},{106,10}},
+        lineColor={0,0,0},
+        textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}),
     Documentation(info="<html>
 <p>
 Block that outputs the sampled input signal at sample
@@ -68,6 +72,10 @@ At initial time, the block feeds the input directly to the output.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
 <li>
 September 14, 2017, by Michael Wetter:<br/>
 Removed parameter <code>startTime</code> to allow model to work
