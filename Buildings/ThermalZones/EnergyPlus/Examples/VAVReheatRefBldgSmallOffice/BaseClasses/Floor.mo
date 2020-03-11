@@ -6,7 +6,8 @@ model Floor "Model of a floor of the building"
     final VRooSou=sou.V,
     final VRooNor=nor.V,
     final VRooEas=eas.V,
-    final VRooWes=wes.V);
+    final VRooWes=wes.V,
+    intGaiFra(table=[0,0; 24,0]));
 
   final parameter Modelica.SIunits.Area AFloCor=cor.AFlo "Floor area corridor";
   final parameter Modelica.SIunits.Area AFloSou=sou.AFlo "Floor area south";
