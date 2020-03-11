@@ -292,7 +292,7 @@ defaultComponentName="eco",
 Documentation(revisions="<html>
 <ul>
 <li>
-February 26, 2020, by Antoine Gautier:<br/>
+December 23, 2019, by Antoine Gautier:<br/>
 Updated parameter bindings consistently with refactoring of
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential\">
 Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential</a>.<br/>
@@ -348,7 +348,7 @@ First implementation.
 <p>
 Model of an outside air mixing box with exponential dampers.
 Set <code>y=0</code> to close the outside air and exhaust air dampers.
-See 
+See
 <a href=\"modelica://Buildings.Fluid.Actuators.Dampers.Exponential\">
 Buildings.Fluid.Actuators.Dampers.Exponential</a>
 for the description of the exponential damper model.
