@@ -361,26 +361,6 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(weaBus, leaSou.weaBus) annotation (Line(
-      points={{210,200},{-80,200},{-80,400},{-58,400}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
-  connect(weaBus, leaEas.weaBus) annotation (Line(
-      points={{210,200},{-80,200},{-80,360},{-58,360}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
-  connect(weaBus, leaNor.weaBus) annotation (Line(
-      points={{210,200},{-80,200},{-80,320},{-56,320}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
-  connect(weaBus, leaWes.weaBus) annotation (Line(
-      points={{210,200},{-80,200},{-80,280},{-56,280}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
   connect(multiplex5_1.y, TRooAir) annotation (Line(
       points={{361,290},{372,290},{372,160},{390,160}},
       color={0,0,127},
@@ -578,18 +558,10 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(cor.ports[11], senRelPre.port_a) annotation (Line(
-      points={{149,49.6364},{110,49.6364},{110,250},{60,250}},
+      points={{149,49.6364},{112,49.6364},{112,250},{60,250}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
-  connect(out.weaBus, weaBus) annotation (Line(
-      points={{-58,250.2},{-70,250.2},{-70,250},{-80,250},{-80,200},{210,200}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
-      textString="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
   connect(senRelPre.p_rel, p_rel) annotation (Line(
       points={{50,241},{50,220},{-170,220}},
       color={0,0,127},
