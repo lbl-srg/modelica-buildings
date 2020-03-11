@@ -2,8 +2,15 @@ within Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice;
 model FloorOpenLoop "Open loop model of one floor"
   extends Modelica.Icons.Example;
 
-  replaceable package Medium = Buildings.Media.Air "Medium for air"
-    annotation (__Dymola_choicesAllMatching=true);
+  replaceable package Medium = Buildings.Media.Air "Medium for air";
+
+  parameter String idfName=Modelica.Utilities.Files.loadResource(
+    "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf")
+    "Name of the IDF file";
+  parameter String weaName = Modelica.Utilities.Files.loadResource(
+    "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+    "Name of the weather file";
+
   final parameter Modelica.SIunits.Area AFlo=flo.AFlo "Floor area west";
   final parameter Modelica.SIunits.MassFlowRate mOut_flow = 2
     "Outside air infiltration for each room";
@@ -93,8 +100,7 @@ equation
         "Simulate and plot"),
 experiment(
       StopTime=172800,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
 Documentation(info="<html>
 <p>
 Test case of one floor of the small office DOE reference building.

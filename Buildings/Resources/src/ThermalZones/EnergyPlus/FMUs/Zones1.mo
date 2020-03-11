@@ -27,8 +27,8 @@ model Zones1 "Model of a thermal zone"
 
 protected
   RoomModel core(
-    V       = Core_ZN_V,
-    AFlo    = Core_ZN_AFlo,
+    V =       Core_ZN_V,
+    AFlo =    Core_ZN_AFlo,
     mSenFac = Core_ZN_mSenFac) "Room model";
 equation
   // Inputs for room
@@ -44,4 +44,9 @@ equation
   core.QLat_flow    = Core_ZN_QLat_flow;
   core.QPeo_flow    = Core_ZN_QPeo_flow;
 
+  annotation (Documentation(info="<html>
+<p>
+Simple model of one thermal zone that is used for testing the Spawn of EnergyPlus coupling.
+</p>
+</html>"));
 end Zones1;

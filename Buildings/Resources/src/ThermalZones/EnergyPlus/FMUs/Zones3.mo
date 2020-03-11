@@ -72,18 +72,18 @@ model Zones3 "Model of three thermal zones"
 
 protected
   RoomModel core(
-    V       = Core_ZN_V,
-    AFlo    = Core_ZN_AFlo,
+    V =       Core_ZN_V,
+    AFlo =    Core_ZN_AFlo,
     mSenFac = Core_ZN_mSenFac) "Room model";
 
   RoomModel north(
-    V       = North_ZN_V,
-    AFlo    = North_ZN_AFlo,
+    V =       North_ZN_V,
+    AFlo =    North_ZN_AFlo,
     mSenFac = North_ZN_mSenFac) "Room model";
 
   RoomModel south(
-    V       = South_ZN_V,
-    AFlo    = South_ZN_AFlo,
+    V =       South_ZN_V,
+    AFlo =    South_ZN_AFlo,
     mSenFac = South_ZN_mSenFac) "Room model";
 
 equation
@@ -126,4 +126,9 @@ equation
   south.QLat_flow    = South_ZN_QLat_flow;
   south.QPeo_flow    = South_ZN_QPeo_flow;
 
+  annotation (Documentation(info="<html>
+<p>
+Simple model of three thermal zones that is used for testing the Spawn of EnergyPlus coupling.
+</p>
+</html>"));
 end Zones3;
