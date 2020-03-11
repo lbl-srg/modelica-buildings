@@ -41,10 +41,6 @@ model Change "Validates chiller stage signal"
     "Chiller availability vector"
     annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant WSESta(
-    final k=true) "Waterside economizer status"
-    annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Max max "Maximum"
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
 
@@ -65,6 +61,8 @@ model Change "Validates chiller stage signal"
     annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
   CDL.Logical.Pre pre
     annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
+  CDL.Logical.Sources.Constant plaSta(final k=true) "Plant status"
+    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWat(
     final k=65*6895)
@@ -80,11 +78,6 @@ protected
     final k=65*6895)
     "Chilled water differential pressure setpoint"
     annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TWsePre(
-    final k=273.15 + 14)
-    "Chilled water supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TowFanSpeMax(
     final k=1)
@@ -107,14 +100,10 @@ equation
           -100},{-90,33},{58,33}}, color={0,0,127}));
   connect(TowFanSpeMax.y, cha.uTowFanSpeMax) annotation (Line(points={{-58,-100},
           {-50,-100},{-50,28},{58,28}}, color={0,0,127}));
-  connect(TWsePre.y, cha.TWsePre) annotation (Line(points={{-58,-50},{-52,-50},{
-          -52,23},{58,23}}, color={0,0,127}));
   connect(TCWSupSet.y, cha.TChiWatSupSet) annotation (Line(points={{-98,50},{-32,
           50},{-32,45},{58,45}}, color={0,0,127}));
   connect(chiAva.y, cha.uChiAva) annotation (Line(points={{-98,90},{-28,90},{-28,
           11},{58,11}}, color={255,0,255}));
-  connect(cha.uWseSta, WSESta.y) annotation (Line(points={{58,17},{-30,17},{-30,
-          70},{-138,70}}, color={255,0,255}));
   connect(TCWSup.y, cha.TChiWatSup) annotation (Line(points={{-98,-10},{-94,-10},
           {-94,43},{58,43}}, color={0,0,127}));
   connect(zero.y, max.u2) annotation (Line(points={{-178,-50},{-170,-50},{-170,-36},
@@ -127,7 +116,7 @@ equation
           30},{-130,25},{58,25}}, color={0,0,127}));
   connect(higSta.y, cha.uHigSta) annotation (Line(points={{2,-10},{20,-10},{20,15},
           {58,15}}, color={255,0,255}));
-  connect(cha.y, intToRea.u)
+  connect(cha.ySta, intToRea.u)
     annotation (Line(points={{82,30},{98,30}}, color={255,127,0}));
   connect(intToRea.y, zerOrdHol.u)
     annotation (Line(points={{122,30},{138,30}}, color={0,0,127}));
@@ -135,12 +124,14 @@ equation
     annotation (Line(points={{162,30},{178,30}}, color={0,0,127}));
   connect(reaToInt.y, cha.u) annotation (Line(points={{202,30},{210,30},{210,-20},
           {50,-20},{50,19},{58,19}}, color={255,127,0}));
-  connect(cha.yCha, truFalHol.u) annotation (Line(points={{82,37},{90,37},{90,-50},
+  connect(cha.y, truFalHol.u) annotation (Line(points={{82,37},{90,37},{90,-50},
           {98,-50}}, color={255,0,255}));
   connect(truFalHol.y, pre.u)
     annotation (Line(points={{122,-50},{138,-50}}, color={255,0,255}));
   connect(pre.y, cha.chaPro) annotation (Line(points={{162,-50},{170,-50},{170,-70},
           {40,-70},{40,13},{58,13}}, color={255,0,255}));
+  connect(cha.uPla, plaSta.y) annotation (Line(points={{58,9},{30,9},{30,-50},{
+          2,-50}}, color={255,0,255}));
 annotation (
  experiment(StopTime=20000.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Change.mos"

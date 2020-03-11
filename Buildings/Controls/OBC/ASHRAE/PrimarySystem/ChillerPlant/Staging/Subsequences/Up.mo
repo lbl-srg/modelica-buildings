@@ -35,11 +35,11 @@ block Up "Generates a stage up signal"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput chaPro
     "Stage change process status, true = on, false = off"
     annotation (Placement(transformation(extent={{-220,-180},{-180,-140}}),
-        iconTransformation(extent={{-140,-100},{-100,-60}})));
+        iconTransformation(extent={{-140,-160},{-100,-120}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uSta if    hasWSE
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u if       hasWSE
     "Chiller stage" annotation (Placement(transformation(extent={{-220,-120},{-180,
-            -80}}),  iconTransformation(extent={{-140,-120},{-100,-80}})));
+            -80}}), iconTransformation(extent={{-140,-120},{-100,-80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOpe(final unit="1")
     "Operating part load ratio of the current stage" annotation (Placement(
@@ -179,7 +179,7 @@ block Up "Generates a stage up signal"
   CDL.Interfaces.BooleanInput                        uAvaCur
     "Current stage availability status"
     annotation (Placement(transformation(extent={{-220,-220},{-180,-180}}),
-        iconTransformation(extent={{-140,-100},{-100,-60}})));
+        iconTransformation(extent={{-140,-180},{-100,-140}})));
   CDL.Logical.Or orAva if                           hasWSE
     "Demand stage up if current stage becomes unavailable"
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
@@ -253,8 +253,8 @@ equation
     annotation (Line(points={{-98,-160},{-82,-160}}, color={255,0,255}));
   connect(not2.y, and3.u3) annotation (Line(points={{-58,-160},{70,-160},{70,-8},
           {78,-8}}, color={255,0,255}));
-  connect(uSta, intGreThr.u)
-    annotation (Line(points={{-200,-100},{-122,-100}},color={255,127,0}));
+  connect(u, intGreThr.u)
+    annotation (Line(points={{-200,-100},{-122,-100}}, color={255,127,0}));
   connect(and3.y, orAva.u1)
     annotation (Line(points={{102,0},{118,0}}, color={255,0,255}));
   connect(uAvaCur, not3.u)
