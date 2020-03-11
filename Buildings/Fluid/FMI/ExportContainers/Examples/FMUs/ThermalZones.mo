@@ -167,7 +167,6 @@ equation
           pattern=LinePattern.None,
           lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
-          fontSize=12,
           textString="Very simplified
 model of
 a thermal zone."),
@@ -181,7 +180,6 @@ a thermal zone."),
           pattern=LinePattern.None,
           lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
-          fontSize=12,
           textString="Very simplified
 model of
 a thermal zone.")}),
@@ -212,6 +210,12 @@ exposed at the FMU interface.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 11, 2020, by Michael Wetter:<br/>
+Removed <code>fontSize</code> in annotation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1318\">#1318</a>.
+</li>
 <li>
 December 4, 2017, by Michael Wetter:<br/>
 Added call to <code>Modelica.Utilities.Files.loadResource</code>
