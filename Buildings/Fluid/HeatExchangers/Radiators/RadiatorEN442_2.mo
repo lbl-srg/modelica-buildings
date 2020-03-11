@@ -291,7 +291,7 @@ equation
           extent={{-80,60},{80,-60}},
           lineColor={0,0,0},
           fillColor=DynamicSelect({95,95,95},
-          min(1, -Q_flow/Q_flow_nominal)*{255,0,0}+(1-min(1, -Q_flow/Q_flow_nominal))*{95,95,95}),
+          max(0, min(1, -Q_flow/Q_flow_nominal))*{255,0,0}+(1-max(0, min(1, -Q_flow/Q_flow_nominal)))*{95,95,95}),
           fillPattern=FillPattern.Solid),
         Line(
           points={{-66,30},{66,30}}),
