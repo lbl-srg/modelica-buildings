@@ -11,12 +11,12 @@ model OptimalStartHeatingCooling
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetCooOcc(k=24 + 273.15)
     "Zone cooling setpoint during occupancy"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TOutHea(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TOutBase(
     amplitude=5,
     freqHz=1/86400,
     offset=15 + 273.15,
     startTime(displayUnit="h") = 0)
-    "Outdoor dry bulb temperature to test heating"
+    "Outdoor dry bulb temperature, base component"
     annotation (Placement(transformation(extent={{-208,-20},{-188,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain UA(k=25)
     "Overall heat loss coefficient"
@@ -54,7 +54,7 @@ model OptimalStartHeatingCooling
   Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{7,19},period=24*3600)
     "Daily schedule"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=3)
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=3) "Sum heat gains"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetHeaOcc(k=21+273.15)
     "Zone heating setpoint during occupancy"
@@ -70,7 +70,7 @@ model OptimalStartHeatingCooling
     annotation (Placement(transformation(extent={{140,40},{160,60}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    Ti=1,
+    Ti=3,
     yMax=1,
     yMin=0) "PI control for space heating"
     annotation (Placement(transformation(extent={{180,40},{200,60}})));
@@ -85,14 +85,14 @@ model OptimalStartHeatingCooling
   Buildings.Controls.OBC.CDL.Continuous.Gain QHea(k=2000)
     "Heat injection in the zone"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add TOutCoo
-    "Outdoor dry bulb temperature to test cooling"
+  Buildings.Controls.OBC.CDL.Continuous.Add TOut "Outdoor dry bulb temperature"
     annotation (Placement(transformation(extent={{-170,-40},{-150,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(
-    height=15,
-    duration=86400,
-    startTime(displayUnit="d") = 777600) "Add temperature ramp"
-    annotation (Placement(transformation(extent={{-208,-60},{-188,-40}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul(
+    amplitude=15,
+    period(displayUnit="d") = 1209600,
+    startTime(displayUnit="d") = 604800)
+    "Range of outdoor dry bulb temperature"
+    annotation (Placement(transformation(extent={{-210,-60},{-190,-40}})));
 equation
   connect(dT.y, UA.u)   annotation (Line(points={{-118,10},{-102,10}}, color={0,0,127}));
   connect(integrator.y, optSta.TZon) annotation (Line(points={{1,10},{10,10},{10,
@@ -137,17 +137,17 @@ equation
           10},{-62,10}}, color={0,0,127}));
   connect(QHea.y, mulSum.u[3]) annotation (Line(points={{-78,-90},{-68,-90},{-68,
           8.66667},{-62,8.66667}}, color={0,0,127}));
-  connect(TOutHea.y, TOutCoo.u1) annotation (Line(points={{-186,-10},{-178,-10},
-          {-178,-24},{-172,-24}}, color={0,0,127}));
-  connect(TOutCoo.y, dT.u2) annotation (Line(points={{-148,-30},{-146,-30},{-146,
-          4},{-142,4}}, color={0,0,127}));
-  connect(ram.y, TOutCoo.u2) annotation (Line(points={{-186,-50},{-178,-50},{-178,
+  connect(TOutBase.y, TOut.u1) annotation (Line(points={{-186,-10},{-178,-10},{
+          -178,-24},{-172,-24}}, color={0,0,127}));
+  connect(TOut.y, dT.u2) annotation (Line(points={{-148,-30},{-146,-30},{-146,4},
+          {-142,4}}, color={0,0,127}));
+  connect(pul.y, TOut.u2) annotation (Line(points={{-188,-50},{-176,-50},{-176,
           -36},{-172,-36}}, color={0,0,127}));
   annotation (
   experiment(
-      StopTime=864000,
+      StopTime=2419200,
       Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),__Dymola_Commands(file=
+      __Dymola_Algorithm="Cvode"),__Dymola_Commands(file=
   "modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/Utilities/Validation/OptimalStartHeatingCooling.mos"
   "Simulate and plot"),
   Documentation(info="<html>
@@ -160,9 +160,9 @@ Buildings.Controls.OBC.Utilities.OptimalStart</a>.
 The first ten days is to test the heating case with a lower outdoor temperature. 
 The next ten days has a higher outdoor temprature, which is to test the cooling case.
 The zone model has a time constant of 27.8 hours. The optimal start block converges separately
-to an optimal start time for heating and cooling. Note that on the 11th day, the zone
-temperature is in the deadband, so there is no need to optimally start the heating or
-cooling system in advance.
+to an optimal start time for heating and cooling. Note that during the three transition
+days, the zone temperature is in the deadband, so there is no need to optimally start 
+the heating or cooling system in advance.
 </p>
 </html>",
 revisions="<html>
