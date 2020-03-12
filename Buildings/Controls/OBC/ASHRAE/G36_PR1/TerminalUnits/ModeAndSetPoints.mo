@@ -197,7 +197,7 @@ protected
     final k=warCooTim) "Cool down and heat up time (simplified as constant)"
     annotation (Placement(transformation(extent={{-120,180},{-100,200}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneStatus zonSta(
-    final have_winSen=have_winSen)
+    final have_winSen=have_winSen) "Check zone temperature status"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger colZon
     "Check if the zone is cold zone"
@@ -393,6 +393,12 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 11, 2020, by Jianjun Hu:<br/>
+Reimplemented to avoid vector related calculation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1709\">issue 1709</a>.
+</li>
 <li>
 October 24, 2018, by David Blum:<br/>
 First implementation.
