@@ -42,39 +42,10 @@ block PlantEnable "Sequence to enable and disable plant"
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-240,-80},{-200,-40}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TOutWet(
-    final unit="K",
-    final quantity="ThermodynamicTemperature") if haveWSE
-    "Outdoor air wet bulb temperature"
-    annotation (Placement(transformation(extent={{-240,-160},{-200,-120}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTunPar if haveWSE
-    "Tuning parameter as at last plant disable"
-    annotation (Placement(transformation(extent={{-240,-240},{-200,-200}}),
-      iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
-    final unit="K",
-    final quantity="ThermodynamicTemperature") if haveWSE
-    "Chilled water supply setpoint"
-    annotation (Placement(transformation(extent={{-240,-120},{-200,-80}}),
-      iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yIniChiSta
-    "Initial chiller plant stage"
-    annotation (Placement(transformation(extent={{200,-210},{220,-190}}),
-      iconTransformation(extent={{100,-70},{120,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPla
     "Chiller plant enabling status"
     annotation (Placement(transformation(extent={{200,160},{220,180}}),
       iconTransformation(extent={{100,-10},{120,10}})));
-
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.PredictedOutletTemperature
-    wseTOut(
-    final heaExcAppDes=heaExcAppDes,
-    final cooTowAppDes=cooTowAppDes,
-    final TOutWetDes=TOutWetDes,
-    final VHeaExcDes_flow=VHeaExcDes_flow) if haveWSE
-    "Waterside economizer outlet temperature predictor"
-    annotation (Placement(transformation(extent={{-140,-190},{-120,-170}})));
 
 protected
   final parameter Buildings.Controls.OBC.CDL.Types.Smoothness tabSmo=
@@ -110,9 +81,6 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Timer enaTim1
     "Total time when chiller plant request is less than ignorable request"
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
-    "Convert real input to integer output"
-    annotation (Placement(transformation(extent={{140,-210},{160,-190}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
   Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
@@ -120,14 +88,6 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Maintains an on signal until conditions changes"
     annotation (Placement(transformation(extent={{100,160},{120,180}})));
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam
-    "Triggered sampling of continuous signals"
-    annotation (Placement(transformation(extent={{140,-130},{160,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.Edge edg
-    annotation (Placement(transformation(extent={{120,-170},{140,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staOne(final k=1)
-    "Stage one"
-    annotation (Placement(transformation(extent={{0,-150},{20,-130}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(final uLow=0, final
       uHigh=locDt)
     "Check if outdoor temperature is higher than chiller lockout temperature"
@@ -146,25 +106,6 @@ protected
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Buildings.Controls.OBC.CDL.Logical.Or3 mulOr "Logical or"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staZer(final k=0)
-    "Zero stage"
-    annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
-    final uLow=0,
-    final uHigh=wseDt) if haveWSE
-    "Check if predicted heat exchange leaving water temperature is greater than chilled water supply temperature setpoint less offset"
-    annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback feedback if haveWSE
-    "Difference between predicted heat exchanger leaving water temperature and chilled water supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-110,-130},{-90,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi "Logical switch"
-    annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(final k=false) if
-                     not haveWSE "Constant true"
-    annotation (Placement(transformation(extent={{-60,-190},{-40,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3(k=VHeaExcDes_flow) if haveWSE
-    "Design heat exchanger chiller water flow rate"
-    annotation (Placement(transformation(extent={{-180,-190},{-160,-170}})));
   Buildings.Controls.OBC.CDL.Logical.Not not3 "Logical not"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
   Buildings.Controls.OBC.CDL.Logical.Not not4 "Logical not"
@@ -214,51 +155,16 @@ equation
   connect(mulOr.y, and2.u2)
     annotation (Line(points={{62,20},{80,20},{80,60},{20,60},{20,72},{38,72}},
       color={255,0,255}));
-  connect(lat.y, edg.u)
-    annotation (Line(points={{122,170},{140,170},{140,140},{100,140},{100,-160},
-          {118,-160}},
-                   color={255,0,255}));
-  connect(edg.y, triSam.trigger)
-    annotation (Line(points={{142,-160},{150,-160},{150,-131.8}}, color={255,0,255}));
-  connect(triSam.y, reaToInt.u)
-    annotation (Line(points={{162,-120},{180,-120},{180,-180},{120,-180},{120,-200},
-          {138,-200}},
-                   color={0,0,127}));
-  connect(reaToInt.y, yIniChiSta)
-    annotation (Line(points={{162,-200},{210,-200}}, color={255,127,0}));
-  connect(feedback.y, hys1.u)
-    annotation (Line(points={{-88,-120},{-62,-120}}, color={0,0,127}));
-  connect(swi.y, triSam.u)
-    annotation (Line(points={{82,-120},{138,-120}}, color={0,0,127}));
-  connect(con2.y, swi.u2)
-    annotation (Line(points={{-38,-180},{-20,-180},{-20,-120},{58,-120}},
-      color={255,0,255}));
   connect(not2.y, mulOr.u1)
     annotation (Line(points={{2,40},{20,40},{20,28},{38,28}},  color={255,0,255}));
   connect(greEquThr2.y, mulOr.u2)
     annotation (Line(points={{-38,20},{38,20}}, color={255,0,255}));
-  connect(hys1.y, swi.u2)
-    annotation (Line(points={{-38,-120},{58,-120}}, color={255,0,255}));
-  connect(wseTOut.TOutWet, TOutWet)
-    annotation (Line(points={{-142,-172},{-150,-172},{-150,-140},{-220,-140}},
-      color={0,0,127}));
-  connect(con3.y, wseTOut.VChiWat_flow)
-    annotation (Line(points={{-158,-180},{-142,-180}},
-      color={0,0,127}));
-  connect(wseTOut.uTunPar, uTunPar)
-    annotation (Line(points={{-142,-188},{-150,-188},{-150,-220},{-220,-220}},
-      color={0,0,127}));
   connect(hasReq.y, not3.u)
     annotation (Line(points={{-118,180},{-20,180},{-20,160},{-180,160},{-180,20},
           {-142,20}},
                    color={255,0,255}));
   connect(not3.y, enaTim1.u)
     annotation (Line(points={{-118,20},{-102,20}}, color={255,0,255}));
-  connect(wseTOut.y, feedback.u2)
-    annotation (Line(points={{-118,-180},{-100,-180},{-100,-132}}, color={0,0,127}));
-  connect(TChiWatSupSet, feedback.u1)
-    annotation (Line(points={{-220,-100},{-140,-100},{-140,-120},{-112,-120}},
-      color={0,0,127}));
   connect(lat.y, pre1.u)
     annotation (Line(points={{122,170},{140,170},{140,230},{-190,230},{-190,210},
           {-182,210}},
@@ -268,10 +174,6 @@ equation
   connect(pre1.y, enaTim.u)
     annotation (Line(points={{-158,210},{-150,210},{-150,80},{-142,80}},
       color={255,0,255}));
-  connect(staZer.y, swi.u1)
-    annotation (Line(points={{22,-100},{40,-100},{40,-112},{58,-112}}, color={0,0,127}));
-  connect(staOne.y, swi.u3)
-    annotation (Line(points={{22,-140},{40,-140},{40,-128},{58,-128}}, color={0,0,127}));
   connect(TOut, add2.u2)
     annotation (Line(points={{-220,-60},{-150,-60},{-150,-46},{-142,-46}},
       color={0,0,127}));
