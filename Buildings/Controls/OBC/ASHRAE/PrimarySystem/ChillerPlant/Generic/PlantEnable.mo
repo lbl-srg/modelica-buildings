@@ -31,9 +31,6 @@ block PlantEnable "Sequence to enable and disable plant"
   parameter Real wseDt = 1
     "Offset for checking waterside economizer leaving water temperature"
     annotation (Dialog(tab="Advanced"));
-  parameter Real hysDt = 1
-    "Deadband temperature used in hysteresis block"
-    annotation (Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput chiWatSupResReq
     "Number of chiller plant cooling requests"
@@ -131,9 +128,8 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staOne(final k=1)
     "Stage one"
     annotation (Placement(transformation(extent={{0,-150},{20,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
-    final uLow=0,
-    final uHigh=locDt + hysDt)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(final uLow=0, final
+      uHigh=locDt)
     "Check if outdoor temperature is higher than chiller lockout temperature"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
@@ -153,17 +149,18 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staZer(final k=0)
     "Zero stage"
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(final uLow=wseDt,
-      final uHigh=wseDt + hysDt) if haveWSE
-    "Check if predict heat exchange leaving water temperature is greater than chilled water supply temperature setpoint minus 1degF"
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
+    final uLow=0,
+    final uHigh=wseDt) if haveWSE
+    "Check if predicted heat exchange leaving water temperature is greater than chilled water supply temperature setpoint less offset"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Feedback feedback if haveWSE
     "Difference between predicted heat exchanger leaving water temperature and chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-110,-130},{-90,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(
-    final k=true) if not haveWSE "Constant true"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(final k=false) if
+                     not haveWSE "Constant true"
     annotation (Placement(transformation(extent={{-60,-190},{-40,-170}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3(k=VHeaExcDes_flow) if haveWSE
     "Design heat exchanger chiller water flow rate"
@@ -176,120 +173,124 @@ protected
     annotation (Placement(transformation(extent={{-180,200},{-160,220}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiLocOutTem(
     final k=TChiLocOut)
-    "Outdoor air lockout temperature 1 degF below which the chiller plant should be disabled"
+    "Outdoor air lockout temperature"
     annotation (Placement(transformation(extent={{-180,-30},{-160,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Add add2(k1=-1, final k2=1)
     "Difference between chiller lockout temperature and outdoor temperature"
     annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
 
 equation
   connect(enaSch.y[1], schOn.u)
-    annotation (Line(points={{-119,140},{-102,140}}, color={0,0,127}));
+    annotation (Line(points={{-118,140},{-102,140}}, color={0,0,127}));
   connect(not1.y, disTim.u)
-    annotation (Line(points={{-119,210},{-102,210}}, color={255,0,255}));
+    annotation (Line(points={{-118,210},{-102,210}}, color={255,0,255}));
   connect(disTim.y, greEquThr.u)
-    annotation (Line(points={{-79,210},{-62,210}}, color={0,0,127}));
+    annotation (Line(points={{-78,210},{-62,210}}, color={0,0,127}));
   connect(chiWatSupResReq, hasReq.u)
     annotation (Line(points={{-220,180},{-142,180}}, color={255,127,0}));
   connect(enaTim.y, greEquThr1.u)
-    annotation (Line(points={{-119,80},{-102,80}}, color={0,0,127}));
+    annotation (Line(points={{-118,80},{-102,80}}, color={0,0,127}));
   connect(enaTim1.y, greEquThr2.u)
-    annotation (Line(points={{-79,20},{-62,20}},   color={0,0,127}));
+    annotation (Line(points={{-78,20},{-62,20}},   color={0,0,127}));
   connect(greEquThr1.y, and2.u1)
-    annotation (Line(points={{-79,80},{38,80}},
+    annotation (Line(points={{-78,80},{38,80}},
       color={255,0,255}));
   connect(greEquThr.y, mulAnd.u[1])
-    annotation (Line(points={{-39,210},{20,210},{20,175.25},{38,175.25}},
+    annotation (Line(points={{-38,210},{20,210},{20,175.25},{38,175.25}},
       color={255,0,255}));
   connect(hasReq.y, mulAnd.u[2])
-    annotation (Line(points={{-119,180},{-20,180},{-20,171.75},{38,171.75}},
+    annotation (Line(points={{-118,180},{-20,180},{-20,171.75},{38,171.75}},
       color={255,0,255}));
   connect(schOn.y, mulAnd.u[3])
-    annotation (Line(points={{-79,140},{0,140},{0,168.25},{38,168.25}},
+    annotation (Line(points={{-78,140},{0,140},{0,168.25},{38,168.25}},
       color={255,0,255}));
   connect(schOn.y, not2.u)
-    annotation (Line(points={{-79,140},{-40,140},{-40,40},{-22,40}},
+    annotation (Line(points={{-78,140},{-40,140},{-40,40},{-22,40}},
       color={255,0,255}));
   connect(mulAnd.y, lat.u)
-    annotation (Line(points={{61.7,170},{99,170}}, color={255,0,255}));
+    annotation (Line(points={{62,170},{98,170}},   color={255,0,255}));
   connect(lat.y, yPla)
-    annotation (Line(points={{121,170},{210,170}}, color={255,0,255}));
+    annotation (Line(points={{122,170},{210,170}}, color={255,0,255}));
   connect(mulOr.y, and2.u2)
-    annotation (Line(points={{61,20},{80,20},{80,60},{20,60},{20,72},{38,72}},
+    annotation (Line(points={{62,20},{80,20},{80,60},{20,60},{20,72},{38,72}},
       color={255,0,255}));
   connect(lat.y, edg.u)
-    annotation (Line(points={{121,170},{140,170},{140,140},{100,140},{100,-160},
-      {118,-160}}, color={255,0,255}));
+    annotation (Line(points={{122,170},{140,170},{140,140},{100,140},{100,-160},
+          {118,-160}},
+                   color={255,0,255}));
   connect(edg.y, triSam.trigger)
-    annotation (Line(points={{141,-160},{150,-160},{150,-131.8}}, color={255,0,255}));
+    annotation (Line(points={{142,-160},{150,-160},{150,-131.8}}, color={255,0,255}));
   connect(triSam.y, reaToInt.u)
-    annotation (Line(points={{161,-120},{180,-120},{180,-180},{120,-180},{120,-200},
-      {138,-200}}, color={0,0,127}));
+    annotation (Line(points={{162,-120},{180,-120},{180,-180},{120,-180},{120,-200},
+          {138,-200}},
+                   color={0,0,127}));
   connect(reaToInt.y, yIniChiSta)
-    annotation (Line(points={{161,-200},{210,-200}}, color={255,127,0}));
+    annotation (Line(points={{162,-200},{210,-200}}, color={255,127,0}));
   connect(feedback.y, hys1.u)
-    annotation (Line(points={{-89,-120},{-62,-120}}, color={0,0,127}));
+    annotation (Line(points={{-88,-120},{-62,-120}}, color={0,0,127}));
   connect(swi.y, triSam.u)
-    annotation (Line(points={{81,-120},{138,-120}}, color={0,0,127}));
+    annotation (Line(points={{82,-120},{138,-120}}, color={0,0,127}));
   connect(con2.y, swi.u2)
-    annotation (Line(points={{-39,-180},{-20,-180},{-20,-120},{58,-120}},
+    annotation (Line(points={{-38,-180},{-20,-180},{-20,-120},{58,-120}},
       color={255,0,255}));
   connect(not2.y, mulOr.u1)
-    annotation (Line(points={{1,40},{20,40},{20,28},{38,28}},  color={255,0,255}));
+    annotation (Line(points={{2,40},{20,40},{20,28},{38,28}},  color={255,0,255}));
   connect(greEquThr2.y, mulOr.u2)
-    annotation (Line(points={{-39,20},{38,20}}, color={255,0,255}));
+    annotation (Line(points={{-38,20},{38,20}}, color={255,0,255}));
   connect(hys1.y, swi.u2)
-    annotation (Line(points={{-39,-120},{58,-120}}, color={255,0,255}));
+    annotation (Line(points={{-38,-120},{58,-120}}, color={255,0,255}));
   connect(wseTOut.TOutWet, TOutWet)
     annotation (Line(points={{-142,-172},{-150,-172},{-150,-140},{-220,-140}},
       color={0,0,127}));
   connect(con3.y, wseTOut.VChiWat_flow)
-    annotation (Line(points={{-159,-180},{-142,-180}},
+    annotation (Line(points={{-158,-180},{-142,-180}},
       color={0,0,127}));
   connect(wseTOut.uTunPar, uTunPar)
     annotation (Line(points={{-142,-188},{-150,-188},{-150,-220},{-220,-220}},
       color={0,0,127}));
   connect(hasReq.y, not3.u)
-    annotation (Line(points={{-119,180},{-20,180},{-20,160},{-180,160},{-180,20},
-       {-142,20}}, color={255,0,255}));
+    annotation (Line(points={{-118,180},{-20,180},{-20,160},{-180,160},{-180,20},
+          {-142,20}},
+                   color={255,0,255}));
   connect(not3.y, enaTim1.u)
-    annotation (Line(points={{-119,20},{-102,20}}, color={255,0,255}));
+    annotation (Line(points={{-118,20},{-102,20}}, color={255,0,255}));
   connect(wseTOut.y, feedback.u2)
     annotation (Line(points={{-118,-180},{-100,-180},{-100,-132}}, color={0,0,127}));
   connect(TChiWatSupSet, feedback.u1)
     annotation (Line(points={{-220,-100},{-140,-100},{-140,-120},{-112,-120}},
       color={0,0,127}));
   connect(lat.y, pre1.u)
-    annotation (Line(points={{121,170},{140,170},{140,230},{-190,230},{-190,210},
-      {-182,210}}, color={255,0,255}));
+    annotation (Line(points={{122,170},{140,170},{140,230},{-190,230},{-190,210},
+          {-182,210}},
+                   color={255,0,255}));
   connect(pre1.y, not1.u)
-    annotation (Line(points={{-159,210},{-142,210}}, color={255,0,255}));
+    annotation (Line(points={{-158,210},{-142,210}}, color={255,0,255}));
   connect(pre1.y, enaTim.u)
-    annotation (Line(points={{-159,210},{-150,210},{-150,80},{-142,80}},
+    annotation (Line(points={{-158,210},{-150,210},{-150,80},{-142,80}},
       color={255,0,255}));
   connect(staZer.y, swi.u1)
-    annotation (Line(points={{21,-100},{40,-100},{40,-112},{58,-112}}, color={0,0,127}));
+    annotation (Line(points={{22,-100},{40,-100},{40,-112},{58,-112}}, color={0,0,127}));
   connect(staOne.y, swi.u3)
-    annotation (Line(points={{21,-140},{40,-140},{40,-128},{58,-128}}, color={0,0,127}));
+    annotation (Line(points={{22,-140},{40,-140},{40,-128},{58,-128}}, color={0,0,127}));
   connect(TOut, add2.u2)
     annotation (Line(points={{-220,-60},{-150,-60},{-150,-46},{-142,-46}},
       color={0,0,127}));
   connect(chiLocOutTem.y, add2.u1)
-    annotation (Line(points={{-159,-20},{-150,-20},{-150,-34},{-142,-34}},
+    annotation (Line(points={{-158,-20},{-150,-20},{-150,-34},{-142,-34}},
       color={0,0,127}));
   connect(add2.y, hys.u)
-    annotation (Line(points={{-119,-40},{-102,-40}}, color={0,0,127}));
+    annotation (Line(points={{-118,-40},{-102,-40}}, color={0,0,127}));
   connect(hys.y, mulOr.u3)
-    annotation (Line(points={{-79,-40},{20,-40},{20,12},{38,12}},
+    annotation (Line(points={{-78,-40},{20,-40},{20,12},{38,12}},
       color={255,0,255}));
   connect(hys.y, not4.u)
-    annotation (Line(points={{-79,-40},{-70,-40},{-70,100},{-22,100}},
+    annotation (Line(points={{-78,-40},{-70,-40},{-70,100},{-22,100}},
       color={255,0,255}));
   connect(not4.y, mulAnd.u[4])
-    annotation (Line(points={{1,100},{20,100},{20,164.75},{38,164.75}},
+    annotation (Line(points={{2,100},{20,100},{20,164.75},{38,164.75}},
       color={255,0,255}));
-  connect(and2.y, lat.clr) annotation (Line(points={{61,80},{80,80},{80,164},{
-          99,164}}, color={255,0,255}));
+  connect(and2.y, lat.clr) annotation (Line(points={{62,80},{80,80},{80,164},{98,
+          164}},    color={255,0,255}));
 annotation (
   defaultComponentName = "plaEna",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-240},{200,240}})),

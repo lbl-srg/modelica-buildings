@@ -27,7 +27,8 @@ block Status
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u(
     final min=0,
-    final max=nSta) "Current chiller stage"
+    final max=nSta,
+    final start = 0) "Current chiller stage"
     annotation (Placement(transformation(extent={{-460,60},{-420,100}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
 

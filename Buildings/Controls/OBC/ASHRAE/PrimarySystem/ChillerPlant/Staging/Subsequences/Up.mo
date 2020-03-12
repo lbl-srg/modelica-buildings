@@ -29,17 +29,18 @@ block Up "Generates a stage up signal"
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHigSta
     "Operating at the highest available stage"
-    annotation (Placement(transformation(extent={{-220,-150},{-180,-110}}),
+    annotation (Placement(transformation(extent={{-220,-180},{-180,-140}}),
     iconTransformation(extent={{-140,-140},{-100,-100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput chaPro
     "Stage change process status, true = on, false = off"
-    annotation (Placement(transformation(extent={{-220,-180},{-180,-140}}),
+    annotation (Placement(transformation(extent={{-220,-210},{-180,-170}}),
         iconTransformation(extent={{-140,-160},{-100,-120}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u if       hasWSE
-    "Chiller stage" annotation (Placement(transformation(extent={{-220,-120},{-180,
-            -80}}), iconTransformation(extent={{-140,-120},{-100,-80}})));
+    "Chiller stage" annotation (Placement(transformation(extent={{-220,-110},{
+            -180,-70}}),
+                    iconTransformation(extent={{-140,-120},{-100,-80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOpe(final unit="1")
     "Operating part load ratio of the current stage" annotation (Placement(
@@ -50,16 +51,6 @@ block Up "Generates a stage up signal"
     "Staging part load ratio of the next stage up" annotation (Placement(
         transformation(extent={{-220,160},{-180,200}}), iconTransformation(
           extent={{-140,60},{-100,100}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOpeUp(final unit="1")
-    "Operating part load ratio of the next higher stage" annotation (Placement(
-        transformation(extent={{-220,120},{-180,160}}),iconTransformation(
-          extent={{-140,30},{-100,70}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOpeUpMin(final unit="1")
-    "Minimum operating part load ratio at the next stage up" annotation (
-      Placement(transformation(extent={{-220,90},{-180,130}}),
-        iconTransformation(extent={{-140,10},{-100,50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPumSet(
     final unit="Pa",
@@ -96,7 +87,7 @@ block Up "Generates a stage up signal"
 
   Buildings.Controls.OBC.CDL.Logical.Not not2
     "If change is not in process or the hold time has expired the stage change is enabled"
-    annotation (Placement(transformation(extent={{-80,-170},{-60,-150}})));
+    annotation (Placement(transformation(extent={{-80,-200},{-60,-180}})));
 
 //protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.FailsafeCondition faiSafCon(
@@ -119,7 +110,7 @@ block Up "Generates a stage up signal"
 
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr if hasWSE
     "Switches staging up rules"
-    annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
+    annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTSup(
     final uLow=smallTDif,
@@ -165,7 +156,7 @@ block Up "Generates a stage up signal"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
-    annotation (Placement(transformation(extent={{-120,-140},{-100,-120}})));
+    annotation (Placement(transformation(extent={{-120,-170},{-100,-150}})));
 
   Buildings.Controls.OBC.CDL.Logical.And3 and3
     "Prevents stage up signal if operating at the highest available stage"
@@ -174,27 +165,22 @@ block Up "Generates a stage up signal"
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
     final trueHoldDuration=upHolPer,
     final falseHoldDuration=0)
-    annotation (Placement(transformation(extent={{-120,-170},{-100,-150}})));
+    annotation (Placement(transformation(extent={{-120,-200},{-100,-180}})));
 
-  CDL.Interfaces.BooleanInput                        uAvaCur
-    "Current stage availability status"
-    annotation (Placement(transformation(extent={{-220,-220},{-180,-180}}),
-        iconTransformation(extent={{-140,-180},{-100,-140}})));
   CDL.Logical.Or orAva if                           hasWSE
     "Demand stage up if current stage becomes unavailable"
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
   CDL.Logical.Not not3
-    annotation (Placement(transformation(extent={{-120,-210},{-100,-190}})));
+    annotation (Placement(transformation(extent={{-120,-230},{-100,-210}})));
+  CDL.Interfaces.BooleanInput                        uAvaCur
+    "Current stage availability status"
+    annotation (Placement(transformation(extent={{-220,-150},{-180,-110}}),
+        iconTransformation(extent={{-140,-180},{-100,-140}})));
 equation
   connect(uOpe, effCon.uOpe) annotation (Line(points={{-200,210},{-170,210},{-170,
           195},{-122,195}},color={0,0,127}));
   connect(uStaUp, effCon.uStaUp) annotation (Line(points={{-200,180},{-170,180},
           {-170,185},{-122,185}},color={0,0,127}));
-  connect(uOpeUp, faiSafCon.uOpeUp) annotation (Line(points={{-200,140},{-140,140},
-          {-140,98},{-122,98}},color={0,0,127}));
-  connect(uOpeUpMin, faiSafCon.uOpeUpMin) annotation (Line(points={{-200,110},{-170,
-          110},{-170,95},{-122,95}},
-                                   color={0,0,127}));
   connect(TChiWatSupSet, faiSafCon.TChiWatSupSet) annotation (Line(points={{-200,
           -20},{-170,-20},{-170,92},{-122,92}},
                                               color={0,0,127}));
@@ -209,8 +195,8 @@ equation
           110},{-42,110}}, color={255,0,255}));
   connect(faiSafCon.y, orStaUp.u2) annotation (Line(points={{-98,90},{-70,90},{-70,
           102},{-42,102}}, color={255,0,255}));
-  connect(intGreThr.y, logSwi.u2) annotation (Line(points={{-98,-100},{-8,-100},
-          {-8,70},{38,70}}, color={255,0,255}));
+  connect(intGreThr.y, logSwi.u2) annotation (Line(points={{-98,-90},{-8,-90},{
+          -8,70},{38,70}},  color={255,0,255}));
   connect(orStaUp.y, logSwi.u1) annotation (Line(points={{-18,110},{-10,110},{-10,
           78},{38,78}},
                    color={255,0,255}));
@@ -218,14 +204,14 @@ equation
     annotation (Line(points={{-98,10},{-82,10}},   color={0,0,127}));
   connect(TChiWatSupSet,add0. u1) annotation (Line(points={{-200,-20},{-130,-20},
           {-130,16},{-122,16}},   color={0,0,127}));
-  connect(TChiWatSup,add0. u2) annotation (Line(points={{-200,-60},{-150,-60},{-150,
-          4},{-122,4}},          color={0,0,127}));
+  connect(TChiWatSup,add0. u2) annotation (Line(points={{-200,-60},{-150,-60},{
+          -150,4},{-122,4}},     color={0,0,127}));
   connect(add1.y, hysTSup1.u)
     annotation (Line(points={{-98,-30},{-82,-30}}, color={0,0,127}));
   connect(TChiWatSupSet,add1. u1) annotation (Line(points={{-200,-20},{-130,-20},
           {-130,-24},{-122,-24}}, color={0,0,127}));
-  connect(TChiWatSup,add1. u2) annotation (Line(points={{-200,-60},{-150,-60},{-150,
-          -36},{-122,-36}},      color={0,0,127}));
+  connect(TChiWatSup,add1. u2) annotation (Line(points={{-200,-60},{-150,-60},{
+          -150,-36},{-122,-36}}, color={0,0,127}));
   connect(hysTSup.y, truDel.u)
     annotation (Line(points={{-58,10},{-42,10}},  color={255,0,255}));
   connect(hysTSup1.y, truDel1.u)
@@ -241,28 +227,28 @@ equation
     annotation (Line(points={{-18,70},{38,70}},color={255,0,255}));
   connect(noWSE.y, logSwi.u3) annotation (Line(points={{-18,70},{10,70},{10,62},
           {38,62}},color={255,0,255}));
-  connect(uHigSta, not1.u)
-    annotation (Line(points={{-200,-130},{-122,-130}},color={255,0,255}));
   connect(logSwi.y,and3. u1) annotation (Line(points={{62,70},{70,70},{70,8},{78,
           8}},    color={255,0,255}));
-  connect(not1.y,and3. u2) annotation (Line(points={{-98,-130},{60,-130},{60,0},
+  connect(not1.y,and3. u2) annotation (Line(points={{-98,-160},{60,-160},{60,0},
           {78,0}},  color={255,0,255}));
-  connect(chaPro, truFalHol.u) annotation (Line(points={{-200,-160},{-122,-160}},
+  connect(chaPro, truFalHol.u) annotation (Line(points={{-200,-190},{-122,-190}},
                                    color={255,0,255}));
   connect(truFalHol.y, not2.u)
-    annotation (Line(points={{-98,-160},{-82,-160}}, color={255,0,255}));
-  connect(not2.y, and3.u3) annotation (Line(points={{-58,-160},{70,-160},{70,-8},
+    annotation (Line(points={{-98,-190},{-82,-190}}, color={255,0,255}));
+  connect(not2.y, and3.u3) annotation (Line(points={{-58,-190},{70,-190},{70,-8},
           {78,-8}}, color={255,0,255}));
-  connect(u, intGreThr.u)
-    annotation (Line(points={{-200,-100},{-122,-100}}, color={255,127,0}));
   connect(and3.y, orAva.u1)
     annotation (Line(points={{102,0},{118,0}}, color={255,0,255}));
-  connect(uAvaCur, not3.u)
-    annotation (Line(points={{-200,-200},{-122,-200}}, color={255,0,255}));
-  connect(not3.y, orAva.u2) annotation (Line(points={{-98,-200},{110,-200},{110,
+  connect(not3.y, orAva.u2) annotation (Line(points={{-98,-220},{110,-220},{110,
           -8},{118,-8}}, color={255,0,255}));
   connect(orAva.y, y)
     annotation (Line(points={{142,0},{180,0}}, color={255,0,255}));
+  connect(u, intGreThr.u)
+    annotation (Line(points={{-200,-90},{-122,-90}}, color={255,127,0}));
+  connect(uHigSta, not1.u)
+    annotation (Line(points={{-200,-160},{-122,-160}}, color={255,0,255}));
+  connect(uAvaCur, faiSafCon.uAvaCur) annotation (Line(points={{-200,-130},{
+          -140,-130},{-140,78},{-122,78}}, color={255,0,255}));
   annotation (defaultComponentName = "staUp",
         Icon(graphics={
         Rectangle(
