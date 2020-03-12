@@ -45,12 +45,10 @@ model Condensation "Test model for water condensation process"
 equation
   connect(floCon.m_flow_in, m_flow.y)
     annotation (Line(points={{0,22},{0,70},{-9,70}},  color={0,0,127}));
-  connect(steSou.p_in, pIn.y) annotation (Line(points={{-42,18},{-50,18},{-50,
-          70},{-69,70}},
-                     color={0,0,127}));
-  connect(steSou.T_in, TIn.y) annotation (Line(points={{-42,14},{-60,14},{-60,
-          30},{-69,30}},
-                     color={0,0,127}));
+  connect(steSou.p_in, pIn.y) annotation (Line(points={{-42,18},{-50,18},{-50,70},
+          {-69,70}}, color={0,0,127}));
+  connect(steSou.T_in, TIn.y) annotation (Line(points={{-42,14},{-60,14},{-60,30},
+          {-69,30}}, color={0,0,127}));
   connect(pRef.ports[1], vol.ports[1])
     annotation (Line(points={{70,-70},{60,-70},{60,-40}}, color={0,127,255}));
   connect(steSou.ports[1], floCon.port_a)
@@ -62,5 +60,8 @@ equation
   connect(vol.heatPort, con.port_h)
     annotation (Line(points={{50,-30},{30,-30},{30,0}}, color={191,0,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+  experiment(Tolerance=1e-6, StopTime=100.0),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/Condensation.mos"
+        "Simulate and plot"));
 end Condensation;
