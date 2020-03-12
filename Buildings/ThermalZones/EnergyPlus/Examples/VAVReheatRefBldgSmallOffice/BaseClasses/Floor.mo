@@ -1,13 +1,18 @@
 within Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses;
 model Floor "Model of a floor of the building"
 
-  extends Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.PartialFloor(
+  extends
+    Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.PartialFloor(
     final VRooCor=cor.V,
     final VRooSou=sou.V,
     final VRooNor=nor.V,
     final VRooEas=eas.V,
     final VRooWes=wes.V,
-    intGaiFra(table=[0,0; 24,0]));
+    intGaiFra(table=[0,0; 24,0]),
+    opeWesCor(wOpe=10*(17.69 + 8.46)/(40.76 + 24.13)),
+    opeSouCor(wOpe=10*(17.69 + 8.46)/(40.76 + 24.13)),
+    opeNorCor(wOpe=10*(17.69 + 8.46)/(40.76 + 24.13)),
+    opeEasCor(wOpe=10*(17.69 + 8.46)/(40.76 + 24.13)));
 
   final parameter Modelica.SIunits.Area AFloCor=cor.AFlo "Floor area corridor";
   final parameter Modelica.SIunits.Area AFloSou=sou.AFlo "Floor area south";
@@ -376,6 +381,20 @@ equation
     Documentation(info="<html>
 <p>
 Model of one floor of the DOE reference office building.
+</p>
+<h4>Implementation</h4>
+<p>
+Compared to the base class, which has been built for the models in
+<a href=\"modelica://Buildings.Examples.VAVReheat\">
+Buildings.Examples.VAVReheat</a> which are for a larger building,
+the instances of
+<a href=\"modelica://Buildings.Airflow.Multizone.DoorDiscretizedOpen\">
+Buildings.Airflow.Multizone.DoorDiscretizedOpen</a> are made smaller.
+Their length has been reduced proportionally
+to the difference in length of the walls of the core zone of the two buildings.
+See also <a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice\">
+Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice</a>
+for a description of the differences in these buildings.
 </p>
 </html>",
 revisions="<html>

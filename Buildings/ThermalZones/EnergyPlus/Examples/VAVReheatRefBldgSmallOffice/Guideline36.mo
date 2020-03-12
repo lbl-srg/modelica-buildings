@@ -42,12 +42,12 @@ sequence is shown in the figure below.
 </p>
 <p>
 A similar model but with a different control sequence can be found in
-<a href=\"modelica://Buildings.Examples.VAVReheat.Guideline36\">
-Buildings.Examples.VAVReheat.Guideline36</a>.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.ASHRAE2006\">
+Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.ASHRAE2006</a>..
 Note that this model, because of the frequent time sampling,
 has longer computing time than
-<a href=\"modelica://Buildings.Examples.VAVReheat.Guideline36\">
-Buildings.Examples.VAVReheat.Guideline36</a>.
+<a href=\"modelica://Buildings.Examples.VAVReheat.ASHRAE2006\">
+Buildings.Examples.VAVReheat.ASHRAE2006</a>.
 The reason is that the time integrator cannot make large steps
 because it needs to set a time step each time the control samples
 its input.

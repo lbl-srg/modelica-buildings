@@ -106,11 +106,12 @@ Documentation(info="<html>
 Test case of one floor of the small office DOE reference building.
 </p>
 </html>", revisions="<html>
-<ul><li>
+<ul>
+<li>
 March 5, 2019, by Michael Wetter:<br/>
 First implementation.
 </li>
-<ul><li>
+<li>
 March 4, 2020, by Milica Grahovac:<br/>
 Declared the floor model as replaceable.
 </li>

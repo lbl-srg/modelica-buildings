@@ -170,18 +170,18 @@ equation
   connect(conAHU.TZon, flo.TRooAir) annotation (Line(points={{382,429.5},{280,
           429.5},{280,622},{1164,622},{1164,506},{1107.13,506}},
         color={0,0,127}));
-  connect(conAHU.TOut, TOut.y) annotation (Line(points={{382,450.714},{-266,
-          450.714},{-266,180},{-279,180}}, color={0,0,127}));
-  connect(TRet.T, conAHU.TOutCut) annotation (Line(points={{100,151},{100,
-          414.071},{382,414.071}},     color={0,0,127}));
-  connect(conAHU.TSup, TSup.T) annotation (Line(points={{382,419.857},{152,
-          419.857},{152,-20},{340,-20},{340,-29}}, color={0,0,127}));
+  connect(conAHU.TOut, TOut.y) annotation (Line(points={{382,450.714},{-266,450.714},
+          {-266,180},{-279,180}},          color={0,0,127}));
+  connect(TRet.T, conAHU.TOutCut) annotation (Line(points={{100,151},{100,414.071},
+          {382,414.071}},              color={0,0,127}));
+  connect(conAHU.TSup, TSup.T) annotation (Line(points={{382,419.857},{152,419.857},
+          {152,-20},{340,-20},{340,-29}},          color={0,0,127}));
   connect(dpDisSupFan.p_rel, conAHU.ducStaPre) annotation (Line(points={{311,0},
           {160,0},{160,439.143},{382,439.143}},     color={0,0,127}));
-  connect(conAHU.uOpeMod, TZonSet.yOpeMod) annotation (Line(points={{382,
-          385.143},{130,385.143},{130,304},{82,304}}, color={255,127,0}));
-  connect(conAHU.TDis, TDis.y) annotation (Line(points={{382,425.643},{252,
-          425.643},{252,290},{241,290}}, color={0,0,127}));
+  connect(conAHU.uOpeMod, TZonSet.yOpeMod) annotation (Line(points={{382,385.143},
+          {130,385.143},{130,304},{82,304}},          color={255,127,0}));
+  connect(conAHU.TDis, TDis.y) annotation (Line(points={{382,425.643},{252,425.643},
+          {252,290},{241,290}},          color={0,0,127}));
   connect(conAHU.VDis_flow, VDis_flow.y) annotation (Line(points={{382,444.929},
           {260,444.929},{260,250},{241,250}},          color={0,0,127}));
   connect(conVAVCor.uOpeMod, TZonSet.yOpeMod) annotation (Line(points={{528,33},
@@ -199,8 +199,8 @@ equation
   connect(conVAVWes.uOpeMod, TZonSet.yOpeMod) annotation (Line(points={{1238,29},
           {1228,29},{1228,16},{420,16},{420,200},{130,200},{130,304},{82,304}},
         color={255,127,0}));
-  connect(conAHU.uZonTemResReq, TZonResReq.y) annotation (Line(points={{382,
-          379.357},{352,379.357},{352,360},{322,360}},   color={255,127,0}));
+  connect(conAHU.uZonTemResReq, TZonResReq.y) annotation (Line(points={{382,379.357},
+          {352,379.357},{352,360},{322,360}},            color={255,127,0}));
   connect(conVAVCor.yZonTemResReq, TZonResReq.u[1]) annotation (Line(points={{552,38},
           {554,38},{554,220},{280,220},{280,365.6},{298,365.6}},         color=
           {255,127,0}));
@@ -231,8 +231,8 @@ equation
   connect(conVAVWes.yZonPreResReq, PZonResReq.u[5]) annotation (Line(points={{1262,30},
           {1268,30},{1268,214},{288,214},{288,324.4},{298,324.4}},
         color={255,127,0}));
-  connect(conAHU.uZonPreResReq, PZonResReq.y) annotation (Line(points={{382,
-          373.571},{360,373.571},{360,330},{322,330}},   color={255,127,0}));
+  connect(conAHU.uZonPreResReq, PZonResReq.y) annotation (Line(points={{382,373.571},
+          {360,373.571},{360,330},{322,330}},            color={255,127,0}));
   connect(VSupCor_flow.V_flow, VDis_flow.u1[1]) annotation (Line(points={{569,
           130},{472,130},{472,206},{180,206},{180,260},{218,260}}, color={0,0,
           127}));
@@ -288,16 +288,15 @@ equation
   connect(conAHU.yCoo, gaiCooCoi.u) annotation (Line(points={{426,416},{446,416},
           {446,-274},{88,-274},{88,-248},{98,-248}},              color={0,0,
           127}));
-  connect(conAHU.TMix, TMix.T) annotation (Line(points={{382,390.929},{40,
-          390.929},{40,-29}},
-                    color={0,0,127}));
-  connect(conAHU.yRetDamPos, eco.yRet) annotation (Line(points={{426,408.286},{
-          436,408.286},{436,40},{-16.8,40},{-16.8,-34}},           color={0,0,
+  connect(conAHU.TMix, TMix.T) annotation (Line(points={{382,390.929},{40,390.929},
+          {40,-29}},color={0,0,127}));
+  connect(conAHU.yRetDamPos, eco.yRet) annotation (Line(points={{426,408.286},
+          {436,408.286},{436,40},{-16.8,40},{-16.8,-34}},          color={0,0,
           127}));
   connect(yOutDam.y, eco.yExh)
     annotation (Line(points={{-18,-10},{-3,-10},{-3,-34}}, color={0,0,127}));
-  connect(conAHU.yHea, swiFreSta.u3) annotation (Line(points={{426,425.643},{
-          458,425.643},{458,-280},{48,-280},{48,-200},{58,-200}},  color={0,0,
+  connect(conAHU.yHea, swiFreSta.u3) annotation (Line(points={{426,425.643},{458,
+          425.643},{458,-280},{48,-280},{48,-200},{58,-200}},      color={0,0,
           127}));
   connect(swiFreSta.y, gaiHeaCoi.u) annotation (Line(points={{82,-192},{88,-192},
           {88,-210},{98,-210}}, color={0,0,127}));

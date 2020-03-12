@@ -58,8 +58,8 @@ using a finite state machine.
 </p>
 <p>
 A similar model but with a different control sequence can be found in
-<a href=\"modelica://Buildings.Examples.VAVReheat.Guideline36\">
-Buildings.Examples.VAVReheat.Guideline36</a>.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.Guideline36\">
+Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.Guideline36</a>.
 </p>
 <h4>References</h4>
 <p>

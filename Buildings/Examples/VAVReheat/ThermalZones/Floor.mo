@@ -1,18 +1,18 @@
 within Buildings.Examples.VAVReheat.ThermalZones;
 model Floor "Model of a floor of the building"
+  extends
+    Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.PartialFloor(
+    final VRooCor=cor.AFlo * hRoo,
+    final VRooSou=sou.AFlo * hRoo,
+    final VRooNor=nor.AFlo * hRoo,
+    final VRooEas=eas.AFlo * hRoo,
+    final VRooWes=wes.AFlo * hRoo);
 
   parameter Modelica.SIunits.Area AFloCor = 2698/hRoo "Core zone floor area";
   parameter Modelica.SIunits.Area AFloSou = 568.77/hRoo "South zone floor area";
   parameter Modelica.SIunits.Area AFloNor = 568.77/hRoo "North zone floor area";
   parameter Modelica.SIunits.Area AFloEas = 360.0785/hRoo "East zone floor area";
   parameter Modelica.SIunits.Area AFloWes = 360.0785/hRoo "West zone floor area";
-
-  extends Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.PartialFloor(
-    final VRooCor=cor.AFlo * hRoo,
-    final VRooSou=sou.AFlo * hRoo,
-    final VRooNor=nor.AFlo * hRoo,
-    final VRooEas=eas.AFlo * hRoo,
-    final VRooWes=wes.AFlo * hRoo);
 
   parameter HeatTransfer.Types.InteriorConvection intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature
     "Convective heat transfer model for room-facing surfaces of opaque constructions";
