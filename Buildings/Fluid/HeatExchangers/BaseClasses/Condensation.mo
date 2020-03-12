@@ -29,16 +29,17 @@ equation
   TSte = TWat;
   port_b.p = port_a.p;
 
-  // Conservation of mass
+  // Steady state conservation of mass
   port_a.m_flow + port_b.m_flow = 0;
 
   // Enthalpy decreased with condensation process
   dh = MediumSte.enthalpyOfVaporization(MediumSte.setSat_p(port_a.p))
     "Enthalpy is changed by a factor of h_fg";
-  port_b.h_outflow = port_a.h_outflow - dh;
+  port_b.h_outflow = inStream(port_a.h_outflow) - dh;
 
-  // Conservation of energy
-  port_h.Q_flow = -port_a.m_flow * dh;
+  // Steady state conservation of energy
+  port_a.m_flow*inStream(port_a.h_outflow) +  port_b.m_flow*port_b.h_outflow +
+    port_h.Q_flow = 0;
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Polygon(
