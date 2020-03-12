@@ -18,6 +18,9 @@ block SupplyTemperature
   parameter Modelica.SIunits.Temperature TOutMax = 294.15
     "Higher value of the outdoor air temperature reset range. Typically value is 21 degC (70 degF)"
     annotation (Dialog(group="Temperatures"));
+  parameter Modelica.SIunits.Temperature TSupWarUpSetBac=308.15
+    "Supply temperature in warm up and set back mode"
+    annotation (Dialog(group="Temperatures"));
   parameter Modelica.SIunits.Temperature iniSet = maxSet
     "Initial setpoint"
     annotation (Dialog(group="Trim and respond logic"));
@@ -109,7 +112,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and1
     "Check if it is in Warmup or Setback mode"
     annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupWarUpSetBac(k=35 + 273.15)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant supTemWarUpSetBac(k=
+        TSupWarUpSetBac)
     "Supply temperature setpoint under warm-up and setback mode"
     annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi1
@@ -119,8 +123,8 @@ protected
     "If operation mode is setup or cool-down, setpoint shall be TSupSetMin"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Limiter TDea(
-    uMax=24 + 273.15,
-    uMin=21 + 273.15)
+    uMax=297.15,
+    uMin=294.15)
     "Limiter that outputs the dead band value for the supply air temperature"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi3
@@ -159,7 +163,7 @@ equation
   connect(and1.y, swi1.u2)
     annotation (Line(points={{42,-90},{60,-90},{60,-50},{78,-50}},
       color={255,0,255}));
-  connect(TSupWarUpSetBac.y, swi1.u1)
+  connect(supTemWarUpSetBac.y, swi1.u1)
     annotation (Line(points={{42,-120},{68,-120},{68,-42},{78,-42}},
       color={0,0,127}));
   connect(and2.y, swi2.u2)
@@ -215,7 +219,7 @@ equation
     annotation (Line(points={{-160,-30},{-120,-30},{-120,38},{-102,38}},
       color={255,0,255}));
   connect(maxSupTemRes.y, lin.f1)
-    annotation (Line(points={{-79,30},{-60,30},{-60,54},{18,54}},
+    annotation (Line(points={{-78,30},{-60,30},{-60,54},{18,54}},
       color={0,0,127}));
   connect(swi3.y, TSupSet)
     annotation (Line(points={{102,0},{160,0}},   color={0,0,127}));
@@ -335,7 +339,7 @@ Supply air temperature setpoint <code>TSupSet</code> shall be <code>TSupSetMin</
 </p>
 <h4>During Setback and Warmup modes (<code>uOpeMod=4</code>, <code>uOpeMod=5</code>)</h4>
 <p>
-Supply air temperature setpoint <code>TSupSet</code> shall be <code>35&deg;C</code>.
+Supply air temperature setpoint <code>TSupSet</code> shall be <code>TSupWarUpSetBac</code>.
 </p>
 
 <h4>Valves control</h4>
@@ -347,6 +351,11 @@ coil (if applicable) or chilled water valves.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 12, 2020, by Jianjun Hu:<br/>
+Propagated supply temperature setpoint of warmup and setback mode.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1829\">#1829</a>.
+</li>
 <li>
 July 11, 2017, by Jianjun Hu:<br/>
 First implementation.
