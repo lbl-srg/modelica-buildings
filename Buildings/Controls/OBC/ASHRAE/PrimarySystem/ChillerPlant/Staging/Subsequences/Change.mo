@@ -190,12 +190,12 @@ block Change "Calculates the chiller stage signal"
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChi[nChi]
     "Chiller status setpoint vector for the current chiller stage setpoint"
-    annotation (Placement(transformation(extent={{300,-330},{340,-290}}),
+    annotation (Placement(transformation(extent={{400,-330},{440,-290}}),
         iconTransformation(extent={{100,-90},{140,-50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput ySta(final max=fill(nSta,
         nSta)) "Chiller stage integer setpoint" annotation (Placement(
-        transformation(extent={{300,-110},{340,-70}}), iconTransformation(
+        transformation(extent={{400,-110},{440,-70}}), iconTransformation(
           extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Configurator conf(
@@ -261,34 +261,39 @@ block Change "Calculates the chiller stage signal"
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Stage setpoint change trigger signal" annotation (Placement(transformation(
-          extent={{300,-270},{340,-230}}), iconTransformation(extent={{100,50},
+          extent={{400,-270},{440,-230}}), iconTransformation(extent={{100,50},
             {140,90}})));
 
   CDL.Interfaces.BooleanInput uPla "Plant enable signal" annotation (Placement(
         transformation(extent={{-280,-160},{-240,-120}}), iconTransformation(
           extent={{-140,-230},{-100,-190}})));
   CDL.Discrete.TriggeredSampler triSam
-    annotation (Placement(transformation(extent={{220,-100},{240,-80}})));
+    annotation (Placement(transformation(extent={{220,-110},{240,-90}})));
   Modelica.Blocks.Logical.Switch switch1
-    annotation (Placement(transformation(extent={{180,-100},{200,-80}})));
+    annotation (Placement(transformation(extent={{180,-110},{200,-90}})));
   CDL.Conversions.IntegerToReal intToRea
-    annotation (Placement(transformation(extent={{120,-140},{140,-120}})));
+    annotation (Placement(transformation(extent={{120,-150},{140,-130}})));
   CDL.Conversions.RealToInteger reaToInt
-    annotation (Placement(transformation(extent={{260,-100},{280,-80}})));
+    annotation (Placement(transformation(extent={{320,-30},{340,-10}})));
   CDL.Conversions.IntegerToReal intToRea1
-    annotation (Placement(transformation(extent={{120,-60},{140,-40}})));
+    annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
   CDL.Logical.Latch lat
-    annotation (Placement(transformation(extent={{120,-100},{140,-80}})));
+    annotation (Placement(transformation(extent={{120,-110},{140,-90}})));
   CDL.Interfaces.IntegerInput uIni(final min=0, final max=nSta)
     "Initial chiller stage (at plant enable)" annotation (Placement(
         transformation(extent={{-280,-120},{-240,-80}}), iconTransformation(
           extent={{-140,-130},{-100,-90}})));
+  CDL.Conversions.IntegerToReal intToRea2 "Integer to real conversion"
+    annotation (Placement(transformation(extent={{220,20},{240,40}})));
+  CDL.Logical.TrueFalseHold holIniSta(trueHoldDuration=delayStaCha)
+    "Holds stage switched to initial upon plant start"
+    annotation (Placement(transformation(extent={{120,-30},{140,-10}})));
+  Modelica.Blocks.Logical.Switch switch2
+    annotation (Placement(transformation(extent={{282,-30},{302,-10}})));
 protected
   CDL.Logical.Edge                                               edg
-    annotation (Placement(transformation(extent={{160,100},{180,120}})));
-  CDL.Discrete.TriggeredSampler                                               triSam1
-    "Triggered sampling of continuous signals"
-    annotation (Placement(transformation(extent={{160,160},{180,180}})));
+    "Detects plant start"
+    annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
 equation
   connect(uChiAva, conf.uChiAva)
     annotation (Line(points={{-260,-240},{-220,-240},{-220,-230},{-202,-230}},
@@ -402,7 +407,7 @@ equation
   connect(or2.y, cha.u)
     annotation (Line(points={{162,-250},{178,-250}}, color={255,0,255}));
   connect(cha.y, y)
-    annotation (Line(points={{202,-250},{320,-250}}, color={255,0,255}));
+    annotation (Line(points={{202,-250},{420,-250}}, color={255,0,255}));
   connect(u, sta.u) annotation (Line(points={{-260,-70},{-166,-70},{-166,-264},
           {-162,-264}}, color={255,127,0}));
   connect(chaPro, staUp.chaPro) annotation (Line(points={{-260,-210},{-100,-210},
@@ -413,7 +418,7 @@ equation
   connect(sta.yAvaCur, staUp.uAvaCur) annotation (Line(points={{-138,-277},{-80,
           -277},{-80,-270},{40,-270},{40,-226},{58,-226}}, color={255,0,255}));
   connect(sta.yChi, yChi) annotation (Line(points={{-138,-280},{-60,-280},{-60,
-          -310},{320,-310}}, color={255,0,255}));
+          -310},{420,-310}}, color={255,0,255}));
   connect(staUp.y, or2.u1) annotation (Line(points={{82,-210},{120,-210},{120,
           -250},{138,-250}}, color={255,0,255}));
   connect(u, cap.u) annotation (Line(points={{-260,-70},{-166,-70},{-166,-227},
@@ -425,29 +430,48 @@ equation
   connect(u, staDow.u) annotation (Line(points={{-260,-70},{-166,-70},{-166,
           -300},{58,-300}}, color={255,127,0}));
   connect(reaToInt.y, ySta)
-    annotation (Line(points={{282,-90},{320,-90}}, color={255,127,0}));
-  connect(reaToInt.u, triSam.y)
-    annotation (Line(points={{258,-90},{242,-90}}, color={0,0,127}));
+    annotation (Line(points={{342,-20},{352,-20},{352,-90},{420,-90}},
+                                                   color={255,127,0}));
   connect(cha.y, triSam.trigger) annotation (Line(points={{202,-250},{230,-250},
-          {230,-101.8}}, color={255,0,255}));
+          {230,-111.8}}, color={255,0,255}));
   connect(switch1.y, triSam.u)
-    annotation (Line(points={{201,-90},{218,-90}}, color={0,0,127}));
-  connect(intToRea1.y, switch1.u1) annotation (Line(points={{142,-50},{160,-50},
-          {160,-82},{178,-82}}, color={0,0,127}));
-  connect(intToRea.y, switch1.u3) annotation (Line(points={{142,-130},{160,-130},
-          {160,-98},{178,-98}}, color={0,0,127}));
+    annotation (Line(points={{201,-100},{218,-100}},
+                                                   color={0,0,127}));
+  connect(intToRea1.y, switch1.u1) annotation (Line(points={{142,-60},{160,-60},
+          {160,-92},{178,-92}}, color={0,0,127}));
+  connect(intToRea.y, switch1.u3) annotation (Line(points={{142,-140},{160,-140},
+          {160,-108},{178,-108}},
+                                color={0,0,127}));
   connect(staUp.y, lat.u) annotation (Line(points={{82,-210},{100,-210},{100,
-          -90},{118,-90}}, color={255,0,255}));
+          -100},{118,-100}},
+                           color={255,0,255}));
   connect(staDow.y, lat.clr) annotation (Line(points={{82,-290},{90,-290},{90,
-          -96},{118,-96}}, color={255,0,255}));
+          -106},{118,-106}},
+                           color={255,0,255}));
   connect(sta.yUp, intToRea1.u) annotation (Line(points={{-138,-263},{-130,-263},
-          {-130,-50},{118,-50}}, color={255,127,0}));
+          {-130,-60},{118,-60}}, color={255,127,0}));
   connect(sta.yDown, intToRea.u) annotation (Line(points={{-138,-266},{-130,
-          -266},{-130,-130},{118,-130}}, color={255,127,0}));
+          -266},{-130,-140},{118,-140}}, color={255,127,0}));
   connect(lat.y, switch1.u2)
-    annotation (Line(points={{142,-90},{178,-90}}, color={255,0,255}));
+    annotation (Line(points={{142,-100},{178,-100}},
+                                                   color={255,0,255}));
+  connect(uPla, edg.u) annotation (Line(points={{-260,-140},{-142,-140},{-142,
+          -20},{58,-20}}, color={255,0,255}));
+  connect(edg.y, holIniSta.u)
+    annotation (Line(points={{82,-20},{118,-20}}, color={255,0,255}));
+  connect(switch2.y, reaToInt.u)
+    annotation (Line(points={{303,-20},{318,-20}}, color={0,0,127}));
+  connect(triSam.y, switch2.u3) annotation (Line(points={{242,-100},{260,-100},
+          {260,-28},{280,-28}}, color={0,0,127}));
+  connect(holIniSta.y, switch2.u2)
+    annotation (Line(points={{142,-20},{280,-20}}, color={255,0,255}));
+  connect(uIni, intToRea2.u) annotation (Line(points={{-260,-100},{-180,-100},{
+          -180,30},{218,30}}, color={255,127,0}));
+  connect(intToRea2.y, switch2.u1) annotation (Line(points={{242,30},{260,30},{
+          260,-12},{280,-12}}, color={0,0,127}));
   annotation (defaultComponentName = "cha",
-        Icon(graphics={
+        Icon(coordinateSystem(extent={{-240,-340},{400,340}}),
+             graphics={
         Rectangle(
         extent={{-100,-160},{100,160}},
         lineColor={0,0,127},
@@ -458,7 +482,7 @@ equation
           lineColor={0,0,255},
           textString="%name")}), Diagram(
         coordinateSystem(preserveAspectRatio=false,
-        extent={{-240,-340},{300,340}})),
+        extent={{-240,-340},{400,340}})),
 Documentation(info="<html>
 <p>
 Outputs the chiller stage change signal
