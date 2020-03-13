@@ -41,13 +41,14 @@ model OptimalStartHeating
     yMax=1,
     yMin=0) "PI control for space heating"
             annotation (Placement(transformation(extent={{160,0},{180,20}})));
-  Modelica.Blocks.Sources.CombiTimeTable TSetHea(
-    table=[0,15 + 273.15; 7*3600,21 + 273.15; 19*3600,15 + 273.15; 24*3600,15
-         + 273.15],
+  CDL.Continuous.Sources.TimeTable TSetHea(
+    table=[0,15 + 273.15;
+           7*3600, 21 + 273.15;
+           19*3600, 15 + 273.15;
+           24*3600, 15 + 273.15],
     y(unit="K"),
-    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
-    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-    startTime(displayUnit="d") = -172800)
+    smoothness=CDL.Types.Smoothness.ConstantSegments,
+    extrapolation=CDL.Types.Extrapolation.Periodic)
     "Heating setpoint for room temperature"
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add
@@ -84,7 +85,7 @@ equation
                                      color={0,0,127}));
   connect(TSetBac.y, add.u2) annotation (Line(points={{102,10},{106,10},{106,4},
           {118,4}}, color={0,0,127}));
-  connect(TSetHea.y[1], add.u1) annotation (Line(points={{101,80},{110,80},{110,
+  connect(TSetHea.y[1], add.u1) annotation (Line(points={{102,80},{110,80},{110,
           16},{118,16}}, color={0,0,127}));
   connect(optStaHea.optOn, booToRea.u) annotation (Line(points={{22,6},{30,6},{
           30,10},{38,10}},  color={255,0,255}));
@@ -105,11 +106,11 @@ This model is to validate the block
 Buildings.Controls.OBC.Utilities.OptimalStart</a> for space heating system.
 </p>
 <p>
-The room is modelled as a simple differential equation with a time constant of 
-around 5.6 hours, which is the same as the cooling case 
+The room is modelled as a simple differential equation with a time constant of
+around 5.6 hours, which is the same as the cooling case
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.Validation.OptimalStartCooling\">
-Buildings.Controls.OBC.Utilities.Validation.OptimalStartCooling</a>. 
-The outdoor temperature is also repetitive each day; 
+Buildings.Controls.OBC.Utilities.Validation.OptimalStartCooling</a>.
+The outdoor temperature is also repetitive each day;
 the optimal start time converges to a small amount of time <code>tOpt</code> after a few days.
 </p>
 </html>",
