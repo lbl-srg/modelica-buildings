@@ -784,8 +784,8 @@ revisions="<html>
 <ul>
 <li>
 March 10, 2020, by Jianjun Hu:<br/>
-Replaced the block of calculating operation mode and setpoint temperature with the one
-from terminal unit package. The new block does not have vector related calculation.<br/>
+Replaced the block for calculating the operation mode and setpoint temperature with the one
+from the terminal unit package. The new block does not have vector-valued calculations.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1709\">#1709</a>.
 </li>
 <li>
