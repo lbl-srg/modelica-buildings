@@ -21,7 +21,7 @@ block OptimalStart
   parameter Modelica.SIunits.Time thrOptOn(
     final min=0,
     max=10800) = 60
-    "Threshold time, optimal start only active if larger than thrOptOn";
+    "Threshold time, optimal start on signal becomes true when tOpt larger than thrOptOn";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetZonHea(
     final quantity="ThermodynamicTemperature",
@@ -67,7 +67,7 @@ block OptimalStart
   Buildings.Controls.OBC.Utilities.BaseClasses.OptimalStartCalculation optHea(
     final tOptMax=tOptMax,
     final thrOptOn=thrOptOn,
-    final tOptIni=tOptIni,
+    final tOptDef=tOptDef,
     final nDay=nDay,
     final uLow=uLow,
     final uHigh=uHigh) if computeHeating
@@ -76,15 +76,15 @@ block OptimalStart
   Buildings.Controls.OBC.Utilities.BaseClasses.OptimalStartCalculation optCoo(
     final tOptMax=tOptMax,
     final thrOptOn=thrOptOn,
-    final tOptIni=tOptIni,
+    final tOptDef=tOptDef,
     final nDay=nDay,
     final uLow=uLow,
     final uHigh=uHigh) if computeCooling
     "Optimal start time for cooling system"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
 protected
-  parameter Modelica.SIunits.Time tOptIni = 3600
-    "Initial optimal start time";
+  parameter Modelica.SIunits.Time tOptDef = 3600
+    "Default optimal start time";
   Buildings.Controls.OBC.CDL.Continuous.Max max
     "Get the maximum optimal start time "
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
@@ -92,9 +92,9 @@ protected
     "Maximum optimal start time"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysSta(
-    pre_y_start=true,
-    uHigh=0,
-    uLow=-60) "Hysteresis to activate the optimal start"
+    pre_y_start=false,
+    uHigh=60,
+    uLow=0)   "Hysteresis to activate the optimal start boolean output"
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
     "Get the optimal start boolean output"
@@ -222,7 +222,8 @@ start the HVAC system prior to occupancy. If
 then there is no need for the system to start before the occupancy.
 </p>
 <p>
-The optimal start is only active if the optimal start time is larger than the parameter
+The optimal start is only active (i.e., the optimal start on signal <code>optOn</code>
+becomes true) if the optimal start time is larger than the parameter
 <code>thrOptOn</code>.
 </p>
 <h4>Configuration for HVAC systems</h4>

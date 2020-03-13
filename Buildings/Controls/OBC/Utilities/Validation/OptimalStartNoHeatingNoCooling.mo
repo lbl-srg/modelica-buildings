@@ -1,16 +1,13 @@
 within Buildings.Controls.OBC.Utilities.Validation;
-model OptimalStartHeatingCooling
-  "Validation model for the block OptimalStart for both heating and cooling system"
+model OptimalStartNoHeatingNoCooling
+  "Validation model for the block OptimalStart for the case with no preheating nor precooling"
 
-  Buildings.Controls.OBC.Utilities.OptimalStart optSta(computeHeating=true,
-      computeCooling=true)  "Optimal start for both heating and cooling system"
+  Buildings.Controls.OBC.Utilities.OptimalStart optSta(computeHeating=false,
+      computeCooling=false) "Optimal start for both heating and cooling system"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Modelica.Blocks.Continuous.Integrator integrator(k=0.0000004, y_start=19 + 273.15)
     "Integrate temperature derivative with k indicating the inverse of zone thermal capacitance"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetCooOcc(k=24 + 273.15)
-    "Zone cooling setpoint during occupancy"
-    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TOutBase(
     amplitude=5,
     freqHz=1/86400,
@@ -56,9 +53,6 @@ model OptimalStartHeatingCooling
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=3) "Sum heat gains"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetHeaOcc(k=21+273.15)
-    "Zone heating setpoint during occupancy"
-    annotation (Placement(transformation(extent={{-20,100},{0,120}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea2
     "Convert Boolean to Real signal"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
@@ -99,8 +93,6 @@ equation
           7},{18,7}},      color={0,0,127}));
   connect(integrator.y, dT.u1) annotation (Line(points={{1,10},{6,10},{6,34},{
           -146,34},{-146,16},{-142,16}},          color={0,0,127}));
-  connect(TSetCooOcc.y, optSta.TSetZonCoo) annotation (Line(points={{2,70},{10,70},
-          {10,13},{18,13}},      color={0,0,127}));
   connect(optSta.optOn, booToRea1.u) annotation (Line(points={{42,6},{50,6},{50,
           10},{58,10}}, color={255,0,255}));
   connect(booToRea1.y, TSetUp.u)   annotation (Line(points={{82,10},{98,10}},   color={0,0,127}));
@@ -117,8 +109,6 @@ equation
           11.3333},{-62,11.3333}},
                           color={0,0,127}));
   connect(integrator.u, mulSum.y)    annotation (Line(points={{-22,10},{-38,10}}, color={0,0,127}));
-  connect(TSetHeaOcc.y, optSta.TSetZonHea) annotation (Line(points={{2,110},{14,
-          110},{14,18},{18,18}}, color={0,0,127}));
   connect(optSta.optOn, booToRea2.u) annotation (Line(points={{42,6},{50,6},{50,
           50},{58,50}}, color={255,0,255}));
   connect(booToRea2.y, TSetBac.u)   annotation (Line(points={{82,50},{98,50}}, color={0,0,127}));
@@ -148,21 +138,18 @@ equation
       StopTime=2419200,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),__Dymola_Commands(file=
-  "modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/Utilities/Validation/OptimalStartHeatingCooling.mos"
+  "modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/Utilities/Validation/OptimalStartNoHeatingNoCooling.mos"
   "Simulate and plot"),
   Documentation(info="<html>
 <p>
-This models validates both space heating and cooling for the block
+This models validates the block
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.OptimalStart\">
-Buildings.Controls.OBC.Utilities.OptimalStart</a>.
+Buildings.Controls.OBC.Utilities.OptimalStart</a> for the case when the optimal start
+is not turned on for preheating or precooling before the scheduled occupancy.
 </p>
 <p>
-The first ten days is to test the heating case with a lower outdoor temperature. 
-The next ten days has a higher outdoor temprature, which is to test the cooling case.
-The zone model has a time constant of 27.8 hours. The optimal start block converges separately
-to an optimal start time for heating and cooling. Note that during the three transition
-days, the zone temperature is in the deadband, so there is no need to optimally start 
-the heating or cooling system in advance.
+The results shows that the optimal start time <code>tOpt</code> remains zero and
+the optimal start on signal <code>optOn</code> remains false during the simulation.
 </p>
 </html>",
 revisions="<html>
@@ -186,4 +173,4 @@ First implementation.
                 points={{-36,60},{64,0},{-36,-60},{-36,60}})}),
         Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-220,-160},{220,160}})));
-end OptimalStartHeatingCooling;
+end OptimalStartNoHeatingNoCooling;

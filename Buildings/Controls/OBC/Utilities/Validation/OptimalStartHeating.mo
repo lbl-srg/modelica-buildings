@@ -32,7 +32,7 @@ model OptimalStartHeating
     freqHz=1/86400,
     phase=3.1415926535898,
     offset=10 + 273.15,
-    startTime(displayUnit="h") = 0)
+    startTime(displayUnit="d") = -172800)
     "Outdoor dry bulb temperature to test heating system"
     annotation (Placement(transformation(extent={{-192,-20},{-172,0}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conPID(
@@ -46,7 +46,8 @@ model OptimalStartHeating
          + 273.15],
     y(unit="K"),
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
-    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    startTime(displayUnit="d") = -172800)
     "Heating setpoint for room temperature"
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add
@@ -91,9 +92,10 @@ equation
           {-162,4}}, color={0,0,127}));
   annotation (
   experiment(
-      StopTime=864000,
+      StartTime=-172800,
+      StopTime=604800,
       Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),__Dymola_Commands(file=
+      __Dymola_Algorithm="Cvode"),__Dymola_Commands(file=
   "modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/Utilities/Validation/OptimalStartHeating.mos"
   "Simulate and plot"),
   Documentation(info="<html>
