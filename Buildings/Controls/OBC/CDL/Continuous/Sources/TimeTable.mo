@@ -19,6 +19,9 @@ protected
   final parameter Integer nout=size(table, 2)-1
     "Dimension of output vector";
 
+  parameter Modelica.SIunits.Time t0(fixed=false)
+    "First sample time instant";
+
   // CDL uses different enumerations for smoothness and for extrapolation
   // than the Modelica Standard Library. Hence, we cast the CDL
   // enumeration to the MSL enumaration.
@@ -37,9 +40,12 @@ protected
                         else
                           Modelica.Blocks.Types.Extrapolation.Periodic,
     final offset=offset,
-    final startTime=0,
+    final startTime=t0,
     final timeScale=timeScale) "Time table"
     annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
+
+initial equation
+  t0=time;
 
 equation
   connect(tab.y, y) annotation (Line(points={{9,0},{120,0}}, color={0,0,127}));
@@ -210,6 +216,13 @@ of <i>0.5</i> seconds outputs
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 13, 2020, by Michael Wetter:<br/>
+Corrected implementation so that the table also works if the simulation
+starts at a negative time.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1834\">issue 1834</a>.
+</li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>
 Changed icon to display dynamically the output value.
