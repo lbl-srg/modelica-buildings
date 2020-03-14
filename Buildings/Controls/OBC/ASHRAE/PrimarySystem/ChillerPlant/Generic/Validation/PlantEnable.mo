@@ -96,9 +96,10 @@ First implementation.
 </li>
 <li>
 March 12, 2020, by Milica Grahovac:<br/>
-Removed tests related to initial stage determination. Updated tests to include the 
-schedule based reference results. This is for
+Removed tests related to initial stage determination. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1831\">issue 1831</a>.
+Updated tests to include the 
+schedule based reference results.
 </li>
 </ul>
 </html>"),

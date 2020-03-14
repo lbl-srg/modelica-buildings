@@ -2,14 +2,16 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subseque
 model Initial_noWSE
   "Validate initial stage sequence in case of no WSE"
 
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Initial iniSta(
+    hasWSE=false) "Tests if initial stage is the lowest available stage"
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+
+protected
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant lowAvaSta(
     final k=2)
     "Lowest chiller stage that is available"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Initial iniSta(
-    hasWSE=false) "Tests if initial stage is the lowest available stage"
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 equation
   connect(lowAvaSta.y, iniSta.uUp)
     annotation (Line(points={{-18,0},{-2,0}}, color={255,127,0}));
@@ -21,12 +23,13 @@ annotation (
 <p>
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Initial\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Initial</a>.
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Initial</a>
+ for chiller plants without WSE.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-January 28, 2019, by Milica Grahovac:<br/>
+March 12, 2020, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>

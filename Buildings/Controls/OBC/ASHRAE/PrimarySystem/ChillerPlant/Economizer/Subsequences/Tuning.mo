@@ -284,7 +284,10 @@ below 100% speed while the WSE was enabled.
 </ul>
 <p>
 <code>y</code> initializes at 0 upon first plant start up,
-it does not get reinitialized at plant enable/disable and it is limited between -0.2 and 0.5.
+it holds its value when the plant is disabled and tuning resumes from that value when the plant is re-enabled. 
+It is limited between -0.2 and 0.5.
+</p>
+<p>
 In order to avoid large integer values above <code>larInt</code>, the counters 
 get reset to 0 each time any of them reaches that value.
 </p>
