@@ -129,9 +129,7 @@ protected
     "Outdoor air lockout temperature"
     annotation (Placement(transformation(extent={{-180,-120},{-160,-100}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(
-    final k1=-1,
-    final k2=1)
+  Buildings.Controls.OBC.CDL.Continuous.Add add2(final k1=1, final k2=-1)
     "Difference between chiller lockout temperature and outdoor temperature"
     annotation (Placement(transformation(extent={{-140,-140},{-120,-120}})));
 

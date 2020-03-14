@@ -10,7 +10,7 @@ model PlantEnable "Validation sequence for enabling and disabling chiller plant"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable disPlaReq(
-    final schTab=[0,0; 6*3600,1; 19*3600,0; 24*3600,0])
+    final schTab=[0,0; 6*3600,1; 19*3600,0; 24*3600,0], ignReq=1)
     "Disable plant without waterside economizer, due to lack of request"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
 
@@ -19,13 +19,14 @@ model PlantEnable "Validation sequence for enabling and disabling chiller plant"
     "Disable plant without waterside economizer, due to low outdoor temperature"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
 
-  CDL.Integers.Sources.Constant conInt(k=3)
+protected
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
+    final k=3)
     "Chiller plant requests above the number of ignored requests"
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
 
-protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conOutTem(final k=
-        293.15) "Constant outdoor temperature above lockout"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conOutTem(
+    final k=293.15) "Constant outdoor temperature above lockout"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable chiPlaReq2(
