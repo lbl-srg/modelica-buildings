@@ -522,6 +522,16 @@ its class name ends with the string <code>Beta</code>.
     that can lead to wrong simulation results):
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable
+        </td>
+        <td valign=\"top\">Corrected implementation so that it gives the correct periodicity
+                         of the table if the simulation starts at a negative time.<br/>
+                         This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1834\">1834</a>.
+        </td>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
         </td>
     </tr>
@@ -560,15 +570,6 @@ its class name ends with the string <code>Beta</code>.
         <td valign=\"top\">Changed the temporary file format from <code>pickle</code> to <code>json</code> as the former can trigger a
                            segfault with JModelica simulation run in a subprocess.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1587\">Buildings, #1587</a>.
-        </td>
-    </tr>
-    <tr><td colspan=\"2\"><b>Buildings/Resources</b>
-        </td>
-    </tr>
-    <tr><td valign=\"top\">Buildings/Resources/C-Sources/cryptographicsHash.c
-        </td>
-        <td valign=\"top\">Add a <code>#ifndef</code> clause.<br/>
-                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1278\">IBPSA, #1278</a>.
         </td>
     </tr>
     </table>
@@ -616,6 +617,15 @@ its class name ends with the string <code>Beta</code>.
         <td valign=\"top\">Corrected wrong assignment of a parameter.<br/>
                            This is for
                            <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1766\">IBPSA, #1766</a>.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings/Resources</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings/Resources/C-Sources/cryptographicsHash.c
+        </td>
+        <td valign=\"top\">Add a <code>#ifndef</code> clause.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1278\">IBPSA, #1278</a>.
         </td>
     </tr>
     </table>
