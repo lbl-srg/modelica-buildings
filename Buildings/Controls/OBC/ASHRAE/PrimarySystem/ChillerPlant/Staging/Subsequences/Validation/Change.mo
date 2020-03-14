@@ -95,43 +95,57 @@ protected
 
 equation
   connect(dpChiWatSet.y, cha.dpChiWatPumSet) annotation (Line(points={{-98,-50},
-          {-92,-50},{-92,31},{58,31}}, color={0,0,127}));
+          {-92,-50},{-92,30.2941},{63.75,30.2941}},
+                                       color={0,0,127}));
   connect(dpChiWat.y, cha.dpChiWatPum) annotation (Line(points={{-98,-100},{-90,
-          -100},{-90,33},{58,33}}, color={0,0,127}));
+          -100},{-90,30.8824},{63.75,30.8824}},
+                                   color={0,0,127}));
   connect(TowFanSpeMax.y, cha.uTowFanSpeMax) annotation (Line(points={{-58,-100},
-          {-50,-100},{-50,28},{58,28}}, color={0,0,127}));
-  connect(TCWSupSet.y, cha.TChiWatSupSet) annotation (Line(points={{-98,50},{-32,
-          50},{-32,45},{58,45}}, color={0,0,127}));
-  connect(chiAva.y, cha.uChiAva) annotation (Line(points={{-98,90},{-28,90},{-28,
-          11},{58,11}}, color={255,0,255}));
+          {-50,-100},{-50,29.4118},{63.75,29.4118}},
+                                        color={0,0,127}));
+  connect(TCWSupSet.y, cha.TChiWatSupSet) annotation (Line(points={{-98,50},{
+          -32,50},{-32,34.4118},{63.75,34.4118}},
+                                 color={0,0,127}));
+  connect(chiAva.y, cha.uChiAva) annotation (Line(points={{-98,90},{-28,90},{
+          -28,24.4118},{63.75,24.4118}},
+                        color={255,0,255}));
   connect(TCWSup.y, cha.TChiWatSup) annotation (Line(points={{-98,-10},{-94,-10},
-          {-94,43},{58,43}}, color={0,0,127}));
+          {-94,33.8235},{63.75,33.8235}},
+                             color={0,0,127}));
   connect(zero.y, max.u2) annotation (Line(points={{-178,-50},{-170,-50},{-170,-36},
           {-162,-36}}, color={0,0,127}));
   connect(chiWatFlow.y, max.u1) annotation (Line(points={{-178,-10},{-170,-10},{
           -170,-24},{-162,-24}}, color={0,0,127}));
-  connect(cha.VChiWat_flow, max.y) annotation (Line(points={{58,21},{-130,21},{-130,
-          -30},{-138,-30}}, color={0,0,127}));
-  connect(TChiWatRet.y, cha.TChiWatRet) annotation (Line(points={{-178,30},{-130,
-          30},{-130,25},{58,25}}, color={0,0,127}));
-  connect(higSta.y, cha.uHigSta) annotation (Line(points={{2,-10},{20,-10},{20,15},
-          {58,15}}, color={255,0,255}));
+  connect(cha.VChiWat_flow, max.y) annotation (Line(points={{63.75,27.3529},{
+          -130,27.3529},{-130,-30},{-138,-30}},
+                            color={0,0,127}));
+  connect(TChiWatRet.y, cha.TChiWatRet) annotation (Line(points={{-178,30},{
+          -130,30},{-130,28.5294},{63.75,28.5294}},
+                                  color={0,0,127}));
+  connect(higSta.y, cha.uHigSta) annotation (Line(points={{2,-10},{20,-10},{20,
+          25.5882},{63.75,25.5882}},
+                    color={255,0,255}));
   connect(cha.ySta, intToRea.u)
-    annotation (Line(points={{82,30},{98,30}}, color={255,127,0}));
+    annotation (Line(points={{71.25,30},{98,30}},
+                                               color={255,127,0}));
   connect(intToRea.y, zerOrdHol.u)
     annotation (Line(points={{122,30},{138,30}}, color={0,0,127}));
   connect(zerOrdHol.y, reaToInt.u)
     annotation (Line(points={{162,30},{178,30}}, color={0,0,127}));
-  connect(reaToInt.y, cha.u) annotation (Line(points={{202,30},{210,30},{210,-20},
-          {50,-20},{50,19},{58,19}}, color={255,127,0}));
-  connect(cha.y, truFalHol.u) annotation (Line(points={{82,37},{90,37},{90,-50},
-          {98,-50}}, color={255,0,255}));
+  connect(reaToInt.y, cha.u) annotation (Line(points={{202,30},{210,30},{210,
+          -20},{50,-20},{50,26.7647},{63.75,26.7647}},
+                                     color={255,127,0}));
+  connect(cha.y, truFalHol.u) annotation (Line(points={{71.25,32.0588},{90,
+          32.0588},{90,-50},{98,-50}},
+                     color={255,0,255}));
   connect(truFalHol.y, pre.u)
     annotation (Line(points={{122,-50},{138,-50}}, color={255,0,255}));
-  connect(pre.y, cha.chaPro) annotation (Line(points={{162,-50},{170,-50},{170,-70},
-          {40,-70},{40,13},{58,13}}, color={255,0,255}));
-  connect(cha.uPla, plaSta.y) annotation (Line(points={{58,9},{30,9},{30,-50},{
-          2,-50}}, color={255,0,255}));
+  connect(pre.y, cha.chaPro) annotation (Line(points={{162,-50},{170,-50},{170,
+          -70},{40,-70},{40,25},{63.75,25}},
+                                     color={255,0,255}));
+  connect(cha.uPla, plaSta.y) annotation (Line(points={{63.75,23.8235},{30,
+          23.8235},{30,-50},{2,-50}},
+                   color={255,0,255}));
 annotation (
  experiment(StopTime=20000.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Change.mos"

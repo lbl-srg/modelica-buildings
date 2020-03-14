@@ -417,8 +417,8 @@ equation
                                         color={255,0,255}));
   connect(sta.yAvaCur, staUp.uAvaCur) annotation (Line(points={{-138,-277},{-80,
           -277},{-80,-270},{40,-270},{40,-226},{58,-226}}, color={255,0,255}));
-  connect(sta.yChi, yChi) annotation (Line(points={{-138,-280},{-60,-280},{-60,
-          -310},{420,-310}}, color={255,0,255}));
+  connect(sta.yChi, yChi) annotation (Line(points={{-138,-280},{-60,-280},{-60,-310},
+          {420,-310}},       color={255,0,255}));
   connect(staUp.y, or2.u1) annotation (Line(points={{82,-210},{120,-210},{120,
           -250},{138,-250}}, color={255,0,255}));
   connect(u, cap.u) annotation (Line(points={{-260,-70},{-166,-70},{-166,-227},
@@ -442,36 +442,33 @@ equation
   connect(intToRea.y, switch1.u3) annotation (Line(points={{142,-140},{160,-140},
           {160,-108},{178,-108}},
                                 color={0,0,127}));
-  connect(staUp.y, lat.u) annotation (Line(points={{82,-210},{100,-210},{100,
-          -100},{118,-100}},
-                           color={255,0,255}));
-  connect(staDow.y, lat.clr) annotation (Line(points={{82,-290},{90,-290},{90,
-          -106},{118,-106}},
-                           color={255,0,255}));
+  connect(staUp.y, lat.u) annotation (Line(points={{82,-210},{100,-210},{100,-100},
+          {118,-100}},     color={255,0,255}));
+  connect(staDow.y, lat.clr) annotation (Line(points={{82,-290},{90,-290},{90,-106},
+          {118,-106}},     color={255,0,255}));
   connect(sta.yUp, intToRea1.u) annotation (Line(points={{-138,-263},{-130,-263},
           {-130,-60},{118,-60}}, color={255,127,0}));
-  connect(sta.yDown, intToRea.u) annotation (Line(points={{-138,-266},{-130,
-          -266},{-130,-140},{118,-140}}, color={255,127,0}));
+  connect(sta.yDown, intToRea.u) annotation (Line(points={{-138,-266},{-130,-266},
+          {-130,-140},{118,-140}},       color={255,127,0}));
   connect(lat.y, switch1.u2)
     annotation (Line(points={{142,-100},{178,-100}},
                                                    color={255,0,255}));
-  connect(uPla, edg.u) annotation (Line(points={{-260,-140},{-142,-140},{-142,
-          -20},{58,-20}}, color={255,0,255}));
+  connect(uPla, edg.u) annotation (Line(points={{-260,-140},{-142,-140},{-142,-20},
+          {58,-20}}, color={255,0,255}));
   connect(edg.y, holIniSta.u)
     annotation (Line(points={{82,-20},{118,-20}}, color={255,0,255}));
   connect(switch2.y, reaToInt.u)
     annotation (Line(points={{303,-20},{318,-20}}, color={0,0,127}));
-  connect(triSam.y, switch2.u3) annotation (Line(points={{242,-100},{260,-100},
-          {260,-28},{280,-28}}, color={0,0,127}));
+  connect(triSam.y, switch2.u3) annotation (Line(points={{242,-100},{260,-100},{
+          260,-28},{280,-28}}, color={0,0,127}));
   connect(holIniSta.y, switch2.u2)
     annotation (Line(points={{142,-20},{280,-20}}, color={255,0,255}));
-  connect(uIni, intToRea2.u) annotation (Line(points={{-260,-100},{-180,-100},{
-          -180,30},{218,30}}, color={255,127,0}));
-  connect(intToRea2.y, switch2.u1) annotation (Line(points={{242,30},{260,30},{
-          260,-12},{280,-12}}, color={0,0,127}));
+  connect(uIni, intToRea2.u) annotation (Line(points={{-260,-100},{-180,-100},{-180,
+          30},{218,30}}, color={255,127,0}));
+  connect(intToRea2.y, switch2.u1) annotation (Line(points={{242,30},{260,30},{260,
+          -12},{280,-12}}, color={0,0,127}));
   annotation (defaultComponentName = "cha",
-        Icon(coordinateSystem(extent={{-240,-340},{400,340}}),
-             graphics={
+        Icon(graphics={
         Rectangle(
         extent={{-100,-160},{100,160}},
         lineColor={0,0,127},
