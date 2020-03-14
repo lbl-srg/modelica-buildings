@@ -40,7 +40,7 @@ protected
                         else
                           Modelica.Blocks.Types.Extrapolation.Periodic,
     final offset=offset,
-    final startTime=t0,
+    final startTime=if (extrapolation == Types.Extrapolation.Periodic) then integer(t0/86400)*86400 else 0,
     final timeScale=timeScale) "Time table"
     annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
 
@@ -109,6 +109,12 @@ values are extrapolated. The following settings are allowed:
       <code>(max(table[:, 1]-min(table[:, 1]))*timeScale)</code>.</td>
 </tr>
 </table>
+
+<p>
+If <code>extrapolation === CDL.Types.Periodic</code>, then the above example
+would give a schedule with periodicity of one day. The simulation can start at any time,
+whether it is a multiple of a day or not, and positive or negative.
+</p>
 
 <p>
 The value of the parameter <code>offset</code> is added to the tabulated
