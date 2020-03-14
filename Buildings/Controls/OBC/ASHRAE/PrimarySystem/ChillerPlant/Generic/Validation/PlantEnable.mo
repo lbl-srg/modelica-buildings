@@ -22,6 +22,7 @@ model PlantEnable "Validation sequence for enabling and disabling chiller plant"
   CDL.Integers.Sources.Constant conInt(k=3)
     "Chiller plant requests above the number of ignored requests"
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
+
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conOutTem(final k=
         293.15) "Constant outdoor temperature above lockout"
