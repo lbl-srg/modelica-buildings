@@ -51,20 +51,20 @@ block SumZone
     annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VPriAir_flow[numZon](
-    final min = fill(0, numZon),
-    final unit = fill("m3/s", numZon),
-    final quantity=fill("VolumeFlowRate", numZon))
-    "Primary airflow rate"
-    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
-        iconTransformation(extent={{-140,-80},{-100,-40}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uPriOutAirFra[numZon](
     final min = fill(0, numZon),
     final max = fill(1, numZon),
     final unit = fill("1", numZon))
     "Primary outdoor air fraction"
-    annotation (Placement(transformation(extent={{-140,-130},{-100,-90}}),
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VPriAir_flow[numZon](
+    final min = fill(0, numZon),
+    final unit = fill("m3/s", numZon),
+    final quantity=fill("VolumeFlowRate", numZon))
+    "Primary airflow rate"
+    annotation (Placement(transformation(extent={{-140,-140},{-100,-100}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySumDesZonPop(
@@ -105,20 +105,20 @@ block SumZone
     annotation (Placement(transformation(extent={{100,-70},{140,-30}}),
         iconTransformation(extent={{100,-50},{140,-10}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VSumSysPriAir_flow(
-    final min = 0,
-    final unit = "m3/s",
-    final quantity="VolumeFlowRate")
-    "System primary airflow rate, equals to the sum of the measured discharged flow rate of all terminal units"
-    annotation (Placement(transformation(extent={{100,-100},{140,-60}}),
-        iconTransformation(extent={{100,-80},{140,-40}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput uOutAirFra_max(
     final min = 0,
     final max = 1,
     final unit = "1")
     "Maximum zone outdoor air fraction, equals to the maximum of primary outdoor air fraction of all zones"
-    annotation (Placement(transformation(extent={{100,-130},{140,-90}}),
+    annotation (Placement(transformation(extent={{100,-100},{140,-60}}),
+        iconTransformation(extent={{100,-80},{140,-40}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VSumSysPriAir_flow(
+    final min = 0,
+    final unit = "m3/s",
+    final quantity="VolumeFlowRate")
+    "System primary airflow rate, equals to the sum of the measured discharged flow rate of all terminal units"
+    annotation (Placement(transformation(extent={{100,-140},{140,-100}}),
         iconTransformation(extent={{100,-110},{140,-70}})));
 
 protected
@@ -130,7 +130,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.MultiSum sysPriAirRate(
     final nin=numZon)
     "System primary airflow rate"
-    annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
+    annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MultiSum sumDesZonPop(
     final nin=numZon)
@@ -160,7 +160,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.MultiMax maxPriOutAirFra(
     final nin=numZon)
     "Maximum zone outdoor air fraction"
-    annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
+    annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
     final nout=numZon)
@@ -184,9 +184,10 @@ equation
   connect(sysUncOutAir.y, VSumUncOutAir_flow)
     annotation (Line(points={{-58,-50},{120,-50}}, color={0,0,127}));
   connect(sysPriAirRate.y, VSumSysPriAir_flow)
-    annotation (Line(points={{2,-80},{120,-80}}, color={0,0,127}));
+    annotation (Line(points={{62,-120},{120,-120}},
+                                                 color={0,0,127}));
   connect(maxPriOutAirFra.y, uOutAirFra_max)
-    annotation (Line(points={{62,-110},{120,-110}}, color={0,0,127}));
+    annotation (Line(points={{2,-80},{120,-80}},    color={0,0,127}));
   connect(yAveOutAirFraPlu, reaRep.u)
     annotation (Line(points={{-120,20},{-82,20}}, color={0,0,127}));
   connect(uDesZonPeaOcc, sumDesZonPop.u)
@@ -201,9 +202,9 @@ equation
   connect(VUncOutAir_flow, sysUncOutAir.u)
     annotation (Line(points={{-120,-50},{-82,-50}}, color={0,0,127}));
   connect(VPriAir_flow, sysPriAirRate.u)
-    annotation (Line(points={{-120,-80},{-22,-80}}, color={0,0,127}));
+    annotation (Line(points={{-120,-120},{38,-120}},color={0,0,127}));
   connect(uPriOutAirFra, maxPriOutAirFra.u)
-    annotation (Line(points={{-120,-110},{38,-110}},color={0,0,127}));
+    annotation (Line(points={{-120,-80},{-22,-80}}, color={0,0,127}));
 
 annotation (
   defaultComponentName="zonToSys",
@@ -231,10 +232,10 @@ annotation (
           lineColor={0,0,0},
           textString="VDesAreBreZon_flow"),
                                           Text(
-          extent={{-98,-72},{-44,-86}},
+          extent={{-98,-52},{-44,-66}},
           lineColor={0,0,0},
           textString="uPriOutAirFra"),    Text(
-          extent={{-98,-54},{-50,-66}},
+          extent={{-98,-74},{-50,-86}},
           lineColor={0,0,0},
           textString="VPriAir_flow"),     Text(
           extent={{-98,-32},{-30,-46}},
@@ -257,14 +258,14 @@ annotation (
           extent={{36,98},{96,82}},
           lineColor={0,0,0},
           textString="ySumDesZonPop"),    Text(
-          extent={{36,-80},{96,-96}},
+          extent={{36,-50},{96,-66}},
           lineColor={0,0,0},
           textString="uOutAirFra_max"),   Text(
           extent={{26,-20},{96,-36}},
           lineColor={0,0,0},
           textString="VSumUncOutAir_flow"),
                                           Text(
-          extent={{24,-50},{96,-66}},
+          extent={{24,-80},{96,-96}},
           lineColor={0,0,0},
           textString="VSumSysPriAir_flow")}),
 Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{100,140}})),

@@ -175,9 +175,8 @@ protected
     "Peak system population"
     annotation (Placement(transformation(extent={{-180,210},{-160,230}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VPriSysMax_floww(
-    final k=VPriSysMax_flow)
-    "Highest expected system primary airflow"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant priSysMax_flow(final k=
+        VPriSysMax_flow) "Highest expected system primary airflow"
     annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
 
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1
@@ -215,9 +214,8 @@ equation
   connect(unCorOutAirInk.y, aveOutAirFra.u1)
     annotation (Line(points={{-38,150},{-20,150},{-20,136},{-2,136}},
       color={0,0,127}));
-  connect(VPriSysMax_floww.y, aveOutAirFra.u2)
-    annotation (Line(points={{-118,110},{-80,110},{-80,124},{-2,124}},
-      color={0,0,127}));
+  connect(priSysMax_flow.y, aveOutAirFra.u2) annotation (Line(points={{-118,110},
+          {-80,110},{-80,124},{-2,124}}, color={0,0,127}));
   connect(aveOutAirFra.y, addPar1.u)
     annotation (Line(points={{22,130},{58,130}}, color={0,0,127}));
   connect(unCorOutAirInk.y, desOutAirInt.u1)

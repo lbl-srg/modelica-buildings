@@ -56,10 +56,6 @@ block Zone
      then it should use cooling supply air distribution effectiveness"
     annotation (Dialog(tab="Advanced"));
 
-  parameter Real VPriSysMax_flow(unit="m3/s")
-    "Maximum expected system primary airflow at design stage"
-    annotation(Dialog(group="Nominal condition"));
-
   parameter Real minZonPriFlo(unit="m3/s")
     "Minimum expected zone primary flow rate"
     annotation(Dialog(group="Nominal condition"));
