@@ -17,16 +17,19 @@ block ZoneState "Select the zone state"
 
 protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToIntHea(
+    final integerFalse=0,
     final integerTrue=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates.heating)
     "Convert Boolean to Integer number"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToIntCoo(
-    integerTrue=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates.cooling)
+    final integerFalse=0,
+    final integerTrue=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates.cooling)
     "Convert Boolean to Integer number"
     annotation (Placement(transformation(extent={{28,-30},{48,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Nor isDea "In deadband state"
     annotation (Placement(transformation(extent={{30,-80},{50,-60}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToIntDea(
+    final integerFalse=0,
     final integerTrue=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates.deadband)
     "Convert Boolean to Integer number"
     annotation (Placement(transformation(extent={{70,-80},{90,-60}})));
@@ -147,6 +150,11 @@ The zone state is deadband when it is neither in heating state nor in cooling st
 </ol>
 </html>",revisions="<html>
 <ul>
+<li>
+March 13, 2020, by Jianjun Hu:<br/>
+Replaced multiSum block with two add blocks to avoid vector related implementation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1709\">#1709</a>.
+</li>
 <li>
 September 11, 2019, by Kun Zhang:<br/>
 Improved the implementation to avoid issues when heating and cooling controls occur at the same time.

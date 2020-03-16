@@ -160,8 +160,8 @@ its class name ends with the string <code>Beta</code>.
     </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneStatus
         </td>
-        <td valign=\"top\">Block that outputs zone temperature status by comparing it with setpoint temperatures, with the maximum and 
-                           minimum temperature of the group which the zone is in. This allows separating the vector related calculation
+        <td valign=\"top\">Block that outputs zone temperature status by comparing it with setpoint temperatures, with the maximum and
+                           minimum temperature of the group which the zone is in. This allows separating the vector-valued calculations
                            from control sequences.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1709\">issue #1709</a>.
         </td>
@@ -430,7 +430,7 @@ its class name ends with the string <code>Beta</code>.
     </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode
         </td>
-        <td valign=\"top\">Reimplemented to remove the vector related calculation.<br/>
+        <td valign=\"top\">Reimplemented to remove the vector-valued calculations.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1709\">issue #1709</a>
         </td>
     </tr>

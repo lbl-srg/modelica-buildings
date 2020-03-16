@@ -13,7 +13,7 @@ model CoolingCoil "Controller for cooling coil valve"
     annotation(Dialog(group="Cooling coil loop signal",
     enable=controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
         or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time TdCooCoi=0.1
+  parameter Real TdCooCoi(final unit="s")=0.1
     "Time constant of derivative block for cooling coil control loop signal"
     annotation (Dialog(group="Cooling coil loop signal",
       enable=controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
@@ -106,6 +106,10 @@ Otherwise, the control signal for the coil is set to <code>0</code>.
 </p>
 </html>",revisions="<html>
 <ul>
+<li>
+March 13, 2020, by Jianjun Hu:<br/>
+Moved interfaces instances to be right after parameter section.
+</li>
 <li>
 August 1, 2019, by David Blum:<br/>
 First implementation.

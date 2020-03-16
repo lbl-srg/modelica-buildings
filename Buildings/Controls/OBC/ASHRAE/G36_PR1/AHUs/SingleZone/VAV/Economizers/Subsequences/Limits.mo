@@ -416,6 +416,11 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/Sin
 </html>", revisions="<html>
 <ul>
 <li>
+March 13, 2020, by Jianjun Hu:<br/>
+Replaced multiAnd block with and3 block to avoid vector related implementation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1709\">#1709</a>.
+</li>
+<li>
 July 06, 2017, by Milica Grahovac:<br/>
 Refactored implementation.
 </li>
