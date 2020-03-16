@@ -91,7 +91,7 @@ First implementation.
 </html>"));
   end saturationTemperature;
 
-  replaceable function densityOfSaturatedLiquid
+  replaceable function densityOfSaturatedLiquid_sat
     "Return density of saturated liquid"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
@@ -120,9 +120,9 @@ First implementation.
     <a href=\"https://doi.org/10.1063/1.555926\">10.1063/1.555926</a>.
     </p>
   </html>"));
-  end densityOfSaturatedLiquid;
+  end densityOfSaturatedLiquid_sat;
 
-  replaceable function densityOfSaturatedVapor
+  replaceable function densityOfSaturatedVapor_sat
     "Return density of saturated vapor"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
@@ -151,19 +151,19 @@ First implementation.
     <a href=\"https://doi.org/10.1063/1.555926\">10.1063/1.555926</a>.
     </p>
   </html>"));
-  end densityOfSaturatedVapor;
+  end densityOfSaturatedVapor_sat;
 
-  replaceable function enthalpyOfSaturatedLiquid
+  replaceable function enthalpyOfSaturatedLiquid_sat
     "Return specific enthalpy of saturated liquid"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
     output SpecificEnthalpy hl "Boiling curve specific enthalpy";
   protected
     Real tau = 1 - sat.Tsat/Tcritical "Temperature expression";
-    Density dl = densityOfSaturatedLiquid(sat)  "Saturated liquid density";
-    Real r1 = expression1(sat)  "Intermediate expression 1";
-    Real r2 = expression2(sat)  "Intermediate expression 2";
-    Real a = auxiliaryAlpha(sat)  "Value for alpha";
+    Density dl = densityOfSaturatedLiquid_sat(sat)  "Saturated liquid density";
+    Real r1 = expression1_sat(sat)  "Intermediate expression 1";
+    Real r2 = expression2_sat(sat)  "Intermediate expression 2";
+    Real a = auxiliaryAlpha_sat(sat)  "Value for alpha";
   algorithm
     hl := a - exp(r1)*pcritical*(r2+r1*tau)/(dl*tau)
       "Saturated liquid enthalpy, derived from equation (6)";
@@ -182,19 +182,19 @@ First implementation.
     <a href=\"https://doi.org/10.1063/1.555926\">10.1063/1.555926</a>.
     </p>
   </html>"));
-  end enthalpyOfSaturatedLiquid;
+  end enthalpyOfSaturatedLiquid_sat;
 
-  replaceable function enthalpyOfSaturatedVapor
+  replaceable function enthalpyOfSaturatedVapor_sat
     "Return specific enthalpy of saturated vapor"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
     output SpecificEnthalpy hv "Dew curve specific enthalpy";
   protected
     Real tau = 1 - sat.Tsat/Tcritical "Temperature expression";
-    Density dv = densityOfSaturatedVapor(sat)  "Saturated vapor density";
-    Real r1 = expression1(sat)  "Intermediate expression 1";
-    Real r2 = expression2(sat)  "Intermediate expression 2";
-    Real a = auxiliaryAlpha(sat)  "Value for alpha";
+    Density dv = densityOfSaturatedVapor_sat(sat)  "Saturated vapor density";
+    Real r1 = expression1_sat(sat)  "Intermediate expression 1";
+    Real r2 = expression2_sat(sat)  "Intermediate expression 2";
+    Real a = auxiliaryAlpha_sat(sat)  "Value for alpha";
   algorithm
     hv := a - exp(r1)*pcritical*(r2+r1*tau)/(dv*tau)
       "Saturated vapor enthalpy, derived from equation (7)";
@@ -213,20 +213,20 @@ First implementation.
     <a href=\"https://doi.org/10.1063/1.555926\">10.1063/1.555926</a>.
     </p>
   </html>"));
-  end enthalpyOfSaturatedVapor;
+  end enthalpyOfSaturatedVapor_sat;
 
-  replaceable function enthalpyOfVaporization
+  replaceable function enthalpyOfVaporization_sat
     "Return enthalpy of vaporization of water as a function of temperature T"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
     output SpecificEnthalpy hlv "Vaporization enthalpy";
   protected
     Real tau = 1 - sat.Tsat/Tcritical "Temperature expression";
-    Density dv = densityOfSaturatedVapor(sat)  "Saturated vapor density";
-    Density dl = densityOfSaturatedLiquid(sat)  "Saturated liquid density";
-    Real r1 = expression1(sat)  "Intermediate expression 1";
-    Real r2 = expression2(sat)  "Intermediate expression 2";
-    Real a = auxiliaryAlpha(sat)  "Value for alpha";
+    Density dv = densityOfSaturatedVapor_sat(sat)  "Saturated vapor density";
+    Density dl = densityOfSaturatedLiquid_sat(sat)  "Saturated liquid density";
+    Real r1 = expression1_sat(sat)  "Intermediate expression 1";
+    Real r2 = expression2_sat(sat)  "Intermediate expression 2";
+    Real a = auxiliaryAlpha_sat(sat)  "Value for alpha";
 
   algorithm
     hlv := exp(r1)*pcritical*(r2+r1*tau)/tau * (1/dl-1/dv)
@@ -257,19 +257,19 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  end enthalpyOfVaporization;
+  end enthalpyOfVaporization_sat;
 
-  replaceable function entropyOfSaturatedLiquid
+  replaceable function entropyOfSaturatedLiquid_sat
     "Return specific entropy of saturated liquid"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
     output SpecificEntropy sl "Saturated liquid specific enthalpy";
   protected
     Real tau = 1 - sat.Tsat/Tcritical "Temperature expression";
-    Density dl = densityOfSaturatedLiquid(sat)  "Saturated liquid density";
-    Real r1 = expression1(sat)  "Intermediate expression 1";
-    Real r2 = expression2(sat)  "Intermediate expression 2";
-    Real phi = auxiliaryPhi(sat)  "Value for phi";
+    Density dl = densityOfSaturatedLiquid_sat(sat)  "Saturated liquid density";
+    Real r1 = expression1_sat(sat)  "Intermediate expression 1";
+    Real r2 = expression2_sat(sat)  "Intermediate expression 2";
+    Real phi = auxiliaryPhi_sat(sat)  "Value for phi";
   algorithm
     sl := phi - exp(r1)*pcritical*(r2 + r1*tau)/(dl*tau*sat.Tsat)
       "Saturated liquid enthalpy, derived from Equation (8)";
@@ -288,19 +288,19 @@ First implementation.
     <a href=\"https://doi.org/10.1063/1.555926\">10.1063/1.555926</a>.
     </p>
   </html>"));
-  end entropyOfSaturatedLiquid;
+  end entropyOfSaturatedLiquid_sat;
 
-  replaceable function entropyOfSaturatedVapor
+  replaceable function entropyOfSaturatedVapor_sat
     "Return specific entropy of saturated vapor"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
     output SpecificEntropy sv "Saturated vapor specific enthalpy";
   protected
     Real tau = 1 - sat.Tsat/Tcritical "Temperature expression";
-    Density dv = densityOfSaturatedVapor(sat)  "Saturated vapor density";
-    Real r1 = expression1(sat)  "Intermediate expression 1";
-    Real r2 = expression2(sat)  "Intermediate expression 2";
-    Real phi = auxiliaryPhi(sat)  "Value for phi";
+    Density dv = densityOfSaturatedVapor_sat(sat)  "Saturated vapor density";
+    Real r1 = expression1_sat(sat)  "Intermediate expression 1";
+    Real r2 = expression2_sat(sat)  "Intermediate expression 2";
+    Real phi = auxiliaryPhi_sat(sat)  "Value for phi";
   algorithm
     sv := phi - exp(r1)*pcritical*(r2 + r1*tau)/(dv*tau*sat.Tsat)
       "Saturated vapor enthalpy, derived from Equation (9)";
@@ -319,9 +319,9 @@ First implementation.
     <a href=\"https://doi.org/10.1063/1.555926\">10.1063/1.555926</a>.
     </p>
   </html>"));
-  end entropyOfSaturatedVapor;
+  end entropyOfSaturatedVapor_sat;
 
-  replaceable function entropyOfVaporization
+  replaceable function entropyOfVaporization_sat
     "Return entropy of vaporization of water as a function of temperature T,
       <i>273.16</i> to <i>647.096</i> K"
     extends Modelica.Icons.Function;
@@ -329,11 +329,11 @@ First implementation.
     output SpecificEntropy slv "Vaporization enthalpy";
   protected
     Real tau = 1 - sat.Tsat/Tcritical "Temperature expression";
-    Density dv = densityOfSaturatedVapor(sat)  "Saturated vapor density";
-    Density dl = densityOfSaturatedLiquid(sat)  "Saturated liquid density";
-    Real r1 = expression1(sat)  "Intermediate expression 1";
-    Real r2 = expression2(sat)  "Intermediate expression 2";
-    Real phi = auxiliaryPhi(sat)  "Value for phi";
+    Density dv = densityOfSaturatedVapor_sat(sat)  "Saturated vapor density";
+    Density dl = densityOfSaturatedLiquid_sat(sat)  "Saturated liquid density";
+    Real r1 = expression1_sat(sat)  "Intermediate expression 1";
+    Real r2 = expression2_sat(sat)  "Intermediate expression 2";
+    Real phi = auxiliaryPhi_sat(sat)  "Value for phi";
   algorithm
     slv := exp(r1)*pcritical*(r2 + r1*tau)/(tau*sat.Tsat) * (1/dl-1/dv)
      "Difference of equations (8) and (9)";
@@ -363,7 +363,7 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  end entropyOfVaporization;
+  end entropyOfVaporization_sat;
 //////////////////////////////////////////////////////////////////////
 // Protected classes.
 // These classes are only of use within this medium model.
@@ -379,7 +379,7 @@ protected
     constant Modelica.SIunits.SpecificEnthalpy a0 = 1000
       "Auxiliary quantity for specific enthalpy";
 
-  replaceable function vaporPressure
+  replaceable function vaporPressure_sat
     "Returns vapor pressure for a given temperature"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
@@ -408,9 +408,9 @@ protected
     <a href=\"https://doi.org/10.1063/1.555926\">10.1063/1.555926</a>.
     </p>
   </html>"));
-  end vaporPressure;
+  end vaporPressure_sat;
 
-  function auxiliaryAlpha
+  function auxiliaryAlpha_sat
     "This is auxiliary equation (4) for specific enthalpy calculations"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
@@ -438,9 +438,9 @@ protected
     <a href=\"https://doi.org/10.1063/1.555926\">10.1063/1.555926</a>.
     </p>
   </html>"));
-  end auxiliaryAlpha;
+  end auxiliaryAlpha_sat;
 
-  function auxiliaryPhi
+  function auxiliaryPhi_sat
     "This is auxiliary equation (5) for specific entropy calculations"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
@@ -471,9 +471,9 @@ protected
     <a href=\"https://doi.org/10.1063/1.555926\">10.1063/1.555926</a>.
     </p>
   </html>"));
-  end auxiliaryPhi;
+  end auxiliaryPhi_sat;
 
-  function expression1
+  function expression1_sat
     "This expression represents ln(p/pcritical), which is used in the saturated
       enthalpy and entropy functions above"
     extends Modelica.Icons.Function;
@@ -508,9 +508,9 @@ protected
     <a href=\"https://doi.org/10.1063/1.555926\">10.1063/1.555926</a>.
     </p>
   </html>"));
-  end expression1;
+  end expression1_sat;
 
-  function expression2
+  function expression2_sat
     "This expression is used in the saturated enthalpy and entropy functions
       above, which was formulated via evaluating the derivative dP/dT"
     extends Modelica.Icons.Function;
@@ -540,7 +540,7 @@ protected
     <a href=\"https://doi.org/10.1063/1.555926\">10.1063/1.555926</a>.
     </p>
   </html>"));
-  end expression2;
+  end expression2_sat;
 
 annotation (Documentation(info="<html>
 <p>

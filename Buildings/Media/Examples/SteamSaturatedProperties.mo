@@ -45,14 +45,14 @@ equation
     assert(TSat < TMax, "Temperature exceeded maximum value.\n" +
       "   TSat = " + String(TSat));
     // Check the implementation of the functions
-    dl = Medium.densityOfSaturatedLiquid(sat);
-    dv = Medium.densityOfSaturatedVapor(sat);
-    hl = Medium.enthalpyOfSaturatedLiquid(sat);
-    hv = Medium.enthalpyOfSaturatedVapor(sat);
-    hlv = Medium.enthalpyOfVaporization(sat);
-    sl = Medium.entropyOfSaturatedLiquid(sat);
-    sv = Medium.entropyOfSaturatedVapor(sat);
-    slv = Medium.entropyOfVaporization(sat);
+    dl = Medium.densityOfSaturatedLiquid_sat(sat);
+    dv = Medium.densityOfSaturatedVapor_sat(sat);
+    hl = Medium.enthalpyOfSaturatedLiquid_sat(sat);
+    hv = Medium.enthalpyOfSaturatedVapor_sat(sat);
+    hlv = Medium.enthalpyOfVaporization_sat(sat);
+    sl = Medium.entropyOfSaturatedLiquid_sat(sat);
+    sv = Medium.entropyOfSaturatedVapor_sat(sat);
+    slv = Medium.entropyOfVaporization_sat(sat);
 
    annotation(experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Media/Examples/SteamSaturatedProperties.mos"
