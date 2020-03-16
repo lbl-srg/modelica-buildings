@@ -152,7 +152,7 @@ The zone state is deadband when it is neither in heating state nor in cooling st
 <ul>
 <li>
 March 13, 2020, by Jianjun Hu:<br/>
-Replaced multiSum block with two add blocks to avoid vector related implementation.<br/>
+Replaced <code>multiSum</code> block with two addition blocks to avoid vector related implementation.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1709\">#1709</a>.
 </li>
 <li>
