@@ -33,7 +33,7 @@ equation
   port_a.m_flow + port_b.m_flow = 0;
 
   // Enthalpy decreased with condensation process
-  dh = MediumSte.enthalpyOfVaporization(MediumSte.setSat_p(port_a.p))
+  dh = MediumSte.enthalpyOfVaporization_sat(MediumSte.saturationState_p(port_a.p))
     "Enthalpy is changed by a factor of h_fg";
   port_b.h_outflow = inStream(port_a.h_outflow) - dh;
 
