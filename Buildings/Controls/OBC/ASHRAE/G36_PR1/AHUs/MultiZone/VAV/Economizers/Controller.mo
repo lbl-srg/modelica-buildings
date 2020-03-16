@@ -286,12 +286,13 @@ equation
     annotation (Line(points={{118,46},{98,46}}, color={0,0,127}));
   connect(TMix, freProTMix.TMix)
     annotation (Line(points={{-180,-50},{-120,-50},{-120,-60},{60,-60},{60,-10},
-          {79,-10}},
+          {78,-10}},
       color={0,0,127}));
   connect(freProTMix.yFrePro, retDamMinFre.u1)
-    annotation (Line(points={{101,-4},{104,-4},{104,46},{118,46}}, color={0,0,127}));
+    annotation (Line(points={{102,-13},{104,-13},{104,46},{118,46}},
+                                                                   color={0,0,127}));
   connect(freProTMix.yFreProInv, outDamMaxFre.u2)
-    annotation (Line(points={{101,-16},{104,-16},{104,-46},{118,-46}},
+    annotation (Line(points={{102,-7},{104,-7},{104,-46},{118,-46}},
       color={0,0,127}));
   connect(freProSta.y, damLim.uFreProSta)
     annotation (Line(points={{-118,-130},{-90,-130},{-90,6},{-82,6}}, color={255,127,0}));

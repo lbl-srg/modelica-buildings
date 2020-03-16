@@ -153,13 +153,13 @@ equation
     annotation (Line(points={{-108,60},{-88,60},{-88,78}}, color={0,0,127}));
   connect(conP.u_m, zer1.y)
     annotation (Line(points={{-26,78},{-26,52},{-48,52}}, color={0,0,127}));
-
   connect(conErr.y, div.u1) annotation (Line(points={{-76,90},{-74,90},{-74,96},
           {-70,96}}, color={0,0,127}));
   connect(div.y, conP.u_s)
     annotation (Line(points={{-46,90},{-38,90}}, color={0,0,127}));
   connect(dpBuiSetPoi.y, div.u2) annotation (Line(points={{-108,60},{-74,60},{
           -74,84},{-70,84}}, color={0,0,127}));
+
 annotation (
   defaultComponentName="buiPreCon",
   Icon(graphics={
