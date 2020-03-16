@@ -168,7 +168,7 @@ def _clean_record_files():
             shutil.rmtree(item)
 
 def _organize_cases(mat_dir):
-    ''' Create a list of dictionaries. Each a dictionary include the case name and the mat file path.
+    ''' Create a list of dictionaries. Each dictionary include the case name and the mat file path.
     '''
     matFiles = list()
     for file in os.listdir(mat_dir):
@@ -496,9 +496,9 @@ def get_data_list():
     Return structure of the list of the standard data
     """
     allTool = ['ESP/DMU', 'BLAST/US-IT', 'DOE21D/NREL', 'SRES-SUN/NREL', \
-                'SRES/BRE', 'S3PAS/SPAIN', 'TSYS/BEL-BRE', 'TASE/FINLAND']
+               'SRES/BRE', 'S3PAS/SPAIN', 'TSYS/BEL-BRE', 'TASE/FINLAND']
     lessTool = ['ESP/DMU', 'BLAST/US-IT', 'DOE21D/NREL', 'SRES-SUN/NREL', \
-                 'S3PAS/SPAIN', 'TSYS/BEL-BRE', 'TASE/FINLAND']
+                'S3PAS/SPAIN', 'TSYS/BEL-BRE', 'TASE/FINLAND']
     dataList = list()
     dataList.append({'data_set': 'annual_heating', \
                      'data_head': '# Table B8-1. Annual Heating Loads (MWh)', \
@@ -548,7 +548,7 @@ def _add_data(dataList):
     """
     Add the standard data to the data structure
 
-    :param dataList: data structure to add data into it
+    :param dataList: the structure to be added data into it
     """
     data_file = open(ASHRAE_DATA)
     count = 0
@@ -613,7 +613,7 @@ def get_line_data(line, table):
 
 def _refactor_data_structure(dataList):
     """
-    Make transpose of the standard data set
+    Transpose of the standard data set
 
     :param dataList: standard data set
     """
