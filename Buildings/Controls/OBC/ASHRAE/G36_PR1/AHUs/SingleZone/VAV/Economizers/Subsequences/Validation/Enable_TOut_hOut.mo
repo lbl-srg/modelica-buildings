@@ -230,10 +230,9 @@ equation
           textString="No enthalpy
 sensor"),
         Text(
-          extent={{116,146},{244,118}},
+          extent={{116,146},{226,114}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
-          fontSize=12,
           textString="Tests fixed + differential drybulb")}),
 Documentation(info="<html>
 <p>

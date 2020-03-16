@@ -395,7 +395,7 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints</a>.
 <ul>
 <li>
 March 11, 2020, by Jianjun Hu:<br/>
-Reimplemented to avoid vector related calculation.<br/>
+Reimplemented to avoid vector-valued calculations.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1709\">issue 1709</a>.
 </li>

@@ -360,7 +360,7 @@ its input.
 <li>
 March 09, 2020, by Jianjun Hu:<br/>
 Replaced the block that calculates operation mode and zone temperature setpoint,
-with the new one that does not include vector related calculation.<br/>
+with the new one that does not include vector-valued calculations.<br/>
 This is
 for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1709\">#1709</a>.
 </li>

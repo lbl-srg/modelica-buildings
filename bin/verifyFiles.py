@@ -47,7 +47,8 @@ INVALID_IN_ALL=["fixme", "import \"",
 # List of invalid strings in .mos files
 INVALID_IN_MOS=[]
 # List of invalid regular expressions in .mo files
-INVALID_REGEXP_IN_MO=["StopTime\s*=\s*\d\s*[*]\s*\d+"]
+INVALID_REGEXP_IN_MO=["StopTime\s*=\s*\d\s*[*]\s*\d+",
+                      "fontSize\s*="]
 # List of strings that are required in .mo files, except in Examples
 REQUIRED_IN_MO=["documentation"]
 
