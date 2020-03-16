@@ -493,7 +493,7 @@ def _value_and_hour(peakList):
 
 def get_data_list():
     """
-    Return structure of the list of the standard data
+    Return structure of the standard data list
     """
     allTool = ['ESP/DMU', 'BLAST/US-IT', 'DOE21D/NREL', 'SRES-SUN/NREL', \
                'SRES/BRE', 'S3PAS/SPAIN', 'TSYS/BEL-BRE', 'TASE/FINLAND']
@@ -577,7 +577,7 @@ def get_line_data(line, table):
     """
     Return the data from one line, as dictionary like {'name': 'Case600', 'value': []}
 
-    :param line: the line text needs to be parsed
+    :param line: the line text to be parsed
     :param table: table type
     """
     data_set = table['data_set']
@@ -697,7 +697,7 @@ def _filter_data_set(dataList):
     """
     Filter the standard data set so to keep only the cases that are simulated in modelica buildings library
 
-    :param dataList: entire the standard data set
+    :param dataList: the set of entire standard data
     """
     for ele in dataList:
         table_name = ele['data_set']
