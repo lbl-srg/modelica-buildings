@@ -24,7 +24,7 @@ equation
          p=1e5,
          T=T,
          X=Medium.X_default));
-    assert(abs(hVapCod-hVapSym) < 1E-2, "Model has an error");
+    assert(abs(hVapCod-hVapSym) < 1E-4 * (1+abs(hVapCod)), "Model has an error");
     der(hVapCod)=der(hVapSym);
 
     cpCod=Medium.specificHeatCapacityCp(
@@ -33,7 +33,7 @@ equation
          T=T,
          X=Medium.X_default));
     der(cpCod)=der(cpSym);
-    assert(abs(cpCod-cpSym) < 1E-2, "Model has an error");
+    assert(abs(cpCod-cpSym) < 1E-4 * (1+abs(cvCod)), "Model has an error");
 
      cvCod=Medium.specificHeatCapacityCv(
       Medium.setState_pTX(
@@ -41,7 +41,7 @@ equation
          T=T,
          X=Medium.X_default));
     der(cvCod)=der(cvSym);
-    assert(abs(cvCod-cvSym) < 1E-2, "Model has an error");
+    assert(abs(cvCod-cvSym) < 1E-4 * (1+abs(cvCod)), "Model has an error");
 
    annotation(experiment(
                  StartTime=0, StopTime=1,
@@ -56,6 +56,12 @@ is not correct, the model will stop with an assert statement.
 </p>
 </html>",   revisions="<html>
 <ul>
+<li>
+March 16, 2020, by Michael Wetter:<br/>
+Changed to relative plus absolute error check in assertion because the specific enthalpy has a
+magnitude of <i>1E6</i>, which causes the assertion to fail in JModelica if an absolute accuracy
+of <i>1E-2</i> is requested.
+</li>
 <li>
 March 6, 2020, by Kathryn Hinkelman:<br/>
 First implementation.

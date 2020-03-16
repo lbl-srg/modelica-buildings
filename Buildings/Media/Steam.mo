@@ -229,7 +229,7 @@ First implementation.
     Real a = auxiliaryAlpha(sat)  "Value for alpha";
 
   algorithm
-    hlv = exp(r1)*pcritical*(r2+r1*tau)/tau * (1/dl-1/dv)
+    hlv := exp(r1)*pcritical*(r2+r1*tau)/tau * (1/dl-1/dv)
       "Difference of equations (7) and (6)";
   annotation (
     smoothOrder=2,
