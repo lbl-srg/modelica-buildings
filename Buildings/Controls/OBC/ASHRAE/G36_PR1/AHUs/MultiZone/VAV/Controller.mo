@@ -529,7 +529,6 @@ block Controller "Multizone AHU controller that composes subsequences for contro
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.SupplyFan
     supFan(
-    final numZon=numZon,
     final samplePeriod=samplePeriod,
     final have_perZonRehBox=have_perZonRehBox,
     final have_duaDucBox=have_duaDucBox,
@@ -685,9 +684,6 @@ equation
       color={0,0,127}));
   connect(outAirSetPoi.VDis_flow, VDis_flow)
     annotation (Line(points={{-42,31},{-184,31},{-184,150},{-220,150}},
-      color={0,0,127}));
-  connect(supFan.VDis_flow, VDis_flow)
-    annotation (Line(points={{-162,113},{-184,113},{-184,150},{-220,150}},
       color={0,0,127}));
   connect(supFan.ySupFan, ySupFan)
     annotation (Line(points={{-138,117},{180,117},{180,190},{220,190}},
