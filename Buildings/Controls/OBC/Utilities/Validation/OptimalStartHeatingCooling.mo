@@ -33,12 +33,12 @@ model OptimalStartHeatingCooling
   Buildings.Controls.OBC.CDL.Continuous.Gain TSetUp(k=-6)
     "Cooling setpoint temperature setup during unoccupied period"
     annotation (Placement(transformation(extent={{100,0},{120,20}})));
-  Modelica.Blocks.Sources.CombiTimeTable TSetCoo(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable TSetCoo(
     table=[0,30 + 273.15; 7*3600,24 + 273.15; 19*3600,30 + 273.15; 24*3600,30
          + 273.15],
     y(unit="K"),
-    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
-    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
+    smoothness=CDL.Types.Smoothness.ConstantSegments,
+    extrapolation=CDL.Types.Extrapolation.Periodic)
     "Cooling setpoint for room temperature"
     annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add1
@@ -74,12 +74,12 @@ model OptimalStartHeatingCooling
     yMax=1,
     yMin=0) "PI control for space heating"
     annotation (Placement(transformation(extent={{180,40},{200,60}})));
-  Modelica.Blocks.Sources.CombiTimeTable TSetHea(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable TSetHea(
     table=[0,15 + 273.15; 7*3600,21 + 273.15; 19*3600,15 + 273.15; 24*3600,15
          + 273.15],
     y(unit="K"),
-    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
-    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
+    smoothness=CDL.Types.Smoothness.ConstantSegments,
+    extrapolation=CDL.Types.Extrapolation.Periodic)
     "Heating setpoint for room temperature"
     annotation (Placement(transformation(extent={{100,80},{120,100}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain QHea(k=2000)
@@ -106,7 +106,7 @@ equation
   connect(booToRea1.y, TSetUp.u)   annotation (Line(points={{82,10},{98,10}},   color={0,0,127}));
   connect(TSetUp.y, add1.u1) annotation (Line(points={{122,10},{132,10},{132,16},
           {138,16}},  color={0,0,127}));
-  connect(TSetCoo.y[1], add1.u2) annotation (Line(points={{121,-50},{134,-50},{134,
+  connect(TSetCoo.y[1], add1.u2) annotation (Line(points={{122,-50},{134,-50},{134,
           4},{138,4}},     color={0,0,127}));
   connect(add1.y, conPID1.u_s)   annotation (Line(points={{162,10},{178,10}},   color={0,0,127}));
   connect(integrator.y, conPID1.u_m) annotation (Line(points={{1,10},{6,10},{6,
@@ -122,7 +122,7 @@ equation
   connect(optSta.optOn, booToRea2.u) annotation (Line(points={{42,6},{50,6},{50,
           50},{58,50}}, color={255,0,255}));
   connect(booToRea2.y, TSetBac.u)   annotation (Line(points={{82,50},{98,50}}, color={0,0,127}));
-  connect(TSetHea.y[1], add2.u1) annotation (Line(points={{121,90},{130,90},{130,
+  connect(TSetHea.y[1], add2.u1) annotation (Line(points={{122,90},{130,90},{130,
           56},{138,56}},     color={0,0,127}));
   connect(TSetBac.y, add2.u2) annotation (Line(points={{122,50},{128,50},{128,44},
           {138,44}}, color={0,0,127}));
