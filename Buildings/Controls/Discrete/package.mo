@@ -1,7 +1,6 @@
 within Buildings.Controls;
 package Discrete "Package with models for discrete time controls"
   extends Modelica.Icons.Package;
-
 annotation (
 preferredView="info", Documentation(info="<html>
 This package contains component models for discrete time controls.

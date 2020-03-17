@@ -26,8 +26,8 @@ model ThirdOrderStratifier
     "Enthalpy flow between the volumes" annotation (Placement(transformation(
           extent={{-140,-100},{-100,-60}})));
 
-  Modelica.Fluid.Interfaces.FluidPort_a[nSeg + 2] fluidPort(redeclare each package
-              Medium = Medium)
+  Modelica.Fluid.Interfaces.FluidPort_a[nSeg + 2] fluidPort(redeclare each
+      package Medium = Medium)
     "Fluid port, needed to get pressure, temperature and species concentration"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 

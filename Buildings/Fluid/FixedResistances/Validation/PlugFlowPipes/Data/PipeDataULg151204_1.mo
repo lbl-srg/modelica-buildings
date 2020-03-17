@@ -1,4 +1,4 @@
-﻿within Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.Data;
+within Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.Data;
 record PipeDataULg151204_1
   "Experimental data from ULg's pipe test bench from December 4, 2015 (1);
   increase followed by a decrease in temperature"

@@ -1,4 +1,4 @@
-﻿within Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.Data;
+within Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.Data;
 record PipeDataULg160118_1
   "Experimental data from ULg's pipe test bench from January 18, 2016"
   extends Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.Data.BaseClasses.PipeDataULg(

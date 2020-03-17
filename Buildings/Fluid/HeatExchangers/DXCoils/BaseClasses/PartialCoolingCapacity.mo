@@ -36,7 +36,8 @@ partial block PartialCoolingCapacity
 
   replaceable parameter
     Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage sta[nSta]
-     constrainedby Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage
+     constrainedby
+    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage
      "Performance data for this stage";
   output Real[nSta] ff(each min=0)
     "Air flow fraction: ratio of actual air flow rate by rated mass flow rate";

@@ -2,8 +2,8 @@ within Buildings.Fluid.HeatExchangers.BaseClasses.Examples;
 model MassExchange "Test model for latent heat exchange"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air;
-  Buildings.Fluid.HeatExchangers.BaseClasses.MassExchange masExc(redeclare package
-              Medium =
+  Buildings.Fluid.HeatExchangers.BaseClasses.MassExchange masExc(redeclare
+      package Medium =
                Medium) "Model for mass exchange"
                                      annotation (Placement(transformation(
           extent={{20,0},{40,20}})));
