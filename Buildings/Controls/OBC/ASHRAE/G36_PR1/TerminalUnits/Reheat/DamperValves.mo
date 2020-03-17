@@ -844,7 +844,8 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/Terminal
 <ul>
 <li>
 March 11, 2020, by Jianjun Hu:<br/>
-Replaced multisum block with add blocks.<br/>
+Replaced multisum block with add blocks, replaced gain block used for normalization
+with division block.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1830\">#1830</a>.
 </li>
