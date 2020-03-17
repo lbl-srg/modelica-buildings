@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints;
-block ZoneTemperatures "Block outputs thermal zone cooling and heating setpoint"
+block ZoneTemperatures
+  "Block outputs thermal zone cooling and heating setpoint"
 
   parameter Boolean have_occSen "Check if the zone has occupancy sensor"
     annotation(Dialog(group="Sensors"));
@@ -165,19 +166,16 @@ block ZoneTemperatures "Block outputs thermal zone cooling and heating setpoint"
     annotation (Placement(transformation(extent={{40,100},{60,120}})));
   Buildings.Controls.OBC.CDL.Continuous.Product pro6
     "Output product of the two inputs"
-    annotation (Placement(transformation(extent={{100,140},{120,160}})));
+    annotation (Placement(transformation(extent={{80,140},{100,160}})));
   Buildings.Controls.OBC.CDL.Continuous.Product pro
     "Output product of the two inputs"
-    annotation (Placement(transformation(extent={{100,100},{120,120}})));
+    annotation (Placement(transformation(extent={{80,100},{100,120}})));
   Buildings.Controls.OBC.CDL.Continuous.Product pro1
     "Output product of the two inputs"
-    annotation (Placement(transformation(extent={{100,60},{120,80}})));
+    annotation (Placement(transformation(extent={{80,60},{100,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Product pro2
     "Output product of the two inputs"
-    annotation (Placement(transformation(extent={{100,20},{120,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=4)
-    "Sum of inputs"
-    annotation (Placement(transformation(extent={{160,80},{180,100}})));
+    annotation (Placement(transformation(extent={{80,20},{100,40}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler heaSetFre
     "Freeze current heating setpoint when demand limit is imposed"
     annotation (Placement(transformation(extent={{-160,-80},{-140,-60}})));
@@ -187,7 +185,7 @@ block ZoneTemperatures "Block outputs thermal zone cooling and heating setpoint"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Product pro7
     "Output product of the two inputs"
-    annotation (Placement(transformation(extent={{100,-80},{120,-60}})));
+    annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar6(
     final k=1,
     final p=-decTSetDem_1)
@@ -205,16 +203,13 @@ block ZoneTemperatures "Block outputs thermal zone cooling and heating setpoint"
     annotation (Placement(transformation(extent={{40,-200},{60,-180}})));
   Buildings.Controls.OBC.CDL.Continuous.Product pro5
     "Output product of the two inputs"
-    annotation (Placement(transformation(extent={{100,-200},{120,-180}})));
+    annotation (Placement(transformation(extent={{80,-200},{100,-180}})));
   Buildings.Controls.OBC.CDL.Continuous.Product pro4
     "Output product of the two inputs"
-    annotation (Placement(transformation(extent={{100,-160},{120,-140}})));
+    annotation (Placement(transformation(extent={{80,-160},{100,-140}})));
   Buildings.Controls.OBC.CDL.Continuous.Product pro3
     "Output product of the two inputs"
-    annotation (Placement(transformation(extent={{100,-120},{120,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum1(nin=4)
-    "Sum of inputs"
-    annotation (Placement(transformation(extent={{160,-140},{180,-120}})));
+    annotation (Placement(transformation(extent={{80,-120},{100,-100}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim
     "Measure unpopulated time when the zone is in occupied mode"
     annotation (Placement(transformation(extent={{-220,-280},{-200,-260}})));
@@ -489,6 +484,18 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu5
     "Check if the cooling demand limit level is level 3"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add3 "Add real inputs"
+    annotation (Placement(transformation(extent={{120,118},{140,138}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add4 "Add real inputs"
+    annotation (Placement(transformation(extent={{120,40},{140,60}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add5 "Add real inputs"
+    annotation (Placement(transformation(extent={{160,80},{180,100}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add6 "Add real inputs"
+    annotation (Placement(transformation(extent={{120,-100},{140,-80}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add7 "Add real inputs"
+    annotation (Placement(transformation(extent={{120,-180},{140,-160}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add8 "Add real inputs"
+    annotation (Placement(transformation(extent={{160,-140},{180,-120}})));
 
 equation
   connect(uOpeMod, intEqu.u1)
@@ -658,7 +665,7 @@ equation
   connect(not1.y, booToRea6.u)
     annotation (Line(points={{22,150},{38,150}}, color={255,0,255}));
   connect(booToRea.y, pro.u2)
-    annotation (Line(points={{-18,110},{0,110},{0,94},{80,94},{80,104},{98,104}},
+    annotation (Line(points={{-18,110},{0,110},{0,92},{70,92},{70,104},{78,104}},
       color={0,0,127}));
   connect(cooSetFre.y, addPar2.u)
     annotation (Line(points={{-138,150},{-100,150},{-100,132},{20,132},{20,110},
@@ -673,26 +680,26 @@ equation
           38,30}},
                 color={0,0,127}));
   connect(booToRea1.y, pro1.u2)
-    annotation (Line(points={{-18,70},{0,70},{0,54},{80,54},{80,64},{98,64}},
+    annotation (Line(points={{-18,70},{0,70},{0,52},{72,52},{72,64},{78,64}},
       color={0,0,127}));
   connect(booToRea2.y, pro2.u2)
-    annotation (Line(points={{-18,30},{0,30},{0,14},{80,14},{80,24},{98,24}},
+    annotation (Line(points={{-18,30},{0,30},{0,12},{70,12},{70,24},{78,24}},
       color={0,0,127}));
   connect(addPar2.y, pro.u1)
-    annotation (Line(points={{62,110},{80,110},{80,116},{98,116}},
+    annotation (Line(points={{62,110},{70,110},{70,116},{78,116}},
       color={0,0,127}));
   connect(cooSetFre.y, pro6.u2)
-    annotation (Line(points={{-138,150},{-100,150},{-100,132},{80,132},{80,144},
-          {98,144}},
+    annotation (Line(points={{-138,150},{-100,150},{-100,132},{70,132},{70,144},
+          {78,144}},
                  color={0,0,127}));
   connect(booToRea6.y, pro6.u1)
-    annotation (Line(points={{62,150},{80,150},{80,156},{98,156}},
+    annotation (Line(points={{62,150},{70,150},{70,156},{78,156}},
       color={0,0,127}));
   connect(addPar1.y, pro1.u1)
-    annotation (Line(points={{62,70},{80,70},{80,76},{98,76}},
+    annotation (Line(points={{62,70},{72,70},{72,76},{78,76}},
       color={0,0,127}));
   connect(addPar3.y, pro2.u1)
-    annotation (Line(points={{62,30},{80,30},{80,36},{98,36}},
+    annotation (Line(points={{62,30},{70,30},{70,36},{78,36}},
       color={0,0,127}));
   connect(or2.y, not3.u)
     annotation (Line(points={{-258,-30},{-102,-30}}, color={255,0,255}));
@@ -739,11 +746,11 @@ equation
   connect(not2.y, booToRea7.u)
     annotation (Line(points={{22,-70},{38,-70}}, color={255,0,255}));
   connect(booToRea7.y, pro7.u1)
-    annotation (Line(points={{62,-70},{80,-70},{80,-64},{98,-64}},
+    annotation (Line(points={{62,-70},{70,-70},{70,-64},{78,-64}},
       color={0,0,127}));
   connect(heaSetFre.y, pro7.u2)
-    annotation (Line(points={{-138,-70},{-100,-70},{-100,-88},{80,-88},{80,-76},
-          {98,-76}},
+    annotation (Line(points={{-138,-70},{-100,-70},{-100,-88},{70,-88},{70,-76},
+          {78,-76}},
                  color={0,0,127}));
   connect(heaSetFre.y, addPar6.u)
     annotation (Line(points={{-138,-70},{-100,-70},{-100,-88},{20,-88},{20,-110},
@@ -758,59 +765,32 @@ equation
           {38,-190}},
                   color={0,0,127}));
   connect(addPar6.y, pro3.u1)
-    annotation (Line(points={{62,-110},{80,-110},{80,-104},{98,-104}},
+    annotation (Line(points={{62,-110},{70,-110},{70,-104},{78,-104}},
       color={0,0,127}));
   connect(addPar5.y, pro4.u1)
-    annotation (Line(points={{62,-150},{80,-150},{80,-144},{98,-144}},
+    annotation (Line(points={{62,-150},{70,-150},{70,-144},{78,-144}},
       color={0,0,127}));
   connect(addPar4.y, pro5.u1)
-    annotation (Line(points={{62,-190},{80,-190},{80,-184},{98,-184}},
+    annotation (Line(points={{62,-190},{70,-190},{70,-184},{78,-184}},
       color={0,0,127}));
   connect(booToRea3.y, pro3.u2)
-    annotation (Line(points={{-18,-110},{0,-110},{0,-126},{80,-126},{80,-116},{98,
-          -116}}, color={0,0,127}));
+    annotation (Line(points={{-18,-110},{0,-110},{0,-126},{70,-126},{70,-116},{
+          78,-116}},
+                  color={0,0,127}));
   connect(booToRea4.y, pro4.u2)
-    annotation (Line(points={{-18,-150},{0,-150},{0,-166},{80,-166},{80,-156},{98,
-          -156}}, color={0,0,127}));
+    annotation (Line(points={{-18,-150},{0,-150},{0,-166},{70,-166},{70,-156},{
+          78,-156}},
+                  color={0,0,127}));
   connect(booToRea5.y, pro5.u2)
-    annotation (Line(points={{-18,-190},{0,-190},{0,-206},{80,-206},{80,-196},{98,
-          -196}}, color={0,0,127}));
+    annotation (Line(points={{-18,-190},{0,-190},{0,-206},{70,-206},{70,-196},{
+          78,-196}},
+                  color={0,0,127}));
   connect(edg.y, cooSetFre.trigger)
     annotation (Line(points={{-198,0},{-180,0},{-180,134},{-150,134},{-150,138.2}},
       color={255,0,255}));
   connect(edg.y, heaSetFre.trigger)
     annotation (Line(points={{-198,0},{-180,0},{-180,-86},{-150,-86},{-150,-81.8}},
       color={255,0,255}));
-  connect(pro6.y, mulSum.u[1])
-    annotation (Line(points={{122,150},{146,150},{146,91.5},{158,91.5}},
-      color={0,0,127}));
-  connect(pro.y, mulSum.u[2])
-    annotation (Line(points={{122,110},{142,110},{142,90.5},{158,90.5}},
-      color={0,0,127}));
-  connect(pro1.y, mulSum.u[3])
-    annotation (Line(points={{122,70},{140,70},{140,89.5},{158,89.5}},
-      color={0,0,127}));
-  connect(pro2.y, mulSum.u[4])
-    annotation (Line(points={{122,30},{136,30},{136,88.5},{158,88.5}},
-      color={0,0,127}));
-  connect(pro7.y, mulSum1.u[1])
-    annotation (Line(points={{122,-70},{146,-70},{146,-128.5},{158,-128.5}},
-      color={0,0,127}));
-  connect(pro3.y, mulSum1.u[2])
-    annotation (Line(points={{122,-110},{142,-110},{142,-129.5},{158,-129.5}},
-      color={0,0,127}));
-  connect(pro4.y, mulSum1.u[3])
-    annotation (Line(points={{122,-150},{138,-150},{138,-130.5},{158,-130.5}},
-      color={0,0,127}));
-  connect(pro5.y, mulSum1.u[4])
-    annotation (Line(points={{122,-190},{132,-190},{132,-131.5},{158,-131.5}},
-      color={0,0,127}));
-  connect(mulSum.y, swi10.u3)
-    annotation (Line(points={{182,90},{194,90},{194,82},{218,82}},
-      color={0,0,127}));
-  connect(mulSum1.y, swi11.u3)
-    annotation (Line(points={{182,-130},{194,-130},{194,-138},{218,-138}},
-      color={0,0,127}));
   connect(or5.y, swi10.u2)
     annotation (Line(points={{182,-10},{200,-10},{200,90},{218,90}},
       color={255,0,255}));
@@ -1068,6 +1048,34 @@ equation
   connect(reaToInt.y, yAla)
     annotation (Line(points={{182,-390},{360,-390}}, color={255,127,0}));
 
+  connect(pro6.y, add3.u1) annotation (Line(points={{102,150},{110,150},{110,
+          134},{118,134}}, color={0,0,127}));
+  connect(pro.y, add3.u2) annotation (Line(points={{102,110},{110,110},{110,122},
+          {118,122}}, color={0,0,127}));
+  connect(pro1.y, add4.u1) annotation (Line(points={{102,70},{110,70},{110,56},
+          {118,56}}, color={0,0,127}));
+  connect(pro2.y, add4.u2) annotation (Line(points={{102,30},{110,30},{110,44},
+          {118,44}}, color={0,0,127}));
+  connect(add3.y, add5.u1) annotation (Line(points={{142,128},{150,128},{150,96},
+          {158,96}}, color={0,0,127}));
+  connect(add4.y, add5.u2) annotation (Line(points={{142,50},{150,50},{150,84},
+          {158,84}}, color={0,0,127}));
+  connect(add5.y, swi10.u3) annotation (Line(points={{182,90},{190,90},{190,82},
+          {218,82}}, color={0,0,127}));
+  connect(pro7.y, add6.u1) annotation (Line(points={{102,-70},{110,-70},{110,
+          -84},{118,-84}}, color={0,0,127}));
+  connect(pro3.y, add6.u2) annotation (Line(points={{102,-110},{110,-110},{110,
+          -96},{118,-96}}, color={0,0,127}));
+  connect(pro4.y, add7.u1) annotation (Line(points={{102,-150},{110,-150},{110,
+          -164},{118,-164}}, color={0,0,127}));
+  connect(pro5.y, add7.u2) annotation (Line(points={{102,-190},{110,-190},{110,
+          -176},{118,-176}}, color={0,0,127}));
+  connect(add6.y, add8.u1) annotation (Line(points={{142,-90},{150,-90},{150,
+          -124},{158,-124}}, color={0,0,127}));
+  connect(add7.y, add8.u2) annotation (Line(points={{142,-170},{150,-170},{150,
+          -136},{158,-136}}, color={0,0,127}));
+  connect(add8.y, swi11.u3) annotation (Line(points={{182,-130},{190,-130},{190,
+          -138},{218,-138}}, color={0,0,127}));
 annotation (
   defaultComponentName="TZonSet",
   Icon(coordinateSystem(extent={{-200,-200},{200,200}}),
@@ -1179,13 +1187,13 @@ annotation (
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent={{-412,174},{330,-216}},
+          extent={{-412,174},{332,-212}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent={{-412,-230},{330,-366}},
+          extent={{-412,-228},{330,-366}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,

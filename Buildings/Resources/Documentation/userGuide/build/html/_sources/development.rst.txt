@@ -235,6 +235,9 @@ The following rules need to be followed, in addition to the guidelines described
    Conversion of these units to non-SI units can be done programmatically by tools that
    process CDL.
 
+#. If the block diagram does not fit into the drawing pane, enlarge the drawing pane rather
+   than making the blocks smaller.
+
 #. For simple, small controllers, provide a unit test in a ``Validation`` or ``Examples`` package
    that is in the hierarchy one level below the implemented controller.
    See :numref:`sec_val` for unit test implementation.
@@ -246,7 +249,7 @@ The following rules need to be followed, in addition to the guidelines described
 .. _sec_val:
 
 Validation
-~~~~~~~~~~
+----------
 
 All models that are implemented need to be validated for a range of
 realistic operating modes.
