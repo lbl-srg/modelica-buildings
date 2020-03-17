@@ -1,20 +1,20 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 #####################################################################
 # This script checks mo and mos files for invalid syntax.
-# Run this file before checking changes into the trunk.
 #
 # MWetter@lbl.gov                                          2011-03-06
 #####################################################################
 import os, string, fnmatch, os.path, sys
 # --------------------------
 # Global settings
-LIBHOME=os.path.abspath(".")
+LIBHOME=os.path.join(".")
 
 # List of invalid strings
 # Regarding the strings __Dymola_*, see https://trac.modelica.org/Modelica/ticket/786
 # for possible replacements.
 INVALID_IN_ALL=["fixme", "import \"",
                 "import Buildings;",
+                "import IBPSA;",
                 "<h1", "<h2", "<h3", "todo", "xxx", "tt>", "<--",
                 "realString", "integerString", "structurallyIncomplete",
                 "preferedView", "Algorithm=", "Diagram,", "DocumentationClass",
@@ -23,6 +23,7 @@ INVALID_IN_ALL=["fixme", "import \"",
                 "Modelica:Buildings",
                 "modelica:Modelica",
                 "Modelica:Modelica",
+                "__Dymola_Algorithm",
                 "__Dymola_absoluteValue",
                 "__Dymola_checkBox",
                 "__Dymola_choicesAllMatching",
@@ -37,17 +38,23 @@ INVALID_IN_ALL=["fixme", "import \"",
                 "__Dymola_normallyConstant",
                 "__Dymola_NumberOfIntervals",
                 "__Dymola_saveSelector",
-                "__Dymola_Text"]
+                "__Dymola_Text",
+                "modelica://AixLib",
+	        "modelica://IBPSA",
+                "modelica://BuildingSystems",
+	        "modelica://IDEAS",
+                "modelica://https://"]
 # List of invalid strings in .mos files
 INVALID_IN_MOS=[]
 # List of invalid regular expressions in .mo files
-INVALID_REGEXP_IN_MO=["StopTime\s*=\s*\d\s*[*]\s*\d+"]
+INVALID_REGEXP_IN_MO=["StopTime\s*=\s*\d\s*[*]\s*\d+",
+                      "fontSize\s*="]
 # List of strings that are required in .mo files, except in Examples
 REQUIRED_IN_MO=["documentation"]
 
 #########################################################
 def reportError(message):
-    print "*** Error: ", message
+    print("*** Error: ", message)
     global IERR
     IERR=IERR+1
 
@@ -133,7 +140,9 @@ for (path, dirs, files) in os.walk(LIBHOME):
             filFulNam=os.path.join(path, filNam)
             # Test .mo and .mos
             if foundMo or foundMos:
-                reportErrorIfContains(filFulNam, INVALID_IN_ALL)
+                # Skip Utilities/Plotters/BaseClasses/PartialPlotter.mo because it contains <h1>
+                if filFulNam != "./Utilities/Plotters/BaseClasses/PartialPlotter.mo":
+                    reportErrorIfContains(filFulNam, INVALID_IN_ALL)
             # Test .mos files only
             if foundMos:
                 reportErrorIfContains(filFulNam, INVALID_IN_MOS)
@@ -153,5 +162,5 @@ for (path, dirs, files) in os.walk(LIBHOME):
 # Terminate if there was an error.
 # This allows other scripts to check the return value
 if IERR != 0:
-    print "*** Terminating due to found errors in examined files."
-    sys.exit(2)
+    print("*** Terminating due to found errors in examined files.")
+    sys.exit(1)

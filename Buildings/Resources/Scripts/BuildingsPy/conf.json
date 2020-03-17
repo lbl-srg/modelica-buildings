@@ -67,29 +67,5 @@
          "rtol": 1E-8
     },
     "model_name": "Buildings.Examples.DualFanDualDuct.ClosedLoop"
-  },
-  {
-       "optimica": {
-         "simulate": false
-    },
-    "model_name": "Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.MSLAIT2Nodes"
-  },
-  {
-       "optimica": {
-         "simulate": false
-    },
-    "model_name": "Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT"
-  },
-  {
-       "optimica": {
-         "simulate": false
-    },
-    "model_name": "Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.MSLAIT"
-  },
-  {
-       "optimica": {
-         "simulate": false
-    },
-    "model_name": "Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.Data.TestData"
   }
 ]
