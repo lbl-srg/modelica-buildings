@@ -8,14 +8,22 @@ function TDewPoi_pW
   output Modelica.SIunits.Temperature T "Dew point temperature";
 
 protected
-  constant Modelica.Media.Common.OneNonLinearEquation.f_nonlinear_Data dummy
-    "Dummy argument for nonlinear function solver";
+  function pW_TDewPoi_inversion
+    "Internal function to solve eps=f(NTU, Z) for NTU for cross flow unmixed"
+    extends Modelica.Math.Nonlinear.Interfaces.partialScalarFunction;
+
+    input Modelica.SIunits.Pressure p_w(displayUnit="Pa", min=200)
+      "Water vapor partial pressure";
+
+  algorithm
+    y :=Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi(T=u) - p_w;
+  end pW_TDewPoi_inversion;
+
 algorithm
-  T := Internal.solve(
-    y_zero=p_w,
-    x_min=200,
-    x_max=400,
-    f_nonlinear_data = dummy);
+  T := Modelica.Math.Nonlinear.solveOneNonlinearEquation(
+      f=function pW_TDewPoi_inversion(p_w=p_w),
+      u_min=200,
+      u_max=400);
   annotation (
     Documentation(info="<html>
 <p>
@@ -30,6 +38,15 @@ temperatures.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 28, 2020, by Michael Wetter:<br/>
+Replaced call to <code>Media.Common.OneNonLinearEquation</code> to use
+<a href=\"modelica://Modelica.Math.Nonlinear.solveOneNonlinearEquation\">
+Modelica.Math.Nonlinear.solveOneNonlinearEquation</a>
+because <code>Media.Common.OneNonLinearEquation</code> will be obsolete in MSL 4.0.0.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1299\">issue 1299</a>.
+</li>
 <li>
 April 29, 2014 by Michael Wetter:<br/>
 Added dummy argument to <code>Internal.solve</code> to avoid a warning

@@ -1,10 +1,10 @@
 within Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.Data.BaseClasses;
 partial record PipeDataBaseDefinition
   "BaseClass for experimental data from the pipe test bench"
-      extends Modelica.Icons.Record;
-      parameter Integer n "Number of measurement data point";
-      parameter Real[:, 1+n] data
-    "Time in s | measure 1 | measure 2 | ... | measure n |";
+    extends Modelica.Icons.Record;
+      parameter Integer nCol "Number of columns in the data file";
+      parameter String filNam
+      "Name of data file";
       annotation(Documentation(info="<html>
 <p>
 Defines basic record of experimental data with <code>n</code> measured points.
@@ -13,6 +13,13 @@ The first column corresponds to <code>time</code>, further columns to measured d
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 7, 2020, by Michael Wetter:<br/>
+Replaced measured data from specification in Modelica file to external table,
+as this reduces the computing time.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1289\"> #1289</a>.
+</li>
 <li>
 Januar 19, 2016 by Carles Ribas:<br/>
 Move experiment documentation to the <a href=\"modelica://Buildings.Experimental.Pipe.Data.PipeDatauLg150801\">

@@ -14,7 +14,8 @@ record DXCoil
   replaceable parameter
     Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage
     sta[nSta]
-    constrainedby Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage
+    constrainedby
+    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage
     "Data record for coil performance at each stage";
   parameter Modelica.SIunits.MassFlowRate m_flow_small = 0.0001*sta[nSta].nomVal.m_flow_nominal
     "Small mass flow rate for regularization near zero flow"

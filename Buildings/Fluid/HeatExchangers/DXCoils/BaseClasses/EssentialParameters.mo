@@ -3,7 +3,8 @@ partial block EssentialParameters "A partial block for essential parameters"
 
   replaceable parameter
     Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi
-    constrainedby Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil
+    constrainedby
+    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil
     "Performance data"
     annotation (Placement(transformation(extent={{-80,82},{-68,94}})));
 protected

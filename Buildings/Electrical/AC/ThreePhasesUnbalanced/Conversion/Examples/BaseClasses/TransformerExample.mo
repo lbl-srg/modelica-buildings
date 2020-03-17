@@ -26,8 +26,8 @@ model TransformerExample
   Sensors.ProbeDelta probe_D_1(perUnit=false, V_nominal = V_primary)
     "Probe that measures the voltage in D configuration, primary side"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-50}})));
-  replaceable Sensors.BaseClasses.GeneralizedProbe probe_2 constrainedby Sensors.BaseClasses.GeneralizedProbe(
-                                         perUnit=false,
+  replaceable Sensors.BaseClasses.GeneralizedProbe probe_2 constrainedby
+    Sensors.BaseClasses.GeneralizedProbe(perUnit=false,
     V_nominal=V_secondary)
     "Probe that measures the voltage at the secondary side"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
