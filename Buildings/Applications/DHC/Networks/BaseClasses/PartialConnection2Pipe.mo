@@ -174,7 +174,7 @@ partial model PartialConnection2Pipe
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-20,90})));
+        origin={-40,90})));
   Fluid.Sensors.TemperatureTwoPort senTConRet(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
@@ -184,7 +184,7 @@ partial model PartialConnection2Pipe
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
-        origin={20,90})));
+        origin={0,90})));
   Buildings.Controls.OBC.CDL.Continuous.Add sub(final k1=-1) if have_heaFloOut
     "Delta T"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
@@ -234,13 +234,17 @@ equation
           {120,0}}, color={0,0,127}));
   if have_heaFloOut then
     connect(senMasFloCon.port_b, senTConSup.port_a)
-      annotation (Line(points={{-20,40},{-20,80}}, color={0,127,255}));
+      annotation (Line(points={{-20,40},{-20,80},{-40,80}},
+                                                   color={0,127,255}));
     connect(senTConSup.port_b, port_bCon)
-      annotation (Line(points={{-20,100},{-20,120}}, color={0,127,255}));
+      annotation (Line(points={{-40,100},{-40,110},{-20,110},{-20,120}},
+                                                     color={0,127,255}));
     connect(port_aCon, senTConRet.port_a)
-      annotation (Line(points={{20,120},{20,100}}, color={0,127,255}));
+      annotation (Line(points={{20,120},{20,110},{0,110},{0,100},{1.77636e-15,
+            100}},                                 color={0,127,255}));
     connect(senTConRet.port_b, junConRet.port_3)
-      annotation (Line(points={{20,80},{20,-70}}, color={0,127,255}));
+      annotation (Line(points={{-1.77636e-15,80},{-1.77636e-15,78},{0,78},{0,76},
+            {20,76},{20,-70}},                    color={0,127,255}));
   else
     connect(port_bCon, senMasFloCon.port_b)
       annotation (Line(points={{-20,120},{-20,40}}, color={0,127,255}));
@@ -256,11 +260,10 @@ equation
   connect(sub.y, pro.u1) annotation (Line(points={{12,60},{30,60},{30,66},{38,
           66}},
         color={0,0,127}));
-  connect(senTConSup.T, sub.u2) annotation (Line(points={{-31,90},{-40,90},{-40,
+  connect(senTConSup.T, sub.u2) annotation (Line(points={{-51,90},{-60,90},{-60,
           54},{-12,54}}, color={0,0,127}));
-  connect(senTConRet.T, sub.u1) annotation (Line(points={{9,90},{0,90},{0,80},{
-          -16,80},{-16,66},{-12,66}},
-                                  color={0,0,127}));
+  connect(senTConRet.T, sub.u1) annotation (Line(points={{-11,90},{-16,90},{-16,
+          66},{-12,66}},          color={0,0,127}));
   annotation (
     defaultComponentName="con",
     Documentation(info="

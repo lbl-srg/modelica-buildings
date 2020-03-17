@@ -154,9 +154,9 @@ partial model PartialConnection1Pipe
     "Connection supply temperature sensor"
     annotation (Placement(
         transformation(
-        extent={{-10,10},{10,-10}},
+        extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-40,90})));
+        origin={-60,90})));
   Fluid.Sensors.TemperatureTwoPort senTConRet(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
@@ -166,7 +166,7 @@ partial model PartialConnection1Pipe
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
-        origin={40,90})));
+        origin={20,90})));
   Buildings.Controls.OBC.CDL.Continuous.Add sub(
     final k1=-1) if have_heaFloOut
     "Delta T"
@@ -211,23 +211,28 @@ equation
 
   if have_heaFloOut then
     connect(senMasFloCon.port_b, senTConSup.port_a)
-      annotation (Line(points={{-40,70},{-40,80}}, color={0,127,255}));
+      annotation (Line(points={{-40,70},{-40,76},{-60,76},{-60,80}},
+                                                   color={0,127,255}));
     connect(senTConSup.port_b, port_bCon)
-      annotation (Line(points={{-40,100},{-40,120}}, color={0,127,255}));
+      annotation (Line(points={{-60,100},{-60,106},{-40,106},{-40,120}},
+                                                     color={0,127,255}));
     connect(port_aCon, senTConRet.port_a)
-      annotation (Line(points={{40,120},{40,100}}, color={0,127,255}));
+      annotation (Line(points={{40,120},{40,106},{20,106},{20,100}},
+                                                   color={0,127,255}));
     connect(senTConRet.port_b, junConRet.port_3)
-      annotation (Line(points={{40,80},{40,-30}}, color={0,127,255}));
+      annotation (Line(points={{20,80},{20,74},{40,74},{40,-30}},
+                                                  color={0,127,255}));
   else
     connect(port_bCon, senMasFloCon.port_b)
       annotation (Line(points={{-40,120},{-40,70}}, color={0,127,255}));
     connect(port_aCon, junConRet.port_3)
       annotation (Line(points={{40,120},{40,-30}}, color={0,127,255}));
   end if;
-  connect(senTConSup.T, sub.u2) annotation (Line(points={{-29,90},{-20,90},{-20,
+  connect(senTConSup.T, sub.u2) annotation (Line(points={{-71,90},{-80,90},{-80,
           34},{-2,34}}, color={0,0,127}));
-  connect(senTConRet.T, sub.u1) annotation (Line(points={{29,90},{-10,90},{-10,46},
-          {-2,46}}, color={0,0,127}));
+  connect(senTConRet.T, sub.u1) annotation (Line(points={{9,90},{-10,90},{-10,
+          46},{-2,46}},
+                    color={0,0,127}));
   connect(sub.y, pro.u2) annotation (Line(points={{22,40},{30,40},{30,34},{44,34}},
         color={0,0,127}));
   connect(senMasFloCon.m_flow, pro.u1) annotation (Line(points={{-29,60},{30,60},
