@@ -68,7 +68,7 @@ partial model PartialConnection1Pipe
     iconTransformation(extent={{-10,90},{10,110}})));
   Modelica.Blocks.Interfaces.RealOutput mCon_flow(
     final quantity="MassFlowRate", final unit="kg/s")
-    "Connection supply mass flow rate (sensed)"
+    "Connection supply mass flow rate (measured)"
     annotation (Placement(transformation(
       extent={{100,40},{140,80}}),
       iconTransformation(extent={{100,50},{120, 70}})));
@@ -132,7 +132,7 @@ partial model PartialConnection1Pipe
   Buildings.Fluid.Sensors.MassFlowRate senMasFloCon(
     redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal)
-    "Connection supply mass flow rate (sensed)"
+    "Connection supply mass flow rate (measured)"
     annotation (Placement(
       transformation(
       extent={{-10,10},{10,-10}},
@@ -141,7 +141,7 @@ partial model PartialConnection1Pipe
   Buildings.Fluid.Sensors.MassFlowRate senMasFloByp(
     redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal)
-    "Bypass mass flow rate (sensed)"
+    "Bypass mass flow rate (measured)"
     annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},
       rotation=0,
@@ -253,7 +253,7 @@ One representing the main distribution pipe immediately upstream the connection.
 </li>
 <li>
 The other one representing both the supply and return lines of the connection.
-When replacing that model with a pipe model computing the pressure drop, 
+When replacing that model with a pipe model computing the pressure drop,
 one must double the length so that both the supply and return lines are
 accounted for.
 </li>

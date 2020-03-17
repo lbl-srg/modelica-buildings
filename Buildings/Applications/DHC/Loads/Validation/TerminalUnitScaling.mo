@@ -69,8 +69,7 @@ model TerminalUnitScaling
     final T_aLoaHea_nominal=T_aLoaHea_nominal) "Terminal unit with no scaling"
     annotation (Placement(transformation(extent={{8,78},{32,102}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=20 + 273.15,
-      y(final unit="K", displayUnit="degC"))
-    "Minimum temperature setpoint (C)"
+      y(final unit="K", displayUnit="degC")) "Minimum temperature setpoint"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
   BaseClasses.FanCoil2PipeHeating terUniSca(
     have_speVar=false,

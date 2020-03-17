@@ -28,19 +28,20 @@ model SimpleRoomODE "Validation of the model SimpleRoomODE"
   Buildings.Controls.Continuous.LimPID conHea(controllerType=Modelica.Blocks.Types.SimpleController.PI, Ti=10)
     annotation (Placement(transformation(extent={{30,110},{50,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=20 + 273.15,
-      y(final unit="K", displayUnit="degC"))
-    "Minimum temperature setpoint (C)"
+      y(final unit="K", displayUnit="degC")) "Minimum temperature setpoint"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(k=QHea_flow_nominal)
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai(k=QHea_flow_nominal) "Scaling"
     annotation (Placement(transformation(extent={{60,110},{80,130}})));
   HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow
+    "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{82,130},{62,150}})));
   Examples.BaseClasses.GeojsonExportRC.OfficeBuilding.Office romHeaUnm
     "ROM where the heating load is not met"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai1(k=0.7)
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai1(k=0.7) "Scaling "
     annotation (Placement(transformation(extent={{92,90},{112,110}})));
   HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow1
+    "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{82,70},{62,90}})));
   Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoomODE rooOdeHea(
     TOutHea_nominal=273.15,
@@ -49,14 +50,14 @@ model SimpleRoomODE "Validation of the model SimpleRoomODE"
     tau=tau) "ODE heated room model"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=24 + 273.15,
-      y(final unit="K", displayUnit="degC"))
-    "Maximum temperature setpoint (C)"
+      y(final unit="K", displayUnit="degC")) "Maximum temperature setpoint"
     annotation (Placement(transformation(extent={{-140,-170},{-120,-150}})));
   Buildings.Controls.Continuous.LimPID conCoo(controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=10,
-      reverseAction=true)
+      reverseAction=true) "PI controller tracking the room maximum temperature"
     annotation (Placement(transformation(extent={{30,-110},{50,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai2(k=QCoo_flow_nominal)
+    "Scaling"
     annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
   Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoomODE rooOdeCoo(
     TOutHea_nominal=273.15,
@@ -64,7 +65,7 @@ model SimpleRoomODE "Validation of the model SimpleRoomODE"
     QHea_flow_nominal=QHea_flow_nominal,
     tau=tau) "ODE cooled room model"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai3(k=0.8)
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai3(k=0.8) "Scaling"
     annotation (Placement(transformation(extent={{92,-90},{112,-70}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat1(
     TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
@@ -81,8 +82,10 @@ model SimpleRoomODE "Validation of the model SimpleRoomODE"
     "ROM where the cooling load is not met"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
   HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow2
+    "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{80,-70},{60,-50}})));
   HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow3
+    "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{82,-150},{62,-130}})));
 equation
   connect(weaDat.weaBus,romHeaMet. weaBus) annotation (Line(
@@ -139,7 +142,8 @@ equation
   connect(prescribedHeatFlow2.port, romCooUnm.port_a)
     annotation (Line(points={{60,-60},{0,-60},{0,-70}}, color={191,0,0}));
   connect(gai2.y, prescribedHeatFlow3.Q_flow) annotation (Line(points={{82,-100},
-          {86,-100},{86,-140},{82,-140}}, color={0,0,127}));
+          {120,-100},{120,-140},{82,-140}},
+                                          color={0,0,127}));
   connect(prescribedHeatFlow3.port, romCooMet.port_a)
     annotation (Line(points={{62,-140},{0,-140},{0,-110}}, color={191,0,0}));
   connect(minTSet.y, conHea.u_s) annotation (Line(points={{-118,160},{20,160},{

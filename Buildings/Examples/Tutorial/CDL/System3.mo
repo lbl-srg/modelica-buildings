@@ -90,13 +90,13 @@ which we configured as a PI-controller.
 </p>
 <p>
 We set the controller logic to reverse action. That is because the tracking
-error is conventionally computed as the difference between the set point value 
-and the sensed value. In our example, if the return temperature is lower than the set point,
+error is conventionally computed as the difference between the set point value
+and the measured value. In our example, if the return temperature is lower than the set point,
 i.e., if the tracking error is positive, the valve control signal must tend toward zero,
 i.e., the valve bypass port must open.
 That means that the unbounded control signal must tend toward negative values so
 that the bounded output signal tends toward its minimum value. Binding a positive
-tracking error to a negative unbounded control signal or to the minimum value 
+tracking error to a negative unbounded control signal or to the minimum value
 of the output signal requires a reverse action logic.
 </p>
 <p>

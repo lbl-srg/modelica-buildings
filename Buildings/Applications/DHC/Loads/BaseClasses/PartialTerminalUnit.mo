@@ -43,7 +43,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     "Set to true for fluid ports on the load side"
     annotation(Evaluate=true);
   parameter Boolean have_TSen = false
-    "Set to true for sensed temperature as an input"
+    "Set to true for measured temperature as an input"
     annotation(Evaluate=true);
   parameter Boolean have_QReq_flow = false
     "Set to true for required heat flow rate as an input"
@@ -140,7 +140,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
   Modelica.Blocks.Interfaces.RealInput TSen(
     final quantity="ThermodynamicTemperature",
     final unit="K", displayUnit="degC") if have_TSen
-    "Temperature (sensed)"
+    "Temperature (measured)"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,

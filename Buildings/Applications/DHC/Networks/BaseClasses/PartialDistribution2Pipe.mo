@@ -7,7 +7,7 @@ partial model PartialDistribution2Pipe
     final allowFlowReversal=allowFlowReversal)
     "Model for distribution pipe";
   parameter Integer iConDpSen(final min=1, final max=nCon) = nCon
-    "Index of the connection where the pressure drop is sensed"
+    "Index of the connection where the pressure drop is measured"
     annotation(Dialog(tab="General"), Evaluate=true);
   parameter Boolean have_heaFloOut = false
     "Set to true to output the heat flow rate transferred to each connected load"
@@ -47,7 +47,7 @@ partial model PartialDistribution2Pipe
   Modelica.Blocks.Interfaces.RealOutput dp(
     final quantity="PressureDifference",
     final unit="Pa", displayUnit="Pa") if iConDpSen > 0
-    "Pressure difference at given location (sensed)"
+    "Pressure difference at given location (measured)"
     annotation (Placement(transformation(extent={{100,20},{140,60}}),
       iconTransformation(extent={{200,20},{220,40}})));
   Modelica.Blocks.Interfaces.RealOutput Q_flow[nCon](
@@ -57,7 +57,7 @@ partial model PartialDistribution2Pipe
       iconTransformation(extent={{200,60},{220,80}})));
   Modelica.Blocks.Interfaces.RealOutput mCon_flow[nCon](
     each final quantity="MassFlowRate", each final unit="kg/s")
-    "Connection supply mass flow rate (sensed)"
+    "Connection supply mass flow rate (measured)"
     annotation (Placement(transformation(
       extent={{100,40},{140,80}}),
       iconTransformation(extent={{200,40},{220,60}})));
@@ -78,7 +78,7 @@ partial model PartialDistribution2Pipe
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 initial equation
   assert(iConDpSen >= 1 and iConDpSen <= nCon, "In " + getInstanceName() +
-    ": iConDpSen = " + String(iConDpSen) + " whereas it must be between 
+    ": iConDpSen = " + String(iConDpSen) + " whereas it must be between
     1 and " + String(nCon) + ".");
 equation
   connect(con.port_bCon, ports_bCon)
@@ -120,12 +120,12 @@ equation
 Partial model of a two-pipe distribution network.
 </p>
 <p>
-An array of replaceable partial models is used to represent the  
-connections along the network, including the pipe segment immediately 
-upstream each connection. 
+An array of replaceable partial models is used to represent the
+connections along the network, including the pipe segment immediately
+upstream each connection.
 </p>
 <p>
-A replaceable partial model is used to represent the pipe segment of 
+A replaceable partial model is used to represent the pipe segment of
 the supply and return line after the last connection.
 </p>
 <p>

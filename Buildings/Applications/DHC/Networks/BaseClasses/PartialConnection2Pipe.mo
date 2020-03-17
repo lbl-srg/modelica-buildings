@@ -96,7 +96,7 @@ partial model PartialConnection2Pipe
   Modelica.Blocks.Interfaces.RealOutput dp(
     final quantity="PressureDifference",
     final unit="Pa", final displayUnit="Pa")
-    "Pressure drop accross the connection (sensed)"
+    "Pressure drop accross the connection (measured)"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,30},{120,50}})));
   // COMPONENTS
@@ -151,7 +151,7 @@ partial model PartialConnection2Pipe
   Buildings.Fluid.Sensors.MassFlowRate senMasFloCon(
     redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal)
-    "Connection supply mass flow rate (sensed)"
+    "Connection supply mass flow rate (measured)"
     annotation (Placement(
       transformation(
       extent={{-10,10},{10,-10}},
@@ -274,7 +274,7 @@ Three instances of a replaceable partial model are used to represent the pipes:
 </p>
 <ul>
 <li>
-One representing the main distribution supply pipe immediately upstream 
+One representing the main distribution supply pipe immediately upstream
 the connection.
 </li>
 <li>
@@ -283,7 +283,7 @@ the connection.
 </li>
 <li>
 The last one representing both the supply and return lines of the connection.
-When replacing that model with a pipe model computing the pressure drop, 
+When replacing that model with a pipe model computing the pressure drop,
 one must double the length so that both the supply and return lines are
 accounted for.
 </li>

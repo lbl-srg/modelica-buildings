@@ -50,7 +50,7 @@ model FanCoil4PipeHeatPorts
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zero(k=0) "Zero"
     annotation (Placement(transformation(extent={{120,-50},{140,-30}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senT
-    "Load temperature (sensed)"
+    "Load temperature (measured)"
     annotation (Placement(transformation(extent={{180,10},{160,30}})));
 equation
   connect(heaFloCooCon.port, heaPorCon) annotation (Line(points={{182,40},{200,40}},
@@ -85,9 +85,9 @@ annotation (
 Documentation(
 info="<html>
 <p>
-This is a simplified model of a four-pipe fan coil unit for heating and cooling. 
+This is a simplified model of a four-pipe fan coil unit for heating and cooling.
 It is intended to be coupled to a room model by means of heat ports.
-See 
+See
 <a href=\"modelica://Buildings.Applications.DHC.Loads.Examples.BaseClasses.PartialFanCoil4Pipe\">
 Buildings.Applications.DHC.Loads.Examples.BaseClasses.PartialFanCoil4Pipe</a>
 for a description of the modeling principles.

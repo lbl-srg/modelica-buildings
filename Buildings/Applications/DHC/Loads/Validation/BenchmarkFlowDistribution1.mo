@@ -72,8 +72,10 @@ model BenchmarkFlowDistribution1
     "Minimum temperature setpoint"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(nout=nLoa)
+    "Repeat input to output an array"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep1(nout=nLoa)
+    "Repeat input to output an array"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Fluid.Sources.Boundary_pT supHeaWat(
     redeclare package Medium = Medium1,

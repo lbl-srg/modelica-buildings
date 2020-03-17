@@ -36,7 +36,7 @@ block MixingValveControl "Mixing valve controller"
       origin={-110,80})));
   Modelica.Blocks.Interfaces.RealInput TSupMes(
     final quantity="ThermodynamicTemperature",  final unit="K", final displayUnit="degC")
-    "Supply temperature (sensed)"
+    "Supply temperature (measured)"
     annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},

@@ -44,15 +44,14 @@ model MixingValveControl
     annotation (Placement(transformation(extent={{-140,30},{-120,50}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqual greEqu
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
-  Modelica.Blocks.Sources.Constant zero(k=0)
+  Modelica.Blocks.Sources.Constant zero(k=0) "Zero value"
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSecHea(k=30 +
         273.15, y(final unit="K", displayUnit="degC"))
-    "Heating water secondary supply temperature setpoint (C)"
+    "Heating water secondary supply temperature setpoint"
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSecChi(k=18 +
-        273.15)
-    "Chilled water secondary supply temperature setpoint (C)"
+        273.15) "Chilled water secondary supply temperature setpoint"
     annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Switch TSetSecAct(
     y(final unit="K", displayUnit="degC"))
@@ -85,12 +84,12 @@ model MixingValveControl
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTSecSup(
     redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal) "Secondary supply temperature (sensed)"
+    m_flow_nominal=m_flow_nominal) "Secondary supply temperature (measured)"
     annotation (Placement(transformation(extent={{70,90},{90,110}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTSecRet(redeclare package
       Medium =
         Medium, m_flow_nominal=m_flow_nominal)
-    "Secondary return temperature (sensed)"
+    "Secondary return temperature (measured)"
     annotation (Placement(transformation(extent={{90,50},{70,70}})));
   Buildings.Fluid.Sources.Boundary_pT sinPri(redeclare package Medium = Medium, nPorts=1)
     "Sink for primary stream" annotation (Placement(transformation(
@@ -108,7 +107,7 @@ model MixingValveControl
   Buildings.Fluid.Sensors.TemperatureTwoPort senTPriSup(redeclare package
       Medium =
         Medium, m_flow_nominal=m_flow_nominal)
-    "Primary supply temperature (sensed)"
+    "Primary supply temperature (measured)"
     annotation (Placement(transformation(extent={{8,10},{28,30}})));
 equation
   connect(mod.y, greEqu.u1)

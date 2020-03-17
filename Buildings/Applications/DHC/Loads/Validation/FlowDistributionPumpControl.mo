@@ -75,9 +75,11 @@ model FlowDistributionPumpControl
     "Minimum temperature setpoint"
     annotation (Placement(transformation(extent={{-180,60},{-160,80}})));
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(nout=nLoa)
+    "Repeat input to output an array"
     annotation (Placement(transformation(extent={{-128,60},{-108,80}})));
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep1(nout=nLoa)
-    annotation (Placement(transformation(extent={{-154,20},{-134,40}})));
+    "Repeat input to output an array"
+    annotation (Placement(transformation(extent={{-128,20},{-108,40}})));
   BaseClasses.Distribution2Pipe dis(
     redeclare final package Medium = Medium1,
     nCon=nLoa,
@@ -127,7 +129,7 @@ model FlowDistributionPumpControl
     mUni_flow_nominal=terUniHea1.mHeaWat_flow_nominal,
     nPorts_a1=nLoa,
     nPorts_b1=nLoa)
-    "Distribution system with pump controlled to track a pressure drop over the last connected load"
+    "Distribution system with pump controlled to track a pressure drop over the last connected unit"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
   Fluid.Sources.Boundary_pT sinHeaWat(
     redeclare package Medium = Medium1,
@@ -137,10 +139,11 @@ model FlowDistributionPumpControl
         rotation=0,
         origin={150,0})));
   Buildings.Controls.Continuous.LimPID conPID(controllerType=Modelica.Blocks.Types.SimpleController.PI)
+    "PI controller tracking the pressure drop over the last connected unit"
     annotation (Placement(transformation(extent={{-110,-110},{-90,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(k=dp_nominal)
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai(k=dp_nominal) "Scaling"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai1(k=1/dpSet)
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai1(k=1/dpSet) "Scaling"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-100,-130})));
@@ -222,12 +225,12 @@ protected
     "Density, used to compute fluid volume";
 equation
   connect(loa.y[2], reaRep1.u)
-    annotation (Line(points={{-159,30},{-156,30}},
+    annotation (Line(points={{-159,30},{-130,30}},
                                                color={0,0,127}));
   connect(reaRep.y, terUniHea.TSetHea) annotation (Line(points={{-106,70},{-40,
           70},{-40,-106},{49.1667,-106},{49.1667,-107}},
                                           color={0,0,127}));
-  connect(reaRep1.y, terUniHea.QReqHea_flow) annotation (Line(points={{-132,30},
+  connect(reaRep1.y, terUniHea.QReqHea_flow) annotation (Line(points={{-106,30},
           {-46,30},{-46,-113.667},{49.1667,-113.667}},
                                      color={0,0,127}));
   connect(terUniHea.port_bHeaWat, dis.ports_aCon) annotation (Line(points={{70,
@@ -261,7 +264,7 @@ equation
   connect(reaRep.y, terUniHea1.TSetHea) annotation (Line(points={{-106,70},{-40,
           70},{-40,-7},{-10.8333,-7}},
                                      color={0,0,127}));
-  connect(reaRep1.y, terUniHea1.QReqHea_flow) annotation (Line(points={{-132,30},
+  connect(reaRep1.y, terUniHea1.QReqHea_flow) annotation (Line(points={{-106,30},
           {-46,30},{-46,-14},{-30,-14},{-30,-13.6667},{-10.8333,-13.6667}},
         color={0,0,127}));
   connect(terUniHea1.mReqHeaWat_flow, disCstDp.mReq_flow) annotation (Line(
@@ -292,7 +295,7 @@ equation
           76}}, color={0,0,127}));
   connect(reaRep.y, terUniHea2.TSetHea) annotation (Line(points={{-106,70},{-40,
           70},{-40,132},{-10.8333,132},{-10.8333,133}}, color={0,0,127}));
-  connect(reaRep1.y, terUniHea2.QReqHea_flow) annotation (Line(points={{-132,30},
+  connect(reaRep1.y, terUniHea2.QReqHea_flow) annotation (Line(points={{-106,30},
           {-46,30},{-46,126},{-30,126},{-30,126.333},{-10.8333,126.333}}, color=
          {0,0,127}));
   connect(disCstSpe.mReqTot_flow, pipPre.m_flow_in) annotation (Line(points={{

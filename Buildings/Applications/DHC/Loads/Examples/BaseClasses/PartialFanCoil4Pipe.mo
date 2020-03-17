@@ -138,26 +138,26 @@ equation
 Documentation(
 info="<html>
 <p>
-This is a simplified partial model of a four-pipe fan coil unit for heating and cooling. 
+This is a simplified partial model of a four-pipe fan coil unit for heating and cooling.
 It is intended to be used in conjunction with
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>: 
-it thus computes the water mass flow rate required to meet the temperature 
+Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>:
+it thus computes the water mass flow rate required to meet the temperature
 setpoint.
 </p>
 <p>
 For the sake of simplicity, a purely sensible heat exchanger model is considered.
 </p>
 <p>
-For the sake of computational performance, a PI controller is used instead of an inverse 
-model of the heat exchanger to assess the required water mass flow rate. 
+For the sake of computational performance, a PI controller is used instead of an inverse
+model of the heat exchanger to assess the required water mass flow rate.
 Each controller output signal is mapped linearly to the water mass flow rate,
 from zero to its nominal value.
-The maximum of the two output signals is mapped linearly to the air mass 
+The maximum of the two output signals is mapped linearly to the air mass
 flow rate, from zero to its nominal value.
 </p>
 <p>
-The model takes the sensed room air temperature as an input (as opposed to 
+The model takes the measured room air temperature as an input (as opposed to
 the fan inlet temperature) to maintain a valid control loop output in case
 of zero air flow rate.
 </p>
