@@ -22,6 +22,7 @@ model Condensation "Test model for water condensation process"
     annotation (Placement(transformation(extent={{70,0},{50,20}})));
   Movers.FlowControlled_m_flow floCon(
     redeclare package Medium = MediumSte,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=m_flow_nominal,    addPowerToMedium=false,
       nominalValuesDefineDefaultPressureCurve=true)
     "Ideal mass flow controller"
@@ -36,6 +37,7 @@ model Condensation "Test model for water condensation process"
     annotation (Placement(transformation(extent={{-90,20},{-70,40}})));
   MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumWat,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=0,            V=1, nPorts=1)
     annotation (Placement(transformation(extent={{50,-40},{70,-20}})));
   Sources.Boundary_pT pRef(redeclare package Medium = MediumWat,
