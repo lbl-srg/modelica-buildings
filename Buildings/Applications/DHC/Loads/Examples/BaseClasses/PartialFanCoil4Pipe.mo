@@ -134,7 +134,7 @@ equation
           -12},{-40,-12},{-40,-220},{160,-220}}, color={0,127,255}));
   connect(scaHeaWatFloInl.port_b, hexHea.port_a1) annotation (Line(points={{
           -160,-220},{-100,-220},{-100,-12},{-80,-12}}, color={0,127,255}));
-  annotation (Diagram(coordinateSystem(extent={{-200,-240},{200,240}})),
+  annotation (
 Documentation(
 info="<html>
 <p>

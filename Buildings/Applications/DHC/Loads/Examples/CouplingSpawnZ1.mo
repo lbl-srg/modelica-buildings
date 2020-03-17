@@ -70,8 +70,7 @@ equation
   annotation (
   experiment(
       StopTime=604800,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
   Documentation(info=
 "<html>
 <p>

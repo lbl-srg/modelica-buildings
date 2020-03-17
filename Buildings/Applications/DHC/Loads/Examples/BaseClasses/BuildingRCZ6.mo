@@ -13,16 +13,16 @@ model BuildingRCZ6
     "Number of thermal zones";
   parameter Integer facSca = 3
     "Scaling factor to be applied to on each extensive quantity";
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet[nZon](k=fill(20, nZon))
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet[nZon](
+    k=fill(20 + 273.15, nZon),
+    y(each final unit="K", each displayUnit="degC"))
     "Minimum temperature setpoint"
-    annotation (Placement(transformation(extent={{-290,240},{-270,260}})));
-  Buildings.Controls.OBC.UnitConversions.From_degC from_degC1[nZon]
-    annotation (Placement(transformation(extent={{-250,240},{-230,260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet[nZon](k=fill(24, nZon))
+    annotation (Placement(transformation(extent={{-290,230},{-270,250}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet[nZon](
+    k=fill(24 + 273.15, nZon),
+    y(each final unit="K",each displayUnit="degC"))
     "Maximum temperature setpoint"
-    annotation (Placement(transformation(extent={{-290,200},{-270,220}})));
-  Buildings.Controls.OBC.UnitConversions.From_degC from_degC2[nZon]
-    annotation (Placement(transformation(extent={{-250,200},{-230,220}})));
+    annotation (Placement(transformation(extent={{-290,190},{-270,210}})));
   GeojsonExportRC.OfficeBuilding.Office office
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
   GeojsonExportRC.OfficeBuilding.Floor floor
@@ -73,10 +73,6 @@ model BuildingRCZ6
     "Chilled water distribution system"
     annotation (Placement(transformation(extent={{-140, -160},{-120,-140}})));
 equation
-  connect(maxTSet.y,from_degC2. u) annotation (Line(points={{-268,210},{-252,
-          210}},                                                                      color={0,0,127}));
-  connect(minTSet.y, from_degC1.u)
-    annotation (Line(points={{-268,250},{-252,250}},                       color={0,0,127}));
   connect(ports_a[1],disFloHea. port_a) annotation (Line(points={{-300,0},{-252,
           0},{-252,-90},{-140,-90}},   color={0,127,255}));
   connect(disFloHea.port_b, ports_b[1]) annotation (Line(points={{-120,-90},{308,
@@ -85,11 +81,6 @@ equation
           0},{-252,-150},{-140,-150}}, color={0,127,255}));
   connect(disFloCoo.port_b, ports_b[2]) annotation (Line(points={{-120,-150},{308,
           -150},{308,0},{300,0}}, color={0,127,255}));
-  connect(from_degC1.y, terUni.TSetHea) annotation (Line(points={{-228,250},{
-          -218,250},{-218,-45},{-200.833,-45}},      color={0,0,127}));
-  connect(from_degC2.y, terUni.TSetCoo) annotation (Line(points={{-228,210},{
-          -220,210},{-220,-46.6667},{-200.833,-46.6667}},
-                                                     color={0,0,127}));
   connect(terUni.port_bHeaWat, disFloHea.ports_a1) annotation (Line(points={{-180,
           -58.3333},{-100,-58.3333},{-100,-84},{-120,-84}}, color={0,127,255}));
   connect(terUni.port_bChiWat, disFloCoo.ports_a1) annotation (Line(points={{-180,
@@ -186,6 +177,12 @@ equation
           {223.5,-96},{223.5,280},{320,280}}, color={0,0,127}));
   connect(disFloCoo.QActTot_flow, QCoo_flow) annotation (Line(points={{-119,
           -156},{230,-156},{230,240},{320,240}}, color={0,0,127}));
+  connect(maxTSet.y, terUni.TSetCoo) annotation (Line(points={{-268,200},{-240,
+          200},{-240,-46.6667},{-200.833,-46.6667}},
+                                                color={0,0,127}));
+  connect(minTSet.y, terUni.TSetHea) annotation (Line(points={{-268,240},{-220,
+          240},{-220,-45},{-200.833,-45}},
+                                      color={0,0,127}));
   annotation (
   Documentation(info="
 <html>
@@ -200,7 +197,5 @@ Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit</a>
 and connected to the room model by means of heat ports.
 </p>
 </html>
-"),
-  Diagram(coordinateSystem(extent={{-300,-300},{300,300}})), Icon(
-        coordinateSystem(extent={{-100,-100},{100,100}})));
+"));
 end BuildingRCZ6;

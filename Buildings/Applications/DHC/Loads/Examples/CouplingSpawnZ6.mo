@@ -54,8 +54,7 @@ equation
   annotation (
   experiment(
       StopTime=604800,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
   Documentation(info=
 "<html>
 <p>
@@ -71,7 +70,7 @@ in a configuration with:
 </p>
 <ul>
 <li>
-six-zone building model based on EnergyPlus envelope model (from 
+six-zone building model based on EnergyPlus envelope model (from
 GeoJSON export),
 </li>
 <li>

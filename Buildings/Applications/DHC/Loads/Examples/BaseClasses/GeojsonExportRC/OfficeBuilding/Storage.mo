@@ -274,8 +274,5 @@ equation
   annotation (
   experiment(
   StopTime=31536000,
-  Interval=3600,
-  __Dymola_Algorithm="Cvode"),
-  __Dymola_experimentSetupOutput(equidistant=true,
-  events=false));
+  Interval=3600));
 end Storage;

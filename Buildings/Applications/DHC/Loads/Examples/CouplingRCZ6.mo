@@ -78,7 +78,7 @@ in a configuration with:
 </p>
 <ul>
 <li>
-six-zone building model based on two-element reduced order model (from 
+six-zone building model based on two-element reduced order model (from
 GeoJSON export),
 </li>
 <li>
@@ -96,12 +96,11 @@ First implementation.
 </ul>
 </html>"),
   Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{160,60}})),
+    coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{160,60}})),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingRCZ6.mos"
+        "Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingRCZ6.mos"
         "Simulate and plot"),
     experiment(
       StopTime=604800,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"));
+      Tolerance=1e-06));
 end CouplingRCZ6;

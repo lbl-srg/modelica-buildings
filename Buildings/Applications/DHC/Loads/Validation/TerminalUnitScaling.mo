@@ -68,12 +68,10 @@ model TerminalUnitScaling
     final T_bHeaWat_nominal=T_bHeaWat_nominal,
     final T_aLoaHea_nominal=T_aLoaHea_nominal) "Terminal unit with no scaling"
     annotation (Placement(transformation(extent={{8,78},{32,102}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=20)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=20 + 273.15,
+      y(final unit="K", displayUnit="degC"))
     "Minimum temperature setpoint (C)"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
-  Buildings.Controls.OBC.UnitConversions.From_degC from_degC
-    "Minimum temperature setpoint (K)"
-    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   BaseClasses.FanCoil2PipeHeating terUniSca(
     have_speVar=false,
     redeclare package Medium1 = Medium1,
@@ -102,10 +100,6 @@ equation
   connect(terUniNoSca.mReqHeaWat_flow, supHeaWat.m_flow_in) annotation (Line(
         points={{33,86},{40,86},{40,110},{-80,110},{-80,88},{-62,88}},   color={
           0,0,127}));
-  connect(minTSet.y, from_degC.u)
-    annotation (Line(points={{-78,40},{-62,40}}, color={0,0,127}));
-  connect(from_degC.y, terUniNoSca.TSetHea) annotation (Line(points={{-38,40},{
-          -20,40},{-20,96},{7,96}}, color={0,0,127}));
   connect(supHeaWat.ports[1], terUniNoSca.port_aHeaWat)
     annotation (Line(points={{-40,80},{8,80}},   color={0,127,255}));
   connect(terUniNoSca.port_bHeaWat, sinHeaWat.ports[1]) annotation (Line(points={{32,80},
@@ -117,22 +111,22 @@ equation
   connect(terUniSca.mReqHeaWat_flow, supHeaWat1.m_flow_in) annotation (Line(
         points={{31,-74},{40,-74},{40,-100},{-80,-100},{-80,-72},{-62,-72}},
         color={0,0,127}));
-  connect(from_degC.y, terUniSca.TSetHea) annotation (Line(points={{-38,40},{-20,
-          40},{-20,-64},{5,-64}}, color={0,0,127}));
   connect(ram.y, terUniNoSca.QReqHea_flow) annotation (Line(points={{-78,0},{0,
           0},{0,88},{7,88}},     color={0,0,127}));
   connect(ram.y, terUniSca.QReqHea_flow) annotation (Line(points={{-78,0},{0,0},
           {0,-72},{5,-72}},     color={0,0,127}));
+  connect(minTSet.y, terUniNoSca.TSetHea) annotation (Line(points={{-78,40},{
+          -20,40},{-20,96},{7,96}}, color={0,0,127}));
+  connect(minTSet.y, terUniSca.TSetHea) annotation (Line(points={{-78,40},{-20,
+          40},{-20,-64},{5,-64}}, color={0,0,127}));
   annotation (
   experiment(
       StopTime=1000,
-      __Dymola_NumberOfIntervals=5000,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
   Documentation(info=
 "<html>
 <p>
-This example validates the scaling factor in terminal unit models inheriting from 
+This example validates the scaling factor in terminal unit models inheriting from
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit\">
 Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit</a>.
 </p>

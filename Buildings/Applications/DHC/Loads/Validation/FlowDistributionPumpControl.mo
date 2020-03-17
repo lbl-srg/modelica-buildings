@@ -70,11 +70,10 @@ model FlowDistributionPumpControl
     smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1)
     "Reader for thermal loads (y[1] is cooling load, y[2] is heating load)"
     annotation (Placement(transformation(extent={{-180,20},{-160,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=20)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=20 + 273.15,
+      y(final unit="K", displayUnit="degC"))
     "Minimum temperature setpoint"
     annotation (Placement(transformation(extent={{-180,60},{-160,80}})));
-  Buildings.Controls.OBC.UnitConversions.From_degC from_degC1
-    annotation (Placement(transformation(extent={{-154,60},{-134,80}})));
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(nout=nLoa)
     annotation (Placement(transformation(extent={{-128,60},{-108,80}})));
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep1(nout=nLoa)
@@ -225,12 +224,6 @@ equation
   connect(loa.y[2], reaRep1.u)
     annotation (Line(points={{-159,30},{-156,30}},
                                                color={0,0,127}));
-  connect(minTSet.y, from_degC1.u)
-    annotation (Line(points={{-158,70},{-156,70}},
-                                                 color={0,0,127}));
-  connect(from_degC1.y, reaRep.u)
-    annotation (Line(points={{-132,70},{-130,70}},
-                                                 color={0,0,127}));
   connect(reaRep.y, terUniHea.TSetHea) annotation (Line(points={{-106,70},{-40,
           70},{-40,-106},{49.1667,-106},{49.1667,-107}},
                                           color={0,0,127}));
@@ -312,6 +305,8 @@ equation
           {-120,-174},{-80,-174},{-80,-160},{-47,-160}}, color={0,127,255}));
   connect(THeaWatSup.y, supHeaWat.T_in) annotation (Line(points={{-158,0},{-152,
           0},{-152,-176},{-142,-176}}, color={0,0,127}));
+  connect(minTSet.y, reaRep.u)
+    annotation (Line(points={{-158,70},{-130,70}}, color={0,0,127}));
     annotation (
 Documentation(
 info="<html>
@@ -323,9 +318,7 @@ Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>.
 </html>"),
     experiment(
       StopTime=400000,
-      __Dymola_NumberOfIntervals=500,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-220,-240},{200,
             240}})),

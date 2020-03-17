@@ -56,20 +56,13 @@ block MixingValveControl "Mixing valve controller"
         rotation=0,
         origin={110,0})));
   // COMPONENTS
-  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea if
-    typDis == Type_dis.ChangeOver
-    "Conversion to real"
-    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant tru(k=true)
-    "True constant"
-    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(k=0)
     "Zero constant"
     annotation (Placement(transformation(extent={{-70,-30},{-50,-10}})));
   Modelica.Blocks.Math.IntegerToBoolean toBoo(threshold=0) if
     typDis == Type_dis.ChangeOver
     "Conversion to boolean (true if heating mode)"
-    annotation (Placement(transformation(extent={{-10,10},{10,30}})));
+    annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conTSup(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final k=k,
@@ -89,10 +82,6 @@ block MixingValveControl "Mixing valve controller"
   Buildings.Controls.OBC.CDL.Continuous.Max posPar
     "Positive part of control signal"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.ZeroCrossing zerCro if
-    typDis == Type_dis.ChangeOver
-    "Zero crossing yields true signal"
-    annotation (Placement(transformation(extent={{0,70},{20,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain opp(k=-1)
     "Opposite value"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
@@ -100,32 +89,24 @@ block MixingValveControl "Mixing valve controller"
     "Logical switch"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
   Modelica.Blocks.Sources.BooleanExpression fixMod(
-    final y=typDis == Type_dis.HeatingWater)
+    final y=typDis == Type_dis.HeatingWater) if
+    typDis <> Type_dis.ChangeOver
     "Fixed operating mode"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  Buildings.Controls.OBC.CDL.Integers.Change cha if
+    typDis == Type_dis.ChangeOver
+    "Evaluate the integer input u to check if its value changes"
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 equation
-  if typDis == Type_dis.ChangeOver then
-    connect(modChaOve, intToRea.u)
-      annotation (Line(points={{-120,80},{-82,80}}, color={255,127,0}));
-    connect(tru.y, zerCro.enable)
-      annotation (Line(points={{-18,60},{10,60},{10,68}},
-                                                        color={255,0,255}));
-    connect(intToRea.y, zerCro.u)
-      annotation (Line(points={{-58,80},{-2,80}},  color={0,0,127}));
-    connect(modChaOve, toBoo.u)
-      annotation (Line(points={{-120,80},{-90,80},{-90,20},{-12,20}},
-                    color={255,127,0}));
-    connect(toBoo.y, swi.u2)
-      annotation (Line(points={{11,20},{30,20},{30,0},{68,0}},
-               color={255,0,255}));
-    connect(zerCro.y, conTSup.trigger)
-      annotation (Line(points={{22,80},{40,80},{40,
-          40},{-80,40},{-80,-76},{-68,-76},{-68,-72}}, color={255,0,255}));
-  else
-    connect(fixMod.y, swi.u2)
-      annotation (Line(points={{11,0},{68,0}},
-                     color={255,0,255}));
-  end if;
+  connect(modChaOve, toBoo.u)
+    annotation (Line(points={{-120,80},{-90,80},{-90,40},{-12,40}},
+                  color={255,127,0}));
+  connect(toBoo.y, swi.u2)
+    annotation (Line(points={{11,40},{30,40},{30,0},{68,0}},
+             color={255,0,255}));
+  connect(fixMod.y, swi.u2)
+    annotation (Line(points={{11,0},{68,0}},
+                   color={255,0,255}));
   connect(conTSup.y, posPar.u2) annotation (Line(points={{-48,-60},{-20,-60},{
           -20,-46},{-12,-46}},
                            color={0,0,127}));
@@ -151,6 +132,10 @@ equation
   connect(swi.y, yVal) annotation (Line(points={{92,0},{120,0}},
         color={0,0,127}));
 
+  connect(modChaOve, cha.u)
+    annotation (Line(points={{-120,80},{-82,80}}, color={255,127,0}));
+  connect(cha.y, conTSup.trigger) annotation (Line(points={{-58,80},{-40,80},{-40,
+          60},{-80,60},{-80,-76},{-68,-76},{-68,-72}}, color={255,0,255}));
   annotation (
   defaultComponentName="conVal",
   Documentation(info="

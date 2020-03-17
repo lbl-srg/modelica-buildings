@@ -19,16 +19,15 @@ model BuildingSpawnZ6
     "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"
     "Path of the weather file";
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet[nZon](
-    k=fill(20, nZon))
+    k=fill(20 + 273.15, nZon),
+    y(each final unit="K", each displayUnit="degC"))
     "Minimum temperature setpoint"
     annotation (Placement(transformation(extent={{-280,250},{-260,270}})));
-  Buildings.Controls.OBC.UnitConversions.From_degC from_degC1[nZon]
-    annotation (Placement(transformation(extent={{-240,250},{-220,270}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet[nZon](
-    k=fill(24, nZon)) "Maximum temperature setpoint"
+    k=fill(24 + 273.15, nZon),
+    y(each final unit="K", each displayUnit="degC"))
+    "Maximum temperature setpoint"
     annotation (Placement(transformation(extent={{-280,210},{-260,230}})));
-  Buildings.Controls.OBC.UnitConversions.From_degC from_degC2[nZon]
-    annotation (Placement(transformation(extent={{-240,210},{-220,230}})));
   Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
     annotation (Placement(transformation(extent={{-66,128},{-46,148}})));
   Modelica.Blocks.Sources.Constant qRadGai_flow(k=0) "Radiative heat gain"
@@ -112,10 +111,6 @@ model BuildingSpawnZ6
     "Chilled water distribution system"
     annotation (Placement(transformation(extent={{-160,-230},{-140,-210}})));
 equation
-  connect(maxTSet.y,from_degC2.u)
-    annotation (Line(points={{-258,220},{-242,220}}, color={0,0,127}));
-  connect(minTSet.y, from_degC1.u)
-    annotation (Line(points={{-258,260},{-242,260}}, color={0,0,127}));
   connect(qRadGai_flow.y,multiplex3_1.u1[1])  annotation (Line(
       points={{-45,178},{-26,178},{-26,145},{-22,145}},
       color={0,0,127},
@@ -150,12 +145,6 @@ equation
   connect(disFloCoo.port_b, ports_b[2]) annotation (Line(points={{-140,-220},{
           280,-220},{280,0},{300,0}},
                                     color={0,127,255}));
-  connect(from_degC1.y, terUni.TSetHea) annotation (Line(points={{-218,260},{
-          -160,260},{-160,16},{-141,16}},
-                                    color={0,0,127}));
-  connect(from_degC2.y, terUni.TSetCoo) annotation (Line(points={{-218,220},{
-          -162,220},{-162,14},{-141,14}},
-                                    color={0,0,127}));
   connect(znAttic.ports[1], terUni[1].port_aLoa) annotation (Line(points={{42,84.8},
           {-8,84.8},{-8,20},{-116,20}},      color={0,127,255}));
   connect(terUni[1].port_bLoa, znAttic.ports[2]) annotation (Line(points={{-140,20},
@@ -230,6 +219,10 @@ equation
   connect(znPerimeter_ZN_4.TAir, terUni[6].TSen) annotation (Line(points={{65,
           -86.2},{80,-86.2},{80,-140},{-152,-140},{-152,12},{-141,12}}, color={
           0,0,127}));
+  connect(maxTSet.y, terUni.TSetCoo) annotation (Line(points={{-258,220},{-200,220},
+          {-200,14},{-141,14}}, color={0,0,127}));
+  connect(minTSet.y, terUni.TSetHea) annotation (Line(points={{-258,260},{-180,260},
+          {-180,16},{-141,16}}, color={0,0,127}));
   annotation (
   Documentation(info="
 <html>
@@ -245,7 +238,6 @@ and connected to the room model by means of fluid ports.
 </p>
 </html>
   "),
-  Diagram(coordinateSystem(extent={{-300,-300},{300,300}})), Icon(
-        coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
-          Bitmap(extent={{-108,-100},{92,100}},  fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/EnergyPlusLogo.png")}));
+  Icon(graphics={Bitmap(extent={{-108,-100},{92,100}},
+  fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/EnergyPlusLogo.png")}));
 end BuildingSpawnZ6;

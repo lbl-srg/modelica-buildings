@@ -273,8 +273,5 @@ equation
     annotation (Line(points={{93,32},{98,32},{98,0},{110,0}}, color={0,0,127}));
   annotation (experiment(
   StopTime=31536000,
-  Interval=3600,
-  __Dymola_Algorithm="Cvode"),
-  __Dymola_experimentSetupOutput(equidistant=true,
-  events=false));
+  Interval=3600));
 end Restroom;

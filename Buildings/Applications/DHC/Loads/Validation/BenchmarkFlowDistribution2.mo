@@ -61,14 +61,12 @@ model BenchmarkFlowDistribution2
     smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1)
     "Reader for thermal loads (y[1] is cooling load, y[2] is heating load)"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=20)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=20 + 273.15,
+      y(final unit="K", displayUnit="degC"))
     "Minimum temperature setpoint"
-    annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  Buildings.Controls.OBC.UnitConversions.From_degC minTSet_K
-    "Minimum temperature setpoint (K)"
-    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
+    annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(nout=nLoa)
-    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
+    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep1(nout=nLoa)
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Fluid.Sources.Boundary_pT supHeaWat(
@@ -122,12 +120,9 @@ protected
 equation
   connect(loa.y[2], reaRep1.u)
     annotation (Line(points={{-79,0},{-62,0}}, color={0,0,127}));
-  connect(minTSet.y, minTSet_K.u)
-    annotation (Line(points={{-78,70},{-62,70}}, color={0,0,127}));
-  connect(minTSet_K.y, reaRep.u)
-    annotation (Line(points={{-38,70},{-22,70}}, color={0,0,127}));
-  connect(reaRep.y, ter.TSetHea) annotation (Line(points={{2,70},{20,70},{20,53},
-          {49.1667,53}}, color={0,0,127}));
+  connect(reaRep.y, ter.TSetHea) annotation (Line(points={{-38,60},{20,60},{20,
+          53},{49.1667,53}},
+                         color={0,0,127}));
   connect(reaRep1.y, ter.QReqHea_flow) annotation (Line(points={{-38,0},{0,0},{
           0,46.3333},{49.1667,46.3333}},
                                        color={0,0,127}));
@@ -150,6 +145,8 @@ equation
           -80},{-70,-76},{-62,-76}}, color={0,0,127}));
   connect(dpPum.y, pum.dp_in)
     annotation (Line(points={{-78,-40},{20,-40},{20,-68}}, color={0,0,127}));
+  connect(reaRep.u, minTSet.y)
+    annotation (Line(points={{-62,60},{-78,60}}, color={0,0,127}));
     annotation (
         Documentation(info="<html>
 <p>
@@ -173,9 +170,7 @@ Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution2</a>.
 </html>"),
     experiment(
       StopTime=2000000,
-      __Dymola_NumberOfIntervals=500,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,
             120}})),
