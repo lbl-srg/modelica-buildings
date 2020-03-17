@@ -1,0 +1,33 @@
+﻿simulateModel("Buildings.Fluid.HeatExchangers.BaseClasses.Examples.Condensation", stopTime=100, method="dassl", tolerance=1e-06, resultFile="Condensation");
+removePlots(false);
+createPlot(id=1, position={15, 10, 516, 641}, 
+  y={"con.sta_a.T", "con.sta_b.T"}, 
+  range={0.0, 100.0, 160.0, 200.0}, 
+  grid=true, 
+  colors={{28,108,200}, {238,46,47}}, 
+  displayUnits={"degC", "degC"});
+createPlot(id=1, position={15, 10, 516, 162}, 
+  y={"con.sta_a.p", "con.sta_b.p"}, 
+  range={0.0, 100.0, -2.0, 4.0}, 
+  grid=true, 
+  subPlot=2, 
+  colors={{28,108,200}, {238,46,47}}, 
+  displayUnits={"bar", "bar"});
+createPlot(id=1, position={15, 10, 516, 312}, 
+  y={"con.port_a.m_flow", "con.port_b.m_flow"}, 
+  range={0.0, 100.0, -1.5, 1.5}, 
+  grid=true, 
+  subPlot=3, 
+  colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={544, 11, 517, 640}, 
+  y={"con.port_a.h_outflow", "con.port_b.h_outflow", "con.dh"}, 
+  range={0.0, 100.0, 500000.0, 3000000.0}, 
+  grid=true, 
+  colors={{28,108,200}, {238,46,47}, {0,140,72}});
+  createPlot(id=2, position={544, 11, 517, 318}, 
+  y={"con.port_h.Q_flow", "vol.heatPort.Q_flow"}, 
+  range={0.0, 100.0, -2500000.0, 2500000.0}, 
+  grid=true, 
+  subPlot=2, 
+  colors={{28,108,200}, {238,46,47}});
+
