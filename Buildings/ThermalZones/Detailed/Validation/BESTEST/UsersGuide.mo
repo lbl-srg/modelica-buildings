@@ -1116,7 +1116,14 @@ show the peak temperature hour, are shown in the table after the plots.
 </tr>
 </table>
 <br/>
-
+<h4>Implementation</h4>
+<p>
+To generate the data shown in this user guide, run
+</p>
+<pre>
+  cd Buildings/Resources/src/ThermalZones/Detailed/Validation/BESTEST
+  python3 simulateAndPlot.py
+</pre>
 <h4>References</h4>
 <p>
 ANSI/ASHRAE. 2007. ANSI/ASHRAE Standard 140-2007,
