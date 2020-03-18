@@ -9,7 +9,7 @@ model Down "Validate change stage down condition sequence"
     annotation (Placement(transformation(extent={{140,40},{160,60}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Down
-    noWSE(hasWSE=false) "Generates stage down signal for a plant with a WSE"
+    noWSE(have_WSE=false) "Generates stage down signal for a plant with a WSE"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
 protected

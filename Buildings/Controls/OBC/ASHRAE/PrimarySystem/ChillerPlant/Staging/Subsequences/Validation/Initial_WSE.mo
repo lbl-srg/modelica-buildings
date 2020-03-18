@@ -2,11 +2,11 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subseque
 model Initial_WSE "Validate initial stage sequence for a plant with WSE"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Initial iniStaCol(
-    final hasWSE=true) "Initial stage is the WSE only stage"
+    final have_WSE=true) "Initial stage is the WSE only stage"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Initial iniStaHot(
-    final hasWSE=true)
+    final have_WSE=true)
     "Initial stage is the lowest available chiller stage"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 

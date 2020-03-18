@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences;
 block Up "Generates a stage up signal"
-  parameter Boolean hasWSE = true
+  parameter Boolean have_WSE = true
     "true = plant has a WSE, false = plant does not have WSE";
 
   parameter Modelica.SIunits.Time delayStaCha = 15*60
@@ -37,7 +37,7 @@ block Up "Generates a stage up signal"
     annotation (Placement(transformation(extent={{-220,-210},{-180,-170}}),
         iconTransformation(extent={{-140,-160},{-100,-120}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u if       hasWSE
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u if       have_WSE
     "Chiller stage" annotation (Placement(transformation(extent={{-220,-110},{
             -180,-70}}),
                     iconTransformation(extent={{-140,-120},{-100,-80}})));
@@ -108,50 +108,50 @@ block Up "Generates a stage up signal"
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
 
-  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr if hasWSE
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr if have_WSE
     "Switches staging up rules"
     annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTSup(
     final uLow=smallTDif,
     final uHigh=smallTDif + 1,
-    final pre_y_start=false) if hasWSE
+    final pre_y_start=false) if have_WSE
     "Checks if the chilled water supply temperature is higher than its setpoint plus an offset"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTSup1(
     final uLow=largeTDif,
     final uHigh=largeTDif + 1,
-    final pre_y_start=false) if hasWSE
+    final pre_y_start=false) if have_WSE
     "Checks if the chilled water supply temperature is higher than its setpoint plus an offset"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Or orStaUp1 if hasWSE "Or for staging up"
+  Buildings.Controls.OBC.CDL.Logical.Or orStaUp1 if have_WSE "Or for staging up"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Add add0(
     final k1=-1,
-    final k2=1) if hasWSE
+    final k2=1) if have_WSE
     "Adder for temperatures"
     annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Add add1(
     final k1=-1,
-    final k2=1) if hasWSE
+    final k2=1) if have_WSE
     "Adder for temperatures"
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
-    final delayTime=longDelay, delayOnInit=true) if hasWSE
+    final delayTime=longDelay, delayOnInit=true) if have_WSE
     "Delays a true signal"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1(
-    final delayTime=shortDelay, delayOnInit=true) if hasWSE
+    final delayTime=shortDelay, delayOnInit=true) if have_WSE
     "Delays a true signal"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noWSE(final k=true) if not hasWSE
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noWSE(final k=true) if not have_WSE
     "Replacement signal if plant does not have WSE - assuming if plant gets enabled the lowest available stage should be engaged"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 
@@ -167,7 +167,7 @@ block Up "Generates a stage up signal"
     final falseHoldDuration=0)
     annotation (Placement(transformation(extent={{-120,-200},{-100,-180}})));
 
-  CDL.Logical.Or orAva if                           hasWSE
+  CDL.Logical.Or orAva if                           have_WSE
     "Demand stage up if current stage becomes unavailable"
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
   CDL.Logical.Not not3

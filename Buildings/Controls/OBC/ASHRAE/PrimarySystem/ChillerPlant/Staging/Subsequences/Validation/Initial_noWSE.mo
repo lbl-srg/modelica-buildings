@@ -3,7 +3,7 @@ model Initial_noWSE
   "Validate initial stage sequence in case of no WSE"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Initial iniSta(
-    hasWSE=false) "Tests if initial stage is the lowest available stage"
+    have_WSE=false) "Tests if initial stage is the lowest available stage"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
 protected

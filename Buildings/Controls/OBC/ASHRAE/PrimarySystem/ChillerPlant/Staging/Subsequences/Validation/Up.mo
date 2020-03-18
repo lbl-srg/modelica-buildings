@@ -5,7 +5,7 @@ model Up "Validate change stage up condition sequence"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Up
-    staUp1(final hasWSE=true)
+    staUp1(final have_WSE=true)
     "Generates stage up signal"
     annotation (Placement(transformation(extent={{140,0},{160,20}})));
 

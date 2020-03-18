@@ -15,10 +15,10 @@ block Down "Generates a stage down signal"
   parameter Modelica.SIunits.PressureDifference dpDif = 2 * 6895
     "Offset between the chilled water pump differential static pressure and its setpoint";
 
-  parameter Boolean hasWSE = true
+  parameter Boolean have_WSE = true
     "The chiller plant has a waterside economizer (WSE).";
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseSta if hasWSE
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseSta if have_WSE
     "WSE status"
     annotation (Placement(transformation(extent={{-220,-150},{-180,-110}}),
         iconTransformation(extent={{-140,-160},{-100,-120}})));
@@ -32,18 +32,6 @@ block Down "Generates a stage down signal"
     "Chiller stage"
     annotation (Placement(transformation(extent={{-220,-180},{-180,-140}}),
         iconTransformation(extent={{-140,-120},{-100,-80}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOpe(final unit="1")
-    "OPLR of the current stage"
-    annotation (Placement(transformation(
-          extent={{-220,110},{-180,150}}),iconTransformation(extent={{-140,110},
-            {-100,150}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOpeMin(final unit="1")
-    "Minimum OPLR at the current stage"
-    annotation (
-      Placement(transformation(extent={{-220,80},{-180,120}}),
-        iconTransformation(extent={{-140,90},{-100,130}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOpeDow(final unit="1")
     "Next available stage down operating part load ratio (OPLR)"
@@ -68,30 +56,30 @@ block Down "Generates a stage down signal"
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "Chilled water return temperature"
-    annotation (Placement(transformation(extent={{-220,-30},{-180,10}}),
+    annotation (Placement(transformation(extent={{-220,10},{-180,50}}),
     iconTransformation(extent={{-140,-60},{-100,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPumSet(
     final unit="Pa",
     final quantity="PressureDifference")
     "Chilled water pump differential static pressure setpoint"
-    annotation (Placement(transformation(extent={{-220,30},{-180,70}}),
+    annotation (Placement(transformation(extent={{-220,90},{-180,130}}),
       iconTransformation(extent={{-140,10},{-100,50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPum(
     final unit="Pa",
     final quantity="PressureDifference")
     "Chilled water pump differential static pressure"
-    annotation (Placement(transformation(extent={{-220,0},{-180,40}}),
+    annotation (Placement(transformation(extent={{-220,50},{-180,90}}),
     iconTransformation(extent={{-140,-10},{-100,30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TWsePre(
-    final unit="1") if hasWSE
+    final unit="1") if have_WSE
     "Predicted WSE outlet temperature"
     annotation (Placement(transformation(extent={{-220,-90},{-180,-50}}),
        iconTransformation(extent={{-140,-80},{-100,-40}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpeMax if hasWSE
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpeMax if have_WSE
     "Maximum cooling tower fan speed"
     annotation (Placement(transformation(extent={{-220,-120},{-180,-80}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
@@ -125,18 +113,18 @@ block Down "Generates a stage down signal"
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTSup(
     final uLow=TDif,
-    final uHigh=TDif + TDifHyst) if hasWSE
+    final uHigh=TDif + TDifHyst) if have_WSE
     "Checks if the predicted downstream WSE chilled water supply temperature is higher than its setpoint plus an offset"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and2
     annotation (Placement(transformation(extent={{130,-10},{150,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And3 and1 if hasWSE
+  Buildings.Controls.OBC.CDL.Logical.And3 and1 if have_WSE
     "Or for staging up"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Not not0 if hasWSE
+  Buildings.Controls.OBC.CDL.Logical.Not not0 if have_WSE
     "Logical not"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
 
@@ -146,19 +134,19 @@ block Down "Generates a stage down signal"
 
   Buildings.Controls.OBC.CDL.Continuous.Add add0(
     final k1=1,
-    final k2=-1) if hasWSE
+    final k2=-1) if have_WSE
     "Adder for temperatures"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
     final uHigh=0.99,
-    final uLow=0.98) if hasWSE
+    final uLow=0.98) if have_WSE
     "Checks if the signal is at its maximum"
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
     final delayTime=delayStaCha,
-    delayOnInit=true) if hasWSE
+    delayOnInit=true) if have_WSE
     "Delays a true signal"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
 
@@ -181,7 +169,7 @@ block Down "Generates a stage down signal"
     annotation (Placement(transformation(extent={{-80,180},{-60,200}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant noWSEcoSig(final k=false) if
-                     not hasWSE
+                     not have_WSE
     "Staging from 1 to 0 for plants without a WSE is depends on the plant disable sequence"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
 
@@ -189,23 +177,24 @@ block Down "Generates a stage down signal"
     final trueHoldDuration=dowHolPer,
     final falseHoldDuration=0)
     annotation (Placement(transformation(extent={{-120,-210},{-100,-190}})));
+  CDL.Logical.Sources.Constant staDowAva(final k=true) if
+                     not have_WSE
+    "Staging down is being evaluated for the next available stage down"
+    annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
 equation
   connect(TChiWatSupSet, faiSafCon.TChiWatSupSet) annotation (Line(points={{-200,
-          -40},{-160,-40},{-160,52},{-82,52}},color={0,0,127}));
-  connect(dpChiWatPumSet, faiSafCon.dpChiWatPumSet) annotation (Line(points={{-200,50},
-          {-170,50},{-170,45},{-82,45}}, color={0,0,127}));
-  connect(dpChiWatPum, faiSafCon.dpChiWatPum) annotation (Line(points={{-200,20},
-          {-140,20},{-140,42},{-82,42}},color={0,0,127}));
+          -40},{-160,-40},{-160,57},{-82,57}},color={0,0,127}));
+  connect(dpChiWatPumSet, faiSafCon.dpChiWatPumSet) annotation (Line(points={{-200,
+          110},{-170,110},{-170,50},{-82,50}},
+                                         color={0,0,127}));
+  connect(dpChiWatPum, faiSafCon.dpChiWatPum) annotation (Line(points={{-200,70},
+          {-140,70},{-140,47},{-82,47}},color={0,0,127}));
   connect(u, intGreThr.u)
     annotation (Line(points={{-200,-160},{-122,-160}}, color={255,127,0}));
   connect(add0.y,hysTSup. u)
     annotation (Line(points={{-58,-60},{-42,-60}}, color={0,0,127}));
-  connect(uOpe, faiSafCon.uOpeUp) annotation (Line(points={{-200,130},{-140,130},
-          {-140,58},{-82,58}}, color={0,0,127}));
-  connect(uOpeMin, faiSafCon.uOpeUpMin) annotation (Line(points={{-200,100},{-150,
-          100},{-150,55},{-82,55}},color={0,0,127}));
-  connect(TChiWatSup, faiSafCon.TChiWatSup) annotation (Line(points={{-200,-10},
-          {-150,-10},{-150,48},{-82,48}},  color={0,0,127}));
+  connect(TChiWatSup, faiSafCon.TChiWatSup) annotation (Line(points={{-200,30},
+          {-150,30},{-150,53},{-82,53}},   color={0,0,127}));
   connect(hys.y, not0.u)
     annotation (Line(points={{-98,-100},{-82,-100}}, color={255,0,255}));
   connect(uTowFanSpeMax, hys.u) annotation (
@@ -256,6 +245,8 @@ equation
     annotation (Line(points={{-98,-200},{-82,-200}}, color={255,0,255}));
   connect(not2.y, and2.u2) annotation (Line(points={{-58,-200},{112,-200},{112,-8},
           {128,-8}}, color={255,0,255}));
+  connect(staDowAva.y, faiSafCon.uAvaCur) annotation (Line(points={{-98,10},{
+          -90,10},{-90,43},{-82,43}}, color={255,0,255}));
   annotation (defaultComponentName = "staDow",
         Icon(graphics={
         Rectangle(

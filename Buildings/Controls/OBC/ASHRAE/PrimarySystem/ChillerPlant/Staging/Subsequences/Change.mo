@@ -62,7 +62,7 @@ block Change "Calculates the chiller stage signal"
     "Maximum stage up or down part load ratio for variable speed centrifugal stage types"
     annotation(Evaluate=true, Dialog(enable=anyVsdCen));
 
-  parameter Boolean hasWSE = true
+  parameter Boolean have_WSE = true
     "true = plant has a WSE, false = plant does not have WSE";
 
   parameter Modelica.SIunits.Time delayStaCha = 15*60
@@ -94,7 +94,7 @@ block Change "Calculates the chiller stage signal"
     annotation (Placement(transformation(extent={{-280,-200},{-240,-160}}),
     iconTransformation(extent={{-140,-170},{-100,-130}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseSta if hasWSE
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseSta if have_WSE
     "WSE status"
     annotation (Placement(transformation(extent={{-280,-320},{-240,-280}}),
         iconTransformation(extent={{-140,-150},{-100,-110}})));
@@ -116,12 +116,12 @@ block Change "Calculates the chiller stage signal"
         iconTransformation(extent={{-140,-130},{-100,-90}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TWsePre(
-    final unit="1") if hasWSE
+    final unit="1") if have_WSE
     "Predicted WSE outlet temperature"
     annotation (Placement(transformation(extent={{-280,70},{-240,110}}),
        iconTransformation(extent={{-140,-90},{-100,-50}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpeMax if hasWSE
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpeMax if have_WSE
     "Maximum cooling tower fan speed"
     annotation (Placement(transformation(extent={{-280,40},{-240,80}}),
         iconTransformation(extent={{-140,-40},{-100,0}})));
@@ -233,7 +233,7 @@ block Change "Calculates the chiller stage signal"
     annotation (Placement(transformation(extent={{-20,-260},{0,-240}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Up staUp(
-    final hasWSE=hasWSE,
+    final have_WSE=have_WSE,
     final delayStaCha=delayStaCha,
     final shortDelay=shortDelay,
     final longDelay=longDelay,
@@ -250,7 +250,7 @@ block Change "Calculates the chiller stage signal"
     final TDif=TDif,
     final TDifHyst=TDifHyst,
     final dpDif=dpDif,
-    final hasWSE=hasWSE)
+    final have_WSE=have_WSE)
     annotation (Placement(transformation(extent={{60,-300},{80,-280}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or or2

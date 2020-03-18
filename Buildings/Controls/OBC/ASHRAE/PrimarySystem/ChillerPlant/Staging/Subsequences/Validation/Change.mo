@@ -20,7 +20,7 @@ model Change "Validates chiller stage signal"
     chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
         Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.constantSpeedCentrifugal},
     anyVsdCen=false,
-    hasWSE=false) "Stage change"
+    have_WSE=false) "Stage change"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TChiWatRet(
