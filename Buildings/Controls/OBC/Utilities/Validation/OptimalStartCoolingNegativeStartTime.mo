@@ -98,7 +98,8 @@ equation
 <p>
 This model is to validate the block
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.OptimalStart\">
-Buildings.Controls.OBC.Utilities.OptimalStart</a> for space cooling system.
+Buildings.Controls.OBC.Utilities.OptimalStart</a> for space cooling system with
+a negative simulation start time.
 </p>
 <p>
 The room is modelled as a simple differential equation with a time constant of 

@@ -88,7 +88,7 @@ equation
           {-130,-80},{-130,-50},{-122,-50}}, color={0,0,127}));
   annotation (
   experiment(
-      StartTime=-660000,
+      StartTime=34000,
       StopTime=864000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),__Dymola_Commands(file=
@@ -98,7 +98,8 @@ equation
 <p>
 This model is to validate the block
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.OptimalStart\">
-Buildings.Controls.OBC.Utilities.OptimalStart</a> for space cooling system.
+Buildings.Controls.OBC.Utilities.OptimalStart</a> for space cooling system 
+with a positive simulation start time.
 </p>
 <p>
 The room is modelled as a simple differential equation with a time constant of 
