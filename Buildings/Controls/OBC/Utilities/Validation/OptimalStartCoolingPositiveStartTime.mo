@@ -39,7 +39,7 @@ model OptimalStartCoolingPositiveStartTime
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable TSetCoo(
     table=[0,30 + 273.15; 7*3600,24 + 273.15; 19*3600,30 + 273.15; 24*3600,30
          + 273.15],
-    y(unit="K"),
+    y(each unit="K"),
     smoothness=CDL.Types.Smoothness.ConstantSegments,
     extrapolation=CDL.Types.Extrapolation.Periodic)
     "Cooling setpoint for room temperature"
@@ -98,13 +98,13 @@ equation
 <p>
 This model is to validate the block
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.OptimalStart\">
-Buildings.Controls.OBC.Utilities.OptimalStart</a> for space cooling system 
+Buildings.Controls.OBC.Utilities.OptimalStart</a> for space cooling system
 with a positive simulation start time.
 </p>
 <p>
-The room is modelled as a simple differential equation with a time constant of 
+The room is modelled as a simple differential equation with a time constant of
 around 5.6 hours. The cooling power is relatively large compared to the heat gain from
-the outdoor temperature. The outdoor temperature is repetitive each day; 
+the outdoor temperature. The outdoor temperature is repetitive each day;
 the optimal start time converges to a small amount of time <code>tOpt</code> after a few days.
 </p>
 </html>",

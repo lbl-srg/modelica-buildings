@@ -46,7 +46,7 @@ model OptimalStartHeating
            7*3600, 21 + 273.15;
            19*3600, 15 + 273.15;
            24*3600, 15 + 273.15],
-    y(unit="K"),
+    y(each unit="K"),
     smoothness=CDL.Types.Smoothness.ConstantSegments,
     extrapolation=CDL.Types.Extrapolation.Periodic)
     "Heating setpoint for room temperature"

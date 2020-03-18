@@ -33,7 +33,7 @@ model OptimalStartNoHeatingNoCooling
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable TSetCoo(
     table=[0,30 + 273.15; 7*3600,24 + 273.15; 19*3600,30 + 273.15; 24*3600,30
          + 273.15],
-    y(unit="K"),
+    y(each unit="K"),
     smoothness=CDL.Types.Smoothness.ConstantSegments,
     extrapolation=CDL.Types.Extrapolation.Periodic)
     "Cooling setpoint for room temperature"
@@ -71,7 +71,7 @@ model OptimalStartNoHeatingNoCooling
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable TSetHea(
     table=[0,15 + 273.15; 7*3600,21 + 273.15; 19*3600,15 + 273.15; 24*3600,15
          + 273.15],
-    y(unit="K"),
+    y(each unit="K"),
     smoothness=CDL.Types.Smoothness.ConstantSegments,
     extrapolation=CDL.Types.Extrapolation.Periodic)
     "Heating setpoint for room temperature"

@@ -36,7 +36,7 @@ model OptimalStartHeatingCooling
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable TSetCoo(
     table=[0,30 + 273.15; 7*3600,24 + 273.15; 19*3600,30 + 273.15; 24*3600,30
          + 273.15],
-    y(unit="K"),
+    y(each unit="K"),
     smoothness=CDL.Types.Smoothness.ConstantSegments,
     extrapolation=CDL.Types.Extrapolation.Periodic)
     "Cooling setpoint for room temperature"
@@ -77,7 +77,7 @@ model OptimalStartHeatingCooling
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable TSetHea(
     table=[0,15 + 273.15; 7*3600,21 + 273.15; 19*3600,15 + 273.15; 24*3600,15
          + 273.15],
-    y(unit="K"),
+    y(each unit="K"),
     smoothness=CDL.Types.Smoothness.ConstantSegments,
     extrapolation=CDL.Types.Extrapolation.Periodic)
     "Heating setpoint for room temperature"
@@ -157,11 +157,11 @@ This models validates both space heating and cooling for the block
 Buildings.Controls.OBC.Utilities.OptimalStart</a>.
 </p>
 <p>
-The first ten days is to test the heating case with a lower outdoor temperature. 
+The first ten days is to test the heating case with a lower outdoor temperature.
 The next ten days has a higher outdoor temprature, which is to test the cooling case.
 The zone model has a time constant of 27.8 hours. The optimal start block converges separately
 to an optimal start time for heating and cooling. Note that during the three transition
-days, the zone temperature is in the deadband, so there is no need to optimally start 
+days, the zone temperature is in the deadband, so there is no need to optimally start
 the heating or cooling system in advance.
 </p>
 </html>",
