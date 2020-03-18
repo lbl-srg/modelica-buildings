@@ -82,7 +82,7 @@ def checkout_buildingspy_repository(working_directory):
     import git
     print("*** Checking out BuildingPy repository branch {} ***".format(BP_BRANCH))
     git_url = "https://github.com/lbl-srg/BuildingsPy.git"
-    r = Repo.clone_from(git_url, working_directory)
+    Repo.clone_from(git_url, working_directory)
     g = git.Git(working_directory)
     g.checkout(BP_BRANCH)
 
@@ -942,11 +942,11 @@ if __name__=="__main__":
     if DO_SIMULATIONS:
         # create directory to be as temporary buildings library directory
         mbl_dir = create_library_directory('MBL')
-        d = copy_mbl(mbl_dir)
+        copy_mbl(mbl_dir)
 
         # create directory to be as temporary buildingspy directory
         bp_dir = create_library_directory('BP')
-        d2 = checkout_buildingspy_repository(bp_dir)
+        checkout_buildingspy_repository(bp_dir)
 
         # find temporary directories that were used for run simulations
         resultDirs = _get_results_directory(mbl_dir, bp_dir)
