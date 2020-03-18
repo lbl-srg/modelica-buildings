@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "TSat_degC",
+    "dl",
+    "dv",
+    "hl",
+    "hv",
+    "hlv",
+    "sl",
+    "sv",
+    "slv"
+  };
