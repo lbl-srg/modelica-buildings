@@ -7,7 +7,7 @@ block OptimalStart
     displayUnit="h") = 10800
     "Maximum optimal start time";
   parameter Integer nDay(min=1) = 3
-    "Number of previous days for averaging the temperature slope";
+    "Number of previous days used to compute the optimal start up time";
   parameter Boolean computeHeating = false
     "Set to true to compute optimal start for heating";
   parameter Boolean computeCooling = false
