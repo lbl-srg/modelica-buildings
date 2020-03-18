@@ -11,16 +11,16 @@ import os
 import sys
 import shutil
 
-# check if it just implements post-process
+# If true, run simulations and not only the post processing.
 DO_SIMULATIONS = True
-# check if delete the simulation result files
+# If true, delete the simulation result files.
 CLEAN_MAT = True
-# check if delete the temporary working folders
+# If true, temporary directories will be deleted.
 DelTemDir = True
 
 CWD = os.getcwd()
 
-# BuildingSpy working branch. 
+# BuildingsPy working branch.
 # The working branch makes the communication points ('ncp') of jmodelica or optimica to be 8761,
 # so that the regression test will generate high resolution results.
 BP_BRANCH = 'issue335_high_ncp'
