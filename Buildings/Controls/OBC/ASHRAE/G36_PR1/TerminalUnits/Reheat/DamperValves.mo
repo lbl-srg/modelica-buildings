@@ -329,7 +329,7 @@ protected
     annotation (Placement(transformation(extent={{20,-56},{40,-36}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add3 "Active airflow setpoint"
     annotation (Placement(transformation(extent={{200,220},{220,240}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add4
+  Buildings.Controls.OBC.CDL.Continuous.Add add4 "Active airflow set point"
     annotation (Placement(transformation(extent={{180,40},{200,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Division VDis_flowNor
     "Normalized discharge volume flow rate"
