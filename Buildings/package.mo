@@ -145,6 +145,11 @@ its class name ends with the string <code>Beta</code>.
                            models for the OpenBuildingControl (OBC) library.
         </td>
         </tr>
+    <tr><td valign=\"top\">Buildings.Media.Steam
+        </td>
+        <td valign=\"top\">Package with steam medium model for modeling steam heating systems.
+        </td>
+        </tr>
     <tr><td valign=\"top\">Buildings.Utilities.IO.SignalExchange
         </td>
         <td valign=\"top\">Package with blocks that can be used
@@ -162,6 +167,14 @@ its class name ends with the string <code>Beta</code>.
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
     <tr><td colspan=\"2\"><b>Buildings.Controls</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneStatus
+        </td>
+        <td valign=\"top\">Block that outputs zone temperature status by comparing it with setpoint temperatures, with the maximum and
+                           minimum temperature of the group which the zone is in. This allows separating the vector-valued calculations
+                           from control sequences.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1709\">issue #1709</a>.
         </td>
     </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Discrete.TriggeredMovingMean
@@ -271,6 +284,14 @@ its class name ends with the string <code>Beta</code>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1 </b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller
+        </td>
+        <td valign=\"top\">Replaced the mode and setpoint calculation block with
+                           <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints\">
+                           Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints</a>.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1709\">issue #1709</a>
         </td>
     </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SetPoints.ActiveAirFlow
@@ -422,6 +443,20 @@ its class name ends with the string <code>Beta</code>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode
+        </td>
+        <td valign=\"top\">Reimplemented to remove the vector-valued calculations.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1709\">issue #1709</a>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.ModeAndSetPoints
+        </td>
+        <td valign=\"top\">Removed from the library as it can be replaced by
+                           <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints\">
+                           Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints</a>.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1709\">issue #1709</a>
         </td>
     </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller
