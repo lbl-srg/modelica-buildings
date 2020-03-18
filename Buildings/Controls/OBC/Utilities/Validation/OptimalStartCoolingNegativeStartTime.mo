@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.Utilities.Validation;
-model OptimalStartCooling
-  "Validation model for the block OptimalStart for cooling system"
+model OptimalStartCoolingNegativeStartTime
+  "Validation model for the block OptimalStart for cooling system with a negative start time"
 
   Buildings.Controls.OBC.Utilities.OptimalStart optStaCoo(
     computeHeating=false,computeCooling=true)
@@ -16,7 +16,7 @@ model OptimalStartCooling
     amplitude=5,
     freqHz=1/86400,
     offset=28 + 273.15,
-    startTime(displayUnit="h") = 0)
+    startTime(displayUnit="s") = -691200)
     "Outdoor dry bulb temperature to test cooling system"
     annotation (Placement(transformation(extent={{-194,-20},{-174,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain UA(k=100)
@@ -36,12 +36,12 @@ model OptimalStartCooling
   Buildings.Controls.OBC.CDL.Continuous.Gain TSetUp(k=-6)
     "Cooling setpoint temperature setup during unoccupied period"
     annotation (Placement(transformation(extent={{80,0},{100,20}})));
-  Modelica.Blocks.Sources.CombiTimeTable TSetCoo(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable TSetCoo(
     table=[0,30 + 273.15; 7*3600,24 + 273.15; 19*3600,30 + 273.15; 24*3600,30
          + 273.15],
     y(unit="K"),
-    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
-    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
+    smoothness=CDL.Types.Smoothness.ConstantSegments,
+    extrapolation=CDL.Types.Extrapolation.Periodic)
     "Cooling setpoint for room temperature"
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add
@@ -80,7 +80,7 @@ equation
           {-14,-20},{170,-20},{170,-2}}, color={0,0,127}));
   connect(occSch.tNexOcc, optStaCoo.tNexOcc) annotation (Line(points={{-19,-44},
           {-10,-44},{-10,2},{-2,2}}, color={0,0,127}));
-  connect(TSetCoo.y[1], add.u1) annotation (Line(points={{101,80},{108,80},{108,
+  connect(TSetCoo.y[1], add.u1) annotation (Line(points={{102,80},{108,80},{108,
           16},{118,16}}, color={0,0,127}));
   connect(TSetUp.y, add.u2) annotation (Line(points={{102,10},{108,10},{108,4},
           {118,4}},color={0,0,127}));
@@ -88,17 +88,18 @@ equation
           {-130,-80},{-130,-50},{-122,-50}}, color={0,0,127}));
   annotation (
   experiment(
-      StopTime=864000,
-      __Dymola_NumberOfIntervals=5000,
+      StartTime=-660000,
+      StopTime=0,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),__Dymola_Commands(file=
-  "modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/Utilities/Validation/OptimalStartCooling.mos"
+  "modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/Utilities/Validation/OptimalStartCoolingNegativeStartTime.mos"
   "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This model is to validate the block
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.OptimalStart\">
-Buildings.Controls.OBC.Utilities.OptimalStart</a> for space cooling system.
+Buildings.Controls.OBC.Utilities.OptimalStart</a> for space cooling system with
+a negative simulation start time.
 </p>
 <p>
 The room is modelled as a simple differential equation with a time constant of 
@@ -129,4 +130,4 @@ First implementation.
         Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-160},{200,
             160}})));
-end OptimalStartCooling;
+end OptimalStartCoolingNegativeStartTime;

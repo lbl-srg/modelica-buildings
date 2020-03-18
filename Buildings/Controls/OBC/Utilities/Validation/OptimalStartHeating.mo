@@ -41,7 +41,7 @@ model OptimalStartHeating
     yMax=1,
     yMin=0) "PI control for space heating"
             annotation (Placement(transformation(extent={{160,0},{180,20}})));
-  CDL.Continuous.Sources.TimeTable TSetHea(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable TSetHea(
     table=[0,15 + 273.15;
            7*3600, 21 + 273.15;
            19*3600, 15 + 273.15;
