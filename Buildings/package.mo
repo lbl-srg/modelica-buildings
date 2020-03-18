@@ -139,6 +139,11 @@ its class name ends with the string <code>Beta</code>.
     The following <b style=\"color:blue\">new libraries</b> have been added:
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
+    <tr><td valign=\"top\">Buildings.Media.Steam
+        </td>
+        <td valign=\"top\">Package with steam medium model for modeling steam heating systems.
+        </td>
+        </tr>
     <tr><td valign=\"top\">Buildings.Utilities.IO.SignalExchange
         </td>
         <td valign=\"top\">Package with blocks that can be used
