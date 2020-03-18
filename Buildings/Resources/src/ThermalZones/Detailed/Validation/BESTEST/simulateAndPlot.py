@@ -785,7 +785,6 @@ def _addSingleCase_to_standard(keyWord, table_name, moData, oneSet, tool):
     for ele in newSet['tools']:
         tools.append(ele)
     tools.append(tool)
-    temp = list()
     textList = ['Case{}'.format(ele) for ele in table_name.split('_')]
     curCase = ''
     for case in CASES:
@@ -857,7 +856,7 @@ def plot_lines(data, xLabel, yLabel, xMin, xMax, dx, yMin, yMax):
     lineMarker = ['.', ',', 'o', 's', 'p', '*', 'x', '+', 'd']
     pltName = data['data_set']
     plt.clf()
-    fig,ax = plt.subplots(figsize=(10,5))
+    _,ax = plt.subplots(figsize=(10,5))
     configure_axes(ax)
     dataSet = data['data'][0]
     xSet = [float(ele) for ele in dataSet['firstCol']]
