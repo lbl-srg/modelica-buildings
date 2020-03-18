@@ -158,7 +158,6 @@ equation
           {-68,-78},{18,-78}}, color={0,0,127}));
   connect(falEdg.y, optHea.staCal) annotation (Line(points={{-8,0},{0,0},{0,70},
           {18,70}},     color={255,0,255}));
-  connect(optOn,optOn)    annotation (Line(points={{160,-40},{160,-40}}, color={255,0,255}));
   connect(falEdg.y, optCoo.staCal) annotation (Line(points={{-8,0},{0,0},{0,-70},
           {18,-70}},      color={255,0,255}));
   connect(or2.y,optOn)    annotation (Line(points={{122,-40},{160,-40}}, color={255,0,255}));
