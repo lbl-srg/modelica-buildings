@@ -43,6 +43,10 @@ block OptimalStartCalculation
       Placement(transformation(extent={{440,-80},{480,-40}}),
         iconTransformation(extent={{100,-60},{140,-20}})));
 
+protected
+  parameter Modelica.SIunits.TemperatureSlope temSloDef = 1/3600
+    "Default temperature slope in case of zero division";
+
   Buildings.Controls.OBC.CDL.Discrete.TriggeredMovingMean triMovMea(
     final n=nDay)
     "Calculate the averaged temperature slope over the past n days"
@@ -54,9 +58,6 @@ block OptimalStartCalculation
     "Get the temperature difference when the HVAC system starts"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
 
-protected
-    parameter Modelica.SIunits.TemperatureSlope temSloDef = 1/3600
-      "Default temperature slope in case of zero division";
     Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(final k=0)
       "Deadband case"
       annotation (Placement(transformation(extent={{140,90},{160,110}})));

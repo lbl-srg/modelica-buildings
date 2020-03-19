@@ -6,9 +6,8 @@ model OptimalStartHeating
     computeHeating=true, computeCooling=false)
     "Optimal start for heating system"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Modelica.Blocks.Continuous.Integrator integrator(k=0.000005,y_start=21+273.15)
-    "Integrate temperature derivative with k indicating the inverse of zone thermal capacitance"
-    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+  Modelica.Blocks.Continuous.Integrator TRoo(k = 0.000005, y_start = 21 + 273.15) "Room air temperature" annotation(
+    Placement(transformation(extent = {{-40, 0}, {-20, 20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetHeaOcc(k=21+273.15)
     "Zone heating setpoint during occupancy"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
@@ -56,19 +55,18 @@ model OptimalStartHeating
 equation
   connect(dT.y, UA.u)    annotation (Line(points={{-138,10},{-122,10}},
                                                                       color={0,0,127}));
-  connect(dTdt.y, integrator.u)   annotation (Line(points={{-58,10},{-42,10}},color={0,0,127}));
+  connect(dTdt.y, TRoo.u) annotation(
+    Line(points = {{-58, 10}, {-42, 10}}, color = {0, 0, 127}));
   connect(QHea.y, dTdt.u2) annotation (Line(points={{-98,-50},{-88,-50},{-88,4},
           {-82,4}},  color={0,0,127}));
-  connect(integrator.y, optStaHea.TZon) annotation (Line(points={{-19,10},{-12,
-          10},{-12,7},{-2,7}},
-                            color={0,0,127}));
+  connect(TRoo.y, optStaHea.TZon) annotation(
+    Line(points = {{-19, 10}, {-12, 10}, {-12, 7}, {-2, 7}}, color = {0, 0, 127}));
   connect(occSch.tNexOcc, optStaHea.tNexOcc) annotation (Line(points={{-19,-44},
           {-8,-44},{-8,2},{-2,2}}, color={0,0,127}));
   connect(TSetHeaOcc.y, optStaHea.TSetZonHea) annotation (Line(points={{-18,80},
           {-8,80},{-8,18},{-2,18}},  color={0,0,127}));
-  connect(integrator.y, dT.u1) annotation (Line(points={{-19,10},{-12,10},{-12,
-          32},{-166,32},{-166,16},{-162,16}},
-                                           color={0,0,127}));
+  connect(TRoo.y, dT.u1) annotation(
+    Line(points = {{-19, 10}, {-12, 10}, {-12, 32}, {-166, 32}, {-166, 16}, {-162, 16}}, color = {0, 0, 127}));
   connect(UA.y, dTdt.u1) annotation (Line(points={{-98,10},{-90,10},{-90,16},{
           -82,16}}, color={0,0,127}));
   connect(booToRea.y, TSetBac.u)   annotation (Line(points={{62,10},{78,10}}, color={0,0,127}));
@@ -76,9 +74,8 @@ equation
   connect(conPID.y, QHea.u) annotation (Line(points={{182,10},{184,10},{184,-70},
           {-126,-70},{-126,-50},{-122,-50}},
                                           color={0,0,127}));
-  connect(integrator.y, conPID.u_m) annotation (Line(points={{-19,10},{-12,10},
-          {-12,-16},{170,-16},{170,-2}},
-                                     color={0,0,127}));
+  connect(TRoo.y, conPID.u_m) annotation(
+    Line(points = {{-19, 10}, {-12, 10}, {-12, -16}, {170, -16}, {170, -2}}, color = {0, 0, 127}));
   connect(TSetBac.y, add.u2) annotation (Line(points={{102,10},{106,10},{106,4},
           {118,4}}, color={0,0,127}));
   connect(optStaHea.optOn, booToRea.u) annotation (Line(points={{22,6},{30,6},{
