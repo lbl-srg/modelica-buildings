@@ -72,6 +72,12 @@ block Modulation "Outdoor and return air damper position modulation sequence for
     "Maximum return air damper position limit as returned by the economizer enable-disable sequence"
     annotation (Placement(transformation(extent={{-160,20},{-120,60}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaCoi(
+    final min=0,
+    final max=1,
+    final unit="1") "Heating coil control signal"
+    annotation (Placement(transformation(extent={{120,30},{140,50}}),
+      iconTransformation(extent={{100,30},{120,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPos(
     final min=0,
     final max=1,
@@ -90,18 +96,12 @@ block Modulation "Outdoor and return air damper position modulation sequence for
     final k=k,
     final Ti=Ti,
     final Td=Td,
-    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
+    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
     final yMax=1,
     final yMin=0)
     "Contoller that outputs a signal based on the error between the measured SAT and SAT heating setpoint"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaCoi(
-    final min=0,
-    final max=1,
-    final unit="1") "Heating coil control signal" annotation (Placement(
-        transformation(extent={{120,30},{140,50}}), iconTransformation(extent={{
-            100,30},{120,50}})));
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamMinLimSig(
       final k=uMin) "Minimal control loop signal for the outdoor air damper"
