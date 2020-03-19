@@ -273,7 +273,14 @@ its class name ends with the string <code>Beta</code>.
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1 </b>
         </td>
-    </tr>
+    </tr>        
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValves
+        </td>
+        <td valign=\"top\">Replaced multisum block with add blocks, replaced gain block used for normalization
+                           with division block.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1830\">issue #1830</a>
+        </td>
+    </tr> 
     <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller
         </td>
         <td valign=\"top\">Replaced the mode and setpoint calculation block with
