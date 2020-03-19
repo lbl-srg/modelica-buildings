@@ -8,7 +8,7 @@ block OptimalStartCalculation
     "Default optimal start time";
   parameter Integer nDay "Number of previous days for averaging the temperature slope";
   parameter Modelica.SIunits.TemperatureDifference uLow
-    "Threshold to determine if the zone temperature reaches the occupied setpoint, 
+    "Threshold to determine if the zone temperature reaches the occupied setpoint,
      should be a non-negative number";
   parameter Modelica.SIunits.TemperatureDifference uHigh
     "Threshold to determine the need to start the HVAC system before occupancy,
@@ -58,110 +58,111 @@ protected
     "Get the temperature difference when the HVAC system starts"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
 
-    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(final k=0)
-      "Deadband case"
-      annotation (Placement(transformation(extent={{140,90},{160,110}})));
-    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant defOptTim(
-      final k=tOptDef)
-      "Default optimal start time in case of zero division"
-      annotation (Placement(transformation(extent={{-20,30},{0,50}})));
-    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant defTemSlo(
-      final k=temSloDef)
-      "Default temperature slope in case of zero division"
-      annotation (Placement(transformation(extent={{120,40},{140,60}})));
-    Buildings.Controls.OBC.CDL.Logical.Edge edg "HVAC start time"
-      annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
-    Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
-      "The instant when the zone temperature reaches setpoint"
-      annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
-    Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
-      final uLow=uLow,
-      final uHigh=uHigh)
-      "Comparing zone temperature with zone setpoint"
-      annotation (Placement(transformation(extent={{-260,70},{-240,90}})));
-    Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysOpt(
-      final pre_y_start=false,
-      final uHigh=0,
-      final uLow=-60) "Hysteresis to activate the optimal start"
-      annotation (Placement(transformation(extent={{330,-90},{350,-70}})));
-    Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr(
-      final threshold=1E-15)
-      "Avoid zero division"
-      annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-    Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr1(
-      final threshold=1E-15)
-      "Avoid zero division"
-      annotation (Placement(transformation(extent={{140,-10},{160,10}})));
-    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxStaTim(
-      final k=tOptMax)
-      "Maximum optimal start time"
-      annotation (Placement(transformation(extent={{250,40},{270,60}})));
-    Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol(
-      final duration=tOptMax + 12*3600)
-      "Hold the start time for timer"
-      annotation (Placement(transformation(extent={{-240,0},{-220,20}})));
-    Buildings.Controls.OBC.CDL.Continuous.Division temSlo
-      "Calculate temperature slope"
-      annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-    Buildings.Controls.OBC.CDL.Logical.Switch swi
-      "Switch to default optimal start time when time duration is 0"
-      annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-    Buildings.Controls.OBC.CDL.Logical.Switch swi1
-      "Switch to default value when the calculated temperature slope is 0"
-      annotation (Placement(transformation(extent={{180,-10},{200,10}})));
-    Buildings.Controls.OBC.CDL.Logical.Pre pre
-      "Break algebraic loops"
-      annotation (Placement(transformation(extent={{390,-40},{410,-20}})));
-    Buildings.Controls.OBC.CDL.Continuous.Add add1(final k1=+1, final k2=-1)
-      "Calculate the time duration to reach the setpoint"
-      annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-    Buildings.Controls.OBC.CDL.Continuous.Add add2(final k1=+1, final k2=-1)
-      "Calculate differential between time-to-next-occupancy and the cool-down time"
-      annotation (Placement(transformation(extent={{300,-90},{320,-70}})));
-    Buildings.Controls.OBC.CDL.Continuous.Min min
-      "Get the final optimal start time"
-      annotation (Placement(transformation(extent={{286,-10},{306,10}})));
-    Buildings.Controls.OBC.CDL.Continuous.Max max
-      "Consider the deadband case"
-      annotation (Placement(transformation(extent={{180,104},{200,124}})));
-    Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam
-      "The instant when the zone temperature reaches setpoint with maximum time cutoff"
-      annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
-    Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam1
-      "Record the start time when the HVAC system is turned on"
-      annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
-    Buildings.Controls.OBC.CDL.Logical.Latch lat
-       "Stop calculation when the zone temperature reaches setpoint"
-      annotation (Placement(transformation(extent={{-190,70},{-170,90}})));
-    Buildings.Controls.OBC.CDL.Logical.Timer tim(final reset=true)
-      "Record time duration for the zone temperature to reach setpoint"
-      annotation (Placement(transformation(extent={{-180,0},{-160,20}})));
-    Buildings.Controls.OBC.CDL.Logical.Not not1
-      "Becomes true when the setpoint is reached"
-      annotation (Placement(transformation(extent={{-230,70},{-210,90}})));
-    Buildings.Controls.OBC.CDL.Continuous.Division tOptCal
-      "Calculate optimal start time using the averaged previous temperature slope"
-      annotation (Placement(transformation(extent={{220,-10},{240,10}})));
-    Buildings.Controls.OBC.CDL.Continuous.Sources.ModelTime modTim "Model time"
-      annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
-    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(final k=86400)
-    "Daily period"
-      annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
-    Buildings.Controls.OBC.CDL.Continuous.Modulo mod "Get the modulo"
-      annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
-    Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr2(
-      final threshold=1E-06)
-    "Get the instant when the simulation time arrives at midnight"
-      annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
-    Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam4
-    "Get the sampled optimal start time at the same time each day"
-      annotation (Placement(transformation(extent={{250,-10},{270,10}})));
-    Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
-      final threshold=thrOptOn)
-    "The threshold for optOn signal becomes true"
-      annotation (Placement(transformation(extent={{320,-10},{340,10}})));
-    Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
-      annotation (Placement(transformation(extent={{360,-40},{380,-20}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(final k=0)
+    "Deadband case"
+    annotation (Placement(transformation(extent={{140,90},{160,110}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant defOptTim(
+    final k=tOptDef)
+    "Default optimal start time in case of zero division"
+    annotation (Placement(transformation(extent={{-20,30},{0,50}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant defTemSlo(
+    final k=temSloDef)
+    "Default temperature slope in case of zero division"
+    annotation (Placement(transformation(extent={{120,40},{140,60}})));
+  Buildings.Controls.OBC.CDL.Logical.Edge edg "HVAC start time"
+    annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
+    "The instant when the zone temperature reaches setpoint"
+    annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+    final uLow=uLow,
+    final uHigh=uHigh)
+    "Comparing zone temperature with zone setpoint"
+    annotation (Placement(transformation(extent={{-260,70},{-240,90}})));
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysOpt(
+    final pre_y_start=false,
+    final uHigh=0,
+    final uLow=-60) "Hysteresis to activate the optimal start"
+    annotation (Placement(transformation(extent={{330,-90},{350,-70}})));
+  Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr(
+    final threshold=1E-15)
+    "Avoid zero division"
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr1(
+    final threshold=1E-15)
+    "Avoid zero division"
+    annotation (Placement(transformation(extent={{140,-10},{160,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxStaTim(
+    final k=tOptMax)
+    "Maximum optimal start time"
+    annotation (Placement(transformation(extent={{250,40},{270,60}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol(
+    final duration=tOptMax + 12*3600)
+    "Hold the start time for timer"
+    annotation (Placement(transformation(extent={{-240,0},{-220,20}})));
+  Buildings.Controls.OBC.CDL.Continuous.Division temSlo
+    "Calculate temperature slope"
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch swi
+    "Switch to default optimal start time when time duration is 0"
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+   Buildings.Controls.OBC.CDL.Logical.Switch swi1
+    "Switch to default value when the calculated temperature slope is 0"
+     annotation (Placement(transformation(extent={{180,-10},{200,10}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre pre
+    "Break algebraic loops"
+    annotation (Placement(transformation(extent={{390,-40},{410,-20}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add1(final k1=+1, final k2=-1)
+    "Calculate the time duration to reach the setpoint"
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add2(final k1=+1, final k2=-1)
+    "Calculate differential between time-to-next-occupancy and the cool-down time"
+    annotation (Placement(transformation(extent={{300,-90},{320,-70}})));
+  Buildings.Controls.OBC.CDL.Continuous.Min min
+    "Get the final optimal start time"
+    annotation (Placement(transformation(extent={{286,-10},{306,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Max max
+    "Consider the deadband case"
+    annotation (Placement(transformation(extent={{180,104},{200,124}})));
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam
+    "The instant when the zone temperature reaches setpoint with maximum time cutoff"
+    annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam1
+    "Record the start time when the HVAC system is turned on"
+    annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
+  Buildings.Controls.OBC.CDL.Logical.Latch lat
+     "Stop calculation when the zone temperature reaches setpoint"
+    annotation (Placement(transformation(extent={{-190,70},{-170,90}})));
+  Buildings.Controls.OBC.CDL.Logical.Timer tim(final reset=true)
+    "Record time duration for the zone temperature to reach setpoint"
+    annotation (Placement(transformation(extent={{-180,0},{-160,20}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not1
+    "Becomes true when the setpoint is reached"
+    annotation (Placement(transformation(extent={{-230,70},{-210,90}})));
+  Buildings.Controls.OBC.CDL.Continuous.Division tOptCal
+    "Calculate optimal start time using the averaged previous temperature slope"
+    annotation (Placement(transformation(extent={{220,-10},{240,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.ModelTime modTim "Model time"
+    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(final k=86400)
+  "Daily period"
+    annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
+  Buildings.Controls.OBC.CDL.Continuous.Modulo mod "Get the modulo"
+    annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
+  Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr2(
+    final threshold=1E-06)
+  "Get the instant when the simulation time arrives at midnight"
+    annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam4
+  "Get the sampled optimal start time at the same time each day"
+    annotation (Placement(transformation(extent={{250,-10},{270,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+    final threshold=thrOptOn)
+  "The threshold for optOn signal becomes true"
+    annotation (Placement(transformation(extent={{320,-10},{340,10}})));
+  Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
+    annotation (Placement(transformation(extent={{360,-40},{380,-20}})));
+
 equation
   connect(tim.y, triSam.u)  annotation (Line(points={{-158,10},{-102,10}},
                                               color={0,0,127}));
