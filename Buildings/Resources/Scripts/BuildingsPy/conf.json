@@ -27,6 +27,15 @@
     "model_name": "Buildings.Fluid.Examples.FlowSystem.Simplified2"
   },
   {
+    "jmodelica": {
+      "simulate": false
+    },
+    "optimica": {
+      "simulate": false
+    },
+    "model_name": "Buildings.Controls.OBC.Utilities.Validation.OptimalStartCoolingNegativeStartTime"
+  },
+  {
        "jmodelica": {
          "simulate": false
     },
