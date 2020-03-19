@@ -33,14 +33,6 @@ model OptimalStartHeatingCooling
   Buildings.Controls.OBC.CDL.Continuous.Gain TSetUp(k=-6)
     "Cooling setpoint temperature setup during unoccupied period"
     annotation (Placement(transformation(extent={{100,0},{120,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable TSetCoo(
-    table=[0,30 + 273.15; 7*3600,24 + 273.15; 19*3600,30 + 273.15; 24*3600,30
-         + 273.15],
-    y(each unit="K"),
-    smoothness=CDL.Types.Smoothness.ConstantSegments,
-    extrapolation=CDL.Types.Extrapolation.Periodic)
-    "Cooling setpoint for room temperature"
-    annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add1
     "Reset temperature from unoccupied to occupied for optimal start period"
     annotation (Placement(transformation(extent={{140,0},{160,20}})));
@@ -74,17 +66,10 @@ model OptimalStartHeatingCooling
     yMax=1,
     yMin=0) "PI control for space heating"
     annotation (Placement(transformation(extent={{180,40},{200,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable TSetHea(
-    table=[0,15 + 273.15; 7*3600,21 + 273.15; 19*3600,15 + 273.15; 24*3600,15
-         + 273.15],
-    y(each unit="K"),
-    smoothness=CDL.Types.Smoothness.ConstantSegments,
-    extrapolation=CDL.Types.Extrapolation.Periodic)
-    "Heating setpoint for room temperature"
-    annotation (Placement(transformation(extent={{100,80},{120,100}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Gain QHea(k=2000)
     "Heat injection in the zone"
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+    annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Add TOut "Outdoor dry bulb temperature"
     annotation (Placement(transformation(extent={{-170,-40},{-150,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul(
@@ -93,6 +78,18 @@ model OptimalStartHeatingCooling
     startTime(displayUnit="d") = 604800)
     "Range of outdoor dry bulb temperature"
     annotation (Placement(transformation(extent={{-210,-60},{-190,-40}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal TSetHea(
+    realTrue=273.15 + 21,
+    realFalse=273.15 + 15,
+    y(final unit="K", displayUnit="degC"))
+    "Room temperature set point for heating"
+    annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal TSetCoo(
+    realTrue=273.15 + 24,
+    realFalse=273.15 + 30,
+    y(final unit="K", displayUnit="degC"))
+    "Room temperature set point for cooling"
+    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
 equation
   connect(dT.y, UA.u)   annotation (Line(points={{-118,10},{-102,10}}, color={0,0,127}));
   connect(integrator.y, optSta.TZon) annotation (Line(points={{1,10},{10,10},{10,
@@ -106,11 +103,9 @@ equation
   connect(booToRea1.y, TSetUp.u)   annotation (Line(points={{82,10},{98,10}},   color={0,0,127}));
   connect(TSetUp.y, add1.u1) annotation (Line(points={{122,10},{132,10},{132,16},
           {138,16}},  color={0,0,127}));
-  connect(TSetCoo.y[1], add1.u2) annotation (Line(points={{122,-50},{134,-50},{134,
-          4},{138,4}},     color={0,0,127}));
   connect(add1.y, conPID1.u_s)   annotation (Line(points={{162,10},{178,10}},   color={0,0,127}));
   connect(integrator.y, conPID1.u_m) annotation (Line(points={{1,10},{6,10},{6,
-          -20},{190,-20},{190,-2}},           color={0,0,127}));
+          -6},{190,-6},{190,-2}},             color={0,0,127}));
   connect(occSch.tNexOcc, optSta.tNexOcc) annotation (Line(points={{1,-44},{10,-44},
           {10,2},{18,2}},       color={0,0,127}));
   connect(UA.y, mulSum.u[1]) annotation (Line(points={{-78,10},{-70,10},{-70,
@@ -122,27 +117,36 @@ equation
   connect(optSta.optOn, booToRea2.u) annotation (Line(points={{42,6},{50,6},{50,
           50},{58,50}}, color={255,0,255}));
   connect(booToRea2.y, TSetBac.u)   annotation (Line(points={{82,50},{98,50}}, color={0,0,127}));
-  connect(TSetHea.y[1], add2.u1) annotation (Line(points={{122,90},{130,90},{130,
-          56},{138,56}},     color={0,0,127}));
   connect(TSetBac.y, add2.u2) annotation (Line(points={{122,50},{128,50},{128,44},
           {138,44}}, color={0,0,127}));
   connect(add2.y, conPID.u_s)   annotation (Line(points={{162,50},{178,50}}, color={0,0,127}));
   connect(conPID.u_m, dT.u1) annotation (Line(points={{190,38},{190,34},{-146,34},
           {-146,16},{-142,16}}, color={0,0,127}));
-  connect(conPID1.y, QCoo.u) annotation (Line(points={{202,10},{210,10},{210,-64},
-          {-110,-64},{-110,-30},{-102,-30}}, color={0,0,127}));
-  connect(conPID.y, QHea.u) annotation (Line(points={{202,50},{212,50},{212,-108},
-          {-108,-108},{-108,-90},{-102,-90}}, color={0,0,127}));
+  connect(conPID1.y, QCoo.u) annotation (Line(points={{202,10},{210,10},{210,
+          -80},{-110,-80},{-110,-30},{-102,-30}},
+                                             color={0,0,127}));
+  connect(conPID.y, QHea.u) annotation (Line(points={{202,50},{212,50},{212,
+          -130},{-108,-130},{-108,-100},{-102,-100}},
+                                              color={0,0,127}));
   connect(QCoo.y, mulSum.u[2]) annotation (Line(points={{-78,-30},{-70,-30},{-70,
           10},{-62,10}}, color={0,0,127}));
-  connect(QHea.y, mulSum.u[3]) annotation (Line(points={{-78,-90},{-68,-90},{-68,
-          8.66667},{-62,8.66667}}, color={0,0,127}));
+  connect(QHea.y, mulSum.u[3]) annotation (Line(points={{-78,-100},{-68,-100},{
+          -68,8.66667},{-62,8.66667}},
+                                   color={0,0,127}));
   connect(TOutBase.y, TOut.u1) annotation (Line(points={{-186,-10},{-178,-10},{
           -178,-24},{-172,-24}}, color={0,0,127}));
   connect(TOut.y, dT.u2) annotation (Line(points={{-148,-30},{-146,-30},{-146,4},
           {-142,4}}, color={0,0,127}));
   connect(pul.y, TOut.u2) annotation (Line(points={{-188,-50},{-176,-50},{-176,
           -36},{-172,-36}}, color={0,0,127}));
+  connect(TSetCoo.y, add1.u2) annotation (Line(points={{62,-30},{130,-30},{130,
+          4},{138,4}}, color={0,0,127}));
+  connect(TSetHea.y, add2.u1) annotation (Line(points={{62,-60},{132,-60},{132,
+          56},{138,56}}, color={0,0,127}));
+  connect(occSch.occupied, TSetCoo.u) annotation (Line(points={{1,-56},{28,-56},
+          {28,-30},{38,-30}}, color={255,0,255}));
+  connect(TSetHea.u, occSch.occupied) annotation (Line(points={{38,-60},{28,-60},
+          {28,-56},{1,-56}}, color={255,0,255}));
   annotation (
   experiment(
       StopTime=2419200,
@@ -167,6 +171,10 @@ the heating or cooling system in advance.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 19, 2020, by Michael Wetter:<br/>
+Simplified setpoint implementation.'
+</li>
 <li>
 December 15, 2019, by Kun Zhang:<br/>
 First implementation.

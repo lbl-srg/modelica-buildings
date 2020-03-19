@@ -6,7 +6,7 @@ compareVars :=
     "optSta.optOn",
     "optSta.optCoo.optOn",
     "optSta.optHea.optOn",
-    "TSetHea.y[1]",
-    "TSetCoo.y[1]",
+    "TSetHea.y",
+    "TSetCoo.y",
     "optSta.TZon"
   };

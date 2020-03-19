@@ -36,14 +36,6 @@ model OptimalStartCoolingPositiveStartTime
   Buildings.Controls.OBC.CDL.Continuous.Gain TSetUp(k=-6)
     "Cooling setpoint temperature setup during unoccupied period"
     annotation (Placement(transformation(extent={{80,0},{100,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable TSetCoo(
-    table=[0,30 + 273.15; 7*3600,24 + 273.15; 19*3600,30 + 273.15; 24*3600,30
-         + 273.15],
-    y(each unit="K"),
-    smoothness=CDL.Types.Smoothness.ConstantSegments,
-    extrapolation=CDL.Types.Extrapolation.Periodic)
-    "Cooling setpoint for room temperature"
-    annotation (Placement(transformation(extent={{80,70},{100,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add
     "Reset setpoint from unoccupied to occupied during optimal start period"
     annotation (Placement(transformation(extent={{120,0},{140,20}})));
@@ -57,6 +49,12 @@ model OptimalStartCoolingPositiveStartTime
   Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{7,19},period=24*3600)
     "Daily schedule"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal TSetCoo(
+    realTrue=273.15 + 24,
+    realFalse=273.15 + 30,
+    y(final unit="K", displayUnit="degC"))
+    "Room temperature set point for cooling"
+    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
 equation
   connect(dT.y, UA.u)   annotation (Line(points={{-138,10},{-122,10}}, color={0,0,127}));
   connect(TOut.y, dT.u2) annotation (Line(points={{-172,-10},{-166,-10},{-166,4},
@@ -80,12 +78,15 @@ equation
           {-14,-20},{170,-20},{170,-2}}, color={0,0,127}));
   connect(occSch.tNexOcc, optStaCoo.tNexOcc) annotation (Line(points={{-19,-44},
           {-10,-44},{-10,2},{-2,2}}, color={0,0,127}));
-  connect(TSetCoo.y[1], add.u1) annotation (Line(points={{102,80},{108,80},{108,
-          16},{118,16}}, color={0,0,127}));
+  connect(TSetCoo.y, add.u1) annotation (Line(points={{62,-50},{108,-50},{
+          108,16},{118,16}},
+                         color={0,0,127}));
   connect(TSetUp.y, add.u2) annotation (Line(points={{102,10},{108,10},{108,4},
           {118,4}},color={0,0,127}));
   connect(conPID.y, QCoo.u) annotation (Line(points={{182,10},{188,10},{188,-80},
           {-130,-80},{-130,-50},{-122,-50}}, color={0,0,127}));
+  connect(occSch.occupied, TSetCoo.u) annotation (Line(points={{-19,-56},{10,
+          -56},{10,-50},{38,-50}}, color={255,0,255}));
   annotation (
   experiment(
       StartTime=34000,
@@ -110,6 +111,10 @@ the optimal start time converges to a small amount of time <code>tOpt</code> aft
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 19, 2020, by Michael Wetter:<br/>
+Simplified setpoint implementation.'
+</li>
 <li>
 December 15, 2019, by Kun Zhang:<br/>
 First implementation.
