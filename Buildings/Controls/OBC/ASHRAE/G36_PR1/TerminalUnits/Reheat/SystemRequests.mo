@@ -34,57 +34,57 @@ block SystemRequests
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
-    quantity="ThermodynamicTemperature")
+    final quantity="ThermodynamicTemperature")
     "Zone temperature"
     annotation (Placement(transformation(extent={{-220,150},{-180,190}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonCooSet(
     final unit="K",
-    quantity="ThermodynamicTemperature")
+    final quantity="ThermodynamicTemperature")
     "Zone cooling setpoint temperature"
     annotation (Placement(transformation(extent={{-220,420},{-180,460}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCoo(
-    min=0,
-    max=1,
+    final min=0,
+    final max=1,
     final unit="1")
     "Cooling loop signal"
     annotation (Placement(transformation(extent={{-220,70},{-180,110}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow(
-    min=0,
+    final min=0,
     final unit="m3/s",
-    quantity="VolumeFlowRate") "Measured discharge airflow rate"
+    final quantity="VolumeFlowRate") "Measured discharge airflow rate"
     annotation (Placement(transformation(extent={{-220,-90},{-180,-50}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDisSet_flow(
-    min=0,
+    final min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate")
     "Discharge airflow rate setpoint"
     annotation (Placement(transformation(extent={{-220,10},{-180,50}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam(
-    min=0,
-    max=1,
+    final min=0,
+    final max=1,
     final unit="1") "Damper position"
     annotation (Placement(transformation(extent={{-220,-170},{-180,-130}}),
         iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDisHeaSet(
     final unit="K",
-    quantity="ThermodynamicTemperature") if have_heaWatCoi
+    final quantity="ThermodynamicTemperature") if have_heaWatCoi
     "Discharge airflow setpoint temperature for heating"
     annotation (Placement(transformation(extent={{-220,-230},{-180,-190}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDis(
     final unit="K",
-    quantity="ThermodynamicTemperature") if have_heaWatCoi
+    final quantity="ThermodynamicTemperature") if have_heaWatCoi
     "Measured discharge airflow temperature"
     annotation (Placement(transformation(extent={{-220,-310},{-180,-270}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaVal(
-    min=0,
-    max=1,
+    final min=0,
+    final max=1,
     final unit="1") if have_heaWatCoi "Heating valve position"
     annotation (Placement(transformation(extent={{-220,-370},{-180,-330}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
@@ -187,7 +187,7 @@ protected
     annotation (Placement(transformation(extent={{0,270},{20,290}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.ModelTime modTim "Time of the model"
     annotation (Placement(transformation(extent={{-140,400},{-120,420}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(k=(9/5)*(5*60))
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai(final k=540)
     "Convert change of degC to change of degF and find out suppression time (5 min/degF))"
     annotation (Placement(transformation(extent={{-80,270},{-60,290}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai1(final k=0.5) "50% of setpoint"
