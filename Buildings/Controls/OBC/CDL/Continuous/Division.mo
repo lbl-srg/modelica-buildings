@@ -11,7 +11,7 @@ block Division "Output first input divided by second input"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-  y * u2 = u1;
+  y=u1/u2;
 
 annotation (
   defaultComponentName="div",
@@ -23,6 +23,12 @@ where
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 9, 2020, by Michael Wetter:<br/>
+Reformulated model to avoid stack overflow in OpenModelica.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1819\">issue 1819</a>.
+</li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>
 Changed icon to display dynamically the output value.

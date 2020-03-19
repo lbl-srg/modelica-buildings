@@ -8,7 +8,7 @@ block LimPID
 
   parameter Modelica.Blocks.Types.SimpleController controllerType=
          Modelica.Blocks.Types.SimpleController.PID "Type of controller";
-  parameter Real k(min=0, unit="1") = 1 "Gain of controller";
+  parameter Real k(min=0) = 1 "Gain of controller";
   parameter Modelica.SIunits.Time Ti(min=Modelica.Constants.small)=0.5
     "Time constant of Integrator block" annotation (Dialog(enable=
           controllerType == Modelica.Blocks.Types.SimpleController.PI or
@@ -421,6 +421,10 @@ Some parameters assignments in the instances have been made final.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 9, 2020, by Michael Wetter:<br/>
+Corrected wrong unit declaration for parameter <code>k</code>.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1316\">issue 1316</a>.
 <li>
 October 19, 2019, by Filip Jorissen:<br/>
 Disabled homotopy to ensure bounded outputs
