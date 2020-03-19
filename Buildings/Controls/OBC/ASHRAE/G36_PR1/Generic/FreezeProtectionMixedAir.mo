@@ -9,10 +9,10 @@ block FreezeProtectionMixedAir "Freeze protection based on mixed air temperature
   parameter Modelica.SIunits.Time Ti=120 "Time constant of integrator block";
 
   parameter Modelica.SIunits.Time Td=0.1
-  "Time constant of derivative block"
-  annotation (Dialog(
-    enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-        or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    "Time constant of derivative block"
+    annotation (Dialog(
+      enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+          or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Modelica.SIunits.Temperature TFreSet = 279.15
     "Lower limit for mixed air temperature for freeze protection";
