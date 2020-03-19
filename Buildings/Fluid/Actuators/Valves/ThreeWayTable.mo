@@ -28,11 +28,11 @@ A separate characteristic for each flow path is used.
 </p>
 <p>
 Each flow path uses an instance of the model
-<a href=\"modelica://Buildings.Fluid.Actuators.TwoWayTable\">
-Buildings.Fluid.Actuators.TwoWayTable</a>.
+<a href=\"modelica://Buildings.Fluid.Actuators.Valves.TwoWayTable\">
+Buildings.Fluid.Actuators.Valves.TwoWayTable</a>.
 Therefore, this model needs to be parameterized the same way as
-<a href=\"modelica://Buildings.Fluid.Actuators.TwoWayTable\">
-Buildings.Fluid.Actuators.TwoWayTable</a>.
+<a href=\"modelica://Buildings.Fluid.Actuators.Valves.TwoWayTable\">
+Buildings.Fluid.Actuators.Valves.TwoWayTable</a>.
 Specifically,
 the mass flow rate for the fully open valve is determined based
 on the value of the parameter <code>CvData</code>.
@@ -106,8 +106,8 @@ as the regularization near the origin.
 </p>
 <p>
 For an example that specifies an opening characteristics, see
-<a href=\"modelica://Buildings.Fluid.Actuators.Valves.Examples.ThreeWayValveTable\">
-Buildings.Fluid.Actuators.Valves.Examples.ThreeWayValveTable</a>.
+<a href=\"modelica://Buildings.Fluid.Actuators.Valves.Examples.TwoWayValveTable\">
+Buildings.Fluid.Actuators.Valves.Examples.TwoWayValveTable</a>.
 </p>
 
 </html>",
@@ -125,16 +125,16 @@ First implementation.
 </html>"),
     Icon(graphics={
         Rectangle(
-          origin={-70,83},
+          origin={-80,-79},
           lineColor={64,64,64},
           fillColor={255,215,136},
           fillPattern=FillPattern.Solid,
           extent={{-12,-11},{12,11}},
           radius=5.0),
         Line(
-          points={{-70,94},{-70,72}}),
+          points={{-80,-68},{-80,-90}}),
         Line(
-          points={{-82,86},{-58,86}}),
+          points={{-92,-76},{-68,-76}}),
         Line(
-          points={{-82,78},{-58,78}})}));
+          points={{-92,-84},{-68,-84}})}));
 end ThreeWayTable;

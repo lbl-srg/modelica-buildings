@@ -133,7 +133,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(timTab.y[1], preHea.Q_flow) annotation (Line(
-      points={{1,80},{20,80}},
+      points={{2,80},{20,80}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(temSup.port_b, rad.port_a) annotation (Line(
@@ -169,15 +169,15 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(hysPum.y, not1.u) annotation (Line(
-      points={{-199,-70},{-182,-70}},
+      points={{-198,-70},{-182,-70}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(not1.y, booToReaRad.u) annotation (Line(
-      points={{-159,-70},{-142,-70}},
+      points={{-158,-70},{-142,-70}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(booToReaRad.y, pumRad.m_flow_in) annotation (Line(
-      points={{-119,-70},{-90.5,-70},{-90.5,-70.2},{-62,-70.2}},
+      points={{-118,-70},{-90.5,-70},{-90.5,-70},{-62,-70}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Documentation(info="<html>

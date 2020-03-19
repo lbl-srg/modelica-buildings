@@ -105,7 +105,6 @@ model System3
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal={mBoi_flow_nominal,-mRadVal_flow_nominal,-mBoi_flow_nominal},
-
     dp_nominal={200,-200,-50}) "Splitter of boiler loop bypass" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -204,7 +203,7 @@ model System3
         origin={-50,-250})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(k=1)
     "Constant control signal for valves"
-    annotation (Placement(transformation(extent={{-140,-160},{-120,-140}})));
+    annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conBoi(k=mBoi_flow_nominal)
     "Constant mass flow rate for boiler pump"
     annotation (Placement(transformation(extent={{-100,-290},{-80,-270}})));
@@ -239,7 +238,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(timTab.y[1], preHea.Q_flow) annotation (Line(
-      points={{1,80},{20,80}},
+      points={{2,80},{20,80}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(temSup.port_b, rad.port_a) annotation (Line(
@@ -338,21 +337,21 @@ equation
       smooth=Smooth.None));
   connect(const.y, valRad.y)
                           annotation (Line(
-      points={{-119,-150},{-62,-150}},
+      points={{-98,-150},{-62,-150}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conBoi.y, pumBoi.m_flow_in) annotation (Line(
-      points={{-79,-280},{-70.5,-280},{-70.5,-280.2},{-62,-280.2}},
+      points={{-78,-280},{-70.5,-280},{-70.5,-280},{-62,-280}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(const.y, valBoi.y)
                            annotation (Line(
-      points={{-119,-150},{-100,-150},{-100,-220},{80,-220},{80,-250},{72,-250}},
+      points={{-98,-150},{-80,-150},{-80,-220},{80,-220},{80,-250},{72,-250}},
       color={0,0,127},
       smooth=Smooth.None));
 
   connect(const1.y, boi.y) annotation (Line(
-      points={{21,-280},{32,-280},{32,-302},{22,-302}},
+      points={{22,-280},{32,-280},{32,-302},{22,-302}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(temRoo.T,hysPum. u) annotation (Line(
@@ -360,15 +359,15 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(hysPum.y,not1. u) annotation (Line(
-      points={{-199,-70},{-182,-70}},
+      points={{-198,-70},{-182,-70}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(not1.y,booToReaRad. u) annotation (Line(
-      points={{-159,-70},{-142,-70}},
+      points={{-158,-70},{-142,-70}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(booToReaRad.y, pumRad.m_flow_in) annotation (Line(
-      points={{-119,-70},{-90.5,-70},{-90.5,-70.2},{-62,-70.2}},
+      points={{-118,-70},{-90.5,-70},{-90.5,-70},{-62,-70}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Documentation(info="<html>

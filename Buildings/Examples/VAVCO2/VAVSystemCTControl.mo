@@ -19,6 +19,9 @@ parameter Real scaDpFanSup_nominal = 1
     "Scaling factor for supply fan pressure lift with NSui number of suites";
 parameter Real scaDpFanRet_nominal = 1
     "Scaling factor for supply fan pressure lift with NSui number of suites";
+  parameter Real l(min=1e-10, max=1) = 6.708204E-04
+    "Damper leakage, ratio of flow coefficients k(y=0)/k(y=1)"
+    annotation(Dialog(tab="Damper coefficients"));
   Modelica.Blocks.Sources.Constant PAtm(k=101325)
       annotation (
     Placement(transformation(extent={{-80,-50},{-60,-30}})));
@@ -41,20 +44,28 @@ parameter Real scaDpFanRet_nominal = 1
     redeclare package Medium = Medium,
     from_dp=true)
     annotation (Placement(transformation(extent={{80,-80},{60,-60}})));
-Buildings.Examples.VAVCO2.BaseClasses.Suite roo(redeclare package Medium = Medium, scaM_flow=scaM_flow)
+  Buildings.Examples.VAVCO2.BaseClasses.Suite roo(
+    redeclare package Medium = Medium,
+    scaM_flow=scaM_flow,
+    l=l)
     annotation (Placement(transformation(extent={{206,-92},
             {310,20}})));
   Fluid.Actuators.Dampers.MixingBox mixBox(
-    dpOut_nominal=0.467,
-    dpRec_nominal=0.665,
     mOut_flow_nominal=scaM_flow*1,
     mRec_flow_nominal=scaM_flow*1,
     mExh_flow_nominal=scaM_flow*1,
     redeclare package Medium = Medium,
-    dpExh_nominal=0.467,
     allowFlowReversal=true,
     from_dp=false,
-    use_inputFilter=false) "mixing box"
+    use_inputFilter=false,
+    dpDamExh_nominal=0.27,
+    dpDamOut_nominal=0.27,
+    dpDamRec_nominal=0.27,
+    dpFixExh_nominal=0.467,
+    dpFixOut_nominal=0.467,
+    dpFixRec_nominal=0.665,
+    l=l)
+    "mixing box"
     annotation (Placement(transformation(extent={{6,-76},{30,-52}})));
   Buildings.Fluid.Sources.Boundary_pT bouIn(
     redeclare package Medium = Medium,
@@ -71,7 +82,7 @@ Buildings.Examples.VAVCO2.BaseClasses.Suite roo(redeclare package Medium = Mediu
     initType=Modelica.Blocks.Types.InitPID.InitialState,
     controllerType=Modelica.Blocks.Types.SimpleController.P)
     "Controller for supply fan"
-            annotation (Placement(transformation(extent={{-20,60},{0,80}})));
+    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
   Buildings.Fluid.Movers.FlowControlled_dp fan32(
     redeclare package Medium = Medium,
     per(pressure(final V_flow={0,11.08,14.9}, dp={1508,743,100})),
@@ -173,7 +184,7 @@ equation
   connect(off.y, switch1.u3)
     annotation (Line(points={{-69,102},{18,102}},           color={0,0,127}));
   connect(conSupFan.u_s, booToRea.y)
-    annotation (Line(points={{-22,70},{-29,70}}, color={0,0,127}));
+    annotation (Line(points={{-22,70},{-28,70}}, color={0,0,127}));
   connect(onSig.y, booToRea.u)
     annotation (Line(points={{-69,70},{-52,70}}, color={255,0,255}));
   connect(onSig.y, switch1.u2) annotation (Line(points={{-69,70},{-60,70},{-60,110},
@@ -181,9 +192,9 @@ equation
   connect(switch1.y, ramLim.u)
     annotation (Line(points={{41,110},{48,110}}, color={0,0,127}));
   connect(dp32.u, ramLim.y)
-    annotation (Line(points={{88,110},{71,110}}, color={0,0,127}));
-  connect(dp56.u, ramLim.y) annotation (Line(points={{88,80},{80,80},{80,110},{
-          71,110}}, color={0,0,127}));
+    annotation (Line(points={{88,110},{72,110}}, color={0,0,127}));
+  connect(dp56.u, ramLim.y) annotation (Line(points={{88,80},{80,80},{80,110},{72,
+          110}},    color={0,0,127}));
    annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{350,150}})),
 Documentation(info="<html>

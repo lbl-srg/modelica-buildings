@@ -68,7 +68,7 @@ block Controller "Single zone VAV AHU economizer control sequence"
          and (controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
            or controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
 
-   parameter Modelica.SIunits.Time TdFre=0.1
+  parameter Modelica.SIunits.Time TdFre=0.1
      "Time constant of derivative block for freeze protection"
      annotation (Dialog(group="Freeze protection",
        enable=use_TMix and

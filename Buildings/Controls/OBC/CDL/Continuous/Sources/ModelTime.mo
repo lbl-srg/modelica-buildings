@@ -41,7 +41,11 @@ equation
           thickness=0.5),
         Line(
           points={{0,0},{40,0}},
-          thickness=0.5)}),
+          thickness=0.5),
+        Text(
+          extent={{226,60},{106,10}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}),
 Documentation(info="<html>
 <p>Block that outputs the standard time.
 </p>
@@ -62,6 +66,10 @@ and its output is advanced at the same rate as the simulation time.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
 <li>
 March 14, 2017, by Michael Wetter:<br/>
 Revised implemenation.

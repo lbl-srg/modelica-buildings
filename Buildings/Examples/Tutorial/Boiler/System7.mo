@@ -202,10 +202,10 @@ model System7
     "Outdoor temperature sensor"
     annotation (Placement(transformation(extent={{-318,20},{-298,40}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaRad1(realTrue=mBoi_flow_nominal)
-    "Radiator pump signal"
-    annotation (Placement(transformation(extent={{-120,-290},{-100,-270}})));
+    "Boiler pump signal"
+    annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaRad2(realTrue=1)
-    "Radiator pump signal"
+    "Boiler on/off signal"
     annotation (Placement(transformation(extent={{-100,-340},{-80,-320}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaRad(realTrue=mRad_flow_nominal)
     "Radiator pump signal"
@@ -302,7 +302,7 @@ model System7
   Buildings.Controls.OBC.CDL.Logical.And and1
     annotation (Placement(transformation(extent={{-380,-152},{-360,-132}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Negate output of hysteresis"
-    annotation (Placement(transformation(extent={{-180,-80},{-160,-60}})));
+    annotation (Placement(transformation(extent={{-180,-100},{-160,-80}})));
 
 equation
   connect(theCon.port_b, vol.heatPort) annotation (Line(
@@ -462,11 +462,11 @@ equation
       smooth=Smooth.None));
 
   connect(lessThreshold.y, and3.u1) annotation (Line(
-      points={{-399,-200},{-390,-200},{-390,-222},{-382,-222}},
+      points={{-398,-200},{-390,-200},{-390,-222},{-382,-222}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(lessThreshold1.y, and3.u2) annotation (Line(
-      points={{-399,-230},{-382,-230}},
+      points={{-398,-230},{-382,-230}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(boi.T, lessThreshold2.u) annotation (Line(
@@ -496,20 +496,20 @@ equation
       smooth=Smooth.None));
 
   connect(greThrTRoo.y, and1.u1) annotation (Line(
-      points={{-399,-120},{-392,-120},{-392,-142},{-382,-142}},
+      points={{-398,-120},{-392,-120},{-392,-142},{-382,-142}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(greThrTROut.y, and1.u2) annotation (Line(
-      points={{-399,-150},{-382,-150}},
+      points={{-398,-150},{-382,-150}},
       color={255,0,255},
       smooth=Smooth.None));
 
   connect(not1.y, booToReaRad.u) annotation (Line(
-      points={{-158,-70},{-122,-70}},
+      points={{-158,-90},{-140,-90},{-140,-70},{-122,-70}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(not1.y, booToReaRad1.u) annotation (Line(
-      points={{-158,-70},{-140,-70},{-140,-280},{-122,-280}},
+      points={{-158,-90},{-140,-90},{-140,-110},{-122,-110}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(T4.outPort, allOff.inPort[1]) annotation (Line(
@@ -529,7 +529,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(booToReaRad1.y, pumBoi.m_flow_in) annotation (Line(
-      points={{-98,-280},{-64,-280},{-64,-280},{-62,-280}},
+      points={{-98,-110},{-90,-110},{-90,-280},{-62,-280}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TSetBoiRet.y, conPIDBoi.u_s)
@@ -540,15 +540,15 @@ equation
           {-200,-222},{-358,-222}},                         color={255,0,255}));
   connect(booToReaRad2.u, boilerOn.active) annotation (Line(points={{-102,-330},
           {-102,-330},{-218,-330},{-218,-201}}, color={255,0,255}));
-  connect(lessThreshold2.y, T2.condition) annotation (Line(points={{-399,-280},{
-          -400,-280},{-332,-280},{-248,-280},{-248,-202}}, color={255,0,255}));
+  connect(lessThreshold2.y, T2.condition) annotation (Line(points={{-398,-280},
+          {-398,-280},{-332,-280},{-248,-280},{-248,-202}},color={255,0,255}));
   connect(T4.condition, and1.y) annotation (Line(points={{-260,-162},{-260,-162},
           {-260,-170},{-260,-216},{-338,-216},{-338,-142},{-358,-142}}, color={255,
           0,255}));
   connect(T3.condition, greThrBoi.y) annotation (Line(points={{-186,-202},{-186,
-          -202},{-186,-310},{-399,-310}}, color={255,0,255}));
-  connect(allOff.active, not1.u) annotation (Line(points={{-230,-161},{-230,-166},
-          {-210,-166},{-210,-82},{-190,-82},{-190,-70},{-182,-70}},
+          -202},{-186,-310},{-398,-310}}, color={255,0,255}));
+  connect(allOff.active, not1.u) annotation (Line(points={{-230,-161},{-230,
+          -166},{-210,-166},{-210,-90},{-182,-90}},
                                               color={255,0,255}));
   connect(pumpsOn.outPort[1], alternative.inPort)
     annotation (Line(points={{-299.5,-170},{-292.04,-170}}, color={0,0,0}));

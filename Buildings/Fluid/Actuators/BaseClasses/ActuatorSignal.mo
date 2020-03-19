@@ -68,29 +68,33 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Line(
-          points={{0,40},{0,100}}),
+          points={{0,48},{0,108}}),
         Line(
           points={{0,70},{40,70}}),
         Rectangle(
           visible=use_inputFilter,
-          extent={{-30,40},{30,100}},
+          extent={{-32,40},{34,100}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Ellipse(
           visible=use_inputFilter,
-          extent={{-30,100},{30,40}},
+          extent={{-32,100},{34,40}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Text(
           visible=use_inputFilter,
-          extent={{-20,92},{20,48}},
+          extent={{-20,94},{22,48}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid,
           textString="M",
-          textStyle={TextStyle.Bold})}),
+          textStyle={TextStyle.Bold}),
+        Text(
+          extent={{-40,126},{-160,76}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(y, format=".2f")))}),
 Documentation(info="<html>
 <p>
 This model implements the filter that is used to approximate the travel
@@ -111,6 +115,12 @@ for a description of the filter.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 21, 2020, by Michael Wetter:<br/>
+Changed icon to display its operating state.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
+</li>
 <li>
 November 14, 2019, by Michael Wetter:<br/>
 Set <code>start</code> attribute for <code>filter.x</code>.<br/>
