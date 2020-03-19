@@ -81,9 +81,7 @@ in the table after the plots below.
 </p>
 <!-- table start: load data -->
 <table border = \"1\" summary=\"Annual load\">
-<tr><td colspan=\"10\"><b>Annual heating load (MWh)</b>
-    </td>
-</tr>
+<tr><td colspan=\"10\"><b>Annual heating load (MWh)</b></td></tr>
 <tr>
 <th>Case</th>
 <th>ESP/DMU</th>
@@ -95,8 +93,7 @@ in the table after the plots below.
 <th>TSYS/BEL-BRE</th>
 <th>TASE/FINLAND</th>
 <th>MBL/LBNL</th>
-</tr>
-<tr>
+</tr><tr>
 <td>Case600</td>
 <td>4.296</td>
 <td>4.773</td>
@@ -228,9 +225,7 @@ in the table after the plots below.
 <td>2.816</td>
 <td>3.099</td>
 </tr>
-<tr><td colspan=\"10\"><b>Annual cooling load (MWh)</b>
-    </td>
-</tr>
+<tr><td colspan=\"10\"><b>Annual cooling load (MWh)</b></td></tr>
 <tr>
 <th>Case</th>
 <th>ESP/DMU</th>
@@ -242,8 +237,7 @@ in the table after the plots below.
 <th>TSYS/BEL-BRE</th>
 <th>TASE/FINLAND</th>
 <th>MBL/LBNL</th>
-</tr>
-<tr>
+</tr><tr>
 <td>Case600</td>
 <td>6.137</td>
 <td>6.433</td>
@@ -377,11 +371,8 @@ in the table after the plots below.
 </tr>
 </table>
 <br/>
-
 <table border = \"1\" summary=\"Peak load\">
-<tr><td colspan=\"17\"><b>Peak heating load (kW)</b>
-    </td>
-</tr>
+<tr><td colspan=\"17\"><b>Peak heating load (kW)</b></td></tr>
 <tr>
 <th rowspan=\"2\">Case</th>
 <th colspan=\"2\">ESP/DMU</th>
@@ -394,24 +385,15 @@ in the table after the plots below.
 <th colspan=\"2\">MBL/LBNL</th>
 </tr>
 <tr>
-<td>kW</td>
-<td>hour</td>
-<td>kW</td>
-<td>hour</td>
-<td>kW</td>
-<td>hour</td>
-<td>kW</td>
-<td>hour</td>
-<td>kW</td>
-<td>hour</td>
-<td>kW</td>
-<td>hour</td>
-<td>kW</td>
-<td>hour</td>
-<td>kW</td>
-<td>hour</td>
-</tr>
-<tr>
+<td>kW</td><td>hour</td>
+<td>kW</td><td>hour</td>
+<td>kW</td><td>hour</td>
+<td>kW</td><td>hour</td>
+<td>kW</td><td>hour</td>
+<td>kW</td><td>hour</td>
+<td>kW</td><td>hour</td>
+<td>kW</td><td>hour</td>
+</tr><tr>
 <td>Case600</td>
 <td>3.437</td>
 <td>04-Jan:5</td>
@@ -620,9 +602,7 @@ in the table after the plots below.
 <td>2.880</td>
 <td>4-Jan:8</td>
 </tr>
-<tr><td colspan=\"17\"><b>Peak cooling load (kW)</b>
-    </td>
-</tr>
+<tr><td colspan=\"17\"><b>Peak cooling load (kW)</b></td></tr>
 <tr>
 <th rowspan=\"2\">Case</th>
 <th colspan=\"2\">ESP/DMU</th>
@@ -635,24 +615,15 @@ in the table after the plots below.
 <th colspan=\"2\">MBL/LBNL</th>
 </tr>
 <tr>
-<td>kW</td>
-<td>hour</td>
-<td>kW</td>
-<td>hour</td>
-<td>kW</td>
-<td>hour</td>
-<td>kW</td>
-<td>hour</td>
-<td>kW</td>
-<td>hour</td>
-<td>kW</td>
-<td>hour</td>
-<td>kW</td>
-<td>hour</td>
-<td>kW</td>
-<td>hour</td>
-</tr>
-<tr>
+<td>kW</td><td>hour</td>
+<td>kW</td><td>hour</td>
+<td>kW</td><td>hour</td>
+<td>kW</td><td>hour</td>
+<td>kW</td><td>hour</td>
+<td>kW</td><td>hour</td>
+<td>kW</td><td>hour</td>
+<td>kW</td><td>hour</td>
+</tr><tr>
 <td>Case600</td>
 <td>6.194</td>
 <td>17-Oct:13</td>
@@ -900,9 +871,7 @@ show the peak temperature hour, are shown in the table after the plots.
 
 <!-- table start: free float data -->
 <table border = \"1\" summary=\"Peak temperature\">
-<tr><td colspan=\"17\"><b>Maximum temperature (&deg;C)</b>
-    </td>
-</tr>
+<tr><td colspan=\"17\"><b>Maximum temperature (&deg;C)</b></td></tr>
 <tr>
 <th rowspan=\"2\">Case</th>
 <th colspan=\"2\">ESP/DMU</th>
@@ -915,24 +884,15 @@ show the peak temperature hour, are shown in the table after the plots.
 <th colspan=\"2\">MBL/LBNL</th>
 </tr>
 <tr>
-<td>&deg;C</td>
-<td>hour</td>
-<td>&deg;C</td>
-<td>hour</td>
-<td>&deg;C</td>
-<td>hour</td>
-<td>&deg;C</td>
-<td>hour</td>
-<td>&deg;C</td>
-<td>hour</td>
-<td>&deg;C</td>
-<td>hour</td>
-<td>&deg;C</td>
-<td>hour</td>
-<td>&deg;C</td>
-<td>hour</td>
-</tr>
-<tr>
+<td>&deg;C</td><td>hour</td>
+<td>&deg;C</td><td>hour</td>
+<td>&deg;C</td><td>hour</td>
+<td>&deg;C</td><td>hour</td>
+<td>&deg;C</td><td>hour</td>
+<td>&deg;C</td><td>hour</td>
+<td>&deg;C</td><td>hour</td>
+<td>&deg;C</td><td>hour</td>
+</tr><tr>
 <td>Case600FF</td>
 <td>64.9</td>
 <td>17-Oct:15</td>
@@ -1008,9 +968,7 @@ show the peak temperature hour, are shown in the table after the plots.
 <td>36.2</td>
 <td>2-Sep:16</td>
 </tr>
-<tr><td colspan=\"17\"><b>Minimum temperature (&deg;C)</b>
-    </td>
-</tr>
+<tr><td colspan=\"17\"><b>Minimum temperature (&deg;C)</b></td></tr>
 <tr>
 <th rowspan=\"2\">Case</th>
 <th colspan=\"2\">ESP/DMU</th>
@@ -1023,24 +981,15 @@ show the peak temperature hour, are shown in the table after the plots.
 <th colspan=\"2\">MBL/LBNL</th>
 </tr>
 <tr>
-<td>&deg;C</td>
-<td>hour</td>
-<td>&deg;C</td>
-<td>hour</td>
-<td>&deg;C</td>
-<td>hour</td>
-<td>&deg;C</td>
-<td>hour</td>
-<td>&deg;C</td>
-<td>hour</td>
-<td>&deg;C</td>
-<td>hour</td>
-<td>&deg;C</td>
-<td>hour</td>
-<td>&deg;C</td>
-<td>hour</td>
-</tr>
-<tr>
+<td>&deg;C</td><td>hour</td>
+<td>&deg;C</td><td>hour</td>
+<td>&deg;C</td><td>hour</td>
+<td>&deg;C</td><td>hour</td>
+<td>&deg;C</td><td>hour</td>
+<td>&deg;C</td><td>hour</td>
+<td>&deg;C</td><td>hour</td>
+<td>&deg;C</td><td>hour</td>
+</tr><tr>
 <td>Case600FF</td>
 <td>-15.6</td>
 <td>04-Jan:7</td>

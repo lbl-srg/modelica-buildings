@@ -12,9 +12,9 @@ import sys
 import shutil
 
 # If true, run simulations and not only the post processing.
-DO_SIMULATIONS = False
+DO_SIMULATIONS = True
 # If true, delete the simulation result files.
-CLEAN_MAT = False
+CLEAN_MAT = True
 # If true, temporary directories will be deleted.
 DelTemDir = True
 
@@ -725,7 +725,6 @@ def combine_data(standard_data, moData):
     """
     tool = 'MBL/LBNL'
     temp = list()
-    count = 0
     for i in range(len(standard_data)):
         ithData = standard_data[i]
         data_set = ithData['data_set']
@@ -884,7 +883,6 @@ def plot_lines(data, xLabel, yLabel, xMin, xMax, dx, yMin, yMax):
     ax.legend(loc='lower left', frameon=True, bbox_to_anchor=(0, 1.01, 1, 0.2), ncol = 5, mode = 'expand', bbox_transform=ax.transAxes)
     save_plot(plt, pltName)
 
-
 def plot_figures(comDat):
     barPlot_variable = ['annual_heating', 'annual_cooling', 'peak_heating', 'peak_cooling', \
                         'max_temperature', 'min_temperature', 'ave_temperature']
@@ -916,43 +914,11 @@ def plot_figures(comDat):
                     plot_lines(data, line_xLable[k], line_yLable[k], line_xMin[k], line_xMax[k], line_dx[k], line_yMin[k], line_yMax[k])
 # --------------------------------------------------------------------------------------------------
 
+# --------------------------------------------------------------------------------------------------
+# Generate html tables
+# --------------------------------------------------------------------------------------------------
 def update_html_tables(comDat):
-    tableContent = _generate_html_tables(comDat)
-    userGuideFile = "../../../../../../ThermalZones/Detailed/Validation/BESTEST/UsersGuide.mo"
-    moFile = open(userGuideFile)
-    preSec = ''
-    endSec = ''
-    start = True
-    end = False
-    for line in moFile:
-        if start:
-            preSec = preSec + line
-        if ('<!-- table start -->' in line):
-            start = False
-        if ('<!-- table end -->' in line):
-            end = True
-        if end:
-            endSec = endSec + line
-    moFile.close()
-    newMoContent = preSec + tableContent + endSec
-    print(newMoContent)
-    # with open(userGuideFile, 'rt') as f:
-    #     newMoContent = f.read().replace(temp, tableContent)
-    # with open(userGuideFile, 'wt') as f:
-    #     f.write(newMoContent)
-
-def _generate_html_tables(comDat):
-    for ele in comDat:
-        setName = ele['data_set']
-        if setName == 'annual_cooling':
-            annCoo = ele
-        if setName == 'annual_heating':
-            annHea = ele
-        if setName == 'peak_cooling':
-            peaCoo = ele
-        if setName == 'peak_heating':
-            peaHea = ele
-    annLoadTools = '''
+    allTools = '''
 <tr>
 <th>Case</th>
 <th>ESP/DMU</th>
@@ -964,64 +930,131 @@ def _generate_html_tables(comDat):
 <th>TSYS/BEL-BRE</th>
 <th>TASE/FINLAND</th>
 <th>MBL/LBNL</th>
-</tr>
-'''
-    tableText = '''
-<table border = \"1\" summary=\"Annual load\">
-<tr><td colspan=\"10\"><b>Annual heating load (MWh)</b></td></tr>''' + annLoadTools
+</tr>'''
+    lessTools = '''
+<tr>
+<th rowspan=\\"2\\">Case</th>
+<th colspan=\\"2\\">ESP/DMU</th>
+<th colspan=\\"2\\">BLAST/US-IT</th>
+<th colspan=\\"2\\">DOE21D/NREL</th>
+<th colspan=\\"2\\">SRES-SUN/NREL</th>
+<th colspan=\\"2\\">S3PAS/SPAIN</th>
+<th colspan=\\"2\\">TSYS/BEL-BRE</th>
+<th colspan=\\"2\\">TASE/FINLAND</th>
+<th colspan=\\"2\\">MBL/LBNL</th>
+</tr>'''
+    loadContent = _generate_load_tables(comDat, allTools, lessTools)
+    ffContent = _generate_ff_tables(comDat, lessTools)
+    userGuideFile = "../../../../../../ThermalZones/Detailed/Validation/BESTEST/UsersGuide.mo"
+    moFile = open(userGuideFile)
+    beforeTables = ''
+    betweenTables = ''
+    afterTables = ''
+    startSec = True
+    midSec = False
+    endSec = False
+    for line in moFile:
+        if startSec:
+            beforeTables = beforeTables + line
+        if ('<!-- table start: load data -->' in line):
+            startSec = False
+        if ('<!-- table end: load data -->' in line):
+            midSec = True
+        if midSec:
+            betweenTables = betweenTables + line
+        if ('<!-- table start: free float data -->' in line):
+            midSec = False
+        if ('<!-- table end: free float data -->' in line):
+            endSec = True
+        if endSec:
+            afterTables = afterTables + line
+    moFile.close()
+    newMoContent = beforeTables + loadContent \
+                   + betweenTables + ffContent \
+                   + afterTables
+    with open(userGuideFile, 'wt') as f:
+        f.write(newMoContent)
+
+def _generate_load_tables(comDat, allTools, lessTools):
+    for ele in comDat:
+        setName = ele['data_set']
+        if setName == 'annual_cooling':
+            annCoo = ele
+        if setName == 'annual_heating':
+            annHea = ele
+        if setName == 'peak_cooling':
+            peaCoo = ele
+        if setName == 'peak_heating':
+            peaHea = ele
+    tableText = '''<table border = \\"1\\" summary=\\"Annual load\\">
+<tr><td colspan=\\"10\\"><b>Annual heating load (MWh)</b></td></tr>''' + allTools
     # add annual heating load data
     annHeaLoa = _write_table_content(annHea)
     tableText = tableText + annHeaLoa
     # add annual cooling load data
-    tableText = tableText + '''<tr><td colspan=\"10\"><b>Annual cooling load (MWh)</b></td></tr>'''
-    tableText = tableText + annLoadTools
+    tableText = tableText + '''<tr><td colspan=\\"10\\"><b>Annual cooling load (MWh)</b></td></tr>'''
+    tableText = tableText + allTools
     annCooLoa = _write_table_content(annCoo)
     tableText = tableText + annCooLoa + '''</table>
 <br/>'''
 
-    peaLoadTools = '''
+    peakUnits = '''
 <tr>
-<th rowspan=\"2\">Case</th>
-<th colspan=\"2\">ESP/DMU</th>
-<th colspan=\"2\">BLAST/US-IT</th>
-<th colspan=\"2\">DOE21D/NREL</th>
-<th colspan=\"2\">SRES-SUN/NREL</th>
-<th colspan=\"2\">S3PAS/SPAIN</th>
-<th colspan=\"2\">TSYS/BEL-BRE</th>
-<th colspan=\"2\">TASE/FINLAND</th>
-<th colspan=\"2\">MBL/LBNL</th>
-</tr>
-<tr>
-<td>kW</td>
-<td>hour</td>
-<td>kW</td>
-<td>hour</td>
-<td>kW</td>
-<td>hour</td>
-<td>kW</td>
-<td>hour</td>
-<td>kW</td>
-<td>hour</td>
-<td>kW</td>
-<td>hour</td>
-<td>kW</td>
-<td>hour</td>
-<td>kW</td>
-<td>hour</td>
-</tr>
-'''
-    tableText = tableText + '''
-<table border = \"1\" summary=\"Peak load\">
-<tr><td colspan=\"17\"><b>Peak heating load (kW)</b></td></tr>'''
-    tableText = tableText + peaLoadTools
+<td>kW</td><td>hour</td>
+<td>kW</td><td>hour</td>
+<td>kW</td><td>hour</td>
+<td>kW</td><td>hour</td>
+<td>kW</td><td>hour</td>
+<td>kW</td><td>hour</td>
+<td>kW</td><td>hour</td>
+<td>kW</td><td>hour</td>
+</tr>'''
     # add peak heating load data
+    tableText = tableText + '''
+<table border = \\"1\\" summary=\\"Peak load\\">
+<tr><td colspan=\\"17\\"><b>Peak heating load (kW)</b></td></tr>'''
+    tableText = tableText + lessTools + peakUnits
     peaHeaLoa = _write_table_content(peaHea)
     tableText = tableText + peaHeaLoa
     # add peak cooling load data
-    tableText = tableText + '''<tr><td colspan=\"17\"><b>Peak cooling load (kW)</b></td></tr>'''
+    tableText = tableText + '''<tr><td colspan=\\"17\\"><b>Peak cooling load (kW)</b></td></tr>'''
+    tableText = tableText + lessTools + peakUnits
     peaCooLoa = _write_table_content(peaCoo)
     tableText = tableText + peaCooLoa + '''</table>
-<br/>'''
+<br/>
+'''
+    return tableText
+
+def _generate_ff_tables(comDat, lessTools):
+    for ele in comDat:
+        setName = ele['data_set']
+        if setName == 'max_temperature':
+            maxTem = ele
+        if setName == 'min_temperature':
+            minTem = ele
+    peakUnits = '''
+<tr>
+<td>&deg;C</td><td>hour</td>
+<td>&deg;C</td><td>hour</td>
+<td>&deg;C</td><td>hour</td>
+<td>&deg;C</td><td>hour</td>
+<td>&deg;C</td><td>hour</td>
+<td>&deg;C</td><td>hour</td>
+<td>&deg;C</td><td>hour</td>
+<td>&deg;C</td><td>hour</td>
+</tr>'''
+    tableText = '''<table border = \\"1\\" summary=\\"Peak temperature\\">
+<tr><td colspan=\\"17\\"><b>Maximum temperature (&deg;C)</b></td></tr>''' + lessTools + peakUnits
+    # add maximum temperature data
+    maxTemData = _write_table_content(maxTem)
+    tableText = tableText + maxTemData
+    # add minimum temperature data
+    tableText = tableText + '''<tr><td colspan=\\"17\\"><b>Minimum temperature (&deg;C)</b></td></tr>'''
+    tableText = tableText + lessTools + peakUnits
+    minTemData = _write_table_content(minTem)
+    tableText = tableText + minTemData + '''</table>
+<br/>
+'''
     return tableText
 
 def _write_table_content(dataSet):
@@ -1041,6 +1074,7 @@ def _write_table_content(dataSet):
         temp = temp + "</tr>" + os.linesep
         outText = outText + temp
     return outText
+# --------------------------------------------------------------------------------------------------
 
 if __name__=="__main__":
 
@@ -1075,12 +1109,5 @@ if __name__=="__main__":
 
     plot_figures(comDat)
 
-    # # generate html tables
-    # for ele in comDat:
-    #     BESTestTable = os.path.join(CWD, 'BESTTestTable')
-    #     if not os.path.exists(BESTestTable):
-    #         os.makedirs(BESTestTable)
-    #     _generate_html_table(ele, BESTestTable)
-    
     # write html tables to mo file
     update_html_tables(comDat)
