@@ -98,15 +98,15 @@ block Up "Generates a stage up signal"
     annotation (Placement(transformation(extent={{-100,-170},{-80,-150}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTSup(
-    final uLow=smallTDif,
-    final uHigh=smallTDif + 1,
+    final uLow=smallTDif - 1,
+    final uHigh=smallTDif,
     final pre_y_start=false) if have_WSE
     "Checks if the chilled water supply temperature is higher than its setpoint plus an offset"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTSup1(
-    final uLow=largeTDif,
-    final uHigh=largeTDif + 1,
+    final uLow=largeTDif - 1,
+    final uHigh=largeTDif,
     final pre_y_start=false) if have_WSE
     "Checks if the chilled water supply temperature is higher than its setpoint plus an offset"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
