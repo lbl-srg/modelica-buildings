@@ -44,6 +44,8 @@ model Condensation "Test model for water condensation process"
                            nPorts=1) "Pressure reference"
     annotation (Placement(transformation(extent={{90,-80},{70,-60}})));
 
+  HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo "Prescribed heat flow"
+    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 equation
   connect(floCon.m_flow_in, m_flow.y)
     annotation (Line(points={{0,22},{0,70},{-9,70}},  color={0,0,127}));
@@ -59,8 +61,10 @@ equation
     annotation (Line(points={{10,10},{20,10}}, color={0,127,255}));
   connect(con.port_b, watSin.ports[1])
     annotation (Line(points={{40,10},{50,10}}, color={0,127,255}));
-  connect(vol.heatPort, con.port_h)
-    annotation (Line(points={{50,-30},{30,-30},{30,0}}, color={191,0,0}));
+  connect(preHeaFlo.port, vol.heatPort)
+    annotation (Line(points={{40,-30},{50,-30}}, color={191,0,0}));
+  connect(con.dhOut, preHeaFlo.Q_flow) annotation (Line(points={{41,16},{44,16},
+          {44,-10},{10,-10},{10,-30},{20,-30}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
   experiment(Tolerance=1e-6, StopTime=100.0),

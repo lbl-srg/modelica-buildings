@@ -10,38 +10,93 @@ model Condensation
   package MediumSte = IBPSA.Media.Steam "Steam medium";
   package MediumWat = IBPSA.Media.Water(T_max=623.15) "Water medium";
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_h
-    "Outflow heat port (negative by convention)"
-    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
+  Modelica.Blocks.Interfaces.RealOutput dh(unit="J/kg") "Change in enthalpy"
+    annotation (Placement(transformation(extent={{100,50},{120,70}})));
 
 //protected
-  Modelica.SIunits.SpecificEnthalpy dh "Change in enthalpy";
+  Modelica.SIunits.SpecificEnthalpy dhCon "Change in enthalpy";
+  Modelica.SIunits.SpecificHeatCapacity cp "Specific Heat";
+  Modelica.SIunits.Temperature TSat "Saturation temperature";
 
-  MediumSte.Temperature TSte= MediumSte.temperature(
-    state=MediumSte.setState_phX(
-      p=port_a.p, h=inStream(port_a.h_outflow), X=inStream(port_a.Xi_outflow)));
-  MediumWat.Temperature TWat= MediumWat.temperature(
-    state=MediumWat.setState_phX(
-      p=port_b.p, h=inStream(port_b.h_outflow), X=inStream(port_b.Xi_outflow)));
+//  MediumSte.Temperature TSte= MediumSte.temperature(
+//    state=MediumSte.setState_phX(
+//      p=port_a.p, h=port_a.h_outflow, X=port_a.Xi_outflow));
+//  MediumSte.Temperature TSte= MediumSte.temperature(
+//    state=MediumSte.setState_phX(
+//      p=port_a.p, h=inStream(port_a.h_outflow), X=inStream(port_a.Xi_outflow)));
+//  MediumWat.Temperature TWat= MediumWat.temperature(
+//    state=MediumWat.setState_phX(
+//      p=port_b.p, h=port_b.h_outflow, X=port_b.Xi_outflow));
+//  MediumWat.Temperature TWat= MediumWat.temperature(
+//    state=MediumWat.setState_phX(
+//      p=port_b.p, h=inStream(port_b.h_outflow), X=inStream(port_b.Xi_outflow)));
 
 equation
-  // State p & T remain unchanged (saturated vapor to saturated liquid)
-  TSte = TWat;
   port_b.p = port_a.p;
+
+  TSat= MediumSte.saturationTemperature(port_a.p);
+  cp = MediumSte.specificHeatCapacityCp(state=
+    MediumSte.setState_pTX(p=port_a.p,T=TSat,X=port_a.Xi_outflow));
+
+  if (sta_a.T > TSat) then
+    sta_b.T = TSat;
+    dh = -dhCon - cp*(sta_a.T - TSat);
+  else
+    sta_a.T = sta_b.T;
+    dh = -dhCon;
+  end if;
 
   // Steady state conservation of mass
   port_a.m_flow + port_b.m_flow = 0;
 
   // Enthalpy decreased with condensation process
-  dh = MediumSte.enthalpyOfVaporization_sat(MediumSte.saturationState_p(port_a.p))
-    "Enthalpy is changed by a factor of h_fg";
-  port_b.h_outflow = inStream(port_a.h_outflow) - dh;
+  dhCon = MediumSte.enthalpyOfVaporization_sat(MediumSte.saturationState_p(port_a.p))
+    "Enthalpy of vaporization";
+  port_b.h_outflow = port_a.h_outflow + dh;
+
+//  if port_a.m_flow > 0 then
+//    port_b.h_outflow = inStream(port_a.h_outflow) - dh;
+//    port_a.m_flow*inStream(port_a.h_outflow) +  port_b.m_flow*port_b.h_outflow +
+//      port_h.Q_flow = 0;
+//  else
+//    port_a.h_outflow = inStream(port_b.h_outflow) + dh;
+//    port_b.m_flow*inStream(port_b.h_outflow) +  port_a.m_flow*port_a.h_outflow +
+//      port_h.Q_flow = 0;
+//  end if;
+//  port_b.h_outflow = inStream(port_a.h_outflow) - dh;
+//  port_b.h_outflow = port_a.h_outflow - dhCon;
+//  port_b.h_outflow - port_a.h_outflow = dh;
 
   // Steady state conservation of energy
-  port_a.m_flow*inStream(port_a.h_outflow) +  port_b.m_flow*port_b.h_outflow +
-    port_h.Q_flow = 0;
+//  port_a.m_flow*inStream(port_a.h_outflow) +  port_b.m_flow*port_b.h_outflow +
+//    port_h.Q_flow = 0;
+//  port_a.m_flow*port_a.h_outflow + port_b.m_flow*port_b.h_outflow + Q_flow = 0;
+
+  // Reverse flow
+//  port_a.h_outflow = inStream(port_b.h_outflow) + dh;
+//  port_b.m_flow*inStream(port_b.h_outflow) +  port_a.m_flow*port_a.h_outflow +
+//    port_h.Q_flow = 0;
+
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+        Rectangle(
+          extent={{-101,6},{-80,-4}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{80,6},{100,-4}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-80,-60},{80,60}},
+          lineColor={28,108,200},
+          lineThickness=0.5,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Polygon(
           points={{34,8},{58,32},{62,28},{38,4},{34,8}},
           lineColor={95,95,95},
@@ -82,22 +137,6 @@ equation
           lineColor={0,0,0},
           fillPattern=FillPattern.Sphere,
           fillColor={95,95,95}),
-        Rectangle(
-          extent={{-80,-60},{80,60}},
-          lineColor={28,108,200},
-          lineThickness=0.5),
-        Rectangle(
-          extent={{-101,6},{-80,-4}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{80,6},{100,-4}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
         Line(
           points={{-30,40},{30,40},{10,50}},
           color={28,108,200},
