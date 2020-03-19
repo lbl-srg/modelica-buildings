@@ -12,9 +12,9 @@ import sys
 import shutil
 
 # If true, run simulations and not only the post processing.
-DO_SIMULATIONS = True
+DO_SIMULATIONS = False
 # If true, delete the simulation result files.
-CLEAN_MAT = True
+CLEAN_MAT = False
 # If true, temporary directories will be deleted.
 DelTemDir = True
 
@@ -572,6 +572,7 @@ def _add_data(dataList):
         if count >= startLine and startLine > 0 and not table_end:
             data = get_line_data(line, singleTable)
             temp.append(data)
+    data_file.close()
 
 def get_line_data(line, table):
     """
@@ -915,26 +916,131 @@ def plot_figures(comDat):
                     plot_lines(data, line_xLable[k], line_yLable[k], line_xMin[k], line_xMax[k], line_dx[k], line_yMin[k], line_yMax[k])
 # --------------------------------------------------------------------------------------------------
 
-def _generate_html_table(dataSet, BESTestTable):
+def update_html_tables(comDat):
+    tableContent = _generate_html_tables(comDat)
+    userGuideFile = "../../../../../../ThermalZones/Detailed/Validation/BESTEST/UsersGuide.mo"
+    moFile = open(userGuideFile)
+    preSec = ''
+    endSec = ''
+    start = True
+    end = False
+    for line in moFile:
+        if start:
+            preSec = preSec + line
+        if ('<!-- table start -->' in line):
+            start = False
+        if ('<!-- table end -->' in line):
+            end = True
+        if end:
+            endSec = endSec + line
+    moFile.close()
+    newMoContent = preSec + tableContent + endSec
+    print(newMoContent)
+    # with open(userGuideFile, 'rt') as f:
+    #     newMoContent = f.read().replace(temp, tableContent)
+    # with open(userGuideFile, 'wt') as f:
+    #     f.write(newMoContent)
+
+def _generate_html_tables(comDat):
+    for ele in comDat:
+        setName = ele['data_set']
+        if setName == 'annual_cooling':
+            annCoo = ele
+        if setName == 'annual_heating':
+            annHea = ele
+        if setName == 'peak_cooling':
+            peaCoo = ele
+        if setName == 'peak_heating':
+            peaHea = ele
+    annLoadTools = '''
+<tr>
+<th>Case</th>
+<th>ESP/DMU</th>
+<th>BLAST/US-IT</th>
+<th>DOE21D/NREL</th>
+<th>SRES-SUN/NREL</th>
+<th>SRES/BRE</th>
+<th>S3PAS/SPAIN</th>
+<th>TSYS/BEL-BRE</th>
+<th>TASE/FINLAND</th>
+<th>MBL/LBNL</th>
+</tr>
+'''
+    tableText = '''
+<table border = \"1\" summary=\"Annual load\">
+<tr><td colspan=\"10\"><b>Annual heating load (MWh)</b></td></tr>''' + annLoadTools
+    # add annual heating load data
+    annHeaLoa = _write_table_content(annHea)
+    tableText = tableText + annHeaLoa
+    # add annual cooling load data
+    tableText = tableText + '''<tr><td colspan=\"10\"><b>Annual cooling load (MWh)</b></td></tr>'''
+    tableText = tableText + annLoadTools
+    annCooLoa = _write_table_content(annCoo)
+    tableText = tableText + annCooLoa + '''</table>
+<br/>'''
+
+    peaLoadTools = '''
+<tr>
+<th rowspan=\"2\">Case</th>
+<th colspan=\"2\">ESP/DMU</th>
+<th colspan=\"2\">BLAST/US-IT</th>
+<th colspan=\"2\">DOE21D/NREL</th>
+<th colspan=\"2\">SRES-SUN/NREL</th>
+<th colspan=\"2\">S3PAS/SPAIN</th>
+<th colspan=\"2\">TSYS/BEL-BRE</th>
+<th colspan=\"2\">TASE/FINLAND</th>
+<th colspan=\"2\">MBL/LBNL</th>
+</tr>
+<tr>
+<td>kW</td>
+<td>hour</td>
+<td>kW</td>
+<td>hour</td>
+<td>kW</td>
+<td>hour</td>
+<td>kW</td>
+<td>hour</td>
+<td>kW</td>
+<td>hour</td>
+<td>kW</td>
+<td>hour</td>
+<td>kW</td>
+<td>hour</td>
+<td>kW</td>
+<td>hour</td>
+</tr>
+'''
+    tableText = tableText + '''
+<table border = \"1\" summary=\"Peak load\">
+<tr><td colspan=\"17\"><b>Peak heating load (kW)</b></td></tr>'''
+    tableText = tableText + peaLoadTools
+    # add peak heating load data
+    peaHeaLoa = _write_table_content(peaHea)
+    tableText = tableText + peaHeaLoa
+    # add peak cooling load data
+    tableText = tableText + '''<tr><td colspan=\"17\"><b>Peak cooling load (kW)</b></td></tr>'''
+    peaCooLoa = _write_table_content(peaCoo)
+    tableText = tableText + peaCooLoa + '''</table>
+<br/>'''
+    return tableText
+
+def _write_table_content(dataSet):
     setName = dataSet['data_set']
-    fileName = "data_{}.txt".format(setName)
-    filePath = os.path.join(BESTestTable, fileName)
-    if os.path.exists(filePath):
-        os.remove(filePath)
     data = dataSet['data'][0]
     tools = dataSet['tools']
-    with open(filePath, 'w') as f:
-        for i in range(len(data['firstCol'])):
-            f.write("<tr>" + os.linesep)
-            f.write("<td>{}</td>".format(data['firstCol'][i]) + os.linesep)
-            for j in range(len(tools)):
-                tool = tools[j]
-                f.write("<td>{}</td>".format(data[tool][i]) + os.linesep)
-                if 'peak_' in setName or 'max_' in setName or 'min_' in setName:
-                    toolHour = '{}_hour'.format(tool)
-                    f.write("<td>{}</td>".format(data[toolHour][i]) + os.linesep)
-            f.write("</tr>" + os.linesep)
-
+    outText = ''
+    for i in range(len(data['firstCol'])):
+        temp = "<tr>" + os.linesep
+        temp = temp + "<td>{}</td>".format(data['firstCol'][i]) + os.linesep
+        for j in range(len(tools)):
+            tool = tools[j]
+            temp = temp + "<td>{}</td>".format(data[tool][i]) + os.linesep
+            if 'peak_' in setName or 'max_' in setName or 'min_' in setName:
+                toolHour = '{}_hour'.format(tool)
+                temp = temp + "<td>{}</td>".format(data[toolHour][i]) + os.linesep
+        temp = temp + "</tr>" + os.linesep
+        outText = outText + temp
+    return outText
 
 if __name__=="__main__":
 
@@ -969,9 +1075,12 @@ if __name__=="__main__":
 
     plot_figures(comDat)
 
-    # generate html tables
+    # # generate html tables
     # for ele in comDat:
     #     BESTestTable = os.path.join(CWD, 'BESTTestTable')
     #     if not os.path.exists(BESTestTable):
     #         os.makedirs(BESTestTable)
     #     _generate_html_table(ele, BESTestTable)
+    
+    # write html tables to mo file
+    update_html_tables(comDat)

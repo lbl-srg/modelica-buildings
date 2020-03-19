@@ -79,7 +79,7 @@ in the table after the plots below.
 <img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Validation/BESTEST/hourly_load_900_Jan4.png\"
      alt=\"hourly_load_900_Jan4.png\" />
 </p>
-
+<!-- table start: load data -->
 <table border = \"1\" summary=\"Annual load\">
 <tr><td colspan=\"10\"><b>Annual heating load (MWh)</b>
     </td>
@@ -863,6 +863,7 @@ in the table after the plots below.
 </tr>
 </table>
 <br/>
+<!-- table end: load data -->
 
 <h5>Free floating cases</h5>
 <p>
@@ -897,6 +898,7 @@ show the peak temperature hour, are shown in the table after the plots.
      alt=\"bin_temperature_900FF.png\" />
 </p>
 
+<!-- table start: free float data -->
 <table border = \"1\" summary=\"Peak temperature\">
 <tr><td colspan=\"17\"><b>Maximum temperature (&deg;C)</b>
     </td>
@@ -1116,6 +1118,7 @@ show the peak temperature hour, are shown in the table after the plots.
 </tr>
 </table>
 <br/>
+<!-- table end: free float data -->
 <h4>Implementation</h4>
 <p>
 To generate the data shown in this user guide, run
