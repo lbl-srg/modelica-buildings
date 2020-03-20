@@ -65,7 +65,7 @@ model PlugFlowPipe
     annotation (Dialog(tab="Initialization", enable=initDelay));
 
   parameter Real R(unit="(m.K)/W")=1/(kIns*2*Modelica.Constants.pi/
-    Modelica.Math.log((dh/2 + dIns)/(dh/2)))
+    Modelica.Math.log((dh/2 + thickness + dIns)/(dh/2 + thickness)))
     "Thermal resistance per unit length from fluid to boundary temperature"
     annotation (Dialog(group="Thermal resistance"));
 
@@ -209,6 +209,12 @@ equation
 d = %dh")}),
     Documentation(revisions="<html>
 <ul>
+<li>
+March 6, 2020, by Jelger Jansen:<br/>
+Revised calculation of thermal resistance <code>R</code> 
+by using correct radiuses.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1310\">#1310</a>.
+</li>
 <li>
 October 23, 2017, by Michael Wetter:<br/>
 Revised variable names and documentation to follow guidelines.
