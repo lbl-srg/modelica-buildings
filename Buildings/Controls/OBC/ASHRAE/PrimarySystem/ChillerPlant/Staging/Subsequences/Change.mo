@@ -288,6 +288,10 @@ block Change "Calculates the chiller stage signal"
   CDL.Logical.TrueFalseHold staChaHol(falseHoldDuration=delayStaCha)
     "Main stage change hold"
     annotation (Placement(transformation(extent={{180,-260},{200,-240}})));
+  CDL.Logical.Sources.Constant staDowAva(final k=true) if
+                     not have_WSE
+    "Staging down is being evaluated for the next available stage down"
+    annotation (Placement(transformation(extent={{24,-346},{44,-326}})));
 protected
   CDL.Logical.Edge                                               edg
     "Detects plant start"
@@ -365,27 +369,28 @@ equation
           16,140},{16,-172},{58,-172}},
                                      color={0,0,127}));
   connect(PLRs.yOpeDow, staDow.uOpeDow) annotation (Line(points={{2,-246},{20,
-          -246},{20,-282},{58,-282}},
+          -246},{20,-280},{58,-280}},
                                 color={0,0,127}));
-  connect(staDow.uStaDow, PLRs.yStaDow) annotation (Line(points={{58,-284},{18,
-          -284},{18,-253},{2,-253}},
+  connect(staDow.uStaDow, PLRs.yStaDow) annotation (Line(points={{58,-282},{18,
+          -282},{18,-253},{2,-253}},
                                color={0,0,127}));
   connect(dpChiWatPumSet, staDow.dpChiWatPumSet) annotation (Line(points={{-260,
-          170},{16,170},{16,-287},{58,-287}}, color={0,0,127}));
+          170},{16,170},{16,-285},{58,-285}}, color={0,0,127}));
   connect(dpChiWatPum, staDow.dpChiWatPum) annotation (Line(points={{-260,140},
-          {12,140},{12,-289},{58,-289}},color={0,0,127}));
+          {12,140},{12,-287},{58,-287}},color={0,0,127}));
   connect(TChiWatSupSet, staDow.TChiWatSupSet) annotation (Line(points={{-260,
-          320},{10,320},{10,-292},{58,-292}},
+          320},{10,320},{10,-290},{58,-290}},
                                          color={0,0,127}));
   connect(TChiWatSup, staDow.TChiWatSup) annotation (Line(points={{-260,290},{
-          -220,290},{-220,210},{8,210},{8,-294},{58,-294}},
+          -220,290},{-220,210},{8,210},{8,-292},{58,-292}},
                                                        color={0,0,127}));
   connect(TWsePre, staDow.TWsePre) annotation (Line(points={{-260,90},{6,90},{6,
-          -296},{58,-296}}, color={0,0,127}));
+          -294},{58,-294}}, color={0,0,127}));
   connect(uTowFanSpeMax, staDow.uTowFanSpeMax) annotation (Line(points={{-260,60},
-          {4,60},{4,-298},{58,-298}}, color={0,0,127}));
-  connect(staDow.uWseSta, uWseSta) annotation (Line(points={{58,-304},{-178,-304},
-          {-178,-300},{-260,-300}}, color={255,0,255}));
+          {4,60},{4,-296},{58,-296}}, color={0,0,127}));
+  connect(staDow.uWseSta, uWseSta) annotation (Line(points={{58,-301},{-178,
+          -301},{-178,-300},{-260,-300}},
+                                    color={255,0,255}));
   connect(staDow.y, or2.u2) annotation (Line(points={{82,-290},{120,-290},{120,
           -258},{138,-258}},
                        color={255,0,255}));
@@ -407,7 +412,7 @@ equation
   connect(u, staUp.u) annotation (Line(points={{-260,-70},{-166,-70},{-166,-120},
           {50,-120},{50,-176},{58,-176}},       color={255,127,0}));
   connect(u, staDow.u) annotation (Line(points={{-260,-70},{-166,-70},{-166,
-          -300},{58,-300}}, color={255,127,0}));
+          -299},{58,-299}}, color={255,127,0}));
   connect(reaToInt.y, ySta)
     annotation (Line(points={{362,-20},{370,-20},{370,-90},{420,-90}},
                                                    color={255,127,0}));
@@ -456,6 +461,8 @@ equation
           {250,-111.8},{250,-111.8}}, color={255,0,255}));
   connect(cha.y, y)
     annotation (Line(points={{242,-250},{420,-250}}, color={255,0,255}));
+  connect(staDowAva.y, staDow.uAvaCur) annotation (Line(points={{46,-336},{54,
+          -336},{54,-303},{58,-303}}, color={255,0,255}));
   annotation (defaultComponentName = "cha",
         Icon(graphics={
         Rectangle(
@@ -468,7 +475,7 @@ equation
           lineColor={0,0,255},
           textString="%name")}), Diagram(
         coordinateSystem(preserveAspectRatio=false,
-        extent={{-240,-340},{400,340}})),
+        extent={{-240,-360},{400,340}})),
 Documentation(info="<html>
 <p>
 Outputs the chiller stage change signal
