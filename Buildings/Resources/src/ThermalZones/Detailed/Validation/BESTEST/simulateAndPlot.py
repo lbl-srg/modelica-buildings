@@ -93,7 +93,7 @@ def copy_mbl(working_directory):
     des = working_directory
     shutil.rmtree(des)
     print("*** Copying Buildings library to {}".format(des))
-    mblPath = "../../../../../../../../modelica-buildings"
+    mblPath = (os.path.sep).join((os.getcwd().split(os.path.sep))[:-7])
     shutil.copytree(mblPath, des)
 
 
