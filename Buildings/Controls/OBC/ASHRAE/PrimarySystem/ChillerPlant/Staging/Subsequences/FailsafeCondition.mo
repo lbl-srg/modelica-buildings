@@ -56,15 +56,14 @@ block FailsafeCondition
     annotation (Placement(transformation(extent={{140,-20},{180,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysdpSup(
-    final uLow=dpDif,
-    final uHigh=dpDif + dpDifHys) if not serChi
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysdpSup(final uLow=dpDif -
+        dpDifHys, final uHigh=dpDif) if
+                                     not serChi
     "Checks how closely the chilled water pump differential pressure aproaches its setpoint from below"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTSup(
-    final uLow=TDif,
-    final uHigh=TDif + TDifHys)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTSup(final uLow=TDif -
+        TDifHys, final uHigh=TDif)
     "Checks if the chilled water supply temperature is higher than its setpoint plus an offset"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 

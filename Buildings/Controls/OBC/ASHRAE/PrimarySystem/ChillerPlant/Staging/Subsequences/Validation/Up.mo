@@ -42,8 +42,8 @@ protected
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TCWSup(
-    final amplitude=1.5,
-    final freqHz=1/1800,
+    final amplitude=3,
+    final freqHz=1/3600,
     final offset=273.15 + 16) "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-160,-80},{-140,-60}})));
 
@@ -77,13 +77,15 @@ protected
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TCWSup1(
-    final amplitude=1.5,
+    final amplitude=3,
     final offset=273.15 + 15.5,
-    final freqHz=1/600) "Chilled water supply temperature"
+    final freqHz=1/3600)
+                        "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine dpChiWat1(
     final amplitude=6895,
+    phase=-0.78539816339745,
     final startTime=300,
     final freqHz=1/1200,
     final offset=63*6895) "Chilled water differential pressure"
@@ -162,8 +164,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-Icon(coordinateSystem(extent={{-180,-140},{180,140}}),
-     graphics={
+Icon(graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
                 fillPattern = FillPattern.Solid,
