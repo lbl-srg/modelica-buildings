@@ -160,12 +160,10 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu4
     "Check if current operation mode is warmup mode"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant gaiNor(
     final k=maxSet)
     "Gain for normalization of controller input"
     annotation (Placement(transformation(extent={{-130,-100},{-110,-80}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Division norPSet
     "Normalization for pressure set point"
     annotation (Placement(transformation(extent={{-70,-80},{-50,-60}})));
@@ -254,23 +252,21 @@ equation
   connect(norPSet.y, conSpe.u_s)
     annotation (Line(points={{-48,-70},{-42,-70}}, color={0,0,127}));
   connect(norPMea.y, conSpe.u_m)
-    annotation (Line(points={{-48,-110},{-30,-110},{-30,-82}},
-                                                             color={0,0,127}));
+    annotation (Line(points={{-48,-110},{-30,-110},{-30,-82}}, color={0,0,127}));
   connect(staPreSetRes.y, firOrdHol.u)
-    annotation (Line(points={{-108,-50},{-102,-50}},            color={0,0,127}));
+    annotation (Line(points={{-108,-50},{-102,-50}}, color={0,0,127}));
   connect(conSpe.trigger, or1.y)
     annotation (Line(points={{-38,-82},{-38,-100},{0,-100},{0,-8},{120,-8},{120,
           70},{102,70}},  color={255,0,255}));
-
   connect(gaiNor.y, norPSet.u2) annotation (Line(points={{-108,-90},{-92,-90},{-92,
           -76},{-72,-76}}, color={0,0,127}));
   connect(ducStaPre, norPMea.u1) annotation (Line(points={{-180,-110},{-80,-110},
-          {-80,-104},{-72,-104}},                    color={0,0,127}));
+          {-80,-104},{-72,-104}}, color={0,0,127}));
   connect(gaiNor.y, norPMea.u2) annotation (Line(points={{-108,-90},{-92,-90},{-92,
-          -116},{-72,-116}},
-                           color={0,0,127}));
+          -116},{-72,-116}}, color={0,0,127}));
   connect(firOrdHol.y, norPSet.u1) annotation (Line(points={{-78,-50},{-76,-50},
           {-76,-64},{-72,-64}}, color={0,0,127}));
+
 annotation (
   defaultComponentName="conSupFan",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{140,160}}),

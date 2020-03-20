@@ -74,9 +74,9 @@ block ReturnFanDirectPressure
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     "Return fan discharge static pressure setpoint"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
-
-  CDL.Continuous.Division div "Normalized the control error"
+  Buildings.Controls.OBC.CDL.Continuous.Division div "Normalized the control error"
     annotation (Placement(transformation(extent={{-68,80},{-48,100}})));
+
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpBuiSetPoi(
     final k=dpBuiSet) "Building pressure setpoint"
