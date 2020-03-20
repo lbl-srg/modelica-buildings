@@ -3,5 +3,6 @@ createPlot(id=1, position={20, 20, 600, 1000}, y={"dPEleNet.u1","dPEleNet.u2"}, 
 createPlot(id=1, position={20, 20, 600, 1000}, y={"dQGen.u1","dQGen.u2"}, subPlot=2, grid=true, colors={{28,108,200},{238,46,47}});
 createPlot(id=2, position={640, 20, 600, 1000}, y={"dQWat.u1","dQWat.u2"}, subPlot=1, grid=true, colors={{28,108,200},{238,46,47}}); 
 createPlot(id=2, position={640, 20, 600, 1000}, y={"dQLos.u1","dQLos.u2"}, subPlot=2, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=2, position={640, 20, 600, 1000}, y={"eleFol.opeMod.opeMod"}, subPlot=3, grid=true, colors={{28,108,200}});
 createPlot(id=3, position={1260, 20, 600, 1000}, y={"dTWatOut.u1","dTWatOut.u2"}, subPlot=1, grid=true, colors={{28,108,200},{238,46,47}});
 createPlot(id=3, position={1260, 20, 600, 1000}, y={"dTEng.u1","dTEng.u2"}, subPlot=2, grid=true, colors={{28,108,200},{238,46,47}});

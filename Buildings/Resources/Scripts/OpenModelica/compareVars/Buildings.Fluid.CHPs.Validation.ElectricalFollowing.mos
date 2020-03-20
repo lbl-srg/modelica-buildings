@@ -8,6 +8,7 @@ compareVars :=
     "dQWat.u2",
     "dQLos.u1",
     "dQLos.u2",
+    "eleFol.opeMod.opeMod",
     "dTWatOut.u1",
     "dTWatOut.u2",
     "dTEng.u1",
