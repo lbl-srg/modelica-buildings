@@ -319,27 +319,27 @@ block Controller_new
     final quantity="ThermodynamicTemperature")
     "Zone air temperature heating setpoint"
     annotation (Placement(transformation(extent={{-240,280},{-200,320}}),
-        iconTransformation(extent={{-240,290},{-200,330}})));
+        iconTransformation(extent={{-240,320},{-200,360}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonCooSet(
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "Zone air temperature cooling setpoint"
     annotation (Placement(transformation(extent={{-240,250},{-200,290}}),
-        iconTransformation(extent={{-240,260},{-200,300}})));
+        iconTransformation(extent={{-240,290},{-200,330}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
     final quantity="ThermodynamicTemperature") "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-240,220},{-200,260}}),
-        iconTransformation(extent={{-240,230},{-200,270}})));
+        iconTransformation(extent={{-240,260},{-200,300}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput ducStaPre(
     final unit="Pa",
     displayUnit="Pa")
     "Measured duct static pressure"
     annotation (Placement(transformation(extent={{-240,190},{-200,230}}),
-        iconTransformation(extent={{-240,200},{-200,240}})));
+        iconTransformation(extent={{-240,230},{-200,270}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput sumDesZonPop(
     final min=0,
@@ -399,27 +399,27 @@ block Controller_new
     final quantity="ThermodynamicTemperature")
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-240,-50},{-200,-10}}),
-        iconTransformation(extent={{-240,-40},{-200,0}})));
+        iconTransformation(extent={{-240,-70},{-200,-30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOutCut(
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "OA temperature high limit cutoff. For differential dry bulb temeprature condition use return air temperature measurement"
     annotation (Placement(transformation(extent={{-240,-80},{-200,-40}}),
-        iconTransformation(extent={{-240,-70},{-200,-30}})));
+        iconTransformation(extent={{-240,-100},{-200,-60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hOut(
     final unit="J/kg",
     final quantity="SpecificEnergy") if use_enthalpy "Outdoor air enthalpy"
     annotation (Placement(transformation(extent={{-240,-110},{-200,-70}}),
-        iconTransformation(extent={{-240,-100},{-200,-60}})));
+        iconTransformation(extent={{-240,-130},{-200,-90}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hOutCut(
     final unit="J/kg",
     final quantity="SpecificEnergy") if use_enthalpy
     "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-240,-140},{-200,-100}}),
-        iconTransformation(extent={{-240,-130},{-200,-90}})));
+        iconTransformation(extent={{-240,-160},{-200,-120}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VOut_flow(
     final min=0,
@@ -427,35 +427,35 @@ block Controller_new
     final quantity = "VolumeFlowRate")
     "Measured outdoor volumetric airflow rate"
     annotation (Placement(transformation(extent={{-240,-170},{-200,-130}}),
-        iconTransformation(extent={{-240,-160},{-200,-120}})));
+        iconTransformation(extent={{-240,-190},{-200,-150}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
     final unit="K",
     final quantity = "ThermodynamicTemperature") if use_TMix
     "Measured mixed air temperature, used for freeze protection if use_TMix=true"
     annotation (Placement(transformation(extent={{-240,-200},{-200,-160}}),
-        iconTransformation(extent={{-240,-200},{-200,-160}})));
+        iconTransformation(extent={{-240,-230},{-200,-190}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "AHU operation mode status signal"
     annotation (Placement(transformation(extent={{-240,-230},{-200,-190}}),
-        iconTransformation(extent={{-240,-240},{-200,-200}})));
+        iconTransformation(extent={{-240,-270},{-200,-230}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uZonTemResReq
     "Zone cooling supply air temperature reset request"
     annotation (Placement(transformation(extent={{-240,-260},{-200,-220}}),
-        iconTransformation(extent={{-240,-270},{-200,-230}})));
+        iconTransformation(extent={{-240,-300},{-200,-260}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uZonPreResReq
     "Zone static pressure reset requests"
     annotation (Placement(transformation(extent={{-240,-290},{-200,-250}}),
-        iconTransformation(extent={{-240,-300},{-200,-260}})));
+        iconTransformation(extent={{-240,-330},{-200,-290}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta if
       use_G36FrePro
    "Freeze protection status, used if use_G36FrePro=true"
     annotation (Placement(transformation(extent={{-240,-320},{-200,-280}}),
-        iconTransformation(extent={{-240,-330},{-200,-290}})));
+        iconTransformation(extent={{-240,-360},{-200,-320}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySupFan
     "Supply fan status, true if fan should be on"
@@ -758,31 +758,31 @@ equation
 
 annotation (defaultComponentName="conAHU",
     Diagram(coordinateSystem(extent={{-200,-320},{200,320}}, initialScale=0.2)),
-    Icon(coordinateSystem(extent={{-200,-320},{200,320}}, initialScale=0.2),
+    Icon(coordinateSystem(extent={{-200,-360},{200,360}}, initialScale=0.2),
         graphics={Rectangle(
-          extent={{200,320},{-200,-320}},
+          extent={{200,360},{-200,-360}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid), Text(
-          extent={{-150,370},{150,330}},
+          extent={{-200,450},{200,372}},
           textString="%name",
           lineColor={0,0,255}),           Text(
-          extent={{-200,318},{-116,302}},
+          extent={{-200,348},{-116,332}},
           lineColor={0,0,0},
           textString="TZonHeaSet"),       Text(
           extent={{102,-48},{202,-68}},
           lineColor={255,0,255},
           textString="yReqOutAir"),       Text(
-          extent={{-196,-208},{-122,-228}},
+          extent={{-196,-238},{-122,-258}},
           lineColor={255,127,0},
           textString="uOpeMod"),          Text(
-          extent={{-200,288},{-114,272}},
+          extent={{-200,318},{-114,302}},
           lineColor={0,0,0},
           textString="TZonCooSet"),       Text(
-          extent={{-198,230},{-120,212}},
+          extent={{-198,260},{-120,242}},
           lineColor={0,0,0},
           textString="ducStaPre"),        Text(
-          extent={{-198,258},{-162,242}},
+          extent={{-198,288},{-162,272}},
           lineColor={0,0,0},
           textString="TOut"),             Text(
           extent={{-196,110},{-90,88}},
@@ -799,7 +799,7 @@ annotation (defaultComponentName="conAHU",
           extent={{-196,200},{-88,182}},
           lineColor={0,0,0},
           textString="sumDesZonPop"),     Text(
-          extent={{-200,-12},{-154,-32}},
+          extent={{-200,-42},{-154,-62}},
           lineColor={0,0,0},
           textString="TSup"),             Text(
           extent={{-200,18},{-84,0}},
@@ -813,28 +813,28 @@ annotation (defaultComponentName="conAHU",
           lineColor={0,0,0},
           textString="VSumUncOutAir_flow"),
                                           Text(
-          extent={{-200,-132},{-126,-150}},
+          extent={{-200,-162},{-126,-180}},
           lineColor={0,0,0},
           textString="VOut_flow"),        Text(
-          extent={{-200,-100},{-134,-118}},
+          extent={{-200,-130},{-134,-148}},
           lineColor={0,0,0},
           textString="hOutCut"),          Text(
-          extent={{-200,-70},{-160,-88}},
+          extent={{-200,-100},{-160,-118}},
           lineColor={0,0,0},
           textString="hOut"),             Text(
-          extent={{-198,-40},{-146,-56}},
+          extent={{-198,-70},{-146,-86}},
           lineColor={0,0,0},
           textString="TOutCut"),          Text(
-          extent={{-200,-170},{-154,-188}},
+          extent={{-200,-200},{-154,-218}},
           lineColor={0,0,0},
           textString="TMix"),             Text(
-          extent={{-194,-240},{-68,-260}},
+          extent={{-194,-270},{-68,-290}},
           lineColor={255,127,0},
           textString="uZonTemResReq"),    Text(
-          extent={{-192,-270},{-74,-290}},
+          extent={{-192,-300},{-74,-320}},
           lineColor={255,127,0},
           textString="uZonPreResReq"),    Text(
-          extent={{-200,-300},{-110,-318}},
+          extent={{-200,-330},{-110,-348}},
           lineColor={255,127,0},
           textString="uFreProSta"),       Text(
           extent={{106,252},{198,230}},

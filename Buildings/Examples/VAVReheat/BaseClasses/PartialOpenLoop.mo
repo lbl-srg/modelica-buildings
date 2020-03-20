@@ -796,10 +796,10 @@ equation
       points={{210,-52},{230,-52},{230,-110}},
       color={28,108,200},
       thickness=0.5));
-  connect(gaiHeaCoi.y, souHea.m_flow_in) annotation (Line(points={{121,-210},{
-          124,-210},{124,-130}}, color={0,0,127}));
-  connect(gaiCooCoi.y, souCoo.m_flow_in) annotation (Line(points={{121,-248},{
-          222,-248},{222,-130}}, color={0,0,127}));
+  connect(gaiHeaCoi.y, souHea.m_flow_in) annotation (Line(points={{122,-210},{
+          124,-210},{124,-132}}, color={0,0,127}));
+  connect(gaiCooCoi.y, souCoo.m_flow_in) annotation (Line(points={{122,-248},{
+          222,-248},{222,-132}}, color={0,0,127}));
   connect(dpDisSupFan.port_b, amb.ports[3]) annotation (Line(
       points={{320,10},{320,14},{-88,14},{-88,-47.9333},{-114,-47.9333}},
       color={0,0,0},
@@ -807,7 +807,7 @@ equation
   connect(senRetFlo.port_b, TRet.port_a) annotation (Line(points={{340,140},{
           226,140},{110,140}}, color={0,127,255}));
   connect(freStaTSetPoi.y, freSta.reference)
-    annotation (Line(points={{-19,-86},{-2,-86}}, color={0,0,127}));
+    annotation (Line(points={{-18,-86},{-2,-86}}, color={0,0,127}));
   connect(freSta.u, TMix.T) annotation (Line(points={{-2,-98},{-10,-98},{-10,-70},
           {20,-70},{20,-20},{40,-20},{40,-29}}, color={0,0,127}));
   connect(TMix.port_b, heaCoi.port_a2) annotation (Line(
