@@ -427,7 +427,7 @@ its input.
 <ul>
 <li>
 March 20, 2020, by Jianjun Hu:<br/>
-Replaced the AHU controller with reimplemented controller. The new separates the
+Replaced the AHU controller with reimplemented one. The new controller separates the
 zone level calculation from the system level calculation and does not include
 vector-valued calculations.<br/>
 This is

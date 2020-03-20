@@ -226,7 +226,7 @@ Stanke, D., 2010. <i>Dynamic Reset for Multiple-Zone Systems.</i> ASHRAE Journal
 <li>
 March 13, 2020, by Jianjun Hu:<br/>
 Reimplemented sequence of calculating the outdoor airflow setpoint to separated
-vector related calculation. This therefore breaks the single sequence to three
+vector-valued calculation. This therefore breaks the single sequence to three
 subsequences.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1829\">#1829</a>.

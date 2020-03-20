@@ -382,7 +382,7 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/Mul
 <ul>
 <li>
 March 14, 2020, by Jianjun Hu:<br/>
-Replaced mulAnd by two logicla and blocks to avoid vector related calculation.<br/>
+Replaced mulAnd by two logicla and blocks to avoid vector-valued calculation.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1829\">#1829</a>.
 </li>
 <li>

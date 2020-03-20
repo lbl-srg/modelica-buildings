@@ -937,8 +937,8 @@ revisions="<html>
 <ul>
 <li>
 March 16, 2020, by Jianjun Hu:<br/>
-Reimplemented to add new implemented block for specifying the
-minimum outdoor airfow setpoint. This avoids the vector related calculation.<br/>
+Reimplemented to add new block for specifying the minimum outdoor airfow setpoint.
+This new block avoids the vector-valued calculation.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1829\">#1829</a>.
 </li>
