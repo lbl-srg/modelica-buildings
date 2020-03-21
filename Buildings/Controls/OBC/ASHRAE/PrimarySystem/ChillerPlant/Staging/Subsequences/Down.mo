@@ -156,8 +156,8 @@ block Down "Generates a stage down signal"
     "Staging from 1 to 0 for plants without a WSE is depends on the plant disable sequence"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
 
-  CDL.Interfaces.BooleanInput                        uAvaCur
-    "Current stage availability status"
+  CDL.Interfaces.BooleanInput                        uAvaDow
+    "Next stage down availability status"
     annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
         iconTransformation(extent={{-140,-150},{-100,-110}})));
 equation
@@ -199,26 +199,24 @@ equation
           {-140,-54},{-82,-54}}, color={0,0,127}));
   connect(TWsePre, add0.u2) annotation (Line(points={{-200,-70},{-140,-70},{-140,
           -66},{-82,-66}}, color={0,0,127}));
-  connect(noWSEcoSig.y, logSwi.u3) annotation (Line(points={{42,-10},{70,-10},{
-          70,-8},{98,-8}},
-                        color={255,0,255}));
+  connect(noWSEcoSig.y, logSwi.u3) annotation (Line(points={{42,-10},{70,-10},{70,
+          -8},{98,-8}}, color={255,0,255}));
   connect(hysDow.y, truDel1.u)
     annotation (Line(points={{-58,190},{-42,190}}, color={255,0,255}));
   connect(truDel1.y, and0.u1) annotation (Line(points={{-18,190},{0,190},{0,90},
           {18,90}}, color={255,0,255}));
-  connect(and0.y, logSwi.u1) annotation (Line(points={{42,90},{70,90},{70,8},{
-          98,8}}, color={255,0,255}));
+  connect(and0.y, logSwi.u1) annotation (Line(points={{42,90},{70,90},{70,8},{98,
+          8}}, color={255,0,255}));
   connect(logSwi.y, y)
     annotation (Line(points={{122,0},{190,0}}, color={255,0,255}));
   connect(and1.y, logSwi.u3) annotation (Line(points={{42,-60},{80,-60},{80,-8},
           {98,-8}}, color={255,0,255}));
   connect(faiSafCon.y, not1.u)
     annotation (Line(points={{-58,50},{-42,50}}, color={255,0,255}));
-  connect(uAvaCur, faiSafCon.uAvaCur) annotation (Line(points={{-200,0},{-140,0},
+  connect(uAvaDow, faiSafCon.uAvaCur) annotation (Line(points={{-200,0},{-140,0},
           {-140,43},{-82,43}}, color={255,0,255}));
   annotation (defaultComponentName = "staDow",
-        Icon(coordinateSystem(extent={{-180,-200},{180,240}}),
-             graphics={
+        Icon(graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},

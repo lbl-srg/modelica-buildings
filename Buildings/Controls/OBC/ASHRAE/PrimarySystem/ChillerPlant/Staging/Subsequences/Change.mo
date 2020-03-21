@@ -92,7 +92,7 @@ block Change "Calculates the chiller stage signal"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseSta if have_WSE
     "WSE status"
     annotation (Placement(transformation(extent={{-280,-320},{-240,-280}}),
-        iconTransformation(extent={{-140,-150},{-100,-110}})));
+        iconTransformation(extent={{-140,-170},{-100,-130}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiAva[nChi]
     "Chiller availability status vector"
@@ -277,21 +277,22 @@ block Change "Calculates the chiller stage signal"
   CDL.Interfaces.IntegerInput uIni(final min=0, final max=nSta)
     "Initial chiller stage (at plant enable)" annotation (Placement(
         transformation(extent={{-280,-120},{-240,-80}}), iconTransformation(
-          extent={{-140,-130},{-100,-90}})));
+          extent={{-140,-148},{-100,-108}})));
   CDL.Conversions.IntegerToReal intToRea2 "Integer to real conversion"
     annotation (Placement(transformation(extent={{240,20},{260,40}})));
-  CDL.Logical.TrueFalseHold holIniSta(trueHoldDuration=delayStaCha)
+  CDL.Logical.TrueFalseHold holIniSta(trueHoldDuration=delayStaCha,
+      falseHoldDuration=0)
     "Holds stage switched to initial upon plant start"
     annotation (Placement(transformation(extent={{120,-30},{140,-10}})));
   Modelica.Blocks.Logical.Switch switch2
     annotation (Placement(transformation(extent={{300,-30},{320,-10}})));
-  CDL.Logical.TrueFalseHold staChaHol(falseHoldDuration=delayStaCha)
+  CDL.Logical.TrueFalseHold staChaHol(trueHoldDuration=0,
+                                      falseHoldDuration=delayStaCha)
     "Main stage change hold"
     annotation (Placement(transformation(extent={{180,-260},{200,-240}})));
-  CDL.Logical.Sources.Constant staDowAva(final k=true) if
-                     not have_WSE
+  CDL.Logical.Sources.Constant staDowAva(final k=true)
     "Staging down is being evaluated for the next available stage down"
-    annotation (Placement(transformation(extent={{24,-346},{44,-326}})));
+    annotation (Placement(transformation(extent={{20,-340},{40,-320}})));
 protected
   CDL.Logical.Edge                                               edg
     "Detects plant start"
@@ -368,37 +369,28 @@ equation
   connect(dpChiWatPum, staUp.dpChiWatPum) annotation (Line(points={{-260,140},{
           16,140},{16,-172},{58,-172}},
                                      color={0,0,127}));
-  connect(PLRs.yOpeDow, staDow.uOpeDow) annotation (Line(points={{2,-246},{20,
-          -246},{20,-280},{58,-280}},
-                                color={0,0,127}));
-  connect(staDow.uStaDow, PLRs.yStaDow) annotation (Line(points={{58,-282},{18,
-          -282},{18,-253},{2,-253}},
-                               color={0,0,127}));
+  connect(PLRs.yOpeDow, staDow.uOpeDow) annotation (Line(points={{2,-246},{20,-246},
+          {20,-280},{58,-280}}, color={0,0,127}));
+  connect(staDow.uStaDow, PLRs.yStaDow) annotation (Line(points={{58,-282},{18,-282},
+          {18,-253},{2,-253}}, color={0,0,127}));
   connect(dpChiWatPumSet, staDow.dpChiWatPumSet) annotation (Line(points={{-260,
           170},{16,170},{16,-285},{58,-285}}, color={0,0,127}));
-  connect(dpChiWatPum, staDow.dpChiWatPum) annotation (Line(points={{-260,140},
-          {12,140},{12,-287},{58,-287}},color={0,0,127}));
-  connect(TChiWatSupSet, staDow.TChiWatSupSet) annotation (Line(points={{-260,
-          320},{10,320},{10,-290},{58,-290}},
-                                         color={0,0,127}));
-  connect(TChiWatSup, staDow.TChiWatSup) annotation (Line(points={{-260,290},{
-          -220,290},{-220,210},{8,210},{8,-292},{58,-292}},
-                                                       color={0,0,127}));
+  connect(dpChiWatPum, staDow.dpChiWatPum) annotation (Line(points={{-260,140},{
+          12,140},{12,-287},{58,-287}}, color={0,0,127}));
+  connect(TChiWatSupSet, staDow.TChiWatSupSet) annotation (Line(points={{-260,320},
+          {10,320},{10,-290},{58,-290}}, color={0,0,127}));
+  connect(TChiWatSup, staDow.TChiWatSup) annotation (Line(points={{-260,290},{-220,
+          290},{-220,210},{8,210},{8,-292},{58,-292}}, color={0,0,127}));
   connect(TWsePre, staDow.TWsePre) annotation (Line(points={{-260,90},{6,90},{6,
           -294},{58,-294}}, color={0,0,127}));
   connect(uTowFanSpeMax, staDow.uTowFanSpeMax) annotation (Line(points={{-260,60},
           {4,60},{4,-296},{58,-296}}, color={0,0,127}));
-  connect(staDow.uWseSta, uWseSta) annotation (Line(points={{58,-301},{-178,
-          -301},{-178,-300},{-260,-300}},
-                                    color={255,0,255}));
-  connect(staDow.y, or2.u2) annotation (Line(points={{82,-290},{120,-290},{120,
-          -258},{138,-258}},
-                       color={255,0,255}));
+  connect(staDow.uWseSta, uWseSta) annotation (Line(points={{58,-301},{-178,-301},
+          {-178,-300},{-260,-300}}, color={255,0,255}));
+  connect(staDow.y, or2.u2) annotation (Line(points={{82,-290},{120,-290},{120,-258},
+          {138,-258}}, color={255,0,255}));
   connect(u, sta.u) annotation (Line(points={{-260,-70},{-166,-70},{-166,-264},
           {-162,-264}}, color={255,127,0}));
-  connect(chaPro, staDow.chaPro) annotation (Line(points={{-260,-210},{-212,
-          -210},{-212,-290},{-80,-290},{-80,-302},{58,-302}},
-                                        color={255,0,255}));
   connect(sta.yAvaCur, staUp.uAvaCur) annotation (Line(points={{-138,-277},{-80,
           -277},{-80,-270},{40,-270},{40,-179},{58,-179}}, color={255,0,255}));
   connect(sta.yChi, yChi) annotation (Line(points={{-138,-280},{-58,-280},{-58,
@@ -411,8 +403,8 @@ equation
           {-70,-120},{-70,-262},{-22,-262}},       color={255,127,0}));
   connect(u, staUp.u) annotation (Line(points={{-260,-70},{-166,-70},{-166,-120},
           {50,-120},{50,-176},{58,-176}},       color={255,127,0}));
-  connect(u, staDow.u) annotation (Line(points={{-260,-70},{-166,-70},{-166,
-          -299},{58,-299}}, color={255,127,0}));
+  connect(u, staDow.u) annotation (Line(points={{-260,-70},{-166,-70},{-166,-299},
+          {58,-299}},       color={255,127,0}));
   connect(reaToInt.y, ySta)
     annotation (Line(points={{362,-20},{370,-20},{370,-90},{420,-90}},
                                                    color={255,127,0}));
@@ -461,8 +453,8 @@ equation
           {250,-111.8},{250,-111.8}}, color={255,0,255}));
   connect(cha.y, y)
     annotation (Line(points={{242,-250},{420,-250}}, color={255,0,255}));
-  connect(staDowAva.y, staDow.uAvaCur) annotation (Line(points={{46,-336},{54,
-          -336},{54,-303},{58,-303}}, color={255,0,255}));
+  connect(staDow.uAvaDow, staDowAva.y) annotation (Line(points={{58,-303},{50,-303},
+          {50,-330},{42,-330}}, color={255,0,255}));
   annotation (defaultComponentName = "cha",
         Icon(graphics={
         Rectangle(

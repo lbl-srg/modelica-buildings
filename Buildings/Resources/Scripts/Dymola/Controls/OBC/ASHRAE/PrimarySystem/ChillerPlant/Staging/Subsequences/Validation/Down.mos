@@ -2,19 +2,16 @@ simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.
 
 createPlot(id=1, position={20, 10, 1200, 650}, subPlot=1, y={"staDow.y", "staDow.u"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
 createPlot(id=1, position={20, 10, 1200, 650}, subPlot=2, y={"staDow.uOpeDow", "staDow.uStaDow"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
-createPlot(id=1, position={20, 10, 1200, 650}, subPlot=3, y={"staDow.uOpe", "staDow.uOpeMin"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
-createPlot(id=1, position={20, 10, 1200, 650}, subPlot=4, y={"staDow.dpChiWatPumSet", "staDow.dpChiWatPum"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
-createPlot(id=1, position={20, 10, 1200, 650}, subPlot=5, y={"staDow.TChiWatSup", "staDow.TChiWatSupSet", "staDow.TWsePre"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0, 0, 50}});
-createPlot(id=1, position={20, 10, 1200, 650}, subPlot=6, y={"staDow.uTowFanSpeMax"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=3, y={"staDow.dpChiWatPumSet", "staDow.dpChiWatPum"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=4, y={"staDow.TChiWatSup", "staDow.TChiWatSupSet", "staDow.TWsePre"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0, 0, 50}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=5, y={"staDow.uTowFanSpeMax"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
 
 createPlot(id=2, position={30, 20, 1200, 650}, subPlot=1, y={"noWSE.y", "noWSE.u"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
 createPlot(id=2, position={30, 20, 1200, 650}, subPlot=2, y={"noWSE.uOpeDow", "noWSE.uStaDow"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
-createPlot(id=2, position={30, 20, 1200, 650}, subPlot=3, y={"noWSE.uOpe", "noWSE.uOpeMin"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
-createPlot(id=2, position={30, 20, 1200, 650}, subPlot=4, y={"noWSE.dpChiWatPumSet", "noWSE.dpChiWatPum"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
-createPlot(id=2, position={30, 20, 1200, 650}, subPlot=5, y={"noWSE.TChiWatSup", "noWSE.TChiWatSupSet"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={30, 20, 1200, 650}, subPlot=3, y={"noWSE.dpChiWatPumSet", "noWSE.dpChiWatPum"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={30, 20, 1200, 650}, subPlot=4, y={"noWSE.TChiWatSup", "noWSE.TChiWatSupSet"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
 
 createPlot(id=3, position={40, 30, 1200, 650}, subPlot=1, y={"staDow1.y", "staDow1.u"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
 createPlot(id=3, position={40, 30, 1200, 650}, subPlot=2, y={"staDow1.TChiWatSupSet", "staDow1.TWsePre"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
-createPlot(id=3, position={40, 30, 1200, 650}, subPlot=3, y={"staDow1.uOpe", "staDow1.uStaUp"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
-createPlot(id=3, position={40, 30, 1200, 650}, subPlot=4, y={"staDow1.uWseSta"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
-createPlot(id=3, position={40, 30, 1200, 650}, subPlot=5, y={"staDow1.TChiWatSup", "staDow1.TChiWatSupSet", "staDow1.dpChiWatPumSet", "staDow1.dpChiWatPum"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,0,50}, {0,0,127}});
+createPlot(id=3, position={40, 30, 1200, 650}, subPlot=3, y={"staDow1.uWseSta"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
+createPlot(id=3, position={40, 30, 1200, 650}, subPlot=4, y={"staDow1.TChiWatSup", "staDow1.TChiWatSupSet", "staDow1.dpChiWatPumSet", "staDow1.dpChiWatPum"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,0,50}, {0,0,127}});

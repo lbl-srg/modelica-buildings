@@ -81,11 +81,6 @@ protected
     "Chilled water differential pressure setpoint"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oplr1(
-    final k=0.5)
-    "Operating part load ratio of the current stage"
-    annotation (Placement(transformation(extent={{60,80},{80,100}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCWSup1(
     final k=273.15 + 14)
     "Chilled water supply temperature"
@@ -96,8 +91,7 @@ protected
     "Chilled water differential pressure"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oplrDown1(
-    final k=0.0001)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oplrDown1(final k=1)
     "Operating part load ratio of stage 0"
     annotation (Placement(transformation(extent={{60,120},{80,140}})));
 
@@ -117,6 +111,9 @@ protected
   CDL.Logical.Sources.Constant staAva(final k=true)
     "The next stage down is assumed to be available"
     annotation (Placement(transformation(extent={{-100,160},{-80,180}})));
+  CDL.Continuous.Sources.Constant                        splrDown1(final k=1)
+    "Staging down part load ratio"
+    annotation (Placement(transformation(extent={{40,80},{60,100}})));
 equation
 
   connect(TCWSupSet.y, staDow.TChiWatSupSet) annotation (Line(points={{-138,-10},
@@ -149,8 +146,6 @@ equation
           108,-30},{108,53},{138,53}}, color={0,0,127}));
   connect(oplrDown1.y, staDow1.uOpeDow) annotation (Line(points={{82,130},{110,
           130},{110,60},{138,60}},     color={0,0,127}));
-  connect(oplr1.y, staDow1.uOpe) annotation (Line(points={{82,90},{100,90},{100,
-          63},{118,63}},     color={0,0,127}));
   connect(WSESta1.y, staDow1.uWseSta) annotation (Line(points={{82,-70},{114,
           -70},{114,39},{138,39}}, color={255,0,255}));
   connect(stage1.y, staDow1.u) annotation (Line(points={{42,-90},{116,-90},{116,
@@ -179,6 +174,8 @@ equation
           {-60,37},{-42,37}}, color={255,0,255}));
   connect(staAva.y, staDow1.uAvaCur) annotation (Line(points={{-78,170},{130,
           170},{130,37},{138,37}}, color={255,0,255}));
+  connect(splrDown1.y, staDow1.uStaDow) annotation (Line(points={{62,90},{100,
+          90},{100,58},{138,58}}, color={0,0,127}));
 annotation (
  experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Down.mos"
