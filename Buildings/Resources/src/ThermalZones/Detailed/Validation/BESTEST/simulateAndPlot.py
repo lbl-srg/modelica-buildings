@@ -82,7 +82,9 @@ def checkout_buildingspy_repository(working_directory):
     import git
     print("*** Checking out BuildingPy repository branch {} ***".format(BP_BRANCH))
     git_url = "https://github.com/lbl-srg/BuildingsPy.git"
-    Repo.clone_from(git_url, working_directory)
+    repo = Repo.clone_from(git_url, working_directory)
+    for sub_module in repo.submodules:
+        sub_module.update()
     g = git.Git(working_directory)
     g.checkout(BP_BRANCH)
 
