@@ -177,8 +177,7 @@ partial model PartialConnection1Pipe
   Buildings.Controls.OBC.CDL.Continuous.Gain gai(
     final k=cp_default) if have_heaFloOut
     "Times cp"
-    annotation (
-      Placement(transformation(
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={80,80})));
@@ -190,6 +189,16 @@ protected
       X = Medium.X_default))
     "Specific heat capacity of medium at default medium state";
 equation
+  // Connect statements involving conditionally removed components are
+  // removed at translation time by Modelica specification.
+  // Only obsolete statements corresponding to the default model structure need
+  // to be programmatically removed.
+  if not have_heaFloOut then
+    connect(port_bCon, senMasFloCon.port_b)
+      annotation (Line(points={{-40,120},{-40,70}}, color={0,127,255}));
+    connect(port_aCon, junConRet.port_3)
+      annotation (Line(points={{40,120},{40,-30}}, color={0,127,255}));
+  end if;
   connect(junConSup.port_3, pipCon.port_a)
     annotation (Line(points={{-40,-30},{-40,0}}, color={0,127,255}));
   connect(pipDis.port_b, junConSup.port_1)
@@ -208,35 +217,26 @@ equation
     annotation (Line(points={{10,-40},{30,-40}}, color={0,127,255}));
   connect(senMasFloByp.m_flow, mByp_flow)
     annotation (Line(points={{0,-29},{0,20},{120,20}}, color={0,0,127}));
-
-  if have_heaFloOut then
-    connect(senMasFloCon.port_b, senTConSup.port_a)
-      annotation (Line(points={{-40,70},{-40,76},{-60,76},{-60,80}},
-                                                   color={0,127,255}));
-    connect(senTConSup.port_b, port_bCon)
-      annotation (Line(points={{-60,100},{-60,106},{-40,106},{-40,120}},
-                                                     color={0,127,255}));
-    connect(port_aCon, senTConRet.port_a)
-      annotation (Line(points={{40,120},{40,106},{20,106},{20,100}},
-                                                   color={0,127,255}));
-    connect(senTConRet.port_b, junConRet.port_3)
-      annotation (Line(points={{20,80},{20,76},{40,76},{40,-30}},
-                                                  color={0,127,255}));
-  else
-    connect(port_bCon, senMasFloCon.port_b)
-      annotation (Line(points={{-40,120},{-40,70}}, color={0,127,255}));
-    connect(port_aCon, junConRet.port_3)
-      annotation (Line(points={{40,120},{40,-30}}, color={0,127,255}));
-  end if;
-  connect(senTConSup.T, sub.u2) annotation (Line(points={{-71,90},{-80,90},{-80,
-          34},{-2,34}}, color={0,0,127}));
-  connect(senTConRet.T, sub.u1) annotation (Line(points={{9,90},{-10,90},{-10,
-          46},{-2,46}},
-                    color={0,0,127}));
-  connect(sub.y, pro.u2) annotation (Line(points={{22,40},{30,40},{30,34},{44,34}},
-        color={0,0,127}));
-  connect(senMasFloCon.m_flow, pro.u1) annotation (Line(points={{-29,60},{30,60},
-          {30,46},{44,46}}, color={0,0,127}));
+  connect(senMasFloCon.port_b, senTConSup.port_a)
+    annotation (Line(points={{-40,70},{-40,76},{-60,76},{-60,80}},
+      color={0,127,255}));
+  connect(senTConSup.port_b, port_bCon)
+    annotation (Line(points={{-60,100},{-60,106},{-40,106},{-40,120}},
+      color={0,127,255}));
+  connect(port_aCon, senTConRet.port_a)
+    annotation (Line(points={{40,120},{40,106},{20,106},{20,100}},
+      color={0,127,255}));
+  connect(senTConRet.port_b, junConRet.port_3)
+    annotation (Line(points={{20,80},{20,76},{40,76},{40,-30}},
+      color={0,127,255}));
+  connect(senTConSup.T, sub.u2)
+    annotation (Line(points={{-71,90},{-80,90},{-80, 34},{-2,34}}, color={0,0,127}));
+  connect(senTConRet.T, sub.u1)
+    annotation (Line(points={{9,90},{-10, 90},{-10, 46},{-2,46}}, color={0,0,127}));
+  connect(sub.y, pro.u2)
+    annotation (Line(points={{22,40},{34,40},{34,34},{44,34}}, color={0,0,127}));
+  connect(senMasFloCon.m_flow, pro.u1)
+    annotation (Line(points={{-29,60},{30,60},{30,46},{44,46}},  color={0,0,127}));
   connect(pro.y, gai.u)
     annotation (Line(points={{68,40},{80,40},{80,68}}, color={0,0,127}));
   connect(gai.y, Q_flow)

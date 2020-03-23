@@ -86,49 +86,47 @@ initial equation
     ": iConDpSen = " + String(iConDpSen) + " whereas it must be lower than " +
     String(nCon) + ".");
 equation
-  connect(con.port_bCon, ports_bCon)
-    annotation (Line(points={{0,10},{0,40},{-80,
-          40},{-80,100}}, color={0,127,255}));
-  connect(ports_aCon, con.port_aCon)
-    annotation (Line(points={{80,100},{80,40},
-          {6,40},{6,10}}, color={0,127,255}));
-  // Connecting outlets to inlets for all instances of connection component
+  // Connecting outlets to inlets for all instances of connection component.
   if nCon >= 2 then
     for i in 2:nCon loop
       connect(con[i - 1].port_bDisSup, con[i].port_aDisSup);
       connect(con[i - 1].port_aDisRet, con[i].port_bDisRet);
     end for;
   end if;
-  connect(port_aDisSup, con[1].port_aDisSup)
-    annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
-  connect(port_bDisRet, con[1].port_bDisRet)
-    annotation (Line(points={{-100,-60},{-40,-60},{-40,-6},{-10,-6}},
-      color={0,127,255}));
-  connect(con[nCon].port_aDisRet, port_aDisRet)
-    annotation (Line(points={{10,-6},{40,-6},{40,-60},{100,-60}},
-      color={0,127,255}));
-  connect(con[nCon].port_bDisSup, pipEnd.port_a)
-    annotation (Line(points={{10,0},{60,0}}, color={0,127,255}));
-  connect(pipEnd.port_b, port_bDisSup)
-    annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
-  connect(con.Q_flow, Q_flow) annotation (Line(points={{11,8},{16,8},{16,24},{86,
-      24},{86,80},{120,80}}, color={0,0,127}));
-  connect(con.mCon_flow, mCon_flow) annotation (Line(points={{11,6},{18,6},{18,22},
-      {88,22},{88,60},{120,60}}, color={0,0,127}));
-  connect(port_aDisSup, port_aDisSup)
-    annotation (Line(points={{-100,0},{-100,0}}, color={0,127,255}));
-  connect(port_aDisSup, senRelPre.port_a)
-    annotation (Line(points={{-100,0},{-60,0},{-60,-20}}, color={0,127,255}));
-  connect(senRelPre.port_b, port_bDisRet) annotation (Line(points={{-60,-40},{-60,
-    -60},{-100,-60}}, color={0,127,255}));
+  // Connecting dp sensor (needs to be explicit because con[iConDpSen] is
+  // undefined if iConDpSen == 0).
   if iConDpSen == 0 then
-    connect(senRelPre.p_rel, dp) annotation (Line(points={{-51,-30},{90,-30},{90,40},
-      {120,40}}, color={0,0,127}));
+    connect(senRelPre.p_rel, dp)
+      annotation (Line(points={{-51,-30},{90,-30},{90,40}, {120,40}}, color={0,0,127}));
   else
     connect(con[iConDpSen].dp, dp)
       annotation (Line(points={{11,4},{20,4},{20,20},{90,20},{90,40},{120,40}},
         color={0,0,127}));
   end if;
+  connect(con.port_bCon, ports_bCon)
+    annotation (Line(points={{0,10},{0,40},{-80, 40},{-80,100}}, color={0,127,255}));
+  connect(ports_aCon, con.port_aCon)
+    annotation (Line(points={{80,100},{80,40}, {6,40},{6,10}}, color={0,127,255}));
+  connect(port_aDisSup, con[1].port_aDisSup)
+    annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
+  connect(port_bDisRet, con[1].port_bDisRet)
+    annotation (Line(points={{-100,-60},{-40,-60},{-40,-6},{-10,-6}}, color={0,127,255}));
+  connect(con[nCon].port_aDisRet, port_aDisRet)
+    annotation (Line(points={{10,-6},{40,-6},{40,-60},{100,-60}}, color={0,127,255}));
+  connect(con[nCon].port_bDisSup, pipEnd.port_a)
+    annotation (Line(points={{10,0},{60,0}}, color={0,127,255}));
+  connect(pipEnd.port_b, port_bDisSup)
+    annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
+  connect(con.Q_flow, Q_flow)
+    annotation (Line(points={{11,8},{16,8},{16,24},{86, 24},{86,80},{120,80}}, color={0,0,127}));
+  connect(con.mCon_flow, mCon_flow)
+    annotation (Line(points={{11,6},{18,6},{18,22}, {88,22},{88,60},{120,60}}, color={0,0,127}));
+  connect(port_aDisSup, port_aDisSup)
+    annotation (Line(points={{-100,0},{-100,0}}, color={0,127,255}));
+  connect(port_aDisSup, senRelPre.port_a)
+    annotation (Line(points={{-100,0},{-60,0},{-60,-20}}, color={0,127,255}));
+  connect(senRelPre.port_b, port_bDisRet)
+    annotation (Line(points={{-60,-40},{-60, -60},{-100,-60}}, color={0,127,255}));
   annotation (
     Documentation(info="
 <html>

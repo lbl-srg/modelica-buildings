@@ -208,13 +208,23 @@ protected
       X = Medium.X_default))
     "Specific heat capacity of medium at default medium state";
 equation
+  // Connect statements involving conditionally removed components are
+  // removed at translation time by Modelica specification.
+  // Only obsolete statements corresponding to the default model structure need
+  // to be programmatically removed.
+  if not have_heaFloOut then
+    connect(port_bCon, senMasFloCon.port_b)
+      annotation (Line(points={{-20,120},{-20,40}}, color={0,127,255}));
+    connect(port_aCon, junConRet.port_3)
+      annotation (Line(points={{20,120},{20,-70}}, color={0,127,255}));
+  end if;
   connect(junConSup.port_3, pipCon.port_a)
     annotation (Line(points={{-20,-30},{-20,-20}}, color={0,127,255}));
   connect(pipDisSup.port_b, junConSup.port_1)
     annotation (Line(points={{-60,-40},{-30,-40}}, color={0,127,255}));
   connect(senMasFloCon.m_flow, mCon_flow)
     annotation (Line(points={{-9,30},{54,30},{54,40},{120,40}},
-                                                 color={0,0,127}));
+      color={0,0,127}));
   connect(pipCon.port_b, senMasFloCon.port_a)
     annotation (Line(points={{-20,0},{-20,20}}, color={0,127,255}));
   connect(port_aDisSup, pipDisSup.port_a)
@@ -227,44 +237,36 @@ equation
     annotation (Line(points={{10,-80},{-60,-80}}, color={0,127,255}));
   connect(pipDisRet.port_b, port_bDisRet)
     annotation (Line(points={{-80,-80},{-100,-80}}, color={0,127,255}));
-  connect(senRelPre.port_a, junConSup.port_1) annotation (Line(points={{-40,-50},
-          {-40,-40},{-30,-40}}, color={0,127,255}));
-  connect(senRelPre.port_b, junConRet.port_2) annotation (Line(points={{-40,-70},
-          {-40,-80},{10,-80}}, color={0,127,255}));
-  connect(senRelPre.p_rel, dp) annotation (Line(points={{-31,-60},{80,-60},{80,0},
-          {120,0}}, color={0,0,127}));
-  if have_heaFloOut then
-    connect(senMasFloCon.port_b, senTConSup.port_a)
-      annotation (Line(points={{-20,40},{-20,76},{-40,76},{-40,80}},
-                                                   color={0,127,255}));
-    connect(senTConSup.port_b, port_bCon)
-      annotation (Line(points={{-40,100},{-40,110},{-20,110},{-20,120}},
-                                                     color={0,127,255}));
-    connect(port_aCon, senTConRet.port_a)
-      annotation (Line(points={{20,120},{20,110},{0,110},{0,100},{1.77636e-15,
-            100}},                                 color={0,127,255}));
-    connect(senTConRet.port_b, junConRet.port_3)
-      annotation (Line(points={{-1.77636e-15,80},{-1.77636e-15,78},{0,78},{0,76},
-            {20,76},{20,-70}},                    color={0,127,255}));
-  else
-    connect(port_bCon, senMasFloCon.port_b)
-      annotation (Line(points={{-20,120},{-20,40}}, color={0,127,255}));
-    connect(port_aCon, junConRet.port_3)
-      annotation (Line(points={{20,120},{20,-70}}, color={0,127,255}));
-  end if;
+  connect(senRelPre.port_a, junConSup.port_1)
+    annotation (Line(points={{-40,-50}, {-40,-40},{-30,-40}}, color={0,127,255}));
+  connect(senRelPre.port_b, junConRet.port_2)
+    annotation (Line(points={{-40,-70}, {-40,-80},{10,-80}}, color={0,127,255}));
+  connect(senRelPre.p_rel, dp)
+    annotation (Line(points={{-31,-60},{80,-60},{80,0}, {120,0}}, color={0,0,127}));
+  connect(senMasFloCon.port_b, senTConSup.port_a)
+    annotation (Line(points={{-20,40},{-20,76},{-40,76},{-40,80}},
+      color={0,127,255}));
+  connect(senTConSup.port_b, port_bCon)
+    annotation (Line(points={{-40,100},{-40,110},{-20,110},{-20,120}},
+      color={0,127,255}));
+  connect(port_aCon, senTConRet.port_a)
+    annotation (Line(points={{20,120},{20,110},{0,110},{0,100},{1.77636e-15,
+      100}}, color={0,127,255}));
+  connect(senTConRet.port_b, junConRet.port_3)
+    annotation (Line(points={{-1.77636e-15,80},{-1.77636e-15,78},{0,78},{0,76},
+      {20,76},{20,-70}}, color={0,127,255}));
   connect(Q_flow, gai.y)
     annotation (Line(points={{120,80},{94,80}}, color={0,0,127}));
-  connect(pro.y, gai.u) annotation (Line(points={{62,60},{66,60},{66,80},{70,80}},
-        color={0,0,127}));
-  connect(senMasFloCon.m_flow, pro.u2) annotation (Line(points={{-9,30},{30,30},
-          {30,54},{38,54}}, color={0,0,127}));
-  connect(sub.y, pro.u1) annotation (Line(points={{12,60},{30,60},{30,66},{38,
-          66}},
-        color={0,0,127}));
-  connect(senTConSup.T, sub.u2) annotation (Line(points={{-51,90},{-60,90},{-60,
-          54},{-12,54}}, color={0,0,127}));
-  connect(senTConRet.T, sub.u1) annotation (Line(points={{-11,90},{-16,90},{-16,
-          66},{-12,66}},          color={0,0,127}));
+  connect(pro.y, gai.u)
+    annotation (Line(points={{62,60},{66,60},{66,80},{70,80}}, color={0,0,127}));
+  connect(senMasFloCon.m_flow, pro.u2)
+    annotation (Line(points={{-9,30},{30,30}, {30,54},{38,54}}, color={0,0,127}));
+  connect(sub.y, pro.u1)
+    annotation (Line(points={{12,60},{30,60},{30,66},{38, 66}}, color={0,0,127}));
+  connect(senTConSup.T, sub.u2)
+    annotation (Line(points={{-51,90},{-60,90},{-60, 54},{-12,54}}, color={0,0,127}));
+  connect(senTConRet.T, sub.u1)
+    annotation (Line(points={{-11,90},{-16,90},{-16, 66},{-12,66}}, color={0,0,127}));
   annotation (
     defaultComponentName="con",
     Documentation(info="

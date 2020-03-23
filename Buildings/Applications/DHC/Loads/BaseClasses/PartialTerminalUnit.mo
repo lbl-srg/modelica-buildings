@@ -378,54 +378,36 @@ protected
       Medium2.setState_pTX(Medium2.p_default, T_aLoaCoo_nominal))
     "Load side fluid specific heat capacity at nominal conditions in cooling mode";
 equation
-  if have_QReq_flow and (have_watHea or have_chaOve or have_eleHea) then
-    connect(QReqHea_flow, scaQReqHea_flow.u)
-      annotation (Line(points={{-220,100},{-182,100}}, color={0,0,127}));
-  end if;
-  if have_QReq_flow and (have_watCoo or have_eleCoo) then
-    connect(QReqCoo_flow, scaQReqCoo_flow.u)
-      annotation (Line(points={{-220,60},{-182,60}},   color={0,0,127}));
-  end if;
-  if have_watHea or have_chaOve or have_eleHea then
-    connect(scaQActHea_flow.y, QActHea_flow)
-      annotation (Line(points={{182,220},{220,220}}, color={0,0,127}));
-  end if;
-  if have_watCoo or have_eleCoo then
-    connect(scaQActCoo_flow.y, QActCoo_flow)
-      annotation (Line(points={{182,200},{192, 200},{192,200},{220,200}}, color={0,0,127}));
-  end if;
-  if have_eleHea then
-    connect(scaPHea.y, PHea)
-      annotation (Line(points={{182,180},{220,180}}, color={0,0,127}));
-  end if;
-  if have_eleCoo then
-    connect(scaPCoo.y, PCoo)
-      annotation (Line(points={{182,160},{220,160}}, color={0,0,127}));
-  end if;
-  if have_fan then
-    connect(scaPFan.y, PFan)
-      annotation (Line(points={{182,140},{220,140}}, color={0,0,127}));
-  end if;
-  if have_pum then
-    connect(scaPPum.y, PPum)
-      annotation (Line(points={{182,120},{220,120}}, color={0,0,127}));
-  end if;
-  if have_watHea then
-    connect(scaMasFloReqHeaWat.y, mReqHeaWat_flow)
-      annotation (Line(points={{182,100},{220,100}}, color={0,0,127}));
-  end if;
-  if have_watCoo then
-    connect(scaMasFloReqChiWat.y, mReqChiWat_flow)
-      annotation (Line(points={{182,80},{220,80}}, color={0,0,127}));
-  end if;
+  connect(QReqHea_flow, scaQReqHea_flow.u)
+    annotation (Line(points={{-220,100},{-182,100}}, color={0,0,127}));
+  connect(QReqCoo_flow, scaQReqCoo_flow.u)
+    annotation (Line(points={{-220,60},{-182,60}},   color={0,0,127}));
+  connect(scaQActHea_flow.y, QActHea_flow)
+    annotation (Line(points={{182,220},{220,220}}, color={0,0,127}));
+  connect(scaQActCoo_flow.y, QActCoo_flow)
+    annotation (Line(points={{182,200},{192, 200},{192,200},{220,200}},
+      color={0,0,127}));
+  connect(scaPHea.y, PHea)
+    annotation (Line(points={{182,180},{220,180}}, color={0,0,127}));
+  connect(scaPCoo.y, PCoo)
+    annotation (Line(points={{182,160},{220,160}}, color={0,0,127}));
+  connect(scaPFan.y, PFan)
+    annotation (Line(points={{182,140},{220,140}}, color={0,0,127}));
+  connect(scaPPum.y, PPum)
+    annotation (Line(points={{182,120},{220,120}}, color={0,0,127}));
+  connect(scaMasFloReqHeaWat.y, mReqHeaWat_flow)
+    annotation (Line(points={{182,100},{220,100}}, color={0,0,127}));
+  connect(scaMasFloReqChiWat.y, mReqChiWat_flow)
+    annotation (Line(points={{182,80},{220,80}}, color={0,0,127}));
   connect(port_aHeaWat, scaHeaWatFloInl.port_a)
     annotation (Line(points={{-200,-220},{-180,-220}}, color={0,127,255}));
   connect(scaHeaWatFloOut.port_b, port_bHeaWat)
     annotation (Line(points={{180,-220},{200,-220}}, color={0,127,255}));
   connect(port_aChiWat, scaChiWatFloInl.port_a)
     annotation (Line(points={{-200,-180},{-180,-180}}, color={0,127,255}));
-  connect(scaChiWatFloOut.port_b, port_bChiWat) annotation (Line(points={{180,
-          -180},{192,-180},{192,-180},{200,-180}}, color={0,127,255}));
+  connect(scaChiWatFloOut.port_b, port_bChiWat)
+    annotation (Line(points={{180, -180},{192,-180},{192,-180},{200,-180}},
+      color={0,127,255}));
 annotation (
   defaultComponentName="ter",
   Documentation(info=
