@@ -60,19 +60,22 @@ equation
   connect(mChiWat_flow.y, supChiWat.m_flow_in) annotation (Line(points={{-59,
           -60},{-50,-60},{-50,-72},{-42,-72}}, color={0,0,127}));
   connect(supHeaWat.ports[1], bui.ports_a[1]) annotation (Line(points={{-20,0},
-          {0,0},{0,-50},{20,-50}}, color={0,127,255}));
+          {0,0},{0,-36.6667},{40,-36.6667}},
+                                   color={0,127,255}));
   connect(supChiWat.ports[1], bui.ports_a[2]) annotation (Line(points={{-20,-80},
-          {0,-80},{0,-46},{20,-46}},      color={0,127,255}));
-  connect(bui.ports_b[1], sinHeaWat.ports[1]) annotation (Line(points={{80,-50},
-          {94,-50},{94,0},{120,0}}, color={0,127,255}));
-  connect(bui.ports_b[2], sinChiWat.ports[1]) annotation (Line(points={{80,-46},
-          {94,-46},{94,-80},{120,-80}}, color={0,127,255}));
+          {0,-80},{0,-35.3333},{40,-35.3333}},
+                                          color={0,127,255}));
+  connect(bui.ports_b[1], sinHeaWat.ports[1]) annotation (Line(points={{60,
+          -36.6667},{94,-36.6667},{94,0},{120,0}},
+                                    color={0,127,255}));
+  connect(bui.ports_b[2], sinChiWat.ports[1]) annotation (Line(points={{60,
+          -35.3333},{94,-35.3333},{94,-80},{120,-80}},
+                                        color={0,127,255}));
   annotation (
   experiment(
       StopTime=604800,
       Tolerance=1e-06),
-  Documentation(info=
-"<html>
+  Documentation(info="<html>
 <p>
 This example illustrates the use of
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding\">
@@ -82,11 +85,11 @@ Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit</a>
 and
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
 Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>
-in a configuration with:
+in a configuration with
 </p>
 <ul>
 <li>
-one-zone building model based on EnergyPlus envelope model,
+a one-zone building model based on an EnergyPlus envelope model, and
 </li>
 <li>
 no secondary pumps.

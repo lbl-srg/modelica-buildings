@@ -3,9 +3,9 @@ model BuildingSpawnZ1 "One-zone EnergyPlus building model"
   import Buildings;
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
     redeclare package Medium = Buildings.Media.Water,
-    have_pum=false,
-    have_eleHea=false,
-    have_eleCoo=false);
+    final have_pum=false,
+    final have_eleHea=false,
+    final have_eleCoo=false);
   package Medium2 = Buildings.Media.Air
     "Load side medium";
   parameter Integer nZon = 1

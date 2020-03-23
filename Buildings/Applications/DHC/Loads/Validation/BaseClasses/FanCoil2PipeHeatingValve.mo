@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.Loads.Validation.BaseClasses;
 model FanCoil2PipeHeatingValve
-  "Model of a purely sensible two-pipe fan coil unit with a two-way control valve"
+  "Model of a two-pipe fan coil unit for heating, with a two-way control valve"
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit(
     redeclare package Medium1 = Buildings.Media.Water,
     redeclare package Medium2 = Buildings.Media.Air,

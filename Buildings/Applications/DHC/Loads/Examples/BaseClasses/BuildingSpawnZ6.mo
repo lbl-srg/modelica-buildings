@@ -227,9 +227,9 @@ equation
   Documentation(info="
 <html>
 <p>
-This is a simplified six-zone building model based on EnergyPlus
+This is a simplified six-zone building model based on an EnergyPlus
 building envelope model.
-It was generated from translating a GeoJSON model specified within URBANopt UI.
+It was generated from translating a GeoJSON model specified within the URBANopt UI.
 The heating and cooling loads are computed with a four-pipe
 fan coil unit model derived from
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit\">

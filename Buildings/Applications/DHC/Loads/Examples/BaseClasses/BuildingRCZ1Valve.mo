@@ -3,9 +3,9 @@ model BuildingRCZ1Valve
   "One-zone RC building model with distribution pumps and mixing valves"
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
     redeclare package Medium = Buildings.Media.Water,
-    have_eleHea=false,
-    have_eleCoo=false,
-    have_weaBus=true);
+    final have_eleHea=false,
+    final have_eleCoo=false,
+    final have_weaBus=true);
   package Medium2 = Buildings.Media.Air
     "Load side medium";
   parameter Integer nZon = 1
@@ -346,7 +346,7 @@ equation
   Documentation(info="
 <html>
 <p>
-This is a simplified one-zone building model based on one-element 
+This is a simplified one-zone building model based on a one-element 
 reduced order room model.
 The corresponding heating and cooling loads are computed with a four-pipe 
 fan coil unit model derived from

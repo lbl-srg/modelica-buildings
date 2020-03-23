@@ -20,16 +20,16 @@ partial model PartialBuilding "Partial class for building model"
     "Set to true if the building has cooling loads"
     annotation(Evaluate=true);
   parameter Boolean have_fan = true
-    "Set to true if fans drawn power is computed"
+    "Set to true if the power drawn by fan motors is computed"
     annotation(Evaluate=true);
   parameter Boolean have_pum = true
-    "Set to true if pumps drawn power is computed"
+    "Set to true if the power drawn by pump motors is computed"
     annotation(Evaluate=true);
   parameter Boolean have_eleHea = true
-    "Set to true if the building has electric heating"
+    "Set to true if the building has decentralized electric heating equipment"
     annotation(Evaluate=true);
   parameter Boolean have_eleCoo = true
-    "Set to true if the building has electric cooling"
+    "Set to true if the building has decentralized electric cooling equipment"
     annotation(Evaluate=true);
   parameter Boolean have_weaBus = true
     "Set to true for weather bus"
@@ -47,19 +47,21 @@ partial model PartialBuilding "Partial class for building model"
     redeclare each package Medium = Medium,
     each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    "Source side inlet ports" annotation (Placement(transformation(extent={{-310,
-            -40},{-290,40}}), iconTransformation(extent={{-310,-220},{-290,-140}})));
+    "Source side inlet ports"
+      annotation (Placement(transformation(extent={{-310, -40},{-290,40}}),
+        iconTransformation(extent={{-310,-220},{-290,-140}})));
   Modelica.Fluid.Interfaces.FluidPorts_b ports_b[nPorts_b](
     redeclare each package Medium = Medium,
     each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    "Source side outlet ports" annotation (Placement(transformation(extent={{290,
-            -40},{310,40}}), iconTransformation(extent={{290,-220},{310,-140}})));
+    "Source side outlet ports"
+      annotation (Placement(transformation(extent={{290, -40},{310,40}}),
+        iconTransformation(extent={{290,-220},{310,-140}})));
   Modelica.Blocks.Interfaces.RealOutput QHea_flow(
     final quantity="HeatFlowRate", final unit="W") if have_heaLoa
     "Total heating heat flow rate transferred to the loads (>=0)"
-    annotation (Placement(transformation(
-      extent={{300,260},{340,300}}), iconTransformation(extent={{300,240},{340,280}})));
+    annotation (Placement(transformation(extent={{300,260},{340,300}}),
+      iconTransformation(extent={{300,240},{340,280}})));
   Modelica.Blocks.Interfaces.RealOutput QCoo_flow(
     final quantity="HeatFlowRate", final unit="W") if have_cooLoa
     "Total cooling heat flow rate transferred to the loads (<=0)"
@@ -68,23 +70,23 @@ partial model PartialBuilding "Partial class for building model"
       iconTransformation(extent={{300,200},{340, 240}})));
   Modelica.Blocks.Interfaces.RealOutput PHea(
     final quantity="Power", final unit="W") if have_eleHea
-    "Power drawn by heating equipment"
+    "Power drawn by decentralized heating equipment"
     annotation (Placement(transformation(
       extent={{300,180},{340,220}}),
       iconTransformation(extent={{300,160},{340, 200}})));
   Modelica.Blocks.Interfaces.RealOutput PCoo(
     quantity="Power", final unit="W") if have_eleCoo
-    "Power drawn by cooling equipment"
+    "Power drawn by decentralized cooling equipment"
     annotation (Placement(transformation(extent={{300,140},{340,180}}),
       iconTransformation(extent={{300,120},{340,160}})));
   Modelica.Blocks.Interfaces.RealOutput PFan(
     final quantity="Power", final unit="W") if have_fan
-    "Power drawn by fans motors"
+    "Power drawn by fan motors"
     annotation (Placement(transformation(extent={{300,100},{340,140}}),
       iconTransformation(extent={{300,80},{340,120}})));
   Modelica.Blocks.Interfaces.RealOutput PPum(
     final quantity="Power", final unit="W") if have_pum
-    "Power drawn by pumps motors"
+    "Power drawn by pump motors"
     annotation (Placement(transformation(extent={{300,60},{340,100}}),
       iconTransformation(extent={{300,40},{340,80}})));
 initial equation

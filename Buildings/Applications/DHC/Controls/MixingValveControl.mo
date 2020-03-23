@@ -146,15 +146,15 @@ Three operating modes are supported:
 </p>
 <ul>
 <li>
-Heating: the controller tracks a minimum supplied temperature.
+Heating: the controller tracks a minimum supply temperature.
 </li>
 <li>
-Cooling: the controller tracks a maximum supplied temperature.
+Cooling: the controller tracks a maximum supply temperature.
 </li>
 <li>
 Change-over: the controller tracks either a minimum or a maximum
 supplied temperature depending on the actual value of the integer input
-variable <code>modChaOve</code> (+1 for heating, -1 for cooling).
+<code>modChaOve</code> (+1 for heating, -1 for cooling).
 The model instantiates only one PI block to limit the number of state
 variables in large models. Therefore the PI gain
 is independent from the change-over mode: the reverse action is modeled

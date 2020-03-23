@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
 model FanCoil4Pipe
-  "Model of a purely sensible four-pipe fan coil unit computing a required water mass flow rate"
+  "Model of a sensible only four-pipe fan coil unit computing a required water mass flow rate"
   extends PartialFanCoil4Pipe(
     final have_TSen=true,
     final have_fluPor=true,

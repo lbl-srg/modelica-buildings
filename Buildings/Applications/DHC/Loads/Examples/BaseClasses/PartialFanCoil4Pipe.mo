@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
 partial model PartialFanCoil4Pipe
-  "Partial model of a purely sensible four-pipe fan coil unit computing a required water mass flow rate"
+  "Partial model of a sensible only four-pipe fan coil unit computing a required water mass flow rate"
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit(
     redeclare package Medium1 = Buildings.Media.Water,
     redeclare package Medium2 = Buildings.Media.Air,
@@ -138,15 +138,16 @@ equation
 Documentation(
 info="<html>
 <p>
-This is a simplified partial model of a four-pipe fan coil unit for heating and cooling.
+This is a simplified partial model of a sensible only four-pipe fan coil unit 
+for heating and cooling.
 It is intended to be used in conjunction with
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>:
-it thus computes the water mass flow rate required to meet the temperature
+Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>,
+and hence it computes the water mass flow rate required to meet the temperature
 setpoint.
 </p>
 <p>
-For the sake of simplicity, a purely sensible heat exchanger model is considered.
+For the sake of simplicity, a sensible only heat exchanger model is considered.
 </p>
 <p>
 For the sake of computational performance, a PI controller is used instead of an inverse

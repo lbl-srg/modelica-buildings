@@ -3,11 +3,11 @@ model BuildingTimeSeries
   "Building model with heating and cooling loads provided as time series"
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
     redeclare package Medium = Buildings.Media.Water,
-    have_fan=false,
-    have_pum=true,
-    have_eleHea=false,
-    have_eleCoo=false,
-    have_weaBus=false);
+    final have_fan=false,
+    final have_pum=true,
+    final have_eleHea=false,
+    final have_eleCoo=false,
+    final have_weaBus=false);
   package Medium2 = Buildings.Media.Air
     "Load side medium";
   parameter String filPat

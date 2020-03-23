@@ -1,6 +1,7 @@
 within Buildings.Applications.DHC.Loads.Validation.BaseClasses;
 model FanCoil2PipeHeating
-  "Model of a purely sensible two-pipe fan coil unit computing a required heating water mass flow rate"
+  "Model of a two-pipe fan coil unit for heating,
+  computing a required heating water mass flow rate"
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit(
     redeclare package Medium1 = Buildings.Media.Water,
     redeclare package Medium2 = Buildings.Media.Air,
@@ -154,13 +155,13 @@ annotation (
 Documentation(
 info="<html>
 <p>
-This is a simplified model of a two-pipe fan coil unit for heating. It is 
-intended to be used:
+This is a simplified model of a two-pipe fan coil unit for heating. 
+It is intended to be used
 </p>
 <ul>
 <li>
 in a case where the room thermal loads are provided as time series: it thus
-takes the load as an input,
+takes the load as an input, and
 </li>
 <li>
 in conjunction with

@@ -1,6 +1,7 @@
 within Buildings.Applications.DHC.Loads.Validation.BaseClasses;
 model FanCoil2PipeCooling
-  "Model of a purely sensible two-pipe fan coil unit computing a required chilled water mass flow rate"
+  "Model of a sensible only two-pipe fan coil unit for cooling, 
+  computing a required chilled water mass flow rate"
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit(
     redeclare package Medium1 = Buildings.Media.Water,
     redeclare package Medium2 = Buildings.Media.Air,
@@ -139,23 +140,23 @@ annotation (
 Documentation(
 info="<html>
 <p>
-This is a simplified model of a two-pipe fan coil unit for cooling. It is 
-intended to be used:
+This is a sensible only simplified model of a two-pipe fan coil unit for cooling. 
+It is intended to be used
 </p>
 <ul>
 <li>
 in a case where the room thermal loads are provided as time series: it thus
-takes the load as an input,
+takes the load as an input, and
 </li>
 <li>
 in conjunction with
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>: 
+Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>:  
 it thus computes the water mass flow rate required to meet the load.
 </li>
 </ul>
 <p>
-For the sake of simplicity, a purely sensible heat exchanger model is considered.
+For the sake of simplicity, a sensible only heat exchanger model is considered.
 </p>
 <p>
 For the sake of computational performance, a PI controller is used instead of an inverse 

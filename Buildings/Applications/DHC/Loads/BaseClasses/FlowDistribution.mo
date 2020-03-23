@@ -30,8 +30,6 @@ model FlowDistribution "Model of building hydraulic distribution system"
   parameter Boolean have_val = false
     "Set to true if the system has a mixing valve"
     annotation(Evaluate=true);
-  parameter Boolean have_twoPip = true
-    "Set to true in case of a two-pipe system";
   parameter Type_dis typDis = Type_dis.HeatingWater
     "Type of distribution system"
     annotation(Dialog(enable=have_val), Evaluate=true);
@@ -361,8 +359,8 @@ equation
     AssertionLevel.error);
   // Connect statements involving conditionally removed components are
   // removed at translation time by Modelica specification.
-  // Only statements corresponding to the default model structure need
-  // to be manually removed.
+  // Only obsolete statements corresponding to the default model structure need
+  // to be programmatically removed.
   if not have_val then
     connect(heaCoo.port_b, port_b)
       annotation (Line(points={{66,0},{100,0}}, color={0,127,255}));
@@ -453,7 +451,7 @@ annotation (
   defaultComponentName="dis",
   Documentation(info="<html>
 <p>
-This model represents a hydraulic distribution system serving multiple
+This model represents a two-pipe hydraulic distribution system serving multiple
 terminal units.
 It is primarily intended to be used in conjunction with models that derive from
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit\">
