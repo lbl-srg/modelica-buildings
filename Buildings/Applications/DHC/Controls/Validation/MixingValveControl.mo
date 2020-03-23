@@ -25,11 +25,11 @@ model MixingValveControl
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-10,20})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TPriHea(k=40 + 273.15,
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TPriHea(k=313.15,
       y(final unit="K", displayUnit="degC"))
     "Heating water primary supply temperature"
     annotation (Placement(transformation(extent={{-140,110},{-120,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TPriChi(k=7 + 273.15,
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TPriChi(k=280.15,
       y(final unit="K", displayUnit="degC"))
     "Chilled water primary supply temperature"
     annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
@@ -46,12 +46,12 @@ model MixingValveControl
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
   Modelica.Blocks.Sources.Constant zero(k=0) "Zero value"
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSecHea(k=30 +
-        273.15, y(final unit="K", displayUnit="degC"))
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSecHea(k=303.15,
+                y(final unit="K", displayUnit="degC"))
     "Heating water secondary supply temperature setpoint"
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSecChi(k=18 +
-        273.15) "Chilled water secondary supply temperature setpoint"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSecChi(k=291.15)
+                "Chilled water secondary supply temperature setpoint"
     annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Switch TSetSecAct(
     y(final unit="K", displayUnit="degC"))
@@ -176,13 +176,21 @@ Buildings.Applications.DHC.Controls.MixingValveControl</a>
 Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>)
 in change-over mode.
 </p>
+</html>",
+revisions=
+"<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"),
   Diagram(
     coordinateSystem(preserveAspectRatio=false, extent={{-180,-200},{180,200}})),
   experiment(
       StopTime=1000,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
   __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Controls/Validation/MixingValveControl.mos"
     "Simulate and plot"));
 end MixingValveControl;

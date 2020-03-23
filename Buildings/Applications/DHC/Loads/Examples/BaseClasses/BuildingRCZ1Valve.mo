@@ -115,13 +115,11 @@ model BuildingRCZ1Valve
     extent={{4,-4},{-4,4}},
     rotation=90,
     origin={6,116})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(
-    k=20 + 273.15,
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=293.15,
     y(final unit="K", displayUnit="degC"))
     "Minimum temperature setpoint"
     annotation (Placement(transformation(extent={{-280,250},{-260,270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(
-    k=24 + 273.15,
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=297.15,
     y(final unit="K", displayUnit="degC"))
     "Maximum temperature setpoint"
     annotation (Placement(transformation(extent={{-280,210},{-260,230}})));
@@ -162,11 +160,11 @@ model BuildingRCZ1Valve
     nPorts_b1=1)
     "Chilled water distribution system"
     annotation (Placement(transformation(extent={{-100, -160},{-80,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSecHea(k=35 + 273.15,
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSecHea(k=308.15,
       y(final unit="K", displayUnit="degC"))
     "Heating water secondary supply temperature setpoint"
     annotation (Placement(transformation(extent={{-260,-190},{-240,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSecChi(k=16 + 273.15,
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSecChi(k=289.15,
       y(final unit="K", displayUnit="degC"))
     "Chilled water secondary supply temperature setpoint"
     annotation (Placement(transformation(extent={{-260,-230},{-240,-210}})));
@@ -363,6 +361,14 @@ with an instance of
 Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>
 including a mixing valve to control the supply temperature.
 </p>
-</html>
-"));
+</html>",
+revisions=
+"<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end BuildingRCZ1Valve;

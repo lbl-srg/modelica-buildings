@@ -28,7 +28,8 @@ partial model PartialConnection2Pipe
   parameter Boolean allowFlowReversal = false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=
+    Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
   final parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
@@ -234,7 +235,7 @@ equation
           {120,0}}, color={0,0,127}));
   if have_heaFloOut then
     connect(senMasFloCon.port_b, senTConSup.port_a)
-      annotation (Line(points={{-20,40},{-20,80},{-40,80}},
+      annotation (Line(points={{-20,40},{-20,76},{-40,76},{-40,80}},
                                                    color={0,127,255}));
     connect(senTConSup.port_b, port_bCon)
       annotation (Line(points={{-40,100},{-40,110},{-20,110},{-20,120}},
@@ -250,7 +251,7 @@ equation
       annotation (Line(points={{-20,120},{-20,40}}, color={0,127,255}));
     connect(port_aCon, junConRet.port_3)
       annotation (Line(points={{20,120},{20,-70}}, color={0,127,255}));
-    end if;
+  end if;
   connect(Q_flow, gai.y)
     annotation (Line(points={{120,80},{94,80}}, color={0,0,127}));
   connect(pro.y, gai.u) annotation (Line(points={{62,60},{66,60},{66,80},{70,80}},
@@ -291,8 +292,16 @@ one must double the length so that both the supply and return lines are
 accounted for.
 </li>
 </ul>
-</html>
-    "),
+</html>",
+revisions=
+"<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
     Icon(graphics={   Rectangle(
           extent={{-100,-100},{100,100}},
           lineColor={0,0,127},

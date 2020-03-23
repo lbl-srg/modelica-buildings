@@ -70,7 +70,7 @@ model FlowDistributionPumpControl
     smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1)
     "Reader for thermal loads (y[1] is cooling load, y[2] is heating load)"
     annotation (Placement(transformation(extent={{-180,20},{-160,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=20 + 273.15,
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=293.15,
       y(final unit="K", displayUnit="degC"))
     "Minimum temperature setpoint"
     annotation (Placement(transformation(extent={{-180,60},{-160,80}})));
@@ -318,6 +318,15 @@ This model validates the pump head computation algorithm implemented in
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
 Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>.
 </p>
+</html>",
+revisions=
+"<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"),
     experiment(
       StopTime=400000,

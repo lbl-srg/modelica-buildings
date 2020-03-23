@@ -67,7 +67,7 @@ model BenchmarkFlowDistribution1
     smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1)
     "Reader for thermal loads (y[1] is cooling load, y[2] is heating load)"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=20 + 273.15,
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=293.15,
       y(final unit="K", displayUnit="degC"))
     "Minimum temperature setpoint"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
@@ -139,6 +139,15 @@ Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution1</a>,
 an explicit modeling of the piping network, see the corresponding example:
 <a href=\"Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution2\">
 Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution2</a>.
+</li>
+</ul>
+</html>",
+revisions=
+"<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
 </li>
 </ul>
 </html>"),

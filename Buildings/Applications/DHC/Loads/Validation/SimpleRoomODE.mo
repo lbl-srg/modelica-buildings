@@ -27,7 +27,7 @@ model SimpleRoomODE "Validation of the model SimpleRoomODE"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
   Buildings.Controls.Continuous.LimPID conHea(controllerType=Modelica.Blocks.Types.SimpleController.PI, Ti=10)
     annotation (Placement(transformation(extent={{30,110},{50,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=20 + 273.15,
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=293.15,
       y(final unit="K", displayUnit="degC")) "Minimum temperature setpoint"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai(k=QHea_flow_nominal) "Scaling"
@@ -49,7 +49,7 @@ model SimpleRoomODE "Validation of the model SimpleRoomODE"
     QHea_flow_nominal=QHea_flow_nominal,
     tau=tau) "ODE heated room model"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=24 + 273.15,
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=297.15,
       y(final unit="K", displayUnit="degC")) "Maximum temperature setpoint"
     annotation (Placement(transformation(extent={{-140,-170},{-120,-150}})));
   Buildings.Controls.Continuous.LimPID conCoo(controllerType=Modelica.Blocks.Types.SimpleController.PI,
@@ -176,8 +176,16 @@ the load. That second instance is used as a reference for the validation.
 Eventually the validation is performed with two sets of ambient conditions:
 one requiring heating, the second requiring cooling.
 </p>
-</html>
-  "),
+</html>",
+revisions=
+"<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
   __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/SimpleRoomODE.mos"
   "Simulate and plot"),
     Diagram(coordinateSystem(extent={{-180,-200},{180,200}})));

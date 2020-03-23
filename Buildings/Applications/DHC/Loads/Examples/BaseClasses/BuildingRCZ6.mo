@@ -14,12 +14,12 @@ model BuildingRCZ6
   parameter Integer facSca = 3
     "Scaling factor to be applied to on each extensive quantity";
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet[nZon](
-    k=fill(20 + 273.15, nZon),
+    k=fill(293.15, nZon),
     y(each final unit="K", each displayUnit="degC"))
     "Minimum temperature setpoint"
     annotation (Placement(transformation(extent={{-290,230},{-270,250}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet[nZon](
-    k=fill(24 + 273.15, nZon),
+    k=fill(297.15, nZon),
     y(each final unit="K",each displayUnit="degC"))
     "Maximum temperature setpoint"
     annotation (Placement(transformation(extent={{-290,190},{-270,210}})));
@@ -196,6 +196,14 @@ fan coil unit model derived from
 Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit</a>
 and connected to the room model by means of heat ports.
 </p>
-</html>
-"));
+</html>",
+revisions=
+"<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end BuildingRCZ6;

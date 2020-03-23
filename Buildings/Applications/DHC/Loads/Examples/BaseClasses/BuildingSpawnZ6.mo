@@ -18,13 +18,13 @@ model BuildingSpawnZ6
   parameter String weaPat=
     "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"
     "Path of the weather file";
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet[nZon](
-    k=fill(20 + 273.15, nZon),
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet[nZon](k=fill(293.15,
+        nZon),
     y(each final unit="K", each displayUnit="degC"))
     "Minimum temperature setpoint"
     annotation (Placement(transformation(extent={{-280,250},{-260,270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet[nZon](
-    k=fill(24 + 273.15, nZon),
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet[nZon](k=fill(297.15,
+        nZon),
     y(each final unit="K", each displayUnit="degC"))
     "Maximum temperature setpoint"
     annotation (Placement(transformation(extent={{-280,210},{-260,230}})));
@@ -236,8 +236,16 @@ fan coil unit model derived from
 Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit</a>
 and connected to the room model by means of fluid ports.
 </p>
-</html>
-  "),
+</html>",
+revisions=
+"<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
   Icon(graphics={Bitmap(extent={{-108,-100},{92,100}},
   fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/EnergyPlusLogo.png")}));
 end BuildingSpawnZ6;

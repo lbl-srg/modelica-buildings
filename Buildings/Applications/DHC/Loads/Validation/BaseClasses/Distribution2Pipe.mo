@@ -24,5 +24,14 @@ a dummy pipe model with no hydraulic resistance and no heat loss for the end of
 the distribution line (after last connection). 
 </li>
 </ul>
+</html>",
+revisions=
+"<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end Distribution2Pipe;

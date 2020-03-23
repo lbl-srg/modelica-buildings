@@ -65,10 +65,10 @@ initial equation
 equation
   connect(con.port_bCon, ports_bCon)
     annotation (Line(points={{0,10},{0,40},{-80,
-          40},{-80,100}}, color={0,127,255}));
+      40},{-80,100}}, color={0,127,255}));
   connect(ports_aCon, con.port_aCon)
     annotation (Line(points={{80,100},{80,40},
-          {6,40},{6,10}}, color={0,127,255}));
+      {6,40},{6,10}}, color={0,127,255}));
   // Connecting outlets to inlets for all instances of connection component
   if nCon >= 2 then
     for i in 2:nCon loop
@@ -84,9 +84,9 @@ equation
   connect(con.Q_flow, Q_flow)
     annotation (Line(points={{11,8},{16,8},{16,24},{88,24},{88,80},{120,80}},  color={0,0,127}));
   connect(con.mByp_flow, mByp_flow) annotation (Line(points={{11,4},{20,4},{20,
-          20},{92,20},{92,40},{120,40}}, color={0,0,127}));
+    20},{92,20},{92,40},{120,40}}, color={0,0,127}));
   connect(con.mCon_flow, mCon_flow) annotation (Line(points={{11,6},{18,6},{18,
-          22},{90,22},{90,60},{120,60}}, color={0,0,127}));
+    22},{90,22},{90,60},{120,60}}, color={0,0,127}));
   annotation (
       Documentation(info="
 <html>
@@ -105,8 +105,16 @@ the return line after the last connection.
 <p>
 Optionally the heat flow rate transferred to each connected load can be output.
 </p>
-</html>
-    "),
+</html>",
+revisions=
+"<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-6,-200},{6,200}},

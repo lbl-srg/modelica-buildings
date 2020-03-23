@@ -65,11 +65,11 @@ model BuildingTimeSeries
     smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1)
     "Reader for thermal loads (y[1] is cooling load, y[2] is heating load)"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=20 + 273.15,
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=293.15,
       y(final unit="K", displayUnit="degC"))
     "Minimum temperature setpoint"
     annotation (Placement(transformation(extent={{-280,250},{-260,270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=24 + 273.15,
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=297.15,
       y(final unit="K", displayUnit="degC"))
     "Maximum temperature setpoint"
     annotation (Placement(transformation(extent={{-280,210},{-260,230}})));
@@ -169,5 +169,14 @@ equation
 This is a simplified building model where the space heating and cooling loads
 are provided as time series.
 </p>
+</html>",
+revisions=
+"<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end BuildingTimeSeries;

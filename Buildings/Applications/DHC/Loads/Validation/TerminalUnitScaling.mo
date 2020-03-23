@@ -68,7 +68,7 @@ model TerminalUnitScaling
     final T_bHeaWat_nominal=T_bHeaWat_nominal,
     final T_aLoaHea_nominal=T_aLoaHea_nominal) "Terminal unit with no scaling"
     annotation (Placement(transformation(extent={{8,78},{32,102}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=20 + 273.15,
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=293.15,
       y(final unit="K", displayUnit="degC")) "Minimum temperature setpoint"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
   BaseClasses.FanCoil2PipeHeating terUniSca(
@@ -129,6 +129,15 @@ This example validates the scaling factor in terminal unit models inheriting fro
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit\">
 Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit</a>.
 </p>
+</html>",
+revisions=
+"<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"),
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})),

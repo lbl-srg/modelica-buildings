@@ -168,8 +168,16 @@ See
 Buildings.Applications.DHC.Controls.Validation.MixingValveControl</a>
 for a simulation with change-over.
 </p>
-</html>
-"),
+</html>",
+revisions=
+"<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(
           extent={{-90,96},{-10,66}},

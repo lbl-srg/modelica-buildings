@@ -36,11 +36,11 @@ model BuildingSpawnZ1 "One-zone EnergyPlus building model"
     showWeatherData=false)
     "Building model"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=20 + 273.15,
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=293.15,
       y(final unit="K", displayUnit="degC"))
     "Minimum temperature setpoint"
     annotation (Placement(transformation(extent={{-280,250},{-260,270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=24 + 273.15,
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=297.15,
       y(final unit="K", displayUnit="degC"))
     "Maximum temperature setpoint"
     annotation (Placement(transformation(extent={{-280,210},{-260,230}})));
@@ -144,8 +144,16 @@ fan coil unit model derived from
 Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit</a>
 and connected to the room model by means of fluid ports.
 </p>
-</html>
-  "),
+</html>",
+revisions=
+"<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
   Icon(graphics={Bitmap(extent={{-108,-100},{92,100}},
   fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/EnergyPlusLogo.png")}));
 end BuildingSpawnZ1;

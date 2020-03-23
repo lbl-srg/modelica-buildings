@@ -124,15 +124,10 @@ model FanCoil2PipeHeatingValve
     "Logical switch"
     annotation (Placement(transformation(extent={{30,170},{50,190}})));
 equation
-  if have_fluPor then
-  end if;
-  if not have_QReq_flow then
-  end if;
   connect(gaiFloNom2.y, fan.m_flow_in)
     annotation (Line(points={{78,180},{80,180},{80,12}}, color={0,0,127}));
   connect(port_aHeaWat, hex.port_a1) annotation (Line(points={{-200,-220},{-100,
           -220},{-100,-12},{-80,-12}}, color={0,127,255}));
-
   connect(fan.P, scaPFan.u) annotation (Line(points={{69,9},{60,9},{60,140},{
           158,140}}, color={0,0,127}));
   connect(Q_flowHea.y, scaQActHea_flow.u) annotation (Line(points={{141,220},
@@ -143,7 +138,7 @@ equation
     annotation (Line(points={{-80,0},{-142,0}}, color={0,127,255}));
   connect(TSetHea, TLoaODE.TSet)
     annotation (Line(points={{-220,220},{-120,220},{-120,48},{-12,48}},
-                                                     color={0,0,127}));
+      color={0,0,127}));
   connect(scaQReqHea_flow.y, TLoaODE.QReq_flow) annotation (Line(points={{-158,
           100},{-100,100},{-100,40},{-12,40}},    color={0,0,127}));
   connect(Q_flowHea.y, TLoaODE.QAct_flow) annotation (Line(points={{141,220},{
@@ -157,12 +152,11 @@ equation
   connect(senMasFlo.port_b, port_bHeaWat) annotation (Line(points={{-40,-130},{-40,
           -220},{200,-220}}, color={0,127,255}));
   connect(con.y, val.y) annotation (Line(points={{12,220},{20,220},{20,-80},{
-          -28,-80}},
-                 color={0,0,127}));
+          -28,-80}}, color={0,0,127}));
   connect(senMasFlo.m_flow, scaMasFloReqHeaWat.u) annotation (Line(points={{-29,
           -120},{100,-120},{100,100},{158,100}}, color={0,0,127}));
   connect(scaQReqHea_flow.y, gaiHeaFlo.u) annotation (Line(points={{-158,100},{-100,
-          100},{-100,220},{-42,220}},      color={0,0,127}));
+          100},{-100,220},{-42,220}}, color={0,0,127}));
   connect(gaiHeaFlo.y, con.u_s)
     annotation (Line(points={{-18,220},{-12,220}}, color={0,0,127}));
   connect(Q_flowHea.y, gaiHeaFlo1.u) annotation (Line(points={{141,220},{150,
@@ -204,5 +198,14 @@ The impact of an unmet load on the room air temperature is assessed with
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom\">
 Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom</a>.
 </p>
+</html>",
+revisions=
+"<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end FanCoil2PipeHeatingValve;

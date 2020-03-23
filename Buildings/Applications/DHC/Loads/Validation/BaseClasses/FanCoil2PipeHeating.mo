@@ -105,21 +105,14 @@ model FanCoil2PipeHeating
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(k=have_speVar)
     annotation (Placement(transformation(extent={{-60,160},{-40,180}})));
 equation
-  if have_fluPor then
-  end if;
-  if not have_QReq_flow then
-  end if;
   connect(gaiFloNom2.y, fan.m_flow_in)
     annotation (Line(points={{78,180},{80,180},{80,12}}, color={0,0,127}));
-
   connect(con.y, gaiMasFlo.u)
     annotation (Line(points={{12,220},{38,220}}, color={0,0,127}));
-
   connect(gaiMasFlo.y, scaMasFloReqHeaWat.u) annotation (Line(points={{62,220},
           {100,220},{100,100},{158,100}},color={0,0,127}));
   connect(fan.P, scaPFan.u) annotation (Line(points={{69,9},{60,9},{60,20},{150,
-          20},{150,140},{158,140}},
-                     color={0,0,127}));
+          20},{150,140},{158,140}}, color={0,0,127}));
   connect(Q_flowHea.y, scaQActHea_flow.u) annotation (Line(points={{141,220},
           {150,220},{150,220},{158,220}}, color={0,0,127}));
   connect(fan.port_b, hex.port_a2)
@@ -128,7 +121,7 @@ equation
     annotation (Line(points={{-80,0},{-142,0}}, color={0,127,255}));
   connect(TSetHea, TLoaODE.TSet)
     annotation (Line(points={{-220,220},{-120,220},{-120,48},{-12,48}},
-                                                     color={0,0,127}));
+      color={0,0,127}));
   connect(TLoaODE.TAir, retAir.T_in) annotation (Line(points={{12,40},{180,40},{
           180,4},{162,4}}, color={0,0,127}));
   connect(gaiHeaFlo.y, con.u_s)
@@ -156,7 +149,7 @@ equation
   connect(scaHeaWatFloInl.port_b, hex.port_a1) annotation (Line(points={{-160,
           -220},{-120,-220},{-120,-12},{-80,-12}}, color={0,127,255}));
   connect(hex.port_b1, scaHeaWatFloOut.port_a) annotation (Line(points={{-60,-12},
-          {-38,-12},{-38,-220},{160,-220}},      color={0,127,255}));
+          {-38,-12},{-38,-220},{160,-220}}, color={0,127,255}));
 annotation (
 Documentation(
 info="<html>
@@ -195,5 +188,14 @@ air temperature is assessed with
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom\">
 Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom</a>.
 </p>
-</html>"));
+</html>"),
+revisions=
+"<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>");
 end FanCoil2PipeHeating;

@@ -394,7 +394,7 @@ equation
     annotation (Line(points={{-100,0},{-96,0},{-96,20},{-90,20}},
                                                 color={0,127,255}));
     connect(heaCoo.port_b, spl.port_1)
-      annotation (Line(points={{66,0},{70,0},{70,20},{72,20}},
+      annotation (Line(points={{66,0},{68,0},{68,20},{72,20}},
                                                color={0,127,255}));
     connect(spl.port_2, port_b)
       annotation (Line(points={{92,20},{96,20},{96,0},{100,0}},
@@ -662,6 +662,7 @@ with an explicit modeling of the distribution network and
 the terminal unit actuators (labelled <code>detailed</code>, see model
 <a href=\"modelica://Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution2\">
 Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution2</a>).
+The models are simulated with the solver CVODE from Sundials.
 The impact of a varying number of connected loads (<code>nLoa</code>) is
 assessed on:
 </p>

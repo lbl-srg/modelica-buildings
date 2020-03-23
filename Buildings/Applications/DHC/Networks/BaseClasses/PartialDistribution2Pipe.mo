@@ -6,7 +6,7 @@ partial model PartialDistribution2Pipe
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal)
     "Model for distribution pipe";
-  parameter Integer iConDpSen(final min=1, final max=nCon) = nCon
+  parameter Integer iConDpSen(final max=nCon) = nCon
     "Index of the connection where the pressure drop is measured"
     annotation(Dialog(tab="General"), Evaluate=true);
   parameter Boolean have_heaFloOut = false
@@ -24,7 +24,7 @@ partial model PartialDistribution2Pipe
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  parameter Modelica.SIunits.Time tau=10
+  parameter Modelica.SIunits.Time tau = 10
     "Time constant at nominal flow for dynamic energy and momentum balance"
     annotation (
       Dialog(tab="Dynamics", group="Nominal condition",
@@ -46,7 +46,7 @@ partial model PartialDistribution2Pipe
       iconTransformation(extent={{180,-80},{ 220,-40}})));
   Modelica.Blocks.Interfaces.RealOutput dp(
     final quantity="PressureDifference",
-    final unit="Pa", displayUnit="Pa") if iConDpSen > 0
+    final unit="Pa", displayUnit="Pa")
     "Pressure difference at given location (measured)"
     annotation (Placement(transformation(extent={{100,20},{140,60}}),
       iconTransformation(extent={{200,20},{220,40}})));
@@ -76,10 +76,15 @@ partial model PartialDistribution2Pipe
     final m_flow_nominal=mEnd_flow_nominal)
     "Pipe representing the end of the distribution line (after last connection)"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+  Fluid.Sensors.RelativePressure senRelPre(
+    redeclare final package Medium = Medium) if iConDpSen == 0
+    "Relative pressure sensor"
+    annotation (Placement(transformation(extent={{-10,10},{10,-10}},
+      rotation=-90, origin={-60,-30})));
 initial equation
-  assert(iConDpSen >= 1 and iConDpSen <= nCon, "In " + getInstanceName() +
-    ": iConDpSen = " + String(iConDpSen) + " whereas it must be between
-    1 and " + String(nCon) + ".");
+  assert(iConDpSen <= nCon, "In " + getInstanceName() +
+    ": iConDpSen = " + String(iConDpSen) + " whereas it must be lower than " +
+    String(nCon) + ".");
 equation
   connect(con.port_bCon, ports_bCon)
     annotation (Line(points={{0,10},{0,40},{-80,
@@ -98,21 +103,32 @@ equation
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
   connect(port_bDisRet, con[1].port_bDisRet)
     annotation (Line(points={{-100,-60},{-40,-60},{-40,-6},{-10,-6}},
-                                        color={0,127,255}));
+      color={0,127,255}));
   connect(con[nCon].port_aDisRet, port_aDisRet)
     annotation (Line(points={{10,-6},{40,-6},{40,-60},{100,-60}},
-                                       color={0,127,255}));
+      color={0,127,255}));
   connect(con[nCon].port_bDisSup, pipEnd.port_a)
     annotation (Line(points={{10,0},{60,0}}, color={0,127,255}));
   connect(pipEnd.port_b, port_bDisSup)
     annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
-  connect(con[iConDpSen].dp, dp)
-    annotation (Line(points={{11,4},{20,4},{20,20},{90,20},{90,40},{120,40}},
-        color={0,0,127}));
   connect(con.Q_flow, Q_flow) annotation (Line(points={{11,8},{16,8},{16,24},{86,
-          24},{86,80},{120,80}}, color={0,0,127}));
+      24},{86,80},{120,80}}, color={0,0,127}));
   connect(con.mCon_flow, mCon_flow) annotation (Line(points={{11,6},{18,6},{18,22},
-          {88,22},{88,60},{120,60}}, color={0,0,127}));
+      {88,22},{88,60},{120,60}}, color={0,0,127}));
+  connect(port_aDisSup, port_aDisSup)
+    annotation (Line(points={{-100,0},{-100,0}}, color={0,127,255}));
+  connect(port_aDisSup, senRelPre.port_a)
+    annotation (Line(points={{-100,0},{-60,0},{-60,-20}}, color={0,127,255}));
+  connect(senRelPre.port_b, port_bDisRet) annotation (Line(points={{-60,-40},{-60,
+    -60},{-100,-60}}, color={0,127,255}));
+  if iConDpSen == 0 then
+    connect(senRelPre.p_rel, dp) annotation (Line(points={{-51,-30},{90,-30},{90,40},
+      {120,40}}, color={0,0,127}));
+  else
+    connect(con[iConDpSen].dp, dp)
+      annotation (Line(points={{11,4},{20,4},{20,20},{90,20},{90,40},{120,40}},
+        color={0,0,127}));
+  end if;
   annotation (
     Documentation(info="
 <html>
@@ -129,10 +145,24 @@ A replaceable partial model is used to represent the pipe segment of
 the supply and return line after the last connection.
 </p>
 <p>
+The parameter <code>iConDpSen</code> is provided to specify the index of the
+connection where the pressure drop is measured. 
+Use zero for a sensor connected  to the supply pipe inlet and return pipe outlet.
+Use a negative value if no sensor is needed. 
+</p>
+<p>
 Optionally the heat flow rate transferred to each connected load can be output.
 </p>
-</html>
-    "),
+</html>",
+revisions=
+"<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-6,-200},{6,200}},

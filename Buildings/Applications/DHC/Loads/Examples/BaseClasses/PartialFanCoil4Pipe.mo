@@ -165,5 +165,14 @@ of zero air flow rate.
 The model is partial to allow various connectivity options on the load side:
 either with fluid ports or with heat ports.
 </p>
+</html>",
+revisions=
+"<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end PartialFanCoil4Pipe;

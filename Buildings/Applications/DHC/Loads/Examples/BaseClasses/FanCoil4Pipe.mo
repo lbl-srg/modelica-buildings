@@ -25,5 +25,14 @@ See
 Buildings.Applications.DHC.Loads.Examples.BaseClasses.PartialFanCoil4Pipe</a>
 for a description of the modeling principles.
 </p>
+</html>",
+revisions=
+"<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end FanCoil4Pipe;

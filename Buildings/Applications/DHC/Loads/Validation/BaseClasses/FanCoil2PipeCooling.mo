@@ -97,16 +97,10 @@ model FanCoil2PipeCooling
         rotation=90,
         origin={0,190})));
 equation
-  if have_fluPor then
-  end if;
-  if not have_QReq_flow then
-  end if;
   connect(gaiFloNom2.y, fan.m_flow_in)
     annotation (Line(points={{60,180},{80,180},{80,12}}, color={0,0,127}));
-
   connect(con.y, gaiMasFlo.u)
     annotation (Line(points={{12,220},{38,220}}, color={0,0,127}));
-
   connect(fan.P, scaPFan.u) annotation (Line(points={{69,9},{60,9},{60,140},{
           158,140}}, color={0,0,127}));
   connect(fan.port_b, hex.port_a2)
@@ -130,7 +124,7 @@ equation
   connect(hex.port_b1, port_bChiWat) annotation (Line(points={{-60,-12},{-40,
           -12},{-40,-180},{200,-180}}, color={0,127,255}));
   connect(scaQReqCoo_flow.y, gaiHeaFlo.u) annotation (Line(points={{-158,60},{-100,
-          60},{-100,220},{-42,220}},       color={0,0,127}));
+          60},{-100,220},{-42,220}}, color={0,0,127}));
   connect(gaiHeaFlo.y, con.u_s)
     annotation (Line(points={{-18,220},{-12,220}}, color={0,0,127}));
   connect(con.u_m, gaiHeaFlo1.y) annotation (Line(points={{0,208},{0,202},{
@@ -182,5 +176,14 @@ air temperature is assessed with
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom\">
 Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom</a>.
 </p>
+</html>",
+revisions=
+"<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end FanCoil2PipeCooling;

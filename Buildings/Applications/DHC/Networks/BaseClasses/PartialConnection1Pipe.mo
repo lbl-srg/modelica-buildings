@@ -220,7 +220,7 @@ equation
       annotation (Line(points={{40,120},{40,106},{20,106},{20,100}},
                                                    color={0,127,255}));
     connect(senTConRet.port_b, junConRet.port_3)
-      annotation (Line(points={{20,80},{20,74},{40,74},{40,-30}},
+      annotation (Line(points={{20,80},{20,76},{40,76},{40,-30}},
                                                   color={0,127,255}));
   else
     connect(port_bCon, senMasFloCon.port_b)
@@ -263,8 +263,16 @@ one must double the length so that both the supply and return lines are
 accounted for.
 </li>
 </ul>
-</html>
-    "),
+</html>",
+revisions=
+"<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
     Icon(graphics={   Rectangle(
           extent={{-100,-100},{100,100}},
           lineColor={0,0,127},
