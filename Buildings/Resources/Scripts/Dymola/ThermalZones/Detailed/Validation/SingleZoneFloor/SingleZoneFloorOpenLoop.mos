@@ -1,0 +1,5 @@
+﻿simulateModel("Buildings.ThermalZones.Detailed.Validation.SingleZoneFloor.SingleZoneFloorOpenLoop", stopTime=604800, tolerance=1e-06, resultFile="SingleZoneFloorOpenLoop");
+createPlot(id=1, position={15, 15, 1037, 660}, y={"sinZonFlo.TRooAir", "flo.temAirSou.T", "flo.temAirEas.T", "flo.temAirNor.T", 
+"flo.temAirWes.T", "flo.temAirPer5.T"}, range={0.0, 650000.0, 16.0, 23.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}, {162,29,33}});
+createPlot(id=1, position={15, 15, 1037, 327}, y={"sinZonFlo.p_rel", "flo.p_rel"}, range={0.0, 650000.0, -10.0, 2.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+

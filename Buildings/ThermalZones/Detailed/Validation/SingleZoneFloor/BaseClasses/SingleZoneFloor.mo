@@ -134,7 +134,7 @@ model SingleZoneFloor "Model of a building floor as a single zone"
     annotation (Placement(transformation(extent={{-120,-16},{-100,4}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-174,78},{-158,94}}),
-        iconTransformation(extent={{-98,162},{-82,178}})));
+        iconTransformation(extent={{-140,162},{-124,178}})));
 
   Buildings.Examples.VAVReheat.ThermalZones.RoomLeakage leaSou(
     redeclare package Medium = Medium,
@@ -365,7 +365,7 @@ equation
           origin={2,150},
           rotation=90),
           Text(
-            extent={{-98,264},{102,210}},
+            extent={{-100,238},{100,184}},
             lineColor={0,0,255},
           textString="%name")}),
               Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
