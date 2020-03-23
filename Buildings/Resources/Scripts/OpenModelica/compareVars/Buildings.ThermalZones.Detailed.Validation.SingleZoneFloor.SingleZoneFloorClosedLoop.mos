@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "EHeaSinZon.y",
+    "EHeaFlo.y",
+    "TSetRoo.y",
+    "sinZonFlo.TRooAir",
+    "flo.sou.air.vol.T",
+    "flo.eas.air.vol.T",
+    "flo.nor.air.vol.T",
+    "flo.wes.air.vol.T",
+    "flo.cor.air.vol.T"
+  };

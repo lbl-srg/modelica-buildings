@@ -5,16 +5,22 @@ model SingleZoneFloorOpenLoop
   package Medium = Buildings.Media.Air "Buildings library air media package";
   parameter Modelica.SIunits.Angle lat=41.98*3.14159/180 "Latitude of site location";
 
-  parameter Modelica.SIunits.Volume VRooSou=568.77
-    "Room volume south";
-  parameter Modelica.SIunits.Volume VRooEas=360.0785
-    "Room volume east";
-  parameter Modelica.SIunits.Volume VRooNor=568.77
-    "Room volume north";
-  parameter Modelica.SIunits.Volume VRooWes=360.0785
-    "Room volume west";
-  parameter Modelica.SIunits.Volume VRooCor=2698
+  parameter Modelica.SIunits.Area AFloCor=flo.cor.AFlo "Floor area corridor";
+  parameter Modelica.SIunits.Area AFloSou=flo.sou.AFlo "Floor area south";
+  parameter Modelica.SIunits.Area AFloNor=flo.nor.AFlo "Floor area north";
+  parameter Modelica.SIunits.Area AFloEas=flo.eas.AFlo "Floor area east";
+  parameter Modelica.SIunits.Area AFloWes=flo.wes.AFlo "Floor area west";
+
+  parameter Modelica.SIunits.Volume VRooCor=AFloCor*flo.hRoo
     "Room volume corridor";
+  parameter Modelica.SIunits.Volume VRooSou=AFloSou*flo.hRoo
+    "Room volume south";
+  parameter Modelica.SIunits.Volume VRooNor=AFloNor*flo.hRoo
+    "Room volume north";
+  parameter Modelica.SIunits.Volume VRooEas=AFloEas*flo.hRoo
+    "Room volume east";
+  parameter Modelica.SIunits.Volume VRooWes=AFloWes*flo.hRoo
+    "Room volume west";
   parameter Modelica.SIunits.Volume VRoo=VRooSou+VRooEas+VRooNor+VRooWes+VRooCor
     "Total floor volume";
 
@@ -149,15 +155,16 @@ equation
   experiment(
       StopTime=86400,
       Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/SingleZoneFloor/SingleZoneFloorOpenLoop.mos"
+  __Dymola_Commands(file=
+  "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/SingleZoneFloor/SingleZoneFloorOpenLoop.mos"
         "Simulate and plot"),
   Documentation(info="
   <html>
   <p>
   This model compares the outputs of the single-zone building model 
-  <a href=\"modelica://Buildings.Examples.VAVReheat.ThermalZones.SingleZoneFloor\">
-  Buildings.Examples.VAVReheat.ThermalZones.SingleZoneFloor</a> with the outputs of
-  the five-zone building model
+  <a href=\"modelica://Buildings.ThermalZones.Detailed.Validation.SingleZoneFloor.BaseClasses.SingleZoneFloor\">
+  Buildings.ThermalZones.Detailed.Validation.SingleZoneFloor.BaseClasses.SingleZoneFloor</a> 
+  with the outputs of the five-zone building model
   <a href=\"modelica://Buildings.Examples.VAVReheat.ThermalZones.Floor\">
   Buildings.Examples.VAVReheat.ThermalZones.Floor</a>.
   </p>
@@ -166,7 +173,7 @@ equation
   <html>
   <ul>
   <li>
-  December 10, 2019, by Kun Zhang:<br/>
+  March 10, 2020, by Kun Zhang:<br/>
   First implementation.
   </li>
   </ul>

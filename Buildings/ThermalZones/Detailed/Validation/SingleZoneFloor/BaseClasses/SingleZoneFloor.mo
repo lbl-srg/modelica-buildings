@@ -4,13 +4,15 @@ model SingleZoneFloor "Model of a building floor as a single zone"
     "Medium model for air" annotation (choicesAllMatching=true);
   parameter Boolean use_windPressure=true
     "Set to true to enable wind pressure";
-  parameter HeatTransfer.Types.InteriorConvection intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature
+  parameter HeatTransfer.Types.InteriorConvection intConMod=
+    Buildings.HeatTransfer.Types.InteriorConvection.Temperature
     "Convective heat transfer model for room-facing surfaces of opaque constructions";
   parameter Modelica.SIunits.Angle lat "Latitude";
   parameter Modelica.SIunits.Volume VRoo = 4555.7  "Room volum";
   parameter Modelica.SIunits.Height hRoo = 2.74 "Room height";
   parameter Modelica.SIunits.Length hWin = 1.5 "Height of windows";
-  parameter Real winWalRat(min=0.01,max=0.99) = 0.33 "Window to wall ratio for exterior walls";
+  parameter Real winWalRat(min=0.01,max=0.99) = 0.33
+    "Window to wall ratio for exterior walls";
 
   parameter Buildings.HeatTransfer.Data.Solids.Plywood matWoo(
     x=0.01,
@@ -126,7 +128,8 @@ model SingleZoneFloor "Model of a building floor as a single zone"
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temAir
     "Air temperature sensor"
     annotation (Placement(transformation(extent={{82,50},{102,70}})));
-  Buildings.Fluid.Sensors.RelativePressure senRelPre(redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.RelativePressure senRelPre(
+    redeclare package Medium = Medium)
     "Building pressure measurement"
     annotation (Placement(transformation(extent={{-60,-16},{-80,4}})));
   Buildings.Fluid.Sources.Outside out(
@@ -181,19 +184,26 @@ model SingleZoneFloor "Model of a building floor as a single zone"
   Modelica.Blocks.Sources.Constant uSha(k=0)
     "Control signal for the shading device"
     annotation (Placement(transformation(extent={{-160,-100},{-140,-80}})));
-  Modelica.Blocks.Routing.Replicator replicator(nout=1) "Shading signals for all windows"
+  Modelica.Blocks.Routing.Replicator replicator(nout=1)
+    "Shading signals for all windows"
     annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[2](
     redeclare package Medium = Medium) "Fluid inlets and outlets" annotation (Placement(
         transformation(extent={{-210,-8},{-170,8}}), iconTransformation(extent={
             {-132,-128},{-92,-112}})));
 protected
-  parameter Modelica.SIunits.Angle S_= Buildings.Types.Azimuth.S "Azimuth for south walls";
-  parameter Modelica.SIunits.Angle E_= Buildings.Types.Azimuth.E "Azimuth for east walls";
-  parameter Modelica.SIunits.Angle W_= Buildings.Types.Azimuth.W "Azimuth for west walls";
-  parameter Modelica.SIunits.Angle N_= Buildings.Types.Azimuth.N "Azimuth for north walls";
-  parameter Modelica.SIunits.Angle F_= Buildings.Types.Tilt.Floor "Tilt for floor";
-  parameter Modelica.SIunits.Angle Z_= Buildings.Types.Tilt.Wall "Tilt for wall";
+  parameter Modelica.SIunits.Angle S_= Buildings.Types.Azimuth.S
+    "Azimuth for south walls";
+  parameter Modelica.SIunits.Angle E_= Buildings.Types.Azimuth.E
+    "Azimuth for east walls";
+  parameter Modelica.SIunits.Angle W_= Buildings.Types.Azimuth.W
+    "Azimuth for west walls";
+  parameter Modelica.SIunits.Angle N_= Buildings.Types.Azimuth.N
+    "Azimuth for north walls";
+  parameter Modelica.SIunits.Angle F_= Buildings.Types.Tilt.Floor
+    "Tilt for floor";
+  parameter Modelica.SIunits.Angle Z_= Buildings.Types.Tilt.Wall
+    "Tilt for wall";
   parameter Modelica.SIunits.Area AFlo = VRoo/hRoo "Floor area";
 
 equation
@@ -291,14 +301,15 @@ equation
   </p>
   <p>
   The geometry, materials and constructions of the model are consistent with those of
-  <a href=\"modelica://Buildings.Examples.VAVReheat.ThermalZones.Floor\">Buildings.Examples.VAVReheat.ThermalZones.Floor</a>.
-  The latter models the floor of a building as five zones: a core zone and 
+  <a href=\"modelica://Buildings.Examples.VAVReheat.ThermalZones.Floor\">
+  Buildings.Examples.VAVReheat.ThermalZones.Floor</a>.
+  The latter models the same mid-floor as five zones: a core zone and 
   four perimeter zones.
   </p>
   </html>",
   revisions="<html>
   <ul>
-  <li>December 3, 2019, by Kun Zhang:<br/>
+  <li>March 10, 2020, by Kun Zhang:<br/>
   First implementation.
   </li>
   </ul>

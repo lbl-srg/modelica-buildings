@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "sinZonFlo.TRooAir",
+    "flo.temAirSou.T",
+    "flo.temAirEas.T",
+    "flo.temAirNor.T",
+    "flo.temAirWes.T",
+    "flo.temAirPer5.T",
+    "sinZonFlo.p_rel",
+    "flo.p_rel"
+  };
