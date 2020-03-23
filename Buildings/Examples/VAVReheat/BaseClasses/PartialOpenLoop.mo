@@ -29,19 +29,33 @@ partial model PartialOpenLoop
   final parameter Modelica.SIunits.Area ATot=sum(AFlo) "Total floor area";
 
   constant Real conv=1.2/3600 "Conversion factor for nominal mass flow rate";
-  parameter Modelica.SIunits.MassFlowRate mCor_flow_nominal=6*VRooCor*conv
+
+  parameter Real ACHCor(final unit="1/h")=6
+    "Design air change per hour core";
+  parameter Real ACHSou(final unit="1/h")=6
+    "Design air change per hour south";
+  parameter Real ACHEas(final unit="1/h")=9
+    "Design air change per hour east";
+  parameter Real ACHNor(final unit="1/h")=6
+    "Design air change per hour north";
+  parameter Real ACHWes(final unit="1/h")=7
+    "Design air change per hour west";
+
+  parameter Modelica.SIunits.MassFlowRate mCor_flow_nominal=ACHCor*VRooCor*conv
     "Design mass flow rate core";
-  parameter Modelica.SIunits.MassFlowRate mSou_flow_nominal=6*VRooSou*conv
-    "Design mass flow rate perimeter 1";
-  parameter Modelica.SIunits.MassFlowRate mEas_flow_nominal=9*VRooEas*conv
-    "Design mass flow rate perimeter 2";
-  parameter Modelica.SIunits.MassFlowRate mNor_flow_nominal=6*VRooNor*conv
-    "Design mass flow rate perimeter 3";
-  parameter Modelica.SIunits.MassFlowRate mWes_flow_nominal=7*VRooWes*conv
-    "Design mass flow rate perimeter 4";
+  parameter Modelica.SIunits.MassFlowRate mSou_flow_nominal=ACHSou*VRooSou*conv
+    "Design mass flow rate south";
+  parameter Modelica.SIunits.MassFlowRate mEas_flow_nominal=ACHEas*VRooEas*conv
+    "Design mass flow rate east";
+  parameter Modelica.SIunits.MassFlowRate mNor_flow_nominal=ACHNor*VRooNor*conv
+    "Design mass flow rate north";
+  parameter Modelica.SIunits.MassFlowRate mWes_flow_nominal=ACHWes*VRooWes*conv
+    "Design mass flow rate west";
+
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.7*(mCor_flow_nominal
        + mSou_flow_nominal + mEas_flow_nominal + mNor_flow_nominal +
       mWes_flow_nominal) "Nominal mass flow rate";
+
   parameter Modelica.SIunits.Angle lat=41.98*3.14159/180 "Latitude";
 
   parameter Modelica.SIunits.Temperature THeaOn=293.15
@@ -103,6 +117,7 @@ partial model PartialOpenLoop
     redeclare package Medium2 = MediumA,
     m1_flow_nominal=m_flow_nominal*1000*(10 - (-20))/4200/10,
     m2_flow_nominal=m_flow_nominal,
+    show_T=true,
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     Q_flow_nominal=m_flow_nominal*1006*(16.7 - 8.5),
     dp1_nominal=0,
@@ -114,6 +129,7 @@ partial model PartialOpenLoop
     annotation (Placement(transformation(extent={{118,-36},{98,-56}})));
 
   Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi(
+    show_T=true,
     UA_nominal=3*m_flow_nominal*1000*15/
         Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
         T_a1=26.2,
