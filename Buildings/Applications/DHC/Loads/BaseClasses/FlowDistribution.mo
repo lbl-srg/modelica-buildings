@@ -354,20 +354,36 @@ initial equation
     "In " + getInstanceName() +
     ": The configuration where have_val is true and have_pum is false is not allowed.");
 equation
-
   assert(mReqTot_flow < m_flow_nominal + m_flow_small,
     "In " + getInstanceName() + ": The total required mass flow rate equals "
     + String(mReqTot_flow) + " (kg/s) which is higher than the nominal mass
     flow rate value of " + String(m_flow_nominal) + " (kg/s).",
     AssertionLevel.error);
-
+  // Connect statements involving conditionally removed components are
+  // removed at translation time by Modelica specification.
+  // Only statements corresponding to the default model structure need
+  // to be manually removed.
+  if not have_val then
+    connect(heaCoo.port_b, port_b)
+      annotation (Line(points={{66,0},{100,0}}, color={0,127,255}));
+    connect(port_a, pumFlo.port_a)
+      annotation (Line(points={{-100,0},{-60,0},{-60,20},{-50,20}},
+        color={0,127,255}));
+    connect(port_a, pumSpe.port_a)
+      annotation (Line(points={{-100,0},{-60,0},{-60,-30},{-50,-30}},
+        color={0,127,255}));
+  end if;
+  if not have_pum then
+    connect(port_a, pipPre.port_a)
+      annotation (Line(points={{-100,0},{-16,0}}, color={0,127,255}));
+  end if;
   connect(sumMasFloReq.y, mReqTot_flow)
     annotation (Line(points={{-58,260},{120,260}}, color={0,0,127}));
   connect(mReq_flow, sumMasFloReq.u)
     annotation (Line(points={{-120,260},{-82,260}}, color={0,0,127}));
   connect(mAct_flow.y, sou_m_flow.m_flow_in)
     annotation (Line(points={{-69,160},{16,160},{16,208},{58,208}},
-                                                color={0,0,127}));
+      color={0,0,127}));
   connect(ports_a1, sin.ports)
     annotation (Line(points={{-100,200},{-80,200}}, color={0,127,255}));
   connect(sou_m_flow.ports[1], ports_b1)
@@ -380,91 +396,59 @@ equation
     annotation (Line(points={{-28,140},{120,140}}, color={0,0,127}));
   connect(QAct_flow.y, Q_flowSum.u)
     annotation (Line(points={{-69,140},{-52,140}}, color={0,0,127}));
-  connect(Q_flowSum.y, heaCoo.u) annotation (Line(points={{-28,140},{40,140},{
-          40,6},{44,6}},
-                      color={0,0,127}));
+  connect(Q_flowSum.y, heaCoo.u)
+    annotation (Line(points={{-28,140},{40,140},{40,6},{44,6}},
+      color={0,0,127}));
   connect(TSupVal.y, reaRep.u)
     annotation (Line(points={{-69,120},{-22,120}}, color={0,0,127}));
   connect(reaRep.y, sou_m_flow.T_in)
     annotation (Line(points={{2,120},{20,120},{20,204},{58,204}},
-                             color={0,0,127}));
-
-  if have_val then
-    connect(port_a, val.port_1)
-    annotation (Line(points={{-100,0},{-96,0},{-96,20},{-90,20}},
-                                                color={0,127,255}));
-    connect(heaCoo.port_b, spl.port_1)
-      annotation (Line(points={{66,0},{68,0},{68,20},{72,20}},
-                                               color={0,127,255}));
-    connect(spl.port_2, port_b)
-      annotation (Line(points={{92,20},{96,20},{96,0},{100,0}},
-                                                color={0,127,255}));
-    connect(spl.port_3, val.port_3)
-      annotation (Line(points={{82,30},{82,40},{-80,40},{-80,30}}, color={0,127,255}));
-    connect(TSupSet, conVal.TSupSet)
-      annotation (Line(points={{-120,-100},{-80,-100},{-80,-92},{-49,-92}},
-                                                         color={0,0,127}));
-    connect(TSupVal.y, conVal.TSupMes)
-      annotation (Line(points={{-69,120},{-64,120},{-64,-100},{-49,-100}},  color={0,0,127}));
-    connect(conVal.yVal, val.y)
-      annotation (Line(points={{-27,-96},{-20,-96},{-20,-60},{-80,-60},{-80,8}},
       color={0,0,127}));
-
-    if typDis == Type_dis.ChangeOver then
-      connect(modChaOve, conVal.modChaOve)
-        annotation (Line(points={{-120,-60},{-90,-60},{-90,-88},{-49,-88}},
-                                              color={255,127,0}));
-    end if;
-
-    connect(val.port_2, pumFlo.port_a)
-      annotation (Line(points={{-70,20},{-50,20}},
-                                                 color={0,127,255}));
-    connect(val.port_2, pumSpe.port_a)
-      annotation (Line(points={{-70,20},{-60,20},{-60,-30},{-50,-30}},
-                                                                    color={0,127,255}));
-
-  else
-
-    connect(heaCoo.port_b, port_b)
-      annotation (Line(points={{66,0},{100,0}}, color={0,127,255}));
-
-    if have_pum then
-      connect(port_a, pumFlo.port_a)
-        annotation (Line(points={{-100,0},{-60,0},{-60,20},{-50,20}},
-                                                    color={0,127,255}));
-      connect(port_a, pumSpe.port_a)
-        annotation (Line(points={{-100,0},{-60,0},{-60,-30},{-50,-30}},color={0,127,255}));
-    else
-      connect(port_a, pipPre.port_a)
-        annotation (Line(points={{-100,0},{-16,0}}, color={0,127,255}));
-    end if;
-
-  end if;
-
+  connect(port_a, val.port_1)
+    annotation (Line(points={{-100,0},{-96,0},{-96,20},{-90,20}},
+      color={0,127,255}));
+  connect(heaCoo.port_b, spl.port_1)
+    annotation (Line(points={{66,0},{68,0},{68,20},{72,20}},
+      color={0,127,255}));
+  connect(spl.port_2, port_b)
+    annotation (Line(points={{92,20},{96,20},{96,0},{100,0}},
+      color={0,127,255}));
+  connect(spl.port_3, val.port_3)
+    annotation (Line(points={{82,30},{82,40},{-80,40},{-80,30}}, color={0,127,255}));
+  connect(TSupSet, conVal.TSupSet)
+    annotation (Line(points={{-120,-100},{-80,-100},{-80,-92},{-49,-92}},
+      color={0,0,127}));
+  connect(TSupVal.y, conVal.TSupMes)
+    annotation (Line(points={{-69,120},{-64,120},{-64,-100},{-49,-100}},  color={0,0,127}));
+  connect(conVal.yVal, val.y)
+    annotation (Line(points={{-27,-96},{-20,-96},{-20,-60},{-80,-60},{-80,8}},
+    color={0,0,127}));
+  connect(modChaOve, conVal.modChaOve)
+    annotation (Line(points={{-120,-60},{-90,-60},{-90,-88},{-49,-88}},
+      color={255,127,0}));
+  connect(val.port_2, pumFlo.port_a)
+    annotation (Line(points={{-70,20},{-50,20}}, color={0,127,255}));
+  connect(val.port_2, pumSpe.port_a)
+    annotation (Line(points={{-70,20},{-60,20},{-60,-30},{-50,-30}},
+      color={0,127,255}));
   connect(pumFlo.port_b, pipPre.port_a)
-    annotation (Line(points={{-30,20},{-20,20},{-20,0},{-16,0}},
-                                               color={0,127,255}));
+    annotation (Line(points={{-30,20},{-20,20},{-20,0},{-16,0}}, color={0,127,255}));
   connect(pumSpe.port_b, pipPre.port_a)
     annotation (Line(points={{-30,-30},{-20,-30},{-20,0},{-16,0}},color={0,127,255}));
-
   connect(pumFlo.P, PPum)
-    annotation (Line(points={{-29,29},{-20,29},{-20,60},{120,60}},
-                                 color={0,0,127}));
+    annotation (Line(points={{-29,29},{-20,29},{-20,60},{120,60}}, color={0,0,127}));
   connect(pumSpe.P, PPum)
-    annotation (Line(points={{-29,-21},{-30,-21},{-30,-20},{94,-20},{94,60},{
-          120,60}},
-                 color={0,0,127}));
-
+    annotation (Line(points={{-29,-21},{-30,-21},{-30,-20},{94,-20},{94,60},
+      {120,60}}, color={0,0,127}));
   connect(dpNetVal.y, pipPre.dp_in)
     annotation (Line(points={{-69,100},{0,100},{0,8}}, color={0,0,127}));
   connect(masFloPum.y, pipPre.m_flow_in)
-    annotation (Line(points={{-69,80},{-12,80},{-12,8}},   color={0,0,127}));
-
+    annotation (Line(points={{-69,80},{-12,80},{-12,8}}, color={0,0,127}));
   connect(masFloPum.y, pumFlo.m_flow_in)
-    annotation (Line(points={{-69,80},{-40,80},{-40,32}},   color={0,0,127}));
+    annotation (Line(points={{-69,80},{-40,80},{-40,32}}, color={0,0,127}));
   connect(spePum.y, pumSpe.y)
-    annotation (Line(points={{-69,60},{-52,60},{-52,-10},{-40,-10},{-40,-18}},color={0,0,127}));
-
+    annotation (Line(points={{-69,60},{-52,60},{-52,-10},{-40,-10},{-40,-18}},
+      color={0,0,127}));
 annotation (
   defaultComponentName="dis",
   Documentation(info="<html>
