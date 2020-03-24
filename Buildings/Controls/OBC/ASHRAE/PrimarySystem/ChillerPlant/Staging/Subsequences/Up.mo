@@ -20,8 +20,28 @@ block Up "Generates a stage up signal"
     "Long enable delay for staging from zero to first available stage up"
     annotation(Evaluate=true, Dialog(enable=have_WSE));
 
+  parameter Modelica.SIunits.TemperatureDifference faiSafTDif = 1
+    "Offset between the chilled water supply temperature and its setpoint";
+
   parameter Modelica.SIunits.TemperatureDifference TDifHys = 1
     "Hysteresis deadband for temperature";
+
+  parameter Modelica.SIunits.TemperatureDifference smallTDif = 1
+    "Offset between the chilled water supply temperature and its setpoint for the long condition"
+    annotation(Evaluate=true, Dialog(enable=have_WSE));
+
+  parameter Modelica.SIunits.TemperatureDifference largeTDif = 2
+    "Offset between the chilled water supply temperature and its setpoint for the short condition"
+    annotation(Evaluate=true, Dialog(enable=have_WSE));
+
+  parameter Modelica.SIunits.PressureDifference faiSafDpDif = 2 * 6895
+    "Offset between the chilled water differential pressure and its setpoint";
+
+  parameter Modelica.SIunits.PressureDifference dpDifHys = 0.5 * 6895
+    "Pressure difference hysteresis deadband";
+
+  parameter Real effConSigDif = 0.05
+    "Signal hysteresis deadband";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uAvaCur
     "Current stage availability status"
@@ -29,15 +49,19 @@ block Up "Generates a stage up signal"
         iconTransformation(extent={{-140,-110},{-100,-70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u if have_WSE
-    "Chiller stage" annotation (Placement(transformation(extent={{-200,-180},{-160,
+    "Chiller stage"
+    annotation (Placement(transformation(extent={{-200,-180},{-160,
             -140}}),iconTransformation(extent={{-140,-80},{-100,-40}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOpe(final unit="1")
-    "Operating part load ratio of the current stage" annotation (Placement(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOpe(
+    final unit="1")
+    "Operating part load ratio of the current stage"
+    annotation (Placement(
         transformation(extent={{-200,80},{-160,120}}),  iconTransformation(
           extent={{-140,80},{-100,120}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uStaUp(final unit="1")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uStaUp(
+    final unit="1")
     "Staging part load ratio of the next stage up" annotation (Placement(
         transformation(extent={{-200,50},{-160,90}}), iconTransformation(
           extent={{-140,60},{-100,100}})));
@@ -80,13 +104,15 @@ block Up "Generates a stage up signal"
     final serChi=serChi,
     final faiSafTruDelay=faiSafTruDelay,
     final TDif=faiSafTDif,
-    TDifHys=TDifHys,
-    final dpDif=dpDif)
+    final TDifHys=TDifHys,
+    final dpDif=faiSafDpDif,
+    final dpDifHys=dpDifHys)
     "Failsafe condition of the current stage"
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.EfficiencyCondition effCon(
-    final effConTruDelay = effConTruDelay)
+    final effConTruDelay = effConTruDelay,
+    final sigDif=effConSigDif)
     "Efficiency condition of the current stage"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
 

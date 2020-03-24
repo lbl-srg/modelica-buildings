@@ -14,9 +14,6 @@ block FailsafeCondition
   parameter Modelica.SIunits.TemperatureDifference TDifHys = 1
     "Temperature hysteresis deadband";
 
-  parameter Real hysSig = 0.05
-    "Signal hysteresis deadband";
-
   parameter Modelica.SIunits.PressureDifference dpDif = 2 * 6895
     "Offset between the chilled water differential pressure and its setpoint";
 

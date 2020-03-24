@@ -4,6 +4,9 @@ block Change "Calculates the chiller stage signal"
   parameter Boolean have_WSE = true
     "true = plant has a WSE, false = plant does not have WSE";
 
+  parameter Boolean serChi = false
+    "true = series chillers plant; false = parallel chillers plant";
+
   parameter Boolean anyVsdCen = true
     "Plant contains at least one variable speed centrifugal chiller";
 
@@ -28,7 +31,7 @@ block Change "Calculates the chiller stage signal"
     "Chiller type. Recommended staging order: positive displacement, variable speed centrifugal, constant speed centrifugal";
 
   parameter Modelica.SIunits.Time avePer = 300
-  "Time period for the rolling average";
+  "Time period for the capacity requirement rolling average";
 
   parameter Modelica.SIunits.Time delayStaCha = 900
   "Hold period for each stage change";
@@ -43,10 +46,12 @@ block Change "Calculates the chiller stage signal"
     "Enable delay for efficiency condition";
 
   parameter Modelica.SIunits.Time shortTDelay = 600
-    "Short enable delay for staging from zero to first available stage up";
+    "Short enable delay for staging from zero to first available stage up"
+    annotation(Evaluate=true, Dialog(enable=have_WSE));
 
   parameter Modelica.SIunits.Time longTDelay = 1200
-    "Long enable delay for staging from zero to first available stage up";
+    "Long enable delay for staging from zero to first available stage up"
+    annotation(Evaluate=true, Dialog(enable=have_WSE));
 
   parameter Real posDisMult(
     final unit = "1",
@@ -94,6 +99,14 @@ block Change "Calculates the chiller stage signal"
   parameter Modelica.SIunits.TemperatureDifference TDifHys = 1
     "Hysteresis deadband for temperature";
 
+  parameter Modelica.SIunits.PressureDifference faiSafDpDif = 2 * 6895
+    "Offset between the chilled water differential pressure and its setpoint";
+
+  parameter Modelica.SIunits.PressureDifference dpDifHys = 0.5 * 6895
+    "Pressure difference hysteresis deadband";
+
+  parameter Real effConSigDif = 0.05
+    "Signal hysteresis deadband";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseSta if have_WSE
     "WSE status"
@@ -194,8 +207,10 @@ block Change "Calculates the chiller stage signal"
     annotation (Placement(transformation(extent={{400,-330},{440,-290}}),
         iconTransformation(extent={{100,-90},{140,-50}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput ySta(final max=fill(nSta,
-        nSta)) "Chiller stage integer setpoint" annotation (Placement(
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput ySta(
+    final max=fill(nSta, nSta))
+    "Chiller stage integer setpoint"
+    annotation (Placement(
         transformation(extent={{400,-110},{440,-70}}), iconTransformation(
           extent={{100,-20},{140,20}})));
 
@@ -217,7 +232,7 @@ block Change "Calculates the chiller stage signal"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.CapacityRequirement capReq(
     final avePer = avePer,
-    final holPer = holPer)
+    final holPer = delayStaCha)
     annotation (Placement(transformation(extent={{-160,240},{-140,260}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Capacities cap(
@@ -235,23 +250,29 @@ block Change "Calculates the chiller stage signal"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Up staUp(
     final have_WSE=have_WSE,
-    final delayStaCha=delayStaCha,
-    final shortDelay=shortDelay,
-    final longDelay=longDelay,
-    final upHolPer=upHolPer,
+    final serChi=serChi,
+    final effConTruDelay=effConTruDelay,
+    final faiSafTruDelay=faiSafTruDelay,
+    final shortTDelay=shortTDelay,
+    final longTDelay=longTDelay,
+    final faiSafTDif=faiSafTDif,
+    final TDifHys=TDifHys,
     final smallTDif=smallTDif,
     final largeTDif=largeTDif,
-    final TDif=TDif,
-    final dpDif=dpDif)
-    annotation (Placement(transformation(extent={{60,-180},{80,-160}})));
+    final faiSafDpDif=faiSafDpDif,
+    final dpDifHys=dpDifHys,
+    final effConSigDif=effConSigDif) "Stage up conditions"
+    annotation (Placement(transformation(extent={{60,-182},{80,-162}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Down staDow(
-    final delayStaCha=delayStaCha,
-    final dowHolPer=dowHolPer,
+    final have_WSE=have_WSE,
+    final serChi=serChi,
+    final parLoaRatDelay=parLoaRatDelay,
+    final faiSafTruDelay=faiSafTruDelay,
+    final faiSafTDif=faiSafTDif,
+    final faiSafDpDif=faiSafDpDif,
     final TDif=TDif,
-    final TDifHys=TDifHys,
-    final dpDif=dpDif,
-    final have_WSE=have_WSE)
+    final TDifHys=TDifHys) "Stage down conditions"
     annotation (Placement(transformation(extent={{60,-300},{80,-280}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or or2
@@ -265,41 +286,42 @@ block Change "Calculates the chiller stage signal"
           extent={{400,-270},{440,-230}}), iconTransformation(extent={{100,50},
             {140,90}})));
 
-  CDL.Interfaces.BooleanInput uPla "Plant enable signal" annotation (Placement(
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla "Plant enable signal" annotation (Placement(
         transformation(extent={{-280,-160},{-240,-120}}), iconTransformation(
           extent={{-140,-230},{-100,-190}})));
-  CDL.Discrete.TriggeredSampler triSam
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam
     annotation (Placement(transformation(extent={{240,-110},{260,-90}})));
-  Modelica.Blocks.Logical.Switch switch1
+  CDL.Logical.Switch                               switch1
     annotation (Placement(transformation(extent={{180,-110},{200,-90}})));
-  CDL.Conversions.IntegerToReal intToRea
+  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
     annotation (Placement(transformation(extent={{120,-150},{140,-130}})));
-  CDL.Conversions.RealToInteger reaToInt
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     annotation (Placement(transformation(extent={{340,-30},{360,-10}})));
-  CDL.Conversions.IntegerToReal intToRea1
+  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea1
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
-  CDL.Logical.Latch lat
+  Buildings.Controls.OBC.CDL.Logical.Latch lat
     annotation (Placement(transformation(extent={{120,-110},{140,-90}})));
-  CDL.Interfaces.IntegerInput uIni(final min=0, final max=nSta)
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uIni(final min=0, final max=nSta)
     "Initial chiller stage (at plant enable)" annotation (Placement(
         transformation(extent={{-280,-120},{-240,-80}}), iconTransformation(
           extent={{-140,-148},{-100,-108}})));
-  CDL.Conversions.IntegerToReal intToRea2 "Integer to real conversion"
+  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea2 "Integer to real conversion"
     annotation (Placement(transformation(extent={{240,20},{260,40}})));
-  CDL.Logical.TrueFalseHold holIniSta(trueHoldDuration=delayStaCha,
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold holIniSta(trueHoldDuration=delayStaCha,
       falseHoldDuration=0)
     "Holds stage switched to initial upon plant start"
     annotation (Placement(transformation(extent={{120,-30},{140,-10}})));
-  Modelica.Blocks.Logical.Switch switch2
+  CDL.Logical.Switch                               switch2
     annotation (Placement(transformation(extent={{300,-30},{320,-10}})));
-  CDL.Logical.TrueFalseHold staChaHol(trueHoldDuration=0,
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold staChaHol(trueHoldDuration=0,
                                       falseHoldDuration=delayStaCha)
     "Main stage change hold"
     annotation (Placement(transformation(extent={{180,-260},{200,-240}})));
-protected
-  CDL.Logical.Edge                                               edg
+
+  Buildings.Controls.OBC.CDL.Logical.Edge edg
     "Detects plant start"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
+
 equation
   connect(uChiAva, conf.uChiAva)
     annotation (Line(points={{-260,-240},{-220,-240},{-220,-230},{-202,-230}},
@@ -355,23 +377,18 @@ equation
           {-80,-266},{-22,-266}}, color={255,127,0}));
   connect(sta.yLow, cap.uLow) annotation (Line(points={{-138,-274},{-116,-274},
           {-116,-239},{-112,-239}},color={255,0,255}));
-  connect(PLRs.yOpe, staUp.uOpe) annotation (Line(points={{2,-242},{26,-242},{
-          26,-160},{58,-160}},
-                             color={0,0,127}));
+  connect(PLRs.yOpe, staUp.uOpe) annotation (Line(points={{2,-242},{26,-242},{26,
+          -162},{58,-162}},  color={0,0,127}));
   connect(PLRs.yStaUp, staUp.uStaUp) annotation (Line(points={{2,-251},{28,-251},
-          {28,-162},{58,-162}}, color={0,0,127}));
-  connect(TChiWatSupSet, staUp.TChiWatSupSet) annotation (Line(points={{-260,
-          320},{0,320},{0,-165},{58,-165}},
-                                       color={0,0,127}));
-  connect(TChiWatSup, staUp.TChiWatSup) annotation (Line(points={{-260,290},{
-          -220,290},{-220,210},{-2,210},{-2,-167},{58,-167}},
-                                                         color={0,0,127}));
-  connect(dpChiWatPumSet, staUp.dpChiWatPumSet) annotation (Line(points={{-260,
-          170},{18,170},{18,-170},{58,-170}},
-                                         color={0,0,127}));
-  connect(dpChiWatPum, staUp.dpChiWatPum) annotation (Line(points={{-260,140},{
-          16,140},{16,-172},{58,-172}},
-                                     color={0,0,127}));
+          {28,-164},{58,-164}}, color={0,0,127}));
+  connect(TChiWatSupSet, staUp.TChiWatSupSet) annotation (Line(points={{-260,320},
+          {0,320},{0,-167},{58,-167}}, color={0,0,127}));
+  connect(TChiWatSup, staUp.TChiWatSup) annotation (Line(points={{-260,290},{-220,
+          290},{-220,210},{-2,210},{-2,-169},{58,-169}}, color={0,0,127}));
+  connect(dpChiWatPumSet, staUp.dpChiWatPumSet) annotation (Line(points={{-260,170},
+          {18,170},{18,-172},{58,-172}}, color={0,0,127}));
+  connect(dpChiWatPum, staUp.dpChiWatPum) annotation (Line(points={{-260,140},{16,
+          140},{16,-174},{58,-174}}, color={0,0,127}));
   connect(PLRs.yOpeDow, staDow.uOpeDow) annotation (Line(points={{2,-246},{20,-246},
           {20,-280},{58,-280}}, color={0,0,127}));
   connect(staDow.uStaDow, PLRs.yStaDow) annotation (Line(points={{58,-282},{18,-282},
@@ -395,33 +412,32 @@ equation
   connect(u, sta.u) annotation (Line(points={{-260,-70},{-166,-70},{-166,-264},
           {-162,-264}}, color={255,127,0}));
   connect(sta.yAvaCur, staUp.uAvaCur) annotation (Line(points={{-138,-277},{-80,
-          -277},{-80,-270},{40,-270},{40,-179},{58,-179}}, color={255,0,255}));
+          -277},{-80,-270},{40,-270},{40,-181},{58,-181}}, color={255,0,255}));
   connect(sta.yChi, yChi) annotation (Line(points={{-138,-280},{-58,-280},{-58,
           -310},{420,-310}}, color={255,0,255}));
-  connect(staUp.y, or2.u1) annotation (Line(points={{82,-170},{120,-170},{120,
-          -250},{138,-250}}, color={255,0,255}));
+  connect(staUp.y, or2.u1) annotation (Line(points={{82,-172},{120,-172},{120,-250},
+          {138,-250}},       color={255,0,255}));
   connect(u, cap.u) annotation (Line(points={{-260,-70},{-166,-70},{-166,-227},
           {-112,-227}}, color={255,127,0}));
   connect(u, PLRs.u) annotation (Line(points={{-260,-70},{-166,-70},{-166,-120},
           {-70,-120},{-70,-262},{-22,-262}},       color={255,127,0}));
   connect(u, staUp.u) annotation (Line(points={{-260,-70},{-166,-70},{-166,-120},
-          {50,-120},{50,-176},{58,-176}},       color={255,127,0}));
+          {50,-120},{50,-178},{58,-178}},       color={255,127,0}));
   connect(u, staDow.u) annotation (Line(points={{-260,-70},{-166,-70},{-166,-299},
           {58,-299}},       color={255,127,0}));
   connect(reaToInt.y, ySta)
     annotation (Line(points={{362,-20},{370,-20},{370,-90},{420,-90}},
                                                    color={255,127,0}));
   connect(switch1.y, triSam.u)
-    annotation (Line(points={{201,-100},{238,-100}},
+    annotation (Line(points={{202,-100},{238,-100}},
                                                    color={0,0,127}));
   connect(intToRea1.y, switch1.u1) annotation (Line(points={{142,-60},{160,-60},
           {160,-92},{178,-92}}, color={0,0,127}));
   connect(intToRea.y, switch1.u3) annotation (Line(points={{142,-140},{160,-140},
           {160,-108},{178,-108}},
                                 color={0,0,127}));
-  connect(staUp.y, lat.u) annotation (Line(points={{82,-170},{100,-170},{100,
-          -100},{118,-100}},
-                           color={255,0,255}));
+  connect(staUp.y, lat.u) annotation (Line(points={{82,-172},{100,-172},{100,-100},
+          {118,-100}},     color={255,0,255}));
   connect(staDow.y, lat.clr) annotation (Line(points={{82,-290},{90,-290},{90,-106},
           {118,-106}},     color={255,0,255}));
   connect(sta.yUp, intToRea1.u) annotation (Line(points={{-138,-263},{-130,-263},
@@ -437,7 +453,7 @@ equation
   connect(edg.y, holIniSta.u)
     annotation (Line(points={{82,-20},{118,-20}}, color={255,0,255}));
   connect(switch2.y, reaToInt.u)
-    annotation (Line(points={{321,-20},{338,-20}}, color={0,0,127}));
+    annotation (Line(points={{322,-20},{338,-20}}, color={0,0,127}));
   connect(triSam.y, switch2.u3) annotation (Line(points={{262,-100},{280,-100},
           {280,-28},{298,-28}},color={0,0,127}));
   connect(holIniSta.y, switch2.u2)

@@ -5,7 +5,7 @@ block EfficiencyCondition
   parameter Modelica.SIunits.Time effConTruDelay = 900
     "Enable delay";
 
-  parameter Real hysSig = 0.05
+  parameter Real sigDif = 0.05
     "Signal hysteresis deadband";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOpe(
@@ -34,7 +34,7 @@ block EfficiencyCondition
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysOpe(
     final uLow=0,
-    final uHigh=hysSig)
+    final uHigh=sigDif)
     "Checks if the current stage operating part load ratio exceeds the stage up part load ratio"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 

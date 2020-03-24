@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences;
 block Down "Generates a stage down signal"
+
   parameter Boolean have_WSE = true
     "true = plant has a WSE, false = plant does not have WSE";
 
@@ -16,12 +17,14 @@ block Down "Generates a stage down signal"
     "Offset between the chilled water supply temperature and its setpoint for the failsafe condition";
 
   parameter Modelica.SIunits.TemperatureDifference TDif = 1
-    "Offset between the chilled water supply temperature and its setpoint";
+    "Offset between the chilled water supply temperature and its setpoint"
+    annotation(Evaluate=true, Dialog(enable=have_WSE));
 
   parameter Modelica.SIunits.TemperatureDifference TDifHyst = 1
-    "Hysteresis deadband for temperature";
+    "Hysteresis deadband for temperature"
+    annotation(Evaluate=true, Dialog(enable=have_WSE));
 
-  parameter Modelica.SIunits.PressureDifference dpDif = 2 * 6895
+  parameter Modelica.SIunits.PressureDifference faiSafDpDif = 2 * 6895
     "Offset between the chilled water pump differential static pressure and its setpoint";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseSta if have_WSE
@@ -95,7 +98,7 @@ block Down "Generates a stage down signal"
     final serChi=serChi,
     final faiSafTruDelay=faiSafTruDelay,
     final TDif=TDif,
-    final dpDif=dpDif)
+    final dpDif=faiSafDpDif)
     "Failsafe condition of the next lower stage"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 

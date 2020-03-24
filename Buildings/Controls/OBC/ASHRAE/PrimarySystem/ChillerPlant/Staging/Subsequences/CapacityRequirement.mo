@@ -52,7 +52,7 @@ protected
     annotation (Placement(transformation(extent={{80,120},{100,140}})));
 
   Buildings.Controls.OBC.CDL.Logical.Edge edg
-    annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
+    annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
     final trueHoldDuration=holPer,
@@ -76,7 +76,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Continuous.Add add2(
     final k1=-1) "Adder"
-    annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
+    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MovingMean movMea(
     final delta=avePer)
@@ -96,12 +96,13 @@ protected
     annotation (Placement(transformation(extent={{100,-80},{120,-60}})));
 
 equation
-  connect(TChiWatRet, add2.u2) annotation (Line(points={{-160,-50},{-130,-50},{-130,
-          -26},{-122,-26}}, color={0,0,127}));
-  connect(add2.u1, TChiWatSupSet) annotation (Line(points={{-122,-14},{-130,-14},
+  connect(TChiWatRet, add2.u2) annotation (Line(points={{-160,-50},{-130,-50},{
+          -130,-26},{-82,-26}},
+                            color={0,0,127}));
+  connect(add2.u1, TChiWatSupSet) annotation (Line(points={{-82,-14},{-130,-14},
           {-130,10},{-160,10}}, color={0,0,127}));
-  connect(add2.y, pro.u1) annotation (Line(points={{-98,-20},{10,-20},{10,-64},{
-          18,-64}}, color={0,0,127}));
+  connect(add2.y, pro.u1) annotation (Line(points={{-58,-20},{10,-20},{10,-64},
+          {18,-64}},color={0,0,127}));
   connect(pro.y, movMea.u)
     annotation (Line(points={{42,-70},{58,-70}}, color={0,0,127}));
   connect(speHeaCap.y, pro1.u2) annotation (Line(points={{-98,-150},{-90,-150},{
@@ -122,17 +123,19 @@ equation
   connect(max.y, triSam.u) annotation (Line(points={{122,-70},{130,-70},{130,20},
           {-60,20},{-60,130},{-42,130}}, color={0,0,127}));
   connect(chaPro, edg.u)
-    annotation (Line(points={{-160,110},{-122,110}}, color={255,0,255}));
-  connect(edg.y, triSam.trigger) annotation (Line(points={{-98,110},{-30,110},{-30,
-          118.2}},color={255,0,255}));
+    annotation (Line(points={{-160,110},{-102,110}}, color={255,0,255}));
+  connect(edg.y, triSam.trigger) annotation (Line(points={{-78,110},{-30,110},{
+          -30,118.2}},
+                  color={255,0,255}));
   connect(triSam.y, swi.u1) annotation (Line(points={{-18,130},{10,130},{10,138},
           {78,138}}, color={0,0,127}));
   connect(max.y, swi.u3) annotation (Line(points={{122,-70},{130,-70},{130,60},{
           60,60},{60,122},{78,122}}, color={0,0,127}));
   connect(swi.y, y)
     annotation (Line(points={{102,130},{160,130}},color={0,0,127}));
-  connect(chaPro, truFalHol.u) annotation (Line(points={{-160,110},{-130,110},{-130,
-          80},{-42,80}}, color={255,0,255}));
+  connect(chaPro, truFalHol.u) annotation (Line(points={{-160,110},{-120,110},{
+          -120,80},{-42,80}},
+                         color={255,0,255}));
   connect(truFalHol.y, swi.u2) annotation (Line(points={{-18,80},{40,80},{40,
           130},{78,130}}, color={255,0,255}));
   annotation (defaultComponentName = "capReq",
