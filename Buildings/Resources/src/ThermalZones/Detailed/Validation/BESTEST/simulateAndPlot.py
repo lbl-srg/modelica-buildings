@@ -80,7 +80,7 @@ def checkout_buildingspy_repository(working_directory):
     '''
     from git import Repo
     import git
-    print("*** Checking out BuildingPy repository branch {} ***".format(BP_BRANCH))
+    print("*** Checking out BuildingsPy repository branch {} ***".format(BP_BRANCH))
     git_url = "https://github.com/lbl-srg/BuildingsPy.git"
     repo = Repo.clone_from(git_url, working_directory)
     for sub_module in repo.submodules:
@@ -98,14 +98,11 @@ def copy_mbl(working_directory):
     mblPath = (os.path.sep).join((os.getcwd().split(os.path.sep))[:-7])
     shutil.copytree(mblPath, des)
 
-
 def _runTests(tool, package, lib_dir, bp_dir):
     ''' Run regression test, return the temporary directory path for the test.
     '''
-    import sys
-    regTestPath = os.path.join(bp_dir, 'buildingspy', 'development')
-    sys.path.append(regTestPath)
-    import regressiontest as u
+    sys.path.insert(0, bp_dir)
+    import buildingspy.development.regressiontest as u
 
     ut = u.Tester(tool=tool, skip_verification=True)
     ut.batchMode(True)
