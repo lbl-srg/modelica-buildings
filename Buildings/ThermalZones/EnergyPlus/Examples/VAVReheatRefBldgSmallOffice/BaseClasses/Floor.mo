@@ -11,7 +11,16 @@ model Floor "Model of a floor of the building"
     opeWesCor(wOpe=10*(17.69 + 8.46)/(40.76 + 24.13)),
     opeSouCor(wOpe=10*(17.69 + 8.46)/(40.76 + 24.13)),
     opeNorCor(wOpe=10*(17.69 + 8.46)/(40.76 + 24.13)),
-    opeEasCor(wOpe=10*(17.69 + 8.46)/(40.76 + 24.13)));
+    opeEasCor(wOpe=10*(17.69 + 8.46)/(40.76 + 24.13)),
+    leaWes(res(m_flow(nominal=0.1))),
+    leaSou(res(m_flow(nominal=0.1))),
+    leaNor(res(m_flow(nominal=0.1))),
+    leaEas(res(m_flow(nominal=0.1))));
+  // Above, the volume V is for Spawn obtained in the initial equation section.
+  // Hence it is not known when the model is compiled. This leads to a
+  // warning in Dymola and an error in Optimica (Modelon#2020031339000191)
+  // if used in an expression for the nominal attribute of lea*(res(m_flow(nominal=....))).
+  // Assigning the nominal attribute to a constant avoids this warning and error.
 
   final parameter Modelica.SIunits.Area AFloCor=cor.AFlo "Floor area corridor";
   final parameter Modelica.SIunits.Area AFloSou=sou.AFlo "Floor area south";
