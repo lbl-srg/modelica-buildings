@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExportRC.OfficeBuilding;
 model Storage
-  "This is the simulation model of Storage within building OfficeBuilding with traceable ID None"
+  "This is the simulation model of Storage within building OfficeBuilding"
 
   Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil[6](    each outSkyCon=true,
     each outGroCon=true,
@@ -112,6 +112,7 @@ model Storage
       "Table with profiles for persons (radiative and convective) and machines (convective)"
       annotation (Placement(transformation(extent={{6,-60},{22,-44}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a
+    "Heat port for sensible convective gains"
     annotation (Placement(transformation(extent={{-10,90},{10,110}}), iconTransformation(extent={{-10,90},{10,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TAir(
     quantity="ThermodynamicTemperature", unit="K", displayUnit="degC")

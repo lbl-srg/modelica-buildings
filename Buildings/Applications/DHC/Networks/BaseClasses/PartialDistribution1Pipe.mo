@@ -87,7 +87,7 @@ Partial model of a one-pipe distribution network.
 <p>
 An array of replaceable partial models is used to represent the
 connections along the network, including the pipe segment immediately
-upstream each connection.
+upstream of each connection.
 </p>
 <p>
 A replaceable partial model is used to represent the pipe segment of

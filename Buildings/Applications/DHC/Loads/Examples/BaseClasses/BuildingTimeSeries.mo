@@ -67,11 +67,11 @@ model BuildingTimeSeries
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=293.15,
       y(final unit="K", displayUnit="degC"))
-    "Minimum temperature setpoint"
+    "Minimum temperature set point"
     annotation (Placement(transformation(extent={{-280,250},{-260,270}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=297.15,
       y(final unit="K", displayUnit="degC"))
-    "Maximum temperature setpoint"
+    "Maximum temperature set point"
     annotation (Placement(transformation(extent={{-280,210},{-260,230}})));
   Buildings.Applications.DHC.Loads.Validation.BaseClasses.FanCoil2PipeHeating
     terUniHea(

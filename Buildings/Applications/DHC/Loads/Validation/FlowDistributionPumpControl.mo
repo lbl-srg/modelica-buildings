@@ -35,7 +35,7 @@ model FlowDistributionPumpControl
     1/2 .* cat(1, {dp_nominal*0.2}, fill(dp_nominal*0.8 / (nLoa-1), nLoa-1))
     "Pressure drop between each connected unit at nominal conditions (supply line)";
   parameter Modelica.SIunits.PressureDifference dpSet=max(terUniHea.dp_nominal)
-    "Pressure difference setpoint";
+    "Pressure difference set point";
   final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
     sum(terUniHea.mHeaWat_flow_nominal)
     "Nominal mass flow rate in the distribution line";
@@ -72,7 +72,7 @@ model FlowDistributionPumpControl
     annotation (Placement(transformation(extent={{-180,20},{-160,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=293.15,
       y(final unit="K", displayUnit="degC"))
-    "Minimum temperature setpoint"
+    "Minimum temperature set point"
     annotation (Placement(transformation(extent={{-180,60},{-160,80}})));
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(nout=nLoa)
     "Repeat input to output an array"

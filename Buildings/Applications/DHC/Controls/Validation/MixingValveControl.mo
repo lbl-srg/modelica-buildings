@@ -48,14 +48,14 @@ model MixingValveControl
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSecHea(k=303.15,
                 y(final unit="K", displayUnit="degC"))
-    "Heating water secondary supply temperature setpoint"
+    "Heating water secondary supply temperature set point"
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSecChi(k=291.15)
-                "Chilled water secondary supply temperature setpoint"
+                "Chilled water secondary supply temperature set point"
     annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Switch TSetSecAct(
     y(final unit="K", displayUnit="degC"))
-    "Actual secondary supply temperature setpoint"
+    "Actual secondary supply temperature set point"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger modInt(integerFalse=-1)
     "Operating mode in integer format "

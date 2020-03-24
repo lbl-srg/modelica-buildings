@@ -138,13 +138,13 @@ equation
 Documentation(
 info="<html>
 <p>
-This is a simplified partial model of a sensible only four-pipe fan coil unit 
+This is a simplified partial model of a sensible only four-pipe fan coil unit
 for heating and cooling.
 It is intended to be used in conjunction with
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
 Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>,
 and hence it computes the water mass flow rate required to meet the temperature
-setpoint.
+set point.
 </p>
 <p>
 For the sake of simplicity, a sensible only heat exchanger model is considered.

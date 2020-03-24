@@ -63,7 +63,7 @@ model BenchmarkFlowDistribution2
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=293.15,
       y(final unit="K", displayUnit="degC"))
-    "Minimum temperature setpoint"
+    "Minimum temperature set point"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(nout=nLoa)
     "Repeat input to output an array"

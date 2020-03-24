@@ -38,11 +38,11 @@ model BuildingSpawnZ1 "One-zone EnergyPlus building model"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=293.15,
       y(final unit="K", displayUnit="degC"))
-    "Minimum temperature setpoint"
+    "Minimum temperature set point"
     annotation (Placement(transformation(extent={{-280,250},{-260,270}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=297.15,
       y(final unit="K", displayUnit="degC"))
-    "Maximum temperature setpoint"
+    "Maximum temperature set point"
     annotation (Placement(transformation(extent={{-280,210},{-260,230}})));
   Buildings.Applications.DHC.Loads.Examples.BaseClasses.FanCoil4Pipe terUni(
     redeclare package Medium1 = Medium,
@@ -136,9 +136,9 @@ equation
   Documentation(info="
 <html>
 <p>
-This is a simplified one-zone building model based on EnergyPlus 
+This is a simplified one-zone building model based on EnergyPlus
 building envelope model.
-The heating and cooling loads are computed with a four-pipe 
+The heating and cooling loads are computed with a four-pipe
 fan coil unit model derived from
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit\">
 Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit</a>

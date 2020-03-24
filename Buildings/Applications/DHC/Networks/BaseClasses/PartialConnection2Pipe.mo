@@ -272,7 +272,7 @@ equation
     Documentation(info="
 <html>
 <p>
-Partial model to be used for connecting an agent (e.g. energy transfer station)
+Partial model to be used for connecting an agent (e.g. an energy transfer station)
 to a two-pipe distribution network.
 </p>
 <p>

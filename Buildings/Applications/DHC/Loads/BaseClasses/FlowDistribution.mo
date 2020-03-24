@@ -59,7 +59,7 @@ model FlowDistribution "Model of a building hydraulic distribution system"
       enable=typCtr==Type_ctr.ConstantDp));
   parameter Modelica.SIunits.PressureDifference dpMin(
     final min=0, displayUnit="Pa") = dp_nominal / 2
-    "Pressure difference setpoint for ConstantDp or at zero flow for LinearHead"
+    "Pressure difference set point for ConstantDp or at zero flow for LinearHead"
     annotation(Dialog(enable=typCtr==Type_ctr.ConstantDp));
   parameter Modelica.SIunits.MassFlowRate mUni_flow_nominal[:](
     each final min=0) = fill(m_flow_nominal/nUni, nUni)
@@ -559,7 +559,7 @@ where
 </p>
 <ul>
 <li>
-<i>dpMin</i> is the differential pressure setpoint.
+<i>dpMin</i> is the differential pressure set point.
 </li>
 <li>
 <i>dpVal</i> is the pressure drop across the optional mixing valve.
@@ -573,7 +573,7 @@ upstream the i<sup>th</sup> connection,
 <i>dpDis[i] = 1 / K[i]<sup>2</sup> * mDis_flow[i] <sup>2</sup></i>,
 </p>
 <p>
-where 
+where
 <i>mDis_flow[i]  = &Sigma;<sub>i to nUni</sub> mReq_flow[i]</i>
 is the mass flow rate in the same pipe segment, and
 <i>K[i] = (&Sigma;<sub>i to nUni</sub> mUni_flow_nominal[i]) /
@@ -632,7 +632,7 @@ turn out to be detrimental to computational performance.
 </ul>
 <h4 id=\"my_comp\">Computational performance</h4>
 <p>
-The figure below compares the computational performance of this model 
+The figure below compares the computational performance of this model
 (labelled <code>simple</code>, see model
 <a href=\"modelica://Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution1\">
 Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution1</a>)

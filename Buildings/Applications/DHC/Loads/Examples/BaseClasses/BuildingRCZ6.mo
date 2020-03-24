@@ -16,12 +16,12 @@ model BuildingRCZ6
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet[nZon](
     k=fill(293.15, nZon),
     y(each final unit="K", each displayUnit="degC"))
-    "Minimum temperature setpoint"
+    "Minimum temperature set point"
     annotation (Placement(transformation(extent={{-290,230},{-270,250}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet[nZon](
     k=fill(297.15, nZon),
     y(each final unit="K",each displayUnit="degC"))
-    "Maximum temperature setpoint"
+    "Maximum temperature set point"
     annotation (Placement(transformation(extent={{-290,190},{-270,210}})));
   GeojsonExportRC.OfficeBuilding.Office office
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
@@ -187,10 +187,10 @@ equation
   Documentation(info="
 <html>
 <p>
-This is a simplified six-zone building model based on two-element reduced order 
+This is a simplified six-zone building model based on two-element reduced order
 model.
-It was generated from translating a GeoJSON model specified within the URBANopt UI. 
-The heating and cooling loads are computed with a four-pipe 
+It was generated from translating a GeoJSON model specified within the URBANopt UI.
+The heating and cooling loads are computed with a four-pipe
 fan coil unit model derived from
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit\">
 Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit</a>

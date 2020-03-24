@@ -117,11 +117,11 @@ model BuildingRCZ1Valve
     origin={6,116})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=293.15,
     y(final unit="K", displayUnit="degC"))
-    "Minimum temperature setpoint"
+    "Minimum temperature set point"
     annotation (Placement(transformation(extent={{-280,250},{-260,270}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=297.15,
     y(final unit="K", displayUnit="degC"))
-    "Maximum temperature setpoint"
+    "Maximum temperature set point"
     annotation (Placement(transformation(extent={{-280,210},{-260,230}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=2)
     annotation (Placement(transformation(extent={{260,70},{280,90}})));
@@ -162,11 +162,11 @@ model BuildingRCZ1Valve
     annotation (Placement(transformation(extent={{-100, -160},{-80,-140}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSecHea(k=308.15,
       y(final unit="K", displayUnit="degC"))
-    "Heating water secondary supply temperature setpoint"
+    "Heating water secondary supply temperature set point"
     annotation (Placement(transformation(extent={{-260,-190},{-240,-170}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSecChi(k=289.15,
       y(final unit="K", displayUnit="degC"))
-    "Chilled water secondary supply temperature setpoint"
+    "Chilled water secondary supply temperature set point"
     annotation (Placement(transformation(extent={{-260,-230},{-240,-210}})));
 equation
   connect(eqAirTemp.TEqAirWin,preTem1. T)
@@ -346,9 +346,9 @@ equation
   Documentation(info="
 <html>
 <p>
-This is a simplified one-zone building model based on a one-element 
+This is a simplified one-zone building model based on a one-element
 reduced order room model.
-The corresponding heating and cooling loads are computed with a four-pipe 
+The corresponding heating and cooling loads are computed with a four-pipe
 fan coil unit model derived from
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit\">
 Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit</a>

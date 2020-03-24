@@ -69,7 +69,7 @@ model BenchmarkFlowDistribution1
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=293.15,
       y(final unit="K", displayUnit="degC"))
-    "Minimum temperature setpoint"
+    "Minimum temperature set point"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(nout=nLoa)
     "Repeat input to output an array"
@@ -130,7 +130,7 @@ This model is part of a computational performance benchmark between
 <li>
 a simplified modeling of the piping network as implemented in
 <a href=\"Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a> 
+Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>
 (see the corresponding example
 <a href=\"Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution1\">
 Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution1</a>), and

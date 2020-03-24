@@ -21,12 +21,12 @@ model BuildingSpawnZ6
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet[nZon](k=fill(293.15,
         nZon),
     y(each final unit="K", each displayUnit="degC"))
-    "Minimum temperature setpoint"
+    "Minimum temperature set point"
     annotation (Placement(transformation(extent={{-280,250},{-260,270}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet[nZon](k=fill(297.15,
         nZon),
     y(each final unit="K", each displayUnit="degC"))
-    "Maximum temperature setpoint"
+    "Maximum temperature set point"
     annotation (Placement(transformation(extent={{-280,210},{-260,230}})));
   Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
     annotation (Placement(transformation(extent={{-66,128},{-46,148}})));
