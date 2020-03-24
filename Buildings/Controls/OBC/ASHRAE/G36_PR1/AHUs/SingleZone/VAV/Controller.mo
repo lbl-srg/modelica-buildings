@@ -1,15 +1,16 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV;
-block Controller "Single Zone AHU controller that composes subsequences for controlling fan speed, economizer, and supply air temperature"
-  parameter Modelica.SIunits.Temperature TZonHeaOn=293.15
+block Controller
+  "Single Zone AHU controller that composes subsequences for controlling fan speed, economizer, and supply air temperature"
+  parameter Real TZonHeaOn(final unit="K")=293.15
     "Heating setpoint during on"
   annotation (Dialog(group="Zone setpoints"));
-  parameter Modelica.SIunits.Temperature TZonHeaOff=285.15
+  parameter Real TZonHeaOff(final unit="K")=285.15
     "Heating setpoint during off"
   annotation (Dialog(group="Zone setpoints"));
-  parameter Modelica.SIunits.Temperature TZonCooOn=297.15
+  parameter Real TZonCooOn(final unit="K")=297.15
     "Cooling setpoint during on"
   annotation (Dialog(group="Zone setpoints"));
-  parameter Modelica.SIunits.Temperature TZonCooOff=303.15
+  parameter Real TZonCooOff(final unit="K")=303.15
     "Cooling setpoint during off"
   annotation (Dialog(group="Zone setpoints"));
 
@@ -19,7 +20,7 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
   parameter Real kCoo(final unit="1/K") = 0.1
     "Gain for cooling control loop signal"
     annotation(Dialog(group="Cooling loop signal"));
-  parameter Modelica.SIunits.Time TiCoo=900
+  parameter Real TiCoo(final unit="s")=900
     "Time constant of integrator block for cooling control loop signal"
     annotation(Dialog(group="Cooling loop signal",
       enable=controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -37,7 +38,7 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
   parameter Real kHea(final unit="1/K")=0.1
     "Gain for heating control loop signal"
     annotation(Dialog(group="Heating loop signal"));
-  parameter Modelica.SIunits.Time TiHea=900
+  parameter Real TiHea(final unit="s")=900
     "Time constant of integrator block for heating control loop signal"
     annotation(Dialog(group="Heating loop signal",
     enable=controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -55,7 +56,7 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
   parameter Real kCooCoi(final unit="1/K")=1.0
     "Gain for cooling coil control loop signal"
     annotation(Dialog(group="Cooling coil loop signal"));
-  parameter Modelica.SIunits.Time TiCooCoil=900
+  parameter Real TiCooCoil(final unit="s")=900
     "Time constant of integrator block for cooling coil control loop signal"
     annotation(Dialog(group="Cooling coil loop signal",
     enable=controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -66,11 +67,11 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
       enable=controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Modelica.SIunits.Temperature TSupSetMax
+  parameter Real TSupSetMax(final unit="K")
     "Maximum supply air temperature for heating"
     annotation (Evaluate=true,
       Dialog(tab="VAV Setpoints",group="Temperature limits"));
-  parameter Modelica.SIunits.Temperature TSupSetMin
+  parameter Real TSupSetMin(final unit="K")
     "Minimum supply air temperature for cooling"
     annotation (Evaluate=true,
       Dialog(tab="VAV Setpoints",group="Temperature limits"));
@@ -87,10 +88,10 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
   parameter Real VOutPerAre_flow(final unit="m3/(s.m2)") = 3e-4
     "Outdoor air rate per unit area"
     annotation(Dialog(tab="Outside Air Flow", group="Nominal condition"));
-  parameter Modelica.SIunits.VolumeFlowRate VOutPerPer_flow = 2.5e-3
+  parameter Real VOutPerPer_flow(final unit="m3/s") = 2.5e-3
     "Outdoor air rate per person"
     annotation(Dialog(tab="Outside Air Flow", group="Nominal condition"));
-  parameter Modelica.SIunits.Area AFlo
+  parameter Real AFlo(final unit="m2")
     "Floor area"
     annotation(Dialog(tab="Outside Air Flow", group="Nominal condition"));
   parameter Boolean have_occSen
@@ -130,7 +131,7 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
     annotation(Dialog(tab="Economizer", group="Modulation"));
   parameter Real kMod(final unit="1/K")=1 "Gain of modulation controller"
     annotation(Dialog(tab="Economizer", group="Modulation"));
-  parameter Modelica.SIunits.Time TiMod=300
+  parameter Real TiMod(final unit="s")=300
     "Time constant of modulation controller integrator block"
     annotation (Dialog(tab="Economizer", group="Modulation",
       enable=controllerTypeMod == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -160,26 +161,26 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
   parameter Real kFre(final unit="1/K") = 0.1
     "Gain for mixed air temperature tracking for freeze protection, used if use_TMix=true"
      annotation(Dialog(tab="Economizer", group="Freeze protection", enable=use_TMix));
-  parameter Modelica.SIunits.Time TiFre=120
+  parameter Real TiFre(final unit="s")=120
     "Time constant of controller for mixed air temperature tracking for freeze protection. Require TiFre < TiMinOut"
      annotation(Dialog(tab="Economizer", group="Freeze protection",
        enable=use_TMix
          and (controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
            or controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-   parameter Modelica.SIunits.Time TdFre=0.1
+  parameter Modelica.SIunits.Time TdFre=0.1
      "Time constant of derivative block for freeze protection"
      annotation (Dialog(tab="Economizer", group="Freeze protection",
        enable=use_TMix and
            (controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
            or controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Modelica.SIunits.Temperature TFreSet=277.15
+  parameter Real TFreSet(final unit="K")=277.15
     "Lower limit for mixed air temperature for freeze protection, used if use_TMix=true"
      annotation(Dialog(tab="Economizer", group="Freeze protection", enable=use_TMix));
 
-  parameter Modelica.SIunits.VolumeFlowRate VOutMin_flow=1.0
+  parameter Real VOutMin_flow(final unit="m3/s")=1.0
     "Calculated minimum outdoor airflow rate"
     annotation(Evaluate=true, Dialog(tab="Economizer", group="Commissioning"));
-  parameter Modelica.SIunits.VolumeFlowRate VOutDes_flow=2.0
+  parameter Real VOutDes_flow(final unit="m3/s")=2.0
     "Calculated design outdoor airflow rate"
     annotation(Evaluate=true, Dialog(tab="Economizer", group="Commissioning"));
   parameter Real yDam_VOutMin_minSpe(
@@ -375,7 +376,7 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
     final yMin=0,
     final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
     "Zone cooling control signal"
-    annotation (Placement(transformation(extent={{-48,150},{-28,170}})));
+    annotation (Placement(transformation(extent={{-50,150},{-30,170}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID heaPI(
     final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
     final controllerType=controllerTypeHea,
@@ -384,10 +385,10 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
     final Td=TdHea,
     final yMax=1,
     final yMin=0) "Zone heating control signal"
-    annotation (Placement(transformation(extent={{-48,200},{-28,220}})));
+    annotation (Placement(transformation(extent={{-50,210},{-30,230}})));
   Buildings.Controls.OBC.CDL.Continuous.Average ave
     "Average of zone heating and cooling setpoint"
-    annotation (Placement(transformation(extent={{-100,180},{-80,200}})));
+    annotation (Placement(transformation(extent={{-100,190},{-80,210}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Economizers.Controller
     conEco(
     final use_TMix=use_TMix,
@@ -418,7 +419,7 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
     final use_fixed_plus_differential_drybulb=use_fixed_plus_differential_drybulb,
     final yFanMin=0,
     final yFanMax=1) "Economizer control sequence"
-    annotation (Placement(transformation(extent={{118,-48},{138,-28}})));
+    annotation (Placement(transformation(extent={{120,-50},{140,-30}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.OutsideAirFlow
     outAirSetPoi(
     final AFlo=AFlo,
@@ -429,7 +430,7 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
     final zonDisEffHea=zonDisEffHea,
     final zonDisEffCoo=zonDisEffCoo)
     "Output the minimum outdoor airflow rate setpoint "
-    annotation (Placement(transformation(extent={{40,40},{60,60}})));
+    annotation (Placement(transformation(extent={{40,50},{60,70}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.ZoneState zonSta "Zone state"
     annotation (Placement(transformation(extent={{40,130},{60,150}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
@@ -441,7 +442,7 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
     annotation (Placement(transformation(extent={{-110,-240},{-90,-220}})));
   Buildings.Controls.OBC.CDL.Logical.Not switch "If in unoccupied mode, switch off"
     annotation (Placement(transformation(extent={{-80,-240},{-60,-220}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.ModeAndSetPoints modSetPoi(
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints modSetPoi(
     final TZonHeaOn=TZonHeaOn,
     final TZonHeaOff=TZonHeaOff,
     final TZonCooOn=TZonCooOn,
@@ -454,135 +455,128 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
     annotation (Placement(transformation(extent={{120,-130},{140,-110}})));
 
 equation
-  connect(modSetPoi.tNexOcc, tNexOcc) annotation (Line(points={{-181,198},{-200,
-          198},{-200,200},{-220,200}},      color={0,0,127}));
-  connect(ave.y, setPoiVAV.TZonSet) annotation (Line(points={{-78,190},{-14,190},
-          {-14,191.667},{38,191.667}}, color={0,0,127}));
-  connect(TCut, conEco.TCut) annotation (Line(points={{-220,80},{-90,80},{-90,
-          -30.2},{117,-30.2}},
+  connect(modSetPoi.tNexOcc, tNexOcc) annotation (Line(points={{-182,199},{-192,
+          199},{-192,200},{-220,200}},      color={0,0,127}));
+  connect(ave.y, setPoiVAV.TZonSet) annotation (Line(points={{-78,200},{-10,200},
+          {-10,191.667},{38,191.667}}, color={0,0,127}));
+  connect(TCut, conEco.TCut) annotation (Line(points={{-220,80},{-90,80},{-90,-32.2},
+          {119,-32.2}},
                       color={0,0,127}));
-  connect(conEco.TSup, TSup) annotation (Line(points={{117,-36.6},{-4,-36.6},{
-          -4,40},{-220,40}},
-                          color={0,0,127}));
+  connect(conEco.TSup, TSup) annotation (Line(points={{119,-38.6},{-4,-38.6},{-4,
+          40},{-220,40}}, color={0,0,127}));
   connect(setPoiVAV.TSupHeaEco, conEco.THeaSupSet) annotation (Line(points={{62,195},
-          {92,195},{92,-38.2},{117,-38.2}},   color={0,0,127}));
+          {92,195},{92,-40.2},{119,-40.2}},   color={0,0,127}));
   connect(setPoiVAV.y, conEco.uSupFanSpe) annotation (Line(points={{62,185},{86,
-          185},{86,-41},{117,-41}},
+          185},{86,-43},{119,-43}},
                                   color={0,0,127}));
-  connect(TMix, conEco.TMix) annotation (Line(points={{-220,0},{0,0},{0,-42.4},
-          {117,-42.4}},   color={0,0,127}));
+  connect(TMix, conEco.TMix) annotation (Line(points={{-220,0},{0,0},{0,-44.4},{
+          119,-44.4}},    color={0,0,127}));
   connect(setPoiVAV.TSupHeaEco, TSupHeaEco) annotation (Line(points={{62,195},{
           160,195},{160,240},{210,240}},  color={0,0,127}));
-  connect(setPoiVAV.TSupCoo, TSupCoo) annotation (Line(points={{62,190},{136,190},
-          {136,180},{210,180}},      color={0,0,127}));
+  connect(setPoiVAV.TSupCoo, TSupCoo) annotation (Line(points={{62,190},{140,190},
+          {140,180},{210,180}},      color={0,0,127}));
   connect(setPoiVAV.y, yFan) annotation (Line(points={{62,185},{120,185},{120,
           120},{210,120}}, color={0,0,127}));
-  connect(conEco.yRetDamPos, yRetDamPos) annotation (Line(points={{139,-38},{168,
-          -38},{168,-240},{210,-240}},   color={0,0,127}));
-  connect(conEco.yOutDamPos, yOutDamPos) annotation (Line(points={{139,-42},{160,
-          -42},{160,-180},{210,-180}}, color={0,0,127}));
-  connect(outAirSetPoi.TDis, TSup) annotation (Line(points={{38,47},{-4,47},{-4,
+  connect(conEco.yRetDamPos, yRetDamPos) annotation (Line(points={{141,-40},{168,
+          -40},{168,-240},{210,-240}},   color={0,0,127}));
+  connect(conEco.yOutDamPos, yOutDamPos) annotation (Line(points={{141,-44},{160,
+          -44},{160,-180},{210,-180}}, color={0,0,127}));
+  connect(outAirSetPoi.TDis, TSup) annotation (Line(points={{38,57},{-4,57},{-4,
           40},{-220,40}},      color={0,0,127}));
   connect(conEco.VOutMinSet_flow, outAirSetPoi.VOutMinSet_flow) annotation (
-      Line(points={{117,-39.6},{108,-39.6},{108,50},{62,50}},
+      Line(points={{119,-41.6},{108,-41.6},{108,60},{62,60}},
                                                        color={0,0,127}));
   connect(TOut, setPoiVAV.TOut) annotation (Line(points={{-220,240},{10,240},{
           10,185},{38,185}}, color={0,0,127}));
-  connect(conEco.TOut, setPoiVAV.TOut) annotation (Line(points={{117,-28.6},{10,
-          -28.6},{10,185},{38,185}},
+  connect(conEco.TOut, setPoiVAV.TOut) annotation (Line(points={{119,-30.6},{10,
+          -30.6},{10,185},{38,185}},
                                    color={0,0,127}));
   connect(zonSta.yZonSta, conEco.uZonSta) annotation (Line(points={{61,140},{80,
-          140},{80,-46.2},{117,-46.2}},
+          140},{80,-48.2},{119,-48.2}},
                                     color={255,127,0}));
   connect(conInt.y, intEqu.u2) annotation (Line(points={{-138,-230},{-130,-230},
           {-130,-238},{-112,-238}},color={255,127,0}));
   connect(intEqu.y, switch.u) annotation (Line(points={{-88,-230},{-82,-230}}, color={255,0,255}));
-  connect(modSetPoi.TZonHeaSet, ave.u2) annotation (Line(points={{-159,193},{
-          -134,193},{-134,184},{-102,184}},color={0,0,127}));
-  connect(modSetPoi.TZonHeaSet, heaPI.u_s) annotation (Line(points={{-159,193},
-          {-124,193},{-124,210},{-50,210}}, color={0,0,127}));
-  connect(modSetPoi.TZonCooSet, ave.u1) annotation (Line(points={{-159,197},{
-          -102,197},{-102,196}},         color={0,0,127}));
-  connect(modSetPoi.TZonCooSet, cooPI.u_s) annotation (Line(points={{-159,197},
-          {-114,197},{-114,160},{-50,160}},
-                                          color={0,0,127}));
-  connect(outAirSetPoi.uWin, uWin) annotation (Line(points={{38,54},{8,54},{8,-80},
+  connect(modSetPoi.TZonHeaSet, ave.u2) annotation (Line(points={{-158,190},{-130,
+          190},{-130,194},{-102,194}},     color={0,0,127}));
+  connect(modSetPoi.TZonHeaSet, heaPI.u_s) annotation (Line(points={{-158,190},{
+          -130,190},{-130,220},{-52,220}},  color={0,0,127}));
+  connect(modSetPoi.TZonCooSet, cooPI.u_s) annotation (Line(points={{-158,197},{
+          -114,197},{-114,160},{-52,160}},color={0,0,127}));
+  connect(outAirSetPoi.uWin, uWin) annotation (Line(points={{38,64},{8,64},{8,-80},
           {-220,-80}},      color={255,0,255}));
-  connect(modSetPoi.uOcc, uOcc) annotation (Line(points={{-181,186.025},{-184,
-          186.025},{-184,120},{-220,120}}, color={255,0,255}));
-  connect(TZon, modSetPoi.TZon) annotation (Line(points={{-220,160},{-198,160},
-          {-198,195},{-181,195}}, color={0,0,127}));
-  connect(TZon, cooPI.u_m) annotation (Line(points={{-220,160},{-180,160},{-180,
-          132},{-38,132},{-38,148}}, color={0,0,127}));
-  connect(setPoiVAV.TZon, cooPI.u_m) annotation (Line(points={{38,188.333},{4,
-          188.333},{4,132},{-38,132},{-38,148}},
-                                        color={0,0,127}));
-  connect(outAirSetPoi.TZon, cooPI.u_m)   annotation (Line(points={{38,50},{-38,
-          50},{-38,148}},  color={0,0,127}));
+  connect(modSetPoi.uOcc, uOcc) annotation (Line(points={{-182,196.025},{-186,196.025},
+          {-186,120},{-220,120}},          color={255,0,255}));
+  connect(TZon, modSetPoi.TZon) annotation (Line(points={{-220,160},{-192,160},{
+          -192,193},{-182,193}},  color={0,0,127}));
+  connect(TZon, cooPI.u_m) annotation (Line(points={{-220,160},{-120,160},{-120,
+          140},{-40,140},{-40,148}}, color={0,0,127}));
   connect(nOcc, outAirSetPoi.nOcc) annotation (Line(points={{-220,-40},{4,-40},{
-          4,58},{38,58}},  color={0,0,127}));
-  connect(uFreProSta, conEco.uFreProSta) annotation (Line(points={{-220,-240},{
-          -180,-240},{-180,-180},{40,-180},{40,-47.6},{117,-47.6}},
+          4,68},{38,68}},  color={0,0,127}));
+  connect(uFreProSta, conEco.uFreProSta) annotation (Line(points={{-220,-240},{-180,
+          -240},{-180,-180},{40,-180},{40,-49.6},{119,-49.6}},
                                    color={255,127,0}));
-  connect(conEco.hOut, hOut) annotation (Line(points={{117,-33.4},{100,-33.4},{
-          100,-120},{-220,-120}},
+  connect(conEco.hOut, hOut) annotation (Line(points={{119,-35.4},{100,-35.4},{100,
+          -120},{-220,-120}},
                         color={0,0,127}));
-  connect(conEco.hCut, hCut) annotation (Line(points={{117,-35},{102,-35},{102,
-          -160},{-220,-160}},
+  connect(conEco.hCut, hCut) annotation (Line(points={{119,-37},{102,-37},{102,-160},
+          {-220,-160}}, color={0,0,127}));
+  connect(conEco.TRet, TRet) annotation (Line(points={{119,-33.8},{102,-33.8},{102,
+          -200},{-220,-200}},
                         color={0,0,127}));
-  connect(conEco.TRet, TRet) annotation (Line(points={{117,-31.8},{102,-31.8},{
-          102,-200},{-220,-200}},
-                        color={0,0,127}));
-  connect(conEco.yHeaCoi, yHeaCoi) annotation (Line(points={{139,-34},{174,-34},
+  connect(conEco.yHeaCoi, yHeaCoi) annotation (Line(points={{141,-36},{174,-36},
           {174,-60},{210,-60}}, color={0,0,127}));
-  connect(modSetPoi.yOpeMod, conEco.uOpeMod) annotation (Line(points={{-159,187},
-          {-152,187},{-152,-45},{117,-45}}, color={255,127,0}));
-  connect(modSetPoi.TZonHeaSet, TZonHeaSet) annotation (Line(points={{-159,193},
-          {-140,193},{-140,100},{146,100},{146,60},{210,60}}, color={0,0,127}));
+  connect(modSetPoi.yOpeMod, conEco.uOpeMod) annotation (Line(points={{-158,183},
+          {-152,183},{-152,-47},{119,-47}}, color={255,127,0}));
+  connect(modSetPoi.TZonHeaSet, TZonHeaSet) annotation (Line(points={{-158,190},
+          {-130,190},{-130,100},{160,100},{160,60},{210,60}}, color={0,0,127}));
   connect(cooCoi.yCooCoi, yCooCoi)
-    annotation (Line(points={{141,-120},{210,-120}}, color={0,0,127}));
+    annotation (Line(points={{142,-120},{210,-120}}, color={0,0,127}));
   connect(switch.y, cooCoi.uSupFan) annotation (Line(points={{-58,-230},{110,-230},
           {110,-128},{118,-128}}, color={255,0,255}));
-  connect(zonSta.yZonSta, cooCoi.uZonSta) annotation (Line(points={{61,140},{80,
-          140},{80,-124},{118,-124}}, color={255,127,0}));
-  connect(cooCoi.TSupCoo, TSupCoo) annotation (Line(points={{118,-112},{74,-112},
-          {74,190},{136,190},{136,180},{210,180}}, color={0,0,127}));
+  connect(zonSta.yZonSta, cooCoi.uZonSta) annotation (Line(points={{61,140},{74,
+          140},{74,-124},{118,-124}}, color={255,127,0}));
   connect(cooCoi.TSup, TSup) annotation (Line(points={{118,-116},{-4,-116},{-4,
           40},{-220,40}},
                       color={0,0,127}));
   connect(switch.y, outAirSetPoi.uSupFan) annotation (Line(points={{-58,-230},{-20,
-          -230},{-20,44},{38,44}}, color={255,0,255}));
-  connect(switch.y, conEco.uSupFan) annotation (Line(points={{-58,-230},{60,
-          -230},{60,-43.6},{117,-43.6}},
+          -230},{-20,54},{38,54}}, color={255,0,255}));
+  connect(switch.y, conEco.uSupFan) annotation (Line(points={{-58,-230},{60,-230},
+          {60,-45.6},{119,-45.6}},
                                color={255,0,255}));
   connect(switch.y, setPoiVAV.uFan) annotation (Line(points={{-58,-230},{28,
           -230},{28,181.667},{38,181.667}},
                               color={255,0,255}));
-  connect(heaPI.y, setPoiVAV.uHea) annotation (Line(points={{-26,210},{-12,210},
-          {-12,198.333},{38,198.333}},
+  connect(heaPI.y, setPoiVAV.uHea) annotation (Line(points={{-28,220},{0,220},{
+          0,198.333},{38,198.333}},
                                color={0,0,127}));
-  connect(heaPI.y, zonSta.uHea) annotation (Line(points={{-26,210},{-12,210},{
-          -12,144},{38,144}},
-                          color={0,0,127}));
-  connect(cooPI.y, setPoiVAV.uCoo) annotation (Line(points={{-26,160},{-20,160},
+  connect(heaPI.y, zonSta.uHea) annotation (Line(points={{-28,220},{0,220},{0,144},
+          {38,144}},      color={0,0,127}));
+  connect(cooPI.y, setPoiVAV.uCoo) annotation (Line(points={{-28,160},{-20,160},
           {-20,195},{38,195}}, color={0,0,127}));
-  connect(cooPI.y, zonSta.uCoo) annotation (Line(points={{-26,160},{-20,160},{
-          -20,136},{38,136}},
-                          color={0,0,127}));
-  connect(switch.y, heaPI.trigger) annotation (Line(points={{-58,-230},{-46,-230},
-          {-46,72},{-58,72},{-58,182},{-46,182},{-46,198}}, color={255,0,255}));
-  connect(switch.y, cooPI.trigger) annotation (Line(points={{-58,-230},{-46,-230},
-          {-46,148}}, color={255,0,255}));
-  connect(modSetPoi.TZonCooSet, TZonCooSet) annotation (Line(points={{-159,197},
+  connect(cooPI.y, zonSta.uCoo) annotation (Line(points={{-28,160},{-20,160},{-20,
+          136},{38,136}}, color={0,0,127}));
+  connect(switch.y, heaPI.trigger) annotation (Line(points={{-58,-230},{-48,-230},
+          {-48,80},{-60,80},{-60,190},{-48,190},{-48,208}}, color={255,0,255}));
+  connect(switch.y, cooPI.trigger) annotation (Line(points={{-58,-230},{-48,-230},
+          {-48,148}}, color={255,0,255}));
+  connect(modSetPoi.TZonCooSet, TZonCooSet) annotation (Line(points={{-158,197},
           {-114,197},{-114,108},{120,108},{120,0},{210,0}}, color={0,0,127}));
-  connect(TZon, heaPI.u_m) annotation (Line(points={{-220,160},{-126,160},{-126,
-          178},{-38,178},{-38,198}}, color={0,0,127}));
-  connect(intEqu.u1, modSetPoi.yOpeMod) annotation (Line(points={{-112,-230},{
-          -120,-230},{-120,-60},{-152,-60},{-152,187},{-159,187}}, color={255,
+  connect(TZon, heaPI.u_m) annotation (Line(points={{-220,160},{-120,160},{-120,
+          180},{-40,180},{-40,208}}, color={0,0,127}));
+  connect(intEqu.u1, modSetPoi.yOpeMod) annotation (Line(points={{-112,-230},{-120,
+          -230},{-120,-60},{-152,-60},{-152,183},{-158,183}},      color={255,
           127,0}));
-  connect(outAirSetPoi.uOpeMod, modSetPoi.yOpeMod) annotation (Line(points={{38,
-          41},{34,41},{34,30},{-152,30},{-152,187},{-159,187}}, color={255,127,
-          0}));
+  connect(setPoiVAV.TSupCoo, cooCoi.TSupCoo) annotation (Line(points={{62,190},{
+          80,190},{80,-112},{118,-112}}, color={0,0,127}));
+  connect(modSetPoi.TZonCooSet, ave.u1) annotation (Line(points={{-158,197},{-114,
+          197},{-114,206},{-102,206}}, color={0,0,127}));
+  connect(TZon, setPoiVAV.TZon) annotation (Line(points={{-220,160},{-120,160},
+          {-120,180},{-40,180},{-40,188.333},{38,188.333}},color={0,0,127}));
+  connect(TZon, outAirSetPoi.TZon) annotation (Line(points={{-220,160},{-120,160},
+          {-120,140},{-40,140},{-40,60},{38,60}}, color={0,0,127}));
+  connect(modSetPoi.yOpeMod, outAirSetPoi.uOpeMod) annotation (Line(points={{-158,
+          183},{-152,183},{-152,51},{38,51}}, color={255,127,0}));
 
 annotation (defaultComponentName="conVAV",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-260},{200,
@@ -788,6 +782,12 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.ModeAndSetPoints</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 10, 2020, by Jianjun Hu:<br/>
+Replaced the block for calculating the operation mode and setpoint temperature with the one
+from the terminal unit package. The new block does not have vector-valued calculations.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1709\">#1709</a>.
+</li>
 <li>
 August 3, 2019, by David Blum &amp; Kun Zhang:<br/>
 First implementation.
