@@ -1,10 +1,19 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences;
 block Down "Generates a stage down signal"
-  parameter Modelica.SIunits.Time delayStaCha = 900
-    "True delay period";
+  parameter Boolean have_WSE = true
+    "true = plant has a WSE, false = plant does not have WSE";
 
-  parameter Modelica.SIunits.Time dowHolPer = 900
-     "Time period for the value hold at stage down change";
+  parameter Boolean serChi = false
+    "true = series chillers plant; false = parallel chillers plant";
+
+  parameter Modelica.SIunits.Time parLoaRatDelay = 900
+    "Enable delay for operating and staging part load ratio condition";
+
+  parameter Modelica.SIunits.Time faiSafTruDelay = 900
+    "Enable delay for failsafe condition";
+
+  parameter Modelica.SIunits.TemperatureDifference faiSafTDif = 1
+    "Offset between the chilled water supply temperature and its setpoint for the failsafe condition";
 
   parameter Modelica.SIunits.TemperatureDifference TDif = 1
     "Offset between the chilled water supply temperature and its setpoint";
@@ -14,9 +23,6 @@ block Down "Generates a stage down signal"
 
   parameter Modelica.SIunits.PressureDifference dpDif = 2 * 6895
     "Offset between the chilled water pump differential static pressure and its setpoint";
-
-  parameter Boolean have_WSE = true
-    "The chiller plant has a waterside economizer (WSE).";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseSta if have_WSE
     "WSE status"
@@ -86,9 +92,10 @@ block Down "Generates a stage down signal"
 
 //protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.FailsafeCondition faiSafCon(
-    final delayStaCha = delayStaCha,
-    final TDif = TDif,
-    final dpDif = dpDif)
+    final serChi=serChi,
+    final faiSafTruDelay=faiSafTruDelay,
+    final TDif=TDif,
+    final dpDif=dpDif)
     "Failsafe condition of the next lower stage"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
@@ -103,9 +110,9 @@ block Down "Generates a stage down signal"
     "Switches staging down rules"
     annotation (Placement(transformation(extent={{-120,-170},{-100,-150}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTSup(final uLow=TDif -
-        TDifHyst, final uHigh=TDif) if
-                                    have_WSE
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTSup(
+    final uLow=TDif - TDifHyst,
+    final uHigh=TDif) if have_WSE
     "Checks if the predicted downstream WSE chilled water supply temperature is higher than its setpoint plus an offset"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 
@@ -134,7 +141,7 @@ block Down "Generates a stage down signal"
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1(
-    final delayTime=delayStaCha,
+    final delayTime=parLoaRatDelay,
     final delayOnInit=true)
     "Delays a true signal"
     annotation (Placement(transformation(extent={{-40,180},{-20,200}})));
@@ -156,24 +163,20 @@ block Down "Generates a stage down signal"
     "Staging from 1 to 0 for plants without a WSE is depends on the plant disable sequence"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
 
-  CDL.Interfaces.BooleanInput                        uAvaDow
-    "Next stage down availability status"
-    annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
-        iconTransformation(extent={{-140,-150},{-100,-110}})));
 equation
   connect(TChiWatSupSet, faiSafCon.TChiWatSupSet) annotation (Line(points={{-200,
-          -40},{-160,-40},{-160,57},{-82,57}},color={0,0,127}));
+          -40},{-160,-40},{-160,56},{-82,56}},color={0,0,127}));
   connect(dpChiWatPumSet, faiSafCon.dpChiWatPumSet) annotation (Line(points={{-200,
-          110},{-170,110},{-170,50},{-82,50}},
+          110},{-170,110},{-170,48},{-82,48}},
                                          color={0,0,127}));
   connect(dpChiWatPum, faiSafCon.dpChiWatPum) annotation (Line(points={{-200,70},
-          {-140,70},{-140,47},{-82,47}},color={0,0,127}));
+          {-140,70},{-140,44},{-82,44}},color={0,0,127}));
   connect(u, intGreThr.u)
     annotation (Line(points={{-200,-160},{-122,-160}}, color={255,127,0}));
   connect(add0.y,hysTSup. u)
     annotation (Line(points={{-58,-60},{-42,-60}}, color={0,0,127}));
-  connect(TChiWatSup, faiSafCon.TChiWatSup) annotation (Line(points={{-200,30},
-          {-150,30},{-150,53},{-82,53}},   color={0,0,127}));
+  connect(TChiWatSup, faiSafCon.TChiWatSup) annotation (Line(points={{-200,30},{
+          -150,30},{-150,52},{-82,52}},    color={0,0,127}));
   connect(hys.y, not0.u)
     annotation (Line(points={{-98,-100},{-82,-100}}, color={255,0,255}));
   connect(uTowFanSpeMax, hys.u) annotation (
@@ -213,8 +216,6 @@ equation
           {98,-8}}, color={255,0,255}));
   connect(faiSafCon.y, not1.u)
     annotation (Line(points={{-58,50},{-42,50}}, color={255,0,255}));
-  connect(uAvaDow, faiSafCon.uAvaCur) annotation (Line(points={{-200,0},{-140,0},
-          {-140,43},{-82,43}}, color={255,0,255}));
   annotation (defaultComponentName = "staDow",
         Icon(graphics={
         Rectangle(

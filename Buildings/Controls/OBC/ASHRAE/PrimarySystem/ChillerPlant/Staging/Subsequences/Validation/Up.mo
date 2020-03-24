@@ -1,18 +1,12 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation;
 model Up "Validate change stage up condition sequence"
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Up
-    staUp(
-    delayStaCha=900,
-    shortDelay=600,
-    longDelay=1200)
+    staUp(effConTruDelay=900)
           "Generates stage up signal"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Up
-    staUp1(final have_WSE=true,
-    delayStaCha=900,
-    shortDelay=600,
-    longDelay=1200)
+    staUp1(final have_WSE=true)
     "Generates stage up signal"
     annotation (Placement(transformation(extent={{140,20},{160,40}})));
 

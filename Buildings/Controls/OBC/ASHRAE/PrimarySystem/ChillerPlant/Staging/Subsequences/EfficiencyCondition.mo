@@ -2,17 +2,20 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subseque
 block EfficiencyCondition
   "Efficiency condition used in staging up and down"
 
-  parameter Modelica.SIunits.Time delayStaCha = 900  "Enable delay";
+  parameter Modelica.SIunits.Time effConTruDelay = 900
+    "Enable delay";
 
   parameter Real hysSig = 0.05
     "Signal hysteresis deadband";
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOpe(final unit="1")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOpe(
+    final unit="1")
     "Operative part load ratio of the current stage" annotation (Placement(
         transformation(extent={{-140,0},{-100,40}}), iconTransformation(extent=
             {{-140,30},{-100,70}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uStaUp(final unit="1")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uStaUp(
+    final unit="1")
     "Staging part load ratio of the next stage up" annotation (Placement(
         transformation(extent={{-140,-40},{-100,0}}), iconTransformation(extent=
            {{-140,-70},{-100,-30}})));
@@ -24,13 +27,14 @@ block EfficiencyCondition
 
 //protected
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
-    final delayTime=delayStaCha,
+    final delayTime=effConTruDelay,
     final delayOnInit=true)
     "Delays a true signal"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysOpe(final uLow=0, final
-      uHigh=hysSig)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysOpe(
+    final uLow=0,
+    final uHigh=hysSig)
     "Checks if the current stage operating part load ratio exceeds the stage up part load ratio"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 

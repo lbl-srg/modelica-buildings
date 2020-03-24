@@ -1,6 +1,12 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences;
 block Change "Calculates the chiller stage signal"
 
+  parameter Boolean have_WSE = true
+    "true = plant has a WSE, false = plant does not have WSE";
+
+  parameter Boolean anyVsdCen = true
+    "Plant contains at least one variable speed centrifugal chiller";
+
   parameter Integer nSta = 3
     "Number of chiller stages";
 
@@ -24,17 +30,23 @@ block Change "Calculates the chiller stage signal"
   parameter Modelica.SIunits.Time avePer = 300
   "Time period for the rolling average";
 
-  parameter Modelica.SIunits.Time holPer = 900
-  "Time period for the value hold at stage change";
+  parameter Modelica.SIunits.Time delayStaCha = 900
+  "Hold period for each stage change";
 
-  parameter Modelica.SIunits.Time upHolPer = 900
-     "Time period for the value hold at stage up change";
+  parameter Modelica.SIunits.Time parLoaRatDelay = 900
+    "Enable delay for operating and staging part load ratio condition";
 
-  parameter Modelica.SIunits.Time dowHolPer = 900
-     "Time period for the value hold at stage down change";
+  parameter Modelica.SIunits.Time faiSafTruDelay = 900
+    "Enable delay for failsafe condition";
 
-  parameter Boolean anyVsdCen = true
-    "Plant contains at least one variable speed centrifugal chiller";
+  parameter Modelica.SIunits.Time effConTruDelay = 900
+    "Enable delay for efficiency condition";
+
+  parameter Modelica.SIunits.Time shortTDelay = 600
+    "Short enable delay for staging from zero to first available stage up";
+
+  parameter Modelica.SIunits.Time longTDelay = 1200
+    "Long enable delay for staging from zero to first available stage up";
 
   parameter Real posDisMult(
     final unit = "1",
@@ -62,32 +74,26 @@ block Change "Calculates the chiller stage signal"
     "Maximum stage up or down part load ratio for variable speed centrifugal stage types"
     annotation(Evaluate=true, Dialog(enable=anyVsdCen));
 
-  parameter Boolean have_WSE = true
-    "true = plant has a WSE, false = plant does not have WSE";
-
-  parameter Modelica.SIunits.Time delayStaCha = 15*60
-    "Delay stage change";
-
-  parameter Modelica.SIunits.Time shortDelay = 10*60
-    "Short stage 0 to 1 delay";
-
-  parameter Modelica.SIunits.Time longDelay = 20*60
-    "Long stage 0 to 1 delay";
-
   parameter Modelica.SIunits.TemperatureDifference smallTDif = 1
-    "Offset between the chilled water supply temperature and its setpoint";
+    "Offset between the chilled water supply temperature and its setpoint for the long condition"
+    annotation(Evaluate=true, Dialog(enable=have_WSE));
 
   parameter Modelica.SIunits.TemperatureDifference largeTDif = 2
-    "Offset between the chilled water supply temperature and its setpoint";
+    "Offset between the chilled water supply temperature and its setpoint for the short condition"
+    annotation(Evaluate=true, Dialog(enable=have_WSE));
 
-  parameter Modelica.SIunits.TemperatureDifference TDif = 1
-    "Offset between the chilled water supply temperature and its setpoint";
+  parameter Modelica.SIunits.TemperatureDifference faiSafTDif = 1
+    "Offset between the chilled water supply temperature and its setpoint for the failsafe condition";
 
   parameter Modelica.SIunits.PressureDifference dpDif = 2 * 6895
-    "Offset between the chilled water pump Diferential static pressure and its setpoint";
+    "Offset between the chilled water pump diferential static pressure and its setpoint";
 
-  parameter Modelica.SIunits.TemperatureDifference TDifHyst = 1
+  parameter Modelica.SIunits.TemperatureDifference TDif = 1
+    "Offset between the chilled water supply temperature and its setpoint for staging down to WSE only";
+
+  parameter Modelica.SIunits.TemperatureDifference TDifHys = 1
     "Hysteresis deadband for temperature";
+
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseSta if have_WSE
     "WSE status"
@@ -243,7 +249,7 @@ block Change "Calculates the chiller stage signal"
     final delayStaCha=delayStaCha,
     final dowHolPer=dowHolPer,
     final TDif=TDif,
-    final TDifHyst=TDifHyst,
+    final TDifHys=TDifHys,
     final dpDif=dpDif,
     final have_WSE=have_WSE)
     annotation (Placement(transformation(extent={{60,-300},{80,-280}})));
@@ -290,9 +296,6 @@ block Change "Calculates the chiller stage signal"
                                       falseHoldDuration=delayStaCha)
     "Main stage change hold"
     annotation (Placement(transformation(extent={{180,-260},{200,-240}})));
-  CDL.Logical.Sources.Constant staDowAva(final k=true)
-    "Staging down is being evaluated for the next available stage down"
-    annotation (Placement(transformation(extent={{20,-340},{40,-320}})));
 protected
   CDL.Logical.Edge                                               edg
     "Detects plant start"
@@ -453,8 +456,6 @@ equation
           {250,-111.8},{250,-111.8}}, color={255,0,255}));
   connect(cha.y, y)
     annotation (Line(points={{242,-250},{420,-250}}, color={255,0,255}));
-  connect(staDow.uAvaDow, staDowAva.y) annotation (Line(points={{58,-303},{50,-303},
-          {50,-330},{42,-330}}, color={255,0,255}));
   annotation (defaultComponentName = "cha",
         Icon(graphics={
         Rectangle(
