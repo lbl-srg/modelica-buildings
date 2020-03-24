@@ -7,10 +7,15 @@ model RoomLeakage "Room leakage model"
   parameter Boolean use_windPressure=false
     "Set to true to enable wind pressure"
     annotation(Evaluate=true);
+  // Below, VRoo is for Spawn obtained in the initial equation section.
+  // Hence it is not known when the model is compiled, which leads to a
+  // warning in Dymola and an error in Optimica (Modelon#2020031339000191).
+  // We therefore assign the nominal attribute to a constant value.
   Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare package Medium = Medium,
     dp_nominal=50,
-    m_flow_nominal=VRoo*1.2/3600) "Resistance model"
+    m_flow_nominal=VRoo*1.2/3600,
+    m_flow(nominal=0.1)) "Resistance model"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
         Medium) annotation (Placement(transformation(extent={{90,-10},{110,10}})));
