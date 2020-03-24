@@ -36,16 +36,16 @@ model MixingValveControl
   Buildings.Controls.OBC.CDL.Logical.Switch TPri(
     y(final unit="K", displayUnit="degC"))
     "Actual primary supply temperature"
-    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
+    annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse mod(
-    amplitude=2,
+    amplitude=-1,
     period=1000,
-    offset=-1) "Operating mode (1 for heating, -1 for cooling)"
+    offset=2) "Operating mode (1 for heating, 2 for cooling)"
     annotation (Placement(transformation(extent={{-140,30},{-120,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual greEqu
+  Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold
+                                                     lesEquThr(threshold=1)
+    "Return true if heating mode"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
-  Modelica.Blocks.Sources.Constant zero(k=0) "Zero value"
-    annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSecHea(k=303.15,
                 y(final unit="K", displayUnit="degC"))
     "Heating water secondary supply temperature set point"
@@ -57,9 +57,6 @@ model MixingValveControl
     y(final unit="K", displayUnit="degC"))
     "Actual secondary supply temperature set point"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger modInt(integerFalse=-1)
-    "Operating mode in integer format "
-    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Buildings.Fluid.Sources.MassFlowSource_T souSec(
     use_m_flow_in=true,
     redeclare package Medium = Medium,
@@ -77,11 +74,9 @@ model MixingValveControl
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={110,100})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dTSec(k=-5)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dTSecHea(k=-5)
     "Secondary temperature difference between supply and return"
-    annotation (Placement(transformation(extent={{20,-110},{40,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro "Product"
-    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
+    annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTSecSup(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal) "Secondary supply temperature (measured)"
@@ -109,26 +104,25 @@ model MixingValveControl
         Medium, m_flow_nominal=m_flow_nominal)
     "Primary supply temperature (measured)"
     annotation (Placement(transformation(extent={{8,10},{28,30}})));
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
+    "Convert to integer"
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch dTSec(y(final unit="K", displayUnit
+        ="degC")) "Actual secondary delta T"
+    annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dTSecCoo(k=5)
+    "Secondary temperature difference between supply and return"
+    annotation (Placement(transformation(extent={{-20,-150},{0,-130}})));
 equation
-  connect(mod.y, greEqu.u1)
-    annotation (Line(points={{-118,40},{-102,40}}, color={0,0,127}));
-  connect(greEqu.y, TPri.u2) annotation (Line(points={{-78,40},{-74,40},{-74,90},
-          {-62,90}}, color={255,0,255}));
-  connect(zero.y, greEqu.u2) annotation (Line(points={{-119,0},{-110,0},{-110,
-          32},{-102,32}},
-                        color={0,0,127}));
-  connect(TPri.y, souPri.T_in) annotation (Line(points={{-38,90},{-32,90},{-32,24},
-          {-22,24}}, color={0,0,127}));
+  connect(lesEquThr.y, TPri.u2) annotation (Line(points={{-78,40},{-74,40},{-74,
+          80},{-62,80}}, color={255,0,255}));
+  connect(TPri.y, souPri.T_in) annotation (Line(points={{-38,80},{-32,80},{-32,
+          24},{-22,24}},
+                     color={0,0,127}));
   connect(TSetSecAct.y, disFlo.TSupSet) annotation (Line(points={{-38,-80},{32,-80},
           {32,12},{39,12}}, color={0,0,127}));
-  connect(greEqu.y, modInt.u) annotation (Line(points={{-78,40},{-74,40},{-74,
-          -20},{-62,-20}}, color={255,0,255}));
-  connect(modInt.y, disFlo.modChaOve) annotation (Line(points={{-38,-20},{36,-20},
-          {36,14},{39,14}}, color={255,127,0}));
-  connect(greEqu.y, TSetSecAct.u2) annotation (Line(points={{-78,40},{-74,40},{-74,
-          -80},{-62,-80}}, color={255,0,255}));
-  connect(dTSec.y, pro.u2) annotation (Line(points={{42,-100},{56,-100},{56,-66},
-          {58,-66}}, color={0,0,127}));
+  connect(lesEquThr.y, TSetSecAct.u2) annotation (Line(points={{-78,40},{-74,40},
+          {-74,-80},{-62,-80}}, color={255,0,255}));
   connect(disFlo.ports_b1[1], senTSecSup.port_a) annotation (Line(points={{40,
           26},{36,26},{36,100},{70,100}}, color={0,127,255}));
   connect(souSec.ports[1], senTSecRet.port_a)
@@ -144,26 +138,36 @@ equation
   connect(mSec_flow.y, souSec.m_flow_in) annotation (Line(points={{-118,160},{
           140,160},{140,68},{122,68}},
                               color={0,0,127}));
-  connect(TSetSecAct.y, add.u2) annotation (Line(points={{-38,-80},{52,-80},{52,
-          -86},{98,-86}}, color={0,0,127}));
-  connect(pro.y, add.u1) annotation (Line(points={{82,-60},{94,-60},{94,-74},{
-          98,-74}}, color={0,0,127}));
   connect(add.y, souSec.T_in) annotation (Line(points={{122,-80},{140,-80},{140,
           64},{122,64}},                     color={0,0,127}));
   connect(souPri.ports[1], senTPriSup.port_a)
     annotation (Line(points={{0,20},{8,20}}, color={0,127,255}));
   connect(senTPriSup.port_b, disFlo.port_a)
     annotation (Line(points={{28,20},{40,20}}, color={0,127,255}));
-  connect(mod.y, pro.u1) annotation (Line(points={{-118,40},{-114,40},{-114,-40},
-          {40,-40},{40,-54},{58,-54}}, color={0,0,127}));
   connect(TSetSecChi.y, TSetSecAct.u3) annotation (Line(points={{-118,-100},{
           -100,-100},{-100,-88},{-62,-88}}, color={0,0,127}));
   connect(TSetSecHea.y, TSetSecAct.u1) annotation (Line(points={{-118,-60},{
           -100,-60},{-100,-72},{-62,-72}}, color={0,0,127}));
-  connect(TPriChi.y, TPri.u3) annotation (Line(points={{-118,80},{-100,80},{
-          -100,82},{-62,82}}, color={0,0,127}));
-  connect(TPriHea.y, TPri.u1) annotation (Line(points={{-118,120},{-100,120},{
-          -100,98},{-62,98}}, color={0,0,127}));
+  connect(TPriChi.y, TPri.u3) annotation (Line(points={{-118,80},{-80,80},{-80,
+          72},{-62,72}},      color={0,0,127}));
+  connect(TPriHea.y, TPri.u1) annotation (Line(points={{-118,120},{-80,120},{
+          -80,88},{-62,88}},  color={0,0,127}));
+  connect(mod.y, lesEquThr.u)
+    annotation (Line(points={{-118,40},{-102,40}}, color={0,0,127}));
+  connect(mod.y, reaToInt.u) annotation (Line(points={{-118,40},{-110,40},{-110,
+          0},{-62,0}}, color={0,0,127}));
+  connect(reaToInt.y, disFlo.modChaOve) annotation (Line(points={{-38,0},{30,0},
+          {30,14},{39,14}}, color={255,127,0}));
+  connect(TSetSecAct.y, add.u1) annotation (Line(points={{-38,-80},{32,-80},{32,
+          -74},{98,-74}}, color={0,0,127}));
+  connect(dTSec.y, add.u2) annotation (Line(points={{42,-120},{80,-120},{80,-86},
+          {98,-86}}, color={0,0,127}));
+  connect(dTSecHea.y, dTSec.u1) annotation (Line(points={{2,-100},{10,-100},{10,
+          -112},{18,-112}}, color={0,0,127}));
+  connect(dTSecCoo.y, dTSec.u3) annotation (Line(points={{2,-140},{10,-140},{10,
+          -128},{18,-128}}, color={0,0,127}));
+  connect(lesEquThr.y, dTSec.u2) annotation (Line(points={{-78,40},{-74,40},{
+          -74,-120},{18,-120}}, color={255,0,255}));
   annotation (
 Documentation(
 info="<html>

@@ -59,7 +59,7 @@ block MixingValveControl "Mixing valve controller"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(k=0)
     "Zero constant"
     annotation (Placement(transformation(extent={{-70,-30},{-50,-10}})));
-  Modelica.Blocks.Math.IntegerToBoolean toBoo(threshold=0) if
+  Modelica.Blocks.Math.IntegerToBoolean toBoo(threshold=2) if
     typDis == Type_dis.ChangeOver
     "Conversion to boolean (true if heating mode)"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
@@ -78,18 +78,18 @@ block MixingValveControl "Mixing valve controller"
     annotation (Placement(transformation(extent={{-70,-70},{-50,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Min negPar
     "Negative part of control signal"
-    annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
+    annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Max posPar
     "Positive part of control signal"
-    annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
+    annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain opp(k=-1)
     "Opposite value"
-    annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
+    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     "Logical switch"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
-  Modelica.Blocks.Sources.BooleanExpression fixMod(
-    final y=typDis == Type_dis.HeatingWater) if
+  Modelica.Blocks.Sources.BooleanExpression fixMod(final y=typDis == Type_dis.ChilledWater)
+    if
     typDis <> Type_dis.ChangeOver
     "Fixed operating mode"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -108,23 +108,19 @@ equation
     annotation (Line(points={{11,0},{68,0}},
                    color={255,0,255}));
   connect(conTSup.y, posPar.u2) annotation (Line(points={{-48,-60},{-20,-60},{
-          -20,-46},{-12,-46}},
-                           color={0,0,127}));
-  connect(zer.y, posPar.u1) annotation (Line(points={{-48,-20},{-40,-20},{-40,
-          -34},{-12,-34}},
-                      color={0,0,127}));
-  connect(zer.y, negPar.u1) annotation (Line(points={{-48,-20},{-40,-20},{-40,
-          -74},{-12,-74}},
-                      color={0,0,127}));
-  connect(conTSup.y, negPar.u2) annotation (Line(points={{-48,-60},{-20,-60},{
           -20,-86},{-12,-86}},
                            color={0,0,127}));
+  connect(zer.y, posPar.u1) annotation (Line(points={{-48,-20},{-40,-20},{-40,
+          -74},{-12,-74}},
+                      color={0,0,127}));
+  connect(zer.y, negPar.u1) annotation (Line(points={{-48,-20},{-40,-20},{-40,
+          -34},{-12,-34}},
+                      color={0,0,127}));
+  connect(conTSup.y, negPar.u2) annotation (Line(points={{-48,-60},{-20,-60},{
+          -20,-46},{-12,-46}},
+                           color={0,0,127}));
   connect(negPar.y, opp.u)
-    annotation (Line(points={{12,-80},{18,-80}}, color={0,0,127}));
-  connect(opp.y, swi.u3) annotation (Line(points={{42,-80},{60,-80},{60,-8},{68,
-          -8}},     color={0,0,127}));
-  connect(posPar.y, swi.u1) annotation (Line(points={{12,-40},{40,-40},{40,8},{68,
-          8}},       color={0,0,127}));
+    annotation (Line(points={{12,-40},{18,-40}}, color={0,0,127}));
   connect(conTSup.u_s, TSupSet) annotation (Line(points={{-72,-60},{-90,-60},{-90,
           -40},{-120,-40}}, color={0,0,127}));
   connect(TSupMes, conTSup.u_m) annotation (Line(points={{-120,-80},{-60,-80},{-60,
@@ -136,6 +132,10 @@ equation
     annotation (Line(points={{-120,80},{-82,80}}, color={255,127,0}));
   connect(cha.y, conTSup.trigger) annotation (Line(points={{-58,80},{-40,80},{-40,
           60},{-80,60},{-80,-76},{-68,-76},{-68,-72}}, color={255,0,255}));
+  connect(opp.y, swi.u1) annotation (Line(points={{42,-40},{50,-40},{50,8},{68,
+          8}}, color={0,0,127}));
+  connect(posPar.y, swi.u3) annotation (Line(points={{12,-80},{60,-80},{60,-8},
+          {68,-8}}, color={0,0,127}));
   annotation (
   defaultComponentName="conVal",
   Documentation(info="
@@ -154,7 +154,7 @@ Cooling: the controller tracks a maximum supply temperature.
 <li>
 Change-over: the controller tracks either a minimum or a maximum
 supplied temperature depending on the actual value of the integer input
-<code>modChaOve</code> (+1 for heating, -1 for cooling).
+<code>modChaOve</code> (1 for heating, 2 for cooling).
 The model instantiates only one PI block to limit the number of state
 variables in large models. Therefore the PI gain
 is independent from the change-over mode: the reverse action is modeled
