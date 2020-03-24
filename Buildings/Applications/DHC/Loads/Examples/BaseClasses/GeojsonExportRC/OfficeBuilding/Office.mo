@@ -79,7 +79,7 @@ model Office
     annotation (Placement(
     transformation(extent={{-102,-10},{-68,22}}),iconTransformation(
     extent={{-70,-12},{-50,8}})));
-  Modelica.Blocks.Sources.Constant alphaWall(k=25.0*2800.69829830438)
+  Modelica.Blocks.Sources.Constant hConWall(k=25.0*2800.69829830438)
     "Outdoor coefficient of heat transfer for walls"
     annotation (Placement(
     transformation(
@@ -107,7 +107,7 @@ model Office
       extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
       tableName="Internals",
       fileName=Modelica.Utilities.Files.loadResource(
-          "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportRC/Resources/Data/OfficeBuilding/InternalGains_Office.mat"),
+          "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportRC/Resources/Data/OfficeBuilding/InternalGains_Office.txt"),
       columns={2,3,4})
       "Table with profiles for persons (radiative and convective) and machines (convective)"
       annotation (Placement(transformation(extent={{6,-60},{22,-44}})));
@@ -125,14 +125,6 @@ equation
   connect(eqAirTemp.TEqAir, prescribedTemperature.T)
     annotation (Line(points={{-3,-4},{4,-4},{4,0},{6.8,0}},
     color={0,0,127}));
-  connect(weaBus, weaBus)
-    annotation (Line(
-    points={{-85,6},{-74,6},{-74,18},{-84,18},{-84,12},{-85,12},{-85,6}},
-    color={255,204,51},
-    thickness=0.5), Text(
-    string="%second",
-    index=1,
-    extent={{6,3},{6,3}}));
   connect(weaBus.TDryBul, eqAirTemp.TDryBul)
     annotation (Line(
     points={{-85,6},{-85,-2},{-38,-2},{-38,-10},{-26,-10}},
@@ -246,7 +238,7 @@ equation
     color={191,0,0}));
   connect(thermalConductorWall.fluid, prescribedTemperature.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
-  connect(alphaWall.y, thermalConductorWall.Gc)
+  connect(hConWall.y, thermalConductorWall.Gc)
     annotation (Line(points={{30,-11.6},{30,-4},{31,-4}}, color={0,0,127}));
   connect(hConWin.y, thermalConductorWin.Gc)
     annotation (Line(points={{32,33.6},{32,26},{33,26}}, color={0,0,127}));

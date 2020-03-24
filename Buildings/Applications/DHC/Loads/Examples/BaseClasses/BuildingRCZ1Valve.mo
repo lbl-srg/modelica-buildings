@@ -101,14 +101,14 @@ model BuildingRCZ1Valve
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow macConv
     "Convective heat flow of machines"
     annotation (Placement(transformation(extent={{22,2},{42,22}})));
-  Modelica.Blocks.Sources.Constant alphaWall(k=25*11.5)
+  Modelica.Blocks.Sources.Constant hConWall(k=25*11.5)
     "Outdoor coefficient of heat transfer for walls"
     annotation (Placement(
     transformation(
     extent={{-4,-4},{4,4}},
     rotation=90,
     origin={4,62})));
-  Modelica.Blocks.Sources.Constant alphaWin(k=20*14)
+  Modelica.Blocks.Sources.Constant hConWin(k=20*14)
     "Outdoor coefficient of heat transfer for windows"
     annotation (Placement(
     transformation(
@@ -224,9 +224,9 @@ equation
   connect(theConWall.fluid,preTem. port)
     annotation (Line(points={{0,79},{-2,79},{-2,78},{-6,78}},
                                                            color={191,0,0}));
-  connect(alphaWall.y,theConWall. Gc)
+  connect(hConWall.y,theConWall. Gc)
     annotation (Line(points={{4,66.4},{4,74},{5,74}},     color={0,0,127}));
-  connect(alphaWin.y,theConWin. Gc)
+  connect(hConWin.y,theConWin. Gc)
     annotation (Line(points={{6,111.6},{6,104},{7,104}}, color={0,0,127}));
   connect(macConv.port,thermalZoneOneElement. intGainsConv)
     annotation (
