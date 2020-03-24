@@ -1,7 +1,7 @@
 compareVars :=
   {
     "ter[1].TLoaODE.TAir",
-    "minTSet_K.y",
+    "minTSet.y",
     "ter[1].QReqHea_flow",
     "ter[1].QActHea_flow",
     "ter[1].mReqHeaWat_flow",

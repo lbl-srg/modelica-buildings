@@ -68,7 +68,7 @@ model BuildingTimeSeries
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=293.15,
       y(final unit="K", displayUnit="degC"))
     "Minimum temperature set point"
-    annotation (Placement(transformation(extent={{-280,250},{-260,270}})));
+    annotation (Placement(transformation(extent={{-280,170},{-260,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=297.15,
       y(final unit="K", displayUnit="degC"))
     "Maximum temperature set point"
@@ -156,12 +156,10 @@ equation
         color={0,127,255}));
   connect(terUniCoo.mReqChiWat_flow, disFloCoo.mReq_flow[1]) annotation (Line(
         points={{90.8333,31},{108,31},{108,-114},{119,-114}}, color={0,0,127}));
-  connect(maxTSet.y, terUniHea.TSetHea) annotation (Line(points={{-258,220},{
-          -100,220},{-100,-19},{69.1667,-19}},
-                                          color={0,0,127}));
-  connect(minTSet.y, terUniCoo.TSetCoo) annotation (Line(points={{-258,260},{
-          -80,260},{-80,39.3333},{69.1667,39.3333}},
-                                                 color={0,0,127}));
+  connect(minTSet.y, terUniHea.TSetHea) annotation (Line(points={{-258,180},{
+          -20,180},{-20,-20},{24,-20},{24,-19},{69.1667,-19}}, color={0,0,127}));
+  connect(maxTSet.y, terUniCoo.TSetCoo) annotation (Line(points={{-258,220},{0,
+          220},{0,39.3333},{69.1667,39.3333}}, color={0,0,127}));
   annotation (
   Documentation(info="
 <html>
