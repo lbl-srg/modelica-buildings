@@ -124,5 +124,24 @@ to specify building-level parameters.",
         extent={{16,-32},{44,-4}},
         lineColor={255,255,255},
         fillColor={255,255,255},
-        fillPattern=FillPattern.Solid)}));
+        fillPattern=FillPattern.Solid)}),
+    Documentation(info="<html>
+<p>
+Model that declares building-level specifications for Spawn of EnergyPlus.
+</p>
+<p>
+Each EnergyPlus idf file must have one instance of this model, which
+is used to configure EnergyPlus.
+The instance must be placed in the model hierarchy at the same or at a higher level
+than the EnergyPlus objects that are related to the EnergyPlus idf file specified in
+this model through the parameter <code>idfName</code>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 28, 2020, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end Building;

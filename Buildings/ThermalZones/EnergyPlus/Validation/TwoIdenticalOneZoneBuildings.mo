@@ -30,6 +30,5 @@ First implementation.
         "Simulate and plot"),
 experiment(
       StopTime=172800,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"));
+      Tolerance=1e-06));
 end TwoIdenticalOneZoneBuildings;
