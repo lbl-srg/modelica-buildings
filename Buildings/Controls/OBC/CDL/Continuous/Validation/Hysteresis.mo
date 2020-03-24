@@ -37,13 +37,13 @@ protected
     "Block that outputs the product of a gain value with the input signal"
     annotation (Placement(transformation(extent={{10,30},{30,50}})));
 
-  Sources.Pulse pul(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul(
     final amplitude=1,
     final period=0.1)
     "Pulse signal"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
-  Sources.Pulse pul1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul1(
     final amplitude=1,
     final period=0.1)
     "Pulse signal"
@@ -51,15 +51,15 @@ protected
 
 equation
   connect(ramp1.y, sin1.u)
-    annotation (Line(points={{-53,40},{-32,40}}, color={0,0,127}));
+    annotation (Line(points={{-52,40},{-32,40}}, color={0,0,127}));
   connect(sin1.y, gain1.u)
-    annotation (Line(points={{-9,40},{8,40}}, color={0,0,127}));
+    annotation (Line(points={{-8,40},{8,40}}, color={0,0,127}));
   connect(gain1.y, hysteresis.u)
-    annotation (Line(points={{31,40},{48,40}}, color={0,0,127}));
+    annotation (Line(points={{32,40},{48,40}}, color={0,0,127}));
   connect(hysteresis2.u, pul1.y)
-    annotation (Line(points={{18,-40},{-19,-40}}, color={0,0,127}));
+    annotation (Line(points={{18,-40},{-18,-40}}, color={0,0,127}));
   connect(pul.y, hysteresis1.u)
-    annotation (Line(points={{-19,0},{18,0}}, color={0,0,127}));
+    annotation (Line(points={{-18,0},{18,0}}, color={0,0,127}));
   annotation (
   experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/Hysteresis.mos"
