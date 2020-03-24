@@ -54,7 +54,7 @@ block Initial "Outputs the initial stage"
     iconTransformation(extent={{100,-10},{120,10}})));
 
 protected
-  Economizer.Subsequences.PredictedOutletTemperature
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.PredictedOutletTemperature
     wseTOut(
     final heaExcAppDes=heaExcAppDes,
     final cooTowAppDes=cooTowAppDes,
@@ -63,11 +63,10 @@ protected
     "Waterside economizer outlet temperature predictor"
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
+  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea "Type converter"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
-    "Convert real input to integer output"
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt "Type converter"
     annotation (Placement(transformation(extent={{160,-10},{180,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staZer(

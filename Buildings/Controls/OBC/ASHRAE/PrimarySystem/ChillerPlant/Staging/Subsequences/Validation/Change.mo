@@ -13,14 +13,12 @@ model Change "Validates chiller stage signal"
   parameter Modelica.SIunits.VolumeFlowRate aveVChiWat_flow = 0.05
     "Average measured chilled water flow rate";
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Change
-    cha(
-    chiDesCap={500000,1000000},
-    chiMinCap={100000,200000},
-    chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.constantSpeedCentrifugal},
-    anyVsdCen=false,
-    have_WSE=false) "Stage change"
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Change cha(
+    final chiDesCap={500000,1000000},
+    final chiMinCap={100000,200000},
+    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.constantSpeedCentrifugal})
+    "Stage change"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TChiWatRet(
@@ -53,14 +51,15 @@ model Change "Validates chiller stage signal"
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     annotation (Placement(transformation(extent={{180,20},{200,40}})));
 
-  CDL.Logical.TrueFalseHold truFalHol(trueHoldDuration=0, falseHoldDuration=900)
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(trueHoldDuration=0, falseHoldDuration=900)
     annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
-  CDL.Logical.Pre pre
+  Buildings.Controls.OBC.CDL.Logical.Pre pre
     annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
-  CDL.Logical.Sources.Constant plaSta(final k=true) "Plant status"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant plaSta(final k=true) "Plant status"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
-  CDL.Integers.Sources.Constant conInt(k=1)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(k=1)
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
+
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWat(
     final k=65*6895)
@@ -127,8 +126,8 @@ equation
                                      color={255,0,255}));
   connect(cha.uPla, plaSta.y) annotation (Line(points={{58,9},{30,9},{30,-50},{
           2,-50}}, color={255,0,255}));
-  connect(conInt.y, cha.uIni) annotation (Line(points={{2,-10},{20,-10},{20,16},
-          {58,16},{58,17.2}}, color={255,127,0}));
+  connect(cha.uIni, conInt.y) annotation (Line(points={{58,17.2},{28,17.2},{28,-10},
+          {2,-10}}, color={255,127,0}));
 annotation (
  experiment(StopTime=20000.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Change.mos"

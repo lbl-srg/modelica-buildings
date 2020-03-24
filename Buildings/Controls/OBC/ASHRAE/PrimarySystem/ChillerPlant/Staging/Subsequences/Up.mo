@@ -68,14 +68,14 @@ block Up "Generates a stage up signal"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPumSet(
     final unit="Pa",
-    final quantity="PressureDifference")
+    final quantity="PressureDifference") if not serChi
     "Chilled water pump Diferential static pressure setpoint"
     annotation (Placement(transformation(extent={{-200,0},{-160,40}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPum(
     final unit="Pa",
-    final quantity="PressureDifference")
+    final quantity="PressureDifference") if not serChi
     "Chilled water pump Diferential static pressure"
     annotation (Placement(transformation(extent={{-200,-30},{-160,10}}),
     iconTransformation(extent={{-140,-40},{-100,0}})));
@@ -161,8 +161,11 @@ block Up "Generates a stage up signal"
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant noWSE(
     final k=true) if not have_WSE
-    "Replacement signal if plant does not have WSE - assuming if plant gets enabled the lowest available stage should be engaged"
+    "Replacement signal for when a plant does not have a WSE"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
+    annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
 
 equation
   connect(uOpe, effCon.uOpe) annotation (Line(points={{-180,100},{-150,100},{-150,
@@ -216,7 +219,9 @@ equation
           {-130,-90},{-112,-90}}, color={0,0,127}));
   connect(TChiWatSupSet, add0.u2) annotation (Line(points={{-180,-90},{-150,-90},
           {-150,-112},{-100,-112},{-100,-102}}, color={0,0,127}));
-  connect(uAvaCur, orStaUp.u3) annotation (Line(points={{-180,-40},{-40,-40},{-40,
+  connect(uAvaCur, not1.u)
+    annotation (Line(points={{-180,-40},{-102,-40}}, color={255,0,255}));
+  connect(not1.y, orStaUp.u3) annotation (Line(points={{-78,-40},{-40,-40},{-40,
           32},{-22,32}}, color={255,0,255}));
   annotation (defaultComponentName = "staUp",
         Icon(graphics={

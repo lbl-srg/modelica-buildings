@@ -20,7 +20,7 @@ block Down "Generates a stage down signal"
     "Offset between the chilled water supply temperature and its setpoint"
     annotation(Evaluate=true, Dialog(enable=have_WSE));
 
-  parameter Modelica.SIunits.TemperatureDifference TDifHyst = 1
+  parameter Modelica.SIunits.TemperatureDifference TDifHys = 1
     "Hysteresis deadband for temperature"
     annotation(Evaluate=true, Dialog(enable=have_WSE));
 
@@ -65,14 +65,14 @@ block Down "Generates a stage down signal"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPumSet(
     final unit="Pa",
-    final quantity="PressureDifference")
+    final quantity="PressureDifference") if not serChi
     "Chilled water pump differential static pressure setpoint"
     annotation (Placement(transformation(extent={{-220,90},{-180,130}}),
       iconTransformation(extent={{-140,30},{-100,70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPum(
     final unit="Pa",
-    final quantity="PressureDifference")
+    final quantity="PressureDifference") if not serChi
     "Chilled water pump differential static pressure"
     annotation (Placement(transformation(extent={{-220,50},{-180,90}}),
     iconTransformation(extent={{-140,10},{-100,50}})));
@@ -114,7 +114,7 @@ block Down "Generates a stage down signal"
     annotation (Placement(transformation(extent={{-120,-170},{-100,-150}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTSup(
-    final uLow=TDif - TDifHyst,
+    final uLow=TDif - TDifHys,
     final uHigh=TDif) if have_WSE
     "Checks if the predicted downstream WSE chilled water supply temperature is higher than its setpoint plus an offset"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
@@ -161,8 +161,8 @@ block Down "Generates a stage down signal"
     "Subtracts part load ratios"
     annotation (Placement(transformation(extent={{-120,180},{-100,200}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noWSEcoSig(final k=false) if
-                     not have_WSE
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noWSEcoSig(
+    final k=false) if not have_WSE
     "Staging from 1 to 0 for plants without a WSE is depends on the plant disable sequence"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
 

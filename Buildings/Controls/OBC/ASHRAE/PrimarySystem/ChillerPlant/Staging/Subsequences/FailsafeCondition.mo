@@ -53,6 +53,7 @@ block FailsafeCondition
     annotation (Placement(transformation(extent={{140,-20},{180,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
+protected
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysdpSup(
     final uLow=dpDif - dpDifHys,
     final uHigh=dpDif) if not serChi
@@ -70,7 +71,6 @@ block FailsafeCondition
     "Virtual signal for series chiller plants"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 
-protected
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
     final delayTime=faiSafTruDelay,
     final delayOnInit=true)

@@ -1,13 +1,13 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences;
 block Change "Calculates the chiller stage signal"
 
-  parameter Boolean have_WSE = true
+  parameter Boolean have_WSE = false
     "true = plant has a WSE, false = plant does not have WSE";
 
   parameter Boolean serChi = false
     "true = series chillers plant; false = parallel chillers plant";
 
-  parameter Boolean anyVsdCen = true
+  parameter Boolean anyVsdCen = false
     "Plant contains at least one variable speed centrifugal chiller";
 
   parameter Integer nSta = 3
@@ -31,10 +31,10 @@ block Change "Calculates the chiller stage signal"
     "Chiller type. Recommended staging order: positive displacement, variable speed centrifugal, constant speed centrifugal";
 
   parameter Modelica.SIunits.Time avePer = 300
-  "Time period for the capacity requirement rolling average";
+    "Time period for the capacity requirement rolling average";
 
   parameter Modelica.SIunits.Time delayStaCha = 900
-  "Hold period for each stage change";
+    "Hold period for each stage change";
 
   parameter Modelica.SIunits.Time parLoaRatDelay = 900
     "Enable delay for operating and staging part load ratio condition";
@@ -183,14 +183,14 @@ block Change "Calculates the chiller stage signal"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPumSet(
     final unit="Pa",
-    final quantity="PressureDifference")
+    final quantity="PressureDifference") if not serChi
     "Chilled water pump differential static pressure setpoint"
     annotation (Placement(transformation(extent={{-280,150},{-240,190}}),
       iconTransformation(extent={{-140,-10},{-100,30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPum(
     final unit="Pa",
-    final quantity="PressureDifference")
+    final quantity="PressureDifference") if not serChi
     "Chilled water pump differential static pressure"
     annotation (Placement(transformation(extent={{-280,120},{-240,160}}),
     iconTransformation(extent={{-140,10},{-100,50}})));
@@ -227,16 +227,16 @@ block Change "Calculates the chiller stage signal"
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Status sta(
     final nSta=nSta,
     final nChi=nChi,
-    final staMat=staMat)
+    final staMat=staMat) "First higher and lower available stage index, end stage boolean flags and chiller status setpoints"
     annotation (Placement(transformation(extent={{-160,-280},{-140,-260}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.CapacityRequirement capReq(
     final avePer = avePer,
-    final holPer = delayStaCha)
+    final holPer = delayStaCha) "Capacity requirement"
     annotation (Placement(transformation(extent={{-160,240},{-140,260}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Capacities cap(
-    final nSta=nSta)
+    final nSta=nSta) "Design and minimum capacities for relevant chiller stages"
     annotation (Placement(transformation(extent={{-110,-240},{-90,-220}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.PartLoadRatios PLRs(
@@ -245,7 +245,7 @@ block Change "Calculates the chiller stage signal"
     final posDisMult=posDisMult,
     final conSpeCenMult=conSpeCenMult,
     final varSpeStaMin=varSpeStaMin,
-    final varSpeStaMax=varSpeStaMax)
+    final varSpeStaMax=varSpeStaMax) "Operative and staging part load ratios"
     annotation (Placement(transformation(extent={{-20,-260},{0,-240}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Up staUp(
@@ -275,10 +275,10 @@ block Change "Calculates the chiller stage signal"
     final TDifHys=TDifHys) "Stage down conditions"
     annotation (Placement(transformation(extent={{60,-300},{80,-280}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Or or2
+  Buildings.Controls.OBC.CDL.Logical.Or or2 "Logical or"
     annotation (Placement(transformation(extent={{140,-260},{160,-240}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Change cha
+  Buildings.Controls.OBC.CDL.Logical.Change cha "Boolean signal change"
     annotation (Placement(transformation(extent={{220,-260},{240,-240}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
@@ -286,35 +286,49 @@ block Change "Calculates the chiller stage signal"
           extent={{400,-270},{440,-230}}), iconTransformation(extent={{100,50},
             {140,90}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla "Plant enable signal" annotation (Placement(
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla
+    "Plant enable signal" annotation (Placement(
         transformation(extent={{-280,-160},{-240,-120}}), iconTransformation(
           extent={{-140,-230},{-100,-190}})));
+
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam
     annotation (Placement(transformation(extent={{240,-110},{260,-90}})));
-  CDL.Logical.Switch                               switch1
+
+  Buildings.Controls.OBC.CDL.Logical.Switch switch1
     annotation (Placement(transformation(extent={{180,-110},{200,-90}})));
+
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
     annotation (Placement(transformation(extent={{120,-150},{140,-130}})));
+
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     annotation (Placement(transformation(extent={{340,-30},{360,-10}})));
+
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea1
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
+
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     annotation (Placement(transformation(extent={{120,-110},{140,-90}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uIni(final min=0, final max=nSta)
     "Initial chiller stage (at plant enable)" annotation (Placement(
         transformation(extent={{-280,-120},{-240,-80}}), iconTransformation(
           extent={{-140,-148},{-100,-108}})));
+
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea2 "Integer to real conversion"
     annotation (Placement(transformation(extent={{240,20},{260,40}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold holIniSta(trueHoldDuration=delayStaCha,
-      falseHoldDuration=0)
+
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold holIniSta(
+    final trueHoldDuration=delayStaCha,
+    final falseHoldDuration=0)
     "Holds stage switched to initial upon plant start"
     annotation (Placement(transformation(extent={{120,-30},{140,-10}})));
-  CDL.Logical.Switch                               switch2
+
+  Buildings.Controls.OBC.CDL.Logical.Switch switch2
     annotation (Placement(transformation(extent={{300,-30},{320,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold staChaHol(trueHoldDuration=0,
-                                      falseHoldDuration=delayStaCha)
+
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold staChaHol(
+    final trueHoldDuration=0,
+    final falseHoldDuration=delayStaCha)
     "Main stage change hold"
     annotation (Placement(transformation(extent={{180,-260},{200,-240}})));
 

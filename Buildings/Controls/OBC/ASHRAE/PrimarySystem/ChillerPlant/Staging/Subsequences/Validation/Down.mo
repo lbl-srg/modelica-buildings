@@ -107,10 +107,6 @@ protected
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
-protected
-  CDL.Logical.Sources.Constant staAvaDow(final k=true)
-    "The next stage down is assumed to be available"
-    annotation (Placement(transformation(extent={{-90,140},{-70,160}})));
   CDL.Continuous.Sources.Constant                        splrDown1(final k=1)
     "Staging down part load ratio"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
@@ -168,12 +164,6 @@ equation
           {-84,-10},{-84,80},{-52,80},{-52,90},{-42,90}}, color={0,0,127}));
   connect(stage2.y, noWSE.u) annotation (Line(points={{-138,-90},{-64,-90},{-64,
           81},{-42,81}}, color={255,127,0}));
-  connect(staAvaDow.y, noWSE.uAvaDow) annotation (Line(points={{-68,150},{-60,
-          150},{-60,77},{-42,77}}, color={255,0,255}));
-  connect(staAvaDow.y, withWSE.uAvaDow) annotation (Line(points={{-68,150},{-60,
-          150},{-60,37},{-42,37}}, color={255,0,255}));
-  connect(staAvaDow.y, withWSE1.uAvaDow) annotation (Line(points={{-68,150},{
-          130,150},{130,37},{138,37}}, color={255,0,255}));
   connect(splrDown1.y, withWSE1.uStaDow) annotation (Line(points={{62,90},{100,
           90},{100,58},{138,58}}, color={0,0,127}));
 annotation (
