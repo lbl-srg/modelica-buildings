@@ -88,8 +88,7 @@ block MixingValveControl "Mixing valve controller"
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     "Logical switch"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
-  Modelica.Blocks.Sources.BooleanExpression fixMod(final y=typDis == Type_dis.ChilledWater)
-    if
+  Modelica.Blocks.Sources.BooleanExpression fixMod(final y=typDis == Type_dis.ChilledWater) if
     typDis <> Type_dis.ChangeOver
     "Fixed operating mode"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -100,42 +99,37 @@ block MixingValveControl "Mixing valve controller"
 equation
   connect(modChaOve, toBoo.u)
     annotation (Line(points={{-120,80},{-90,80},{-90,40},{-12,40}},
-                  color={255,127,0}));
+      color={255,127,0}));
   connect(toBoo.y, swi.u2)
     annotation (Line(points={{11,40},{30,40},{30,0},{68,0}},
-             color={255,0,255}));
+      color={255,0,255}));
   connect(fixMod.y, swi.u2)
-    annotation (Line(points={{11,0},{68,0}},
-                   color={255,0,255}));
-  connect(conTSup.y, posPar.u2) annotation (Line(points={{-48,-60},{-20,-60},{
-          -20,-86},{-12,-86}},
-                           color={0,0,127}));
-  connect(zer.y, posPar.u1) annotation (Line(points={{-48,-20},{-40,-20},{-40,
-          -74},{-12,-74}},
-                      color={0,0,127}));
-  connect(zer.y, negPar.u1) annotation (Line(points={{-48,-20},{-40,-20},{-40,
-          -34},{-12,-34}},
-                      color={0,0,127}));
-  connect(conTSup.y, negPar.u2) annotation (Line(points={{-48,-60},{-20,-60},{
-          -20,-46},{-12,-46}},
-                           color={0,0,127}));
+    annotation (Line(points={{11,0},{68,0}}, color={255,0,255}));
+  connect(conTSup.y, posPar.u2)
+    annotation (Line(points={{-48,-60},{-20,-60},{-20,-86},{-12,-86}}, color={0,0,127}));
+  connect(zer.y, posPar.u1)
+    annotation (Line(points={{-48,-20},{-40,-20},{-40,-74},{-12,-74}}, color={0,0,127}));
+  connect(zer.y, negPar.u1)
+    annotation (Line(points={{-48,-20},{-40,-20},{-40,-34},{-12,-34}}, color={0,0,127}));
+  connect(conTSup.y, negPar.u2)
+    annotation (Line(points={{-48,-60},{-20,-60},{-20,-46},{-12,-46}}, color={0,0,127}));
   connect(negPar.y, opp.u)
     annotation (Line(points={{12,-40},{18,-40}}, color={0,0,127}));
-  connect(conTSup.u_s, TSupSet) annotation (Line(points={{-72,-60},{-90,-60},{-90,
-          -40},{-120,-40}}, color={0,0,127}));
-  connect(TSupMes, conTSup.u_m) annotation (Line(points={{-120,-80},{-60,-80},{-60,
-          -72}}, color={0,0,127}));
-  connect(swi.y, yVal) annotation (Line(points={{92,0},{120,0}},
-        color={0,0,127}));
-
+  connect(conTSup.u_s, TSupSet)
+    annotation (Line(points={{-72,-60},{-90,-60},{-90,-40},{-120,-40}}, color={0,0,127}));
+  connect(TSupMes, conTSup.u_m)
+    annotation (Line(points={{-120,-80},{-60,-80},{-60,-72}}, color={0,0,127}));
+  connect(swi.y, yVal)
+    annotation (Line(points={{92,0},{120,0}}, color={0,0,127}));
   connect(modChaOve, cha.u)
     annotation (Line(points={{-120,80},{-82,80}}, color={255,127,0}));
-  connect(cha.y, conTSup.trigger) annotation (Line(points={{-58,80},{-40,80},{-40,
-          60},{-80,60},{-80,-76},{-68,-76},{-68,-72}}, color={255,0,255}));
-  connect(opp.y, swi.u1) annotation (Line(points={{42,-40},{50,-40},{50,8},{68,
-          8}}, color={0,0,127}));
-  connect(posPar.y, swi.u3) annotation (Line(points={{12,-80},{60,-80},{60,-8},
-          {68,-8}}, color={0,0,127}));
+  connect(cha.y, conTSup.trigger)
+    annotation (Line(points={{-58,80},{-40,80},{-40,60},{-80,60},{-80,-76},{-68,-76},{-68,-72}},
+      color={255,0,255}));
+  connect(opp.y, swi.u1)
+    annotation (Line(points={{42,-40},{50,-40},{50,8},{68, 8}}, color={0,0,127}));
+  connect(posPar.y, swi.u3)
+    annotation (Line(points={{12,-80},{60,-80},{60,-8}, {68,-8}}, color={0,0,127}));
   annotation (
   defaultComponentName="conVal",
   Documentation(info="
@@ -185,6 +179,7 @@ First implementation.
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
+          visible=typDis == Type_dis.ChangeOver,
           textString="modChaOve"),
         Text(
           extent={{-90,54},{-22,26}},
