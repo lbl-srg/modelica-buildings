@@ -179,15 +179,15 @@ info="<html>
 <p>
 This is a simplified model of a two-pipe fan coil unit for heating. It is 
 intended to be used in a case where the room thermal loads are provided 
-as time series: it thus takes the load as an input.
+as time series, and hence it takes the load as an input.
 </p>
 <p>
 A PI controller tracks the load.
-The controller output signal is mapped linearly to both: 
+The controller output signal is mapped linearly to both, 
 </p>
 <ul>
 <li>
-the opening of a two-way control valve,
+the opening of a two-way control valve, and
 </li>
 <li>
 the air mass flow rate, from zero to its nominal value.

@@ -6,9 +6,9 @@ model FlowDistributionPumpControl
     "Source side medium";
   package Medium2 = Buildings.Media.Air
     "Load side medium";
-  parameter String filPat=
+  parameter String filNam=
     "modelica://Buildings/Applications/DHC/Loads/Examples/Resources/SwissResidential_20190916.mos"
-    "Library path of the file with thermal loads as time series";
+    "File name with thermal loads as time series";
   parameter Integer nLoa=5
     "Number of served loads"
     annotation(Evaluate=true);
@@ -45,7 +45,7 @@ model FlowDistributionPumpControl
   final parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal=
     Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
       string="#Peak space heating load",
-      filNam=Modelica.Utilities.Files.loadResource(filPat))
+      filNam=Modelica.Utilities.Files.loadResource(filNam))
     "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Nominal condition"));
   BaseClasses.FanCoil2PipeHeatingValve terUniHea[nLoa](
@@ -62,7 +62,7 @@ model FlowDistributionPumpControl
   Modelica.Blocks.Sources.CombiTimeTable loa(
     tableOnFile=true,
     tableName="tab1",
-    fileName=Modelica.Utilities.Files.loadResource(filPat),
+    fileName=Modelica.Utilities.Files.loadResource(filNam),
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     y(each unit="W"),
     offset={0,0,0},

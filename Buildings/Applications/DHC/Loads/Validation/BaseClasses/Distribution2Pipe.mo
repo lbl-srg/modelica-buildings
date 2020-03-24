@@ -12,16 +12,16 @@ annotation (
 Documentation(
 info="<html>
 <p>
-This is a model of a two-pipe distribution network using:
+This is a model of a two-pipe distribution network using
 </p>
 <ul>
 <li>
-a connection model with fixed hydraulic resistance with no heat loss as pipe
-model,
+a connection model with fixed hydraulic resistance with no heat loss as a pipe
+model, and
 </li>
 <li>
 a dummy pipe model with no hydraulic resistance and no heat loss for the end of
-the distribution line (after last connection). 
+the distribution line (after the last connection). 
 </li>
 </ul>
 </html>",

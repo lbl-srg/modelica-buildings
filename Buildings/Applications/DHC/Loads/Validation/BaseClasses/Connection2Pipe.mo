@@ -13,7 +13,7 @@ Documentation(
 info="<html>
 <p>
 This is a model of a connection with a two-pipe distribution network using 
-a fixed hydraulic resistance with no heat loss as pipe model.
+as pipe model a fixed hydraulic resistance with no heat loss .
 </p>
 </html>",
 revisions=

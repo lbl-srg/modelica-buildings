@@ -10,8 +10,8 @@ model BuildingTimeSeries
     final have_weaBus=false);
   package Medium2 = Buildings.Media.Air
     "Load side medium";
-  parameter String filPat
-    "Library path of the file with thermal loads as time series";
+  parameter String filNam
+    "File name with thermal loads as time series";
   parameter Modelica.SIunits.Temperature T_aHeaWat_nominal(
     min=273.15, displayUnit="degC") = 273.15 + 40
     "Heating water inlet temperature at nominal conditions"
@@ -45,19 +45,19 @@ model BuildingTimeSeries
   parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal(max=-Modelica.Constants.eps)=
     Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
     string="#Peak space cooling load",
-    filNam=Modelica.Utilities.Files.loadResource(filPat))
+    filNam=Modelica.Utilities.Files.loadResource(filNam))
     "Design cooling heat flow rate (<=0)"
     annotation (Dialog(group="Design parameter"));
   parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(min=Modelica.Constants.eps)=
     Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
     string="#Peak space heating load",
-    filNam=Modelica.Utilities.Files.loadResource(filPat))
+    filNam=Modelica.Utilities.Files.loadResource(filNam))
     "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Design parameter"));
   Modelica.Blocks.Sources.CombiTimeTable loa(
     tableOnFile=true,
     tableName="tab1",
-    fileName=Modelica.Utilities.Files.loadResource(filPat),
+    fileName=Modelica.Utilities.Files.loadResource(filNam),
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     y(each unit="W"),
     offset={0,0,0},

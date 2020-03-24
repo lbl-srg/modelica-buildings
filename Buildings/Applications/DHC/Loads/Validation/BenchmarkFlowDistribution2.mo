@@ -6,9 +6,9 @@ model BenchmarkFlowDistribution2
     "Source side medium";
   package Medium2 = Buildings.Media.Air
     "Load side medium";
-  parameter String filPat=
+  parameter String filNam=
     "modelica://Buildings/Applications/DHC/Loads/Examples/Resources/SwissResidential_20190916.mos"
-    "Library path of the file with thermal loads as time series";
+    "File name with thermal loads as time series";
   parameter Integer nLoa=5
     "Number of served loads"
     annotation(Evaluate=true);
@@ -38,7 +38,7 @@ model BenchmarkFlowDistribution2
   final parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal=
     Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
       string="#Peak space heating load",
-      filNam=Modelica.Utilities.Files.loadResource(filPat))
+      filNam=Modelica.Utilities.Files.loadResource(filNam))
     "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Design parameter"));
   BaseClasses.FanCoil2PipeHeatingValve ter[nLoa](
@@ -53,7 +53,7 @@ model BenchmarkFlowDistribution2
   Modelica.Blocks.Sources.CombiTimeTable loa(
     tableOnFile=true,
     tableName="tab1",
-    fileName=Modelica.Utilities.Files.loadResource(filPat),
+    fileName=Modelica.Utilities.Files.loadResource(filNam),
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     y(each unit="W"),
     offset={0,0,0},
@@ -152,21 +152,21 @@ equation
     annotation (
         Documentation(info="<html>
 <p>
-This model is part of a computational performance benchmark between:
+This model is part of a computational performance benchmark between
 </p>
 <ul>
 <li>
 a simplified modeling of the piping network as implemented in
 <a href=\"Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>,
-see the corresponding example:
+Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>
+(see the corresponding example
 <a href=\"Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution1\">
-Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution1</a>,
+Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution1</a>), and
 </li>
 <li>
-an explicit modeling of the piping network, see the corresponding example:
+an explicit modeling of the piping network (see the corresponding example
 <a href=\"Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution2\">
-Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution2</a>.
+Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution2</a>).
 </li>
 </ul>
 </html>",

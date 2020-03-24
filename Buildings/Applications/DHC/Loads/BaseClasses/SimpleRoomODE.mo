@@ -125,15 +125,13 @@ First implementation.
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          fontSize=48,
           horizontalAlignment=TextAlignment.Left,
           textString="QReq_flow"),
         Text(
-          extent={{-88,96},{-8,66}},
+          extent={{-88,94},{-52,68}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          fontSize=48,
           horizontalAlignment=TextAlignment.Left,
           textString="TSet"),
         Text(
@@ -141,15 +139,13 @@ First implementation.
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          fontSize=48,
           horizontalAlignment=TextAlignment.Left,
           textString="QAct_flow"),
         Text(
-          extent={{10,16},{90,-14}},
+          extent={{50,10},{90,-8}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          fontSize=48,
           horizontalAlignment=TextAlignment.Right,
           textString="TAir")}),
   Diagram(coordinateSystem(preserveAspectRatio=false)));

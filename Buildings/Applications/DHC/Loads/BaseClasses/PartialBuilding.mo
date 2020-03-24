@@ -114,6 +114,7 @@ the building distribution system.
 See various use cases in 
 <a href=\"modelica://Buildings.Applications.DHC.Loads.Examples\">
 Buildings.Applications.DHC.Loads.Examples</a>.
+<br>
 </p>
 <p>
 <img alt=\"image\"

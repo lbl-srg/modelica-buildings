@@ -173,8 +173,8 @@ variation when the rate at which heating or cooling is provided is lower than
 the load. That second instance is used as a reference for the validation.
 </p>
 <p>
-Eventually the validation is performed with two sets of ambient conditions:
-one requiring heating, the second requiring cooling.
+Eventually the validation is performed with two sets of ambient conditions,
+one requiring heating, and the second requiring cooling.
 </p>
 </html>",
 revisions=

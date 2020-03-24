@@ -6,7 +6,7 @@ model CouplingTimeSeries
     "Source side medium";
   Buildings.Applications.DHC.Loads.Examples.BaseClasses.BuildingTimeSeries
     bui(
-      filPat=
+      filNam=
       "modelica://Buildings/Applications/DHC/Loads/Examples/Resources/SwissResidential_20190916.mos",
       nPorts_a=2,
       nPorts_b=2)

@@ -160,24 +160,24 @@ It is intended to be used
 </p>
 <ul>
 <li>
-in a case where the room thermal loads are provided as time series: it thus
-takes the load as an input, and
+in a case where the room thermal loads are provided as time series: it
+therefore takes the load as an input, and
 </li>
 <li>
 in conjunction with
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
 Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>: 
-it thus computes the water mass flow rate required to meet the load.
+it therefore computes the water mass flow rate required to meet the load.
 </li>
 </ul>
 <p>
 For the sake of computational performance, a PI controller is used instead of an inverse 
 model of the heat exchanger to assess the required water mass flow rate.
-The controller output signal is mapped linearly to both: 
+The controller output signal is mapped linearly to both, 
 </p>
 <ul>
 <li>
-the water mass flow rate, from zero to its nominal value,
+the water mass flow rate, from zero to its nominal value, and
 </li>
 <li>
 the air mass flow rate, from zero to its nominal value.

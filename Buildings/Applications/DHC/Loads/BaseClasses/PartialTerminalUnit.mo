@@ -410,8 +410,7 @@ equation
       color={0,127,255}));
 annotation (
   defaultComponentName="ter",
-  Documentation(info=
-"<html>
+  Documentation(info="<html>
 <p>
 Partial model to be used for modeling an HVAC terminal unit.
 </p>
@@ -453,22 +452,21 @@ Alternatively heat ports (for convective and radiative heat transfer)
 can be conditionally instantiated by setting <code>have_heaPor</code> to true.
 </li>
 <li>
-Eventually real input connectors can be conditionally instantiated by setting
+Real input connectors can be conditionally instantiated by setting
 <code>have_QReq_flow</code> to true. Those connectors can be used to provide
-heating and cooling loads as time series. The impact on the room air temperature
-of an unmet load can then be assessed with
-<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom\">
-Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom</a>.
-See
+heating and cooling loads as time series, see 
 <a href=\"modelica://Buildings.Applications.DHC.Loads.Examples.CouplingTimeSeries\">
 Buildings.Applications.DHC.Loads.Examples.CouplingTimeSeries</a>
 for an illustration of that use case.
+The impact on the room air temperature of an unmet load can be assessed with
+<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom\">
+Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom</a>.
 </li>
 </ul>
 </ul>
 <p>
 The heating or cooling nominal capacity is provided for the water based heat
-exchangers only: electric heating or cooling equipment is supposed to have
+exchangers only. Electric heating or cooling equipment is supposed to have
 an infinite capacity.
 </p>
 <h4>Connection with the flow distribution model</h4>
@@ -479,23 +477,24 @@ Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>:
 </p>
 <ul>
 <li>
-The nominal pressure drop on the source side (heating or chilled water) must be set
-to zero as the computation of the pump head relies on a specific algorithm
+The nominal pressure drop on the source side (heating or chilled water) is 
+irrelevant as the computation of the pump head relies on a specific algorithm
 described in
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
 Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>.
 </li>
 <li>
-<code>allowFlowReversal</code> must be set to <code>false</code> (default) in
-consistency with
+The parameter <code>allowFlowReversal</code> must be set to <code>false</code> (default) 
+in consistency with
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
 Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>.
-Note that this requirement only applies to the source side.
-On the load side one is free to use
-whatever option suitable for the modeling needs: typically for an air flow
-network connected to the outdoor (either at the room level for modeling
-infiltration or at the system level for the fresh air source), the
-unidirectional air flow condition cannot be guaranted.
+This requirement only applies to the source side.
+On the load side one is free to use whatever option suitable for the modeling needs.
+Note that typically for an air flow network connected to the outdoor 
+(either at the room level for modeling infiltration or at the system level 
+for the fresh air source), the unidirectional air flow condition cannot be guaranted.
+The reason is the varying pressure of the outdoor air that can lead to a negative 
+pressure difference at the terminal unit boundaries when the fan is off.
 </li>
 </ul>
 <h4>Scaling factor</h4>
@@ -521,7 +520,7 @@ When modeling a change-over system:
 </p>
 <ul>
 <li>
-<code>have_watCoo</code> and <code>have_chaOve</code> must both be set to
+The parameters <code>have_watCoo</code> and <code>have_chaOve</code> must both be set to
 <code>true</code> and <code>have_watHea</code> must be set to <code>false</code>.
 </li>
 <li>

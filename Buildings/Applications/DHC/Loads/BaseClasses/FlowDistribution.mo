@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.Loads.BaseClasses;
-model FlowDistribution "Model of building hydraulic distribution system"
+model FlowDistribution "Model of a building hydraulic distribution system"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     redeclare replaceable package Medium = Buildings.Media.Water,
     final allowFlowReversal=false);
@@ -354,8 +354,8 @@ initial equation
 equation
   assert(mReqTot_flow < m_flow_nominal + m_flow_small,
     "In " + getInstanceName() + ": The total required mass flow rate equals "
-    + String(mReqTot_flow) + " (kg/s) which is higher than the nominal mass
-    flow rate value of " + String(m_flow_nominal) + " (kg/s).",
+    + String(mReqTot_flow) + " kg/s which is higher than the nominal mass
+    flow rate value of " + String(m_flow_nominal) + " kg/s.",
     AssertionLevel.error);
   // Connect statements involving conditionally removed components are
   // removed at translation time by Modelica specification.
@@ -453,11 +453,11 @@ annotation (
 <p>
 This model represents a two-pipe hydraulic distribution system serving multiple
 terminal units.
-It is primarily intended to be used in conjunction with models that derive from
+It is primarily intended to be used in conjunction with models that extend
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit\">
 Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit</a>.
 The typical model structure of a whole building to be connected to an energy
-transfer station or a dedicated plant is illustrated with the schematics in
+transfer station or a dedicated plant is illustrated in the schematics in
 the info section of
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding\">
 Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding</a>.
@@ -468,11 +468,11 @@ loop and several terminal branch circuits:
 </p>
 <ul>
 <li>
-The flow rate in each branch circuit is equal to the flow rate demand yielded
+The mass flow rate in each branch circuit is equal to the mass flow rate demand yielded
 by the terminal unit model, constrained by the condition that the sum of all
 demands is lower or equal to the flow rate in the main loop.
 Additionally if the total flow rate demand exceeds the nominal mass flow rate
-the model throws an error.
+the model generates an error.
 </li>
 <li>
 The inlet temperature in each branch circuit is equal to the supply temperature
@@ -482,28 +482,10 @@ flow rate of each individual fluid stream to the main fluid stream.
 </li>
 <li>
 The pressure drop in the main distribution loop corresponds to the pressure drop
-over the whole distribution system (the pump head): it is governed by an equation
+over the whole distribution system (the pump head). It is governed by an equation
 representing the control logic of the distribution pump.
-The pressure drop in each branch circuit is irrelevant: <code>dp_nominal</code>
-must be set to zero for each terminal unit model being connected
-to that component.
 </li>
 </ul>
-<p>
-That modeling approach aims to minimize the number of algebraic
-equations by avoiding an explicit modeling of the terminal actuators and
-the whole flow network.
-In addition, the assumption <code>allowFlowReversal=false</code> is used
-systematically together with boundary conditions which actually ensure that
-no reverse flow conditions are encountered in simulation.
-This allows directly accessing the inlet enthalpy value of a component from
-the fluid port <code>port_a</code> with the built-in function <code>inStream</code>.
-This approach is preferred to the use of two-port sensors which introduce a
-state to ensure a smooth transition at flow reversal.
-All connected components must meet the same requirements.
-The impact on the computational performance is illustrated
-<a href=\"#my_comp\">below</a>.
-</p>
 <p>
 Optionally:
 </p>
@@ -519,6 +501,22 @@ drop of the valve is not an exposed parameter: it is set by default to 10%
 of the nominal total pressure drop.
 </li>
 </ul>
+<h4>Implementation</h4>
+<p>
+The modeling approach aims to minimize the number of algebraic
+equations by avoiding an explicit modeling of the terminal actuators and
+the whole flow network.
+In addition, the assumption <code>allowFlowReversal=false</code> is used
+systematically together with boundary conditions which actually ensure that
+no reverse flow conditions are encountered in simulation.
+This allows directly accessing the inlet enthalpy value of a component from
+the fluid port <code>port_a</code> with the built-in function <code>inStream</code>.
+This approach is preferred to the use of two-port sensors which introduce a
+state to ensure a smooth transition at flow reversal.
+All connected components must meet the same requirements.
+The impact on the computational performance is illustrated
+<a href=\"#my_comp\">below</a>.
+</p>
 <h4>Pump head computation</h4>
 <p>
 The pump head is computed as follows (see also
@@ -528,22 +526,22 @@ for a comparison with an explicit modeling of the piping network).
 </p>
 <ul>
 <li>
-In case of a constant pump head:
+In case of a constant pump head,
 <p style=\"font-style:italic;\">
-dpPum = dp_nominal
+dpPum = dp_nominal.
 </p>
 </li>
 <li>
 In case of a constant flow rate (three-way valves) the network flow
 characteristics is considered independent from the actuator positions.
-Thus:
+Hence,
 <p style=\"font-style:italic;\">
-dpPum = dp_nominal
+dpPum = dp_nominal.
 </p>
 <li>
-In case of a linear head:
+In case of a linear head,
 <p style=\"font-style:italic;\">
-dpPum = dpMin + (dp_nominal - dpMin) * m_flow / m_flow_nominal
+dpPum = dpMin + (dp_nominal - dpMin) * m_flow / m_flow_nominal.
 </p>
 </li>
 <li>
@@ -552,12 +550,12 @@ curve and the total required mass flow rate.
 <li>
 In case of a constant pressure difference at a given location, the pump head
 is computed according to the schematics hereunder, under the
-assumption of a two-pipe distribution system:
+assumption of a two-pipe distribution system,
 <p style=\"font-style:italic;\">
-dpPum = dpMin + dpVal + 2 * &Sigma;<sub>i</sub> dpDis[i]
+dpPum = dpMin + dpVal + 2 * &Sigma;<sub>i</sub> dpDis[i],
 </p>
 <p>
-Where:
+where
 </p>
 <ul>
 <li>
@@ -565,25 +563,25 @@ Where:
 </li>
 <li>
 <i>dpVal</i> is the pressure drop across the optional mixing valve.
-It is considered independent from the valve position:
-<i>dpVal = dpVal_nominal</i>.
+It is considered independent from the valve position, i.e.,
+<i>dpVal = dpVal_nominal</i>,
 </li>
 <li>
 <i>dpDis[i]</i> is the pressure drop in the supply pipe segment directly
-upstream the i<sup>th</sup> connection:
+upstream the i<sup>th</sup> connection,
 <p>
-<i>dpDis[i] = 1 / K[i]<sup>2</sup> * mDis_flow[i] <sup>2</sup></i>
+<i>dpDis[i] = 1 / K[i]<sup>2</sup> * mDis_flow[i] <sup>2</sup></i>,
 </p>
-Where:
 <p>
+where 
 <i>mDis_flow[i]  = &Sigma;<sub>i to nUni</sub> mReq_flow[i]</i>
-is the mass flow rate in the same pipe segment.
-</p>
-<p>
+is the mass flow rate in the same pipe segment, and
 <i>K[i] = (&Sigma;<sub>i to nUni</sub> mUni_flow_nominal[i]) /
 dpDis_nominal[i]<sup>0.5</sup></i>
 is the corresponding flow coefficient (constant).
 </p>
+</li>
+</ul>
 <p>
 The pressure drop in the corresponding pipe segment of the return line
 is considered equal, hence the factor 2 in the above equation.
@@ -595,12 +593,10 @@ connected unit, 20% of the nominal pressure drop in the distribution network
 occurs between the pump and the first connected unit (supply and return),
 the remaining pressure drop is evenly distributed over each pipe segment
 between the other connected units.
-The user can override those default values with the requirement that the
-nominal pressure drop of each pipe segment downstream the differential pressure
+The user can override these default values with the requirement that the
+nominal pressure drop of each pipe segment downstream of the differential pressure
 sensor must be set to zero.
 </p>
-</li>
-</ul>
 </li>
 </ul>
 <p>
@@ -616,14 +612,14 @@ piping network, from supply to return.
 The mass dynamics are by default identical to the energy dynamics.
 </p>
 <p>
-Simplifying assumptions are used otherwise:
+Simplifying assumptions are used otherwise, namely
 </p>
 <ul>
 <li>
-The pump is modeled in steady-state.
+the pump is modeled in steady-state, and
 </li>
 <li>
-The valve and the flow splitter are modeled with fixed initial conditions.
+the valve and the flow splitter are modeled with fixed initial conditions.
 This is because the temperature of the fluid leaving the valve is used
 as a control input signal. If a steady-state model is used, that temperature
 is computed by assuming ideal mixing at the inner fluid ports of the valve.
@@ -636,7 +632,7 @@ turn out to be detrimental to computational performance.
 </ul>
 <h4 id=\"my_comp\">Computational performance</h4>
 <p>
-The figure below compares the computational performance of that model
+The figure below compares the computational performance of this model 
 (labelled <code>simple</code>, see model
 <a href=\"modelica://Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution1\">
 Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution1</a>)
@@ -645,20 +641,24 @@ the terminal unit actuators (labelled <code>detailed</code>, see model
 <a href=\"modelica://Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution2\">
 Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution2</a>).
 The models are simulated with the solver CVODE from Sundials.
-The impact of a varying number of connected loads (<code>nLoa</code>) is
-assessed on:
+The impact of a varying number of connected loads, <code>nLoa</code>, is
+assessed on
 </p>
 <ol>
 <li>
 the total time for all model evaluations,
 </li>
 <li>
-the total time spent between model evaluations,
+the total time spent between model evaluations, and
 </li>
 <li>
 the number of continuous state variables.
 </li>
 </ol>
+<p>
+A linear, resp. quadratic, regression line and the corresponding confidence interval are
+also plotted for the model labelled <code>simple</code>, resp. <code>detailed</code>.
+</p>
 <p>
 <img alt=\"image\"
 src=\"modelica://Buildings/Resources/Images/Applications/DHC/Loads/FlowDistribution2.png\"/>
