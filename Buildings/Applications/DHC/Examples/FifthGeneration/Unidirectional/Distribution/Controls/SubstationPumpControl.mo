@@ -46,7 +46,7 @@ model SubstationPumpControl
   Buildings.Controls.OBC.CDL.Continuous.Abs abs
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant temDif(k=dT)
-    "Temperature difference setpoint"
+    "Temperature difference set point"
     annotation (Placement(transformation(extent={{-140,130},{-120,150}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conPID_TMax(
     reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,

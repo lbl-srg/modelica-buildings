@@ -11,8 +11,8 @@ model SeriesConstantFlowRCB3Z1
   parameter Boolean allowFlowReversalDis = true
     "Set to true to allow flow reversal on the district side"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
-  parameter String weaPat = "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"
-    "Library path of the weather file";
+  parameter String weaName = "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"
+    "Name of the weather file";
   Loads.BuildingRCZ1WithETS bui[nBui](
     redeclare each final package Medium = Medium,
     each final allowFlowReversalBui=false,
@@ -33,7 +33,7 @@ model SeriesConstantFlowRCB3Z1
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     calTSky=Buildings.BoundaryConditions.Types.SkyTemperatureCalculation.HorizontalRadiation,
     computeWetBulbTemperature=false,
-    filNam=Modelica.Utilities.Files.loadResource(weaPat))
+    filNam=Modelica.Utilities.Files.loadResource(weaName))
     "Weather data reader"
     annotation (Placement(transformation(extent={{60,210},{40,230}})));
   Modelica.Blocks.Sources.Constant TSewWat(k=273.15 + 17)

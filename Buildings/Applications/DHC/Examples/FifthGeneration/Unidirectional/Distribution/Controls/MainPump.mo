@@ -18,9 +18,9 @@ block MainPump "Controller for main pump"
   parameter Modelica.SIunits.TemperatureDifference dTSou_nominal[nSou](
     each min=0) = fill(4, nSou) "Nominal temperature difference over source";
   parameter Real k=0.01
-    "Gain of controller that shifts upper and lower temperature setpoints";
+    "Gain of controller that shifts upper and lower temperature set points";
   parameter Modelica.SIunits.Time Ti(displayUnit="min") = 300
-    "Time constant of integrator block that shifts upper and lower temperature setpoints";
+    "Time constant of integrator block that shifts upper and lower temperature set points";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix[nMix](
     each final unit="K",
     each displayUnit="degC")

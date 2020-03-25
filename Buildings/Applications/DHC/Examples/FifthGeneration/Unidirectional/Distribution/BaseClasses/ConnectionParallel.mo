@@ -96,7 +96,7 @@ model ConnectionParallel "Model for connecting an agent to the DHC system"
     allowFlowReversal=allowFlowReversal,
     redeclare final package Medium=Medium,
     m_flow_nominal=mCon_flow_nominal)
-    "Connection supply temperature (sensed)"
+    "Connection supply temperature (measured)"
     annotation (Placement(transformation(
       extent={{10,10},{-10,-10}},
       rotation=-90,
@@ -105,7 +105,7 @@ model ConnectionParallel "Model for connecting an agent to the DHC system"
     allowFlowReversal=allowFlowReversal,
     redeclare final package Medium=Medium,
     m_flow_nominal=mCon_flow_nominal)
-    "Connection return temperature (sensed)"
+    "Connection return temperature (measured)"
     annotation (Placement(transformation(
       extent={{-10,10},{10,-10}},
       rotation=-90,
@@ -113,7 +113,7 @@ model ConnectionParallel "Model for connecting an agent to the DHC system"
   Buildings.Fluid.Sensors.MassFlowRate senMasFloCon(
     redeclare package Medium=Medium,
     allowFlowReversal=allowFlowReversal)
-    "Connection supply mass flow rate (sensed)"
+    "Connection supply mass flow rate (measured)"
     annotation (Placement(
       transformation(
       extent={{-10,10},{10,-10}},

@@ -8,18 +8,18 @@ model SeriesConstantFlowSpawnB3Z6
       mCon_flow_nominal={
         max(bui[i].ets.m1HexChi_flow_nominal, bui[i].ets.mEva_flow_nominal) for i in 1:nBui},
       epsPla=0.935));
-  parameter String idfPat[nBui] = fill(
+  parameter String idfName[nBui] = fill(
     "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf", nBui)
-    "Library paths of the IDF files";
+    "Names of the IDF files";
   parameter Boolean allowFlowReversalDis = true
     "Set to true to allow flow reversal on the district side"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
-  parameter String weaPat = "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"
-    "Library path of the weather file";
+  parameter String weaName = "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"
+    "Name of the weather file";
   Loads.BuildingSpawnZ6WithETS bui[nBui](
     redeclare each final package Medium = Medium,
-    idfPat=idfPat,
-    each weaPat=weaPat,
+    idfName=idfName,
+    each weaName=weaName,
     each final allowFlowReversalBui=false,
     each final allowFlowReversalDis=allowFlowReversalDis)
     annotation (Placement(transformation(extent={{-10,170},{10,190}})));

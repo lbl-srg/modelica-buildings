@@ -10,12 +10,12 @@ model BuildingSpawnZ1 "One-zone EnergyPlus building model"
     "Load side medium";
   parameter Integer nZon = 1
     "Number of thermal zones";
-  parameter String idfPat=
+  parameter String idfName=
     "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf"
-    "Path of the IDF file";
-  parameter String weaPat=
+    "Name of the IDF file";
+  parameter String weaName=
     "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"
-    "Path of the weather file";
+    "Name of the weather file";
   Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Sources.Constant qRadGai_flow(k=0) "Radiative heat gain"
@@ -31,8 +31,8 @@ model BuildingSpawnZ1 "One-zone EnergyPlus building model"
     "Thermal zone"
     annotation (Placement(transformation(extent={{40,-20},{80,20}})));
   inner Buildings.ThermalZones.EnergyPlus.Building building(
-    idfName=Modelica.Utilities.Files.loadResource(idfPat),
-    weaName=Modelica.Utilities.Files.loadResource(weaPat),
+    idfName=Modelica.Utilities.Files.loadResource(idfName),
+    weaName=Modelica.Utilities.Files.loadResource(weaName),
     showWeatherData=false)
     "Building model"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));

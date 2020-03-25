@@ -47,35 +47,35 @@ model Decoupler "Validation of building and ETS connection"
     annotation (Placement(transformation(extent={{-180,-60},{-160,-40}})));
   Fluid.Sensors.TemperatureTwoPort senT2Sup(redeclare final package Medium =
         Medium, m_flow_nominal=m_flow_nominal)
-    "Secondary supply temperature (sensed)" annotation (Placement(
+    "Secondary supply temperature (measured)" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={40,20})));
   Fluid.Sensors.TemperatureTwoPort senT1Sup(redeclare final package Medium =
         Medium, m_flow_nominal=m_flow_nominal)
-    "Primary supply temperature (sensed)" annotation (Placement(transformation(
+    "Primary supply temperature (measured)" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-40,20})));
   Fluid.Sensors.TemperatureTwoPort senT1Ret(redeclare final package Medium =
         Medium, m_flow_nominal=m_flow_nominal)
-    "Primary return temperature (sensed)" annotation (Placement(transformation(
+    "Primary return temperature (measured)" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-40,-20})));
   Fluid.Sensors.TemperatureTwoPort senT2Ret(redeclare final package Medium =
         Medium, m_flow_nominal=m_flow_nominal)
-    "Secondary return temperature (sensed)" annotation (Placement(
+    "Secondary return temperature (measured)" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={40,-20})));
   Fluid.Sensors.MassFlowRate senMasFlo1Sup(redeclare final package Medium =
-        Medium) "Primary mass flow rate (sensed)"
+        Medium) "Primary mass flow rate (measured)"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Fluid.Sensors.MassFlowRate senMasFlo2Sup(redeclare final package Medium =
-        Medium) "Secondary mass flow rate (sensed)"
+        Medium) "Secondary mass flow rate (measured)"
     annotation (Placement(transformation(extent={{110,10},{130,30}})));
   Fluid.MixingVolumes.MixingVolume vol1(
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -106,10 +106,10 @@ model Decoupler "Validation of building and ETS connection"
                  "PI controller for chilled water supply"
     annotation (Placement(transformation(extent={{70,50},{90,70}})));
   Fluid.Sensors.MassFlowRate senMasFlo1Ret(redeclare final package Medium =
-        Medium) "Primary mass flow rate (sensed)"
+        Medium) "Primary mass flow rate (measured)"
     annotation (Placement(transformation(extent={{-60,-30},{-80,-10}})));
   Fluid.Sensors.MassFlowRate senMasFlo2Ret(redeclare final package Medium =
-        Medium) "Secondary mass flow rate (sensed)"
+        Medium) "Secondary mass flow rate (measured)"
     annotation (Placement(transformation(extent={{130,-30},{110,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp m3(
     height=0.5,
@@ -128,20 +128,20 @@ model Decoupler "Validation of building and ETS connection"
     annotation (Placement(transformation(extent={{170,-170},{150,-150}})));
   Fluid.Sensors.TemperatureTwoPort senT2Sup1(redeclare final package Medium =
         Medium, m_flow_nominal=m_flow_nominal)
-    "Secondary supply temperature (sensed)" annotation (Placement(
+    "Secondary supply temperature (measured)" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={40,-120})));
   Fluid.Sensors.TemperatureTwoPort senT2Ret1(redeclare final package Medium =
         Medium, m_flow_nominal=m_flow_nominal)
-    "Secondary return temperature (sensed)" annotation (Placement(
+    "Secondary return temperature (measured)" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={40,-160})));
   Fluid.Sensors.MassFlowRate senMasFlo2Sup1(redeclare final package Medium =
-        Medium) "Secondary mass flow rate (sensed)"
+        Medium) "Secondary mass flow rate (measured)"
     annotation (Placement(transformation(extent={{110,-130},{130,-110}})));
   Fluid.MixingVolumes.MixingVolume vol2(
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -172,7 +172,7 @@ model Decoupler "Validation of building and ETS connection"
                  "PI controller for chilled water supply"
     annotation (Placement(transformation(extent={{70,-90},{90,-70}})));
   Fluid.Sensors.MassFlowRate senMasFlo2Ret1(redeclare final package Medium =
-        Medium) "Secondary mass flow rate (sensed)"
+        Medium) "Secondary mass flow rate (measured)"
     annotation (Placement(transformation(extent={{130,-170},{110,-150}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp m2(
     height=0,

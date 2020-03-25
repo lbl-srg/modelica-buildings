@@ -259,7 +259,7 @@ model ETSSimplified_bck
     allowFlowReversal=allowFlowReversalBui,
     m_flow_nominal=m2HexChi_flow_nominal,
     tau=1)
-    "CHW HX secondary water leaving temperature (sensed)"
+    "CHW HX secondary water leaving temperature (measured)"
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -275,7 +275,7 @@ model ETSSimplified_bck
   Buildings.Fluid.Sensors.MassFlowRate senMasFloHeaWat(
     redeclare final package Medium = Medium,
     allowFlowReversal=allowFlowReversalBui)
-    "Heating water mass flow rate (sensed)"
+    "Heating water mass flow rate (measured)"
     annotation (Placement(transformation(extent={{-230,370},{-210,350}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai(k=mCon_flow_nominal)
     annotation (Placement(transformation(extent={{-140,270},{-120,290}})));
@@ -301,7 +301,7 @@ model ETSSimplified_bck
   Buildings.Fluid.Sensors.MassFlowRate senMasFloChiWat(
     redeclare package Medium = Medium,
     allowFlowReversal=allowFlowReversalBui)
-    "Chilled water mass flow rate (sensed)"
+    "Chilled water mass flow rate (measured)"
     annotation (Placement(transformation(extent={{-230,-90},{-210,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.HysteresisWithHold have_reqCoo(
     uLow=1E-4*mChiWat_flow_nominal,
@@ -316,7 +316,7 @@ model ETSSimplified_bck
     redeclare final package Medium = Medium,
     allowFlowReversal=allowFlowReversalBui,
     m_flow_nominal=mCon_flow_nominal)
-    "Condenser water leaving temperature (sensed)"
+    "Condenser water leaving temperature (measured)"
     annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
@@ -358,7 +358,7 @@ model ETSSimplified_bck
     redeclare final package Medium=Medium,
     allowFlowReversal=allowFlowReversalBui,
     m_flow_nominal=mHeaWat_flow_nominal)
-    "Heating water supply temperature (sensed)"
+    "Heating water supply temperature (measured)"
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -368,7 +368,7 @@ model ETSSimplified_bck
     redeclare final package Medium=Medium,
     allowFlowReversal=allowFlowReversalBui,
     m_flow_nominal=mHeaWat_flow_nominal)
-    "Chilled water supply temperature (sensed)"
+    "Chilled water supply temperature (measured)"
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
