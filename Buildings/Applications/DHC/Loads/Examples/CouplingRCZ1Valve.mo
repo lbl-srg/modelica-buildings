@@ -48,29 +48,30 @@ model CouplingRCZ1Valve
 equation
   connect(weaDat.weaBus, bui.weaBus)
   annotation (Line(
-      points={{40,110},{30,110},{30,71.4},{30.1,71.4}},
+      points={{40,110},{30,110},{30,57.1333},{30.0333,57.1333}},
       color={255,204,51},
       thickness=0.5));
-  connect(bui.ports_b[1], sinHeaWat.ports[1]) annotation (Line(points={{60,30},
-          {80,30},{80,80},{120,80}}, color={0,127,255}));
-  connect(bui.ports_b[2], sinChiWat.ports[1]) annotation (Line(points={{60,34},
-          {80,34},{80,20},{120,20}}, color={0,127,255}));
+  connect(bui.ports_b[1], sinHeaWat.ports[1]) annotation (Line(points={{40,
+          43.3333},{80,43.3333},{80,80},{120,80}},
+                                     color={0,127,255}));
+  connect(bui.ports_b[2], sinChiWat.ports[1]) annotation (Line(points={{40,
+          44.6667},{80,44.6667},{80,20},{120,20}},
+                                     color={0,127,255}));
   connect(supHeaWat.T_in, THeaWatSup.y) annotation (Line(points={{-62,84},{-80,
           84},{-80,80},{-99,80}}, color={0,0,127}));
   connect(supHeaWat.ports[1], bui.ports_a[1]) annotation (Line(points={{-40,80},
-          {-20,80},{-20,32},{0,32},{0,30}}, color={0,127,255}));
+          {-20,80},{-20,32},{20,32},{20,43.3333}},
+                                            color={0,127,255}));
   connect(TChiWatSup.y, supChiWat.T_in) annotation (Line(points={{-99,20},{-80,
           20},{-80,24},{-62,24}}, color={0,0,127}));
   connect(supChiWat.ports[1], bui.ports_a[2]) annotation (Line(points={{-40,20},
-          {-20,20},{-20,32},{0,32},{0,34}}, color={0,127,255}));
+          {-20,20},{-20,32},{20,32},{20,44.6667}},
+                                            color={0,127,255}));
   annotation (
   experiment(
       StopTime=604800,
-      __Dymola_NumberOfIntervals=5000,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
-  Documentation(info=
-"<html>
+      Tolerance=1e-06),
+  Documentation(info="<html>
 <p>
 This example illustrates the use of
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding\">
@@ -80,11 +81,11 @@ Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit</a>
 and
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
 Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>
-in a configuration with:
+in a configuration with
 </p>
 <ul>
 <li>
-one-zone building model based on one-element reduced order model,
+a one-zone building model based on a one-element reduced order model, and
 </li>
 <li>
 secondary pumps and mixing valves controlling the heating and chilled water

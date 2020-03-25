@@ -47,24 +47,27 @@ model CouplingRCZ6
 equation
   connect(weaDat.weaBus, bui.weaBus)
   annotation (Line(
-      points={{40,30},{30,30},{30,-8.6},{50.1,-8.6}},
+      points={{40,30},{30,30},{30,-22.8667},{50.0333,-22.8667}},
       color={255,204,51},
       thickness=0.5));
-  connect(bui.ports_b[1], sinHeaWat.ports[1]) annotation (Line(points={{80,-50},
-          {100,-50},{100,0},{120,0}}, color={0,127,255}));
-  connect(bui.ports_b[2], sinChilWat.ports[1]) annotation (Line(points={{80,-46},
-          {100,-46},{100,-60},{120,-60}}, color={0,127,255}));
+  connect(bui.ports_b[1], sinHeaWat.ports[1]) annotation (Line(points={{60,
+          -36.6667},{100,-36.6667},{100,0},{120,0}},
+                                      color={0,127,255}));
+  connect(bui.ports_b[2], sinChilWat.ports[1]) annotation (Line(points={{60,
+          -35.3333},{100,-35.3333},{100,-60},{120,-60}},
+                                          color={0,127,255}));
   connect(supHeaWat.T_in, THeaWatSup.y) annotation (Line(points={{-42,4},{-60,4},
           {-60,0},{-79,0}}, color={0,0,127}));
   connect(supHeaWat.ports[1], bui.ports_a[1]) annotation (Line(points={{-20,0},
-          {0,0},{0,-50},{20,-50}}, color={0,127,255}));
+          {0,0},{0,-36.6667},{40,-36.6667}},
+                                   color={0,127,255}));
   connect(TChiWatSup.y, supChiWat.T_in) annotation (Line(points={{-79,-60},{-60,
           -60},{-60,-56},{-42,-56}}, color={0,0,127}));
   connect(supChiWat.ports[1], bui.ports_a[2]) annotation (Line(points={{-20,-60},
-          {0,-60},{0,-46},{20,-46}}, color={0,127,255}));
+          {0,-60},{0,-35.3333},{40,-35.3333}},
+                                     color={0,127,255}));
   annotation (
-  Documentation(info=
-"<html>
+  Documentation(info="<html>
 <p>
 This example illustrates the use of
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding\">
@@ -74,12 +77,12 @@ Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit</a>
 and
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
 Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>
-in a configuration with:
+in a configuration with
 </p>
 <ul>
 <li>
-six-zone building model based on two-element reduced order model (from 
-GeoJSON export),
+a six-zone building model based on a two-element reduced order model (from
+GeoJSON export), and
 </li>
 <li>
 secondary pumps.
@@ -96,12 +99,11 @@ First implementation.
 </ul>
 </html>"),
   Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{160,60}})),
+    coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{160,60}})),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingRCZ6.mos"
+        "Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingRCZ6.mos"
         "Simulate and plot"),
     experiment(
       StopTime=604800,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"));
+      Tolerance=1e-06));
 end CouplingRCZ6;

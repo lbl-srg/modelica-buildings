@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
 partial model PartialFanCoil4Pipe
-  "Partial model of a purely sensible four-pipe fan coil unit computing a required water mass flow rate"
+  "Partial model of a sensible only four-pipe fan coil unit computing a required water mass flow rate"
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit(
     redeclare package Medium1 = Buildings.Media.Water,
     redeclare package Medium2 = Buildings.Media.Air,
@@ -134,30 +134,31 @@ equation
           -12},{-40,-12},{-40,-220},{160,-220}}, color={0,127,255}));
   connect(scaHeaWatFloInl.port_b, hexHea.port_a1) annotation (Line(points={{
           -160,-220},{-100,-220},{-100,-12},{-80,-12}}, color={0,127,255}));
-  annotation (Diagram(coordinateSystem(extent={{-200,-240},{200,240}})),
+  annotation (
 Documentation(
 info="<html>
 <p>
-This is a simplified partial model of a four-pipe fan coil unit for heating and cooling. 
+This is a simplified partial model of a sensible only four-pipe fan coil unit
+for heating and cooling.
 It is intended to be used in conjunction with
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>: 
-it thus computes the water mass flow rate required to meet the temperature 
-setpoint.
+Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>,
+and hence it computes the water mass flow rate required to meet the temperature
+set point.
 </p>
 <p>
-For the sake of simplicity, a purely sensible heat exchanger model is considered.
+For the sake of simplicity, a sensible only heat exchanger model is considered.
 </p>
 <p>
-For the sake of computational performance, a PI controller is used instead of an inverse 
-model of the heat exchanger to assess the required water mass flow rate. 
+For the sake of computational performance, a PI controller is used instead of an inverse
+model of the heat exchanger to assess the required water mass flow rate.
 Each controller output signal is mapped linearly to the water mass flow rate,
 from zero to its nominal value.
-The maximum of the two output signals is mapped linearly to the air mass 
+The maximum of the two output signals is mapped linearly to the air mass
 flow rate, from zero to its nominal value.
 </p>
 <p>
-The model takes the sensed room air temperature as an input (as opposed to 
+The model takes the measured room air temperature as an input (as opposed to
 the fan inlet temperature) to maintain a valid control loop output in case
 of zero air flow rate.
 </p>
@@ -165,5 +166,14 @@ of zero air flow rate.
 The model is partial to allow various connectivity options on the load side:
 either with fluid ports or with heat ports.
 </p>
+</html>",
+revisions=
+"<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end PartialFanCoil4Pipe;

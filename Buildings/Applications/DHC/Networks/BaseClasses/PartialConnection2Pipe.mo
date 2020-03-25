@@ -28,7 +28,8 @@ partial model PartialConnection2Pipe
   parameter Boolean allowFlowReversal = false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=
+    Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
   final parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
@@ -96,7 +97,7 @@ partial model PartialConnection2Pipe
   Modelica.Blocks.Interfaces.RealOutput dp(
     final quantity="PressureDifference",
     final unit="Pa", final displayUnit="Pa")
-    "Pressure drop accross the connection (sensed)"
+    "Pressure drop accross the connection (measured)"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,30},{120,50}})));
   // COMPONENTS
@@ -151,7 +152,7 @@ partial model PartialConnection2Pipe
   Buildings.Fluid.Sensors.MassFlowRate senMasFloCon(
     redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal)
-    "Connection supply mass flow rate (sensed)"
+    "Connection supply mass flow rate (measured)"
     annotation (Placement(
       transformation(
       extent={{-10,10},{10,-10}},
@@ -174,7 +175,7 @@ partial model PartialConnection2Pipe
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-20,90})));
+        origin={-40,90})));
   Fluid.Sensors.TemperatureTwoPort senTConRet(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
@@ -184,7 +185,7 @@ partial model PartialConnection2Pipe
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
-        origin={20,90})));
+        origin={0,90})));
   Buildings.Controls.OBC.CDL.Continuous.Add sub(final k1=-1) if have_heaFloOut
     "Delta T"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
@@ -207,13 +208,23 @@ protected
       X = Medium.X_default))
     "Specific heat capacity of medium at default medium state";
 equation
+  // Connect statements involving conditionally removed components are
+  // removed at translation time by Modelica specification.
+  // Only obsolete statements corresponding to the default model structure need
+  // to be programmatically removed.
+  if not have_heaFloOut then
+    connect(port_bCon, senMasFloCon.port_b)
+      annotation (Line(points={{-20,120},{-20,40}}, color={0,127,255}));
+    connect(port_aCon, junConRet.port_3)
+      annotation (Line(points={{20,120},{20,-70}}, color={0,127,255}));
+  end if;
   connect(junConSup.port_3, pipCon.port_a)
     annotation (Line(points={{-20,-30},{-20,-20}}, color={0,127,255}));
   connect(pipDisSup.port_b, junConSup.port_1)
     annotation (Line(points={{-60,-40},{-30,-40}}, color={0,127,255}));
   connect(senMasFloCon.m_flow, mCon_flow)
     annotation (Line(points={{-9,30},{54,30},{54,40},{120,40}},
-                                                 color={0,0,127}));
+      color={0,0,127}));
   connect(pipCon.port_b, senMasFloCon.port_a)
     annotation (Line(points={{-20,0},{-20,20}}, color={0,127,255}));
   connect(port_aDisSup, pipDisSup.port_a)
@@ -226,47 +237,42 @@ equation
     annotation (Line(points={{10,-80},{-60,-80}}, color={0,127,255}));
   connect(pipDisRet.port_b, port_bDisRet)
     annotation (Line(points={{-80,-80},{-100,-80}}, color={0,127,255}));
-  connect(senRelPre.port_a, junConSup.port_1) annotation (Line(points={{-40,-50},
-          {-40,-40},{-30,-40}}, color={0,127,255}));
-  connect(senRelPre.port_b, junConRet.port_2) annotation (Line(points={{-40,-70},
-          {-40,-80},{10,-80}}, color={0,127,255}));
-  connect(senRelPre.p_rel, dp) annotation (Line(points={{-31,-60},{80,-60},{80,0},
-          {120,0}}, color={0,0,127}));
-  if have_heaFloOut then
-    connect(senMasFloCon.port_b, senTConSup.port_a)
-      annotation (Line(points={{-20,40},{-20,80}}, color={0,127,255}));
-    connect(senTConSup.port_b, port_bCon)
-      annotation (Line(points={{-20,100},{-20,120}}, color={0,127,255}));
-    connect(port_aCon, senTConRet.port_a)
-      annotation (Line(points={{20,120},{20,100}}, color={0,127,255}));
-    connect(senTConRet.port_b, junConRet.port_3)
-      annotation (Line(points={{20,80},{20,-70}}, color={0,127,255}));
-  else
-    connect(port_bCon, senMasFloCon.port_b)
-      annotation (Line(points={{-20,120},{-20,40}}, color={0,127,255}));
-    connect(port_aCon, junConRet.port_3)
-      annotation (Line(points={{20,120},{20,-70}}, color={0,127,255}));
-    end if;
+  connect(senRelPre.port_a, junConSup.port_1)
+    annotation (Line(points={{-40,-50}, {-40,-40},{-30,-40}}, color={0,127,255}));
+  connect(senRelPre.port_b, junConRet.port_2)
+    annotation (Line(points={{-40,-70}, {-40,-80},{10,-80}}, color={0,127,255}));
+  connect(senRelPre.p_rel, dp)
+    annotation (Line(points={{-31,-60},{80,-60},{80,0}, {120,0}}, color={0,0,127}));
+  connect(senMasFloCon.port_b, senTConSup.port_a)
+    annotation (Line(points={{-20,40},{-20,76},{-40,76},{-40,80}},
+      color={0,127,255}));
+  connect(senTConSup.port_b, port_bCon)
+    annotation (Line(points={{-40,100},{-40,110},{-20,110},{-20,120}},
+      color={0,127,255}));
+  connect(port_aCon, senTConRet.port_a)
+    annotation (Line(points={{20,120},{20,110},{0,110},{0,100},{1.77636e-15,
+      100}}, color={0,127,255}));
+  connect(senTConRet.port_b, junConRet.port_3)
+    annotation (Line(points={{-1.77636e-15,80},{-1.77636e-15,78},{0,78},{0,76},
+      {20,76},{20,-70}}, color={0,127,255}));
   connect(Q_flow, gai.y)
     annotation (Line(points={{120,80},{94,80}}, color={0,0,127}));
-  connect(pro.y, gai.u) annotation (Line(points={{62,60},{66,60},{66,80},{70,80}},
-        color={0,0,127}));
-  connect(senMasFloCon.m_flow, pro.u2) annotation (Line(points={{-9,30},{30,30},
-          {30,54},{38,54}}, color={0,0,127}));
-  connect(sub.y, pro.u1) annotation (Line(points={{12,60},{30,60},{30,66},{38,
-          66}},
-        color={0,0,127}));
-  connect(senTConSup.T, sub.u2) annotation (Line(points={{-31,90},{-40,90},{-40,
-          54},{-12,54}}, color={0,0,127}));
-  connect(senTConRet.T, sub.u1) annotation (Line(points={{9,90},{0,90},{0,80},{
-          -16,80},{-16,66},{-12,66}},
-                                  color={0,0,127}));
+  connect(pro.y, gai.u)
+    annotation (Line(points={{62,60},{66,60},{66,80},{70,80}}, color={0,0,127}));
+  connect(senMasFloCon.m_flow, pro.u2)
+    annotation (Line(points={{-9,30},{30,30}, {30,54},{38,54}}, color={0,0,127}));
+  connect(sub.y, pro.u1)
+    annotation (Line(points={{12,60},{30,60},{30,66},{38, 66}}, color={0,0,127}));
+  connect(senTConSup.T, sub.u2)
+    annotation (Line(points={{-51,90},{-60,90},{-60, 54},{-12,54}}, color={0,0,127}));
+  connect(senTConRet.T, sub.u1)
+    annotation (Line(points={{-11,90},{-16,90},{-16, 66},{-12,66}}, color={0,0,127}));
   annotation (
     defaultComponentName="con",
     Documentation(info="
 <html>
 <p>
-Partial model to be used for connecting an agent (e.g. energy transfer station)
+Partial model to be used for connecting an agent (e.g. an energy transfer station)
 to a two-pipe distribution network.
 </p>
 <p>
@@ -274,7 +280,7 @@ Three instances of a replaceable partial model are used to represent the pipes:
 </p>
 <ul>
 <li>
-One representing the main distribution supply pipe immediately upstream 
+One representing the main distribution supply pipe immediately upstream
 the connection.
 </li>
 <li>
@@ -283,13 +289,21 @@ the connection.
 </li>
 <li>
 The last one representing both the supply and return lines of the connection.
-When replacing that model with a pipe model computing the pressure drop, 
+When replacing that model with a pipe model computing the pressure drop,
 one must double the length so that both the supply and return lines are
 accounted for.
 </li>
 </ul>
-</html>
-    "),
+</html>",
+revisions=
+"<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
     Icon(graphics={   Rectangle(
           extent={{-100,-100},{100,100}},
           lineColor={0,0,127},

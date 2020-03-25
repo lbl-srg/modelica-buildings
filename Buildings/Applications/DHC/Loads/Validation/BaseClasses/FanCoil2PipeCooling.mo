@@ -1,6 +1,7 @@
 within Buildings.Applications.DHC.Loads.Validation.BaseClasses;
 model FanCoil2PipeCooling
-  "Model of a purely sensible two-pipe fan coil unit computing a required chilled water mass flow rate"
+  "Model of a sensible only two-pipe fan coil unit for cooling, 
+  computing a required chilled water mass flow rate"
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit(
     redeclare package Medium1 = Buildings.Media.Water,
     redeclare package Medium2 = Buildings.Media.Air,
@@ -97,16 +98,10 @@ model FanCoil2PipeCooling
         rotation=90,
         origin={0,190})));
 equation
-  if have_fluPor then
-  end if;
-  if not have_QReq_flow then
-  end if;
   connect(gaiFloNom2.y, fan.m_flow_in)
     annotation (Line(points={{60,180},{80,180},{80,12}}, color={0,0,127}));
-
   connect(con.y, gaiMasFlo.u)
     annotation (Line(points={{12,220},{38,220}}, color={0,0,127}));
-
   connect(fan.P, scaPFan.u) annotation (Line(points={{69,9},{60,9},{60,140},{
           158,140}}, color={0,0,127}));
   connect(fan.port_b, hex.port_a2)
@@ -130,7 +125,7 @@ equation
   connect(hex.port_b1, port_bChiWat) annotation (Line(points={{-60,-12},{-40,
           -12},{-40,-180},{200,-180}}, color={0,127,255}));
   connect(scaQReqCoo_flow.y, gaiHeaFlo.u) annotation (Line(points={{-158,60},{-100,
-          60},{-100,220},{-42,220}},       color={0,0,127}));
+          60},{-100,220},{-42,220}}, color={0,0,127}));
   connect(gaiHeaFlo.y, con.u_s)
     annotation (Line(points={{-18,220},{-12,220}}, color={0,0,127}));
   connect(con.u_m, gaiHeaFlo1.y) annotation (Line(points={{0,208},{0,202},{
@@ -145,32 +140,32 @@ annotation (
 Documentation(
 info="<html>
 <p>
-This is a simplified model of a two-pipe fan coil unit for cooling. It is 
-intended to be used:
+This is a sensible only simplified model of a two-pipe fan coil unit for cooling. 
+It is intended to be used
 </p>
 <ul>
 <li>
-in a case where the room thermal loads are provided as time series: it thus
-takes the load as an input,
+in a case where the room thermal loads are provided as time series: it therefore
+takes the load as an input, and
 </li>
 <li>
 in conjunction with
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>: 
-it thus computes the water mass flow rate required to meet the load.
+Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>:  
+it therefore computes the water mass flow rate required to meet the load.
 </li>
 </ul>
 <p>
-For the sake of simplicity, a purely sensible heat exchanger model is considered.
+For the sake of simplicity, a sensible only heat exchanger model is considered.
 </p>
 <p>
 For the sake of computational performance, a PI controller is used instead of an inverse 
 model of the heat exchanger to assess the required water mass flow rate. 
-The controller output signal is mapped linearly to both: 
+The controller output signal is mapped linearly to both, 
 </p>
 <ul>
 <li>
-the water mass flow rate, from zero to its nominal value,
+the water mass flow rate, from zero to its nominal value, and
 </li>
 <li>
 the air mass flow rate, from zero to its nominal value.
@@ -182,5 +177,14 @@ air temperature is assessed with
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom\">
 Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom</a>.
 </p>
+</html>",
+revisions=
+"<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end FanCoil2PipeCooling;

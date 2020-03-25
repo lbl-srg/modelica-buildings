@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExportRC.OfficeBuilding;
 model ICT
-  "This is the simulation model of ICT within building OfficeBuilding with traceable ID None"
+  "This is the simulation model of ICT within building OfficeBuilding"
 
   Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil[6](    each outSkyCon=true,
     each outGroCon=true,
@@ -79,7 +79,7 @@ model ICT
     annotation (Placement(
     transformation(extent={{-100,-10},{-66,22}}),iconTransformation(
     extent={{-70,-12},{-50,8}})));
-  Modelica.Blocks.Sources.Constant alphaWall(k=25.000000000000004*112.0279319321752)
+  Modelica.Blocks.Sources.Constant hConWall(k=25.000000000000004*112.0279319321752)
     "Outdoor coefficient of heat transfer for walls"
     annotation (Placement(
     transformation(
@@ -107,11 +107,12 @@ model ICT
       extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
       tableName="Internals",
       fileName=Modelica.Utilities.Files.loadResource(
-          "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportRC/Resources/Data/OfficeBuilding/InternalGains_ICT.mat"),
+          "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportRC/Resources/Data/OfficeBuilding/InternalGains_ICT.txt"),
       columns={2,3,4})
       "Table with profiles for persons (radiative and convective) and machines (convective)"
       annotation (Placement(transformation(extent={{6,-60},{22,-44}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a
+    "Heat port for sensible convective gains"
     annotation (Placement(transformation(extent={{-10,90},{10,110}}), iconTransformation(extent={{-10,90},{10,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TAir(
     quantity="ThermodynamicTemperature", unit="K", displayUnit="degC")
@@ -124,14 +125,6 @@ equation
   connect(eqAirTemp.TEqAir, prescribedTemperature.T)
     annotation (Line(points={{-3,-4},{4,-4},{4,0},{6.8,0}},
     color={0,0,127}));
-  connect(weaBus, weaBus)
-    annotation (Line(
-    points={{-78,62},{-74,62},{-74,18},{-84,18},{-84,12},{-83,12},{-83,6}},
-    color={255,204,51},
-    thickness=0.5), Text(
-    string="%second",
-    index=1,
-    extent={{6,3},{6,3}}));
   connect(weaBus.TDryBul, eqAirTemp.TDryBul)
     annotation (Line(
     points={{-83,6},{-83,-2},{-38,-2},{-38,-10},{-26,-10}},
@@ -173,79 +166,79 @@ equation
     color={0,0,127}));
     connect(weaBus, HDifTil[1].weaBus)
     annotation (Line(
-    points={{-78,62},{-74,62},{-74,30},{-68,30}},
+    points={{-83,6},{-74,6},{-74,30},{-68,30}},
     color={255,204,51},
     thickness=0.5));
     connect(weaBus, HDirTil[1].weaBus)
     annotation (Line(
-    points={{-78,62},{-73,62},{-68,62}},
+    points={{-83,6},{-68,6},{-68,62}},
     color={255,204,51},
     thickness=0.5));
     connect(weaBus, HDifTil[2].weaBus)
     annotation (Line(
-    points={{-78,62},{-74,62},{-74,30},{-68,30}},
+    points={{-83,6},{-74,6},{-74,30},{-68,30}},
     color={255,204,51},
     thickness=0.5));
     connect(weaBus, HDirTil[2].weaBus)
     annotation (Line(
-    points={{-78,62},{-73,62},{-68,62}},
+    points={{-83,6},{-68,6},{-68,62}},
     color={255,204,51},
     thickness=0.5));
     connect(weaBus, HDifTil[3].weaBus)
     annotation (Line(
-    points={{-78,62},{-74,62},{-74,30},{-68,30}},
+    points={{-83,6},{-74,6},{-74,30},{-68,30}},
     color={255,204,51},
     thickness=0.5));
     connect(weaBus, HDirTil[3].weaBus)
     annotation (Line(
-    points={{-78,62},{-73,62},{-68,62}},
+    points={{-83,6},{-68,6},{-68,62}},
     color={255,204,51},
     thickness=0.5));
     connect(weaBus, HDifTil[4].weaBus)
     annotation (Line(
-    points={{-78,62},{-74,62},{-74,30},{-68,30}},
+    points={{-83,6},{-74,6},{-74,30},{-68,30}},
     color={255,204,51},
     thickness=0.5));
     connect(weaBus, HDirTil[4].weaBus)
     annotation (Line(
-    points={{-78,62},{-73,62},{-68,62}},
+    points={{-83,6},{-68,6},{-68,62}},
     color={255,204,51},
     thickness=0.5));
     connect(weaBus, HDifTil[5].weaBus)
     annotation (Line(
-    points={{-78,62},{-74,62},{-74,30},{-68,30}},
+    points={{-83,6},{-74,6},{-74,30},{-68,30}},
     color={255,204,51},
     thickness=0.5));
     connect(weaBus, HDirTil[5].weaBus)
     annotation (Line(
-    points={{-78,62},{-73,62},{-68,62}},
+    points={{-83,6},{-68,6},{-68,62}},
     color={255,204,51},
     thickness=0.5));
     connect(weaBus, HDifTil[6].weaBus)
     annotation (Line(
-    points={{-78,62},{-74,62},{-74,30},{-68,30}},
+    points={{-83,6},{-74,6},{-74,30},{-68,30}},
     color={255,204,51},
     thickness=0.5));
     connect(weaBus, HDirTil[6].weaBus)
     annotation (Line(
-    points={{-78,62},{-73,62},{-68,62}},
+    points={{-83,6},{-68,6},{-68,62}},
     color={255,204,51},
     thickness=0.5));
   connect(personsRad.port, thermalZoneTwoElements.intGainsRad)
     annotation (Line(
-    points={{68,-32},{84,-32},{100,-32},{100,24},{92.2,24}},
+    points={{68,-32},{84,-32},{100,-32},{100,24},{92,24}},
     color={191,0,0}));
   connect(thermalConductorWin.solid, thermalZoneTwoElements.window)
     annotation (
-     Line(points={{38,21},{40,21},{40,20},{43.8,20}}, color={191,0,0}));
+     Line(points={{38,21},{40,21},{40,20},{44,20}},   color={191,0,0}));
   connect(prescribedTemperature1.port, thermalConductorWin.fluid)
     annotation (Line(points={{20,20},{28,20},{28,21}}, color={191,0,0}));
   connect(thermalZoneTwoElements.extWall, thermalConductorWall.solid)
-    annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}},
+    annotation (Line(points={{44,12},{40,12},{40,1},{36,1}},
     color={191,0,0}));
   connect(thermalConductorWall.fluid, prescribedTemperature.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
-  connect(alphaWall.y, thermalConductorWall.Gc)
+  connect(hConWall.y, thermalConductorWall.Gc)
     annotation (Line(points={{30,-11.6},{30,-4},{31,-4}}, color={0,0,127}));
   connect(hConWin.y, thermalConductorWin.Gc)
     annotation (Line(points={{32,33.6},{32,26},{33,26}}, color={0,0,127}));
@@ -273,8 +266,5 @@ equation
     annotation (Line(points={{93,32},{98,32},{98,0},{110,0}}, color={0,0,127}));
   annotation (experiment(
   StopTime=31536000,
-  Interval=3600,
-  __Dymola_Algorithm="Cvode"),
-  __Dymola_experimentSetupOutput(equidistant=true,
-  events=false));
+  Interval=3600));
 end ICT;

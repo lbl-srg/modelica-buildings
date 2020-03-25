@@ -3,9 +3,9 @@ model BuildingRCZ1Valve
   "One-zone RC building model with distribution pumps and mixing valves"
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
     redeclare package Medium = Buildings.Media.Water,
-    have_eleHea=false,
-    have_eleCoo=false,
-    have_weaBus=true);
+    final have_eleHea=false,
+    final have_eleCoo=false,
+    final have_weaBus=true);
   package Medium2 = Buildings.Media.Air
     "Load side medium";
   parameter Integer nZon = 1
@@ -101,30 +101,28 @@ model BuildingRCZ1Valve
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow macConv
     "Convective heat flow of machines"
     annotation (Placement(transformation(extent={{22,2},{42,22}})));
-  Modelica.Blocks.Sources.Constant alphaWall(k=25*11.5)
+  Modelica.Blocks.Sources.Constant hConWall(k=25*11.5)
     "Outdoor coefficient of heat transfer for walls"
     annotation (Placement(
     transformation(
     extent={{-4,-4},{4,4}},
     rotation=90,
     origin={4,62})));
-  Modelica.Blocks.Sources.Constant alphaWin(k=20*14)
+  Modelica.Blocks.Sources.Constant hConWin(k=20*14)
     "Outdoor coefficient of heat transfer for windows"
     annotation (Placement(
     transformation(
     extent={{4,-4},{-4,4}},
     rotation=90,
     origin={6,116})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=20)
-    "Minimum temperature setpoint"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=293.15,
+    y(final unit="K", displayUnit="degC"))
+    "Minimum temperature set point"
     annotation (Placement(transformation(extent={{-280,250},{-260,270}})));
-  Buildings.Controls.OBC.UnitConversions.From_degC from_degC1
-    annotation (Placement(transformation(extent={{-240,250},{-220,270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=24)
-    "Maximum temperature setpoint"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=297.15,
+    y(final unit="K", displayUnit="degC"))
+    "Maximum temperature set point"
     annotation (Placement(transformation(extent={{-280,210},{-260,230}})));
-  Buildings.Controls.OBC.UnitConversions.From_degC from_degC2
-    annotation (Placement(transformation(extent={{-240,210},{-220,230}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=2)
     annotation (Placement(transformation(extent={{260,70},{280,90}})));
   Buildings.Applications.DHC.Loads.Examples.BaseClasses.FanCoil4Pipe terUni(
@@ -162,16 +160,14 @@ model BuildingRCZ1Valve
     nPorts_b1=1)
     "Chilled water distribution system"
     annotation (Placement(transformation(extent={{-100, -160},{-80,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSecHea(k=35)
-    "Heating water secondary supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-260,-180},{-240,-160}})));
-  Buildings.Controls.OBC.UnitConversions.From_degC from_degC3
-    annotation (Placement(transformation(extent={{-220,-180},{-200,-160}})));
-  Buildings.Controls.OBC.UnitConversions.From_degC from_degC4
-    annotation (Placement(transformation(extent={{-220,-220},{-200,-200}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSecChi(k=16)
-    "Chilled water secondary supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-260,-220},{-240,-200}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSecHea(k=308.15,
+      y(final unit="K", displayUnit="degC"))
+    "Heating water secondary supply temperature set point"
+    annotation (Placement(transformation(extent={{-260,-190},{-240,-170}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSecChi(k=289.15,
+      y(final unit="K", displayUnit="degC"))
+    "Chilled water secondary supply temperature set point"
+    annotation (Placement(transformation(extent={{-260,-230},{-240,-210}})));
 equation
   connect(eqAirTemp.TEqAirWin,preTem1. T)
     annotation (Line(
@@ -228,9 +224,9 @@ equation
   connect(theConWall.fluid,preTem. port)
     annotation (Line(points={{0,79},{-2,79},{-2,78},{-6,78}},
                                                            color={191,0,0}));
-  connect(alphaWall.y,theConWall. Gc)
+  connect(hConWall.y,theConWall. Gc)
     annotation (Line(points={{4,66.4},{4,74},{5,74}},     color={0,0,127}));
-  connect(alphaWin.y,theConWin. Gc)
+  connect(hConWin.y,theConWin. Gc)
     annotation (Line(points={{6,111.6},{6,104},{7,104}}, color={0,0,127}));
   connect(macConv.port,thermalZoneOneElement. intGainsConv)
     annotation (
@@ -290,8 +286,6 @@ equation
       index=-1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(minTSet.y, from_degC1.u) annotation (Line(points={{-258,260},{-242,
-          260}},                                                                  color={0,0,127}));
   connect(thermalZoneOneElement.ports[1], terUni.port_aLoa)
     annotation (Line(points={{55.475,68.05},{86.5,68.05},{86.5,-39.6667},{-140,
           -39.6667}},                                                            color={0,127,255}));
@@ -302,17 +296,10 @@ equation
           0},{-280,-110},{-100,-110}}, color={0,127,255}));
   connect(disFloHea.port_b, ports_b[1]) annotation (Line(points={{-80,-110},{280,
           -110},{280,0},{300,0}}, color={0,127,255}));
-  connect(maxTSet.y, from_degC2.u) annotation (Line(points={{-258,220},{-268,
-          220},{-268,216},{-264,216},{-264,220},{-242,220}},                      color={0,0,127}));
   connect(ports_a[2], disFloCoo.port_a) annotation (Line(points={{-300,0},{-280,
           0},{-280,-150},{-100,-150}}, color={0,127,255}));
   connect(disFloCoo.port_b, ports_b[2]) annotation (Line(points={{-80,-150},{280,
           -150},{280,0},{300,0}}, color={0,127,255}));
-  connect(from_degC1.y, terUni.TSetHea) annotation (Line(points={{-218,260},{
-          -196,260},{-196,-43},{-160.833,-43}},      color={0,0,127}));
-  connect(from_degC2.y, terUni.TSetCoo) annotation (Line(points={{-218,220},{
-          -200,220},{-200,-46},{-160.833,-46},{-160.833,-44.6667}},
-                                                               color={0,0,127}));
   connect(terUni.port_bChiWat, disFloCoo.ports_a1[1]) annotation (Line(points={{-140,
           -54.6667},{-90,-54.6667},{-40,-54.6667},{-40,-144},{-80,-144}},
         color={0,127,255}));
@@ -338,14 +325,6 @@ equation
           -158},{244,80},{258,80},{258,79}}, color={0,0,127}));
   connect(mulSum.y, PPum) annotation (Line(points={{282,80},{298,80},{298,80},{
           320,80}}, color={0,0,127}));
-  connect(TSetSecHea.y, from_degC3.u)
-    annotation (Line(points={{-238,-170},{-222,-170}}, color={0,0,127}));
-  connect(TSetSecChi.y, from_degC4.u)
-    annotation (Line(points={{-238,-210},{-222,-210}}, color={0,0,127}));
-  connect(from_degC3.y, disFloHea.TSupSet) annotation (Line(points={{-198,-170},
-          {-150,-170},{-150,-118},{-101,-118}}, color={0,0,127}));
-  connect(from_degC4.y, disFloCoo.TSupSet) annotation (Line(points={{-198,-210},
-          {-140,-210},{-140,-158},{-101,-158}}, color={0,0,127}));
   connect(disFloHea.QActTot_flow, QHea_flow) annotation (Line(points={{-79,-116},
           {218,-116},{218,280},{320,280}}, color={0,0,127}));
   connect(disFloCoo.QActTot_flow, QCoo_flow) annotation (Line(points={{-79,-156},
@@ -353,13 +332,23 @@ equation
   connect(thermalZoneOneElement.TAir, terUni.TSen) annotation (Line(points={{67,102},
           {80,102},{80,-20},{-180,-20},{-180,-46.3333},{-160.833,-46.3333}},
         color={0,0,127}));
+  connect(maxTSet.y, terUni.TSetCoo) annotation (Line(points={{-258,220},{-240,
+          220},{-240,-44.6667},{-160.833,-44.6667}},
+                                                color={0,0,127}));
+  connect(minTSet.y, terUni.TSetHea) annotation (Line(points={{-258,260},{-220,
+          260},{-220,-43},{-160.833,-43}},
+                                      color={0,0,127}));
+  connect(TSetSecChi.y, disFloCoo.TSupSet) annotation (Line(points={{-238,-220},
+          {-160,-220},{-160,-158},{-101,-158}}, color={0,0,127}));
+  connect(TSetSecHea.y, disFloHea.TSupSet) annotation (Line(points={{-238,-180},
+          {-180,-180},{-180,-118},{-101,-118}}, color={0,0,127}));
   annotation (
   Documentation(info="
 <html>
 <p>
-This is a simplified one-zone building model based on one-element 
+This is a simplified one-zone building model based on a one-element
 reduced order room model.
-The corresponding heating and cooling loads are computed with a four-pipe 
+The corresponding heating and cooling loads are computed with a four-pipe
 fan coil unit model derived from
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit\">
 Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit</a>
@@ -372,6 +361,14 @@ with an instance of
 Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>
 including a mixing valve to control the supply temperature.
 </p>
-</html>
-"));
+</html>",
+revisions=
+"<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end BuildingRCZ1Valve;

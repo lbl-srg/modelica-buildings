@@ -1,6 +1,6 @@
 ﻿within Buildings.Applications.DHC.Loads.BaseClasses;
 model SimpleRoomODE
-  "Simplified model for assessing room air temperature variations around a setpoint"
+  "Simplified model for assessing room air temperature variations around a set point"
   extends Modelica.Blocks.Icons.Block;
   parameter Modelica.SIunits.Temperature TOutHea_nominal(displayUnit="degC")
     "Outdoor air temperature at heating nominal conditions"
@@ -54,59 +54,59 @@ equation
     ": The computed indoor temperature is below 0°C.");
   annotation (
   defaultComponentName="roo",
-  Documentation(info=
-"<html>
+  Documentation(info="<html>
 <p>
 This is a first order ODE model assessing the indoor air temperature variations
-around a setpoint, based on the difference between the required and actual
+around a set point, based on the difference between the required and actual
 heating or cooling heat flow rate and a minimum set of parameters at nominal conditions.
 </p>
 <p>
 The lumped thermal conductance <i>G</i> representing all heat transfer mechanisms
 that depend on the temperature difference with the outside (transmission,
 infiltration and ventilation) is assessed from the steady-state energy balance
-at heating nominal conditions:
+at heating nominal conditions as
 </p>
 <p style=\"font-style:italic;\">
-0 = Q&#775;<sub>heating, nom</sub> + G (T<sub>out, heating, nom</sub> - T<sub>ind, heating, nom</sub>)
+0 = Q&#775;<sub>heating, nom</sub> + G (T<sub>out, heating, nom</sub> - T<sub>ind, heating, nom</sub>).
 </p>
 <p>
-(Note that it is important for the model representativeness that
+Note that it is important for the model representativeness that
 Q&#775;<sub>heating, nom</sub> be evaluated in close to steady-state conditions
-with no internal heat gains nor solar heat gains.)
+with no internal heat gains and no solar heat gains.
 </p>
 <p>
-This coefficient is then considered constant for all operating conditions.
+The lumped thermal conductance <i>G</i> is then considered constant for all operating conditions.
 </p>
 <p>
-The required heating or cooling heat flow rate <i>Q&#775;<sub>heat_cool, req</sub></i> corresponds to
-a steady-state control error equal to zero:
+The required heating or cooling heat flow rate (i.e. the space load) 
+<i>Q&#775;<sub>heat_cool, req</sub></i> corresponds to
+a steady-state control error equal to zero,
 </p>
 <p style=\"font-style:italic;\">
 0 = Q&#775;<sub>heat_cool, req</sub> +
 G (T<sub>out</sub> - T<sub>ind, set</sub>) +
-Q&#775;<sub>various</sub>
+Q&#775;<sub>various</sub>,
 </p>
 <p>
 where <i>Q&#775;<sub>various</sub></i> represent the miscellaneous heat gains.
-The indoor temperature variation rate due to an unmet load is given by:
+The indoor temperature variation rate due to an unmet load is given by
 </p>
 <p style=\"font-style:italic;\">
 C &part;T<sub>ind</sub> / &part;t = Q&#775;<sub>heat_cool, act</sub> +
-G (T<sub>out</sub> - T<sub>ind</sub>) + Q&#775;<sub>various</sub>
+G (T<sub>out</sub> - T<sub>ind</sub>) + Q&#775;<sub>various</sub>,
 </p>
 <p>
 where
 <i>Q&#775;<sub>heat_cool, act</sub></i> is the actual heating or cooling heat flow rate and
-<i>C</i> (J/K) is the thermal capacitance of the indoor volume.
-The two previous equations yield:
+<i>C</i> is the thermal capacitance of the indoor volume.
+The two previous equations yield
 </p>
 <p style=\"font-style:italic;\">
 &tau; &part;T<sub>ind</sub> / &part;t = (Q&#775;<sub>heat_cool, act</sub> - Q&#775;<sub>heat_cool, req</sub>) / G
-- T<sub>ind</sub> + T<sub>ind, set</sub>
+- T<sub>ind</sub> + T<sub>ind, set</sub>,
 </p>
 <p>
-where <i>&tau; = C / G</i> (s) is the time constant of the indoor temperature.
+where <i>&tau; = C / G</i> is the time constant of the indoor temperature.
 </p>
 </html>",
 revisions=
@@ -125,15 +125,13 @@ First implementation.
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          fontSize=48,
           horizontalAlignment=TextAlignment.Left,
           textString="QReq_flow"),
         Text(
-          extent={{-88,96},{-8,66}},
+          extent={{-88,94},{-52,68}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          fontSize=48,
           horizontalAlignment=TextAlignment.Left,
           textString="TSet"),
         Text(
@@ -141,15 +139,13 @@ First implementation.
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          fontSize=48,
           horizontalAlignment=TextAlignment.Left,
           textString="QAct_flow"),
         Text(
-          extent={{10,16},{90,-14}},
+          extent={{50,10},{90,-8}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          fontSize=48,
           horizontalAlignment=TextAlignment.Right,
           textString="TAir")}),
   Diagram(coordinateSystem(preserveAspectRatio=false)));

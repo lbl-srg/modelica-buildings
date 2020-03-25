@@ -1,7 +1,7 @@
 compareVars :=
   {
     "senTPriSup.T",
-    "TSetSec.Celsius",
+    "TSetSecAct.y",
     "senTSecRet.T",
     "senTSecSup.T",
     "mod.y",

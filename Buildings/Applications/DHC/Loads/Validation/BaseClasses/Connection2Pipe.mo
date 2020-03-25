@@ -13,7 +13,16 @@ Documentation(
 info="<html>
 <p>
 This is a model of a connection with a two-pipe distribution network using 
-a fixed hydraulic resistance with no heat loss as pipe model.
+as pipe model a fixed hydraulic resistance with no heat loss .
 </p>
+</html>",
+revisions=
+"<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end Connection2Pipe;

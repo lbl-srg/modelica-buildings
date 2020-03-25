@@ -84,7 +84,7 @@ Rewrote inequality to turn a state into a time event for Dymola 2019FD01.
 <li>
 December 16, 2016, by Michael Wetter:<br/>
 Reformulated model for
-<a href=\"modelica://https://github.com/ibpsa/modelica-ibpsa/issues/623\">
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/623\">
 https://github.com/ibpsa/modelica-ibpsa/issues/623</a>.
 </li>
 <li>

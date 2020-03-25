@@ -43,7 +43,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     "Set to true for fluid ports on the load side"
     annotation(Evaluate=true);
   parameter Boolean have_TSen = false
-    "Set to true for sensed temperature as an input"
+    "Set to true for measured temperature as an input"
     annotation(Evaluate=true);
   parameter Boolean have_QReq_flow = false
     "Set to true for required heat flow rate as an input"
@@ -140,7 +140,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
   Modelica.Blocks.Interfaces.RealInput TSen(
     final quantity="ThermodynamicTemperature",
     final unit="K", displayUnit="degC") if have_TSen
-    "Temperature (sensed)"
+    "Temperature (measured)"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
@@ -378,58 +378,39 @@ protected
       Medium2.setState_pTX(Medium2.p_default, T_aLoaCoo_nominal))
     "Load side fluid specific heat capacity at nominal conditions in cooling mode";
 equation
-  if have_QReq_flow and (have_watHea or have_chaOve or have_eleHea) then
-    connect(QReqHea_flow, scaQReqHea_flow.u)
-      annotation (Line(points={{-220,100},{-182,100}}, color={0,0,127}));
-  end if;
-  if have_QReq_flow and (have_watCoo or have_eleCoo) then
-    connect(QReqCoo_flow, scaQReqCoo_flow.u)
-      annotation (Line(points={{-220,60},{-182,60}},   color={0,0,127}));
-  end if;
-  if have_watHea or have_chaOve or have_eleHea then
-    connect(scaQActHea_flow.y, QActHea_flow)
-      annotation (Line(points={{182,220},{220,220}}, color={0,0,127}));
-  end if;
-  if have_watCoo or have_eleCoo then
-    connect(scaQActCoo_flow.y, QActCoo_flow)
-      annotation (Line(points={{182,200},{192, 200},{192,200},{220,200}}, color={0,0,127}));
-  end if;
-  if have_eleHea then
-    connect(scaPHea.y, PHea)
-      annotation (Line(points={{182,180},{220,180}}, color={0,0,127}));
-  end if;
-  if have_eleCoo then
-    connect(scaPCoo.y, PCoo)
-      annotation (Line(points={{182,160},{220,160}}, color={0,0,127}));
-  end if;
-  if have_fan then
-    connect(scaPFan.y, PFan)
-      annotation (Line(points={{182,140},{220,140}}, color={0,0,127}));
-  end if;
-  if have_pum then
-    connect(scaPPum.y, PPum)
-      annotation (Line(points={{182,120},{220,120}}, color={0,0,127}));
-  end if;
-  if have_watHea then
-    connect(scaMasFloReqHeaWat.y, mReqHeaWat_flow)
-      annotation (Line(points={{182,100},{220,100}}, color={0,0,127}));
-  end if;
-  if have_watCoo then
-    connect(scaMasFloReqChiWat.y, mReqChiWat_flow)
-      annotation (Line(points={{182,80},{220,80}}, color={0,0,127}));
-  end if;
+  connect(QReqHea_flow, scaQReqHea_flow.u)
+    annotation (Line(points={{-220,100},{-182,100}}, color={0,0,127}));
+  connect(QReqCoo_flow, scaQReqCoo_flow.u)
+    annotation (Line(points={{-220,60},{-182,60}},   color={0,0,127}));
+  connect(scaQActHea_flow.y, QActHea_flow)
+    annotation (Line(points={{182,220},{220,220}}, color={0,0,127}));
+  connect(scaQActCoo_flow.y, QActCoo_flow)
+    annotation (Line(points={{182,200},{192, 200},{192,200},{220,200}},
+      color={0,0,127}));
+  connect(scaPHea.y, PHea)
+    annotation (Line(points={{182,180},{220,180}}, color={0,0,127}));
+  connect(scaPCoo.y, PCoo)
+    annotation (Line(points={{182,160},{220,160}}, color={0,0,127}));
+  connect(scaPFan.y, PFan)
+    annotation (Line(points={{182,140},{220,140}}, color={0,0,127}));
+  connect(scaPPum.y, PPum)
+    annotation (Line(points={{182,120},{220,120}}, color={0,0,127}));
+  connect(scaMasFloReqHeaWat.y, mReqHeaWat_flow)
+    annotation (Line(points={{182,100},{220,100}}, color={0,0,127}));
+  connect(scaMasFloReqChiWat.y, mReqChiWat_flow)
+    annotation (Line(points={{182,80},{220,80}}, color={0,0,127}));
   connect(port_aHeaWat, scaHeaWatFloInl.port_a)
     annotation (Line(points={{-200,-220},{-180,-220}}, color={0,127,255}));
   connect(scaHeaWatFloOut.port_b, port_bHeaWat)
     annotation (Line(points={{180,-220},{200,-220}}, color={0,127,255}));
   connect(port_aChiWat, scaChiWatFloInl.port_a)
     annotation (Line(points={{-200,-180},{-180,-180}}, color={0,127,255}));
-  connect(scaChiWatFloOut.port_b, port_bChiWat) annotation (Line(points={{180,
-          -180},{192,-180},{192,-180},{200,-180}}, color={0,127,255}));
+  connect(scaChiWatFloOut.port_b, port_bChiWat)
+    annotation (Line(points={{180, -180},{192,-180},{192,-180},{200,-180}},
+      color={0,127,255}));
 annotation (
   defaultComponentName="ter",
-  Documentation(info=
-"<html>
+  Documentation(info="<html>
 <p>
 Partial model to be used for modeling an HVAC terminal unit.
 </p>
@@ -471,22 +452,21 @@ Alternatively heat ports (for convective and radiative heat transfer)
 can be conditionally instantiated by setting <code>have_heaPor</code> to true.
 </li>
 <li>
-Eventually real input connectors can be conditionally instantiated by setting
+Real input connectors can be conditionally instantiated by setting
 <code>have_QReq_flow</code> to true. Those connectors can be used to provide
-heating and cooling loads as time series. The impact on the room air temperature
-of an unmet load can then be assessed with
-<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom\">
-Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom</a>.
-See
+heating and cooling loads as time series, see 
 <a href=\"modelica://Buildings.Applications.DHC.Loads.Examples.CouplingTimeSeries\">
 Buildings.Applications.DHC.Loads.Examples.CouplingTimeSeries</a>
 for an illustration of that use case.
+The impact on the room air temperature of an unmet load can be assessed with
+<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom\">
+Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom</a>.
 </li>
 </ul>
 </ul>
 <p>
 The heating or cooling nominal capacity is provided for the water based heat
-exchangers only: electric heating or cooling equipment is supposed to have
+exchangers only. Electric heating or cooling equipment is supposed to have
 an infinite capacity.
 </p>
 <h4>Connection with the flow distribution model</h4>
@@ -497,23 +477,24 @@ Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>:
 </p>
 <ul>
 <li>
-The nominal pressure drop on the source side (heating or chilled water) must be set
-to zero as the computation of the pump head relies on a specific algorithm
+The nominal pressure drop on the source side (heating or chilled water) is 
+irrelevant as the computation of the pump head relies on a specific algorithm
 described in
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
 Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>.
 </li>
 <li>
-<code>allowFlowReversal</code> must be set to <code>false</code> (default) in
-consistency with
+The parameter <code>allowFlowReversal</code> must be set to <code>false</code> (default) 
+in consistency with
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
 Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>.
-Note that this requirement only applies to the source side.
-On the load side one is free to use
-whatever option suitable for the modeling needs: typically for an air flow
-network connected to the outdoor (either at the room level for modeling
-infiltration or at the system level for the fresh air source), the
-unidirectional air flow condition cannot be guaranted.
+This requirement only applies to the source side.
+On the load side one is free to use whatever option suitable for the modeling needs.
+Note that typically for an air flow network connected to the outdoor 
+(either at the room level for modeling infiltration or at the system level 
+for the fresh air source), the unidirectional air flow condition cannot be guaranted.
+The reason is the varying pressure of the outdoor air that can lead to a negative 
+pressure difference at the terminal unit boundaries when the fan is off.
 </li>
 </ul>
 <h4>Scaling factor</h4>
@@ -539,7 +520,7 @@ When modeling a change-over system:
 </p>
 <ul>
 <li>
-<code>have_watCoo</code> and <code>have_chaOve</code> must both be set to
+The parameters <code>have_watCoo</code> and <code>have_chaOve</code> must both be set to
 <code>true</code> and <code>have_watHea</code> must be set to <code>false</code>.
 </li>
 <li>

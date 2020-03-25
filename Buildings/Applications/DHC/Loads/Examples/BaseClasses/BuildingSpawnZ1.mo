@@ -3,9 +3,9 @@ model BuildingSpawnZ1 "One-zone EnergyPlus building model"
   import Buildings;
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
     redeclare package Medium = Buildings.Media.Water,
-    have_pum=false,
-    have_eleHea=false,
-    have_eleCoo=false);
+    final have_pum=false,
+    final have_eleHea=false,
+    final have_eleCoo=false);
   package Medium2 = Buildings.Media.Air
     "Load side medium";
   parameter Integer nZon = 1
@@ -36,16 +36,14 @@ model BuildingSpawnZ1 "One-zone EnergyPlus building model"
     showWeatherData=false)
     "Building model"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=20)
-    "Minimum temperature setpoint"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=293.15,
+      y(final unit="K", displayUnit="degC"))
+    "Minimum temperature set point"
     annotation (Placement(transformation(extent={{-280,250},{-260,270}})));
-  Buildings.Controls.OBC.UnitConversions.From_degC from_degC1
-    annotation (Placement(transformation(extent={{-240,250},{-220,270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=24)
-    "Maximum temperature setpoint"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=297.15,
+      y(final unit="K", displayUnit="degC"))
+    "Maximum temperature set point"
     annotation (Placement(transformation(extent={{-280,210},{-260,230}})));
-  Buildings.Controls.OBC.UnitConversions.From_degC from_degC2
-    annotation (Placement(transformation(extent={{-240,210},{-220,230}})));
   Buildings.Applications.DHC.Loads.Examples.BaseClasses.FanCoil4Pipe terUni(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium2,
@@ -90,10 +88,6 @@ equation
     annotation (Line(points={{-36,63},{-40,63},{-40,30},{-59,30}},  color={0,0,127}));
   connect(multiplex3_1.y, zon.qGai_flow) annotation (Line(points={{-13,70},{16,70},
           {16,10},{38,10}},                                                                       color={0,0,127}));
-  connect(minTSet.y,from_degC1. u) annotation (Line(points={{-258,260},{-242,
-          260}},                                                                  color={0,0,127}));
-  connect(maxTSet.y,from_degC2. u) annotation (Line(points={{-258,220},{-242,
-          220}},                                                                  color={0,0,127}));
   connect(ports_a[1], disFloHea.port_a) annotation (Line(points={{-300,0},{-280,
           0},{-280,-110},{-120,-110}},   color={0,127,255}));
   connect(disFloHea.port_b, ports_b[1]) annotation (Line(points={{-100,-110},{280,
@@ -113,11 +107,6 @@ equation
           -104},{-180,-104},{-180,-58.3333},{-160,-58.3333}}, color={0,127,255}));
   connect(disFloCoo.ports_b1[1], terUni.port_aChiWat) annotation (Line(points={{-120,
           -144},{-200,-144},{-200,-56.6667},{-160,-56.6667}}, color={0,127,255}));
-  connect(from_degC2.y, terUni.TSetCoo) annotation (Line(points={{-218,220},{
-          -200,220},{-200,-46.6667},{-160.833,-46.6667}},
-                                                     color={0,0,127}));
-  connect(from_degC1.y, terUni.TSetHea) annotation (Line(points={{-218,260},{
-          -198,260},{-198,-45},{-160.833,-45}},      color={0,0,127}));
   connect(terUni.PFan, PFan) annotation (Line(points={{-139.167,-50},{260,-50},
           {260,120},{320,120}}, color={0,0,127}));
   connect(terUni.mReqHeaWat_flow, disFloHea.mReq_flow[1]) annotation (Line(points={{
@@ -137,21 +126,34 @@ equation
           {242,-156},{242,240},{320,240}}, color={0,0,127}));
   connect(zon.TAir, terUni.TSen) annotation (Line(points={{81,13.8},{100,13.8},
           {100,-32},{-166,-32},{-166,-48.3333},{-160.833,-48.3333}},color={0,0,127}));
+  connect(maxTSet.y, terUni.TSetCoo) annotation (Line(points={{-258,220},{-240,
+          220},{-240,-46.6667},{-160.833,-46.6667}},
+                                                color={0,0,127}));
+  connect(minTSet.y, terUni.TSetHea) annotation (Line(points={{-258,260},{-220,
+          260},{-220,-45},{-160.833,-45}},
+                                      color={0,0,127}));
   annotation (
   Documentation(info="
 <html>
 <p>
-This is a simplified one-zone building model based on EnergyPlus 
+This is a simplified one-zone building model based on EnergyPlus
 building envelope model.
-The heating and cooling loads are computed with a four-pipe 
+The heating and cooling loads are computed with a four-pipe
 fan coil unit model derived from
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit\">
 Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit</a>
 and connected to the room model by means of fluid ports.
 </p>
-</html>
-  "),
-  Diagram(coordinateSystem(extent={{-300,-300},{300,300}})), Icon(
-        coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
-          Bitmap(extent={{-108,-100},{92,100}},  fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/EnergyPlusLogo.png")}));
+</html>",
+revisions=
+"<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
+  Icon(graphics={Bitmap(extent={{-108,-100},{92,100}},
+  fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/EnergyPlusLogo.png")}));
 end BuildingSpawnZ1;

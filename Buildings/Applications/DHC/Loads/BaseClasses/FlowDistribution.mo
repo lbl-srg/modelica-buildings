@@ -1,9 +1,7 @@
 within Buildings.Applications.DHC.Loads.BaseClasses;
-model FlowDistribution "Model of building hydraulic distribution system"
+model FlowDistribution "Model of a building hydraulic distribution system"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     redeclare replaceable package Medium = Buildings.Media.Water,
-    final m_flow_small=1E-4*m_flow_nominal,
-    final show_T=false,
     final allowFlowReversal=false);
   import Type_dis = Buildings.Applications.DHC.Loads.Types.DistributionType
     "Types of distribution system";
@@ -31,9 +29,7 @@ model FlowDistribution "Model of building hydraulic distribution system"
     annotation(Evaluate=true);
   parameter Boolean have_val = false
     "Set to true if the system has a mixing valve"
-    annotation(Evaluate=true);
-  parameter Boolean have_twoPip = true
-    "Set to true in case of a two-pipe system";
+    annotation(Dialog(enable=have_pum), Evaluate=true);
   parameter Type_dis typDis = Type_dis.HeatingWater
     "Type of distribution system"
     annotation(Dialog(enable=have_val), Evaluate=true);
@@ -63,7 +59,7 @@ model FlowDistribution "Model of building hydraulic distribution system"
       enable=typCtr==Type_ctr.ConstantDp));
   parameter Modelica.SIunits.PressureDifference dpMin(
     final min=0, displayUnit="Pa") = dp_nominal / 2
-    "Pressure difference setpoint for ConstantDp or at zero flow for LinearHead"
+    "Pressure difference set point for ConstantDp or at zero flow for LinearHead"
     annotation(Dialog(enable=typCtr==Type_ctr.ConstantDp));
   parameter Modelica.SIunits.MassFlowRate mUni_flow_nominal[:](
     each final min=0) = fill(m_flow_nominal/nUni, nUni)
@@ -138,12 +134,12 @@ model FlowDistribution "Model of building hydraulic distribution system"
   Modelica.Blocks.Interfaces.RealOutput QActTot_flow(
     final quantity="HeatFlowRate", final unit="W")
     "Total heat flow rate transferred to the loads (>=0 for heating)"
-    annotation (Placement(transformation(extent={{100,140},{140,180}}),
+    annotation (Placement(transformation(extent={{100,120},{140,160}}),
       iconTransformation(extent={{100,-70},{120,-50}})));
   Modelica.Blocks.Interfaces.RealOutput PPum(
     final quantity="Power", final unit="W") if have_pum
     "Power drawn by pump motor"
-    annotation (Placement(transformation(extent={{100,100},{140,140}}),
+    annotation (Placement(transformation(extent={{100,40},{140,80}}),
       iconTransformation(extent={{100,-90},{120,-70}})));
   // COMPONENTS
   Buildings.Controls.OBC.CDL.Continuous.MultiSum sumMasFloReq(
@@ -163,10 +159,10 @@ model FlowDistribution "Model of building hydraulic distribution system"
     "Sink for terminal units return flow rate"
     annotation (Placement(transformation(extent={{-60,190},{-80,210}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum Q_flowSum(
-    final nin=nUni)
+    final nin=nUni) "Total heat flow rate"
     annotation (Placement(transformation(extent={{-50,130},{-30,150}})));
   Modelica.Blocks.Sources.RealExpression mAct_flow[nUni](
-    final y=if have_pum then mReq_flow else mReq_flow .*
+    final y(each final unit="kg/s")=if have_pum then mReq_flow else mReq_flow .*
     Buildings.Utilities.Math.Functions.smoothMin(
       1,
       senMasFlo.m_flow/Buildings.Utilities.Math.Functions.smoothMax(
@@ -177,7 +173,8 @@ model FlowDistribution "Model of building hydraulic distribution system"
     "Actual supplied mass flow rate"
     annotation (Placement(transformation(extent={{-90,150},{-70,170}})));
   Modelica.Blocks.Sources.RealExpression QAct_flow[nUni](
-    final y=mAct_flow.y .* (ports_b1.h_outflow - inStream(ports_a1.h_outflow)))
+    final y(each final unit="W")=mAct_flow.y .*
+      (ports_b1.h_outflow - inStream(ports_a1.h_outflow)))
     "Actual heat flow rate transferred to each load"
     annotation (Placement(transformation(extent={{-90,130},{-70,150}})));
   Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear val(
@@ -197,7 +194,7 @@ model FlowDistribution "Model of building hydraulic distribution system"
     final linearized={true,true},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) if have_val
     "Mixing valve"
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}}, origin={-80,0})));
+    annotation (Placement(transformation(extent={{-10,10},{10,-10}}, origin={-80,20})));
   Buildings.Fluid.Movers.BaseClasses.IdealSource pipPre(
     redeclare final package Medium = Medium,
     final dp_start=dp_nominal - dpVal_nominal,
@@ -237,8 +234,9 @@ model FlowDistribution "Model of building hydraulic distribution system"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) if have_val
     "Flow splitter"
     annotation (Placement(transformation(
-      extent={{-10,10},{10,-10}}, origin={80,0})));
-  Modelica.Blocks.Sources.RealExpression TSupVal(y=TSup)
+      extent={{-10,10},{10,-10}}, origin={82,20})));
+  Modelica.Blocks.Sources.RealExpression TSupVal(
+    y(final unit="K", displayUnit="degC")=TSup)
     "Supply temperature value"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},
       rotation=180, origin={-80,120})));
@@ -248,21 +246,23 @@ model FlowDistribution "Model of building hydraulic distribution system"
     "Supply mass flow rate sensor"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
-    final nout=nUni)
+    final nout=nUni) "Repeat input to output an array"
     annotation (Placement(transformation(extent={{-20,110},{0,130}})));
-  Controls.MixingValveControl conVal(final typDis=typDis) if
-                                                    have_val
+  Controls.MixingValveControl conVal(final typDis=typDis) if have_val
     "Mixing valve controller"
     annotation (Placement(transformation(extent={{-48,-106},{-28,-86}})));
-  Modelica.Blocks.Sources.RealExpression dpNetVal(final y=dpPum - dpVal_nominal)
+  Modelica.Blocks.Sources.RealExpression dpNetVal(
+    final y(final unit="Pa")=dpPum - dpVal_nominal)
     "Pressure drop over the distribution network (excluding mixing valve)"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},
       rotation=180, origin={-80,100})));
-  Modelica.Blocks.Sources.RealExpression masFloPum(final y=mPum_flow)
+  Modelica.Blocks.Sources.RealExpression masFloPum(
+    final y(final unit="kg/s")=mPum_flow)
     "Pump mass flow rate value"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},
       rotation=180, origin={-80,80})));
-  Modelica.Blocks.Sources.RealExpression spePum(final y=spePum_nominal)
+  Modelica.Blocks.Sources.RealExpression spePum(
+    final y(final unit="1")=spePum_nominal)
     "Pump speed (fractional)" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
@@ -293,7 +293,7 @@ model FlowDistribution "Model of building hydraulic distribution system"
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) if
     have_pum and typCtr <> Type_ctr.ConstantSpeed
     "Distribution pump with prescribed mass flow rate"
-    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
+    annotation (Placement(transformation(extent={{-50,10},{-30,30}})));
   Buildings.Fluid.Movers.SpeedControlled_y pumSpe(
     redeclare final package Medium = Medium,
     per(
@@ -313,7 +313,7 @@ model FlowDistribution "Model of building hydraulic distribution system"
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) if
     have_pum and typCtr == Type_ctr.ConstantSpeed
     "Distribution pump with prescribed speed (fractional)"
-    annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
+    annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
 protected
   final parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal[nUni]=
     {sum(mUni_flow_nominal[i:nUni]) for i in 1:nUni}
@@ -352,20 +352,36 @@ initial equation
     "In " + getInstanceName() +
     ": The configuration where have_val is true and have_pum is false is not allowed.");
 equation
-
   assert(mReqTot_flow < m_flow_nominal + m_flow_small,
     "In " + getInstanceName() + ": The total required mass flow rate equals "
-    + String(mReqTot_flow) + " (kg/s) which is higher than the nominal mass
-    flow rate value of " + String(m_flow_nominal) + " (kg/s).",
+    + String(mReqTot_flow) + " kg/s which is higher than the nominal mass
+    flow rate value of " + String(m_flow_nominal) + " kg/s.",
     AssertionLevel.error);
-
+  // Connect statements involving conditionally removed components are
+  // removed at translation time by Modelica specification.
+  // Only obsolete statements corresponding to the default model structure need
+  // to be programmatically removed.
+  if not have_val then
+    connect(heaCoo.port_b, port_b)
+      annotation (Line(points={{66,0},{100,0}}, color={0,127,255}));
+    connect(port_a, pumFlo.port_a)
+      annotation (Line(points={{-100,0},{-60,0},{-60,20},{-50,20}},
+        color={0,127,255}));
+    connect(port_a, pumSpe.port_a)
+      annotation (Line(points={{-100,0},{-60,0},{-60,-30},{-50,-30}},
+        color={0,127,255}));
+  end if;
+  if not have_pum then
+    connect(port_a, pipPre.port_a)
+      annotation (Line(points={{-100,0},{-16,0}}, color={0,127,255}));
+  end if;
   connect(sumMasFloReq.y, mReqTot_flow)
     annotation (Line(points={{-58,260},{120,260}}, color={0,0,127}));
   connect(mReq_flow, sumMasFloReq.u)
     annotation (Line(points={{-120,260},{-82,260}}, color={0,0,127}));
   connect(mAct_flow.y, sou_m_flow.m_flow_in)
     annotation (Line(points={{-69,160},{16,160},{16,208},{58,208}},
-                                                color={0,0,127}));
+      color={0,0,127}));
   connect(ports_a1, sin.ports)
     annotation (Line(points={{-100,200},{-80,200}}, color={0,127,255}));
   connect(sou_m_flow.ports[1], ports_b1)
@@ -375,94 +391,69 @@ equation
   connect(senMasFlo.port_b, heaCoo.port_a)
     annotation (Line(points={{30,0},{46,0}}, color={0,127,255}));
   connect(Q_flowSum.y, QActTot_flow)
-    annotation (Line(points={{-28,140},{94,140},{94,160},{120,160}},
-                                                   color={0,0,127}));
+    annotation (Line(points={{-28,140},{120,140}}, color={0,0,127}));
   connect(QAct_flow.y, Q_flowSum.u)
     annotation (Line(points={{-69,140},{-52,140}}, color={0,0,127}));
-  connect(Q_flowSum.y, heaCoo.u) annotation (Line(points={{-28,140},{40,140},{
-          40,6},{44,6}},
-                      color={0,0,127}));
+  connect(Q_flowSum.y, heaCoo.u)
+    annotation (Line(points={{-28,140},{40,140},{40,6},{44,6}},
+      color={0,0,127}));
   connect(TSupVal.y, reaRep.u)
     annotation (Line(points={{-69,120},{-22,120}}, color={0,0,127}));
   connect(reaRep.y, sou_m_flow.T_in)
     annotation (Line(points={{2,120},{20,120},{20,204},{58,204}},
-                             color={0,0,127}));
-
-  if have_val then
-    connect(port_a, val.port_1)
-    annotation (Line(points={{-100,0},{-90,0}}, color={0,127,255}));
-    connect(heaCoo.port_b, spl.port_1)
-      annotation (Line(points={{66,0},{70,0}}, color={0,127,255}));
-    connect(spl.port_2, port_b)
-      annotation (Line(points={{90,0},{100,0}}, color={0,127,255}));
-    connect(spl.port_3, val.port_3)
-      annotation (Line(points={{80,10},{80,40},{-80,40},{-80,10}}, color={0,127,255}));
-    connect(TSupSet, conVal.TSupSet)
-      annotation (Line(points={{-120,-100},{-80,-100},{-80,-92},{-49,-92}},
-                                                         color={0,0,127}));
-    connect(TSupVal.y, conVal.TSupMes)
-      annotation (Line(points={{-69,120},{-60,120},{-60,-100},{-49,-100}},  color={0,0,127}));
-    connect(conVal.yVal, val.y)
-      annotation (Line(points={{-27,-96},{-20,-96},{-20,-80},{-80,-80},{-80,-12}},
       color={0,0,127}));
-
-    if typDis == Type_dis.ChangeOver then
-      connect(modChaOve, conVal.modChaOve)
-        annotation (Line(points={{-120,-60},{-90,-60},{-90,-88},{-49,-88}},
-                                              color={255,127,0}));
-    end if;
-
-    connect(val.port_2, pumFlo.port_a)
-      annotation (Line(points={{-70,0},{-50,0}}, color={0,127,255}));
-    connect(val.port_2, pumSpe.port_a)
-      annotation (Line(points={{-70,0},{-56,0},{-56,-40},{-50,-40}},color={0,127,255}));
-
-  else
-
-    connect(heaCoo.port_b, port_b)
-      annotation (Line(points={{66,0},{100,0}}, color={0,127,255}));
-
-    if have_pum then
-      connect(port_a, pumFlo.port_a)
-        annotation (Line(points={{-100,0},{-50,0}}, color={0,127,255}));
-      connect(port_a, pumSpe.port_a)
-        annotation (Line(points={{-100,0},{-56,0},{-56,-40},{-50,-40}},color={0,127,255}));
-    else
-      connect(port_a, pipPre.port_a)
-        annotation (Line(points={{-100,0},{-16,0}}, color={0,127,255}));
-    end if;
-
-  end if;
-
+  connect(port_a, val.port_1)
+    annotation (Line(points={{-100,0},{-96,0},{-96,20},{-90,20}},
+      color={0,127,255}));
+  connect(heaCoo.port_b, spl.port_1)
+    annotation (Line(points={{66,0},{68,0},{68,20},{72,20}},
+      color={0,127,255}));
+  connect(spl.port_2, port_b)
+    annotation (Line(points={{92,20},{96,20},{96,0},{100,0}},
+      color={0,127,255}));
+  connect(spl.port_3, val.port_3)
+    annotation (Line(points={{82,30},{82,40},{-80,40},{-80,30}}, color={0,127,255}));
+  connect(TSupSet, conVal.TSupSet)
+    annotation (Line(points={{-120,-100},{-80,-100},{-80,-92},{-49,-92}},
+      color={0,0,127}));
+  connect(TSupVal.y, conVal.TSupMes)
+    annotation (Line(points={{-69,120},{-64,120},{-64,-100},{-49,-100}},  color={0,0,127}));
+  connect(conVal.yVal, val.y)
+    annotation (Line(points={{-27,-96},{-20,-96},{-20,-60},{-80,-60},{-80,8}},
+    color={0,0,127}));
+  connect(modChaOve, conVal.modChaOve)
+    annotation (Line(points={{-120,-60},{-90,-60},{-90,-88},{-49,-88}},
+      color={255,127,0}));
+  connect(val.port_2, pumFlo.port_a)
+    annotation (Line(points={{-70,20},{-50,20}}, color={0,127,255}));
+  connect(val.port_2, pumSpe.port_a)
+    annotation (Line(points={{-70,20},{-60,20},{-60,-30},{-50,-30}},
+      color={0,127,255}));
   connect(pumFlo.port_b, pipPre.port_a)
-    annotation (Line(points={{-30,0},{-16,0}}, color={0,127,255}));
+    annotation (Line(points={{-30,20},{-20,20},{-20,0},{-16,0}}, color={0,127,255}));
   connect(pumSpe.port_b, pipPre.port_a)
-    annotation (Line(points={{-30,-40},{-24,-40},{-24,0},{-16,0}},color={0,127,255}));
-
+    annotation (Line(points={{-30,-30},{-20,-30},{-20,0},{-16,0}},color={0,127,255}));
   connect(pumFlo.P, PPum)
-    annotation (Line(points={{-29,9},{-20,9},{-20,20},{94,20},{94,120},{120,120}},
-                                 color={0,0,127}));
+    annotation (Line(points={{-29,29},{-20,29},{-20,60},{120,60}}, color={0,0,127}));
   connect(pumSpe.P, PPum)
-    annotation (Line(points={{-29,-31},{94,-31},{94,120},{120,120}},
-                 color={0,0,127}));
-
+    annotation (Line(points={{-29,-21},{-30,-21},{-30,-20},{94,-20},{94,60},
+      {120,60}}, color={0,0,127}));
   connect(dpNetVal.y, pipPre.dp_in)
     annotation (Line(points={{-69,100},{0,100},{0,8}}, color={0,0,127}));
   connect(masFloPum.y, pipPre.m_flow_in)
-    annotation (Line(points={{-69,80},{-12,80},{-12,8}},   color={0,0,127}));
-
+    annotation (Line(points={{-69,80},{-12,80},{-12,8}}, color={0,0,127}));
   connect(masFloPum.y, pumFlo.m_flow_in)
-    annotation (Line(points={{-69,80},{-40,80},{-40,12}},   color={0,0,127}));
+    annotation (Line(points={{-69,80},{-40,80},{-40,32}}, color={0,0,127}));
   connect(spePum.y, pumSpe.y)
-    annotation (Line(points={{-69,60},{-46,60},{-46,-20},{-40,-20},{-40,-28}},color={0,0,127}));
-
+    annotation (Line(points={{-69,60},{-52,60},{-52,-10},{-40,-10},{-40,-18}},
+      color={0,0,127}));
 annotation (
   defaultComponentName="dis",
   Documentation(info="<html>
 <p>
-This model represents a hydraulic distribution system serving multiple
+This model represents a two-pipe hydraulic distribution system serving multiple
 terminal units.
-It is primarily intended to be used in conjunction with models that derive from
+It is primarily intended to be used in conjunction with models that extend
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit\">
 Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit</a>.
 The typical model structure for a whole building connected to an energy
@@ -477,11 +468,11 @@ loop and several terminal branch circuits:
 </p>
 <ul>
 <li>
-The flow rate in each branch circuit is equal to the flow rate demand yielded
+The mass flow rate in each branch circuit is equal to the mass flow rate demand yielded
 by the terminal unit model, constrained by the condition that the sum of all
 demands is lower or equal to the flow rate in the main loop.
 Additionally if the total flow rate demand exceeds the nominal mass flow rate
-the model throws an error.
+the model generates an error.
 </li>
 <li>
 The inlet temperature in each branch circuit is equal to the supply temperature
@@ -491,28 +482,10 @@ flow rate of each individual fluid stream to the main fluid stream.
 </li>
 <li>
 The pressure drop in the main distribution loop corresponds to the pressure drop
-over the whole distribution system (the pump head): it is governed by an equation
+over the whole distribution system (the pump head). It is governed by an equation
 representing the control logic of the distribution pump.
-The pressure drop in each branch circuit is irrelevant: <code>dp_nominal</code>
-must be set to zero for each terminal unit model being connected
-to that component.
 </li>
 </ul>
-<p>
-That modeling approach aims to minimize the number of algebraic
-equations by avoiding an explicit modeling of the terminal actuators and
-the whole flow network.
-In addition, the assumption <code>allowFlowReversal=false</code> is used
-systematically together with boundary conditions which actually ensure that
-no reverse flow conditions are encountered in simulation.
-This allows directly accessing the inlet enthalpy value of a component from
-the fluid port <code>port_a</code> with the built-in function <code>inStream</code>.
-This approach is preferred to the use of two-port sensors which introduce a
-state to ensure a smooth transition at flow reversal.
-All connected components must meet the same requirements.
-The impact on the computational performance is illustrated
-<a href=\"#my_comp\">below</a>.
-</p>
 <p>
 Optionally:
 </p>
@@ -528,6 +501,22 @@ drop of the valve is not an exposed parameter: it is set by default to 10%
 of the nominal total pressure drop.
 </li>
 </ul>
+<h4>Implementation</h4>
+<p>
+The modeling approach aims to minimize the number of algebraic
+equations by avoiding an explicit modeling of the terminal actuators and
+the whole flow network.
+In addition, the assumption <code>allowFlowReversal=false</code> is used
+systematically together with boundary conditions which actually ensure that
+no reverse flow conditions are encountered in simulation.
+This allows directly accessing the inlet enthalpy value of a component from
+the fluid port <code>port_a</code> with the built-in function <code>inStream</code>.
+This approach is preferred to the use of two-port sensors which introduce a
+state to ensure a smooth transition at flow reversal.
+All connected components must meet the same requirements.
+The impact on the computational performance is illustrated
+<a href=\"#my_comp\">below</a>.
+</p>
 <h4>Pump head computation</h4>
 <p>
 The pump head is computed as follows (see also
@@ -537,22 +526,22 @@ for a comparison with an explicit modeling of the piping network).
 </p>
 <ul>
 <li>
-In case of a constant pump head:
+In case of a constant pump head,
 <p style=\"font-style:italic;\">
-dpPum = dp_nominal
+dpPum = dp_nominal.
 </p>
 </li>
 <li>
 In case of a constant flow rate (three-way valves) the network flow
 characteristics is considered independent from the actuator positions.
-Thus:
+Hence,
 <p style=\"font-style:italic;\">
-dpPum = dp_nominal
+dpPum = dp_nominal.
 </p>
 <li>
-In case of a linear head:
+In case of a linear head,
 <p style=\"font-style:italic;\">
-dpPum = dpMin + (dp_nominal - dpMin) * m_flow / m_flow_nominal
+dpPum = dpMin + (dp_nominal - dpMin) * m_flow / m_flow_nominal.
 </p>
 </li>
 <li>
@@ -561,38 +550,38 @@ curve and the total required mass flow rate.
 <li>
 In case of a constant pressure difference at a given location, the pump head
 is computed according to the schematics hereunder, under the
-assumption of a two-pipe distribution system:
+assumption of a two-pipe distribution system,
 <p style=\"font-style:italic;\">
-dpPum = dpMin + dpVal + 2 * &Sigma;<sub>i</sub> dpDis[i]
+dpPum = dpMin + dpVal + 2 * &Sigma;<sub>i</sub> dpDis[i],
 </p>
 <p>
-Where:
+where
 </p>
 <ul>
 <li>
-<i>dpMin</i> is the differential pressure setpoint.
+<i>dpMin</i> is the differential pressure set point.
 </li>
 <li>
 <i>dpVal</i> is the pressure drop across the optional mixing valve.
-It is considered independent from the valve position:
-<i>dpVal = dpVal_nominal</i>.
+It is considered independent from the valve position, i.e.,
+<i>dpVal = dpVal_nominal</i>,
 </li>
 <li>
 <i>dpDis[i]</i> is the pressure drop in the supply pipe segment directly
-upstream the i<sup>th</sup> connection:
+upstream the i<sup>th</sup> connection,
 <p>
-<i>dpDis[i] = 1 / K[i]<sup>2</sup> * mDis_flow[i] <sup>2</sup></i>
+<i>dpDis[i] = 1 / K[i]<sup>2</sup> * mDis_flow[i] <sup>2</sup></i>,
 </p>
-Where:
 <p>
+where
 <i>mDis_flow[i]  = &Sigma;<sub>i to nUni</sub> mReq_flow[i]</i>
-is the mass flow rate in the same pipe segment.
-</p>
-<p>
+is the mass flow rate in the same pipe segment, and
 <i>K[i] = (&Sigma;<sub>i to nUni</sub> mUni_flow_nominal[i]) /
 dpDis_nominal[i]<sup>0.5</sup></i>
 is the corresponding flow coefficient (constant).
 </p>
+</li>
+</ul>
 <p>
 The pressure drop in the corresponding pipe segment of the return line
 is considered equal, hence the factor 2 in the above equation.
@@ -604,12 +593,10 @@ connected unit, 20% of the nominal pressure drop in the distribution network
 occurs between the pump and the first connected unit (supply and return),
 the remaining pressure drop is evenly distributed over each pipe segment
 between the other connected units.
-The user can override those default values with the requirement that the
-nominal pressure drop of each pipe segment downstream the differential pressure
+The user can override these default values with the requirement that the
+nominal pressure drop of each pipe segment downstream of the differential pressure
 sensor must be set to zero.
 </p>
-</li>
-</ul>
 </li>
 </ul>
 <p>
@@ -625,14 +612,14 @@ piping network, from supply to return.
 The mass dynamics are by default identical to the energy dynamics.
 </p>
 <p>
-Simplifying assumptions are used otherwise:
+Simplifying assumptions are used otherwise, namely
 </p>
 <ul>
 <li>
-The pump is modeled in steady-state.
+the pump is modeled in steady-state, and
 </li>
 <li>
-The valve and the flow splitter are modeled with fixed initial conditions.
+the valve and the flow splitter are modeled with fixed initial conditions.
 This is because the temperature of the fluid leaving the valve is used
 as a control input signal. If a steady-state model is used, that temperature
 is computed by assuming ideal mixing at the inner fluid ports of the valve.
@@ -645,7 +632,7 @@ turn out to be detrimental to computational performance.
 </ul>
 <h4 id=\"my_comp\">Computational performance</h4>
 <p>
-The figure below compares the computational performance of that model
+The figure below compares the computational performance of this model
 (labelled <code>simple</code>, see model
 <a href=\"modelica://Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution1\">
 Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution1</a>)
@@ -653,20 +640,25 @@ with an explicit modeling of the distribution network and
 the terminal unit actuators (labelled <code>detailed</code>, see model
 <a href=\"modelica://Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution2\">
 Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution2</a>).
-The impact of a varying number of connected loads (<code>nLoa</code>) is
-assessed on:
+The models are simulated with the solver CVODE from Sundials.
+The impact of a varying number of connected loads, <code>nLoa</code>, is
+assessed on
 </p>
 <ol>
 <li>
 the total time for all model evaluations,
 </li>
 <li>
-the total time spent between model evaluations,
+the total time spent between model evaluations, and
 </li>
 <li>
 the number of continuous state variables.
 </li>
 </ol>
+<p>
+A linear, resp. quadratic, regression line and the corresponding confidence interval are
+also plotted for the model labelled <code>simple</code>, resp. <code>detailed</code>.
+</p>
 <p>
 <img alt=\"image\"
 src=\"modelica://Buildings/Resources/Images/Applications/DHC/Loads/FlowDistribution2.png\"/>
@@ -861,6 +853,6 @@ First implementation.
           origin={66,-31},
           rotation=90,
           visible=have_val)}),
-      Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{100,
-            280}})));
+      Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{
+            100,280}})));
 end FlowDistribution;

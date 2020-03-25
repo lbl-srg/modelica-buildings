@@ -61,8 +61,16 @@ partial model PartialDistribution
 Partial model to be used for modeling various distribution networks e.g. 
 one-pipe or two-pipe hydraulic distribution.
 </p>
-</html>
-    "),
+</html>",
+revisions=
+"<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
   Icon(coordinateSystem(preserveAspectRatio=false,
    extent={{-200,-100},{200,100}}),
    graphics={

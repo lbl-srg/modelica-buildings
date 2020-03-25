@@ -6,7 +6,7 @@ model SimpleRoomODE "Validation of the model SimpleRoomODE"
   package Medium2 = Buildings.Media.Air
     "Load side medium";
   parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal=112000
-    "Design heating heat flow rate (for TInd=TIndHea_nominal, TOut=TOutHea_nominal, 
+    "Design heating heat flow rate (for TInd=TIndHea_nominal, TOut=TOutHea_nominal,
     with no internal gains, no solar radiation)"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal=-200000
@@ -27,22 +27,21 @@ model SimpleRoomODE "Validation of the model SimpleRoomODE"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
   Buildings.Controls.Continuous.LimPID conHea(controllerType=Modelica.Blocks.Types.SimpleController.PI, Ti=10)
     annotation (Placement(transformation(extent={{30,110},{50,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=20)
-    "Minimum temperature setpoint (C)"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=293.15,
+      y(final unit="K", displayUnit="degC")) "Minimum temperature set point"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
-  Buildings.Controls.OBC.UnitConversions.From_degC from_degC1
-    "Minimum temperature setpoint (K) "
-    annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(k=QHea_flow_nominal)
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai(k=QHea_flow_nominal) "Scaling"
     annotation (Placement(transformation(extent={{60,110},{80,130}})));
   HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow
+    "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{82,130},{62,150}})));
   Examples.BaseClasses.GeojsonExportRC.OfficeBuilding.Office romHeaUnm
     "ROM where the heating load is not met"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai1(k=0.7)
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai1(k=0.7) "Scaling "
     annotation (Placement(transformation(extent={{92,90},{112,110}})));
   HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow1
+    "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{82,70},{62,90}})));
   Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoomODE rooOdeHea(
     TOutHea_nominal=273.15,
@@ -50,17 +49,15 @@ model SimpleRoomODE "Validation of the model SimpleRoomODE"
     QHea_flow_nominal=QHea_flow_nominal,
     tau=tau) "ODE heated room model"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=24)
-    "Maximum temperature setpoint (C)"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=297.15,
+      y(final unit="K", displayUnit="degC")) "Maximum temperature set point"
     annotation (Placement(transformation(extent={{-140,-170},{-120,-150}})));
-  Buildings.Controls.OBC.UnitConversions.From_degC from_degC2
-    "Maximum temperature setpoint (K)"
-    annotation (Placement(transformation(extent={{-100,-170},{-80,-150}})));
   Buildings.Controls.Continuous.LimPID conCoo(controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=10,
-      reverseAction=true)
+      reverseAction=true) "PI controller tracking the room maximum temperature"
     annotation (Placement(transformation(extent={{30,-110},{50,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai2(k=QCoo_flow_nominal)
+    "Scaling"
     annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
   Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoomODE rooOdeCoo(
     TOutHea_nominal=273.15,
@@ -68,7 +65,7 @@ model SimpleRoomODE "Validation of the model SimpleRoomODE"
     QHea_flow_nominal=QHea_flow_nominal,
     tau=tau) "ODE cooled room model"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai3(k=0.8)
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai3(k=0.8) "Scaling"
     annotation (Placement(transformation(extent={{92,-90},{112,-70}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat1(
     TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
@@ -85,18 +82,16 @@ model SimpleRoomODE "Validation of the model SimpleRoomODE"
     "ROM where the cooling load is not met"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
   HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow2
+    "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{80,-70},{60,-50}})));
   HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow3
+    "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{82,-150},{62,-130}})));
 equation
   connect(weaDat.weaBus,romHeaMet. weaBus) annotation (Line(
       points={{-120,100},{0,100},{0,99.8},{-6,99.8}},
       color={255,204,51},
       thickness=0.5));
-  connect(from_degC1.y,conHea. u_s) annotation (Line(points={{-78,160},{20,160},
-          {20,120},{28,120}}, color={0,0,127}));
-  connect(minTSet.y, from_degC1.u)
-    annotation (Line(points={{-118,160},{-102,160}}, color={0,0,127}));
   connect(romHeaMet.TAir, conHea.u_m) annotation (Line(points={{11,100},{40,100},
           {40,108}},              color={0,0,127}));
   connect(conHea.y, gai.u)
@@ -106,25 +101,14 @@ equation
                                color={0,0,127}));
   connect(prescribedHeatFlow.port,romHeaMet. port_a) annotation (Line(points={{62,140},
           {0,140},{0,110}},             color={191,0,0}));
-  connect(maxTSet.y, from_degC2.u)
-    annotation (Line(points={{-118,-160},{-102,-160}},
-                                                   color={0,0,127}));
-  connect(from_degC2.y, conCoo.u_s)
-    annotation (Line(points={{-78,-160},{20,-160},{20,-100},{28,-100}},
-                                                 color={0,0,127}));
   connect(conCoo.y, gai2.u)
     annotation (Line(points={{51,-100},{58,-100}},
                                                  color={0,0,127}));
   connect(gai1.y, prescribedHeatFlow1.Q_flow)
     annotation (Line(points={{114,100},{120,100},{120,80},{82,80}},
                                                    color={0,0,127}));
-  connect(from_degC2.y, rooOdeCoo.TSet) annotation (Line(points={{-78,-160},{-60,
-          -160},{-60,-12},{-12,-12}},
-                                   color={0,0,127}));
   connect(gai1.y, rooOdeHea.QAct_flow) annotation (Line(points={{114,100},{120,100},
           {120,6},{-14,6},{-14,12},{-12,12}},         color={0,0,127}));
-  connect(from_degC1.y, rooOdeHea.TSet) annotation (Line(points={{-78,160},{-60,
-          160},{-60,28},{-12,28}}, color={0,0,127}));
   connect(gai2.y, rooOdeCoo.QReq_flow) annotation (Line(points={{82,-100},{126,-100},
           {126,-34},{-20,-34},{-20,-20},{-12,-20}},
                               color={0,0,127}));
@@ -158,34 +142,50 @@ equation
   connect(prescribedHeatFlow2.port, romCooUnm.port_a)
     annotation (Line(points={{60,-60},{0,-60},{0,-70}}, color={191,0,0}));
   connect(gai2.y, prescribedHeatFlow3.Q_flow) annotation (Line(points={{82,-100},
-          {86,-100},{86,-140},{82,-140}}, color={0,0,127}));
+          {120,-100},{120,-140},{82,-140}},
+                                          color={0,0,127}));
   connect(prescribedHeatFlow3.port, romCooMet.port_a)
     annotation (Line(points={{62,-140},{0,-140},{0,-110}}, color={191,0,0}));
+  connect(minTSet.y, conHea.u_s) annotation (Line(points={{-118,160},{20,160},{
+          20,120},{28,120}}, color={0,0,127}));
+  connect(minTSet.y, rooOdeHea.TSet) annotation (Line(points={{-118,160},{-40,
+          160},{-40,28},{-12,28}}, color={0,0,127}));
+  connect(maxTSet.y, conCoo.u_s) annotation (Line(points={{-118,-160},{20,-160},
+          {20,-100},{28,-100}}, color={0,0,127}));
+  connect(maxTSet.y, rooOdeCoo.TSet) annotation (Line(points={{-118,-160},{-40,
+          -160},{-40,-12},{-12,-12}}, color={0,0,127}));
   annotation (
     experiment(
       StopTime=1209600,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
   Documentation(info="
 <html>
 <p>
-This example validates 
+This example validates
 <a href=\"Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoomODE\">
 Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoomODE</a> by comparison with
 <a href=\"Buildings.ThermalZones.ReducedOrder.RC.TwoElements\">
 Buildings.ThermalZones.ReducedOrder.RC.TwoElements</a>.
 <p>
-A first instance of the reduced order model is used to assess the heating and 
+A first instance of the reduced order model is used to assess the heating and
 cooling loads. A second instance is used to assess the indoor air temperature
 variation when the rate at which heating or cooling is provided is lower than
-the load. That second instance is used as a reference for the validation. 
+the load. That second instance is used as a reference for the validation.
 </p>
-<p> 
-Eventually the validation is performed with two sets of ambient conditions: 
-one requiring heating, the second requiring cooling. 
+<p>
+Eventually the validation is performed with two sets of ambient conditions,
+one requiring heating, and the second requiring cooling.
 </p>
-</html>
-  "),
+</html>",
+revisions=
+"<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
   __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/SimpleRoomODE.mos"
   "Simulate and plot"),
     Diagram(coordinateSystem(extent={{-180,-200},{180,200}})));

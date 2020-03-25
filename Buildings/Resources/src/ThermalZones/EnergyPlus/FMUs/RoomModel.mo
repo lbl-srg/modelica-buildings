@@ -116,4 +116,9 @@ equation
   QConSen_flow = Ah * (TCon-T);
   QLat_flow = 0;
   QPeo_flow = 0;
+  annotation (Documentation(info="<html>
+<p>
+Simple room model that is used for testing the Spawn of EnergyPlus coupling.
+</p>
+</html>"));
 end RoomModel;

@@ -6,9 +6,6 @@ partial model PartialDistribution1Pipe
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal)
     "Model for distribution pipe";
-  parameter Integer iConDpSen(final min=1, final max=nCon) = nCon
-    "Index of the connection where the pressure drop is sensed"
-    annotation(Evaluate=true);
   parameter Boolean have_heaFloOut = false
     "Set to true to output the heat flow rate transferred to each connected load"
     annotation(Evaluate=true);
@@ -34,7 +31,7 @@ partial model PartialDistribution1Pipe
       iconTransformation(extent={{200,60},{220,80}})));
   Modelica.Blocks.Interfaces.RealOutput mCon_flow[nCon](
     each final quantity="MassFlowRate", each final unit="kg/s")
-    "Connection supply mass flow rate (sensed)"
+    "Connection supply mass flow rate (measured)"
     annotation (Placement(transformation(
       extent={{100,40},{140,80}}),
       iconTransformation(extent={{200,40},{220,60}})));
@@ -58,23 +55,17 @@ partial model PartialDistribution1Pipe
     final m_flow_nominal=mDis_flow_nominal)
     "Pipe representing the end of the distribution line (after last connection)"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-initial equation
-  assert(iConDpSen >= 1 and iConDpSen <= nCon, "In " + getInstanceName() +
-    ": iConDpSen = " + String(iConDpSen) + " whereas it must be between 
-    1 and " + String(nCon) + ".");
 equation
-  connect(con.port_bCon, ports_bCon)
-    annotation (Line(points={{0,10},{0,40},{-80,
-          40},{-80,100}}, color={0,127,255}));
-  connect(ports_aCon, con.port_aCon)
-    annotation (Line(points={{80,100},{80,40},
-          {6,40},{6,10}}, color={0,127,255}));
-  // Connecting outlets to inlets for all instances of connection component
+  // Connecting outlets to inlets for all instances of connection component.
   if nCon >= 2 then
     for i in 2:nCon loop
       connect(con[i - 1].port_bDis, con[i].port_aDis);
     end for;
   end if;
+  connect(con.port_bCon, ports_bCon)
+    annotation (Line(points={{0,10},{0,40},{-80, 40},{-80,100}}, color={0,127,255}));
+  connect(ports_aCon, con.port_aCon)
+    annotation (Line(points={{80,100},{80,40}, {6,40},{6,10}}, color={0,127,255}));
   connect(port_aDisSup, con[1].port_aDis)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
   connect(con[nCon].port_bDis, pipEnd.port_a)
@@ -83,10 +74,10 @@ equation
     annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
   connect(con.Q_flow, Q_flow)
     annotation (Line(points={{11,8},{16,8},{16,24},{88,24},{88,80},{120,80}},  color={0,0,127}));
-  connect(con.mByp_flow, mByp_flow) annotation (Line(points={{11,4},{20,4},{20,
-          20},{92,20},{92,40},{120,40}}, color={0,0,127}));
-  connect(con.mCon_flow, mCon_flow) annotation (Line(points={{11,6},{18,6},{18,
-          22},{90,22},{90,60},{120,60}}, color={0,0,127}));
+  connect(con.mByp_flow, mByp_flow)
+    annotation (Line(points={{11,4},{20,4},{20, 20},{92,20},{92,40},{120,40}}, color={0,0,127}));
+  connect(con.mCon_flow, mCon_flow)
+    annotation (Line(points={{11,6},{18,6},{18, 22},{90,22},{90,60},{120,60}}, color={0,0,127}));
   annotation (
       Documentation(info="
 <html>
@@ -94,19 +85,27 @@ equation
 Partial model of a one-pipe distribution network.
 </p>
 <p>
-An array of replaceable partial models is used to represent the  
-connections along the network, including the pipe segment immediately 
-upstream each connection. 
+An array of replaceable partial models is used to represent the
+connections along the network, including the pipe segment immediately
+upstream of each connection.
 </p>
 <p>
-A replaceable partial model is used to represent the pipe segment of 
+A replaceable partial model is used to represent the pipe segment of
 the return line after the last connection.
 </p>
 <p>
 Optionally the heat flow rate transferred to each connected load can be output.
 </p>
-</html>
-    "),
+</html>",
+revisions=
+"<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-6,-200},{6,200}},

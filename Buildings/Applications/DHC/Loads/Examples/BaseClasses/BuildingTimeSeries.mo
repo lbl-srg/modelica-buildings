@@ -3,15 +3,15 @@ model BuildingTimeSeries
   "Building model with heating and cooling loads provided as time series"
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
     redeclare package Medium = Buildings.Media.Water,
-    have_fan=false,
-    have_pum=true,
-    have_eleHea=false,
-    have_eleCoo=false,
-    have_weaBus=false);
+    final have_fan=false,
+    final have_pum=true,
+    final have_eleHea=false,
+    final have_eleCoo=false,
+    final have_weaBus=false);
   package Medium2 = Buildings.Media.Air
     "Load side medium";
-  parameter String filPat
-    "Library path of the file with thermal loads as time series";
+  parameter String filNam
+    "File name with thermal loads as time series";
   parameter Modelica.SIunits.Temperature T_aHeaWat_nominal(
     min=273.15, displayUnit="degC") = 273.15 + 40
     "Heating water inlet temperature at nominal conditions"
@@ -45,19 +45,19 @@ model BuildingTimeSeries
   parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal(max=-Modelica.Constants.eps)=
     Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
     string="#Peak space cooling load",
-    filNam=Modelica.Utilities.Files.loadResource(filPat))
+    filNam=Modelica.Utilities.Files.loadResource(filNam))
     "Design cooling heat flow rate (<=0)"
     annotation (Dialog(group="Design parameter"));
   parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(min=Modelica.Constants.eps)=
     Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
     string="#Peak space heating load",
-    filNam=Modelica.Utilities.Files.loadResource(filPat))
+    filNam=Modelica.Utilities.Files.loadResource(filNam))
     "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Design parameter"));
   Modelica.Blocks.Sources.CombiTimeTable loa(
     tableOnFile=true,
     tableName="tab1",
-    fileName=Modelica.Utilities.Files.loadResource(filPat),
+    fileName=Modelica.Utilities.Files.loadResource(filNam),
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     y(each unit="W"),
     offset={0,0,0},
@@ -65,16 +65,14 @@ model BuildingTimeSeries
     smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1)
     "Reader for thermal loads (y[1] is cooling load, y[2] is heating load)"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=20)
-    "Minimum temperature setpoint"
-    annotation (Placement(transformation(extent={{-280,250},{-260,270}})));
-  Buildings.Controls.OBC.UnitConversions.From_degC from_degC1
-    annotation (Placement(transformation(extent={{-240,250},{-220,270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=24)
-    "Maximum temperature setpoint"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=293.15,
+      y(final unit="K", displayUnit="degC"))
+    "Minimum temperature set point"
+    annotation (Placement(transformation(extent={{-280,170},{-260,190}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=297.15,
+      y(final unit="K", displayUnit="degC"))
+    "Maximum temperature set point"
     annotation (Placement(transformation(extent={{-280,210},{-260,230}})));
-  Buildings.Controls.OBC.UnitConversions.From_degC from_degC2
-    annotation (Placement(transformation(extent={{-240,210},{-220,230}})));
   Buildings.Applications.DHC.Loads.Validation.BaseClasses.FanCoil2PipeHeating
     terUniHea(
     redeclare package Medium1 = Medium,
@@ -84,7 +82,7 @@ model BuildingTimeSeries
     final T_aHeaWat_nominal=T_aHeaWat_nominal,
     final T_bHeaWat_nominal=T_bHeaWat_nominal,
     final T_aLoaHea_nominal=T_aLoaHea_nominal) "Heating terminal unit"
-    annotation (Placement(transformation(extent={{70,-24},{90,-4}})));
+    annotation (Placement(transformation(extent={{70,-34},{90,-14}})));
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
     redeclare package Medium = Medium,
     m_flow_nominal=terUniHea.mHeaWat_flow_nominal,
@@ -116,12 +114,8 @@ model BuildingTimeSeries
     final T_bChiWat_nominal=T_bChiWat_nominal,
     final T_aLoaHea_nominal=T_aLoaHea_nominal,
     final T_aLoaCoo_nominal=T_aLoaCoo_nominal) "Cooling terminal unit"
-    annotation (Placement(transformation(extent={{70,10},{90,30}})));
+    annotation (Placement(transformation(extent={{70,26},{90,46}})));
 equation
-  connect(minTSet.y,from_degC1. u)
-    annotation (Line(points={{-258,260},{-242,260}}, color={0,0,127}));
-  connect(maxTSet.y,from_degC2. u)
-    annotation (Line(points={{-258,220},{-242,220}}, color={0,0,127}));
   connect(ports_a[1], disFloHea.port_a) annotation (Line(points={{-300,0},{
           -280,0},{-280,-70},{120,-70}},color={0,127,255}));
   connect(disFloHea.port_b, ports_b[1]) annotation (Line(points={{140,-70},{
@@ -131,12 +125,12 @@ equation
   connect(disFloCoo.port_b, ports_b[2]) annotation (Line(points={{140,-110},
           {280,-110},{280,0},{300,0}},color={0,127,255}));
   connect(terUniHea.port_bHeaWat, disFloHea.ports_a1[1]) annotation (Line(
-        points={{90,-22.3333},{90,-22},{148,-22},{148,-64},{140,-64}}, color={0,
+        points={{90,-32.3333},{90,-22},{148,-22},{148,-64},{140,-64}}, color={0,
           127,255}));
   connect(disFloHea.ports_b1[1],terUniHea. port_aHeaWat) annotation (Line(
-        points={{120,-64},{64,-64},{64,-22.3333},{70,-22.3333}}, color={0,127,255}));
+        points={{120,-64},{64,-64},{64,-32.3333},{70,-32.3333}}, color={0,127,255}));
   connect(terUniHea.mReqHeaWat_flow, disFloHea.mReq_flow[1]) annotation (Line(
-        points={{90.8333,-17.3333},{92,-17.3333},{92,-18},{100,-18},{100,-74},{
+        points={{90.8333,-27.3333},{92,-27.3333},{92,-18},{100,-18},{100,-74},{
           119,-74}},
                  color={0,0,127}));
   connect(disFloHea.QActTot_flow, QHea_flow) annotation (Line(points={{141,-76},
@@ -150,22 +144,22 @@ equation
   connect(disFloCoo.PPum, mulSum.u[2]) annotation (Line(points={{141,-118},{180,
           -118},{180,77},{210,77}}, color={0,0,127}));
   connect(loa.y[1], terUniCoo.QReqCoo_flow) annotation (Line(points={{21,0},{46,
-          0},{46,16.5},{69.1667,16.5}},       color={0,0,127}));
-  connect(from_degC2.y, terUniCoo.TSetCoo) annotation (Line(points={{-218,220},
-          {60,220},{60,23.3333},{69.1667,23.3333}},color={0,0,127}));
-  connect(from_degC1.y, terUniHea.TSetHea) annotation (Line(points={{-218,260},
-          {56,260},{56,-9},{69.1667,-9}},            color={0,0,127}));
+          0},{46,32.5},{69.1667,32.5}},       color={0,0,127}));
   connect(loa.y[2], terUniHea.QReqHea_flow) annotation (Line(points={{21,0},{46,
-          0},{46,-15.6667},{69.1667,-15.6667}},
+          0},{46,-25.6667},{69.1667,-25.6667}},
                                       color={0,0,127}));
   connect(disFloCoo.ports_b1[1], terUniCoo.port_aChiWat) annotation (Line(
-        points={{120,-104},{60,-104},{60,13.3333},{70,13.3333}}, color={0,127,255}));
+        points={{120,-104},{60,-104},{60,29.3333},{70,29.3333}}, color={0,127,255}));
   connect(terUniCoo.port_bChiWat, disFloCoo.ports_a1[1]) annotation (Line(
-        points={{90,13.3333},{112,13.3333},{112,14},{160,14},{160,-104},{140,
+        points={{90,29.3333},{112,29.3333},{112,14},{160,14},{160,-104},{140,
           -104}},
         color={0,127,255}));
   connect(terUniCoo.mReqChiWat_flow, disFloCoo.mReq_flow[1]) annotation (Line(
-        points={{90.8333,15},{108,15},{108,-114},{119,-114}}, color={0,0,127}));
+        points={{90.8333,31},{108,31},{108,-114},{119,-114}}, color={0,0,127}));
+  connect(minTSet.y, terUniHea.TSetHea) annotation (Line(points={{-258,180},{
+          -20,180},{-20,-20},{24,-20},{24,-19},{69.1667,-19}}, color={0,0,127}));
+  connect(maxTSet.y, terUniCoo.TSetCoo) annotation (Line(points={{-258,220},{0,
+          220},{0,39.3333},{69.1667,39.3333}}, color={0,0,127}));
   annotation (
   Documentation(info="
 <html>
@@ -173,7 +167,14 @@ equation
 This is a simplified building model where the space heating and cooling loads
 are provided as time series.
 </p>
-</html>"),
-  Diagram(coordinateSystem(extent={{-300,-300},{300,300}})), Icon(
-        coordinateSystem(extent={{-100,-100},{100,100}})));
+</html>",
+revisions=
+"<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end BuildingTimeSeries;

@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExportRC.OfficeBuilding;
 model Floor
-  "This is the simulation model of Floor within building OfficeBuilding with traceable ID None"
+  "This is the simulation model of Floor within building OfficeBuilding"
 
   Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil[6](    each outSkyCon=true,
     each outGroCon=true,
@@ -79,7 +79,7 @@ model Floor
     annotation (Placement(
     transformation(extent={{-100,-10},{-66,22}}),iconTransformation(
     extent={{-70,-12},{-50,8}})));
-  Modelica.Blocks.Sources.Constant alphaWall(k=25.0*1400.34914915219)
+  Modelica.Blocks.Sources.Constant hConWall(k=25.0*1400.34914915219)
     "Outdoor coefficient of heat transfer for walls"
     annotation (Placement(
     transformation(
@@ -107,11 +107,12 @@ model Floor
       extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
       tableName="Internals",
       fileName=Modelica.Utilities.Files.loadResource(
-          "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportRC/Resources/Data/OfficeBuilding/InternalGains_Floor.mat"),
+          "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportRC/Resources/Data/OfficeBuilding/InternalGains_Floor.txt"),
       columns={2,3,4})
       "Table with profiles for persons (radiative and convective) and machines (convective)"
       annotation (Placement(transformation(extent={{6,-60},{22,-44}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a
+    "Heat port for sensible convective gains"
     annotation (Placement(transformation(extent={{-10,90},{10,110}}), iconTransformation(extent={{-10,90},{10,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TAir(
     quantity="ThermodynamicTemperature", unit="K", displayUnit="degC")
@@ -124,14 +125,6 @@ equation
   connect(eqAirTemp.TEqAir, prescribedTemperature.T)
     annotation (Line(points={{-3,-4},{4,-4},{4,0},{6.8,0}},
     color={0,0,127}));
-  connect(weaBus, weaBus)
-    annotation (Line(
-    points={{-83,6},{-74,6},{-74,18},{-84,18},{-84,12},{-83,12},{-83,6}},
-    color={255,204,51},
-    thickness=0.5), Text(
-    string="%second",
-    index=1,
-    extent={{6,3},{6,3}}));
   connect(weaBus.TDryBul, eqAirTemp.TDryBul)
     annotation (Line(
     points={{-83,6},{-83,-2},{-38,-2},{-38,-10},{-26,-10}},
@@ -245,7 +238,7 @@ equation
     color={191,0,0}));
   connect(thermalConductorWall.fluid, prescribedTemperature.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
-  connect(alphaWall.y, thermalConductorWall.Gc)
+  connect(hConWall.y, thermalConductorWall.Gc)
     annotation (Line(points={{30,-11.6},{30,-4},{31,-4}}, color={0,0,127}));
   connect(hConWin.y, thermalConductorWin.Gc)
     annotation (Line(points={{32,33.6},{32,26},{33,26}}, color={0,0,127}));
@@ -273,8 +266,5 @@ equation
     annotation (Line(points={{93,32},{98,32},{98,0},{110,0}}, color={0,0,127}));
   annotation (experiment(
   StopTime=31536000,
-  Interval=3600,
-  __Dymola_Algorithm="Cvode"),
-  __Dymola_experimentSetupOutput(equidistant=true,
-  events=false));
+  Interval=3600));
 end Floor;

@@ -6,9 +6,9 @@ model BenchmarkFlowDistribution1
     "Source side medium";
   package Medium2 = Buildings.Media.Air
     "Load side medium";
-  parameter String filPat=
+  parameter String filNam=
     "modelica://Buildings/Applications/DHC/Loads/Examples/Resources/SwissResidential_20190916.mos"
-    "Library path of the file with thermal loads as time series";
+    "File name with thermal loads as time series";
   parameter Integer nLoa=5
     "Number of served loads"
     annotation(Evaluate=true);
@@ -35,7 +35,7 @@ model BenchmarkFlowDistribution1
   final parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(min=Modelica.Constants.eps)=
     Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
     string="#Peak space heating load",
-    filNam=Modelica.Utilities.Files.loadResource(filPat))
+    filNam=Modelica.Utilities.Files.loadResource(filNam))
     "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Design parameter"));
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
@@ -59,7 +59,7 @@ model BenchmarkFlowDistribution1
   Modelica.Blocks.Sources.CombiTimeTable loa(
     tableOnFile=true,
     tableName="tab1",
-    fileName=Modelica.Utilities.Files.loadResource(filPat),
+    fileName=Modelica.Utilities.Files.loadResource(filNam),
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     y(each unit="W"),
     offset={0,0,0},
@@ -67,15 +67,15 @@ model BenchmarkFlowDistribution1
     smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1)
     "Reader for thermal loads (y[1] is cooling load, y[2] is heating load)"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=20)
-    "Minimum temperature setpoint"
-    annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  Buildings.Controls.OBC.UnitConversions.From_degC minTSet_K
-    "Minimum temperature setpoint (K)"
-    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=293.15,
+      y(final unit="K", displayUnit="degC"))
+    "Minimum temperature set point"
+    annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(nout=nLoa)
-    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
+    "Repeat input to output an array"
+    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep1(nout=nLoa)
+    "Repeat input to output an array"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Fluid.Sources.Boundary_pT supHeaWat(
     redeclare package Medium = Medium1,
@@ -97,17 +97,14 @@ model BenchmarkFlowDistribution1
     "Supply temperature"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
 equation
-  connect(minTSet.y, minTSet_K.u)
-    annotation (Line(points={{-78,70},{-62,70}}, color={0,0,127}));
   connect(ter.port_bHeaWat, disFloHea.ports_a1) annotation (Line(points={{60,
           39.6667},{70,39.6667},{70,-74},{60,-74}},
                                            color={0,127,255}));
   connect(disFloHea.ports_b1, ter.port_aHeaWat) annotation (Line(points={{40,-74},
           {30,-74},{30,39.6667},{40,39.6667}}, color={0,127,255}));
-  connect(minTSet_K.y, reaRep.u)
-    annotation (Line(points={{-38,70},{-22,70}}, color={0,0,127}));
-  connect(reaRep.y, ter.TSetHea) annotation (Line(points={{2,70},{20,70},{20,53},
-          {39.1667,53}}, color={0,0,127}));
+  connect(reaRep.y, ter.TSetHea) annotation (Line(points={{-38,60},{20,60},{20,
+          53},{39.1667,53}},
+                         color={0,0,127}));
   connect(loa.y[2], reaRep1.u)
     annotation (Line(points={{-79,0},{-62,0}}, color={0,0,127}));
   connect(reaRep1.y, ter.QReqHea_flow) annotation (Line(points={{-38,0},{0,0},{
@@ -122,24 +119,35 @@ equation
           127}));
   connect(THeaWatSup.y, supHeaWat.T_in) annotation (Line(points={{-78,-80},{-72,
           -80},{-72,-76},{-62,-76}}, color={0,0,127}));
+  connect(minTSet.y, reaRep.u)
+    annotation (Line(points={{-78,60},{-62,60}}, color={0,0,127}));
   annotation (
     Documentation(info="<html>
 <p>
-This model is part of a computational performance benchmark between:
+This model is part of a computational performance benchmark between
 </p>
 <ul>
 <li>
 a simplified modeling of the piping network as implemented in
 <a href=\"Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>,
-see the corresponding example:
+Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>
+(see the corresponding example
 <a href=\"Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution1\">
-Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution1</a>,
+Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution1</a>), and
 </li>
 <li>
-an explicit modeling of the piping network, see the corresponding example:
+an explicit modeling of the piping network (see the corresponding example
 <a href=\"Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution2\">
-Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution2</a>.
+Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution2</a>).
+</li>
+</ul>
+</html>",
+revisions=
+"<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
 </li>
 </ul>
 </html>"),
@@ -148,9 +156,7 @@ Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution2</a>.
             120}})),
     experiment(
       StopTime=2000000,
-      __Dymola_NumberOfIntervals=500,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
     __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/BenchmarkFlowDistribution1.mos"
         "Simulate and plot"));
 end BenchmarkFlowDistribution1;
