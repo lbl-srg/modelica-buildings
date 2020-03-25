@@ -90,9 +90,7 @@ FMILIB_EXPORT fmi1_import_integer_typedef_t* fmi1_import_get_type_as_int(fmi1_im
 FMILIB_EXPORT fmi1_import_enumeration_typedef_t* fmi1_import_get_type_as_enum(fmi1_import_variable_typedef_t*);
 
 /** \brief Get the quantity associated with the type definition.
-
-	@return NULL-pointer is always returned for strings and booleans.
-	Empty string is returned if attribute is not present for other types.
+	@return The quantity, or NULL-pointer if quantity is not defined (NULL-pointer is always returned for strings and booleans).
 */
 FMILIB_EXPORT const char* fmi1_import_get_type_quantity(fmi1_import_variable_typedef_t*);
 
