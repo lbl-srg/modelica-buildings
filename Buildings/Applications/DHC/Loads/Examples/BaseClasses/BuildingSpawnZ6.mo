@@ -12,12 +12,12 @@ model BuildingSpawnZ6
     "Number of thermal zones";
   parameter Integer facSca=1
     "Scaling factor to be applied to on each extensive quantity";
-  parameter String idfPat=
+  parameter String idfName=
     "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf"
-    "Path of the IDF file";
-  parameter String weaPat=
+    "Name of the IDF file";
+  parameter String weaName=
     "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"
-    "Path of the weather file";
+    "Name of the weather file";
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet[nZon](k=fill(293.15,
         nZon),
     y(each final unit="K", each displayUnit="degC"))
@@ -67,8 +67,8 @@ model BuildingSpawnZ6
     nPorts=2) "Thermal zone"
     annotation (Placement(transformation(extent={{24,-120},{64,-80}})));
   inner Buildings.ThermalZones.EnergyPlus.Building building(
-    idfName=Modelica.Utilities.Files.loadResource(idfPat),
-    weaName=Modelica.Utilities.Files.loadResource(weaPat))
+    idfName=Modelica.Utilities.Files.loadResource(idfName),
+    weaName=Modelica.Utilities.Files.loadResource(weaName))
     "Building outer component"
     annotation (Placement(transformation(extent={{30,138},{52,158}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=6)
