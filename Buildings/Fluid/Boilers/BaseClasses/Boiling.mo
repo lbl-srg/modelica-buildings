@@ -9,27 +9,40 @@ model Boiling
   package MediumSte = IBPSA.Media.Steam "Steam medium";
   package MediumWat = IBPSA.Media.Water(T_max=623.15) "Water medium";
 
-
-  Modelica.Blocks.Interfaces.RealOutput dhOut(unit="J/kg") "Change in enthalpy"
+  Modelica.Blocks.Interfaces.RealOutput dh(unit="J/kg") "Change in enthalpy"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
 
+  Modelica.Blocks.Interfaces.RealInput pOut
+    "Absolute pressure of fluid leaving boiler"
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
 
 //protected
-  Modelica.SIunits.SpecificEnthalpy dh "Change in enthalpy";
+  Modelica.SIunits.SpecificEnthalpy dhVap "Change in enthalpy";
   // State p & T remain unchanged (saturated vapor to saturated liquid)
+  Modelica.SIunits.SpecificHeatCapacity cp "Specific Heat";
+  Modelica.SIunits.Temperature TSat "Saturation temperature";
 
 equation
-  sta_a.T = sta_b.T;
-  port_b.p = port_a.p;
+  port_b.p = pOut;
+
+  TSat= MediumSte.saturationTemperature(port_b.p);
+  cp = MediumSte.specificHeatCapacityCp(state=
+    MediumSte.setState_pTX(p=port_b.p,T=TSat,X=port_b.Xi_outflow));
+  if (sta_a.T < TSat) then
+    sta_b.T = TSat;
+    dh = dhVap + cp*(TSat - sta_a.T);
+  else
+    sta_a.T = sta_b.T;
+    dh = dhVap;
+  end if;
 
   // Steady state conservation of mass
   port_a.m_flow + port_b.m_flow = 0;
 
-  // Enthalpy decreased with condensation process
-  dh = MediumSte.enthalpyOfVaporization_sat(MediumSte.saturationState_p(port_b.p))
-    "Enthalpy is changed by a factor of h_fg";
+  // Enthalpy decreased with boiling process
+  dhVap = MediumSte.enthalpyOfVaporization_sat(MediumSte.saturationState_p(port_b.p))
+    "Enthalpy change due to vaporization";
   port_b.h_outflow = port_a.h_outflow + dh;
-  port_b.h_outflow - port_a.h_outflow = dhOut;
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
