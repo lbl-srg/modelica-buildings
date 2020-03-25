@@ -456,8 +456,8 @@ terminal units.
 It is primarily intended to be used in conjunction with models that extend
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit\">
 Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit</a>.
-The typical model structure of a whole building to be connected to an energy
-transfer station or a dedicated plant is illustrated in the schematics in
+The typical model structure of a whole building connected to an energy
+transfer station (or a dedicated plant) is illustrated in the schematics in
 the info section of
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding\">
 Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding</a>.
