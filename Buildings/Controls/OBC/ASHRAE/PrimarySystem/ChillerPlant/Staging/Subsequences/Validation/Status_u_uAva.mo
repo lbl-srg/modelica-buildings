@@ -62,7 +62,7 @@ protected
     "Chiller stage"
     annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant u1(final k=1)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant u1(final k=2)
     "Chiller stage"
     annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
 
@@ -90,8 +90,8 @@ protected
     final k={true,true,true,true}) "Stage availability array"
     annotation (Placement(transformation(extent={{-140,140},{-120,160}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant ava1[4](
-    final k={true,true,true,true}) "Stage availability array"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant ava1[4](final k={false,
+        true,true,true})           "Stage availability array"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant ava2[4](
@@ -159,9 +159,6 @@ equation
                              color={255,0,255}));
   connect(ava3.y, sta6.uAva) annotation (Line(points={{42,70},{60,70},{60,-56},
           {118,-56}},color={255,0,255}));
-  connect(sta7.y, intToRea.u) annotation (Line(points={{142,-129},{148,-129},{
-          148,-170},{10,-170},{10,-150},{18,-150}},
-                                                color={255,127,0}));
   connect(intToRea.y, uniDel.u)
     annotation (Line(points={{42,-150},{48,-150}}, color={0,0,127}));
   connect(uniDel.y, reaToInt.u)
@@ -169,6 +166,8 @@ equation
   connect(reaToInt.y, sta7.u) annotation (Line(points={{102,-150},{110,-150},{
           110,-114},{118,-114}},
                              color={255,127,0}));
+  connect(sta7.yUp, intToRea.u) annotation (Line(points={{142,-113},{148,-113},
+          {148,-168},{8,-168},{8,-150},{18,-150}}, color={255,127,0}));
 annotation (
  experiment(StopTime=10.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Status_u_uAva.mos"

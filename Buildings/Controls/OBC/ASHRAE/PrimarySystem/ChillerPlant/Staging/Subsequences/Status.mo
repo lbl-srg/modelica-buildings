@@ -107,7 +107,14 @@ block Status
     "Outputs a zero matrix populated with ones for any available chiller in the current stage"
     annotation (Placement(transformation(extent={{-20,210},{0,230}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nSta,nChi]
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nSta,nChi](
+      integerTrue=fill(
+        1,
+        nSta,
+        nChi), integerFalse=fill(
+        0,
+        nSta,
+        nChi))
     "Type converter"
     annotation (Placement(transformation(extent={{-80,230},{-60,250}})));
 
@@ -128,6 +135,7 @@ block Status
     annotation (Placement(transformation(extent={{-180,80},{-160,100}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1[nSta](
+      integerTrue=fill(1, nSta),
     final integerFalse=fill(nSta + 1, nSta))
     "Type converter that outputs a value larger than the stage count for any false input"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
@@ -157,7 +165,8 @@ block Status
     "Identifies any available stage below the current stage"
     annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt2[nSta]
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt2[nSta](
+      integerTrue=fill(1, nSta), integerFalse=fill(0, nSta))
     "Type converter that outputs zero for any false input"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 
@@ -179,11 +188,11 @@ block Status
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
 
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(
-    final threshold=nSta)
-    "If the current stage is the highest available the input value equals the number of stages + 1"
+    final threshold=nSta) "True if there are no higher available stages"
     annotation (Placement(transformation(extent={{100,100},{120,120}})));
 
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi "Logical switch"
+  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi
+    "If no higher stage is available, output current stage"
     annotation (Placement(transformation(extent={{180,100},{200,120}})));
 
   Buildings.Controls.OBC.CDL.Integers.LessEqualThreshold intLesEquThr(
@@ -205,7 +214,8 @@ block Status
     "Detects if the current stage becomes unavailable"
     annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nSta]
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nSta](realTrue=
+        fill(1, nSta), realFalse=fill(0, nSta))
     "Type converter"
     annotation (Placement(transformation(extent={{-240,-160},{-220,-140}})));
 
@@ -223,7 +233,6 @@ block Status
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and4
-    "Identifies any available stages above the current stage"
     annotation (Placement(transformation(extent={{220,70},{240,90}})));
 
 equation
