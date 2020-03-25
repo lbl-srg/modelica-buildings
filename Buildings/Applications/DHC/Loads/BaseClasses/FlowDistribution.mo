@@ -29,7 +29,7 @@ model FlowDistribution "Model of a building hydraulic distribution system"
     annotation(Evaluate=true);
   parameter Boolean have_val = false
     "Set to true if the system has a mixing valve"
-    annotation(Evaluate=true);
+    annotation(Dialog(enable=have_pum), Evaluate=true);
   parameter Type_dis typDis = Type_dis.HeatingWater
     "Type of distribution system"
     annotation(Dialog(enable=have_val), Evaluate=true);
