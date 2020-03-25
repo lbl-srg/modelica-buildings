@@ -21,28 +21,35 @@ model Condensation
 //  MediumSte.Temperature TSte= MediumSte.temperature(
 //    state=MediumSte.setState_phX(
 //      p=port_a.p, h=port_a.h_outflow, X=port_a.Xi_outflow));
-//  MediumSte.Temperature TSte= MediumSte.temperature(
-//    state=MediumSte.setState_phX(
-//      p=port_a.p, h=inStream(port_a.h_outflow), X=inStream(port_a.Xi_outflow)));
+  MediumSte.Temperature TSte;
 //  MediumWat.Temperature TWat= MediumWat.temperature(
 //    state=MediumWat.setState_phX(
 //      p=port_b.p, h=port_b.h_outflow, X=port_b.Xi_outflow));
-//  MediumWat.Temperature TWat= MediumWat.temperature(
-//    state=MediumWat.setState_phX(
-//      p=port_b.p, h=inStream(port_b.h_outflow), X=inStream(port_b.Xi_outflow)));
+  MediumWat.Temperature TWat;
+
+  Modelica.SIunits.SpecificEnthalpy hSte_instream
+    "Instreaming enthalpy at port_a";
 
 equation
   port_b.p = port_a.p;
+  hSte_instream = inStream(port_a.h_outflow);
 
+  TSte= MediumSte.temperature(
+    state=MediumSte.setState_phX(
+      p=port_a.p, h=inStream(port_a.h_outflow), X=inStream(port_a.Xi_outflow)));
+//  TWat= MediumWat.temperature(
+//    state=MediumWat.setState_phX(
+//      p=port_b.p, h=port_b.h_outflow, X=port_b.Xi_outflow));
   TSat= MediumSte.saturationTemperature(port_a.p);
   cp = MediumSte.specificHeatCapacityCp(state=
-    MediumSte.setState_pTX(p=port_a.p,T=TSat,X=port_a.Xi_outflow));
+    MediumSte.setState_pTX(p=port_a.p,T=TSat,X=inStream(port_a.Xi_outflow)));
 
-  if (sta_a.T > TSat) then
-    sta_b.T = TSat;
-    dh = -dhCon - cp*(sta_a.T - TSat);
+  TWat = TSat;
+  if (TSte > TSat) then
+//    TWat = TSat;
+    dh = -dhCon - cp*(TSte - TSat);
   else
-    sta_a.T = sta_b.T;
+//    TSte = TWat;
     dh = -dhCon;
   end if;
 
@@ -52,8 +59,16 @@ equation
   // Enthalpy decreased with condensation process
   dhCon = MediumSte.enthalpyOfVaporization_sat(MediumSte.saturationState_p(port_a.p))
     "Enthalpy of vaporization";
-  port_b.h_outflow = port_a.h_outflow + dh;
+//  dhCon = MediumSte.bubbleEnthalpy(setSat_p(port_a.p)) - MediumSte.dewEnthalpy(setSat_p(port_a.p))
+  port_b.h_outflow = inStream(port_a.h_outflow) + dh;
 
+  // Set condition for reverse flow for model consistency
+  port_a.h_outflow =  MediumWat.h_default;
+
+  // Reverse flow
+//  inStream(port_b.h_outflow) = port_a.h_outflow + dh;
+
+//  inStream(port_b.h_outflow) = port_a.h_outflow + dh;
 //  if port_a.m_flow > 0 then
 //    port_b.h_outflow = inStream(port_a.h_outflow) - dh;
 //    port_a.m_flow*inStream(port_a.h_outflow) +  port_b.m_flow*port_b.h_outflow +
