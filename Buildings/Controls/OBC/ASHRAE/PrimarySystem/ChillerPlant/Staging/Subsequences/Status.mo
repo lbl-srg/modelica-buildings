@@ -64,7 +64,9 @@ block Status
     annotation (Placement(transformation(extent={{440,-60},{480,-20}}),
         iconTransformation(extent={{100,20},{140,60}})));
 
-protected
+  CDL.Logical.Not not1 "Not unavailable"
+    annotation (Placement(transformation(extent={{20,-250},{40,-230}})));
+//protected
   Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi2 "Switch"
     annotation (Placement(transformation(extent={{100,-220},{120,-200}})));
 
@@ -193,7 +195,7 @@ protected
     annotation (Placement(transformation(extent={{180,-80},{200,-60}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extStaAva(
-    final allowOutOfRange=false,
+    final allowOutOfRange=true,
     final outOfRangeValue=nSta + 1,
     final nin=nSta) "Extracts stage availability for the current stage"
     annotation (Placement(transformation(extent={{-200,-160},{-180,-140}})));
@@ -345,8 +347,10 @@ equation
           -100},{170,-100},{170,-78},{178,-78}},    color={255,127,0}));
   connect(intSwi3.y, yUp)
     annotation (Line(points={{382,80},{460,80}}, color={255,127,0}));
-  connect(lesThr.y, yAvaCur) annotation (Line(points={{-138,-150},{0,-150},{0,-240},
-          {460,-240}}, color={255,0,255}));
+  connect(lesThr.y, not1.u) annotation (Line(points={{-138,-150},{0,-150},{0,-240},
+          {18,-240}}, color={255,0,255}));
+  connect(not1.y, yAvaCur)
+    annotation (Line(points={{42,-240},{460,-240}}, color={255,0,255}));
   annotation (defaultComponentName = "sta",
         Icon(graphics={
         Rectangle(
