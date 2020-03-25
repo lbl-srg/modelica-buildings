@@ -4,8 +4,9 @@ model OptimalStartNoHeatingNoCooling
 
   Buildings.Controls.OBC.Utilities.OptimalStart optSta(computeHeating=false,
       computeCooling=false) "Optimal start for both heating and cooling system"
-    annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  Modelica.Blocks.Continuous.Integrator TRoo(k = 0.0000004, y_start = 19 + 273.15) "Room air temperature" annotation(
+    annotation (Placement(transformation(extent={{40,0},{60,20}})));
+  Modelica.Blocks.Continuous.Integrator TRoo(k = 0.0000004, y_start = 19 + 273.15)
+    "Room air temperature" annotation (
     Placement(transformation(extent = {{-20, 0}, {0, 20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TOutBase(
     amplitude=5,
@@ -23,12 +24,9 @@ model OptimalStartNoHeatingNoCooling
   Buildings.Controls.OBC.CDL.Continuous.Gain QCoo(k=-4000)
     "Heat extraction in the zone"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1(realTrue=-6)
     "Convert Boolean to Real signal"
-    annotation (Placement(transformation(extent={{60,0},{80,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain TSetUp(k=-6)
-    "Cooling setpoint temperature setup during unoccupied period"
-    annotation (Placement(transformation(extent={{100,0},{120,20}})));
+    annotation (Placement(transformation(extent={{80,0},{100,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add1
     "Reset temperature from unoccupied to occupied for optimal start period"
     annotation (Placement(transformation(extent={{140,0},{160,20}})));
@@ -44,12 +42,9 @@ model OptimalStartNoHeatingNoCooling
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=3) "Sum heat gains"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea2
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea2(realTrue=6)
     "Convert Boolean to Real signal"
-    annotation (Placement(transformation(extent={{60,40},{80,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain TSetBac(k=6)
-    "Heating setpoint temperature set back during unoccupied period"
-    annotation (Placement(transformation(extent={{100,40},{120,60}})));
+    annotation (Placement(transformation(extent={{80,40},{100,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2
     "Reset temperature from unoccupied to occupied for optimal start period"
     annotation (Placement(transformation(extent={{140,40},{160,60}})));
@@ -75,39 +70,33 @@ model OptimalStartNoHeatingNoCooling
     realFalse=273.15 + 15,
     y(final unit="K", displayUnit="degC"))
     "Room temperature set point for heating"
-    annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
+    annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
   CDL.Conversions.BooleanToReal TSetCoo(
     realTrue=273.15 + 24,
     realFalse=273.15 + 30,
     y(final unit="K", displayUnit="degC"))
     "Room temperature set point for cooling"
-    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
+    annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
 equation
   connect(dT.y, UA.u)   annotation (Line(points={{-118,10},{-102,10}}, color={0,0,127}));
-  connect(TRoo.y, optSta.TZon) annotation(
-    Line(points = {{1, 10}, {10, 10}, {10, 7}, {18, 7}}, color = {0, 0, 127}));
-  connect(TRoo.y, dT.u1) annotation(
+  connect(TRoo.y, optSta.TZon) annotation (
+    Line(points={{1,10},{10,10},{10,7},{38,7}},          color = {0, 0, 127}));
+  connect(TRoo.y, dT.u1) annotation (
     Line(points = {{1, 10}, {6, 10}, {6, 34}, {-146, 34}, {-146, 16}, {-142, 16}}, color = {0, 0, 127}));
-  connect(optSta.optOn, booToRea1.u) annotation (Line(points={{42,6},{50,6},{50,
-          10},{58,10}}, color={255,0,255}));
-  connect(booToRea1.y, TSetUp.u)   annotation (Line(points={{82,10},{98,10}},   color={0,0,127}));
-  connect(TSetUp.y, add1.u1) annotation (Line(points={{122,10},{132,10},{132,16},
-          {138,16}},  color={0,0,127}));
+  connect(optSta.optOn, booToRea1.u) annotation (Line(points={{62,6},{70,6},{70,
+          10},{78,10}}, color={255,0,255}));
   connect(add1.y, conPID1.u_s)   annotation (Line(points={{162,10},{178,10}},   color={0,0,127}));
-  connect(TRoo.y, conPID1.u_m) annotation(
+  connect(TRoo.y, conPID1.u_m) annotation (
     Line(points = {{1, 10}, {6, 10}, {6, -12}, {190, -12}, {190, -2}}, color = {0, 0, 127}));
   connect(occSch.tNexOcc, optSta.tNexOcc) annotation (Line(points={{1,-44},{10,-44},
-          {10,2},{18,2}},       color={0,0,127}));
+          {10,2},{38,2}},       color={0,0,127}));
   connect(UA.y, mulSum.u[1]) annotation (Line(points={{-78,10},{-70,10},{-70,
           11.3333},{-62,11.3333}},
                           color={0,0,127}));
-  connect(TRoo.u, mulSum.y) annotation(
+  connect(TRoo.u, mulSum.y) annotation (
     Line(points = {{-22, 10}, {-38, 10}}, color = {0, 0, 127}));
-  connect(optSta.optOn, booToRea2.u) annotation (Line(points={{42,6},{50,6},{50,
-          50},{58,50}}, color={255,0,255}));
-  connect(booToRea2.y, TSetBac.u)   annotation (Line(points={{82,50},{98,50}}, color={0,0,127}));
-  connect(TSetBac.y, add2.u2) annotation (Line(points={{122,50},{128,50},{128,44},
-          {138,44}}, color={0,0,127}));
+  connect(optSta.optOn, booToRea2.u) annotation (Line(points={{62,6},{70,6},{70,
+          50},{78,50}}, color={255,0,255}));
   connect(add2.y, conPID.u_s)   annotation (Line(points={{162,50},{178,50}}, color={0,0,127}));
   connect(conPID.u_m, dT.u1) annotation (Line(points={{190,38},{190,34},{-146,34},
           {-146,16},{-142,16}}, color={0,0,127}));
@@ -126,19 +115,24 @@ equation
           {-142,4}}, color={0,0,127}));
   connect(pul.y, TOut.u2) annotation (Line(points={{-188,-50},{-176,-50},{-176,
           -36},{-172,-36}}, color={0,0,127}));
-  connect(TSetCoo.y, add1.u2) annotation (Line(points={{62,-30},{130,-30},{130,4},
-          {138,4}}, color={0,0,127}));
-  connect(TSetHea.y, add2.u1) annotation (Line(points={{62,-60},{132,-60},{132,56},
-          {138,56}}, color={0,0,127}));
-  connect(occSch.occupied, TSetCoo.u) annotation (Line(points={{1,-56},{28,-56},
-          {28,-30},{38,-30}}, color={255,0,255}));
-  connect(TSetHea.u, occSch.occupied) annotation (Line(points={{38,-60},{28,-60},
-          {28,-56},{1,-56}}, color={255,0,255}));
+  connect(TSetCoo.y, add1.u2) annotation (Line(points={{102,-30},{130,-30},{130,
+          4},{138,4}},
+                    color={0,0,127}));
+  connect(occSch.occupied, TSetCoo.u) annotation (Line(points={{1,-56},{60,-56},
+          {60,-30},{78,-30}}, color={255,0,255}));
+  connect(TSetHea.u, occSch.occupied) annotation (Line(points={{78,-60},{60,-60},
+          {60,-56},{1,-56}}, color={255,0,255}));
+  connect(TSetHea.y, add2.u2) annotation (Line(points={{102,-60},{126,-60},{126,
+          44},{138,44}}, color={0,0,127}));
+  connect(booToRea2.y, add2.u1) annotation (Line(points={{102,50},{126,50},{126,
+          56},{138,56}}, color={0,0,127}));
+  connect(booToRea1.y, add1.u1) annotation (Line(points={{102,10},{120,10},{120,
+          16},{138,16}}, color={0,0,127}));
   annotation (
   experiment(
       StopTime=2419200,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),__Dymola_Commands(file=
+      Tolerance=1e-06),
+      __Dymola_Commands(file=
   "modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/Utilities/Validation/OptimalStartNoHeatingNoCooling.mos"
   "Simulate and plot"),
   Documentation(info="<html>
@@ -157,7 +151,7 @@ revisions="<html>
 <ul>
 <li>
 March 19, 2020, by Michael Wetter:<br/>
-Simplified setpoint implementation.'
+Simplified setpoint implementation.
 </li>
 <li>
 December 15, 2019, by Kun Zhang:<br/>
