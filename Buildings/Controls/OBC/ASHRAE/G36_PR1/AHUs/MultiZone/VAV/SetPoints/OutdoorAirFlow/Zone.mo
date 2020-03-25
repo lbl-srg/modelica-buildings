@@ -443,9 +443,11 @@ annotation (
           extent={{-100,36},{-40,24}},
           lineColor={255,0,255},
           textString="uReqOutAir"),       Text(
+          visible=have_winSen,
           extent={{-100,68},{-72,56}},
           lineColor={255,0,255},
           textString="uWin"),             Text(
+          visible=have_occSen,
           extent={{-100,98},{-70,86}},
           lineColor={255,127,0},
           textString="nOcc"),             Text(
