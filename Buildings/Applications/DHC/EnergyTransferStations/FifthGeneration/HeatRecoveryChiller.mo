@@ -257,7 +257,7 @@ model HeatRecoveryChiller
     allowFlowReversal=false,
     tau=10,
     m_flow_nominal=mHex_flow_nominal)
-    "District heat exchanger secondary water entering temperature (sensed)"
+    "District heat exchanger secondary water entering temperature (measured)"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
@@ -269,10 +269,10 @@ model HeatRecoveryChiller
     "Chilled water tank bottom temperature"
     annotation (Placement(transformation(extent={{-230,10},{-250,30}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTTopHeaWat
-    "Heating water tank top temperature (sensed)"
+    "Heating water tank top temperature (measured)"
     annotation (Placement(transformation(extent={{208,90},{188,110}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTBotHeaWat
-    "Heating water tank bottom temperature (sensed)"
+    "Heating water tank bottom temperature (measured)"
     annotation (Placement(transformation(extent={{176,-42},{196,-22}})));
 //------hydraulic header------------------------------------------------------------
  //-----------------------------Valves----------------------------------------------
@@ -364,8 +364,8 @@ have_pum")}),
         defaultComponentName="ets",
 Documentation(info="<html>
 <p>
-This models represents an energy transfer station (ETS) for fifth generation 
-district heating and cooling systems. 
+This models represents an energy transfer station (ETS) for fifth generation
+district heating and cooling systems.
 The control logic is based on five operating modes:
 </p>
 <ul>
@@ -401,7 +401,7 @@ the chilled water circuit, which is connected to the building chilled water
 distribution system,
 </li>
 <li>
-the ambient water circuit, which is connected to the district heat exchanger 
+the ambient water circuit, which is connected to the district heat exchanger
 (and optionally to the geothermal borefield).
 </li>
 </ol>

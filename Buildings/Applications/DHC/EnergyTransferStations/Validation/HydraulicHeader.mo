@@ -47,35 +47,35 @@ model HydraulicHeader "Validation of hydraulic header model"
     annotation (Placement(transformation(extent={{-180,-60},{-160,-40}})));
   Fluid.Sensors.TemperatureTwoPort senT2_1Sup(redeclare final package Medium =
         Medium, m_flow_nominal=m_flow_nominal)
-    "Secondary supply temperature (sensed)" annotation (Placement(
+    "Secondary supply temperature (measured)" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={40,20})));
   Fluid.Sensors.TemperatureTwoPort senT1Sup(redeclare final package Medium =
         Medium, m_flow_nominal=m_flow_nominal)
-    "Primary supply temperature (sensed)" annotation (Placement(transformation(
+    "Primary supply temperature (measured)" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-40,20})));
   Fluid.Sensors.TemperatureTwoPort senT1Ret(redeclare final package Medium =
         Medium, m_flow_nominal=m_flow_nominal)
-    "Primary return temperature (sensed)" annotation (Placement(transformation(
+    "Primary return temperature (measured)" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-40,-20})));
   Fluid.Sensors.TemperatureTwoPort senT2_1Ret(redeclare final package Medium =
         Medium, m_flow_nominal=m_flow_nominal)
-    "Secondary return temperature (sensed)" annotation (Placement(
+    "Secondary return temperature (measured)" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={40,-20})));
   Fluid.Sensors.MassFlowRate senMasFlo1(redeclare final package Medium = Medium)
-    "Primary mass flow rate (sensed)"
+    "Primary mass flow rate (measured)"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Fluid.Sensors.MassFlowRate senMasFlo2_1(redeclare final package Medium =
-        Medium) "Secondary mass flow rate (sensed)"
+        Medium) "Secondary mass flow rate (measured)"
     annotation (Placement(transformation(extent={{110,10},{130,30}})));
   Fluid.MixingVolumes.MixingVolume vol2_1(
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -121,20 +121,20 @@ model HydraulicHeader "Validation of hydraulic header model"
     annotation (Placement(transformation(extent={{170,-170},{150,-150}})));
   Fluid.Sensors.TemperatureTwoPort senT2_2Sup(redeclare final package Medium =
         Medium, m_flow_nominal=m_flow_nominal)
-    "Secondary supply temperature (sensed)" annotation (Placement(
+    "Secondary supply temperature (measured)" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={40,-120})));
   Fluid.Sensors.TemperatureTwoPort senT2_2Ret(redeclare final package Medium =
         Medium, m_flow_nominal=m_flow_nominal)
-    "Secondary return temperature (sensed)" annotation (Placement(
+    "Secondary return temperature (measured)" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={40,-160})));
   Fluid.Sensors.MassFlowRate senMasFlo2_2(redeclare final package Medium =
-        Medium) "Secondary mass flow rate (sensed)"
+        Medium) "Secondary mass flow rate (measured)"
     annotation (Placement(transformation(extent={{110,-130},{130,-110}})));
   Fluid.MixingVolumes.MixingVolume vol2(
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -242,7 +242,7 @@ equation
 This model validates
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.HydraulicHeader\">
 Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.HydraulicHeader</a>
-in a configuration where the model is used as a decoupler between: 
+in a configuration where the model is used as a decoupler between:
 </p>
 <ol>
 <li>

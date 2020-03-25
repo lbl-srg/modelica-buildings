@@ -154,7 +154,7 @@ model SubsystemChiller "Central subsystem based on heat recovery chiller"
     redeclare final package Medium = Medium,
     allowFlowReversal=false,
     m_flow_nominal=mCon_flow_nominal,
-    tau=0) "Condenser water leaving temperature (sensed)"
+    tau=0) "Condenser water leaving temperature (measured)"
     annotation (Placement(
       transformation(
       extent={{10,10},{-10,-10}},
@@ -165,14 +165,14 @@ model SubsystemChiller "Central subsystem based on heat recovery chiller"
     allowFlowReversal=false,
     m_flow_nominal=mCon_flow_nominal,
     tau=0)
-    "Condenser water entering temperature (sensed)"
+    "Condenser water entering temperature (measured)"
     annotation (Placement(transformation(extent={{-50,130},{-30,150}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTEvaEnt(
     redeclare final package Medium = Medium,
     allowFlowReversal=false,
     m_flow_nominal=mEva_flow_nominal,
     tau=0)
-    "Evaporator water entering temperature (sensed)"
+    "Evaporator water entering temperature (measured)"
     annotation (Placement(
       transformation(
       extent={{-10,10},{10,-10}},
@@ -183,7 +183,7 @@ model SubsystemChiller "Central subsystem based on heat recovery chiller"
     allowFlowReversal=false,
     m_flow_nominal=mEva_flow_nominal,
     tau=30)
-    "Evaporator water leaving temperature (sensed)"
+    "Evaporator water leaving temperature (measured)"
     annotation (Placement(transformation(extent={{-30,50},{-50,70}})));
   Junction splEva(
     m_flow_nominal=mEva_flow_nominal .* {1,-1,-1},
@@ -443,8 +443,8 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100}
         defaultComponentName="chi",
 Documentation(info="<html>
 <p>
-This models represents an energy transfer station (ETS) for fifth generation 
-district heating and cooling systems. 
+This models represents an energy transfer station (ETS) for fifth generation
+district heating and cooling systems.
 The control logic is based on five operating modes:
 </p>
 <ul>
@@ -480,7 +480,7 @@ the chilled water circuit, which is connected to the building chilled water
 distribution system,
 </li>
 <li>
-the ambient water circuit, which is connected to the district heat exchanger 
+the ambient water circuit, which is connected to the district heat exchanger
 (and optionally to the geothermal borefield).
 </li>
 </ol>
