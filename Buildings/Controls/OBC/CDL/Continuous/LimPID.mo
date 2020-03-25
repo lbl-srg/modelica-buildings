@@ -6,8 +6,7 @@ block LimPID
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
          Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller";
   parameter Real k(
-    min=0,
-    unit="1") = 1 "Gain of controller";
+    min=0) = 1 "Gain of controller";
   parameter Modelica.SIunits.Time Ti(min=Constants.small) = 0.5
     "Time constant of integrator block"
     annotation (Dialog(enable=
@@ -447,6 +446,15 @@ or the control literature.
 revisions="<html>
 <ul>
 <li>
+March 9, 2020, by Michael Wetter:<br/>
+Corrected unit declaration for gain <code>k</code>.<br/>
+See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1821\">issue 1821</a>.
+</li>
+<li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
+<li>
 February 25, 2020, by Michael Wetter:<br/>
 Changed icon to display the output value.
 </li>
@@ -559,7 +567,7 @@ First implementation.
           pattern=LinePattern.None,
           lineColor={0,0,0}),
         Text(
-          extent={{92,28},{-28,-22}},
+          extent={{226,60},{106,10}},
           lineColor={0,0,0},
-          textString=DynamicSelect("", String(y, leftJustified = false, significantDigits=2)))}));
+          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}));
 end LimPID;

@@ -2,8 +2,8 @@ within Buildings.Electrical.AC.OnePhase.Storage;
 model Battery "Simple model of a battery"
  extends Buildings.Electrical.Interfaces.PartialAcDcParameters;
  replaceable package PhaseSystem =
-      Buildings.Electrical.PhaseSystems.OnePhase constrainedby Buildings.Electrical.PhaseSystems.PartialPhaseSystem
-                                                         "Phase system"
+      Buildings.Electrical.PhaseSystems.OnePhase constrainedby
+    Buildings.Electrical.PhaseSystems.PartialPhaseSystem "Phase system"
     annotation (choicesAllMatching=true);
   parameter Modelica.SIunits.Efficiency etaCha(max=1) = 0.9
     "Efficiency during charging";

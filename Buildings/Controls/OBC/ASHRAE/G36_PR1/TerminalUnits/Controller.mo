@@ -463,7 +463,8 @@ equation
           {40,-120},{-116,-120},{-116,142},{-108,142},{-108,148}}, color={255,0,
           255}));
 
-annotation (Icon(graphics={Rectangle(
+annotation (defaultComponentName="terUniCon",
+  Icon(graphics={Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},
@@ -575,6 +576,12 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 06, 2020, by Jianjun Hu:<br/>
+Added default component name.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1809\">issue 1809</a>.
+</li>
 <li>
 November 15, 2017, by Michael Wetter:<br/>
 Added integrator reset.

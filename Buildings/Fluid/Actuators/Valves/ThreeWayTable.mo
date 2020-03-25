@@ -28,11 +28,11 @@ A separate characteristic for each flow path is used.
 </p>
 <p>
 Each flow path uses an instance of the model
-<a href=\"modelica://Buildings.Fluid.Actuators.TwoWayTable\">
-Buildings.Fluid.Actuators.TwoWayTable</a>.
+<a href=\"modelica://Buildings.Fluid.Actuators.Valves.TwoWayTable\">
+Buildings.Fluid.Actuators.Valves.TwoWayTable</a>.
 Therefore, this model needs to be parameterized the same way as
-<a href=\"modelica://Buildings.Fluid.Actuators.TwoWayTable\">
-Buildings.Fluid.Actuators.TwoWayTable</a>.
+<a href=\"modelica://Buildings.Fluid.Actuators.Valves.TwoWayTable\">
+Buildings.Fluid.Actuators.Valves.TwoWayTable</a>.
 Specifically,
 the mass flow rate for the fully open valve is determined based
 on the value of the parameter <code>CvData</code>.
@@ -106,8 +106,8 @@ as the regularization near the origin.
 </p>
 <p>
 For an example that specifies an opening characteristics, see
-<a href=\"modelica://Buildings.Fluid.Actuators.Valves.Examples.ThreeWayValveTable\">
-Buildings.Fluid.Actuators.Valves.Examples.ThreeWayValveTable</a>.
+<a href=\"modelica://Buildings.Fluid.Actuators.Valves.Examples.TwoWayValveTable\">
+Buildings.Fluid.Actuators.Valves.Examples.TwoWayValveTable</a>.
 </p>
 
 </html>",

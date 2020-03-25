@@ -134,8 +134,7 @@ equation
     experiment(
       StartTime=23500,
       StopTime=32400,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
   Documentation(info="<html>
 <p>
 This model validates

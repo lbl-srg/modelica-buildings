@@ -12,7 +12,6 @@ algorithm
   y := smooth(2, max(0, min(1, 0.5+dx*(1.875+xpow2*(-5+6*xpow2)))));
 
  annotation (smoothOrder = 2,
-
  Documentation(info="<html>
 <p>
 Twice Lipschitz continuously differentiable approximation to the
