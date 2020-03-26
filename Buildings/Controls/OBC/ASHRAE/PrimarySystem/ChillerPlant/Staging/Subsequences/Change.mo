@@ -278,7 +278,8 @@ block Change "Calculates the chiller stage signal"
   Buildings.Controls.OBC.CDL.Logical.Or or2 "Logical or"
     annotation (Placement(transformation(extent={{140,-260},{160,-240}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Change cha "Boolean signal change"
+  CDL.Logical.Edge                          edg1
+                                                "Boolean signal change"
     annotation (Placement(transformation(extent={{220,-260},{240,-240}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
@@ -480,12 +481,12 @@ equation
                            color={0,0,127}));
   connect(or2.y, staChaHol.u)
     annotation (Line(points={{162,-250},{178,-250}}, color={255,0,255}));
-  connect(staChaHol.y, cha.u)
-    annotation (Line(points={{202,-250},{218,-250}}, color={255,0,255}));
-  connect(cha.y, triSam.trigger) annotation (Line(points={{242,-250},{250,-250},
+  connect(edg1.y, triSam.trigger) annotation (Line(points={{242,-250},{250,-250},
           {250,-111.8},{250,-111.8}}, color={255,0,255}));
-  connect(cha.y, y)
+  connect(edg1.y, y)
     annotation (Line(points={{242,-250},{420,-250}}, color={255,0,255}));
+  connect(staChaHol.y, edg1.u)
+    annotation (Line(points={{202,-250},{218,-250}}, color={255,0,255}));
   annotation (defaultComponentName = "cha",
         Icon(graphics={
         Rectangle(

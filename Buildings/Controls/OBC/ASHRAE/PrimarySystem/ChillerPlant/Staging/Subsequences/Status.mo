@@ -64,7 +64,7 @@ block Status
     annotation (Placement(transformation(extent={{440,-60},{480,-20}}),
         iconTransformation(extent={{100,20},{140,60}})));
 
-  CDL.Logical.Not not1 "Not unavailable"
+  Buildings.Controls.OBC.CDL.Logical.Not not1 "Not unavailable"
     annotation (Placement(transformation(extent={{20,-250},{40,-230}})));
 //protected
   Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi2 "Switch"
