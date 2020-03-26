@@ -5,13 +5,15 @@ model OptimalStartHeating
   Buildings.Controls.OBC.Utilities.OptimalStart optStaHea(
     computeHeating=true, computeCooling=false)
     "Optimal start for heating system"
-    annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Modelica.Blocks.Continuous.Integrator TRoo(k = 0.000005, y_start = 21 + 273.15) "Room air temperature" annotation(
+    annotation (Placement(transformation(extent={{20,0},{40,20}})));
+  Modelica.Blocks.Continuous.Integrator TRoo(k = 0.000005, y_start = 21 + 273.15)
+    "Room air temperature" annotation (
     Placement(transformation(extent = {{-40, 0}, {-20, 20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetHeaOcc(k=21+273.15)
     "Zone heating setpoint during occupancy"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{7,19},period=24*3600)
+  Buildings.Controls.SetPoints.OccupancySchedule occSch(
+    occupancy=3600*{7,19},period=24*3600)
     "Daily schedule"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain UA(k=10)
@@ -22,10 +24,12 @@ model OptimalStartHeating
     annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Add dTdt "Temperature derivative"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain QHea(k=500)  "Heat injection in the zone"
+  Buildings.Controls.OBC.CDL.Continuous.Gain QHea(k=500)
+    "Heat injection in the zone"
     annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea "Convert Boolean to Real signal"
-    annotation (Placement(transformation(extent={{40,0},{60,20}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(realTrue=6)
+    "Convert Boolean to Real signal"
+    annotation (Placement(transformation(extent={{60,0},{80,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TOut(
     amplitude=10,
     freqHz=1/86400,
@@ -43,9 +47,6 @@ model OptimalStartHeating
   Buildings.Controls.OBC.CDL.Continuous.Add add
     "Reset temperature from unoccupied to occupied for optimal start period"
     annotation (Placement(transformation(extent={{120,0},{140,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain TSetBac(k=6)
-    "Heating setpoint temperature setback in the unoccupied period"
-    annotation (Placement(transformation(extent={{80,0},{100,20}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal TSetHea(
     realTrue=273.15 + 21,
     realFalse=273.15 + 15,
@@ -55,43 +56,42 @@ model OptimalStartHeating
 equation
   connect(dT.y, UA.u)    annotation (Line(points={{-138,10},{-122,10}},
                                                                       color={0,0,127}));
-  connect(dTdt.y, TRoo.u) annotation(
+  connect(dTdt.y, TRoo.u) annotation (
     Line(points = {{-58, 10}, {-42, 10}}, color = {0, 0, 127}));
   connect(QHea.y, dTdt.u2) annotation (Line(points={{-98,-50},{-88,-50},{-88,4},
           {-82,4}},  color={0,0,127}));
-  connect(TRoo.y, optStaHea.TZon) annotation(
-    Line(points = {{-19, 10}, {-12, 10}, {-12, 7}, {-2, 7}}, color = {0, 0, 127}));
+  connect(TRoo.y, optStaHea.TZon) annotation (
+    Line(points={{-19,10},{-12,10},{-12,7},{18,7}},          color = {0, 0, 127}));
   connect(occSch.tNexOcc, optStaHea.tNexOcc) annotation (Line(points={{-19,-44},
-          {-8,-44},{-8,2},{-2,2}}, color={0,0,127}));
+          {0,-44},{0,2},{18,2}},   color={0,0,127}));
   connect(TSetHeaOcc.y, optStaHea.TSetZonHea) annotation (Line(points={{-18,80},
-          {-8,80},{-8,18},{-2,18}},  color={0,0,127}));
-  connect(TRoo.y, dT.u1) annotation(
+          {0,80},{0,18},{18,18}},    color={0,0,127}));
+  connect(TRoo.y, dT.u1) annotation (
     Line(points = {{-19, 10}, {-12, 10}, {-12, 32}, {-166, 32}, {-166, 16}, {-162, 16}}, color = {0, 0, 127}));
   connect(UA.y, dTdt.u1) annotation (Line(points={{-98,10},{-90,10},{-90,16},{
           -82,16}}, color={0,0,127}));
-  connect(booToRea.y, TSetBac.u)   annotation (Line(points={{62,10},{78,10}}, color={0,0,127}));
   connect(add.y, conPID.u_s)   annotation (Line(points={{142,10},{158,10}}, color={0,0,127}));
   connect(conPID.y, QHea.u) annotation (Line(points={{182,10},{184,10},{184,-70},
           {-126,-70},{-126,-50},{-122,-50}},
                                           color={0,0,127}));
-  connect(TRoo.y, conPID.u_m) annotation(
+  connect(TRoo.y, conPID.u_m) annotation (
     Line(points = {{-19, 10}, {-12, 10}, {-12, -16}, {170, -16}, {170, -2}}, color = {0, 0, 127}));
-  connect(TSetBac.y, add.u2) annotation (Line(points={{102,10},{106,10},{106,4},
-          {118,4}}, color={0,0,127}));
-  connect(optStaHea.optOn, booToRea.u) annotation (Line(points={{22,6},{30,6},{
-          30,10},{38,10}},  color={255,0,255}));
+  connect(optStaHea.optOn, booToRea.u) annotation (Line(points={{42,6},{50,6},{50,
+          10},{58,10}},     color={255,0,255}));
   connect(TOut.y, dT.u2) annotation (Line(points={{-170,-10},{-166,-10},{-166,4},
           {-162,4}}, color={0,0,127}));
-  connect(TSetHea.y, add.u1) annotation (Line(points={{62,-50},{112,-50},{112,
-          16},{118,16}}, color={0,0,127}));
   connect(TSetHea.u, occSch.occupied) annotation (Line(points={{38,-50},{10,-50},
           {10,-56},{-19,-56}}, color={255,0,255}));
+  connect(TSetHea.y, add.u2) annotation (Line(points={{62,-50},{104,-50},{104,4},
+          {118,4}}, color={0,0,127}));
+  connect(booToRea.y, add.u1) annotation (Line(points={{82,10},{104,10},{104,16},
+          {118,16}}, color={0,0,127}));
   annotation (
   experiment(
       StartTime=-172800,
       StopTime=604800,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),__Dymola_Commands(file=
+      Tolerance=1e-06),
+      __Dymola_Commands(file=
   "modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/Utilities/Validation/OptimalStartHeating.mos"
   "Simulate and plot"),
   Documentation(info="<html>
