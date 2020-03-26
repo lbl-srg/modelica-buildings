@@ -1,0 +1,68 @@
+old_hidden_avoid_double_computation=Hidden.AvoidDoubleComputation;
+Hidden.AvoidDoubleComputation=true;
+simulateModel("Buildings.Applications.DHC.Loads.Examples.CouplingSpawnZ1",
+    method="cvode",
+    tolerance=1e-6,
+    numberOfIntervals=500,
+    stopTime=604800.0,
+    resultFile="CouplingSpawnZ1");
+Hidden.AvoidDoubleComputation=old_hidden_avoid_double_computation;
+createPlot(
+    id=1,
+    position={10, 20, 670, 900},
+    y={"bui.maxTSet.y", "bui.minTSet.y",  "bui.zon.TAir"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    y={"bui.terUni.QActHea_flow"},
+    grid=true,
+    subPlot=2
+);
+createPlot(
+    id=1,
+    y={"bui.terUni.QActCoo_flow"},
+    grid=true,
+    subPlot=3
+);
+createPlot(
+    id=2,
+    position={700, 20, 670, 900},
+    y={"supHeaWat.T_in", "bui.terUni.T_aHeaWat_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    y={"bui.disFloHea.mReq_flow[1]", "bui.disFloHea.mAct_flow[1].y", "bui.terUni.mHeaWat_flow_nominal"},
+    grid=true,
+    subPlot=2
+);
+createPlot(
+    id=2,
+    y={"bui.terUni.QActHea_flow", "bui.terUni.QHea_flow_nominal"},
+    grid=true,
+    subPlot=3
+);
+createPlot(
+    id=3,
+    position={1400, 20, 670, 900},
+    y={"supChiWat.T_in", "bui.terUni.T_aChiWat_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    y={"bui.disFloCoo.mReq_flow[1]", "bui.disFloCoo.mAct_flow[1].y", "bui.terUni.mChiWat_flow_nominal"},
+    grid=true,
+    subPlot=2
+);
+createPlot(
+    id=3,
+    y={"bui.terUni.QActCoo_flow"},
+    grid=true,
+    subPlot=3
+);
+plotExpression(apply(-1*CouplingSpawnZ1[end].bui.terUni.QCoo_flow_nominal), false, "-1*bui.terUni.QCoo_flow_nominal", 3);
+
