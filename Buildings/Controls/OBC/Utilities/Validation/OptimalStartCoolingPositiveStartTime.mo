@@ -51,7 +51,7 @@ model OptimalStartCoolingPositiveStartTime
     realFalse=273.15 + 30,
     y(final unit="K", displayUnit="degC"))
     "Room temperature set point for cooling"
-    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
+    annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
 equation
   connect(dT.y, UA.u)   annotation (Line(points={{-138,10},{-122,10}}, color={0,0,127}));
   connect(TOut.y, dT.u2) annotation (Line(points={{-172,-10},{-166,-10},{-166,4},
@@ -78,8 +78,8 @@ equation
   connect(conPID.y, QCoo.u) annotation (Line(points={{182,10},{188,10},{188,-80},
           {-130,-80},{-130,-50},{-122,-50}}, color={0,0,127}));
   connect(occSch.occupied, TSetCoo.u) annotation (Line(points={{-19,-56},{10,
-          -56},{10,-50},{38,-50}}, color={255,0,255}));
-  connect(TSetCoo.y, add.u2) annotation (Line(points={{62,-50},{100,-50},{100,4},
+          -56},{10,-50},{58,-50}}, color={255,0,255}));
+  connect(TSetCoo.y, add.u2) annotation (Line(points={{82,-50},{100,-50},{100,4},
           {118,4}}, color={0,0,127}));
   connect(booToRea.y, add.u1) annotation (Line(points={{82,10},{100,10},{100,16},
           {118,16}}, color={0,0,127}));

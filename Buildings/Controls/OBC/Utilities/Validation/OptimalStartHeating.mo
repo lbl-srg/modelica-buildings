@@ -52,7 +52,7 @@ model OptimalStartHeating
     realFalse=273.15 + 15,
     y(final unit="K", displayUnit="degC"))
     "Room temperature set point for heating"
-    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
+    annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
 equation
   connect(dT.y, UA.u)    annotation (Line(points={{-138,10},{-122,10}},
                                                                       color={0,0,127}));
@@ -80,9 +80,9 @@ equation
           10},{58,10}},     color={255,0,255}));
   connect(TOut.y, dT.u2) annotation (Line(points={{-170,-10},{-166,-10},{-166,4},
           {-162,4}}, color={0,0,127}));
-  connect(TSetHea.u, occSch.occupied) annotation (Line(points={{38,-50},{10,-50},
+  connect(TSetHea.u, occSch.occupied) annotation (Line(points={{58,-50},{10,-50},
           {10,-56},{-19,-56}}, color={255,0,255}));
-  connect(TSetHea.y, add.u2) annotation (Line(points={{62,-50},{104,-50},{104,4},
+  connect(TSetHea.y, add.u2) annotation (Line(points={{82,-50},{104,-50},{104,4},
           {118,4}}, color={0,0,127}));
   connect(booToRea.y, add.u1) annotation (Line(points={{82,10},{104,10},{104,16},
           {118,16}}, color={0,0,127}));
