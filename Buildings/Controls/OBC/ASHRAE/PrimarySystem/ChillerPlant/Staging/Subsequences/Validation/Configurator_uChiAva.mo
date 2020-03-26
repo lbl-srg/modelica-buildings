@@ -130,7 +130,7 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Co
 </html>", revisions="<html>
 <ul>
 <li>
-June 7, by Milica Grahovac:<br/>
+June 7, 2019,by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>

@@ -130,7 +130,7 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Generic.Capacit
 </html>", revisions="<html>
 <ul>
 <li>
-July 5, by Milica Grahovac:<br/>
+December 1, 2019, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>

@@ -307,7 +307,7 @@ block Change "Calculates the chiller stage signal"
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea1
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Latch lat
+  Buildings.Controls.OBC.CDL.Logical.Latch lat(pre_y_start=true)
     annotation (Placement(transformation(extent={{120,-110},{140,-90}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uIni(final min=0, final max=nSta)
@@ -318,8 +318,8 @@ block Change "Calculates the chiller stage signal"
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea2 "Integer to real conversion"
     annotation (Placement(transformation(extent={{240,20},{260,40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold holIniSta(
-    final trueHoldDuration=delayStaCha,
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold holIniSta(final
+      trueHoldDuration=delayStaCha + 2,
     final falseHoldDuration=0)
     "Holds stage switched to initial upon plant start"
     annotation (Placement(transformation(extent={{120,-30},{140,-10}})));
@@ -481,12 +481,12 @@ equation
                            color={0,0,127}));
   connect(or2.y, staChaHol.u)
     annotation (Line(points={{162,-250},{178,-250}}, color={255,0,255}));
-  connect(edg1.y, triSam.trigger) annotation (Line(points={{242,-250},{250,-250},
-          {250,-111.8},{250,-111.8}}, color={255,0,255}));
   connect(edg1.y, y)
     annotation (Line(points={{242,-250},{420,-250}}, color={255,0,255}));
   connect(staChaHol.y, edg1.u)
     annotation (Line(points={{202,-250},{218,-250}}, color={255,0,255}));
+  connect(edg1.y, triSam.trigger) annotation (Line(points={{242,-250},{250,-250},
+          {250,-111.8}}, color={255,0,255}));
   annotation (defaultComponentName = "cha",
         Icon(graphics={
         Rectangle(
@@ -505,6 +505,11 @@ Documentation(info="<html>
 Outputs the chiller stage change signal
 
 fixme: elaborate
+
+tasks:
+- pull stage change assignment stage into a separate block
+- stage up t to +1 if no higher available, persist (according to Brandon)
+  
 
 </p>
 </html>",

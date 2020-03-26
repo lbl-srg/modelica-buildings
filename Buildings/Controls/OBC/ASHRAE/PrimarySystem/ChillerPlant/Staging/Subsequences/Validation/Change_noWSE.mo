@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation;
-model Change "Validates chiller stage signal"
+model Change_noWSE
+  "Validates chiller stage status setpoint signal generation for plants without WSE"
 
   parameter Modelica.SIunits.Temperature TChiWatSupSet = 285.15
   "Chilled water supply set temperature";
@@ -42,7 +43,7 @@ model Change "Validates chiller stage signal"
   Buildings.Controls.OBC.CDL.Continuous.Max max "Maximum"
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
 
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol(samplePeriod=1)
+  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol(samplePeriod=10)
     annotation (Placement(transformation(extent={{140,20},{160,40}})));
 
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
@@ -51,15 +52,18 @@ model Change "Validates chiller stage signal"
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     annotation (Placement(transformation(extent={{180,20},{200,40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(trueHoldDuration=0, falseHoldDuration=900)
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(trueHoldDuration=0,
+      falseHoldDuration=900)
     annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre
     annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant plaSta(final k=true) "Plant status"
-    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
+    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(k=1)
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 
+  CDL.Logical.TrueDelay truDel(delayTime=10, delayOnInit=true)
+    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWat(
     final k=65*6895)
@@ -124,13 +128,15 @@ equation
   connect(pre.y, cha.chaPro) annotation (Line(points={{162,-50},{170,-50},{170,
           -70},{40,-70},{40,13},{58,13}},
                                      color={255,0,255}));
-  connect(cha.uPla, plaSta.y) annotation (Line(points={{58,9},{30,9},{30,-50},{
-          2,-50}}, color={255,0,255}));
   connect(cha.uIni, conInt.y) annotation (Line(points={{58,17.2},{28,17.2},{28,-10},
           {2,-10}}, color={255,127,0}));
+  connect(plaSta.y, truDel.u)
+    annotation (Line(points={{-38,-50},{-22,-50}}, color={255,0,255}));
+  connect(truDel.y, cha.uPla) annotation (Line(points={{2,-50},{34,-50},{34,9},
+          {58,9}}, color={255,0,255}));
 annotation (
- experiment(StopTime=20000.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Change.mos"
+ experiment(StopTime=14000.0, Tolerance=1e-06),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Change_noWSE.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>
@@ -141,7 +147,7 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Ch
 </html>", revisions="<html>
 <ul>
 <li>
-October 13, by Milica Grahovac:<br/>
+March 26, 2020, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>
@@ -157,4 +163,4 @@ Icon(graphics={
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-220,-160},{220,160}})));
-end Change;
+end Change_noWSE;
