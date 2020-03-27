@@ -4,7 +4,7 @@ model SteamBoilerClosedLoop
   extends Modelica.Icons.Example;
 
   package MediumSte = IBPSA.Media.Steam "Steam medium";
-  package MediumWat = IBPSA.Media.Water "Water medium";
+  package MediumWat = IBPSA.Media.Water(T_max=179.8+273.15) "Water medium";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 1
     "Nominal mass flow rate";
@@ -38,7 +38,8 @@ model SteamBoilerClosedLoop
     redeclare package Medium = MediumWat,
     m_flow_nominal=m_flow_nominal,
     inputType=Buildings.Fluid.Types.InputType.Constant,
-    nominalValuesDefineDefaultPressureCurve=true) "Condensate return pump"
+    nominalValuesDefineDefaultPressureCurve=true,
+    dp_nominal(displayUnit="Pa"))                 "Condensate return pump"
     annotation (Placement(transformation(extent={{-40,-70},{-60,-50}})));
 equation
   connect(pSet.y, boi.pSte) annotation (Line(points={{-57,58},{-10,58},{-10,6},
@@ -60,6 +61,6 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
 experiment(Tolerance=1e-6, StopTime=100.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Boilers/Examples/SteamBoiler.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Boilers/Examples/SteamBoilerClosedLoop.mos"
         "Simulate and plot"));
 end SteamBoilerClosedLoop;
