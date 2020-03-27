@@ -153,9 +153,9 @@ void ZoneExchange(
      const char* outNames[] = {"TRad", "QConSen_flow", "QLat_flow", "QPeo_flow"};
   */
   /* Check for what seems to be an error, possibly due to unstable simulation */
-  if (zone->outputs->valsEP[0] > 100. || zone->outputs->valsEP[0] < -50.)
+  if (zone->outputs->valsEP[0] > 373.0 || zone->outputs->valsEP[0] < -222.0)
     ModelicaFormatError(
-      "Radiative temperature is %.2f degC in zone %s",
+      "Radiative temperature is %.2f K in zone %s",
       zone->outputs->valsEP[0],
       zone->modelicaNameThermalZone);
 
