@@ -75,7 +75,7 @@ block Capacities
     annotation (Placement(transformation(extent={{200,-110},{240,-70}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
 
-protected
+//protected
   final parameter Real small = 0.001
   "Small number to avoid division with zero";
 
