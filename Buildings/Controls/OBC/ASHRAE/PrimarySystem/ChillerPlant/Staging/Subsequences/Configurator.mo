@@ -48,7 +48,7 @@ block Configurator "Configures chiller staging"
     annotation (Placement(transformation(extent={{220,-40},{260,0}}),
         iconTransformation(extent={{100,20},{140,60}})));
 
-protected
+//protected
   final parameter Integer chiTypMat[nSta, nChi] = {chiTyp[i] for i in 1:nChi, j in 1:nSta}
     "Chiller type array expanded to allow for element-wise multiplication with the staging matrix";
 
@@ -159,9 +159,12 @@ protected
     annotation (Placement(transformation(extent={{100,-160},{120,-140}})));
 
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
-    final message="Chillers are not staged in a recommended order. 
-    If possible, please stage any positive displacement machines first, 
-    any variable speed centrifugal next and any constant speed centrifugal last.")
+    final message="Chillers might not be staged in a recommended order. 
+    If possible, please make sure to stage any positive displacement machines first, 
+    any variable speed centrifugal next and any constant speed centrifugal last.
+    It could also be that one of the higher stages contains only, for example,
+    positive displacement chillers, after some previous stage included other 
+    chiller types.")
     "Staging type order assertion"
     annotation (Placement(transformation(extent={{180,-160},{200,-140}})));
 

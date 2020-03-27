@@ -15,9 +15,13 @@ model Change_noWSE
     "Average measured chilled water flow rate";
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Change cha(
-    final chiDesCap={500000,1000000},
-    final chiMinCap={100000,200000},
+    nSta=5,
+    nChi=3,
+    staMat=[1,0,0; 0,1,0; 0,0,1; 1,1,0; 1,1,1],
+    final chiDesCap={300000,400000,500000},
+    final chiMinCap={100000,120000,150000},
     final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
         Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.constantSpeedCentrifugal})
     "Stage change"
     annotation (Placement(transformation(extent={{60,140},{80,160}})));
@@ -36,7 +40,8 @@ model Change_noWSE
     "Chilled water flow"
     annotation (Placement(transformation(extent={{-200,100},{-180,120}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiAva[2](final k={true,true})
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiAva[3](final k={true,
+        true,true})
     "Chiller availability vector"
     annotation (Placement(transformation(extent={{-120,200},{-100,220}})));
 
