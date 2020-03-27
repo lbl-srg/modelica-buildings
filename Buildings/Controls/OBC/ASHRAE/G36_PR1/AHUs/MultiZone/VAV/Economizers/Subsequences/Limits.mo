@@ -22,13 +22,17 @@ block Limits
     final unit="1")=0.05 "Gain of damper limit controller"
     annotation (Dialog(group="Controller"));
 
-  parameter Modelica.SIunits.Time Ti=1200
+  parameter Real Ti(
+    final unit="s",
+    final quantity="Time")=1200
     "Time constant of damper limit controller integrator block"
     annotation (Dialog(group="Controller",
     enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
         or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Modelica.SIunits.Time Td=0.1
+  parameter Real Td(
+    final unit="s",
+    final quantity="Time")=0.1
   "Time constant of damper limit controller derivative block"
     annotation (Dialog(group="Controller",
     enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
