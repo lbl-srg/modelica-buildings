@@ -10,7 +10,7 @@ model ThermalElectricalFollowing
       extent={{140,340},{160,360}})));
 
   parameter Boolean optionalFollowing = true
-    "Set to true when needs the options of thermal or electrical following, to false when needs only electrical following";
+    "Set to true for switching between thermal and electrical following, to false for electrical following only";
   parameter Modelica.SIunits.Temperature TEngIni = Medium.T_default
     "Initial engine temperature";
   parameter Modelica.SIunits.Time waitTime=60
@@ -64,12 +64,11 @@ model ThermalElectricalFollowing
     "Heat port for room temperature"
     annotation (Placement(transformation(extent={{-190,-150},{-170,-130}}),
       iconTransformation(extent={{-110,-80},{-90,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput mWatSet(
-    final unit="kg/s",
-    final quantity="MassFlowRate") if per.coolingWaterControl
-    "Water flow rate set point based on internal control"
-    annotation (Placement(transformation(extent={{180,120},{220,160}}),
-      iconTransformation(extent={{100,70},{140,110}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput mWatSet_flow(
+    final unit="kg/s", final quantity="MassFlowRate") if per.coolingWaterControl
+    "Water mass flow rate set point based on internal control" annotation (
+      Placement(transformation(extent={{180,120},{220,160}}),
+        iconTransformation(extent={{100,70},{140,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PCon(
     final unit="W",
     final quantity="Power")
@@ -87,12 +86,11 @@ model ThermalElectricalFollowing
     final quantity="MassFlowRate") "Fuel flow rate"
     annotation (Placement(transformation(extent={{180,0},{220,40}}),
       iconTransformation(extent={{100,-70},{140,-30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QWat(
-    final unit="W",
-    final quantity="HeatFlowRate")
-    "Heat transfer to the water control volume"
-    annotation (Placement(transformation(extent={{180,-120},{220,-80}}),
-      iconTransformation(extent={{100,-110},{140,-70}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QWat_flow(final unit="W",
+      final quantity="HeatFlowRate")
+    "Heat transfer rate to the water control volume" annotation (Placement(
+        transformation(extent={{180,-120},{220,-80}}), iconTransformation(
+          extent={{100,-110},{140,-70}})));
 
   Buildings.Fluid.CHPs.BaseClasses.EnergyConversion eneCon(
     final per = per) "Energy conversion"
@@ -112,7 +110,7 @@ model ThermalElectricalFollowing
     final uHigh=per.PEleMax*10^(-3)) "Determine if demand larger than zero"
     annotation (Placement(transformation(extent={{-60,100},{-40,120}})));
   Buildings.Fluid.CHPs.BaseClasses.FilterPower fil(
-    final per=per) "Power after applied constrains"
+    final per=per) "Power after applied constraints"
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
   Buildings.Fluid.CHPs.BaseClasses.WaterInternalControl conWat(
     final per=per) if per.coolingWaterControl
@@ -166,19 +164,16 @@ model ThermalElectricalFollowing
     final k=per.PEleMax) if optionalFollowing
     "Electric power demand if thermal following"
     annotation (Placement(transformation(extent={{-40,340},{-20,360}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi if optionalFollowing
+  Buildings.Controls.OBC.CDL.Logical.Switch swi
     "Switch between thermal and electrical following"
-    annotation (Placement(transformation(extent={{80,250},{100,270}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2
-    "Switch between thermal and electrical following"
-    annotation (Placement(transformation(extent={{-20,210},{0,230}})));
+    annotation (Placement(transformation(extent={{100,250},{120,270}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant optFol(
-    final k=optionalFollowing)
-    "Activate optional following"
-    annotation (Placement(transformation(extent={{-80,210},{-60,230}})));
+    final k=false) if not optionalFollowing
+    "Feed false to switch block if no optional following"
+    annotation (Placement(transformation(extent={{40,230},{60,250}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer1(
     final k=0) if not optionalFollowing "Constant zero"
-    annotation (Placement(transformation(extent={{-120,230},{-100,250}})));
+    annotation (Placement(transformation(extent={{40,270},{60,290}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai(final k=-1)
     "Heat transfer to the water control volume"
     annotation (Placement(transformation(extent={{120,-110},{140,-90}})));
@@ -206,8 +201,8 @@ equation
           100,133},{118,133}},color={0,0,127}));
   connect(eneCon.TWatIn, TWatIn.y) annotation (Line(points={{-62,30},{-90,30},{-90,
           60},{-119,60}}, color={0,0,127}));
-  connect(conWat.mWatSet, mWatSet) annotation (Line(points={{142,140},{200,140}},
-          color={0,0,127}));
+  connect(conWat.mWatSet, mWatSet_flow)
+    annotation (Line(points={{142,140},{200,140}}, color={0,0,127}));
   connect(hys.y, runSig.u2) annotation (Line(points={{-38,110},{-30,110},{-30,122},
           {-22,122}}, color={255,0,255}));
   connect(opeMod.opeMod, eneCon.opeMod) annotation (Line(points={{61,160},{80,160},
@@ -258,29 +253,27 @@ equation
           {18,318}}, color={0,0,127}));
   connect(zer.y, swi1.u3) annotation (Line(points={{-18,280},{0,280},{0,302},{18,
           302}}, color={0,0,127}));
-  connect(theFol, swi.u2) annotation (Line(points={{-200,260},{78,260}},
+  connect(theFol, swi.u2) annotation (Line(points={{-200,260},{98,260}},
           color={255,0,255}));
-  connect(swi1.y, swi.u1) annotation (Line(points={{42,310},{60,310},{60,268},{78,
-          268}}, color={0,0,127}));
-  connect(PEleDem, swi.u3) annotation (Line(points={{-200,200},{60,200},{60,252},
-          {78,252}}, color={0,0,127}));
+  connect(swi1.y, swi.u1) annotation (Line(points={{42,310},{80,310},{80,268},{
+          98,268}},
+                 color={0,0,127}));
+  connect(PEleDem, swi.u3) annotation (Line(points={{-200,200},{90,200},{90,252},
+          {98,252}}, color={0,0,127}));
   connect(TWatOut.T, cooWatCon.u_m) annotation (Line(points={{80,-60},{100,-60},
           {100,-80},{-150,-80},{-150,330},{-70,330},{-70,338}}, color={0,0,127}));
-  connect(optFol.y, swi2.u2) annotation (Line(points={{-58,220},{-22,220}},
-          color={255,0,255}));
-  connect(swi.y, swi2.u1) annotation (Line(points={{102,260},{120,260},{120,240},
-          {-40,240},{-40,228},{-22,228}}, color={0,0,127}));
-  connect(PEleDem, swi2.u3) annotation (Line(points={{-200,200},{-40,200},{-40,212},
-          {-22,212}}, color={0,0,127}));
-  connect(swi2.y, fil.PEleDem) annotation (Line(points={{2,220},{20,220},{20,180},
-          {-160,180},{-160,90},{-142,90}}, color={0,0,127}));
-  connect(zer1.y, swi2.u1) annotation (Line(points={{-98,240},{-40,240},{-40,228},
-          {-22,228}}, color={0,0,127}));
   connect(watHea.Q_flow, gai.u) annotation (Line(points={{-10,-100},{118,-100}},
           color={0,0,127}));
-  connect(gai.y, QWat) annotation (Line(points={{142,-100},{200,-100}},
-          color={0,0,127}));
+  connect(gai.y, QWat_flow)
+    annotation (Line(points={{142,-100},{200,-100}}, color={0,0,127}));
 
+  connect(zer1.y, swi.u1) annotation (Line(points={{62,280},{80,280},{80,268},{
+          98,268}},
+                 color={0,0,127}));
+  connect(optFol.y, swi.u2) annotation (Line(points={{62,240},{80,240},{80,260},
+          {98,260}}, color={255,0,255}));
+  connect(swi.y, fil.PEleDem) annotation (Line(points={{122,260},{160,260},{160,
+          180},{-160,180},{-160,90},{-142,90}}, color={0,0,127}));
 annotation (
   defaultComponentName="eleFol",
   Diagram(coordinateSystem(extent={{-180,-160},{180,380}})),
@@ -335,17 +328,17 @@ Buildings.Fluid.CHPs.BaseClasses.Controller</a>.
 </p>
 <h4>Limitations</h4>
 <p>
-In the early stages of the project, the advantages of the this modeling approach
-over the detailed modeling are the model simplicity, the ease of calibration
+In the early stages of a project, the advantages of this modeling approach
+over a detailed modeling are the model simplicity, the ease of calibration
 and much less data collection. The disadvantages, however, are:
 </p>
 <ul>
 <li>
-Although the model structure reflects the underlying physical processes, it
-relies entirely on empirical data. 
+Although the model structure reflects the underlying physical processes, the
+model parameterization relies entirely on empirical data.
 </li>
 <li>
-Once calibrated, the model is applicable to only one engine and fuel type, and 
+Once calibrated, the model is applicable to only one engine and fuel type, and
 each new cogeneration device must be characterized in a laboratory environment.
 </li>
 </ul>
@@ -353,7 +346,7 @@ each new cogeneration device must be characterized in a laboratory environment.
 <p>
 Beausoleil-Morrison, Ian and Kelly, Nick, 2007. <i>Specifications for modelling fuel cell
 and combustion-based residential cogeneration device within whole-building simulation
-programs</i>, Section III. <a href=\"https://strathprints.strath.ac.uk/6704/\"> 
+programs</i>, Section III. <a href=\"https://strathprints.strath.ac.uk/6704/\">
 [Report]</a>
 </p>
 </html>", revisions="<html>
