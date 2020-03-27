@@ -148,14 +148,14 @@ block Up "Generates a stage up signal"
     annotation (Placement(transformation(extent={{-110,-100},{-90,-80}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
-    final delayTime=longTDelay,
-    final delayOnInit=true) if have_WSE
+    final delayTime=longTDelay, final delayOnInit=true) if
+                               have_WSE
     "Delays a true signal"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1(
-    final delayTime=shortTDelay,
-    final delayOnInit=true) if have_WSE
+    final delayTime=shortTDelay, final delayOnInit=true) if
+                               have_WSE
     "Delays a true signal"
     annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
 

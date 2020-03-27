@@ -72,8 +72,7 @@ protected
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
-    final delayTime=faiSafTruDelay,
-    final delayOnInit=true)
+    final delayTime=faiSafTruDelay, final delayOnInit=false)
     "Delays a true signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 

@@ -113,7 +113,8 @@ equation
           -130,30},{-130,25},{58,25}},
                                   color={0,0,127}));
   connect(cha.ySta, intToRea.u)
-    annotation (Line(points={{82,30},{98,30}}, color={255,127,0}));
+    annotation (Line(points={{82,30},{84,30},{84,30},{98,30}},
+                                               color={255,127,0}));
   connect(intToRea.y, zerOrdHol.u)
     annotation (Line(points={{122,30},{138,30}}, color={0,0,127}));
   connect(zerOrdHol.y, reaToInt.u)
@@ -128,8 +129,9 @@ equation
   connect(pre.y, cha.chaPro) annotation (Line(points={{162,-50},{170,-50},{170,
           -70},{40,-70},{40,13},{58,13}},
                                      color={255,0,255}));
-  connect(cha.uIni, conInt.y) annotation (Line(points={{58,17.2},{28,17.2},{28,-10},
-          {2,-10}}, color={255,127,0}));
+  connect(cha.uIni, conInt.y) annotation (Line(points={{58,17.2},{28,17.2},{28,
+          -10},{2,-10}},
+                    color={255,127,0}));
   connect(plaSta.y, truDel.u)
     annotation (Line(points={{-38,-50},{-22,-50}}, color={255,0,255}));
   connect(truDel.y, cha.uPla) annotation (Line(points={{2,-50},{34,-50},{34,9},
