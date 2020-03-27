@@ -319,7 +319,7 @@ block Change "Calculates the chiller stage signal"
     annotation (Placement(transformation(extent={{240,90},{260,110}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold holIniSta(final
-      trueHoldDuration=2*delayStaCha,
+      trueHoldDuration=delayStaCha,
     final falseHoldDuration=0)
     "Holds stage switched to initial upon plant start"
     annotation (Placement(transformation(extent={{120,50},{140,70}})));
@@ -488,8 +488,6 @@ equation
     annotation (Line(points={{322,60},{338,60}},   color={0,0,127}));
   connect(triSam.y, switch2.u3) annotation (Line(points={{262,-40},{280,-40},{280,
           52},{298,52}},       color={0,0,127}));
-  connect(holIniSta.y, switch2.u2)
-    annotation (Line(points={{142,60},{298,60}},   color={255,0,255}));
   connect(uIni, intToRea2.u) annotation (Line(points={{-300,-40},{-220,-40},{-220,
           100},{238,100}},
                          color={255,127,0}));
@@ -516,6 +514,8 @@ equation
           {214,-284},{210,-284}}, color={255,0,255}));
   connect(or2.y, staChaHol1.u) annotation (Line(points={{162,-190},{178,-190},{
           178,-284},{186,-284}}, color={255,0,255}));
+  connect(holIniSta.y, switch2.u2)
+    annotation (Line(points={{142,60},{298,60}}, color={255,0,255}));
   annotation (defaultComponentName = "cha",
         Icon(graphics={
         Rectangle(

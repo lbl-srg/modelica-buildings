@@ -20,122 +20,124 @@ model Change_noWSE
     final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
         Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.constantSpeedCentrifugal})
     "Stage change"
-    annotation (Placement(transformation(extent={{60,20},{80,40}})));
+    annotation (Placement(transformation(extent={{60,140},{80,160}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TChiWatRet(
     final amplitude=7,
     final offset=273.15 + 15,
     final freqHz=1/21600)
     "Chiller water return temeprature"
-    annotation (Placement(transformation(extent={{-200,20},{-180,40}})));
+    annotation (Placement(transformation(extent={{-200,140},{-180,160}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine chiWatFlow(
     final offset=0,
     final freqHz=1/21600,
     final amplitude=0.037)
     "Chilled water flow"
-    annotation (Placement(transformation(extent={{-200,-20},{-180,0}})));
+    annotation (Placement(transformation(extent={{-200,100},{-180,120}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiAva[2](final k={true,true})
     "Chiller availability vector"
-    annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
+    annotation (Placement(transformation(extent={{-120,200},{-100,220}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Max max "Maximum"
-    annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
+    annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
 
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol(samplePeriod=10)
-    annotation (Placement(transformation(extent={{140,20},{160,40}})));
+    annotation (Placement(transformation(extent={{140,140},{160,160}})));
 
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
-    annotation (Placement(transformation(extent={{100,20},{120,40}})));
+    annotation (Placement(transformation(extent={{100,140},{120,160}})));
 
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
-    annotation (Placement(transformation(extent={{180,20},{200,40}})));
+    annotation (Placement(transformation(extent={{180,140},{200,160}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(trueHoldDuration=0,
       falseHoldDuration=900)
-    annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
+    annotation (Placement(transformation(extent={{100,60},{120,80}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre
-    annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
+    annotation (Placement(transformation(extent={{140,60},{160,80}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant plaSta(final k=true) "Plant status"
-    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(k=1)
-    annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
+    annotation (Placement(transformation(extent={{-20,100},{0,120}})));
 
   CDL.Logical.TrueDelay truDel(delayTime=10, delayOnInit=true)
-    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
+    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWat(
     final k=65*6895)
     "Chilled water differential pressure"
-    annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
+    annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCWSupSet(
     final k=273.15 + 14)
     "Chilled water supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
+    annotation (Placement(transformation(extent={{-120,160},{-100,180}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWatSet(
     final k=65*6895)
     "Chilled water differential pressure setpoint"
-    annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
+    annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCWSup(
     final k=273.15 + 14)
     "Chilled water supply temperature"
-    annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
+    annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zero(
     final k=0) "Constant"
-    annotation (Placement(transformation(extent={{-200,-60},{-180,-40}})));
+    annotation (Placement(transformation(extent={{-200,60},{-180,80}})));
 
 equation
-  connect(dpChiWatSet.y, cha.dpChiWatPumSet) annotation (Line(points={{-98,-50},
-          {-92,-50},{-92,31},{58,31}}, color={0,0,127}));
-  connect(dpChiWat.y, cha.dpChiWatPum) annotation (Line(points={{-98,-100},{-90,
-          -100},{-90,33},{58,33}}, color={0,0,127}));
-  connect(TCWSupSet.y, cha.TChiWatSupSet) annotation (Line(points={{-98,50},{
-          -32,50},{-32,45},{58,45}},
+  connect(dpChiWatSet.y, cha.dpChiWatPumSet) annotation (Line(points={{-98,70},{
+          -92,70},{-92,151},{58,151}}, color={0,0,127}));
+  connect(dpChiWat.y, cha.dpChiWatPum) annotation (Line(points={{-98,20},{-90,20},
+          {-90,153},{58,153}},     color={0,0,127}));
+  connect(TCWSupSet.y, cha.TChiWatSupSet) annotation (Line(points={{-98,170},{-32,
+          170},{-32,165},{58,165}},
                                  color={0,0,127}));
-  connect(chiAva.y, cha.uChiAva) annotation (Line(points={{-98,90},{-28,90},{
-          -28,11},{58,11}},
+  connect(chiAva.y, cha.uChiAva) annotation (Line(points={{-98,210},{-28,210},{-28,
+          131},{58,131}},
                         color={255,0,255}));
-  connect(TCWSup.y, cha.TChiWatSup) annotation (Line(points={{-98,-10},{-94,-10},
-          {-94,43},{58,43}}, color={0,0,127}));
-  connect(zero.y, max.u2) annotation (Line(points={{-178,-50},{-170,-50},{-170,-36},
-          {-162,-36}}, color={0,0,127}));
-  connect(chiWatFlow.y, max.u1) annotation (Line(points={{-178,-10},{-170,-10},{
-          -170,-24},{-162,-24}}, color={0,0,127}));
-  connect(cha.VChiWat_flow, max.y) annotation (Line(points={{58,21},{-130,21},{
-          -130,-30},{-138,-30}},
+  connect(TCWSup.y, cha.TChiWatSup) annotation (Line(points={{-98,110},{-94,110},
+          {-94,163},{58,163}},
+                             color={0,0,127}));
+  connect(zero.y, max.u2) annotation (Line(points={{-178,70},{-170,70},{-170,84},
+          {-162,84}},  color={0,0,127}));
+  connect(chiWatFlow.y, max.u1) annotation (Line(points={{-178,110},{-170,110},{
+          -170,96},{-162,96}},   color={0,0,127}));
+  connect(cha.VChiWat_flow, max.y) annotation (Line(points={{58,141},{-130,141},
+          {-130,90},{-138,90}},
                             color={0,0,127}));
-  connect(TChiWatRet.y, cha.TChiWatRet) annotation (Line(points={{-178,30},{
-          -130,30},{-130,25},{58,25}},
+  connect(TChiWatRet.y, cha.TChiWatRet) annotation (Line(points={{-178,150},{-130,
+          150},{-130,145},{58,145}},
                                   color={0,0,127}));
   connect(cha.ySta, intToRea.u)
-    annotation (Line(points={{82,30},{84,30},{84,30},{98,30}},
+    annotation (Line(points={{82,150},{98,150}},
                                                color={255,127,0}));
   connect(intToRea.y, zerOrdHol.u)
-    annotation (Line(points={{122,30},{138,30}}, color={0,0,127}));
+    annotation (Line(points={{122,150},{138,150}},
+                                                 color={0,0,127}));
   connect(zerOrdHol.y, reaToInt.u)
-    annotation (Line(points={{162,30},{178,30}}, color={0,0,127}));
-  connect(reaToInt.y, cha.u) annotation (Line(points={{202,30},{210,30},{210,
-          -20},{50,-20},{50,19},{58,19}},
+    annotation (Line(points={{162,150},{178,150}},
+                                                 color={0,0,127}));
+  connect(reaToInt.y, cha.u) annotation (Line(points={{202,150},{210,150},{210,100},
+          {50,100},{50,139},{58,139}},
                                      color={255,127,0}));
-  connect(cha.y, truFalHol.u) annotation (Line(points={{82,37},{90,37},{90,-50},
-          {98,-50}}, color={255,0,255}));
+  connect(cha.y, truFalHol.u) annotation (Line(points={{82,157},{90,157},{90,70},
+          {98,70}},  color={255,0,255}));
   connect(truFalHol.y, pre.u)
-    annotation (Line(points={{122,-50},{138,-50}}, color={255,0,255}));
-  connect(pre.y, cha.chaPro) annotation (Line(points={{162,-50},{170,-50},{170,
-          -70},{40,-70},{40,13},{58,13}},
-                                     color={255,0,255}));
-  connect(cha.uIni, conInt.y) annotation (Line(points={{58,17.2},{28,17.2},{28,
-          -10},{2,-10}},
+    annotation (Line(points={{122,70},{138,70}},   color={255,0,255}));
+  connect(pre.y, cha.chaPro) annotation (Line(points={{162,70},{170,70},{170,50},
+          {40,50},{40,133},{58,133}},color={255,0,255}));
+  connect(cha.uIni, conInt.y) annotation (Line(points={{58,137.2},{28,137.2},{28,
+          110},{2,110}},
                     color={255,127,0}));
   connect(plaSta.y, truDel.u)
-    annotation (Line(points={{-38,-50},{-22,-50}}, color={255,0,255}));
-  connect(truDel.y, cha.uPla) annotation (Line(points={{2,-50},{34,-50},{34,9},
-          {58,9}}, color={255,0,255}));
+    annotation (Line(points={{-38,70},{-22,70}}, color={255,0,255}));
+  connect(truDel.y, cha.uPla) annotation (Line(points={{2,70},{34,70},{34,129},{
+          58,129}}, color={255,0,255}));
 annotation (
  experiment(StopTime=14000.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Change_noWSE.mos"
@@ -164,5 +166,5 @@ Icon(graphics={
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-220,-160},{220,160}})));
+        coordinateSystem(preserveAspectRatio=false, extent={{-220,-240},{220,240}})));
 end Change_noWSE;
