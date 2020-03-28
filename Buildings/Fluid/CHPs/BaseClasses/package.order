@@ -3,7 +3,6 @@ AssertPower
 AssertWatMas
 AssertWatTem
 Controller
-CoolDown
 EfficiencyCurve
 EnergyConversion
 EngineConVol
@@ -11,8 +10,6 @@ FilterPower
 OperModeBasic
 OperModeWarmUpEngTem
 PowerConsumption
-PumpOn
-StandBy
 WarmUp
 WaterInternalControl
 Functions

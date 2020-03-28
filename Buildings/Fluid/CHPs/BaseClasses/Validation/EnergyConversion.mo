@@ -15,7 +15,7 @@ model EnergyConversion "Validate model EnergyConversion"
     "Cooling water flow rate"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Fluid.CHPs.BaseClasses.Controller con(final per=per) "Operation mode"
-    annotation (Placement(transformation(extent={{0,64},{20,84}})));
+    annotation (Placement(transformation(extent={{0,70},{20,90}})));
   Modelica.Blocks.Sources.BooleanTable runSig(startValue=false, table={300,2700})
     "Plant run signal"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
@@ -41,14 +41,16 @@ protected
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
 equation
-  connect(con.opeMod, eneCon.opeMod) annotation (Line(points={{21,74},{40,74},{40,
-          -21},{59,-21}}, color={0,127,0}));
+  connect(con.opeMod, eneCon.opeMod) annotation (Line(points={{21,80},{40,80},{
+          40,-21},{59,-21}},
+                          color={0,127,0}));
   connect(avaSig.y, con.avaSig) annotation (Line(points={{-59,80},{-30,80},{-30,
-          66},{-2,66}}, color={255,0,255}));
+          72},{-2,72}}, color={255,0,255}));
   connect(runSig.y, con.runSig) annotation (Line(points={{-59,40},{-54,40},{-54,
-          82},{-2,82}}, color={255,0,255}));
-  connect(TEng.y, con.TEng) annotation (Line(points={{-58,-30},{-40,-30},{-40,72},
-          {-2,72}}, color={0,0,127}));
+          88},{-2,88}}, color={255,0,255}));
+  connect(TEng.y, con.TEng) annotation (Line(points={{-58,-30},{-40,-30},{-40,
+          78},{-2,78}},
+                    color={0,0,127}));
   connect(TEng.y, eneCon.TEng) annotation (Line(points={{-58,-30},{0,-30},{0,-39},
           {58,-39}}, color={0,0,127}));
   connect(TWatIn.y, eneCon.TWatIn) annotation (Line(points={{2,0},{20,0},{20,-30},
@@ -57,8 +59,9 @@ equation
           {58,-25}}, color={0,0,127}));
   connect(mWat_flow.y[1], eneCon.mWat_flow) annotation (Line(points={{-58,0},{-48,
           0},{-48,-35},{58,-35}}, color={0,0,127}));
-  connect(mWat_flow.y[1], con.mWat_flow) annotation (Line(points={{-58,0},{-48,0},
-          {-48,76},{-2,76}}, color={0,0,127}));
+  connect(mWat_flow.y[1], con.mWat_flow) annotation (Line(points={{-58,0},{-48,
+          0},{-48,82},{-2,82}},
+                             color={0,0,127}));
 
 annotation (
   experiment(StopTime=3000, Tolerance=1e-6),

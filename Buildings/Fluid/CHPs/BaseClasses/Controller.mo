@@ -4,7 +4,7 @@ model Controller "Define current operation mode"
 
   replaceable parameter Buildings.Fluid.CHPs.Data.Generic per
     "Performance data"
-    annotation (Placement(transformation(extent={{120,160},{140,180}})));
+    annotation (Placement(transformation(extent={{200,158},{220,178}})));
   parameter Modelica.SIunits.Time waitTime=60
     "Wait time before transition from pump-on mode fires"
     annotation (Dialog(tab="Dynamics"));
@@ -31,6 +31,15 @@ model Controller "Define current operation mode"
     annotation (Placement(transformation(extent={{260,-20},{300,20}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
+  Modelica.StateGraph.Step staBy(nOut=2) "Plant is in standby mode"
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+  Modelica.StateGraph.Step pumOn(nOut=2) "Plant pump is on"
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+  Modelica.StateGraph.StepWithSignal warUp(nIn=2, nOut=2)
+    "Plant is in warm up mode"
+    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
+  Modelica.StateGraph.StepWithSignal cooDow(nIn=2, nOut=2)
+    annotation (Placement(transformation(extent={{160,-90},{180,-70}})));
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minWatFlo(
     final k=per.mWatMin) "Minimum water flow rate"
@@ -56,74 +65,69 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minWatFlo1(
     final k=0.95*per.mWatMin)
     "Minimum water flow rate"
-    annotation (Placement(transformation(extent={{-180,80},{-160,100}})));
+    annotation (Placement(transformation(extent={{-180,70},{-160,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max1
     "Maximum between minimum flow rate and 0.001"
-    annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
+    annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add1(final k2=-1)
     "Flow rate difference between current rate and minimum rate"
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
     final uLow=0.01*per.mWatMin - 2e-6,
     final uHigh=0.015*per.mWatMin - 1e-6)
     "Check if current flow rate is smaller than the minimum flow rate"
-    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
+    annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Buildings.Controls.OBC.CDL.Logical.Or noGoSig
     "Check if water flow rate is smaller than the minimum or if runSig = false"
-    annotation (Placement(transformation(extent={{-20,80},{0,100}})));
+    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Plant is not running"
     annotation (Placement(transformation(extent={{-220,110},{-200,130}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Plant is not running"
-    annotation (Placement(transformation(extent={{-220,-110},{-200,-90}})));
+    annotation (Placement(transformation(extent={{-220,-150},{-200,-130}})));
   Buildings.Controls.OBC.CDL.Logical.Or or1 "Plant is not available or should not run"
-    annotation (Placement(transformation(extent={{-180,-130},{-160,-110}})));
+    annotation (Placement(transformation(extent={{-180,-170},{-160,-150}})));
   Buildings.Controls.OBC.CDL.Logical.And and1
     "Warm up mode is done and the plant could run"
-    annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
-  Buildings.Fluid.CHPs.BaseClasses.CoolDown cooDow "Plant is in cool-down mode"
-    annotation (Placement(transformation(extent={{120,-124},{140,-104}})));
+    annotation (Placement(transformation(extent={{120,-30},{140,-10}})));
   Modelica.StateGraph.TransitionWithSignal transition3 "Plant should be off"
     annotation (Placement(transformation(extent={{-30,-90},{-10,-70}})));
   Modelica.StateGraph.TransitionWithSignal transition5 "Plant should be off"
-    annotation (Placement(transformation(extent={{10,-110},{30,-90}})));
+    annotation (Placement(transformation(extent={{30,-90},{50,-70}})));
   Modelica.StateGraph.TransitionWithSignal transition9 "Run in cool-down mode"
-    annotation (Placement(transformation(extent={{70,-120},{90,-100}})));
+    annotation (Placement(transformation(extent={{80,-90},{100,-70}})));
   Modelica.StateGraph.TransitionWithSignal transition7 "Run in warm-up mode"
-    annotation (Placement(transformation(extent={{130,-170},{150,-150}})));
+    annotation (Placement(transformation(extent={{210,-90},{230,-70}})));
   Buildings.Controls.OBC.CDL.Logical.And and3
     "Plant could run and cool down mode is optional"
-    annotation (Placement(transformation(extent={{80,-190},{100,-170}})));
+    annotation (Placement(transformation(extent={{100,-150},{120,-170}})));
   Modelica.StateGraph.TransitionWithSignal transition10 "Plant should be off"
-    annotation (Placement(transformation(extent={{210,-130},{230,-110}})));
+    annotation (Placement(transformation(extent={{230,-70},{250,-50}})));
   Buildings.Controls.OBC.CDL.Logical.And and4
     "Plant could run and cool down mode is optional"
-    annotation (Placement(transformation(extent={{180,-200},{200,-180}})));
+    annotation (Placement(transformation(extent={{208,-210},{228,-190}})));
   Buildings.Fluid.CHPs.BaseClasses.AssertWatMas assWatMas(
     final per=per)
     "Assert if water flow rate is outside boundaries"
-    annotation (Placement(transformation(extent={{80,30},{100,50}})));
+    annotation (Placement(transformation(extent={{40,30},{60,50}})));
   Buildings.Fluid.CHPs.BaseClasses.Types.Mode actMod "Mode indicator";
-  Buildings.Fluid.CHPs.BaseClasses.PumpOn pumpOn "Plant pump is on"
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.StateGraph.TransitionWithSignal transition1
     "Plant becomes available"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
   Modelica.StateGraph.TransitionWithSignal transition2 "Run plant"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
-  Modelica.StateGraph.Step normal(final nIn=1, final nOut=1)
+  Modelica.StateGraph.Step nor(final nIn=1, final nOut=1)
     "Plant is in normal mode"
-    annotation (Placement(transformation(extent={{160,-10},{180,10}})));
+    annotation (Placement(transformation(extent={{180,-10},{200,10}})));
   Modelica.StateGraph.TransitionWithSignal transition8 "Run in cool-down mode"
-    annotation (Placement(transformation(extent={{190,-10},{210,10}})));
-  Buildings.Fluid.CHPs.BaseClasses.StandBy standBy(
-    final nResume=1) "Plant is in standby mode"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Fluid.CHPs.BaseClasses.WarmUp warmUp(final per=per)
-    "Plant is in warm up mode"
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+    annotation (Placement(transformation(extent={{210,10},{230,-10}})));
+  Buildings.Fluid.CHPs.BaseClasses.WarmUp warUpCtr(
+    final timeDelayStart=per.timeDelayStart,
+    final TEngNom=per.TEngNom,
+    final warmUpByTimeDelay=per.warmUpByTimeDelay) "Warm up control sequence"
+    annotation (Placement(transformation(extent={{90,-30},{110,-50}})));
   Modelica.StateGraph.TransitionWithSignal transition6 "Run in normal mode"
-    annotation (Placement(transformation(extent={{130,-10},{150,10}})));
-  Modelica.StateGraph.InitialStep plantOff(final nIn=3) "Plant is off"
+    annotation (Placement(transformation(extent={{150,-10},{170,10}})));
+  Modelica.StateGraph.InitialStep plaOff(final nIn=3) "Plant is off"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Modelica.StateGraph.TransitionWithSignal transition4(
     final enableTimer=true,
@@ -132,155 +136,161 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant optCooDow(
     final k=per.coolDownOptional)
     "Check if cool down mode is optional"
-    annotation (Placement(transformation(extent={{40,-170},{60,-150}})));
+    annotation (Placement(transformation(extent={{60,-190},{80,-170}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Ensure no-go signal being false when go signal is true"
-    annotation (Placement(transformation(extent={{40,80},{60,100}})));
-
+    annotation (Placement(transformation(extent={{40,70},{60,90}})));
+  Controls.OBC.CDL.Continuous.GreaterEqualThreshold timeDel(
+    final threshold=per.timeDelayCool)
+    "Check if the time of  plant in cool-down mode has been longer than the 
+    specified delay time"
+    annotation (Placement(transformation(extent={{180,-190},{200,-170}})));
+protected
+  Controls.OBC.CDL.Logical.Timer timer
+    "Timer"
+    annotation (Placement(transformation(extent={{152,-190},{172,-170}})));
 equation
-  if plantOff.active then
+  if plaOff.active then
     actMod = CHPs.BaseClasses.Types.Mode.Off;
-  elseif standBy.active then
+  elseif staBy.active then
     actMod = CHPs.BaseClasses.Types.Mode.StandBy;
-  elseif pumpOn.active then
+  elseif pumOn.active then
     actMod = CHPs.BaseClasses.Types.Mode.PumpOn;
-  elseif warmUp.active then
+  elseif warUp.active then
     actMod = CHPs.BaseClasses.Types.Mode.WarmUp;
-  elseif normal.active then
+  elseif nor.active then
     actMod = CHPs.BaseClasses.Types.Mode.Normal;
   else
     actMod = CHPs.BaseClasses.Types.Mode.CoolDown;
   end if;
   opeMod = actMod;
-  connect(normal.outPort[1], transition8.inPort) annotation (Line(points={{180.5,
-          0},{196,0}}, color={0,0,0}));
-  connect(standBy.outPort, transition2.inPort) annotation (Line(points={{
-          -39.6667,0},{-24,0}},
-                       color={0,0,0}));
-  connect(TEng,warmUp.TEng) annotation (Line(points={{-280,20},{50,20},{50,
-          6.66667},{58.6667,6.66667}},
-                              color={0,0,127}));
-  connect(transition1.outPort, standBy.inPort) annotation (Line(points={{-78.5,0},
-          {-60.6667,0}}, color={0,0,0}));
-  connect(warmUp.outPort, transition6.inPort) annotation (Line(points={{80.3333,
-          0},{136,0}}, color={0,0,0}));
-  connect(plantOff.outPort[1], transition1.inPort) annotation (Line(points={{
-          -99.5,0},{-84,0}}, color={0,0,0}));
-  connect(transition2.outPort, pumpOn.inPort) annotation (Line(points={{-18.5,0},
-          {-0.66667,0}}, color={0,0,0}));
-  connect(pumpOn.outPort, transition4.inPort) annotation (Line(points={{20.3333,
-          0},{36,0}}, color={0,0,0}));
-  connect(transition4.outPort, warmUp.inPort) annotation (Line(points={{41.5,0},
-          {59.3333,0}}, color={0,0,0}));
-  connect(transition6.outPort, normal.inPort[1]) annotation (Line(points={{141.5,
-          0},{159,0}}, color={0,0,0}));
-  connect(assWatMas.mWat_flow, mWat_flow) annotation (Line(points={{78,36},
-          {-110,36},{-110,50},{-280,50}}, color={0,0,127}));
+  connect(nor.outPort[1], transition8.inPort)
+    annotation (Line(points={{200.5,0},{216,0}}, color={0,0,0}));
+  connect(TEng, warUpCtr.TEng) annotation (Line(points={{-280,20},{-160,20},{
+    -160,-60},{50,-60},{50,-46},{88,-46}}, color={0,0,127}));
+  connect(plaOff.outPort[1], transition1.inPort)
+    annotation (Line(points={{-99.5,0},{-84,0}}, color={0,0,0}));
+  connect(transition6.outPort, nor.inPort[1])
+    annotation (Line(points={{161.5,0},{179,0}}, color={0,0,0}));
+  connect(assWatMas.mWat_flow, mWat_flow) annotation (Line(points={{38,36},{
+    -110,36},{-110,50},{-280,50}}, color={0,0,127}));
   connect(minWatFlo.y, max.u1) annotation (Line(points={{-158,200},{-150,200},{-150,
-          186},{-142,186}}, color={0,0,127}));
+    186},{-142,186}}, color={0,0,127}));
   connect(con.y, max.u2) annotation (Line(points={{-158,160},{-150,160},{-150,174},
-          {-142,174}}, color={0,0,127}));
+    {-142,174}}, color={0,0,127}));
   connect(max.y, add2.u1) annotation (Line(points={{-118,180},{-110,180},{-110,186},
           {-102,186}},  color={0,0,127}));
   connect(add2.y, hys.u) annotation (Line(points={{-78,180},{-62,180}},
           color={0,0,127}));
   connect(hys.y, goSig.u1) annotation (Line(points={{-38,180},{-22,180}},
           color={255,0,255}));
-  connect(max1.y, add1.u1) annotation (Line(points={{-118,90},{-106,90},{-106,96},
-          {-102,96}}, color={0,0,127}));
-  connect(add1.y, hys1.u) annotation (Line(points={{-78,90},{-62,90}},
+  connect(max1.y, add1.u1) annotation (Line(points={{-118,80},{-106,80},{-106,86},
+          {-102,86}}, color={0,0,127}));
+  connect(add1.y, hys1.u) annotation (Line(points={{-78,80},{-62,80}},
           color={0,0,127}));
   connect(mWat_flow, add2.u2) annotation (Line(points={{-280,50},{-110,50},{-110,
           174},{-102,174}}, color={0,0,127}));
   connect(mWat_flow, add1.u2) annotation (Line(points={{-280,50},{-110,50},{-110,
-          84},{-102,84}}, color={0,0,127}));
+          74},{-102,74}}, color={0,0,127}));
   connect(runSig, goSig.u2) annotation (Line(points={{-280,140},{-30,140},{-30,172},
           {-22,172}}, color={255,0,255}));
   connect(runSig, not1.u) annotation (Line(points={{-280,140},{-240,140},{-240,120},
           {-222,120}}, color={255,0,255}));
   connect(not1.y, noGoSig.u2) annotation (Line(points={{-198,120},{-30,120},{-30,
-          82},{-22,82}}, color={255,0,255}));
-  connect(hys1.y, noGoSig.u1) annotation (Line(points={{-38,90},{-22,90}},
+          72},{-22,72}}, color={255,0,255}));
+  connect(hys1.y, noGoSig.u1) annotation (Line(points={{-38,80},{-22,80}},
           color={255,0,255}));
-  connect(runSig, assWatMas.runSig) annotation (Line(points={{-280,140},{-240,140},
-          {-240,44},{78,44}}, color={255,0,255}));
-  connect(avaSig, transition1.condition) annotation (Line(points={{-280,-60},{-220,
-          -60},{-220,-20},{-80,-20},{-80,-12}}, color={255,0,255}));
+  connect(runSig, assWatMas.runSig) annotation (Line(points={{-280,140},{-240,
+          140},{-240,44},{38,44}}, color={255,0,255}));
+  connect(avaSig, transition1.condition) annotation (Line(points={{-280,-60},{-250,
+          -60},{-250,-20},{-80,-20},{-80,-12}}, color={255,0,255}));
   connect(runSig, transition2.condition) annotation (Line(points={{-280,140},{-240,
           140},{-240,-24},{-20,-24},{-20,-12}}, color={255,0,255}));
-  connect(avaSig, not2.u) annotation (Line(points={{-280,-60},{-240,-60},{-240,-100},
-          {-222,-100}}, color={255,0,255}));
-  connect(not1.y, or1.u1) annotation (Line(points={{-198,120},{-190,120},{-190,-120},
-          {-182,-120}}, color={255,0,255}));
-  connect(not2.y, or1.u2) annotation (Line(points={{-198,-100},{-194,-100},{-194,
-          -128},{-182,-128}}, color={255,0,255}));
-  connect(minWatFlo1.y, max1.u2) annotation (Line(points={{-158,90},{-150,90},{-150,
-          84},{-142,84}}, color={0,0,127}));
-  connect(con.y, max1.u1) annotation (Line(points={{-158,160},{-150,160},{-150,96},
-          {-142,96}}, color={0,0,127}));
-  connect(goSig.y, transition4.condition) annotation (Line(points={{2,180},{20,180},
-          {20,60},{-140,60},{-140,-28},{40,-28},{40,-12}}, color={255,0,255}));
-  connect(warmUp.y, and1.u1) annotation (Line(points={{80.6667,-5.2},{90,-5.2},
-          {90,-20},{98,-20}}, color={255,0,255}));
-  connect(goSig.y, and1.u2) annotation (Line(points={{2,180},{20,180},{20,60},{-140,
-          60},{-140,-28},{98,-28}}, color={255,0,255}));
-  connect(and1.y, transition6.condition) annotation (Line(points={{122,-20},{140,
-          -20},{140,-12}}, color={255,0,255}));
-  connect(transition8.outPort, cooDow.inPort) annotation (Line(points={{201.5,0},
-          {220,0},{220,-80},{100,-80},{100,-114},{119.333,-114}},   color={0,0,0}));
-  connect(or1.y, transition5.condition) annotation (Line(points={{-158,-120},{20,
-          -120},{20,-112}}, color={255,0,255}));
-  connect(not2.y, transition3.condition) annotation (Line(points={{-198,-100},{-20,
-          -100},{-20,-92}}, color={255,0,255}));
-  connect(standBy.suspend[1], transition3.inPort) annotation (Line(points={{-55,
-          -10.3333},{-55,-80},{-24,-80}}, color={0,0,0}));
-  connect(pumpOn.suspend[1], transition5.inPort) annotation (Line(points={{5,
-          -10.3333},{5,-100},{16,-100}},
-                               color={0,0,0}));
-  connect(warmUp.suspend[1], transition9.inPort) annotation (Line(points={{65,
-          -10.3333},{65,-110},{76,-110}},
-                                color={0,0,0}));
-  connect(transition9.outPort, cooDow.inPort1) annotation (Line(points={{81.5,
-          -110},{119.333,-110}},
-                           color={0,0,0}));
-  connect(cooDow.suspend[1], transition7.inPort) annotation (Line(points={{125,
-          -124.333},{125,-160},{136,-160}},
-                                  color={0,0,0}));
-  connect(transition7.outPort, warmUp.inPort1) annotation (Line(points={{141.5,
-          -160},{160,-160},{160,-140},{50,-140},{50,-5.33333},{59.3333,-5.33333}},
-                                                                              color={0,0,0}));
-  connect(and3.y, transition7.condition) annotation (Line(points={{102,-180},{140,
-          -180},{140,-172}}, color={255,0,255}));
-  connect(cooDow.y, and4.u1) annotation (Line(points={{140.667,-117.333},{170,
-          -117.333},{170,-190},{178,-190}},
-                                  color={255,0,255}));
-  connect(cooDow.outPort, transition10.inPort) annotation (Line(points={{140.333,
-          -114},{180,-114},{180,-120},{216,-120}}, color={0,0,0}));
-  connect(and4.y, transition10.condition) annotation (Line(points={{202,-190},{220,
-          -190},{220,-132}}, color={255,0,255}));
-  connect(transition3.outPort, plantOff.inPort[1]) annotation (Line(points={{-18.5,
-          -80},{0,-80},{0,-50},{-130,-50},{-130,0.666667},{-121,0.666667}},
-          color={0,0,0}));
-  connect(transition5.outPort, plantOff.inPort[2]) annotation (Line(points={{21.5,
-          -100},{40,-100},{40,-50},{-130,-50},{-130,0},{-121,0}}, color={0,0,0}));
-  connect(transition10.outPort, plantOff.inPort[3]) annotation (Line(points={{221.5,
-          -120},{240,-120},{240,-50},{-130,-50},{-130,-0.666667},{-121,-0.666667}},
-          color={0,0,0}));
-  connect(goSig.y, and3.u2) annotation (Line(points={{2,180},{20,180},{20,60},{-140,
-          60},{-140,-188},{78,-188}}, color={255,0,255}));
-  connect(optCooDow.y, and3.u1) annotation (Line(points={{62,-160},{70,-160},{70,
-          -180},{78,-180}}, color={255,0,255}));
-  connect(goSig.y, lat.clr) annotation (Line(points={{2,180},{20,180},{20,84},{38,
-          84}}, color={255,0,255}));
-  connect(noGoSig.y, lat.u) annotation (Line(points={{2,90},{38,90}},
+  connect(avaSig, not2.u) annotation (Line(points={{-280,-60},{-250,-60},{-250,
+          -140},{-222,-140}}, color={255,0,255}));
+  connect(not1.y, or1.u1) annotation (Line(points={{-198,120},{-190,120},{-190,-160},
+          {-182,-160}}, color={255,0,255}));
+  connect(not2.y, or1.u2) annotation (Line(points={{-198,-140},{-194,-140},{
+          -194,-168},{-182,-168}}, color={255,0,255}));
+  connect(minWatFlo1.y, max1.u2) annotation (Line(points={{-158,80},{-150,80},{-150,
+          74},{-142,74}}, color={0,0,127}));
+  connect(con.y, max1.u1) annotation (Line(points={{-158,160},{-150,160},{-150,86},
+          {-142,86}}, color={0,0,127}));
+  connect(goSig.y, transition4.condition) annotation (Line(points={{2,180},{20,
+          180},{20,56},{-140,56},{-140,-40},{40,-40},{40,-12}}, color={255,0,255}));
+  connect(and1.y, transition6.condition) annotation (Line(points={{142,-20},{
+          160,-20},{160,-12}}, color={255,0,255}));
+  connect(or1.y, transition5.condition) annotation (Line(points={{-158,-160},{40,
+          -160},{40,-92}}, color={255,0,255}));
+  connect(not2.y, transition3.condition) annotation (Line(points={{-198,-140},{
+          -20,-140},{-20,-92}}, color={255,0,255}));
+  connect(and3.y, transition7.condition) annotation (Line(points={{122,-160},{
+          220,-160},{220,-92}}, color={255,0,255}));
+  connect(and4.y, transition10.condition) annotation (Line(points={{230,-200},{240,
+          -200},{240,-72}}, color={255,0,255}));
+  connect(transition3.outPort, plaOff.inPort[1]) annotation (Line(points={{-18.5,
+          -80},{0,-80},{0,-100},{-130,-100},{-130,0.666667},{-121,0.666667}},
+        color={0,0,0}));
+  connect(transition5.outPort, plaOff.inPort[2]) annotation (Line(points={{41.5,
+          -80},{48,-80},{48,-100},{-130,-100},{-130,0},{-121,0}}, color={0,0,0}));
+  connect(transition10.outPort, plaOff.inPort[3]) annotation (Line(points={{241.5,
+          -60},{250,-60},{250,-100},{-130,-100},{-130,-0.666667},{-121,
+          -0.666667}}, color={0,0,0}));
+  connect(goSig.y, and3.u2) annotation (Line(points={{2,180},{20,180},{20,56},{
+          -140,56},{-140,-152},{98,-152}}, color={255,0,255}));
+  connect(optCooDow.y, and3.u1) annotation (Line(points={{82,-180},{90,-180},{90,
+          -160},{98,-160}}, color={255,0,255}));
+  connect(goSig.y, lat.clr) annotation (Line(points={{2,180},{20,180},{20,74},{38,
+          74}}, color={255,0,255}));
+  connect(noGoSig.y, lat.u) annotation (Line(points={{2,80},{38,80}},
           color={255,0,255}));
-  connect(lat.y, and4.u2) annotation (Line(points={{62,90},{80,90},{80,64},{-144,
-          64},{-144,-198},{178,-198}}, color={255,0,255}));
-  connect(lat.y, transition9.condition) annotation (Line(points={{62,90},{80,90},
-          {80,64},{-144,64},{-144,-130},{80,-130},{80,-122}}, color={255,0,255}));
-  connect(lat.y, transition8.condition) annotation (Line(points={{62,90},{80,90},
-          {80,64},{-144,64},{-144,-32},{200,-32},{200,-12}}, color={255,0,255}));
-
+  connect(lat.y, and4.u2) annotation (Line(points={{62,80},{80,80},{80,60},{
+          -144,60},{-144,-208},{206,-208}}, color={255,0,255}));
+  connect(lat.y, transition9.condition) annotation (Line(points={{62,80},{80,80},
+          {80,60},{-144,60},{-144,-140},{90,-140},{90,-92}},  color={255,0,255}));
+  connect(lat.y, transition8.condition) annotation (Line(points={{62,80},{220,
+          80},{220,12}}, color={255,0,255}));
+  connect(transition1.outPort, staBy.inPort[1])
+    annotation (Line(points={{-78.5,0},{-61,0}}, color={0,0,0}));
+  connect(staBy.outPort[1], transition2.inPort) annotation (Line(points={{-39.5,
+          0.25},{-32,0.25},{-32,0},{-24,0}}, color={0,0,0}));
+  connect(staBy.outPort[2], transition3.inPort) annotation (Line(points={{-39.5,
+          -0.25},{-32,-0.25},{-32,-80},{-24,-80}}, color={0,0,0}));
+  connect(transition2.outPort, pumOn.inPort[1])
+    annotation (Line(points={{-18.5,0},{-1,0}}, color={0,0,0}));
+  connect(pumOn.outPort[1], transition4.inPort)
+    annotation (Line(points={{20.5,0.25},{28,0},{36,0}}, color={0,0,0}));
+  connect(pumOn.outPort[2], transition5.inPort) annotation (Line(points={{20.5,-0.25},
+          {26,-0.25},{26,-80},{36,-80}}, color={0,0,0}));
+  connect(warUp.outPort[1], transition6.inPort) annotation (Line(points={{90.5,
+          0.25},{110,0.25},{110,0},{156,0}}, color={0,0,0}));
+  connect(warUp.outPort[2], transition9.inPort) annotation (Line(points={{90.5,
+          -0.25},{96,-0.25},{96,-20},{66,-20},{66,-80},{86,-80}}, color={0,0,0}));
+  connect(warUp.active, warUpCtr.actWarUp)
+    annotation (Line(points={{80,-11},{80,-34},{88,-34}}, color={255,0,255}));
+  connect(warUpCtr.y, and1.u2) annotation (Line(points={{112,-40},{114,-40},{
+          114,-28},{118,-28}}, color={255,0,255}));
+  connect(goSig.y, and1.u1) annotation (Line(points={{2,180},{100,180},{100,-20},
+          {118,-20}}, color={255,0,255}));
+  connect(transition4.outPort, warUp.inPort[1]) annotation (Line(points={{41.5,0},
+          {50,0},{50,0.5},{69,0.5}}, color={0,0,0}));
+  connect(transition7.outPort, warUp.inPort[2]) annotation (Line(points={{221.5,
+          -80},{230,-80},{230,-120},{60,-120},{60,0},{69,0},{69,-0.5}}, color=
+         {0,0,0}));
+  connect(transition8.outPort, cooDow.inPort[1]) annotation (Line(points={{221.5,0},
+          {240,0},{240,-40},{140,-40},{140,-79.5},{159,-79.5}},    color={0,0,0}));
+  connect(transition9.outPort, cooDow.inPort[2]) annotation (Line(points={{91.5,
+          -80},{140,-80},{140,-80.5},{159,-80.5}}, color={0,0,0}));
+  connect(cooDow.outPort[1], transition10.inPort) annotation (Line(points={{180.5,
+          -79.75},{200,-79.75},{200,-60},{236,-60}}, color={0,0,0}));
+  connect(cooDow.outPort[2], transition7.inPort) annotation (Line(points={{180.5,
+          -80.25},{182,-80.25},{182,-80},{216,-80}}, color={0,0,0}));
+  connect(timer.y, timeDel.u)
+    annotation (Line(points={{174,-180},{178,-180}}, color={0,0,127}));
+  connect(cooDow.active, timer.u) annotation (Line(points={{170,-91},{170,-140},
+          {140,-140},{140,-180},{150,-180}}, color={255,0,255}));
+  connect(timeDel.y, and4.u1) annotation (Line(points={{202,-180},{204,-180},{204,
+          -200},{206,-200}}, color={255,0,255}));
 annotation (
     defaultComponentName="conMai",
     Diagram(coordinateSystem(extent={{-260,-220},{260,220}})),

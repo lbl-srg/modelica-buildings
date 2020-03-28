@@ -2,7 +2,9 @@ within Buildings.Fluid.CHPs.Data;
 record Generic "Generic data for CHP models"
   extends Modelica.Icons.Record;
   parameter Real[27] coeEtaQ=fill(0,27)
-    "Vector of coefficients used to calculate thermal efficiency of the engine. The independent variable x1 is the steady-state electrical output, x2 is the mass flow rate of the cooling water and x3 is the cooling water inlet temperature.
+    "Vector of coefficients used to calculate thermal efficiency of the engine. 
+    The independent variable x1 is the steady-state electrical output, 
+    x2 is the mass flow rate of the cooling water and x3 is the cooling water inlet temperature.
     Coefficients next to the terms have the following order:
     constant, x1^2, x1, x2^2, x2, x3^2, x3, 
     x1^2*x2^2, x1*x2, x1*x2^2, x1^2*x2,
@@ -11,12 +13,17 @@ record Generic "Generic data for CHP models"
     x1^2*x2^2*x3^2,  x1^2*x2^2*x3,  x1^2*x2*x3^2,  x1*x2^2*x3^2,
     x1^2*x2*x3, x1*x2^2*x3,  x1*x2*x3^2,  x1*x2*x3";
   parameter Real[27] coeEtaE=fill(0,27)
-    "Vector of coefficients used to calculate electrical conversion efficiency of the engine. The independent varilables and order of the coefficients are the same as for the thermal efficiency";
+    "Vector of coefficients used to calculate electrical conversion efficiency 
+    of the engine. The independent varilables and order of the coefficients 
+    are the same as for the thermal efficiency";
   parameter Boolean coolingWaterControl=true
     "If true, then empirical correlation is used to calculte cooling water mass flow rate based on internal control";
   parameter Real[6] coeMasWat=fill(0,6)
-    "Vector of coefficients used to calculate cooling water mass flow rate. Used if the empirical correlation should be used to calculate cooling water mass flow rate based on internal control.
-    The independent variable x1 is the steady-state electrical output,x2 is the mass flow rate of the cooling water.
+    "Vector of coefficients used to calculate cooling water mass flow rate. 
+    Used if the empirical correlation should be used to calculate cooling 
+    water mass flow rate based on internal control.
+    The independent variable x1 is the steady-state electrical output, 
+    x2 is the mass flow rate of the cooling water.
     Coefficients next to the terms have the following order:
     constant, x1, x1^2, x2, x2^2, x3^2, x1*x2";
   parameter Real[3] coeMasAir=fill(0,3)
@@ -33,14 +40,16 @@ record Generic "Generic data for CHP models"
   parameter Modelica.SIunits.HeatCapacity MCcw = 0
     "Thermal capacitance of heat recovery portion";
   parameter Boolean warmUpByTimeDelay=true
-    "If true, the plant will be in warm-up mode depending on the delay time, otherwise depending on engine temperature ";
+    "If true, the plant will be in warm-up mode depending on the delay time, 
+    otherwise depending on engine temperature ";
   parameter Modelica.SIunits.Time timeDelayStart = 60
     "Time delay between activation and power generation";
   parameter Modelica.SIunits.Temperature TEngNom = 273.15+100
     "Nominal engine operating temperature";
   parameter Boolean coolDownOptional=false
-    "If true, cooldown is optional. The model will complete cooldown before switching to standby,   
-    but if reactivated during cooldown period, it will immediately switch into warm-up mode";
+    "If true, cooldown is optional. The model will complete cooldown before 
+    switching to standby, but if reactivated during cooldown period, it 
+    will immediately switch into warm-up mode";
   parameter Modelica.SIunits.Time timeDelayCool = 0
     "Cooldown period";
   parameter Modelica.SIunits.Power PEleMax = 1000000
@@ -52,9 +61,11 @@ record Generic "Generic data for CHP models"
   parameter Modelica.SIunits.Temperature TWatMax = 373.15
     "Maximum cooling water temperature";
   parameter Boolean dPEleLim=false
-    "If true, net electrical power rate of change is limited by the maximum net electrical power change rate";
+    "If true, net electrical power rate of change is limited by the maximum 
+    net electrical power change rate";
   parameter Boolean dmFueLim=false
-    "If true, fuel flow rate of change is limited by the maximum fuel flow change rate";
+    "If true, fuel flow rate of change is limited by the maximum fuel flow 
+    change rate";
   parameter Real dPEleMax = 0
     "Maximum net electrical power rate of change in W/s";
   parameter Real dmFueMax = 0
@@ -71,7 +82,6 @@ record Generic "Generic data for CHP models"
     "Warm up power coefficient";
   parameter Real rFue(final unit="1") = 10
     "Warm up maximum fuel flow ratio";
-
 annotation (
   defaultComponentPrefixes = "parameter",
   defaultComponentName = "per",

@@ -9,17 +9,16 @@ model StandBy "Validate model StandBy"
     final k=0.5) "Water flow rate"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
   Buildings.Fluid.CHPs.BaseClasses.Types.Mode actMod "Mode indicator";
-  Buildings.Fluid.CHPs.BaseClasses.PumpOn pumOn
-    "Operating mode in which the water pump starts to run"
-    annotation (Placement(transformation(extent={{40,70},{60,90}})));
-  Buildings.Fluid.CHPs.BaseClasses.StandBy staBy "Stand-by operating mode"
-    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   Modelica.StateGraph.TransitionWithSignal transition1 "Off to standby mode"
     annotation (Placement(transformation(extent={{-50,70},{-30,90}})));
   Modelica.StateGraph.TransitionWithSignal transition2
     "Standby to pump on mode"
     annotation (Placement(transformation(extent={{10,70},{30,90}})));
 
+  Modelica.StateGraph.Step staBy(nOut=2) "Plant is in standby mode"
+    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
+  Modelica.StateGraph.Step pumOn(nOut=2) "Plant pump is on"
+    annotation (Placement(transformation(extent={{40,70},{60,90}})));
 protected
   Modelica.Blocks.Sources.BooleanTable avaSig(table={300,600,900,1260})
     "Plant availability signal"
@@ -55,18 +54,8 @@ equation
   else
     actMod = CHPs.BaseClasses.Types.Mode.PumpOn;
   end if;
-  connect(pumOn.outPort, transition3.inPort)
-    annotation (Line(points={{60.3333,80},{76,80}}, color={0,0,0}));
   connect(transition1.inPort, off.outPort[1])
     annotation (Line(points={{-44,80},{-59.5,80}}, color={0,0,0}));
-  connect(transition1.outPort, staBy.inPort)
-    annotation (Line(points={{-38.5,80},{-20.6667,80}}, color={0,0,0}));
-  connect(transition2.inPort, staBy.outPort)
-    annotation (Line(points={{16,80},{0.333333,80}}, color={0,0,0}));
-  connect(transition2.outPort, pumOn.inPort)
-    annotation (Line(points={{21.5,80},{39.3333,80}}, color={0,0,0}));
-  connect(transition4.inPort, staBy.suspend[1]) annotation (Line(points={{-36,40},
-          {-14,40},{-14,69.6667},{-15,69.6667}}, color={0,0,0}));
   connect(transition4.outPort, off.inPort[1]) annotation (Line(points={{-41.5,40},
           {-90,40},{-90,80.5},{-81,80.5}}, color={0,0,0}));
   connect(transition3.outPort, off.inPort[2]) annotation (Line(points={{81.5,80},
@@ -86,6 +75,16 @@ equation
   connect(cheMinFlo.y, transition3.condition)
     annotation (Line(points={{42,-40},{80,-40},{80,68}}, color={255,0,255}));
 
+  connect(pumOn.outPort[1], transition3.inPort) annotation (Line(points={{60.5,
+          80.25},{68,80.25},{68,80},{76,80}}, color={0,0,0}));
+  connect(transition2.outPort, pumOn.inPort[1])
+    annotation (Line(points={{21.5,80},{39,80}}, color={0,0,0}));
+  connect(staBy.outPort[1], transition2.inPort) annotation (Line(points={{0.5,
+          80.25},{8,80.25},{8,80},{16,80}}, color={0,0,0}));
+  connect(transition1.outPort, staBy.inPort[1])
+    annotation (Line(points={{-38.5,80},{-21,80}}, color={0,0,0}));
+  connect(staBy.outPort[2], transition4.inPort) annotation (Line(points={{0.5,
+          79.75},{10,79.75},{10,40},{-36,40}}, color={0,0,0}));
 annotation (
   experiment(StopTime=1500, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/BaseClasses/Validation/StandBy.mos"

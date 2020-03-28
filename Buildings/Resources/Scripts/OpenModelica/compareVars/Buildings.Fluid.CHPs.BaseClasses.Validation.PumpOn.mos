@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "actMod",
-    "transition2.condition"
-  };

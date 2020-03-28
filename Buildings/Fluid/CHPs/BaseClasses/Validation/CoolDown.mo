@@ -6,8 +6,6 @@ model CoolDown "Validate model CoolDown"
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
 
   Buildings.Fluid.CHPs.BaseClasses.Types.Mode actMod "Mode indicator";
-  Buildings.Fluid.CHPs.BaseClasses.CoolDown cooDow(final per=per) "Cool-down mode"
-    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Modelica.Blocks.Sources.BooleanTable runSig(
     final startValue=true,
     table={300,600,660,690}) "Plant run signal"
@@ -22,6 +20,8 @@ model CoolDown "Validate model CoolDown"
     "Cool down is optional"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
 
+  Modelica.StateGraph.StepWithSignal cooDow(nIn=2, nOut=2) "Cool-down mode"
+    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 protected
   Modelica.StateGraph.InitialStep norm(final nIn=2, final nOut=2)
     "Normal operation mode"
@@ -45,6 +45,13 @@ protected
     final waitTime=0)
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
 
+protected
+  Controls.OBC.CDL.Logical.Timer           timer
+    annotation (Placement(transformation(extent={{0,0},{20,20}})));
+  Controls.OBC.CDL.Continuous.GreaterEqualThreshold timeDel(final threshold=per.timeDelayCool)
+    "Check if the time of  plant in cool-down mode has been longer than the 
+    specified delay time"
+    annotation (Placement(transformation(extent={{30,0},{50,20}})));
 equation
   if norm.active then
     actMod = Buildings.Fluid.CHPs.BaseClasses.Types.Mode.Normal;
@@ -57,24 +64,14 @@ equation
           {-90,0},{-90,50.5},{-81,50.5}}, color={0,0,0}));
   connect(transition1.inPort, norm.outPort[1]) annotation (Line(points={{-44,70},
           {-52,70},{-52,50.25},{-59.5,50.25}}, color={0,0,0}));
-  connect(transition4.inPort, cooDow.suspend[1]) annotation (Line(points={{-36,0},
-          {-16,0},{-16,39.6667},{-15,39.6667}}, color={0,0,0}));
   connect(off.inPort[1], transition2.outPort) annotation (Line(points={{39,50},
           {21.5,50}}, color={0,0,0}));
-  connect(transition2.inPort, cooDow.outPort) annotation (Line(points={{16,50},
-          {0.333333,50}}, color={0,0,0}));
   connect(off.outPort[1], transition3.inPort) annotation (Line(points={{60.5,50},
           {76,50}}, color={0,0,0}));
   connect(transition3.outPort, norm.inPort[2]) annotation (Line(points={{81.5,50},
           {90,50},{90,-20},{-90,-20},{-90,49.5},{-81,49.5}}, color={0,0,0}));
   connect(transition5.inPort, norm.outPort[2]) annotation (Line(points={{-44,30},
           {-52,30},{-52,49.75},{-59.5,49.75}},color={0,0,0}));
-  connect(transition1.outPort, cooDow.inPort1) annotation (Line(points={{-38.5,
-          70},{-30,70},{-30,54},{-20.6667,54}},
-                                            color={0,0,0}));
-  connect(transition5.outPort, cooDow.inPort) annotation (Line(points={{-38.5,
-          30},{-30,30},{-30,50},{-20.6667,50}},
-                                           color={0,0,0}));
   connect(runSig.y, notRun.u) annotation (Line(points={{-59,-100},{-22,-100}},
           color={255,0,255}));
   connect(notRun.y, transition1.condition) annotation (Line(points={{2,-100},{40,
@@ -87,10 +84,22 @@ equation
           -40,-100},{-40,-40},{80,-40},{80,38}}, color={255,0,255}));
   connect(and1.y, transition4.condition) annotation (Line(points={{2,-60},{20,-60},
           {20,-30},{-40,-30},{-40,-12}}, color={255,0,255}));
-  connect(cooDow.y, transition2.condition) annotation (Line(points={{0.666667,
-          46.6667},{10,46.6667},{10,30},{20,30},{20,38}},
-                                                 color={255,0,255}));
 
+  connect(cooDow.outPort[1], transition2.inPort) annotation (Line(points={{0.5,
+          50.25},{8,50.25},{8,50},{16,50}}, color={0,0,0}));
+  connect(timer.y, timeDel.u)
+    annotation (Line(points={{22,10},{28,10}}, color={0,0,127}));
+  connect(cooDow.outPort[2], transition4.inPort) annotation (Line(points={{0.5,
+          49.75},{10,49.75},{10,30},{-20,30},{-20,0},{-36,0}}, color={0,0,0}));
+  connect(transition1.outPort, cooDow.inPort[1]) annotation (Line(points={{
+          -38.5,70},{-32,70},{-32,50},{-22,50},{-22,50.5},{-21,50.5}}, color={0,
+          0,0}));
+  connect(transition5.outPort, cooDow.inPort[2]) annotation (Line(points={{
+          -38.5,30},{-32,30},{-32,49.5},{-21,49.5}}, color={0,0,0}));
+  connect(cooDow.active, timer.u)
+    annotation (Line(points={{-10,39},{-10,10},{-2,10}}, color={255,0,255}));
+  connect(timeDel.y, transition2.condition) annotation (Line(points={{52,10},{
+          60,10},{60,30},{20,30},{20,38}}, color={255,0,255}));
 annotation (
   experiment(StopTime=900, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/BaseClasses/Validation/CoolDown.mos"

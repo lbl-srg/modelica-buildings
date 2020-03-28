@@ -1,94 +1,87 @@
 within Buildings.Fluid.CHPs.BaseClasses;
-model WarmUp "Warm-up operating mode"
-  extends Modelica.StateGraph.PartialCompositeStep;
-  replaceable parameter Buildings.Fluid.CHPs.Data.Generic per
-    "Performance data"
-    annotation (Placement(transformation(extent={{100,120},{120,140}})));
-
-  Modelica.StateGraph.Interfaces.Step_in inPort1
-    annotation (Placement(transformation(extent={{-170,-90},{-150,-110}}),
-      iconTransformation(extent={{-170,-70},{-150,-90}})));
+model WarmUp "Warm-up control sequence"
+  extends Modelica.Blocks.Icons.Block;
+  parameter Modelica.SIunits.Time timeDelayStart
+    "Time delay between activation and power generation";
+  parameter Modelica.SIunits.Temperature TEngNom
+    "Nominal engine operating temperature";
+  parameter Boolean warmUpByTimeDelay
+    "If true, the plant will be in warm-up mode depending on the delay time, 
+    otherwise depending on engine temperature ";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TEng(
     final unit="K",
     final quantity="ThermodynamicTemperature") "Engine temperature"
-    annotation (Placement(transformation(extent={{-170,90},{-150,110}}),
-      iconTransformation(extent={{-190,80},{-150,120}})));
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
+      iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y "Transition signal"
-    annotation (Placement(transformation(extent={{150,-50},{170,-30}}),
-      iconTransformation(extent={{150,-88},{170,-68}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+      iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Logical.And and1
     "Warm-up by time delay and it has been longer than the specified time"
-    annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
+    annotation (Placement(transformation(extent={{32,-30},{52,-10}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
     "Warm-up by engine temperature and the temperature is higher than nominal"
-    annotation (Placement(transformation(extent={{80,80},{100,100}})));
+    annotation (Placement(transformation(extent={{32,50},{52,70}})));
   Buildings.Controls.OBC.CDL.Logical.Xor xor
     "Check if it should change from warm-up mode to other modes"
-    annotation (Placement(transformation(extent={{120,-50},{140,-30}})));
-  Modelica.StateGraph.StepWithSignal warmUpState(nIn=2)
-    annotation (Placement(transformation(extent={{-36,-16},{-4,16}})));
-
+    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
+  Controls.OBC.CDL.Interfaces.BooleanInput actWarUp
+    "Warm-up state active signal"
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
+      iconTransformation(extent={{-140,-80},{-100, -40}})));
 protected
   Buildings.Controls.OBC.CDL.Logical.Timer timer
     "Count the time since the warm-up mode is activated"
-    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
+    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold timeDel(
-    final threshold=per.timeDelayStart)
+    final threshold=timeDelayStart)
     "Check if it has been in warm-up mode by longer than specified time"
-    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
+    annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysteresis(
     final uLow=0.5, final uHigh=1)
     "Check if current engine temperature is higher than norminal value"
-    annotation (Placement(transformation(extent={{40,80},{60,100}})));
+    annotation (Placement(transformation(extent={{-10,50},{10,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add(final k2=-1)
     "Difference between norminal engin temperature and the current value"
-    annotation (Placement(transformation(extent={{0,80},{20,100}})));
+    annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant norEngTem(
-    final k=per.TEngNom)
+    final k=TEngNom)
     "Nominal engine temperature"
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant timDel(
-    final k=per.warmUpByTimeDelay)
+    final k=warmUpByTimeDelay)
     "Warm-up by time delay"
-    annotation (Placement(transformation(extent={{0,40},{20,60}})));
+    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   Buildings.Controls.OBC.CDL.Logical.Not engTem "Warm-up by engine temperature"
-    annotation (Placement(transformation(extent={{40,40},{60,60}})));
-
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
-  connect(warmUpState.active, timer.u) annotation (Line(points={{-20,-17.6},{
-          -20,-70},{-2,-70}}, color={255,0,255}));
-  connect(timer.y, timeDel.u) annotation (Line(points={{22,-70},{38,-70}},
-          color={0,0,255}));
-  connect(inPort, warmUpState.inPort[1]) annotation (Line(points={{-160,0},{-80,
-          0},{-80,0.8},{-37.6,0.8}}, color={0,0,0}));
-  connect(warmUpState.outPort[1], outPort) annotation (Line(points={{-3.2,0},{
-          155,0}},  color={0,0,0}));
-  connect(inPort1, warmUpState.inPort[2]) annotation (Line(points={{-160,-100},
-          {-120,-100},{-120,0},{-58,0},{-58,-0.8},{-37.6,-0.8}},color={0,0,0}));
-  connect(xor.y, y) annotation (Line(points={{142,-40},{160,-40}},
+  connect(xor.y, y) annotation (Line(points={{92,0},{120,0}},
           color={255,0,255}));
-  connect(and1.y, xor.u1) annotation (Line(points={{102,-40},{118,-40}},
+  connect(hysteresis.y, and2.u1) annotation (Line(points={{12,60},{30,60}},
           color={255,0,255}));
-  connect(hysteresis.y, and2.u1) annotation (Line(points={{62,90},{78,90}},
-          color={255,0,255}));
-  connect(and2.y, xor.u2) annotation (Line(points={{102,90},{110,90},{110,-48},{
-          118,-48}}, color={255,0,255}));
-  connect(add.y, hysteresis.u) annotation (Line(points={{22,90},{38,90}},
+  connect(add.y, hysteresis.u) annotation (Line(points={{-28,60},{-12,60}},
           color={0,0,127}));
-  connect(TEng, add.u1) annotation (Line(points={{-160,100},{-60,100},{-60,96},{
-          -2,96}}, color={0,0,127}));
-  connect(norEngTem.y, add.u2) annotation (Line(points={{-18,50},{-10,50},{-10,84},
-          {-2,84}}, color={0,0,127}));
-  connect(timDel.y, engTem.u) annotation (Line(points={{22,50},{38,50}},
+  connect(TEng, add.u1) annotation (Line(points={{-120,60},{-80,60},{-80,66},{-52,
+          66}},    color={0,0,127}));
+  connect(norEngTem.y, add.u2) annotation (Line(points={{-68,0},{-60,0},{-60,54},
+          {-52,54}},color={0,0,127}));
+  connect(timDel.y, engTem.u) annotation (Line(points={{-28,0},{-12,0}},
           color={255,0,255}));
-  connect(engTem.y, and2.u2) annotation (Line(points={{62,50},{70,50},{70,82},{78,
-          82}}, color={255,0,255}));
-  connect(timDel.y, and1.u1) annotation (Line(points={{22,50},{30,50},{30,-40},{
-          78,-40}}, color={255,0,255}));
-  connect(timeDel.y, and1.u2) annotation (Line(points={{62,-70},{70,-70},{70,-48},
-          {78,-48}}, color={255,0,255}));
-
-annotation (defaultComponentName="warUp", Documentation(info="<html>
+  connect(engTem.y, and2.u2) annotation (Line(points={{12,0},{20,0},{20,52},{30,
+          52}}, color={255,0,255}));
+  connect(timDel.y, and1.u1) annotation (Line(points={{-28,0},{-20,0},{-20,-20},
+          {30,-20}},color={255,0,255}));
+  connect(timeDel.y, and1.u2) annotation (Line(points={{-18,-60},{0,-60},{0,-28},
+          {30,-28}}, color={255,0,255}));
+  connect(actWarUp, timer.u)
+    annotation (Line(points={{-120,-60},{-82,-60}}, color={255,0,255}));
+  connect(timer.y, timeDel.u)
+    annotation (Line(points={{-58,-60},{-42,-60}}, color={0,0,127}));
+  connect(and2.y, xor.u1) annotation (Line(points={{54,60},{60,60},{60,0},{68,0}},
+        color={255,0,255}));
+  connect(and1.y, xor.u2) annotation (Line(points={{54,-20},{60,-20},{60,-8},{68,
+          -8}}, color={255,0,255}));
+annotation (defaultComponentName="warUpCtr", Documentation(info="<html>
 <p>
 The model defines the warm-up operating mode. 
 CHP will transition from the warm-up mode to the normal mode after the specified 
