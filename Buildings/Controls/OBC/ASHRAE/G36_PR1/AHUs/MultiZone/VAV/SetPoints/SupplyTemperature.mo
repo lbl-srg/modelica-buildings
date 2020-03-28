@@ -59,7 +59,7 @@ block SupplyTemperature
   parameter Real samplePeriod(
     final unit="s",
     final quantity="Time",
-    min=1E-3) = 120
+    final min=1E-3) = 120
     "Sample period of component"
     annotation(Dialog(group="Trim and respond logic"));
   parameter Integer numIgnReq = 2
