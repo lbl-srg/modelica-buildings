@@ -314,8 +314,8 @@ block Controller "Multizone AHU controller that composes subsequences for contro
       Dialog(tab="Minimum outdoor airflow rate", group="Nominal conditions"));
 
   parameter Real VPriSysMax_flow(
-    final unit=fill("m3/s", numZon),
-    final quantity=fill("VolumeFlowRate", numZon))
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")
     "Maximum expected system primary airflow at design stage"
     annotation (Evaluate=true,
       Dialog(tab="Minimum outdoor airflow rate", group="Nominal conditions"));
