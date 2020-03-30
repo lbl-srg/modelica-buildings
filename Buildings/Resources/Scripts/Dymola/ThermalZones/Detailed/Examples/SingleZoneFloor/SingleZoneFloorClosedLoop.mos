@@ -1,0 +1,3 @@
+﻿simulateModel("Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.SingleZoneFloorClosedLoop", stopTime=604800, method="Cvode", tolerance=1e-06, resultFile="SingleZoneFloorClosedLoop");
+createPlot(id=1, subPlot=1, position={35, 31, 1140, 867}, y={"EHeaFlo.y", "heaAndCon.yEHea"}, range={0.0, 620000.0, -500000000.0, 2000000000.0}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, subPlot=2, position={35, 31, 1140, 454}, y={"TSetRoo.y", "sinZonFlo.TRooAir", "flo.sou.air.vol.T", "flo.eas.air.vol.T","flo.nor.air.vol.T", "flo.wes.air.vol.T", "flo.cor.air.vol.T"}, range={0.0, 620000.0, 15.0, 27.0}, grid=true, colors={{28,108,200},{238,46,47},{0,140,72}, {217,67,180},{0,0,0},{162,29,33},{244,125,35}});
