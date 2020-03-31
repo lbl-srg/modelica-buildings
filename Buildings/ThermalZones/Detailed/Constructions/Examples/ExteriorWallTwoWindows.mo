@@ -3,11 +3,11 @@ model ExteriorWallTwoWindows
   "Test model for an exterior wall with two windows, one having a shade, the other not"
   extends Modelica.Icons.Example;
   parameter Integer nCon = 2 "Number of constructions";
-  parameter Modelica.SIunits.Area A[:]={3*10, 3*10}
+  parameter Modelica.Units.SI.Area A[:]={3*10,3*10}
     "Heat transfer area of wall and window";
-  parameter Modelica.SIunits.Length hWin[:] = {2, 1} "Window height";
-  parameter Modelica.SIunits.Length wWin[:] = {3, 3} "Window width";
-  parameter Modelica.SIunits.Area AWin[:]= hWin .* wWin
+  parameter Modelica.Units.SI.Length hWin[:]={2,1} "Window height";
+  parameter Modelica.Units.SI.Length wWin[:]={3,3} "Window width";
+  parameter Modelica.Units.SI.Area AWin[:]=hWin .* wWin
     "Heat transfer area of frame and window";
   parameter Real fFra[:]={0.1, 0.1}
     "Fraction of window frame divided by total window area";

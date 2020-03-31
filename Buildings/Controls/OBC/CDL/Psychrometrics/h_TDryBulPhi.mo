@@ -22,10 +22,10 @@ block h_TDryBulPhi
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TDryBul_degC
+  Modelica.Units.NonSI.Temperature_degC TDryBul_degC
     "Dry bulb temperature in degree Celsius";
-  Modelica.SIunits.Pressure p_w(displayUnit="Pa") "Water vapor pressure";
-  Modelica.SIunits.MassFraction XiDryBul(nominal=0.01)
+  Modelica.Units.SI.Pressure p_w(displayUnit="Pa") "Water vapor pressure";
+  Modelica.Units.SI.MassFraction XiDryBul(nominal=0.01)
     "Water vapor mass fraction at dry bulb state";
 
   // Modelica.SIunits.Temperature T_ref = 273.15

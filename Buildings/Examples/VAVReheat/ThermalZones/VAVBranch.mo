@@ -9,9 +9,9 @@ model VAVBranch "Supply branch of a VAV system"
   parameter Boolean allowFlowReversal=true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Mass flow rate of this thermal zone";
-  parameter Modelica.SIunits.Volume VRoo "Room volume";
+  parameter Modelica.Units.SI.Volume VRoo "Room volume";
 
   Buildings.Fluid.Actuators.Dampers.PressureIndependent vav(
     redeclare package Medium = MediumA,

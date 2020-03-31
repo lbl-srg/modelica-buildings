@@ -24,13 +24,13 @@ model Controller_Mod_DamLim
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 
 protected
-  parameter Modelica.SIunits.Temperature TOutCutoff=297.15
+  parameter Modelica.Units.SI.Temperature TOutCutoff=297.15
     "Outdoor temperature high limit cutoff";
-  parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
+  parameter Modelica.Units.SI.SpecificEnergy hOutCutoff=65100
     "Outdoor air enthalpy high limit cutoff";
-  parameter Modelica.SIunits.Temperature TSupSet=291.15
+  parameter Modelica.Units.SI.Temperature TSupSet=291.15
     "Supply air temperature Heating setpoint";
-  parameter Modelica.SIunits.Temperature TSup=290.15
+  parameter Modelica.Units.SI.Temperature TSup=290.15
     "Measured supply air temperature";
   parameter Real yFanMin(
     final min=0,
@@ -40,8 +40,10 @@ protected
     final min=0,
     final max=1,
     final unit="1") = 0.9 "Maximum supply fan operation speed";
-  parameter Modelica.SIunits.VolumeFlowRate VOutMin_flow = 1.0 "Calculated minimum outdoor airflow rate";
-  parameter Modelica.SIunits.VolumeFlowRate VOutDes_flow = 2.0 "Calculated design outdoor airflow rate";
+  parameter Modelica.Units.SI.VolumeFlowRate VOutMin_flow=1.0
+    "Calculated minimum outdoor airflow rate";
+  parameter Modelica.Units.SI.VolumeFlowRate VOutDes_flow=2.0
+    "Calculated design outdoor airflow rate";
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanSta(
     k=true) "Fan is on"

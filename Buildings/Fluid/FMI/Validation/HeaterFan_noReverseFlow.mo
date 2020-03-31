@@ -11,11 +11,11 @@ model HeaterFan_noReverseFlow
     "= true to use a pressure from connector, false to output Medium.p_default"
     annotation(Evaluate=true);
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=Q_flow_nominal/1000/10
-    "Nominal mass flow rate";
-  parameter Modelica.SIunits.PressureDifference dp_nominal(displayUnit="Pa")=2000
-    "Pressure";
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 1000
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=Q_flow_nominal/1000/
+      10 "Nominal mass flow rate";
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")
+     = 2000 "Pressure";
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal=1000
     "Heat flow rate at u=1, positive for heating";
 
   ExportContainers.Examples.FMUs.Fan floMac(

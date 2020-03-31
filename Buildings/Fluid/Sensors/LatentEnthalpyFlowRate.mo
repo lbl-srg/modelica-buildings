@@ -5,24 +5,25 @@ model LatentEnthalpyFlowRate
     redeclare replaceable package Medium =
         Modelica.Media.Interfaces.PartialCondensingGases);
   extends Buildings.Fluid.BaseClasses.IndexMassFraction(final substanceName="water");
-  extends Modelica.Icons.RotationalSensor;
+  extends Modelica.Icons.RoundSensor;
   Modelica.Blocks.Interfaces.RealOutput H_flow(final unit="W")
     "Latent enthalpy flow rate, positive if from port_a to port_b"
     annotation (Placement(transformation(
         origin={0,110},
         extent={{-10,-10},{10,10}},
         rotation=90)));
-  parameter Modelica.SIunits.SpecificEnthalpy h_out_start=
-    Medium.specificEnthalpy_pTX(
-      p=Medium.p_default, T=Medium.T_default, X=Medium.X_default)
-    -Medium.enthalpyOfNonCondensingGas(T=Medium.T_default)
+  parameter Modelica.Units.SI.SpecificEnthalpy h_out_start=
+      Medium.specificEnthalpy_pTX(
+      p=Medium.p_default,
+      T=Medium.T_default,
+      X=Medium.X_default) - Medium.enthalpyOfNonCondensingGas(T=Medium.T_default)
     "Initial or guess value of measured specific latent enthalpy"
     annotation (Dialog(group="Initialization"));
 
 protected
-  Modelica.SIunits.SpecificEnthalpy hMed_out(start=h_out_start)
+  Modelica.Units.SI.SpecificEnthalpy hMed_out(start=h_out_start)
     "Medium latent enthalpy to which the sensor is exposed";
-  Modelica.SIunits.SpecificEnthalpy h_out(start=h_out_start)
+  Modelica.Units.SI.SpecificEnthalpy h_out(start=h_out_start)
     "Medium latent enthalpy that is used to compute the enthalpy flow rate";
 
   Medium.MassFraction XiActual[Medium.nXi]

@@ -3,7 +3,7 @@ model ChillerDXHeatingEconomizerController
   "Controller for single zone VAV system"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Modelica.SIunits.Temperature TSupChi_nominal
+  parameter Modelica.Units.SI.Temperature TSupChi_nominal
     "Design value for chiller leaving water temperature";
   parameter Real minAirFlo(
     min=0,
@@ -12,11 +12,13 @@ model ChillerDXHeatingEconomizerController
     "Minimum airflow rate of system"
     annotation(Dialog(group="Air design"));
 
-  parameter Modelica.SIunits.DimensionlessRatio minOAFra "Minimum outdoor air fraction of system"
-    annotation(Dialog(group="Air design"));
+  parameter Modelica.Units.SI.DimensionlessRatio minOAFra
+    "Minimum outdoor air fraction of system"
+    annotation (Dialog(group="Air design"));
 
-  parameter Modelica.SIunits.Temperature TSetSupAir "Cooling supply air temperature setpoint"
-    annotation(Dialog(group="Air design"));
+  parameter Modelica.Units.SI.Temperature TSetSupAir
+    "Cooling supply air temperature setpoint"
+    annotation (Dialog(group="Air design"));
 
   parameter Real kHea(min=Modelica.Constants.small) = 2
     "Gain of heating controller"

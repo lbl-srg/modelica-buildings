@@ -8,10 +8,10 @@ model SimplifiedRoom "Simplified data center room"
       connectorSizing=true,
       tab="General",
       group="Ports"));
-  parameter Modelica.SIunits.Length rooLen "Length of the room";
-  parameter Modelica.SIunits.Length rooWid "Width of the room";
-  parameter Modelica.SIunits.Height rooHei "Height of the room";
-  parameter Modelica.SIunits.Power QRoo_flow
+  parameter Modelica.Units.SI.Length rooLen "Length of the room";
+  parameter Modelica.Units.SI.Length rooWid "Width of the room";
+  parameter Modelica.Units.SI.Height rooHei "Height of the room";
+  parameter Modelica.Units.SI.Power QRoo_flow
     "Heat generation of the computer room";
 
   Buildings.Fluid.MixingVolumes.MixingVolume rooVol(
@@ -41,7 +41,7 @@ model SimplifiedRoom "Simplified data center room"
     duration=36000,
     startTime=0)
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Nominal mass flow rate";
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TAir
     "Room air temperature"

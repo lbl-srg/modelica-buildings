@@ -2,7 +2,8 @@ within Buildings.Applications.DataCenters.ChillerCooled.Controls.Validation;
 model VariableSpeedPumpStage
   "Test the model ChillerWSE.Examples.BaseClasses.VariableSpeedPumpStageControl"
   extends Modelica.Icons.Example;
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=100 "Nominal mass flowrate";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=100
+    "Nominal mass flowrate";
 
   Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage
     varSpePumSta(tWai=30, m_flow_nominal=m_flow_nominal,
@@ -16,9 +17,8 @@ model VariableSpeedPumpStage
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Modelica.Blocks.Sources.Sine masFlo(
     offset=0.5*m_flow_nominal,
-    freqHz=1/360,
-    amplitude=0.5*m_flow_nominal)
-    "Mass flowrate"
+    f=1/360,
+    amplitude=0.5*m_flow_nominal) "Mass flowrate"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
 equation
   connect(speSig.y, varSpePumSta.speSig)

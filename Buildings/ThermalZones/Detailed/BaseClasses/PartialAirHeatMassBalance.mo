@@ -13,7 +13,7 @@ partial model PartialAirHeatMassBalance
   parameter Boolean haveShade
     "Set to true if at least one window has an interior or exterior shade";
 
-  parameter Modelica.SIunits.Volume V "Volume";
+  parameter Modelica.Units.SI.Volume V "Volume";
 
   // Input/output signals
   Modelica.Blocks.Interfaces.RealInput uSha[NConExtWin] if haveShade
@@ -103,19 +103,21 @@ partial model PartialAirHeatMassBalance
 
   // Surface areas
 protected
-  final parameter Modelica.SIunits.Area AConExt[NConExt] = datConExt.A
+  final parameter Modelica.Units.SI.Area AConExt[NConExt]=datConExt.A
     "Areas of exterior constructions";
-  final parameter Modelica.SIunits.Area AConExtWinOpa[NConExtWin] = datConExtWin.AOpa
+  final parameter Modelica.Units.SI.Area AConExtWinOpa[NConExtWin]=datConExtWin.AOpa
     "Opaque areas of exterior construction that have a window";
-  final parameter Modelica.SIunits.Area AConExtWinGla[NConExtWin] = (1 .- datConExtWin.fFra) .* datConExtWin.AWin
+  final parameter Modelica.Units.SI.Area AConExtWinGla[NConExtWin]=(1 .-
+      datConExtWin.fFra) .* datConExtWin.AWin
     "Glass areas of exterior construction that have a window";
-  final parameter Modelica.SIunits.Area AConExtWinFra[NConExtWin] = datConExtWin.fFra .* datConExtWin.AWin
+  final parameter Modelica.Units.SI.Area AConExtWinFra[NConExtWin]=datConExtWin.fFra
+       .* datConExtWin.AWin
     "Frame areas of exterior construction that have a window";
-  final parameter Modelica.SIunits.Area AConPar[NConPar] = datConPar.A
+  final parameter Modelica.Units.SI.Area AConPar[NConPar]=datConPar.A
     "Areas of partition constructions";
-  final parameter Modelica.SIunits.Area AConBou[NConBou] = datConBou.A
+  final parameter Modelica.Units.SI.Area AConBou[NConBou]=datConBou.A
     "Areas of constructions with exterior boundary conditions exposed to outside of room model";
-  final parameter Modelica.SIunits.Area ASurBou[NSurBou] = surBou.A
+  final parameter Modelica.Units.SI.Area ASurBou[NSurBou]=surBou.A
     "Area of surface models of constructions that are modeled outside of this room";
   annotation (
     preferredView="info",

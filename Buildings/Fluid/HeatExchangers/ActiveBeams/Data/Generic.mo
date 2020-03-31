@@ -15,27 +15,26 @@ record Generic "Generic data record for active beam"
     f={0,0.5,1})
     "Performance data for normalized temperature difference room minus water inlet";
 
-  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal
     "Nominal air mass flow rate per beam"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal
     "Nominal water mass flow rate per beam"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpWat_nominal(displayUnit="Pa")
+  parameter Modelica.Units.SI.PressureDifference dpWat_nominal(displayUnit="Pa")
     "Water-side nominal pressure drop per beam"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.PressureDifference dpAir_nominal(displayUnit="Pa")
+  parameter Modelica.Units.SI.PressureDifference dpAir_nominal(displayUnit="Pa")
     "Air-side nominal pressure drop"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.TemperatureDifference dT_nominal
+  parameter Modelica.Units.SI.TemperatureDifference dT_nominal
     "Nominal temperature difference water inlet minus room air"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal
-    "Nominal capacity per beam"
-    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal
+    "Nominal capacity per beam" annotation (Dialog(group="Nominal condition"));
 
   annotation (defaultComponentName="per",
 Documentation(revisions="<html>

@@ -6,21 +6,21 @@ partial model PartialDamperExponential
     final m_flow_turbulent=if use_deltaM then deltaM * m_flow_nominal else
       eta_default*ReC*sqrt(A)*facRouDuc);
   extends Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal;
-  parameter Modelica.SIunits.PressureDifference dpDamper_nominal(displayUnit="Pa")
-    "Pressure drop of fully open damper at nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpFixed_nominal(displayUnit="Pa") = 0
+  parameter Modelica.Units.SI.PressureDifference dpDamper_nominal(displayUnit=
+        "Pa") "Pressure drop of fully open damper at nominal mass flow rate"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.PressureDifference dpFixed_nominal(displayUnit=
+        "Pa") = 0
     "Pressure drop of duct and resistances other than the damper in series, at nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
+    annotation (Dialog(group="Nominal condition"));
   parameter Boolean use_deltaM = true
     "Set to true to use deltaM for turbulent transition, else ReC is used";
   parameter Real deltaM = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
     annotation(Dialog(enable=use_deltaM));
-  final parameter Modelica.SIunits.Velocity v_nominal=
-    (2 / rho_default / k1 * dpDamper_nominal)^0.5
-    "Nominal face velocity";
-  final parameter Modelica.SIunits.Area A=m_flow_nominal/rho_default/v_nominal
+  final parameter Modelica.Units.SI.Velocity v_nominal=(2/rho_default/k1*
+      dpDamper_nominal)^0.5 "Nominal face velocity";
+  final parameter Modelica.Units.SI.Area A=m_flow_nominal/rho_default/v_nominal
     "Face area";
   parameter Boolean roundDuct = false
     "Set to true for round duct, false for square cross section"

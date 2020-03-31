@@ -10,14 +10,12 @@ block OutsideAirFlow
     "Outdoor air rate per unit area"
     annotation(Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.VolumeFlowRate VOutPerPer_flow[numZon]=
-    fill(2.5e-3, numZon)
-    "Outdoor air rate per person"
-    annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.VolumeFlowRate VOutPerPer_flow[numZon]=fill(
+      2.5e-3, numZon) "Outdoor air rate per person"
+    annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.Area AFlo[numZon]
-    "Floor area of each zone"
-    annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.Area AFlo[numZon] "Floor area of each zone"
+    annotation (Dialog(group="Nominal condition"));
 
   parameter Boolean have_occSen=true
     "Set to true if zones have occupancy sensor";
@@ -64,13 +62,13 @@ block OutsideAirFlow
      then it should use cooling supply air distribution effectiveness"
     annotation (Dialog(tab="Advanced"));
 
-  parameter Modelica.SIunits.VolumeFlowRate VPriSysMax_flow
+  parameter Modelica.Units.SI.VolumeFlowRate VPriSysMax_flow
     "Maximum expected system primary airflow at design stage"
-    annotation(Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.VolumeFlowRate minZonPriFlo[numZon]
+  parameter Modelica.Units.SI.VolumeFlowRate minZonPriFlo[numZon]
     "Minimum expected zone primary flow rate"
-    annotation(Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition"));
 
   parameter Real peaSysPop(
     final unit="1") = 1.2*sum({occDen[iZon] * AFlo[iZon] for iZon in 1:numZon})

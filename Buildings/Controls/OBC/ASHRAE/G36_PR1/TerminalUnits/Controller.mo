@@ -1,11 +1,11 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits;
 block Controller "Controller for room VAV box"
 
-  parameter Modelica.SIunits.Time samplePeriod
+  parameter Modelica.Units.SI.Time samplePeriod
     "Sample period of component, set to the same value as the trim and respond that process yPreSetReq";
-  parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal
+  parameter Modelica.Units.SI.VolumeFlowRate V_flow_nominal
     "Volume flow rate of this thermal zone";
-  parameter Modelica.SIunits.Area AFlo "Area of the zone";
+  parameter Modelica.Units.SI.Area AFlo "Area of the zone";
 
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCoo=
@@ -16,17 +16,17 @@ block Controller "Controller for room VAV box"
     "Gain for cooling control loop signal"
     annotation(Dialog(group="Cooling loop signal"));
 
-  parameter Modelica.SIunits.Time TiCoo=900
+  parameter Modelica.Units.SI.Time TiCoo=900
     "Time constant of integrator block for cooling control loop signal"
-    annotation(Dialog(group="Cooling loop signal",
-      enable=controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-          or controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    annotation (Dialog(group="Cooling loop signal", enable=controllerTypeCoo
+           == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
+          controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Modelica.SIunits.Time TdCoo=0.1
+  parameter Modelica.Units.SI.Time TdCoo=0.1
     "Time constant of derivative block for cooling control loop signal"
-    annotation (Dialog(group="Cooling loop signal",
-      enable=controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-          or controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    annotation (Dialog(group="Cooling loop signal", enable=controllerTypeCoo
+           == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
+          controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeHea=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -36,17 +36,17 @@ block Controller "Controller for room VAV box"
     "Gain for heating control loop signal"
     annotation(Dialog(group="Heating loop signal"));
 
-  parameter Modelica.SIunits.Time TiHea=900
+  parameter Modelica.Units.SI.Time TiHea=900
     "Time constant of integrator block for heating control loop signal"
-    annotation(Dialog(group="Heating loop signal",
-    enable=controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-        or controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    annotation (Dialog(group="Heating loop signal", enable=controllerTypeHea
+           == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
+          controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Modelica.SIunits.Time TdHea=0.1
+  parameter Modelica.Units.SI.Time TdHea=0.1
     "Time constant of derivative block for heating control loop signal"
-    annotation (Dialog(group="Heating loop signal",
-      enable=controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-          or controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    annotation (Dialog(group="Heating loop signal", enable=controllerTypeHea
+           == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
+          controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeVal=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -57,17 +57,15 @@ block Controller "Controller for room VAV box"
     "Gain of controller for valve control"
     annotation (Dialog(group="Valve"));
 
-  parameter Modelica.SIunits.Time TiVal=300
-    "Time constant of integrator block for valve control"
-    annotation(Dialog(group="Valve",
-    enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-        or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time TiVal=300
+    "Time constant of integrator block for valve control" annotation (Dialog(
+        group="Valve", enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+           or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Modelica.SIunits.Time TdVal=0.1
-    "Time constant of derivative block for valve control"
-    annotation (Dialog(group="Valve",
-      enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-          or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time TdVal=0.1
+    "Time constant of derivative block for valve control" annotation (Dialog(
+        group="Valve", enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+           or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeDam=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -78,17 +76,15 @@ block Controller "Controller for room VAV box"
     "Gain of controller for damper control"
     annotation (Dialog(group="Damper"));
 
-  parameter Modelica.SIunits.Time TiDam=300
-    "Time constant of integrator block for damper control"
-    annotation (Dialog(group="Damper",
-      enable=controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-          or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time TiDam=300
+    "Time constant of integrator block for damper control" annotation (Dialog(
+        group="Damper", enable=controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+           or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Modelica.SIunits.Time TdDam=0.1
-    "Time constant of derivative block for damper control"
-    annotation (Dialog(group="Damper",
-      enable=controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-          or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time TdDam=0.1
+    "Time constant of derivative block for damper control" annotation (Dialog(
+        group="Damper", enable=controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+           or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Boolean have_occSen=false
     "Set to true if the zone has occupancy sensor"
@@ -102,41 +98,34 @@ block Controller "Controller for room VAV box"
     "Set to true if the zone has CO2 sensor"
     annotation (Evaluate=true,
       Dialog(tab="Airflow setpoint", group="Zone sensors"));
-  parameter Modelica.SIunits.VolumeFlowRate VDisCooSetMax_flow=V_flow_nominal
-    "Zone maximum cooling airflow setpoint"
-    annotation (Evaluate=true,
+  parameter Modelica.Units.SI.VolumeFlowRate VDisCooSetMax_flow=V_flow_nominal
+    "Zone maximum cooling airflow setpoint" annotation (Evaluate=true, Dialog(
+        tab="Airflow setpoint", group="Nominal conditions"));
+  parameter Modelica.Units.SI.VolumeFlowRate VDisSetMin_flow=0.15*
+      V_flow_nominal "Zone minimum airflow setpoint" annotation (Evaluate=true,
       Dialog(tab="Airflow setpoint", group="Nominal conditions"));
-  parameter Modelica.SIunits.VolumeFlowRate VDisSetMin_flow=0.15*V_flow_nominal
-    "Zone minimum airflow setpoint"
-    annotation (Evaluate=true,
-      Dialog(tab="Airflow setpoint", group="Nominal conditions"));
-  parameter Modelica.SIunits.VolumeFlowRate VDisHeaSetMax_flow=V_flow_nominal
-    "Zone maximum heating airflow setpoint"
-    annotation (Evaluate=true,
-      Dialog(tab="Airflow setpoint", group="Nominal conditions"));
-  parameter Modelica.SIunits.VolumeFlowRate VDisConMin_flow=0.1*V_flow_nominal
-    "VAV box controllable minimum"
-    annotation (Evaluate=true,
-      Dialog(tab="Airflow setpoint", group="Nominal conditions"));
+  parameter Modelica.Units.SI.VolumeFlowRate VDisHeaSetMax_flow=V_flow_nominal
+    "Zone maximum heating airflow setpoint" annotation (Evaluate=true, Dialog(
+        tab="Airflow setpoint", group="Nominal conditions"));
+  parameter Modelica.Units.SI.VolumeFlowRate VDisConMin_flow=0.1*V_flow_nominal
+    "VAV box controllable minimum" annotation (Evaluate=true, Dialog(tab=
+          "Airflow setpoint", group="Nominal conditions"));
   parameter Real VOutPerAre_flow(final unit = "m3/(s.m2)")=3e-4
     "Outdoor air rate per unit area"
     annotation (Evaluate=true,
       Dialog(tab="Airflow setpoint", group="Nominal conditions"));
-  parameter Modelica.SIunits.VolumeFlowRate VOutPerPer_flow=2.5e-3
-    "Outdoor air rate per person"
-    annotation (Evaluate=true,
-      Dialog(tab="Airflow setpoint", group="Nominal conditions"));
+  parameter Modelica.Units.SI.VolumeFlowRate VOutPerPer_flow=2.5e-3
+    "Outdoor air rate per person" annotation (Evaluate=true, Dialog(tab=
+          "Airflow setpoint", group="Nominal conditions"));
   parameter Real CO2Set=894 "CO2 setpoint in ppm"
     annotation (Evaluate=true,
       Dialog(tab="Airflow setpoint", group="Nominal conditions"));
-  parameter Modelica.SIunits.TemperatureDifference dTDisZonSetMax=11
-    "Zone maximum discharge air temperature above heating setpoint"
-    annotation (Evaluate=true,
-      Dialog(tab="Damper and valve", group="Parameters"));
-  parameter Modelica.SIunits.Temperature TDisMin=283.15
-    "Lowest discharge air temperature"
-    annotation (Evaluate=true,
-      Dialog(tab="Damper and valve", group="Parameters"));
+  parameter Modelica.Units.SI.TemperatureDifference dTDisZonSetMax=11
+    "Zone maximum discharge air temperature above heating setpoint" annotation
+    (Evaluate=true, Dialog(tab="Damper and valve", group="Parameters"));
+  parameter Modelica.Units.SI.Temperature TDisMin=283.15
+    "Lowest discharge air temperature" annotation (Evaluate=true, Dialog(tab=
+          "Damper and valve", group="Parameters"));
   parameter Boolean have_heaWatCoi=true
     "Flag, true if there is a hot water coil"
     annotation (Evaluate=true,
@@ -145,38 +134,28 @@ block Controller "Controller for room VAV box"
     "Flag, true if there is a boiler plant"
     annotation (Evaluate=true,
       Dialog(tab="System requests", group="Parameters"));
-  parameter Modelica.SIunits.TemperatureDifference errTZonCoo_1=2.8
-    "Limit value of difference between zone temperature and cooling setpoint
-    for generating 3 cooling SAT reset requests"
-    annotation (Evaluate=true,
+  parameter Modelica.Units.SI.TemperatureDifference errTZonCoo_1=2.8 "Limit value of difference between zone temperature and cooling setpoint
+    for generating 3 cooling SAT reset requests" annotation (Evaluate=true,
       Dialog(tab="System requests", group="Parameters"));
-  parameter Modelica.SIunits.TemperatureDifference errTZonCoo_2=1.7
-    "Limit value of difference between zone temperature and cooling setpoint
-    for generating 2 cooling SAT reset requests"
-    annotation (Evaluate=true,
+  parameter Modelica.Units.SI.TemperatureDifference errTZonCoo_2=1.7 "Limit value of difference between zone temperature and cooling setpoint
+    for generating 2 cooling SAT reset requests" annotation (Evaluate=true,
       Dialog(tab="System requests", group="Parameters"));
-  parameter Modelica.SIunits.TemperatureDifference errTDis_1=17
-    "Limit value of difference between discharge air temperature and its setpoint
-    for generating 3 hot water reset requests"
-    annotation (Evaluate=true,
+  parameter Modelica.Units.SI.TemperatureDifference errTDis_1=17 "Limit value of difference between discharge air temperature and its setpoint
+    for generating 3 hot water reset requests" annotation (Evaluate=true,
       Dialog(tab="System requests", group="Parameters"));
-  parameter Modelica.SIunits.TemperatureDifference errTDis_2=8.3
-    "Limit value of difference between discharge air temperature and its setpoint
-    for generating 2 hot water reset requests"
-    annotation (Evaluate=true,
+  parameter Modelica.Units.SI.TemperatureDifference errTDis_2=8.3 "Limit value of difference between discharge air temperature and its setpoint
+    for generating 2 hot water reset requests" annotation (Evaluate=true,
       Dialog(tab="System requests", group="Parameters"));
-  parameter Modelica.SIunits.Time durTimTem=120
-    "Duration time of zone temperature exceeds setpoint"
-    annotation (Evaluate=true,
-      Dialog(tab="System requests", group="Duration times"));
-  parameter Modelica.SIunits.Time durTimFlo=60
-    "Duration time of airflow rate less than setpoint"
-    annotation (Evaluate=true,
-      Dialog(tab="System requests", group="Duration times"));
-  parameter Modelica.SIunits.Time durTimDisAir=300
+  parameter Modelica.Units.SI.Time durTimTem=120
+    "Duration time of zone temperature exceeds setpoint" annotation (Evaluate=
+        true, Dialog(tab="System requests", group="Duration times"));
+  parameter Modelica.Units.SI.Time durTimFlo=60
+    "Duration time of airflow rate less than setpoint" annotation (Evaluate=
+        true, Dialog(tab="System requests", group="Duration times"));
+  parameter Modelica.Units.SI.Time durTimDisAir=300
     "Duration time of discharge air temperature is less than setpoint"
-    annotation (Evaluate=true,
-      Dialog(tab="System requests", group="Duration times"));
+    annotation (Evaluate=true, Dialog(tab="System requests", group=
+          "Duration times"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonHeaSet(
     final quantity="ThermodynamicTemperature",

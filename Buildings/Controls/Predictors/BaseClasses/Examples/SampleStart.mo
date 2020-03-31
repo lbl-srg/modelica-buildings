@@ -1,14 +1,14 @@
 within Buildings.Controls.Predictors.BaseClasses.Examples;
 model SampleStart "Test model for sampleStart function"
   extends Modelica.Icons.Example;
-  parameter Modelica.SIunits.Time tSimSta[21] = {i for i in -10:10}
+  parameter Modelica.Units.SI.Time tSimSta[21]={i for i in -10:10}
     "Simulation start times";
-  parameter Modelica.SIunits.Time tSample = 5 "Sample time";
-  parameter Modelica.SIunits.Time samSta[21](each fixed=false)
+  parameter Modelica.Units.SI.Time tSample=5 "Sample time";
+  parameter Modelica.Units.SI.Time samSta[21](each fixed=false)
     "Start of sampling time";
 initial equation
- samSta = sampleStart(t=             tSimSta,
-                      samplePeriod=  tSample);
+ samSta = sampleStart(t =            tSimSta,
+                      samplePeriod = tSample);
  /*
  for i in 1:size(tSimSta,1) loop
    Modelica.Utilities.Streams.print("t = " + String(tSimSta[i]) + " samSta = " + String(samSta[i]));

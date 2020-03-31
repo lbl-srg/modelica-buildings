@@ -1,7 +1,7 @@
 within Buildings.HeatTransfer.Sources;
 model FixedTemperature "Fixed temperature boundary condition in Kelvin"
 
-  parameter Modelica.SIunits.Temperature T "Fixed temperature at port";
+  parameter Modelica.Units.SI.Temperature T "Fixed temperature at port";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port annotation (Placement(transformation(extent={{90,
             -10},{110,10}})));
 equation

@@ -6,11 +6,11 @@ model SpeedControlled_y_pumpCurves
 
   // For OpenModelica, changed m_flow_nominal to a constant. Otherwise
   // the translation fails with "Error: Cyclically dependent parameters found"
-  constant Modelica.SIunits.MassFlowRate m_flow_nominal = 0.5
+  constant Modelica.Units.SI.MassFlowRate m_flow_nominal=0.5
     "Nominal mass flow rate";
   // For OpenModelica, changed dp_nominal to a constant. Otherwise
   // the compilation fails.
-  constant Modelica.SIunits.PressureDifference dp_nominal = 10000
+  constant Modelica.Units.SI.PressureDifference dp_nominal=10000
     "Nominal pressure";
 
    model pumpModel = Buildings.Fluid.Movers.SpeedControlled_y (

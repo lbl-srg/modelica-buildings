@@ -373,11 +373,12 @@ First implementation.
 // implementation of these classes.
 
 protected
-    constant Modelica.SIunits.Temperature Tcritical=647.096 "Critical temperature";
-    constant Modelica.SIunits.Density dcritical=322 "Critical density";
-    constant Modelica.SIunits.Pressure pcritical=22.064e6 "Critical pressure";
-    constant Modelica.SIunits.SpecificEnthalpy a0 = 1000
-      "Auxiliary quantity for specific enthalpy";
+  constant Modelica.Units.SI.Temperature Tcritical=647.096
+    "Critical temperature";
+  constant Modelica.Units.SI.Density dcritical=322 "Critical density";
+  constant Modelica.Units.SI.Pressure pcritical=22.064e6 "Critical pressure";
+  constant Modelica.Units.SI.SpecificEnthalpy a0=1000
+    "Auxiliary quantity for specific enthalpy";
 
   replaceable function vaporPressure_sat
     "Returns vapor pressure for a given temperature"

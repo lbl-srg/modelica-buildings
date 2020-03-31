@@ -23,11 +23,11 @@ model EN12975SolarGain "Example showing the use of EN12975SolarGain"
   Modelica.Blocks.Sources.Sine HDirTil(
     offset=400,
     amplitude=300,
-    freqHz=2/86400) "Direct beam radiation, tilted surface"
+    f=2/86400) "Direct beam radiation, tilted surface"
     annotation (Placement(transformation(extent={{-40,44},{-20,64}})));
   Modelica.Blocks.Sources.Sine HDifTil(
     amplitude=200,
-    freqHz=1/86400,
+    f=1/86400,
     offset=300) "Diffuse radiation, tilted surface"
     annotation (Placement(transformation(extent={{-40,74},{-20,94}})));
   Modelica.Blocks.Sources.Ramp shaCoe(
@@ -36,17 +36,17 @@ model EN12975SolarGain "Example showing the use of EN12975SolarGain"
     height=-1) "Shading coefficient"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Modelica.Blocks.Sources.Sine T3(
-    freqHz=2/86400,
+    f=2/86400,
     amplitude=50,
     offset=273.15 + 110)
     annotation (Placement(transformation(extent={{-50,-38},{-30,-18}})));
   Modelica.Blocks.Sources.Sine T2(
-    freqHz=2/86400,
+    f=2/86400,
     amplitude=50,
     offset=273.15 + 100)
     annotation (Placement(transformation(extent={{-26,-54},{-6,-34}})));
   Modelica.Blocks.Sources.Sine T1(
-    freqHz=2/86400,
+    f=2/86400,
     amplitude=50,
     offset=273.15 + 90)
     annotation (Placement(transformation(extent={{-2,-70},{18,-50}})));

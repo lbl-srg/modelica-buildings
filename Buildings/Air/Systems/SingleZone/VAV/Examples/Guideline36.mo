@@ -4,7 +4,7 @@ model Guideline36
   extends Modelica.Icons.Example;
   extends Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses.PartialOpenLoop;
 
-  parameter Modelica.SIunits.Temperature TSupChi_nominal=279.15
+  parameter Modelica.Units.SI.Temperature TSupChi_nominal=279.15
     "Design value for chiller leaving water temperature";
   Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller controller(
     controllerTypeCoo=Buildings.Controls.OBC.CDL.Types.SimpleController.P,

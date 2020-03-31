@@ -15,28 +15,28 @@ model IndirectTankHeatExchanger
     final show_T=false);
 
   parameter Integer nSeg(min=2) "Number of segments in the heat exchanger";
-  parameter Modelica.SIunits.HeatCapacity CHex
+  parameter Modelica.Units.SI.HeatCapacity CHex
     "Capacitance of the heat exchanger";
-  parameter Modelica.SIunits.Volume volHexFlu
+  parameter Modelica.Units.SI.Volume volHexFlu
     "Volume of heat transfer fluid in the heat exchanger";
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal
     "Heat transfer at nominal conditions"
-  annotation(Dialog(tab="General", group="Nominal condition"));
+    annotation (Dialog(tab="General", group="Nominal condition"));
 
-  final parameter Modelica.SIunits.ThermalConductance UA_nominal=
-    abs(Q_flow_nominal/(THex_nominal-TTan_nominal))
+  final parameter Modelica.Units.SI.ThermalConductance UA_nominal=abs(
+      Q_flow_nominal/(THex_nominal - TTan_nominal))
     "Nominal UA value for the heat exchanger";
-  parameter Modelica.SIunits.Temperature TTan_nominal
+  parameter Modelica.Units.SI.Temperature TTan_nominal
     "Temperature of fluid inside the tank at UA_nominal"
-    annotation(Dialog(tab="General", group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature THex_nominal
+    annotation (Dialog(tab="General", group="Nominal condition"));
+  parameter Modelica.Units.SI.Temperature THex_nominal
     "Temperature of fluid inside the heat exchanger at UA_nominal"
-    annotation(Dialog(tab="General", group="Nominal condition"));
+    annotation (Dialog(tab="General", group="Nominal condition"));
   parameter Real r_nominal(min=0, max=1)=0.5
     "Ratio between coil inside and outside convective heat transfer"
           annotation(Dialog(tab="General", group="Nominal condition"));
 
-  parameter Modelica.SIunits.Diameter dExtHex
+  parameter Modelica.Units.SI.Diameter dExtHex
     "Exterior diameter of the heat exchanger pipe";
 
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial

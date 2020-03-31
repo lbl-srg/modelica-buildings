@@ -1,4 +1,4 @@
-within Buildings.Occupants.Office.Blinds;
+﻿within Buildings.Occupants.Office.Blinds;
 model Zhang2012BlindsSolarAltitude
   "A model to predict occupants' blinds behavior with solar altitude"
   extends Modelica.Blocks.Icons.DiscreteBlock;
@@ -7,7 +7,7 @@ model Zhang2012BlindsSolarAltitude
   parameter Real BUp = -3.446 "Intercept for blinds up";
   parameter Real BDown = -3.424 "Intercept for blinds down";
   parameter Integer seed = 10 "Seed for the random number generator";
-  parameter Modelica.SIunits.Time samplePeriod = 120 "Sample period";
+  parameter Modelica.Units.SI.Time samplePeriod=120 "Sample period";
 
   Modelica.Blocks.Interfaces.RealInput solarAltitude(
     unit="rad") "Solar Altitude" annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
@@ -32,7 +32,8 @@ model Zhang2012BlindsSolarAltitude
     final max=1) "The probability of blinds down";
 
 protected
-  parameter Modelica.SIunits.Time t0(final fixed = false) "First sample time instant";
+  parameter Modelica.Units.SI.Time t0(final fixed=false)
+    "First sample time instant";
   output Boolean sampleTrigger "True, if sample time instant";
   Boolean isOpen "Blind state as a boolean";
   Real curSeed "Current value for seed as a real-valued variable";

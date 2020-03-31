@@ -9,16 +9,16 @@ model CoolingTowerSpeed "Controller for the fan speed in cooling towers"
   parameter Real k(min=0, unit="1") = 1
     "Gain of controller"
     annotation(Dialog(tab="Controller"));
-  parameter Modelica.SIunits.Time Ti(min=Modelica.Constants.small)=0.5
-    "Time constant of integrator block"
-     annotation (Dialog(enable=
-          (controllerType == Modelica.Blocks.Types.SimpleController.PI or
-          controllerType == Modelica.Blocks.Types.SimpleController.PID),tab="Controller"));
-  parameter Modelica.SIunits.Time Td(min=0)=0.1
-    "Time constant of derivative block"
-     annotation (Dialog(enable=
-          (controllerType == Modelica.Blocks.Types.SimpleController.PD or
-          controllerType == Modelica.Blocks.Types.SimpleController.PID),tab="Controller"));
+  parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small) = 0.5
+    "Time constant of integrator block" annotation (Dialog(enable=(
+          controllerType == Modelica.Blocks.Types.SimpleController.PI or
+          controllerType == Modelica.Blocks.Types.SimpleController.PID), tab=
+          "Controller"));
+  parameter Modelica.Units.SI.Time Td(min=0) = 0.1
+    "Time constant of derivative block" annotation (Dialog(enable=(
+          controllerType == Modelica.Blocks.Types.SimpleController.PD or
+          controllerType == Modelica.Blocks.Types.SimpleController.PID), tab=
+          "Controller"));
   parameter Real yMax(start=1)=1
    "Upper limit of output"
     annotation(Dialog(tab="Controller"));

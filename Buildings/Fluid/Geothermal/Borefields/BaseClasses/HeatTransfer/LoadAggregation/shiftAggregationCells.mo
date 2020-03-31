@@ -4,13 +4,15 @@ function shiftAggregationCells
   extends Modelica.Icons.Function;
 
   input Integer i "Number of aggregation cells";
-  input Modelica.SIunits.HeatFlowRate QAgg_flow[i] "Vector of aggregated loads";
+  input Modelica.Units.SI.HeatFlowRate QAgg_flow[i]
+    "Vector of aggregated loads";
   input Real rCel[i](each min=Modelica.Constants.small) "Aggregation cell widths";
-  input Modelica.SIunits.Time nu[i] "Cell aggregation times";
-  input Modelica.SIunits.Time curTim "Current simulation time";
+  input Modelica.Units.SI.Time nu[i] "Cell aggregation times";
+  input Modelica.Units.SI.Time curTim "Current simulation time";
 
   output Integer curCel "Current occupied aggregation cell";
-  output Modelica.SIunits.HeatFlowRate QAggShi_flow[i] "Shifted vector of aggregated loads";
+  output Modelica.Units.SI.HeatFlowRate QAggShi_flow[i]
+    "Shifted vector of aggregated loads";
 
 algorithm
   curCel := 1;

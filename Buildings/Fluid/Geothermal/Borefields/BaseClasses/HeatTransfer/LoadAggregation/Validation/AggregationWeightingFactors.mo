@@ -11,7 +11,7 @@ model AggregationWeightingFactors
     6.27297603019976, 2.43435015306157e-05;
     9.21672932384307, 3.00295537091117e-05]
     "Complete time matrix with TStep";
-  Modelica.SIunits.ThermalResistance[10] kappa
+  Modelica.Units.SI.ThermalResistance[10] kappa
     "Weight factor for each aggregation cell";
 
 equation

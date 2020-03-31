@@ -3,10 +3,10 @@ partial model TestTemperatureEnthalpyInversion
   "Model to check computation of h(T) and its inverse with a controlleable tolerance"
    replaceable package Medium =
         Modelica.Media.Interfaces.PartialMedium;
-     parameter Modelica.SIunits.Temperature T0=273.15+20 "Temperature";
+  parameter Modelica.Units.SI.Temperature T0=273.15 + 20 "Temperature";
      parameter Real tol = 1E-8 "Numerical tolerance";
-     Modelica.SIunits.Temperature T "Temperature";
-     Modelica.SIunits.SpecificEnthalpy h "Enthalpy";
+  Modelica.Units.SI.Temperature T "Temperature";
+  Modelica.Units.SI.SpecificEnthalpy h "Enthalpy";
      Medium.MassFraction Xi[:] = Medium.reference_X "Mass fraction";
 equation
     h = Medium.specificEnthalpy_pTX(p=101325, T=T0, X=Xi);

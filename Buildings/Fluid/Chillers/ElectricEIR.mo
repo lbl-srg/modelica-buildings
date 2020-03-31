@@ -17,12 +17,11 @@ model ElectricEIR "Electric chiller based on the DOE-2.1 model"
                 Placement(transformation(extent={{40,80},{60,100}})));
 
 protected
-  final parameter Modelica.SIunits.Conversions.NonSIunits.Temperature_degC
-    TConEnt_nominal_degC=
-    Modelica.SIunits.Conversions.to_degC(per.TConEnt_nominal)
+  final parameter Modelica.Units.NonSI.Temperature_degC TConEnt_nominal_degC=
+      Modelica.Units.Conversions.to_degC(per.TConEnt_nominal)
     "Temperature of fluid entering condenser at nominal condition";
 
-  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TConEnt_degC
+  Modelica.Units.NonSI.Temperature_degC TConEnt_degC
     "Temperature of fluid entering condenser";
 initial equation
   // Verify correctness of performance curves, and write warning if error is bigger than 10%
@@ -32,7 +31,7 @@ initial equation
      "Capacity as function of temperature ",
      "per.capFunT");
 equation
-  TConEnt_degC=Modelica.SIunits.Conversions.to_degC(TConEnt);
+  TConEnt_degC=Modelica.Units.Conversions.to_degC(TConEnt);
 
   if on then
     // Compute the chiller capacity fraction, using a biquadratic curve.
@@ -40,9 +39,9 @@ equation
     // we constrain its return value to be non-negative. This prevents the solver to pick the
     // unrealistic solution.
     capFunT = Buildings.Utilities.Math.Functions.smoothMax(
-       x1=  1E-6,
-       x2=  Buildings.Utilities.Math.Functions.biquadratic(a=per.capFunT, x1=TEvaLvg_degC, x2=TConEnt_degC),
-       deltaX=  1E-7);
+       x1 = 1E-6,
+       x2 = Buildings.Utilities.Math.Functions.biquadratic(a=per.capFunT, x1=TEvaLvg_degC, x2=TConEnt_degC),
+       deltaX = 1E-7);
 /*    assert(capFunT > 0.1, "Error: Received capFunT = " + String(capFunT)  + ".\n"
            + "Coefficient for polynomial seem to be not valid for the encountered temperature range.\n"
            + "Temperatures are TConEnt_degC = " + String(TConEnt_degC) + " degC\n"

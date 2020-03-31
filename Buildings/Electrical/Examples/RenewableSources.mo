@@ -2,19 +2,18 @@ within Buildings.Electrical.Examples;
 model RenewableSources
   "Example model that shows the impact of renewable sources on the electrical grid"
   extends Modelica.Icons.Example;
-  parameter Modelica.SIunits.Frequency f = 60 "Nominal grid frequency";
-  parameter Modelica.SIunits.Voltage V_nominal = 480 "Nominal grid voltage";
-  parameter Modelica.SIunits.Power PLoa_nominal = 3500
-    "Nominal power of a load";
-  parameter Modelica.SIunits.Power PWin = PLoa_nominal*4
+  parameter Modelica.Units.SI.Frequency f=60 "Nominal grid frequency";
+  parameter Modelica.Units.SI.Voltage V_nominal=480 "Nominal grid voltage";
+  parameter Modelica.Units.SI.Power PLoa_nominal=3500 "Nominal power of a load";
+  parameter Modelica.Units.SI.Power PWin=PLoa_nominal*4
     "Nominal power of the wind turbine";
-  parameter Modelica.SIunits.Power PSun = PLoa_nominal*1.0
+  parameter Modelica.Units.SI.Power PSun=PLoa_nominal*1.0
     "Nominal power of the PV";
-  parameter Modelica.SIunits.DensityOfHeatFlowRate W_m2_nominal = 1000
+  parameter Modelica.Units.SI.DensityOfHeatFlowRate W_m2_nominal=1000
     "Nominal solar power per unit area";
   parameter Real eff_PV = 0.12*0.85*0.9
     "Nominal solar power conversion efficiency (this should consider converion efficiency, area covered, AC/DC losses)";
-  parameter Modelica.SIunits.Area A_PV = PSun/eff_PV/W_m2_nominal
+  parameter Modelica.Units.SI.Area A_PV=PSun/eff_PV/W_m2_nominal
     "Nominal area of a P installation";
 
   AC.ThreePhasesBalanced.Sources.Grid gri(

@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.CDL.Discrete;
 block FirstOrderHold "First order hold of a sampled-data system"
 
-  parameter Modelica.SIunits.Time samplePeriod(min=1E-3)
+  parameter Modelica.Units.SI.Time samplePeriod(min=1E-3)
     "Sample period of component";
 
   Interfaces.RealInput u "Continuous input signal"
@@ -11,15 +11,14 @@ block FirstOrderHold "First order hold of a sampled-data system"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  parameter Modelica.SIunits.Time t0(fixed=false)
-    "First sample time instant";
+  parameter Modelica.Units.SI.Time t0(fixed=false) "First sample time instant";
 
   output Boolean sampleTrigger "True, if sample time instant";
 
   output Boolean firstTrigger(start=false, fixed=true)
     "Rising edge signals first sample instant";
 
-  Modelica.SIunits.Time tSample "Time of sample";
+  Modelica.Units.SI.Time tSample "Time of sample";
   Real uSample "Value of sample";
   Real pre_uSample "Value of previous sample";
   Real c "Slope";

@@ -10,9 +10,9 @@ model Enable_FreProSta_ZonSta
     annotation (Placement(transformation(extent={{82,-40},{102,-20}})));
 
 protected
-  final parameter Modelica.SIunits.Temperature TOutCutoff=297.15
+  final parameter Modelica.Units.SI.Temperature TOutCutoff=297.15
     "Outdoor temperature high limit cutoff";
-  final parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
+  final parameter Modelica.Units.SI.SpecificEnergy hOutCutoff=65100
     "Outdoor air enthalpy high limit cutoff";
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutBelowCutoff(

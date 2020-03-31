@@ -10,7 +10,8 @@ model MixingVolumeHeatPortWater
     annotation(Evaluate=true);
 
   replaceable Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort vol[nEle]
-    constrainedby Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort(
+    constrainedby
+    Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort(
     redeclare each package Medium = Medium,
     each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final initialize_p={(i == 1 and not Medium.singleState) for i in 1:nEle},

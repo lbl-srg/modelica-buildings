@@ -9,8 +9,8 @@ model Suite "Model of a suite consisting of five rooms of the MIT system model"
   annotation (Placement(transformation(extent={{-110,110},{-90,130}})));
 
   parameter Real scaM_flow "Scaling factor for mass flow rate";
-  parameter Modelica.SIunits.MassFlowRate m0Tot_flow=
-    scaM_flow*(5.196+2.8428+1.0044+0.9612+0.3624+0.1584);
+  parameter Modelica.Units.SI.MassFlowRate m0Tot_flow=scaM_flow*(5.196 + 2.8428
+       + 1.0044 + 0.9612 + 0.3624 + 0.1584);
   parameter Real l(min=1e-10, max=1) = 0.0001
     "Damper leakage, ratio of flow coefficients k(y=0)/k(y=1)"
     annotation(Dialog(tab="Damper coefficients"));

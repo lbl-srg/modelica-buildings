@@ -6,7 +6,7 @@ model Capacitive "Model of a capacitive and resistive load"
     V_nominal(start = 110));
 
 protected
-  Modelica.SIunits.Angle theRef "Absolute angle of rotating reference system";
+  Modelica.Units.SI.Angle theRef "Absolute angle of rotating reference system";
 
 initial equation
   if mode == Buildings.Electrical.Types.Load.FixedZ_dynamic then

@@ -25,7 +25,7 @@ model JSONWriter "Example use of the JSON writer"
     offset=1) "Ramp signal" annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Blocks.Sources.Constant const(k=2) "Constant signal"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Modelica.Blocks.Sources.Cosine cosine(amplitude=1, freqHz=12) "Cosine signal"
+  Modelica.Blocks.Sources.Cosine cosine(amplitude=1, f=12) "Cosine signal"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Buildings.Utilities.IO.Files.JSONWriter jsonWriterOneVar(nin=1, fileName="TerminalOutput.json")
     "Single variable output"

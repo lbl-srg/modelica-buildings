@@ -1,6 +1,6 @@
 within Buildings.Controls.DemandResponse.BaseClasses;
 block ShedOperation "Computes the consumption with the shed taken into account"
-  extends Modelica.StateGraph.Step;
+  extends Modelica.StateGraph.Step(nIn=1, nOut=1);
   Modelica.Blocks.Interfaces.RealInput PCon(unit="W")
     "Consumed electrical power"
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}}),

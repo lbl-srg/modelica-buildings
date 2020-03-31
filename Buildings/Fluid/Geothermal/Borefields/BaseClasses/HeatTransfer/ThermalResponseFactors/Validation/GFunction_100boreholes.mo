@@ -4,12 +4,13 @@ model GFunction_100boreholes
   extends Modelica.Icons.Example;
 
   parameter Integer nBor = 100 "Number of boreholes";
-  parameter Modelica.SIunits.Position cooBor[nBor, 2] = {{7.5*mod(i-1,10), 7.5*floor((i-1)/10)} for i in 1:nBor}
-    "Coordinates of boreholes";
-  parameter Modelica.SIunits.Height hBor = 150 "Borehole length";
-  parameter Modelica.SIunits.Height dBor = 4 "Borehole buried depth";
-  parameter Modelica.SIunits.Radius rBor = 0.075 "Borehole radius";
-  parameter Modelica.SIunits.ThermalDiffusivity aSoi = 1e-6 "Ground thermal diffusivity used in g-function evaluation";
+  parameter Modelica.Units.SI.Position cooBor[nBor,2]={{7.5*mod(i - 1, 10),7.5*
+      floor((i - 1)/10)} for i in 1:nBor} "Coordinates of boreholes";
+  parameter Modelica.Units.SI.Height hBor=150 "Borehole length";
+  parameter Modelica.Units.SI.Height dBor=4 "Borehole buried depth";
+  parameter Modelica.Units.SI.Radius rBor=0.075 "Borehole radius";
+  parameter Modelica.Units.SI.ThermalDiffusivity aSoi=1e-6
+    "Ground thermal diffusivity used in g-function evaluation";
   parameter Integer nSeg = 12 "Number of line source segments per borehole";
   parameter Integer nTimSho = 26 "Number of time steps in short time region";
   parameter Integer nTimLon = 50 "Number of time steps in long time region";
@@ -18,18 +19,19 @@ model GFunction_100boreholes
   final parameter Integer nTimTot=nTimSho+nTimLon;
   final parameter Real[nTimTot] gFun(each fixed=false);
   final parameter Real[nTimTot] lntts(each fixed=false);
-  final parameter Modelica.SIunits.Time[nTimTot] tGFun(each fixed=false);
+  final parameter Modelica.Units.SI.Time[nTimTot] tGFun(each fixed=false);
   final parameter Real[nTimTot] dspline(each fixed=false);
 
   Real gFun_int "Interpolated value of g-function";
   Real lntts_int "Non-dimensional logarithmic time for interpolation";
 
   discrete Integer k "Current interpolation interval";
-  discrete Modelica.SIunits.Time t1 "Previous value of time for interpolation";
-  discrete Modelica.SIunits.Time t2 "Next value of time for interpolation";
+  discrete Modelica.Units.SI.Time t1 "Previous value of time for interpolation";
+  discrete Modelica.Units.SI.Time t2 "Next value of time for interpolation";
   discrete Real gFun1 "Previous g-function value for interpolation";
   discrete Real gFun2 "Next g-function value for interpolation";
-  parameter Modelica.SIunits.Time ts = hBor^2/(9*aSoi) "Bore field characteristic time";
+  parameter Modelica.Units.SI.Time ts=hBor^2/(9*aSoi)
+    "Bore field characteristic time";
 
 initial equation
   // Evaluate g-function for the specified bore field configuration

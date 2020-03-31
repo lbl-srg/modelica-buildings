@@ -4,24 +4,23 @@ block SupplyReturnTemperatureReset
   extends Modelica.Blocks.Icons.Block;
 
   parameter Real m = 1.3 "Exponent for heat transfer";
-  parameter Modelica.SIunits.Temperature TSup_nominal "Supply temperature"
+  parameter Modelica.Units.SI.Temperature TSup_nominal "Supply temperature"
     annotation (Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.Temperature TRet_nominal "Return temperature"
+  parameter Modelica.Units.SI.Temperature TRet_nominal "Return temperature"
     annotation (Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.Temperature TRoo_nominal = 293.15
-    "Room temperature"
-    annotation (Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.Temperature TOut_nominal "Outside temperature"
+  parameter Modelica.Units.SI.Temperature TRoo_nominal=293.15
+    "Room temperature" annotation (Dialog(group="Nominal conditions"));
+  parameter Modelica.Units.SI.Temperature TOut_nominal "Outside temperature"
     annotation (Dialog(group="Nominal conditions"));
 
   parameter Boolean use_TRoo_in = false
     "Get the room temperature set point from the input connector"
     annotation(Evaluate=true, HideResult=true);
-  parameter Modelica.SIunits.Temperature TRoo = 293.15
+  parameter Modelica.Units.SI.Temperature TRoo=293.15
     "Fixed value of room temperature set point"
-    annotation(Dialog(enable = not use_TRoo_in));
-  parameter Modelica.SIunits.TemperatureDifference dTOutHeaBal(displayUnit="K") = 8
-    "Offset for heating curve";
+    annotation (Dialog(enable=not use_TRoo_in));
+  parameter Modelica.Units.SI.TemperatureDifference dTOutHeaBal(displayUnit="K")
+     = 8 "Offset for heating curve";
   Modelica.Blocks.Interfaces.RealInput TRoo_in(final quantity="ThermodynamicTemperature",
                                                final unit = "K", displayUnit = "degC", min=0) if
           use_TRoo_in "Room air temperature set point"
@@ -45,9 +44,10 @@ protected
                                                         final unit = "K", displayUnit = "degC", min=0)
     "Needed to connect to conditional connector";
   Real qRel "Relative heating load = Q_flow/Q_flow_nominal";
-  Modelica.SIunits.Temperature TOutOffSet
+  Modelica.Units.SI.Temperature TOutOffSet
     "Effective outside temperature for heat transfer (takes into account room heat gains)";
-  parameter Modelica.SIunits.Temperature TOutOffSet_nominal =  TOut_nominal + dTOutHeaBal
+  parameter Modelica.Units.SI.Temperature TOutOffSet_nominal=TOut_nominal +
+      dTOutHeaBal
     "Effective outside temperature for heat transfer at nominal conditions (takes into account room heat gains)";
 
 equation

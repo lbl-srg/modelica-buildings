@@ -1,24 +1,21 @@
 within Buildings.Controls.OBC.Utilities;
 block OptimalStart
   "Block that outputs the optimal start time for an HVAC system before occupancy"
-  parameter Modelica.SIunits.Time tOptMax(
+  parameter Modelica.Units.SI.Time tOptMax(
     final min=0,
     max=21600,
-    displayUnit="h") = 10800
-    "Maximum optimal start time";
+    displayUnit="h") = 10800 "Maximum optimal start time";
   parameter Integer nDay(min=1) = 3
     "Number of previous days used to compute the optimal start up time";
   parameter Boolean computeHeating = false
     "Set to true to compute optimal start for heating";
   parameter Boolean computeCooling = false
     "Set to true to compute optimal start for cooling";
-  parameter Modelica.SIunits.TemperatureDifference uLow(final min=0) = 0
-    "Threshold to determine if the zone temperature reaches the occupied setpoint,
+  parameter Modelica.Units.SI.TemperatureDifference uLow(final min=0) = 0 "Threshold to determine if the zone temperature reaches the occupied setpoint,
      must be a non-negative number";
-  parameter Modelica.SIunits.TemperatureDifference uHigh(final min=0) = 0.5
-    "Threshold to determine the need to start the HVAC system before occupancy,
+  parameter Modelica.Units.SI.TemperatureDifference uHigh(final min=0) = 0.5 "Threshold to determine the need to start the HVAC system before occupancy,
      must be greater than uLow";
-  parameter Modelica.SIunits.Time thrOptOn(
+  parameter Modelica.Units.SI.Time thrOptOn(
     final min=0,
     max=10800) = 60
     "Threshold time, optimal start on signal becomes true when tOpt larger than thrOptOn";
@@ -83,8 +80,7 @@ block OptimalStart
     "Optimal start time for cooling system"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
 protected
-  parameter Modelica.SIunits.Time tOptDef = 3600
-    "Default optimal start time";
+  parameter Modelica.Units.SI.Time tOptDef=3600 "Default optimal start time";
   Buildings.Controls.OBC.CDL.Continuous.Max max
     "Get the maximum optimal start time "
     annotation (Placement(transformation(extent={{100,30},{120,50}})));

@@ -25,11 +25,11 @@ block Controller
     annotation(Dialog(group="Cooling loop signal",
       enable=controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time TdCoo=0.1
+  parameter Modelica.Units.SI.Time TdCoo=0.1
     "Time constant of derivative block for cooling control loop signal"
-    annotation (Dialog(group="Cooling loop signal",
-      enable=controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-          or controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    annotation (Dialog(group="Cooling loop signal", enable=controllerTypeCoo
+           == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
+          controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeHea=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -43,11 +43,11 @@ block Controller
     annotation(Dialog(group="Heating loop signal",
     enable=controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
         or controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time TdHea=0.1
+  parameter Modelica.Units.SI.Time TdHea=0.1
     "Time constant of derivative block for heating control loop signal"
-    annotation (Dialog(group="Heating loop signal",
-      enable=controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-          or controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    annotation (Dialog(group="Heating loop signal", enable=controllerTypeHea
+           == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
+          controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCooCoi=
     Buildings.Controls.OBC.CDL.Types.SimpleController.P
@@ -61,11 +61,11 @@ block Controller
     annotation(Dialog(group="Cooling coil loop signal",
     enable=controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
         or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time TdCooCoil=0.1
+  parameter Modelica.Units.SI.Time TdCooCoil=0.1
     "Time constant of derivative block for cooling coil control loop signal"
-    annotation (Dialog(group="Cooling coil loop signal",
-      enable=controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-          or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    annotation (Dialog(group="Cooling coil loop signal", enable=
+          controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+           or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Real TSupSetMax(final unit="K")
     "Maximum supply air temperature for heating"
@@ -119,12 +119,15 @@ block Controller
   parameter Boolean use_G36FrePro=false
     "Set to true if G36 freeze protection is implemented"
     annotation(Dialog(tab="Economizer", group="General"));
-  parameter Modelica.SIunits.TemperatureDifference delTOutHis=1
+  parameter Modelica.Units.SI.TemperatureDifference delTOutHis=1
     "Delta between the temperature hysteresis high and low limit"
-    annotation(Dialog(tab="Economizer", group="Advanced"));
-  parameter Modelica.SIunits.SpecificEnergy delEntHis=1000
-    "Delta between the enthalpy hysteresis high and low limits"
-     annotation(Dialog(tab="Economizer", group="Advanced", enable = use_enthalpy));
+    annotation (Dialog(tab="Economizer", group="Advanced"));
+  parameter Modelica.Units.SI.SpecificEnergy delEntHis=1000
+    "Delta between the enthalpy hysteresis high and low limits" annotation (
+      Dialog(
+      tab="Economizer",
+      group="Advanced",
+      enable=use_enthalpy));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeMod=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
@@ -136,11 +139,13 @@ block Controller
     annotation (Dialog(tab="Economizer", group="Modulation",
       enable=controllerTypeMod == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or controllerTypeMod == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time TdMod=0.1
-    "Time constant of derivative block for modulation controller"
-    annotation (Dialog(tab="Economizer", group="Modulation",
+  parameter Modelica.Units.SI.Time TdMod=0.1
+    "Time constant of derivative block for modulation controller" annotation (
+      Dialog(
+      tab="Economizer",
+      group="Modulation",
       enable=controllerTypeMod == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-          or controllerTypeMod == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+           or controllerTypeMod == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real uMin(
     final min=0,
     final max=1,
@@ -167,11 +172,12 @@ block Controller
        enable=use_TMix
          and (controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
            or controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Modelica.SIunits.Time TdFre=0.1
-     "Time constant of derivative block for freeze protection"
-     annotation (Dialog(tab="Economizer", group="Freeze protection",
-       enable=use_TMix and
-           (controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+  parameter Modelica.Units.SI.Time TdFre=0.1
+    "Time constant of derivative block for freeze protection" annotation (
+      Dialog(
+      tab="Economizer",
+      group="Freeze protection",
+      enable=use_TMix and (controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
            or controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TFreSet(final unit="K")=277.15
     "Lower limit for mixed air temperature for freeze protection, used if use_TMix=true"

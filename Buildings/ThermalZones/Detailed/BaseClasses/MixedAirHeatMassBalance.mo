@@ -3,9 +3,8 @@ model MixedAirHeatMassBalance
   "Heat and mass balance of the air, assuming completely mixed air"
   extends Buildings.ThermalZones.Detailed.BaseClasses.PartialAirHeatMassBalance;
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
-    "Nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(min=0)
+    "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
   // Port definitions
   parameter Boolean homotopyInitialization "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
@@ -13,10 +12,9 @@ model MixedAirHeatMassBalance
   parameter Buildings.HeatTransfer.Types.InteriorConvection conMod
     "Convective heat transfer model for opaque constructions"
     annotation (Dialog(group="Convective heat transfer"));
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer hFixed
-    "Constant convection coefficient for opaque constructions"
-    annotation (Dialog(group="Convective heat transfer",
-                       enable=(conMod == Buildings.HeatTransfer.Types.InteriorConvection.Fixed)));
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer hFixed
+    "Constant convection coefficient for opaque constructions" annotation (
+      Dialog(group="Convective heat transfer", enable=(conMod == Buildings.HeatTransfer.Types.InteriorConvection.Fixed)));
 
   parameter Boolean use_C_flow
     "Set to true to enable input connector for trace substance"
@@ -114,8 +112,9 @@ model MixedAirHeatMassBalance
 
   // Latent and convective sensible heat gains
 protected
-  constant Modelica.SIunits.SpecificEnergy h_fg=
-    Buildings.Media.Air.enthalpyOfCondensingGas(273.15+37) "Latent heat of water vapor";
+  constant Modelica.Units.SI.SpecificEnergy h_fg=
+      Buildings.Media.Air.enthalpyOfCondensingGas(273.15 + 37)
+    "Latent heat of water vapor";
 
   Modelica.Blocks.Math.Gain mWat_flow(
     final k(unit="kg/J")=1/h_fg,

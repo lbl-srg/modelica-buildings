@@ -4,9 +4,8 @@ model AirsideEconomizer "Controller for airside economizer"
   parameter Real gai(min=Modelica.Constants.small) = 1
     "Gain of controller"
     annotation(Dialog(group="Control"));
-  parameter Modelica.SIunits.Time Ti = 50
-    "Integrator time"
-    annotation(Dialog(group="Control"));
+  parameter Modelica.Units.SI.Time Ti=50 "Integrator time"
+    annotation (Dialog(group="Control"));
   parameter Real minOAFra(min=0,max=1, final unit="1")
     "Minimum outdoor air fraction";
 

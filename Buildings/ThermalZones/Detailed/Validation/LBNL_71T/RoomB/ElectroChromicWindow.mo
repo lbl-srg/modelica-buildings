@@ -4,7 +4,7 @@ model ElectroChromicWindow
   extends Modelica.Icons.Example;
   package MediumA = Buildings.Media.Air "Medium model";
 
-  parameter Modelica.SIunits.Temperature T_start=273.15 + 24 "Initial value";
+  parameter Modelica.Units.SI.Temperature T_start=273.15 + 24 "Initial value";
 
   parameter Integer nConExtWin=1 "Number of constructions with a window";
   parameter Integer nConExt=0 "Number of constructions without a window";
@@ -197,9 +197,9 @@ model ElectroChromicWindow
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea
     "Prescribed heat flow for heating and cooling"
     annotation (Placement(transformation(extent={{36,-102},{60,-78}})));
-  Controls.Continuous.LimPID           conHea(
+  Controls.Continuous.LimPID conHea(
     Td=60,
-    initType=Modelica.Blocks.Types.InitPID.InitialState,
+    initType=Modelica.Blocks.Types.Init.InitialState,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     yMin=-1,
     k=5,

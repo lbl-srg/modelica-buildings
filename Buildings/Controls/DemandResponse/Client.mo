@@ -2,9 +2,9 @@ within Buildings.Controls.DemandResponse;
 model Client "Demand response client"
   extends Modelica.Blocks.Icons.Block;
 
-  final parameter Modelica.SIunits.Time tPeriod = 24*3600
+  final parameter Modelica.Units.SI.Time tPeriod=24*3600
     "Period, generally one day";
-  final parameter Modelica.SIunits.Time tSample=tPeriod/nSam
+  final parameter Modelica.Units.SI.Time tSample=tPeriod/nSam
     "Sample period, generally 900 or 3600 seconds";
   parameter Integer nSam
     "Number of samples in a day. For 1 hour sampling, set to 24";
@@ -44,14 +44,14 @@ model Client "Demand response client"
     annotation (Placement(transformation(extent={{-120,-60},{-100,-40}}),
         iconTransformation(extent={{-120,-60},{-100,-40}})));
 
-  Modelica.Blocks.Interfaces.RealInput TOut(unit="K", displayUnit="degC")
-  if (predictionModel == Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression)
+  Modelica.Blocks.Interfaces.RealInput TOut(unit="K", displayUnit="degC") if
+     (predictionModel == Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression)
     "Outside air temperature"
    annotation (Placement(transformation(extent={{-120,-80},{-100,-60}}),
         iconTransformation(extent={{-120,-80},{-100,-60}})));
 
-  Modelica.Blocks.Interfaces.RealInput TOutFut[nPre-1](each unit="K")
-    if (predictionModel == Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression)
+  Modelica.Blocks.Interfaces.RealInput TOutFut[nPre-1](each unit="K") if
+       (predictionModel == Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression)
     "Future outside air temperatures"
     annotation (Placement(
       transformation(extent={{-120,-100},{-100,-80}}),
@@ -65,7 +65,7 @@ model Client "Demand response client"
     annotation (Placement(transformation(extent={{100,40},{120,60}})));
 
 protected
-  Modelica.StateGraph.InitialStep initialStep(nIn=0)
+  Modelica.StateGraph.InitialStep initialStep(nIn=0, nOut=1)
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
@@ -76,14 +76,17 @@ protected
     final nHis=nHis,
     final nPre=nPre,
     final predictionModel=predictionModel,
-    nIn=3) "Baseline prediction"
+    nIn=3,
+    nOut=1)
+           "Baseline prediction"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Modelica.StateGraph.Transition t1 "State transition" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={60,20})));
-  BaseClasses.NormalOperation norOpe(nOut=2) "Normal operation"
+  BaseClasses.NormalOperation norOpe(nOut=2, nIn=1)
+                                             "Normal operation"
     annotation (Placement(transformation(extent={{40,-40},{20,-20}})));
   Modelica.StateGraph.TransitionWithSignal
                                  t2(enableTimer=false) "State transition"
@@ -95,7 +98,8 @@ protected
                        annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         origin={-2,-30})));
-  BaseClasses.ShedOperation she "Operation during load shedding"
+  BaseClasses.ShedOperation she(nIn=1, nOut=1)
+                                "Operation during load shedding"
     annotation (Placement(transformation(extent={{-10,-40},{-30,-20}})));
   Modelica.StateGraph.TransitionWithSignal
                                  t4(enableTimer=false) "State transition"

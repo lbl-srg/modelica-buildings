@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.CDL.Continuous;
 block Derivative "Block that approximates the derivative of the input"
   parameter Real k(unit="1") = 1 "Gains";
-  parameter Modelica.SIunits.Time T(min=1E-60)=0.01
+  parameter Modelica.Units.SI.Time T(min=1E-60) = 0.01
     "Time constant (T>0 required)";
   parameter Buildings.Controls.OBC.CDL.Types.Init initType=Buildings.Controls.OBC.CDL.Types.Init.NoInit
     "Type of initialization (1: no init, 2: initial state, 3: initial output)"

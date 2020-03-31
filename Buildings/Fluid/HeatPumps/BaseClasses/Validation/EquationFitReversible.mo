@@ -4,10 +4,10 @@ model EquationFitReversible
 
    package Medium = Buildings.Media.Water "Medium model";
 
-   parameter Modelica.SIunits.MassFlowRate mSou_flow_nominal=per.hea.mSou_flow
-   "Source heat exchanger nominal mass flow rate";
-   parameter Modelica.SIunits.MassFlowRate mLoa_flow_nominal=per.hea.mLoa_flow
-   "Load heat exchanger nominal mass flow rate";
+  parameter Modelica.Units.SI.MassFlowRate mSou_flow_nominal=per.hea.mSou_flow
+    "Source heat exchanger nominal mass flow rate";
+  parameter Modelica.Units.SI.MassFlowRate mLoa_flow_nominal=per.hea.mLoa_flow
+    "Load heat exchanger nominal mass flow rate";
    parameter Data.EquationFitReversible.Trane_Axiom_EXW240 per
     "Performance data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
@@ -20,10 +20,10 @@ model EquationFitReversible
   Modelica.Blocks.Math.RealToInteger reaToInt
     "Real to integer conversion"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-  Modelica.Blocks.Sources.Sine uMod(amplitude=1, freqHz=1/2600)
+  Modelica.Blocks.Sources.Sine uMod(amplitude=1, f=1/2600)
     "Heat pump operates in heating mode"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  Modelica.Blocks.Sources.Sine Q_flow_set(amplitude=5000, freqHz=1/2600)
+  Modelica.Blocks.Sources.Sine Q_flow_set(amplitude=5000, f=1/2600)
     "Set point for heat flow rate"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Controls.OBC.CDL.Continuous.Sources.Constant mLoa_flow(k=1.89)

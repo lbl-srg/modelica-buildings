@@ -1,15 +1,13 @@
 within Buildings.Media.Refrigerants.R410A;
 function specificIsobaricHeatCapacityVap_Tv
   "Function that calculates the specific isobaric heat capacity of R410A vapor based on temperature and specific volume"
-  input Modelica.SIunits.Temperature T
-    "Temperature of refrigerant";
-  input Modelica.SIunits.SpecificVolume v
-    "Specific volume of refrigerant";
-  output Modelica.SIunits.SpecificHeatCapacity cp
+  input Modelica.Units.SI.Temperature T "Temperature of refrigerant";
+  input Modelica.Units.SI.SpecificVolume v "Specific volume of refrigerant";
+  output Modelica.Units.SI.SpecificHeatCapacity cp
     "Specific isobaric heat capacity";
 
 protected
-  Modelica.SIunits.SpecificEntropy R = 114.55
+  Modelica.Units.SI.SpecificEntropy R=114.55
     "Refrigerant gas constant for Martin-Hou equation of state";
 
   Real A[:] = {-1.721781e2, 2.381558e-1, -4.329207e-4, -6.241072e-7}
@@ -33,10 +31,9 @@ protected
   Real dpdv
     "First derivative w.r.t. specific volume of the Martin-Hou equation";
 
-  Modelica.SIunits.SpecificHeatCapacity cv
-    "Specific isochoric heat capacity";
+  Modelica.Units.SI.SpecificHeatCapacity cv "Specific isochoric heat capacity";
 
-  Modelica.SIunits.Temperature TCri = 345.25
+  Modelica.Units.SI.Temperature TCri=345.25
     "Critical temperature of refrigerant";
 
   parameter Integer n = size(A, 1);

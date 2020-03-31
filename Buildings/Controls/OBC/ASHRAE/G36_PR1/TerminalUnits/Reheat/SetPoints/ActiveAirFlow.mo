@@ -11,26 +11,25 @@ block ActiveAirFlow
   parameter Boolean have_CO2Sen
     "Set to true if the zone has CO2 sensor"
     annotation(Dialog(group="Zone sensors"));
-  parameter Modelica.SIunits.VolumeFlowRate VDisCooSetMax_flow
+  parameter Modelica.Units.SI.VolumeFlowRate VDisCooSetMax_flow
     "Zone maximum cooling airflow setpoint"
-    annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.VolumeFlowRate VDisSetMin_flow
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.VolumeFlowRate VDisSetMin_flow
     "Zone minimum airflow setpoint"
-    annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.VolumeFlowRate VDisHeaSetMax_flow
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.VolumeFlowRate VDisHeaSetMax_flow
     "Zone maximum heating airflow setpoint"
-    annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.VolumeFlowRate VDisConMin_flow
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.VolumeFlowRate VDisConMin_flow
     "VAV box controllable minimum"
-    annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Area AFlo "Area of the zone"
-    annotation(Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.Area AFlo "Area of the zone"
+    annotation (Dialog(group="Nominal condition"));
   parameter Real VOutPerAre_flow(final unit = "m3/(s.m2)")=3e-4
     "Outdoor air rate per unit area"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.VolumeFlowRate VOutPerPer_flow=2.5e-3
-    "Outdoor air rate per person"
-    annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.VolumeFlowRate VOutPerPer_flow=2.5e-3
+    "Outdoor air rate per person" annotation (Dialog(group="Nominal condition"));
   parameter Real CO2Set = 894 "CO2 setpoint in ppm"
     annotation(Dialog(group="Nominal condition"));
 

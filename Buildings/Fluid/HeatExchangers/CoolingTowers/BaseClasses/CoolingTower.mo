@@ -7,7 +7,7 @@ partial model CoolingTower "Base class for cooling towers"
     final unit="K",
     displayUnit="degC") "Leaving water temperature"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
-  Modelica.SIunits.HeatFlowRate Q_flow = preHea.Q_flow
+  Modelica.Units.SI.HeatFlowRate Q_flow=preHea.Q_flow
     "Heat input into water circuit";
 
 protected

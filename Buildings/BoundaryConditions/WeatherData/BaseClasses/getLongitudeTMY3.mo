@@ -5,7 +5,7 @@ function getLongitudeTMY3 "Gets the longitude from a TMY3 weather data file"
  annotation (Dialog(
         loadSelector(filter="Weather files (*.mos)", caption=
             "Select weather file")));
- output Modelica.SIunits.Angle lon "Longitude from the weather file";
+  output Modelica.Units.SI.Angle lon "Longitude from the weather file";
 protected
  Integer nexInd "Next index, used for error handling";
  String element "String representation of the returned element";
@@ -14,7 +14,7 @@ algorithm
     Buildings.BoundaryConditions.WeatherData.BaseClasses.getHeaderElementTMY3(
       filNam=filNam,
       start="#LOCATION",
-      name=  "longitude",
+      name = "longitude",
       position=8);
    (nexInd, lon) :=Modelica.Utilities.Strings.Advanced.scanReal(
     string=element,

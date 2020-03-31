@@ -1,6 +1,6 @@
 within Buildings.Fluid.FMI.Interfaces;
 connector MassFractionConnector =
-  Modelica.SIunits.MassFraction
+  Modelica.Units.SI.MassFraction
   "Connector for mass fraction of water vapor per kg total mass"
   annotation (
   defaultComponentName="X_w",

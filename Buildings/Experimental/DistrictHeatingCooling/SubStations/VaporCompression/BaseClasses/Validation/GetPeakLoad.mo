@@ -1,23 +1,23 @@
 within Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.Validation;
 model GetPeakLoad "Model that validates the getPeakLoad function"
   extends Modelica.Icons.Example;
-  parameter Modelica.SIunits.HeatFlowRate QCoo_flow=
-    Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
-      string="#Peak space cooling load",
-      filNam=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"))
+  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow=
+      Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
+      string="#Peak space cooling load", filNam=
+      Modelica.Utilities.Files.loadResource(
+      "modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"))
     "Peak heat flow rate";
-  parameter Modelica.SIunits.HeatFlowRate QHea_flow=
-    Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
-      string="#Peak space heating load",
-      filNam=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"))
+  parameter Modelica.Units.SI.HeatFlowRate QHea_flow=
+      Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
+      string="#Peak space heating load", filNam=
+      Modelica.Utilities.Files.loadResource(
+      "modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"))
     "Peak heat flow rate";
-  parameter Modelica.SIunits.HeatFlowRate QWatHea_flow=
-    Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
-      string="#Peak water heating load",
-      filNam=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"))
+  parameter Modelica.Units.SI.HeatFlowRate QWatHea_flow=
+      Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
+      string="#Peak water heating load", filNam=
+      Modelica.Utilities.Files.loadResource(
+      "modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"))
     "Peak water heating flow rate";
 equation
   assert(abs(QCoo_flow - (-383165.6989)) < 1E-3, "Error in reading the peak heating load. Read "

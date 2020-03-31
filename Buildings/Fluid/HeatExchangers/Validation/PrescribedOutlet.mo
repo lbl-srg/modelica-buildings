@@ -3,7 +3,7 @@ model PrescribedOutlet
   "Model that demonstrates the ideal heater/cooler model for a prescribed outlet temperature, configured as steady-state"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water;
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.1
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.1
     "Nominal mass flow rate";
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,

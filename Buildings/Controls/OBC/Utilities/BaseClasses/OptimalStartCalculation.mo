@@ -1,17 +1,14 @@
 within Buildings.Controls.OBC.Utilities.BaseClasses;
 block OptimalStartCalculation
   "Base class for the block OptimalStart"
-  parameter Modelica.SIunits.Time tOptMax "Maximum optimal start time";
-  parameter Modelica.SIunits.Time thrOptOn
+  parameter Modelica.Units.SI.Time tOptMax "Maximum optimal start time";
+  parameter Modelica.Units.SI.Time thrOptOn
     "Threshold time for the output optOn to become true";
-  parameter Modelica.SIunits.Time tOptDef
-    "Default optimal start time";
+  parameter Modelica.Units.SI.Time tOptDef "Default optimal start time";
   parameter Integer nDay "Number of previous days for averaging the temperature slope";
-  parameter Modelica.SIunits.TemperatureDifference uLow
-    "Threshold to determine if the zone temperature reaches the occupied setpoint,
+  parameter Modelica.Units.SI.TemperatureDifference uLow "Threshold to determine if the zone temperature reaches the occupied setpoint,
      should be a non-negative number";
-  parameter Modelica.SIunits.TemperatureDifference uHigh
-    "Threshold to determine the need to start the HVAC system before occupancy,
+  parameter Modelica.Units.SI.TemperatureDifference uHigh "Threshold to determine the need to start the HVAC system before occupancy,
      should be greater than uLow";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDif(
@@ -44,7 +41,7 @@ block OptimalStartCalculation
         iconTransformation(extent={{100,-60},{140,-20}})));
 
 protected
-  parameter Modelica.SIunits.TemperatureSlope temSloDef = 1/3600
+  parameter Modelica.Units.SI.TemperatureSlope temSloDef=1/3600
     "Default temperature slope in case of zero division";
 
   Buildings.Controls.OBC.CDL.Discrete.TriggeredMovingMean triMovMea(

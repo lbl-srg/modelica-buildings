@@ -1,8 +1,8 @@
 within Buildings.Controls.OBC.CDL.Logical.Sources;
 block SampleTrigger "Generate sample trigger signal"
-  parameter Modelica.SIunits.Time period(
-    final min=Constants.small) "Sample period";
-  parameter Modelica.SIunits.Time startTime=0
+  parameter Modelica.Units.SI.Time period(final min=Constants.small)
+    "Sample period";
+  parameter Modelica.Units.SI.Time startTime=0
     "Time instant of first sample trigger";
   Interfaces.BooleanOutput y  "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));

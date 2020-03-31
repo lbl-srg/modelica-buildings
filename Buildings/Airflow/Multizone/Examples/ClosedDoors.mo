@@ -27,8 +27,8 @@ model ClosedDoors "Model with three closed doors"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow PrescribedHeatFlow1
     annotation (Placement(transformation(extent={{4,40},{24,60}})));
-  Modelica.Blocks.Sources.Sine Sine1(freqHz=1/3600) annotation (Placement(
-        transformation(extent={{-68,40},{-48,60}})));
+  Modelica.Blocks.Sources.Sine Sine1(f=1/3600)
+    annotation (Placement(transformation(extent={{-68,40},{-48,60}})));
   Modelica.Blocks.Math.Gain Gain1(k=100) annotation (Placement(transformation(
           extent={{-28,40},{-8,60}})));
   Buildings.Fluid.MixingVolumes.MixingVolume volC(

@@ -3,10 +3,10 @@ model RoomVAV "Model for CO2 emitted by people"
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium in the component";
 
-  parameter Modelica.SIunits.Volume VRoo "Volume of room";
-  parameter Modelica.SIunits.Volume VPle "Volume of plenum";
-  parameter Modelica.SIunits.Area ADam "Damper face area";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+  parameter Modelica.Units.SI.Volume VRoo "Volume of room";
+  parameter Modelica.Units.SI.Volume VPle "Volume of plenum";
+  parameter Modelica.Units.SI.Area ADam "Damper face area";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Nominal mass flow rate";
   parameter Real l(min=1e-10, max=1) = 0.0001
     "Damper leakage, ratio of flow coefficients k(y=0)/k(y=1)"

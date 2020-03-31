@@ -3,11 +3,12 @@ function shaGFunction
   "Returns a SHA1 encryption of the formatted arguments for the g-function generation"
   extends Modelica.Icons.Function;
   input Integer nBor "Number of boreholes";
-  input Modelica.SIunits.Position cooBor[nBor, 2] "Coordinates of boreholes";
-  input Modelica.SIunits.Height hBor "Borehole length";
-  input Modelica.SIunits.Height dBor "Borehole buried depth";
-  input Modelica.SIunits.Radius rBor "Borehole radius";
-  input Modelica.SIunits.ThermalDiffusivity aSoi "Ground thermal diffusivity used in g-function evaluation";
+  input Modelica.Units.SI.Position cooBor[nBor,2] "Coordinates of boreholes";
+  input Modelica.Units.SI.Height hBor "Borehole length";
+  input Modelica.Units.SI.Height dBor "Borehole buried depth";
+  input Modelica.Units.SI.Radius rBor "Borehole radius";
+  input Modelica.Units.SI.ThermalDiffusivity aSoi
+    "Ground thermal diffusivity used in g-function evaluation";
   input Integer nSeg "Number of line source segments per borehole";
   input Integer nTimSho "Number of time steps in short time region";
   input Integer nTimLon "Number of time steps in long time region";

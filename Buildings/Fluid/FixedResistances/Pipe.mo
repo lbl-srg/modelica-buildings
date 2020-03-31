@@ -8,21 +8,22 @@ model Pipe "Pipe with finite volume discretization along flow path"
   // dp.nominal=100 instead of the default dp.nominal=dp_nominal,
   // because the latter is ignored by Dymola 2012 FD 01.
 
-  parameter Modelica.SIunits.Velocity v_nominal = 0.15
+  parameter Modelica.Units.SI.Velocity v_nominal=0.15
     "Velocity at m_flow_nominal (used to compute default diameter)";
-  parameter Modelica.SIunits.Length roughness(min=0) = 2.5e-5
+  parameter Modelica.Units.SI.Length roughness(min=0) = 2.5e-5
     "Absolute roughness of pipe, with a default for a smooth steel pipe (dummy if use_roughness = false)";
-  final parameter Modelica.SIunits.PressureDifference dpStraightPipe_nominal(displayUnit="Pa")=
-      Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
-      m_flow=m_flow_nominal,
-      rho_a=rho_default,
-      rho_b=rho_default,
-      mu_a=mu_default,
-      mu_b=mu_default,
-      length=length,
-      diameter=diameter,
-      roughness=roughness,
-      m_flow_small=m_flow_small)
+  final parameter Modelica.Units.SI.PressureDifference dpStraightPipe_nominal(
+      displayUnit="Pa") =
+    Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
+    m_flow=m_flow_nominal,
+    rho_a=rho_default,
+    rho_b=rho_default,
+    mu_a=mu_default,
+    mu_b=mu_default,
+    length=length,
+    diameter=diameter,
+    roughness=roughness,
+    m_flow_small=m_flow_small)
     "Pressure loss of a straight pipe at m_flow_nominal";
 
   parameter Boolean useMultipleHeatPorts=false

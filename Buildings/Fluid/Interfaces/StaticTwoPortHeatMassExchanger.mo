@@ -14,8 +14,9 @@ model StaticTwoPortHeatMassExchanger
 
   // Model inputs
   // Q_flow is the sensible plus latent heat flow rate
-  input Modelica.SIunits.HeatFlowRate Q_flow "Heat transferred into the medium";
-  input Modelica.SIunits.MassFlowRate mWat_flow
+  input Modelica.Units.SI.HeatFlowRate Q_flow
+    "Heat transferred into the medium";
+  input Modelica.Units.SI.MassFlowRate mWat_flow
     "Moisture mass flow rate added to the medium";
 
   // Models for conservation equations and pressure drop

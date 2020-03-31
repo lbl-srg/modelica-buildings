@@ -5,7 +5,7 @@ model BoreholeDynamics "Example model for different borehole models and dynamics
 
   parameter Integer nSeg(min=1) = 10
     "Number of segments to use in vertical discretization of the boreholes";
-  parameter Modelica.SIunits.Temperature T_start = 273.15 + 22
+  parameter Modelica.Units.SI.Temperature T_start=273.15 + 22
     "Initial soil temperature";
 
   Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.OneUTube

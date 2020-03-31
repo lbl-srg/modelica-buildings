@@ -5,19 +5,19 @@ block Pulse "Generate pulse signal of type Real"
     final min=Constants.small,
     final max=1,
     final unit = "1") = 0.5 "Width of pulse in fraction of period";
-  parameter Modelica.SIunits.Time period(final min=Constants.small)
-   "Time for one period";
+  parameter Modelica.Units.SI.Time period(final min=Constants.small)
+    "Time for one period";
   parameter Integer nperiod=-1
     "Number of periods (< 0 means infinite number of periods)";
   parameter Real offset=0 "Offset of output signals";
-  parameter Modelica.SIunits.Time startTime=0
+  parameter Modelica.Units.SI.Time startTime=0
     "Output = offset for time < startTime";
   Interfaces.RealOutput y "Connector of Pulse output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  Modelica.SIunits.Time T_width=period*width "Pulse duration time";
-  Modelica.SIunits.Time T_start "Start time of current period";
+  Modelica.Units.SI.Time T_width=period*width "Pulse duration time";
+  Modelica.Units.SI.Time T_start "Start time of current period";
   Integer count "Period count";
 initial equation
   count = integer((time - startTime)/period);

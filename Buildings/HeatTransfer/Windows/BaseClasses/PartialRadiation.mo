@@ -9,7 +9,7 @@ partial block PartialRadiation
     "Set to true if window has an exterior shade";
   parameter Boolean haveInteriorShade
     "Set to true if window has an interior shade";
-  parameter Modelica.SIunits.Area AWin "Area of window";
+  parameter Modelica.Units.SI.Area AWin "Area of window";
 
   ////////////////// Derived parameters
   final parameter Boolean haveShade=haveExteriorShade or haveInteriorShade

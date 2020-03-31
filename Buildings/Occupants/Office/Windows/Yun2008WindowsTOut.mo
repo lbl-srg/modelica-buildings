@@ -6,7 +6,7 @@ model Yun2008WindowsTOut "A model to predict occupants' window behavior with out
   parameter Real AClose = 0 "Slope of the logistic relation for closing the window";
   parameter Real BClose = -0.040 "Intercept of the logistic relation for closing the window";
   parameter Integer seed = 30 "Seed for the random number generator";
-  parameter Modelica.SIunits.Time samplePeriod = 120 "Sample period";
+  parameter Modelica.Units.SI.Time samplePeriod=120 "Sample period";
 
   Modelica.Blocks.Interfaces.RealInput TOut(
     final unit="K",
@@ -28,7 +28,8 @@ model Yun2008WindowsTOut "A model to predict occupants' window behavior with out
     max=1) "Probability of closing the window";
 
 protected
-  parameter Modelica.SIunits.Time t0(final fixed = false) "First sample time instant";
+  parameter Modelica.Units.SI.Time t0(final fixed=false)
+    "First sample time instant";
   output Boolean sampleTrigger "True, if sample time instant";
   Real curSeed "Current value for seed as a real-valued variable";
 initial equation

@@ -2,27 +2,28 @@ within Buildings.HeatTransfer.Windows.BaseClasses;
 model ShadeRadiation
   "Model for infrared radiative heat balance of a layer that may or may not have a shade"
 
-  parameter Modelica.SIunits.Area A "Heat transfer area";
-  parameter Modelica.SIunits.Emissivity absIR_air
+  parameter Modelica.Units.SI.Area A "Heat transfer area";
+  parameter Modelica.Units.SI.Emissivity absIR_air
     "Infrared absorptivity of surface that faces air";
-  parameter Modelica.SIunits.Emissivity absIR_glass
+  parameter Modelica.Units.SI.Emissivity absIR_glass
     "Infrared absorptivity of surface that faces glass";
-  parameter Modelica.SIunits.TransmissionCoefficient tauIR_air
+  parameter Modelica.Units.SI.TransmissionCoefficient tauIR_air
     "Infrared transmissivity of shade for radiation coming from the exterior or the room";
-  parameter Modelica.SIunits.TransmissionCoefficient tauIR_glass
+  parameter Modelica.Units.SI.TransmissionCoefficient tauIR_glass
     "Infrared transmissivity of shade for radiation coming from the glass";
   parameter Boolean thisSideHasShade
     "Set to true if this side of the window has a shade";
-  final parameter Modelica.SIunits.ReflectionCoefficient rhoIR_air=1-absIR_air-tauIR_air
-    "Infrared reflectivity of surface that faces air";
-  final parameter Modelica.SIunits.ReflectionCoefficient rhoIR_glass=1-absIR_glass-tauIR_glass
+  final parameter Modelica.Units.SI.ReflectionCoefficient rhoIR_air=1 -
+      absIR_air - tauIR_air "Infrared reflectivity of surface that faces air";
+  final parameter Modelica.Units.SI.ReflectionCoefficient rhoIR_glass=1 -
+      absIR_glass - tauIR_glass
     "Infrared reflectivity of surface that faces glass";
   parameter Boolean linearize = false "Set to true to linearize emissive power"
   annotation (Evaluate=true);
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-  parameter Modelica.SIunits.Temperature T0=293.15
+  parameter Modelica.Units.SI.Temperature T0=293.15
     "Temperature used to linearize radiative heat transfer"
     annotation (Dialog(enable=linearize));
 
@@ -83,8 +84,9 @@ protected
     "3rd power of temperature T0";
  Real T4(min=1E8, start=293.15^4, nominal=1E10, final unit="K4")
     "4th power of temperature";
- Modelica.SIunits.RadiantPower E_air "Emissive power of surface that faces air";
- Modelica.SIunits.RadiantPower E_glass
+  Modelica.Units.SI.RadiantPower E_air
+    "Emissive power of surface that faces air";
+  Modelica.Units.SI.RadiantPower E_glass
     "Emissive power of surface that faces glass";
 equation
   connect(TSha_internal, TSha);

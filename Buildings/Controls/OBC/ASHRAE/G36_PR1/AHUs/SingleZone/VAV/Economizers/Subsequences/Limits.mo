@@ -35,12 +35,12 @@ block Limits "Single zone VAV AHU minimum outdoor air control - damper position 
     final unit="1") = 0.8
     "OA damper position to supply design outdoor airflow at maximum fan speed"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
-  parameter Modelica.SIunits.VolumeFlowRate VOutMin_flow
-    "Calculated minimum outdoor airflow rate"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
-  parameter Modelica.SIunits.VolumeFlowRate VOutDes_flow
-    "Calculated design outdoor airflow rate"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
+  parameter Modelica.Units.SI.VolumeFlowRate VOutMin_flow
+    "Calculated minimum outdoor airflow rate" annotation (Evaluate=true, Dialog(
+        tab="Commissioning", group="Damper position limits"));
+  parameter Modelica.Units.SI.VolumeFlowRate VOutDes_flow
+    "Calculated design outdoor airflow rate" annotation (Evaluate=true, Dialog(
+        tab="Commissioning", group="Damper position limits"));
   parameter Real outDamPhyPosMax(
     final min=0,
     final max=1,

@@ -10,7 +10,7 @@ partial model FluidProperties
     "Density derivative w.r.t. pressure";
   Modelica.Media.Interfaces.Types.DerDensityByTemperature ddTp
     "Density derivative w.r.t. temperature";
-  Modelica.SIunits.Density[Medium.nX] dddX
+  Modelica.Units.SI.Density[Medium.nX] dddX
     "Density derivative w.r.t. mass fraction";
 
 equation

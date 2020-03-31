@@ -58,9 +58,12 @@ partial model PartialCoolingCoilHumidifyingHeating "Partial AHU model "
   parameter Boolean use_inputFilterValve=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter for the water-side valve"
     annotation(Dialog(tab="Dynamics", group="Valve"));
-  parameter Modelica.SIunits.Time riseTimeValve=120
+  parameter Modelica.Units.SI.Time riseTimeValve=120
     "Rise time of the filter for the water-side valve (time to reach 99.6 % of an opening step)"
-    annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilterValve));
+    annotation (Dialog(
+      tab="Dynamics",
+      group="Valve",
+      enable=use_inputFilterValve));
   parameter Modelica.Blocks.Types.Init initValve=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilterValve));
@@ -73,15 +76,18 @@ partial model PartialCoolingCoilHumidifyingHeating "Partial AHU model "
   parameter Boolean addPowerToMedium=true
     "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)"
     annotation(Dialog(group="Fan"));
-  parameter Modelica.SIunits.Time tauFan = 1
+  parameter Modelica.Units.SI.Time tauFan=1
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
-     annotation (Dialog(tab = "Dynamics", group="Fan"));
+    annotation (Dialog(tab="Dynamics", group="Fan"));
   parameter Boolean use_inputFilterFan=true
     "= true, if speed is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Fan"));
-  parameter Modelica.SIunits.Time riseTimeFan=30
-    "Rise time of the filter (time to reach 99.6 % of the speed)"
-    annotation(Dialog(tab="Dynamics", group="Fan",enable=use_inputFilterFan));
+  parameter Modelica.Units.SI.Time riseTimeFan=30
+    "Rise time of the filter (time to reach 99.6 % of the speed)" annotation (
+      Dialog(
+      tab="Dynamics",
+      group="Fan",
+      enable=use_inputFilterFan));
   parameter Modelica.Blocks.Types.Init initFan=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Fan",enable=use_inputFilterFan));

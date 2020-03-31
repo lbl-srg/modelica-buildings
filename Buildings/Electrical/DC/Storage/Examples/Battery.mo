@@ -45,7 +45,8 @@ model Battery "Test model for battery"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={120,-60})));
-  Modelica.StateGraph.InitialStep off "Off state" annotation (Placement(
+  Modelica.StateGraph.InitialStep off(nIn=1, nOut=1)
+                                      "Off state" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         origin={-130,80})));
@@ -53,16 +54,19 @@ model Battery "Test model for battery"
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={-100,80})));
-  Modelica.StateGraph.StepWithSignal charge "State to charge battery"
+  Modelica.StateGraph.StepWithSignal charge(nIn=1, nOut=1)
+                                            "State to charge battery"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Modelica.StateGraph.TransitionWithSignal toHold "Transition to hold"
     annotation (Placement(transformation(extent={{-50,70},{-30,90}})));
-  Modelica.StateGraph.Step hold "Battery charge is hold"
+  Modelica.StateGraph.Step hold(nIn=1, nOut=1)
+                                "Battery charge is hold"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   Modelica.StateGraph.TransitionWithSignal toDischarge
     "Transition to discharge"
     annotation (Placement(transformation(extent={{10,70},{30,90}})));
-  Modelica.StateGraph.StepWithSignal discharge "State to discharge battery"
+  Modelica.StateGraph.StepWithSignal discharge(nIn=1, nOut=1)
+                                               "State to discharge battery"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
   Modelica.StateGraph.TransitionWithSignal toOff "Transition to off"
     annotation (Placement(transformation(extent={{70,70},{90,90}})));

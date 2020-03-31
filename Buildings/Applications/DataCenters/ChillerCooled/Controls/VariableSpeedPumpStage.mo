@@ -2,14 +2,14 @@ within Buildings.Applications.DataCenters.ChillerCooled.Controls;
 model VariableSpeedPumpStage "Staging control for variable speed pumps"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Modelica.SIunits.Time tWai "Waiting time";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+  parameter Modelica.Units.SI.Time tWai "Waiting time";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Nominal mass flow rate of the identical variable-speed pumps";
   parameter Real minSpe(unit="1",min=0,max=1) = 0.05
     "Minimum speed ratio required by variable speed pumps";
-  parameter Modelica.SIunits.MassFlowRate criPoiFlo = 0.7*m_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate criPoiFlo=0.7*m_flow_nominal
     "Critcal point of flowrate for switch pump on or off";
-  parameter Modelica.SIunits.MassFlowRate deaBanFlo = 0.1*m_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate deaBanFlo=0.1*m_flow_nominal
     "Deadband for critical point of flowrate";
   parameter Real criPoiSpe = 0.5
     "Critical point of speed signal for switching on or off";
@@ -42,13 +42,13 @@ model VariableSpeedPumpStage "Staging control for variable speed pumps"
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-50,10})));
-  Modelica.StateGraph.InitialStep off(nIn=1)
+  Modelica.StateGraph.InitialStep off(nIn=1, nOut=1)
     "Free cooling mode"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-50,70})));
-  Modelica.StateGraph.StepWithSignal twoOn
+  Modelica.StateGraph.StepWithSignal twoOn(nIn=1, nOut=1)
     "Two chillers are commanded on"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},

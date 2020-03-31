@@ -4,26 +4,26 @@ model ConvectionResistance
   extends Modelica.Icons.Example;
  package Medium = Buildings.Media.Water "Medium in the pipes";
 
-  parameter Modelica.SIunits.SpecificHeatCapacity cpMed=
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpMed=
       Medium.specificHeatCapacityCp(Medium.setState_pTX(
       Medium.p_default,
       Medium.T_default,
       Medium.X_default)) "Specific heat capacity of the fluid";
-  parameter Modelica.SIunits.ThermalConductivity kMed=
+  parameter Modelica.Units.SI.ThermalConductivity kMed=
       Medium.thermalConductivity(Medium.setState_pTX(
       Medium.p_default,
       Medium.T_default,
       Medium.X_default)) "Thermal conductivity of the fluid";
-  parameter Modelica.SIunits.DynamicViscosity mueMed=Medium.dynamicViscosity(
+  parameter Modelica.Units.SI.DynamicViscosity mueMed=Medium.dynamicViscosity(
       Medium.setState_pTX(
       Medium.p_default,
       Medium.T_default,
       Medium.X_default)) "Dynamic viscosity of the fluid";
 
- parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
-    3000/10/4200 "Nominal mass flow rate";
- Modelica.SIunits.MassFlowRate m_flow "Mass flow rate";
- Modelica.SIunits.ThermalResistance R
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=3000/10/4200
+    "Nominal mass flow rate";
+  Modelica.Units.SI.MassFlowRate m_flow "Mass flow rate";
+  Modelica.Units.SI.ThermalResistance R
     "Thermal resistance between the fluid and the tube";
 protected
  constant Real conv(unit="1/s")=1 "Conversion factor";

@@ -35,15 +35,15 @@ model Controller_Disable
     annotation (Placement(transformation(extent={{160,-60},{180,-40}})));
 
 protected
-  final parameter Modelica.SIunits.Temperature TOutCutoff=297.15
+  final parameter Modelica.Units.SI.Temperature TOutCutoff=297.15
     "Outdoor temperature high limit cutoff";
-  final parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
+  final parameter Modelica.Units.SI.SpecificEnergy hOutCutoff=65100
     "Outdoor air enthalpy high limit cutoff";
-  final parameter Modelica.SIunits.VolumeFlowRate minVOutSet_flow=0.71
+  final parameter Modelica.Units.SI.VolumeFlowRate minVOutSet_flow=0.71
     "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
-  final parameter Modelica.SIunits.VolumeFlowRate VOutMin_flow=0.61
+  final parameter Modelica.Units.SI.VolumeFlowRate VOutMin_flow=0.61
     "Minimal measured volumetric airflow";
-  final parameter Modelica.SIunits.VolumeFlowRate incVOutSet_flow=(
+  final parameter Modelica.Units.SI.VolumeFlowRate incVOutSet_flow=(
       minVOutSet_flow - VOutMin_flow)*2.2
     "Maximum volumetric airflow increase during the example simulation";
 

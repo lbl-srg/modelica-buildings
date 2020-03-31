@@ -2,8 +2,8 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.Validation;
 model FreezeProtectionMixedAir
   "Validation model for the mixed air temperature based freeze protection block"
 
-  parameter Modelica.SIunits.Temperature TFreSet = 273.15 + 4
-  "Freeze protection set point temperature";
+  parameter Modelica.Units.SI.Temperature TFreSet=273.15 + 4
+    "Freeze protection set point temperature";
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.FreezeProtectionMixedAir freProTMix(final TFreSet = TFreSet)
   annotation (Placement(transformation(extent={{0,0},{20,20}})));

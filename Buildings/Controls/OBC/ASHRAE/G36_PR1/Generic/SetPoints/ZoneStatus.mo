@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints;
 block ZoneStatus "Block that outputs zone temperature status"
 
-  parameter Modelica.SIunits.TemperatureDifference bouLim(min=0.5) = 1.1
+  parameter Modelica.Units.SI.TemperatureDifference bouLim(min=0.5) = 1.1
     "Value limit to indicate the end of setback or setup mode";
   parameter Boolean have_winSen=false
     "Check if the zone has window status sensor";

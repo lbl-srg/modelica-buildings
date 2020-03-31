@@ -13,30 +13,30 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
   parameter Boolean have_airFloMeaSta = false
     "Check if the AHU has AFMS (Airflow measurement station)"
     annotation(Dialog(group="System configuration"));
-  parameter Modelica.SIunits.PressureDifference iniSet(displayUnit="Pa") = 120
+  parameter Modelica.Units.SI.PressureDifference iniSet(displayUnit="Pa") = 120
     "Initial setpoint"
     annotation (Dialog(group="Trim and respond for pressure setpoint"));
-  parameter Modelica.SIunits.PressureDifference minSet(displayUnit="Pa") = 25
+  parameter Modelica.Units.SI.PressureDifference minSet(displayUnit="Pa") = 25
     "Minimum setpoint"
     annotation (Dialog(group="Trim and respond for pressure setpoint"));
-  parameter Modelica.SIunits.PressureDifference maxSet(displayUnit="Pa")
+  parameter Modelica.Units.SI.PressureDifference maxSet(displayUnit="Pa")
     "Maximum setpoint"
     annotation (Dialog(group="Trim and respond for pressure setpoint"));
-  parameter Modelica.SIunits.Time delTim = 600
-   "Delay time after which trim and respond is activated"
+  parameter Modelica.Units.SI.Time delTim=600
+    "Delay time after which trim and respond is activated"
     annotation (Dialog(group="Trim and respond for pressure setpoint"));
-  parameter Modelica.SIunits.Time samplePeriod = 120  "Sample period"
+  parameter Modelica.Units.SI.Time samplePeriod=120 "Sample period"
     annotation (Dialog(group="Trim and respond for pressure setpoint"));
   parameter Integer numIgnReq = 2
     "Number of ignored requests"
     annotation (Dialog(group="Trim and respond for pressure setpoint"));
-  parameter Modelica.SIunits.PressureDifference triAmo(displayUnit="Pa") = -12.0
+  parameter Modelica.Units.SI.PressureDifference triAmo(displayUnit="Pa") = -12.0
     "Trim amount"
     annotation (Dialog(group="Trim and respond for pressure setpoint"));
-  parameter Modelica.SIunits.PressureDifference resAmo(displayUnit="Pa") = 15
+  parameter Modelica.Units.SI.PressureDifference resAmo(displayUnit="Pa") = 15
     "Respond amount (must be opposite in to triAmo)"
     annotation (Dialog(group="Trim and respond for pressure setpoint"));
-  parameter Modelica.SIunits.PressureDifference maxRes(displayUnit="Pa") = 32
+  parameter Modelica.Units.SI.PressureDifference maxRes(displayUnit="Pa") = 32
     "Maximum response per time interval (same sign as resAmo)"
     annotation (Dialog(group="Trim and respond for pressure setpoint"));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController
@@ -45,16 +45,14 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
   parameter Real k(final unit="1")=0.1
     "Gain of controller, normalized using maxSet"
     annotation (Dialog(group="Fan PID controller"));
-  parameter Modelica.SIunits.Time Ti(min=0)=60
-    "Time constant of integrator block"
-    annotation (Dialog(group="Fan PID controller",
-      enable=controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-         or  controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time Td(min=0) = 0.1
-    "Time constant of derivative block"
-    annotation (Dialog(group="Fan PID controller",
-      enable=controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-          or controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time Ti(min=0) = 60
+    "Time constant of integrator block" annotation (Dialog(group=
+          "Fan PID controller", enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time Td(min=0) = 0.1
+    "Time constant of derivative block" annotation (Dialog(group=
+          "Fan PID controller", enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real yFanMax(min=0.1, max=1, unit="1") = 1
     "Maximum allowed fan speed"
     annotation (Dialog(group="Fan PID controller"));

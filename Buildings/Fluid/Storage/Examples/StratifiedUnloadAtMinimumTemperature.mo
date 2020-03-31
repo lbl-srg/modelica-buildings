@@ -4,9 +4,9 @@ model StratifiedUnloadAtMinimumTemperature
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water "Medium model";
 
-  parameter Modelica.SIunits.Volume VTan=3 "Tank volume";
+  parameter Modelica.Units.SI.Volume VTan=3 "Tank volume";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 3*1000/3600
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=3*1000/3600
     "Nominal mass flow rate";
 
   constant Integer nSeg=5 "Number of volume segments";

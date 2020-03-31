@@ -6,7 +6,7 @@ model InverseDewPointTemperatureDerivativeCheck_amb
   Real y "Function value";
   Real y_comp "Function value for comparison";
   Real err(unit="K", displayUnit="K") "Integration error";
-  Modelica.SIunits.Pressure p_w "Water vapor partial pressure";
+  Modelica.Units.SI.Pressure p_w "Water vapor partial pressure";
 initial equation
   y=y_comp;
 equation

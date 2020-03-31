@@ -13,13 +13,16 @@ block Controller "Single zone VAV AHU economizer control sequence"
   parameter Boolean use_G36FrePro=false
     "Set to true if G36 freeze protection is implemented";
 
-  parameter Modelica.SIunits.TemperatureDifference delTOutHis=1
+  parameter Modelica.Units.SI.TemperatureDifference delTOutHis=1
     "Delta between the temperature hysteresis high and low limit"
-    annotation(Evaluate=true, Dialog(tab="Advanced", group="Hysteresis"));
+    annotation (Evaluate=true, Dialog(tab="Advanced", group="Hysteresis"));
 
-  parameter Modelica.SIunits.SpecificEnergy delEntHis=1000
-    "Delta between the enthalpy hysteresis high and low limits"
-    annotation(Evaluate=true, Dialog(tab="Advanced", group="Hysteresis", enable = use_enthalpy));
+  parameter Modelica.Units.SI.SpecificEnergy delEntHis=1000
+    "Delta between the enthalpy hysteresis high and low limits" annotation (
+      Evaluate=true, Dialog(
+      tab="Advanced",
+      group="Hysteresis",
+      enable=use_enthalpy));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeMod=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -29,17 +32,15 @@ block Controller "Single zone VAV AHU economizer control sequence"
   parameter Real kMod(final unit="1/K")=1 "Gain of modulation controller"
     annotation(Dialog(group="Modulation"));
 
-  parameter Modelica.SIunits.Time TiMod=300
-    "Time constant of modulation controller integrator block"
-    annotation (Dialog(group="Modulation",
-      enable=controllerTypeMod == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-          or controllerTypeMod == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time TiMod=300
+    "Time constant of modulation controller integrator block" annotation (
+      Dialog(group="Modulation", enable=controllerTypeMod == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+           or controllerTypeMod == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Modelica.SIunits.Time TdMod=0.1
-    "Time constant of derivative block for modulation controller"
-    annotation (Dialog(group="Modulation",
-      enable=controllerTypeMod == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-          or controllerTypeMod == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time TdMod=0.1
+    "Time constant of derivative block for modulation controller" annotation (
+      Dialog(group="Modulation", enable=controllerTypeMod == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+           or controllerTypeMod == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Real uMin(
     final min=0.1,
@@ -61,23 +62,21 @@ block Controller "Single zone VAV AHU economizer control sequence"
     "Gain for mixed air temperature tracking for freeze protection, used if use_TMix=true"
      annotation(Dialog(group="Freeze protection", enable=use_TMix));
 
-  parameter Modelica.SIunits.Time TiFre=120
+  parameter Modelica.Units.SI.Time TiFre=120
     "Time constant of controller for mixed air temperature tracking for freeze protection. Require TiFre < TiMinOut"
-     annotation(Dialog(group="Freeze protection",
-       enable=use_TMix
-         and (controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    annotation (Dialog(group="Freeze protection", enable=use_TMix and (
+          controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
            or controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
 
-  parameter Modelica.SIunits.Time TdFre=0.1
-     "Time constant of derivative block for freeze protection"
-     annotation (Dialog(group="Freeze protection",
-       enable=use_TMix and
-           (controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-           or controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+  parameter Modelica.Units.SI.Time TdFre=0.1
+    "Time constant of derivative block for freeze protection" annotation (
+      Dialog(group="Freeze protection", enable=use_TMix and (controllerTypeFre
+           == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
+          controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
 
-  parameter Modelica.SIunits.Temperature TFreSet = 277.15
+  parameter Modelica.Units.SI.Temperature TFreSet=277.15
     "Lower limit for mixed air temperature for freeze protection, used if use_TMix=true"
-     annotation(Dialog(group="Freeze protection", enable=use_TMix));
+    annotation (Dialog(group="Freeze protection", enable=use_TMix));
 
   parameter Real yFanMin(
     final min=0,
@@ -89,12 +88,12 @@ block Controller "Single zone VAV AHU economizer control sequence"
     final max=1,
     final unit="1") = 0.9 "Maximum supply fan operation speed"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
-  parameter Modelica.SIunits.VolumeFlowRate VOutMin_flow=1.0
-    "Calculated minimum outdoor airflow rate"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
-  parameter Modelica.SIunits.VolumeFlowRate VOutDes_flow=2.0
-    "Calculated design outdoor airflow rate"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
+  parameter Modelica.Units.SI.VolumeFlowRate VOutMin_flow=1.0
+    "Calculated minimum outdoor airflow rate" annotation (Evaluate=true, Dialog(
+        tab="Commissioning", group="Damper position limits"));
+  parameter Modelica.Units.SI.VolumeFlowRate VOutDes_flow=2.0
+    "Calculated design outdoor airflow rate" annotation (Evaluate=true, Dialog(
+        tab="Commissioning", group="Damper position limits"));
   parameter Real yDam_VOutMin_minSpe(
     final min=outDamPhyPosMin,
     final max=outDamPhyPosMax,

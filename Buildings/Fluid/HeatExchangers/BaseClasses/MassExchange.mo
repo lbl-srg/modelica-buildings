@@ -42,7 +42,8 @@ public
 protected
  parameter Medium.ThermodynamicState sta_default = Medium.setState_phX(h=Medium.h_default,
        p=Medium.p_default, X=Medium.X_default);
- parameter Modelica.SIunits.SpecificHeatCapacity cp_default=Medium.specificHeatCapacityCp(sta_default)
+  parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
+      Medium.specificHeatCapacityCp(sta_default)
     "Density, used to compute fluid volume";
  parameter Real cpLe_default(unit="J/(kg.K)") = cp_default * Le^(1-n);
 equation

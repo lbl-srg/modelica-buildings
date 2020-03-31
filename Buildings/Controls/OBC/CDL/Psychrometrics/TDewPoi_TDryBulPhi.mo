@@ -24,7 +24,7 @@ block TDewPoi_TDryBulPhi
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  Modelica.SIunits.Pressure p_w(displayUnit="Pa") "Water vapor pressure";
+  Modelica.Units.SI.Pressure p_w(displayUnit="Pa") "Water vapor pressure";
   constant Real C14=6.54;
   constant Real C15=14.526;
   constant Real C16=0.7389;

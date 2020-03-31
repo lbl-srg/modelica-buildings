@@ -30,15 +30,15 @@ model Limits_Disable
 protected
   final parameter Real yFanMin=0.1 "Minimum supply fan operation speed";
   final parameter Real yFanMax=0.9 "Maximum supply fan operation speed";
-  final parameter Modelica.SIunits.VolumeFlowRate VOutDes_flow=2.0
+  final parameter Modelica.Units.SI.VolumeFlowRate VOutDes_flow=2.0
     "Calculated design outdoor airflow rate";
-  final parameter Modelica.SIunits.VolumeFlowRate VOutMin_flow=1.0
+  final parameter Modelica.Units.SI.VolumeFlowRate VOutMin_flow=1.0
     "Calculated minimum outdoor airflow rate";
-  final parameter Modelica.SIunits.VolumeFlowRate VOutSet_flow=0.71
+  final parameter Modelica.Units.SI.VolumeFlowRate VOutSet_flow=0.71
     "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
-  final parameter Modelica.SIunits.VolumeFlowRate minVOutSet_flow=0.61
+  final parameter Modelica.Units.SI.VolumeFlowRate minVOutSet_flow=0.61
     "Volumetric airflow sensor output, minimum value in the example";
-  final parameter Modelica.SIunits.VolumeFlowRate incVOutSet_flow=0.2
+  final parameter Modelica.Units.SI.VolumeFlowRate incVOutSet_flow=0.2
     "Maximum increase in airflow volume during the example simulation";
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp SupFanSpeSig(

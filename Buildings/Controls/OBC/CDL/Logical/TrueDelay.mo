@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.CDL.Logical;
 block TrueDelay
   "Delay a rising edge of the input, but do not delay a falling edge."
 
-  parameter Modelica.SIunits.Time delayTime "Delay time";
+  parameter Modelica.Units.SI.Time delayTime "Delay time";
 
   parameter Boolean delayOnInit = false
     "Set to true to delay initial true input";
@@ -14,9 +14,9 @@ block TrueDelay
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  parameter Modelica.SIunits.Time t_past(fixed=false)
-     "Time before simulation started";
-   Modelica.SIunits.Time t_next;
+  parameter Modelica.Units.SI.Time t_past(fixed=false)
+    "Time before simulation started";
+  Modelica.Units.SI.Time t_next;
 
 initial equation
   t_past = time - 1000;

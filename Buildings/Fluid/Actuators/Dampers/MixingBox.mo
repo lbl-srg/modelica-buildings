@@ -22,35 +22,41 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
   parameter Real ReC=4000
     "Reynolds number where transition to turbulent starts"
     annotation(Dialog(enable=not use_deltaM));
-  parameter Modelica.SIunits.MassFlowRate mOut_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mOut_flow_nominal
     "Mass flow rate outside air damper"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpDamOut_nominal(min=0, displayUnit="Pa")
-    "Pressure drop of damper in outside air leg"
-     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpFixOut_nominal(min=0, displayUnit="Pa")=0
+  parameter Modelica.Units.SI.PressureDifference dpDamOut_nominal(min=0,
+      displayUnit="Pa") "Pressure drop of damper in outside air leg"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.PressureDifference dpFixOut_nominal(
+    min=0,
+    displayUnit="Pa") = 0
     "Pressure drop of duct and other resistances in outside air leg"
-     annotation (Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.MassFlowRate mRec_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mRec_flow_nominal
     "Mass flow rate recirculation air damper"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpDamRec_nominal(min=0, displayUnit="Pa")
-    "Pressure drop of damper in recirculation air leg"
-     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpFixRec_nominal(min=0, displayUnit="Pa")=0
+  parameter Modelica.Units.SI.PressureDifference dpDamRec_nominal(min=0,
+      displayUnit="Pa") "Pressure drop of damper in recirculation air leg"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.PressureDifference dpFixRec_nominal(
+    min=0,
+    displayUnit="Pa") = 0
     "Pressure drop of duct and other resistances in recirculation air leg"
-     annotation (Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.MassFlowRate mExh_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mExh_flow_nominal
     "Mass flow rate exhaust air damper"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpDamExh_nominal(min=0, displayUnit="Pa")
-    "Pressure drop of damper in exhaust air leg"
-     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpFixExh_nominal(min=0, displayUnit="Pa")=0
+  parameter Modelica.Units.SI.PressureDifference dpDamExh_nominal(min=0,
+      displayUnit="Pa") "Pressure drop of damper in exhaust air leg"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.PressureDifference dpFixExh_nominal(
+    min=0,
+    displayUnit="Pa") = 0
     "Pressure drop of duct and other resistances in exhaust air leg"
-     annotation (Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition"));
 
   parameter Boolean from_dp=true
     "= true, use m_flow = f(dp) else dp = f(m_flow)"

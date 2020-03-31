@@ -5,29 +5,29 @@ model SteamSaturatedProperties
 
   package Medium = Buildings.Media.Steam  "Steam medium model";
 
-  parameter Modelica.SIunits.Temperature TMin = 273.16
+  parameter Modelica.Units.SI.Temperature TMin=273.16
     "Minimum temperature for the simulation";
-  parameter Modelica.SIunits.Temperature TMax = 647.096
+  parameter Modelica.Units.SI.Temperature TMax=647.096
     "Maximum temperature for the simulation";
-  parameter Modelica.SIunits.Pressure pMin = 620
+  parameter Modelica.Units.SI.Pressure pMin=620
     "Minimum pressure for the simulation";
-  parameter Modelica.SIunits.Pressure pMax = 20000000
+  parameter Modelica.Units.SI.Pressure pMax=20000000
     "Maximum pressure for the simulation";
-  Modelica.SIunits.Pressure pSat "Saturation pressure";
+  Modelica.Units.SI.Pressure pSat "Saturation pressure";
   Medium.Temperature TSat  "Saturation temperature";
-  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TSat_degC
+  Modelica.Units.NonSI.Temperature_degC TSat_degC
     "Celsius saturation temperature";
 
   Medium.SaturationProperties sat "Medium saturation state";
 
-  Modelica.SIunits.Density dl "Density of saturated liquid";
-  Modelica.SIunits.Density dv "Density of saturated vapor";
-  Modelica.SIunits.SpecificEnthalpy hl "Enthalpy of saturated liquid";
-  Modelica.SIunits.SpecificEnthalpy hv "Enthalpy of saturated vapor";
-  Modelica.SIunits.SpecificEnthalpy hlv "Enthalpy of vaporization";
-  Modelica.SIunits.SpecificEntropy sl "Entropy of saturated liquid";
-  Modelica.SIunits.SpecificEntropy sv "Entropy of saturated vapor";
-  Modelica.SIunits.SpecificEntropy slv "Entropy of vaporization";
+  Modelica.Units.SI.Density dl "Density of saturated liquid";
+  Modelica.Units.SI.Density dv "Density of saturated vapor";
+  Modelica.Units.SI.SpecificEnthalpy hl "Enthalpy of saturated liquid";
+  Modelica.Units.SI.SpecificEnthalpy hv "Enthalpy of saturated vapor";
+  Modelica.Units.SI.SpecificEnthalpy hlv "Enthalpy of vaporization";
+  Modelica.Units.SI.SpecificEntropy sl "Entropy of saturated liquid";
+  Modelica.Units.SI.SpecificEntropy sv "Entropy of saturated vapor";
+  Modelica.Units.SI.SpecificEntropy slv "Entropy of vaporization";
 
 protected
   constant Real conv(unit="1/s") = 1 "Conversion factor to satisfy unit check";
@@ -35,7 +35,7 @@ protected
 equation
     // Compute temperatures that are used as input to the functions
     pSat = pMin + conv*time * (pMax-pMin);
-    TSat_degC = Modelica.SIunits.Conversions.to_degC(TSat);
+    TSat_degC =Modelica.Units.Conversions.to_degC(TSat);
 
     // Saturation state
     sat = Medium.saturationState_p(pSat);

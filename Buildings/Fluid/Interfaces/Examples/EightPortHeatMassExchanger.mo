@@ -3,7 +3,7 @@ model EightPortHeatMassExchanger
   "EightPortHeatMassExchanger example model"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water;
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate";
 
   Sources.Boundary_pT sin(          redeclare package Medium = Medium, nPorts=4)

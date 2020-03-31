@@ -9,7 +9,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   parameter Buildings.BoundaryConditions.Types.DataSource pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter
     "Atmospheric pressure"
     annotation (Evaluate=true, Dialog(group="Data source"));
-  parameter Modelica.SIunits.Pressure pAtm=101325
+  parameter Modelica.Units.SI.Pressure pAtm=101325
     "Atmospheric pressure (used if pAtmSou=Parameter)"
     annotation (Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput pAtm_in(
@@ -73,7 +73,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   parameter Buildings.BoundaryConditions.Types.DataSource TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.File
     "Dry bulb temperature"
     annotation (Evaluate=true, Dialog(group="Data source"));
-  parameter Modelica.SIunits.Temperature TDryBul(displayUnit="degC") = 293.15
+  parameter Modelica.Units.SI.Temperature TDryBul(displayUnit="degC") = 293.15
     "Dry bulb temperature (used if TDryBul=Parameter)"
     annotation (Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput TDryBul_in(
@@ -88,7 +88,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   parameter Buildings.BoundaryConditions.Types.DataSource TDewPoiSou=Buildings.BoundaryConditions.Types.DataSource.File
     "Dew point temperature"
     annotation (Evaluate=true, Dialog(group="Data source"));
-  parameter Modelica.SIunits.Temperature TDewPoi(displayUnit="degC") = 283.15
+  parameter Modelica.Units.SI.Temperature TDewPoi(displayUnit="degC") = 283.15
     "Dew point temperature (used if TDewPoi=Parameter)"
     annotation (Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput TDewPoi_in(
@@ -102,7 +102,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   // Black body sky temperature
   parameter Buildings.BoundaryConditions.Types.DataSource TBlaSkySou=Buildings.BoundaryConditions.Types.DataSource.File
     "Black-body sky temperature" annotation (Evaluate=true, Dialog(group="Data source"));
-  parameter Modelica.SIunits.Temperature TBlaSky=273.15
+  parameter Modelica.Units.SI.Temperature TBlaSky=273.15
     "Black-body sky temperature (used if TBlaSkySou=Parameter)"
     annotation (Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput TBlaSky_in(
@@ -133,7 +133,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   // Wind speed
   parameter Buildings.BoundaryConditions.Types.DataSource winSpeSou=Buildings.BoundaryConditions.Types.DataSource.File
     "Wind speed" annotation (Evaluate=true, Dialog(group="Data source"));
-  parameter Modelica.SIunits.Velocity winSpe(min=0) = 1
+  parameter Modelica.Units.SI.Velocity winSpe(min=0) = 1
     "Wind speed (used if winSpe=Parameter)"
     annotation (Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput winSpe_in(
@@ -147,7 +147,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   // Wind direction
   parameter Buildings.BoundaryConditions.Types.DataSource winDirSou=Buildings.BoundaryConditions.Types.DataSource.File
     "Wind direction" annotation (Evaluate=true, Dialog(group="Data source"));
-  parameter Modelica.SIunits.Angle winDir=1.0
+  parameter Modelica.Units.SI.Angle winDir=1.0
     "Wind direction (used if winDir=Parameter)"
     annotation (Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput winDir_in(
@@ -161,7 +161,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   // Infrared horizontal radiation
   parameter Buildings.BoundaryConditions.Types.DataSource HInfHorSou=Buildings.BoundaryConditions.Types.DataSource.File
     "Infrared horizontal radiation" annotation (Evaluate=true, Dialog(group="Data source"));
-  parameter Modelica.SIunits.HeatFlux HInfHor=0.0
+  parameter Modelica.Units.SI.HeatFlux HInfHor=0.0
     "Infrared horizontal radiation (used if HInfHorSou=Parameter)"
     annotation (Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput HInfHor_in(
@@ -203,13 +203,13 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   parameter String filNam="" "Name of weather data file" annotation (
     Dialog(loadSelector(filter="Weather files (*.mos)",
                         caption="Select weather file")));
-  final parameter Modelica.SIunits.Angle lon(displayUnit="deg")=
+  final parameter Modelica.Units.SI.Angle lon(displayUnit="deg") =
     Buildings.BoundaryConditions.WeatherData.BaseClasses.getLongitudeTMY3(
     filNam) "Longitude";
-  final parameter Modelica.SIunits.Angle lat(displayUnit="deg")=
-    Buildings.BoundaryConditions.WeatherData.BaseClasses.getLatitudeTMY3(
-    filNam) "Latitude";
-  final parameter Modelica.SIunits.Time timZon(displayUnit="h")=
+  final parameter Modelica.Units.SI.Angle lat(displayUnit="deg") =
+    Buildings.BoundaryConditions.WeatherData.BaseClasses.getLatitudeTMY3(filNam)
+    "Latitude";
+  final parameter Modelica.Units.SI.Time timZon(displayUnit="h") =
     Buildings.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3(filNam)
     "Time zone";
 
@@ -224,12 +224,12 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     Dialog(group="Sky temperature"));
 
   constant Real epsCos = 1e-6 "Small value to avoid division by 0";
-  constant Modelica.SIunits.HeatFlux solCon = 1367.7 "Solar constant";
+  constant Modelica.Units.SI.HeatFlux solCon=1367.7 "Solar constant";
 
 protected
-  final parameter Modelica.SIunits.Time[2] timeSpan=
-    Buildings.BoundaryConditions.WeatherData.BaseClasses.getTimeSpanTMY3(filNam, "tab1")
-  "Start time, end time of weather data";
+  final parameter Modelica.Units.SI.Time[2] timeSpan=
+      Buildings.BoundaryConditions.WeatherData.BaseClasses.getTimeSpanTMY3(
+      filNam, "tab1") "Start time, end time of weather data";
 
   Modelica.Blocks.Tables.CombiTable1Ds datRea(
     final tableOnFile=true,
@@ -423,7 +423,7 @@ protected
   block Latitude "Generate constant signal of type Real"
     extends Modelica.Blocks.Icons.Block;
 
-    parameter Modelica.SIunits.Angle latitude "Latitude";
+    parameter Modelica.Units.SI.Angle latitude "Latitude";
 
     Modelica.Blocks.Interfaces.RealOutput y(
       unit="rad",
@@ -467,7 +467,7 @@ First implementation.
   block Longitude "Generate constant signal of type Real"
     extends Modelica.Blocks.Icons.Block;
 
-    parameter Modelica.SIunits.Angle longitude "Longitude";
+    parameter Modelica.Units.SI.Angle longitude "Longitude";
 
     Modelica.Blocks.Interfaces.RealOutput y(
       unit="rad",

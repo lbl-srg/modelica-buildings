@@ -10,7 +10,7 @@ block CheckIRRadiation "Ensure that the radiation is not smaller than 0"
     final unit="W/m2") "Horizontal infrared irradiation"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-  constant Modelica.SIunits.RadiantEnergyFluenceRate HMin=0.0001
+  constant Modelica.Units.SI.RadiantEnergyFluenceRate HMin=0.0001
     "Minimum value for radiation";
 equation
   HOut = Buildings.Utilities.Math.Functions.smoothMax(

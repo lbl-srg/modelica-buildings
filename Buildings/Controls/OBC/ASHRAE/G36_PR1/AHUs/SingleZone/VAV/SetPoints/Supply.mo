@@ -1,11 +1,11 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints;
 block Supply "Supply air set point for single zone VAV system"
 
-  parameter Modelica.SIunits.Temperature TSupSetMax
+  parameter Modelica.Units.SI.Temperature TSupSetMax
     "Maximum supply air temperature for heating"
     annotation (Dialog(group="Temperatures"));
 
-  parameter Modelica.SIunits.Temperature TSupSetMin
+  parameter Modelica.Units.SI.Temperature TSupSetMin
     "Minimum supply air temperature for cooling"
     annotation (Dialog(group="Temperatures"));
 
