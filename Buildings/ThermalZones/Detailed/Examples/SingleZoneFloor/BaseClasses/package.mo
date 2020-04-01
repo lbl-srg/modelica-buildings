@@ -4,7 +4,7 @@ package BaseClasses "Base classes for the single zone floor package"
 
   annotation (preferredView="info", Documentation(info="<html>
   <p>
-  This package contains a base class model of a single-zone floor.
+  This package contains base class models for the single-zone floor example models.
   </p>
   </html>"));
 end BaseClasses;

@@ -104,14 +104,14 @@ equation
       points={{80,80},{88,80},{88,12},{49,12}},
       color={255,204,51},
       thickness=0.5));
-  connect(freAir.ports[1], duc.port_b) annotation (Line(points={{-60,23.3333},{
-          -50,23.3333},{-50,20},{-40,20}},
+  connect(freAir.ports[1], duc.port_b) annotation (Line(points={{-60,23.3333},
+          {-50,23.3333},{-50,20},{-40,20}},
                                        color={0,127,255}));
   connect(duc.port_a, sinZonFlo.ports[1]) annotation (Line(points={{-20,20},{
           -0.2,20},{-0.2,64}},
                           color={0,127,255}));
-  connect(bou.ports[1], sinZonFlo.ports[1]) annotation (Line(points={{-60,
-          53.3333},{-2,53.3333},{-2,64},{-0.2,64}},
+  connect(bou.ports[1], sinZonFlo.ports[2]) annotation (Line(points={{-60,53.3333},
+          {-2,53.3333},{-2,64},{1.8,64}},
                                  color={0,127,255}));
   connect(ducSou.port_a, flo.portsSou[1]) annotation (Line(points={{-20,-20},{
           32,-20},{32,-12},{36,-12},{36,-11.4}},
@@ -155,8 +155,6 @@ equation
       thickness=0.5));
   annotation (
   experiment(
-      StopTime=86400,
-      Tolerance=1e-06),
   __Dymola_Commands(file=
   "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/SingleZoneFloor/SingleZoneFloorOpenLoop.mos"
         "Simulate and plot"),

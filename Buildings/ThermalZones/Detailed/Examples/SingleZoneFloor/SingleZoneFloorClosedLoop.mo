@@ -37,8 +37,7 @@ model SingleZoneFloorClosedLoop
     sinZonFlo(redeclare package Medium = Medium, lat=lat)
     "Single-zone floor model"
     annotation (Placement(transformation(extent={{-4,98},{36,138}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant
-                                                      TSetRoo(k=273.15 + 22,
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRoo(k=273.15 + 22,
       y(unit="K", displayUnit="degC")) "Setpoint for room air"
     annotation (Placement(transformation(extent={{-120,84},{-100,104}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum EHeaFlo(nin=5)
@@ -47,27 +46,27 @@ model SingleZoneFloorClosedLoop
   BaseClasses.HeaterAndControl heaAndCon(
     redeclare package Medium=Medium,
     m_flow_nominal=VRoo*3/3600*1.2,
-    VRoo=VRoo)
+    VRoo=VRoo) "Heater and controller for the singleZoneFloor"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
   BaseClasses.HeaterAndControl heaAndConNor(redeclare package Medium = Medium,
     m_flow_nominal=VRooNor*3/3600*1.2,
-    VRoo=VRooNor)
+    VRoo=VRooNor) "Heater and controller for the north zone"
     annotation (Placement(transformation(extent={{-60,22},{-40,42}})));
   BaseClasses.HeaterAndControl heaAndConWes(redeclare package Medium = Medium,
     m_flow_nominal=VRooWes*3/3600*1.2,
-    VRoo=VRooWes)
+    VRoo=VRooWes) "Heater and controller for the west zone"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   BaseClasses.HeaterAndControl heaAndConCor(redeclare package Medium = Medium,
     m_flow_nominal=VRooCor*3/3600*1.2,
-    VRoo=VRooCor)
+    VRoo=VRooCor) "Heater and controller for the core zone"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
   BaseClasses.HeaterAndControl heaAndConSou(redeclare package Medium = Medium,
     m_flow_nominal=VRooSou*3/3600*1.2,
-    VRoo=VRooSou)
+    VRoo=VRooSou) "Heater and controller for the south zone"
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
   BaseClasses.HeaterAndControl heaAndConEas(redeclare package Medium = Medium,
     m_flow_nominal=VRooEas*3/3600*1.2,
-    VRoo=VRooEas)
+    VRoo=VRooEas) "Heater and controller for the east zone"
     annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
 equation
   connect(weaDat.weaBus, flo.weaBus) annotation (Line(
@@ -80,7 +79,6 @@ equation
       thickness=0.5));
   connect(TSetRoo.y, heaAndCon.TSetRoo)   annotation (Line(points={{-98,94},{
           -62,94}},                                                                    color={0,0,127},
-
       pattern=LinePattern.Dash));
   connect(heaAndCon.port_a, sinZonFlo.ports[1]) annotation (Line(points={{-60,100},
           {-66,100},{-66,118},{6,118},{6,106},{3.8,106}},
@@ -141,11 +139,9 @@ equation
       pattern=LinePattern.Dash));
   connect(flo.TRooAir[1], heaAndConSou.TRooMea) annotation (Line(points={{47,73.2},
           {56,73.2},{56,-108},{-66,-108},{-66,-99},{-62,-99}},   color={0,0,127},
-
       pattern=LinePattern.Dash));
   connect(flo.TRooAir[2], heaAndConEas.TRooMea) annotation (Line(points={{47,73.6},
           {56,73.6},{56,-148},{-66,-148},{-66,-139},{-62,-139}}, color={0,0,127},
-
       pattern=LinePattern.Dash));
   connect(heaAndConNor.yEHea, EHeaFlo.u[1]) annotation (Line(points={{-38,24},{70,
           24},{70,-38.4},{78,-38.4}}, color={0,0,127},

@@ -1,6 +1,6 @@
 within Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.BaseClasses;
 model HeaterAndControl
-  "A model with an ideal heater, a fan and a PID control"
+  "A model with an ideal heater, a fan a PID controller and an integrator"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
@@ -74,12 +74,29 @@ equation
         color={0,0,127}));
   connect(port_a, fan.port_a) annotation (Line(points={{-100,0},{-60,0}}, color={0,127,255}));
   connect(hea.port_b, port_b) annotation (Line(points={{40,0},{100,0}}, color={0,127,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (
+ Icon(coordinateSystem(preserveAspectRatio=false),
+ graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid)}),Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-        defaultComponentName="HeaAndCon");
+  defaultComponentName="HeaAndCon",
+  Documentation(info = "<html>
+  <p>
+  This base class model includes a heater, a fan, a PI controller and an integrator
+  that is used for the example model
+  <a href=\"modelica://Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.SingleZoneFloorClosedLoop\">
+  Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.SingleZoneFloorClosedLoop</a>.
+  </p>
+  </html>",
+  revisions="<html>
+  <ul>
+  <li>March 28, 2020, by Kun Zhang:<br/>
+  First implementation.
+  </li>
+  </ul>
+  </html>"));
 end HeaterAndControl;
