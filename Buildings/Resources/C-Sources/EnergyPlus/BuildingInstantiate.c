@@ -269,7 +269,7 @@ void generateFMU(
       ModelicaFormatError("Requested to use json file '%s' which does not exist.", modelicaBuildingsJsonFile);
     }
     cmd = "/Resources/bin/spawn-linux64/bin/spawn";
-    cmdFla = "-c"; /* Flag for command */
+    cmdFla = "--no-compress -c"; /* Flag for command */
     /* The + 1 are for spaces, the quotes around the file name (needed if the Modelica name has array brackets) and
        the end of line character */
     len = strlen(buildingsLibraryRoot) + strlen(cmd) + 1 + strlen(cmdFla) + 1 + 1 + strlen(modelicaBuildingsJsonFile) + 1 + 1;
