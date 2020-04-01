@@ -17,18 +17,14 @@ SET /A errno=0
 SET SRCS=pythonInterpreter.c
 SET LIBS=pythonInterpreter.lib
 
-pause
-
 REM SET MOD_DLL=ModelicaBuildingsPython2.7.dll
 REM SET MOD_LIB=ModelicaBuildingsPython2.7.lib
 SET MOD_DLL=ModelicaBuildingsPython3.6.dll
 SET MOD_LIB=ModelicaBuildingsPython3.6.lib
 
-pause
-
 SET DUMMY_SRC=dummy.c
 REM SET DUMMY_DLL=python2.7.dll
-SET DUMMY_DLL=python3.7.dll
+SET DUMMY_DLL=python3.6.dll
 
 REM The first parameter is the architecture flag (x86 or x64).
 REM + Architecture related paths must be specified before running the batch file:
@@ -46,9 +42,8 @@ REM   activate {name of Python 64-bit environment}
 REM   set PYTHONHOME=%HOME%\Miniconda2\envs\{name of Python 64-bit environment}
 REM   set CLPATH="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
 
-SET PYTHONHOME="C:\Python37"
+SET PYTHONHOME="C:\Miniconda3-4-3-31"
 SET CLPATH="C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\amd64\vcvars64.bat"
-
 
 IF NOT -%1-==-- (
   IF "%~1"=="x86" SET ARCH=%~1
@@ -80,8 +75,6 @@ IF DEFINED CLPATH (
 
 ENDLOCAL
 
-pause
-
 IF %ARCH%==x86 (
   SET BINDIR=..\..\Library\win32
   ECHO Windows 32 bit compilation activated.
@@ -94,7 +87,7 @@ ECHO DLL will be saved in: %BINDIR%.
 
 SET PYTHONInc=%PYTHONHOME%\include
 REM SET PYTHONLibs=%PYTHONHOME%\libs\python27.lib
-SET PYTHONLibs=%PYTHONHOME%\libs\python37.lib
+SET PYTHONLibs=%PYTHONHOME%\libs\python36.lib
 
 CALL %CLPATH%
 IF %ERRORLEVEL% neq 0 (
@@ -102,8 +95,6 @@ IF %ERRORLEVEL% neq 0 (
   SET /A errno=%ERRORLEVEL%
   GOTO done
 )
-
-pause
 
 :: Compiling the dummy Python dlls.
 CL /LD %DUMMY_SRC% /link /out:%DUMMY_DLL%
@@ -113,8 +104,6 @@ IF %ERRORLEVEL% neq 0 (
   GOTO done
 )
 
-pause
-
 :: Compiling the Python interpreter libraries
 CL /LD /MT /I%PYTHONInc% %SRCS% %PYTHONLibs% /link /out:%MOD_DLL%
 IF %ERRORLEVEL% neq 0 (
@@ -122,8 +111,6 @@ IF %ERRORLEVEL% neq 0 (
   SET /A errno=%ERRORLEVEL%
   GOTO done
 )
-
-pause
 
 :: Creating the import library
 :: lib /def:%MOD_DEF%
@@ -136,17 +123,9 @@ IF %ERRORLEVEL% neq 0 (
   GOTO done
 )
 
-ECHO I am here!
-ECHO I am here!
-
-pause
-
-
 :: Running the testProgram
 ECHO Run the testProgram.exe
-pause
 CALL testProgram.exe
-pause
 IF %ERRORLEVEL% neq 0 (
   ECHO Test program failed.
   ECHO Are environment variables PYTHONHOME and PYTHONPATH properly defined?
@@ -155,8 +134,6 @@ IF %ERRORLEVEL% neq 0 (
 ) ELSE (
   ECHO Test program succeeded.
 )
-
-pause
 
 ECHO Rename library file.
 ren %LIBS% %MOD_LIB%

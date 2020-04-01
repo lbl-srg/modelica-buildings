@@ -1,5 +1,5 @@
 ''' Python module that is used for the example
-    Buildings.Utilities.IO.Python27.Examples.SimpleRoom
+    Buildings.Utilities.IO.Python36.Examples.SimpleRoom
 '''
 def doStep(dblInp, state):
     # Function with a state, that computes a response
