@@ -81,7 +81,7 @@ model SteamIdealSystem
     redeclare package Medium = MediumWat,
     use_p_in=true,
     nPorts=1) "Reference pressure"
-    annotation (Placement(transformation(extent={{-162,-80},{-142,-60}})));
+    annotation (Placement(transformation(extent={{-50,52},{-30,72}})));
   Fluid.Sensors.TemperatureTwoPort senT_boiOut(redeclare package Medium =
         MediumSte, m_flow_nominal=m_flow_nominal,
     T_start=TSte_nominal)
@@ -115,11 +115,6 @@ equation
                           color={0,0,127}));
   connect(spl1.port_2, pipRet.port_a)
     annotation (Line(points={{80,-70},{-30,-70}}, color={0,127,255}));
-  connect(pSet.p_in, p_steam.y) annotation (Line(points={{-164,-62},{-180,-62},{
-          -180,-40},{-150,-40},{-150,70},{-159,70}},
-                                color={0,0,127}));
-  connect(pSet.ports[1], pipRet.port_b)
-    annotation (Line(points={{-142,-70},{-50,-70}}, color={0,127,255}));
   connect(boi.port_b, senT_boiOut.port_a)
     annotation (Line(points={{-80,30},{-70,30}}, color={0,127,255}));
   connect(spl.port_3, senT_hea1In.port_a)
@@ -136,6 +131,10 @@ equation
     annotation (Line(points={{-108,30},{-100,30}}, color={0,127,255}));
   connect(senT_boiOut.port_b, spl.port_1)
     annotation (Line(points={{-50,30},{-10,30}}, color={0,127,255}));
+  connect(pSet.ports[1], spl.port_1) annotation (Line(points={{-30,62},{-22,62},
+          {-22,30},{-10,30}}, color={0,127,255}));
+  connect(p_steam.y, pSet.p_in)
+    annotation (Line(points={{-159,70},{-52,70}}, color={0,0,127}));
   annotation (experiment(Tolerance=1E-06, StopTime=86400),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Validation/SteamIdealSystem.mos"
         "Simulate and plot"),
