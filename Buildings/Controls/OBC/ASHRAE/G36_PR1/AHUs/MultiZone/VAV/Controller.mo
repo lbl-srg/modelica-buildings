@@ -10,9 +10,8 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     annotation (Dialog(group="System and building parameters"));
 
   parameter Real AFlo[numZon](
-    final unit=fill("m2", numZon),
-    final quantity=fill("Area", numZon))
-                                        "Floor area of each zone"
+    each final unit="m2",
+    final quantity=fill("Area", numZon)) "Floor area of each zone"
     annotation (Dialog(group="System and building parameters"));
 
   parameter Boolean have_occSen=false
@@ -89,7 +88,8 @@ block Controller "Multizone AHU controller that composes subsequences for contro
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeMinOut=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-    "Type of controller" annotation (Dialog(group="Economizer PID controller"));
+    "Type of controller"
+    annotation (Dialog(group="Economizer PID controller"));
 
   parameter Real kMinOut(final unit="1")=0.05
     "Gain of controller for minimum outdoor air intake"
@@ -275,18 +275,18 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     annotation (Dialog(tab="Minimum outdoor airflow rate", group="Nominal conditions"));
 
   parameter Real VOutPerAre_flow[numZon](
-    final unit = fill("m3/(s.m2)", outAirSetPoi.numZon))=fill(3e-4, outAirSetPoi.numZon)
+    each final unit = "m3/(s.m2)")=fill(3e-4, outAirSetPoi.numZon)
     "Outdoor air rate per unit area"
     annotation (Dialog(tab="Minimum outdoor airflow rate", group="Nominal conditions"));
 
   parameter Real VOutPerPer_flow[numZon](
-    final unit=fill("m3/s", numZon),
+    each final unit="m3/s",
     final quantity=fill("VolumeFlowRate", numZon))=fill(2.5e-3, outAirSetPoi.numZon)
     "Outdoor air rate per person"
     annotation (Dialog(tab="Minimum outdoor airflow rate", group="Nominal conditions"));
 
   parameter Real minZonPriFlo[numZon](
-    final unit=fill("m3/s", numZon),
+    each final unit="m3/s",
     final quantity=fill("VolumeFlowRate", numZon))
     "Minimum expected zone primary flow rate"
     annotation (Dialog(tab="Minimum outdoor airflow rate", group="Nominal conditions"));
@@ -362,21 +362,21 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")=supTemSetPoi.maxSet
-    "Initial setpoint for supply temperature control" 
+    "Initial setpoint for supply temperature control"
     annotation (Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
 
   parameter Real maxSetSupTem(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")=supTemSetPoi.TSupSetMax
-    "Maximum setpoint for supply temperature control" 
+    "Maximum setpoint for supply temperature control"
     annotation (Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
 
   parameter Real minSetSupTem(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")=supTemSetPoi.TSupSetDes
-    "Minimum setpoint for supply temperature control" 
+    "Minimum setpoint for supply temperature control"
     annotation (Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
 
   parameter Real delTimSupTem(
