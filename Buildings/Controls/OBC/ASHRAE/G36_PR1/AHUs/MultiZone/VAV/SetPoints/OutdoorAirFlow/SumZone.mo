@@ -29,8 +29,8 @@ block SumZone
         iconTransformation(extent={{-140,20},{-100,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yAveOutAirFraPlu(
-    final min = fill(0, numZon),
-    final unit = fill("1", numZon))
+    final min = 0,
+    final unit = "1")
     "Average system outdoor air flow fraction plus 1"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
         iconTransformation(extent={{-140,0},{-100,40}})));

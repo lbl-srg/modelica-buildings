@@ -3,7 +3,6 @@ model SupplyFan "Validate SupplyFan"
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.SupplyFan
     conSupFan(
-    numZon=4,
     Td=1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     maxSet=400,
@@ -13,7 +12,6 @@ model SupplyFan "Validate SupplyFan"
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.SupplyFan
     conSupFan1(
-    numZon=4,
     have_perZonRehBox=true,
     Td=1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
@@ -24,7 +22,6 @@ model SupplyFan "Validate SupplyFan"
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.SupplyFan
     conSupFan2(
-    numZon=4,
     have_duaDucBox=false,
     have_airFloMeaSta=true,
     Td=1,
