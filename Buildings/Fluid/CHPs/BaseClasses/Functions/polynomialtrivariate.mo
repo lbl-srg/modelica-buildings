@@ -1,12 +1,13 @@
 within Buildings.Fluid.CHPs.BaseClasses.Functions;
 function polynomialtrivariate
-  "Polynominal function used for coefficient calculation"
- extends Modelica.Icons.Function;
- input Real x1 "Independent variable";
- input Real x2 "Independent variable";
- input Real x3 "Independent variable";
- input Real a[27] "Coefficients";
- output Real y "Result";
+  "Polynominal function used for efficiency calculation"
+  extends Modelica.Icons.Function;
+
+  input Real x1 "Independent variable";
+  input Real x2 "Independent variable";
+  input Real x3 "Independent variable";
+  input Real a[27] "Coefficients";
+  output Real y "Result";
 
 protected
  Real x1Sq = x1^2;
@@ -25,9 +26,11 @@ algorithm
             + a[27]*x1*x2*x3;
 
 annotation (Documentation(info="<html>
-  This function computes a trivariate polynomial of 2nd order.
+<p>
+This function computes a trivariate fifth order polynomial.
 The polynomial has the form
-<p align=\"center\" style=\"font-style:italic;\">
+</p>
+<p style=\"font-style:italic;\">
 y = a<sub>1</sub> 
 + a<sub>2</sub> x<sub>1</sub><sup>2</sup> 
 + a<sub>3</sub> x<sub>1</sub> 
@@ -37,7 +40,7 @@ y = a<sub>1</sub>
 + a<sub>7</sub> x<sub>3</sub> 
 + a<sub>8</sub> x<sub>1</sub><sup>2</sup> x<sub>2</sub><sup>2</sup> 
 + a<sub>9</sub> x<sub>1</sub> x<sub>2</sub> 
-<p align=\"center\" style=\"font-style:italic;\">
+<br>
 + a<sub>10</sub> x<sub>1</sub> x<sub>2</sub><sup>2</sup> 
 + a<sub>11</sub> x<sub>1</sub><sup>2</sup> x<sub>2</sub>
 + a<sub>12</sub> x<sub>1</sub><sup>2</sup> x<sub>3</sub><sup>2</sup> 
@@ -47,7 +50,7 @@ y = a<sub>1</sub>
 + a<sub>16</sub> x<sub>2</sub><sup>2</sup> x<sub>3</sub><sup>2</sup> 
 + a<sub>17</sub> x<sub>2</sub> x<sub>3</sub> 
 + a<sub>18</sub> x<sub>2</sub> x<sub>3</sub><sup>2</sup> 
-<p align=\"center\" style=\"font-style:italic;\">
+<br>
 + a<sub>19</sub> x<sub>2</sub><sup>2</sup> x<sub>3</sub> 
 + a<sub>20</sub> x<sub>1</sub><sup>2</sup> x<sub>2</sub><sup>2</sup> x<sub>3</sub><sup>2</sup>
 + a<sub>21</sub> x<sub>1</sub><sup>2</sup> x<sub>2</sub><sup>2</sup> x<sub>3</sub> 

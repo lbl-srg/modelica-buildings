@@ -1,10 +1,11 @@
 within Buildings.Fluid.CHPs.BaseClasses;
-model AssertFuel "Assert if fuel flow is outside boundaries"
+model AssertFuelFlow "Assert if fuel flow is outside boundaries"
   extends Modelica.Blocks.Icons.Block;
 
-  replaceable parameter Buildings.Fluid.CHPs.Data.Generic per
-    "Performance data"
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+  parameter Boolean dmFueLim
+    "If true, the rate at which fuel mass flow rate can change is limited";
+  parameter Real dmFueMax
+    "Maximum rate at which fuel mass flow rate can change in kg/s2";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mFue_flow(
     final unit="kg/s") "Fuel flow rate"
@@ -20,17 +21,16 @@ protected
     "Check if fuel flow rate is changing slowly"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant cheDmLim(
-    final k=per.dmFueLim) "Check if change of fuel flow rate should be limited"
+    final k=dmFueLim) "Check if change of fuel flow rate should be limited"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
-    final uLow=0.99*per.dmFueMax - 2e-6,
-    final uHigh=1.01*per.dmFueMax - 1e-6)
-    "Check if fuel flow rate is changing too much"
+    final uLow=0.99*dmFueMax - 2e-6,
+    final uHigh=1.01*dmFueMax - 1e-6)
+    "Check if fuel mass flow rate is changing too much"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Derivative floChaRat(
     final initType=Buildings.Controls.OBC.CDL.Types.Init.InitialState,
-    final x_start=0)
-    "Fuel flow change rate"
+    final x_start=0) "Rate at which fuel mass flow rate changes"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Abs abs1 "Absolute value"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
@@ -81,8 +81,9 @@ annotation (
           fillPattern=FillPattern.Solid)}),
    Documentation(info="<html>
 <p>
-Model sends a warning message if the fuel flow is outside the boundaries defined by the manufacturer. 
-Limits can be specified for the maximal mass flow rate of change. 
+Model sends a warning message if the rate at which the fuel mass flow rate changes
+is outside the boundaries defined by the manufacturer. 
+Limits can be specified for the maximal mass flow rate of change.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -92,4 +93,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end AssertFuel;
+end AssertFuelFlow;

@@ -2,9 +2,14 @@ within Buildings.Fluid.CHPs.BaseClasses;
 model AssertPower "Assert if electric power is outside boundaries"
   extends Modelica.Blocks.Icons.Block;
 
-  replaceable parameter Buildings.Fluid.CHPs.Data.Generic per
-    "Performance data"
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+  parameter Modelica.SIunits.Power PEleMax
+    "Maximum power output";
+  parameter Modelica.SIunits.Power PEleMin
+    "Minimum power output";
+  parameter Boolean dPEleLim
+    "If true, the rate at which net power output can change is limited";
+  parameter Real dPEleMax
+    "Maximum rate at which net power output can change in W/s";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput PEleDem(
     final unit="W")
@@ -27,7 +32,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Nand nand "Logical Nand"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant cheDPLim(
-    final k=per.dPEleLim)
+    final k=dPEleLim)
     "Check if dP is limited"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Derivative demRat(
@@ -38,17 +43,17 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Abs abs1 "Absolute value"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold maxRat(
-    final threshold=per.dPEleMax)
+    final threshold=dPEleMax)
     "Check if demand rate is more than the maximum rate"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis maxPow(
-    final uLow=0.99*per.PEleMax - 2e-6,
-    final uHigh=1.01*per.PEleMax - 1e-6)
+    final uLow=0.99*PEleMax - 2e-6,
+    final uHigh=1.01*PEleMax - 1e-6)
     "Check if the electric power demand is more than the maximum power production"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis minPow(
-    final uLow=0.99*per.PEleMin - 2e-6,
-    final uHigh=1.01*per.PEleMin - 1e-6)
+    final uLow=0.99*PEleMin - 2e-6,
+    final uHigh=1.01*PEleMin - 1e-6)
     "Check if the electric power demand is larger than the minimum power production"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
@@ -83,7 +88,7 @@ equation
 
 annotation (
   defaultComponentName="assPow",
-  Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
+  Diagram(coordinateSystem(extent={{-100,-100},{100,60}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},

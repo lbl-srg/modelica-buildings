@@ -11,7 +11,11 @@ model FilterPower "Validate model FilterPower"
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)
     "Electricity demand"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Fluid.CHPs.BaseClasses.FilterPower filPow(final per=per)
+  Buildings.Fluid.CHPs.BaseClasses.FilterPower filPow(
+    final PEleMax=per.PEleMax,
+    final PEleMin=per.PEleMin,
+    final dPEleMax=per.dPEleMax,
+    final dPEleLim=per.dPEleLim)
     "Constraints for electric power"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 

@@ -1,12 +1,11 @@
 within Buildings.Fluid.CHPs.BaseClasses.Validation;
-model AssertWatMas "Validate model AssertWatMas"
+model AssertWaterFlow "Validate model AssertWaterFlow"
 
   parameter Buildings.Fluid.CHPs.Data.ValidationData1 per
     "CHP performance data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
-  Buildings.Fluid.CHPs.BaseClasses.AssertWatMas assWatMas(
-    final per=per)
+  Buildings.Fluid.CHPs.BaseClasses.AssertWaterFlow assWatMas(final per=per)
     "Assert if water mass flow is outside boundaries"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable mWat_flow(
@@ -27,13 +26,13 @@ equation
 
 annotation (
   experiment(StopTime=900, Tolerance=1e-6),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/BaseClasses/Validation/AssertWatMas.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/BaseClasses/Validation/AssertWaterFlow.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.AssertWatMas\">
-Buildings.Fluid.CHPs.BaseClasses.AssertWatMas</a>
+<a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.AssertWaterFlow\">
+Buildings.Fluid.CHPs.BaseClasses.AssertWaterFlow</a>
 for sending a warning message if the water mass flow is outside boundaries.
 </p>
 </html>", revisions="<html>
@@ -54,4 +53,4 @@ First implementation.
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}));
-end AssertWatMas;
+end AssertWaterFlow;

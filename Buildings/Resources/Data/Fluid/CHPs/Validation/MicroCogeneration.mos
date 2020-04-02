@@ -1,15 +1,15 @@
 #1
-#Two days (01/21, 07/21) Energy plus simulatin results by running exmple "MicroCogeneration.idf",
+#Two days (01/21, 07/21) Energy plus simulation results by running exmple "MicroCogeneration.idf",
 #1st column: Time, seconds in two days
 #2nd column: PEleDem, demand electric power, [w]
 #3rd column: mWat_flow, generator cooling water flow rate, [kg/s]
 #4th column: TWatIn, generator cooling water inlet temperature, [degC]
 #5th column: TRoo, zone mean air temperature, [degC]
 #6th column: PEleNet, generator produced electric power, [w]
-#7th column: QGro, generator gross input heat rate, [w]
-#8th column: QGen, generator steady state engine heat generation rate, [w]
-#9th column: QWat, heat rate transferred to cooling water, [w]
-#10th column: QLos, generator zone sensible heat transfer rate, [w]
+#7th column: QGro_flow, generator gross input heat rate, [w]
+#8th column: QGen_flow, generator steady state engine heat generation rate, [w]
+#9th column: QWat_flow, heat rate transferred to cooling water, [w]
+#10th column: QLos_flow, generator zone sensible heat transfer rate, [w]
 #11th column: TWatOut, generator cooling water outlet temperature, [degC]
 #12th column: TEng, generator engine temperature, [degC]
 #13th column: TWatOutSet, generator cooling water setpoint temperaure, (if PEleDem>0, TWatOut, else 0), [degC]

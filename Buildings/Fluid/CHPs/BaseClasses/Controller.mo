@@ -105,8 +105,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and4
     "Plant could run and cool down mode is optional"
     annotation (Placement(transformation(extent={{208,-210},{228,-190}})));
-  Buildings.Fluid.CHPs.BaseClasses.AssertWatMas assWatMas(
-    final per=per)
+  Buildings.Fluid.CHPs.BaseClasses.AssertWaterFlow assWatMas(final per=per)
     "Assert if water flow rate is outside boundaries"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
   Buildings.Fluid.CHPs.BaseClasses.Types.Mode actMod "Mode indicator";

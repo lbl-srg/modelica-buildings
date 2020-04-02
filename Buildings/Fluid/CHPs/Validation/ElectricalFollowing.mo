@@ -57,12 +57,11 @@ model ElectricalFollowing "Validate model ElectricalFollowing"
     final y=eleFol.PEleNet)
     "Electric power generation"
     annotation (Placement(transformation(extent={{100,0},{120,20}})));
-  Modelica.Blocks.Sources.RealExpression QGen(
-    final y=eleFol.eneCon.QGen)
+  Modelica.Blocks.Sources.RealExpression QGen(final y=eleFol.eneCon.QGen_flow)
     "Heat generation"
     annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
   Modelica.Blocks.Sources.RealExpression QWat(
-    final y=eleFol.QWat)
+    final y=eleFol.QWat_flow)
     "Heat transfer to the water control volume"
     annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
   Modelica.Blocks.Sources.RealExpression QLos(

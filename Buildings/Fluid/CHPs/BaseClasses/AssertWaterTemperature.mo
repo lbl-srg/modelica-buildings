@@ -1,5 +1,5 @@
 within Buildings.Fluid.CHPs.BaseClasses;
-model AssertWatTem
+model AssertWaterTemperature
   "Assert if water temperature is outside boundaries"
   extends Modelica.Blocks.Icons.Block;
 
@@ -81,4 +81,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end AssertWatTem;
+end AssertWaterTemperature;

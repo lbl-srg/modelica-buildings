@@ -1,5 +1,6 @@
 within Buildings.Fluid.CHPs.BaseClasses;
-model OperModeWarmUpEngTem "Energy conversion during warm-up by engine temperature"
+model EnergyConversionWarmUp
+  "Energy conversion during warm-up mode based on engine temperature"
   extends Modelica.Blocks.Icons.Block;
 
   replaceable parameter Buildings.Fluid.CHPs.Data.Generic per
@@ -8,7 +9,7 @@ model OperModeWarmUpEngTem "Energy conversion during warm-up by engine temperatu
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mWat_flow(
     final unit="kg/s",
-    final quantity="MassFlowRate") "Water flow rate"
+    final quantity="MassFlowRate") "Water mass flow rate"
     annotation (Placement(transformation(extent={{-140,220},{-100,260}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TWatIn(
@@ -32,18 +33,18 @@ model OperModeWarmUpEngTem "Energy conversion during warm-up by engine temperatu
       iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput mFue_flow(
     final unit="kg/s",
-    final quantity="MassFlowRate") "Fuel flow rate"
+    final quantity="MassFlowRate") "Fuel mass flow rate"
     annotation (Placement(transformation(extent={{540,280},{580,320}}),
       iconTransformation(extent={{100,10},{140,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput mAir_flow(
     final unit="kg/s",
-    final quantity="MassFlowRate") "Air flow rate"
+    final quantity="MassFlowRate") "Air mass flow rate"
     annotation (Placement(transformation(extent={{540,220},{580,260}}),
       iconTransformation(extent={{100,-50},{140,-10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QGen(
-    final unit="W") "Heat generation within the engine"
-    annotation (Placement(transformation(extent={{540,140},{580,180}}),
-      iconTransformation(extent={{100,-100},{140,-60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QGen_flow(final unit="W")
+    "Heat generation rate within the engine" annotation (Placement(
+        transformation(extent={{540,140},{580,180}}), iconTransformation(extent=
+           {{100,-100},{140,-60}})));
 
 protected
   Buildings.Utilities.Math.SmoothMax smoothMax(
@@ -187,8 +188,8 @@ equation
           -40,280},{-58,280}}, color={0,0,127}));
   connect(PEleNet1.y, PEleNet) annotation (Line(points={{282,340},{560,340}},
           color={0,0,127}));
-  connect(heaGen.y, QGen) annotation (Line(points={{522,160},{560,160}},
-          color={0,0,127}));
+  connect(heaGen.y, QGen_flow)
+    annotation (Line(points={{522,160},{560,160}}, color={0,0,127}));
   connect(fueFlo.y, mFue_flow) annotation (Line(points={{402,140},{420,140},{420,
           300},{560,300}}, color={0,0,127}));
   connect(airFloRat.y, mAir_flow) annotation (Line(points={{521,240},{560,240}},
@@ -249,4 +250,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end OperModeWarmUpEngTem;
+end EnergyConversionWarmUp;

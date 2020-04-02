@@ -1,5 +1,5 @@
 within Buildings.Fluid.CHPs.BaseClasses;
-model AssertWatMas "Assert if water mass flow is outside boundaries"
+model AssertWaterFlow "Assert if water flow is outside boundaries"
   extends Modelica.Blocks.Icons.Block;
 
   replaceable parameter Buildings.Fluid.CHPs.Data.Generic per
@@ -86,4 +86,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end AssertWatMas;
+end AssertWaterFlow;

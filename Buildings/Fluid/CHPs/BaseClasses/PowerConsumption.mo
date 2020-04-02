@@ -3,9 +3,10 @@ model PowerConsumption
   "Power consumption during stand-by and cool-down modes"
   extends Modelica.Blocks.Icons.Block;
 
-  replaceable parameter Buildings.Fluid.CHPs.Data.Generic per
-    "Performance data"
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+  parameter Modelica.SIunits.Power PStaBy
+    "Standby electric power";
+  parameter Modelica.SIunits.Power PCooDow
+    "Cooldown electric power";
 
   Buildings.Fluid.CHPs.BaseClasses.Interfaces.ModeTypeInput opeMod
     "Operation mode"
@@ -28,7 +29,7 @@ protected
     "Check if stand-by mode or cool-down mode"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staByCon(
-    final k=per.PStaBy)
+    final k=PStaBy)
     "Stand-by mode power consumption "
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Buildings.Controls.OBC.CDL.Logical.Switch switch
@@ -40,7 +41,7 @@ protected
     "Zero power consumption"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooDowCon(
-    final k=per.PCooDow)
+    final k=PCooDow)
     "Cool-down mode power consumption "
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
@@ -66,7 +67,7 @@ annotation (
   Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
   Documentation(info="<html>
 <p>
-The model calculates power consumption during the stand-by and cool-down modes of operation. 
+The model calculates the power consumption during the stand-by and cool-down modes of operation. 
 </p>
 </html>", revisions="<html>
 <ul>

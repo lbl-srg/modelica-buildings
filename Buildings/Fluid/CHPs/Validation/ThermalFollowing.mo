@@ -48,7 +48,7 @@ model ThermalFollowing "Validate model ThermalElectricalFollowing"
     "Electric power generation"
     annotation (Placement(transformation(extent={{100,0},{120,20}})));
   Modelica.Blocks.Sources.RealExpression QWat(
-    final y=theFol.QWat)
+    final y=theFol.QWat_flow)
     "Heat transfer to the water control volume"
     annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
   Modelica.Blocks.Sources.RealExpression TWatOut(
@@ -77,7 +77,7 @@ model ThermalFollowing "Validate model ThermalElectricalFollowing"
     final k2=-1) "Absolute error for heat generaton"
     annotation (Placement(transformation(extent={{140,-30},{160,-10}})));
   Modelica.Blocks.Sources.RealExpression QGen(
-    final y=theFol.eneCon.QGen)
+    final y=theFol.eneCon.QGen_flow)
     "Heat generation"
     annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
   Modelica.Blocks.Sources.CombiTimeTable valDat(

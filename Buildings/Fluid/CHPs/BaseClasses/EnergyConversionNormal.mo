@@ -1,5 +1,6 @@
 within Buildings.Fluid.CHPs.BaseClasses;
-model OperModeBasic "Energy conversion for a typical CHP operation"
+model EnergyConversionNormal
+  "Energy conversion for typical CHP operation either in normal mode or warm-up mode based on time delay"
   extends Modelica.Blocks.Icons.Block;
 
   replaceable parameter Buildings.Fluid.CHPs.Data.Generic per
@@ -12,7 +13,7 @@ model OperModeBasic "Energy conversion for a typical CHP operation"
       iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mWat_flow(
     final unit="kg/s",
-    final quantity="MassFlowRate") "Water flow rate"
+    final quantity="MassFlowRate") "Water mass flow rate"
     annotation (Placement(transformation(extent={{-180,-20},{-140,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TWatIn(
@@ -30,10 +31,10 @@ model OperModeBasic "Energy conversion for a typical CHP operation"
     final quantity="MassFlowRate") "Air flow rate"
     annotation (Placement(transformation(extent={{140,-20},{180,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QGen(
-    final unit="W") "Heat generation within the engine"
-    annotation (Placement(transformation(extent={{140,-60},{180,-20}}),
-      iconTransformation(extent={{102,-80},{142,-40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QGen_flow(final unit="W")
+    "Heat generation rate within the engine" annotation (Placement(
+        transformation(extent={{140,-60},{180,-20}}), iconTransformation(extent=
+           {{102,-80},{142,-40}})));
 
 protected
   Buildings.Fluid.CHPs.BaseClasses.EfficiencyCurve etaE(
@@ -56,16 +57,16 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Product fueFlo "Fuel flow rate"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
   Buildings.Utilities.Math.Polynominal airFlo(
-    final a=per.coeMasAir)  "Air flow rate"
+    final a=per.coeMasAir) "Air mass flow rate"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation
   connect(groHea.u1, PEle) annotation (Line(points={{-22,26},{-110,26},{-110,40},
           {-160,40}},  color={0,0,127}));
-  connect(heaGen.y, QGen) annotation (Line(points={{82,-40},{160,-40}},
-          color={0,0,127}));
-  connect(QGen, QGen) annotation (Line(points={{160,-40},{160,-40}},
-          color={0,0,127}));
+  connect(heaGen.y, QGen_flow)
+    annotation (Line(points={{82,-40},{160,-40}}, color={0,0,127}));
+  connect(QGen_flow, QGen_flow)
+    annotation (Line(points={{160,-40},{160,-40}}, color={0,0,127}));
   connect(groHea.y, fueFlo.u2) annotation (Line(points={{2,20},{20,20},{20,34},{
           38,34}}, color={0,0,127}));
   connect(const.y, fueFlo.u1) annotation (Line(points={{2,60},{20,60},{20,46},{38,
@@ -123,4 +124,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end OperModeBasic;
+end EnergyConversionNormal;

@@ -1,12 +1,12 @@
 within Buildings.Fluid.CHPs.BaseClasses.Validation;
-model OperModeBasic "Validate model OperModeBasic"
+model EnergyConversionNormal "Validate model EnergyConversionNormal"
 
   parameter Buildings.Fluid.CHPs.Data.ValidationData1 per
     "CHP performance data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
-  Buildings.Fluid.CHPs.BaseClasses.OperModeBasic opeModBas(final per=per)
-    "Energy conversion for a typical CHP operation"
+  Buildings.Fluid.CHPs.BaseClasses.EnergyConversionNormal opeModBas(final per=
+        per) "Energy conversion for a typical CHP operation"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp PEle(
     final height=5000,
@@ -33,13 +33,13 @@ equation
 
 annotation (
   experiment(StopTime=1500, Tolerance=1e-6),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/BaseClasses/Validation/OperModeBasic.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/BaseClasses/Validation/EnergyConversionNormal.mos"
         "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.OperModeBasic\">
-Buildings.Fluid.CHPs.BaseClasses.OperModeBasic</a>
+<a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.EnergyConversionNormal\">
+Buildings.Fluid.CHPs.BaseClasses.EnergyConversionNormal</a>
 for defining energy conversion for a typical CHP operation. 
 </p>
 </html>", revisions="<html>
@@ -64,4 +64,4 @@ First implementation.
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
           points={{-36,60},{64,0},{-36,-60},{-36,60}})}));
-end OperModeBasic;
+end EnergyConversionNormal;

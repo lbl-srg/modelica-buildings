@@ -1,34 +1,34 @@
 within Buildings.Fluid.CHPs.BaseClasses.Validation;
-model AssertFuel "Validate model AssertFuel"
+model AssertWaterTemperature "Validate model AssertWaterTemperature"
 
   parameter Buildings.Fluid.CHPs.Data.ValidationData1 per
     "CHP performance data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
-  Buildings.Fluid.CHPs.BaseClasses.AssertFuel assFue(final per=per)
-    "Assert if fuel flow is outside boundaries"
+  Buildings.Fluid.CHPs.BaseClasses.AssertWaterTemperature assWatTem(final per=
+        per) "Assert if water temperature is outside boundaries"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable mFue_flow(
-    final table=[0,0; 300,1; 600,3.5; 900,0],
-    final smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)
-    "Fuel flow rate"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable TWat(
+    table=[0,273.15 + 20; 300,273.15 + 80;
+           600,273.15 + 100; 900,273.15 + 100],
+    smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)
+    "Water temperature"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
 equation
-  connect(mFue_flow.y[1], assFue.mFue_flow) annotation (Line(points={{-38,0},
-          {38,0}}, color={0,0,127}));
+  connect(TWat.y[1], assWatTem.TWat)
+    annotation (Line(points={{-38,0},{38,0}}, color={0,0,127}));
 
 annotation (
-  experiment(StopTime=1200, Tolerance=1e-6),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/BaseClasses/Validation/AssertFuel.mos"
+  experiment(StopTime=900, Tolerance=1e-6),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/BaseClasses/Validation/AssertWaterTemperature.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.AssertFuel\">
-Buildings.Fluid.CHPs.BaseClasses.AssertFuel</a>
-for sending a warning message if the fuel flow rate is outside boundaries.
+<a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.AssertWaterTemperature\">
+Buildings.Fluid.CHPs.BaseClasses.AssertWaterTemperature</a>
+for sending a warning message if the water temperature is outside boundaries.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -48,4 +48,4 @@ First implementation.
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}));
-end AssertFuel;
+end AssertWaterTemperature;

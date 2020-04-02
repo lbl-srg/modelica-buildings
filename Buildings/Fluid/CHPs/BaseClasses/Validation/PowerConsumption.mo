@@ -25,7 +25,9 @@ model PowerConsumption "Validate model PowerConsumption"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TEng(
     final k=273.15 + 100) "Engine temperature"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Buildings.Fluid.CHPs.BaseClasses.PowerConsumption powCon(final per=per)
+  Buildings.Fluid.CHPs.BaseClasses.PowerConsumption powCon(
+    final PStaBy=per.PStaBy,
+    final PCooDow=per.PCooDow)
     "Internal controller for water flow rate"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 

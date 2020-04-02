@@ -1,13 +1,12 @@
 within Buildings.Fluid.CHPs.BaseClasses.Validation;
-model OperModeWarmUpEngTem "Validate model OperModeWarmUpEngTem"
+model EnergyConversionWarmUp "Validate model EnergyConversionWarmUp"
 
   parameter Buildings.Fluid.CHPs.Data.ValidationData2 per
     "CHP performance data"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
 
-  Buildings.Fluid.CHPs.BaseClasses.OperModeWarmUpEngTem opeModWarUpEngTem(
-    final per=per)
-    "Energy conversion during warm-up by engine temperature"
+  Buildings.Fluid.CHPs.BaseClasses.EnergyConversionWarmUp opeModWarUpEngTem(
+      final per=per) "Energy conversion during warm-up by engine temperature"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TEng(
     final height=90,
@@ -40,13 +39,13 @@ equation
 
 annotation (
   experiment(StopTime=1500, Tolerance=1e-6),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/BaseClasses/Validation/OperModeWarmUpEngTem.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/BaseClasses/Validation/EnergyConversionWarmUp.mos"
         "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Fluid.CHPs.BaseClassesOperModeWarmUpEngTem\">
-Buildings.Fluid.CHPs.BaseClasses.OperModeWarmUpEngTem</a>
+<a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.EnergyConversionWarmUp\">
+Buildings.Fluid.CHPs.BaseClasses.EnergyConversionWarmUp</a>
 for defining energy conversion during the warm-up mode dependent on the engine temperature. 
 </p>
 </html>", revisions="<html>
@@ -71,4 +70,4 @@ First implementation.
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
           points={{-36,60},{64,0},{-36,-60},{-36,60}})}));
-end OperModeWarmUpEngTem;
+end EnergyConversionWarmUp;

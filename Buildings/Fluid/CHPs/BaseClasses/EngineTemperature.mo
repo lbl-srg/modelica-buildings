@@ -1,21 +1,24 @@
 within Buildings.Fluid.CHPs.BaseClasses;
-model EngineConVol "Heat exchange within the engine control volume"
+model EngineTemperature "Heat exchange within the engine control volume"
   extends Modelica.Blocks.Icons.Block;
 
-  replaceable parameter Buildings.Fluid.CHPs.Data.Generic per
-    "Performance data"
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
-
-  parameter Modelica.SIunits.Temperature TEngIni "Initial engine temperature";
+  parameter Modelica.SIunits.ThermalConductance UAhx
+    "Thermal conductance between the engine and cooling water";
+  parameter Modelica.SIunits.ThermalConductance UAlos
+    "Thermal conductance between the engine and surroundings";
+  parameter Modelica.SIunits.HeatCapacity MCeng
+    "Thermal capacitance of the engine control volume";
+  parameter Modelica.SIunits.Temperature TEngIni
+    "Initial engine temperature";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a TRoo
     "Heat port for room temperature"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}}),
       iconTransformation(extent={{-110,48},{-90,68}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput QGen(
-    final unit="W") "Heat generation within the engine"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput QGen_flow(final unit="W")
+    "Heat generation rate within the engine" annotation (Placement(
+        transformation(extent={{-140,-20},{-100,20}}), iconTransformation(
+          extent={{-140,-20},{-100,20}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a TWat
     "Water volume temperature"
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}}),
@@ -29,17 +32,16 @@ model EngineConVol "Heat exchange within the engine control volume"
 protected
   constant Modelica.SIunits.Density rhoWat=1000 "Water density";
   constant Modelica.SIunits.SpecificHeatCapacity cWat=4180 "Water specific heat";
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor UAhx(
-    final G=per.UAhx)
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor theConHX(
+    final G=UAhx)
     "Thermal conductance between engine and cooling water volume"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor MCeng(
-    final C=per.MCeng,
-    T(fixed=true, start=TEngIni))
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capTheEng(
+    final C=MCeng, T(fixed=true, start=TEngIni))
     "Thermal capacitance of the engine control volume"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor UAlos(
-    final G=per.UAlos)
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor conTheLos(
+    final G=UAlos)
     "Thermal conductance between the engine and surroundings"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow QGen1
@@ -49,25 +51,23 @@ protected
     "Engine temperature"
     annotation (Placement(visible=true, transformation(origin={80,0},
       extent={{-10,-10},{10,10}}, rotation=0)));
-
 equation
-  connect(MCeng.port, UAhx.port_b)
-    annotation (Line(points={{50,0},{20,0},{20,-60},{0,-60}}, color={191,0,0}));
-  connect(QGen, QGen1.Q_flow)
+  connect(capTheEng.port, theConHX.port_b)
+    annotation (Line(points={{50,0},{20,0}, {20,-60},{0,-60}}, color={191,0,0}));
+  connect(QGen_flow, QGen1.Q_flow)
     annotation (Line(points={{-120,0},{-20,0}}, color={0,0,127}));
-  connect(UAlos.port_b, MCeng.port)
+  connect(conTheLos.port_b, capTheEng.port)
     annotation (Line(points={{0,60},{20,60},{20,0},{50,0}}, color={191,0,0}));
-  connect(engTem.port, MCeng.port)
+  connect(engTem.port, capTheEng.port)
     annotation (Line(points={{70,0},{50,0}}, color={191,0,0}));
-  connect(UAlos.port_a, TRoo)
+  connect(conTheLos.port_a, TRoo)
     annotation (Line(points={{-20,60},{-100,60}}, color={191,0,0}));
-  connect(UAhx.port_a,TWat)
+  connect(theConHX.port_a, TWat)
     annotation (Line(points={{-20,-60},{-100,-60}}, color={191,0,0}));
-  connect(QGen1.port, MCeng.port)
+  connect(QGen1.port, capTheEng.port)
     annotation (Line(points={{0,0},{50,0}}, color={191,0,0}));
   connect(engTem.T, TEng)
     annotation (Line(points={{90,0},{120,0}}, color={0,0,127}));
-
 annotation (
   defaultComponentName="eng",
   Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
@@ -98,12 +98,12 @@ The model defines the dynamic behavior of the CHP thermal mass (i.e. engine bloc
 encapsulated working fluid, and internal heat exchange equipment) using a single, 
 engine control volume. 
 The thermal energy stored within this volume is quantified using an aggregate 
-thermal capacitance <code>per.MCeng</code> and an equivalent average engine temperature 
+thermal capacitance <code>MCeng</code> and an equivalent average engine temperature 
 <code>TEng</code>. 
 The heat transfer between the engine and the cooling water control volume is 
-quantified using the overall thermal conductance <code>per.UAhx</code>, 
+quantified using the overall thermal conductance <code>UAhx</code>, 
 while the heat loss to the surroundings is quantified using the overall thermal 
-conductance <code>per.UAlos</code>. 
+conductance <code>UAlos</code>. 
 </p>
 </html>", revisions="<html>
 <ul>
@@ -113,4 +113,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end EngineConVol;
+end EngineTemperature;

@@ -3,7 +3,7 @@ record Generic "Generic data for CHP models"
   extends Modelica.Icons.Record;
   parameter Real[27] coeEtaQ=fill(0,27)
     "Vector of coefficients used to calculate thermal efficiency of the engine. 
-    The independent variable x1 is the steady-state electrical output, 
+    The independent variable x1 is the steady-state power output, 
     x2 is the mass flow rate of the cooling water and x3 is the cooling water inlet temperature.
     Coefficients next to the terms have the following order:
     constant, x1^2, x1, x2^2, x2, x3^2, x3, 
@@ -22,7 +22,7 @@ record Generic "Generic data for CHP models"
     "Vector of coefficients used to calculate cooling water mass flow rate. 
     Used if the empirical correlation should be used to calculate cooling 
     water mass flow rate based on internal control.
-    The independent variable x1 is the steady-state electrical output, 
+    The independent variable x1 is the steady-state power output, 
     x2 is the mass flow rate of the cooling water.
     Coefficients next to the terms have the following order:
     constant, x1, x1^2, x2, x2^2, x3^2, x1*x2";
@@ -53,23 +53,21 @@ record Generic "Generic data for CHP models"
   parameter Modelica.SIunits.Time timeDelayCool = 0
     "Cooldown period";
   parameter Modelica.SIunits.Power PEleMax = 1000000
-    "Maximum electric power";
+    "Maximum power output";
   parameter Modelica.SIunits.Power PEleMin = 0
-    "Minimum electric power";
+    "Minimum power output";
   parameter Modelica.SIunits.MassFlowRate mWatMin = 0
     "Minimum cooling water flow rate";
   parameter Modelica.SIunits.Temperature TWatMax = 373.15
     "Maximum cooling water temperature";
   parameter Boolean dPEleLim=false
-    "If true, net electrical power rate of change is limited by the maximum 
-    net electrical power change rate";
+    "If true, the rate at which net power output can change is limited";
   parameter Boolean dmFueLim=false
-    "If true, fuel flow rate of change is limited by the maximum fuel flow 
-    change rate";
+    "If true, the rate at which fuel mass flow rate can change is limited";
   parameter Real dPEleMax = 0
-    "Maximum net electrical power rate of change in W/s";
+    "Maximum rate at which net power output can change in W/s";
   parameter Real dmFueMax = 0
-    "Maximum fuel flow rate of change in kg/s2";
+    "Maximum rate at which fuel mass flow rate can change in kg/s2";
   parameter Modelica.SIunits.Power PStaBy = 0
     "Standby electric power";
   parameter Modelica.SIunits.Power PCooDow = 0
@@ -77,11 +75,11 @@ record Generic "Generic data for CHP models"
   parameter Real LHVFue(final unit="J/kg") = 47.614e6
     "Lower heating value of fuel";
   parameter Real kF(final unit="1") = 1
-    "Warm up fuel coefficient";
+    "Warm-up fuel coefficient";
   parameter Real kP(final unit="1") = 1
-    "Warm up power coefficient";
+    "Warm-up power coefficient";
   parameter Real rFue(final unit="1") = 10
-    "Warm up maximum fuel flow ratio";
+    "Warm-up maximum fuel flow ratio";
 annotation (
   defaultComponentPrefixes = "parameter",
   defaultComponentName = "per",

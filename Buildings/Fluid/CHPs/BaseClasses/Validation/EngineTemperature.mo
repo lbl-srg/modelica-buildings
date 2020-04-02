@@ -1,14 +1,15 @@
 within Buildings.Fluid.CHPs.BaseClasses.Validation;
-model EngineConVol "Validate model EngineConVol"
+model EngineTemperature "Validate model EngineTemperature"
 
   parameter Buildings.Fluid.CHPs.Data.ValidationData1 per
     "CHP performance data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
-  Buildings.Fluid.CHPs.BaseClasses.EngineConVol eng(
-    final per=per,
-    final TEngIni=273.15 + 20)
-    "Heat exchange within the engine control volume"
+  Buildings.Fluid.CHPs.BaseClasses.EngineTemperature eng(
+    final UAhx=per.UAhx,
+    final UAlos=per.UAlos,
+    final MCeng=per.MCeng,
+    final TEngIni=273.15 + 20) "Heat exchange within the engine control volume"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp QGen(
     final height=5000,
@@ -34,8 +35,8 @@ protected
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
 equation
-  connect(QGen.y, eng.QGen) annotation (Line(points={{-38,10},{38,10}},
-          color={0,0,127}));
+  connect(QGen.y, eng.QGen_flow)
+    annotation (Line(points={{-38,10},{38,10}}, color={0,0,127}));
   connect(rooTem.port, eng.TRoo) annotation (Line(points={{0,50},{20,50},{20,
           15.8},{40,15.8}}, color={191,0,0}));
   connect(rooTem.T, TRoo.y) annotation (Line(points={{-22,50},{-38,50}},
@@ -47,13 +48,13 @@ equation
 
 annotation (
   experiment(StopTime=1500, Tolerance=1e-6),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/BaseClasses/Validation/EngineConVol.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/BaseClasses/Validation/EngineTemperature.mos"
         "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.EngineConVol\">
-Buildings.Fluid.CHPs.BaseClasses.EngineConVol</a>
+<a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.EngineTemperature\">
+Buildings.Fluid.CHPs.BaseClasses.EngineTemperature</a>
 for defining the heat exchange within the engine control volume. 
 </p>
 </html>", revisions="<html>
@@ -78,4 +79,4 @@ First implementation.
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
           points={{-36,60},{64,0},{-36,-60},{-36,60}})}));
-end EngineConVol;
+end EngineTemperature;

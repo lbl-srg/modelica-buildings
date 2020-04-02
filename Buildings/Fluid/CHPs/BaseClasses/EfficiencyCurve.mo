@@ -1,6 +1,6 @@
 within Buildings.Fluid.CHPs.BaseClasses;
-block EfficiencyCurve "Efficiency curve described by a 2nd order polynomial, 
-  function of 3 input variables"
+block EfficiencyCurve "Efficiency curve described by a fifth order polynomial, 
+  function of three input variables"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Real a[27] "Polynomial coefficients";
@@ -10,7 +10,7 @@ block EfficiencyCurve "Efficiency curve described by a 2nd order polynomial,
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mWat_flow(
-    final unit="kg/s") "Water flow rate"
+    final unit="kg/s") "Water mass flow rate"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TWatIn(
@@ -42,9 +42,11 @@ equation
 annotation (
   defaultComponentName="effCur",
   Documentation(info="<html>
-  <p>The block computes a 2nd order polynomial, a function of three input variables.
+<p>
+The block computes the efficiency as a polynomial function of three input variables.
 The polynomial has the form
-<p align=\"center\" style=\"font-style:italic;\">
+</p>
+<p style=\"font-style:italic;\">
 y = a<sub>1</sub> 
 + a<sub>2</sub> x<sub>1</sub><sup>2</sup> 
 + a<sub>3</sub> x<sub>1</sub> 
@@ -54,7 +56,7 @@ y = a<sub>1</sub>
 + a<sub>7</sub> x<sub>3</sub> 
 + a<sub>8</sub> x<sub>1</sub><sup>2</sup> x<sub>2</sub><sup>2</sup> 
 + a<sub>9</sub> x<sub>1</sub> x<sub>2</sub> 
-<p align=\"center\" style=\"font-style:italic;\">
+<br>
 + a<sub>10</sub> x<sub>1</sub> x<sub>2</sub><sup>2</sup> 
 + a<sub>11</sub> x<sub>1</sub><sup>2</sup> x<sub>2</sub>
 + a<sub>12</sub> x<sub>1</sub><sup>2</sup> x<sub>3</sub><sup>2</sup> 
@@ -64,7 +66,7 @@ y = a<sub>1</sub>
 + a<sub>16</sub> x<sub>2</sub><sup>2</sup> x<sub>3</sub><sup>2</sup> 
 + a<sub>17</sub> x<sub>2</sub> x<sub>3</sub> 
 + a<sub>18</sub> x<sub>2</sub> x<sub>3</sub><sup>2</sup> 
-<p align=\"center\" style=\"font-style:italic;\">
+<br>
 + a<sub>19</sub> x<sub>2</sub><sup>2</sup> x<sub>3</sub> 
 + a<sub>20</sub> x<sub>1</sub><sup>2</sup> x<sub>2</sub><sup>2</sup> x<sub>3</sub><sup>2</sup>
 + a<sub>21</sub> x<sub>1</sub><sup>2</sup> x<sub>2</sub><sup>2</sup> x<sub>3</sub> 
@@ -75,7 +77,14 @@ y = a<sub>1</sub>
 + a<sub>26</sub> x<sub>1</sub> x<sub>2</sub> x<sub>3</sub><sup>2</sup>
 + a<sub>27</sub> x<sub>1</sub> x<sub>2</sub> x<sub>3</sub>
 </p>
-</html>", revisions="<html>
+<p>
+where 
+<i>x<sub>1</sub></i> is the net output power,
+<i>x<sub>2</sub></i> is the water mass flow rate,
+<i>x<sub>3</sub></i> is the water inlet temperature.
+</p>
+</html>",
+revisions="<html>
 <ul>
 <li>June 01, 2019, by Tea Zakula:<br/>First implementation. </li>
 </ul>

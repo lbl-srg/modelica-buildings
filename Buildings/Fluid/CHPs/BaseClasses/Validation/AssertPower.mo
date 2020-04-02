@@ -5,7 +5,11 @@ model AssertPower "Validate model AssertPower"
     "CHP performance data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
-  Buildings.Fluid.CHPs.BaseClasses.AssertPower assPow(final per=per)
+  Buildings.Fluid.CHPs.BaseClasses.AssertPower assPow(
+    PEleMax=per.PEleMax,
+    PEleMin=per.PEleMin,
+    dPEleLim=per.dPEleLim,
+    dPEleMax=per.dPEleMax)
     "Assert if electric power is outside boundaries"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable PEleDem(

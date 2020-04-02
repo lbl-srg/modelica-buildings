@@ -1,12 +1,11 @@
 within Buildings.Fluid.CHPs.BaseClasses.Validation;
-model WaterInternalControl "Validate model WaterInternalControl"
+model WaterFlowControl "Validate model WaterFlowControl"
 
   parameter Buildings.Fluid.CHPs.Data.ValidationData2 per
     "CHP performance data"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
-  Buildings.Fluid.CHPs.BaseClasses.WaterInternalControl conWat(
-    final per=per)
+  Buildings.Fluid.CHPs.BaseClasses.WaterFlowControl conWat(final per=per)
     "Internal controller for water flow rate"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
@@ -65,13 +64,13 @@ equation
 
 annotation (
     experiment(StopTime=3000, Tolerance=1e-6),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/BaseClasses/Validation/WaterInternalControl.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/BaseClasses/Validation/WaterFlowControl.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.WaterInternalControl\">
-Buildings.Fluid.CHPs.BaseClasses.WaterInternalControl</a>
+<a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.WaterFlowControl\">
+Buildings.Fluid.CHPs.BaseClasses.WaterFlowControl</a>
 for calculating the optimum cooling water flow rate based on internal contol.
 </p>
 </html>", revisions="<html>
@@ -96,4 +95,4 @@ First implementation.
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
           points={{-36,60},{64,0},{-36,-60},{-36,60}})}));
-end WaterInternalControl;
+end WaterFlowControl;

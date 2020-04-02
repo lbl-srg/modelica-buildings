@@ -16,30 +16,30 @@ model ThermalElectricalFollowing
   parameter Modelica.SIunits.Time waitTime=60
     "Wait time before transition from pump-on mode fires"
     annotation (Dialog(tab="Dynamics"));
-  parameter Controls.OBC.CDL.Types.SimpleController watOutCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+  parameter Controls.OBC.CDL.Types.SimpleController watOutCon=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation (Dialog(group="Cooling water outlet temperature controller",
-                       enable=optionalFollowing));
+      enable=optionalFollowing));
   parameter Real k=1 "Gain of controller"
     annotation (Dialog(group="Cooling water outlet temperature controller",
-                       enable=optionalFollowing));
+      enable=optionalFollowing));
   parameter Modelica.SIunits.Time Ti=0.5 "Time constant of integrator block"
     annotation (Dialog(group="Cooling water outlet temperature controller",
-                       enable=optionalFollowing and
-                              (watOutCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-                               watOutCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+      enable=optionalFollowing and
+      (watOutCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
+       watOutCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Modelica.SIunits.Time Td=0.1 "Time constant of derivative block"
     annotation (Dialog(group="Cooling water outlet temperature controller",
-                       enable=optionalFollowing and
-                              (watOutCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
-                               watOutCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+      enable=optionalFollowing and
+      (watOutCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
+       watOutCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real yMax=1 "Upper limit of output"
     annotation (Dialog(group="Cooling water outlet temperature controller",
-                       enable=optionalFollowing));
+      enable=optionalFollowing));
   parameter Real yMin=0 "Lower limit of output"
     annotation (Dialog(group="Cooling water outlet temperature controller",
-                       enable=optionalFollowing));
-
+      enable=optionalFollowing));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TWatOutSet(
     final unit="K",
     final quantity="ThermodynamicTemperature") if optionalFollowing
@@ -91,12 +91,13 @@ model ThermalElectricalFollowing
     "Heat transfer rate to the water control volume" annotation (Placement(
         transformation(extent={{180,-120},{220,-80}}), iconTransformation(
           extent={{100,-110},{140,-70}})));
-
   Buildings.Fluid.CHPs.BaseClasses.EnergyConversion eneCon(
     final per = per) "Energy conversion"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Buildings.Fluid.CHPs.BaseClasses.EngineConVol eng(
-    final per=per,
+  Buildings.Fluid.CHPs.BaseClasses.EngineTemperature eng(
+    final UAhx=per.UAhx,
+    final UAlos=per.UAlos,
+    final MCeng=per.MCeng,
     final TEngIni=TEngIni) "Engine control volume"
     annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
   Buildings.Fluid.CHPs.BaseClasses.Controller opeMod(
@@ -110,10 +111,14 @@ model ThermalElectricalFollowing
     final uHigh=per.PEleMax*10^(-3)) "Determine if demand larger than zero"
     annotation (Placement(transformation(extent={{-60,100},{-40,120}})));
   Buildings.Fluid.CHPs.BaseClasses.FilterPower fil(
-    final per=per) "Power after applied constraints"
+    final PEleMax=per.PEleMax,
+    final PEleMin=per.PEleMin,
+    final dPEleLim=per.dPEleLim,
+    final dPEleMax=per.dPEleMax)
+    "Power after applied constraints"
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
-  Buildings.Fluid.CHPs.BaseClasses.WaterInternalControl conWat(
-    final per=per) if per.coolingWaterControl
+  Buildings.Fluid.CHPs.BaseClasses.WaterFlowControl conWat(final per=per) if
+    per.coolingWaterControl
     "Internal controller for water flow rate"
     annotation (Placement(transformation(extent={{120,130},{140,150}})));
   Modelica.Blocks.Sources.RealExpression mWat_flow(
@@ -123,9 +128,8 @@ model ThermalElectricalFollowing
     final y=Medium.temperature(Medium.setState_phX(port_a.p, inStream(port_a.h_outflow))))
     "Water inlet temperature"
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
-  Buildings.Fluid.CHPs.BaseClasses.AssertWatTem assWatTem(
-    final per=per)
-    "Assert if water temperature is outside boundaries"
+  Buildings.Fluid.CHPs.BaseClasses.AssertWaterTemperature assWatTem(final per=
+        per) "Assert if water temperature is outside boundaries"
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TWatOut
     "Water outlet temperature"
@@ -135,7 +139,8 @@ model ThermalElectricalFollowing
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
       rotation=-90, origin={-20,-100})));
   Buildings.Fluid.CHPs.BaseClasses.PowerConsumption powCon(
-    final per=per) "Power consumption during stand-by and cool-down modes"
+    final PStaBy=per.PStaBy,
+    final PCooDow=per.PCooDow) "Power consumption during stand-by and cool-down modes"
     annotation (Placement(transformation(extent={{120,90},{140,110}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor QLos
     "Heat transfer to the surrounding"
@@ -179,11 +184,9 @@ model ThermalElectricalFollowing
     annotation (Placement(transformation(extent={{120,-110},{140,-90}})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{140,300},{160,320}})));
-
 protected
   constant Modelica.SIunits.Density rhoWat=1000 "Water density";
   constant Modelica.SIunits.SpecificHeatCapacity cWat=4180 "Water specific heat";
-
 equation
   connect(fil.PEle, hys.u) annotation (Line(points={{-118,90},{-80,90},{-80,110},
           {-62,110}}, color={0,0,127}));
@@ -201,7 +204,7 @@ equation
           100,133},{118,133}},color={0,0,127}));
   connect(eneCon.TWatIn, TWatIn.y) annotation (Line(points={{-62,30},{-90,30},{-90,
           60},{-119,60}}, color={0,0,127}));
-  connect(conWat.mWatSet, mWatSet_flow)
+  connect(conWat.mWatSet_flow, mWatSet_flow)
     annotation (Line(points={{142,140},{200,140}}, color={0,0,127}));
   connect(hys.y, runSig.u2) annotation (Line(points={{-38,110},{-30,110},{-30,122},
           {-22,122}}, color={255,0,255}));
@@ -237,7 +240,7 @@ equation
           {0,-136}}, color={191,0,0}));
   connect(vol.heatPort, watHea.port_a) annotation (Line(points={{-9,-10},{-20,-10},
           {-20,-90}}, color={191,0,0}));
-  connect(eneCon.QGen, eng.QGen) annotation (Line(points={{-38,22},{-20,22},{-20,
+  connect(eneCon.QGen_flow, eng.QGen_flow) annotation (Line(points={{-38,22},{-20,22},{-20,
           -8},{-40,-8},{-40,-130},{-2,-130}}, color={0,0,127}));
   connect(eng.TEng, opeMod.TEng) annotation (Line(points={{22,-130},{30,-130},{30,
           158},{38,158}}, color={0,0,127}));
@@ -285,12 +288,12 @@ This model for combined heat and power device uses empirical data contained with
 a \"performance map\" to represent device-specific performance characteristics
 coupled with thermally massive elements to characterize the device's dynamic thermal
 performance. It was developed based on the specification described in
-Beausoleil-Morrison (2007)
+Beausoleil-Morrison (2007).
 </p>
 <h4>Model topology</h4>
 <p>
 Three control volumes are used to model the cogeneration unit dynamic thermal
-characteristics:
+characteristics.
 </p>
 <ul>
 <li>

@@ -2,9 +2,14 @@ within Buildings.Fluid.CHPs.BaseClasses;
 model FilterPower "Constraints for electric power"
   extends Modelica.Blocks.Icons.Block;
 
-  replaceable parameter Buildings.Fluid.CHPs.Data.Generic per
-    "Performance data"
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+  parameter Modelica.SIunits.Power PEleMax
+    "Maximum power output";
+  parameter Modelica.SIunits.Power PEleMin
+    "Minimum power output";
+  parameter Boolean dPEleLim
+    "If true, the rate at which net power output can change is limited";
+  parameter Real dPEleMax
+    "Maximum rate at which net power output can change in W/s";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput PEleDem(final unit="W")
     "Electric power demand"
@@ -14,8 +19,11 @@ model FilterPower "Constraints for electric power"
     "Electric power demand after applied constraints"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
-
-  Buildings.Fluid.CHPs.BaseClasses.AssertPower assPow(final per=per)
+  Buildings.Fluid.CHPs.BaseClasses.AssertPower assPow(
+    final PEleMax=PEleMax,
+    final PEleMin=PEleMin,
+    final dPEleLim=dPEleLim,
+    final dPEleMax=dPEleMax)
     "Assert if electric power is outside boundaries"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 
@@ -23,19 +31,19 @@ protected
   Modelica.Blocks.Nonlinear.VariableLimiter PLim "Power limiter"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant PMax(
-    final k=per.PEleMax) "Maximum power"
+    final k=PEleMax) "Maximum power"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant PMin(
-    final k=per.PEleMin) "Minimum power"
+    final k=PEleMin) "Minimum power"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.SlewRateLimiter dPLim(
-    final raisingSlewRate=per.dPEleMax,
+    final raisingSlewRate=dPEleMax,
     final Td=1) "Power rate limiter"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Buildings.Controls.OBC.CDL.Logical.Switch switch
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant limDp(
-    final k=per.dPEleLim)
+    final k=dPEleLim)
     "Check if dP is limited"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 
