@@ -56,7 +56,6 @@ void* OutputVariableAllocate(
   const char* modelicaNameOutputVariable,
   const char* idfName,
   const char* weaName,
-  const char* iddName,
   const char* outputKey,
   const char* outputName,
   int usePrecompiledFMU,
@@ -185,7 +184,6 @@ void* OutputVariableAllocate(
       modelicaNameBuilding,
       idfName,
       weaName,
-      iddName,
       usePrecompiledFMU,
       fmuName,
       buildingsLibraryRoot);

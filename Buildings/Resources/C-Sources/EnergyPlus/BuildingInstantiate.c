@@ -30,11 +30,6 @@ void buildJSONModelStructureForEnergyPlus(
   saveAppend(buffer, bui->idfName, size);
   saveAppend(buffer, "\",\n", size);
 
-  /* idd file */
-  saveAppend(buffer, "    \"idd\": \"", size);
-  saveAppend(buffer, bui->idd, size);
-  saveAppend(buffer, "\",\n", size);
-
   /* weather file */
   saveAppend(buffer, "    \"weather\": \"", size);
   saveAppend(buffer, bui->weather, size);
