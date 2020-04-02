@@ -24,14 +24,12 @@ block Modulation "Outdoor and return air damper position modulation sequence for
     final min=0.1,
     final max=0.9,
     final unit="1") = 0.1
-    "Lower limit of controller output uTSup at which the dampers are at their limits"
-    annotation(Evaluate=true);
+    "Lower limit of controller output uTSup at which the dampers are at their limits";
   parameter Real uMax(
     final min=0.1,
     final max=1,
     final unit="1") = 0.9
-    "Upper limit of controller output uTSup at which the dampers are at their limits"
-    annotation(Evaluate=true);
+    "Upper limit of controller output uTSup at which the dampers are at their limits";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",

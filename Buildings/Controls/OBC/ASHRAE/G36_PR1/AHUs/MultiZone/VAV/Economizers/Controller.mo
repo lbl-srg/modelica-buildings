@@ -12,22 +12,22 @@ block Controller "Multi zone VAV AHU economizer control sequence"
     final displayUnit="K",
     final quantity="TemperatureDifference")=1
     "Delta between the temperature hysteresis high and low limit"
-    annotation (Evaluate=true, Dialog(tab="Advanced", group="Hysteresis"));
+    annotation (Dialog(tab="Advanced", group="Hysteresis"));
   parameter Real delEntHis(
     final unit="J/kg",
     final quantity="SpecificEnergy")=1000
     "Delta between the enthalpy hysteresis high and low limits"
-    annotation (Evaluate=true, Dialog(tab="Advanced",group="Hysteresis",enable=use_enthalpy));
+    annotation (Dialog(tab="Advanced",group="Hysteresis",enable=use_enthalpy));
   parameter Real retDamFulOpeTim(
     final unit="s",
     final quantity="Time")=180
     "Time period to keep RA damper fully open before releasing it for minimum outdoor airflow control at disable to avoid pressure fluctuations"
-    annotation (Evaluate=true, Dialog(tab="Advanced", group="Delays at disable"));
+    annotation (Dialog(tab="Advanced", group="Delays at disable"));
   parameter Real disDel(
     final unit="s",
     final quantity="Time")=15
     "Short time delay before closing the OA damper at disable to avoid pressure fluctuations"
-    annotation (Evaluate=true, Dialog(tab="Advanced", group="Delays at disable"));
+    annotation (Dialog(tab="Advanced", group="Delays at disable"));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeMinOut=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -91,50 +91,48 @@ block Controller "Multi zone VAV AHU economizer control sequence"
     "Time horizon over which the outdoor air flow measurment is averaged";
   parameter Real uHeaMax=-0.25
     "Lower limit of controller input when outdoor damper opens for modulation control. Require -1 < uHeaMax < uCooMin < 1."
-    annotation (Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
+    annotation (Dialog(tab="Commissioning", group="Controller"));
   parameter Real uCooMin=+0.25
     "Upper limit of controller input when return damper is closed for modulation control. Require -1 < uHeaMax < uCooMin < 1."
-    annotation (Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
+    annotation (Dialog(tab="Commissioning", group="Controller"));
 
   parameter Real uOutDamMax(
     final min=-1,
     final max=1,
     final unit="1") = (uHeaMax + uCooMin)/2
     "Maximum loop signal for the OA damper to be fully open. Require -1 < uHeaMax < uOutDamMax <= uRetDamMin < uCooMin < 1."
-    annotation (Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
+    annotation (Dialog(tab="Commissioning", group="Controller"));
   parameter Real uRetDamMin(
     final min=-1,
     final max=1,
     final unit="1") = (uHeaMax + uCooMin)/2
     "Minimum loop signal for the RA damper to be fully open. Require -1 < uHeaMax < uOutDamMax <= uRetDamMin < uCooMin < 1."
-    annotation (Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
+    annotation (Dialog(tab="Commissioning", group="Controller"));
 
   parameter Real retDamPhyPosMax(
     final min=0,
     final max=1,
     final unit="1") = 1
     "Physically fixed maximum position of the return air damper"
-    annotation (Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
+    annotation (Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real retDamPhyPosMin(
     final min=0,
     final max=1,
     final unit="1") = 0
     "Physically fixed minimum position of the return air damper"
-    annotation (Evaluate=true,
-    Dialog(tab="Commissioning", group="Physical damper position limits"));
+    annotation (Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real outDamPhyPosMax(
     final min=0,
     final max=1,
     final unit="1") = 1
     "Physically fixed maximum position of the outdoor air damper"
-    annotation (Evaluate=true, Dialog(tab="Commissioning",
-    group="Physical damper position limits"));
+    annotation (Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real outDamPhyPosMin(
     final min=0,
     final max=1,
     final unit="1") = 0
-    "Physically fixed minimum position of the outdoor air damper" annotation (
-    Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
+    "Physically fixed minimum position of the outdoor air damper" 
+    annotation (Dialog(tab="Commissioning", group="Physical damper position limits"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTSup(final unit="1")
     "Signal for supply air temperature control (T Sup Control Loop Signal in diagram)"

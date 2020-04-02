@@ -113,125 +113,104 @@ block Controller "Controller for room VAV box"
 
   parameter Boolean have_occSen=false
     "Set to true if the zone has occupancy sensor"
-    annotation (Evaluate=true,
-      Dialog(tab="Airflow setpoint", group="Zone sensors"));
+    annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
   parameter Boolean have_winSen=false
     "Set to true if the zone has window status sensor"
-    annotation (Evaluate=true,
-      Dialog(tab="Airflow setpoint", group="Zone sensors"));
+    annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
   parameter Boolean have_CO2Sen=false
     "Set to true if the zone has CO2 sensor"
-    annotation (Evaluate=true,
-      Dialog(tab="Airflow setpoint", group="Zone sensors"));
+    annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
   parameter Real VDisCooSetMax_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")=V_flow_nominal
     "Zone maximum cooling airflow setpoint"
-    annotation (Evaluate=true,
-      Dialog(tab="Airflow setpoint", group="Nominal conditions"));
+    annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
   parameter Real VDisSetMin_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")=0.15*V_flow_nominal
     "Zone minimum airflow setpoint"
-    annotation (Evaluate=true,
-      Dialog(tab="Airflow setpoint", group="Nominal conditions"));
+    annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
   parameter Real VDisHeaSetMax_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")=V_flow_nominal
     "Zone maximum heating airflow setpoint"
-    annotation (Evaluate=true,
-      Dialog(tab="Airflow setpoint", group="Nominal conditions"));
+    annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
   parameter Real VDisConMin_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")=0.1*V_flow_nominal
     "VAV box controllable minimum"
-    annotation (Evaluate=true,
-      Dialog(tab="Airflow setpoint", group="Nominal conditions"));
+    annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
   parameter Real VOutPerAre_flow(final unit = "m3/(s.m2)")=3e-4
     "Outdoor air rate per unit area"
-    annotation (Evaluate=true,
-      Dialog(tab="Airflow setpoint", group="Nominal conditions"));
+    annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
   parameter Real VOutPerPer_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")=2.5e-3
     "Outdoor air rate per person"
-    annotation (Evaluate=true,
-      Dialog(tab="Airflow setpoint", group="Nominal conditions"));
+    annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
   parameter Real CO2Set=894 "CO2 setpoint in ppm"
-    annotation (Evaluate=true,
-      Dialog(tab="Airflow setpoint", group="Nominal conditions"));
+    annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
   parameter Real dTDisZonSetMax(
     final unit="K",
     final displayUnit="K",
     final quantity="TemperatureDifference")=11
     "Zone maximum discharge air temperature above heating setpoint"
-    annotation (Evaluate=true,
-      Dialog(tab="Damper and valve", group="Parameters"));
+    annotation (Dialog(tab="Damper and valve", group="Parameters"));
   parameter Real TDisMin(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")=283.15
     "Lowest discharge air temperature"
-    annotation (Evaluate=true,
-      Dialog(tab="Damper and valve", group="Parameters"));
+    annotation (Dialog(tab="Damper and valve", group="Parameters"));
   parameter Boolean have_heaWatCoi=true
     "Flag, true if there is a hot water coil"
-    annotation (Evaluate=true,
-      Dialog(tab="System requests", group="Parameters"));
+    annotation (Dialog(tab="System requests", group="Parameters"));
   parameter Boolean have_heaPla=false
     "Flag, true if there is a boiler plant"
-    annotation (Evaluate=true,
-      Dialog(tab="System requests", group="Parameters"));
+    annotation (Dialog(tab="System requests", group="Parameters"));
   parameter Real errTZonCoo_1(
     final unit="K",
     final displayUnit="K",
     final quantity="TemperatureDifference")=2.8
     "Limit value of difference between zone temperature and cooling setpoint
     for generating 3 cooling SAT reset requests"
-    annotation (Evaluate=true,
-      Dialog(tab="System requests", group="Parameters"));
+    annotation (Dialog(tab="System requests", group="Parameters"));
   parameter Real errTZonCoo_2(
     final unit="K",
     final displayUnit="K",
     final quantity="TemperatureDifference")=1.7
     "Limit value of difference between zone temperature and cooling setpoint
     for generating 2 cooling SAT reset requests"
-    annotation (Evaluate=true,
-      Dialog(tab="System requests", group="Parameters"));
+    annotation (Dialog(tab="System requests", group="Parameters"));
   parameter Real errTDis_1(
     final unit="K",
     final displayUnit="K",
     final quantity="TemperatureDifference")=17
     "Limit value of difference between discharge air temperature and its setpoint
     for generating 3 hot water reset requests"
-    annotation (Evaluate=true,
-      Dialog(tab="System requests", group="Parameters"));
+    annotation (Dialog(tab="System requests", group="Parameters"));
   parameter Real errTDis_2(
     final unit="K",
     final displayUnit="K",
     final quantity="TemperatureDifference")=8.3
     "Limit value of difference between discharge air temperature and its setpoint
     for generating 2 hot water reset requests"
-    annotation (Evaluate=true,
-      Dialog(tab="System requests", group="Parameters"));
+    annotation (Dialog(tab="System requests", group="Parameters"));
   parameter Real durTimTem(
     final unit="s",
     final quantity="Time")=120
     "Duration time of zone temperature exceeds setpoint"
-    annotation (Evaluate=true,
-      Dialog(tab="System requests", group="Duration times"));
+    annotation (Dialog(tab="System requests", group="Duration times"));
   parameter Real durTimFlo(
     final unit="s",
     final quantity="Time")=60
     "Duration time of airflow rate less than setpoint"
-    annotation (Evaluate=true,
-      Dialog(tab="System requests", group="Duration times"));
+    annotation (Dialog(tab="System requests", group="Duration times"));
   parameter Real durTimDisAir(
     final unit="s",
     final quantity="Time")=300
     "Duration time of discharge air temperature is less than setpoint"
-    annotation (Evaluate=true,
-      Dialog(tab="System requests", group="Duration times"));
+    annotation (Dialog(tab="System requests", group="Duration times"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonHeaSet(
     final quantity="ThermodynamicTemperature",

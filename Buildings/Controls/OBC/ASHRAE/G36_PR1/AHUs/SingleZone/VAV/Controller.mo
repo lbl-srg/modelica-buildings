@@ -96,15 +96,13 @@ block Controller
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Maximum supply air temperature for heating"
-    annotation (Evaluate=true,
-      Dialog(tab="VAV Setpoints",group="Temperature limits"));
+    annotation (Dialog(tab="VAV Setpoints",group="Temperature limits"));
   parameter Real TSupSetMin(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Minimum supply air temperature for cooling"
-    annotation (Evaluate=true,
-      Dialog(tab="VAV Setpoints",group="Temperature limits"));
+    annotation (Dialog(tab="VAV Setpoints",group="Temperature limits"));
   parameter Real yHeaMax(min=0, max=1, unit="1")
     "Maximum fan speed for heating"
     annotation (Dialog(tab="VAV Setpoints",group="Speed"));
@@ -229,60 +227,60 @@ block Controller
     final unit="m3/s",
     final quantity="VolumeFlowRate")=1.0
     "Calculated minimum outdoor airflow rate"
-    annotation(Evaluate=true, Dialog(tab="Economizer", group="Commissioning"));
+    annotation(Dialog(tab="Economizer", group="Commissioning"));
   parameter Real VOutDes_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")=2.0
     "Calculated design outdoor airflow rate"
-    annotation(Evaluate=true, Dialog(tab="Economizer", group="Commissioning"));
+    annotation(Dialog(tab="Economizer", group="Commissioning"));
   parameter Real yDam_VOutMin_minSpe(
     final min=outDamPhyPosMin,
     final max=outDamPhyPosMax,
     final unit="1") = 0.4
     "OA damper position to supply minimum outdoor airflow at minimum fan speed"
-    annotation(Evaluate=true, Dialog(tab="Economizer", group="Commissioning"));
+    annotation(Dialog(tab="Economizer", group="Commissioning"));
   parameter Real yDam_VOutMin_maxSpe(
     final min=outDamPhyPosMin,
     final max=outDamPhyPosMax,
     final unit="1") = 0.3
     "OA damper position to supply minimum outdoor airflow at maximum fan speed"
-    annotation(Evaluate=true, Dialog(tab="Economizer", group="Commissioning"));
+    annotation(Dialog(tab="Economizer", group="Commissioning"));
   parameter Real yDam_VOutDes_minSpe(
     final min=yDam_VOutMin_minSpe,
     final max=outDamPhyPosMax,
     final unit="1") = 0.9
     "OA damper position to supply design outdoor airflow at minimum fan speed"
-    annotation(Evaluate=true, Dialog(tab="Economizer", group="Commissioning"));
+    annotation(Dialog(tab="Economizer", group="Commissioning"));
   parameter Real yDam_VOutDes_maxSpe(
     final min=yDam_VOutMin_maxSpe,
     final max=outDamPhyPosMax,
     final unit="1") = 0.8
     "OA damper position to supply design outdoor airflow at maximum fan speed"
-    annotation(Evaluate=true, Dialog(tab="Economizer", group="Commissioning"));
+    annotation(Dialog(tab="Economizer", group="Commissioning"));
   parameter Real outDamPhyPosMax(
     final min=0,
     final max=1,
     final unit="1") = 1
     "Physically fixed maximum position of the outdoor air (OA) damper"
-    annotation(Evaluate=true, Dialog(tab="Economizer", group="Commissioning"));
+    annotation(Dialog(tab="Economizer", group="Commissioning"));
   parameter Real outDamPhyPosMin(
     final min=0,
     final max=1,
     final unit="1") = 0
     "Physically fixed minimum position of the outdoor air damper"
-    annotation(Evaluate=true, Dialog(tab="Economizer", group="Commissioning"));
+    annotation(Dialog(tab="Economizer", group="Commissioning"));
   parameter Real retDamPhyPosMax(
     final min=0,
     final max=1,
     final unit="1") = 1
     "Physically fixed maximum position of the return air damper"
-    annotation(Evaluate=true, Dialog(tab="Economizer", group="Commissioning"));
+    annotation(Dialog(tab="Economizer", group="Commissioning"));
   parameter Real retDamPhyPosMin(
     final min=0,
     final max=1,
     final unit="1") = 0
     "Physically fixed minimum position of the return air damper"
-    annotation(Evaluate=true, Dialog(tab="Economizer", group="Commissioning"));
+    annotation(Dialog(tab="Economizer", group="Commissioning"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
@@ -522,21 +520,19 @@ equation
   connect(ave.y, setPoiVAV.TZonSet) annotation (Line(points={{-78,200},{-10,200},
           {-10,191.667},{38,191.667}}, color={0,0,127}));
   connect(TCut, conEco.TCut) annotation (Line(points={{-220,80},{-90,80},{-90,-32.2},
-          {119,-32.2}},
-                      color={0,0,127}));
+          {119,-32.2}}, color={0,0,127}));
   connect(conEco.TSup, TSup) annotation (Line(points={{119,-38.6},{-4,-38.6},{-4,
           40},{-220,40}}, color={0,0,127}));
   connect(setPoiVAV.TSupHeaEco, conEco.THeaSupSet) annotation (Line(points={{62,195},
           {92,195},{92,-40.2},{119,-40.2}},   color={0,0,127}));
   connect(setPoiVAV.y, conEco.uSupFanSpe) annotation (Line(points={{62,185},{86,
-          185},{86,-43},{119,-43}},
-                                  color={0,0,127}));
+          185},{86,-43},{119,-43}}, color={0,0,127}));
   connect(TMix, conEco.TMix) annotation (Line(points={{-220,0},{0,0},{0,-44.4},{
-          119,-44.4}},    color={0,0,127}));
+          119,-44.4}}, color={0,0,127}));
   connect(setPoiVAV.TSupHeaEco, TSupHeaEco) annotation (Line(points={{62,195},{
           160,195},{160,240},{210,240}},  color={0,0,127}));
   connect(setPoiVAV.TSupCoo, TSupCoo) annotation (Line(points={{62,190},{140,190},
-          {140,180},{210,180}},      color={0,0,127}));
+          {140,180},{210,180}}, color={0,0,127}));
   connect(setPoiVAV.y, yFan) annotation (Line(points={{62,185},{120,185},{120,
           120},{210,120}}, color={0,0,127}));
   connect(conEco.yRetDamPos, yRetDamPos) annotation (Line(points={{141,-40},{168,

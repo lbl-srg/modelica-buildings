@@ -11,16 +11,16 @@ block OutsideAirFlow
     annotation(Dialog(group="Nominal condition"));
 
    parameter Real VOutPerPer_flow[numZon](
-     final unit=fill("m3/s", numZon),
+     each final unit="m3/s",
      final quantity=fill("VolumeFlowRate", numZon))=fill(2.5e-3, numZon)
      "Outdoor air rate per person"
-     annotation(Evaluate=true, Dialog(group="Nominal condition"));
+     annotation(Dialog(group="Nominal condition"));
 
    parameter Real AFlo[numZon](
-     final unit=fill("m2", numZon),
+     each final unit="m2",
      final quantity=fill("Area", numZon))
      "Floor area of each zone"
-     annotation(Evaluate=true, Dialog(group="Nominal condition"));
+     annotation(Dialog(group="Nominal condition"));
 
   parameter Boolean have_occSen=true
     "Set to true if zones have occupancy sensor";
@@ -71,13 +71,13 @@ block OutsideAirFlow
      final unit="m3/s",
      final quantity="VolumeFlowRate")
      "Maximum expected system primary airflow at design stage"
-     annotation(Evaluate=true, Dialog(group="Nominal condition"));
+     annotation(Dialog(group="Nominal condition"));
 
    parameter Real minZonPriFlo[numZon](
-     final unit=fill("m3/s", numZon),
+     each final unit="m3/s",
      final quantity=fill("VolumeFlowRate", numZon))
      "Minimum expected zone primary flow rate"
-     annotation(Evaluate=true, Dialog(group="Nominal condition"));
+     annotation(Dialog(group="Nominal condition"));
 
   parameter Real peaSysPop(
     final unit="1") = 1.2*sum({occDen[iZon] * AFlo[iZon] for iZon in 1:numZon})

@@ -18,13 +18,13 @@ block Controller "Single zone VAV AHU economizer control sequence"
     final displayUnit="K",
     final quantity="TemperatureDifference")=1
     "Delta between the temperature hysteresis high and low limit"
-    annotation(Evaluate=true, Dialog(tab="Advanced", group="Hysteresis"));
+    annotation(Dialog(tab="Advanced", group="Hysteresis"));
 
   parameter Real delEntHis(
     final unit="J/kg",
     final quantity="SpecificEnergy")=1000
     "Delta between the enthalpy hysteresis high and low limits"
-    annotation(Evaluate=true, Dialog(tab="Advanced", group="Hysteresis", enable = use_enthalpy));
+    annotation(Dialog(tab="Advanced", group="Hysteresis", enable = use_enthalpy));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeMod=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -99,70 +99,70 @@ block Controller "Single zone VAV AHU economizer control sequence"
     final min=0,
     final max=1,
     final unit="1") = 0.1 "Minimum supply fan operation speed"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
+    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real yFanMax(
     final min=0,
     final max=1,
     final unit="1") = 0.9 "Maximum supply fan operation speed"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
+    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real VOutMin_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")=1.0
     "Calculated minimum outdoor airflow rate"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
+    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real VOutDes_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")=2.0
     "Calculated design outdoor airflow rate"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
+    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real yDam_VOutMin_minSpe(
     final min=outDamPhyPosMin,
     final max=outDamPhyPosMax,
     final unit="1") = 0.4
     "Outdoor air damper position to supply minimum outdoor airflow at minimum fan speed"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
+    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real yDam_VOutMin_maxSpe(
     final min=outDamPhyPosMin,
     final max=outDamPhyPosMax,
     final unit="1") = 0.3
     "Outdoor air damper position to supply minimum outdoor airflow at maximum fan speed"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
+    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real yDam_VOutDes_minSpe(
     final min=yDam_VOutMin_minSpe,
     final max=outDamPhyPosMax,
     final unit="1") = 0.9
     "Outdoor air damper position to supply design outdoor airflow at minimum fan speed"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
+    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real yDam_VOutDes_maxSpe(
     final min=yDam_VOutMin_maxSpe,
     final max=outDamPhyPosMax,
     final unit="1") = 0.8
     "Outdoor air damper position to supply design outdoor airflow at maximum fan speed"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
+    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real outDamPhyPosMax(
     final min=0,
     final max=1,
     final unit="1") = 1
     "Physically fixed maximum position of the outdoor air damper"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
+    annotation(Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real outDamPhyPosMin(
     final min=0,
     final max=1,
     final unit="1") = 0
     "Physically fixed minimum position of the outdoor air damper"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
+    annotation(Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real retDamPhyPosMax(
     final min=0,
     final max=1,
     final unit="1") = 1
     "Physically fixed maximum position of the return air damper"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
+    annotation(Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real retDamPhyPosMin(
     final min=0,
     final max=1,
     final unit="1") = 0
     "Physically fixed minimum position of the return air damper"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
+    annotation(Dialog(tab="Commissioning", group="Physical damper position limits"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSupSet(
     final unit="K",
