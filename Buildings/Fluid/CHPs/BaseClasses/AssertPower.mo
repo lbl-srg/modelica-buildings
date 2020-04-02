@@ -19,11 +19,11 @@ model AssertPower "Assert if electric power is outside boundaries"
   Buildings.Controls.OBC.CDL.Utilities.Assert assMesP(
     final message="Electric power is outside boundaries!")
     "Generate warning when the electric power demand is out of the range"
-    annotation (Placement(transformation(extent={{80,10},{100,30}})));
+    annotation (Placement(transformation(extent={{70,10},{90,30}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMesDP(
     final message="Power rate of change is outside boundaries!")
     "Assert function for checking power rate"
-    annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
+    annotation (Placement(transformation(extent={{70,-50},{90,-30}})));
 
 protected
   Buildings.Controls.OBC.CDL.Logical.Nor nor
@@ -69,9 +69,9 @@ equation
           {-120,0}}, color={0,0,127}));
   connect(maxRat.y, nand.u1) annotation (Line(points={{22,-40},{38,-40}},
           color={255,0,255}));
-  connect(nor.y, assMesP.u) annotation (Line(points={{62,20},{78,20}},
+  connect(nor.y, assMesP.u) annotation (Line(points={{62,20},{68,20}},
           color={255,0,255}));
-  connect(nand.y, assMesDP.u) annotation (Line(points={{62,-40},{78,-40}},
+  connect(nand.y, assMesDP.u) annotation (Line(points={{62,-40},{68,-40}},
           color={255,0,255}));
   connect(cheDPLim.y, nand.u2) annotation (Line(points={{22,-80},{30,-80},{30,-48},
           {38,-48}}, color={255,0,255}));

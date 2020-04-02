@@ -107,8 +107,8 @@ model ElectricalFollowing "Validate model ElectricalFollowing"
 equation
   connect(eleFol.port_b, sin.ports[1]) annotation (Line(points={{0,-20},{20,-20}},
           color={0,127,255}));
-  connect(avaSig.y, eleFol.avaSig) annotation (Line(points={{-139,80},{-30,80},{
-          -30,-24},{-22,-24}},  color={255,0,255}));
+  connect(avaSig.y, eleFol.avaSig) annotation (Line(points={{-139,80},{-30,80},
+          {-30,-11},{-22,-11}}, color={255,0,255}));
   connect(cooWat.ports[1], eleFol.port_a) annotation (Line(points={{-40,-20},{
           -20,-20}}, color={0,127,255}));
   connect(PEleNet.y, dPEleNet.u1) annotation (Line(points={{121,10},{130,10},{130,
@@ -151,8 +151,9 @@ equation
           -56},{138,-56}}, color={0,0,127}));
   connect(valDat.y[9], dQLos.u2) annotation (Line(points={{-139,30},{50,30},{50,
           -86},{138,-86}}, color={0,0,127}));
-  connect(valDat.y[1], eleFol.PEleDem) annotation (Line(points={{-139,30},{-26,30},
-          {-26,-16},{-22,-16}}, color={0,0,127}));
+  connect(valDat.y[1], eleFol.PEleDem) annotation (Line(points={{-139,30},{-26,
+          30},{-26,-17},{-22,-17}},
+                                color={0,0,127}));
 
 annotation (
   experiment(StopTime=10000, Tolerance=1e-6),
@@ -179,7 +180,7 @@ First implementation.
 </html>"),
     Diagram(coordinateSystem(extent={{-180,-100},{180,100}}),
             graphics={ Rectangle(
-          extent={{50,100},{170,-100}},
+          extent={{40,100},{180,-100}},
           fillColor={229,229,229},
           fillPattern=FillPattern.Solid,
           lineColor={0,0,0},

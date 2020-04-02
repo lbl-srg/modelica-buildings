@@ -49,7 +49,7 @@ model EnergyConversionWarmUp
 protected
   Buildings.Utilities.Math.SmoothMax smoothMax(
     final deltaX=0.5)
-    "Prevent nagative value if room temperature exceeds engine nominal temperature"
+    "Prevent negative value if room temperature exceeds engine nominal temperature"
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
   Buildings.Utilities.Math.SmoothMax smoothMax2(
     final deltaX=0.5)

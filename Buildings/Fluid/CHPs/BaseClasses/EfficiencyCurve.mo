@@ -79,7 +79,7 @@ y = a<sub>1</sub>
 </p>
 <p>
 where 
-<i>x<sub>1</sub></i> is the net output power,
+<i>x<sub>1</sub></i> is the net power output,
 <i>x<sub>2</sub></i> is the water mass flow rate,
 <i>x<sub>3</sub></i> is the water inlet temperature.
 </p>

@@ -5,8 +5,8 @@ model AssertWaterTemperature "Validate model AssertWaterTemperature"
     "CHP performance data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
-  Buildings.Fluid.CHPs.BaseClasses.AssertWaterTemperature assWatTem(final per=
-        per) "Assert if water temperature is outside boundaries"
+  Buildings.Fluid.CHPs.BaseClasses.AssertWaterTemperature assWatTem(TWatMax=per.TWatMax)
+             "Assert if water temperature is outside boundaries"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable TWat(
     table=[0,273.15 + 20; 300,273.15 + 80;

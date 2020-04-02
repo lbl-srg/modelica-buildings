@@ -4,10 +4,18 @@ model EnergyConversion "Validate model EnergyConversion"
   parameter Buildings.Fluid.CHPs.Data.ValidationData2 per
     "CHP performance data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
+  parameter Data.ValidationData2 per1(warmUpByTimeDelay=true)
+    "CHP performance data"
+    annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
-  Buildings.Fluid.CHPs.BaseClasses.EnergyConversion eneConEngTem(final per=per)
+  Buildings.Fluid.CHPs.BaseClasses.EnergyConversion eneConEngTem(
+    final per=per)
     "Energy conversion volume: warm-up by engine temperature"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
+  Buildings.Fluid.CHPs.BaseClasses.EnergyConversion eneConTimDel(
+    final per=per1)
+    "Energy conversion volume: warm-up by time delay"
+    annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable mWat_flow(
     table=[0,0; 300,0.4; 2700,0; 3000,0],
@@ -30,16 +38,11 @@ model EnergyConversion "Validate model EnergyConversion"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TWatIn(
     final k=273.15 + 15) "Cooling water inlet temperature"
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+    annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
   Modelica.Blocks.Sources.TimeTable PEle(
     table=[0,0; 299,0; 300,2500; 2699,2500;2700,0; 3000,0])
     "Electric power demand"
-    annotation (Placement(transformation(extent={{-20,30},{0,50}})));
-
-  Buildings.Fluid.CHPs.BaseClasses.EnergyConversion eneConTimDel(final per(
-        warmUpByTimeDelay=true))
-    "Energy conversion volume: warm-up by time delay"
-    annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
+    annotation (Placement(transformation(extent={{-30,30},{-10,50}})));
 protected
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
@@ -48,32 +51,36 @@ equation
   connect(con.opeMod, eneConEngTem.opeMod) annotation (Line(points={{21,80},{40,
           80},{40,-21},{59,-21}}, color={0,127,0}));
   connect(avaSig.y, con.avaSig) annotation (Line(points={{-59,80},{-30,80},{-30,
-          72},{-2,72}}, color={255,0,255}));
+          87},{-2,87}}, color={255,0,255}));
   connect(runSig.y, con.runSig) annotation (Line(points={{-59,40},{-54,40},{-54,
-          88},{-2,88}}, color={255,0,255}));
+          84},{-2,84}}, color={255,0,255}));
   connect(TEng.y, con.TEng) annotation (Line(points={{-58,-30},{-40,-30},{-40,
           78},{-2,78}},
                     color={0,0,127}));
   connect(TEng.y, eneConEngTem.TEng) annotation (Line(points={{-58,-30},{0,-30},
           {0,-39},{58,-39}}, color={0,0,127}));
-  connect(TWatIn.y, eneConEngTem.TWatIn) annotation (Line(points={{2,0},{20,0},
+  connect(TWatIn.y, eneConEngTem.TWatIn) annotation (Line(points={{-8,0},{20,0},
           {20,-30},{58,-30}}, color={0,0,127}));
-  connect(PEle.y, eneConEngTem.PEle) annotation (Line(points={{1,40},{30,40},{
+  connect(PEle.y, eneConEngTem.PEle) annotation (Line(points={{-9,40},{30,40},{
           30,-25},{58,-25}}, color={0,0,127}));
   connect(mWat_flow.y[1], eneConEngTem.mWat_flow) annotation (Line(points={{-58,
           0},{-48,0},{-48,-35},{58,-35}}, color={0,0,127}));
   connect(mWat_flow.y[1], con.mWat_flow) annotation (Line(points={{-58,0},{-48,
-          0},{-48,82},{-2,82}},
+          0},{-48,81},{-2,81}},
                              color={0,0,127}));
 
-  connect(TWatIn.y, eneConTimDel.TWatIn) annotation (Line(points={{2,0},{20,0},
+  connect(TWatIn.y, eneConTimDel.TWatIn) annotation (Line(points={{-8,0},{20,0},
           {20,-70},{58,-70}}, color={0,0,127}));
   connect(mWat_flow.y[1], eneConTimDel.mWat_flow) annotation (Line(points={{-58,
           0},{-48,0},{-48,-75},{58,-75}}, color={0,0,127}));
-  connect(PEle.y, eneConTimDel.PEle) annotation (Line(points={{1,40},{30,40},{
+  connect(PEle.y, eneConTimDel.PEle) annotation (Line(points={{-9,40},{30,40},{
           30,-65},{58,-65}}, color={0,0,127}));
   connect(con.opeMod, eneConTimDel.opeMod) annotation (Line(points={{21,80},{40,
           80},{40,-61},{59,-61}}, color={0,127,0}));
+  connect(PEle.y, con.PEle) annotation (Line(points={{-9,40},{-6,40},{-6,72},{
+          -2,72}}, color={0,0,127}));
+  connect(eneConEngTem.PEleNet, con.PEleNet) annotation (Line(points={{82,-22},
+          {90,-22},{90,96},{-6,96},{-6,75},{-2,75}}, color={0,0,127}));
 annotation (
   experiment(StopTime=3000, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/BaseClasses/Validation/EnergyConversion.mos"

@@ -1,20 +1,13 @@
 within Buildings.Fluid.CHPs.BaseClasses.Validation;
-model WarmUpEngTem "Validate model WarmUp if warm-up by engine temperature"
+model WarmUpTimeDelay
+  "Validate model WarmUp if warm-up by time delay"
 
-  parameter Buildings.Fluid.CHPs.Data.ValidationData2 per
+  parameter Buildings.Fluid.CHPs.Data.ValidationData1 per
     "CHP performance data"
-    annotation (Placement(transformation(extent={{60,80},{80,100}})));
+    annotation (Placement(transformation(extent={{60,62},{80,82}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TEng(
-    final height=200,
-    final duration=360,
-    final offset=273.15,
-    final startTime=0) "Engine temperature"
-    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Modelica.Blocks.Sources.BooleanTable runSig(
-    final startValue=true,
-    final table={600})
-    "Plant run signal"
+  Modelica.Blocks.Sources.BooleanTable runSig(final table={300,330,600})
+  "Plant run signal"
     annotation (Placement(transformation(extent={{-90,-90},{-70,-70}})));
   Buildings.Fluid.CHPs.BaseClasses.Types.Mode actMod "Mode indicator";
   Modelica.StateGraph.TransitionWithSignal transition1 "Off to warm up mode"
@@ -28,7 +21,7 @@ model WarmUpEngTem "Validate model WarmUp if warm-up by engine temperature"
     "Plant is in warm up mode"
     annotation (Placement(transformation(extent={{-20,40},{0,20}})));
 protected
-  Modelica.StateGraph.InitialStep off(final nIn=2, final nOut=2) "Off mode"
+  Modelica.StateGraph.InitialStep off(nIn=2, nOut=2) "Off mode"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
@@ -41,9 +34,9 @@ protected
     final waitTime=0)
     annotation (Placement(transformation(extent={{-50,-20},{-30,0}})));
   Buildings.Controls.OBC.CDL.Logical.Not notRun "Plant not run"
-    annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
+    annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
 
-  WarmUp                                  warUpCtr(
+  WarmUpLeaving warUpCtr(
     final timeDelayStart=per.timeDelayStart,
     final TEngNom=per.TEngNom,
     final warmUpByTimeDelay=per.warmUpByTimeDelay) "Warm up control sequence"
@@ -65,44 +58,42 @@ equation
   connect(nor.outPort[1], transition3.inPort) annotation (Line(points={{60.5,30},
           {76,30}}, color={0,0,0}));
   connect(transition3.outPort, off.inPort[2]) annotation (Line(points={{81.5,30},
-          {90,30},{90,60},{-90,60},{-90,29.5},{-81,29.5}}, color={0,0,0}));
+          {90,30},{90,50},{-90,50},{-90,29.5},{-81,29.5}}, color={0,0,0}));
   connect(transition5.inPort, off.outPort[2]) annotation (Line(points={{-44,-10},
           {-52,-10},{-52,29.75},{-59.5,29.75}}, color={0,0,0}));
-  connect(runSig.y, notRun.u) annotation (Line(points={{-69,-80},{18,-80}},
-          color={255,0,255}));
   connect(runSig.y, transition1.condition) annotation (Line(points={{-69,-80},{
           -60,-80},{-60,10},{-40,10},{-40,18}},
-                                          color={255,0,255}));
-  connect(notRun.y, transition3.condition) annotation (Line(points={{42,-80},
+                                            color={255,0,255}));
+  connect(runSig.y, notRun.u) annotation (Line(points={{-69,-80},{-22,-80}},
+          color={255,0,255}));
+  connect(notRun.y, transition3.condition) annotation (Line(points={{2,-80},
           {80,-80},{80,18}}, color={255,0,255}));
-  connect(notRun.y, transition4.condition) annotation (Line(points={{42,-80},{80,
-          -80},{80,-60},{-40,-60},{-40,-52}}, color={255,0,255}));
+  connect(notRun.y, transition4.condition) annotation (Line(points={{2,-80},{20,
+          -80},{20,-60},{-40,-60},{-40,-52}}, color={255,0,255}));
 
+  connect(warUpCtr.y, transition2.condition) annotation (Line(points={{22,80},{
+          30,80},{30,0},{20,0},{20,18}}, color={255,0,255}));
   connect(warUp.active, warUpCtr.actWarUp)
-    annotation (Line(points={{-10,41},{-10,74},{-2,74}}, color={255,0,255}));
+    annotation (Line(points={{-10,41},{-10,86},{-2,86}}, color={255,0,255}));
   connect(transition1.outPort, warUp.inPort[1]) annotation (Line(points={{-38.5,
           30},{-30,30},{-30,29.5},{-21,29.5}}, color={0,0,0}));
   connect(warUp.outPort[1], transition2.inPort) annotation (Line(points={{0.5,
           29.75},{8,29.75},{8,30},{16,30}}, color={0,0,0}));
-  connect(transition5.outPort, warUp.inPort[2]) annotation (Line(points={{-38.5,
-          -10},{-30,-10},{-30,30.5},{-21,30.5}}, color={0,0,0}));
   connect(warUp.outPort[2], transition4.inPort) annotation (Line(points={{0.5,
-          30.25},{8,30.25},{8,-40},{-36,-40}}, color={0,0,0}));
-  connect(TEng.y, warUpCtr.TEng) annotation (Line(points={{-58,80},{-10,80},{
-          -10,86},{-2,86}}, color={0,0,127}));
-  connect(warUpCtr.y, transition2.condition) annotation (Line(points={{22,80},{
-          30,80},{30,0},{20,0},{20,18}}, color={255,0,255}));
+          30.25},{10,30.25},{10,-40},{-36,-40}}, color={0,0,0}));
+  connect(transition5.outPort, warUp.inPort[2]) annotation (Line(points={{-38.5,
+          -10},{-30,-10},{-30,30},{-21,30},{-21,30.5}}, color={0,0,0}));
 annotation (
-  experiment(StopTime=900, Tolerance=1e-6),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/BaseClasses/Validation/WarmUpEngTem.mos"
+    experiment(StopTime=900, Tolerance=1e-6),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/BaseClasses/Validation/WarmUpTimeDelay.mos"
         "Simulate and plot"),
-  Documentation(info="<html>
+    Documentation(info="<html>
 <p>
 This example validates
 <a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.WarmUp\">
 Buildings.Fluid.CHPs.BaseClasses.WarmUp</a>
-for defining the warm-up operating mode. The example is for the warm-up period 
-dependent on the engine temperature (e.g. CHPs with Stirling engines). 
+for defining the warm-up operating mode. The example is for the warm-up period with 
+the static time delay (e.g. CHPs with internal combustion engines). 
 </p>
 </html>", revisions="<html>
 <ul>
@@ -126,4 +117,4 @@ First implementation.
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
           points={{-36,60},{64,0},{-36,-60},{-36,60}})}));
-end WarmUpEngTem;
+end WarmUpTimeDelay;

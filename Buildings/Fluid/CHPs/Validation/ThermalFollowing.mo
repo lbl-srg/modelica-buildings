@@ -117,7 +117,8 @@ equation
   connect(theFol.port_b, sin.ports[1]) annotation (Line(points={{0,10},{20,10}},
           color={0,127,255}));
   connect(avaSig.y,theFol. avaSig) annotation (Line(points={{-79,-30},{-34,-30},
-          {-34,6},{-22,6}}, color={255,0,255}));
+          {-34,19},{-22,19}},
+                            color={255,0,255}));
   connect(cooWat.ports[1],theFol. port_a) annotation (Line(points={{-42,10},
           {-20,10}}, color={0,127,255}));
   connect(PEleNet.y, dPEleNet.u1) annotation (Line(points={{121,10},{128,10},{128,
@@ -144,8 +145,9 @@ equation
           color={0,0,127}));
   connect(valDat.y[12], TWatOutSet.u) annotation (Line(points={{-139,80},{-120,80},
           {-120,50},{-102,50}}, color={0,0,127}));
-  connect(TWatOutSet.y,theFol. TWatOutSet) annotation (Line(points={{-78,50},{-30,
-          50},{-30,19},{-22,19}}, color={0,0,127}));
+  connect(TWatOutSet.y,theFol. TWatOutSet) annotation (Line(points={{-78,50},{
+          -30,50},{-30,15},{-22,15}},
+                                  color={0,0,127}));
   connect(TWatOutVal.y, dTWatOut.u2) annotation (Line(points={{82,60},{130,60},{
           130,64},{138,64}}, color={0,0,127}));
   connect(TWatOut.y, dTWatOut.u1) annotation (Line(points={{121,70},{130,70},{130,
@@ -166,8 +168,9 @@ equation
           -56},{138,-56}}, color={0,0,127}));
   connect(valDat.y[9], dQLos.u2) annotation (Line(points={{-139,80},{50,80},{50,
           -86},{138,-86}}, color={0,0,127}));
-  connect(valDat.y[1],theFol. PEleDem) annotation (Line(points={{-139,80},{-26,80},
-          {-26,14},{-22,14}}, color={0,0,127}));
+  connect(valDat.y[1],theFol. PEleDem) annotation (Line(points={{-139,80},{-26,
+          80},{-26,13},{-22,13}},
+                              color={0,0,127}));
 
 annotation (
   experiment(StopTime=10000, Tolerance=1e-6),
@@ -206,7 +209,7 @@ First implementation.
     Diagram(coordinateSystem(extent={{-180,-100},{180,100}}),
             graphics={
                   Rectangle(
-          extent={{50,100},{170,-100}},
+          extent={{40,100},{180,-100}},
           fillColor={229,229,229},
           fillPattern=FillPattern.Solid,
           lineColor={0,0,0},

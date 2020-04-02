@@ -1,21 +1,19 @@
 within Buildings.Fluid.CHPs.BaseClasses;
 model AssertWaterTemperature
-  "Assert if water temperature is outside boundaries"
+  "Assert if water outlet temperature is outside boundaries"
   extends Modelica.Blocks.Icons.Block;
 
-  replaceable parameter Buildings.Fluid.CHPs.Data.Generic per
-    "Performance data"
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+  parameter Modelica.SIunits.Temperature TWatMax
+    "Maximum cooling water temperature";
   parameter Modelica.SIunits.TemperatureDifference THys = 0.5
     "Hysteresis value to check temperature difference"
     annotation (Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TWat(
     final unit="K",
-    final quantity="ThermodynamicTemperature") "Water outlet temperature"
+    displayUnit="degC") "Water outlet temperature"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
-
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
     final message="Water temperature is higher than the maximum!")
     "Assert function for checking water temperature"
@@ -23,8 +21,8 @@ model AssertWaterTemperature
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
-    final uLow=per.TWatMax -THys,
-    final uHigh=per.TWatMax + THys)
+    final uLow=TWatMax -THys,
+    final uHigh=TWatMax + THys)
     "Check if water temperature is larger than the maximum temperature"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
@@ -71,7 +69,8 @@ annotation (
           fillPattern=FillPattern.Solid)}),
   Documentation(info="<html>
 <p>
-The model sends a warning message if the water temperature is higher than the maximum defined by the manufacturer.  
+The model sends a warning message if the water outlet temperature is higher 
+than the maximum defined by the manufacturer.  
 </p>
 </html>", revisions="<html>
 <ul>

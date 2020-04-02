@@ -14,7 +14,7 @@ model AssertFuelFlow "Assert if fuel flow is outside boundaries"
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
     final message="Fuel flow rate of change is outside boundaries!")
     "Assert function for checking fuel flow rate"
-    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
+    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 
 protected
   Buildings.Controls.OBC.CDL.Logical.Nand nand
@@ -43,7 +43,7 @@ equation
   connect(cheDmLim.y, nand.u2)
     annotation (Line(points={{22,-40},{30,-40},{30,-8},{38,-8}}, color={255,0,255}));
   connect(nand.y, assMes.u)
-    annotation (Line(points={{62,0},{78,0}}, color={255,0,255}));
+    annotation (Line(points={{62,0},{68,0}}, color={255,0,255}));
   connect(abs1.y, hys.u)
     annotation (Line(points={{-18,0},{-2,0}}, color={0,0,127}));
   connect(hys.y, nand.u1)

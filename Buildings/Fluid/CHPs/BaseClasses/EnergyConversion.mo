@@ -11,7 +11,7 @@ model EnergyConversion "Energy conversion control volume"
     annotation (Placement(transformation(extent={{-180,60},{-140,100}}),
       iconTransformation(extent={{-120,80},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput PEle(
-    final unit="W") "Electric power demand"
+    final unit="W") "Power demand"
     annotation (Placement(transformation(extent={{-180,20},{-140,60}}),
       iconTransformation(extent={{-140,30},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TWatIn(
@@ -32,7 +32,7 @@ model EnergyConversion "Energy conversion control volume"
     annotation (Placement(transformation(extent={{-180,-120},{-140,-80}}),
       iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PEleNet(
-    final unit="W") "Electric power generation"
+    final unit="W") "Net power output"
     annotation (Placement(transformation(extent={{140,60},{180,100}}),
       iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput mFue_flow(
@@ -65,39 +65,44 @@ protected
     "Zero constant"
     annotation (Placement(transformation(extent={{-110,10},{-90,30}})));
   Buildings.Controls.OBC.CDL.Logical.Switch switch
+    "Switch to zero power output if not in normal or warm-up mode"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Modelica.Blocks.Sources.BooleanExpression booExp(
     final y=opeMod ==CHPs.BaseClasses.Types.Mode.WarmUp or
             opeMod ==CHPs.BaseClasses.Types.Mode.Normal)
-    "Check if warm-up mode or normal mode"
+    "Check if warm-up mode or normal mode is active"
     annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
   Modelica.Blocks.Sources.BooleanExpression booExp3(final y=opeMod == CHPs.BaseClasses.Types.Mode.WarmUp)
     "Check whether normal mode or warm-up mode is active"
-    annotation (Placement(transformation(extent={{40,40},{60,60}})));
+    annotation (Placement(transformation(extent={{40,50},{60,70}})));
   Buildings.Controls.OBC.CDL.Logical.Switch switch2
+    "Switch between warm-up and normal value"
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
   Buildings.Controls.OBC.CDL.Logical.Switch switch3
+    "Switch between warm-up and normal value"
     annotation (Placement(transformation(extent={{80,10},{100,30}})));
   Buildings.Controls.OBC.CDL.Logical.Switch switch4
+    "Switch between warm-up and normal value"
     annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Switch switch5
+    "Switch between warm-up and normal value"
     annotation (Placement(transformation(extent={{80,-110},{100,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant Troo(
     final k=273.15 + 15)
     "Temperature used to calculate warm-up by engine temperature mode"
-    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
+    annotation (Placement(transformation(extent={{-110,-88},{-90,-68}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const2(
     final k=0) if per.warmUpByTimeDelay "Zero in case of warm-up by time delay"
     annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
 equation
-  connect(opeModBas.mWat_flow, mWat_flow) annotation (Line(points={{-22,0},{-60,
-          0},{-60,-40},{-160,-40}},       color={0,0,127}));
-  connect(opeModBas.TWatIn, TWatIn) annotation (Line(points={{-22,-6},{-80,-6},
-          {-80,0},{-162,0}},     color={0,0,127}));
+  connect(opeModBas.mWat_flow, mWat_flow) annotation (Line(points={{-22,0},{-40,
+          0},{-40,-40},{-160,-40}},       color={0,0,127}));
+  connect(opeModBas.TWatIn, TWatIn) annotation (Line(points={{-22,-6},{-60,-6},
+          {-60,0},{-162,0}},     color={0,0,127}));
   connect(opeModWarUpEngTem.TEng, TEng) annotation (Line(points={{-22,-58},{-30,
           -58},{-30,-100},{-160,-100}}, color={0,0,127}));
   connect(opeModWarUpEngTem.TWatIn, TWatIn) annotation (Line(points={{-22,-47},
-          {-80,-47},{-80,0},{-162,0}},   color={0,0,127}));
+          {-60,-47},{-60,0},{-162,0}},   color={0,0,127}));
   connect(const.y, switch.u3) annotation (Line(points={{-88,20},{-70,20},{-70,
           52},{-62,52}},
                      color={0,0,127}));
@@ -109,18 +114,21 @@ equation
           color={255,0,255}));
   connect(switch.y, opeModBas.PEle) annotation (Line(points={{-38,60},{-30,60},
           {-30,6},{-22,6}},  color={0,0,127}));
-  connect(booExp3.y, switch2.u2) annotation (Line(points={{61,50},{70,50},{70,80},
-          {78,80}}, color={255,0,255}));
+  connect(booExp3.y, switch2.u2) annotation (Line(points={{61,60},{70,60},{70,
+          80},{78,80}},
+                    color={255,0,255}));
   connect(opeModWarUpEngTem.PEleNet, switch2.u1) annotation (Line(points={{2,-42},
           {30,-42},{30,88},{78,88}}, color={0,0,127}));
   connect(switch2.y, PEleNet) annotation (Line(points={{102,80},{160,80}},
           color={0,0,127}));
-  connect(booExp3.y, switch3.u2) annotation (Line(points={{61,50},{70,50},{70,20},
-          {78,20}}, color={255,0,255}));
+  connect(booExp3.y, switch3.u2) annotation (Line(points={{61,60},{70,60},{70,
+          20},{78,20}},
+                    color={255,0,255}));
   connect(switch4.u2, booExp3.y) annotation (Line(points={{78,-40},{70,-40},{70,
-          50},{61,50}}, color={255,0,255}));
-  connect(switch5.u2, booExp3.y) annotation (Line(points={{78,-100},{70,-100},{70,
-          50},{61,50}}, color={255,0,255}));
+          60},{61,60}}, color={255,0,255}));
+  connect(switch5.u2, booExp3.y) annotation (Line(points={{78,-100},{70,-100},{
+          70,60},{61,60}},
+                        color={255,0,255}));
   connect(switch3.y, mFue_flow) annotation (Line(points={{102,20},{160,20}},
           color={0,0,127}));
   connect(switch4.y, mAir_flow) annotation (Line(points={{102,-40},{160,-40}},
@@ -139,11 +147,11 @@ equation
           -58},{40,-58},{40,-92},{78,-92}}, color={0,0,127}));
   connect(opeModBas.QGen_flow, switch5.u3) annotation (Line(points={{2.2,-6},{54,
           -6},{54,-108},{78,-108}},     color={0,0,127}));
-  connect(Troo.y, opeModWarUpEngTem.TRoo) annotation (Line(points={{-58,-80},{
-          -40,-80},{-40,-53},{-22,-53}},
+  connect(Troo.y, opeModWarUpEngTem.TRoo) annotation (Line(points={{-88,-78},{
+          -40,-78},{-40,-53},{-22,-53}},
                                      color={0,0,127}));
   connect(mWat_flow, opeModWarUpEngTem.mWat_flow) annotation (Line(points={{-160,
-          -40},{-60,-40},{-60,-42},{-22,-42}}, color={0,0,127}));
+          -40},{-40,-40},{-40,-42},{-22,-42}}, color={0,0,127}));
   connect(switch3.y, assFue.mFue_flow) annotation (Line(points={{102,20},{104,20},
           {104,40},{108,40}}, color={0,0,127}));
   connect(const2.y, switch2.u1) annotation (Line(points={{2,-100},{20,-100},{20,
@@ -165,10 +173,11 @@ annotation (
 The model defines energy conversion that occurs during the normal mode and warm-up mode. 
 The model <a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.OperModeWarmUpEngTem\">
 Buildings.Fluid.CHPs.BaseClasses.OperModeWarmUpEngTem</a> is used only for the 
-warm-up mode dependent on the engine temperature. 
+warm-up mode dependent on the engine temperature (case of Stirling engines). 
 The model <a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.OperModeBasic\">
-Buildings.Fluid.CHPs.BaseClasses.OperModeBasic</a> is used for all other cases 
-(the normal mode, and warm-up mode based on a time delay).
+Buildings.Fluid.CHPs.BaseClasses.OperModeBasic</a> is used for all other cases,
+i.e. the normal mode, and the warm-up mode based on a time delay (case of internal
+combustion engines).
 </p>
 </html>", revisions="<html>
 <ul>

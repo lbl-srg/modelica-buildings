@@ -11,6 +11,6 @@ EngineTemperature
 FilterPower
 PowerConsumption
 StandBy
-WarmUpEngTem
-WarmUpTimDel
+WarmUpTemperature
+WarmUpTimeDelay
 WaterFlowControl

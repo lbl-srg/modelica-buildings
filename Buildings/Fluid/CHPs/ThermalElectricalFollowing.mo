@@ -45,7 +45,7 @@ model ThermalElectricalFollowing
     final quantity="ThermodynamicTemperature") if optionalFollowing
     "Water outlet set point temperature, which is input signal for thermal following"
     annotation (Placement(transformation(extent={{-220,330},{-180,370}}),
-        iconTransformation(extent={{-140,70},{-100,110}})));
+        iconTransformation(extent={{-140,30},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput theFol if optionalFollowing
     "Enable thermal following, false if electrical following"
     annotation (Placement(transformation(extent={{-220,240},{-180,280}}),
@@ -55,11 +55,11 @@ model ThermalElectricalFollowing
     final quantity="Power")
     "Electric power demand"
     annotation (Placement(transformation(extent={{-220,180},{-180,220}}),
-        iconTransformation(extent={{-140,20},{-100,60}})));
+        iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput avaSig
     "True when the plant is available"
     annotation (Placement(transformation(extent={{-220,120},{-180,160}}),
-      iconTransformation(extent={{-140,-60},{-100,-20}})));
+      iconTransformation(extent={{-140,70},{-100,110}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a TRoo
     "Heat port for room temperature"
     annotation (Placement(transformation(extent={{-190,-150},{-170,-130}}),
@@ -103,7 +103,7 @@ model ThermalElectricalFollowing
   Buildings.Fluid.CHPs.BaseClasses.Controller opeMod(
     final per=per,
     final waitTime=waitTime) "Current operation mode"
-    annotation (Placement(transformation(extent={{40,150},{60,170}})));
+    annotation (Placement(transformation(extent={{50,150},{70,170}})));
   Buildings.Controls.OBC.CDL.Logical.And runSig "Run if avaFlag and PEleDem non zero"
     annotation (Placement(transformation(extent={{-20,120},{0,140}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
@@ -128,8 +128,9 @@ model ThermalElectricalFollowing
     final y=Medium.temperature(Medium.setState_phX(port_a.p, inStream(port_a.h_outflow))))
     "Water inlet temperature"
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
-  Buildings.Fluid.CHPs.BaseClasses.AssertWaterTemperature assWatTem(final per=
-        per) "Assert if water temperature is outside boundaries"
+  Buildings.Fluid.CHPs.BaseClasses.AssertWaterTemperature assWatTem(
+    final TWatMax=per.TWatMax)
+    "Assert if water temperature is outside boundaries"
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TWatOut
     "Water outlet temperature"
@@ -190,16 +191,18 @@ protected
 equation
   connect(fil.PEle, hys.u) annotation (Line(points={{-118,90},{-80,90},{-80,110},
           {-62,110}}, color={0,0,127}));
-  connect(runSig.y, opeMod.runSig) annotation (Line(points={{2,130},{10,130},{10,
-          168},{38,168}}, color={255,0,255}));
+  connect(runSig.y, opeMod.runSig) annotation (Line(points={{2,130},{10,130},{
+          10,164},{48,164}},
+                          color={255,0,255}));
   connect(conWat.PEle, fil.PEle) annotation (Line(points={{118,140},{90,140},{90,
           90},{-118,90}},  color={0,0,127}));
   connect(mWat_flow.y, eneCon.mWat_flow) annotation (Line(points={{-119,40},{-100,
           40},{-100,25},{-62,25}}, color={0,0,127}));
   connect(eng.TEng, eneCon.TEng) annotation (Line(points={{22,-130},{30,-130},{30,
           -40},{-80,-40},{-80,21},{-62,21}}, color={0,0,127}));
-  connect(mWat_flow.y, opeMod.mWat_flow) annotation (Line(points={{-119,40},{-100,
-          40},{-100,68},{20,68},{20,162},{38,162}},   color={0,0,127}));
+  connect(mWat_flow.y, opeMod.mWat_flow) annotation (Line(points={{-119,40},{
+          -100,40},{-100,68},{20,68},{20,161},{48,161}},
+                                                      color={0,0,127}));
   connect(TWatIn.y, conWat.TWatIn) annotation (Line(points={{-119,60},{100,60},{
           100,133},{118,133}},color={0,0,127}));
   connect(eneCon.TWatIn, TWatIn.y) annotation (Line(points={{-62,30},{-90,30},{-90,
@@ -208,14 +211,17 @@ equation
     annotation (Line(points={{142,140},{200,140}}, color={0,0,127}));
   connect(hys.y, runSig.u2) annotation (Line(points={{-38,110},{-30,110},{-30,122},
           {-22,122}}, color={255,0,255}));
-  connect(opeMod.opeMod, eneCon.opeMod) annotation (Line(points={{61,160},{80,160},
-          {80,80},{-70,80},{-70,39},{-61,39}},   color={0,127,0}));
-  connect(opeMod.avaSig, avaSig) annotation (Line(points={{38,152},{-30,152},{-30,
-          140},{-200,140}}, color={255,0,255}));
+  connect(opeMod.opeMod, eneCon.opeMod) annotation (Line(points={{71,160},{80,
+          160},{80,80},{-70,80},{-70,39},{-61,39}},
+                                                 color={0,127,0}));
+  connect(opeMod.avaSig, avaSig) annotation (Line(points={{48,167},{-30,167},{
+          -30,140},{-200,140}},
+                            color={255,0,255}));
   connect(runSig.u1, avaSig) annotation (Line(points={{-22,130},{-30,130},{-30,140},
           {-200,140}}, color={255,0,255}));
-  connect(conWat.opeMod, opeMod.opeMod) annotation (Line(points={{119,147},{80,147},
-          {80,160},{61,160}}, color={0,127,0}));
+  connect(conWat.opeMod, opeMod.opeMod) annotation (Line(points={{119,147},{80,
+          147},{80,160},{71,160}},
+                              color={0,127,0}));
   connect(TWatOut.T, assWatTem.TWat) annotation (Line(points={{80,-60},{118,-60}},
           color={0,0,127}));
   connect(eneCon.mFue_flow, mFue_flow) annotation (Line(points={{-38,33},{160,33},
@@ -226,8 +232,9 @@ equation
           color={0,0,127}));
   connect(TWatOut.port, vol.heatPort) annotation (Line(points={{60,-60},{-20,
           -60},{-20,-10},{-9,-10}}, color={191,0,0}));
-  connect(powCon.opeMod, opeMod.opeMod) annotation (Line(points={{119,100},{80,100},
-          {80,160},{61,160}}, color={0,127,0}));
+  connect(powCon.opeMod, opeMod.opeMod) annotation (Line(points={{119,100},{80,
+          100},{80,160},{71,160}},
+                              color={0,127,0}));
   connect(powCon.PCon, PCon) annotation (Line(points={{142,100},{200,100}},
           color={0,0,127}));
   connect(TRoo, QLos.port_b) annotation (Line(points={{-180,-140},{-70,-140}},
@@ -242,8 +249,9 @@ equation
           {-20,-90}}, color={191,0,0}));
   connect(eneCon.QGen_flow, eng.QGen_flow) annotation (Line(points={{-38,22},{-20,22},{-20,
           -8},{-40,-8},{-40,-130},{-2,-130}}, color={0,0,127}));
-  connect(eng.TEng, opeMod.TEng) annotation (Line(points={{22,-130},{30,-130},{30,
-          158},{38,158}}, color={0,0,127}));
+  connect(eng.TEng, opeMod.TEng) annotation (Line(points={{22,-130},{24,-130},{
+          24,158},{48,158}},
+                          color={0,0,127}));
   connect(TWatOutSet, cooWatCon.u_s) annotation (Line(points={{-200,350},{-82,350}},
           color={0,0,127}));
   connect(cooWatCon.y, elePowDem.u) annotation (Line(points={{-58,350},{-42,350}},
@@ -277,6 +285,10 @@ equation
           {98,260}}, color={255,0,255}));
   connect(swi.y, fil.PEleDem) annotation (Line(points={{122,260},{160,260},{160,
           180},{-160,180},{-160,90},{-142,90}}, color={0,0,127}));
+  connect(eneCon.PEleNet, opeMod.PEleNet) annotation (Line(points={{-38,38},{28,
+          38},{28,155},{48,155}}, color={0,0,127}));
+  connect(PEleDem, opeMod.PEle) annotation (Line(points={{-200,200},{40,200},{
+          40,152},{48,152}}, color={0,0,127}));
 annotation (
   defaultComponentName="eleFol",
   Diagram(coordinateSystem(extent={{-180,-160},{180,380}})),
