@@ -42,9 +42,14 @@ model Enable_TOut_hOut
     final offset=TOutCutoff - 4) "Outoor air temperature"
     annotation (Placement(transformation(extent={{-50,106},{-30,126}})));
 protected
-  final parameter Modelica.SIunits.Temperature TOutCutoff=297.15
+  final parameter Real TOutCutoff(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity = "ThermodynamicTemperature")=297.15
     "Outdoor temperature high limit cutoff";
-  final parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
+  final parameter Real hOutCutoff(
+    final unit="J/kg",
+    final quantity = "SpecificEnergy")=65100
     "Outdoor air enthalpy high limit cutoff";
   final parameter Real outDamPosMin=0.1
     "Minimum outdoor air damper position";

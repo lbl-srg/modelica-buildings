@@ -3,8 +3,14 @@ block TrimAndRespond "Block to inplement trim and respond logic"
   parameter Real iniSet  "Initial setpoint";
   parameter Real minSet  "Minimum setpoint";
   parameter Real maxSet  "Maximum setpoint";
-  parameter Modelica.SIunits.Time delTim(min=100*1E-15)  "Delay time";
-  parameter Modelica.SIunits.Time samplePeriod(min=1E-3)
+  parameter Real delTim(
+    final unit="s",
+    final quantity="Time",
+    final min=100*1E-15)  "Delay time";
+  parameter Real samplePeriod(
+    final unit="s",
+    final quantity="Time",
+    final min=1E-3)
     "Sample period of component";
   parameter Integer numIgnReq  "Number of ignored requests";
   parameter Real triAmo  "Trim amount";

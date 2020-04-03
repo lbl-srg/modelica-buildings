@@ -1,12 +1,17 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits;
 block Controller "Controller for room VAV box"
 
-  parameter Modelica.SIunits.Time samplePeriod
+  parameter Real samplePeriod(
+    final unit="s",
+    final quantity="Time")
     "Sample period of component, set to the same value as the trim and respond that process yPreSetReq";
-  parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal
+  parameter Real V_flow_nominal(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")
     "Volume flow rate of this thermal zone";
-  parameter Modelica.SIunits.Area AFlo "Area of the zone";
-
+  parameter Real AFlo(
+    final unit="m2",
+    final quantity="Area") "Area of the zone";
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCoo=
      Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
@@ -16,13 +21,17 @@ block Controller "Controller for room VAV box"
     "Gain for cooling control loop signal"
     annotation(Dialog(group="Cooling loop signal"));
 
-  parameter Modelica.SIunits.Time TiCoo=900
+  parameter Real TiCoo(
+    final unit="s",
+    final quantity="Time")=900
     "Time constant of integrator block for cooling control loop signal"
     annotation(Dialog(group="Cooling loop signal",
       enable=controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Modelica.SIunits.Time TdCoo=0.1
+  parameter Real TdCoo(
+    final unit="s",
+    final quantity="Time")=0.1
     "Time constant of derivative block for cooling control loop signal"
     annotation (Dialog(group="Cooling loop signal",
       enable=controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
@@ -36,13 +45,17 @@ block Controller "Controller for room VAV box"
     "Gain for heating control loop signal"
     annotation(Dialog(group="Heating loop signal"));
 
-  parameter Modelica.SIunits.Time TiHea=900
+  parameter Real TiHea(
+    final unit="s",
+    final quantity="Time")=900
     "Time constant of integrator block for heating control loop signal"
     annotation(Dialog(group="Heating loop signal",
     enable=controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
         or controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Modelica.SIunits.Time TdHea=0.1
+  parameter Real TdHea(
+    final unit="s",
+    final quantity="Time")=0.1
     "Time constant of derivative block for heating control loop signal"
     annotation (Dialog(group="Heating loop signal",
       enable=controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
@@ -57,13 +70,17 @@ block Controller "Controller for room VAV box"
     "Gain of controller for valve control"
     annotation (Dialog(group="Valve"));
 
-  parameter Modelica.SIunits.Time TiVal=300
+  parameter Real TiVal(
+    final unit="s",
+    final quantity="Time")=300
     "Time constant of integrator block for valve control"
     annotation(Dialog(group="Valve",
     enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
         or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Modelica.SIunits.Time TdVal=0.1
+  parameter Real TdVal(
+    final unit="s",
+    final quantity="Time")=0.1
     "Time constant of derivative block for valve control"
     annotation (Dialog(group="Valve",
       enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
@@ -78,13 +95,17 @@ block Controller "Controller for room VAV box"
     "Gain of controller for damper control"
     annotation (Dialog(group="Damper"));
 
-  parameter Modelica.SIunits.Time TiDam=300
+  parameter Real TiDam(
+    final unit="s",
+    final quantity="Time")=300
     "Time constant of integrator block for damper control"
     annotation (Dialog(group="Damper",
       enable=controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Modelica.SIunits.Time TdDam=0.1
+  parameter Real TdDam(
+    final unit="s",
+    final quantity="Time")=0.1
     "Time constant of derivative block for damper control"
     annotation (Dialog(group="Damper",
       enable=controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
@@ -92,135 +113,143 @@ block Controller "Controller for room VAV box"
 
   parameter Boolean have_occSen=false
     "Set to true if the zone has occupancy sensor"
-    annotation (Evaluate=true,
-      Dialog(tab="Airflow setpoint", group="Zone sensors"));
+    annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
   parameter Boolean have_winSen=false
     "Set to true if the zone has window status sensor"
-    annotation (Evaluate=true,
-      Dialog(tab="Airflow setpoint", group="Zone sensors"));
+    annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
   parameter Boolean have_CO2Sen=false
     "Set to true if the zone has CO2 sensor"
-    annotation (Evaluate=true,
-      Dialog(tab="Airflow setpoint", group="Zone sensors"));
-  parameter Modelica.SIunits.VolumeFlowRate VDisCooSetMax_flow=V_flow_nominal
+    annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
+  parameter Real VDisCooSetMax_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")=V_flow_nominal
     "Zone maximum cooling airflow setpoint"
-    annotation (Evaluate=true,
-      Dialog(tab="Airflow setpoint", group="Nominal conditions"));
-  parameter Modelica.SIunits.VolumeFlowRate VDisSetMin_flow=0.15*V_flow_nominal
+    annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
+  parameter Real VDisSetMin_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")=0.15*V_flow_nominal
     "Zone minimum airflow setpoint"
-    annotation (Evaluate=true,
-      Dialog(tab="Airflow setpoint", group="Nominal conditions"));
-  parameter Modelica.SIunits.VolumeFlowRate VDisHeaSetMax_flow=V_flow_nominal
+    annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
+  parameter Real VDisHeaSetMax_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")=V_flow_nominal
     "Zone maximum heating airflow setpoint"
-    annotation (Evaluate=true,
-      Dialog(tab="Airflow setpoint", group="Nominal conditions"));
-  parameter Modelica.SIunits.VolumeFlowRate VDisConMin_flow=0.1*V_flow_nominal
+    annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
+  parameter Real VDisConMin_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")=0.1*V_flow_nominal
     "VAV box controllable minimum"
-    annotation (Evaluate=true,
-      Dialog(tab="Airflow setpoint", group="Nominal conditions"));
+    annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
   parameter Real VOutPerAre_flow(final unit = "m3/(s.m2)")=3e-4
     "Outdoor air rate per unit area"
-    annotation (Evaluate=true,
-      Dialog(tab="Airflow setpoint", group="Nominal conditions"));
-  parameter Modelica.SIunits.VolumeFlowRate VOutPerPer_flow=2.5e-3
+    annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
+  parameter Real VOutPerPer_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")=2.5e-3
     "Outdoor air rate per person"
-    annotation (Evaluate=true,
-      Dialog(tab="Airflow setpoint", group="Nominal conditions"));
+    annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
   parameter Real CO2Set=894 "CO2 setpoint in ppm"
-    annotation (Evaluate=true,
-      Dialog(tab="Airflow setpoint", group="Nominal conditions"));
-  parameter Modelica.SIunits.TemperatureDifference dTDisZonSetMax=11
+    annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
+  parameter Real dTDisZonSetMax(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference")=11
     "Zone maximum discharge air temperature above heating setpoint"
-    annotation (Evaluate=true,
-      Dialog(tab="Damper and valve", group="Parameters"));
-  parameter Modelica.SIunits.Temperature TDisMin=283.15
+    annotation (Dialog(tab="Damper and valve", group="Parameters"));
+  parameter Real TDisMin(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=283.15
     "Lowest discharge air temperature"
-    annotation (Evaluate=true,
-      Dialog(tab="Damper and valve", group="Parameters"));
+    annotation (Dialog(tab="Damper and valve", group="Parameters"));
   parameter Boolean have_heaWatCoi=true
     "Flag, true if there is a hot water coil"
-    annotation (Evaluate=true,
-      Dialog(tab="System requests", group="Parameters"));
+    annotation (Dialog(tab="System requests", group="Parameters"));
   parameter Boolean have_heaPla=false
     "Flag, true if there is a boiler plant"
-    annotation (Evaluate=true,
-      Dialog(tab="System requests", group="Parameters"));
-  parameter Modelica.SIunits.TemperatureDifference errTZonCoo_1=2.8
+    annotation (Dialog(tab="System requests", group="Parameters"));
+  parameter Real errTZonCoo_1(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference")=2.8
     "Limit value of difference between zone temperature and cooling setpoint
     for generating 3 cooling SAT reset requests"
-    annotation (Evaluate=true,
-      Dialog(tab="System requests", group="Parameters"));
-  parameter Modelica.SIunits.TemperatureDifference errTZonCoo_2=1.7
+    annotation (Dialog(tab="System requests", group="Parameters"));
+  parameter Real errTZonCoo_2(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference")=1.7
     "Limit value of difference between zone temperature and cooling setpoint
     for generating 2 cooling SAT reset requests"
-    annotation (Evaluate=true,
-      Dialog(tab="System requests", group="Parameters"));
-  parameter Modelica.SIunits.TemperatureDifference errTDis_1=17
+    annotation (Dialog(tab="System requests", group="Parameters"));
+  parameter Real errTDis_1(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference")=17
     "Limit value of difference between discharge air temperature and its setpoint
     for generating 3 hot water reset requests"
-    annotation (Evaluate=true,
-      Dialog(tab="System requests", group="Parameters"));
-  parameter Modelica.SIunits.TemperatureDifference errTDis_2=8.3
+    annotation (Dialog(tab="System requests", group="Parameters"));
+  parameter Real errTDis_2(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference")=8.3
     "Limit value of difference between discharge air temperature and its setpoint
     for generating 2 hot water reset requests"
-    annotation (Evaluate=true,
-      Dialog(tab="System requests", group="Parameters"));
-  parameter Modelica.SIunits.Time durTimTem=120
+    annotation (Dialog(tab="System requests", group="Parameters"));
+  parameter Real durTimTem(
+    final unit="s",
+    final quantity="Time")=120
     "Duration time of zone temperature exceeds setpoint"
-    annotation (Evaluate=true,
-      Dialog(tab="System requests", group="Duration times"));
-  parameter Modelica.SIunits.Time durTimFlo=60
+    annotation (Dialog(tab="System requests", group="Duration times"));
+  parameter Real durTimFlo(
+    final unit="s",
+    final quantity="Time")=60
     "Duration time of airflow rate less than setpoint"
-    annotation (Evaluate=true,
-      Dialog(tab="System requests", group="Duration times"));
-  parameter Modelica.SIunits.Time durTimDisAir=300
+    annotation (Dialog(tab="System requests", group="Duration times"));
+  parameter Real durTimDisAir(
+    final unit="s",
+    final quantity="Time")=300
     "Duration time of discharge air temperature is less than setpoint"
-    annotation (Evaluate=true,
-      Dialog(tab="System requests", group="Duration times"));
+    annotation (Dialog(tab="System requests", group="Duration times"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonHeaSet(
     final quantity="ThermodynamicTemperature",
     final unit = "K",
-    displayUnit = "degC",
-    min=0)
+    final displayUnit = "degC")
     "Setpoint temperature for room for heating"
     annotation (Placement(transformation(extent={{-180,140},{-140,180}}),
         iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonCooSet(
     final quantity="ThermodynamicTemperature",
     final unit = "K",
-    displayUnit = "degC",
-    min=0)
+    final displayUnit = "degC")
     "Setpoint temperature for room for cooling"
     annotation (Placement(transformation(extent={{-180,100},{-140,140}}),
         iconTransformation(extent={{-140,50},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final quantity="ThermodynamicTemperature",
     final unit = "K",
-    displayUnit = "degC",
-    min=0)
+    final displayUnit = "degC")
     "Measured room temperature"
     annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
         iconTransformation(extent={{-140,-30},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDis(
     final quantity="ThermodynamicTemperature",
     final unit = "K",
-    displayUnit = "degC",
-    min=0)
+    final displayUnit = "degC")
     "Measured supply air temperature after heating coil"
     annotation (Placement(transformation(extent={{-180,-120},{-140,-80}}),
         iconTransformation(extent={{-140,-70},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow(
     final unit="m3/s",
-    quantity="VolumeFlowRate")
+    final quantity="VolumeFlowRate")
     "Measured discharge airflow rate"
     annotation (Placement(transformation(extent={{-180,-80},{-140,-40}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupAHU(
     final quantity="ThermodynamicTemperature",
     final unit = "K",
-    displayUnit = "degC",
-    min=0)
+    final displayUnit = "degC")
     "AHU supply air temperature"
     annotation (Placement(transformation(extent={{-180,-150},{-140,-110}}),
         iconTransformation(extent={{-140,-90},{-100,-50}})));
@@ -241,15 +270,15 @@ block Controller "Controller for room VAV box"
     annotation (Placement(transformation(extent={{-180,-190},{-140,-150}}),
         iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yVal(
-    min=0,
-    max=1,
+    final min=0,
+    final max=1,
     final unit="1")
     "Signal for heating coil valve"
     annotation (Placement(transformation(extent={{140,-40},{180,0}}),
         iconTransformation(extent={{100,-10},{140,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDam(
-    min=0,
-    max=1,
+    final min=0,
+    final max=1,
     final unit="1")
     "Signal for VAV damper"
     annotation (Placement(transformation(extent={{140,60},{180,100}}),
@@ -362,9 +391,9 @@ equation
     annotation (Line(points={{42,-14},{120,-14},{120,-20},{160,-20}},
       color={0,0,127}));
   connect(damVal.VDis_flow, VDis_flow)
-    annotation (Line(points={{34,-24},{34,-60},{-160,-60}},color={0,0,127}));
+    annotation (Line(points={{34,-22},{34,-60},{-160,-60}},color={0,0,127}));
   connect(damVal.TDis, TDis)
-    annotation (Line(points={{26,-24},{26,-100},{-160,-100}},
+    annotation (Line(points={{26,-22},{26,-100},{-160,-100}},
                                                            color={0,0,127}));
   connect(sysReq.TDis, TDis)
     annotation (Line(points={{78,-96},{26,-96},{26,-100},{-160,-100}},
@@ -376,38 +405,37 @@ equation
     annotation (Line(points={{42,-14},{50,-14},{50,-98},{78,-98}},
                                                              color={0,0,127}));
   connect(TZon, damVal.TZon) annotation (Line(points={{-160,-20},{-40,-20},{-40,
-          -15},{18,-15}},
+          -14},{18,-14}},
                    color={0,0,127}));
-  connect(damVal.TSup, TSupAHU) annotation (Line(points={{18,-9},{-80,-9},{-80,-130},
+  connect(damVal.TSup, TSupAHU) annotation (Line(points={{18,-8},{-80,-8},{-80,-130},
           {-160,-130}},color={0,0,127}));
   connect(actAirSet.VActCooMax_flow, damVal.VActCooMax_flow) annotation (Line(points={{-18,78},
-          {0,78},{0,-5},{18,-5}},      color={0,0,127}));
+          {0,78},{0,-4},{18,-4}},      color={0,0,127}));
   connect(actAirSet.VActCooMin_flow, damVal.VActCooMin_flow) annotation (Line(points={{-18,75},
-          {-2,75},{-2,-3},{18,-3}},      color={0,0,127}));
+          {-2,75},{-2,-2},{18,-2}},      color={0,0,127}));
   connect(actAirSet.VActMin_flow, damVal.VActMin_flow) annotation (Line(points={{-18,72},
-          {-4,72},{-4,-7},{18,-7}}, color={0,0,127}));
+          {-4,72},{-4,-6},{18,-6}}, color={0,0,127}));
   connect(actAirSet.VActHeaMin_flow, damVal.VActHeaMin_flow) annotation (Line(points={{-18,69},
-          {-6,69},{-6,-17},{18,-17}},  color={0,0,127}));
+          {-6,69},{-6,-16},{18,-16}},  color={0,0,127}));
   connect(actAirSet.VActHeaMax_flow, damVal.VActHeaMax_flow) annotation (Line(points={{-18,66},
-          {-8,66},{-8,-19.2},{18,-19.2}},
-                                       color={0,0,127}));
+          {-8,66},{-8,-18},{18,-18}},  color={0,0,127}));
   connect(damVal.THeaSet, TZonHeaSet)
-    annotation (Line(points={{18,-11},{-124,-11},{-124,160},{-160,160}},
+    annotation (Line(points={{18,-10},{-124,-10},{-124,160},{-160,160}},
       color={0,0,127}));
   connect(actAirSet.VActCooMax_flow, damVal.VActCooMax_flow)
-    annotation (Line(points={{-18,78},{0,78},{0,-5},{18,-5}},
+    annotation (Line(points={{-18,78},{0,78},{0,-4},{18,-4}},
       color={0,0,127}));
   connect(actAirSet.VActCooMin_flow, damVal.VActCooMin_flow)
-    annotation (Line(points={{-18,75},{-2,75},{-2,-3},{18,-3}},
+    annotation (Line(points={{-18,75},{-2,75},{-2,-2},{18,-2}},
       color={0,0,127}));
   connect(actAirSet.VActMin_flow, damVal.VActMin_flow)
-    annotation (Line(points={{-18,72},{-4,72},{-4,-7},{18,-7}},
+    annotation (Line(points={{-18,72},{-4,72},{-4,-6},{18,-6}},
       color={0,0,127}));
   connect(actAirSet.VActHeaMin_flow, damVal.VActHeaMin_flow)
-    annotation (Line(points={{-18,69},{-6,69},{-6,-17},{18,-17}},
+    annotation (Line(points={{-18,69},{-6,69},{-6,-16},{18,-16}},
       color={0,0,127}));
   connect(actAirSet.VActHeaMax_flow, damVal.VActHeaMax_flow)
-    annotation (Line(points={{-18,66},{-8,66},{-8,-19.2},{18,-19.2}},
+    annotation (Line(points={{-18,66},{-8,66},{-8,-18},{18,-18}},
       color={0,0,127}));
   connect(actAirSet.uOpeMod, uOpeMod)
     annotation (Line(points={{-42,78},{-112,78},{-112,-170},{-160,-170}},
@@ -438,16 +466,16 @@ equation
     annotation (Line(points={{-160,-20},{-122,-20},{-122,100},{-100,100},
       {-100,108}}, color={0,0,127}));
   connect(conCooLoo.y, damVal.uCoo)
-    annotation (Line(points={{-88,120},{8,120},{8,-1},{18,-1}},
+    annotation (Line(points={{-88,120},{8,120},{8,0},{18,0}},
       color={0,0,127}));
   connect(conHeaLoo.y, damVal.uHea)
-    annotation (Line(points={{-88,160},{12,160},{12,-13},{18,-13}},
+    annotation (Line(points={{-88,160},{12,160},{12,-12},{18,-12}},
       color={0,0,127}));
   connect(conCooLoo.y, sysReq.uCoo)
     annotation (Line(points={{-88,120},{8,120},{8,-86},{78,-86}},
       color={0,0,127}));
 
-  connect(damVal.uOpeMod, uOpeMod) annotation (Line(points={{18,-21.2},{-112,-21.2},
+  connect(damVal.uOpeMod, uOpeMod) annotation (Line(points={{18,-20},{-112,-20},
           {-112,-170},{-160,-170}},
                                   color={255,127,0}));
   connect(conIntUn.y, isUnOcc.u1)
