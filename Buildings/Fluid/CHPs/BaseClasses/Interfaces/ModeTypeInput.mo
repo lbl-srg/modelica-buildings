@@ -1,5 +1,5 @@
 within Buildings.Fluid.CHPs.BaseClasses.Interfaces;
-connector ModeTypeInput =input CHPs.BaseClasses.Types.Mode
+connector ModeTypeInput = input CHPs.BaseClasses.Types.Mode
   "Input connector for mode type"
 annotation (
   defaultComponentName="u",

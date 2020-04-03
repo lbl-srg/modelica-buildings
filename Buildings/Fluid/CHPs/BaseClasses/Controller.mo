@@ -15,36 +15,42 @@ model Controller "Define current operation mode"
       iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mWat_flow(
     final unit="kg/s")
+    "Cooling water mass flow rate"
     annotation (Placement(transformation(extent={{-300,20},{-260,60}}),
       iconTransformation(extent={{-140,-10},{-100,30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TEng(
-    final unit="K",
-    final quantity="ThermodynamicTemperature")  "Engine temperature"
-    annotation (Placement(transformation(extent={{-300,-20},{-260,20}}),
-      iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput avaSig
     "True when the plant is available"
     annotation (Placement(transformation(extent={{-300,160},{-260,200}}),
       iconTransformation(extent={{-140,50},{-100,90}})));
   Buildings.Fluid.CHPs.BaseClasses.Interfaces.ModeTypeOutput opeMod
-    "Type of the operation mode"
+    "Type of operating mode"
     annotation (Placement(transformation(extent={{260,-20},{300,20}}),
       iconTransformation(extent={{100,-10},{120,10}})));
-
-  Modelica.StateGraph.Step staBy(nOut=2) "Plant is in standby mode"
+  Modelica.StateGraph.Step staBy(nOut=2)
+    "Standby step"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Modelica.StateGraph.Step pumOn(nOut=2) "Plant pump is on"
+  Modelica.StateGraph.Step pumOn(nOut=2)
+    "Pump on step"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.StateGraph.StepWithSignal warUp(nIn=2, nOut=2)
-    "Plant is in warm up mode"
+    "Warm-up step"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
   Modelica.StateGraph.StepWithSignal cooDow(nIn=2, nOut=2)
+    "Cool-down step"
     annotation (Placement(transformation(extent={{160,-90},{180,-70}})));
-  Controls.OBC.CDL.Interfaces.RealInput PEleNet(final unit="W")
+  Controls.OBC.CDL.Interfaces.RealInput TEng(
+    final unit="K",
+    final displayUnit="degC") if not per.warmUpByTimeDelay
+    "Engine temperature"
+    annotation (Placement(transformation(extent={{-300,-20},{-260,20}}),
+      iconTransformation(extent={{-140,-40},{-100,0}})));
+  Controls.OBC.CDL.Interfaces.RealInput PEleNet(final unit="W") if
+    not per.warmUpByTimeDelay
     "Net power output"
     annotation (Placement(transformation(extent={{-300,-60},{-260,-20}}),
-                   iconTransformation(extent={{-140,-70},{-100,-30}})));
-  Controls.OBC.CDL.Interfaces.RealInput PEle(final unit="W")
+      iconTransformation(extent={{-140,-70},{-100,-30}})));
+  Controls.OBC.CDL.Interfaces.RealInput PEle(final unit="W") if
+    not per.warmUpByTimeDelay
     "Power demand"
     annotation (Placement(transformation(extent={{-300,-100},{-260,-60}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
@@ -60,12 +66,12 @@ protected
     annotation (Placement(transformation(extent={{-140,170},{-120,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2(
     final k1=-1)
-    "Flow rate difference between current rate and minimum rate"
+    "Mass flow rate difference between actual and minimum value"
     annotation (Placement(transformation(extent={{-100,170},{-80,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
     final uLow=0.01*per.mWatMin - 2e-6,
     final uHigh=0.015*per.mWatMin - 1e-6)
-    "Check if current flow rate is larger than the minimum flow rate"
+    "Check if actual mass flow rate is larger than the minimum value"
     annotation (Placement(transformation(extent={{-60,170},{-40,190}})));
   Buildings.Controls.OBC.CDL.Logical.And goSig
     "Check if water flow rate is higher than the minimum when runSig = true"
@@ -83,7 +89,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
     final uLow=0.01*per.mWatMin - 2e-6,
     final uHigh=0.015*per.mWatMin - 1e-6)
-    "Check if current flow rate is smaller than the minimum flow rate"
+    "Check if actual mass flow rate is smaller than the minimum value"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Buildings.Controls.OBC.CDL.Logical.Or noGoSig
     "Check if water flow rate is smaller than the minimum or if runSig = false"
@@ -153,7 +159,6 @@ protected
     "Check if the time of  plant in cool-down mode has been longer than the 
     specified delay time"
     annotation (Placement(transformation(extent={{180,-190},{200,-170}})));
-protected
   Controls.OBC.CDL.Logical.Timer timer
     "Timer"
     annotation (Placement(transformation(extent={{152,-190},{172,-170}})));

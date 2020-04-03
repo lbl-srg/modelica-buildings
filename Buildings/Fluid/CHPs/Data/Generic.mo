@@ -4,32 +4,32 @@ record Generic "Generic data for CHP models"
   parameter Real[27] coeEtaQ=fill(0,27)
     "Vector of coefficients used to calculate thermal efficiency of the engine. 
     The independent variable x1 is the steady-state power output, 
-    x2 is the mass flow rate of the cooling water and x3 is the cooling water inlet temperature.
-    Coefficients next to the terms have the following order:
+    x2 is the cooling water mass flow rate, x3 is the cooling water inlet temperature.
+    From index 1 to 27, coefficients correspond to the following terms:
     constant, x1^2, x1, x2^2, x2, x3^2, x3, 
     x1^2*x2^2, x1*x2, x1*x2^2, x1^2*x2,
     x1^2*x3^2, x1*x3, x1*x3^2, x1^2*x3,
     x2^2*x3^2, x2*x3, x2*x3^2, x2^2*x3,
-    x1^2*x2^2*x3^2,  x1^2*x2^2*x3,  x1^2*x2*x3^2,  x1*x2^2*x3^2,
-    x1^2*x2*x3, x1*x2^2*x3,  x1*x2*x3^2,  x1*x2*x3";
+    x1^2*x2^2*x3^2, x1^2*x2^2*x3, x1^2*x2*x3^2, x1*x2^2*x3^2,
+    x1^2*x2*x3, x1*x2^2*x3,  x1*x2*x3^2, x1*x2*x3";
   parameter Real[27] coeEtaE=fill(0,27)
     "Vector of coefficients used to calculate electrical conversion efficiency 
-    of the engine. The independent varilables and order of the coefficients 
-    are the same as for the thermal efficiency";
+    of the engine. The independent variables and mapping of the coefficients 
+    to the polynomial terms are the same as for the thermal efficiency";
   parameter Boolean coolingWaterControl=true
-    "If true, then empirical correlation is used to calculte cooling water mass flow rate based on internal control";
+    "If true, then an empirical correlation is used to calculate 
+    cooling water mass flow rate based on internal control";
   parameter Real[6] coeMasWat=fill(0,6)
-    "Vector of coefficients used to calculate cooling water mass flow rate. 
-    Used if the empirical correlation should be used to calculate cooling 
-    water mass flow rate based on internal control.
+    "Vector of coefficients used to calculate cooling water mass flow rate 
+    in case coolingWaterControl is true.
     The independent variable x1 is the steady-state power output, 
-    x2 is the mass flow rate of the cooling water.
-    Coefficients next to the terms have the following order:
-    constant, x1, x1^2, x2, x2^2, x3^2, x1*x2";
+    x2 is the cooling water mass flow rate.
+    From index 1 to 6, coefficients correspond to the following terms:
+    constant, x1, x1^2, x2, x2^2, x1*x2";
   parameter Real[3] coeMasAir=fill(0,3)
     "Vector of coefficients used to calculate air mass flow rate.
-    The independent variable is x1 is the fuel mass flow rate.
-    Coefficients next to the terms have the following order:
+    The independent variable x1 is the fuel mass flow rate.
+    From index 1 to 3, coefficients correspond to the following terms:
     constant, x1, x1^2";
   parameter Modelica.SIunits.ThermalConductance UAhx = 0
     "Thermal conductance between the engine and cooling water";

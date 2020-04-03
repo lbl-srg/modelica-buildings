@@ -47,21 +47,26 @@ protected
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 
 equation
-  connect(avaSig.y, con.avaSig) annotation (Line(points={{-59,70},{-48,70},
-          {-48,62},{-2,62}}, color={255,0,255}));
+  connect(avaSig.y, con.avaSig) annotation (Line(points={{-59,70},{-48,70},{-48,
+          77},{-2,77}},      color={255,0,255}));
   connect(runSig.y, con.runSig) annotation (Line(points={{-59,30},{-42,30},{-42,
-          78},{-2,78}}, color={255,0,255}));
+          74},{-2,74}}, color={255,0,255}));
   connect(TEng.y, con.TEng) annotation (Line(points={{-58,-50},{-30,-50},{-30,
           68},{-2,68}}, color={0,0,127}));
   connect(con.opeMod, conWat.opeMod) annotation (Line(points={{21,70},{40,70},{40,
           7},{59,7}}, color={0,127,0}));
   connect(TWatIn.y, conWat.TWatIn) annotation (Line(points={{2,-30},{20,-30},
           {20,-7},{58,-7}}, color={0,0,127}));
-  connect(mWat_flow.y[1], con.mWat_flow) annotation (Line(points={{-58,-10},{-36,
-          -10},{-36,72},{-2,72}},color={0,0,127}));
+  connect(mWat_flow.y[1], con.mWat_flow) annotation (Line(points={{-58,-10},{
+          -36,-10},{-36,71},{-2,71}},
+                                 color={0,0,127}));
   connect(PEle.y[1], conWat.PEle) annotation (Line(points={{2,30},{20,30},{20,0},
           {58,0}}, color={0,0,127}));
 
+  connect(PEle.y[1], con.PEle) annotation (Line(points={{2,30},{20,30},{20,54},
+          {-10,54},{-10,62},{-2,62}}, color={0,0,127}));
+  connect(PEle.y[1], con.PEleNet) annotation (Line(points={{2,30},{20,30},{20,
+          54},{-10,54},{-10,65},{-2,65}}, color={0,0,127}));
 annotation (
     experiment(StopTime=3000, Tolerance=1e-6),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/BaseClasses/Validation/WaterFlowControl.mos"

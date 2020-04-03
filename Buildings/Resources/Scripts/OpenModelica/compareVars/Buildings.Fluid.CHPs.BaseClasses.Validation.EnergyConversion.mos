@@ -6,5 +6,6 @@ compareVars :=
     "eneConEngTem.QGen_flow",
     "eneConTimDel.QGen_flow",
     "eneConEngTem.PEleNet",
-    "eneConTimDel.PEleNet"
+    "eneConTimDel.PEleNet",
+    "PEle.y"
   };

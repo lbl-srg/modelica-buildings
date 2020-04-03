@@ -22,9 +22,6 @@ model PowerConsumption "Validate model PowerConsumption"
     final table={3500})
     "Plant availability signal"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TEng(
-    final k=273.15 + 100) "Engine temperature"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Buildings.Fluid.CHPs.BaseClasses.PowerConsumption powCon(
     final PStaBy=per.PStaBy,
     final PCooDow=per.PCooDow)
@@ -36,15 +33,14 @@ protected
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
 equation
-  connect(avaSig.y, con.avaSig) annotation (Line(points={{-59,80},{-40,80},
-          {-40,-8},{-12,-8}}, color={255,0,255}));
+  connect(avaSig.y, con.avaSig) annotation (Line(points={{-59,80},{-40,80},{-40,
+          7},{-12,7}},        color={255,0,255}));
   connect(runSig.y, con.runSig) annotation (Line(points={{-59,40},{-50,40},{-50,
-          8},{-12,8}},  color={255,0,255}));
-  connect(TEng.y, con.TEng) annotation (Line(points={{-58,-40},{-50,-40},{-50,-2},
-          {-12,-2}},color={0,0,127}));
+          4},{-12,4}},  color={255,0,255}));
   connect(con.opeMod,powCon. opeMod) annotation (Line(points={{11,0},{39,0}},
           color={0,127,0}));
-  connect(mWat_flow.y[1], con.mWat_flow) annotation (Line(points={{-58,2},{-12,2}},
+  connect(mWat_flow.y[1], con.mWat_flow) annotation (Line(points={{-58,2},{-36,
+          2},{-36,1},{-12,1}},
           color={0,0,127}));
 
 annotation (

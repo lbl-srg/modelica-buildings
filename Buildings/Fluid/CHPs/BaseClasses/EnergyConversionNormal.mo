@@ -18,7 +18,7 @@ model EnergyConversionNormal
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TWatIn(
     final unit="K",
-    final quantity="ThermodynamicTemperature") "Water inlet temperature"
+    displayUnit="degC") "Water inlet temperature"
     annotation (Placement(transformation(extent={{-180,-96},{-140,-56}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput mFue_flow(
@@ -35,7 +35,6 @@ model EnergyConversionNormal
     "Heat generation rate within the engine" annotation (Placement(
         transformation(extent={{140,-60},{180,-20}}), iconTransformation(extent=
            {{102,-80},{142,-40}})));
-
 protected
   Buildings.Fluid.CHPs.BaseClasses.EfficiencyCurve etaE(
     final a=per.coeEtaE)
@@ -51,15 +50,12 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Product heaGen
     "Heat generation within the engine"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(
-    final k=1/per.LHVFue) "Reciprocal of fuel lower heating value "
-    annotation (Placement(transformation(extent={{-20,50},{0,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product fueFlo "Fuel flow rate"
-    annotation (Placement(transformation(extent={{40,30},{60,50}})));
-  Buildings.Utilities.Math.Polynominal airFlo(
-    final a=per.coeMasAir) "Air mass flow rate"
+  Buildings.Utilities.Math.Polynominal masFloAir(final a=per.coeMasAir)
+    "Air mass flow rate computation"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-
+  Controls.OBC.CDL.Continuous.Gain masFloFue(final k=1/per.LHVFue)
+    "Fuel mass flow rate computation"
+    annotation (Placement(transformation(extent={{40,30},{60,50}})));
 equation
   connect(groHea.u1, PEle) annotation (Line(points={{-22,26},{-110,26},{-110,40},
           {-160,40}},  color={0,0,127}));
@@ -67,16 +63,8 @@ equation
     annotation (Line(points={{82,-40},{160,-40}}, color={0,0,127}));
   connect(QGen_flow, QGen_flow)
     annotation (Line(points={{160,-40},{160,-40}}, color={0,0,127}));
-  connect(groHea.y, fueFlo.u2) annotation (Line(points={{2,20},{20,20},{20,34},{
-          38,34}}, color={0,0,127}));
-  connect(const.y, fueFlo.u1) annotation (Line(points={{2,60},{20,60},{20,46},{38,
-          46}}, color={0,0,127}));
-  connect(fueFlo.y, mFue_flow) annotation (Line(points={{62,40},{160,40}},
-          color={0,0,127}));
-  connect(airFlo.u, fueFlo.y) annotation (Line(points={{98,0},{80,0},{80,40},{62,
-          40}}, color={0,0,127}));
-  connect(airFlo.y, mAir_flow) annotation (Line(points={{121,0},{160,0}},
-          color={0,0,127}));
+  connect(masFloAir.y, mAir_flow)
+    annotation (Line(points={{121,0},{160,0}}, color={0,0,127}));
   connect(etaE.TWatIn, TWatIn) annotation (Line(points={{-82,-6},{-100,-6},{-100,
           -76},{-160,-76}}, color={0,0,127}));
   connect(etaE.PNet, PEle) annotation (Line(points={{-82,6},{-110,6},{-110,40},{
@@ -95,7 +83,12 @@ equation
           {58,-46}}, color={0,0,127}));
   connect(groHea.y, heaGen.u1) annotation (Line(points={{2,20},{20,20},{20,-34},
           {58,-34}},color={0,0,127}));
-
+  connect(masFloFue.y, mFue_flow)
+    annotation (Line(points={{62,40},{160,40}}, color={0,0,127}));
+  connect(groHea.y, masFloFue.u) annotation (Line(points={{2,20},{20,20},{20,40},
+          {38,40}}, color={0,0,127}));
+  connect(masFloFue.y, masFloAir.u)
+    annotation (Line(points={{62,40},{80,40},{80,0},{98,0}}, color={0,0,127}));
 annotation (
   defaultComponentName="opeModBas",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
@@ -107,9 +100,9 @@ normal mode and warm-up mode based on the time delay (CHPs with internal combust
 Energy conversion from fuel to the electric power and heat is modeled using 
 system's part-load electrical and thermal efficiencies, based on the empirical 
 data from the manufacturer. 
-The curves are described by a 2nd order polynomial, a function of the electric 
+The curves are described by a fifth order polynomial, a function of the electric 
 power, water flow rate and water inlet temperature. 
-The air flow rate is also modeled using a 2nd order polynomial, a function of 
+The air flow rate is modeled using a second order polynomial, a function of 
 the fuel flow rate. 
 </p>
 </html>", revisions="<html>

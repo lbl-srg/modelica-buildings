@@ -45,7 +45,6 @@ model EnergyConversionWarmUp
     "Heat generation rate within the engine" annotation (Placement(
         transformation(extent={{540,140},{580,180}}), iconTransformation(extent=
            {{100,-100},{140,-60}})));
-
 protected
   Buildings.Utilities.Math.SmoothMax smoothMax(
     final deltaX=0.5)
@@ -66,18 +65,12 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Division QGroMax
     "Gross heat input into the system"
     annotation (Placement(transformation(extent={{40,250},{60,270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(
-    final k=1/per.LHVFue) "Reciprocal of fuel lower heating value "
-    annotation (Placement(transformation(extent={{40,290},{60,310}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product mFueMax_flow
-    "Maximum fuel flow rate"
-    annotation (Placement(transformation(extent={{100,270},{120,290}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant PEleMax(
     final k=per.PEleMax) "Maximum power"
-    annotation (Placement(transformation(extent={{-80,270},{-60,290}})));
+    annotation (Placement(transformation(extent={{-80,290},{-60,310}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain maxFueFlo(final k=per.rFue)
-    "Maxmimum fuel flow"
-    annotation (Placement(transformation(extent={{320,270},{340,290}})));
+    "Maximum fuel mass flow rate"
+    annotation (Placement(transformation(extent={{320,250},{340,270}})));
   Buildings.Controls.OBC.CDL.Continuous.Min fueFlo "Fuel flow"
     annotation (Placement(transformation(extent={{380,130},{400,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Division division
@@ -98,15 +91,8 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Add add2 "Add up two inputs"
     annotation (Placement(transformation(extent={{260,-10},{280,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Product unlFueFloWarUp
-    "Unlimited fuel flow during warm up"
+    "Unlimited fuel mass flow rate during warm-up"
     annotation (Placement(transformation(extent={{320,30},{340,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant LHVFue(
-    final k=per.LHVFue)
-    "Lower heating value of the fuel"
-    annotation (Placement(transformation(extent={{380,70},{400,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product groHea
-    "Gross heat input into the system"
-    annotation (Placement(transformation(extent={{440,100},{460,120}})));
   Buildings.Fluid.CHPs.BaseClasses.EfficiencyCurve etaQ(
     final a=per.coeEtaQ) "Part load thermal efficiency"
     annotation (Placement(transformation(extent={{-20,180},{0,200}})));
@@ -121,8 +107,8 @@ protected
     annotation (Placement(transformation(extent={{140,110},{160,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Product PEleNet1 "Generated electrical power"
     annotation (Placement(transformation(extent={{260,330},{280,350}})));
-  Buildings.Utilities.Math.Polynominal airFloRat(final a=per.coeMasAir)
-    "Air flow rate"
+  Buildings.Utilities.Math.Polynominal masFloAir(final a=per.coeMasAir)
+    "Air mass flow rate"
     annotation (Placement(transformation(extent={{500,230},{520,250}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant min2(final k=1)
     "Prevent zero  in denominator"
@@ -134,16 +120,17 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Add add(final k1=-1)
     "Difference between room temperature and engine temperature"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-
+  Controls.OBC.CDL.Continuous.Gain masFloFue(final k=1/per.LHVFue)
+    "Fuel mass flow rate computation"
+    annotation (Placement(transformation(extent={{80,250},{100,270}})));
+  Controls.OBC.CDL.Continuous.Gain heaGro(final k=per.LHVFue)
+    "Gross heat input into the system"
+    annotation (Placement(transformation(extent={{440,130},{460,150}})));
 equation
-  connect(QGroMax.y, mFueMax_flow.u2) annotation (Line(points={{62,260},{80,260},
-          {80,274},{98,274}}, color={0,0,127}));
-  connect(const.y, mFueMax_flow.u1) annotation (Line(points={{62,300},{80,300},{
-          80,286},{98,286}}, color={0,0,127}));
-  connect(PEleMax.y, etaE.PNet) annotation (Line(points={{-58,280},{-40,280},{-40,
+  connect(PEleMax.y, etaE.PNet) annotation (Line(points={{-58,300},{-40,300},{-40,
           246},{-22,246}}, color={0,0,127}));
-  connect(QGroMax.u1,PEleMax. y) annotation (Line(points={{38,266},{-40,266},
-          {-40,280},{-58,280}}, color={0,0,127}));
+  connect(QGroMax.u1,PEleMax. y) annotation (Line(points={{38,266},{-40,266},{-40,
+          300},{-58,300}},      color={0,0,127}));
   connect(etaE.TWatIn, TWatIn) annotation (Line(points={{-22,234},{-80,234},{-80,
           200},{-120,200}}, color={0,0,127}));
   connect(etaE.mWat_flow, mWat_flow) annotation (Line(points={{-22,240},
@@ -160,23 +147,15 @@ equation
           6}}, color={0,0,127}));
   connect(add2.y, unlFueFloWarUp.u2) annotation (Line(points={{282,0},{300,0},{300,
           34},{318,34}}, color={0,0,127}));
-  connect(fueFlo.y, groHea.u1) annotation (Line(points={{402,140},{420,140},{420,
-          116},{438,116}}, color={0,0,127}));
-  connect(LHVFue.y, groHea.u2) annotation (Line(points={{402,80},{420,80},{420,104},
-          {438,104}}, color={0,0,127}));
   connect(etaQ.PNet,PEleMax. y) annotation (Line(points={{-22,196},{-40,196},{-40,
-          280},{-58,280}}, color={0,0,127}));
+          300},{-58,300}}, color={0,0,127}));
   connect(etaQ.mWat_flow, mWat_flow) annotation (Line(points={{-22,190},{-60,190},
           {-60,240},{-120,240}}, color={0,0,127}));
   connect(etaQ.TWatIn, TWatIn) annotation (Line(points={{-22,184},{-80,184},
           {-80,200},{-120,200}}, color={0,0,127}));
   connect(etaQ.eta, heaGen.u1) annotation (Line(points={{2,190},{480,190},{480,166},
           {498,166}}, color={0,0,127}));
-  connect(mFueMax_flow.y, maxFueFlo.u) annotation (Line(points={{122,280},
-          {318,280}}, color={0,0,127}));
-  connect(unlFueFloWarUp.u1, mFueMax_flow.y) annotation (Line(points={{318,46},{
-          300,46},{300,280},{122,280}}, color={0,0,127}));
-  connect(maxFueFlo.y, fueFlo.u1) annotation (Line(points={{342,280},{360,280},{
+  connect(maxFueFlo.y, fueFlo.u1) annotation (Line(points={{342,260},{360,260},{
           360,146},{378,146}}, color={0,0,127}));
   connect(unlFueFloWarUp.y, fueFlo.u2) annotation (Line(points={{342,40},{360,40},
           {360,134},{378,134}}, color={0,0,127}));
@@ -185,14 +164,14 @@ equation
   connect(division1.u2, division.y) annotation (Line(points={{198,84},{180,84},{
           180,40},{162,40}},  color={0,0,127}));
   connect(PEleNet1.u1, PEleMax.y) annotation (Line(points={{258,346},{-40,346},{
-          -40,280},{-58,280}}, color={0,0,127}));
+          -40,300},{-58,300}}, color={0,0,127}));
   connect(PEleNet1.y, PEleNet) annotation (Line(points={{282,340},{560,340}},
           color={0,0,127}));
   connect(heaGen.y, QGen_flow)
     annotation (Line(points={{522,160},{560,160}}, color={0,0,127}));
   connect(fueFlo.y, mFue_flow) annotation (Line(points={{402,140},{420,140},{420,
           300},{560,300}}, color={0,0,127}));
-  connect(airFloRat.y, mAir_flow) annotation (Line(points={{521,240},{560,240}},
+  connect(masFloAir.y, mAir_flow) annotation (Line(points={{521,240},{560,240}},
           color={0,0,127}));
   connect(min1.y, smoothMax.u2) annotation (Line(points={{42,40},{60,40},{60,54},
           {78,54}}, color={0,0,127}));
@@ -212,10 +191,8 @@ equation
           color={255,0,255}));
   connect(min2.y, add2.u2) annotation (Line(points={{42,-40},{240,-40},{240,-6},
           {258,-6}}, color={0,0,127}));
-  connect(fueFlo.y, airFloRat.u) annotation (Line(points={{402,140},{420,140},{420,
+  connect(fueFlo.y,masFloAir. u) annotation (Line(points={{402,140},{420,140},{420,
           240},{498,240}}, color={0,0,127}));
-  connect(groHea.y, heaGen.u2) annotation (Line(points={{462,110},{480,110},{480,
-          154},{498,154}}, color={0,0,127}));
   connect(TEng, add.u2) annotation (Line(points={{-120,-40},{-40,-40},{-40,-6},{
           -22,-6}}, color={0,0,127}));
   connect(TRoo, add.u1) annotation (Line(points={{-120,40},{-40,40},{-40,6},{-22,
@@ -223,6 +200,16 @@ equation
   connect(add.y, smoothMax2.u1) annotation (Line(points={{2,0},{60,0},{60,6},
           {78,6}}, color={0,0,127}));
 
+  connect(QGroMax.y, masFloFue.u)
+    annotation (Line(points={{62,260},{78,260}}, color={0,0,127}));
+  connect(masFloFue.y, maxFueFlo.u)
+    annotation (Line(points={{102,260},{318,260}}, color={0,0,127}));
+  connect(masFloFue.y, unlFueFloWarUp.u1) annotation (Line(points={{102,260},{300,
+          260},{300,46},{318,46}}, color={0,0,127}));
+  connect(heaGro.y, heaGen.u2) annotation (Line(points={{462,140},{480,140},{480,
+          154},{498,154}}, color={0,0,127}));
+  connect(fueFlo.y, heaGro.u)
+    annotation (Line(points={{402,140},{438,140}}, color={0,0,127}));
 annotation (
   defaultComponentName="opeModWarUpEngTem",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
@@ -237,10 +224,10 @@ actual engine temperature.
 Energy conversion from fuel to the electric power and heat is modeled using 
 system's part-load electrical and thermal efficiencies, based on the empirical 
 data from the manufacturer. 
-The curves are described by a 2nd order polynomial, a function of the electric 
+The curves are described by a fifth order polynomial, a function of the electric 
 power, water flow rate and water inlet temperature. 
-The air flow rate is also modeled using a 2nd order polynomial, a function of 
-the fuel flow rate. 
+The air flow rate is modeled using a second order polynomial, a function of 
+the fuel flow rate.
 </p>
 </html>", revisions="<html>
 <ul>
