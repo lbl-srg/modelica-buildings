@@ -139,6 +139,12 @@ its class name ends with the string <code>Beta</code>.
     The following <b style=\"color:blue\">new libraries</b> have been added:
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.Utilities
+        </td>
+        <td valign=\"top\">Package with utility blocks, base classes and validation
+                           models for the OpenBuildingControl (OBC) library.
+        </td>
+        </tr>
     <tr><td valign=\"top\">Buildings.Media.Steam
         </td>
         <td valign=\"top\">Package with steam medium model for modeling steam heating systems.
@@ -178,7 +184,13 @@ its class name ends with the string <code>Beta</code>.
                            has been moved to <code>Buildings.Obsolete</code>.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1588\">issue #1588</a>.
         </td>
-    </tr>
+        </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.Utilities.OptimalStart
+        </td>
+        <td valign=\"top\">Block that outputs optimal start time for an HVAC system prior to the occupancy.
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1589\">issue #1589</a>.
+        </td>
+        </tr>
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
         </td>
     </tr>
@@ -278,14 +290,14 @@ its class name ends with the string <code>Beta</code>.
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1 </b>
         </td>
-    </tr>        
+    </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValves
         </td>
         <td valign=\"top\">Replaced multisum block with add blocks, replaced gain block used for normalization
                            with division block.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1830\">issue #1830</a>
         </td>
-    </tr> 
+    </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller
         </td>
         <td valign=\"top\">Replaced the mode and setpoint calculation block with
@@ -586,6 +598,16 @@ its class name ends with the string <code>Beta</code>.
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1577\">1577</a>.
         </td>
     </tr>
+    <tr><td valign=\"top\">Buildings.Electrical.AC.OnePhase.Storage.Battery<br/>
+                         Buildings.Electrical.AC.ThreePhasesBalanced.Storage.Battery
+    </td>
+      <td valign=\"top\">Corrected model and improved the documentation. The previous model extracted from
+                       the AC connector the input power <code>P</code> plus the AC/DC conversion losses, but <code>P</code>
+                       should be the power exchanged at the AC connector. Conversion losses are now only
+                       accounted for in the energy exchange at the battery.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1865\">1865</a>.
+      </td>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
         </td>
     </tr>
@@ -643,7 +665,7 @@ its class name ends with the string <code>Beta</code>.
                            <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1205\">IBPSA, #1205</a>.
         </td>
     </tr>
-    <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
+    <tr><td colspan=\"2\"><b>Buildings.ThermalZones.D" + "etailed</b>
         </td>
     </tr>
     <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Constructions.Examples.ExteriorWallTwoWindows<br/>
