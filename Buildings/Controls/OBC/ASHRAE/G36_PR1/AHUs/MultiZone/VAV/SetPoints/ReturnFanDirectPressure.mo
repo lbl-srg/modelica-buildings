@@ -2,17 +2,20 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints;
 block ReturnFanDirectPressure
   "Return fan control with direct building pressure control"
 
-  parameter Modelica.SIunits.PressureDifference dpBuiSet(
-    displayUnit="Pa",
-    max=30) = 12
+  parameter Real dpBuiSet(
+    final unit="Pa",
+    final quantity="PressureDifference",
+    final max=30) = 12
     "Building static pressure difference relative to ambient (positive to pressurize the building)";
-  parameter Modelica.SIunits.PressureDifference dpDisMin(
-    displayUnit="Pa",
+  parameter Real dpDisMin(
+    final unit="Pa",
+    final quantity="PressureDifference",
     final min=0,
     final max=1000) = 2.4
     "Minimum return fan discharge static pressure difference setpoint";
-  parameter Modelica.SIunits.PressureDifference dpDisMax(
-    displayUnit="Pa",
+  parameter Real dpDisMax(
+    final unit="Pa",
+    final quantity="PressureDifference",
     final min=0,
     final max=1000) = 40
     "Maximum return fan discharge static pressure setpoint";
