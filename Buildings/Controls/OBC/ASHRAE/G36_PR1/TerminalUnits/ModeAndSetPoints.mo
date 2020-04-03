@@ -168,24 +168,30 @@ block ModeAndSetPoints
       iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput setAdj(
     final unit="K",
-    quantity="ThermodynamicTemperature") if (cooAdj or sinAdj)
+    final displayUnit="K",
+    final quantity="TemperatureDifference") if (cooAdj or sinAdj)
     "Setpoint adjustment value"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},origin={-180,-80}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+      iconTransformation(extent={{-140,-20},{-100,20}})),
+      __cdl(default=0));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput heaSetAdj(
     final unit="K",
-    quantity="ThermodynamicTemperature") if heaAdj
+    final displayUnit="K",
+    final quantity="TemperatureDifference") if heaAdj
     "Heating setpoint adjustment value"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},origin={-180,-120}),
-      iconTransformation(extent={{-140,-50},{-100,-10}})));
+      iconTransformation(extent={{-140,-50},{-100,-10}})),
+      __cdl(default=0));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOccSen if have_occSen
     "Occupancy sensor (occupied=true, unoccupied=false)"
     annotation (Placement(transformation(extent={{-200,-180},{-160,-140}}),
-      iconTransformation(extent={{-140,-80},{-100,-40}})));
+      iconTransformation(extent={{-140,-80},{-100,-40}})),
+      __cdl(default=true));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWinSta if have_winSen
     "Window status (open=true, close=false)"
     annotation (Placement(transformation(extent={{-200,-220},{-160,-180}}),
-      iconTransformation(extent={{-140,-110},{-100,-70}})));
+      iconTransformation(extent={{-140,-110},{-100,-70}})),
+      __cdl(default=false));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TZonCooSet(
     final unit="K",
     quantity="ThermodynamicTemperature") "Cooling setpoint temperature"

@@ -256,15 +256,18 @@ block Controller "Controller for room VAV box"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput ppmCO2 if have_CO2Sen
     "Measured CO2 concentration"
     annotation (Placement(transformation(extent={{-180,60},{-140,100}}),
-        iconTransformation(extent={{-140,30},{-100,70}})));
+        iconTransformation(extent={{-140,30},{-100,70}})),
+        __cdl(default=0));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc if have_occSen
     "Number of occupants"
     annotation (Placement(transformation(extent={{-180,20},{-140,60}}),
-        iconTransformation(extent={{-140,10},{-100,50}})));
+        iconTransformation(extent={{-140,10},{-100,50}})),
+        __cdl(default=0));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin if have_winSen
     "Window status, true if open, false if closed"
     annotation (Placement(transformation(extent={{-180,-10},{-140,30}}),
-        iconTransformation(extent={{-140,-10},{-100,30}})));
+        iconTransformation(extent={{-140,-10},{-100,30}})),
+        __cdl(default=false));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "Zone operation mode"
     annotation (Placement(transformation(extent={{-180,-190},{-140,-150}}),

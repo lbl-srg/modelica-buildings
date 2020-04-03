@@ -41,7 +41,7 @@ block OutsideAirFlow
   Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc(final unit="1") if
        have_occSen "Number of occupants"
     annotation (Placement(transformation(extent={{-240,140},{-200,180}}),
-        iconTransformation(extent={{-140,60},{-100,100}})));
+        iconTransformation(extent={{-140,60},{-100,100}})), __cdl(default=0));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
     final displayUnit="degC",

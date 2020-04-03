@@ -477,14 +477,14 @@ block Controller
     final unit="J/kg",
     final quantity="SpecificEnergy") if use_enthalpy "Outdoor air enthalpy"
     annotation (Placement(transformation(extent={{-240,-110},{-200,-70}}),
-        iconTransformation(extent={{-240,-130},{-200,-90}})));
+        iconTransformation(extent={{-240,-130},{-200,-90}})), __cdl(default=0));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hOutCut(
     final unit="J/kg",
     final quantity="SpecificEnergy") if use_enthalpy
     "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-240,-140},{-200,-100}}),
-        iconTransformation(extent={{-240,-160},{-200,-120}})));
+        iconTransformation(extent={{-240,-160},{-200,-120}})), __cdl(default=0));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VOut_flow(
     final min=0,
@@ -500,7 +500,7 @@ block Controller
     final quantity = "ThermodynamicTemperature") if use_TMix
     "Measured mixed air temperature, used for freeze protection if use_TMix=true"
     annotation (Placement(transformation(extent={{-240,-200},{-200,-160}}),
-        iconTransformation(extent={{-240,-230},{-200,-190}})));
+        iconTransformation(extent={{-240,-230},{-200,-190}})), __cdl(default=279.15));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "AHU operation mode status signal"
@@ -521,7 +521,8 @@ block Controller
       use_G36FrePro
    "Freeze protection status, used if use_G36FrePro=true"
     annotation (Placement(transformation(extent={{-240,-320},{-200,-280}}),
-        iconTransformation(extent={{-240,-360},{-200,-320}})));
+        iconTransformation(extent={{-240,-360},{-200,-320}})),
+        __cdl(default=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage0));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySupFan
     "Supply fan status, true if fan should be on"

@@ -49,7 +49,8 @@ block OperationMode "Block that outputs the operation mode"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWinSta if have_winSen
     "Window status: true=open, false=close"
     annotation (Placement(transformation(extent={{-300,30},{-260,70}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
+        iconTransformation(extent={{-140,-20},{-100,20}})),
+        __cdl(default=false));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput totColZon
     "Total number of cold zone"
     annotation (Placement(transformation(extent={{-300,-30},{-260,10}}),

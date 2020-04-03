@@ -35,12 +35,6 @@ block Enable
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-320,250},{-280,290}}),
         iconTransformation(extent={{-140,80},{-100,120}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput hOut(
-    final unit="J/kg",
-    final quantity="SpecificEnergy") if use_enthalpy
-    "Outdoor air enthalpy"
-    annotation (Placement(transformation(extent={{-320,170},{-280,210}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOutCut(
     final unit="K",
     final displayUnit="degC",
@@ -48,20 +42,26 @@ block Enable
     "OA temperature high limit cutoff. For differential dry bulb temeprature condition use return air temperature measurement"
     annotation (Placement(transformation(extent={{-320,210},{-280,250}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput hOut(
+    final unit="J/kg",
+    final quantity="SpecificEnergy") if use_enthalpy
+    "Outdoor air enthalpy"
+    annotation (Placement(transformation(extent={{-320,170},{-280,210}}),
+        iconTransformation(extent={{-140,40},{-100,80}})), __cdl(default=0));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hOutCut(
     final unit="J/kg",
     final quantity="SpecificEnergy") if use_enthalpy
     "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-320,130},{-280,170}}),
-        iconTransformation(extent={{-140,20},{-100,60}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPosMin(
-    final unit="1",
-    final min=0,
-    final max=1)
-    "Minimum outdoor air damper position, output from damper position limits sequence"
-    annotation (Placement(transformation(extent={{-320,-80},{-280,-40}}),
-        iconTransformation(extent={{-140,-60},{-100,-20}})));
+        iconTransformation(extent={{-140,20},{-100,60}})), __cdl(default=0));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan
+    "Supply fan on/off status signal"
+    annotation (Placement(transformation(extent={{-320,80},{-280,120}}),
+        iconTransformation(extent={{-140,0},{-100,40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta
+    "Freeze protection stage status signal"
+    annotation (Placement(transformation(extent={{-320,30},{-280,70}}),
+        iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPosMax(
     final unit="1",
     final min=0,
@@ -69,6 +69,20 @@ block Enable
     "Maximum outdoor air damper position, output from damper position limits sequence"
     annotation (Placement(transformation(extent={{-320,-40},{-280,0}}),
         iconTransformation(extent={{-140,-40},{-100,0}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPosMin(
+    final unit="1",
+    final min=0,
+    final max=1)
+    "Minimum outdoor air damper position, output from damper position limits sequence"
+    annotation (Placement(transformation(extent={{-320,-80},{-280,-40}}),
+        iconTransformation(extent={{-140,-60},{-100,-20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uRetDamPhyPosMax(
+    final unit="1",
+    final min=0,
+    final max=1)
+    "Physical maximum return air damper position, output from damper position limits sequence"
+    annotation (Placement(transformation(extent={{-320,-120},{-280,-80}}),
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uRetDamPosMax(
     final unit="1",
     final min=0,
@@ -83,20 +97,6 @@ block Enable
     "Minimum return air damper position, output from damper position limits sequence"
     annotation (Placement(transformation(extent={{-320,-200},{-280,-160}}),
         iconTransformation(extent={{-140,-120},{-100,-80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uRetDamPhyPosMax(
-    final unit="1",
-    final min=0,
-    final max=1)
-    "Physical maximum return air damper position, output from damper position limits sequence"
-    annotation (Placement(transformation(extent={{-320,-120},{-280,-80}}),
-        iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan
-    "Supply fan on/off status signal"
-    annotation (Placement(transformation(extent={{-320,80},{-280,120}}),
-        iconTransformation(extent={{-140,0},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta "Freeze protection stage status signal"
-    annotation (Placement(transformation(extent={{-320,30},{-280,70}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPosMax(
     final unit="1",
@@ -104,18 +104,18 @@ block Enable
     final max=1) "Maximum outdoor air damper position"
     annotation (Placement(transformation(extent={{220,40},{260,80}}),
         iconTransformation(extent={{100,40},{140,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPosMin(
-    final unit="1",
-    final min=0,
-    final max=1) "Minimum return air damper position"
-    annotation (Placement(transformation(extent={{220,-80},{260,-40}}),
-        iconTransformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPosMax(
     final unit="1",
     final min=0,
     final max=1) "Maximum return air damper position"
     annotation (Placement(transformation(extent={{220,-20},{260,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPosMin(
+    final unit="1",
+    final min=0,
+    final max=1) "Minimum return air damper position"
+    annotation (Placement(transformation(extent={{220,-80},{260,-40}}),
+        iconTransformation(extent={{100,-80},{140,-40}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
     trueHoldDuration=600) "10 min on/off delay"

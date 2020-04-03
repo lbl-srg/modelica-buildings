@@ -107,18 +107,18 @@ block ZoneTemperatures
         iconTransformation(extent={{-240,-10},{-200,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput setAdj(
     final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if (cooAdj or sinAdj)
+    final displayUnit="K",
+    final quantity="TemperatureDifference") if (cooAdj or sinAdj)
     "Setpoint adjustment value"
     annotation (Placement(transformation(extent={{-460,330},{-420,370}}),
-        iconTransformation(extent={{-240,-50},{-200,-10}})));
+        iconTransformation(extent={{-240,-50},{-200,-10}})), __cdl(default=0));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput heaSetAdj(
     final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if heaAdj
+    final displayUnit="K",
+    final quantity="TemperatureDifference") if heaAdj
     "Heating setpoint adjustment value"
     annotation (Placement(transformation(extent={{-460,250},{-420,290}}),
-        iconTransformation(extent={{-240,-90},{-200,-50}})));
+        iconTransformation(extent={{-240,-90},{-200,-50}})), __cdl(default=0));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "AHU operation mode status signal"
     annotation (Placement(transformation(extent={{-460,610},{-420,650}}),
@@ -135,12 +135,13 @@ block ZoneTemperatures
     "Occupancy sensor (occupied=true, unoccupied=false)"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
       origin={-440,-270}),iconTransformation(
-      extent={{-20,-20},{20,20}},origin={-60,-220},rotation=90)));
+      extent={{-20,-20},{20,20}},origin={-60,-220},rotation=90)),
+      __cdl(default=true));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWinSta if have_winSen
     "Window status (open=true, close=false)"
     annotation (Placement(transformation(extent={{-460,-430},{-420,-390}}),
-      iconTransformation(extent={{-20,-20},{20,20}},rotation=90,
-      origin={60,-220})));
+      iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={60,-220})),
+      __cdl(default=false));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TZonCooSet(
     final unit="K",
     final displayUnit="degC",

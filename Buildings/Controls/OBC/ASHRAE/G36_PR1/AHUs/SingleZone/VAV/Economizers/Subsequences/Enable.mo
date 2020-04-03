@@ -45,7 +45,7 @@ block Enable
     final quantity="SpecificEnergy") if use_enthalpy
     "Outdoor air enthalpy"
     annotation (Placement(transformation(extent={{-220,160},{-180,200}}),
-      iconTransformation(extent={{-120,30},{-100,50}})));
+      iconTransformation(extent={{-120,30},{-100,50}})), __cdl(default=0));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TCut(
     final unit="K",
     final displayUnit="degC",
@@ -59,12 +59,12 @@ block Enable
     final quantity = "ThermodynamicTemperature") if use_fixed_plus_differential_drybulb
     "Used only for fixed plus differential dry bulb temperature high limit cutoff"
     annotation (Placement(transformation(extent={{-220,190},{-180,230}}),
-        iconTransformation(extent={{-120,50},{-100,70}})));
+        iconTransformation(extent={{-120,50},{-100,70}})), __cdl(default=273.15));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hCut(final unit="J/kg",
       final quantity="SpecificEnergy") if use_enthalpy
     "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-220,130},{-180,170}}),
-        iconTransformation(extent={{-120,10},{-100,30}})));
+        iconTransformation(extent={{-120,10},{-100,30}})), __cdl(default=0));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPosMin(
     final unit="1",
     final min=0,

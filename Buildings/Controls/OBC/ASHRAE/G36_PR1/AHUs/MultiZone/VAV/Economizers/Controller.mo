@@ -131,7 +131,7 @@ block Controller "Multi zone VAV AHU economizer control sequence"
     final min=0,
     final max=1,
     final unit="1") = 0
-    "Physically fixed minimum position of the outdoor air damper" 
+    "Physically fixed minimum position of the outdoor air damper"
     annotation (Dialog(tab="Commissioning", group="Physical damper position limits"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTSup(final unit="1")
@@ -151,18 +151,19 @@ block Controller "Multi zone VAV AHU economizer control sequence"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hOut(
     final unit="J/kg",
     final quantity="SpecificEnergy") if use_enthalpy "Outdoor air enthalpy"
-    annotation (Placement(transformation(extent={{-200,70},{-160,110}})));
+    annotation (Placement(transformation(extent={{-200,70},{-160,110}})), __cdl(default=0));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hOutCut(
     final unit="J/kg",
     final quantity="SpecificEnergy") if use_enthalpy
     "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
-    annotation (Placement(transformation(extent={{-200,50},{-160,90}})));
+    annotation (Placement(transformation(extent={{-200,50},{-160,90}})), __cdl(default=0));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
     final unit="K",
     final displayUnit="degC",
     final quantity = "ThermodynamicTemperature") if use_TMix
     "Measured mixed air temperature, used for freeze protection"
-    annotation (Placement(transformation(extent={{-200,-70},{-160,-30}})));
+    annotation (Placement(transformation(extent={{-200,-70},{-160,-30}})),
+      __cdl(default=279.15));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VOut_flow_normalized(
     final unit="1")
     "Measured outdoor volumetric airflow rate, normalized by design minimum outdoor airflow rate"
@@ -173,7 +174,8 @@ block Controller "Multi zone VAV AHU economizer control sequence"
     annotation (Placement(transformation(extent={{-200,-40},{-160,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta if use_G36FrePro
     "Freeze protection status"
-    annotation (Placement(transformation(extent={{-200,-170},{-160,-130}})));
+    annotation (Placement(transformation(extent={{-200,-170},{-160,-130}})),
+      __cdl(default=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage0));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "AHU operation mode status signal"
     annotation (Placement(transformation(extent={{-200,-130},{-160,-90}})));

@@ -324,11 +324,11 @@ block Controller
     final quantity = "ThermodynamicTemperature") if use_TMix
     "Measured mixed air temperature, used for freeze protection if use_TMix is true"
     annotation (Placement(transformation(extent={{-240,-20},{-200,20}}),
-        iconTransformation(extent={{-240,-20},{-200,20}})));
+        iconTransformation(extent={{-240,-20},{-200,20}})), __cdl(default=279.15));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc(final unit="1") if
        have_occSen "Number of occupants"
     annotation (Placement(transformation(extent={{-240,-60},{-200,-20}}),
-        iconTransformation(extent={{-240,-60},{-200,-20}})));
+        iconTransformation(extent={{-240,-60},{-200,-20}})), __cdl(default=0));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin
     "Window status, true if open, false if closed"
     annotation (Placement(transformation(extent={{-240,-100},{-200,-60}}),
@@ -337,13 +337,13 @@ block Controller
     final unit="J/kg",
     final quantity="SpecificEnergy") if use_enthalpy "Outdoor air enthalpy"
     annotation (Placement(transformation(extent={{-240,-140},{-200,-100}}),
-        iconTransformation(extent={{-240,-140},{-200,-100}})));
+        iconTransformation(extent={{-240,-140},{-200,-100}})), __cdl(default=0));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hCut(
     final unit="J/kg",
     final quantity="SpecificEnergy") if use_enthalpy
     "Economizer enthalpy high limit cutoff. Fixed enthalpy or differential enthalpy"
     annotation (Placement(transformation(extent={{-240,-180},{-200,-140}}),
-        iconTransformation(extent={{-240,-180},{-200,-140}})));
+        iconTransformation(extent={{-240,-180},{-200,-140}})), __cdl(default=0));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRet(
     final unit="K",
     final displayUnit="degC",
@@ -351,12 +351,13 @@ block Controller
        use_fixed_plus_differential_drybulb
     "Used only for fixed plus differential dry bulb temperature high limit cutoff"
     annotation (Placement(transformation(extent={{-240,-220},{-200,-180}}),
-        iconTransformation(extent={{-240,-220},{-200,-180}})));
+        iconTransformation(extent={{-240,-220},{-200,-180}})), __cdl(default=273.15));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta if
        use_G36FrePro
     "Freeze protection status, used if use_G36FrePro=true"
     annotation (Placement(transformation(extent={{-240,-260},{-200,-220}}),
-        iconTransformation(extent={{-240,-260},{-200,-220}})));
+        iconTransformation(extent={{-240,-260},{-200,-220}})),
+        __cdl(default=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage0));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupHeaEco(
     final unit="K",
     final displayUnit="degC",

@@ -25,7 +25,8 @@ block ZoneStatus "Block that outputs zone temperature status"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWinSta if have_winSen
     "Window status: true=open, false=close"
     annotation (Placement(transformation(extent={{-180,100},{-140,140}}),
-        iconTransformation(extent={{-140,30},{-100,70}})));
+        iconTransformation(extent={{-140,30},{-100,70}})),
+        __cdl(default=false));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonHeaSetOcc(
     final unit="K",
     final displayUnit="degC",
