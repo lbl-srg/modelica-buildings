@@ -1,14 +1,16 @@
 within Buildings.Fluid.CHPs.BaseClasses.Validation;
 model EnergyConversionWarmUp "Validate model EnergyConversionWarmUp"
+  extends Modelica.Icons.Example;
 
   parameter Buildings.Fluid.CHPs.Data.ValidationData2 per
     "CHP performance data"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
 
   Buildings.Fluid.CHPs.BaseClasses.EnergyConversionWarmUp opeModWarUpEngTem(
-      final per=per) "Energy conversion during warm-up by engine temperature"
+    final per=per) "Energy conversion during warm-up by engine temperature"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TEng(
+    y(final unit="K", displayUnit="degC"),
     final height=90,
     final duration=360,
     final offset=273.15 + 15,
@@ -16,13 +18,15 @@ model EnergyConversionWarmUp "Validate model EnergyConversionWarmUp"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant mWat_flow(
     final k=0.05)
-    "Water flow rate"
+    "Water mass flow rate"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TWatIn(
+    y(final unit="K", displayUnit="degC"),
     final k=273.15 + 15)
     "Water inlet temperature"
     annotation (Placement(transformation(extent={{-60,2},{-40,22}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TRoo(
+    y(final unit="K", displayUnit="degC"),
     final k=273.15 + 15)
     "Room temperature"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
@@ -46,7 +50,7 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.EnergyConversionWarmUp\">
 Buildings.Fluid.CHPs.BaseClasses.EnergyConversionWarmUp</a>
-for defining energy conversion during the warm-up mode dependent on the engine temperature. 
+for defining energy conversion during the warm-up mode dependent on the engine temperature.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -59,15 +63,5 @@ July 01 2019, by Tea Zakula:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Icon(graphics={Ellipse(
-          lineColor={75,138,73},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          extent={{-100,-100},{100,100}}), Polygon(
-          lineColor={0,0,255},
-          fillColor={75,138,73},
-          pattern=LinePattern.None,
-          fillPattern=FillPattern.Solid,
-          points={{-36,60},{64,0},{-36,-60},{-36,60}})}));
+</html>"));
 end EnergyConversionWarmUp;

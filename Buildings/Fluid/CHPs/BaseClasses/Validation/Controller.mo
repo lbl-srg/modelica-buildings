@@ -1,5 +1,6 @@
 within Buildings.Fluid.CHPs.BaseClasses.Validation;
 model Controller "Validate model Controller"
+  extends Modelica.Icons.Example;
 
   parameter Buildings.Fluid.CHPs.Data.ValidationData3 per
     "CHP performance data"
@@ -28,18 +29,19 @@ protected
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TEng(
+    y(final unit="K", displayUnit="degC"),
     final k=273.15 + 100) "Engine temperature"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 
 equation
-  connect(avaSig.y, con.avaSig) annotation (Line(points={{-19,70},{10,70},{10,2},
-          {18,2}},  color={255,0,255}));
+  connect(avaSig.y, con.avaSig) annotation (Line(points={{-19,70},{10,70},{10,17},
+          {18,17}}, color={255,0,255}));
   connect(runSig.y, con.runSig) annotation (Line(points={{-19,30},{-10,30},{-10,
-          18},{18,18}}, color={255,0,255}));
+          14},{18,14}}, color={255,0,255}));
   connect(TEng.y, con.TEng) annotation (Line(points={{-18,-70},{0,-70},{0,8},{18,
           8}}, color={0,0,127}));
-  connect(mWat_flow.y[1], con.mWat_flow) annotation (Line(points={{-18,-30},{
-          -10,-30},{-10,12},{18,12}}, color={0,0,127}));
+  connect(mWat_flow.y[1], con.mWat_flow) annotation (Line(points={{-18,-30},{-10,
+          -30},{-10,11},{18,11}},     color={0,0,127}));
 
 annotation (
   experiment(StopTime=3000, Tolerance=1e-6),
@@ -50,7 +52,7 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.Controller\">
 Buildings.Fluid.CHPs.BaseClasses.Controller</a>
-for switching between six operating modes. 
+for switching between six operating modes.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -63,15 +65,5 @@ July 01 2019, by Tea Zakula:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Icon(graphics={Ellipse(
-          lineColor={75,138,73},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          extent={{-100,-100},{100,100}}), Polygon(
-          lineColor={0,0,255},
-          fillColor={75,138,73},
-          pattern=LinePattern.None,
-          fillPattern=FillPattern.Solid,
-          points={{-36,60},{64,0},{-36,-60},{-36,60}})}));
+</html>"));
 end Controller;

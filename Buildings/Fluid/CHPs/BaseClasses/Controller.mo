@@ -101,7 +101,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Or or1 "Plant is not available or should not run"
     annotation (Placement(transformation(extent={{-180,-170},{-160,-150}})));
   Buildings.Controls.OBC.CDL.Logical.And and1
-    "Warm up mode is done and the plant could run"
+    "Warm-up mode is done and the plant could run"
     annotation (Placement(transformation(extent={{120,-30},{140,-10}})));
   Modelica.StateGraph.TransitionWithSignal transition3 "Plant should be off"
     annotation (Placement(transformation(extent={{-30,-90},{-10,-70}})));
@@ -112,12 +112,12 @@ protected
   Modelica.StateGraph.TransitionWithSignal transition7 "Run in warm-up mode"
     annotation (Placement(transformation(extent={{210,-90},{230,-70}})));
   Buildings.Controls.OBC.CDL.Logical.And and3
-    "Plant could run and cool down mode is optional"
+    "Plant could run and cool-down mode is optional"
     annotation (Placement(transformation(extent={{100,-150},{120,-170}})));
   Modelica.StateGraph.TransitionWithSignal transition10 "Plant should be off"
     annotation (Placement(transformation(extent={{230,-70},{250,-50}})));
   Buildings.Controls.OBC.CDL.Logical.And and4
-    "Plant could run and cool down mode is optional"
+    "Plant could run and cool-down mode is optional"
     annotation (Placement(transformation(extent={{208,-210},{228,-190}})));
   Buildings.Fluid.CHPs.BaseClasses.AssertWaterFlow assWatMas(
     final mWatMin=per.mWatMin)
@@ -137,7 +137,7 @@ protected
   Buildings.Fluid.CHPs.BaseClasses.WarmUpLeaving warUpCtr(
     final timeDelayStart=per.timeDelayStart,
     final TEngNom=per.TEngNom,
-    final warmUpByTimeDelay=per.warmUpByTimeDelay) "Warm up control sequence"
+    final warmUpByTimeDelay=per.warmUpByTimeDelay) "Warm-up control sequence"
     annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
   Modelica.StateGraph.TransitionWithSignal transition6 "Run in normal mode"
     annotation (Placement(transformation(extent={{150,-10},{170,10}})));
@@ -149,14 +149,14 @@ protected
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant optCooDow(
     final k=per.coolDownOptional)
-    "Check if cool down mode is optional"
+    "Check if cool-down mode is optional"
     annotation (Placement(transformation(extent={{60,-190},{80,-170}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Ensure no-go signal being false when go signal is true"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
   Controls.OBC.CDL.Continuous.GreaterEqualThreshold timeDel(
     final threshold=per.timeDelayCool)
-    "Check if the time of  plant in cool-down mode has been longer than the 
+    "Check if the time of  plant in cool-down mode has been longer than the
     specified delay time"
     annotation (Placement(transformation(extent={{180,-190},{200,-170}})));
   Controls.OBC.CDL.Logical.Timer timer
@@ -347,14 +347,14 @@ annotation (
           origin={-21,-34},
           rotation=90)}),
     Documentation(info="<html>
-<p>  
+<p>
 The CHP plant switches between six possible operating modes depending on the current mode,
 control signals and plant boundary conditions. The regular transition between them
 is as follows:
 </p>
 <ul>
 <li>
-off 
+off
 </li>
 <li>
 stand-by mode
@@ -417,7 +417,7 @@ From the warm-up mode
 <ul>
 <li>
 The transition from the warm-up mode to the normal operation will occur after the
-specified time delay (if <code>warmUpByTimeDelay</code> is true) 
+specified time delay (if <code>warmUpByTimeDelay</code> is true)
 or when the engine temperature <code>TEng</code> becomes higher than the
 nominal temperature <code>TEngNom</code> (if <code>warmUpByTimeDelay</code>
 is false).

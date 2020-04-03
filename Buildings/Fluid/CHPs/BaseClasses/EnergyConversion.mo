@@ -8,29 +8,29 @@ model EnergyConversion "Energy conversion control volume"
 
   Buildings.Fluid.CHPs.BaseClasses.Interfaces.ModeTypeInput opeMod
     "Operation mode"
-    annotation (Placement(transformation(extent={{-180,60},{-140,100}}),
-      iconTransformation(extent={{-120,80},{-100,100}})));
+    annotation (Placement(transformation(extent={{-180,80},{-140,120}}),
+      iconTransformation(extent={{-120,70},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput PEle(
     final unit="W") "Power demand"
-    annotation (Placement(transformation(extent={{-180,20},{-140,60}}),
+    annotation (Placement(transformation(extent={{-180,40},{-140,80}}),
       iconTransformation(extent={{-140,30},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TWatIn(
     final unit="K",
-    final quantity="ThermodynamicTemperature")
+    displayUnit="degC")
     "Water inlet temperature"
-    annotation (Placement(transformation(extent={{-182,-20},{-142,20}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
+      iconTransformation(extent={{-140,-30},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mWat_flow(
     final unit="kg/s",
     final quantity="MassFlowRate") "Water mass flow rate"
-    annotation (Placement(transformation(extent={{-180,-60},{-140,-20}}),
-      iconTransformation(extent={{-140,-70},{-100,-30}})));
+    annotation (Placement(transformation(extent={{-180,0},{-140,40}}),
+      iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TEng(
     final unit="K",
-    final quantity="ThermodynamicTemperature") if not per.warmUpByTimeDelay
+    displayUnit="degC") if not per.warmUpByTimeDelay
     "Engine temperature"
     annotation (Placement(transformation(extent={{-180,-120},{-140,-80}}),
-      iconTransformation(extent={{-140,-110},{-100,-70}})));
+      iconTransformation(extent={{-140,-90},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PEleNet(
     final unit="W") "Net power output"
     annotation (Placement(transformation(extent={{140,60},{180,100}}),
@@ -49,6 +49,11 @@ model EnergyConversion "Energy conversion control volume"
     "Heat generation rate"
     annotation (Placement(transformation(extent={{140,-120},
       {180,-80}}), iconTransformation(extent={{100,-100},{140,-60}})));
+  Controls.OBC.CDL.Interfaces.RealInput           TRoo(final unit="K",
+      displayUnit="degC")
+                        "Room temperature"
+    annotation (Placement(transformation(extent={{-180,-80},{-140,-40}}),
+      iconTransformation(extent={{-140,-60},{-100,-20}})));
 protected
   Buildings.Fluid.CHPs.BaseClasses.AssertFuelFlow assFue(final dmFueLim=per.dmFueLim,
       final dmFueMax=per.dmFueMax)
@@ -87,29 +92,26 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch switch5
     "Switch between warm-up and normal value"
     annotation (Placement(transformation(extent={{80,-110},{100,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant Troo(
-    final k=273.15 + 15)
-    "Temperature used to calculate warm-up by engine temperature mode"
-    annotation (Placement(transformation(extent={{-110,-88},{-90,-68}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const2(
     final k=0) if per.warmUpByTimeDelay "Zero in case of warm-up by time delay"
     annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
 equation
-  connect(opeModBas.mWat_flow, mWat_flow) annotation (Line(points={{-22,0},{-40,
-          0},{-40,-40},{-160,-40}},       color={0,0,127}));
-  connect(opeModBas.TWatIn, TWatIn) annotation (Line(points={{-22,-6},{-60,-6},
-          {-60,0},{-162,0}},     color={0,0,127}));
+  connect(opeModBas.mWat_flow, mWat_flow) annotation (Line(points={{-22,0},{
+          -120,0},{-120,20},{-160,20}},   color={0,0,127}));
+  connect(opeModBas.TWatIn, TWatIn) annotation (Line(points={{-22,-6},{-40,-6},
+          {-40,-20},{-160,-20}}, color={0,0,127}));
   connect(opeModWarUpEngTem.TEng, TEng) annotation (Line(points={{-22,-58},{-30,
           -58},{-30,-100},{-160,-100}}, color={0,0,127}));
   connect(opeModWarUpEngTem.TWatIn, TWatIn) annotation (Line(points={{-22,-47},
-          {-60,-47},{-60,0},{-162,0}},   color={0,0,127}));
+          {-40,-47},{-40,-20},{-160,-20}},
+                                         color={0,0,127}));
   connect(const.y, switch.u3) annotation (Line(points={{-88,20},{-70,20},{-70,
           52},{-62,52}},
                      color={0,0,127}));
-  connect(PEle, switch.u1) annotation (Line(points={{-160,40},{-120,40},{-120,
+  connect(PEle, switch.u1) annotation (Line(points={{-160,60},{-120,60},{-120,
           68},{-62,68}},
                      color={0,0,127}));
-  connect(booExp.y, switch.u2) annotation (Line(points={{-89,40},{-80,40},{-80,
+  connect(booExp.y, switch.u2) annotation (Line(points={{-89,40},{-74,40},{-74,
           60},{-62,60}},
           color={255,0,255}));
   connect(switch.y, opeModBas.PEle) annotation (Line(points={{-38,60},{-30,60},
@@ -147,11 +149,8 @@ equation
           -58},{40,-58},{40,-92},{78,-92}}, color={0,0,127}));
   connect(opeModBas.QGen_flow, switch5.u3) annotation (Line(points={{2.2,-6},{54,
           -6},{54,-108},{78,-108}},     color={0,0,127}));
-  connect(Troo.y, opeModWarUpEngTem.TRoo) annotation (Line(points={{-88,-78},{
-          -40,-78},{-40,-53},{-22,-53}},
-                                     color={0,0,127}));
-  connect(mWat_flow, opeModWarUpEngTem.mWat_flow) annotation (Line(points={{-160,
-          -40},{-40,-40},{-40,-42},{-22,-42}}, color={0,0,127}));
+  connect(mWat_flow, opeModWarUpEngTem.mWat_flow) annotation (Line(points={{-160,20},
+          {-120,20},{-120,-42},{-22,-42}},     color={0,0,127}));
   connect(switch3.y, assFue.mFue_flow) annotation (Line(points={{102,20},{104,20},
           {104,40},{108,40}}, color={0,0,127}));
   connect(const2.y, switch2.u1) annotation (Line(points={{2,-100},{20,-100},{20,
@@ -164,16 +163,18 @@ equation
           -32},{78,-32}}, color={0,0,127}));
   connect(const2.y, switch5.u1) annotation (Line(points={{2,-100},{20,-100},{20,
           -92},{78,-92}}, color={0,0,127}));
+  connect(TRoo, opeModWarUpEngTem.TRoo) annotation (Line(points={{-160,-60},{
+          -40,-60},{-40,-53},{-22,-53}}, color={0,0,127}));
 annotation (
   defaultComponentName="eneCon",
   Diagram(coordinateSystem(extent={{-140,-120},{140,120}})),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
   Documentation(info="<html>
 <p>
-The model defines energy conversion that occurs during the normal mode and warm-up mode. 
+The model defines energy conversion that occurs during the normal mode and warm-up mode.
 The model <a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.OperModeWarmUpEngTem\">
-Buildings.Fluid.CHPs.BaseClasses.OperModeWarmUpEngTem</a> is used only for the 
-warm-up mode dependent on the engine temperature (case of Stirling engines). 
+Buildings.Fluid.CHPs.BaseClasses.OperModeWarmUpEngTem</a> is used only for the
+warm-up mode dependent on the engine temperature (case of Stirling engines).
 The model <a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.OperModeBasic\">
 Buildings.Fluid.CHPs.BaseClasses.OperModeBasic</a> is used for all other cases,
 i.e. the normal mode, and the warm-up mode based on a time delay (case of internal

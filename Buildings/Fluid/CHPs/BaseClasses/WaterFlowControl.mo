@@ -14,12 +14,12 @@ model WaterFlowControl "Internal controller for water flow rate"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TWatIn(
-    final unit="K",
-    final quantity="ThermodynamicTemperature") "Water inlet temperature"
+    final unit="K", displayUnit="degC") "Water inlet temperature"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
       iconTransformation(extent={{-140,-90},{-100,-50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput mWatSet_flow(final unit=
-        "kg/s", final quantity="MassFlowRate") "Water mass flow rate set point"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput mWatSet_flow(
+    final unit="kg/s", final quantity="MassFlowRate")
+    "Water mass flow rate set point"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 protected
@@ -59,18 +59,18 @@ annotation (
   Documentation(info="<html>
 <p>
 The model calculates the water mass flow rate that is determined by the internal controller.
-In CHPs that use this type of internal control the cooling water mass flow rate is 
-controlled to optimize engine performance and heat recovery. 
-In the main model of the CHP unit (<a href=\"modelica://Buildings.Fluid.CHPs.ThermalElectricalFollowing\"> 
-Buildings.Fluid.CHPs.ThermalElectricalFollowing</a>) 
-this optimum water mass flow rate is specified as the set point signal for the external pump controller. 
+In CHPs that use this type of internal control the cooling water mass flow rate is
+controlled to optimize engine performance and heat recovery.
+In the main model of the CHP unit (<a href=\"modelica://Buildings.Fluid.CHPs.ThermalElectricalFollowing\">
+Buildings.Fluid.CHPs.ThermalElectricalFollowing</a>)
+this optimum water mass flow rate is specified as the set point signal for the external pump controller.
 </p>
 <h4>Implementation</h4>
 <p>
-The mass flow rate is computed as a biquadratic function of the net power output of 
-the system and the water inlet temperature. Note that 
-this implementation is a truncated version of the empirical correlation proposed 
-in Beausoleil-Morrison (2007) which includes terms of higher order (up to four). 
+The mass flow rate is computed as a biquadratic function of the net power output of
+the system and the water inlet temperature. Note that
+this implementation is a truncated version of the empirical correlation proposed
+in Beausoleil-Morrison (2007) which includes terms of higher order (up to four).
 </p>
 <h4>References</h4>
 <p>

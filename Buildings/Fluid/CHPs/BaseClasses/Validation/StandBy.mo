@@ -1,5 +1,6 @@
 within Buildings.Fluid.CHPs.BaseClasses.Validation;
 model StandBy "Validate model StandBy"
+  extends Modelica.Icons.Example;
 
   parameter Buildings.Fluid.CHPs.Data.ValidationData1 per
     "CHP performance data"
@@ -74,7 +75,6 @@ equation
           10,-48},{18,-48}}, color={0,0,127}));
   connect(cheMinFlo.y, transition3.condition)
     annotation (Line(points={{42,-40},{80,-40},{80,68}}, color={255,0,255}));
-
   connect(pumOn.outPort[1], transition3.inPort) annotation (Line(points={{60.5,
           80.25},{68,80.25},{68,80},{76,80}}, color={0,0,0}));
   connect(transition2.outPort, pumOn.inPort[1])
@@ -107,15 +107,5 @@ July 01 2019, by Tea Zakula:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Icon(graphics={Ellipse(
-          lineColor={75,138,73},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          extent={{-100,-100},{100,100}}), Polygon(
-          lineColor={0,0,255},
-          fillColor={75,138,73},
-          pattern=LinePattern.None,
-          fillPattern=FillPattern.Solid,
-          points={{-36,60},{64,0},{-36,-60},{-36,60}})}));
+</html>"));
 end StandBy;

@@ -1,5 +1,6 @@
 within Buildings.Fluid.CHPs.BaseClasses.Validation;
 model EngineTemperature "Validate model EngineTemperature"
+  extends Modelica.Icons.Example;
 
   parameter Buildings.Fluid.CHPs.Data.ValidationData1 per
     "CHP performance data"
@@ -18,10 +19,12 @@ model EngineTemperature "Validate model EngineTemperature"
     final startTime=600) "Heat generation within the engine"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TRoo(
+    y(final unit="K", displayUnit="degC"),
     final k=273.15 + 15)
     "Room temperature"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TWat(
+    y(final unit="K", displayUnit="degC"),
     final k=273.15 + 60)
     "Water temperature"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
@@ -55,7 +58,7 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.EngineTemperature\">
 Buildings.Fluid.CHPs.BaseClasses.EngineTemperature</a>
-for defining the heat exchange within the engine control volume. 
+for defining the heat exchange within the engine control volume.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -68,15 +71,5 @@ July 01 2019, by Tea Zakula:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Icon(graphics={Ellipse(
-          lineColor={75,138,73},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          extent={{-100,-100},{100,100}}), Polygon(
-          lineColor={0,0,255},
-          fillColor={75,138,73},
-          pattern=LinePattern.None,
-          fillPattern=FillPattern.Solid,
-          points={{-36,60},{64,0},{-36,-60},{-36,60}})}));
+</html>"));
 end EngineTemperature;

@@ -99,11 +99,34 @@ model ElectricalFollowing "Validate model ElectricalFollowing"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
   Buildings.Controls.OBC.UnitConversions.From_degC TWatOutVal
     "Convert cooling water outplet temperature from degC to kelvin"
-    annotation (Placement(transformation(extent={{60,50},{80,70}})));
+    annotation (Placement(transformation(extent={{60,54},{80,74}})));
   Buildings.Controls.OBC.UnitConversions.From_degC TEngVal
     "Convert engine temperature from degC to kelvin"
-    annotation (Placement(transformation(extent={{60,20},{80,40}})));
-
+    annotation (Placement(transformation(extent={{60,24},{80,44}})));
+  Modelica.Blocks.Routing.RealPassThrough PEleNetVal
+    "Validation data for power output"
+    annotation (Placement(transformation(extent={{60,-6},{80,14}})));
+  Modelica.Blocks.Routing.RealPassThrough QGenVal_flow
+    "Validation data for heat generation rate"
+    annotation (Placement(transformation(extent={{60,-36},{80,-16}})));
+  Modelica.Blocks.Routing.RealPassThrough QWatVal_flow
+    "Validation data for heat flow rate to water"
+    annotation (Placement(transformation(extent={{60,-66},{80,-46}})));
+  Modelica.Blocks.Routing.RealPassThrough QLosVal_flow
+    "Validation data for heat flow rate to ambient"
+    annotation (Placement(transformation(extent={{60,-96},{80,-76}})));
+  Modelica.Blocks.Continuous.Integrator EEle(y(unit="J"))
+    "Electrical energy generated"
+    annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
+  Modelica.Blocks.Continuous.Integrator EThe(y(unit="J"))
+    "Thermal energy recovered"
+    annotation (Placement(transformation(extent={{40,-160},{60,-140}})));
+  Modelica.Blocks.Continuous.Integrator EEleVal(y(unit="J"))
+    "Validation data for electrical energy generated"
+    annotation (Placement(transformation(extent={{98,-130},{118,-110}})));
+  Modelica.Blocks.Continuous.Integrator ETheVal(y(unit="J"))
+    "Validation data for thermal energy recovered"
+    annotation (Placement(transformation(extent={{98,-160},{118,-140}})));
 equation
   connect(eleFol.port_b, sin.ports[1]) annotation (Line(points={{0,-20},{20,-20}},
           color={0,127,255}));
@@ -136,25 +159,39 @@ equation
   connect(TRoo.y, preTem.T) annotation (Line(points={{-78,-60},{-62,-60}},
           color={0,0,127}));
   connect(valDat.y[10], TWatOutVal.u) annotation (Line(points={{-139,30},{50,30},
-          {50,60},{58,60}},color={0,0,127}));
-  connect(valDat.y[11], TEngVal.u) annotation (Line(points={{-139,30},{58,30}},
-          color={0,0,127}));
-  connect(TWatOutVal.y, dTWatOut.u2) annotation (Line(points={{82,60},{130,60},{
-          130,64},{138,64}}, color={0,0,127}));
-  connect(TEngVal.y, dTEng.u2) annotation (Line(points={{82,30},{130,30},{130,34},
-          {138,34}}, color={0,0,127}));
-  connect(valDat.y[5], dPEleNet.u2) annotation (Line(points={{-139,30},{0,30},{0,
-          4},{138,4}}, color={0,0,127}));
-  connect(valDat.y[7], dQGen.u2) annotation (Line(points={{-139,30},{50,30},{50,
-          -26},{138,-26}}, color={0,0,127}));
-  connect(valDat.y[8], dQWat.u2) annotation (Line(points={{-139,30},{50,30},{50,
-          -56},{138,-56}}, color={0,0,127}));
-  connect(valDat.y[9], dQLos.u2) annotation (Line(points={{-139,30},{50,30},{50,
-          -86},{138,-86}}, color={0,0,127}));
+          {50,64},{58,64}},color={0,0,127}));
+  connect(valDat.y[11], TEngVal.u) annotation (Line(points={{-139,30},{50,30},{50,
+          34},{58,34}}, color={0,0,127}));
+  connect(TWatOutVal.y, dTWatOut.u2) annotation (Line(points={{82,64},{138,64}},
+                             color={0,0,127}));
+  connect(TEngVal.y, dTEng.u2) annotation (Line(points={{82,34},{138,34}},
+                     color={0,0,127}));
   connect(valDat.y[1], eleFol.PEleDem) annotation (Line(points={{-139,30},{-26,
-          30},{-26,-17},{-22,-17}},
-                                color={0,0,127}));
-
+          30},{-26,-17},{-22,-17}}, color={0,0,127}));
+  connect(QGenVal_flow.y, dQGen.u2)
+    annotation (Line(points={{81,-26},{138,-26}}, color={0,0,127}));
+  connect(PEleNetVal.y, dPEleNet.u2)
+    annotation (Line(points={{81,4},{138,4}}, color={0,0,127}));
+  connect(valDat.y[5], PEleNetVal.u) annotation (Line(points={{-139,30},{50,30},
+          {50,4},{58,4}}, color={0,0,127}));
+  connect(valDat.y[7], QGenVal_flow.u) annotation (Line(points={{-139,30},{50,30},
+          {50,-26},{58,-26}}, color={0,0,127}));
+  connect(QWatVal_flow.y, dQWat.u2)
+    annotation (Line(points={{81,-56},{138,-56}}, color={0,0,127}));
+  connect(valDat.y[8], QWatVal_flow.u) annotation (Line(points={{-139,30},{50,30},
+          {50,-56},{58,-56}}, color={0,0,127}));
+  connect(QLosVal_flow.y, dQLos.u2)
+    annotation (Line(points={{81,-86},{138,-86}}, color={0,0,127}));
+  connect(valDat.y[9], QLosVal_flow.u) annotation (Line(points={{-139,30},{50,30},
+          {50,-86},{58,-86}}, color={0,0,127}));
+  connect(eleFol.PEleNet, EEle.u) annotation (Line(points={{2,-17},{14,-17},{14,
+          -120},{38,-120}}, color={0,0,127}));
+  connect(eleFol.QWat_flow, EThe.u) annotation (Line(points={{2,-27},{10,-27},{10,
+          -150},{38,-150}}, color={0,0,127}));
+  connect(QWatVal_flow.y, ETheVal.u) annotation (Line(points={{81,-56},{86,-56},
+          {86,-150},{96,-150}}, color={0,0,127}));
+  connect(PEleNetVal.y, EEleVal.u) annotation (Line(points={{81,4},{88,4},{88,-120},
+          {96,-120}}, color={0,0,127}));
 annotation (
   experiment(StopTime=10000, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/Validation/ElectricalFollowing.mos"
@@ -178,9 +215,9 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-180,-100},{180,100}}),
+    Diagram(coordinateSystem(extent={{-180,-180},{180,100}}),
             graphics={ Rectangle(
-          extent={{40,100},{180,-100}},
+          extent={{40,100},{180,-180}},
           fillColor={229,229,229},
           fillPattern=FillPattern.Solid,
           lineColor={0,0,0},

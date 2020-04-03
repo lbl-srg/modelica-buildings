@@ -1,16 +1,20 @@
 compareVars :=
   {
-    "dPEleNet.u1",
-    "dPEleNet.u2",
-    "dQGen.u1",
-    "dQGen.u2",
-    "dQWat.u1",
-    "dQWat.u2",
-    "dQLos.u1",
-    "dQLos.u2",
+    "EEle.y",
+    "EEleVal.y",
+    "EThe.y",
+    "ETheVal.y",
+    "eleFol.PEleNet",
+    "PEleNetVal.y",
+    "eleFol.eneCon.QGen_flow",
+    "QGenVal_flow.y",
+    "eleFol.QWat_flow",
+    "QWatVal_flow.y",
+    "eleFol.QLos.Q_flow",
+    "QLosVal_flow.y",
     "eleFol.opeMod.opeMod",
-    "dTWatOut.u1",
-    "dTWatOut.u2",
-    "dTEng.u1",
-    "dTEng.u2"
+    "eleFol.TWatOut.T",
+    "TWatOutVal.y",
+    "eleFol.eng.TEng",
+    "TEngVal.y"
   };

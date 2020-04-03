@@ -5,7 +5,7 @@ type Mode = enumeration(
     PumpOn "Pump starts to run",
     WarmUp "Warm-up mode",
     Normal "Normal operating mode",
-    CoolDown "Cool down before going to stand-by or off mode")
+    CoolDown "Cool-down before going to stand-by or off mode")
   "Enumeration for operation mode types"
 annotation (
   Documentation(info="<html>

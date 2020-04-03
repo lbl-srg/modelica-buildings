@@ -17,15 +17,15 @@ model EngineTemperature "Heat exchange within the engine control volume"
       iconTransformation(extent={{-110,48},{-90,68}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput QGen_flow(final unit="W")
     "Heat generation rate within the engine" annotation (Placement(
-        transformation(extent={{-140,-20},{-100,20}}), iconTransformation(
-          extent={{-140,-20},{-100,20}})));
+    transformation(extent={{-140,-20},{-100,20}}), iconTransformation(
+      extent={{-140,-20},{-100,20}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a TWat
-    "Water volume temperature"
+    "Heat port for water volume temperature"
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}}),
       iconTransformation(extent={{-110,-70},{-90,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TEng(
     final unit="K",
-    final quantity="ThermodynamicTemperature") "Engine temperature"
+    displayUnit="degC") "Engine temperature"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
@@ -94,16 +94,16 @@ annotation (
           fillPattern=FillPattern.Solid)}),
 Documentation(info="<html>
 <p>
-The model defines the dynamic behavior of the CHP thermal mass (i.e. engine block, 
-encapsulated working fluid, and internal heat exchange equipment) using a single, 
-engine control volume. 
-The thermal energy stored within this volume is quantified using an aggregate 
-thermal capacitance <code>MCeng</code> and an equivalent average engine temperature 
-<code>TEng</code>. 
-The heat transfer between the engine and the cooling water control volume is 
-quantified using the overall thermal conductance <code>UAhx</code>, 
-while the heat loss to the surroundings is quantified using the overall thermal 
-conductance <code>UAlos</code>. 
+The model defines the dynamic behavior of the CHP thermal mass (i.e. engine block,
+encapsulated working fluid, and internal heat exchange equipment) using a single,
+engine control volume.
+The thermal energy stored within this volume is quantified using an aggregate
+thermal capacitance <code>MCeng</code> and an equivalent average engine temperature
+<code>TEng</code>.
+The heat transfer between the engine and the cooling water control volume is
+quantified using the overall thermal conductance <code>UAhx</code>,
+while the heat loss to the surroundings is quantified using the overall thermal
+conductance <code>UAlos</code>.
 </p>
 </html>", revisions="<html>
 <ul>

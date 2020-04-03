@@ -1,12 +1,13 @@
 within Buildings.Fluid.CHPs.BaseClasses.Validation;
 model EnergyConversionNormal "Validate model EnergyConversionNormal"
+  extends Modelica.Icons.Example;
 
   parameter Buildings.Fluid.CHPs.Data.ValidationData1 per
     "CHP performance data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
-  Buildings.Fluid.CHPs.BaseClasses.EnergyConversionNormal opeModBas(final per=
-        per) "Energy conversion for a typical CHP operation"
+  Buildings.Fluid.CHPs.BaseClasses.EnergyConversionNormal opeModBas(
+    final per=per) "Energy conversion for a typical CHP operation"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp PEle(
     final height=5000,
@@ -15,10 +16,10 @@ model EnergyConversionNormal "Validate model EnergyConversionNormal"
     final startTime=600) "Electric power"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant mWat_flow(
-    final k=0.05)
-    "Water flow rate"
+    final k=0.05) "Water mass flow rate"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TWatIn(
+    y(final unit="K", displayUnit="degC"),
     final k=273.15 + 15)
     "Water inlet temperature"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
@@ -40,7 +41,7 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.EnergyConversionNormal\">
 Buildings.Fluid.CHPs.BaseClasses.EnergyConversionNormal</a>
-for defining energy conversion for a typical CHP operation. 
+for defining energy conversion for a typical CHP operation.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -53,15 +54,5 @@ July 01 2019, by Tea Zakula:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Icon(graphics={Ellipse(
-          lineColor={75,138,73},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          extent={{-100,-100},{100,100}}), Polygon(
-          lineColor={0,0,255},
-          fillColor={75,138,73},
-          pattern=LinePattern.None,
-          fillPattern=FillPattern.Solid,
-          points={{-36,60},{64,0},{-36,-60},{-36,60}})}));
+</html>"));
 end EnergyConversionNormal;

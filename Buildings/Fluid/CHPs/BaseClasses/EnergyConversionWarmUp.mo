@@ -14,17 +14,17 @@ model EnergyConversionWarmUp
       iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TWatIn(
     final unit="K",
-    final quantity="ThermodynamicTemperature") "Water inlet temperature"
+    displayUnit="degC") "Water inlet temperature"
     annotation (Placement(transformation(extent={{-140,180},{-100,220}}),
       iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRoo(
     final unit="K",
-    final quantity="ThermodynamicTemperature") "Room temperature"
+    displayUnit="degC") "Room temperature"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
       iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TEng(
     final unit="K",
-    final quantity="ThermodynamicTemperature") "Engine temperature"
+    displayUnit="degC") "Engine temperature"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PEleNet(
@@ -77,16 +77,17 @@ protected
     "First input divided by second input"
     annotation (Placement(transformation(extent={{140,30},{160,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TEngNom(
+    y(final unit="K", displayUnit="degC"),
     final k=per.TEngNom) "Nominal engine temperature"
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add1(final k2=-1)
     "Difference between nominal engine temperature and room temperature"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant min1(final k=1)
-    "Prevent nagative value if room temperature exceeds engine nominal temperature"
+    "Prevent negative value if room temperature exceeds engine nominal temperature"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gain(final k=per.kF)
-    "Gain by factor of warm up fuel coefficient"
+    "Gain by factor of warm-up fuel coefficient"
     annotation (Placement(transformation(extent={{200,30},{220,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2 "Add up two inputs"
     annotation (Placement(transformation(extent={{260,-10},{280,10}})));
@@ -103,7 +104,7 @@ protected
     "First input divided by second input"
     annotation (Placement(transformation(extent={{200,80},{220,100}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant powCoe(
-    final k=per.kP) "Warm up power coefficient"
+    final k=per.kP) "Warm-up power coefficient"
     annotation (Placement(transformation(extent={{140,110},{160,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Product PEleNet1 "Generated electrical power"
     annotation (Placement(transformation(extent={{260,330},{280,350}})));
@@ -216,17 +217,17 @@ annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{540,380}})),
   Documentation(info="<html>
 <p>
-The model defines energy conversion for the warm-up mode that is dependent on the 
-engine temperature (e.g. CHPs with Stirling engines). 
-The engine fuel flow rate is a function of the fuel flow rate at the maximum power 
-output, as well as the difference between the nominal engine temperature and the 
-actual engine temperature.   
-Energy conversion from fuel to the electric power and heat is modeled using 
-system's part-load electrical and thermal efficiencies, based on the empirical 
-data from the manufacturer. 
-The curves are described by a fifth order polynomial, a function of the electric 
-power, water flow rate and water inlet temperature. 
-The air flow rate is modeled using a second order polynomial, a function of 
+The model defines energy conversion for the warm-up mode that is dependent on the
+engine temperature (e.g. CHPs with Stirling engines).
+The engine fuel flow rate is a function of the fuel flow rate at the maximum power
+output, as well as the difference between the nominal engine temperature and the
+actual engine temperature.
+Energy conversion from fuel to the electric power and heat is modeled using
+system's part-load electrical and thermal efficiencies, based on the empirical
+data from the manufacturer.
+The curves are described by a fifth order polynomial, a function of the electric
+power, water flow rate and water inlet temperature.
+The air flow rate is modeled using a second order polynomial, a function of
 the fuel flow rate.
 </p>
 </html>", revisions="<html>

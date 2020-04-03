@@ -7,12 +7,12 @@ model WarmUpLeaving
   parameter Modelica.SIunits.Temperature TEngNom
     "Nominal engine operating temperature";
   parameter Boolean warmUpByTimeDelay
-    "If true, the plant will be in warm-up mode depending on the delay time, 
+    "If true, the plant will be in warm-up mode depending on the delay time,
     otherwise depending on engine temperature "
     annotation(Evaluate=true);
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TEng(
     final unit="K",
-    final quantity="ThermodynamicTemperature") if not warmUpByTimeDelay
+    displayUnit="degC") if not warmUpByTimeDelay
     "Engine temperature"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
@@ -51,6 +51,7 @@ protected
     "Difference between actual engine temperature and nominal value"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant temEngNom(
+    y(final unit="K", displayUnit="degC"),
     final k=TEngNom)
     "Nominal engine temperature"
     annotation (Placement(transformation(extent={{-88,-30},{-68,-10}})));
@@ -97,12 +98,12 @@ equation
           -54},{-52,-54}}, color={0,0,127}));
 annotation (defaultComponentName="warUpCtr", Documentation(info="<html>
 <p>
-The model computes a boolean variable which is true when warm-up 
+The model computes a boolean variable which is true when warm-up
 is over.
-CHP will transition from the warm-up mode to the normal mode after the specified 
-time delay (if <code>warmUpByTimeDelay</code> is true), 
-or when <code>TEng</code> is higher than <code>TEngNom</code> 
-(if <code>warmUpByTimeDelay</code> is false). 
+CHP will transition from the warm-up mode to the normal mode after the specified
+time delay (if <code>warmUpByTimeDelay</code> is true),
+or when <code>TEng</code> is higher than <code>TEngNom</code>
+(if <code>warmUpByTimeDelay</code> is false).
 </p>
 </html>", revisions="<html>
 <ul>

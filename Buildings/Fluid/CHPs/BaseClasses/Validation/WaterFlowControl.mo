@@ -1,14 +1,13 @@
 within Buildings.Fluid.CHPs.BaseClasses.Validation;
 model WaterFlowControl "Validate model WaterFlowControl"
+  extends Modelica.Icons.Example;
 
   parameter Buildings.Fluid.CHPs.Data.ValidationData2 per
     "CHP performance data"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
-
   Buildings.Fluid.CHPs.BaseClasses.WaterFlowControl conWat(final per=per)
     "Internal controller for water flow rate"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-
 protected
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{60,59},{80,79}})));
@@ -31,12 +30,14 @@ protected
     "Plant availability signal"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TEng(
+    y(final unit="K", displayUnit="degC"),
     final height=90,
     final duration=300,
     final offset=273.15 + 15,
     final startTime=360) "Engine temperature"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TWatIn(
+    y(final unit="K", displayUnit="degC"),
     final k=273.15 + 15)
     "Water inlet temperature"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
@@ -45,7 +46,6 @@ protected
     final smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)
     "Electric power demand"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-
 equation
   connect(avaSig.y, con.avaSig) annotation (Line(points={{-59,70},{-48,70},{-48,
           77},{-2,77}},      color={255,0,255}));
@@ -62,7 +62,6 @@ equation
                                  color={0,0,127}));
   connect(PEle.y[1], conWat.PEle) annotation (Line(points={{2,30},{20,30},{20,0},
           {58,0}}, color={0,0,127}));
-
   connect(PEle.y[1], con.PEle) annotation (Line(points={{2,30},{20,30},{20,54},
           {-10,54},{-10,62},{-2,62}}, color={0,0,127}));
   connect(PEle.y[1], con.PEleNet) annotation (Line(points={{2,30},{20,30},{20,
@@ -89,15 +88,5 @@ July 01 2019, by Tea Zakula:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Icon(graphics={Ellipse(
-          lineColor={75,138,73},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          extent={{-100,-100},{100,100}}), Polygon(
-          lineColor={0,0,255},
-          fillColor={75,138,73},
-          pattern=LinePattern.None,
-          fillPattern=FillPattern.Solid,
-          points={{-36,60},{64,0},{-36,-60},{-36,60}})}));
+</html>"));
 end WaterFlowControl;

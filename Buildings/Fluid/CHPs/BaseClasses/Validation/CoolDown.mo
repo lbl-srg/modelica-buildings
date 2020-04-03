@@ -1,5 +1,6 @@
 within Buildings.Fluid.CHPs.BaseClasses.Validation;
 model CoolDown "Validate model CoolDown"
+  extends Modelica.Icons.Example;
 
   parameter Buildings.Fluid.CHPs.Data.ValidationData1 per
     "CHP performance data"
@@ -13,11 +14,11 @@ model CoolDown "Validate model CoolDown"
 
   Buildings.Controls.OBC.CDL.Logical.Not notRun "Plant does not run"
     annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
-  Buildings.Controls.OBC.CDL.Logical.And and1 "Plant run and cool down is optional"
+  Buildings.Controls.OBC.CDL.Logical.And and1 "Plant run and cool-down is optional"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant cooDowOpt(
     final k=per.coolDownOptional)
-    "Cool down is optional"
+    "Cool-down is optional"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
 
   Modelica.StateGraph.StepWithSignal cooDow(nIn=2, nOut=2) "Cool-down mode"
@@ -28,13 +29,13 @@ protected
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{20,80},{40,100}})));
-  Modelica.StateGraph.TransitionWithSignal transition2 "Cool down to off mode"
+  Modelica.StateGraph.TransitionWithSignal transition2 "Cool-down to off mode"
     annotation (Placement(transformation(extent={{10,40},{30,60}})));
   Modelica.StateGraph.TransitionWithSignal transition1
-    "Normal to cool down mode"
+    "Normal to cool-down mode"
     annotation (Placement(transformation(extent={{-50,60},{-30,80}})));
   Modelica.StateGraph.TransitionWithSignal transition4
-    "Cool down to normal mode"
+    "Cool-down to normal mode"
     annotation (Placement(transformation(extent={{-30,-10},{-50,10}})));
   Modelica.StateGraph.Step off(final nIn=1, final nOut=1) "Off mode"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
@@ -46,10 +47,10 @@ protected
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
 
 protected
-  Controls.OBC.CDL.Logical.Timer           timer
+  Controls.OBC.CDL.Logical.Timer timer
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Controls.OBC.CDL.Continuous.GreaterEqualThreshold timeDel(final threshold=per.timeDelayCool)
-    "Check if the time of  plant in cool-down mode has been longer than the 
+    "Check if the time of  plant in cool-down mode has been longer than the
     specified delay time"
     annotation (Placement(transformation(extent={{30,0},{50,20}})));
 equation
@@ -84,7 +85,6 @@ equation
           -40,-100},{-40,-40},{80,-40},{80,38}}, color={255,0,255}));
   connect(and1.y, transition4.condition) annotation (Line(points={{2,-60},{20,-60},
           {20,-30},{-40,-30},{-40,-12}}, color={255,0,255}));
-
   connect(cooDow.outPort[1], transition2.inPort) annotation (Line(points={{0.5,
           50.25},{8,50.25},{8,50},{16,50}}, color={0,0,0}));
   connect(timer.y, timeDel.u)
@@ -109,7 +109,7 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.CoolDown\">
 Buildings.Fluid.CHPs.BaseClasses.CoolDown</a>
-for defining the cool-down operating mode. 
+for defining the cool-down operating mode.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -122,17 +122,5 @@ July 01 2019, by Tea Zakula:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
-        graphics={Ellipse(
-          lineColor={75,138,73},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          extent={{-100,-100},{100,100}}), Polygon(
-          lineColor={0,0,255},
-          fillColor={75,138,73},
-          pattern=LinePattern.None,
-          fillPattern=FillPattern.Solid,
-          points={{-36,60},{64,0},{-36,-60},{-36,60}})}),
-    Diagram(coordinateSystem(extent={{-100,-120},{100,120}})));
+</html>"));
 end CoolDown;
