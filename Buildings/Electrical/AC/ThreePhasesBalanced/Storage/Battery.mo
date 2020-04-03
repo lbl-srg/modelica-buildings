@@ -12,13 +12,11 @@ Documentation(info="<html>
 Simple model of a battery.
 </p>
 <p>
-<p>
 This model takes as an input the power to be extracted from the AC line and
 stored in the battery (if <i>P &gt; 0</i>)
 or to be fed into the AC line after being extracted from the battery.
 The actual power stored or extracted in the battery differs from <i>P</i> due
 to AC/DC conversion losses and battery charge and discharge efficiencies.
-</p>
 </p>
 <p>
 The output connector <code>SOC</code> is the state of charge of the battery.
