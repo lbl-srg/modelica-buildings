@@ -24,7 +24,8 @@ equation
          p=1e5,
          T=T,
          X=Medium.X_default));
-    assert(abs(hVapCod-hVapSym) < 1E-4 * (1+abs(hVapCod)), "Model has an error");
+    assert(abs(hVapCod-hVapSym) < 1E-4 * (1+abs(hVapCod)),
+      "Specific enthalpies don't match within required tolerance.");
     der(hVapCod)=der(hVapSym);
 
     cpCod=Medium.specificHeatCapacityCp(
@@ -33,7 +34,8 @@ equation
          T=T,
          X=Medium.X_default));
     der(cpCod)=der(cpSym);
-    assert(abs(cpCod-cpSym) < 1E-4 * (1+abs(cvCod)), "Model has an error");
+    assert(abs(cpCod-cpSym) < 1E-4 * (1+abs(cpCod)),
+      "Specific heat capacities at constant pressure don't match within required tolerance.");
 
      cvCod=Medium.specificHeatCapacityCv(
       Medium.setState_pTX(
@@ -41,7 +43,8 @@ equation
          T=T,
          X=Medium.X_default));
     der(cvCod)=der(cvSym);
-    assert(abs(cvCod-cvSym) < 1E-4 * (1+abs(cvCod)), "Model has an error");
+    assert(abs(cvCod-cvSym) < 1E-4 * (1+abs(cvCod)),
+      "Specific heat capacities at constant volume don't match within required tolerance.");
 
    annotation(experiment(
                  StartTime=0, StopTime=1,
