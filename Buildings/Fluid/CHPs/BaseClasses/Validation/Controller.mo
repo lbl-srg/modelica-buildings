@@ -28,18 +28,12 @@ model Controller "Validate model Controller"
 protected
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TEng(
-    y(final unit="K", displayUnit="degC"),
-    final k=273.15 + 100) "Engine temperature"
-    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 
 equation
   connect(avaSig.y, con.avaSig) annotation (Line(points={{-19,70},{10,70},{10,17},
           {18,17}}, color={255,0,255}));
   connect(runSig.y, con.runSig) annotation (Line(points={{-19,30},{-10,30},{-10,
           14},{18,14}}, color={255,0,255}));
-  connect(TEng.y, con.TEng) annotation (Line(points={{-18,-70},{0,-70},{0,8},{18,
-          8}}, color={0,0,127}));
   connect(mWat_flow.y[1], con.mWat_flow) annotation (Line(points={{-18,-30},{-10,
           -30},{-10,11},{18,11}},     color={0,0,127}));
 

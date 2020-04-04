@@ -3,5 +3,5 @@ compareVars :=
     "conWat.opeMod",
     "conWat.PEle",
     "conWat.TWatIn",
-    "conWat.mWatSet"
+    "conWat.mWatSet_flow"
   };
