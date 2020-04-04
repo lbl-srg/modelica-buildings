@@ -31,29 +31,29 @@ This function computes a trivariate fifth order polynomial.
 The polynomial has the form
 </p>
 <p style=\"font-style:italic;\">
-y = a<sub>1</sub> 
-+ a<sub>2</sub> x<sub>1</sub><sup>2</sup> 
-+ a<sub>3</sub> x<sub>1</sub> 
-+ a<sub>4</sub> x<sub>2</sub><sup>2</sup> 
+y = a<sub>1</sub>
++ a<sub>2</sub> x<sub>1</sub><sup>2</sup>
++ a<sub>3</sub> x<sub>1</sub>
++ a<sub>4</sub> x<sub>2</sub><sup>2</sup>
 + a<sub>5</sub> x<sub>2</sub>
-+ a<sub>6</sub> x<sub>3</sub><sup>2</sup> 
-+ a<sub>7</sub> x<sub>3</sub> 
-+ a<sub>8</sub> x<sub>1</sub><sup>2</sup> x<sub>2</sub><sup>2</sup> 
-+ a<sub>9</sub> x<sub>1</sub> x<sub>2</sub> 
-<br>
-+ a<sub>10</sub> x<sub>1</sub> x<sub>2</sub><sup>2</sup> 
++ a<sub>6</sub> x<sub>3</sub><sup>2</sup>
++ a<sub>7</sub> x<sub>3</sub>
++ a<sub>8</sub> x<sub>1</sub><sup>2</sup> x<sub>2</sub><sup>2</sup>
++ a<sub>9</sub> x<sub>1</sub> x<sub>2</sub>
+<br/>
++ a<sub>10</sub> x<sub>1</sub> x<sub>2</sub><sup>2</sup>
 + a<sub>11</sub> x<sub>1</sub><sup>2</sup> x<sub>2</sub>
-+ a<sub>12</sub> x<sub>1</sub><sup>2</sup> x<sub>3</sub><sup>2</sup> 
-+ a<sub>13</sub> x<sub>1</sub> x<sub>3</sub> 
-+ a<sub>14</sub> x<sub>1</sub> x<sub>3</sub><sup>2</sup> 
++ a<sub>12</sub> x<sub>1</sub><sup>2</sup> x<sub>3</sub><sup>2</sup>
++ a<sub>13</sub> x<sub>1</sub> x<sub>3</sub>
++ a<sub>14</sub> x<sub>1</sub> x<sub>3</sub><sup>2</sup>
 + a<sub>15</sub> x<sub>1</sub><sup>2</sup> x<sub>3</sub>
-+ a<sub>16</sub> x<sub>2</sub><sup>2</sup> x<sub>3</sub><sup>2</sup> 
-+ a<sub>17</sub> x<sub>2</sub> x<sub>3</sub> 
-+ a<sub>18</sub> x<sub>2</sub> x<sub>3</sub><sup>2</sup> 
-<br>
-+ a<sub>19</sub> x<sub>2</sub><sup>2</sup> x<sub>3</sub> 
++ a<sub>16</sub> x<sub>2</sub><sup>2</sup> x<sub>3</sub><sup>2</sup>
++ a<sub>17</sub> x<sub>2</sub> x<sub>3</sub>
++ a<sub>18</sub> x<sub>2</sub> x<sub>3</sub><sup>2</sup>
+<br/>
++ a<sub>19</sub> x<sub>2</sub><sup>2</sup> x<sub>3</sub>
 + a<sub>20</sub> x<sub>1</sub><sup>2</sup> x<sub>2</sub><sup>2</sup> x<sub>3</sub><sup>2</sup>
-+ a<sub>21</sub> x<sub>1</sub><sup>2</sup> x<sub>2</sub><sup>2</sup> x<sub>3</sub> 
++ a<sub>21</sub> x<sub>1</sub><sup>2</sup> x<sub>2</sub><sup>2</sup> x<sub>3</sub>
 + a<sub>22</sub> x<sub>1</sub><sup>2</sup> x<sub>2</sub> x<sub>3</sub><sup>2</sup>
 + a<sub>23</sub> x<sub>1</sub> x<sub>2</sub><sup>2</sup> x<sub>3</sub><sup>2</sup>
 + a<sub>24</sub> x<sub>1</sub><sup>2</sup> x<sub>2</sub> x<sub>3</sub>

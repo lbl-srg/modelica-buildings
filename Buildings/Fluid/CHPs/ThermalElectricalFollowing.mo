@@ -339,10 +339,10 @@ contact.
 </li>
 </ul>
 <p align=\"center\">
-<br>
+<br/>
 <img src=\"modelica://Buildings/Resources/Images/Fluid/CHPs/control_volumes.png\"
      alt=\"Control_Volumes.png\" />
-<br>
+<br/>
 </p>
 <p>
 Depending on the current mode, control signals and plant boundary conditions, the
