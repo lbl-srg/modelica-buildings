@@ -10,20 +10,17 @@ function exponentialDamper_inv
 protected
   parameter Integer sizeSupSpl = size(kSupSpl, 1) "Number of spline support points";
   Integer i "Integer to select data interval";
-  Real kBnd "Bounded flow resistance sqrt value";
 algorithm
-  kBnd := if kThetaSqRt < kSupSpl[1] then kSupSpl[1] elseif
-    kThetaSqRt > kSupSpl[sizeSupSpl] then kSupSpl[sizeSupSpl] else kThetaSqRt;
   i := 1;
   for j in 2:sizeSupSpl loop
-    if kBnd <= kSupSpl[j] then
+    if kThetaSqRt <= kSupSpl[j] then
       i := j;
       break;
     end if;
   end for;
   y := Buildings.Utilities.Math.Functions.smoothLimit(
     Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
-      x=kBnd,
+      x=kThetaSqRt,
       x1=kSupSpl[i - 1],
       x2=kSupSpl[i],
       y1=ySupSpl[i - 1],

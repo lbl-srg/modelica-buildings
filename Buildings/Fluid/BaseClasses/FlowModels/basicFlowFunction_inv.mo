@@ -8,9 +8,9 @@ function basicFlowFunction_inv
   input Modelica.SIunits.PressureDifference dp
     "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
   input Modelica.SIunits.MassFlowRate m_flow_small
-    "Minimal value of mass flow rate guarding against k=(0)/sqrt(dp)";
+    "Minimum value of mass flow rate guarding against k=(0)/sqrt(dp)";
   input Modelica.SIunits.PressureDifference dp_small
-    "Minimal value of pressure drop guarding against k=m_flow/(0)";
+    "Minimum value of pressure drop guarding against k=m_flow/(0)";
   output Real k
     "Flow coefficient";
 protected
@@ -24,7 +24,7 @@ algorithm
   mPos_flow := Buildings.Utilities.Math.Functions.regNonZeroPower(
     m_flow, 1, m_flow_small);
   k := mPos_flow / dpSqrt;
-annotation (
+annotation (smoothOrder=1,
 Documentation(info="<html>
 <p>
 Function that computes the flow coefficient from the mass flow rate and pressure drop values.

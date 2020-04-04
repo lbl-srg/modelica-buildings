@@ -12,10 +12,6 @@ model PressureIndependent
     annotation(Dialog(tab="Advanced"));
   parameter Real deltax(unit="1", min=1E-5) = 0.02 "Transition interval for flow rate"
     annotation(Dialog(tab="Advanced"));
-  parameter Modelica.SIunits.PressureDifference dp_small(displayUnit="Pa") =
-    1E-2 * dp_nominal_pos
-    "Pressure drop for sizing the transition regions"
-    annotation(Dialog(tab="Advanced"));
 protected
   parameter Real y_min = 2E-2
     "Minimum value of control signal before zeroing of the opening";
@@ -163,9 +159,11 @@ equation
   k = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_inv(
     m_flow=m_flow,
     dp=dp,
-    m_flow_small=m_flow_small,
-    dp_small=dp_small);
-  kDam = sqrt(1 / (1 / k^2 - 1 / kFixed^2));
+    m_flow_small=1E-2*abs(m_flow_nominal),
+    dp_small=1E-4*dp_nominal_pos);
+  kDam = if dpFixed_nominal > Modelica.Constants.eps then
+    sqrt(1 / (1 / k^2 - 1 / kFixed^2)) else k;
+  // Use of regStep might no longer be needed when the leakage flow modeling is updated.
   y_actual_smooth = Buildings.Utilities.Math.Functions.regStep(
     x=y_internal - y_min,
     y1=Buildings.Fluid.Actuators.BaseClasses.exponentialDamper_inv(
