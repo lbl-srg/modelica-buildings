@@ -33,7 +33,7 @@ algorithm
     0,
     1,
     1E-3);
-annotation (
+annotation (smoothOrder=1,
 Documentation(info="<html>
 <p>
 This function provides an approximate inverse of the exponential damper characteristics.
@@ -57,5 +57,5 @@ April 19, 2019, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), smoothOrder=1);
+</html>"));
 end exponentialDamper_inv;
