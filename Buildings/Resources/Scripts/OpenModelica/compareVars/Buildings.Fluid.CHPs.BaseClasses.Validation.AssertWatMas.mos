@@ -1,7 +1,0 @@
-compareVars :=
-  {
-    "assWatMas.mWat_flow",
-    "assWatMas.per.mWatMin",
-    "runSig.y",
-    "assWatMas.assMes.u"
-  };

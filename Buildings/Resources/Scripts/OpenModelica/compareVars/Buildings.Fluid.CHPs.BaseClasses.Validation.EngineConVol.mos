@@ -1,8 +1,0 @@
-compareVars :=
-  {
-    "eng.TRoo.T",
-    "eng.TWat.T",
-    "eng.QGen",
-    "per.MCeng",
-    "eng.TEng"
-  };
