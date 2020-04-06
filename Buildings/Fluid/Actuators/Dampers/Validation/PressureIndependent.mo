@@ -1,6 +1,6 @@
 within Buildings.Fluid.Actuators.Dampers.Validation;
 model PressureIndependent
-  "Dampers with constant pressure difference and varying control signal."
+  "Test model for the pressure independent damper model"
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Air "Medium model for air";
@@ -20,8 +20,8 @@ model PressureIndependent
     duration=0.3,
     offset=0,
     startTime=0.3,
-    height=1) "Ramp up control signal"
-              annotation (Placement(transformation(extent={{-20,70},{0,90}})));
+    height=1) "Ramp up damper control signal"
+    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare final package Medium = Medium,
     use_p_in=true,
@@ -37,7 +37,8 @@ model PressureIndependent
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     final dpDamper_nominal=dp_nominal,
-    use_inputFilter=false) "Pressure independent damper"
+    use_inputFilter=false)
+    "Pressure independent damper"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Exponential damExpPI(
     redeclare final package Medium = Medium,
@@ -52,7 +53,8 @@ model PressureIndependent
     "Discharge flow rate controller"
     annotation (Placement(transformation(extent={{-70,-70},{-50,-50}})));
   Sensors.MassFlowRate senMasFlo(
-    redeclare final package Medium = Medium) "Discharge flow rate sensor"
+    redeclare final package Medium = Medium)
+    "Discharge flow rate sensor"
     annotation (Placement(transformation(extent={{30,-70},{50,-90}})));
   Modelica.Blocks.Sources.Ramp yRam1(
     duration=0.3,
@@ -69,9 +71,10 @@ model PressureIndependent
   Modelica.Blocks.Math.Add add
     annotation (Placement(transformation(extent={{-52,30},{-32,50}})));
   Sensors.RelativePressure senRelPre(
-    redeclare final package Medium = Medium) "Pressure drop sensor"
+    redeclare final package Medium = Medium)
+    "Pressure drop sensor"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
-  Modelica.Blocks.Math.Gain gain(k=1/m_flow_nominal)
+  Modelica.Blocks.Math.Gain gain(final k=1/m_flow_nominal)
     "Normalize discharge flow rate"
     annotation (Placement(transformation(extent={{-20,-110},{-40,-90}})));
 equation
@@ -120,7 +123,43 @@ file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Vali
 "Simulate and plot"),
 Documentation(info="<html>
 <p>
-Test model for the pressure independent damper model.
+This model validates
+<a href=\"modelica://IBPSA.Fluid.Actuators.Dampers.PressureIndependent\">
+IBPSA.Fluid.Actuators.Dampers.PressureIndependent</a>
+by comparing it with
+</p>
+<ul>
+<li>
+an exponential damper model which opening is the one computed by the
+pressure independent model, see <code>damExp</code>,
+</li>
+<li>
+an exponential damper model which opening is computed by a PI controller
+tracking the same discharge mass flow rate, see <code>damExpPI</code>.
+</li>
+</ul>
+<p>
+The simulation consists in exposing these three models to
+<ol>
+<li>
+a first increase in the pressure drop at the damper boundaries, from negative
+to positive values, with a zero input control signal,
+</li>
+<li>
+a consecutive increase of input control signal, from zero to one, with a
+constant pressure drop at the damper boundaries,
+</li>
+<li>
+an eventual decrease in the pressure drop, from positive to negative values,
+with an input control signal equal to one.
+</li>
+</ol>
+<p>
+One can notice a small variation of the computed damper opening in the last
+transient around flow reversal.
+This is because the expression of the flow coefficient as a function of the
+mass flow rate and pressure drop is ill-defined near zero flow rate and
+the damper opening value results from the regularization process.
 </p>
 </html>", revisions="<html>
 <ul>

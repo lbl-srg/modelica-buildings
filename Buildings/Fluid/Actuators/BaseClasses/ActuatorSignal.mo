@@ -25,7 +25,8 @@ model ActuatorSignal
         rotation=270,
         origin={0,120})));
 
-  Modelica.Blocks.Interfaces.RealOutput y_actual "Actual actuator position"
+  Modelica.Blocks.Interfaces.RealOutput y_actual
+    "Actual actuator position"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
 
   // Classes used to implement the filtered opening
@@ -122,6 +123,13 @@ for a description of the filter.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 6, 2020, by Antoine Gautier:<br/>
+Add the boolean parameter <code>casePreInd</code>.<br/>
+This is needed for the computation of the damper opening in
+<a href=\"modelica://Buildings.Fluid.Actuators.Dampers.PressureIndependent\">
+Buildings.Fluid.Actuators.Dampers.PressureIndependent</a>.
+</li>
 <li>
 February 21, 2020, by Michael Wetter:<br/>
 Changed icon to display its operating state.<br/>

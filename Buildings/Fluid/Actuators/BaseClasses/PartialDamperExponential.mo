@@ -206,6 +206,13 @@ ASHRAE Final Report 825-RP, Atlanta, GA.
 revisions="<html>
 <ul>
 <li>
+April 6, 2020, by Antoine Gautier:<br/>
+Make the computation of the flow coefficient conditional to <code>casePreInd</code>.<br/>
+This is needed for the computation of the damper opening in
+<a href=\"modelica://Buildings.Fluid.Actuators.Dampers.PressureIndependent\">
+Buildings.Fluid.Actuators.Dampers.PressureIndependent</a>.
+</li>
+<li>
 December 23, 2019, by Antoine Gautier:<br/>
 Removed the equations involving <code>m_flow</code> and <code>dp</code> that now need
 to be added in each derived damper model.<br/>

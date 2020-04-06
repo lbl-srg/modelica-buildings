@@ -202,17 +202,19 @@ in which case a <code>kDam = m_flow_nominal/sqrt(dp_nominal)</code> characterist
 <p>
 The model is similar to
 <a href=\"modelica://Buildings.Fluid.Actuators.Valves.TwoWayPressureIndependent\">
-Buildings.Fluid.Actuators.Valves.TwoWayPressureIndependent</a>, except for adaptations for damper parameters.
+Buildings.Fluid.Actuators.Valves.TwoWayPressureIndependent</a>,
+except for adaptations for damper parameters.
 Please see that documentation for more information.
 </p>
-<h4>Computation of the fractional opening</h4>
+<h4>Computation of the damper opening</h4>
 <p>
 The fractional opening of the damper is computed by
 </p>
 <ul>
 <li>
 inverting the quadratic flow function to compute the flow coefficient
-from the flow rate and the pressure drop values;
+from the flow rate and the pressure drop values (under the assumption
+of a turbulent flow regime);
 </li>
 <li>
 inverting the exponential characteristics to compute the fractional opening
@@ -220,15 +222,24 @@ from the loss coefficient value (directly derived from the flow coefficient).
 </li>
 </ul>
 <p>
-Below a threshold value of the input control signal (fixed at 0.02) the fractional opening
-is forced to zero and no more related to the actual flow coefficient of the damper.
-This avoids steep transient of the computed opening while transitioning from reverse flow.
-This is to be considered as a modeling workaround to prevent control chattering during
-shut off operation (while avoiding an additional state variable).
+Note that below a threshold value of the input control signal (fixed at 0.02),
+the fractional opening is forced to zero and no more related to the actual
+flow coefficient of the damper.
+This avoids steep transients of the computed opening while transitioning from reverse flow.
+This is to be considered as a modeling workaround (avoiding the introduction of
+an additional state variable) to prevent control chattering during
+shut off operation where the pressure difference at the damper boundaries
+can vary between slightly positive and negative values due to outdoor pressure
+variations.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+<li>
+April 6, 2020, by Antoine Gautier:<br/>
+Add the computation of the damper opening.
+</li>
 <li>
 December 23, 2019 by Antoine Gautier:<br/>
 Refactored as the model can now extend directly
