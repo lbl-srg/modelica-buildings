@@ -5,8 +5,8 @@ package Validation "Collection of validation models"
 annotation (Documentation(info="<html>
 <p>
 This package contains validation models for the classes in
-<a href=\"modelica://IBPSA.Fluid.Actuators.Dampers\">
-IBPSA.Fluid.Actuators.Dampers</a>.
+<a href=\"modelica://Buildings.Fluid.Actuators.Dampers\">
+Buildings.Fluid.Actuators.Dampers</a>.
 </p>
 <p>
 Note that most validation models contain simple input data which may not be realistic,

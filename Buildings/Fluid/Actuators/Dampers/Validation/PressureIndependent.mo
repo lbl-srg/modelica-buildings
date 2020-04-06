@@ -124,8 +124,8 @@ file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Vali
 Documentation(info="<html>
 <p>
 This model validates
-<a href=\"modelica://IBPSA.Fluid.Actuators.Dampers.PressureIndependent\">
-IBPSA.Fluid.Actuators.Dampers.PressureIndependent</a>
+<a href=\"modelica://Buildings.Fluid.Actuators.Dampers.PressureIndependent\">
+Buildings.Fluid.Actuators.Dampers.PressureIndependent</a>
 by comparing it with
 </p>
 <ul>
