@@ -183,7 +183,7 @@ model SingleZoneFloor "Model of a building floor as a single zone"
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     "Fraction of internal heat gain"
     annotation (Placement(transformation(extent={{-160,-150},{-140,-130}})));
-  Modelica.Blocks.Math.MatrixGain gai(K=20*[0.4; 0.4; 0.2])
+  Modelica.Blocks.Math.MatrixGain gai(K=10*[0.4; 0.4; 0.2])
     "Matrix gain to split up heat gain in radiant, convective and latent gain"
     annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
   Modelica.Blocks.Sources.Constant uSha(k=0)

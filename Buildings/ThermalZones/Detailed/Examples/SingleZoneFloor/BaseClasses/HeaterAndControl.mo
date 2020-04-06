@@ -1,6 +1,6 @@
 within Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.BaseClasses;
 model HeaterAndControl
-  "A model with an ideal heater, a fan a PID controller and an integrator"
+  "A model with an ideal heater, a fan a PI controller and an integrator"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
@@ -37,7 +37,7 @@ model HeaterAndControl
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
     each p=273.15 + 12,
-    each k=18,
+    each k=30,
     y(unit="K", displayUnit="degC"))
     "Compute the leaving water setpoint temperature"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));

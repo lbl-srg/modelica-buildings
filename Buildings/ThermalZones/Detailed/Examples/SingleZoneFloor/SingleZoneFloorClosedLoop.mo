@@ -25,8 +25,8 @@ model SingleZoneFloorClosedLoop
   parameter Modelica.SIunits.Volume VRoo=VRooSou+VRooEas+VRooNor+VRooWes+VRooCor
     "Total floor volume";
 
-  Buildings.Examples.VAVReheat.ThermalZones.Floor flo(
-    redeclare package Medium = Medium, lat=lat) "Five-zone floor model"
+  Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.BaseClasses.Floor_IntGai
+    flo(redeclare package Medium = Medium, lat=lat) "Five-zone floor model"
     annotation (Placement(transformation(extent={{-8,48},{48,108}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
     Modelica.Utilities.Files.loadResource(
