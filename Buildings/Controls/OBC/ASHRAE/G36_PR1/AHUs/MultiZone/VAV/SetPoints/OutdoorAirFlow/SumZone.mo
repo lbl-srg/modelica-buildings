@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow;
 block SumZone
-  "Output the sum, maximum and minimum from the zones calculation"
+  "Output the sum, maximum and minimum from the zone level calculation"
 
   parameter Integer numZon(min=2)
     "Total number of zones that the system serves";

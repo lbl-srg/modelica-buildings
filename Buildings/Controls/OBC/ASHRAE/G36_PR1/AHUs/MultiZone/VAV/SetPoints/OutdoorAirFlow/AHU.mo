@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow;
-block System
-  "Outputs of outdoor airflow related calculation in system level"
+block AHU "Specify AHU level outdoor airflow setpoints"
 
   parameter Real VPriSysMax_flow(unit="m3/s")
     "Maximum expected system primary airflow at design stage"
@@ -191,7 +190,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
     annotation (Placement(transformation(extent={{120,-150},{140,-130}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi4 "Ensuring the system efficiency will not be negative"
+  Buildings.Controls.OBC.CDL.Logical.Switch swi4
+    "Ensuring the system efficiency will not be negative"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conOne(
@@ -219,8 +219,9 @@ equation
   connect(unCorOutAirInk.y, aveOutAirFra.u1)
     annotation (Line(points={{-38,150},{-20,150},{-20,136},{-2,136}},
       color={0,0,127}));
-  connect(priSysMax_flow.y, aveOutAirFra.u2) annotation (Line(points={{-118,110},
-          {-80,110},{-80,124},{-2,124}}, color={0,0,127}));
+  connect(priSysMax_flow.y, aveOutAirFra.u2)
+    annotation (Line(points={{-118,110},{-80,110},{-80,124},{-2,124}},
+      color={0,0,127}));
   connect(aveOutAirFra.y, addPar1.u)
     annotation (Line(points={{22,130},{58,130}}, color={0,0,127}));
   connect(unCorOutAirInk.y, desOutAirInt.u1)
@@ -246,12 +247,12 @@ equation
     annotation (Line(points={{-118,190},{-110,190},{-110,176},{-102,176}},
       color={0,0,127}));
   connect(uOpeMod, intEqu1.u1)
-    annotation (Line(points={{-240,-180},{-98,-180}},  color={255,127,0}));
+    annotation (Line(points={{-240,-180},{-98,-180}}, color={255,127,0}));
   connect(occMod.y, intEqu1.u2)
     annotation (Line(points={{-158,-220},{-140,-220},{-140,-188},{-98,-188}},
       color={255,127,0}));
   connect(not1.u, and1.y)
-    annotation (Line(points={{178,-140},{142,-140}},   color={255,0,255}));
+    annotation (Line(points={{178,-140},{142,-140}}, color={255,0,255}));
   connect(intEqu1.y, and1.u2)
     annotation (Line(points={{-74,-180},{20,-180},{20,-148},{118,-148}},
       color={255,0,255}));
@@ -314,7 +315,7 @@ equation
       color={0,0,127}));
 
 annotation (
-  defaultComponentName="sysOutAirSet",
+  defaultComponentName="ahuOutAirSet",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
        graphics={Rectangle(
           extent={{-100,100},{100,-100}},
@@ -388,12 +389,13 @@ annotation (
 Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,-240},{240,240}})),
 Documentation(info="<html>
 <p>
-This sequence outputs system level design minimum outdoor airflow rate
+This sequence outputs AHU level design minimum outdoor airflow rate
 <code>VDesOutAir_flow</code> and effective minimum outdoor airflow rate
 <code>VEffOutAir_flow</code>.
 </p>
 <p>
-It requires following outputs from zone level calculation:
+It requires following inputs which are sum, maximum or minimum of the outputs from
+the zone level calculation:
 </p>
 <ol>
 <li>
@@ -411,8 +413,7 @@ Sum of the area component design breathing zone flow rate,
 Minimum of all zones ventilation efficiency, <code>uDesSysVenEff</code>.
 </li>
 <li>
-Sum of all zones required uncorrected outdoor airflow rate,
-<code>VSumUncOutAir_flow</code>.
+Sum of all zones required uncorrected outdoor airflow rate, <code>VSumUncOutAir_flow</code>.
 </li>
 <li>
 Sum of the measured discharged flow rate of all terminal units,
@@ -456,4 +457,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end System;
+end AHU;

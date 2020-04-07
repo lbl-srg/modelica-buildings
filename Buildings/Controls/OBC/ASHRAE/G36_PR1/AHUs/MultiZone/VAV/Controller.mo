@@ -645,10 +645,9 @@ block Controller
     final maxRes=maxResSupTem) "Setpoint for supply temperature"
     annotation (Placement(transformation(extent={{0,170},{20,190}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.System sysOutAirSet(
-    final VPriSysMax_flow=VPriSysMax_flow,
-    final peaSysPop=peaSysPop)
-    "Minimum outdoor airflow setpoint"
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.AHU
+    sysOutAirSet(final VPriSysMax_flow=VPriSysMax_flow, final peaSysPop=
+        peaSysPop) "Minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Economizers.Controller eco(

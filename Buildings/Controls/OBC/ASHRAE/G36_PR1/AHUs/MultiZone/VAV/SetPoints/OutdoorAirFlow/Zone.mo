@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow;
 block Zone
-  "Outputs of outdoor air flow related calculations in zone level"
+  "Specify zone level outdoor airflow setpoints"
 
   parameter Real VOutPerAre_flow(
     final unit = "m3/(s.m2)")=3e-4
