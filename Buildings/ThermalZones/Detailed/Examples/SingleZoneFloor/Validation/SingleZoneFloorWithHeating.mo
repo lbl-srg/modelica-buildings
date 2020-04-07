@@ -171,9 +171,8 @@ equation
       pattern=LinePattern.Dash));
   annotation (
   experiment(
-      StopTime=1814400,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      StopTime=604800,
+      Tolerance=1e-06),
   __Dymola_Commands(file=
   "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/SingleZoneFloor/Validation/SingleZoneFloorWithHeating.mos"
         "Simulate and plot"),
