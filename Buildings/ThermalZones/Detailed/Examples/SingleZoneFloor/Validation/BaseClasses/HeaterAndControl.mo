@@ -1,6 +1,6 @@
 within Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.Validation.BaseClasses;
 model HeaterAndControl
-  "A model with an ideal heater, a fan a PI controller and an integrator"
+  "A model with an ideal heater, a fan, a PI controller and an integrator"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium

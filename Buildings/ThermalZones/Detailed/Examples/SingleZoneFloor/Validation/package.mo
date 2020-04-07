@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor;
-package Validation "Validation models for the model SingleZoneFloor"
+package Validation "Validation package for the model SingleZoneFloor"
 extends Modelica.Icons.ExamplesPackage;
 
   annotation (preferredView="info", Documentation(info="<html>

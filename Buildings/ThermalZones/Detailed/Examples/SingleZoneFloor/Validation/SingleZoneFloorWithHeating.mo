@@ -1,6 +1,6 @@
 within Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.Validation;
 model SingleZoneFloorWithHeating
-  "Example model for the base class SingleZoneFloor with heating and control"
+  "Validation model for SingleZoneFloor with heating and control"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air "Buildings library air media package";
   parameter Modelica.SIunits.Angle lat=41.98*3.14159/180
