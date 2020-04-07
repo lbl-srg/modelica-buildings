@@ -79,8 +79,7 @@ model LimPIDWithReset
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
 equation
   connect(limPIDPar.u_s, setPoi.y) annotation (Line(points={{18,70},{6,70},{6,
-          -30},{2,-30}},
-                     color={0,0,127}));
+          -30},{2,-30}}, color={0,0,127}));
   connect(intWitRes1.u, limPIDPar.y)
     annotation (Line(points={{58,70},{42,70}}, color={0,0,127}));
   connect(intWitRes1.y, limPIDPar.u_m) annotation (Line(points={{82,70},{90,70},
@@ -117,8 +116,6 @@ equation
                      color={0,0,127}));
   connect(limPIInp.y_reset_in, resVal.y) annotation (Line(points={{18,-78},{14,
           -78},{14,22},{2,22}}, color={0,0,127}));
-  connect(limPIInp.y_reset_in, limPIDInp.y_reset_in) annotation (Line(points={{18,
-          -78},{14,-78},{14,22},{18,22}}, color={0,0,127}));
   connect(greEquThr.y, limPIInp.trigger) annotation (Line(points={{-30,-60},{8,
           -60},{8,-90},{24,-90},{24,-82}},  color={255,0,255}));
   connect(limPIDInp.trigger, greEquThr.y) annotation (Line(points={{24,18},{24,
