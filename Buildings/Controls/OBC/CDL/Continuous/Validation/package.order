@@ -23,6 +23,7 @@ LessEqual
 LessEqualThreshold
 LessThreshold
 LimPID
+LimPIDWithReset
 Limiter
 Line
 Log
