@@ -1,18 +1,18 @@
-within Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.BaseClasses;
+within Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor;
 model SingleZoneFloor "Model of a building floor as a single zone"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model for air" annotation (choicesAllMatching=true);
-  parameter Boolean use_windPressure=true
-    "Set to true to enable wind pressure";
-  parameter HeatTransfer.Types.InteriorConvection intConMod=
-    Buildings.HeatTransfer.Types.InteriorConvection.Temperature
-    "Convective heat transfer model for room-facing surfaces of opaque constructions";
   parameter Modelica.SIunits.Angle lat "Latitude";
   parameter Modelica.SIunits.Volume VRoo = 4555.7  "Room volum";
   parameter Modelica.SIunits.Height hRoo = 2.74 "Room height";
   parameter Modelica.SIunits.Length hWin = 1.5 "Height of windows";
   parameter Real winWalRat(min=0.01,max=0.99) = 0.33
     "Window to wall ratio for exterior walls";
+  parameter Boolean use_windPressure=true
+    "Set to true to enable wind pressure";
+  parameter HeatTransfer.Types.InteriorConvection intConMod=
+    Buildings.HeatTransfer.Types.InteriorConvection.Temperature
+    "Convective heat transfer model for room-facing surfaces of opaque constructions";
 
   parameter Buildings.HeatTransfer.Data.Solids.Plywood matWoo(
     x=0.01,
@@ -299,20 +299,26 @@ equation
   Documentation(info = "<html>
   <p>
   This model assumes a mid-floor of a building as a single zone with a homogeneous 
-  temperature, meaning that the air in the whole floor is assumed to be fully mixed.
+  temperature; i.e., the air in the whole floor is assumed to be fully mixed.
   </p>
   <p>
   The geometry, materials and constructions of the model are consistent with those of
-  <a href=\"modelica://Buildings.Examples.VAVReheat.ThermalZones.Floor\">
-  Buildings.Examples.VAVReheat.ThermalZones.Floor</a>.
-  The latter models the same mid-floor as five zones: a core zone and 
+  <a href=\"modelica://Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.Validation.BaseClasses.Floor\">
+  Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.Validation.BaseClasses.Floor</a>, 
+  which models the same mid-floor as five zones: a core zone and 
   four perimeter zones.
+  </p>
+  <p>
+  The internal partition walls in the five-zone floor model are considered as
+  thermal mass in this single-zone floor model. The doors in the five-zone floor 
+  model have been removed in the single-zone floor model.
   </p>
   </html>",
   revisions="<html>
   <ul>
   <li>March 10, 2020, by Kun Zhang:<br/>
-  First implementation.
+  First implementation. This is for issue
+  <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1717\">1717</a>.
   </li>
   </ul>
   </html>"),

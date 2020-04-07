@@ -1,13 +1,14 @@
 within Buildings.ThermalZones.Detailed.Examples;
 package SingleZoneFloor "Package with single zone floor models"
-  extends Modelica.Icons.ExamplesPackage;
 
   annotation (preferredView="info", Documentation(info="<html>
   <p>
-  This package contains base class models and example
-  models that compare the single-zone floor model with the five-zone floor
-  model from <a href=\"modelica://Buildings.Examples.VAVReheat.ThermalZones.Floor\">
-  Buildings.Examples.VAVReheat.ThermalZones.Floor</a>.
+  This package contains a single-zone floor model, a validation
+  model that compares the single-zone floor model with 
+  the five-zone floor model from 
+  <a href=\"modelica://Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.Validation.BaseClasses.Floor\">
+  Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.Validation.BaseClasses.Floor</a>,
+  as well as base class models used in the validation.
   </p>
   </html>"));
 end SingleZoneFloor;

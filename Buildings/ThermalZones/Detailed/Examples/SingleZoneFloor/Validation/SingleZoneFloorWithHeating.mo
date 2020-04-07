@@ -1,6 +1,6 @@
-within Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor;
-model SingleZoneFloorClosedLoop
-  "Closed-loop validation for the base class SingleZoneFloor"
+within Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.Validation;
+model SingleZoneFloorWithHeating
+  "Example model for the base class SingleZoneFloor with heating and control"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air "Buildings library air media package";
   parameter Modelica.SIunits.Angle lat=41.98*3.14159/180
@@ -25,7 +25,7 @@ model SingleZoneFloorClosedLoop
   parameter Modelica.SIunits.Volume VRoo=VRooSou+VRooEas+VRooNor+VRooWes+VRooCor
     "Total floor volume";
 
-  Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.BaseClasses.Floor_IntGai
+  Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.Validation.BaseClasses.Floor
     flo(redeclare package Medium = Medium, lat=lat) "Five-zone floor model"
     annotation (Placement(transformation(extent={{-8,48},{48,108}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
@@ -33,7 +33,7 @@ model SingleZoneFloorClosedLoop
     "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Weather data"
     annotation (Placement(transformation(extent={{-40,134},{-20,154}})));
-  Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.BaseClasses.SingleZoneFloor
+  Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.SingleZoneFloor
     sinZonFlo(redeclare package Medium = Medium, lat=lat)
     "Single-zone floor model"
     annotation (Placement(transformation(extent={{-4,98},{36,138}})));
@@ -41,30 +41,35 @@ model SingleZoneFloorClosedLoop
       y(unit="K", displayUnit="degC")) "Setpoint for room air"
     annotation (Placement(transformation(extent={{-120,84},{-100,104}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum EHeaFlo(nin=5)
-    "Heating energy of five-zone floor"
+    "Heating energy of the five-zone floor"
     annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
   BaseClasses.HeaterAndControl heaAndCon(
     redeclare package Medium=Medium,
     m_flow_nominal=VRoo*3/3600*1.2,
     VRoo=VRoo) "Heater and controller for the singleZoneFloor"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
-  BaseClasses.HeaterAndControl heaAndConNor(redeclare package Medium = Medium,
+  BaseClasses.HeaterAndControl heaAndConNor(
+    redeclare package Medium = Medium,
     m_flow_nominal=VRooNor*3/3600*1.2,
     VRoo=VRooNor) "Heater and controller for the north zone"
     annotation (Placement(transformation(extent={{-60,22},{-40,42}})));
-  BaseClasses.HeaterAndControl heaAndConWes(redeclare package Medium = Medium,
+  BaseClasses.HeaterAndControl heaAndConWes(
+    redeclare package Medium = Medium,
     m_flow_nominal=VRooWes*3/3600*1.2,
     VRoo=VRooWes) "Heater and controller for the west zone"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  BaseClasses.HeaterAndControl heaAndConCor(redeclare package Medium = Medium,
+  BaseClasses.HeaterAndControl heaAndConCor(
+    redeclare package Medium = Medium,
     m_flow_nominal=VRooCor*3/3600*1.2,
     VRoo=VRooCor) "Heater and controller for the core zone"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  BaseClasses.HeaterAndControl heaAndConSou(redeclare package Medium = Medium,
+  BaseClasses.HeaterAndControl heaAndConSou(
+    redeclare package Medium = Medium,
     m_flow_nominal=VRooSou*3/3600*1.2,
     VRoo=VRooSou) "Heater and controller for the south zone"
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
-  BaseClasses.HeaterAndControl heaAndConEas(redeclare package Medium = Medium,
+  BaseClasses.HeaterAndControl heaAndConEas(
+    redeclare package Medium = Medium,
     m_flow_nominal=VRooEas*3/3600*1.2,
     VRoo=VRooEas) "Heater and controller for the east zone"
     annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
@@ -166,20 +171,26 @@ equation
       pattern=LinePattern.Dash));
   annotation (
   experiment(
-      StopTime=604800,
-      Tolerance=1e-06),
+      StopTime=1814400,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"),
   __Dymola_Commands(file=
-  "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/SingleZoneFloor/SingleZoneFloorClosedLoop.mos"
+  "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/SingleZoneFloor/Validation/SingleZoneFloorWithHeating.mos"
         "Simulate and plot"),
   Documentation(info="
   <html>
   <p>
-  This model compares the heating demand of the single-zone building model 
-  <a href=\"modelica://Buildings.ThermalZones.Detailed.Validation.SingleZoneFloor.BaseClasses.SingleZoneFloor\">
-  Buildings.ThermalZones.Detailed.Validation.SingleZoneFloor.BaseClasses.SingleZoneFloor</a> 
-  with the total heating demand of the five-zone building model
-  <a href=\"modelica://Buildings.Examples.VAVReheat.ThermalZones.Floor\">
-  Buildings.Examples.VAVReheat.ThermalZones.Floor</a>.
+  This model compares the heating energy demand of a single-zone floor model 
+  <a href=\"modelica://Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.SingleZoneFloor\">
+  Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.SingleZoneFloor</a> 
+  with the total heating energy demand of a five-zone floor model
+  <a href=\"modelica://Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.Validation.BaseClasses.Floor\">
+  Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.Validation.BaseClasses.Floor</a>.
+  </p>
+  <p>
+  The nominal flowrate of the single zone floor model is consistent with the 
+  total nominal flowrate of the five-zone floor model. The heating energy is
+  calculated via an ideal heater.
   </p>
   </html>",
   revisions="
@@ -194,4 +205,4 @@ equation
   Icon(coordinateSystem(preserveAspectRatio=false)),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-160},{120,
             160}})));
-end SingleZoneFloorClosedLoop;
+end SingleZoneFloorWithHeating;
