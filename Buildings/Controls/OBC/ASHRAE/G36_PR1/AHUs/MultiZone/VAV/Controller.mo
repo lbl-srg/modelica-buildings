@@ -965,8 +965,8 @@ for more detailed description.
 <h4>Minimum outdoor airflow setting</h4>
 <p>
 According to current occupany, supply operation status <code>ySupFan</code>,
-zone temperatures and the discharge air temperature, the sequence computes the 
-minimum outdoor airflow rate setpoint, which is used as input for the economizer control. 
+zone temperatures and the discharge air temperature, the sequence computes the
+minimum outdoor airflow rate setpoint, which is used as input for the economizer control.
 More detailed information can be found in
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow</a>.
@@ -1009,7 +1009,7 @@ revisions="<html>
 <li>
 March 16, 2020, by Jianjun Hu:<br/>
 Reimplemented to add new block for specifying the minimum outdoor airfow setpoint.
-This new block avoids the vector-valued calculation.<br/>
+This new block avoids vector-valued calculations.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1829\">#1829</a>.
 </li>

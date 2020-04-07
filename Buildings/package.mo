@@ -174,11 +174,11 @@ its class name ends with the string <code>Beta</code>.
         <td valign=\"top\">Package of sequences for specifying the minimum outdoor airflow rate.
                            This replaces <code>Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutsideAirFlow</code>.
                            The new implemented sequences separated zone level calculation from the system level calculation.
-                           It avoids the vector-valued calculation.<br/>
+                           It avoids vector-valued calculations.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1829\">#1829</a>.
         </td>
-    </tr>    
-        
+    </tr>
+
     <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneStatus
         </td>
         <td valign=\"top\">Block that outputs zone temperature status by comparing it with setpoint temperatures, with the maximum and
@@ -465,10 +465,10 @@ its class name ends with the string <code>Beta</code>.
     <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller
         </td>
         <td valign=\"top\">Reimplemented to add new block for specifying the minimum outdoor airfow setpoint.
-                           The new block avoids the vector-valued calculation.<br/>
+                           The new block avoids vector-valued calculations.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1829\">#1829</a>.
         </td>
-    </tr> 
+    </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode
         </td>
         <td valign=\"top\">Reimplemented to remove the vector-valued calculations.<br/>
