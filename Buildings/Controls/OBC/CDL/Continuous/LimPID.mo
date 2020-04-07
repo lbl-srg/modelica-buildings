@@ -134,7 +134,6 @@ block LimPID
     final uMin=yMin)
     "Limiter"
     annotation (Placement(transformation(extent={{120,80},{140,100}})));
-
 protected
   final parameter Real revAct = if reverseAction then -1 else 1
     "Switch for sign for reverse action";
@@ -195,7 +194,7 @@ protected
     annotation (Placement(transformation(extent={{162,50},{182,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yResSig(final k=y_reset) if
       reset == Buildings.Controls.OBC.CDL.Types.Reset.Parameter
-   "Signal for y_reset"
+    "Signal for y_reset"
     annotation (Placement(transformation(extent={{-180,-82},{-160,-62}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain divK(final k=1/k) if
        reset <> Buildings.Controls.OBC.CDL.Types.Reset.Disabled
@@ -206,18 +205,24 @@ protected
    "Adder for integrator reset"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
 
-initial equation
-  if initType==Buildings.Controls.OBC.CDL.Types.Init.InitialOutput then
-     gainPID.y = y_start;
-  end if;
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant cheYMinMax(
+    final k=yMin < yMax)
+    "Check for values of yMin and yMax"
+    annotation (Placement(transformation(extent={{120,-160},{140,-140}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant cheYSta(
+    final k=not
+               (initType == Buildings.Controls.OBC.CDL.Types.Init.InitialOutput and (y_start < yMin or y_start > yMax)))
+    "Check for value of y_start"
+    annotation (Placement(transformation(extent={{120,-190},{140,-170}})));
+
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMesYMinMax(message="LimPID: Limits must be yMin < yMax")
+    "Assertion on yMin and yMax"
+    annotation (Placement(transformation(extent={{160,-160},{180,-140}})));
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMesYSta(message="LimPID: Limits must be yMin < yMax")
+    "Assertion on y_start"
+    annotation (Placement(transformation(extent={{160,-190},{180,-170}})));
 
 equation
-  assert(yMax >= yMin, "LimPID: Limits must be consistent. However, yMax (=" + String(yMax) +
-                       ") < yMin (=" + String(yMin) + ")");
-  if initType == Buildings.Controls.OBC.CDL.Types.Init.InitialOutput and (y_start < yMin or y_start > yMax) then
-      Modelica.Utilities.Streams.error("LimPID: Start value y_start (=" + String(y_start) +
-         ") is outside of the limits of yMin (=" + String(yMin) +") and yMax (=" + String(yMax) + ")");
-  end if;
 
   connect(trigger, I.trigger)
     annotation (Line(points={{-160,-200},{-160,-140},{-30,-140},{-30,-12}},
@@ -292,6 +297,10 @@ equation
     annotation (Line(points={{-202,0},{-240,0}}, color={0,0,127}));
   connect(controlError.u2, u_m) annotation (Line(points={{-190,-12},{-190,-20},{
           -212,-20},{-212,-160},{0,-160},{0,-220}}, color={0,0,127}));
+  connect(cheYMinMax.y, assMesYMinMax.u)
+    annotation (Line(points={{142,-150},{160,-150}}, color={255,0,255}));
+  connect(cheYSta.y, assMesYSta.u)
+    annotation (Line(points={{142,-180},{160,-180}}, color={255,0,255}));
 annotation (defaultComponentName="conPID",
   Icon(
     coordinateSystem(extent={{-100,-100},{100,100}}),
