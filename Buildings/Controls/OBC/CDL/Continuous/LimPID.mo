@@ -113,11 +113,8 @@ block LimPID
     final k=Td,
     final T=Td/Nd,
     final x_start=xd_start,
-    final initType=
-      if initType == Buildings.Controls.OBC.CDL.Types.Init.InitialState then
-        Buildings.Controls.OBC.CDL.Types.Init.InitialState
-      else
-        Buildings.Controls.OBC.CDL.Types.Init.NoInit) if with_D "Derivative term"
+    final initType=Buildings.Controls.OBC.CDL.Types.Init.InitialState) if
+                                                         with_D "Derivative term"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Feedback errP "P error"
