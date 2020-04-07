@@ -1,14 +1,19 @@
 within Buildings.Fluid.Boilers.BaseClasses;
-model Boiling
-  "Model for the boiling process of water from liquid to saturated vapor states 
-    with no change in pressure"
-  extends Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium(
-    redeclare final package Medium_b = MediumSte,
-    redeclare final package Medium_a = MediumWat,
-    final show_T = true);
+model Evaporation
+  "Model for the evaporation process without change in pressure"
+  extends Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium;
+//    redeclare final package Medium_b = MediumSte,
+//    redeclare final package Medium_a = MediumWat);
 
-  package MediumSte = IBPSA.Media.Steam "Steam medium";
-  package MediumWat = IBPSA.Media.Water(T_max=623.15) "Water medium";
+  replaceable package Medium_a =
+      Modelica.Media.Interfaces.PartialTwoPhaseMedium
+    "Medium model for port_a (inlet)";
+  replaceable package Medium_b =
+      Modelica.Media.Interfaces.PartialTwoPhaseMedium
+    "Medium model for port_b (outlet)";
+
+//  package MediumSte = IBPSA.Media.Steam "Steam medium";
+//  package MediumWat = IBPSA.Media.Water(T_max=623.15) "Water medium";
 
   Modelica.Blocks.Interfaces.RealOutput dh(unit="J/kg") "Change in enthalpy"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
@@ -18,8 +23,8 @@ model Boiling
   // State p & T remain unchanged (saturated vapor to saturated liquid)
   Modelica.SIunits.SpecificHeatCapacity cp "Specific Heat";
   Modelica.SIunits.Temperature TSat "Saturation temperature";
-  MediumSte.Temperature TSte;
-  MediumWat.Temperature TWat;
+  Medium_b.Temperature Tb;
+  Medium_a.Temperature Ta;
 
   Modelica.SIunits.SpecificEnthalpy hWat_instream
     "Instreaming enthalpy at port_a";
@@ -29,17 +34,17 @@ equation
 
   hWat_instream = inStream(port_a.h_outflow);
 
-  TWat= MediumWat.temperature(
-    state=MediumWat.setState_phX(
+  Ta= Medium_a.temperature(
+    state=Medium_a.setState_phX(
       p=port_a.p, h=inStream(port_a.h_outflow), X=inStream(port_a.Xi_outflow)));
-  TSat= MediumSte.saturationTemperature(port_b.p);
+  TSat= Medium_b.saturationTemperature(port_b.p);
 
-  cp = MediumWat.specificHeatCapacityCp(state=
-    MediumWat.setState_pTX(p=port_a.p,T=TSat,X=inStream(port_b.Xi_outflow)));
+  cp = Medium_a.specificHeatCapacityCp(state=
+    Medium_a.setState_pTX(p=port_a.p,T=TSat,X=inStream(port_b.Xi_outflow)));
 
-  TSte = TSat;
-  if (TWat < TSat) then
-    dh = dhVap + cp*(TSat - TWat);
+  Tb = TSat;
+  if (Ta < TSat) then
+    dh = dhVap + cp*(TSat - Ta);
   else
     dh = dhVap;
   end if;
@@ -48,12 +53,13 @@ equation
   port_a.m_flow + port_b.m_flow = 0;
 
   // Enthalpy decreased with boiling process
-  dhVap = MediumSte.enthalpyOfVaporization_sat(MediumSte.saturationState_p(port_b.p))
+  dhVap = Medium_b.bubbleEnthalpy(Medium_b.setSat_p(port_b.p)) -
+    Medium_b.dewEnthalpy(Medium_b.setSat_p(port_b.p))
     "Enthalpy change due to vaporization";
   port_b.h_outflow = inStream(port_a.h_outflow) + dh;
 
   // Set condition for reverse flow for model consistency
-  port_a.h_outflow =  MediumWat.h_default;
+  port_a.h_outflow =  Medium_a.h_default;
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
@@ -127,4 +133,4 @@ equation
           lineColor={0,0,255},
           textString="%name")}),                                 Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end Boiling;
+end Evaporation;

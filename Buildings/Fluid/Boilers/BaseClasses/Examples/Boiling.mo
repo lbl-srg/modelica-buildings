@@ -23,7 +23,7 @@ model Boiling "Test model for water boiling process"
     use_p_in=true,
     nPorts=1) "Steam sink"
     annotation (Placement(transformation(extent={{78,0},{58,20}})));
-  Buildings.Fluid.Boilers.BaseClasses.Boiling boi "Boiling process"
+  Buildings.Fluid.Boilers.BaseClasses.Evaporation boi "Boiling process"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
 equation
   connect(watSou.m_flow_in, m_flow.y)

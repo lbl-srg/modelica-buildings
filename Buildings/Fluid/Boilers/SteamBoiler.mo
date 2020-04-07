@@ -11,7 +11,7 @@ model SteamBoiler "Simple steam boiler model for testing"
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate";
 
-  BaseClasses.Boiling boi
+  BaseClasses.Evaporation boi
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   Modelica.Blocks.Interfaces.RealInput pSte "Prescribed steam pressure"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
