@@ -24,7 +24,7 @@ block SumZone
     final min = fill(0, numZon),
     final unit = fill("m3/s", numZon),
     final quantity=fill("VolumeFlowRate", numZon))
-    "Area component breathing zone outdoor airflow"
+    "Area component breathing zone design outdoor airflow"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
 
@@ -101,7 +101,7 @@ block SumZone
     final min = 0,
     final unit = "m3/s",
     final quantity="VolumeFlowRate")
-    "Sum of all zones required uncorrected outdoor airflow rate"
+    "Sum of the required uncorrected outdoor airflow rate"
     annotation (Placement(transformation(extent={{100,-70},{140,-30}}),
         iconTransformation(extent={{100,-50},{140,-10}})));
 
@@ -117,7 +117,7 @@ block SumZone
     final min = 0,
     final unit = "m3/s",
     final quantity="VolumeFlowRate")
-    "System primary airflow rate, equals to the sum of the measured discharged flow rate of all terminal units"
+    "AHU level primary airflow rate, equals to the sum of the measured discharged flow rate of all terminal units"
     annotation (Placement(transformation(extent={{100,-140},{140,-100}}),
         iconTransformation(extent={{100,-110},{140,-70}})));
 
@@ -184,10 +184,9 @@ equation
   connect(sysUncOutAir.y, VSumUncOutAir_flow)
     annotation (Line(points={{-58,-50},{120,-50}}, color={0,0,127}));
   connect(sysPriAirRate.y, VSumSysPriAir_flow)
-    annotation (Line(points={{62,-120},{120,-120}},
-                                                 color={0,0,127}));
+    annotation (Line(points={{62,-120},{120,-120}}, color={0,0,127}));
   connect(maxPriOutAirFra.y, uOutAirFra_max)
-    annotation (Line(points={{2,-80},{120,-80}},    color={0,0,127}));
+    annotation (Line(points={{2,-80},{120,-80}}, color={0,0,127}));
   connect(yAveOutAirFraPlu, reaRep.u)
     annotation (Line(points={{-120,20},{-82,20}}, color={0,0,127}));
   connect(uDesZonPeaOcc, sumDesZonPop.u)
@@ -207,7 +206,6 @@ equation
     annotation (Line(points={{-120,-80},{-22,-80}}, color={0,0,127}));
 
 annotation (
-  defaultComponentName="zonToSys",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
        graphics={Rectangle(
           extent={{-100,100},{100,-100}},
@@ -217,65 +215,136 @@ annotation (
         Text(
           extent={{-100,158},{100,118}},
           lineColor={0,0,255},
-          textString="%name"),            Text(
+          textString="%name"),
+        Text(
           extent={{-98,88},{-34,74}},
           lineColor={0,0,0},
-          textString="uDesZonPeaOcc"),    Text(
+          textString="uDesZonPeaOcc"),
+        Text(
           extent={{-98,68},{-22,54}},
           lineColor={0,0,0},
           textString="VDesPopBreZon_flow"),
-                                          Text(
+        Text(
           extent={{-98,26},{-30,14}},
           lineColor={0,0,0},
-          textString="yAveOutAirFraPlu"), Text(
+          textString="yAveOutAirFraPlu"),
+        Text(
           extent={{-98,48},{-24,32}},
           lineColor={0,0,0},
           textString="VDesAreBreZon_flow"),
-                                          Text(
+        Text(
           extent={{-98,-52},{-44,-66}},
           lineColor={0,0,0},
-          textString="uPriOutAirFra"),    Text(
+          textString="uPriOutAirFra"),
+        Text(
           extent={{-98,-74},{-50,-86}},
           lineColor={0,0,0},
-          textString="VPriAir_flow"),     Text(
+          textString="VPriAir_flow"),
+        Text(
           extent={{-98,-32},{-30,-46}},
           lineColor={0,0,0},
-          textString="VUncOutAir_flow"),  Text(
+          textString="VUncOutAir_flow"),
+        Text(
           extent={{-98,-12},{-28,-26}},
           lineColor={0,0,0},
-          textString="uDesPriOutAirFra"), Text(
+          textString="uDesPriOutAirFra"),
+        Text(
           extent={{42,8},{96,-6}},
           lineColor={0,0,0},
-          textString="yDesSysVenEff"),    Text(
+          textString="yDesSysVenEff"),
+        Text(
           extent={{12,40},{96,24}},
           lineColor={0,0,0},
           textString="VSumDesAreBreZon_flow"),
-                                          Text(
+        Text(
           extent={{12,70},{96,54}},
           lineColor={0,0,0},
           textString="VSumDesPopBreZon_flow"),
-                                          Text(
+        Text(
           extent={{36,98},{96,82}},
           lineColor={0,0,0},
-          textString="ySumDesZonPop"),    Text(
+          textString="ySumDesZonPop"),
+        Text(
           extent={{36,-50},{96,-66}},
           lineColor={0,0,0},
-          textString="uOutAirFra_max"),   Text(
+          textString="uOutAirFra_max"),
+        Text(
           extent={{26,-20},{96,-36}},
           lineColor={0,0,0},
           textString="VSumUncOutAir_flow"),
-                                          Text(
+        Text(
           extent={{24,-80},{96,-96}},
           lineColor={0,0,0},
           textString="VSumSysPriAir_flow")}),
-Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{100,140}})),
-Documentation(info="<html>
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{100,140}})),
+  defaultComponentName="zonToSys",
+  Documentation(info="<html>
 <p>
 This sequence sums up the zone level minimum outdoor airflow setpoints, finds the
 maximum zone outdoor air fraction and the minimum zone ventilation efficiency. It
-collects zone level outputs and prepares inputs for specifying system level minimum
+collects zone level outputs and prepares inputs for specifying AHU level minimum
 outdoor air setpoint.
 </p>
+<p>
+It requires following inputs from zone level calculation,
+</p>
+<ul>
+<li>
+Design zone peak occupancy, <code>uDesZonPeaOcc</code>,
+</li>
+<li>
+Population component of the breathing zone design outdoor airflow, <code>VDesPopBreZon_flow</code>,
+</li>
+<li>
+Area component of the breathing zone design outdoor airflow, <code>VDesAreBreZon_flow</code>,
+</li>
+<li>
+Design zone primary outdoor air fraction, <code>uDesPriOutAirFra</code>,
+</li>
+<li>
+Uncorrected outdoor airflow rate, <code>VUncOutAir_flow</code>, 
+</li>
+<li>
+Primary outdoor air fraction, <code>uPriOutAirFra</code>,
+</li>
+<li>
+Primary airflow rate, <code>VPriAir_flow</code>,
+</li>
+</ul>
+<p>
+and following input from AHU level calculation,
+</p>
+<ul>
+<li>
+Average AHU level outdoor air flow fraction plus 1, <code>yAveOutAirFraPlu</code>.
+</li>
+</ul>
+<p>
+The sequence gives following outputs for AHU level calculation:
+</p>
+<ul>
+<li>
+Sum of the design population of the zones, <code>ySumDesZonPop</code>,
+</li>
+<li>
+Sum of the population component of the design breathing zone flow rate, <code>VSumDesPopBreZon_flow</code>,
+</li>
+<li>
+Sum of the area component of the design breathing zone flow rate, <code>VSumDesAreBreZon_flow</code>,
+</li>
+<li>
+Design system ventilation efficiency, <code>yDesSysVenEff</code>,
+</li>
+<li>
+Sum of the required uncorrected outdoor airflow rate, <code>VSumUncOutAir_flow</code>,
+</li>
+<li>
+Maximum zone outdoor air fraction, <code>uOutAirFra_max</code>,
+</li>
+<li>
+AHU level primary airflow rate, <code>VSumSysPriAir_flow</code>.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>

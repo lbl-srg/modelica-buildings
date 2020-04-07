@@ -77,15 +77,15 @@ block Zone
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
-    displayUnit="degC",
-    quantity="ThermodynamicTemperature") "Measured zone air temperature"
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature") "Measured zone air temperature"
     annotation (Placement(transformation(extent={{-200,-150},{-160,-110}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDis(
     final unit="K",
-    displayUnit="degC",
-    quantity="ThermodynamicTemperature") "Measured discharge air temperature"
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature") "Measured discharge air temperature"
     annotation (Placement(transformation(extent={{-200,-190},{-160,-150}}),
       iconTransformation(extent={{-140,-50},{-100,-10}})));
 
@@ -354,7 +354,7 @@ equation
   connect(nOcc, intToRea.u)
     annotation (Line(points={{-180,40},{-142,40}}, color={255,127,0}));
   connect(desZonPriOutAirRate.y, yDesPriOutAirFra)
-    annotation (Line(points={{162,70},{200,70}},   color={0,0,127}));
+    annotation (Line(points={{162,70},{200,70}}, color={0,0,127}));
   connect(priOutAirFra.y, yPriOutAirFra)
     annotation (Line(points={{142,-160},{200,-160}}, color={0,0,127}));
   connect(zerOutAir.y, swi4.u1) annotation (Line(points={{-18,-70},{0,-70},{0,-42},
@@ -364,14 +364,13 @@ equation
   connect(zonOutAirRate.y, swi4.u3) annotation (Line(points={{102,20},{120,20},{
           120,-20},{40,-20},{40,-58},{58,-58}},  color={0,0,127}));
   connect(swi4.y, swi5.u3) annotation (Line(points={{82,-50},{100,-50},{100,-98},
-          {118,-98}},                                    color={0,0,127}));
+          {118,-98}}, color={0,0,127}));
   connect(swi5.y, VUncOutAir_flow)
     annotation (Line(points={{142,-90},{200,-90}}, color={0,0,127}));
   connect(swi5.y, priOutAirFra.u1) annotation (Line(points={{142,-90},{160,-90},
-          {160,-120},{100,-120},{100,-154},{118,-154}},                   color=
-         {0,0,127}));
+          {160,-120},{100,-120},{100,-154},{118,-154}}, color={0,0,127}));
   connect(uWin, swi4.u2) annotation (Line(points={{-180,-50},{58,-50}},
-                color={255,0,255}));
+          color={255,0,255}));
   connect(cloWin.y, swi4.u2) annotation (Line(points={{-78,-70},{-60,-70},{-60,-50},
           {58,-50}},color={255,0,255}));
   connect(uReqOutAir, swi5.u2)
@@ -398,11 +397,12 @@ equation
           -8},{-42,-8}}, color={0,0,127}));
   connect(pro.y, breZonPop.u) annotation (Line(points={{-58,180},{-40,180},{-40,
           100},{-110,100},{-110,-30},{-102,-30}}, color={0,0,127}));
-  connect(VUncOut_flow_nominal, gaiDivZer.u) annotation (Line(points={{-180,-250},
-          {-100,-250},{-100,-240},{-82,-240}},  color={0,0,127}));
+  connect(VUncOut_flow_nominal, gaiDivZer.u)
+    annotation (Line(points={{-180,-250},{-100,-250},{-100,-240},{-82,-240}},
+      color={0,0,127}));
   connect(gaiDivZer.y, max.u2)
     annotation (Line(points={{-58,-240},{-40,-240},{-40,-226},{-22,-226}},
-                                                     color={0,0,127}));
+      color={0,0,127}));
   connect(floPerPer.y, desBreZonPer.u2) annotation (Line(points={{-118,200},{-100,
           200},{-100,214},{-82,214}}, color={0,0,127}));
   connect(desPeaOcc.y, desBreZonPer.u1) annotation (Line(points={{-118,240},{-100,
@@ -423,54 +423,66 @@ annotation (
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid), Text(
+          fillPattern=FillPattern.Solid),
+        Text(
           extent={{-98,-82},{-14,-98}},
           lineColor={0,0,0},
           textString="VUncOut_flow_nominal"),
         Text(
           extent={{-100,158},{100,118}},
           lineColor={0,0,255},
-          textString="%name"),            Text(
+          textString="%name"),
+        Text(
           extent={{-100,-54},{-58,-64}},
           lineColor={0,0,0},
-          textString="VDis_flow"),        Text(
+          textString="VDis_flow"),
+        Text(
           extent={{-100,-24},{-72,-36}},
           lineColor={0,0,0},
-          textString="TDis"),             Text(
+          textString="TDis"),
+        Text(
           extent={{-100,8},{-70,-4}},
           lineColor={0,0,0},
-          textString="TZon"),             Text(
+          textString="TZon"),
+        Text(
           extent={{-100,36},{-40,24}},
           lineColor={255,0,255},
-          textString="uReqOutAir"),       Text(
+          textString="uReqOutAir"),
+        Text(
           visible=have_winSen,
           extent={{-100,68},{-72,56}},
           lineColor={255,0,255},
-          textString="uWin"),             Text(
+          textString="uWin"),
+        Text(
           visible=have_occSen,
           extent={{-100,98},{-70,86}},
           lineColor={255,127,0},
-          textString="nOcc"),             Text(
+          textString="nOcc"),
+        Text(
           extent={{28,98},{98,82}},
           lineColor={0,0,0},
-          textString="yDesZonPeaOcc"),    Text(
+          textString="yDesZonPeaOcc"),
+        Text(
           extent={{12,70},{96,54}},
           lineColor={0,0,0},
           textString="VDesPopBreZon_flow"),
-                                          Text(
+        Text(
           extent={{14,38},{98,22}},
           lineColor={0,0,0},
           textString="VDesAreBreZon_flow"),
-                                          Text(
+        Text(
           extent={{28,10},{98,-8}},
           lineColor={0,0,0},
-          textString="yDesPriOutAirFra"), Text(
+          textString="yDesPriOutAirFra"),
+        Text(
           extent={{28,-20},{98,-36}},
           lineColor={0,0,0},
-          textString="VUncOutAir_flow"),  Text(
+          textString="VUncOutAir_flow"),
+        Text(
           extent={{40,-50},{96,-66}},
           lineColor={0,0,0},
-          textString="yPriOutAirFra"),    Text(
+          textString="yPriOutAirFra"),
+        Text(
           extent={{48,-82},{98,-96}},
           lineColor={0,0,0},
           textString="VPriAir_flow")}),
