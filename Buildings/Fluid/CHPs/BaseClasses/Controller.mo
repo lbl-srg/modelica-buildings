@@ -94,12 +94,10 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Or noGoSig
     "Check if water flow rate is smaller than the minimum or if runSig = false"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not1 "Plant is not running"
-    annotation (Placement(transformation(extent={{-220,110},{-200,130}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not2 "Plant is not running"
-    annotation (Placement(transformation(extent={{-220,-150},{-200,-130}})));
-  Buildings.Controls.OBC.CDL.Logical.Or or1 "Plant is not available or should not run"
-    annotation (Placement(transformation(extent={{-180,-170},{-160,-150}})));
+  Buildings.Controls.OBC.CDL.Logical.Not notRunSig "Plant is not running"
+    annotation (Placement(transformation(extent={{-230,110},{-210,130}})));
+  Buildings.Controls.OBC.CDL.Logical.Not notAvaSig "Plant is not available"
+    annotation (Placement(transformation(extent={{-230,-150},{-210,-130}})));
   Buildings.Controls.OBC.CDL.Logical.And and1
     "Warm-up mode is done and the plant could run"
     annotation (Placement(transformation(extent={{120,-30},{140,-10}})));
@@ -210,10 +208,10 @@ equation
                           color={0,0,127}));
   connect(runSig, goSig.u2) annotation (Line(points={{-280,140},{-30,140},{-30,172},
           {-22,172}}, color={255,0,255}));
-  connect(runSig, not1.u) annotation (Line(points={{-280,140},{-240,140},{-240,120},
-          {-222,120}}, color={255,0,255}));
-  connect(not1.y, noGoSig.u2) annotation (Line(points={{-198,120},{-30,120},{-30,
-          72},{-22,72}}, color={255,0,255}));
+  connect(runSig, notRunSig.u) annotation (Line(points={{-280,140},{-240,140},{
+          -240,120},{-232,120}}, color={255,0,255}));
+  connect(notRunSig.y, noGoSig.u2) annotation (Line(points={{-208,120},{-30,120},
+          {-30,72},{-22,72}}, color={255,0,255}));
   connect(hys1.y, noGoSig.u1) annotation (Line(points={{-38,80},{-22,80}},
           color={255,0,255}));
   connect(runSig, assWatMas.runSig) annotation (Line(points={{-280,140},{-240,
@@ -223,12 +221,8 @@ equation
                                                 color={255,0,255}));
   connect(runSig, transition2.condition) annotation (Line(points={{-280,140},{-240,
           140},{-240,-24},{-20,-24},{-20,-12}}, color={255,0,255}));
-  connect(avaSig, not2.u) annotation (Line(points={{-280,180},{-250,180},{-250,
-          -140},{-222,-140}}, color={255,0,255}));
-  connect(not1.y, or1.u1) annotation (Line(points={{-198,120},{-190,120},{-190,-160},
-          {-182,-160}}, color={255,0,255}));
-  connect(not2.y, or1.u2) annotation (Line(points={{-198,-140},{-194,-140},{
-          -194,-168},{-182,-168}}, color={255,0,255}));
+  connect(avaSig, notAvaSig.u) annotation (Line(points={{-280,180},{-250,180},{
+          -250,-140},{-232,-140}}, color={255,0,255}));
   connect(minWatFlo1.y, max1.u2) annotation (Line(points={{-158,80},{-150,80},{-150,
           74},{-142,74}}, color={0,0,127}));
   connect(con.y, max1.u1) annotation (Line(points={{-158,160},{-150,160},{-150,86},
@@ -237,10 +231,8 @@ equation
           180},{20,56},{-140,56},{-140,-28},{40,-28},{40,-12}}, color={255,0,255}));
   connect(and1.y, transition6.condition) annotation (Line(points={{142,-20},{
           160,-20},{160,-12}}, color={255,0,255}));
-  connect(or1.y, transition5.condition) annotation (Line(points={{-158,-160},{40,
-          -160},{40,-92}}, color={255,0,255}));
-  connect(not2.y, transition3.condition) annotation (Line(points={{-198,-140},{
-          -20,-140},{-20,-92}}, color={255,0,255}));
+  connect(notAvaSig.y, transition3.condition) annotation (Line(points={{-208,
+          -140},{-20,-140},{-20,-92}}, color={255,0,255}));
   connect(and3.y, transition7.condition) annotation (Line(points={{122,-160},{
           220,-160},{220,-92}}, color={255,0,255}));
   connect(and4.y, transition10.condition) annotation (Line(points={{230,-200},{240,
@@ -312,6 +304,8 @@ equation
           -40},{80,-42},{88,-42}}, color={0,0,127}));
   connect(PEle, warUpCtr.PEle) annotation (Line(points={{-280,-80},{-40,-80},{
           -40,-46},{88,-46}}, color={0,0,127}));
+  connect(notRunSig.y, transition5.condition) annotation (Line(points={{-208,
+          120},{-200,120},{-200,-120},{40,-120},{40,-92}}, color={255,0,255}));
 annotation (
     defaultComponentName="conMai",
     Diagram(coordinateSystem(extent={{-260,-220},{260,220}})),
@@ -394,7 +388,7 @@ The transition from the stand-by to the pump-on mode will occur when the plant
 running signal <code>runSig</code> becomes true.
 </li>
 <li>
-If <code>runSig</code> becomes false, the CHP will automatically change to the off mode.
+If <code>avaSig</code> becomes false, the CHP will automatically change to the off mode.
 </li>
 </ul>
 <p>
@@ -407,8 +401,7 @@ time delay and if the water flow rate <code>mWat_flow</code> is greater than
 the minimum <code>mWatMin</code>.
 </li>
 <li>
-If <code>avaSig</code> becomes false or if <code>runSig</code> becomes false,
-the CHP will automatically change to the off mode.
+If <code>runSig</code> becomes false, the CHP will automatically change to the off mode.
 </li>
 </ul>
 <p>

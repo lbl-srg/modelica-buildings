@@ -152,21 +152,11 @@ model ThermalElectricalFollowing
     final yMin=0,
     final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter) if optionalFollowing
     "Cooling water outplet controller"
-    annotation (Placement(transformation(extent={{-80,340},{-60,360}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold neeFolThe(
-    final threshold=273.15 + 1) if optionalFollowing
-    "Check if it should active thermal following"
-    annotation (Placement(transformation(extent={{-120,300},{-100,320}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
-    final k=0) if optionalFollowing "Constant zero"
-    annotation (Placement(transformation(extent={{-40,270},{-20,290}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1 if optionalFollowing
-    "Check if there is a need for heat generation"
-    annotation (Placement(transformation(extent={{20,300},{40,320}})));
+    annotation (Placement(transformation(extent={{-60,340},{-40,360}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain elePowDem(
     final k=per.PEleMax) if optionalFollowing
     "Electric power demand if thermal following"
-    annotation (Placement(transformation(extent={{-40,340},{-20,360}})));
+    annotation (Placement(transformation(extent={{0,340},{20,360}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     "Switch between thermal and electrical following"
     annotation (Placement(transformation(extent={{100,250},{120,270}})));
@@ -255,27 +245,17 @@ equation
   connect(eng.TEng, opeMod.TEng) annotation (Line(points={{22,-130},{24,-130},{
           24,158},{48,158}},
                           color={0,0,127}));
-  connect(TWatOutSet, cooWatCon.u_s) annotation (Line(points={{-200,350},{-82,350}},
+  connect(TWatOutSet, cooWatCon.u_s) annotation (Line(points={{-200,350},{-62,
+          350}},
           color={0,0,127}));
-  connect(cooWatCon.y, elePowDem.u) annotation (Line(points={{-58,350},{-42,350}},
+  connect(cooWatCon.y, elePowDem.u) annotation (Line(points={{-38,350},{-2,350}},
           color={0,0,127}));
-  connect(TWatOutSet, neeFolThe.u) annotation (Line(points={{-200,350},{-160,350},
-          {-160,310},{-122,310}},color={0,0,127}));
-  connect(neeFolThe.y, swi1.u2) annotation (Line(points={{-98,310},{18,310}},
-          color={255,0,255}));
-  connect(elePowDem.y, swi1.u1) annotation (Line(points={{-18,350},{0,350},{0,318},
-          {18,318}}, color={0,0,127}));
-  connect(zer.y, swi1.u3) annotation (Line(points={{-18,280},{0,280},{0,302},{18,
-          302}}, color={0,0,127}));
   connect(theFol, swi.u2) annotation (Line(points={{-200,260},{98,260}},
           color={255,0,255}));
-  connect(swi1.y, swi.u1) annotation (Line(points={{42,310},{80,310},{80,268},{
-          98,268}},
-                 color={0,0,127}));
   connect(PEleDem, swi.u3) annotation (Line(points={{-200,200},{90,200},{90,252},
           {98,252}}, color={0,0,127}));
   connect(TWatOut.T, cooWatCon.u_m) annotation (Line(points={{80,-60},{100,-60},
-          {100,-80},{-150,-80},{-150,330},{-70,330},{-70,338}}, color={0,0,127}));
+          {100,-80},{-150,-80},{-150,330},{-50,330},{-50,338}}, color={0,0,127}));
   connect(watHea.Q_flow, gai.u) annotation (Line(points={{-10,-100},{118,-100}},
           color={0,0,127}));
   connect(gai.y, QWat_flow)
@@ -296,8 +276,11 @@ equation
           {-160,-120},{-140,-120}}, color={191,0,0}));
   connect(TRooSen.T, eneCon.TRoo) annotation (Line(points={{-120,-120},{-90,
           -120},{-90,26},{-62,26}}, color={0,0,127}));
-  connect(theFol, cooWatCon.trigger) annotation (Line(points={{-200,260},{-78,260},
-          {-78,338}}, color={255,0,255}));
+  connect(theFol, cooWatCon.trigger) annotation (Line(points={{-200,260},{-58,
+          260},{-58,338}},
+                      color={255,0,255}));
+  connect(elePowDem.y, swi.u1) annotation (Line(points={{22,350},{80,350},{80,
+          268},{98,268}}, color={0,0,127}));
 annotation (
   defaultComponentName="eleFol",
   Diagram(coordinateSystem(extent={{-180,-160},{180,380}})),
