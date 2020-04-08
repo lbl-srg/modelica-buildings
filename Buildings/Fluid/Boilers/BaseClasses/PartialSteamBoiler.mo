@@ -123,7 +123,7 @@ model PartialSteamBoiler
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "Heat port, can be used to connect to ambient"
-    annotation (Placement(transformation(extent={{-10,62}, {10,82}})));
+    annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapDry(
     C=500*mDry,
     T(start=T_start)) if not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
@@ -215,7 +215,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(UAOve.port_a, heatPort) annotation (Line(
-      points={{-50,20},{-56,20},{-56,60},{0,60},{0,72}},
+      points={{-50,20},{-56,20},{-56,60},{0,60},{0,100}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(heaCapDry.port, vol.heatPort) annotation (Line(
@@ -238,6 +238,82 @@ equation
       points={{-21,-10},{-26,-10},{-26,40},{0,40}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+        Rectangle(
+          extent={{-80,80},{80,-80}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{0,-4},{100,5}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={255,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-101,5},{100,-4}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{0,-4},{100,5}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={255,0,0},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-20,22},{20,-20}},
+          fillColor={127,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Text(
+          extent={{-149,-114},{151,-154}},
+          lineColor={0,0,255},
+          textString="%name"),
+        Text(
+          extent={{-140,138},{-94,100}},
+          lineColor={0,0,127},
+          textString="y"),
+        Text(
+          extent={{88,128},{134,90}},
+          lineColor={0,0,127},
+          textString="T"),
+      Line(
+        points={{54,68},{34,58},{54,38},{34,28}},
+        color={238,46,47},
+        smooth=Smooth.Bezier,
+          extent={{-60,-22},{-36,2}}),
+      Line(
+        points={{72,68},{52,58},{72,38},{52,28}},
+        color={238,46,47},
+        smooth=Smooth.Bezier,
+          extent={{-60,-22},{-36,2}}),
+        Ellipse(
+          extent={{-62,-28},{-50,-16}},
+          lineColor={0,0,0},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-42,-44},{-30,-32}},
+          lineColor={0,0,0},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-58,-58},{-46,-46}},
+          lineColor={0,0,0},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-38,-68},{-26,-56}},
+          lineColor={0,0,0},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid),
+      Line(
+        points={{36,68},{16,58},{36,38},{16,28}},
+        color={238,46,47},
+        smooth=Smooth.Bezier,
+          extent={{-60,-22},{-36,2}})}),                         Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end PartialSteamBoiler;
