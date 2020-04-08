@@ -1,5 +1,5 @@
 within Buildings.Fluid.Boilers;
-model SteamBoiler "Simple steam boiler model for testing"
+model IdealSteamBoiler "Simple steam boiler model for testing"
   extends Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium(
     redeclare final package Medium_b = MediumSte,
     redeclare final package Medium_a = MediumWat,
@@ -151,4 +151,4 @@ equation
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid)}),                      Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end SteamBoiler;
+end IdealSteamBoiler;

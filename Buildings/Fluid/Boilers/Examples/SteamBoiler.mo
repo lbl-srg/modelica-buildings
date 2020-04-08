@@ -8,7 +8,8 @@ model SteamBoiler "Test model for the steam boiler"
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 1
     "Nominal mass flow rate";
 
-  Buildings.Fluid.Boilers.SteamBoiler steamBoiler(m_flow_nominal=m_flow_nominal)
+  Buildings.Fluid.Boilers.IdealSteamBoiler steamBoiler(m_flow_nominal=
+        m_flow_nominal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Sources.Boundary_pT steSin(
     redeclare package Medium = MediumSte,

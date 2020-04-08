@@ -9,7 +9,7 @@ model SteamBoilerClosedLoop
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 1
     "Nominal mass flow rate";
 
-  Buildings.Fluid.Boilers.SteamBoiler boi(m_flow_nominal=m_flow_nominal)
+  Buildings.Fluid.Boilers.IdealSteamBoiler boi(m_flow_nominal=m_flow_nominal)
     "Steam boiler"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Sources.Boundary_pT PRef(
