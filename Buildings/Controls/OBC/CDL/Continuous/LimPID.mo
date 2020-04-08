@@ -37,26 +37,39 @@ block LimPID
 
   parameter Real xi_start=0
     "Initial value for integrator output (= integrator state)"
-    annotation (Dialog(group="Initialization",
-                enable=controllerType==CDL.Types.SimpleController.PI or
-                       controllerType==CDL.Types.SimpleController.PID));
+    annotation (Dialog(
+      group="Initialization",
+      enable=initType == CDL.Types.Init.InitialState and
+      (controllerType==CDL.Types.SimpleController.PI or
+       controllerType==CDL.Types.SimpleController.PID)));
   parameter Real xd_start=0
     "Initial value for state of derivative block"
-    annotation (Dialog(group="Initialization",
-                         enable=controllerType==CDL.Types.SimpleController.PD or
-                                controllerType==CDL.Types.SimpleController.PID));
+    annotation (Dialog(
+      group="Initialization",
+      enable=controllerType==CDL.Types.SimpleController.PD or
+             controllerType==CDL.Types.SimpleController.PID));
   parameter Real y_start=0 "Initial value of output"
     annotation(Dialog(
-      enable=initType == CDL.Types.Init.InitialOutput,
-      group="Initialization"));
+      group="Initialization",
+      enable=
+        initType == CDL.Types.Init.InitialOutput and
+        (controllerType==CDL.Types.SimpleController.PI or
+         controllerType==CDL.Types.SimpleController.PID)));
   parameter Boolean reverseAction = false
     "Set to true for throttling the water flow rate through a cooling coil controller";
   parameter Buildings.Controls.OBC.CDL.Types.Reset reset = Buildings.Controls.OBC.CDL.Types.Reset.Disabled
     "Type of controller output reset"
-    annotation(Evaluate=true, Dialog(group="Integrator reset"));
+    annotation(Evaluate=true,
+      Dialog(
+        group="Integrator reset",
+        enable=controllerType==CDL.Types.SimpleController.PI or
+               controllerType==CDL.Types.SimpleController.PID));
   parameter Real y_reset=xi_start
     "Value to which the controller output is reset if the boolean trigger has a rising edge, used if reset == CDL.Types.Reset.Parameter"
-    annotation(Dialog(enable=reset == CDL.Types.Reset.Parameter, group="Integrator reset"));
+    annotation(Dialog(enable=
+      reset == CDL.Types.Reset.Parameter and
+      (controllerType==CDL.Types.SimpleController.PI or
+      controllerType==CDL.Types.SimpleController.PID), group="Integrator reset"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_s
     "Connector of setpoint input signal"
