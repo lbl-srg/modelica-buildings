@@ -46,8 +46,9 @@ block LimPID
     "Initial value for state of derivative block"
     annotation (Dialog(
       group="Initialization",
-      enable=controllerType==CDL.Types.SimpleController.PD or
-             controllerType==CDL.Types.SimpleController.PID));
+      enable=initType == CDL.Types.Init.InitialState and
+             (controllerType==CDL.Types.SimpleController.PD or
+             controllerType==CDL.Types.SimpleController.PID)));
   parameter Real y_start=0 "Initial value of output"
     annotation(Dialog(
       group="Initialization",
@@ -118,7 +119,12 @@ block LimPID
     final k=Td,
     final T=Td/Nd,
     final x_start=xd_start,
-    final initType=Buildings.Controls.OBC.CDL.Types.Init.InitialState) if
+    final y_start=0,
+    final initType=
+      if initType == Buildings.Controls.OBC.CDL.Types.Init.InitialOutput then
+        Buildings.Controls.OBC.CDL.Types.Init.InitialOutput
+      else
+      Buildings.Controls.OBC.CDL.Types.Init.InitialState) if
        with_D "Derivative term"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 
