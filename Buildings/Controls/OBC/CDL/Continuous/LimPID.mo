@@ -34,23 +34,21 @@ block LimPID
     Buildings.Controls.OBC.CDL.Types.Init.InitialState
     "Type of initialization"
     annotation(Evaluate=true,  Dialog(group="Initialization"));
-      // Removed as the Limiter block no longer uses this parameter.
-      // parameter Boolean limitsAtInit = true
-      //  "= false, if limits are ignored during initialization"
-      // annotation(Evaluate=true, Dialog(group="Initialization"));
+
   parameter Real xi_start=0
-    "Initial or guess value value for integrator output (= integrator state)"
+    "Initial value for integrator output (= integrator state)"
     annotation (Dialog(group="Initialization",
                 enable=controllerType==CDL.Types.SimpleController.PI or
                        controllerType==CDL.Types.SimpleController.PID));
   parameter Real xd_start=0
-    "Initial or guess value for state of derivative block"
+    "Initial value for state of derivative block"
     annotation (Dialog(group="Initialization",
                          enable=controllerType==CDL.Types.SimpleController.PD or
                                 controllerType==CDL.Types.SimpleController.PID));
   parameter Real y_start=0 "Initial value of output"
-    annotation(Dialog(enable=initType == CDL.Types.Init.InitialOutput, group=
-          "Initialization"));
+    annotation(Dialog(
+      enable=initType == CDL.Types.Init.InitialOutput,
+      group="Initialization"));
   parameter Boolean reverseAction = false
     "Set to true for throttling the water flow rate through a cooling coil controller";
   parameter Buildings.Controls.OBC.CDL.Types.Reset reset = Buildings.Controls.OBC.CDL.Types.Reset.Disabled
@@ -90,12 +88,11 @@ block LimPID
 
   Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset I(
     final k=1/Ti,
-    final initType=
-      if initType == Buildings.Controls.OBC.CDL.Types.Init.InitialState then
-        Buildings.Controls.OBC.CDL.Types.Init.InitialState
+    final initType=initType,
+    final y_start=if initType == Buildings.Controls.OBC.CDL.Types.Init.InitialOutput then
+        y_start/k
       else
-        Buildings.Controls.OBC.CDL.Types.Init.NoInit,
-    final y_start=xi_start,
+        xi_start,
     final reset=
       if reset == Buildings.Controls.OBC.CDL.Types.Reset.Disabled then
         Buildings.Controls.OBC.CDL.Types.Reset.Disabled
@@ -109,7 +106,7 @@ block LimPID
     final T=Td/Nd,
     final x_start=xd_start,
     final initType=Buildings.Controls.OBC.CDL.Types.Init.InitialState) if
-                                                         with_D "Derivative term"
+       with_D "Derivative term"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Feedback errP "P error"
@@ -440,23 +437,43 @@ output. The controller output can be reset as follows:
 <p>
 Note that this controller implements an integrator anti-windup. Therefore,
 for most applications, keeping the default setting of
-<code>reset = CDL.Types.Reset.Disabled</code> is sufficient.
+<code>reset = CDL.Types.Reset.Disabled</code> suffices.
+However, better control performance is typically achieved if the output of the
+controller is reset when a control loop is activated.
 Examples where it may be beneficial to reset the controller output are situations
 where the equipment control input should continuously increase as the equipment is
 switched on, such as as a light dimmer that may slowly increase the luminance, or
-a variable speed drive of a motor that should continuously increase the speed.
+a variable speed drive of a motor that should continuously increase the speed,
+or a mixing valve that should slowly open.
 </p>
 </li>
+
+<li>
+There is no optional input for a feedforward compensation.
+</li>
+
 
 <li>
 The parameter <code>limitsAtInit</code> has been removed.
 </li>
 
 <li>
-Some parameters assignments in the instances have been made final.
+Homotopy initialization is not implemented.
 </li>
 
 </ol>
+
+<p>
+The parameter <code>initType</code> allows to configure the controller to
+have a user-specified initial condition.
+The options include to set the output of the integrator
+to a user-specified value <code>xi_start</code>, or to set the output of the controller <code>y</code> to a user-specified value <code>y_start</code>.
+For the latter, the output of the controller <code>y</code> will only have this user specified value <code>y_start</code>
+if the proportional and the derivative action are zero. (The contributions of the
+proportional and the derivative action cannot be componsated for when computing the initial condition because
+their values are not known during the initialization.)
+</p>
+
 <p>
 For recommendations regarding tuning of closed loop control, see
 <a href=\"modelica://Modelica.Blocks.Continuous.LimPID\">Modelica.Blocks.Continuous.LimPID</a>
