@@ -2,7 +2,8 @@ within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model LimPIDInitialOutput
   "Test model for LimPID controller with initial output specified"
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant ySet(k=0.75) "Set point"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant ySet(k=0.75)
+    "Set point"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yMea(k=0.75)
     "Measured value"
@@ -47,7 +48,7 @@ Validation test for the block
 Buildings.Controls.OBC.CDL.Continuous.LimPID</a>.
 </p>
 <p>
-This model validates the setting the initial output of the controller to a specified value.
+This model validates setting the initial output of the controller to a specified value.
 Note that the control error must be zero for the initial output to be at the specified value.
 See the description of
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.LimPID\">
@@ -61,7 +62,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(coordinateSystem(extent={{-100,-140},{100,100}}),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
          graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
