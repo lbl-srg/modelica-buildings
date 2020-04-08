@@ -33,14 +33,14 @@ partial model PartialTwoPortTwoMedium
   Medium_a.ThermodynamicState sta_a=
       Medium_a.setState_phX(port_a.p,
                           noEvent(actualStream(port_a.h_outflow)),
-                          noEvent(actualStream(port_a.Xi_outflow))) if
-         show_T "Medium properties in port_a";
+                          noEvent(actualStream(port_a.Xi_outflow))) if show_T
+    "Medium properties in port_a";
 
   Medium_b.ThermodynamicState sta_b=
       Medium_b.setState_phX(port_b.p,
                           noEvent(actualStream(port_b.h_outflow)),
-                          noEvent(actualStream(port_b.Xi_outflow))) if
-          show_T "Medium properties in port_b";
+                          noEvent(actualStream(port_b.Xi_outflow))) if show_T
+    "Medium properties in port_b";
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium = Medium_a,
