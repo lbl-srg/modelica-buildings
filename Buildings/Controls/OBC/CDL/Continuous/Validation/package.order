@@ -24,6 +24,7 @@ LessEqualThreshold
 LessThreshold
 LimPID
 LimPIDInitialOutput
+LimPIDInitialState
 LimPIDWithReset
 Limiter
 Line
