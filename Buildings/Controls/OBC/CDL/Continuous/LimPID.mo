@@ -60,31 +60,26 @@ block LimPID
     "Value to which the controller output is reset if the boolean trigger has a rising edge, used if reset == CDL.Types.Reset.Parameter"
     annotation(Dialog(enable=reset == CDL.Types.Reset.Parameter, group="Integrator reset"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput trigger if reset <> Buildings.Controls.OBC.CDL.Types.Reset.Disabled
-    "Resets the controller output when trigger becomes true"
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
-        rotation=90, origin={-160,-200}),
-     visible=reset <> Buildings.Controls.OBC.CDL.Types.Reset.Disabled,
-      iconTransformation(
-        extent={{-20,-20},{20,20}},
-        rotation=90,
-        origin={-60,-120})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u_s
+    "Connector of setpoint input signal"
+    annotation (Placement(transformation(extent={{-260,-20},{-220,20}}),
+        iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput y_reset_in if reset == Buildings.Controls.OBC.CDL.Types.Reset.Input
     "Input signal for state to which integrator is reset, enabled if reset = CDL.Types.Reset.Input"
     annotation (Placement(transformation(extent={{-260,-120},{-220,-80}}),
     visible=reset == Buildings.Controls.OBC.CDL.Types.Reset.Input,
       iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput u_s
-    "Connector of setpoint input signal"
-    annotation (Placement(transformation(extent={{-260,-20},{-220,20}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput trigger if reset <> Buildings.Controls.OBC.CDL.Types.Reset.Disabled
+    "Resets the controller output when trigger becomes true"
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+        rotation=90, origin={-160,-200}),
+     visible=reset <> Buildings.Controls.OBC.CDL.Types.Reset.Disabled,
+      iconTransformation(extent={{-20,-20},{20,20}}, rotation=90, origin={-60,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_m
     "Connector of measurement input signal"
     annotation (Placement(transformation(origin={0,-220}, extent={{20,-20},{-20,20}},
-      rotation=270), iconTransformation(
-        extent={{20,-20},{-20,20}},
-        rotation=270,
-        origin={0,-120})));
+      rotation=270), iconTransformation(extent={{20,-20},{-20,20}},
+        rotation=270, origin={0,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Connector of actuator output signal"
     annotation (Placement(transformation(extent={{220,-20},{260,20}}),
@@ -223,11 +218,9 @@ protected
     annotation (Placement(transformation(extent={{160,-190},{180,-170}})));
 
 equation
-
   connect(trigger, I.trigger)
     annotation (Line(points={{-160,-200},{-160,-140},{-30,-140},{-30,-12}},
       color={255,0,255}));
-
   connect(u_s, uS_revAct.u) annotation (Line(points={{-240,0},{-212,0},{-212,40},
           {-202,40}},                    color={0,0,127}));
   connect(uS_revAct.y, uSetWp.u) annotation (Line(points={{-178,40},{-170,40},{-170,
@@ -298,9 +291,9 @@ equation
   connect(controlError.u2, u_m) annotation (Line(points={{-190,-12},{-190,-20},{
           -212,-20},{-212,-160},{0,-160},{0,-220}}, color={0,0,127}));
   connect(cheYMinMax.y, assMesYMinMax.u)
-    annotation (Line(points={{142,-150},{160,-150}}, color={255,0,255}));
+    annotation (Line(points={{142,-150},{158,-150}}, color={255,0,255}));
   connect(cheYSta.y, assMesYSta.u)
-    annotation (Line(points={{142,-180},{160,-180}}, color={255,0,255}));
+    annotation (Line(points={{142,-180},{158,-180}}, color={255,0,255}));
 annotation (defaultComponentName="conPID",
   Icon(
     coordinateSystem(extent={{-100,-100},{100,100}}),
