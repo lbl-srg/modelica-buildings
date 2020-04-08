@@ -40,7 +40,7 @@ model LimPIDWithReset
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant resVal(k=0.75)
     "Reset value"
-    annotation (Placement(transformation(extent={{-20,12},{0,32}})));
+    annotation (Placement(transformation(extent={{-40,12},{-20,32}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID limPIPar(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=1,
@@ -90,7 +90,8 @@ equation
           -30},{2,-30}},
                      color={0,0,127}));
   connect(limPIDInp.y_reset_in, resVal.y)
-    annotation (Line(points={{18,22},{2,22}}, color={0,0,127}));
+    annotation (Line(points={{18,22},{-18,22}},
+                                              color={0,0,127}));
   connect(limPIPar.u_s, setPoi.y) annotation (Line(points={{18,-30},{2,-30}},
                      color={0,0,127}));
   connect(intWitRes3.u, limPIPar.y)
@@ -107,7 +108,8 @@ equation
           -30},{2,-30}},
                      color={0,0,127}));
   connect(limPIInp.y_reset_in, resVal.y) annotation (Line(points={{18,-78},{14,
-          -78},{14,22},{2,22}}, color={0,0,127}));
+          -78},{14,22},{-18,22}},
+                                color={0,0,127}));
   connect(greEquThr.y, limPIInp.trigger) annotation (Line(points={{-30,-60},{8,
           -60},{8,-90},{24,-90},{24,-82}},  color={255,0,255}));
   connect(limPIDInp.trigger, greEquThr.y) annotation (Line(points={{24,18},{24,
