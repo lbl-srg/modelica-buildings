@@ -26,15 +26,17 @@ partial model PartialFourPortFourMedium
     "= true, if actual temperature at port is computed"
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
 
-  Modelica.SIunits.MassFlowRate m_flow(start=_m_flow_start) = port_a1.m_flow
-    "Mass flow rate from port_a to port_b (m_flow > 0 is design flow direction)";
+  Modelica.SIunits.MassFlowRate m1_flow(start=_m1_flow_start) = port_a1.m_flow
+    "Mass flow rate from port_a1 to port_b1 (m_flow > 0 is design flow direction)";
+  Modelica.SIunits.MassFlowRate m2_flow(start=_m2_flow_start) = port_a2.m_flow
+    "Mass flow rate from port_a2 to port_b2 (m_flow > 0 is design flow direction)";
 
   Modelica.SIunits.PressureDifference dp1(
-    start=_dp_start,
+    start=_dp1_start,
     displayUnit="Pa") = port_a1.p - port_b1.p
     "Pressure difference between port_a1 and port_b1";
   Modelica.SIunits.PressureDifference dp2(
-    start=_dp_start,
+    start=_dp2_start,
     displayUnit="Pa") = port_a2.p - port_b2.p
     "Pressure difference between port_a2 and port_b2";
 
@@ -90,9 +92,13 @@ partial model PartialFourPortFourMedium
     "Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{-90,-70},{-110,-50}})));
 protected
-  final parameter Modelica.SIunits.MassFlowRate _m_flow_start = 0
-  "Start value for m_flow, used to avoid a warning if not set in m_flow, and to avoid m_flow.start in parameter window";
-  final parameter Modelica.SIunits.PressureDifference _dp_start(displayUnit="Pa") = 0
-  "Start value for dp, used to avoid a warning if not set in dp, and to avoid dp.start in parameter window";
+  final parameter Modelica.SIunits.MassFlowRate _m1_flow_start = 0
+  "Start value for m1_flow, used to avoid a warning if not set in m_flow, and to avoid m_flow.start in parameter window";
+  final parameter Modelica.SIunits.PressureDifference _dp1_start(displayUnit="Pa") = 0
+  "Start value for dp1, used to avoid a warning if not set in dp, and to avoid dp.start in parameter window";
+  final parameter Modelica.SIunits.MassFlowRate _m2_flow_start = 0
+  "Start value for m2_flow, used to avoid a warning if not set in m_flow, and to avoid m_flow.start in parameter window";
+  final parameter Modelica.SIunits.PressureDifference _dp2_start(displayUnit="Pa") = 0
+  "Start value for dp2, used to avoid a warning if not set in dp, and to avoid dp.start in parameter window";
 
 end PartialFourPortFourMedium;
