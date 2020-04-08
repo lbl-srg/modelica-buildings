@@ -17,8 +17,6 @@ model LimPIDWithReset
     Td=1,
     yMax=1,
     yMin=-1,
-    initType=Buildings.Controls.OBC.CDL.Types.Init.InitialOutput,
-    y_start=1,
     reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
     y_reset=0.5) "Controller, reset to parameter value"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
@@ -33,8 +31,6 @@ model LimPIDWithReset
     Td=1,
     yMax=1,
     yMin=-1,
-    initType=Buildings.Controls.OBC.CDL.Types.Init.InitialOutput,
-    y_start=1,
     reset=Buildings.Controls.OBC.CDL.Types.Reset.Input,
     y_reset=0.5) "Controller, reset to input value"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
@@ -52,8 +48,6 @@ model LimPIDWithReset
     Td=1,
     yMax=1,
     yMin=-1,
-    initType=Buildings.Controls.OBC.CDL.Types.Init.InitialOutput,
-    y_start=1,
     reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
     y_reset=0.5) "Controller, reset to parameter value"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
@@ -68,8 +62,6 @@ model LimPIDWithReset
     Td=1,
     yMax=1,
     yMin=-1,
-    initType=Buildings.Controls.OBC.CDL.Types.Init.InitialOutput,
-    y_start=1,
     reset=Buildings.Controls.OBC.CDL.Types.Reset.Input,
     y_reset=0.5) "Controller, reset to input value"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
