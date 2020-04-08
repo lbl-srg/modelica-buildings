@@ -35,7 +35,9 @@ model IdealSteamBoiler "Test model for the ideal steam boiler"
   Movers.FlowControlled_m_flow pum(
     redeclare package Medium = MediumWat,
     m_flow_nominal=m_flow_nominal,
-    inputType=Buildings.Fluid.Types.InputType.Constant) "Pump"
+    inputType=Buildings.Fluid.Types.InputType.Constant,
+    addPowerToMedium=false,
+    nominalValuesDefineDefaultPressureCurve=true)       "Pump"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
 equation
   connect(boi.port_b, steSin.ports[1])
