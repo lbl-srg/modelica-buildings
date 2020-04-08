@@ -26,7 +26,8 @@ model Evaporation "Test model for water evaporation process"
   Buildings.Fluid.Boilers.BaseClasses.Evaporation eva(
     redeclare package Medium_a = MediumWat,
     redeclare package Medium_b = MediumSte,
-    m_flow_nominal=m_flow_nominal) "Evaporation process"
+    m_flow_nominal=m_flow_nominal,
+    show_T=true)                                     "Evaporation process"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
 equation
   connect(watSou.m_flow_in, m_flow.y)
