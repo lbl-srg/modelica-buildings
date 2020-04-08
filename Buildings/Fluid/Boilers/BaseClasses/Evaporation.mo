@@ -53,8 +53,8 @@ equation
   port_a.m_flow + port_b.m_flow = 0;
 
   // Enthalpy decreased with boiling process
-  dhVap = Medium_b.bubbleEnthalpy(Medium_b.setSat_p(port_b.p)) -
-    Medium_b.dewEnthalpy(Medium_b.setSat_p(port_b.p))
+  dhVap = Medium_b.dewEnthalpy(Medium_b.setSat_p(port_b.p)) -
+    Medium_b.bubbleEnthalpy(Medium_b.setSat_p(port_b.p))
     "Enthalpy change due to vaporization";
   port_b.h_outflow = inStream(port_a.h_outflow) + dh;
 
