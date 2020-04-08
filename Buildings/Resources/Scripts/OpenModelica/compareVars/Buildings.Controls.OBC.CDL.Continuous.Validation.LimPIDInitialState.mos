@@ -3,6 +3,5 @@ compareVars :=
     "limPID.I.y",
     "limPID.D.y",
     "limPI.I.y",
-    "limPID.D.u",
-    "limPID.xd_start"
+    "limPID.D.u"
   };

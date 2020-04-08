@@ -15,8 +15,7 @@ model LimPIDInitialState
     yMax=1,
     yMin=0,
     initType=Buildings.Controls.OBC.CDL.Types.Init.InitialState,
-    xi_start=0.25,
-    xd_start=-0.5) "PID controller"
+    xi_start=0.25) "PID controller"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID limPI(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
@@ -24,8 +23,7 @@ model LimPIDInitialState
     yMax=1,
     yMin=0,
     initType=Buildings.Controls.OBC.CDL.Types.Init.InitialState,
-    xi_start=0.25,
-    xd_start=-0.5) "PI controller"
+    xi_start=0.25) "PI controller"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 
 equation

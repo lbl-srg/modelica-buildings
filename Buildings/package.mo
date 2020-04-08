@@ -445,8 +445,11 @@ its class name ends with the string <code>Beta</code>.
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.LimPID
         </td>
         <td valign=\"top\">Refactored model so that it is itself a CDL conformant composite block.
-                           This refactoring removes the no longer used parameter <code>strict</code> that
-                           was used in the output limiter. This enforces a strict check by default.<br/>
+                           This refactoring removes the no longer use parameters <code>xd_start</code> that was
+                           used to initialize the state of the derivative term. This state is now initialized
+                           based on the requested initial output.
+                           This refactoring also removes the parameter <code>strict</code> that
+                           was used in the output limiter. The new implementation enforces a strict check by default.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1878\">#1878</a>.<br/>
                            For Dymola, a conversion script makes this change.
         </td>

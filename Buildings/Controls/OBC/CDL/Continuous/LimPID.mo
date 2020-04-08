@@ -42,13 +42,6 @@ block LimPID
       enable=initType == CDL.Types.Init.InitialState and
       (controllerType==CDL.Types.SimpleController.PI or
        controllerType==CDL.Types.SimpleController.PID)));
-  parameter Real xd_start=0
-    "Initial value for state of derivative block"
-    annotation (Dialog(
-      group="Initialization",
-      enable=initType == CDL.Types.Init.InitialState and
-             (controllerType==CDL.Types.SimpleController.PD or
-             controllerType==CDL.Types.SimpleController.PID)));
   parameter Real y_start=0 "Initial value of output"
     annotation(Dialog(
       group="Initialization",
@@ -103,7 +96,8 @@ block LimPID
   Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset I(
     final k=1/Ti,
     final initType=initType,
-    final y_start=if initType == Buildings.Controls.OBC.CDL.Types.Init.InitialOutput then
+    final y_start=
+      if initType == Buildings.Controls.OBC.CDL.Types.Init.InitialOutput then
         y_start/k
       else
         xi_start,
@@ -118,14 +112,9 @@ block LimPID
   Buildings.Controls.OBC.CDL.Continuous.Derivative D(
     final k=Td,
     final T=Td/Nd,
-    final x_start=xd_start,
     final y_start=0,
-    final initType=
-      if initType == Buildings.Controls.OBC.CDL.Types.Init.InitialOutput then
-        Buildings.Controls.OBC.CDL.Types.Init.InitialOutput
-      else
-      Buildings.Controls.OBC.CDL.Types.Init.InitialState) if
-       with_D "Derivative term"
+    final initType=Buildings.Controls.OBC.CDL.Types.Init.InitialOutput) if
+      with_D "Derivative term"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Feedback errP "P error"
@@ -176,7 +165,7 @@ protected
     annotation (Placement(transformation(extent={{-160,110},{-140,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain uMea_revAct(
     final k=revAct) "Set point multiplied by reverse action sign"
-    annotation (Placement(transformation(extent={{-200,-50},{-180,-30}})));
+    annotation (Placement(transformation(extent={{-180,-50},{-160,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain uSetWd(
     final k=wd) if
        with_D
@@ -206,15 +195,15 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yResSig(final k=y_reset) if
       reset == Buildings.Controls.OBC.CDL.Types.Reset.Parameter
     "Signal for y_reset"
-    annotation (Placement(transformation(extent={{-180,-82},{-160,-62}})));
+    annotation (Placement(transformation(extent={{-180,-80},{-160,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain divK(final k=1/k) if
        reset <> Buildings.Controls.OBC.CDL.Types.Reset.Disabled
     "Division by k for integrator reset"
-    annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
+    annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Feedback addRes if
       reset <> Buildings.Controls.OBC.CDL.Types.Reset.Disabled
    "Adder for integrator reset"
-    annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant cheYMinMax(
     final k=yMin < yMax)
@@ -242,25 +231,27 @@ equation
   connect(uS_revAct.y, uSetWp.u) annotation (Line(points={{-178,40},{-170,40},{-170,
           120},{-162,120}},
                           color={0,0,127}));
-  connect(u_m, uMea_revAct.u) annotation (Line(points={{0,-220},{0,-160},{-212,-160},
-          {-212,-40},{-202,-40}}, color={0,0,127}));
+  connect(u_m, uMea_revAct.u) annotation (Line(points={{0,-220},{0,-160},{-190,
+          -160},{-190,-40},{-182,-40}},
+                                  color={0,0,127}));
   connect(uS_revAct.y, uSetWd.u) annotation (Line(points={{-178,40},{-170,40},{-170,
           70},{-162,70}}, color={0,0,127}));
   connect(uSetWp.y, errP.u1)
     annotation (Line(points={{-138,120},{-102,120}}, color={0,0,127}));
-  connect(errP.u2, uMea_revAct.y) annotation (Line(points={{-90,108},{-90,100},{
-          -128,100},{-128,-40},{-178,-40}}, color={0,0,127}));
+  connect(errP.u2, uMea_revAct.y) annotation (Line(points={{-90,108},{-90,100},
+          {-128,100},{-128,-40},{-158,-40}},color={0,0,127}));
   connect(errD.u1, uSetWd.y) annotation (Line(points={{-102,70},{-138,70}},
                           color={0,0,127}));
-  connect(errD.u2, uMea_revAct.y) annotation (Line(points={{-90,58},{-90,48},{-128,
-          48},{-128,-40},{-178,-40}},
+  connect(errD.u2, uMea_revAct.y) annotation (Line(points={{-90,58},{-90,48},{
+          -128,48},{-128,-40},{-158,-40}},
                       color={0,0,127}));
   connect(D.u,errD. y) annotation (Line(points={{-42,70},{-78,70}},
         color={0,0,127}));
   connect(errI1.u1, uS_revAct.y) annotation (Line(points={{-122,0},{-170,0},{-170,
           40},{-178,40}}, color={0,0,127}));
-  connect(errI1.u2, uMea_revAct.y) annotation (Line(points={{-110,-12},{-110,-40},
-          {-178,-40}}, color={0,0,127}));
+  connect(errI1.u2, uMea_revAct.y) annotation (Line(points={{-110,-12},{-110,
+          -40},{-158,-40}},
+                       color={0,0,127}));
   connect(addPD.u1, errP.y)
     annotation (Line(points={{-2,120},{-78,120}}, color={0,0,127}));
   connect(addPID.u1,addPD. y) annotation (Line(points={{38,96},{28,96},{28,114},
@@ -282,16 +273,17 @@ equation
   connect(addPID.u2, I.y) annotation (Line(points={{38,84},{34,84},{34,0},{-18,0}},
         color={0,0,127}));
   connect(divK.y, addRes.u1)
-    annotation (Line(points={{-98,-90},{-82,-90}}, color={0,0,127}));
-  connect(addRes.u2, addPD.y) annotation (Line(points={{-70,-102},{-70,-108},{28,
+    annotation (Line(points={{-98,-70},{-82,-70}}, color={0,0,127}));
+  connect(addRes.u2, addPD.y) annotation (Line(points={{-70,-82},{-70,-108},{28,
           -108},{28,114},{22,114}}, color={0,0,127}));
-  connect(addRes.y, I.y_reset_in) annotation (Line(points={{-58,-90},{-52,-90},{
-          -52,-8},{-42,-8}},
+  connect(addRes.y, I.y_reset_in) annotation (Line(points={{-58,-70},{-52,-70},
+          {-52,-8},{-42,-8}},
                color={0,0,127}));
-  connect(divK.u, yResSig.y) annotation (Line(points={{-122,-90},{-140,-90},{-140,
-          -72},{-158,-72}}, color={0,0,127}));
-  connect(divK.u, y_reset_in) annotation (Line(points={{-122,-90},{-140,-90},{-140,
-          -100},{-240,-100}}, color={0,0,127}));
+  connect(divK.u, yResSig.y) annotation (Line(points={{-122,-70},{-158,-70}},
+                            color={0,0,127}));
+  connect(divK.u, y_reset_in) annotation (Line(points={{-122,-70},{-140,-70},{
+          -140,-100},{-240,-100}},
+                              color={0,0,127}));
   connect(addSat2.u1, gainPID.y) annotation (Line(points={{160,60},{110,60},{110,
           90},{102,90}}, color={0,0,127}));
   connect(addSat2.u2, lim.y) annotation (Line(points={{172,48},{172,40},{150,40},
@@ -304,8 +296,8 @@ equation
     annotation (Line(points={{-72,-12},{-72,-20},{158,-20}}, color={0,0,127}));
   connect(controlError.u1, u_s)
     annotation (Line(points={{-202,0},{-240,0}}, color={0,0,127}));
-  connect(controlError.u2, u_m) annotation (Line(points={{-190,-12},{-190,-20},{
-          -212,-20},{-212,-160},{0,-160},{0,-220}}, color={0,0,127}));
+  connect(controlError.u2, u_m) annotation (Line(points={{-190,-12},{-190,-160},
+          {0,-160},{0,-220}},                       color={0,0,127}));
   connect(cheYMinMax.y, assMesYMinMax.u)
     annotation (Line(points={{142,-150},{158,-150}}, color={255,0,255}));
   connect(cheYSta.y, assMesYSta.u)
@@ -504,7 +496,11 @@ revisions="<html>
 <li>
 April 7, 2020, by Michael Wetter:<br/>
 Reimplemented block using only CDL constructs.
-This refactoring removes the parameter <code>strict</code>.<br/>
+This refactoring removes the no longer use parameters <code>xd_start</code> that was
+used to initialize the state of the derivative term. This state is now initialized
+based on the requested initial output.
+This refactoring also removes the parameter <code>strict</code> that
+was used in the output limiter. The new implementation enforces a strict check by default.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1878\">issue 1878</a>.
 </li>
