@@ -26,7 +26,8 @@ partial model PartialTwoWayValve "Partial model for a two way valve"
   Real k(unit="", min=Modelica.Constants.small)
     "Flow coefficient of valve and pipe in series, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
 initial equation
-  assert(dpFixed_nominal > -Modelica.Constants.eps, "Require dpFixed_nominal >= 0. Received dpFixed_nominal = "
+  assert(dpFixed_nominal > -Modelica.Constants.eps, "In " + getInstanceName() +
+  ": Model requires dpFixed_nominal >= 0 but received dpFixed_nominal = "
         + String(dpFixed_nominal) + " Pa.");
   annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
             {100,100}}),       graphics={Rectangle(
@@ -94,6 +95,13 @@ each valve opening characteristics has different parameters.
 </html>",
 revisions="<html>
 <ul>
+
+<li>
+April 2, 2020, by Filip Jorissen:<br/>
+Added model name in assert message.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1334\">#1334</a>.
+</li>
 <li>
 February 21, 2020, by Michael Wetter:<br/>
 Changed icon to display its operating stage.<br/>

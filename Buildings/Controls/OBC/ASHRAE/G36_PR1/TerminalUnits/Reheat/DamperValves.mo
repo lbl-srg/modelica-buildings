@@ -2,9 +2,15 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat;
 block DamperValves
   "Output signals for controlling VAV reheat box damper and valve position"
 
-  parameter Modelica.SIunits.TemperatureDifference dTDisZonSetMax=11
+  parameter Real dTDisZonSetMax(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference")=11
     "Zone maximum discharge air temperature above heating setpoint";
-  parameter Modelica.SIunits.Temperature TDisMin=283.15
+  parameter Real TDisMin(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=283.15
     "Lowest discharge air temperature";
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeVal=
@@ -16,13 +22,17 @@ block DamperValves
     "Gain of controller for valve control"
     annotation(Dialog(group="Valve"));
 
-  parameter Modelica.SIunits.Time TiVal=300
+  parameter Real TiVal(
+    final unit="s",
+    final quantity="Time")=300
     "Time constant of integrator block for valve control"
     annotation(Dialog(group="Valve",
     enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
         or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Modelica.SIunits.Time TdVal=0.1
+  parameter Real TdVal(
+    final unit="s",
+    final quantity="Time")=0.1
     "Time constant of derivative block for valve control"
     annotation (Dialog(group="Valve",
       enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
@@ -37,19 +47,26 @@ block DamperValves
     "Gain of controller for damper control"
     annotation(Dialog(group="Damper"));
 
-  parameter Modelica.SIunits.Time TiDam=300
+  parameter Real TiDam(
+    final unit="s",
+    final quantity="Time")=300
     "Time constant of integrator block for damper control"
     annotation(Dialog(group="Damper",
     enable=controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
         or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Modelica.SIunits.Time TdDam=0.1
+  parameter Real TdDam(
+    final unit="s",
+    final quantity="Time")=0.1
     "Time constant of derivative block for damper control"
     annotation (Dialog(group="Damper",
       enable=controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal(min=1E-10)
+  parameter Real V_flow_nominal(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate",
+    final min=1E-10)
     "Nominal volume flow rate, used to normalize control error"
     annotation(Dialog(group="Damper"));
 
@@ -111,24 +128,28 @@ block DamperValves
       iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={40,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Supply air temperature from central air handler"
     annotation (Placement(transformation(extent={{-360,-50},{-320,-10}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSet(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Zone heating setpoint temperature"
     annotation (Placement(transformation(extent={{-360,-80},{-320,-40}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Measured zone temperature"
     annotation (Placement(transformation(extent={{-360,-270},{-320,-230}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDis(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Measured discharge air temperature"
     annotation (Placement(transformation(extent={{-360,110},{-320,150}}),
@@ -159,6 +180,7 @@ block DamperValves
         iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TDisHeaSet(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Discharge airflow setpoint temperature for heating"
     annotation (Placement(transformation(extent={{320,-160},{360,-120}}),
