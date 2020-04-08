@@ -138,7 +138,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(coordinateSystem(extent={{-100,-140},{100,100}}),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
          graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
