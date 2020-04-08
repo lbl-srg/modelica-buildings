@@ -15,11 +15,16 @@ partial model PartialFourPortFourMedium
       Modelica.Media.Interfaces.PartialTwoPhaseMedium
     "Medium model for port_b2 (outlet)";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Nominal mass flow rate"
+  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal
+    "Nominal mass flow rate (flow 1)"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
-    "Small mass flow rate for regularization of zero flow";
+  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal
+    "Nominal mass flow rate (flow 2)"
+    annotation(Dialog(group = "Nominal condition"));
+  parameter Modelica.SIunits.MassFlowRate m1_flow_small(min=0) = 1E-4*abs(m1_flow_nominal)
+    "Small mass flow rate for regularization of zero flow (flow 1)";
+  parameter Modelica.SIunits.MassFlowRate m2_flow_small(min=0) = 1E-4*abs(m2_flow_nominal)
+    "Small mass flow rate for regularization of zero flow (flow 2)";
 
   // Diagnostics
    parameter Boolean show_T = false

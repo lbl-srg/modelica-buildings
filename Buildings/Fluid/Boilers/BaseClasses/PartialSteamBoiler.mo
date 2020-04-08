@@ -1,7 +1,7 @@
 within Buildings.Fluid.Boilers.BaseClasses;
-model PartialSteamBoiler
+partial model PartialSteamBoiler
   "Partial model for a steam boiler with a polynomial efficiency curve and phase change between the ports"
-  extends Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium;
+//  extends Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium;
 //  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
 //    port_a(h_outflow(start=h_outflow_start)),
 //    port_b(h_outflow(start=h_outflow_start)));
@@ -48,7 +48,10 @@ model PartialSteamBoiler
     "Start value of trace substances"
     annotation (Dialog(tab="Initialization", enable=Medium_a.nC > 0));
 
-  // Boiler parameters
+  // Nominal Conditions
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+    "Nominal mass flow rate"
+    annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.SIunits.Power Q_flow_nominal "Nominal heating power";
   parameter Modelica.SIunits.Temperature T_nominal = 353.15
     "Temperature used to compute nominal efficiency (only used if efficiency curve depends on temperature)";
@@ -88,7 +91,7 @@ model PartialSteamBoiler
   Modelica.SIunits.VolumeFlowRate VFue_flow = mFue_flow/fue.d
     "Fuel volume flow rate";
 
-  replaceable Buildings.Fluid.MixingVolumes.MixingVolume vol(nPorts=2)
+  replaceable Buildings.Fluid.MixingVolumes.MixingVolume vol(nPorts=1)
   constrainedby Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume(
     redeclare final package Medium = Medium_a,
     nPorts = 2,
@@ -115,11 +118,13 @@ model PartialSteamBoiler
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
   Modelica.Blocks.Interfaces.RealInput y(min=0, max=1) "Part load ratio"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
+    annotation (Placement(transformation(extent={{-140,98},{-100,138}}),
+        iconTransformation(extent={{-120,100},{-100,120}})));
 
   Modelica.Blocks.Interfaces.RealOutput T(final quantity="ThermodynamicTemperature",
                                           final unit = "K", displayUnit = "degC", min=0)
-    annotation (Placement(transformation(extent={{100,70},{120,90}})));
+    annotation (Placement(transformation(extent={{100,70},{120,90}}),
+        iconTransformation(extent={{100,70},{120,90}})));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "Heat port, can be used to connect to ambient"
@@ -132,6 +137,9 @@ model PartialSteamBoiler
 
 
   // States and properties
+  Modelica.Blocks.Interfaces.RealInput pSte "Prescribed steam pressure"
+    annotation (Placement(transformation(extent={{-138,60},{-98,100}}),
+        iconTransformation(extent={{-120,50},{-100,70}})));
 protected
   parameter Medium_a.ThermodynamicState sta_a_default=Medium_a.setState_pTX(
       T=Medium_a.T_default, p=Medium_a.p_default, X=Medium_a.X_default);
@@ -202,14 +210,10 @@ equation
 
   assert(eta > 0.001, "Efficiency curve is wrong.");
 
-  connect(port_a, vol.ports[1])
-    annotation (Line(points={{-100,0},{-13,0}}, color={0,127,255}));
-  connect(vol.ports[2], dpCon.port_a)
-    annotation (Line(points={{-9,0},{20,0}}, color={0,127,255}));
+  connect(vol.ports[1], dpCon.port_a)
+    annotation (Line(points={{-11,0},{20,0}},color={0,127,255}));
   connect(dpCon.port_b, eva.port_a)
     annotation (Line(points={{40,0},{60,0}}, color={0,127,255}));
-  connect(eva.port_b, port_b)
-    annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
   connect(UAOve.port_b, vol.heatPort)            annotation (Line(
       points={{-30,20},{-26,20},{-26,-10},{-21,-10}},
       color={191,0,0},
@@ -238,82 +242,62 @@ equation
       points={{-21,-10},{-26,-10},{-26,40},{0,40}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  connect(dpCon.dp_in, pSte)
+    annotation (Line(points={{30,12},{30,80},{-118,80}}, color={0,0,127}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,120}}),                                  graphics={
         Rectangle(
           extent={{-80,80},{80,-80}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{0,-4},{100,5}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={255,0,0},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-101,5},{100,-4}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{0,-4},{100,5}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={255,0,0},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{-20,22},{20,-20}},
-          fillColor={127,0,0},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None),
         Text(
           extent={{-149,-114},{151,-154}},
           lineColor={0,0,255},
           textString="%name"),
         Text(
-          extent={{-140,138},{-94,100}},
+          extent={{-150,160},{-110,126}},
           lineColor={0,0,127},
           textString="y"),
         Text(
-          extent={{88,128},{134,90}},
+          extent={{104,118},{144,86}},
           lineColor={0,0,127},
           textString="T"),
       Line(
-        points={{54,68},{34,58},{54,38},{34,28}},
+        points={{38,68},{18,58},{38,38},{18,28}},
         color={238,46,47},
         smooth=Smooth.Bezier,
           extent={{-60,-22},{-36,2}}),
       Line(
-        points={{72,68},{52,58},{72,38},{52,28}},
+        points={{60,68},{40,58},{60,38},{40,28}},
         color={238,46,47},
         smooth=Smooth.Bezier,
           extent={{-60,-22},{-36,2}}),
         Ellipse(
-          extent={{-62,-28},{-50,-16}},
+          extent={{-58,60},{-46,72}},
           lineColor={0,0,0},
           fillColor={28,108,200},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{-42,-44},{-30,-32}},
+          extent={{-38,44},{-26,56}},
           lineColor={0,0,0},
           fillColor={28,108,200},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{-58,-58},{-46,-46}},
+          extent={{-54,30},{-42,42}},
           lineColor={0,0,0},
           fillColor={28,108,200},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{-38,-68},{-26,-56}},
+          extent={{-34,20},{-22,32}},
           lineColor={0,0,0},
           fillColor={28,108,200},
           fillPattern=FillPattern.Solid),
-      Line(
-        points={{36,68},{16,58},{36,38},{16,28}},
-        color={238,46,47},
-        smooth=Smooth.Bezier,
-          extent={{-60,-22},{-36,2}})}),                         Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        Text(
+          extent={{-172,54},{-116,8}},
+          lineColor={0,0,127},
+          textString="pSet")}),                                  Diagram(
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})));
 end PartialSteamBoiler;
