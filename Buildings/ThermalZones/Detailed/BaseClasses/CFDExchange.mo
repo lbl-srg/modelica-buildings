@@ -1,106 +1,68 @@
 within Buildings.ThermalZones.Detailed.BaseClasses;
 block CFDExchange "Block that exchanges data with the CFD code"
-  extends Buildings.ThermalZones.Detailed.BaseClasses.PartialExchange;
+extends Buildings.ThermalZones.Detailed.BaseClasses.PartialExchange;
+
+  replaceable CFDThread CFDThre = CFDThread()
+   "Allocate memory for cosimulation variables via constructor and send stop command to FFD via destructor";
+
 
   ///////////////////////////////////////////////////////////////////////////
   // Function that sends the parameters of the model from Modelica to CFD
-  function sendParameters
-    input String cfdFilNam "CFD input file name";
-    input String[nSur] name "Surface names";
-    input Modelica.SIunits.Area[nSur] A "Surface areas";
-    input Modelica.SIunits.Angle[nSur] til "Surface tilt";
-    input Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions[nSur] bouCon
-      "Type of boundary condition";
-    input Integer nPorts(min=0)
-      "Number of fluid ports for the HVAC inlet and outlets";
-    input String portName[nPorts]
-      "Names of fluid ports as declared in the CFD input file";
-    input Boolean haveSensor "Flag, true if the model has at least one sensor";
-    input String sensorName[nSen]
-      "Names of sensors as declared in the CFD input file";
-    input Boolean haveShade "Flag, true if the windows have a shade";
-    input Integer nSur(min=2) "Number of surfaces";
-    input Integer nSen(min=0)
-      "Number of sensors that are connected to CFD output";
-    input Integer nConExtWin(min=0)
-      "number of exterior construction with window";
-    input Boolean verbose "Set to true for verbose output";
-    input Integer nXi
-      "Number of independent species concentration of the inflowing medium";
-    input Integer nC "Number of trace substances of the inflowing medium";
-    input Boolean haveSource
-      "Flag, true if the model has at least one source";
-    input Integer nSou(min=0)
-      "Number of sources that are connected to CFD output";
-    input String sourceName[nSou]
-      "Names of sources as declared in the CFD input file";
-    input Modelica.SIunits.Density rho_start "Density at initial state";
-  protected
-    Integer coSimFlag=0;
+  replaceable function sendParameters
+    extends Buildings.ThermalZones.Detailed.BaseClasses.PartialsendParameters;
+
   algorithm
-    if verbose then
-      Modelica.Utilities.Streams.print("CFDExchange:sendParameter");
-    end if;
+  if verbose then
+    Modelica.Utilities.Streams.print("CFDExchange:sendParameter");
+  end if;
 
-    for i in 1:nSur loop
-      assert(A[i] > 0, "Surface must be bigger than zero.");
-    end for;
+  for i in 1:nSur loop
+    assert(A[i] > 0, "Surface must be bigger than zero.");
+  end for;
 
-    Modelica.Utilities.Streams.print(string="Start cosimulation");
-    coSimFlag := cfdStartCosimulation(
-        cfdFilNam,
-        name,
-        A,
-        til,
-        bouCon,
-        nPorts,
-        portName,
-        haveSensor,
-        sensorName,
-        haveShade,
-        nSur,
-        nSen,
-        nConExtWin,
-        nXi,
-        nC,
-        haveSource,
-        nSou,
-        sourceName,
-        rho_start);
-    assert(coSimFlag < 0.5, "Could not start the cosimulation.");
+  Modelica.Utilities.Streams.print(string="Start cosimulation");
+  coSimFlag := cfdStartCosimulation(
+      cfdFilNam,
+      name,
+      A,
+      til,
+      bouCon,
+      nPorts,
+      portName,
+      haveSensor,
+      sensorName,
+      haveShade,
+      nSur,
+      nSen,
+      nConExtWin,
+      nXi,
+      nC,
+      haveSource,
+      nSou,
+      sourceName,
+      rho_start);
+  assert(coSimFlag < 0.5, "Could not start the cosimulation.");
 
   end sendParameters;
 
   ///////////////////////////////////////////////////////////////////////////
   // Function that exchanges data during the time stepping between
   // Modelica and CFD.
-  function exchange
-    input Integer flag "Communication flag to write to CFD";
-    input Modelica.SIunits.Time t "Current simulation time in seconds to write";
-    input Modelica.SIunits.Time dt(min=100*Modelica.Constants.eps)
-      "Requested time step length";
-    input Real[nU] u "Input for CFD";
-    input Integer nU "Number of inputs for CFD";
-    input Real[nY] yFixed "Fixed values (used for debugging only)";
-    input Integer nY "Number of outputs from CFD";
-    output Modelica.SIunits.Time modTimRea
-      "Current model time in seconds read from CFD";
-    input Boolean verbose "Set to true for verbose output";
-    output Real[nY] y "Output computed by CFD";
-    output Integer retVal
-      "The exit value, which is negative if an error occurred";
+  replaceable function exchange
+    extends Buildings.ThermalZones.Detailed.BaseClasses.Partialexchange;
+
   algorithm
     if verbose then
       Modelica.Utilities.Streams.print("CFDExchange:exchange at t=" + String(t));
     end if;
 
-    (modTimRea,y,retVal) := cfdExchangeData(
-        flag,
-        t,
-        dt,
-        u,
-        nU,
-        nY);
+  (modTimRea,y,retVal) := cfdExchangeData(
+      flag,
+      t,
+      dt,
+      u,
+      nU,
+      nY);
   end exchange;
 
 initial equation
@@ -128,8 +90,6 @@ initial equation
     rho_start=rho_start,
     verbose=verbose);
 
-equation
-
 algorithm
   when sampleTrigger then
     // Exchange data
@@ -155,7 +115,6 @@ algorithm
       "   Aborting simulation. Check CFD log file.\n" +
       "   Received: retVal = " + String(retVal));
   end when;
-
   annotation (
     Documentation(info="<html>
 <p>
@@ -168,6 +127,10 @@ Buildings.ThermalZones.Detailed.UsersGuide.CFD</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 5, 2020, by Xu Han, Wangda Zuo and Michael Wetter:<br/>
+Changed structure.
+</li>
 <li>
 January 12, 2019, by Michael Wetter:<br/>
 Removed <code>Evaluate</code> statement as the model is used with

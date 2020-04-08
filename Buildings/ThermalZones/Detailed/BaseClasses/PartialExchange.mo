@@ -43,8 +43,6 @@ block PartialExchange
   parameter String sourceName[:]
     "Names of sources as declared in the CFD input file";
 
-  CFDThread CFDThre = CFDThread()
-   "Allocate memory for cosimulation variables via constructor and send stop command to FFD via destructor";
 
   Modelica.Blocks.Interfaces.RealInput u[nWri] "Inputs to CFD"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -64,6 +62,7 @@ protected
     "Current model time received from CFD";
 
   discrete Integer retVal(start=0, fixed=true) "Return value from CFD";
+
 
   ///////////////////////////////////////////////////////////////////////////
   // Function that returns strings that are not unique.
@@ -118,6 +117,7 @@ protected
   end assertStringsAreUnique;
 
 initial equation
+
   // Diagnostics output
   if verbose then
    Modelica.Utilities.Streams.print(string="
@@ -138,7 +138,7 @@ CFDExchange has the following sensors:");
     else
       Modelica.Utilities.Streams.print(string="CFDExchange has no sensors.");
     end if;
-end if;
+  end if;
 
   // Assert that the surface, sensor and ports have a name,
   // and that that name is unique.
@@ -170,6 +170,7 @@ end if;
   y=yFixed;
 
   modTimRea = time;
+
 equation
   for i in 1:nWri loop
     der(uInt[i]) = if (flaWri[i] > 0) then u[i] else 0;
@@ -185,7 +186,8 @@ equation
            uWri[i] =  pre(u[i]);
            // Set the correct initial data
         else
-           uWri[i] =  (uInt[i] - pre(uIntPre[i]))/samplePeriod;
+         //  uWri[i] = pre(u[i]);
+          uWri[i] =  (uInt[i] - pre(uIntPre[i]))/samplePeriod;
         // Average value over the sampling interval
         end if;
       else
@@ -201,7 +203,8 @@ equation
   annotation (
     Documentation(info="<html>
 <p>
-This block samples interface variables and exchanges data with the CFD code.
+This partial model derives from <a href=\"modelica://Buildings.ThermalZones.Detailed.BaseClasses.CFDExchange\">
+Buildings.ThermalZones.Detailed.BaseClasses.CFDExchange</a>, which samples interface variables and exchanges data with the CFD or ISAT code.
 </p>
 <p>
 For a documentation of the exchange parameters and variables, see
@@ -211,56 +214,7 @@ Buildings.ThermalZones.Detailed.UsersGuide.CFD</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-January 12, 2019, by Michael Wetter:<br/>
-Removed <code>Evaluate</code> statement as the model is used with
-<code>fixed=false</code> which causes a warning in JModelica.
-</li>
-<li>
-July 27, 2018, by Wei Tian and Xu Han:<br/>
-To fix the issue FFD fails in JModelica tests due to unsupported OS #612 at
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/612\">issue 612</a>.
-November 17, 2016, by Michael Wetter:<br/>
-Removed public parameter <code>uStart</code>, which is not needed and
-refactored model.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/579\">issue 579</a>.
-</li>
-<li>
-April 21, 2016, by Michael Wetter:<br/>
-Movded call to
-<a href=\"modelica://Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath\">
-Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath</a>
-from this model to
-<a href=\"modelica://Buildings.ThermalZones.Detailed.CFD\">Buildings.ThermalZones.Detailed.CFD</a>.
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/506\">Buildings, #506</a>.
-</li>
-<li>
-September 28, 2015, by Michael Wetter:<br/>
-Provided start value for all variables to avoid warning
-in the pedantic Modelica check in Dymola 2016 about unspecified initial conditions.
-This closes
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/459\">issue 459</a>.
-</li>
-<li>
-June 4, 2015, by Michael Wetter:<br/>
-Set <code>start</code> and <code>fixed</code>
-attributes in
-<code>u[nWri](start=_uStart, each fixed=true)</code>
-to avoid a warning in Dymola 2016 about unspecified initial conditions.
-This closes
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/422\">issue 422</a>.
-</li>
-<li>
-February 6, 2015, by Michael Wetter:<br/>
-Changed <code>initial algorithm</code> to <code>initial equation</code>.
-</li>
-<li>
-January 24, 2014, by Wangda Zuo:<br/>
-Enabled the transfer of Xi and X to CFD.
-</li>
-<li>
-July 19, 2013, by Michael Wetter:<br/>
+April 5, 2020, by Xu Han, Wangda Zuo and Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

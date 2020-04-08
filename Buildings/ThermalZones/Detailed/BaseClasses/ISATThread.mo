@@ -13,7 +13,7 @@ Constructor allocates memory for co-simulation variables when co-simulation star
 </html>",   revisions="<html>
 <ul>
 <li>
-July 21, 2019, by Xu Han and Wangda Zuo:<br/>
+April 5, 2019, by Xu Han and Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>
@@ -33,7 +33,7 @@ Destructor sends stop command to ISAT and releases memory for co-simulation vari
 </html>",   revisions="<html>
 <ul>
 <li>
-July 21, 2019, by Xu Han and Wangda Zuo:<br/>
+April 5, 2019, by Xu Han and Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>
@@ -46,7 +46,7 @@ named <code>destructor</code> and <code>constructor</code> respectively.
 </html>",   revisions="<html>
 <ul>
 <li>
-July 21, 2019, by Xu Han and Wangda Zuo:<br/>
+April 5, 2020, by Xu Han, Wangda Zuo and Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

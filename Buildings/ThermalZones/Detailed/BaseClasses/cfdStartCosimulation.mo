@@ -28,8 +28,12 @@ external"C" retVal = cfdStartCosimulation(
   annotation (Documentation(info="<html>
 <p>
 This function calls a C function to start the coupled simulation with CFD.</html>",
-        revisions="<html>
+revisions="<html>
 <ul>
+<li>
+November 1, 2019, by Xu Han, Wangda Zuo:<br/>
+Changed structure.
+</li>
 <li>
 August 16, 2013, by Wangda Zuo:<br/>
 First implementation.

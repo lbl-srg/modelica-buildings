@@ -397,7 +397,7 @@ int write_cosim_data(PARA_DATA *para, REAL **var) {
     | Assign the Xi
     -------------------------------------------------------------------------*/
     if(para->outp->version==DEBUG) {
-      sprintf(msg, "\t\t\tn_Xi=%d, id=%d", para->bc->nb_Xi, id);
+      sprintf(msg, "\t\t\tn_Xi=%f, id=%d", para->bc->nb_Xi, id);
       ffd_log(msg, FFD_NORMAL);
     }
 
@@ -655,7 +655,7 @@ int assign_thermal_bc(PARA_DATA *para, REAL **var, int **BINDEX) {
       return 1;
     }
     /*-------------------------------------------------------------------------*/
-    /* Convert the data from Modelica order to FFD order*/
+    /* Convert the wall data from Modelica order to FFD order*/
     /*-------------------------------------------------------------------------*/
     for(j=0; j<para->bc->nb_wall; j++) {
       i = para->bc->wallId[j];
@@ -682,16 +682,16 @@ int assign_thermal_bc(PARA_DATA *para, REAL **var, int **BINDEX) {
       }
     }
     /*-------------------------------------------------------------------------*/
-    /* Assign the BC*/
+    /* Assign the wall BC*/
     /*-------------------------------------------------------------------------*/
     for(it=0; it<para->geom->index; it++) {
       i = BINDEX[0][it];
       j = BINDEX[1][it];
       k = BINDEX[2][it];
       id = BINDEX[4][it];
-      modelicaId = para->bc->wallId[id];
+      modelicaId = para->bc->wallId[id - para->bc->nb_block];
 
-      if(var[FLAGP][IX(i,j,k)]==SOLID)
+      if(var[FLAGP][IX(i,j,k)]==SOLID && id >= para->bc->nb_block)
         switch(para->cosim->para->bouCon[modelicaId]) {
           case 1:
             var[TEMPBC][IX(i,j,k)] = temHea[id];
@@ -711,6 +711,71 @@ int assign_thermal_bc(PARA_DATA *para, REAL **var, int **BINDEX) {
       } /* End of switch(BINDEX[3][it])*/
     }
 
+		/*-------------------------------------------------------------------------*/
+    /* Convert the block data from Modelica order to FFD order*/
+    /*-------------------------------------------------------------------------*/
+    if(para->cosim->para->nSou>0){
+			for(j=0; j<para->bc->nb_block; j++) {
+				i = j;
+				int bouCon = 1;
+				REAL ABlock = 1.0; /*defined by users*/
+				switch(bouCon) {
+					case 1: /* Temperature*/
+						temHea[j] = para->cosim->modelica->sourceHeat[i] - 273.15;
+						sprintf(msg, "\t%s: T=%f[degC]",
+							para->bc->blockName[j], temHea[j]);
+						ffd_log(msg, FFD_NORMAL);
+						break;
+					case 2: /* Heat flow rate*/
+						temHea[j] = para->cosim->modelica->sourceHeat[i] / ABlock;
+						sprintf(msg, "\t%s: Q_dot=%f[W]",
+							para->bc->blockName[j], temHea[j]);
+						ffd_log(msg, FFD_NORMAL);
+						break;
+					default:
+						sprintf(msg,
+						"Invalid value (%d) for thermal boundary condition. "
+						"Expected value are 1->Fixed T; 2->Fixed heat flux",
+						bouCon);
+						ffd_log(msg, FFD_ERROR);
+						return 1;
+				}
+			}
+		}
+    /*-------------------------------------------------------------------------*/
+    /* Assign the block BC*/
+    /*-------------------------------------------------------------------------*/
+    if(para->cosim->para->nSou>0){
+			int bouCon = 1;
+			for(it=0; it<para->geom->index; it++) {
+				i = BINDEX[0][it];
+				j = BINDEX[1][it];
+				k = BINDEX[2][it];
+				id = BINDEX[4][it];
+				/*modelicaId = id;*/
+
+				if(var[FLAGP][IX(i,j,k)]==SOLID && id < para->bc->nb_block)
+					switch(bouCon) {
+						case 1:
+							var[TEMPBC][IX(i,j,k)] = temHea[id];
+							BINDEX[3][it] = 1; /* Specified temperature*/
+							break;
+						case 2:
+							var[QFLUXBC][IX(i,j,k)] = temHea[id];
+							BINDEX[3][it] = 0; /* Specified heat flux*/
+							break;
+						default:
+							sprintf(msg,
+								"assign_thermal_bc(): Thermal bc value BINDEX[3][%d]=%d "
+								"at [%d,%d,%d] was not valid.",
+								it, BINDEX[3][it], i, j, k);
+							ffd_log(msg, FFD_ERROR);
+							return 1;
+				} /* End of switch(BINDEX[3][it])*/
+			}
+		}
+		
+		
     free(temHea);
   } /* End of if(para->bc->nb_wall>0)*/
   /****************************************************************************

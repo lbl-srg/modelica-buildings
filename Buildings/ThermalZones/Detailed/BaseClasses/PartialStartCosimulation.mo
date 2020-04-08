@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.Detailed.BaseClasses;
-function PartialStartCosimulation
+partial function PartialStartCosimulation
   "Partial model for Starting the coupled simulation with CFD"
   input String cfdFilNam "CFD input file name";
   input String[nSur] name "Surface names";
@@ -32,12 +32,12 @@ function PartialStartCosimulation
     "Return value of the function (0 indicates CFD successfully started.)";
 
   annotation (Documentation(info="<html>
-<p>
-This function calls a C function to start the coupled simulation with CFD.</html>",
+<p>Partial model for the function that calls a C function to start the coupled simulation with CFD or ISAT.</p>
+</html>",
         revisions="<html>
 <ul>
 <li>
-August 16, 2013, by Wangda Zuo:<br/>
+April 5, 2020, by Xu Han, Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

@@ -18,6 +18,10 @@ This function calls a C function to conduct the data exchange between Modelica a
 </html>", revisions="<html>
 <ul>
 <li>
+November 1, 2019, by Xu Han, Wangda Zuo:<br/>
+Changed structure.
+</li>
+<li>
 August 16, 2013, by Wangda Zuo:<br/>
 First implementation.
 </li>

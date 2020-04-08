@@ -18,7 +18,7 @@ This function calls a C function to conduct the data exchange between Modelica a
 </html>", revisions="<html>
 <ul>
 <li>
-July 21, 2019, by Xu Han and Wangda Zuo:<br/>
+November 1, 2019, by Xu Han, Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

@@ -1,3 +1,4 @@
+PartialCFD
 ISATAirHeatMassBalance
 ISATExchange
 ISATThread
@@ -27,6 +28,8 @@ cfdExchangeData
 cfdStartCosimulation
 PartialExchangeData
 PartialStartCosimulation
+PartialsendParameters
+Partialexchange
 to_W
 CFDSurfaceIdentifier
 ConstructionNumbers

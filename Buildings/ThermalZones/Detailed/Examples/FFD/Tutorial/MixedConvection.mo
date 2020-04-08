@@ -385,8 +385,8 @@ First implementation.
 </ul>
 </html>"),
     experiment(Tolerance=1e-06, StopTime=180),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/FFD/Tutorial/MixedConvection.mos"
-        "Simulate and plot"),
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/FFD/Tutorial/MixedConvectionWithBox.mos"),
     Diagram(coordinateSystem(extent={{-80,-160},{200,120}}, preserveAspectRatio=false),
         graphics));
 end MixedConvection;

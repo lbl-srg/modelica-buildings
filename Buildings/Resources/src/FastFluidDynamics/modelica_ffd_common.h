@@ -33,14 +33,15 @@ typedef struct {
                  /* 1: fixed temperature,*/
                  /* 2: fixed heat flow rate through the surface*/
   char **sensorName; /* *sensorName[nSen]: Name of sensor in FFD*/
-  int Sou; /* 1: have internal source ; 0: no internal source*/
-  int nSou; /* Number of internal sources*/
-  char **souName; /* *souName[nSou]: Name of internal heat sources*/	
+	char *version; // DEMO, DEBUG, RUN
+	int Sou; /* 1: have internal source ; 0: no internal source*/
+	int nSou; /* Number of internal sources*/
+	char **souName; /* *souName[nSou]: Name of internal heat sources*/
 } ParameterSharedData;
 
 typedef struct {
   REAL t; /* Current time of integration*/
-	REAL lt; /* Last time of integration*/
+	 REAL lt; /* Last time of integration*/
   int flag; /* To control the data exchange. 0: old data, 1: new data; -1: Stop coupled simulation*/
   REAL dt; /* Time step size for next synchronization*/
   REAL *temHea; /* temHea[nSur]: Temperature or heat flow rate depending on surBou.bouCon*/
@@ -57,7 +58,7 @@ typedef struct {
   REAL **XiPor; /* XiPor[nPorts][Medium.nXi]: species concentration of inflowing medium at the port*/
              /* First Medium.nXi elements are for port 1*/
   REAL **CPor; /* CPor[nPorts][Medium.nC]: the trace substances of the inflowing medium*/
-	REAL *sourceHeat; /* sourceHeat[nSou]: the internal source heat gain*/	
+		REAL *sourceHeat; /* sourceHeat[nSou]: the internal source heat gain*/
 }ModelicaSharedData;
 
 typedef struct {
@@ -73,6 +74,11 @@ typedef struct {
   REAL **CPor; /* CPor[nPorts][medium.nC]: the trace substances of medium at the port*/
   REAL *senVal; /* senVal[nSen]: value of sensor data*/
   char *msg; /* Message to be passed to Modelica*/
+  REAL *input;
+  REAL *output;
+  int nInput;
+  int nOutput;
+  REAL *wOutput; /* Weights for error control, this is need since each component of output vector has different order of magnitudes*/
 }ffdSharedData;
 
 typedef struct{
@@ -80,3 +86,12 @@ typedef struct{
   ffdSharedData *ffd;
   ModelicaSharedData *modelica;
 } CosimulationData;
+
+/*#define FFD_ISAT
+
+#ifdef FFD_ISAT
+typedef enum { COSIM_WARNING, COSIM_ERROR, COSIM_NORMAL, COSIM_NEW } COSIM_MSG_TYPE;
+typedef enum { temp_roo, temp_occ, vel_occ, temp_sen, vel_sen, temp_rack } OUTPUT_TYPE;
+typedef enum { inlet_temp, inlet_mass, inlet_vel, block_temp, block_hea, rack_hea, sur_temp, sur_hea } INPUT_TYPE;
+#endif
+*/

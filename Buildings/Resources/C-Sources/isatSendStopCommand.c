@@ -8,7 +8,6 @@
  *         Xu Han
  *         University of Colorado Boulder
  *         xuha3556@colorado.edu
- *
  *         Wangda Zuo
  *         University of Miami
  *         W.Zuo@miami.edu 

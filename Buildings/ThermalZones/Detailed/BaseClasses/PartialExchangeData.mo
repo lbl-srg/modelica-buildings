@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.Detailed.BaseClasses;
-function PartialExchangeData
+partial function PartialExchangeData
   "Partial model for Exchanging data between CFD and Modelica"
   input Integer flag "Communication flag to CFD";
   input Modelica.SIunits.Time t "Current Modelica simulation time to CFD";
@@ -13,12 +13,11 @@ function PartialExchangeData
   output Integer retVal "Return value for CFD simulation status";
 
   annotation (Documentation(info="<html>
-<p>
-This function calls a C function to conduct the data exchange between Modelica and CFD program during the coupled simulation.</p>
+<p>Partial model for the function that calls a C function to conduct the data exchange between Modelica and CFD or ISAT program during the coupled simulation.</p>
 </html>", revisions="<html>
 <ul>
 <li>
-August 16, 2013, by Wangda Zuo:<br/>
+April 5, 2020, by Xu Han, Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

@@ -29,7 +29,7 @@
 
 #ifndef _MODELICA_FFD_COMMON_H
 #define _MODELICA_FFD_COMMON_H
-#include "../src/ISAT/ffd_src/modelica_ffd_common.h"
+#include "../src/FastFluidDynamics/modelica_ffd_common.h"
 #include <stdint.h> /* Needed to detect 32 vs. 64 bit using UINTPTR_MAX*/
 #endif
 
