@@ -124,8 +124,7 @@ equation
  annotation (
  experiment(
       StopTime=10,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/LimPIDWithReset.mos"
         "Simulate and plot"),
     Documentation(info="<html>
