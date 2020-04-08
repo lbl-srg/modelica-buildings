@@ -27,31 +27,39 @@ protected
     final y=opeMod == Buildings.Fluid.CHPs.BaseClasses.Types.Mode.Off or
             opeMod == Buildings.Fluid.CHPs.BaseClasses.Types.Mode.StandBy)
     "Check if off mode or stand-by mode"
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Utilities.Math.Biquadratic mWatIntCon(
     final a=per.coeMasWat) "Internal control of water flow rate "
-    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
+    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Switch watFloSet "Water flow setpoint"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(final k=0)
     "Zero flow rate"
-    annotation (Placement(transformation(extent={{-20,30},{0,50}})));
+    annotation (Placement(transformation(extent={{0,30},{20,50}})));
 
+  Controls.OBC.CDL.Continuous.Sources.Constant           const1(final k=-273.15)
+    "Absolute zero"
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+  Controls.OBC.CDL.Continuous.Add                        add2 "Absolute zero"
+    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 equation
-  connect(mWatIntCon.u2, TWatIn) annotation (Line(points={{-22,-46},{-40,-46},{
-          -40,-60},{-120,-60}},
-                       color={0,0,127}));
-  connect(mWatIntCon.y, watFloSet.u3) annotation (Line(points={{1,-40},{20,-40},
-          {20,-8},{38,-8}}, color={0,0,127}));
-  connect(watFloSet.y, mWatSet_flow) annotation (Line(points={{62,0},{120,0}},
+  connect(mWatIntCon.y, watFloSet.u3) annotation (Line(points={{21,-30},{40,-30},
+          {40,-8},{58,-8}}, color={0,0,127}));
+  connect(watFloSet.y, mWatSet_flow) annotation (Line(points={{82,0},{120,0}},
                           color={0,0,127}));
-  connect(const.y, watFloSet.u1) annotation (Line(points={{2,40},{20,40},{20,8},
-          {38,8}},  color={0,0,127}));
-  connect(offStaBy.y, watFloSet.u2) annotation (Line(points={{1,0},{38,0}},
+  connect(const.y, watFloSet.u1) annotation (Line(points={{22,40},{40,40},{40,8},
+          {58,8}},  color={0,0,127}));
+  connect(offStaBy.y, watFloSet.u2) annotation (Line(points={{21,0},{58,0}},
           color={255,0,255}));
 
-  connect(PEle, mWatIntCon.u1) annotation (Line(points={{-120,0},{-40,0},{-40,
-          -34},{-22,-34}}, color={0,0,127}));
+  connect(PEle, mWatIntCon.u1) annotation (Line(points={{-120,0},{-20,0},{-20,
+          -24},{-2,-24}},  color={0,0,127}));
+  connect(mWatIntCon.u2, add2.y) annotation (Line(points={{-2,-36},{-12,-36},{
+          -12,-50},{-18,-50}}, color={0,0,127}));
+  connect(TWatIn, add2.u2) annotation (Line(points={{-120,-60},{-60,-60},{-60,
+          -56},{-42,-56}}, color={0,0,127}));
+  connect(const1.y, add2.u1) annotation (Line(points={{-58,-30},{-50,-30},{-50,
+          -44},{-42,-44}}, color={0,0,127}));
 annotation (
   defaultComponentName="conWat",
   Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
