@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
-model LimPIDInitialOutput
+model LimPIDInitialDerivativeOutput
   "Test model for LimPID controller with initial output specified"
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant ySet(k=0.75)
@@ -14,32 +14,31 @@ model LimPIDInitialOutput
     k=3,
     yMax=1,
     yMin=0,
-    initType=Buildings.Controls.OBC.CDL.Types.Init.InitialOutput,
-    y_start=0.55) "PID controller"
+    yd_start=0.2)
+            "PID controller"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID limPI(
-    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+  Buildings.Controls.OBC.CDL.Continuous.LimPID limPD(
+    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PD,
     k=3,
     yMax=1,
     yMin=0,
-    initType=Buildings.Controls.OBC.CDL.Types.Init.InitialOutput,
-    y_start=0.55) "PI controller"
+    yd_start=0.2) "PD controller"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 
 equation
   connect(ySet.y, limPID.u_s) annotation (Line(points={{-18,40},{0,40},{0,30},{18,
           30}}, color={0,0,127}));
-  connect(ySet.y, limPI.u_s) annotation (Line(points={{-18,40},{0,40},{0,-30},{18,
+  connect(ySet.y,limPD. u_s) annotation (Line(points={{-18,40},{0,40},{0,-30},{18,
           -30}}, color={0,0,127}));
   connect(yMea.y, limPID.u_m)
     annotation (Line(points={{-18,10},{30,10},{30,18}}, color={0,0,127}));
-  connect(yMea.y, limPI.u_m) annotation (Line(points={{-18,10},{-4,10},{-4,-50},
+  connect(yMea.y,limPD. u_m) annotation (Line(points={{-18,10},{-4,10},{-4,-50},
           {30,-50},{30,-42}}, color={0,0,127}));
  annotation (
  experiment(
-      StopTime=1,
+      StopTime=0.2,
       Tolerance=1e-06),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/LimPIDInitialOutput.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/LimPIDInitialDerivativeOutput.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -74,4 +73,4 @@ First implementation.
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})));
-end LimPIDInitialOutput;
+end LimPIDInitialDerivativeOutput;

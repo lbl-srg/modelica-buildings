@@ -30,26 +30,21 @@ block LimPID
     "The higher Nd, the more ideal the derivative block"
        annotation(Dialog(enable=controllerType==CDL.Types.SimpleController.PD or
                                 controllerType==CDL.Types.SimpleController.PID));
-  parameter Buildings.Controls.OBC.CDL.Types.Init initType=
-    Buildings.Controls.OBC.CDL.Types.Init.InitialState
-    "Type of initialization"
-    annotation(Evaluate=true,  Dialog(group="Initialization"));
 
   parameter Real xi_start=0
     "Initial value for integrator output (= integrator state)"
     annotation (Dialog(
       group="Initialization",
-      enable=initType == CDL.Types.Init.InitialState and
-      (controllerType==CDL.Types.SimpleController.PI or
-       controllerType==CDL.Types.SimpleController.PID)));
-  parameter Real y_start=0 "Initial value of output"
-    annotation(Dialog(
+      enable=
+       controllerType==CDL.Types.SimpleController.PI or
+       controllerType==CDL.Types.SimpleController.PID));
+  parameter Real yd_start=0 "Initial value of derivative output)"
+  annotation(Dialog(
       group="Initialization",
       enable=
-        initType == CDL.Types.Init.InitialOutput and
-        (controllerType==CDL.Types.SimpleController.PI or
-         controllerType==CDL.Types.SimpleController.PID)));
-  parameter Boolean reverseAction = false
+        controllerType==CDL.Types.SimpleController.PD or
+        controllerType==CDL.Types.SimpleController.PID));
+    parameter Boolean reverseAction = false
     "Set to true for throttling the water flow rate through a cooling coil controller";
   parameter Buildings.Controls.OBC.CDL.Types.Reset reset = Buildings.Controls.OBC.CDL.Types.Reset.Disabled
     "Type of controller output reset"
@@ -95,12 +90,8 @@ block LimPID
 
   Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset I(
     final k=1/Ti,
-    final initType=initType,
-    final y_start=
-      if initType == Buildings.Controls.OBC.CDL.Types.Init.InitialOutput then
-        y_start/k
-      else
-        xi_start,
+    final initType=Buildings.Controls.OBC.CDL.Types.Init.InitialOutput,
+    final y_start=xi_start,
     final reset=
       if reset == Buildings.Controls.OBC.CDL.Types.Reset.Disabled then
         Buildings.Controls.OBC.CDL.Types.Reset.Disabled
@@ -112,7 +103,7 @@ block LimPID
   Buildings.Controls.OBC.CDL.Continuous.Derivative D(
     final k=Td,
     final T=Td/Nd,
-    final y_start=0,
+    final y_start=yd_start,
     final initType=Buildings.Controls.OBC.CDL.Types.Init.InitialOutput) if
       with_D "Derivative term"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
@@ -209,18 +200,10 @@ protected
     final k=yMin < yMax)
     "Check for values of yMin and yMax"
     annotation (Placement(transformation(extent={{120,-160},{140,-140}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant cheYSta(
-    final k=not
-               (initType == Buildings.Controls.OBC.CDL.Types.Init.InitialOutput and (y_start < yMin or y_start > yMax)))
-    "Check for value of y_start"
-    annotation (Placement(transformation(extent={{120,-190},{140,-170}})));
 
   Buildings.Controls.OBC.CDL.Utilities.Assert assMesYMinMax(message="LimPID: Limits must be yMin < yMax")
     "Assertion on yMin and yMax"
     annotation (Placement(transformation(extent={{160,-160},{180,-140}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMesYSta(message="LimPID: Limits must be yMin < yMax")
-    "Assertion on y_start"
-    annotation (Placement(transformation(extent={{160,-190},{180,-170}})));
 
 equation
   connect(trigger, I.trigger)
@@ -300,8 +283,6 @@ equation
           {0,-160},{0,-220}},                       color={0,0,127}));
   connect(cheYMinMax.y, assMesYMinMax.u)
     annotation (Line(points={{142,-150},{158,-150}}, color={255,0,255}));
-  connect(cheYSta.y, assMesYSta.u)
-    annotation (Line(points={{142,-180},{158,-180}}, color={255,0,255}));
 annotation (defaultComponentName="conPID",
   Icon(
     coordinateSystem(extent={{-100,-100},{100,100}}),
@@ -475,14 +456,12 @@ Homotopy initialization is not implemented.
 </ol>
 
 <p>
-The parameter <code>initType</code> allows to configure the controller to
-have a user-specified initial condition.
-The options include to set the output of the integrator
-to a user-specified value <code>xi_start</code>, or to set the output of the controller <code>y</code> to a user-specified value <code>y_start</code>.
-For the latter, the output of the controller <code>y</code> will only have this user specified value <code>y_start</code>
-if the proportional and the derivative action are zero. (The contributions of the
-proportional and the derivative action cannot be componsated for when computing the initial condition because
-their values are not known during the initialization.)
+During initialization, the state, and hence the output, of the integrator is set to the
+parameter <code>xi_start</code>,
+and the output of the derivative action is set to the parameter
+<code>yd_start</code>.
+Note that both will be multiplied by the gain <code>k</code> and before the values
+are sent to the output limiter and then the controller output.
 </p>
 
 <p>
@@ -498,7 +477,13 @@ April 7, 2020, by Michael Wetter:<br/>
 Reimplemented block using only CDL constructs.
 This refactoring removes the no longer use parameters <code>xd_start</code> that was
 used to initialize the state of the derivative term. This state is now initialized
-based on the requested initial output.
+based on the requested initial output <code>yd_start</code> which is a new parameter
+with a default of <code>0</code>.
+Also, removed the parameters <code>y_start</code> and <code>initType</code> because
+the initial output of the controller can be set by using <code>xi_start</code>
+and <code>yd_start</code>.
+This is a non-backward compatible change, made to simplify the controller through
+the removal of options that can be realized differently and are hardly ever used.
 This refactoring also removes the parameter <code>strict</code> that
 was used in the output limiter. The new implementation enforces a strict check by default.<br/>
 This is for
