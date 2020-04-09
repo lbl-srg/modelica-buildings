@@ -176,7 +176,9 @@ protected
     annotation (
       Placement(transformation(extent={{180,-30},{160,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add addPID(final k1=1, final k2=1)
+  Buildings.Controls.OBC.CDL.Continuous.Add addPID(
+    final k1=1,
+    final k2=1)
     "Outputs P, I and D gains added"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
 
@@ -460,7 +462,7 @@ During initialization, the state, and hence the output, of the integrator is set
 parameter <code>xi_start</code>,
 and the output of the derivative action is set to the parameter
 <code>yd_start</code>.
-Note that both will be multiplied by the gain <code>k</code> and before the values
+Note that both will be multiplied by the gain <code>k</code> before the values
 are sent to the output limiter and then the controller output.
 </p>
 
