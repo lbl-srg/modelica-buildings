@@ -9,19 +9,36 @@ model Controller "Define current operation mode"
     "Wait time before transition from pump-on mode fires"
     annotation (Dialog(tab="Dynamics"));
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput avaSig
+    "True when the plant is available"
+    annotation (Placement(transformation(extent={{-300,160},{-260,200}}),
+      iconTransformation(extent={{-140,50},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput runSig
     "True when plant should run"
-    annotation (Placement(transformation(extent={{-300,120},{-260,160}}),
+    annotation (Placement(transformation(extent={{-300,100},{-260,140}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mWat_flow(
     final unit="kg/s")
     "Cooling water mass flow rate"
     annotation (Placement(transformation(extent={{-300,20},{-260,60}}),
       iconTransformation(extent={{-140,-10},{-100,30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput avaSig
-    "True when the plant is available"
-    annotation (Placement(transformation(extent={{-300,160},{-260,200}}),
-      iconTransformation(extent={{-140,50},{-100,90}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TEng(
+    final unit="K",
+    final displayUnit="degC") if not per.warmUpByTimeDelay
+    "Engine temperature"
+    annotation (Placement(transformation(extent={{-300,-20},{-260,20}}),
+      iconTransformation(extent={{-140,-40},{-100,0}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput PEleNet(final unit="W") if
+    not per.warmUpByTimeDelay
+    "Net power output"
+    annotation (Placement(transformation(extent={{-300,-60},{-260,-20}}),
+      iconTransformation(extent={{-140,-70},{-100,-30}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput PEle(final unit="W") if
+    not per.warmUpByTimeDelay
+    "Power demand"
+    annotation (Placement(transformation(extent={{-300,-100},{-260,-60}}),
+      iconTransformation(extent={{-140,-100},{-100,-60}})));
+
   Buildings.Fluid.CHPs.BaseClasses.Interfaces.ModeTypeOutput opeMod
     "Type of operating mode"
     annotation (Placement(transformation(extent={{260,-20},{300,20}}),
@@ -38,66 +55,33 @@ model Controller "Define current operation mode"
   Modelica.StateGraph.StepWithSignal cooDow(nIn=2, nOut=2)
     "Cool-down step"
     annotation (Placement(transformation(extent={{160,-90},{180,-70}})));
-  Controls.OBC.CDL.Interfaces.RealInput TEng(
-    final unit="K",
-    final displayUnit="degC") if not per.warmUpByTimeDelay
-    "Engine temperature"
-    annotation (Placement(transformation(extent={{-300,-20},{-260,20}}),
-      iconTransformation(extent={{-140,-40},{-100,0}})));
-  Controls.OBC.CDL.Interfaces.RealInput PEleNet(final unit="W") if
-    not per.warmUpByTimeDelay
-    "Net power output"
-    annotation (Placement(transformation(extent={{-300,-60},{-260,-20}}),
-      iconTransformation(extent={{-140,-70},{-100,-30}})));
-  Controls.OBC.CDL.Interfaces.RealInput PEle(final unit="W") if
-    not per.warmUpByTimeDelay
-    "Power demand"
-    annotation (Placement(transformation(extent={{-300,-100},{-260,-60}}),
-      iconTransformation(extent={{-140,-100},{-100,-60}})));
+
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minWatFlo(
     final k=per.mWatMin) "Minimum water flow rate"
-    annotation (Placement(transformation(extent={{-180,190},{-160,210}})));
+    annotation (Placement(transformation(extent={{-220,190},{-200,210}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
     final k=0.001) "Constant value"
-    annotation (Placement(transformation(extent={{-180,150},{-160,170}})));
+    annotation (Placement(transformation(extent={{-220,150},{-200,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max
     "Maximum between minimum flow rate and 0.001"
-    annotation (Placement(transformation(extent={{-140,170},{-120,190}})));
+    annotation (Placement(transformation(extent={{-160,170},{-140,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2(
     final k1=-1)
     "Mass flow rate difference between actual and minimum value"
     annotation (Placement(transformation(extent={{-100,170},{-80,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
-    final uLow=0.01*per.mWatMin - 2e-6,
-    final uHigh=0.015*per.mWatMin - 1e-6)
+    final uLow=0.01*per.mWatMin - 1e-6,
+    final uHigh=0.015*per.mWatMin)
     "Check if actual mass flow rate is larger than the minimum value"
     annotation (Placement(transformation(extent={{-60,170},{-40,190}})));
   Buildings.Controls.OBC.CDL.Logical.And goSig
     "Check if water flow rate is higher than the minimum when runSig = true"
     annotation (Placement(transformation(extent={{-20,170},{0,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minWatFlo1(
-    final k=0.95*per.mWatMin)
-    "Minimum water flow rate"
-    annotation (Placement(transformation(extent={{-180,70},{-160,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max max1
-    "Maximum between minimum flow rate and 0.001"
-    annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(final k2=-1)
-    "Flow rate difference between current rate and minimum rate"
-    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
-    final uLow=0.01*per.mWatMin - 2e-6,
-    final uHigh=0.015*per.mWatMin - 1e-6)
-    "Check if actual mass flow rate is smaller than the minimum value"
-    annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  Buildings.Controls.OBC.CDL.Logical.Or noGoSig
-    "Check if water flow rate is smaller than the minimum or if runSig = false"
-    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   Buildings.Controls.OBC.CDL.Logical.Not notRunSig "Plant is not running"
-    annotation (Placement(transformation(extent={{-230,110},{-210,130}})));
+    annotation (Placement(transformation(extent={{-220,70},{-200,90}})));
   Buildings.Controls.OBC.CDL.Logical.Not notAvaSig "Plant is not available"
-    annotation (Placement(transformation(extent={{-230,-170},{-210,-150}})));
+    annotation (Placement(transformation(extent={{-220,-190},{-200,-170}})));
   Buildings.Controls.OBC.CDL.Logical.And and1
     "Warm-up mode is done and the plant could run"
     annotation (Placement(transformation(extent={{120,-30},{140,-10}})));
@@ -149,17 +133,17 @@ protected
     final k=per.coolDownOptional)
     "Check if cool-down mode is optional"
     annotation (Placement(transformation(extent={{60,-190},{80,-170}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch lat
-    "Ensure no-go signal being false when go signal is true"
-    annotation (Placement(transformation(extent={{40,70},{60,90}})));
-  Controls.OBC.CDL.Continuous.GreaterEqualThreshold timeDel(
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold timeDel(
     final threshold=per.timeDelayCool)
     "Check if the time of  plant in cool-down mode has been longer than the
     specified delay time"
     annotation (Placement(transformation(extent={{180,-190},{200,-170}})));
-  Controls.OBC.CDL.Logical.Timer timer
+  Buildings.Controls.OBC.CDL.Logical.Timer timer
     "Timer"
     annotation (Placement(transformation(extent={{152,-190},{172,-170}})));
+  Buildings.Controls.OBC.CDL.Logical.Not noGo "Plant should not run"
+    annotation (Placement(transformation(extent={{40,90},{60,110}})));
+
 equation
   if plaOff.active then
     actMod = CHPs.BaseClasses.Types.Mode.Off;
@@ -183,56 +167,41 @@ equation
     annotation (Line(points={{-99.5,0},{-84,0}}, color={0,0,0}));
   connect(transition6.outPort, nor.inPort[1])
     annotation (Line(points={{161.5,0},{179,0}}, color={0,0,0}));
-  connect(assWatMas.mWat_flow, mWat_flow) annotation (Line(points={{38,36},{
-          -110,36},{-110,40},{-280,40}},
-                                   color={0,0,127}));
-  connect(minWatFlo.y, max.u1) annotation (Line(points={{-158,200},{-150,200},{-150,
-    186},{-142,186}}, color={0,0,127}));
-  connect(con.y, max.u2) annotation (Line(points={{-158,160},{-150,160},{-150,174},
-    {-142,174}}, color={0,0,127}));
-  connect(max.y, add2.u1) annotation (Line(points={{-118,180},{-110,180},{-110,186},
+  connect(assWatMas.mWat_flow, mWat_flow) annotation (Line(points={{38,36},{-120,
+          36},{-120,40},{-280,40}},color={0,0,127}));
+  connect(minWatFlo.y, max.u1) annotation (Line(points={{-198,200},{-180,200},{-180,
+          186},{-162,186}},
+                      color={0,0,127}));
+  connect(con.y, max.u2) annotation (Line(points={{-198,160},{-180,160},{-180,174},
+          {-162,174}},
+                 color={0,0,127}));
+  connect(max.y, add2.u1) annotation (Line(points={{-138,180},{-120,180},{-120,186},
           {-102,186}},  color={0,0,127}));
   connect(add2.y, hys.u) annotation (Line(points={{-78,180},{-62,180}},
           color={0,0,127}));
   connect(hys.y, goSig.u1) annotation (Line(points={{-38,180},{-22,180}},
           color={255,0,255}));
-  connect(max1.y, add1.u1) annotation (Line(points={{-118,80},{-106,80},{-106,86},
-          {-102,86}}, color={0,0,127}));
-  connect(add1.y, hys1.u) annotation (Line(points={{-78,80},{-62,80}},
-          color={0,0,127}));
-  connect(mWat_flow, add2.u2) annotation (Line(points={{-280,40},{-110,40},{
-          -110,174},{-102,174}},
-                            color={0,0,127}));
-  connect(mWat_flow, add1.u2) annotation (Line(points={{-280,40},{-110,40},{
-          -110,74},{-102,74}},
-                          color={0,0,127}));
-  connect(runSig, goSig.u2) annotation (Line(points={{-280,140},{-30,140},{-30,172},
+  connect(mWat_flow, add2.u2) annotation (Line(points={{-280,40},{-120,40},{-120,
+          174},{-102,174}}, color={0,0,127}));
+  connect(runSig, goSig.u2) annotation (Line(points={{-280,120},{-30,120},{-30,172},
           {-22,172}}, color={255,0,255}));
-  connect(runSig, notRunSig.u) annotation (Line(points={{-280,140},{-240,140},{
-          -240,120},{-232,120}}, color={255,0,255}));
-  connect(notRunSig.y, noGoSig.u2) annotation (Line(points={{-208,120},{-30,120},
-          {-30,72},{-22,72}}, color={255,0,255}));
-  connect(hys1.y, noGoSig.u1) annotation (Line(points={{-38,80},{-22,80}},
-          color={255,0,255}));
-  connect(runSig, assWatMas.runSig) annotation (Line(points={{-280,140},{-240,
-          140},{-240,44},{38,44}}, color={255,0,255}));
+  connect(runSig, notRunSig.u) annotation (Line(points={{-280,120},{-240,120},{-240,
+          80},{-222,80}},        color={255,0,255}));
+  connect(runSig, assWatMas.runSig) annotation (Line(points={{-280,120},{-240,120},
+          {-240,44},{38,44}},      color={255,0,255}));
   connect(avaSig, transition1.condition) annotation (Line(points={{-280,180},{
           -250,180},{-250,-20},{-80,-20},{-80,-12}},
                                                 color={255,0,255}));
-  connect(runSig, transition2.condition) annotation (Line(points={{-280,140},{-240,
-          140},{-240,-24},{-20,-24},{-20,-12}}, color={255,0,255}));
-  connect(avaSig, notAvaSig.u) annotation (Line(points={{-280,180},{-250,180},{
-          -250,-160},{-232,-160}}, color={255,0,255}));
-  connect(minWatFlo1.y, max1.u2) annotation (Line(points={{-158,80},{-150,80},{-150,
-          74},{-142,74}}, color={0,0,127}));
-  connect(con.y, max1.u1) annotation (Line(points={{-158,160},{-150,160},{-150,86},
-          {-142,86}}, color={0,0,127}));
+  connect(runSig, transition2.condition) annotation (Line(points={{-280,120},{-240,
+          120},{-240,-24},{-20,-24},{-20,-12}}, color={255,0,255}));
+  connect(avaSig, notAvaSig.u) annotation (Line(points={{-280,180},{-250,180},{-250,
+          -180},{-222,-180}},      color={255,0,255}));
   connect(goSig.y, transition4.condition) annotation (Line(points={{2,180},{20,
           180},{20,56},{-140,56},{-140,-28},{40,-28},{40,-12}}, color={255,0,255}));
   connect(and1.y, transition6.condition) annotation (Line(points={{142,-20},{
           160,-20},{160,-12}}, color={255,0,255}));
-  connect(notAvaSig.y, transition3.condition) annotation (Line(points={{-208,
-          -160},{-20,-160},{-20,-92}}, color={255,0,255}));
+  connect(notAvaSig.y, transition3.condition) annotation (Line(points={{-198,-180},
+          {-20,-180},{-20,-92}},       color={255,0,255}));
   connect(and3.y, transition7.condition) annotation (Line(points={{122,-160},{
           220,-160},{220,-92}}, color={255,0,255}));
   connect(and4.y, transition10.condition) annotation (Line(points={{230,-200},{240,
@@ -249,16 +218,6 @@ equation
           -140,56},{-140,-152},{98,-152}}, color={255,0,255}));
   connect(optCooDow.y, and3.u1) annotation (Line(points={{82,-180},{90,-180},{90,
           -160},{98,-160}}, color={255,0,255}));
-  connect(goSig.y, lat.clr) annotation (Line(points={{2,180},{20,180},{20,74},{38,
-          74}}, color={255,0,255}));
-  connect(noGoSig.y, lat.u) annotation (Line(points={{2,80},{38,80}},
-          color={255,0,255}));
-  connect(lat.y, and4.u2) annotation (Line(points={{62,80},{80,80},{80,60},{
-          -144,60},{-144,-208},{206,-208}}, color={255,0,255}));
-  connect(lat.y, transition9.condition) annotation (Line(points={{62,80},{80,80},
-          {80,60},{-144,60},{-144,-140},{90,-140},{90,-92}},  color={255,0,255}));
-  connect(lat.y, transition8.condition) annotation (Line(points={{62,80},{220,
-          80},{220,12}}, color={255,0,255}));
   connect(transition1.outPort, staBy.inPort[1])
     annotation (Line(points={{-78.5,0},{-61,0}}, color={0,0,0}));
   connect(staBy.outPort[1], transition2.inPort) annotation (Line(points={{-39.5,
@@ -304,8 +263,16 @@ equation
           -40},{80,-42},{88,-42}}, color={0,0,127}));
   connect(PEle, warUpCtr.PEle) annotation (Line(points={{-280,-80},{-40,-80},{
           -40,-46},{88,-46}}, color={0,0,127}));
-  connect(notRunSig.y, transition5.condition) annotation (Line(points={{-208,
-          120},{-200,120},{-200,-120},{40,-120},{40,-92}}, color={255,0,255}));
+  connect(notRunSig.y, transition5.condition) annotation (Line(points={{-198,80},
+          {-180,80},{-180,-120},{40,-120},{40,-92}},       color={255,0,255}));
+  connect(goSig.y, noGo.u) annotation (Line(points={{2,180},{20,180},{20,100},{38,
+          100}}, color={255,0,255}));
+  connect(noGo.y, transition8.condition)
+    annotation (Line(points={{62,100},{220,100},{220,12}}, color={255,0,255}));
+  connect(noGo.y, and4.u2) annotation (Line(points={{62,100},{80,100},{80,60},{-144,
+          60},{-144,-208},{206,-208}}, color={255,0,255}));
+  connect(noGo.y, transition9.condition) annotation (Line(points={{62,100},{80,100},
+          {80,60},{-144,60},{-144,-140},{90,-140},{90,-92}}, color={255,0,255}));
 annotation (
     defaultComponentName="conMai",
     Diagram(coordinateSystem(extent={{-260,-220},{260,220}})),
