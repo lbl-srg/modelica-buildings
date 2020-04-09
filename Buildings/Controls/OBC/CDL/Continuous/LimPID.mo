@@ -32,13 +32,13 @@ block LimPID
                                 controllerType==CDL.Types.SimpleController.PID));
 
   parameter Real xi_start=0
-    "Initial value for integrator output (= integrator state)"
+    "Initial value of integrator state"
     annotation (Dialog(
       group="Initialization",
       enable=
        controllerType==CDL.Types.SimpleController.PI or
        controllerType==CDL.Types.SimpleController.PID));
-  parameter Real yd_start=0 "Initial value of derivative output)"
+  parameter Real yd_start=0 "Initial value of derivative output"
   annotation(Dialog(
       group="Initialization",
       enable=
