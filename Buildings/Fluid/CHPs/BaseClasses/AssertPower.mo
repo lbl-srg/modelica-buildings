@@ -46,14 +46,12 @@ protected
     final threshold=dPEleMax)
     "Check if demand rate is more than the maximum rate"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis maxPow(
-    final uLow=0.99*PEleMax - 2e-6,
-    final uHigh=1.01*PEleMax - 1e-6)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis maxPow(final uLow=0.99*
+        PEleMax, final uHigh=1.01*PEleMax + 1e-6)
     "Check if the electric power demand is more than the maximum power production"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis minPow(
-    final uLow=0.99*PEleMin - 2e-6,
-    final uHigh=1.01*PEleMin - 1e-6)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis minPow(final uLow=0.99*
+        PEleMin - 1e-6, final uHigh=1.01*PEleMin)
     "Check if the electric power demand is larger than the minimum power production"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1

@@ -97,7 +97,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not notRunSig "Plant is not running"
     annotation (Placement(transformation(extent={{-230,110},{-210,130}})));
   Buildings.Controls.OBC.CDL.Logical.Not notAvaSig "Plant is not available"
-    annotation (Placement(transformation(extent={{-230,-150},{-210,-130}})));
+    annotation (Placement(transformation(extent={{-230,-170},{-210,-150}})));
   Buildings.Controls.OBC.CDL.Logical.And and1
     "Warm-up mode is done and the plant could run"
     annotation (Placement(transformation(extent={{120,-30},{140,-10}})));
@@ -222,7 +222,7 @@ equation
   connect(runSig, transition2.condition) annotation (Line(points={{-280,140},{-240,
           140},{-240,-24},{-20,-24},{-20,-12}}, color={255,0,255}));
   connect(avaSig, notAvaSig.u) annotation (Line(points={{-280,180},{-250,180},{
-          -250,-140},{-232,-140}}, color={255,0,255}));
+          -250,-160},{-232,-160}}, color={255,0,255}));
   connect(minWatFlo1.y, max1.u2) annotation (Line(points={{-158,80},{-150,80},{-150,
           74},{-142,74}}, color={0,0,127}));
   connect(con.y, max1.u1) annotation (Line(points={{-158,160},{-150,160},{-150,86},
@@ -232,7 +232,7 @@ equation
   connect(and1.y, transition6.condition) annotation (Line(points={{142,-20},{
           160,-20},{160,-12}}, color={255,0,255}));
   connect(notAvaSig.y, transition3.condition) annotation (Line(points={{-208,
-          -140},{-20,-140},{-20,-92}}, color={255,0,255}));
+          -160},{-20,-160},{-20,-92}}, color={255,0,255}));
   connect(and3.y, transition7.condition) annotation (Line(points={{122,-160},{
           220,-160},{220,-92}}, color={255,0,255}));
   connect(and4.y, transition10.condition) annotation (Line(points={{230,-200},{240,
