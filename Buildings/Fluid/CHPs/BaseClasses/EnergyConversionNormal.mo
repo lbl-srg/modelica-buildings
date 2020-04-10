@@ -112,7 +112,7 @@ October 31, 2019, by Jianjun Hu:<br/>
 Refactored implementation.
 </li>
 <li>
-June 01, 2019, by Tea Zakula:<br/>
+June 1, 2019, by Tea Zakula:<br/>
 First implementation.
 </li>
 </ul>

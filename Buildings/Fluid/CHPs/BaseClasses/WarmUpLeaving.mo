@@ -7,7 +7,8 @@ model WarmUpLeaving
   parameter Modelica.SIunits.Temperature TEngNom
     "Nominal engine operating temperature";
   parameter Modelica.SIunits.Power PEleMax=0
-    "Maximum power output";
+    "Maximum power output"
+    annotation (Dialog(enable=not warmUpByTimeDelay));
   parameter Boolean warmUpByTimeDelay
     "If true, the plant will be in warm-up mode depending on the delay time,
     otherwise depending on engine temperature "
@@ -60,8 +61,8 @@ protected
     not warmUpByTimeDelay
     "Difference between actual power output and demand"
     annotation (Placement(transformation(extent={{-50,-70},{-30,-50}})));
-  Controls.OBC.CDL.Continuous.Hysteresis hysPow(uLow=0.99*PEleMax - 1e-6, uHigh=
-       0) if    not warmUpByTimeDelay
+  Controls.OBC.CDL.Continuous.Hysteresis hysPow(uLow=-0.01*PEleMax - 1e-6,
+    uHigh=0) if not warmUpByTimeDelay
     "Check if actual power output is higher than demand"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
   Controls.OBC.CDL.Logical.Or or2 if not warmUpByTimeDelay "OR evaluation"
@@ -101,15 +102,25 @@ annotation (defaultComponentName="warUpCtr", Documentation(info="<html>
 <p>
 The model computes a boolean variable which is true when warm-up
 is over.
-CHP will transition from the warm-up mode to the normal mode after the specified
-time delay (if <code>warmUpByTimeDelay</code> is true),
-or when <code>TEng</code> is higher than <code>TEngNom</code>
-(if <code>warmUpByTimeDelay</code> is false).
+CHP will transition from the warm-up mode to the normal mode
 </p>
+<ul>
+<li>
+after the specified time delay if <code>warmUpByTimeDelay</code> is true, or
+</li>
+<li>
+when the engine temperature exceeds the nominal value or the net power produced
+exceeds that requested by the controller if <code>warmUpByTimeDelay</code> is false.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>
-June 01, 2019, by Tea Zakula:<br/>
+April 8, 2020, by Antoine Gautier:<br/>
+Add condition on power output.
+</li>
+<li>
+June 1, 2019, by Tea Zakula:<br/>
 First implementation.
 </li>
 </ul>

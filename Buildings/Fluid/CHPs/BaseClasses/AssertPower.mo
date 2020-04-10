@@ -116,13 +116,13 @@ annotation (
           fillPattern=FillPattern.Solid)}),
   Documentation(info="<html>
 <p>
-The model sends a warning message if the power demand is outside the boundaries defined by the manufacturer. 
-Limits can be specified for the minimal and maximal electric power and for the maximal power rate of change. 
+The model sends a warning message if the power demand is outside the boundaries defined by the manufacturer.
+Limits can be specified for the minimal and maximal electric power and for the maximal power rate of change.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-June 01, 2019, by Tea Zakula:<br/>
+June 1, 2019, by Tea Zakula:<br/>
 First implementation.
 </li>
 </ul>

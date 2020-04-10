@@ -34,7 +34,7 @@ Buildings.Fluid.CHPs.BaseClasses.Types.Mode</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-June 01, 2019, by Tea Zakula:<br/>
+June 1, 2019, by Tea Zakula:<br/>
 First implementation.
 </li>
 </ul>

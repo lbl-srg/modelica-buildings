@@ -86,7 +86,7 @@ where
 </html>",
 revisions="<html>
 <ul>
-<li>June 01, 2019, by Tea Zakula:<br/>First implementation. </li>
+<li>June 1, 2019, by Tea Zakula:<br/>First implementation. </li>
 </ul>
 </html>"),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),

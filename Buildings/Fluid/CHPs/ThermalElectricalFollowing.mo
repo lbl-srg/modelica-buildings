@@ -295,19 +295,19 @@ Beausoleil-Morrison (2007).
 </p>
 <h4>Model applicability</h4>
 <p>
-The model is primarily intended to predict the energy performance of 
-combustion-based cogeneration devices, such as internal combustion engine and 
+The model is primarily intended to predict the energy performance of
+combustion-based cogeneration devices, such as internal combustion engine and
 Stirling engine units.
-However, the general model specification makes it applicable to any device 
+However, the general model specification makes it applicable to any device
 simultaneously producing heat and power from which heat is recovered as hot water,
 as long as recalibration is undertaken.
 Fuel cell based micro-cogeneration technology is outside of the modeling scope.
 </p>
 <p>
-The parameters required to define the governing equations can be determined 
-from bench testing with only non intrusive measurements (e.g. fuel flow rate, 
+The parameters required to define the governing equations can be determined
+from bench testing with only non intrusive measurements (e.g. fuel flow rate,
 cooling water flow rates and temperature, electrical production).
-The ability to reuse and recalibrate the component models or sub-models 
+The ability to reuse and recalibrate the component models or sub-models
 ensures that they are applicable to future generations of cogeneration devices.
 <h4>Model topology</h4>
 <p>
@@ -384,7 +384,7 @@ February 14, 2020, by Jianjun Hu:<br/>
 Added documentation.
 </li>
 <li>
-June 01, 2019, by Tea Zakula:<br/>
+June 1, 2019, by Tea Zakula:<br/>
 First implementation.
 </li>
 </ul>

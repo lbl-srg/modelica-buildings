@@ -192,14 +192,14 @@ annotation (
   Documentation(info="<html>
 <p>
 The model defines energy conversion that occurs during the normal mode and warm-up mode.
-The model 
+The model
 <a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.EnergyConversionWarmUp\">
-Buildings.Fluid.CHPs.BaseClasses.EnergyConversionWarmUp</a> 
+Buildings.Fluid.CHPs.BaseClasses.EnergyConversionWarmUp</a>
 is used only for the
 warm-up mode dependent on the engine temperature (case of Stirling engines).
-The model 
+The model
 <a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.EnergyConversionNormal\">
-Buildings.Fluid.CHPs.BaseClasses.EnergyConversionNormal</a> 
+Buildings.Fluid.CHPs.BaseClasses.EnergyConversionNormal</a>
 is used for all other cases,
 i.e. the normal mode, and the warm-up mode based on a time delay (case of internal
 combustion engines).
@@ -211,7 +211,7 @@ April 8, 2020, by Antoine Gautier:<br/>
 Refactored implementation.
 </li>
 <li>
-June 01, 2019, by Tea Zakula:<br/>
+June 1, 2019, by Tea Zakula:<br/>
 First implementation.
 </li>
 </ul>
