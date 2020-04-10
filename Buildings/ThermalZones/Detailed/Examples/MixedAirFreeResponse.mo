@@ -240,5 +240,7 @@ First implementation.
 </ul>
 </html>"),
     experiment(
-      Tolerance=1e-06, StopTime=172800));
+      StopTime=31536000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"));
 end MixedAirFreeResponse;

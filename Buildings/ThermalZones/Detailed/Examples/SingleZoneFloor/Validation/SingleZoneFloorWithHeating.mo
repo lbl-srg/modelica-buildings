@@ -186,8 +186,8 @@ This model compares the heating energy demand of a single-zone floor model
 <a href=\"modelica://Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.SingleZoneFloor\">
 Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.SingleZoneFloor</a>
 with the total heating energy demand of a five-zone floor model
-<a href=\"modelica://Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.Validation.BaseClasses.Floor\">
-Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.Validation.BaseClasses.Floor</a>.
+<a href=\"modelica://Buildings.Examples.VAVReheat.ThermalZones.Floor\">
+Buildings.Examples.VAVReheat.ThermalZones.Floor</a>.
 </p>
 <p>
 The nominal mass flowrate of the single zone floor model is consistent with the

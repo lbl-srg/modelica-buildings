@@ -76,6 +76,9 @@ model SingleZoneFloor "Model of a building floor as a single zone"
     material={matFur}) "Construction for internal mass of furniture"
     annotation (Placement(transformation(extent={{160,80},{180,100}})));
 
+  parameter Boolean use_windPressure=true
+    "Set to true to enable wind pressure";
+
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[2](
     redeclare package Medium = Medium) "Fluid inlets and outlets" annotation (Placement(
         transformation(extent={{-210,-8},{-170,8}}), iconTransformation(extent={
