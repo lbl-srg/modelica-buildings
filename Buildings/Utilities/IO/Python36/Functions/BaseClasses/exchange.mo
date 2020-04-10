@@ -38,7 +38,7 @@ function exchange "Function that communicates with Python"
     annotation (Library={"ModelicaBuildingsPython3.6",  "python3.6"},
       LibraryDirectory="modelica://Buildings/Resources/Library",
       IncludeDirectory="modelica://Buildings/Resources/C-Sources",
-      Include="#include \"python36Wrapper.c\"",
+      Include="#include \"pythonWrapper.c\"",
       __iti_dll = "ITI_ModelicaBuildingsPython3.6.dll",
       __iti_dllNoExport = true);
   annotation (Documentation(info="<html>
