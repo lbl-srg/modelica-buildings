@@ -8,11 +8,11 @@ model Read "Block that allows a signal to be read as an FMU output"
     "Tag with the type of signal for the calculation of the KPIs";
 
   parameter String zone = "1" if (
-    KPIs == Buildings.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.AirZoneTemperature or
-    KPIs == Buildings.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.RadiativeZoneTemperature or
-    KPIs == Buildings.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.OperativeZoneTemperature or
-    KPIs == Buildings.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.RelativeHumidity or
-    KPIs == Buildings.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.CO2Concentration)
+    KPIs==Buildings.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.AirZoneTemperature or
+    KPIs==Buildings.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.RadiativeZoneTemperature or
+    KPIs==Buildings.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.OperativeZoneTemperature or
+    KPIs==Buildings.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.RelativeHumidity or
+    KPIs==Buildings.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.CO2Concentration)
     "Zone designation, required if KPIs is AirZoneTemperature, 
     RadiativeZoneTemperature, OperativeZoneTemperature, RelativeHumidity, 
     or CO2Concentration"
