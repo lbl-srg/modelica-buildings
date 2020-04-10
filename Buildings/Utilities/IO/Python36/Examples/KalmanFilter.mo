@@ -85,6 +85,10 @@ http://www.scipy.org/Cookbook/KalmanFiltering</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+April 10, 2020, by Jianjun Hu and Michael Wetter:<br/>
+Updated to Python 3.6.
+</li>
+<li>
 October 24, 2019, by Antoine Gautier:<br/>
 Changed the temporary file format from <code>pickle</code> to <code>json</code> as the former can trigger a
 segfault with JModelica simulation run in a subprocess.<br/>

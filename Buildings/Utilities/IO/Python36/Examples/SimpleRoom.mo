@@ -73,6 +73,10 @@ would be much simpler and computationally more efficient.
 </html>", revisions="<html>
 <ul>
 <li>
+April 10, 2020, by Jianjun Hu and Michael Wetter:<br/>
+Updated to Python 3.6.
+</li>
+<li>
 January 31, 2018, by Michael Wetter and Thierry Nouidui:<br/>
 First implementation.
 </li>

@@ -55,6 +55,10 @@ for examples.
 </html>", revisions="<html>
 <ul>
 <li>
+April 10, 2020, by Jianjun Hu and Michael Wetter:<br/>
+Updated to Python 3.6.
+</li>
+<li>
 March 06, 2020, by Jianjun Hu:<br/>
 Upgraded python version from 2.7 to 3.6.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1760\">issue 1760</a>.

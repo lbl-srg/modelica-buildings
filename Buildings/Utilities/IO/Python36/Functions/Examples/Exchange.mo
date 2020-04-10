@@ -163,6 +163,10 @@ the simulation if the return value is different from the expected value.
 </html>", revisions="<html>
 <ul>
 <li>
+April 10, 2020, by Jianjun Hu and Michael Wetter:<br/>
+Updated to Python 3.6.
+</li>
+<li>
 February 2, 2016, by Michael Wetter:<br/>
 Changed constant arguments of exchange function from <code>int</code> to <code>double</code>.
 This is required for OpenModelica.

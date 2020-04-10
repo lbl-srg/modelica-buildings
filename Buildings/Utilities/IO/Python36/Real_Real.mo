@@ -150,6 +150,10 @@ Otherwise, leave it at its default value <code>passPythonObject = false</code>.
 </html>", revisions="<html>
 <ul>
 <li>
+April 10, 2020, by Jianjun Hu and Michael Wetter:<br/>
+Updated to Python 3.6.
+</li>
+<li>
 March 06, 2020, by Jianjun Hu:<br/>
 Corrected implementation so it allows different flag for double values.<br/>
 This is for

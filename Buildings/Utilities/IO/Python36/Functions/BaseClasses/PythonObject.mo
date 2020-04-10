@@ -24,6 +24,10 @@ Buildings.Utilities.IO.Python36.Functions.BaseClasses.exchange</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+April 10, 2020, by Jianjun Hu and Michael Wetter:<br/>
+Updated to Python 3.6.
+</li>
+<li>
 March 06, 2020, by Jianjun Hu:<br/>
 Upgraded python version from 2.7 to 3.6.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1760\">issue 1760</a>.
@@ -57,6 +61,10 @@ Destructor that frees the memory of the object
 </html>", revisions="<html>
 <ul>
 <li>
+April 10, 2020, by Jianjun Hu and Michael Wetter:<br/>
+Updated to Python 3.6.
+</li>
+<li>
 March 06, 2020, by Jianjun Hu:<br/>
 Upgraded python version from 2.7 to 3.6.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1760\">issue 1760</a>.
@@ -80,6 +88,10 @@ of a Python object.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 10, 2020, by Jianjun Hu and Michael Wetter:<br/>
+Updated to Python 3.6.
+</li>
 <li>
 January 31, 2018, by Michael Wetter and Thierry Nouidui:<br/>
 First implementation.

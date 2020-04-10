@@ -91,6 +91,10 @@ for examples.
 </html>", revisions="<html>
 <ul>
 <li>
+April 10, 2020, by Jianjun Hu and Michael Wetter:<br/>
+Updated to Python 3.6.
+</li>
+<li>
 June 14, 2019, by Antoine Gautier and Michael Wetter:<br/>
 Refactored for setting <code>PYTHONPATH</code> correctly independent of working directory.
 </li>
