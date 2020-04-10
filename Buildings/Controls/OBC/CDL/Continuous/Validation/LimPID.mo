@@ -97,7 +97,6 @@ Validation test for the block
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.LimPID\">
 Buildings.Controls.OBC.CDL.Continuous.LimPID</a>.
 </p>
-
 <p>
 The model <code>limPIDOri</code> is the original
 implementation of the controller from the Modelica
