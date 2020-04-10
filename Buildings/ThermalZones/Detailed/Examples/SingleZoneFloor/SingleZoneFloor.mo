@@ -80,11 +80,6 @@ model SingleZoneFloor "Model of a building floor as a single zone"
     final nLay=1,
     material={matFur}) "Construction for internal mass of furniture"
     annotation (Placement(transformation(extent={{160,80},{180,100}})));
-  parameter Boolean sampleModel = false
-    "Set to true to time-sample the model, which can give shorter simulation time if there is already time sampling in the system model"
-    annotation (
-      Evaluate=true,
-      Dialog(tab="Experimental (may be changed in future releases)"));
 
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[2](
     redeclare package Medium = Medium) "Fluid inlets and outlets" annotation (Placement(
@@ -127,8 +122,7 @@ model SingleZoneFloor "Model of a building floor as a single zone"
     nSurBou=0,
     nPorts=7,
     intConMod=intConMod,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final sampleModel=sampleModel) "Floor"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Floor"
     annotation (Placement(transformation(extent={{-16,-56},{24,-16}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temAir
     "Air temperature sensor"
