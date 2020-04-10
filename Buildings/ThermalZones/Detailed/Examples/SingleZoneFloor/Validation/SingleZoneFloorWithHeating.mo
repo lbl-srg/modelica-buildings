@@ -25,16 +25,19 @@ model SingleZoneFloorWithHeating
   parameter Modelica.SIunits.Volume VRoo=VRooSou+VRooEas+VRooNor+VRooWes+VRooCor
     "Total floor volume";
 
-  Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.Validation.BaseClasses.Floor
-    flo(redeclare package Medium = Medium, lat=lat) "Five-zone floor model"
+  Buildings.Examples.VAVReheat.ThermalZones.Floor flo(
+    redeclare package Medium = Medium,
+    lat=lat,
+    gai(K=10*[0.4; 0.4; 0.2])) "Five-zone floor model"
     annotation (Placement(transformation(extent={{-8,48},{48,108}})));
-  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-    Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
+    filNam=Modelica.Utilities.Files.loadResource(
+      "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Weather data"
     annotation (Placement(transformation(extent={{-40,134},{-20,154}})));
-  Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.SingleZoneFloor
-    sinZonFlo(redeclare package Medium = Medium, lat=lat)
+  Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.SingleZoneFloor sinZonFlo(
+    redeclare package Medium = Medium,
+    lat=lat)
     "Single-zone floor model"
     annotation (Placement(transformation(extent={{-4,98},{36,138}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRoo(k=273.15 + 22,
@@ -83,7 +86,7 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(TSetRoo.y, heaAndCon.TSetRoo)   annotation (Line(points={{-98,94},{
-          -62,94}},                                                                    color={0,0,127},
+          -62,94}}, color={0,0,127},
       pattern=LinePattern.Dash));
   connect(heaAndCon.port_a, sinZonFlo.ports[1]) annotation (Line(points={{-60,100},
           {-66,100},{-66,118},{6,118},{6,106},{3.8,106}},
@@ -177,31 +180,29 @@ equation
   "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/SingleZoneFloor/Validation/SingleZoneFloorWithHeating.mos"
         "Simulate and plot"),
   Documentation(info="
-  <html>
-  <p>
-  This model compares the heating energy demand of a single-zone floor model 
-  <a href=\"modelica://Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.SingleZoneFloor\">
-  Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.SingleZoneFloor</a> 
-  with the total heating energy demand of a five-zone floor model
-  <a href=\"modelica://Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.Validation.BaseClasses.Floor\">
-  Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.Validation.BaseClasses.Floor</a>.
-  </p>
-  <p>
-  The nominal flowrate of the single zone floor model is consistent with the 
-  total nominal flowrate of the five-zone floor model. The heating energy is
-  calculated via an ideal heater.
-  </p>
-  </html>",
-  revisions="
-  <html>
-  <ul>
-  <li>
-  March 10, 2020, by Kun Zhang:<br/>
-  First implementation.
-  </li>
-  </ul>
-  </html>"),
-  Icon(coordinateSystem(preserveAspectRatio=false)),
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-160},{120,
-            160}})));
+<html>
+<p>
+This model compares the heating energy demand of a single-zone floor model
+<a href=\"modelica://Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.SingleZoneFloor\">
+Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.SingleZoneFloor</a>
+with the total heating energy demand of a five-zone floor model
+<a href=\"modelica://Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.Validation.BaseClasses.Floor\">
+Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.Validation.BaseClasses.Floor</a>.
+</p>
+<p>
+The nominal mass flowrate of the single zone floor model is consistent with the
+total nominal flowrate of the five-zone floor model. The heating energy is
+calculated via an ideal heater.
+</p>
+</html>",
+revisions="
+<html>
+<ul>
+<li>
+March 10, 2020, by Kun Zhang:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
+Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-160},{120,160}})));
 end SingleZoneFloorWithHeating;

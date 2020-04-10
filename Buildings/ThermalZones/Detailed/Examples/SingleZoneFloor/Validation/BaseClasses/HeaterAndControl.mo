@@ -56,11 +56,11 @@ model HeaterAndControl
     nominalValuesDefineDefaultPressureCurve=true) "Fan"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Modelica.Blocks.Continuous.Integrator EHea "Heating energy"
-    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
+    annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
 
 equation
-  connect(hea.Q_flow, EHea.u) annotation (Line(points={{41,8},{50,8},{50,-60},{58,
-          -60}},     color={0,0,127}));
+  connect(hea.Q_flow, EHea.u) annotation (Line(points={{41,8},{50,8},{50,-80},{58,
+          -80}},     color={0,0,127}));
   connect(addPar.y, hea.TSet) annotation (Line(points={{2,-60},{10,-60},{10,8},{
           18,8}},
                 color={0,0,127}));
@@ -69,8 +69,7 @@ equation
   connect(TRooMea, conPID.u_m)  annotation (Line(points={{-120,-90},{-50,-90},{-50,-72}},color={0,0,127}));
   connect(TSetRoo, conPID.u_s) annotation (Line(points={{-120,-60},{-62,-60}},
                          color={0,0,127}));
-  connect(EHea.y, yEHea) annotation (Line(points={{81,-60},{90,-60},{90,-80},{120,
-          -80}},
+  connect(EHea.y, yEHea) annotation (Line(points={{81,-80},{120,-80}},
         color={0,0,127}));
   connect(port_a, fan.port_a) annotation (Line(points={{-100,0},{-60,0}}, color={0,127,255}));
   connect(hea.port_b, port_b) annotation (Line(points={{40,0},{100,0}}, color={0,127,255}));
@@ -83,20 +82,20 @@ equation
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid)}),Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-  defaultComponentName="HeaAndCon",
+  defaultComponentName="heaAndCon",
   Documentation(info = "<html>
-  <p>
-  This base class model includes an ideal heater, a fan, a PI controller and an integrator.
-  It is used in the validation model
-  <a href=\"modelica://Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.Validation.SingleZoneFloorWithHeating\">
-  Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.Validation.SingleZoneFloorWithHeating</a>.
-  </p>
-  </html>",
-  revisions="<html>
-  <ul>
-  <li>March 28, 2020, by Kun Zhang:<br/>
-  First implementation.
-  </li>
-  </ul>
-  </html>"));
+<p>
+This model includes an ideal heater, a fan, a PI controller and an integrator for the heating energy.
+It is used in the validation model
+<a href=\"modelica://Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.Validation.SingleZoneFloorWithHeating\">
+Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.Validation.SingleZoneFloorWithHeating</a>.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>March 28, 2020, by Kun Zhang:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end HeaterAndControl;
