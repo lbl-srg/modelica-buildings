@@ -85,13 +85,13 @@ block LimPID
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Add addP(
-    k1=revAct*wp,
-    k2=-revAct)
+    final k1=revAct*wp,
+    final k2=-revAct)
     "Adder for P gain"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Add addD(
-    k1=revAct*wd,
-    k2=-revAct) if with_D
+    final k1=revAct*wd,
+    final k2=-revAct) if with_D
     "Adder for D gain"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain P(k=1) "Proportional term"

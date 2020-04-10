@@ -21,11 +21,13 @@ model CoolingCoil "Controller for cooling coil valve"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupCoo(
     final unit="K",
+    final displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
     "Cooling supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
+    final displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
     "Supply air temperature measurement"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));

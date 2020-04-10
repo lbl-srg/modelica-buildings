@@ -2,44 +2,66 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat;
 block SystemRequests
   "Output system requests for VAV reheat terminal unit control"
 
-  parameter Modelica.SIunits.Time samplePeriod=120
+  parameter Real samplePeriod(
+    final unit="s",
+    final quantity="Time")=120
     "Sample period of component, set to the same value as the trim and respond that process yPreSetReq";
 
   parameter Boolean have_heaWatCoi
     "Flag, true if there is a hot water coil";
   parameter Boolean have_heaPla "Flag, true if there is a boiler plant";
 
-  parameter Modelica.SIunits.TemperatureDifference errTZonCoo_1=2.8
+  parameter Real errTZonCoo_1(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference")=2.8
     "Limit value of difference between zone temperature and cooling setpoint
     for generating 3 cooling SAT reset requests";
-  parameter Modelica.SIunits.TemperatureDifference errTZonCoo_2=1.7
+  parameter Real errTZonCoo_2(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference")=1.7
     "Limit value of difference between zone temperature and cooling setpoint
     for generating 2 cooling SAT reset requests";
-  parameter Modelica.SIunits.TemperatureDifference errTDis_1=17
+  parameter Real errTDis_1(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference")=17
     "Limit value of difference between discharge air temperature and its setpoint
     for generating 3 hot water reset requests";
-  parameter Modelica.SIunits.TemperatureDifference errTDis_2=8.3
+  parameter Real errTDis_2(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference")=8.3
     "Limit value of difference between discharge air temperature and its setpoint
     for generating 2 hot water reset requests";
 
-  parameter Modelica.SIunits.Time durTimTem=120
+  parameter Real durTimTem(
+    final unit="s",
+    final quantity="Time")=120
     "Duration time of zone temperature exceeds setpoint"
     annotation(Dialog(group="Duration times"));
-  parameter Modelica.SIunits.Time durTimFlo=60
+  parameter Real durTimFlo(
+    final unit="s",
+    final quantity="Time")=60
     "Duration time of airflow rate less than setpoint"
     annotation(Dialog(group="Duration times"));
-  parameter Modelica.SIunits.Time durTimDisAir=300
+  parameter Real durTimDisAir(
+    final unit="s",
+    final quantity="Time")=300
     "Duration time of discharge air temperature is less than setpoint"
     annotation(Dialog(group="Duration times"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Zone temperature"
     annotation (Placement(transformation(extent={{-220,150},{-180,190}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonCooSet(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Zone cooling setpoint temperature"
     annotation (Placement(transformation(extent={{-220,420},{-180,460}}),
@@ -72,12 +94,14 @@ block SystemRequests
         iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDisHeaSet(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature") if have_heaWatCoi
     "Discharge airflow setpoint temperature for heating"
     annotation (Placement(transformation(extent={{-220,-230},{-180,-190}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDis(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature") if have_heaWatCoi
     "Measured discharge airflow temperature"
     annotation (Placement(transformation(extent={{-220,-310},{-180,-270}}),

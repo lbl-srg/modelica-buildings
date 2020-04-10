@@ -322,8 +322,7 @@ First implementation.
   end entropyOfSaturatedVapor_sat;
 
   replaceable function entropyOfVaporization_sat
-    "Return entropy of vaporization of water as a function of temperature T,
-      <i>273.16</i> to <i>647.096</i> K"
+    "Return entropy of vaporization of water as a function of temperature T"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
     output SpecificEntropy slv "Vaporization enthalpy";
