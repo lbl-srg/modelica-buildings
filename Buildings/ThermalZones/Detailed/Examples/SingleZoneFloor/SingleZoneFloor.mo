@@ -8,11 +8,6 @@ model SingleZoneFloor "Model of a building floor as a single zone"
   parameter Modelica.SIunits.Length hWin = 1.5 "Height of windows";
   parameter Real winWalRat(min=0.01,max=0.99) = 0.33
     "Window to wall ratio for exterior walls";
-  parameter Boolean use_windPressure=true
-    "Set to true to enable wind pressure";
-  parameter HeatTransfer.Types.InteriorConvection intConMod=
-    Buildings.HeatTransfer.Types.InteriorConvection.Temperature
-    "Convective heat transfer model for room-facing surfaces of opaque constructions";
 
   parameter Buildings.HeatTransfer.Data.Solids.Plywood matWoo(
     x=0.01,
@@ -121,7 +116,7 @@ model SingleZoneFloor "Model of a building floor as a single zone"
     nConBou=0,
     nSurBou=0,
     nPorts=7,
-    intConMod=intConMod,
+    intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Floor"
     annotation (Placement(transformation(extent={{-16,-56},{24,-16}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temAir
