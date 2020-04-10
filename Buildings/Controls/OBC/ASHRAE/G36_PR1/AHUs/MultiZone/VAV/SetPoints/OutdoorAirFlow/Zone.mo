@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow;
 block Zone
-  "Output outdoor airflow related calculations at zone level"
+  "Output outdoor airflow related calculations at the zone level"
 
   parameter Real VOutPerAre_flow(
     final unit = "m3/(s.m2)")=3e-4
@@ -488,7 +488,7 @@ annotation (
 Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-260},{180,260}})),
 Documentation(info="<html>
 <p>
-This sequence conducts calculations of the minimum outdoor airflow rate in zone
+This sequence conducts calculations of the minimum outdoor airflow rate at the zone
 level. It gives outputs below.
 </p>
 <ol>

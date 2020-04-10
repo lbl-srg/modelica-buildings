@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow;
-block AHU "Output outdoor airflow related calculations at AHU level"
+block AHU "Output outdoor airflow related calculations at the AHU level"
 
   parameter Real VPriSysMax_flow(unit="m3/s")
     "Maximum expected system primary airflow at design stage"
