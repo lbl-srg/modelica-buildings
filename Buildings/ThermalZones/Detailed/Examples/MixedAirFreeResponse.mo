@@ -125,7 +125,7 @@ model MixedAirFreeResponse "Free response of room model"
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=weaFil,
       computeWetBulbTemperature=false)
-    annotation (Placement(transformation(extent={{-58,40},{-38,60}})));
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Modelica.Blocks.Sources.Constant uSha(k=0)
     "Control signal for the shading device"
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
@@ -152,7 +152,7 @@ equation
       smooth=Smooth.None));
 
   connect(weaDat.weaBus, roo.weaBus) annotation (Line(
-      points={{-38,50},{86,50},{86,-24},{85.9,-24},{85.9,-24.1}},
+      points={{-40,50},{86,50},{86,-24},{85.9,-24},{85.9,-24.1}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
