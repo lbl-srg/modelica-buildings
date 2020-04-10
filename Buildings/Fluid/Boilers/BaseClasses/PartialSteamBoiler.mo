@@ -52,9 +52,13 @@ partial model PartialSteamBoiler
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.Power Q_flow_nominal "Nominal heating power";
+
+  parameter Modelica.SIunits.Power Q_flow_nominal
+    "Nominal heating power";
+
   parameter Modelica.SIunits.Temperature T_nominal = 353.15
     "Temperature used to compute nominal efficiency (only used if efficiency curve depends on temperature)";
+
   // Assumptions
   parameter Buildings.Fluid.Types.EfficiencyCurves effCur=Buildings.Fluid.Types.EfficiencyCurves.Constant
     "Curve used to compute the efficiency";
@@ -91,8 +95,7 @@ partial model PartialSteamBoiler
   Modelica.SIunits.VolumeFlowRate VFue_flow = mFue_flow/fue.d
     "Fuel volume flow rate";
 
-  replaceable Buildings.Fluid.MixingVolumes.MixingVolume vol(nPorts=1)
-  constrainedby Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume(
+  Buildings.Fluid.MixingVolumes.MixingVolume vol(
     redeclare final package Medium = Medium_a,
     nPorts = 2,
     V=m_flow_nominal*tau/rho_default,
@@ -113,7 +116,11 @@ partial model PartialSteamBoiler
                   m_flow_nominal=m_flow_nominal)
                   "Evaporation process"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Movers.FlowControlled_dp dpCon
+  Movers.FlowControlled_dp dpCon(
+    redeclare package Medium = Medium_a,
+    m_flow_nominal=m_flow_nominal,
+    addPowerToMedium=false,
+    nominalValuesDefineDefaultPressureCurve=true)
     "Flow controller with specifiied pressure change between ports"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
@@ -211,7 +218,7 @@ equation
   assert(eta > 0.001, "Efficiency curve is wrong.");
 
   connect(vol.ports[1], dpCon.port_a)
-    annotation (Line(points={{-11,0},{20,0}},color={0,127,255}));
+    annotation (Line(points={{-13,0},{20,0}},color={0,127,255}));
   connect(dpCon.port_b, eva.port_a)
     annotation (Line(points={{40,0},{60,0}}, color={0,127,255}));
   connect(UAOve.port_b, vol.heatPort)            annotation (Line(
