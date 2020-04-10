@@ -49,7 +49,6 @@ as <i>approximated derivative</i>:
      y = ------------ * u
             T * s + 1
 </pre>
-
 <p>
 If <code>k=0</code>, the block reduces to <code>y=0</code>.
 </p>
