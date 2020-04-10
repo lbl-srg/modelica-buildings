@@ -19,67 +19,67 @@ model SingleZoneFloor "Model of a building floor as a single zone"
     k=0.11,
     d=544,
     nStaRef=1) "Wood for exterior construction"
-    annotation (Placement(transformation(extent={{40,112},{60,132}})));
+    annotation (Placement(transformation(extent={{40,110},{60,130}})));
   parameter Buildings.HeatTransfer.Data.Solids.Concrete matCon(
     x=0.1,
     k=1.311,
     c=836,
     nStaRef=5) "Concrete"
-    annotation (Placement(transformation(extent={{40,142},{60,162}})));
+    annotation (Placement(transformation(extent={{40,140},{60,160}})));
   parameter Buildings.HeatTransfer.Data.Solids.Generic matIns(
     x=0.087,
     k=0.049,
     c=836.8,
     d=265,
     nStaRef=5) "Steelframe construction with insulation"
-    annotation (Placement(transformation(extent={{80,112},{100,132}})));
+    annotation (Placement(transformation(extent={{80,110},{100,130}})));
   parameter Buildings.HeatTransfer.Data.Solids.GypsumBoard matGyp(
     x=0.0127,
     k=0.16,
     c=830,
     d=784,
     nStaRef=2) "Gypsum board"
-    annotation (Placement(transformation(extent={{40,84},{60,104}})));
+    annotation (Placement(transformation(extent={{40,80},{60,100}})));
   parameter Buildings.HeatTransfer.Data.Solids.GypsumBoard matGyp2(
     x=0.025,
     k=0.16,
     c=830,
     d=784,
     nStaRef=2) "Gypsum board"
-    annotation (Placement(transformation(extent={{80,84},{100,104}})));
+    annotation (Placement(transformation(extent={{80,80},{100,100}})));
   parameter Buildings.HeatTransfer.Data.Solids.Plywood matFur(x=0.15, nStaRef=5)
     "Material for furniture"
-    annotation (Placement(transformation(extent={{80,172},{100,192}})));
+    annotation (Placement(transformation(extent={{80,170},{100,190}})));
   parameter Buildings.HeatTransfer.Data.Solids.Plywood matCarTra(
     x=0.215/0.11,
     k=0.11,
     d=544,
     nStaRef=1) "Wood for floor"
-    annotation (Placement(transformation(extent={{40,172},{60,192}})));
+    annotation (Placement(transformation(extent={{40,170},{60,190}})));
   parameter Buildings.HeatTransfer.Data.Resistances.Carpet matCar "Carpet"
-    annotation (Placement(transformation(extent={{120,172},{140,192}})));
+    annotation (Placement(transformation(extent={{120,140},{140,160}})));
   parameter Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
     UFra=2,
     shade=Buildings.HeatTransfer.Data.Shades.Gray(),
     haveInteriorShade=false,
     haveExteriorShade=false) "Data record for the glazing system"
-    annotation (Placement(transformation(extent={{80,142},{100,162}})));
+    annotation (Placement(transformation(extent={{80,140},{100,160}})));
   parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic conExtWal(
     final nLay=3,
     material={matWoo,matIns,matGyp}) "Exterior construction"
-    annotation (Placement(transformation(extent={{120,142},{140,162}})));
+    annotation (Placement(transformation(extent={{120,110},{140,130}})));
   parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic conIntWal(
     final nLay=1,
     material={matGyp2}) "Interior wall construction"
-    annotation (Placement(transformation(extent={{160,142},{180,162}})));
+    annotation (Placement(transformation(extent={{160,110},{180,130}})));
   parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic conFlo(
     final nLay=1,
     material={matCon}) "Floor construction (opa_a is carpet)"
-    annotation (Placement(transformation(extent={{120,102},{140,122}})));
+    annotation (Placement(transformation(extent={{120,80},{140,100}})));
   parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic conFur(
     final nLay=1,
     material={matFur}) "Construction for internal mass of furniture"
-    annotation (Placement(transformation(extent={{160,102},{180,122}})));
+    annotation (Placement(transformation(extent={{160,80},{180,100}})));
   parameter Boolean sampleModel = false
     "Set to true to time-sample the model, which can give shorter simulation time if there is already time sampling in the system model"
     annotation (
@@ -94,7 +94,7 @@ model SingleZoneFloor "Model of a building floor as a single zone"
   Modelica.Blocks.Interfaces.RealOutput TRooAir(
     unit="K",
     displayUnit="degC") "Room air temperature"
-    annotation (Placement(transformation(extent={{200,50},{220,70}}),
+    annotation (Placement(transformation(extent={{200,-10},{220,10}}),
         iconTransformation(extent={{160,92},{180,112}})));
   Modelica.Blocks.Interfaces.RealOutput p_rel
     "Relative pressure signal of building static pressure" annotation (
@@ -132,7 +132,7 @@ model SingleZoneFloor "Model of a building floor as a single zone"
     annotation (Placement(transformation(extent={{-16,-56},{24,-16}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temAir
     "Air temperature sensor"
-    annotation (Placement(transformation(extent={{82,50},{102,70}})));
+    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
   Buildings.Fluid.Sensors.RelativePressure senRelPre(
     redeclare package Medium = Medium)
     "Building pressure measurement"
@@ -215,7 +215,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(flo.heaPorAir, temAir.port) annotation (Line(
-      points={{3,-36},{40,-36},{40,60},{82,60}},
+      points={{3,-36},{40,-36},{40,0},{80,0}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(out.weaBus, weaBus) annotation (Line(
@@ -231,7 +231,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
-  connect(temAir.T, TRooAir) annotation (Line(points={{102,60},{210,60}},
+  connect(temAir.T, TRooAir) annotation (Line(points={{100,0},{210,0}},
                     color={0,0,127}));
   connect(weaBus, leaSou.weaBus) annotation (Line(
       points={{-166,86},{-166,152},{-122,152}},
