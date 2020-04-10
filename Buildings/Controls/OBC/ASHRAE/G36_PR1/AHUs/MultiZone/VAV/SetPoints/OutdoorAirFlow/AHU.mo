@@ -48,7 +48,6 @@ block AHU "Output outdoor airflow related calculations at AHU level"
         iconTransformation(extent={{-140,-10},{-100,30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VSumSysPriAir_flow(
-    final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "System primary airflow rate, equals to the sum of the measured discharged flow rate of all terminal units"

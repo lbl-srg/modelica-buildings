@@ -90,7 +90,6 @@ block Zone
       iconTransformation(extent={{-140,-50},{-100,-10}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow(
-    final min=0,
     final unit = "m3/s",
     final quantity = "VolumeFlowRate")
     "Primary airflow rate to the ventilation zone from the air handler, including outdoor air and recirculated air"
