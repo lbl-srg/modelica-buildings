@@ -387,7 +387,6 @@ The model is similar to
 <a href=\"modelica://Modelica.Blocks.Continuous.LimPID\">Modelica.Blocks.Continuous.LimPID</a>,
 except for the following changes:
 </p>
-
 <ol>
 <li>
 <p>
@@ -402,7 +401,6 @@ otherwise the controller output is decreased. Thus,
   <li>for a cooling coils with a two-way valve, set <code>reverseAction = true</code>. </li>
 </ul>
 </li>
-
 <li>
 <p>
 It can be configured to enable an input port that allows resetting the controller
@@ -441,22 +439,16 @@ a variable speed drive of a motor that should continuously increase the speed,
 or a mixing valve that should slowly open.
 </p>
 </li>
-
 <li>
 There is no optional input for a feedforward compensation.
 </li>
-
-
 <li>
 The parameter <code>limitsAtInit</code> has been removed.
 </li>
-
 <li>
 Homotopy initialization is not implemented.
 </li>
-
 </ol>
-
 <p>
 During initialization, the state, and hence the output, of the integrator is set to the
 parameter <code>xi_start</code>,
@@ -465,7 +457,6 @@ and the output of the derivative action is set to the parameter
 Note that both will be multiplied by the gain <code>k</code> before the values
 are sent to the output limiter and then the controller output.
 </p>
-
 <p>
 For recommendations regarding tuning of closed loop control, see
 <a href=\"modelica://Modelica.Blocks.Continuous.LimPID\">Modelica.Blocks.Continuous.LimPID</a>
