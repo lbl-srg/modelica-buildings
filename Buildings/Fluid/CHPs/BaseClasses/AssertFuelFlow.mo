@@ -4,15 +4,15 @@ model AssertFuelFlow "Assert if fuel flow is outside boundaries"
 
   parameter Boolean dmFueLim
     "If true, the rate at which fuel mass flow rate can change is limited";
-  parameter Real dmFueMax
+  parameter Real dmFueMax_flow
     "Maximum rate at which fuel mass flow rate can change in kg/s2";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mFue_flow(
-    final unit="kg/s") "Fuel flow rate"
+    final unit="kg/s") "Fuel mass flow rate"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
-    final message="Fuel flow rate of change is outside boundaries!")
+    final message="Rate of change in the fuel mass flow rate is outside boundaries!")
     "Assert function for checking fuel flow rate"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 
@@ -23,8 +23,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant cheDmLim(
     final k=dmFueLim) "Check if change of fuel flow rate should be limited"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(final uLow=0.99*dmFueMax,
-      final uHigh=1.01*dmFueMax + 1e-6)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(final uLow=0.99*dmFueMax_flow,
+      final uHigh=1.01*dmFueMax_flow + 1e-6)
     "Check if fuel mass flow rate is changing too much"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Derivative floChaRat(
@@ -82,7 +82,6 @@ annotation (
 <p>
 The model sends a warning message if the rate at which the fuel mass flow rate changes
 is outside the boundaries defined by the manufacturer.
-Limits can be specified for the maximal mass flow rate of change.
 </p>
 </html>", revisions="<html>
 <ul>

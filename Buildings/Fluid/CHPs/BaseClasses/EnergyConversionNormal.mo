@@ -23,12 +23,12 @@ model EnergyConversionNormal
       iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput mFue_flow(
     final unit="kg/s",
-    final quantity="MassFlowRate") "Fuel flow rate"
+    final quantity="MassFlowRate") "Fuel mass flow rate"
     annotation (Placement(transformation(extent={{140,20},{180,60}}),
       iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput mAir_flow(
     final unit="kg/s",
-    final quantity="MassFlowRate") "Air flow rate"
+    final quantity="MassFlowRate") "Air mass flow rate"
     annotation (Placement(transformation(extent={{140,-20},{180,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QGen_flow(final unit="W")

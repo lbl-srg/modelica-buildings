@@ -87,10 +87,10 @@ annotation (
     Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.WarmUp\">
-Buildings.Fluid.CHPs.BaseClasses.WarmUp</a>
-for defining the warm-up operating mode. The example is for the warm-up period with
-the static time delay (e.g. CHPs with internal combustion engines).
+<a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.WarmUpLeaving\">
+Buildings.Fluid.CHPs.BaseClasses.WarmUpLeaving</a>. 
+The example is for the warm-up mode with the static time delay
+(e.g. CHPs with internal combustion engines).
 </p>
 </html>", revisions="<html>
 <ul>

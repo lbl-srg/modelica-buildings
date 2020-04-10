@@ -58,7 +58,7 @@ model Controller "Define current operation mode"
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minWatFlo(
-    final k=per.mWatMin) "Minimum water flow rate"
+    final k=per.mWatMin_flow) "Minimum water mass flow rate"
     annotation (Placement(transformation(extent={{-220,190},{-200,210}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
     final k=0.001) "Constant value"
@@ -71,8 +71,8 @@ protected
     "Mass flow rate difference between actual and minimum value"
     annotation (Placement(transformation(extent={{-100,170},{-80,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
-    final uLow=0.01*per.mWatMin - 1e-6,
-    final uHigh=0.015*per.mWatMin)
+    final uLow=0.01*per.mWatMin_flow - 1e-6,
+    final uHigh=0.015*per.mWatMin_flow)
     "Check if actual mass flow rate is larger than the minimum value"
     annotation (Placement(transformation(extent={{-60,170},{-40,190}})));
   Buildings.Controls.OBC.CDL.Logical.And goSig
@@ -102,7 +102,7 @@ protected
     "Plant could run and cool-down mode is optional"
     annotation (Placement(transformation(extent={{208,-210},{228,-190}})));
   Buildings.Fluid.CHPs.BaseClasses.AssertWaterFlow assWatMas(
-    final mWatMin=per.mWatMin)
+    final mWatMin_flow=per.mWatMin_flow)
     "Assert if water flow rate is outside boundaries"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
   Buildings.Fluid.CHPs.BaseClasses.Types.Mode actMod "Mode indicator";
@@ -367,7 +367,7 @@ From the pump-on mode
 <li>
 The transition from the pump-on to stand-by mode will occur after the specified
 time delay and if the water flow rate <code>mWat_flow</code> is greater than
-the minimum <code>mWatMin</code>.
+the minimum <code>mWatMin_flow</code>.
 </li>
 <li>
 If <code>runSig</code> becomes false, the CHP will automatically change to the off mode.
@@ -386,7 +386,7 @@ is false).
 </li>
 <li>
 If <code>runSig</code> becomes false or if the water flow rate <code>mWat_flow</code>
-becomes less than the minimum <code>mWatMin</code>, the CHP will automatically
+becomes less than the minimum <code>mWatMin_flow</code>, the CHP will automatically
 change to the cool-down mode.
 </li>
 </ul>
@@ -397,7 +397,7 @@ From the normal mode
 <li>
 The transition from the normal operation to the cool-down mode will occur when
 <code>runSig</code> becomes false or if the water flow rate <code>mWat_flow</code>
-becomes less than the minimum <code>mWatMin</code>.
+becomes less than the minimum <code>mWatMin_flow</code>.
 </li>
 </ul>
 <p>

@@ -7,7 +7,7 @@ model StandBy "Validate model StandBy"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant mWat_flow(
-    final k=0.5) "Water flow rate"
+    final k=0.5) "Water mass flow rate"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
   Buildings.Fluid.CHPs.BaseClasses.Types.Mode actMod "Mode indicator";
   Modelica.StateGraph.TransitionWithSignal transition1 "Off to standby mode"
@@ -40,11 +40,11 @@ protected
   Modelica.StateGraph.TransitionWithSignal transition4 "Standby to off mode"
     annotation (Placement(transformation(extent={{-30,30},{-50,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minWatFlo(
-    final k=per.mWatMin)
-    "Minimum water flow rate"
+    final k=per.mWatMin_flow)
+    "Minimum water mass flow rate"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater cheMinFlo
-    "Check if water flow rate is higher than the minimum"
+    "Check if water mass flow rate is higher than the minimum"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
 
 equation
@@ -91,10 +91,7 @@ annotation (
         "Simulate and plot"),
   Documentation(info="<html>
 <p>
-This example validates
-<a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.StandBy\">
-Buildings.Fluid.CHPs.BaseClasses.StandBy</a>
-for defining the stand-by operating mode.
+This example validates the transitions to and from the stand-by operating mode.
 </p>
 </html>", revisions="<html>
 <ul>

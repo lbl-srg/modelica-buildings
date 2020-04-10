@@ -16,7 +16,7 @@ record ValidationData3 "Validation data set 3"
     timeDelayCool=60,
     PEleMax=5500,
     PEleMin=0,
-    mWatMin=0,
+    mWatMin_flow=0,
     TWatMax=273.15 + 80,
     dPEleLim=false,
     dmFueLim=false,
@@ -29,12 +29,12 @@ record ValidationData3 "Validation data set 3"
   Documentation(preferredView="info",
   info="<html>
 <p>
-This is the record of parameters for CHP models derived from the parameters of 
+This is the record of parameters for CHP models derived from the parameters of
 EnergyPlus example <code>MicroCogeneration</code>, with following changes:
 </p>
 <ul>
 <li>
-the net electrical power rate of change and the fuel flow rate of change, become unlimitted.
+the rate of change in the net electrical power and in the fuel flow rate, becomes unlimitted.
 </li>
 <li>
 changed electric power consumptions during standby <code>PStaBy</code> and cool-down

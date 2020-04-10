@@ -2,27 +2,27 @@ within Buildings.Fluid.CHPs.Data;
 record Generic "Generic data for CHP models"
   extends Modelica.Icons.Record;
   parameter Real[27] coeEtaQ=fill(0,27)
-    "Vector of coefficients used to calculate thermal efficiency of the engine. 
-    The independent variable x1 is the steady-state power output, 
+    "Vector of coefficients used to calculate thermal efficiency of the engine.
+    The independent variable x1 is the steady-state power output,
     x2 is the cooling water mass flow rate, x3 is the cooling water inlet temperature.
     From index 1 to 27, coefficients correspond to the following terms:
-    constant, x1^2, x1, x2^2, x2, x3^2, x3, 
+    constant, x1^2, x1, x2^2, x2, x3^2, x3,
     x1^2*x2^2, x1*x2, x1*x2^2, x1^2*x2,
     x1^2*x3^2, x1*x3, x1*x3^2, x1^2*x3,
     x2^2*x3^2, x2*x3, x2*x3^2, x2^2*x3,
     x1^2*x2^2*x3^2, x1^2*x2^2*x3, x1^2*x2*x3^2, x1*x2^2*x3^2,
     x1^2*x2*x3, x1*x2^2*x3,  x1*x2*x3^2, x1*x2*x3";
   parameter Real[27] coeEtaE=fill(0,27)
-    "Vector of coefficients used to calculate electrical conversion efficiency 
-    of the engine. The independent variables and mapping of the coefficients 
+    "Vector of coefficients used to calculate electrical conversion efficiency
+    of the engine. The independent variables and mapping of the coefficients
     to the polynomial terms are the same as for the thermal efficiency";
   parameter Boolean coolingWaterControl=true
-    "If true, then an empirical correlation is used to calculate 
+    "If true, then an empirical correlation is used to calculate
     cooling water mass flow rate based on internal control";
   parameter Real[6] coeMasWat=fill(0,6)
-    "Vector of coefficients used to calculate cooling water mass flow rate 
+    "Vector of coefficients used to calculate cooling water mass flow rate
     in case coolingWaterControl is true.
-    The independent variable x1 is the steady-state power output, 
+    The independent variable x1 is the steady-state power output,
     x2 is the cooling water mass flow rate.
     From index 1 to 6, coefficients correspond to the following terms:
     constant, x1, x1^2, x2, x2^2, x1*x2";
@@ -40,15 +40,15 @@ record Generic "Generic data for CHP models"
   parameter Modelica.SIunits.HeatCapacity MCcw = 0
     "Thermal capacitance of heat recovery portion";
   parameter Boolean warmUpByTimeDelay=true
-    "If true, the plant will be in warm-up mode depending on the delay time, 
+    "If true, the plant will be in warm-up mode depending on the delay time,
     otherwise depending on engine temperature ";
   parameter Modelica.SIunits.Time timeDelayStart = 60
     "Time delay between activation and power generation";
   parameter Modelica.SIunits.Temperature TEngNom = 273.15+100
     "Nominal engine operating temperature";
   parameter Boolean coolDownOptional=false
-    "If true, cooldown is optional. The model will complete cooldown before 
-    switching to standby, but if reactivated during cooldown period, it 
+    "If true, cooldown is optional. The model will complete cooldown before
+    switching to standby, but if reactivated during cooldown period, it
     will immediately switch into warm-up mode";
   parameter Modelica.SIunits.Time timeDelayCool = 0
     "Cooldown period";
@@ -56,8 +56,8 @@ record Generic "Generic data for CHP models"
     "Maximum power output";
   parameter Modelica.SIunits.Power PEleMin = 0
     "Minimum power output";
-  parameter Modelica.SIunits.MassFlowRate mWatMin = 0
-    "Minimum cooling water flow rate";
+  parameter Modelica.SIunits.MassFlowRate mWatMin_flow = 0
+    "Minimum cooling water mass flow rate";
   parameter Modelica.SIunits.Temperature TWatMax=373.15
     "Maximum cooling water temperature";
   parameter Boolean dPEleLim=false
@@ -66,7 +66,7 @@ record Generic "Generic data for CHP models"
     "If true, the rate at which fuel mass flow rate can change is limited";
   parameter Real dPEleMax = 0
     "Maximum rate at which net power output can change in W/s";
-  parameter Real dmFueMax = 0
+  parameter Real dmFueMax_flow = 0
     "Maximum rate at which fuel mass flow rate can change in kg/s2";
   parameter Modelica.SIunits.Power PStaBy = 0
     "Standby electric power";

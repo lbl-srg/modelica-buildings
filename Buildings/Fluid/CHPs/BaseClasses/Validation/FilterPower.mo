@@ -33,9 +33,9 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.FilterPower\">
 Buildings.Fluid.CHPs.BaseClasses.FilerPower</a>
-for applying constraints and sending a warning message if the electric power 
-is outside boundaries. The constraints include minimum and maximum electric power and 
-the maximal power rate of change.
+for applying constraints and sending a warning message if the electric power
+is outside boundaries. The constraints include minimum and maximum electric power and
+the maximum rate of change in power output.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -9,7 +9,7 @@ model PowerConsumption "Validate model PowerConsumption"
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable mWat_flow(
     table=[0,0; 300,0.4; 2700,0; 3000,0],
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)
-    "Water flow rate"
+    "Water mass flow rate"
     annotation (Placement(transformation(extent={{-80,-8},{-60,12}})));
   Buildings.Fluid.CHPs.BaseClasses.Controller con(final per=per)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -26,7 +26,7 @@ model PowerConsumption "Validate model PowerConsumption"
   Buildings.Fluid.CHPs.BaseClasses.PowerConsumption powCon(
     final PStaBy=per.PStaBy,
     final PCooDow=per.PCooDow)
-    "Internal controller for water flow rate"
+    "Internal controller for water mass flow rate"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
 protected
@@ -53,7 +53,7 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.PowerConsumption\">
 Buildings.Fluid.CHPs.BaseClasses.PowerConsumption</a>
-for calculating the power consumption during the stand-by and cool-down modes of 
+for calculating the power consumption during the stand-by and cool-down modes of
 operation.
 </p>
 </html>", revisions="<html>

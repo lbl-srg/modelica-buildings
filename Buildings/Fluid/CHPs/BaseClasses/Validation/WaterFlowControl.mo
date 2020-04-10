@@ -6,7 +6,7 @@ model WaterFlowControl "Validate model WaterFlowControl"
     "CHP performance data"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Buildings.Fluid.CHPs.BaseClasses.WaterFlowControl conWat(final per=per)
-    "Internal controller for water flow rate"
+    "Internal controller for water mass flow rate"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 protected
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
@@ -14,7 +14,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable mWat_flow(
     table=[0,0; 300,0.4; 2700,0; 3000,0],
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)
-    "Water flow rate"
+    "Water mass flow rate"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Buildings.Fluid.CHPs.BaseClasses.Controller con(final per=per)
     "Operation mode controller"

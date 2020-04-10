@@ -78,7 +78,7 @@ model ThermalElectricalFollowing
       iconTransformation(extent={{100,10},{140,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput mFue_flow(
     final unit="kg/s",
-    final quantity="MassFlowRate") "Fuel flow rate"
+    final quantity="MassFlowRate") "Fuel mass flow rate"
     annotation (Placement(transformation(extent={{180,0},{220,40}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QWat_flow(
@@ -115,10 +115,10 @@ model ThermalElectricalFollowing
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
   Buildings.Fluid.CHPs.BaseClasses.WaterFlowControl conWat(final per=per) if
     per.coolingWaterControl
-    "Internal controller for water flow rate"
+    "Internal controller for water mass flow rate"
     annotation (Placement(transformation(extent={{120,130},{140,150}})));
   Modelica.Blocks.Sources.RealExpression mWat_flow(
-    final y=port_a.m_flow) "Water flow rate"
+    final y=port_a.m_flow) "Water mass flow rate"
     annotation (Placement(transformation(extent={{-140,30},{-120,50}})));
   Modelica.Blocks.Sources.RealExpression TWatIn(
     final y=Medium.temperature(Medium.setState_phX(port_a.p, inStream(port_a.h_outflow))))
@@ -317,21 +317,19 @@ characteristics.
 <ul>
 <li>
 The <i>energy conversion control volume</i>
-(<a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.EnergyConversion\">
-Buildings.Fluid.CHPs.BaseClasses.EnergyConversion</a>)
 represents the engine working fluid, combustion gases and engine alternator. It
-feeds information from the engine unit performance map into the thermal model.
+feeds information from the engine unit performance map into the thermal model, see
+<a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.EnergyConversion\">
+Buildings.Fluid.CHPs.BaseClasses.EnergyConversion</a>.
 </li>
 <li>
-The <i>thermal mass control volume</i>
-(<a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.EngineConVol\">
-Buildings.Fluid.CHPs.BaseClasses.EngineConVol</a>)
-represents the aggregated thermal capacitance
-associated with the engine block and the majority of the heat exchanger shells.
+The <i>thermal mass control volume</i> represents the aggregated thermal capacitance
+associated with the engine block and the majority of the heat exchanger shells, see
+<a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.EngineTemperature\">
+Buildings.Fluid.CHPs.BaseClasses.EngineTemperature</a>.
 </li>
 <li>
-The <i>cooling water control volume</i> (<code>vol</code>)
-represents the cooling water flowing
+The <i>cooling water control volume</i> represents the cooling water flowing
 through the device and the elements of the heat exchanger in immediate thermal
 contact.
 </li>
@@ -344,28 +342,12 @@ contact.
 </p>
 <p>
 Depending on the current mode, control signals and plant boundary conditions, the
-CHP plant switches between six possible operating modes: <i>off</i> mode,
+CHP unit switches between six possible operating modes: <i>off</i> mode,
 <i>stand-by</i> mode, <i>pump-on</i> mode, <i>warm-up</i> mode,
 <i>normal operation</i> mode, <i>cool-down</i> mode. The mode switch control is
 implemented in <a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.Controller\">
 Buildings.Fluid.CHPs.BaseClasses.Controller</a>.
 </p>
-<h4>Limitations</h4>
-<p>
-In the early stages of a project, the advantages of this modeling approach
-over a detailed modeling are the model simplicity, the ease of calibration
-and much less data collection. The disadvantages, however, are:
-</p>
-<ul>
-<li>
-Although the model structure reflects the underlying physical processes, the
-model parameterization relies entirely on empirical data.
-</li>
-<li>
-Once calibrated, the model is applicable to only one engine and fuel type, and
-each new cogeneration device must be characterized in a laboratory environment.
-</li>
-</ul>
 <h4>References</h4>
 <p>
 Beausoleil-Morrison, Ian and Kelly, Nick, 2007. <i>Specifications for modelling fuel cell

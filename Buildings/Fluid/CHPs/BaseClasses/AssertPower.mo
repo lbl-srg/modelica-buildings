@@ -21,7 +21,7 @@ model AssertPower "Assert if electric power is outside boundaries"
     "Generate warning when the electric power demand is out of the range"
     annotation (Placement(transformation(extent={{70,10},{90,30}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMesDP(
-    final message="Power rate of change is outside boundaries!")
+    final message="Rate of change in power output is outside boundaries!")
     "Assert function for checking power rate"
     annotation (Placement(transformation(extent={{70,-50},{90,-30}})));
 
@@ -117,7 +117,8 @@ annotation (
   Documentation(info="<html>
 <p>
 The model sends a warning message if the power demand is outside the boundaries defined by the manufacturer.
-Limits can be specified for the minimal and maximal electric power and for the maximal power rate of change.
+Limits can be specified for the minimal and maximal electric power, and for the maximum rate at
+which the power can change.
 </p>
 </html>", revisions="<html>
 <ul>

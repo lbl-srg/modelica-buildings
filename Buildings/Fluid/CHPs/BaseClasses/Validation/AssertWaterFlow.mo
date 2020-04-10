@@ -5,7 +5,7 @@ model AssertWaterFlow "Validate model AssertWaterFlow"
     "CHP performance data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
-  Buildings.Fluid.CHPs.BaseClasses.AssertWaterFlow assWatMas(mWatMin=per.mWatMin)
+  Buildings.Fluid.CHPs.BaseClasses.AssertWaterFlow assWatMas(mWatMin_flow=per.mWatMin_flow)
     "Assert if water mass flow is outside boundaries"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable mWat_flow(

@@ -5,14 +5,16 @@ model AssertFuelFlow "Validate model AssertFuelFlow"
     "CHP performance data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
-  Buildings.Fluid.CHPs.BaseClasses.AssertFuelFlow assFue(final dmFueLim=per.dmFueLim,
-      final dmFueMax=per.dmFueMax) "Assert if fuel flow is outside boundaries"
+  Buildings.Fluid.CHPs.BaseClasses.AssertFuelFlow assFue(
+    final dmFueLim=per.dmFueLim,
+    final dmFueMax_flow=per.dmFueMax_flow)
+    "Assert if fuel mass flow rate is outside boundaries"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable mFue_flow(
     final table=[0,0; 300,1; 600,3.5; 900,0],
     final smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)
-    "Fuel flow rate"
+    "Fuel mass flow rate"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
 equation
@@ -28,7 +30,7 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.AssertFuelFlow\">
 Buildings.Fluid.CHPs.BaseClasses.AssertFuelFlow</a>
-for sending a warning message if the fuel flow rate is outside boundaries.
+for sending a warning message if the fuel mass flow rate is outside boundaries.
 </p>
 </html>", revisions="<html>
 <ul>

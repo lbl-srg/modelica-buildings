@@ -107,10 +107,10 @@ annotation (
   Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.WarmUp\">
-Buildings.Fluid.CHPs.BaseClasses.WarmUp</a>
-for defining the warm-up operating mode. The example is for the warm-up period
-dependent on the engine temperature (e.g. CHPs with Stirling engines).
+<a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.WarmUpLeaving\">
+Buildings.Fluid.CHPs.BaseClasses.WarmUpLeaving</a>. 
+The example is for the warm-up mode dependent on the engine temperature 
+(e.g. CHPs with Stirling engines).
 </p>
 </html>", revisions="<html>
 <ul>
