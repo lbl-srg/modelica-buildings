@@ -122,7 +122,7 @@ Limits can be specified for the minimal and maximal electric power and for the m
 </html>", revisions="<html>
 <ul>
 <li>
-June 01, 2019 by Tea Zakula:<br/>
+June 01, 2019, by Tea Zakula:<br/>
 First implementation.
 </li>
 </ul>

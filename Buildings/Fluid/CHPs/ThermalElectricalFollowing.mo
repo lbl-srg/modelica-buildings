@@ -204,9 +204,8 @@ equation
     annotation (Line(points={{142,140},{200,140}}, color={0,0,127}));
   connect(hys.y, runSig.u2) annotation (Line(points={{-38,110},{-30,110},{-30,122},
           {-22,122}}, color={255,0,255}));
-  connect(opeMod.opeMod, eneCon.opeMod) annotation (Line(points={{71,160},{80,
-          160},{80,80},{-70,80},{-70,38},{-61,38}},
-                                                 color={0,127,0}));
+  connect(opeMod.opeMod, eneCon.opeMod) annotation (Line(points={{71,160},{80,160},
+          {80,80},{-70,80},{-70,35},{-61,35}},   color={0,127,0}));
   connect(opeMod.avaSig, avaSig) annotation (Line(points={{48,167},{-30,167},{
           -30,140},{-200,140}},
                             color={255,0,255}));
@@ -235,7 +234,7 @@ equation
   connect(eng.TRoo, QLos.port_a) annotation (Line(points={{0,-124.2},{-28,-124.2},
           {-28,-140},{-50,-140}}, color={191,0,0}));
   connect(fil.PEle, eneCon.PEle) annotation (Line(points={{-118,90},{-80,90},{-80,
-          35},{-62,35}}, color={0,0,127}));
+          38},{-62,38}}, color={0,0,127}));
   connect(watHea.port_b, eng.TWat) annotation (Line(points={{-20,-110},{-20,-136},
           {0,-136}}, color={191,0,0}));
   connect(vol.heatPort, watHea.port_a) annotation (Line(points={{-9,-10},{-20,-10},
@@ -294,6 +293,22 @@ coupled with thermally massive elements to characterize the device's dynamic the
 performance. It was developed based on the specification described in
 Beausoleil-Morrison (2007).
 </p>
+<h4>Model applicability</h4>
+<p>
+The model is primarily intended to predict the energy performance of 
+combustion-based cogeneration devices, such as internal combustion engine and 
+Stirling engine units.
+However, the general model specification makes it applicable to any device 
+simultaneously producing heat and power from which heat is recovered as hot water,
+as long as recalibration is undertaken.
+Fuel cell based micro-cogeneration technology is outside of the modeling scope.
+</p>
+<p>
+The parameters required to define the governing equations can be determined 
+from bench testing with only non intrusive measurements (e.g. fuel flow rate, 
+cooling water flow rates and temperature, electrical production).
+The ability to reuse and recalibrate the component models or sub-models 
+ensures that they are applicable to future generations of cogeneration devices.
 <h4>Model topology</h4>
 <p>
 Three control volumes are used to model the cogeneration unit dynamic thermal
@@ -361,11 +376,15 @@ programs</i>, Section III. <a href=\"https://strathprints.strath.ac.uk/6704/\">
 </html>", revisions="<html>
 <ul>
 <li>
+April 8, 2020, by Antoine Gautier:<br/>
+Refactored implementation.
+</li>
+<li>
 February 14, 2020, by Jianjun Hu:<br/>
 Added documentation.
 </li>
 <li>
-June 01, 2019 by Tea Zakula:<br/>
+June 01, 2019, by Tea Zakula:<br/>
 First implementation.
 </li>
 </ul>

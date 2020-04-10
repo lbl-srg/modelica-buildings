@@ -58,7 +58,7 @@ record Generic "Generic data for CHP models"
     "Minimum power output";
   parameter Modelica.SIunits.MassFlowRate mWatMin = 0
     "Minimum cooling water flow rate";
-  parameter Modelica.SIunits.Temperature TWatMax = 373.15
+  parameter Modelica.SIunits.Temperature TWatMax=373.15
     "Maximum cooling water temperature";
   parameter Boolean dPEleLim=false
     "If true, the rate at which net power output can change is limited";
@@ -92,7 +92,11 @@ This is the base record for CHP models.
 revisions="<html>
 <ul>
 <li>
-March 08, 2019 by Tea Zakula:<br/>
+April 8, 2020, by Antoine Gautier:<br/>
+Updated parameter names and descriptions.
+</li>
+<li>
+March 08, 2019, by Tea Zakula:<br/>
 First implementation.
 </li>
 </ul>

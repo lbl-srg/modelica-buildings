@@ -37,6 +37,7 @@ protected
   WarmUpLeaving warUpCtr(
     final timeDelayStart=per.timeDelayStart,
     final TEngNom=per.TEngNom,
+    final PEleMax=per.PEleMax,
     final warmUpByTimeDelay=per.warmUpByTimeDelay) "Warm-up control sequence"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
 equation

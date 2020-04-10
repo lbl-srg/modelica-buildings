@@ -95,15 +95,15 @@ annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},{140,100}})),
   Documentation(info="<html>
 <p>
-The model defines energy conversion for a typical CHP operation that includes the 
-normal mode and warm-up mode based on the time delay (CHPs with internal combustion engines). 
-Energy conversion from fuel to the electric power and heat is modeled using 
-system's part-load electrical and thermal efficiencies, based on the empirical 
-data from the manufacturer. 
-The curves are described by a fifth order polynomial, a function of the electric 
-power, water flow rate and water inlet temperature. 
-The air flow rate is modeled using a second order polynomial, a function of 
-the fuel flow rate. 
+The model defines energy conversion for a typical CHP operation that includes the
+normal mode and warm-up mode based on the time delay (CHPs with internal combustion engines).
+Energy conversion from fuel to the electric power and heat is modeled using
+system's part-load electrical and thermal efficiencies, based on the empirical
+data from the manufacturer.
+The curves are described by a fifth order polynomial, a function of the electric
+power, water flow rate and water inlet temperature.
+The air flow rate is modeled using a second order polynomial, a function of
+the fuel flow rate.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -112,7 +112,7 @@ October 31, 2019, by Jianjun Hu:<br/>
 Refactored implementation.
 </li>
 <li>
-June 01, 2019 by Tea Zakula:<br/>
+June 01, 2019, by Tea Zakula:<br/>
 First implementation.
 </li>
 </ul>

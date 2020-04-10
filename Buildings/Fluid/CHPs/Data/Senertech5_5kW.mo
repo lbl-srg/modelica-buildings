@@ -37,7 +37,7 @@ This is the record of parameters for CHP models from EnergyPlus example
 </html>",revisions="<html>
 <ul>
 <li>
-March 08, 2019 by Tea Zakula:<br/>
+March 08, 2019, by Tea Zakula:<br/>
 First implementation.
 </li>
 </ul>

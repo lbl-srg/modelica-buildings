@@ -67,12 +67,12 @@ annotation (
   Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
   Documentation(info="<html>
 <p>
-The model calculates the power consumption during the stand-by and cool-down modes of operation. 
+The model calculates the power consumption during the stand-by and cool-down modes of operation.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-June 18, 2019 by Tea Zakula:<br/>
+June 18, 2019, by Tea Zakula:<br/>
 First implementation.
 </li>
 </ul>

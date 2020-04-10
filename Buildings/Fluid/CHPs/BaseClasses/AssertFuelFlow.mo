@@ -80,14 +80,14 @@ annotation (
           fillPattern=FillPattern.Solid)}),
    Documentation(info="<html>
 <p>
-Model sends a warning message if the rate at which the fuel mass flow rate changes
+The model sends a warning message if the rate at which the fuel mass flow rate changes
 is outside the boundaries defined by the manufacturer. 
 Limits can be specified for the maximal mass flow rate of change.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-June 01, 2019 by Tea Zakula:<br/>
+June 01, 2019, by Tea Zakula:<br/>
 First implementation.
 </li>
 </ul>

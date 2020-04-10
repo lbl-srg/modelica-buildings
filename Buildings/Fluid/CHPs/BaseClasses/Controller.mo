@@ -119,7 +119,9 @@ protected
   Buildings.Fluid.CHPs.BaseClasses.WarmUpLeaving warUpCtr(
     final timeDelayStart=per.timeDelayStart,
     final TEngNom=per.TEngNom,
-    final warmUpByTimeDelay=per.warmUpByTimeDelay) "Warm-up control sequence"
+    final PEleMax=per.PEleMax,
+    final warmUpByTimeDelay=per.warmUpByTimeDelay)
+    "Warm-up control sequence"
     annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
   Modelica.StateGraph.TransitionWithSignal transition6 "Run in normal mode"
     annotation (Placement(transformation(extent={{150,-10},{170,10}})));
@@ -418,11 +420,15 @@ is true), the plant may imediatelly change to the warm-up mode if it gets reacti
 </html>", revisions="<html>
 <ul>
 <li>
+April 8, 2020, by Antoine Gautier:<br/>
+Refactored implementation.
+</li>
+<li>
 December 03, 2019, by Jianjun Hu:<br/>
 Refactored implementation.
 </li>
 <li>
-June 18, 2019 by Tea Zakula:<br/>
+June 18, 2019, by Tea Zakula:<br/>
 First implementation.
 </li>
 </ul>

@@ -52,7 +52,7 @@ changed electric power consumptions during standby <code>PStaBy</code> and cool-
 </html>",revisions="<html>
 <ul>
 <li>
-March 08, 2019 by Tea Zakula:<br/>
+March 08, 2019, by Tea Zakula:<br/>
 First implementation.
 </li>
 </ul>
