@@ -63,7 +63,7 @@ prob.Temp_Buoyancy 10.0 // Reference temperature for calucating bouyance force
 bc.outlet_bc PRESCRIBED_VALUE // ZERO_GRADIENT, PRESCRIBED_VALUE
 bc.hasTile 0 // To model data center plenum: 1: Has tile, 0: no tile
 
-mytime.t_steady 4.0 //Necessary time for reaching the steady state from initial condition
+mytime.t_steady 190.0 //Necessary time for reaching the steady state from initial condition
 
 
 solv.solver GS // Solver type: GS, TDMA
