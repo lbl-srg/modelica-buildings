@@ -4,12 +4,18 @@ model SteamBoilerTwoPort
   extends Modelica.Icons.Example;
 
   package MediumSte = IBPSA.Media.Steam "Steam medium";
-  package MediumWat = IBPSA.Media.Water "Water medium";
+  package MediumWat = IBPSA.Media.Water (
+   T_max = 200+273.15)
+                      "Water medium";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 1
     "Nominal mass flow rate";
 
-  parameter Modelica.SIunits.Temperature TSat_nominal = 273.15 + 200
+  parameter Modelica.SIunits.AbsolutePressure p_nominal = 861844.7
+    "Nominal pressure for the boiler";
+
+  parameter Modelica.SIunits.Temperature TSat_nominal=
+    MediumSte.saturationTemperature(p_nominal)
     "Nominal saturation temperature";
 
   parameter Modelica.SIunits.SpecificEnthalpy dh_nominal=
@@ -17,9 +23,10 @@ model SteamBoilerTwoPort
     MediumSte.bubbleEnthalpy(MediumSte.setSat_T(TSat_nominal))
     "Nominal change in enthalpy";
 
-  parameter Modelica.SIunits.Power Q_flow_nominal=
-    m_flow_nominal * (dh_nominal + MediumWat.cp_const*(TSat_nominal - MediumWat.T_default))
+  parameter Modelica.SIunits.Power Q_flow_nominal=9143815.2
     "Nominal heat flow rate";
+//        m_flow_nominal * (dh_nominal + MediumWat.cp_const*(TSat_nominal - MediumWat.T_default))
+
 
   Sources.Boundary_pT steSin(
     redeclare package Medium = MediumSte,
@@ -32,9 +39,9 @@ model SteamBoilerTwoPort
   FixedResistances.PressureDrop dp_wat(
     redeclare package Medium = MediumWat,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal(displayUnit="bar") = 100000)
+    dp_nominal(displayUnit="bar") = 0)
     "Pressure drop in water pipe network"
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+    annotation (Placement(transformation(extent={{-18,-10},{2,10}})));
   Sources.Boundary_pT watSou(
     redeclare package Medium = MediumWat,
     p(displayUnit="Pa"),
@@ -51,6 +58,7 @@ model SteamBoilerTwoPort
     redeclare package Medium_a = MediumWat,
     redeclare package Medium_b = MediumSte,
     m_flow_nominal=m_flow_nominal,
+    show_T=true,
     Q_flow_nominal=Q_flow_nominal,
     T_nominal=TSat_nominal,
     fue=Data.Fuels.NaturalGasLowerHeatingValue()) "Steam boiler"
@@ -63,14 +71,15 @@ equation
   connect(watSou.ports[1], pum.port_a)
     annotation (Line(points={{-60,0},{-50,0}}, color={0,127,255}));
   connect(pum.port_b, dp_wat.port_a)
-    annotation (Line(points={{-30,0},{-20,0}}, color={0,127,255}));
+    annotation (Line(points={{-30,0},{-18,0}}, color={0,127,255}));
   connect(pSet.y, boi.pSte)
     annotation (Line(points={{-19,40},{6,40},{6,6},{19,6}}, color={0,0,127}));
   connect(dp_wat.port_b, boi.port_a)
-    annotation (Line(points={{0,0},{20,0}}, color={0,127,255}));
+    annotation (Line(points={{2,0},{20,0}}, color={0,127,255}));
   connect(boi.port_b, steSin.ports[1])
     annotation (Line(points={{40,0},{60,0}}, color={0,127,255}));
-  connect(PLR.y, boi.y) annotation (Line(points={{-19,80},{12,80},{12,11},{19,11}},
+  connect(PLR.y, boi.y) annotation (Line(points={{-19,80},{12,80},{12,9.8},{19,
+          9.8}},
         color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
