@@ -17,7 +17,7 @@ model Change_noWSE
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Change cha(
     nSta=5,
     nChi=3,
-    staMat=[1,0,0; 0,1,0; 0,0,1; 1,1,0; 1,1,1],
+    staMat=[1,0,0; 0,1,0; 0,0,1; 0,1,1; 1,1,1],
     final chiDesCap={300000,400000,500000},
     final chiMinCap={100000,120000,150000},
     final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
@@ -144,7 +144,10 @@ equation
   connect(truDel.y, cha.uPla) annotation (Line(points={{2,70},{34,70},{34,129},{
           58,129}}, color={255,0,255}));
 annotation (
- experiment(StopTime=14000.0, Tolerance=1e-06),
+ experiment(
+      StopTime=50000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Change_noWSE.mos"
     "Simulate and plot"),
   Documentation(info="<html>
