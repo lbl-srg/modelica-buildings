@@ -70,6 +70,7 @@ model Change_noWSE
   CDL.Logical.TrueDelay truDel(delayTime=10, delayOnInit=true)
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
   Change                                                                               cha1(
+    have_WSE=false,
     nSta=3,
     nChi=2,
     staMat=[1,0; 0,1; 1,1],
@@ -162,15 +163,15 @@ protected
                "Constant"
     annotation (Placement(transformation(extent={{-200,-180},{-180,-160}})));
 equation
-  connect(dpChiWatSet.y, cha.dpChiWatPumSet) annotation (Line(points={{-98,70},{
-          -92,70},{-92,151},{58,151}}, color={0,0,127}));
-  connect(dpChiWat.y, cha.dpChiWatPum) annotation (Line(points={{-98,20},{-90,20},
-          {-90,153},{58,153}},     color={0,0,127}));
-  connect(TCWSupSet.y, cha.TChiWatSupSet) annotation (Line(points={{-98,170},{-32,
-          170},{-32,165},{58,165}},
+  connect(dpChiWatSet.y, cha.dpChiWatPumSet) annotation (Line(points={{-98,70},
+          {-92,70},{-92,151},{58,151}},color={0,0,127}));
+  connect(dpChiWat.y, cha.dpChiWatPum) annotation (Line(points={{-98,20},{-90,
+          20},{-90,153},{58,153}}, color={0,0,127}));
+  connect(TCWSupSet.y, cha.TChiWatSupSet) annotation (Line(points={{-98,170},{
+          -32,170},{-32,165},{58,165}},
                                  color={0,0,127}));
-  connect(chiAva.y, cha.uChiAva) annotation (Line(points={{-98,210},{-28,210},{-28,
-          131},{58,131}},
+  connect(chiAva.y, cha.uChiAva) annotation (Line(points={{-98,210},{-28,210},{
+          -28,131},{58,131}},
                         color={255,0,255}));
   connect(TCWSup.y, cha.TChiWatSup) annotation (Line(points={{-98,110},{-94,110},
           {-94,163},{58,163}},
@@ -182,8 +183,8 @@ equation
   connect(cha.VChiWat_flow, max.y) annotation (Line(points={{58,141},{-130,141},
           {-130,90},{-138,90}},
                             color={0,0,127}));
-  connect(TChiWatRet.y, cha.TChiWatRet) annotation (Line(points={{-178,150},{-130,
-          150},{-130,145},{58,145}},
+  connect(TChiWatRet.y, cha.TChiWatRet) annotation (Line(points={{-178,150},{
+          -130,150},{-130,145},{58,145}},
                                   color={0,0,127}));
   connect(cha.ySta, intToRea.u)
     annotation (Line(points={{82,150},{98,150}},
@@ -194,22 +195,22 @@ equation
   connect(zerOrdHol.y, reaToInt.u)
     annotation (Line(points={{162,150},{178,150}},
                                                  color={0,0,127}));
-  connect(reaToInt.y, cha.u) annotation (Line(points={{202,150},{210,150},{210,100},
-          {50,100},{50,139},{58,139}},
+  connect(reaToInt.y, cha.u) annotation (Line(points={{202,150},{210,150},{210,
+          100},{50,100},{50,139},{58,139}},
                                      color={255,127,0}));
-  connect(cha.y, truFalHol.u) annotation (Line(points={{82,157},{90,157},{90,70},
+  connect(cha.y, truFalHol.u) annotation (Line(points={{82,143},{90,143},{90,70},
           {98,70}},  color={255,0,255}));
   connect(truFalHol.y, pre.u)
     annotation (Line(points={{122,70},{138,70}},   color={255,0,255}));
   connect(pre.y, cha.chaPro) annotation (Line(points={{162,70},{170,70},{170,50},
           {40,50},{40,133},{58,133}},color={255,0,255}));
-  connect(cha.uIni, conInt.y) annotation (Line(points={{58,137.2},{28,137.2},{28,
-          110},{2,110}},
+  connect(cha.uIni, conInt.y) annotation (Line(points={{58,137.2},{28,137.2},{
+          28,110},{2,110}},
                     color={255,127,0}));
   connect(plaSta.y, truDel.u)
     annotation (Line(points={{-38,70},{-22,70}}, color={255,0,255}));
-  connect(truDel.y, cha.uPla) annotation (Line(points={{2,70},{34,70},{34,129},{
-          58,129}}, color={255,0,255}));
+  connect(truDel.y, cha.uPla) annotation (Line(points={{2,70},{34,70},{34,129},
+          {58,129}},color={255,0,255}));
   connect(dpChiWatSet1.y, cha1.dpChiWatPumSet) annotation (Line(points={{-98,
           -170},{-92,-170},{-92,-89},{58,-89}}, color={0,0,127}));
   connect(dpChiWat1.y, cha1.dpChiWatPum) annotation (Line(points={{-98,-220},{
@@ -236,7 +237,7 @@ equation
     annotation (Line(points={{162,-90},{178,-90}}, color={0,0,127}));
   connect(reaToInt1.y, cha1.u) annotation (Line(points={{202,-90},{210,-90},{
           210,-140},{50,-140},{50,-101},{58,-101}}, color={255,127,0}));
-  connect(cha1.y, truFalHol1.u) annotation (Line(points={{82,-83},{90,-83},{90,
+  connect(cha1.y, truFalHol1.u) annotation (Line(points={{82,-97},{90,-97},{90,
           -170},{98,-170}}, color={255,0,255}));
   connect(truFalHol1.y, pre1.u)
     annotation (Line(points={{122,-170},{138,-170}}, color={255,0,255}));
