@@ -69,6 +69,53 @@ model Change_noWSE
 
   CDL.Logical.TrueDelay truDel(delayTime=10, delayOnInit=true)
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
+  Change                                                                               cha1(
+    nSta=3,
+    nChi=2,
+    staMat=[1,0; 0,1; 1,1],
+    final chiDesCap={500000,700000},
+    final chiMinCap={100000,150000},
+    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.constantSpeedCentrifugal})
+    "Stage change"
+    annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
+  CDL.Continuous.Sources.Sine                        TChiWatRet1(
+    final amplitude=7,
+    final offset=273.15 + 15,
+    final freqHz=1/21600)
+    "Chiller water return temeprature"
+    annotation (Placement(transformation(extent={{-200,-100},{-180,-80}})));
+  CDL.Continuous.Sources.Sine                        chiWatFlow1(
+    final offset=0,
+    final freqHz=1/21600,
+    final amplitude=0.037)
+    "Chilled water flow"
+    annotation (Placement(transformation(extent={{-200,-140},{-180,-120}})));
+  CDL.Logical.Sources.Constant                        chiAva1[2](final k={true,
+        true})
+    "Chiller availability vector"
+    annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
+  CDL.Continuous.Max                        max1
+                                                "Maximum"
+    annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
+  CDL.Discrete.ZeroOrderHold                        zerOrdHol1(samplePeriod=10)
+    annotation (Placement(transformation(extent={{140,-100},{160,-80}})));
+  CDL.Conversions.IntegerToReal                        intToRea1
+    annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
+  CDL.Conversions.RealToInteger                        reaToInt1
+    annotation (Placement(transformation(extent={{180,-100},{200,-80}})));
+  CDL.Logical.TrueFalseHold                        truFalHol1(trueHoldDuration=
+        0, falseHoldDuration=900)
+    annotation (Placement(transformation(extent={{100,-180},{120,-160}})));
+  CDL.Logical.Pre                        pre1
+    annotation (Placement(transformation(extent={{140,-180},{160,-160}})));
+  CDL.Logical.Sources.Constant                        plaSta1(final k=true)
+                                                                           "Plant status"
+    annotation (Placement(transformation(extent={{-60,-180},{-40,-160}})));
+  CDL.Integers.Sources.Constant                        conInt1(k=1)
+    annotation (Placement(transformation(extent={{-20,-140},{0,-120}})));
+  CDL.Logical.TrueDelay truDel1(delayTime=10, delayOnInit=true)
+    annotation (Placement(transformation(extent={{-20,-180},{0,-160}})));
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWat(
     final k=65*6895)
@@ -94,6 +141,26 @@ protected
     final k=0) "Constant"
     annotation (Placement(transformation(extent={{-200,60},{-180,80}})));
 
+protected
+  CDL.Continuous.Sources.Constant                        dpChiWat1(final k=65*
+        6895)
+    "Chilled water differential pressure"
+    annotation (Placement(transformation(extent={{-120,-230},{-100,-210}})));
+  CDL.Continuous.Sources.Constant                        TCWSupSet1(final k=
+        273.15 + 14)
+    "Chilled water supply temperature setpoint"
+    annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
+  CDL.Continuous.Sources.Constant                        dpChiWatSet1(final k=
+        65*6895)
+    "Chilled water differential pressure setpoint"
+    annotation (Placement(transformation(extent={{-120,-180},{-100,-160}})));
+  CDL.Continuous.Sources.Constant                        TCWSup1(final k=273.15
+         + 14)
+    "Chilled water supply temperature"
+    annotation (Placement(transformation(extent={{-120,-140},{-100,-120}})));
+  CDL.Continuous.Sources.Constant                        zero1(final k=0)
+               "Constant"
+    annotation (Placement(transformation(extent={{-200,-180},{-180,-160}})));
 equation
   connect(dpChiWatSet.y, cha.dpChiWatPumSet) annotation (Line(points={{-98,70},{
           -92,70},{-92,151},{58,151}}, color={0,0,127}));
@@ -143,6 +210,44 @@ equation
     annotation (Line(points={{-38,70},{-22,70}}, color={255,0,255}));
   connect(truDel.y, cha.uPla) annotation (Line(points={{2,70},{34,70},{34,129},{
           58,129}}, color={255,0,255}));
+  connect(dpChiWatSet1.y, cha1.dpChiWatPumSet) annotation (Line(points={{-98,
+          -170},{-92,-170},{-92,-89},{58,-89}}, color={0,0,127}));
+  connect(dpChiWat1.y, cha1.dpChiWatPum) annotation (Line(points={{-98,-220},{
+          -90,-220},{-90,-87},{58,-87}}, color={0,0,127}));
+  connect(TCWSupSet1.y, cha1.TChiWatSupSet) annotation (Line(points={{-98,-70},
+          {-32,-70},{-32,-75},{58,-75}}, color={0,0,127}));
+  connect(chiAva1.y, cha1.uChiAva) annotation (Line(points={{-98,-30},{-28,-30},
+          {-28,-109},{58,-109}}, color={255,0,255}));
+  connect(TCWSup1.y, cha1.TChiWatSup) annotation (Line(points={{-98,-130},{-94,
+          -130},{-94,-77},{58,-77}}, color={0,0,127}));
+  connect(zero1.y, max1.u2) annotation (Line(points={{-178,-170},{-170,-170},{
+          -170,-156},{-162,-156}}, color={0,0,127}));
+  connect(chiWatFlow1.y, max1.u1) annotation (Line(points={{-178,-130},{-170,
+          -130},{-170,-144},{-162,-144}}, color={0,0,127}));
+  connect(cha1.VChiWat_flow, max1.y) annotation (Line(points={{58,-99},{-130,
+          -99},{-130,-150},{-138,-150}}, color={0,0,127}));
+  connect(TChiWatRet1.y, cha1.TChiWatRet) annotation (Line(points={{-178,-90},{
+          -130,-90},{-130,-95},{58,-95}}, color={0,0,127}));
+  connect(cha1.ySta, intToRea1.u)
+    annotation (Line(points={{82,-90},{98,-90}}, color={255,127,0}));
+  connect(intToRea1.y, zerOrdHol1.u)
+    annotation (Line(points={{122,-90},{138,-90}}, color={0,0,127}));
+  connect(zerOrdHol1.y, reaToInt1.u)
+    annotation (Line(points={{162,-90},{178,-90}}, color={0,0,127}));
+  connect(reaToInt1.y, cha1.u) annotation (Line(points={{202,-90},{210,-90},{
+          210,-140},{50,-140},{50,-101},{58,-101}}, color={255,127,0}));
+  connect(cha1.y, truFalHol1.u) annotation (Line(points={{82,-83},{90,-83},{90,
+          -170},{98,-170}}, color={255,0,255}));
+  connect(truFalHol1.y, pre1.u)
+    annotation (Line(points={{122,-170},{138,-170}}, color={255,0,255}));
+  connect(pre1.y, cha1.chaPro) annotation (Line(points={{162,-170},{170,-170},{
+          170,-190},{40,-190},{40,-107},{58,-107}}, color={255,0,255}));
+  connect(cha1.uIni, conInt1.y) annotation (Line(points={{58,-102.8},{28,-102.8},
+          {28,-130},{2,-130}}, color={255,127,0}));
+  connect(plaSta1.y, truDel1.u)
+    annotation (Line(points={{-38,-170},{-22,-170}}, color={255,0,255}));
+  connect(truDel1.y, cha1.uPla) annotation (Line(points={{2,-170},{34,-170},{34,
+          -111},{58,-111}}, color={255,0,255}));
 annotation (
  experiment(
       StopTime=50000,

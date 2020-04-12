@@ -5,3 +5,7 @@ createPlot(id=1, position={20, 10, 1200, 650}, subPlot=2, y={"cha.cap.yDes", "ch
 createPlot(id=1, position={20, 10, 1200, 650}, subPlot=3, y={"cha.staUp.y", "cha.staDow.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
 createPlot(id=1, position={20, 10, 1200, 650}, subPlot=4, y={"cha.y", "cha.yChi"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47}, {127, 127, 127}});
 
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=1, y={"cha1.y", "cha1.yCha", "cha1.yChi"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {127, 127, 127}});
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=2, y={"cha1.cap.yDes", "cha1.capReq.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=3, y={"cha1.staUp.y", "cha1.staDow.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+
