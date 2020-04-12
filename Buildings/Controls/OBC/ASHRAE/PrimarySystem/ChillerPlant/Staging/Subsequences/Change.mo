@@ -293,7 +293,7 @@ block Change "Calculates the chiller stage signal"
           extent={{-140,-230},{-100,-190}})));
 
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam
-    annotation (Placement(transformation(extent={{240,-50},{260,-30}})));
+    annotation (Placement(transformation(extent={{260,-50},{280,-30}})));
 
   Buildings.Controls.OBC.CDL.Logical.Switch switch1
     annotation (Placement(transformation(extent={{180,-50},{200,-30}})));
@@ -353,6 +353,16 @@ block Change "Calculates the chiller stage signal"
     annotation (Placement(transformation(extent={{340,-342},{360,-322}})));
   CDL.Continuous.LessEqualThreshold lesEquThr(threshold=delayStaCha)
     annotation (Placement(transformation(extent={{292,-340},{312,-320}})));
+  CDL.Logical.Or or3
+    annotation (Placement(transformation(extent={{220,50},{240,70}})));
+  CDL.Discrete.TriggeredSampler                        triSam1(y_start=0)
+    annotation (Placement(transformation(extent={{190,-120},{210,-100}})));
+  CDL.Conversions.BooleanToReal booToRea
+    annotation (Placement(transformation(extent={{160,-120},{180,-100}})));
+  CDL.Logical.Sources.Constant con(k=true)
+    annotation (Placement(transformation(extent={{130,-120},{150,-100}})));
+  CDL.Continuous.LessThreshold lesThr(threshold=0.5)
+    annotation (Placement(transformation(extent={{220,-120},{240,-100}})));
 equation
   connect(uChiAva, conf.uChiAva)
     annotation (Line(points={{-300,-180},{-260,-180},{-260,-170},{-242,-170}},
@@ -471,7 +481,7 @@ equation
   connect(reaToInt.y, ySta)
     annotation (Line(points={{362,60},{460,60}},   color={255,127,0}));
   connect(switch1.y, triSam.u)
-    annotation (Line(points={{202,-40},{238,-40}}, color={0,0,127}));
+    annotation (Line(points={{202,-40},{258,-40}}, color={0,0,127}));
   connect(intToRea1.y, switch1.u1) annotation (Line(points={{142,0},{160,0},{160,
           -32},{178,-32}},      color={0,0,127}));
   connect(intToRea.y, switch1.u3) annotation (Line(points={{142,-80},{160,-80},{
@@ -492,13 +502,13 @@ equation
     annotation (Line(points={{82,60},{118,60}},   color={255,0,255}));
   connect(switch2.y, reaToInt.u)
     annotation (Line(points={{322,60},{338,60}},   color={0,0,127}));
-  connect(triSam.y, switch2.u3) annotation (Line(points={{262,-40},{280,-40},{280,
-          52},{298,52}},       color={0,0,127}));
+  connect(triSam.y, switch2.u3) annotation (Line(points={{282,-40},{290,-40},{
+          290,52},{298,52}},   color={0,0,127}));
   connect(uIni, intToRea2.u) annotation (Line(points={{-300,-40},{-220,-40},{-220,
           100},{238,100}},
                          color={255,127,0}));
-  connect(intToRea2.y, switch2.u1) annotation (Line(points={{262,100},{280,100},
-          {280,68},{298,68}},
+  connect(intToRea2.y, switch2.u1) annotation (Line(points={{262,100},{290,100},
+          {290,68},{298,68}},
                            color={0,0,127}));
   connect(or2.y, staChaHol.u)
     annotation (Line(points={{152,-190},{178,-190}}, color={255,0,255}));
@@ -513,11 +523,9 @@ equation
   connect(and2.y, or1.u2) annotation (Line(points={{294,-292},{294,-172},{258,
           -172},{258,-156},{266,-156}}, color={255,0,255}));
   connect(or1.y, triSam.trigger) annotation (Line(points={{290,-148},{298,-148},
-          {298,-88},{250,-88},{250,-51.8}}, color={255,0,255}));
+          {298,-88},{270,-88},{270,-51.8}}, color={255,0,255}));
   connect(or2.y, and2.u2) annotation (Line(points={{152,-190},{160,-190},{160,
           -336},{262,-336},{262,-300},{270,-300}}, color={255,0,255}));
-  connect(holIniSta.y, switch2.u2)
-    annotation (Line(points={{142,60},{298,60}}, color={255,0,255}));
   connect(or2.y, and1.u1) annotation (Line(points={{152,-190},{164,-190},{164,
           -292},{178,-292}}, color={255,0,255}));
   connect(tim.y, lesEquThr.u) annotation (Line(points={{244,-320},{268,-320},{
@@ -530,6 +538,20 @@ equation
           -320},{220,-320}}, color={255,0,255}));
   connect(and1.y, edg2.u) annotation (Line(points={{202,-292},{212,-292},{212,
           -290},{218,-290}}, color={255,0,255}));
+  connect(or3.y, switch2.u2)
+    annotation (Line(points={{242,60},{298,60}}, color={255,0,255}));
+  connect(holIniSta.y, or3.u1)
+    annotation (Line(points={{142,60},{218,60}}, color={255,0,255}));
+  connect(edg1.y, triSam1.trigger) annotation (Line(points={{242,-190},{246,
+          -190},{246,-140},{200,-140},{200,-121.8}}, color={255,0,255}));
+  connect(booToRea.u, con.y)
+    annotation (Line(points={{158,-110},{152,-110}}, color={255,0,255}));
+  connect(booToRea.y, triSam1.u)
+    annotation (Line(points={{182,-110},{188,-110}}, color={0,0,127}));
+  connect(triSam1.y, lesThr.u)
+    annotation (Line(points={{212,-110},{218,-110}}, color={0,0,127}));
+  connect(lesThr.y, or3.u2) annotation (Line(points={{242,-110},{250,-110},{250,
+          20},{210,20},{210,52},{218,52}}, color={255,0,255}));
   annotation (defaultComponentName = "cha",
         Icon(graphics={
         Rectangle(
