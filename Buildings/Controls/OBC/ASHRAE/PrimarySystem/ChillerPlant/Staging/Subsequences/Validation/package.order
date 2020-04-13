@@ -2,6 +2,7 @@ Capacities_u
 Capacities_uLow_uHig
 CapacityRequirement
 Change_noWSE
+Change_WSE
 Configurator_uChiAva
 Down
 EfficiencyCondition
@@ -11,4 +12,3 @@ PartLoadRatios_u_uTyp
 Up
 Initial_noWSE
 Initial_WSE
-Change_WSE
