@@ -4,7 +4,7 @@ block Derivative "Block that approximates the derivative of the input"
   parameter Modelica.SIunits.Time T(min=1E-60)=0.01
     "Time constant (T>0 required)";
   parameter Buildings.Controls.OBC.CDL.Types.Init initType=Buildings.Controls.OBC.CDL.Types.Init.NoInit
-    "Type of initialization (1: no init, 2: initial state, 3: initial output)"
+    "Type of initialization"
     annotation(Evaluate=true, Dialog(group="Initialization"));
   parameter Real x_start=0 "Initial or guess value of state"
     annotation (Dialog(group="Initialization"));
@@ -19,7 +19,7 @@ block Derivative "Block that approximates the derivative of the input"
   output Real x(start=x_start) "State of block";
 
 protected
-  parameter Boolean zeroGain = abs(k) < 100*1E-15
+  parameter Boolean zeroGain = abs(k) < 1E-17
     "= true, if gain equals to zero";
 initial equation
   if initType == Buildings.Controls.OBC.CDL.Types.Init.InitialState then
@@ -42,14 +42,13 @@ annotation (
 <p>
 This blocks defines the transfer function between the
 input <code>u</code> and the output <code>y</code>
-(element-wise) as <i>approximated derivative</i>:
+as <i>approximated derivative</i>:
 </p>
 <pre>
              k * s
      y = ------------ * u
             T * s + 1
 </pre>
-
 <p>
 If <code>k=0</code>, the block reduces to <code>y=0</code>.
 </p>
