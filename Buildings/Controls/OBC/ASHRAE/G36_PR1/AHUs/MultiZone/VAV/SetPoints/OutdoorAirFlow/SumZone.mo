@@ -334,6 +334,19 @@ Sum of the area component of the design breathing zone flow rate, <code>VSumDesA
 </li>
 <li>
 Design system ventilation efficiency, <code>yDesSysVenEff</code>,
+<p>
+First, compute the zone ventilation efficiency <code>zonVenEff</code>, for design purpose, as
+</p>
+<pre>
+    zonVenEff[i] = yAveOutAirFraPlu - uDesPriOutAirFra[i]
+</pre>
+<p>
+where the <code>uDesPriOutAirFra</code> is the design zone outdoor airflow fraction.
+Then the design system ventilation efficiency <code>yDesSysVenEff</code> is
+</p>
+<pre>
+    yDesSysVenEff = min(zonVenEff[i]).
+</pre>
 </li>
 <li>
 Sum of the required uncorrected outdoor airflow rate, <code>VSumUncOutAir_flow</code>,

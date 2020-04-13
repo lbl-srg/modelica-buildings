@@ -100,7 +100,7 @@ block Zone
     final min=0,
     final unit = "m3/s",
     final quantity = "VolumeFlowRate")
-    "System level design uncorrected minimum outdoor airflow rate"
+    "AHU level design uncorrected minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{-200,-270},{-160,-230}}),
       iconTransformation(extent={{-140,-110},{-100,-70}})));
 
@@ -249,11 +249,11 @@ protected
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Switch swi4
-    "If window is open or it is not in occupied mode, the required outdoor airflow rate should be zero"
+    "If window is open, the required outdoor airflow rate should be zero"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
 
   Buildings.Controls.OBC.CDL.Logical.Switch swi5
-    "If supply fan is off, then outdoor airflow rate should be zero"
+    "If supply fan is off or it is not in occupied mode, then outdoor airflow rate should be zero"
     annotation (Placement(transformation(extent={{120,-100},{140,-80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Max max
@@ -358,12 +358,8 @@ equation
     annotation (Line(points={{142,-160},{200,-160}}, color={0,0,127}));
   connect(zerOutAir.y, swi4.u1) annotation (Line(points={{-18,-70},{0,-70},{0,-42},
           {58,-42}}, color={0,0,127}));
-  connect(zerOutAir.y, swi5.u1) annotation (Line(points={{-18,-70},{0,-70},{0,-82},
-          {118,-82}},   color={0,0,127}));
   connect(zonOutAirRate.y, swi4.u3) annotation (Line(points={{102,20},{120,20},{
           120,-20},{40,-20},{40,-58},{58,-58}},  color={0,0,127}));
-  connect(swi4.y, swi5.u3) annotation (Line(points={{82,-50},{100,-50},{100,-98},
-          {118,-98}}, color={0,0,127}));
   connect(swi5.y, VUncOutAir_flow)
     annotation (Line(points={{142,-90},{200,-90}}, color={0,0,127}));
   connect(swi5.y, priOutAirFra.u1) annotation (Line(points={{142,-90},{160,-90},
@@ -414,6 +410,10 @@ equation
           {120,220},{120,200},{200,200}}, color={0,0,127}));
   connect(breZonAre.y, VDesAreBreZon_flow)
     annotation (Line(points={{-58,140},{200,140}}, color={0,0,127}));
+  connect(zerOutAir.y, swi5.u3) annotation (Line(points={{-18,-70},{0,-70},{0,-98},
+          {118,-98}}, color={0,0,127}));
+  connect(swi4.y, swi5.u1) annotation (Line(points={{82,-50},{100,-50},{100,-82},
+          {118,-82}}, color={0,0,127}));
 
 annotation (
   defaultComponentName="zonOutAirSet",
@@ -514,9 +514,6 @@ Primary outdoor air fraction, <code>yPriOutAirFra</code>.
 Primary airflow rate, <code>VPriAir_flow</code>.
 </li>
 </ol>
-
-
-
 <p>
 The calculation is done using the steps below.
 </p>
@@ -540,8 +537,6 @@ The occupant density can be found from Table 6.2.2.1 in ASHRAE Standard
 to determine the minimum requirement at the ventilation-design condition.
 </p>
 </li>
-
-
 <li>
 <p>
 Compute the zone air-distribution effectiveness.
@@ -555,14 +550,16 @@ effectiveness <code>zonDisEffHea</code> or Cool-air effectiveness
 <li>
 <p>
 Compute the required zone outdoor airflow <code>zonOutAirRate</code>.
-For each zone in any mode other than occupied mode and for zones that have
-window switches and the window is open, set <code>zonOutAirRate = 0</code>.
+If the zone is in any mode other than occupied mode (<code>uReqOutAir=false</code>)
+or if the zone has window switches and the window is open (<code>uWin=true</code>),
+set <code>zonOutAirRate = 0</code>.
 Otherwise, the required zone outdoor airflow <code>zonOutAirRate</code>
 shall be calculated as follows:
 </p>
 <ul>
 <li>
-If the zone is populated, or if there is no occupancy sensor:
+If the zone is populated (<code>nOcc</code> &gt; 0), or if there is no occupancy sensor
+(<code>have_occSen = false</code>):
 <ul>
 <li>
 If the discharge air temperature at the terminal unit is less than or equal to
@@ -575,7 +572,7 @@ temperature, set <code>zonOutAirRate = (breZonAre+breZonPop)/disEffHea</code>.
 </ul>
 </li>
 <li>
-If the zone has an occupancy sensor and is unpopulated:
+If the zone has an occupancy sensor and is unpopulated (<code>nOcc=0</code>):
 <ul>
 <li>
 If the discharge air temperature at the terminal unit is less than or equal to
@@ -589,30 +586,39 @@ space temperature, set <code>zonOutAirRate = breZonAre/disEffHea</code>.
 </li>
 </ul>
 </li>
-
 <li>
 <p>
-Compute the outdoor air fraction for each zone <code>priOutAirFra</code> as follows.
+Compute the outdoor air fraction for the zone <code>yPriOutAirFra</code> as follows.
 Set the zone outdoor air fraction to
 </p>
 <pre>
-    priOutAirFra = zonOutAirRate/VDis_flow
+    yPriOutAirFra = zonOutAirRate/VPriAir_flow
 </pre>
 <p>
-where, <code>VDis_flow</code> is the measured discharge air flow rate from the zone VAV box.
-For design purpose, the design zone outdoor air fraction <code>desZonPriOutAirRate</code>
+where, <code>VPriAir_flow</code> is the maximum between the measured discharge air
+flow rate from the zone VAV box <code>VDis_flow</code> and 0.1% of AHU level
+design uncorrected minimum outdoor airflow rate <code>VUncOut_flow_nominal</code>.
+For design purpose, the design zone outdoor air fraction <code>yDesPriOutAirFra</code>
 is
 </p>
 <pre>
-    desZonPriOutAirRate = desZonOutAirRate/minumZonFlo
+    yDesPriOutAirFra = desZonOutAirRate/minZonPriFlo
 </pre>
 <p>
-where <code>minumZonFlo</code> is the minimum expected zone primary flow rate and
+where <code>minZonPriFlo</code> is the minimum expected zone primary flow rate and
 <code>desZonOutAirRate</code> is the required design zone outdoor airflow rate.
 </p>
 </li>
-
-
+</ol>
+<h4>References</h4>
+<p>
+ANSI/ASHRAE Standard 62.1-2013,
+<i>Ventilation for Acceptable Indoor Air Quality.</i>
+</p>
+<p>
+Stanke, D., 2010. <i>Dynamic Reset for Multiple-Zone Systems.</i> ASHRAE Journal, March
+2010.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

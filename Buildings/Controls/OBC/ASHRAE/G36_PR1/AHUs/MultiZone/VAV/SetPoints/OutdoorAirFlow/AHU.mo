@@ -112,9 +112,6 @@ block AHU "Output outdoor airflow related calculations at the AHU level"
         iconTransformation(extent={{100,-100},{140,-60}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
-    annotation (Placement(transformation(extent={{180,-150},{200,-130}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Division outAirFra
     "System outdoor air fraction"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
@@ -136,35 +133,35 @@ protected
 
   Buildings.Controls.OBC.CDL.Continuous.Division occDivFra
     "Occupant diversity fraction"
-    annotation (Placement(transformation(extent={{-140,180},{-120,200}})));
+    annotation (Placement(transformation(extent={{-120,180},{-100,200}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Add unCorOutAirInk
     "Uncorrected outdoor air intake"
-    annotation (Placement(transformation(extent={{-60,140},{-40,160}})));
+    annotation (Placement(transformation(extent={{0,140},{20,160}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Product pro
     "Product of inputs"
-    annotation (Placement(transformation(extent={{-100,160},{-80,180}})));
+    annotation (Placement(transformation(extent={{-60,160},{-40,180}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Division aveOutAirFra
     "Average outdoor air fraction"
-    annotation (Placement(transformation(extent={{0,120},{20,140}})));
+    annotation (Placement(transformation(extent={{60,120},{80,140}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
     final p=1,
     final k=1)
     "Average outdoor air flow fraction plus 1"
-    annotation (Placement(transformation(extent={{60,120},{80,140}})));
+    annotation (Placement(transformation(extent={{120,120},{140,140}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Division desOutAirInt
     "Design system outdoor air intake"
-    annotation (Placement(transformation(extent={{0,70},{20,90}})));
+    annotation (Placement(transformation(extent={{60,70},{80,90}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Min min
     "Minimum outdoor airflow rate should not be more than designed outdoor airflow rate"
     annotation (Placement(transformation(extent={{180,20},{200,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Min min1
+  Buildings.Controls.OBC.CDL.Continuous.Min sysUncOutAir
     "Uncorrected outdoor air rate should not be higher than its design value"
     annotation (Placement(transformation(extent={{-180,0},{-160,20}})));
 
@@ -184,7 +181,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1
     "Check if operation mode is occupied"
-    annotation (Placement(transformation(extent={{-96,-190},{-76,-170}})));
+    annotation (Placement(transformation(extent={{-100,-190},{-80,-170}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
     annotation (Placement(transformation(extent={{120,-150},{140,-130}})));
@@ -210,50 +207,45 @@ protected
 
 equation
   connect(peaSysPopulation.y, occDivFra.u1)
-    annotation (Line(points={{-158,220},{-150,220},{-150,196},{-142,196}},
+    annotation (Line(points={{-158,220},{-140,220},{-140,196},{-122,196}},
       color={0,0,127}));
   connect(pro.y, unCorOutAirInk.u1)
-    annotation (Line(points={{-78,170},{-70,170},{-70,156},{-62,156}},
+    annotation (Line(points={{-38,170},{-20,170},{-20,156},{-2,156}},
       color={0,0,127}));
   connect(unCorOutAirInk.y, aveOutAirFra.u1)
-    annotation (Line(points={{-38,150},{-20,150},{-20,136},{-2,136}},
+    annotation (Line(points={{22,150},{40,150},{40,136},{58,136}},
       color={0,0,127}));
   connect(priSysMax_flow.y, aveOutAirFra.u2)
-    annotation (Line(points={{-118,110},{-80,110},{-80,124},{-2,124}},
+    annotation (Line(points={{-118,110},{-80,110},{-80,124},{58,124}},
       color={0,0,127}));
   connect(aveOutAirFra.y, addPar1.u)
-    annotation (Line(points={{22,130},{58,130}}, color={0,0,127}));
+    annotation (Line(points={{82,130},{118,130}},color={0,0,127}));
   connect(unCorOutAirInk.y, desOutAirInt.u1)
-    annotation (Line(points={{-38,150},{-20,150},{-20,86},{-2,86}}, color={0,0,127}));
-  connect(min1.y, effMinOutAirInt.u1)
-    annotation (Line(points={{-158,10},{-140,10},{-140,26},{98,26}},
-      color={0,0,127}));
-  connect(min1.y, outAirFra.u1)
-    annotation (Line(points={{-158,10},{-140,10},{-140,-4},{-122,-4}},
-      color={0,0,127}));
-  connect(unCorOutAirInk.y, min1.u1)
-    annotation (Line(points={{-38,150},{-20,150},{-20,50},{-200,50},{-200,16},
-      {-182,16}},   color={0,0,127}));
+    annotation (Line(points={{22,150},{40,150},{40,86},{58,86}},    color={0,0,127}));
+  connect(sysUncOutAir.y, effMinOutAirInt.u1) annotation (Line(points={{-158,10},
+          {-140,10},{-140,26},{98,26}}, color={0,0,127}));
+  connect(sysUncOutAir.y, outAirFra.u1) annotation (Line(points={{-158,10},{-140,
+          10},{-140,-4},{-122,-4}}, color={0,0,127}));
+  connect(unCorOutAirInk.y, sysUncOutAir.u1) annotation (Line(points={{22,150},{
+          40,150},{40,50},{-200,50},{-200,16},{-182,16}}, color={0,0,127}));
   connect(desOutAirInt.y, min.u1)
-    annotation (Line(points={{22,80},{140,80},{140,36},{178,36}},
+    annotation (Line(points={{82,80},{140,80},{140,36},{178,36}},
       color={0,0,127}));
   connect(unCorOutAirInk.y, VDesUncOutAir_flow)
-    annotation (Line(points={{-38,150},{-20,150},{-20,180},{260,180}},
+    annotation (Line(points={{22,150},{40,150},{40,180},{260,180}},
       color={0,0,127}));
   connect(desOutAirInt.y, VDesOutAir_flow)
-    annotation (Line(points={{22,80},{260,80}}, color={0,0,127}));
+    annotation (Line(points={{82,80},{260,80}}, color={0,0,127}));
   connect(occDivFra.y, pro.u1)
-    annotation (Line(points={{-118,190},{-110,190},{-110,176},{-102,176}},
+    annotation (Line(points={{-98,190},{-80,190},{-80,176},{-62,176}},
       color={0,0,127}));
   connect(uOpeMod, intEqu1.u1)
-    annotation (Line(points={{-240,-180},{-98,-180}}, color={255,127,0}));
+    annotation (Line(points={{-240,-180},{-102,-180}},color={255,127,0}));
   connect(occMod.y, intEqu1.u2)
-    annotation (Line(points={{-158,-220},{-140,-220},{-140,-188},{-98,-188}},
+    annotation (Line(points={{-158,-220},{-140,-220},{-140,-188},{-102,-188}},
       color={255,127,0}));
-  connect(not1.u, and1.y)
-    annotation (Line(points={{178,-140},{142,-140}}, color={255,0,255}));
   connect(intEqu1.y, and1.u2)
-    annotation (Line(points={{-74,-180},{20,-180},{20,-148},{118,-148}},
+    annotation (Line(points={{-78,-180},{20,-180},{20,-148},{118,-148}},
       color={255,0,255}));
   connect(sysVenEff.y, swi4.u1)
     annotation (Line(points={{-18,-30},{0,-30},{0,-52},{58,-52}},
@@ -278,12 +270,10 @@ equation
     annotation (Line(points={{178,-44},{160,-44},{160,-10},{220,-10},
       {220,30},{202,30}}, color={0,0,127}));
   connect(desOutAirInt.y, norVOutMin.u2)
-    annotation (Line(points={{22,80},{140,80},{140,-56},{178,-56}},
+    annotation (Line(points={{82,80},{140,80},{140,-56},{178,-56}},
       color={0,0,127}));
   connect(norVOutMin.y, effOutAir_normalized)
     annotation (Line(points={{202,-50},{260,-50}}, color={0,0,127}));
-  connect(and1.y, not1.u)
-    annotation (Line(points={{142,-140},{178,-140}}, color={255,0,255}));
   connect(uSupFan, and1.u1)
     annotation (Line(points={{-240,-140},{118,-140}},
       color={255,0,255}));
@@ -292,27 +282,27 @@ equation
   connect(hys1.y, swi4.u2)
     annotation (Line(points={{44,-30},{50,-30},{50,-60},{58,-60}},
       color={255,0,255}));
-  connect(not1.y, yReqOutAir)
-    annotation (Line(points={{202,-140},{260,-140}}, color={255,0,255}));
   connect(addPar1.y, yAveOutAirFraPlu)
-    annotation (Line(points={{82,130},{260,130}}, color={0,0,127}));
+    annotation (Line(points={{142,130},{260,130}},color={0,0,127}));
   connect(occDivFra.u2, sumDesZonPop)
-    annotation (Line(points={{-142,184},{-200,184},{-200,200},{-240,200}},
+    annotation (Line(points={{-122,184},{-200,184},{-200,200},{-240,200}},
       color={0,0,127}));
-  connect(pro.u2, VSumDesPopBreZon_flow) annotation (Line(points={{-102,164},{-200,
+  connect(pro.u2, VSumDesPopBreZon_flow) annotation (Line(points={{-62,164},{-200,
           164},{-200,160},{-240,160}}, color={0,0,127}));
-  connect(unCorOutAirInk.u2, VSumDesAreBreZon_flow) annotation (Line(points={{-62,
-          144},{-200,144},{-200,120},{-240,120}}, color={0,0,127}));
-  connect(desOutAirInt.u2, uDesSysVenEff) annotation (Line(points={{-2,74},{-80,
+  connect(unCorOutAirInk.u2, VSumDesAreBreZon_flow) annotation (Line(points={{-2,144},
+          {-200,144},{-200,120},{-240,120}},      color={0,0,127}));
+  connect(desOutAirInt.u2, uDesSysVenEff) annotation (Line(points={{58,74},{-80,
           74},{-80,80},{-240,80}}, color={0,0,127}));
-  connect(min1.u2, VSumUncOutAir_flow) annotation (Line(points={{-182,4},{-200,
-          4},{-200,-24},{-240,-24}}, color={0,0,127}));
+  connect(sysUncOutAir.u2, VSumUncOutAir_flow) annotation (Line(points={{-182,4},
+          {-200,4},{-200,-24},{-240,-24}}, color={0,0,127}));
   connect(outAirFra.u2, VSumSysPriAir_flow) annotation (Line(points={{-122,-16},
           {-140,-16},{-140,-60},{-240,-60}}, color={0,0,127}));
   connect(sysVenEff.u2, uOutAirFra_max)
     annotation (Line(points={{-42,-36},{-60,-36},{-60,-100},{-240,-100}},
       color={0,0,127}));
 
+  connect(and1.y, yReqOutAir)
+    annotation (Line(points={{142,-140},{260,-140}}, color={255,0,255}));
 annotation (
   defaultComponentName="ahuOutAirSet",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
@@ -420,6 +410,92 @@ Sum of the measured discharged flow rate of all terminal units,
 </li>
 <li>
 Maximum of primary outdoor air fraction of all zones, <code>uOutAirFra_max</code>.
+</li>
+</ol>
+<p>
+The calculation is done using the steps below.
+</p>
+<ol>
+<li>
+<p>
+Compute the occupancy diversity fraction <code>occDivFra</code>.
+During system operation, the system population equals the sum of the zone population,
+so <code>occDivFra=1</code>. It has no impact on the calculation of the uncorrected
+outdoor airflow <code>sysUncOutAir</code>.
+For design purpose, compute for all zones
+</p>
+<pre>
+    occDivFra = peaSysPop/sumDesZonPop
+</pre>
+<p>
+where <code>peaSysPop</code> is the peak system population and
+<code>sumDesZonPop</code> is the sum of the design population.
+</p>
+</li>
+<li>
+<p>
+Compute the design uncorrected outdoor airflow rate <code>VDesUncOutAir_flow</code> as
+</p>
+<pre>
+    VDesUncOutAir_flow = occDivFra*VSumDesPopBreZon_flow+VSumDesAreBreZon_flow.
+</pre>
+</li>
+<li>
+<p>
+Compute the uncorrected outdoor airflow rate <code>sysUncOutAir</code> as
+</p>
+<pre>
+    sysUncOutAir = min(VDesUncOutAir_flow, VSumUncOutAir_flow)
+</pre>
+<p>
+where <code>VSumUncOutAir_flow</code> is sum of all zones required uncorrected
+outdoor airflow rate
+</p>
+</li>
+<li>
+<p>
+Compute the outdoor air fraction as
+</p>
+<pre>
+    outAirFra = sysUncOutAir/VSumSysPriAir_flow.
+</pre>
+<p>
+For design purpose, use
+</p>
+<pre>
+    aveOutAirFra = sysUncOutAir/VPriSysMax_flow.
+</pre>
+<p>
+where <code>VPriSysMax_flow</code> is the maximum expected system primary airflow
+at design stage.
+</p>
+</li>
+<li>
+<p>
+Compute the system ventilation efficiency <code>sysVenEff</code>. During system
+operation, the efficiency is
+</p>
+<pre>
+    sysVenEff = 1 + outAirFra - uOutAirFra_max
+</pre> 
+</li>
+<li>
+<p>
+Compute the minimum required AHU outdoor air intake flow rate.
+The minimum required system outdoor air intake flow should be the uncorrected
+outdoor air intake <code>sysUncOutAir</code> divided by the system ventilation
+efficiency <code>sysVenEff</code>, but it should not be larger than the design
+outdoor air rate <code>desOutAirInt</code>. Hence,
+</p>
+<pre>
+    effMinOutAirInt = min(sysUncOutAir/sysVenEff, desOutAirInt),
+</pre>
+<p>
+where the design outdoor air rate <code>desOutAirInt</code> is
+</p>
+<pre>
+    desOutAirInt = VDesUncOutAir_flow/uDesSysVenEff.
+</pre>
 </li>
 </ol>
 </html>", revisions="<html>

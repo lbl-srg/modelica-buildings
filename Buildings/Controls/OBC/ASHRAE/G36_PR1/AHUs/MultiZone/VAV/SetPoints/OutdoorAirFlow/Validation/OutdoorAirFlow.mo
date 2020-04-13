@@ -150,12 +150,14 @@ equation
           198,43},{218,43}}, color={255,0,255}));
   connect(opeMod.y,ahu1. uOpeMod) annotation (Line(points={{162,-60},{202,-60},{
           202,41},{218,41}},   color={255,127,0}));
-  connect(ahu1.yReqOutAir, zon1.uReqOutAir) annotation (Line(points={{242,42},{260,
-          42},{260,174},{-160,174},{-160,113},{-122,113}},      color={255,0,255}));
-  connect(ahu1.yReqOutAir, zon2.uReqOutAir) annotation (Line(points={{242,42},{260,
-          42},{260,174},{-160,174},{-160,3},{-122,3}},        color={255,0,255}));
-  connect(ahu1.yReqOutAir, zon3.uReqOutAir) annotation (Line(points={{242,42},{260,
-          42},{260,174},{-160,174},{-160,-107},{-122,-107}},    color={255,0,255}));
+  connect(ahu1.yNotReqOutAir, zon1.uReqOutAir) annotation (Line(points={{242,42},
+          {260,42},{260,174},{-160,174},{-160,113},{-122,113}}, color={255,0,
+          255}));
+  connect(ahu1.yNotReqOutAir, zon2.uReqOutAir) annotation (Line(points={{242,42},
+          {260,42},{260,174},{-160,174},{-160,3},{-122,3}}, color={255,0,255}));
+  connect(ahu1.yNotReqOutAir, zon3.uReqOutAir) annotation (Line(points={{242,42},
+          {260,42},{260,174},{-160,174},{-160,-107},{-122,-107}}, color={255,0,
+          255}));
   connect(numOfOcc2.y,reaToInt1. u) annotation (Line(points={{-238,180},{-222,180}},
                  color={0,0,127}));
   connect(numOfOcc3.y, reaToInt2.u)
