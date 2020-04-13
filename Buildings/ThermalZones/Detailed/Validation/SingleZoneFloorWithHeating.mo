@@ -180,8 +180,7 @@ equation
   __Dymola_Commands(file=
   "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/SingleZoneFloorWithHeating.mos"
         "Simulate and plot"),
-  Documentation(info="
-<html>
+  Documentation(info="<html>
 <p>
 This model compares the heating energy demand of a single-zone floor model
 <a href=\"modelica://Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor\">
