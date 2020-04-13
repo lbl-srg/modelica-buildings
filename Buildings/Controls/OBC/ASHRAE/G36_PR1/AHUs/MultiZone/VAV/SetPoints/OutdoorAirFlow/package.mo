@@ -17,13 +17,13 @@ conducts zone level calculations for specifying minimum outdoor airflow rate,
 <li> 
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.System\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.System</a>
-conducts system level calculations for specifying minimum outdoor airflow rate,
+conducts AHU level calculations for specifying minimum outdoor airflow rate,
 </li>
 <li> 
 and <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.SumZone\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.SumZone</a>
 finds the sums, the maximum and the minimum of outputs from zone level calculations.
-They become inputs of system level calculation.
+They become inputs of AHU level calculation.
 </li>
 </ul>
 <p>

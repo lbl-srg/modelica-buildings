@@ -514,6 +514,105 @@ Primary outdoor air fraction, <code>yPriOutAirFra</code>.
 Primary airflow rate, <code>VPriAir_flow</code>.
 </li>
 </ol>
+
+
+
+<p>
+The calculation is done using the steps below.
+</p>
+<ol>
+<li>
+<p>
+Compute the required breathing zone outdoor airflow using the following components.
+</p>
+<ul>
+<li>The area component of the breathing zone outdoor airflow, <code>VDesAreBreZon_flow</code>.
+</li>
+<li>The population component of the breathing zone outdoor airflow, <code>VDesPopBreZon_flow</code>.
+</li>
+</ul>
+<p>
+The number of occupant in the zone can be retrieved directly from occupancy sensor
+(<code>nOcc</code>) if the sensor exists, or using the default occupant density
+(<code>occDen</code>) and multiplying it with zone area (<code>AFlo</code>).
+The occupant density can be found from Table 6.2.2.1 in ASHRAE Standard
+62.1-2013. For design purpose, use the design zone population (<code>desZonPop</code>)
+to determine the minimum requirement at the ventilation-design condition.
+</p>
+</li>
+
+
+<li>
+<p>
+Compute the zone air-distribution effectiveness.
+Table 6.2.2.2 in ASHRAE 62.1-2013 lists some typical values for setting the
+effectiveness. Depending on difference between zone space temperature
+<code>TZon</code> and discharge air temperature (after the reheat coil) <code>TDis</code>, Warm-air
+effectiveness <code>zonDisEffHea</code> or Cool-air effectiveness
+<code>zonDisEffCoo</code> should be applied.
+</p>
+</li>
+<li>
+<p>
+Compute the required zone outdoor airflow <code>zonOutAirRate</code>.
+For each zone in any mode other than occupied mode and for zones that have
+window switches and the window is open, set <code>zonOutAirRate = 0</code>.
+Otherwise, the required zone outdoor airflow <code>zonOutAirRate</code>
+shall be calculated as follows:
+</p>
+<ul>
+<li>
+If the zone is populated, or if there is no occupancy sensor:
+<ul>
+<li>
+If the discharge air temperature at the terminal unit is less than or equal to
+the zone space temperature, set <code>zonOutAirRate = (breZonAre+breZonPop)/disEffCoo</code>.
+</li>
+<li>
+If the discharge air temperature at the terminal unit is greater than zone space
+temperature, set <code>zonOutAirRate = (breZonAre+breZonPop)/disEffHea</code>.
+</li>
+</ul>
+</li>
+<li>
+If the zone has an occupancy sensor and is unpopulated:
+<ul>
+<li>
+If the discharge air temperature at the terminal unit is less than or equal to
+the zone space temperature, set <code>zonOutAirRate = breZonAre/disEffCoo</code>.
+</li>
+<li>
+If the discharge air temperature at the terminal unit is greater than zone
+space temperature, set <code>zonOutAirRate = breZonAre/disEffHea</code>.
+</li>
+</ul>
+</li>
+</ul>
+</li>
+
+<li>
+<p>
+Compute the outdoor air fraction for each zone <code>priOutAirFra</code> as follows.
+Set the zone outdoor air fraction to
+</p>
+<pre>
+    priOutAirFra = zonOutAirRate/VDis_flow
+</pre>
+<p>
+where, <code>VDis_flow</code> is the measured discharge air flow rate from the zone VAV box.
+For design purpose, the design zone outdoor air fraction <code>desZonPriOutAirRate</code>
+is
+</p>
+<pre>
+    desZonPriOutAirRate = desZonOutAirRate/minumZonFlo
+</pre>
+<p>
+where <code>minumZonFlo</code> is the minimum expected zone primary flow rate and
+<code>desZonOutAirRate</code> is the required design zone outdoor airflow rate.
+</p>
+</li>
+
+
 </html>", revisions="<html>
 <ul>
 <li>
