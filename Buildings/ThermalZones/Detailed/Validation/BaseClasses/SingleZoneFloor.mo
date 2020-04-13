@@ -288,15 +288,15 @@ equation
   annotation (
   Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-200},{200,200}})),
   defaultComponentName="sinZonFlo",
-  Documentation(info = "<html>
+  Documentation(info="<html>
   <p>
   This model assumes a mid-floor of a building as a single zone with a homogeneous 
   temperature; i.e., the air in the whole floor is assumed to be fully mixed.
   </p>
   <p>
   The geometry, materials and constructions of the model are consistent with those of
-  <a href=\"modelica://Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.Validation.BaseClasses.Floor\">
-  Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.Validation.BaseClasses.Floor</a>, 
+  <a href=\"modelica://Buildings.Examples.VAVReheat.ThermalZones.Floor\">
+  Buildings.Examples.VAVReheat.ThermalZones.Floor</a>, 
   which models the same mid-floor as five zones: a core zone and 
   four perimeter zones.
   </p>
