@@ -312,163 +312,218 @@ protected
 
   equation
 
-    connect(curSta.y, PLRs0.u) annotation (Line(points={{-398,190},{-261,190}},
+    connect(curSta.y, PLRs0.u) annotation (Line(points={{-398,190},{-330,190},{
+          -330,188},{-262,188}},
             color={255,127,0}));
-    connect(staUp.y, PLRs0.uUp) annotation (Line(points={{-398,150},{-320,150},{-320,
-            188},{-261,188}},color={255,127,0}));
-    connect(staDown.y, PLRs0.uDown) annotation (Line(points={{-398,110},{-310,110},
-            {-310,186},{-261,186}},                   color={255,127,0}));
-    connect(max.y, PLRs0.uCapReq) annotation (Line(points={{-318,370},{-290,370},{
-            -290,213},{-261,213}}, color={0,0,127}));
+    connect(staUp.y, PLRs0.uUp) annotation (Line(points={{-398,150},{-320,150},
+          {-320,186},{-262,186}},
+                             color={255,127,0}));
+    connect(staDown.y, PLRs0.uDown) annotation (Line(points={{-398,110},{-310,
+          110},{-310,184},{-262,184}},                color={255,127,0}));
+    connect(max.y, PLRs0.uCapReq) annotation (Line(points={{-318,370},{-290,370},
+          {-290,214},{-262,214}},  color={0,0,127}));
     connect(capReq3.y, max.u1) annotation (Line(points={{-398,390},{-360,390},{-360,
             376},{-342,376}}, color={0,0,127}));
     connect(lowLim.y, max.u2) annotation (Line(points={{-398,350},{-360,350},{-360,
             364},{-342,364}}, color={0,0,127}));
-    connect(capDes[1].y, PLRs0.uCapDes) annotation (Line(points={{-358,310},{-292,
-            310},{-292,211},{-261,211}}, color={0,0,127}));
-    connect(capDes[2].y, PLRs0.uUpCapDes) annotation (Line(points={{-358,310},{-292,
-            310},{-292,209},{-261,209}}, color={0,0,127}));
-    connect(capMin[1].y, PLRs0.uDowCapDes) annotation (Line(points={{-358,270},{-294,
-            270},{-294,207},{-261,207}}, color={0,0,127}));
-    connect(capMin[1].y, PLRs0.uCapMin) annotation (Line(points={{-358,270},{-294,
-            270},{-294,205},{-261,205}}, color={0,0,127}));
-    connect(capMin[2].y, PLRs0.uUpCapMin) annotation (Line(points={{-358,270},{-296,
-            270},{-296,203},{-261,203}}, color={0,0,127}));
-    connect(staTyp.y, PLRs0.uTyp) annotation (Line(points={{-398,230},{-310,230},{
-            -310,193},{-261,193}}, color={255,127,0}));
+    connect(capDes[1].y, PLRs0.uCapDes) annotation (Line(points={{-358,310},{
+          -292,310},{-292,212},{-262,212}},
+                                         color={0,0,127}));
+    connect(capDes[2].y, PLRs0.uUpCapDes) annotation (Line(points={{-358,310},{
+          -292,310},{-292,210},{-262,210}},
+                                         color={0,0,127}));
+    connect(capMin[1].y, PLRs0.uDowCapDes) annotation (Line(points={{-358,270},
+          {-294,270},{-294,208},{-262,208}},
+                                         color={0,0,127}));
+    connect(capMin[1].y, PLRs0.uCapMin) annotation (Line(points={{-358,270},{
+          -294,270},{-294,205},{-262,205}},
+                                         color={0,0,127}));
+    connect(capMin[2].y, PLRs0.uUpCapMin) annotation (Line(points={{-358,270},{
+          -296,270},{-296,203},{-262,203}},
+                                         color={0,0,127}));
+    connect(staTyp.y, PLRs0.uTyp) annotation (Line(points={{-398,230},{-310,230},
+          {-310,192},{-262,192}},  color={255,127,0}));
     connect(curSta1.y, PLRs1.u)
-      annotation (Line(points={{-178,190},{-41,190}}, color={255,127,0}));
-    connect(staUp1.y, PLRs1.uUp) annotation (Line(points={{-178,150},{-100,150},{-100,
-            188},{-41,188}}, color={255,127,0}));
-    connect(staDown1.y, PLRs1.uDown) annotation (Line(points={{-178,110},{-90,110},
-            {-90,186},{-41,186}},color={255,127,0}));
-    connect(max1.y, PLRs1.uCapReq) annotation (Line(points={{-98,370},{-70,370},{-70,
-            213},{-41,213}}, color={0,0,127}));
+      annotation (Line(points={{-178,190},{-110,190},{-110,188},{-42,188}},
+                                                      color={255,127,0}));
+    connect(staUp1.y, PLRs1.uUp) annotation (Line(points={{-178,150},{-100,150},
+          {-100,186},{-42,186}},
+                             color={255,127,0}));
+    connect(staDown1.y, PLRs1.uDown) annotation (Line(points={{-178,110},{-90,
+          110},{-90,184},{-42,184}},
+                                 color={255,127,0}));
+    connect(max1.y, PLRs1.uCapReq) annotation (Line(points={{-98,370},{-70,370},
+          {-70,214},{-42,214}},
+                             color={0,0,127}));
     connect(capReq1.y, max1.u1) annotation (Line(points={{-178,390},{-140,390},{-140,
             376},{-122,376}}, color={0,0,127}));
     connect(curSta2.y,PLRs2. u)
-      annotation (Line(points={{42,190},{179,190}}, color={255,127,0}));
-    connect(staUp2.y,PLRs2.uUp) annotation (Line(points={{42,150},{120,150},{120,188},
-            {179,188}}, color={255,127,0}));
-    connect(staDown2.y,PLRs2.uDown) annotation (Line(points={{42,110},{130,110},{130,
-            186},{179,186}}, color={255,127,0}));
-    connect(max2.y,PLRs2.uCapReq) annotation (Line(points={{122,370},{150,370},{150,
-            213},{179,213}}, color={0,0,127}));
+      annotation (Line(points={{42,190},{110,190},{110,188},{178,188}},
+                                                    color={255,127,0}));
+    connect(staUp2.y,PLRs2.uUp) annotation (Line(points={{42,150},{120,150},{
+          120,186},{178,186}},
+                        color={255,127,0}));
+    connect(staDown2.y,PLRs2.uDown) annotation (Line(points={{42,110},{130,110},
+          {130,184},{178,184}},
+                             color={255,127,0}));
+    connect(max2.y,PLRs2.uCapReq) annotation (Line(points={{122,370},{150,370},
+          {150,214},{178,214}},
+                             color={0,0,127}));
     connect(capReq2.y,max2.u1) annotation (Line(points={{42,390},{80,390},{80,376},
             {98,376}},   color={0,0,127}));
     connect(curSta3.y,PLRs3. u)
-      annotation (Line(points={{282,190},{419,190}},color={255,127,0}));
-    connect(staUp3.y,PLRs3.uUp) annotation (Line(points={{282,150},{360,150},{360,
-            188},{419,188}}, color={255,127,0}));
-    connect(staDown3.y,PLRs3.uDown) annotation (Line(points={{282,110},{370,110},{
-            370,186},{419,186}}, color={255,127,0}));
-    connect(max3.y,PLRs3.uCapReq) annotation (Line(points={{362,370},{410,370},{410,
-            213},{419,213}}, color={0,0,127}));
+      annotation (Line(points={{282,190},{350,190},{350,188},{418,188}},
+                                                    color={255,127,0}));
+    connect(staUp3.y,PLRs3.uUp) annotation (Line(points={{282,150},{360,150},{
+          360,186},{418,186}},
+                             color={255,127,0}));
+    connect(staDown3.y,PLRs3.uDown) annotation (Line(points={{282,110},{370,110},
+          {370,184},{418,184}},  color={255,127,0}));
+    connect(max3.y,PLRs3.uCapReq) annotation (Line(points={{362,370},{410,370},
+          {410,214},{418,214}},
+                             color={0,0,127}));
     connect(capReq4.y,max3.u1) annotation (Line(points={{282,390},{320,390},{320,376},
             {338,376}},  color={0,0,127}));
-    connect(curSta4.y, PLRs4.u) annotation (Line(points={{-398,-300},{-330,-300},{
-            -330,-170},{-261,-170}}, color={255,127,0}));
-    connect(staUp4.y, PLRs4.uUp) annotation (Line(points={{-398,-340},{-320,-340},
-            {-320,-172},{-261,-172}}, color={255,127,0}));
-    connect(staDown4.y, PLRs4.uDown) annotation (Line(points={{-398,-380},{-310,-380},
-            {-310,-174},{-261,-174}}, color={255,127,0}));
-    connect(max4.y, PLRs4.uCapReq) annotation (Line(points={{-318,10},{-290,10},{-290,
-            -147},{-261,-147}}, color={0,0,127}));
+    connect(curSta4.y, PLRs4.u) annotation (Line(points={{-398,-300},{-330,-300},
+          {-330,-172},{-262,-172}},  color={255,127,0}));
+    connect(staUp4.y, PLRs4.uUp) annotation (Line(points={{-398,-340},{-320,
+          -340},{-320,-174},{-262,-174}},
+                                      color={255,127,0}));
+    connect(staDown4.y, PLRs4.uDown) annotation (Line(points={{-398,-380},{-310,
+          -380},{-310,-176},{-262,-176}},
+                                      color={255,127,0}));
+    connect(max4.y, PLRs4.uCapReq) annotation (Line(points={{-318,10},{-290,10},
+          {-290,-146},{-262,-146}},
+                                color={0,0,127}));
     connect(capReq5.y, max4.u1) annotation (Line(points={{-398,30},{-360,30},{-360,
             16},{-342,16}}, color={0,0,127}));
     connect(lowLim4.y, max4.u2) annotation (Line(points={{-398,-10},{-360,-10},{-360,
             4},{-342,4}},     color={0,0,127}));
-    connect(capDes1[1].y, PLRs4.uCapDes) annotation (Line(points={{-358,-50},{-292,
-            -50},{-292,-149},{-261,-149}}, color={0,0,127}));
-    connect(capDes1[2].y, PLRs4.uUpCapDes) annotation (Line(points={{-358,-50},{-292,
-            -50},{-292,-151},{-261,-151}}, color={0,0,127}));
-    connect(capMin1[1].y, PLRs4.uDowCapDes) annotation (Line(points={{-358,-90},{-294,
-            -90},{-294,-153},{-261,-153}}, color={0,0,127}));
-    connect(capMin1[1].y, PLRs4.uCapMin) annotation (Line(points={{-358,-90},{-294,
-            -90},{-294,-155},{-261,-155}}, color={0,0,127}));
-    connect(capMin1[2].y, PLRs4.uUpCapMin) annotation (Line(points={{-358,-90},{-296,
-            -90},{-296,-157},{-261,-157}}, color={0,0,127}));
-    connect(staTyp4.y, PLRs4.uTyp) annotation (Line(points={{-398,-260},{-340,-260},
-            {-340,-167},{-261,-167}}, color={255,127,0}));
+    connect(capDes1[1].y, PLRs4.uCapDes) annotation (Line(points={{-358,-50},{
+          -292,-50},{-292,-148},{-262,-148}},
+                                           color={0,0,127}));
+    connect(capDes1[2].y, PLRs4.uUpCapDes) annotation (Line(points={{-358,-50},
+          {-292,-50},{-292,-150},{-262,-150}},
+                                           color={0,0,127}));
+    connect(capMin1[1].y, PLRs4.uDowCapDes) annotation (Line(points={{-358,-90},
+          {-294,-90},{-294,-152},{-262,-152}},
+                                           color={0,0,127}));
+    connect(capMin1[1].y, PLRs4.uCapMin) annotation (Line(points={{-358,-90},{
+          -294,-90},{-294,-155},{-262,-155}},
+                                           color={0,0,127}));
+    connect(capMin1[2].y, PLRs4.uUpCapMin) annotation (Line(points={{-358,-90},
+          {-296,-90},{-296,-157},{-262,-157}},
+                                           color={0,0,127}));
+    connect(staTyp4.y, PLRs4.uTyp) annotation (Line(points={{-398,-260},{-340,
+          -260},{-340,-168},{-262,-168}},
+                                      color={255,127,0}));
     connect(curSta5.y,PLRs5. u)
-      annotation (Line(points={{-178,-300},{-110,-300},{-110,-170},{-41,-170}},
+      annotation (Line(points={{-178,-300},{-110,-300},{-110,-172},{-42,-172}},
                                                       color={255,127,0}));
-    connect(staUp5.y,PLRs5. uUp) annotation (Line(points={{-178,-340},{-100,-340},
-            {-100,-172},{-41,-172}}, color={255,127,0}));
-    connect(staDown5.y,PLRs5. uDown) annotation (Line(points={{-178,-380},{-90,-380},
-            {-90,-174},{-41,-174}}, color={255,127,0}));
-    connect(max5.y,PLRs5. uCapReq) annotation (Line(points={{-98,10},{-70,10},{-70,
-            -147},{-41,-147}},    color={0,0,127}));
+    connect(staUp5.y,PLRs5. uUp) annotation (Line(points={{-178,-340},{-100,
+          -340},{-100,-174},{-42,-174}},
+                                     color={255,127,0}));
+    connect(staDown5.y,PLRs5. uDown) annotation (Line(points={{-178,-380},{-90,
+          -380},{-90,-176},{-42,-176}},
+                                    color={255,127,0}));
+    connect(max5.y,PLRs5. uCapReq) annotation (Line(points={{-98,10},{-70,10},{
+          -70,-146},{-42,-146}},  color={0,0,127}));
     connect(capReq6.y,max5. u1) annotation (Line(points={{-178,30},{-140,30},{-140,
             16},{-122,16}}, color={0,0,127}));
     connect(curSta6.y,PLRs6. u)
-      annotation (Line(points={{42,-300},{110,-300},{110,-170},{179,-170}},
+      annotation (Line(points={{42,-300},{110,-300},{110,-172},{178,-172}},
             color={255,127,0}));
-    connect(staUp6.y,PLRs6.uUp) annotation (Line(points={{42,-340},{120,-340},{120,
-            -172},{179,-172}}, color={255,127,0}));
-    connect(staDown6.y,PLRs6.uDown) annotation (Line(points={{42,-380},{130,-380},
-            {130,-174},{179,-174}}, color={255,127,0}));
-    connect(max6.y,PLRs6.uCapReq) annotation (Line(points={{122,10},{150,10},{150,
-            -147},{179,-147}},    color={0,0,127}));
+    connect(staUp6.y,PLRs6.uUp) annotation (Line(points={{42,-340},{120,-340},{
+          120,-174},{178,-174}},
+                               color={255,127,0}));
+    connect(staDown6.y,PLRs6.uDown) annotation (Line(points={{42,-380},{130,
+          -380},{130,-176},{178,-176}},
+                                    color={255,127,0}));
+    connect(max6.y,PLRs6.uCapReq) annotation (Line(points={{122,10},{150,10},{
+          150,-146},{178,-146}},  color={0,0,127}));
     connect(capReq7.y,max6.u1) annotation (Line(points={{42,30},{80,30},{80,16},{98,
             16}}, color={0,0,127}));
     connect(curSta7.y,PLRs7. u)
-      annotation (Line(points={{282,-300},{350,-300},{350,-170},{419,-170}},
+      annotation (Line(points={{282,-300},{350,-300},{350,-172},{418,-172}},
              color={255,127,0}));
-    connect(staUp7.y,PLRs7.uUp) annotation (Line(points={{282,-340},{360,-340},{360,
-            -172},{419,-172}}, color={255,127,0}));
-    connect(staDown7.y,PLRs7.uDown) annotation (Line(points={{282,-380},{370,-380},
-            {370,-174},{419,-174}}, color={255,127,0}));
-    connect(max7.y,PLRs7.uCapReq) annotation (Line(points={{362,10},{390,10},{390,
-            -147},{419,-147}}, color={0,0,127}));
+    connect(staUp7.y,PLRs7.uUp) annotation (Line(points={{282,-340},{360,-340},
+          {360,-174},{418,-174}},
+                               color={255,127,0}));
+    connect(staDown7.y,PLRs7.uDown) annotation (Line(points={{282,-380},{370,
+          -380},{370,-176},{418,-176}},
+                                    color={255,127,0}));
+    connect(max7.y,PLRs7.uCapReq) annotation (Line(points={{362,10},{390,10},{
+          390,-146},{418,-146}},
+                               color={0,0,127}));
     connect(capReq8.y,max7.u1) annotation (Line(points={{282,30},{320,30},{320,16},
             {338,16}}, color={0,0,127}));
-    connect(capMin1[1].y,PLRs7.uCapDes) annotation (Line(points={{-358,-90},{388,-90},
-            {388,-149},{419,-149}}, color={0,0,127}));
-    connect(capDes1[1].y,PLRs7.uUpCapDes) annotation (Line(points={{-358,-50},{388,
-            -50},{388,-151},{419,-151}}, color={0,0,127}));
-    connect(capMin1[1].y,PLRs7.uDowCapDes) annotation (Line(points={{-358,-90},{386,
-            -90},{386,-153},{419,-153}}, color={0,0,127}));
-    connect(capMin1[1].y,PLRs7.uCapMin) annotation (Line(points={{-358,-90},{386,-90},
-            {386,-155},{419,-155}}, color={0,0,127}));
-    connect(capMin1[1].y,PLRs7.uUpCapMin) annotation (Line(points={{-358,-90},{384,
-            -90},{384,-157},{419,-157}}, color={0,0,127}));
-    connect(staTyp.y, PLRs1.uTyp) annotation (Line(points={{-398,230},{-90,230},{-90,
-            193},{-41,193}}, color={255,127,0}));
-    connect(staTyp.y, PLRs2.uTyp) annotation (Line(points={{-398,230},{130,230},{130,
-            193},{179,193}}, color={255,127,0}));
-    connect(staTyp4.y, PLRs5.uTyp) annotation (Line(points={{-398,-260},{-120,-260},
-            {-120,-167},{-41,-167}}, color={255,127,0}));
-    connect(staTyp4.y, PLRs6.uTyp) annotation (Line(points={{-398,-260},{100,-260},
-            {100,-167},{179,-167}}, color={255,127,0}));
-    connect(staTyp4.y, PLRs7.uTyp) annotation (Line(points={{-398,-260},{340,-260},
-            {340,-167},{419,-167}}, color={255,127,0}));
-    connect(Lift.y, PLRs4.uLif) annotation (Line(points={{-398,-130},{-360,-130},{
-            -360,-160},{-261,-160}}, color={0,0,127}));
-    connect(LiftMax.y, PLRs4.uLifMax) annotation (Line(points={{-398,-170},{-380,-170},
-            {-380,-162},{-261,-162}}, color={0,0,127}));
-    connect(LiftMin.y, PLRs4.uLifMin) annotation (Line(points={{-398,-210},{-360,-210},
-            {-360,-164},{-261,-164}}, color={0,0,127}));
-    connect(Lift.y, PLRs5.uLif) annotation (Line(points={{-398,-130},{-140,-130},{
-            -140,-160},{-41,-160}}, color={0,0,127}));
-    connect(LiftMax.y, PLRs5.uLifMax) annotation (Line(points={{-398,-170},{-380,-170},
-            {-380,-180},{-140,-180},{-140,-162},{-41,-162}}, color={0,0,127}));
-    connect(LiftMin.y, PLRs5.uLifMin) annotation (Line(points={{-398,-210},{-130,-210},
-            {-130,-164},{-41,-164}}, color={0,0,127}));
-    connect(Lift.y, PLRs6.uLif) annotation (Line(points={{-398,-130},{80,-130},{80,
-            -160},{179,-160}}, color={0,0,127}));
-    connect(Lift.y, PLRs7.uLif) annotation (Line(points={{-398,-130},{320,-130},{320,
-            -160},{419,-160}}, color={0,0,127}));
-    connect(LiftMax.y, PLRs6.uLifMax) annotation (Line(points={{-398,-170},{-380,-170},
-            {-380,-180},{80,-180},{80,-162},{179,-162}}, color={0,0,127}));
-    connect(LiftMax.y, PLRs7.uLifMax) annotation (Line(points={{-398,-170},{-380,-170},
-            {-380,-180},{320,-180},{320,-162},{419,-162}}, color={0,0,127}));
-    connect(LiftMin.y, PLRs6.uLifMin) annotation (Line(points={{-398,-210},{92,-210},
-            {92,-164},{179,-164}}, color={0,0,127}));
-    connect(PLRs7.uLifMin, LiftMin.y) annotation (Line(points={{419,-164},{332,-164},
-            {332,-210},{-398,-210}}, color={0,0,127}));
-    connect(staTyp.y, PLRs3.uTyp) annotation (Line(points={{-398,230},{372,230},{372,
-            193},{419,193}}, color={255,127,0}));
+    connect(capMin1[1].y,PLRs7.uCapDes) annotation (Line(points={{-358,-90},{
+          388,-90},{388,-148},{418,-148}},
+                                    color={0,0,127}));
+    connect(capDes1[1].y,PLRs7.uUpCapDes) annotation (Line(points={{-358,-50},{
+          388,-50},{388,-150},{418,-150}},
+                                         color={0,0,127}));
+    connect(capMin1[1].y,PLRs7.uDowCapDes) annotation (Line(points={{-358,-90},
+          {386,-90},{386,-152},{418,-152}},
+                                         color={0,0,127}));
+    connect(capMin1[1].y,PLRs7.uCapMin) annotation (Line(points={{-358,-90},{
+          386,-90},{386,-155},{418,-155}},
+                                    color={0,0,127}));
+    connect(capMin1[1].y,PLRs7.uUpCapMin) annotation (Line(points={{-358,-90},{
+          384,-90},{384,-157},{418,-157}},
+                                         color={0,0,127}));
+    connect(staTyp.y, PLRs1.uTyp) annotation (Line(points={{-398,230},{-90,230},
+          {-90,192},{-42,192}},
+                             color={255,127,0}));
+    connect(staTyp.y, PLRs2.uTyp) annotation (Line(points={{-398,230},{130,230},
+          {130,192},{178,192}},
+                             color={255,127,0}));
+    connect(staTyp4.y, PLRs5.uTyp) annotation (Line(points={{-398,-260},{-120,
+          -260},{-120,-168},{-42,-168}},
+                                     color={255,127,0}));
+    connect(staTyp4.y, PLRs6.uTyp) annotation (Line(points={{-398,-260},{100,
+          -260},{100,-168},{178,-168}},
+                                    color={255,127,0}));
+    connect(staTyp4.y, PLRs7.uTyp) annotation (Line(points={{-398,-260},{340,
+          -260},{340,-168},{418,-168}},
+                                    color={255,127,0}));
+    connect(Lift.y, PLRs4.uLif) annotation (Line(points={{-398,-130},{-360,-130},
+          {-360,-160},{-262,-160}},  color={0,0,127}));
+    connect(LiftMax.y, PLRs4.uLifMax) annotation (Line(points={{-398,-170},{
+          -380,-170},{-380,-162},{-262,-162}},
+                                      color={0,0,127}));
+    connect(LiftMin.y, PLRs4.uLifMin) annotation (Line(points={{-398,-210},{
+          -360,-210},{-360,-164},{-262,-164}},
+                                      color={0,0,127}));
+    connect(Lift.y, PLRs5.uLif) annotation (Line(points={{-398,-130},{-140,-130},
+          {-140,-160},{-42,-160}},  color={0,0,127}));
+    connect(LiftMax.y, PLRs5.uLifMax) annotation (Line(points={{-398,-170},{
+          -380,-170},{-380,-180},{-140,-180},{-140,-162},{-42,-162}},
+                                                             color={0,0,127}));
+    connect(LiftMin.y, PLRs5.uLifMin) annotation (Line(points={{-398,-210},{
+          -130,-210},{-130,-164},{-42,-164}},
+                                     color={0,0,127}));
+    connect(Lift.y, PLRs6.uLif) annotation (Line(points={{-398,-130},{80,-130},
+          {80,-160},{178,-160}},
+                               color={0,0,127}));
+    connect(Lift.y, PLRs7.uLif) annotation (Line(points={{-398,-130},{320,-130},
+          {320,-160},{418,-160}},
+                               color={0,0,127}));
+    connect(LiftMax.y, PLRs6.uLifMax) annotation (Line(points={{-398,-170},{
+          -380,-170},{-380,-180},{80,-180},{80,-162},{178,-162}},
+                                                         color={0,0,127}));
+    connect(LiftMax.y, PLRs7.uLifMax) annotation (Line(points={{-398,-170},{
+          -380,-170},{-380,-180},{320,-180},{320,-162},{418,-162}},
+                                                           color={0,0,127}));
+    connect(LiftMin.y, PLRs6.uLifMin) annotation (Line(points={{-398,-210},{92,
+          -210},{92,-164},{178,-164}},
+                                   color={0,0,127}));
+    connect(PLRs7.uLifMin, LiftMin.y) annotation (Line(points={{418,-164},{332,
+          -164},{332,-210},{-398,-210}},
+                                     color={0,0,127}));
+    connect(staTyp.y, PLRs3.uTyp) annotation (Line(points={{-398,230},{372,230},
+          {372,192},{418,192}},
+                             color={255,127,0}));
     connect(lowLim.y, max1.u2) annotation (Line(points={{-398,350},{-140,350},{-140,
             364},{-122,364}}, color={0,0,127}));
     connect(lowLim.y, max2.u2) annotation (Line(points={{-398,350},{80,350},{80,364},
@@ -481,56 +536,81 @@ protected
             {98,4}}, color={0,0,127}));
     connect(lowLim4.y, max7.u2) annotation (Line(points={{-398,-10},{320,-10},{320,
             4},{338,4}}, color={0,0,127}));
-    connect(capDes[2].y, PLRs1.uCapDes) annotation (Line(points={{-358,310},{-72,310},
-            {-72,211},{-41,211}}, color={0,0,127}));
-    connect(capDes[3].y, PLRs1.uUpCapDes) annotation (Line(points={{-358,310},{-72,
-            310},{-72,209},{-41,209}}, color={0,0,127}));
-    connect(capDes[1].y, PLRs1.uDowCapDes) annotation (Line(points={{-358,310},{-72,
-            310},{-72,207},{-41,207}}, color={0,0,127}));
-    connect(capMin[2].y, PLRs1.uCapMin) annotation (Line(points={{-358,270},{-74,270},
-            {-74,205},{-41,205}}, color={0,0,127}));
-    connect(capMin[3].y, PLRs1.uUpCapMin) annotation (Line(points={{-358,270},{-74,
-            270},{-74,203},{-41,203}}, color={0,0,127}));
-    connect(capDes1[2].y, PLRs5.uCapDes) annotation (Line(points={{-358,-50},{-80,
-            -50},{-80,-149},{-41,-149}}, color={0,0,127}));
-    connect(capDes1[3].y, PLRs5.uUpCapDes) annotation (Line(points={{-358,-50},{-80,
-            -50},{-80,-151},{-41,-151}}, color={0,0,127}));
-    connect(capDes1[1].y, PLRs5.uDowCapDes) annotation (Line(points={{-358,-50},{-80,
-            -50},{-80,-153},{-41,-153}}, color={0,0,127}));
-    connect(capMin1[2].y, PLRs5.uCapMin) annotation (Line(points={{-358,-90},{-90,
-            -90},{-90,-155},{-41,-155}}, color={0,0,127}));
-    connect(capMin1[1].y, PLRs5.uUpCapMin) annotation (Line(points={{-358,-90},{-90,
-            -90},{-90,-157},{-41,-157}}, color={0,0,127}));
-    connect(capDes[3].y, PLRs2.uCapDes) annotation (Line(points={{-358,310},{140,310},
-            {140,211},{179,211}}, color={0,0,127}));
-    connect(capDes[3].y, PLRs2.uUpCapDes) annotation (Line(points={{-358,310},{140,
-            310},{140,209},{179,209}}, color={0,0,127}));
-    connect(capDes[2].y, PLRs2.uDowCapDes) annotation (Line(points={{-358,310},{140,
-            310},{140,207},{179,207}}, color={0,0,127}));
-    connect(capMin[3].y, PLRs2.uCapMin) annotation (Line(points={{-358,270},{138,270},
-            {138,205},{179,205}}, color={0,0,127}));
-    connect(capMin[3].y, PLRs2.uUpCapMin) annotation (Line(points={{-358,270},{138,
-            270},{138,203},{179,203}}, color={0,0,127}));
-    connect(capDes1[3].y, PLRs6.uCapDes) annotation (Line(points={{-358,-50},{140,
-            -50},{140,-149},{179,-149}}, color={0,0,127}));
-    connect(capDes1[3].y, PLRs6.uUpCapDes) annotation (Line(points={{-358,-50},{140,
-            -50},{140,-151},{179,-151}}, color={0,0,127}));
-    connect(capDes1[2].y, PLRs6.uDowCapDes) annotation (Line(points={{-358,-50},{140,
-            -50},{140,-153},{179,-153}}, color={0,0,127}));
-    connect(capMin1[3].y, PLRs6.uCapMin) annotation (Line(points={{-358,-90},{130,
-            -90},{130,-155},{179,-155}}, color={0,0,127}));
-    connect(capMin1[3].y, PLRs6.uUpCapMin) annotation (Line(points={{-358,-90},{130,
-            -90},{130,-157},{179,-157}}, color={0,0,127}));
-    connect(capMin[1].y, PLRs3.uCapDes) annotation (Line(points={{-358,270},{398,270},
-            {398,211},{419,211}}, color={0,0,127}));
-    connect(capDes[1].y, PLRs3.uUpCapDes) annotation (Line(points={{-358,310},{400,
-            310},{400,209},{419,209}}, color={0,0,127}));
-    connect(capMin[1].y, PLRs3.uDowCapDes) annotation (Line(points={{-358,270},{398,
-            270},{398,207},{419,207}}, color={0,0,127}));
-    connect(capMin[1].y, PLRs3.uCapMin) annotation (Line(points={{-358,270},{398,270},
-            {398,205},{419,205}}, color={0,0,127}));
-    connect(capMin[1].y, PLRs3.uUpCapMin) annotation (Line(points={{-358,270},{398,
-            270},{398,203},{419,203}}, color={0,0,127}));
+    connect(capDes[2].y, PLRs1.uCapDes) annotation (Line(points={{-358,310},{
+          -72,310},{-72,212},{-42,212}},
+                                  color={0,0,127}));
+    connect(capDes[3].y, PLRs1.uUpCapDes) annotation (Line(points={{-358,310},{
+          -72,310},{-72,210},{-42,210}},
+                                       color={0,0,127}));
+    connect(capDes[1].y, PLRs1.uDowCapDes) annotation (Line(points={{-358,310},
+          {-72,310},{-72,208},{-42,208}},
+                                       color={0,0,127}));
+    connect(capMin[2].y, PLRs1.uCapMin) annotation (Line(points={{-358,270},{
+          -74,270},{-74,205},{-42,205}},
+                                  color={0,0,127}));
+    connect(capMin[3].y, PLRs1.uUpCapMin) annotation (Line(points={{-358,270},{
+          -74,270},{-74,203},{-42,203}},
+                                       color={0,0,127}));
+    connect(capDes1[2].y, PLRs5.uCapDes) annotation (Line(points={{-358,-50},{
+          -80,-50},{-80,-148},{-42,-148}},
+                                         color={0,0,127}));
+    connect(capDes1[3].y, PLRs5.uUpCapDes) annotation (Line(points={{-358,-50},
+          {-80,-50},{-80,-150},{-42,-150}},
+                                         color={0,0,127}));
+    connect(capDes1[1].y, PLRs5.uDowCapDes) annotation (Line(points={{-358,-50},
+          {-80,-50},{-80,-152},{-42,-152}},
+                                         color={0,0,127}));
+    connect(capMin1[2].y, PLRs5.uCapMin) annotation (Line(points={{-358,-90},{
+          -90,-90},{-90,-155},{-42,-155}},
+                                         color={0,0,127}));
+    connect(capMin1[1].y, PLRs5.uUpCapMin) annotation (Line(points={{-358,-90},
+          {-90,-90},{-90,-157},{-42,-157}},
+                                         color={0,0,127}));
+    connect(capDes[3].y, PLRs2.uCapDes) annotation (Line(points={{-358,310},{
+          140,310},{140,212},{178,212}},
+                                  color={0,0,127}));
+    connect(capDes[3].y, PLRs2.uUpCapDes) annotation (Line(points={{-358,310},{
+          140,310},{140,210},{178,210}},
+                                       color={0,0,127}));
+    connect(capDes[2].y, PLRs2.uDowCapDes) annotation (Line(points={{-358,310},
+          {140,310},{140,208},{178,208}},
+                                       color={0,0,127}));
+    connect(capMin[3].y, PLRs2.uCapMin) annotation (Line(points={{-358,270},{
+          138,270},{138,205},{178,205}},
+                                  color={0,0,127}));
+    connect(capMin[3].y, PLRs2.uUpCapMin) annotation (Line(points={{-358,270},{
+          138,270},{138,203},{178,203}},
+                                       color={0,0,127}));
+    connect(capDes1[3].y, PLRs6.uCapDes) annotation (Line(points={{-358,-50},{
+          140,-50},{140,-148},{178,-148}},
+                                         color={0,0,127}));
+    connect(capDes1[3].y, PLRs6.uUpCapDes) annotation (Line(points={{-358,-50},
+          {140,-50},{140,-150},{178,-150}},
+                                         color={0,0,127}));
+    connect(capDes1[2].y, PLRs6.uDowCapDes) annotation (Line(points={{-358,-50},
+          {140,-50},{140,-152},{178,-152}},
+                                         color={0,0,127}));
+    connect(capMin1[3].y, PLRs6.uCapMin) annotation (Line(points={{-358,-90},{
+          130,-90},{130,-155},{178,-155}},
+                                         color={0,0,127}));
+    connect(capMin1[3].y, PLRs6.uUpCapMin) annotation (Line(points={{-358,-90},
+          {130,-90},{130,-157},{178,-157}},
+                                         color={0,0,127}));
+    connect(capMin[1].y, PLRs3.uCapDes) annotation (Line(points={{-358,270},{
+          398,270},{398,212},{418,212}},
+                                  color={0,0,127}));
+    connect(capDes[1].y, PLRs3.uUpCapDes) annotation (Line(points={{-358,310},{
+          400,310},{400,210},{418,210}},
+                                       color={0,0,127}));
+    connect(capMin[1].y, PLRs3.uDowCapDes) annotation (Line(points={{-358,270},
+          {398,270},{398,208},{418,208}},
+                                       color={0,0,127}));
+    connect(capMin[1].y, PLRs3.uCapMin) annotation (Line(points={{-358,270},{
+          398,270},{398,205},{418,205}},
+                                  color={0,0,127}));
+    connect(capMin[1].y, PLRs3.uUpCapMin) annotation (Line(points={{-358,270},{
+          398,270},{398,203},{418,203}},
+                                       color={0,0,127}));
   annotation (
    experiment(StopTime=1200.0, Tolerance=1e-06),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/PartLoadRatios_u_uTyp.mos"
@@ -561,11 +641,11 @@ First implementation.
                   points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),Diagram(
           coordinateSystem(preserveAspectRatio=false, extent={{-480,-420},{480,420}}),
           graphics={Text(
-            extent={{-140,104},{158,32}},
+            extent={{-224,102},{260,40}},
             lineColor={127,127,127},
             textString="Stage types: 1 - positive displacement, 2 and 3 - constant speed centrifugal"),
             Text(
-            extent={{-140,-372},{158,-444}},
+            extent={{-256,-372},{308,-446}},
             lineColor={127,127,127},
             textString="Stage types: 1 - positive displacement, 2 - variable speed centrifugal, 3 - constant speed centrifugal")}));
   end PartLoadRatios_u_uTyp;
