@@ -43,7 +43,7 @@ model Change_WSE
     "Chiller availability vector"
     annotation (Placement(transformation(extent={{-120,200},{-100,220}})));
   CDL.Continuous.Max                        max "Maximum"
-    annotation (Placement(transformation(extent={{-162,100},{-142,120}})));
+    annotation (Placement(transformation(extent={{-160,100},{-140,120}})));
   CDL.Discrete.ZeroOrderHold                        zerOrdHol(samplePeriod=10)
     annotation (Placement(transformation(extent={{140,140},{160,160}})));
   CDL.Conversions.IntegerToReal                        intToRea
@@ -62,8 +62,6 @@ model Change_WSE
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
   CDL.Logical.TrueDelay truDel(delayTime=10, delayOnInit=true)
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-  CDL.Logical.Sources.Constant wseSta(final k=true) "WSE status"
-    annotation (Placement(transformation(extent={{-60,110},{-40,130}})));
   CDL.Continuous.AddParameter wseTPre(p=-3, k=1)
     "Predicted WSE outlet temperature"
     annotation (Placement(transformation(extent={{0,200},{20,220}})));
@@ -73,6 +71,12 @@ model Change_WSE
     offset=273.15 + 16,
     startTime=1500)
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
+  CDL.Continuous.Sources.TimeTable wseSta(table=[0,1; 1500,1; 1500,0; 12500,0;
+        12500,1; 14000,1], smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.LinearSegments)
+    "WSE is on during low loads, off during high loads"
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+  CDL.Continuous.GreaterThreshold greThr(threshold=0.5)
+    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 protected
   CDL.Continuous.Sources.Constant                        dpChiWat(final k=65*6895)
     "Chilled water differential pressure"
@@ -88,7 +92,11 @@ protected
   CDL.Continuous.Sources.Constant                        zero(final k=0)
     "Constant"
     annotation (Placement(transformation(extent={{-200,60},{-180,80}})));
-  CDL.Continuous.Sources.Constant maxTowFanSpe(final k=1) "Constant"
+  CDL.Continuous.Sources.Ramp     maxTowFanSpe(
+    height=-0.05,
+    duration=60,
+    offset=1,
+    startTime=13000)                                      "Constant"
     annotation (Placement(transformation(extent={{-160,180},{-140,200}})));
 equation
   connect(dpChiWatSet.y,cha. dpChiWatPumSet) annotation (Line(points={{-98,70},{
@@ -99,12 +107,12 @@ equation
           131},{58,131}},
                         color={255,0,255}));
   connect(zero.y,max. u2) annotation (Line(points={{-178,70},{-170,70},{-170,
-          104},{-164,104}},
+          104},{-162,104}},
                        color={0,0,127}));
   connect(chiWatFlow.y,max. u1) annotation (Line(points={{-178,110},{-170,110},
-          {-170,116},{-164,116}},color={0,0,127}));
+          {-170,116},{-162,116}},color={0,0,127}));
   connect(cha.VChiWat_flow,max. y) annotation (Line(points={{58,141},{-130,141},
-          {-130,110},{-140,110}},
+          {-130,110},{-138,110}},
                             color={0,0,127}));
   connect(TChiWatRet.y,cha. TChiWatRet) annotation (Line(points={{-178,150},{-130,
           150},{-130,145},{58,145}},
@@ -134,8 +142,6 @@ equation
     annotation (Line(points={{-38,70},{-22,70}}, color={255,0,255}));
   connect(truDel.y,cha. uPla) annotation (Line(points={{2,70},{34,70},{34,129},{
           58,129}}, color={255,0,255}));
-  connect(cha.uWseSta, wseSta.y) annotation (Line(points={{58,135},{-26,135},{
-          -26,120},{-38,120}}, color={255,0,255}));
   connect(maxTowFanSpe.y, cha.uTowFanSpeMax) annotation (Line(points={{-138,190},
           {34,190},{34,148},{58,148}}, color={0,0,127}));
   connect(TCWSupSet.y, wseTPre.u) annotation (Line(points={{-98,170},{-80,170},
@@ -144,8 +150,12 @@ equation
           42,142},{30,142},{30,210},{22,210}}, color={0,0,127}));
   connect(TCWSupSet.y, cha.TChiWatSupSet) annotation (Line(points={{-98,170},{
           -20,170},{-20,165},{58,165}}, color={0,0,127}));
-  connect(TCWSup.y, cha.TChiWatSup) annotation (Line(points={{-98,110},{-86,110},
-          {-86,112},{-68,112},{-68,163},{58,163}}, color={0,0,127}));
+  connect(TCWSup.y, cha.TChiWatSup) annotation (Line(points={{-98,110},{-70,110},
+          {-70,163},{58,163}},                     color={0,0,127}));
+  connect(wseSta.y[1], greThr.u)
+    annotation (Line(points={{-38,30},{-22,30}}, color={0,0,127}));
+  connect(greThr.y, cha.uWseSta) annotation (Line(points={{2,30},{32,30},{32,
+          135},{58,135}}, color={255,0,255}));
 annotation (
  experiment(StopTime=20000.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Change_WSE.mos"

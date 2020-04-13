@@ -124,7 +124,7 @@ block Down "Generates a stage down signal"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not0 if have_WSE
-    "Logical not"
+    "Outputs true if signal is below maximum"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not1
