@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor;
+within Buildings.ThermalZones.Detailed.Validation.BaseClasses;
 model SingleZoneFloor "Model of a building floor as a single zone"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model for air" annotation (choicesAllMatching=true);

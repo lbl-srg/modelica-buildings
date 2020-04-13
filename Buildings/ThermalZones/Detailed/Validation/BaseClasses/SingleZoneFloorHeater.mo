@@ -1,5 +1,5 @@
-within Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.Validation.BaseClasses;
-model HeaterAndControl
+within Buildings.ThermalZones.Detailed.Validation.BaseClasses;
+model SingleZoneFloorHeater
   "A model with an ideal heater, a fan, a PI controller and an integrator"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
 
@@ -87,8 +87,8 @@ equation
 <p>
 This model includes an ideal heater, a fan, a PI controller and an integrator for the heating energy.
 It is used in the validation model
-<a href=\"modelica://Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.Validation.SingleZoneFloorWithHeating\">
-Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.Validation.SingleZoneFloorWithHeating</a>.
+<a href=\"modelica://Buildings.ThermalZones.Detailed.Validation.SingleZoneFloorWithHeating\">
+Buildings.ThermalZones.Detailed.Validation.SingleZoneFloorWithHeating</a>.
 </p>
 </html>",
 revisions="<html>
@@ -98,4 +98,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end HeaterAndControl;
+end SingleZoneFloorHeater;

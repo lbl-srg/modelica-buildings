@@ -186,8 +186,8 @@ The envelope thermal properties meet ASHRAE Standard 90.1-2004.
 </p>
 <p>
 For a comparison between the one-zone and five-zone model, see
-<a href=\"modelica://Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.Validation.SingleZoneFloorWithHeating\">
-Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.Validation.SingleZoneFloorWithHeating</a>.
+<a href=\"modelica://Buildings.ThermalZones.Detailed.Validation.SingleZoneFloorWithHeating\">
+Buildings.ThermalZones.Detailed.Validation.SingleZoneFloorWithHeating</a>.
 </p>
 </html>", revisions="<html>
 <ul>

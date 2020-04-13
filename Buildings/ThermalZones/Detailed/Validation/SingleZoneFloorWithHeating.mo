@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.Validation;
+within Buildings.ThermalZones.Detailed.Validation;
 model SingleZoneFloorWithHeating
   "Validation model for SingleZoneFloor with heating and control"
   extends Modelica.Icons.Example;
@@ -35,7 +35,7 @@ model SingleZoneFloorWithHeating
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Weather data"
     annotation (Placement(transformation(extent={{-40,134},{-20,154}})));
-  Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.SingleZoneFloor sinZonFlo(
+  Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor sinZonFlo(
     redeclare package Medium = Medium,
     lat=lat)
     "Single-zone floor model"
@@ -46,32 +46,32 @@ model SingleZoneFloorWithHeating
   Buildings.Controls.OBC.CDL.Continuous.MultiSum EHeaFlo(nin=5)
     "Heating energy of the five-zone floor"
     annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
-  BaseClasses.HeaterAndControl heaAndCon(
+  Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloorHeater heaAndCon(
     redeclare package Medium=Medium,
     m_flow_nominal=VRoo*3/3600*1.2,
     VRoo=VRoo) "Heater and controller for the singleZoneFloor"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
-  BaseClasses.HeaterAndControl heaAndConNor(
+  Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloorHeater heaAndConNor(
     redeclare package Medium = Medium,
     m_flow_nominal=VRooNor*3/3600*1.2,
     VRoo=VRooNor) "Heater and controller for the north zone"
     annotation (Placement(transformation(extent={{-60,22},{-40,42}})));
-  BaseClasses.HeaterAndControl heaAndConWes(
+  Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloorHeater heaAndConWes(
     redeclare package Medium = Medium,
     m_flow_nominal=VRooWes*3/3600*1.2,
     VRoo=VRooWes) "Heater and controller for the west zone"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  BaseClasses.HeaterAndControl heaAndConCor(
+  Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloorHeater heaAndConCor(
     redeclare package Medium = Medium,
     m_flow_nominal=VRooCor*3/3600*1.2,
     VRoo=VRooCor) "Heater and controller for the core zone"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  BaseClasses.HeaterAndControl heaAndConSou(
+  Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloorHeater heaAndConSou(
     redeclare package Medium = Medium,
     m_flow_nominal=VRooSou*3/3600*1.2,
     VRoo=VRooSou) "Heater and controller for the south zone"
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
-  BaseClasses.HeaterAndControl heaAndConEas(
+  Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloorHeater heaAndConEas(
     redeclare package Medium = Medium,
     m_flow_nominal=VRooEas*3/3600*1.2,
     VRoo=VRooEas) "Heater and controller for the east zone"
@@ -175,16 +175,17 @@ equation
   annotation (
   experiment(
       StopTime=604800,
-      Tolerance=1e-06),
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"),
   __Dymola_Commands(file=
-  "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/SingleZoneFloor/Validation/SingleZoneFloorWithHeating.mos"
+  "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/SingleZoneFloorWithHeating.mos"
         "Simulate and plot"),
   Documentation(info="
 <html>
 <p>
 This model compares the heating energy demand of a single-zone floor model
-<a href=\"modelica://Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.SingleZoneFloor\">
-Buildings.ThermalZones.Detailed.Examples.SingleZoneFloor.SingleZoneFloor</a>
+<a href=\"modelica://Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor\">
+Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor</a>
 with the total heating energy demand of a five-zone floor model
 <a href=\"modelica://Buildings.Examples.VAVReheat.ThermalZones.Floor\">
 Buildings.Examples.VAVReheat.ThermalZones.Floor</a>.
