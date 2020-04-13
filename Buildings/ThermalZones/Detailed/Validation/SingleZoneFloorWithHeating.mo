@@ -27,6 +27,7 @@ model SingleZoneFloorWithHeating
 
   Buildings.Examples.VAVReheat.ThermalZones.Floor flo(
     redeclare package Medium = Medium,
+    use_windPressure=false,
     lat=lat,
     gai(K=10*[0.4; 0.4; 0.2])) "Five-zone floor model"
     annotation (Placement(transformation(extent={{-8,48},{48,108}})));
@@ -37,6 +38,7 @@ model SingleZoneFloorWithHeating
     annotation (Placement(transformation(extent={{-40,134},{-20,154}})));
   Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor sinZonFlo(
     redeclare package Medium = Medium,
+    use_windPressure=false,
     lat=lat)
     "Single-zone floor model"
     annotation (Placement(transformation(extent={{-4,98},{36,138}})));
