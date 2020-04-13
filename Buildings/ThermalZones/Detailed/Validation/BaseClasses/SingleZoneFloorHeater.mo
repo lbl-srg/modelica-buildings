@@ -36,17 +36,20 @@ model SingleZoneFloorHeater
     u_m(unit="K", displayUnit="degC")) "Controller for heater"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    each p=273.15 + 18,
-    each k=12,
+    each p=273.15 + 15,
+    each k=20,
     y(unit="K", displayUnit="degC"))
     "Compute the leaving water setpoint temperature"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
-  Fluid.HeatExchangers.Heater_T hea(
+  Fluid.HeatExchangers.PrescribedOutlet
+                                preOut(
     redeclare final package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=200,
     tau=0,
-    show_T=true) "Ideal heater"
+    show_T=true,
+    use_X_wSet=false)
+                 "Ideal heater"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Fluid.Movers.FlowControlled_m_flow fan(
     redeclare package Medium = Medium,
@@ -59,20 +62,21 @@ model SingleZoneFloorHeater
     annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
 
 equation
-  connect(hea.Q_flow, EHea.u) annotation (Line(points={{41,8},{50,8},{50,-80},{58,
-          -80}},     color={0,0,127}));
-  connect(addPar.y, hea.TSet) annotation (Line(points={{2,-60},{10,-60},{10,8},{
-          18,8}},
-                color={0,0,127}));
+  connect(preOut.Q_flow, EHea.u) annotation (Line(points={{41,8},{50,8},{50,-80},
+          {58,-80}}, color={0,0,127}));
+  connect(addPar.y, preOut.TSet) annotation (Line(points={{2,-60},{10,-60},{10,
+          8},{18,8}}, color={0,0,127}));
   connect(conPID.y, addPar.u)  annotation (Line(points={{-38,-60},{-22,-60}},color={0,0,127}));
-  connect(fan.port_b, hea.port_a)  annotation (Line(points={{-40,0},{20,0}},   color={0,127,255}));
+  connect(fan.port_b, preOut.port_a)
+    annotation (Line(points={{-40,0},{20,0}}, color={0,127,255}));
   connect(TRooMea, conPID.u_m)  annotation (Line(points={{-120,-90},{-50,-90},{-50,-72}},color={0,0,127}));
   connect(TSetRoo, conPID.u_s) annotation (Line(points={{-120,-60},{-62,-60}},
                          color={0,0,127}));
   connect(EHea.y, yEHea) annotation (Line(points={{81,-80},{120,-80}},
         color={0,0,127}));
   connect(port_a, fan.port_a) annotation (Line(points={{-100,0},{-60,0}}, color={0,127,255}));
-  connect(hea.port_b, port_b) annotation (Line(points={{40,0},{100,0}}, color={0,127,255}));
+  connect(preOut.port_b, port_b)
+    annotation (Line(points={{40,0},{100,0}}, color={0,127,255}));
   annotation (
  Icon(coordinateSystem(preserveAspectRatio=false),
  graphics={

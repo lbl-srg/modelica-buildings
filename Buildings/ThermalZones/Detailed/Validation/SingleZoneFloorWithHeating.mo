@@ -29,7 +29,7 @@ model SingleZoneFloorWithHeating
     redeclare package Medium = Medium,
     use_windPressure=false,
     lat=lat,
-    gai(K=10*[0.4; 0.4; 0.2])) "Five-zone floor model"
+    gai(K=0*[0.4; 0.4; 0.2])) "Five-zone floor model"
     annotation (Placement(transformation(extent={{-8,48},{48,108}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=Modelica.Utilities.Files.loadResource(
@@ -39,7 +39,8 @@ model SingleZoneFloorWithHeating
   Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor sinZonFlo(
     redeclare package Medium = Medium,
     use_windPressure=false,
-    lat=lat)
+    lat=lat,
+    gai(K=0*[0.4; 0.4; 0.2]))
     "Single-zone floor model"
     annotation (Placement(transformation(extent={{-4,98},{36,138}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRoo(k=273.15 + 22,
@@ -70,7 +71,7 @@ model SingleZoneFloorWithHeating
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
   Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloorHeater heaAndConSou(
     redeclare package Medium = Medium,
-    m_flow_nominal=VRooSou*3/3600*1.2,
+    m_flow_nominal=VRooSou*6/3600*1.2,
     VRoo=VRooSou) "Heater and controller for the south zone"
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
   Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloorHeater heaAndConEas(
