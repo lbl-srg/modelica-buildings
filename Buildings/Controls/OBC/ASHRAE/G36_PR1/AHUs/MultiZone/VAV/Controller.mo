@@ -803,8 +803,8 @@ equation
         points={{-18,85},{20,85},{20,100},{220,100}}, color={0,0,127}));
   connect(sysOutAirSet.VEffOutAir_flow, VEffOutAir_flow) annotation (Line(
         points={{-18,78},{20,78},{20,60},{220,60}}, color={0,0,127}));
-  connect(sysOutAirSet.yReqOutAir, yReqOutAir) annotation (Line(points={{-18,72},
-          {16,72},{16,20},{220,20}},   color={255,0,255}));
+  connect(sysOutAirSet.yReqOutAir, yReqOutAir) annotation (Line(points={{-18,
+          72},{16,72},{16,20},{220,20}}, color={255,0,255}));
   connect(sysOutAirSet.sumDesZonPop, sumDesZonPop) annotation (Line(points={{-42,
           89},{-120,89},{-120,180},{-220,180}}, color={0,0,127}));
   connect(sysOutAirSet.VSumDesPopBreZon_flow, VSumDesPopBreZon_flow)
