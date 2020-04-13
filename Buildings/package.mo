@@ -286,6 +286,12 @@ its class name ends with the string <code>Beta</code>.
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1 </b>
         </td>
     </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.TrimAndRespond
+        </td>
+        <td valign=\"top\">Corrected to delay the true initial device status.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1876\">issue #1876</a>
+        </td>
+    </tr>        
     <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValves
         </td>
         <td valign=\"top\">Replaced multisum block with add blocks, replaced gain block used for normalization
