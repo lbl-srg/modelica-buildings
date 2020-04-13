@@ -53,7 +53,7 @@ block FailsafeCondition
     annotation (Placement(transformation(extent={{140,-20},{180,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
-protected
+//protected
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysdpSup(
     final uLow=dpDif - dpDifHys,
     final uHigh=dpDif) if not serChi
