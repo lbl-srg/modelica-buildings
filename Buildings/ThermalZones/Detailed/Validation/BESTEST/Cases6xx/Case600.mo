@@ -10,7 +10,6 @@ model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
     Td=60,
     yMax=1,
     yMin=0,
-    initType=Buildings.Controls.OBC.CDL.Types.Init.InitialState,
     Ti=300,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=0.1) "Controller for heating"
@@ -20,7 +19,6 @@ model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
     yMax=1,
     yMin=0,
     reverseAction=true,
-    initType=Buildings.Controls.OBC.CDL.Types.Init.InitialState,
     Ti=300,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=0.1) "Controller for cooling"
@@ -130,6 +128,10 @@ equation
       Tolerance=1e-06),
     Documentation(revisions="<html>
 <ul>
+<li>
+April 8, 2020, by Michael Wetter:<br/>
+Removed <code>initType</code> in PID controller.
+</li>   
 <li>
 January 21, 2020, by Michael Wetter:<br/>
 Changed calculation of time averaged values to use
