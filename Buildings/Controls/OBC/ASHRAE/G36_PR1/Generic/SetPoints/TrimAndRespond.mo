@@ -32,7 +32,8 @@ block TrimAndRespond "Block to inplement trim and respond logic"
         iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tim(
-    final delayTime=delTim + samplePeriod)
+    final delayTime=delTim + samplePeriod,
+    final delayOnInit=true)
     "Send an on signal after some delay time"
     annotation (Placement(transformation(extent={{-200,160},{-180,180}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greThr
@@ -359,6 +360,11 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/Generic/
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 13, 2020, by Jianjun Hu:<br/>
+Corrected to delay the true initial device status.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1876\">#1876</a>.
+</li>
 <li>
 August 28, 2019, by Jianjun Hu:<br/>
 Added assertions and corrected implementation when response amount is negative.
