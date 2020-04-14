@@ -2,7 +2,7 @@
 |  
 | \file   common.h
 |
-| \brief  data strcuture for the ffd_isat program
+| \brief  data structure for the ffd_isat program
 |
 | \author Wei Tian
 |         University of Miami, Schneider Electric

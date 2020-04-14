@@ -4,7 +4,7 @@
 |
 |  \brief  wrapper to call FFD engine to evaluate the input; the function ffd_isat
 |          is then called by usrfgh. A important note is that this function call only
-|          evaluate f, not g, which is the jacobian matrix.
+|          evaluates f, not g, which is the jacobian matrix.
 |
 |  \author Xu Han
 |          Univeristy of Colorado Boulder, xuha3556@colorado.edu

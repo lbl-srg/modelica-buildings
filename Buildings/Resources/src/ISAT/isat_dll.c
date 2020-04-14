@@ -1,19 +1,19 @@
-	/****************************************************************************
-	|
-	|  \file   isat_dll.c
-	|
-	|  \brief  functions to call ISAT code as a dll
-	|
-	|  \author Wangda Zuo
- |          University of Miami, University of Colorado Boulder
- |          W.Zuo@miami.edu, wangda.zuo@colorado.edu
-	|          Xu Han
-	|          Univeristy of Colorado Boulder, xuha3556@colorado.edu
-	|
-	|  \date   4/5/2020
-	|  \This file provides functions as entry for the coupled simulation
-	|
-	****************************************************************************/
+/****************************************************************************
+|
+|  \file   isat_dll.c
+|
+|  \brief  functions to call ISAT code as a dll
+|
+|  \author Wangda Zuo
+|          University of Miami, University of Colorado Boulder
+|          W.Zuo@miami.edu, wangda.zuo@colorado.edu
+|          Xu Han
+|          Univeristy of Colorado Boulder, xuha3556@colorado.edu
+|
+|  \date   4/5/2020
+|  \This file provides functions as entry for the coupled simulation
+|
+****************************************************************************/
 
 #include "isat_dll.h"
 /******************************************************************************
@@ -43,13 +43,13 @@ int isat_dll(CosimulationData *cosim) {
   return 0;
 } /* End of isat_dll()*/
 
-	/*
-		* Launch the ISAT simulation through a thread
-		*
-		* @param p Pointer to the coupled simulation data
-		*
-		* @return 0 if no error occurred
-		*/
+/*
+	* Launch the ISAT simulation through a thread
+	*
+	* @param p Pointer to the coupled simulation data
+	*
+	* @return 0 if no error occurred
+	*/
 #ifdef _MSC_VER /*Windows*/
 DWORD WINAPI isat_thread(void *p){
   ULONG workerID = (ULONG)(ULONG_PTR)p;

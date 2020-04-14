@@ -55,7 +55,7 @@
 /******************************************************************************
 | Declaration of ISATAB in isat (external static library)
 ******************************************************************************/
-void ISATAB(int *idtab, int *mode, const int *nx, double x[], const int *nf, const int *nh, const int *nhd, void *usrfgh, \
+void isatab_(int *idtab, int *mode, const int *nx, double x[], const int *nf, const int *nh, const int *nhd, void *usrfgh, \
              int iusr[], double rusr[], int info[], double rinfo[], double fa[], double ga[nx_SIZE][nf_SIZE], double ha[], double stats[] );
 
 /******************************************************************************
@@ -87,7 +87,7 @@ void ISATAB(int *idtab, int *mode, const int *nx, double x[], const int *nf, con
   /* define the ita */
   float ita = 5 / 10000;              /* allow 5 add or grow per 10000 queries */
   float VPower = 1.0;
-  int idtab = 1;                      /* Just set 1 if only one table */
+  int idtab = 1;                      /* Just set to 1 if only one table */
   int mode = 0;                       /* mode = 0 is defualt */
   int nx;                             /* Calculate in main */
   int nf;                             /* Calculate in main */
@@ -98,14 +98,14 @@ void ISATAB(int *idtab, int *mode, const int *nx, double x[], const int *nf, con
   double ga[nx_SIZE][nf_SIZE] = {0};  /* Initialize ga. Note: In Fortran, g(nf,nx). Initialize in C by a reverse matrix */
   double ha[nh_SIZE] = {0};           /* Initialize fa */
   double rusr[nf_SIZE] = {nf_SIZE};   /* Note rusr[1]=its length, so >=1. It may used to contain f in some special usage */
-  int info[70] = {0};                 /* Initialize by dafult value 0 */
-  double rinfo[100] = {0};            /* Initialize by dafult value 0 */
+  int info[70] = {0};                 /* Initialize by default value 0 */
+  double rinfo[100] = {0};            /* Initialize by default value 0 */
   double stats[100] = {0};            /* Initialize memory for store performance info */
-  double unusedPointer = 0;           /* Initialize a unused pointer */
+  double unusedPointer = 0;           /* Initialize an unused pointer */
   int need[3] = {1,0,0};              /* Initialize need for call solver directly */  
-  double time_elipse = 0; /*the time before launching the isat */
+  double time_elipse = 0; 	      /*the time before launching the isat */
   ffdIO ffdStruct;                    /* A struct passed to ffd contains constant */
-                                      /* Note: only some constant could pass to ffd through here. Input and out put must in x,fa and ga. */
+                                      /* Note: only some constants could pass to ffd through here. Input and out put must in x,fa and ga. */
 									  
 /******************************************************************************
 | Initialize variables for performance statistics
@@ -134,10 +134,9 @@ void ISATAB(int *idtab, int *mode, const int *nx, double x[], const int *nf, con
   int useRandomTest = 0;                   /*If use Random Test.Need: xBoundary, nRanCall.*/
   int useTablePreparation = 1;             /*If use Table Preparation. Need: xBoundary, xStep.*/
   int useBinarySelectedPoint = 0;          /*If use binary selected training point, like binary tree.*/
-  int useNumericalDifferentiation = 0;     /*If use numerical differentiation for ga. Note: Not be implemented yet.*/
+  int useNumericalDifferentiation = 0;     /*If use numerical differentiation for ga. Note: Not been implemented yet.*/
   int useAccuracyTest = 1;                 /*If use accuracy test. Note: Perform a direct evaluation at each query. CPU time added in cpuDE*/
-  int useErrorControlCorrection = 1;       /*if use error control correction. The total error defind as vector length. Use this to crroect order of magnitudes of each component of output vector.
-                                            please implement this at ffd_ISAT.c */
+  int useErrorControlCorrection = 1;       /*if use error control correction. The total error defined as vector length. Use this to correct order of magnitudes of each component of output vector. Please implement this at ffd_ISAT.c */
   int useBoundaryCenterRange=0;            /*if use Boundary center range. The maximum inputs value difference equals xBoundaryCenterRange/2. Here use it to set limititon of different wall temperature.*/
   int useNormalDistribution=1;             /* = 0, use uniform distribution at random test = 1, use normal distribution at random test */                                             
   int useUnboundedTest = 1;                /* = 0, use xBoundary for random test = 1, use xBoundary2 for random test */                           
@@ -146,13 +145,13 @@ void ISATAB(int *idtab, int *mode, const int *nx, double x[], const int *nf, con
   double xBoundary[nx_SIZE][2] = { { 12.0,28.0 },{ 3.0,28.0 } }; 
 	/*Contains lower and upper boundary of x.*/
   double xBoundaryCenterRange = 10; 
-	/*Contains centered range of inpust in a rectangular domian. To set maximum difference of inputs at different dimensions.*/
+	/*Contains centered range of inputs in a rectangular domian. To set maximum difference of inputs at different dimensions.*/
   
   double xStep[nx_SIZE] = { 0.1,0.01 }; /*Step size to generate table.*/
   int nRanCall = 10;                     /*Number of Random call for testing*/
 
   double xBoundary2[nx_SIZE][2] = { { 12.0,30.0 },{ 0,30.0 } };
-	/*Contains lower and upper boundary of x for "unbounderd case".*/
+	/*Contains lower and upper boundary of x for "unbounded case".*/
 	
   double mu=1.0, sigma=10/3;  /* for bounded */
   double sigma2=10/3;  /* for unbounded */
@@ -282,7 +281,7 @@ int isat_main () {
   nx = sizeof(x)/sizeof(double);
   nf = sizeof(fa)/sizeof(double);
   /****************************************************************************
-  | Update non-rectangular input domian
+  | Update non-rectangular input domain
   ****************************************************************************/
   if (useBoundaryCenterRange){
   }
@@ -362,7 +361,7 @@ void evaluate(){
   }
   if (useISAT){
     tStart = clock();
-    ISATAB(&idtab, &mode, &nx, x, &nf, &nh, &nhd, (void *)&unusedPointer, (int *)&ffdStruct, rusr, info, rinfo, fa, ga, ha, stats);
+    isatab_(&idtab, &mode, &nx, x, &nf, &nh, &nhd, (void *)&unusedPointer, (int *)&ffdStruct, rusr, info, rinfo, fa, ga, ha, stats);
   tEnd = clock();
   cpuCum = (double)(tEnd - tStart) / CLOCKS_PER_SEC;
   cpuISAT += cpuCum;
