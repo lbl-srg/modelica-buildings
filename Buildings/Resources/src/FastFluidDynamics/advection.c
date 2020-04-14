@@ -17,7 +17,7 @@
 |
 |  \date   6/16/2017
 |
-|  This file provides functions that used for the advection step of FFD method.
+|  This file provides functions that are used for the advection step of FFD method.
 |  The advection starts with \c advect(). Then different subroutines are
 |  called according to the properties of the variables that are sorted by
 |  the location of variables assigned in the control volume.
@@ -558,13 +558,13 @@ int trace_scalar(PARA_DATA* para, REAL** var, int var_type, int index,
 	/* Trace back more if the any of the trace is still in process */
 	while (COOD[X] == 1 || COOD[Y] == 1 || COOD[Z] == 1) {
 		it++;
-		/* If trace in X is in process and donot hit the boundary */
+		/* If trace in X is in process and has not hit the boundary */
 		if (COOD[X] == 1 && LOC[X] == 1)
 			set_x_location(para, var, flagp, x, u0, i, j, k, OL, OC, LOC, COOD);
-		/* If trace in Y is in process and donot hit the boundary */
+		/* If trace in Y is in process and has not hit the boundary */
 		if (COOD[Y] == 1 && LOC[Y] == 1)
 			set_y_location(para, var, flagp, y, v0, i, j, k, OL, OC, LOC, COOD);
-		/* If trace in Z is in process and donot hit the boundary */
+		/* If trace in Z is in process and has not hit the boundary */
 		if (COOD[Z] == 1 && LOC[Z] == 1)
 			set_z_location(para, var, flagp, z, w0, i, j, k, OL, OC, LOC, COOD);
 		if (it > itmax) {
@@ -645,7 +645,7 @@ void set_x_location(PARA_DATA* para, REAL** var, REAL* flag, REAL* x, REAL u0,
 	| Otherwise, if previous location is on the west of the current position
 	****************************************************************************/
 	else if (OL[X] < x[IX(OC[X], OC[Y], OC[Z])]) {
-		/* If donot reach the boundary yet, move to west */
+		/* If has not reached the boundary yet, move to west */
 		if (OC[X] > 0)
 			OC[X] -= 1;
 
@@ -754,7 +754,7 @@ void set_y_location(PARA_DATA* para, REAL** var, REAL* flag, REAL* y, REAL v0,
 	| Otherwise, if previous location is on the south of the current position
 	****************************************************************************/
 	else if (OL[Y] < y[IX(OC[X], OC[Y], OC[Z])]) {
-		/* If donot reach the boundary yet */
+		/* If has not reached the boundary yet */
 		if (OC[Y] > 0)
 			OC[Y] -= 1;
 
@@ -863,7 +863,7 @@ void set_z_location(PARA_DATA* para, REAL** var, REAL* flag, REAL* z, REAL w0,
 	| Otherwise, if previous location is on the floor of the current position
 	****************************************************************************/
 	else if (OL[Z] < z[IX(OC[X], OC[Y], OC[Z])]) {
-		/* If donot reach the boundary yet */
+		/* If has not reached the boundary yet */
 		if (OC[Z] > 0)
 			OC[Z] -= 1;
 
