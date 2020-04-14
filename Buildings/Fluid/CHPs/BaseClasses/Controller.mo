@@ -212,10 +212,10 @@ equation
           -80},{0,-80},{0,-100},{-130,-100},{-130,0.666667},{-121,0.666667}},
         color={0,0,0}));
   connect(transition5.outPort, plaOff.inPort[2]) annotation (Line(points={{41.5,
-          -80},{48,-80},{48,-100},{-130,-100},{-130,0},{-121,0}}, color={0,0,0}));
+          -80},{48,-80},{48,-102},{-132,-102},{-132,0},{-121,0}}, color={0,0,0}));
   connect(transition10.outPort, plaOff.inPort[3]) annotation (Line(points={{241.5,
-          -60},{250,-60},{250,-100},{-130,-100},{-130,-0.666667},{-121,
-          -0.666667}}, color={0,0,0}));
+          -60},{250,-60},{250,-104},{-134,-104},{-134,-0.666667},{-121,-0.666667}},
+                       color={0,0,0}));
   connect(goSig.y, and3.u2) annotation (Line(points={{2,180},{20,180},{20,56},{
           -140,56},{-140,-152},{98,-152}}, color={255,0,255}));
   connect(optCooDow.y, and3.u1) annotation (Line(points={{82,-180},{90,-180},{90,
@@ -340,7 +340,7 @@ off or stand-by mode
 </ul>
 <h4>Switching between operating modes</h4>
 <p>
-From the off mode
+From the off mode:
 </p>
 <ul>
 <li>
@@ -349,7 +349,7 @@ signal <code>avaSig</code> becomes true.
 </li>
 </ul>
 <p>
-From the stand-by mode
+From the stand-by mode:
 </p>
 <ul>
 <li>
@@ -361,7 +361,7 @@ If <code>avaSig</code> becomes false, the CHP will automatically change to the o
 </li>
 </ul>
 <p>
-From the pump-on mode
+From the pump-on mode:
 </p>
 <ul>
 <li>
@@ -374,7 +374,7 @@ If <code>runSig</code> becomes false, the CHP will automatically change to the o
 </li>
 </ul>
 <p>
-From the warm-up mode
+From the warm-up mode:
 </p>
 <ul>
 <li>
@@ -391,7 +391,7 @@ change to the cool-down mode.
 </li>
 </ul>
 <p>
-From the normal mode
+From the normal mode:
 </p>
 <ul>
 <li>
@@ -401,7 +401,7 @@ becomes less than the minimum <code>mWatMin_flow</code>.
 </li>
 </ul>
 <p>
-From the cool-down mode
+From the cool-down mode:
 </p>
 <ul>
 <li>
@@ -414,7 +414,7 @@ If the CHP has the mandatory cool-down configuration (if <code>coolDownOptional<
 is false), the plant has to complete the cool-down period before it can be reactivated.
 If the CHP has the optional cool-down configuration (if <code>coolDownOptional</code>
 is true), the plant may imediatelly change to the warm-up mode if it gets reactivated
-(<code>runSig</code> = true).
+(<code>runSig= true</code>).
 </li>
 </ul>
 </html>", revisions="<html>
