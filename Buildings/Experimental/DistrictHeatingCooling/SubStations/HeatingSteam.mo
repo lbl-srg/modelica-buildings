@@ -23,7 +23,7 @@ model HeatingSteam "Steam heating substation"
   Modelica.Blocks.Interfaces.RealInput Q_flow(min=0, final unit="W")
                     "Heat flow rate extracted from system (Q_flow >= 0)"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Fluid.HeatExchangers.SteamHeatExchanger hex
+  Fluid.HeatExchangers.SteamHeatExchangerIdeal hex
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Modelica.Blocks.Math.Division m_flow "Mass flow rate"
     annotation (Placement(transformation(extent={{-20,44},{0,64}})));

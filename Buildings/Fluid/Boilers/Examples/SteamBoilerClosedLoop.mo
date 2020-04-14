@@ -20,7 +20,7 @@ model SteamBoilerClosedLoop
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Modelica.Blocks.Sources.Constant pSet(k=1000000) "Steam pressure setpoint"
     annotation (Placement(transformation(extent={{-78,48},{-58,68}})));
-  HeatExchangers.SteamHeatExchanger hex "Steam heat exchanger"
+  HeatExchangers.SteamHeatExchangerIdeal hex "Steam heat exchanger"
     annotation (Placement(transformation(extent={{0,-70},{-20,-50}})));
   FixedResistances.PressureDrop preDro_ste(
     redeclare package Medium = MediumSte,

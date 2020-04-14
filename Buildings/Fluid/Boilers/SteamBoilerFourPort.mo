@@ -2,7 +2,7 @@ within Buildings.Fluid.Boilers;
 model SteamBoilerFourPort
   "Model for a steam boiler with four ports for air and water flows, including medium changes"
   extends Buildings.Fluid.Interfaces.PartialFourPortFourMedium;
-  extends Buildings.Fluid.Boilers.BaseClasses.xxPartialSteamBoiler(
+  extends Buildings.Fluid.Boilers.BaseClasses.PartialSteamBoiler(
     final Medium_a = Medium_a1,
     final Medium_b = Medium_b1,
     vol(
@@ -40,12 +40,13 @@ model SteamBoilerFourPort
     ratAirFue=ratAirFue) "Combustion process"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 equation
-  connect(port_a2, port_a2) annotation (Line(points={{100,-60},{100,-60},{100,-60}},
+  connect(port_a2, port_a2) annotation (Line(points={{-100,-60},{-100,-60},{
+          -100,-60}},
         color={0,127,255}));
   connect(port_b2, com.port_a)
-    annotation (Line(points={{-100,-60},{-10,-60}}, color={0,127,255}));
+    annotation (Line(points={{100,-60},{-10,-60}},  color={0,127,255}));
   connect(com.port_b, port_a2)
-    annotation (Line(points={{10,-60},{100,-60}}, color={0,127,255}));
+    annotation (Line(points={{10,-60},{-100,-60}},color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -120},{100,120}}),                                  graphics={
         Rectangle(
