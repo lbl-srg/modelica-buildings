@@ -76,26 +76,26 @@ partial model PartialFourPortFourMedium
     m_flow(min=0),
     h_outflow(start=Medium_a1.h_default, nominal=Medium_a1.h_default))
     "Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)"
-    annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b1(
     redeclare final package Medium = Medium_b1,
     m_flow(max=0),
     h_outflow(start=Medium_b1.h_default, nominal=Medium_b1.h_default))
     "Fluid connector b1 (positive design flow direction is from port_a1 to port_b1)"
-    annotation (Placement(transformation(extent={{110,50},{90,70}})));
+    annotation (Placement(transformation(extent={{110,-10},{90,10}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a2(
     redeclare final package Medium = Medium_a2,
     m_flow(min=0),
     h_outflow(start=Medium_a2.h_default, nominal=Medium_a2.h_default))
     "Fluid connector a2 (positive design flow direction is from port_a2 to port_b2)"
-    annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
+    annotation (Placement(transformation(extent={{-110,-90},{-90,-70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b2(
     redeclare final package Medium = Medium_b2,
     m_flow(max=0),
     h_outflow(start=Medium_b2.h_default, nominal=Medium_b2.h_default))
     "Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)"
-    annotation (Placement(transformation(extent={{110,-70},{90,-50}})));
+    annotation (Placement(transformation(extent={{110,-90},{90,-70}})));
 protected
   final parameter Modelica.SIunits.MassFlowRate _m1_flow_start = 0
   "Start value for m1_flow, used to avoid a warning if not set in m_flow, and to avoid m_flow.start in parameter window";
