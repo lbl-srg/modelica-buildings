@@ -641,7 +641,7 @@ First implementation.
                   points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),Diagram(
           coordinateSystem(preserveAspectRatio=false, extent={{-480,-420},{480,420}}),
           graphics={Text(
-            extent={{-224,102},{260,40}},
+            extent={{-232,102},{252,40}},
             lineColor={127,127,127},
             textString="Stage types: 1 - positive displacement, 2 and 3 - constant speed centrifugal"),
             Text(

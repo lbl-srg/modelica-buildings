@@ -20,6 +20,13 @@ block PartLoadRatios
     final max = 1)=0.9
     "Constant speed centrifugal chiller type staging multiplier";
 
+  parameter Real anyOutOfScoMult(
+    final unit = "1",
+    final min = 0,
+    final max = 1)=0.8
+    "Outside of G36 recommended staging order chiller type SPLR multiplier"
+    annotation(Evaluate=true, __cdl(NotInASHRAEGuideline=True));
+
   parameter Real varSpeStaMin(
     final unit = "1",
     final min = 0.1,
@@ -287,22 +294,21 @@ block PartLoadRatios
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const3(
     final k=-1) if not anyVsdCen
     "Constant"
-    annotation (Placement(transformation(extent={{70,20},{90,40}})));
+    annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const4(
     final k=-1) if not anyVsdCen
     "Constant"
     annotation (Placement(transformation(extent={{-40,-260},{-20,-240}})));
 
-  Buildings.Controls.OBC.CDL.Utilities.Assert cheStaTyp(
-    final message="Unlisted chiller type got selected")
-    "Unlisted chiller type got selected"
-    annotation (Placement(transformation(extent={{280,280},{300,300}})));
+  Buildings.Controls.OBC.CDL.Utilities.Assert cheStaTyp(final message="Recommended staging order got violated or an unlisted chiller type got provided when staging up")
+    "Chiller type outside of recommenation when staging up"
+    annotation (Placement(transformation(extent={{260,280},{280,300}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
     final threshold=-0.5)
     "Less than threshold"
-    annotation (Placement(transformation(extent={{222,280},{242,300}})));
+    annotation (Placement(transformation(extent={{220,200},{240,220}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
     final threshold=-0.5) "Less than threshold"
@@ -363,9 +369,18 @@ block PartLoadRatios
     final k=varSpeStaMin) if anyVsdCen "Constant"
     annotation (Placement(transformation(extent={{120,-420},{140,-400}})));
 
-  CDL.Utilities.Assert                        cheStaTyp1(final message=
-        "Unlisted chiller type got selected")
-    "Unlisted chiller type got selected"
+  CDL.Utilities.Assert                        cheStaTyp1(final message="Recommended staging order got violated or an unlisted chiller type got provided when staging down")
+    "Chiller type outside of recommenation when staging down"
+    annotation (Placement(transformation(extent={{220,-20},{240,0}})));
+  CDL.Continuous.Sources.Constant                        conSpeCenTypMult1(final k=
+        anyOutOfScoMult)
+    "Outside of G36 recommended staging order chiller type SPLR multiplier"
+    annotation (Placement(transformation(extent={{160,20},{180,40}})));
+  CDL.Logical.Switch                        swi5
+    "Logical switch"
+    annotation (Placement(transformation(extent={{280,220},{300,240}})));
+  CDL.Logical.Switch                        swi6
+    "Logical switch"
     annotation (Placement(transformation(extent={{220,-110},{240,-90}})));
 equation
   connect(uCapReq, opePlrSta.u1) annotation (Line(points={{-360,-10},{-260,-10},
@@ -401,9 +416,6 @@ equation
           {58,-188}}, color={0,0,127}));
   connect(intEqu2.y, swi3.u2) annotation (Line(points={{2,30},{10,30},{10,-230},
           {18,-230}}, color={255,0,255}));
-  connect(swi.y, yStaUp) annotation (Line(points={{182,150},{210,150},{210,0},{
-          360,0}},
-               color={0,0,127}));
   connect(uCapReq, opePlrUp.u1) annotation (Line(points={{-360,-10},{-300,-10},
           {-300,-134},{-242,-134}},
                               color={0,0,127}));
@@ -446,8 +458,8 @@ equation
           {118,-478}}, color={0,0,127}));
   connect(mult2.y, add3.u1) annotation (Line(points={{22,-430},{100,-430},{100,-466},
           {118,-466}}, color={0,0,127}));
-  connect(swi.y,greThr. u) annotation (Line(points={{182,150},{190,150},{190,290},
-          {220,290}}, color={0,0,127}));
+  connect(swi.y,greThr. u) annotation (Line(points={{182,150},{208,150},{208,210},
+          {218,210}}, color={0,0,127}));
   connect(uLifMax, add2.u1) annotation (Line(points={{-360,-360},{-260,-360},{-260,
           -388},{-140,-388},{-140,-404},{-122,-404}}, color={0,0,127}));
   connect(uCapReq, opePlrDow.u1) annotation (Line(points={{-360,-10},{-280,-10},
@@ -459,8 +471,8 @@ equation
     annotation (Line(points={{-218,-80},{360,-80}}, color={0,0,127}));
   connect(minOpePlr.y, yOpeMin) annotation (Line(points={{-218,-230},{-80,-230},
           {-80,-200},{360,-200}}, color={0,0,127}));
-  connect(conSpeCenTypMult.y, swi.u1) annotation (Line(points={{-158,-30},{60,
-          -30},{60,158},{158,158}},
+  connect(conSpeCenTypMult.y, swi.u1) annotation (Line(points={{-158,-30},{-40,-30},
+          {-40,-20},{56,-20},{56,158},{158,158}},
                                color={0,0,127}));
   connect(posDisTypMult.y, swi1.u1) annotation (Line(points={{-158,-110},{-60,
           -110},{-60,50},{0,50},{0,78},{118,78}}, color={0,0,127}));
@@ -493,10 +505,8 @@ equation
           {-200,130},{-162,130}}, color={0,0,127}));
   connect(const4.y, swi3.u3) annotation (Line(points={{-18,-250},{0,-250},{0,-238},
           {18,-238}}, color={0,0,127}));
-  connect(const3.y, swi1.u3) annotation (Line(points={{92,30},{100,30},{100,62},
+  connect(const3.y, swi1.u3) annotation (Line(points={{82,30},{100,30},{100,62},
           {118,62}}, color={0,0,127}));
-  connect(swi4.y, yStaDow)
-    annotation (Line(points={{142,-160},{360,-160}}, color={0,0,127}));
   connect(swi2.y, swi4.u3) annotation (Line(points={{82,-180},{100,-180},{100,-168},
           {118,-168}}, color={0,0,127}));
   connect(const5.y, swi4.u1) annotation (Line(points={{82,-140},{100,-140},{100,
@@ -541,12 +551,28 @@ equation
   connect(min.y, swi1.u3) annotation (Line(points={{242,-370},{260,-370},{260,
           -70},{110,-70},{110,62},{118,62}},
                                         color={0,0,127}));
-  connect(greThr1.y, cheStaTyp1.u)
+  connect(swi4.y, greThr1.u) annotation (Line(points={{142,-160},{152,-160},{152,
+          -100},{158,-100}},     color={0,0,127}));
+  connect(swi.y, swi5.u1) annotation (Line(points={{182,150},{200,150},{200,238},
+          {278,238}}, color={0,0,127}));
+  connect(greThr.y, swi5.u2) annotation (Line(points={{242,210},{250,210},{250,230},
+          {278,230}}, color={255,0,255}));
+  connect(greThr.y, cheStaTyp.u) annotation (Line(points={{242,210},{250,210},{250,
+          290},{258,290}}, color={255,0,255}));
+  connect(conSpeCenTypMult1.y, swi5.u3) annotation (Line(points={{182,30},{260,30},
+          {260,222},{278,222}}, color={0,0,127}));
+  connect(swi5.y, yStaUp) annotation (Line(points={{302,230},{312,230},{312,0},{
+          360,0}}, color={0,0,127}));
+  connect(swi6.y, yStaDow) annotation (Line(points={{242,-100},{250,-100},{250,-160},
+          {360,-160}}, color={0,0,127}));
+  connect(greThr1.y, swi6.u2)
     annotation (Line(points={{182,-100},{218,-100}}, color={255,0,255}));
-  connect(swi4.y, greThr1.u) annotation (Line(points={{142,-160},{152,-160},{
-          152,-100},{158,-100}}, color={0,0,127}));
-  connect(greThr.y, cheStaTyp.u)
-    annotation (Line(points={{244,290},{278,290}}, color={255,0,255}));
+  connect(swi4.y, swi6.u1) annotation (Line(points={{142,-160},{200,-160},{200,-92},
+          {218,-92}}, color={0,0,127}));
+  connect(conSpeCenTypMult1.y, swi6.u3) annotation (Line(points={{182,30},{210,30},
+          {210,-108},{218,-108}}, color={0,0,127}));
+  connect(greThr1.y, cheStaTyp1.u) annotation (Line(points={{182,-100},{190,-100},
+          {190,-10},{218,-10}}, color={255,0,255}));
   annotation (defaultComponentName = "PLRs",
         Icon(graphics={
         Text(
