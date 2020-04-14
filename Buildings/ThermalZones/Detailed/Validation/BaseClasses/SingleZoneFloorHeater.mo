@@ -45,7 +45,6 @@ model SingleZoneFloorHeater
     redeclare final package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=200,
-    tau=0,
     show_T=true) "Ideal heater"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Fluid.Movers.FlowControlled_m_flow fan(
