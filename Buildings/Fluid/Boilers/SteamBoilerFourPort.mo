@@ -7,8 +7,7 @@ model SteamBoilerFourPort
     final Medium_b = Medium_b1,
     vol(
       m_flow_small=m1_flow_small,
-      V=m1_flow_nominal*tau/rho_nominal,
-        nPorts=2),
+      V=m1_flow_nominal*tau/rho_nominal),
     eva(final m_flow_nominal=m1_flow_nominal, m_flow_small=m1_flow_small),
     dpCon(
       redeclare package Medium = Medium_a1,
@@ -41,10 +40,6 @@ model SteamBoilerFourPort
     ratAirFue=ratAirFue) "Combustion process"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 equation
-  connect(port_a1, vol.ports[2]) annotation (Line(points={{-100,60},{-90,60},{-90,
-          0},{-11,0}}, color={0,127,255}));
-  connect(eva.port_b, port_b1) annotation (Line(points={{80,0},{90,0},{90,60},{100,
-          60}}, color={0,127,255}));
   connect(port_a2, port_a2) annotation (Line(points={{100,-60},{100,-60},{100,-60}},
         color={0,127,255}));
   connect(port_b2, com.port_a)
@@ -52,7 +47,7 @@ equation
   connect(com.port_b, port_a2)
     annotation (Line(points={{10,-60},{100,-60}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,120}}),                                  graphics={
+            -120},{100,120}}),                                  graphics={
         Rectangle(
           extent={{-74,4},{74,-4}},
           lineColor={0,0,255},
@@ -106,6 +101,6 @@ equation
           pattern=LinePattern.None,
           fillColor={244,125,35},
           fillPattern=FillPattern.Solid)}),                      Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})));
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{100,
+            120}})));
 end SteamBoilerFourPort;
