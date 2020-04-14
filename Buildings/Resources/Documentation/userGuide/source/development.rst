@@ -244,7 +244,7 @@ The following rules need to be followed, in addition to the guidelines described
    Because some control logic errors may only be noticed
    when used in a closed loop test,
    for equipment and system controllers, provide also closed loop examples that test the sequence
-   for all its mode of operation. If the closed loop examples include HVAC models, then put them
+   for all modes of operation. If the closed loop examples include HVAC models, then put them
    outside of the ``Buildings.Controls.OBC`` package.
    Make sure sequences are tested for all modes of operation, and as applicable, for winter, shoulder
    and summer days.
