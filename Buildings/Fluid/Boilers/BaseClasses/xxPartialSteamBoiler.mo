@@ -1,5 +1,5 @@
 within Buildings.Fluid.Boilers.BaseClasses;
-partial model PartialSteamBoiler
+partial model xxPartialSteamBoiler
   "Partial model for a steam boiler with a polynomial efficiency curve and phase change between the ports"
 //  extends Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium;
 //  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
@@ -49,9 +49,9 @@ partial model PartialSteamBoiler
     annotation (Dialog(tab="Initialization", enable=Medium_a.nC > 0));
 
   // Nominal Conditions
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
+//  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+//    "Nominal mass flow rate"
+//    annotation(Dialog(group = "Nominal condition"));
 
   parameter Modelica.SIunits.Power Q_flow_nominal
     "Nominal heating power"
@@ -61,25 +61,25 @@ partial model PartialSteamBoiler
     "Nominal pressure of boiler"
     annotation(Dialog(group = "Nominal condition"));
 
-//  parameter Modelica.SIunits.Temperature TIn_nominal
-//    "Nominal temperature of inflowing water"
-//    annotation(Dialog(group = "Nominal condition"));
+  parameter Modelica.SIunits.Temperature TIn_nominal
+    "Nominal temperature of inflowing water"
+    annotation(Dialog(group = "Nominal condition"));
 
-//  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=Q_flow_nominal/dh_nominal
-//    "Nominal mass flow rate"
-//    annotation(Dialog(group = "Nominal condition"));
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=Q_flow_nominal/dh_nominal
+    "Nominal mass flow rate"
+    annotation(Dialog(group = "Nominal condition"));
     //Q_flow_nominal / dh_nominal
-//  parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
-//    "Small mass flow rate for regularization of zero flow";
+  parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
+    "Small mass flow rate for regularization of zero flow";
 
   parameter Modelica.SIunits.Temperature TOut_nominal = Medium_b.saturationTemperature(pOut_nominal)
     "Nominal temperature leaving the boiler";
 
-//  parameter Modelica.SIunits.SpecificEnthalpy dh_nominal=
-//    cp_default*(TOut_nominal - TIn_nominal) +
-//    Medium_b.dewEnthalpy(Medium_b.setSat_p(pOut_nominal)) -
-//    Medium_b.bubbleEnthalpy(Medium_b.setSat_p(pOut_nominal))
- //  "Nominal change in enthalpy of boiler";
+  parameter Modelica.SIunits.SpecificEnthalpy dh_nominal=
+    cp_default*(TOut_nominal - TIn_nominal) +
+    Medium_b.dewEnthalpy(Medium_b.setSat_p(pOut_nominal)) -
+    Medium_b.bubbleEnthalpy(Medium_b.setSat_p(pOut_nominal))
+   "Nominal change in enthalpy of boiler";
 
   // Assumptions
   parameter Buildings.Fluid.Types.EfficiencyCurves effCur=Buildings.Fluid.Types.EfficiencyCurves.QuadraticLinear
@@ -134,22 +134,23 @@ partial model PartialSteamBoiler
     final X_start=X_start,
     final C_start=C_start,
     nPorts=2)              "Volume for fluid stream"
-     annotation (Placement(transformation(extent={{21,0},{41,-20}})));
+     annotation (Placement(transformation(extent={{11,0},{31,-20}})));
 
   Evaporation eva(
     redeclare package Medium_a = Medium_a,
     redeclare package Medium_b = Medium_b,
     show_T=true)  "Evaporation process"
-    annotation (Placement(transformation(extent={{42,-10},{62,10}})));
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Movers.FlowControlled_dp dpCon(
     redeclare package Medium = Medium_a,
     m_flow_nominal=m_flow_nominal,
     show_T=true,
+    inputType=Buildings.Fluid.Types.InputType.Constant,
     addPowerToMedium=false,
     nominalValuesDefineDefaultPressureCurve=true,
     constantHead=pOut_nominal)
     "Flow controller with specifiied pressure change between ports"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
   Modelica.Blocks.Interfaces.RealInput y(min=0, max=1) "Part load ratio"
     annotation (Placement(transformation(extent={{-140,80},{-100,120}}),
@@ -167,7 +168,7 @@ partial model PartialSteamBoiler
     C=500*mDry,
     T(start=T_start)) if not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
     "heat capacity of boiler metal"
-    annotation (Placement(transformation(extent={{20,90},{40,110}})));
+    annotation (Placement(transformation(extent={{20,50},{40,70}})));
   Modelica.Blocks.Interfaces.RealOutput Q_flow(
     final quantity="HeatFlowRate",
     final unit="W",
@@ -202,36 +203,34 @@ partial model PartialSteamBoiler
   "Auxiliary variable for efficiency curve because quadraticLinear requires exactly 6 elements";
 
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
-    annotation (Placement(transformation(extent={{-11,-50},{9,-30}})));
+    annotation (Placement(transformation(extent={{-21,-50},{-1,-30}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSenVol
     "Temperature of fluid volume"
     annotation (Placement(transformation(extent={{50,70},{70,90}})));
   Modelica.Blocks.Math.Gain cp(k=cp_default) "Specific heat"
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+    annotation (Placement(transformation(extent={{-80,-56},{-60,-36}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor UAOve(G=UA)
     "Overall thermal conductance (if heatPort is connected)"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   Modelica.Blocks.Math.Product QSen_flow_mea
     "Measured sensible heat transfer rate"
-    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
+    annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
   Modelica.Blocks.Math.Add dTSen(k1=-1)
     "Change in temperature between volume and outflowing port"
-    annotation (Placement(transformation(extent={{60,40},{40,60}})));
+    annotation (Placement(transformation(extent={{60,20},{40,40}})));
 
   Modelica.Blocks.Sources.RealExpression Q_flow_out(y=QWatTot_flow)
     "Total heat transfer rate"
     annotation (Placement(transformation(extent={{60,100},{80,120}})));
+  Movers.FlowControlled_m_flow mCon_flow(
+    redeclare package Medium = Medium_a,
+    m_flow_nominal=m_flow_nominal,
+    addPowerToMedium=false,
+    nominalValuesDefineDefaultPressureCurve=true) "Mass flow controller"
+    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
+  Modelica.Blocks.Math.Gain mSet_flow(k=m_flow_nominal) "Set mass flow rate"
+    annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
 
-  Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium_a)
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Sensors.Pressure senPre
-    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Modelica.Blocks.Math.Add dpSen(k2=-1)
-    "Change in pressure needed to meet setpoint"
-    annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
-  Modelica.Blocks.Sources.RealExpression pOutSet(y=pOut_nominal)
-    "Pressure setpoint for outgoing fluid"
-    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
 initial equation
 
   // Energy and mass balance
@@ -270,7 +269,7 @@ equation
   assert(eta > 0.001, "Efficiency curve is wrong.");
 
   connect(UAOve.port_b, vol.heatPort)            annotation (Line(
-      points={{0,80},{16,80},{16,-10},{21,-10}},
+      points={{0,80},{6,80},{6,-10},{11,-10}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(UAOve.port_a, heatPort) annotation (Line(
@@ -278,7 +277,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(heaCapDry.port, vol.heatPort) annotation (Line(
-      points={{30,90},{30,80},{16,80},{16,-10},{21,-10}},
+      points={{30,50},{30,40},{6,40},{6,-10},{11,-10}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(temSenVol.T, T) annotation (Line(
@@ -286,49 +285,42 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(preHeaFlo.port, vol.heatPort) annotation (Line(
-      points={{9,-40},{16,-40},{16,-10},{21,-10}},
+      points={{-1,-40},{6,-40},{6,-10},{11,-10}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(vol.heatPort, temSenVol.port) annotation (Line(
-      points={{21,-10},{16,-10},{16,80},{50,80}},
+      points={{11,-10},{6,-10},{6,80},{50,80}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(dpCon.port_b, vol.ports[1])
-    annotation (Line(points={{10,0},{29,0}},  color={0,127,255}));
+    annotation (Line(points={{0,0},{19,0}},   color={0,127,255}));
   connect(vol.ports[2], eva.port_a)
-    annotation (Line(points={{33,0},{42,0}}, color={0,127,255}));
+    annotation (Line(points={{23,0},{40,0}}, color={0,127,255}));
   connect(Q_flow_out.y, Q_flow)
     annotation (Line(points={{81,110},{110,110}},
                                                 color={0,0,127}));
   connect(heatPort, heatPort)
     annotation (Line(points={{0,120},{0,120}}, color={191,0,0}));
   connect(eva.port_b, temSen_out.port_a)
-    annotation (Line(points={{62,0},{70,0}}, color={0,127,255}));
+    annotation (Line(points={{60,0},{70,0}}, color={0,127,255}));
   connect(QSen_flow_mea.y, preHeaFlo.Q_flow)
-    annotation (Line(points={{-19,-40},{-11,-40}}, color={0,0,127}));
-  connect(temSenVol.T, dTSen.u1) annotation (Line(points={{70,80},{80,80},{80,
-          56},{62,56}},
-                    color={0,0,127}));
+    annotation (Line(points={{-29,-40},{-21,-40}}, color={0,0,127}));
+  connect(temSenVol.T, dTSen.u1) annotation (Line(points={{70,80},{80,80},{80,36},
+          {62,36}}, color={0,0,127}));
   connect(temSen_out.T, dTSen.u2)
-    annotation (Line(points={{80,11},{80,44},{62,44}}, color={0,0,127}));
-  connect(senMasFlo.m_flow, cp.u) annotation (Line(points={{-70,11},{-70,20},{
-          -86,20},{-86,-30},{-82,-30}},
-                                    color={0,0,127}));
-  connect(senMasFlo.port_b, dpCon.port_a)
-    annotation (Line(points={{-60,0},{-10,0}}, color={0,127,255}));
-  connect(cp.y, QSen_flow_mea.u1)
-    annotation (Line(points={{-59,-30},{-50,-30},{-50,-34},{-42,-34}},
-                                                   color={0,0,127}));
-  connect(dTSen.y, QSen_flow_mea.u2) annotation (Line(points={{39,50},{-90,50},
-          {-90,-50},{-50,-50},{-50,-46},{-42,-46}},color={0,0,127}));
-  connect(pOutSet.y, dpSen.u1) annotation (Line(points={{-39,40},{-36,40},{-36,
-          36},{-32,36}}, color={0,0,127}));
-  connect(senPre.p, dpSen.u2) annotation (Line(points={{-39,20},{-36,20},{-36,
-          24},{-32,24}}, color={0,0,127}));
-  connect(senPre.port, senMasFlo.port_b)
-    annotation (Line(points={{-50,10},{-50,0},{-60,0}}, color={0,127,255}));
-  connect(dpSen.y, dpCon.dp_in)
-    annotation (Line(points={{-9,30},{0,30},{0,12}}, color={0,0,127}));
+    annotation (Line(points={{80,11},{80,24},{62,24}}, color={0,0,127}));
+  connect(mCon_flow.port_b, dpCon.port_a)
+    annotation (Line(points={{-30,0},{-20,0}}, color={0,127,255}));
+  connect(dTSen.y, QSen_flow_mea.u1) annotation (Line(points={{39,30},{-64,30},{
+          -64,-34},{-52,-34}}, color={0,0,127}));
+  connect(mSet_flow.y, mCon_flow.m_flow_in)
+    annotation (Line(points={{-59,100},{-40,100},{-40,12}}, color={0,0,127}));
+  connect(cp.y, QSen_flow_mea.u2)
+    annotation (Line(points={{-59,-46},{-52,-46}}, color={0,0,127}));
+  connect(mSet_flow.u, y)
+    annotation (Line(points={{-82,100},{-120,100}}, color={0,0,127}));
+  connect(mSet_flow.y, cp.u) annotation (Line(points={{-59,100},{-40,100},{-40,40},
+          {-90,40},{-90,-46},{-82,-46}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},
             {100,120}}),                                        graphics={
         Rectangle(
@@ -384,4 +376,4 @@ equation
           lineColor={0,0,127},
           textString="Q_flow")}),                                Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{100,120}})));
-end PartialSteamBoiler;
+end xxPartialSteamBoiler;

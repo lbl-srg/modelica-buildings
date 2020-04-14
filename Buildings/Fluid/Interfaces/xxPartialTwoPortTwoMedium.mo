@@ -1,5 +1,5 @@
 within Buildings.Fluid.Interfaces;
-partial model PartialTwoPortTwoMedium
+partial model xxPartialTwoPortTwoMedium
   "Partial model with two ports with two separate medium models without storing mass or energy"
 
   replaceable package Medium_a =
@@ -9,11 +9,11 @@ partial model PartialTwoPortTwoMedium
       Modelica.Media.Interfaces.PartialTwoPhaseMedium
     "Medium model for port_b (outlet)";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
-    "Small mass flow rate for regularization of zero flow";
+//  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+//    "Nominal mass flow rate"
+//    annotation(Dialog(group = "Nominal condition"));
+//  parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
+//    "Small mass flow rate for regularization of zero flow";
 
   // Diagnostics
    parameter Boolean show_T = false
@@ -61,4 +61,4 @@ protected
   final parameter Modelica.SIunits.PressureDifference _dp_start(displayUnit="Pa") = 0
   "Start value for dp, used to avoid a warning if not set in dp, and to avoid dp.start in parameter window";
 
-end PartialTwoPortTwoMedium;
+end xxPartialTwoPortTwoMedium;

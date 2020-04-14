@@ -12,6 +12,7 @@ PartialTwoPort
 PartialTwoPortInterface
 PartialTwoPortTransport
 PartialTwoPortTwoMedium
+xxPartialTwoPortTwoMedium
 PartialTwoPortVector
 PrescribedOutlet
 StaticFourPortHeatMassExchanger

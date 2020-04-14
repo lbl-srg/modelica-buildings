@@ -1,0 +1,29 @@
+Event iteration details;;;;Time;Type(s) logged in dslog;Iteration failed
+Iteration;Event type;Expression;Result
+
+0;4;y.a;0.0005555555555555556
+0;4;y.last;2
+0;4;y.nextEvent;1800
+0;4;y.nextEventScaled;1800
+1;4;y.a;0.0005555555555555556
+1;4;y.last;2
+1;4;y.nextEvent;1800
+1;4;y.nextEventScaled;1800
+;;;;0;Initialization (off);0
+
+1;1;time >= 1800;
+1;4;y.a;0
+1;4;y.last;4
+1;4;y.nextEvent;2400
+1;4;y.nextEventScaled;2400
+;;;;1800;1;0
+
+1;1;time >= 2400;
+1;4;y.b;1
+1;4;y.last;6
+1;4;y.nextEvent;2399.99999999976
+1;4;y.nextEventScaled;2399.99999999976
+;;;;2400;1;0
+
+;;;;3600;Termination;0
+
