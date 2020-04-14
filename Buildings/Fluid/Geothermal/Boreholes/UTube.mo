@@ -6,9 +6,8 @@ model UTube "Single U-tube borehole heat exchanger"
       computeFlowResistance=false, final linearizeFlowResistance=false);
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
 
-  assert(homotopyInitialization, "In " + getInstanceName() +
-    ": The constant homotopyInitialization is set to false. This constant will be removed in future releases.",
-    level = AssertionLevel.warning);
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
 
   replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic matSoi
     "Thermal properties of soil"
