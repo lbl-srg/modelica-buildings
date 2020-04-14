@@ -224,7 +224,7 @@ partial model PartialSteamBoiler
 
   Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium_a)
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Sensors.Pressure senPre
+  Sensors.Pressure senPre(redeclare package Medium = Medium_a)
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Modelica.Blocks.Math.Add dpSen(k2=-1)
     "Change in pressure needed to meet setpoint"

@@ -3,14 +3,13 @@ model SteamBoilerFourPort
   "Model for a steam boiler with four ports for air and water flows, including medium changes"
   extends Buildings.Fluid.Interfaces.PartialFourPortFourMedium;
   extends Buildings.Fluid.Boilers.BaseClasses.PartialSteamBoiler(
-    final Medium_a = Medium_a1,
-    final Medium_b = Medium_b1,
+    redeclare final package Medium_a = Medium_a1,
+    redeclare final package Medium_b = Medium_b1,
     vol(
       m_flow_small=m1_flow_small,
       V=m1_flow_nominal*tau/rho_default),
     eva(final m_flow_nominal=m1_flow_nominal, m_flow_small=m1_flow_small),
     dpCon(
-      redeclare package Medium = Medium_a1,
       m_flow_nominal=m1_flow_nominal,
       m_flow_small=m1_flow_small,
       addPowerToMedium=false,
@@ -36,8 +35,8 @@ model SteamBoilerFourPort
     "Air-to-fuel ratio (by volume)";
 
   BaseClasses.Combustion com(
-    redeclare package Medium_a = Medium_a2,
-    redeclare package Medium_b = Medium_b2,
+    redeclare final package Medium_a = Medium_a2,
+    redeclare final package Medium_b = Medium_b2,
     m_flow_nominal=m2_flow_nominal,
     m_flow_small=m2_flow_small,
     fue=fue,
@@ -45,12 +44,12 @@ model SteamBoilerFourPort
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
   Modelica.Blocks.Sources.RealExpression QFue_flow_out(y=QFue_flow) "Heat transfer rate of fuel"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
-  Sensors.Pressure senPreAir(redeclare package Medium = Medium_a2) "Air side pressure sensor"
+  Sensors.Pressure senPreAir(redeclare final package Medium = Medium_a2) "Air side pressure sensor"
     annotation (Placement(transformation(extent={{-80,-96},{-60,-116}})));
   Modelica.Blocks.Math.Add dpSenAir(k2=-1) "Change in pressure needed to meet setpoint on air side"
     annotation (Placement(transformation(extent={{-50,-110},{-30,-90}})));
   Movers.FlowControlled_dp dpConAir(
-    redeclare package Medium = Medium_a2,
+    redeclare final package Medium = Medium_a2,
     m_flow_nominal=m2_flow_nominal,
     m_flow_small=m1_flow_small,
     addPowerToMedium=false,
