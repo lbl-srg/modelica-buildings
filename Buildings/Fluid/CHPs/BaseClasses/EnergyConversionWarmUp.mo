@@ -57,7 +57,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis temChe(
     final uLow=4.8,
     final uHigh=5.2)
-    "Check if room temperature is not close to the nominal engine temperature by less than 5 degree "
+    "Check if room temperature is not close to the nominal engine temperature by less than 5 Kelvin"
     annotation (Placement(transformation(extent={{40,130},{60,150}})));
   Buildings.Fluid.CHPs.BaseClasses.EfficiencyCurve etaE(
     final a=per.coeEtaE) "Part load electrical efficiency"
