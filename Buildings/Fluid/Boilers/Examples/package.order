@@ -3,4 +3,5 @@ BoilerPolynomialClosedLoop
 IdealSteamBoiler
 SteamBoilerClosedLoop
 SteamBoilerTwoPort
+SteamBoilerFourPort
 xxSteamBoilerTwoPort

@@ -1,11 +1,17 @@
 within Buildings.Fluid.Boilers.Examples;
-model SteamBoilerTwoPort "Test model for the steam boiler with two fluid ports"
+model SteamBoilerFourPort
+  "Test model for the steam boiler with four fluid ports"
   extends Modelica.Icons.Example;
 
   package MediumSte = IBPSA.Media.Steam "Steam medium";
-  package MediumWat = IBPSA.Media.Water (
-   T_max = 200+273.15)
-                      "Water medium";
+  package MediumWat = IBPSA.Media.Water (T_max = 200+273.15)
+    "Water medium";
+  package MediumAir = Modelica.Media.IdealGases.MixtureGases.CombustionAir
+    "Fresh air for combustion (N2,O2)";
+  package MediumFlu =
+      Modelica.Media.IdealGases.MixtureGases.FlueGasLambdaOnePlus (
+      reference_X={0.718,0.009,0.182,0.091})
+    "Flue gas with excess air (N2,O2,H2O,CO2)";
 
 //  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 1
 //    "Nominal mass flow rate";
@@ -49,8 +55,7 @@ model SteamBoilerTwoPort "Test model for the steam boiler with two fluid ports"
   Sources.Boundary_pT steSin(
     redeclare package Medium = MediumSte,
     use_p_in=true,
-    p(displayUnit="Pa"),
-    nPorts=1) "Steam sink"
+    p(displayUnit="Pa")) "Steam sink"
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
   Modelica.Blocks.Sources.Constant pSet(k=pOut_nominal)
                                                    "Steam pressure setpoint"
@@ -66,16 +71,6 @@ model SteamBoilerTwoPort "Test model for the steam boiler with two fluid ports"
     p(displayUnit="Pa"),
     nPorts=1) "Water source"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Fluid.Boilers.SteamBoilerTwoPort boi(
-    redeclare package Medium_a = MediumWat,
-    redeclare package Medium_b = MediumSte,
-    m_flow_nominal=m_flow_nominal,
-    pOut_nominal=pOut_nominal,
-    show_T=true,
-    Q_flow_nominal=Q_flow_nominal,
-    effCur=Buildings.Fluid.Types.EfficiencyCurves.Constant,
-    fue=Data.Fuels.NaturalGasLowerHeatingValue()) "Steam boiler"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Movers.FlowControlled_m_flow pum(
     redeclare package Medium = MediumWat,
     m_flow_nominal=m_flow_nominal,
@@ -89,14 +84,17 @@ model SteamBoilerTwoPort "Test model for the steam boiler with two fluid ports"
   Modelica.Blocks.Sources.TimeTable y(table=[0,0; 1800,1; 1800,0; 2400,0; 2400,
         1; 3600,1])
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-
+  Sources.Boundary_pT fluGasSin(redeclare package Medium = MediumSte, p(
+        displayUnit="Pa")) "Flue gas sink"
+    annotation (Placement(transformation(extent={{80,-70},{60,-50}})));
+  Sources.Boundary_pT airSou(
+    redeclare package Medium = MediumWat,
+    p(displayUnit="Pa"),
+    nPorts=1) "Air source"
+    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
 equation
   connect(pSet.y, steSin.p_in) annotation (Line(points={{81,50},{90,50},{90,8},{
           82,8}},  color={0,0,127}));
-  connect(dp_wat.port_b, boi.port_a)
-    annotation (Line(points={{0,0},{20,0}}, color={0,127,255}));
-  connect(boi.port_b, steSin.ports[1])
-    annotation (Line(points={{40,0},{60,0}}, color={0,127,255}));
   connect(watSou.ports[1], pum.port_a)
     annotation (Line(points={{-60,0},{-50,0}}, color={0,127,255}));
   connect(pum.port_b, dp_wat.port_a)
@@ -107,11 +105,9 @@ equation
           {-10,20},{-40,20},{-40,12}}, color={0,0,127}));
   connect(y.y, mAct_flow.u1) annotation (Line(points={{-59,70},{-52,70},{-52,56},
           {-42,56}}, color={0,0,127}));
-  connect(y.y, boi.y) annotation (Line(points={{-59,70},{10,70},{10,9},{19,9}},
-        color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
 experiment(Tolerance=1e-6, StopTime=100.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Boilers/Examples/SteamBoilerTwoPort.mos"
         "Simulate and plot"));
-end SteamBoilerTwoPort;
+end SteamBoilerFourPort;
