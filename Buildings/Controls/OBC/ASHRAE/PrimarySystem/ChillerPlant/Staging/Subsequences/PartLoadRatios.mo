@@ -25,7 +25,7 @@ block PartLoadRatios
     final min = 0,
     final max = 1)=0.8
     "Outside of G36 recommended staging order chiller type SPLR multiplier"
-    annotation(Evaluate=true, __cdl(NotInASHRAEGuideline=True));
+    annotation(Evaluate=true, __cdl(ValueInReference=False));
 
   parameter Real varSpeStaMin(
     final unit = "1",

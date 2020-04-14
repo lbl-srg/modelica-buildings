@@ -75,7 +75,7 @@ block Capacities
     annotation (Placement(transformation(extent={{200,-110},{240,-70}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
 
-//protected
+protected
   final parameter Real small = 0.001
   "Small number to avoid division with zero";
 
@@ -127,7 +127,7 @@ block Capacities
     "Outputs minimum current stage capacity as design stage down capacity if operating in the lowest available stage"
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(k=larGai)
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai(final k=larGai)
     "Ouputs a very large and unachievable staging up capacity when current is the highest available stage"
     annotation (Placement(transformation(extent={{-60,110},{-40,130}})));
 
@@ -199,35 +199,66 @@ annotation (defaultComponentName = "cap",
           extent={{-200,-200},{200,200}})),
 Documentation(info="<html>
 <p>
-Based on the current chiller stage and design stage capacities returns:
+This subsequence is not directly specified in 1711 as it provides
+a side calculation pertaining to generalization of the staging 
+sequences for any number of chillers and stages provided by the 
+user.
+</p>
+<p>
+Based on:
 </p>
 <ul>
 <li>
-The design capacities of the current, first available higher and lower stage
+the current chiller stage <code>u</code> index
 </li>
 <li>
-The minimal capacity of the current and first available higher stage
+the next available higher chiller stage <code>uUp</code> index
+</li>
+<li>
+the next available lower chiller stage <code>uDown</code> index
+</li>
+<li>
+boolean inputs that determine if the current stage is 
+any of the following: the highest <code>uHigh</code> or the 
+lowest <code>uLow</code> available chiller stage
 </li>
 </ul>
 <p>
-for the purpose of calculating the operative and stage part load ratios,
-OPLR and SPLR (up and down), respectively.
-</p>
-<p>
-[fixme: Milica to revise this once integrated with other subsequences.] For numerical reasons:
+the subsequence selects from the design stage capacity <code>uDesCap</code>
+and the minimal stage capacity <code>uMinCap</code> vectors 
+the following variables and outputs them:
 </p>
 <ul>
 <li>
-If operating at the lowest available chiller stage, the minimal capacity
+the design capacities of the current <code>yDes</code>, first available higher
+<code>yUpDes</code> and first available lower stage <code>yDowDes</code>
+</li>
+<li>
+the minimal capacity of the current <code>yMin</code> and first available higher 
+stage <code>yUpMin</code>
+</li>
+</ul>
+<p>
+for the purpose of calculating the operative part load ratios 
+(OPLR) up and down, respectively. The OPLR is defined in 1711 March 2020 draft section 5.2.4.6.
+</p>
+<p>
+For numerical reasons and to ensure expected behavior in corner cases such as 
+when the plant operates at the highest or the lowest available stage, the
+sequence implements the following:
+</p>
+<ul>
+<li>
+if operating at the lowest available chiller stage, the minimal capacity
 of that stage is returned as the stage down design capacity.
 </li>
 <li>
-If operating at the stage 0, the minimal and design capacity
+if operating at the stage 0, the minimal and design capacity
 of that stage, as well as the stage down design capacity
 equals a small value, to avoid downstream division 0.
 </li>
 <li>
-If operating at the highest stage, the design and minimal stage up conditionals are set to
+if operating at the highest stage, the design and minimal stage up conditionals are set to
 a value significantly larger than the design capacity of the highest stage.
 This ensures numerical stability and satisfies the staging down conditionals.
 </li>
