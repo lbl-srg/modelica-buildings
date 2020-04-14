@@ -36,12 +36,8 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(final k=0)
     "Zero flow rate"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
-
-  Controls.OBC.CDL.Continuous.Sources.Constant           const1(final k=-273.15)
-    "Absolute zero"
-    annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
-  Controls.OBC.CDL.Continuous.Add                        add2 "Absolute zero"
-    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+  Buildings.Controls.OBC.UnitConversions.To_degC to_degC
+    annotation (Placement(transformation(extent={{-60,-56},{-40,-36}})));
 equation
   connect(mWatIntCon.y, watFloSet.u3) annotation (Line(points={{21,-40},{40,-40},
           {40,-8},{58,-8}}, color={0,0,127}));
@@ -54,12 +50,10 @@ equation
 
   connect(PEle, mWatIntCon.u1) annotation (Line(points={{-120,0},{-20,0},{-20,
           -34},{-2,-34}},  color={0,0,127}));
-  connect(mWatIntCon.u2, add2.y) annotation (Line(points={{-2,-46},{-12,-46},{
-          -12,-50},{-18,-50}}, color={0,0,127}));
-  connect(TWatIn, add2.u2) annotation (Line(points={{-120,-60},{-50,-60},{-50,
-          -56},{-42,-56}}, color={0,0,127}));
-  connect(const1.y, add2.u1) annotation (Line(points={{-68,-40},{-50,-40},{-50,
-          -44},{-42,-44}}, color={0,0,127}));
+  connect(TWatIn, to_degC.u) annotation (Line(points={{-120,-60},{-92,-60},{-92,
+          -46},{-62,-46}}, color={0,0,127}));
+  connect(mWatIntCon.u2, to_degC.y)
+    annotation (Line(points={{-2,-46},{-38,-46}}, color={0,0,127}));
 annotation (
   defaultComponentName="conWat",
   Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
