@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers;
-model SteamHeatExchanger
+model SteamHeatExchangerIdeal
   "Model for a shell-and-tube heat exchanger with phase change in one side"
   extends Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium(
     redeclare final package Medium_b = MediumWat,
@@ -96,4 +96,4 @@ equation
           lineColor={0,0,127},
           lineThickness=0.5)}),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end SteamHeatExchanger;
+end SteamHeatExchangerIdeal;

@@ -63,7 +63,7 @@ equation
   port_b.h_outflow = inStream(port_a.h_outflow) + dh;
 
   // Set condition for reverse flow for model consistency
-  port_a.h_outflow =  MediumWat.h_default;
+  port_a.h_outflow =  hSte_instream;
 
   // Reverse flow
 //  inStream(port_b.h_outflow) = port_a.h_outflow + dh;

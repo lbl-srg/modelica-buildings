@@ -9,7 +9,8 @@ model Condensation
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 1
     "Nominal mass flow rate";
 
-  Buildings.Fluid.HeatExchangers.BaseClasses.Condensation con
+  Buildings.Fluid.HeatExchangers.BaseClasses.Condensation con(m_flow_nominal=
+        m_flow_nominal)
     "Condensation process"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Sources.Boundary_pT watSin(redeclare package Medium = MediumWat,
