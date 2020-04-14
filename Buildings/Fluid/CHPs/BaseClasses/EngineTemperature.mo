@@ -2,11 +2,11 @@ within Buildings.Fluid.CHPs.BaseClasses;
 model EngineTemperature "Heat exchange within the engine control volume"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Modelica.SIunits.ThermalConductance UAhx
+  parameter Modelica.SIunits.ThermalConductance UAHex
     "Thermal conductance between the engine and cooling water";
-  parameter Modelica.SIunits.ThermalConductance UAlos
+  parameter Modelica.SIunits.ThermalConductance UALos
     "Thermal conductance between the engine and surroundings";
-  parameter Modelica.SIunits.HeatCapacity MCeng
+  parameter Modelica.SIunits.HeatCapacity capEng
     "Thermal capacitance of the engine control volume";
   parameter Modelica.SIunits.Temperature TEngIni
     "Initial engine temperature";
@@ -33,15 +33,15 @@ protected
   constant Modelica.SIunits.Density rhoWat=1000 "Water density";
   constant Modelica.SIunits.SpecificHeatCapacity cWat=4180 "Water specific heat";
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theConHX(
-    final G=UAhx)
+    final G=UAHex)
     "Thermal conductance between engine and cooling water volume"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capTheEng(
-    final C=MCeng, T(fixed=true, start=TEngIni))
+    final C=capEng, T(fixed=true, start=TEngIni))
     "Thermal capacitance of the engine control volume"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor conTheLos(
-    final G=UAlos)
+    final G=UALos)
     "Thermal conductance between the engine and surroundings"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow QGen1
@@ -98,12 +98,12 @@ The model defines the dynamic behavior of the CHP thermal mass (i.e. engine bloc
 encapsulated working fluid, and internal heat exchange equipment) using a single,
 engine control volume.
 The thermal energy stored within this volume is quantified using an aggregate
-thermal capacitance <code>MCeng</code> and an equivalent average engine temperature
+thermal capacitance <code>capEng</code> and an equivalent average engine temperature
 <code>TEng</code>.
 The heat transfer between the engine and the cooling water control volume is
-quantified using the overall thermal conductance <code>UAhx</code>,
+quantified using the overall thermal conductance <code>UAHex</code>,
 while the heat loss to the surroundings is quantified using the overall thermal
-conductance <code>UAlos</code>.
+conductance <code>UALos</code>.
 </p>
 </html>", revisions="<html>
 <ul>

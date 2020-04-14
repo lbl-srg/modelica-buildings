@@ -1,7 +1,7 @@
 within Buildings.Fluid.CHPs;
 model ThermalElectricalFollowing
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
-    final vol(V=per.MCcw/rhoWat/cWat),
+    final vol(V=per.capHeaRec/rhoWat/cWat),
     final dp_nominal=3458*m_flow_nominal + 5282 "The correlation between nominal pressure drop and mass flow rate is derived from manufacturers data");
 
   replaceable parameter Buildings.Fluid.CHPs.Data.Generic per
@@ -91,9 +91,9 @@ model ThermalElectricalFollowing
     final per = per) "Energy conversion"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Fluid.CHPs.BaseClasses.EngineTemperature eng(
-    final UAhx=per.UAhx,
-    final UAlos=per.UAlos,
-    final MCeng=per.MCeng,
+    final UAHex=per.UAHex,
+    final UALos=per.UALos,
+    final capEng=per.capEng,
     final TEngIni=TEngIni) "Engine control volume"
     annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
   Buildings.Fluid.CHPs.BaseClasses.Controller opeMod(

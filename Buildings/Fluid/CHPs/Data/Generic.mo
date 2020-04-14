@@ -31,13 +31,13 @@ record Generic "Generic data for CHP models"
     The independent variable x1 is the fuel mass flow rate.
     From index 1 to 3, coefficients correspond to the following terms:
     constant, x1, x1^2";
-  parameter Modelica.SIunits.ThermalConductance UAhx = 0
+  parameter Modelica.SIunits.ThermalConductance UAHex = 0
     "Thermal conductance between the engine and cooling water";
-  parameter Modelica.SIunits.ThermalConductance UAlos = 0
+  parameter Modelica.SIunits.ThermalConductance UALos = 0
     "Thermal conductance between the engine and surroundings";
-  parameter Modelica.SIunits.HeatCapacity MCeng = 0
+  parameter Modelica.SIunits.HeatCapacity capEng = 0
     "Thermal capacitance of the engine control volume";
-  parameter Modelica.SIunits.HeatCapacity MCcw = 0
+  parameter Modelica.SIunits.HeatCapacity capHeaRec = 0
     "Thermal capacitance of heat recovery portion";
   parameter Boolean warmUpByTimeDelay=true
     "If true, the plant will be in warm-up mode depending on the delay time,
