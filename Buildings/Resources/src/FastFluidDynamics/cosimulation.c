@@ -13,8 +13,10 @@
 	*         Tian Wei
 	*         University of Miami
 	*         W.tian@miami.edu	
+	*	  Cary Faulkner
+	*	  cary.faulkner@colorado.edu
 	*
-	* \date   2/19/2019
+	* \date   4/13/2020
 	*
 	* This file provides functions that are used for conducting the coupled simulation
 	* with Modelica
@@ -307,7 +309,6 @@ int read_cosim_data(PARA_DATA *para, REAL **var, int **BINDEX) {
   ****************************************************************************/
   /* Change the flag to indicate that the data has been read*/
   para->cosim->modelica->flag = 0;
-  /*printf("para->cosim->modelica->flag=%d\n", para->cosim->modelica->flag);*/
   if(para->outp->version==DEBUG) {
     ffd_log("read_cosim_data(): Ended reading data from Modelica.",
             FFD_NORMAL);
@@ -711,69 +712,69 @@ int assign_thermal_bc(PARA_DATA *para, REAL **var, int **BINDEX) {
       } /* End of switch(BINDEX[3][it])*/
     }
 
-		/*-------------------------------------------------------------------------*/
-    /* Convert the block data from Modelica order to FFD order*/
-    /*-------------------------------------------------------------------------*/
-    if(para->cosim->para->nSou>0){
-			for(j=0; j<para->bc->nb_block; j++) {
-				i = j;
-				int bouCon = 1;
-				REAL ABlock = 1.0; /*defined by users*/
-				switch(bouCon) {
-					case 1: /* Temperature*/
-						temHea[j] = para->cosim->modelica->sourceHeat[i] - 273.15;
-						sprintf(msg, "\t%s: T=%f[degC]",
-							para->bc->blockName[j], temHea[j]);
-						ffd_log(msg, FFD_NORMAL);
-						break;
-					case 2: /* Heat flow rate*/
-						temHea[j] = para->cosim->modelica->sourceHeat[i] / ABlock;
-						sprintf(msg, "\t%s: Q_dot=%f[W]",
-							para->bc->blockName[j], temHea[j]);
-						ffd_log(msg, FFD_NORMAL);
-						break;
-					default:
-						sprintf(msg,
-						"Invalid value (%d) for thermal boundary condition. "
-						"Expected value are 1->Fixed T; 2->Fixed heat flux",
-						bouCon);
-						ffd_log(msg, FFD_ERROR);
-						return 1;
-				}
+/*-------------------------------------------------------------------------*/
+/* Convert the block data from Modelica order to FFD order*/
+/*-------------------------------------------------------------------------*/
+if(para->cosim->para->nSou>0){
+		for(j=0; j<para->bc->nb_block; j++) {
+			i = j;
+			int bouCon = 1;
+			REAL ABlock = 1.0; /*defined by users*/
+			switch(bouCon) {
+				case 1: /* Temperature*/
+					temHea[j] = para->cosim->modelica->sourceHeat[i] - 273.15;
+					sprintf(msg, "\t%s: T=%f[degC]",
+						para->bc->blockName[j], temHea[j]);
+					ffd_log(msg, FFD_NORMAL);
+					break;
+				case 2: /* Heat flow rate*/
+					temHea[j] = para->cosim->modelica->sourceHeat[i] / ABlock;
+					sprintf(msg, "\t%s: Q_dot=%f[W]",
+						para->bc->blockName[j], temHea[j]);
+					ffd_log(msg, FFD_NORMAL);
+					break;
+				default:
+					sprintf(msg,
+					"Invalid value (%d) for thermal boundary condition. "
+					"Expected value are 1->Fixed T; 2->Fixed heat flux",
+					bouCon);
+					ffd_log(msg, FFD_ERROR);
+					return 1;
 			}
 		}
+	}
     /*-------------------------------------------------------------------------*/
     /* Assign the block BC*/
     /*-------------------------------------------------------------------------*/
     if(para->cosim->para->nSou>0){
-			int bouCon = 1;
-			for(it=0; it<para->geom->index; it++) {
-				i = BINDEX[0][it];
-				j = BINDEX[1][it];
-				k = BINDEX[2][it];
-				id = BINDEX[4][it];
-				/*modelicaId = id;*/
+	int bouCon = 1;
+	for(it=0; it<para->geom->index; it++) {
+		i = BINDEX[0][it];
+		j = BINDEX[1][it];
+		k = BINDEX[2][it];
+		id = BINDEX[4][it];
+		/*modelicaId = id;*/
 
-				if(var[FLAGP][IX(i,j,k)]==SOLID && id < para->bc->nb_block)
-					switch(bouCon) {
-						case 1:
-							var[TEMPBC][IX(i,j,k)] = temHea[id];
-							BINDEX[3][it] = 1; /* Specified temperature*/
-							break;
-						case 2:
-							var[QFLUXBC][IX(i,j,k)] = temHea[id];
-							BINDEX[3][it] = 0; /* Specified heat flux*/
-							break;
-						default:
-							sprintf(msg,
-								"assign_thermal_bc(): Thermal bc value BINDEX[3][%d]=%d "
-								"at [%d,%d,%d] was not valid.",
-								it, BINDEX[3][it], i, j, k);
-							ffd_log(msg, FFD_ERROR);
-							return 1;
-				} /* End of switch(BINDEX[3][it])*/
-			}
-		}
+		if(var[FLAGP][IX(i,j,k)]==SOLID && id < para->bc->nb_block)
+			switch(bouCon) {
+				case 1:
+					var[TEMPBC][IX(i,j,k)] = temHea[id];
+					BINDEX[3][it] = 1; /* Specified temperature*/
+					break;
+				case 2:
+					var[QFLUXBC][IX(i,j,k)] = temHea[id];
+					BINDEX[3][it] = 0; /* Specified heat flux*/
+					break;
+				default:
+					sprintf(msg,
+						"assign_thermal_bc(): Thermal bc value BINDEX[3][%d]=%d "
+						"at [%d,%d,%d] was not valid.",
+						it, BINDEX[3][it], i, j, k);
+					ffd_log(msg, FFD_ERROR);
+					return 1;
+		} /* End of switch(BINDEX[3][it])*/
+	}
+}
 		
 		
     free(temHea);

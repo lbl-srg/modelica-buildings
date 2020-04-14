@@ -20,8 +20,8 @@
 |  \date   4/5/2020
 |
 |  \add: add a function min_distance to calculate the distance of
-| 					a fluid cell to the nearest solid boundary condition, which
-| 					is to be used by Chen's zero equation turbulence model
+| 	 a fluid cell to the nearest solid boundary condition, which
+| 	 is to be used by Chen's zero equation turbulence model
 | 
 ****************************************************************************/
 

@@ -33,7 +33,7 @@ typedef struct {
                  /* 1: fixed temperature,*/
                  /* 2: fixed heat flow rate through the surface*/
   char **sensorName; /* *sensorName[nSen]: Name of sensor in FFD*/
-	char *version; // DEMO, DEBUG, RUN
+	char *version; /* DEMO, DEBUG, RUN */
 	int Sou; /* 1: have internal source ; 0: no internal source*/
 	int nSou; /* Number of internal sources*/
 	char **souName; /* *souName[nSou]: Name of internal heat sources*/
@@ -93,5 +93,5 @@ typedef struct{
 typedef enum { COSIM_WARNING, COSIM_ERROR, COSIM_NORMAL, COSIM_NEW } COSIM_MSG_TYPE;
 typedef enum { temp_roo, temp_occ, vel_occ, temp_sen, vel_sen, temp_rack } OUTPUT_TYPE;
 typedef enum { inlet_temp, inlet_mass, inlet_vel, block_temp, block_hea, rack_hea, sur_temp, sur_hea } INPUT_TYPE;
-#endif
-*/
+#endif*/
+

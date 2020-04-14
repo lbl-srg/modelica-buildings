@@ -1,6 +1,6 @@
 /****************************************************************************
 |
-|  \file   time.c
+|  \file   timing.c
 |
 |  \brief  Subroutines for timing
 |

@@ -41,7 +41,7 @@ static INIT_DATA init;
 clock_t start, end;
 
 /****************************************************************************
-|  Allcoate memory for variables
+|  Allocate memory for variables
 |
 | \param para Pointer to FFD parameters
 |
