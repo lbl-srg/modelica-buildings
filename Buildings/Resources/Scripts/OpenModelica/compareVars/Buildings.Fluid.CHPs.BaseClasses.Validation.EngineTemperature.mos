@@ -3,6 +3,6 @@ compareVars :=
     "eng.TRoo.T",
     "eng.TWat.T",
     "eng.QGen_flow",
-    "per.MCeng",
+    "per.capEng",
     "eng.TEng"
   };

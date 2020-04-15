@@ -69,13 +69,13 @@ annotation (
           fillPattern=FillPattern.Solid)}),
   Documentation(info="<html>
 <p>
-The model sends a warning message if the water outlet temperature is higher 
-than the maximum defined by the manufacturer.  
+The model sends a warning message if the water outlet temperature is higher
+than the maximum defined by the manufacturer.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-June 01, 2019 by Tea Zakula:<br/>
+June 1, 2019, by Tea Zakula:<br/>
 First implementation.
 </li>
 </ul>

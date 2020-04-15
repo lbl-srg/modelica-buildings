@@ -6,6 +6,9 @@ model WarmUpLeaving
     "Time delay between activation and power generation";
   parameter Modelica.SIunits.Temperature TEngNom
     "Nominal engine operating temperature";
+  parameter Modelica.SIunits.Power PEleMax=0
+    "Maximum power output"
+    annotation (Dialog(enable=not warmUpByTimeDelay));
   parameter Boolean warmUpByTimeDelay
     "If true, the plant will be in warm-up mode depending on the delay time, otherwise depending on engine temperature "
     annotation(Evaluate=true);
@@ -40,9 +43,8 @@ protected
     final threshold=timeDelayStart) if warmUpByTimeDelay
     "Check if it has been in warm-up mode by longer than specified time"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysteresis(
-    uLow=-0.5,
-    uHigh=0) if not warmUpByTimeDelay
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTem(uLow=-0.5, uHigh=0) if
+                not warmUpByTimeDelay
     "Check if actual engine temperature is higher than norminal value"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add(final k2=-1) if
@@ -58,8 +60,9 @@ protected
     not warmUpByTimeDelay
     "Difference between actual power output and demand"
     annotation (Placement(transformation(extent={{-50,-70},{-30,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysteresis1(uLow=-5,
-    uHigh=0) if not warmUpByTimeDelay
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysPow(
+    final uLow=-0.01*PEleMax - 1e-6,
+    final uHigh=0) if not warmUpByTimeDelay
     "Check if actual power output is higher than demand"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2 if not warmUpByTimeDelay "OR evaluation"
@@ -69,25 +72,24 @@ protected
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
 
 equation
-  connect(add.y, hysteresis.u) annotation (Line(points={{-28,0},{-12,0}},
-          color={0,0,127}));
-  connect(TEng, add.u1) annotation (Line(points={{-120,20},{-80,20},{-80,6},{-52,
-          6}},     color={0,0,127}));
-  connect(temEngNom.y, add.u2) annotation (Line(points={{-66,-20},{-60,-20},{-60,
-          -6},{-52,-6}},
-                    color={0,0,127}));
+  connect(add.y, hysTem.u)
+    annotation (Line(points={{-28,0},{-12,0}}, color={0,0,127}));
+  connect(TEng, add.u1) 
+    annotation (Line(points={{-120,20},{-80,20},{-80,6},{-52,6}}, color={0,0,127}));
+  connect(temEngNom.y, add.u2) 
+    annotation (Line(points={{-66,-20},{-60,-20},{-60, -6},{-52,-6}}, color={0,0,127}));
   connect(actWarUp, timer.u)
     annotation (Line(points={{-120,60},{-82,60}},   color={255,0,255}));
   connect(timer.y, timeDel.u)
     annotation (Line(points={{-58,60},{-42,60}},   color={0,0,127}));
-  connect(add1.y, hysteresis1.u)
+  connect(add1.y, hysPow.u)
     annotation (Line(points={{-28,-60},{-12,-60}}, color={0,0,127}));
   connect(PEle, add1.u2) annotation (Line(points={{-120,-80},{-80,-80},{-80,-66},
           {-52,-66}}, color={0,0,127}));
-  connect(hysteresis.y, or2.u1) annotation (Line(points={{12,0},{20,0},{20,-20},
-          {28,-20}}, color={255,0,255}));
-  connect(hysteresis1.y, or2.u2) annotation (Line(points={{12,-60},{20,-60},{20,
-          -28},{28,-28}}, color={255,0,255}));
+  connect(hysTem.y, or2.u1) annotation (Line(points={{12,0},{20,0},{20,-20},{28,
+          -20}}, color={255,0,255}));
+  connect(hysPow.y, or2.u2) annotation (Line(points={{12,-60},{20,-60},{20,-28},
+          {28,-28}}, color={255,0,255}));
   connect(timeDel.y, y) annotation (Line(points={{-18,60},{80,60},{80,0},{120,0}},
         color={255,0,255}));
   connect(or2.y, pre.u)
@@ -100,15 +102,25 @@ annotation (defaultComponentName="warUpCtr", Documentation(info="<html>
 <p>
 The model computes a boolean variable which is true when warm-up
 is over.
-CHP will transition from the warm-up mode to the normal mode after the specified
-time delay (if <code>warmUpByTimeDelay</code> is true),
-or when <code>TEng</code> is higher than <code>TEngNom</code>
-(if <code>warmUpByTimeDelay</code> is false).
+CHP will transition from the warm-up mode to the normal mode
 </p>
+<ul>
+<li>
+after the specified time delay if <code>warmUpByTimeDelay</code> is true, or
+</li>
+<li>
+when the engine temperature exceeds the nominal value or the net power produced
+exceeds that requested by the controller if <code>warmUpByTimeDelay</code> is false.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>
-June 01, 2019 by Tea Zakula:<br/>
+April 8, 2020, by Antoine Gautier:<br/>
+Add condition on power output.
+</li>
+<li>
+June 1, 2019, by Tea Zakula:<br/>
 First implementation.
 </li>
 </ul>

@@ -30,7 +30,7 @@ protected
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Utilities.Math.Biquadratic mWatIntCon(
     final a=per.coeMasWat) "Internal control of water flow rate "
-    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
+    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Switch watFloSet "Water flow setpoint"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(final k=0)
@@ -38,12 +38,12 @@ protected
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const1(final k=-273.15)
     "Absolute zero"
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+    annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2 "Absolute zero"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
 equation
-  connect(mWatIntCon.y, watFloSet.u3) annotation (Line(points={{21,-30},{40,-30},
+  connect(mWatIntCon.y, watFloSet.u3) annotation (Line(points={{21,-40},{40,-40},
           {40,-8},{58,-8}}, color={0,0,127}));
   connect(watFloSet.y, mWatSet_flow) annotation (Line(points={{82,0},{120,0}},
                           color={0,0,127}));
@@ -53,12 +53,12 @@ equation
           color={255,0,255}));
 
   connect(PEle, mWatIntCon.u1) annotation (Line(points={{-120,0},{-20,0},{-20,
-          -24},{-2,-24}},  color={0,0,127}));
-  connect(mWatIntCon.u2, add2.y) annotation (Line(points={{-2,-36},{-12,-36},{
+          -34},{-2,-34}},  color={0,0,127}));
+  connect(mWatIntCon.u2, add2.y) annotation (Line(points={{-2,-46},{-12,-46},{
           -12,-50},{-18,-50}}, color={0,0,127}));
-  connect(TWatIn, add2.u2) annotation (Line(points={{-120,-60},{-60,-60},{-60,
+  connect(TWatIn, add2.u2) annotation (Line(points={{-120,-60},{-50,-60},{-50,
           -56},{-42,-56}}, color={0,0,127}));
-  connect(const1.y, add2.u1) annotation (Line(points={{-58,-30},{-50,-30},{-50,
+  connect(const1.y, add2.u1) annotation (Line(points={{-68,-40},{-50,-40},{-50,
           -44},{-42,-44}}, color={0,0,127}));
 annotation (
   defaultComponentName="conWat",
@@ -69,8 +69,9 @@ annotation (
 The model calculates the water mass flow rate that is determined by the internal controller.
 In CHPs that use this type of internal control the cooling water mass flow rate is
 controlled to optimize engine performance and heat recovery.
-In the main model of the CHP unit (<a href=\"modelica://Buildings.Fluid.CHPs.ThermalElectricalFollowing\">
-Buildings.Fluid.CHPs.ThermalElectricalFollowing</a>)
+In the main model of the CHP unit \\
+<a href=\"modelica://Buildings.Fluid.CHPs.ThermalElectricalFollowing\">
+Buildings.Fluid.CHPs.ThermalElectricalFollowing</a>
 this optimum water mass flow rate is specified as the set point signal for the external pump controller.
 </p>
 <h4>Implementation</h4>
@@ -90,7 +91,7 @@ programs</i>, Section III. <a href=\"https://strathprints.strath.ac.uk/6704/\">
 </html>", revisions="<html>
 <ul>
 <li>
-June 18, 2019 by Tea Zakula:<br/>
+June 18, 2019, by Tea Zakula:<br/>
 First implementation.
 </li>
 </ul>

@@ -8,7 +8,7 @@ model FilterPower "Constraints for electric power"
     "Minimum power output";
   parameter Boolean dPEleLim
     "If true, the rate at which net power output can change is limited";
-  parameter Real dPEleMax(final unit="W/s")
+  parameter Real dPEleMax(final unit="1/s")
     "Maximum rate at which net power output can change";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput PEleDem(final unit="W")
@@ -107,15 +107,15 @@ annotation (
         Line(points={{-40,-70},{40,70}}, color={0,0,0})}),
   Documentation(info="<html>
 <p>
-The model checks if the electric power and power rate are within the boundaries 
-specified by the manufacturer. 
-The constraints are applied and a warning message is sent if the electric power 
-is outside the boundaries. 
+The model checks if the electric power and power rate are within the boundaries
+specified by the manufacturer.
+The constraints are applied and a warning message is sent if the electric power
+is outside the boundaries.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-June 01, 2019 by Tea Zakula:<br/>
+June 1, 2019, by Tea Zakula:<br/>
 First implementation.
 </li>
 </ul>

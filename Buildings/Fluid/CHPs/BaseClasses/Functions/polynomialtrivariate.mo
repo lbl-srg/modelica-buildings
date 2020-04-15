@@ -65,7 +65,7 @@ y = a<sub>1</sub>
 revisions="<html>
 <ul>
 <li>
-March 10, 2019 by Tea Zakula:<br/>
+March 10, 2019, by Tea Zakula:<br/>
 First implementation.
 </li>
 </ul>

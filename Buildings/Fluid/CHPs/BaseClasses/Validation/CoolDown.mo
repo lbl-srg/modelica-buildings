@@ -106,10 +106,7 @@ annotation (
         "Simulate and plot"),
   Documentation(info="<html>
 <p>
-This example validates
-<a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.CoolDown\">
-Buildings.Fluid.CHPs.BaseClasses.CoolDown</a>
-for defining the cool-down operating mode.
+This example validates the transitions to and from the cool-down operating mode.
 </p>
 </html>", revisions="<html>
 <ul>

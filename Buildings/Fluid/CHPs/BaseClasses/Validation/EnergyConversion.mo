@@ -56,7 +56,7 @@ protected
 
 equation
   connect(con.opeMod, eneConEngTem.opeMod) annotation (Line(points={{21,80},{40,
-          80},{40,-22},{59,-22}}, color={0,127,0}));
+          80},{40,-25},{59,-25}}, color={0,127,0}));
   connect(avaSig.y, con.avaSig) annotation (Line(points={{-59,80},{-30,80},{-30,
           87},{-2,87}}, color={255,0,255}));
   connect(runSig.y, con.runSig) annotation (Line(points={{-59,40},{-54,40},{-54,
@@ -69,7 +69,7 @@ equation
   connect(TWatIn.y, eneConEngTem.TWatIn) annotation (Line(points={{-8,0},{20,0},
           {20,-31},{58,-31}}, color={0,0,127}));
   connect(PEle.y, eneConEngTem.PEle) annotation (Line(points={{-9,40},{30,40},{
-          30,-25},{58,-25}}, color={0,0,127}));
+          30,-22},{58,-22}}, color={0,0,127}));
   connect(mWat_flow.y[1], eneConEngTem.mWat_flow) annotation (Line(points={{-58,0},
           {-48,0},{-48,-28},{58,-28}},    color={0,0,127}));
   connect(mWat_flow.y[1], con.mWat_flow) annotation (Line(points={{-58,0},{-48,
@@ -79,9 +79,9 @@ equation
   connect(mWat_flow.y[1], eneConTimDel.mWat_flow) annotation (Line(points={{-58,0},
           {-48,0},{-48,-68},{58,-68}},    color={0,0,127}));
   connect(PEle.y, eneConTimDel.PEle) annotation (Line(points={{-9,40},{30,40},{
-          30,-65},{58,-65}}, color={0,0,127}));
+          30,-62},{58,-62}}, color={0,0,127}));
   connect(con.opeMod, eneConTimDel.opeMod) annotation (Line(points={{21,80},{40,
-          80},{40,-62},{59,-62}}, color={0,127,0}));
+          80},{40,-65},{59,-65}}, color={0,127,0}));
   connect(PEle.y, con.PEle) annotation (Line(points={{-9,40},{-6,40},{-6,72},{
           -2,72}}, color={0,0,127}));
   connect(eneConEngTem.PEleNet, con.PEleNet) annotation (Line(points={{82,-22},

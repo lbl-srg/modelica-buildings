@@ -36,7 +36,7 @@ CoolDown
 </html>", revisions="<html>
 <ul>
 <li>
-June 18, 2019 by Tea Zakula:<br/>
+June 18, 2019, by Tea Zakula:<br/>
 First implementation.
 </li>
 </ul>

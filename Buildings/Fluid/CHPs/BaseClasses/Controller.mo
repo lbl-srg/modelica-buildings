@@ -58,7 +58,7 @@ model Controller "Define current operation mode"
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minWatFlo(
-    final k=per.mWatMin) "Minimum water flow rate"
+    final k=per.mWatMin_flow) "Minimum water mass flow rate"
     annotation (Placement(transformation(extent={{-220,190},{-200,210}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
     final k=0.001) "Constant value"
@@ -71,8 +71,8 @@ protected
     "Mass flow rate difference between actual and minimum value"
     annotation (Placement(transformation(extent={{-100,170},{-80,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
-    final uLow=0.01*per.mWatMin - 1e-6,
-    final uHigh=0.015*per.mWatMin)
+    final uLow=0.01*per.mWatMin_flow - 1e-6,
+    final uHigh=0.015*per.mWatMin_flow)
     "Check if actual mass flow rate is larger than the minimum value"
     annotation (Placement(transformation(extent={{-60,170},{-40,190}})));
   Buildings.Controls.OBC.CDL.Logical.And goSig
@@ -102,7 +102,7 @@ protected
     "Plant could run and cool-down mode is optional"
     annotation (Placement(transformation(extent={{208,-210},{228,-190}})));
   Buildings.Fluid.CHPs.BaseClasses.AssertWaterFlow assWatMas(
-    final mWatMin=per.mWatMin)
+    final mWatMin_flow=per.mWatMin_flow)
     "Assert if water flow rate is outside boundaries"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
   Buildings.Fluid.CHPs.BaseClasses.Types.Mode actMod "Mode indicator";
@@ -119,7 +119,9 @@ protected
   Buildings.Fluid.CHPs.BaseClasses.WarmUpLeaving warUpCtr(
     final timeDelayStart=per.timeDelayStart,
     final TEngNom=per.TEngNom,
-    final warmUpByTimeDelay=per.warmUpByTimeDelay) "Warm-up control sequence"
+    final PEleMax=per.PEleMax,
+    final warmUpByTimeDelay=per.warmUpByTimeDelay)
+    "Warm-up control sequence"
     annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
   Modelica.StateGraph.TransitionWithSignal transition6 "Run in normal mode"
     annotation (Placement(transformation(extent={{150,-10},{170,10}})));
@@ -210,10 +212,10 @@ equation
           -80},{0,-80},{0,-100},{-130,-100},{-130,0.666667},{-121,0.666667}},
         color={0,0,0}));
   connect(transition5.outPort, plaOff.inPort[2]) annotation (Line(points={{41.5,
-          -80},{48,-80},{48,-100},{-130,-100},{-130,0},{-121,0}}, color={0,0,0}));
+          -80},{48,-80},{48,-102},{-132,-102},{-132,0},{-121,0}}, color={0,0,0}));
   connect(transition10.outPort, plaOff.inPort[3]) annotation (Line(points={{241.5,
-          -60},{250,-60},{250,-100},{-130,-100},{-130,-0.666667},{-121,
-          -0.666667}}, color={0,0,0}));
+          -60},{250,-60},{250,-104},{-134,-104},{-134,-0.666667},{-121,-0.666667}},
+                       color={0,0,0}));
   connect(goSig.y, and3.u2) annotation (Line(points={{2,180},{20,180},{20,56},{
           -140,56},{-140,-152},{98,-152}}, color={255,0,255}));
   connect(optCooDow.y, and3.u1) annotation (Line(points={{82,-180},{90,-180},{90,
@@ -338,7 +340,7 @@ off or stand-by mode
 </ul>
 <h4>Switching between operating modes</h4>
 <p>
-From the off mode
+From the off mode:
 </p>
 <ul>
 <li>
@@ -347,7 +349,7 @@ signal <code>avaSig</code> becomes true.
 </li>
 </ul>
 <p>
-From the stand-by mode
+From the stand-by mode:
 </p>
 <ul>
 <li>
@@ -359,20 +361,20 @@ If <code>avaSig</code> becomes false, the CHP will automatically change to the o
 </li>
 </ul>
 <p>
-From the pump-on mode
+From the pump-on mode:
 </p>
 <ul>
 <li>
 The transition from the pump-on to stand-by mode will occur after the specified
 time delay and if the water flow rate <code>mWat_flow</code> is greater than
-the minimum <code>mWatMin</code>.
+the minimum <code>mWatMin_flow</code>.
 </li>
 <li>
 If <code>runSig</code> becomes false, the CHP will automatically change to the off mode.
 </li>
 </ul>
 <p>
-From the warm-up mode
+From the warm-up mode:
 </p>
 <ul>
 <li>
@@ -384,22 +386,22 @@ is false).
 </li>
 <li>
 If <code>runSig</code> becomes false or if the water flow rate <code>mWat_flow</code>
-becomes less than the minimum <code>mWatMin</code>, the CHP will automatically
+becomes less than the minimum <code>mWatMin_flow</code>, the CHP will automatically
 change to the cool-down mode.
 </li>
 </ul>
 <p>
-From the normal mode
+From the normal mode:
 </p>
 <ul>
 <li>
 The transition from the normal operation to the cool-down mode will occur when
 <code>runSig</code> becomes false or if the water flow rate <code>mWat_flow</code>
-becomes less than the minimum <code>mWatMin</code>.
+becomes less than the minimum <code>mWatMin_flow</code>.
 </li>
 </ul>
 <p>
-From the cool-down mode
+From the cool-down mode:
 </p>
 <ul>
 <li>
@@ -412,17 +414,21 @@ If the CHP has the mandatory cool-down configuration (if <code>coolDownOptional<
 is false), the plant has to complete the cool-down period before it can be reactivated.
 If the CHP has the optional cool-down configuration (if <code>coolDownOptional</code>
 is true), the plant may imediatelly change to the warm-up mode if it gets reactivated
-(<code>runSig</code> = true).
+(<code>runSig= true</code>).
 </li>
 </ul>
 </html>", revisions="<html>
 <ul>
 <li>
+April 8, 2020, by Antoine Gautier:<br/>
+Refactored implementation.
+</li>
+<li>
 December 03, 2019, by Jianjun Hu:<br/>
 Refactored implementation.
 </li>
 <li>
-June 18, 2019 by Tea Zakula:<br/>
+June 18, 2019, by Tea Zakula:<br/>
 First implementation.
 </li>
 </ul>

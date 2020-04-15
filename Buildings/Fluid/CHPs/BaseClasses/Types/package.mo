@@ -4,7 +4,7 @@ package Types "Library of CHP operation modes"
 
 annotation (Documentation(info="<html>
 <p>
-In this package, <strong>Mode</strong> defines the all the possible operation mode
+In this package, <strong>Mode</strong> defines all the possible operating modes
 of CHP units.
 </p>
 </html>"));

@@ -2,8 +2,8 @@ within Buildings.Fluid.CHPs.BaseClasses;
 model AssertWaterFlow "Assert if water flow is outside boundaries"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Modelica.SIunits.MassFlowRate mWatMin
-    "Minimum cooling water flow rate";
+  parameter Modelica.SIunits.MassFlowRate mWatMin_flow
+    "Minimum cooling water mass flow rate";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput runSig
     "True when electricity or heat demand is larger than zero"
@@ -11,7 +11,7 @@ model AssertWaterFlow "Assert if water flow is outside boundaries"
       iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mWat_flow(
     final unit="kg/s")
-    "Water flow rate"
+    "Water mass flow rate"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
@@ -23,8 +23,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Nand nand "Logical Nand"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
-    final uLow=0.99*mWatMin - 1e-6,
-    final uHigh=1.01*mWatMin)
+    final uLow=0.99*mWatMin_flow - 1e-6,
+    final uHigh=1.01*mWatMin_flow)
     "Check if water flow rate is larger than minimum rate"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
@@ -75,12 +75,13 @@ annotation (
           fillPattern=FillPattern.Solid)}),
   Documentation(info="<html>
 <p>
-The model sends a warning message if the water mass flow is lower than the minimum defined by the manufacturer.  
+The model sends a warning message if the water mass flow rate is lower than the
+minimum defined by the manufacturer.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-June 01, 2019 by Tea Zakula:<br/>
+June 1, 2019, by Tea Zakula:<br/>
 First implementation.
 </li>
 </ul>

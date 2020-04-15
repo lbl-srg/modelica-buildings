@@ -8,7 +8,7 @@ model AssertPower "Assert if electric power is outside boundaries"
     "Minimum power output";
   parameter Boolean dPEleLim
     "If true, the rate at which net power output can change is limited";
-  parameter Real dPEleMax(final unit="W/s")
+  parameter Real dPEleMax(final unit="1/s")
     "Maximum rate at which net power output can change";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput PEleDem(
@@ -21,7 +21,7 @@ model AssertPower "Assert if electric power is outside boundaries"
     "Generate warning when the electric power demand is out of the range"
     annotation (Placement(transformation(extent={{70,10},{90,30}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMesDP(
-    final message="Power rate of change is outside boundaries!")
+    final message="Rate of change in power output is outside boundaries!")
     "Assert function for checking power rate"
     annotation (Placement(transformation(extent={{70,-50},{90,-30}})));
 
@@ -116,13 +116,14 @@ annotation (
           fillPattern=FillPattern.Solid)}),
   Documentation(info="<html>
 <p>
-The model sends a warning message if the power demand is outside the boundaries defined by the manufacturer. 
-Limits can be specified for the minimal and maximal electric power and for the maximal power rate of change. 
+The model sends a warning message if the power demand is outside the boundaries defined by the manufacturer.
+Limits can be specified for the minimal and maximal electric power, and for the maximum rate at
+which the power can change.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-June 01, 2019 by Tea Zakula:<br/>
+June 1, 2019, by Tea Zakula:<br/>
 First implementation.
 </li>
 </ul>

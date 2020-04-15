@@ -7,9 +7,9 @@ model EngineTemperature "Validate model EngineTemperature"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
   Buildings.Fluid.CHPs.BaseClasses.EngineTemperature eng(
-    final UAhx=per.UAhx,
-    final UAlos=per.UAlos,
-    final MCeng=per.MCeng,
+    final UAHex=per.UAHex,
+    final UALos=per.UALos,
+    final capEng=per.capEng,
     final TEngIni=273.15 + 20) "Heat exchange within the engine control volume"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp QGen(

@@ -1,7 +1,7 @@
 within Buildings.Fluid.CHPs;
 model ThermalElectricalFollowing
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
-    final vol(V=per.MCcw/rhoWat/cWat),
+    final vol(V=per.capHeaRec/rhoWat/cWat),
     final dp_nominal=3458*m_flow_nominal + 5282 "The correlation between nominal pressure drop and mass flow rate is derived from manufacturers data");
 
   replaceable parameter Buildings.Fluid.CHPs.Data.Generic per
@@ -78,7 +78,7 @@ model ThermalElectricalFollowing
       iconTransformation(extent={{100,10},{140,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput mFue_flow(
     final unit="kg/s",
-    final quantity="MassFlowRate") "Fuel flow rate"
+    final quantity="MassFlowRate") "Fuel mass flow rate"
     annotation (Placement(transformation(extent={{180,0},{220,40}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QWat_flow(
@@ -91,9 +91,9 @@ model ThermalElectricalFollowing
     final per = per) "Energy conversion"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Fluid.CHPs.BaseClasses.EngineTemperature eng(
-    final UAhx=per.UAhx,
-    final UAlos=per.UAlos,
-    final MCeng=per.MCeng,
+    final UAHex=per.UAHex,
+    final UALos=per.UALos,
+    final capEng=per.capEng,
     final TEngIni=TEngIni) "Engine control volume"
     annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
   Buildings.Fluid.CHPs.BaseClasses.Controller opeMod(
@@ -115,10 +115,10 @@ model ThermalElectricalFollowing
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
   Buildings.Fluid.CHPs.BaseClasses.WaterFlowControl conWat(final per=per) if
     per.coolingWaterControl
-    "Internal controller for water flow rate"
+    "Internal controller for water mass flow rate"
     annotation (Placement(transformation(extent={{120,130},{140,150}})));
   Modelica.Blocks.Sources.RealExpression mWat_flow(
-    final y=port_a.m_flow) "Water flow rate"
+    final y=port_a.m_flow) "Water mass flow rate"
     annotation (Placement(transformation(extent={{-140,30},{-120,50}})));
   Modelica.Blocks.Sources.RealExpression TWatIn(
     final y=Medium.temperature(Medium.setState_phX(port_a.p, inStream(port_a.h_outflow))))
@@ -204,9 +204,8 @@ equation
     annotation (Line(points={{142,140},{200,140}}, color={0,0,127}));
   connect(hys.y, runSig.u2) annotation (Line(points={{-38,110},{-30,110},{-30,122},
           {-22,122}}, color={255,0,255}));
-  connect(opeMod.opeMod, eneCon.opeMod) annotation (Line(points={{71,160},{80,
-          160},{80,80},{-70,80},{-70,38},{-61,38}},
-                                                 color={0,127,0}));
+  connect(opeMod.opeMod, eneCon.opeMod) annotation (Line(points={{71,160},{80,160},
+          {80,80},{-70,80},{-70,35},{-61,35}},   color={0,127,0}));
   connect(opeMod.avaSig, avaSig) annotation (Line(points={{48,167},{-30,167},{
           -30,140},{-200,140}},
                             color={255,0,255}));
@@ -235,7 +234,7 @@ equation
   connect(eng.TRoo, QLos.port_a) annotation (Line(points={{0,-124.2},{-28,-124.2},
           {-28,-140},{-50,-140}}, color={191,0,0}));
   connect(fil.PEle, eneCon.PEle) annotation (Line(points={{-118,90},{-80,90},{-80,
-          35},{-62,35}}, color={0,0,127}));
+          38},{-62,38}}, color={0,0,127}));
   connect(watHea.port_b, eng.TWat) annotation (Line(points={{-20,-110},{-20,-136},
           {0,-136}}, color={191,0,0}));
   connect(vol.heatPort, watHea.port_a) annotation (Line(points={{-9,-10},{-20,-10},
@@ -294,6 +293,22 @@ coupled with thermally massive elements to characterize the device's dynamic the
 performance. It was developed based on the specification described in
 Beausoleil-Morrison (2007).
 </p>
+<h4>Model applicability</h4>
+<p>
+The model is primarily intended to predict the energy performance of
+combustion-based cogeneration devices, such as internal combustion engine and
+Stirling engine units.
+However, the general model specification makes it applicable to any device
+simultaneously producing heat and power from which heat is recovered as hot water,
+as long as recalibration is undertaken.
+Fuel cell based micro-cogeneration technology is outside of the modeling scope.
+</p>
+<p>
+The parameters required to define the governing equations can be determined
+from bench testing with only non intrusive measurements (e.g. fuel flow rate,
+cooling water flow rates and temperature, electrical production).
+The ability to reuse and recalibrate the component models or sub-models
+ensures that they are applicable to future generations of cogeneration devices.
 <h4>Model topology</h4>
 <p>
 Three control volumes are used to model the cogeneration unit dynamic thermal
@@ -302,21 +317,19 @@ characteristics.
 <ul>
 <li>
 The <i>energy conversion control volume</i>
-(<a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.EnergyConversion\">
-Buildings.Fluid.CHPs.BaseClasses.EnergyConversion</a>)
 represents the engine working fluid, combustion gases and engine alternator. It
-feeds information from the engine unit performance map into the thermal model.
+feeds information from the engine unit performance map into the thermal model, see
+<a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.EnergyConversion\">
+Buildings.Fluid.CHPs.BaseClasses.EnergyConversion</a>.
 </li>
 <li>
-The <i>thermal mass control volume</i>
-(<a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.EngineConVol\">
-Buildings.Fluid.CHPs.BaseClasses.EngineConVol</a>)
-represents the aggregated thermal capacitance
-associated with the engine block and the majority of the heat exchanger shells.
+The <i>thermal mass control volume</i> represents the aggregated thermal capacitance
+associated with the engine block and the majority of the heat exchanger shells, see
+<a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.EngineTemperature\">
+Buildings.Fluid.CHPs.BaseClasses.EngineTemperature</a>.
 </li>
 <li>
-The <i>cooling water control volume</i> (<code>vol</code>)
-represents the cooling water flowing
+The <i>cooling water control volume</i> represents the cooling water flowing
 through the device and the elements of the heat exchanger in immediate thermal
 contact.
 </li>
@@ -329,28 +342,12 @@ contact.
 </p>
 <p>
 Depending on the current mode, control signals and plant boundary conditions, the
-CHP plant switches between six possible operating modes: <i>off</i> mode,
+CHP unit switches between six possible operating modes: <i>off</i> mode,
 <i>stand-by</i> mode, <i>pump-on</i> mode, <i>warm-up</i> mode,
 <i>normal operation</i> mode, <i>cool-down</i> mode. The mode switch control is
 implemented in <a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.Controller\">
 Buildings.Fluid.CHPs.BaseClasses.Controller</a>.
 </p>
-<h4>Limitations</h4>
-<p>
-In the early stages of a project, the advantages of this modeling approach
-over a detailed modeling are the model simplicity, the ease of calibration
-and much less data collection. The disadvantages, however, are:
-</p>
-<ul>
-<li>
-Although the model structure reflects the underlying physical processes, the
-model parameterization relies entirely on empirical data.
-</li>
-<li>
-Once calibrated, the model is applicable to only one engine and fuel type, and
-each new cogeneration device must be characterized in a laboratory environment.
-</li>
-</ul>
 <h4>References</h4>
 <p>
 Beausoleil-Morrison, Ian and Kelly, Nick, 2007. <i>Specifications for modelling fuel cell
@@ -361,11 +358,15 @@ programs</i>, Section III. <a href=\"https://strathprints.strath.ac.uk/6704/\">
 </html>", revisions="<html>
 <ul>
 <li>
+April 8, 2020, by Antoine Gautier:<br/>
+Refactored implementation.
+</li>
+<li>
 February 14, 2020, by Jianjun Hu:<br/>
 Added documentation.
 </li>
 <li>
-June 01, 2019 by Tea Zakula:<br/>
+June 1, 2019, by Tea Zakula:<br/>
 First implementation.
 </li>
 </ul>

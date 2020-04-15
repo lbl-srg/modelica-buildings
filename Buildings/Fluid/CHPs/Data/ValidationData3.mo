@@ -6,17 +6,17 @@ record ValidationData3 "Validation data set 3"
     coolingWaterControl=true,
     coeMasWat={0.4,0,0,0,0,0},
     coeMasAir={0,2,-10000},
-    UAhx=741,
-    UAlos=13.7,
-    MCeng=63605.6,
-    MCcw=1000.7,
+    UAHex=741,
+    UALos=13.7,
+    capEng=63605.6,
+    capHeaRec=1000.7,
     warmUpByTimeDelay=true,
     timeDelayStart=60,
     coolDownOptional=true,
     timeDelayCool=60,
     PEleMax=5500,
     PEleMin=0,
-    mWatMin=0,
+    mWatMin_flow=0,
     TWatMax=273.15 + 80,
     dPEleLim=false,
     dmFueLim=false,
@@ -29,12 +29,12 @@ record ValidationData3 "Validation data set 3"
   Documentation(preferredView="info",
   info="<html>
 <p>
-This is the record of parameters for CHP models derived from the parameters of 
+This is the record of parameters for CHP models derived from the parameters of
 EnergyPlus example <code>MicroCogeneration</code>, with following changes:
 </p>
 <ul>
 <li>
-the net electrical power rate of change and the fuel flow rate of change, become unlimitted.
+the rate of change in the net electrical power and in the fuel flow rate, becomes unlimitted.
 </li>
 <li>
 changed electric power consumptions during standby <code>PStaBy</code> and cool-down
@@ -44,7 +44,7 @@ changed electric power consumptions during standby <code>PStaBy</code> and cool-
 </html>",revisions="<html>
 <ul>
 <li>
-March 08, 2019 by Tea Zakula:<br/>
+March 08, 2019, by Tea Zakula:<br/>
 First implementation.
 </li>
 </ul>
