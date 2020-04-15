@@ -324,16 +324,16 @@ block Change "Calculates the chiller stage signal"
 
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     "Detects plant start"
-    annotation (Placement(transformation(extent={{-62,50},{-42,70}})));
+    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
 
   CDL.Logical.Or or1
     annotation (Placement(transformation(extent={{146,-158},{166,-138}})));
   CDL.Logical.Edge                          edg2
                                                 "Boolean signal change"
-    annotation (Placement(transformation(extent={{98,-300},{118,-280}})));
+    annotation (Placement(transformation(extent={{132,-290},{152,-270}})));
   CDL.Logical.And and2
     "Ensures the stage is changed at high load increases/decreases where a stage up or a stage down signal is uninterrupted after a single stage change as an another one is needed right away"
-    annotation (Placement(transformation(extent={{140,-300},{160,-280}})));
+    annotation (Placement(transformation(extent={{170,-300},{190,-280}})));
   CDL.Logical.Timer tim(accumulate=false)
     annotation (Placement(transformation(extent={{100,-330},{120,-310}})));
   CDL.Logical.And and1
@@ -344,13 +344,13 @@ block Change "Calculates the chiller stage signal"
   CDL.Continuous.LessEqualThreshold lesEquThr(threshold=delayStaCha)
     annotation (Placement(transformation(extent={{170,-340},{190,-320}})));
   CDL.Discrete.TriggeredSampler                        triSam1
-    annotation (Placement(transformation(extent={{218,-100},{238,-80}})));
+    annotation (Placement(transformation(extent={{220,-100},{240,-80}})));
   CDL.Logical.Sources.Constant con(k=true)
-    annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
+    annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
   CDL.Conversions.BooleanToReal booToRea
-    annotation (Placement(transformation(extent={{188,-100},{208,-80}})));
+    annotation (Placement(transformation(extent={{140,-100},{160,-80}})));
   CDL.Continuous.GreaterThreshold greThr1(threshold=0.5)
-    annotation (Placement(transformation(extent={{252,-100},{272,-80}})));
+    annotation (Placement(transformation(extent={{260,-100},{280,-80}})));
   CDL.Logical.Latch lat1
     "Ensures initial stage is held until the first stage change signal after the initial stage phase is over"
     annotation (Placement(transformation(extent={{132,50},{152,70}})));
@@ -366,10 +366,14 @@ block Change "Calculates the chiller stage signal"
   CDL.Logical.Not not2
     annotation (Placement(transformation(extent={{320,-90},{340,-70}})));
   CDL.Logical.And and5
-    annotation (Placement(transformation(extent={{390,-106},{410,-86}})));
+    annotation (Placement(transformation(extent={{378,-110},{398,-90}})));
   CDL.Interfaces.BooleanInput chaPro "Stage change process status signal"
     annotation (Placement(transformation(extent={{-440,-140},{-400,-100}}),
         iconTransformation(extent={{-140,-190},{-100,-150}})));
+  CDL.Logical.TrueFalseHold                        staChaHol1(final
+      trueHoldDuration=delayStaCha - 1, final falseHoldDuration=0)
+    "Main stage change hold"
+    annotation (Placement(transformation(extent={{100,-290},{120,-270}})));
 equation
   connect(uChiAva, conf.uChiAva)
     annotation (Line(points={{-422,-180},{-382,-180},{-382,-170},{-364,-170}},
@@ -510,9 +514,9 @@ equation
   connect(lat.y, switch1.u2)
     annotation (Line(points={{22,-40},{56,-40}},   color={255,0,255}));
   connect(uPla, edg.u) annotation (Line(points={{-422,-80},{-302,-80},{-302,60},
-          {-64,60}}, color={255,0,255}));
+          {-62,60}}, color={255,0,255}));
   connect(edg.y, holIniSta.u)
-    annotation (Line(points={{-40,60},{-2,60}},   color={255,0,255}));
+    annotation (Line(points={{-38,60},{-2,60}},   color={255,0,255}));
   connect(triSam.y, switch2.u3) annotation (Line(points={{160,-40},{168,-40},{
           168,92},{200,92}},   color={0,0,127}));
   connect(uIni, intToRea2.u) annotation (Line(points={{-422,-40},{-342,-40},{-342,
@@ -527,14 +531,16 @@ equation
     annotation (Line(points={{80,-190},{96,-190}},   color={255,0,255}));
   connect(edg1.y, or1.u1) annotation (Line(points={{120,-190},{132,-190},{132,-148},
           {144,-148}},       color={255,0,255}));
-  connect(edg2.y, and2.u1) annotation (Line(points={{120,-290},{138,-290}},
-                             color={255,0,255}));
-  connect(and2.y, or1.u2) annotation (Line(points={{162,-290},{162,-172},{136,-172},
-          {136,-156},{144,-156}},       color={255,0,255}));
-  connect(or1.y, triSam.trigger) annotation (Line(points={{168,-148},{176,-148},
-          {176,-78},{148,-78},{148,-51.8}}, color={255,0,255}));
-  connect(or2.y, and2.u2) annotation (Line(points={{30,-190},{38,-190},{38,-336},
-          {138,-336},{138,-298}},                  color={255,0,255}));
+  connect(edg2.y, and2.u1) annotation (Line(points={{154,-280},{164,-280},{164,
+          -290},{168,-290}}, color={255,0,255}));
+  connect(and2.y, or1.u2) annotation (Line(points={{192,-290},{206,-290},{206,
+          -172},{136,-172},{136,-156},{144,-156}},
+                                        color={255,0,255}));
+  connect(or1.y, triSam.trigger) annotation (Line(points={{168,-148},{174,-148},
+          {174,-60},{148,-60},{148,-51.8}}, color={255,0,255}));
+  connect(or2.y, and2.u2) annotation (Line(points={{30,-190},{38,-190},{38,-338},
+          {140,-338},{140,-308},{168,-308},{168,-298}},
+                                                   color={255,0,255}));
   connect(or2.y, and1.u1) annotation (Line(points={{30,-190},{42,-190},{42,-292},
           {56,-292}},        color={255,0,255}));
   connect(tim.y, lesEquThr.u) annotation (Line(points={{122,-320},{146,-320},{146,
@@ -545,50 +551,51 @@ equation
           {46,-300},{56,-300}},         color={255,0,255}));
   connect(and1.y, tim.u) annotation (Line(points={{80,-292},{88,-292},{88,-320},
           {98,-320}},        color={255,0,255}));
-  connect(and1.y, edg2.u) annotation (Line(points={{80,-292},{90,-292},{90,-290},
-          {96,-290}},        color={255,0,255}));
   connect(triSam1.u, booToRea.y)
-    annotation (Line(points={{216,-90},{210,-90}}, color={0,0,127}));
+    annotation (Line(points={{218,-90},{162,-90}}, color={0,0,127}));
   connect(con.y, booToRea.u)
-    annotation (Line(points={{82,-90},{186,-90}}, color={255,0,255}));
+    annotation (Line(points={{122,-90},{138,-90}},color={255,0,255}));
   connect(triSam1.y, greThr1.u)
-    annotation (Line(points={{240,-90},{250,-90}}, color={0,0,127}));
+    annotation (Line(points={{242,-90},{258,-90}}, color={0,0,127}));
   connect(lat1.y, switch2.u2)
     annotation (Line(points={{154,60},{190,60},{190,100},{200,100}},
                                                  color={255,0,255}));
-  connect(edg.y, lat1.u) annotation (Line(points={{-40,60},{-22,60},{-22,80},{58,
-          80},{58,60},{130,60}}, color={255,0,255}));
+  connect(edg.y, lat1.u) annotation (Line(points={{-38,60},{-22,60},{-22,80},{
+          58,80},{58,60},{130,60}},
+                                 color={255,0,255}));
   connect(switch2.y, reaToInt.u)
     annotation (Line(points={{224,100},{270,100},{270,60},{318,60}},
                                                  color={0,0,127}));
-  connect(greThr1.y, and3.u2) annotation (Line(points={{274,-90},{284,-90},{284,
-          -34},{248,-34},{248,-8},{258,-8}}, color={255,0,255}));
+  connect(greThr1.y, and3.u2) annotation (Line(points={{282,-90},{294,-90},{294,
+          -26},{240,-26},{240,-8},{258,-8}}, color={255,0,255}));
   connect(holIniSta.y, not1.u) annotation (Line(points={{22,60},{38,60},{38,20},
           {138,20},{138,10},{196,10}}, color={255,0,255}));
   connect(not1.y, and3.u1) annotation (Line(points={{220,10},{242,10},{242,0},{
           258,0}},
                color={255,0,255}));
   connect(and3.y, lat1.clr) annotation (Line(points={{282,0},{290,0},{290,40},{
-          120,40},{120,54},{130,54}},
-                                  color={255,0,255}));
-  connect(and4.y, triSam1.trigger) annotation (Line(points={{220,-152},{228,-152},
-          {228,-101.8}}, color={255,0,255}));
+          120,40},{120,54},{130,54}}, color={255,0,255}));
+  connect(and4.y, triSam1.trigger) annotation (Line(points={{220,-152},{230,
+          -152},{230,-101.8}},
+                         color={255,0,255}));
   connect(edg1.y, and4.u2) annotation (Line(points={{120,-190},{186,-190},{186,-160},
           {196,-160}}, color={255,0,255}));
   connect(not1.y, and4.u1) annotation (Line(points={{220,10},{228,10},{228,-60},
           {180,-60},{180,-152},{196,-152}}, color={255,0,255}));
   connect(lat1.y, not2.u) annotation (Line(points={{154,60},{178,60},{178,50},{
-          300,50},{300,-80},{318,-80}},
-                                    color={255,0,255}));
-  connect(y, and5.y) annotation (Line(points={{440,-98},{426,-98},{426,-96},{412,
-          -96}}, color={255,0,255}));
-  connect(not2.y, and5.u1) annotation (Line(points={{342,-80},{373,-80},{373,
-          -96},{388,-96}},
-                      color={255,0,255}));
+          300,50},{300,-80},{318,-80}}, color={255,0,255}));
+  connect(y, and5.y) annotation (Line(points={{440,-98},{426,-98},{426,-100},{400,
+          -100}},color={255,0,255}));
+  connect(not2.y, and5.u1) annotation (Line(points={{342,-80},{360,-80},{360,-100},
+          {376,-100}},color={255,0,255}));
   connect(or1.y, and5.u2) annotation (Line(points={{168,-148},{184,-148},{184,-226},
-          {348,-226},{348,-104},{388,-104}}, color={255,0,255}));
+          {360,-226},{360,-108},{376,-108}}, color={255,0,255}));
   connect(chaPro, capReq.chaPro) annotation (Line(points={{-420,-120},{-350,
           -120},{-350,302},{-324,302}}, color={255,0,255}));
+  connect(and1.y, staChaHol1.u) annotation (Line(points={{80,-292},{88,-292},{
+          88,-280},{98,-280}}, color={255,0,255}));
+  connect(staChaHol1.y, edg2.u)
+    annotation (Line(points={{122,-280},{130,-280}}, color={255,0,255}));
   annotation (defaultComponentName = "cha",
         Icon(graphics={
         Rectangle(
@@ -606,19 +613,14 @@ Documentation(info="<html>
 <p>
 Outputs the chiller stage change signal
 
-fixme: elaborate
-
-tasks:
-- pull stage change assignment stage into a separate block
-- stage up t to +1 if no higher available, persist (according to Brandon)
-  
+fixme
 
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-January xx, 2020, by Milica Grahovac:<br/>
+April 14, 2020, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>

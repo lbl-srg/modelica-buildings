@@ -267,7 +267,7 @@ This ensures numerical stability and satisfies the staging down conditionals.
 revisions="<html>
 <ul>
 <li>
-January 13, 2019, by Milica Grahovac:<br/>
+January 13, 2020, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>
