@@ -374,6 +374,11 @@ block Change "Calculates the chiller stage signal"
       trueHoldDuration=delayStaCha,     final falseHoldDuration=0)
     "Main stage change hold"
     annotation (Placement(transformation(extent={{100,-290},{120,-270}})));
+  ChillerIndices chiInd(
+    nSta=nSta,
+    nChi=nChi,
+    staMat=staMat)
+    annotation (Placement(transformation(extent={{378,-270},{398,-250}})));
 equation
   connect(uChiAva, conf.uChiAva)
     annotation (Line(points={{-422,-180},{-382,-180},{-382,-170},{-364,-170}},
@@ -481,9 +486,6 @@ equation
   connect(sta.yAvaCur, staUp.uAvaCur) annotation (Line(points={{-298,-217},{
           -242,-217},{-242,-210},{-122,-210},{-122,-121},{-104,-121}},
                                                            color={255,0,255}));
-  connect(sta.yChi, yChi) annotation (Line(points={{-298,-220},{-220,-220},{
-          -220,-260},{440,-260}},
-                             color={255,0,255}));
   connect(staUp.y, or2.u1) annotation (Line(points={{-80,-112},{-2,-112},{-2,-190},
           {6,-190}},         color={255,0,255}));
   connect(u, cap.u) annotation (Line(points={{-422,-10},{-328,-10},{-328,-167},
@@ -596,6 +598,10 @@ equation
           88,-280},{98,-280}}, color={255,0,255}));
   connect(staChaHol1.y, edg2.u)
     annotation (Line(points={{122,-280},{130,-280}}, color={255,0,255}));
+  connect(chiInd.yChi, yChi)
+    annotation (Line(points={{400,-260},{440,-260}}, color={255,0,255}));
+  connect(reaToInt.y, chiInd.u) annotation (Line(points={{342,60},{356,60},{356,
+          -260},{376,-260}}, color={255,127,0}));
   annotation (defaultComponentName = "cha",
         Icon(graphics={
         Rectangle(

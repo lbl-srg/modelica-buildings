@@ -42,11 +42,6 @@ block Status
     annotation (Placement(transformation(extent={{440,-100},{480,-60}}),
         iconTransformation(extent={{100,-60},{140,-20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChi[nChi]
-    "Chiller status setpoint vector for the current stage"
-    annotation (Placement(transformation(extent={{440,140},{480,180}}),
-        iconTransformation(extent={{100,-120},{140,-80}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yAvaCur
     "Current stage availability status"
     annotation (Placement(transformation(extent={{440,-260},{480,-220}}),
@@ -75,52 +70,7 @@ block Status
 
   Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep(
     final nout=nSta) "Replicates signal to a length equal the stage count"
-    annotation (Placement(transformation(extent={{-300,230},{-280,250}})));
-
-  Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep1[nSta](
-    final nout=fill(nChi, nSta)) "Replicates signal to dimensions of the staging matrix"
-    annotation (Placement(transformation(extent={{-180,230},{-160,250}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant staIndMatr[nSta,nChi](
-    final k=staIndMat) "Matrix with stage index in each column"
-    annotation (Placement(transformation(extent={{-180,180},{-160,200}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Equal intEqu1[nSta,nChi]
-    "Outputs a zero matrix populated with ones in the current stage index row"
-    annotation (Placement(transformation(extent={{-120,230},{-100,250}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant chiStaMatr[nSta,nChi](
-    final k=staMat) "Staging matrix"
-    annotation (Placement(transformation(extent={{-100,180},{-80,200}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.MatrixMax matMax(
-    final nRow=nSta,
-    final nCol=nChi,
-    final rowMax=false) "Column-wise matrix maximum"
-    annotation (Placement(transformation(extent={{60,210},{80,230}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold chiInSta[nChi](threshold=fill(0.5, nChi))
-    "Identifies chillers designated to operate in a given stage"
-    annotation (Placement(transformation(extent={{100,210},{120,230}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Product proInt[nSta,nChi]
-    "Outputs a zero matrix populated with ones for any available chiller in the current stage"
-    annotation (Placement(transformation(extent={{-20,210},{0,230}})));
-
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nSta,nChi](
-      integerTrue=fill(
-        1,
-        nSta,
-        nChi), integerFalse=fill(
-        0,
-        nSta,
-        nChi))
-    "Type converter"
-    annotation (Placement(transformation(extent={{-80,230},{-60,250}})));
-
-  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nSta,nChi]
-    "Type converter"
-    annotation (Placement(transformation(extent={{20,210},{40,230}})));
+    annotation (Placement(transformation(extent={{-300,190},{-280,210}})));
 
   Buildings.Controls.OBC.CDL.Integers.Product proInt1[nSta]
     "Outputs a vector of stage indices for any available stage above the current stage"
@@ -236,31 +186,10 @@ block Status
     annotation (Placement(transformation(extent={{220,70},{240,90}})));
 
 equation
-  connect(intRep.y, intRep1.u)
-    annotation (Line(points={{-278,240},{-182,240}}, color={255,127,0}));
-  connect(intRep1.y, intEqu1.u1)
-    annotation (Line(points={{-158,240},{-122,240}},   color={255,127,0}));
-  connect(matMax.y, chiInSta.u)
-    annotation (Line(points={{82,220},{98,220}},  color={0,0,127}));
-  connect(staIndMatr.y, intEqu1.u2) annotation (Line(points={{-158,190},{-140,190},
-          {-140,232},{-122,232}},      color={255,127,0}));
-  connect(chiInSta.y, yChi)
-    annotation (Line(points={{122,220},{200,220},{200,160},{460,160}},
-          color={255,0,255}));
-  connect(proInt.y, intToRea.u)
-    annotation (Line(points={{2,220},{18,220}}, color={255,127,0}));
-  connect(intToRea.y, matMax.u)
-    annotation (Line(points={{42,220},{58,220}}, color={0,0,127}));
-  connect(booToInt.y, proInt.u1) annotation (Line(points={{-58,240},{-40,240},{-40,
-          226},{-22,226}},    color={255,127,0}));
-  connect(intEqu1.y, booToInt.u)
-    annotation (Line(points={{-98,240},{-82,240}}, color={255,0,255}));
-  connect(chiStaMatr.y, proInt.u2) annotation (Line(points={{-78,190},{-40,190},
-          {-40,214},{-22,214}}, color={255,127,0}));
   connect(staIndx.y, intGre.u1) annotation (Line(points={{-218,130},{-200,130},{
           -200,90},{-182,90}},  color={255,127,0}));
-  connect(intRep.y, intGre.u2) annotation (Line(points={{-278,240},{-260,240},{-260,
-          82},{-182,82}},
+  connect(intRep.y, intGre.u2) annotation (Line(points={{-278,200},{-260,200},{
+          -260,82},{-182,82}},
                  color={255,127,0}));
   connect(intGre.y, and2.u1) annotation (Line(points={{-158,90},{-150,90},{-150,
           80},{-142,80}},color={255,0,255}));
@@ -274,8 +203,8 @@ equation
     annotation (Line(points={{-38,110},{-22,110}}, color={255,127,0}));
   connect(intToRea1.y, multiMin.u) annotation (Line(points={{2,110},{18,110}},
           color={0,0,127}));
-  connect(intRep.y, intLes.u2) annotation (Line(points={{-278,240},{-260,240},{-260,
-          -78},{-182,-78}},      color={255,127,0}));
+  connect(intRep.y, intLes.u2) annotation (Line(points={{-278,200},{-260,200},{
+          -260,-78},{-182,-78}}, color={255,127,0}));
   connect(staIndx.y, intLes.u1) annotation (Line(points={{-218,130},{-200,130},{
           -200,-70},{-182,-70}},  color={255,127,0}));
   connect(uAva, and1.u2) annotation (Line(points={{-440,-80},{-280,-80},{-280,
@@ -332,8 +261,8 @@ equation
     annotation (Line(points={{-178,-150},{-162,-150}}, color={0,0,127}));
   connect(and1.y, booToInt2.u)
     annotation (Line(points={{-118,-90},{-102,-90}}, color={255,0,255}));
-  connect(u, intRep.u) annotation (Line(points={{-440,80},{-320,80},{-320,240},
-          {-302,240}}, color={255,127,0}));
+  connect(u, intRep.u) annotation (Line(points={{-440,80},{-320,80},{-320,200},
+          {-302,200}}, color={255,127,0}));
   connect(u, extStaAva.index) annotation (Line(points={{-440,80},{-300,80},{
           -300,-180},{-190,-180},{-190,-162}}, color={255,127,0}));
   connect(conInt.y, intSwi1.u1) annotation (Line(points={{122,-30},{160,-30},{160,
