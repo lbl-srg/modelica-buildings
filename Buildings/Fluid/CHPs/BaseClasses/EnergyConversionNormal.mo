@@ -32,9 +32,10 @@ model EnergyConversionNormal
     annotation (Placement(transformation(extent={{140,-20},{180,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QGen_flow(final unit="W")
-    "Heat generation rate within the engine" annotation (Placement(
-        transformation(extent={{140,-60},{180,-20}}), iconTransformation(extent=
-           {{102,-80},{142,-40}})));
+    "Heat generation rate within the engine"
+    annotation (Placement(transformation(extent={{140,-60},{180,-20}}),
+      iconTransformation(extent={{102,-80},{142,-40}})));
+
 protected
   Buildings.Fluid.CHPs.BaseClasses.EfficiencyCurve etaE(
     final a=per.coeEtaE)
@@ -53,7 +54,7 @@ protected
   Buildings.Utilities.Math.Polynominal masFloAir(final a=per.coeMasAir)
     "Air mass flow rate computation"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Controls.OBC.CDL.Continuous.Gain masFloFue(final k=1/per.LHVFue)
+  Buildings.Controls.OBC.CDL.Continuous.Gain masFloFue(final k=1/per.LHVFue)
     "Fuel mass flow rate computation"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
 equation

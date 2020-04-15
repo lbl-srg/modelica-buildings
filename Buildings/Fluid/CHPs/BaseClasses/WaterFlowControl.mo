@@ -36,12 +36,12 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(final k=0)
     "Zero flow rate"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
-
-  Controls.OBC.CDL.Continuous.Sources.Constant           const1(final k=-273.15)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const1(final k=-273.15)
     "Absolute zero"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Controls.OBC.CDL.Continuous.Add                        add2 "Absolute zero"
+  Buildings.Controls.OBC.CDL.Continuous.Add add2 "Absolute zero"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+
 equation
   connect(mWatIntCon.y, watFloSet.u3) annotation (Line(points={{21,-30},{40,-30},
           {40,-8},{58,-8}}, color={0,0,127}));

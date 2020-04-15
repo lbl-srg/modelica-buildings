@@ -4,8 +4,8 @@ model AssertFuelFlow "Assert if fuel flow is outside boundaries"
 
   parameter Boolean dmFueLim
     "If true, the rate at which fuel mass flow rate can change is limited";
-  parameter Real dmFueMax
-    "Maximum rate at which fuel mass flow rate can change in kg/s2";
+  parameter Real dmFueMax(final unit="kg/s2")
+    "Maximum rate at which fuel mass flow rate can change";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mFue_flow(
     final unit="kg/s") "Fuel flow rate"

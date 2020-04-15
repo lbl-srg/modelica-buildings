@@ -64,10 +64,10 @@ record Generic "Generic data for CHP models"
     "If true, the rate at which net power output can change is limited";
   parameter Boolean dmFueLim=false
     "If true, the rate at which fuel mass flow rate can change is limited";
-  parameter Real dPEleMax = 0
-    "Maximum rate at which net power output can change in W/s";
-  parameter Real dmFueMax = 0
-    "Maximum rate at which fuel mass flow rate can change in kg/s2";
+  parameter Real dPEleMax(final unit="W/s") = 0
+    "Maximum rate at which net power output can change";
+  parameter Real dmFueMax(final unit="kg/s2") = 0
+    "Maximum rate at which fuel mass flow rate can change";
   parameter Modelica.SIunits.Power PStaBy = 0
     "Standby electric power";
   parameter Modelica.SIunits.Power PCooDow = 0
