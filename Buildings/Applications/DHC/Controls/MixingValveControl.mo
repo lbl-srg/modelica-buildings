@@ -1,8 +1,10 @@
 within Buildings.Applications.DHC.Controls;
 block MixingValveControl "Mixing valve controller"
   extends Modelica.Blocks.Icons.Block;
+
   import Type_dis = Buildings.Applications.DHC.Loads.Types.DistributionType
     "Types of distribution system";
+
   parameter Type_dis typDis = Type_dis.HeatingWater
     "Type of distribution system"
     annotation(Evaluate=true);
@@ -11,6 +13,7 @@ block MixingValveControl "Mixing valve controller"
     final unit="1") = 0.1 "Gain of controller";
   parameter Modelica.SIunits.Time Ti(final min=Modelica.Constants.small) = 10
     "Time constant of integrator block";
+
   // IO CONNECTORS
   Modelica.Blocks.Interfaces.RealInput TSupSet(
     final quantity="ThermodynamicTemperature", final unit="K", final displayUnit="degC")

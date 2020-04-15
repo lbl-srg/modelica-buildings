@@ -3,15 +3,15 @@ block Limits
   "Multi zone VAV AHU minimum outdoor air control - damper position limits"
 
   constant Real yMin=-1 "Lower limit of control loop signal"
-    annotation (Evaluate=true,Dialog(tab="Commissioning", group="Controller"));
+    annotation (Dialog(tab="Commissioning", group="Controller"));
   constant Real yMax=1 "Upper limit of control loop signal"
-    annotation (Evaluate=true,Dialog(tab="Commissioning", group="Controller"));
+    annotation (Dialog(tab="Commissioning", group="Controller"));
   parameter Real uRetDamMin(
     final min=yMin,
     final max=yMax,
     final unit="1") = 0.5
     "Minimum control signal for the return air damper position limit"
-    annotation (Evaluate=true,Dialog(tab="Commissioning", group="Controller"));
+    annotation (Dialog(tab="Commissioning", group="Controller"));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -22,13 +22,17 @@ block Limits
     final unit="1")=0.05 "Gain of damper limit controller"
     annotation (Dialog(group="Controller"));
 
-  parameter Modelica.SIunits.Time Ti=1200
+  parameter Real Ti(
+    final unit="s",
+    final quantity="Time")=1200
     "Time constant of damper limit controller integrator block"
     annotation (Dialog(group="Controller",
     enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
         or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Modelica.SIunits.Time Td=0.1
+  parameter Real Td(
+    final unit="s",
+    final quantity="Time")=0.1
   "Time constant of damper limit controller derivative block"
     annotation (Dialog(group="Controller",
     enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
@@ -38,29 +42,25 @@ block Limits
     final min=0,
     final max=1,
     final unit="1") = 1 "Physically fixed maximum position of the return air damper"
-    annotation (Evaluate=true, Dialog(tab="Commissioning",
-        group="Physical damper position limits"));
+    annotation (Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real retDamPhyPosMin(
     final min=0,
     final max=1,
     final unit="1") = 0
     "Physically fixed minimum position of the return air damper"
-    annotation (Evaluate=true, Dialog(tab="Commissioning",
-      group="Physical damper position limits"));
+    annotation (Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real outDamPhyPosMax(
     final min=0,
     final max=1,
     final unit="1") = 1
     "Physically fixed maximum position of the outdoor air damper"
-    annotation (Evaluate=true,
-                Dialog(tab="Commissioning", group="Physical damper position limits"));
+    annotation (Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real outDamPhyPosMin(
     final min=0,
     final max=1,
     final unit="1") = 0
     "Physically fixed minimum position of the outdoor air damper"
-    annotation (Evaluate=true,
-                Dialog(tab="Commissioning", group="Physical damper position limits"));
+    annotation (Dialog(tab="Commissioning", group="Physical damper position limits"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VOut_flow_normalized(
    final unit="1")

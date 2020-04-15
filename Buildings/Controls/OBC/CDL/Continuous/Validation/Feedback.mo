@@ -7,19 +7,17 @@ model Feedback "Validation model for the Feedback block"
     duration=1,
     offset=-1,
     height=4)  "Block that generates ramp signal"
-    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp2(
     height=2,
     duration=1,
     offset=-1) "Block that generates ramp signal"
-    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
+    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 equation
-  connect(ramp1.y, feedback1.u1) annotation (Line(points={{-39,20},{-26,20},{-26,
-          0},{-12,0}},
+  connect(ramp1.y, feedback1.u1) annotation (Line(points={{-38,0},{-12,0}},
                    color={0,0,127}));
-  connect(ramp2.y, feedback1.u2) annotation (Line(points={{-39,-20},{-26,-20},{-26,
-          -12},{0,-12}},
-                     color={0,0,127}));
+  connect(ramp2.y, feedback1.u2) annotation (Line(points={{-38,-30},{0,-30},{0,
+          -12}},     color={0,0,127}));
   annotation (
 experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/Feedback.mos"

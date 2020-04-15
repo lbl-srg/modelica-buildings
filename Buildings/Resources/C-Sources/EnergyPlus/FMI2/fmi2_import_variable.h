@@ -139,6 +139,18 @@ FMILIB_EXPORT fmi2_import_string_variable_t* fmi2_import_get_variable_as_string(
 FMILIB_EXPORT fmi2_import_bool_variable_t* fmi2_import_get_variable_as_boolean(fmi2_import_variable_t*);
 
 /** 
+	\brief Get the variable "relativeQuantity" attribute. 
+	@return The "relativeQuantity" attribute as specified in the XML file. False if undefined.
+*/
+FMILIB_EXPORT fmi2_boolean_t fmi2_import_get_real_variable_relative_quantity(fmi2_import_real_variable_t* v);
+
+/** 
+	\brief Get the variable "unbounded" attribute. 
+	@return The "unbounded" attribute as specified in the XML file. False if undefined.
+*/
+FMILIB_EXPORT fmi2_boolean_t fmi2_import_get_real_variable_unbounded(fmi2_import_real_variable_t* v);
+
+/** 
 	\brief Get the variable start attribute. 
 
 	@return The "start" attribute as specified in the XML file or variable nominal value.
@@ -174,6 +186,9 @@ FMILIB_EXPORT fmi2_real_t fmi2_import_get_real_variable_min(fmi2_import_real_var
 /** \brief Get nominal value for the variable*/
 FMILIB_EXPORT fmi2_real_t fmi2_import_get_real_variable_nominal(fmi2_import_real_variable_t* v);
 
+/** \brief Get "quantity" attribute if defined, else NULL-pointer. */
+FMILIB_EXPORT fmi2_string_t fmi2_import_get_real_variable_quantity(fmi2_import_real_variable_t* v);
+
 /** \brief Get associated "unit" object if any */
 FMILIB_EXPORT fmi2_import_unit_t* fmi2_import_get_real_variable_unit(fmi2_import_real_variable_t* v);
 
@@ -186,6 +201,8 @@ FMILIB_EXPORT const char* fmi2_import_get_string_variable_start(fmi2_import_stri
 /** \brief Get start value for the variable */
 FMILIB_EXPORT fmi2_boolean_t fmi2_import_get_boolean_variable_start(fmi2_import_bool_variable_t* v);
 
+/** \brief Get "quantity" attribute if defined, else NULL-pointer. */
+FMILIB_EXPORT fmi2_string_t fmi2_import_get_integer_variable_quantity(fmi2_import_integer_variable_t* v);
 /** \brief Get start value for the variable*/
 FMILIB_EXPORT int fmi2_import_get_integer_variable_start(fmi2_import_integer_variable_t* v);
 /** \brief Get minimal value for the variable */
@@ -193,6 +210,8 @@ FMILIB_EXPORT int fmi2_import_get_integer_variable_min(fmi2_import_integer_varia
 /** \brief Get max value for the variable */
 FMILIB_EXPORT int fmi2_import_get_integer_variable_max(fmi2_import_integer_variable_t* v);
 
+/** \brief Get "quantity" attribute if defined, else NULL-pointer. */
+FMILIB_EXPORT fmi2_string_t fmi2_import_get_enum_variable_quantity(fmi2_import_enum_variable_t* v);
 /** \brief Get start value for the variable*/
 FMILIB_EXPORT int fmi2_import_get_enum_variable_start(fmi2_import_enum_variable_t* v);
 /** \brief Get minimal value for the variable */
