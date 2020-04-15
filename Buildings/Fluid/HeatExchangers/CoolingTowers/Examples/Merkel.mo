@@ -24,7 +24,6 @@ model Merkel "Test model for cooling tower using the Merkel theory"
     Td=10,
     yMax=1,
     yMin=0,
-    initType=Buildings.Controls.OBC.CDL.Types.Init.InitialState,
     reverseAction=true,
     u_s(
       unit="K",
