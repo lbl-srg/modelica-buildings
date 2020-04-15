@@ -43,6 +43,10 @@ equation
   dAir = Medium_a.density(state=
       Medium_a.setState_pTX(p=port_a.p,T=TAir,X=inStream(port_b.Xi_outflow)));
 
+  // Mass fractions of mixtures assumed constant
+//  inStream(port_a.Xi_outflow[:]) = Medium_a.X_default[:];
+//  port_b.Xi_outflow[:] = Medium_b.X_default[:];
+
   // Air to fuel ratio
   VAir_flow = ratAirFue * VFue_flow;
   port_a.m_flow = VAir_flow * dAir;
@@ -53,7 +57,10 @@ equation
 
   // Steady state energy balance
   QFue_flow + port_a.m_flow*inStream(port_a.h_outflow) +
-    mFue_flow*fue.h + port_b.m_flow*port_b.h_outflow = 0;
+    port_b.m_flow*port_b.h_outflow = 0;
+
+  // Reverse flow
+//  port_a.h_outflow = Medium_a.h_default;
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(

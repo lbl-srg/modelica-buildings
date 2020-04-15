@@ -10,8 +10,7 @@ model Evaporation "Test model for water evaporation process"
 
   Modelica.Blocks.Sources.Constant pSet(k=1000000) "Steam pressure setpoint"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
-  Modelica.Blocks.Sources.Constant m_flow(k=m_flow_nominal)
-                                               "Mass flow rate"
+  Modelica.Blocks.Sources.Constant m_flow(k=m_flow_nominal) "Mass flow rate"
     annotation (Placement(transformation(extent={{-82,8},{-62,28}})));
   Sources.MassFlowSource_T watSou(
     redeclare package Medium = MediumWat,
