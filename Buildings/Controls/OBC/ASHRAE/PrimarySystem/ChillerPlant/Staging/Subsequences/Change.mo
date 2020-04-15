@@ -371,7 +371,7 @@ block Change "Calculates the chiller stage signal"
     annotation (Placement(transformation(extent={{-440,-140},{-400,-100}}),
         iconTransformation(extent={{-140,-190},{-100,-150}})));
   CDL.Logical.TrueFalseHold                        staChaHol1(final
-      trueHoldDuration=delayStaCha - 1, final falseHoldDuration=0)
+      trueHoldDuration=delayStaCha,     final falseHoldDuration=0)
     "Main stage change hold"
     annotation (Placement(transformation(extent={{100,-290},{120,-270}})));
 equation

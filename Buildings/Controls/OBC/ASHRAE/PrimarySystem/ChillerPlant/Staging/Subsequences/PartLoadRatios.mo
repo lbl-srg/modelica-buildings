@@ -23,7 +23,7 @@ block PartLoadRatios
   parameter Real anyOutOfScoMult(
     final unit = "1",
     final min = 0,
-    final max = 1)=0.8
+    final max = 1)=0.9
     "Outside of G36 recommended staging order chiller type SPLR multiplier"
     annotation(Evaluate=true, __cdl(ValueInReference=False));
 
