@@ -47,17 +47,15 @@ block Status
     annotation (Placement(transformation(extent={{440,-260},{480,-220}}),
         iconTransformation(extent={{100,-90},{140,-50}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yUp(
-    final min=0,
-    final max=nSta) "Next available higher stage"
-    annotation (Placement(transformation(extent={{440,60},{480,100}}),
-        iconTransformation(extent={{100,50},{140,90}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yAvaUp(final min=0,
+      final max=nSta) "Next available higher stage" annotation (Placement(
+        transformation(extent={{440,60},{480,100}}), iconTransformation(extent=
+            {{100,50},{140,90}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yDown(
-    final min=0,
-    final max=nSta) "Next available lower stage"
-    annotation (Placement(transformation(extent={{440,-60},{480,-20}}),
-        iconTransformation(extent={{100,20},{140,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yAvaDow(final min=0,
+      final max=nSta) "Next available lower stage" annotation (Placement(
+        transformation(extent={{440,-60},{480,-20}}), iconTransformation(extent
+          ={{100,20},{140,60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Not unavailable"
     annotation (Placement(transformation(extent={{20,-250},{40,-230}})));
@@ -249,7 +247,7 @@ equation
                                                                color={255,0,255}));
   connect(and4.y, intSwi3.u2)
     annotation (Line(points={{242,80},{358,80}}, color={255,0,255}));
-  connect(yUp, yUp)
+  connect(yAvaUp, yAvaUp)
     annotation (Line(points={{460,80},{460,80}}, color={255,127,0}));
   connect(uAva, mulOr.u) annotation (Line(points={{-440,-80},{-400,-80},{-400,-130},
           {-392,-130},{-392,-130},{-382,-130}}, color={255,0,255}));
@@ -267,8 +265,8 @@ equation
           -300,-180},{-190,-180},{-190,-162}}, color={255,127,0}));
   connect(conInt.y, intSwi1.u1) annotation (Line(points={{122,-30},{160,-30},{160,
           -62},{178,-62}},     color={255,127,0}));
-  connect(intSwi1.y, yDown) annotation (Line(points={{202,-70},{320,-70},{320,-40},
-          {460,-40}},      color={255,127,0}));
+  connect(intSwi1.y, yAvaDow) annotation (Line(points={{202,-70},{320,-70},{320,
+          -40},{460,-40}}, color={255,127,0}));
   connect(intSwi1.y, intSwi2.u1) annotation (Line(points={{202,-70},{220,-70},{220,
           -160},{80,-160},{80,-202},{98,-202}},     color={255,127,0}));
   connect(intSwi2.y, intSwi3.u1) annotation (Line(points={{122,-210},{350,-210},
@@ -283,7 +281,7 @@ equation
           90},{160,90},{160,102},{178,102}}, color={255,127,0}));
   connect(reaToInt1.y, intSwi1.u3) annotation (Line(points={{82,-70},{90,-70},{90,
           -100},{170,-100},{170,-78},{178,-78}},    color={255,127,0}));
-  connect(intSwi3.y, yUp)
+  connect(intSwi3.y, yAvaUp)
     annotation (Line(points={{382,80},{460,80}}, color={255,127,0}));
   connect(lesThr.y, not1.u) annotation (Line(points={{-138,-150},{0,-150},{0,-240},
           {18,-240}}, color={255,0,255}));

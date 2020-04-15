@@ -14,18 +14,6 @@ model Change_WSE
   parameter Modelica.SIunits.VolumeFlowRate aveVChiWat_flow = 0.05
     "Average measured chilled water flow rate";
 
-  Change                                                                               cha(
-    have_WSE=true,
-    nSta=5,
-    nChi=3,
-    staMat=[1,0,0; 0,1,0; 0,0,1; 0,1,1; 1,1,1],
-    final chiDesCap={300000,400000,500000},
-    final chiMinCap={100000,120000,150000},
-    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.constantSpeedCentrifugal})
-    "Stage change"
-    annotation (Placement(transformation(extent={{60,140},{80,160}})));
   CDL.Continuous.Sources.Sine                        TChiWatRet(
     final amplitude=7,
     final offset=273.15 + 15,
@@ -77,17 +65,6 @@ model Change_WSE
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   CDL.Continuous.GreaterThreshold greThr(threshold=0.5)
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-  Change                                                                               cha1(
-    have_WSE=true,
-    nSta=3,
-    nChi=2,
-    staMat=[1,0; 0,1; 1,1],
-    final chiDesCap={500000,700000},
-    final chiMinCap={100000,150000},
-    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.constantSpeedCentrifugal})
-    "Stage change"
-    annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
   CDL.Continuous.Sources.Sine                        TChiWatRet1(
     final amplitude=7,
     final offset=273.15 + 15,

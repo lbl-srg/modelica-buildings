@@ -14,11 +14,20 @@ model ChillerIndices_u
     staMat={{1,0,0},{1,1,0},{1,0,1},{0,1,1},{1,1,1}})
     "Setup with three chillers and five stages"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
-  ChillerIndices chiInd5
+  ChillerIndices chiInd5(
+    nSta=5,
+    nChi=3,
+    staMat={{1,0,0},{1,1,0},{1,0,1},{0,1,1},{1,1,1}})
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
-  ChillerIndices chiInd6
+  ChillerIndices chiInd6(
+    nSta=5,
+    nChi=3,
+    staMat={{1,0,0},{1,1,0},{1,0,1},{0,1,1},{1,1,1}})
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
-  ChillerIndices chiInd7
+  ChillerIndices chiInd7(
+    nSta=5,
+    nChi=3,
+    staMat={{1,0,0},{1,1,0},{1,0,1},{0,1,1},{1,1,1}})
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
   ChillerIndices chiInd3 "Setup with two chillers and three stages"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));

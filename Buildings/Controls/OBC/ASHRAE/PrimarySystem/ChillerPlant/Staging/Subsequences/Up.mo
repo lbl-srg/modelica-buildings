@@ -94,8 +94,7 @@ block Up "Generates a stage up signal"
     annotation (Placement(transformation(extent={{-200,-150},{-160,-110}}),
     iconTransformation(extent={{-140,10},{-100,50}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
-    "Stage up signal"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y "Stage up signal"
     annotation (Placement(transformation(extent={{160,-20},{200,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 

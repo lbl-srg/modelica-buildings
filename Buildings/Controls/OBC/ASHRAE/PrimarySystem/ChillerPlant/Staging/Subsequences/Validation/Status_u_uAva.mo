@@ -166,8 +166,8 @@ equation
   connect(reaToInt.y, sta7.u) annotation (Line(points={{102,-150},{110,-150},{
           110,-114},{118,-114}},
                              color={255,127,0}));
-  connect(sta7.yUp, intToRea.u) annotation (Line(points={{142,-113},{148,-113},{
-          148,-168},{8,-168},{8,-150},{18,-150}}, color={255,127,0}));
+  connect(sta7.yAvaUp, intToRea.u) annotation (Line(points={{142,-113},{148,-113},
+          {148,-168},{8,-168},{8,-150},{18,-150}}, color={255,127,0}));
 annotation (
  experiment(StopTime=10.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Status_u_uAva.mos"
