@@ -14,7 +14,7 @@ block Change "Calculates the chiller stage signal"
         transformation(extent={{-342,-160},{-302,-120}}), iconTransformation(
           extent={{-140,-80},{-100,-40}})));
   CDL.Logical.Or                        or2 "Logical or"
-    annotation (Placement(transformation(extent={{-152,-100},{-132,-80}})));
+    annotation (Placement(transformation(extent={{-180,-100},{-160,-80}})));
   CDL.Logical.Edge                          edg1
                                                 "Boolean signal change"
     annotation (Placement(transformation(extent={{-62,-100},{-42,-80}})));
@@ -111,6 +111,10 @@ block Change "Calculates the chiller stage signal"
   CDL.Interfaces.IntegerInput uAvaDow(final min=0, final max=nSta)
     "Next available stage down" annotation (Placement(transformation(extent={{-340,
             0},{-300,40}}), iconTransformation(extent={{-140,0},{-100,40}})));
+  CDL.Logical.Not not3
+    annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
+  CDL.Logical.And and6
+    annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
 equation
   connect(reaToInt.y,ySta)
     annotation (Line(points={{182,160},{320,160}}, color={255,127,0}));
@@ -131,8 +135,6 @@ equation
                          color={255,127,0}));
   connect(intToRea2.y,switch2. u1) annotation (Line(points={{-20,200},{8,200},{8,
           208},{40,208}},  color={0,0,127}));
-  connect(or2.y,staChaHol. u)
-    annotation (Line(points={{-130,-90},{-102,-90}}, color={255,0,255}));
   connect(staChaHol.y,edg1. u)
     annotation (Line(points={{-78,-90},{-64,-90}},   color={255,0,255}));
   connect(edg1.y,or1. u1) annotation (Line(points={{-40,-90},{-28,-90},{-28,-48},
@@ -144,10 +146,6 @@ equation
                                         color={255,0,255}));
   connect(or1.y,triSam. trigger) annotation (Line(points={{8,-48},{14,-48},{14,40},
           {-12,40},{-12,48.2}},             color={255,0,255}));
-  connect(or2.y,and2. u2) annotation (Line(points={{-130,-90},{-122,-90},{-122,-238},
-          {-20,-238},{-20,-208},{8,-208},{8,-198}},color={255,0,255}));
-  connect(or2.y,and1. u1) annotation (Line(points={{-130,-90},{-118,-90},{-118,-192},
-          {-104,-192}},      color={255,0,255}));
   connect(tim.y,lesEquThr. u) annotation (Line(points={{-38,-220},{-14,-220},{-14,
           -230},{8,-230}},       color={0,0,127}));
   connect(lesEquThr.y,pre. u) annotation (Line(points={{32,-230},{56,-230},{56,-232}},
@@ -208,13 +206,26 @@ equation
   connect(uDow, lat.clr) annotation (Line(points={{-322,-140},{-258,-140},{-258,
           54},{-162,54}}, color={255,0,255}));
   connect(uUp, or2.u1) annotation (Line(points={{-320,-40},{-200,-40},{-200,-90},
-          {-154,-90}}, color={255,0,255}));
-  connect(uDow, or2.u2) annotation (Line(points={{-322,-140},{-204,-140},{-204,-98},
-          {-154,-98}}, color={255,0,255}));
+          {-182,-90}}, color={255,0,255}));
+  connect(uDow, or2.u2) annotation (Line(points={{-322,-140},{-204,-140},{-204,
+          -98},{-182,-98}},
+                       color={255,0,255}));
   connect(uAvaUp, intToRea1.u)
     annotation (Line(points={{-320,100},{-162,100}}, color={255,127,0}));
   connect(uAvaDow, intToRea.u)
     annotation (Line(points={{-320,20},{-162,20}}, color={255,127,0}));
+  connect(and6.y, staChaHol.u)
+    annotation (Line(points={{-118,-90},{-102,-90}}, color={255,0,255}));
+  connect(holIniSta.y, not3.u) annotation (Line(points={{-138,160},{-128,160},{
+          -128,-30},{-122,-30}}, color={255,0,255}));
+  connect(not3.y, and6.u1) annotation (Line(points={{-98,-30},{-90,-30},{-90,
+          -50},{-148,-50},{-148,-90},{-142,-90}}, color={255,0,255}));
+  connect(or2.y, and6.u2) annotation (Line(points={{-158,-90},{-152,-90},{-152,
+          -98},{-142,-98}}, color={255,0,255}));
+  connect(and6.y, and1.u1) annotation (Line(points={{-118,-90},{-112,-90},{-112,
+          -192},{-104,-192}}, color={255,0,255}));
+  connect(and6.y, and2.u2) annotation (Line(points={{-118,-90},{-108,-90},{-108,
+          -140},{0,-140},{0,-198},{8,-198}}, color={255,0,255}));
   annotation (defaultComponentName = "cha",
         Icon(graphics={
         Rectangle(
