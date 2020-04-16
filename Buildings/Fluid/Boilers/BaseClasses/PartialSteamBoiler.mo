@@ -86,8 +86,8 @@ partial model PartialSteamBoiler
     "Curve used to compute the efficiency";
   parameter Real a[:] = {0.9} "Coefficients for efficiency curve";
 
-//  parameter Buildings.Fluid.Data.Fuels.Generic fue "Fuel type"
-//   annotation (choicesAllMatching = true);
+  parameter Buildings.Fluid.Data.Fuels.Generic fue "Fuel type"
+   annotation (choicesAllMatching = true);
 
   parameter Modelica.SIunits.ThermalConductance UA=0.05*Q_flow_nominal/30
     "Overall UA value";
@@ -112,14 +112,10 @@ partial model PartialSteamBoiler
     "Heat released by fuel";
   Modelica.SIunits.Power QWatTot_flow = eta * QFue_flow
     "Heat transfer from gas into water";
-//  Modelica.SIunits.Power QWatSen_flow = 0
-//    "Sensible heat transfer";
-//  Modelica.SIunits.Power QWatLat_flow = 0
-//    "Latent heat transfer";
-//  Modelica.SIunits.MassFlowRate mFue_flow = QFue_flow/fue.h
-//    "Fuel mass flow rate";
-//  Modelica.SIunits.VolumeFlowRate VFue_flow = mFue_flow/fue.d
-//    "Fuel volume flow rate";
+  Modelica.SIunits.MassFlowRate mFue_flow = QFue_flow/fue.h
+    "Fuel mass flow rate";
+  Modelica.SIunits.VolumeFlowRate VFue_flow = mFue_flow/fue.d
+    "Fuel volume flow rate";
 
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
     redeclare final package Medium = Medium_a,
