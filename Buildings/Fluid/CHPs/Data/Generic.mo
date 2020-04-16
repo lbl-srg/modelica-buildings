@@ -52,7 +52,7 @@ record Generic "Generic data for CHP models"
     will immediately switch into warm-up mode";
   parameter Modelica.SIunits.Time timeDelayCool = 0
     "Cooldown period";
-  parameter Modelica.SIunits.Power PEleMax = 1000000
+  parameter Modelica.SIunits.Power PEleMax
     "Maximum power output";
   parameter Modelica.SIunits.Power PEleMin = 0
     "Minimum power output";
