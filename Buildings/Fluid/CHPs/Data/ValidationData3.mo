@@ -36,7 +36,7 @@ EnergyPlus example <code>MicroCogeneration</code>, with following changes:
 </p>
 <ul>
 <li>
-the rate of change in the net electrical power and in the fuel flow rate, becomes unlimitted.
+The rate of change in the net electrical power and in the fuel flow rate, becomes unlimitted.
 </li>
 <li>
 changed electric power consumptions during standby <code>PStaBy</code> and cool-down
