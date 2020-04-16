@@ -120,38 +120,38 @@ equation
     if portFlowDirection_1==Modelica.Fluid.Types.PortFlowDirection.Entering then
       assert(port_1.m_flow> -m_flow_small,
       "In " + getInstanceName() + ":
-      Flow is leaving port_1 but portFlowDirection_1=PortFlowDirection.Entering since m_flow=" +
-      String(port_1.m_flow) + ">-"+String(m_flow_small));
+      Flow is leaving port_1 despite portFlowDirection_1=PortFlowDirection.Entering, since m_flow=" +
+      String(port_1.m_flow) + "<-"+String(m_flow_small));
     end if;
     if portFlowDirection_1==Modelica.Fluid.Types.PortFlowDirection.Leaving then
       assert(port_1.m_flow< m_flow_small,
       "In " + getInstanceName() + ":
-      Flow is entering port_1 but portFlowDirection_1=PortFlowDirection.Leaving since m_flow=" +
-      String(port_1.m_flow) + "<"+String(m_flow_small));
+      Flow is entering port_1 despite portFlowDirection_1=PortFlowDirection.Leaving, since m_flow=" +
+      String(port_1.m_flow) + ">"+String(m_flow_small));
     end if;
     if portFlowDirection_2==Modelica.Fluid.Types.PortFlowDirection.Entering then
       assert(port_2.m_flow> -m_flow_small,
       "In " + getInstanceName() + ":
-      Flow is leaving port_2 but portFlowDirection_2=PortFlowDirection.Entering since m_flow=" +
-      String(port_2.m_flow) + ">-"+String(m_flow_small));
+      Flow is leaving port_2 despite portFlowDirection_2=PortFlowDirection.Entering, since m_flow=" +
+      String(port_2.m_flow) + "<-"+String(m_flow_small));
     end if;
     if portFlowDirection_2==Modelica.Fluid.Types.PortFlowDirection.Leaving then
       assert(port_2.m_flow< m_flow_small,
       "In " + getInstanceName() + ":
-      Flow is entering port_2 but portFlowDirection_2=PortFlowDirection.Leaving since m_flow=" +
-      String(port_2.m_flow) + "<"+String(m_flow_small));
+      Flow is entering port_2 despite portFlowDirection_2=PortFlowDirection.Leaving, since m_flow=" +
+      String(port_2.m_flow) + ">"+String(m_flow_small));
     end if;
     if portFlowDirection_3==Modelica.Fluid.Types.PortFlowDirection.Entering then
       assert(port_3.m_flow> -m_flow_small,
       "In " + getInstanceName() + ":
-      Flow is leaving port_3 but portFlowDirection_3=PortFlowDirection.Entering since m_flow=" +
-      String(port_3.m_flow) + ">-"+String(m_flow_small));
+      Flow is leaving port_3 despite portFlowDirection_3=PortFlowDirection.Entering, since m_flow=" +
+      String(port_3.m_flow) + "<-"+String(m_flow_small));
     end if;
     if portFlowDirection_3==Modelica.Fluid.Types.PortFlowDirection.Leaving then
       assert(port_3.m_flow< m_flow_small,
       "In " + getInstanceName() + ": 
-      Flow is entering port_3 but portFlowDirection_3=PortFlowDirection.Leaving since m_flow=" +
-      String(port_3.m_flow) + "<"+String(m_flow_small));
+      Flow is entering port_3 despite portFlowDirection_3=PortFlowDirection.Leaving, since m_flow=" +
+      String(port_3.m_flow) + ">"+String(m_flow_small));
     end if;
   end if;
 
@@ -242,6 +242,12 @@ The time constant of the mixing volume is determined by the parameter <code>tau<
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 22, 2020, by Filip Jorissen:<br/>
+Corrected error message of asserts that verify whether flow reversal occurs when 
+<code>verifyFlowReversal=true</code> and <code>portFlowDirection&lt;&gt;Bidirectional</code>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1327\">#1327</a>.
+</li>
 <li>
 July 7, 2018, by Filip Jorissen:<br/>
 Added asserts that verify whether flow reversal occurs when 
