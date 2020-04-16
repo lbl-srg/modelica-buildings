@@ -93,7 +93,7 @@ block Change "Calculates the chiller stage signal"
   CDL.Interfaces.IntegerInput                        uIni(final min=0, final
       max=nSta) "Initial chiller stage (at plant enable)"
                                               annotation (Placement(
-        transformation(extent={{-100,180},{-60,220}}),   iconTransformation(
+        transformation(extent={{-340,200},{-300,240}}),  iconTransformation(
           extent={{-140,80},{-100,120}})));
   CDL.Interfaces.BooleanOutput y "Chiller stage change edge signal" annotation (
      Placement(transformation(extent={{300,-18},{340,22}}),
@@ -131,7 +131,8 @@ equation
                                                   color={255,0,255}));
   connect(triSam.y,switch2. u3) annotation (Line(points={{0,60},{8,60},{8,192},{
           40,192}},            color={0,0,127}));
-  connect(uIni,intToRea2. u) annotation (Line(points={{-80,200},{-44,200}},
+  connect(uIni,intToRea2. u) annotation (Line(points={{-320,220},{-64,220},{-64,
+          200},{-44,200}},
                          color={255,127,0}));
   connect(intToRea2.y,switch2. u1) annotation (Line(points={{-20,200},{8,200},{8,
           208},{40,208}},  color={0,0,127}));

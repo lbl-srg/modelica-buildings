@@ -95,18 +95,22 @@ package Validation "Collection of validation models"
       annotation (Placement(transformation(extent={{-20,-140},{0,-120}})));
     CDL.Logical.TrueDelay truDel1(delayTime=10, delayOnInit=true)
       annotation (Placement(transformation(extent={{-20,-180},{0,-160}})));
-    SetpointController staSetCon(chiDesCap={5000000,7000000}, chiMinCap={1000000,2000000})
+    SetpointController staSetCon(
+      chiDesCap={500000,700000},
+      chiMinCap={100000,200000},
+      chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
+          Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.constantSpeedCentrifugal})
       annotation (Placement(transformation(extent={{60,140},{80,160}})));
     SetpointController staSetCon1(
       have_WSE=false,
       nSta=5,
       nChi=3,
       staMat={{1,0,0},{1,1,0},{1,0,1},{0,1,1},{1,1,1}},
-      chiDesCap={3000000,4000000,5000000},
-      chiMinCap={500000,1000000,1500000},
+      chiDesCap={300000,400000,500000},
+      chiMinCap={50000,100000,150000},
       chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
           Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
-          Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.variableSpeedCentrifugal})
+          Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.constantSpeedCentrifugal})
       annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
   protected
     Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWat(
@@ -249,13 +253,13 @@ package Validation "Collection of validation models"
         StopTime=50000,
         Tolerance=1e-06,
         __Dymola_Algorithm="Cvode"),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/SetpointController_noWSE.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Validation/SetpointController_noWSE.mos"
       "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Change\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Change</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetpointController\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetpointController</a>.
 </p>
 </html>",   revisions="<html>
 <ul>
@@ -305,8 +309,7 @@ First implementation.
       final amplitude=0.037)
       "Chilled water flow"
       annotation (Placement(transformation(extent={{-200,100},{-180,120}})));
-    CDL.Logical.Sources.Constant                        chiAva[3](final k={true,
-          true})
+    CDL.Logical.Sources.Constant                        chiAva[2](final k={true,true})
       "Chiller availability vector"
       annotation (Placement(transformation(extent={{-120,200},{-100,220}})));
     CDL.Continuous.Max                        max "Maximum"
@@ -356,8 +359,8 @@ First implementation.
       final amplitude=0.037)
       "Chilled water flow"
       annotation (Placement(transformation(extent={{-200,-140},{-180,-120}})));
-    CDL.Logical.Sources.Constant                        chiAva1[2](final k={
-          true,true,true})
+    CDL.Logical.Sources.Constant                        chiAva1[3](final k={true,true,
+          true})
       "Chiller availability vector"
       annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
     CDL.Continuous.Max                        max1
@@ -396,18 +399,23 @@ First implementation.
       annotation (Placement(transformation(extent={{-60,-220},{-40,-200}})));
     CDL.Continuous.GreaterThreshold greThr1(threshold=0.5)
       annotation (Placement(transformation(extent={{-20,-220},{0,-200}})));
-    SetpointController staSetCon(chiDesCap={5000000,7000000}, chiMinCap={1000000,2000000})
+    SetpointController staSetCon(
+      have_WSE=true,
+      chiDesCap={500000,700000},
+      chiMinCap={100000,200000},
+      chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
+          Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.constantSpeedCentrifugal})
       annotation (Placement(transformation(extent={{60,140},{80,160}})));
     SetpointController staSetCon1(
-      have_WSE=false,
+      have_WSE=true,
       nSta=5,
       nChi=3,
       staMat={{1,0,0},{1,1,0},{1,0,1},{0,1,1},{1,1,1}},
-      chiDesCap={3000000,4000000,5000000},
-      chiMinCap={500000,1000000,1500000},
+      chiDesCap={300000,400000,500000},
+      chiMinCap={50000,100000,150000},
       chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
           Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
-          Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.variableSpeedCentrifugal})
+          Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.constantSpeedCentrifugal})
       annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
   protected
     CDL.Continuous.Sources.Constant                        dpChiWat(final k=65*6895)
@@ -492,8 +500,6 @@ First implementation.
     connect(staSetCon.uIni,conInt. y) annotation (Line(points={{58,137.2},{28,137.2},{28,
             110},{2,110}},
                       color={255,127,0}));
-    connect(plasta.y,truDel. u)
-      annotation (Line(points={{-38,70},{-22,70}}, color={255,0,255}));
     connect(truDel.y,staSetCon. uPla) annotation (Line(points={{2,70},{34,70},{34,129},{
             58,129}}, color={255,0,255}));
     connect(maxTowFanSpe.y, staSetCon.uTowFanSpeMax) annotation (Line(points={{-138,190},
@@ -506,8 +512,6 @@ First implementation.
             -20,170},{-20,165},{58,165}}, color={0,0,127}));
     connect(TCWSup.y, staSetCon.TChiWatSup) annotation (Line(points={{-98,110},{-70,110},
             {-70,163},{58,163}},                     color={0,0,127}));
-    connect(wsesta.y[1], greThr.u)
-      annotation (Line(points={{-38,30},{-22,30}}, color={0,0,127}));
     connect(greThr.y, staSetCon.uWseSta) annotation (Line(points={{2,30},{32,30},{32,
             135},{58,135}}, color={255,0,255}));
     connect(dpChiWatSet1.y, staSetCon1.dpChiWatPumSet) annotation (Line(points={{-98,
@@ -558,15 +562,19 @@ First implementation.
       annotation (Line(points={{-38,-210},{-22,-210}}, color={0,0,127}));
     connect(greThr1.y, staSetCon1.uWseSta) annotation (Line(points={{2,-210},{32,-210},
             {32,-105},{58,-105}}, color={255,0,255}));
+    connect(plaSta.y, truDel.u) annotation (Line(points={{-38,70},{-30,70},{-30,70},
+            {-22,70}}, color={255,0,255}));
+    connect(wseSta.y[1], greThr.u)
+      annotation (Line(points={{-38,30},{-22,30}}, color={0,0,127}));
   annotation (
    experiment(StopTime=20000.0, Tolerance=1e-06),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/SetpointController_WSE.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Validation/SetpointController_WSE.mos"
       "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Change\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Change</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetpointController\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetpointController</a>.
 </p>
 </html>",   revisions="<html>
 <ul>
