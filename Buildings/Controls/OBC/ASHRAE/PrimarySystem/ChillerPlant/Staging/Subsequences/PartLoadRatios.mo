@@ -62,6 +62,13 @@ block PartLoadRatios
       Placement(transformation(extent={{-380,100},{-340,140}}),
         iconTransformation(extent={{-140,-180},{-100,-140}})));
 
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uTyp[nSta](
+    final min=fill(1, nSta),
+    final max=fill(3, nSta)) "Design chiller stage types"
+    annotation (Placement(
+        transformation(extent={{-380,280},{-340,320}}), iconTransformation(
+          extent={{-140,-100},{-100,-60}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uUpCapDes(
     final unit="W",
     final quantity="Power")
@@ -140,8 +147,10 @@ block PartLoadRatios
     annotation (Placement(transformation(extent={{340,-220},{380,-180}}),
         iconTransformation(extent={{100,-90},{140,-50}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOpe(final unit="1", final
-      min=0) "Operating part load ratio of the current stage" annotation (
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOpe(
+    final unit="1",
+    final min=0) "Operating part load ratio of the current stage"
+    annotation (
       Placement(transformation(extent={{340,-60},{380,-20}}),
         iconTransformation(extent={{100,60},{140,100}})));
 
@@ -159,13 +168,14 @@ block PartLoadRatios
     annotation (Placement(transformation(extent={{340,-20},{380,20}}),
                     iconTransformation(extent={{100,-30},{140,10}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOpeUpMin(final unit="1",
-      final min=0)
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOpeUpMin(
+    final unit="1",
+    final min=0)
     "Minimum operating part load ratio of the next available stage up"
     annotation (Placement(transformation(extent={{340,-260},{380,-220}}),
         iconTransformation(extent={{100,-110},{140,-70}})));
 
-//protected
+protected
   Buildings.Controls.OBC.CDL.Continuous.Division opePlrSta
     "Calculates operating part load ratio at the current stage"
     annotation (Placement(transformation(extent={{-240,-60},{-220,-40}})));
@@ -342,12 +352,6 @@ block PartLoadRatios
 
   Buildings.Controls.OBC.CDL.Integers.Max maxInt
     annotation (Placement(transformation(extent={{-240,260},{-220,280}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uTyp[nSta](
-    final min=fill(1, nSta),
-    final max=fill(3, nSta)) "Design chiller stage types" annotation (Placement(
-        transformation(extent={{-380,280},{-340,320}}), iconTransformation(
-          extent={{-140,-100},{-100,-60}})));
 
   Buildings.Controls.OBC.CDL.Integers.Max maxIntUp
     annotation (Placement(transformation(extent={{-240,160},{-220,180}})));

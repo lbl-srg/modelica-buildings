@@ -7,22 +7,13 @@ block ChillerIndices "Returns chiller indices for the current stage"
   parameter Integer nChi = 2
     "Number of chillers";
 
-  final parameter Integer staInd[nSta] = {i for i in 1:nSta}
-    "Stage index vector";
-
   parameter Integer staMat[nSta, nChi] = {{1,0},{0,1},{1,1}}
     "Staging matrix with stages in rows and chillers in columns";
-
-  final parameter Integer staIndMat[nSta, nChi] = {j for i in 1:nChi, j in 1:nSta}
-    "Matrix of staging matrix dimensions with stage indices in each column";
-
-  final parameter Integer lowDia[nSta, nSta] = {if i<=j then 1 else 0 for i in 1:nSta, j in 1:nSta}
-    "Lower diagonal unit matrix";
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u(
     final min=0,
     final max=nSta,
-    final start = 0) "Current chiller stage"
+    final start=0) "Current chiller stage"
     annotation (Placement(transformation(extent={{-240,0},{-200,40}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
 
@@ -31,7 +22,15 @@ block ChillerIndices "Returns chiller indices for the current stage"
     annotation (Placement(transformation(extent={{200,-20},{240,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
-//protected
+protected
+  final parameter Integer staInd[nSta] = {i for i in 1:nSta}
+    "Stage index vector";
+
+  final parameter Integer staIndMat[nSta, nChi] = {j for i in 1:nChi, j in 1:nSta}
+    "Matrix of staging matrix dimensions with stage indices in each column";
+
+  final parameter Integer lowDia[nSta, nSta] = {if i<=j then 1 else 0 for i in 1:nSta, j in 1:nSta}
+    "Lower diagonal unit matrix";
 
   Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep(
     final nout=nSta) "Replicates signal to a length equal the stage count"
@@ -68,13 +67,8 @@ block ChillerIndices "Returns chiller indices for the current stage"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nSta,nChi](
-      integerTrue=fill(
-        1,
-        nSta,
-        nChi), integerFalse=fill(
-        0,
-        nSta,
-        nChi))
+    final integerTrue=fill(1, nSta, nChi),
+    final integerFalse=fill(0, nSta, nChi))
     "Type converter"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
 

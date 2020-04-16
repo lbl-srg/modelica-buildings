@@ -25,7 +25,7 @@ block EfficiencyCondition
     annotation (Placement(transformation(extent={{80,-20},{120,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
-//protected
+protected
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
     final delayTime=effConTruDelay,
     final delayOnInit=true)

@@ -98,7 +98,7 @@ block Up "Generates a stage up signal"
     annotation (Placement(transformation(extent={{160,-20},{200,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-//protected
+protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.FailsafeCondition faiSafCon(
     final serChi=serChi,
     final faiSafTruDelay=faiSafTruDelay,
@@ -119,7 +119,7 @@ block Up "Generates a stage up signal"
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
 
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi
-    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr if have_WSE
     "Switches staging up rules"
@@ -186,9 +186,9 @@ equation
   connect(faiSafCon.y, orStaUp.u2) annotation (Line(points={{-78,20},{-50,20},{-50,
           40},{-22,40}},   color={255,0,255}));
   connect(intGreThr.y, logSwi.u2) annotation (Line(points={{-78,-160},{20,-160},
-          {20,0},{78,0}},   color={255,0,255}));
-  connect(orStaUp.y, logSwi.u1) annotation (Line(points={{2,40},{10,40},{10,8},{
-          78,8}},  color={255,0,255}));
+          {20,0},{98,0}},   color={255,0,255}));
+  connect(orStaUp.y, logSwi.u1) annotation (Line(points={{2,40},{10,40},{10,8},
+          {98,8}}, color={255,0,255}));
   connect(add0.y, hysTSup1.u)
     annotation (Line(points={{-88,-90},{-80,-90},{-80,-100},{-62,-100}},
                                                    color={0,0,127}));
@@ -202,16 +202,16 @@ equation
   connect(truDel1.y, orStaUp1.u2) annotation (Line(points={{2,-100},{10,-100},{10,
           -88},{38,-88}},   color={255,0,255}));
   connect(orStaUp1.y, logSwi.u3) annotation (Line(points={{62,-80},{70,-80},{70,
-          -8},{78,-8}},                  color={255,0,255}));
+          -8},{98,-8}},                  color={255,0,255}));
   connect(noWSE.y, logSwi.u2)
-    annotation (Line(points={{2,0},{78,0}},    color={255,0,255}));
-  connect(noWSE.y, logSwi.u3) annotation (Line(points={{2,0},{30,0},{30,-8},{78,
+    annotation (Line(points={{2,0},{98,0}},    color={255,0,255}));
+  connect(noWSE.y, logSwi.u3) annotation (Line(points={{2,0},{30,0},{30,-8},{98,
           -8}},    color={255,0,255}));
   connect(u, intGreThr.u)
     annotation (Line(points={{-180,-160},{-102,-160}},
                                                      color={255,127,0}));
   connect(logSwi.y, y)
-    annotation (Line(points={{102,0},{180,0}}, color={255,0,255}));
+    annotation (Line(points={{122,0},{180,0}}, color={255,0,255}));
   connect(add0.y, hysTSup.u) annotation (Line(points={{-88,-90},{-80,-90},{-80,-60},
           {-62,-60}}, color={0,0,127}));
   connect(TChiWatSup, add0.u1) annotation (Line(points={{-180,-130},{-130,-130},

@@ -48,7 +48,7 @@ block Configurator "Configures chiller staging"
     annotation (Placement(transformation(extent={{220,-40},{260,0}}),
         iconTransformation(extent={{100,20},{140,60}})));
 
-protected
+//protected
   final parameter Integer chiTypMat[nSta, nChi] = {chiTyp[i] for i in 1:nChi, j in 1:nSta}
     "Chiller type array expanded to allow for element-wise multiplication with the staging matrix";
 
@@ -159,12 +159,14 @@ protected
     annotation (Placement(transformation(extent={{100,-160},{120,-140}})));
 
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
-    final message="Chillers might not be staged in a recommended order. 
-    If possible, please make sure to stage any positive displacement machines first, 
+    final message="It could be that the chillers are not being staged in an order 
+    recommended by ASHRAE RP1711 or Guideline 36. 
+    If possible, please make sure to follow the recommendation that is:
+    any positive displacement machines first, 
     any variable speed centrifugal next and any constant speed centrifugal last.
-    It could also be that one of the higher stages contains only, for example,
-    positive displacement chillers, after some previous stage included other 
-    chiller types.")
+    It could for example be that one of the higher stages contained only 
+    positive displacement chillers, while a lower stage stage included other 
+    chiller types that, in such a case, determined the stage type.")
     "Staging type order assertion"
     annotation (Placement(transformation(extent={{180,-160},{200,-140}})));
 
@@ -247,6 +249,12 @@ equation
         Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-220,-200},{220,200}})),
 Documentation(info="<html>
+<p>
+This subsequence is not directly specified in 1711 as it provides
+a side calculation pertaining to generalization of the staging 
+sequences for any number of chillers and stages provided by the 
+user.
+</p>
 <p>
 Given the staging matrix input parameter <code>staMat</code> the staging configurator calculates:
 </p>

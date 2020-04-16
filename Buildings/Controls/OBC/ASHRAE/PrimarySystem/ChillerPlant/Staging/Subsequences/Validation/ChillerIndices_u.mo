@@ -1,57 +1,78 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation;
 model ChillerIndices_u
-  "Validates chiller indices in current stage subsequence"
+  "Validates extraction of chiller indices in a given stage"
 
-  ChillerIndices chiInd "Setup with two chillers and three stages"
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.ChillerIndices chiInd(
+    final nSta=3,
+    final nChi=2,
+    staMat={{1,0},{0,1},{1,1}})
+    "Setup with two chillers and three stages"
     annotation (Placement(transformation(extent={{0,80},{20,100}})));
-  ChillerIndices chiInd1 "Setup with two chillers and three stages"
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.ChillerIndices chiInd1(
+    final nSta=3,
+    final nChi=2,
+    staMat={{1,0},{0,1},{1,1}})
+    "Setup with two chillers and three stages"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
-  ChillerIndices chiInd2 "Setup with two chillers and three stages"
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.ChillerIndices chiInd2(
+    final nSta=3,
+    final nChi=2,
+    staMat={{1,0},{0,1},{1,1}})
+    "Setup with two chillers and three stages"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  ChillerIndices chiInd4(
-    nSta=5,
-    nChi=3,
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.ChillerIndices chiInd4(
+    final nSta=5,
+    final nChi=3,
     staMat={{1,0,0},{1,1,0},{1,0,1},{0,1,1},{1,1,1}})
     "Setup with three chillers and five stages"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
-  ChillerIndices chiInd5(
-    nSta=5,
-    nChi=3,
-    staMat={{1,0,0},{1,1,0},{1,0,1},{0,1,1},{1,1,1}})
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.ChillerIndices chiInd5(
+    final nSta=5,
+    final nChi=3,
+    final staMat={{1,0,0},{1,1,0},{1,0,1},{0,1,1},{1,1,1}})
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
-  ChillerIndices chiInd6(
-    nSta=5,
-    nChi=3,
-    staMat={{1,0,0},{1,1,0},{1,0,1},{0,1,1},{1,1,1}})
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.ChillerIndices chiInd6(
+    final nSta=5,
+    final nChi=3,
+    final staMat={{1,0,0},{1,1,0},{1,0,1},{0,1,1},{1,1,1}})
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
-  ChillerIndices chiInd7(
-    nSta=5,
-    nChi=3,
-    staMat={{1,0,0},{1,1,0},{1,0,1},{0,1,1},{1,1,1}})
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.ChillerIndices chiInd7(
+    final nSta=5,
+    final nChi=3,
+    final staMat={{1,0,0},{1,1,0},{1,0,1},{0,1,1},{1,1,1}})
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
-  ChillerIndices chiInd3 "Setup with two chillers and three stages"
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.ChillerIndices chiInd3
+    "Setup with two chillers and three stages"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
+
 protected
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant u(final k=0)
     "Chiller stage"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 
-protected
-  CDL.Integers.Sources.Constant                        u1(final k=1)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant u1(final k=1)
     "Chiller stage"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-protected
-  CDL.Integers.Sources.Constant                        u2(final k=2)
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant u2(final k=2)
     "Chiller stage"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-protected
-  CDL.Integers.Sources.Constant                        u3(final k=3)
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant u3(final k=3)
     "Chiller stage"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-protected
-  CDL.Integers.Sources.Constant                        u4(final k=5)
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant u4(final k=5)
     "Chiller stage"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
+
 equation
   connect(u.y, chiInd.u)
     annotation (Line(points={{-38,90},{-2,90}}, color={255,127,0}));
@@ -76,8 +97,8 @@ annotation (
   Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Generic.Status\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Generic.Status</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.ChillerIndices\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.ChillerIndices</a>.
 </p>
 </html>", revisions="<html>
 <ul>

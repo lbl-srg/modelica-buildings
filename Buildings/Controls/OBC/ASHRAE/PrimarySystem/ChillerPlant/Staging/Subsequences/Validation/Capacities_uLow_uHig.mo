@@ -49,6 +49,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(final k=false)
     "Boolean signal"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
+
 equation
   connect(stage0.y, staCap0.u)
     annotation (Line(points={{-78,30},{-70,30},{-70,13},{-62,13}},

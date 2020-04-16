@@ -141,7 +141,13 @@ annotation (defaultComponentName = "iniSta",
           textString="%name")}),
         Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-240,-100},{240,100}})),
-Documentation(info="<html>
+          Documentation(info="<html>
+<p>
+This subsequence is not directly specified in 1711 as it provides
+a side calculation pertaining to generalization of the staging 
+sequences for any number of chillers and stages provided by the 
+user.
+</p>
 <p>
 Determines the initial stage upon plant startup for both plants 
 with and without a WSE. Implemented according to December 31 2019 draft, 

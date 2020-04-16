@@ -3,7 +3,29 @@ package Validation "Collection of validation models"
   model SetpointController_noWSE
     "Validates chiller stage status setpoint signal generation for plants without WSE"
 
-    parameter Modelica.SIunits.Temperature TChiWatSupSet = 285.15
+    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetpointController staSetCon(
+      final chiDesCap={500000,700000},
+      final chiMinCap={100000,200000},
+      final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
+          Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement})
+      "Chiller stage setpoint controller"
+      annotation (Placement(transformation(extent={{60,140},{80,160}})));
+
+    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetpointController staSetCon1(
+      final have_WSE=false,
+      final nSta=4,
+      final nChi=3,
+      final staMat={{1,0,0},{0,1,0},{1,1,0},{1,1,1}},
+      final chiDesCap={300000,400000,500000},
+      final chiMinCap={50000,100000,150000},
+      final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
+          Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
+          Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.constantSpeedCentrifugal})
+      "Chiller stage setpoint controller"
+      annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
+
+  protected
+    Modelica.SIunits.Temperature TChiWatSupSet = 285.15
     "Chilled water supply set temperature";
 
     parameter Modelica.SIunits.Temperature aveTChiWatRet = 288.15
@@ -29,90 +51,98 @@ package Validation "Collection of validation models"
       "Chilled water flow"
       annotation (Placement(transformation(extent={{-200,100},{-180,120}})));
 
-    Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiAva[2](final k={true,
-          true})
+    Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiAva[2](
+      final k={true,true})
       "Chiller availability vector"
       annotation (Placement(transformation(extent={{-120,200},{-100,220}})));
 
     Buildings.Controls.OBC.CDL.Continuous.Max max "Maximum"
       annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
 
-    Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol(samplePeriod=10)
+    Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol(
+      final samplePeriod=10) "Short plant start delay"
       annotation (Placement(transformation(extent={{140,140},{160,160}})));
 
-    Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
+    Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea "Type converter"
       annotation (Placement(transformation(extent={{100,140},{120,160}})));
 
-    Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
+    Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt "Type converter"
       annotation (Placement(transformation(extent={{180,140},{200,160}})));
 
-    Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(trueHoldDuration=0,
-        falseHoldDuration=900)
+    Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
+      final trueHoldDuration=0,
+      final falseHoldDuration=900) "False hold"
       annotation (Placement(transformation(extent={{100,60},{120,80}})));
-    Buildings.Controls.OBC.CDL.Logical.Pre pre
+
+    Buildings.Controls.OBC.CDL.Logical.Pre pre "Pre block"
       annotation (Placement(transformation(extent={{140,60},{160,80}})));
-    Buildings.Controls.OBC.CDL.Logical.Sources.Constant plaSta(final k=true) "Plant status"
+
+    Buildings.Controls.OBC.CDL.Logical.Sources.Constant plaSta(
+      final k=true) "Plant status"
       annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-    Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(k=1)
+
+    Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
+      final k=1) "Constant"
       annotation (Placement(transformation(extent={{-20,100},{0,120}})));
 
-    CDL.Logical.TrueDelay truDel(delayTime=10, delayOnInit=true)
+    Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
+      final delayTime=10,
+      final delayOnInit=true)
       annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-    CDL.Continuous.Sources.Sine                        TChiWatRet1(
+
+    Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TChiWatRet1(
       final amplitude=7,
       final offset=273.15 + 15,
       final freqHz=1/21600)
       "Chiller water return temeprature"
       annotation (Placement(transformation(extent={{-200,-100},{-180,-80}})));
-    CDL.Continuous.Sources.Sine                        chiWatFlow1(
+
+    Buildings.Controls.OBC.CDL.Continuous.Sources.Sine chiWatFlow1(
       final offset=0,
       final freqHz=1/21600,
       final amplitude=0.037)
       "Chilled water flow"
       annotation (Placement(transformation(extent={{-200,-140},{-180,-120}})));
-    CDL.Logical.Sources.Constant                        chiAva1[3](final k={
-          true,true,true})
+
+    Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiAva1[3](
+      final k={true,true,true})
       "Chiller availability vector"
       annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
-    CDL.Continuous.Max                        max1
-                                                  "Maximum"
+
+    Buildings.Controls.OBC.CDL.Continuous.Max max1 "Maximum"
       annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
-    CDL.Discrete.ZeroOrderHold                        zerOrdHol1(samplePeriod=10)
+
+    Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol1(
+      final samplePeriod=10) "Zero order hold"
       annotation (Placement(transformation(extent={{140,-100},{160,-80}})));
-    CDL.Conversions.IntegerToReal                        intToRea1
+
+    Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea1 "Type converter"
       annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
-    CDL.Conversions.RealToInteger                        reaToInt1
+
+    Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1 "Type converter"
       annotation (Placement(transformation(extent={{180,-100},{200,-80}})));
-    CDL.Logical.TrueFalseHold                        truFalHol1(trueHoldDuration=
-          0, falseHoldDuration=900)
+
+    Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol1(
+      final trueHoldDuration=0,
+      final falseHoldDuration=900)
       annotation (Placement(transformation(extent={{100,-180},{120,-160}})));
-    CDL.Logical.Pre                        pre1
+
+    Buildings.Controls.OBC.CDL.Logical.Pre pre1
       annotation (Placement(transformation(extent={{140,-180},{160,-160}})));
-    CDL.Logical.Sources.Constant                        plaSta1(final k=true)
-                                                                             "Plant status"
+
+    Buildings.Controls.OBC.CDL.Logical.Sources.Constant plaSta1(
+      final k=true) "Plant status"
       annotation (Placement(transformation(extent={{-60,-180},{-40,-160}})));
-    CDL.Integers.Sources.Constant                        conInt1(k=1)
+
+    Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
+      final k=1) "Constant"
       annotation (Placement(transformation(extent={{-20,-140},{0,-120}})));
-    CDL.Logical.TrueDelay truDel1(delayTime=10, delayOnInit=true)
+
+    Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1(
+      final delayTime=10,
+      final delayOnInit=true) "True delay"
       annotation (Placement(transformation(extent={{-20,-180},{0,-160}})));
-    SetpointController staSetCon(
-      chiDesCap={500000,700000},
-      chiMinCap={100000,200000},
-      chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
-          Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.constantSpeedCentrifugal})
-      annotation (Placement(transformation(extent={{60,140},{80,160}})));
-    SetpointController staSetCon1(
-      have_WSE=false,
-      nSta=5,
-      nChi=3,
-      staMat={{1,0,0},{1,1,0},{1,0,1},{0,1,1},{1,1,1}},
-      chiDesCap={300000,400000,500000},
-      chiMinCap={50000,100000,150000},
-      chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
-          Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
-          Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.constantSpeedCentrifugal})
-      annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
-  protected
+
     Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWat(
       final k=65*6895)
       "Chilled water differential pressure"
@@ -137,25 +167,28 @@ package Validation "Collection of validation models"
       final k=0) "Constant"
       annotation (Placement(transformation(extent={{-200,60},{-180,80}})));
 
-  protected
-    CDL.Continuous.Sources.Constant                        dpChiWat1(final k=65*
-          6895)
+    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWat1(
+      final k=65*6895)
       "Chilled water differential pressure"
       annotation (Placement(transformation(extent={{-120,-230},{-100,-210}})));
-    CDL.Continuous.Sources.Constant                        TCWSupSet1(final k=
-          273.15 + 14)
+
+    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCWSupSet1(
+      final k=273.15 + 14)
       "Chilled water supply temperature setpoint"
       annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
-    CDL.Continuous.Sources.Constant                        dpChiWatSet1(final k=
-          65*6895)
+
+    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWatSet1(
+      final k=65*6895)
       "Chilled water differential pressure setpoint"
       annotation (Placement(transformation(extent={{-120,-180},{-100,-160}})));
-    CDL.Continuous.Sources.Constant                        TCWSup1(final k=273.15
-           + 14)
+
+    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCWSup1(
+      final k=273.15 + 14)
       "Chilled water supply temperature"
       annotation (Placement(transformation(extent={{-120,-140},{-100,-120}})));
-    CDL.Continuous.Sources.Constant                        zero1(final k=0)
-                 "Constant"
+
+    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zero1(
+      final k=0) "Constant"
       annotation (Placement(transformation(extent={{-200,-180},{-180,-160}})));
   equation
     connect(dpChiWatSet.y, staSetCon.dpChiWatPumSet) annotation (Line(points={{-98,70},
@@ -285,6 +318,29 @@ First implementation.
   model SetpointController_WSE
     "Validates chiller stage status setpoint signal generation for plants with WSE"
 
+    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetpointController staSetCon(
+      final have_WSE=true,
+      final chiDesCap={500000,700000},
+      final chiMinCap={100000,200000},
+      final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
+          Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement})
+      "Chiller stage setpoint controller"
+      annotation (Placement(transformation(extent={{60,140},{80,160}})));
+
+    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetpointController staSetCon1(
+      final have_WSE=true,
+      final nSta=4,
+      final nChi=3,
+      final staMat={{1,0,0},{0,1,0},{1,1,0},{1,1,1}},
+      final chiDesCap={300000,400000,500000},
+      final chiMinCap={50000,100000,150000},
+      final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
+          Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
+          Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.constantSpeedCentrifugal})
+      "Chiller stage setpoint controller"
+      annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
+
+  protected
     parameter Modelica.SIunits.Temperature TChiWatSupSet = 285.15
     "Chilled water supply set temperature";
 
@@ -297,169 +353,212 @@ First implementation.
     parameter Modelica.SIunits.VolumeFlowRate aveVChiWat_flow = 0.05
       "Average measured chilled water flow rate";
 
-    CDL.Continuous.Sources.Sine                        TChiWatRet(
+    Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TChiWatRet(
       final amplitude=7,
       final offset=273.15 + 15,
       final freqHz=1/21600)
       "Chiller water return temeprature"
       annotation (Placement(transformation(extent={{-200,140},{-180,160}})));
-    CDL.Continuous.Sources.Sine                        chiWatFlow(
+
+    Buildings.Controls.OBC.CDL.Continuous.Sources.Sine chiWatFlow(
       final offset=0,
       final freqHz=1/21600,
       final amplitude=0.037)
       "Chilled water flow"
       annotation (Placement(transformation(extent={{-200,100},{-180,120}})));
-    CDL.Logical.Sources.Constant                        chiAva[2](final k={true,true})
+
+    Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiAva[2](
+      final k={true,true})
       "Chiller availability vector"
       annotation (Placement(transformation(extent={{-120,200},{-100,220}})));
-    CDL.Continuous.Max                        max "Maximum"
+
+    Buildings.Controls.OBC.CDL.Continuous.Max max "Maximum"
       annotation (Placement(transformation(extent={{-160,100},{-140,120}})));
-    CDL.Discrete.ZeroOrderHold                        zerOrdHol(samplePeriod=10)
+
+    Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol(
+      final samplePeriod=10)
       annotation (Placement(transformation(extent={{140,140},{160,160}})));
-    CDL.Conversions.IntegerToReal                        intToRea
+
+    Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
       annotation (Placement(transformation(extent={{100,140},{120,160}})));
-    CDL.Conversions.RealToInteger                        reaToInt
+
+    Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
       annotation (Placement(transformation(extent={{180,140},{200,160}})));
-    CDL.Logical.TrueFalseHold                        truFalHol(trueHoldDuration=0,
-        falseHoldDuration=900)
+
+    Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
+      final trueHoldDuration=0,
+      final falseHoldDuration=900)
       annotation (Placement(transformation(extent={{100,60},{120,80}})));
-    CDL.Logical.Pre                        pre
+
+    Buildings.Controls.OBC.CDL.Logical.Pre pre
       annotation (Placement(transformation(extent={{140,60},{160,80}})));
-    CDL.Logical.Sources.Constant                        plaSta(final k=true)
+
+    Buildings.Controls.OBC.CDL.Logical.Sources.Constant plaSta(
+      final k=true)
       "Plant status"
       annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-    CDL.Integers.Sources.Constant                        conInt(k=0)
+
+    Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
+      final k=0)
       annotation (Placement(transformation(extent={{-20,100},{0,120}})));
-    CDL.Logical.TrueDelay truDel(delayTime=10, delayOnInit=true)
+
+    Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
+      final delayTime=10,
+      final delayOnInit=true)
       annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-    CDL.Continuous.AddParameter wseTPre(p=-3, k=1)
+
+    Buildings.Controls.OBC.CDL.Continuous.AddParameter wseTPre(
+      final p=-3,
+      final k=1)
       "Predicted WSE outlet temperature"
       annotation (Placement(transformation(extent={{0,200},{20,220}})));
-    CDL.Continuous.Sources.Ramp TCWSup(
-      height=-2.1,
-      duration=300,
-      offset=273.15 + 16,
-      startTime=1500)
+
+    Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TCWSup(
+      final height=-2.1,
+      final duration=300,
+      final offset=273.15 + 16,
+      final startTime=1500) "Chilled water supply temperature ramp"
       annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
-    CDL.Continuous.Sources.TimeTable wseSta(table=[0,1; 1500,1; 1500,0; 12500,0;
+
+    Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable wseSta(
+      final table=[0,1; 1500,1; 1500,0; 12500,0;
           12500,1; 14000,1], smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.LinearSegments)
       "WSE is on during low loads, off during high loads"
       annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-    CDL.Continuous.GreaterThreshold greThr(threshold=0.5)
+
+    Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+      final threshold=0.5)
       annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-    CDL.Continuous.Sources.Sine                        TChiWatRet1(
+
+    Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TChiWatRet1(
       final amplitude=7,
       final offset=273.15 + 15,
       final freqHz=1/21600)
       "Chiller water return temeprature"
       annotation (Placement(transformation(extent={{-200,-100},{-180,-80}})));
-    CDL.Continuous.Sources.Sine                        chiWatFlow1(
+
+    Buildings.Controls.OBC.CDL.Continuous.Sources.Sine chiWatFlow1(
       final offset=0,
       final freqHz=1/21600,
       final amplitude=0.037)
       "Chilled water flow"
       annotation (Placement(transformation(extent={{-200,-140},{-180,-120}})));
-    CDL.Logical.Sources.Constant                        chiAva1[3](final k={true,true,
-          true})
+
+    Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiAva1[3](
+      final k={true,true,true})
       "Chiller availability vector"
       annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
-    CDL.Continuous.Max                        max1
-                                                  "Maximum"
+
+    Buildings.Controls.OBC.CDL.Continuous.Max max1 "Maximum"
       annotation (Placement(transformation(extent={{-160,-140},{-140,-120}})));
-    CDL.Discrete.ZeroOrderHold                        zerOrdHol1(samplePeriod=10)
+
+    Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol1(
+      final samplePeriod=10) "Zero order hold"
       annotation (Placement(transformation(extent={{140,-100},{160,-80}})));
-    CDL.Conversions.IntegerToReal                        intToRea1
+
+    Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea1 "Type converter"
       annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
-    CDL.Conversions.RealToInteger                        reaToInt1
+
+    Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1 "Type converter"
       annotation (Placement(transformation(extent={{180,-100},{200,-80}})));
-    CDL.Logical.TrueFalseHold                        truFalHol1(trueHoldDuration=
-          0, falseHoldDuration=900)
+
+    Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol1(
+      final trueHoldDuration=0,
+      final falseHoldDuration=900) "Holds true value"
       annotation (Placement(transformation(extent={{100,-180},{120,-160}})));
-    CDL.Logical.Pre                        pre1
+
+    Buildings.Controls.OBC.CDL.Logical.Pre pre1 "Logical pre"
       annotation (Placement(transformation(extent={{140,-180},{160,-160}})));
-    CDL.Logical.Sources.Constant                        plaSta1(final k=true)
-      "Plant status"
+
+    Buildings.Controls.OBC.CDL.Logical.Sources.Constant plaSta1(
+      final k=true) "Plant status"
       annotation (Placement(transformation(extent={{-60,-180},{-40,-160}})));
-    CDL.Integers.Sources.Constant                        conInt1(k=0)
+
+    Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
+      final k=0) "Constant"
       annotation (Placement(transformation(extent={{-20,-140},{0,-120}})));
-    CDL.Logical.TrueDelay truDel1(delayTime=10, delayOnInit=true)
+
+    Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1(
+      final delayTime=10,
+      final delayOnInit=true) "True delay"
       annotation (Placement(transformation(extent={{-20,-180},{0,-160}})));
-    CDL.Continuous.AddParameter wseTPre1(p=-3, k=1)
+
+    Buildings.Controls.OBC.CDL.Continuous.AddParameter wseTPre1(
+      final p=-3,
+      final k=1)
       "Predicted WSE outlet temperature"
       annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-    CDL.Continuous.Sources.Ramp TCWSup1(
-      height=-2.1,
-      duration=300,
-      offset=273.15 + 16,
-      startTime=1500)
+
+    Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TCWSup1(
+      final height=-2.1,
+      final duration=300,
+      final offset=273.15 + 16,
+      final startTime=1500) "Chilled water supply temperature ramp"
       annotation (Placement(transformation(extent={{-120,-140},{-100,-120}})));
-    CDL.Continuous.Sources.TimeTable wseSta1(table=[0,1; 1500,1; 1500,0; 12500,0;
+
+    Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable wseSta1(
+      final table=[0,1; 1500,1; 1500,0; 12500,0;
           12500,1; 14000,1], smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.LinearSegments)
       "WSE is on during low loads, off during high loads"
       annotation (Placement(transformation(extent={{-60,-220},{-40,-200}})));
-    CDL.Continuous.GreaterThreshold greThr1(threshold=0.5)
+
+    Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
+      final threshold=0.5) "Greater than threshold"
       annotation (Placement(transformation(extent={{-20,-220},{0,-200}})));
-    SetpointController staSetCon(
-      have_WSE=true,
-      chiDesCap={500000,700000},
-      chiMinCap={100000,200000},
-      chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
-          Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.constantSpeedCentrifugal})
-      annotation (Placement(transformation(extent={{60,140},{80,160}})));
-    SetpointController staSetCon1(
-      have_WSE=true,
-      nSta=5,
-      nChi=3,
-      staMat={{1,0,0},{1,1,0},{1,0,1},{0,1,1},{1,1,1}},
-      chiDesCap={300000,400000,500000},
-      chiMinCap={50000,100000,150000},
-      chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
-          Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
-          Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.constantSpeedCentrifugal})
-      annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
-  protected
-    CDL.Continuous.Sources.Constant                        dpChiWat(final k=65*6895)
+
+    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWat(
+      final k=65*6895)
       "Chilled water differential pressure"
       annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
-    CDL.Continuous.Sources.Constant                        TCWSupSet(final k=273.15
-           + 14)
+
+    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCWSupSet(
+      final k=273.15 + 14)
       "Chilled water supply temperature setpoint"
       annotation (Placement(transformation(extent={{-120,160},{-100,180}})));
-    CDL.Continuous.Sources.Constant                        dpChiWatSet(final k=65*
-          6895)
+
+    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWatSet(
+      final k=65*6895)
       "Chilled water differential pressure setpoint"
       annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
-    CDL.Continuous.Sources.Constant                        zero(final k=0)
-      "Constant"
+
+    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zero(
+      final k=0) "Constant"
       annotation (Placement(transformation(extent={{-200,60},{-180,80}})));
-    CDL.Continuous.Sources.Ramp     maxTowFanSpe(
-      height=-0.05,
-      duration=60,
-      offset=1,
-      startTime=13000)                                      "Constant"
+
+    Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp maxTowFanSpe(
+      final height=-0.05,
+      final duration=60,
+      final offset=1,
+      final startTime=13000) "Constant"
       annotation (Placement(transformation(extent={{-160,180},{-140,200}})));
+
   protected
-    CDL.Continuous.Sources.Constant                        dpChiWat1(final k=65*
-          6895)
+    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWat1(
+      final k=65*6895)
       "Chilled water differential pressure"
       annotation (Placement(transformation(extent={{-120,-230},{-100,-210}})));
-    CDL.Continuous.Sources.Constant                        TCWSupSet1(final k=
-          273.15 + 14)
+
+    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCWSupSet1(
+      final k=273.15 + 14)
       "Chilled water supply temperature setpoint"
       annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
-    CDL.Continuous.Sources.Constant                        dpChiWatSet1(final k=
-          65*6895)
+
+    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWatSet1(
+      final k=65*6895)
       "Chilled water differential pressure setpoint"
       annotation (Placement(transformation(extent={{-120,-180},{-100,-160}})));
-    CDL.Continuous.Sources.Constant                        zero1(final k=0)
-      "Constant"
+
+    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zero1(
+      final k=0) "Constant"
       annotation (Placement(transformation(extent={{-200,-180},{-180,-160}})));
-    CDL.Continuous.Sources.Ramp     maxTowFanSpe1(
-      height=-0.05,
-      duration=60,
-      offset=1,
-      startTime=13000)                                      "Constant"
+
+    Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp maxTowFanSpe1(
+      final height=-0.05,
+      final duration=60,
+      final offset=1,
+      final startTime=13000) "Constant"
       annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
+
   equation
     connect(dpChiWatSet.y,staSetCon. dpChiWatPumSet) annotation (Line(points={{-98,70},{
             -92,70},{-92,151},{58,151}}, color={0,0,127}));

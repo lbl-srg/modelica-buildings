@@ -8,17 +8,8 @@ block Status
   parameter Integer nChi = 2
     "Number of chillers";
 
-  final parameter Integer staInd[nSta] = {i for i in 1:nSta}
-    "Stage index vector";
-
   parameter Integer staMat[nSta, nChi] = {{1,0},{0,1},{1,1}}
     "Staging matrix with stages in rows and chillers in columns";
-
-  final parameter Integer staIndMat[nSta, nChi] = {j for i in 1:nChi, j in 1:nSta}
-    "Matrix of staging matrix dimensions with stage indices in each column";
-
-  final parameter Integer lowDia[nSta, nSta] = {if i<=j then 1 else 0 for i in 1:nSta, j in 1:nSta}
-    "Lower diagonal unit matrix";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uAva[nSta](
     final start = fill(true, nSta)) "Stage availability status"
@@ -47,19 +38,34 @@ block Status
     annotation (Placement(transformation(extent={{440,-260},{480,-220}}),
         iconTransformation(extent={{100,-90},{140,-50}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yAvaUp(final min=0,
-      final max=nSta) "Next available higher stage" annotation (Placement(
-        transformation(extent={{440,60},{480,100}}), iconTransformation(extent=
-            {{100,50},{140,90}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yAvaUp(
+    final min=0,
+    final max=nSta)
+    "Next available higher stage"
+    annotation (Placement(transformation(extent={{440,60},{480,100}}),
+      iconTransformation(extent={{100,50},{140,90}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yAvaDow(final min=0,
-      final max=nSta) "Next available lower stage" annotation (Placement(
-        transformation(extent={{440,-60},{480,-20}}), iconTransformation(extent
-          ={{100,20},{140,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yAvaDow(
+    final min=0,
+    final max=nSta)
+    "Next available lower stage"
+    annotation (Placement(
+        transformation(extent={{440,-60},{480,-20}}), iconTransformation(extent=
+           {{100,20},{140,60}})));
+
+protected
+  final parameter Integer staInd[nSta] = {i for i in 1:nSta}
+    "Stage index vector";
+
+  final parameter Integer staIndMat[nSta, nChi] = {j for i in 1:nChi, j in 1:nSta}
+    "Matrix of staging matrix dimensions with stage indices in each column";
+
+  final parameter Integer lowDia[nSta, nSta] = {if i<=j then 1 else 0 for i in 1:nSta, j in 1:nSta}
+    "Lower diagonal unit matrix";
 
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Not unavailable"
     annotation (Placement(transformation(extent={{20,-250},{40,-230}})));
-//protected
+
   Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi2 "Switch"
     annotation (Placement(transformation(extent={{100,-220},{120,-200}})));
 
@@ -83,7 +89,7 @@ block Status
     annotation (Placement(transformation(extent={{-180,80},{-160,100}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1[nSta](
-      integerTrue=fill(1, nSta),
+    final integerTrue=fill(1, nSta),
     final integerFalse=fill(nSta + 1, nSta))
     "Type converter that outputs a value larger than the stage count for any false input"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
@@ -162,8 +168,8 @@ block Status
     "Detects if the current stage becomes unavailable"
     annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nSta](realTrue=
-        fill(1, nSta), realFalse=fill(0, nSta))
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nSta](
+    final realTrue=fill(1, nSta), realFalse=fill(0, nSta))
     "Type converter"
     annotation (Placement(transformation(extent={{-240,-160},{-220,-140}})));
 
@@ -301,6 +307,12 @@ equation
         Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-420,-280},{440,280}})),
 Documentation(info="<html>
+<p>
+This subsequence is not directly specified in 1711 as it provides
+a side calculation pertaining to generalization of the staging 
+sequences for any number of chillers and stages provided by the 
+user.
+</p>
 <p>
 Based on the current stage <code>u</code> and stage availability vector <code>uAva</code> the sequence outputs:
 </p>

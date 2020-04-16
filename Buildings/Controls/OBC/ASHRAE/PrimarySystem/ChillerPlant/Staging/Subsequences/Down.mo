@@ -93,7 +93,7 @@ block Down "Generates a stage down signal"
     annotation (Placement(transformation(extent={{180,-10},{200,10}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
-//protected
+protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.FailsafeCondition faiSafCon(
     final serChi=serChi,
     final faiSafTruDelay=faiSafTruDelay,
