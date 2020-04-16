@@ -293,6 +293,12 @@ its class name ends with the string <code>Beta</code>.
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1 </b>
         </td>
     </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.TrimAndRespond
+        </td>
+        <td valign=\"top\">Corrected to delay the true initial device status.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1876\">issue #1876</a>
+        </td>
+    </tr>        
     <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValves
         </td>
         <td valign=\"top\">Replaced multisum block with add blocks, replaced gain block used for normalization
@@ -447,6 +453,22 @@ its class name ends with the string <code>Beta</code>.
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.LimPID
+        </td>
+        <td valign=\"top\">Refactored model so that it is itself a CDL conformant composite block.
+                           This refactoring removes the no longer use parameters <code>xd_start</code> that was
+                           used to initialize the state of the derivative term. This state is now initialized
+                           based on the requested initial output <code>yd_start</code> which is a new parameter
+                           with a default of <code>0</code>.
+                           Also, removed the parameters <code>y_start</code> and <code>initType</code> because
+                           the initial output of the controller can be set by using <code>xi_start</code>
+                           and <code>yd_start</code>.
+                           This refactoring also removes the parameter <code>strict</code> that
+                           was used in the output limiter. The new implementation enforces a strict check by default.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1878\">#1878</a>.<br/>
+                           For Dymola, a conversion script makes this change.
         </td>
     </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.SetPoints.SupplyReturnTemperatureReset
