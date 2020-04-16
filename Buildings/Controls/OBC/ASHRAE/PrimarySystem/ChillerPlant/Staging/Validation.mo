@@ -29,8 +29,8 @@ package Validation "Collection of validation models"
       "Chilled water flow"
       annotation (Placement(transformation(extent={{-200,100},{-180,120}})));
 
-    Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiAva[3](final k={true,
-          true,true})
+    Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiAva[2](final k={true,
+          true})
       "Chiller availability vector"
       annotation (Placement(transformation(extent={{-120,200},{-100,220}})));
 
@@ -70,8 +70,8 @@ package Validation "Collection of validation models"
       final amplitude=0.037)
       "Chilled water flow"
       annotation (Placement(transformation(extent={{-200,-140},{-180,-120}})));
-    CDL.Logical.Sources.Constant                        chiAva1[2](final k={true,
-          true})
+    CDL.Logical.Sources.Constant                        chiAva1[3](final k={
+          true,true,true})
       "Chiller availability vector"
       annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
     CDL.Continuous.Max                        max1
@@ -156,27 +156,27 @@ package Validation "Collection of validation models"
   equation
     connect(dpChiWatSet.y, staSetCon.dpChiWatPumSet) annotation (Line(points={{-98,70},
             {-92,70},{-92,151},{58,151}},color={0,0,127}));
-    connect(dpChiWat.y, staSetCon.dpChiWatPum) annotation (Line(points={{-98,20},
-            {-90,20},{-90,153},{58,153}},
+    connect(dpChiWat.y, staSetCon.dpChiWatPum) annotation (Line(points={{-98,20},{
+            -90,20},{-90,153},{58,153}},
                                      color={0,0,127}));
     connect(TCWSupSet.y, staSetCon.TChiWatSupSet) annotation (Line(points={{-98,170},
             {-32,170},{-32,165},{58,165}},
                                    color={0,0,127}));
-    connect(chiAva.y, staSetCon.uChiAva) annotation (Line(points={{-98,210},{
-            -28,210},{-28,131},{58,131}},
+    connect(chiAva.y, staSetCon.uChiAva) annotation (Line(points={{-98,210},{-28,210},
+            {-28,131},{58,131}},
                           color={255,0,255}));
-    connect(TCWSup.y, staSetCon.TChiWatSup) annotation (Line(points={{-98,110},
-            {-94,110},{-94,163},{58,163}},
+    connect(TCWSup.y, staSetCon.TChiWatSup) annotation (Line(points={{-98,110},{-94,
+            110},{-94,163},{58,163}},
                                color={0,0,127}));
     connect(zero.y, max.u2) annotation (Line(points={{-178,70},{-170,70},{-170,84},
             {-162,84}},  color={0,0,127}));
     connect(chiWatFlow.y, max.u1) annotation (Line(points={{-178,110},{-170,110},{
             -170,96},{-162,96}},   color={0,0,127}));
-    connect(staSetCon.VChiWat_flow, max.y) annotation (Line(points={{58,141},{
-            -130,141},{-130,90},{-138,90}},
+    connect(staSetCon.VChiWat_flow, max.y) annotation (Line(points={{58,141},{-130,
+            141},{-130,90},{-138,90}},
                               color={0,0,127}));
-    connect(TChiWatRet.y, staSetCon.TChiWatRet) annotation (Line(points={{-178,
-            150},{-130,150},{-130,145},{58,145}},
+    connect(TChiWatRet.y, staSetCon.TChiWatRet) annotation (Line(points={{-178,150},
+            {-130,150},{-130,145},{58,145}},
                                     color={0,0,127}));
     connect(staSetCon.ySta, intToRea.u)
       annotation (Line(points={{82,150},{98,150}},
@@ -187,24 +187,24 @@ package Validation "Collection of validation models"
     connect(zerOrdHol.y, reaToInt.u)
       annotation (Line(points={{162,150},{178,150}},
                                                    color={0,0,127}));
-    connect(reaToInt.y, staSetCon.u) annotation (Line(points={{202,150},{210,
-            150},{210,100},{50,100},{50,139},{58,139}},
+    connect(reaToInt.y, staSetCon.u) annotation (Line(points={{202,150},{210,150},
+            {210,100},{50,100},{50,139},{58,139}},
                                        color={255,127,0}));
-    connect(staSetCon.y, truFalHol.u) annotation (Line(points={{82,143},{90,143},
-            {90,70},{98,70}},
+    connect(staSetCon.y, truFalHol.u) annotation (Line(points={{82,143},{90,143},{
+            90,70},{98,70}},
                        color={255,0,255}));
     connect(truFalHol.y, pre.u)
       annotation (Line(points={{122,70},{138,70}},   color={255,0,255}));
-    connect(pre.y, staSetCon.chaPro) annotation (Line(points={{162,70},{170,70},
-            {170,50},{40,50},{40,133},{58,133}},
+    connect(pre.y, staSetCon.chaPro) annotation (Line(points={{162,70},{170,70},{170,
+            50},{40,50},{40,133},{58,133}},
                                        color={255,0,255}));
-    connect(staSetCon.uIni, conInt.y) annotation (Line(points={{58,137.2},{28,
-            137.2},{28,110},{2,110}},
+    connect(staSetCon.uIni, conInt.y) annotation (Line(points={{58,137.2},{28,137.2},
+            {28,110},{2,110}},
                       color={255,127,0}));
     connect(plaSta.y, truDel.u)
       annotation (Line(points={{-38,70},{-22,70}}, color={255,0,255}));
-    connect(truDel.y, staSetCon.uPla) annotation (Line(points={{2,70},{34,70},{
-            34,129},{58,129}},
+    connect(truDel.y, staSetCon.uPla) annotation (Line(points={{2,70},{34,70},{34,
+            129},{58,129}},
                       color={255,0,255}));
     connect(dpChiWatSet1.y, staSetCon1.dpChiWatPumSet) annotation (Line(points={{-98,
             -170},{-92,-170},{-92,-89},{58,-89}}, color={0,0,127}));
@@ -249,7 +249,7 @@ package Validation "Collection of validation models"
         StopTime=50000,
         Tolerance=1e-06,
         __Dymola_Algorithm="Cvode"),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Change_noWSE.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/SetpointController_noWSE.mos"
       "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -305,7 +305,7 @@ First implementation.
       final amplitude=0.037)
       "Chilled water flow"
       annotation (Placement(transformation(extent={{-200,100},{-180,120}})));
-    CDL.Logical.Sources.Constant                        chiAva[3](final k={true,true,
+    CDL.Logical.Sources.Constant                        chiAva[3](final k={true,
           true})
       "Chiller availability vector"
       annotation (Placement(transformation(extent={{-120,200},{-100,220}})));
@@ -356,8 +356,8 @@ First implementation.
       final amplitude=0.037)
       "Chilled water flow"
       annotation (Placement(transformation(extent={{-200,-140},{-180,-120}})));
-    CDL.Logical.Sources.Constant                        chiAva1[2](final k={true,
-          true})
+    CDL.Logical.Sources.Constant                        chiAva1[2](final k={
+          true,true,true})
       "Chiller availability vector"
       annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
     CDL.Continuous.Max                        max1
@@ -560,7 +560,7 @@ First implementation.
             {32,-105},{58,-105}}, color={255,0,255}));
   annotation (
    experiment(StopTime=20000.0, Tolerance=1e-06),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Change_WSE.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/SetpointController_WSE.mos"
       "Simulate and plot"),
     Documentation(info="<html>
 <p>

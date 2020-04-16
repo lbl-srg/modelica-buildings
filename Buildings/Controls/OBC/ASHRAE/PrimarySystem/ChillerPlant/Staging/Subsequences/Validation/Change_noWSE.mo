@@ -50,7 +50,8 @@ model Change_noWSE
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre
     annotation (Placement(transformation(extent={{140,60},{160,80}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant plaSta(final k=true) "Plant status"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant plaSta(final k=true)
+    "Plant status"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(k=1)
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
