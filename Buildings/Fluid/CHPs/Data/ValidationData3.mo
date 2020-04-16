@@ -20,6 +20,8 @@ record ValidationData3 "Validation data set 3"
     TWatMax=273.15 + 80,
     dPEleLim=false,
     dmFueLim=false,
+    dPEleMax=1000000000,
+    dmFueMax_flow=1000000000,
     PStaBy=100,
     PCooDow=200,
     LHVFue=47.614e6);
