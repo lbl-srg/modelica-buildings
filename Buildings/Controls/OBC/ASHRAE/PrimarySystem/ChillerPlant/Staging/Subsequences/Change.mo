@@ -1,6 +1,9 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences;
 block Change "Calculates the chiller stage signal"
 
+  parameter Integer nSta = 3
+    "Number of chiller stages";
+
   parameter Modelica.SIunits.Time delayStaCha = 900
     "Hold period for each stage change";
 

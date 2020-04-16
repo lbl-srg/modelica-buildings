@@ -15,19 +15,18 @@ model Change
     "Average measured chilled water flow rate";
 
   .Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Change
-    cha "Controls for stage up signal variations"
+    cha(nSta=10)
+        "Controls for stage up signal variations"
         annotation (Placement(transformation(extent={{-40,160},{-20,180}})));
   CDL.Logical.Sources.Constant                        plaSta(final k=true)
     "Plant status"
     annotation (Placement(transformation(extent={{-160,120},{-140,140}})));
   CDL.Logical.TrueDelay truDel(delayTime=10, delayOnInit=true)
     annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
-  CDL.Continuous.Sources.TimeTable timeTable
+  CDL.Continuous.Sources.TimeTable timeTable(table=[0,0; 600,0; 600,1; 1200,1; 1200,
+        0; 2500,0; 2500,1; 3700,1; 3700,0; 4300,0; 4300,1; 4500,1; 4500,0; 6000,
+        0; 6000,1; 9200,1; 9200,0; 11000,0])
     annotation (Placement(transformation(extent={{-160,200},{-140,220}})));
-  CDL.Continuous.Sources.TimeTable timeTable1
-    annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
-  CDL.Continuous.GreaterThreshold greThr1(threshold=0.5)
-    annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
   CDL.Continuous.GreaterThreshold greThr(threshold=0.5)
     annotation (Placement(transformation(extent={{-120,200},{-100,220}})));
   CDL.Conversions.IntegerToReal                        intToRea
@@ -41,7 +40,8 @@ model Change
   CDL.Integers.Add addInt1(k2=-1)
     annotation (Placement(transformation(extent={{140,140},{160,160}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Change
-    cha1 "Controls for stage down signal variations"
+    cha1(nSta=10)
+         "Controls for stage down signal variations"
          annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   CDL.Logical.Sources.Constant                        plaSta1(final k=true)
     "Plant status"
@@ -58,7 +58,9 @@ model Change
     annotation (Placement(transformation(extent={{140,0},{160,20}})));
   CDL.Integers.Add addInt3(k2=-1)
     annotation (Placement(transformation(extent={{140,-40},{160,-20}})));
-  CDL.Continuous.Sources.TimeTable timeTable2
+  CDL.Continuous.Sources.TimeTable timeTable2(table=[0,0; 800,0; 800,1; 2700,1;
+        2700,0; 4500,0; 4500,1; 5200,1; 5200,0; 6000,0; 6000,1; 6900,1; 6900,0;
+        7800,0; 7800,1; 8700,1; 8700,0; 11000,0])
     annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
   CDL.Continuous.GreaterThreshold greThr2(threshold=0.5)
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
@@ -80,13 +82,27 @@ model Change
     annotation (Placement(transformation(extent={{140,-180},{160,-160}})));
   CDL.Integers.Add addInt5(k2=-1)
     annotation (Placement(transformation(extent={{140,-220},{160,-200}})));
-  CDL.Continuous.Sources.TimeTable timeTable3
-    annotation (Placement(transformation(extent={{-160,-200},{-140,-180}})));
   CDL.Continuous.GreaterThreshold greThr3(threshold=0.5)
     annotation (Placement(transformation(extent={{-120,-200},{-100,-180}})));
   CDL.Logical.Sources.Constant noStaChaSig(final k=false)
     "No stage change signal"
     annotation (Placement(transformation(extent={{-200,80},{-180,100}})));
+  CDL.Continuous.Sources.TimeTable timeTable1(table=[0,0; 1600,0; 1600,1; 2400,1;
+        2400,0; 3700,0; 3700,1; 5900,1; 5900,0; 6900,0; 6900,1; 7800,1; 7800,0;
+        11000,0])
+    annotation (Placement(transformation(extent={{-160,-200},{-140,-180}})));
+  CDL.Logical.TrueFalseHold truFalHol(trueHoldDuration=10, falseHoldDuration=0)
+    annotation (Placement(transformation(extent={{0,100},{20,120}})));
+  CDL.Logical.TrueFalseHold truFalHol1(trueHoldDuration=10, falseHoldDuration=0)
+    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
+  CDL.Logical.TrueFalseHold truFalHol2(trueHoldDuration=10, falseHoldDuration=0)
+    annotation (Placement(transformation(extent={{0,-260},{20,-240}})));
+  CDL.Integers.Max maxInt
+    annotation (Placement(transformation(extent={{180,120},{200,140}})));
+  CDL.Integers.Max maxInt1
+    annotation (Placement(transformation(extent={{180,-60},{200,-40}})));
+  CDL.Integers.Max maxInt2
+    annotation (Placement(transformation(extent={{180,-240},{200,-220}})));
 protected
   CDL.Integers.Sources.Constant                        u(final k=0)
     "Chiller stage"
@@ -96,7 +112,7 @@ protected
     "Assuming that the next available stage is always the next stage"
     annotation (Placement(transformation(extent={{100,200},{120,220}})));
 protected
-  CDL.Integers.Sources.Constant                        u1(final k=0)
+  CDL.Integers.Sources.Constant                        u1(final k=7)
     "Chiller stage"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
 protected
@@ -111,6 +127,18 @@ protected
   CDL.Integers.Sources.Constant step2(final k=1)
     "Assuming that the next available stage is always the next stage"
     annotation (Placement(transformation(extent={{100,-160},{120,-140}})));
+protected
+  CDL.Integers.Sources.Constant                        u3(final k=0)
+    "Chiller stage"
+    annotation (Placement(transformation(extent={{140,100},{160,120}})));
+protected
+  CDL.Integers.Sources.Constant                        u4(final k=0)
+    "Chiller stage"
+    annotation (Placement(transformation(extent={{140,-80},{160,-60}})));
+protected
+  CDL.Integers.Sources.Constant                        u5(final k=0)
+    "Chiller stage"
+    annotation (Placement(transformation(extent={{140,-260},{160,-240}})));
 equation
   connect(plaSta.y, truDel.u)
     annotation (Line(points={{-138,130},{-122,130}}, color={255,0,255}));
@@ -118,8 +146,6 @@ equation
           {-98,250}}, color={255,127,0}));
   connect(timeTable.y[1], greThr.u)
     annotation (Line(points={{-138,210},{-122,210}}, color={0,0,127}));
-  connect(timeTable1.y[1], greThr1.u)
-    annotation (Line(points={{-138,10},{-122,10}}, color={0,0,127}));
   connect(cha.ySta, intToRea.u) annotation (Line(points={{-18,174},{0,174},{0,170},
           {18,170}}, color={255,127,0}));
   connect(intToRea.y, zerOrdHol.u)
@@ -136,8 +162,6 @@ equation
           144},{138,144}}, color={255,127,0}));
   connect(addInt.y, cha.uAvaUp) annotation (Line(points={{162,190},{170,190},{170,
           230},{-50,230},{-50,176},{-42,176}}, color={255,127,0}));
-  connect(addInt1.y, cha.uAvaDow) annotation (Line(points={{162,150},{170,150},{
-          170,130},{-50,130},{-50,172},{-42,172}}, color={255,127,0}));
   connect(truDel.y, cha.uPla) annotation (Line(points={{-98,130},{-70,130},{-70,
           160},{-42,160}}, color={255,0,255}));
   connect(plaSta1.y, truDel1.u)
@@ -160,8 +184,6 @@ equation
           {138,-36}}, color={255,127,0}));
   connect(addInt2.y, cha1.uAvaUp) annotation (Line(points={{162,10},{170,10},{170,
           50},{-50,50},{-50,-4},{-42,-4}}, color={255,127,0}));
-  connect(addInt3.y, cha1.uAvaDow) annotation (Line(points={{162,-30},{170,-30},
-          {170,-50},{-50,-50},{-50,-8},{-42,-8}}, color={255,127,0}));
   connect(truDel1.y, cha1.uPla) annotation (Line(points={{-98,-50},{-70,-50},{-70,
           -20},{-42,-20}}, color={255,0,255}));
   connect(timeTable2.y[1], greThr2.u)
@@ -186,27 +208,49 @@ equation
           -216},{138,-216}}, color={255,127,0}));
   connect(addInt4.y, cha2.uAvaUp) annotation (Line(points={{162,-170},{170,-170},
           {170,-130},{-50,-130},{-50,-184},{-42,-184}}, color={255,127,0}));
-  connect(addInt5.y, cha2.uAvaDow) annotation (Line(points={{162,-210},{170,-210},
-          {170,-230},{-50,-230},{-50,-188},{-42,-188}}, color={255,127,0}));
   connect(truDel2.y, cha2.uPla) annotation (Line(points={{-98,-230},{-70,-230},{
           -70,-200},{-42,-200}}, color={255,0,255}));
-  connect(timeTable3.y[1], greThr3.u)
-    annotation (Line(points={{-138,-190},{-122,-190}}, color={0,0,127}));
   connect(noStaChaSig.y, cha.uDow) annotation (Line(points={{-178,90},{-170,90},
           {-170,164},{-42,164}}, color={255,0,255}));
   connect(noStaChaSig.y, cha1.uUp) annotation (Line(points={{-178,90},{-170,90},
           {-170,40},{-80,40},{-80,-12},{-42,-12}}, color={255,0,255}));
-  connect(greThr1.y, cha1.uDow) annotation (Line(points={{-98,10},{-90,10},{-90,
-          -16},{-42,-16}}, color={255,0,255}));
   connect(greThr.y, cha.uUp) annotation (Line(points={{-98,210},{-70,210},{-70,168},
           {-42,168}}, color={255,0,255}));
   connect(greThr2.y, cha2.uUp) annotation (Line(points={{-98,-150},{-80,-150},{-80,
           -192},{-42,-192}}, color={255,0,255}));
   connect(greThr3.y, cha2.uDow) annotation (Line(points={{-98,-190},{-90,-190},{
           -90,-196},{-42,-196}}, color={255,0,255}));
+  connect(greThr.y, cha1.uDow) annotation (Line(points={{-98,210},{-64,210},{-64,
+          -16},{-42,-16}}, color={255,0,255}));
+  connect(timeTable1.y[1], greThr3.u)
+    annotation (Line(points={{-138,-190},{-122,-190}}, color={0,0,127}));
+  connect(cha.y, truFalHol.u) annotation (Line(points={{-18,166},{-10,166},{-10,
+          110},{-2,110}}, color={255,0,255}));
+  connect(cha1.y, truFalHol1.u) annotation (Line(points={{-18,-14},{-10,-14},{-10,
+          -70},{-2,-70}}, color={255,0,255}));
+  connect(cha2.y, truFalHol2.u) annotation (Line(points={{-18,-194},{-10,-194},{
+          -10,-250},{-2,-250}}, color={255,0,255}));
+  connect(addInt1.y, maxInt.u1) annotation (Line(points={{162,150},{170,150},{
+          170,136},{178,136}}, color={255,127,0}));
+  connect(maxInt.u2, u3.y) annotation (Line(points={{178,124},{170,124},{170,
+          110},{162,110}}, color={255,127,0}));
+  connect(maxInt.y, cha.uAvaDow) annotation (Line(points={{202,130},{210,130},{
+          210,90},{-50,90},{-50,172},{-42,172}}, color={255,127,0}));
+  connect(addInt3.y, maxInt1.u1) annotation (Line(points={{162,-30},{170,-30},{
+          170,-44},{178,-44}}, color={255,127,0}));
+  connect(u4.y, maxInt1.u2) annotation (Line(points={{162,-70},{170,-70},{170,
+          -56},{178,-56}}, color={255,127,0}));
+  connect(maxInt1.y, cha1.uAvaDow) annotation (Line(points={{202,-50},{208,-50},
+          {208,-90},{-50,-90},{-50,-8},{-42,-8}}, color={255,127,0}));
+  connect(addInt5.y, maxInt2.u1) annotation (Line(points={{162,-210},{170,-210},
+          {170,-224},{178,-224}}, color={255,127,0}));
+  connect(u5.y, maxInt2.u2) annotation (Line(points={{162,-250},{170,-250},{170,
+          -236},{178,-236}}, color={255,127,0}));
+  connect(maxInt2.y, cha2.uAvaDow) annotation (Line(points={{202,-230},{208,
+          -230},{208,-268},{-50,-268},{-50,-188},{-42,-188}}, color={255,127,0}));
 annotation (
  experiment(StopTime=20000.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Change_WSE.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Change.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>
@@ -232,5 +276,5 @@ Icon(graphics={
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-220,-260},{220,280}})));
+        coordinateSystem(preserveAspectRatio=false, extent={{-220,-280},{220,300}})));
 end Change;
