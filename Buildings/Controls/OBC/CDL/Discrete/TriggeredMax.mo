@@ -72,7 +72,11 @@ equation
         Line(points={{-100,0},{-45,0}}, color={0,0,255}),
         Line(points={{45,0},{100,0}}, color={0,0,255}),
         Line(points={{-35,0},{28,-48}}, color={0,0,255}),
-        Line(points={{0,-100},{0,-26}}, color={255,0,255})}),
+        Line(points={{0,-100},{0,-26}}, color={255,0,255}),
+        Text(
+          extent={{226,60},{106,10}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}),
     Documentation(info="<html>
 <p>
 Block that outputs the input signal whenever the trigger input
@@ -82,6 +86,10 @@ at the sampling point is provided as the output signal.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
 <li>
 September 14, 2017, by Michael Wetter:<br/>
 Removed parameter <code>startTime</code> and <code>sampleTime</code>
