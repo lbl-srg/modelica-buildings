@@ -32,11 +32,11 @@ equation
           18},{-66,18},{-66,-68},{-62,-68}}, color={0,0,127}));
   connect(min.y, greEqu4.u1) annotation (Line(points={{-74,-100},{-70,-100},{
           -70,-100},{-62,-100}}, color={0,0,127}));
-  connect(runHP.active, reqHea) annotation (Line(points={{6,109},{6,106},{24,
+  connect(runHP.active, reqHea) annotation (Line(points={{20,109},{20,106},{24,
           106},{24,140},{160,140}}, color={255,0,255}));
-  connect(rejFulLoaSta.active, rejFulLoa)  annotation (Line(points={{56,49},{56,
+  connect(rejFulLoaSta.active, rejFulLoa)  annotation (Line(points={{80,49},{80,
           20},{160,20}},                                                                         color={255,0,255}));
-  connect(rejFulLoaSta.active, or2.u1) annotation (Line(points={{56,49},{56,-20},
+  connect(rejFulLoaSta.active, or2.u1) annotation (Line(points={{80,49},{80,-20},
           {58,-20}},                                                                        color={255,0,255}));
 
    annotation ( Icon(coordinateSystem(extent={{-100,-100},{100,100}})),

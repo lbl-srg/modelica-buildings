@@ -4,3 +4,4 @@ WaterWaterHeatExchanger
 Junction
 SubsystemBorefield
 SubsystemChiller
+SubsystemChillerArray

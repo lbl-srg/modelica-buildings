@@ -42,9 +42,9 @@ model HydraulicHeader "Validation of hydraulic header model"
     startTime=0)
     "Primary flow"
     annotation (Placement(transformation(extent={{-180,50},{-160,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T1(k=273.15 + 40)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T1(k=40 + 273.15)
     "Primary supply temperature"
-    annotation (Placement(transformation(extent={{-180,-60},{-160,-40}})));
+    annotation (Placement(transformation(extent={{-180,-50},{-160,-30}})));
   Fluid.Sensors.TemperatureTwoPort senT2_1Sup(redeclare final package Medium =
         Medium, m_flow_nominal=m_flow_nominal)
     "Secondary supply temperature (measured)" annotation (Placement(
@@ -93,7 +93,7 @@ model HydraulicHeader "Validation of hydraulic header model"
     m_flow_nominal=m_flow_nominal,
     Q_flow_nominal=-1E5) "Heat exchange with water stream"
     annotation (Placement(transformation(extent={{80,-30},{60,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T2_1Ret(k=273.15 + 30)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T2_1Ret(k=30 + 273.15)
     "First secondary return temperature"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conTChiWat1(
@@ -152,7 +152,7 @@ model HydraulicHeader "Validation of hydraulic header model"
     m_flow_nominal=m_flow_nominal,
     Q_flow_nominal=-1E5) "Heat exchange with water stream"
     annotation (Placement(transformation(extent={{80,-170},{60,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T2_2Ret(k=273.15 + 35)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T2_2Ret(k=35 + 273.15)
     "Second secondary return temperature"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conTChiWat2(
@@ -192,7 +192,7 @@ equation
     annotation (Line(points={{178,60},{160,60},{160,-8}}, color={0,0,127}));
   connect(bou1.ports[1], sou1.port_a) annotation (Line(points={{-120,2},{-120,20},
           {-110,20}},     color={0,127,255}));
-  connect(T1.y, bou1.T_in) annotation (Line(points={{-158,-50},{-152,-50},{-152,
+  connect(T1.y, bou1.T_in) annotation (Line(points={{-158,-40},{-152,-40},{-152,
           4},{-142,4}}, color={0,0,127}));
   connect(senT1Sup.port_b, hydHea.ports_a[1]) annotation (Line(points={{-30,20},
           {0,20},{0,1.33333},{4.44089e-16,1.33333}},
@@ -242,20 +242,20 @@ equation
 This model validates
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.HydraulicHeader\">
 Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.HydraulicHeader</a>
-in a configuration where the model is used as a decoupler between:
+in a configuration where the model is used as a decoupler between
 </p>
 <ol>
 <li>
-a primary circuit which flow rate varies from zero to 1.1 times the
-sum of all secondary initial flow rates,
+a primary circuit which mass flow rate varies from zero to 1.1 times the
+sum of all secondary initial mass flow rates,
 </li>
 <li>
-a first secondary circuit which flow rate varies from 0.5 to 1 times the
-primary flow rate,
+a first secondary circuit which mass flow rate varies from 0.5 to 1 times the
+primary mass flow rate,
 </li>
 <li>
 a second secondary circuit which flow rate is constant, equal to 0.5 times the
-primary flow rate.
+primary mass flow rate.
 </li>
 </ol>
 </html>"),

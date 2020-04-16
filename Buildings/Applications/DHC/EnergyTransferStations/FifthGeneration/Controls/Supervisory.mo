@@ -49,60 +49,63 @@ model Supervisory "Energy transfer station supervisory controller"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
       iconTransformation(extent={{-120,40},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValCon
-    "Condenser loop directional valve position" annotation (Placement(
+    "Condenser to ambient loop isolation valve control signal"
+                                                annotation (Placement(
         transformation(extent={{100,-60},{140,-20}}), iconTransformation(extent=
            {{100,-20},{120,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValEva
-    "Evaporator loop directional valve position" annotation (Placement(
-        transformation(extent={{100,-100},{140,-60}}), iconTransformation(
+    "Evaporator to ambient loop isolation valve control signal"
+                                                 annotation (Placement(
+        transformation(extent={{100,-90},{140,-50}}),  iconTransformation(
           extent={{100,-40},{120,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput reqHea
-    "True: heating is required, false otherwise"
-    annotation (Placement(transformation(extent={{100,60},{140,100}}),
-                   iconTransformation(extent={{100,80},{120,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput reqCoo
-    "True: cooling is required, false otherwise"
-    annotation (Placement(transformation(extent={{100,20},{140,60}}),
-                   iconTransformation(extent={{100,-100},{120,-80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput rejColFulLoa
-    "True: reject full surplus cooling load using the district heat exchanger and/or borefield systems"
-    annotation (Placement(transformation(extent={{100,0},{140,40}}),
-      iconTransformation(extent={{100,-82},{120,-62}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput rejHeaFulLoa
-    "True: reject full surplus heating load using the district heat exchanger and/or borefield systems"
-    annotation (Placement(transformation(extent={{100,40},{140,80}}),
-      iconTransformation(extent={{100,-62},{120,-42}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHea
+    "Heating mode enabled signal" annotation (Placement(transformation(extent={
+            {100,60},{140,100}}), iconTransformation(extent={{100,80},{120,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yCoo
+    "Cooling mode enabled signal" annotation (Placement(transformation(extent={
+            {100,0},{140,40}}), iconTransformation(extent={{100,-100},{120,-80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yColRej
+    "Control signal enabling full cold rejection to ambient loop" annotation (
+      Placement(transformation(extent={{100,-30},{140,10}}), iconTransformation(
+          extent={{100,-82},{120,-62}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHeaRej
+    "Control signal enabling full heat rejection to ambient loop" annotation (
+      Placement(transformation(extent={{100,30},{140,70}}), iconTransformation(
+          extent={{100,-62},{120,-42}})));
   HotSide conHotSid(THys=THys) "Hot side controller"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
   ColdSide conColSid(THys=THys) "Cold side controller"
-    annotation (Placement(transformation(extent={{-10,-84},{10,-64}})));
+    annotation (Placement(transformation(extent={{-10,-86},{10,-66}})));
 equation
-  connect(TTanHeaTop, conHotSid.TTop) annotation (Line(points={{-120,50},{-80,
-          50},{-80,55},{-11,55}},      color={0,0,127}));
-  connect(TTanHeaBot, conHotSid.TBot) annotation (Line(points={{-120,20},{-62,
-          20},{-62,45},{-11,45}},
+  connect(TTanHeaTop, conHotSid.TTop) annotation (Line(points={{-120,50},{-60,
+          50},{-60,46},{-12,46}},      color={0,0,127}));
+  connect(TTanHeaBot, conHotSid.TBot) annotation (Line(points={{-120,20},{-40,
+          20},{-40,42},{-12,42}},
                                 color={0,0,127}));
-  connect(TTanCooTop, conColSid.TTop) annotation (Line(points={{-120,-50},{-78,
-          -50},{-78,-69},{-11,-69}},   color={0,0,127}));
-  connect(TTanCooBot, conColSid.TBot) annotation (Line(points={{-120,-80},{-70,
-          -80},{-70,-79},{-11,-79}},      color={0,0,127}));
-  connect(conHotSid.reqHea, reqHea) annotation (Line(points={{11,59},{16,59},{
-          16,60},{20,60},{20,80},{120,80}},                                                           color={255,0,255}));
-  connect(conColSid.reqCoo, reqCoo) annotation (Line(points={{11,-65},{36,-65},
-          {36,-52},{60,-52},{60,40},{120,40}},     color={255,0,255}));
-  connect(conColSid.rejFulLoa, rejColFulLoa) annotation (Line(points={{11,-68},
-          {80,-68},{80,20},{120,20}},   color={255,0,255}));
-  connect(conHotSid.rejFulLoa, rejHeaFulLoa)  annotation (Line(points={{11,56},
-          {40,56},{40,60},{120,60}},                                                          color={255,0,255}));
-  connect(TSetCoo, conColSid.TSet) annotation (Line(points={{-120,-20},{-52,-20},
-          {-52,-65},{-11,-65}},   color={0,0,127}));
-  connect(TSetHea, conHotSid.TSet) annotation (Line(points={{-120,80},{-76,80},
-          {-76,59},{-11,59}},     color={0,0,127}));
-  connect(conHotSid.yVal, yValCon) annotation (Line(points={{11,44},{20,44},{20,
+  connect(TTanCooTop, conColSid.TTop) annotation (Line(points={{-120,-50},{-60,
+          -50},{-60,-80},{-12,-80}},   color={0,0,127}));
+  connect(TTanCooBot, conColSid.TBot) annotation (Line(points={{-120,-80},{-80,
+          -80},{-80,-84},{-12,-84}},      color={0,0,127}));
+  connect(conHotSid.reqHea, yHea) annotation (Line(points={{12,58},{20,58},{20,
+          80},{120,80}}, color={255,0,255}));
+  connect(conColSid.reqCoo, yCoo) annotation (Line(points={{12,-68},{60,-68},{
+          60,20},{120,20}}, color={255,0,255}));
+  connect(conColSid.rejFulLoa, yColRej) annotation (Line(points={{12,-72},{80,
+          -72},{80,-10},{120,-10}}, color={255,0,255}));
+  connect(conHotSid.rejFulLoa, yHeaRej) annotation (Line(points={{12,54},{20,54},
+          {20,50},{120,50}}, color={255,0,255}));
+  connect(TSetCoo, conColSid.TSet) annotation (Line(points={{-120,-20},{-40,-20},
+          {-40,-68},{-12,-68}},   color={0,0,127}));
+  connect(TSetHea, conHotSid.TSet) annotation (Line(points={{-120,80},{-80,80},
+          {-80,58},{-12,58}},     color={0,0,127}));
+  connect(conHotSid.yVal, yValCon) annotation (Line(points={{12,46},{20,46},{20,
           -40},{120,-40}}, color={0,0,127}));
   connect(conColSid.yVal, yValEva)
-    annotation (Line(points={{11,-80},{120,-80}}, color={0,0,127}));
+    annotation (Line(points={{12,-80},{90,-80},{90,-70},{120,-70}},
+                                                  color={0,0,127}));
 
+  connect(yHea, yHea)
+    annotation (Line(points={{120,80},{120,80}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
         defaultComponentName="conETS",

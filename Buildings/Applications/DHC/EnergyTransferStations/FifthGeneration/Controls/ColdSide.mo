@@ -26,7 +26,7 @@ model ColdSide "State machine controls the operation of the cooling generating s
   Buildings.Controls.OBC.CDL.Continuous.Max max
     annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
 equation
-  connect(runHP.active, reqCoo) annotation (Line(points={{6,109},{6,108},{24,
+  connect(runHP.active, reqCoo) annotation (Line(points={{20,109},{20,108},{24,
           108},{24,142},{150,142}},color={255,0,255}));
   connect(con.y, frePro.reference) annotation (Line(points={{52,-100},{60,-100},
           {60,-120},{40,-120},{40,-134},{48,-134}},
@@ -34,13 +34,13 @@ equation
   connect(or1.u2, frePro.y) annotation (Line(points={{88,-108},{80,-108},{80,
           -140},{72,-140}},                                              color={255,0,255}));
   connect(or1.u1, rejFulLoaSta.active) annotation (Line(points={{88,-100},{80,
-          -100},{80,-80},{36,-80},{36,0},{56,0},{56,49}},
+          -100},{80,-80},{36,-80},{36,0},{80,0},{80,49}},
                                     color={255,0,255}));
   connect(or1.y, rejFulLoa) annotation (Line(points={{112,-100},{130,-100},{130,
           20},{160,20}},
                       color={255,0,255}));
-  connect(or2.u2, rejParLoaSta.active) annotation (Line(points={{58,-28},{-6,-28},
-          {-6,69}},                                                                         color={255,0,255}));
+  connect(or2.u2, rejParLoaSta.active) annotation (Line(points={{58,-28},{20,
+          -28},{20,69}},                                                                    color={255,0,255}));
   connect(or1.y,or2. u1) annotation (Line(points={{112,-100},{120,-100},{120,
           -48},{40,-48},{40,-20},{58,-20}},
                                        color={255,0,255}));

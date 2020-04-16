@@ -2,6 +2,5 @@ AmbientCircuit
 Chiller
 ColdSide
 HotSide
-PrimaryPumpsConstantSpeed
 Supervisory
 BaseClasses
