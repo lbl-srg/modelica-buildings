@@ -1,9 +1,7 @@
 within Buildings.Fluid.CHPs.BaseClasses;
-model AssertFuelFlow "Assert if fuel flow is outside boundaries"
+model AssertFuelFlow "Assert whether fuel flow is within boundary"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Boolean dmFueLim
-    "If true, the rate at which fuel mass flow rate can change is limited";
   parameter Real dmFueMax_flow(final unit="kg/s2")
     "Maximum rate at which fuel mass flow rate can change";
 
@@ -17,14 +15,12 @@ model AssertFuelFlow "Assert if fuel flow is outside boundaries"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Logical.Nand nand
+  Buildings.Controls.OBC.CDL.Logical.Not not1
     "Check if fuel flow rate is changing slowly"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant cheDmLim(
-    final k=dmFueLim) "Check if change of fuel flow rate should be limited"
-    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(final uLow=0.99*dmFueMax_flow,
-      final uHigh=1.01*dmFueMax_flow + 1e-6)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+    final uLow=0.99*dmFueMax_flow,
+    final uHigh=1.01*dmFueMax_flow + 1e-6)
     "Check if fuel mass flow rate is changing too much"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Derivative floChaRat(
@@ -39,13 +35,11 @@ equation
     annotation (Line(points={{-42,0},{-58,0}}, color={0,0,127}));
   connect(floChaRat.u, mFue_flow)
     annotation (Line(points={{-82,0},{-120,0}}, color={0,0,127}));
-  connect(cheDmLim.y, nand.u2)
-    annotation (Line(points={{22,-40},{30,-40},{30,-8},{38,-8}}, color={255,0,255}));
-  connect(nand.y, assMes.u)
+  connect(not1.y, assMes.u)
     annotation (Line(points={{62,0},{68,0}}, color={255,0,255}));
   connect(abs1.y, hys.u)
     annotation (Line(points={{-18,0},{-2,0}}, color={0,0,127}));
-  connect(hys.y, nand.u1)
+  connect(hys.y, not1.u)
     annotation (Line(points={{22,0},{38,0}}, color={255,0,255}));
 
 annotation (
