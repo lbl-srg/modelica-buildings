@@ -161,13 +161,9 @@ block Configurator "Configures chiller staging"
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
     final message="It could be that the chillers are not being staged in an order 
     recommended by ASHRAE RP1711 or Guideline 36. 
-    If possible, please make sure to follow the recommendation that is:
+    Please make sure to follow the recommendation that is:
     any positive displacement machines first, 
-    any variable speed centrifugal next and any constant speed centrifugal last.
-    It could for example be that one of the higher stages contained only 
-    positive displacement chillers, while a lower stage stage included other 
-    chiller types that, in such a case, determined the stage type.")
-    "Staging type order assertion"
+    any variable speed centrifugal next and any constant speed centrifugal last.")
     annotation (Placement(transformation(extent={{180,-160},{200,-140}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(
