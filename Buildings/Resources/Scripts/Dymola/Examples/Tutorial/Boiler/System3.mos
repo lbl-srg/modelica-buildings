@@ -1,4 +1,4 @@
-simulateModel("Buildings.Examples.Tutorial.Boiler.System3", tolerance=1e-6, stopTime=172800, method="dassl", resultFile="BoilerSystem3");
+simulateModel("Buildings.Examples.Tutorial.Boiler.System3", tolerance=1e-6, stopTime=172800, method="CVode", resultFile="BoilerSystem3");
 createPlot(id = 1,
  position = {15, 10, 500, 280},
  y = {"vol.T_start", "vol.T", "TOut.T", "boi.vol.T"},
