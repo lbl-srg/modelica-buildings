@@ -353,9 +353,9 @@ equation
           60},{-180,50}}, color={0,127,255}));
   connect(splEvaSup.port_2,valEvaDir. port_a) annotation (Line(points={{-180,30},
           {-180,-80},{-110,-80}}, color={0,127,255}));
-  connect(conChi.yValEva, valEvaMix.y) annotation (Line(points={{-198,240},{100,
+  connect(conChi.yMixEva, valEvaMix.y) annotation (Line(points={{-198,240},{100,
           240},{100,80},{120,80},{120,72}}, color={0,0,127}));
-  connect(conChi.yValCon, valConMix.y) annotation (Line(points={{-198,236},{-160,
+  connect(conChi.yMixCon, valConMix.y) annotation (Line(points={{-198,236},{-160,
           236},{-160,120},{-140,120},{-140,128}}, color={0,0,127}));
   connect(valEvaDir.port_b, splAmbRet.port_1)
     annotation (Line(points={{-90,-80},{30,-80}}, color={0,127,255}));

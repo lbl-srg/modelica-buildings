@@ -326,7 +326,7 @@ model FifthGenHRChiller_bck
   FifthGeneration.Controls.PrimaryPumpsConstantSpeed pumPrimCon
     "Control of the primary pumps"
     annotation (Placement(transformation(extent={{-120,142},{-100,162}})));
-  FifthGeneration.Controls.AmbientCircuit ambCon(dTGeo=dTGeo, dTHex=dTHex)
+  Controls.Borefield ambCon(dTGeo=dTGeo, dTHex=dTHex)
     "Control of the ambient circuit"
     annotation (Placement(transformation(extent={{-144,-82},{-124,-62}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiMDisHex(k=mHex_flow_nominal)
@@ -804,36 +804,36 @@ equation
       points={{-177,201},{-166,201},{-166,146},{-122,146}},
       color={255,0,255},
       pattern=LinePattern.Dot));
-  connect(ETSCon.yValCon, valSupHea.y) annotation (Line(
+  connect(ETSCon.yIsoCon, valSupHea.y) annotation (Line(
       points={{-177,209},{-152,209},{-152,-2},{8,-2},{8,-8}},
       color={28,108,200},
       pattern=LinePattern.DashDot));
-  connect(ETSCon.yValEva, valSupCoo.y) annotation (Line(
+  connect(ETSCon.yIsoEva, valSupCoo.y) annotation (Line(
       points={{-177,207},{-152,207},{-152,-8},{-84,-8}},
       color={28,108,200},
       pattern=LinePattern.DashDot));
-  connect(ETSCon.yCoo, ambCon.reqCoo) annotation (Line(
+  connect(ETSCon.yCoo, ambCon.uCoo) annotation (Line(
       points={{-177,201},{-166,201},{-166,-68},{-145,-68}},
       color={255,0,255},
       pattern=LinePattern.Dot));
-  connect(ambCon.reqHea, ETSCon.yHea) annotation (Line(
+  connect(ambCon.uHea, ETSCon.yHea) annotation (Line(
       points={{-145,-63},{-156,-63},{-156,219},{-177,219}},
       color={255,0,255},
       pattern=LinePattern.Dot));
-  connect(ETSCon.valHea, ambCon.valHea) annotation (Line(
+  connect(ETSCon.valHea, ambCon.uIsoCon) annotation (Line(
       points={{-177,213},{-158,213},{-158,-64},{-145,-64}},
       color={255,0,255},
       pattern=LinePattern.Dot));
-  connect(ETSCon.valCoo, ambCon.valCoo) annotation (Line(
+  connect(ETSCon.valCoo, ambCon.uIsoEva) annotation (Line(
       points={{-177,215},{-160,215},{-160,-65},{-145,-65}},
       color={255,0,255},
       pattern=LinePattern.Dot));
-  connect(ambCon.rejCooFulLoa, ETSCon.yColRej) annotation (Line(
-      points={{-145,-67},{-164,-67},{-164,202.8},{-177,202.8}},
+  connect(ambCon.uColRej, ETSCon.yColRej) annotation (Line(
+      points={{-146,-73},{-164,-73},{-164,202.8},{-177,202.8}},
       color={255,0,255},
       pattern=LinePattern.Dot));
-  connect(ETSCon.yHeaRej, ambCon.rejHeaFulLoa) annotation (Line(
-      points={{-177,204.8},{-162,204.8},{-162,-66},{-145,-66}},
+  connect(ETSCon.yHeaRej, ambCon.uHeaRej) annotation (Line(
+      points={{-177,204.8},{-162,204.8},{-162,-70},{-146,-70}},
       color={255,0,255},
       pattern=LinePattern.Dot));
   connect(pumPrimCon.yPumCon, pumCon.y) annotation (Line(points={{-98,158},{10,
@@ -891,16 +891,16 @@ equation
           214},{-42,123},{-32,123}}, color={0,0,127}));
   connect(TConEnt.port_a, hydHdrHeaRet.ports_b[1]) annotation (Line(points={{0,20},{
           50,20},{50,20},{106,20}},  color={0,127,255}));
-  connect(chiCon.yValEva, valEva.y) annotation (Line(points={{-98,206},{-96,206},
+  connect(chiCon.yMixEva, valEva.y) annotation (Line(points={{-98,206},{-96,206},
           {-96,130},{-114,130},{-114,78},{-106,78}},        color={0,0,127}));
-  connect(chiCon.yValCon, valCon.y) annotation (Line(points={{-98,202},{-52,202},
+  connect(chiCon.yMixCon, valCon.y) annotation (Line(points={{-98,202},{-52,202},
           {-52,52},{-46,52}}, color={0,0,127}));
   connect(ambCon.modRej, modRej) annotation (Line(points={{-123,-72},{60,-72},{
           60,-90},{310,-90}}, color={255,127,0}));
   connect(pumBor.port_b, TBorEnt.port_a)
     annotation (Line(points={{-70,-160},{-70,-164}}, color={0,127,255}));
-  connect(ambCon.yBorThrVal, valBor.y) annotation (Line(points={{-123,-66},{-94,
-          -66},{-94,-110},{-82,-110}},   color={0,0,127}));
+  connect(ambCon.yMixBor, valBor.y) annotation (Line(points={{-122,-66},{-94,
+          -66},{-94,-110},{-82,-110}}, color={0,0,127}));
   connect(ambCon.yDisHexPum, gaiMDisHex.u) annotation (Line(points={{-123,-80},{
           -120,-80},{-120,-252},{38,-252}},    color={0,0,127}));
   connect(tanHeaWat.port_b, hydHdrHeaRet.ports_a[1]) annotation (Line(points={{180,40},
@@ -912,12 +912,13 @@ equation
           {-122,60},{-122,60},{-116,60}},     color={0,127,255}));
   connect(valEva.port_1, TValEnt.port_b) annotation (Line(points={{-94,68},{-94,
           64},{-94,60},{-96,60}}, color={0,127,255}));
-  connect(TBorEnt.T, ambCon.TBorEnt) annotation (Line(
-      points={{-81,-174},{-154,-174},{-154,-81},{-145,-81}},
+  connect(TBorEnt.T, ambCon.TBorWatEnt) annotation (Line(
+      points={{-81,-174},{-154,-174},{-154,-76},{-146,-76}},
       color={0,0,127},
       pattern=LinePattern.Dot));
-  connect(TBorLvg.T, ambCon.TBorLvg) annotation (Line(
-      points={{-41,-210},{-50,-210},{-50,-228},{-156,-228},{-156,-80},{-145,-80}},
+  connect(TBorLvg.T, ambCon.TBorWatLvg) annotation (Line(
+      points={{-41,-210},{-50,-210},{-50,-228},{-156,-228},{-156,-79},{-146,-79}},
+
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(hydHdrHeaRet.ports_b[2], hydHdrAmbSup.ports_b[1]) annotation (Line(
@@ -941,8 +942,9 @@ equation
                                                    color={0,127,255}));
   connect(tanChiWat.port_b, chiWatSup) annotation (Line(points={{-216,60},{-200,
           60},{-200,40},{-300,40}}, color={0,127,255}));
-  connect(gaiBor.u, ambCon.yBorPum) annotation (Line(points={{-112,-150},{-112,-76},
-          {-123,-76}},   color={0,0,127}));
+  connect(gaiBor.u,ambCon.yPumBor)  annotation (Line(points={{-112,-150},{-112,
+          -78.1},{-121.9,-78.1}},
+                         color={0,0,127}));
   connect(pumBor.m_flow_in, gaiBor.y)
     annotation (Line(points={{-82,-150},{-88,-150}}, color={0,0,127}));
   connect(TBorEnt.port_b, borFie.port_a)

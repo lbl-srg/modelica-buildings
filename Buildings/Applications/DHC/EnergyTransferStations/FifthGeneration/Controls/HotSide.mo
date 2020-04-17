@@ -5,49 +5,46 @@ block HotSide "State machine controls the operation of the heating generating so
     Buildings.Applications.DHC.EnergyTransferStations.FifthGeneration.Controls.BaseClasses.HotColdSide(
       THys=THys);
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput reqHea
-    "True if heating is required from heating generating source, false otherwise."
-    annotation (
-      Placement(transformation(extent={{140,120},{180,160}}),
-                                                            iconTransformation(
-          extent={{100,60},{140,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHea
+    "Heating mode enabled signal" annotation (Placement(transformation(extent={{180,160},
+            {220,200}}),          iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Continuous.Min min
     annotation (Placement(transformation(extent={{-96,-110},{-76,-90}})));
 equation
-  connect(min.u1, TTop) annotation (Line(points={{-98,-94},{-120,-94},{-120,60},
-          {-160,60}}, color={0,0,127}));
-  connect(TTop, greEqu.u2) annotation (Line(points={{-160,60},{-120,60},{-120,32},
-          {-102,32}}, color={0,0,127}));
-  connect(TTop, greEqu5.u2) annotation (Line(points={{-160,60},{-120,60},{-120,
-          -160},{-70,-160},{-70,-148},{-62,-148}}, color={0,0,127}));
-  connect(min.u2, TBot) annotation (Line(points={{-98,-106},{-112,-106},{-112,-60},
-          {-160,-60}}, color={0,0,127}));
-  connect(TBot, greEqu1.u1) annotation (Line(points={{-160,-60},{-112,-60},{
-          -112,18},{-66,18},{-66,20},{-62,20}},
+  connect(min.u1, TTop) annotation (Line(points={{-98,-94},{-120,-94},{-120,-40},
+          {-200,-40}},color={0,0,127}));
+  connect(TTop, greEqu.u2) annotation (Line(points={{-200,-40},{-120,-40},{-120,
+          -8},{-140,-8}},
+                      color={0,0,127}));
+  connect(TTop, greEqu5.u2) annotation (Line(points={{-200,-40},{-120,-40},{-120,
+          -160},{-70,-160},{-70,-228},{-92,-228}}, color={0,0,127}));
+  connect(min.u2, TBot) annotation (Line(points={{-98,-106},{-112,-106},{-112,-120},
+          {-200,-120}},color={0,0,127}));
+  connect(TBot, greEqu1.u1) annotation (Line(points={{-200,-120},{-112,-120},{-112,
+          18},{-66,18},{-66,-60},{-92,-60}},
                                      color={0,0,127}));
-  connect(TBot, greEqu2.u1) annotation (Line(points={{-160,-60},{-112,-60},{
-          -112,18},{-66,18},{-66,-20},{-62,-20}},
+  connect(TBot, greEqu2.u1) annotation (Line(points={{-200,-120},{-112,-120},{-112,
+          18},{-66,18},{-66,-100},{-92,-100}},
                                              color={0,0,127}));
-  connect(TBot, greEqu3.u2) annotation (Line(points={{-160,-60},{-112,-60},{-112,
-          18},{-66,18},{-66,-68},{-62,-68}}, color={0,0,127}));
-  connect(min.y, greEqu4.u1) annotation (Line(points={{-74,-100},{-70,-100},{
-          -70,-100},{-62,-100}}, color={0,0,127}));
-  connect(runHP.active, reqHea) annotation (Line(points={{20,109},{20,106},{24,
-          106},{24,140},{160,140}}, color={255,0,255}));
-  connect(rejFulLoaSta.active, rejFulLoa)  annotation (Line(points={{80,49},{80,
-          20},{160,20}},                                                                         color={255,0,255}));
-  connect(rejFulLoaSta.active, or2.u1) annotation (Line(points={{80,49},{80,-20},
-          {58,-20}},                                                                        color={255,0,255}));
+  connect(TBot, greEqu3.u2) annotation (Line(points={{-200,-120},{-112,-120},{-112,
+          18},{-66,18},{-66,-148},{-92,-148}},
+                                             color={0,0,127}));
+  connect(min.y, greEqu4.u1) annotation (Line(points={{-74,-100},{-70,-100},{-70,
+          -180},{-92,-180}},     color={0,0,127}));
+  connect(run.active, yHea) annotation (Line(points={{-30,169},{-30,160},{168,160},
+          {168,180},{200,180}},color={255,0,255}));
+  connect(rejFul.active, yRej)
+    annotation (Line(points={{80,89},{80,20},{200,20}}, color={255,0,255}));
+  connect(rejFul.active, or2.u1)
+    annotation (Line(points={{80,89},{80,-20},{88,-20}}, color={255,0,255}));
 
-   annotation ( Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
-                    defaultComponentName="conHotSid",
-                    Diagram(coordinateSystem(extent={{-140,-180},{140,160}})),
+   annotation (
+   defaultComponentName="conHot",
 Documentation(info="<html>
 <p>
-This block is a state machine controller which transitions the hot and ambient water circuits in
-<a href=\"Buildings.Applications.DHC.EnergyTransferStations.Substation\">
-Buildings.Applications.DHC.EnergyTransferStations.Substation</a>
-between different states i.e. operational modes. It generates the control signals for:
+This is a controller which transitions the hot and ambient water circuits in
+between different states i.e. operating modes. 
+It generates the control signals for
 </p>
 <ul>
   <li>
@@ -61,7 +58,7 @@ between different states i.e. operational modes. It generates the control signal
   </li>
 </ul>
 <p>
-The finite state machines as illustrated in the figure below generates
+The finite state machine as illustrated in the figure below generates
 </p>
 <ol>
   <li>
@@ -126,7 +123,11 @@ The table clarifies the states and associated actions
 <ul>
 <li>
 November 29, 2019, by Hagar Elarga:<br/>
-Added the the documentation.
+Added documentation.
+</li>
+<li>
+March 21, 2019, by Jianjun Hu:<br/>
+First implementation.
 </li>
 </ul>
 </html>"));
