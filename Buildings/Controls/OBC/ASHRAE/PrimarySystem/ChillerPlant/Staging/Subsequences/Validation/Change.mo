@@ -2,6 +2,40 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subseque
 model Change
   "Validates chiller stage status setpoint signal generation for plants with WSE"
 
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Change
+    cha(final nSta=10)
+    "Controls for stage up signal variations"
+     annotation (Placement(transformation(extent={{-40,180},{-20,200}})));
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Change
+    cha1(final nSta=10)
+    "Controls for stage down signal variations"
+    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Change
+    cha2
+    "Controls for stage up/stage down signal interaction"
+    annotation (Placement(transformation(extent={{-40,-180},{-20,-160}})));
+
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
+    final trueHoldDuration=10,
+    final falseHoldDuration=0)
+    "Short true hold to have stage change edge signals be better visible"
+    annotation (Placement(transformation(extent={{0,120},{20,140}})));
+
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol1(
+    final trueHoldDuration=10,
+    final falseHoldDuration=0)
+    "Short true hold to have stage change edge signals be better visible"
+    annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
+
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol2(
+    final trueHoldDuration=10,
+    final falseHoldDuration=0)
+    "Short true hold to have stage change edge signals be better visible"
+    annotation (Placement(transformation(extent={{0,-240},{20,-220}})));
+
+protected
   parameter Modelica.SIunits.Temperature TChiWatSupSet = 285.15
   "Chilled water supply set temperature";
 
@@ -14,134 +48,176 @@ model Change
   parameter Modelica.SIunits.VolumeFlowRate aveVChiWat_flow = 0.05
     "Average measured chilled water flow rate";
 
-  .Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Change
-    cha(nSta=10)
-        "Controls for stage up signal variations"
-        annotation (Placement(transformation(extent={{-40,180},{-20,200}})));
-  CDL.Logical.Sources.Constant                        plaSta(final k=true)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant plaSta(
+    final k=true)
     "Plant status"
     annotation (Placement(transformation(extent={{-160,140},{-140,160}})));
-  CDL.Logical.TrueDelay truDel(delayTime=10, delayOnInit=true)
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
+    final delayTime=10,
+    final delayOnInit=true) "True signal delay"
     annotation (Placement(transformation(extent={{-120,140},{-100,160}})));
-  CDL.Continuous.Sources.TimeTable timeTable(table=[0,0; 600,0; 600,1; 1200,1; 1200,
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timeTable(
+    final table=[0,0; 600,0; 600,1; 1200,1; 1200,
         0; 2500,0; 2500,1; 3700,1; 3700,0; 4300,0; 4300,1; 4500,1; 4500,0; 6000,
-        0; 6000,1; 9200,1; 9200,0; 11000,0])
+        0; 6000,1; 9200,1; 9200,0; 11000,0]) "Time table"
     annotation (Placement(transformation(extent={{-160,220},{-140,240}})));
-  CDL.Continuous.GreaterThreshold greThr(threshold=0.5)
+
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+    final threshold=0.5) "Greater than threshold"
     annotation (Placement(transformation(extent={{-120,220},{-100,240}})));
-  CDL.Conversions.IntegerToReal                        intToRea
+
+  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
+    "Type converter"
     annotation (Placement(transformation(extent={{20,180},{40,200}})));
-  CDL.Discrete.ZeroOrderHold                        zerOrdHol(samplePeriod=1)
+
+  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol(
+    final samplePeriod=1) "Zero order hold"
     annotation (Placement(transformation(extent={{60,180},{80,200}})));
-  CDL.Conversions.RealToInteger                        reaToInt
+
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
+    "Type converter"
     annotation (Placement(transformation(extent={{100,180},{120,200}})));
-  CDL.Integers.Add addInt(k1=+1)
+
+  Buildings.Controls.OBC.CDL.Integers.Add addInt(
+    final k1=+1) "Adder"
     annotation (Placement(transformation(extent={{140,200},{160,220}})));
-  CDL.Integers.Add addInt1(k2=-1)
+
+  Buildings.Controls.OBC.CDL.Integers.Add addInt1(
+    final k2=-1) "Adder"
     annotation (Placement(transformation(extent={{140,160},{160,180}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Change
-    cha1(nSta=10)
-         "Controls for stage down signal variations"
-         annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  CDL.Logical.Sources.Constant                        plaSta1(final k=true)
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant plaSta1(
+    final k=true)
     "Plant status"
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
-  CDL.Logical.TrueDelay truDel1(delayTime=10, delayOnInit=true)
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1(
+    final delayTime=10,
+    final delayOnInit=true) "Short plant enable delay"
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
-  CDL.Conversions.IntegerToReal                        intToRea1
+
+  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea1
+    "Type converter"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  CDL.Discrete.ZeroOrderHold                        zerOrdHol1(samplePeriod=1)
+
+  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol1(
+    final samplePeriod=1) "Zero order hold"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
-  CDL.Conversions.RealToInteger                        reaToInt1
+
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1
+    "Type converter"
     annotation (Placement(transformation(extent={{100,0},{120,20}})));
-  CDL.Integers.Add addInt2(k1=+1)
+
+  Buildings.Controls.OBC.CDL.Integers.Add addInt2(
+    final k1=+1) "Adder"
     annotation (Placement(transformation(extent={{140,20},{160,40}})));
-  CDL.Integers.Add addInt3(k2=-1)
+
+  Buildings.Controls.OBC.CDL.Integers.Add addInt3(
+    final k2=-1) "Addder"
     annotation (Placement(transformation(extent={{140,-20},{160,0}})));
-  CDL.Continuous.Sources.TimeTable timeTable2(table=[0,0; 800,0; 800,1; 2700,1;
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timeTable2(
+    final table=[0,0; 800,0; 800,1; 2700,1;
         2700,0; 4500,0; 4500,1; 5200,1; 5200,0; 6000,0; 6000,1; 6900,1; 6900,0;
-        7800,0; 7800,1; 8700,1; 8700,0; 11000,0])
+        7800,0; 7800,1; 8700,1; 8700,0; 11000,0]) "Time table"
     annotation (Placement(transformation(extent={{-160,-140},{-140,-120}})));
-  CDL.Continuous.GreaterThreshold greThr2(threshold=0.5)
+
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr2(
+    final threshold=0.5) "Greater threshold"
     annotation (Placement(transformation(extent={{-120,-140},{-100,-120}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Change
-    cha2 "Controls for stage up/stage down signal interaction"
-         annotation (Placement(transformation(extent={{-40,-180},{-20,-160}})));
-  CDL.Logical.Sources.Constant                        plaSta2(final k=true)
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant plaSta2(
+    final k=true)
     "Plant status"
     annotation (Placement(transformation(extent={{-160,-220},{-140,-200}})));
-  CDL.Logical.TrueDelay truDel2(delayTime=10, delayOnInit=true)
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel2(
+    final delayTime=10,
+    final delayOnInit=true) "True delay"
     annotation (Placement(transformation(extent={{-120,-220},{-100,-200}})));
-  CDL.Conversions.IntegerToReal                        intToRea2
+
+  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea2
+    "Type converter"
     annotation (Placement(transformation(extent={{20,-180},{40,-160}})));
-  CDL.Discrete.ZeroOrderHold                        zerOrdHol2(samplePeriod=1)
+
+  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol2(
+    final samplePeriod=1) "Zero order hold"
     annotation (Placement(transformation(extent={{60,-180},{80,-160}})));
-  CDL.Conversions.RealToInteger                        reaToInt2
+
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt2
+    "Type converter"
     annotation (Placement(transformation(extent={{100,-180},{120,-160}})));
-  CDL.Integers.Add addInt4(k1=+1)
+
+  Buildings.Controls.OBC.CDL.Integers.Add addInt4(
+    final k1=+1) "Adder"
     annotation (Placement(transformation(extent={{140,-160},{160,-140}})));
-  CDL.Integers.Add addInt5(k2=-1)
+
+  Buildings.Controls.OBC.CDL.Integers.Add addInt5(
+    final k2=-1) "Adder"
     annotation (Placement(transformation(extent={{140,-200},{160,-180}})));
-  CDL.Continuous.GreaterThreshold greThr3(threshold=0.5)
+
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr3(
+    final threshold=0.5) "Greater than threshold"
     annotation (Placement(transformation(extent={{-120,-180},{-100,-160}})));
-  CDL.Logical.Sources.Constant noStaChaSig(final k=false)
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noStaChaSig(
+    final k=false)
     "No stage change signal"
     annotation (Placement(transformation(extent={{-200,100},{-180,120}})));
-  CDL.Continuous.Sources.TimeTable timeTable1(table=[0,0; 1600,0; 1600,1; 2400,1;
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timeTable1(
+    final table=[0,0; 1600,0; 1600,1; 2400,1;
         2400,0; 3700,0; 3700,1; 5900,1; 5900,0; 6900,0; 6900,1; 7800,1; 7800,0;
         11000,0])
     annotation (Placement(transformation(extent={{-160,-180},{-140,-160}})));
-  CDL.Logical.TrueFalseHold truFalHol(trueHoldDuration=10, falseHoldDuration=0)
-    "Short true hold to have stage change edge signals be better visible"
-    annotation (Placement(transformation(extent={{0,120},{20,140}})));
-  CDL.Logical.TrueFalseHold truFalHol1(trueHoldDuration=10, falseHoldDuration=0)
-    "Short true hold to have stage change edge signals be better visible"
-    annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
-  CDL.Logical.TrueFalseHold truFalHol2(trueHoldDuration=10, falseHoldDuration=0)
-    "Short true hold to have stage change edge signals be better visible"
-    annotation (Placement(transformation(extent={{0,-240},{20,-220}})));
-  CDL.Integers.Max maxInt
+
+  Buildings.Controls.OBC.CDL.Integers.Max maxInt "Maximum"
     annotation (Placement(transformation(extent={{180,140},{200,160}})));
-  CDL.Integers.Max maxInt1
+
+  Buildings.Controls.OBC.CDL.Integers.Max maxInt1 "Maximum"
     annotation (Placement(transformation(extent={{180,-40},{200,-20}})));
-  CDL.Integers.Max maxInt2
+
+  Buildings.Controls.OBC.CDL.Integers.Max maxInt2 "Maximum"
     annotation (Placement(transformation(extent={{180,-220},{200,-200}})));
-protected
-  CDL.Integers.Sources.Constant                        u(final k=0)
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant u(final k=0)
     "Chiller stage"
     annotation (Placement(transformation(extent={{-120,260},{-100,280}})));
-protected
-  CDL.Integers.Sources.Constant step(final k=1)
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant step(final k=1)
     "Assuming that the next available stage is always the next stage"
     annotation (Placement(transformation(extent={{100,220},{120,240}})));
-protected
-  CDL.Integers.Sources.Constant                        u1(final k=7)
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant u1(final k=7)
     "Chiller stage"
     annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
-protected
-  CDL.Integers.Sources.Constant step1(final k=1)
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant step1(final k=1)
     "Assuming that the next available stage is always the next stage"
     annotation (Placement(transformation(extent={{100,40},{120,60}})));
-protected
-  CDL.Integers.Sources.Constant                        u2(final k=1)
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant u2(final k=1)
     "Chiller stage"
     annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
-protected
-  CDL.Integers.Sources.Constant step2(final k=1)
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant step2(final k=1)
     "Assuming that the next available stage is always the next stage"
     annotation (Placement(transformation(extent={{100,-140},{120,-120}})));
-protected
-  CDL.Integers.Sources.Constant                        u3(final k=0)
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant u3(final k=0)
     "Chiller stage"
     annotation (Placement(transformation(extent={{140,120},{160,140}})));
-protected
-  CDL.Integers.Sources.Constant                        u4(final k=0)
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant u4(final k=0)
     "Chiller stage"
     annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
-protected
-  CDL.Integers.Sources.Constant                        u5(final k=0)
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant u5(final k=0)
     "Chiller stage"
     annotation (Placement(transformation(extent={{140,-240},{160,-220}})));
+
 equation
   connect(plaSta.y, truDel.u)
     annotation (Line(points={{-138,150},{-122,150}}, color={255,0,255}));
@@ -281,7 +357,7 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Ch
 </html>", revisions="<html>
 <ul>
 <li>
-March 26, 2020, by Milica Grahovac:<br/>
+April 15, 2020, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>
