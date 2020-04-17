@@ -1,0 +1,17 @@
+compareVars :=
+  {
+    "staSetCon.ySta",
+    "staSetCon.cap.yDes",
+    "staSetCon.capReq.y",
+    "staSetCon.staUp.y",
+    "staSetCon.staDow.y",
+    "staSetCon.y",
+    "staSetCon.yChi",
+    "staSetCon1.y",
+    "staSetCon1.yCha",
+    "staSetCon1.yChi",
+    "staSetCon1.cap.yDes",
+    "staSetCon1.capReq.y",
+    "staSetCon1.staUp.y",
+    "staSetCon1.staDow.y"
+  };

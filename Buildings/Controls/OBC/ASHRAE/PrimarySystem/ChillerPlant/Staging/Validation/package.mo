@@ -1,5 +1,6 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging;
 package Validation "Collection of validation models"
+
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>

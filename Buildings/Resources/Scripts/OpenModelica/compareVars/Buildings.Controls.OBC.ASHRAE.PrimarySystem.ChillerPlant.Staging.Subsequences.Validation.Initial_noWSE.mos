@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "iniSta.yIni",
+    "iniSta.uUp",
+    "iniSta.hasWSE"
+  };
