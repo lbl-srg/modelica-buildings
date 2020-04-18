@@ -248,13 +248,15 @@ equation
 Documentation(info="<html>
 <p>
 Outputs a boolean stage down signal <code>y</code> when:
+</p>
 <ul>
 <li>
 Operating <code>uOpeDow</code> part load ratio of the next available stage down is below 
 its staging <code>uStaDow</code> part load ratio for at least <code>parLoaRatDelay</code>, and
 </li>
-Failsafe condition is not <code>true</code>.
 <li>
+Failsafe condition is not <code>true</code>.
+</li>
 </ul>
 <p>
 If the plant has a WSE, staging from the lowest available chiller stage to 

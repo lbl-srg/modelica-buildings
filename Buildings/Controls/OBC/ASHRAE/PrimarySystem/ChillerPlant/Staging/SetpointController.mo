@@ -451,8 +451,9 @@ chiller stage integer index <code>ySta</code>, chiller stage change trigger sign
 <code>y</code> and a chiller status vector for the current stage <code>yChi</code>.
 <br>Implemented according to ASHRAE RP-1711 March 2020 Draft, section 5.2.4.1 - 17.
 </p>
-The controller contains the following subsequences:
 <p>
+The controller contains the following subsequences:
+</p>
 <ul>
 <li>
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.CapacityRequirement\">
@@ -500,6 +501,7 @@ based on the initial stage signal and stage up and down signals
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.ChillerIndices</a> to generate
 the chiller index vector for a given stage.
 </li>
+</ul>
 </html>",
 revisions="<html>
 <ul>

@@ -607,7 +607,7 @@ equation
 </ul>
 <p><br>SPLRup (<span style=\"font-family: monospace;\">yStaUp</span>) or SPLRdown (<span style=\"font-family: monospace;\">yStaDown</span>) value depends on the stage type (<span style=\"font-family: monospace;\">staTyp</span>) as indicated in the table below. Note that the rules are prioritized by stage type column, from left to right</p><p><br>The stage type is determined by the <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Configurator\">Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Configurator</a> subsequence based on the type of chillers staged. </p>
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
-<td><p align=\"center\"><b>Row: Stage</p><p align=\"center\">Column: Stage Type</b></p></td>
+<td><p align=\"center\"><b>Row: Stage / Column: Stage Type</b></p></td>
 <td><p align=\"center\"><b>Any Constant Speed Centrifugal</b></p></td>
 <td><p align=\"center\"><b>All Positive Displacement</b></p></td>
 <td><p align=\"center\"><b>Any Variable Speed and no Constant Speed Centrifugal </b></p></td>
@@ -626,7 +626,7 @@ equation
 </tr>
 <tr>
 <td><p align=\"center\">Next Available Down</p></td>
-<td><p align=\"center\"><span style=\"font-family: monospace;\">N/A </span></p></td>
+<td><p align=\"center\"><span style=\"font-family: monospace;\">N/A</span></p></td>
 <td><p align=\"center\"><span style=\"font-family: monospace;\">yStaDown=posDisMult</span></p></td>
 <td><p align=\"center\"><span style=\"font-family: monospace;\">yStaDown=f(uLif, uLifMin, uLifMax)</span></p></td>
 </tr>

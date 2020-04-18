@@ -297,7 +297,6 @@ user.
 This subsequence is used to generate the chiller stage setpoint <code>ySta</code>
 and a boolean vector of chiller status setpoint indices <code>y</code> for the <code>ySta</code> stage. 
 </p>
-
 <p>
 The inputs to the subsequece are:
 </p>
@@ -324,6 +323,7 @@ Integer index of next available higher <code>uAvaUp</code> and lower <code>uAvaD
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Status\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Status</a> subsequence
 </li>
+</ul>
 <p>
 Per 1711 March 2020 Draft 5.2.4.15.1. Each stage shall have a minimum runtime of <code>delayStaCha</code>.
 </p>

@@ -277,7 +277,7 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTy
 Stage type is, based on the chiller types in that stage and in the recommended staging order:<br/>
 <ul>
 <li>
-Positive displacement, for any stage with only positive displacement chiller(s)<r>
+Positive displacement, for any stage with only positive displacement chiller(s)
 </li>
 <li>
 Variable speed centirfugal, for any stage with any variable speed chiller(s) and no constant speed chiller(s)
