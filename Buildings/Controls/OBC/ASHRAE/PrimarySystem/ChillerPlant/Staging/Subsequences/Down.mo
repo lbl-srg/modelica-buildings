@@ -247,12 +247,13 @@ equation
         extent={{-180,-200},{180,240}})),
 Documentation(info="<html>
 <p>
-Outputs a boolean stage down signal <code>y<\\code> based on:
+Outputs a boolean stage down signal <code>y</code> when:
 <ul>
 <li>
-The operating and staging part load ratios of the next available stage down.
+Operating <code>uOpeDow</code> part load ratio of the next available stage down is below 
+its staging <code>uStaDow</code> part load ratio for at least <code>parLoaRatDelay</code>, and
 </li>
-The failsafe condition of the next available stage down.
+Failsafe condition is not <code>true</code>.
 <li>
 </ul>
 <p>
@@ -263,18 +264,16 @@ WSE stage occurs when:
 WSE is enabled, and
 </li>
 <li>
-The predicted WSE return temperature <code>TWsePre</code> is not enough below the 
-chilled water supply temperature setpoint <code>TChiWatSupSet</code>, and 
+The predicted WSE return temperature <code>TWsePre</code> is sufficently under the 
+chilled water supply temperature setpoint <code>TChiWatSupSet</code> for defined periods of time, and 
 </li>
 <li>
 Maximum cooling tower fan speed <code>uTowFanSpeMax</code> is below 100%
 </li>
 </ul>
-
 <p>
-The implementation is according to ASHRAE RP1711 December 2019 draft, section 5.2.4.13.
-
-Note that the logic needs to be applied on the next lower available stage.
+The implementation is according to ASHRAE RP1711 March 2020 draft, section 5.2.4.15.
+and can be used for both primary-only plants with and without a WSE.
 </p>
 </html>",
 revisions="<html>

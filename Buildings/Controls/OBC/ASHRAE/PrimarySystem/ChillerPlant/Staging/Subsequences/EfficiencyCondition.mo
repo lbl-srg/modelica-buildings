@@ -68,16 +68,12 @@ annotation (defaultComponentName = "effCon",
         Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-60},{80,60}})),
 Documentation(info="<html>
-<p>
-Efficiency condition used in staging up and down for plants primary-only 
-and primary-secondary plants, both with and without a water side economizer. 
-implemented according to the specification provided in 5.2.4.15., December 2019 draft.
-</p>
+<p>Efficiency condition used in staging up and down for plants primary-only and primary-secondary plants, both with and without a water side economizer. implemented according to the specification provided in 5.2.4.15., 1711 March 2020 Draft. </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-January 28, 2019, by Milica Grahovac:<br/>
+April 5, 2020, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>

@@ -78,9 +78,9 @@ protected
 
 equation
   connect(intRep.y, intRep1.u)
-    annotation (Line(points={{-158,20},{-142,20}},   color={255,127,0}));
+    annotation (Line(points={{-158,20},{-142,20}}, color={255,127,0}));
   connect(intRep1.y, intEqu1.u1)
-    annotation (Line(points={{-118,20},{-82,20}},      color={255,127,0}));
+    annotation (Line(points={{-118,20},{-82,20}}, color={255,127,0}));
   connect(matMax.y, chiInSta.u)
     annotation (Line(points={{122,0},{138,0}},    color={0,0,127}));
   connect(staIndMatr.y, intEqu1.u2) annotation (Line(points={{-118,-30},{-100,-30},

@@ -200,14 +200,14 @@ block SetpointController
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChi[nChi]
     "Chiller status setpoint vector for the current chiller stage setpoint"
-    annotation (Placement(transformation(extent={{420,-280},{460,-240}}),
+    annotation (Placement(transformation(extent={{120,-280},{160,-240}}),
         iconTransformation(extent={{100,-90},{140,-50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput ySta(
     final max=fill(nSta, nSta))
     "Chiller stage integer setpoint"
     annotation (Placement(
-        transformation(extent={{420,40},{460,80}}),    iconTransformation(
+        transformation(extent={{120,-140},{160,-100}}),iconTransformation(
           extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Configurator conf(
@@ -218,7 +218,7 @@ block SetpointController
     final chiMinCap = chiMinCap,
     final staMat = staMat)
     "Configures chiller staging variables such as capacity and stage type vectors"
-    annotation (Placement(transformation(extent={{-362,-180},{-342,-160}})));
+    annotation (Placement(transformation(extent={{-360,-180},{-340,-160}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Status sta(
     final nSta=nSta,
@@ -282,7 +282,7 @@ block SetpointController
           extent={{-140,-148},{-100,-108}})));
 
   CDL.Interfaces.BooleanOutput y "Chiller stage change edge signal" annotation (
-     Placement(transformation(extent={{420,-118},{460,-78}}),
+     Placement(transformation(extent={{120,-200},{160,-160}}),
         iconTransformation(extent={{100,-90},{140,-50}})));
   CDL.Interfaces.BooleanInput chaPro "Stage change process status signal"
     annotation (Placement(transformation(extent={{-440,-140},{-400,-100}}),
@@ -295,12 +295,12 @@ block SetpointController
     nSta=nSta,
     nChi=nChi,
     staMat=staMat)
-    annotation (Placement(transformation(extent={{280,-270},{300,-250}})));
+    annotation (Placement(transformation(extent={{40,-210},{60,-190}})));
 equation
   connect(uChiAva, conf.uChiAva)
-    annotation (Line(points={{-422,-180},{-382,-180},{-382,-170},{-364,-170}},
+    annotation (Line(points={{-422,-180},{-382,-180},{-382,-170},{-362,-170}},
           color={255,0,255}));
-  connect(conf.yAva, sta.uAva) annotation (Line(points={{-340,-178},{-332,-178},
+  connect(conf.yAva, sta.uAva) annotation (Line(points={{-338,-178},{-332,-178},
           {-332,-216},{-322,-216}},color={255,0,255}));
   connect(TChiWatSupSet, capReq.TChiWatSupSet) annotation (Line(points={{-422,380},
           {-370,380},{-370,319},{-324,319}}, color={0,0,127}));
@@ -308,9 +308,9 @@ equation
           310},{-374,314},{-324,314}}, color={0,0,127}));
   connect(VChiWat_flow, capReq.VChiWat_flow) annotation (Line(points={{-422,280},
           {-366,280},{-366,309},{-324,309}}, color={0,0,127}));
-  connect(conf.yDesCap, cap.uDesCap) annotation (Line(points={{-340,-162},{-322,
+  connect(conf.yDesCap, cap.uDesCap) annotation (Line(points={{-338,-162},{-322,
           -162},{-322,-161},{-272,-161}}, color={0,0,127}));
-  connect(conf.yMinCap, cap.uMinCap) annotation (Line(points={{-340,-166},{-312,
+  connect(conf.yMinCap, cap.uMinCap) annotation (Line(points={{-338,-166},{-312,
           -166},{-312,-164},{-272,-164}}, color={0,0,127}));
   connect(sta.yAvaUp, cap.uUp) annotation (Line(points={{-298,-203},{-286,-203},
           {-286,-170},{-272,-170}}, color={255,127,0}));
@@ -342,7 +342,7 @@ equation
           -192},{-184,-192}},    color={0,0,127}));
   connect(uLifMin, PLRs.uLifMin) annotation (Line(points={{-422,20},{-222,20},{-222,
           -194},{-184,-194}},    color={0,0,127}));
-  connect(conf.yTyp, PLRs.uTyp) annotation (Line(points={{-340,-174},{-302,-174},
+  connect(conf.yTyp, PLRs.uTyp) annotation (Line(points={{-338,-174},{-302,-174},
           {-302,-198},{-184,-198}},                    color={255,127,0}));
   connect(sta.yAvaUp, PLRs.uUp) annotation (Line(points={{-298,-203},{-242,-203},
           {-242,-204},{-184,-204}}, color={255,127,0}));
@@ -421,14 +421,16 @@ equation
           -176},{-22,-176}}, color={255,0,255}));
   connect(uPla, cha.uPla) annotation (Line(points={{-420,-80},{-280,-80},{-280,-140},
           {-60,-140},{-60,-180},{-22,-180}}, color={255,0,255}));
-  connect(cha.ySta, ySta) annotation (Line(points={{2,-166},{212,-166},{212,60},
-          {440,60}}, color={255,127,0}));
-  connect(cha.y, y) annotation (Line(points={{2,-174},{182,-174},{182,-176},{380,
-          -176},{380,-98},{440,-98}}, color={255,0,255}));
+  connect(cha.ySta, ySta) annotation (Line(points={{2,-166},{20,-166},{20,-120},
+          {140,-120}},
+                     color={255,127,0}));
+  connect(cha.y, y) annotation (Line(points={{2,-174},{114,-174},{114,-180},{140,
+          -180}},                     color={255,0,255}));
   connect(chiInd.yChi, yChi)
-    annotation (Line(points={{302,-260},{440,-260}}, color={255,0,255}));
-  connect(cha.ySta, chiInd.u) annotation (Line(points={{2,-166},{140,-166},{140,
-          -260},{278,-260}}, color={255,127,0}));
+    annotation (Line(points={{62,-200},{80,-200},{80,-260},{140,-260}},
+                                                     color={255,0,255}));
+  connect(cha.ySta, chiInd.u) annotation (Line(points={{2,-166},{20,-166},{20,-200},
+          {38,-200}},        color={255,127,0}));
   annotation (defaultComponentName = "staSetCon",
         Icon(graphics={
         Rectangle(
@@ -441,14 +443,63 @@ equation
           lineColor={0,0,255},
           textString="%name")}), Diagram(
         coordinateSystem(preserveAspectRatio=false,
-        extent={{-400,-420},{420,420}})),
+        extent={{-400,-300},{120,420}})),
 Documentation(info="<html>
 <p>
-Outputs the chiller stage change signal
-
-fixme
-
+The sequence is a chiller stage status setpoint controller that outputs the 
+chiller stage integer index <code>ySta</code>, chiller stage change trigger signal
+<code>y</code> and a chiller status vector for the current stage <code>yChi</code>.
+<br>Implemented according to ASHRAE RP-1711 March 2020 Draft, section 5.2.4.1 - 17.
 </p>
+The controller contains the following subsequences:
+<p>
+<ul>
+<li>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.CapacityRequirement\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.CapacityRequirement</a> to calculate
+the capacity requirement
+</li>
+<li>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Configurator\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Configurator</a> to allow the user 
+to provide the chiller plant configuration parameters such as chiller design and minimal capacities and types. It 
+calculates the design and minimal stage capacities, stage type and stage availability
+</li>
+<li>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Status\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Status</a> to calculate
+for instance the next higher and lower available stages
+</li>
+<li>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Capacities\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Capacities</a> to calculate
+design and minimal stage capacities for current and next available higher and lower stage
+</li>
+<li>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.PartLoadRatios\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.PartLoadRatios</a> to calculate
+operating and staging part load ratios for current and next available higher and lower stage
+</li>
+<li>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Up\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Up</a> to generate
+a stage up signal
+</li>
+<li>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Down\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Down</a> to generate
+a stage down signal
+</li>
+<li>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Change\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Change</a> to set the stage
+based on the initial stage signal and stage up and down signals
+</li>
+<li>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.ChillerIndices\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.ChillerIndices</a> to generate
+the chiller index vector for a given stage.
+</li>
 </html>",
 revisions="<html>
 <ul>

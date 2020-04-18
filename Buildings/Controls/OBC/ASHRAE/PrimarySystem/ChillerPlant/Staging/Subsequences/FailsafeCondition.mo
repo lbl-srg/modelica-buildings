@@ -130,14 +130,7 @@ annotation (defaultComponentName = "faiSafCon",
         Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-140,-80},{140,80}})),
 Documentation(info="<html>
-<p>
-Failsafe condition used in staging up and down,
-implemented according to the specification provided in section 
-5.2.4.15.6. and 10. in the December 2019 draft. The subsequence
-applies to primary-only plants with and without a WSE. The 
-sequence contains a boolean flag to differentiate between parallel and series chiller 
-plants.
-</p>
+<p>Failsafe condition used in staging up and down, implemented according to the specification provided in section 5.2.4.15. 1711 March 2020 Draft. The subsequence applies to primary-only plants with and without a WSE. The sequence contains a boolean flag to differentiate between parallel and series chiller plants. </p>
 </html>",
 revisions="<html>
 <ul>

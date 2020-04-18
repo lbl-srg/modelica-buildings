@@ -249,11 +249,29 @@ equation
         coordinateSystem(preserveAspectRatio=false,
         extent={{-160,-200},{160,140}})),
 Documentation(info="<html>
+<p>Outputs a boolean stage up signal <code>y</code> based on the 
+various plant operation conditions that get provided as input signals. 
+Implemented according to 1711 March 2020 Draft, section 5.2.4.15.
+ and applies to primary-only plant with and without a WSE.
+</p>
 <p>
-Outputs a boolean stage up signal <code>y<\code> based on the various plant operation 
-conditions that get provided as input signals. The implementation is according to 
-ASHRAE RP1711 section 5.2.4.13 
-July Draft.
+The stage up signal becomes <code>true</code> when:
+</p>
+<ul>
+<li>
+Current stage becomes unavailable, or
+</li>
+<li>
+Efficiency condition is true, or
+</li>
+<li>
+Failsafe condition is true.
+</li>
+</ul>
+<p>
+If <code>have_WSE</code> boolean flag is true, staging up from WSE only to the first available 
+stage occurs when the chilled water supply temperature is sufficienctly above its setpoint
+for either a shorter or a longer time period
 </p>
 </html>",
 revisions="<html>
