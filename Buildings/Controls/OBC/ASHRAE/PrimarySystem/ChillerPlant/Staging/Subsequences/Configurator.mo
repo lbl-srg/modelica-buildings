@@ -22,7 +22,7 @@ block Configurator "Configures chiller staging"
     "Staging matrix with stage as row index and chiller as column index";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiAva[nChi]
-    "Chiller availability status vector"
+    "Chiller availability status vector. Chiller may be deemend unavailable due to unavailability of a dedicated chilled or condenser water pump"
     annotation (Placement(transformation(extent={{-260,-60},{-220,-20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
 
@@ -257,27 +257,27 @@ Given the staging matrix input parameter <code>staMat</code> the staging configu
 <ul>
 <li>
 Stage availability vector <code>yAva</code> from the chiller availability <code>uChiAva</code> 
-input vector according to RP-1711 July Draft section 5.2.4.12<br/>
+input vector according to RP-1711 March 2020 Draft section 5.2.4.13<br/>
 </li>
 <li>
 Design stage capacity vector <code>yDesCap</code> from the design chiller capacity vector 
-input parameter <code>chiDesCap</code> according to section 3.1.1.4.2., July Draft.
-The chillers need to be tagged in order of ascending chiller capacity, as prescribed by 
-3.1.1.4.2 in July Draft, otherwise an error is thrown.<br/>
+input parameter <code>chiDesCap</code>.
+The chillers need to be tagged in order of ascending chiller capacity if unequally sized. This is 
+according to 3.1.1.4.1 1711 March 2020 Draft, otherwise a warning is thrown.<br/>
 </li>
 <li>
 Minimum stage capacity vector <code>yMinCap</code> from the chiller minimum cycling load input 
-parameter <code>chiMinCap</code> according to section 3.1.1.5., July Draft.<br/>
+parameter <code>chiMinCap</code> according to section 3.1.1.5.1, 1711 March 2020 Draft.<br/>
 </li>
 <li>
 Stage type vector <code>yTyp</code> from the chiller type vector input parameter 
-<code>uChiTyp</code>, as listed in section 5.2.4.13, July Draft. Chiller types are defined in 
+<code>uChiTyp</code>, as listed in section 5.2.4.14, 1711 March 2020 Draft. Chiller types are defined in 
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes</a>.<br/>
 Stage type is, based on the chiller types in that stage and in the recommended staging order:<br/>
 <ul>
 <li>
-Positive displacement, for any stage with only positive displacement chiller(s)<\br>
+Positive displacement, for any stage with only positive displacement chiller(s)<r>
 </li>
 <li>
 Variable speed centirfugal, for any stage with any variable speed chiller(s) and no constant speed chiller(s)

@@ -115,7 +115,14 @@ equation
           extent={{-200,-60},{200,60}})),
 Documentation(info="<html>
 <p>
-fixme
+This subsequence is not directly specified in 1711 as it provides
+a side calculation pertaining to generalization of the staging 
+sequences for any number of chillers and stages provided by the 
+user.
+</p>
+<p>
+The subsequence outputs a vector of chiller indices <code>yChi</code>
+for a stage index input <code>u</code> given a staging matrix <code>staMat</code>.
 </p>
 </html>",
 revisions="<html>
