@@ -84,8 +84,8 @@ equation
                                 color={0,0,127}));
   connect(TTanCooTop, conColSid.TTop) annotation (Line(points={{-120,-40},{-24,
           -40},{-24,-78},{-12,-78}},   color={0,0,127}));
-  connect(TTanCooBot, conColSid.TBot) annotation (Line(points={{-120,-70},{-22,
-          -70},{-22,-82},{-12,-82}},      color={0,0,127}));
+  connect(TTanCooBot, conColSid.TBot) annotation (Line(points={{-120,-70},{-28,
+          -70},{-28,-82},{-12,-82}},      color={0,0,127}));
   connect(conHotSid.yHea, yHea) annotation (Line(points={{12,58},{20,58},{20,80},
           {120,80}}, color={255,0,255}));
   connect(conColSid.yCoo, yCoo) annotation (Line(points={{12,-68},{60,-68},{60,
@@ -99,10 +99,10 @@ equation
           {-20,-70},{-12,-70}},   color={0,0,127}));
   connect(TSetHea, conHotSid.TSet) annotation (Line(points={{-120,80},{-20,80},
           {-20,56},{-12,56}},     color={0,0,127}));
-  connect(conHotSid.yIso,yIsoCon)  annotation (Line(points={{12,46},{20,46},{20,
+  connect(conHotSid.yIso,yIsoCon)  annotation (Line(points={{12,46},{14,46},{14,
           -40},{120,-40}}, color={0,0,127}));
   connect(conColSid.yIso,yIsoEva)
-    annotation (Line(points={{12,-80},{66,-80},{66,-70},{120,-70}},
+    annotation (Line(points={{12,-80},{90,-80},{90,-70},{120,-70}},
                                                   color={0,0,127}));
 
   connect(yHea, yHea)

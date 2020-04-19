@@ -157,6 +157,10 @@ equation
   connect(greEqu5.y, t4.condition) annotation (Line(points={{-68,-220},{20,-220},
           {20,108}},                color={255,0,255}));
 
+  connect(rejFul.active, or2.u1)
+    annotation (Line(points={{80,89},{80,-20},{88,-20}}, color={255,0,255}));
+  connect(rejFul.active, yRej)
+    annotation (Line(points={{80,89},{80,20},{200,20}}, color={255,0,255}));
    annotation (
  Documentation(info="<html>
 

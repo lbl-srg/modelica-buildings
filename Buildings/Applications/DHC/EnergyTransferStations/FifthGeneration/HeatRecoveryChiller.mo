@@ -20,12 +20,12 @@ model HeatRecoveryChiller
     nPorts_bDis=1);
 
   final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
-    max(mSecHea_flow_nominal,mSecCoo_flow_nominal)
+    max(mSecHea_flow_nominal, mSecCoo_flow_nominal)
     "Nominal mass flow rate";
   parameter Modelica.SIunits.MassFlowRate mSecHea_flow_nominal
-    "Secondary(building side) heatng circuit nominal water flow rate";
+    "Secondary (building side) heating circuit nominal water flow rate";
   parameter Modelica.SIunits.MassFlowRate mSecCoo_flow_nominal
-    "Secondary(building side) cooling circuit nominal water flow rate";
+    "Secondary (building side) cooling circuit nominal water flow rate";
   parameter Modelica.SIunits.TemperatureDifference dTChi=2
     "Temperature difference between entering and leaving water of EIR chiller(+ve)";
   parameter Modelica.Fluid.Types.Dynamics fixedEnergyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
@@ -132,15 +132,15 @@ model HeatRecoveryChiller
 
   parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic datChi
     "Chiller parameters"
-    annotation (Placement(transformation(extent={{-294,80},{-274,100}})));
+    annotation (Placement(transformation(extent={{-280,-198},{-260,-178}})));
   final parameter Fluid.Geothermal.Borefields.Data.Filling.Bentonite datFil(kFil=2.1)
     "Borehole filling material characteristics"
-    annotation (Placement(transformation(extent={{-294,152},{-274,172}})));
+    annotation (Placement(transformation(extent={{-280,-126},{-260,-106}})));
   final parameter Fluid.Geothermal.Borefields.Data.Soil.SandStone datSoi(
     kSoi=2.42,
     dSoi=1920,
     cSoi=1210) "Soil characteristics"
-    annotation (Placement(transformation(extent={{-294,128},{-274,148}})));
+    annotation (Placement(transformation(extent={{-280,-150},{-260,-130}})));
   final parameter
     Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Template datCon(
     final borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.SingleUTube,
@@ -157,7 +157,7 @@ model HeatRecoveryChiller
         nXBorHol)} for i in 1:nBorHol},
     final xC=0.075,
     final dp_nominal=dpBorFie_nominal) "Borefield configuration parameters"
-    annotation (Placement(transformation(extent={{-294,104},{-274,124}})));
+    annotation (Placement(transformation(extent={{-280,-174},{-260,-154}})));
 
   // IO CONNECTORS
   // COMPONENTS
@@ -208,7 +208,7 @@ model HeatRecoveryChiller
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={0,-254})));
-  Fluid.Movers.FlowControlled_m_flow pum2DisHex(
+  Fluid.Movers.FlowControlled_m_flow pum2Hex(
     redeclare final package Medium = Medium,
     m_flow_nominal=mHex_flow_nominal,
     addPowerToMedium=false,
@@ -219,7 +219,7 @@ model HeatRecoveryChiller
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
-        origin={80,-240})));
+        origin={100,-240})));
   //// CONTROLLERS
   FifthGeneration.Controls.Supervisory conSup(THys=THys)
     "Supervisory controller"
@@ -232,10 +232,10 @@ model HeatRecoveryChiller
     "Chilled water tank bottom temperature"
     annotation (Placement(transformation(extent={{220,130},{200,150}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTTopHeaWat
-    "Heating water tank top temperature (measured)"
+    "Heating water tank top temperature"
     annotation (Placement(transformation(extent={{-220,210},{-200,230}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTBotHeaWat
-    "Heating water tank bottom temperature (measured)"
+    "Heating water tank bottom temperature"
     annotation (Placement(transformation(extent={{-220,130},{-200,150}})));
 //------hydraulic header------------------------------------------------------------
  //-----------------------------Valves----------------------------------------------
@@ -311,9 +311,10 @@ model HeatRecoveryChiller
     nPorts_b=2) "Ambient water supply manifold"
     annotation (Placement(transformation(extent={{10,-150},{-10,-130}})));
 
-  BaseClasses.SubsystemBorefield subsystemBorefield
-    annotation (Placement(transformation(extent={{-160,-190},{-140,-170}})));
-  Controls.DistrictHX conDis
+  BaseClasses.SubsystemBorefield bor "Borefield"
+    annotation (Placement(transformation(extent={{-160,-172},{-140,-152}})));
+  Controls.HeatExchanger conHex
+    "District heat exchanger secondary loop control"
     annotation (Placement(transformation(extent={{-160,-230},{-140,-210}})));
 equation
   connect(THeaWatSupSet, chi.THeaWatSupSet) annotation (Line(points={{-320,20},
@@ -358,19 +359,19 @@ equation
     annotation (Line(points={{4,-140},{66,-140},{66,-40}}, color={0,127,255}));
   connect(manAmbWatSup.ports_b[1], manHeaWatRet.ports_b[2]) annotation (Line(
         points={{-8,-140},{-66,-140},{-66,-40}}, color={0,127,255}));
-  connect(subsystemBorefield.port_b, manAmbWatSup.ports_b[2]) annotation (Line(
-        points={{-140,-180},{-4,-180},{-4,-140}}, color={0,127,255}));
-  connect(manAmbWatRet.ports_b[2], subsystemBorefield.port_a) annotation (Line(
-        points={{-4,-100},{-4,-120},{-180,-120},{-180,-180},{-160,-180}}, color=
-         {0,127,255}));
+  connect(bor.port_b, manAmbWatSup.ports_b[2]) annotation (Line(points={{-140,
+          -162},{-4,-162},{-4,-140}}, color={0,127,255}));
+  connect(manAmbWatRet.ports_b[2], bor.port_a) annotation (Line(points={{-4,
+          -100},{-4,-120},{-180,-120},{-180,-162},{-160,-162}}, color={0,127,
+          255}));
   connect(ports_aDis[1], hex.port_a1)
     annotation (Line(points={{-300,-260},{-10,-260}}, color={0,127,255}));
   connect(hex.port_b1, ports_bDis[1])
     annotation (Line(points={{10,-260},{300,-260}}, color={0,127,255}));
-  connect(pum2DisHex.port_b, hex.port_a2) annotation (Line(points={{70,-240},{20,
+  connect(pum2Hex.port_b, hex.port_a2) annotation (Line(points={{90,-240},{20,
           -240},{20,-248},{10,-248}}, color={0,127,255}));
-  connect(manAmbWatRet.ports_a[2], pum2DisHex.port_a) annotation (Line(points={{
-          8,-100},{8,-120},{180,-120},{180,-240},{90,-240}}, color={0,127,255}));
+  connect(manAmbWatRet.ports_a[2], pum2Hex.port_a) annotation (Line(points={{8,
+          -100},{8,-120},{180,-120},{180,-240},{110,-240}}, color={0,127,255}));
   connect(hex.port_b2, manAmbWatSup.ports_a[2]) annotation (Line(points={{-10,
           -248},{-20,-248},{-20,-240},{-120,-240},{-120,-200},{8,-200},{8,-140}},
                                                                           color=
@@ -405,14 +406,14 @@ equation
           43},{-194,-80},{100,-80},{100,-88}}, color={0,0,127}));
   connect(conSup.yIsoCon, valIsoCon.y) annotation (Line(points={{-198,46},{-192,
           46},{-192,-76},{-100,-76},{-100,-88}}, color={0,0,127}));
-  connect(conSup.yHeaRej, subsystemBorefield.uHeaRej) annotation (Line(points={
-          {-198,52},{-186,52},{-186,-172},{-162,-172}}, color={255,0,255}));
-  connect(conSup.yColRej, subsystemBorefield.uColRej) annotation (Line(points={
-          {-198,49},{-188,49},{-188,-174},{-162,-174}}, color={255,0,255}));
-  connect(conSup.yIsoEva, subsystemBorefield.uIsoEva) annotation (Line(points={
-          {-198,43},{-194,43},{-194,-178},{-162,-178}}, color={0,0,127}));
-  connect(conSup.yIsoCon, subsystemBorefield.uIsoCon) annotation (Line(points={
-          {-198,46},{-192,46},{-192,-176},{-162,-176}}, color={0,0,127}));
+  connect(conSup.yHeaRej, bor.uHeaRej) annotation (Line(points={{-198,52},{-186,
+          52},{-186,-154},{-162,-154}}, color={255,0,255}));
+  connect(conSup.yColRej, bor.uColRej) annotation (Line(points={{-198,49},{-188,
+          49},{-188,-156},{-162,-156}}, color={255,0,255}));
+  connect(conSup.yIsoEva, bor.uIsoEva) annotation (Line(points={{-198,43},{-194,
+          43},{-194,-160},{-162,-160}}, color={0,0,127}));
+  connect(conSup.yIsoCon, bor.uIsoCon) annotation (Line(points={{-198,46},{-192,
+          46},{-192,-158},{-162,-158}}, color={0,0,127}));
 annotation (Icon(coordinateSystem(preserveAspectRatio=false),
    graphics={
        Text(
@@ -426,7 +427,7 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false),
                   color={28,108,200},
                   pattern=LinePattern.Dash),
         Text(
-          extent={{204,-122},{290,-168}},
+          extent={{196,-204},{282,-250}},
           lineColor={255,0,255},
           textString="have_val
 have_pum")}),

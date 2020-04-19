@@ -6,8 +6,8 @@ block HotSide "State machine controls the operation of the heating generating so
       THys=THys);
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHea
-    "Heating mode enabled signal" annotation (Placement(transformation(extent={{180,160},
-            {220,200}}),          iconTransformation(extent={{100,60},{140,100}})));
+    "Heating mode enabled signal" annotation (Placement(transformation(extent={{180,140},
+            {220,180}}),          iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Continuous.Min min
     annotation (Placement(transformation(extent={{-96,-110},{-76,-90}})));
 equation
@@ -31,12 +31,8 @@ equation
                                              color={0,0,127}));
   connect(min.y, greEqu4.u1) annotation (Line(points={{-74,-100},{-70,-100},{-70,
           -180},{-92,-180}},     color={0,0,127}));
-  connect(run.active, yHea) annotation (Line(points={{-30,169},{-30,160},{168,160},
-          {168,180},{200,180}},color={255,0,255}));
-  connect(rejFul.active, yRej)
-    annotation (Line(points={{80,89},{80,20},{200,20}}, color={255,0,255}));
-  connect(rejFul.active, or2.u1)
-    annotation (Line(points={{80,89},{80,-20},{88,-20}}, color={255,0,255}));
+  connect(run.active, yHea) annotation (Line(points={{-30,169},{-30,160},{200,
+          160}},               color={255,0,255}));
 
    annotation (
    defaultComponentName="conHot",

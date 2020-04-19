@@ -11,37 +11,15 @@ model ColdSide "State machine controls the operation of the cooling generating s
     addPar2(p=-THys),
     addPar3(p=-0.5*THys));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yCoo
-    "Cooling mode enabled signal" annotation (Placement(transformation(extent={{
-            140,120},{180,160}}), iconTransformation(extent={{100,60},{140,100}})));
-  Buildings.Controls.OBC.CDL.Logical.OnOffController frePro(bandwidth=1)
-    "Freeze protection override"
-    annotation (Placement(transformation(extent={{50,-150},{70,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=273.15 + 3.5)
-    annotation (Placement(transformation(extent={{30,-110},{50,-90}})));
-  Buildings.Controls.OBC.CDL.Logical.Or or1
-    annotation (Placement(transformation(extent={{90,-110},{110,-90}})));
+    "Cooling mode enabled signal" annotation (Placement(transformation(extent={{180,140},
+            {220,180}}),          iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max
     annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
 equation
-  connect(run.active, yCoo) annotation (Line(points={{-30,169},{-30,106},{40,106},
-          {40,140},{160,140}}, color={255,0,255}));
-  connect(con.y, frePro.reference) annotation (Line(points={{52,-100},{60,-100},
-          {60,-120},{40,-120},{40,-134},{48,-134}},
-                             color={0,0,127}));
-  connect(or1.u2, frePro.y) annotation (Line(points={{88,-108},{80,-108},{80,
-          -140},{72,-140}},                                              color={255,0,255}));
-  connect(or1.u1, rejFul.active) annotation (Line(points={{88,-100},{80,-100},{80,
-          -80},{36,-80},{36,0},{80,0},{80,89}}, color={255,0,255}));
-  connect(or1.y, yRej) annotation (Line(points={{112,-100},{130,-100},{130,20},{
-          200,20}}, color={255,0,255}));
-  connect(or2.u2, rejPar.active) annotation (Line(points={{88,-28},{-30,-28},{-30,
-          109}}, color={255,0,255}));
-  connect(or1.y,or2. u1) annotation (Line(points={{112,-100},{120,-100},{120,-48},
-          {40,-48},{40,-20},{88,-20}}, color={255,0,255}));
+  connect(run.active, yCoo) annotation (Line(points={{-30,169},{-30,160},{200,
+          160}},               color={255,0,255}));
   connect(max.u1, TTop) annotation (Line(points={{-102,-94},{-112,-94},{-112,-40},
           {-200,-40}},color={0,0,127}));
-  connect(frePro.u, TTop) annotation (Line(points={{48,-146},{0,-146},{0,-40},{-66,
-          -40},{-66,-44},{-112,-44},{-112,-40},{-200,-40}}, color={0,0,127}));
   connect(TTop, greEqu1.u1) annotation (Line(points={{-200,-40},{-112,-40},{-112,
           22},{-66,22},{-66,-60},{-92,-60}},
                                 color={0,0,127}));

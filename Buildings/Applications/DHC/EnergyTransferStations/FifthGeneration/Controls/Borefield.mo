@@ -61,13 +61,13 @@ model Borefield "Controller for borefield loop"
   Buildings.Controls.OBC.CDL.Logical.Or enaBor
     "Borefield enabled signal, true if at least one isolation valve is open"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Add delT(k2=-1) "Compute deltaT"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Abs abs1
-    annotation (Placement(transformation(extent={{-12,-130},{8,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant delTBorWat(k=dTGeo)
+  Buildings.Controls.OBC.CDL.Continuous.Abs abs "Absolute value"
+    annotation (Placement(transformation(extent={{-10,-130},{10,-110}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant delTBorWatSet(k=dTGeo)
     "Borefield water temperature difference set-point"
-    annotation (Placement(transformation(extent={{-12,-90},{8,-70}})));
+    annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
   Buildings.Controls.Continuous.LimPID conPumBor(
     final Td=Td,
     reset=Buildings.Types.Reset.Parameter,
@@ -119,12 +119,12 @@ model Borefield "Controller for borefield loop"
     "Output true if valve open"
     annotation (Placement(transformation(extent={{-140,30},{-120,50}})));
 equation
-  connect(add1.y, abs1.u) annotation (Line(points={{-38,-120},{-14,-120}},
-                                                color={0,0,127}));
-  connect(delTBorWat.y, conPumBor.u_s)
-    annotation (Line(points={{10,-80},{68,-80}}, color={0,0,127}));
-  connect(abs1.y,conPumBor. u_m) annotation (Line(points={{10,-120},{80,-120},{80,
-          -92}},                                       color={0,0,127}));
+  connect(delT.y, abs.u)
+    annotation (Line(points={{-38,-120},{-12,-120}}, color={0,0,127}));
+  connect(delTBorWatSet.y, conPumBor.u_s)
+    annotation (Line(points={{12,-80},{68,-80}}, color={0,0,127}));
+  connect(abs.y, conPumBor.u_m)
+    annotation (Line(points={{12,-120},{80,-120},{80,-92}}, color={0,0,127}));
   connect(enaRej.u1, uHeaRej) annotation (Line(points={{-12,140},{-20,140},{-20,
           160},{-240,160}},
                        color={255,0,255}));
@@ -137,10 +137,10 @@ equation
     annotation (Line(points={{12,0},{240,0}}, color={0,0,127}));
   connect(TBorWatEnt, conMix.u_m)
     annotation (Line(points={{-240,-40},{0,-40},{0,-12}}, color={0,0,127}));
-  connect(TBorWatLvg, add1.u2) annotation (Line(points={{-240,-120},{-80,-120},{
+  connect(TBorWatLvg,delT. u2) annotation (Line(points={{-240,-120},{-80,-120},{
           -80,-126},{-62,-126}},
                              color={0,0,127}));
-  connect(TBorWatEnt, add1.u1) annotation (Line(points={{-240,-40},{-80,-40},{-80,
+  connect(TBorWatEnt,delT. u1) annotation (Line(points={{-240,-40},{-80,-40},{-80,
           -114},{-62,-114}}, color={0,0,127}));
 
   connect(maxTBorWatEnt.y, conMix.u_s)
