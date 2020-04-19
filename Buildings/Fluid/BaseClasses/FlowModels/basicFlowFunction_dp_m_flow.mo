@@ -1,5 +1,5 @@
 within Buildings.Fluid.BaseClasses.FlowModels;
-function basicFlowFunction_inv
+function basicFlowFunction_dp_m_flow
   "Inverse of flow function that computes the flow coefficient"
   extends Modelica.Icons.Function;
 
@@ -40,4 +40,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end basicFlowFunction_inv;
+end basicFlowFunction_dp_m_flow;

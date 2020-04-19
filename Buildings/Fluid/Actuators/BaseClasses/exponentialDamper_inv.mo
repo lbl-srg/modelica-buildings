@@ -2,11 +2,11 @@ within Buildings.Fluid.Actuators.BaseClasses;
 function exponentialDamper_inv
   "Inverse function of the exponential damper characteristics"
   extends Modelica.Icons.Function;
-  input Real kThetaSqRt(min=0, unit="1") "Square root of loss coefficient";
+  input Real kThetaSqRt "Square root of loss coefficient";
   input Real[:] kSupSpl "k values of support points";
   input Real[:] ySupSpl "y values of support points";
   input Real[:] invSplDer "Derivatives at support points";
-  output Real y(unit="1") "Fractional opening";
+  output Real y "Fractional opening";
 protected
   parameter Integer sizeSupSpl = size(kSupSpl, 1) "Number of spline support points";
   Integer i "Integer to select data interval";
@@ -34,11 +34,14 @@ annotation (smoothOrder=1,
 Documentation(info="<html>
 <p>
 This function provides an approximate inverse of the exponential damper characteristics.
-</p><p>
+It thus computes the damper opening from the square root value of the loss coefficient.
+</p>
+<p>
 The function is used by the model
 <a href=\"modelica://Buildings.Fluid.Actuators.Dampers.PressureIndependent\">
 Buildings.Fluid.Actuators.Dampers.PressureIndependent</a>.
-</p><p>
+</p>
+<p>
 The quadratic interpolation used outside the exponential domain in the function
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.exponentialDamper\">
 Buildings.Fluid.Actuators.BaseClasses.exponentialDamper</a>

@@ -156,7 +156,7 @@ equation
                  y2dd=y2dd)));
   end if;
   // Computation of damper opening
-  k = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_inv(
+  k = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_m_flow(
     m_flow=m_flow,
     dp=dp,
     m_flow_small=1E-2*abs(m_flow_nominal),
@@ -222,6 +222,18 @@ from the loss coefficient value (directly derived from the flow coefficient).
 </li>
 </ul>
 <p>
+As explained in
+<a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.exponentialDamper_inv\">
+Buildings.Fluid.Actuators.BaseClasses.exponentialDamper_inv</a>,
+a cubic spline is used to fit the inverse of the damper characteristics.
+The central domain of the characteritics having a monotonous exponential profile, its
+inverse can be properly approximated with three equidistant support points.
+However, the quadratic functions used outside of the exponential domain can have
+various profiles depending on the damper coefficients.
+Therefore, five linearly distributed support points are used on each side domain to
+ensure a good fit of the inverse.
+</p>
+<p>
 Note that below a threshold value of the input control signal (fixed at 0.02),
 the fractional opening is forced to zero and no more related to the actual
 flow coefficient of the damper.
@@ -238,7 +250,7 @@ revisions="<html>
 <li>
 <li>
 April 6, 2020, by Antoine Gautier:<br/>
-Add the computation of the damper opening.
+Added the computation of the damper opening.
 </li>
 <li>
 December 23, 2019 by Antoine Gautier:<br/>

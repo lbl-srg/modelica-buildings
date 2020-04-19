@@ -17,6 +17,6 @@ createPlot(id=1, y={"damPreInd.y", "damPreInd.y_actual"},
  grid = true,
  color = true,
  subPlot=2);
-plotExpression(apply(PressureIndependent[end].senRelPre.p_rel/PressureIndependent[end].dp_nominal),
+plotExpression(apply(PressureIndependent.senRelPre.p_rel/PressureIndependent.dp_nominal),
     false, "senRelPre.p_rel / dp_nominal", 1);
 
