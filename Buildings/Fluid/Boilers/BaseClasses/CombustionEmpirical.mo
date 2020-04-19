@@ -20,9 +20,6 @@ model CombustionEmpirical "Empirical model for combustion process"
       0
   "Flue gas leaving temperature";
 
-  parameter Modelica.SIunits.Power Q_flow_nominal
-    "Nominal heating power"
-    annotation(Dialog(group = "Nominal condition"));
 
   Modelica.Blocks.Interfaces.RealInput y(min=0, max=1) "Part load ratio"
     annotation (Placement(transformation(extent={{-140,50},{-100,90}}),
