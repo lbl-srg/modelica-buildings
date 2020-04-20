@@ -17,6 +17,7 @@ model Guideline36SteadyStateBoundaryCondition
       HInfHorSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
       HSou=Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor),
       use_windPressure=false,
+      sampleModel=false,
       flo(
         gai(K=0*[0.4; 0.4; 0.2])),
       occSch(
