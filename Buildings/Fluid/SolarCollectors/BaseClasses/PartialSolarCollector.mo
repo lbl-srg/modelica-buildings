@@ -4,6 +4,10 @@ model PartialSolarCollector "Partial model for solar collectors"
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(final dp_nominal = dp_nominal_final);
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     final m_flow_nominal=perPar.mperA_flow_nominal*perPar.A);
+
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
+
   parameter Integer nSeg(min=3) = 3
     "Number of segments used to discretize the collector model";
 
@@ -39,9 +43,6 @@ model PartialSolarCollector "Partial model for solar collectors"
   Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series
     "Selection of system configuration"
     annotation(Dialog(group="Configuration declarations"));
-
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   Modelica.Blocks.Interfaces.RealInput shaCoe_in if use_shaCoe_in
     "Shading coefficient"
@@ -152,6 +153,11 @@ protected
   parameter Modelica.SIunits.Density rho_default=
     Medium.density(sta_default) "Density, used to compute fluid mass";
 
+initial equation
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
+
 equation
   connect(shaCoe_internal,shaCoe_in);
 
@@ -236,6 +242,12 @@ CEN 2006, European Standard 12975-1:2006, European Committee for Standardization
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
+</li>
 <li>
 November 12, 2019, by Filip Jorissen:<br/>
 Set <code>prescribedHeatFlowRate=false</code>
