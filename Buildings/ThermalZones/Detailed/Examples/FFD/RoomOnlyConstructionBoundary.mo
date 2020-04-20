@@ -19,8 +19,7 @@ model RoomOnlyConstructionBoundary
         boundaryCondition={Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature,
             Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature,Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature,
             Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature,Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature,
-            Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature}),
-        homotopyInitialization=false),
+            Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature})),
       nConBou=6);
 
   Buildings.HeatTransfer.Sources.FixedTemperature TWalRes[nConBou - 1](
