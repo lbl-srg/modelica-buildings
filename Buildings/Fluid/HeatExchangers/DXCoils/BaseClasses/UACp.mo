@@ -81,7 +81,7 @@ initial equation
   UAcp = -per.m_flow_nominal * Modelica.Math.log(bypass_nominal);
 
   assert(homotopyInitialization, "In " + getInstanceName() +
-    ": The constant homotopyInitialization is set to false. This constant will be removed in future releases.",
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
     level = AssertionLevel.warning);
 
  annotation(defaultComponentName="uacp",

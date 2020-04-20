@@ -190,7 +190,7 @@ initial equation
   assert(perCoo.dT.r_dT[1]<=0.000001      and perCoo.dT.f[1]<=0.00001,
     "Performance curve perCoo.dT must pass through (0,0).");
   assert(homotopyInitialization, "In " + getInstanceName() +
-    ": The constant homotopyInitialization is set to false. This constant will be removed in future releases.",
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
     level = AssertionLevel.warning);
 
 equation

@@ -68,7 +68,7 @@ initial equation
   assert(isVertical or isHorizontal, "Only vertical and horizontal windows are implemented.");
 
   assert(homotopyInitialization, "In " + getInstanceName() +
-    ": The constant homotopyInitialization is set to false. This constant will be removed in future releases.",
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
     level = AssertionLevel.warning);
 
   // Computations that are used in the linearized model only

@@ -103,7 +103,7 @@ partial model PartialHeatExchanger "Partial model for heat exchangers "
 
 initial equation
   assert(homotopyInitialization, "In " + getInstanceName() +
-    ": The constant homotopyInitialization is set to false. This constant will be removed in future releases.",
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
     level = AssertionLevel.warning);
 
 equation
