@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.Detailed.Validation;
-model MixedAirFreeResponseSteadyStateBoundaryCondition
+model MixedAirFreeResponseSteadyState
   "Validation model for the room model with steady state boundary conditions"
   extends Examples.MixedAirFreeResponse(
   weaDat(
@@ -28,7 +28,7 @@ equation
     experiment(
       StopTime=31536000,
       Tolerance=1e-06),
-      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/MixedAirFreeResponseSteadyStateBoundaryCondition.mos"
+      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/MixedAirFreeResponseSteadyState.mos"
         "Simulate and plot"),
   Diagram(coordinateSystem(extent={{-120,-100},{200,200}})),
   Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
@@ -46,4 +46,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end MixedAirFreeResponseSteadyStateBoundaryCondition;
+end MixedAirFreeResponseSteadyState;

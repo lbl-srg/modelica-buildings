@@ -1,2 +1,0 @@
-simulateModel("Buildings.ThermalZones.Detailed.Validation.MixedAirFreeResponseSteadyStateBoundaryCondition", stopTime=31536000, method="Cvode", tolerance=1e-06, resultFile="MixedAirFreeResponseSteadyStateBoundaryCondition");
-createPlot(id=1, position={15, 15, 678, 440}, y={"roo.heaPorAir.T", "roo.heaPorRad.T"}, range={0.0, 31536000, 16.0, 24.0}, grid=true, colors={{28,108,200}, {238,46,47}}, displayUnits={"degC", "degC"});
