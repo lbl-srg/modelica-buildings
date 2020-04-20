@@ -373,11 +373,17 @@ its input.
 </html>", revisions="<html>
 <ul>
 <li>
+April 20, 2020, by Jianjun Hu:<br/>
+Exported actual VAV damper position as the measured input data for terminal controller.<br/>
+This is
+for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1873\">issue #1873</a>
+</li>
+<li>
 March 09, 2020, by Jianjun Hu:<br/>
 Replaced the block that calculates operation mode and zone temperature setpoint,
 with the new one that does not include vector-valued calculations.<br/>
 This is
-for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1709\">#1709</a>.
+for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1709\">issue #1709</a>
 </li>
 <li>
 May 19, 2016, by Michael Wetter:<br/>

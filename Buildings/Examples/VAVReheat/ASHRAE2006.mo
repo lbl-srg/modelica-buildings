@@ -389,6 +389,13 @@ ASHRAE, Atlanta, GA, 2006.
 </html>", revisions="<html>
 <ul>
 <li>
+April 20, 2020, by Jianjun Hu:<br/>
+Exported actual VAV damper position as the measured input data for
+defining duct static pressure setpoint.<br/>
+This is
+for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1873\">issue #1873</a>
+</li>
+<li>
 May 19, 2016, by Michael Wetter:<br/>
 Changed chilled water supply temperature to <i>6&circ;C</i>.
 This is
