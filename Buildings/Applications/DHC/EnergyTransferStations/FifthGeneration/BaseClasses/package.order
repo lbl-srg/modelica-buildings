@@ -2,6 +2,7 @@ StratifiedTank
 Constants
 WaterWaterHeatExchanger
 Junction
-SubsystemBorefield
-SubsystemChiller
-SubsystemChillerArray
+Borefield
+Chiller
+ChillerArray
+HeatExchanger

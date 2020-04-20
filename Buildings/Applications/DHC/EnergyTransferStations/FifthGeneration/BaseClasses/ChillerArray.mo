@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.EnergyTransferStations.FifthGeneration.BaseClasses;
-model SubsystemChillerArray "Central subsystem based on heat recovery chiller"
+model ChillerArray "Base subsystem based on heat recovery chiller"
   replaceable package Medium = Buildings.Media.Water
     "Medium model";
   parameter Integer nPorts_aAmbWat = 0
@@ -590,4 +590,4 @@ First implementation
 </li>
 </ul>
 </html>"));
-end SubsystemChillerArray;
+end ChillerArray;

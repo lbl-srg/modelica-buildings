@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.EnergyTransferStations.FifthGeneration.BaseClasses;
-model SubsystemBorefield "Auxiliary subsystem with geothermal borefield"
+model Borefield "Auxiliary subsystem with geothermal borefield"
   extends Fluid.Interfaces.PartialTwoPort(
     allowFlowReversal=false);
   parameter Modelica.SIunits.TemperatureDifference dTGeo
@@ -134,13 +134,6 @@ equation
           {40,80},{-80,80},{-80,12}}, color={0,0,127}));
   connect(gaiBor.y, pumBor.m_flow_in) annotation (Line(points={{72,60},{80,60},{
           80,20},{-40,20},{-40,12}}, color={0,0,127}));
-  connect(TBorWatEnt, conMix.u_m)
-    annotation (Line(points={{-120,-140},{120,-140},{120,-112}},
-                                                          color={0,0,127}));
-  connect(TBorWatLvg, add1.u2) annotation (Line(points={{-120,-220},{40,-220},{40,
-          -226},{58,-226}},  color={0,0,127}));
-  connect(TBorWatEnt, add1.u1) annotation (Line(points={{-120,-140},{40,-140},{40,
-          -214},{58,-214}},  color={0,0,127}));
   connect(TBorEnt.T, ambCirCon.TBorWatEnt)
     annotation (Line(points={{-10,11},{-10,56},{-2,56}}, color={0,0,127}));
   connect(uHeaRej, ambCirCon.uHeaRej) annotation (Line(points={{-120,80},{-92,
@@ -169,4 +162,4 @@ equation
           fillColor={170,213,255},
           fillPattern=FillPattern.Solid)}), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end SubsystemBorefield;
+end Borefield;

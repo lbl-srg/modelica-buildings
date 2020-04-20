@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.EnergyTransferStations.FifthGeneration.BaseClasses;
-model SubsystemChiller "Central subsystem based on heat recovery chiller"
+model Chiller "Base subsystem based on heat recovery chiller"
   replaceable package Medium = Buildings.Media.Water
     "Medium model";
   parameter Integer nPorts_aAmbWat = 0
@@ -459,4 +459,4 @@ First implementation
 </li>
 </ul>
 </html>"));
-end SubsystemChiller;
+end Chiller;
