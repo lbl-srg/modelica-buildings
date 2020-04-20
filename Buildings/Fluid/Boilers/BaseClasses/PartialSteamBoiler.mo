@@ -228,6 +228,9 @@ partial model PartialSteamBoiler
   Modelica.Blocks.Sources.RealExpression pOutSet(y=pOut_nominal)
     "Pressure setpoint for outgoing fluid"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
+  Sensors.TemperatureTwoPort temSen_in(redeclare package Medium = Medium_a,
+      m_flow_nominal=m_flow_nominal) "Inflowing temperature sensor"
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 initial equation
 
   // Energy and mass balance
@@ -301,15 +304,11 @@ equation
     annotation (Line(points={{60,0},{70,0}}, color={0,127,255}));
   connect(QSen_flow_mea.y, preHeaFlo.Q_flow)
     annotation (Line(points={{-19,-36},{-11,-36}}, color={0,0,127}));
-  connect(temSenVol.T, dTSen.u1) annotation (Line(points={{70,60},{80,60},{80,30},{64,30},{64,-44},{42,-44}},
-                    color={0,0,127}));
   connect(temSen_out.T, dTSen.u2)
-    annotation (Line(points={{80,11},{80,20},{66,20},{66,-56},{42,-56}},
+    annotation (Line(points={{80,11},{80,18},{66,18},{66,-56},{42,-56}},
                                                        color={0,0,127}));
   connect(senMasFlo.m_flow, cp.u) annotation (Line(points={{-70,11},{-70,20},{-86,20},{-86,-30},{-82,-30}},
                                     color={0,0,127}));
-  connect(senMasFlo.port_b, dpCon.port_a)
-    annotation (Line(points={{-60,0},{-10,0}}, color={0,127,255}));
   connect(cp.y, QSen_flow_mea.u1)
     annotation (Line(points={{-59,-30},{-42,-30}}, color={0,0,127}));
   connect(dTSen.y, QSen_flow_mea.u2) annotation (Line(points={{19,-50},{-50,-50},{-50,-42},{-42,-42}},
@@ -322,6 +321,12 @@ equation
     annotation (Line(points={{-50,10},{-50,0},{-60,0}}, color={0,127,255}));
   connect(dpSen.y, dpCon.dp_in)
     annotation (Line(points={{-9,30},{0,30},{0,12}}, color={0,0,127}));
+  connect(senMasFlo.port_b, temSen_in.port_a)
+    annotation (Line(points={{-60,0},{-40,0}}, color={0,127,255}));
+  connect(temSen_in.port_b, dpCon.port_a)
+    annotation (Line(points={{-20,0},{-10,0}}, color={0,127,255}));
+  connect(temSen_in.T, dTSen.u1) annotation (Line(points={{-30,11},{-30,18},{64,
+          18},{64,-44},{42,-44}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                                                                 graphics={
         Rectangle(

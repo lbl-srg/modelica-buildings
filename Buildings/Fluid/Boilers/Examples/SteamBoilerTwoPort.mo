@@ -53,7 +53,7 @@ model SteamBoilerTwoPort "Test model for the steam boiler with two fluid ports"
     nPorts=1) "Steam sink"
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
   Modelica.Blocks.Sources.Constant pSet(k=pOut_nominal)
-                                                   "Steam pressure setpoint"
+    "Steam pressure setpoint"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
   FixedResistances.PressureDrop dp_wat(
     redeclare package Medium = MediumWat,
