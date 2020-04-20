@@ -23,7 +23,7 @@ model Guideline36SteadyStateBoundaryCondition
       occSch(
         occupancy=3600*24*365*{1,2},
         period=2*3600*24*365));
-  Controls.OBC.CDL.Continuous.Sources.Constant solRad(k=0) "Solar radiation"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant solRad(k=0) "Solar radiation"
     annotation (Placement(transformation(extent={{-400,160},{-380,180}})));
 equation
   connect(weaDat.HDifHor_in, solRad.y) annotation (Line(points={{-361,170.5},{-370,
