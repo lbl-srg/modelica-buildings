@@ -161,7 +161,6 @@ Buildings/BoundaryConditions/WeatherData/ReaderTMY3.mo
 Buildings/BoundaryConditions/WeatherData/Validation/DecemberToJanuary.mo
 Buildings/BoundaryConditions/WeatherData/Validation/OverAYear_usingOneYearData.mo
 Buildings/BoundaryConditions/WeatherData/Validation/ReaderTMY3HDirNor.mo
-Buildings/BoundaryConditions/WeatherData/Validation/SimpleRoomSteadyStateBoundaryCondition.mo
 Buildings/BoundaryConditions/WeatherData/Validation/ThreeYears_usingTwoYearData.mo
 Buildings/BoundaryConditions/WeatherData/Validation/ThreeYears_usingTwoYearDataNegativeStart.mo
 Buildings/BoundaryConditions/WeatherData/Validation/ThreeYears_usingTwoYearDataPositiveStart.mo
@@ -1456,7 +1455,6 @@ Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Examples/Reade
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Validation/DecemberToJanuary.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Validation/OverAYear_usingOneYearData.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Validation/ReaderTMY3HDirNor.mos
-Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Validation/SimpleRoomSteadyStateBoundaryCondition.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Validation/ThreeYears_usingTwoYearData.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Validation/ThreeYears_usingTwoYearDataNegativeStart.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Validation/ThreeYears_usingTwoYearDataPositiveStart.mos
@@ -1816,6 +1814,7 @@ Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoom
 Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoomOneElement.mos
 Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoomThreeElements.mos
 Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoomTwoElements.mos
+Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Validation/RoomSteadyState.mos
 Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Validation/RoomWithLatentGain.mos
 Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Validation/RoomWithoutLatentGain.mos
 Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Validation/VDI6007/TestCase1.mos
@@ -1975,6 +1974,7 @@ Buildings/ThermalZones/ReducedOrder/SolarGain/BaseClasses/package.order
 Buildings/ThermalZones/ReducedOrder/SolarGain/CorrectionGDoublePane.mo
 Buildings/ThermalZones/ReducedOrder/SolarGain/package.mo
 Buildings/ThermalZones/ReducedOrder/SolarGain/package.order
+Buildings/ThermalZones/ReducedOrder/Validation/RoomSteadyState.mo
 Buildings/ThermalZones/ReducedOrder/Validation/RoomWithLatentGain.mo
 Buildings/ThermalZones/ReducedOrder/Validation/RoomWithoutLatentGain.mo
 Buildings/ThermalZones/ReducedOrder/Validation/VDI6007/BaseClasses/VerifyDifferenceThreePeriods.mo
