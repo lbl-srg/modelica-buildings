@@ -1,4 +1,4 @@
-within Buildings.BoundaryConditions.WeatherData.Validation;
+within Buildings.Examples.VAVReheat.Validation;
 model Guideline36SteadyStateBoundaryCondition
   "Validation of detailed model that is at steady state with constant weather data"
   extends Buildings.Examples.VAVReheat.Guideline36(
@@ -34,7 +34,7 @@ equation
     experiment(
       StopTime=604800,
       Tolerance=1e-06),
-      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Validation/Guideline36SteadyStateBoundaryCondition.mos"
+      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/Validation/Guideline36SteadyStateBoundaryCondition.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(extent={{-420,-300},{1360,660}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
