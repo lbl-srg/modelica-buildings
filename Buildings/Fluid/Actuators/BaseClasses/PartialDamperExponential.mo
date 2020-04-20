@@ -111,15 +111,17 @@ equation
       Medium.density(Medium.setState_phX(
         port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow)));
   // flow coefficient, k = m_flow/sqrt(dp)
-  kDam=sqrt(2*rho)*A/Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
-    y=y_actual,
-    a=a,
-    b=b,
-    cL=cL,
-    cU=cU,
-    yL=yL,
-    yU=yU);
-  k = if dpFixed_nominal > Modelica.Constants.eps then sqrt(1/(1/kFixed^2 + 1/kDam^2)) else kDam;
+  if not casePreInd then
+    kDam=sqrt(2*rho)*A/Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
+      y=y_actual,
+      a=a,
+      b=b,
+      cL=cL,
+      cU=cU,
+      yL=yL,
+      yU=yU);
+    k = if dpFixed_nominal > Modelica.Constants.eps then sqrt(1/(1/kFixed^2 + 1/kDam^2)) else kDam;
+  end if;
 annotation(Documentation(info="<html>
 <p>
 Partial model for air dampers with exponential opening characteristics.
@@ -165,11 +167,11 @@ mass flow rate <code>m_flow_nominal</code>, the nominal velocity
 <code>v_nominal</code> and the density of the medium.
 </p>
 <p>
-ASHRAE 825-RP lists the following parameter values as typical (note that the 
+ASHRAE 825-RP lists the following parameter values as typical (note that the
 default values in the model correspond to opposed blades).
 <br />
 </p>
-<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" 
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\"
 style=\"border-collapse:collapse;\">
 <tr>
 <td></td><th>opposed blades</th><th>single blades</th>
@@ -203,6 +205,13 @@ ASHRAE Final Report 825-RP, Atlanta, GA.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 6, 2020, by Antoine Gautier:<br/>
+Make the computation of the flow coefficient conditional to <code>casePreInd</code>.<br/>
+This is needed for the computation of the damper opening in
+<a href=\"modelica://Buildings.Fluid.Actuators.Dampers.PressureIndependent\">
+Buildings.Fluid.Actuators.Dampers.PressureIndependent</a>.
+</li>
 <li>
 December 23, 2019, by Antoine Gautier:<br/>
 Removed the equations involving <code>m_flow</code> and <code>dp</code> that now need
