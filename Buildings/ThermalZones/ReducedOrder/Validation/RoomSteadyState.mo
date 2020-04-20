@@ -36,7 +36,7 @@ equation
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
-This model validates that the RC network model takes on exactly <i>20</i>&deg;C
+This model validates that the RC network model starts at and remains at exactly <i>20</i>&deg;C
 if there is no solar radiation and constant outdoor conditions.
 </p>
 </html>", revisions="<html>

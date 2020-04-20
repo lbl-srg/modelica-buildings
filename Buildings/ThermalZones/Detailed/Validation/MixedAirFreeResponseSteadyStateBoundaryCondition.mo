@@ -35,7 +35,7 @@ equation
     Documentation(info="<html>
 <p>
 This model validates that the detailed room model
-takes on exactly <i>20</i>&deg;C room air temperature
+starts at and remains at exactly <i>20</i>&deg;C room air temperature
 if there is no solar radiation, constant outdoor conditions and no internal gains.
 </p>
 </html>", revisions="<html>
