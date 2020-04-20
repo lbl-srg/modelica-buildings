@@ -1,4 +1,4 @@
-within Buildings.HeatTransfer.Windows.Examples;
+within Buildings.HeatTransfer.Windows.Validation;
 model WindowSteadyState
   "Validation model for window with steady-state boundary condition"
   extends Buildings.HeatTransfer.Windows.Examples.Window(
@@ -38,6 +38,6 @@ First implementation.
 </ul>
 </html>"),
 experiment(Tolerance=1e-06, StopTime=31536000, __Dymola_Algorithm="Cvode"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/Examples/WindowSteadyState.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/Validation/WindowSteadyState.mos"
         "Simulate and plot"));
 end WindowSteadyState;
