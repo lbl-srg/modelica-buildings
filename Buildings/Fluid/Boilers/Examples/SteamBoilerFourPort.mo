@@ -173,7 +173,7 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},
             {120,120}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
-experiment(Tolerance=1e-6, StopTime=100.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Boilers/Examples/SteamBoilerTwoPort.mos"
+experiment(Tolerance=1e-6, StopTime=3600.0),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Boilers/Examples/SteamBoilerFourPort.mos"
         "Simulate and plot"));
 end SteamBoilerFourPort;
