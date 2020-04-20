@@ -3,111 +3,141 @@ block SetpointController
   "Calculates the chiller stage status setpoint signal"
 
   parameter Boolean have_WSE = false
-    "true = plant has a WSE, false = plant does not have WSE";
+    "true = plant has a WSE, false = plant does not have WSE"
+    annotation (Dialog(tab="General", group="Plant configuration parameters"));
 
   parameter Boolean serChi = false
-    "true = series chillers plant; false = parallel chillers plant";
+    "true = series chillers plant; false = parallel chillers plant"
+    annotation (Dialog(tab="General", group="Plant configuration parameters"));
 
   parameter Boolean anyVsdCen = false
-    "Plant contains at least one variable speed centrifugal chiller";
-
-  parameter Integer nSta = 3
-    "Number of chiller stages";
+    "Plant contains at least one variable speed centrifugal chiller"
+    annotation (Dialog(tab="General", group="Plant configuration parameters"));
 
   parameter Integer nChi = 2
-    "Number of chillers";
-
-  parameter Integer staMat[nSta, nChi] = {{1,0},{0,1},{1,1}}
-    "Staging matrix with stage as row index and chiller as column index";
+    "Number of chillers"
+    annotation (Dialog(tab="General", group="Chiller configuration parameters"));
 
   parameter Modelica.SIunits.Power chiDesCap[nChi]
-    "Design chiller capacities vector";
+    "Design chiller capacities vector"
+    annotation (Dialog(tab="General", group="Chiller configuration parameters"));
 
   parameter Modelica.SIunits.Power chiMinCap[nChi]
-    "Chiller minimum cycling loads vector";
+    "Chiller minimum cycling loads vector"
+    annotation (Dialog(tab="General", group="Chiller configuration parameters"));
 
   parameter Integer chiTyp[nChi]={
     Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
     Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.variableSpeedCentrifugal}
-    "Chiller type. Recommended staging order: positive displacement, variable speed centrifugal, constant speed centrifugal";
+    "Chiller type. Recommended staging order: positive displacement, variable speed centrifugal, constant speed centrifugal"
+    annotation (Dialog(tab="General", group="Chiller configuration parameters"));
+
+  parameter Integer nSta = 3
+    "Number of chiller stages"
+    annotation (Dialog(tab="General", group="Chiller configuration parameters"));
+
+  parameter Integer staMat[nSta, nChi] = {{1,0},{0,1},{1,1}}
+    "Staging matrix with stage as row index and chiller as column index"
+    annotation (Dialog(tab="General", group="Chiller configuration parameters"));
 
   parameter Modelica.SIunits.Time avePer = 300
-    "Time period for the capacity requirement rolling average";
+    "Time period for the capacity requirement rolling average"
+    annotation (Dialog(tab="Time parameters", group="Hold and delay parameters"));
 
   parameter Modelica.SIunits.Time delayStaCha = 900
-    "Hold period for each stage change";
+    "Hold period for each stage change"
+    annotation (Dialog(tab="Time parameters", group="Hold and delay parameters"));
 
   parameter Modelica.SIunits.Time parLoaRatDelay = 900
-    "Enable delay for operating and staging part load ratio condition";
+    "Enable delay for operating and staging part load ratio condition"
+    annotation (Dialog(tab="Time parameters", group="Hold and delay parameters"));
 
   parameter Modelica.SIunits.Time faiSafTruDelay = 900
-    "Enable delay for failsafe condition";
+    "Enable delay for failsafe condition"
+    annotation (Dialog(tab="Time parameters", group="Hold and delay parameters"));
 
   parameter Modelica.SIunits.Time effConTruDelay = 900
-    "Enable delay for efficiency condition";
+    "Enable delay for efficiency condition"
+    annotation (Dialog(tab="Time parameters", group="Hold and delay parameters"));
 
   parameter Modelica.SIunits.Time shortTDelay = 600
     "Short enable delay for staging from zero to first available stage up"
-    annotation(Evaluate=true, Dialog(enable=have_WSE));
+    annotation(Evaluate=true, Dialog(enable=have_WSE, tab="Time parameters", group="Hold and delay parameters"));
 
   parameter Modelica.SIunits.Time longTDelay = 1200
     "Long enable delay for staging from zero to first available stage up"
-    annotation(Evaluate=true, Dialog(enable=have_WSE));
+    annotation(Evaluate=true, Dialog(enable=have_WSE, tab="Time parameters", group="Hold and delay parameters"));
 
   parameter Real posDisMult(
     final unit = "1",
     final min = 0,
     final max = 1)=0.8
-    "Positive displacement chiller type staging multiplier";
+    "Positive displacement chiller type staging multiplier"
+    annotation (Dialog(tab="Conditionals", group="Staging part load ratio parameters"));
 
   parameter Real conSpeCenMult(
     final unit = "1",
     final min = 0,
     final max = 1)=0.9
-    "Constant speed centrifugal chiller type staging multiplier";
+    "Constant speed centrifugal chiller type staging multiplier"
+    annotation (Dialog(tab="Conditionals", group="Staging part load ratio parameters"));
+
+  parameter Real anyOutOfScoMult(
+    final unit = "1",
+    final min = 0,
+    final max = 1)=0.9
+    "Outside of G36 recommended staging order chiller type SPLR multiplier"
+    annotation(Evaluate=true, __cdl(ValueInReference=False), Dialog(tab="Conditionals", group="Staging part load ratio parameters"));
 
   parameter Real varSpeStaMin(
     final unit = "1",
     final min = 0.1,
     final max = 1)=0.45
     "Minimum stage up or down part load ratio for variable speed centrifugal stage types"
-    annotation(Evaluate=true, Dialog(enable=anyVsdCen));
+    annotation(Evaluate=true, Dialog(enable=anyVsdCen, tab="Conditionals", group="Staging part load ratio parameters"));
 
   parameter Real varSpeStaMax(
     final unit = "1",
     final min = varSpeStaMin,
     final max = 1)=0.9
     "Maximum stage up or down part load ratio for variable speed centrifugal stage types"
-    annotation(Evaluate=true, Dialog(enable=anyVsdCen));
+    annotation(Evaluate=true, Dialog(enable=anyVsdCen, tab="Conditionals", group="Staging part load ratio parameters"));
 
   parameter Modelica.SIunits.TemperatureDifference smallTDif = 1
     "Offset between the chilled water supply temperature and its setpoint for the long condition"
-    annotation(Evaluate=true, Dialog(enable=have_WSE));
+    annotation(Evaluate=true, Dialog(enable=have_WSE, tab="Conditionals", group="Value comparison parameters"));
 
   parameter Modelica.SIunits.TemperatureDifference largeTDif = 2
     "Offset between the chilled water supply temperature and its setpoint for the short condition"
-    annotation(Evaluate=true, Dialog(enable=have_WSE));
+    annotation(Evaluate=true, Dialog(enable=have_WSE, tab="Conditionals", group="Value comparison parameters"));
 
   parameter Modelica.SIunits.TemperatureDifference faiSafTDif = 1
-    "Offset between the chilled water supply temperature and its setpoint for the failsafe condition";
+    "Offset between the chilled water supply temperature and its setpoint for the failsafe condition"
+    annotation (Dialog(tab="Conditionals", group="Value comparison parameters"));
 
   parameter Modelica.SIunits.PressureDifference dpDif = 2 * 6895
-    "Offset between the chilled water pump diferential static pressure and its setpoint";
+    "Offset between the chilled water pump diferential static pressure and its setpoint"
+    annotation (Dialog(tab="Conditionals", group="Value comparison parameters"));
 
   parameter Modelica.SIunits.TemperatureDifference TDif = 1
-    "Offset between the chilled water supply temperature and its setpoint for staging down to WSE only";
+    "Offset between the chilled water supply temperature and its setpoint for staging down to WSE only"
+    annotation (Dialog(tab="Conditionals", group="Value comparison parameters"));
 
   parameter Modelica.SIunits.TemperatureDifference TDifHys = 1
-    "Hysteresis deadband for temperature";
+    "Hysteresis deadband for temperature"
+    annotation (Dialog(tab="Conditionals", group="Value comparison parameters"));
 
   parameter Modelica.SIunits.PressureDifference faiSafDpDif = 2 * 6895
-    "Offset between the chilled water differential pressure and its setpoint";
+    "Offset between the chilled water differential pressure and its setpoint"
+    annotation (Dialog(tab="Conditionals", group="Value comparison parameters"));
 
   parameter Modelica.SIunits.PressureDifference dpDifHys = 0.5 * 6895
-    "Pressure difference hysteresis deadband";
+    "Pressure difference hysteresis deadband"
+    annotation (Dialog(tab="Conditionals", group="Value comparison parameters"));
 
   parameter Real effConSigDif = 0.05
-    "Signal hysteresis deadband";
+    "Signal hysteresis deadband"
+    annotation (Dialog(tab="Conditionals", group="Value comparison parameters"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseSta if have_WSE
     "WSE status"
@@ -240,6 +270,7 @@ block SetpointController
     final nSta=nSta,
     final posDisMult=posDisMult,
     final conSpeCenMult=conSpeCenMult,
+    final anyOutOfScoMult=anyOutOfScoMult,
     final varSpeStaMin=varSpeStaMin,
     final varSpeStaMax=varSpeStaMax) "Operative and staging part load ratios"
     annotation (Placement(transformation(extent={{-182,-200},{-162,-180}})));
