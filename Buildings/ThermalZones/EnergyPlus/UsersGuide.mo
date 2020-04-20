@@ -35,6 +35,12 @@ as is done for any other fluid flow component.
 This instance will then connect the Modelica zone model with the
 EnergyPlus zone model.
 </li>
+<li>
+For the weather file, both mos and epw files must be provided in the same directory.
+The epw file is required to generate an FMU of the EnergyPlus envelope model; the mos
+file is required for the parameter <code>weaName</code> in the instance <code>building</code>.
+The names of the two weather file formats must also remain the same.
+</li>
 </ol>
 <p>
 The following conventions are made:
@@ -93,6 +99,10 @@ multiple buildings are simulated in EnergyPlus.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 20, 2020, by Kun Zhang: <br/>
+Added note for weather file.
+</li>
 <li>
 August 26, 2019, by Michael Wetter:<br/>
 Added note about Dymola (Dassault Service Request SR00584808).
