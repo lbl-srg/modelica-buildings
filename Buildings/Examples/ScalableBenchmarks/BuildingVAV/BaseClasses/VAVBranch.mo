@@ -47,7 +47,7 @@ model VAVBranch "Supply branch of a VAV system"
     "Fluid connector b (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{40,190},{60,210}}),
         iconTransformation(extent={{40,190},{60,210}})));
-  Modelica.Blocks.Interfaces.RealOutput yDam "Signal for VAV damper"
+  Modelica.Blocks.Interfaces.RealOutput yDam "Actual VAV damper position"
     annotation (Placement(transformation(extent={{200,-10},{220,10}})));
 
   Fluid.Actuators.Dampers.PressureIndependent vav(
@@ -96,7 +96,7 @@ model VAVBranch "Supply branch of a VAV system"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,  origin={50,74})));
   Modelica.Blocks.Math.Gain ACH(k=1/VRoo/1.2*3600) "Air change per hour"
-    annotation (Placement(transformation(extent={{100,94},{120,114}})));
+    annotation (Placement(transformation(extent={{100,80},{120,100}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear valHea(
     redeclare package Medium = MediumW,
     m_flow_nominal=m_flow_nominal*1000*15/4200/10,
@@ -131,11 +131,8 @@ equation
    connect(vav.port_b, senMasFlo.port_a)
       annotation (Line(points={{50,114},{50,124}},
         color={0,127,255}, smooth=Smooth.None, thickness=0.5));
-   connect(con.yDam, yDam)
-      annotation (Line(points={{21,4.8},{188,4.8},{188,5.55112e-16},{210,5.55112e-16}},
-        color={0,0,127}, smooth=Smooth.None, pattern=LinePattern.Dash));
    connect(ACH.u, senMasFlo.m_flow)
-      annotation (Line(points={{98,104},{80,104},{80,134},{61,134}},
+      annotation (Line(points={{98,90},{80,90},{80,134},{61,134}},
         color={0,0,127}, smooth=Smooth.None, pattern=LinePattern.Dash));
    connect(con.yVal, valHea.y)
       annotation (Line(points={{21,-5},{92,-5},{92,12}},
@@ -163,6 +160,10 @@ equation
           -40,80},{-120,80}}, color={0,0,127}));
   connect(TRooCooSet, con.TRooCooSet) annotation (Line(points={{-120,40},{-44,
           40},{-44,4},{-2,4}}, color={0,0,127}));
+  connect(vav.y_actual, yDam) annotation (Line(
+      points={{43,109},{43,120},{180,120},{180,0},{210,0}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
 annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{200,200}})), Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{200,200}}), graphics={
