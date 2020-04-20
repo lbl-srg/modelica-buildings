@@ -16,6 +16,7 @@ model Guideline36SteadyStateBoundaryCondition
       winDirSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
       HInfHorSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
       HSou=Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor),
+      use_windPressure=false,
       flo(
         gai(K=0*[0.4; 0.4; 0.2])),
       occSch(
@@ -24,8 +25,8 @@ model Guideline36SteadyStateBoundaryCondition
   Controls.OBC.CDL.Continuous.Sources.Constant solRad(k=0) "Solar radiation"
     annotation (Placement(transformation(extent={{-400,160},{-380,180}})));
 equation
-  connect(weaDat.HDifHor_in, solRad.y) annotation (Line(points={{-361,172.4},{-370,
-          172.4},{-370,170},{-378,170}}, color={0,0,127}));
+  connect(weaDat.HDifHor_in, solRad.y) annotation (Line(points={{-361,170.5},{-370,
+          170.5},{-370,170},{-378,170}}, color={0,0,127}));
   connect(weaDat.HGloHor_in, solRad.y) annotation (Line(points={{-361,167},{-370,
           167},{-370,170},{-378,170}}, color={0,0,127}));
   annotation (
