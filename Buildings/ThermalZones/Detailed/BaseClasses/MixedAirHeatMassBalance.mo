@@ -3,12 +3,13 @@ model MixedAirHeatMassBalance
   "Heat and mass balance of the air, assuming completely mixed air"
   extends Buildings.ThermalZones.Detailed.BaseClasses.PartialAirHeatMassBalance;
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
+
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
+
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
-  // Port definitions
-  parameter Boolean homotopyInitialization "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   parameter Buildings.HeatTransfer.Types.InteriorConvection conMod
     "Convective heat transfer model for opaque constructions"
@@ -182,6 +183,11 @@ protected
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={52,-220})));
+initial equation
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
+
 equation
   connect(convConPar_a.fluid,theConConPar_a.port_a) annotation (Line(
       points={{100,-60},{62,-60}},
@@ -338,6 +344,12 @@ The model assumes a completely mixed air volume.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
+</li>
 <li>
 April 8, 2019, by Michael Wetter:<br/>
 Propagated parameter <code>mSenFac</code>.<br/>
