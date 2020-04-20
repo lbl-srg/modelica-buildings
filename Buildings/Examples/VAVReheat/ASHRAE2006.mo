@@ -200,15 +200,6 @@ equation
       points={{511,166},{1220,166},{1220,34},{1238,34}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(conVAVCor.yDam, pSetDuc.u[1]) annotation (Line(points={{551,46.8},{
-          556,46.8},{556,72},{120,72},{120,-7.6},{158,-7.6}}, color={0,0,127}));
-  connect(conVAVSou.yDam, pSetDuc.u[2]) annotation (Line(points={{721,44.8},{
-          730,44.8},{730,72},{120,72},{120,-6.8},{158,-6.8}}, color={0,0,127}));
-  connect(pSetDuc.u[3], conVAVEas.yDam) annotation (Line(points={{158,-6},{120,
-          -6},{120,72},{910,72},{910,44.8},{901,44.8}}, color={0,0,127}));
-  connect(conVAVNor.yDam, pSetDuc.u[4]) annotation (Line(points={{1061,44.8},{
-          1072,44.8},{1072,72},{122,72},{122,-6},{160,-6},{160,-5.2},{158,-5.2}},
-        color={0,0,127}));
   connect(conVAVCor.TDis, TSupCor.T) annotation (Line(points={{528,34},{522,34},
           {522,34},{514,34},{514,92},{569,92}}, color={0,0,127}));
   connect(TSupSou.T, conVAVSou.TDis) annotation (Line(points={{749,92},{688,92},
@@ -219,9 +210,6 @@ equation
           94},{1032,32},{1038,32}}, color={0,0,127}));
   connect(TSupWes.T, conVAVWes.TDis) annotation (Line(points={{1289,90},{1228,
           90},{1228,30},{1238,30}}, color={0,0,127}));
-  connect(conVAVWes.yDam, pSetDuc.u[5]) annotation (Line(points={{1261,42.8},{
-          1270,42.8},{1270,72},{120,72},{120,-4},{134,-4},{134,-4.4},{158,-4.4}},
-        color={0,0,127}));
   connect(cor.yVAV, conVAVCor.yDam) annotation (Line(points={{566,50},{556,50},
           {556,46.8},{551,46.8}},color={0,0,127}));
   connect(cor.yVal, conVAVCor.yVal) annotation (Line(points={{566,34},{560,34},
@@ -300,10 +288,10 @@ equation
           -240},{-59,-240}},      color={0,0,127}));
   connect(swiHeaCoi.u1, heaCoiCon.y)
     annotation (Line(points={{58,-202},{-59,-202}}, color={0,0,127}));
-  connect(coiOff.y, swiCooCoi.u3) annotation (Line(points={{-39,-162},{-28,-162},
+  connect(coiOff.y, swiCooCoi.u3) annotation (Line(points={{-38,-162},{-28,-162},
           {-28,-256},{58,-256}},
                               color={0,0,127}));
-  connect(coiOff.y, swiHeaCoi.u3) annotation (Line(points={{-39,-162},{-28,-162},
+  connect(coiOff.y, swiHeaCoi.u3) annotation (Line(points={{-38,-162},{-28,-162},
           {-28,-218},{58,-218}},
                               color={0,0,127}));
   connect(TSup.T, cooCoiCon.u_m) annotation (Line(points={{340,-29},{340,-12},{
@@ -312,9 +300,9 @@ equation
           372,-12},{372,-268},{-88,-268},{-88,-222},{-70,-222},{-70,-214}},
         color={0,0,127}));
   connect(gaiHeaCoi.u, swiHeaCoi.y)
-    annotation (Line(points={{98,-210},{81,-210},{81,-210}}, color={0,0,127}));
+    annotation (Line(points={{98,-210},{82,-210},{82,-210}}, color={0,0,127}));
   connect(gaiCooCoi.u, swiCooCoi.y) annotation (Line(points={{98,-248},{88,-248},
-          {88,-248},{81,-248}}, color={0,0,127}));
+          {88,-248},{82,-248}}, color={0,0,127}));
   connect(eco.yExh, conEco.yOA) annotation (Line(
       points={{-3,-34},{-2,-34},{-2,152},{-59.3333,152}},
       color={0,0,127},
@@ -323,13 +311,23 @@ equation
       points={{-16.8,-34},{-16.8,146.667},{-59.3333,146.667}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(freSta.y, or2.u1) annotation (Line(points={{21,-92},{21,-92},{40,-92},
+  connect(freSta.y, or2.u1) annotation (Line(points={{22,-92},{22,-92},{40,-92},
           {40,-150},{-20,-150},{-20,-170},{-2,-170}},        color={255,0,255}));
   connect(or2.u2, modeSelector.yFan) annotation (Line(points={{-2,-178},{-20,
           -178},{-20,-310},{-179.545,-310}},
                                      color={255,0,255}));
-  connect(or2.y, swiHeaCoi.u2) annotation (Line(points={{21,-170},{40,-170},{40,
+  connect(or2.y, swiHeaCoi.u2) annotation (Line(points={{22,-170},{40,-170},{40,
           -190},{40,-190},{40,-210},{58,-210}}, color={255,0,255}));
+  connect(cor.y_actual, pSetDuc.u[1]) annotation (Line(points={{612,58},{620,58},
+          {620,74},{140,74},{140,-7.6},{158,-7.6}}, color={0,0,127}));
+  connect(sou.y_actual, pSetDuc.u[2]) annotation (Line(points={{792,56},{800,56},
+          {800,74},{140,74},{140,-6.8},{158,-6.8}}, color={0,0,127}));
+  connect(eas.y_actual, pSetDuc.u[3]) annotation (Line(points={{972,56},{980,56},
+          {980,74},{140,74},{140,-6},{158,-6}}, color={0,0,127}));
+  connect(nor.y_actual, pSetDuc.u[4]) annotation (Line(points={{1132,56},{1140,
+          56},{1140,74},{140,74},{140,-5.2},{158,-5.2}}, color={0,0,127}));
+  connect(wes.y_actual, pSetDuc.u[5]) annotation (Line(points={{1332,56},{1338,
+          56},{1338,74},{140,74},{140,-4.4},{158,-4.4}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-400},{1440,
             580}})),
