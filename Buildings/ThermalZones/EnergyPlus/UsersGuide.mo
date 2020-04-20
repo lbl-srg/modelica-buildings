@@ -36,10 +36,12 @@ This instance will then connect the Modelica zone model with the
 EnergyPlus zone model.
 </li>
 <li>
-For the weather file, both mos and epw files must be provided in the same directory.
-The epw file is required to generate an FMU of the EnergyPlus envelope model; the mos
-file is required for the parameter <code>weaName</code> in the instance <code>building</code>.
-The names of the two weather file formats must also remain the same.
+For the weather file, both <code>.mos</code> and <code>.epw</code> files
+must be provided in the same directory. The files must have the same name, except
+for the different extension.
+The <code>.epw</code> file will be used by the EnergyPlus envelope model, and the <code>.mos</code>
+file will be used by the Modelica model, and must be specified by the parameter <code>weaName</code>
+in the instance <code>building</code>.
 </li>
 </ol>
 <p>
