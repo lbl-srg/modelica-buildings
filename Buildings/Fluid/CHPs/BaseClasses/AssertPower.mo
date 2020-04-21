@@ -8,7 +8,7 @@ model AssertPower "Assert if electric power is outside boundaries"
     "Minimum power output";
   parameter Boolean dPEleLim
     "If true, the rate at which net power output can change is limited";
-  parameter Real dPEleMax(final unit="1/s")
+  parameter Real dPEleMax(final unit="W/s")
     "Maximum rate at which net power output can change";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput PEleDem(
