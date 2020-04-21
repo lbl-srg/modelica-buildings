@@ -7,6 +7,9 @@ model Pipe
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=(abs(dp_nominal) > Modelica.Constants.eps));
 
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
+
   parameter Integer nSeg(min=1) = 10 "Number of volume segments";
   parameter Modelica.SIunits.Length thicknessIns "Thickness of insulation";
   parameter Modelica.SIunits.ThermalConductivity lambdaIns
@@ -18,9 +21,6 @@ model Pipe
   parameter Real ReC=4000
     "Reynolds number where transition to turbulent starts"
     annotation (Dialog(tab="Flow resistance"));
-
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   Buildings.Fluid.FixedResistances.PressureDrop preDro(
     redeclare final package Medium = Medium,
@@ -61,6 +61,11 @@ protected
   parameter Modelica.SIunits.Density rho_default = Medium.density(state_default);
   parameter Modelica.SIunits.DynamicViscosity mu_default = Medium.dynamicViscosity(state_default)
     "Dynamic viscosity at nominal condition";
+
+initial equation
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
 
 equation
   connect(port_a, preDro.port_a) annotation (Line(
@@ -110,6 +115,12 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
+</li>
 <li>
 February 5, 2015, by Michael Wetter:<br/>
 Renamed <code>res</code> to <code>preDro</code> for
