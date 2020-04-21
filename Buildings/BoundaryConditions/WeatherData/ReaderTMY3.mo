@@ -241,6 +241,7 @@ protected
     final tableOnFile=true,
     final tableName="tab1",
     final fileName=filNam,
+    verboseRead=false,
     final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     final columns={2,3,4,5,6,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,
         28,29,30,8}) "Data reader"
@@ -355,6 +356,7 @@ protected
     final tableOnFile=true,
     final tableName="tab1",
     final fileName=filNam,
+    verboseRead=false,
     final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     final columns=9:11) "Data reader with 30 min offset for solar irradiation"
     annotation (Placement(transformation(extent={{-50,180},{-30,200}})));
