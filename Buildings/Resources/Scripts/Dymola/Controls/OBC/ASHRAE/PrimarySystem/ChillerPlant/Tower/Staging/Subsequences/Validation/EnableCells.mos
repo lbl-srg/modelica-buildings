@@ -1,0 +1,12 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.Staging.Subsequences.Validation.EnableCells", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="enaTowCel");
+
+createPlot(id=1, position={10, 10, 1000, 1200}, y={"enaTowCel.uChiSta","enaTowCel.uWSE"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=1, colors={{28,108,200},{0,140,72}});
+createPlot(id=1, position={10, 10, 1000, 1200}, y={"enaTowCel.uTowSta[1]","enaTowCel.uTowSta[2]","enaTowCel.uTowSta[3]","enaTowCel.uTowSta[4]","enaTowCel.yTarTowSta[1]","enaTowCel.yTarTowSta[2]","enaTowCel.yTarTowSta[3]","enaTowCel.yTarTowSta[4]"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=2, colors={{28,108,200},{0,140,72},{28,108,200},{0,140,72},{28,108,200},{0,140,72},{28,108,200},{0,140,72}});
+createPlot(id=1, position={10, 10, 1000, 1200}, y={"enaTowCel.yEnaCel"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=1, position={10, 10, 1000, 1200}, y={"enaTowCel.yEnaCelInd[1]","enaTowCel.yEnaCelInd[2]","enaTowCel.yEnaCelInd[3]","enaTowCel.yEnaCelInd[4]"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=4, colors={{28,108,200},{0,140,72},{28,108,200},{0,140,72}});
+
+createPlot(id=2, position={1020, 10, 1000, 1200}, y={"disTowCel.uChiSta","disTowCel.uWSE"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=1, colors={{28,108,200},{0,140,72}});
+createPlot(id=2, position={1020, 10, 1000, 1200}, y={"disTowCel.uTowSta[1]","disTowCel.uTowSta[2]","disTowCel.uTowSta[3]","disTowCel.uTowSta[4]","disTowCel.yTarTowSta[1]","disTowCel.yTarTowSta[2]","disTowCel.yTarTowSta[3]","disTowCel.yTarTowSta[4]"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=2, colors={{28,108,200},{0,140,72},{28,108,200},{0,140,72},{28,108,200},{0,140,72},{28,108,200},{0,140,72}});
+createPlot(id=2, position={1020, 10, 1000, 1200}, y={"disTowCel.yDisCel"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=2, position={1020, 10, 1000, 1200}, y={"disTowCel.yDisCelInd[1]","disTowCel.yDisCelInd[2]","disTowCel.yDisCelInd[3]","disTowCel.yDisCelInd[4]"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=4, colors={{28,108,200},{0,140,72},{28,108,200},{0,140,72}});
+
