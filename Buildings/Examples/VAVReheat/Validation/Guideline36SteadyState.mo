@@ -1,5 +1,5 @@
 within Buildings.Examples.VAVReheat.Validation;
-model Guideline36SteadyStateBoundaryCondition
+model Guideline36SteadyState
   "Validation of detailed model that is at steady state with constant weather data"
   extends Buildings.Examples.VAVReheat.Guideline36(
       weaDat(
@@ -34,7 +34,7 @@ equation
     experiment(
       StopTime=604800,
       Tolerance=1e-06),
-      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/Validation/Guideline36SteadyStateBoundaryCondition.mos"
+      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/Validation/Guideline36SteadyState.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(extent={{-420,-300},{1360,660}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
@@ -53,4 +53,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Guideline36SteadyStateBoundaryCondition;
+end Guideline36SteadyState;
