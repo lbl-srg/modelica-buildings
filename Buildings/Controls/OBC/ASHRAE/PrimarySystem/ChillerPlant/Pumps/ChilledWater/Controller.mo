@@ -402,6 +402,7 @@ equation
     annotation (Line(points={{-138,-120},{-70,-120},{-70,-112}}, color={255,127,0}));
 
 annotation (
+  defaultComponentName="chiWatPumCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-280,-260},{280,260}}), graphics={
           Rectangle(

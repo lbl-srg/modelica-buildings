@@ -213,7 +213,26 @@ equation
         Text(
           extent={{-120,146},{100,108}},
           lineColor={0,0,255},
-          textString="%name")}),
+          textString="%name"),
+        Rectangle(
+          extent={{-82,64},{80,-56}},
+          lineColor={28,108,200},
+          fillColor={210,210,210},
+          fillPattern=FillPattern.Solid,
+          borderPattern=BorderPattern.Raised),
+        Polygon(
+          points={{-82,64},{-16,8},{-82,-56},{-82,64}},
+          lineColor={175,175,175},
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{6,60},{72,-52}},
+          lineColor={28,108,200},
+          lineThickness=0.5),
+        Line(
+          points={{6,-52},{72,60}},
+          color={28,108,200},
+          thickness=0.5)}),
         Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-180,-120},{180,120}})),
 Documentation(info="<html>
