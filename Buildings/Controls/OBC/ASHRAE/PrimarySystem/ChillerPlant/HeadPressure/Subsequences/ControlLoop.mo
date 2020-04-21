@@ -63,13 +63,13 @@ equation
   connect(TChiWatSup, feedback.u2)
     annotation (Line(points={{-120,-80},{-60,-80},{-60,-32}}, color={0,0,127}));
   connect(con.y, conPID.u_s)
-    annotation (Line(points={{-19,60},{18,60}}, color={0,0,127}));
+    annotation (Line(points={{-18,60},{18,60}}, color={0,0,127}));
   connect(conPID.y, yHeaPreCon)
-    annotation (Line(points={{41,60},{60,60},{60,0},{110,0}}, color={0,0,127}));
+    annotation (Line(points={{42,60},{60,60},{60,0},{110,0}}, color={0,0,127}));
   connect(feedback.y, gai.u)
-    annotation (Line(points={{-49,-20},{-22,-20}}, color={0,0,127}));
+    annotation (Line(points={{-48,-20},{-22,-20}}, color={0,0,127}));
   connect(gai.y, conPID.u_m)
-    annotation (Line(points={{1,-20},{30,-20},{30,48}}, color={0,0,127}));
+    annotation (Line(points={{2,-20},{30,-20},{30,48}}, color={0,0,127}));
   connect(uHeaPreEna, conPID.trigger)
     annotation (Line(points={{-120,20},{22,20},{22,48}}, color={255,0,255}));
 

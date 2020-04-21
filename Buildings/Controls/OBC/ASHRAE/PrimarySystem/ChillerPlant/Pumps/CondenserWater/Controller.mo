@@ -3,25 +3,24 @@ block Controller "Condenser water pump controller"
 
   parameter Boolean isHeadered = true
     "Flag of headered condenser water pumps design: true=headered, false=dedicated";
-  parameter Boolean have_WSE = true
+  parameter Boolean haveWSE = true
     "Flag of waterside economizer: true=have WSE, false=no WSE";
   parameter Integer nChi=2 "Total number of chiller";
-  parameter Integer totChiSta=6
+  parameter Integer totSta=6
     "Total number of stages, including the stages with a WSE, if applicable"
     annotation (Dialog(group="Stage design speed"));
-  parameter Real staVec[totChiSta]={0,0.5,1,1.5,2,2.5}
+  parameter Real staVec[totSta]={0,0.5,1,1.5,2,2.5}
     "Chiller stage vector, element value like x.5 means chiller stage x plus WSE"
     annotation (Dialog(group="Stage design speed"));
-  parameter Real desConWatPumSpe[totChiSta]={0,0.5,0.75,0.6,0.75,0.9}
+  parameter Real desConWatPumSpe[totSta]={0,0.5,0.75,0.6,0.75,0.9}
     "Design condenser water pump speed setpoints, the size should be doule of total stage numbers"
     annotation (Dialog(group="Stage design speed"));
-  parameter Real desConWatPumNum[totChiSta]={0,1,1,2,2,2}
+  parameter Real desConWatPumNum[totSta]={0,1,1,2,2,2}
     "Design number of condenser water pumps that should be ON, the size should be doule of total stage numbers"
     annotation (Dialog(group="Stage design speed"));
-  parameter Real uLow = 0.005 "if y=true and u<uLow, switch to y=false"
-    annotation (Dialog(group="Speed equality check"));
-  parameter Real uHigh = 0.015 "if y=false and u>uHigh, switch to y=true"
-    annotation (Dialog(group="Speed equality check"));
+  parameter Real relSpeDif = 0.05
+    "Relative error to the setpoint for checking if it has achieved speed setpoint"
+    annotation (Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiConIsoVal[nChi]
     "Chiller condenser water isolation valve status"
@@ -40,10 +39,10 @@ block Controller "Condenser water pump controller"
     annotation (Placement(transformation(extent={{-160,20},{-120,60}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta
-    "Current chiller stage"
+    "Current chiller stage that does not include WSE"
     annotation (Placement(transformation(extent={{-160,-40},{-120,0}}),
       iconTransformation(extent={{-140,-30},{-100,10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWSE if have_WSE
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWSE if haveWSE
     "Water side economizer status: true = ON, false = OFF"
     annotation (Placement(transformation(extent={{-160,-70},{-120,-30}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
@@ -57,7 +56,7 @@ block Controller "Condenser water pump controller"
     final min=0,
     final max=1,
     final unit="1") "Current condenser water pump speed"
-    annotation (Placement(transformation(extent={{-160,-150},{-120,-110}}),
+    annotation (Placement(transformation(extent={{-160,-130},{-120,-90}}),
       iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLeaPum
     "Lead pump status"
@@ -75,10 +74,18 @@ block Controller "Condenser water pump controller"
     "Flag to indicate if pump speed achieve setpoint"
     annotation (Placement(transformation(extent={{120,-100},{160,-60}}),
       iconTransformation(extent={{100,-110},{140,-70}})));
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
+    final p=1e-6,
+    final k=1)
+    "Add a small value to avoid zero denominator"
+    annotation (Placement(transformation(extent={{-100,-150},{-80,-130}})));
+  Buildings.Controls.OBC.CDL.Continuous.Division div
+    "Calculate the relative error"
+    annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
 
 protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.EnableLead_headered
-    enaLeaHeaPum(final have_WSE=have_WSE) if isHeadered
+    enaLeaHeaPum(final haveWSE=haveWSE) if isHeadered
     "Enable lead pumps for plants with headered condenser water pump"
     annotation (Placement(transformation(extent={{20,120},{40,140}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.EnableLead_dedicated
@@ -87,8 +94,8 @@ protected
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.Speed
     pumSpe(
-    final have_WSE=have_WSE,
-    final totChiSta=totChiSta,
+    final haveWSE=haveWSE,
+    final totSta=totSta,
     final staVec=staVec,
     final desConWatPumSpe=desConWatPumSpe,
     final desConWatPumNum=desConWatPumNum)
@@ -96,16 +103,16 @@ protected
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Feedback speDif
     "Calculate difference between speed setpoint and operating speed"
-    annotation (Placement(transformation(extent={{-80,-120},{-60,-100}})));
+    annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Abs abs "Absolute value"
-    annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
+    annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
-    final uLow=uLow,
-    final uHigh=uHigh)
+    final uLow=relSpeDif - 0.01,
+    final uHigh=relSpeDif + 0.01)
     "Check if operating speed equals to setpoint"
-    annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
+    annotation (Placement(transformation(extent={{0,-130},{20,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
-    annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
+    annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0)
     "Constant zero"
     annotation (Placement(transformation(extent={{-60,32},{-40,52}})));
@@ -119,7 +126,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
     annotation (Placement(transformation(extent={{80,-90},{100,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(final k=false) if
-       not have_WSE
+       not haveWSE
     "Logical true"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
 
@@ -139,13 +146,11 @@ equation
   connect(enaLeaDedPum.yLea, yLeaPum)
     annotation (Line(points={{42,70},{50,70},{50,130},{140,130}}, color={255,0,255}));
   connect(uConWatPumSpe, speDif.u2)
-    annotation (Line(points={{-140,-130},{-70,-130},{-70,-122}},color={0,0,127}));
+    annotation (Line(points={{-140,-110},{-90,-110},{-90,-92}}, color={0,0,127}));
   connect(speDif.y, abs.u)
-    annotation (Line(points={{-58,-110},{-42,-110}}, color={0,0,127}));
-  connect(abs.y, hys.u)
-    annotation (Line(points={{-18,-110},{-2,-110}}, color={0,0,127}));
+    annotation (Line(points={{-78,-80},{-62,-80}},   color={0,0,127}));
   connect(hys.y, not1.u)
-    annotation (Line(points={{22,-110},{38,-110}}, color={255,0,255}));
+    annotation (Line(points={{22,-120},{38,-120}}, color={255,0,255}));
   connect(uChiSta, pumSpe.uChiSta)
     annotation (Line(points={{-140,-20},{-100,-20},{-100,-46},{18,-46}},
       color={255,127,0}));
@@ -170,7 +175,7 @@ equation
   connect(and2.y, yPumSpeChe)
     annotation (Line(points={{102,-80},{140,-80}}, color={255,0,255}));
   connect(not1.y, and2.u2)
-    annotation (Line(points={{62,-110},{70,-110},{70,-88},{78,-88}},
+    annotation (Line(points={{62,-120},{70,-120},{70,-88},{78,-88}},
       color={255,0,255}));
   connect(enaLeaHeaPum.yLea, and2.u1)
     annotation (Line(points={{42,130},{50,130},{50,-80},{78,-80}}, color={255,0,255}));
@@ -179,7 +184,7 @@ equation
   connect(pumSpe.yDesConWatPumSpe, swi.u1)
     annotation (Line(points={{42,-44},{60,-44},{60,58},{78,58}}, color={0,0,127}));
   connect(uConWatPumSpeSet, speDif.u1)
-    annotation (Line(points={{-140,-80},{-100,-80},{-100,-110},{-82,-110}},
+    annotation (Line(points={{-140,-80},{-102,-80}},
       color={0,0,127}));
   connect(con.y, enaLeaHeaPum.uWseConIsoVal)
     annotation (Line(points={{-38,100},{-20,100},{-20,126},{18,126}},
@@ -193,6 +198,17 @@ equation
   connect(enaLeaHeaPum.uChiConIsoVal, uChiConIsoVal)
     annotation (Line(points={{18,134},{-40,134},{-40,140},{-140,140}},
       color={255,0,255}));
+  connect(uConWatPumSpeSet, addPar.u)
+    annotation (Line(points={{-140,-80},{-110,-80},{-110,-140},{-102,-140}},
+      color={0,0,127}));
+  connect(addPar.y, div.u2)
+    annotation (Line(points={{-78,-140},{-70,-140},{-70,-126},{-42,-126}},
+      color={0,0,127}));
+  connect(abs.y, div.u1)
+    annotation (Line(points={{-38,-80},{-30,-80},{-30,-100},{-60,-100},{-60,-114},
+      {-42,-114}}, color={0,0,127}));
+  connect(div.y, hys.u)
+    annotation (Line(points={{-18,-120},{-2,-120}}, color={0,0,127}));
 
 annotation (
   defaultComponentName="conWatPumCon",

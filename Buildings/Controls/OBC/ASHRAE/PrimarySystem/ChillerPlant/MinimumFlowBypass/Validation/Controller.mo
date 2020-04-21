@@ -88,68 +88,67 @@ protected
 
 equation
   connect(staCha.y, not1.u)
-    annotation (Line(points={{-99,80},{-82,80}}, color={255,0,255}));
+    annotation (Line(points={{-98,80},{-82,80}}, color={255,0,255}));
   connect(upDev.y, not2.u)
-    annotation (Line(points={{-99,40},{-82,40}}, color={255,0,255}));
+    annotation (Line(points={{-98,40},{-82,40}}, color={255,0,255}));
   connect(not1.y, minBypValCon.uStaUp)
-    annotation (Line(points={{-59,80},{72,80},{72,-55},{99,-55}}, color={255,0,255}));
+    annotation (Line(points={{-58,80},{72,80},{72,-55},{98,-55}}, color={255,0,255}));
   connect(not2.y, minBypValCon.uUpsDevSta)
-    annotation (Line(points={{-59,40},{68,40},{68,-57},{99,-57}}, color={255,0,255}));
+    annotation (Line(points={{-58,40},{68,40},{68,-57},{98,-57}}, color={255,0,255}));
   connect(haveOnOff.y, minBypValCon.uOnOff)
-    annotation (Line(points={{-99,-80},{64,-80},{64,-61},{99,-61}},
+    annotation (Line(points={{-98,-80},{64,-80},{64,-61},{98,-61}},
       color={255,0,255}));
   connect(enaNexChi.y, not3.u)
-    annotation (Line(points={{-99,-40},{-82,-40}}, color={255,0,255}));
-  connect(not3.y, minBypValCon.uEnaNexChi)
-    annotation (Line(points={{-59,-40},{64,-40},{64,-59},{99,-59}},
-      color={255,0,255}));
+    annotation (Line(points={{-98,-40},{-82,-40}}, color={255,0,255}));
+  connect(not3.y, minBypValCon.uSubCha)
+    annotation (Line(points={{-58,-40},{64,-40},{64,-59},{98,-59}}, color={255,0,255}));
   connect(noStaCha.y, minBypValCon.uStaDow)
-    annotation (Line(points={{-99,-110},{80,-110},{80,-69},{99,-69}},
+    annotation (Line(points={{-98,-110},{80,-110},{80,-69},{98,-69}},
       color={255,0,255}));
   connect(chiWatPum.y, not4.u)
-    annotation (Line(points={{-99,180},{-82,180}}, color={255,0,255}));
+    annotation (Line(points={{-98,180},{-82,180}}, color={255,0,255}));
   connect(not4.y, minBypValCon.uChiWatPum)
-    annotation (Line(points={{-59,180},{80,180},{80,-51},{99,-51}},
+    annotation (Line(points={{-58,180},{80,180},{80,-51},{98,-51}},
       color={255,0,255}));
   connect(sin.y, add2.u1)
-    annotation (Line(points={{-99,150},{-90,150},{-90,146},{-82,146}},
+    annotation (Line(points={{-98,150},{-90,150},{-90,146},{-82,146}},
       color={0,0,127}));
   connect(ram.y, add2.u2)
-    annotation (Line(points={{-99,120},{-90,120},{-90,134},{-82,134}},
+    annotation (Line(points={{-98,120},{-90,120},{-90,134},{-82,134}},
       color={0,0,127}));
   connect(add2.y, minBypValCon.VChiWat_flow)
-    annotation (Line(points={{-59,140},{76,140},{76,-53},{99,-53}},
+    annotation (Line(points={{-58,140},{76,140},{76,-53},{98,-53}},
       color={0,0,127}));
   connect(not1.y, enaChi.u2)
-    annotation (Line(points={{-59,80},{-40,80},{-40,-20},{-22,-20}},
+    annotation (Line(points={{-58,80},{-40,80},{-40,-20},{-22,-20}},
       color={255,0,255}));
   connect(not1.y, disChi.u2)
-    annotation (Line(points={{-59,80},{-40,80},{-40,-160},{-22,-160}},
+    annotation (Line(points={{-58,80},{-40,80},{-40,-160},{-22,-160}},
       color={255,0,255}));
   connect(con.y, enaChi.u1)
-    annotation (Line(points={{-99,0},{-44,0},{-44,-12},{-22,-12}},
+    annotation (Line(points={{-98,0},{-44,0},{-44,-12},{-22,-12}},
       color={0,0,127}));
   connect(zer.y, enaChi.u3)
-    annotation (Line(points={{-99,-180},{-44,-180},{-44,-28},{-22,-28}},
+    annotation (Line(points={{-98,-180},{-44,-180},{-44,-28},{-22,-28}},
       color={0,0,127}));
   connect(zer.y, disChi.u3)
-    annotation (Line(points={{-99,-180},{-44,-180},{-44,-168},{-22,-168}},
+    annotation (Line(points={{-98,-180},{-44,-180},{-44,-168},{-22,-168}},
       color={0,0,127}));
   connect(con1.y, disChi.u1)
-    annotation (Line(points={{-99,-140},{-60,-140},{-60,-152},{-22,-152}},
+    annotation (Line(points={{-98,-140},{-60,-140},{-60,-152},{-22,-152}},
       color={0,0,127}));
   connect(enaChi.y, reaToInt.u)
-    annotation (Line(points={{1,-20},{18,-20}}, color={0,0,127}));
+    annotation (Line(points={{2,-20},{18,-20}}, color={0,0,127}));
   connect(disChi.y, reaToInt1.u)
-    annotation (Line(points={{1,-160},{18,-160}}, color={0,0,127}));
+    annotation (Line(points={{2,-160},{18,-160}}, color={0,0,127}));
   connect(chiSta.y, minBypValCon.uChi)
-    annotation (Line(points={{1,20},{60,20},{60,-63},{99,-63}},
+    annotation (Line(points={{2,20},{60,20},{60,-63},{98,-63}},
       color={255,0,255}));
   connect(reaToInt.y, minBypValCon.nexEnaChi)
-    annotation (Line(points={{41,-20},{56,-20},{56,-65},{99,-65}},
+    annotation (Line(points={{42,-20},{56,-20},{56,-65},{98,-65}},
       color={255,127,0}));
   connect(reaToInt1.y, minBypValCon.nexDisChi)
-    annotation (Line(points={{41,-160},{56,-160},{56,-67},{99,-67}},
+    annotation (Line(points={{42,-160},{56,-160},{56,-67},{98,-67}},
       color={255,127,0}));
 
 annotation (

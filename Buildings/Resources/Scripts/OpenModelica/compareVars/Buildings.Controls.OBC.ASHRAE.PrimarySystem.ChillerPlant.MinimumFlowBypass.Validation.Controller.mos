@@ -3,7 +3,7 @@ compareVars :=
     "minBypValCon.uStaUp",
     "minBypValCon.uUpsDevSta",
     "minBypValCon.uOnOff",
-    "minBypValCon.uEnaNexChi",
+    "minBypValCon.uSubCha",
     "minBypValCon.uChiWatPum",
     "minBypValCon.VChiWat_flow",
     "minBypValCon.minBypSet.yChiWatMinFloSet",

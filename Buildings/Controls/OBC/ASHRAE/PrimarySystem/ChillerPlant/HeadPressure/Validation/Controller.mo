@@ -8,12 +8,12 @@ model Controller "Validation head pressure controller"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Controller
     conSpePum(
-    final have_WSE=false)
+    final haveWSE=false)
     "Head pressure for plant without waterside economizer, constant speed condenser water pump"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Controller
     varSpePum(
-    final have_WSE=false,
+    final haveWSE=false,
     final fixSpePum=false)
     "Head pressure for plant without waterside economizer, variable speed condenser water pump"
     annotation (Placement(transformation(extent={{100,-110},{120,-90}})));
@@ -45,41 +45,41 @@ protected
 
 equation
   connect(booPul.y, enaWSE.uHeaPreEna)
-    annotation (Line(points={{-99,100},{20,100},{20,90},{58,90}}, color={255,0,255}));
+    annotation (Line(points={{-98,100},{20,100},{20,90},{58,90}}, color={255,0,255}));
   connect(TConWatRet.y, enaWSE.TConWatRet)
-    annotation (Line(points={{-99,60},{-20,60},{-20,86},{58,86}}, color={0,0,127}));
+    annotation (Line(points={{-98,60},{-20,60},{-20,86},{58,86}}, color={0,0,127}));
   connect(TChiWatSup.y, enaWSE.TChiWatSup)
-    annotation (Line(points={{-99,20},{-10,20},{-10,82},{58,82}}, color={0,0,127}));
+    annotation (Line(points={{-98,20},{-10,20},{-10,82},{58,82}}, color={0,0,127}));
   connect(desPumSpe.y, enaWSE.desConWatPumSpe)
-    annotation (Line(points={{-99,-20},{10,-20},{10,78},{58,78}}, color={0,0,127}));
+    annotation (Line(points={{-98,-20},{10,-20},{10,78},{58,78}}, color={0,0,127}));
   connect(runWSE.y, enaWSE.uWSE)
-    annotation (Line(points={{-99,-60},{0,-60},{0,74},{58,74}}, color={255,0,255}));
+    annotation (Line(points={{-98,-60},{0,-60},{0,74},{58,74}}, color={255,0,255}));
   connect(booPul.y, disWSE.uHeaPreEna)
-    annotation (Line(points={{-99,100},{20,100},{20,-50},{58,-50}}, color={255,0,255}));
+    annotation (Line(points={{-98,100},{20,100},{20,-50},{58,-50}}, color={255,0,255}));
   connect(TConWatRet.y, disWSE.TConWatRet)
-    annotation (Line(points={{-99,60},{-20,60},{-20,-54},{58,-54}}, color={0,0,127}));
+    annotation (Line(points={{-98,60},{-20,60},{-20,-54},{58,-54}}, color={0,0,127}));
   connect(TChiWatSup.y, disWSE.TChiWatSup)
-    annotation (Line(points={{-99,20},{-10,20},{-10,-58},{58,-58}}, color={0,0,127}));
+    annotation (Line(points={{-98,20},{-10,20},{-10,-58},{58,-58}}, color={0,0,127}));
   connect(desPumSpe.y, disWSE.desConWatPumSpe)
-    annotation (Line(points={{-99,-20},{10,-20},{10,-62},{58,-62}}, color={0,0,127}));
+    annotation (Line(points={{-98,-20},{10,-20},{10,-62},{58,-62}}, color={0,0,127}));
   connect(runWSE.y, not1.u)
-    annotation (Line(points={{-99,-60},{-80,-60},{-80,-80},{-62,-80}}, color={255,0,255}));
+    annotation (Line(points={{-98,-60},{-80,-60},{-80,-80},{-62,-80}}, color={255,0,255}));
   connect(not1.y, disWSE.uWSE)
-    annotation (Line(points={{-39,-80},{-28,-80},{-28,-66},{58,-66}}, color={255,0,255}));
+    annotation (Line(points={{-38,-80},{-28,-80},{-28,-66},{58,-66}}, color={255,0,255}));
   connect(booPul.y, conSpePum.uHeaPreEna)
-    annotation (Line(points={{-99,100},{20,100},{20,50},{98,50}}, color={255,0,255}));
+    annotation (Line(points={{-98,100},{20,100},{20,50},{98,50}}, color={255,0,255}));
   connect(booPul.y, varSpePum.uHeaPreEna)
-    annotation (Line(points={{-99,100},{20,100},{20,-90},{98,-90}}, color={255,0,255}));
+    annotation (Line(points={{-98,100},{20,100},{20,-90},{98,-90}}, color={255,0,255}));
   connect(TConWatRet.y, conSpePum.TConWatRet)
-    annotation (Line(points={{-99,60},{-20,60},{-20,46},{98,46}}, color={0,0,127}));
+    annotation (Line(points={{-98,60},{-20,60},{-20,46},{98,46}}, color={0,0,127}));
   connect(TChiWatSup.y, conSpePum.TChiWatSup)
-    annotation (Line(points={{-99,20},{-10,20},{-10,42},{98,42}}, color={0,0,127}));
+    annotation (Line(points={{-98,20},{-10,20},{-10,42},{98,42}}, color={0,0,127}));
   connect(TConWatRet.y, varSpePum.TConWatRet)
-    annotation (Line(points={{-99,60},{-20,60},{-20,-94},{98,-94}}, color={0,0,127}));
+    annotation (Line(points={{-98,60},{-20,60},{-20,-94},{98,-94}}, color={0,0,127}));
   connect(TChiWatSup.y, varSpePum.TChiWatSup)
-    annotation (Line(points={{-99,20},{-10,20},{-10,-98},{98,-98}}, color={0,0,127}));
+    annotation (Line(points={{-98,20},{-10,20},{-10,-98},{98,-98}}, color={0,0,127}));
   connect(desPumSpe.y, varSpePum.desConWatPumSpe)
-    annotation (Line(points={{-99,-20},{10,-20},{10,-102},{98,-102}}, color={0,0,127}));
+    annotation (Line(points={{-98,-20},{10,-20},{10,-102},{98,-102}}, color={0,0,127}));
 
 annotation (
   experiment(StopTime=5.0, Tolerance=1e-06),
