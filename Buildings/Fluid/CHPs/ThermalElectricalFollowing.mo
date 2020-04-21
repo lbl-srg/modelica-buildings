@@ -9,7 +9,7 @@ model ThermalElectricalFollowing
     annotation (choicesAllMatching=true, Placement(transformation(
       extent={{140,340},{160,360}})));
 
-  parameter Boolean optionalFollowing = true
+  parameter Boolean switchThermalElectricalFollowing = true
     "Set to true for switching between thermal and electrical following, to false for electrical following only";
   parameter Modelica.SIunits.Temperature TEngIni = Medium.T_default
     "Initial engine temperature";
@@ -20,27 +20,27 @@ model ThermalElectricalFollowing
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation (Dialog(group="Cooling water outlet temperature controller",
-      enable=optionalFollowing));
+      enable=switchThermalElectricalFollowing));
   parameter Real k=1 "Gain of controller"
     annotation (Dialog(group="Cooling water outlet temperature controller",
-      enable=optionalFollowing));
+      enable=switchThermalElectricalFollowing));
   parameter Modelica.SIunits.Time Ti=0.5 "Time constant of integrator block"
     annotation (Dialog(group="Cooling water outlet temperature controller",
-      enable=optionalFollowing and
+      enable=switchThermalElectricalFollowing and
       (watOutCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
        watOutCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Modelica.SIunits.Time Td=0.1 "Time constant of derivative block"
     annotation (Dialog(group="Cooling water outlet temperature controller",
-      enable=optionalFollowing and
+      enable=switchThermalElectricalFollowing and
       (watOutCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
        watOutCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TWatOutSet(
     final unit="K",
-    displayUnit="degC") if optionalFollowing
+    displayUnit="degC") if switchThermalElectricalFollowing
     "Water outlet set point temperature, which is input signal for thermal following"
     annotation (Placement(transformation(extent={{-220,330},{-180,370}}),
       iconTransformation(extent={{-140,30},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput theFol if optionalFollowing
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput theFol if switchThermalElectricalFollowing
     "Enable thermal following, false if electrical following"
     annotation (Placement(transformation(extent={{-220,240},{-180,280}}),
       iconTransformation(extent={{-140,50},{-100,90}})));
@@ -150,22 +150,22 @@ model ThermalElectricalFollowing
     final Td=Td,
     final yMax=1,
     final yMin=0,
-    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter) if optionalFollowing
+    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter) if switchThermalElectricalFollowing
     "Cooling water outplet controller"
     annotation (Placement(transformation(extent={{-60,340},{-40,360}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain elePowDem(
-    final k=per.PEleMax) if optionalFollowing
+    final k=per.PEleMax) if switchThermalElectricalFollowing
     "Electric power demand if thermal following"
     annotation (Placement(transformation(extent={{0,340},{20,360}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     "Switch between thermal and electrical following"
     annotation (Placement(transformation(extent={{100,250},{120,270}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant optFol(
-    final k=false) if not optionalFollowing
+    final k=false) if not switchThermalElectricalFollowing
     "Feed false to switch block if no optional following"
     annotation (Placement(transformation(extent={{40,230},{60,250}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer1(
-    final k=0) if not optionalFollowing "Constant zero"
+    final k=0) if not switchThermalElectricalFollowing "Constant zero"
     annotation (Placement(transformation(extent={{40,270},{60,290}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai(final k=-1)
     "Heat transfer to the water control volume"

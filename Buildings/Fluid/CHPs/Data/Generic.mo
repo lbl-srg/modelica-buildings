@@ -21,7 +21,7 @@ record Generic "Generic data for CHP models"
     cooling water mass flow rate based on internal control";
   parameter Real[6] coeMasWat
     "Vector of coefficients used to calculate cooling water mass flow rate
-    in case compute_coolingWaterFlowRate is true.
+    in case coolingWaterControl is true.
     The independent variable x1 is the steady-state power output,
     x2 is the cooling water mass flow rate.
     From index 1 to 6, coefficients correspond to the following terms:
@@ -64,7 +64,7 @@ record Generic "Generic data for CHP models"
     "If true, the rate at which net power output can change is limited";
   parameter Boolean use_fuelRateLimit=false
     "If true, the rate at which fuel mass flow rate can change is limited";
-  parameter Real dPEleMax(final unit="1/s")
+  parameter Real dPEleMax(final unit="W/s")
     "Maximum rate at which net power output can change";
   parameter Real dmFueMax_flow(final unit="kg/s2")
     "Maximum rate at which fuel mass flow rate can change";

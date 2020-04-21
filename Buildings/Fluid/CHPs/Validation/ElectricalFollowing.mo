@@ -9,7 +9,7 @@ model ElectricalFollowing "Validate model ElectricalFollowing"
     redeclare Data.ValidationData3 per,
     m_flow_nominal=0.4,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    optionalFollowing=false,
+    switchThermalElectricalFollowing=false,
     TEngIni=273.15 + 69.55,
     waitTime=0) "CHP unit with the electricity demand priority"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
@@ -201,13 +201,13 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Fluid.CHPs.ThermalElectricalFollowing\">
 Buildings.Fluid.CHPs.ThermalElectricalFollowing</a>
-for the CHP unit simulation with the electricity demand priority. 
+for the CHP unit simulation with the electricity demand priority.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
 October 31, 2019, by Jianjun Hu:<br/>
-Refactored implementation. 
+Refactored implementation.
 </li>
 <li>
 July 01 2019, by Tea Zakula:<br/>

@@ -8,7 +8,7 @@ model FilterPower "Constraints for electric power"
     "Minimum power output";
   parameter Boolean use_powerRateLimit
     "If true, the rate at which net power output can change is limited";
-  parameter Real dPEleMax(final unit="1/s")
+  parameter Real dPEleMax(final unit="W/s")
     "Maximum rate at which net power output can change";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput PEleDem(final unit="W")
@@ -37,7 +37,8 @@ protected
     final k=PEleMin) "Minimum power"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.SlewRateLimiter dPLim(
-    final raisingSlewRate=dPEleMax,
+    final raisingSlewRate(unit="W/s")=dPEleMax,
+    final fallingSlewRate(unit="W/s")=-dPEleMax,
     final Td=1) "Power rate limiter"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Buildings.Controls.OBC.CDL.Logical.Switch switch
