@@ -6,7 +6,6 @@ model AssertFuelFlow "Validate model AssertFuelFlow"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
   Buildings.Fluid.CHPs.BaseClasses.AssertFuelFlow assFue(
-    final dmFueLim=per.dmFueLim,
     final dmFueMax_flow=per.dmFueMax_flow)
     "Assert if fuel mass flow rate is outside boundaries"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));

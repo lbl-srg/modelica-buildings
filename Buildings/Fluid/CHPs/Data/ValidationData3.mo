@@ -20,6 +20,8 @@ record ValidationData3 "Validation data set 3"
     TWatMax=273.15 + 80,
     dPEleLim=false,
     dmFueLim=false,
+    dPEleMax=1000000000,
+    dmFueMax_flow=1000000000,
     PStaBy=100,
     PCooDow=200,
     LHVFue=47.614e6);
@@ -34,7 +36,7 @@ EnergyPlus example <code>MicroCogeneration</code>, with following changes:
 </p>
 <ul>
 <li>
-the rate of change in the net electrical power and in the fuel flow rate, becomes unlimitted.
+The rate of change in the net electrical power and in the fuel flow rate, becomes unlimitted.
 </li>
 <li>
 changed electric power consumptions during standby <code>PStaBy</code> and cool-down

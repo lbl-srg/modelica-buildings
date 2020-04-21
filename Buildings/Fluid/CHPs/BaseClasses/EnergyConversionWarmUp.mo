@@ -42,9 +42,10 @@ model EnergyConversionWarmUp
     annotation (Placement(transformation(extent={{540,220},{580,260}}),
       iconTransformation(extent={{100,-50},{140,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QGen_flow(final unit="W")
-    "Heat generation rate within the engine" annotation (Placement(
-        transformation(extent={{540,140},{580,180}}), iconTransformation(extent=
-           {{100,-100},{140,-60}})));
+    "Heat generation rate within the engine"
+    annotation (Placement(transformation(extent={{540,140},{580,180}}),
+      iconTransformation(extent={{100,-100},{140,-60}})));
+
 protected
   Buildings.Utilities.Math.SmoothMax smoothMax(
     final deltaX=0.5)
@@ -121,12 +122,13 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Add add(final k1=-1)
     "Difference between room temperature and engine temperature"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Controls.OBC.CDL.Continuous.Gain masFloFue(final k=1/per.LHVFue)
+  Buildings.Controls.OBC.CDL.Continuous.Gain masFloFue(final k=1/per.LHVFue)
     "Fuel mass flow rate computation"
     annotation (Placement(transformation(extent={{80,250},{100,270}})));
-  Controls.OBC.CDL.Continuous.Gain heaGro(final k=per.LHVFue)
+  Buildings.Controls.OBC.CDL.Continuous.Gain heaGro(final k=per.LHVFue)
     "Gross heat input into the system"
     annotation (Placement(transformation(extent={{440,130},{460,150}})));
+
 equation
   connect(PEleMax.y, etaE.PNet) annotation (Line(points={{-58,300},{-40,300},{-40,
           246},{-22,246}}, color={0,0,127}));

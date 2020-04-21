@@ -8,8 +8,8 @@ model AssertPower "Assert if electric power is outside boundaries"
     "Minimum power output";
   parameter Boolean dPEleLim
     "If true, the rate at which net power output can change is limited";
-  parameter Real dPEleMax
-    "Maximum rate at which net power output can change in W/s";
+  parameter Real dPEleMax(final unit="1/s")
+    "Maximum rate at which net power output can change";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput PEleDem(
     final unit="W")
@@ -21,7 +21,7 @@ model AssertPower "Assert if electric power is outside boundaries"
     "Generate warning when the electric power demand is out of the range"
     annotation (Placement(transformation(extent={{70,10},{90,30}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMesDP(
-    final message="Rate of change in power output is outside boundaries!")
+    final message="Rate of change in power output is outside boundaries!") if dPEleLim
     "Assert function for checking power rate"
     annotation (Placement(transformation(extent={{70,-50},{90,-30}})));
 
@@ -29,29 +29,27 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Nor nor
     "Check if the electric power demand is out of the power production range"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
-  Buildings.Controls.OBC.CDL.Logical.Nand nand "Logical Nand"
+  Buildings.Controls.OBC.CDL.Logical.Not not2 if dPEleLim "Logical Nand"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant cheDPLim(
-    final k=dPEleLim)
-    "Check if dP is limited"
-    annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Derivative demRat(
     final initType=Buildings.Controls.OBC.CDL.Types.Init.InitialState,
-    final x_start=0)
+    final x_start=0) if dPEleLim
     "Power demand rate"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Abs abs1 "Absolute value"
+  Buildings.Controls.OBC.CDL.Continuous.Abs abs1 if dPEleLim "Absolute value"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold maxRat(
-    final threshold=dPEleMax)
+    final threshold=dPEleMax) if dPEleLim
     "Check if demand rate is more than the maximum rate"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis maxPow(final uLow=0.99*
-        PEleMax, final uHigh=1.01*PEleMax + 1e-6)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis maxPow(
+    final uLow=0.99*PEleMax,
+    final uHigh=1.01*PEleMax + 1e-6)
     "Check if the electric power demand is more than the maximum power production"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis minPow(final uLow=0.99*
-        PEleMin - 1e-6, final uHigh=1.01*PEleMin)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis minPow(
+    final uLow=0.99*PEleMin - 1e-6,
+    final uHigh=1.01*PEleMin)
     "Check if the electric power demand is larger than the minimum power production"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
@@ -65,14 +63,10 @@ equation
           color={0,0,127}));
   connect(demRat.u, PEleDem) annotation (Line(points={{-82,-40},{-90,-40},{-90,0},
           {-120,0}}, color={0,0,127}));
-  connect(maxRat.y, nand.u1) annotation (Line(points={{22,-40},{38,-40}},
-          color={255,0,255}));
   connect(nor.y, assMesP.u) annotation (Line(points={{62,20},{68,20}},
           color={255,0,255}));
-  connect(nand.y, assMesDP.u) annotation (Line(points={{62,-40},{68,-40}},
+  connect(not2.y, assMesDP.u) annotation (Line(points={{62,-40},{68,-40}},
           color={255,0,255}));
-  connect(cheDPLim.y, nand.u2) annotation (Line(points={{22,-80},{30,-80},{30,-48},
-          {38,-48}}, color={255,0,255}));
   connect(PEleDem, maxPow.u) annotation (Line(points={{-120,0},{-90,0},{-90,40},
           {-42,40}}, color={0,0,127}));
   connect(maxPow.y, nor.u1) annotation (Line(points={{-18,40},{0,40},{0,20},{38,
@@ -83,11 +77,13 @@ equation
           color={255,0,255}));
   connect(not1.y, nor.u2) annotation (Line(points={{-18,0},{0,0},{0,12},{38,12}},
           color={255,0,255}));
+  connect(maxRat.y, not2.u)
+    annotation (Line(points={{22,-40},{38,-40}}, color={255,0,255}));
 
 annotation (
   defaultComponentName="assPow",
-  Diagram(coordinateSystem(extent={{-100,-100},{100,60}})),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
+  Diagram(coordinateSystem(extent={{-100,-80},{100,80}})),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}}),   graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
           lineColor={0,0,127},

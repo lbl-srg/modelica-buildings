@@ -8,8 +8,8 @@ model FilterPower "Constraints for electric power"
     "Minimum power output";
   parameter Boolean dPEleLim
     "If true, the rate at which net power output can change is limited";
-  parameter Real dPEleMax
-    "Maximum rate at which net power output can change in W/s";
+  parameter Real dPEleMax(final unit="1/s")
+    "Maximum rate at which net power output can change";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput PEleDem(final unit="W")
     "Electric power demand"

@@ -63,9 +63,9 @@ annotation (
 The model calculates the water mass flow rate that is determined by the internal controller.
 In CHPs that use this type of internal control the cooling water mass flow rate is
 controlled to optimize engine performance and heat recovery.
-In the main model of the CHP unit \\
+In the main model of the CHP unit
 <a href=\"modelica://Buildings.Fluid.CHPs.ThermalElectricalFollowing\">
-Buildings.Fluid.CHPs.ThermalElectricalFollowing</a>
+Buildings.Fluid.CHPs.ThermalElectricalFollowing</a>,
 this optimum water mass flow rate is specified as the set point signal for the external pump controller.
 </p>
 <h4>Implementation</h4>

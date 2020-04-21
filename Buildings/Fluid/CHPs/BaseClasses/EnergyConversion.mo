@@ -56,8 +56,8 @@ model EnergyConversion "Energy conversion control volume"
       {180,-80}}), iconTransformation(extent={{100,-100},{140,-60}})));
 
 protected
-  Buildings.Fluid.CHPs.BaseClasses.AssertFuelFlow assFue(final dmFueLim=per.dmFueLim,
-      final dmFueMax_flow=per.dmFueMax_flow)
+  Buildings.Fluid.CHPs.BaseClasses.AssertFuelFlow assFue(
+    final dmFueMax_flow=per.dmFueMax_flow) if per.dmFueLim
     "Assert if fuel flow rate is outside boundaries"
     annotation (Placement(transformation(extent={{110,30},{130,50}})));
   Buildings.Fluid.CHPs.BaseClasses.EnergyConversionNormal opeModBas(final per=
@@ -106,11 +106,11 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and1
     "True if warm-up mode and warm-up based on engine temperature"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
-
-  Controls.OBC.CDL.Continuous.Sources.Constant dumTimDel(final k=0) if
-                  per.warmUpByTimeDelay
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dumTimDel(
+    final k=0) if per.warmUpByTimeDelay
     "Set dummy value in case of warm-up by time delay"
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
+
 equation
   connect(opeModBas.mWat_flow, mWat_flow) annotation (Line(points={{-22,0},{-120,
           0},{-120,20},{-160,20}},        color={0,0,127}));
@@ -185,6 +185,7 @@ equation
           {78,-32}}, color={0,0,127}));
   connect(dumTimDel.y, switch5.u1) annotation (Line(points={{2,40},{32,40},{32,-92},
           {78,-92}}, color={0,0,127}));
+
 annotation (
   defaultComponentName="eneCon",
   Diagram(coordinateSystem(extent={{-140,-140},{140,140}})),

@@ -1,7 +1,7 @@
 within Buildings.Fluid.CHPs.Data;
 record Generic "Generic data for CHP models"
   extends Modelica.Icons.Record;
-  parameter Real[27] coeEtaQ=fill(0,27)
+  parameter Real[27] coeEtaQ
     "Vector of coefficients used to calculate thermal efficiency of the engine.
     The independent variable x1 is the steady-state power output,
     x2 is the cooling water mass flow rate, x3 is the cooling water inlet temperature.
@@ -12,32 +12,32 @@ record Generic "Generic data for CHP models"
     x2^2*x3^2, x2*x3, x2*x3^2, x2^2*x3,
     x1^2*x2^2*x3^2, x1^2*x2^2*x3, x1^2*x2*x3^2, x1*x2^2*x3^2,
     x1^2*x2*x3, x1*x2^2*x3,  x1*x2*x3^2, x1*x2*x3";
-  parameter Real[27] coeEtaE=fill(0,27)
+  parameter Real[27] coeEtaE
     "Vector of coefficients used to calculate electrical conversion efficiency
     of the engine. The independent variables and mapping of the coefficients
     to the polynomial terms are the same as for the thermal efficiency";
   parameter Boolean coolingWaterControl=true
     "If true, then an empirical correlation is used to calculate
     cooling water mass flow rate based on internal control";
-  parameter Real[6] coeMasWat=fill(0,6)
+  parameter Real[6] coeMasWat
     "Vector of coefficients used to calculate cooling water mass flow rate
     in case coolingWaterControl is true.
     The independent variable x1 is the steady-state power output,
     x2 is the cooling water mass flow rate.
     From index 1 to 6, coefficients correspond to the following terms:
     constant, x1, x1^2, x2, x2^2, x1*x2";
-  parameter Real[3] coeMasAir=fill(0,3)
+  parameter Real[3] coeMasAir
     "Vector of coefficients used to calculate air mass flow rate.
     The independent variable x1 is the fuel mass flow rate.
     From index 1 to 3, coefficients correspond to the following terms:
     constant, x1, x1^2";
-  parameter Modelica.SIunits.ThermalConductance UAHex = 0
+  parameter Modelica.SIunits.ThermalConductance UAHex
     "Thermal conductance between the engine and cooling water";
-  parameter Modelica.SIunits.ThermalConductance UALos = 0
+  parameter Modelica.SIunits.ThermalConductance UALos
     "Thermal conductance between the engine and surroundings";
-  parameter Modelica.SIunits.HeatCapacity capEng = 0
+  parameter Modelica.SIunits.HeatCapacity capEng
     "Thermal capacitance of the engine control volume";
-  parameter Modelica.SIunits.HeatCapacity capHeaRec = 0
+  parameter Modelica.SIunits.HeatCapacity capHeaRec
     "Thermal capacitance of heat recovery portion";
   parameter Boolean warmUpByTimeDelay=true
     "If true, the plant will be in warm-up mode depending on the delay time,
@@ -52,7 +52,7 @@ record Generic "Generic data for CHP models"
     will immediately switch into warm-up mode";
   parameter Modelica.SIunits.Time timeDelayCool = 0
     "Cooldown period";
-  parameter Modelica.SIunits.Power PEleMax = 1000000
+  parameter Modelica.SIunits.Power PEleMax
     "Maximum power output";
   parameter Modelica.SIunits.Power PEleMin = 0
     "Minimum power output";
@@ -64,13 +64,13 @@ record Generic "Generic data for CHP models"
     "If true, the rate at which net power output can change is limited";
   parameter Boolean dmFueLim=false
     "If true, the rate at which fuel mass flow rate can change is limited";
-  parameter Real dPEleMax = 0
-    "Maximum rate at which net power output can change in W/s";
-  parameter Real dmFueMax_flow = 0
-    "Maximum rate at which fuel mass flow rate can change in kg/s2";
-  parameter Modelica.SIunits.Power PStaBy = 0
+  parameter Real dPEleMax(final unit="1/s")
+    "Maximum rate at which net power output can change";
+  parameter Real dmFueMax_flow(final unit="kg/s2")
+    "Maximum rate at which fuel mass flow rate can change";
+  parameter Modelica.SIunits.Power PStaBy
     "Standby electric power";
-  parameter Modelica.SIunits.Power PCooDow = 0
+  parameter Modelica.SIunits.Power PCooDow
     "Cooldown electric power";
   parameter Real LHVFue(final unit="J/kg") = 47.614e6
     "Lower heating value of fuel";
