@@ -1,4 +1,4 @@
-last-generated=2020-04-16
+last-generated=2020-04-20
 statistics-simulation=
 {
   "linear": " ",
@@ -8,3 +8,4 @@ statistics-simulation=
 time=[0e+00, 1e+02]
 iniSta.yIni=[2e+00, 2e+00]
 iniSta.uUp=[2e+00, 2e+00]
+iniSta.have_WSE=[0e+00, 0e+00]

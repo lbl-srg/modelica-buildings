@@ -1,3 +1,7 @@
+fweight
+
+
+
 simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Validation.SetpointController_noWSE", method="Cvode", stopTime=14000, tolerance=1e-06, resultFile="SetpointController_noWSE1");
 
 createPlot(id=1, position={20, 10, 1200, 650}, subPlot=1, y={"staSetCon.ySta"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});

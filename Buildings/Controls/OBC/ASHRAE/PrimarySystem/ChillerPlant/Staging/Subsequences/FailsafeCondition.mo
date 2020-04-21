@@ -53,7 +53,6 @@ block FailsafeCondition
     annotation (Placement(transformation(extent={{140,-20},{180,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
-protected
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysdpSup(
     final uLow=dpDif - dpDifHys,
     final uHigh=dpDif) if not serChi
@@ -66,6 +65,7 @@ protected
     "Checks if the chilled water supply temperature is higher than its setpoint plus an offset"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 
+protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
     final k=false) if serChi
     "Virtual signal for series chiller plants"

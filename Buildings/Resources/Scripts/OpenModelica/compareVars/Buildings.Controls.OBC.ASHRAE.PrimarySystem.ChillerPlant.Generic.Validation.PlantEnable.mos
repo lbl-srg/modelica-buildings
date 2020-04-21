@@ -1,19 +1,11 @@
 compareVars :=
   {
-    "enaPlaWse0.TOut",
-    "enaPlaWse0.TChiLocOut",
-    "enaPlaWse0.chiWatSupResReq",
-    "enaPlaWse0.yPla",
-    "enaPlaWse0.wseTOut.y",
-    "enaPlaWse0.TChiWatSupSet",
-    "enaPlaWse0.yIniChiSta",
-    "enaPlaWse1.wseTOut.y",
-    "enaPlaWse1.TChiWatSupSet",
-    "enaPlaWse1.yIniChiSta",
     "disPlaReq.ignReq",
     "disPlaReq.chiWatSupResReq",
     "disPlaReq.yPla",
     "disPlaOutTem.TOut",
     "disPlaOutTem.TChiLocOut",
-    "disPlaOutTem.yPla"
+    "disPlaOutTem.yPla",
+    "disPlaSch.enaSch.y[1]",
+    "disPlaSch.yPla"
   };

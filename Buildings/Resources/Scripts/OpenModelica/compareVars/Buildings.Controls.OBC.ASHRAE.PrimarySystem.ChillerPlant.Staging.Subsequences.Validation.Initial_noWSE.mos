@@ -2,5 +2,5 @@ compareVars :=
   {
     "iniSta.yIni",
     "iniSta.uUp",
-    "iniSta.hasWSE"
+    "iniSta.have_WSE"
   };
