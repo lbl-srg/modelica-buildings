@@ -4,9 +4,9 @@ block Initial "Outputs the initial stage"
   parameter Boolean have_WSE = true
     "true = plant has a WSE, false = plant does not have WSE";
 
-  parameter Real wseDt = 1 if have_WSE
+  parameter Real wseDt = 1
     "Offset for checking waterside economizer leaving water temperature"
-    annotation (Dialog(tab="Advanced"));
+    annotation (Dialog(tab="Advanced", enable=have_WSE));
 
   parameter Modelica.SIunits.TemperatureDifference heaExcAppDes=2
     "Design heat exchanger approach"
