@@ -11,7 +11,7 @@ model Controller
     "Tow fan speed for less coupled plants that have waterside economizer"
     annotation (Placement(transformation(extent={{100,180},{140,220}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.ReturnWaterTemperature.Controller
-    towFanSpe2(final hasWSE=false)
+    towFanSpe2(final have_WSE=false)
     "Tow fan speed for close coupled plants that have no waterside economizer"
     annotation (Placement(transformation(extent={{320,180},{360,220}})));
 

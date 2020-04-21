@@ -5,7 +5,7 @@ block Controller
   parameter Integer nChi=2 "Total number of chillers";
   parameter Integer nTowCel=4 "Total number of cooling tower cells";
   parameter Integer nConWatPum=2 "Total number of condenser water pumps";
-  parameter Boolean hasWSE=true "Flag to indicate if the plant has waterside economizer";
+  parameter Boolean have_WSE=true "Flag to indicate if the plant has waterside economizer";
   parameter Boolean closeCoupledPlant=true "Flag to indicate if the plant is close coupled";
   parameter Real desCap(
      final unit="W",
@@ -109,7 +109,7 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowSpeWSE(
      final min=0,
      final max=1,
-     final unit="1") if hasWSE
+     final unit="1") if have_WSE
     "Cooling tower speed when the waterside economizer is enabled"
     annotation (Placement(transformation(extent={{-200,220},{-160,260}}),
       iconTransformation(extent={{-240,160},{-200,200}})));
@@ -117,7 +117,7 @@ block Controller
     "Chiller enabling status: true=ON"
     annotation (Placement(transformation(extent={{-200,190},{-160,230}}),
       iconTransformation(extent={{-240,130},{-200,170}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWse if hasWSE
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWse if have_WSE
     "Waterside economizer status: true=ON"
     annotation (Placement(transformation(extent={{-200,150},{-160,190}}),
       iconTransformation(extent={{-240,100},{-200,140}})));
@@ -233,7 +233,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
     final nu=nChi) "Check if any chiller is enabled"
     annotation (Placement(transformation(extent={{-120,200},{-100,220}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not1 if hasWSE
+  Buildings.Controls.OBC.CDL.Logical.Not not1 if have_WSE
     "Waterside economizer is not enabled"
     annotation (Placement(transformation(extent={{-120,160},{-100,180}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
@@ -268,10 +268,10 @@ protected
     "Zero constant"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant tru(
-    final k=true) if not hasWSE "True constant"
+    final k=true) if not have_WSE "True constant"
     annotation (Placement(transformation(extent={{-80,160},{-60,180}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer2(
-    final k=0) if not hasWSE
+    final k=0) if not have_WSE
     "Zero constant"
     annotation (Placement(transformation(extent={{40,160},{60,180}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis proOn[nConWatPum](

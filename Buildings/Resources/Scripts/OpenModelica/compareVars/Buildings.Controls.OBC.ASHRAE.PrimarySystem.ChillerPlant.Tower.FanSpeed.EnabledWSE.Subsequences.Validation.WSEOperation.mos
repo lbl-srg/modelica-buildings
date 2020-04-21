@@ -1,7 +1,7 @@
 compareVars :=
   {
-    "wseOpe.uTowSpe",
+    "wseOpe.uFanSpe",
     "wseOpe.TChiWatSup",
     "wseOpe.TChiWatSupSet",
-    "wseOpe.yTowSpe"
+    "wseOpe.yFanSpe"
   };
