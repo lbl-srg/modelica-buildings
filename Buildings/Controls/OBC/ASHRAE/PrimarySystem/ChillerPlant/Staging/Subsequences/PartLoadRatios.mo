@@ -605,10 +605,13 @@ equation
 <li>Next available higher stage nominal OPLR (<span style=\"font-family: monospace;\">yUp</span>). </li>
 <li>Next available higher stage minimal OPLR (<span style=\"font-family: monospace;\">yUpMin</span>). </li>
 </ul>
-<p><br>SPLRup <code>yStaUp</code> or SPLRdown <code>yStaDown</code> value depends on the stage type <code>staTyp</code> as indicated in the table below. 
-Note that the rules are prioritized by stage type column, from left to right</p><p><br>The stage type is determined by the 
+<p>
+SPLRup <code>yStaUp</code> or SPLRdown <code>yStaDown</code> value depends on the stage type <code>staTyp</code> as indicated in the table below. 
+Note that the rules are prioritized by stage type column, from left to right</p><p>The stage type is determined by the 
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Configurator\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Configurator</a> subsequence based on the type of chillers staged. </p>
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Configurator</a> subsequence based on the type of chillers staged. 
+<br></br>
+</p>
 <table summary=\"summary\" cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
 <td><p align=\"center\"><b>Row: Stage / Column: Stage Type</b></p></td>
 <td><p align=\"center\"><b>Any Constant Speed Centrifugal</b></p></td>
@@ -634,9 +637,10 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Co
 <td><p align=\"center\"><span style=\"font-family: monospace;\">yStaDown=f(uLif, uLifMin, uLifMax)</span></p></td>
 </tr>
 </table>
-<p><br>For operation outside of the recommended staging order as provided in the table above a constant 
+<p>For operation outside of the recommended staging order as provided in the table above a constant 
 SPLRup and SPLRdown value <code>anyOutOfScoMult</code> is set to prevent 
-simulation interruption, accompanied with a warning.</p>
+simulation interruption, accompanied with a warning.
+</p>
 </html>",
 revisions="<html>
 <ul>
