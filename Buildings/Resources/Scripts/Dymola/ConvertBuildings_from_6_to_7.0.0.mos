@@ -5,6 +5,10 @@ clear
 
 convertClear();
 
+convertModifiers("Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset", {"initType"}, fill("",0), true);
+convertModifiers("Buildings.Controls.OBC.CDL.Continuous.Derivative", {"initType"}, fill("",0), true);
+convertModifiers("Buildings.Controls.OBC.CDL.Continuous.Derivative", {"x_start"}, fill("",0), true);
+
 convertClass("Buildings.Controls.OBC.CDL.Discrete.MovingMean",
              "Buildings.Obsolete.Controls.OBC.CDL.Discrete.MovingMean");
 convertClass("Buildings.Controls.OBC.CDL.SetPoints.HotWaterTemperatureReset",
