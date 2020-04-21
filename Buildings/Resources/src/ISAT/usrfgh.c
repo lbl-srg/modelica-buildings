@@ -42,14 +42,14 @@ extern int useNumericalDifferentiation;  /* pass global variable */
 /******************************************************************************
 |  Solver to evaluate f, g, and h which called by ISATAB
 | 
-| \param All pointers which definde in ISATAB
+| \param All pointers defined in ISATAB
 | 
 | \return No return needed
 ******************************************************************************/
-void USRFGH(int need[], int *nx, double x[], int *nf, int *nh, int iusr[], double rusr[], double f[], double** g, double h[]){
+void usrfgh_(int need[], int *nx, double x[], int *nf, int *nh, int iusr[], double rusr[], double f[], double** g, double h[]){
 
   if (need[1] == 1 && useNumericalDifferentiation == 1) {
-    need[1] = 0; /*disable g evaluation form solver*/
+    need[1] = 0; /*disable g evaluation from solver*/
     numericalDifferentiation(g);
   }
 

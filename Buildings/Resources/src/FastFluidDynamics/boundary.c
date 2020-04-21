@@ -485,30 +485,30 @@ int set_bnd_vel_adv(PARA_DATA *para, REAL **var, int var_type, REAL *psi,
         if (i != 0) psi[IX(i - 1, j, k)] = 0;
       }
 
-						/* Tile */
-						if (flagp[IX(i, j, k)] == TILE) {
-							if (para->solv->tile_flow_correct == PRESSURE_BASE) {
-								/* West */
-								if (i == 0) {
-									psi[IX(i, j, k)] = var[TILE_FLOW_BC][IX(i, j, k)];
-								}
-								/* East */
-								if (i == imax + 1) {
-									psi[IX(i - 1, j, k)] = var[TILE_FLOW_BC][IX(i, j, k)];
-								}
-							}
-							/* Tile && NOT PRESSURE_BASE */
-							else {
-								/* West */
-								if (i == 0) {
-									psi[IX(i, j, k)] = psi[IX(i + 1, j, k)];
-								}
-								/* East */
-								if (i == imax + 1) {
-									psi[IX(i - 1, j, k)] = psi[IX(i - 2, j, k)];
-								}
-							}
-						}
+	/* Tile */
+	if (flagp[IX(i, j, k)] == TILE) {
+		if (para->solv->tile_flow_correct == PRESSURE_BASE) {
+			/* West */
+			if (i == 0) {
+				psi[IX(i, j, k)] = var[TILE_FLOW_BC][IX(i, j, k)];
+			}
+			/* East */
+			if (i == imax + 1) {
+				psi[IX(i - 1, j, k)] = var[TILE_FLOW_BC][IX(i, j, k)];
+			}
+		}
+		/* Tile && NOT PRESSURE_BASE */
+		else {
+			/* West */
+			if (i == 0) {
+				psi[IX(i, j, k)] = psi[IX(i + 1, j, k)];
+			}
+			/* East */
+			if (i == imax + 1) {
+				psi[IX(i - 1, j, k)] = psi[IX(i - 2, j, k)];
+			}
+		}
+	}
 
       /* Outlet */
       if(flagp[IX(i,j,k)]==OUTLET){
@@ -785,7 +785,6 @@ int set_bnd_temp(PARA_DATA *para, REAL **var, int var_type, REAL *psi,
             D = 0.5f * length_x(para,var,i+1,j,k);
             h = h_coef(para,var,i+1,j,k,D);
             aw[IX(i+1,j,k)] = h * ayz/(para->prob->rho*para->prob->Cp);
-            /*printf("h and aw are %f\t%f\n", h, aw[IX(i + 1, j, k)]);*/
             qflux[IX(i,j,k)] = h * (psi[IX(i+1,j,k)]-psi[IX(i,j,k)]);
           }
         } /* End of if(i==0) */
@@ -1054,41 +1053,41 @@ int set_bnd_temp(PARA_DATA *para, REAL **var, int var_type, REAL *psi,
       }
     } /* End of boundary for outlet */
 
-						/*-------------------------------------------------------------------------
-						| RACK_INLET boundary
-						-------------------------------------------------------------------------*/
-				if (flagp[IX(i, j, k)] == RACK_INLET) {
-					/* West */
-					if (flagp[IX(i + 1, j, k)] == FLUID) {
-						aw[IX(i + 1, j, k)] = 0;
-						psi[IX(i, j, k)] = psi[IX(i + 1, j, k)];
-					}
-					/* east */
-					if (flagp[IX(i - 1, j, k)] == FLUID) {
-						ae[IX(i - 1, j, k)] = 0;
-						psi[IX(i, j, k)] = psi[IX(i - 1, j, k)];
-					}
-					/* South */
-					if (flagp[IX(i, j+1, k)] == FLUID) {
-						as[IX(i, j + 1, k)] = 0;
-						psi[IX(i, j, k)] = psi[IX(i, j + 1, k)];
-					}
-					/* North */
-					if (flagp[IX(i, j-1, k)] == FLUID) {
-						an[IX(i, j - 1, k)] = 0;
-						psi[IX(i, j, k)] = psi[IX(i, j - 1, k)];
-					}
-					/* Floor */
-					if (flagp[IX(i, j, k+1)] == FLUID) {
-						ab[IX(i, j, k + 1)] = 0;
-						psi[IX(i, j, k)] = psi[IX(i, j, k + 1)];
-					}
-					/* Ceiling */
-					if (flagp[IX(i,j,k-1)] == FLUID) {
-						af[IX(i, j, k - 1)] = 0;
-						psi[IX(i, j, k)] = psi[IX(i, j, k - 1)];
-					}
-				} /* End of boundary for outlet */
+	/*-------------------------------------------------------------------------
+	| RACK_INLET boundary
+	-------------------------------------------------------------------------*/
+	if (flagp[IX(i, j, k)] == RACK_INLET) {
+		/* West */
+		if (flagp[IX(i + 1, j, k)] == FLUID) {
+			aw[IX(i + 1, j, k)] = 0;
+			psi[IX(i, j, k)] = psi[IX(i + 1, j, k)];
+		}
+		/* east */
+		if (flagp[IX(i - 1, j, k)] == FLUID) {
+			ae[IX(i - 1, j, k)] = 0;
+			psi[IX(i, j, k)] = psi[IX(i - 1, j, k)];
+		}
+		/* South */
+		if (flagp[IX(i, j+1, k)] == FLUID) {
+			as[IX(i, j + 1, k)] = 0;
+			psi[IX(i, j, k)] = psi[IX(i, j + 1, k)];
+		}
+		/* North */
+		if (flagp[IX(i, j-1, k)] == FLUID) {
+			an[IX(i, j - 1, k)] = 0;
+			psi[IX(i, j, k)] = psi[IX(i, j - 1, k)];
+		}
+		/* Floor */
+		if (flagp[IX(i, j, k+1)] == FLUID) {
+			ab[IX(i, j, k + 1)] = 0;
+			psi[IX(i, j, k)] = psi[IX(i, j, k + 1)];
+		}
+		/* Ceiling */
+		if (flagp[IX(i,j,k-1)] == FLUID) {
+			af[IX(i, j, k - 1)] = 0;
+			psi[IX(i, j, k)] = psi[IX(i, j, k - 1)];
+		}
+	} /* End of boundary for outlet */
 
   } /* End of for() loop for go through the index */
 
@@ -1135,23 +1134,23 @@ int set_bnd_temp_adv(PARA_DATA *para, REAL **var, int var_type, REAL *psi,
     -------------------------------------------------------------------------*/
     if (flagp[IX(i, j, k)] == INLET || flagp[IX(i,j,k)]==RACK_OUTLET) psi[IX(i, j, k)] = var[TEMPBC][IX(i, j, k)];
 
-				/*-------------------------------------------------------------------------
-				| Solid wall or block
-				-------------------------------------------------------------------------*/
-				if (flagp[IX(i, j, k)] == SOLID) {
-					/*......................................................................
-					| Constant temperature as BC, then give the BC set by users
-					......................................................................*/
-					if (BINDEX[3][it] == 1) {
-						psi[IX(i, j, k)] = var[TEMPBC][IX(i, j, k)];
-					}
-					/*......................................................................
-					| Heat flux as BC, then give the temperature at wall from last step
-					......................................................................*/
-					else {
-						psi[IX(i, j, k)] = var[TEMP][IX(i, j, k)];
-					}
-				} /* End of wall boundary */
+	/*-------------------------------------------------------------------------
+	| Solid wall or block
+	-------------------------------------------------------------------------*/
+	if (flagp[IX(i, j, k)] == SOLID) {
+		/*......................................................................
+		| Constant temperature as BC, then give the BC set by users
+		......................................................................*/
+		if (BINDEX[3][it] == 1) {
+			psi[IX(i, j, k)] = var[TEMPBC][IX(i, j, k)];
+		}
+		/*......................................................................
+		| Heat flux as BC, then give the temperature at wall from last step
+		......................................................................*/
+		else {
+			psi[IX(i, j, k)] = var[TEMP][IX(i, j, k)];
+		}
+	} /* End of wall boundary */
 
       /*-------------------------------------------------------------------------
       | Outlet boundary
@@ -1475,20 +1474,20 @@ REAL adjust_velocity(PARA_DATA *para, REAL **var, int **BINDEX) {
     /*-------------------------------------------------------------------------
     | Compute the total inflow
     -------------------------------------------------------------------------*/
-				if (flagp[IX(i, j, k)] == 0) {
-					/* West*/
-					if (i == 0) mass_in += u[IX(i, j, k)] * ayz;
-					/* East*/
-					if (i == imax + 1) mass_in += (-u[IX(i, j, k)]) * ayz;
-					/* South*/
-					if (j == 0) mass_in += v[IX(i, j, k)] * azx;
-					/* North*/
-					if (j == jmax + 1) mass_in += (-v[IX(i, j, k)]) * azx;
-					/* Floor*/
-					if (k == 0) mass_in += w[IX(i, j, k)] * axy;
-					/* Ceiling*/
-					if (k == kmax + 1) mass_in += (-w[IX(i, j, k)]) * axy;
-				}
+	if (flagp[IX(i, j, k)] == 0) {
+		/* West*/
+		if (i == 0) mass_in += u[IX(i, j, k)] * ayz;
+		/* East*/
+		if (i == imax + 1) mass_in += (-u[IX(i, j, k)]) * ayz;
+		/* South*/
+		if (j == 0) mass_in += v[IX(i, j, k)] * azx;
+		/* North*/
+		if (j == jmax + 1) mass_in += (-v[IX(i, j, k)]) * azx;
+		/* Floor*/
+		if (k == 0) mass_in += w[IX(i, j, k)] * axy;
+		/* Ceiling*/
+		if (k == kmax + 1) mass_in += (-w[IX(i, j, k)]) * axy;
+	}
     /*-------------------------------------------------------------------------
     | Compute the total outflow
     -------------------------------------------------------------------------*/

@@ -45,28 +45,30 @@ REAL nu_t_chen_zero_equ(PARA_DATA* para, REAL** var, int i, int j, int k);
 
 /****************************************************************************
 |  Computes turbulent thermal diffusivity using Chen's zero equation model
-|
+| 
 | \param para Pointer to FFD parameters
 | \param var Pointer to FFD simulation variables
-|
+| 
 | \Author: Wei Tian @ Schneider Electric, Andover, MA
-|
+| 
 | \Initial Implementation: 7/11/2017
 | \return Turbulent Kinematic viscosity
-|
+| 
 | \ This is to reimplement the turbulent thermal diffusivity for FFD using Chen's
-|   zero equation model. Theoretically, by diving the turbulent viscosity over the
+|   zero equation model. Theoretically, by diving the turbulent viscosity over the 
 |   Pr number, we can easily get the turbulent themal diffusivity coefficients. However,
 |   according to our test, that could cause severe energy imblance for the whole space.
-|   The root reason to explain that is not fully identified yet. However, we presumbaly beleive that
-|   the dradmatically (over 100) spatial differnce of the thermal diffusivity coefficiet may lead to
-|   energy imbalance, happening in the diffusion term. We also tried using constant turbulence model,
-|   which essentially multiply 100 to the lamninar one. Applying that in the FFD, we did not see
-|   the deterioration of energy balance, at any level.
-| \ Inspire by this, we propose to uniformly disseminate the turbulent thermal diffusivity over the
-|   whole fluid space. According to our test, this method can perfectly achieves energy balance for
-|   the room space, while keeping the turbulent features in some extent of the thermal environment.
+|   The root reason to explain that is not fully identified yet. However, we presumably beleive that
+|   the dramatically (over 100) spatial difference of the thermal diffusivity coefficient may lead 
+|   to energy imbalance, happening in the diffusion term. We also tried using constant turbulence  
+|   model, which essentially multiplies 100 to the lamninar one. Applying that in the FFD, we did 
+|   not see the deterioration of energy balance, at any level.
 |
+| \ Inspired by this, we propose to uniformly disseminate the turbulent thermal diffusivity over 
+|   the whole fluid space. According to our test, this method can perfectly achieve energy balance 
+|   for the room space, while keeping the turbulent features in some extent of the thermal 
+|   environment.
+| 
 | \ Last update: 7/11/2017
 ****************************************************************************/
 REAL alpha_t_chen_zero_equ(PARA_DATA* para, REAL** var);

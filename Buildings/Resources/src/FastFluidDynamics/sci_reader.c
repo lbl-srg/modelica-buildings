@@ -283,7 +283,7 @@ int check_num_walls(PARA_DATA* para, REAL** var, int** BINDEX) {
 |
 | \return 0 if no error occurred
 ****************************************************************************/
-/*FIXME: THIS FUNCTION IS TOO LENGTHT AND DIFFICULT TO READ AND MAINTAIN---WEITIAN*/
+/*FIXME: THIS FUNCTION IS TOO LONG AND DIFFICULT TO READ AND MAINTAIN---WEITIAN*/
 int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
   int i, j, k;
   int ii,ij,ik;
@@ -1033,9 +1033,9 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
 				/* Overwrite value by ISAT inputs for outlets */
 				if (para->bc->outlet_bc == PRESCRIBED_VALUE) {
 					if (num_inlet > 0) {
-						//for (i = 0; i < num_inlet; i++) {
-						//	inlet_vel_re_sum = inlet_vel_re_sum + inlet_vel_re[i];
-						//}
+						/*for (i = 0; i < num_inlet; i++) {
+							inlet_vel_re_sum = inlet_vel_re_sum + inlet_vel_re[i];
+						}*/
 						if (inlet_vel_re[0] > 0) {
 							U = U / default_mass_flowrate * updated_mass_flowrate;
 							V = V / default_mass_flowrate * updated_mass_flowrate;

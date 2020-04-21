@@ -1,6 +1,6 @@
 /****************************************************************************
 |
-|  \file   data_write.h
+|  \file   data_writer.h
 |
 |  \brief  Write the simulation data
 |

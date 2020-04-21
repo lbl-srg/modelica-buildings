@@ -16,6 +16,9 @@
 |          Xu Han
 |          University of Colorado Boulder
 |          xuha3556@colorado.edu
+|	   Cary Faulkner
+| 	   University of Colorado Boulder
+|	   cary.faulkner@colorado.edu
 |
 |  \date   4/5/2020
 |
@@ -641,15 +644,15 @@ int CheckImbalance(PARA_DATA* para, REAL** var, int var_type, int** BINDEX) {
 	REAL rate_of_change = 0.0; /*energy change rate of fluid*/
 	REAL rho_cp = para->prob->rho * para->prob->Cp;
 
-	/* calulate the inflow energy */
+	/* calculate the inflow energy */
 	in = inflow(para, var, psi, BINDEX);
 	in *= rho_cp;
-	/* caculate the outflow energy */
+	/* calculate the outflow energy */
 	out = outflow(para, var, psi, BINDEX);
 	out *= rho_cp;
-	/* caculate the heat transfer rate from the wall */
+	/* calculate the heat transfer rate from the wall */
 	wall = qwall(para, var, BINDEX);
-	/* caculate the rate of change of the fluid energy d(MCpT)/dt */
+	/* calculate the rate of change of the fluid energy d(MCpT)/dt */
 	/*V = fluid_volume(para, var);*/
 	/*T_ave = average_volume(para, var, psi);*/
 	/*rate_of_change = rho_cp*V*(T_ave - para->prob->Tem_Ave_LastTime) / para->mytime->dt;*/
@@ -701,11 +704,11 @@ int CheckImbalance(PARA_DATA* para, REAL** var, int var_type, int** BINDEX) {
 |
 |  6/20/2017 Note: the whole idea is about the energy conservation which states that
 |  the energy injected into the room should be energy gain in the fluid
-|  when calculate the energy injection from the inlet and outlet, note that a "dt" must be
+|  when calculating the energy injection from the inlet and outlet, note that a "dt" must be
 |  applied as in this function, the unit is J, instead of W.
 |
 |  The whole comments are made under context of energy. Surely, the codes also work for
-|  other scalar variables, like specie concentration.
+|  other scalar variables, like species concentration.
 |
 |  the density of the air is assumed to be one.
 |
@@ -1224,8 +1227,8 @@ int rack_model_black_box(PARA_DATA* para, REAL** var, int** BINDEX) {
 					var[VZBC][IX(i, j, k)] = 0.0;
 					/* Assign the adjacent fluid cell temperature to the inlet of rack */
 					var[TEMPBC][IX(i, j, k)] = var[TEMP][IX(i - sign(para->bc->RackDir[id]), j, k)];
-					//printf("rack_model_black_box(): temperature at inlet of rack [%d, %d, %d]: %f\n", i, j, k, var[TEMPBC][IX(i, j, k)]);
-					//printf("rack_model_black_box(): velocity at inlet of rack [%d, %d, %d]: %f\n", i, j, k, var[VXBC][IX(i, j, k)]);
+					/*printf("rack_model_black_box(): temperature at inlet of rack [%d, %d, %d]: %f\n", i, j, k, var[TEMPBC][IX(i, j, k)]);*/
+					/*printf("rack_model_black_box(): velocity at inlet of rack [%d, %d, %d]: %f\n", i, j, k, var[VXBC][IX(i, j, k)]);*/
 				}
 				else if (para->bc->RackDir[id] == 2 || para->bc->RackDir[id] == -2) {
 					var[VYBC][IX(i, j, k)] = para->bc->RackFlowRate[id] / para->bc->RackArea[id] * sign(para->bc->RackDir[id])/*direction*/;
@@ -1263,8 +1266,8 @@ int rack_model_black_box(PARA_DATA* para, REAL** var, int** BINDEX) {
 					Q_dot = para->bc->HeatDiss[id] * ayz / para->bc->RackArea[id]; /* heat dissipation by area */
 					mDot_Cp = para->prob->rho * var[VXBC][IX(i, j, k)] * ayz * para->prob->Cp; /* mass flow rate multiply Cp */
 					var[TEMPBC][IX(i, j, k)] = var[TEMPBC][IX(iin, jin, kin)] + sign(para->bc->RackDir[id]) * Q_dot / mDot_Cp;
-					//printf("rack_model_black_box(): temperature at outlet of rack [%d, %d, %d]: %f\n",i,j,k,var[TEMPBC][IX(i,j,k)]);
-					//printf("rack_model_black_box(): velocity at outlet of rack [%d, %d, %d]: %f\n",i,j,k,var[VXBC][IX(i,j,k)],);
+					/*printf("rack_model_black_box(): temperature at outlet of rack [%d, %d, %d]: %f\n",i,j,k,var[TEMPBC][IX(i,j,k)]);*/
+					/*printf("rack_model_black_box(): velocity at outlet of rack [%d, %d, %d]: %f\n",i,j,k,var[VXBC][IX(i,j,k)],);*/
 				}
 				else if (para->bc->RackDir[id] == 2 || para->bc->RackDir[id] == -2) {
 					var[VYBC][IX(i, j, k)] = para->bc->RackFlowRate[id] / para->bc->RackArea[id] * sign(para->bc->RackDir[id])/*direction*/;

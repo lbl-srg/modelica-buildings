@@ -418,8 +418,8 @@ typedef struct {
 
 typedef struct {
   SOLVERTYPE solver;  /* Solver type: GS, TDMA*/
-  int check_residual; /* 1: check, 0: donot check*/
-  int check_conservation; /*1: check, 0 : donot check residual after iterative solver*/
+  int check_residual; /* 1: check, 0: do not check*/
+  int check_conservation; /*1: check, 0 : do not check residual after iterative solver*/
   ADVECTION advection_solver; /* Type of advection solver: SEMI, LAX, UPWIND, UPWIND_NEW*/
   INTERPOLATION interpolation; /* Interpolation in semi-Lagrangian method: BILINEAR, FSJ, HYBRID*/
   int cosimulation;  /* 0: single; 1: coupled simulation*/

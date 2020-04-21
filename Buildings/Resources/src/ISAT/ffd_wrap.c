@@ -139,7 +139,7 @@ int read_existing() {
 	double input_tmp[nx_SIZE];
 	double output_tmp[nf_SIZE + 1];
 
-	//cosim_log("------------------------------------------------------------", COSIM_NORMAL);
+	/*cosim_log("------------------------------------------------------------", COSIM_NORMAL);*/
 	snprintf(filenametmp, sizeof(filenametmp), "%s%s", filepath, "existing.isat");
 
 	if ((file_params_isat = fopen(filenametmp, "r")) == NULL) {

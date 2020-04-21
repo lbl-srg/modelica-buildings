@@ -1,23 +1,21 @@
-	/****************************************************************************
-	|
-	|  \file   cosimulation.c
-	|
-	|  \brief  Functions for cosimulation
-	|
-	|  \author Wangda Zuo
- |          University of Miami, University of Colorado Boulder
- |          W.Zuo@miami.edu, wangda.zuo@colorado.edu
-	|          Xu Han
- |          Univeristy of Colorado Boulder, xuha3556@colorado.edu
-	|          Xu Han
- |          University of Colorado Boulder
- |          xuha3556@colorado.edu
-	|
-	|  \date   4/5/2020
-	|  \This file provides functions that are used for conducting the coupled simulation
-	|  \with Modelica
-	|
-	****************************************************************************/
+/****************************************************************************
+|
+|  \file   cosimulation.c
+|
+|  \brief  Functions for cosimulation
+|
+|  \author Wangda Zuo
+|          University of Miami, University of Colorado Boulder
+|          W.Zuo@miami.edu, wangda.zuo@colorado.edu
+|          Xu Han
+|          Univeristy of Colorado Boulder, xuha3556@colorado.edu
+|
+|
+|  \date   4/5/2020
+|  \This file provides functions that are used for conducting the coupled simulation
+|  \with Modelica
+|
+****************************************************************************/
 
 #include "cosimulation.h"
 #include "common.h"

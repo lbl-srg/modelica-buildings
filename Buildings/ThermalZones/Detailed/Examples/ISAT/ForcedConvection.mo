@@ -80,14 +80,14 @@ equation
         "Simulate and plot"),
     experiment(Tolerance=1e-06, StopTime=120),
     Documentation(info="<html>
-<p>This tutorial gives step by step instructions on building and simulating a mixed convection model. The model tests the coupled simulation of <a href=\"modelica://Buildings.ThermalZones.Detailed.ISAT\">Buildings.ThermalZones.Detailed.ISAT</a> with the ISAT program by simulating ventilation with mixed convection in an empty room. </p>
+<p>This tutorial gives step by step instructions on building and simulating a forced convection model. The model tests the coupled simulation of <a href=\"modelica://Buildings.ThermalZones.Detailed.ISAT\">Buildings.ThermalZones.Detailed.ISAT</a> with the ISAT program by simulating ventilation with forced convection in an empty room. </p>
 <h4>Case Description</h4>
-<p>There are two inputs and two outputs in the ISAT model for this case. The inputs are (1) temperature of the ceiling and walls, (2) temperature of the floor. The outputs are (1) occupant zone temperature, (2) velocity.</p>
+<p>There are two inputs and two outputs in the ISAT model for this case. The inputs are (1) temperature of the ceiling and walls and (2) temperature of the floor. The outputs are (1) occupant zone temperature and (2) velocity.</p>
 <p>The temperature of the floor, ceiling and walls are assigned by two tables with varying values. The supply air temperature is fixed at <i>10</i>&circ;C.</p>
 <p>Figure (a) shows the schematic of the FFD simulation and Figure (b) shows the velocity vectors and temperatures on the X-Z plane at <i>Y = 0.5</i> m as simulated by the FFD. </p>
-<p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Examples/FFD/Tutorial/ForcedConvectionSchematic.png\" alt=\"image\"/> </p>
+<p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Examples/FFD/Tutorial/MixedConvectionSchematic.png\" alt=\"image\"/> </p>
 <p align=\"center\">Figure (a) </p>
-<p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Examples/FFD/Tutorial/ForcedConvection.png\" alt=\"image\"/> </p>
+<p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Examples/FFD/Tutorial/MixedConvection.png\" alt=\"image\"/> </p>
 <p align=\"center\">Figure (b) </p>
 <h4>Step by Step Guide</h4>
 <p>This section describes step by step how to build and simulate the model. </p>
@@ -102,7 +102,7 @@ equation
 <li><a href=\"modelica://Buildings.Fluid.Sources.MassFlowSource_T\">Buildings.Fluid.Sources.MassFlowSource_T</a>. This model provides inlet air for the <span style=\"font-family: Courier New;\">roo</span>. Name it as <span style=\"font-family: Courier New;\">bouIn</span>. </li>
 <li><a href=\"modelica://Buildings.Fluid.Sources.Boundary_pT\">Buildings.Fluid.Sources.Boundary_pT</a>. This model is the outdoor environment to which the outlet of <span style=\"font-family: Courier New;\">roo</span> is connected. Name it as <span style=\"font-family: Courier New;\">bouOut</span>. </li>
 </ul></li>
-<li>In the textual editor mode, add the medium and the number of surfaces as below: </li>
+<li>In the text editor mode, add the medium and the number of surfaces as below: </li>
 <p><span style=\"font-family: Courier New;\">package MediumA = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated (T_default=283.15);</span></p>
 <p><span style=\"font-family: Courier New;\">parameter Integer nConExtWin=0;</span></p>
 <p><span style=\"font-family: Courier New;\">parameter Integer nConBou=0;</span></p>
@@ -161,13 +161,15 @@ equation
 <p><span style=\"font-family: Courier New;\">connect(bouIn.ports[1], roo.ports[1]);</span></p>
 <p><span style=\"font-family: Courier New;\">connect(bouOut.ports[1], roo.ports[2]);</span></p>
 <li>Define the settings for the ISAT model: </li>
-<p><span style=\"font-family: Courier New;\">In set.isat file, the parameters for the ISAT model can be defined:</span></p>
+<p><span style=\"font-family: Courier New;\">In the set.isat file, the parameters for the ISAT model can be defined:</span></p>
 <p>/********************************************************************************</p>
 <p>| Section 1: General settings of isat</p>
 <p>********************************************************************************/</p>
 <p>isat.useISAT 1 /*If use ISAT*/</p>
 <p>isat.useBinarySelectedPoint 0 /*If use binary pre-training*/</p>
 <p>isat.digAftdec 1 /*Digitals after decimal*/</p>
+<p>isat.read_existing 1 /*1: read existing database; 0: train from scratch*/</p>
+<p>isat.write_existing 1 /*1: write ffd results to database; 0: do not write*/</p>
 <p>isat.err_global 0.2 /* user-defined global error tolerance */</p>
 <p>isat.num_input 2 /* number of isat inputs */</p>
 <p>isat.num_output 2 /* number of isat outputs */</p>
@@ -177,9 +179,9 @@ equation
 <p>//-------------------------------------------------------------------------</p>
 <p>// Section 2.0: Settings of numbers</p>
 <p>// Note: Users define numbers of inlets, blocks and walls, respectively, if</p>
-<p>// there exist at least one inlet, block or wall that will be</p>
-<p>// overwirtten by isat inputs. The number should be 0 if none of inlet</p>
-<p>// block or wall that will be overwritten by isat inputs</p>
+<p>// there exists at least one inlet, block or wall that will be</p>
+<p>// overwirtten by isat inputs. The number should be 0 if none of the inlets</p>
+<p>// blocks or walls will be overwritten by isat inputs</p>
 <p>//-------------------------------------------------------------------------</p>
 <p>/* inpu.inpu_name: names of inputs including inlet_temp, inlet_mass, inlet_vel, block_temp, block_hea, sur_temp, sur_hea */</p>
 <p>inpu.inpu_name sur_temp</p>
@@ -257,7 +259,7 @@ equation
 <li>Put the files <span style=\"font-family: Courier New;\">input.isat</span>, <span style=\"font-family: Courier New;\">output.isat</span>, <span style=\"font-family: Courier New;\">set.isat</span>, <span style=\"font-family: Courier New;\">input.ffd</span>, <span style=\"font-family: Courier New;\">input.dat</span>, and <span style=\"font-family: Courier New;\">input.cfd</span> in the directory <span style=\"font-family: Courier New;\">Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/ForcedConvection/</span>. </li>
 <li>Set the simulation stop time of the Modelica model to <span style=\"font-family: Courier New;\">180</span> seconds and choose, for example, the Radau solver. </li>
 <li>Translate the model and start the simulation. </li>
-<li>Post-process: the generation of FFD output file (plt or vtk) is blocked by default, the users should reivse the codes to output. </li>
+<li>Post-process: the generation of FFD output file (plt or vtk) is blocked by default, the users should revise the codes to output. </li>
 </ol>
 </html>", revisions="<html>
 <ul>
