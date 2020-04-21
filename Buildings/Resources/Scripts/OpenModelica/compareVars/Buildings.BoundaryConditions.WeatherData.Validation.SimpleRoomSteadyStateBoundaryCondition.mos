@@ -1,8 +1,0 @@
-compareVars :=
-  {
-    "thermalZoneOneElement.TAir",
-    "thermalZoneOneElement.TRad",
-    "HDifTil[1].HSkyDifTil",
-    "HDifTil[1].HGroDifTil",
-    "HDirTil[1].H"
-  };
