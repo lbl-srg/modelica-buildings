@@ -129,14 +129,10 @@ protected
 
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam1
     "Triggered sampler"
-    annotation (Placement(transformation(extent={{242,0},{262,20}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
-    final k=true) "Contant"
-    annotation (Placement(transformation(extent={{40,0},{60,20}})));
+    annotation (Placement(transformation(extent={{240,0},{260,20}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
-    annotation (Placement(transformation(extent={{80,0},{100,20}})));
+    annotation (Placement(transformation(extent={{200,0},{220,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
     final threshold=0.5)
@@ -171,6 +167,11 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and6 "Logical not"
     annotation (Placement(transformation(extent={{-160,-90},{-140,-70}})));
 
+  CDL.Logical.Or                        or3 "Logical or"
+    annotation (Placement(transformation(extent={{220,-60},{240,-40}})));
+  CDL.Logical.FallingEdge                 falEdg
+    "Detects plant start"
+    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
 equation
   connect(reaToInt.y,ySta)
     annotation (Line(points={{422,160},{460,160}}, color={255,127,0}));
@@ -210,11 +211,9 @@ equation
   connect(and1.y,tim. u) annotation (Line(points={{-58,-192},{-40,-192},{-40,-230},
           {-22,-230}},       color={255,0,255}));
   connect(triSam1.u,booToRea. y)
-    annotation (Line(points={{240,10},{102,10}},   color={0,0,127}));
-  connect(con.y,booToRea. u)
-    annotation (Line(points={{62,10},{78,10}},    color={255,0,255}));
+    annotation (Line(points={{238,10},{222,10}},   color={0,0,127}));
   connect(triSam1.y,greThr1. u)
-    annotation (Line(points={{264,10},{278,10}},   color={0,0,127}));
+    annotation (Line(points={{262,10},{278,10}},   color={0,0,127}));
   connect(lat1.y,switch2. u2)
     annotation (Line(points={{124,160},{140,160},{140,200},{338,200}},
                                                  color={255,0,255}));
@@ -242,8 +241,6 @@ equation
                                color={255,0,255}));
   connect(staChaHol1.y,edg2. u)
     annotation (Line(points={{2,-170},{18,-170}},    color={255,0,255}));
-  connect(edg.u, uPla)
-    annotation (Line(points={{-382,160},{-458,160}}, color={255,0,255}));
   connect(uUp, lat.u) annotation (Line(points={{-458,-40},{-380,-40},{-380,60},{
           -322,60}}, color={255,0,255}));
   connect(uDow, lat.clr) annotation (Line(points={{-460,-140},{-340,-140},{-340,
@@ -270,10 +267,20 @@ equation
           100},{278,100}}, color={255,0,255}));
   connect(edg1.y, staChaHol.u)
     annotation (Line(points={{22,-80},{158,-80}}, color={255,0,255}));
-  connect(staChaHol.y, triSam1.trigger) annotation (Line(points={{182,-80},{252,
-          -80},{252,-1.8}}, color={255,0,255}));
   connect(and6.y, edg1.u)
     annotation (Line(points={{-138,-80},{-2,-80}}, color={255,0,255}));
+  connect(uPla, booToRea.u) annotation (Line(points={{-458,160},{-400,160},{
+          -400,120},{40,120},{40,10},{198,10}}, color={255,0,255}));
+  connect(staChaHol.y, or3.u2) annotation (Line(points={{182,-80},{210,-80},{
+          210,-58},{218,-58}}, color={255,0,255}));
+  connect(or3.y, triSam1.trigger) annotation (Line(points={{242,-50},{250,-50},
+          {250,-1.8}}, color={255,0,255}));
+  connect(uPla, falEdg.u) annotation (Line(points={{-458,160},{-420,160},{-420,
+          -20},{0,-20},{0,-30},{38,-30}}, color={255,0,255}));
+  connect(falEdg.y, or3.u1) annotation (Line(points={{62,-30},{210,-30},{210,
+          -50},{218,-50}}, color={255,0,255}));
+  connect(uPla, edg.u)
+    annotation (Line(points={{-458,160},{-382,160}}, color={255,0,255}));
   annotation (defaultComponentName = "cha",
         Icon(graphics={
         Rectangle(

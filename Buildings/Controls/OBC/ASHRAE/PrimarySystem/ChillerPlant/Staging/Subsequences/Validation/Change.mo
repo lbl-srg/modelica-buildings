@@ -198,7 +198,7 @@ protected
     "Assuming that the next available stage is always the next stage"
     annotation (Placement(transformation(extent={{100,40},{120,60}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant u2(final k=1)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant u2(final k=3)
     "Chiller stage"
     annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
 
