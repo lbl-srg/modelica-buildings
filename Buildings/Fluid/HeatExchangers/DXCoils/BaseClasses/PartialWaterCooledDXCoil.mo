@@ -4,13 +4,15 @@ model PartialWaterCooledDXCoil "Base class for water-cooled DX coils"
   extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters(
           redeclare Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi);
 
-
   replaceable package MediumEva =
       Modelica.Media.Interfaces.PartialMedium "Medium for evaporator"
       annotation (choicesAllMatching = true);
   replaceable package MediumCon =
       Modelica.Media.Interfaces.PartialMedium "Medium for condenser"
       annotation (choicesAllMatching = true);
+
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
 
   parameter Boolean allowFlowReversalEva = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal for evaporator"
@@ -25,9 +27,6 @@ model PartialWaterCooledDXCoil "Base class for water-cooled DX coils"
   parameter Modelica.SIunits.PressureDifference dpCon_nominal(displayUnit="Pa")
     "Pressure difference over condenser at nominal flow rate"
     annotation (Dialog(group="Nominal condition"));
-
-  parameter Boolean homotopyInitialization=true "= true, use homotopy method"
-    annotation (Dialog(tab="Advanced"));
 
   parameter Boolean from_dpEva=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
@@ -262,6 +261,12 @@ protected
         transformation(
         extent={{-10,-9},{10,9}},
         origin={-50,11})));
+
+initial equation
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
+
 equation
   connect(u.y, watCooCon.u) annotation (Line(points={{-14.7,-60},{-8,-60},{-8,-74},
           {-18,-74}},
@@ -352,6 +357,12 @@ for an explanation of the model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
+</li>
 <li>
 March 21, 2017, by Michael Wetter:<br/>
 Moved assignment of evaporator data <code>datCoi</code> from the

@@ -13,8 +13,8 @@ block CheckPressure
   constant Modelica.SIunits.Pressure PMin=3100 "Minimum allowed pressure";
   constant Modelica.SIunits.Pressure PMax=120000 "Maximum allowed pressure";
 equation
-  assert(PIn > PMin, "Pressure out of bounds.\n" + "   PIn = " + String(PIn));
-  assert(PIn < PMax, "Pressure out of bounds.\n" + "   PIn = " + String(PIn));
+  assert(PIn > PMin, "In " + getInstanceName() + ": Weather data atmospheric pressure out of bounds.\n" + "   PIn = " + String(PIn));
+  assert(PIn < PMax, "In " + getInstanceName() + ": Weather data atmospheric pressure out of bounds.\n" + "   PIn = " + String(PIn));
   POut = PIn;
 
   annotation (
@@ -25,6 +25,10 @@ This component ensures that the interpolated pressure is between <i>31,000</i> P
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 31, 2020 by Filip Jorissen:<br/>
+Improved error message.
+</li>
 <li>
 July 14, 2010, by Wangda Zuo:<br/>
 First implementation.

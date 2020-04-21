@@ -13,30 +13,46 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
   parameter Boolean have_airFloMeaSta = false
     "Check if the AHU has AFMS (Airflow measurement station)"
     annotation(Dialog(group="System configuration"));
-  parameter Modelica.SIunits.PressureDifference iniSet(displayUnit="Pa") = 120
+  parameter Real iniSet(
+    final unit="Pa",
+    final quantity="PressureDifference") = 120
     "Initial setpoint"
     annotation (Dialog(group="Trim and respond for pressure setpoint"));
-  parameter Modelica.SIunits.PressureDifference minSet(displayUnit="Pa") = 25
+  parameter Real minSet(
+    final unit="Pa",
+    final quantity="PressureDifference") = 25
     "Minimum setpoint"
     annotation (Dialog(group="Trim and respond for pressure setpoint"));
-  parameter Modelica.SIunits.PressureDifference maxSet(displayUnit="Pa")
+  parameter Real maxSet(
+    final unit="Pa",
+    final quantity="PressureDifference")
     "Maximum setpoint"
     annotation (Dialog(group="Trim and respond for pressure setpoint"));
-  parameter Modelica.SIunits.Time delTim = 600
+  parameter Real delTim(
+    final unit="s",
+    final quantity="Time")= 600
    "Delay time after which trim and respond is activated"
     annotation (Dialog(group="Trim and respond for pressure setpoint"));
-  parameter Modelica.SIunits.Time samplePeriod = 120  "Sample period"
+  parameter Real samplePeriod(
+    final unit="s",
+    final quantity="Time") = 120  "Sample period"
     annotation (Dialog(group="Trim and respond for pressure setpoint"));
   parameter Integer numIgnReq = 2
     "Number of ignored requests"
     annotation (Dialog(group="Trim and respond for pressure setpoint"));
-  parameter Modelica.SIunits.PressureDifference triAmo(displayUnit="Pa") = -12.0
+  parameter Real triAmo(
+    final unit="Pa",
+    final quantity="PressureDifference") = -12.0
     "Trim amount"
     annotation (Dialog(group="Trim and respond for pressure setpoint"));
-  parameter Modelica.SIunits.PressureDifference resAmo(displayUnit="Pa") = 15
+  parameter Real resAmo(
+    final unit="Pa",
+    final quantity="PressureDifference") = 15
     "Respond amount (must be opposite in to triAmo)"
     annotation (Dialog(group="Trim and respond for pressure setpoint"));
-  parameter Modelica.SIunits.PressureDifference maxRes(displayUnit="Pa") = 32
+  parameter Real maxRes(
+    final unit="Pa",
+    final quantity="PressureDifference") = 32
     "Maximum response per time interval (same sign as resAmo)"
     annotation (Dialog(group="Trim and respond for pressure setpoint"));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController
@@ -45,12 +61,18 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
   parameter Real k(final unit="1")=0.1
     "Gain of controller, normalized using maxSet"
     annotation (Dialog(group="Fan PID controller"));
-  parameter Modelica.SIunits.Time Ti(min=0)=60
+  parameter Real Ti(
+    final unit="s",
+    final quantity="Time",
+    min=0)=60
     "Time constant of integrator block"
     annotation (Dialog(group="Fan PID controller",
       enable=controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PI
          or  controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time Td(min=0) = 0.1
+  parameter Real Td(
+    final unit="s",
+    final quantity="Time",
+    final min=0) = 0.1
     "Time constant of derivative block"
     annotation (Dialog(group="Fan PID controller",
       enable=controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PD
@@ -108,7 +130,7 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
     final triAmo=triAmo,
     final resAmo=resAmo,
     final maxRes=maxRes) "Static pressure setpoint reset using trim and respond logic"
-    annotation (Placement(transformation(extent={{-130,-50},{-110,-30}})));
+    annotation (Placement(transformation(extent={{-130,-40},{-110,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conSpe(
     final controllerType=controllerType,
     final k=k,
@@ -179,16 +201,22 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu4
     "Check if current operation mode is warmup mode"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain norPSet(final k=1/maxSet)
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant gaiNor(
+    final k=maxSet)
+    "Gain for normalization of controller input"
+    annotation (Placement(transformation(extent={{-130,-70},{-110,-50}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Division norPSet
     "Normalization for pressure set point"
     annotation (Placement(transformation(extent={{-70,-50},{-50,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain norPMea(final k=1/maxSet)
+  Buildings.Controls.OBC.CDL.Continuous.Division norPMea
     "Normalization of pressure measurement"
     annotation (Placement(transformation(extent={{-70,-82},{-50,-62}})));
   Buildings.Controls.OBC.CDL.Discrete.FirstOrderHold firOrdHol(
     final samplePeriod=samplePeriod)
     "Extrapolation through the values of the last two sampled input signals"
-    annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
+    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
 
 equation
   connect(or2.y, or1.u2)
@@ -203,8 +231,8 @@ equation
     annotation (Line(points={{82,-110},{160,-110}},
       color={0,0,127}));
   connect(or1.y, staPreSetRes.uDevSta)
-    annotation (Line(points={{102,70},{120,70},{120,-8},{-150,-8},{-150,-32},
-      {-132,-32}},   color={255,0,255}));
+    annotation (Line(points={{102,70},{120,70},{120,-8},{-150,-8},{-150,-22},{-132,
+          -22}},     color={255,0,255}));
   connect(or1.y, swi.u2)
     annotation (Line(points={{102,70},{120,70},{120,-8},{0,-8},{0,-60},{78,-60}},
       color={255,0,255}));
@@ -218,7 +246,7 @@ equation
     annotation (Line(points={{102,-60},{160,-60}},
       color={0,0,127}));
   connect(uZonPreResReq, staPreSetRes.numOfReq)
-    annotation (Line(points={{-180,-40},{-142,-40},{-142,-48},{-132,-48}},
+    annotation (Line(points={{-180,-40},{-148,-40},{-148,-38},{-132,-38}},
       color={255,127,0}));
   connect(con.y, or1.u2)
     annotation (Line(points={{42,10},{60,10},{60,62},{78,62}},
@@ -271,19 +299,22 @@ equation
       color={255,0,255}));
   connect(norPSet.y, conSpe.u_s)
     annotation (Line(points={{-48,-40},{-42,-40}}, color={0,0,127}));
-  connect(ducStaPre, norPMea.u)
-    annotation (Line(points={{-180,-72},{-72,-72}},
-      color={0,0,127}));
   connect(norPMea.y, conSpe.u_m)
     annotation (Line(points={{-48,-72},{-30,-72},{-30,-52}}, color={0,0,127}));
-  connect(norPSet.u, firOrdHol.y)
-    annotation (Line(points={{-72,-40},{-78,-40},{-78,-40}}, color={0,0,127}));
   connect(staPreSetRes.y, firOrdHol.u)
-    annotation (Line(points={{-109,-40},{-106,-40},{-102,-40}}, color={0,0,127}));
+    annotation (Line(points={{-108,-30},{-102,-30}},            color={0,0,127}));
   connect(conSpe.trigger, or1.y)
     annotation (Line(points={{-38,-52},{-38,-60},{0,-60},{0,-8},{120,-8},
       {120,70},{102,70}}, color={255,0,255}));
 
+  connect(gaiNor.y, norPSet.u2) annotation (Line(points={{-108,-60},{-92,-60},{-92,
+          -46},{-72,-46}}, color={0,0,127}));
+  connect(ducStaPre, norPMea.u1) annotation (Line(points={{-180,-72},{-140,-72},
+          {-140,-82},{-80,-82},{-80,-66},{-72,-66}}, color={0,0,127}));
+  connect(gaiNor.y, norPMea.u2) annotation (Line(points={{-108,-60},{-92,-60},{-92,
+          -78},{-72,-78}}, color={0,0,127}));
+  connect(firOrdHol.y, norPSet.u1) annotation (Line(points={{-78,-30},{-76,-30},
+          {-76,-34},{-72,-34}}, color={0,0,127}));
 annotation (
   defaultComponentName="conSupFan",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{140,160}}),
@@ -308,7 +339,7 @@ annotation (
           horizontalAlignment=TextAlignment.Left,
           textString="Check current operation mode"),
         Text(
-          extent={{-134,-12},{-64,-24}},
+          extent={{52,-14},{122,-26}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
@@ -426,6 +457,12 @@ that are occupied, etc.).
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 7, 2020, by Michael Wetter:<br/>
+Reformulated to avoid relying on the <code>final</code> keyword.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1701\">issue 1701</a>.
+</li>
 <li>
 October 14, 2017, by Michael Wetter:<br/>
 Added normalization of pressure set point and measurement as the measured

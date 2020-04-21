@@ -39,7 +39,11 @@ annotation (
           extent={{-34,-28},{38,-76}},
           lineColor={192,192,192},
           textString="abs"),
-        Line(points={{-88,0},{76,0}}, color={192,192,192})}),
+        Line(points={{-88,0},{76,0}}, color={192,192,192}),
+        Text(
+          extent={{226,60},{106,10}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}),
     Documentation(info="<html>
 <p>
 Block that outputs <code>y = abs(u)</code>,
@@ -48,6 +52,10 @@ where
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the

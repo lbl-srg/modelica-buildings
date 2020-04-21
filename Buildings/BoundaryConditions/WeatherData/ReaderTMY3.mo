@@ -952,18 +952,29 @@ equation
           fillPattern=FillPattern.Sphere,
           fillColor={255,255,0}),
         Polygon(
-          points={{104,76},{87.9727,12.9844},{88,12},{120,22},{148,20},{174,8},
-              {192,-58},{148,-132},{20,-140},{-130,-136},{-156,-60},{-140,-6},{
-              -92,-4},{-68.2109,-21.8418},{-68,-22},{-82,40},{-48,90},{44,110},
-              {104,76}},
+          points={{94,106},{77.9727,42.9844},{78,42},{110,52},{138,50},{164,38},
+              {182,-28},{138,-102},{10,-110},{-140,-106},{-166,-30},{-150,24},{-102,
+              26},{-78.2109,8.1582},{-78,8},{-92,70},{-58,120},{34,140},{94,106}},
           lineColor={220,220,220},
           lineThickness=0.1,
           fillPattern=FillPattern.Sphere,
           smooth=Smooth.Bezier,
-          fillColor={230,230,230})}),
+          fillColor={230,230,230}),
+        Text(
+          extent={{140,-106},{-126,-192}},
+          lineColor={255,255,255},
+          textString=DynamicSelect("", String(weaBus.TDryBul-273.15, format=".1f")))}),
     Documentation(info="<html>
 <p>
 This component reads TMY3 weather data (Wilcox and Marion, 2008) or user specified weather data.
+The Modelica built-in variable <code>time</code> determines what row
+of the weather file is read.
+The value of <code>time</code> is the number of seconds
+that have passed since January 1st at midnight (00:00) in the local time zone.
+The local time zone value, longitude and latitute are also read from the weather data,
+such that the solar position computations are consistent with the weather data.
+</p>
+<p>
 The weather data format is the Typical Meteorological Year (TMY3)
 as obtained from the EnergyPlus web site at
 <a href=\"http://energyplus.net/weather\">
@@ -1591,6 +1602,12 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </html>", revisions="<html>
 <ul>
 <li>
+August 20, 2019, by Filip Jorissen:<br/>
+Better clarified the meaning of <code>time</code> in the documentation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1192\">#1192</a>.
+</li>
+<li>
 March 5, 2019, by Michael Wetter:<br/>
 Updated documentation.<br/>
 This is for
@@ -1682,9 +1699,6 @@ This is for
 March 26, 2015, by Michael Wetter:<br/>
 Added option to obtain the black body sky temperature
 from a parameter or an input signal.
-This is required for
-<a href=\"modelica://Buildings.Rooms.Validation.MixedAirInitialization\">
-Buildings.Rooms.Validation.MixedAirInitialization</a>.
 </li>
 <li>
 October 17, 2014, by Michael Wetter:<br/>
