@@ -234,7 +234,8 @@ block SetpointController
         iconTransformation(extent={{100,-160},{140,-120}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput ySta(
-    final max=fill(nSta, nSta))
+    final min=0,
+    final max=nSta)
     "Chiller stage integer setpoint"
     annotation (Placement(
         transformation(extent={{120,-140},{160,-100}}),iconTransformation(

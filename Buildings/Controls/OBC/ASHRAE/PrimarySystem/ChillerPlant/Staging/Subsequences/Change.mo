@@ -39,7 +39,8 @@ block Change "Calculates the chiller stage signal"
     iconTransformation(extent={{-140,0},{-100,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput ySta(
-    final max=fill(nSta, nSta))
+    final min=0,
+    final max = nSta)
     "Chiller stage integer setpoint"
     annotation (Placement(
         transformation(extent={{440,140},{480,180}}),  iconTransformation(
