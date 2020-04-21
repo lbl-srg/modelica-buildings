@@ -2,44 +2,53 @@ within Buildings.Applications.DHC.EnergyTransferStations.FifthGeneration.BaseCla
 model HeatExchanger "Base subsystem with district heat exchanger"
   extends Fluid.Interfaces.PartialFourPort;
 
-  replaceable package MediumDis =
-      Modelica.Media.Interfaces.PartialMedium "Medium model for district fluid"
-      annotation (choicesAllMatching = true);
-  replaceable package MediumBui =
-      Modelica.Media.Interfaces.PartialMedium "Medium model for building fluid"
-      annotation (choicesAllMatching = true);
+  redeclare replaceable package Medium1 =
+    Modelica.Media.Interfaces.PartialMedium
+    "Medium model on district side of heat exchanger"
+      annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Water "Water"),
+        choice(redeclare package Medium =
+            Buildings.Media.Antifreeze.PropyleneGlycolWater (
+          property_T=293.15,
+          X_a=0.40)
+          "Propylene glycol water, 40% mass fraction")));
+  redeclare replaceable package Medium2 =
+    Modelica.Media.Interfaces.PartialMedium
+    "Medium model on building side of heat exchanger"
+      annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Water "Water"),
+        choice(redeclare package Medium =
+            Buildings.Media.Antifreeze.PropyleneGlycolWater (
+          property_T=293.15,
+          X_a=0.40)
+          "Propylene glycol water, 40% mass fraction")));
 
-  parameter Boolean have_val
-    "Set to true if a valve is used on district side, false in case of a pump"
+  parameter Boolean have_valDis
+    "Set to true in case of control valve on district side, false in case of a pump"
     annotation(Evaluate=true);
-  parameter Boolean allowFlowReversalDis = true
-    "Set to true to allow flow reversal on district side"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
-  parameter Boolean allowFlowReversalBui = false
-    "Set to true to allow flow reversal on building side"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal
-    "Nominal heat flow rate from district to building"
+  parameter Modelica.SIunits.HeatFlowRate QHex_flow_nominal
+    "Nominal heat flow rate through heat exchanger (from district to building)"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_aDis_nominal
-    "Nominal water inlet temperature on district side"
+  parameter Modelica.SIunits.Temperature T_a1Hex_nominal
+    "Nominal water inlet temperature on district side of heat exchanger"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_bDis_nominal
-    "Nominal water outlet temperature on district side"
+  parameter Modelica.SIunits.Temperature T_b1Hex_nominal
+    "Nominal water outlet temperature on district side of heat exchanger"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_aBui_nominal
-    "Nominal water inlet temperature on building side"
+  parameter Modelica.SIunits.Temperature T_a2Hex_nominal
+    "Nominal water inlet temperature on building side of heat exchanger"
     annotation (Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.Temperature T_bBui_nominal
-    "Nominal water outlet temperature on building side"
+  parameter Modelica.SIunits.Temperature T_b2Hex_nominal
+    "Nominal water outlet temperature on building side of heat exchanger"
     annotation (Dialog(group="Nominal conditions"));
 
-  final Modelica.SIunits.MassFlowRate mDis_flow_nominal
-    "Nominal mass flow rate on district side";
-  final Modelica.SIunits.MassFlowRate mBui_flow_nominal
-    "Nominal mass flow rate on building side";
+  final Modelica.SIunits.MassFlowRate m1_flow_nominal
+    "Nominal mass flow rate on district side of heat exchanger";
+  final Modelica.SIunits.MassFlowRate m2_flow_nominal
+    "Nominal mass flow rate on building side of heat exchanger";
 
+  // IO CONNECTORS
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uColRej
     "Control signal enabling full cold rejection to ambient loop"
     annotation (Placement(transformation(extent={{-140,80},{-100,120}}),
@@ -49,19 +58,20 @@ model HeatExchanger "Base subsystem with district heat exchanger"
     annotation (Placement(transformation(extent={{-140,120},{-100,160}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
 
+  // COMPONENTS
   Controls.HeatExchanger conHex "District heat exchanger loop control"
     annotation (Placement(transformation(extent={{-40,124},{-20,144}})));
   Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU hex(
-    redeclare final package Medium1 = MediumDis,
-    redeclare final package Medium2 = MediumBui,
+    redeclare final package Medium1 = Medium1,
+    redeclare final package Medium2 = Medium2,
     final use_Q_flow_nominal=true,
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     final allowFlowReversal1=allowFlowReversalDis,
     final allowFlowReversal2=allowFlowReversalBui,
-    final dp1_nominal=if have_val then 0 else dp1Hex_nominal,
+    final dp1_nominal=if have_valDis then 0 else dp1Hex_nominal,
     final dp2_nominal=dp2Hex_nominal,
-    m1_flow_nominal=mHex_flow_nominal,
-    m2_flow_nominal=mHex_flow_nominal)
+    final m1_flow_nominal=m1_flow_nominal,
+    final m2_flow_nominal=m2_flow_nominal)
     "District heat exchanger"
     annotation (Placement(
         transformation(
@@ -100,7 +110,7 @@ model HeatExchanger "Base subsystem with district heat exchanger"
     show_T=show_T,
     per(pressure(dp={dpHex_nominal,0}, V_flow={0,mHex_flow_nominal/1000})),
     use_inputFilter=true,
-    riseTime=10) if not have_val
+    riseTime=10) if not have_valDis
     "District heat exchanger primary pump"
     annotation (Placement(
         transformation(
@@ -111,7 +121,7 @@ model HeatExchanger "Base subsystem with district heat exchanger"
     redeclare final package Medium = MediumDis,
     final m_flow_nominal=mDis_flow_nominal,
     dpValve_nominal=dp2Hex_nominal/9,
-    final dpFixed_nominal=dp2Hex_nominal) if have_val
+    final dpFixed_nominal=dp2Hex_nominal) if have_valDis
     "Heat exchanger primary control valve"
     annotation (Placement(transformation(extent={{50,70},{70,90}})));
   Fluid.Sensors.TemperatureTwoPort senT1HexWatEnt
@@ -127,7 +137,7 @@ model HeatExchanger "Base subsystem with district heat exchanger"
         rotation=90,
         origin={20,20})));
 equation
-  if not have_val then
+  if not have_valDis then
     connect(senT1HexWatLvg.port_b, port_b1)
       annotation (Line(points={{20,30},{20,60},{100,60}}, color={0,127,255}));
   else
@@ -168,9 +178,9 @@ equation
   connect(val1Hex.port_a, senT1HexWatLvg.port_b)
     annotation (Line(points={{50,80},{20,80},{20,30}}, color={0,127,255}));
   annotation (
-  defaultComponentName="bor",
+  defaultComponentName="hex",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-                                                    graphics={
+   graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
           lineColor={0,0,127},

@@ -185,7 +185,7 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100}
             {100,100}})),
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-160,-320},{160,100}})),
-  defaultComponentName="conChi",
+  defaultComponentName="con",
 Documentation(info="<html>
 <p>
 The block computes the control signals for

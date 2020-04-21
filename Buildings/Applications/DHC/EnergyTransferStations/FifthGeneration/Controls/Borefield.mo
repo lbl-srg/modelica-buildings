@@ -176,7 +176,7 @@ equation
 annotation (Diagram(
               coordinateSystem(preserveAspectRatio=false,
               extent={{-220,-200},{220,200}})),
-              defaultComponentName="conBor",
+              defaultComponentName="con",
 Documentation(info="<html>
 <p>
 This block computes the energy rejection index <code>yModInd</code>  i.e. heating or cooling energy is rejected and the control signals for

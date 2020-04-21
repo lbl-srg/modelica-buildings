@@ -1,97 +1,94 @@
 within Buildings.Applications.DHC.EnergyTransferStations.FifthGeneration.BaseClasses;
-model Chiller "Base subsystem based on heat recovery chiller"
-  replaceable package Medium = Buildings.Media.Water
-    "Medium model";
-  parameter Integer nPorts_aAmbWat = 0
-    "Number of fluid connectors for ambient water return"
-     annotation(Evaluate=true, Dialog(connectorSizing=true));
-  parameter Integer nPorts_bAmbWat = 0
-    "Number of fluid connectors for ambient water supply"
-    annotation(Evaluate=true, Dialog(connectorSizing=true));
-  parameter Integer nPorts_aChiWat = 0
-    "Number of fluid connectors for chilled water return"
-     annotation(Evaluate=true, Dialog(connectorSizing=true));
-  parameter Integer nPorts_bChiWat = 0
-    "Number of fluid connectors for chilled water supply"
-    annotation(Evaluate=true, Dialog(connectorSizing=true));
-  parameter Integer nPorts_aHeaWat = 0
-    "Number of fluid connectors for heating water return"
-     annotation(Evaluate=true, Dialog(connectorSizing=true));
-  parameter Integer nPorts_bHeaWat = 0
-    "Number of fluid connectors for heating water supply"
-    annotation(Evaluate=true, Dialog(connectorSizing=true));
-  parameter Modelica.SIunits.PressureDifference dpCon_nominal
-    "Nominal pressure drop in condenser branch (including valve)"
-    annotation (Dialog(group="Chiller"));
-  parameter Modelica.SIunits.PressureDifference dpEva_nominal
-    "Nominal pressure drop in evaporator branch (including valve)"
-    annotation (Dialog(group="Chiller"));
+model Chiller "Base subsystem with heat recovery chiller"
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+    "Medium model"
+    annotation (choices(
+      choice(redeclare package Medium = Buildings.Media.Water "Water"),
+      choice(redeclare package Medium =
+          Buildings.Media.Antifreeze.PropyleneGlycolWater (
+        property_T=293.15,
+        X_a=0.40) "Propylene glycol water, 40% mass fraction")));
+
   parameter Boolean allowFlowReversal = false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
+
   parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic datChi
     "Chiller parameters"
-    annotation (Placement(transformation(extent={{180,-200},{200,-180}})));
-  final parameter Modelica.SIunits.PressureDifference dpValAmb_nominal(displayUnit="Pa")=1000
-    "Pressure drop at nominal flow rate for the directional two-way valves"
-    annotation (Dialog(group="Design Parameter"));
-  final parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal=
-    datChi.mEva_flow_nominal
-    "Condenser nominal water flow rate" annotation (Dialog(group="Chiller"));
-  final parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal=
-    datChi.mEva_flow_nominal
-    "Evaporator nominal water flow rate" annotation (Dialog(group="Chiller"));
+    annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
+
+  parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal
+    "Condenser nominal mass flow rate"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.PressureDifference mEva_flow_nominal
+    "Evaporator nominal mass flow rate"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.PressureDifference dpCon_nominal
+    "Nominal pressure drop in condenser branch (including valve)"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.PressureDifference dpEva_nominal
+    "Nominal pressure drop in evaporator branch (including valve)"
+    annotation (Dialog(group="Nominal condition"));
+
   // IO CONNECTORS
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHea
-    "Heating mode enabled signal"        annotation (Placement(transformation(
-          extent={{-300,240},{-260,280}}), iconTransformation(extent={{-180,100},
-            {-140,140}})));
+    "Heating mode enabled signal"
+    annotation (Placement(transformation(extent={{-240,160},{-200,200}}),
+      iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uCoo
-    "Cooling mode enabled signal"        annotation (Placement(transformation(
-          extent={{-300,200},{-260,240}}), iconTransformation(extent={{-180,80},
-            {-140,120}})));
+    "Cooling mode enabled signal"
+    annotation (Placement(transformation(extent={{-240,130},{-200,170}}),
+      iconTransformation(extent={{-140,-10},{-100,30}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
+    final unit="K", displayUnit="degC")
+    "Chilled water supply temperature set-point (may be reset down)"
+    annotation (Placement(transformation(extent={{-240,70},{-200,110}}),
+      iconTransformation(extent={{-140,-50},{-100,-10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSupSet(
+    final unit="K", displayUnit="degC")
+    "Heating water supply temperature set-point"
+    annotation (Placement(transformation(extent={{-240,100},{-200,140}}),
+      iconTransformation(extent={{-140,-30},{-100,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aChiWat(
     redeclare final package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Fluid port for chilled water return"
-    annotation (Placement(transformation(extent={{250,-70},{270,-50}}),
-        iconTransformation(extent={{130,-30},{150,-10}})));
+    annotation (Placement(transformation(extent={{190,-70},{210,-50}}),
+        iconTransformation(extent={{90,-70},{110,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bChiWat(
     redeclare final package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Fluid port for chilled water supply"
-    annotation (Placement(transformation(extent={{250,50},{270,70}}),
-        iconTransformation(extent={{130,10},{150,30}})));
+    annotation (Placement(transformation(extent={{190,50},{210,70}}),
+        iconTransformation(extent={{90,50},{110,70}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aHeaWat(
     redeclare final package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Fluid port for heating water return"
-    annotation (Placement(transformation(extent={{-270,-70},{-250,-50}}),
-        iconTransformation(extent={{-150,-30},{-130,-10}})));
+    annotation (Placement(transformation(extent={{-210,-70},{-190,-50}}),
+        iconTransformation(extent={{-110,-70},{-90,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bHeaWat(
     redeclare final package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Fluid port for heating water supply"
-    annotation (Placement(transformation(extent={{-268,50},{-248,70}}),
-        iconTransformation(extent={{-150,10},{-130,30}})));
+    annotation (Placement(transformation(extent={{-210,50},{-190,70}}),
+        iconTransformation(extent={{-110,50},{-90,70}})));
   // COMPONENTS
   Fluid.Chillers.ElectricEIR chi(
-    allowFlowReversal1=false,
-    allowFlowReversal2=false,
-    from_dp1=true,
-    dp1_nominal=dpCon_nominal,
-    linearizeFlowResistance1=true,
-    from_dp2=true,
-    dp2_nominal=dpEva_nominal,
-    linearizeFlowResistance2=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    per=datChi,
     redeclare final package Medium1 = Medium,
-    redeclare final package Medium2 = Medium)
+    redeclare final package Medium2 = Medium,
+    final allowFlowReversal1=allowFlowReversal,
+    final allowFlowReversal2=allowFlowReversal,
+    final m1_flow_nominal=0,
+    final m2_flow_nominal=0,
+    final dp1_nominal=dpCon_nominal,
+    final dp2_nominal=dpEva_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    final per=datChi)
     "Water cooled chiller (ports indexed 1 are on condenser side)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Movers.SpeedControlled_y pumCon(
@@ -99,7 +96,7 @@ model Chiller "Base subsystem based on heat recovery chiller"
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     addPowerToMedium=false,
     per(pressure(dp={dpCon_nominal,0}, V_flow={0,mCon_flow_nominal/1000})),
-    allowFlowReversal=false)
+    allowFlowReversal=allowFlowReversal)
     "Condenser pump"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
   Buildings.Fluid.Movers.SpeedControlled_y pumEva(
@@ -107,51 +104,53 @@ model Chiller "Base subsystem based on heat recovery chiller"
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     addPowerToMedium=false,
     per(pressure(dp={dpEva_nominal,0}, V_flow={0,mEva_flow_nominal/1000})),
-    allowFlowReversal=false)
+    allowFlowReversal=allowFlowReversal)
     "Evaporator pump"
     annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=0,
-        origin={-100,-60})));
-  FifthGeneration.Controls.Chiller conChi "Chiller controller"
-    annotation (Placement(transformation(extent={{-220,234},{-200,254}})));
+      extent={{10,-10},{-10,10}},
+      rotation=0,
+      origin={-100,-60})));
+  FifthGeneration.Controls.Chiller con "Controller"
+    annotation (Placement(transformation(extent={{-70,130},{-50,150}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTConLvg(
     redeclare final package Medium = Medium,
-    allowFlowReversal=false,
-    m_flow_nominal=mCon_flow_nominal,
-    tau=0) "Condenser water leaving temperature (measured)"
+    final allowFlowReversal=allowFlowReversal,
+    final m_flow_nominal=mCon_flow_nominal)
+    "Condenser water leaving temperature"
     annotation (Placement(
       transformation(
       extent={{10,10},{-10,-10}},
-      rotation=180,
-      origin={40,60})));
+      rotation=270,
+      origin={20,20})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTConEnt(
     redeclare final package Medium = Medium,
-    allowFlowReversal=false,
-    m_flow_nominal=mCon_flow_nominal,
-    tau=0) "Condenser water entering temperature (measured)"
-    annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
+    final allowFlowReversal=allowFlowReversal,
+    final m_flow_nominal=mCon_flow_nominal)
+    "Condenser water entering temperature"
+    annotation (Placement(transformation(extent={{-10,10},{10,-10}},
+        rotation=-90,
+        origin={-20,40})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTEvaEnt(
     redeclare final package Medium = Medium,
-    allowFlowReversal=false,
-    m_flow_nominal=mEva_flow_nominal,
-    tau=0)
-    "Evaporator water entering temperature (measured)"
+    final allowFlowReversal=allowFlowReversal,
+    final m_flow_nominal=mEva_flow_nominal)
+    "Evaporator water entering temperature"
     annotation (Placement(
       transformation(
-      extent={{-10,10},{10,-10}},
-      rotation=180,
-      origin={60,-60})));
+      extent={{10,10},{-10,-10}},
+      rotation=270,
+      origin={20,-40})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTEvaLvg(
     redeclare final package Medium = Medium,
-    allowFlowReversal=false,
-    m_flow_nominal=mEva_flow_nominal,
-    tau=30)
-    "Evaporator water leaving temperature (measured)"
-    annotation (Placement(transformation(extent={{-50,-70},{-70,-50}})));
+    final allowFlowReversal=allowFlowReversal,
+    final m_flow_nominal=mEva_flow_nominal)
+    "Evaporator water leaving temperature"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={-20,-20})));
   Junction splEva(
-    m_flow_nominal=mEva_flow_nominal .* {1,-1,-1},
-    redeclare final package Medium = Medium)
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=mEva_flow_nominal)
     "Flow splitter for the evaporator water circuit"
     annotation (Placement(
       transformation(
@@ -159,8 +158,8 @@ model Chiller "Base subsystem based on heat recovery chiller"
       rotation=0,
       origin={-140,-60})));
   Junction splConMix(
-    m_flow_nominal=mCon_flow_nominal .* {1,-1,-1},
-    redeclare final package Medium = Medium)
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=mCon_flow_nominal)
     "Flow splitter"
     annotation (Placement(transformation(
       extent={{-10,10},{10,-10}},
@@ -169,10 +168,9 @@ model Chiller "Base subsystem based on heat recovery chiller"
   Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valMixEva(
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    from_dp=true,
-    m_flow_nominal=mEva_flow_nominal,
-    dpValve_nominal=6000,
-    homotopyInitialization=true)
+    final m_flow_nominal=mEva_flow_nominal,
+    dpValve_nominal=0.2*dpEva_nominal,
+    dpFixed_nominal=dpEva_nominal)
     "Three-way mixing valve controlling evaporator water entering temperature"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
@@ -181,139 +179,88 @@ model Chiller "Base subsystem based on heat recovery chiller"
   Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valMixCon(
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    from_dp=true,
-    m_flow_nominal=mCon_flow_nominal,
-    dpValve_nominal=6000,
-    homotopyInitialization=true)
+    final m_flow_nominal=mCon_flow_nominal,
+    dpValve_nominal=0.2*dpCon_nominal,
+    dpFixed_nominal=0.8*dpCon_nominal)
     "Three-way mixing valve to controlling condenser water entering temperature"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=0,
         origin={-140,60})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(final unit="K",
-      displayUnit="degC")
-    "Chilled water supply temperature set-point (may be reset down)"
-    annotation (Placement(transformation(extent={{-300,120},{-260,160}}),
-        iconTransformation(extent={{-180,40},{-140,80}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[2]
     "Constant speed primary pumps control signal"
-    annotation (Placement(transformation(extent={{-220,190},{-200,210}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSupSet(final unit="K",
-      displayUnit="degC") "Heating water supply temperature set-point"
-    annotation (Placement(transformation(extent={{-300,160},{-260,200}}),
-        iconTransformation(extent={{-180,60},{-140,100}})));
-initial equation
-  assert(nPorts_aAmbWat == nPorts_bAmbWat,
-    "In " + getInstanceName() +
-    ": The numbers of ambient water supply ports (" + String(nPorts_bAmbWat) +
-    ") and return ports (" + String(nPorts_aAmbWat) + ") must be equal.");
-  assert(nPorts_aChiWat == nPorts_bChiWat,
-    "In " + getInstanceName() +
-    ": The numbers of chilled water supply ports (" + String(nPorts_bAmbWat) +
-    ") and return ports (" + String(nPorts_aAmbWat) + ") must be equal.");
-  assert(nPorts_aHeaWat == nPorts_bHeaWat,
-    "In " + getInstanceName() +
-    ": The numbers of heating water supply ports (" + String(nPorts_bAmbWat) +
-    ") and return ports (" + String(nPorts_aAmbWat) + ") must be equal.");
+    annotation (Placement(transformation(extent={{-160,170},{-140,190}})));
+
 equation
   connect(splConMix.port_3,valMixCon. port_3) annotation (Line(points={{120,70},
           {120,80},{-140,80},{-140,70}},    color={0,127,255}));
-  connect(senTConLvg.port_b, splConMix.port_1)
-    annotation (Line(points={{50,60},{110,60}},   color={0,127,255}));
-  connect(chi.port_b1, senTConLvg.port_a) annotation (Line(points={{10,6},{20,6},
-          {20,60},{30,60}},        color={0,127,255}));
   connect(valMixCon.port_2, pumCon.port_a)
     annotation (Line(points={{-130,60},{-110,60}},   color={0,127,255}));
-  connect(pumCon.port_b, senTConEnt.port_a)
-    annotation (Line(points={{-90,60},{-50,60}},   color={0,127,255}));
-  connect(senTConEnt.port_b, chi.port_a1) annotation (Line(points={{-30,60},{-20,
-          60},{-20,6},{-10,6}},          color={0,127,255}));
-  connect(valMixEva.port_2, senTEvaEnt.port_a)
-    annotation (Line(points={{110,-60},{70,-60}},
-                                                color={0,127,255}));
-  connect(senTEvaEnt.port_b, chi.port_a2) annotation (Line(points={{50,-60},{20,
-          -60},{20,-6},{10,-6}},  color={0,127,255}));
-  connect(chi.port_b2, senTEvaLvg.port_a) annotation (Line(points={{-10,-6},{-20,
-          -6},{-20,-60},{-50,-60}},color={0,127,255}));
-  connect(senTEvaLvg.port_b, pumEva.port_a)
-    annotation (Line(points={{-70,-60},{-90,-60}},
-                                                 color={0,127,255}));
   connect(pumEva.port_b, splEva.port_1)
     annotation (Line(points={{-110,-60},{-130,-60}},
                                                    color={0,127,255}));
   connect(splEva.port_3,valMixEva. port_3) annotation (Line(points={{-140,-70},{
           -140,-80},{120,-80},{120,-70}},
                                   color={0,127,255}));
-  connect(conChi.yMixEva,valMixEva. y) annotation (Line(points={{-198,240},{100,
-          240},{100,-8},{120,-8},{120,-48}},color={0,0,127}));
-  connect(conChi.yMixCon,valMixCon. y) annotation (Line(points={{-198,236},{-160,
-          236},{-160,40},{-140,40},{-140,48}},    color={0,0,127}));
-  connect(conChi.yChi, chi.on) annotation (Line(points={{-198,252},{-60,252},{-60,
-          3},{-12,3}},     color={255,0,255}));
-  connect(conChi.TChiWatSupSet, chi.TSet) annotation (Line(points={{-198,248},{-64,
-          248},{-64,-3},{-12,-3}},       color={0,0,127}));
-  connect(uHea, conChi.uHea) annotation (Line(points={{-280,260},{-240,260},{-240,
-          252},{-222,252}},     color={255,0,255}));
-  connect(uCoo, conChi.uCoo) annotation (Line(points={{-280,220},{-246,220},{-246,
-          250},{-222,250}}, color={255,0,255}));
-  connect(TChiWatSupSet, conChi.TChiWatSupSetMax) annotation (Line(points={{-280,
-          140},{-240,140},{-240,246},{-222,246}}, color={0,0,127}));
-  // LOOP OVER ARRAY FLUID CONNECTORS
-  for i in 1:nPorts_aAmbWat loop
-  end for;
-  for i in 1:nPorts_aChiWat loop
-  end for;
-  for i in 1:nPorts_aHeaWat loop
-  end for;
-  connect(uHea, booToRea[1].u) annotation (Line(points={{-280,260},{-252,260},{-252,
-          200},{-222,200}}, color={255,0,255}));
-  connect(uCoo, booToRea[2].u) annotation (Line(points={{-280,220},{-252,220},{-252,
-          200},{-222,200}}, color={255,0,255}));
-  connect(booToRea[1].y, pumCon.y) annotation (Line(points={{-198,200},{-100,200},
+  connect(con.yMixEva, valMixEva.y) annotation (Line(points={{-48,136},{100,136},
+          {100,-40},{120,-40},{120,-48}},
+                                        color={0,0,127}));
+  connect(con.yMixCon, valMixCon.y) annotation (Line(points={{-48,132},{-44,132},
+          {-44,120},{-160,120},{-160,40},{-140,40},{-140,48}},
+                                          color={0,0,127}));
+  connect(con.yChi, chi.on) annotation (Line(points={{-48,148},{-36,148},{-36,3},
+          {-12,3}}, color={255,0,255}));
+  connect(con.TChiWatSupSet, chi.TSet) annotation (Line(points={{-48,144},{-40,144},
+          {-40,-3},{-12,-3}},      color={0,0,127}));
+  connect(uHea, con.uHea) annotation (Line(points={{-220,180},{-180,180},{-180,148},
+          {-72,148}},  color={255,0,255}));
+  connect(uCoo, con.uCoo) annotation (Line(points={{-220,150},{-186,150},{-186,146},
+          {-72,146}},  color={255,0,255}));
+  connect(TChiWatSupSet, con.TChiWatSupSetMax) annotation (Line(points={{-220,90},
+          {-186,90},{-186,142},{-72,142}},   color={0,0,127}));
+  connect(uHea, booToRea[1].u) annotation (Line(points={{-220,180},{-162,180}},
+                            color={255,0,255}));
+  connect(uCoo, booToRea[2].u) annotation (Line(points={{-220,150},{-192,150},{-192,
+          180},{-162,180}}, color={255,0,255}));
+  connect(booToRea[1].y, pumCon.y) annotation (Line(points={{-138,180},{-100,180},
           {-100,72}},  color={0,0,127}));
-  connect(booToRea[2].y, pumEva.y) annotation (Line(points={{-198,200},{-120,200},
+  connect(booToRea[2].y, pumEva.y) annotation (Line(points={{-138,180},{-120,180},
           {-120,0},{-100,0},{-100,-48}},  color={0,0,127}));
-  connect(senTConEnt.T, conChi.TConWatEnt) annotation (Line(points={{-40,71},{-40,
-          142},{-224,142},{-224,240},{-222,240}}, color={0,0,127}));
-  connect(senTEvaEnt.T, conChi.TEvaWatEnt) annotation (Line(points={{60,-49},{60,
-          132},{-226,132},{-226,242},{-222,242}}, color={0,0,127}));
-  connect(THeaWatSupSet, conChi.THeaWatSupSet) annotation (Line(points={{-280,180},
-          {-242,180},{-242,248},{-222,248}}, color={0,0,127}));
-  connect(senTConLvg.T, conChi.THeaWatSup) annotation (Line(points={{40,71},{40,
-          130},{-228,130},{-228,244},{-222,244}}, color={0,0,127}));
-  connect(splConMix.port_2, port_bHeaWat) annotation (Line(points={{130,60},{160,
-          60},{160,100},{-240,100},{-240,60},{-258,60}},
+  connect(senTConEnt.T, con.TConWatEnt) annotation (Line(points={{-31,40},{-78,40},
+          {-78,136},{-72,136}},              color={0,0,127}));
+  connect(senTEvaEnt.T, con.TEvaWatEnt) annotation (Line(points={{9,-40},{-80,-40},
+          {-80,138},{-72,138}},              color={0,0,127}));
+  connect(THeaWatSupSet, con.THeaWatSupSet) annotation (Line(points={{-220,120},
+          {-192,120},{-192,144},{-72,144}},  color={0,0,127}));
+  connect(senTConLvg.T, con.THeaWatSup) annotation (Line(points={{9,20},{-82,20},
+          {-82,140},{-72,140}},              color={0,0,127}));
+  connect(splConMix.port_2, port_bHeaWat) annotation (Line(points={{130,60},{140,
+          60},{140,100},{-180,100},{-180,60},{-200,60}},
                                   color={0,127,255}));
-  connect(splEva.port_2, port_bChiWat) annotation (Line(points={{-150,-60},{-180,
-          -60},{-180,-100},{220,-100},{220,60},{260,60}},
+  connect(splEva.port_2, port_bChiWat) annotation (Line(points={{-150,-60},{-160,
+          -60},{-160,-100},{180,-100},{180,60},{200,60}},
                                      color={0,127,255}));
-  connect(port_aHeaWat,valMixCon. port_1) annotation (Line(points={{-260,-60},{-220,
-          -60},{-220,60},{-150,60}},                        color={0,127,255}));
-  connect(port_aChiWat,valMixEva. port_1) annotation (Line(points={{260,-60},{130,
+  connect(port_aHeaWat,valMixCon. port_1) annotation (Line(points={{-200,-60},{-170,
+          -60},{-170,60},{-150,60}},                        color={0,127,255}));
+  connect(port_aChiWat,valMixEva. port_1) annotation (Line(points={{200,-60},{130,
           -60}},                                            color={0,127,255}));
-annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},
-            {140,140}}),
-  graphics={
-    Rectangle(
-      extent={{-140,-140},{140,140}},
-      lineColor={0,0,127},
-      fillColor={255,255,255},
-      fillPattern=FillPattern.Solid),
-   Text(
-      extent={{-120,180},{120,140}},
-      textString="%name",
-      lineColor={0,0,255}),
-    Rectangle(
-      extent={{-60,60},{60,-60}},
-      lineColor={27,0,55},
-      fillColor={170,213,255},
-      fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(preserveAspectRatio=false,
-              extent={{-260,-260},{260,280}}),
-              graphics={Line(
-              points={{86,92}},
-              color={28,108,200},
-              pattern=LinePattern.Dash)}),
+  connect(valMixEva.port_2, senTEvaEnt.port_a)
+    annotation (Line(points={{110,-60},{20,-60},{20,-50}}, color={0,127,255}));
+  connect(senTEvaLvg.port_b, pumEva.port_a) annotation (Line(points={{-20,-30},{
+          -20,-60},{-90,-60}}, color={0,127,255}));
+  connect(senTEvaLvg.port_a, chi.port_b2)
+    annotation (Line(points={{-20,-10},{-20,-6},{-10,-6}}, color={0,127,255}));
+  connect(senTEvaEnt.port_b, chi.port_a2)
+    annotation (Line(points={{20,-30},{20,-6},{10,-6}}, color={0,127,255}));
+  connect(chi.port_b1, senTConLvg.port_a)
+    annotation (Line(points={{10,6},{20,6},{20,10}}, color={0,127,255}));
+  connect(senTConLvg.port_b, splConMix.port_1)
+    annotation (Line(points={{20,30},{20,60},{110,60}}, color={0,127,255}));
+  connect(pumCon.port_b, senTConEnt.port_a)
+    annotation (Line(points={{-90,60},{-20,60},{-20,50}}, color={0,127,255}));
+  connect(senTConEnt.port_b, chi.port_a1)
+    annotation (Line(points={{-20,30},{-20,6},{-10,6}}, color={0,127,255}));
+annotation (
   defaultComponentName="chi",
   Documentation(info="<html>
 <p>
@@ -458,5 +405,21 @@ January 18, 2020, by Hagar Elarga: <br/>
 First implementation
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={
+        Rectangle(
+          extent={{-100,-100},{100,100}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-60,60},{60,-60}},
+          lineColor={27,0,55},
+          fillColor={170,213,255},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-149,-110},{151,-150}},
+          lineColor={0,0,255},
+          textString="%name")}),
+    Diagram(coordinateSystem(extent={{-200,-200},{200,200}})));
 end Chiller;
