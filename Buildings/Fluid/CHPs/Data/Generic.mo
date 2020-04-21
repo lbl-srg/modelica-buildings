@@ -16,12 +16,12 @@ record Generic "Generic data for CHP models"
     "Vector of coefficients used to calculate electrical conversion efficiency
     of the engine. The independent variables and mapping of the coefficients
     to the polynomial terms are the same as for the thermal efficiency";
-  parameter Boolean coolingWaterControl=true
+  parameter Boolean compute_coolingWaterFlowRate=true
     "If true, then an empirical correlation is used to calculate
     cooling water mass flow rate based on internal control";
   parameter Real[6] coeMasWat
     "Vector of coefficients used to calculate cooling water mass flow rate
-    in case coolingWaterControl is true.
+    in case compute_coolingWaterFlowRate is true.
     The independent variable x1 is the steady-state power output,
     x2 is the cooling water mass flow rate.
     From index 1 to 6, coefficients correspond to the following terms:
@@ -60,9 +60,9 @@ record Generic "Generic data for CHP models"
     "Minimum cooling water mass flow rate";
   parameter Modelica.SIunits.Temperature TWatMax=373.15
     "Maximum cooling water temperature";
-  parameter Boolean dPEleLim=false
+  parameter Boolean use_powerRateLimit=false
     "If true, the rate at which net power output can change is limited";
-  parameter Boolean dmFueLim=false
+  parameter Boolean use_fuelRateLimit=false
     "If true, the rate at which fuel mass flow rate can change is limited";
   parameter Real dPEleMax(final unit="1/s")
     "Maximum rate at which net power output can change";

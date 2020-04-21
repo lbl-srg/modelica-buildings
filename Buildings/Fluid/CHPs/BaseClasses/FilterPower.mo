@@ -6,7 +6,7 @@ model FilterPower "Constraints for electric power"
     "Maximum power output";
   parameter Modelica.SIunits.Power PEleMin
     "Minimum power output";
-  parameter Boolean dPEleLim
+  parameter Boolean use_powerRateLimit
     "If true, the rate at which net power output can change is limited";
   parameter Real dPEleMax(final unit="1/s")
     "Maximum rate at which net power output can change";
@@ -22,7 +22,7 @@ model FilterPower "Constraints for electric power"
   Buildings.Fluid.CHPs.BaseClasses.AssertPower assPow(
     final PEleMax=PEleMax,
     final PEleMin=PEleMin,
-    final dPEleLim=dPEleLim,
+    final use_powerRateLimit=use_powerRateLimit,
     final dPEleMax=dPEleMax)
     "Assert if electric power is outside boundaries"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
@@ -43,7 +43,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch switch
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant limDp(
-    final k=dPEleLim)
+    final k=use_powerRateLimit)
     "Check if dP is limited"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 

@@ -57,7 +57,7 @@ model EnergyConversion "Energy conversion control volume"
 
 protected
   Buildings.Fluid.CHPs.BaseClasses.AssertFuelFlow assFue(
-    final dmFueMax_flow=per.dmFueMax_flow) if per.dmFueLim
+    final dmFueMax_flow=per.dmFueMax_flow) if per.use_fuelRateLimit
     "Assert if fuel flow rate is outside boundaries"
     annotation (Placement(transformation(extent={{110,30},{130,50}})));
   Buildings.Fluid.CHPs.BaseClasses.EnergyConversionNormal opeModBas(final per=

@@ -59,7 +59,7 @@ model ThermalElectricalFollowing
     annotation (Placement(transformation(extent={{-190,-150},{-170,-130}}),
       iconTransformation(extent={{-110,-80},{-90,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput mWatSet_flow(
-    final unit="kg/s", final quantity="MassFlowRate") if per.coolingWaterControl
+    final unit="kg/s", final quantity="MassFlowRate") if per.compute_coolingWaterFlowRate
     "Water mass flow rate set point based on internal control"
     annotation (
       Placement(transformation(extent={{180,120},{220,160}}),
@@ -109,12 +109,12 @@ model ThermalElectricalFollowing
   Buildings.Fluid.CHPs.BaseClasses.FilterPower fil(
     final PEleMax=per.PEleMax,
     final PEleMin=per.PEleMin,
-    final dPEleLim=per.dPEleLim,
+    final use_powerRateLimit=per.use_powerRateLimit,
     final dPEleMax=per.dPEleMax)
     "Power after applied constraints"
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
   Buildings.Fluid.CHPs.BaseClasses.WaterFlowControl conWat(final per=per) if
-    per.coolingWaterControl
+    per.compute_coolingWaterFlowRate
     "Internal controller for water mass flow rate"
     annotation (Placement(transformation(extent={{120,130},{140,150}})));
   Modelica.Blocks.Sources.RealExpression mWat_flow(

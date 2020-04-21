@@ -8,7 +8,7 @@ model AssertPower "Validate model AssertPower"
   Buildings.Fluid.CHPs.BaseClasses.AssertPower assPow(
     PEleMax=per.PEleMax,
     PEleMin=per.PEleMin,
-    dPEleLim=per.dPEleLim,
+    use_powerRateLimit=per.use_powerRateLimit,
     dPEleMax=per.dPEleMax)
     "Assert if electric power is outside boundaries"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));

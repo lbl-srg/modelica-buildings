@@ -6,7 +6,7 @@ model AssertPower "Assert if electric power is outside boundaries"
     "Maximum power output";
   parameter Modelica.SIunits.Power PEleMin
     "Minimum power output";
-  parameter Boolean dPEleLim
+  parameter Boolean use_powerRateLimit
     "If true, the rate at which net power output can change is limited";
   parameter Real dPEleMax(final unit="W/s")
     "Maximum rate at which net power output can change";
@@ -21,7 +21,7 @@ model AssertPower "Assert if electric power is outside boundaries"
     "Generate warning when the electric power demand is out of the range"
     annotation (Placement(transformation(extent={{70,10},{90,30}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMesDP(
-    final message="Rate of change in power output is outside boundaries!") if dPEleLim
+    final message="Rate of change in power output is outside boundaries!") if use_powerRateLimit
     "Assert function for checking power rate"
     annotation (Placement(transformation(extent={{70,-50},{90,-30}})));
 
@@ -29,17 +29,17 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Nor nor
     "Check if the electric power demand is out of the power production range"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not2 if dPEleLim "Logical Nand"
+  Buildings.Controls.OBC.CDL.Logical.Not not2 if use_powerRateLimit "Logical Nand"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Derivative demRat(
     final initType=Buildings.Controls.OBC.CDL.Types.Init.InitialState,
-    final x_start=0) if dPEleLim
+    final x_start=0) if use_powerRateLimit
     "Power demand rate"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Abs abs1 if dPEleLim "Absolute value"
+  Buildings.Controls.OBC.CDL.Continuous.Abs abs1 if use_powerRateLimit "Absolute value"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold maxRat(
-    final threshold=dPEleMax) if dPEleLim
+    final threshold=dPEleMax) if use_powerRateLimit
     "Check if demand rate is more than the maximum rate"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis maxPow(

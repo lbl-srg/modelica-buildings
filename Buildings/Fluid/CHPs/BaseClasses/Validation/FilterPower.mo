@@ -16,7 +16,7 @@ model FilterPower "Validate model FilterPower"
     final PEleMax=per.PEleMax,
     final PEleMin=per.PEleMin,
     final dPEleMax=per.dPEleMax,
-    final dPEleLim=per.dPEleLim)
+    final use_powerRateLimit=per.use_powerRateLimit)
     "Constraints for electric power"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
