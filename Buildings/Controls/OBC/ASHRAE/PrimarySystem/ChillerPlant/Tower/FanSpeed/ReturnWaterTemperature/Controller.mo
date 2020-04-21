@@ -7,14 +7,28 @@ block Controller
   parameter Integer nConWatPum=2 "Total number of condenser water pumps";
   parameter Boolean hasWSE=true "Flag to indicate if the plant has waterside economizer";
   parameter Boolean closeCoupledPlant=true "Flag to indicate if the plant is close coupled";
-  parameter Modelica.SIunits.HeatFlowRate desCap = 1e6 "Plant design capacity";
+  parameter Real desCap(
+     final unit="W",
+     final quantity="Power")= 1e6 "Plant design capacity";
   parameter Real fanSpeMin=0.1 "Minimum tower fan speed";
   parameter Modelica.SIunits.TemperatureDifference LIFT_min[nChi]={12,12} "Minimum LIFT of each chiller"
     annotation (Dialog(tab="Setpoint"));
-  parameter Modelica.SIunits.Temperature TConWatRet_nominal[nChi]={303.15, 303.15}
+  parameter Real TConWatSup_nominal[nChi](
+    final unit=fill("K", nChi),
+    final displayUnit=fill("degC", nChi),
+    final quantity=fill("ThermodynamicTemperature", nChi))={293.15,293.15}
+    "Design condenser water supply temperature (condenser entering) of each chiller"
+    annotation (Dialog(tab="Setpoint"));
+  parameter Real TConWatRet_nominal[nChi](
+    final unit=fill("K", nChi),
+    final displayUnit=fill("degC", nChi),
+    final quantity=fill("ThermodynamicTemperature", nChi))={303.15, 303.15}
     "Design condenser water return temperature (condenser leaving) of each chiller"
     annotation (Dialog(tab="Setpoint"));
-  parameter Modelica.SIunits.Temperature TChiWatSupMin[nChi] = {278.15, 278.15}
+  parameter Real TChiWatSupMin[nChi](
+    final unit=fill("K", nChi),
+    final displayUnit=fill("degC", nChi),
+    final quantity=fill("ThermodynamicTemperature", nChi)) = {278.15, 278.15}
     "Lowest chilled water supply temperature of each chiller"
     annotation (Dialog(tab="Setpoint"));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController couPlaCon=
@@ -23,13 +37,13 @@ block Controller
     annotation (Dialog(tab="Coupled plant", group="Controller", enable=closeCoupledPlant));
   parameter Real kCouPla=1 "Gain of controller"
     annotation (Dialog(tab="Coupled plant", group="Controller", enable=closeCoupledPlant));
-  parameter Modelica.SIunits.Time TiCouPla=0.5
+  parameter Real TiCouPla(final quantity="Time", final unit="s")=0.5
     "Time constant of integrator block"
     annotation (Dialog(tab="Coupled plant",
                        group="Controller",
                        enable=closeCoupledPlant and (couPlaCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
                                                      couPlaCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Modelica.SIunits.Time TdCouPla=0.1
+  parameter Real TdCouPla(final quantity="Time", final unit="s")=0.1
     "Time constant of derivative block"
     annotation (Dialog(tab="Coupled plant", group="Controller",
                        enable=closeCoupledPlant and (couPlaCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
@@ -38,35 +52,9 @@ block Controller
     annotation (Dialog(tab="Coupled plant", group="Controller", enable=closeCoupledPlant));
   parameter Real yCouPlaMin=0 "Lower limit of output"
     annotation (Dialog(tab="Coupled plant", group="Controller", enable=closeCoupledPlant));
-  parameter Modelica.SIunits.TemperatureDifference desTemDif=8
-    "Design condenser water temperature difference"
-    annotation (Dialog(tab="Less coupled plant", enable=not closeCoupledPlant));
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController retWatCon=
-    Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
-    annotation (Dialog(tab="Less coupled plant",
-                       group="Return water temperature controller",
-                       enable=not closeCoupledPlant));
-  parameter Real kRetCon=1 "Gain of controller"
-    annotation (Dialog(tab="Less coupled plant",
-                       group="Return water temperature controller",
-                       enable=not closeCoupledPlant));
-  parameter Modelica.SIunits.Time TiRetCon=0.5
-    "Time constant of integrator block"
-    annotation (Dialog(tab="Less coupled plant",
-                       group="Return water temperature controller",
-                       enable=not closeCoupledPlant and (retWatCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-                                                         retWatCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Modelica.SIunits.Time TdRetCon=0.1
-    "Time constant of derivative block"
-    annotation (Dialog(tab="Less coupled plant",
-                       group="Return water temperature controller",
-                       enable=not closeCoupledPlant and (retWatCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
-                                                         retWatCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Real yRetConMax=1 "Upper limit of output"
-    annotation (Dialog(tab="Less coupled plant",
-                       group="Return water temperature controller",
-                       enable=not closeCoupledPlant));
-  parameter Real yRetConMin=0 "Lower limit of output"
+
+  parameter Real samplePeriod=30
+    "Period of sampling condenser water supply and return temperature difference"
     annotation (Dialog(tab="Less coupled plant",
                        group="Return water temperature controller",
                        enable=not closeCoupledPlant));
@@ -79,12 +67,12 @@ block Controller
     annotation (Dialog(tab="Less coupled plant",
                        group="Supply water temperature controller",
                        enable=not closeCoupledPlant));
-  parameter Modelica.SIunits.Time TiSupCon=0.5 "Time constant of integrator block"
+  parameter Real TiSupCon(final quantity="Time", final unit="s")=0.5 "Time constant of integrator block"
     annotation (Dialog(tab="Less coupled plant",
                        group="Supply water temperature controller",
                        enable=not closeCoupledPlant and (supWatCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
                                                          supWatCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Modelica.SIunits.Time TdSupCon=0.1 "Time constant of derivative block"
+  parameter Real TdSupCon(final quantity="Time", final unit="s")=0.1 "Time constant of derivative block"
     annotation (Dialog(tab="Less coupled plant",
                        group="Supply water temperature controller",
                        enable=not closeCoupledPlant and (supWatCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
@@ -97,22 +85,23 @@ block Controller
     annotation (Dialog(tab="Less coupled plant",
                        group="Supply water temperature controller",
                        enable=not closeCoupledPlant));
+
   parameter Real speChe=0.01 "Lower threshold value to check fan or pump speed"
     annotation (Dialog(tab="Advanced"));
-  parameter Real cheMinFanSpe=300
+  parameter Real cheMinFanSpe(final quantity="Time", final unit="s")=300
     "Threshold time for checking duration when tower fan equals to the minimum tower fan speed"
     annotation (Dialog(tab="Advanced", group="Enable tower"));
-  parameter Real cheMaxTowSpe=300
+  parameter Real cheMaxTowSpe(final quantity="Time", final unit="s")=300
     "Threshold time for checking duration when any enabled chiller maximum cooling speed equals to the minimum tower fan speed"
     annotation (Dialog(tab="Advanced", group="Enable tower"));
-  parameter Real cheTowOff=60
+  parameter Real cheTowOff(final quantity="Time", final unit="s")=60
     "Threshold time for checking duration when there is no enabled tower fan"
     annotation (Dialog(tab="Advanced", group="Enable tower"));
-  parameter Modelica.SIunits.Time iniPlaTim=600
+  parameter Real iniPlaTim(final quantity="Time", final unit="s")=600
     "Time to hold return temperature to initial setpoint after plant being enabled"
     annotation (Dialog(tab="Advanced",
                        group="Setpoint: Plant startup"));
-  parameter Modelica.SIunits.Time ramTim=180
+  parameter Real ramTim(final quantity="Time", final unit="s")=180
     "Time to ramp return water temperature from initial value to setpoint"
     annotation (Dialog(tab="Advanced",
                        group="Setpoint: Plant startup"));
@@ -128,7 +117,7 @@ block Controller
     "Chiller enabling status: true=ON"
     annotation (Placement(transformation(extent={{-200,190},{-160,230}}),
       iconTransformation(extent={{-240,130},{-200,170}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseSta if hasWSE
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWse if hasWSE
     "Waterside economizer status: true=ON"
     annotation (Placement(transformation(extent={{-200,150},{-160,190}}),
       iconTransformation(extent={{-240,100},{-200,140}})));
@@ -150,7 +139,7 @@ block Controller
     final unit="1") "Measured speed of current enabled tower fans"
     annotation (Placement(transformation(extent={{-200,-10},{-160,30}}),
       iconTransformation(extent={{-240,10},{-200,50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uTowSta[nTowCel]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uTow[nTowCel]
     "Cooling tower operating status: true=running tower cell"
     annotation (Placement(transformation(extent={{-200,-50},{-160,-10}}),
       iconTransformation(extent={{-240,-20},{-200,20}})));
@@ -225,15 +214,12 @@ block Controller
     lesCouTowSpe(
     final nChi=nChi,
     final nConWatPum=nConWatPum,
-    final desTemDif=desTemDif,
     final pumSpeChe=speChe,
     final fanSpeMin=fanSpeMin,
-    final retWatCon=retWatCon,
-    final kRetCon=kRetCon,
-    final TiRetCon=TiRetCon,
-    final TdRetCon=TdRetCon,
-    final yRetConMax=yRetConMax,
-    final yRetConMin=yRetConMin,
+    final samplePeriod=samplePeriod,
+    final iniPlaTim=iniPlaTim,
+    final TConWatSup_nominal=TConWatSup_nominal,
+    final TConWatRet_nominal=TConWatRet_nominal,
     final supWatCon=supWatCon,
     final kSupCon=kSupCon,
     final TiSupCon=TiSupCon,
@@ -301,7 +287,7 @@ protected
     annotation (Placement(transformation(extent={{-20,-250},{0,-230}})));
 
 equation
-  connect(uWseSta, not1.u)
+  connect(uWse, not1.u)
     annotation (Line(points={{-180,170},{-122,170}}, color={255,0,255}));
   connect(mulOr.y, and2.u1)
     annotation (Line(points={{-98,210},{-22,210}}, color={255,0,255}));
@@ -342,7 +328,7 @@ equation
   connect(enaTow.uFanSpe,uFanSpe)
     annotation (Line(points={{38,26},{-130,26},{-130,10},{-180,10}},
       color={0,0,127}));
-  connect(enaTow.uTowSta, uTowSta)
+  connect(enaTow.uTow, uTow)
     annotation (Line(points={{38,14},{-110,14},{-110,-30},{-180,-30}},
       color={255,0,255}));
   connect(conWatRetSet.TConWatRetSet, couTowSpe.TConWatRetSet)
@@ -364,7 +350,7 @@ equation
     annotation (Line(points={{62,-70},{80,-70},{80,-100},{26,-100},{26,-200},{38,-200}},
       color={0,0,127}));
   connect(TConWatRet, lesCouTowSpe.TConWatRet)
-    annotation (Line(points={{-180,-160},{-100,-160},{-100,-204},{38,-204}},
+    annotation (Line(points={{-180,-160},{-100,-160},{-100,-202},{38,-202}},
       color={0,0,127}));
   connect(uConWatPumSpe, lesCouTowSpe.uConWatPumSpe)
     annotation (Line(points={{-180,-200},{-80,-200},{-80,-208},{38,-208}},
@@ -378,7 +364,7 @@ equation
   connect(plrTowMaxSpe.y, lesCouTowSpe.plrTowMaxSpe)
     annotation (Line(points={{2,110},{20,110},{20,-220},{38,-220}},
       color={0,0,127}));
-  connect(enaTow.yTowSta, swi.u2)
+  connect(enaTow.yTow, swi.u2)
     annotation (Line(points={{62,20},{80,20},{80,0},{118,0}}, color={255,0,255}));
   connect(couTowSpe.yFanSpe, swi.u1)
     annotation (Line(points={{62,-130},{100,-130},{100,8},{118,8}},
@@ -429,6 +415,9 @@ equation
       color={255,0,255}));
   connect(uChi, lesCouTowSpe.uChi)
     annotation (Line(points={{-180,210},{-140,210},{-140,-217},{38,-217}},
+      color={255,0,255}));
+  connect(uPla, lesCouTowSpe.uPla)
+    annotation (Line(points={{-180,-120},{-60,-120},{-60,-205},{38,-205}},
       color={255,0,255}));
 
 annotation (
@@ -481,7 +470,7 @@ annotation (
           extent={{114,-110},{144,-128}},
           lineColor={28,108,200},
           textString="CWRT")}),
-                          Diagram(coordinateSystem(preserveAspectRatio=false,
+    Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-160,-300},{160,280}}), graphics={
           Text(
           extent={{-148,280},{-78,262}},

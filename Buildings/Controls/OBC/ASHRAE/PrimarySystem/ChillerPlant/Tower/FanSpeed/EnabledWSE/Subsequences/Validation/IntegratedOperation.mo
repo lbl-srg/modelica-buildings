@@ -47,8 +47,8 @@ equation
     annotation (Line(points={{-58,0},{-40,0},{-40,-22},{-2,-22}}, color={0,0,127}));
   connect(swi.y, intOpe.chiLoa[1])
     annotation (Line(points={{22,-30},{46,-30},{46,-31},{68,-31}}, color={0,0,127}));
-  connect(wseSta.y, intOpe.uWseSta)
-    annotation (Line(points={{42,-80},{60,-80},{60,-38},{68,-38}}, color={255,0,255}));
+  connect(wseSta.y, intOpe.uWse) annotation (Line(points={{42,-80},{60,-80},{60,
+          -38},{68,-38}}, color={255,0,255}));
 
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Tower/FanSpeed/EnabledWSE/Subsequences/Validation/IntegratedOperation.mos"

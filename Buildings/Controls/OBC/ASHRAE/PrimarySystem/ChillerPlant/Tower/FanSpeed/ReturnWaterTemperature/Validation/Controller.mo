@@ -100,9 +100,8 @@ equation
   connect(conSup.y,add1. u1)
     annotation (Line(points={{-338,-240},{-320,-240},{-320,-254},{-302,-254}},
       color={0,0,127}));
-  connect(wseSta.y, towFanSpe.uWseSta)
-    annotation (Line(points={{-338,60},{-188,60},{-188,212},{-122,212}},
-      color={255,0,255}));
+  connect(wseSta.y, towFanSpe.uWse) annotation (Line(points={{-338,60},{-188,60},
+          {-188,212},{-122,212}}, color={255,0,255}));
   connect(plaCap.y, towFanSpe.reqPlaCap)
     annotation (Line(points={{-338,30},{-182,30},{-182,209},{-122,209}},
       color={0,0,127}));
@@ -124,8 +123,8 @@ equation
   connect(conWatPumSpe1.y, towFanSpe.uConWatPumSpe)
     annotation (Line(points={{-278,-220},{-140,-220},{-140,185},{-122,185}},
       color={0,0,127}));
-  connect(wseSta.y, towFanSpe1.uWseSta)
-    annotation (Line(points={{-338,60},{32,60},{32,212},{98,212}}, color={255,0,255}));
+  connect(wseSta.y, towFanSpe1.uWse) annotation (Line(points={{-338,60},{32,60},
+          {32,212},{98,212}}, color={255,0,255}));
   connect(plaCap.y, towFanSpe1.reqPlaCap)
     annotation (Line(points={{-338,30},{38,30},{38,209},{98,209}}, color={0,0,127}));
   connect(towFanSpe3.y,towFanSpe1.uFanSpe)
@@ -173,15 +172,12 @@ equation
   connect(or3.y, booRep.u)
     annotation (Line(points={{-238,-140},{-220,-140},{-220,-80},{-202,-80}},
       color={255,0,255}));
-  connect(booRep.y, towFanSpe.uTowSta)
-    annotation (Line(points={{-178,-80},{-164,-80},{-164,200},{-122,200}},
-      color={255,0,255}));
-  connect(booRep.y, towFanSpe1.uTowSta)
-    annotation (Line(points={{-178,-80},{56,-80},{56,200},{98,200}},
-      color={255,0,255}));
-  connect(booRep.y, towFanSpe2.uTowSta)
-    annotation (Line(points={{-178,-80},{264,-80},{264,200},{318,200}},
-      color={255,0,255}));
+  connect(booRep.y, towFanSpe.uTow) annotation (Line(points={{-178,-80},{-164,-80},
+          {-164,200},{-122,200}}, color={255,0,255}));
+  connect(booRep.y, towFanSpe1.uTow) annotation (Line(points={{-178,-80},{56,-80},
+          {56,200},{98,200}}, color={255,0,255}));
+  connect(booRep.y, towFanSpe2.uTow) annotation (Line(points={{-178,-80},{264,-80},
+          {264,200},{318,200}}, color={255,0,255}));
   connect(chiSta1.y, not1.u)
     annotation (Line(points={{-338,120},{-322,120}}, color={255,0,255}));
   connect(not1.y, or3.u1)

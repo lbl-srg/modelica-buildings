@@ -12,9 +12,9 @@ block Coupled
     annotation (Dialog(group="Controller"));
   parameter Real k=1 "Gain of controller"
     annotation (Dialog(group="Controller"));
-  parameter Modelica.SIunits.Time Ti=0.5 "Time constant of integrator block"
+  parameter Real Ti(final quantity="Time", final unit="s")=0.5 "Time constant of integrator block"
     annotation (Dialog(group="Controller"));
-  parameter Modelica.SIunits.Time Td=0.1 "Time constant of derivative block"
+  parameter Real Td(final quantity="Time", final unit="s")=0.1 "Time constant of derivative block"
     annotation (Dialog(group="Controller", enable=
           controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
           controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
@@ -137,7 +137,7 @@ equation
   connect(proOn.y, anyProOn.u)
     annotation (Line(points={{-78,20},{-62,20}}, color={255,0,255}));
   connect(anyProOn.y, conPID.trigger)
-    annotation (Line(points={{-38,20},{0,20},{0,40},{-78,40},{-78,68}},
+    annotation (Line(points={{-38,20},{0,20},{0,40},{-76,40},{-76,68}},
       color={255,0,255}));
   connect(uChi, swi1.u2)
     annotation (Line(points={{-140,-60},{-62,-60}}, color={255,0,255}));
@@ -202,8 +202,8 @@ Documentation(info="<html>
 Block that outputs cooling tower fan speed <code>yFanSpe</code> based on the control
 of condenser water return temperature for the plant that is closed coupled. 
 This is implemented according to ASHRAE RP-1711 Advanced Sequences of Operation for 
-HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft 6 on July 25, 
-2019), section 5.2.12.2, item 2.e-f.
+HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft on March 23, 
+2020), section 5.2.12.2, item 2.e-f.
 </p>
 <ul>
 <li>

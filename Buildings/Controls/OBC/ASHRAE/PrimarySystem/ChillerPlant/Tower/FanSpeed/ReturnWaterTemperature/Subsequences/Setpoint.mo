@@ -4,14 +4,20 @@ block Setpoint "Calculate condener return water temperature setpoint"
   parameter Integer nChi = 2 "Total number of chillers";
   parameter Modelica.SIunits.TemperatureDifference LIFT_min[nChi] = {12, 12}
     "Minimum LIFT of each chiller";
-  parameter Modelica.SIunits.Temperature TConWatRet_nominal[nChi] = {303.15, 303.15}
+  parameter Real TConWatRet_nominal[nChi](
+     final unit=fill("K", nChi),
+     final displayUnit=fill("degC", nChi),
+     final quantity=fill("ThermodynamicTemperature", nChi))= {303.15, 303.15}
     "Design condenser water return temperature (condenser leaving) of each chiller";
-  parameter Modelica.SIunits.Temperature TChiWatSupMin[nChi] = {278.15, 278.15}
+  parameter Real TChiWatSupMin[nChi](
+     final unit=fill("K", nChi),
+     final displayUnit=fill("degC", nChi),
+     final quantity=fill("ThermodynamicTemperature", nChi)) = {278.15, 278.15}
     "Minimum chilled water supply temperature of each chiller";
-  parameter Modelica.SIunits.Time iniPlaTim = 600
+  parameter Real iniPlaTim(final quantity="Time", final unit="s")= 600
     "Time to hold return temperature to initial setpoint after plant being enabled"
     annotation (Dialog(tab="Advanced"));
-  parameter Modelica.SIunits.Time ramTim = 600
+  parameter Real ramTim(final quantity="Time", final unit="s") = 600
     "Time to ramp return water temperature setpoint from initial value to calculated one"
     annotation (Dialog(tab="Advanced"));
 
@@ -216,7 +222,7 @@ Block that ouputs condenser water return temperature setpoint <code>TConWatRetSe
 for the tower fan speed control to maintain the return temperature at setpoint. This
 implementation is for plants with parallel chiller plants only. It is based on
 ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II – Central 
-Plants and Hydronic Systems (Draft 6 on July 25, 2019), section 5.2.12.2, item 2.d and m.
+Plants and Hydronic Systems (Draft on March 23, 2020), section 5.2.12.2, item 2.d and m.
 </p>
 <p>
 The return water temperature setpoint <code>TConWatRetSet</code> shall be the output

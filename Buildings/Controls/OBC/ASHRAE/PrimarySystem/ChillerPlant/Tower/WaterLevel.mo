@@ -3,11 +3,10 @@ block WaterLevel
   "Sequences to control water level in cooling tower"
 
   parameter Real watLevMin(
-    final min=0,
-    final max=watLevMax)
+    final min=0)
     "Minimum cooling tower water level recommended by manufacturer";
   parameter Real watLevMax(
-    final min=watLevMin)
+    final min=0)
     "Maximum cooling tower water level recommended by manufacturer";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput watLev
@@ -27,6 +26,19 @@ protected
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minWatLev(
+    final k=watLevMin) "Minimum water level"
+    annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxWatLev(
+    final k=watLevMax) "Maximum water level"
+    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
+    final message="The maximum level has to be greater than the minimum level.")
+    "Print warning when the maximum level is not set to be greater than the minimum level"
+    annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual greEqu
+    "Check if maximum level is set to be greater than minimum level"
+    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
 
 equation
   connect(watLev, hys.u)
@@ -35,6 +47,12 @@ equation
     annotation (Line(points={{12,0},{38,0}}, color={255,0,255}));
   connect(not1.y, yMakUp)
     annotation (Line(points={{62,0},{120,0}}, color={255,0,255}));
+  connect(maxWatLev.y, greEqu.u1)
+    annotation (Line(points={{-18,-40},{18,-40}}, color={0,0,127}));
+  connect(minWatLev.y, greEqu.u2)
+    annotation (Line(points={{-18,-80},{0,-80},{0,-48},{18,-48}}, color={0,0,127}));
+  connect(greEqu.y, assMes.u)
+    annotation (Line(points={{42,-40},{58,-40}}, color={255,0,255}));
 
 annotation (
   defaultComponentName = "makUpWat",

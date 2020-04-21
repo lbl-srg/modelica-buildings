@@ -11,11 +11,13 @@ block WSEOperation
     annotation (Dialog(group="Chilled water controller"));
   parameter Real k=1 "Gain of controller"
     annotation (Dialog(group="Chilled water controller"));
-  parameter Modelica.SIunits.Time Ti=0.5 "Time constant of integrator block"
+  parameter Real Ti(final quantity="Time", final unit="s")=0.5
+    "Time constant of integrator block"
     annotation (Dialog(group="Chilled water controller",
                        enable=chiWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
                               chiWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time Td=0.1 "Time constant of derivative block"
+  parameter Real Td(final quantity="Time", final unit="s")=0.1
+    "Time constant of derivative block"
     annotation (Dialog(group="Chilled water controller",
                        enable=chiWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
                               chiWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
@@ -25,16 +27,14 @@ block WSEOperation
   parameter Real yMin=0
     "Lower limit of chilled water controller output"
     annotation (Dialog(group="Chilled water controller"));
-  parameter Real cheCycOffTim=300
+  parameter Real cheCycOffTim(final quantity="Time", final unit="s")=300
     "Threshold time for checking if fan should cycle off"
     annotation (Dialog(tab="Advanced"));
-  parameter Modelica.SIunits.Time minCycOffTim=180
+  parameter Real minCycOffTim(final quantity="Time", final unit="s")=180
     "Minimum time of fan cycling off"
     annotation (Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uFanSpe(
-    final min=0,
-    final max=1,
     final unit="1") "Tower fan speed"
     annotation (Placement(transformation(extent={{-180,80},{-140,120}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
@@ -117,7 +117,7 @@ protected
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
     final k=yMin)
-    "Minimum output from chilled water supply temperature control loop"
+    "Minimum output from chilled water supply temperature control loop, default to be zero"
     annotation (Placement(transformation(extent={{40,-110},{60,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(
     final k=yMax)
@@ -187,8 +187,8 @@ equation
     annotation (Line(points={{-160,-40},{-120,-40},{-120,-150},{-50,-150},{-50,-132}},
       color={0,0,127}));
   connect(lat.y, chiWatTemCon.trigger)
-    annotation (Line(points={{62,60},{74,60},{74,-80},{-70,-80},{-70,-140},
-      {-58,-140},{-58,-132}}, color={255,0,255}));
+    annotation (Line(points={{62,60},{74,60},{74,-80},{-70,-80},{-70,-140},{-56,
+          -140},{-56,-132}},  color={255,0,255}));
   connect(zer.y, lin.x1)
     annotation (Line(points={{62,-100},{80,-100},{80,-112},{98,-112}}, color={0,0,127}));
   connect(chiWatTemCon.y, lin.u)
@@ -281,7 +281,7 @@ Documentation(info="<html>
 Block that output cooling tower fan speed <code>yTowSpe</code> when only waterside 
 economizer is running. This is implemented 
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II – 
-Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), section 5.2.12.2, 
+Central Plants and Hydronic Systems (Draft on March 23, 2020), section 5.2.12.2, 
 item 4.b.
 </p>
 <ol>
