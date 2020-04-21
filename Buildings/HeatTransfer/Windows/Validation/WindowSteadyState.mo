@@ -37,7 +37,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-experiment(Tolerance=1e-06, StopTime=31536000, __Dymola_Algorithm="Cvode"),
+experiment(Tolerance=1e-06, StopTime=31536000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/Validation/WindowSteadyState.mos"
         "Simulate and plot"));
 end WindowSteadyState;
