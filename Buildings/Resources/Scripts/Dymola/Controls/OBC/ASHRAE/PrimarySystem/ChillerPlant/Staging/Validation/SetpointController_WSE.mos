@@ -9,4 +9,3 @@ createPlot(id=2, position={30, 20, 1200, 650}, subPlot=1, y={"staSetCon1.ySta"},
 createPlot(id=2, position={30, 20, 1200, 650}, subPlot=2, y={"staSetCon1.cap.yDes", "staSetCon1.capReq.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
 createPlot(id=2, position={30, 20, 1200, 650}, subPlot=3, y={"staSetCon1.staUp.y", "staSetCon1.staDow.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
 createPlot(id=2, position={30, 20, 1200, 650}, subPlot=4, y={"staSetCon1.yChi[1]", "staSetCon1.yChi[2]", "staSetCon1.yChi[3]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {127,127,127}});
-
