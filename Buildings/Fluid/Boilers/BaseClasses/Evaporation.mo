@@ -2,8 +2,6 @@ within Buildings.Fluid.Boilers.BaseClasses;
 model Evaporation
   "Model for the evaporation process without change in pressure"
   extends Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium;
-//    redeclare final package Medium_b = MediumSte,
-//    redeclare final package Medium_a = MediumWat);
 
   replaceable package Medium_a =
       Modelica.Media.Interfaces.PartialTwoPhaseMedium
@@ -12,15 +10,11 @@ model Evaporation
       Modelica.Media.Interfaces.PartialTwoPhaseMedium
     "Medium model for port_b (outlet)";
 
-//  package MediumSte = IBPSA.Media.Steam "Steam medium";
-//  package MediumWat = IBPSA.Media.Water(T_max=623.15) "Water medium";
-
   Modelica.Blocks.Interfaces.RealOutput dh(unit="J/kg") "Change in enthalpy"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
 
-//protected
+protected
   Modelica.SIunits.SpecificEnthalpy dhVap "Change in enthalpy";
-  // State p & T remain unchanged (saturated vapor to saturated liquid)
   Modelica.SIunits.SpecificHeatCapacity cp "Specific Heat";
   Modelica.SIunits.Temperature TSat "Saturation temperature";
   Medium_b.Temperature Tb;

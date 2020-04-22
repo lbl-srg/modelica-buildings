@@ -16,8 +16,7 @@ model Combustion
   Buildings.Fluid.Boilers.BaseClasses.Combustion com(
     redeclare package Medium = MediumFluGas,
     m_flow_nominal=m_flow_nominal,
-    show_T=true,
-    Q_flow_nominal=1) "Combustion process"
+    show_T=true)      "Combustion process"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Sources.Boundary_pT fluGasSin(redeclare package Medium = MediumFluGas,
     p=1000000,                                                           nPorts=1)

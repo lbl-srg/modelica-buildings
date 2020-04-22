@@ -27,13 +27,6 @@ model SteamBoilerFourPort
   replaceable package Medium2 =
       Modelica.Media.Interfaces.PartialMixtureMedium
     "Medium model for fluid stream 2 (from a2 to b2)";
-//  replaceable package Medium_a2 =
-//      Modelica.Media.Interfaces.PartialMixtureMedium
-//    "Medium model for port_a2 (inlet)";
-//  replaceable package Medium_b2 =
-//      Modelica.Media.Interfaces.PartialMixtureMedium
-//    "Medium model for port_b2 (outlet)";
-
 
   parameter Real ratAirFue = 10
     "Air-to-fuel ratio (by volume)";

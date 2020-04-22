@@ -7,27 +7,14 @@ model SteamBoilerTwoPort "Test model for the steam boiler with two fluid ports"
    T_max = 200+273.15)
                       "Water medium";
 
-//  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 1
-//    "Nominal mass flow rate";
-
   parameter Modelica.SIunits.AbsolutePressure pOut_nominal = 861844.7
     "Nominal pressure for the boiler";
 
   parameter Modelica.SIunits.Temperature TIn_nominal = 20+273.15
     "Nominal temperature of inflowing water";
 
-//  parameter Modelica.SIunits.Temperature TSat_nominal=
-//    MediumSte.saturationTemperature(p_nominal)
-//    "Nominal saturation temperature";
-
-//  parameter Modelica.SIunits.SpecificEnthalpy dh_nominal=
-//    MediumSte.dewEnthalpy(MediumSte.setSat_T(TSat_nominal)) -
-//    MediumSte.bubbleEnthalpy(MediumSte.setSat_T(TSat_nominal))
-//    "Nominal change in enthalpy";
-
   parameter Modelica.SIunits.Power Q_flow_nominal=9143815.2
     "Nominal heat flow rate";
-//        m_flow_nominal * (dh_nominal + MediumWat.cp_const*(TSat_nominal - MediumWat.T_default))
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=Q_flow_nominal/dh_nominal
     "Nominal mass flow rate";
