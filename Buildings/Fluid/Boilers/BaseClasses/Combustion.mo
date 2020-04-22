@@ -1,66 +1,84 @@
 within Buildings.Fluid.Boilers.BaseClasses;
-model Combustion "Model for combustion with ideal mixing"
-  extends Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium;
+model Combustion "Empirical model for combustion process"
+  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(allowFlowReversal=false);
 
-  replaceable package Medium_a =
-      Modelica.Media.Interfaces.PartialMixtureMedium
-    "Medium model for port_a (inlet)";
-  replaceable package Medium_b =
-      Modelica.Media.Interfaces.PartialMixtureMedium
-    "Medium model for port_b (outlet)";
+  parameter Buildings.Fluid.Types.EfficiencyCurves fluGasTCurve=Buildings.Fluid.Types.EfficiencyCurves.Polynomial
+    "Curve used to compute the leaving flue gas temperature (K) as a function of part load ratio, y";
+  parameter Real a[:] = {452.5,17,43} "Coefficients for leaving temperature curve";
 
-  parameter Buildings.Fluid.Data.Fuels.Generic fue "Fuel type"
-   annotation (choicesAllMatching = true);
+  parameter Modelica.SIunits.Temperature TIn_nominal = Medium.T_default
+    "Nominal inlet temperature";
 
-  parameter Real ratAirFue = 10
-    "Air-to-fuel ratio (by volume)";
+  Modelica.SIunits.Temperature TFluGas=
+    if fluGasTCurve ==Buildings.Fluid.Types.EfficiencyCurves.Constant then
+      a[1]
+    elseif fluGasTCurve ==Buildings.Fluid.Types.EfficiencyCurves.Polynomial then
+      Buildings.Utilities.Math.Functions.polynomial(a=a, x=y)
+   elseif fluGasTCurve ==Buildings.Fluid.Types.EfficiencyCurves.QuadraticLinear then
+      Buildings.Utilities.Math.Functions.quadraticLinear(a=aQuaLin, x1=y, x2=TIn)
+   else
+      0
+  "Flue gas leaving temperature";
 
-  Modelica.SIunits.SpecificEnthalpy h_a_instream
-    "Instreaming enthalpy at port_a";
+  Modelica.Blocks.Interfaces.RealInput y(min=0, max=1) "Part load ratio"
+    annotation (Placement(transformation(extent={{-140,50},{-100,90}}),
+        iconTransformation(extent={{-120,70},{-100,90}})));
 
-  Modelica.SIunits.MassFlowRate mFue_flow = QFue_flow/fue.h
-    "Fuel mass flow rate";
-  Modelica.SIunits.VolumeFlowRate VFue_flow = mFue_flow/fue.d
-    "Fuel volume flow rate";
+protected
+  parameter Real TFluGas_nominal(fixed=false) "Leaving flue gas temperature at nominal condition";
+  parameter Real aQuaLin[6] = if size(a, 1) == 6 then a else fill(0, 6)
+  "Auxiliary variable for efficiency curve because quadraticLinear requires exactly 6 elements";
 
-//  Modelica.SIunits.MassFlowRate mAir_flow "Mass flow rate of fresh air";
-  Modelica.SIunits.VolumeFlowRate VAir_flow "Volumetric flow rate of fresh air";
-  Modelica.SIunits.Temperature TAir "Fresh air temperature";
-  Modelica.SIunits.Density dAir "Density of fresh air";
+  Modelica.SIunits.Temperature TIn "Incoming fluid temperature";
+  Modelica.SIunits.SpecificEnthalpy hIn "Incoming fluid specific enthalpy";
+  Modelica.SIunits.SpecificEnthalpy hFluGas "Flue gas specific enthalpy";
 
-  Modelica.Blocks.Interfaces.RealInput QFue_flow "Heat transfer rate of fuel"
-    annotation (Placement(transformation(extent={{-140,80},{-100,120}})));
+initial equation
 
+  if  fluGasTCurve == Buildings.Fluid.Types.EfficiencyCurves.QuadraticLinear then
+    assert(size(a, 1) == 6,
+    "The combustion model has the leaving flue gas temperature curve set to 
+    'Buildings.Fluid.Types.EfficiencyCurves.QuadraticLinear', and hence the 
+    parameter 'a' must have exactly 6 elements.
+    However, only " + String(size(a, 1)) + " elements were provided.");
+  end if;
+
+  if fluGasTCurve ==Buildings.Fluid.Types.EfficiencyCurves.Constant then
+    TFluGas_nominal = a[1];
+  elseif fluGasTCurve ==Buildings.Fluid.Types.EfficiencyCurves.Polynomial then
+    TFluGas_nominal = Buildings.Utilities.Math.Functions.polynomial(a=a, x=1);
+  elseif fluGasTCurve ==Buildings.Fluid.Types.EfficiencyCurves.QuadraticLinear then
+    // For this efficiency curve, a must have 6 elements.
+    TFluGas_nominal = Buildings.Utilities.Math.Functions.quadraticLinear(a=aQuaLin, x1=1, x2=TIn_nominal);
+  else
+     TFluGas_nominal = 0;
+  end if;
 
 equation
+
+  assert(TFluGas > 0, "Temperature curve is wrong.");
+
+  // Pressure
   port_b.p = port_a.p;
-  h_a_instream = inStream(port_a.h_outflow);
 
-  // Air properties
-  TAir= Medium_a.temperature(
-    state=Medium_a.setState_phX(
+  // Transport of substances
+  port_a.Xi_outflow = Medium.X_default[1:Medium.nXi];
+  port_b.Xi_outflow = inStream(port_a.Xi_outflow);
+
+  // Conservaton of mass
+  port_a.m_flow + port_b.m_flow = 0;
+
+  // Temperature
+  TIn= Medium.temperature(
+    state=Medium.setState_phX(
       p=port_a.p, h=inStream(port_a.h_outflow), X=inStream(port_a.Xi_outflow)));
-  dAir = Medium_a.density(state=
-      Medium_a.setState_pTX(p=port_a.p,T=TAir,X=inStream(port_b.Xi_outflow)));
 
-  // Mass fractions of mixtures assumed constant
-//  inStream(port_a.Xi_outflow[:]) = Medium_a.X_default[:];
-//  port_b.Xi_outflow[:] = Medium_b.X_default[:];
-
-  // Air to fuel ratio
-  VAir_flow = ratAirFue * VFue_flow;
-  port_a.m_flow = VAir_flow * dAir;
-//  mAir_flow = port_a.m_flow;
-
-  // Steady state conservation of mass
-  port_a.m_flow + port_b.m_flow + mFue_flow = 0;
-
-  // Steady state energy balance
-  QFue_flow + port_a.m_flow*inStream(port_a.h_outflow) +
-    port_b.m_flow*port_b.h_outflow = 0;
-
-  // Reverse flow
-//  port_a.h_outflow = Medium_a.h_default;
+  // Enthalpy
+  hFluGas = Medium.specificEnthalpy(Medium.setState_pTX(
+      p=port_b.p, T=TFluGas, X=port_b.Xi_outflow));
+  port_b.h_outflow = hFluGas;
+  inStream(port_a.h_outflow) = hIn;
+  port_a.h_outflow = Medium.h_default;
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(

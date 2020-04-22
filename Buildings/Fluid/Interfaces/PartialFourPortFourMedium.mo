@@ -9,10 +9,10 @@ partial model PartialFourPortFourMedium
       Modelica.Media.Interfaces.PartialTwoPhaseMedium
     "Medium model for port_b1 (outlet)";
   replaceable package Medium_a2 =
-      Modelica.Media.Interfaces.PartialTwoPhaseMedium
+      Modelica.Media.Interfaces.PartialMedium
     "Medium model for port_a2 (inlet)";
   replaceable package Medium_b2 =
-      Modelica.Media.Interfaces.PartialTwoPhaseMedium
+      Modelica.Media.Interfaces.PartialMedium
     "Medium model for port_b2 (outlet)";
 
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal

@@ -1,5 +1,5 @@
 ﻿// Simulate
-simulateModel("Buildings.Fluid.Boilers.BaseClasses.Examples.CombustionEmpirical", stopTime=3600, method="dassl", resultFile="CombustionEmpirical");
+simulateModel("Buildings.Fluid.Boilers.BaseClasses.Examples.Combustion", stopTime=3600, method="dassl", resultFile="Combustion");
 // Plot
 removePlots(false);
 createPlot(id=1, position={15, 10, 717, 533}, 

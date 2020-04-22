@@ -38,9 +38,10 @@ model SteamBoilerFourPort
   parameter Real ratAirFue = 10
     "Air-to-fuel ratio (by volume)";
 
-  BaseClasses.CombustionEmpirical com(m_flow_nominal=m2_flow_nominal,
+  BaseClasses.Combustion com(
+    m_flow_nominal=m2_flow_nominal,
     redeclare final package Medium = Medium2,
-    show_T=true)                              "Combustion process"
+    show_T=true) "Combustion process"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
   FixedResistances.PressureDrop preDroAir(
     redeclare package Medium = Medium2,
