@@ -143,7 +143,8 @@ protected
     "Product of inputs"
     annotation (Placement(transformation(extent={{-60,160},{-40,180}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division aveOutAirFra
+  Buildings.Controls.OBC.CDL.Continuous.Gain aveOutAirFra(
+    final k=1/VPriSysMax_flow)
     "Average outdoor air fraction"
     annotation (Placement(transformation(extent={{60,120},{80,140}})));
 
@@ -175,10 +176,6 @@ protected
     "Peak system population"
     annotation (Placement(transformation(extent={{-180,210},{-160,230}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant priSysMax_flow(
-    final k=VPriSysMax_flow) "Highest expected system primary airflow"
-    annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
-
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1
     "Check if operation mode is occupied"
     annotation (Placement(transformation(extent={{-100,-190},{-80,-170}})));
@@ -193,7 +190,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conOne(
     final k=1)
     "Set system ventilation efficiency to 1"
-    annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
+    annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Division norVOutMin
     "Normalization for minimum outdoor air flow rate"
@@ -211,12 +208,6 @@ equation
       color={0,0,127}));
   connect(pro.y, unCorOutAirInk.u1)
     annotation (Line(points={{-38,170},{-20,170},{-20,156},{-2,156}},
-      color={0,0,127}));
-  connect(unCorOutAirInk.y, aveOutAirFra.u1)
-    annotation (Line(points={{22,150},{40,150},{40,136},{58,136}},
-      color={0,0,127}));
-  connect(priSysMax_flow.y, aveOutAirFra.u2)
-    annotation (Line(points={{-118,110},{-80,110},{-80,124},{58,124}},
       color={0,0,127}));
   connect(aveOutAirFra.y, addPar1.u)
     annotation (Line(points={{82,130},{118,130}},color={0,0,127}));
@@ -259,7 +250,7 @@ equation
     annotation (Line(points={{-58,-10},{-50,-10},{-50,-24},{-42,-24}},
       color={0,0,127}));
   connect(conOne.y, swi4.u3)
-    annotation (Line(points={{-18,-80},{40,-80},{40,-68},{58,-68}},
+    annotation (Line(points={{42,-70},{50,-70},{50,-68},{58,-68}},
       color={0,0,127}));
   connect(VEffOutAir_flow, min.y)
     annotation (Line(points={{260,30},{202,30}}, color={0,0,127}));
@@ -303,6 +294,8 @@ equation
 
   connect(and1.y, yReqOutAir)
     annotation (Line(points={{142,-140},{260,-140}}, color={255,0,255}));
+  connect(aveOutAirFra.u, unCorOutAirInk.y) annotation (Line(points={{58,130},{40,
+          130},{40,150},{22,150}}, color={0,0,127}));
 annotation (
   defaultComponentName="ahuOutAirSet",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
