@@ -190,12 +190,13 @@ protected
     "Chiller stage"
     annotation (Placement(transformation(extent={{140,-240},{160,-220}})));
 
-  CDL.Continuous.Sources.TimeTable                        timeTable3(final
-      table=[0,0; 10,0; 10,1; 11000,1; 11000,0; 12000,0; 12000,1; 14000,1;
-        14000,0])                                      "Plant enable"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timeTable3(
+    final table=[0,0; 10,0; 10,1; 11000,1; 11000,0; 12000,0; 12000,1; 14000,1;
+        14000,0]) "Plant enable"
     annotation (Placement(transformation(extent={{-200,20},{-180,40}})));
-  CDL.Continuous.GreaterThreshold                        greThr1(final
-      threshold=0.5)     "Greater than threshold"
+
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
+    final threshold=0.5) "Greater than threshold"
     annotation (Placement(transformation(extent={{-160,20},{-140,40}})));
 equation
   connect(cha.uIni, uIni.y) annotation (Line(points={{-42,200},{-60,200},{-60,
