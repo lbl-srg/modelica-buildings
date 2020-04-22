@@ -1,11 +1,15 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
 model Condensation
-  "Base condensation model for converting water from vapor (superheated or 
-    saturated) to saturated liquid"
+  "Model for the condensation process without change in pressure"
   extends Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium(
-    redeclare final package Medium_b = MediumWat,
-    redeclare final package Medium_a = MediumSte,
     final show_T = true);
+
+  replaceable package Medium_a =
+      Modelica.Media.Interfaces.PartialTwoPhaseMedium
+    "Medium model for port_a (inlet)";
+  replaceable package Medium_b =
+      Modelica.Media.Interfaces.PartialTwoPhaseMedium
+    "Medium model for port_b (outlet)";
 
   package MediumSte = IBPSA.Media.Steam "Steam medium";
   package MediumWat = IBPSA.Media.Water(T_max=623.15) "Water medium";
@@ -18,80 +22,45 @@ model Condensation
   Modelica.SIunits.SpecificHeatCapacity cp "Specific Heat";
   Modelica.SIunits.Temperature TSat "Saturation temperature";
 
-//  MediumSte.Temperature TSte= MediumSte.temperature(
-//    state=MediumSte.setState_phX(
-//      p=port_a.p, h=port_a.h_outflow, X=port_a.Xi_outflow));
-  MediumSte.Temperature TSte;
-//  MediumWat.Temperature TWat= MediumWat.temperature(
-//    state=MediumWat.setState_phX(
-//      p=port_b.p, h=port_b.h_outflow, X=port_b.Xi_outflow));
-  MediumWat.Temperature TWat;
+  Medium_a.Temperature Ta;
+  Medium_b.Temperature Tb;
 
   Modelica.SIunits.SpecificEnthalpy hSte_instream
     "Instreaming enthalpy at port_a";
 
 equation
-  port_b.p = port_a.p;
-  hSte_instream = inStream(port_a.h_outflow);
-
-  TSte= MediumSte.temperature(
-    state=MediumSte.setState_phX(
+  // Temperature
+  Ta= Medium_a.temperature(
+    state=Medium_a.setState_phX(
       p=port_a.p, h=inStream(port_a.h_outflow), X=inStream(port_a.Xi_outflow)));
-//  TWat= MediumWat.temperature(
-//    state=MediumWat.setState_phX(
-//      p=port_b.p, h=port_b.h_outflow, X=port_b.Xi_outflow));
-  TSat= MediumSte.saturationTemperature(port_a.p);
-  cp = MediumSte.specificHeatCapacityCp(state=
-    MediumSte.setState_pTX(p=port_a.p,T=TSat,X=inStream(port_a.Xi_outflow)));
+  TSat= Medium_a.saturationTemperature(port_a.p);
+  Tb = TSat;
 
-  TWat = TSat;
-  if (TSte > TSat) then
-//    TWat = TSat;
-    dh = -dhCon - cp*(TSte - TSat);
+  // Specific heat
+  cp = Medium_a.specificHeatCapacityCp(state=
+    Medium_a.setState_pTX(p=port_a.p,T=TSat,X=inStream(port_a.Xi_outflow)));
+
+  // Enthalpy
+  hSte_instream = inStream(port_a.h_outflow);
+  dhCon = Medium_a.dewEnthalpy(Medium_a.setSat_p(port_a.p)) -
+    Medium_a.bubbleEnthalpy(Medium_a.setSat_p(port_a.p))
+    "Enthalpy change due to vaporization";
+  port_b.h_outflow = inStream(port_a.h_outflow) + dh;
+  // Set condition for reverse flow for model consistency
+  port_a.h_outflow =  hSte_instream;
+
+  // Change in enthalpy depending on incoming fluid (saturated or superheated)
+  if (Ta > TSat) then
+    dh = -dhCon - cp*(Ta - TSat);
   else
-//    TSte = TWat;
     dh = -dhCon;
   end if;
 
   // Steady state conservation of mass
   port_a.m_flow + port_b.m_flow = 0;
 
-  // Enthalpy decreased with condensation process
-  dhCon = MediumSte.enthalpyOfVaporization_sat(MediumSte.saturationState_p(port_a.p))
-    "Enthalpy of vaporization";
-//  dhCon = MediumSte.bubbleEnthalpy(setSat_p(port_a.p)) - MediumSte.dewEnthalpy(setSat_p(port_a.p))
-  port_b.h_outflow = inStream(port_a.h_outflow) + dh;
-
-  // Set condition for reverse flow for model consistency
-  port_a.h_outflow =  hSte_instream;
-
-  // Reverse flow
-//  inStream(port_b.h_outflow) = port_a.h_outflow + dh;
-
-//  inStream(port_b.h_outflow) = port_a.h_outflow + dh;
-//  if port_a.m_flow > 0 then
-//    port_b.h_outflow = inStream(port_a.h_outflow) - dh;
-//    port_a.m_flow*inStream(port_a.h_outflow) +  port_b.m_flow*port_b.h_outflow +
-//      port_h.Q_flow = 0;
-//  else
-//    port_a.h_outflow = inStream(port_b.h_outflow) + dh;
-//    port_b.m_flow*inStream(port_b.h_outflow) +  port_a.m_flow*port_a.h_outflow +
-//      port_h.Q_flow = 0;
-//  end if;
-//  port_b.h_outflow = inStream(port_a.h_outflow) - dh;
-//  port_b.h_outflow = port_a.h_outflow - dhCon;
-//  port_b.h_outflow - port_a.h_outflow = dh;
-
-  // Steady state conservation of energy
-//  port_a.m_flow*inStream(port_a.h_outflow) +  port_b.m_flow*port_b.h_outflow +
-//    port_h.Q_flow = 0;
-//  port_a.m_flow*port_a.h_outflow + port_b.m_flow*port_b.h_outflow + Q_flow = 0;
-
-  // Reverse flow
-//  port_a.h_outflow = inStream(port_b.h_outflow) + dh;
-//  port_b.m_flow*inStream(port_b.h_outflow) +  port_a.m_flow*port_a.h_outflow +
-//    port_h.Q_flow = 0;
-
+  // No change in pressure
+  port_b.p = port_a.p;
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
