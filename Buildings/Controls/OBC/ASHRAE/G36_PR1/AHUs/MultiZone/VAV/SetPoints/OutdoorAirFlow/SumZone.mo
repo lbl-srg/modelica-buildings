@@ -125,32 +125,32 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.MultiSum sysUncOutAir(
     final nin=numZon)
     "Uncorrected outdoor airflow"
-    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
+    annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MultiSum sysPriAirRate(
     final nin=numZon)
     "System primary airflow rate"
-    annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
+    annotation (Placement(transformation(extent={{-10,-130},{10,-110}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MultiSum sumDesZonPop(
     final nin=numZon)
     "Sum of the design zone population for all zones"
-    annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
+    annotation (Placement(transformation(extent={{-10,110},{10,130}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MultiSum sumDesBreZonPop(
     final nin=numZon)
     "Sum of the design breathing zone flow rate for population component"
-    annotation (Placement(transformation(extent={{-20,80},{0,100}})));
+    annotation (Placement(transformation(extent={{-10,80},{10,100}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MultiSum sumDesBreZonAre(
     final nin=numZon)
     "Sum of the design breathing zone flow rate for area component"
-    annotation (Placement(transformation(extent={{40,50},{60,70}})));
+    annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Add zonVenEff[numZon](
     final k2=fill(-1,numZon))
     "Zone ventilation efficiency"
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MultiMin desSysVenEff(
     final nin=numZon)
@@ -160,7 +160,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.MultiMax maxPriOutAirFra(
     final nin=numZon)
     "Maximum zone outdoor air fraction"
-    annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
+    annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
     final nout=numZon)
@@ -169,41 +169,42 @@ protected
 
 equation
   connect(zonVenEff.y, desSysVenEff.u)
-    annotation (Line(points={{2,0},{18,0}}, color={0,0,127}));
+    annotation (Line(points={{12,0},{18,0}},color={0,0,127}));
   connect(reaRep.y, zonVenEff.u1)
-    annotation (Line(points={{-58,20},{-40,20},{-40,6},{-22,6}},
+    annotation (Line(points={{-58,20},{-40,20},{-40,6},{-12,6}},
       color={0,0,127}));
   connect(sumDesZonPop.y, ySumDesZonPop)
-    annotation (Line(points={{-58,120},{120,120}}, color={0,0,127}));
+    annotation (Line(points={{12,120},{120,120}},  color={0,0,127}));
   connect(sumDesBreZonPop.y, VSumDesPopBreZon_flow)
-    annotation (Line(points={{2,90},{120,90}}, color={0,0,127}));
+    annotation (Line(points={{12,90},{120,90}},color={0,0,127}));
   connect(sumDesBreZonAre.y, VSumDesAreBreZon_flow)
-    annotation (Line(points={{62,60},{120,60}}, color={0,0,127}));
+    annotation (Line(points={{12,60},{120,60}}, color={0,0,127}));
   connect(desSysVenEff.y, yDesSysVenEff)
     annotation (Line(points={{42,0},{120,0}}, color={0,0,127}));
   connect(sysUncOutAir.y, VSumUncOutAir_flow)
-    annotation (Line(points={{-58,-50},{120,-50}}, color={0,0,127}));
+    annotation (Line(points={{12,-50},{120,-50}},  color={0,0,127}));
   connect(sysPriAirRate.y, VSumSysPriAir_flow)
-    annotation (Line(points={{62,-120},{120,-120}}, color={0,0,127}));
+    annotation (Line(points={{12,-120},{120,-120}}, color={0,0,127}));
   connect(maxPriOutAirFra.y, uOutAirFra_max)
-    annotation (Line(points={{2,-80},{120,-80}}, color={0,0,127}));
+    annotation (Line(points={{12,-80},{120,-80}},color={0,0,127}));
   connect(yAveOutAirFraPlu, reaRep.u)
     annotation (Line(points={{-120,20},{-82,20}}, color={0,0,127}));
   connect(uDesZonPeaOcc, sumDesZonPop.u)
-    annotation (Line(points={{-120,120},{-82,120}}, color={0,0,127}));
+    annotation (Line(points={{-120,120},{-12,120}}, color={0,0,127}));
   connect(VDesPopBreZon_flow, sumDesBreZonPop.u)
-    annotation (Line(points={{-120,90},{-22,90}}, color={0,0,127}));
+    annotation (Line(points={{-120,90},{-12,90}}, color={0,0,127}));
   connect(VDesAreBreZon_flow, sumDesBreZonAre.u)
-    annotation (Line(points={{-120,60},{38,60}}, color={0,0,127}));
+    annotation (Line(points={{-120,60},{-12,60}},color={0,0,127}));
   connect(uDesPriOutAirFra, zonVenEff.u2)
-    annotation (Line(points={{-120,-20},{-40,-20},{-40,-6},{-22,-6}},
+    annotation (Line(points={{-120,-20},{-40,-20},{-40,-6},{-12,-6}},
       color={0,0,127}));
   connect(VUncOutAir_flow, sysUncOutAir.u)
-    annotation (Line(points={{-120,-50},{-82,-50}}, color={0,0,127}));
+    annotation (Line(points={{-120,-50},{-12,-50}}, color={0,0,127}));
   connect(VPriAir_flow, sysPriAirRate.u)
-    annotation (Line(points={{-120,-120},{38,-120}},color={0,0,127}));
+    annotation (Line(points={{-120,-120},{-12,-120}},
+                                                    color={0,0,127}));
   connect(uPriOutAirFra, maxPriOutAirFra.u)
-    annotation (Line(points={{-120,-80},{-22,-80}}, color={0,0,127}));
+    annotation (Line(points={{-120,-80},{-12,-80}}, color={0,0,127}));
 
 annotation (
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
