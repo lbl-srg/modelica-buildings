@@ -1,27 +1,6 @@
 within Buildings.Applications.DHC.EnergyTransferStations.FifthGeneration.BaseClasses;
 model HeatExchanger "Base subsystem with district heat exchanger"
-  extends Fluid.Interfaces.PartialFourPort;
-
-  redeclare replaceable package Medium1 =
-    Modelica.Media.Interfaces.PartialMedium
-    "Medium model on district side of heat exchanger"
-      annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Water "Water"),
-        choice(redeclare package Medium =
-            Buildings.Media.Antifreeze.PropyleneGlycolWater (
-          property_T=293.15,
-          X_a=0.40)
-          "Propylene glycol water, 40% mass fraction")));
-  redeclare replaceable package Medium2 =
-    Modelica.Media.Interfaces.PartialMedium
-    "Medium model on building side of heat exchanger"
-      annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Water "Water"),
-        choice(redeclare package Medium =
-            Buildings.Media.Antifreeze.PropyleneGlycolWater (
-          property_T=293.15,
-          X_a=0.40)
-          "Propylene glycol water, 40% mass fraction")));
+  extends Fluid.Interfaces.PartialFourPortInterface;
 
   parameter Boolean have_valDis
     "Set to true in case of control valve on district side, false in case of a pump"

@@ -5,21 +5,21 @@ model Borefield "Controller for borefield loop"
   parameter Modelica.SIunits.Temperature TBorWatEntMax(
     displayUnit="degC")
     "Maximum value of borefield water entering temperature";
-  parameter Modelica.SIunits.TemperatureDifference dTGeo
-    "Temperature difference between entering and leaving water to the borefield";
+  parameter Modelica.SIunits.TemperatureDifference dTBorFieSet(min=0)
+    "Set-point for temperature difference accross borefield (absolute value)";
   parameter Modelica.Blocks.Types.SimpleController
     controllerType=Modelica.Blocks.Types.SimpleController.PI
     "Type of controller"
     annotation (Dialog(group="PID controller"));
-  parameter Real k(final unit="1/K")=0.1
+  parameter Real k = 0.1
     "Gain of controller"
     annotation (Dialog(group="PID controller"));
-  parameter Modelica.SIunits.Time Ti(min=0)=60
+  parameter Modelica.SIunits.Time Ti = 3600
     "Time constant of integrator block"
     annotation (Dialog(group="PID controller",
       enable=controllerType==Modelica.Blocks.Types.SimpleController.PI
-         or  controllerType==Modelica.Blocks.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time Td(min=0) = 0.1
+        or controllerType==Modelica.Blocks.Types.SimpleController.PID));
+  parameter Modelica.SIunits.Time Td = 0.1
     "Time constant of derivative block"
     annotation (Dialog(group="PID controller",
       enable=controllerType==Modelica.Blocks.Types.SimpleController.PD

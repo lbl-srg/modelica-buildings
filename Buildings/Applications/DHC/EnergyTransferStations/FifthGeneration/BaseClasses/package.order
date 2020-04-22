@@ -1,9 +1,6 @@
-StratifiedTank
-Constants
-WaterWaterHeatExchanger
-Junction
 Borefield
 Chiller
-ChillerArray
 HeatExchanger
+Junction
 Pump_m_flow
+StratifiedTank

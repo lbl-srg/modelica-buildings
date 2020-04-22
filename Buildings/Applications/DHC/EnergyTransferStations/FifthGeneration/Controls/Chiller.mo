@@ -49,11 +49,11 @@ model Chiller "Chiller controller"
     "Chilled water supply temperature set-point"
     annotation (Placement(transformation(extent={{160,-20},{200,20}}),
       iconTransformation(extent={{100,20},{140,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMixCon
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValCon
     "Condenser mixing valve control signal"
     annotation (Placement(transformation(extent={{160,-300},{200,-260}}),
       iconTransformation(extent={{100,-100},{140,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMixEva
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValEva
     "Evaporator mixing valve control signal"
     annotation (Placement(transformation(extent={{160,-240},{200,-200}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
@@ -73,7 +73,7 @@ model Chiller "Chiller controller"
     reset=Buildings.Types.Reset.Parameter,
     y_reset=0,
     k=0.1,
-    Ti(displayUnit="s") = 300,
+    Ti(displayUnit="s") = 60,
     reverseAction=false)
     "Reset of chilled water supply temperature set point"
     annotation (Placement(transformation(extent={{-90,-110},{-70,-90}})));
@@ -98,7 +98,7 @@ model Chiller "Chiller controller"
     reset=Buildings.Types.Reset.Parameter,
     y_reset=0,
     k=0.1,
-    Ti(displayUnit="s") = 100,
+    Ti(displayUnit="s") = 60,
     final reverseAction=false)
     "Evaporator three-way valve control"
     annotation (Placement(transformation(extent={{50,-230},{70,-210}})));
@@ -109,13 +109,13 @@ model Chiller "Chiller controller"
     reset=Buildings.Types.Reset.Parameter,
     y_reset=0,
     k=0.1,
-    Ti(displayUnit="s") = 100,
+    Ti(displayUnit="s") = 60,
     final reverseAction=true)
     "Condenser three-way valve control"
     annotation (Placement(transformation(extent={{50,-290},{70,-270}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTChiWatSup(
     y(final unit="K", displayUnit="degC"),
-    final k=TChiWatSupMin)
+    final k=TChiWatSupSetMin)
     "Minimum value of chilled water supply temperature"
     annotation (Placement(transformation(extent={{-10,-170},{10,-150}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTEvaWatEnt(
@@ -151,11 +151,11 @@ equation
           118,0}}, color={255,0,255}));
   connect(TEvaWatEnt, conValEva.u_m) annotation (Line(points={{-180,-240},{60,-240},
           {60,-232}}, color={0,0,127}));
-  connect(conValEva.y,yMixEva)
+  connect(conValEva.y,yValEva)
     annotation (Line(points={{71,-220},{180,-220}}, color={0,0,127}));
   connect(TConWatEnt, conValCon.u_m) annotation (Line(points={{-180,-300},{60,-300},
           {60,-292}}, color={0,0,127}));
-  connect(conValCon.y,yMixCon)
+  connect(conValCon.y,yValCon)
     annotation (Line(points={{71,-280},{180,-280}}, color={0,0,127}));
   connect(or2.y, conValEva.trigger) annotation (Line(points={{-68,60},{-40,60},{
           -40,-236},{52,-236},{52,-232}}, color={255,0,255}));

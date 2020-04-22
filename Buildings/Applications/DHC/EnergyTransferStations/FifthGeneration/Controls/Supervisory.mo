@@ -75,7 +75,7 @@ model Supervisory "Energy transfer station supervisory controller"
   HotSide conHotSid(THys=THys) "Hot side controller"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
   ColdSide conColSid(THys=THys) "Cold side controller"
-    annotation (Placement(transformation(extent={{-10,-86},{10,-66}})));
+    annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
 equation
   connect(TTanHeaTop, conHotSid.TTop) annotation (Line(points={{-120,50},{-20,
           50},{-20,48},{-12,48}},      color={0,0,127}));
@@ -83,26 +83,27 @@ equation
           20},{-20,44},{-12,44}},
                                 color={0,0,127}));
   connect(TTanCooTop, conColSid.TTop) annotation (Line(points={{-120,-40},{-24,
-          -40},{-24,-78},{-12,-78}},   color={0,0,127}));
+          -40},{-24,-72},{-12,-72}},   color={0,0,127}));
   connect(TTanCooBot, conColSid.TBot) annotation (Line(points={{-120,-70},{-28,
-          -70},{-28,-82},{-12,-82}},      color={0,0,127}));
+          -70},{-28,-76},{-12,-76}},      color={0,0,127}));
   connect(conHotSid.yHea, yHea) annotation (Line(points={{12,58},{20,58},{20,80},
           {120,80}}, color={255,0,255}));
-  connect(conColSid.yCoo, yCoo) annotation (Line(points={{12,-68},{60,-68},{60,
+  connect(conColSid.yCoo, yCoo) annotation (Line(points={{12,-62},{60,-62},{60,
           50},{120,50}},
                      color={255,0,255}));
-  connect(conColSid.yRej, yColRej) annotation (Line(points={{12,-72},{80,-72},{80,
-          -10},{120,-10}}, color={255,0,255}));
+  connect(conColSid.yRej, yColRej) annotation (Line(points={{12,-66},{80,-66},{
+          80,-10},{120,-10}},
+                           color={255,0,255}));
   connect(conHotSid.yRej, yHeaRej) annotation (Line(points={{12,54},{20,54},{20,
           20},{120,20}}, color={255,0,255}));
   connect(TSetCoo, conColSid.TSet) annotation (Line(points={{-120,-10},{-20,-10},
-          {-20,-70},{-12,-70}},   color={0,0,127}));
+          {-20,-64},{-12,-64}},   color={0,0,127}));
   connect(TSetHea, conHotSid.TSet) annotation (Line(points={{-120,80},{-20,80},
           {-20,56},{-12,56}},     color={0,0,127}));
   connect(conHotSid.yIso,yIsoCon)  annotation (Line(points={{12,46},{14,46},{14,
           -40},{120,-40}}, color={0,0,127}));
   connect(conColSid.yIso,yIsoEva)
-    annotation (Line(points={{12,-80},{90,-80},{90,-70},{120,-70}},
+    annotation (Line(points={{12,-74},{80,-74},{80,-70},{120,-70}},
                                                   color={0,0,127}));
 
   connect(yHea, yHea)
