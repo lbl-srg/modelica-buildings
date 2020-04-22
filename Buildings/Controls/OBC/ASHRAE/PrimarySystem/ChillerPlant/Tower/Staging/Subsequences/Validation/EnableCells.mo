@@ -27,8 +27,7 @@ model EnableCells
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger chiSta "Chiller stage"
     annotation (Placement(transformation(extent={{-40,170},{-20,190}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant enaPri[4](
-    final k={4,1,2,3})
-    "Tower cells enabling priority"
+    final k={4,1,2,3}) "Tower cells enabling priority"
     annotation (Placement(transformation(extent={{-100,120},{-80,140}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
     final k=false) "Stage down"
