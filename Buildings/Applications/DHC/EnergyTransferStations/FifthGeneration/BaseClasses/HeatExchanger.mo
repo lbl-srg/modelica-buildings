@@ -27,6 +27,15 @@ model HeatExchanger "Base subsystem with district heat exchanger"
     "Set to true in case of control valve on district side, false in case of a pump"
     annotation(Evaluate=true);
 
+  parameter Modelica.SIunits.PressureDifference dp1Hex_nominal
+    "Nominal pressure drop on primary side of heat exchanger"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.PressureDifference dp2Hex_nominal
+    "Nominal pressure drop on secondary side of heat exchanger"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.PressureDifference dpValDis_nominal = dp1Hex_nominal / 4
+    "Nominal pressure drop of primary control valve"
+    annotation(Dialog(enable=have_valDis, group="Nominal condition"));
   parameter Modelica.SIunits.HeatFlowRate QHex_flow_nominal
     "Nominal heat flow rate through heat exchanger (from district to building)"
     annotation (Dialog(group="Nominal condition"));
@@ -38,15 +47,10 @@ model HeatExchanger "Base subsystem with district heat exchanger"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Temperature T_a2Hex_nominal
     "Nominal water inlet temperature on building side of heat exchanger"
-    annotation (Dialog(group="Nominal conditions"));
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Temperature T_b2Hex_nominal
     "Nominal water outlet temperature on building side of heat exchanger"
-    annotation (Dialog(group="Nominal conditions"));
-
-  final Modelica.SIunits.MassFlowRate m1_flow_nominal
-    "Nominal mass flow rate on district side of heat exchanger";
-  final Modelica.SIunits.MassFlowRate m2_flow_nominal
-    "Nominal mass flow rate on building side of heat exchanger";
+    annotation (Dialog(group="Nominal condition"));
 
   // IO CONNECTORS
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uColRej
@@ -66,51 +70,54 @@ model HeatExchanger "Base subsystem with district heat exchanger"
     redeclare final package Medium2 = Medium2,
     final use_Q_flow_nominal=true,
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
-    final allowFlowReversal1=allowFlowReversalDis,
-    final allowFlowReversal2=allowFlowReversalBui,
+    final allowFlowReversal1=allowFlowReversal1,
+    final allowFlowReversal2=allowFlowReversal2,
     final dp1_nominal=if have_valDis then 0 else dp1Hex_nominal,
     final dp2_nominal=dp2Hex_nominal,
     final m1_flow_nominal=m1_flow_nominal,
     final m2_flow_nominal=m2_flow_nominal)
-    "District heat exchanger"
+    "Heat exchanger"
     annotation (Placement(
         transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={0,0})));
   Fluid.Movers.FlowControlled_m_flow pum2Hex(
-    redeclare final package Medium = MediumBui,
-    m_flow_nominal=mHex_flow_nominal,
-    addPowerToMedium=false,
-    show_T=show_T,
-    per(pressure(dp={dpHex_nominal,0}, V_flow={0,mHex_flow_nominal/1000})),
-    use_inputFilter=true,
-    riseTime=10) "District heat exchanger secondary pump" annotation (Placement(
+    redeclare final package Medium = Medium2,
+    final m_flow_nominal=m2Hex_flow_nominal,
+    final dp_nominal=dp2Hex_nominal,
+    final allowFlowReversal=allowFlowReversal2)
+    "Secondary pump"
+    annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={80,-60})));
-  Fluid.Sensors.TemperatureTwoPort senT2HexWatEnt
+  Fluid.Sensors.TemperatureTwoPort senT2HexWatEnt(
+    redeclare final package Medium = Medium2,
+    final m_flow_nominal=m2Hex_flow_nominal,
+    final allowFlowReversal=allowFlowReversal2)
     "Heat exchanger secondary water entering temperature"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={20,-40})));
-  Fluid.Sensors.TemperatureTwoPort senT2HexWatLvg
+  Fluid.Sensors.TemperatureTwoPort senT2HexWatLvg(
+    redeclare final package Medium = Medium2,
+    final m_flow_nominal=m2Hex_flow_nominal,
+    final allowFlowReversal=allowFlowReversal2)
     "Heat exchanger secondary water leaving temperature"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-20,-20})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(k=m2Hex_flow_nominal)
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai2(
+    final k=m2Hex_flow_nominal)
     "Scale to nominal mass flow rate"
-    annotation (Placement(transformation(extent={{32,130},{52,150}})));
-  Fluid.Movers.FlowControlled_m_flow pum1Hex(
-    redeclare final package Medium = MediumDis,
-    m_flow_nominal=mHex_flow_nominal,
-    addPowerToMedium=false,
-    show_T=show_T,
-    per(pressure(dp={dpHex_nominal,0}, V_flow={0,mHex_flow_nominal/1000})),
-    use_inputFilter=true,
-    riseTime=10) if not have_valDis
+    annotation (Placement(transformation(extent={{20,90},{40,110}})));
+  Pump_m_flow pum1Hex(
+    redeclare final package Medium = Medium1,
+    final m_flow_nominal=m1Hex_flow_nominal,
+    final dp_nominal=dp1Hex_nominal,
+    final allowFlowReversal=allowFlowReversal1) if not have_valDis
     "District heat exchanger primary pump"
     annotation (Placement(
         transformation(
@@ -118,24 +125,36 @@ model HeatExchanger "Base subsystem with district heat exchanger"
         rotation=180,
         origin={-60,80})));
   Fluid.Actuators.Valves.TwoWayEqualPercentage val1Hex(
-    redeclare final package Medium = MediumDis,
-    final m_flow_nominal=mDis_flow_nominal,
-    dpValve_nominal=dp2Hex_nominal/9,
-    final dpFixed_nominal=dp2Hex_nominal) if have_valDis
+    redeclare final package Medium = Medium1,
+    final m_flow_nominal=m1Hex_flow_nominal,
+    final dpValve_nominal=dpValDis_nominal,
+    final dpFixed_nominal=dp1Hex_nominal) if have_valDis
     "Heat exchanger primary control valve"
     annotation (Placement(transformation(extent={{50,70},{70,90}})));
-  Fluid.Sensors.TemperatureTwoPort senT1HexWatEnt
-    "Heat exchanger primary water entering temperature" annotation (Placement(
+  Fluid.Sensors.TemperatureTwoPort senT1HexWatEnt(
+    redeclare final package Medium = Medium1,
+    final m_flow_nominal=m1Hex_flow_nominal,
+    final allowFlowReversal=allowFlowReversal1)
+    "Heat exchanger primary water entering temperature"
+    annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-20,40})));
-  Fluid.Sensors.TemperatureTwoPort senT1HexWatLvg
-    "Heat exchanger primary water leaving temperature" annotation (Placement(
+  Fluid.Sensors.TemperatureTwoPort senT1HexWatLvg(
+    redeclare final package Medium = Medium1,
+    final m_flow_nominal=m1Hex_flow_nominal,
+    final allowFlowReversal=allowFlowReversal1)
+    "Heat exchanger primary water leaving temperature"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={20,20})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai1(
+    final k=m1Hex_flow_nominal) if not have_valDis
+    "Scale to nominal mass flow rate"
+    annotation (Placement(transformation(extent={{-20,90},{-40,110}})));
 equation
   if not have_valDis then
     connect(senT1HexWatLvg.port_b, port_b1)
@@ -144,17 +163,18 @@ equation
     connect(port_a1, senT1HexWatEnt.port_a)
       annotation (Line(points={{-100,60},{-20,60},{-20,50}}, color={0,127,255}));
   end if;
-  connect(uHeaRej, conHex.uHeaRej) annotation (Line(points={{-120,140},{-42,140}},
+  connect(uHeaRej, conHex.uHeaRej) annotation (Line(points={{-120,140},{-90,140},
+          {-90,142},{-42,142}},
     color={255,0,255}));
-  connect(uColRej, conHex.uColRej) annotation (Line(points={{-120,100},{-80,100},
-    {-80,136},{-42,136}}, color={255,0,255}));
+  connect(uColRej, conHex.uColRej) annotation (Line(points={{-120,100},{-88,100},
+          {-88,139},{-42,139}},
+                          color={255,0,255}));
   connect(port_a2, pum2Hex.port_a)
     annotation (Line(points={{100,-60},{90,-60}}, color={0,127,255}));
-  connect(conHex.yPum2Hex, gai.u)
-    annotation (Line(points={{-18,134},{22,134},{22,140},{30,140}},
-      color={0,0,127}));
-  connect(gai.y, pum2Hex.m_flow_in)
-    annotation (Line(points={{54,140},{80,140},{80,-48}}, color={0,0,127}));
+  connect(conHex.y2Hex, gai2.u) annotation (Line(points={{-18,128},{10,128},{10,
+          100},{18,100}}, color={0,0,127}));
+  connect(gai2.y, pum2Hex.m_flow_in)
+    annotation (Line(points={{42,100},{80,100},{80,-48}}, color={0,0,127}));
   connect(port_a1, pum1Hex.port_a)
     annotation (Line(points={{-100,60},{-94,60},{-94,80},{-70,80}},
       color={0,127,255}));
@@ -177,6 +197,20 @@ equation
     annotation (Line(points={{-50,80},{-20,80},{-20,50}}, color={0,127,255}));
   connect(val1Hex.port_a, senT1HexWatLvg.port_b)
     annotation (Line(points={{50,80},{20,80},{20,30}}, color={0,127,255}));
+  connect(conHex.y1Hex, val1Hex.y)
+    annotation (Line(points={{-18,140},{60,140},{60,92}}, color={0,0,127}));
+  connect(conHex.y1Hex, gai1.u) annotation (Line(points={{-18,140},{-10,140},{-10,
+          100},{-18,100}}, color={0,0,127}));
+  connect(gai1.y, pum1Hex.m_flow_in)
+    annotation (Line(points={{-42,100},{-60,100},{-60,92}}, color={0,0,127}));
+  connect(senT1HexWatEnt.T, conHex.T1HexWatEnt) annotation (Line(points={{-31,40},
+          {-86,40},{-86,136},{-42,136}}, color={0,0,127}));
+  connect(senT1HexWatLvg.T, conHex.T1HexWatLvg) annotation (Line(points={{9,20},
+          {-84,20},{-84,133},{-42,133}}, color={0,0,127}));
+  connect(senT2HexWatLvg.T, conHex.T2HexWatLvg) annotation (Line(points={{-31,-20},
+          {-80,-20},{-80,127},{-42,127}}, color={0,0,127}));
+  connect(senT2HexWatEnt.T, conHex.T2HexWatEnt) annotation (Line(points={{9,-40},
+          {-82,-40},{-82,130},{-42,130}}, color={0,0,127}));
   annotation (
   defaultComponentName="hex",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

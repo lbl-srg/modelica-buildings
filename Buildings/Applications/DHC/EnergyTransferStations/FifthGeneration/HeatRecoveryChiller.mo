@@ -4,38 +4,35 @@ model HeatRecoveryChiller
   extends DHC.EnergyTransferStations.BaseClasses.PartialETS(
     final have_heaWat=true,
     final have_chiWat=true,
-    have_hotWat=false,
+    final have_hotWat=false,
     final have_eleHea=false,
     final have_eleCoo=true,
     final have_fan=false,
-    have_weaBus=false,
+    final have_weaBus=false,
     final have_pum=true,
-    nPorts_bBui=2,
-    nPorts_aBui=2,
-    nPorts_aDis=1,
-    nPorts_bDis=1);
+    final nPorts_bBui=2,
+    final nPorts_aBui=2,
+    final nPorts_aDis=1,
+    final nPorts_bDis=1);
 
-  replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic datChi
-    "Chiller parameters"
-    annotation (Placement(transformation(extent={{-280,-198},{-260,-178}})));
-  replaceable parameter Fluid.Geothermal.Borefields.Data.Filling.Template datBorFieFil
-    "Borehole filling material characteristics"
-    annotation (Placement(transformation(extent={{-280,-126},{-260,-106}})));
-  replaceable parameter Fluid.Geothermal.Borefields.Data.Soil.Template datBorFieSoi
-    "Soil characteristics for borefield modeling"
-    annotation (Placement(transformation(extent={{-280,-150},{-260,-130}})));
-  replaceable parameter
-    Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Template datBorFieCon
-   "Borefield configuration parameters"
-    annotation (Placement(transformation(extent={{-280,-174},{-260,-154}})));
+  parameter Fluid.Geothermal.Borefields.Data.Borefield.Template datBorFie
+    "Borefield parameters"
+    annotation (Dialog(enable=have_borFie),
+      Placement(transformation(extent={{-280,-120},{-260,-100}})));
 
   parameter Boolean have_valDis=false
     "Set to true in case of control valve on district side, false in case of a pump"
     annotation(Evaluate=true);
-  parameter Boolean have_borFie=false
+  parameter Boolean have_borFie
     "Set to true to include a geothermal borefield"
     annotation(Evaluate=true);
 
+  parameter Modelica.SIunits.PressureDifference dp1Hex_nominal
+    "Nominal pressure drop on primary side of heat exchanger"
+    annotation (Dialog(group="District heat exchanger"));
+  parameter Modelica.SIunits.PressureDifference dp2Hex_nominal
+    "Nominal pressure drop on secondary side of heat exchanger"
+    annotation (Dialog(group="District heat exchanger"));
   parameter Modelica.SIunits.HeatFlowRate QHex_flow_nominal
     "Nominal heat flow rate through heat exchanger (from district to building)"
     annotation (Dialog(group="District heat exchanger"));
@@ -52,55 +49,22 @@ model HeatRecoveryChiller
     "Nominal water outlet temperature on building side of heat exchanger"
     annotation (Dialog(group="District heat exchanger"));
 
-  parameter Modelica.SIunits.MassFlowRate mBorFie_flow_nominal=0
-    "Borefield nominal mass flow rate (sum over all boreholes)"
-    annotation (Dialog(group="Borefield", enable=have_borFie));
-  parameter Modelica.SIunits.PressureDifference dpBorFie_nominal=0
-    "Borefield nominal pressure drop"
-    annotation (Dialog(group="Borefield", enable=have_borFie));
 
-  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
-    max(mSecHea_flow_nominal, mSecCoo_flow_nominal)
-    "Nominal mass flow rate";
-  parameter Modelica.SIunits.MassFlowRate mSecHea_flow_nominal
-    "Secondary (building side) heating circuit nominal water flow rate";
-  parameter Modelica.SIunits.MassFlowRate mSecCoo_flow_nominal
-    "Secondary (building side) cooling circuit nominal water flow rate";
-  parameter Modelica.SIunits.TemperatureDifference dTChi=2
-    "Temperature difference between entering and leaving water of EIR chiller(+ve)";
-  parameter Modelica.Fluid.Types.Dynamics fixedEnergyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
+  parameter Modelica.Fluid.Types.Dynamics fixedEnergyDynamics=
+    Modelica.Fluid.Types.Dynamics.FixedInitial
     "Formulation of energy balance for mixing volume at inlet and outlet"
     annotation (Dialog(group="Dynamics"));
-  parameter Boolean show_T=true
-    "= true, if actual temperature at port is computed"
-    annotation (Dialog(tab="Advanced"));
 
-  final parameter Modelica.SIunits.PressureDifference dp_nominal(
-    displayUnit="Pa") = 1000
-    "Pressure difference at nominal flow rate"
-    annotation (Dialog(group="Design Parameter"));
-
-  parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal=datChi.mEva_flow_nominal
-    "Condenser nominal water flow rate"
-    annotation (Dialog(group="EIR CHILLER system"));
-  parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal=datChi.mEva_flow_nominal
-    "Evaporator nominal water flow rate"
-    annotation (Dialog(group="EIR Chiller system"));
   parameter Modelica.SIunits.PressureDifference dpCon_nominal
-    "Pressure difference accross the condenser"
-    annotation (Dialog(group="EIR Chiller system"));
+    "Nominal pressure drop accross condenser"
+    annotation (Dialog(group="Chiller"));
   parameter Modelica.SIunits.PressureDifference dpEva_nominal
-    "Pressure difference accross the evaporator"
-    annotation (Dialog(group="EIR Chiller system"));
-  parameter Modelica.SIunits.Temperature TChiWatSupSetMin(
-    displayUnit="degC")
-    "Minimum value of chilled water supply temperature set-point";
-  parameter Modelica.SIunits.Temperature TConWatEntMin(
-    displayUnit="degC")
-    "Minimum value of condenser water entering temperature";
-  parameter Modelica.SIunits.Temperature TEvaWatEntMax(
-    displayUnit="degC")
-    "Maximum value of evaporator water entering temperature";
+    "Nominal pressure drop accross evaporator"
+    annotation (Dialog(group="Chiller"));
+  parameter Fluid.Chillers.Data.ElectricEIR.Generic datChi
+    "Chiller performance data"
+    annotation (Dialog(group="Chiller"),
+      Placement(transformation(extent={{-280,-160},{-260,-140}})));
 
 
   final parameter Modelica.SIunits.Volume VTan = 5*60*mCon_flow_nominal/1000
@@ -118,58 +82,6 @@ model HeatRecoveryChiller
   parameter Modelica.SIunits.TemperatureDifference THys
     "Temperature hysteresis"
     annotation (Dialog(group="Water Buffer Tank"));
-
-  parameter Modelica.SIunits.TemperatureDifference dTGeo_nominal
-    "Borefield deltaT (outlet - inlet) at nominal conditions"
-    annotation (Dialog(group="Borefield"));
-  final parameter Modelica.SIunits.MassFlowRate mGeo_flow_nominal=
-    m_flow_nominal * dTChi / abs(dTGeo)
-    "Borefield water mass flow rate at nominal conditions"
-    annotation (Dialog(group="Borefield"));
-  final parameter Modelica.SIunits.MassFlowRate mBor_flow_nominal = mGeo_flow_nominal/(nXBorHol*nYBorHol)
-    "Borefiled nominal water flow rate"
-    annotation (Dialog(group="Borefield"));
-  parameter Modelica.SIunits.Length xBorFie
-    "Borefield length"
-    annotation (Dialog(group="Borefield"));
-  parameter Modelica.SIunits.Length yBorFie
-    "Borefield width"
-    annotation (Dialog(group="Borefield"));
-  final parameter Modelica.SIunits.Length dBorHol = 5
-    "Distance between two boreholes"
-    annotation (Dialog(group="Borefield"));
-
-
-  final parameter Integer nXBorHol = integer((xBorFie+dBorHol)/dBorHol)
-    "Number of boreholes in x-direction"
-    annotation(Dialog(group="Borefield"));
-  final parameter Integer nYBorHol = integer((yBorFie+dBorHol)/dBorHol)
-    "Number of boreholes in y-direction"
-    annotation(Dialog(group="Borefield"));
-  final parameter  Integer nBorHol = nXBorHol*nYBorHol
-    "Number of boreholes"
-    annotation(Dialog(group="Borefield"));
-  parameter Modelica.SIunits.Radius rTub =  0.05
-    "Outer radius of the tubes"
-    annotation(Dialog(group="Borefield"));
-  parameter Boolean allowFlowReversal = false
-    "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
-
-  final parameter Modelica.SIunits.MassFlowRate mHex_flow_nominal= m_flow_nominal*dTChi/dTHex
-    "District heat exhanger nominal water flow rate"
-    annotation (Dialog(group="DistrictHeatExchanger"));
-  parameter Real eps_nominal=0.71
-    "Heat exchanger effectiveness"
-    annotation (Dialog(group="DistrictHeatExchanger"));
-  final parameter  Modelica.SIunits.PressureDifference dpHex_nominal(displayUnit="Pa")=50000
-    "Pressure difference across heat exchanger"
-    annotation (Dialog(group="DistrictHeatExchanger"));
-  parameter Modelica.SIunits.TemperatureDifference dTHex
-    "Temperature difference between entering and leaving water of the district heat exchanger(+ve)"
-    annotation (Dialog(group="DistrictHeatExchanger"));
-
-
 
 
   // COMPONENTS
@@ -202,9 +114,7 @@ model HeatRecoveryChiller
     "Chilled water buffer tank"
     annotation (Placement(transformation(extent={{240,170},{220,190}})));
 
-
-  FifthGeneration.Controls.Supervisory conSup(
-    THys=THys)
+  FifthGeneration.Controls.Supervisory conSup
     "Supervisory controller"
     annotation (Placement(transformation(extent={{-220,40},{-200,60}})));
 
@@ -220,7 +130,6 @@ model HeatRecoveryChiller
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTBotHeaWat
     "Heating water tank bottom temperature"
     annotation (Placement(transformation(extent={{-220,130},{-200,150}})));
-
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSupSet(final unit="K",
       displayUnit="degC") "Heating water supply temperature set-point"
@@ -245,12 +154,6 @@ model HeatRecoveryChiller
     "Condenser to ambient loop isolation valve"
     annotation (Placement(transformation(extent={{-90,-110},{-70,-90}})));
 
-  BaseClasses.Borefield borFie if have_bor
-    "Auxiliary subsystem with geothermal borefield"
-    annotation (Placement(transformation(extent={{-100,-190},{-80,-170}})));
-  BaseClasses.HeatExchanger hex
-    "Base subsystem with district heat exchanger"
-    annotation (Placement(transformation(extent={{-10,-256},{10,-276}})));
 
   BaseClasses.Junction manAmbWatSup(
     redeclare final package Medium=MediumBui,
@@ -284,9 +187,19 @@ model HeatRecoveryChiller
     annotation (Placement(transformation(extent={{230,-50},{210,-30}})));
 
   BaseClasses.Chiller chi(
-    redeclare final package Medium = MediumBui)
+    redeclare final package Medium = MediumBui,
+    final dat=datChi)
     "Base subsystem with heat recovery chiller"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
+
+  BaseClasses.Borefield borFie(
+    final dat=datBorFie) if have_bor
+    "Auxiliary subsystem with geothermal borefield"
+    annotation (Placement(transformation(extent={{-100,-190},{-80,-170}})));
+  BaseClasses.HeatExchanger hex
+    "Base subsystem with district heat exchanger"
+    annotation (Placement(transformation(extent={{-10,-256},{10,-276}})));
+
 equation
   connect(tanHeaWat.port_b1, ports_bBui[1]) annotation (Line(points={{-220,188},
           {-160,188},{-160,240},{300,240}},

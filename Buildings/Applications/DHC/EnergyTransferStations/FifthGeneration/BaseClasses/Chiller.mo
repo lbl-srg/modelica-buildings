@@ -13,22 +13,20 @@ model Chiller "Base subsystem with heat recovery chiller"
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
-  parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic datChi
-    "Chiller parameters"
+  parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic dat
+    "Chiller performance data"
     annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
 
-  parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal
-    "Condenser nominal mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference mEva_flow_nominal
-    "Evaporator nominal mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.PressureDifference dpCon_nominal
-    "Nominal pressure drop in condenser branch (including valve)"
+    "Nominal pressure drop accross condenser"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.PressureDifference dpEva_nominal
-    "Nominal pressure drop in evaporator branch (including valve)"
+    "Nominal pressure drop accross evaporator"
     annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.Pressure dpValCon_nominal=dpCon_nominal / 4
+    "Nominal pressure drop accross control valve on condenser side";
+  parameter Modelica.SIunits.Pressure dpValEva_nominal=dpEva_nominal / 4
+    "Nominal pressure drop accross control valve on evaporator side";
 
   // IO CONNECTORS
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHea
@@ -83,34 +81,37 @@ model Chiller "Base subsystem with heat recovery chiller"
     redeclare final package Medium2 = Medium,
     final allowFlowReversal1=allowFlowReversal,
     final allowFlowReversal2=allowFlowReversal,
-    final m1_flow_nominal=0,
-    final m2_flow_nominal=0,
-    final dp1_nominal=dpCon_nominal,
-    final dp2_nominal=dpEva_nominal,
+    final dp1_nominal=0,
+    final dp2_nominal=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final per=datChi)
+    final per=dat)
     "Water cooled chiller (ports indexed 1 are on condenser side)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Movers.SpeedControlled_y pumCon(
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    addPowerToMedium=false,
+    final addPowerToMedium=false,
     per(pressure(dp={dpCon_nominal,0}, V_flow={0,mCon_flow_nominal/1000})),
-    allowFlowReversal=allowFlowReversal)
+    final allowFlowReversal=allowFlowReversal)
     "Condenser pump"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
   Buildings.Fluid.Movers.SpeedControlled_y pumEva(
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    addPowerToMedium=false,
+    final addPowerToMedium=false,
     per(pressure(dp={dpEva_nominal,0}, V_flow={0,mEva_flow_nominal/1000})),
-    allowFlowReversal=allowFlowReversal)
+    final allowFlowReversal=allowFlowReversal)
     "Evaporator pump"
     annotation (Placement(transformation(
       extent={{10,-10},{-10,10}},
       rotation=0,
       origin={-100,-60})));
-  FifthGeneration.Controls.Chiller con "Controller"
+  FifthGeneration.Controls.Chiller con(
+    TChiWatSupSetMin=dat.TEvaLvgMin,
+    TConWatEntMin=dat.TConEntMin,
+    TEvaWatEntMax=dat.TEvaLvgMax - dat.QEva_flow_nominal /
+      cp_default / dat.mEva_flow_nominal)
+    "Controller"
     annotation (Placement(transformation(extent={{-70,130},{-50,150}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTConLvg(
     redeclare final package Medium = Medium,
@@ -128,8 +129,8 @@ model Chiller "Base subsystem with heat recovery chiller"
     final m_flow_nominal=mCon_flow_nominal)
     "Condenser water entering temperature"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
-        rotation=-90,
-        origin={-20,40})));
+      rotation=-90,
+      origin={-20,40})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTEvaEnt(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
@@ -169,8 +170,8 @@ model Chiller "Base subsystem with heat recovery chiller"
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final m_flow_nominal=mEva_flow_nominal,
-    dpValve_nominal=0.2*dpEva_nominal,
-    dpFixed_nominal=dpEva_nominal)
+    final dpValve_nominal=dpValEva_nominal,
+    final dpFixed_nominal=dpEva_nominal)
     "Three-way mixing valve controlling evaporator water entering temperature"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
@@ -180,8 +181,8 @@ model Chiller "Base subsystem with heat recovery chiller"
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final m_flow_nominal=mCon_flow_nominal,
-    dpValve_nominal=0.2*dpCon_nominal,
-    dpFixed_nominal=0.8*dpCon_nominal)
+    final dpValve_nominal=dpValCon_nominal,
+    final dpFixed_nominal=dpCon_nominal)
     "Three-way mixing valve to controlling condenser water entering temperature"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
@@ -190,7 +191,15 @@ model Chiller "Base subsystem with heat recovery chiller"
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[2]
     "Constant speed primary pumps control signal"
     annotation (Placement(transformation(extent={{-160,170},{-140,190}})));
-
+protected
+  final parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(
+    T=Medium.T_default,
+    p=Medium.p_default,
+    X=Medium.X_default[1:Medium.nXi])
+    "Medium state at default properties";
+  final parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
+    Medium.specificHeatCapacityCp(sta_default)
+    "Specific heat capacity of the fluid";
 equation
   connect(splConMix.port_3,valMixCon. port_3) annotation (Line(points={{120,70},
           {120,80},{-140,80},{-140,70}},    color={0,127,255}));
