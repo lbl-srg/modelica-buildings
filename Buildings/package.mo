@@ -234,6 +234,22 @@ its class name ends with the string <code>Beta</code>.
     <b style=\"color:blue\">backward compatible</b> way:
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions.WeatherData</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3
+        </td>
+        <td valign=\"top\">Refactored weather data reader and changed implementation to allow exactly zero radiation rather
+                           than a small positive value.
+                           This was required to allow simulating buildings at steady-state, which is needed
+                           for some controls design.
+                           For examples in which buildings are simulated at steady-state, see
+                           <code>Buildings.ThermalZones.Detailed.Validation.MixedAirFreeResponseSteadyState</code>,
+                           <code>Buildings.Examples.VAVReheat.Validation.Guideline36SteadyState</code> and
+                           <code>Buildings.ThermalZones.ReducedOrder.Validation.RoomSteadyState</code>.<br/>
+                         This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1340\">IBPSA, #1340</a>.
+        </td>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.Controls.Continuous</b>
         </td>
     </tr>
