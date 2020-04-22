@@ -350,7 +350,7 @@ equation
   connect(wseSta.y[1], greThr.u)
     annotation (Line(points={{-38,30},{-22,30}}, color={0,0,127}));
 annotation (
- experiment(StopTime=20000.0, Tolerance=1e-06),
+ experiment(StopTime=14000.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Validation/SetpointController_WSE.mos"
     "Simulate and plot"),
   Documentation(info="<html>

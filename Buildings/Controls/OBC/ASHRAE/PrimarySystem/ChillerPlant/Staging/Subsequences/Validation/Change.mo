@@ -319,7 +319,7 @@ equation
   connect(greThr1.y, cha2.uPla) annotation (Line(points={{-138,30},{-88,30},{
           -88,-180},{-42,-180}}, color={255,0,255}));
 annotation (
- experiment(StopTime=20000.0, Tolerance=1e-06),
+ experiment(StopTime=14000.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Change.mos"
     "Simulate and plot"),
   Documentation(info="<html>
