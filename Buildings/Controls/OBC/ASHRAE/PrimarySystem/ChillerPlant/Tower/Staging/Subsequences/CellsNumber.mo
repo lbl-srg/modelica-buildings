@@ -1,14 +1,15 @@
 ﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.Staging.Subsequences;
-block EnableCells_sim "Sequence for identifying enabing and disabling cells"
+block CellsNumber
+  "Sequence for identifying total number of enabling cells"
 
   parameter Boolean have_WSE = true
     "Flag to indicate if the plant has waterside economizer";
   parameter Integer nTowCel = 4
     "Total number of cooling tower cells";
   parameter Integer totChiSta = 6
-    "Total number of stages, stage zero should be counted as one stage";
+    "Total number of plant stages, stage zero should be counted as one stage";
   parameter Real staVec[totChiSta]={0,0.5,1,1.5,2,2.5}
-    "Chiller stage vector with size of total number of stages, element value like x.5 means chiller stage x plus WSE";
+    "Plant stage vector with size of total number of stages, element value like x.5 means chiller stage x plus WSE";
   parameter Real towCelOnSet[totChiSta] = {0,2,2,4,4,4}
     "Design number of tower fan cells that should be ON, according to current chiller stage and WSE status";
   parameter Real pumSpeChe = 0.01
@@ -183,7 +184,7 @@ equation
     annotation (Line(points={{-98,-120},{280,-120}}, color={255,0,255}));
 
 annotation (
-  defaultComponentName="enaTowCel",
+  defaultComponentName="enaCelNum",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
        graphics={
         Text(
@@ -320,4 +321,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end EnableCells_sim;
+end CellsNumber;

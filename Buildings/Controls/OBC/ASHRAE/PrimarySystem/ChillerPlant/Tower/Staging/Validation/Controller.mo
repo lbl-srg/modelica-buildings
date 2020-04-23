@@ -1,79 +1,103 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.Staging.Validation;
 model Controller "Validation sequence of tower cell controller"
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.Staging.Controller towSta
-    "Tower fan staging control"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
-    final width=0.15, final period=3600) "Boolean pulse"
-    annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
-  Buildings.Controls.OBC.CDL.Logical.Not staUp "Chiller stage up status"
-    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
-    final width=0.18, final period=3600) "Boolean pulse"
-    annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
-  Buildings.Controls.OBC.CDL.Logical.Not towStaUp "Tower stage up status"
-    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.Staging.Controller
+    towSta "Cooling tower staging control, specifies total number of cells and the staging process"
+    annotation (Placement(transformation(extent={{40,20},{60,40}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre pre1[4] "Actual cells status"
+    annotation (Placement(transformation(extent={{80,0},{100,20}})));
+  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol[4](final
+      samplePeriod=fill(2, 4)) "Actual isolation valve positions"
+    annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse wseSta(
     final width=0.15,
     final period=3600,
-    final startTime=300) "Boolean pulse"
-    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger chiSta "Chiller stage"
-    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant enaPri[4](
-    final k={4,1,2,3})
-    "Tower cells enabling priority"
-    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
-    final k=false) "Stage down"
-    annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre pre1[4] "Break algebraic"
-    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol[4](
-    final samplePeriod=fill(5, 4))
-    "Output the input signal with a zero order hold"
-    annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
+    final startTime=300) "Water side economizer status"
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp chiStaGen(
+    final height=1.2,
+    final duration=3600,
+    final offset=1) "Generate chiller stage"
+    annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger chiStaSet
+    "Chiller stage setpoint"
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant curChiSta(final k=1)
+    "Current chiller stage"
+    annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul2(
+    final width=0.75,
+    final period=3600) "Boolean pulse"
+    annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
+  Buildings.Controls.OBC.CDL.Logical.Not StaTow "Stage tower cells"
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conWatPumSpe(final k=0.5)
+    "Condenser water pump speed"
+    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse pul(
+    final width=0.05,
+    final period=3600)
+    "Boolean pulse"
+    annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
+  Buildings.Controls.OBC.CDL.Logical.Not leaConPum "Lead condenser water pump status"
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2[4](
+    final k={false,true,true,false})
+    "Enabling cells index"
+    annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[4](
+    final k=fill(false,4)) "Constant zero"
+    annotation (Placement(transformation(extent={{-120,-140},{-100,-120}})));
+  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(final nout=4)
+    "Replicate boolean input"
+    annotation (Placement(transformation(extent={{-20,-120},{0,-100}})));
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[4] "Logical switch"
+    annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
 
 equation
-  connect(booPul.y, staUp.u)
-    annotation (Line(points={{-78,-10},{-62,-10}}, color={255,0,255}));
-  connect(staUp.y, chiSta.u)
-    annotation (Line(points={{-38,-10},{-30,-10},{-30,80},{-22,80}},
-      color={255,0,255}));
-  connect(booPul1.y, towStaUp.u)
-    annotation (Line(points={{-78,-50},{-62,-50}}, color={255,0,255}));
-  connect(chiSta.y, towSta.uChiSta)
-    annotation (Line(points={{2,80},{20,80},{20,9},{38,9}}, color={255,127,0}));
-  connect(wseSta.y, towSta.uWSE)
-    annotation (Line(points={{-38,60},{-14,60},{-14,7},{38,7}}, color={255,0,255}));
-  connect(towSta.yTowSta, pre1.u)
-    annotation (Line(points={{62,0},{78,0}}, color={255,0,255}));
   connect(pre1.y, towSta.uTowSta)
-    annotation (Line(points={{102,0},{110,0},{110,40},{0,40},{0,5},{38,5}},
-      color={255,0,255}));
-  connect(enaPri.y, towSta.uTowCelPri)
-    annotation (Line(points={{-38,30},{-20,30},{-20,3},{38,3}}, color={255,127,0}));
-  connect(staUp.y, towSta.uStaUp)
-    annotation (Line(points={{-38,-10},{-30,-10},{-30,0},{38,0}},
-      color={255,0,255}));
-  connect(towStaUp.y, towSta.uTowStaUp)
-    annotation (Line(points={{-38,-50},{-26,-50},{-26,-3},{38,-3}},
-      color={255,0,255}));
-  connect(con1.y, towSta.uStaDow)
-    annotation (Line(points={{-38,-80},{-20,-80},{-20,-5},{38,-5}},
-      color={255,0,255}));
-  connect(con1.y, towSta.uTowStaDow)
-    annotation (Line(points={{-38,-80},{-20,-80},{-20,-7},{38,-7}},
+    annotation (Line(points={{102,10},{120,10},{120,50},{-14,50},{-14,21},{38,21}},
       color={255,0,255}));
   connect(towSta.yIsoVal, zerOrdHol.u)
-    annotation (Line(points={{62,-9},{70,-9},{70,-40},{78,-40}}, color={0,0,127}));
+    annotation (Line(points={{62,30},{72,30},{72,-30},{78,-30}}, color={0,0,127}));
   connect(zerOrdHol.y, towSta.uIsoVal)
-    annotation (Line(points={{102,-40},{110,-40},{110,-60},{0,-60},{0,-9},
-      {38,-9}}, color={0,0,127}));
-
-annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
+    annotation (Line(points={{102,-30},{120,-30},{120,-50},{-20,-50},{-20,23},{38,
+          23}}, color={0,0,127}));
+  connect(chiStaGen.y,chiStaSet. u)
+    annotation (Line(points={{-98,80},{-82,80}}, color={0,0,127}));
+  connect(booPul2.y,StaTow. u)
+    annotation (Line(points={{-98,40},{-82,40}}, color={255,0,255}));
+  connect(pul.y,leaConPum. u)
+    annotation (Line(points={{-98,-30},{-82,-30}}, color={255,0,255}));
+  connect(curChiSta.y, towSta.uChiSta) annotation (Line(points={{-58,120},{30,120},
+          {30,39},{38,39}}, color={255,127,0}));
+  connect(chiStaSet.y, towSta.uChiStaSet) annotation (Line(points={{-58,80},{24,
+          80},{24,37},{38,37}}, color={255,127,0}));
+  connect(StaTow.y, towSta.uTowStaCha) annotation (Line(points={{-58,40},{-40,40},
+          {-40,35},{38,35}}, color={255,0,255}));
+  connect(wseSta.y, towSta.uWse) annotation (Line(points={{-58,0},{-34,0},{-34,33},
+          {38,33}}, color={255,0,255}));
+  connect(leaConPum.y, towSta.uLeaConWatPum) annotation (Line(points={{-58,-30},
+          {-30,-30},{-30,30},{38,30}}, color={255,0,255}));
+  connect(conWatPumSpe.y, towSta.uConWatPumSpe) annotation (Line(points={{-58,-60},
+          {-26,-60},{-26,27},{38,27}}, color={0,0,127}));
+  connect(towSta.yTowSta, pre1.u) annotation (Line(points={{62,26},{68,26},{68,
+          10},{78,10}},
+                    color={255,0,255}));
+  connect(StaTow.y, booRep.u) annotation (Line(points={{-58,40},{-40,40},{-40,-110},
+          {-22,-110}}, color={255,0,255}));
+  connect(con2.y, logSwi.u1) annotation (Line(points={{-98,-90},{20,-90},{20,-102},
+          {38,-102}}, color={255,0,255}));
+  connect(booRep.y, logSwi.u2)
+    annotation (Line(points={{2,-110},{38,-110}}, color={255,0,255}));
+  connect(con.y, logSwi.u3) annotation (Line(points={{-98,-130},{20,-130},{20,-118},
+          {38,-118}}, color={255,0,255}));
+  connect(logSwi.y, towSta.uChaCel) annotation (Line(points={{62,-110},{80,-110},
+          {80,-60},{20,-60},{20,25},{38,25}}, color={255,0,255}));
+          annotation (experiment(
+      StopTime=3600,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Dassl"),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Tower/Staging/Validation/Controller.mos"
     "Simulate and plot"),
   Documentation(info="<html>
@@ -101,5 +125,5 @@ First implementation.
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}), Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})));
+        coordinateSystem(preserveAspectRatio=false, extent={{-140,-160},{140,160}})));
 end Controller;

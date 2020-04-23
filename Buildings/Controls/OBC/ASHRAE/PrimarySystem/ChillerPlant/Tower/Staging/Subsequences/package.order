@@ -1,4 +1,3 @@
-EnableCells
-EnableCells_sim
-EnableProcesses
+CellsNumber
+StageProcesses
 Validation

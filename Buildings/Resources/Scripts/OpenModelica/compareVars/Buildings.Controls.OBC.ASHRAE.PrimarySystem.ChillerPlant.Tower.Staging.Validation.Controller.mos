@@ -1,19 +1,21 @@
 compareVars :=
   {
     "towSta.uChiSta",
-    "towSta.uWSE",
-    "towSta.uStaUp",
-    "towSta.uTowStaUp",
+    "towSta.uChiStaSet",
+    "towSta.uTowStaCha",
+    "towSta.uWse",
+    "towSta.uLeaConWatPum",
+    "towSta.yNumCel",
+    "towSta.uChaCel[1]",
+    "towSta.uChaCel[2]",
+    "towSta.uChaCel[3]",
+    "towSta.uChaCel[4]",
+    "towSta.uIsoVal[1]",
+    "towSta.uIsoVal[2]",
+    "towSta.uIsoVal[3]",
+    "towSta.uIsoVal[4]",
     "towSta.uTowSta[1]",
     "towSta.uTowSta[2]",
     "towSta.uTowSta[3]",
-    "towSta.uTowSta[4]",
-    "towSta.yTowSta[1]",
-    "towSta.yTowSta[2]",
-    "towSta.yTowSta[3]",
-    "towSta.yTowSta[4]",
-    "towSta.yIsoVal[1]",
-    "towSta.yIsoVal[2]",
-    "towSta.yIsoVal[3]",
-    "towSta.yIsoVal[4]"
+    "towSta.uTowSta[4]"
   };
