@@ -7,13 +7,13 @@ model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
     peakHea(Min=3.437*1000, Max=4.354*1000, Mean=4.000*1000),
     peakCoo(Min=-5.965*1000, Max=-6.827*1000, Mean=-6.461*1000)));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conHea(
-    ki=0.1,
+    k=0.1,
     Ti=300,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI)
     "Controller for heating"
     annotation (Placement(transformation(extent={{-72,30},{-64,38}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conCoo(
-    ki=0.1,
+    k=0.1,
     Ti=300,
     reverseAction=true,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI)
