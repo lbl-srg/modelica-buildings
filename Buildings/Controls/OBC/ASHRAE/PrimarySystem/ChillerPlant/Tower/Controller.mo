@@ -319,17 +319,6 @@ block Controller "Cooling tower controller"
       iconTransformation(extent={{100,-120},{140,-80}})));
 
 protected
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.Staging.Controller towSta(
-    final nTowCel=nTowCel,
-    final hasWSE=hasWSE,
-    final totChiSta=totChiSta,
-    final staVec=staVec,
-    final towCelOnSet=towCelOnSet,
-    final chaTowCelIsoTim=chaTowCelIsoTim,
-    final iniValPos=iniValPos,
-    final endValPos=endValPos,
-    final fallDelay=fallDelay)  "Staging tower cells"
-    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.Controller towFanSpe(
     final nChi=nChi,
     final nTowCel=nTowCel,
