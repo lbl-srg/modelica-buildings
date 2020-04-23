@@ -207,7 +207,7 @@ equation
 This model tests the correct initialization of
 <a href=\"modelica://Buildings.ThermalZones.Detailed.MixedAir\">
 Buildings.ThermalZones.Detailed.MixedAir</a>.
-The air temperature starts at <i>-15</i>&deg; C
+The air temperature starts at <i>-15</i>&deg;C
 and remains there.
 </p>
 </html>", revisions="<html>
