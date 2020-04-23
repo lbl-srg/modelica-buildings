@@ -218,17 +218,13 @@ model System7
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=0.1,
     Ti=120,
-    yMax=1,
-    yMin=0,
     reverseAction=true) "Controller for valve in boiler loop"
     annotation (Placement(transformation(extent={{160,-270},{180,-250}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conPIDRad(
     Td=1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=0.1,
-    Ti=120,
-    yMax=1,
-    yMin=0) "Controller for valve in radiator loop"
+    Ti=120) "Controller for valve in radiator loop"
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Line TSetSup
     "Setpoint for supply water temperature"
