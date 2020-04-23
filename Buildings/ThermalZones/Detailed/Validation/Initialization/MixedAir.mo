@@ -207,13 +207,13 @@ equation
 This model tests the correct initialization of
 <a href=\"modelica://Buildings.ThermalZones.Detailed.MixedAir\">
 Buildings.ThermalZones.Detailed.MixedAir</a>.
-The air temperature should start at <i>-15</i>&circ; C
+The air temperature should start at <i>-15</i>&deg; C
 and remain there.
 </p>
 <p>
 Note that there are still very small heat flows even if all solar radiation
 is set to zero and all boundary conditions and start values are set to
-<i>-15</i>&circ; C.
+<i>-15</i>&deg; C.
 The reasons are as follows:
 </p>
 <ul>
