@@ -137,7 +137,7 @@ convertModifiers(
     "dpDamRec_nominal=%k1% * 1.2 * %v_nominal%^2 / 2",
     "dpFixRec_nominal=if %dp_nominalIncludesDamper% then %dpRec_nominal% - %k1% * 1.2 * %v_nominal%^2 / 2 else %dpRec_nominal%",
     "dpDamExh_nominal=%k1% * 1.2 * %v_nominal%^2 / 2",
-    "dpFixExh_nominal=if %dp_nominalIncludesDamper% then %dpExh_nominal% - %k1% * 1.2 * %v_nominal%^2 / 2 else %dpExh_nominal%"},
+    "dpFixExh_nominal=if %dp_nominalIncludesDamper% then %dpExh_nominal% - %k1% * 1.2 * %v_nominal%^2 / 2 else %dpExh_nominal%",
     "dpDamOutMin_nominal=%k1% * 1.2 * %v_nominal%^2 / 2",
     "dpFixOutMin_nominal=if %dp_nominalIncludesDamper% then %dpOutMin_nominal% - %k1% * 1.2 * %v_nominal%^2 / 2 else %dpOutMin_nominal%"},
     true);
