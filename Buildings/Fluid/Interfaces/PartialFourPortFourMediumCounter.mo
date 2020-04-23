@@ -1,6 +1,6 @@
 within Buildings.Fluid.Interfaces;
-partial model PartialFourPortFourMedium
-  "Partial model with four ports with four separate medium models without storing mass or energy"
+partial model PartialFourPortFourMediumCounter
+  "Partial model with four ports,  four separate medium models, and counter flow without storing mass or energy"
 
   replaceable package Medium_a1 =
       Modelica.Media.Interfaces.PartialTwoPhaseMedium
@@ -45,7 +45,6 @@ partial model PartialFourPortFourMedium
     displayUnit="Pa") = port_a2.p - port_b2.p
     "Pressure difference between port_a2 and port_b2";
 
-
 //  parameter Boolean allowFlowReversal = false
 //    "= false to simplify equations, assuming, but not enforcing, no flow reversal"
 //    annotation(Dialog(tab="Assumptions"), Evaluate=true);
@@ -76,26 +75,26 @@ partial model PartialFourPortFourMedium
     m_flow(min=0),
     h_outflow(start=Medium_a1.h_default, nominal=Medium_a1.h_default))
     "Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)"
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+    annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b1(
     redeclare final package Medium = Medium_b1,
     m_flow(max=0),
     h_outflow(start=Medium_b1.h_default, nominal=Medium_b1.h_default))
     "Fluid connector b1 (positive design flow direction is from port_a1 to port_b1)"
-    annotation (Placement(transformation(extent={{110,-10},{90,10}})));
+    annotation (Placement(transformation(extent={{110,50},{90,70}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a2(
     redeclare final package Medium = Medium_a2,
     m_flow(min=0),
     h_outflow(start=Medium_a2.h_default, nominal=Medium_a2.h_default))
     "Fluid connector a2 (positive design flow direction is from port_a2 to port_b2)"
-    annotation (Placement(transformation(extent={{-110,-90},{-90,-70}})));
+    annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b2(
     redeclare final package Medium = Medium_b2,
     m_flow(max=0),
     h_outflow(start=Medium_b2.h_default, nominal=Medium_b2.h_default))
     "Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)"
-    annotation (Placement(transformation(extent={{110,-90},{90,-70}})));
+    annotation (Placement(transformation(extent={{-90,-70},{-110,-50}})));
 protected
   final parameter Modelica.SIunits.MassFlowRate _m1_flow_start = 0
   "Start value for m1_flow, used to avoid a warning if not set in m_flow, and to avoid m_flow.start in parameter window";
@@ -106,4 +105,4 @@ protected
   final parameter Modelica.SIunits.PressureDifference _dp2_start(displayUnit="Pa") = 0
   "Start value for dp2, used to avoid a warning if not set in dp, and to avoid dp.start in parameter window";
 
-end PartialFourPortFourMedium;
+end PartialFourPortFourMediumCounter;

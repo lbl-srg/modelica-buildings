@@ -1,7 +1,7 @@
 within Buildings.Fluid.Boilers;
 model SteamBoilerFourPort
   "Model for a steam boiler with four ports for air and water flows, including medium changes"
-  extends Buildings.Fluid.Interfaces.PartialFourPortFourMedium(
+  extends Buildings.Fluid.Interfaces.PartialFourPortFourMediumParallel(
     redeclare final package Medium_a2 = Medium2,
     redeclare final package Medium_b2 = Medium2);
   extends Buildings.Fluid.Boilers.BaseClasses.PartialSteamBoiler(

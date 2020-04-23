@@ -1,36 +1,55 @@
 within Buildings.Fluid.HeatExchangers;
 model SteamHeatExchangerEffectivenessNTU
   "Steam heat exchanger with effectiveness - NTU relation"
-  extends Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectivenessNTU(
-      configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.ConstantTemperaturePhaseChange,
-    UA = 1/(1/hA1 + 1/hA2));
+  extends Buildings.Fluid.Interfaces.PartialFourPortFourMediumCounter;
 
-protected
-  parameter Modelica.SIunits.ThermalConductance hA1_nominal(min=0)=2*UA_nominal
-    "Nominal convective heat transfer coefficient for medium 1";
-  parameter Modelica.SIunits.ThermalConductance hA2_nominal(min=0)=2*UA_nominal
-    "Nominal convective heat transfer coefficient for medium 2";
+  parameter con configuration "Heat exchanger configuration"
+    annotation (Evaluate=true);
 
-  parameter Real n1(min=0, max=1)=0.8
-    "Exponent for convective heat transfer coefficient, h1~m1_flow^n1";
-  parameter Real n2(min=0, max=1)=0.8
-   "Exponent for convective heat transfer coefficient, h2~m2_flow^n2";
+  parameter Boolean use_Q_flow_nominal = true
+    "Set to true to specify Q_flow_nominal and temperatures, or to false to specify effectiveness"
+    annotation (Evaluate=true,
+                Dialog(group="Nominal thermal performance"));
 
-  Modelica.SIunits.ThermalConductance hA1
-    "Convective heat transfer coefficient for medium 1";
-  Modelica.SIunits.ThermalConductance hA2
-    "Convective heat transfer coefficient for medium 2";
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(fixed=use_Q_flow_nominal)
+    "Nominal heat transfer"
+    annotation (Dialog(group="Nominal thermal performance",
+                       enable=use_Q_flow_nominal));
+  parameter Modelica.SIunits.Temperature T_a1_nominal(fixed=use_Q_flow_nominal)
+    "Nominal temperature at port a1"
+    annotation (Dialog(group="Nominal thermal performance",
+                       enable=use_Q_flow_nominal));
+  parameter Modelica.SIunits.Temperature T_a2_nominal(fixed=use_Q_flow_nominal)
+    "Nominal temperature at port a2"
+    annotation (Dialog(group="Nominal thermal performance",
+                       enable=use_Q_flow_nominal));
+
+  parameter Real eps_nominal(fixed=not use_Q_flow_nominal)
+    "Nominal heat transfer effectiveness"
+    annotation (Dialog(group="Nominal thermal performance",
+                       enable=not use_Q_flow_nominal));
+
+  input Modelica.SIunits.ThermalConductance UA "UA value";
+
+  Real eps(min=0, max=1) "Heat exchanger effectiveness";
+
+  // NTU has been removed as NTU goes to infinity as CMin goes to zero.
+  // This quantity is not good for modeling.
+  //  Real NTU(min=0) "Number of transfer units";
+  final parameter Modelica.SIunits.ThermalConductance UA_nominal(fixed=false)
+    "Nominal UA value";
+  final parameter Real NTU_nominal(min=0, fixed=false)
+    "Nominal number of transfer units";
+
+//protected
+
+initial equation
+
 
 equation
-  // Convective heat transfer coefficients
- hA1 = hA1_nominal * Buildings.Utilities.Math.Functions.regNonZeroPower(
-   x = m1_flow/m1_flow_nominal,
-   n = n1,
-   delta = 0.1);
- hA2 = hA2_nominal * Buildings.Utilities.Math.Functions.regNonZeroPower(
-   x = m2_flow/m2_flow_nominal,
-   n = n2,
-   delta = 0.1);
+
+
+
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),

@@ -5,7 +5,8 @@ EightPortHeatMassExchanger
 FourPortHeatMassExchanger
 PartialEightPortInterface
 PartialFourPort
-PartialFourPortFourMedium
+PartialFourPortFourMediumCounter
+PartialFourPortFourMediumParallel
 PartialFourPortInterface
 PartialFourPortParallel
 PartialTwoPort
