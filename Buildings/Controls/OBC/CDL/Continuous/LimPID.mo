@@ -91,7 +91,6 @@ block LimPID
 
   Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset I(
     final k=1/Ti,
-    final initType=Buildings.Controls.OBC.CDL.Types.Init.InitialOutput,
     final y_start=xi_start,
     final reset=
       if reset == Buildings.Controls.OBC.CDL.Types.Reset.Disabled then
@@ -104,8 +103,7 @@ block LimPID
   Buildings.Controls.OBC.CDL.Continuous.Derivative D(
     final k=Td,
     final T=Td/Nd,
-    final y_start=yd_start,
-    final initType=Buildings.Controls.OBC.CDL.Types.Init.InitialOutput) if
+    final y_start=yd_start) if
       with_D "Derivative term"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 
