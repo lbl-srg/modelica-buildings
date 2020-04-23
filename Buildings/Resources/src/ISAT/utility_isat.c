@@ -71,7 +71,7 @@ int write_output_data(PARA_DATA *para, REAL **var, int **BINDEX) {
 	snprintf(filenametmp, sizeof(filenametmp), "%s%s", filepath, "set.isat");
 
 	if ((file_params = fopen(filenametmp, "r")) == NULL) {
-		sprintf(msg, "read_sci_input(): Could not open the file %s.",filenametmp);
+		sprintf(msg, "write_output_data(): Could not open the file %s.",filenametmp);
 		ffd_log(msg, FFD_ERROR);
 		return 1;
 	}

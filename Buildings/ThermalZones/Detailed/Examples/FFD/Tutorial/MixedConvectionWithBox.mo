@@ -74,10 +74,10 @@ model MixedConvectionWithBox
     redeclare package Medium = MediumA)
     "Pressure boundary condition"
     annotation (Placement(transformation(extent={{40,-84},{60,-64}})));
-  Modelica.Blocks.Sources.Cosine qInterSou(
-    offset=273.15 + 35,
-    amplitude=15,
-    freqHz=0.01) "Internal heat source"
+  Modelica.Blocks.Sources.Step step(
+    height=15,
+    offset=283.15,
+    startTime=200)
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 equation
   connect(qRadGai_flow.y,multiplex3_1. u1[1]) annotation (Line(
@@ -134,8 +134,8 @@ equation
       points={{60,-74},{74,-74},{74,-26},{85,-26}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(qInterSou.y, roo.QIntSou[1]) annotation (Line(points={{-19,70},{60,70},
-          {60,1.77636e-15},{78.4,1.77636e-15}}, color={0,0,127}));
+  connect(step.y, roo.QIntSou[1]) annotation (Line(points={{-19,70},{60,70},{60,
+          0},{78.4,0}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 This tutorial gives step by step instructions on building and simulating a mixed convection model.

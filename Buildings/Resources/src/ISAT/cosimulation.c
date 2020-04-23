@@ -221,7 +221,7 @@ int read_cosim_data(PARA_DATA *para) {
 				for (j = 0; j < num_block; j++) {
 					if (block_wh[j] == i + 1) {
 						para->cosim->ffd->input[i] = para->cosim->modelica->sourceHeat[j];
-						int source_bou = 2;
+						int source_bou = 1;
 						/*source_bou is defined by the users */
 						switch (source_bou) {
 						case 1: /* Temperature*/

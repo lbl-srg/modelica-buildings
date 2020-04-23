@@ -27,7 +27,6 @@
 #ifdef FFD_ISAT
 extern char filepath[];
 extern double ffdInput[];
-extern double AInlet[];
 #endif
 
 /****************************************************************************
@@ -648,6 +647,8 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
 				if (inlet_vel_re[i] == 1)
 					inlet_vel_value[i] = ffdInput[inlet_vel_wh[i] - 1] / inlet_area_value[i] / para->prob->rho;
 				 updated_mass_flowrate = updated_mass_flowrate + ffdInput[inlet_vel_wh[i] - 1];
+					sprintf(msg, "read_sci_input(): check %lf, %lf, %d", inlet_vel_value[i], ffdInput[inlet_vel_wh[i] - 1], inlet_vel_wh[i]);
+					ffd_log(msg, FFD_NORMAL);
 			}
 		}
 		/* Assign value for block by isat inputs */
@@ -1578,11 +1579,13 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
 #ifdef FFD_ISAT
 					/* Overwrite value by ISAT inputs for racks */
 					if (num_block > 0) {
+						if (strstr(para->bc->blockName[i], "Rack") != NULL) {
 							if (block_re[i])
 								para->bc->HeatDiss[id_rack] = block_value[i];
 							sprintf(msg, "read_sci_input(): para->bc->HeatDiss[%d]=%lf after overwrite.",
 								id_rack, para->bc->HeatDiss[id_rack]);
 							ffd_log(msg, FFD_NORMAL);
+						}
 					}
 #endif				
 				

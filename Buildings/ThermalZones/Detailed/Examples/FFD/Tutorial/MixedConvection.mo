@@ -386,7 +386,8 @@ First implementation.
 </html>"),
     experiment(Tolerance=1e-06, StopTime=180),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/FFD/Tutorial/MixedConvectionWithBox.mos"),
+          "Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/FFD/Tutorial/MixedConvection.mos"
+        "Simulate and plot"),
     Diagram(coordinateSystem(extent={{-80,-160},{200,120}}, preserveAspectRatio=false),
         graphics));
 end MixedConvection;

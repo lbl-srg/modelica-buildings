@@ -55,8 +55,17 @@
 /******************************************************************************
 | Declaration of ISATAB in isat (external static library)
 ******************************************************************************/
+
+
+/* Windows*/
+#ifdef _MSC_VER
+void ISATAB(int *idtab, int *mode, const int *nx, double x[], const int *nf, const int *nh, const int *nhd, void *usrfgh, \
+	int iusr[], double rusr[], int info[], double rinfo[], double fa[], double ga[nx_SIZE][nf_SIZE], double ha[], double stats[]);
+/* Linux*/
+#else
 void isatab_(int *idtab, int *mode, const int *nx, double x[], const int *nf, const int *nh, const int *nhd, void *usrfgh, \
-             int iusr[], double rusr[], int info[], double rinfo[], double fa[], double ga[nx_SIZE][nf_SIZE], double ha[], double stats[] );
+	int iusr[], double rusr[], int info[], double rinfo[], double fa[], double ga[nx_SIZE][nf_SIZE], double ha[], double stats[]);
+#endif
 
 /******************************************************************************
 | Initialize parameter for calling ISAT or slover
@@ -361,7 +370,14 @@ void evaluate(){
   }
   if (useISAT){
     tStart = clock();
-    isatab_(&idtab, &mode, &nx, x, &nf, &nh, &nhd, (void *)&unusedPointer, (int *)&ffdStruct, rusr, info, rinfo, fa, ga, ha, stats);
+				/* Windows*/
+#ifdef _MSC_VER
+				ISATAB(&idtab, &mode, &nx, x, &nf, &nh, &nhd, (void *)&unusedPointer, (int *)&ffdStruct, rusr, info, rinfo, fa, ga, ha, stats);
+				/* Linux*/
+#else
+				isatab_(&idtab, &mode, &nx, x, &nf, &nh, &nhd, (void *)&unusedPointer, (int *)&ffdStruct, rusr, info, rinfo, fa, ga, ha, stats);
+#endif
+    
   tEnd = clock();
   cpuCum = (double)(tEnd - tStart) / CLOCKS_PER_SEC;
   cpuISAT += cpuCum;

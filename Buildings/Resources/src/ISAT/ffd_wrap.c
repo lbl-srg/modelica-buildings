@@ -36,7 +36,6 @@ extern INPUT_TYPE inpu_name[];
 /*Global variables shared with ffd()*/
 double ffdInput[nx_SIZE];          /* westWallT, eastWallT */
 double ffdOutput[nf_SIZE];         /* centerT, centerUx, centerUy, centerUz */
-double AInlet[nx_SIZE];
 /*double **ffd_exist_result; */        /* used to store the existing data */
 
 /****************************************************************************
