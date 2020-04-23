@@ -3,7 +3,8 @@ model CellsNumber
   "Validation sequence of identifying total number of enabling cells"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.Staging.Subsequences.CellsNumber
-    enaTowCel "Find number of enabling cells"
+    enaTowCel(nConWatPum=2, nTowCel=4)
+              "Find number of enabling cells"
     annotation (Placement(transformation(extent={{62,-10},{82,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse wseSta(
     final width=0.15,
@@ -26,9 +27,8 @@ model CellsNumber
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
   Buildings.Controls.OBC.CDL.Logical.Not StaTow "Stage tower cells"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conWatPumSpe(
-    final k=0.5)
-    "Condenser water pump speed"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conWatPumSpe[2](
+    final k=fill(0.5, 2)) "Condenser water pump speed"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse pul(
     final width=0.05, final period=3600)
@@ -52,10 +52,10 @@ equation
     annotation (Line(points={{-38,-30},{-8,-30},{-8,-2},{60,-2}}, color={255,0,255}));
   connect(conWatPumSpe.y, enaTowCel.uConWatPumSpe)
     annotation (Line(points={{-38,-100},{8,-100},{8,-9},{60,-9}}, color={0,0,127}));
-  connect(pul.y, leaConPum.u) annotation (Line(points={{-78,-60},{-62,-60}},
-                                               color={255,0,255}));
-  connect(leaConPum.y, enaTowCel.uLeaConWatPum) annotation (Line(points={{-38,-60},
-          {0,-60},{0,-6},{60,-6}}, color={255,0,255}));
+  connect(pul.y, leaConPum.u)
+    annotation (Line(points={{-78,-60},{-62,-60}}, color={255,0,255}));
+  connect(leaConPum.y, enaTowCel.uLeaConWatPum)
+    annotation (Line(points={{-38,-60},{0,-60},{0,-6},{60,-6}}, color={255,0,255}));
 
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Tower/Staging/Subsequences/Validation/CellsNumber.mos"

@@ -7,5 +7,5 @@ compareVars :=
     "enaTowCel.yNumCel",
     "enaTowCel.uLeaConWatPum",
     "enaTowCel.yLeaCel",
-    "enaTowCel.uConWatPumSpe"
+    "enaTowCel.uConWatPumSpe[1]"
   };

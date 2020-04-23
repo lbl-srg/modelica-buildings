@@ -4,6 +4,7 @@ block Controller "Sequence of staging cooling tower cells"
   parameter Boolean have_WSE=true
     "Flag to indicate if the plant has waterside economizer";
   parameter Integer nTowCel=4 "Total number of cooling tower cells";
+  parameter Integer nConWatPum=2 "Total number of condenser water pumps";
   parameter Integer totChiSta=6
     "Total number of plant stages, stage zero should be counted as one stage";
   parameter Real staVec[totChiSta]={0,0.5,1,1.5,2,2.5}
@@ -12,23 +13,10 @@ block Controller "Sequence of staging cooling tower cells"
     "Design number of tower fan cells that should be ON, according to current chiller stage and WSE status";
   parameter Real chaTowCelIsoTim=90
     "Nominal time needed for open isolation valve of the tower cells";
-  parameter Real pumSpeChe=0.01
+  parameter Real speChe=0.01
     "Lower threshold value to check if condenser water pump is proven on"
     annotation (Dialog(tab="Advanced"));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.Staging.Subsequences.CellsNumber
-    enaCel(
-    final have_WSE=have_WSE,
-    final nTowCel=nTowCel,
-    final totChiSta=totChiSta,
-    final staVec=staVec,
-    final towCelOnSet=towCelOnSet,
-    final pumSpeChe=pumSpeChe) "Total number of enabled cells"
-    annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.Staging.Subsequences.StageProcesses
-    staPro(final nTowCel=nTowCel, final chaTowCelIsoTim=chaTowCelIsoTim)
-    "Tower staging process"
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta
     "Current chiller stage"
     annotation (Placement(transformation(extent={{-140,110},{-100,150}}),
@@ -49,11 +37,10 @@ block Controller "Sequence of staging cooling tower cells"
     "Enabling status of lead condenser water pump"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpe(
-     final unit="1")
-    "Current condenser water pump speed"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpe[nConWatPum](
+      final unit=fill("1", nConWatPum)) "Current condenser water pump speed"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
-      iconTransformation(extent={{-140,-50},{-100,-10}})));
+        iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChaCel[nTowCel]
     "True: the cell should be enabled or disabled"
     annotation (Placement(transformation(extent={{-140,-90},{-100,-50}}),
@@ -72,7 +59,7 @@ block Controller "Sequence of staging cooling tower cells"
       iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLeaCel
     "Lead tower cell status"
-    annotation (Placement(transformation(extent={{100,70},{140,110}}),
+    annotation (Placement(transformation(extent={{100,40},{140,80}}),
       iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yIsoVal[nTowCel](
     final unit=fill("1", nTowCel),
@@ -89,6 +76,21 @@ block Controller "Sequence of staging cooling tower cells"
     annotation (Placement(transformation(extent={{100,-120},{140,-80}}),
       iconTransformation(extent={{100,-110},{140,-70}})));
 
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.Staging.Subsequences.CellsNumber
+    enaCel(
+    final have_WSE=have_WSE,
+    final nConWatPum=nConWatPum,
+    final nTowCel=nTowCel,
+    final totChiSta=totChiSta,
+    final staVec=staVec,
+    final towCelOnSet=towCelOnSet,
+    speChe=speChe)  "Total number of enabled cells"
+    annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.Staging.Subsequences.StageProcesses
+    staPro(final nTowCel=nTowCel, final chaTowCelIsoTim=chaTowCelIsoTim)
+    "Tower staging process"
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+
 equation
   connect(uChiSta, enaCel.uChiSta) annotation (Line(points={{-120,130},{-74,130},
           {-74,99},{-42,99}}, color={255,127,0}));
@@ -104,8 +106,8 @@ equation
           {-62,81},{-62,-40},{-120,-40}}, color={0,0,127}));
   connect(enaCel.yNumCel, yNumCel) annotation (Line(points={{-18,90},{40,90},{40,
           120},{120,120}}, color={255,127,0}));
-  connect(enaCel.yLeaCel, yLeaCel) annotation (Line(points={{-18,84},{46,84},{46,
-          90},{120,90}}, color={255,0,255}));
+  connect(enaCel.yLeaCel, yLeaCel) annotation (Line(points={{-18,84},{40,84},{40,
+          60},{120,60}}, color={255,0,255}));
   connect(staPro.yIsoVal, yIsoVal)
     annotation (Line(points={{22,6},{72,6},{72,0},{120,0}}, color={0,0,127}));
   connect(staPro.yTowSta, yTowSta) annotation (Line(points={{22,0},{60,0},{60,-60},

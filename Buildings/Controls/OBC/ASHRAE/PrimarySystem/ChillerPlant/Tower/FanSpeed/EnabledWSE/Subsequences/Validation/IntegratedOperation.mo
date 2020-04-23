@@ -52,7 +52,7 @@ equation
 
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Tower/FanSpeed/EnabledWSE/Subsequences/Validation/IntegratedOperation.mos"
-    "Simulate and plot", file="test.mos" "test"),
+    "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This example validates

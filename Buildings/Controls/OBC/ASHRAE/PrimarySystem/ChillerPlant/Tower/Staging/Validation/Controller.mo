@@ -2,12 +2,13 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.Staging.Va
 model Controller "Validation sequence of tower cell controller"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.Staging.Controller
-    towSta "Cooling tower staging control, specifies total number of cells and the staging process"
+    towSta(nTowCel=4, nConWatPum=2)
+    "Cooling tower staging control, specifies total number of cells and the staging process"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre1[4] "Actual cells status"
     annotation (Placement(transformation(extent={{80,0},{100,20}})));
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol[4](final
-      samplePeriod=fill(2, 4)) "Actual isolation valve positions"
+  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol[4](
+    final samplePeriod=fill(2, 4)) "Actual isolation valve positions"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse wseSta(
     final width=0.15,
@@ -31,8 +32,8 @@ model Controller "Validation sequence of tower cell controller"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
   Buildings.Controls.OBC.CDL.Logical.Not StaTow "Stage tower cells"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conWatPumSpe(final k=0.5)
-    "Condenser water pump speed"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conWatPumSpe[2](
+    final k=fill(0.5, 2)) "Condenser water pump speed"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse pul(
     final width=0.05,
@@ -82,8 +83,7 @@ equation
   connect(conWatPumSpe.y, towSta.uConWatPumSpe) annotation (Line(points={{-58,-60},
           {-26,-60},{-26,27},{38,27}}, color={0,0,127}));
   connect(towSta.yTowSta, pre1.u) annotation (Line(points={{62,26},{68,26},{68,
-          10},{78,10}},
-                    color={255,0,255}));
+          10},{78,10}}, color={255,0,255}));
   connect(StaTow.y, booRep.u) annotation (Line(points={{-58,40},{-40,40},{-40,-110},
           {-22,-110}}, color={255,0,255}));
   connect(con2.y, logSwi.u1) annotation (Line(points={{-98,-90},{20,-90},{20,-102},
@@ -94,10 +94,10 @@ equation
           {38,-118}}, color={255,0,255}));
   connect(logSwi.y, towSta.uChaCel) annotation (Line(points={{62,-110},{80,-110},
           {80,-60},{20,-60},{20,25},{38,25}}, color={255,0,255}));
-          annotation (experiment(
+
+annotation (experiment(
       StopTime=3600,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Tower/Staging/Validation/Controller.mos"
     "Simulate and plot"),
   Documentation(info="<html>
