@@ -175,8 +175,8 @@ package RC "Package with reduced order thermal zones based on VDI 6007 Part 1"
   Buildings.ThermalZones.ReducedOrder.RC</a> have a parameter <code>use_moisture_balance</code>.
   If set to <code>true</code>, the input connector <code>QLat_flow</code> is enabled.
   This input connector can be used to set the latent heat gain of the zone. The model assumes this
-  latent heat gain to be at <i>37</i>&circ;C, e.g., near the skin temperature.
-  For other latent sources that are near <i>20</i>&circ;C, this assumption of the temperature
+  latent heat gain to be at <i>37</i>&deg;C, e.g., near the skin temperature.
+  For other latent sources that are near <i>20</i>&deg;C, this assumption of the temperature
   leads to an error of around <i>2</i>%, which in most cases is considerably smaller than
   the uncertainty of <code>QLat_flow</code>.
   </p>
