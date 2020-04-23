@@ -148,8 +148,7 @@ equation
 annotation (
  experiment(
       StopTime=150000,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Economizer/Subsequences/Validation/Tuning_uEcoSta_uTowFanSpeMax.mos"
     "Simulate and plot"),
   Documentation(info="<html>
