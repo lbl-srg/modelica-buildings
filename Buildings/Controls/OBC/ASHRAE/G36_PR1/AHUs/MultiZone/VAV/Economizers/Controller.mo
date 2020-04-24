@@ -264,8 +264,7 @@ equation
   connect(TOut, enaDis.TOut)
     annotation (Line(points={{-180,150},{-40,150},{-40,-20},{-2,-20}}, color={0,0,127}));
   connect(VOutMinSet_flow_normalized, damLim.VOutMinSet_flow_normalized)
-    annotation (Line(points={{-180,-20},{-110,-20},{-110,18},{-82,18}},
-                                                                    color={0,0,127}));
+    annotation (Line(points={{-180,-20},{-110,-20},{-110,18},{-82,18}}, color={0,0,127}));
   connect(uSupFan, damLim.uSupFan)
     annotation (Line(points={{-180,-80},{-104,-80},{-104,10},{-82,10}}, color={255,0,255}));
   connect(uOpeMod, damLim.uOpeMod)
@@ -310,11 +309,9 @@ equation
     annotation (Line(points={{118,46},{98,46}}, color={0,0,127}));
   connect(TMix, freProTMix.TMix)
     annotation (Line(points={{-180,-50},{-120,-50},{-120,-60},{60,-60},{60,-10},
-          {78,-10}},
-      color={0,0,127}));
+      {78,-10}}, color={0,0,127}));
   connect(freProTMix.yFrePro, retDamMinFre.u1)
-    annotation (Line(points={{102,-13},{104,-13},{104,46},{118,46}},
-                                                                   color={0,0,127}));
+    annotation (Line(points={{102,-13},{104,-13},{104,46},{118,46}}, color={0,0,127}));
   connect(freProTMix.yFreProInv, outDamMaxFre.u2)
     annotation (Line(points={{102,-7},{104,-7},{104,-46},{118,-46}},
       color={0,0,127}));
