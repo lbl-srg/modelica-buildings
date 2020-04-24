@@ -102,9 +102,7 @@ Buildings.Controls.OBC.Utilities.OptimalStart</a> for space heating system.
 </p>
 <p>
 The room is modelled as a simple differential equation with a time constant of
-around 5.6 hours, which is the same as the cooling case
-<a href=\"modelica://Buildings.Controls.OBC.Utilities.Validation.OptimalStartCooling\">
-Buildings.Controls.OBC.Utilities.Validation.OptimalStartCooling</a>.
+around 5.6 hours.
 The outdoor temperature is also repetitive each day;
 the optimal start time converges to a small amount of time <code>tOpt</code> after a few days.
 </p>
