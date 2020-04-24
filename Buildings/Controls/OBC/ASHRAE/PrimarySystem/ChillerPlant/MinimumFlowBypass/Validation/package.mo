@@ -1,7 +1,15 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass;
 package Validation "Collection of validation models"
 
-annotation (Icon(graphics={
+annotation (
+  preferredView="info", Documentation(info="<html>
+<p>
+This package contains validation models for the classes in
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass</a>.
+</p>
+</html>"),
+  Icon(graphics={
         Rectangle(
           lineColor={200,200,200},
           fillColor={248,248,248},
