@@ -540,15 +540,18 @@ annotation (defaultComponentName="terUniCon",
           lineColor={0,0,127},
           textString="uOpeMod"),
         Text(
-          extent={{-100,46},{-74,36}},
+          visible=have_occSen,
+          extent={{-100,36},{-74,26}},
           lineColor={0,0,127},
           textString="nOcc"),
         Text(
-          extent={{-96,70},{-58,52}},
+          visible=have_CO2Sen,
+          extent={{-96,60},{-58,42}},
           lineColor={0,0,127},
           textString="ppmCO2"),
         Text(
-          extent={{-100,24},{-72,14}},
+          visible=have_winSen,
+          extent={{-100,14},{-72,4}},
           lineColor={0,0,127},
           textString="uWin"),
         Text(
