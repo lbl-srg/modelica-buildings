@@ -16,14 +16,14 @@ block LessCoupled
     "Threshold time to hold the initial temperature difference at the plant initial stage"
     annotation (Dialog(group="Return water temperature controller"));
   parameter Real TConWatSup_nominal[nChi](
-    final unit=fill("K", nChi),
-    final displayUnit=fill("degC", nChi),
+    each final unit="K",
+    each final displayUnit="degC",
     final quantity=fill("ThermodynamicTemperature", nChi)) = {293.15, 293.15}
     "Design condenser water supply temperature (condenser entering) of each chiller"
     annotation (Dialog(group="Return water temperature controller"));
   parameter Real TConWatRet_nominal[nChi](
-    final unit=fill("K", nChi),
-    final displayUnit=fill("degC", nChi),
+    each final unit="K",
+    each final displayUnit="degC",
     final quantity=fill("ThermodynamicTemperature", nChi)) = {303.15, 303.15}
     "Design condenser water return temperature (condenser leaving) of each chiller"
     annotation (Dialog(group="Return water temperature controller"));

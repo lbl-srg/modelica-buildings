@@ -5,7 +5,7 @@ block Controller "Tower fan speed control when waterside economizer is enabled"
   parameter Real fanSpeMin=0.1 "Minimum tower fan speed";
   parameter Real fanSpeMax=1 "Maximum tower fan speed";
   parameter Real chiMinCap[nChi](
-    final unit=fill("W", nChi),
+    each final unit="W",
     final quantity=fill("Power", nChi))={1e4,1e4}
     "Minimum cyclining load below which chiller will begin cycling"
     annotation (Dialog(tab="Integrated operation"));

@@ -15,7 +15,7 @@ block Controller "Tower fan speed control"
   parameter Real fanSpeMax=1 "Maximum tower fan speed"
     annotation (Dialog(enable=have_WSE));
   parameter Real chiMinCap[nChi](
-    final unit=fill("W", nChi),
+    each final unit="W",
     final quantity=fill("Power", nChi))={1e4,1e4}
     "Minimum cyclining load below which chiller will begin cycling"
     annotation (Dialog(tab="WSE Enabled", group="Integrated", enable=have_WSE));
@@ -53,13 +53,22 @@ block Controller "Tower fan speed control"
                                             chiWatCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Modelica.SIunits.TemperatureDifference LIFT_min[nChi]={12,12} "Minimum LIFT of each chiller"
     annotation (Dialog(tab="Return temperature control", group="Setpoint"));
-  parameter Real TConWatSup_nominal[nChi]={293.15,293.15}
+  parameter Real TConWatSup_nominal[nChi](
+    each final unit="K",
+    each final displayUnit="degC",
+    final quantity=fill("ThermodynamicTemperature", nChi))={293.15,293.15}
     "Design condenser water supply temperature (condenser entering) of each chiller"
     annotation (Dialog(tab="Return temperature control", group="Setpoint"));
-  parameter Real TConWatRet_nominal[nChi]={303.15,303.15}
+  parameter Real TConWatRet_nominal[nChi](
+    each final unit="K",
+    each final displayUnit="degC",
+    final quantity=fill("ThermodynamicTemperature", nChi))={303.15,303.15}
     "Design condenser water return temperature (condenser leaving) of each chiller"
     annotation (Dialog(tab="Return temperature control", group="Setpoint"));
-  parameter Real TChiWatSupMin[nChi]={278.15,278.15}
+  parameter Real TChiWatSupMin[nChi](
+    each final unit="K",
+    each final displayUnit="degC",
+    final quantity=fill("ThermodynamicTemperature", nChi))={278.15,278.15}
     "Lowest chilled water supply temperature of each chiller"
     annotation (Dialog(tab="Return temperature control", group="Setpoint"));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController couPlaCon=

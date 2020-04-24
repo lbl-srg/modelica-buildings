@@ -5,13 +5,13 @@ block Setpoint "Calculate condener return water temperature setpoint"
   parameter Modelica.SIunits.TemperatureDifference LIFT_min[nChi] = {12, 12}
     "Minimum LIFT of each chiller";
   parameter Real TConWatRet_nominal[nChi](
-     final unit=fill("K", nChi),
-     final displayUnit=fill("degC", nChi),
+     each final unit="K",
+     each final displayUnit="degC",
      final quantity=fill("ThermodynamicTemperature", nChi))= {303.15, 303.15}
     "Design condenser water return temperature (condenser leaving) of each chiller";
   parameter Real TChiWatSupMin[nChi](
-     final unit=fill("K", nChi),
-     final displayUnit=fill("degC", nChi),
+     each final unit="K",
+     each final displayUnit="degC",
      final quantity=fill("ThermodynamicTemperature", nChi)) = {278.15, 278.15}
     "Minimum chilled water supply temperature of each chiller";
   parameter Real iniPlaTim(final quantity="Time", final unit="s")= 600

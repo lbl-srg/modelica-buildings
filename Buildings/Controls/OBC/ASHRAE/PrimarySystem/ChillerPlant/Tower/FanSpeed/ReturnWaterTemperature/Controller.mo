@@ -14,20 +14,20 @@ block Controller
   parameter Modelica.SIunits.TemperatureDifference LIFT_min[nChi]={12,12} "Minimum LIFT of each chiller"
     annotation (Dialog(tab="Setpoint"));
   parameter Real TConWatSup_nominal[nChi](
-    final unit=fill("K", nChi),
-    final displayUnit=fill("degC", nChi),
+    each final unit="K",
+    each final displayUnit="degC",
     final quantity=fill("ThermodynamicTemperature", nChi))={293.15,293.15}
     "Design condenser water supply temperature (condenser entering) of each chiller"
     annotation (Dialog(tab="Setpoint"));
   parameter Real TConWatRet_nominal[nChi](
-    final unit=fill("K", nChi),
-    final displayUnit=fill("degC", nChi),
+    each final unit="K",
+    each final displayUnit="degC",
     final quantity=fill("ThermodynamicTemperature", nChi))={303.15, 303.15}
     "Design condenser water return temperature (condenser leaving) of each chiller"
     annotation (Dialog(tab="Setpoint"));
   parameter Real TChiWatSupMin[nChi](
-    final unit=fill("K", nChi),
-    final displayUnit=fill("degC", nChi),
+    each final unit="K",
+    each final displayUnit="degC",
     final quantity=fill("ThermodynamicTemperature", nChi)) = {278.15, 278.15}
     "Lowest chilled water supply temperature of each chiller"
     annotation (Dialog(tab="Setpoint"));

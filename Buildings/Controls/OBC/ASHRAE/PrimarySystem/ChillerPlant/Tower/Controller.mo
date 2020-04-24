@@ -21,7 +21,7 @@ block Controller "Cooling tower controller"
 
   // Fan speed control: when WSE is enabled
   parameter Real chiMinCap[nChi](
-    final unit=fill("W", nChi),
+    each final unit="W",
     final quantity=fill("Power", nChi))={1e4,1e4}
     "Minimum cyclining load below which chiller will begin cycling"
     annotation (Dialog(tab="Fan speed", group="WSE enabled",
@@ -65,20 +65,20 @@ block Controller "Cooling tower controller"
   parameter Modelica.SIunits.TemperatureDifference LIFT_min[nChi]={12,12} "Minimum LIFT of each chiller"
     annotation (Dialog(tab="Fan speed", group="Return temperature control"));
   parameter Real TConWatSup_nominal[nChi](
-    final unit=fill("K", nChi),
-    final displayUnit=fill("degC", nChi),
+    each final unit="K",
+    each final displayUnit="degC",
     final quantity=fill("ThermodynamicTemperature", nChi))={293.15,293.15}
     "Condenser water supply temperature (condenser entering) of each chiller"
     annotation (Dialog(tab="Fan speed", group="Return temperature control"));
   parameter Real TConWatRet_nominal[nChi](
-    final unit=fill("K", nChi),
-    final displayUnit=fill("degC", nChi),
+    each final unit="K",
+    each final displayUnit="degC",
     final quantity=fill("ThermodynamicTemperature", nChi))={303.15,303.15}
     "Condenser water return temperature (condenser leaving) of each chiller"
     annotation (Dialog(tab="Fan speed", group="Return temperature control"));
   parameter Real TChiWatSupMin[nChi](
-    final unit=fill("K", nChi),
-    final displayUnit=fill("degC", nChi),
+    each final unit="K",
+    each final displayUnit="degC",
     final quantity=fill("ThermodynamicTemperature", nChi))={278.15,278.15}
     "Lowest chilled water supply temperature oc each chiller"
     annotation (Dialog(tab="Fan speed", group="Return temperature control"));
