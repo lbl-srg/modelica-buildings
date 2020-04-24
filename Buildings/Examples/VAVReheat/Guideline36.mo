@@ -463,7 +463,7 @@ for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1709\">#1709</a>.
 </li>
 <li>
 May 19, 2016, by Michael Wetter:<br/>
-Changed chilled water supply temperature to <i>6&circ;C</i>.
+Changed chilled water supply temperature to <i>6&deg;C</i>.
 This is
 for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/509\">#509</a>.
 </li>

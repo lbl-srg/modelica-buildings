@@ -27,7 +27,7 @@ equation
   annotation (Documentation(info="<html>
 <p>
 This model validates that the window model has no heat transfer if
-the boundary conditions are constant at <i>20</i>&circ;C.
+the boundary conditions are constant at <i>20</i>&deg;C.
 </p>
 </html>", revisions="<html>
 <ul>

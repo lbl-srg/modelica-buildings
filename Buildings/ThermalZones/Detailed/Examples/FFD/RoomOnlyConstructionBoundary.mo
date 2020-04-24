@@ -62,8 +62,8 @@ with the FFD program by simulating the natural convection in an empty room with 
 <p>
 Figure (a) shows the schematic of the FFD simulation.
 The room is <i>1</i> meter in length, width and height.
-The temperature of the east wall is set to <i>40</i>&circ;C and the rest walls are at <i>10</i>&circ;C.
-The initial value for the temperature of the room air is <i>30</i>&circ;C.
+The temperature of the east wall is set to <i>40</i>&deg;C and the rest walls are at <i>10</i>&deg;C.
+The initial value for the temperature of the room air is <i>30</i>&deg;C.
 Two sensors are placed in the room center at (<i>0.5</i> m, <i>0.5</i> m, <i>0.5</i> m)
 that measure the temperature and the velocity.
 </p>

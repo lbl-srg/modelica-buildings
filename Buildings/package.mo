@@ -2230,7 +2230,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
    <tr><td valign=\"top\">Buildings.Examples.VAVReheat.ClosedLoop
 
        </td>
-       <td valign=\"top\">Changed chilled water supply temperature to <i>6&circ;C</i>.
+       <td valign=\"top\">Changed chilled water supply temperature to <i>6&deg;C</i>.
                           This closes
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/509\">issue 509</a>.
        </td>
