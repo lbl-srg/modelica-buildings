@@ -24,10 +24,31 @@ model Chiller "Base subsystem with heat recovery chiller"
     "Nominal pressure drop accross evaporator"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Pressure dpValCon_nominal=dpCon_nominal / 4
-    "Nominal pressure drop accross control valve on condenser side";
+    "Nominal pressure drop accross control valve on condenser side"
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Pressure dpValEva_nominal=dpEva_nominal / 4
-    "Nominal pressure drop accross control valve on evaporator side";
-
+    "Nominal pressure drop accross control valve on evaporator side"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Boolean have_resUp = true
+    "Allow resetting up chilled water supply temperature in heating only"
+    annotation(Dialog(group="Controls"), Evaluate=true);
+  parameter Modelica.SIunits.Temperature TChiWatSupSetMin(
+    displayUnit="degC") = dat.TEvaLvgMin
+    "Minimum value of chilled water supply temperature set-point"
+    annotation(Dialog(group="Controls"));
+  parameter Modelica.SIunits.Temperature TChiWatSupSetMax(
+    displayUnit="degC") = dat.TEvaLvgMax
+    "Maximum value of chilled water supply temperature set-point"
+    annotation(Dialog(group="Controls", enable=have_resUp));
+  parameter Modelica.SIunits.Temperature TConWatEntMin(
+    displayUnit="degC") = dat.TConEntMin
+    "Minimum value of condenser water entering temperature"
+    annotation(Dialog(group="Controls"));
+  parameter Modelica.SIunits.Temperature TEvaWatEntMax(
+    displayUnit="degC") = dat.TEvaLvgMax - dat.QEva_flow_nominal /
+      cp_default / dat.mEva_flow_nominal
+    "Maximum value of evaporator water entering temperature"
+    annotation(Dialog(group="Controls"));
   // IO CONNECTORS
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHea
     "Heating mode enabled signal"
@@ -107,10 +128,10 @@ model Chiller "Base subsystem with heat recovery chiller"
       rotation=0,
       origin={-100,-60})));
   FifthGeneration.Controls.Chiller con(
-    TChiWatSupSetMin=dat.TEvaLvgMin,
-    TConWatEntMin=dat.TConEntMin,
-    TEvaWatEntMax=dat.TEvaLvgMax - dat.QEva_flow_nominal /
-      cp_default / dat.mEva_flow_nominal)
+    final TChiWatSupSetMin=TChiWatSupSetMin,
+    final TChiWatSupSetMax=TChiWatSupSetMax,
+    final TConWatEntMin=TConWatEntMin,
+    final TEvaWatEntMax=TEvaWatEntMax)
     "Controller"
     annotation (Placement(transformation(extent={{-70,130},{-50,150}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTConLvg(
@@ -230,7 +251,7 @@ equation
           {-72,148}},  color={255,0,255}));
   connect(uCoo, con.uCoo) annotation (Line(points={{-220,150},{-186,150},{-186,146},
           {-72,146}},  color={255,0,255}));
-  connect(TChiWatSupSet, con.TChiWatSupSetMax) annotation (Line(points={{-220,90},
+  connect(TChiWatSupSet,con.TChiWatSupPreSet)  annotation (Line(points={{-220,90},
           {-186,90},{-186,142},{-72,142}},   color={0,0,127}));
   connect(booToRea.y, pumCon.y) annotation (Line(points={{-82,180},{-100,180},
           {-100,72}},  color={0,0,127}));

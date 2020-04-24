@@ -72,26 +72,26 @@ model Chiller
     duration=1000,
     startTime=2000) "Heating water return temperature"
     annotation (Placement(transformation(extent={{-190,-72},{-170,-52}})));
-  Fluid.Sensors.TemperatureTwoPort senTHeaWatSup(redeclare final package Medium
-      = Medium, m_flow_nominal=dat.mCon_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort senTHeaWatSup(redeclare final package Medium =
+        Medium, m_flow_nominal=dat.mCon_flow_nominal)
     "Heating water supply temperature" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-80,-40})));
-  Fluid.Sensors.TemperatureTwoPort senTChiWatSup(redeclare final package Medium
-      = Medium, m_flow_nominal=dat.mEva_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort senTChiWatSup(redeclare final package Medium =
+        Medium, m_flow_nominal=dat.mEva_flow_nominal)
     "Chilled water supply temperature" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={70,-40})));
-  Fluid.Sensors.TemperatureTwoPort senTHeaWatRet(redeclare final package Medium
-      = Medium, m_flow_nominal=dat.mCon_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort senTHeaWatRet(redeclare final package Medium =
+        Medium, m_flow_nominal=dat.mCon_flow_nominal)
     "Heating water return temperature" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-80,-80})));
-  Fluid.Sensors.TemperatureTwoPort senTChiWatRet(redeclare final package Medium
-      = Medium, m_flow_nominal=dat.mEva_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort senTChiWatRet(redeclare final package Medium =
+        Medium, m_flow_nominal=dat.mEva_flow_nominal)
     "Chilled water return temperature" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
@@ -105,7 +105,7 @@ model Chiller
     annotation (Placement(transformation(extent={{192,-30},{172,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=2)
     annotation (Placement(transformation(extent={{150,-70},{130,-50}})));
-  Modelica.Blocks.Sources.BooleanExpression uHea(y=time <= 4000)
+  Modelica.Blocks.Sources.BooleanExpression uHea(y=time < 4000)
     "Heating enabled signal"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum1(nin=2)
@@ -158,5 +158,8 @@ equation
           -59},{-14,-59}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-140},{200,140}})),
-    experiment(StopTime=5000, __Dymola_Algorithm="Dassl"));
+    experiment(StopTime=5000, __Dymola_Algorithm="Dassl"),
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Validation/Chiller.mos"
+        "Simulate and plot"));
 end Chiller;

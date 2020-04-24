@@ -651,22 +651,22 @@ equation
       pattern=LinePattern.Dash));
   connect(topHotTan.T,ETSCon. TTanHeaTop)
     annotation (Line(
-      points={{194,208},{84,208},{84,246},{-204,246},{-204,219},{-199,219}},
+      points={{194,208},{84,208},{84,246},{-204,246},{-204,215},{-200,215}},
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(botHotTan.T,ETSCon. TTanHeaBot)
     annotation (Line(
-      points={{196,-32},{224,-32},{224,250},{-206,250},{-206,217},{-199,217}},
+      points={{196,-32},{224,-32},{224,250},{-206,250},{-206,212},{-200,212}},
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(topCooTan.T,ETSCon. TTanCooTop)
     annotation (Line(
-      points={{-250,100},{-266,100},{-266,201},{-199,201}},
+      points={{-250,100},{-266,100},{-266,206},{-200,206}},
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(botCooTan.T,ETSCon. TTanCooBot)
     annotation (Line(
-      points={{-250,20},{-274,20},{-274,203},{-199,203}},
+      points={{-250,20},{-274,20},{-274,203},{-200,203}},
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(hex.port_a1, pumHexDis.port_b)
@@ -805,11 +805,11 @@ equation
       color={255,0,255},
       pattern=LinePattern.Dot));
   connect(ETSCon.yIsoCon, valSupHea.y) annotation (Line(
-      points={{-177,209},{-152,209},{-152,-2},{8,-2},{8,-8}},
+      points={{-176,206},{-152,206},{-152,-2},{8,-2},{8,-8}},
       color={28,108,200},
       pattern=LinePattern.DashDot));
   connect(ETSCon.yIsoEva, valSupCoo.y) annotation (Line(
-      points={{-177,207},{-152,207},{-152,-8},{-84,-8}},
+      points={{-176,203},{-152,203},{-152,-8},{-84,-8}},
       color={28,108,200},
       pattern=LinePattern.DashDot));
   connect(ETSCon.yCoo, ambCon.uCoo) annotation (Line(
@@ -829,11 +829,11 @@ equation
       color={255,0,255},
       pattern=LinePattern.Dot));
   connect(ambCon.uColRej, ETSCon.yColRej) annotation (Line(
-      points={{-146,-73},{-164,-73},{-164,202.8},{-177,202.8}},
+      points={{-146,-67},{-164,-67},{-164,209},{-176,209}},
       color={255,0,255},
       pattern=LinePattern.Dot));
   connect(ETSCon.yHeaRej, ambCon.uHeaRej) annotation (Line(
-      points={{-177,204.8},{-162,204.8},{-162,-70},{-146,-70}},
+      points={{-176,212},{-162,212},{-162,-64},{-146,-64}},
       color={255,0,255},
       pattern=LinePattern.Dot));
   connect(pumPrimCon.yPumCon, pumCon.y) annotation (Line(points={{-98,158},{10,
@@ -850,12 +850,12 @@ equation
       color={0,127,255},
       thickness=0.5));
   connect(TSetHea, ETSCon.TSetHea) annotation (Line(
-      points={{-310,282},{-214,282},{-214,215},{-199,215}},
+      points={{-310,282},{-214,282},{-214,218},{-200,218}},
       color={238,46,47},
       pattern=LinePattern.Dash,
       thickness=0.5));
   connect(TSetCoo, ETSCon.TSetCoo) annotation (Line(
-      points={{-310,268},{-228,268},{-228,205},{-199,205}},
+      points={{-310,268},{-228,268},{-228,209},{-200,209}},
       color={0,128,255},
       pattern=LinePattern.Dash,
       thickness=0.5));
@@ -864,17 +864,17 @@ equation
       color={238,46,47},
       pattern=LinePattern.Dash,
       thickness=0.5));
-  connect(TSetCoo, chiCon.TChiWatSupSetMax) annotation (Line(
+  connect(TSetCoo,chiCon.TChiWatSupPreSet)  annotation (Line(
       points={{-310,268},{-130,268},{-130,212},{-122,212}},
       color={0,128,255},
       pattern=LinePattern.Dash,
       thickness=0.5));
   connect(ETSCon.yHea, chiCon.uHea) annotation (Line(
-      points={{-177,219},{-150,219},{-150,218},{-122,218}},
+      points={{-176,218},{-150,218},{-150,218},{-122,218}},
       color={255,0,255},
       pattern=LinePattern.Dot));
   connect(ETSCon.yCoo, chiCon.uCoo) annotation (Line(
-      points={{-177,201},{-150,201},{-150,216},{-122,216}},
+      points={{-176,215},{-150,215},{-150,216},{-122,216}},
       color={255,0,255},
       pattern=LinePattern.Dot));
   connect(TSetCooMin, chiCon.TMinEvaWatLvg) annotation (Line(
@@ -918,9 +918,9 @@ equation
       pattern=LinePattern.Dot));
   connect(TBorLvg.T, ambCon.TBorWatLvg) annotation (Line(
       points={{-41,-210},{-50,-210},{-50,-228},{-156,-228},{-156,-79},{-146,-79}},
-
       color={0,0,127},
       pattern=LinePattern.Dot));
+
   connect(hydHdrHeaRet.ports_b[2], hydHdrAmbSup.ports_b[1]) annotation (Line(
         points={{110,20},{66,20},{66,-131},{18,-131}},     color={0,127,255}));
   connect(hydHdrAmbSup.ports_b[2], TAmbCirLvg.port_a) annotation (Line(points={{14,-131},
