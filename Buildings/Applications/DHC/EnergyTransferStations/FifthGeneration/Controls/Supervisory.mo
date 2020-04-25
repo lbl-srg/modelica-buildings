@@ -24,30 +24,30 @@ model Supervisory "Energy transfer station supervisory controller"
   parameter Real yMin = 0.01
     "Minimum control output"
     annotation (Dialog(group="PID controller"));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetCoo(final unit="K", displayUnit="degC")
-    "Setpoint for cooling water temperature"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(final unit="K",
+      displayUnit="degC") "Chilled water supply temperature set-point"
     annotation (Placement(transformation(extent={{-140,-30},{-100,10}}),
-      iconTransformation(extent={{-140,-30},{-100,10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TTanCooTop(final unit="K",displayUnit="degC")
-    "Top temperature of cooling buffer tank"
+        iconTransformation(extent={{-140,-30},{-100,10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatTop(final unit="K",displayUnit="degC")
+    "Chilled water temperature at tank top"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TTanCooBot(final unit="K",displayUnit="degC")
-    "Bottom temperature of cooling buffer tank"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatBot(final unit="K",displayUnit="degC")
+    "Chilled water temperature at tank bottom"
     annotation (Placement(transformation(extent={{-140,-90},{-100,-50}}),
       iconTransformation(extent={{-140,-90},{-100,-50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TTanHeaTop(final unit="K",displayUnit="degC")
-    "Top temperature of heating buffer tank"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatTop(final unit="K",displayUnit="degC")
+    "Heating water temperature at tank top"
     annotation (Placement(transformation(extent={{-140,30},{-100,70}}),
       iconTransformation(extent={{-140,30},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TTanHeaBot(final unit="K",displayUnit="degC")
-    "Bottom temperature of heating buffer tank"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatBot(final unit="K",displayUnit="degC")
+    "Heating water temperature at tank bottom"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetHea(final unit="K", displayUnit="degC")
-    "Setpoint for heating water temperature"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSupSet(final unit="K",
+      displayUnit="degC") "Heating water supply temperature set-point"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
-      iconTransformation(extent={{-140,60},{-100,100}})));
+        iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yIsoCon
     "Condenser to ambient loop isolation valve control signal"
                                                 annotation (Placement(
@@ -77,14 +77,14 @@ model Supervisory "Energy transfer station supervisory controller"
   ColdSide conColSid(THys=THys) "Cold side controller"
     annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
 equation
-  connect(TTanHeaTop, conHotSid.TTop) annotation (Line(points={{-120,50},{-20,
+  connect(THeaWatTop, conHotSid.TTop) annotation (Line(points={{-120,50},{-20,
           50},{-20,48},{-12,48}},      color={0,0,127}));
-  connect(TTanHeaBot, conHotSid.TBot) annotation (Line(points={{-120,20},{-20,
+  connect(THeaWatBot, conHotSid.TBot) annotation (Line(points={{-120,20},{-20,
           20},{-20,44},{-12,44}},
                                 color={0,0,127}));
-  connect(TTanCooTop, conColSid.TTop) annotation (Line(points={{-120,-40},{-24,
+  connect(TChiWatTop, conColSid.TTop) annotation (Line(points={{-120,-40},{-24,
           -40},{-24,-72},{-12,-72}},   color={0,0,127}));
-  connect(TTanCooBot, conColSid.TBot) annotation (Line(points={{-120,-70},{-28,
+  connect(TChiWatBot, conColSid.TBot) annotation (Line(points={{-120,-70},{-28,
           -70},{-28,-76},{-12,-76}},      color={0,0,127}));
   connect(conHotSid.yHea, yHea) annotation (Line(points={{12,58},{20,58},{20,80},
           {120,80}}, color={255,0,255}));
@@ -96,10 +96,10 @@ equation
                            color={255,0,255}));
   connect(conHotSid.yRej, yHeaRej) annotation (Line(points={{12,54},{20,54},{20,
           20},{120,20}}, color={255,0,255}));
-  connect(TSetCoo, conColSid.TSet) annotation (Line(points={{-120,-10},{-20,-10},
-          {-20,-64},{-12,-64}},   color={0,0,127}));
-  connect(TSetHea, conHotSid.TSet) annotation (Line(points={{-120,80},{-20,80},
-          {-20,56},{-12,56}},     color={0,0,127}));
+  connect(TChiWatSupSet, conColSid.TSet) annotation (Line(points={{-120,-10},{-20,
+          -10},{-20,-64},{-12,-64}}, color={0,0,127}));
+  connect(THeaWatSupSet, conHotSid.TSet) annotation (Line(points={{-120,80},{-20,
+          80},{-20,56},{-12,56}}, color={0,0,127}));
   connect(conHotSid.yIso,yIsoCon)  annotation (Line(points={{12,46},{14,46},{14,
           -40},{120,-40}}, color={0,0,127}));
   connect(conColSid.yIso,yIsoEva)

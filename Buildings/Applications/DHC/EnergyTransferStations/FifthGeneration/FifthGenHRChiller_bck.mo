@@ -251,7 +251,7 @@ model FifthGenHRChiller_bck
         rotation=0,
         origin={-76,130})));
   //// TANKS
-  FifthGeneration.BaseClasses.StratifiedTank tanHeaWat(
+  BaseClasses.StratifiedTank_ tanHeaWat(
     redeclare final package Medium = Medium,
     VTan=VTan,
     hTan=hTan,
@@ -264,7 +264,7 @@ model FifthGenHRChiller_bck
     TFlu_start=(20 + 273.15)*ones(nSegTan),
     tau(displayUnit="s")) "Heating water buffer tank"
     annotation (Placement(transformation(extent={{160,30},{180,50}})));
-  FifthGeneration.BaseClasses.StratifiedTank tanChiWat(
+  BaseClasses.StratifiedTank_ tanChiWat(
     redeclare final package Medium = Medium,
     VTan=VTan,
     hTan=hTan,
@@ -649,22 +649,22 @@ equation
   connect(tanHeaWat.heaPorVol[1], topHotTan.port)
     annotation (Line(points={{170,40},{170,58},{214,58},{214,208}},color={191,0,0},
       pattern=LinePattern.Dash));
-  connect(topHotTan.T,ETSCon. TTanHeaTop)
+  connect(topHotTan.T,ETSCon.THeaWatTop)
     annotation (Line(
       points={{194,208},{84,208},{84,246},{-204,246},{-204,215},{-200,215}},
       color={0,0,127},
       pattern=LinePattern.Dot));
-  connect(botHotTan.T,ETSCon. TTanHeaBot)
+  connect(botHotTan.T,ETSCon.THeaWatBot)
     annotation (Line(
       points={{196,-32},{224,-32},{224,250},{-206,250},{-206,212},{-200,212}},
       color={0,0,127},
       pattern=LinePattern.Dot));
-  connect(topCooTan.T,ETSCon. TTanCooTop)
+  connect(topCooTan.T,ETSCon.TChiWatTop)
     annotation (Line(
       points={{-250,100},{-266,100},{-266,206},{-200,206}},
       color={0,0,127},
       pattern=LinePattern.Dot));
-  connect(botCooTan.T,ETSCon. TTanCooBot)
+  connect(botCooTan.T,ETSCon.TChiWatBot)
     annotation (Line(
       points={{-250,20},{-274,20},{-274,203},{-200,203}},
       color={0,0,127},
@@ -849,12 +849,12 @@ equation
       points={{-44,-48},{-70,-48},{-70,-100}},
       color={0,127,255},
       thickness=0.5));
-  connect(TSetHea, ETSCon.TSetHea) annotation (Line(
+  connect(TSetHea, ETSCon.THeaWatSupSet) annotation (Line(
       points={{-310,282},{-214,282},{-214,218},{-200,218}},
       color={238,46,47},
       pattern=LinePattern.Dash,
       thickness=0.5));
-  connect(TSetCoo, ETSCon.TSetCoo) annotation (Line(
+  connect(TSetCoo, ETSCon.TChiWatSupSet) annotation (Line(
       points={{-310,268},{-228,268},{-228,209},{-200,209}},
       color={0,128,255},
       pattern=LinePattern.Dash,

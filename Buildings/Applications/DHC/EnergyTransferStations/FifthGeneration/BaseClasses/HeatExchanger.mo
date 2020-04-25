@@ -1,18 +1,23 @@
 within Buildings.Applications.DHC.EnergyTransferStations.FifthGeneration.BaseClasses;
 model HeatExchanger "Base subsystem with district heat exchanger"
-  extends Fluid.Interfaces.PartialFourPortInterface;
+  extends Fluid.Interfaces.PartialFourPortInterface(
+    final m1_flow_nominal=abs(QHex_flow_nominal / cp1_default /
+                              (T_b1Hex_nominal - T_a1Hex_nominal)),
+    final m2_flow_nominal=abs(QHex_flow_nominal / cp2_default /
+                              (T_b2Hex_nominal - T_a2Hex_nominal)));
 
   parameter Boolean have_valDis
     "Set to true in case of control valve on district side, false in case of a pump"
     annotation(Evaluate=true);
 
-  parameter Modelica.SIunits.PressureDifference dp1Hex_nominal
+  parameter Modelica.SIunits.PressureDifference dp1Hex_nominal(displayUnit="Pa")
     "Nominal pressure drop on primary side of heat exchanger"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dp2Hex_nominal
+  parameter Modelica.SIunits.PressureDifference dp2Hex_nominal(displayUnit="Pa")
     "Nominal pressure drop on secondary side of heat exchanger"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpValDis_nominal = dp1Hex_nominal / 4
+  parameter Modelica.SIunits.PressureDifference dpValDis_nominal(displayUnit="Pa")=
+    dp1Hex_nominal / 4
     "Nominal pressure drop of primary control valve"
     annotation(Dialog(enable=have_valDis, group="Nominal condition"));
   parameter Modelica.SIunits.HeatFlowRate QHex_flow_nominal
@@ -30,7 +35,26 @@ model HeatExchanger "Base subsystem with district heat exchanger"
   parameter Modelica.SIunits.Temperature T_b2Hex_nominal
     "Nominal water outlet temperature on building side of heat exchanger"
     annotation (Dialog(group="Nominal condition"));
-
+  parameter Real spePum1HexMin(final unit="1") = 0.1
+    "Heat exchanger primary pump minimum speed (fractional)"
+    annotation (Dialog(group="Controls", enable=not have_valDis));
+  parameter Real spePum2HexMin(final unit="1") = 0.1
+    "Heat exchanger secondary pump minimum speed (fractional)"
+    annotation (Dialog(group="Controls"));
+  final parameter Modelica.SIunits.TemperatureDifference dT1HexSet=
+    T_b1Hex_nominal - T_a1Hex_nominal
+    "Heat exchanger primary side deltaT"
+    annotation (Dialog(group="Controls"));
+  final parameter Modelica.SIunits.TemperatureDifference dT2HexSet=
+    T_b2Hex_nominal - T_a2Hex_nominal
+    "Heat exchanger secondary side deltaT"
+    annotation (Dialog(group="Controls"));
+  parameter Real k(final unit="1/K") = 0.1
+    "Gain of controller"
+    annotation (Dialog(group="Controls"));
+  parameter Modelica.SIunits.Time Ti(min=0) = 60
+    "Time constant of integrator block"
+    annotation (Dialog(group="Controls"));
   // IO CONNECTORS
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uColRej
     "Control signal enabling full cold rejection to ambient loop"
@@ -42,7 +66,15 @@ model HeatExchanger "Base subsystem with district heat exchanger"
         iconTransformation(extent={{-140,0},{-100,40}})));
 
   // COMPONENTS
-  Controls.HeatExchanger conHex "District heat exchanger loop control"
+  Controls.HeatExchanger conHex(
+    final have_valDis=have_valDis,
+    final spePum1HexMin=spePum1DisHexMin,
+    final spePum2HexMin=spePum2DisHexMin,
+    final dT1HexSet=dT1HexSet,
+    final dT2HexSet=dT2HexSet,
+    final k=k,
+    final Ti=Ti)
+    "District heat exchanger loop controller"
     annotation (Placement(transformation(extent={{-40,124},{-20,144}})));
   Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU hex(
     redeclare final package Medium1 = Medium1,
@@ -63,7 +95,7 @@ model HeatExchanger "Base subsystem with district heat exchanger"
         origin={0,0})));
   Fluid.Movers.FlowControlled_m_flow pum2Hex(
     redeclare final package Medium = Medium2,
-    final m_flow_nominal=m2Hex_flow_nominal,
+    final m_flow_nominal=m2_flow_nominal,
     final dp_nominal=dp2Hex_nominal,
     final allowFlowReversal=allowFlowReversal2)
     "Secondary pump"
@@ -74,7 +106,7 @@ model HeatExchanger "Base subsystem with district heat exchanger"
         origin={80,-60})));
   Fluid.Sensors.TemperatureTwoPort senT2HexWatEnt(
     redeclare final package Medium = Medium2,
-    final m_flow_nominal=m2Hex_flow_nominal,
+    final m_flow_nominal=m2_flow_nominal,
     final allowFlowReversal=allowFlowReversal2)
     "Heat exchanger secondary water entering temperature"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -82,19 +114,19 @@ model HeatExchanger "Base subsystem with district heat exchanger"
         origin={20,-40})));
   Fluid.Sensors.TemperatureTwoPort senT2HexWatLvg(
     redeclare final package Medium = Medium2,
-    final m_flow_nominal=m2Hex_flow_nominal,
+    final m_flow_nominal=m2_flow_nominal,
     final allowFlowReversal=allowFlowReversal2)
     "Heat exchanger secondary water leaving temperature"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-20,-20})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai2(
-    final k=m2Hex_flow_nominal)
+    final k=m2_flow_nominal)
     "Scale to nominal mass flow rate"
     annotation (Placement(transformation(extent={{20,90},{40,110}})));
   Pump_m_flow pum1Hex(
     redeclare final package Medium = Medium1,
-    final m_flow_nominal=m1Hex_flow_nominal,
+    final m_flow_nominal=m1_flow_nominal,
     final dp_nominal=dp1Hex_nominal,
     final allowFlowReversal=allowFlowReversal1) if not have_valDis
     "District heat exchanger primary pump"
@@ -105,14 +137,14 @@ model HeatExchanger "Base subsystem with district heat exchanger"
         origin={-60,80})));
   Fluid.Actuators.Valves.TwoWayEqualPercentage val1Hex(
     redeclare final package Medium = Medium1,
-    final m_flow_nominal=m1Hex_flow_nominal,
+    final m_flow_nominal=m1_flow_nominal,
     final dpValve_nominal=dpValDis_nominal,
     final dpFixed_nominal=dp1Hex_nominal) if have_valDis
     "Heat exchanger primary control valve"
     annotation (Placement(transformation(extent={{50,70},{70,90}})));
   Fluid.Sensors.TemperatureTwoPort senT1HexWatEnt(
     redeclare final package Medium = Medium1,
-    final m_flow_nominal=m1Hex_flow_nominal,
+    final m_flow_nominal=m1_flow_nominal,
     final allowFlowReversal=allowFlowReversal1)
     "Heat exchanger primary water entering temperature"
     annotation (Placement(
@@ -122,7 +154,7 @@ model HeatExchanger "Base subsystem with district heat exchanger"
         origin={-20,40})));
   Fluid.Sensors.TemperatureTwoPort senT1HexWatLvg(
     redeclare final package Medium = Medium1,
-    final m_flow_nominal=m1Hex_flow_nominal,
+    final m_flow_nominal=m1_flow_nominal,
     final allowFlowReversal=allowFlowReversal1)
     "Heat exchanger primary water leaving temperature"
     annotation (Placement(
@@ -131,9 +163,26 @@ model HeatExchanger "Base subsystem with district heat exchanger"
         rotation=90,
         origin={20,20})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai1(
-    final k=m1Hex_flow_nominal) if not have_valDis
+    final k=m1_flow_nominal) if not have_valDis
     "Scale to nominal mass flow rate"
     annotation (Placement(transformation(extent={{-20,90},{-40,110}})));
+protected
+  final parameter Medium1.ThermodynamicState sta1_default = Medium1.setState_pTX(
+    T=Medium1.T_default,
+    p=Medium1.p_default,
+    X=Medium1.X_default[1:Medium1.nXi])
+    "Medium state at default properties";
+  final parameter Modelica.SIunits.SpecificHeatCapacity cp1_default=
+    Medium1.specificHeatCapacityCp(sta1_default)
+    "Specific heat capacity of the fluid";
+  final parameter Medium2.ThermodynamicState sta2_default = Medium2.setState_pTX(
+    T=Medium2.T_default,
+    p=Medium2.p_default,
+    X=Medium2.X_default[1:Medium2.nXi])
+    "Medium state at default properties";
+  final parameter Modelica.SIunits.SpecificHeatCapacity cp2_default=
+    Medium1.specificHeatCapacityCp(sta2_default)
+    "Specific heat capacity of the fluid";
 equation
   if not have_valDis then
     connect(senT1HexWatLvg.port_b, port_b1)

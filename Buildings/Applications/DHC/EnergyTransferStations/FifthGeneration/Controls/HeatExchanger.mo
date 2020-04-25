@@ -3,27 +3,21 @@ model HeatExchanger
   "Controller for district heat exchanger secondary loop"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Real spePum2DisHexMin(final unit="1") = 0.1
-    "District heat exchanger secondary pump minimum speed (fractional)";
-  parameter Modelica.SIunits.TemperatureDifference dTHex
-    "District heat exchanger secondary side deltaT";
-  parameter Modelica.Blocks.Types.SimpleController
-    controllerType=Modelica.Blocks.Types.SimpleController.PI
-    "Type of controller"
-    annotation (Dialog(group="PID controller"));
+  parameter Boolean have_valDis
+    "Set to true in case of control valve on district side, false in case of a pump"
+    annotation(Evaluate=true);
+  parameter Real spePum1HexMin(final unit="1") = 0.1
+    "Heat exchanger primary pump minimum speed (fractional)";
+  parameter Real spePum2HexMin(final unit="1") = 0.1
+    "Heat exchanger secondary pump minimum speed (fractional)";
+  parameter Modelica.SIunits.TemperatureDifference dT1HexSet
+    "Heat exchanger primary side deltaT set-point";
+  parameter Modelica.SIunits.TemperatureDifference dT2HexSet
+    "Heat exchanger secondary side deltaT set-point";
   parameter Real k(final unit="1/K")=0.1
-    "Gain of controller"
-    annotation (Dialog(group="PID controller"));
+    "Gain of controller";
   parameter Modelica.SIunits.Time Ti(min=0)=60
-    "Time constant of integrator block"
-    annotation (Dialog(group="PID controller",
-      enable=controllerType==Modelica.Blocks.Types.SimpleController.PI
-         or  controllerType==Modelica.Blocks.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time Td(min=0) = 0.1
-    "Time constant of derivative block"
-    annotation (Dialog(group="PID controller",
-      enable=controllerType==Modelica.Blocks.Types.SimpleController.PD
-          or controllerType==Modelica.Blocks.Types.SimpleController.PID));
+    "Time constant of integrator block";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput T2HexWatEnt(final unit="K",
       displayUnit="degc")
     "District heat exchanger secondary water entering temperature" annotation (
@@ -36,8 +30,8 @@ model HeatExchanger
         iconTransformation(extent={{-140,-90},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y2Hex(final unit="1")
     "District heat exchanger secondary control signal" annotation (Placement(
-        transformation(extent={{220,-80},{260,-40}}), iconTransformation(extent
-          ={{100,-80},{140,-40}})));
+        transformation(extent={{220,-80},{260,-40}}), iconTransformation(extent=
+           {{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uColRej
     "Control signal enabling full cold rejection to ambient loop" annotation (
       Placement(transformation(extent={{-260,40},{-220,80}}),
@@ -49,12 +43,12 @@ model HeatExchanger
   Buildings.Controls.Continuous.LimPID conPum2(
     final k=k,
     final Ti=Ti,
-    final Td=Td,
-    reset=Buildings.Types.Reset.Parameter,
-    reverseAction=true,
+    final reset=Buildings.Types.Reset.Parameter,
+    final reverseAction=true,
     final yMin=0,
     final yMax=1,
-    final controllerType=controllerType) "Secondary pump controller"
+    final controllerType=Modelica.Blocks.Types.SimpleController.PI)
+    "Secondary pump controller"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Add delT2(k2=-1) "Compute deltaT"
     annotation (Placement(transformation(extent={{-160,-90},{-140,-70}})));
@@ -69,8 +63,8 @@ model HeatExchanger
   Buildings.Controls.OBC.CDL.Logical.Or  enaHex
     "District heat exchanger enabled signal"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minSpe(final k=
-        spePum2HexMin)        "Minimum pump speed"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minSpe2(final k=
+        spePum2HexMin) "Minimum pump speed"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant off(final k=0)
      "Zero pump speed representing off command"
@@ -78,11 +72,11 @@ model HeatExchanger
   Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax2(nin=2)
     "Maximize pump control signal"
     annotation (Placement(transformation(extent={{50,-70},{70,-50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput T1HexWatEnt(final unit="K",
-      displayUnit="degc")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput T1HexWatEnt(
+    final unit="K", displayUnit="degc")
     "District heat exchanger primary water entering temperature" annotation (
       Placement(transformation(extent={{-260,0},{-220,40}}), iconTransformation(
-          extent={{-140,0},{-100,40}})));
+        extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput T1HexWatLvg(final unit="K",
       displayUnit="degc")
     "District heat exchanger primary water leaving temperature" annotation (
@@ -90,8 +84,8 @@ model HeatExchanger
         iconTransformation(extent={{-140,-30},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y1Hex(final unit="1")
     "District heat exchanger primary control signal" annotation (Placement(
-        transformation(extent={{220,0},{260,40}}), iconTransformation(extent={{
-            100,40},{140,80}})));
+      transformation(extent={{220,0},{260,40}}), iconTransformation(extent={{
+        100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Add delT1(k2=-1) "Compute deltaT"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Abs abs1 "Absolute value"
@@ -102,12 +96,12 @@ model HeatExchanger
   Buildings.Controls.Continuous.LimPID conPum1(
     final k=k,
     final Ti=Ti,
-    final Td=Td,
-    reset=Buildings.Types.Reset.Parameter,
-    reverseAction=true,
+    final reset=Buildings.Types.Reset.Parameter,
+    final reverseAction=true,
     final yMin=0,
     final yMax=1,
-    final controllerType=controllerType) "Primary pump controller"
+    final controllerType=Modelica.Blocks.Types.SimpleController.PI)
+    "Primary pump controller"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax1(nin=2)
     "Maximize pump control signal"
@@ -115,8 +109,9 @@ model HeatExchanger
   Buildings.Controls.OBC.CDL.Logical.Switch swiOff1
     "Output zero if not enabled"
     annotation (Placement(transformation(extent={{160,10},{180,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minSpe1(final k=
-        spePum1HexMin)        "Minimum pump speed"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minSpe1(final k=if
+        have_valDis then 0 else spePum1HexMin)
+    "Minimum pump speed or actuator opening"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
 equation
   connect(delT2.y, abs2.u)
@@ -164,7 +159,7 @@ equation
           {140,-68},{158,-68}}, color={0,0,127}));
   connect(multiMax1.y, swiOff1.u1) annotation (Line(points={{72,20},{140,20},{
           140,28},{158,28}}, color={0,0,127}));
-  connect(minSpe.y, multiMax2.u[2]) annotation (Line(points={{12,-100},{32,-100},
+  connect(minSpe2.y, multiMax2.u[2]) annotation (Line(points={{12,-100},{32,-100},
           {32,-61},{48,-61}}, color={0,0,127}));
   connect(conPum1.y, multiMax1.u[1]) annotation (Line(points={{11,20},{30,20},{
           30,21},{48,21}}, color={0,0,127}));

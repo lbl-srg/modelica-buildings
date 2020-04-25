@@ -114,12 +114,12 @@ partial model PartialETS "Partial class for energy transfer station model"
       iconTransformation(extent={{300,20},{340,60}})));
   Modelica.Blocks.Interfaces.RealOutput PFan(
     final quantity="Power", final unit="W") if have_fan
-    "Power drawn by fans motors"
+    "Power drawn by fan motors"
     annotation (Placement(transformation(extent={{300,-20},{340,20}}),
       iconTransformation(extent={{300,-20},{340,20}})));
   Modelica.Blocks.Interfaces.RealOutput PPum(
     final quantity="Power", final unit="W") if have_pum
-    "Power drawn by pumps motors"
+    "Power drawn by pump motors"
     annotation (Placement(transformation(extent={{300,-60},{340,-20}}),
       iconTransformation(extent={{300,-60},{340,-20}})));
   Modelica.Fluid.Interfaces.FluidPorts_a ports_aDis[nPorts_aDis](
