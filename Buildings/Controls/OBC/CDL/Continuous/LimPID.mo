@@ -64,6 +64,16 @@ block LimPID
     "Connector of setpoint input signal"
     annotation (Placement(transformation(extent={{-260,-20},{-220,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u_m
+    "Connector of measurement input signal"
+    annotation (Placement(transformation(origin={0,-220}, extent={{20,-20},{-20,20}},
+      rotation=270), iconTransformation(extent={{20,-20},{-20,20}},
+        rotation=270, origin={0,-120})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
+    "Connector of actuator output signal"
+    annotation (Placement(transformation(extent={{220,-20},{260,20}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput y_reset_in if reset == Buildings.Controls.OBC.CDL.Types.Reset.Input
     "Input signal for state to which integrator is reset, enabled if reset = CDL.Types.Reset.Input"
     annotation (Placement(transformation(extent={{-260,-120},{-220,-80}}),
@@ -75,22 +85,12 @@ block LimPID
         rotation=90, origin={-160,-200}),
      visible=reset <> Buildings.Controls.OBC.CDL.Types.Reset.Disabled,
       iconTransformation(extent={{-20,-20},{20,20}}, rotation=90, origin={-60,-120})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput u_m
-    "Connector of measurement input signal"
-    annotation (Placement(transformation(origin={0,-220}, extent={{20,-20},{-20,20}},
-      rotation=270), iconTransformation(extent={{20,-20},{-20,20}},
-        rotation=270, origin={0,-120})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Connector of actuator output signal"
-    annotation (Placement(transformation(extent={{220,-20},{260,20}}),
-        iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Feedback controlError "Control error (set point - measurement)"
     annotation (Placement(transformation(extent={{-200,-10},{-180,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset I(
     final k=1/Ti,
-    final initType=Buildings.Controls.OBC.CDL.Types.Init.InitialOutput,
     final y_start=xi_start,
     final reset=
       if reset == Buildings.Controls.OBC.CDL.Types.Reset.Disabled then
@@ -103,8 +103,7 @@ block LimPID
   Buildings.Controls.OBC.CDL.Continuous.Derivative D(
     final k=Td,
     final T=Td/Nd,
-    final y_start=yd_start,
-    final initType=Buildings.Controls.OBC.CDL.Types.Init.InitialOutput) if
+    final y_start=yd_start) if
       with_D "Derivative term"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 
@@ -171,10 +170,6 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Gain gainPID(
     final k=k) "Multiplier for control gain"
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gainTrack(k=1/(k*Ni)) if with_I
-    "Gain for anti-windup compensation"
-    annotation (
-      Placement(transformation(extent={{180,-30},{160,-10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Add addPID(
     final k1=1,
@@ -182,9 +177,14 @@ protected
     "Outputs P, I and D gains added"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Feedback addSat2 if
-       with_I "Adder for integrator feedback"
+  Buildings.Controls.OBC.CDL.Continuous.Feedback antWinErr if
+       with_I "Error for anti-windup compensation"
     annotation (Placement(transformation(extent={{162,50},{182,70}})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain antWinGai(k=1/(k*Ni)) if with_I
+    "Gain for anti-windup compensation"
+    annotation (
+      Placement(transformation(extent={{180,-30},{160,-10}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yResSig(final k=y_reset) if
       reset == Buildings.Controls.OBC.CDL.Types.Reset.Parameter
     "Signal for y_reset"
@@ -247,8 +247,8 @@ equation
     annotation (Line(points={{118,90},{102,90}}, color={0,0,127}));
   connect(lim.y, y) annotation (Line(points={{142,90},{200,90},{200,0},{240,0}},
         color={0,0,127}));
-  connect(addSat2.y, gainTrack.u) annotation (Line(points={{184,60},{190,60},{190,
-          -20},{182,-20}},color={0,0,127}));
+  connect(antWinErr.y, antWinGai.u) annotation (Line(points={{184,60},{190,60},{
+          190,-20},{182,-20}}, color={0,0,127}));
   connect(addPD.u2, Dzero.y) annotation (Line(points={{-2,108},{-10,108},{-10,100},
           {-18,100}}, color={0,0,127}));
   connect(D.y, addPD.u2) annotation (Line(points={{-18,70},{-10,70},{-10,108},{-2,
@@ -269,15 +269,15 @@ equation
   connect(divK.u, y_reset_in) annotation (Line(points={{-122,-70},{-140,-70},{
           -140,-100},{-240,-100}},
                               color={0,0,127}));
-  connect(addSat2.u1, gainPID.y) annotation (Line(points={{160,60},{110,60},{110,
+  connect(antWinErr.u1, gainPID.y) annotation (Line(points={{160,60},{110,60},{110,
           90},{102,90}}, color={0,0,127}));
-  connect(addSat2.u2, lim.y) annotation (Line(points={{172,48},{172,40},{150,40},
+  connect(antWinErr.u2, lim.y) annotation (Line(points={{172,48},{172,40},{150,40},
           {150,90},{142,90}}, color={0,0,127}));
   connect(I.u, errI2.y)
     annotation (Line(points={{-42,0},{-60,0}}, color={0,0,127}));
   connect(errI1.y, errI2.u1)
     annotation (Line(points={{-98,0},{-84,0}}, color={0,0,127}));
-  connect(errI2.u2, gainTrack.y)
+  connect(errI2.u2,antWinGai. y)
     annotation (Line(points={{-72,-12},{-72,-20},{158,-20}}, color={0,0,127}));
   connect(controlError.u1, u_s)
     annotation (Line(points={{-202,0},{-240,0}}, color={0,0,127}));

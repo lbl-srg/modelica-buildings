@@ -1,6 +1,9 @@
 within Buildings.HeatTransfer.Windows;
 model Window "Model for a window"
 
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
+
   parameter Buildings.HeatTransfer.Data.GlazingSystems.Generic glaSys
     "Glazing system"
     annotation (choicesAllMatching=true, Placement(transformation(extent={{150,174},
@@ -11,8 +14,6 @@ model Window "Model for a window"
   final parameter Modelica.SIunits.Area AGla = A-AFra "Glass area";
   parameter Boolean linearize=false "Set to true to linearize emissive power";
   parameter Modelica.SIunits.Angle til(displayUnit="deg") "Surface tilt";
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   parameter Boolean steadyState = true
     "Flag, if true, then window is steady-state, else capacity is added at room-side"
@@ -152,6 +153,12 @@ protected
     nStaReal=1)
     "Material properties for thermal capacity of room-facing glass (used to avoid algebraic loops in room model)"
     annotation (Placement(transformation(extent={{108,150},{128,170}})));
+
+initial equation
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
+
 equation
   connect(frame.port_a, fra_a) annotation (Line(
       points={{-10,-160},{-200,-160}},
@@ -514,6 +521,12 @@ Validation of the window model of the Modelica Buildings library.</a>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
+</li>
 <li>
 October 29, 2016, by Michael Wetter:<br/>
 Added option to place a state at the surface.<br/>

@@ -27,6 +27,15 @@
     "model_name": "Buildings.Fluid.Examples.FlowSystem.Simplified2"
   },
   {
+    "jmodelica": {
+      "simulate": false
+  },
+    "optimica": {
+      "simulate": false
+  },
+  "model_name": "Buildings.ThermalZones.Detailed.Validation.SingleZoneFloorWithHeating"
+  },
+  {
        "jmodelica": {
          "simulate": false
     },

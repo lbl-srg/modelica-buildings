@@ -615,9 +615,9 @@ equation
   connect(cooPI.y, zonSta.uCoo) annotation (Line(points={{-28,160},{-20,160},{-20,
           136},{38,136}}, color={0,0,127}));
   connect(switch.y, heaPI.trigger) annotation (Line(points={{-58,-230},{-48,-230},
-          {-48,80},{-60,80},{-60,190},{-48,190},{-48,208}}, color={255,0,255}));
-  connect(switch.y, cooPI.trigger) annotation (Line(points={{-58,-230},{-48,-230},
-          {-48,148}}, color={255,0,255}));
+          {-48,80},{-60,80},{-60,190},{-46,190},{-46,208}}, color={255,0,255}));
+  connect(switch.y, cooPI.trigger) annotation (Line(points={{-58,-230},{-46,-230},
+          {-46,148}}, color={255,0,255}));
   connect(modSetPoi.TZonCooSet, TZonCooSet) annotation (Line(points={{-158,197},
           {-114,197},{-114,108},{120,108},{120,0},{210,0}}, color={0,0,127}));
   connect(TZon, heaPI.u_m) annotation (Line(points={{-220,160},{-120,160},{-120,
@@ -685,12 +685,14 @@ annotation (defaultComponentName="conVAV",
           fillPattern=FillPattern.Solid,
           textString="TSup"),
         Text(
+          visible=use_TMix,
           extent={{-192,20},{-138,-18}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TMix"),
         Text(
+          visible=have_occSen,
           extent={{-192,-56},{-138,-18}},
           lineColor={0,0,127},
           fillColor={0,0,0},
@@ -703,24 +705,28 @@ annotation (defaultComponentName="conVAV",
           fillPattern=FillPattern.Solid,
           textString="uWin"),
         Text(
+          visible=use_enthalpy,
           extent={{-192,-136},{-138,-174}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="hCut"),
         Text(
+          visible=use_enthalpy,
           extent={{-192,-98},{-138,-136}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="hOut"),
         Text(
+          visible=use_fixed_plus_differential_drybulb,
           extent={{-192,-180},{-138,-218}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TRet"),
         Text(
+          visible=use_G36FrePro,
           extent={{-192,-218},{-138,-256}},
           lineColor={0,0,127},
           fillColor={0,0,0},
@@ -834,8 +840,8 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.OutsideAirFl
 <h4>Zone air heating and cooling setpoints</h4>
 <p>
 Zone air heating and cooling setpoints as well as system operation modes are detailed at
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.ModeAndSetPoints\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.ModeAndSetPoints</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints</a>.
 </p>
 </html>",
 revisions="<html>
