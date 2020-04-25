@@ -35,7 +35,15 @@ equation
           {-22,-56}}, color={0,0,127}));
   connect(ram.y, add2.u1) annotation (Line(points={{-58,-30},{-40,-30},{-40,-44},
           {-22,-44}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    experiment(StopTime=3600, __Dymola_Algorithm="Dassl"));
+  annotation (
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/Controls/Examples/RoomVAV.mos"
+        "Simulate and plot"),
+    experiment(StopTime=3600, Tolerance=1e-6),
+    Documentation(info="<html>
+<p>
+This model tests the transition between the different modes of operation of the HVAC system.
+</p>
+</html>"),
+Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+        coordinateSystem(preserveAspectRatio=false)));
 end RoomVAV;

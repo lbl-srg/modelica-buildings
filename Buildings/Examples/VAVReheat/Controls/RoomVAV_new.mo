@@ -172,6 +172,10 @@ relatively high, typically between 30% and 50% (<code>minFloRat</code>) of the c
 maximum airflow setpoint.
 </li>
 </ul>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/VAVReheat/vavBoxSingleMax.png\" border=\"1\"/>
+</p>
+<br/>
 </html>", revisions="<html>
 <ul>
 <li>
