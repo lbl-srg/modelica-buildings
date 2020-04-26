@@ -484,6 +484,17 @@ its class name ends with the string <code>Beta</code>.
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1719\">#1719</a>.
        </td>
     </tr>
+    <tr><td valign=\"top\">Buildings.Examples.VAVReheat.ASHRAE2006<br/>
+                           Buildings.Examples.VAVReheat.Guideline36
+
+        </td>
+        <td valign=\"top\">Added flow friction in return air connection of all rooms to avoid large air flow rates among
+                           rooms when the fan is off.
+                           This change was done in
+                           <code>Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop</code>.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1911\">#1911</a>.
+       </td>
+    </tr>
     </table>
     <!-- Non-backward compatible changes to existing components -->
     <p>
