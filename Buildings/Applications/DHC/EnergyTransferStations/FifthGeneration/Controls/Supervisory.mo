@@ -98,8 +98,9 @@ equation
           20},{120,20}}, color={255,0,255}));
   connect(TChiWatSupSet, conColSid.TSet) annotation (Line(points={{-120,-10},{-20,
           -10},{-20,-64},{-12,-64}}, color={0,0,127}));
-  connect(THeaWatSupSet, conHotSid.TSet) annotation (Line(points={{-120,80},{-20,
-          80},{-20,56},{-12,56}}, color={0,0,127}));
+  connect(THeaWatSupSet, conHotSid.TSet) annotation (Line(points={{-120,80},{
+          -20,80},{-20,56},{-12,56}},
+                                  color={0,0,127}));
   connect(conHotSid.yIso,yIsoCon)  annotation (Line(points={{12,46},{14,46},{14,
           -40},{120,-40}}, color={0,0,127}));
   connect(conColSid.yIso,yIsoEva)

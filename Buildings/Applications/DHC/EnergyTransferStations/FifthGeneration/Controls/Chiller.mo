@@ -237,16 +237,16 @@ The block computes the control signals for
 <p>
 The chiller compressor is constant speed and switched on or off based on either <code>reqHea</code> or
 <code>reqCoo</code> is true, the controller outputs the integer output
-<code>ychiMod</code> =1 to switch on the chiller compressor.
+<code>ychiMod</code> to switch on the chiller compressor.
 </p>
-<h4>Three way valve at the evaporator inlet</h4>
+<h4>Mixing valve at the evaporator inlet</h4>
 <p>
-The three way valve at the inlet stream of the evaporator side is controlled with
+The three-way valve on the evaporator side is controlled with
 a P or PI controller to track a constant, maximum water inlet temperature.
 </p>
-<h4>Three way valve at the condenser inlet</h4>
+<h4>Mixing valve at the condenser inlet</h4>
 <p>
-The three way valve at the inlet stream of the condenser side is controlled with
+The three-way valve at the condenser inlet is controlled with
 a P or PI controller to track a constant, minimum water inlet temperature.
 </p>
 <p>
@@ -254,7 +254,7 @@ The block in addition, resets <code>TSetCoo</code> based on the thermal operatio
 mode i.e. cooling only, heating only or
 simultaneous heating and cooling.
 </p>
-<h4>Reset of Chilled water setpoint temperature</h4>
+<h4>Reset of chilled water supply temperature</h4>
 <p>
 As shown in the control scheme below and during
 </p>
