@@ -9,10 +9,14 @@ model Condensation
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 1
     "Nominal mass flow rate";
 
+  parameter Modelica.SIunits.AbsolutePressure pSte_nominal=1000000
+    "Nominal steam pressure";
+
   Buildings.Fluid.HeatExchangers.BaseClasses.Condensation con(
     redeclare package Medium_a = MediumSte,
     redeclare package Medium_b = MediumWat,                   m_flow_nominal=
-        m_flow_nominal)
+        m_flow_nominal,
+    pSte_nominal=pSte_nominal)
     "Condensation process"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Sources.Boundary_pT watSin(redeclare package Medium = MediumWat,
@@ -22,7 +26,8 @@ model Condensation
   Modelica.Blocks.Sources.Constant m_flow(k=m_flow_nominal)
                                                "Mass flow rate"
     annotation (Placement(transformation(extent={{-80,-2},{-60,18}})));
-  Modelica.Blocks.Sources.Constant pIn(k=1000000) "Steam pressure (Pa)"
+  Modelica.Blocks.Sources.Constant pIn(k=pSte_nominal)
+                                                  "Steam pressure (Pa)"
     annotation (Placement(transformation(extent={{30,40},{50,60}})));
 
   Sources.MassFlowSource_T boundary(

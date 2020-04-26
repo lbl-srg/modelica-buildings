@@ -11,8 +11,8 @@ model Condensation
       Modelica.Media.Interfaces.PartialTwoPhaseMedium
     "Medium model for port_b (outlet)";
 
-  package MediumSte = IBPSA.Media.Steam "Steam medium";
-  package MediumWat = IBPSA.Media.Water(T_max=623.15) "Water medium";
+//  package MediumSte = IBPSA.Media.Steam "Steam medium";
+//  package MediumWat = IBPSA.Media.Water(T_max=623.15) "Water medium";
 
   Modelica.Blocks.Interfaces.RealOutput dh(unit="J/kg") "Change in enthalpy"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
@@ -37,8 +37,10 @@ equation
   Tb = TSat;
 
   // Specific heat
-  cp = Medium_a.specificHeatCapacityCp(state=
-    Medium_a.setState_pTX(p=port_a.p,T=TSat,X=inStream(port_a.Xi_outflow)));
+//  cp = Medium_a.specificHeatCapacityCp(state=
+//    Medium_a.setState_pTX(p=port_a.p,T=TSat,X=inStream(port_a.Xi_outflow)));
+  cp = Medium_b.specificHeatCapacityCp(state=
+    Medium_b.setState_pTX(p=port_b.p,T=TSat,X=inStream(port_b.Xi_outflow)));
 
   // Enthalpy
   hSte_instream = inStream(port_a.h_outflow);
