@@ -104,8 +104,7 @@ partial model PartialSteamBoiler
   Modelica.Blocks.Interfaces.RealOutput Q_flow(
     final quantity="HeatFlowRate",
     final unit="W",
-    displayUnit="kW")
-    "Total heat transfer rate of boiler"
+    displayUnit="kW") "Total heat transfer rate of boiler"
     annotation (Placement(transformation(extent={{100,80},{120,100}}),
         iconTransformation(extent={{100,80},{120,100}})));
 

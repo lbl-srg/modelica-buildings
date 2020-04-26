@@ -2,14 +2,17 @@ within Buildings.Fluid.HeatExchangers;
 model SteamHeatExchangerIdeal
   "Model for a shell-and-tube heat exchanger with phase change in one side"
   extends Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium(
-    redeclare final package Medium_b = MediumWat,
-    redeclare final package Medium_a = MediumSte,
     final show_T = true);
 
-  package MediumSte = IBPSA.Media.Steam "Steam medium";
-  package MediumWat = IBPSA.Media.Water(T_max=623.15) "Water medium";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+    "Nominal mass flow rate"
+    annotation(Dialog(group = "Nominal condition"));
 
-  BaseClasses.Condensation con "Condensation"
+  BaseClasses.Condensation con(
+    redeclare package Medium_a = Medium_a,
+    redeclare package Medium_b = Medium_b,
+    m_flow_nominal=m_flow_nominal)
+                               "Condensation"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Interfaces.RealOutput dh(unit="J/kg") "Change in enthalpy"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
