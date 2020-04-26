@@ -8,11 +8,14 @@ model SteamHeatExchangerIdeal
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
 
+  parameter Modelica.SIunits.AbsolutePressure pSte_nominal
+    "Nominal steam pressure";
+
   BaseClasses.Condensation con(
     redeclare package Medium_a = Medium_a,
     redeclare package Medium_b = Medium_b,
-    m_flow_nominal=m_flow_nominal)
-                               "Condensation"
+    m_flow_nominal=m_flow_nominal,
+    pSte_nominal=pSte_nominal) "Condensation"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Interfaces.RealOutput dh(unit="J/kg") "Change in enthalpy"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));

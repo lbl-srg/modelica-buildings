@@ -8,7 +8,11 @@ model Evaporation "Test model for water evaporation process"
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 1
     "Nominal mass flow rate";
 
-  Modelica.Blocks.Sources.Constant pSet(k=1000000) "Steam pressure setpoint"
+  parameter Modelica.SIunits.AbsolutePressure pSte_nominal=1000000
+    "Nominal steam pressure";
+
+  Modelica.Blocks.Sources.Constant pSet(k=pSte_nominal)
+                                                   "Steam pressure setpoint"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Modelica.Blocks.Sources.Constant m_flow(k=m_flow_nominal) "Mass flow rate"
     annotation (Placement(transformation(extent={{-82,8},{-62,28}})));
@@ -26,7 +30,8 @@ model Evaporation "Test model for water evaporation process"
     redeclare package Medium_a = MediumWat,
     redeclare package Medium_b = MediumSte,
     m_flow_nominal=m_flow_nominal,
-    show_T=true)                                     "Evaporation process"
+    show_T=true,
+    pSte_nominal=pSte_nominal)                       "Evaporation process"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
 equation
   connect(watSou.m_flow_in, m_flow.y)

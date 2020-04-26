@@ -3,7 +3,7 @@ model SteamBoilerTwoPort
   "Steam boiler model with two ports for water flow with phase change"
   extends Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium;
   extends Buildings.Fluid.Boilers.BaseClasses.PartialSteamBoiler(eva(
-        m_flow_nominal=m_flow_nominal));
+        m_flow_nominal=m_flow_nominal, pSte_nominal=pOut_nominal));
 
 equation
   connect(temSen_out.port_b, port_b) annotation (Line(points={{90,0},{90,0},{90,
