@@ -250,21 +250,21 @@ int bounary_area(PARA_DATA *para, REAL **var, int **BINDEX) {
         tmp = area_yz(para, var, i, j, k);
         /*sprintf(msg, "Cell(%d,%d,%d):\t %f", i, j, k, tmp);*/
         /*ffd_log(msg, FFD_NORMAL);*/
-        APort[id] += tmp;
+        APort[id + para->bc->nb_block] += tmp;
       }
       /* South and North Boundary */
       if(j==0 || j==jmax+1) {
         tmp = area_zx(para, var, i, j, k);
         /*sprintf(msg, "Cell(%d,%d,%d):\t %f", i, j, k, tmp);*/
         /*ffd_log(msg, FFD_NORMAL);*/
-        APort[id] += tmp;
+        APort[id + para->bc->nb_block] += tmp;
       }
       /* Ceiling and Floor Boundary */
       if(k==0 || k==kmax+1) {
         tmp = area_xy(para, var, i, j, k);
         /*sprintf(msg, "Cell(%d,%d,%d):\t %f", i, j, k, tmp);*/
         /*ffd_log(msg, FFD_NORMAL);*/
-        APort[id] += tmp;
+        APort[id + para->bc->nb_block] += tmp;
       }
     }
   } /* End of for(it=0; it<index; it++) */

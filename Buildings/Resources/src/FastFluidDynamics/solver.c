@@ -47,7 +47,7 @@ int FFD_solver(PARA_DATA *para, REAL **var, int **BINDEX) {
 	  t_cosim = para->mytime->t + para->cosim->modelica->dt;
 
 		/* check the number of tiles in input file */
-		if (check_num_tiles(&para, var, BINDEX)>0) para->bc->hasTile = 1;
+		/*if (check_num_tiles(&para, var, BINDEX)>0) para->bc->hasTile = 1;*/
 
   /***************************************************************************
   | Solver Loop
