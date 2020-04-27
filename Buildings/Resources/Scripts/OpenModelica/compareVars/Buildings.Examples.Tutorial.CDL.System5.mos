@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "senTOut.T",
+    "boi.T",
+    "temSup.T",
+    "temRet.T",
+    "temRoo.T",
+    "conBoiRet.yVal",
+    "conEquSta.onBoi",
+    "conSysSta.onSys"
+  };

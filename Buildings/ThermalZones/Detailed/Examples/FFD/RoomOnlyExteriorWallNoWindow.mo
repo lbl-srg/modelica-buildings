@@ -50,7 +50,7 @@ with the FFD program by simulating the natural convection in an empty room with 
 Figure (a) shows the schematic of the FFD simulation.
 The room is <i>1</i> meter in length, width and height.
 The walls are exposed to the ambient environment (cold winter night in Chicago) and the insulation is very poor.
-The initial values are for the temperatures of the walls <i>20</i>&circ;C and for temperature of the air <i>30</i>&circ;C.
+The initial values are for the temperatures of the walls <i>20</i>&deg;C and for temperature of the air <i>30</i>&deg;C.
 All temperature drop quickly due to the heat loss.
 Two sensors are placed in the room center at (<i>0.5</i> m, <i>0.5</i> m, <i>0.5</i> m)
 that measure the temperature and the velocity.

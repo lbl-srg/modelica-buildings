@@ -42,7 +42,8 @@ protected
      final y_start=y_start,
      final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
      final filterType=Modelica.Blocks.Types.FilterType.LowPass,
-     x(each stateSelect=StateSelect.always)) if
+     x(each stateSelect=StateSelect.always,
+       each start=0)) if
         use_inputFilter
     "Second order filter to approximate valve opening time, and to improve numerics"
     annotation (Placement(transformation(extent={{6,81},{20,95}})));
@@ -67,29 +68,33 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Line(
-          points={{0,40},{0,100}}),
+          points={{0,48},{0,108}}),
         Line(
           points={{0,70},{40,70}}),
         Rectangle(
           visible=use_inputFilter,
-          extent={{-32,40},{32,100}},
+          extent={{-32,40},{34,100}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Ellipse(
           visible=use_inputFilter,
-          extent={{-32,100},{32,40}},
+          extent={{-32,100},{34,40}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Text(
           visible=use_inputFilter,
-          extent={{-20,92},{20,48}},
+          extent={{-20,94},{22,48}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid,
           textString="M",
-          textStyle={TextStyle.Bold})}),
+          textStyle={TextStyle.Bold}),
+        Text(
+          extent={{-40,126},{-160,76}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(y, format=".2f")))}),
 Documentation(info="<html>
 <p>
 This model implements the filter that is used to approximate the travel
@@ -110,6 +115,23 @@ for a description of the filter.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 21, 2020, by Michael Wetter:<br/>
+Changed icon to display its operating state.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
+</li>
+<li>
+November 14, 2019, by Michael Wetter:<br/>
+Set <code>start</code> attribute for <code>filter.x</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1252\">#1252</a>.
+</li>
+<li>
+October 25, 2019, by Jianjun Hu:<br/>
+Improved icon graphics annotation. This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1225\">#1225</a>.
+</li>
 <li>
 February 16, 2018, by Filip Jorissen:<br/>
 Propagated parameter <code>order</code>.<br/>

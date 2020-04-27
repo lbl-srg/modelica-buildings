@@ -85,7 +85,8 @@ model ExteriorWallTwoWindows
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-112,-160})));
-  HeatTransfer.Radiosity.IndoorRadiosity indRad[nCon](each linearize = linearizeRadiation,
+  HeatTransfer.Radiosity.IndoorRadiosity indRad[nCon](
+    each linearize = linearizeRadiation,
     A=AWin) "Model for indoor radiosity"
     annotation (Placement(transformation(extent={{-122,-58},{-102,-38}})));
   Modelica.Blocks.Routing.Replicator replicator(nout=nCon)
@@ -109,7 +110,7 @@ model ExteriorWallTwoWindows
 
   Buildings.HeatTransfer.Windows.BaseClasses.ShadeRadiation intShaRad[nCon](
     thisSideHasShade={glaSys1.haveInteriorShade, glaSys2.haveInteriorShade},
-    each linearize=linearize,
+    each linearize=linearizeRadiation,
     absIR_air={glaSys1.shade.absIR_a, glaSys2.shade.absIR_a},
     absIR_glass={glaSys1.shade.absIR_b, glaSys2.shade.absIR_b},
     tauIR_air={glaSys1.shade.tauIR_a, glaSys2.shade.tauIR_a},
@@ -297,6 +298,12 @@ This model tests the exterior construction with two windows.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 18, 2020, by Michael Wetter:<br/>
+Corrected wrong parameter assignment.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1766\">#1766</a>.
+</li>
 <li>
 November 17, 2016, by Thierry S. Nouidui:<br/>
 Removed <code>[:]</code> in <code>conPar.layers</code>

@@ -9,7 +9,7 @@ block Sort "Sort elements of input vector in ascending or descending order"
   Interfaces.RealInput u[nin] "Connector of Real input signals"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Interfaces.RealOutput y[nin] "Connector of Real output signals"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 equation
   y = Modelica.Math.Vectors.sort(u, ascending=ascending);
   annotation (
@@ -42,6 +42,10 @@ controller to access the position of the dampers that are most open.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
 <li>
 September 22, 2017, by Michael Wetter:<br/>
 Reimplemented function to make it work with OpenModelica.

@@ -2,6 +2,10 @@ within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 model UACp "Calculates UA/Cp of the coil"
   extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.NominalCondition;
   extends Modelica.Blocks.Icons.Block;
+
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
+
   final parameter Modelica.SIunits.MassFraction XADP_nominal(
     start=0.008,
     min=0,
@@ -23,13 +27,13 @@ model UACp "Calculates UA/Cp of the coil"
     min=0,
     unit="kg/s",
     fixed=false) "UA/Cp of coil";
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
 protected
   constant Real phiADP_nominal = 1.0 "Realtive humidity at ADP";
   final parameter Modelica.SIunits.AbsolutePressure psat_ADP_nominal(
     start=1250,
     fixed=false) "Saturation pressure";
+
 initial equation
 //------------------------Apparatus Dew Point (ADP) calculations---------------------//
   //Solve Eq. 1 , 2 and 3 for air properties (XADP_nominal and TADP_nominal)
@@ -76,6 +80,10 @@ initial equation
               deltaX=1e-4);
   UAcp = -per.m_flow_nominal * Modelica.Math.log(bypass_nominal);
 
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
+
  annotation(defaultComponentName="uacp",
     Documentation(info="<html>
 <p>
@@ -106,6 +114,12 @@ and, hence,
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
+</li>
 <li>
 September 21, 2012 by Michael Wetter:<br/>
 Revised implementation and documentation.

@@ -12,9 +12,8 @@ block Pulse "Generate pulse signal of type Real"
   parameter Real offset=0 "Offset of output signals";
   parameter Modelica.SIunits.Time startTime=0
     "Output = offset for time < startTime";
-  Interfaces.RealOutput y
-    "Connector of Pulse output signal" annotation (Placement(
-        transformation(extent={{100,-10},{120,10}})));
+  Interfaces.RealOutput y "Connector of Pulse output signal"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
   Modelica.SIunits.Time T_width=period*width "Pulse duration time";
@@ -62,7 +61,11 @@ equation
         Text(
           lineColor={0,0,255},
           extent={{-150,110},{150,150}},
-          textString="%name")}),
+          textString="%name"),
+        Text(
+          extent={{226,60},{106,10}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}),
     Documentation(info="<html>
 <p>
 The Real output y is a pulse signal:
@@ -72,5 +75,17 @@ The Real output y is a pulse signal:
 <img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Continuous/Sources/Pulse.png\"
      alt=\"Pulse.png\" />
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
+<li>
+March 16, 2017, by Jianjun Hu:<br/>
+First implementation, based on the implementation of the
+Modelica Standard Library.
+</li>
+</ul>
 </html>"));
 end Pulse;

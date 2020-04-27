@@ -15,7 +15,7 @@ block LogicalSwitch "Switch between two boolean signals"
 
   Interfaces.BooleanOutput y
     "Booelan output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
   y = if u2 then u1 else u3;

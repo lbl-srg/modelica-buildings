@@ -8,7 +8,7 @@ block Max "Pass through the largest signal"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
 
   Interfaces.RealOutput y "Connector of Real output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
   y = max(u1, u2);
@@ -23,6 +23,10 @@ where
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the
@@ -46,5 +50,9 @@ Modelica Standard Library.
           Text(
             extent={{-90,36},{90,-36}},
             lineColor={160,160,164},
-            textString="max()")}));
+            textString="max()"),
+        Text(
+          extent={{226,60},{106,10}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}));
 end Max;
