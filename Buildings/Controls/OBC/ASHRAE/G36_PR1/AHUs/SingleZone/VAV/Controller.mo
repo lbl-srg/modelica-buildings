@@ -432,8 +432,6 @@ block Controller
     final k=kCoo,
     final Ti=TiCoo,
     final Td=TdCoo,
-    final yMax=1,
-    final yMin=0,
     final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
     "Zone cooling control signal"
     annotation (Placement(transformation(extent={{-50,150},{-30,170}})));
@@ -442,9 +440,7 @@ block Controller
     final controllerType=controllerTypeHea,
     final k=kHea,
     final Ti=TiHea,
-    final Td=TdHea,
-    final yMax=1,
-    final yMin=0) "Zone heating control signal"
+    final Td=TdHea) "Zone heating control signal"
     annotation (Placement(transformation(extent={{-50,210},{-30,230}})));
   Buildings.Controls.OBC.CDL.Continuous.Average ave
     "Average of zone heating and cooling setpoint"
