@@ -12,10 +12,7 @@ compareVars :=
     "zon2.VPriAir_flow",
     "zon2.yDesPriOutAirFra",
     "zon2.yPriOutAirFra",
-    "sys1.VEffOutAir_flow",
-    "sys2.VEffOutAir_flow",
-    "sys1.effOutAir_normalized",
-    "sys2.effOutAir_normalized",
-    "sys1.VDesUncOutAir_flow",
-    "sys2.VDesUncOutAir_flow"
+    "ahu1.VEffOutAir_flow",
+    "ahu1.effOutAir_normalized",
+    "ahu1.VDesUncOutAir_flow"
   };

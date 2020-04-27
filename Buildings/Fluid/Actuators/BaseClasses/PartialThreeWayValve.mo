@@ -35,6 +35,9 @@ partial model PartialThreeWayValve "Partial three way valve"
     extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters(
       rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
 
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
+
   parameter Modelica.SIunits.PressureDifference dpFixed_nominal[2](each displayUnit="Pa",
                                                          each min=0) = {0, 0}
     "Nominal pressure drop of pipes and other equipment in flow legs at port_1 and port_3"
@@ -52,15 +55,18 @@ partial model PartialThreeWayValve "Partial three way valve"
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(tab="Advanced"));
 
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
-
 protected
   Modelica.Blocks.Math.Feedback inv "Inversion of control signal"
     annotation (Placement(transformation(extent={{-74,40},{-62,52}})));
   Modelica.Blocks.Sources.Constant uni(final k=1)
     "Outputs one for bypass valve"
     annotation (Placement(transformation(extent={{-92,40},{-80,52}})));
+
+initial equation
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
+
 equation
   connect(uni.y, inv.u1)
     annotation (Line(points={{-79.4,46},{-72.8,46}},
@@ -144,6 +150,12 @@ for details regarding the valve implementation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">Buildings, #1341</a>.
+</li>
 <li>
 November 5, 2019, by Michael Wetter:<br/>
 Moved assignment of leakage from <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve\">

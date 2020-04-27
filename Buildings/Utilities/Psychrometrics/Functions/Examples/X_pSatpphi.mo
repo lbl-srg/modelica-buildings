@@ -26,7 +26,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/
 <p>
 This example computes the water content of air for a relative humidity between
 <i>0</i> and <i>100%</i>,
-a temperature of <i>20&circ;C</i>
+a temperature of <i>20&deg;C</i>
 and atmospheric pressure.
 </p>
 </html>", revisions="<html>

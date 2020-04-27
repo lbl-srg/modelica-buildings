@@ -40,9 +40,7 @@ block ExhaustDamper
     annotation (Placement(transformation(extent={{-30,50},{-10,70}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conP(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
-    final k=k,
-    yMax=1,
-    yMin=0) "Building static pressure controller"
+    final k=k) "Building static pressure controller"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     "Check if exhaust damper should be activated"

@@ -646,10 +646,9 @@ block Controller
     final maxRes=maxResSupTem) "Setpoint for supply temperature"
     annotation (Placement(transformation(extent={{0,170},{20,190}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.System sysOutAirSet(
-    final VPriSysMax_flow=VPriSysMax_flow,
-    final peaSysPop=peaSysPop)
-    "Minimum outdoor airflow setpoint"
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.AHU
+    sysOutAirSet(final VPriSysMax_flow=VPriSysMax_flow, final peaSysPop=
+        peaSysPop) "Minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Economizers.Controller eco(
@@ -805,8 +804,8 @@ equation
         points={{-18,85},{20,85},{20,100},{220,100}}, color={0,0,127}));
   connect(sysOutAirSet.VEffOutAir_flow, VEffOutAir_flow) annotation (Line(
         points={{-18,78},{20,78},{20,60},{220,60}}, color={0,0,127}));
-  connect(sysOutAirSet.yReqOutAir, yReqOutAir) annotation (Line(points={{-18,72},
-          {16,72},{16,20},{220,20}},   color={255,0,255}));
+  connect(sysOutAirSet.yReqOutAir, yReqOutAir) annotation (Line(points={{-18,
+          72},{16,72},{16,20},{220,20}}, color={255,0,255}));
   connect(sysOutAirSet.sumDesZonPop, sumDesZonPop) annotation (Line(points={{-42,
           89},{-120,89},{-120,180},{-220,180}}, color={0,0,127}));
   connect(sysOutAirSet.VSumDesPopBreZon_flow, VSumDesPopBreZon_flow)
@@ -966,8 +965,8 @@ for more detailed description.
 <h4>Minimum outdoor airflow setting</h4>
 <p>
 According to current occupany, supply operation status <code>ySupFan</code>,
-zone temperatures and the discharge air temperature, the sequence computes the 
-minimum outdoor airflow rate setpoint, which is used as input for the economizer control. 
+zone temperatures and the discharge air temperature, the sequence computes the
+minimum outdoor airflow rate setpoint, which is used as input for the economizer control.
 More detailed information can be found in
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow</a>.
@@ -1010,7 +1009,7 @@ revisions="<html>
 <li>
 March 16, 2020, by Jianjun Hu:<br/>
 Reimplemented to add new block for specifying the minimum outdoor airfow setpoint.
-This new block avoids the vector-valued calculation.<br/>
+This new block avoids vector-valued calculations.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1829\">#1829</a>.
 </li>
