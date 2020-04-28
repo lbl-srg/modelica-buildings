@@ -3,6 +3,9 @@ model PlugFlowPipe
   "Pipe model using spatialDistribution for temperature delay"
   extends Buildings.Fluid.Interfaces.PartialTwoPortVector;
 
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
+
   parameter Boolean from_dp=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Dialog(tab="Advanced"));
@@ -71,9 +74,6 @@ model PlugFlowPipe
 
   parameter Real fac=1
     "Factor to take into account flow resistance of bends etc., fac=dp_nominal/dpStraightPipe_nominal";
-
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   parameter Boolean linearized = false
     "= true, use linear relation between m_flow and dp for any flow rate"
@@ -151,6 +151,11 @@ protected
     "Default density (e.g., rho_liquidWater = 995, rho_air = 1.2)"
     annotation (Dialog(group="Advanced"));
 
+initial equation
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
+
 equation
   for i in 1:nPorts loop
     connect(vol.ports[i + 1], ports_b[i])
@@ -210,8 +215,14 @@ d = %dh")}),
     Documentation(revisions="<html>
 <ul>
 <li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">Buildings, #1341</a>.
+</li>
+<li>
 March 6, 2020, by Jelger Jansen:<br/>
-Revised calculation of thermal resistance <code>R</code> 
+Revised calculation of thermal resistance <code>R</code>
 by using correct radiuses.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1310\">#1310</a>.
 </li>

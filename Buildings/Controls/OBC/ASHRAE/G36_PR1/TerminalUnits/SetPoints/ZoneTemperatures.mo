@@ -1132,11 +1132,13 @@ annotation (
           pattern=LinePattern.Dash,
           textString="TZonCooSetUno"),
         Text(
+          visible=heaAdj,
           extent={{-196,-58},{-126,-78}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="heaSetAdj"),
         Text(
+          visible=cooAdj or sinAdj,
           extent={{-194,-16},{-152,-34}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,

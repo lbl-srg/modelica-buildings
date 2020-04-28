@@ -6,14 +6,12 @@ model LimPID "Test model for LimPID controller"
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
     Ti=1,
     Td=1,
-    yMax=1,
     yMin=-1)
           annotation (Placement(transformation(extent={{-30,40},{-10,60}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID limPIDOri(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
     Ti=1,
     Td=1,
-    yMax=1,
     yMin=-1)
           annotation (Placement(transformation(extent={{-30,74},{-10,94}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(k=0.5)
@@ -22,7 +20,6 @@ model LimPID "Test model for LimPID controller"
   Buildings.Controls.OBC.CDL.Continuous.LimPID limPI(
     Ti=1,
     Td=1,
-    yMax=1,
     yMin=-1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI)
     annotation (Placement(transformation(extent={{-30,2},{-10,22}})));
@@ -30,7 +27,6 @@ model LimPID "Test model for LimPID controller"
   Buildings.Controls.OBC.CDL.Continuous.LimPID limPD(
     Ti=1,
     Td=1,
-    yMax=1,
     yMin=-1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PD)
     annotation (Placement(transformation(extent={{-30,-30},{-10,-10}})));
@@ -38,7 +34,6 @@ model LimPID "Test model for LimPID controller"
   Buildings.Controls.OBC.CDL.Continuous.LimPID limP(
     Ti=1,
     Td=1,
-    yMax=1,
     yMin=-1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P)
     annotation (Placement(transformation(extent={{-30,-60},{-10,-40}})));
@@ -47,6 +42,7 @@ model LimPID "Test model for LimPID controller"
     Ti=1,
     Td=1,
     yMax=1e15,
+    yMin=-1e15,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
     annotation (Placement(transformation(extent={{-30,-90},{-10,-70}})));
 

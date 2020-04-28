@@ -50,8 +50,6 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.LimPID cooCoiPI(
     reverseAction=true,
     reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
-    yMax=1,
-    yMin=0,
     controllerType=controllerTypeCooCoi,
     k=kCooCoi,
     Ti=TiCooCoi,

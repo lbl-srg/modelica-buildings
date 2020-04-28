@@ -215,7 +215,7 @@ for the purpose of calculating the operative and stage part load ratios,
 OPLR and SPLR (up and down), respectively.
 </p>
 <p>
-[fixme: Milica to revise this once integrated with other subsequences.] For numerical reasons:
+[ToBeFixed: Milica to revise this once integrated with other subsequences.] For numerical reasons:
 </p>
 <ul>
 <li>
