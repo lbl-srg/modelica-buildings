@@ -216,16 +216,16 @@ will be used for controlling maximum cooling tower speed setpoint
 water pump or not, resetting head pressure control valve position
 <code>yHeaPreConVal</code> when <code>fixSpePum</code>=true, or resetting condenser
 water pump speed <code>yConWatPumSpeSet</code> when <code>fixSpePum</code>=false. See
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.Setpoints_noWSE\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.Setpoints_noWSE</a>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.MappingWithoutWSE\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.MappingWithoutWSE</a>
 for a description.
 </li>
 <li>
 If the chiller plant has waterside economizer, block <code>withWSE</code>
 will be used for specifying <code>yMaxTowSpeSet</code>, <code>yHeaPreConVal</code> and
 condenser water pump speed <code>yConWatPumSpeSet</code>. See
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.Setpoints_have_WSE\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.Setpoints_have_WSE</a>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.MappingWithWSE\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.MappingWithWSE</a>
 for a description.
 </li>
 </ul>
