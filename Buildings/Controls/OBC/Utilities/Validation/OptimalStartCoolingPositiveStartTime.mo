@@ -39,8 +39,6 @@ model OptimalStartCoolingPositiveStartTime
   Buildings.Controls.OBC.CDL.Continuous.LimPID conPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     Ti=1,
-    yMax=1,
-    yMin=0,
     reverseAction=true) "PI control signal for the cooling power"
     annotation (Placement(transformation(extent={{160,0},{180,20}})));
   Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{7,19},period=24*3600)
