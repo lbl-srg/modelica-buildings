@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.EnergyTransferStations.FifthGeneration;
-model HeatRecoveryChiller
+model HeatRecoveryChiller_bck
   "Energy transfer station model for fifth generation DHC systems with heat recovery chiller"
   extends DHC.EnergyTransferStations.BaseClasses.PartialETS(
     final have_heaWat=true,
@@ -475,4 +475,4 @@ First implementation
 </li>
 </ul>
 </html>"));
-end HeatRecoveryChiller;
+end HeatRecoveryChiller_bck;
