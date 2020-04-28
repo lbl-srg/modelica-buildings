@@ -511,6 +511,14 @@ its class name ends with the string <code>Beta</code>.
                            For Dymola, a conversion script makes this change.
         </td>
     </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.LimPID
+        </td>
+        <td valign=\"top\">Changed the default values for the output limiter from <code>yMin=-yMax</code> to <code>yMin=0</code>
+                           and from <code>yMax</code> being unspecified to <code>yMax=1</code>.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1888\">#1888</a>.<br/>
+                           For Dymola, a conversion script makes this change.
+        </td>
+    </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.SetPoints.SupplyReturnTemperatureReset
         </td>
         <td valign=\"top\">Changed name from <code>HotWaterTemperatureReset</code> to <code>SupplyReturnTemperatureReset</code>.<br/>
@@ -2220,7 +2228,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
    <tr><td valign=\"top\">Buildings.Examples.VAVReheat.ClosedLoop
 
        </td>
-       <td valign=\"top\">Changed chilled water supply temperature to <i>6&circ;C</i>.
+       <td valign=\"top\">Changed chilled water supply temperature to <i>6&deg;C</i>.
                           This closes
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/509\">issue 509</a>.
        </td>

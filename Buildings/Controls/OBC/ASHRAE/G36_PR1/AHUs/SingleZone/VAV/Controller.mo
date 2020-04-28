@@ -432,8 +432,6 @@ block Controller
     final k=kCoo,
     final Ti=TiCoo,
     final Td=TdCoo,
-    final yMax=1,
-    final yMin=0,
     final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
     "Zone cooling control signal"
     annotation (Placement(transformation(extent={{-50,150},{-30,170}})));
@@ -442,9 +440,7 @@ block Controller
     final controllerType=controllerTypeHea,
     final k=kHea,
     final Ti=TiHea,
-    final Td=TdHea,
-    final yMax=1,
-    final yMin=0) "Zone heating control signal"
+    final Td=TdHea) "Zone heating control signal"
     annotation (Placement(transformation(extent={{-50,210},{-30,230}})));
   Buildings.Controls.OBC.CDL.Continuous.Average ave
     "Average of zone heating and cooling setpoint"
@@ -615,9 +611,9 @@ equation
   connect(cooPI.y, zonSta.uCoo) annotation (Line(points={{-28,160},{-20,160},{-20,
           136},{38,136}}, color={0,0,127}));
   connect(switch.y, heaPI.trigger) annotation (Line(points={{-58,-230},{-48,-230},
-          {-48,80},{-60,80},{-60,190},{-48,190},{-48,208}}, color={255,0,255}));
-  connect(switch.y, cooPI.trigger) annotation (Line(points={{-58,-230},{-48,-230},
-          {-48,148}}, color={255,0,255}));
+          {-48,80},{-60,80},{-60,190},{-46,190},{-46,208}}, color={255,0,255}));
+  connect(switch.y, cooPI.trigger) annotation (Line(points={{-58,-230},{-46,-230},
+          {-46,148}}, color={255,0,255}));
   connect(modSetPoi.TZonCooSet, TZonCooSet) annotation (Line(points={{-158,197},
           {-114,197},{-114,108},{120,108},{120,0},{210,0}}, color={0,0,127}));
   connect(TZon, heaPI.u_m) annotation (Line(points={{-220,160},{-120,160},{-120,
@@ -840,8 +836,8 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.OutsideAirFl
 <h4>Zone air heating and cooling setpoints</h4>
 <p>
 Zone air heating and cooling setpoints as well as system operation modes are detailed at
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.ModeAndSetPoints\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.ModeAndSetPoints</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints</a>.
 </p>
 </html>",
 revisions="<html>
