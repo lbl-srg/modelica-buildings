@@ -464,7 +464,8 @@ equation
   connect(cha.ySta, chiInd.u) annotation (Line(points={{2,-166},{20,-166},{20,-200},
           {38,-200}},        color={255,127,0}));
   annotation (defaultComponentName = "staSetCon",
-        Icon(graphics={
+        Icon(coordinateSystem(extent={{-100,-160},{100,160}}, initialScale=0.2),
+        graphics={
         Rectangle(
         extent={{-100,-160},{100,160}},
         lineColor={0,0,127},
