@@ -32,7 +32,6 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not2 if use_powerRateLimit "Logical Nand"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Derivative demRat(
-    final initType=Buildings.Controls.OBC.CDL.Types.Init.InitialState,
     final x_start=0) if use_powerRateLimit
     "Power demand rate"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
