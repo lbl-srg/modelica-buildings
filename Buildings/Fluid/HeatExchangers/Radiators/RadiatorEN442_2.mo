@@ -10,6 +10,9 @@ model RadiatorEN442_2 "Dynamic radiator for space heating"
      final mSenFac = 1 + 500*mDry/(VWat*cp_nominal*Medium.density(
         Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default))));
 
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
+
   parameter Integer nEle(min=1) = 5
     "Number of elements used in the discretization";
   parameter Real fraRad(min=0, max=1) = 0.35 "Fraction radiant heat transfer";
@@ -38,8 +41,6 @@ model RadiatorEN442_2 "Dynamic radiator for space heating"
   parameter Modelica.SIunits.Mass mDry = 0.0263*abs(Q_flow_nominal)
     "Dry mass of radiator that will be lumped to water heat capacity"
     annotation(Dialog(tab = "Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
   parameter Real deltaM(min=0.01) = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
        annotation(Evaluate=true,
@@ -218,6 +219,9 @@ initial equation
         x0=0.1*k*(T_b_nominal-TAir_nominal)));
    end for;
 
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
 
 equation
   connect(preCon.port, vol.heatPort)       annotation (Line(
@@ -364,6 +368,12 @@ with one plate of water carying fluid, and a height of 0.42 meters.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">Buildings, #1341</a>.
+</li>
 <li>
 February 21, 2020, by Michael Wetter:<br/>
 Changed icon to display its operating state.<br/>

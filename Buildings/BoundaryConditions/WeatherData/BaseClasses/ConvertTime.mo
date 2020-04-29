@@ -28,17 +28,17 @@ equation
   when {initial(), canRepeatWeatherFile and modTim > pre(tNext)} then
     // simulation time stamp went over the end time of the weather file
     //(last time stamp of the weather file + average increment)
-    tNext = if canRepeatWeatherFile then integer(modTim/lenWea)*lenWea + lenWea else time;
+    tNext = if canRepeatWeatherFile then noEvent(integer(modTim/lenWea))*lenWea + lenWea else time;
   end when;
   calTim = if canRepeatWeatherFile then modTim - tNext + lenWea else modTim;
 
-  assert(canRepeatWeatherFile or (time - weaDatEndTim) < shiftSolarRad,
+  assert(canRepeatWeatherFile or noEvent((time - weaDatEndTim) < shiftSolarRad),
     "In " + getInstanceName() + ": Insufficient weather data provided for the desired simulation period.
     The simulation time " + String(time) +
     " exceeds the end time " + String(weaDatEndTim) + " of the weather data file.",
     AssertionLevel.error);
 
-  assert(canRepeatWeatherFile or (time >= weaDatStaTim),
+  assert(canRepeatWeatherFile or noEvent(time >= weaDatStaTim),
     "In " + getInstanceName() + ": Insufficient weather data provided for the desired simulation period.
     The simulation time " + String(time) +
     " is less than the start time " + String(weaDatStaTim) + " of the weather data file.",
@@ -53,6 +53,10 @@ or a multiple of it, if this is the length of the weather file.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 15, 2020, by Michael Wetter:<br/>
+Added <code>noEvent</code> to assertion to remove zero crossing function in OPTIMICA.
+</li>
 <li>
 January 29, 2020, by Filip Jorissen:<br/>
 Revised end time assert and added assert that verifies whether the time is before the 
