@@ -10,6 +10,9 @@ model Cooling "Active beam unit for cooling"
       annotation (choices(
         choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
 
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
+
   replaceable parameter Data.Generic perCoo "Performance data for cooling"
     annotation (
       Dialog(group="Nominal condition"),
@@ -40,9 +43,6 @@ model Cooling "Active beam unit for cooling"
   parameter Real deltaMWat = 0.1
     "Fraction of nominal flow rate where flow transitions to laminar"
     annotation(Dialog(tab="Flow resistance"));
-  // Advanced
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
@@ -189,7 +189,9 @@ initial equation
     "Performance curve perCoo.water must pass through (0,0).");
   assert(perCoo.dT.r_dT[1]<=0.000001      and perCoo.dT.f[1]<=0.00001,
     "Performance curve perCoo.dT must pass through (0,0).");
-
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
 
 equation
   connect(heaToRoo.port, heaPor)
@@ -294,6 +296,12 @@ DOE(2015) EnergyPlus documentation v8.4.0 - Engineering Reference.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">Buildings, #1341</a>.
+</li>
 <li>
 January 18, 2019, by Jianjun Hu:<br/>
 Limited the media choice.

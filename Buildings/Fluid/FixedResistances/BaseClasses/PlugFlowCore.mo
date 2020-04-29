@@ -3,6 +3,9 @@ model PlugFlowCore
   "Pipe model using spatialDistribution for temperature delay with modified delay tracker"
   extends Buildings.Fluid.Interfaces.PartialTwoPort;
 
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
+
   parameter Modelica.SIunits.Length dh
     "Hydraulic diameter (assuming a round cross section area)";
 
@@ -53,8 +56,6 @@ model PlugFlowCore
   parameter Real ReC=4000
     "Reynolds number where transition to turbulent starts";
 
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
   parameter Boolean linearized = false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
@@ -134,6 +135,11 @@ protected
     "Default density (e.g., rho_liquidWater = 995, rho_air = 1.2)"
     annotation (Dialog(group="Advanced"));
 
+initial equation
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
+
 equation
   connect(senMasFlo.m_flow, timDel.m_flow) annotation (Line(
       points={{-40,-11},{-40,-40},{-12,-40}},
@@ -201,6 +207,12 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">Buildings, #1341</a>.
+</li>
+<li>
 October 20, 2017, by Michael Wetter:<br/>
 Replaced model that lumps flow resistance and transport delays
 with two separate models, as these are physically distinct processes.
@@ -230,7 +242,7 @@ for the transport delay of the fluid.
 <p>
 The
 <code>spatialDistribution</code> operator is used for the temperature wave propagation
-through the length of the pipe. This operator is contained in 
+through the length of the pipe. This operator is contained in
 <a href=\"modelica://Buildings.Fluid.FixedResistances.BaseClasses.PlugFlow\">BaseClasses.PlugFlow</a>.
 </p>
 <p>
@@ -238,8 +250,8 @@ This model does not include thermal inertia of the pipe wall.
 The wall inertia is implemented in
 <a href=\"modelica://Buildings.Fluid.FixedResistances.PlugFlowPipe\">PlugFlowPipe</a>, which uses this model.
 <br/>
-The removal of the thermal inertia with a mixing volume can be desirable in the 
-case where mixing volumes are added manually at the pipe junctions. 
+The removal of the thermal inertia with a mixing volume can be desirable in the
+case where mixing volumes are added manually at the pipe junctions.
 </p>
 <p>
 The model
@@ -254,10 +266,10 @@ Full details on the model implementation and experimental validation can be foun
 in:
 </p>
 <p>
-van der Heijde, B., Fuchs, M., Ribas Tugores, C., Schweiger, G., Sartor, K., Basciotti, D., M&uuml;ller, 
+van der Heijde, B., Fuchs, M., Ribas Tugores, C., Schweiger, G., Sartor, K., Basciotti, D., M&uuml;ller,
 D., Nytsch-Geusen, C., Wetter, M. and Helsen, L. (2017).<br/>
 Dynamic equation-based thermo-hydraulic pipe model for district heating and cooling systems.<br/>
-<i>Energy Conversion and Management</i>, vol. 151, p. 158-169. 
+<i>Energy Conversion and Management</i>, vol. 151, p. 158-169.
 <a href=\"https://doi.org/10.1016/j.enconman.2017.08.072\">doi: 10.1016/j.enconman.2017.08.072</a>.</p>
 </html>"));
 end PlugFlowCore;

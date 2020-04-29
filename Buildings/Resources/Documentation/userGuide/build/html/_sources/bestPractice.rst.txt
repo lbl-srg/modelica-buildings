@@ -508,6 +508,8 @@ for a robust implementation.
    `Buildings.Utilities.Math <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Utilities_Math.html#Buildings.Utilities.Math>`_
    the functions and blocks whose names start with ``smooth`` can be used to avoid events.
 
+.. _sec_bes_pra_con:
+
 Controls
 --------
 
@@ -569,6 +571,9 @@ because the ``if-then-else`` construct triggers an event iteration whenever
    * is computed using an :term:`iterative solver`, or
    * is obtained from a measurement and hence can contain measurement
      noise.
+
+   An exception is a sampled value because the output of a sampler remains constant
+   until the next sampling instant.
 
    See :ref:`sec-example-event-debugging` for what can happen in
    such tests.

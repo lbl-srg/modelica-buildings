@@ -66,7 +66,11 @@ annotation (defaultComponentName="senS_flow",
           extent={{180,151},{20,99}},
           lineColor={0,0,0},
           textString="S_flow"),
-        Ellipse(extent={{-70,70},{70,-70}}, lineColor={255,0,0})}),
+        Ellipse(extent={{-70,70},{70,-70}}, lineColor={255,0,0}),
+        Text(
+         extent={{-20,120},{-140,70}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(S_flow, leftjustified=false, significantDigits=3)))}),
   Documentation(info="<html>
 <p>
 This model outputs the entropy flow rate of the medium in the flow
@@ -84,6 +88,12 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 25, 2020, by Michael Wetter:<br/>
+Changed icon to display its operating state.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
+</li>
 <li>
 July 29, 2016, by Michael Wetter:<br/>
 First implementation based on

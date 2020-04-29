@@ -4,22 +4,16 @@ block RoomMixingBox "Controller for room mixing box"
   parameter Modelica.SIunits.MassFlowRate m_flow_min "Minimum mass flow rate";
   Buildings.Controls.OBC.CDL.Continuous.LimPID conHea(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    initType=Buildings.Controls.OBC.CDL.Types.Init.InitialState,
-    yMax=1,
     Td=60,
-    yMin=0,
     k=0.1,
     Ti=120) "Controller for heating"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conCoo(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    initType=Buildings.Controls.OBC.CDL.Types.Init.InitialState,
-    yMax=1,
     reverseAction=true,
     Td=60,
     k=0.1,
-    Ti=120,
-    yMin=0) "Controller for cooling (acts on damper)"
+    Ti=120) "Controller for cooling (acts on damper)"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Modelica.Blocks.Interfaces.RealInput TRoo(final quantity="ThermodynamicTemperature",
                                           final unit = "K", displayUnit = "degC", min=0)
@@ -35,10 +29,7 @@ block RoomMixingBox "Controller for room mixing box"
         iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conFloRat(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    initType=Buildings.Controls.OBC.CDL.Types.Init.InitialState,
-    yMax=1,
     Td=60,
-    yMin=0,
     k=0.1,
     Ti=120) "Controller for mass flow rate"
     annotation (Placement(transformation(extent={{-42,30},{-22,50}})));
@@ -92,7 +83,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(conHea.y, max.u1) annotation (Line(
-      points={{-39,80},{20,80},{20,54},{36,54}},
+      points={{-38,80},{20,80},{20,54},{36,54}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conHea.u_s, TRooSetHea) annotation (Line(
@@ -112,7 +103,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(conFloRat.y, product.u1) annotation (Line(
-      points={{-21,40},{-6,40},{-6,28},{6,28}},
+      points={{-20,40},{-6,40},{-6,28},{6,28}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(product.y, max.u2) annotation (Line(
@@ -139,37 +130,35 @@ equation
   connect(dTRooHea.u2, TRooSetHea) annotation (Line(points={{-62,-56},{-76,-56},
           {-76,40},{-120,40}}, color={0,0,127}));
   connect(gaiCooUnl.u1, dTRooHea.y) annotation (Line(points={{-30,-64},{-36,-64},
-          {-36,-50},{-39,-50}}, color={0,0,127}));
-  connect(dTSet.y, gaiCooUnl.u2) annotation (Line(points={{-39,-80},{-34,-80},{
-          -34,-76},{-30,-76}},
-                           color={0,0,127}));
+          {-36,-50},{-38,-50}}, color={0,0,127}));
+  connect(dTSet.y, gaiCooUnl.u2) annotation (Line(points={{-38,-80},{-34,-80},{-34,
+          -76},{-30,-76}}, color={0,0,127}));
   connect(gaiCooUnl.y, gaiCoo.u)
-    annotation (Line(points={{-7,-70},{-2,-70}}, color={0,0,127}));
-  connect(gaiCoo.y, product1.u2) annotation (Line(points={{21,-70},{28,-70},{28,
+    annotation (Line(points={{-6,-70},{-2,-70}}, color={0,0,127}));
+  connect(gaiCoo.y, product1.u2) annotation (Line(points={{22,-70},{28,-70},{28,
           -50},{-8,-50},{-8,-40},{6,-40}},
                           color={0,0,127}));
-  connect(conFloRat.y, product1.u1) annotation (Line(points={{-21,40},{-6,40},{
-          -6,-28},{6,-28}},
-                          color={0,0,127}));
-  connect(conCoo.y, maxCoo.u1) annotation (Line(points={{-39,-10},{38,-10}},
+  connect(conFloRat.y, product1.u1) annotation (Line(points={{-20,40},{-6,40},{-6,
+          -28},{6,-28}},  color={0,0,127}));
+  connect(conCoo.y, maxCoo.u1) annotation (Line(points={{-38,-10},{38,-10}},
                      color={0,0,127}));
   connect(maxCoo.u2, product1.y)
     annotation (Line(points={{38,-22},{32,-22},{32,-34},{29,-34}},
                                                  color={0,0,127}));
   connect(swiHot.y, yHot)
-    annotation (Line(points={{95,40},{110,40}}, color={0,0,127}));
+    annotation (Line(points={{96,40},{110,40}}, color={0,0,127}));
   connect(swiHot.u1, max.y)
-    annotation (Line(points={{72,48},{59,48}}, color={0,0,127}));
+    annotation (Line(points={{72,48},{60,48}}, color={0,0,127}));
   connect(yCol, swiCoo.y)
-    annotation (Line(points={{110,-50},{93,-50}}, color={0,0,127}));
-  connect(swiCoo.u1, maxCoo.y) annotation (Line(points={{70,-42},{66,-42},{66,
-          -16},{61,-16}}, color={0,0,127}));
+    annotation (Line(points={{110,-50},{94,-50}}, color={0,0,127}));
+  connect(swiCoo.u1, maxCoo.y) annotation (Line(points={{70,-42},{66,-42},{66,-16},
+          {62,-16}},      color={0,0,127}));
   connect(swiCoo.u2, yFan) annotation (Line(points={{70,-50},{62,-50},{62,-96},
           {-80,-96},{-80,-80},{-120,-80}}, color={255,0,255}));
   connect(zer.y, swiCoo.u3)
-    annotation (Line(points={{55,-58},{70,-58}}, color={0,0,127}));
-  connect(zer.y, swiHot.u3) annotation (Line(points={{55,-58},{64,-58},{64,32},
-          {72,32}}, color={0,0,127}));
+    annotation (Line(points={{56,-58},{70,-58}}, color={0,0,127}));
+  connect(zer.y, swiHot.u3) annotation (Line(points={{56,-58},{64,-58},{64,32},{
+          72,32}},  color={0,0,127}));
   connect(yFan, swiHot.u2) annotation (Line(points={{-120,-80},{-80,-80},{-80,
           -96},{62,-96},{62,40},{72,40}}, color={255,0,255}));
   annotation ( Icon(graphics={
