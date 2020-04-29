@@ -10,6 +10,5 @@ OperationModes
 PreCoolingStarter
 RoomTemperatureSetpoint
 RoomVAV
-RoomVAV_new
 State
 Examples
