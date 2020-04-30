@@ -1,0 +1,14 @@
+Program Version,EnergyPlus, Version 9.3.0-baff08990c, YMD=2020.04.29 22:11,
+   ** Severe  ** <root>[FuelFactors][FuelFactors 3][existing_fuel_resource_name] - "FuelOil#1" - Failed to match against any enum values.
+   ** Severe  ** <root>[ShadowCalculation][ShadowCalculation 1][shading_calculation_method] - "AverageOverDaysInFrequency" - Failed to match against any enum values.
+   ** Severe  ** <root>[ShadowCalculation][ShadowCalculation 1][shading_calculation_update_frequency_method] - "30" - Failed to match against any enum values.
+   ** Warning ** Version: in IDF="9.1" not the same as expected="9.3"
+   **  Fatal  ** Errors occurred on processing input file. Preceding condition(s) cause termination.
+   ...Summary of Errors that led to program termination:
+   ..... Reference severe error count=3
+   ..... Last severe error=<root>[ShadowCalculation][ShadowCalculation 1][shading_calculation_update_frequency_method] - "30" - Failed to match against any enum values.
+   ************* Warning:  Node connection errors not checked - most system input has not been read (see previous warning).
+   ************* Fatal error -- final processing.  Program exited before simulations began.  See previous error messages.
+   ************* EnergyPlus Warmup Error Summary. During Warmup: 0 Warning; 0 Severe Errors.
+   ************* EnergyPlus Sizing Error Summary. During Sizing: 0 Warning; 0 Severe Errors.
+   ************* EnergyPlus Terminated--Fatal Error Detected. 1 Warning; 3 Severe Errors; Elapsed Time=00hr 00min  0.31sec
