@@ -4,13 +4,13 @@ model OperationMode "Validate block for selecting operation mode"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
     final offset=0,
     final height=6.2831852,
-    final duration=24*3600) "Block that generates ramp signal"
+    final duration=48*3600) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sin sin1
     "Block that outputs the sine of the input"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final k=12.5, final p=273.15 + 22.5) "Zone temperarure"
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(final k=14.5,
+                  final p=273.15 + 22.5) "Zone temperarure"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonHeaSetUno(
     final k=273.15 + 12)  "Unoccupied heating setpoint"
@@ -33,57 +33,6 @@ model OperationMode "Validate block for selecting operation mode"
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant uWinSta(final k=false)
     "Window on/off status"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},origin={-50,-130})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable occTim(
-    final table=[0,0; occSta,1; occEnd,0; 24*3600,0],
-    final smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)
-    annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.ModelTime modTim
-    annotation (Placement(transformation(extent={{-160,230},{-140,250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
-    final k=24*3600) "One day in second"
-    annotation (Placement(transformation(extent={{-160,130},{-140,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division div
-    "Output first input divided by second input"
-    annotation (Placement(transformation(extent={{-120,210},{-100,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round rou(final n=0)
-    "Round real number to 0 digit"
-    annotation (Placement(transformation(extent={{-80,210},{-60,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(k=24*3600)
-    "Begin time of each day"
-    annotation (Placement(transformation(extent={{-40,210},{-20,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessEqual lesEqu
-    "Check if it is beginning of next day"
-    annotation (Placement(transformation(extent={{0,210},{20,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
-    final p=-1, final k=1) "Add parameter"
-    annotation (Placement(transformation(extent={{-40,180},{-20,200}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai1(final k=24*3600) "Begin of day"
-    annotation (Placement(transformation(extent={{0,180},{20,200}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi "Beginning of current day"
-    annotation (Placement(transformation(extent={{40,210},{60,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add curTim(final k2=-1) "Current time "
-    annotation (Placement(transformation(extent={{80,230},{100,250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(final k2=-1)
-    "Left time to beginning of current day occupancy "
-    annotation (Placement(transformation(extent={{80,150},{100,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant occStaTim(
-    final k=occSta) "Occupancy start"
-    annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(final k2=-1)
-    "Left time to the end of current day"
-    annotation (Placement(transformation(extent={{0,130},{20,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar2(
-    final p=occSta, final k=1)
-    "Left time to next occupancy"
-    annotation (Placement(transformation(extent={{40,130},{60,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessEqual lesEqu1
-    "Check if current time has already passed occupancy start time"
-    annotation (Placement(transformation(extent={{0,90},{20,110}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1 "Time to next occupancy"
-    annotation (Placement(transformation(extent={{120,90},{140,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold occ(
-    final threshold=0.5) "Occupied status"
-    annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode opeModSel(final
       have_winSen=true, final numZon=1) "Operation mode selection"
     annotation (Placement(transformation(extent={{130,0},{150,20}})));
@@ -104,6 +53,8 @@ model OperationMode "Validate block for selecting operation mode"
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1 "Convert boolean to integer"
     annotation (Placement(transformation(extent={{80,-210},{100,-190}})));
 
+  Buildings.Controls.SetPoints.OccupancySchedule occSch "Occupancy schedule"
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 protected
   final parameter Real occSta(
     final unit="s",
@@ -117,72 +68,6 @@ equation
     annotation (Line(points={{-78,-70},{-62,-70}}, color={0,0,127}));
   connect(sin1.y, addPar.u)
     annotation (Line(points={{-38,-70},{-22,-70}},color={0,0,127}));
-  connect(modTim.y, div.u1)
-    annotation (Line(points={{-138,240},{-130,240},{-130,226},{-122,226}},
-      color={0,0,127}));
-  connect(con.y, div.u2)
-    annotation (Line(points={{-138,140},{-130,140},{-130,214},{-122,214}}, color={0,0,127}));
-  connect(div.y, rou.u)
-    annotation (Line(points={{-98,220},{-82,220}}, color={0,0,127}));
-  connect(rou.y, gai.u)
-    annotation (Line(points={{-58,220},{-42,220}}, color={0,0,127}));
-  connect(gai.y, lesEqu.u1)
-    annotation (Line(points={{-18,220},{-2,220}}, color={0,0,127}));
-  connect(modTim.y, lesEqu.u2)
-    annotation (Line(points={{-138,240},{-10,240},{-10,212},{-2,212}}, color={0,0,127}));
-  connect(rou.y, addPar1.u)
-    annotation (Line(points={{-58,220},{-50,220},{-50,190},{-42,190}}, color={0,0,127}));
-  connect(addPar1.y, gai1.u)
-    annotation (Line(points={{-18,190},{-2,190}}, color={0,0,127}));
-  connect(lesEqu.y, swi.u2)
-    annotation (Line(points={{22,220},{38,220}}, color={255,0,255}));
-  connect(gai.y, swi.u1)
-    annotation (Line(points={{-18,220},{-14,220},{-14,250},{30,250},{30,228},{38,
-          228}}, color={0,0,127}));
-  connect(gai1.y, swi.u3)
-    annotation (Line(points={{22,190},{30,190},{30,212},{38,212}}, color={0,0,127}));
-  connect(modTim.y, curTim.u1)
-    annotation (Line(points={{-138,240},{-10,240},{-10,246},{78,246}}, color={0,0,127}));
-  connect(swi.y, curTim.u2)
-    annotation (Line(points={{62,220},{70,220},{70,234},{78,234}}, color={0,0,127}));
-  connect(occStaTim.y, add2.u1)
-    annotation (Line(points={{-118,100},{-100,100},{-100,166},{78,166}},
-                                                                     color={0,0,127}));
-  connect(con.y, add1.u1)
-    annotation (Line(points={{-138,140},{-130,140},{-130,146},{-2,146}},
-                                                                     color={0,0,127}));
-  connect(add1.y, addPar2.u)
-    annotation (Line(points={{22,140},{38,140}},
-                                               color={0,0,127}));
-  connect(occStaTim.y, lesEqu1.u2)
-    annotation (Line(points={{-118,100},{-100,100},{-100,92},{-2,92}},
-                                                                     color={0,0,127}));
-  connect(curTim.y, lesEqu1.u1)
-    annotation (Line(points={{102,240},{140,240},{140,120},{-20,120},{-20,100},{
-          -2,100}},
-                color={0,0,127}));
-  connect(lesEqu1.y, swi1.u2)
-    annotation (Line(points={{22,100},{118,100}},
-                                                color={255,0,255}));
-  connect(add2.y, swi1.u1)
-    annotation (Line(points={{102,160},{110,160},{110,108},{118,108}},
-                                                                   color={0,0,127}));
-  connect(addPar2.y, swi1.u3)
-    annotation (Line(points={{62,140},{100,140},{100,92},{118,92}},
-                                                                  color={0,0,127}));
-  connect(occTim.y[1], occ.u)
-    annotation (Line(points={{-118,60},{-102,60}},   color={0,0,127}));
-  connect(curTim.y, add2.u2)
-    annotation (Line(points={{102,240},{140,240},{140,180},{60,180},{60,154},{78,
-          154}},color={0,0,127}));
-  connect(curTim.y, add1.u2)
-    annotation (Line(points={{102,240},{140,240},{140,120},{-20,120},{-20,134},{
-          -2,134}},
-                color={0,0,127}));
-  connect(occ.y, opeModSel.uOcc) annotation (Line(points={{-78,60},{80,60},{80,
-          22},{128,22}}, color={255,0,255}));
-  connect(swi1.y, opeModSel.tNexOcc) annotation (Line(points={{142,100},{150,
-          100},{150,40},{72,40},{72,20},{128,20}}, color={0,0,127}));
   connect(cooDowTim.y, opeModSel.maxCooDowTim) annotation (Line(points={{-38,30},
           {64,30},{64,18},{128,18}}, color={0,0,127}));
   connect(warUpTim.y, opeModSel.maxWarUpTim) annotation (Line(points={{-38,0},{
@@ -226,8 +111,15 @@ equation
   connect(booToInt1.y, opeModSel.totHotZon) annotation (Line(points={{102,-200},
           {114,-200},{114,0},{128,0}}, color={255,127,0}));
 
+  connect(occSch.occupied, opeModSel.uOcc) annotation (Line(points={{-39,64},{
+          120,64},{120,22},{128,22}}, color={255,0,255}));
+  connect(occSch.tNexOcc, opeModSel.tNexOcc) annotation (Line(points={{-39,76},
+          {0,76},{0,34},{100,34},{100,20},{128,20}}, color={0,0,127}));
 annotation (
-  experiment(StopTime=86400, Tolerance=1e-6),
+  experiment(
+      StopTime=172800,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Dassl"),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/Generic/SetPoints/Validation/OperationMode.mos"
         "Simulate and plot"),
     Documentation(info="<html>
