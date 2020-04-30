@@ -4,25 +4,21 @@ model HeatExchanger "Base subsystem with district heat exchanger"
     final m1_flow_nominal=abs(QHex_flow_nominal / cp1_default /
                               (T_b1Hex_nominal - T_a1Hex_nominal)),
     final m2_flow_nominal=abs(QHex_flow_nominal / cp2_default /
-                              (T_b2Hex_nominal - T_a2Hex_nominal)),
-    final show_T=show_T);
+                              (T_b2Hex_nominal - T_a2Hex_nominal)));
 
-  parameter Boolean have_valDis
+  parameter Boolean have_val1Hex
     "Set to true in case of control valve on district side, false in case of a pump"
     annotation(Evaluate=true);
-  parameter Boolean show_T = false
-    "= true, if actual temperature at port is computed"
-    annotation(Dialog(tab="Advanced", group="Diagnostics"));
   parameter Modelica.SIunits.PressureDifference dp1Hex_nominal(displayUnit="Pa")
     "Nominal pressure drop on primary side of heat exchanger"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.PressureDifference dp2Hex_nominal(displayUnit="Pa")
     "Nominal pressure drop on secondary side of heat exchanger"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpValDis_nominal(displayUnit="Pa")=
+  parameter Modelica.SIunits.PressureDifference dpVal1Hex_nominal(displayUnit="Pa")=
     dp1Hex_nominal / 4
     "Nominal pressure drop of primary control valve"
-    annotation(Dialog(enable=have_valDis, group="Nominal condition"));
+    annotation(Dialog(enable=have_val1Hex, group="Nominal condition"));
   parameter Modelica.SIunits.HeatFlowRate QHex_flow_nominal
     "Nominal heat flow rate through heat exchanger (from district to building)"
     annotation (Dialog(group="Nominal condition"));
@@ -40,7 +36,10 @@ model HeatExchanger "Base subsystem with district heat exchanger"
     annotation (Dialog(group="Nominal condition"));
   parameter Real spePum1HexMin(final unit="1") = 0.1
     "Heat exchanger primary pump minimum speed (fractional)"
-    annotation (Dialog(group="Controls", enable=not have_valDis));
+    annotation (Dialog(group="Controls", enable=not have_val1Hex));
+  parameter Real yVal1HexMin(final unit="1") = 0.1
+    "Minimum valve opening for temperature measurement (fractional)"
+    annotation(Dialog(group="Controls", enable=have_val1Hex));
   parameter Real spePum2HexMin(final unit="1") = 0.1
     "Heat exchanger secondary pump minimum speed (fractional)"
     annotation (Dialog(group="Controls"));
@@ -73,7 +72,7 @@ model HeatExchanger "Base subsystem with district heat exchanger"
       iconTransformation(extent={{100,-10},{120,10}})));
   // COMPONENTS
   Controls.HeatExchanger conHex(
-    final have_valDis=have_valDis,
+    final have_val1Hex=have_val1Hex,
     final spePum1HexMin=spePum1HexMin,
     final spePum2HexMin=spePum2HexMin,
     final dT1HexSet=dT1HexSet,
@@ -89,7 +88,7 @@ model HeatExchanger "Base subsystem with district heat exchanger"
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     final allowFlowReversal1=allowFlowReversal1,
     final allowFlowReversal2=allowFlowReversal2,
-    final dp1_nominal=if have_valDis then 0 else dp1Hex_nominal,
+    final dp1_nominal=if have_val1Hex then 0 else dp1Hex_nominal,
     final dp2_nominal=dp2Hex_nominal,
     final m1_flow_nominal=m1_flow_nominal,
     final m2_flow_nominal=m2_flow_nominal,
@@ -137,7 +136,7 @@ model HeatExchanger "Base subsystem with district heat exchanger"
     redeclare final package Medium = Medium1,
     final m_flow_nominal=m1_flow_nominal,
     final dp_nominal=dp1Hex_nominal,
-    final allowFlowReversal=allowFlowReversal1) if not have_valDis
+    final allowFlowReversal=allowFlowReversal1) if not have_val1Hex
     "District heat exchanger primary pump"
     annotation (Placement(
       transformation(
@@ -147,8 +146,8 @@ model HeatExchanger "Base subsystem with district heat exchanger"
   Fluid.Actuators.Valves.TwoWayEqualPercentage val1Hex(
     redeclare final package Medium = Medium1,
     final m_flow_nominal=m1_flow_nominal,
-    final dpValve_nominal=dpValDis_nominal,
-    final dpFixed_nominal=dp1Hex_nominal) if have_valDis
+    final dpValve_nominal=dpVal1Hex_nominal,
+    final dpFixed_nominal=dp1Hex_nominal) if have_val1Hex
     "Heat exchanger primary control valve"
     annotation (Placement(transformation(extent={{50,70},{70,90}})));
   Fluid.Sensors.TemperatureTwoPort senT1HexWatEnt(
@@ -172,11 +171,11 @@ model HeatExchanger "Base subsystem with district heat exchanger"
         rotation=90,
         origin={20,20})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai1(
-    final k=m1_flow_nominal) if not have_valDis
+    final k=m1_flow_nominal) if not have_val1Hex
     "Scale to nominal mass flow rate"
     annotation (Placement(transformation(extent={{-20,90},{-40,110}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum totPPum(
-    final nin=if have_valDis then 1 else 2)
+    final nin=if have_val1Hex then 1 else 2)
     "Total pump power"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
 protected
@@ -197,7 +196,7 @@ protected
     Medium1.specificHeatCapacityCp(sta2_default)
     "Specific heat capacity of the fluid";
 equation
-  if not have_valDis then
+  if not have_val1Hex then
     connect(senT1HexWatLvg.port_b, port_b1)
       annotation (Line(points={{20,30},{20,60},{100,60}}, color={0,127,255}));
   else
@@ -208,8 +207,7 @@ equation
           {-90,142},{-42,142}},
     color={255,0,255}));
   connect(uColRej, conHex.uColRej) annotation (Line(points={{-120,100},{-88,100},
-          {-88,139},{-42,139}},
-                          color={255,0,255}));
+          {-88,139},{-42,139}}, color={255,0,255}));
   connect(port_a2, pum2Hex.port_a)
     annotation (Line(points={{100,-60},{90,-60}}, color={0,127,255}));
   connect(conHex.y2Hex, gai2.u) annotation (Line(points={{-18,128},{10,128},{10,

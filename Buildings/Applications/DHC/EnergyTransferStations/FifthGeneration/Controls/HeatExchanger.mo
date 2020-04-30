@@ -3,11 +3,15 @@ model HeatExchanger
   "Controller for district heat exchanger secondary loop"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Boolean have_valDis
+  parameter Boolean have_val1Hex
     "Set to true in case of control valve on district side, false in case of a pump"
     annotation(Evaluate=true);
   parameter Real spePum1HexMin(final unit="1") = 0.1
-    "Heat exchanger primary pump minimum speed (fractional)";
+    "Heat exchanger primary pump minimum speed (fractional)"
+    annotation(Dialog(enable=not have_val1Hex));
+  parameter Real yVal1HexMin(final unit="1") = 0.1
+    "Minimum valve opening for temperature measurement (fractional)"
+    annotation(Dialog(enable=have_val1Hex));
   parameter Real spePum2HexMin(final unit="1") = 0.1
     "Heat exchanger secondary pump minimum speed (fractional)";
   parameter Modelica.SIunits.TemperatureDifference dT1HexSet
@@ -93,7 +97,7 @@ model HeatExchanger
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant delT1HexWatSet(k=abs(
         dT1HexSet)) "District heat exchanger primary water deltaT set-point"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Buildings.Controls.Continuous.LimPID conPum1(
+  Buildings.Controls.Continuous.LimPID con1(
     final k=k,
     final Ti=Ti,
     final reset=Buildings.Types.Reset.Parameter,
@@ -101,7 +105,7 @@ model HeatExchanger
     final yMin=0,
     final yMax=1,
     final controllerType=Modelica.Blocks.Types.SimpleController.PI)
-    "Primary pump controller"
+    "Primary circuit controller"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax1(nin=2)
     "Maximize pump control signal"
@@ -109,9 +113,9 @@ model HeatExchanger
   Buildings.Controls.OBC.CDL.Logical.Switch swiOff1
     "Output zero if not enabled"
     annotation (Placement(transformation(extent={{160,10},{180,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minSpe1(final k=if
-        have_valDis then 0 else spePum1HexMin)
-    "Minimum pump speed or actuator opening"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant min1(final k=if
+        have_val1Hex then yVal1HexMin else spePum1HexMin)
+                       "Minimum pump speed or actuator opening"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
 equation
   connect(delT2.y, abs2.u)
@@ -145,9 +149,9 @@ equation
           {-180,-6},{-162,-6}}, color={0,0,127}));
   connect(delT1.y, abs1.u)
     annotation (Line(points={{-138,0},{-122,0}}, color={0,0,127}));
-  connect(abs1.y, conPum1.u_m)
+  connect(abs1.y, con1.u_m)
     annotation (Line(points={{-98,0},{0,0},{0,8}}, color={0,0,127}));
-  connect(delT1HexWatSet.y, conPum1.u_s)
+  connect(delT1HexWatSet.y, con1.u_s)
     annotation (Line(points={{-58,20},{-12,20}}, color={0,0,127}));
   connect(swiOff1.y, y1Hex)
     annotation (Line(points={{182,20},{240,20}}, color={0,0,127}));
@@ -159,12 +163,12 @@ equation
           140,28},{158,28}}, color={0,0,127}));
   connect(minSpe2.y, multiMax2.u[2]) annotation (Line(points={{12,-100},{32,-100},
           {32,-61},{48,-61}}, color={0,0,127}));
-  connect(conPum1.y, multiMax1.u[1]) annotation (Line(points={{11,20},{30,20},{
-          30,21},{48,21}}, color={0,0,127}));
-  connect(minSpe1.y, multiMax1.u[2]) annotation (Line(points={{12,-20},{30,-20},
-          {30,19},{48,19}}, color={0,0,127}));
-  connect(enaHex.y, conPum1.trigger) annotation (Line(points={{-78,80},{-20,80},
-          {-20,4},{-8,4},{-8,8}},                 color={255,0,255}));
+  connect(con1.y, multiMax1.u[1]) annotation (Line(points={{11,20},{30,20},{30,21},
+          {48,21}}, color={0,0,127}));
+  connect(min1.y, multiMax1.u[2]) annotation (Line(points={{12,-20},{30,-20},{30,
+          19},{48,19}}, color={0,0,127}));
+  connect(enaHex.y, con1.trigger) annotation (Line(points={{-78,80},{-20,80},{-20,
+          4},{-8,4},{-8,8}}, color={255,0,255}));
   connect(multiMax2.y, swiOff2.u1) annotation (Line(points={{72,-60},{130,-60},
           {130,-52},{158,-52}}, color={0,0,127}));
   connect(off.y, swiOff2.u3) annotation (Line(points={{122,-20},{140,-20},{140,
@@ -175,7 +179,7 @@ annotation (Diagram(
   defaultComponentName="conHex",
 Documentation(info="<html>
 <p>
-This block computes the output integer <code>ModInd</code> which indicates the energy 
+This block computes the output integer <code>ModInd</code> which indicates the energy
 rejection index, i.e. heating or cooling energy is rejected and the control signals to turn
 on/off and modulates the followings.
 </p>

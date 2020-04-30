@@ -2,16 +2,16 @@ within Buildings.Applications.DHC.EnergyTransferStations.FifthGeneration.Control
 model Supervisory "Energy transfer station supervisory controller"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Modelica.SIunits.TemperatureDifference THys(min=0.1)=THys
+  parameter Modelica.SIunits.TemperatureDifference THys
     "Temperature hysteresis";
   parameter Modelica.Blocks.Types.SimpleController controllerType=
     Modelica.Blocks.Types.SimpleController.PI
     "Type of controller"
     annotation (Dialog(group="PID controller"));
-  parameter Real k(final unit="1/K")=0.01
+  parameter Real k(final unit="1/K") = 0.01
     "Gain of controller"
     annotation (Dialog(group="PID controller"));
-  parameter Modelica.SIunits.Time Ti(min=0)=60
+  parameter Modelica.SIunits.Time Ti(min=0) = 60
     "Time constant of integrator block"
     annotation (Dialog(group="PID controller",
       enable=controllerType==Modelica.Blocks.Types.SimpleController.PI

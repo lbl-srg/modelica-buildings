@@ -15,7 +15,7 @@ model Chiller
     nPorts_aChiWat=1,
     nPorts_bChiWat=1);
 
-  parameter Boolean have_valDis=false
+  parameter Boolean have_val1Hex=false
     "Set to true in case of control valve on district side, false in case of a pump"
     annotation(Evaluate=true);
   parameter Integer nAuxHea = 0
@@ -120,20 +120,21 @@ model Chiller
       iconTransformation(extent={{-380,-200},{-300,-120}})));
 
   // COMPONENTS
-  FifthGeneration.Controls.Supervisory conSup
+  FifthGeneration.Controls.Supervisory conSup(
+    final THys=THys)
     "Supervisory controller"
     annotation (Placement(transformation(extent={{-260,40},{-240,60}})));
 
   Fluid.Actuators.Valves.TwoWayLinear valIsoEva(
     redeclare final package Medium = MediumBui,
     final dpValve_nominal=dpValIso_nominal,
-    final m_flow_nominal=datChi.mEva_flow_nominal)
+    final m_flow_nominal=sum(colAmbWat.mCon_flow_nominal))
     "Evaporator to ambient loop isolation valve"
     annotation (Placement(transformation(extent={{90,-110},{70,-90}})));
   Fluid.Actuators.Valves.TwoWayLinear valIsoCon(
     redeclare final package Medium = MediumBui,
     final dpValve_nominal=dpValIso_nominal,
-    final m_flow_nominal=datChi.mCon_flow_nominal)
+    final m_flow_nominal=sum(colAmbWat.mCon_flow_nominal))
     "Condenser to ambient loop isolation valve"
     annotation (Placement(transformation(extent={{-90,-110},{-70,-90}})));
 
@@ -149,7 +150,7 @@ model Chiller
     redeclare final package Medium2 = MediumBui,
     final allowFlowReversal1=allowFlowReversalDis,
     final allowFlowReversal2=allowFlowReversalBui,
-    final have_valDis=have_valDis,
+    final have_val1Hex=have_val1Hex,
     final dp1Hex_nominal=dp1Hex_nominal,
     final dp2Hex_nominal=dp2Hex_nominal,
     final QHex_flow_nominal=QHex_flow_nominal,

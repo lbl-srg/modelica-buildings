@@ -69,26 +69,26 @@ model BaseChiller
     duration=1000,
     startTime=2000) "Heating water return temperature"
     annotation (Placement(transformation(extent={{-190,-90},{-170,-70}})));
-  Fluid.Sensors.TemperatureTwoPort senTHeaWatSup(redeclare final package Medium
-      = Medium, m_flow_nominal=datChi.mCon_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort senTHeaWatSup(redeclare final package Medium =
+        Medium, m_flow_nominal=datChi.mCon_flow_nominal)
     "Heating water supply temperature" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-80,-40})));
-  Fluid.Sensors.TemperatureTwoPort senTChiWatSup(redeclare final package Medium
-      = Medium, m_flow_nominal=datChi.mEva_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort senTChiWatSup(redeclare final package Medium =
+        Medium, m_flow_nominal=datChi.mEva_flow_nominal)
     "Chilled water supply temperature" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={70,-40})));
-  Fluid.Sensors.TemperatureTwoPort senTHeaWatRet(redeclare final package Medium
-      = Medium, m_flow_nominal=datChi.mCon_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort senTHeaWatRet(redeclare final package Medium =
+        Medium, m_flow_nominal=datChi.mCon_flow_nominal)
     "Heating water return temperature" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-80,-80})));
-  Fluid.Sensors.TemperatureTwoPort senTChiWatRet(redeclare final package Medium
-      = Medium, m_flow_nominal=datChi.mEva_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort senTChiWatRet(redeclare final package Medium =
+        Medium, m_flow_nominal=datChi.mEva_flow_nominal)
     "Chilled water return temperature" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,

@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.EnergyTransferStations.FifthGeneration;
-model HeatRecoveryChiller_bck
-  "Energy transfer station model for fifth generation DHC systems with heat recovery chiller"
+model ChillerBoreField
+  "Energy transfer station model for fifth generation DHC systems with heat recovery chiller and borefield"
   extends DHC.EnergyTransferStations.BaseClasses.PartialETS(
     final have_heaWat=true,
     final have_chiWat=true,
@@ -15,7 +15,7 @@ model HeatRecoveryChiller_bck
     nPorts_aBui=2,
     nPorts_bBui=2);
 
-  parameter Boolean have_valDis=false
+  parameter Boolean have_val1Hex=false
     "Set to true in case of control valve on district side, false in case of a pump"
     annotation(Evaluate=true);
   parameter Boolean have_borFie
@@ -162,15 +162,6 @@ model HeatRecoveryChiller_bck
     final m_flow_nominal=sum(m2Hex_flow_nominal, mBorFie_flow_nominal) .* {1,-1,-1})
     "Heating water return manifold"
     annotation (Placement(transformation(extent={{-150,-50},{-130,-30}})));
-  BaseClasses.Junction junBorFieOut(
-    redeclare final package Medium = MediumBui,
-    final m_flow_nominal={m2Hex_flow_nominal, mBorFie_flow_nominal,
-      -sum(m2Hex_flow_nominal, mBorFie_flow_nominal)})
-    "Borefield outlet junction"
-    annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=-90,
-        origin={0,-200})));
   BaseClasses.Junction junBorFieInl(
     redeclare final package Medium = MediumBui,
     final m_flow_nominal={sum(m2Hex_flow_nominal, mBorFie_flow_nominal),-
@@ -179,7 +170,7 @@ model HeatRecoveryChiller_bck
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={-120,-200})));
+        origin={-118,-210})));
 
   BaseClasses.Chiller chi(
     redeclare final package Medium = MediumBui,
@@ -228,6 +219,11 @@ model HeatRecoveryChiller_bck
     final nSeg=nSegTan)
     "Heating water buffer tank"
     annotation (Placement(transformation(extent={{-220,200},{-200,220}})));
+  Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.CollectorDistributor
+    colDis annotation (Placement(transformation(
+        extent={{-20,10},{20,-10}},
+        rotation=-90,
+        origin={40,-230})));
 equation
   connect(valIsoCon.port_b, manAmbWatRet.ports_b[1])
     annotation (Line(points={{-70,-100},{-8,-100}}, color={0,127,255}));
@@ -308,16 +304,15 @@ equation
           {238,219},{238,80},{-272,80},{-272,46},{-262,46}}, color={0,0,127}));
   connect(tanChiWat.TBot, conSup.TChiWatBot) annotation (Line(points={{221,201},
           {240,201},{240,78},{-270,78},{-270,43},{-262,43}}, color={0,0,127}));
-  connect(hex.port_b2, junBorFieOut.port_1) annotation (Line(points={{-80,-260},
-          {-120,-260},{-120,-248},{0,-248},{-1.83187e-15,-210}}, color={0,127,255}));
-  connect(junBorFieOut.port_2, manAmbWatSup.port_3) annotation (Line(points={{1.83187e-15,
-          -190},{1.83187e-15,-180},{0,-180},{0,-170}}, color={0,127,255}));
-  connect(borFie.port_b, junBorFieOut.port_3)
-    annotation (Line(points={{-60,-200},{-10,-200}}, color={0,127,255}));
-  connect(hex.port_a2, junBorFieInl.port_2) annotation (Line(points={{-60,-260},
-          {-20,-260},{-20,-240},{-120,-240},{-120,-210}}, color={0,127,255}));
-  connect(junBorFieInl.port_1, manAmbWatRet.port_3) annotation (Line(points={{-120,
-          -190},{-120,-120},{0,-120},{0,-110}}, color={0,127,255}));
+  connect(junBorFieInl.port_1, manAmbWatRet.port_3) annotation (Line(points={{-118,
+          -200},{-118,-120},{0,-120},{0,-110}}, color={0,127,255}));
+  connect(manAmbWatSup.port_3, colDis.port_bDisRet) annotation (Line(points={{0,
+          -170},{26,-170},{26,-176},{46,-176},{46,-210}}, color={0,127,255}));
+  connect(hex.port_b2, colDis.ports_aCon[1]) annotation (Line(points={{-80,-260},
+          {-100,-260},{-100,-242},{30,-242}}, color={0,127,255}));
+  connect(borFie.port_b, colDis.ports_aCon[2]) annotation (Line(points={{-60,
+          -200},{-46,-200},{-46,-204},{-2,-204},{-2,-242},{30,-242}}, color={0,
+          127,255}));
 annotation (Icon(coordinateSystem(preserveAspectRatio=false),
    graphics={
        Text(
@@ -475,4 +470,4 @@ First implementation
 </li>
 </ul>
 </html>"));
-end HeatRecoveryChiller_bck;
+end ChillerBoreField;
