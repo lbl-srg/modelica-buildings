@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.EnergyTransferStations.FifthGeneration;
-model HeatRecoveryChiller
+model HeatRecoveryChillerBoreField
   "Energy transfer station model for fifth generation DHC systems with heat recovery chiller"
   extends DHC.EnergyTransferStations.BaseClasses.PartialETS(
     final have_heaWat=true,
@@ -162,15 +162,6 @@ model HeatRecoveryChiller
     final m_flow_nominal=sum(m2Hex_flow_nominal, mBorFie_flow_nominal) .* {1,-1,-1})
     "Heating water return manifold"
     annotation (Placement(transformation(extent={{-150,-50},{-130,-30}})));
-  BaseClasses.Junction junBorFieOut(
-    redeclare final package Medium = MediumBui,
-    final m_flow_nominal={m2Hex_flow_nominal, mBorFie_flow_nominal,
-      -sum(m2Hex_flow_nominal, mBorFie_flow_nominal)})
-    "Borefield outlet junction"
-    annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=-90,
-        origin={0,-200})));
   BaseClasses.Junction junBorFieInl(
     redeclare final package Medium = MediumBui,
     final m_flow_nominal={sum(m2Hex_flow_nominal, mBorFie_flow_nominal),-
@@ -179,7 +170,7 @@ model HeatRecoveryChiller
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={-120,-200})));
+        origin={-118,-210})));
 
   BaseClasses.Chiller chi(
     redeclare final package Medium = MediumBui,
@@ -228,6 +219,11 @@ model HeatRecoveryChiller
     final nSeg=nSegTan)
     "Heating water buffer tank"
     annotation (Placement(transformation(extent={{-220,200},{-200,220}})));
+  Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.CollectorDistributor
+    colDis annotation (Placement(transformation(
+        extent={{-20,10},{20,-10}},
+        rotation=-90,
+        origin={40,-230})));
 equation
   connect(valIsoCon.port_b, manAmbWatRet.ports_b[1])
     annotation (Line(points={{-70,-100},{-8,-100}}, color={0,127,255}));
@@ -286,18 +282,18 @@ equation
           52},{-186,-268},{-82,-268}}, color={255,0,255}));
   connect(manChiWatSup.port_2, tanChiWat.port_aBot) annotation (Line(points={{130,
           40},{160,40},{160,204},{200,204}}, color={0,127,255}));
-  connect(ports_aBui[1], tanHeaWat.port_aBot) annotation (Line(points={{-300,240},
-          {-300,240},{-272,240},{-272,204},{-220,204}}, color={0,127,255}));
+  connect(ports_aHeaWat[1], tanHeaWat.port_aBot) annotation (Line(points={{-300,
+          260},{-300,240},{-272,240},{-272,204},{-220,204}}, color={0,127,255}));
   connect(manHeaWatSup.port_2, tanHeaWat.port_aTop) annotation (Line(points={{-110,
           40},{-140,40},{-140,216},{-200,216}}, color={0,127,255}));
   connect(tanHeaWat.port_bBot, manHeaWatRet.port_1) annotation (Line(points={{-200,
           204},{-160,204},{-160,-40},{-150,-40}}, color={0,127,255}));
-  connect(tanHeaWat.port_bTop, ports_bBui[1]) annotation (Line(points={{-220,216},
-          {-240,216},{-240,240},{300,240}}, color={0,127,255}));
-  connect(tanChiWat.port_bBot, ports_bBui[2]) annotation (Line(points={{220,204},
-          {280,204},{280,280},{300,280}}, color={0,127,255}));
-  connect(ports_aBui[2], tanChiWat.port_aTop) annotation (Line(points={{-300,280},
-          {240,280},{240,216},{220,216}}, color={0,127,255}));
+  connect(tanHeaWat.port_bTop, ports_bHeaWat[1]) annotation (Line(points={{-220,
+          216},{-240,216},{-240,260},{300,260}}, color={0,127,255}));
+  connect(tanChiWat.port_bBot, ports_bHeaWat[2]) annotation (Line(points={{220,
+          204},{280,204},{280,260},{300,260}}, color={0,127,255}));
+  connect(ports_aHeaWat[2], tanChiWat.port_aTop) annotation (Line(points={{-300,
+          260},{240,260},{240,216},{220,216}}, color={0,127,255}));
   connect(tanChiWat.port_bTop, manChiWatRet.port_1) annotation (Line(points={{200,
           216},{180,216},{180,-40},{170,-40}}, color={0,127,255}));
   connect(tanHeaWat.TTop, conSup.THeaWatTop) annotation (Line(points={{-199,219},
@@ -308,16 +304,15 @@ equation
           {238,219},{238,80},{-272,80},{-272,46},{-262,46}}, color={0,0,127}));
   connect(tanChiWat.TBot, conSup.TChiWatBot) annotation (Line(points={{221,201},
           {240,201},{240,78},{-270,78},{-270,43},{-262,43}}, color={0,0,127}));
-  connect(hex.port_b2, junBorFieOut.port_1) annotation (Line(points={{-80,-260},
-          {-120,-260},{-120,-248},{0,-248},{-1.83187e-15,-210}}, color={0,127,255}));
-  connect(junBorFieOut.port_2, manAmbWatSup.port_3) annotation (Line(points={{1.83187e-15,
-          -190},{1.83187e-15,-180},{0,-180},{0,-170}}, color={0,127,255}));
-  connect(borFie.port_b, junBorFieOut.port_3)
-    annotation (Line(points={{-60,-200},{-10,-200}}, color={0,127,255}));
-  connect(hex.port_a2, junBorFieInl.port_2) annotation (Line(points={{-60,-260},
-          {-20,-260},{-20,-240},{-120,-240},{-120,-210}}, color={0,127,255}));
-  connect(junBorFieInl.port_1, manAmbWatRet.port_3) annotation (Line(points={{-120,
-          -190},{-120,-120},{0,-120},{0,-110}}, color={0,127,255}));
+  connect(junBorFieInl.port_1, manAmbWatRet.port_3) annotation (Line(points={{-118,
+          -200},{-118,-120},{0,-120},{0,-110}}, color={0,127,255}));
+  connect(manAmbWatSup.port_3, colDis.port_bDisRet) annotation (Line(points={{0,
+          -170},{26,-170},{26,-176},{46,-176},{46,-210}}, color={0,127,255}));
+  connect(hex.port_b2, colDis.ports_aCon[1]) annotation (Line(points={{-80,-260},
+          {-100,-260},{-100,-242},{30,-242}}, color={0,127,255}));
+  connect(borFie.port_b, colDis.ports_aCon[2]) annotation (Line(points={{-60,
+          -200},{-46,-200},{-46,-204},{-2,-204},{-2,-242},{30,-242}}, color={0,
+          127,255}));
 annotation (Icon(coordinateSystem(preserveAspectRatio=false),
    graphics={
        Text(
@@ -475,4 +470,4 @@ First implementation
 </li>
 </ul>
 </html>"));
-end HeatRecoveryChiller;
+end HeatRecoveryChillerBoreField;

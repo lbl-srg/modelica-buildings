@@ -46,7 +46,7 @@ partial model PartialDistribution2Pipe
       iconTransformation(extent={{180,-80},{ 220,-40}})));
   Modelica.Blocks.Interfaces.RealOutput dp(
     final quantity="PressureDifference",
-    final unit="Pa", displayUnit="Pa")
+    final unit="Pa", displayUnit="Pa") if iConDpSen >= 0
     "Pressure difference at given location (measured)"
     annotation (Placement(transformation(extent={{100,20},{140,60}}),
       iconTransformation(extent={{200,20},{220,40}})));
@@ -94,15 +94,14 @@ equation
     end for;
   end if;
   // Connecting dp sensor (needs to be explicit because con[iConDpSen] is
-  // undefined if iConDpSen == 0).
-  if iConDpSen == 0 then
-    connect(senRelPre.p_rel, dp)
-      annotation (Line(points={{-51,-30},{90,-30},{90,40}, {120,40}}, color={0,0,127}));
-  else
+  // undefined if iConDpSen <= 0).
+  if iConDpSen > 0 then
     connect(con[iConDpSen].dp, dp)
       annotation (Line(points={{11,4},{20,4},{20,20},{90,20},{90,40},{120,40}},
         color={0,0,127}));
   end if;
+  connect(senRelPre.p_rel, dp)
+    annotation (Line(points={{-51,-30},{90,-30},{90,40}, {120,40}}, color={0,0,127}));
   connect(con.port_bCon, ports_bCon)
     annotation (Line(points={{0,10},{0,40},{-80, 40},{-80,100}}, color={0,127,255}));
   connect(ports_aCon, con.port_aCon)

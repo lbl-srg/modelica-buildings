@@ -1,5 +1,9 @@
 removePlots(false);
-simulateModel("Buildings.Applications.DHC.EnergyTransferStations.Validation.Chiller", stopTime=5000, resultFile="Chiller");
+simulateModel("Buildings.Applications.DHC.EnergyTransferStations.Validation.BaseChiller",
+    method="Cvode",
+    tolerance=1e-6,
+    stopTime=5000,
+    resultFile="BaseChiller");
 Advanced.FilenameInLegend = true;
 createPlot(id=1, position={4, 17, 540, 664}, y={"THeaWatSupSet.y", "senTHeaWatSup.T", "senTHeaWatRet.T"},
     autoscale=true,

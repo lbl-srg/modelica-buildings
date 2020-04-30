@@ -28,8 +28,7 @@ model ETS_ClosedLoop
   parameter Modelica.SIunits.MassFlowRate mSecCoo=7
    "Secondary(building side) cooling water actual mass flow rate";
 
-  Buildings.Applications.DHC.EnergyTransferStations.FifthGeneration.HeatRecoveryChiller
-    ETS(
+  Buildings.Applications.DHC.EnergyTransferStations.FifthGeneration.Chiller ETS(
     datChi=datChi,
     mCon_flow_nominal=mCon_flow_nominal,
     mEva_flow_nominal=mEva_flow_nominal,
@@ -193,12 +192,6 @@ model ETS_ClosedLoop
     final dp_nominal=5000)
    "Flow resistance"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
-  FifthGeneration.BaseClasses.Constants mulCon(
-    k={29 + 273.15,10 + 273.15,5 + 273.15,12 + 273.15,17 + 273.15,40 + 273.15},
-    conNam={"TSetHea","TSetCoo","TSetCooMin","TMinConEnt","TMaxEvaEnt",
-        "TBorMaxEnt"},
-    nCon=6) "Multiple constant functions"
-    annotation (Placement(transformation(extent={{6,98},{-14,118}})));
 
   Modelica.Fluid.Sources.FixedBoundary pre(
     redeclare package Medium = Medium,
@@ -269,24 +262,6 @@ equation
   connect(ETS.disWatRet,disPD. port_a)
     annotation (Line(points={{2,50},{2,-50},{20,-50}},
                       color={0,127,255}));
-  connect(mulCon.y[1], ETS.TSetHea)
-    annotation (Line(points={{-15,107.167},{-24,107.167},{-24,66},{-11,66}},
-                                             color={0,0,127}));
-  connect(mulCon.y[2], ETS.TSetCoo)
-    annotation (Line(points={{-15,107.5},{-24,107.5},{-24,68},{-11,68}},
-                                           color={0,0,127}));
-  connect(mulCon.y[3], ETS.TSetCooMin)
-    annotation (Line(points={{-15,107.833},{-24,107.833},{-24,64},{-11,64}},
-                                                 color={0,0,127}));
-  connect(mulCon.y[4], ETS.TMinConEnt)
-    annotation (Line(points={{-15,108.167},{-24,108.167},{-24,62},{-11,62}},
-                                                 color={0,0,127}));
-  connect(mulCon.y[5], ETS.TMaxEvaEnt)
-    annotation (Line(points={{-15,108.5},{-24,108.5},{-24,60},{-11,60}},
-                                               color={0,0,127}));
-  connect(mulCon.y[6], ETS.TMaxBorEnt)
-    annotation (Line(points={{-15,108.833},{-24,108.833},{-24,58},{-11,58}},
-                                             color={0,0,127}));
   connect(ETS.heaWatSup, pre.ports[1])
     annotation (Line(points={{10,52},{32,52},{32,50},{60,50}},
                                   color={0,127,255}));

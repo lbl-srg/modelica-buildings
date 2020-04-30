@@ -214,10 +214,10 @@ model Chiller "Base subsystem with heat recovery chiller"
     annotation (Placement(transformation(extent={{-60,170},{-80,190}})));
   Modelica.Blocks.Interfaces.RealOutput PChi(final quantity="Power", unit="W")
     "Chiller power" annotation (Placement(transformation(extent={{200,-20},{240,
-            20}}), iconTransformation(extent={{100,-10},{120,10}})));
+            20}}), iconTransformation(extent={{100,20},{120,40}})));
   Modelica.Blocks.Interfaces.RealOutput PPum(final quantity="Power", unit="W")
     "Pump power" annotation (Placement(transformation(extent={{200,-160},{240,-120}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
+        iconTransformation(extent={{100,-40},{120,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2
     annotation (Placement(transformation(extent={{160,-150},{180,-130}})));
 protected

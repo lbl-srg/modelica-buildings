@@ -62,7 +62,7 @@ model HeatExchanger
     annotation (Placement(transformation(extent={{160,-70},{180,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Or  enaHex
     "District heat exchanger enabled signal"
-    annotation (Placement(transformation(extent={{-10,70},{10,90}})));
+    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minSpe2(final k=
         spePum2HexMin) "Minimum pump speed"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
@@ -126,15 +126,17 @@ equation
           -100},{-180,-86},{-162,-86}}, color={0,0,127}));
   connect(swiOff2.y, y2Hex)
     annotation (Line(points={{182,-60},{240,-60}}, color={0,0,127}));
-  connect(uHeaRej,enaHex. u1) annotation (Line(points={{-240,100},{-20,100},{-20,
-          80},{-12,80}}, color={255,0,255}));
-  connect(uColRej,enaHex. u2) annotation (Line(points={{-240,60},{-20,60},{-20,72},
-          {-12,72}}, color={255,0,255}));
-  connect(enaHex.y, swiOff2.u2) annotation (Line(points={{12,80},{150,80},{150,
+  connect(uHeaRej,enaHex. u1) annotation (Line(points={{-240,100},{-120,100},{
+          -120,80},{-102,80}},
+                         color={255,0,255}));
+  connect(uColRej,enaHex. u2) annotation (Line(points={{-240,60},{-120,60},{
+          -120,72},{-102,72}},
+                     color={255,0,255}));
+  connect(enaHex.y, swiOff2.u2) annotation (Line(points={{-78,80},{150,80},{150,
           -60},{158,-60}}, color={255,0,255}));
 
-  connect(enaHex.y, conPum2.trigger) annotation (Line(points={{12,80},{20,80},{
-          20,60},{-20,60},{-20,-76},{-8,-76},{-8,-72}}, color={255,0,255}));
+  connect(enaHex.y, conPum2.trigger) annotation (Line(points={{-78,80},{-20,80},
+          {-20,-76},{-8,-76},{-8,-72}},                 color={255,0,255}));
   connect(conPum2.y, multiMax2.u[1]) annotation (Line(points={{11,-60},{30,-60},
           {30,-59},{48,-59}}, color={0,0,127}));
   connect(T1HexWatEnt, delT1.u1) annotation (Line(points={{-240,20},{-180,20},{
@@ -149,14 +151,10 @@ equation
     annotation (Line(points={{-58,20},{-12,20}}, color={0,0,127}));
   connect(swiOff1.y, y1Hex)
     annotation (Line(points={{182,20},{240,20}}, color={0,0,127}));
-  connect(enaHex.y, swiOff1.u2) annotation (Line(points={{12,80},{150,80},{150,
+  connect(enaHex.y, swiOff1.u2) annotation (Line(points={{-78,80},{150,80},{150,
           20},{158,20}}, color={255,0,255}));
   connect(off.y, swiOff1.u3) annotation (Line(points={{122,-20},{140,-20},{140,
           12},{158,12}}, color={0,0,127}));
-  connect(off.y, swiOff2.u1) annotation (Line(points={{122,-20},{140,-20},{140,
-          -52},{158,-52}}, color={0,0,127}));
-  connect(multiMax2.y, swiOff2.u3) annotation (Line(points={{72,-60},{140,-60},
-          {140,-68},{158,-68}}, color={0,0,127}));
   connect(multiMax1.y, swiOff1.u1) annotation (Line(points={{72,20},{140,20},{
           140,28},{158,28}}, color={0,0,127}));
   connect(minSpe2.y, multiMax2.u[2]) annotation (Line(points={{12,-100},{32,-100},
@@ -165,8 +163,12 @@ equation
           30,21},{48,21}}, color={0,0,127}));
   connect(minSpe1.y, multiMax1.u[2]) annotation (Line(points={{12,-20},{30,-20},
           {30,19},{48,19}}, color={0,0,127}));
-  connect(enaHex.y, conPum1.trigger) annotation (Line(points={{12,80},{20,80},{
-          20,60},{-20,60},{-20,4},{-8,4},{-8,8}}, color={255,0,255}));
+  connect(enaHex.y, conPum1.trigger) annotation (Line(points={{-78,80},{-20,80},
+          {-20,4},{-8,4},{-8,8}},                 color={255,0,255}));
+  connect(multiMax2.y, swiOff2.u1) annotation (Line(points={{72,-60},{130,-60},
+          {130,-52},{158,-52}}, color={0,0,127}));
+  connect(off.y, swiOff2.u3) annotation (Line(points={{122,-20},{140,-20},{140,
+          -68},{158,-68}}, color={0,0,127}));
 annotation (Diagram(
   coordinateSystem(preserveAspectRatio=false,
   extent={{-220,-140},{220,140}})),
