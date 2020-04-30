@@ -2,7 +2,7 @@ within Buildings.Examples.VAVReheat.Controls;
 block RoomVAV "Controller for room VAV box"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Real ratFloMin=0.3
+  parameter Real ratVFloMin=0.3
     "VAV box minimum airflow ratio to the cooling maximum flow rate, typically between 0.3 to 0.5";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController cooController=
       Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
@@ -79,7 +79,7 @@ block RoomVAV "Controller for room VAV box"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooMax(k=1)
     "Cooling maximum flow"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minFlo(k=ratFloMin)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minFlo(k=ratVFloMin)
     "VAV box minimum flow"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conOne(k=1)

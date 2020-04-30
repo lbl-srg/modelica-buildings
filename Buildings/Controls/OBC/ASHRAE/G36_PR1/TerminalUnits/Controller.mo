@@ -269,7 +269,7 @@ block Controller "Controller for room VAV box"
     "Zone operation mode"
     annotation (Placement(transformation(extent={{-180,-190},{-140,-150}}),
         iconTransformation(extent={{-140,-120},{-100,-80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam_actual
     "Actual VAV damper position"
     annotation (Placement(transformation(extent={{-180,-100},{-140,-60}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
@@ -491,8 +491,8 @@ equation
           {60,-120},{-116,-120},{-116,142},{-106,142},{-106,148}}, color={255,0,
           255}));
 
-  connect(sysReq.uDam, uDam) annotation (Line(points={{78,-92},{-124,-92},{-124,
-          -80},{-160,-80}}, color={0,0,127}));
+  connect(sysReq.uDam_actual, uDam_actual) annotation (Line(points={{78,-92},{-124,
+          -92},{-124,-80},{-160,-80}}, color={0,0,127}));
 annotation (defaultComponentName="terUniCon",
   Icon(graphics={Rectangle(
         extent={{-100,-100},{100,100}},
@@ -563,9 +563,9 @@ annotation (defaultComponentName="terUniCon",
           lineColor={0,0,127},
           textString="yZonPreResReq"),
         Text(
-          extent={{-100,-34},{-72,-44}},
+          extent={{-98,-34},{-50,-44}},
           lineColor={0,0,127},
-          textString="uDam")}),
+          textString="uDam_actual")}),
     Diagram(coordinateSystem(extent={{-140,-180},{140,180}})),
 Documentation(info="<html>
 <p>

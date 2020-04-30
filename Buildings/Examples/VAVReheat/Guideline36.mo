@@ -386,16 +386,18 @@ equation
   connect(conAHU.ySupFanSpe, fanSup.y) annotation (Line(points={{424,618.667},{
           432,618.667},{432,-14},{310,-14},{310,-28}},
                                                    color={0,0,127}));
-  connect(cor.y_actual, conVAVCor.uDam) annotation (Line(points={{612,58},{620,
-          58},{620,74},{518,74},{518,38},{528,38}}, color={0,0,127}));
-  connect(sou.y_actual, conVAVSou.uDam) annotation (Line(points={{792,56},{800,
-          56},{800,76},{684,76},{684,36},{698,36}}, color={0,0,127}));
-  connect(eas.y_actual, conVAVEas.uDam) annotation (Line(points={{972,56},{980,
-          56},{980,74},{864,74},{864,36},{878,36}}, color={0,0,127}));
-  connect(nor.y_actual, conVAVNor.uDam) annotation (Line(points={{1132,56},{
-          1140,56},{1140,74},{1024,74},{1024,36},{1038,36}}, color={0,0,127}));
-  connect(wes.y_actual, conVAVWes.uDam) annotation (Line(points={{1332,56},{
-          1340,56},{1340,74},{1224,74},{1224,34},{1238,34}}, color={0,0,127}));
+  connect(cor.y_actual, conVAVCor.uDam_actual) annotation (Line(points={{612,58},
+          {620,58},{620,74},{518,74},{518,38},{528,38}}, color={0,0,127}));
+  connect(sou.y_actual, conVAVSou.uDam_actual) annotation (Line(points={{792,56},
+          {800,56},{800,76},{684,76},{684,36},{698,36}}, color={0,0,127}));
+  connect(eas.y_actual, conVAVEas.uDam_actual) annotation (Line(points={{972,56},
+          {980,56},{980,74},{864,74},{864,36},{878,36}}, color={0,0,127}));
+  connect(nor.y_actual, conVAVNor.uDam_actual) annotation (Line(points={{1132,
+          56},{1140,56},{1140,74},{1024,74},{1024,36},{1038,36}}, color={0,0,
+          127}));
+  connect(wes.y_actual, conVAVWes.uDam_actual) annotation (Line(points={{1332,
+          56},{1340,56},{1340,74},{1224,74},{1224,34},{1238,34}}, color={0,0,
+          127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-320},{1400,
             680}})),

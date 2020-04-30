@@ -39,7 +39,7 @@ block DamperValves
           or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Boolean have_pressureIndependentDamper = true
-    "True: the vav damper is pressure independent"
+    "True: the VAV damper is pressure independent (with built-in flow controller)"
     annotation(Dialog(group="Damper"));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeDam=
@@ -126,7 +126,7 @@ block DamperValves
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow(
     final min=0,
     final unit="m3/s",
-    final quantity="VolumeFlowRate")
+    final quantity="VolumeFlowRate") if not have_pressureIndependentDamper
     "Measured discharge airflow rate airflow rate"
     annotation (Placement(transformation(extent={{-360,320},{-320,360}}),
       iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={40,-120})));
@@ -741,6 +741,7 @@ in heating state")}),
           pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
+          visible=not have_pressureIndependentDamper,
           extent={{-11.5,4.5},{11.5,-4.5}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,

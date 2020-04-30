@@ -86,12 +86,12 @@ block SystemRequests
     "Discharge airflow rate setpoint"
     annotation (Placement(transformation(extent={{-220,10},{-180,50}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam_actual(
     final min=0,
     final max=1,
-    final unit="1") "Damper position"
-    annotation (Placement(transformation(extent={{-220,-170},{-180,-130}}),
-        iconTransformation(extent={{-140,-40},{-100,0}})));
+    final unit="1") "Actual damper position" annotation (Placement(
+        transformation(extent={{-220,-170},{-180,-130}}), iconTransformation(
+          extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDisHeaSet(
     final unit="K",
     final displayUnit="degC",
@@ -639,7 +639,7 @@ equation
       color={0,0,127}));
   connect(sampler1.u, VDis_flow)
     annotation (Line(points={{-162,-70},{-200,-70}}, color={0,0,127}));
-  connect(uDam, sampler2.u)
+  connect(uDam_actual, sampler2.u)
     annotation (Line(points={{-200,-150},{-162,-150}}, color={0,0,127}));
   connect(sampler2.y, hys4.u)
     annotation (Line(points={{-138,-150},{-62,-150}},  color={0,0,127}));
