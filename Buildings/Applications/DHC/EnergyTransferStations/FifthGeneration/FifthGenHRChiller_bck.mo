@@ -953,7 +953,7 @@ equation
           -236},{-30,-236},{-30,-220}}, color={0,127,255}));
 annotation (Icon(coordinateSystem(preserveAspectRatio=false),
    graphics={
-        Rectangle(
+    Rectangle(
           extent={{-100,-100},{100,100}},
           lineColor={0,0,127},
           fillColor={255,255,255},
@@ -976,8 +976,8 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false),
         defaultComponentName="ets",
 Documentation(info="<html>
 <p>
-This models represents an energy transfer station (ETS) for fifth generation 
-district heating and cooling systems. 
+This models represents an energy transfer station (ETS) for fifth generation
+district heating and cooling systems.
 The control logic is based on five operating modes:
 </p>
 <ul>
@@ -1013,7 +1013,7 @@ the chilled water circuit, which is connected to the building chilled water
 distribution system,
 </li>
 <li>
-the ambient water circuit, which is connected to the district heat exchanger 
+the ambient water circuit, which is connected to the district heat exchanger
 (and optionally to the geothermal borefield).
 </li>
 </ol>
