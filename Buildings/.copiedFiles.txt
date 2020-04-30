@@ -1811,6 +1811,7 @@ Buildings/Resources/Scripts/Dymola/Media/Specialized/Water/Examples/TemperatureD
 Buildings/Resources/Scripts/Dymola/Media/Specialized/Water/Examples/TemperatureDependentDensityTemperatureEnthalpyInversion.mos
 Buildings/Resources/Scripts/Dymola/Media/Specialized/Water/Examples/WaterProperties_pT.mos
 Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoomFourElements.mos
+Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoomFourElementsTraceSubstance.mos
 Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoomOneElement.mos
 Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoomThreeElements.mos
 Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoomTwoElements.mos
@@ -1951,6 +1952,7 @@ Buildings/ThermalZones/ReducedOrder/EquivalentAirTemperature/VDI6007WithWindow.m
 Buildings/ThermalZones/ReducedOrder/EquivalentAirTemperature/package.mo
 Buildings/ThermalZones/ReducedOrder/EquivalentAirTemperature/package.order
 Buildings/ThermalZones/ReducedOrder/Examples/SimpleRoomFourElements.mo
+Buildings/ThermalZones/ReducedOrder/Examples/SimpleRoomFourElementsTraceSubstance.mo
 Buildings/ThermalZones/ReducedOrder/Examples/SimpleRoomOneElement.mo
 Buildings/ThermalZones/ReducedOrder/Examples/SimpleRoomThreeElements.mo
 Buildings/ThermalZones/ReducedOrder/Examples/SimpleRoomTwoElements.mo
