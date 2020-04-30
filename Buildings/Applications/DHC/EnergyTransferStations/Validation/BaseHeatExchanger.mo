@@ -180,6 +180,12 @@ model BaseHeatExchanger
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={50,20})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp yValIso[2](
+    height={1, 0},
+    each duration=500,
+    each startTime=1000)
+    "Isolation valves return position (fractional)"
+    annotation (Placement(transformation(extent={{-230,70},{-210,90}})));
 equation
   connect(mulSum.y, bou1.T_in) annotation (Line(points={{148,-60},{132,-60},{132,
           -58},{122,-58}}, color={0,0,127}));
@@ -192,9 +198,9 @@ equation
   connect(dT2Col.y, mulSum1.u[2]) annotation (Line(points={{-208,38},{-200,38},
           {-200,17},{-194,17}}, color={0,0,127}));
   connect(uHeaRej.y, hexPum.uHeaRej) annotation (Line(points={{-99,120},{-46,120},
-          {-46,-58},{-12,-58}},      color={255,0,255}));
+          {-46,-57},{-12,-57}},      color={255,0,255}));
   connect(uColRej.y, hexPum.uColRej) annotation (Line(points={{-99,100},{-52,100},
-          {-52,-62},{-12,-62}}, color={255,0,255}));
+          {-52,-60},{-12,-60}}, color={255,0,255}));
   connect(swi.y, bou2.T_in) annotation (Line(points={{-138,-60},{-130,-60},{
           -130,-58},{-122,-58}}, color={0,0,127}));
   connect(uColRej.y, swi.u2) annotation (Line(points={{-99,100},{-80,100},{-80,60},
@@ -229,9 +235,9 @@ equation
   connect(mulSum.y, bou1Val.T_in) annotation (Line(points={{148,-60},{140,-60},{
           140,44},{124,44}}, color={0,0,127}));
   connect(uHeaRej.y, hexVal.uHeaRej) annotation (Line(points={{-99,120},{-46,120},
-          {-46,22},{-12,22}}, color={255,0,255}));
+          {-46,23},{-12,23}}, color={255,0,255}));
   connect(uColRej.y, hexVal.uColRej) annotation (Line(points={{-99,100},{-52,100},
-          {-52,18},{-12,18}}, color={255,0,255}));
+          {-52,20},{-12,20}}, color={255,0,255}));
   connect(hexVal.port_a1, senT1InlVal.port_b) annotation (Line(points={{-10,26},
           {-20,26},{-20,40},{60,40}}, color={0,127,255}));
   connect(senT1InlVal.port_a, bou1Val.ports[1])
@@ -252,6 +258,10 @@ equation
           26},{-20,40},{50,40},{50,30}}, color={0,127,255}));
   connect(senRelPre.port_b, senT1OutVal.port_a)
     annotation (Line(points={{50,10},{50,0},{60,0}}, color={0,127,255}));
+  connect(hexVal.yValIso, yValIso.y) annotation (Line(points={{-12,17},{-30,17},
+          {-30,80},{-208,80}}, color={0,0,127}));
+  connect(hexPum.yValIso, yValIso.y) annotation (Line(points={{-12,-63},{-30,-63},
+          {-30,80},{-208,80}}, color={0,0,127}));
   annotation (
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-240,-140},{240,140}})),

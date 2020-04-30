@@ -1,42 +1,29 @@
 within Buildings.Applications.DHC.EnergyTransferStations.FifthGeneration.Controls;
-model ColdSide "State machine controls the operation of the cooling generating source 
-  (EIR chiller), two way cooling valve, borfield and district pumps"
-  extends
-    Buildings.Applications.DHC.EnergyTransferStations.FifthGeneration.Controls.BaseClasses.HotColdSide(
-    THys=THys,
-    redeclare model Inequality =
-        Buildings.Controls.OBC.CDL.Continuous.LessEqual,
-    addPar(p=-2*THys),
-    addPar1(p=-THys),
-    addPar2(p=-THys),
-    addPar3(p=-0.5*THys));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yCoo
-    "Cooling mode enabled signal" annotation (Placement(transformation(extent={{180,140},
-            {220,180}}),          iconTransformation(extent={{100,60},{140,100}})));
+model ColdSide "State machine enabling production and ambient source systems"
+  extends BaseClasses.HotColdSide(
+    sigTHys=-1,
+    redeclare final model Inequality =
+        Buildings.Controls.OBC.CDL.Continuous.LessEqual);
   Buildings.Controls.OBC.CDL.Continuous.Max max
+    "Max"
     annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
 equation
-  connect(run.active, yCoo) annotation (Line(points={{-30,169},{-30,160},{200,
-          160}},               color={255,0,255}));
-  connect(max.u1, TTop) annotation (Line(points={{-102,-94},{-112,-94},{-112,-40},
+  connect(max.u1, TTop) annotation (Line(points={{-102,-94},{-168,-94},{-168,-40},
           {-200,-40}},color={0,0,127}));
-  connect(TTop, greEqu1.u1) annotation (Line(points={{-200,-40},{-112,-40},{-112,
-          22},{-66,22},{-66,-60},{-92,-60}},
-                                color={0,0,127}));
-  connect(TTop, greEqu2.u1) annotation (Line(points={{-200,-40},{-112,-40},{-112,
-          -18},{-66,-18},{-66,-100},{-92,-100}},
-                                             color={0,0,127}));
-  connect(TTop, greEqu3.u2) annotation (Line(points={{-200,-40},{-112,-40},{-112,
-          -80},{-66,-80},{-66,-148},{-92,-148}},
-                                             color={0,0,127}));
-  connect(max.y, greEqu4.u1) annotation (Line(points={{-78,-100},{-70,-100},{-70,
-          -180},{-92,-180}},     color={0,0,127}));
-  connect(max.u2, TBot) annotation (Line(points={{-102,-106},{-120,-106},{-120,-120},
+  connect(TTop, opeIso.u1)
+    annotation (Line(points={{-200,-40},{-92,-40}}, color={0,0,127}));
+  connect(TTop, enaRej.u1) annotation (Line(points={{-200,-40},{-168,-40},{-168,
+          -180},{-52,-180},{-52,-200},{-42,-200}}, color={0,0,127}));
+  connect(TTop, disRej.u2) annotation (Line(points={{-200,-40},{-168,-40},{-168,
+          -260},{-60,-260},{-60,-248},{-44,-248}}, color={0,0,127}));
+  connect(max.y, disHeaCoo.u1) annotation (Line(points={{-78,-100},{-50,-100},{-50,
+          20},{-152,20},{-152,0},{-142,0}}, color={0,0,127}));
+  connect(max.u2, TBot) annotation (Line(points={{-102,-106},{-174,-106},{-174,-120},
           {-200,-120}},     color={0,0,127}));
-  connect(TBot, greEqu5.u2) annotation (Line(points={{-200,-120},{-120,-120},{-120,
-          -160},{-70,-160},{-70,-228},{-92,-228}}, color={0,0,127}));
-  connect(TBot, greEqu.u2) annotation (Line(points={{-200,-120},{-120,-120},{-120,
-          -8},{-140,-8}}, color={0,0,127}));
+  connect(TBot, cloIso.u2) annotation (Line(points={{-200,-120},{-174,-120},{-174,
+          -160},{-60,-160},{-60,-148},{-42,-148}}, color={0,0,127}));
+  connect(TBot, enaHeaCoo.u2) annotation (Line(points={{-200,-120},{-174,-120},{
+          -174,32},{-142,32}}, color={0,0,127}));
   annotation (
   defaultComponentName="conCol",
 Documentation(info="<html>

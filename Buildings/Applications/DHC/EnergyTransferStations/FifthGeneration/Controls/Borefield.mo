@@ -33,15 +33,11 @@ model Borefield "Controller for borefield loop"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TBorWatLvg(final unit="K",
       displayUnit="degc") "Borefield water leaving temperature" annotation (
       Placement(transformation(extent={{-260,-140},{-220,-100}}),
-        iconTransformation(extent={{-140,-90},{-100,-50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uIsoCon
-    "Condenser to ambient loop isolation valve control signal" annotation (
-      Placement(transformation(extent={{-260,60},{-220,100}}),
-        iconTransformation(extent={{-140,0},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uIsoEva
-    "Evaporator to ambient loop isolation valve control signal" annotation (
-      Placement(transformation(extent={{-260,20},{-220,60}}),
-        iconTransformation(extent={{-140,-30},{-100,10}})));
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIso[2]
+    "Isolation valves return position (fractional)" annotation (Placement(
+        transformation(extent={{-260,40},{-220,80}}), iconTransformation(extent
+          ={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMixBor(final unit="1")
     "Control signal for borefield three-way mixing valve" annotation (Placement(
         transformation(extent={{220,-20},{260,20}}), iconTransformation(extent={{100,40},
@@ -53,14 +49,11 @@ model Borefield "Controller for borefield loop"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uColRej
     "Control signal enabling full cold rejection to ambient loop" annotation (
       Placement(transformation(extent={{-260,100},{-220,140}}),
-        iconTransformation(extent={{-140,30},{-100,70}})));
+        iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaRej
     "Control signal enabling full heat rejection to ambient loop" annotation (
       Placement(transformation(extent={{-260,140},{-220,180}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Logical.Or enaBor
-    "Borefield enabled signal, true if at least one isolation valve is open"
-    annotation (Placement(transformation(extent={{-10,50},{10,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Add delT(k2=-1) "Compute deltaT"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Abs abs "Absolute value"
@@ -112,12 +105,13 @@ model Borefield "Controller for borefield loop"
   Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax(nin=3)
     "Maximize pump control signal"
     annotation (Placement(transformation(extent={{140,-90},{160,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold opeIsoCon
-    "Output true if valve open"
-    annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold opeIsoEva
-    "Output true if valve open"
-    annotation (Placement(transformation(extent={{-140,30},{-120,50}})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold enaBorFie(threshold
+      =0.9)
+    "Borefield enabled signal, true if at least one isolation valve is open"
+    annotation (Placement(transformation(extent={{-160,50},{-140,70}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax1(nin=2)
+                                                                 "Max"
+    annotation (Placement(transformation(extent={{-200,50},{-180,70}})));
 equation
   connect(delT.y, abs.u)
     annotation (Line(points={{-38,-120},{-12,-120}}, color={0,0,127}));
@@ -159,20 +153,16 @@ equation
           {120,-81.3333},{138,-81.3333}}, color={0,0,127}));
   connect(multiMax.y, runBor.u1) annotation (Line(points={{162,-80},{170,-80},{170,
           -72},{188,-72}}, color={0,0,127}));
-  connect(enaBor.y, runBor.u2) annotation (Line(points={{12,60},{180,60},{180,
-          -80},{188,-80}}, color={255,0,255}));
-  connect(enaBor.y, conPumBor.trigger) annotation (Line(points={{12,60},{40,60},
-          {40,-100},{72,-100},{72,-92}}, color={255,0,255}));
-  connect(enaBor.y, conMix.trigger) annotation (Line(points={{12,60},{40,60},{
-          40,-20},{-6,-20},{-6,-12}}, color={255,0,255}));
-  connect(uIsoCon, opeIsoCon.u)
-    annotation (Line(points={{-240,80},{-142,80}}, color={0,0,127}));
-  connect(opeIsoCon.y, enaBor.u1) annotation (Line(points={{-118,80},{-20,80},{
-          -20,60},{-12,60}}, color={255,0,255}));
-  connect(uIsoEva, opeIsoEva.u)
-    annotation (Line(points={{-240,40},{-142,40}}, color={0,0,127}));
-  connect(opeIsoEva.y, enaBor.u2) annotation (Line(points={{-118,40},{-20,40},{
-          -20,52},{-12,52}}, color={255,0,255}));
+  connect(yValIso, multiMax1.u[1:2])
+    annotation (Line(points={{-240,60},{-202,60},{-202,59}}, color={0,0,127}));
+  connect(multiMax1.y, enaBorFie.u)
+    annotation (Line(points={{-178,60},{-162,60}}, color={0,0,127}));
+  connect(enaBorFie.y, conMix.trigger) annotation (Line(points={{-138,60},{-20,
+          60},{-20,-20},{-6,-20},{-6,-12}}, color={255,0,255}));
+  connect(enaBorFie.y, conPumBor.trigger) annotation (Line(points={{-138,60},{
+          60,60},{60,-100},{72,-100},{72,-92}}, color={255,0,255}));
+  connect(enaBorFie.y, runBor.u2) annotation (Line(points={{-138,60},{180,60},{
+          180,-80},{188,-80}}, color={255,0,255}));
 annotation (Diagram(
               coordinateSystem(preserveAspectRatio=false,
               extent={{-220,-200},{220,200}})),

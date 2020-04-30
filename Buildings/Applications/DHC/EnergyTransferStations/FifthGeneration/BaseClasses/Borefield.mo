@@ -20,18 +20,10 @@ model Borefield "Auxiliary subsystem with geothermal borefield"
   parameter Modelica.SIunits.TemperatureDifference dTBorFieSet(min=0)
     "Set-point for temperature difference accross borefield (absolute value)";
   // IO VARIABLES
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uIsoCon
-    "Condenser to ambient loop isolation valve control signal" annotation (
-      Placement(transformation(extent={{-140,20},{-100,60}}),
-        iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uIsoEva
-    "Evaporator to ambient loop isolation valve control signal" annotation (
-      Placement(transformation(extent={{-140,0},{-100,40}}),
-        iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uColRej
     "Control signal enabling full cold rejection to ambient loop" annotation (
-      Placement(transformation(extent={{-140,40},{-100,80}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
+      Placement(transformation(extent={{-140,20},{-100,60}}),
+        iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaRej
     "Control signal enabling full heat rejection to ambient loop" annotation (
       Placement(transformation(extent={{-140,60},{-100,100}}),
@@ -106,6 +98,10 @@ model Borefield "Auxiliary subsystem with geothermal borefield"
   Controls.Borefield con "Controller"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
 
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIso[2]
+    "Isolation valves return position (fractional)" annotation (Placement(
+        transformation(extent={{-140,-70},{-100,-30}}), iconTransformation(
+          extent={{-140,-70},{-100,-30}})));
 equation
   connect(port_a, val.port_2)
     annotation (Line(points={{-100,0},{-90,0}}, color={0,127,255}));
@@ -123,24 +119,25 @@ equation
     annotation (Line(points={{32,0},{40,0}}, color={0,127,255}));
   connect(spl.port_3, val.port_3) annotation (Line(points={{80,-10},{80,-40},{-80,
           -40},{-80,-10}}, color={0,127,255}));
-  connect(con.yPumBor, gaiBor.u) annotation (Line(points={{22.1,53.9},{32,53.9},
-          {32,54},{40,54},{40,60},{48,60}}, color={0,0,127}));
+  connect(con.yPumBor, gaiBor.u) annotation (Line(points={{22.1,53.9},{40,53.9},
+          {40,60},{48,60}},                 color={0,0,127}));
   connect(con.yMixBor, val.y) annotation (Line(points={{22,66},{40,66},{40,80},{
           -80,80},{-80,12}}, color={0,0,127}));
   connect(gaiBor.y, pum.m_flow_in) annotation (Line(points={{72,60},{80,60},{80,
           20},{-40,20},{-40,12}}, color={0,0,127}));
   connect(senTEnt.T, con.TBorWatEnt)
     annotation (Line(points={{-10,11},{-10,56},{-2,56}}, color={0,0,127}));
-  connect(uHeaRej, con.uHeaRej) annotation (Line(points={{-120,80},{-92,80},{-92,
-          68},{-2,68}}, color={255,0,255}));
-  connect(uColRej, con.uColRej) annotation (Line(points={{-120,60},{-92,60},{-92,
-          65},{-2,65}}, color={255,0,255}));
-  connect(senTLvg.T, con.TBorWatLvg) annotation (Line(points={{50,11},{50,40},{-4,
-          40},{-4,53},{-2,53}}, color={0,0,127}));
-  connect(uIsoCon, con.uIsoCon) annotation (Line(points={{-120,40},{-88,40},{-88,
-          62},{-2,62}}, color={0,0,127}));
-  connect(uIsoEva, con.uIsoEva) annotation (Line(points={{-120,20},{-84,20},{-84,
-          59},{-2,59}}, color={0,0,127}));
+  connect(uHeaRej, con.uHeaRej) annotation (Line(points={{-120,80},{-92,80},{
+          -92,68},{-2,68}},
+                        color={255,0,255}));
+  connect(uColRej, con.uColRej) annotation (Line(points={{-120,40},{-92,40},{
+          -92,64},{-2,64}},
+                        color={255,0,255}));
+  connect(senTLvg.T, con.TBorWatLvg) annotation (Line(points={{50,11},{50,40},{
+          -4,40},{-4,52},{-2,52}},
+                                color={0,0,127}));
+  connect(yValIso, con.yValIso) annotation (Line(points={{-120,-50},{-60,-50},{
+          -60,60},{-2,60}}, color={0,0,127}));
   annotation (
   defaultComponentName="borFie",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={

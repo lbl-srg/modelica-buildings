@@ -12,11 +12,9 @@ model Chiller "Base subsystem with heat recovery chiller"
   parameter Boolean allowFlowReversal = false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
-
   parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic dat
     "Chiller performance data"
     annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
-
   parameter Modelica.SIunits.PressureDifference dpCon_nominal(displayUnit="Pa")
     "Nominal pressure drop accross condenser"
     annotation (Dialog(group="Nominal condition"));
@@ -235,8 +233,7 @@ equation
   connect(valCon.port_2, pumCon.port_a)
     annotation (Line(points={{-130,60},{-110,60}}, color={0,127,255}));
   connect(pumEva.port_b, splEva.port_1)
-    annotation (Line(points={{-110,-60},{-130,-60}},
-                                                   color={0,127,255}));
+    annotation (Line(points={{-110,-60},{-130,-60}}, color={0,127,255}));
   connect(splEva.port_3, valEva.port_3) annotation (Line(points={{-140,-70},{-140,
           -80},{120,-80},{120,-70}}, color={0,127,255}));
   connect(con.yValEva, valEva.y) annotation (Line(points={{-48,136},{-32,136},{

@@ -181,18 +181,6 @@ model Chiller
     "Heating water tank"
     annotation (Placement(transformation(extent={{-220,96},{-200,116}})));
   Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.CollectorDistributor
-    colAmbWat(
-      redeclare final package Medium = MediumBui,
-      final nCon=1 + nAuxSou,
-      final allowFlowReversal=true,
-      mCon_flow_nominal={m2Hex_flow_nominal})
-    "Collector/distributor for ambient water"
-    annotation (Placement(
-      transformation(
-      extent={{20,-10},{-20,10}},
-      rotation=180,
-      origin={0,-106})));
-  Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.CollectorDistributor
     colChiWat(
       redeclare final package Medium = MediumBui,
       final nCon=1 + nAuxCoo,
@@ -204,6 +192,18 @@ model Chiller
       extent={{20,-10},{-20,10}},
       rotation=180,
       origin={108,0})));
+  Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.CollectorDistributor
+    colAmbWat(
+      redeclare final package Medium = MediumBui,
+      final nCon=1 + nAuxSou,
+      final allowFlowReversal=true,
+      mCon_flow_nominal={m2Hex_flow_nominal})
+    "Collector/distributor for ambient water"
+    annotation (Placement(
+      transformation(
+      extent={{20,-10},{-20,10}},
+      rotation=180,
+      origin={0,-106})));
   Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.CollectorDistributor
     colHeaWat(
       redeclare final package Medium = MediumBui,
@@ -257,10 +257,10 @@ equation
           {-40,-20},{-40,-3},{-10,-3}}, color={0,0,127},
       pattern=LinePattern.Dash));
   connect(conSup.yHeaRej, hex.uHeaRej) annotation (Line(points={{-238,52},{-186,
-          52},{-186,-256},{-12,-256}}, color={255,0,255},
+          52},{-186,-257},{-12,-257}}, color={255,0,255},
       pattern=LinePattern.Dash));
   connect(conSup.yColRej, hex.uColRej) annotation (Line(points={{-238,49},{-190,
-          49},{-190,-252},{-12,-252}}, color={255,0,255},
+          49},{-190,-254},{-12,-254}}, color={255,0,255},
       pattern=LinePattern.Dash));
   connect(ports_aHeaWat[1], tanHeaWat.port_aBot) annotation (Line(points={{-300,
           260},{-280,260},{-280,100},{-220,100}}, color={0,127,255}));
@@ -328,6 +328,14 @@ equation
       points={{13,3},{20,3},{20,20},{320,20}},
       color={0,0,127},
       pattern=LinePattern.Dot));
+  connect(hex.yValIso[1], valIsoCon.y_actual) annotation (Line(
+      points={{-12,-250},{-60,-250},{-60,-93},{-75,-93}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
+  connect(hex.yValIso[2], valIsoEva.y_actual) annotation (Line(
+      points={{-12,-252},{-16,-252},{-16,-240},{60,-240},{60,-93},{75,-93}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
 annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
         Diagram(coordinateSystem(preserveAspectRatio=false,
                   extent={{-300,-300},{300,300}}),

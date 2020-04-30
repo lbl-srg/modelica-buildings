@@ -820,7 +820,7 @@ equation
       points={{-145,-63},{-156,-63},{-156,219},{-177,219}},
       color={255,0,255},
       pattern=LinePattern.Dot));
-  connect(ETSCon.valHea, ambCon.uIsoCon) annotation (Line(
+  connect(ETSCon.valHea,ambCon.yValIso)  annotation (Line(
       points={{-177,213},{-158,213},{-158,-64},{-145,-64}},
       color={255,0,255},
       pattern=LinePattern.Dot));
@@ -829,7 +829,7 @@ equation
       color={255,0,255},
       pattern=LinePattern.Dot));
   connect(ambCon.uColRej, ETSCon.yColRej) annotation (Line(
-      points={{-146,-67},{-164,-67},{-164,209},{-176,209}},
+      points={{-146,-68},{-164,-68},{-164,209},{-176,209}},
       color={255,0,255},
       pattern=LinePattern.Dot));
   connect(ETSCon.yHeaRej, ambCon.uHeaRej) annotation (Line(
@@ -917,7 +917,7 @@ equation
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(TBorLvg.T, ambCon.TBorWatLvg) annotation (Line(
-      points={{-41,-210},{-50,-210},{-50,-228},{-156,-228},{-156,-79},{-146,-79}},
+      points={{-41,-210},{-50,-210},{-50,-228},{-156,-228},{-156,-80},{-146,-80}},
       color={0,0,127},
       pattern=LinePattern.Dot));
 
