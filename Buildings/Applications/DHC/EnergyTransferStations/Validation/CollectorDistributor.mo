@@ -249,16 +249,16 @@ in a configuration where the model is used to ensure hydronic decoupling between
 </p>
 <ol>
 <li>
-a primary circuit which mass flow rate varies from zero to 1.1 times the
-sum of all secondary initial mass flow rates,
+a primary circuit which mass flow rate varies from 0 to 1.1 times 
+<code>m_flow_nominal</code>,
 </li>
 <li>
-a first secondary circuit which mass flow rate varies from 0.5 to 1 times the
-primary mass flow rate,
+a first secondary circuit which mass flow rate varies from 0.5 to 1 times 
+<code>m_flow_nominal</code>,
 </li>
 <li>
-a second secondary circuit which flow rate is constant, equal to 0.5 times the
-primary mass flow rate.
+a second secondary circuit which flow rate is constant, equal to 0.5 times 
+<code>m_flow_nominal</code>.
 </li>
 </ol>
 </html>"),

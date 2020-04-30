@@ -270,5 +270,6 @@ equation
           lineColor={27,0,55},
           fillColor={170,213,255},
           fillPattern=FillPattern.Solid)}), Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-160},{100,160}})));
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-160},{100,
+            160}})));
 end HeatExchanger;

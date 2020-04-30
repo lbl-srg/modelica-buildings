@@ -61,7 +61,7 @@ model Chiller
   parameter Modelica.Fluid.Types.Dynamics fixedEnergyDynamics=
     Modelica.Fluid.Types.Dynamics.FixedInitial
     "Formulation of energy balance for mixing volume at inlet and outlet"
-    annotation (Dialog(group="Dynamics"));
+    annotation (Dialog(tab="Dynamics"));
 
   parameter Modelica.SIunits.PressureDifference dpCon_nominal(displayUnit="Pa")
     "Nominal pressure drop accross condenser"
@@ -103,8 +103,9 @@ model Chiller
     "Temperature hysteresis for supervisory control"
     annotation (Dialog(group="Buffer Tank"));
 
-  parameter Modelica.SIunits.PressureDifference dpValIso_nominal = 2E3
-    "Nominal pressure drop of isolation valve"
+  parameter Modelica.SIunits.PressureDifference dpValIso_nominal(
+    displayUnit="Pa") = 2E3
+    "Nominal pressure drop of ambient circuit isolation valves"
     annotation (Dialog(group="Generic"));
 
   // IO VARIABLES
@@ -168,7 +169,7 @@ model Chiller
     final hTan=hTanChiWat,
     final dIns=dInsTanChiWat,
     final nSeg=nSegTan)
-    "Chilled water buffer tank"
+    "Chilled water tank"
     annotation (Placement(transformation(extent={{200,96},{220,116}})));
   BaseClasses.StratifiedTank tanHeaWat(
     redeclare final package Medium = MediumBui,
@@ -177,7 +178,7 @@ model Chiller
     final hTan=hTanHeaWat,
     final dIns=dInsTanHeaWat,
     final nSeg=nSegTan)
-    "Heating water buffer tank"
+    "Heating water tank"
     annotation (Placement(transformation(extent={{-220,96},{-200,116}})));
   Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.CollectorDistributor
     colAmbWat(
@@ -228,41 +229,57 @@ equation
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(THeaWatSupSet, conSup.THeaWatSupSet) annotation (Line(points={{-320,20},
-          {-280,20},{-280,58},{-262,58}}, color={0,0,127}));
+          {-280,20},{-280,58},{-262,58}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(TChiWatSupSet, conSup.TChiWatSupSet) annotation (Line(points={{-320,-20},
-          {-276,-20},{-276,49},{-262,49}}, color={0,0,127}));
+          {-276,-20},{-276,49},{-262,49}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(conSup.yIsoEva, valIsoEva.y) annotation (Line(points={{-238,43},{-198,
-          43},{-198,-80},{80,-80},{80,-88}}, color={0,0,127}));
+          43},{-198,-80},{80,-80},{80,-88}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(conSup.yIsoCon, valIsoCon.y) annotation (Line(points={{-238,46},{-194,
-          46},{-194,-76},{-80,-76},{-80,-88}}, color={0,0,127}));
-  connect(port_aDis, hex.port_a1) annotation (Line(points={{-300,-260},{-10,
-          -260}}, color={0,127,255}));
+          46},{-194,-76},{-80,-76},{-80,-88}}, color={0,0,127},
+      pattern=LinePattern.Dash));
+  connect(port_aDis, hex.port_a1) annotation (Line(points={{-300,-260},{-10,-260}},
+                  color={0,127,255}));
   connect(hex.port_b1, port_bDis) annotation (Line(points={{10,-260},{300,-260}},
                                                               color={0,127,255}));
   connect(conSup.yHea, chi.uHea) annotation (Line(points={{-238,58},{-40,58},{-40,
-          3},{-10,3}}, color={255,0,255}));
+          3},{-10,3}}, color={255,0,255},
+      pattern=LinePattern.Dash));
   connect(conSup.yCoo, chi.uCoo) annotation (Line(points={{-238,55},{-140,55},{-140,
-          54},{-44,54},{-44,1},{-10,1}}, color={255,0,255}));
+          54},{-44,54},{-44,1},{-10,1}}, color={255,0,255},
+      pattern=LinePattern.Dash));
   connect(THeaWatSupSet, chi.THeaWatSupSet) annotation (Line(points={{-320,20},{
-          -42,20},{-42,-1},{-10,-1}}, color={0,0,127}));
+          -42,20},{-42,-1},{-10,-1}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(TChiWatSupSet, chi.TChiWatSupSet) annotation (Line(points={{-320,-20},
-          {-40,-20},{-40,-3},{-10,-3}}, color={0,0,127}));
+          {-40,-20},{-40,-3},{-10,-3}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(conSup.yHeaRej, hex.uHeaRej) annotation (Line(points={{-238,52},{-186,
-          52},{-186,-256},{-12,-256}}, color={255,0,255}));
+          52},{-186,-256},{-12,-256}}, color={255,0,255},
+      pattern=LinePattern.Dash));
   connect(conSup.yColRej, hex.uColRej) annotation (Line(points={{-238,49},{-190,
-          49},{-190,-252},{-12,-252}}, color={255,0,255}));
+          49},{-190,-252},{-12,-252}}, color={255,0,255},
+      pattern=LinePattern.Dash));
   connect(ports_aHeaWat[1], tanHeaWat.port_aBot) annotation (Line(points={{-300,
           260},{-280,260},{-280,100},{-220,100}}, color={0,127,255}));
   connect(tanHeaWat.port_bTop, ports_bHeaWat[1]) annotation (Line(points={{-220,
           112},{-260,112},{-260,260},{300,260}}, color={0,127,255}));
   connect(tanHeaWat.TTop, conSup.THeaWatTop) annotation (Line(points={{-199,115},
-          {-180,115},{-180,82},{-274,82},{-274,55},{-262,55}}, color={0,0,127}));
+          {-180,115},{-180,82},{-274,82},{-274,55},{-262,55}}, color={0,0,127},
+      pattern=LinePattern.Dash));
+
   connect(tanHeaWat.TBot, conSup.THeaWatBot) annotation (Line(points={{-199,97},
-          {-182,97},{-182,84},{-276,84},{-276,52},{-262,52}},  color={0,0,127}));
+          {-182,97},{-182,84},{-276,84},{-276,52},{-262,52}},  color={0,0,127},
+      pattern=LinePattern.Dash));
+
   connect(tanChiWat.TTop, conSup.TChiWatTop) annotation (Line(points={{221,115},
-          {238,115},{238,80},{-272,80},{-272,46},{-262,46}}, color={0,0,127}));
+          {238,115},{238,80},{-272,80},{-272,46},{-262,46}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(tanChiWat.TBot, conSup.TChiWatBot) annotation (Line(points={{221,97},{
-          240,97},{240,78},{-270,78},{-270,43},{-262,43}},   color={0,0,127}));
+          240,97},{240,78},{-270,78},{-270,43},{-262,43}},   color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(hex.port_b2, colAmbWat.ports_aCon[1]) annotation (Line(points={{-10,-248},
           {-20,-248},{-20,-140},{12,-140},{12,-116}}, color={0,127,255}));
   connect(chi.port_bChiWat, colChiWat.port_aDisSup) annotation (Line(points={{12,6},{
