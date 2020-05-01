@@ -47,6 +47,26 @@ Dymola command line the assignment
    </tr>
   <!-- =================================================================== -->
     <tr>
+      <td>Linux 64 bit, Dymola 2020x</td>
+      <td>
+      <p>
+      Enter on a console the commands
+      </p>
+<pre>
+ $ whereis libpython3.6m.so  
+  </pre>
+      <p>
+      to check if the dynamical linked library <code>libpython3.6m.so</code> is in
+      <code>/usr/lib</code>. If it is not there, create a symbolic link
+      </p>
+<pre>
+$ sudo ln -s \"Path_To_libpython3.6m.so\" /usr/lib/libpython3.6m.so  
+  </pre>  
+      </td>
+    </tr>
+   <!-- =================================================================== -->    
+  <!-- =================================================================== -->
+    <tr>
       <td>Linux 32 bit, Dymola 2016</td>
       <td>
       <p>
@@ -61,8 +81,8 @@ Dymola command line the assignment
   </p>
       </td>
     </tr>
+   <!-- =================================================================== -->  
     <tr>
-  <!-- =================================================================== -->
       <td>Linux 64 bit, Dymola 2016</td>
       <td>
       <p>
