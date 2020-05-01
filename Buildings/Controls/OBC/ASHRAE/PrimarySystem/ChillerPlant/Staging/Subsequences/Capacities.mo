@@ -169,7 +169,7 @@ equation
           158,-82}}, color={0,0,127}));
   connect(swi1.y, yDowNom) annotation (Line(points={{122,20},{220,20}}, color={0,0,127}));
   connect(u, cap.index) annotation (Line(points={{-220,120},{-90,120},{-90,138}},
-                 color={255,127,0}));
+           color={255,127,0}));
   connect(uDown, dowCap.index) annotation (Line(points={{-220,0},{-90,0},{-90,68}},
           color={255,127,0}));
   connect(uUp, upCap.index) annotation (Line(points={{-220,60},{10,60},{10,68}},
