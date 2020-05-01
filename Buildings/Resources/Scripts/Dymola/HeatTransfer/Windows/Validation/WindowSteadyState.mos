@@ -1,0 +1,3 @@
+simulateModel("Buildings.HeatTransfer.Windows.Validation.WindowSteadyState", method="Cvode", stopTime=31536000, tolerance=1e-06, resultFile="WindowSteadyState");
+createPlot(id=4, position={46, 75, 571, 514}, y={"window.glaSha.glass_a.T", "window.glaSha.glass_b.T", "window.glaUns_a.T", "window.glaUns_b.T", "TRAir.T"}, range={0.0, 31536000.0, 16.0, 24.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}}, displayUnits={"degC", "degC", "degC", "degC", "degC"});
+createPlot(id=4, position={46, 75, 571, 255}, y={"window.glaUns_a.Q_flow", "window.glaUns_b.Q_flow", "window.glaSha.glass_a.Q_flow", "window.glaSha.glass_b.Q_flow"}, range={0.0, 31536000.0, -2.0, 2.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});

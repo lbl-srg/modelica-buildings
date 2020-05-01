@@ -4,20 +4,16 @@ block RoomMixingBox "Controller for room mixing box"
   parameter Modelica.SIunits.MassFlowRate m_flow_min "Minimum mass flow rate";
   Buildings.Controls.OBC.CDL.Continuous.LimPID conHea(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    yMax=1,
     Td=60,
-    yMin=0,
     k=0.1,
     Ti=120) "Controller for heating"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conCoo(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    yMax=1,
     reverseAction=true,
     Td=60,
     k=0.1,
-    Ti=120,
-    yMin=0) "Controller for cooling (acts on damper)"
+    Ti=120) "Controller for cooling (acts on damper)"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Modelica.Blocks.Interfaces.RealInput TRoo(final quantity="ThermodynamicTemperature",
                                           final unit = "K", displayUnit = "degC", min=0)
@@ -33,9 +29,7 @@ block RoomMixingBox "Controller for room mixing box"
         iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conFloRat(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    yMax=1,
     Td=60,
-    yMin=0,
     k=0.1,
     Ti=120) "Controller for mass flow rate"
     annotation (Placement(transformation(extent={{-42,30},{-22,50}})));

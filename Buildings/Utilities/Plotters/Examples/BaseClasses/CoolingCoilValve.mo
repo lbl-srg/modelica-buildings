@@ -242,7 +242,7 @@ equation
         Text(
           extent={{80,-102},{120,-110}},
           lineColor={0,0,127},
-          textString="Limiter for 
+          textString="Limiter for
 low TSup"),
         Rectangle(
           extent={{-120,0},{-12,-120}},

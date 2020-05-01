@@ -23,8 +23,6 @@ block BoilerReturn "Control for boiler return"
     final k=k,
     final Ti=Ti,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    yMax=1,
-    yMin=0,
     reverseAction=true) "Controller for valve in boiler loop"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
