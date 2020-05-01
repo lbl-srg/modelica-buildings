@@ -15,8 +15,8 @@
 isat.useISAT 1 /*If use ISAT*/
 isat.useBinarySelectedPoint 0 /*If use binary pre-training (for advanced users)*/
 isat.digAftdec 2 /*Digitals after decimal*/
-isat.read_existing 1 /*1: read existing database; 0: train from scratch*/
-isat.write_existing 1 /*1: write ffd results to database; 0: do not write*/
+isat.read_existing 0 /*1: read existing database; 0: train from scratch*/
+isat.write_existing 0 /*1: write ffd results to database; 0: do not write*/
 isat.err_global 0.2 /*user-defined global error tolerance*/
 isat.num_input 5 /*number of isat inputs*/
 isat.num_output 2 /*number of isat outputs*/
@@ -50,7 +50,7 @@ inpu.num_wall 6
 /*inpu.dir_inlet: 1: x; 2: y; 3: z*/
 inpu.dir_inlet 1
 
-/*inpu.default_mass_flowrate: set a default mass flowrate if using prescribed outlet bc*/
+/*inpu.default_mass_flowrate: set a default mass flowrate if using prescribed outlet bc. NOTE: for advanced users only.*/
 inpu.default_mass_flowrate 0.1205
 
 /*inlet_area_value: inlet area*/
