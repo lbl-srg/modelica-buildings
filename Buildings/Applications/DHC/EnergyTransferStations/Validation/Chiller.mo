@@ -200,7 +200,7 @@ equation
   connect(disWat.ports[1], ets.port_aDis) annotation (Line(points={{-160,-138},
           {-160,-80},{-30,-80}},color={0,127,255}));
   connect(ets.port_bDis, disWat.ports[2]) annotation (Line(points={{30,-80},{
-          100,-80},{100,-180},{-160,-180},{-160,-142}},
+          160,-80},{160,-180},{-160,-180},{-160,-142}},
                                                     color={0,127,255}));
   connect(TDisWatSup.y, disWat.T_in) annotation (Line(points={{-238,-140},{-192,
           -140},{-192,-136},{-182,-136}}, color={0,0,127}));
