@@ -242,7 +242,7 @@ protected
     final tableName="tab1",
     final fileName=filNam,
     verboseRead=false,
-    final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
+    final smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1,
     final columns={2,3,4,5,6,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,
         28,29,30,8}) "Data reader"
     annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
@@ -357,7 +357,7 @@ protected
     final tableName="tab1",
     final fileName=filNam,
     verboseRead=false,
-    final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
+    final smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1,
     final columns=9:11) "Data reader with 30 min offset for solar irradiation"
     annotation (Placement(transformation(extent={{-50,180},{-30,200}})));
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTimMin(final
@@ -1527,6 +1527,12 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+May 1, 2020, by Michael Wetter:<br/>
+Changed interpolation of weather data.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1359\">#1359</a>.
+</li>
 <li>
 August 20, 2019, by Filip Jorissen:<br/>
 Better clarified the meaning of <code>time</code> in the documentation.<br/>
