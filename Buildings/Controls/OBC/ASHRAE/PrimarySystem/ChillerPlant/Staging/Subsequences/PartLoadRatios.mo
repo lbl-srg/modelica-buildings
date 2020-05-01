@@ -6,7 +6,7 @@ block PartLoadRatios
     "Plant contains at least one variable speed centrifugal chiller";
 
   parameter Integer nSta = 3
-    "Total number of stages";
+    "Total number of chiller stages";
 
   parameter Real posDisMult(
     final unit = "1",
@@ -272,6 +272,7 @@ protected
     annotation (Placement(transformation(extent={{-120,-420},{-100,-400}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Division div if anyVsdCen
+    "Division"
     annotation (Placement(transformation(extent={{-60,-370},{-40,-350}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const1(
@@ -373,19 +374,24 @@ protected
     final k=varSpeStaMin) if anyVsdCen "Constant"
     annotation (Placement(transformation(extent={{120,-420},{140,-400}})));
 
-  CDL.Utilities.Assert                        cheStaTyp1(final message="Recommended staging order got violated or an unlisted chiller type got provided when staging down")
+  Buildings.Controls.OBC.CDL.Utilities.Assert cheStaTyp1(
+    final message="Recommended staging order got violated or an unlisted chiller type got provided when staging down")
     "Chiller type outside of recommenation when staging down"
     annotation (Placement(transformation(extent={{220,-20},{240,0}})));
-  CDL.Continuous.Sources.Constant                        conSpeCenTypMult1(final k=
-        anyOutOfScoMult)
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conSpeCenTypMult1(
+    final k=anyOutOfScoMult)
     "Outside of G36 recommended staging order chiller type SPLR multiplier"
     annotation (Placement(transformation(extent={{160,20},{180,40}})));
-  CDL.Logical.Switch                        swi5
+
+  Buildings.Controls.OBC.CDL.Logical.Switch swi5
     "Logical switch"
     annotation (Placement(transformation(extent={{280,220},{300,240}})));
-  CDL.Logical.Switch                        swi6
+
+  Buildings.Controls.OBC.CDL.Logical.Switch swi6
     "Logical switch"
     annotation (Placement(transformation(extent={{220,-110},{240,-90}})));
+
 equation
   connect(uCapReq, opePlrSta.u1) annotation (Line(points={{-360,-10},{-260,-10},
           {-260,-44},{-242,-44}},

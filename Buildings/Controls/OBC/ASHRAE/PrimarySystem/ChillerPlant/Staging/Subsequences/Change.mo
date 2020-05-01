@@ -125,11 +125,11 @@ protected
     "Triggered sampler"
     annotation (Placement(transformation(extent={{240,0},{260,20}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea "Type conveter"
     annotation (Placement(transformation(extent={{200,0},{220,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
-    final threshold=0.5)
+    final threshold=0.5) "Greater than a threshold"
     annotation (Placement(transformation(extent={{280,0},{300,20}})));
 
   Buildings.Controls.OBC.CDL.Logical.Latch lat1

@@ -293,13 +293,13 @@ The chiller enable schedule is inactive.
 revisions="<html>
 <ul>
 <li>
-January 24, 2019, by Jianjun Hu:<br/>
-First implementation.
+March 12, 2020, by Milica Grahovac:<br/>
+Removed initial stage determination as it is imlemented as a separate sequence. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1831\">issue 1831</a>.
 </li>
 <li>
-March 12, 2020, by Milica Grahovac:<br/>
-Removed initial stage determination as it is imlemented as a separate sequences. This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1831\">issue 1831</a>.
+January 24, 2019, by Jianjun Hu:<br/>
+First implementation.
 </li>
 </ul>
 </html>"));

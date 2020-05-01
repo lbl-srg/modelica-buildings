@@ -139,6 +139,15 @@ block SetpointController
     "Signal hysteresis deadband"
     annotation (Dialog(tab="Conditionals", group="Value comparison parameters"));
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla "Plant enable signal"
+    annotation (Placement(
+        transformation(extent={{-440,-100},{-400,-60}}),  iconTransformation(
+          extent={{-140,-230},{-100,-190}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput chaPro "Stage change process status signal"
+    annotation (Placement(transformation(extent={{-440,-140},{-400,-100}}),
+        iconTransformation(extent={{-140,-190},{-100,-150}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseSta if have_WSE
     "WSE status"
     annotation (Placement(transformation(extent={{-442,-260},{-402,-220}}),
@@ -148,6 +157,14 @@ block SetpointController
     "Chiller availability status vector"
     annotation (Placement(transformation(extent={{-442,-200},{-402,-160}}),
         iconTransformation(extent={{-140,-210},{-100,-170}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uIni(
+    final min=0,
+    final max=nSta)
+    "Initial chiller stage (at plant enable)"
+    annotation (Placement(
+        transformation(extent={{-440,-30},{-400,10}}), iconTransformation(
+          extent={{-140,-148},{-100,-108}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u(
     final min=0,
@@ -233,6 +250,12 @@ block SetpointController
     annotation (Placement(transformation(extent={{120,-280},{160,-240}}),
         iconTransformation(extent={{100,-160},{140,-120}})));
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
+    "Chiller stage change edge signal"
+    annotation (
+     Placement(transformation(extent={{120,-200},{160,-160}}),
+        iconTransformation(extent={{100,-90},{140,-50}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput ySta(
     final min=0,
     final max=nSta)
@@ -240,41 +263,6 @@ block SetpointController
     annotation (Placement(
         transformation(extent={{120,-140},{160,-100}}),iconTransformation(
           extent={{100,-20},{140,20}})));
-
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Configurator conf(
-    final nSta = nSta,
-    final nChi = nChi,
-    final chiTyp = chiTyp,
-    final chiDesCap = chiDesCap,
-    final chiMinCap = chiMinCap,
-    final staMat = staMat)
-    "Configures chiller staging variables such as capacity and stage type vectors"
-    annotation (Placement(transformation(extent={{-360,-180},{-340,-160}})));
-
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Status sta(
-    final nSta=nSta,
-    final nChi=nChi,
-    final staMat=staMat) "First higher and lower available stage index, end stage boolean flags and chiller status setpoints"
-    annotation (Placement(transformation(extent={{-320,-220},{-300,-200}})));
-
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.CapacityRequirement capReq(
-    final avePer = avePer,
-    final holPer = delayStaCha) "Capacity requirement"
-    annotation (Placement(transformation(extent={{-322,300},{-302,320}})));
-
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Capacities cap(
-    final nSta=nSta) "Design and minimum capacities for relevant chiller stages"
-    annotation (Placement(transformation(extent={{-270,-180},{-250,-160}})));
-
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.PartLoadRatios PLRs(
-    final anyVsdCen=anyVsdCen,
-    final nSta=nSta,
-    final posDisMult=posDisMult,
-    final conSpeCenMult=conSpeCenMult,
-    final anyOutOfScoMult=anyOutOfScoMult,
-    final varSpeStaMin=varSpeStaMin,
-    final varSpeStaMax=varSpeStaMax) "Operative and staging part load ratios"
-    annotation (Placement(transformation(extent={{-182,-200},{-162,-180}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Up staUp(
     final have_WSE=have_WSE,
@@ -303,30 +291,51 @@ block SetpointController
     final TDifHys=TDifHys) "Stage down conditions"
     annotation (Placement(transformation(extent={{-100,-240},{-80,-220}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla "Plant enable signal"
-                          annotation (Placement(
-        transformation(extent={{-440,-100},{-400,-60}}),  iconTransformation(
-          extent={{-140,-230},{-100,-190}})));
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.CapacityRequirement capReq(
+    final avePer = avePer,
+    final holPer = delayStaCha) "Capacity requirement"
+    annotation (Placement(transformation(extent={{-322,300},{-302,320}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uIni(final min=0, final max=nSta)
-    "Initial chiller stage (at plant enable)" annotation (Placement(
-        transformation(extent={{-440,-30},{-400,10}}),   iconTransformation(
-          extent={{-140,-148},{-100,-108}})));
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Capacities cap(
+    final nSta=nSta) "Design and minimum capacities for relevant chiller stages"
+    annotation (Placement(transformation(extent={{-270,-180},{-250,-160}})));
 
-  CDL.Interfaces.BooleanOutput y "Chiller stage change edge signal" annotation (
-     Placement(transformation(extent={{120,-200},{160,-160}}),
-        iconTransformation(extent={{100,-90},{140,-50}})));
-  CDL.Interfaces.BooleanInput chaPro "Stage change process status signal"
-    annotation (Placement(transformation(extent={{-440,-140},{-400,-100}}),
-        iconTransformation(extent={{-140,-190},{-100,-150}})));
-  Subsequences.Change cha(
+protected
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Configurator conf(
+    final nSta = nSta,
+    final nChi = nChi,
+    final chiTyp = chiTyp,
+    final chiDesCap = chiDesCap,
+    final chiMinCap = chiMinCap,
+    final staMat = staMat)
+    "Configures chiller staging variables such as capacity and stage type vectors"
+    annotation (Placement(transformation(extent={{-360,-180},{-340,-160}})));
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Status sta(
+    final nSta=nSta,
+    final nChi=nChi,
+    final staMat=staMat) "First higher and lower available stage index, end stage boolean flags and chiller status setpoints"
+    annotation (Placement(transformation(extent={{-320,-220},{-300,-200}})));
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.PartLoadRatios PLRs(
+    final anyVsdCen=anyVsdCen,
+    final nSta=nSta,
+    final posDisMult=posDisMult,
+    final conSpeCenMult=conSpeCenMult,
+    final anyOutOfScoMult=anyOutOfScoMult,
+    final varSpeStaMin=varSpeStaMin,
+    final varSpeStaMax=varSpeStaMax) "Operative and staging part load ratios"
+    annotation (Placement(transformation(extent={{-182,-200},{-162,-180}})));
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Change cha(
     final nSta=nSta,
     final delayStaCha=delayStaCha) "Stage change assignment"
     annotation (Placement(transformation(extent={{-20,-180},{0,-160}})));
-  Subsequences.ChillerIndices chiInd(
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.ChillerIndices chiInd(
     nSta=nSta,
     nChi=nChi,
-    staMat=staMat)
+    staMat=staMat) "Calculates chiller status setpoint vector"
     annotation (Placement(transformation(extent={{40,-210},{60,-190}})));
 equation
   connect(uChiAva, conf.uChiAva)
