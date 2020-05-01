@@ -75,8 +75,8 @@ equation
     annotation (Line(points={{2,-70},{20,-70},{20,-66},{38,-66}}, color={255,127,0}));
   connect(outTem1.y, disPlaOutTem.TOut)
     annotation (Line(points={{2,-100},{24,-100},{24,-74.2},{38,-74.2}}, color={0,0,127}));
-
-  connect(conInt.y, disPlaSch.chiWatSupResReq) annotation (Line(points={{2,110},
+  connect(conInt.y, disPlaSch.chiWatSupResReq)
+    annotation (Line(points={{2,110},
           {20,110},{20,104},{38,104}}, color={255,127,0}));
 annotation (
   experiment(StopTime=86400.0, Tolerance=1e-06),
@@ -91,15 +91,14 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable</a>
 </html>", revisions="<html>
 <ul>
 <li>
-March 20, 2019, by Jianjun Hu:<br/>
-First implementation.
-</li>
-<li>
 March 12, 2020, by Milica Grahovac:<br/>
 Removed tests related to initial stage determination. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1831\">issue 1831</a>.
-Updated tests to include the 
-schedule based reference results.
+Updated tests to include schedule based reference results.
+</li>
+<li>
+March 20, 2019, by Jianjun Hu:<br/>
+First implementation.
 </li>
 </ul>
 </html>"),

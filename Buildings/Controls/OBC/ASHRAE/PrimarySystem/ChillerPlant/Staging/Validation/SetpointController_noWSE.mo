@@ -282,9 +282,8 @@ equation
           -111},{58,-111}}, color={255,0,255}));
 annotation (
  experiment(
-      StopTime=50000,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      StopTime=14000,
+      Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Validation/SetpointController_noWSE.mos"
     "Simulate and plot"),
   Documentation(info="<html>

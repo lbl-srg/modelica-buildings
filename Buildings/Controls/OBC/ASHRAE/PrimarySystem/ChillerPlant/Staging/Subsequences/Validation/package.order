@@ -7,8 +7,8 @@ Configurator_uChiAva
 Down
 EfficiencyCondition
 FailsafeCondition
-Status_u_uAva
-PartLoadRatios_u_uTyp
-Up
-Initial_noWSE
 Initial_WSE
+Initial_noWSE
+PartLoadRatios_u_uTyp
+Status_u_uAva
+Up

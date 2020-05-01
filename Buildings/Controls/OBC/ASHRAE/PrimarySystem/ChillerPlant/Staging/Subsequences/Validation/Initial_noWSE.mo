@@ -16,7 +16,7 @@ equation
   connect(lowAvaSta.y, iniSta.uUp)
     annotation (Line(points={{-18,0},{-2,0}}, color={255,127,0}));
 annotation (
- experiment(StopTime=3600.0, Tolerance=1e-06),
+ experiment(StopTime=100.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Initial_noWSE.mos"
     "Simulate and plot"),
   Documentation(info="<html>

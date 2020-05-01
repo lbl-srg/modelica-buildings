@@ -65,28 +65,28 @@ protected
     "Stage types"
     annotation (Placement(transformation(extent={{-420,-270},{-400,-250}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Max max
+  Buildings.Controls.OBC.CDL.Continuous.Max max "Maximum"
     annotation (Placement(transformation(extent={{-340,360},{-320,380}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Max max1
+  Buildings.Controls.OBC.CDL.Continuous.Max max1 "Maximum"
     annotation (Placement(transformation(extent={{-120,360},{-100,380}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Max max2
+  Buildings.Controls.OBC.CDL.Continuous.Max max2 "Maximum"
     annotation (Placement(transformation(extent={{100,360},{120,380}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Max max3
+  Buildings.Controls.OBC.CDL.Continuous.Max max3 "Maximum"
     annotation (Placement(transformation(extent={{340,360},{360,380}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Max max4
+  Buildings.Controls.OBC.CDL.Continuous.Max max4 "Maximum"
     annotation (Placement(transformation(extent={{-340,0},{-320,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Max max5
+  Buildings.Controls.OBC.CDL.Continuous.Max max5 "Maximum"
     annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Max max6
+  Buildings.Controls.OBC.CDL.Continuous.Max max6 "Maximum"
     annotation (Placement(transformation(extent={{100,0},{120,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Max max7
+  Buildings.Controls.OBC.CDL.Continuous.Max max7 "Maximum"
     annotation (Placement(transformation(extent={{340,0},{360,20}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant curSta(
@@ -254,9 +254,10 @@ protected
     "Next available chiller stage down"
     annotation (Placement(transformation(extent={{-200,-390},{-180,-370}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant curSta6(final k=3)
-  "Current chiller stage"
-  annotation (Placement(transformation(extent={{20,-310},{40,-290}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant curSta6(
+    final k=3)
+    "Current chiller stage"
+    annotation (Placement(transformation(extent={{20,-310},{40,-290}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine capReq7(
     final amplitude=6e5,
@@ -266,15 +267,18 @@ protected
     "Capacity requirement"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant staUp6(final k=3)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant staUp6(
+    final k=3)
     "Next available chiller stage up"
     annotation (Placement(transformation(extent={{20,-350},{40,-330}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant staDown6(final k=2)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant staDown6(
+    final k=2)
     "Next available chiller stage down"
     annotation (Placement(transformation(extent={{20,-390},{40,-370}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant curSta7(final k=0)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant curSta7(
+    final k=0)
     "Current chiller stage"
     annotation (Placement(transformation(extent={{260,-310},{280,-290}})));
 
@@ -314,8 +318,7 @@ equation
         -330,188},{-262,188}},
           color={255,127,0}));
   connect(staUp.y, PLRs0.uUp) annotation (Line(points={{-398,150},{-320,150},
-        {-320,186},{-262,186}},
-                           color={255,127,0}));
+        {-320,186},{-262,186}}, color={255,127,0}));
   connect(staDown.y, PLRs0.uDown) annotation (Line(points={{-398,110},{-310,
         110},{-310,184},{-262,184}},                color={255,127,0}));
   connect(max.y, PLRs0.uCapReq) annotation (Line(points={{-318,370},{-290,370},
@@ -325,20 +328,15 @@ equation
   connect(lowLim.y, max.u2) annotation (Line(points={{-398,350},{-360,350},{-360,
           364},{-342,364}}, color={0,0,127}));
   connect(capDes[1].y, PLRs0.uCapDes) annotation (Line(points={{-358,310},{
-        -292,310},{-292,212},{-262,212}},
-                                       color={0,0,127}));
+        -292,310},{-292,212},{-262,212}}, color={0,0,127}));
   connect(capDes[2].y, PLRs0.uUpCapDes) annotation (Line(points={{-358,310},{
-        -292,310},{-292,210},{-262,210}},
-                                       color={0,0,127}));
+        -292,310},{-292,210},{-262,210}}, color={0,0,127}));
   connect(capMin[1].y, PLRs0.uDowCapDes) annotation (Line(points={{-358,270},
-        {-294,270},{-294,208},{-262,208}},
-                                       color={0,0,127}));
+        {-294,270},{-294,208},{-262,208}}, color={0,0,127}));
   connect(capMin[1].y, PLRs0.uCapMin) annotation (Line(points={{-358,270},{
-        -294,270},{-294,205},{-262,205}},
-                                       color={0,0,127}));
+        -294,270},{-294,205},{-262,205}}, color={0,0,127}));
   connect(capMin[2].y, PLRs0.uUpCapMin) annotation (Line(points={{-358,270},{
-        -296,270},{-296,203},{-262,203}},
-                                       color={0,0,127}));
+        -296,270},{-296,203},{-262,203}}, color={0,0,127}));
   connect(staTyp.y, PLRs0.uTyp) annotation (Line(points={{-398,230},{-310,230},
         {-310,192},{-262,192}},  color={255,127,0}));
   connect(curSta1.y, PLRs1.u)
@@ -348,51 +346,41 @@ equation
         {-100,186},{-42,186}},
                            color={255,127,0}));
   connect(staDown1.y, PLRs1.uDown) annotation (Line(points={{-178,110},{-90,
-        110},{-90,184},{-42,184}},
-                               color={255,127,0}));
+        110},{-90,184},{-42,184}}, color={255,127,0}));
   connect(max1.y, PLRs1.uCapReq) annotation (Line(points={{-98,370},{-70,370},
-        {-70,214},{-42,214}},
-                           color={0,0,127}));
+        {-70,214},{-42,214}}, color={0,0,127}));
   connect(capReq1.y, max1.u1) annotation (Line(points={{-178,390},{-140,390},{-140,
           376},{-122,376}}, color={0,0,127}));
   connect(curSta2.y,PLRs2. u)
     annotation (Line(points={{42,190},{110,190},{110,188},{178,188}},
                                                   color={255,127,0}));
   connect(staUp2.y,PLRs2.uUp) annotation (Line(points={{42,150},{120,150},{
-        120,186},{178,186}},
-                      color={255,127,0}));
+        120,186},{178,186}}, color={255,127,0}));
   connect(staDown2.y,PLRs2.uDown) annotation (Line(points={{42,110},{130,110},
-        {130,184},{178,184}},
-                           color={255,127,0}));
+        {130,184},{178,184}}, color={255,127,0}));
   connect(max2.y,PLRs2.uCapReq) annotation (Line(points={{122,370},{150,370},
-        {150,214},{178,214}},
-                           color={0,0,127}));
+        {150,214},{178,214}}, color={0,0,127}));
   connect(capReq2.y,max2.u1) annotation (Line(points={{42,390},{80,390},{80,376},
           {98,376}},   color={0,0,127}));
   connect(curSta3.y,PLRs3. u)
     annotation (Line(points={{282,190},{350,190},{350,188},{418,188}},
                                                   color={255,127,0}));
   connect(staUp3.y,PLRs3.uUp) annotation (Line(points={{282,150},{360,150},{
-        360,186},{418,186}},
-                           color={255,127,0}));
+        360,186},{418,186}}, color={255,127,0}));
   connect(staDown3.y,PLRs3.uDown) annotation (Line(points={{282,110},{370,110},
         {370,184},{418,184}},  color={255,127,0}));
   connect(max3.y,PLRs3.uCapReq) annotation (Line(points={{362,370},{410,370},
-        {410,214},{418,214}},
-                           color={0,0,127}));
+        {410,214},{418,214}}, color={0,0,127}));
   connect(capReq4.y,max3.u1) annotation (Line(points={{282,390},{320,390},{320,376},
           {338,376}},  color={0,0,127}));
   connect(curSta4.y, PLRs4.u) annotation (Line(points={{-398,-300},{-330,-300},
         {-330,-172},{-262,-172}},  color={255,127,0}));
   connect(staUp4.y, PLRs4.uUp) annotation (Line(points={{-398,-340},{-320,
-        -340},{-320,-174},{-262,-174}},
-                                    color={255,127,0}));
+        -340},{-320,-174},{-262,-174}}, color={255,127,0}));
   connect(staDown4.y, PLRs4.uDown) annotation (Line(points={{-398,-380},{-310,
-        -380},{-310,-176},{-262,-176}},
-                                    color={255,127,0}));
+        -380},{-310,-176},{-262,-176}}, color={255,127,0}));
   connect(max4.y, PLRs4.uCapReq) annotation (Line(points={{-318,10},{-290,10},
-        {-290,-146},{-262,-146}},
-                              color={0,0,127}));
+        {-290,-146},{-262,-146}}, color={0,0,127}));
   connect(capReq5.y, max4.u1) annotation (Line(points={{-398,30},{-360,30},{-360,
           16},{-342,16}}, color={0,0,127}));
   connect(lowLim4.y, max4.u2) annotation (Line(points={{-398,-10},{-360,-10},{-360,

@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subseque
 block ChillerIndices "Returns chiller indices for the current stage"
 
   parameter Integer nSta = 3
-    "Number of stages";
+    "Number of chiller stages";
 
   parameter Integer nChi = 2
     "Number of chillers";

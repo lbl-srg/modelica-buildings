@@ -6,7 +6,7 @@ block PartLoadRatios
     "Plant contains at least one variable speed centrifugal chiller";
 
   parameter Integer nSta = 3
-    "Total number of stages";
+    "Total number of chiller stages";
 
   parameter Real posDisMult(
     final unit = "1",
@@ -272,6 +272,7 @@ protected
     annotation (Placement(transformation(extent={{-120,-420},{-100,-400}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Division div if anyVsdCen
+    "Division"
     annotation (Placement(transformation(extent={{-60,-370},{-40,-350}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const1(
@@ -373,19 +374,24 @@ protected
     final k=varSpeStaMin) if anyVsdCen "Constant"
     annotation (Placement(transformation(extent={{120,-420},{140,-400}})));
 
-  CDL.Utilities.Assert                        cheStaTyp1(final message="Recommended staging order got violated or an unlisted chiller type got provided when staging down")
+  Buildings.Controls.OBC.CDL.Utilities.Assert cheStaTyp1(
+    final message="Recommended staging order got violated or an unlisted chiller type got provided when staging down")
     "Chiller type outside of recommenation when staging down"
     annotation (Placement(transformation(extent={{220,-20},{240,0}})));
-  CDL.Continuous.Sources.Constant                        conSpeCenTypMult1(final k=
-        anyOutOfScoMult)
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conSpeCenTypMult1(
+    final k=anyOutOfScoMult)
     "Outside of G36 recommended staging order chiller type SPLR multiplier"
     annotation (Placement(transformation(extent={{160,20},{180,40}})));
-  CDL.Logical.Switch                        swi5
+
+  Buildings.Controls.OBC.CDL.Logical.Switch swi5
     "Logical switch"
     annotation (Placement(transformation(extent={{280,220},{300,240}})));
-  CDL.Logical.Switch                        swi6
+
+  Buildings.Controls.OBC.CDL.Logical.Switch swi6
     "Logical switch"
     annotation (Placement(transformation(extent={{220,-110},{240,-90}})));
+
 equation
   connect(uCapReq, opePlrSta.u1) annotation (Line(points={{-360,-10},{-260,-10},
           {-260,-44},{-242,-44}},
@@ -605,10 +611,13 @@ equation
 <li>Next available higher stage nominal OPLR (<span style=\"font-family: monospace;\">yUp</span>). </li>
 <li>Next available higher stage minimal OPLR (<span style=\"font-family: monospace;\">yUpMin</span>). </li>
 </ul>
-<p><br>SPLRup <code>yStaUp</code> or SPLRdown <code>yStaDown</code> value depends on the stage type <code>staTyp</code> as indicated in the table below. 
-Note that the rules are prioritized by stage type column, from left to right</p><p><br>The stage type is determined by the 
+<p>
+SPLRup <code>yStaUp</code> or SPLRdown <code>yStaDown</code> value depends on the stage type <code>staTyp</code> as indicated in the table below. 
+Note that the rules are prioritized by stage type column, from left to right</p><p>The stage type is determined by the 
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Configurator\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Configurator</a> subsequence based on the type of chillers staged. </p>
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Configurator</a> subsequence based on the type of chillers staged. 
+<br></br>
+</p>
 <table summary=\"summary\" cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
 <td><p align=\"center\"><b>Row: Stage / Column: Stage Type</b></p></td>
 <td><p align=\"center\"><b>Any Constant Speed Centrifugal</b></p></td>
@@ -634,9 +643,10 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Co
 <td><p align=\"center\"><span style=\"font-family: monospace;\">yStaDown=f(uLif, uLifMin, uLifMax)</span></p></td>
 </tr>
 </table>
-<p><br>For operation outside of the recommended staging order as provided in the table above a constant 
+<p>For operation outside of the recommended staging order as provided in the table above a constant 
 SPLRup and SPLRdown value <code>anyOutOfScoMult</code> is set to prevent 
-simulation interruption, accompanied with a warning.</p>
+simulation interruption, accompanied with a warning.
+</p>
 </html>",
 revisions="<html>
 <ul>

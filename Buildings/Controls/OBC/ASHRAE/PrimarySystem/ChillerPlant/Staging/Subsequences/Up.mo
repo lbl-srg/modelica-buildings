@@ -277,7 +277,7 @@ for either a shorter or a longer time period
 revisions="<html>
 <ul>
 <li>
-January 28, 2019, by Milica Grahovac:<br/>
+March 15, 2020, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>
