@@ -74,7 +74,7 @@ equation
           {20,20},{20,72},{58,72}},     color={0,0,127}));
   connect(disAirRate.y, sysReq_RehBox.VDis_flow)
     annotation (Line(points={{2,0},{22,0},{22,70},{58,70}}, color={0,0,127}));
-  connect(damPos.y, sysReq_RehBox.uDam_actual) annotation (Line(points={{-38,
+  connect(damPos.y,sysReq_RehBox.yDam_actual)  annotation (Line(points={{-38,
           -20},{24,-20},{24,68},{58,68}}, color={0,0,127}));
   connect(sine1.y, TDisHeaSet.u)
     annotation (Line(points={{-68,-40},{-22,-40}}, color={0,0,127}));

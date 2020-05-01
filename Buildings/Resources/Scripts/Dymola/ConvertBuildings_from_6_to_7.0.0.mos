@@ -83,11 +83,11 @@ convertElement(
 convertElement(
     "Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests",
     "uDam",
-    "uDam_actual");
+    "yDam_actual");
 convertElement(
     "Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller",
     "uDam",
-    "uDam_actual");
+    "yDam_actual");
 
 // Refactoring damper models.
 convertElement(

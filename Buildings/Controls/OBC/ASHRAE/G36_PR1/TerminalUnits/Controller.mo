@@ -269,7 +269,7 @@ block Controller "Controller for room VAV box"
     "Zone operation mode"
     annotation (Placement(transformation(extent={{-180,-190},{-140,-150}}),
         iconTransformation(extent={{-140,-120},{-100,-80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam_actual
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput yDam_actual
     "Actual VAV damper position"
     annotation (Placement(transformation(extent={{-180,-100},{-140,-60}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
@@ -345,8 +345,7 @@ block Controller "Controller for room VAV box"
     final Td=TdHea,
     final yMax=1,
     final yMin=0,
-    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
-                  "Heating loop signal"
+    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter) "Heating loop signal"
     annotation (Placement(transformation(extent={{-110,150},{-90,170}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conCooLoo(
     final controllerType=controllerTypeCoo,
@@ -356,8 +355,7 @@ block Controller "Controller for room VAV box"
     final yMax=1,
     final yMin=0,
     reverseAction=true,
-    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
-                        "Cooling loop signal"
+    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter) "Cooling loop signal"
     annotation (Placement(transformation(extent={{-110,110},{-90,130}})));
 
 protected
@@ -474,7 +472,6 @@ equation
   connect(conCooLoo.y, sysReq.uCoo)
     annotation (Line(points={{-88,120},{8,120},{8,-86},{78,-86}},
       color={0,0,127}));
-
   connect(damVal.uOpeMod, uOpeMod) annotation (Line(points={{18,-20},{-112,-20},
           {-112,-170},{-160,-170}},
                                   color={255,127,0}));
@@ -490,9 +487,9 @@ equation
   connect(isNotUn.y, conHeaLoo.trigger) annotation (Line(points={{42,-150},{60,-150},
           {60,-120},{-116,-120},{-116,142},{-106,142},{-106,148}}, color={255,0,
           255}));
-
-  connect(sysReq.uDam_actual, uDam_actual) annotation (Line(points={{78,-92},{-124,
+  connect(sysReq.yDam_actual,yDam_actual)  annotation (Line(points={{78,-92},{-124,
           -92},{-124,-80},{-160,-80}}, color={0,0,127}));
+
 annotation (defaultComponentName="terUniCon",
   Icon(graphics={Rectangle(
         extent={{-100,-100},{100,100}},

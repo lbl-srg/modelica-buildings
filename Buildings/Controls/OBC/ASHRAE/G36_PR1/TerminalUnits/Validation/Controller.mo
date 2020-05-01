@@ -128,9 +128,9 @@ equation
           {78,68}}, color={0,0,127}));
   connect(con1.yDam, zerOrdHol1.u) annotation (Line(points={{62,16},{70,16},{70,
           10},{78,10}}, color={0,0,127}));
-  connect(zerOrdHol.y, con.uDam_actual) annotation (Line(points={{102,68},{110,
+  connect(zerOrdHol.y,con.yDam_actual)  annotation (Line(points={{102,68},{110,
           68},{110,100},{20,100},{20,66},{38,66}}, color={0,0,127}));
-  connect(zerOrdHol1.y, con1.uDam_actual) annotation (Line(points={{102,10},{
+  connect(zerOrdHol1.y,con1.yDam_actual)  annotation (Line(points={{102,10},{
           110,10},{110,40},{30,40},{30,6},{38,6}}, color={0,0,127}));
 
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
