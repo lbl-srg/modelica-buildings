@@ -98,7 +98,11 @@ annotation (defaultComponentName="senLatEnt",
         Line(points={{-22.9,32.8},{-40.2,57.3}}),
         Line(points={{-37.6,13.7},{-65.8,23.9}}),
         Line(points={{22.9,32.8},{40.2,57.3}}),
-        Line(points={{37.6,13.7},{65.8,23.9}})}),
+        Line(points={{37.6,13.7},{65.8,23.9}}),
+        Text(
+         extent={{-20,120},{-140,70}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(H_flow, leftjustified=false, significantDigits=3)))}),
   Documentation(info="<html>
 <p>
 This model outputs the <i>latent</i> enthalphy flow rate of the medium in the flow
@@ -139,6 +143,12 @@ The sensor can only be used with medium models that implement the function
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 25, 2020, by Michael Wetter:<br/>
+Changed icon to display its operating state.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
+</li>
 <li>
 January 18, 2016 by Filip Jorissen:<br/>
 Using parameter <code>tauInv</code>

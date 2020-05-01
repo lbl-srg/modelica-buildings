@@ -67,38 +67,47 @@ the cooling loop signal (from 0 to +1).")
     "Average zone set point"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
 
-equation
-  connect(TOut.y, setPoiVAV.TOut) annotation (Line(points={{-59,-70},{-46,-70},{
-          -46,-18},{-2,-18}},
-                            color={0,0,127}));
-  connect(uHea.y, setPoiVAV.uHea) annotation (Line(points={{-59,56},{-44,56},{-44,
-          -2},{-2,-2}}, color={0,0,127}));
-  connect(uCoo.y, setPoiVAV.uCoo) annotation (Line(points={{-59,20},{-50,20},{-50,
-          -6},{-2,-6}}, color={0,0,127}));
+  Controls.OBC.CDL.Logical.Sources.Constant fanSta(k=true) "Fan is on"
+      annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
-  connect(uHea.y, heaCooConSig.u1) annotation (Line(points={{-59,56},{-34,56}},
+equation
+  connect(TOut.y, setPoiVAV.TOut) annotation (Line(points={{-58,-70},{-46,-70},{
+          -46,-15},{-2,-15}},
+                            color={0,0,127}));
+  connect(uHea.y, setPoiVAV.uHea) annotation (Line(points={{-58,56},{-44,56},{-44,
+          -1.66667},{-2,-1.66667}},
+                        color={0,0,127}));
+  connect(uCoo.y, setPoiVAV.uCoo) annotation (Line(points={{-58,20},{-50,20},{-50,
+          -5},{-2,-5}}, color={0,0,127}));
+
+  connect(uHea.y, heaCooConSig.u1) annotation (Line(points={{-58,56},{-34,56}},
                           color={0,0,127}));
-  connect(uCoo.y, heaCooConSig.u2) annotation (Line(points={{-59,20},{-50,20},{-50,
+  connect(uCoo.y, heaCooConSig.u2) annotation (Line(points={{-58,20},{-50,20},{-50,
           44},{-34,44}},  color={0,0,127}));
   connect(scaTem.x, heaCooConSig.y) annotation (Line(points={{98,-8},{90,-8},{90,
-          50},{-11,50}},      color={0,0,127}));
-  connect(THea_degC.y, scaTem.y[1]) annotation (Line(points={{61,20},{70,20},{70,
+          50},{-10,50}},      color={0,0,127}));
+  connect(THea_degC.y, scaTem.y[1]) annotation (Line(points={{62,20},{70,20},{70,
           1},{98,1}},   color={0,0,127}));
-  connect(TCoo_degC.y, scaTem.y[2]) annotation (Line(points={{61,-10},{70,-10},{
+  connect(TCoo_degC.y, scaTem.y[2]) annotation (Line(points={{62,-10},{70,-10},{
           70,-1},{98,-1}}, color={0,0,127}));
-  connect(setPoiVAV.y, scaYFan.y[1]) annotation (Line(points={{21,-16},{30,-16},
+  connect(setPoiVAV.y, scaYFan.y[1]) annotation (Line(points={{22,-15},{30,-15},
           {30,-50},{98,-50}},
                            color={0,0,127}));
-  connect(heaCooConSig.y, scaYFan.x) annotation (Line(points={{-11,50},{90,50},{
+  connect(heaCooConSig.y, scaYFan.x) annotation (Line(points={{-10,50},{90,50},{
           90,-58},{98,-58}},    color={0,0,127}));
-  connect(setPoiVAV.TZon, TZon.y) annotation (Line(points={{-2,-14},{-50,-14},{-50,
-          -40},{-59,-40}}, color={0,0,127}));
-  connect(setPoiVAV.TSupHeaEco, THea_degC.u) annotation (Line(points={{21,-4},{30,
-          -4},{30,20},{38,20}}, color={0,0,127}));
+  connect(setPoiVAV.TZon, TZon.y) annotation (Line(points={{-2,-11.6667},{-50,
+          -11.6667},{-50,-40},{-58,-40}},
+                           color={0,0,127}));
+  connect(setPoiVAV.TSupHeaEco, THea_degC.u) annotation (Line(points={{22,-5},{30,
+          -5},{30,20},{38,20}}, color={0,0,127}));
   connect(setPoiVAV.TSupCoo, TCoo_degC.u)
-    annotation (Line(points={{21,-10},{38,-10}}, color={0,0,127}));
+    annotation (Line(points={{22,-10},{38,-10}}, color={0,0,127}));
   connect(TSetZon.y, setPoiVAV.TZonSet)
-    annotation (Line(points={{-59,-10},{-2,-10}}, color={0,0,127}));
+    annotation (Line(points={{-58,-10},{-30,-10},{-30,-8.33333},{-2,-8.33333}},
+                                                  color={0,0,127}));
+  connect(fanSta.y, setPoiVAV.uFan)
+    annotation (Line(points={{-18,-50},{-10,-50},{-10,-18.3333},{-2,-18.3333}},
+                                                                      color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-100,-100},{140,100}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),
     experiment(Tolerance=1e-6, StopTime=1.0),

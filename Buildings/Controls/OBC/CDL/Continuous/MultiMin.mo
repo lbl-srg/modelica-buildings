@@ -6,8 +6,8 @@ block MultiMin "Output the minimum element of the input vector"
   Interfaces.RealInput u[nin] "Connector of Real input signals"
     annotation (Placement(transformation(extent={{-140,20},{-100,-20}})));
   Interfaces.RealOutput y "Connector of Real output signals"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+
 equation
   y = min(u);
   annotation (Icon(coordinateSystem(
@@ -26,13 +26,21 @@ equation
           Text(
             extent={{-90,36},{90,-36}},
             lineColor={160,160,164},
-            textString="min()")}),
-                                 Documentation(info="<html>
+            textString="min()"),
+        Text(
+          extent={{226,60},{106,10}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}),
+Documentation(info="<html>
 <p>
 Outputs the minimum element of the input vector.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
 <li>
 September 14, 2017, by Jianjun Hu:<br/>
 First implementation, based on the implementation of the

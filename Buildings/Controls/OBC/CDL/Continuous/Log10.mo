@@ -5,7 +5,7 @@ block Log10 "Output the base 10 logarithm of the input (input > 0 required)"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   Interfaces.RealOutput y "Connector of Real output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
   y = Modelica.Math.log10(u);
@@ -36,7 +36,11 @@ annotation (
         Text(
           extent={{-6,-24},{66,-72}},
           lineColor={192,192,192},
-          textString="log10")}),
+          textString="log10"),
+        Text(
+          extent={{226,60},{106,10}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}),
     Documentation(info="<html>
 <p>
 Block that outputs <code>y = log10(u)</code>,
@@ -57,6 +61,10 @@ zero or negative.
 
 </html>", revisions="<html>
 <ul>
+<li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the

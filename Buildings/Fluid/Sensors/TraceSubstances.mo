@@ -15,7 +15,8 @@ protected
                                             string2=substanceName,
                                             caseSensitive=false))
     then 1 else 0 for i in 1:Medium.nC}
-    "Vector with zero everywhere except where species is";
+    "Vector with zero everywhere except where species is"
+    annotation(Evaluate=true);
 initial equation
   assert(max(s) > 0.9, "Trace substance '" + substanceName + "' is not present in medium '"
          + Medium.mediumName + "'.\n"
@@ -38,7 +39,11 @@ annotation (defaultComponentName="senTraSub",
           extent={{160,-30},{60,-60}},
           lineColor={0,0,0},
           textString="C"),
-        Line(points={{70,0},{100,0}}, color={0,0,127})}),
+        Line(points={{70,0},{100,0}}, color={0,0,127}),
+        Text(
+          extent={{180,90},{60,40}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(C, leftjustified=false, significantDigits=3)))}),
   Documentation(info="<html>
 <p>
 This model outputs the trace substances contained in the fluid connected to its port.
@@ -52,6 +57,12 @@ prior to using this model with one fluid port.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 25, 2020, by Michael Wetter:<br/>
+Changed icon to display its operating state.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
+</li>
 <li>
 June 10, 2015, by Michael Wetter:<br/>
 Reformulated assignment of <code>s</code> and <code>assert</code>

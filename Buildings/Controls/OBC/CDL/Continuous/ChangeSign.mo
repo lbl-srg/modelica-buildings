@@ -6,8 +6,7 @@ block ChangeSign "Change sign of the input"
         iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Interfaces.RealOutput y "Connector of Real output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
   y = -u;
@@ -43,7 +42,11 @@ annotation (
           points={{-100,60}},
           color={0,0,127},
           thickness=1),
-        Line(points={{-100,60},{2,60}}, color={0,0,0})}),
+        Line(points={{-100,60},{2,60}}, color={0,0,0}),
+        Text(
+          extent={{226,60},{106,10}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}),
     Documentation(info="<html>
 <p>
 Block that outputs <code>y = -u</code>,
@@ -51,6 +54,10 @@ where <code>u</code> is an input.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
 <li>
 March 15, 2017, by Jianjun Hu:<br/>
 First implementation, based on the implementation of the

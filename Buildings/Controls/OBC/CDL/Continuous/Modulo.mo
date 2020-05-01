@@ -3,16 +3,13 @@ block Modulo
   "Output the remainder of first input divided by second input (~=0)"
 
   Interfaces.RealInput u1 "Connector of Real input signal 1"
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
 
   Interfaces.RealInput u2 "Connector of Real input signal 2"
-    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
-        iconTransformation(extent={{-140,-80},{-100,-40}})));
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
 
   Interfaces.RealOutput y "Connector of Real output signal"
-    annotation (Placement(transformation(extent={{100,-8},{120,12}}),
-        iconTransformation(extent={{100,-8},{120,12}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
   y = mod(u1,u2);
@@ -47,7 +44,11 @@ equation
         Line(points={{50,2},{102,2},{100,2}}, color={0,0,127}),
         Ellipse(fillPattern=FillPattern.Solid, extent={{11,-18},{21,-8}}),
         Line(points={{-24,-20},{26,24}}),
-        Ellipse(fillPattern=FillPattern.Solid, extent={{-21,12},{-11,22}})}),
+        Ellipse(fillPattern=FillPattern.Solid, extent={{-21,12},{-11,22}}),
+        Text(
+          extent={{226,60},{106,10}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}),
     Documentation(info="<html>
 <p>
 Block that outputs <code>y = mod(u1/u2)</code>,
@@ -56,6 +57,10 @@ where
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
 <li>
 March 15, 2017, by Jianjun Hu:<br/>
 First implementation, based on the implementation of the

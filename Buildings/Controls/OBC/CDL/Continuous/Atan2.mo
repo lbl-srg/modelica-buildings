@@ -8,7 +8,7 @@ block Atan2 "Output atan(u1/u2) of the inputs u1 and u2"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
 
   Interfaces.RealOutput y "Connector of Real output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
   y = Modelica.Math.atan2(u1, u2);
@@ -38,6 +38,10 @@ gives a solution in the range
 
 </html>", revisions="<html>
 <ul>
+<li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the
@@ -84,5 +88,9 @@ Modelica Standard Library.
           points={{0,90},{-8,68},{8,68},{0,90}},
           lineColor={192,192,192},
           fillColor={192,192,192},
-          fillPattern=FillPattern.Solid)}));
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{226,60},{106,10}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}));
 end Atan2;

@@ -7,10 +7,9 @@ block Ramp "Generate ramp signal"
   parameter Modelica.SIunits.Time startTime=0
     "Output = offset for time < startTime";
 
-  Interfaces.RealOutput y
-    "Connector of Real output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
+  Interfaces.RealOutput y "Connector of Real output signal"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+
 equation
   y = offset + (if time < startTime then 0 else if time < (startTime +
     duration) then (time - startTime)*height/duration else height);
@@ -44,7 +43,11 @@ equation
           extent={{-150,-150},{150,-110}},
           lineColor={0,0,0},
           textString="duration=%duration"),
-        Line(points={{31,38},{86,38}})}),
+        Line(points={{31,38},{86,38}}),
+        Text(
+          extent={{226,60},{106,10}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}),
     Documentation(info="<html>
 <p>
 The Real output y is a ramp signal:
@@ -57,6 +60,10 @@ The Real output y is a ramp signal:
 
 </html>", revisions="<html>
 <ul>
+<li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
 <li>
 March 16, 2017, by Jianjun Hu:<br/>
 First implementation, based on the implementation of the

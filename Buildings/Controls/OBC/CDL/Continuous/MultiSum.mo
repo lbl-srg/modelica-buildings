@@ -8,7 +8,8 @@ block MultiSum
   Interfaces.RealInput u[nin] "Connector of Real input signals"
     annotation (Placement(transformation(extent={{-140,20},{-100,-20}})));
   Interfaces.RealOutput y "Connector of Real output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+
 equation
   if size(u, 1) > 0 then
     y = k*u;
@@ -30,7 +31,7 @@ equation
           fillColor={255,213,170},
           fillPattern=FillPattern.Solid,
           textString="%k"), Text(
-          extent={{-82,84},{82,-52}},
+          extent={{-82,90},{82,-46}},
           lineColor={0,0,0},
           fillColor={255,213,170},
           fillPattern=FillPattern.Solid,
@@ -38,7 +39,11 @@ equation
         Text(
           extent={{-144,150},{156,110}},
           textString="%name",
-          lineColor={0,0,255})}),
+          lineColor={0,0,255}),
+        Text(
+          extent={{226,60},{106,10}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}),
     Documentation(info="<html>
 <p>
 Block that outputs
@@ -67,6 +72,10 @@ for an example.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
 <li>
 June 28, 2017, by Jianjun Hu:<br/>
 First implementation, based on the implementation of the Modelica Standard

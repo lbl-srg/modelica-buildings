@@ -689,10 +689,10 @@ int assign_thermal_bc(PARA_DATA *para, REAL **var, int **BINDEX) {
       i = BINDEX[0][it];
       j = BINDEX[1][it];
       k = BINDEX[2][it];
-      id = BINDEX[4][it];
-      modelicaId = para->bc->wallId[id - para->bc->nb_block];
+      id = BINDEX[4][it]- para->bc->nb_block;
+      modelicaId = para->bc->wallId[id];
 
-      if(var[FLAGP][IX(i,j,k)]==SOLID && id >= para->bc->nb_block)
+      if(var[FLAGP][IX(i,j,k)]==SOLID && id >= 0)
         switch(para->cosim->para->bouCon[modelicaId]) {
           case 1:
             var[TEMPBC][IX(i,j,k)] = temHea[id];

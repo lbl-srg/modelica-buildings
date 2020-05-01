@@ -1,0 +1,57 @@
+Executable start: Tue Apr 28 14:59:25 2020
+
+isat_main(): Start ISAT-FFD simulation
+-------------------------------------------------------------------
+read_isat_parameters(): Read isat parameters from file /home/cary/Git/mbl-Xu/modelica-buildings/Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/Tutorial/NaturalConvection/set.isat
+	Read general settings of isat:
+		isat.useISAT=1
+		isat.useBinarySelectedPoint=0
+		isat.digAftdec=2
+		isat.read_existing=0
+		isat.write_existing=0
+		isat.err_global=0.200000
+		isat.num_input=2
+		isat.num_output=2
+	Read input settings of isat and ffd:
+		inpu.inpu_name[0]=inlet_temp
+		inpu.inpu_name[1]=inlet_mass
+		inpu.num_inlet=0
+		inpu.num_block=0
+		inpu.num_wall=6
+		inpu.wall_re[0]=1
+		inpu.wall_re[1]=1
+		inpu.wall_re[2]=0
+		inpu.wall_re[3]=0
+		inpu.wall_re[4]=0
+		inpu.wall_re[5]=0
+		inpu.wall_wh[0]=2
+		inpu.wall_wh[1]=1
+		inpu.wall_wh[2]=0
+		inpu.wall_wh[3]=0
+		inpu.wall_wh[4]=0
+		inpu.wall_wh[5]=0
+	Read output settings of isat and ffd:
+		outp.outp_name[0]=temp_roo
+		outp.outp_name[1]=vel_sen
+		outp.outp_weight[0]=1.000000
+		outp.outp_weight[1]=10.000000
+-------------------------------------------------------------------
+read_cosim_data(): Start to read data from Modelica at t=0.000000[s]
+	para->cosim->ffd->input[0]: 1.000000
+	para->cosim->ffd->input[1]: 0.000000
+ffd_ISAT(): simulation started
+-------------------------------------------------------------------
+write_cosim_data(): Start to write the following coupled simulation data to Modelica:
+	para->cosim->ffd->output[0]: 273.627848
+	para->cosim->ffd->output[1]: 0.000043
+-------------------------------------------------------------------
+read_cosim_data(): Start to read data from Modelica at t=7200.000000[s]
+	para->cosim->ffd->input[0]: 1.000000
+	para->cosim->ffd->input[1]: 0.000000
+-------------------------------------------------------------------
+write_cosim_data(): Start to write the following coupled simulation data to Modelica:
+	para->cosim->ffd->output[0]: 273.627848
+	para->cosim->ffd->output[1]: 0.000043
+-------------------------------------------------------------------
+cosim_loop(): Received stop command: cosim->para->flag = 0
+main(): Sent stopping signal to Modelica

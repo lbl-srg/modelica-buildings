@@ -14,6 +14,7 @@ A million repetitions of "a"
 /* #define LITTLE_ENDIAN * This should be #define'd already, if true. */
 /* #define SHA1HANDSOFF * Copies data before messing with it. */
 
+#ifndef SHA1HANDSOFF
 #define SHA1HANDSOFF
 
 #include <stdio.h>
@@ -296,15 +297,21 @@ void SHA1(
 
 const char* cryptographicsHash(const char* str)
 {
-    char result[21];
-	char* hexresult = malloc(41*sizeof(char));
-    size_t offset;
+  char result[21];
+  size_t offset;
+  char* hexresult = malloc(41*sizeof(char));
 
-    SHA1( result, str, strlen(str) );
+  if (!hexresult){
+    ModelicaError("Failed to allocate memory in cryptographicHash.");
+  }
 
-    for( offset = 0; offset < 20; offset++) {
-        sprintf( ( hexresult + (2*offset)), "%02x", result[offset]&0xff);
-    }
+  SHA1( result, str, strlen(str) );
 
-    return hexresult;
+  for(offset = 0; offset < 20; offset++) {
+    sprintf( ( hexresult + (2*offset)), "%02x", result[offset]&0xff);
+  }
+
+  return hexresult;
 }
+
+#endif

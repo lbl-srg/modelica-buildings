@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "y",
+    "der(y)",
+    "der2_y"
+  };

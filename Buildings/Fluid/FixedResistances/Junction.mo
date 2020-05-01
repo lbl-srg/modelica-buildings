@@ -26,6 +26,9 @@ model Junction
       homotopyInitialization=homotopyInitialization,
       deltaM=deltaM));
 
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
+
   parameter Modelica.SIunits.MassFlowRate[3] m_flow_nominal
     "Mass flow rate. Set negative at outflowing ports."
     annotation(Dialog(group = "Nominal condition"));
@@ -43,8 +46,10 @@ model Junction
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(tab="Advanced"));
 
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
+initial equation
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}), graphics={
@@ -60,16 +65,51 @@ model Junction
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,128,255}),
-        Ellipse(
-          visible=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState,
-          extent={{-38,36},{40,-40}},
-          lineColor={0,0,127},
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
         Text(
           extent={{-151,142},{149,102}},
           lineColor={0,0,255},
-          textString="%name")}),
+          textString="%name"),
+        Rectangle(
+          extent=DynamicSelect({{-100,10},{-100,10}}, {{-100,10},{-100+100*min(1, max(0, port_1.m_flow*3/(abs(m_flow_nominal[1])+abs(m_flow_nominal[2])+abs(m_flow_nominal[3])))),-10}}),
+          lineColor={28,108,200},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Rectangle(
+          extent=DynamicSelect({{-100,10},{-100,10}}, {{0,10},{100*max(-1, min(0, port_1.m_flow*3/(abs(m_flow_nominal[1])+abs(m_flow_nominal[2])+abs(m_flow_nominal[3])))),-10}}),
+          lineColor={28,108,200},
+          fillColor={255,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Rectangle(
+          extent=DynamicSelect({{0,10}, {0,10}}, {{100,10}, {(1-min(1, max(0, port_2.m_flow*3/(abs(m_flow_nominal[1])+abs(m_flow_nominal[2])+abs(m_flow_nominal[3])))))*100,-10}}),
+          lineColor={28,108,200},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent=DynamicSelect({{0,10}, {0,10}}, {{0,10}, {-max(-1, min(0, port_2.m_flow*3/(abs(m_flow_nominal[1])+abs(m_flow_nominal[2])+abs(m_flow_nominal[3]))))*100,-10}}),
+          lineColor={28,108,200},
+          fillColor={255,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Rectangle(
+          extent=DynamicSelect({{-10,0},{-10,0}}, {{-10,-100+100*min(1, max(0, port_3.m_flow*3/(abs(m_flow_nominal[1])+abs(m_flow_nominal[2])+abs(m_flow_nominal[3]))))},{10,-100}}),
+          lineColor={28,108,200},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Rectangle(
+          extent=DynamicSelect({{-10,0},{-10,0}}, {{-10, 100*max(-1, min(0, port_3.m_flow*3/(abs(m_flow_nominal[1])+abs(m_flow_nominal[2])+abs(m_flow_nominal[3]))))},{10,0}}),
+          lineColor={28,108,200},
+          fillColor={255,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Ellipse(
+          visible=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState,
+          extent=DynamicSelect({{-35,35},{35,-35}}, {{-0,port_1.m_flow*0},{0,-0}}),
+          lineColor={0,0,127},
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid)}),
 defaultComponentName="jun",
     Documentation(info="<html>
 <p>
@@ -118,8 +158,20 @@ system of equations.
 </html>", revisions="<html>
 <ul>
 <li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">Buildings, #1341</a>.
+</li>
+<li>
+February 26, 2020, by Michael Wetter:<br/>
+Changed icon to display its operating state.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
+</li>
+<li>
 March 26, 2018 by Filip Jorissen:<br/>
-Removed <code>final allowFlowReversal=true</code> from all resistances 
+Removed <code>final allowFlowReversal=true</code> from all resistances
 since this overrides the default simplification when the flow
 is not bidirectional.
 This change can lead to smaller algebraic loops.
@@ -161,7 +213,7 @@ to avoid flow reversal in large flow networks where such a setting may be useful
 June 11, 2008 by Michael Wetter:<br/>
 Based class on
 <a href=\"modelica://Buildings.Fluid.BaseClasses.PartialThreeWayFixedResistance\">
-PartialThreeWayFixedResistance</a>.
+Buildings.Fluid.BaseClasses.PartialThreeWayFixedResistance</a>.
 </li>
 <li>
 July 20, 2007 by Michael Wetter:<br/>
