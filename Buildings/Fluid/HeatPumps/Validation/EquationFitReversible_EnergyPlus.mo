@@ -68,14 +68,14 @@ model EquationFitReversible_EnergyPlus "Validation with EnergyPlus model"
     "Block that converts set point for leaving heating water temperature "
       annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Modelica.Blocks.Sources.RealExpression QSou_flow_EP(y=datRea.y[9])
-    "EnergyPlus results: source side heat flow rate"
-      annotation (Placement(transformation(extent={{-90,-62},{-70,-42}})));
+    "EnergyPlus results: source side heat flow rate [W]"
+      annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
   Modelica.Blocks.Sources.RealExpression QLoa_flow_EP(y=-1*datRea.y[10])
-    "EnergyPlus results: load side heat flow rate"
-      annotation (Placement(transformation(extent={{-90,-82},{-70,-62}})));
+    "EnergyPlus results: load side heat flow rate [W]"
+      annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
   Modelica.Blocks.Sources.RealExpression P_EP(y=datRea.y[8])
-    "EnergyPlus results: load side heat flow rate"
-      annotation (Placement(transformation(extent={{-90,-102},{-70,-82}})));
+    "EnergyPlus results: compressor power [W]"
+      annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
   connect(heaPum.port_a1,loaPum. ports[1])
     annotation (Line(points={{30,6},{20,6},{20,74},{-1.77636e-15,74}},color={0,127,255}));

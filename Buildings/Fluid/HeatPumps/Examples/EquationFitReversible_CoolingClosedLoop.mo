@@ -40,10 +40,10 @@ model EquationFitReversible_CoolingClosedLoop
    "Volume for source side"
    annotation (Placement(transformation(extent={{-70,-60},{-50,-40}})));
   Controls.OBC.CDL.Continuous.Sources.Pulse uMod(
-    amplitude=1,
-    width=0.5,
+    amplitude=-1,
+    width=0.7,
     period=200,
-    offset=-1,
+    offset=0,
     startTime=0)
    "heat pump operational mode input signal"
    annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
@@ -182,9 +182,13 @@ to the heatpump where it is cooled to meet the corresponding set point water tem
 </html>", revisions="<html>
 <ul>
 <li>
+May 1, 2020, by Hagar Elarga:<br/>
+Corrected the <code>uMod</code> parameters and changed the <code>vol</code>initial temperature condition accordingly.
+</li>
+<li>
 September 23, 2019, by Hagar Elarga:<br/>
 First implementation.
- </li>
- </ul>
- </html>"));
+</li>
+</ul>
+</html>"));
 end EquationFitReversible_CoolingClosedLoop;
