@@ -257,7 +257,10 @@ its class name ends with the string <code>Beta</code>.
                            <code>Buildings.ThermalZones.Detailed.Validation.MixedAirFreeResponseSteadyState</code>,
                            <code>Buildings.Examples.VAVReheat.Validation.Guideline36SteadyState</code> and
                            <code>Buildings.ThermalZones.ReducedOrder.Validation.RoomSteadyState</code>.<br/>
-                         This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1340\">IBPSA, #1340</a>.
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1340\">IBPSA, #1340</a>.<br/>
+                           Changed interpolation method from cubic spline based on Akima to cubic splines based on
+                           Fritsch-Butland which preserve the monotonicity of the data.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1359\">IBPSA, #1359</a>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.Controls.Continuous</b>
