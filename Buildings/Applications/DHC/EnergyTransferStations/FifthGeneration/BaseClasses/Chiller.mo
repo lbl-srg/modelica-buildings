@@ -94,6 +94,14 @@ model Chiller "Base subsystem with heat recovery chiller"
     "Fluid port for heating water supply"
     annotation (Placement(transformation(extent={{-210,50},{-190,70}}),
       iconTransformation(extent={{-110,50},{-90,70}})));
+  Modelica.Blocks.Interfaces.RealOutput PChi(final quantity="Power", unit="W")
+    "Chiller power"
+    annotation (Placement(transformation(extent={{200,-20},{240,
+      20}}), iconTransformation(extent={{100,20},{120,40}})));
+  Modelica.Blocks.Interfaces.RealOutput PPum(final quantity="Power", unit="W")
+    "Pump power"
+    annotation (Placement(transformation(extent={{200,-160},{240,-120}}),
+      iconTransformation(extent={{100,-40},{120,-20}})));
   // COMPONENTS
   Fluid.Chillers.ElectricEIR chi(
     redeclare final package Medium1 = Medium,
@@ -106,20 +114,18 @@ model Chiller "Base subsystem with heat recovery chiller"
     final per=dat)
     "Water cooled chiller (ports indexed 1 are on condenser side)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Fluid.Movers.SpeedControlled_y pumCon(
+  Pump_m_flow pumCon(
     redeclare final package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    final addPowerToMedium=false,
-    per(pressure(dp={dpCon_nominal,0}, V_flow={0,dat.mCon_flow_nominal/1000})),
-    final allowFlowReversal=allowFlowReversal)
+    final allowFlowReversal=allowFlowReversal,
+    final m_flow_nominal=dat.mCon_flow_nominal,
+    final dp_nominal=dpCon_nominal + dpValCon_nominal)
     "Condenser pump"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
-  Buildings.Fluid.Movers.SpeedControlled_y pumEva(
+  Pump_m_flow pumEva(
     redeclare final package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    final addPowerToMedium=false,
-    per(pressure(dp={dpEva_nominal,0}, V_flow={0,dat.mEva_flow_nominal/1000})),
-    final allowFlowReversal=allowFlowReversal)
+    final allowFlowReversal=allowFlowReversal,
+    final m_flow_nominal=dat.mEva_flow_nominal,
+    final dp_nominal=dpEva_nominal + dpValEva_nominal)
     "Evaporator pump"
     annotation (Placement(transformation(
       extent={{10,-10},{-10,10}},
@@ -210,14 +216,18 @@ model Chiller "Base subsystem with heat recovery chiller"
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     "Constant speed primary pumps control signal"
     annotation (Placement(transformation(extent={{-60,170},{-80,190}})));
-  Modelica.Blocks.Interfaces.RealOutput PChi(final quantity="Power", unit="W")
-    "Chiller power" annotation (Placement(transformation(extent={{200,-20},{240,
-            20}}), iconTransformation(extent={{100,20},{120,40}})));
-  Modelica.Blocks.Interfaces.RealOutput PPum(final quantity="Power", unit="W")
-    "Pump power" annotation (Placement(transformation(extent={{200,-160},{240,-120}}),
-        iconTransformation(extent={{100,-40},{120,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2
     annotation (Placement(transformation(extent={{160,-150},{180,-130}})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai1(final k=dat.mCon_flow_nominal)
+    "Scale to nominal mass flow rate"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={-100,114})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai2(final k=dat.mEva_flow_nominal)
+    "Scale to nominal mass flow rate"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-100,-22})));
 protected
   final parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(
     T=Medium.T_default,
@@ -238,8 +248,8 @@ equation
           -80},{120,-80},{120,-70}}, color={0,127,255}));
   connect(con.yValEva, valEva.y) annotation (Line(points={{-48,136},{-32,136},{
           -32,120},{160,120},{160,-40},{120,-40},{120,-48}}, color={0,0,127}));
-  connect(con.yValCon, valCon.y) annotation (Line(points={{-48,132},{-44,132},{
-          -44,120},{-160,120},{-160,40},{-140,40},{-140,48}}, color={0,0,127}));
+  connect(con.yValCon, valCon.y) annotation (Line(points={{-48,132},{-44,132},{-44,
+          90},{-160,90},{-160,40},{-140,40},{-140,48}},       color={0,0,127}));
   connect(con.yChi, chi.on) annotation (Line(points={{-48,148},{-36,148},{-36,3},
           {-12,3}}, color={255,0,255}));
   connect(con.TChiWatSupSet, chi.TSet) annotation (Line(points={{-48,144},{-40,144},
@@ -250,10 +260,6 @@ equation
           {-72,146}},  color={255,0,255}));
   connect(TChiWatSupSet,con.TChiWatSupPreSet)  annotation (Line(points={{-220,90},
           {-186,90},{-186,142},{-72,142}},   color={0,0,127}));
-  connect(booToRea.y, pumCon.y) annotation (Line(points={{-82,180},{-100,180},
-          {-100,72}},  color={0,0,127}));
-  connect(booToRea.y, pumEva.y) annotation (Line(points={{-82,180},{-120,180},
-          {-120,0},{-100,0},{-100,-48}},  color={0,0,127}));
   connect(senTConEnt.T, con.TConWatEnt) annotation (Line(points={{-31,40},{-78,40},
           {-78,136},{-72,136}},              color={0,0,127}));
   connect(senTEvaEnt.T, con.TEvaWatEnt) annotation (Line(points={{9,-40},{-80,-40},
@@ -298,6 +304,14 @@ equation
           {158,-134}}, color={0,0,127}));
   connect(con.yChi, booToRea.u) annotation (Line(points={{-48,148},{-40,148},{-40,
           180},{-58,180}}, color={255,0,255}));
+  connect(booToRea.y, gai2.u) annotation (Line(points={{-82,180},{-120,180},{-120,
+          0},{-100,0},{-100,-10}}, color={0,0,127}));
+  connect(gai2.y, pumEva.m_flow_in)
+    annotation (Line(points={{-100,-34},{-100,-48}}, color={0,0,127}));
+  connect(gai1.y, pumCon.m_flow_in)
+    annotation (Line(points={{-100,102},{-100,72}}, color={0,0,127}));
+  connect(booToRea.y, gai1.u) annotation (Line(points={{-82,180},{-100,180},{-100,
+          126}}, color={0,0,127}));
 annotation (
   defaultComponentName="chi",
   Documentation(info="<html>

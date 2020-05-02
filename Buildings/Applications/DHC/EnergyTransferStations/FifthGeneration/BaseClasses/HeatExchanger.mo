@@ -100,7 +100,7 @@ model HeatExchanger "Base subsystem with district heat exchanger"
       extent={{10,10},{-10,-10}},
       rotation=180,
       origin={0,0})));
-  Fluid.Movers.FlowControlled_m_flow pum2Hex(
+  Pump_m_flow                        pum2Hex(
     redeclare final package Medium = Medium2,
     final m_flow_nominal=m2_flow_nominal,
     final dp_nominal=dp2Hex_nominal,

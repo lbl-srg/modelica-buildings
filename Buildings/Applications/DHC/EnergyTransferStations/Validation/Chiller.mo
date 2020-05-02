@@ -43,7 +43,7 @@ model Chiller
       transformation(
       extent={{-10,-10},{10,10}},
       rotation=-90,
-      origin={160,0})));
+      origin={140,0})));
   Fluid.Sources.Boundary_pT heaWat(
     redeclare package Medium = Medium,
     use_T_in=true,
@@ -52,7 +52,7 @@ model Chiller
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-170,0})));
+        origin={-150,0})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatSupSet(
     k=7 + 273.15,
     y(final unit="K", displayUnit="degC"))
@@ -111,7 +111,7 @@ model Chiller
     annotation (Placement(transformation(extent={{-212,-10},{-192,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp dTHeaWatRet(
     y(final unit="K", displayUnit="degC"),
-    height=-20,
+    height=14,
     duration=500,
     startTime=4500) "Heating water return additional deltaT"
     annotation (Placement(transformation(extent={{-260,10},{-240,30}})));
@@ -144,7 +144,7 @@ model Chiller
       transformation(
       extent={{-10,-10},{10,10}},
       rotation=0,
-      origin={-170,-140})));
+      origin={-150,-140})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TDisWatSup(
     k=10 + 273.15,
     y(final unit="K", displayUnit="degC"))
@@ -171,11 +171,11 @@ model Chiller
     annotation (Placement(transformation(extent={{20,110},{40,130}})));
 equation
   connect(senTHeaWatSup.port_b,heaWat. ports[1]) annotation (Line(points={{-90,40},
-          {-160,40},{-160,2}},         color={0,127,255}));
-  connect(heaWat.ports[2], senTHeaWatRet.port_a) annotation (Line(points={{-160,-2},
-          {-160,-40},{-90,-40}},      color={0,127,255}));
+          {-140,40},{-140,2}},         color={0,127,255}));
+  connect(heaWat.ports[2], senTHeaWatRet.port_a) annotation (Line(points={{-140,-2},
+          {-140,-40},{-90,-40}},      color={0,127,255}));
   connect(mulSum.y,chiWat. T_in) annotation (Line(points={{188,0},{186,0},{186,
-          4},{172,4}},         color={0,0,127}));
+          4},{152,4}},         color={0,0,127}));
   connect(dTChiWatRet.y, mulSum.u[1]) annotation (Line(points={{238,20},{220,20},
           {220,1},{212,1}},          color={0,0,127}));
   connect(TChiWatRet.y, mulSum.u[2]) annotation (Line(points={{238,-20},{220,-20},
@@ -183,8 +183,8 @@ equation
   connect(THeaWatRet.y, mulSum1.u[1]) annotation (Line(points={{-238,-20},{-220,
           -20},{-220,1},{-214,1}},
                             color={0,0,127}));
-  connect(mulSum1.y,heaWat. T_in) annotation (Line(points={{-190,0},{-188,0},{-188,
-          4},{-182,4}},           color={0,0,127}));
+  connect(mulSum1.y,heaWat. T_in) annotation (Line(points={{-190,0},{-188,0},{
+          -188,4},{-162,4}},      color={0,0,127}));
   connect(dTHeaWatRet.y, mulSum1.u[2]) annotation (Line(points={{-238,20},{-220,
           20},{-220,-1},{-214,-1}},         color={0,0,127}));
   connect(senTHeaWatRet.port_b, ets.ports_aHeaWat[1]) annotation (Line(points={{
@@ -197,13 +197,13 @@ equation
           {-52,100},{-52,-70},{-34,-70}},color={0,0,127}));
   connect(THeaWatSupSet.y, ets.THeaWatSupSet) annotation (Line(points={{-138,140},
           {-48,140},{-48,-54},{-34,-54}}, color={0,0,127}));
-  connect(disWat.ports[1], ets.port_aDis) annotation (Line(points={{-160,-138},
-          {-160,-80},{-30,-80}},color={0,127,255}));
+  connect(disWat.ports[1], ets.port_aDis) annotation (Line(points={{-140,-138},
+          {-140,-80},{-30,-80}},color={0,127,255}));
   connect(ets.port_bDis, disWat.ports[2]) annotation (Line(points={{30,-80},{
-          160,-80},{160,-180},{-160,-180},{-160,-142}},
+          140,-80},{140,-178},{-140,-178},{-140,-142}},
                                                     color={0,127,255}));
   connect(TDisWatSup.y, disWat.T_in) annotation (Line(points={{-238,-140},{-192,
-          -140},{-192,-136},{-182,-136}}, color={0,0,127}));
+          -140},{-192,-136},{-162,-136}}, color={0,0,127}));
   connect(pumChiWat.port_a, senTChiWatSup.port_b)
     annotation (Line(points={{100,40},{80,40}}, color={0,127,255}));
   connect(gai2.y, pumChiWat.m_flow_in)
@@ -219,13 +219,15 @@ equation
   connect(yPum.y, gai2.u) annotation (Line(points={{42,120},{60,120},{60,80},{88,
           80}}, color={0,0,127}));
   connect(pumChiWat.port_b, chiWat.port_a)
-    annotation (Line(points={{120,40},{160,40},{160,10}}, color={0,127,255}));
-  connect(chiWat.port_b, senTChiWatRet.port_a) annotation (Line(points={{160,
-          -10},{160,-40},{80,-40}}, color={0,127,255}));
+    annotation (Line(points={{120,40},{140,40},{140,10}}, color={0,127,255}));
+  connect(chiWat.port_b, senTChiWatRet.port_a) annotation (Line(points={{140,-10},
+          {140,-40},{80,-40}},      color={0,127,255}));
   annotation (Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-280,-220},{280,220}})),
   __Dymola_Commands(file=
     "Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Validation/Chiller.mos"
-    "Simulate and plot"),
-    experiment(StopTime=5000, __Dymola_Algorithm="Dassl"));
+    "Simulate and plot", file=
+          "Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Validation/Chiller.mos"
+        "Simulate and plot"),
+    experiment(StopTime=10000, __Dymola_Algorithm="Dassl"));
 end Chiller;
