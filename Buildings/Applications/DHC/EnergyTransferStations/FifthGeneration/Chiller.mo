@@ -29,33 +29,31 @@ model Chiller
     annotation(Evaluate=true);
 
   parameter Modelica.SIunits.PressureDifference dp1Hex_nominal(displayUnit="Pa")
-    "Nominal pressure drop on primary side of heat exchanger"
+    "Nominal pressure drop across heat exchanger on district side"
     annotation (Dialog(group="District heat exchanger"));
   parameter Modelica.SIunits.PressureDifference dp2Hex_nominal(displayUnit="Pa")
-    "Nominal pressure drop on secondary side of heat exchanger"
+    "Nominal pressure drop across heat exchanger on building side"
     annotation (Dialog(group="District heat exchanger"));
   parameter Modelica.SIunits.HeatFlowRate QHex_flow_nominal
     "Nominal heat flow rate through heat exchanger (from district to building)"
     annotation (Dialog(group="District heat exchanger"));
   parameter Modelica.SIunits.Temperature T_a1Hex_nominal
-    "Nominal water inlet temperature on district side of heat exchanger"
+    "Nominal water inlet temperature on district side"
     annotation (Dialog(group="District heat exchanger"));
   parameter Modelica.SIunits.Temperature T_b1Hex_nominal
-    "Nominal water outlet temperature on district side of heat exchanger"
+    "Nominal water outlet temperature on district side"
     annotation (Dialog(group="District heat exchanger"));
   parameter Modelica.SIunits.Temperature T_a2Hex_nominal
-    "Nominal water inlet temperature on building side of heat exchanger"
+    "Nominal water inlet temperature on building side"
     annotation (Dialog(group="District heat exchanger"));
   parameter Modelica.SIunits.Temperature T_b2Hex_nominal
-    "Nominal water outlet temperature on building side of heat exchanger"
+    "Nominal water outlet temperature on building side"
     annotation (Dialog(group="District heat exchanger"));
-  final parameter Modelica.SIunits.MassFlowRate m1Hex_flow_nominal=
-    hex.m1_flow_nominal
-    "Nominal mass flow rate on primary side of heat exchanger"
+  final parameter Modelica.SIunits.MassFlowRate m1Hex_flow_nominal=int.m1_flow_nominal
+    "Nominal mass flow rate on district side"
     annotation (Dialog(group="District heat exchanger"));
-  final parameter Modelica.SIunits.MassFlowRate m2Hex_flow_nominal=
-    hex.m2_flow_nominal
-    "Nominal mass flow rate on secondary side of heat exchanger"
+  final parameter Modelica.SIunits.MassFlowRate m2Hex_flow_nominal=int.m2_flow_nominal
+    "Nominal mass flow rate on building side"
     annotation (Dialog(group="District heat exchanger"));
 
   parameter Modelica.Fluid.Types.Dynamics fixedEnergyDynamics=
@@ -146,7 +144,7 @@ model Chiller
     final dat=datChi)
     "Base subsystem with heat recovery chiller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  BaseClasses.HeatExchanger hex(
+  BaseClasses.HeatExchanger int(
     redeclare final package Medium1 = MediumDis,
     redeclare final package Medium2 = MediumBui,
     final allowFlowReversal1=allowFlowReversalDis,
@@ -159,7 +157,7 @@ model Chiller
     final T_b1Hex_nominal=T_b1Hex_nominal,
     final T_a2Hex_nominal=T_a2Hex_nominal,
     final T_b2Hex_nominal=T_b2Hex_nominal)
-    "Base subsystem with district heat exchanger"
+    "Base subsystem for interconnection with district system"
     annotation (Placement(transformation(extent={{-10,-244},{10,-264}})));
 
   BaseClasses.StratifiedTank tanChiWat(
@@ -220,7 +218,7 @@ model Chiller
     "Total pump power"
     annotation (Placement(transformation(extent={{262,-70},{282,-50}})));
 equation
-  connect(hex.PPum, totPPum.u[2]) annotation (Line(
+  connect(int.PPum, totPPum.u[2]) annotation (Line(
       points={{11,-254},{40,-254},{40,-62},{260,-62},{260,-61}},
       color={0,0,127},
       pattern=LinePattern.Dot));
@@ -240,9 +238,9 @@ equation
   connect(conSup.yIsoCon, valIsoCon.y) annotation (Line(points={{-238,46},{-194,
           46},{-194,-76},{-80,-76},{-80,-88}}, color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(port_aDis, hex.port_a1) annotation (Line(points={{-300,-260},{-10,-260}},
+  connect(port_aDis,int. port_a1) annotation (Line(points={{-300,-260},{-10,-260}},
                   color={0,127,255}));
-  connect(hex.port_b1, port_bDis) annotation (Line(points={{10,-260},{300,-260}},
+  connect(int.port_b1, port_bDis) annotation (Line(points={{10,-260},{300,-260}},
                                                               color={0,127,255}));
   connect(conSup.yHea, chi.uHea) annotation (Line(points={{-238,58},{-20,58},{
           -20,3},{-12,3}},
@@ -258,10 +256,10 @@ equation
   connect(TChiWatSupSet, chi.TChiWatSupSet) annotation (Line(points={{-320,-20},
           {-28,-20},{-28,-3},{-12,-3}}, color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(conSup.yHeaRej, hex.uHeaRej) annotation (Line(points={{-238,52},{-186,
+  connect(conSup.yHeaRej,int. uHeaRej) annotation (Line(points={{-238,52},{-186,
           52},{-186,-257},{-12,-257}}, color={255,0,255},
       pattern=LinePattern.Dash));
-  connect(conSup.yColRej, hex.uColRej) annotation (Line(points={{-238,49},{-190,
+  connect(conSup.yColRej,int. uColRej) annotation (Line(points={{-238,49},{-190,
           49},{-190,-254},{-12,-254}}, color={255,0,255},
       pattern=LinePattern.Dash));
   connect(ports_aHeaWat[1], tanHeaWat.port_aBot) annotation (Line(points={{-300,
@@ -282,7 +280,7 @@ equation
   connect(tanChiWat.TBot, conSup.TChiWatBot) annotation (Line(points={{221,97},{
           240,97},{240,78},{-270,78},{-270,43},{-262,43}},   color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(hex.port_b2, colAmbWat.ports_aCon[1]) annotation (Line(points={{-10,-248},
+  connect(int.port_b2, colAmbWat.ports_aCon[1]) annotation (Line(points={{-10,-248},
           {-20,-248},{-20,-140},{12,-140},{12,-116}}, color={0,127,255}));
   connect(chi.port_bChiWat, colChiWat.port_aDisSup) annotation (Line(points={{10,6},{
           60,6},{60,1.77636e-15},{88,1.77636e-15}},
@@ -318,7 +316,7 @@ equation
           {-80,6},{-80,-6},{-10,-6}},     color={0,127,255}));
   connect(tanHeaWat.port_bBot, colHeaWat.port_aDisRet) annotation (Line(points={{-200,
           100},{-160,100},{-160,6},{-128,6}},         color={0,127,255}));
-  connect(hex.port_a2, colAmbWat.ports_bCon[1]) annotation (Line(points={{10,-248},
+  connect(int.port_a2, colAmbWat.ports_bCon[1]) annotation (Line(points={{10,-248},
           {20,-248},{20,-130},{-12,-130},{-12,-116}}, color={0,127,255}));
   connect(tanChiWat.port_bBot, ports_bChiWat[1]) annotation (Line(points={{220,100},
           {290,100},{290,200},{300,200}}, color={0,127,255}));
@@ -330,11 +328,11 @@ equation
       points={{11,3},{20,3},{20,20},{320,20}},
       color={0,0,127},
       pattern=LinePattern.Dot));
-  connect(hex.yValIso[1], valIsoCon.y_actual) annotation (Line(
+  connect(int.yValIso[1], valIsoCon.y_actual) annotation (Line(
       points={{-12,-250},{-60,-250},{-60,-93},{-75,-93}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(hex.yValIso[2], valIsoEva.y_actual) annotation (Line(
+  connect(int.yValIso[2], valIsoEva.y_actual) annotation (Line(
       points={{-12,-252},{-16,-252},{-16,-240},{60,-240},{60,-93},{75,-93}},
       color={0,0,127},
       pattern=LinePattern.Dash));

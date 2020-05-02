@@ -248,9 +248,9 @@ equation
   connect(TChiWatSupSet, chi.TChiWatSupSet) annotation (Line(points={{-320,-20},
           {-40,-20},{-40,31},{-10,31}},   color={0,0,127}));
   connect(conSup.yColRej, hex.uColRej) annotation (Line(points={{-238,49},{-188,
-          49},{-188,-264},{-10,-264}}, color={255,0,255}));
+          49},{-188,-266},{-10,-266}}, color={255,0,255}));
   connect(conSup.yHeaRej, hex.uHeaRej) annotation (Line(points={{-238,52},{-186,
-          52},{-186,-268},{-10,-268}}, color={255,0,255}));
+          52},{-186,-269},{-10,-269}}, color={255,0,255}));
   connect(manChiWatSup.port_2, tanChiWat.port_aBot) annotation (Line(points={{130,40},
           {160,40},{160,200},{200,200}},     color={0,127,255}));
   connect(ports_aHeaWat[1], tanHeaWat.port_aBot) annotation (Line(points={{-300,

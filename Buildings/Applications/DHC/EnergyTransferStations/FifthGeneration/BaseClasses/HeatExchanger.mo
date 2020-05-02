@@ -1,5 +1,6 @@
 within Buildings.Applications.DHC.EnergyTransferStations.FifthGeneration.BaseClasses;
-model HeatExchanger "Base subsystem with district heat exchanger"
+model HeatExchanger
+  "Base subsystem for interconnection with district system based on intermediary heat exchanger"
   extends Fluid.Interfaces.PartialFourPortInterface(
     final m1_flow_nominal=abs(QHex_flow_nominal / cp1_default /
                               (T_b1Hex_nominal - T_a1Hex_nominal)),
@@ -9,29 +10,29 @@ model HeatExchanger "Base subsystem with district heat exchanger"
     "Set to true in case of control valve on district side, false in case of a pump"
     annotation(Evaluate=true);
   parameter Modelica.SIunits.PressureDifference dp1Hex_nominal(displayUnit="Pa")
-    "Nominal pressure drop on primary side of heat exchanger"
+    "Nominal pressure drop across heat exchanger on district side"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.PressureDifference dp2Hex_nominal(displayUnit="Pa")
-    "Nominal pressure drop on secondary side of heat exchanger"
+    "Nominal pressure drop across heat exchanger on building side"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.PressureDifference dpVal1Hex_nominal(displayUnit="Pa")=
     dp1Hex_nominal / 4
     "Nominal pressure drop of primary control valve"
     annotation(Dialog(enable=have_val1Hex, group="Nominal condition"));
   parameter Modelica.SIunits.HeatFlowRate QHex_flow_nominal
-    "Nominal heat flow rate through heat exchanger (from district to building)"
+    "Nominal heat flow rate (from district to building)"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Temperature T_a1Hex_nominal
-    "Nominal water inlet temperature on district side of heat exchanger"
+    "Nominal water inlet temperature on district side"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Temperature T_b1Hex_nominal
-    "Nominal water outlet temperature on district side of heat exchanger"
+    "Nominal water outlet temperature on district side"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Temperature T_a2Hex_nominal
-    "Nominal water inlet temperature on building side of heat exchanger"
+    "Nominal water inlet temperature on building side"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Temperature T_b2Hex_nominal
-    "Nominal water outlet temperature on building side of heat exchanger"
+    "Nominal water outlet temperature on building side"
     annotation (Dialog(group="Nominal condition"));
   parameter Real spePum1HexMin(final unit="1") = 0.1
     "Heat exchanger primary pump minimum speed (fractional)"
@@ -44,11 +45,11 @@ model HeatExchanger "Base subsystem with district heat exchanger"
     annotation (Dialog(group="Controls"));
   final parameter Modelica.SIunits.TemperatureDifference dT1HexSet=
     T_b1Hex_nominal - T_a1Hex_nominal
-    "Heat exchanger primary side deltaT"
+    "Nominal deltaT on district side"
     annotation (Dialog(group="Controls"));
   final parameter Modelica.SIunits.TemperatureDifference dT2HexSet=
     T_b2Hex_nominal - T_a2Hex_nominal
-    "Heat exchanger secondary side deltaT"
+    "Nominal deltaT on secondary side"
     annotation (Dialog(group="Controls"));
   parameter Real k(final unit="1/K") = 0.1
     "Gain of controller"
