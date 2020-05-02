@@ -225,8 +225,6 @@ equation
   annotation (Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-280,-220},{280,220}})),
   __Dymola_Commands(file=
-    "Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Validation/Chiller.mos"
-    "Simulate and plot", file=
           "Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Validation/Chiller.mos"
         "Simulate and plot"),
     experiment(StopTime=10000, __Dymola_Algorithm="Dassl"));
