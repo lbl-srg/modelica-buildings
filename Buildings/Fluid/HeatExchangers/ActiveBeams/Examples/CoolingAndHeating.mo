@@ -148,8 +148,8 @@ equation
 This example tests the implementation of
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating\">
 Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating</a>
-for both heating and cooling mode. An air volume is maintained at a temperature between <i>22&circ;</i>C and
-<i>25&circ;</i>C by two controllers that regulate the water flow rate in the active beam.
+for both heating and cooling mode. An air volume is maintained at a temperature between <i>22&deg;</i>C and
+<i>25&deg;</i>C by two controllers that regulate the water flow rate in the active beam.
 </p>
 </html>", revisions="<html>
 <ul>

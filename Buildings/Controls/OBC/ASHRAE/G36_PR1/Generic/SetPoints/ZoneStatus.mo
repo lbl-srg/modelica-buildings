@@ -330,6 +330,7 @@ annotation (
           pattern=LinePattern.Dash,
           textString="TZonHeaSetUno"),
         Text(
+          visible=have_winSen,
           extent={{-98,56},{-60,46}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,

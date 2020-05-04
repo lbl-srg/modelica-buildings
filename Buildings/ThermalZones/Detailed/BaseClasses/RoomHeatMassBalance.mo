@@ -6,6 +6,9 @@ partial model RoomHeatMassBalance "Base model for a room"
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choicesAllMatching = true);
 
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
+
   parameter Integer nPorts=0 "Number of ports" annotation (Evaluate=true,
       Dialog(
       connectorSizing=true,
@@ -110,8 +113,6 @@ partial model RoomHeatMassBalance "Base model for a room"
           Buildings.HeatTransfer.Types.ExteriorConvection.Fixed)));
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0) = V*1.2/3600
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
   parameter Boolean sampleModel = false
     "Set to true to time-sample the model, which can give shorter simulation time if there is already time sampling in the system model"
     annotation (Evaluate=true, Dialog(tab="Experimental (may be changed in future releases)"));
@@ -364,6 +365,12 @@ protected
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TSha[NConExtWin] if
        haveShade "Temperature of shading device"
     annotation (Placement(transformation(extent={{-20,-78},{-40,-58}})));
+
+initial equation
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
+
 equation
   connect(conBou.opa_a, surf_conBou) annotation (Line(
       points={{282,-122.667},{282,-122},{288,-122},{288,-216},{-240,-216},{-240,
@@ -866,6 +873,12 @@ for detailed explanations.
 </p>
 </html>",   revisions="<html>
 <ul>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
+</li>
 <li>
 November 21, 2016, by Thierry S. Nouidui:<br/>
 Removed <code>for loop</code> to avoid translation error
