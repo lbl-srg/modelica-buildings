@@ -2,7 +2,8 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.Validation;
 model ZoneStatus
   "Validate block for checking temperatures in the zone"
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneStatus noWinZonSta
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneStatus noWinZonSta(
+      have_winSen=false)
     "Status of zone when there is no window operation sensor"
     annotation (Placement(transformation(extent={{120,120},{140,140}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneStatus

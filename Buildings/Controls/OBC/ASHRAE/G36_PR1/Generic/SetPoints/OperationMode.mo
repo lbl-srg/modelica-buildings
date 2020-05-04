@@ -38,12 +38,12 @@ block OperationMode "Block that outputs the operation mode"
     final quantity="Time") "Maximum warm-up time among all the zones"
     annotation (Placement(transformation(extent={{-300,130},{-260,170}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput occHeaHigMin
-    "True when the occupied heating setpoint temperature is higher than the minimum zone temperature"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOccHeaHig
+    "True when the occupied heating setpoint temperature is higher than the zone temperature"
     annotation (Placement(transformation(extent={{-300,90},{-260,130}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput maxHigOccCoo
-    "True when the maximum zone temperature is higher than the occupied cooling setpoint"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHigOccCoo
+    "True when the zone temperature is higher than the occupied cooling setpoint"
     annotation (Placement(transformation(extent={{-300,60},{-260,100}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWinSta if have_winSen
@@ -95,9 +95,9 @@ protected
     "Index to indicate unoccupied period"
     annotation (Placement(transformation(extent={{100,250},{120,270}})));
   Buildings.Controls.OBC.CDL.Logical.Switch corCooDowTim "Corrected cool down period"
-    annotation (Placement(transformation(extent={{-20,200},{0,220}})));
+    annotation (Placement(transformation(extent={{-104,200},{-84,220}})));
   Buildings.Controls.OBC.CDL.Logical.Switch corWarUpTim "Corrected warm-up period"
-    annotation (Placement(transformation(extent={{-20,160},{0,180}})));
+    annotation (Placement(transformation(extent={{-104,130},{-84,150}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(
     final threshold=4) "Check if the number of cold zones is not less than than 5"
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
@@ -125,33 +125,33 @@ protected
     final uHigh=0,
     final uLow=-60)
     "Hysteresis that outputs if the maximum cool-down time is more than the allowed cool-down time"
-    annotation (Placement(transformation(extent={{-100,200},{-80,220}})));
+    annotation (Placement(transformation(extent={{-146,200},{-126,220}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys3(
     final pre_y_start=true,
     final uHigh=0,
     final uLow=-60)
     "Hysteresis that outputs if the maximum warm-up time is more than allowed warm-up time"
-    annotation (Placement(transformation(extent={{-100,160},{-80,180}})));
+    annotation (Placement(transformation(extent={{-146,130},{-126,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add5(
     final k1=-1)
     "Calculate differential between time-to-next-occupancy and the cool-down time"
-    annotation (Placement(transformation(extent={{40,210},{60,230}})));
+    annotation (Placement(transformation(extent={{-56,210},{-36,230}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys4(
     final pre_y_start=false,
     final uHigh=0,
     final uLow=-60)
     "Hysteresis to activate the cool-down model"
-    annotation (Placement(transformation(extent={{80,210},{100,230}})));
+    annotation (Placement(transformation(extent={{-22,210},{-2,230}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys5(
     final pre_y_start=false,
     final uHigh=0,
     final uLow=-60)
     "Hysteresis to activate the warm-up model"
-    annotation (Placement(transformation(extent={{80,170},{100,190}})));
+    annotation (Placement(transformation(extent={{-22,140},{-2,160}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add6(
     final k1=-1)
     "Calculate differential between time-to-next-occupancy and the warm-up time"
-    annotation (Placement(transformation(extent={{40,170},{60,190}})));
+    annotation (Placement(transformation(extent={{-56,140},{-36,160}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys9(
     final pre_y_start=false,
     final uLow=-0.1,
@@ -178,22 +178,16 @@ protected
     final p=preWarCooTim,
     final k=-1)
     "Calculate the differential between maximum cool down time and the allowed maximum cool down time"
-    annotation (Placement(transformation(extent={{-140,200},{-120,220}})));
+    annotation (Placement(transformation(extent={{-178,200},{-158,220}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar3(
     final p=preWarCooTim,
     final k=-1)
     "Calculate the differential between maximum warm-up time and the allowed maximum warm-up time"
-    annotation (Placement(transformation(extent={{-140,160},{-120,180}})));
+    annotation (Placement(transformation(extent={{-178,130},{-158,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxWarCooTime(
     final k=preWarCooTim)
     "Allowed maximum warm-up or cool-down time"
-    annotation (Placement(transformation(extent={{-200,180},{-180,200}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch lat3
-    "Hold true when it should be in warm-up mode"
-    annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch lat4
-    "Hold true when it should be in cool-down mode"
-    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
+    annotation (Placement(transformation(extent={{-214,180},{-194,200}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr2(
     final threshold=4) "Check if the number of hot zones is not less than than 5"
     annotation (Placement(transformation(extent={{-180,-220},{-160,-200}})));
@@ -201,9 +195,9 @@ protected
     final threshold=numZon - 1) "Check if all zones are hot zone"
     annotation (Placement(transformation(extent={{-180,-250},{-160,-230}})));
   Buildings.Controls.OBC.CDL.Integers.Add addInt "Sum of two integer inputs"
-    annotation (Placement(transformation(extent={{300,190},{320,210}})));
+    annotation (Placement(transformation(extent={{340,240},{360,260}})));
   Buildings.Controls.OBC.CDL.Integers.Add addInt1 "Sum of two integer inputs"
-    annotation (Placement(transformation(extent={{360,240},{380,260}})));
+    annotation (Placement(transformation(extent={{376,264},{396,284}})));
   Buildings.Controls.OBC.CDL.Integers.Add addInt2 "Sum of two integer inputs"
     annotation (Placement(transformation(extent={{240,-90},{260,-70}})));
   Buildings.Controls.OBC.CDL.Integers.Add addInt3 "Sum of two integer inputs"
@@ -224,14 +218,26 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger setUpMod
     "Convert Real number to Integer number"
     annotation (Placement(transformation(extent={{200,-220},{220,-200}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1(
-    final integerTrue=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.warmUp)
+  Buildings.Controls.OBC.CDL.Logical.Edge edg
+    "Get the moment when the cool down time starts "
+    annotation (Placement(transformation(extent={{14,210},{34,230}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(trueHoldDuration=preWarCooTim)
+    "Hold the start time true signal"
+    annotation (Placement(transformation(extent={{82,210},{102,230}})));
+  Buildings.Controls.OBC.CDL.Logical.Edge edg1
+    "Get the moment when warm up time starts"
+    annotation (Placement(transformation(extent={{14,140},{34,160}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol1(trueHoldDuration=preWarCooTim)
+    "Hold the start time true signal"
+    annotation (Placement(transformation(extent={{82,140},{102,160}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1(realTrue=
+        Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.warmUp)
     "Convert Boolean to Integer number"
-    annotation (Placement(transformation(extent={{260,170},{280,190}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt(
-    final integerTrue=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.coolDown)
+    annotation (Placement(transformation(extent={{180,140},{200,160}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(realTrue=
+        Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.coolDown)
     "Convert Boolean to Integer number"
-    annotation (Placement(transformation(extent={{260,210},{280,230}})));
+    annotation (Placement(transformation(extent={{178,210},{198,230}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt3(
     final integerTrue=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.unoccupied)
     "Convert Boolean to Integer "
@@ -254,10 +260,10 @@ protected
     annotation (Placement(transformation(extent={{100,-160},{120,-140}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
    annotation (Placement(transformation(extent={{180,-340},{200,-320}})));
-  Buildings.Controls.OBC.CDL.Logical.And and1 "Check if the warm-up time should be activated"
-    annotation (Placement(transformation(extent={{200,170},{220,190}})));
+  Buildings.Controls.OBC.CDL.Logical.And and1 "Warm-up period"
+    annotation (Placement(transformation(extent={{122,140},{142,160}})));
   Buildings.Controls.OBC.CDL.Logical.And and2 "Check if the cool-down time should be activated"
-    annotation (Placement(transformation(extent={{200,210},{220,230}})));
+    annotation (Placement(transformation(extent={{48,210},{68,230}})));
   Buildings.Controls.OBC.CDL.Logical.Or or1
     "Check if the number of cold zone is more than 5 or all zones are cold"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
@@ -285,10 +291,6 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch swi5
     "If the Cool-down, warm-up, or Occupied mode is on, then setup mode should not be activated."
     annotation (Placement(transformation(extent={{160,-220},{180,-200}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not3 "Logical not"
-    annotation (Placement(transformation(extent={{120,190},{140,210}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not4 "Logical not"
-    annotation (Placement(transformation(extent={{120,150},{140,170}})));
   Buildings.Controls.OBC.CDL.Logical.Not not5 "Logical not"
     annotation (Placement(transformation(extent={{60,-160},{80,-140}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold notOcc(
@@ -306,6 +308,22 @@ protected
     "Generate alarm message when window open during modes other than occupied mode"
     annotation (Placement(transformation(extent={{340,40},{360,60}})));
 
+  Buildings.Controls.OBC.CDL.Logical.Switch swi1
+    "If occupied mode is on, then cool down mode should not be activated"
+    annotation (Placement(transformation(extent={{250,212},{270,232}})));
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger setBacMod1
+    "Convert Real number to Integer number"
+    annotation (Placement(transformation(extent={{288,212},{308,232}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch swi2
+    "If occupied mode is on, then warm-up mode should not be activated."
+    annotation (Placement(transformation(extent={{252,142},{272,162}})));
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger setBacMod2
+    "Convert Real number to Integer number"
+    annotation (Placement(transformation(extent={{288,142},{308,162}})));
+  Buildings.Controls.OBC.CDL.Logical.And and4 "Cool-down period"
+    annotation (Placement(transformation(extent={{122,210},{142,230}})));
+  Buildings.Controls.OBC.CDL.Logical.And and5 "Check if the cool-down time should be activated"
+    annotation (Placement(transformation(extent={{48,140},{68,160}})));
 equation
   connect(swi.y, occMod.u)
     annotation (Line(points={{282,280},{298,280}},
@@ -388,16 +406,10 @@ equation
   connect(not2.y,booToInt3. u)
     annotation (Line(points={{202,-330},{218,-330}},
       color={255,0,255}));
-  connect(and2.y, booToInt.u)
-    annotation (Line(points={{222,220},{258,220}}, color={255,0,255}));
-  connect(and1.y, booToInt1.u)
-    annotation (Line(points={{222,180},{258,180}}, color={255,0,255}));
-  connect(and2.y, or3.u2)
-    annotation (Line(points={{222,220},{230,220},{230,100},{-20,100},{-20,30},{-2,
-          30}},
-      color={255,0,255}));
+  connect(and1.y,booToRea1. u)
+    annotation (Line(points={{144,150},{178,150}}, color={255,0,255}));
   connect(and1.y, or3.u1)
-    annotation (Line(points={{222,180},{240,180},{240,90},{-10,90},{-10,38},{-2,
+    annotation (Line(points={{144,150},{156,150},{156,64},{-20,64},{-20,38},{-2,
           38}},
       color={255,0,255}));
   connect(uOcc, swi.u2)
@@ -407,30 +419,25 @@ equation
     annotation (Line(points={{-280,330},{-220,330},{-220,22},{-2,22}},
       color={255,0,255}));
   connect(hys2.y, corCooDowTim.u2)
-    annotation (Line(points={{-78,210},{-22,210}},          color={255,0,255}));
+    annotation (Line(points={{-124,210},{-106,210}},        color={255,0,255}));
   connect(hys3.y, corWarUpTim.u2)
-    annotation (Line(points={{-78,170},{-22,170}},          color={255,0,255}));
+    annotation (Line(points={{-124,140},{-106,140}},        color={255,0,255}));
   connect(add5.y, hys4.u)
-    annotation (Line(points={{62,220},{78,220}},            color={0,0,127}));
-  connect(hys4.y, and2.u1)
-    annotation (Line(points={{102,220},{198,220}},
-      color={255,0,255}));
+    annotation (Line(points={{-34,220},{-24,220}},          color={0,0,127}));
   connect(tNexOcc, add5.u1)
-    annotation (Line(points={{-280,290},{20,290},{20,226},{38,226}},
+    annotation (Line(points={{-280,290},{-76,290},{-76,226},{-58,226}},
       color={0,0,127}));
   connect(corCooDowTim.y, add5.u2)
-    annotation (Line(points={{2,210},{30,210},{30,214},{38,214}},
+    annotation (Line(points={{-82,210},{-66,210},{-66,214},{-58,214}},
       color={0,0,127}));
   connect(tNexOcc, add6.u1)
-    annotation (Line(points={{-280,290},{20,290},{20,186},{38,186}},
+    annotation (Line(points={{-280,290},{-76,290},{-76,156},{-58,156}},
       color={0,0,127}));
   connect(corWarUpTim.y, add6.u2)
-    annotation (Line(points={{2,170},{20,170},{20,174},{38,174}},
+    annotation (Line(points={{-82,140},{-76,140},{-76,144},{-58,144}},
       color={0,0,127}));
   connect(add6.y, hys5.u)
-    annotation (Line(points={{62,180},{78,180}},            color={0,0,127}));
-  connect(hys5.y, and1.u1)
-    annotation (Line(points={{102,180},{198,180}}, color={255,0,255}));
+    annotation (Line(points={{-34,150},{-24,150}},          color={0,0,127}));
   connect(addPar.y, hys9.u)
     annotation (Line(points={{-158,-110},{-142,-110}},       color={0,0,127}));
   connect(hys9.y, lat1.u)
@@ -443,16 +450,16 @@ equation
     annotation (Line(points={{-118,-150},{-80,-150},{-80,-116},{-42,-116}},
       color={255,0,255}));
   connect(addPar2.y, hys2.u)
-    annotation (Line(points={{-118,210},{-102,210}},
+    annotation (Line(points={{-156,210},{-148,210}},
                                                    color={0,0,127}));
   connect(addPar3.y, hys3.u)
-    annotation (Line(points={{-118,170},{-102,170}},
+    annotation (Line(points={{-156,140},{-148,140}},
                                                    color={0,0,127}));
   connect(maxWarCooTime.y, corCooDowTim.u3)
-    annotation (Line(points={{-178,190},{-60,190},{-60,202},{-22,202}},
+    annotation (Line(points={{-192,190},{-120,190},{-120,202},{-106,202}},
       color={0,0,127}));
   connect(maxWarCooTime.y, corWarUpTim.u3)
-    annotation (Line(points={{-178,190},{-60,190},{-60,162},{-22,162}},
+    annotation (Line(points={{-192,190},{-120,190},{-120,132},{-106,132}},
       color={0,0,127}));
   connect(booToRea3.y, swi3.u3)
     annotation (Line(points={{82,-10},{100,-10},{100,-18},{158,-18}},
@@ -463,44 +470,22 @@ equation
   connect(booToRea6.y, swi5.u3)
     annotation (Line(points={{82,-210},{100,-210},{100,-218},{158,-218}},
       color={0,0,127}));
-  connect(lat3.y, and1.u2)
-    annotation (Line(points={{-78,110},{188,110},{188,172},{198,172}},
-      color={255,0,255}));
-  connect(lat4.y, and2.u2)
-    annotation (Line(points={{-78,80},{-30,80},{-30,120},{180,120},{180,212},{198,
-          212}},
-      color={255,0,255}));
-  connect(hys4.y, not3.u)
-    annotation (Line(points={{102,220},{110,220},{110,200},{118,200}},
-      color={255,0,255}));
-  connect(hys5.y, not4.u)
-    annotation (Line(points={{102,180},{110,180},{110,160},{118,160}},
-      color={255,0,255}));
-  connect(not4.y, lat3.clr)
-    annotation (Line(points={{142,160},{160,160},{160,140},{-140,140},{-140,104},
-          {-102,104}},
-                color={255,0,255}));
-  connect(not3.y, lat4.clr)
-    annotation (Line(points={{142,200},{170,200},{170,130},{-160,130},{-160,74},
-          {-102,74}},
-                color={255,0,255}));
   connect(lat1.y, not5.u)
     annotation (Line(points={{-18,-110},{0,-110},{0,-150},{58,-150}},
       color={255,0,255}));
   connect(not5.y, assMes.u)
     annotation (Line(points={{82,-150},{98,-150}},   color={255,0,255}));
-  connect(maxCooDowTim, addPar2.u) annotation (Line(points={{-280,230},{-160,230},
-          {-160,210},{-142,210}}, color={0,0,127}));
-  connect(maxCooDowTim, corCooDowTim.u1) annotation (Line(points={{-280,230},{-60,
-          230},{-60,218},{-22,218}}, color={0,0,127}));
-  connect(maxWarUpTim, addPar3.u) annotation (Line(points={{-280,150},{-160,150},
-          {-160,170},{-142,170}}, color={0,0,127}));
-  connect(maxWarUpTim, corWarUpTim.u1) annotation (Line(points={{-280,150},{-40,
-          150},{-40,178},{-22,178}}, color={0,0,127}));
-  connect(occHeaHigMin, lat3.u)
-    annotation (Line(points={{-280,110},{-102,110}}, color={255,0,255}));
-  connect(maxHigOccCoo, lat4.u)
-    annotation (Line(points={{-280,80},{-102,80}}, color={255,0,255}));
+  connect(maxCooDowTim, addPar2.u) annotation (Line(points={{-280,230},{-188,
+          230},{-188,210},{-180,210}},
+                                  color={0,0,127}));
+  connect(maxCooDowTim, corCooDowTim.u1) annotation (Line(points={{-280,230},{
+          -116,230},{-116,218},{-106,218}},
+                                     color={0,0,127}));
+  connect(maxWarUpTim, addPar3.u) annotation (Line(points={{-280,150},{-230,150},
+          {-230,140},{-180,140}}, color={0,0,127}));
+  connect(maxWarUpTim, corWarUpTim.u1) annotation (Line(points={{-280,150},{
+          -230,150},{-230,164},{-114,164},{-114,148},{-106,148}},
+                                     color={0,0,127}));
   connect(unoHeaHigMin, falEdg.u) annotation (Line(points={{-280,-70},{-120,-70},
           {-120,-50},{-102,-50}}, color={255,0,255}));
   connect(TZonMax, addPar.u)
@@ -522,14 +507,6 @@ equation
     annotation (Line(points={{-158,-210},{-102,-210}}, color={255,0,255}));
   connect(intGreThr3.y, or4.u2) annotation (Line(points={{-158,-240},{-120,-240},
           {-120,-218},{-102,-218}}, color={255,0,255}));
-  connect(booToInt.y, addInt.u1) annotation (Line(points={{282,220},{290,220},{290,
-          206},{298,206}}, color={255,127,0}));
-  connect(booToInt1.y, addInt.u2) annotation (Line(points={{282,180},{290,180},{
-          290,194},{298,194}}, color={255,127,0}));
-  connect(occMod.y, addInt1.u1) annotation (Line(points={{322,280},{340,280},{340,
-          256},{358,256}}, color={255,127,0}));
-  connect(addInt.y, addInt1.u2) annotation (Line(points={{322,200},{340,200},{340,
-          244},{358,244}}, color={255,127,0}));
   connect(setBacMod.y, addInt2.u1) annotation (Line(points={{222,-10},{230,-10},
           {230,-74},{238,-74}}, color={255,127,0}));
   connect(freProSetBacMod.y, addInt2.u2) annotation (Line(points={{222,-110},{230,
@@ -542,10 +519,6 @@ equation
           {310,-274},{318,-274}}, color={255,127,0}));
   connect(booToInt3.y, addInt4.u2) annotation (Line(points={{242,-330},{300,-330},
           {300,-286},{318,-286}}, color={255,127,0}));
-  connect(addInt1.y, addInt5.u1) annotation (Line(points={{382,250},{400,250},{400,
-          -14},{418,-14}}, color={255,127,0}));
-  connect(addInt4.y, addInt5.u2) annotation (Line(points={{342,-280},{400,-280},
-          {400,-26},{418,-26}}, color={255,127,0}));
   connect(addInt5.y, yOpeMod)
     annotation (Line(points={{442,-20},{480,-20}}, color={255,127,0}));
   connect(uWinSta, and3.u1)
@@ -559,6 +532,66 @@ equation
   connect(not1.y, winOpe.u)
     annotation (Line(points={{322,50},{338,50}}, color={255,0,255}));
 
+  connect(booToRea.y, swi1.u3) annotation (Line(points={{200,220},{210,220},{
+          210,214},{248,214}}, color={0,0,127}));
+  connect(uOcc, swi1.u2) annotation (Line(points={{-280,330},{-220,330},{-220,
+          242},{216,242},{216,222},{248,222}}, color={255,0,255}));
+  connect(swi1.y, setBacMod1.u)
+    annotation (Line(points={{272,222},{286,222}}, color={0,0,127}));
+  connect(setBacMod1.y, addInt.u1) annotation (Line(points={{310,222},{322,222},
+          {322,256},{338,256}}, color={255,127,0}));
+  connect(addInt.y, addInt1.u2) annotation (Line(points={{362,250},{368,250},{
+          368,268},{374,268}}, color={255,127,0}));
+  connect(occMod.y, addInt1.u1)
+    annotation (Line(points={{322,280},{374,280}}, color={255,127,0}));
+  connect(addInt1.y, addInt5.u1) annotation (Line(points={{398,274},{406,274},{
+          406,-14},{418,-14}}, color={255,127,0}));
+  connect(addInt4.y, addInt5.u2) annotation (Line(points={{342,-280},{406,-280},
+          {406,-26},{418,-26}}, color={255,127,0}));
+  connect(booToRea1.y, swi2.u3) annotation (Line(points={{202,150},{212,150},{
+          212,144},{250,144}}, color={0,0,127}));
+  connect(swi2.u2, swi1.u2) annotation (Line(points={{250,152},{216,152},{216,
+          222},{248,222}},                     color={255,0,255}));
+  connect(unoPerInd.y, swi1.u1) annotation (Line(
+      points={{122,260},{228,260},{228,230},{248,230}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
+  connect(unoPerInd.y, swi2.u1) annotation (Line(
+      points={{122,260},{228,260},{228,160},{250,160}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
+  connect(swi2.y, setBacMod2.u)
+    annotation (Line(points={{274,152},{286,152}}, color={0,0,127}));
+  connect(setBacMod2.y, addInt.u2) annotation (Line(points={{310,152},{328,152},
+          {328,244},{338,244}}, color={255,127,0}));
+  connect(edg.y, and2.u1)
+    annotation (Line(points={{36,220},{46,220}}, color={255,0,255}));
+  connect(and2.y, truFalHol.u)
+    annotation (Line(points={{70,220},{80,220}}, color={255,0,255}));
+  connect(and4.y, booToRea.u)
+    annotation (Line(points={{144,220},{176,220}}, color={255,0,255}));
+  connect(and4.y, or3.u2) annotation (Line(points={{144,220},{164,220},{164,72},
+          {-30,72},{-30,30},{-2,30}}, color={255,0,255}));
+  connect(hys4.y, edg.u)
+    annotation (Line(points={{0,220},{12,220}}, color={255,0,255}));
+  connect(uHigOccCoo, and2.u2) annotation (Line(points={{-280,80},{-120,80},{-120,
+          100},{42,100},{42,212},{46,212}}, color={255,0,255}));
+  connect(truFalHol.y, and4.u1)
+    annotation (Line(points={{104,220},{120,220}}, color={255,0,255}));
+  connect(hys4.y, and4.u2) annotation (Line(points={{0,220},{4,220},{4,206},{
+          110,206},{110,212},{120,212}}, color={255,0,255}));
+  connect(edg1.y, and5.u1)
+    annotation (Line(points={{36,150},{46,150}}, color={255,0,255}));
+  connect(and5.y, truFalHol1.u)
+    annotation (Line(points={{70,150},{80,150}}, color={255,0,255}));
+  connect(truFalHol1.y, and1.u1)
+    annotation (Line(points={{104,150},{120,150}}, color={255,0,255}));
+  connect(hys5.y, and1.u2) annotation (Line(points={{0,150},{4,150},{4,132},{
+          110,132},{110,142},{120,142}}, color={255,0,255}));
+  connect(uOccHeaHig, and5.u2) annotation (Line(points={{-280,110},{38,110},{38,
+          142},{46,142}}, color={255,0,255}));
+  connect(hys5.y, edg1.u)
+    annotation (Line(points={{0,150},{12,150}}, color={255,0,255}));
 annotation (
   defaultComponentName = "opeModSel",
   Diagram(
@@ -630,13 +663,13 @@ annotation (
           fillPattern=FillPattern.Solid,
           textString="Freeze protection setback mode"),
         Text(
-          extent={{250,170},{338,146}},
+          extent={{264,140},{352,116}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Warm-up mode"),
         Text(
-          extent={{188,262},{276,234}},
+          extent={{348,218},{436,190}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
@@ -801,6 +834,11 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/Generic/
 </p>
 </html>",revisions="<html>
 <ul>
+<li>
+April 29, 2020, by Kun Zhang:<br/>
+Fixed bug related to activation of warm-up and cool down mode.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">#1893</a>.
+</li>
 <li>
 March 09, 2020, by Jianjun Hu:<br/>
 Reimplemented to remove the vector-valued calculations.<br/>
