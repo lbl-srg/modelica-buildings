@@ -1,0 +1,16 @@
+ ReadVarsESO
+ processing:.MicroCogeneration_validation_file.rvi
+ input file:EnergyPlus/eplusout.eso
+ output file:EnergyPlus/eplusout.csv
+ getting all vars from:EnergyPlus/eplusout.eso
+  number variables requested for output=          43
+ ReadVars Run Time=00hr 00min  0.17sec
+ ReadVarsESO program completed successfully.
+ ReadVarsESO
+ processing:.MicroCogeneration_validation_file.mvi
+ input file:EnergyPlus/eplusout.mtr
+ output file:EnergyPlus/eplusmtr.csv
+ getting all vars from:EnergyPlus/eplusout.mtr
+  number variables requested for output=           7
+ ReadVars Run Time=00hr 00min  0.02sec
+ ReadVarsESO program completed successfully.

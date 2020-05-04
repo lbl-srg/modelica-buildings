@@ -1,0 +1,223 @@
+Shadowing Combinations
+..Solar Distribution=FullInteriorAndExterior
+..In the following, only the first 10 reference surfaces will be shown.
+..But all surfaces are used in the calculations.
+==================================
+Surface=ZN_1_FLR_1_SEC_1_WALL_1 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=0
+Number of back surfaces=5
+...Surface=ZN_1_FLR_1_SEC_1_WALL_2
+...Surface=ZN_1_FLR_1_SEC_1_WALL_3
+...Surface=ZN_1_FLR_1_SEC_1_WALL_4
+...Surface=ZN_1_FLR_1_SEC_1_FLOOR
+...Surface=ZN_1_FLR_1_SEC_1_CEILING
+Number of receiving sub surfaces=1
+....Surface=ZN_1_FLR_1_SEC_1_WALL_1_WINDOW_1
+==================================
+Surface=ZN_1_FLR_1_SEC_1_WALL_1_WINDOW_1 is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=ZN_1_FLR_1_SEC_1_WALL_2 is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=ZN_1_FLR_1_SEC_1_WALL_3 is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=ZN_1_FLR_1_SEC_1_WALL_4 is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=ZN_1_FLR_1_SEC_1_FLOOR is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=ZN_1_FLR_1_SEC_1_CEILING is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=ZN_1_FLR_1_SEC_1_INTERNALMASS_1 is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=ZN_1_FLR_1_SEC_2_WALL_1 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=0
+Number of back surfaces=5
+...Surface=ZN_1_FLR_1_SEC_2_WALL_2
+...Surface=ZN_1_FLR_1_SEC_2_WALL_3
+...Surface=ZN_1_FLR_1_SEC_2_WALL_4
+...Surface=ZN_1_FLR_1_SEC_2_FLOOR
+...Surface=ZN_1_FLR_1_SEC_2_CEILING
+Number of receiving sub surfaces=1
+....Surface=ZN_1_FLR_1_SEC_2_WALL_1_WINDOW_1
+==================================
+Surface=ZN_1_FLR_1_SEC_2_WALL_1_WINDOW_1 is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=ZN_1_FLR_1_SEC_2_WALL_2 is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=ZN_1_FLR_1_SEC_2_WALL_3 is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=ZN_1_FLR_1_SEC_2_WALL_4 is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=ZN_1_FLR_1_SEC_2_FLOOR is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=ZN_1_FLR_1_SEC_2_CEILING is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=ZN_1_FLR_1_SEC_2_INTERNALMASS_1 is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=ZN_1_FLR_1_SEC_3_WALL_1 is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=ZN_1_FLR_1_SEC_3_WALL_2 is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=ZN_1_FLR_1_SEC_3_WALL_3 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=0
+Number of back surfaces=5
+...Surface=ZN_1_FLR_1_SEC_3_WALL_1
+...Surface=ZN_1_FLR_1_SEC_3_WALL_2
+...Surface=ZN_1_FLR_1_SEC_3_WALL_4
+...Surface=ZN_1_FLR_1_SEC_3_FLOOR
+...Surface=ZN_1_FLR_1_SEC_3_CEILING
+Number of receiving sub surfaces=1
+....Surface=ZN_1_FLR_1_SEC_3_WALL_3_WINDOW_1
+==================================
+Surface=ZN_1_FLR_1_SEC_3_WALL_3_WINDOW_1 is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=ZN_1_FLR_1_SEC_3_WALL_4 is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=ZN_1_FLR_1_SEC_3_FLOOR is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=ZN_1_FLR_1_SEC_3_CEILING is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=ZN_1_FLR_1_SEC_3_INTERNALMASS_1 is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=ZN_1_FLR_1_SEC_4_WALL_1 is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=ZN_1_FLR_1_SEC_4_WALL_2 is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=ZN_1_FLR_1_SEC_4_WALL_3 is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=ZN_1_FLR_1_SEC_4_WALL_4 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=0
+Number of back surfaces=5
+...Surface=ZN_1_FLR_1_SEC_4_WALL_1
+...Surface=ZN_1_FLR_1_SEC_4_WALL_2
+...Surface=ZN_1_FLR_1_SEC_4_WALL_3
+...Surface=ZN_1_FLR_1_SEC_4_FLOOR
+...Surface=ZN_1_FLR_1_SEC_4_CEILING
+Number of receiving sub surfaces=1
+....Surface=ZN_1_FLR_1_SEC_4_WALL_4_WINDOW_1
+==================================
+Surface=ZN_1_FLR_1_SEC_4_WALL_4_WINDOW_1 is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=ZN_1_FLR_1_SEC_4_FLOOR is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=ZN_1_FLR_1_SEC_4_CEILING is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=ZN_1_FLR_1_SEC_4_INTERNALMASS_1 is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=ZN_1_FLR_1_SEC_5_WALL_1 is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=ZN_1_FLR_1_SEC_5_WALL_2 is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=ZN_1_FLR_1_SEC_5_WALL_3 is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=ZN_1_FLR_1_SEC_5_WALL_4 is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=ZN_1_FLR_1_SEC_5_FLOOR is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=ZN_1_FLR_1_SEC_5_CEILING is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=ZN_1_FLR_1_SEC_5_INTERNALMASS_1 is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
