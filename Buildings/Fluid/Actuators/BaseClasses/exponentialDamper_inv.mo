@@ -2,7 +2,7 @@ within Buildings.Fluid.Actuators.BaseClasses;
 function exponentialDamper_inv
   "Inverse function of the exponential damper characteristics"
   extends Modelica.Icons.Function;
-  input Real kThetaSqRt "Square root of loss coefficient";
+  input Real kTheta "Loss coefficient";
   input Real[:] kSupSpl "k values of support points";
   input Real[:] ySupSpl "y values of support points";
   input Real[:] invSplDer "Derivatives at support points";
@@ -13,14 +13,14 @@ protected
 algorithm
   i := 1;
   for j in 2:sizeSupSpl loop
-    if kThetaSqRt <= kSupSpl[j] then
+    if kTheta <= kSupSpl[j] then
       i := j;
       break;
     end if;
   end for;
   y := Buildings.Utilities.Math.Functions.smoothLimit(
     Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
-      x=kThetaSqRt,
+      x=kTheta,
       x1=kSupSpl[i - 1],
       x2=kSupSpl[i],
       y1=ySupSpl[i - 1],

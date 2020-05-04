@@ -13,6 +13,8 @@ model PressureIndependent
   parameter Real deltax(unit="1", min=1E-5) = 0.02 "Transition interval for flow rate"
     annotation(Dialog(tab="Advanced"));
 protected
+  Real kSquInv "Square inverse of flow coefficient (damper plus fixed resistance)";
+  Real kDamSquInv "Square inverse of flow coefficient (damper only)";
   parameter Real y_min = 2E-2
     "Minimum value of control signal before zeroing of the opening";
   parameter Integer sizeSupSplBnd = 5
@@ -26,7 +28,7 @@ protected
     linspace(yL, 0, sizeSupSplBnd))
     "y values of unsorted support points for spline interpolation";
   parameter Real[sizeSupSpl] kSupSpl_raw = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
-    y=ySupSpl_raw, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU)
+    y=ySupSpl_raw, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU) .^ 2
     "k values of unsorted support points for spline interpolation";
   parameter Real[sizeSupSpl] ySupSpl(each fixed=false)
     "y values of sorted support points for spline interpolation";
@@ -156,18 +158,18 @@ equation
                  y2dd=y2dd)));
   end if;
   // Computation of damper opening
-  k = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_m_flow(
+  kSquInv = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_m_flow(
     m_flow=m_flow,
     dp=dp,
-    m_flow_small=1E-2*abs(m_flow_nominal),
+    m_flow_small=1E-3*abs(m_flow_nominal),
     dp_small=1E-4*dp_nominal_pos);
-  kDam = if dpFixed_nominal > Modelica.Constants.eps then
-    sqrt(1 / (1 / k^2 - 1 / kFixed^2)) else k;
+  kDamSquInv = if dpFixed_nominal > Modelica.Constants.eps then
+    kSquInv - 1 / kFixed^2 else kSquInv;
   // Use of regStep might no longer be needed when the leakage flow modeling is updated.
   y_actual_smooth = Buildings.Utilities.Math.Functions.regStep(
     x=y_internal - y_min,
     y1=Buildings.Fluid.Actuators.BaseClasses.exponentialDamper_inv(
-      kThetaSqRt=sqrt(2*rho)*A/kDam, kSupSpl=kSupSpl, ySupSpl=ySupSpl, invSplDer=invSplDer),
+      kTheta=kDamSquInv*2*rho*A^2, kSupSpl=kSupSpl, ySupSpl=ySupSpl, invSplDer=invSplDer),
     y2=0,
     x_small=1E-3);
   // Homotopy transformation
@@ -247,6 +249,7 @@ variations.
 </html>",
 revisions="<html>
 <ul>
+<li>
 <li>
 April 6, 2020, by Antoine Gautier:<br/>
 Added the computation of the damper opening.
