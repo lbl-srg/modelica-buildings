@@ -1,0 +1,26 @@
+﻿simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.Validation.BoilerPlantEnabler", startTime=0,tolerance=1e-6, stopTime=7200, outputInterval=1, method="dassl", resultFile="BoilerPlantEnabler");
+removePlots(false);
+createPlot(id=1, position={0, 0, 1596, 998}, y={"boiPlaEna.nHotWatReqIgn", "boiPlaEna.hotWatSupResReq"}, range={0.0, 7200.0, -2.0, 6.0}, grid=true, colors={{28,108,200}, {28,108,200}});
+createPlot(id=1, position={0, 0, 1596, 195}, y={"boiPlaEna.TLocOut", "boiPlaEna.TOut"}, range={0.0, 7200.0, 298.5, 301.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={0, 0, 1596, 196}, y={"boiPlaEna.boiEnaSch.y[1]"}, range={0.0, 7200.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1596, 195}, y={"boiPlaEna.tim.y", "boiPlaEna.tim2.y", "boiPlaEna.boiPlaOffStaHolTimVal", "boiPlaEna.boiPlaOnStaHolTimVal"}, range={0.0, 7200.0, -1000.0, 4000.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+createPlot(id=1, position={0, 0, 1596, 196}, y={"boiPlaEna.boiEnaSig"}, range={0.0, 7200.0, -0.5, 1.5}, grid=true, subPlot=5, colors={{28,108,200}});
+ExportPlotAsImage("./Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Generic/BoilerPlantEnabler.png", 1, true, false);
+
+createPlot(id=2, position={0, 0, 1596, 998}, y={"boiPlaEna1.nHotWatReqIgn", "boiPlaEna1.hotWatSupResReq"}, range={0.0, 7200.0, -2.0, 6.0}, grid=true, colors={{28,108,200}, {28,108,200}});
+createPlot(id=2, position={0, 0, 1596, 195}, y={"boiPlaEna1.TLocOut", "boiPlaEna1.TOut"}, range={0.0, 7200.0, 298.5, 301.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={0, 0, 1596, 196}, y={"boiPlaEna1.boiEnaSch.y[1]"}, range={0.0, 7200.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=2, position={0, 0, 1596, 195}, y={"boiPlaEna1.tim.y", "boiPlaEna1.tim2.y", "boiPlaEna1.boiPlaOffStaHolTimVal", "boiPlaEna1.boiPlaOnStaHolTimVal"}, range={0.0, 7200.0, -1000.0, 4000.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+createPlot(id=2, position={0, 0, 1596, 196}, y={"boiPlaEna1.boiEnaSig"}, range={0.0, 7200.0, -0.5, 1.5}, grid=true, subPlot=5, colors={{28,108,200}});
+
+createPlot(id=3, position={0, 0, 1596, 998}, y={"boiPlaEna2.nHotWatReqIgn", "boiPlaEna2.hotWatSupResReq"}, range={0.0, 7200.0, -2.0, 6.0}, grid=true, colors={{28,108,200}, {28,108,200}});
+createPlot(id=3, position={0, 0, 1596, 195}, y={"boiPlaEna2.TLocOut", "boiPlaEna2.TOut"}, range={0.0, 7200.0, 298.5, 301.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={0, 0, 1596, 196}, y={"boiPlaEna2.boiEnaSch.y[1]"}, range={0.0, 7200.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=3, position={0, 0, 1596, 195}, y={"boiPlaEna2.tim.y", "boiPlaEna2.tim2.y", "boiPlaEna2.boiPlaOffStaHolTimVal", "boiPlaEna2.boiPlaOnStaHolTimVal"}, range={0.0, 7200.0, -1000.0, 4000.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+createPlot(id=3, position={0, 0, 1596, 196}, y={"boiPlaEna2.boiEnaSig"}, range={0.0, 7200.0, -0.5, 1.5}, grid=true, subPlot=5, colors={{28,108,200}});
+
+createPlot(id=4, position={0, 0, 1596, 998}, y={"boiPlaEna3.nHotWatReqIgn", "boiPlaEna3.hotWatSupResReq"}, range={0.0, 7200.0, -2.0, 6.0}, grid=true, colors={{28,108,200}, {28,108,200}});
+createPlot(id=4, position={0, 0, 1596, 195}, y={"boiPlaEna3.TLocOut", "boiPlaEna3.TOut"}, range={0.0, 7200.0, 298.5, 301.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=4, position={0, 0, 1596, 196}, y={"boiPlaEna3.boiEnaSch.y[1]"}, range={0.0, 7200.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=4, position={0, 0, 1596, 195}, y={"boiPlaEna3.tim.y", "boiPlaEna3.tim2.y", "boiPlaEna3.boiPlaOffStaHolTimVal", "boiPlaEna3.boiPlaOnStaHolTimVal"}, range={0.0, 7200.0, -1000.0, 4000.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+createPlot(id=4, position={0, 0, 1596, 196}, y={"boiPlaEna3.boiEnaSig"}, range={0.0, 7200.0, -0.5, 1.5}, grid=true, subPlot=5, colors={{28,108,200}});
