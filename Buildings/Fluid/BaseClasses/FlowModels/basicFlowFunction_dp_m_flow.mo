@@ -19,7 +19,7 @@ protected
     "Regularized absolute value of pressure drop";
   Real mSqu_flow = Buildings.Utilities.Math.Functions.smoothMax(
     m_flow^2, m_flow_small^2, m_flow_small^2)
-    "Regularized square value of mass flow rate";
+    "Regularized non zero square value of mass flow rate";
 algorithm
   kSquInv := dpPos / mSqu_flow;
 annotation (smoothOrder=1,
