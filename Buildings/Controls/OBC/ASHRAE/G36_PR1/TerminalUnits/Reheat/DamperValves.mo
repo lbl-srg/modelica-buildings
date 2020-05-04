@@ -339,15 +339,17 @@ protected
     "Output hot water valve position in case of low discharge air temperature"
     annotation (Placement(transformation(extent={{-30,-90},{-10,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
+    "Check if it is in heating mode or the discharge air temperature is too low"
     annotation (Placement(transformation(extent={{-68,-64},{-48,-44}})));
   Buildings.Controls.OBC.CDL.Logical.Not not3 "Logical not"
-    annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
+    annotation (Placement(transformation(extent={{-40,120},{-20,140}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi3
     "Output hot water valve position in case of low discharge air temperature"
     annotation (Placement(transformation(extent={{104,-82},{124,-62}})));
   Buildings.Controls.OBC.CDL.Logical.Not not6 "Negation of input signal"
     annotation (Placement(transformation(extent={{-40,-192},{-20,-172}})));
   Buildings.Controls.OBC.CDL.Logical.And and1
+    "Check if it is not in heating mode and the discharge air temperature is not too low"
     annotation (Placement(transformation(extent={{20,-56},{40,-36}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add3 "Active airflow setpoint"
     annotation (Placement(transformation(extent={{200,220},{220,240}})));
@@ -530,13 +532,11 @@ equation
   connect(isUno.y, not5.u) annotation (Line(points={{242,-312},{266,-312},{266,-280},
           {180,-280},{180,-250},{198,-250}}, color={255,0,255}));
   connect(not5.y, conDam.trigger) annotation (Line(points={{222,-250},{232,-250},
-          {232,170},{282,170},{282,178}}, color={255,0,255}));
+          {232,170},{284,170},{284,178}}, color={255,0,255}));
   connect(truHol2.y, or2.u2) annotation (Line(points={{-200,-210},{-88,-210},{-88,
           -62},{-70,-62}},     color={255,0,255}));
   connect(truDel3.y, not3.u)
-    annotation (Line(points={{-138,130},{-122,130}}, color={255,0,255}));
-  connect(not3.y, or2.u1) annotation (Line(points={{-98,130},{-88,130},{-88,-54},
-          {-70,-54}}, color={255,0,255}));
+    annotation (Line(points={{-138,130},{-42,130}},  color={255,0,255}));
   connect(or2.y, swi6.u2) annotation (Line(points={{-46,-54},{-40,-54},{-40,-80},
           {-32,-80}}, color={255,0,255}));
   connect(conTDisHeaSet.y, swi6.u1)
@@ -555,12 +555,13 @@ equation
     annotation (Line(points={{56,-80},{102,-80}},   color={0,0,127}));
   connect(swi3.u1, conZer2.y) annotation (Line(points={{102,-64},{76,-64},{76,-12},
           {-20,-12},{-20,8},{-58,8}}, color={0,0,127}));
-  connect(not3.y, and1.u1) annotation (Line(points={{-98,130},{0,130},{0,-46},{18,
-          -46}}, color={255,0,255}));
+  connect(not3.y, and1.u1) annotation (Line(points={{-18,130},{0,130},{0,-46},{
+          18,-46}},
+                 color={255,0,255}));
   connect(not4.y, truDel3.u)
     annotation (Line(points={{-180,130},{-162,130}}, color={255,0,255}));
   connect(not5.y, conVal.trigger) annotation (Line(points={{222,-250},{232,-250},
-          {232,-132},{36,-132},{36,-92}},  color={255,0,255}));
+          {232,-132},{38,-132},{38,-92}},  color={255,0,255}));
   connect(swi6.y, conVal.u_s)
     annotation (Line(points={{-8,-80},{32,-80}},   color={0,0,127}));
   connect(swi1.y, add4.u1) annotation (Line(points={{154,50},{168,50},{168,56},{
@@ -586,6 +587,8 @@ equation
   connect(VDisSet_flowNor.y, conDam.u_s)
     annotation (Line(points={{262,190},{278,190}}, color={0,0,127}));
 
+  connect(truDel3.y, or2.u1) annotation (Line(points={{-138,130},{-88,130},{-88,
+          -54},{-70,-54}}, color={255,0,255}));
 annotation (
   defaultComponentName="damVal",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-320,-360},{320,360}}),
