@@ -142,21 +142,21 @@ block SetpointController
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla "Plant enable signal"
     annotation (Placement(
         transformation(extent={{-440,-100},{-400,-60}}),  iconTransformation(
-          extent={{-140,-230},{-100,-190}})));
+          extent={{-140,-210},{-100,-170}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput chaPro "Stage change process status signal"
     annotation (Placement(transformation(extent={{-440,-140},{-400,-100}}),
-        iconTransformation(extent={{-140,-190},{-100,-150}})));
+        iconTransformation(extent={{-140,-170},{-100,-130}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseSta if have_WSE
     "WSE status"
     annotation (Placement(transformation(extent={{-442,-260},{-402,-220}}),
-        iconTransformation(extent={{-140,-170},{-100,-130}})));
+        iconTransformation(extent={{-140,-150},{-100,-110}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiAva[nChi]
     "Chiller availability status vector"
     annotation (Placement(transformation(extent={{-442,-200},{-402,-160}}),
-        iconTransformation(extent={{-140,-210},{-100,-170}})));
+        iconTransformation(extent={{-140,-190},{-100,-150}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uIni(
     final min=0,
@@ -164,97 +164,97 @@ block SetpointController
     "Initial chiller stage (at plant enable)"
     annotation (Placement(
         transformation(extent={{-440,-30},{-400,10}}), iconTransformation(
-          extent={{-140,-148},{-100,-108}})));
+          extent={{-140,-130},{-100,-90}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u(
     final min=0,
     final max=nSta) "Chiller stage"
     annotation (Placement(transformation(extent={{-440,-60},{-400,-20}}),
-        iconTransformation(extent={{-140,-130},{-100,-90}})));
+        iconTransformation(extent={{-140,-110},{-100,-70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TWsePre(
     final unit="1") if have_WSE
     "Predicted WSE outlet temperature"
     annotation (Placement(transformation(extent={{-442,130},{-402,170}}),
-       iconTransformation(extent={{-140,-90},{-100,-50}})));
+       iconTransformation(extent={{-140,-70},{-100,-30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpeMax if have_WSE
     "Maximum cooling tower fan speed"
     annotation (Placement(transformation(extent={{-442,100},{-402,140}}),
-        iconTransformation(extent={{-140,-40},{-100,0}})));
+        iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uLifMin(
     final unit="K",
     final quantity="ThermodynamicTemperature") if anyVsdCen
     "Minimum chiller lift"
     annotation (Placement(transformation(extent={{-442,0},{-402,40}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
+        iconTransformation(extent={{-140,60},{-100,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uLif(
     final unit="K",
     final quantity="ThermodynamicTemperature") if anyVsdCen
     "Chiller lift"
     annotation (Placement(transformation(extent={{-442,60},{-402,100}}),
-        iconTransformation(extent={{-140,80},{-100,120}})));
+        iconTransformation(extent={{-140,100},{-100,140}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uLifMax(
     final unit="K",
     final quantity="ThermodynamicTemperature") if anyVsdCen
     "Maximum chiller lift"
     annotation (Placement(transformation(extent={{-442,30},{-402,70}}),
-        iconTransformation(extent={{-140,60},{-100,100}})));
+        iconTransformation(extent={{-140,80},{-100,120}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-442,360},{-402,400}}),
-        iconTransformation(extent={{-140,130},{-100,170}})));
+        iconTransformation(extent={{-140,150},{-100,190}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatRet(
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "Chilled water return temperature"
     annotation (Placement(transformation(extent={{-442,290},{-402,330}}),
-        iconTransformation(extent={{-140,-70},{-100,-30}})));
+        iconTransformation(extent={{-140,-50},{-100,-10}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWat_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s") "Measured chilled water flow rate"
     annotation (Placement(transformation(extent={{-442,260},{-402,300}}),
-        iconTransformation(extent={{-140,-110},{-100,-70}})));
+        iconTransformation(extent={{-140,-90},{-100,-50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPumSet(
     final unit="Pa",
     final quantity="PressureDifference") if not serChi
     "Chilled water pump differential static pressure setpoint"
     annotation (Placement(transformation(extent={{-442,210},{-402,250}}),
-      iconTransformation(extent={{-140,-10},{-100,30}})));
+      iconTransformation(extent={{-140,10},{-100,50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPum(
     final unit="Pa",
     final quantity="PressureDifference") if not serChi
     "Chilled water pump differential static pressure"
     annotation (Placement(transformation(extent={{-442,180},{-402,220}}),
-    iconTransformation(extent={{-140,10},{-100,50}})));
+    iconTransformation(extent={{-140,30},{-100,70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "Chilled water return temperature"
     annotation (Placement(transformation(extent={{-442,330},{-402,370}}),
-    iconTransformation(extent={{-140,110},{-100,150}})));
+    iconTransformation(extent={{-140,130},{-100,170}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChi[nChi]
     "Chiller status setpoint vector for the current chiller stage setpoint"
     annotation (Placement(transformation(extent={{120,-280},{160,-240}}),
-        iconTransformation(extent={{100,-160},{140,-120}})));
+        iconTransformation(extent={{100,-90},{140,-50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Chiller stage change edge signal"
     annotation (
      Placement(transformation(extent={{120,-200},{160,-160}}),
-        iconTransformation(extent={{100,-90},{140,-50}})));
+        iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput ySta(
     final min=0,
@@ -262,7 +262,7 @@ block SetpointController
     "Chiller stage integer setpoint"
     annotation (Placement(
         transformation(extent={{120,-140},{160,-100}}),iconTransformation(
-          extent={{100,-20},{140,20}})));
+          extent={{100,50},{140,90}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Up staUp(
     final have_WSE=have_WSE,
@@ -476,14 +476,114 @@ equation
         Icon(coordinateSystem(extent={{-100,-160},{100,160}}, initialScale=0.2),
         graphics={
         Rectangle(
-        extent={{-100,-160},{100,160}},
+        extent={{-100,-200},{100,180}},
         lineColor={0,0,127},
-        fillColor={255,255,255},
+        fillColor={255,255,85},
         fillPattern=FillPattern.Solid),
         Text(
-          extent={{-110,210},{110,172}},
+          extent={{-112,226},{108,188}},
           lineColor={0,0,255},
-          textString="%name")}), Diagram(
+          textString="%name"),
+        Text(
+          extent={{-96,182},{-38,158}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="TChiWatSupSet"),
+        Text(
+          extent={{-96,160},{-50,140}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="TChiWatSup"),
+        Text(
+          extent={{-96,-42},{-60,-58}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="TWsePre"),
+        Text(
+          extent={{-96,-22},{-50,-38}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="TChiWatRet"),
+        Text(
+          extent={{-96,-60},{-50,-80}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="TChiWat_flow"),
+        Text(
+          extent={{-96,16},{-28,-16}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="uTowFanSpeMax"),
+        Text(
+          extent={{-96,46},{-28,14}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="dpChiWatPumSet"),
+        Text(
+          extent={{-96,62},{-42,38}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="dpChiWatPum"),
+        Text(
+          extent={{-96,86},{-68,76}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="uLifMin"),
+        Text(
+          extent={{-96,108},{-64,94}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="uLifMax"),
+        Text(
+          extent={{-96,124},{-82,114}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="uLif"),
+        Text(
+          extent={{-102,-86},{-84,-94}},
+          lineColor={244,125,35},
+          pattern=LinePattern.Dash,
+          textString="u"),
+        Text(
+          extent={{-100,-114},{-76,-106}},
+          lineColor={244,125,35},
+          pattern=LinePattern.Dash,
+          textString="uIni"),
+        Text(
+          extent={{-96,-122},{-62,-136}},
+          lineColor={217,67,180},
+          pattern=LinePattern.Dash,
+          textString="uWseSta"),
+        Text(
+          extent={{-96,-142},{-70,-154}},
+          lineColor={217,67,180},
+          pattern=LinePattern.Dash,
+          textString="chaPro"),
+        Text(
+          extent={{-96,-186},{-76,-194}},
+          lineColor={217,67,180},
+          pattern=LinePattern.Dash,
+          textString="uPla"),
+        Text(
+          extent={{-96,-164},{-64,-176}},
+          lineColor={217,67,180},
+          pattern=LinePattern.Dash,
+          textString="uChiAva"),
+        Text(
+          extent={{76,66},{100,74}},
+          lineColor={244,125,35},
+          pattern=LinePattern.Dash,
+          textString="ySta"),
+        Text(
+          extent={{84,6},{104,-2}},
+          lineColor={217,67,180},
+          pattern=LinePattern.Dash,
+          textString="y"),
+        Text(
+          extent={{76,-66},{96,-74}},
+          lineColor={217,67,180},
+          pattern=LinePattern.Dash,
+          textString="yChi")}),  Diagram(
         coordinateSystem(preserveAspectRatio=false,
         extent={{-400,-300},{120,420}})),
 Documentation(info="<html>
