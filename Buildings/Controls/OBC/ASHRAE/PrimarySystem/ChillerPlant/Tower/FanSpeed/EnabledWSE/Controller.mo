@@ -46,7 +46,7 @@ block Controller "Tower fan speed control when waterside economizer is enabled"
     final unit=fill("W",nChi),
     final quantity=fill("HeatFlowRate",nChi)) "Current load of each chiller"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
-      iconTransformation(extent={{-140,80},{-100,120}})));
+      iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
     "Chiller enabling status: true=ON"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
@@ -74,7 +74,7 @@ block Controller "Tower fan speed control when waterside economizer is enabled"
     final quantity="ThermodynamicTemperature")
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-140,-110},{-100,-70}}),
-      iconTransformation(extent={{-140,-120},{-100,-80}})));
+      iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFanSpe(
     final min=0,
     final max=1,
@@ -187,7 +187,35 @@ annotation (
           extent={{78,-78},{80,-96}},
           lineColor={200,200,200},
           fillColor={240,240,240},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-100,100},{-50,82}},
+          lineColor={0,0,127},
+          textString="chiLoa"),
+        Text(
+          extent={{-100,70},{-64,54}},
+          lineColor={255,0,255},
+          textString="uChi"),
+        Text(
+          extent={{-96,30},{-66,12}},
+          lineColor={255,0,255},
+          textString="uWse"),
+        Text(
+          extent={{-96,-10},{-52,-26}},
+          lineColor={0,0,127},
+          textString="uFanSpe"),
+        Text(
+          extent={{-96,-52},{-40,-66}},
+          lineColor={0,0,127},
+          textString="TChiWatSup"),
+        Text(
+          extent={{-96,-82},{-24,-98}},
+          lineColor={0,0,127},
+          textString="TChiWatSupSet"),
+        Text(
+          extent={{54,12},{98,-6}},
+          lineColor={0,0,127},
+          textString="yFanSpe")}),
   Diagram(coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
 <p>

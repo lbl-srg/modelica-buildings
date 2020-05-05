@@ -50,8 +50,8 @@ equation
       color={0,0,127}));
   connect(parLoaRat.y, swi.u1)
     annotation (Line(points={{-58,0},{-20,0},{-20,-12},{-2,-12}}, color={0,0,127}));
-  connect(swi.y, conWatRetSet.plaParLoaRat)
-    annotation (Line(points={{22,-20},{30,-20},{30,23},{58,23}}, color={0,0,127}));
+  connect(swi.y, conWatRetSet.uOpeParLoaRat) annotation (Line(points={{22,-20},
+          {30,-20},{30,23},{58,23}}, color={0,0,127}));
   connect(chiWatSupSet.y, conWatRetSet.TChiWatSupSet)
     annotation (Line(points={{22,-60},{40,-60},{40,17},{58,17}}, color={0,0,127}));
   connect(not1.y, conWatRetSet.uPla)

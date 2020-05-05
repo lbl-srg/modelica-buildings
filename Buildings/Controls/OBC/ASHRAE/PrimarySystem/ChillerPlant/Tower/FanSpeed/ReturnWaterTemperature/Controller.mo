@@ -313,9 +313,8 @@ equation
   connect(uChi, conWatRetSet.uChi)
     annotation (Line(points={{-180,210},{-140,210},{-140,-62},{38,-62}},
       color={255,0,255}));
-  connect(parLoaRat.y, conWatRetSet.plaParLoaRat)
-    annotation (Line(points={{-98,110},{-80,110},{-80,-67},{38,-67}},
-      color={0,0,127}));
+  connect(parLoaRat.y, conWatRetSet.uOpeParLoaRat) annotation (Line(points={{-98,
+          110},{-80,110},{-80,-67},{38,-67}}, color={0,0,127}));
   connect(conWatRetSet.TChiWatSupSet, TChiWatSupSet)
     annotation (Line(points={{38,-73},{-80,-73},{-80,-80},{-180,-80}},
       color={0,0,127}));
@@ -404,12 +403,10 @@ equation
   connect(booToInt.y, mulSumInt.u)
     annotation (Line(points={{-78,-240},{-50,-240},{-50,-240},{-22,-240}},
       color={255,127,0}));
-  connect(conWatRetSet.TConWatRetSet, enaTow.TTowSet)
-    annotation (Line(points={{62,-70},{80,-70},{80,-40},{0,-40},{0,22},{38,22}},
-      color={0,0,127}));
-  connect(TConWatRet, enaTow.TTow)
-    annotation (Line(points={{-180,-160},{-100,-160},{-100,18},{38,18}},
-      color={0,0,127}));
+  connect(conWatRetSet.TConWatRetSet, enaTow.TTowSet) annotation (Line(
+        points={{62,-70},{80,-70},{80,-40},{0,-40},{0,22},{38,22}}, color={0,0,127}));
+  connect(TConWatRet, enaTow.TTow) annotation (Line(points={{-180,-160},{-100,
+          -160},{-100,18},{38,18}}, color={0,0,127}));
   connect(uChi, couTowSpe.uChi)
     annotation (Line(points={{-180,210},{-140,210},{-140,-136},{38,-136}},
       color={255,0,255}));
@@ -469,7 +466,62 @@ annotation (
         Text(
           extent={{114,-110},{144,-128}},
           lineColor={28,108,200},
-          textString="CWRT")}),
+          textString="CWRT"),
+        Text(
+          extent={{-200,160},{-158,142}},
+          lineColor={255,0,255},
+          textString="uChi"),
+        Text(
+          extent={{-196,188},{-118,172}},
+          lineColor={0,0,127},
+          textString="uTowSpeWSE",
+          visible=have_WSE),
+        Text(
+          extent={{-200,130},{-154,114}},
+          lineColor={255,0,255},
+          textString="uWse",
+          visible=have_WSE),
+        Text(
+          extent={{-198,12},{-160,-6}},
+          lineColor={255,0,255},
+          textString="uTow"),
+        Text(
+          extent={{-200,-80},{-160,-98}},
+          lineColor={255,0,255},
+          textString="uPla"),
+        Text(
+          extent={{-200,100},{-126,82}},
+          lineColor={0,0,127},
+          textString="reqPlaCap"),
+        Text(
+          extent={{-196,72},{-104,54}},
+          lineColor={0,0,127},
+          textString="uMaxTowSpeSet"),
+        Text(
+          extent={{-200,40},{-134,22}},
+          lineColor={0,0,127},
+          textString="uFanSpe"),
+        Text(
+          extent={{-198,-50},{-118,-68}},
+          lineColor={0,0,127},
+          textString="TChiWatSupSet"),
+        Text(
+          extent={{-200,-112},{-114,-128}},
+          lineColor={0,0,127},
+          textString="TConWatRet"),
+        Text(
+          extent={{-196,-142},{-94,-158}},
+          lineColor={0,0,127},
+          textString="uConWatPumSpe"),
+        Text(
+          extent={{-198,-170},{-118,-188}},
+          lineColor={0,0,127},
+          textString="TConWatSup",
+          visible=not closeCoupledPlant),
+        Text(
+          extent={{122,12},{200,-6}},
+          lineColor={0,0,127},
+          textString="yFanSpe")}),
     Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-160,-300},{160,280}}), graphics={
           Text(

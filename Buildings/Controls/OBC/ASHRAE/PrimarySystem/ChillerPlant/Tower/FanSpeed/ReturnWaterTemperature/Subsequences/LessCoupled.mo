@@ -9,7 +9,10 @@ block LessCoupled
   parameter Real fanSpeMin = 0.1
     "Minimum cooling tower fan speed";
 
-  parameter Real samplePeriod(final quantity="Time", final unit="s") = 30
+  parameter Real samplePeriod(
+    final quantity="Time",
+    final unit="s",
+    final max=30) = 30
     "Period of sampling condenser water supply and return temperature difference"
     annotation (Dialog(group="Return water temperature controller"));
   parameter Real iniPlaTim(final quantity="Time", final unit="s") = 300
@@ -137,8 +140,7 @@ protected
     "Zero constant"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one1(
-    final k=ySupConMax)
-    "Constant one"
+    final k=ySupConMax) "Maximum speed"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Line CWSTSpd
     "Fan speed calculated based on supply water temperature control"

@@ -3,8 +3,9 @@ model CellsNumber
   "Validation sequence of identifying total number of enabling cells"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.Staging.Subsequences.CellsNumber
-    enaTowCel(nConWatPum=2, nTowCel=4)
-              "Find number of enabling cells"
+    enaTowCel(
+    nConWatPum=2,
+    nTowCel=4) "Find number of enabling cells"
     annotation (Placement(transformation(extent={{62,-10},{82,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse wseSta(
     final width=0.15,

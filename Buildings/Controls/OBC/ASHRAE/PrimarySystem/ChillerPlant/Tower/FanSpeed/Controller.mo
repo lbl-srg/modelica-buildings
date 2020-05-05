@@ -272,7 +272,7 @@ equation
   connect(fanSpeWse.yFanSpe, fanSpeRetTem.uTowSpeWSE)
     annotation (Line(points={{-18,50},{0,50},{0,-22},{18,-22}},  color={0,0,127}));
   connect(fanSpeWse.chiLoa, chiLoa)
-    annotation (Line(points={{-42,60},{-60,60},{-60,140},{-120,140}},
+    annotation (Line(points={{-42,59},{-60,59},{-60,140},{-120,140}},
       color={0,0,127}));
   connect(fanSpeWse.uChi, uChi)
     annotation (Line(points={{-42,56},{-64,56},{-64,120},{-120,120}},
@@ -286,7 +286,8 @@ equation
     annotation (Line(points={{-42,44},{-76,44},{-76,60},{-120,60}},
       color={0,0,127}));
   connect(fanSpeWse.TChiWatSupSet, TChiWatSupSet)
-    annotation (Line(points={{-42,40},{-120,40}}, color={0,0,127}));
+    annotation (Line(points={{-42,41},{-82,41},{-82,40},{-120,40}},
+                                                  color={0,0,127}));
   connect(uChi, fanSpeRetTem.uChi)
     annotation (Line(points={{-120,120},{-64,120},{-64,-25},{18,-25}},
       color={255,0,255}));
@@ -334,7 +335,67 @@ annotation (
         Text(
           extent={{-120,248},{100,210}},
           lineColor={0,0,255},
-          textString="%name")}),
+          textString="%name"),
+        Text(
+          extent={{-100,170},{-64,154}},
+          lineColor={255,0,255},
+          textString="uChi"),
+        Text(
+          extent={{-100,200},{-50,182}},
+          lineColor={0,0,127},
+          textString="chiLoa",
+          visible=have_WSE),
+        Text(
+          extent={{-98,110},{-48,92}},
+          lineColor={0,0,127},
+          textString="uFanSpe"),
+        Text(
+          extent={{-100,80},{-26,64}},
+          lineColor={0,0,127},
+          textString="TChiWatSup",
+          visible=have_WSE),
+        Text(
+          extent={{-98,52},{-14,34}},
+          lineColor={0,0,127},
+          textString="TChiWatSupSet"),
+        Text(
+          extent={{-96,20},{-40,2}},
+          lineColor={0,0,127},
+          textString="reqPlaCap"),
+        Text(
+          extent={{-100,-10},{-8,-24}},
+          lineColor={0,0,127},
+          textString="uMaxTowSpeSet"),
+        Text(
+          extent={{-96,-130},{-28,-148}},
+          lineColor={0,0,127},
+          textString="TConWatRet"),
+        Text(
+          extent={{-94,-158},{10,-176}},
+          lineColor={0,0,127},
+          textString="uConWatPumSpe"),
+        Text(
+          extent={{-98,-180},{-16,-200}},
+          lineColor={0,0,127},
+          textString="TConWatSup",
+          visible=not closeCoupledPlant),
+        Text(
+          extent={{48,10},{98,-8}},
+          lineColor={0,0,127},
+          textString="yFanSpe"),
+        Text(
+          extent={{-96,140},{-60,124}},
+          lineColor={255,0,255},
+          textString="uWse",
+          visible=have_WSE),
+        Text(
+          extent={{-100,-40},{-64,-56}},
+          lineColor={255,0,255},
+          textString="uTow"),
+        Text(
+          extent={{-100,-100},{-64,-116}},
+          lineColor={255,0,255},
+          textString="uPla")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-180},{100,160}})),
 Documentation(info="<html>
 <p>

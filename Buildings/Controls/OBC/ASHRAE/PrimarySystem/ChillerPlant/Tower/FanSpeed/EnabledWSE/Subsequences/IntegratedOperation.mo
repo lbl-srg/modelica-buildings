@@ -34,7 +34,7 @@ block IntegratedOperation
     annotation (Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
-    "Chiller enabling status: true=ON"
+    "Vector of chillers proven on status: true=ON"
     annotation (Placement(transformation(extent={{-200,80},{-160,120}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput chiLoa[nChi](
@@ -72,7 +72,7 @@ protected
     final yMax=yMax,
     final yMin=yMin,
     final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
-    final y_reset=1)
+    final y_reset=yMax)
     "Controller to maintain chiller load at the sum of minimum cycling load of operating chillers"
     annotation (Placement(transformation(extent={{80,90},{100,110}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum totMinCycLoa(

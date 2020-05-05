@@ -82,7 +82,7 @@ Documentation(info="<html>
 Block that outputs <code>yMakUp</code> to control cooling tower make-up water
 valve. It is implemented according to 
 ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), 
+Central Plants and Hydronic Systems (Draft on March 23, 2020), 
 section 5.2.13, tower make-up water.
 </p>
 <p>

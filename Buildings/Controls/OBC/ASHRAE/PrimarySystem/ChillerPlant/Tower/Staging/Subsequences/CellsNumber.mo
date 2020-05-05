@@ -317,7 +317,7 @@ and/or condenser water pump speed changes.
 </ul>
 <p>
 The input <code>uTowStaCha</code> is the output from the chiller staging process.
-They indicate in the chiller stagin process (<code>uChiSta</code> &ne; <code>uChiStaSet</code>)
+They indicate in the chiller staging process (<code>uChiSta</code> &ne; <code>uChiStaSet</code>)
 when to change the condenser water pump status so also stage the tower cells.
 </p>
 </html>", revisions="<html>

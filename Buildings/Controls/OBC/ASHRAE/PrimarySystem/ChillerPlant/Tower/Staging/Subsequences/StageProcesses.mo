@@ -7,7 +7,7 @@ block StageProcesses "Sequence for process of staging cells"
     "Nominal time needed for open isolation valve";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChaCel[nTowCel]
-    "True: the cell should be enabled or disabled"
+    "Vector of boolean flags to show if a cell should change its status: true = the cell should change status (be enabled or disabled)"
     annotation (Placement(transformation(extent={{-200,280},{-160,320}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uIsoVal[nTowCel](
@@ -17,7 +17,7 @@ block StageProcesses "Sequence for process of staging cells"
     annotation (Placement(transformation(extent={{-200,50},{-160,90}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uTowSta[nTowCel]
-    "Current cooling tower operating status: true=enabled tower cell"
+    "Vector of tower cells proven on status: true=enabled tower cell"
     annotation (Placement(transformation(extent={{-200,-180},{-160,-140}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yIsoVal[nTowCel](
@@ -27,7 +27,7 @@ block StageProcesses "Sequence for process of staging cells"
     annotation (Placement(transformation(extent={{160,90},{200,130}}),
       iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yTowSta[nTowCel]
-    "Tower cell operating status setpoint: true=enabled tower cell"
+    "Vector of tower cells status setpoint"
     annotation (Placement(transformation(extent={{160,-200},{200,-160}}),
       iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yEndSta

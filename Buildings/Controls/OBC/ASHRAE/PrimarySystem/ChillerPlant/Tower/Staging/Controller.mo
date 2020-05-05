@@ -42,15 +42,16 @@ block Controller "Sequence of staging cooling tower cells"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChaCel[nTowCel]
-    "True: the cell should be enabled or disabled"
+    "Vector of boolean flags to show if a cell should change its status: true = the cell should change status (be enabled or disabled)"
     annotation (Placement(transformation(extent={{-140,-90},{-100,-50}}),
       iconTransformation(extent={{-140,-70},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uIsoVal[nTowCel](
-    final max=fill(1, nTowCel)) "Cooling tower cells isolation valve position"
+    final max=fill(1, nTowCel))
+    "Vector of tower cells isolation valve position"
     annotation (Placement(transformation(extent={{-140,-120},{-100,-80}}),
       iconTransformation(extent={{-140,-90},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uTowSta[nTowCel]
-    "Cooling tower operating status: true=running tower cell"
+    "Vector of tower cells proven on status: true=proven on"
     annotation (Placement(transformation(extent={{-142,-150},{-102,-110}}),
       iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yNumCel
@@ -64,11 +65,12 @@ block Controller "Sequence of staging cooling tower cells"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yIsoVal[nTowCel](
     final unit=fill("1", nTowCel),
     final min=fill(0, nTowCel),
-    final max=fill(1, nTowCel)) "Cooling tower cells isolation valve position"
+    final max=fill(1, nTowCel))
+    "Vector of tower cells isolation valve position"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yTowSta[nTowCel]
-    "Cooling tower cell enabling status"
+    "Vector of tower cells status setpoint"
     annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yEndSta
@@ -84,10 +86,12 @@ block Controller "Sequence of staging cooling tower cells"
     final totChiSta=totChiSta,
     final staVec=staVec,
     final towCelOnSet=towCelOnSet,
-    speChe=speChe)  "Total number of enabled cells"
+    final speChe=speChe)  "Total number of enabled cells"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.Staging.Subsequences.StageProcesses
-    staPro(final nTowCel=nTowCel, final chaTowCelIsoTim=chaTowCelIsoTim)
+    staPro(
+    final nTowCel=nTowCel,
+    final chaTowCelIsoTim=chaTowCelIsoTim)
     "Tower staging process"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
