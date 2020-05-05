@@ -1,5 +1,5 @@
  ReadVarsESO
- processing:.MicroCogeneration_validation_file.rvi
+ processing:.MicroCogeneration_validationfile.rvi
  input file:EnergyPlus/eplusout.eso
  output file:EnergyPlus/eplusout.csv
  getting all vars from:EnergyPlus/eplusout.eso
@@ -7,7 +7,7 @@
  ReadVars Run Time=00hr 00min  0.17sec
  ReadVarsESO program completed successfully.
  ReadVarsESO
- processing:.MicroCogeneration_validation_file.mvi
+ processing:.MicroCogeneration_validationfile.mvi
  input file:EnergyPlus/eplusout.mtr
  output file:EnergyPlus/eplusmtr.csv
  getting all vars from:EnergyPlus/eplusout.mtr

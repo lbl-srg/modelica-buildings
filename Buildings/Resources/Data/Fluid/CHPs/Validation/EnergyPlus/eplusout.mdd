@@ -1,4 +1,4 @@
-! Program Version,EnergyPlus, Version 9.0.1-bb7ca4f0da, YMD=2020.05.03 21:10,
+! Program Version,EnergyPlus, Version 9.1.0-08d2e308bb, YMD=2020.05.04 16:28,
 ! Output:Meter Objects (applicable to this run)
 Output:Meter,Electricity:Facility,hourly; !- [J]
 Output:Meter:Cumulative,Electricity:Facility,hourly; !- [J]
@@ -206,6 +206,8 @@ Output:Meter,Electricity:Plant,hourly; !- [J]
 Output:Meter:Cumulative,Electricity:Plant,hourly; !- [J]
 Output:Meter,Pumps:Electricity,hourly; !- [J]
 Output:Meter:Cumulative,Pumps:Electricity,hourly; !- [J]
+Output:Meter,General:Pumps:Electricity,hourly; !- [J]
+Output:Meter:Cumulative,General:Pumps:Electricity,hourly; !- [J]
 Output:Meter,Source:Facility,hourly; !- [J]
 Output:Meter:Cumulative,Source:Facility,hourly; !- [J]
 Output:Meter,ElectricEmissions:Source,hourly; !- [J]
