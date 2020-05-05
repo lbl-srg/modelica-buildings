@@ -110,48 +110,36 @@ model CoolingDirectControlledReturn
 
 equation
   connect(TSetDisRet_min.y, coo.TSetDisRet)
-    annotation (Line(points={{-79,-54},{-12,-54}}, color={0,0,127},
-      pattern=LinePattern.Dash));
+    annotation (Line(points={{-79,-54},{-12,-54}}, color={0,0,127}));
   connect(pum.port_b, loa.port_a)
-    annotation (Line(points={{100,10},{120,10}}, color={0,127,255},
-      thickness=0.5));
+    annotation (Line(points={{100,10},{120,10}}, color={0,127,255}));
   connect(gai.y, pum.m_flow_in)
-    annotation (Line(points={{61,50},{90,50},{90,22}}, color={0,0,127},
-      pattern=LinePattern.Dash));
+    annotation (Line(points={{61,50},{90,50},{90,22}}, color={0,0,127}));
   connect(ram.y, pro.u1)
-    annotation (Line(points={{-19,90},{-2,90}}, color={0,0,127},
-      pattern=LinePattern.Dash));
+    annotation (Line(points={{-19,90},{-2,90}}, color={0,0,127}));
   connect(pro.y, loa.u)
     annotation (Line(points={{21,84},{110,84},{110,16},{118,16}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
+      color={0,0,127}));
   connect(QCoo.y[1], pro.u2)
     annotation (Line(points={{-19,50},{-10,50},{-10,78},{-2,78}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
+      color={0,0,127}));
   connect(pro.y, gai.u)
     annotation (Line(points={{21,84},{30,84},{30,50},{38,50}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
+      color={0,0,127}));
   connect(TDisSupNoi.y, souDis.T_in)
-    annotation (Line(points={{-119,14},{-102,14}}, color={0,0,127},
-      pattern=LinePattern.Dash));
+    annotation (Line(points={{-119,14},{-102,14}}, color={0,0,127}));
   connect(coo.port_a1, souDis.ports[1])
     annotation (Line(points={{-10,-36},{-20,-36},{-20,10},{-80,10}},
-      color={0,127,255},
-      thickness=0.5));
+      color={0,127,255}));
   connect(coo.port_b1, pum.port_a)
     annotation (Line(points={{10,-36},{20,-36},{20,10},{80,10}},
-      color={0,127,255},
-      thickness=0.5));
+      color={0,127,255}));
   connect(sinDis.ports[1], coo.port_b2)
     annotation (Line(points={{-80,-90},{-20,-90},{-20,-48},{-10,-48}},
-      color={0,127,255},
-      thickness=0.5));
+      color={0,127,255}));
   connect(coo.port_a2, loa.port_b)
     annotation (Line(points={{10,-48},{20,-48},{20,-90},{150,-90},{150,10},
-      {140,10}}, color={0,127,255},
-      thickness=0.5));
+      {140,10}}, color={0,127,255}));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false,
