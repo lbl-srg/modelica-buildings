@@ -50,7 +50,7 @@ inpu.num_wall 6
 /*inpu.dir_inlet: 1: x; 2: y; 3: z*/
 inpu.dir_inlet 1
 
-/*inpu.default_mass_flowrate: set a default mass flowrate if using prescribed outlet bc*/
+/*inpu.default_mass_flowrate: set a default mass flowrate if using prescribed outlet bc. NOTE: for advanced users only.*/
 inpu.default_mass_flowrate 0.1205
 
 /*inlet_area_value: inlet area*/

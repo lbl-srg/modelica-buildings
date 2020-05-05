@@ -1,0 +1,36 @@
+ ISATAB Version 5.1
+
+isat_table_init: initializing table for idtab=     1
+Namelist file not found: 
+isat_1.nml                    
+
+idtab, nprocs, myrank=     1     1     0
+
+nx, nf, nh=    10     4     0
+
+Values of info(1:70) to be used:
+
+       0       0       0       5      30
+      10      -1       1      -1       0
+       2       2       0       0       0
+       0       0       0     100       1
+       0       1       0       0       0
+       0       0       0       0       0
+       0       0       0       0       1
+       4       0       3      -1      -1
+      -1      -1       1    1000     100
+       0       0       0      -3       2
+       2       2       0       0       0
+       0       0       0       0       0
+       0       0       0       0       0
+       0       0       0       0       0
+
+Values of rinfo(1:25) to be used:
+
+   2.000E-01   0.000E+00   1.000E+20   1.000E-01   1.000E+01
+   5.000E-01   2.000E+00   5.000E+02   1.020E+00   1.200E+00
+   1.200E+00   1.000E+01   1.200E+00   1.000E-01   2.000E+00
+   9.000E-01   9.000E-01   1.000E+00   5.000E-01   5.000E-01
+   1.000E-01   0.000E+00   0.000E+00   0.000E+00   0.000E+00
+
+maximum number of table entries =   117028

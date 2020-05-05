@@ -1,0 +1,835 @@
+Start running Fast Fluid Dynamics simulation
+read_parameter(): Opened /home/cary/Git/mbl-Xu/modelica-buildings/Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/Tutorial/NaturalConvection/input.ffd for FFD parameters
+assign_parameter(): inpu.parameter_file_format=SCI
+assign_parameter(): inpu.parameter_file_name=NaturalConvection.cfd
+assign_parameter(): inpu.block_file_name=NaturalConvection.dat
+assign_parameter(): geom.Lx=1.000000
+assign_parameter(): geom.Ly=1.000000
+assign_parameter(): geom.Lz=1.000000
+assign_parameter(): geom.imax=10
+assign_parameter(): geom.jmax=10
+assign_parameter(): geom.kmax=10
+assign_parameter(): geom.index=600
+assign_parameter(): inpu.read_old_ffd_file=0
+assign_parameter(): geom.dx=0.100000
+assign_parameter(): geom.dy=0.100000
+assign_parameter(): geom.dz=0.100000
+assign_parameter(): geom.uniform=1
+assign_parameter(): outp.version=RUN
+assign_parameter(): prob.nu=0.000015
+assign_parameter(): prob.rho=1.000000
+assign_parameter(): prob.gravx=0.000000
+assign_parameter(): prob.gravy=0.000000
+assign_parameter(): prob.gravz=-0.010000
+assign_parameter(): prob.cond=0.020000
+assign_parameter(): prob.Cp=1000.000000
+assign_parameter(): prob.beta=0.003000
+assign_parameter(): prob.diff=0.000010
+assign_parameter(): prob.alpha=0.000020
+assign_parameter(): prob.coeff_h=0.000400
+assign_parameter(): prob.force=1.000000
+assign_parameter(): prob.source=1.000000
+assign_parameter(): prob.movie=0
+assign_parameter(): prob.tur_model=LAM
+assign_parameter(): prob.chen_a=0.038740
+assign_parameter(): prob.Prt=0.900000
+assign_parameter(): prob.Temp_Buoyancy=0.000000
+assign_parameter(): mytime.t_steady=7000.000000
+assign_parameter(): bc.nb_Xi=1
+assign_parameter(): bc.hasTile=0
+assign_parameter(): solv.solver=GS
+assign_parameter(): solv.check_residual=0
+assign_parameter(): solv.advection_solver=SEMI
+assign_parameter(): solv.interpolation=BILINEAR
+assign_parameter(): solv.cosimulation=0
+assign_parameter(): solv.mass_conservation_on=1
+assign_parameter(): sensor.nb_sensor=2
+assign_parameter(): sensor.name=OccupiedZoneAirTemperature
+assign_parameter(): sensor.name=Velocity
+assign_parameter(): init.T=0.000000
+assign_parameter(): init.u=0.000000
+assign_parameter(): init.v=0.000000
+assign_parameter(): init.w=0.000000
+read_sci_input(): Start to read the file /home/cary/Git/mbl-Xu/modelica-buildings/Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/Tutorial/NaturalConvection/set.isat
+		isat.num_input=2
+	Read input settings of isat and ffd:
+		inpu.inpu_name[0]=inlet_temp
+		inpu.inpu_name[1]=inlet_mass
+read_sci_input(): inpu.num_inlet=0
+read_sci_input(): inpu.num_block=0
+read_sci_input(): inpu.num_wall=6
+read_sci_input(): inpu.wall_re[0]=1
+read_sci_input(): inpu.wall_re[1]=1
+read_sci_input(): inpu.wall_re[2]=0
+read_sci_input(): inpu.wall_re[3]=0
+read_sci_input(): inpu.wall_re[4]=0
+read_sci_input(): inpu.wall_re[5]=0
+read_sci_input(): inpu.wall_wh[0]=2
+read_sci_input(): inpu.wall_wh[1]=1
+read_sci_input(): inpu.wall_wh[2]=0
+read_sci_input(): inpu.wall_wh[3]=0
+read_sci_input(): inpu.wall_wh[4]=0
+read_sci_input(): inpu.wall_wh[5]=0
+read_sci_input(): Start to read sci input file /home/cary/Git/mbl-Xu/modelica-buildings/Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/Tutorial/NaturalConvection/input.cfd
+read_sci_input(): para->bc->nb_bc=6
+read_sci_input(): para->bc->nb_inlet=0
+read_sci_input(): para->bc->nb_outlet=0
+read_sci_input(): para->bc->nb_block=0
+read_sci_input(): para->bc->nb_wall=6
+read_sci_input(): para->bc->wallName[0]="West Wall"
+read_sci_input(): ThermalBC=1, T/q_dot=1.000000
+read_sci_input(): ThermalBC=1, T/q_dot=0.000000 after overwrite.
+read_sci_input(): para->bc->wallName[1]="East Wall"
+read_sci_input(): ThermalBC=1, T/q_dot=0.000000
+read_sci_input(): ThermalBC=1, T/q_dot=1.000000 after overwrite.
+read_sci_input(): para->bc->wallName[2]="North Wall"
+read_sci_input(): ThermalBC=0, T/q_dot=0.000000
+read_sci_input(): ThermalBC=0, T/q_dot=0.000000 after overwrite.
+read_sci_input(): para->bc->wallName[3]="South Wall"
+read_sci_input(): ThermalBC=0, T/q_dot=0.000000
+read_sci_input(): ThermalBC=0, T/q_dot=0.000000 after overwrite.
+read_sci_input(): para->bc->wallName[4]="Ceiling"
+read_sci_input(): ThermalBC=0, T/q_dot=0.000000
+read_sci_input(): ThermalBC=0, T/q_dot=0.000000 after overwrite.
+read_sci_input(): para->bc->wallName[5]="Floor"
+read_sci_input(): ThermalBC=0, T/q_dot=0.000000
+read_sci_input(): ThermalBC=0, T/q_dot=0.000000 after overwrite.
+read_sci_input(): para->bc->nb_source=0
+read_sci_input(): para->mytime->t_start=0.000000
+read_sci_input(): para->mytime->dt=10.000000
+read_sci_input(): para->mytime->step_total=720
+read_sci_input(): end of reading sci input file NaturalConvection.cfd
+read_sci_zeroone: start to read block information from /home/cary/Git/mbl-Xu/modelica-buildings/Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/Tutorial/NaturalConvection/zeroone.dat
+read_sci_input(): end of reading zeroone.dat.
+ffd.c: Start FFD solver.
+Physical time=10.0000 s, CPU time=0.1953 s, Time Ratio=51.1980
+Physical time=20.0000 s, CPU time=0.2533 s, Time Ratio=78.9618
+Physical time=30.0000 s, CPU time=0.3164 s, Time Ratio=94.8101
+Physical time=40.0000 s, CPU time=0.3740 s, Time Ratio=106.9636
+Physical time=50.0000 s, CPU time=0.4412 s, Time Ratio=113.3327
+Physical time=60.0000 s, CPU time=0.4989 s, Time Ratio=120.2636
+Physical time=70.0000 s, CPU time=0.5697 s, Time Ratio=122.8717
+Physical time=80.0000 s, CPU time=0.6256 s, Time Ratio=127.8734
+Physical time=90.0000 s, CPU time=0.6825 s, Time Ratio=131.8602
+Physical time=100.0000 s, CPU time=0.7394 s, Time Ratio=135.2514
+Physical time=110.0000 s, CPU time=0.7978 s, Time Ratio=137.8863
+Physical time=120.0000 s, CPU time=0.8617 s, Time Ratio=139.2601
+Physical time=130.0000 s, CPU time=0.9175 s, Time Ratio=141.6894
+Physical time=140.0000 s, CPU time=0.9738 s, Time Ratio=143.7603
+Physical time=150.0000 s, CPU time=1.0295 s, Time Ratio=145.6994
+Physical time=160.0000 s, CPU time=1.1072 s, Time Ratio=144.5037
+Physical time=170.0000 s, CPU time=1.1630 s, Time Ratio=146.1680
+Physical time=180.0000 s, CPU time=1.2458 s, Time Ratio=144.4891
+Physical time=190.0000 s, CPU time=1.3183 s, Time Ratio=144.1245
+Physical time=200.0000 s, CPU time=1.3731 s, Time Ratio=145.6510
+Physical time=210.0000 s, CPU time=1.4553 s, Time Ratio=144.2952
+Physical time=220.0000 s, CPU time=1.5177 s, Time Ratio=144.9554
+Physical time=230.0000 s, CPU time=1.5743 s, Time Ratio=146.0945
+Physical time=240.0000 s, CPU time=1.6311 s, Time Ratio=147.1438
+Physical time=250.0000 s, CPU time=1.6885 s, Time Ratio=148.0580
+Physical time=260.0000 s, CPU time=1.7441 s, Time Ratio=149.0748
+Physical time=270.0000 s, CPU time=1.8013 s, Time Ratio=149.8926
+Physical time=280.0000 s, CPU time=1.8586 s, Time Ratio=150.6514
+Physical time=290.0000 s, CPU time=1.9520 s, Time Ratio=148.5635
+Physical time=300.0000 s, CPU time=2.0101 s, Time Ratio=149.2454
+Physical time=310.0000 s, CPU time=2.0668 s, Time Ratio=149.9900
+Physical time=320.0000 s, CPU time=2.1272 s, Time Ratio=150.4300
+Physical time=330.0000 s, CPU time=2.1823 s, Time Ratio=151.2145
+Physical time=340.0000 s, CPU time=2.2389 s, Time Ratio=151.8618
+Physical time=350.0000 s, CPU time=2.2983 s, Time Ratio=152.2893
+Physical time=360.0000 s, CPU time=2.3558 s, Time Ratio=152.8137
+Physical time=370.0000 s, CPU time=2.4411 s, Time Ratio=151.5703
+Physical time=380.0000 s, CPU time=2.5007 s, Time Ratio=151.9554
+Physical time=390.0000 s, CPU time=2.5970 s, Time Ratio=150.1710
+Physical time=400.0000 s, CPU time=2.6598 s, Time Ratio=150.3859
+Physical time=410.0000 s, CPU time=2.7187 s, Time Ratio=150.8096
+Physical time=420.0000 s, CPU time=2.7972 s, Time Ratio=150.1476
+Physical time=430.0000 s, CPU time=2.8663 s, Time Ratio=150.0186
+Physical time=440.0000 s, CPU time=2.9367 s, Time Ratio=149.8290
+Physical time=450.0000 s, CPU time=2.9959 s, Time Ratio=150.2073
+Physical time=460.0000 s, CPU time=3.0619 s, Time Ratio=150.2323
+Physical time=470.0000 s, CPU time=3.1264 s, Time Ratio=150.3313
+Physical time=480.0000 s, CPU time=3.2263 s, Time Ratio=148.7775
+Physical time=490.0000 s, CPU time=3.2985 s, Time Ratio=148.5505
+Physical time=500.0000 s, CPU time=3.3784 s, Time Ratio=147.9998
+Physical time=510.0000 s, CPU time=3.4415 s, Time Ratio=148.1913
+Physical time=520.0000 s, CPU time=3.5202 s, Time Ratio=147.7176
+Physical time=530.0000 s, CPU time=3.6144 s, Time Ratio=146.6364
+Physical time=540.0000 s, CPU time=3.6710 s, Time Ratio=147.0988
+Physical time=550.0000 s, CPU time=3.7257 s, Time Ratio=147.6247
+Physical time=560.0000 s, CPU time=3.7809 s, Time Ratio=148.1111
+Physical time=570.0000 s, CPU time=3.8354 s, Time Ratio=148.6169
+Physical time=580.0000 s, CPU time=3.9004 s, Time Ratio=148.7037
+Physical time=590.0000 s, CPU time=3.9566 s, Time Ratio=149.1194
+Physical time=600.0000 s, CPU time=4.0359 s, Time Ratio=148.6656
+Physical time=610.0000 s, CPU time=4.1048 s, Time Ratio=148.6061
+Physical time=620.0000 s, CPU time=4.1720 s, Time Ratio=148.6088
+Physical time=630.0000 s, CPU time=4.2305 s, Time Ratio=148.9199
+Physical time=640.0000 s, CPU time=4.2864 s, Time Ratio=149.3082
+Physical time=650.0000 s, CPU time=4.3691 s, Time Ratio=148.7713
+Physical time=660.0000 s, CPU time=4.4329 s, Time Ratio=148.8873
+Physical time=670.0000 s, CPU time=4.5120 s, Time Ratio=148.4921
+Physical time=680.0000 s, CPU time=4.5680 s, Time Ratio=148.8610
+Physical time=690.0000 s, CPU time=4.6304 s, Time Ratio=149.0145
+Physical time=700.0000 s, CPU time=4.6976 s, Time Ratio=149.0125
+Physical time=710.0000 s, CPU time=4.7570 s, Time Ratio=149.2532
+Physical time=720.0000 s, CPU time=4.8124 s, Time Ratio=149.6144
+Physical time=730.0000 s, CPU time=4.8686 s, Time Ratio=149.9398
+Physical time=740.0000 s, CPU time=4.9424 s, Time Ratio=149.7263
+Physical time=750.0000 s, CPU time=5.0193 s, Time Ratio=149.4240
+Physical time=760.0000 s, CPU time=5.0879 s, Time Ratio=149.3751
+Physical time=770.0000 s, CPU time=5.1505 s, Time Ratio=149.5006
+Physical time=780.0000 s, CPU time=5.2065 s, Time Ratio=149.8126
+Physical time=790.0000 s, CPU time=5.2906 s, Time Ratio=149.3222
+Physical time=800.0000 s, CPU time=5.3475 s, Time Ratio=149.6040
+Physical time=810.0000 s, CPU time=5.4271 s, Time Ratio=149.2508
+Physical time=820.0000 s, CPU time=5.4849 s, Time Ratio=149.5005
+Physical time=830.0000 s, CPU time=5.5405 s, Time Ratio=149.8059
+Physical time=840.0000 s, CPU time=5.5992 s, Time Ratio=150.0219
+Physical time=850.0000 s, CPU time=5.6568 s, Time Ratio=150.2609
+Physical time=860.0000 s, CPU time=5.7375 s, Time Ratio=149.8905
+Physical time=870.0000 s, CPU time=5.8394 s, Time Ratio=148.9889
+Physical time=880.0000 s, CPU time=5.9204 s, Time Ratio=148.6390
+Physical time=890.0000 s, CPU time=5.9842 s, Time Ratio=148.7251
+Physical time=900.0000 s, CPU time=6.0468 s, Time Ratio=148.8379
+Physical time=910.0000 s, CPU time=6.1027 s, Time Ratio=149.1148
+Physical time=920.0000 s, CPU time=6.1589 s, Time Ratio=149.3784
+Physical time=930.0000 s, CPU time=6.2392 s, Time Ratio=149.0577
+Physical time=940.0000 s, CPU time=6.2953 s, Time Ratio=149.3182
+Physical time=950.0000 s, CPU time=6.3531 s, Time Ratio=149.5326
+Physical time=960.0000 s, CPU time=6.4092 s, Time Ratio=149.7841
+Physical time=970.0000 s, CPU time=6.4647 s, Time Ratio=150.0464
+Physical time=980.0000 s, CPU time=6.5218 s, Time Ratio=150.2644
+Physical time=990.0000 s, CPU time=6.5854 s, Time Ratio=150.3323
+Physical time=1000.0000 s, CPU time=6.6757 s, Time Ratio=149.7969
+Physical time=1010.0000 s, CPU time=6.7399 s, Time Ratio=149.8530
+Physical time=1020.0000 s, CPU time=6.8049 s, Time Ratio=149.8924
+Physical time=1030.0000 s, CPU time=6.8838 s, Time Ratio=149.6276
+Physical time=1040.0000 s, CPU time=6.9412 s, Time Ratio=149.8295
+Physical time=1050.0000 s, CPU time=6.9987 s, Time Ratio=150.0284
+Physical time=1060.0000 s, CPU time=7.0642 s, Time Ratio=150.0527
+Physical time=1070.0000 s, CPU time=7.1269 s, Time Ratio=150.1346
+Physical time=1080.0000 s, CPU time=7.1830 s, Time Ratio=150.3541
+Physical time=1090.0000 s, CPU time=7.2666 s, Time Ratio=150.0007
+Physical time=1100.0000 s, CPU time=7.3307 s, Time Ratio=150.0546
+Physical time=1110.0000 s, CPU time=7.3928 s, Time Ratio=150.1453
+Physical time=1120.0000 s, CPU time=7.4608 s, Time Ratio=150.1178
+Physical time=1130.0000 s, CPU time=7.5552 s, Time Ratio=149.5649
+Physical time=1140.0000 s, CPU time=7.6140 s, Time Ratio=149.7233
+Physical time=1150.0000 s, CPU time=7.6762 s, Time Ratio=149.8142
+Physical time=1160.0000 s, CPU time=7.7359 s, Time Ratio=149.9497
+Physical time=1170.0000 s, CPU time=7.7949 s, Time Ratio=150.0989
+Physical time=1180.0000 s, CPU time=7.8534 s, Time Ratio=150.2525
+Physical time=1190.0000 s, CPU time=7.9116 s, Time Ratio=150.4120
+Physical time=1200.0000 s, CPU time=7.9941 s, Time Ratio=150.1108
+Physical time=1210.0000 s, CPU time=8.0636 s, Time Ratio=150.0569
+Physical time=1220.0000 s, CPU time=8.1219 s, Time Ratio=150.2119
+Physical time=1230.0000 s, CPU time=8.1804 s, Time Ratio=150.3601
+Physical time=1240.0000 s, CPU time=8.2370 s, Time Ratio=150.5408
+Physical time=1250.0000 s, CPU time=8.2957 s, Time Ratio=150.6805
+Physical time=1260.0000 s, CPU time=8.3614 s, Time Ratio=150.6925
+Physical time=1270.0000 s, CPU time=8.4390 s, Time Ratio=150.4926
+Physical time=1280.0000 s, CPU time=8.4939 s, Time Ratio=150.6955
+Physical time=1290.0000 s, CPU time=8.6102 s, Time Ratio=149.8219
+Physical time=1300.0000 s, CPU time=8.6672 s, Time Ratio=149.9905
+Physical time=1310.0000 s, CPU time=8.7370 s, Time Ratio=149.9372
+Physical time=1320.0000 s, CPU time=8.7944 s, Time Ratio=150.0951
+Physical time=1330.0000 s, CPU time=8.8640 s, Time Ratio=150.0459
+Physical time=1340.0000 s, CPU time=8.9336 s, Time Ratio=149.9958
+Physical time=1350.0000 s, CPU time=8.9926 s, Time Ratio=150.1231
+Physical time=1360.0000 s, CPU time=9.0485 s, Time Ratio=150.3005
+Physical time=1370.0000 s, CPU time=9.1548 s, Time Ratio=149.6476
+Physical time=1380.0000 s, CPU time=9.2131 s, Time Ratio=149.7860
+Physical time=1390.0000 s, CPU time=9.2676 s, Time Ratio=149.9846
+Physical time=1400.0000 s, CPU time=9.3243 s, Time Ratio=150.1453
+Physical time=1410.0000 s, CPU time=9.3820 s, Time Ratio=150.2885
+Physical time=1420.0000 s, CPU time=9.4421 s, Time Ratio=150.3902
+Physical time=1430.0000 s, CPU time=9.5061 s, Time Ratio=150.4305
+Physical time=1440.0000 s, CPU time=9.5655 s, Time Ratio=150.5415
+Physical time=1450.0000 s, CPU time=9.6259 s, Time Ratio=150.6347
+Physical time=1460.0000 s, CPU time=9.6878 s, Time Ratio=150.7054
+Physical time=1470.0000 s, CPU time=9.7447 s, Time Ratio=150.8505
+Physical time=1480.0000 s, CPU time=9.8184 s, Time Ratio=150.7381
+Physical time=1490.0000 s, CPU time=9.8747 s, Time Ratio=150.8904
+Physical time=1500.0000 s, CPU time=9.9396 s, Time Ratio=150.9116
+Physical time=1510.0000 s, CPU time=9.9959 s, Time Ratio=151.0626
+Physical time=1520.0000 s, CPU time=10.0891 s, Time Ratio=150.6579
+Physical time=1530.0000 s, CPU time=10.1481 s, Time Ratio=150.7673
+Physical time=1540.0000 s, CPU time=10.2491 s, Time Ratio=150.2571
+Physical time=1550.0000 s, CPU time=10.3054 s, Time Ratio=150.4059
+Physical time=1560.0000 s, CPU time=10.3794 s, Time Ratio=150.2978
+Physical time=1570.0000 s, CPU time=10.4519 s, Time Ratio=150.2122
+Physical time=1580.0000 s, CPU time=10.5085 s, Time Ratio=150.3543
+Physical time=1590.0000 s, CPU time=10.5660 s, Time Ratio=150.4827
+Physical time=1600.0000 s, CPU time=10.6449 s, Time Ratio=150.3060
+Physical time=1610.0000 s, CPU time=10.7233 s, Time Ratio=150.1403
+Physical time=1620.0000 s, CPU time=10.7793 s, Time Ratio=150.2884
+Physical time=1630.0000 s, CPU time=10.8408 s, Time Ratio=150.3583
+Physical time=1640.0000 s, CPU time=10.8978 s, Time Ratio=150.4886
+Physical time=1650.0000 s, CPU time=10.9764 s, Time Ratio=150.3229
+Physical time=1660.0000 s, CPU time=11.0622 s, Time Ratio=150.0603
+Physical time=1670.0000 s, CPU time=11.1921 s, Time Ratio=149.2125
+Physical time=1680.0000 s, CPU time=11.3032 s, Time Ratio=148.6302
+Physical time=1690.0000 s, CPU time=11.3897 s, Time Ratio=148.3803
+Physical time=1700.0000 s, CPU time=11.5034 s, Time Ratio=147.7818
+Physical time=1710.0000 s, CPU time=11.5635 s, Time Ratio=147.8796
+Physical time=1720.0000 s, CPU time=11.6473 s, Time Ratio=147.6743
+Physical time=1730.0000 s, CPU time=11.7076 s, Time Ratio=147.7672
+Physical time=1740.0000 s, CPU time=11.7686 s, Time Ratio=147.8515
+Physical time=1750.0000 s, CPU time=11.8294 s, Time Ratio=147.9366
+Physical time=1760.0000 s, CPU time=11.9048 s, Time Ratio=147.8395
+Physical time=1770.0000 s, CPU time=11.9662 s, Time Ratio=147.9172
+Physical time=1780.0000 s, CPU time=12.0318 s, Time Ratio=147.9412
+Physical time=1790.0000 s, CPU time=12.0910 s, Time Ratio=148.0436
+Physical time=1800.0000 s, CPU time=12.1511 s, Time Ratio=148.1352
+Physical time=1810.0000 s, CPU time=12.2104 s, Time Ratio=148.2343
+Physical time=1820.0000 s, CPU time=12.2711 s, Time Ratio=148.3161
+Physical time=1830.0000 s, CPU time=12.3306 s, Time Ratio=148.4108
+Physical time=1840.0000 s, CPU time=12.3900 s, Time Ratio=148.5068
+Physical time=1850.0000 s, CPU time=12.4519 s, Time Ratio=148.5720
+Physical time=1860.0000 s, CPU time=12.5116 s, Time Ratio=148.6616
+Physical time=1870.0000 s, CPU time=12.5698 s, Time Ratio=148.7698
+Physical time=1880.0000 s, CPU time=12.6304 s, Time Ratio=148.8470
+Physical time=1890.0000 s, CPU time=12.6889 s, Time Ratio=148.9492
+Physical time=1900.0000 s, CPU time=12.7516 s, Time Ratio=149.0011
+Physical time=1910.0000 s, CPU time=12.8187 s, Time Ratio=149.0011
+Physical time=1920.0000 s, CPU time=12.8832 s, Time Ratio=149.0308
+Physical time=1930.0000 s, CPU time=12.9494 s, Time Ratio=149.0421
+Physical time=1940.0000 s, CPU time=13.0221 s, Time Ratio=148.9780
+Physical time=1950.0000 s, CPU time=13.1031 s, Time Ratio=148.8192
+Physical time=1960.0000 s, CPU time=13.1725 s, Time Ratio=148.7943
+Physical time=1970.0000 s, CPU time=13.2322 s, Time Ratio=148.8788
+Physical time=1980.0000 s, CPU time=13.2905 s, Time Ratio=148.9782
+Physical time=1990.0000 s, CPU time=13.3570 s, Time Ratio=148.9856
+Physical time=2000.0000 s, CPU time=13.4167 s, Time Ratio=149.0680
+Physical time=2010.0000 s, CPU time=13.4770 s, Time Ratio=149.1435
+Physical time=2020.0000 s, CPU time=13.5478 s, Time Ratio=149.1020
+Physical time=2030.0000 s, CPU time=13.6134 s, Time Ratio=149.1175
+Physical time=2040.0000 s, CPU time=13.6731 s, Time Ratio=149.1978
+Physical time=2050.0000 s, CPU time=13.7354 s, Time Ratio=149.2492
+Physical time=2060.0000 s, CPU time=13.7971 s, Time Ratio=149.3064
+Physical time=2070.0000 s, CPU time=13.8593 s, Time Ratio=149.3582
+Physical time=2080.0000 s, CPU time=13.9342 s, Time Ratio=149.2734
+Physical time=2090.0000 s, CPU time=14.0001 s, Time Ratio=149.2844
+Physical time=2100.0000 s, CPU time=14.0618 s, Time Ratio=149.3413
+Physical time=2110.0000 s, CPU time=14.1295 s, Time Ratio=149.3328
+Physical time=2120.0000 s, CPU time=14.2067 s, Time Ratio=149.2256
+Physical time=2130.0000 s, CPU time=14.3076 s, Time Ratio=148.8721
+Physical time=2140.0000 s, CPU time=14.3668 s, Time Ratio=148.9540
+Physical time=2150.0000 s, CPU time=14.4305 s, Time Ratio=148.9896
+Physical time=2160.0000 s, CPU time=14.4903 s, Time Ratio=149.0657
+Physical time=2170.0000 s, CPU time=14.5588 s, Time Ratio=149.0506
+Physical time=2180.0000 s, CPU time=14.6474 s, Time Ratio=148.8316
+Physical time=2190.0000 s, CPU time=14.7099 s, Time Ratio=148.8790
+Physical time=2200.0000 s, CPU time=14.7691 s, Time Ratio=148.9600
+Physical time=2210.0000 s, CPU time=14.8292 s, Time Ratio=149.0305
+Physical time=2220.0000 s, CPU time=14.8918 s, Time Ratio=149.0758
+Physical time=2230.0000 s, CPU time=14.9828 s, Time Ratio=148.8374
+Physical time=2240.0000 s, CPU time=15.0482 s, Time Ratio=148.8552
+Physical time=2250.0000 s, CPU time=15.1076 s, Time Ratio=148.9312
+Physical time=2260.0000 s, CPU time=15.1668 s, Time Ratio=149.0093
+Physical time=2270.0000 s, CPU time=15.2258 s, Time Ratio=149.0889
+Physical time=2280.0000 s, CPU time=15.2931 s, Time Ratio=149.0868
+Physical time=2290.0000 s, CPU time=15.3508 s, Time Ratio=149.1781
+Physical time=2300.0000 s, CPU time=15.4327 s, Time Ratio=149.0343
+Physical time=2310.0000 s, CPU time=15.4907 s, Time Ratio=149.1216
+Physical time=2320.0000 s, CPU time=15.5497 s, Time Ratio=149.1994
+Physical time=2330.0000 s, CPU time=15.6089 s, Time Ratio=149.2740
+Physical time=2340.0000 s, CPU time=15.6684 s, Time Ratio=149.3451
+Physical time=2350.0000 s, CPU time=15.7259 s, Time Ratio=149.4354
+Physical time=2360.0000 s, CPU time=15.7851 s, Time Ratio=149.5085
+Physical time=2370.0000 s, CPU time=15.8428 s, Time Ratio=149.5947
+Physical time=2380.0000 s, CPU time=15.9060 s, Time Ratio=149.6290
+Physical time=2390.0000 s, CPU time=15.9639 s, Time Ratio=149.7127
+Physical time=2400.0000 s, CPU time=16.0244 s, Time Ratio=149.7720
+Physical time=2410.0000 s, CPU time=16.0834 s, Time Ratio=149.8437
+Physical time=2420.0000 s, CPU time=16.1557 s, Time Ratio=149.7923
+Physical time=2430.0000 s, CPU time=16.2408 s, Time Ratio=149.6228
+Physical time=2440.0000 s, CPU time=16.3026 s, Time Ratio=149.6698
+Physical time=2450.0000 s, CPU time=16.3902 s, Time Ratio=149.4795
+Physical time=2460.0000 s, CPU time=16.4590 s, Time Ratio=149.4626
+Physical time=2470.0000 s, CPU time=16.5216 s, Time Ratio=149.5011
+Physical time=2480.0000 s, CPU time=16.6103 s, Time Ratio=149.3054
+Physical time=2490.0000 s, CPU time=16.6885 s, Time Ratio=149.2043
+Physical time=2500.0000 s, CPU time=16.7665 s, Time Ratio=149.1071
+Physical time=2510.0000 s, CPU time=16.8257 s, Time Ratio=149.1767
+Physical time=2520.0000 s, CPU time=16.8940 s, Time Ratio=149.1651
+Physical time=2530.0000 s, CPU time=16.9761 s, Time Ratio=149.0335
+Physical time=2540.0000 s, CPU time=17.0373 s, Time Ratio=149.0845
+Physical time=2550.0000 s, CPU time=17.0981 s, Time Ratio=149.1396
+Physical time=2560.0000 s, CPU time=17.1600 s, Time Ratio=149.1841
+Physical time=2570.0000 s, CPU time=17.2229 s, Time Ratio=149.2200
+Physical time=2580.0000 s, CPU time=17.2841 s, Time Ratio=149.2699
+Physical time=2590.0000 s, CPU time=17.3449 s, Time Ratio=149.3231
+Physical time=2600.0000 s, CPU time=17.4257 s, Time Ratio=149.2050
+Physical time=2610.0000 s, CPU time=17.5193 s, Time Ratio=148.9785
+Physical time=2620.0000 s, CPU time=17.5948 s, Time Ratio=148.9081
+Physical time=2630.0000 s, CPU time=17.6555 s, Time Ratio=148.9618
+Physical time=2640.0000 s, CPU time=17.7250 s, Time Ratio=148.9422
+Physical time=2650.0000 s, CPU time=17.7845 s, Time Ratio=149.0062
+Physical time=2660.0000 s, CPU time=17.8458 s, Time Ratio=149.0545
+Physical time=2670.0000 s, CPU time=17.9392 s, Time Ratio=148.8357
+Physical time=2680.0000 s, CPU time=17.9983 s, Time Ratio=148.9025
+Physical time=2690.0000 s, CPU time=18.0601 s, Time Ratio=148.9475
+Physical time=2700.0000 s, CPU time=18.1203 s, Time Ratio=149.0038
+Physical time=2710.0000 s, CPU time=18.1957 s, Time Ratio=148.9360
+Physical time=2720.0000 s, CPU time=18.2883 s, Time Ratio=148.7286
+Physical time=2730.0000 s, CPU time=18.3509 s, Time Ratio=148.7666
+Physical time=2740.0000 s, CPU time=18.4096 s, Time Ratio=148.8352
+Physical time=2750.0000 s, CPU time=18.4691 s, Time Ratio=148.8977
+Physical time=2760.0000 s, CPU time=18.5278 s, Time Ratio=148.9652
+Physical time=2770.0000 s, CPU time=18.5923 s, Time Ratio=148.9861
+Physical time=2780.0000 s, CPU time=18.6883 s, Time Ratio=148.7559
+Physical time=2790.0000 s, CPU time=18.7537 s, Time Ratio=148.7704
+Physical time=2800.0000 s, CPU time=18.8132 s, Time Ratio=148.8313
+Physical time=2810.0000 s, CPU time=18.8729 s, Time Ratio=148.8904
+Physical time=2820.0000 s, CPU time=18.9385 s, Time Ratio=148.9029
+Physical time=2830.0000 s, CPU time=19.0116 s, Time Ratio=148.8564
+Physical time=2840.0000 s, CPU time=19.0830 s, Time Ratio=148.8233
+Physical time=2850.0000 s, CPU time=19.1433 s, Time Ratio=148.8773
+Physical time=2860.0000 s, CPU time=19.2058 s, Time Ratio=148.9132
+Physical time=2870.0000 s, CPU time=19.2652 s, Time Ratio=148.9729
+Physical time=2880.0000 s, CPU time=19.3277 s, Time Ratio=149.0087
+Physical time=2890.0000 s, CPU time=19.3902 s, Time Ratio=149.0446
+Physical time=2900.0000 s, CPU time=19.4563 s, Time Ratio=149.0518
+Physical time=2910.0000 s, CPU time=19.5156 s, Time Ratio=149.1114
+Physical time=2920.0000 s, CPU time=19.5802 s, Time Ratio=149.1304
+Physical time=2930.0000 s, CPU time=19.6395 s, Time Ratio=149.1888
+Physical time=2940.0000 s, CPU time=19.7159 s, Time Ratio=149.1182
+Physical time=2950.0000 s, CPU time=19.7756 s, Time Ratio=149.1735
+Physical time=2960.0000 s, CPU time=19.8367 s, Time Ratio=149.2185
+Physical time=2970.0000 s, CPU time=19.9059 s, Time Ratio=149.2020
+Physical time=2980.0000 s, CPU time=19.9665 s, Time Ratio=149.2500
+Physical time=2990.0000 s, CPU time=20.0546 s, Time Ratio=149.0927
+Physical time=3000.0000 s, CPU time=20.1172 s, Time Ratio=149.1262
+Physical time=3010.0000 s, CPU time=20.1752 s, Time Ratio=149.1934
+Physical time=3020.0000 s, CPU time=20.2751 s, Time Ratio=148.9512
+Physical time=3030.0000 s, CPU time=20.3362 s, Time Ratio=148.9955
+Physical time=3040.0000 s, CPU time=20.3948 s, Time Ratio=149.0573
+Physical time=3050.0000 s, CPU time=20.4525 s, Time Ratio=149.1261
+Physical time=3060.0000 s, CPU time=20.5105 s, Time Ratio=149.1920
+Physical time=3070.0000 s, CPU time=20.5698 s, Time Ratio=149.2483
+Physical time=3080.0000 s, CPU time=20.6286 s, Time Ratio=149.3070
+Physical time=3090.0000 s, CPU time=20.6865 s, Time Ratio=149.3728
+Physical time=3100.0000 s, CPU time=20.7698 s, Time Ratio=149.2554
+Physical time=3110.0000 s, CPU time=20.8344 s, Time Ratio=149.2720
+Physical time=3120.0000 s, CPU time=20.8928 s, Time Ratio=149.3337
+Physical time=3130.0000 s, CPU time=20.9504 s, Time Ratio=149.4004
+Physical time=3140.0000 s, CPU time=21.0105 s, Time Ratio=149.4491
+Physical time=3150.0000 s, CPU time=21.0681 s, Time Ratio=149.5148
+Physical time=3160.0000 s, CPU time=21.1447 s, Time Ratio=149.4466
+Physical time=3170.0000 s, CPU time=21.2321 s, Time Ratio=149.3020
+Physical time=3180.0000 s, CPU time=21.2947 s, Time Ratio=149.3326
+Physical time=3190.0000 s, CPU time=21.3635 s, Time Ratio=149.3202
+Physical time=3200.0000 s, CPU time=21.4552 s, Time Ratio=149.1477
+Physical time=3210.0000 s, CPU time=21.5187 s, Time Ratio=149.1726
+Physical time=3220.0000 s, CPU time=21.5907 s, Time Ratio=149.1380
+Physical time=3230.0000 s, CPU time=21.6557 s, Time Ratio=149.1525
+Physical time=3240.0000 s, CPU time=21.7487 s, Time Ratio=148.9743
+Physical time=3250.0000 s, CPU time=21.8725 s, Time Ratio=148.5883
+Physical time=3260.0000 s, CPU time=21.9383 s, Time Ratio=148.5989
+Physical time=3270.0000 s, CPU time=21.9991 s, Time Ratio=148.6424
+Physical time=3280.0000 s, CPU time=22.0587 s, Time Ratio=148.6939
+Physical time=3290.0000 s, CPU time=22.1421 s, Time Ratio=148.5856
+Physical time=3300.0000 s, CPU time=22.2016 s, Time Ratio=148.6382
+Physical time=3310.0000 s, CPU time=22.2608 s, Time Ratio=148.6918
+Physical time=3320.0000 s, CPU time=22.3374 s, Time Ratio=148.6294
+Physical time=3330.0000 s, CPU time=22.4110 s, Time Ratio=148.5881
+Physical time=3340.0000 s, CPU time=22.4817 s, Time Ratio=148.5654
+Physical time=3350.0000 s, CPU time=22.5521 s, Time Ratio=148.5447
+Physical time=3360.0000 s, CPU time=22.6131 s, Time Ratio=148.5862
+Physical time=3370.0000 s, CPU time=22.6736 s, Time Ratio=148.6307
+Physical time=3380.0000 s, CPU time=22.7337 s, Time Ratio=148.6782
+Physical time=3390.0000 s, CPU time=22.8025 s, Time Ratio=148.6678
+Physical time=3400.0000 s, CPU time=22.8644 s, Time Ratio=148.7028
+Physical time=3410.0000 s, CPU time=22.9348 s, Time Ratio=148.6822
+Physical time=3420.0000 s, CPU time=23.0400 s, Time Ratio=148.4375
+Physical time=3430.0000 s, CPU time=23.1037 s, Time Ratio=148.4608
+Physical time=3440.0000 s, CPU time=23.1707 s, Time Ratio=148.4633
+Physical time=3450.0000 s, CPU time=23.2343 s, Time Ratio=148.4875
+Physical time=3460.0000 s, CPU time=23.2981 s, Time Ratio=148.5100
+Physical time=3470.0000 s, CPU time=23.3703 s, Time Ratio=148.4790
+Physical time=3480.0000 s, CPU time=23.4425 s, Time Ratio=148.4484
+Physical time=3490.0000 s, CPU time=23.5253 s, Time Ratio=148.3512
+Physical time=3500.0000 s, CPU time=23.5898 s, Time Ratio=148.3691
+Physical time=3510.0000 s, CPU time=23.6588 s, Time Ratio=148.3590
+Physical time=3520.0000 s, CPU time=23.7330 s, Time Ratio=148.3168
+Physical time=3530.0000 s, CPU time=23.7948 s, Time Ratio=148.3520
+Physical time=3540.0000 s, CPU time=23.8538 s, Time Ratio=148.4041
+Physical time=3550.0000 s, CPU time=23.9302 s, Time Ratio=148.3480
+Physical time=3560.0000 s, CPU time=23.9894 s, Time Ratio=148.3989
+Physical time=3570.0000 s, CPU time=24.0491 s, Time Ratio=148.4466
+Physical time=3580.0000 s, CPU time=24.1129 s, Time Ratio=148.4682
+Physical time=3590.0000 s, CPU time=24.1789 s, Time Ratio=148.4765
+Physical time=3600.0000 s, CPU time=24.2407 s, Time Ratio=148.5104
+Physical time=3610.0000 s, CPU time=24.3035 s, Time Ratio=148.5383
+Physical time=3620.0000 s, CPU time=24.4021 s, Time Ratio=148.3477
+Physical time=3630.0000 s, CPU time=24.4646 s, Time Ratio=148.3776
+Physical time=3640.0000 s, CPU time=24.5439 s, Time Ratio=148.3060
+Physical time=3650.0000 s, CPU time=24.6030 s, Time Ratio=148.3559
+Physical time=3660.0000 s, CPU time=24.6633 s, Time Ratio=148.3984
+Physical time=3670.0000 s, CPU time=24.7245 s, Time Ratio=148.4356
+Physical time=3680.0000 s, CPU time=24.7859 s, Time Ratio=148.4715
+Physical time=3690.0000 s, CPU time=24.8435 s, Time Ratio=148.5298
+Physical time=3700.0000 s, CPU time=24.9014 s, Time Ratio=148.5861
+Physical time=3710.0000 s, CPU time=24.9633 s, Time Ratio=148.6180
+Physical time=3720.0000 s, CPU time=25.0228 s, Time Ratio=148.6646
+Physical time=3730.0000 s, CPU time=25.1048 s, Time Ratio=148.5770
+Physical time=3740.0000 s, CPU time=25.1640 s, Time Ratio=148.6253
+Physical time=3750.0000 s, CPU time=25.2236 s, Time Ratio=148.6705
+Physical time=3760.0000 s, CPU time=25.2833 s, Time Ratio=148.7146
+Physical time=3770.0000 s, CPU time=25.3421 s, Time Ratio=148.7644
+Physical time=3780.0000 s, CPU time=25.4009 s, Time Ratio=148.8138
+Physical time=3790.0000 s, CPU time=25.4593 s, Time Ratio=148.8650
+Physical time=3800.0000 s, CPU time=25.5430 s, Time Ratio=148.7690
+Physical time=3810.0000 s, CPU time=25.6050 s, Time Ratio=148.7988
+Physical time=3820.0000 s, CPU time=25.6669 s, Time Ratio=148.8298
+Physical time=3830.0000 s, CPU time=25.7252 s, Time Ratio=148.8813
+Physical time=3840.0000 s, CPU time=25.7830 s, Time Ratio=148.9353
+Physical time=3850.0000 s, CPU time=25.8408 s, Time Ratio=148.9895
+Physical time=3860.0000 s, CPU time=25.8990 s, Time Ratio=149.0403
+Physical time=3870.0000 s, CPU time=25.9637 s, Time Ratio=149.0541
+Physical time=3880.0000 s, CPU time=26.0239 s, Time Ratio=149.0936
+Physical time=3890.0000 s, CPU time=26.0834 s, Time Ratio=149.1371
+Physical time=3900.0000 s, CPU time=26.1503 s, Time Ratio=149.1381
+Physical time=3910.0000 s, CPU time=26.2100 s, Time Ratio=149.1797
+Physical time=3920.0000 s, CPU time=26.2707 s, Time Ratio=149.2159
+Physical time=3930.0000 s, CPU time=26.3318 s, Time Ratio=149.2495
+Physical time=3940.0000 s, CPU time=26.4251 s, Time Ratio=149.1007
+Physical time=3950.0000 s, CPU time=26.4962 s, Time Ratio=149.0778
+Physical time=3960.0000 s, CPU time=26.5975 s, Time Ratio=148.8861
+Physical time=3970.0000 s, CPU time=26.6586 s, Time Ratio=148.9202
+Physical time=3980.0000 s, CPU time=26.7313 s, Time Ratio=148.8890
+Physical time=3990.0000 s, CPU time=26.8168 s, Time Ratio=148.7875
+Physical time=4000.0000 s, CPU time=26.8788 s, Time Ratio=148.8162
+Physical time=4010.0000 s, CPU time=26.9509 s, Time Ratio=148.7891
+Physical time=4020.0000 s, CPU time=27.0108 s, Time Ratio=148.8292
+Physical time=4030.0000 s, CPU time=27.0711 s, Time Ratio=148.8670
+Physical time=4040.0000 s, CPU time=27.1302 s, Time Ratio=148.9114
+Physical time=4050.0000 s, CPU time=27.1902 s, Time Ratio=148.9507
+Physical time=4060.0000 s, CPU time=27.2617 s, Time Ratio=148.9267
+Physical time=4070.0000 s, CPU time=27.3288 s, Time Ratio=148.9273
+Physical time=4080.0000 s, CPU time=27.3890 s, Time Ratio=148.9650
+Physical time=4090.0000 s, CPU time=27.4570 s, Time Ratio=148.9601
+Physical time=4100.0000 s, CPU time=27.5180 s, Time Ratio=148.9931
+Physical time=4110.0000 s, CPU time=27.5777 s, Time Ratio=149.0333
+Physical time=4120.0000 s, CPU time=27.6359 s, Time Ratio=149.0812
+Physical time=4130.0000 s, CPU time=27.7000 s, Time Ratio=149.0976
+Physical time=4140.0000 s, CPU time=27.7609 s, Time Ratio=149.1306
+Physical time=4150.0000 s, CPU time=27.8256 s, Time Ratio=149.1434
+Physical time=4160.0000 s, CPU time=27.8843 s, Time Ratio=149.1879
+Physical time=4170.0000 s, CPU time=27.9527 s, Time Ratio=149.1805
+Physical time=4180.0000 s, CPU time=28.0121 s, Time Ratio=149.2213
+Physical time=4190.0000 s, CPU time=28.0805 s, Time Ratio=149.2141
+Physical time=4200.0000 s, CPU time=28.1414 s, Time Ratio=149.2461
+Physical time=4210.0000 s, CPU time=28.2006 s, Time Ratio=149.2875
+Physical time=4220.0000 s, CPU time=28.2643 s, Time Ratio=149.3049
+Physical time=4230.0000 s, CPU time=28.3336 s, Time Ratio=149.2925
+Physical time=4240.0000 s, CPU time=28.4151 s, Time Ratio=149.2165
+Physical time=4250.0000 s, CPU time=28.4785 s, Time Ratio=149.2352
+Physical time=4260.0000 s, CPU time=28.5379 s, Time Ratio=149.2754
+Physical time=4270.0000 s, CPU time=28.6250 s, Time Ratio=149.1702
+Physical time=4280.0000 s, CPU time=28.7013 s, Time Ratio=149.1223
+Physical time=4290.0000 s, CPU time=28.7611 s, Time Ratio=149.1596
+Physical time=4300.0000 s, CPU time=28.8221 s, Time Ratio=149.1910
+Physical time=4310.0000 s, CPU time=28.8874 s, Time Ratio=149.2002
+Physical time=4320.0000 s, CPU time=28.9495 s, Time Ratio=149.2251
+Physical time=4330.0000 s, CPU time=29.0095 s, Time Ratio=149.2613
+Physical time=4340.0000 s, CPU time=29.0689 s, Time Ratio=149.3006
+Physical time=4350.0000 s, CPU time=29.1406 s, Time Ratio=149.2762
+Physical time=4360.0000 s, CPU time=29.2320 s, Time Ratio=149.1514
+Physical time=4370.0000 s, CPU time=29.2944 s, Time Ratio=149.1753
+Physical time=4380.0000 s, CPU time=29.3725 s, Time Ratio=149.1189
+Physical time=4390.0000 s, CPU time=29.4423 s, Time Ratio=149.1053
+Physical time=4400.0000 s, CPU time=29.5072 s, Time Ratio=149.1162
+Physical time=4410.0000 s, CPU time=29.5761 s, Time Ratio=149.1067
+Physical time=4420.0000 s, CPU time=29.6361 s, Time Ratio=149.1425
+Physical time=4430.0000 s, CPU time=29.7009 s, Time Ratio=149.1538
+Physical time=4440.0000 s, CPU time=29.7677 s, Time Ratio=149.1549
+Physical time=4450.0000 s, CPU time=29.8277 s, Time Ratio=149.1902
+Physical time=4460.0000 s, CPU time=29.9171 s, Time Ratio=149.0784
+Physical time=4470.0000 s, CPU time=29.9850 s, Time Ratio=149.0744
+Physical time=4480.0000 s, CPU time=30.0428 s, Time Ratio=149.1204
+Physical time=4490.0000 s, CPU time=30.1012 s, Time Ratio=149.1633
+Physical time=4500.0000 s, CPU time=30.1589 s, Time Ratio=149.2097
+Physical time=4510.0000 s, CPU time=30.2167 s, Time Ratio=149.2552
+Physical time=4520.0000 s, CPU time=30.2995 s, Time Ratio=149.1775
+Physical time=4530.0000 s, CPU time=30.3585 s, Time Ratio=149.2166
+Physical time=4540.0000 s, CPU time=30.4412 s, Time Ratio=149.1399
+Physical time=4550.0000 s, CPU time=30.5025 s, Time Ratio=149.1682
+Physical time=4560.0000 s, CPU time=30.5621 s, Time Ratio=149.2043
+Physical time=4570.0000 s, CPU time=30.6210 s, Time Ratio=149.2442
+Physical time=4580.0000 s, CPU time=30.6783 s, Time Ratio=149.2911
+Physical time=4590.0000 s, CPU time=30.7362 s, Time Ratio=149.3354
+Physical time=4600.0000 s, CPU time=30.8124 s, Time Ratio=149.2905
+Physical time=4610.0000 s, CPU time=30.8730 s, Time Ratio=149.3214
+Physical time=4620.0000 s, CPU time=30.9535 s, Time Ratio=149.2561
+Physical time=4630.0000 s, CPU time=31.0155 s, Time Ratio=149.2802
+Physical time=4640.0000 s, CPU time=31.0737 s, Time Ratio=149.3222
+Physical time=4650.0000 s, CPU time=31.1347 s, Time Ratio=149.3511
+Physical time=4660.0000 s, CPU time=31.2089 s, Time Ratio=149.3163
+Physical time=4670.0000 s, CPU time=31.2958 s, Time Ratio=149.2215
+Physical time=4680.0000 s, CPU time=31.3555 s, Time Ratio=149.2561
+Physical time=4690.0000 s, CPU time=31.4150 s, Time Ratio=149.2919
+Physical time=4700.0000 s, CPU time=31.4746 s, Time Ratio=149.3266
+Physical time=4710.0000 s, CPU time=31.5371 s, Time Ratio=149.3481
+Physical time=4720.0000 s, CPU time=31.6116 s, Time Ratio=149.3122
+Physical time=4730.0000 s, CPU time=31.6721 s, Time Ratio=149.3426
+Physical time=4740.0000 s, CPU time=31.7372 s, Time Ratio=149.3518
+Physical time=4750.0000 s, CPU time=31.8315 s, Time Ratio=149.2232
+Physical time=4760.0000 s, CPU time=31.9074 s, Time Ratio=149.1815
+Physical time=4770.0000 s, CPU time=31.9697 s, Time Ratio=149.2036
+Physical time=4780.0000 s, CPU time=32.0289 s, Time Ratio=149.2400
+Physical time=4790.0000 s, CPU time=32.0924 s, Time Ratio=149.2566
+Physical time=4800.0000 s, CPU time=32.1550 s, Time Ratio=149.2768
+Physical time=4810.0000 s, CPU time=32.2158 s, Time Ratio=149.3054
+Physical time=4820.0000 s, CPU time=32.2788 s, Time Ratio=149.3238
+Physical time=4830.0000 s, CPU time=32.3385 s, Time Ratio=149.3575
+Physical time=4840.0000 s, CPU time=32.3994 s, Time Ratio=149.3853
+Physical time=4850.0000 s, CPU time=32.4638 s, Time Ratio=149.3972
+Physical time=4860.0000 s, CPU time=32.5233 s, Time Ratio=149.4314
+Physical time=4870.0000 s, CPU time=32.5899 s, Time Ratio=149.4329
+Physical time=4880.0000 s, CPU time=32.6674 s, Time Ratio=149.3842
+Physical time=4890.0000 s, CPU time=32.7270 s, Time Ratio=149.4178
+Physical time=4900.0000 s, CPU time=32.7923 s, Time Ratio=149.4255
+Physical time=4910.0000 s, CPU time=32.8657 s, Time Ratio=149.3959
+Physical time=4920.0000 s, CPU time=32.9341 s, Time Ratio=149.3894
+Physical time=4930.0000 s, CPU time=32.9936 s, Time Ratio=149.4231
+Physical time=4940.0000 s, CPU time=33.0884 s, Time Ratio=149.2971
+Physical time=4950.0000 s, CPU time=33.1805 s, Time Ratio=149.1841
+Physical time=4960.0000 s, CPU time=33.2394 s, Time Ratio=149.2205
+Physical time=4970.0000 s, CPU time=33.3274 s, Time Ratio=149.1267
+Physical time=4980.0000 s, CPU time=33.3963 s, Time Ratio=149.1185
+Physical time=4990.0000 s, CPU time=33.5130 s, Time Ratio=148.8975
+Physical time=5000.0000 s, CPU time=33.5724 s, Time Ratio=148.9319
+Physical time=5010.0000 s, CPU time=33.6320 s, Time Ratio=148.9653
+Physical time=5020.0000 s, CPU time=33.7002 s, Time Ratio=148.9607
+Physical time=5030.0000 s, CPU time=33.7601 s, Time Ratio=148.9923
+Physical time=5040.0000 s, CPU time=33.8192 s, Time Ratio=149.0279
+Physical time=5050.0000 s, CPU time=33.8878 s, Time Ratio=149.0211
+Physical time=5060.0000 s, CPU time=33.9473 s, Time Ratio=149.0547
+Physical time=5070.0000 s, CPU time=34.0071 s, Time Ratio=149.0864
+Physical time=5080.0000 s, CPU time=34.0685 s, Time Ratio=149.1115
+Physical time=5090.0000 s, CPU time=34.1554 s, Time Ratio=149.0248
+Physical time=5100.0000 s, CPU time=34.2158 s, Time Ratio=149.0538
+Physical time=5110.0000 s, CPU time=34.2758 s, Time Ratio=149.0847
+Physical time=5120.0000 s, CPU time=34.3445 s, Time Ratio=149.0775
+Physical time=5130.0000 s, CPU time=34.4069 s, Time Ratio=149.0981
+Physical time=5140.0000 s, CPU time=34.4844 s, Time Ratio=149.0530
+Physical time=5150.0000 s, CPU time=34.5459 s, Time Ratio=149.0769
+Physical time=5160.0000 s, CPU time=34.6215 s, Time Ratio=149.0404
+Physical time=5170.0000 s, CPU time=34.7151 s, Time Ratio=148.9266
+Physical time=5180.0000 s, CPU time=34.8178 s, Time Ratio=148.7744
+Physical time=5190.0000 s, CPU time=34.9077 s, Time Ratio=148.6777
+Physical time=5200.0000 s, CPU time=34.9694 s, Time Ratio=148.7014
+Physical time=5210.0000 s, CPU time=35.0273 s, Time Ratio=148.7411
+Physical time=5220.0000 s, CPU time=35.0860 s, Time Ratio=148.7772
+Physical time=5230.0000 s, CPU time=35.1438 s, Time Ratio=148.8171
+Physical time=5240.0000 s, CPU time=35.2055 s, Time Ratio=148.8405
+Physical time=5250.0000 s, CPU time=35.2855 s, Time Ratio=148.7865
+Physical time=5260.0000 s, CPU time=35.3459 s, Time Ratio=148.8150
+Physical time=5270.0000 s, CPU time=35.4095 s, Time Ratio=148.8300
+Physical time=5280.0000 s, CPU time=35.4682 s, Time Ratio=148.8658
+Physical time=5290.0000 s, CPU time=35.5262 s, Time Ratio=148.9042
+Physical time=5300.0000 s, CPU time=35.5852 s, Time Ratio=148.9384
+Physical time=5310.0000 s, CPU time=35.6430 s, Time Ratio=148.9773
+Physical time=5320.0000 s, CPU time=35.7007 s, Time Ratio=149.0167
+Physical time=5330.0000 s, CPU time=35.7585 s, Time Ratio=149.0553
+Physical time=5340.0000 s, CPU time=35.8178 s, Time Ratio=149.0880
+Physical time=5350.0000 s, CPU time=35.8938 s, Time Ratio=149.0508
+Physical time=5360.0000 s, CPU time=35.9522 s, Time Ratio=149.0868
+Physical time=5370.0000 s, CPU time=36.0099 s, Time Ratio=149.1258
+Physical time=5380.0000 s, CPU time=36.1130 s, Time Ratio=148.9767
+Physical time=5390.0000 s, CPU time=36.1894 s, Time Ratio=148.9386
+Physical time=5400.0000 s, CPU time=36.3149 s, Time Ratio=148.6993
+Physical time=5410.0000 s, CPU time=36.3825 s, Time Ratio=148.6980
+Physical time=5420.0000 s, CPU time=36.4432 s, Time Ratio=148.7247
+Physical time=5430.0000 s, CPU time=36.5191 s, Time Ratio=148.6893
+Physical time=5440.0000 s, CPU time=36.6033 s, Time Ratio=148.6203
+Physical time=5450.0000 s, CPU time=36.6660 s, Time Ratio=148.6390
+Physical time=5460.0000 s, CPU time=36.7290 s, Time Ratio=148.6565
+Physical time=5470.0000 s, CPU time=36.7899 s, Time Ratio=148.6822
+Physical time=5480.0000 s, CPU time=36.8518 s, Time Ratio=148.7036
+Physical time=5490.0000 s, CPU time=36.9322 s, Time Ratio=148.6509
+Physical time=5500.0000 s, CPU time=36.9933 s, Time Ratio=148.6754
+Physical time=5510.0000 s, CPU time=37.0657 s, Time Ratio=148.6549
+Physical time=5520.0000 s, CPU time=37.1264 s, Time Ratio=148.6812
+Physical time=5530.0000 s, CPU time=37.1928 s, Time Ratio=148.6847
+Physical time=5540.0000 s, CPU time=37.3261 s, Time Ratio=148.4215
+Physical time=5550.0000 s, CPU time=37.3872 s, Time Ratio=148.4464
+Physical time=5560.0000 s, CPU time=37.4634 s, Time Ratio=148.4117
+Physical time=5570.0000 s, CPU time=37.5398 s, Time Ratio=148.3758
+Physical time=5580.0000 s, CPU time=37.5998 s, Time Ratio=148.4049
+Physical time=5590.0000 s, CPU time=37.6596 s, Time Ratio=148.4349
+Physical time=5600.0000 s, CPU time=37.7185 s, Time Ratio=148.4681
+Physical time=5610.0000 s, CPU time=37.7788 s, Time Ratio=148.4960
+Physical time=5620.0000 s, CPU time=37.8374 s, Time Ratio=148.5301
+Physical time=5630.0000 s, CPU time=37.9091 s, Time Ratio=148.5130
+Physical time=5640.0000 s, CPU time=37.9787 s, Time Ratio=148.5041
+Physical time=5650.0000 s, CPU time=38.0381 s, Time Ratio=148.5353
+Physical time=5660.0000 s, CPU time=38.0969 s, Time Ratio=148.5686
+Physical time=5670.0000 s, CPU time=38.1576 s, Time Ratio=148.5941
+Physical time=5680.0000 s, CPU time=38.2328 s, Time Ratio=148.5637
+Physical time=5690.0000 s, CPU time=38.3062 s, Time Ratio=148.5400
+Physical time=5700.0000 s, CPU time=38.3814 s, Time Ratio=148.5094
+Physical time=5710.0000 s, CPU time=38.4419 s, Time Ratio=148.5359
+Physical time=5720.0000 s, CPU time=38.5083 s, Time Ratio=148.5395
+Physical time=5730.0000 s, CPU time=38.5795 s, Time Ratio=148.5247
+Physical time=5740.0000 s, CPU time=38.6431 s, Time Ratio=148.5387
+Physical time=5750.0000 s, CPU time=38.7155 s, Time Ratio=148.5192
+Physical time=5760.0000 s, CPU time=38.7790 s, Time Ratio=148.5338
+Physical time=5770.0000 s, CPU time=38.8663 s, Time Ratio=148.4577
+Physical time=5780.0000 s, CPU time=38.9514 s, Time Ratio=148.3899
+Physical time=5790.0000 s, CPU time=39.0553 s, Time Ratio=148.2513
+Physical time=5800.0000 s, CPU time=39.1217 s, Time Ratio=148.2552
+Physical time=5810.0000 s, CPU time=39.1830 s, Time Ratio=148.2786
+Physical time=5820.0000 s, CPU time=39.2423 s, Time Ratio=148.3095
+Physical time=5830.0000 s, CPU time=39.3014 s, Time Ratio=148.3406
+Physical time=5840.0000 s, CPU time=39.3578 s, Time Ratio=148.3822
+Physical time=5850.0000 s, CPU time=39.4230 s, Time Ratio=148.3905
+Physical time=5860.0000 s, CPU time=39.4804 s, Time Ratio=148.4282
+Physical time=5870.0000 s, CPU time=39.5396 s, Time Ratio=148.4586
+Physical time=5880.0000 s, CPU time=39.5982 s, Time Ratio=148.4915
+Physical time=5890.0000 s, CPU time=39.6716 s, Time Ratio=148.4691
+Physical time=5900.0000 s, CPU time=39.7301 s, Time Ratio=148.5021
+Physical time=5910.0000 s, CPU time=39.7927 s, Time Ratio=148.5199
+Physical time=5920.0000 s, CPU time=39.8483 s, Time Ratio=148.5634
+Physical time=5930.0000 s, CPU time=39.9071 s, Time Ratio=148.5953
+Physical time=5940.0000 s, CPU time=39.9633 s, Time Ratio=148.6363
+Physical time=5950.0000 s, CPU time=40.0201 s, Time Ratio=148.6753
+Physical time=5960.0000 s, CPU time=40.0756 s, Time Ratio=148.7190
+Physical time=5970.0000 s, CPU time=40.1314 s, Time Ratio=148.7612
+Physical time=5980.0000 s, CPU time=40.1894 s, Time Ratio=148.7955
+Physical time=5990.0000 s, CPU time=40.2908 s, Time Ratio=148.6693
+Physical time=6000.0000 s, CPU time=40.3526 s, Time Ratio=148.6893
+Physical time=6010.0000 s, CPU time=40.4082 s, Time Ratio=148.7324
+Physical time=6020.0000 s, CPU time=40.4648 s, Time Ratio=148.7713
+Physical time=6030.0000 s, CPU time=40.5356 s, Time Ratio=148.7583
+Physical time=6040.0000 s, CPU time=40.5913 s, Time Ratio=148.8004
+Physical time=6050.0000 s, CPU time=40.6579 s, Time Ratio=148.8025
+Physical time=6060.0000 s, CPU time=40.7247 s, Time Ratio=148.8039
+Physical time=6070.0000 s, CPU time=40.8071 s, Time Ratio=148.7488
+Physical time=6080.0000 s, CPU time=40.8774 s, Time Ratio=148.7375
+Physical time=6090.0000 s, CPU time=40.9327 s, Time Ratio=148.7809
+Physical time=6100.0000 s, CPU time=40.9906 s, Time Ratio=148.8147
+Physical time=6110.0000 s, CPU time=41.0724 s, Time Ratio=148.7616
+Physical time=6120.0000 s, CPU time=41.1325 s, Time Ratio=148.7876
+Physical time=6130.0000 s, CPU time=41.1881 s, Time Ratio=148.8293
+Physical time=6140.0000 s, CPU time=41.2507 s, Time Ratio=148.8459
+Physical time=6150.0000 s, CPU time=41.3194 s, Time Ratio=148.8405
+Physical time=6160.0000 s, CPU time=41.3763 s, Time Ratio=148.8777
+Physical time=6170.0000 s, CPU time=41.4346 s, Time Ratio=148.9093
+Physical time=6180.0000 s, CPU time=41.5107 s, Time Ratio=148.8771
+Physical time=6190.0000 s, CPU time=41.5803 s, Time Ratio=148.8686
+Physical time=6200.0000 s, CPU time=41.6508 s, Time Ratio=148.8566
+Physical time=6210.0000 s, CPU time=41.7124 s, Time Ratio=148.8765
+Physical time=6220.0000 s, CPU time=41.7711 s, Time Ratio=148.9069
+Physical time=6230.0000 s, CPU time=41.8362 s, Time Ratio=148.9142
+Physical time=6240.0000 s, CPU time=41.8932 s, Time Ratio=148.9502
+Physical time=6250.0000 s, CPU time=41.9590 s, Time Ratio=148.9551
+Physical time=6260.0000 s, CPU time=42.0155 s, Time Ratio=148.9927
+Physical time=6270.0000 s, CPU time=42.0830 s, Time Ratio=148.9912
+Physical time=6280.0000 s, CPU time=42.1393 s, Time Ratio=149.0296
+Physical time=6290.0000 s, CPU time=42.2234 s, Time Ratio=148.9697
+Physical time=6300.0000 s, CPU time=42.2855 s, Time Ratio=148.9874
+Physical time=6310.0000 s, CPU time=42.3856 s, Time Ratio=148.8713
+Physical time=6320.0000 s, CPU time=42.4421 s, Time Ratio=148.9086
+Physical time=6330.0000 s, CPU time=42.5017 s, Time Ratio=148.9351
+Physical time=6340.0000 s, CPU time=42.5577 s, Time Ratio=148.9741
+Physical time=6350.0000 s, CPU time=42.6392 s, Time Ratio=148.9241
+Physical time=6360.0000 s, CPU time=42.7053 s, Time Ratio=148.9277
+Physical time=6370.0000 s, CPU time=42.7759 s, Time Ratio=148.9156
+Physical time=6380.0000 s, CPU time=42.8381 s, Time Ratio=148.9329
+Physical time=6390.0000 s, CPU time=42.8940 s, Time Ratio=148.9717
+Physical time=6400.0000 s, CPU time=42.9557 s, Time Ratio=148.9906
+Physical time=6410.0000 s, CPU time=43.0136 s, Time Ratio=149.0226
+Physical time=6420.0000 s, CPU time=43.0741 s, Time Ratio=149.0455
+Physical time=6430.0000 s, CPU time=43.1314 s, Time Ratio=149.0792
+Physical time=6440.0000 s, CPU time=43.2114 s, Time Ratio=149.0348
+Physical time=6450.0000 s, CPU time=43.2691 s, Time Ratio=149.0670
+Physical time=6460.0000 s, CPU time=43.3247 s, Time Ratio=149.1065
+Physical time=6470.0000 s, CPU time=43.4084 s, Time Ratio=149.0496
+Physical time=6480.0000 s, CPU time=43.4653 s, Time Ratio=149.0845
+Physical time=6490.0000 s, CPU time=43.5236 s, Time Ratio=149.1144
+Physical time=6500.0000 s, CPU time=43.5797 s, Time Ratio=149.1520
+Physical time=6510.0000 s, CPU time=43.6374 s, Time Ratio=149.1840
+Physical time=6520.0000 s, CPU time=43.6938 s, Time Ratio=149.2204
+Physical time=6530.0000 s, CPU time=43.7529 s, Time Ratio=149.2472
+Physical time=6540.0000 s, CPU time=43.8122 s, Time Ratio=149.2737
+Physical time=6550.0000 s, CPU time=43.8683 s, Time Ratio=149.3105
+Physical time=6560.0000 s, CPU time=43.9581 s, Time Ratio=149.2331
+Physical time=6570.0000 s, CPU time=44.0376 s, Time Ratio=149.1905
+Physical time=6580.0000 s, CPU time=44.0944 s, Time Ratio=149.2254
+Physical time=6590.0000 s, CPU time=44.1513 s, Time Ratio=149.2595
+Physical time=6600.0000 s, CPU time=44.2109 s, Time Ratio=149.2844
+Physical time=6610.0000 s, CPU time=44.2696 s, Time Ratio=149.3123
+Physical time=6620.0000 s, CPU time=44.3273 s, Time Ratio=149.3438
+Physical time=6630.0000 s, CPU time=44.3903 s, Time Ratio=149.3569
+Physical time=6640.0000 s, CPU time=44.4752 s, Time Ratio=149.2968
+Physical time=6650.0000 s, CPU time=44.5447 s, Time Ratio=149.2881
+Physical time=6660.0000 s, CPU time=44.6547 s, Time Ratio=149.1445
+Physical time=6670.0000 s, CPU time=44.7227 s, Time Ratio=149.1414
+Physical time=6680.0000 s, CPU time=44.7777 s, Time Ratio=149.1813
+Physical time=6690.0000 s, CPU time=44.8841 s, Time Ratio=149.0505
+Physical time=6700.0000 s, CPU time=44.9583 s, Time Ratio=149.0270
+Physical time=6710.0000 s, CPU time=45.0160 s, Time Ratio=149.0580
+Physical time=6720.0000 s, CPU time=45.0724 s, Time Ratio=149.0935
+Physical time=6730.0000 s, CPU time=45.1294 s, Time Ratio=149.1266
+Physical time=6740.0000 s, CPU time=45.1869 s, Time Ratio=149.1583
+Physical time=6750.0000 s, CPU time=45.2438 s, Time Ratio=149.1916
+Physical time=6760.0000 s, CPU time=45.3000 s, Time Ratio=149.2275
+Physical time=6770.0000 s, CPU time=45.3563 s, Time Ratio=149.2627
+Physical time=6780.0000 s, CPU time=45.4123 s, Time Ratio=149.2988
+Physical time=6790.0000 s, CPU time=45.4717 s, Time Ratio=149.3237
+Physical time=6800.0000 s, CPU time=45.5560 s, Time Ratio=149.2669
+Physical time=6810.0000 s, CPU time=45.6120 s, Time Ratio=149.3028
+Physical time=6820.0000 s, CPU time=45.6733 s, Time Ratio=149.3214
+Physical time=6830.0000 s, CPU time=45.7329 s, Time Ratio=149.3456
+Physical time=6840.0000 s, CPU time=45.8112 s, Time Ratio=149.3085
+Physical time=6850.0000 s, CPU time=45.8912 s, Time Ratio=149.2662
+Physical time=6860.0000 s, CPU time=45.9504 s, Time Ratio=149.2914
+Physical time=6870.0000 s, CPU time=46.0076 s, Time Ratio=149.3231
+Physical time=6880.0000 s, CPU time=46.0646 s, Time Ratio=149.3556
+Physical time=6890.0000 s, CPU time=46.1205 s, Time Ratio=149.3912
+Physical time=6900.0000 s, CPU time=46.1798 s, Time Ratio=149.4159
+Physical time=6910.0000 s, CPU time=46.2393 s, Time Ratio=149.4400
+Physical time=6920.0000 s, CPU time=46.2967 s, Time Ratio=149.4707
+Physical time=6930.0000 s, CPU time=46.3555 s, Time Ratio=149.4967
+Physical time=6940.0000 s, CPU time=46.4136 s, Time Ratio=149.5251
+Physical time=6950.0000 s, CPU time=46.4890 s, Time Ratio=149.4977
+Physical time=6960.0000 s, CPU time=46.5473 s, Time Ratio=149.5254
+Physical time=6970.0000 s, CPU time=46.6086 s, Time Ratio=149.5431
+Physical time=6980.0000 s, CPU time=46.6670 s, Time Ratio=149.5704
+Physical time=6990.0000 s, CPU time=46.7255 s, Time Ratio=149.5970
+Physical time=7000.0000 s, CPU time=46.7826 s, Time Ratio=149.6283
+Physical time=7010.0000 s, CPU time=46.8407 s, Time Ratio=149.6561
+FFD_solver(): Start to calculate mean properties.
+Physical time=7020.0000 s, CPU time=46.9094 s, Time Ratio=149.6502
+Physical time=7030.0000 s, CPU time=46.9677 s, Time Ratio=149.6774
+Physical time=7040.0000 s, CPU time=47.0245 s, Time Ratio=149.7092
+Physical time=7050.0000 s, CPU time=47.0820 s, Time Ratio=149.7387
+Physical time=7060.0000 s, CPU time=47.1424 s, Time Ratio=149.7591
+Physical time=7070.0000 s, CPU time=47.1988 s, Time Ratio=149.7918
+Physical time=7080.0000 s, CPU time=47.2793 s, Time Ratio=149.7484
+Physical time=7090.0000 s, CPU time=47.3363 s, Time Ratio=149.7792
+Physical time=7100.0000 s, CPU time=47.3939 s, Time Ratio=149.8084
+Physical time=7110.0000 s, CPU time=47.4936 s, Time Ratio=149.7043
+Physical time=7120.0000 s, CPU time=47.5720 s, Time Ratio=149.6678
+Physical time=7130.0000 s, CPU time=47.6296 s, Time Ratio=149.6969
+Physical time=7140.0000 s, CPU time=47.7053 s, Time Ratio=149.6689
+Physical time=7150.0000 s, CPU time=47.7634 s, Time Ratio=149.6961
+Physical time=7160.0000 s, CPU time=47.8237 s, Time Ratio=149.7167
+Physical time=7170.0000 s, CPU time=47.8828 s, Time Ratio=149.7405
+Physical time=7180.0000 s, CPU time=47.9462 s, Time Ratio=149.7510
+Physical time=7190.0000 s, CPU time=48.0119 s, Time Ratio=149.7547
+Physical time=7200.0000 s, CPU time=48.0683 s, Time Ratio=149.7868
+write_output_data(): Start to read the file /home/cary/Git/mbl-Xu/modelica-buildings/Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/Tutorial/NaturalConvection/set.isat
+write_output_data(): isat.num_output=2
+write_output_data(): outp.outp_name[0]=temp_roo
+write_output_data(): outp.outp_name[1]=vel_sen
+write_output_data(): ffdOutput[0]=273.627848
+write_output_data(): ffdOutput[1]=0.000043
+write_output_data(): finish writing output data
+ffd(): successfully write ouput data to ISAT.
+write_tecplot_data(): Wrote file result.plt.
+Successfully exit ISAT.

@@ -137,243 +137,114 @@ equation
   connect(step.y, roo.QIntSou[1]) annotation (Line(points={{-19,70},{60,70},{60,
           0},{78.4,0}}, color={0,0,127}));
   annotation (Documentation(info="<html>
-<p>
-This tutorial gives step by step instructions on building and simulating a mixed convection model.
-The model tests the coupled simulation of
-<a href=\"modelica://Buildings.ThermalZones.Detailed.CFD\">
-Buildings.ThermalZones.Detailed.CFD</a>
-with the FFD program by simulating ventilation with mixed convection in an empty room.
-</p>
+<p>This tutorial gives step by step instructions on building and simulating a mixed convection model. The model tests the coupled simulation of <a href=\"modelica://Buildings.ThermalZones.Detailed.CFD\">Buildings.ThermalZones.Detailed.CFD</a> with the FFD program by simulating ventilation with mixed convection with a box. </p>
 <h4>Case Description</h4>
-<p>
-The temperature of the floor is fixed at <i>30</i>&circ;C and the temperature of the walls and the ceiling are fixed
-at <i>10</i>&circ;C. The supply air temperature is fixed at <i>10</i>&circ;C.
-</p>
-<p>
-Figure (a) shows the schematic of the FFD simulation and Figure (b) shows the velocity vectors and temperatures on the X-Z plane at <i>Y = 0.5</i> m as simulated by the FFD.
-</p>
-<p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Examples/FFD/Tutorial/MixedConvectionSchematic.png\" border=\"1\"/>
-</p>
-<p align=\"center\">
-Figure (a)
-</p>
-<p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Examples/FFD/Tutorial/MixedConvection.png\" border=\"1\"/>
-</p>
-<p align=\"center\">
-Figure (b)
-</p>
+<p>The temperature of the floor is fixed at <i>30</i>&circ;C and the temperature of the walls and the ceiling are fixed at <i>10</i>&circ;C. The supply air temperature is fixed at <i>10</i>&circ;C. </p>
+<p>Figure (a) shows the schematic of the FFD simulation and Figure (b) shows the velocity vectors and temperatures on the X-Z plane at <i>Y = 0.5</i> m as simulated by the FFD. </p>
+<p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Examples/FFD/Tutorial/MixedConvectionSchematic.png\" alt=\"image\"/> </p>
+<p align=\"center\">Figure (a) </p>
+<p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Examples/FFD/Tutorial/MixedConvection.png\" alt=\"image\"/> </p>
+<p align=\"center\">Figure (b) </p>
 <h4>Step by Step Guide</h4>
-<p>
-This section describes step by step how to build and simulate the model.
-</p>
+<p>This section describes step by step how to build and simulate the model. </p>
 <ol>
-<li>
-<p>
-Add the following model components into the <code>MixedConvection</code> model:
-</p>
-<ul>
-<li>
-<a href=\"modelica://Buildings.ThermalZones.Detailed.CFD\">Buildings.ThermalZones.Detailed.CFD</a>.
-This model is used to implement data exchange between Modelica and FFD.
-Name it as <code>roo</code>.
-</li>
-<li>
-<a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>.
-Use weather data from OHare Intl. Airport, Chicago, Illinoi, U.S.A.
-Name it as <code>weaDat</code>.
-</li>
-<li>
-<a href=\"modelica://Modelica.Blocks.Sources.Constant\">Modelica.Blocks.Sources.Constant</a>.
-Three models are needed to specify that internal radiation, internal convective heat gain and internal latent heat gain are zero.
-Name these models as <code>qRadGai_flow</code>, <code>qConGai_flow</code> and <code>qLatGai_flow</code>, respectively.
-</li>
-<li>
-<a href=\"modelica://Modelica.Blocks.Routing.Multiplex3\">Modelica.Blocks.Routing.Multiplex3</a>.
-This block is used to convert three numbers into a vector.
-Name it as <code>multiple_x3</code>.
-</li>
-<li>
-<a href=\"modelica://Buildings.HeatTransfer.Sources.FixedTemperature\">
-Buildings.HeatTransfer.Sources.FixedTemperature</a>.
-Two models are needed to specify the temperature on the floor and other walls.
-Name them as <code>TFlo</code> and <code>TOthWal</code> respectively.
-Please note that it is necessary to declare <code>TOthWal</code> as a vector of <i>5</i> elements.
-</li>
-<li>
-<a href=\"modelica://Buildings.Fluid.Sources.MassFlowSource_T\">Buildings.Fluid.Sources.MassFlowSource_T</a>.
-This model provides inlet air for the <code>roo</code>.
-Name it as <code>bouIn</code>.
-</li>
-<li>
-<a href=\"modelica://Buildings.Fluid.Sources.Boundary_pT\">Buildings.Fluid.Sources.Boundary_pT</a>.
-This model is the outdoor environment to which the outlet of <code>roo</code> is connected.
-Name it as <code>bouOut</code>.
-</li>
-</ul>
-</li>
-<li>
-<p>
-In the textual editor mode, add the medium and the number of surfaces as below:
-</p>
-<pre>
-package MediumA = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated (T_default=283.15);
-  parameter Integer nConExtWin=0;
-  parameter Integer nConBou=0;
-  parameter Integer nSurBou=6;
-  parameter Integer nConExt=0;
-  parameter Integer nConPar=0;
-</pre>
-</li>
-<li>
-<p>
-Edit <code>roo</code> as below:
-</p>
-<pre>
-Buildings.ThermalZones.Detailed.CFD roo(
-  redeclare package Medium = MediumA,
-  surBou(
-    name={\"East Wall\",\"West Wall\",\"North Wall\",\"South Wall\",\"Ceiling\",\"Floor\"},
-    A={0.9,0.9,1,1,1,1},
-    til={Buildings.Types.Tilt.Wall,
-        Buildings.Types.Tilt.Wall,
-        Buildings.Types.Tilt.Wall,
-        Buildings.Types.Tilt.Wall,
-        Buildings.Types.Tilt.Ceiling,
-        Buildings.Types.Tilt.Floor},
-    each absIR=1e-5,
-    each absSol=1e-5,
-    each boundaryCondition=Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature),
-    lat = 0.012787839282646,
-    AFlo = 1*1,
-    hRoo = 1,
-    linearizeRadiation = false,
-    useCFD = true,
-    sensorName = {\"Occupied zone air temperature\", \"Velocity\"},
-    cfdFilNam = \"modelica://Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/Tutorial/MixedConvection.ffd\",
-    nConExt = nConExt,
-    nConExtWin = nConExtWin,
-    nConPar = nConPar,
-    nConBou = nConBou,
-    nSurBou = nSurBou,
-    nPorts = 2,
-    portName={\"Inlet\",\"Outlet\"},
-    samplePeriod = 6);
-</pre>
-</li>
-<li>
-<p>
-Set the parameters for the following components:
-</p>
-<ul>
-<li>
-Set <code>qRadGai_flow</code>, <code>qConGai_flow</code> and <code>qLatGai_flow</code> to <i>0</i>.
-</li>
-<li>
-Set <code>TFlo</code> to <i>303.15</i> Kelvin.
-</li>
-<li>
-Set <code>TOthWal</code> to <i>283.15</i> Kelvin.
-</li>
-</ul>
-</li>
-<li>
-<p>
-Set the values for the parameters of <code>bouIn</code> and <code>bouOut</code> as below:
-</p>
-<pre>
-Fluid.Sources.MassFlowSource_T bouIn(
-  redeclare package Medium = MediumA,
-  nPorts=1,
-  m_flow=0.1,
-  T=283.15);
-</pre>
-<pre>
-Fluid.Sources.FixedBoundary bouOut(
-  redeclare package Medium = MediumA,
-  nPorts=1);
-</pre>
-</li>
-<li>
-<p>
-Connect the components as shown in the figure below.
-</p>
-<p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Examples/FFD/Tutorial/MixedConvectionModel.png\"/>
-</p>
-</li>
-<li>
-<p>
-Confirm in the textual editor that the connections to
-<code>roo.ports</code> are as follows:
-</p>
-<pre>
-connect(bouIn.ports[1], roo.ports[1]);
-connect(bouOut.ports[1], roo.ports[2]);
-</pre>
-</li>
-<li>
-<p>
-Use the Simplified CFD Interface (SCI) to generate the input file for the FFD.
-</p>
-<ul>
-<li>
-Use a 20 X 20 X 20 stretched grid.
-</li>
-<li>
-Set the time step size of the FFD to <i>0.1</i> seconds.
-</li>
-<li>
-Generate the input files, which have by default the names
-<code>input.cfd</code> (mesh file) and <code>zeroone.dat</code> (obstacles file).
-</li>
-<li>
-Rename the files as <code>MixedConvection.cfd</code> and <code>MixedConvection.dat</code>, respectively.
-</li>
-</ul>
-</li>
-<li>
-<p>
-Revise the FFD parameter input file <code>MixedConvection.ffd</code>
-(an example file is available in <code>Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/Tutorial/</code>):  </p>
-<pre>
-  inpu.parameter_file_format SCI
-  inpu.parameter_file_name MixedConvection.cfd
-  inpu.block_file_name MixedConvection.dat
-  prob.nu 0.000015 // Kinematic viscosity
-  prob.rho 1.205 // Density
-  prob.gravx 0 // Gravity in x direction
-  prob.gravy 0 // Gravity in y direction
-  prob.gravz -9.81 // Gravity in z direction
-  prob.cond 0.0257 // Conductivity
-  prob.Cp 1006.0 // Specific heat capacity
-  prob.beta 0.00343 // Thermal expansion coefficient
-  prob.diff 0.00001 // Diffusivity for contaminants
-  prob.coeff_h 0.0004 // Convective heat transfer coefficient near the wall
-  prob.Temp_Buoyancy 10.0 // Reference temperature for calculating buoyance  force
-  init.T 10.0 // Initial condition for Temperature
-  init.u 0.0 // Initial condition for velocity u
-  init.v 0.0 // Initial condition for velocity v
-  init.w 0.0 // Initial condition for velocity w
-</pre>
-</li>
-<li>
-Put the files <code>MixedConvection.ffd</code>, <code>MixedConvection.dat</code>, and <code>MixedConvection.cfd</code> in the
-directory <code>Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/Tutorial/</code>.
-</li>
-<li>
-Set the simulation stop time of the Modelica model to <code>180</code> seconds and choose, for example, the Radau solver.
-</li>
-<li>
-Translate the model and start the simulation.
-</li>
-<li>
-Post-process: click the Tecplot macro script
-<code>Buildings/Resources/Image/Rooms/Examples/FFD/Tutorial/MixedConvection.mcr</code>
-that will generate the temperature contour and velocity vectors shown in the Figure (b).
-Note: Tecplot is needed for this.
-</li>
+<li>Add the following model components into the <span style=\"font-family: Courier New;\">MixedConvection</span> model: </li>
+<li><ul>
+<li><a href=\"modelica://Buildings.ThermalZones.Detailed.CFD\">Buildings.ThermalZones.Detailed.CFD</a>. This model is used to implement data exchange between Modelica and FFD. Name it as <span style=\"font-family: Courier New;\">roo</span>. </li>
+<li><a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>. Use weather data from OHare Intl. Airport, Chicago, Illinoi, U.S.A. Name it as <span style=\"font-family: Courier New;\">weaDat</span>. </li>
+<li><a href=\"modelica://Modelica.Blocks.Sources.Constant\">Modelica.Blocks.Sources.Constant</a>. Three models are needed to specify that internal radiation, internal convective heat gain and internal latent heat gain are zero. Name these models as <span style=\"font-family: Courier New;\">qRadGai_flow</span>, <span style=\"font-family: Courier New;\">qConGai_flow</span> and <span style=\"font-family: Courier New;\">qLatGai_flow</span>, respectively. </li>
+<li><a href=\"modelica://Modelica.Blocks.Routing.Multiplex3\">Modelica.Blocks.Routing.Multiplex3</a>. This block is used to convert three numbers into a vector. Name it as <span style=\"font-family: Courier New;\">multiple_x3</span>. </li>
+<li><a href=\"modelica://Buildings.HeatTransfer.Sources.FixedTemperature\">Buildings.HeatTransfer.Sources.FixedTemperature</a>. Two models are needed to specify the temperature on the floor and other walls. Name them as <span style=\"font-family: Courier New;\">TFlo</span> and <span style=\"font-family: Courier New;\">TOthWal</span> respectively. Please note that it is necessary to declare <span style=\"font-family: Courier New;\">TOthWal</span> as a vector of <i>5</i> elements. </li>
+<li><a href=\"modelica://Buildings.Fluid.Sources.MassFlowSource_T\">Buildings.Fluid.Sources.MassFlowSource_T</a>. This model provides inlet air for the <span style=\"font-family: Courier New;\">roo</span>. Name it as <span style=\"font-family: Courier New;\">bouIn</span>. </li>
+<li><a href=\"modelica://Buildings.Fluid.Sources.Boundary_pT\">Buildings.Fluid.Sources.Boundary_pT</a>. This model is the outdoor environment to which the outlet of <span style=\"font-family: Courier New;\">roo</span> is connected. Name it as <span style=\"font-family: Courier New;\">bouOut</span>. </li>
+</ul></li>
+<li>In the textual editor mode, add the medium and the number of surfaces as below: </li>
+<p><span style=\"font-family: Courier New;\">package MediumA = Buildings.Media.Air (T_default=283.15);</span></p>
+<p><span style=\"font-family: Courier New;\">parameter Integer nConExtWin=0;</span></p>
+<p><span style=\"font-family: Courier New;\">parameter Integer nConBou=0;</span></p>
+<p><span style=\"font-family: Courier New;\">parameter Integer nSurBou=6;</span></p>
+<p><span style=\"font-family: Courier New;\">parameter Integer nConExt=0;</span></p>
+<p><span style=\"font-family: Courier New;\">parameter Integer nConPar=0;</span></p>
+<li>Edit <span style=\"font-family: Courier New;\">roo</span> as below: </li>
+<p><span style=\"font-family: Courier New;\">Buildings.ThermalZones.Detailed.CFD roo(</span></p>
+<p><span style=\"font-family: Courier New;\">redeclare package Medium = MediumA,</span></p>
+<p><span style=\"font-family: Courier New;\">surBou(</span></p>
+<p><span style=\"font-family: Courier New;\">name={&quot;East Wall&quot;,&quot;West Wall&quot;,&quot;North Wall&quot;,&quot;South Wall&quot;,&quot;Ceiling&quot;,&quot;Floor&quot;},</span></p>
+<p><span style=\"font-family: Courier New;\">A={0.9,0.9,1,1,1,1},</span></p>
+<p><span style=\"font-family: Courier New;\">til={Buildings.Types.Tilt.Wall,</span></p>
+<p><span style=\"font-family: Courier New;\">Buildings.Types.Tilt.Wall,</span></p>
+<p><span style=\"font-family: Courier New;\">Buildings.Types.Tilt.Wall,</span></p>
+<p><span style=\"font-family: Courier New;\">Buildings.Types.Tilt.Wall,</span></p>
+<p><span style=\"font-family: Courier New;\">Buildings.Types.Tilt.Ceiling,</span></p>
+<p><span style=\"font-family: Courier New;\">Buildings.Types.Tilt.Floor},</span></p>
+<p><span style=\"font-family: Courier New;\">each absIR=1e-5,</span></p>
+<p><span style=\"font-family: Courier New;\">each absSol=1e-5,</span></p>
+<p><span style=\"font-family: Courier New;\">each boundaryCondition=Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature),</span></p>
+<p><span style=\"font-family: Courier New;\">lat = 0.012787839282646,</span></p>
+<p><span style=\"font-family: Courier New;\">AFlo = 1*1,</span></p>
+<p><span style=\"font-family: Courier New;\">hRoo = 1,</span></p>
+<p><span style=\"font-family: Courier New;\">linearizeRadiation = false,</span></p>
+<p><span style=\"font-family: Courier New;\">useCFD = true,</span></p>
+<p><span style=\"font-family: Courier New;\">sensorName = {&quot;Occupied zone air temperature&quot;, &quot;Velocity&quot;},</span></p>
+<p><span style=\"font-family: Courier New;\">cfdFilNam = &quot;modelica://Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/Tutorial/MixedConvection.ffd&quot;,</span></p>
+<p><span style=\"font-family: Courier New;\">nConExt = nConExt,</span></p>
+<p><span style=\"font-family: Courier New;\">nConExtWin = nConExtWin,</span></p>
+<p><span style=\"font-family: Courier New;\">nConPar = nConPar,</span></p>
+<p><span style=\"font-family: Courier New;\">nConBou = nConBou,</span></p>
+<p><span style=\"font-family: Courier New;\">nSurBou = nSurBou,</span></p>
+<p><span style=\"font-family: Courier New;\">nPorts = 2,</span></p>
+<p><span style=\"font-family: Courier New;\">portName={&quot;Inlet&quot;,&quot;Outlet&quot;},</span></p>
+<p><span style=\"font-family: Courier New;\">samplePeriod = 6);</span></p>
+<li>Set the parameters for the following components: </li>
+<li><ul>
+<li>Set <span style=\"font-family: Courier New;\">qRadGai_flow</span>, <span style=\"font-family: Courier New;\">qConGai_flow</span> and <span style=\"font-family: Courier New;\">qLatGai_flow</span> to <i>0</i>. </li>
+<li>Set <span style=\"font-family: Courier New;\">TFlo</span> to <i>303.15</i> Kelvin. </li>
+<li>Set <span style=\"font-family: Courier New;\">TOthWal</span> to <i>283.15</i> Kelvin. </li>
+</ul></li>
+<li>Set the values for the parameters of <span style=\"font-family: Courier New;\">bouIn</span> and <span style=\"font-family: Courier New;\">bouOut</span> as below: </li>
+<p><span style=\"font-family: Courier New;\">Fluid.Sources.MassFlowSource_T bouIn(</span></p>
+<p><span style=\"font-family: Courier New;\">redeclare package Medium = MediumA,</span></p>
+<p><span style=\"font-family: Courier New;\">nPorts=1,</span></p>
+<p><span style=\"font-family: Courier New;\">m_flow=0.1,</span></p>
+<p><span style=\"font-family: Courier New;\">T=283.15);</span></p>
+<p><span style=\"font-family: Courier New;\">Fluid.Sources.FixedBoundary bouOut(</span></p>
+<p><span style=\"font-family: Courier New;\">redeclare package Medium = MediumA,</span></p>
+<p><span style=\"font-family: Courier New;\">nPorts=1);</span></p>
+<li>Connect the components as shown in the figure below. </li>
+<p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Examples/FFD/Tutorial/MixedConvectionModel.png\" alt=\"image\"/> </p>
+<li>Confirm in the textual editor that the connections to <span style=\"font-family: Courier New;\">roo.ports</span> are as follows: </li>
+<p><span style=\"font-family: Courier New;\">connect(bouIn.ports[1], roo.ports[1]);</span></p>
+<p><span style=\"font-family: Courier New;\">connect(bouOut.ports[1], roo.ports[2]);</span></p>
+<li>Use the Simplified CFD Interface (SCI) to generate the input file for the FFD. </li>
+<li><ul>
+<li>Use a 20 X 20 X 20 stretched grid. </li>
+<li>Set the time step size of the FFD to <i>0.1</i> seconds. </li>
+<li>Generate the input files, which have by default the names <span style=\"font-family: Courier New;\">input.cfd</span> (mesh file) and <span style=\"font-family: Courier New;\">zeroone.dat</span> (obstacles file). </li>
+<li>Rename the files as <span style=\"font-family: Courier New;\">MixedConvection.cfd</span> and <span style=\"font-family: Courier New;\">MixedConvection.dat</span>, respectively. </li>
+</ul></li>
+<li>Revise the FFD parameter input file <span style=\"font-family: Courier New;\">MixedConvection.ffd</span> (an example file is available in <span style=\"font-family: Courier New;\">Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/Tutorial/</span>): </li>
+<p><span style=\"font-family: Courier New;\">inpu.parameter_file_format SCI</span></p>
+<p><span style=\"font-family: Courier New;\">inpu.parameter_file_name MixedConvection.cfd</span></p>
+<p><span style=\"font-family: Courier New;\">inpu.block_file_name MixedConvection.dat</span></p>
+<p><span style=\"font-family: Courier New;\">prob.nu 0.000015 // Kinematic viscosity</span></p>
+<p><span style=\"font-family: Courier New;\">prob.rho 1.205 // Density</span></p>
+<p><span style=\"font-family: Courier New;\">prob.gravx 0 // Gravity in x direction</span></p>
+<p><span style=\"font-family: Courier New;\">prob.gravy 0 // Gravity in y direction</span></p>
+<p><span style=\"font-family: Courier New;\">prob.gravz -9.81 // Gravity in z direction</span></p>
+<p><span style=\"font-family: Courier New;\">prob.cond 0.0257 // Conductivity</span></p>
+<p><span style=\"font-family: Courier New;\">prob.Cp 1006.0 // Specific heat capacity</span></p>
+<p><span style=\"font-family: Courier New;\">prob.beta 0.00343 // Thermal expansion coefficient</span></p>
+<p><span style=\"font-family: Courier New;\">prob.diff 0.00001 // Diffusivity for contaminants</span></p>
+<p><span style=\"font-family: Courier New;\">prob.coeff_h 0.0004 // Convective heat transfer coefficient near the wall</span></p>
+<p><span style=\"font-family: Courier New;\">prob.Temp_Buoyancy 10.0 // Reference temperature for calculating buoyance force</span></p>
+<p><span style=\"font-family: Courier New;\">init.T 10.0 // Initial condition for Temperature</span></p>
+<p><span style=\"font-family: Courier New;\">init.u 0.0 // Initial condition for velocity u</span></p>
+<p><span style=\"font-family: Courier New;\">init.v 0.0 // Initial condition for velocity v</span></p>
+<p><span style=\"font-family: Courier New;\">init.w 0.0 // Initial condition for velocity w</span></p>
+<li>Put the files <span style=\"font-family: Courier New;\">MixedConvection.ffd</span>, <span style=\"font-family: Courier New;\">MixedConvection.dat</span>, and <span style=\"font-family: Courier New;\">MixedConvection.cfd</span> in the directory <span style=\"font-family: Courier New;\">Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/Tutorial/</span>. </li>
+<li>Set the simulation stop time of the Modelica model to <span style=\"font-family: Courier New;\">180</span> seconds and choose, for example, the Radau solver. </li>
+<li>Translate the model and start the simulation. </li>
+<li>Post-process: click the Tecplot macro script <span style=\"font-family: Courier New;\">Buildings/Resources/Image/Rooms/Examples/FFD/Tutorial/MixedConvection.mcr</span> that will generate the temperature contour and velocity vectors shown in the Figure (b). Note: Tecplot is needed for this. </li>
 </ol>
 </html>",revisions="<html>
 <ul>
