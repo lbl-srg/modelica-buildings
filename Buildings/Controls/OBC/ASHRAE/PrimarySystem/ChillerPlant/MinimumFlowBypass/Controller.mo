@@ -154,7 +154,7 @@ equation
   connect(swi.y, yValPos)
     annotation (Line(points={{62,130},{120,130}}, color={0,0,127}));
   connect(uChiWatPum, valPos.trigger)
-    annotation (Line(points={{-120,130},{10,130},{10,60},{42,60},{42,68}},
+    annotation (Line(points={{-120,130},{10,130},{10,60},{44,60},{44,68}},
       color={255,0,255}));
   connect(nexEnaChi, minBypSet.nexEnaChi)
     annotation (Line(points={{-120,-90},{-50,-90},{-50,-13},{-22,-13}},
@@ -194,11 +194,11 @@ annotation (
           fillColor={175,175,175},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-102,54},{-68,44}},
+          extent={{-98,56},{-64,46}},
           lineColor={255,0,255},
           textString="uStaUp"),
         Text(
-          extent={{-102,36},{-50,26}},
+          extent={{-98,36},{-46,26}},
           lineColor={255,0,255},
           textString="uUpsDevSta"),
         Text(
@@ -210,19 +210,19 @@ annotation (
           lineColor={255,127,0},
           textString="nexEnaChi"),
         Text(
-          extent={{-100,-64},{-56,-74}},
+          extent={{-98,-64},{-54,-74}},
           lineColor={255,127,0},
           textString="nexDisChi"),
         Text(
-          extent={{-104,-4},{-66,-14}},
+          extent={{-100,-4},{-62,-14}},
           lineColor={255,0,255},
           textString="uOnOff"),
         Text(
-          extent={{-100,16},{-60,6}},
+          extent={{-98,16},{-58,6}},
           lineColor={255,0,255},
           textString="uSubCha"),
         Text(
-          extent={{-100,-84},{-60,-94}},
+          extent={{-98,-84},{-58,-94}},
           lineColor={255,0,255},
           textString="uStaDow"),
         Text(
@@ -235,7 +235,7 @@ annotation (
           pattern=LinePattern.Dash,
           textString="VChiWat_flow"),
         Text(
-          extent={{68,6},{102,-4}},
+          extent={{64,6},{98,-4}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yValPos")}),

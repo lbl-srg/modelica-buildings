@@ -25,36 +25,45 @@ block Controller "Head pressure controller"
   parameter Modelica.SIunits.Time Ti=0.5 "Time constant of integrator block"
     annotation (Dialog(tab="Loop signal", group="PID controller", enable=not haveHeaPreConSig));
 
-  Economizer.Controller wseSta
-    annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
-  Generic.PlantEnable plaEna
-    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  Generic.EquipmentRotation.ControllerTwo equRot
-    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  HeadPressure.Controller heaPreCon
-    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  MinimumFlowBypass.Controller minBypValCon
-    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  Pumps.CondenserWater.Controller conWatPumCon
-    annotation (Placement(transformation(extent={{0,-118},{20,-98}})));
-  Pumps.ChilledWater.Controller chiWatPumCon
-    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-  SetPoints.ChilledWaterPlantReset chiWatPlaRes
-    annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
-  SetPoints.ChilledWaterSupply chiWatSupSet
-    annotation (Placement(transformation(extent={{60,-140},{80,-120}})));
-  Staging.SetpointController staSetCon
-    annotation (Placement(transformation(extent={{60,6},{80,26}})));
-  Tower.Controller towCon
-    annotation (Placement(transformation(extent={{60,80},{80,120}})));
-equation
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Controller wseSta
+    annotation (Placement(transformation(extent={{-164,94},{-144,114}})));
 
-  connect(staSetCon.uPla, plaEna.yPla) annotation (Line(points={{58,-5},{34,-5},
-          {34,-2},{4,-2},{4,70},{-19,70}}, color={255,0,255}));
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable plaEna
+    annotation (Placement(transformation(extent={{-260,160},{-240,180}})));
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.ControllerTwo equRot
+    annotation (Placement(transformation(extent={{-164,14},{-144,34}})));
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Controller heaPreCon
+    annotation (Placement(transformation(extent={{-164,-26},{-144,-6}})));
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Controller minBypValCon
+    annotation (Placement(transformation(extent={{-60,-40},{0,20}})));
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Controller conWatPumCon
+    annotation (Placement(transformation(extent={{158,-158},{178,-138}})));
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Controller chiWatPumCon
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.ChilledWaterPlantReset chiWatPlaRes
+    annotation (Placement(transformation(extent={{-92,-114},{-72,-94}})));
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.ChilledWaterSupply chiWatSupSet
+    annotation (Placement(transformation(extent={{-92,-154},{-72,-134}})));
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetpointController staSetCon
+    annotation (Placement(transformation(extent={{100,-60},{160,36}})));
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.Controller towCon
+    annotation (Placement(transformation(extent={{100,60},{160,180}})));
+
+equation
+  connect(staSetCon.uPla, plaEna.yPla) annotation (Line(points={{94,-75},{34,-75},
+          {34,170},{-239,170}},            color={255,0,255}));
 annotation (
-  defaultComponentName="heaPreCon",
-  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,-200},{140,200}}),
-       graphics={
+  defaultComponentName="chiPlaCon",
+  Icon(graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
           lineColor={0,0,0},
@@ -76,7 +85,7 @@ annotation (
           fillColor={175,175,175},
           fillPattern=FillPattern.Solid)}),
   Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-140,-200},{140,200}})),
+          extent={{-280,-200},{280,200}})),
   Documentation(info="<html>
 <p>
 fixme
@@ -85,7 +94,7 @@ fixme
 revisions="<html>
 <ul>
 <li>
-January 30, 2019, by Jianjun Hu:<br/>
+May 30, 2020, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>
