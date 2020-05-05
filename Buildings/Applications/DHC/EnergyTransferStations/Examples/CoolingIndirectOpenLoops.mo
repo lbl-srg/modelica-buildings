@@ -117,60 +117,42 @@ model CoolingIndirectOpenLoops
     annotation (Placement(transformation(extent={{88,-50},{108,-30}})));
 equation
   connect(coo.port_b2, pumBui.port_a) annotation (Line(points={{-10,-26},{-16,-26},
-          {-16,-90},{-20,-90}}, color={0,127,255},
-      thickness=0.5));
+          {-16,-90},{-20,-90}}, color={0,127,255}));
   connect(tra.y, souDis.T_in)
-    annotation (Line(points={{-99,54},{-92,54}},            color={0,0,127},
-      pattern=LinePattern.Dash));
+    annotation (Line(points={{-99,54},{-92,54}},            color={0,0,127}));
   connect(TBuiRetSig.y, souBui.T_in)
-    annotation (Line(points={{99,-86},{82,-86}},            color={0,0,127},
-      pattern=LinePattern.Dash));
+    annotation (Line(points={{99,-86},{82,-86}},            color={0,0,127}));
   connect(TSetCHWS.y, coo.TSet)
     annotation (Line(points={{-99,-20},{-12,-20}},
-                                              color={0,0,127},
-      pattern=LinePattern.Dash));
+                                              color={0,0,127}));
   connect(souDis.ports[1], TDisSup.port_a)
-    annotation (Line(points={{-70,50},{-40,50}}, color={0,127,255},
-      thickness=0.5));
+    annotation (Line(points={{-70,50},{-40,50}}, color={0,127,255}));
   connect(TDisSup.port_b, coo.port_a1) annotation (Line(points={{-20,50},{-16,50},
-          {-16,-14},{-10,-14}}, color={0,127,255},
-      thickness=0.5));
+          {-16,-14},{-10,-14}}, color={0,127,255}));
   connect(coo.port_b1, TDisRet.port_a) annotation (Line(points={{10,-14},{16,-14},
-          {16,50},{20,50}}, color={0,127,255},
-      thickness=0.5));
+          {16,50},{20,50}}, color={0,127,255}));
   connect(TDisRet.port_b, sinDis.ports[1])
-    annotation (Line(points={{40,50},{60,50}},  color={0,127,255},
-      thickness=0.5));
+    annotation (Line(points={{40,50},{60,50}},  color={0,127,255}));
   connect(TBuiSup.T, TApp.u1)
-    annotation (Line(points={{-60,-79},{-60,106},{-2,106}}, color={0,0,127},
-      pattern=LinePattern.Dash));
+    annotation (Line(points={{-60,-79},{-60,106},{-2,106}}, color={0,0,127}));
   connect(TDisSup.T, TApp.u2)
-    annotation (Line(points={{-30,61},{-30,94},{-2,94}}, color={0,0,127},
-      pattern=LinePattern.Dash));
+    annotation (Line(points={{-30,61},{-30,94},{-2,94}}, color={0,0,127}));
   connect(TDisRet.T, dTDis.u2)
-    annotation (Line(points={{30,61},{30,74},{58,74}}, color={0,0,127},
-      pattern=LinePattern.Dash));
+    annotation (Line(points={{30,61},{30,74},{58,74}}, color={0,0,127}));
   connect(dTDis.u1, TDisSup.T)
-    annotation (Line(points={{58,86},{-30,86},{-30,61}}, color={0,0,127},
-      pattern=LinePattern.Dash));
+    annotation (Line(points={{58,86},{-30,86},{-30,61}}, color={0,0,127}));
   connect(TBuiRet.T, dTBui.u2)
-    annotation (Line(points={{30,-79},{30,-46},{86,-46}}, color={0,0,127},
-      pattern=LinePattern.Dash));
+    annotation (Line(points={{30,-79},{30,-46},{86,-46}}, color={0,0,127}));
   connect(TBuiSup.T, dTBui.u1)
-    annotation (Line(points={{-60,-79},{-60,-34},{86,-34}}, color={0,0,127},
-      pattern=LinePattern.Dash));
+    annotation (Line(points={{-60,-79},{-60,-34},{86,-34}}, color={0,0,127}));
   connect(pumBui.port_b, TBuiSup.port_a)
-    annotation (Line(points={{-40,-90},{-50,-90}}, color={0,127,255},
-      thickness=0.5));
+    annotation (Line(points={{-40,-90},{-50,-90}}, color={0,127,255}));
   connect(TBuiSup.port_b, sinBui.ports[1])
-    annotation (Line(points={{-70,-90},{-100,-90}}, color={0,127,255},
-      thickness=0.5));
+    annotation (Line(points={{-70,-90},{-100,-90}}, color={0,127,255}));
   connect(coo.port_a2, TBuiRet.port_b) annotation (Line(points={{10,-26},{16,
-          -26},{16,-90},{20,-90}}, color={0,127,255},
-      thickness=0.5));
+          -26},{16,-90},{20,-90}}, color={0,127,255}));
   connect(TBuiRet.port_a, souBui.ports[1])
-    annotation (Line(points={{40,-90},{60,-90}}, color={0,127,255},
-      thickness=0.5));
+    annotation (Line(points={{40,-90},{60,-90}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-100},{100,100}})),
     Diagram(coordinateSystem(preserveAspectRatio=false,
