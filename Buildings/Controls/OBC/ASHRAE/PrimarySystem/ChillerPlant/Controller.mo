@@ -35,13 +35,13 @@ block Controller "Head pressure controller"
     annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Controller heaPreCon
-    annotation (Placement(transformation(extent={{-164,-26},{-144,-6}})));
+    annotation (Placement(transformation(extent={{-260,0},{-220,40}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Controller minBypValCon
-    annotation (Placement(transformation(extent={{-60,-40},{0,20}})));
+    annotation (Placement(transformation(extent={{-260,-186},{-120,-54}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Controller conWatPumCon
-    annotation (Placement(transformation(extent={{158,-158},{178,-138}})));
+    annotation (Placement(transformation(extent={{238,32},{258,52}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Controller chiWatPumCon
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
@@ -50,17 +50,40 @@ block Controller "Head pressure controller"
     annotation (Placement(transformation(extent={{-92,-114},{-72,-94}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.ChilledWaterSupply chiWatSupSet
-    annotation (Placement(transformation(extent={{-92,-154},{-72,-134}})));
+    annotation (Placement(transformation(extent={{-60,-154},{-40,-134}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetpointController staSetCon
-    annotation (Placement(transformation(extent={{100,-56},{160,40}})));
+    annotation (Placement(transformation(extent={{60,-156},{182,40}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.Controller towCon
-    annotation (Placement(transformation(extent={{100,60},{160,180}})));
+    annotation (Placement(transformation(extent={{98,116},{158,236}})));
 
+  CDL.Interfaces.RealInput                        VChiWat_flow(final quantity=
+        "VolumeFlowRate", final unit="m3/s")
+    "Measured chilled water volume flow rate"
+    annotation (Placement(transformation(extent={{-320,30},{-280,70}}),
+    iconTransformation(extent={{-140,-60},{-100,-20}})));
+  CDL.Interfaces.RealInput                        TChiWatRetDow(final unit="K",
+      final quantity="ThermodynamicTemperature")
+    "Chiller water return temperature downstream of the WSE"
+    annotation (Placement(transformation(extent={{-320,90},{-280,130}}),
+        iconTransformation(extent={{-140,-20},{-100,20}})));
+  CDL.Interfaces.RealInput                        TChiWatRet(final unit="K",
+      final quantity="ThermodynamicTemperature")
+    "Chiller water return temperature upstream of the WSE"
+    annotation (Placement(transformation(extent={{-320,130},{-280,170}}),
+        iconTransformation(extent={{-140,20},{-100,60}})));
+  CDL.Interfaces.RealInput                        TOutWet(final unit="K",
+      final quantity="ThermodynamicTemperature")
+    "Outdoor air wet bulb temperature"
+    annotation (Placement(transformation(extent={{-320,170},{-280,210}}),
+        iconTransformation(extent={{-140,60},{-100,100}})));
 equation
-  connect(staSetCon.uPla, plaEna.yPla) annotation (Line(points={{94,-71},{34,-71},
-          {34,170},{-239,170}},            color={255,0,255}));
+  connect(staSetCon.uPla, plaEna.yPla) annotation (Line(points={{47.8,-174.375},
+          {34,-174.375},{34,170},{-239,170}},
+                                           color={255,0,255}));
+  connect(heaPreCon.yMaxTowSpeSet, wseSta.uTowFanSpeMax) annotation (Line(
+        points={{-218,32},{-190,32},{-190,96},{-166,96}}, color={0,0,127}));
 annotation (
   defaultComponentName="chiPlaCon",
   Icon(graphics={
