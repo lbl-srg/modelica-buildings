@@ -122,9 +122,8 @@ equation
     annotation (Line(points={{-99,54},{-92,54}},            color={0,0,127}));
   connect(TBuiRetSig.y, souBui.T_in)
     annotation (Line(points={{99,-86},{82,-86}},            color={0,0,127}));
-  connect(TSetCHWS.y, coo.TSet)
-    annotation (Line(points={{-99,-20},{-12,-20}},
-                                              color={0,0,127}));
+  connect(TSetCHWS.y, coo.TSetBuiSup)
+    annotation (Line(points={{-99,-20},{-12,-20}}, color={0,0,127}));
   connect(souDis.ports[1], TDisSup.port_a)
     annotation (Line(points={{-70,50},{-40,50}}, color={0,127,255}));
   connect(TDisSup.port_b, coo.port_a1) annotation (Line(points={{-20,50},{-16,50},

@@ -150,7 +150,7 @@ equation
                                                   color={0,0,127}));
   connect(gai.u, QCoo.y[1]) annotation (Line(points={{-62,-10},{-80,-10},{-80,-20},
           {-99,-20}}, color={0,0,127}));
-  connect(TSetCHWS.y, coo.TSet)
+  connect(TSetCHWS.y, coo.TSetBuiSup)
     annotation (Line(points={{-99,20},{38,20}}, color={0,0,127}));
   connect(loa.port_b, TBuiRet.port_a)
     annotation (Line(points={{60,-76},{70,-76}}, color={0,127,255}));
