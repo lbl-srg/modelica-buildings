@@ -32,7 +32,7 @@ block Controller "Head pressure controller"
     annotation (Placement(transformation(extent={{-260,160},{-240,180}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.ControllerTwo equRot
-    annotation (Placement(transformation(extent={{-164,14},{-144,34}})));
+    annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Controller heaPreCon
     annotation (Placement(transformation(extent={{-164,-26},{-144,-6}})));
@@ -53,13 +53,13 @@ block Controller "Head pressure controller"
     annotation (Placement(transformation(extent={{-92,-154},{-72,-134}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetpointController staSetCon
-    annotation (Placement(transformation(extent={{100,-60},{160,36}})));
+    annotation (Placement(transformation(extent={{100,-56},{160,40}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.Controller towCon
     annotation (Placement(transformation(extent={{100,60},{160,180}})));
 
 equation
-  connect(staSetCon.uPla, plaEna.yPla) annotation (Line(points={{94,-75},{34,-75},
+  connect(staSetCon.uPla, plaEna.yPla) annotation (Line(points={{94,-71},{34,-71},
           {34,170},{-239,170}},            color={255,0,255}));
 annotation (
   defaultComponentName="chiPlaCon",
@@ -88,7 +88,7 @@ annotation (
           extent={{-280,-200},{280,200}})),
   Documentation(info="<html>
 <p>
-fixme
+fixme: Controller for plants with two devices or groups of devices (chillers, towers(4 cells), CW and C pumps)
 </p>
 </html>",
 revisions="<html>
