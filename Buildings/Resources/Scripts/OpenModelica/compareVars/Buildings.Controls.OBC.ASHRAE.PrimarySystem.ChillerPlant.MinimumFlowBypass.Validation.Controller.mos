@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "minBypValCon.uStaUp",
+    "minBypValCon.uUpsDevSta",
+    "minBypValCon.uOnOff",
+    "minBypValCon.uEnaNexChi",
+    "minBypValCon.uChiWatPum",
+    "minBypValCon.VChiWat_flow",
+    "minBypValCon.minBypSet.yChiWatMinFloSet",
+    "minBypValCon.yValPos"
+  };

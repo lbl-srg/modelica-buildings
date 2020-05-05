@@ -1,0 +1,7 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Validation.Controller", method="Cvode", stopTime=4, tolerance=1e-06, resultFile="minBypasVal");
+createPlot(id=1, position={20, 10, 1000, 1200}, subPlot=1, y={"minBypValCon.uStaUp","minBypValCon.uUpsDevSta","minBypValCon.uOnOff","minBypValCon.uEnaNexChi", "minBypValCon.uChiWatPum"}, range={0.0, 4.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=1, position={20, 10, 1000, 1200}, subPlot=2, y={"minBypValCon.VChiWat_flow", "minBypValCon.minBypSet.yChiWatMinFloSet"}, range={0.0, 4.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={20, 10, 1000, 1200}, subPlot=3, y={"minBypValCon.yValPos"}, range={0.0, 4.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
+
+
+
