@@ -15,7 +15,7 @@ block ZeroCrossing "Trigger zero crossing of input u"
         rotation=90)));
 
 protected
-  Boolean disable=not enable "Boolea not of enable input";
+  Boolean disable=not enable "Boolean not of enable input";
   Boolean u_pos "Positive real input";
 initial equation
   pre(u_pos) = false;
