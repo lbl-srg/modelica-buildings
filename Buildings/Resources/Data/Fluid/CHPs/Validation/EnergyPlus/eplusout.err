@@ -1,4 +1,4 @@
-Program Version,EnergyPlus, Version 9.1.0-08d2e308bb, YMD=2020.05.04 16:28,
+Program Version,EnergyPlus, Version 9.2.0-921312fa1d, YMD=2020.05.06 10:33,
    ************* Beginning Zone Sizing Calculations
    ** Warning ** Weather file location will be used rather than entered (IDF) Location object.
    **   ~~~   ** ..Location object=NEWARK_NJ_USA TMY2-14734
@@ -21,8 +21,8 @@ Program Version,EnergyPlus, Version 9.1.0-08d2e308bb, YMD=2020.05.04 16:28,
    ************* Beginning Simulation
    ** Warning ** Output:Table:Monthly requested with SimulationControl Run Simulation for Weather File Run Periods set to No so Output:Table:Monthly will not be generated
    ** Warning ** GetDensityGlycol: Temperature is out of range (too high) for fluid [WATER] density **
-   **   ~~~   ** ..Called From:NodeReportingCalc:SMALL SOFC HEAT REC OUTLET NODE,Temperature=[100.31], supplied data range=[0.00,100.00]
-   **   ~~~   **  Environment=NEWARK ANN HTG 99.6% CONDNS DB, at Simulation time=01/21 00:56 - 00:57
+   **   ~~~   ** ..Called From:NodeReportingCalc:SMALL SOFC HEAT REC OUTLET NODE,Temperature=[100.28], supplied data range=[0.00,100.00]
+   **   ~~~   **  Environment=NEWARK ANN HTG 99.6% CONDNS DB, at Simulation time=01/21 01:11 - 01:12
    ** Warning ** Plant Loop: MICROCHP SENERTECH Demand Side is storing excess heat the majority of the time.
    ** Warning ** Plant Loop: MICROCHP SENERTECH Supply Side is storing excess heat the majority of the time.
    ************* Simulation Error Summary *************
@@ -33,17 +33,17 @@ Program Version,EnergyPlus, Version 9.1.0-08d2e308bb, YMD=2020.05.04 16:28,
    ************* The following recurring error messages occurred.
    *************
    *************  ** Warning ** Plant loop exceeding upper temperature limit, PlantLoop="MICROCHP SENERTECH"
-   *************  **   ~~~   **   This error occurred 213 total times;
+   *************  **   ~~~   **   This error occurred 207 total times;
    *************  **   ~~~   **   during Warmup 207 times;
    *************  **   ~~~   **   during Sizing 0 times.
    *************  **   ~~~   **   Max=125.697892
    *************
    *************  ** Warning ** GetDensityGlycol: Temperature out of range (too high) for fluid [WATER] density **
-   *************  **   ~~~   **   This error occurred 336 total times;
+   *************  **   ~~~   **   This error occurred 32 total times;
    *************  **   ~~~   **   during Warmup 0 times;
    *************  **   ~~~   **   during Sizing 0 times.
-   *************  **   ~~~   **   Max=104.649373 {C}  Min=100.078555 {C}
+   *************  **   ~~~   **   Max=101.153778 {C}  Min=100.045056 {C}
    *************
    ************* EnergyPlus Warmup Error Summary. During Warmup: 0 Warning; 0 Severe Errors.
    ************* EnergyPlus Sizing Error Summary. During Sizing: 2 Warning; 0 Severe Errors.
-   ************* EnergyPlus Completed Successfully-- 555 Warning; 0 Severe Errors; Elapsed Time=00hr 00min  9.39sec
+   ************* EnergyPlus Completed Successfully-- 245 Warning; 0 Severe Errors; Elapsed Time=00hr 00min 14.07sec

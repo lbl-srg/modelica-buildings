@@ -1,4 +1,4 @@
-! Program Version,EnergyPlus, Version 9.1.0-08d2e308bb, YMD=2020.05.04 16:28,
+! Program Version,EnergyPlus, Version 9.2.0-921312fa1d, YMD=2020.05.06 10:33,
 ! Output:Variable Objects (applicable to this run)
 Output:Variable,*,Site Outdoor Air Drybulb Temperature,hourly; !- Zone Average [C]
 Output:Variable,*,Site Outdoor Air Dewpoint Temperature,hourly; !- Zone Average [C]
@@ -178,7 +178,6 @@ Output:Variable,*,Surface Window BSDF Beam Theta Angle,hourly; !- Zone Average [
 Output:Variable,*,Surface Window BSDF Beam Phi Angle,hourly; !- Zone Average [rad]
 Output:Variable,*,Surface Window Total Glazing Layers Absorbed Solar Radiation Rate,hourly; !- Zone Average [W]
 Output:Variable,*,Surface Window Total Glazing Layers Absorbed Shortwave Radiation Rate,hourly; !- Zone Average [W]
-Output:Variable,*,Surface Window Total Absorbed Shortwave Radiation Rate Layer 1,hourly; !- Zone Average [W]
 Output:Variable,*,Surface Window Front Face Temperature Layer 1,hourly; !- Zone Average [C]
 Output:Variable,*,Surface Window Back Face Temperature Layer 1,hourly; !- Zone Average [C]
 Output:Variable,*,Surface Window Transmitted Solar Radiation Rate,hourly; !- Zone Average [W]
@@ -230,6 +229,7 @@ Output:Variable,*,Debug Surface Solar Shading Model DifShdgRatioHoriz,hourly; !-
 Output:Variable,*,Debug Surface Solar Shading Model WithShdgIsoSky,hourly; !- Zone Average []
 Output:Variable,*,Debug Surface Solar Shading Model WoShdgIsoSky,hourly; !- Zone Average []
 Output:Variable,*,Surface Inside Face Temperature,hourly; !- Zone Average [C]
+Output:Variable,*,Surface Inside Face Interior Movable Insulation Temperature,hourly; !- Zone Average [C]
 Output:Variable,*,Surface Outside Face Temperature,hourly; !- Zone Average [C]
 Output:Variable,*,Surface Inside Face Adjacent Air Temperature,hourly; !- Zone Average [C]
 Output:Variable,*,Surface Inside Face Convection Heat Transfer Coefficient,hourly; !- Zone Average [W/m2-K]

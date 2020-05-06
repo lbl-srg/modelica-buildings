@@ -1,6 +1,6 @@
-Program Version,EnergyPlus, Version 9.1.0-08d2e308bb, YMD=2020.05.04 16:28
+Program Version,EnergyPlus, Version 9.2.0-921312fa1d, YMD=2020.05.06 10:33
 ! <Version>, Version ID
- Version, 9.1
+ Version, 9.2
 ! <Timesteps per Hour>, #TimeSteps, Minutes per TimeStep {minutes}
  Timesteps per Hour, 60,  1
 ! <System Convergence Limits>, Minimum System TimeStep {minutes}, Max HVAC Iterations, Minimum Plant Iterations, Maximum Plant Iterations
@@ -152,101 +152,101 @@ Zone Volume Capacitance Multiplier,   1.000 ,   1.000,   1.000,   1.000
 ! <Fuel Supply>, Fuel Supply Name, Lower Heating Value [J/kmol], Lower Heating Value [kJ/kg], Higher Heating Value [KJ/kg],  Molecular Weight [g/mol] 
  Fuel Supply, FCT SOFC FUEL SUPPLY, 0.803434E+09,  47614.2    ,  52791.2    ,  16.8738    
 ! <Zone Sizing Information>, Zone Name, Load Type, Calc Des Load {W}, User Des Load {W}, Calc Des Air Flow Rate {m3/s}, User Des Air Flow Rate {m3/s}, Design Day Name, Date/Time of Peak, Temperature at Peak {C}, Humidity Ratio at Peak {kgWater/kgDryAir}, Floor Area {m2}, # Occupants, Calc Outdoor Air Flow Rate {m3/s}, Calc DOAS Heat Addition Rate {W}
- Zone Sizing Information, ZN_1_FLR_1_SEC_1, Cooling, 5616.82919, 6740.19503, 0.46807, 0.56168, NEWARK ANN CLG .4% CONDNS DB=>MWB, 7/21 17:58:00, 31.99367, 1.43455E-002, 25.24102, 10.37410, 0.20205, 0.00000
+ Zone Sizing Information, ZN_1_FLR_1_SEC_1, Cooling, 5616.85540, 6740.22647, 0.46807, 0.56169, NEWARK ANN CLG .4% CONDNS DB=>MWB, 7/21 17:58:00, 31.99367, 1.43455E-002, 25.24102, 10.37410, 0.20205, 0.00000
  Zone Sizing Information, ZN_1_FLR_1_SEC_1, Heating, 1098.47490, 1318.16988, 3.15895E-002, 0.20205, NEWARK ANN HTG 99.6% CONDNS DB, 1/21 13:00:00, -12.10000, 1.32628E-003, 25.24102, 10.37410, 0.20205, 0.00000
- Zone Sizing Information, ZN_1_FLR_1_SEC_2, Cooling, 5878.83689, 7054.60427, 0.48990, 0.58788, NEWARK ANN CLG .4% CONDNS DB=>MWB, 7/21 16:48:00, 32.99640, 1.43455E-002, 22.01314, 9.04730, 0.17621, 0.00000
+ Zone Sizing Information, ZN_1_FLR_1_SEC_2, Cooling, 5879.01019, 7054.81223, 0.48992, 0.58790, NEWARK ANN CLG .4% CONDNS DB=>MWB, 7/21 16:48:00, 32.99640, 1.43455E-002, 22.01314, 9.04730, 0.17621, 0.00000
  Zone Sizing Information, ZN_1_FLR_1_SEC_2, Heating, 832.64476, 999.17371, 2.39449E-002, 0.17621, NEWARK ANN HTG 99.6% CONDNS DB, 1/21 13:00:00, -12.10000, 1.32628E-003, 22.01314, 9.04730, 0.17621, 0.00000
- Zone Sizing Information, ZN_1_FLR_1_SEC_3, Cooling, 5107.67487, 6129.20984, 0.42564, 0.51077, NEWARK ANN CLG .4% CONDNS DB=>MWB, 7/21 11:47:00, 32.75017, 1.43455E-002, 25.24102, 10.37410, 0.20205, 0.00000
+ Zone Sizing Information, ZN_1_FLR_1_SEC_3, Cooling, 5109.92033, 6131.90439, 0.42583, 0.51099, NEWARK ANN CLG .4% CONDNS DB=>MWB, 7/21 11:48:00, 32.76500, 1.43455E-002, 25.24102, 10.37410, 0.20205, 0.00000
  Zone Sizing Information, ZN_1_FLR_1_SEC_3, Heating, 769.68448, 923.62138, 2.21343E-002, 0.20205, NEWARK ANN HTG 99.6% CONDNS DB, 1/21 13:00:00, -12.10000, 1.32628E-003, 25.24102, 10.37410, 0.20205, 0.00000
- Zone Sizing Information, ZN_1_FLR_1_SEC_4, Cooling, 4928.45959, 5914.15151, 0.41071, 0.49285, NEWARK ANN CLG .4% CONDNS DB=>MWB, 7/21 08:39:00, 28.61315, 1.43455E-002, 22.01314, 9.04730, 0.17621, 0.00000
+ Zone Sizing Information, ZN_1_FLR_1_SEC_4, Cooling, 4928.59750, 5914.31700, 0.41072, 0.49286, NEWARK ANN CLG .4% CONDNS DB=>MWB, 7/21 08:39:00, 28.61315, 1.43455E-002, 22.01314, 9.04730, 0.17621, 0.00000
  Zone Sizing Information, ZN_1_FLR_1_SEC_4, Heating, 829.36448, 995.23738, 2.38505E-002, 0.17621, NEWARK ANN HTG 99.6% CONDNS DB, 1/21 13:00:00, -12.10000, 1.32628E-003, 22.01314, 9.04730, 0.17621, 0.00000
- Zone Sizing Information, ZN_1_FLR_1_SEC_5, Cooling, 1851.53567, 2221.84280, 0.15429, 0.18515, NEWARK ANN CLG .4% CONDNS DB=>MWB, 7/21 18:40:00, 31.07400, 1.43455E-002, 7.68184, 3.15720, 6.14926E-002, 0.00000
+ Zone Sizing Information, ZN_1_FLR_1_SEC_5, Cooling, 1851.63865, 2221.96638, 0.15430, 0.18516, NEWARK ANN CLG .4% CONDNS DB=>MWB, 7/21 18:40:00, 31.07400, 1.43455E-002, 7.68184, 3.15720, 6.14926E-002, 0.00000
  Zone Sizing Information, ZN_1_FLR_1_SEC_5, Heating, 0.00000, 0.00000, 0.00000, 6.14926E-002, NEWARK ANN HTG 99.6% CONDNS DB, , -12.10000, 1.32628E-003, 7.68184, 3.15720, 6.14926E-002, 0.00000
 ! <Component Sizing Information>, Component Type, Component Name, Input Field Description, Value
- Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_1 PTAC, Design Size Cooling Supply Air Flow Rate [m3/s], 0.56168
- Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_1 PTAC, Design Size Heating Supply Air Flow Rate [m3/s], 0.56168
- Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_1 PTAC, Design Size No Load Supply Air Flow Rate [m3/s], 0.56168
+ Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_1 PTAC, Design Size Cooling Supply Air Flow Rate [m3/s], 0.56169
+ Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_1 PTAC, Design Size Heating Supply Air Flow Rate [m3/s], 0.56169
+ Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_1 PTAC, Design Size No Load Supply Air Flow Rate [m3/s], 0.56169
  Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_1 PTAC, Design Size Outdoor Air Flow Rate During Cooling Operation [m3/s], 0.20205
  Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_1 PTAC, Design Size Outdoor Air Flow Rate During Heating Operation [m3/s], 0.20205
  Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_1 PTAC, Design Size Outdoor Air Flow Rate When No Cooling or Heating is Needed [m3/s], 0.20205
- Component Sizing Information, Coil:Heating:Water, ZN_1_FLR_1_SEC_1 PTAC HEAT COIL, Design Size Rated Capacity [W], 27550.94168
+ Component Sizing Information, Coil:Heating:Water, ZN_1_FLR_1_SEC_1 PTAC HEAT COIL, Design Size Rated Capacity [W], 27551.03279
  Component Sizing Information, Coil:Heating:Water, ZN_1_FLR_1_SEC_1 PTAC HEAT COIL, Design Size Maximum Water Flow Rate [m3/s], 1.33915E-003
- Component Sizing Information, Coil:Heating:Water, ZN_1_FLR_1_SEC_1 PTAC HEAT COIL, Design Size U-Factor Times Area Value [W/K], 1216.95768
+ Component Sizing Information, Coil:Heating:Water, ZN_1_FLR_1_SEC_1 PTAC HEAT COIL, Design Size U-Factor Times Area Value [W/K], 1216.96260
 ! <Water Heating Coil Capacity Information>,Component Type,Name,Nominal Total Capacity {W}
-Water Heating Coil Capacity Information,Coil:Heating:Water,ZN_1_FLR_1_SEC_1 PTAC HEAT COIL,35581.57
- Component Sizing Information, Coil:Cooling:DX:SingleSpeed, ZN_1_FLR_1_SEC_1 PTAC DXCOIL, Design Size Rated Air Flow Rate [m3/s], 0.56168
- Component Sizing Information, Coil:Cooling:DX:SingleSpeed, ZN_1_FLR_1_SEC_1 PTAC DXCOIL, Design Size Gross Rated Total Cooling Capacity [W], 12942.48018
+Water Heating Coil Capacity Information,Coil:Heating:Water,ZN_1_FLR_1_SEC_1 PTAC HEAT COIL,35581.73
+ Component Sizing Information, Coil:Cooling:DX:SingleSpeed, ZN_1_FLR_1_SEC_1 PTAC DXCOIL, Design Size Rated Air Flow Rate [m3/s], 0.56169
+ Component Sizing Information, Coil:Cooling:DX:SingleSpeed, ZN_1_FLR_1_SEC_1 PTAC DXCOIL, Design Size Gross Rated Total Cooling Capacity [W], 12942.52087
  Component Sizing Information, Coil:Cooling:DX:SingleSpeed, ZN_1_FLR_1_SEC_1 PTAC DXCOIL, Design Size Gross Rated Sensible Heat Ratio, 0.72112
 ! <DX Cooling Coil Standard Rating Information>, Component Type, Component Name, Standard Rating (Net) Cooling Capacity {W}, Standard Rated Net COP {W/W}, EER {Btu/W-h}, SEER {Btu/W-h}, IEER {Btu/W-h}
  DX Cooling Coil Standard Rating Information, Coil:Cooling:DX:SingleSpeed, ZN_1_FLR_1_SEC_1 PTAC DXCOIL, 12506.1, 2.28, 7.78, 8.27, 8.22
- Component Sizing Information, Fan:OnOff, ZN_1_FLR_1_SEC_1 PTACFAN, Design Size Maximum Flow Rate [m3/s], 0.56168
- Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_2 PTAC, Design Size Cooling Supply Air Flow Rate [m3/s], 0.58788
- Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_2 PTAC, Design Size Heating Supply Air Flow Rate [m3/s], 0.58788
- Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_2 PTAC, Design Size No Load Supply Air Flow Rate [m3/s], 0.58788
+ Component Sizing Information, Fan:OnOff, ZN_1_FLR_1_SEC_1 PTACFAN, Design Size Maximum Flow Rate [m3/s], 0.56169
+ Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_2 PTAC, Design Size Cooling Supply Air Flow Rate [m3/s], 0.58790
+ Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_2 PTAC, Design Size Heating Supply Air Flow Rate [m3/s], 0.58790
+ Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_2 PTAC, Design Size No Load Supply Air Flow Rate [m3/s], 0.58790
  Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_2 PTAC, Design Size Outdoor Air Flow Rate During Cooling Operation [m3/s], 0.17621
  Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_2 PTAC, Design Size Outdoor Air Flow Rate During Heating Operation [m3/s], 0.17621
  Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_2 PTAC, Design Size Outdoor Air Flow Rate When No Cooling or Heating is Needed [m3/s], 0.17621
- Component Sizing Information, Coil:Heating:Water, ZN_1_FLR_1_SEC_2 PTAC HEAT COIL, Design Size Rated Capacity [W], 27436.49524
- Component Sizing Information, Coil:Heating:Water, ZN_1_FLR_1_SEC_2 PTAC HEAT COIL, Design Size Maximum Water Flow Rate [m3/s], 1.33359E-003
- Component Sizing Information, Coil:Heating:Water, ZN_1_FLR_1_SEC_2 PTAC HEAT COIL, Design Size U-Factor Times Area Value [W/K], 1245.24281
-Water Heating Coil Capacity Information,Coil:Heating:Water,ZN_1_FLR_1_SEC_2 PTAC HEAT COIL,36864.63
- Component Sizing Information, Coil:Cooling:DX:SingleSpeed, ZN_1_FLR_1_SEC_2 PTAC DXCOIL, Design Size Rated Air Flow Rate [m3/s], 0.58788
- Component Sizing Information, Coil:Cooling:DX:SingleSpeed, ZN_1_FLR_1_SEC_2 PTAC DXCOIL, Design Size Gross Rated Total Cooling Capacity [W], 13109.97169
+ Component Sizing Information, Coil:Heating:Water, ZN_1_FLR_1_SEC_2 PTAC HEAT COIL, Design Size Rated Capacity [W], 27437.09786
+ Component Sizing Information, Coil:Heating:Water, ZN_1_FLR_1_SEC_2 PTAC HEAT COIL, Design Size Maximum Water Flow Rate [m3/s], 1.33362E-003
+ Component Sizing Information, Coil:Heating:Water, ZN_1_FLR_1_SEC_2 PTAC HEAT COIL, Design Size U-Factor Times Area Value [W/K], 1245.27517
+Water Heating Coil Capacity Information,Coil:Heating:Water,ZN_1_FLR_1_SEC_2 PTAC HEAT COIL,36865.66
+ Component Sizing Information, Coil:Cooling:DX:SingleSpeed, ZN_1_FLR_1_SEC_2 PTAC DXCOIL, Design Size Rated Air Flow Rate [m3/s], 0.58790
+ Component Sizing Information, Coil:Cooling:DX:SingleSpeed, ZN_1_FLR_1_SEC_2 PTAC DXCOIL, Design Size Gross Rated Total Cooling Capacity [W], 13110.24547
  Component Sizing Information, Coil:Cooling:DX:SingleSpeed, ZN_1_FLR_1_SEC_2 PTAC DXCOIL, Design Size Gross Rated Sensible Heat Ratio, 0.73291
- DX Cooling Coil Standard Rating Information, Coil:Cooling:DX:SingleSpeed, ZN_1_FLR_1_SEC_2 PTAC DXCOIL, 12653.3, 2.27, 7.75, 8.24, 8.17
- Component Sizing Information, Fan:OnOff, ZN_1_FLR_1_SEC_2 PTACFAN, Design Size Maximum Flow Rate [m3/s], 0.58788
- Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_3 PTAC, Design Size Cooling Supply Air Flow Rate [m3/s], 0.51077
- Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_3 PTAC, Design Size Heating Supply Air Flow Rate [m3/s], 0.51077
- Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_3 PTAC, Design Size No Load Supply Air Flow Rate [m3/s], 0.51077
+ DX Cooling Coil Standard Rating Information, Coil:Cooling:DX:SingleSpeed, ZN_1_FLR_1_SEC_2 PTAC DXCOIL, 12653.5, 2.27, 7.75, 8.24, 8.17
+ Component Sizing Information, Fan:OnOff, ZN_1_FLR_1_SEC_2 PTACFAN, Design Size Maximum Flow Rate [m3/s], 0.58790
+ Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_3 PTAC, Design Size Cooling Supply Air Flow Rate [m3/s], 0.51099
+ Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_3 PTAC, Design Size Heating Supply Air Flow Rate [m3/s], 0.51099
+ Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_3 PTAC, Design Size No Load Supply Air Flow Rate [m3/s], 0.51099
  Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_3 PTAC, Design Size Outdoor Air Flow Rate During Cooling Operation [m3/s], 0.20205
  Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_3 PTAC, Design Size Outdoor Air Flow Rate During Heating Operation [m3/s], 0.20205
  Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_3 PTAC, Design Size Outdoor Air Flow Rate When No Cooling or Heating is Needed [m3/s], 0.20205
- Component Sizing Information, Coil:Heating:Water, ZN_1_FLR_1_SEC_3 PTAC HEAT COIL, Design Size Rated Capacity [W], 25780.38422
- Component Sizing Information, Coil:Heating:Water, ZN_1_FLR_1_SEC_3 PTAC HEAT COIL, Design Size Maximum Water Flow Rate [m3/s], 1.25309E-003
- Component Sizing Information, Coil:Heating:Water, ZN_1_FLR_1_SEC_3 PTAC HEAT COIL, Design Size U-Factor Times Area Value [W/K], 1121.71816
-Water Heating Coil Capacity Information,Coil:Heating:Water,ZN_1_FLR_1_SEC_3 PTAC HEAT COIL,32547.56
- Component Sizing Information, Coil:Cooling:DX:SingleSpeed, ZN_1_FLR_1_SEC_3 PTAC DXCOIL, Design Size Rated Air Flow Rate [m3/s], 0.51077
- Component Sizing Information, Coil:Cooling:DX:SingleSpeed, ZN_1_FLR_1_SEC_3 PTAC DXCOIL, Design Size Gross Rated Total Cooling Capacity [W], 12348.84012
- Component Sizing Information, Coil:Cooling:DX:SingleSpeed, ZN_1_FLR_1_SEC_3 PTAC DXCOIL, Design Size Gross Rated Sensible Heat Ratio, 0.70673
- DX Cooling Coil Standard Rating Information, Coil:Cooling:DX:SingleSpeed, ZN_1_FLR_1_SEC_3 PTAC DXCOIL, 11951.9, 2.29, 7.82, 8.32, 8.29
- Component Sizing Information, Fan:OnOff, ZN_1_FLR_1_SEC_3 PTACFAN, Design Size Maximum Flow Rate [m3/s], 0.51077
- Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_4 PTAC, Design Size Cooling Supply Air Flow Rate [m3/s], 0.49285
- Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_4 PTAC, Design Size Heating Supply Air Flow Rate [m3/s], 0.49285
- Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_4 PTAC, Design Size No Load Supply Air Flow Rate [m3/s], 0.49285
+ Component Sizing Information, Coil:Heating:Water, ZN_1_FLR_1_SEC_3 PTAC HEAT COIL, Design Size Rated Capacity [W], 25788.19230
+ Component Sizing Information, Coil:Heating:Water, ZN_1_FLR_1_SEC_3 PTAC HEAT COIL, Design Size Maximum Water Flow Rate [m3/s], 1.25347E-003
+ Component Sizing Information, Coil:Heating:Water, ZN_1_FLR_1_SEC_3 PTAC HEAT COIL, Design Size U-Factor Times Area Value [W/K], 1122.14072
+Water Heating Coil Capacity Information,Coil:Heating:Water,ZN_1_FLR_1_SEC_3 PTAC HEAT COIL,32560.97
+ Component Sizing Information, Coil:Cooling:DX:SingleSpeed, ZN_1_FLR_1_SEC_3 PTAC DXCOIL, Design Size Rated Air Flow Rate [m3/s], 0.51099
+ Component Sizing Information, Coil:Cooling:DX:SingleSpeed, ZN_1_FLR_1_SEC_3 PTAC DXCOIL, Design Size Gross Rated Total Cooling Capacity [W], 12356.88706
+ Component Sizing Information, Coil:Cooling:DX:SingleSpeed, ZN_1_FLR_1_SEC_3 PTAC DXCOIL, Design Size Gross Rated Sensible Heat Ratio, 0.70667
+ DX Cooling Coil Standard Rating Information, Coil:Cooling:DX:SingleSpeed, ZN_1_FLR_1_SEC_3 PTAC DXCOIL, 11959.8, 2.29, 7.82, 8.32, 8.29
+ Component Sizing Information, Fan:OnOff, ZN_1_FLR_1_SEC_3 PTACFAN, Design Size Maximum Flow Rate [m3/s], 0.51099
+ Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_4 PTAC, Design Size Cooling Supply Air Flow Rate [m3/s], 0.49286
+ Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_4 PTAC, Design Size Heating Supply Air Flow Rate [m3/s], 0.49286
+ Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_4 PTAC, Design Size No Load Supply Air Flow Rate [m3/s], 0.49286
  Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_4 PTAC, Design Size Outdoor Air Flow Rate During Cooling Operation [m3/s], 0.17621
  Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_4 PTAC, Design Size Outdoor Air Flow Rate During Heating Operation [m3/s], 0.17621
  Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_4 PTAC, Design Size Outdoor Air Flow Rate When No Cooling or Heating is Needed [m3/s], 0.17621
- Component Sizing Information, Coil:Heating:Water, ZN_1_FLR_1_SEC_4 PTAC HEAT COIL, Design Size Rated Capacity [W], 24131.70252
- Component Sizing Information, Coil:Heating:Water, ZN_1_FLR_1_SEC_4 PTAC HEAT COIL, Design Size Maximum Water Flow Rate [m3/s], 1.17295E-003
- Component Sizing Information, Coil:Heating:Water, ZN_1_FLR_1_SEC_4 PTAC HEAT COIL, Design Size U-Factor Times Area Value [W/K], 1067.31248
-Water Heating Coil Capacity Information,Coil:Heating:Water,ZN_1_FLR_1_SEC_4 PTAC HEAT COIL,31213.59
- Component Sizing Information, Coil:Cooling:DX:SingleSpeed, ZN_1_FLR_1_SEC_4 PTAC DXCOIL, Design Size Rated Air Flow Rate [m3/s], 0.49285
- Component Sizing Information, Coil:Cooling:DX:SingleSpeed, ZN_1_FLR_1_SEC_4 PTAC DXCOIL, Design Size Gross Rated Total Cooling Capacity [W], 10462.80586
+ Component Sizing Information, Coil:Heating:Water, ZN_1_FLR_1_SEC_4 PTAC HEAT COIL, Design Size Rated Capacity [W], 24132.18210
+ Component Sizing Information, Coil:Heating:Water, ZN_1_FLR_1_SEC_4 PTAC HEAT COIL, Design Size Maximum Water Flow Rate [m3/s], 1.17298E-003
+ Component Sizing Information, Coil:Heating:Water, ZN_1_FLR_1_SEC_4 PTAC HEAT COIL, Design Size U-Factor Times Area Value [W/K], 1067.33835
+Water Heating Coil Capacity Information,Coil:Heating:Water,ZN_1_FLR_1_SEC_4 PTAC HEAT COIL,31214.41
+ Component Sizing Information, Coil:Cooling:DX:SingleSpeed, ZN_1_FLR_1_SEC_4 PTAC DXCOIL, Design Size Rated Air Flow Rate [m3/s], 0.49286
+ Component Sizing Information, Coil:Cooling:DX:SingleSpeed, ZN_1_FLR_1_SEC_4 PTAC DXCOIL, Design Size Gross Rated Total Cooling Capacity [W], 10463.01192
  Component Sizing Information, Coil:Cooling:DX:SingleSpeed, ZN_1_FLR_1_SEC_4 PTAC DXCOIL, Design Size Gross Rated Sensible Heat Ratio, 0.74968
- DX Cooling Coil Standard Rating Information, Coil:Cooling:DX:SingleSpeed, ZN_1_FLR_1_SEC_4 PTAC DXCOIL, 10080.0, 2.26, 7.71, 8.19, 8.09
- Component Sizing Information, Fan:OnOff, ZN_1_FLR_1_SEC_4 PTACFAN, Design Size Maximum Flow Rate [m3/s], 0.49285
- Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_5 PTAC, Design Size Cooling Supply Air Flow Rate [m3/s], 0.18515
- Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_5 PTAC, Design Size Heating Supply Air Flow Rate [m3/s], 0.18515
- Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_5 PTAC, Design Size No Load Supply Air Flow Rate [m3/s], 0.18515
+ DX Cooling Coil Standard Rating Information, Coil:Cooling:DX:SingleSpeed, ZN_1_FLR_1_SEC_4 PTAC DXCOIL, 10080.2, 2.26, 7.71, 8.19, 8.09
+ Component Sizing Information, Fan:OnOff, ZN_1_FLR_1_SEC_4 PTACFAN, Design Size Maximum Flow Rate [m3/s], 0.49286
+ Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_5 PTAC, Design Size Cooling Supply Air Flow Rate [m3/s], 0.18516
+ Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_5 PTAC, Design Size Heating Supply Air Flow Rate [m3/s], 0.18516
+ Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_5 PTAC, Design Size No Load Supply Air Flow Rate [m3/s], 0.18516
  Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_5 PTAC, Design Size Outdoor Air Flow Rate During Cooling Operation [m3/s], 6.14926E-002
  Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_5 PTAC, Design Size Outdoor Air Flow Rate During Heating Operation [m3/s], 6.14926E-002
  Component Sizing Information, ZoneHVAC:PackagedTerminalAirConditioner, ZN_1_FLR_1_SEC_5 PTAC, Design Size Outdoor Air Flow Rate When No Cooling or Heating is Needed [m3/s], 6.14926E-002
- Component Sizing Information, Coil:Heating:Water, ZN_1_FLR_1_SEC_5 PTAC HEAT COIL, Design Size Rated Capacity [W], 8878.69886
- Component Sizing Information, Coil:Heating:Water, ZN_1_FLR_1_SEC_5 PTAC HEAT COIL, Design Size Maximum Water Flow Rate [m3/s], 4.31561E-004
- Component Sizing Information, Coil:Heating:Water, ZN_1_FLR_1_SEC_5 PTAC HEAT COIL, Design Size U-Factor Times Area Value [W/K], 395.93343
-Water Heating Coil Capacity Information,Coil:Heating:Water,ZN_1_FLR_1_SEC_5 PTAC HEAT COIL,11663.10
- Component Sizing Information, Coil:Cooling:DX:SingleSpeed, ZN_1_FLR_1_SEC_5 PTAC DXCOIL, Design Size Rated Air Flow Rate [m3/s], 0.18515
- Component Sizing Information, Coil:Cooling:DX:SingleSpeed, ZN_1_FLR_1_SEC_5 PTAC DXCOIL, Design Size Gross Rated Total Cooling Capacity [W], 4040.91076
- Component Sizing Information, Coil:Cooling:DX:SingleSpeed, ZN_1_FLR_1_SEC_5 PTAC DXCOIL, Design Size Gross Rated Sensible Heat Ratio, 0.73985
- DX Cooling Coil Standard Rating Information, Coil:Cooling:DX:SingleSpeed, ZN_1_FLR_1_SEC_5 PTAC DXCOIL, 3897.1, 2.27, 7.73, 8.22, 8.14
- Component Sizing Information, Fan:OnOff, ZN_1_FLR_1_SEC_5 PTACFAN, Design Size Maximum Flow Rate [m3/s], 0.18515
-Water Heater Information,WaterHeater:Stratified,SHWSYS1 WATER HEATER,1.5000,4500.0,0.447,1.7665
- Component Sizing Information, PlantLoop, SHWSYS1, Maximum Loop Flow Rate [m3/s], 5.58576E-003
- Component Sizing Information, PlantLoop, SHWSYS1, Plant Loop Volume [m3], 0.67029
- Component Sizing Information, Pump:VariableSpeed, SHWSYS1 PUMP, Design Flow Rate [m3/s], 5.58576E-003
- Component Sizing Information, Pump:VariableSpeed, SHWSYS1 PUMP, Design Power Consumption [W], 7.16123E-003
+ Component Sizing Information, Coil:Heating:Water, ZN_1_FLR_1_SEC_5 PTAC HEAT COIL, Design Size Rated Capacity [W], 8879.05693
+ Component Sizing Information, Coil:Heating:Water, ZN_1_FLR_1_SEC_5 PTAC HEAT COIL, Design Size Maximum Water Flow Rate [m3/s], 4.31578E-004
+ Component Sizing Information, Coil:Heating:Water, ZN_1_FLR_1_SEC_5 PTAC HEAT COIL, Design Size U-Factor Times Area Value [W/K], 395.95263
+Water Heating Coil Capacity Information,Coil:Heating:Water,ZN_1_FLR_1_SEC_5 PTAC HEAT COIL,11663.72
+ Component Sizing Information, Coil:Cooling:DX:SingleSpeed, ZN_1_FLR_1_SEC_5 PTAC DXCOIL, Design Size Rated Air Flow Rate [m3/s], 0.18516
+ Component Sizing Information, Coil:Cooling:DX:SingleSpeed, ZN_1_FLR_1_SEC_5 PTAC DXCOIL, Design Size Gross Rated Total Cooling Capacity [W], 4041.06702
+ Component Sizing Information, Coil:Cooling:DX:SingleSpeed, ZN_1_FLR_1_SEC_5 PTAC DXCOIL, Design Size Gross Rated Sensible Heat Ratio, 0.73986
+ DX Cooling Coil Standard Rating Information, Coil:Cooling:DX:SingleSpeed, ZN_1_FLR_1_SEC_5 PTAC DXCOIL, 3897.2, 2.27, 7.73, 8.22, 8.14
+ Component Sizing Information, Fan:OnOff, ZN_1_FLR_1_SEC_5 PTACFAN, Design Size Maximum Flow Rate [m3/s], 0.18516
+Water Heater Information,WaterHeater:Stratified,SHWSYS1 WATER HEATER,1.5000,4500.0,0.449,1.7883
+ Component Sizing Information, PlantLoop, SHWSYS1, Maximum Loop Flow Rate [m3/s], 5.58621E-003
+ Component Sizing Information, PlantLoop, SHWSYS1, Plant Loop Volume [m3], 0.67035
+ Component Sizing Information, Pump:VariableSpeed, SHWSYS1 PUMP, Design Flow Rate [m3/s], 5.58621E-003
+ Component Sizing Information, Pump:VariableSpeed, SHWSYS1 PUMP, Design Power Consumption [W], 7.16181E-003
  Component Sizing Information, WaterHeater:Stratified, SHWSYS1 WATER HEATER, Source Side Design Flow Rate [m3/s], 8.16434E-004
- Component Sizing Information, WaterHeater:Stratified, SHWSYS1 WATER HEATER, Use Side Design Flow Rate [m3/s], 5.58576E-003
+ Component Sizing Information, WaterHeater:Stratified, SHWSYS1 WATER HEATER, Use Side Design Flow Rate [m3/s], 5.58621E-003
  Component Sizing Information, WaterHeater:Stratified, SHWSYS1 WATER HEATER, Source Side Design Flow Rate [m3/s], 8.16434E-004
  Component Sizing Information, PlantLoop, MICROCHP SENERTECH, Plant Loop Volume [m3], 0.12000
 ! <Environment>,Environment Name,Environment Type, Start Date, End Date, Start DayOfWeek, Duration {#days}, Source:Start DayOfWeek,  Use Daylight Saving, Use Holidays, Apply Weekend Holiday Rule,  Use Rain Values, Use Snow Values
@@ -259,25 +259,25 @@ Environment:Daylight Saving,No,SizingPeriod:DesignDay
 ! <Environment:Design Day Misc>,DayOfYear,ASHRAE A Coeff,ASHRAE B Coeff,ASHRAE C Coeff,Solar Constant-Annual Variation,Eq of Time {minutes}, Solar Declination Angle {deg}, Solar Model
 Environment:Design Day Data,-12.10,0.00,DefaultMultipliers,101217,280,6.1,0.00,No,No
 Environment:Design Day Misc, 21,1229.0,0.1415,5.7310E-002,1.0,-11.15,-20.1,ASHRAEClearSky
-Environment:WarmupDays,  6
+Environment:WarmupDays, 11
 ! <Tabular Report>,Style,Unit Conversion
 Tabular Report,HTML,None
 ! <Warmup Convergence Information>,Zone Name,Environment Type/Name,Average Warmup Temperature Difference {deltaC},Std Dev Warmup Temperature Difference {deltaC},Max Temperature Pass/Fail Convergence,Min Temperature Pass/Fail Convergence,Average Warmup Load Difference {W},Std Dev Warmup Load Difference {W},Heating Load Pass/Fail Convergence,Cooling Load Pass/Fail Convergence
- Warmup Convergence Information,ZN_1_FLR_1_SEC_1,SizingPeriod: NEWARK ANN HTG 99.6% CONDNS DB,8.6607484837E-003,8.3406605444E-003,Pass,Pass,3.6285255101E-002,0.5018788690,Pass,Pass
- Warmup Convergence Information,ZN_1_FLR_1_SEC_2,SizingPeriod: NEWARK ANN HTG 99.6% CONDNS DB,4.5231635961E-006,1.3597717823E-005,Pass,Pass,9.5089648159E-004,2.0248097119E-002,Pass,Pass
- Warmup Convergence Information,ZN_1_FLR_1_SEC_3,SizingPeriod: NEWARK ANN HTG 99.6% CONDNS DB,3.2894037746E-006,1.5375762562E-005,Pass,Pass,1.3504662702E-003,3.0918573953E-002,Pass,Pass
- Warmup Convergence Information,ZN_1_FLR_1_SEC_4,SizingPeriod: NEWARK ANN HTG 99.6% CONDNS DB,4.6325539020E-006,1.5157759115E-005,Pass,Pass,9.6965058139E-004,2.0413574112E-002,Pass,Pass
- Warmup Convergence Information,ZN_1_FLR_1_SEC_5,SizingPeriod: NEWARK ANN HTG 99.6% CONDNS DB,3.6162287460E-004,1.7725839864E-003,Pass,Pass,0.0000000000,0.0000000000,Pass,Pass
+ Warmup Convergence Information,ZN_1_FLR_1_SEC_1,SizingPeriod: NEWARK ANN HTG 99.6% CONDNS DB,8.8439207341E-003,8.4571363214E-003,Pass,Pass,3.0479830097E-002,0.2708789327,Pass,Pass
+ Warmup Convergence Information,ZN_1_FLR_1_SEC_2,SizingPeriod: NEWARK ANN HTG 99.6% CONDNS DB,4.4208244590E-006,1.3117370407E-005,Pass,Pass,9.4717260618E-004,2.0244551910E-002,Pass,Pass
+ Warmup Convergence Information,ZN_1_FLR_1_SEC_3,SizingPeriod: NEWARK ANN HTG 99.6% CONDNS DB,3.1691978026E-006,1.5061455089E-005,Pass,Pass,1.3479102225E-003,3.0914941496E-002,Pass,Pass
+ Warmup Convergence Information,ZN_1_FLR_1_SEC_4,SizingPeriod: NEWARK ANN HTG 99.6% CONDNS DB,4.6165325341E-006,1.5383340831E-005,Pass,Pass,9.6589674994E-004,2.0417583549E-002,Pass,Pass
+ Warmup Convergence Information,ZN_1_FLR_1_SEC_5,SizingPeriod: NEWARK ANN HTG 99.6% CONDNS DB,3.5747901740E-004,1.7729870749E-003,Pass,Pass,0.0000000000,0.0000000000,Pass,Pass
 Environment,NEWARK ANN CLG .4% CONDNS DB=>MWB,SizingPeriod:DesignDay,07/21,07/21,SummerDesignDay,1,N/A,N/A,N/A,N/A,N/A,N/A
 Environment:Daylight Saving,No,SizingPeriod:DesignDay
 Environment:Design Day Data,34.10,8.90,DefaultMultipliers,101217,250,5.7,1.00,No,No
 Environment:Design Day Misc,202,1084.4,0.2082,0.1365,1.0,-6.23,20.6,ASHRAEClearSky
 Environment:WarmupDays,  6
- Warmup Convergence Information,ZN_1_FLR_1_SEC_1,SizingPeriod: NEWARK ANN CLG .4% CONDNS DB=>MWB,2.6893421281E-004,1.6083522442E-003,Pass,Pass,4.5930875736E-003,4.5266743445E-003,Pass,Pass
- Warmup Convergence Information,ZN_1_FLR_1_SEC_2,SizingPeriod: NEWARK ANN CLG .4% CONDNS DB=>MWB,1.2265124691E-006,6.2811434351E-006,Pass,Pass,1.1310875135E-003,2.0805252514E-003,Pass,Pass
- Warmup Convergence Information,ZN_1_FLR_1_SEC_3,SizingPeriod: NEWARK ANN CLG .4% CONDNS DB=>MWB,1.5188956984E-006,5.9919352583E-006,Pass,Pass,8.3171462014E-004,1.8473965483E-003,Pass,Pass
- Warmup Convergence Information,ZN_1_FLR_1_SEC_4,SizingPeriod: NEWARK ANN CLG .4% CONDNS DB=>MWB,1.7218326581E-006,5.8577264524E-006,Pass,Pass,9.9956645641E-004,2.3040771947E-003,Pass,Pass
- Warmup Convergence Information,ZN_1_FLR_1_SEC_5,SizingPeriod: NEWARK ANN CLG .4% CONDNS DB=>MWB,3.6760872907E-006,4.5049576983E-005,Pass,Pass,3.4958918821E-004,1.5082168267E-003,Pass,Pass
+ Warmup Convergence Information,ZN_1_FLR_1_SEC_1,SizingPeriod: NEWARK ANN CLG .4% CONDNS DB=>MWB,2.6873224437E-004,1.6053017174E-003,Pass,Pass,4.6288360148E-003,4.6333890149E-003,Pass,Pass
+ Warmup Convergence Information,ZN_1_FLR_1_SEC_2,SizingPeriod: NEWARK ANN CLG .4% CONDNS DB=>MWB,1.2265749409E-006,6.2809237162E-006,Pass,Pass,1.1310304376E-003,2.0804327124E-003,Pass,Pass
+ Warmup Convergence Information,ZN_1_FLR_1_SEC_3,SizingPeriod: NEWARK ANN CLG .4% CONDNS DB=>MWB,1.5189566496E-006,5.9923823240E-006,Pass,Pass,8.3120816085E-004,1.8464203396E-003,Pass,Pass
+ Warmup Convergence Information,ZN_1_FLR_1_SEC_4,SizingPeriod: NEWARK ANN CLG .4% CONDNS DB=>MWB,1.7218218247E-006,5.8574706968E-006,Pass,Pass,9.9951232296E-004,2.3039499463E-003,Pass,Pass
+ Warmup Convergence Information,ZN_1_FLR_1_SEC_5,SizingPeriod: NEWARK ANN CLG .4% CONDNS DB=>MWB,3.6762691301E-006,4.5051844312E-005,Pass,Pass,3.4955000529E-004,1.5080975819E-003,Pass,Pass
 ! <Program Control Information:Threads/Parallel Sims>, Threading Supported,Maximum Number of Threads, Env Set Threads (OMP_NUM_THREADS), EP Env Set Threads (EP_OMP_NUM_THREADS), IDF Set Threads, Number of Threads Used (Interior Radiant Exchange), Number Nominal Surfaces, Number Parallel Sims
 Program Control:Threads/Parallel Sims, No,1, N/A, N/A, N/A, N/A, N/A, N/A
 End of Data
