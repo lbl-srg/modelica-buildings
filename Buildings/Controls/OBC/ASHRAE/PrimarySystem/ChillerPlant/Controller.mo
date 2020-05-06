@@ -26,67 +26,68 @@ block Controller "Head pressure controller"
     annotation (Dialog(tab="Loop signal", group="PID controller", enable=not haveHeaPreConSig));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Controller wseSta
-    annotation (Placement(transformation(extent={{-164,94},{-144,114}})));
+    annotation (Placement(transformation(extent={{-160,80},{-100,140}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable plaEna
     annotation (Placement(transformation(extent={{-260,160},{-240,180}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.ControllerTwo equRot
-    annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Controller heaPreCon
-    annotation (Placement(transformation(extent={{-260,0},{-220,40}})));
+    annotation (Placement(transformation(extent={{-260,0},{-200,60}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Controller minBypValCon
     annotation (Placement(transformation(extent={{-260,-186},{-120,-54}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Controller conWatPumCon
-    annotation (Placement(transformation(extent={{238,32},{258,52}})));
+    annotation (Placement(transformation(extent={{-160,180},{-100,240}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Controller chiWatPumCon
-    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
+    annotation (Placement(transformation(extent={{-60,60},{0,120}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.ChilledWaterPlantReset chiWatPlaRes
-    annotation (Placement(transformation(extent={{-92,-114},{-72,-94}})));
+    annotation (Placement(transformation(extent={{-80,-100},{-40,-60}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.ChilledWaterSupply chiWatSupSet
-    annotation (Placement(transformation(extent={{-60,-154},{-40,-134}})));
+    annotation (Placement(transformation(extent={{-60,-160},{-20,-120}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetpointController staSetCon
-    annotation (Placement(transformation(extent={{60,-156},{182,40}})));
+    annotation (Placement(transformation(extent={{200,-268},{334,-54}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.Controller towCon
-    annotation (Placement(transformation(extent={{98,116},{158,236}})));
+    annotation (Placement(transformation(extent={{200,40},{332,300}})));
 
   CDL.Interfaces.RealInput                        VChiWat_flow(final quantity=
         "VolumeFlowRate", final unit="m3/s")
     "Measured chilled water volume flow rate"
-    annotation (Placement(transformation(extent={{-320,30},{-280,70}}),
+    annotation (Placement(transformation(extent={{-380,30},{-340,70}}),
     iconTransformation(extent={{-140,-60},{-100,-20}})));
   CDL.Interfaces.RealInput                        TChiWatRetDow(final unit="K",
       final quantity="ThermodynamicTemperature")
     "Chiller water return temperature downstream of the WSE"
-    annotation (Placement(transformation(extent={{-320,90},{-280,130}}),
+    annotation (Placement(transformation(extent={{-380,90},{-340,130}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   CDL.Interfaces.RealInput                        TChiWatRet(final unit="K",
       final quantity="ThermodynamicTemperature")
     "Chiller water return temperature upstream of the WSE"
-    annotation (Placement(transformation(extent={{-320,130},{-280,170}}),
+    annotation (Placement(transformation(extent={{-380,130},{-340,170}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
   CDL.Interfaces.RealInput                        TOutWet(final unit="K",
       final quantity="ThermodynamicTemperature")
     "Outdoor air wet bulb temperature"
-    annotation (Placement(transformation(extent={{-320,170},{-280,210}}),
+    annotation (Placement(transformation(extent={{-380,170},{-340,210}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
 equation
-  connect(staSetCon.uPla, plaEna.yPla) annotation (Line(points={{47.8,-174.375},
-          {34,-174.375},{34,170},{-239,170}},
+  connect(staSetCon.uPla, plaEna.yPla) annotation (Line(points={{186.6,-288.062},
+          {34,-288.062},{34,170},{-239,170}},
                                            color={255,0,255}));
   connect(heaPreCon.yMaxTowSpeSet, wseSta.uTowFanSpeMax) annotation (Line(
-        points={{-218,32},{-190,32},{-190,96},{-166,96}}, color={0,0,127}));
+        points={{-197,48},{-190,48},{-190,86},{-166,86}}, color={0,0,127}));
 annotation (
   defaultComponentName="chiPlaCon",
-  Icon(graphics={
+  Icon(coordinateSystem(extent={{-380,-340},{380,340}}),
+       graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
           lineColor={0,0,0},
@@ -108,7 +109,7 @@ annotation (
           fillColor={175,175,175},
           fillPattern=FillPattern.Solid)}),
   Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-280,-200},{280,200}})),
+          extent={{-380,-340},{380,340}})),
   Documentation(info="<html>
 <p>
 fixme: Controller for plants with two devices or groups of devices (chillers, towers(4 cells), CW and C pumps)
