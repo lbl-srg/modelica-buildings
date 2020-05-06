@@ -38,7 +38,7 @@ block Controller "Head pressure controller"
     annotation (Placement(transformation(extent={{-260,0},{-200,60}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Controller minBypValCon
-    annotation (Placement(transformation(extent={{-260,-186},{-120,-54}})));
+    annotation (Placement(transformation(extent={{-260,-192},{-120,-60}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Controller conWatPumCon
     annotation (Placement(transformation(extent={{-160,180},{-100,240}})));
@@ -47,7 +47,7 @@ block Controller "Head pressure controller"
     annotation (Placement(transformation(extent={{-60,60},{0,120}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.ChilledWaterPlantReset chiWatPlaRes
-    annotation (Placement(transformation(extent={{-80,-100},{-40,-60}})));
+    annotation (Placement(transformation(extent={{-60,-100},{-20,-60}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.ChilledWaterSupply chiWatSupSet
     annotation (Placement(transformation(extent={{-60,-160},{-20,-120}})));
