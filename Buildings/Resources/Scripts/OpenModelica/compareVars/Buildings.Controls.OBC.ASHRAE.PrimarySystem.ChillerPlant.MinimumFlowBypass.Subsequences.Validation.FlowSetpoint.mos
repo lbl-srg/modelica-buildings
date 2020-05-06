@@ -1,0 +1,16 @@
+compareVars :=
+  {
+    "staUpMinFlo.uStaUp",
+    "staUpMinFlo.uUpsDevSta",
+    "staUpMinFlo.uOnOff",
+    "staUpMinFlo.yChiWatMinFloSet",
+    "onOffStaUpMinFlo.uStaUp",
+    "onOffStaUpMinFlo.uUpsDevSta",
+    "onOffStaUpMinFlo.uOnOff",
+    "onOffStaUpMinFlo.uEnaNexChi",
+    "onOffStaUpMinFlo.yChiWatMinFloSet",
+    "staDowMinFlo.uStaDow",
+    "staDowMinFlo.uUpsDevSta",
+    "staDowMinFlo.uOnOff",
+    "staDowMinFlo.yChiWatMinFloSet"
+  };
