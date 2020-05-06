@@ -46,10 +46,10 @@ block Change "Calculates the chiller stage signal"
         transformation(extent={{440,140},{480,180}}),  iconTransformation(
           extent={{100,20},{140,60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
-    "Chiller stage change edge signal"
-    annotation (Placement(transformation(extent={{440,-20},{480,20}}),
-        iconTransformation(extent={{100,-60},{140,-20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChaEdg
+    "Chiller stage change edge signal" annotation (Placement(transformation(
+          extent={{440,-20},{480,20}}), iconTransformation(extent={{100,-60},{
+            140,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla
     "Plant enable signal"
@@ -278,7 +278,7 @@ equation
     annotation (Line(points={{-298,60},{-202,60}}, color={255,0,255}));
   connect(and3.u1, and6.y) annotation (Line(points={{278,100},{-100,100},{-100,-80},
           {-138,-80}}, color={255,0,255}));
-  connect(and5.y, y)
+  connect(and5.y, yChaEdg)
     annotation (Line(points={{422,0},{460,0}}, color={255,0,255}));
   connect(lat1.y, switch2.u2) annotation (Line(points={{124,160},{160,160},{160,
           200},{338,200}}, color={255,0,255}));

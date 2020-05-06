@@ -286,12 +286,12 @@ equation
           -64,4},{-42,4}}, color={255,0,255}));
   connect(timeTable1.y[1], greThr3.u)
     annotation (Line(points={{-138,-170},{-122,-170}}, color={0,0,127}));
-  connect(cha.y, truFalHol.u) annotation (Line(points={{-18,186},{-10,186},{-10,
-          130},{-2,130}}, color={255,0,255}));
-  connect(cha1.y, truFalHol1.u) annotation (Line(points={{-18,6},{-10,6},{-10,
-          -50},{-2,-50}}, color={255,0,255}));
-  connect(cha2.y, truFalHol2.u) annotation (Line(points={{-18,-174},{-10,-174},
-          {-10,-230},{-2,-230}},color={255,0,255}));
+  connect(cha.yChaEdg, truFalHol.u) annotation (Line(points={{-18,186},{-10,186},
+          {-10,130},{-2,130}}, color={255,0,255}));
+  connect(cha1.yChaEdg, truFalHol1.u) annotation (Line(points={{-18,6},{-10,6},
+          {-10,-50},{-2,-50}}, color={255,0,255}));
+  connect(cha2.yChaEdg, truFalHol2.u) annotation (Line(points={{-18,-174},{-10,
+          -174},{-10,-230},{-2,-230}}, color={255,0,255}));
   connect(addInt1.y, maxInt.u1) annotation (Line(points={{162,170},{170,170},{
           170,156},{178,156}}, color={255,127,0}));
   connect(maxInt.u2, u3.y) annotation (Line(points={{178,144},{170,144},{170,
