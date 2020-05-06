@@ -6,57 +6,71 @@ block Controller "Tower fan speed control"
   parameter Integer nConWatPum=2 "Total number of condenser water pumps";
   parameter Boolean closeCoupledPlant=true
     "Flag to indicate if the plant is close coupled";
-  parameter Boolean hasWSE=true
+  parameter Boolean have_WSE=true
     "Flag to indicate if the plant has waterside economizer";
-  parameter Modelica.SIunits.HeatFlowRate desCap=1e6 "Plant design capacity";
+  parameter Real desCap(
+    final unit="W",
+    final quantity="Power")=1e6 "Plant design capacity";
   parameter Real fanSpeMin=0.1 "Minimum tower fan speed";
   parameter Real fanSpeMax=1 "Maximum tower fan speed"
-    annotation (Dialog(enable=hasWSE));
-  parameter Modelica.SIunits.HeatFlowRate chiMinCap[nChi]={1e4,1e4}
+    annotation (Dialog(enable=have_WSE));
+  parameter Real chiMinCap[nChi](
+    each final unit="W",
+    final quantity=fill("Power", nChi))={1e4,1e4}
     "Minimum cyclining load below which chiller will begin cycling"
-    annotation (Dialog(tab="WSE Enabled", group="Integrated", enable=hasWSE));
-
+    annotation (Dialog(tab="WSE Enabled", group="Integrated", enable=have_WSE));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController intOpeCon=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
-    annotation (Dialog(tab="WSE Enabled", group="Integrated", enable=hasWSE));
+    annotation (Dialog(tab="WSE Enabled", group="Integrated", enable=have_WSE));
   parameter Real kIntOpe=1 "Gain of controller"
-    annotation (Dialog(tab="WSE Enabled", group="Integrated",enable=hasWSE));
-  parameter Modelica.SIunits.Time TiIntOpe=0.5
+    annotation (Dialog(tab="WSE Enabled", group="Integrated",enable=have_WSE));
+  parameter Real TiIntOpe(final quantity="Time", final unit="s")=0.5
     "Time constant of integrator block"
     annotation (Dialog(tab="WSE Enabled", group="Integrated",
-                       enable=hasWSE and (intOpeCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-                                          intOpeCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Modelica.SIunits.Time TdIntOpe=0.1
+                       enable=have_WSE and (intOpeCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
+                                            intOpeCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+  parameter Real TdIntOpe(final quantity="Time", final unit="s")=0.1
     "Time constant of derivative block"
     annotation (Dialog(tab="WSE Enabled", group="Integrated",
-                       enable=hasWSE and (intOpeCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
-                                          intOpeCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-
+                       enable=have_WSE and (intOpeCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
+                                            intOpeCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController chiWatCon=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
-    annotation (Dialog(tab="WSE Enabled", group="WSE-only",enable=hasWSE));
+    annotation (Dialog(tab="WSE Enabled", group="WSE-only",enable=have_WSE));
   parameter Real kWSE=1 "Gain of controller"
-    annotation (Dialog(tab="WSE Enabled", group="WSE-only",enable=hasWSE));
-  parameter Modelica.SIunits.Time TiWSE=0.5 "Time constant of integrator block"
+    annotation (Dialog(tab="WSE Enabled", group="WSE-only",enable=have_WSE));
+  parameter Real TiWSE(final quantity="Time", final unit="s")=0.5
+    "Time constant of integrator block"
     annotation (Dialog(tab="WSE Enabled", group="WSE-only",
-                       enable=hasWSE and (chiWatCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-                                          chiWatCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Modelica.SIunits.Time TdWSE=0.1 "Time constant of derivative block"
+                       enable=have_WSE and (chiWatCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
+                                            chiWatCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+  parameter Real TdWSE(final quantity="Time", final unit="s")=0.1
+    "Time constant of derivative block"
     annotation (Dialog(tab="WSE Enabled", group="WSE-only",
-                       enable=hasWSE and (chiWatCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
-                                          chiWatCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-
+                       enable=have_WSE and (chiWatCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
+                                            chiWatCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Modelica.SIunits.TemperatureDifference LIFT_min[nChi]={12,12} "Minimum LIFT of each chiller"
     annotation (Dialog(tab="Return temperature control", group="Setpoint"));
-  parameter Modelica.SIunits.Temperature TConWatRet_nominal[nChi]={303.15,303.15}
-    "Condenser water return temperature (condenser leaving) of each chiller"
+  parameter Real TConWatSup_nominal[nChi](
+    each final unit="K",
+    each final displayUnit="degC",
+    final quantity=fill("ThermodynamicTemperature", nChi))={293.15,293.15}
+    "Design condenser water supply temperature (condenser entering) of each chiller"
     annotation (Dialog(tab="Return temperature control", group="Setpoint"));
-  parameter Modelica.SIunits.Temperature TChiWatSupMin[nChi]={278.15,278.15}
+  parameter Real TConWatRet_nominal[nChi](
+    each final unit="K",
+    each final displayUnit="degC",
+    final quantity=fill("ThermodynamicTemperature", nChi))={303.15,303.15}
+    "Design condenser water return temperature (condenser leaving) of each chiller"
+    annotation (Dialog(tab="Return temperature control", group="Setpoint"));
+  parameter Real TChiWatSupMin[nChi](
+    each final unit="K",
+    each final displayUnit="degC",
+    final quantity=fill("ThermodynamicTemperature", nChi))={278.15,278.15}
     "Lowest chilled water supply temperature of each chiller"
     annotation (Dialog(tab="Return temperature control", group="Setpoint"));
-
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController couPlaCon=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
     annotation (Dialog(tab="Return temperature control", group="Coupled plant",
@@ -64,11 +78,13 @@ block Controller "Tower fan speed control"
   parameter Real kCouPla=1 "Gain of controller"
     annotation (Dialog(tab="Return temperature control", group="Coupled plant",
                        enable=closeCoupledPlant));
-  parameter Modelica.SIunits.Time TiCouPla=0.5 "Time constant of integrator block"
+  parameter Real TiCouPla(final quantity="Time", final unit="s")=0.5
+    "Time constant of integrator block"
     annotation (Dialog(tab="Return temperature control", group="Coupled plant",
                        enable=closeCoupledPlant and (couPlaCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
                                                      couPlaCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Modelica.SIunits.Time TdCouPla=0.1 "Time constant of derivative block"
+  parameter Real TdCouPla(final quantity="Time", final unit="s")=0.1
+    "Time constant of derivative block"
     annotation (Dialog(tab="Return temperature control", group="Coupled plant",
                        enable=closeCoupledPlant and (couPlaCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
                                                      couPlaCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
@@ -78,29 +94,8 @@ block Controller "Tower fan speed control"
   parameter Real yCouPlaMin=0 "Lower limit of output"
     annotation (Dialog(tab="Return temperature control", group="Coupled plant",
                        enable=closeCoupledPlant));
-  parameter Modelica.SIunits.TemperatureDifference desTemDif=8
-    "Design condenser water temperature difference"
-    annotation (Dialog(tab="Return temperature control",
-                       group="Less coupled plant", enable=not closeCoupledPlant));
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController retWatCon=
-    Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
-    annotation (Dialog(tab="Return temperature control", group="Less coupled plant",
-                       enable=not closeCoupledPlant));
-  parameter Real kRetCon=1 "Gain of controller"
-    annotation (Dialog(tab="Return temperature control", group="Less coupled plant",
-                       enable=not closeCoupledPlant));
-  parameter Modelica.SIunits.Time TiRetCon=0.5 "Time constant of integrator block"
-    annotation (Dialog(tab="Return temperature control", group="Less coupled plant",
-                       enable=not closeCoupledPlant and (retWatCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-                                                         retWatCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Modelica.SIunits.Time TdRetCon=0.1 "Time constant of derivative block"
-    annotation (Dialog(tab="Return temperature control", group="Less coupled plant",
-                       enable=not closeCoupledPlant and (retWatCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
-                                                         retWatCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Real yRetConMax=1 "Upper limit of output"
-    annotation (Dialog(tab="Return temperature control", group="Less coupled plant",
-                       enable=not closeCoupledPlant));
-  parameter Real yRetConMin=0 "Lower limit of output"
+  parameter Real samplePeriod=30
+    "Period of sampling condenser water supply and return temperature difference"
     annotation (Dialog(tab="Return temperature control", group="Less coupled plant",
                        enable=not closeCoupledPlant));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController supWatCon=
@@ -110,11 +105,13 @@ block Controller "Tower fan speed control"
   parameter Real kSupCon=1 "Gain of controller"
     annotation (Dialog(tab="Return temperature control", group="Less coupled plant",
                        enable=not closeCoupledPlant));
-  parameter Modelica.SIunits.Time TiSupCon=0.5 "Time constant of integrator block"
+  parameter Real TiSupCon(final quantity="Time", final unit="s")=0.5
+    "Time constant of integrator block"
     annotation (Dialog(tab="Return temperature control", group="Less coupled plant",
                        enable=not closeCoupledPlant and (supWatCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
                                                          supWatCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Modelica.SIunits.Time TdSupCon=0.1 "Time constant of derivative block"
+  parameter Real TdSupCon(final quantity="Time", final unit="s")=0.1
+    "Time constant of derivative block"
     annotation (Dialog(tab="Return temperature control", group="Less coupled plant",
                        enable=not closeCoupledPlant and (supWatCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
                                                          supWatCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
@@ -126,32 +123,32 @@ block Controller "Tower fan speed control"
                        group="Less coupled plant", enable=not closeCoupledPlant));
   parameter Real speChe=0.005 "Lower threshold value to check fan or pump speed"
     annotation (Dialog(tab="Advanced"));
-  parameter Real cheMinFanSpe=300
+  parameter Real cheMinFanSpe(final quantity="Time", final unit="s")=300
     "Threshold time for checking duration when tower fan equals to the minimum tower fan speed"
     annotation (Dialog(tab="Advanced", group="Return temperature control: Enable tower"));
-  parameter Real cheMaxTowSpe=300
+  parameter Real cheMaxTowSpe(final quantity="Time", final unit="s")=300
     "Threshold time for checking duration when any enabled chiller maximum cooling speed equals to the minimum tower fan speed"
     annotation (Dialog(tab="Advanced", group="Return temperature control: Enable tower"));
-  parameter Real cheTowOff=60
+  parameter Real cheTowOff(final quantity="Time", final unit="s")=60
     "Threshold time for checking duration when there is no enabled tower fan"
     annotation (Dialog(tab="Advanced", group="Return temperature control: Enable tower"));
-  parameter Modelica.SIunits.Time iniPlaTim=600
+  parameter Real iniPlaTim(final quantity="Time", final unit="s")=600
     "Time to hold return temperature to initial setpoint after plant being enabled"
     annotation (Dialog(tab="Advanced", group="Return temperature control: Setpoint"));
-  parameter Modelica.SIunits.Time ramTim=180
+  parameter Real ramTim(final quantity="Time", final unit="s")=180
     "Time to ramp return water temperature from initial value to setpoint"
     annotation (Dialog(tab="Advanced", group="Return temperature control: Setpoint"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput chiLoa[nChi](
     final unit=fill("W", nChi),
-    final quantity=fill("HeatFlowRate", nChi)) if hasWSE "Current load of each chiller"
+    final quantity=fill("HeatFlowRate", nChi)) if have_WSE "Current load of each chiller"
     annotation (Placement(transformation(extent={{-140,120},{-100,160}}),
       iconTransformation(extent={{-140,170},{-100,210}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
     "Chiller enabling status: true=ON"
     annotation (Placement(transformation(extent={{-140,100},{-100,140}}),
       iconTransformation(extent={{-140,140},{-100,180}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseSta if hasWSE
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWse if have_WSE
     "Waterside economizer enabling status: true=ON"
     annotation (Placement(transformation(extent={{-140,80},{-100,120}}),
       iconTransformation(extent={{-140,110},{-100,150}})));
@@ -164,7 +161,7 @@ block Controller "Tower fan speed control"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if hasWSE
+    final quantity="ThermodynamicTemperature") if have_WSE
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
       iconTransformation(extent={{-140,50},{-100,90}})));
@@ -187,7 +184,7 @@ block Controller "Tower fan speed control"
     "Maximum cooling tower speed setpoint from each chiller head pressure control loop"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uTowSta[nTowCel]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uTow[nTowCel]
     "Cooling tower cell operating status: true=running tower cell"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
       iconTransformation(extent={{-140,-70},{-100,-30}})));
@@ -226,7 +223,7 @@ block Controller "Tower fan speed control"
     final nChi=nChi,
     final nTowCel=nTowCel,
     final nConWatPum=nConWatPum,
-    final hasWSE=hasWSE,
+    final have_WSE=have_WSE,
     final closeCoupledPlant=closeCoupledPlant,
     final desCap=desCap,
     final fanSpeMin=fanSpeMin,
@@ -244,13 +241,6 @@ block Controller "Tower fan speed control"
     final yCouPlaMax=yCouPlaMax,
     final yCouPlaMin=yCouPlaMin,
     final TdCouPla=TdCouPla,
-    final desTemDif=desTemDif,
-    final retWatCon=retWatCon,
-    final kRetCon=kRetCon,
-    final TiRetCon=TiRetCon,
-    final TdRetCon=TdRetCon,
-    final yRetConMax=yRetConMax,
-    final yRetConMin=yRetConMin,
     final supWatCon=supWatCon,
     final kSupCon=kSupCon,
     final TiSupCon=TiSupCon,
@@ -274,7 +264,7 @@ block Controller "Tower fan speed control"
     final chiWatCon=chiWatCon,
     final kWSE=kWSE,
     final TiWSE=TiWSE,
-    final TdWSE=TdWSE) if hasWSE
+    final TdWSE=TdWSE) if have_WSE
     "Tower fan speed when waterside economizer is enabled"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
@@ -282,14 +272,13 @@ equation
   connect(fanSpeWse.yFanSpe, fanSpeRetTem.uTowSpeWSE)
     annotation (Line(points={{-18,50},{0,50},{0,-22},{18,-22}},  color={0,0,127}));
   connect(fanSpeWse.chiLoa, chiLoa)
-    annotation (Line(points={{-42,60},{-60,60},{-60,140},{-120,140}},
+    annotation (Line(points={{-42,59},{-60,59},{-60,140},{-120,140}},
       color={0,0,127}));
   connect(fanSpeWse.uChi, uChi)
     annotation (Line(points={{-42,56},{-64,56},{-64,120},{-120,120}},
       color={255,0,255}));
-  connect(fanSpeWse.uWseSta, uWseSta)
-    annotation (Line(points={{-42,52},{-68,52}, {-68,100},{-120,100}},
-      color={255,0,255}));
+  connect(fanSpeWse.uWse, uWse) annotation (Line(points={{-42,52},{-68,52},{-68,
+          100},{-120,100}}, color={255,0,255}));
   connect(fanSpeWse.uFanSpe,uFanSpe)
     annotation (Line(points={{-42,48},{-72,48},{-72,80},{-120,80}},
       color={0,0,127}));
@@ -297,13 +286,13 @@ equation
     annotation (Line(points={{-42,44},{-76,44},{-76,60},{-120,60}},
       color={0,0,127}));
   connect(fanSpeWse.TChiWatSupSet, TChiWatSupSet)
-    annotation (Line(points={{-42,40},{-120,40}}, color={0,0,127}));
+    annotation (Line(points={{-42,41},{-82,41},{-82,40},{-120,40}},
+                                                  color={0,0,127}));
   connect(uChi, fanSpeRetTem.uChi)
     annotation (Line(points={{-120,120},{-64,120},{-64,-25},{18,-25}},
       color={255,0,255}));
-  connect(uWseSta, fanSpeRetTem.uWseSta)
-    annotation (Line(points={{-120,100},{-68,100},{-68,-28},{18,-28}},
-      color={255,0,255}));
+  connect(uWse, fanSpeRetTem.uWse) annotation (Line(points={{-120,100},{-68,100},
+          {-68,-28},{18,-28}}, color={255,0,255}));
   connect(fanSpeRetTem.reqPlaCap, reqPlaCap)
     annotation (Line(points={{18,-31},{-76,-31},{-76,0},{-120,0}},
       color={0,0,127}));
@@ -313,9 +302,8 @@ equation
   connect(uFanSpe,fanSpeRetTem.uFanSpe)
     annotation (Line(points={{-120,80},{-72,80},{-72,-37},{18,-37}},
       color={0,0,127}));
-  connect(fanSpeRetTem.uTowSta, uTowSta)
-    annotation (Line(points={{18,-40},{-68,-40},{-68,-60},{-120,-60}},
-      color={255,0,255}));
+  connect(fanSpeRetTem.uTow, uTow) annotation (Line(points={{18,-40},{-68,-40},{
+          -68,-60},{-120,-60}}, color={255,0,255}));
   connect(TChiWatSupSet, fanSpeRetTem.TChiWatSupSet)
     annotation (Line(points={{-120,40},{-60,40},{-60,-46},{18,-46}},
       color={0,0,127}));
@@ -347,13 +335,73 @@ annotation (
         Text(
           extent={{-120,248},{100,210}},
           lineColor={0,0,255},
-          textString="%name")}),
+          textString="%name"),
+        Text(
+          extent={{-100,170},{-64,154}},
+          lineColor={255,0,255},
+          textString="uChi"),
+        Text(
+          extent={{-100,200},{-50,182}},
+          lineColor={0,0,127},
+          textString="chiLoa",
+          visible=have_WSE),
+        Text(
+          extent={{-98,110},{-48,92}},
+          lineColor={0,0,127},
+          textString="uFanSpe"),
+        Text(
+          extent={{-100,80},{-26,64}},
+          lineColor={0,0,127},
+          textString="TChiWatSup",
+          visible=have_WSE),
+        Text(
+          extent={{-98,52},{-14,34}},
+          lineColor={0,0,127},
+          textString="TChiWatSupSet"),
+        Text(
+          extent={{-96,20},{-40,2}},
+          lineColor={0,0,127},
+          textString="reqPlaCap"),
+        Text(
+          extent={{-100,-10},{-8,-24}},
+          lineColor={0,0,127},
+          textString="uMaxTowSpeSet"),
+        Text(
+          extent={{-96,-130},{-28,-148}},
+          lineColor={0,0,127},
+          textString="TConWatRet"),
+        Text(
+          extent={{-94,-158},{10,-176}},
+          lineColor={0,0,127},
+          textString="uConWatPumSpe"),
+        Text(
+          extent={{-98,-180},{-16,-200}},
+          lineColor={0,0,127},
+          textString="TConWatSup",
+          visible=not closeCoupledPlant),
+        Text(
+          extent={{48,10},{98,-8}},
+          lineColor={0,0,127},
+          textString="yFanSpe"),
+        Text(
+          extent={{-96,140},{-60,124}},
+          lineColor={255,0,255},
+          textString="uWse",
+          visible=have_WSE),
+        Text(
+          extent={{-100,-40},{-64,-56}},
+          lineColor={255,0,255},
+          textString="uTow"),
+        Text(
+          extent={{-100,-100},{-64,-116}},
+          lineColor={255,0,255},
+          textString="uPla")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-180},{100,160}})),
 Documentation(info="<html>
 <p>
 Block that outputs cooling tower fan speed <code>yFanSpe</code>. This is implemented 
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II – 
-Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), section 5.2.12.2, item
+Central Plants and Hydronic Systems (Draft on March 23, 2020), section 5.2.12.2, item
 1, 2, and 4. 
 These sections specifies sequences to control tower fan speed in the mode
 when waterside economizer (if the plant does have it) is enabled or disabled, for

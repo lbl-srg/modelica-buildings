@@ -4,9 +4,9 @@ compareVars :=
     "wseOpe.chiLoa[2]",
     "wseOpe.uChi[1]",
     "wseOpe.uChi[2]",
-    "wseOpe.uWSE",
-    "wseOpe.uTowSpe",
+    "wseOpe.uWse",
+    "wseOpe.uFanSpe",
     "wseOpe.TChiWatSup",
     "wseOpe.TChiWatSupSet",
-    "wseOpe.yTowSpe"
+    "wseOpe.yFanSpe"
   };

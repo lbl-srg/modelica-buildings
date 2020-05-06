@@ -4,27 +4,33 @@ block Setpoint "Calculate condener return water temperature setpoint"
   parameter Integer nChi = 2 "Total number of chillers";
   parameter Modelica.SIunits.TemperatureDifference LIFT_min[nChi] = {12, 12}
     "Minimum LIFT of each chiller";
-  parameter Modelica.SIunits.Temperature TConWatRet_nominal[nChi] = {303.15, 303.15}
+  parameter Real TConWatRet_nominal[nChi](
+     each final unit="K",
+     each final displayUnit="degC",
+     final quantity=fill("ThermodynamicTemperature", nChi))= {303.15, 303.15}
     "Design condenser water return temperature (condenser leaving) of each chiller";
-  parameter Modelica.SIunits.Temperature TChiWatSupMin[nChi] = {278.15, 278.15}
+  parameter Real TChiWatSupMin[nChi](
+     each final unit="K",
+     each final displayUnit="degC",
+     final quantity=fill("ThermodynamicTemperature", nChi)) = {278.15, 278.15}
     "Minimum chilled water supply temperature of each chiller";
-  parameter Modelica.SIunits.Time iniPlaTim = 600
+  parameter Real iniPlaTim(final quantity="Time", final unit="s")= 600
     "Time to hold return temperature to initial setpoint after plant being enabled"
     annotation (Dialog(tab="Advanced"));
-  parameter Modelica.SIunits.Time ramTim = 600
+  parameter Real ramTim(final quantity="Time", final unit="s") = 600
     "Time to ramp return water temperature setpoint from initial value to calculated one"
     annotation (Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
-    "Chiller status"
+    "Vector of chillers proven on status: true=ON"
     annotation (Placement(transformation(extent={{-220,60},{-180,100}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput plaParLoaRat(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOpeParLoaRat(
     final unit="1",
     final min=0,
-    final max=1) "Current plant partial load ratio"
-    annotation (Placement(transformation(extent={{-220,0},{-180,40}}),
-      iconTransformation(extent={{-140,10},{-100,50}})));
+    final max=1) "Current plant partial load ratio" annotation (Placement(
+        transformation(extent={{-220,0},{-180,40}}), iconTransformation(extent=
+            {{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
     final unit="K",
     final displayUnit="degC",
@@ -174,8 +180,8 @@ equation
       color={0,0,127}));
   connect(lin.y, TConWatRetSet)
     annotation (Line(points={{162,-110},{200,-110}}, color={0,0,127}));
-  connect(plaParLoaRat, pro.u2)
-    annotation (Line(points={{-200,20},{-60,20},{-60,44},{78,44}}, color={0,0,127}));
+  connect(uOpeParLoaRat, pro.u2) annotation (Line(points={{-200,20},{-60,20},{-60,
+          44},{78,44}}, color={0,0,127}));
   connect(desConWatRet.y, maxLif.u1)
     annotation (Line(points={{-138,140},{-122,140}}, color={0,0,127}));
   connect(minChiWatSup.y, maxLif.u2)
@@ -216,7 +222,7 @@ Block that ouputs condenser water return temperature setpoint <code>TConWatRetSe
 for the tower fan speed control to maintain the return temperature at setpoint. This
 implementation is for plants with parallel chiller plants only. It is based on
 ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II – Central 
-Plants and Hydronic Systems (Draft 6 on July 25, 2019), section 5.2.12.2, item 2.d and m.
+Plants and Hydronic Systems (Draft on March 23, 2020), section 5.2.12.2, item 2.d and m.
 </p>
 <p>
 The return water temperature setpoint <code>TConWatRetSet</code> shall be the output

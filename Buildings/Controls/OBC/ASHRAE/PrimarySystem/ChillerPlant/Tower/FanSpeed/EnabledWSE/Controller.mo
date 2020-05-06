@@ -4,7 +4,9 @@ block Controller "Tower fan speed control when waterside economizer is enabled"
   parameter Integer nChi=2 "Total number of chillers";
   parameter Real fanSpeMin=0.1 "Minimum tower fan speed";
   parameter Real fanSpeMax=1 "Maximum tower fan speed";
-  parameter Modelica.SIunits.HeatFlowRate chiMinCap[nChi]={1e4,1e4}
+  parameter Real chiMinCap[nChi](
+    each final unit="W",
+    final quantity=fill("Power", nChi))={1e4,1e4}
     "Minimum cyclining load below which chiller will begin cycling"
     annotation (Dialog(tab="Integrated operation"));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController intOpeCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -12,12 +14,12 @@ block Controller "Tower fan speed control when waterside economizer is enabled"
     annotation (Dialog(tab="Integrated operation", group="Controller"));
   parameter Real kIntOpe=1 "Gain of controller"
     annotation (Dialog(tab="Integrated operation", group="Controller"));
-  parameter Modelica.SIunits.Time TiIntOpe=0.5
+  parameter Real TiIntOpe(final quantity="Time", final unit="s")=0.5
     "Time constant of integrator block"
     annotation (Dialog(tab="Integrated operation", group="Controller",
                        enable=intOpeCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
                               intOpeCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time TdIntOpe=0.1
+  parameter Real TdIntOpe(final quantity="Time", final unit="s")=0.1
     "Time constant of derivative block"
     annotation (Dialog(tab="Integrated operation", group="Controller",
                        enable=intOpeCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
@@ -29,11 +31,13 @@ block Controller "Tower fan speed control when waterside economizer is enabled"
     annotation (Dialog(tab="WSE-only", group="Controller"));
   parameter Real kWSE=1 "Gain of controller"
     annotation (Dialog(tab="WSE-only", group="Controller"));
-  parameter Modelica.SIunits.Time TiWSE=0.5 "Time constant of integrator block"
+  parameter Real TiWSE(final quantity="Time", final unit="s")=0.5
+    "Time constant of integrator block"
     annotation (Dialog(tab="WSE-only", group="Controller",
                        enable=chiWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
                               chiWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time TdWSE=0.1 "Time constant of derivative block"
+  parameter Real TdWSE(final quantity="Time", final unit="s")=0.1
+    "Time constant of derivative block"
     annotation (Dialog(tab="WSE-only", group="Controller",
                        enable=chiWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
                               chiWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
@@ -42,12 +46,12 @@ block Controller "Tower fan speed control when waterside economizer is enabled"
     final unit=fill("W",nChi),
     final quantity=fill("HeatFlowRate",nChi)) "Current load of each chiller"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
-      iconTransformation(extent={{-140,80},{-100,120}})));
+      iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
     "Chiller enabling status: true=ON"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseSta
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWse
     "Waterside economizer enabling status: true=ON"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
@@ -70,7 +74,7 @@ block Controller "Tower fan speed control when waterside economizer is enabled"
     final quantity="ThermodynamicTemperature")
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-140,-110},{-100,-70}}),
-      iconTransformation(extent={{-140,-120},{-100,-80}})));
+      iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFanSpe(
     final min=0,
     final max=1,
@@ -129,7 +133,7 @@ equation
     annotation (Line(points={{-18,80},{-10,80},{-10,48},{-2,48}}, color={0,0,127}));
   connect(wseOpe.yFanSpe, swi.u3)
     annotation (Line(points={{-18,-60},{-10,-60},{-10,32},{-2,32}}, color={0,0,127}));
-  connect(uWseSta, swi1.u2)
+  connect(uWse, swi1.u2)
     annotation (Line(points={{-120,0},{58,0}}, color={255,0,255}));
   connect(swi.y, swi1.u1)
     annotation (Line(points={{22,40},{40,40},{40,8},{58,8}}, color={0,0,127}));
@@ -139,9 +143,8 @@ equation
     annotation (Line(points={{82,0},{120,0}}, color={0,0,127}));
   connect(uChi, mulOr.u)
     annotation (Line(points={{-120,40},{-42,40}}, color={255,0,255}));
-  connect(uWseSta, intOpe.uWseSta)
-    annotation (Line(points={{-120,0},{-60,0},{-60,72},{-42,72}},
-      color={255,0,255}));
+  connect(uWse, intOpe.uWse)
+    annotation (Line(points={{-120,0},{-60,0},{-60,72},{-42,72}}, color={255,0,255}));
 
 annotation (
   defaultComponentName="towFanSpeWse",
@@ -184,14 +187,42 @@ annotation (
           extent={{78,-78},{80,-96}},
           lineColor={200,200,200},
           fillColor={240,240,240},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-100,100},{-50,82}},
+          lineColor={0,0,127},
+          textString="chiLoa"),
+        Text(
+          extent={{-100,70},{-64,54}},
+          lineColor={255,0,255},
+          textString="uChi"),
+        Text(
+          extent={{-96,30},{-66,12}},
+          lineColor={255,0,255},
+          textString="uWse"),
+        Text(
+          extent={{-96,-10},{-52,-26}},
+          lineColor={0,0,127},
+          textString="uFanSpe"),
+        Text(
+          extent={{-96,-52},{-40,-66}},
+          lineColor={0,0,127},
+          textString="TChiWatSup"),
+        Text(
+          extent={{-96,-82},{-24,-98}},
+          lineColor={0,0,127},
+          textString="TChiWatSupSet"),
+        Text(
+          extent={{54,12},{98,-6}},
+          lineColor={0,0,127},
+          textString="yFanSpe")}),
   Diagram(coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
 <p>
 Block that outputs cooling tower fan speed <code>yFanSpe</code> when waterside 
 economizer is enabled. This is implemented 
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II – 
-Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), section 5.2.12.2, 
+Central Plants and Hydronic Systems (Draft on March 23, 2020), section 5.2.12.2, 
 item 4. It includes two subsequences:
 </p>
 <ul>

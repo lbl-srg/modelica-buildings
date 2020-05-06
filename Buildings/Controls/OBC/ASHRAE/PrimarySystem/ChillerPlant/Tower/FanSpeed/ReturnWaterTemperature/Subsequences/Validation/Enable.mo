@@ -102,15 +102,12 @@ equation
   connect(towFanSpe.y,enaTow.uFanSpe)
     annotation (Line(points={{-198,40},{-180,40},{-180,56},{-142,56}},
       color={0,0,127}));
-  connect(conRetSet.y, enaTow.TTowSet)
-    annotation (Line(points={{-198,0},{-174,0},{-174,52},{-142,52}},
-      color={0,0,127}));
-  connect(conRet1.y, enaTow.TTow)
-    annotation (Line(points={{-238,-30},{-168,-30},{-168,48},{-142,48}},
-      color={0,0,127}));
-  connect(offTowSta.y, enaTow.uTowSta)
-    annotation (Line(points={{-198,-50},{-162,-50},{-162,44},{-142,44}},
-      color={255,0,255}));
+  connect(conRetSet.y, enaTow.TTowSet) annotation (Line(points={{-198,0},{
+          -174,0},{-174,52},{-142,52}}, color={0,0,127}));
+  connect(conRet1.y, enaTow.TTow) annotation (Line(points={{-238,-30},{-168,
+          -30},{-168,48},{-142,48}}, color={0,0,127}));
+  connect(offTowSta.y, enaTow.uTow) annotation (Line(points={{-198,-50},{-162,-50},
+          {-162,44},{-142,44}}, color={255,0,255}));
   connect(opeConPum.y, enaTow.uConWatPumNum)
     annotation (Line(points={{-238,-80},{-156,-80},{-156,40},{-142,40}},
       color={255,127,0}));
@@ -122,12 +119,10 @@ equation
     annotation (Line(points={{-18,40},{0,40},{0,56},{38,56}}, color={0,0,127}));
   connect(conRetSet1.y, disTow.TTowSet)
     annotation (Line(points={{-18,0},{6,0},{6,52},{38,52}}, color={0,0,127}));
-  connect(conRet2.y, disTow.TTow)
-    annotation (Line(points={{-58,-30},{12,-30},{12,48},{38,48}},
-      color={0,0,127}));
-  connect(onTowSta1.y, disTow.uTowSta)
-    annotation (Line(points={{-18,-60},{18,-60},{18,44},{38,44}},
-      color={255,0,255}));
+  connect(conRet2.y, disTow.TTow) annotation (Line(points={{-58,-30},{12,-30},
+          {12,48},{38,48}}, color={0,0,127}));
+  connect(onTowSta1.y, disTow.uTow) annotation (Line(points={{-18,-60},{18,-60},
+          {18,44},{38,44}}, color={255,0,255}));
   connect(opeConPum1.y, disTow.uConWatPumNum)
     annotation (Line(points={{-58,-80},{24,-80},{24,40},{38,40}},
       color={255,127,0}));
@@ -140,14 +135,12 @@ equation
   connect(towFanSpe2.y,disTow1.uFanSpe)
     annotation (Line(points={{162,40},{180,40},{180,56},{218,56}},
       color={0,0,127}));
-  connect(conRetSet2.y, disTow1.TTowSet)
-    annotation (Line(points={{162,0},{186,0},{186,52},{218,52}}, color={0,0,127}));
-  connect(conRet3.y, disTow1.TTow)
-    annotation (Line(points={{122,-30},{192,-30},{192,48},{218,48}},
-      color={0,0,127}));
-  connect(onTowSta2.y, disTow1.uTowSta)
-    annotation (Line(points={{162,-60},{198,-60},{198,44},{218,44}},
-      color={255,0,255}));
+  connect(conRetSet2.y, disTow1.TTowSet) annotation (Line(points={{162,0},
+          {186,0},{186,52},{218,52}}, color={0,0,127}));
+  connect(conRet3.y, disTow1.TTow) annotation (Line(points={{122,-30},{192,
+          -30},{192,48},{218,48}}, color={0,0,127}));
+  connect(onTowSta2.y, disTow1.uTow) annotation (Line(points={{162,-60},{198,-60},
+          {198,44},{218,44}}, color={255,0,255}));
   connect(opeConPum2.y, disTow1.uConWatPumNum)
     annotation (Line(points={{122,-80},{204,-80},{204,40},{218,40}},
       color={255,127,0}));

@@ -5,13 +5,13 @@ block Enable "Sequence for enabling and disabling tower fan"
   parameter Integer nTowCel=4 "Total number of cooling tower cells";
   parameter Real fanSpeChe = 0.01 "Lower threshold value to check fan speed";
   parameter Real fanSpeMin = 0.1 "Minimum tower fan speed";
-  parameter Real cheMinFanSpe=300
+  parameter Real cheMinFanSpe(final quantity="Time", final unit="s")=300
     "Threshold time for checking duration when tower fan equals to the minimum tower fan speed"
     annotation (Dialog(tab="Advanced"));
-  parameter Real cheMaxTowSpe=300
+  parameter Real cheMaxTowSpe(final quantity="Time", final unit="s")=300
     "Threshold time for checking duration when any enabled chiller maximum cooling speed equals to the minimum tower fan speed"
     annotation (Dialog(tab="Advanced"));
-  parameter Real cheTowOff=60
+  parameter Real cheTowOff(final quantity="Time", final unit="s")=60
     "Threshold time for checking duration when there is no enabled tower fan"
     annotation (Dialog(tab="Advanced"));
 
@@ -40,7 +40,7 @@ block Enable "Sequence for enabling and disabling tower fan"
     final quantity="ThermodynamicTemperature") "Measured tower temperature"
     annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uTowSta[nTowCel]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uTow[nTowCel]
     "Cooling tower operating status: true=running tower cell"
     annotation (Placement(transformation(extent={{-220,-140},{-180,-100}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
@@ -48,10 +48,10 @@ block Enable "Sequence for enabling and disabling tower fan"
     "Number of enabled condenser water pumps"
     annotation (Placement(transformation(extent={{-220,-180},{-180,-140}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yTowSta
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yTow
     "Tower fan status: true=enable any number of fans; false=disable all fans"
     annotation (Placement(transformation(extent={{180,-180},{220,-140}}),
-      iconTransformation(extent={{100,-20},{140,20}})));
+        iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Feedback feedback[nChi]
@@ -232,7 +232,7 @@ equation
     annotation (Line(points={{22,160},{38,160}}, color={255,0,255}));
   connect(hys.y, mulAnd.u)
     annotation (Line(points={{-18,160},{-10,160},{-10,0},{18,0}}, color={255,0,255}));
-  connect(uTowSta, mulOr1.u)
+  connect(uTow, mulOr1.u)
     annotation (Line(points={{-200,-120},{-142,-120}}, color={255,0,255}));
   connect(uConWatPumNum, intEqu.u1)
     annotation (Line(points={{-200,-160},{-82,-160}},  color={255,127,0}));
@@ -260,7 +260,7 @@ equation
   connect(intEqu.y, logSwi2.u2)
     annotation (Line(points={{-58,-160},{138,-160}},
       color={255,0,255}));
-  connect(logSwi2.y, yTowSta)
+  connect(logSwi2.y, yTow)
     annotation (Line(points={{162,-160},{200,-160}}, color={255,0,255}));
   connect(mulOr1.y, logSwi1.u3)
     annotation (Line(points={{-118,-120},{-100,-120},{-100,-98},{138,-98}},
@@ -337,8 +337,8 @@ Documentation(info="<html>
 <p>
 Block that outputs signal <code>yTowSta</code> for enabling and disabling cooling tower 
 fan. This is implemented according to ASHRAE RP-1711 Advanced Sequences of Operation for 
-HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft 6 on July 25, 
-2019), section 5.2.12.2, item 2.j-l.
+HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft on March 23, 
+2020), section 5.2.12.2, item 2.j-l.
 </p>
 <p>
 1. Disable the tower fans if either:

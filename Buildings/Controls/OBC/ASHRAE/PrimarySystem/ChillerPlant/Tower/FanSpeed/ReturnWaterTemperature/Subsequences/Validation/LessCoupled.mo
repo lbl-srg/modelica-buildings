@@ -19,14 +19,13 @@ model LessCoupled
   Buildings.Controls.OBC.CDL.Continuous.Add add2 "Add real inputs"
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conRetSet(
-    final k=273.15 + 32)
-    "Condenser water return temperature setpoint"
+    final k=273.15 + 32) "Condenser water return temperature setpoint"
     annotation (Placement(transformation(extent={{-20,130},{0,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp conWatPumSpe[2](
     final height=fill(0.5, 2),
     final duration=fill(3600, 2),
     final startTime=fill(300, 2)) "Measured condenser water pump speed"
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp towMaxSpe(
     final height=0.25,
     final duration=3600,
@@ -67,6 +66,9 @@ model LessCoupled
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse chiSta2(
     final width=0.1, final period=3600)  "Chiller one enabling status"
     annotation (Placement(transformation(extent={{-80,-150},{-60,-130}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant plaEna(
+    final k=true) "Plant enable status"
+    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
 
 equation
   connect(conRetSet.y, lesCouTowSpe.TConWatRetSet)
@@ -78,10 +80,10 @@ equation
     annotation (Line(points={{-58,110},{-40,110},{-40,104},{-22,104}},
       color={0,0,127}));
   connect(add2.y, lesCouTowSpe.TConWatRet)
-    annotation (Line(points={{2,110},{32,110},{32,86},{58,86}},
+    annotation (Line(points={{2,110},{32,110},{32,88},{58,88}},
       color={0,0,127}));
   connect(conWatPumSpe.y, lesCouTowSpe.uConWatPumSpe)
-    annotation (Line(points={{-58,70},{20,70},{20,82},{58,82}}, color={0,0,127}));
+    annotation (Line(points={{-58,60},{20,60},{20,82},{58,82}}, color={0,0,127}));
   connect(conSup.y, add1.u1)
     annotation (Line(points={{-58,30},{-40,30},{-40,36},{-22,36}},
       color={0,0,127}));
@@ -114,6 +116,8 @@ equation
   connect(plrTowMaxSpe.y, lesCouTowSpe.plrTowMaxSpe)
     annotation (Line(points={{72,-130},{80,-130},{80,60},{44,60},{44,70},
       {58,70}}, color={0,0,127}));
+  connect(plaEna.y, lesCouTowSpe.uPla) annotation (Line(points={{2,80},{14,80},{
+          14,85},{58,85}}, color={255,0,255}));
 
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Tower/FanSpeed/ReturnWaterTemperature/Subsequences/Validation/LessCoupled.mos"
