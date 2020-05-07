@@ -5,7 +5,7 @@ model WetCoilCounterFlow
     redeclare replaceable package Medium2 =
       Modelica.Media.Interfaces.PartialCondensingGases,
     redeclare final model HexElement =
-      Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent(simplify_mWat_flow=true));
+      Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent(simplify_mWat_flow=simplify_mWat_flow));
 
   constant Boolean simplify_mWat_flow = true
     "Set to true to cause port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero. Used only if Medium.nX > 1"
