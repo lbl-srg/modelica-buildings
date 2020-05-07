@@ -1,4 +1,4 @@
-﻿within Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.Data.BaseClasses;
+within Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.Data.BaseClasses;
 partial record PipeDataULg "Base class for ULg experimental data"
   extends PipeDataBaseDefinition;
   parameter Modelica.SIunits.Temp_C T_start_in = 20
@@ -38,7 +38,7 @@ to supply the studied pipe in hot water.
 After the outlet pipe temperature is stabilized, the boiler is shut off.
 </p>
 <p>
-During the test, the ambient temperature is equal to <i>18</i>&circ;C and
+During the test, the ambient temperature is equal to <i>18</i>&deg;C and
 the mass flow rate is set to <i>1.245</i> kg/s.</p>
 
 <h4>Test bench schematic</h4>

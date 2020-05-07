@@ -187,7 +187,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(HSol.y, weaDat.HDifHor_in) annotation (Line(
-      points={{151,120},{154,120},{154,142.4},{159,142.4}},
+      points={{151,120},{154,120},{154,140.5},{159,140.5}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(T.y, weaDat.TDryBul_in) annotation (Line(
@@ -207,32 +207,15 @@ equation
 This model tests the correct initialization of
 <a href=\"modelica://Buildings.ThermalZones.Detailed.MixedAir\">
 Buildings.ThermalZones.Detailed.MixedAir</a>.
-The air temperature should start at <i>-15</i>&circ; C
-and remain there.
+The air temperature starts at <i>-15</i>&deg;C
+and remains there.
 </p>
-<p>
-Note that there are still very small heat flows even if all solar radiation
-is set to zero and all boundary conditions and start values are set to
-<i>-15</i>&circ; C.
-The reasons are as follows:
-</p>
-<ul>
-<li>
-The block
-<a href=\"modelica://Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckRadiation\">
-Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckRadiation</a>
-avoids that the radiation becomes negative, which may happen due to the
-smooth interpolation in the weather data reader.
-To achieve this, it sets a minimum radiation of <i>0.0001</i> W/m<sup>2</sup>.
-</li>
-<li>
-The model requires the numerical solution of nonlinear systems of equations
-and of systems of ordinary differential equations.
-These are of course only solved within the solver tolerance.
-</li>
-</ul>
 </html>", revisions="<html>
 <ul>
+<li>
+April 23, 2020, by Michael Wetter:<br/>
+Updated documentation.
+</li>
 <li>
 October 29, 2016, by Michael Wetter:<br/>
 Corrected error in the documentation.

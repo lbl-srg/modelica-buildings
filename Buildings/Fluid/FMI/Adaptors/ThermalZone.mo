@@ -65,8 +65,8 @@ protected
     "Room air temperature sensor"
     annotation (Placement(transformation(extent={{72,-90},{52,-70}})));
 
-  BaseClasses.X_w_toX x_w_toX[nPorts](redeclare final package Medium = Medium) if
-       Medium.nXi > 0 "Conversion from X_w to X"
+  BaseClasses.X_w_toX x_w_toX[nPorts](redeclare final package Medium = Medium)
+    if Medium.nXi > 0 "Conversion from X_w to X"
     annotation (Placement(transformation(extent={{-40,46},{-20,66}})));
 
   Modelica.Blocks.Math.MultiSum multiSum(final nu=nPorts, final k=fill(1,

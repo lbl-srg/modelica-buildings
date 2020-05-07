@@ -275,12 +275,12 @@ drives heat transfer such as by conduction,
 then the heat transfer would depend on upstream and the <i>downstream</i>
 temperatures for small mass flow rates.
 This can give wrong results. Consider for example a mass flow rate that is positive
-but very close to zero. Suppose the upstream temperature is <i>20</i>&circ;C,
-the downstream temperature is <i>10</i>&circ;C, and the heat port is
-connected through a heat conductor to a boundary condition of <i>20</i>&circ;C.
+but very close to zero. Suppose the upstream temperature is <i>20</i>&deg;C,
+the downstream temperature is <i>10</i>&deg;C, and the heat port is
+connected through a heat conductor to a boundary condition of <i>20</i>&deg;C.
 Then, <code>hOut = (port_b.h_outflow + port_a.h_outflow)/2</code> and hence
 the temperature <code>heatPort.T</code>
-is <i>15</i>&circ;C. Therefore, heat is added to the component.
+is <i>15</i>&deg;C. Therefore, heat is added to the component.
 As the mass flow rate is by assumption very small, the fluid that leaves the component
 will have a very high temperature, violating the 2nd law.
 To avoid this situation, if
@@ -298,6 +298,12 @@ Buildings.Fluid.MixingVolumes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 21, 2020, by Michael Wetter:<br/>
+Changed icon to display its operating state.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
+</li>
 <li>
 October 30, 2019 by Filip Jorissen:<br/>
 Added <code>getInstanceName()</code> to flow
@@ -534,15 +540,22 @@ Buildings.Fluid.MixingVolumes.BaseClasses.ClosedVolume</a>.
 </ul>
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics={Ellipse(
+            100}}), graphics={
+       Text(
+          extent={{-60,-26},{56,-58}},
+          lineColor={255,255,255},
+          textString="V=%V"),
+        Text(
+          extent={{-152,100},{148,140}},
+          textString="%name",
+          lineColor={0,0,255}),
+       Ellipse(
           extent={{-100,98},{100,-102}},
           lineColor={0,0,0},
           fillPattern=FillPattern.Sphere,
-          fillColor={170,213,255}), Text(
-          extent={{-58,14},{58,-18}},
-          lineColor={0,0,0},
-          textString="V=%V"),         Text(
-          extent={{-152,100},{148,140}},
-          textString="%name",
-          lineColor={0,0,255})}));
+          fillColor=DynamicSelect({170,213,255}, min(1, max(0, (1-(T-273.15)/50)))*{28,108,200}+min(1, max(0, (T-273.15)/50))*{255,0,0})),
+        Text(
+          extent={{62,28},{-58,-22}},
+          lineColor={255,255,255},
+          textString=DynamicSelect("", String(T-273.15, format=".1f")))}));
 end PartialMixingVolume;

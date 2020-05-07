@@ -75,11 +75,11 @@ model AbsorptionIndirectSteam_EnergyPlus
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     tableOnFile=true,
     fileName=ModelicaServices.ExternalReferences.loadResource(
-        "modelica://Buildings/Resources/Data/Fluid/Chillers/IndirectAbsorptionChiller/modelica.csv"),
+        "modelica://Buildings/Resources/Data/Fluid/Chillers/Validation/IndirectAbsorptionChiller/modelica.csv"),
     columns=2:11,
     tableName="modelica",
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
-    "Reader for \"IndirectAbsorptionChiller.IDF\" EnergyPlus example results"
+    "Reader for \"IndirectAbsorptionChiller.idf\" EnergyPlus example results"
       annotation (Placement(transformation(extent={{-130,60},{-110,80}})));
 
   Modelica.Blocks.Sources.RealExpression QGen_EP(y=datRea.y[10])
@@ -134,8 +134,7 @@ equation
     experiment(
       StartTime=23500,
       StopTime=32400,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
   Documentation(info="<html>
 <p>
 This model validates

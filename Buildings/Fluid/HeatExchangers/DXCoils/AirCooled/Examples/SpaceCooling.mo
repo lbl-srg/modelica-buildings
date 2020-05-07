@@ -311,8 +311,8 @@ public
       annotation (Placement(transformation(extent={{-209,-13},{-179,13}})));
     Modelica.Blocks.Interfaces.RealOutput TRoo(unit="K") "Room temperature"
       annotation (Placement(transformation(extent={{119,-13},{149,13}})));
-    Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](redeclare each package
-                     Medium =
+    Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](redeclare
+        each package Medium =
                          Medium) annotation (Placement(transformation(extent={{-50,-170},{47,-147}})));
   equation
     connect(theCon.port_b,vol. heatPort) annotation (Line(

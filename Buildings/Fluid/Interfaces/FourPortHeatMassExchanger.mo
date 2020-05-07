@@ -9,14 +9,13 @@ model FourPortHeatMassExchanger
   extends Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters(
      final computeFlowResistance1=true, final computeFlowResistance2=true);
 
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
+
   parameter Modelica.SIunits.Time tau1 = 30 "Time constant at nominal flow"
      annotation (Dialog(tab = "Dynamics", group="Nominal condition"));
   parameter Modelica.SIunits.Time tau2 = 30 "Time constant at nominal flow"
      annotation (Dialog(tab = "Dynamics", group="Nominal condition"));
-
-  // Advanced
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   // Assumptions
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
@@ -69,7 +68,8 @@ model FourPortHeatMassExchanger
     "Heat flow rate into medium 2";
 
   replaceable Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort vol1
-    constrainedby Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort(
+    constrainedby
+    Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort(
         redeclare final package Medium = Medium1,
         nPorts = 2,
         V=m1_flow_nominal*tau1/rho1_nominal,
@@ -90,7 +90,8 @@ model FourPortHeatMassExchanger
     annotation (Placement(transformation(extent={{-10,70}, {10,50}})));
 
   replaceable Buildings.Fluid.MixingVolumes.MixingVolume vol2
-    constrainedby Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort(
+    constrainedby
+    Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort(
         redeclare final package Medium = Medium2,
         nPorts = 2,
         V=m2_flow_nominal*tau2/rho2_nominal,
@@ -181,6 +182,9 @@ initial equation
  You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau2 = " + String(tau2) + "\n");
 
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
 
 equation
   connect(vol1.ports[2], port_b1) annotation (Line(
@@ -227,6 +231,12 @@ Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">Buildings, #1341</a>.
+</li>
 <li>
 October 23, 2017, by Michael Wetter:<br/>
 Made volume <code>vol1</code> replaceable. This is required for

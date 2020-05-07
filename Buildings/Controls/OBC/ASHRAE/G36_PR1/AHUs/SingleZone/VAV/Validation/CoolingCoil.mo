@@ -1,6 +1,9 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Validation;
 model CoolingCoil "Validation of cooling coil model"
-  final parameter Modelica.SIunits.Temperature TSupSet=291.15
+  final parameter Real TSupSet(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=291.15
     "Supply air temperature setpoint";
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.CoolingCoil cooCoi(
       controllerTypeCooCoi=Buildings.Controls.OBC.CDL.Types.SimpleController.P,

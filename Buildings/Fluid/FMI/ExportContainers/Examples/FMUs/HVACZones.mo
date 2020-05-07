@@ -83,7 +83,8 @@ block HVACZones
     dp2_nominal=200,
     show_T=true,
     allowFlowReversal1=allowFlowReversal,
-    allowFlowReversal2=allowFlowReversal) constrainedby Buildings.Fluid.Interfaces.PartialFourPortInterface(
+    allowFlowReversal2=allowFlowReversal) constrainedby
+    Buildings.Fluid.Interfaces.PartialFourPortInterface(
         redeclare package Medium1 = MediumW,
         redeclare package Medium2 = MediumA,
         m1_flow_nominal=mW_flow_nominal,

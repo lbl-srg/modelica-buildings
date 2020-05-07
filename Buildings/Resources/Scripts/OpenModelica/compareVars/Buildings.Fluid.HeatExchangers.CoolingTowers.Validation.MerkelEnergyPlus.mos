@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "tow.PFan",
+    "PFan_EP.y",
+    "tow.Q_flow",
+    "Q_flow_EP.y",
+    "tow.TLvg",
+    "TLvg_EP.y"
+  };

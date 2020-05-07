@@ -33,11 +33,12 @@ if __name__ == "__main__":
     if not os.path.exists(directory):
         os.makedirs(directory)
 
-    for filename in filelist:
+    for i, filename in enumerate(filelist):
+        print("Processing file {} of {}".format(i+1, len(filelist)))
         # Check files with length longer than 7
         if len(filename) > 7:
             remotefile = urlopen(urlResPath + filename)
-	    localfile = open(os.path.join(directory, filename),'w')
+            localfile = open(os.path.join(directory, filename),'w')
             localfile.write(remotefile.read())
             localfile.close()
             remotefile.close()

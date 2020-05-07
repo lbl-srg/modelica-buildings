@@ -3,5 +3,7 @@ compareVars :=
     "valLin.res1.phi",
     "valLin.res3.phi",
     "valEquPerLin.res1.phi",
-    "valEquPerLin.res3.phi"
+    "valEquPerLin.res3.phi",
+    "valTab.res1.phi",
+    "valTab.res3.phi"
   };

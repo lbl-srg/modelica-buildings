@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "coo.sta_a1.T",
+    "coo.sta_b1.T",
+    "coo.sta_a2.T",
+    "coo.sta_b2.T",
+    "coo.senMasFlo.m_flow",
+    "val.y",
+    "coo.Q_flow",
+    "coo.Q"
+  };
