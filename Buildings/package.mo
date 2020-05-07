@@ -529,6 +529,12 @@ its class name ends with the string <code>Beta</code>.
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1</b>
         </td>
     </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests
+        </td>
+        <td valign=\"top\">Changed the acutual damper position name from <code>uDam</code> to <code>yDam_actual</code>.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1873\">issue #1873</a>
+        </td>
+    </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller
         </td>
         <td valign=\"top\">Added actual VAV damper position as the input for generating system request.<br/>
