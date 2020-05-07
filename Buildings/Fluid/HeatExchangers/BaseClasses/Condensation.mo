@@ -11,9 +11,6 @@ model Condensation
       Modelica.Media.Interfaces.PartialTwoPhaseMedium
     "Medium model for port_b (outlet)";
 
-//  package MediumSte = IBPSA.Media.Steam "Steam medium";
-//  package MediumWat = IBPSA.Media.Water(T_max=623.15) "Water medium";
-
   Modelica.Blocks.Interfaces.RealOutput dh(unit="J/kg") "Change in enthalpy"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
 
@@ -25,8 +22,8 @@ model Condensation
     Medium_a.bubbleEnthalpy(Medium_a.setSat_p(pSte_nominal))
     "Change in enthalpy";
   final parameter Modelica.SIunits.SpecificHeatCapacity cp=
-     Medium_b.specificHeatCapacityCp(state=
-    Medium_b.setState_pTX(p=pSte_nominal,T=TSat,X=Medium_b.X_default))
+     Medium_a.specificHeatCapacityCp(state=
+    Medium_a.setState_pTX(p=pSte_nominal,T=TSat,X=Medium_a.X_default))
     "Specific Heat";
   final parameter Modelica.SIunits.Temperature TSat=
      Medium_a.saturationTemperature(pSte_nominal)
@@ -43,19 +40,10 @@ equation
   Ta= Medium_a.temperature(
     state=Medium_a.setState_phX(
       p=port_a.p, h=inStream(port_a.h_outflow), X=inStream(port_a.Xi_outflow)));
-//  TSat= Medium_a.saturationTemperature(port_a.p);
   Tb = TSat;
-
-  // Specific heat
-//  cp = Medium_a.specificHeatCapacityCp(state=
-//    Medium_a.setState_pTX(p=port_a.p,T=TSat,X=inStream(port_a.Xi_outflow)));
-//  cp = Medium_b.specificHeatCapacityCp(state=
-//    Medium_b.setState_pTX(p=port_b.p,T=TSat,X=inStream(port_b.Xi_outflow)));
 
   // Enthalpy
   hSte_instream = inStream(port_a.h_outflow);
-//  dhCon = Medium_a.dewEnthalpy(Medium_a.setSat_p(port_a.p)) -
-//    Medium_a.bubbleEnthalpy(Medium_a.setSat_p(port_a.p))
 //    "Enthalpy change due to vaporization";
   port_b.h_outflow = inStream(port_a.h_outflow) + dh;
   // Set condition for reverse flow for model consistency

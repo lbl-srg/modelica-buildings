@@ -1,8 +1,7 @@
 within Buildings.Fluid.HeatExchangers;
 model SteamHeatExchangerIdeal
   "Model for a shell-and-tube heat exchanger with phase change in one side"
-  extends Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium(
-    final show_T = true);
+  extends Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium;
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate"
