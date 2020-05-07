@@ -472,6 +472,6 @@ This is for
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/Guideline36.mos"
         "Simulate and plot"),
-    experiment(StopTime=172800, Tolerance=1e-06),
+    experiment(StopTime=172800, Tolerance=1e-08),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end Guideline36;
