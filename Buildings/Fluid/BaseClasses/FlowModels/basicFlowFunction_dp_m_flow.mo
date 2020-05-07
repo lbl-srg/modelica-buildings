@@ -1,6 +1,6 @@
 within Buildings.Fluid.BaseClasses.FlowModels;
 function basicFlowFunction_dp_m_flow
-  "Inverse of flow function that computes the flow coefficient"
+  "Inverse of flow function that computes the square inverse of flow coefficient"
   extends Modelica.Icons.Function;
 
   input Modelica.SIunits.MassFlowRate m_flow
@@ -11,19 +11,17 @@ function basicFlowFunction_dp_m_flow
     "Minimum value of mass flow rate guarding against k=(0)/sqrt(dp)";
   input Modelica.SIunits.PressureDifference dp_small
     "Minimum value of pressure drop guarding against k=m_flow/(0)";
-  output Real k
-    "Flow coefficient";
+  output Real kSquInv
+    "Square inverse of flow coefficient";
 protected
-  Modelica.SIunits.PressureDifference dpSqrt
-    "Regularized square root value of pressure drop";
-  Modelica.SIunits.MassFlowRate mPos_flow
-    "Regularized absolute value of mass flow rate";
+  Modelica.SIunits.PressureDifference dpPos=
+    Buildings.Utilities.Math.Functions.smoothMax(dp, -dp, dp_small)
+    "Regularized absolute value of pressure drop";
+  Real mSqu_flow = Buildings.Utilities.Math.Functions.smoothMax(
+    m_flow^2, m_flow_small^2, m_flow_small^2)
+    "Regularized non zero square value of mass flow rate";
 algorithm
-  dpSqrt := Buildings.Utilities.Math.Functions.regNonZeroPower(
-    dp, 0.5, dp_small);
-  mPos_flow := Buildings.Utilities.Math.Functions.regNonZeroPower(
-    m_flow, 1, m_flow_small);
-  k := mPos_flow / dpSqrt;
+  kSquInv := dpPos / mSqu_flow;
 annotation (smoothOrder=1,
 Documentation(info="<html>
 <p>

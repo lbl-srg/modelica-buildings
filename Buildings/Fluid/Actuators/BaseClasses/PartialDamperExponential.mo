@@ -111,17 +111,15 @@ equation
       Medium.density(Medium.setState_phX(
         port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow)));
   // flow coefficient, k = m_flow/sqrt(dp)
-  if not casePreInd then
-    kDam=sqrt(2*rho)*A/Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
-      y=y_actual,
-      a=a,
-      b=b,
-      cL=cL,
-      cU=cU,
-      yL=yL,
-      yU=yU);
-    k = if dpFixed_nominal > Modelica.Constants.eps then sqrt(1/(1/kFixed^2 + 1/kDam^2)) else kDam;
-  end if;
+  kDam=sqrt(2*rho)*A/Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
+    y=y_actual,
+    a=a,
+    b=b,
+    cL=cL,
+    cU=cU,
+    yL=yL,
+    yU=yU);
+  k = if dpFixed_nominal > Modelica.Constants.eps then sqrt(1/(1/kFixed^2 + 1/kDam^2)) else kDam;
 annotation(Documentation(info="<html>
 <p>
 Partial model for air dampers with exponential opening characteristics.
