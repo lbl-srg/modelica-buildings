@@ -261,7 +261,7 @@ block Controller
     final min=0,
     final max=1,
     final unit="1") = 1
-    "Physically fixed maximum position of the outdoor air (OA) damper"
+    "Physically fixed maximum position of the outdoor air damper"
     annotation(Dialog(tab="Economizer", group="Commissioning"));
   parameter Real outDamPhyPosMin(
     final min=0,
