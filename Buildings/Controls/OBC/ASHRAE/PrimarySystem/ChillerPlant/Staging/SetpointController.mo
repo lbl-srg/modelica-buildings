@@ -250,11 +250,10 @@ block SetpointController
     annotation (Placement(transformation(extent={{120,-280},{160,-240}}),
         iconTransformation(extent={{100,-90},{140,-50}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
-    "Chiller stage change edge signal"
-    annotation (
-     Placement(transformation(extent={{120,-200},{160,-160}}),
-        iconTransformation(extent={{100,-20},{140,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChaEdg
+    "Chiller stage change edge signal" annotation (Placement(transformation(
+          extent={{120,-200},{160,-160}}), iconTransformation(extent={{100,-20},
+            {140,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput ySta(
     final min=0,
@@ -465,8 +464,8 @@ equation
   connect(cha.ySta, ySta) annotation (Line(points={{2,-166},{20,-166},{20,-120},
           {140,-120}},
                      color={255,127,0}));
-  connect(cha.y, y) annotation (Line(points={{2,-174},{114,-174},{114,-180},{140,
-          -180}},                     color={255,0,255}));
+  connect(cha.yChaEdg, yChaEdg) annotation (Line(points={{2,-174},{114,-174},{
+          114,-180},{140,-180}}, color={255,0,255}));
   connect(chiInd.yChi, yChi)
     annotation (Line(points={{62,-200},{80,-200},{80,-260},{140,-260}},
                                                      color={255,0,255}));

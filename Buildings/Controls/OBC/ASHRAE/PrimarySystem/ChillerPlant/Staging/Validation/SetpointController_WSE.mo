@@ -265,7 +265,7 @@ equation
           150},{-130,150},{-130,155.438},{57.6,155.438}},
                                   color={0,0,127}));
   connect(staSetCon.ySta,intToRea. u)
-    annotation (Line(points={{86.4,161.375},{90,161.375},{90,150},{98,150}},
+    annotation (Line(points={{86.4,167.312},{90,167.312},{90,150},{98,150}},
                                                color={255,127,0}));
   connect(intToRea.y,zerOrdHol. u)
     annotation (Line(points={{122,150},{138,150}},
@@ -276,9 +276,8 @@ equation
   connect(reaToInt.y,staSetCon. u) annotation (Line(points={{202,150},{210,150},
           {210,100},{50,100},{50,148.312},{57.6,148.312}},
                                      color={255,127,0}));
-  connect(staSetCon.y,truFalHol. u) annotation (Line(points={{86.4,153.062},{90,
-          153.062},{90,70},{98,70}},
-                     color={255,0,255}));
+  connect(staSetCon.yChaEdg, truFalHol.u) annotation (Line(points={{86.4,159},{
+          90,159},{90,70},{98,70}}, color={255,0,255}));
   connect(truFalHol.y,pre. u)
     annotation (Line(points={{122,70},{138,70}},   color={255,0,255}));
   connect(pre.y,staSetCon. chaPro) annotation (Line(points={{162,70},{170,70},{
@@ -326,7 +325,7 @@ equation
           -90},{-130,-90},{-130,-84.5625},{57.6,-84.5625}},
                                           color={0,0,127}));
   connect(staSetCon1.ySta, intToRea1.u)
-    annotation (Line(points={{86.4,-78.625},{90,-78.625},{90,-90},{98,-90}},
+    annotation (Line(points={{86.4,-72.6875},{90,-72.6875},{90,-90},{98,-90}},
                                                  color={255,127,0}));
   connect(intToRea1.y, zerOrdHol1.u)
     annotation (Line(points={{122,-90},{138,-90}}, color={0,0,127}));
@@ -335,9 +334,8 @@ equation
   connect(reaToInt1.y, staSetCon1.u) annotation (Line(points={{202,-90},{210,
           -90},{210,-140},{50,-140},{50,-91.6875},{57.6,-91.6875}},
                                                     color={255,127,0}));
-  connect(staSetCon1.y, truFalHol1.u) annotation (Line(points={{86.4,-86.9375},
-          {90,-86.9375},{90,-170},{98,-170}},
-                            color={255,0,255}));
+  connect(staSetCon1.yChaEdg, truFalHol1.u) annotation (Line(points={{86.4,-81},
+          {90,-81},{90,-170},{98,-170}}, color={255,0,255}));
   connect(truFalHol1.y, pre1.u)
     annotation (Line(points={{122,-170},{138,-170}}, color={255,0,255}));
   connect(pre1.y, staSetCon1.chaPro) annotation (Line(points={{162,-170},{170,
