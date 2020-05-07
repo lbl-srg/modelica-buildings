@@ -1,5 +1,5 @@
 within Buildings.Fluid.Boilers;
-model IdealSteamBoiler "Simple steam boiler model for testing"
+model SteamBoilerIdeal "Simple steam boiler model for testing"
   extends Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium;
 
   replaceable package Medium_a =
@@ -9,21 +9,19 @@ model IdealSteamBoiler "Simple steam boiler model for testing"
       Modelica.Media.Interfaces.PartialTwoPhaseMedium
     "Medium model for port_b (outlet)";
 
-//  package MediumSte = IBPSA.Media.Steam "Steam medium";
-//  package MediumWat = IBPSA.Media.Water(T_max=623.15) "Water medium";
-
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate";
+
+  parameter Modelica.SIunits.AbsolutePressure pSte_nominal
+    "Nominal steam pressure";
 
   BaseClasses.Evaporation eva(
     redeclare package Medium_a = Medium_a,
     redeclare package Medium_b = Medium_b,
-    m_flow_nominal=m_flow_nominal)
+    m_flow_nominal=m_flow_nominal,
+    pSte_nominal=pSte_nominal)
                               "Evaporation model"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-  Modelica.Blocks.Interfaces.RealInput pSte "Prescribed steam pressure"
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
-        iconTransformation(extent={{-120,50},{-100,70}})));
   Modelica.Blocks.Interfaces.RealOutput dh(unit="J/kg") "Change in enthalpy"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
   Modelica.Blocks.Interfaces.RealOutput Q_flow(unit="W")
@@ -46,6 +44,9 @@ model IdealSteamBoiler "Simple steam boiler model for testing"
   Modelica.Blocks.Math.Add dpAct(k2=-1)
     "Actual pressure change required per measurement and setpoint"
     annotation (Placement(transformation(extent={{-50,36},{-30,56}})));
+  Modelica.Blocks.Sources.RealExpression pSteSet(y=pSte_nominal)
+    "Steam pressure setpoint"
+    annotation (Placement(transformation(extent={{-90,42},{-70,62}})));
 equation
   connect(senMasFlo.m_flow, QMea_flow.u1)
     annotation (Line(points={{10,11},{10,86},{58,86}},
@@ -57,7 +58,7 @@ equation
     annotation (Line(points={{20,0},{30,0}}, color={0,127,255}));
   connect(eva.port_b, port_b)
     annotation (Line(points={{50,0},{100,0}}, color={0,127,255}));
-  connect(eva.dh, dh) annotation (Line(points={{51,6},{80,6},{80,60},{110,60}},
+  connect(eva.dh, dh) annotation (Line(points={{51,6},{54,6},{54,60},{110,60}},
         color={0,0,127}));
   connect(eva.dh, QMea_flow.u2)
     annotation (Line(points={{51,6},{54,6},{54,74},{58,74}}, color={0,0,127}));
@@ -67,12 +68,12 @@ equation
     annotation (Line(points={{-10,0},{0,0}}, color={0,127,255}));
   connect(senPre.p, dpAct.u2) annotation (Line(points={{-69,30},{-60,30},{-60,
           40},{-52,40}}, color={0,0,127}));
-  connect(pSte, dpAct.u1) annotation (Line(points={{-120,60},{-60,60},{-60,52},
-          {-52,52}}, color={0,0,127}));
   connect(dpAct.y, pum.dp_in)
     annotation (Line(points={{-29,46},{-20,46},{-20,12}}, color={0,0,127}));
   connect(senPre.port, port_a)
     annotation (Line(points={{-80,20},{-80,0},{-100,0}}, color={0,127,255}));
+  connect(pSteSet.y, dpAct.u1)
+    annotation (Line(points={{-69,52},{-52,52}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(
           extent={{-147,-114},{153,-154}},
@@ -133,16 +134,6 @@ equation
         color={0,0,0},
         smooth=Smooth.Bezier,
           extent={{-60,-22},{-36,2}}),
-        Rectangle(
-          extent={{-100,60},{-70,58}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-94,82},{-46,62}},
-          lineColor={0,0,127},
-          textString="p_steam"),
         Text(
           extent={{18,98},{56,72}},
           lineColor={0,0,127},
@@ -160,4 +151,4 @@ equation
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid)}),                      Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end IdealSteamBoiler;
+end SteamBoilerIdeal;

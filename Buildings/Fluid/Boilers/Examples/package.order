@@ -1,5 +1,5 @@
 BoilerPolynomial
 BoilerPolynomialClosedLoop
-IdealSteamBoiler
 SteamBoilerTwoPort
+SteamBoilerIdeal
 SteamBoilerFourPort

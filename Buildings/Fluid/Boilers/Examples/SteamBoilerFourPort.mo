@@ -91,7 +91,6 @@ model SteamBoilerFourPort
     effCur=Buildings.Fluid.Types.EfficiencyCurves.Polynomial,
     a={0.8,-0.004},
     fue=Data.Fuels.NaturalGasLowerHeatingValue(),
-    eta_nominal=0.796,
     redeclare package Medium2 = MediumFlu) "Steam boiler"
     annotation (Placement(transformation(extent={{40,8},{60,30}})));
   Movers.FlowControlled_m_flow fan(

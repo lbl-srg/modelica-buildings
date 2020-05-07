@@ -1,6 +1,6 @@
 BoilerPolynomial
-IdealSteamBoiler
 SteamBoilerFourPort
+SteamBoilerIdeal
 SteamBoilerTwoPort
 Examples
 BaseClasses

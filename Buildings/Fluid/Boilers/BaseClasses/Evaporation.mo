@@ -28,9 +28,6 @@ model Evaporation
      Medium_b.saturationTemperature(pSte_nominal)
      "Saturation temperature";
 
-//  Modelica.SIunits.SpecificEnthalpy dhVap "Change in enthalpy";
-//  Modelica.SIunits.SpecificHeatCapacity cp "Specific Heat";
-//  Modelica.SIunits.Temperature TSat "Saturation temperature";
   Medium_b.Temperature Tb;
   Medium_a.Temperature Ta;
 
@@ -45,10 +42,6 @@ equation
   Ta= Medium_a.temperature(
     state=Medium_a.setState_phX(
       p=port_a.p, h=inStream(port_a.h_outflow), X=inStream(port_a.Xi_outflow)));
-//  TSat= Medium_b.saturationTemperature(port_b.p);
-
-//  cp = Medium_a.specificHeatCapacityCp(state=
-//    Medium_a.setState_pTX(p=port_a.p,T=TSat,X=inStream(port_b.Xi_outflow)));
 
   Tb = TSat;
   if (Ta < TSat) then
@@ -61,9 +54,6 @@ equation
   port_a.m_flow + port_b.m_flow = 0;
 
   // Enthalpy decreased with boiling process
-//  dhVap = Medium_b.dewEnthalpy(Medium_b.setSat_p(port_b.p)) -
-//    Medium_b.bubbleEnthalpy(Medium_b.setSat_p(port_b.p))
-//    "Enthalpy change due to vaporization";
   port_b.h_outflow = inStream(port_a.h_outflow) + dh;
 
   // Set condition for reverse flow for model consistency
