@@ -133,10 +133,9 @@ model CoolingIndirect
     "Set to true for throttling the water flow rate through a cooling coil controller"
     annotation(Dialog(tab="Controller"));
 
-  Modelica.Blocks.Interfaces.RealInput TSet(
-    final quantity="ThermodynamicTemperature",
-    final unit="K")
-    "Setpoint temperature"
+  Modelica.Blocks.Interfaces.RealInput TSetBuiSup(final quantity=
+        "ThermodynamicTemperature", final unit="K")
+    "Setpoint temperature for building supply"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   Modelica.Blocks.Interfaces.RealOutput Q_flow(
@@ -204,10 +203,9 @@ model CoolingIndirect
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
 
-  Buildings.Fluid.Sensors.TemperatureTwoPort TBuiRet(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=mBui_flow_nominal)
-    "Building-side (secondary) return temperature"
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTBuiSup(redeclare final package
+      Medium = Medium, final m_flow_nominal=mBui_flow_nominal)
+    "Building-side (secondary) supply temperature"
     annotation (Placement(transformation(extent={{-70,-70},{-90,-50}})));
 
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val(
@@ -252,19 +250,18 @@ equation
     annotation (Line(points={{-100,60},{-90,60}}, color={0,127,255}));
   connect(senTDisSup.port_b, senMasFlo.port_a)
     annotation (Line(points={{-70,60},{-60,60}}, color={0,127,255}));
-  connect(port_b2, TBuiRet.port_b)
+  connect(port_b2, senTBuiSup.port_b)
     annotation (Line(points={{-100,-60},{-90,-60}}, color={0,127,255}));
   connect(senTDisRet.port_b, port_b1)
     annotation (Line(points={{90,60},{100,60}}, color={0,127,255}));
-  connect(TSet, con.u_s)
-    annotation (Line(points={{-120,0},{-106,0},{-106,0},{-92,0}},
-                                                color={0,0,127}));
-  connect(con.u_m, TBuiRet.T)
+  connect(TSetBuiSup, con.u_s) annotation (Line(points={{-120,0},{-106,0},{-106,
+          0},{-92,0}}, color={0,0,127}));
+  connect(con.u_m, senTBuiSup.T)
     annotation (Line(points={{-80,-12},{-80,-49}}, color={0,0,127}));
   connect(con.y, val.y)
     annotation (Line(points={{-69,0},{-20,0},{-20,48}}, color={0,0,127}));
-  connect(TBuiRet.port_a, hex.port_b2) annotation (Line(points={{-70,-60},{0,-60},
-          {0,-6},{20,-6}}, color={0,127,255}));
+  connect(senTBuiSup.port_a, hex.port_b2) annotation (Line(points={{-70,-60},{0,
+          -60},{0,-6},{20,-6}}, color={0,127,255}));
   connect(pro.y, cp.u)
     annotation (Line(points={{1,110},{18,110}}, color={0,0,127}));
   connect(senMasFlo.m_flow, pro.u2)

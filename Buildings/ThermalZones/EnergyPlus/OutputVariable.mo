@@ -85,5 +85,12 @@ The variable of the output <code>y</code> has Modelica SI units, as declared in
 For example, temperatures will be in Kelvin, and mass flow rates will be in
 <code>kg/s</code>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 28, 2020, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end OutputVariable;

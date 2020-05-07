@@ -5,7 +5,7 @@
 # operating systems.
 set -e
 
-FMISRC=https://github.com/modelon-community/fmi-library/archive/2.1.zip
+FMISRC=https://github.com/modelon-community/fmi-library/archive/2.2.zip
 
 tmp_dir=$(mktemp -d -t tmp-Buildings-FMI-XXXXXXXXXX)
 

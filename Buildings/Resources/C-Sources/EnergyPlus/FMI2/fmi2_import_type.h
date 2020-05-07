@@ -55,10 +55,10 @@ FMILIB_EXPORT unsigned int fmi2_import_get_type_definition_number(fmi2_import_ty
 
 /** \brief Get a type definition specified by the index 
 	@param td the type definition list object
-	@param index the index of type definition. Must be less than the numbere returned by fmi2_import_get_type_definition_number()
+	@param index the index of type definition. Must be less than the number returned by fmi2_import_get_type_definition_number()
 	@return A type definition object or NULL if index is out of range.
 */
-FMILIB_EXPORT fmi2_import_variable_typedef_t* fmi2_import_get_typedef(fmi2_import_type_definitions_t* td, unsigned int  index);
+FMILIB_EXPORT fmi2_import_variable_typedef_t* fmi2_import_get_typedef(fmi2_import_type_definitions_t* td, unsigned int index);
 
 /** \brief Get associated display unit for a type defition if any. */
 FMILIB_EXPORT fmi2_import_display_unit_t* fmi2_import_get_type_display_unit(fmi2_import_real_typedef_t*);
@@ -90,9 +90,7 @@ FMILIB_EXPORT fmi2_import_integer_typedef_t* fmi2_import_get_type_as_int(fmi2_im
 FMILIB_EXPORT fmi2_import_enumeration_typedef_t* fmi2_import_get_type_as_enum(fmi2_import_variable_typedef_t*);
 
 /** \brief Get the quantity associated with the type definition.
-
-	@return NULL-pointer is always returned for strings and booleans.
-	Empty string is returned if attribute is not present for other types.
+	@return The quantity, or NULL-pointer if quantity is not defined (NULL-pointer is always returned for strings and booleans).
 */
 FMILIB_EXPORT const char* fmi2_import_get_type_quantity(fmi2_import_variable_typedef_t*);
 
