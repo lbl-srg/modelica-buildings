@@ -72,7 +72,7 @@ model SteamIdealSystem
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     "Heating demand"
     annotation (Placement(transformation(extent={{110,0},{130,20}})));
-  Fluid.Boilers.IdealSteamBoiler boi(m_flow_nominal=m_flow_nominal)
+  Fluid.Boilers.SteamBoilerIdeal boi(m_flow_nominal=m_flow_nominal)
     "Steam boiler"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Modelica.Blocks.Sources.Constant p_steam(k=pSte_nominal)

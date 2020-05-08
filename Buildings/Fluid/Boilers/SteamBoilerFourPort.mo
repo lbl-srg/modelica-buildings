@@ -35,12 +35,13 @@ model SteamBoilerFourPort
   BaseClasses.Combustion com(
     m_flow_nominal=m2_flow_nominal,
     redeclare final package Medium = Medium2,
-    show_T=true) "Combustion process"
+    final show_T = show_T) "Combustion process"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
   FixedResistances.PressureDrop preDroAir(
     redeclare package Medium = Medium2,
     m_flow_nominal=m2_flow_nominal,
-    dp_nominal=1400) "Air side total pressure drop"
+    dp_nominal=1400,
+    final show_T = show_T) "Air side total pressure drop"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
 equation
   connect(port_a2, port_a2) annotation (Line(points={{-100,-80},{-100,-80},{-100,-80}},

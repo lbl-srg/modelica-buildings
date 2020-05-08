@@ -25,6 +25,11 @@ partial model PartialSteamBoiler
     "Type of mass balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
+  // Diagnostics
+   parameter Boolean show_T = false
+    "= true, if actual temperature at port is computed"
+    annotation(Dialog(tab="Advanced",group="Diagnostics"));
+
   // Initialization
   parameter Medium_a.AbsolutePressure p_start = Medium_a.p_default
     "Start value of inflow pressure"
@@ -130,13 +135,13 @@ partial model PartialSteamBoiler
   Evaporation eva(
     redeclare package Medium_a = Medium_a,
     redeclare package Medium_b = Medium_b,
-    show_T=true)  "Evaporation process"
+    final show_T=show_T)  "Evaporation process"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   Movers.FlowControlled_dp dpCon(
     redeclare package Medium = Medium_a,
     m_flow_nominal=m_flow_nominal,
-    show_T=true,
+    final show_T=show_T,
     addPowerToMedium=false,
     nominalValuesDefineDefaultPressureCurve=true,
     constantHead=pOut_nominal)

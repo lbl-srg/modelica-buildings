@@ -19,8 +19,9 @@ model SteamBoilerIdeal "Simple steam boiler model for testing"
     redeclare package Medium_a = Medium_a,
     redeclare package Medium_b = Medium_b,
     m_flow_nominal=m_flow_nominal,
-    pSte_nominal=pSte_nominal)
-                              "Evaporation model"
+    pSte_nominal=pSte_nominal,
+    final show_T = show_T)
+    "Evaporation model"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   Modelica.Blocks.Interfaces.RealOutput dh(unit="J/kg") "Change in enthalpy"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
@@ -36,7 +37,8 @@ model SteamBoilerIdeal "Simple steam boiler model for testing"
     redeclare package Medium = Medium_a,
     m_flow_nominal=m_flow_nominal,
     addPowerToMedium=false,
-    nominalValuesDefineDefaultPressureCurve=true)
+    nominalValuesDefineDefaultPressureCurve=true,
+    final show_T = show_T)
     "Pump to increase pressure to setpoint"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
   Sensors.Pressure senPre(redeclare package Medium = Medium_a)
