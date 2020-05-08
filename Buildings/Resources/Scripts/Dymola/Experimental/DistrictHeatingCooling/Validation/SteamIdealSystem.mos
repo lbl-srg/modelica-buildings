@@ -1,0 +1,83 @@
+﻿// Simulate
+simulateModel("Buildings.Experimental.DistrictHeatingCooling.Validation.SteamIdealSystem", stopTime=86400, method="dassl", tolerance=1e-06, resultFile="SteamIdealSystem");
+// Plot commands
+removePlots(false);
+createPlot(id=1, position={10, 20, 526, 662}, 
+  y={"boi.Q_flow", "hea1.Q_flow", "hea2.Q_flow"}, 
+  range={0.0, 1.0, 0.0, 400000.0}, 
+  grid=true, 
+  colors={{28,108,200}, {238,46,47}, {0,140,72}}, 
+  timeUnit="d");
+createPlot(id=1, position={10, 20, 526, 218}, 
+  y={"boi.port_a.m_flow", "hea1.port_a.m_flow", "hea2.port_a.m_flow"}, 
+  range={0.0, 1.0, 0.0, 0.2}, 
+  grid=true, 
+  subPlot=2, 
+  colors={{28,108,200}, {238,46,47}, {0,140,72}}, 
+  timeUnit="d");
+createPlot(id=1, position={10, 20, 526, 218}, 
+  y={"hea1.port_a.m_flow", "hea2.port_a.m_flow"}, 
+  range={0.0, 1.0, 0.02, 0.12000000000000001}, 
+  grid=true, 
+  subPlot=3, 
+  colors={{28,108,200}, {238,46,47}}, timeUnit="d");
+createPlot(id=2, position={545, 22, 556, 658}, 
+  y={"boi.sta_a.T", "boi.sta_b.T"}, 
+  range={0.0, 1.0, 19.900000000000002, 20.05}, 
+  grid=true, 
+  colors={{28,108,200}, {238,46,47}}, 
+  timeUnit="d", 
+  displayUnits={"degC", "degC"});
+createPlot(id=2, position={545, 22, 556, 161}, 
+  y={"hea1.sta_a.T", "hea1.sta_b.T", "hea2.sta_a.T", "hea2.sta_b.T"}, 
+  range={0.0, 1.0, 19.6, 20.200000000000003}, 
+  grid=true, 
+  subPlot=2, 
+  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, 
+  timeUnit="d", 
+  displayUnits={"degC", "degC", "degC", "degC"});
+createPlot(id=2, position={545, 22, 556, 162}, 
+  y={"boi.port_a.p", "boi.port_b.p"}, 
+  range={0.0, 1.0, 0.0, 15.0}, 
+  grid=true, 
+  subPlot=3, 
+  colors={{28,108,200}, {238,46,47}}, 
+  timeUnit="d", 
+  displayUnits={"bar", "bar"});
+createPlot(id=2, position={545, 22, 556, 161}, 
+  y={"hea1.port_a.p", "hea1.port_b.p", "hea2.port_a.p", "hea2.port_b.p"}, 
+  range={0.0, 1.0, 0.0, 15.0}, 
+  grid=true, 
+  subPlot=4, 
+  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, 
+  timeUnit="d", 
+  displayUnits={"bar", "bar", "bar", "bar"});
+createPlot(id=3, position={1110, 22, 426, 660}, 
+  y={"boi.boi.port_a.h_outflow", "boi.boi.port_b.h_outflow"}, 
+  range={0.0, 1.0, -2000000.0, 1000000.0}, 
+  grid=true, 
+  colors={{28,108,200}, {238,46,47}}, 
+  timeUnit="d");
+createPlot(id=3, position={1110, 22, 426, 162}, 
+  y={"boi.dh", "hea1.hex.dh", "hea2.hex.dh"}, 
+  range={0.0, 1.0, -3000000.0, 3000000.0}, 
+  grid=true, 
+  subPlot=2,
+  colors={{28,108,200}, {238,46,47}, {0,140,72}}, 
+  timeUnit="d");
+createPlot(id=3, position={1110, 22, 426, 162}, 
+  y={"hea1.port_a.h_outflow", "hea1.port_b.h_outflow"}, 
+  range={0.0, 1.0, 0.0, 3000000.0}, 
+  grid=true, 
+  subPlot=3, 
+  colors={{28,108,200}, {238,46,47}}, 
+  timeUnit="d");
+createPlot(id=3, position={1110, 22, 426, 162}, 
+  y={"hea2.port_a.h_outflow", "hea2.port_b.h_outflow"}, 
+  range={0.0, 1.0, 0.0, 3000000.0}, 
+  grid=true, 
+  subPlot=4, 
+  colors={{28,108,200}, {238,46,47}}, 
+  timeUnit="d");
+
+
