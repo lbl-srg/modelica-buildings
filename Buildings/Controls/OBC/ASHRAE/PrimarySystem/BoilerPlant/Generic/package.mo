@@ -1,10 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant;
 package Generic "Generic control sequences"
-  annotation(Documentation(info="<html>
-             <p>
-             This package contains generic boiler plant control sequences.
-             </p>
-             </html>"), Icon(graphics={
+  annotation(Icon(graphics={
         Rectangle(
           lineColor={200,200,200},
           fillColor={248,248,248},
@@ -37,5 +33,10 @@ package Generic "Generic control sequences"
           lineColor={128,128,128},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          extent={{-80.0,0.0},{-20.0,60.0}})}));
+          extent={{-80.0,0.0},{-20.0,60.0}})}),
+          Documentation(info="<html>
+             <p>
+             This package contains generic boiler plant control sequences.
+             </p>
+             </html>"));
 end Generic;
