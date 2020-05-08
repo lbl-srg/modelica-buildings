@@ -55,8 +55,6 @@ block ReturnFanDirectPressure
   Buildings.Controls.OBC.CDL.Continuous.LimPID conP(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     final k=k,
-    yMax=1,
-    yMin=0,
     reverseAction=true) "Building static pressure controller"
     annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
   Buildings.Controls.OBC.CDL.Continuous.Line linExhAirDam

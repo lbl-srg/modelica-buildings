@@ -405,6 +405,17 @@ its class name ends with the string <code>Beta</code>.
                            This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1230\">IBPSA, #1230</a>.
         </td>
     </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage<br/>
+                           Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleSpeed<br/>
+                           Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed<br/>
+                           Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.MultiStage<br/>
+                           Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.SingleSpeed<br/>
+                           Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.VariableSpeed
+        </td>
+        <td valign=\"top\">Corrected wrong <code>min</code> and <code>max</code> attribute for change in humidity.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1933\">#1933</a>.
+        </td>
+    </tr>
     <tr><td valign=\"top\">Buildings.Fluid.Storage.Stratified<br/>
                            Buildings.Fluid.Storage.StratifiedEnhanced<br/>
                            Buildings.Fluid.Storage.StratifiedEnhancedInternalHex
@@ -519,6 +530,14 @@ its class name ends with the string <code>Beta</code>.
                            This refactoring also removes the parameter <code>strict</code> that
                            was used in the output limiter. The new implementation enforces a strict check by default.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1878\">#1878</a>.<br/>
+                           For Dymola, a conversion script makes this change.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.LimPID
+        </td>
+        <td valign=\"top\">Changed the default values for the output limiter from <code>yMin=-yMax</code> to <code>yMin=0</code>
+                           and from <code>yMax</code> being unspecified to <code>yMax=1</code>.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1888\">#1888</a>.<br/>
                            For Dymola, a conversion script makes this change.
         </td>
     </tr>
