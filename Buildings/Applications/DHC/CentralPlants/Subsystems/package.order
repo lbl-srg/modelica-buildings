@@ -1,3 +1,4 @@
 MultiChillerSystem
 CoolingTowerWithBypass
-PumpSystem
+PumpSystemConstantSpeed
+PumpSystemVariableSpeed

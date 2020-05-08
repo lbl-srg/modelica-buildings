@@ -1,6 +1,5 @@
 within Buildings.Applications.DHC.CentralPlants.Subsystems;
-model PumpSystem
-  "Pumps for condenser water and chilled water systems"
+model PumpSystemConstantSpeed "Constant speed pumps for condenser water system"
     replaceable package Medium =
       Buildings.Media.Water "Medium water";
     parameter Modelica.SIunits.MassFlowRate m_flow_nominal
@@ -154,4 +153,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end PumpSystem;
+end PumpSystemConstantSpeed;

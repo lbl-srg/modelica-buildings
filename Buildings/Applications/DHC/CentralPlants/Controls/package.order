@@ -1,3 +1,5 @@
 ChillerStage
 ChillerBypassControl
 CondenserWaterBypassControl
+VariableSpeedPumpControl
+dPControl

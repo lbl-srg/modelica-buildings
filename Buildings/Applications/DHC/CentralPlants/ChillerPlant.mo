@@ -52,7 +52,7 @@ model ChillerPlant "District cooling plant model"
   parameter Real eta[:]={1} "Fan efficiency";
   parameter Modelica.SIunits.Temperature TWetBul_nominal=273.15+19.45
     "Nominal wet bulb temperature";
-  Subsystems.PumpSystem pumCHW(
+  Subsystems.PumpSystemVariableSpeed pumCHW(
     Motor_eta=Motor_eta,
     Hydra_eta=Hydra_eta,
     redeclare package Medium = MediumCHW,
@@ -90,7 +90,7 @@ model ChillerPlant "District cooling plant model"
     dTApp_nominal=dTApp_nominal,
     TWetBul_nominal=TWetBul_nominal)
     annotation (Placement(transformation(extent={{-120,-16},{-80,24}})));
-  Subsystems.PumpSystem pumCW(
+  Subsystems.PumpSystemConstantSpeed pumCW(
     redeclare package Medium = MediumCW,
     m_flow_nominal=mCW_flow_nominal,
     Motor_eta=Motor_eta,
@@ -184,10 +184,6 @@ equation
       points={{70,60},{140,60}},
       color={0,127,255},
       thickness=1));
-  connect(chiStaCon.y, pumCHW.On) annotation (Line(
-      points={{-79,50},{-60,50},{-60,80},{80,80},{80,70.8},{71.62,70.8}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
   connect(chiStaCon.y,mulChiSys.on)  annotation (Line(
       points={{-79,50},{-60,50},{-60,0},{-22,0}},
       color={0,0,127},
@@ -234,6 +230,10 @@ equation
       thickness=1));
   connect(mulChiSys.rat, chiStaCon.Status) annotation (Line(
       points={{22,-8},{32,-8},{32,34},{-112,34},{-112,42},{-102,42}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
+  connect(chiStaCon.y, pumCHW.Spe) annotation (Line(
+      points={{-79,50},{-74,50},{-74,80},{80,80},{80,70.8},{71.62,70.8}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   annotation (__Dymola_Commands(file=
