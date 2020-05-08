@@ -1,6 +1,5 @@
-within Buildings.Applications.DHC.Examples;
-model HeatingSystem1stGen
-  "Generic first generation district heating system"
+within Buildings.Applications.DHC.Examples.FirstGeneration;
+model HeatingSystem "Generic first generation district heating system"
   extends Modelica.Icons.Example;
 
   package MediumSte = IBPSA.Media.Steam "Steam medium";
@@ -102,4 +101,4 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
                           Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-150,-150},{150,150}})));
-end HeatingSystem1stGen;
+end HeatingSystem;
