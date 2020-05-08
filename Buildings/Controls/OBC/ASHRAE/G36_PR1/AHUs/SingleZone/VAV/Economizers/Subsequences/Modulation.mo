@@ -5,12 +5,16 @@ block Modulation "Outdoor and return air damper position modulation sequence for
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller";
   parameter Real k(final unit="1/K") = 1 "Gain of controller";
-  parameter Modelica.SIunits.Time Ti=300
+  parameter Real Ti(
+    final unit="s",
+    final quantity="Time")=300
     "Time constant of modulation controller integrator block"
     annotation (Dialog(
       enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time Td=0.1
+  parameter Real Td(
+    final unit="s",
+    final quantity="Time")=0.1
     "Time constant of derivative block for cooling control loop signal"
     annotation (Dialog(
       enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
@@ -20,23 +24,23 @@ block Modulation "Outdoor and return air damper position modulation sequence for
     final min=0.1,
     final max=0.9,
     final unit="1") = 0.1
-    "Lower limit of controller output uTSup at which the dampers are at their limits"
-    annotation(Evaluate=true);
+    "Lower limit of controller output uTSup at which the dampers are at their limits";
   parameter Real uMax(
     final min=0.1,
     final max=1,
     final unit="1") = 0.9
-    "Upper limit of controller output uTSup at which the dampers are at their limits"
-    annotation(Evaluate=true);
+    "Upper limit of controller output uTSup at which the dampers are at their limits";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
+    final displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-160,90},{-120,130}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSupSet(
     final unit="K",
+    final displayUnit="degC",
     final quantity = "ThermodynamicTemperature") "Supply air temperature heating setpoint"
     annotation (Placement(transformation(extent={{-160,60},{-120,100}}),
         iconTransformation(extent={{-140,40},{-100,80}})));

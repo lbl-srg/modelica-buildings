@@ -2,92 +2,153 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits;
 block ModeAndSetPoints
   "Output zone setpoint with operation mode selection"
 
-  parameter Modelica.SIunits.Temperature TZonHeaOn=293.15
+  parameter Real TZonHeaOn(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=293.15
     "Heating setpoint during on";
-  parameter Modelica.SIunits.Temperature TZonHeaOff=285.15
+  parameter Real TZonHeaOff(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=285.15
     "Heating setpoint during off";
-  parameter Modelica.SIunits.Temperature TZonCooOn=297.15
+  parameter Real TZonCooOn(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=297.15
     "Cooling setpoint during on";
-  parameter Modelica.SIunits.Temperature TZonCooOff=303.15
+  parameter Real TZonCooOff(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=303.15
     "Cooling setpoint during off";
-  parameter Modelica.SIunits.Time preWarCooTim=10800
+  parameter Real preWarCooTim(
+    final unit="s",
+    final quantity="Time")=10800
     "Maximum cool-down/warm-up time"
-    annotation (Evaluate=true, Dialog(tab="Operation mode", group="Parameters"));
-  parameter Modelica.SIunits.TemperatureDifference bouLim=1.1
+    annotation (Dialog(tab="Operation mode", group="Parameters"));
+  parameter Real bouLim(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference")=1.1
     "Value limit to indicate the end of setback/setup mode"
-    annotation (Evaluate=true, Dialog(tab="Operation mode", group="Parameters"));
-  parameter Modelica.SIunits.Temperature TZonFreProOn=277.55
+    annotation (Dialog(tab="Operation mode", group="Parameters"));
+  parameter Real TZonFreProOn(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=277.55
     "Threshold zone temperature value to activate freeze protection mode"
-    annotation (Evaluate=true, Dialog(tab="Operation mode", group="Parameters"));
-  parameter Modelica.SIunits.Temperature TZonFreProOff=280.35
+    annotation (Dialog(tab="Operation mode", group="Parameters"));
+  parameter Real TZonFreProOff(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=280.35
     "Threshold zone temperature value to finish the freeze protection mode"
-    annotation (Evaluate=true, Dialog(tab="Operation mode", group="Parameters"));
-  parameter Modelica.SIunits.Time warCooTim=1800
+    annotation (Dialog(tab="Operation mode", group="Parameters"));
+  parameter Real warCooTim(
+    final unit="s",
+    final quantity="Time")=1800
     "Defined cool-down/warm-up time"
-    annotation (Evaluate=true, Dialog(tab="Operation mode", group="Test setting"));
+    annotation (Dialog(tab="Operation mode", group="Test setting"));
   parameter Boolean have_occSen=false
     "Check if the zone has occupancy sensor"
-    annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Sensors"));
+    annotation (Dialog(tab="Setpoint adjust", group="Sensors"));
   parameter Boolean have_winSen=false
     "Check if the zone has window status sensor"
-    annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Sensors"));
+    annotation (Dialog(tab="Setpoint adjust", group="Sensors"));
   parameter Boolean cooAdj=false
     "Flag, set to true if both cooling and heating setpoint are adjustable separately"
-    annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Adjustable settings"));
+    annotation (Dialog(tab="Setpoint adjust", group="Adjustable settings"));
   parameter Boolean heaAdj=false
     "Flag, set to true if heating setpoint is adjustable"
-    annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Adjustable settings"));
+    annotation (Dialog(tab="Setpoint adjust", group="Adjustable settings"));
   parameter Boolean sinAdj=false
     "Flag, set to true if both cooling and heating setpoint are adjustable through a single common knob"
-    annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Adjustable settings"));
+    annotation (Dialog(tab="Setpoint adjust", group="Adjustable settings"));
   parameter Boolean ignDemLim=true
     "Flag, set to true to exempt individual zone from demand limit setpoint adjustment"
-    annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Adjustable settings"));
-  parameter Modelica.SIunits.Temperature TZonCooOnMax=300.15
+    annotation (Dialog(tab="Setpoint adjust", group="Adjustable settings"));
+  parameter Real TZonCooOnMax(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=300.15
     "Maximum cooling setpoint during on"
-    annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Limits"));
-  parameter Modelica.SIunits.Temperature TZonCooOnMin=295.15
+    annotation (Dialog(tab="Setpoint adjust", group="Limits"));
+  parameter Real TZonCooOnMin(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=295.15
     "Minimum cooling setpoint during on"
-    annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Limits"));
-  parameter Modelica.SIunits.Temperature TZonHeaOnMax=295.15
+    annotation (Dialog(tab="Setpoint adjust", group="Limits"));
+  parameter Real TZonHeaOnMax(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=295.15
     "Maximum heating setpoint during on"
-    annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Limits"));
-  parameter Modelica.SIunits.Temperature TZonHeaOnMin=291.15
+    annotation (Dialog(tab="Setpoint adjust", group="Limits"));
+  parameter Real TZonHeaOnMin(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=291.15
     "Minimum heating setpoint during on"
-    annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Limits"));
-  parameter Modelica.SIunits.Temperature TZonCooSetWinOpe=322.15
+    annotation (Dialog(tab="Setpoint adjust", group="Limits"));
+  parameter Real TZonCooSetWinOpe(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=322.15
     "Cooling setpoint when window is open"
-    annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Limits"));
-  parameter Modelica.SIunits.Temperature TZonHeaSetWinOpe=277.15
+    annotation (Dialog(tab="Setpoint adjust", group="Limits"));
+  parameter Real TZonHeaSetWinOpe(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=277.15
     "Heating setpoint when window is open"
-    annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Limits"));
-  parameter Modelica.SIunits.TemperatureDifference incTSetDem_1=0.56
+    annotation (Dialog(tab="Setpoint adjust", group="Limits"));
+  parameter Real incTSetDem_1(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference")=0.56
     "Cooling setpoint increase value when cooling demand limit level 1 is imposed"
-    annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Demands settings"));
-  parameter Modelica.SIunits.TemperatureDifference incTSetDem_2=1.1
+    annotation (Dialog(tab="Setpoint adjust", group="Demands settings"));
+  parameter Real incTSetDem_2(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference")=1.1
     "Cooling setpoint increase value when cooling demand limit level 2 is imposed"
-    annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Demands settings"));
-  parameter Modelica.SIunits.TemperatureDifference incTSetDem_3=2.2
+    annotation (Dialog(tab="Setpoint adjust", group="Demands settings"));
+  parameter Real incTSetDem_3(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference")=2.2
     "Cooling setpoint increase value when cooling demand limit level 3 is imposed"
-    annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Demands settings"));
-  parameter Modelica.SIunits.TemperatureDifference decTSetDem_1=0.56
+    annotation (Dialog(tab="Setpoint adjust", group="Demands settings"));
+  parameter Real decTSetDem_1(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference")=0.56
     "Heating setpoint decrease value when heating demand limit level 1 is imposed"
-    annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Demands settings"));
-  parameter Modelica.SIunits.TemperatureDifference decTSetDem_2=1.1
+    annotation (Dialog(tab="Setpoint adjust", group="Demands settings"));
+  parameter Real decTSetDem_2(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference")=1.1
     "Heating setpoint decrease value when heating demand limit level 2 is imposed"
-    annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Demands settings"));
-  parameter Modelica.SIunits.TemperatureDifference decTSetDem_3=2.2
+    annotation (Dialog(tab="Setpoint adjust", group="Demands settings"));
+  parameter Real decTSetDem_3(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference")=2.2
     "Heating setpoint decrease value when heating demand limit level 3 is imposed"
-    annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Demands settings"));
+    annotation (Dialog(tab="Setpoint adjust", group="Demands settings"));
   parameter Integer cooDemLimLevCon=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.DemandLimitLevels.cooling0
     "Cooling demand limit level"
-    annotation (Evaluate=true, Dialog(tab="Setpoint adjust"));
+    annotation (Dialog(tab="Setpoint adjust"));
   parameter Integer heaDemLimLevCon=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.DemandLimitLevels.heating0
     "Heating demand limit level"
-    annotation (Evaluate=true, Dialog(tab="Setpoint adjust"));
+    annotation (Dialog(tab="Setpoint adjust"));
   parameter Boolean winStaCon=false
     "Window status, set to true if window is open"
-    annotation (Evaluate=true, Dialog(tab="Setpoint adjust"));
+    annotation (Dialog(tab="Setpoint adjust"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tNexOcc(
     final unit="s",
@@ -322,21 +383,25 @@ annotation (defaultComponentName="modSetPoi",
           pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
+          visible=cooAdj or sinAdj,
           extent={{-100,12},{-56,-8}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="setAdj"),
         Text(
+          visible=heaAdj,
           extent={{-98,-20},{-34,-40}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="heaSetAdj"),
         Text(
+          visible=have_occSen,
           extent={{-98,-50},{-50,-68}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uOccSen"),
         Text(
+          visible=have_winSen,
           extent={{-98,-80},{-56,-98}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,

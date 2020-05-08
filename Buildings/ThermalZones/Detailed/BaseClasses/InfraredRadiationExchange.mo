@@ -1,12 +1,13 @@
 within Buildings.ThermalZones.Detailed.BaseClasses;
 model InfraredRadiationExchange
   "Infrared radiation heat exchange between the room facing surfaces"
-  extends
-    Buildings.ThermalZones.Detailed.BaseClasses.PartialSurfaceInterfaceRadiative;
+  extends Buildings.ThermalZones.Detailed.BaseClasses.PartialSurfaceInterfaceRadiative;
+
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
+
   parameter Boolean linearizeRadiation
     "Set to true to linearize emissive power";
-  parameter Boolean homotopyInitialization=true "= true, use homotopy method"
-    annotation (Evaluate=true, Dialog(tab="Advanced"));
   parameter Boolean sampleModel=false
     "Set to true to time-sample the model, which can give shorter simulation time if there is already time sampling in the system model"
     annotation (Evaluate=true, Dialog(tab=
@@ -88,6 +89,10 @@ protected
   Modelica.SIunits.HeatFlowRate sumEBal(start=0, fixed=sampleModel)
     "Sum of energy balance, should be zero";
 initial equation
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
+
   // The next loops build the array epsOpa, AOpa and kOpa that simplify
   // the model equations.
   // These arrays store the values of the constructios in the following order
@@ -408,6 +413,12 @@ The view factor from surface <i>i</i> to <i>j</i> is approximated as
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
+</li>
 <li>
 January 23, 2017, by Michael Wetter:<br/>
 Corrected wrong start value for <code>J</code>.

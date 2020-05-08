@@ -2,9 +2,15 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat;
 block DamperValves
   "Output signals for controlling VAV reheat box damper and valve position"
 
-  parameter Modelica.SIunits.TemperatureDifference dTDisZonSetMax=11
+  parameter Real dTDisZonSetMax(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference")=11
     "Zone maximum discharge air temperature above heating setpoint";
-  parameter Modelica.SIunits.Temperature TDisMin=283.15
+  parameter Real TDisMin(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=283.15
     "Lowest discharge air temperature";
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeVal=
@@ -16,13 +22,17 @@ block DamperValves
     "Gain of controller for valve control"
     annotation(Dialog(group="Valve"));
 
-  parameter Modelica.SIunits.Time TiVal=300
+  parameter Real TiVal(
+    final unit="s",
+    final quantity="Time")=300
     "Time constant of integrator block for valve control"
     annotation(Dialog(group="Valve",
     enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
         or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Modelica.SIunits.Time TdVal=0.1
+  parameter Real TdVal(
+    final unit="s",
+    final quantity="Time")=0.1
     "Time constant of derivative block for valve control"
     annotation (Dialog(group="Valve",
       enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
@@ -37,19 +47,26 @@ block DamperValves
     "Gain of controller for damper control"
     annotation(Dialog(group="Damper"));
 
-  parameter Modelica.SIunits.Time TiDam=300
+  parameter Real TiDam(
+    final unit="s",
+    final quantity="Time")=300
     "Time constant of integrator block for damper control"
     annotation(Dialog(group="Damper",
     enable=controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
         or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Modelica.SIunits.Time TdDam=0.1
+  parameter Real TdDam(
+    final unit="s",
+    final quantity="Time")=0.1
     "Time constant of derivative block for damper control"
     annotation (Dialog(group="Damper",
       enable=controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal(min=1E-10)
+  parameter Real V_flow_nominal(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate",
+    final min=1E-10)
     "Nominal volume flow rate, used to normalize control error"
     annotation(Dialog(group="Damper"));
 
@@ -111,24 +128,28 @@ block DamperValves
       iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={40,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Supply air temperature from central air handler"
     annotation (Placement(transformation(extent={{-360,-50},{-320,-10}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSet(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Zone heating setpoint temperature"
     annotation (Placement(transformation(extent={{-360,-80},{-320,-40}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Measured zone temperature"
     annotation (Placement(transformation(extent={{-360,-270},{-320,-230}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDis(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Measured discharge air temperature"
     annotation (Placement(transformation(extent={{-360,110},{-320,150}}),
@@ -159,6 +180,7 @@ block DamperValves
         iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TDisHeaSet(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Discharge airflow setpoint temperature for heating"
     annotation (Placement(transformation(extent={{320,-160},{360,-120}}),
@@ -316,7 +338,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch swi6
     "Output hot water valve position in case of low discharge air temperature"
     annotation (Placement(transformation(extent={{-30,-90},{-10,-70}})));
-  Buildings.Controls.OBC.CDL.Logical.Or or2
+  Buildings.Controls.OBC.CDL.Logical.Or or2 "Logical not"
     annotation (Placement(transformation(extent={{-68,-64},{-48,-44}})));
   Buildings.Controls.OBC.CDL.Logical.Not not3 "Logical not"
     annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
@@ -326,6 +348,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not6 "Negation of input signal"
     annotation (Placement(transformation(extent={{-40,-192},{-20,-172}})));
   Buildings.Controls.OBC.CDL.Logical.And and1
+    "Check if it is not in heating mode and the discharge temperature is not too low"
     annotation (Placement(transformation(extent={{20,-56},{40,-36}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add3 "Active airflow setpoint"
     annotation (Placement(transformation(extent={{200,220},{220,240}})));
@@ -508,7 +531,7 @@ equation
   connect(isUno.y, not5.u) annotation (Line(points={{242,-312},{266,-312},{266,-280},
           {180,-280},{180,-250},{198,-250}}, color={255,0,255}));
   connect(not5.y, conDam.trigger) annotation (Line(points={{222,-250},{232,-250},
-          {232,170},{282,170},{282,178}}, color={255,0,255}));
+          {232,170},{284,170},{284,178}}, color={255,0,255}));
   connect(truHol2.y, or2.u2) annotation (Line(points={{-200,-210},{-88,-210},{-88,
           -62},{-70,-62}},     color={255,0,255}));
   connect(truDel3.y, not3.u)
@@ -538,7 +561,7 @@ equation
   connect(not4.y, truDel3.u)
     annotation (Line(points={{-180,130},{-162,130}}, color={255,0,255}));
   connect(not5.y, conVal.trigger) annotation (Line(points={{222,-250},{232,-250},
-          {232,-132},{36,-132},{36,-92}},  color={255,0,255}));
+          {232,-132},{38,-132},{38,-92}},  color={255,0,255}));
   connect(swi6.y, conVal.u_s)
     annotation (Line(points={{-8,-80},{32,-80}},   color={0,0,127}));
   connect(swi1.y, add4.u1) annotation (Line(points={{154,50},{168,50},{168,56},{
