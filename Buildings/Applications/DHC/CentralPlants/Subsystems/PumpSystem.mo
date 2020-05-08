@@ -7,12 +7,6 @@ model PumpSystem
     "Nominal mass flow rate ";
     parameter Real Motor_eta "Motor efficiency";
     parameter Real Hydra_eta "Hydraulic efficiency";
-  WaterSide.BaseClasses.Components.PumpConstantSpeed pumConSpeB(
-    redeclare package Medium = Medium,
-    Motor_eta=Motor_eta,
-    Hydra_eta=Hydra_eta,
-    m_flow_nominal=m_flow_nominal) "Constant Speed pump B"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   WaterSide.BaseClasses.Components.PumpConstantSpeed pumConSpeC(
     redeclare package Medium = Medium,
     Motor_eta=Motor_eta,
@@ -37,16 +31,6 @@ model PumpSystem
     "Electrical power consumed by pump"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
 equation
-  connect(pumConSpeB.port_a, port_a) annotation (Line(
-      points={{-10,0},{-100,0}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=1));
-  connect(pumConSpeB.port_b, port_b) annotation (Line(
-      points={{10,0},{100,0}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=1));
   connect(pumConSpeA.port_a, port_a)
     annotation (Line(
       points={{-10,-30},{-40,-30},{-40,0},{-100,0}},
@@ -77,12 +61,6 @@ equation
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
-  connect(pumConSpeB.On, On[2])
-    annotation (Line(
-      points={{-10.9,6},{-26,6},{-26,36},{-40,36},{-40,60},{-109,60}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
   connect(pumConSpeA.On, On[1]) annotation (Line(
       points={{-10.9,-24},{-26,-24},{-26,36},{-40,36},{-40,54},{-109,54}},
       color={0,0,127},
@@ -91,12 +69,6 @@ equation
   connect(pumConSpeC.P, P[3])
     annotation (Line(
       points={{11,36},{40,36},{40,66.6667},{110,66.6667}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(pumConSpeB.P, P[2])
-    annotation (Line(
-      points={{11,6},{28,6},{28,36},{40,36},{40,60},{110,60}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));

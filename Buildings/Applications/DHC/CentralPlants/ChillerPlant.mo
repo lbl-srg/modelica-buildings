@@ -73,7 +73,7 @@ model ChillerPlant "District cooling plant model"
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={80,-60})));
-  Subsystems.CoolingTowerWithBypass cooTowWithByp(
+  Subsystems.CoolingTowerWithBypass cooTowWitByp(
     redeclare package MediumCW = MediumCW,
     TSet=273.15 + 15.56,
     P_nominal=PTow_nominal,
@@ -136,7 +136,7 @@ model ChillerPlant "District cooling plant model"
         origin={80,-10})));
   Controls.ChillerBypassControl chiBypCon
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  Subsystems.MultiChillerSystem multiChillerSystem
+  Subsystems.MultiChillerSystem mulChiSys
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
 equation
   connect(senTCHWByp.port_b, pumCHW.port_a) annotation (Line(
@@ -154,7 +154,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None,
       thickness=1));
-  connect(cooTowWithByp.port_b, pumCW.port_a) annotation (Line(
+  connect(cooTowWitByp.port_b, pumCW.port_a) annotation (Line(
       points={{-80,-12},{-80,-80},{-66,-80}},
       color={0,127,255},
       smooth=Smooth.None,
@@ -176,7 +176,7 @@ equation
       points={{-110,-60},{-110,-80},{-66,-80}},
       color={0,127,255},
       thickness=1));
-  connect(TWetBul, cooTowWithByp.TWetBul) annotation (Line(
+  connect(TWetBul, cooTowWitByp.TWetBul) annotation (Line(
       points={{-160,-60},{-132,-60},{-132,-8},{-121.8,-8}},
       color={0,0,127},
       pattern=LinePattern.Dash));
@@ -188,15 +188,15 @@ equation
       points={{-79,50},{-60,50},{-60,80},{80,80},{80,70.8},{71.62,70.8}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(chiStaCon.y, mulChiSys.On) annotation (Line(
-      points={{-79,50},{-60,50},{-60,-8},{-21.8,-8}},
+  connect(chiStaCon.y,mulChiSys.on)  annotation (Line(
+      points={{-79,50},{-60,50},{-60,0},{-22,0}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(chiStaCon.y, pumCW.On) annotation (Line(
       points={{-79,50},{-74,50},{-74,-69.2},{-67.62,-69.2}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(chiStaCon.y, cooTowWithByp.On) annotation (Line(
+  connect(chiStaCon.y, cooTowWitByp.On) annotation (Line(
       points={{-79,50},{-74,50},{-74,24},{-128,24},{-128,16},{-121.8,16}},
       color={0,0,127},
       pattern=LinePattern.Dash));
@@ -216,22 +216,26 @@ equation
       points={{1,50},{40,50},{40,-10},{68,-10}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(pumCW.port_b, multiChillerSystem.port_a_CW) annotation (Line(
+  connect(pumCW.port_b, mulChiSys.port_a_CW) annotation (Line(
       points={{-30,-80},{-26,-80},{-26,-16},{-20,-16}},
       color={0,127,255},
       thickness=1));
-  connect(cooTowWithByp.port_a, multiChillerSystem.port_b_CW) annotation (Line(
+  connect(cooTowWitByp.port_a, mulChiSys.port_b_CW) annotation (Line(
       points={{-80,16},{-20,16}},
       color={0,127,255},
       thickness=1));
-  connect(pumCHW.port_b, multiChillerSystem.port_a_CHW) annotation (Line(
+  connect(pumCHW.port_b, mulChiSys.port_a_CHW) annotation (Line(
       points={{34,60},{26,60},{26,16},{20,16}},
       color={0,127,255},
       thickness=1));
-  connect(multiChillerSystem.port_b_CHW, senTCHWSup.port_a) annotation (Line(
+  connect(mulChiSys.port_b_CHW, senTCHWSup.port_a) annotation (Line(
       points={{20,-16},{24,-16},{24,-80},{100,-80}},
       color={0,127,255},
       thickness=1));
+  connect(mulChiSys.rat, chiStaCon.Status) annotation (Line(
+      points={{22,-8},{32,-8},{32,34},{-112,34},{-112,42},{-102,42}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
   annotation (__Dymola_Commands(file=
           "modelica://ChillerPlantSystem/Resources/Scripts/Dymola/LejeunePlant/ChillerPlantSystem.mos"
         "Simulate and plot"),

@@ -23,8 +23,9 @@ model MultiChillerSystem
     "The start temperature of condenser water side";
   parameter Modelica.SIunits.Temperature TCHW_start
     "The start temperature of chilled water side";
-  Modelica.Blocks.Interfaces.RealInput On[3](min=0,max=1) "On signal"    annotation (Placement(transformation(extent={{-118,
-            -31},{-100,-49}})));
+  Modelica.Blocks.Interfaces.RealInput on[2](min=0,max=1)
+    "On signal for chillers"                                             annotation (Placement(transformation(extent={{-120,10},
+            {-100,-10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a_CW(redeclare package Medium = MediumCW)
     "Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{-110,-90},{-90,-70}})));
@@ -38,7 +39,7 @@ model MultiChillerSystem
   Modelica.Fluid.Interfaces.FluidPort_a port_a_CHW(redeclare package Medium = MediumCHW)
     "Fluid connector a2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{90,70},{110,90}})));
-  Modelica.Blocks.Interfaces.RealOutput P[3]
+  Modelica.Blocks.Interfaces.RealOutput P[2]
     "Electric power consumed by compressor"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTCHWEntChi(
@@ -71,7 +72,7 @@ model MultiChillerSystem
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-70,-80})));
-  WaterSide.BaseClasses.Components.Compressor ch1(
+  Components.Chiller                          ch1(
     redeclare package MediumCHW = MediumCHW,
     redeclare package MediumCW = MediumCW,
     dPCHW_nominal=dPCHW_nominal,
@@ -81,7 +82,7 @@ model MultiChillerSystem
     TCW_start=TCW_start,
     TCHW_start=TCHW_start,
     per=per) annotation (Placement(transformation(extent={{-20,18},{0,38}})));
-  WaterSide.BaseClasses.Components.Compressor ch2(
+  Components.Chiller                          ch2(
     redeclare package MediumCHW = MediumCHW,
     redeclare package MediumCW = MediumCW,
     dPCHW_nominal=dPCHW_nominal,
@@ -90,19 +91,8 @@ model MultiChillerSystem
     mCW_flow_nominal=mCW_flow_nominal,
     TCW_start=TCW_start,
     TCHW_start=TCHW_start,
-    per=per) annotation (Placement(transformation(extent={{-20,-18},{0,2}})));
-  WaterSide.BaseClasses.Components.Compressor ch3(
-    redeclare package MediumCHW = MediumCHW,
-    redeclare package MediumCW = MediumCW,
-    dPCHW_nominal=dPCHW_nominal,
-    dPCW_nominal=dPCW_nominal,
-    mCHW_flow_nominal=mCHW_flow_nominal,
-    mCW_flow_nominal=mCW_flow_nominal,
-    TCW_start=TCW_start,
-    TCHW_start=TCHW_start,
-    per=per)
-    annotation (Placement(transformation(extent={{-20,-58},{0,-38}})));
-  Modelica.Blocks.Interfaces.RealOutput Rat[3] "compressor speed ratio"
+    per=per) annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
+  Modelica.Blocks.Interfaces.RealOutput rat[2] "compressor speed ratio"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFloCHW(redeclare package Medium =
         MediumCHW)
@@ -110,8 +100,8 @@ model MultiChillerSystem
   Buildings.Fluid.Sensors.MassFlowRate senMasFloCW(redeclare package Medium =
         MediumCHW)
     annotation (Placement(transformation(extent={{-46,70},{-64,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetCHW
-    annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetCHW(k=TSetCHW)
+    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 equation
   connect(port_b_CW, port_b_CW) annotation (Line(
       points={{-100,80},{-100,80}},
@@ -143,78 +133,20 @@ equation
       color={0,127,255},
       smooth=Smooth.None,
       thickness=1));
-  connect(ch2.port_b_CW, ch1.port_b_CW) annotation (Line(points={{-20,0},{-40,0},
-          {-40,80},{-20,80},{-20,36}}, color={0,127,255}));
-  connect(ch3.port_b_CW, ch1.port_b_CW) annotation (Line(
-      points={{-20,-40},{-40,-40},{-40,80},{-20,80},{-20,36}},
-      color={0,127,255},
-      thickness=1));
-  connect(senTCWEntChi.port_b, ch3.port_a_CW) annotation (Line(
-      points={{-60,-80},{-50,-80},{-50,-56},{-20,-56}},
-      color={0,127,255},
-      thickness=1));
-  connect(ch2.port_a_CW, ch3.port_a_CW) annotation (Line(
-      points={{-20,-16},{-50,-16},{-50,-56},{-20,-56}},
-      color={0,127,255},
-      thickness=1));
-  connect(ch1.port_a_CW, ch3.port_a_CW) annotation (Line(
-      points={{-20,20},{-50,20},{-50,-56},{-20,-56}},
-      color={0,127,255},
-      thickness=1));
   connect(ch1.port_a_CHW, senTCHWEntChi.port_b) annotation (Line(
       points={{0,36},{20,36},{20,80},{40,80}},
       color={0,127,255},
       thickness=1));
   connect(ch2.port_a_CHW, senTCHWEntChi.port_b) annotation (Line(
-      points={{0,0},{20,0},{20,80},{40,80}},
+      points={{0,-22},{20,-22},{20,80},{40,80}},
       color={0,127,255},
       thickness=1));
-  connect(ch3.port_a_CHW, senTCHWEntChi.port_b) annotation (Line(
-      points={{0,-40},{20,-40},{20,80},{40,80}},
-      color={0,127,255},
-      thickness=1));
-  connect(ch1.port_b_CHW, senTCHWLeaChi.port_a) annotation (Line(
-      points={{0,20},{20,20},{42,20},{42,-80}},
-      color={0,127,255},
-      thickness=1));
-  connect(ch2.port_b_CHW, senTCHWLeaChi.port_a) annotation (Line(
-      points={{0,-16},{42,-16},{42,-80}},
-      color={0,127,255},
-      thickness=1));
-  connect(ch3.port_b_CHW, senTCHWLeaChi.port_a) annotation (Line(
-      points={{0,-56},{42,-56},{42,-80}},
-      color={0,127,255},
-      thickness=1));
-  connect(ch1.On, On[1]) annotation (Line(
-      points={{-22,23},{-88,23},{-88,-34},{-109,-34}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(ch2.On, On[2]) annotation (Line(
-      points={{-22,-13},{-70,-13},{-70,-40},{-109,-40}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(ch3.On, On[3]) annotation (Line(
-      points={{-22,-53},{-88,-53},{-88,-46},{-109,-46}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(ch1.P, P[1]) annotation (Line(
-      points={{1,32},{30,32},{60,32},{60,33.3333},{110,33.3333}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(ch2.P, P[2]) annotation (Line(
-      points={{1,-4},{28,-4},{54,-4},{54,40},{110,40}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(ch3.P, P[3]) annotation (Line(
-      points={{1,-44},{26,-44},{46,-44},{46,46.6667},{110,46.6667}},
+  connect(ch2.On,on [2]) annotation (Line(
+      points={{-22,-35},{-70,-35},{-70,-5},{-110,-5}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(senTCWLeaChi.port_a, senMasFloCW.port_b) annotation (Line(
       points={{-70,80},{-64,80}},
-      color={0,127,255},
-      thickness=1));
-  connect(senMasFloCW.port_a, ch1.port_b_CW) annotation (Line(
-      points={{-46,80},{-20,80},{-20,36}},
       color={0,127,255},
       thickness=1));
   connect(senMasFloCHW.port_b, port_b_CHW) annotation (Line(
@@ -225,20 +157,52 @@ equation
       points={{62,-80},{66,-80},{70,-80}},
       color={0,127,255},
       thickness=1));
-  connect(Rat, On) annotation (Line(
-      points={{110,-40},{-109,-40}},
+  connect(TSetCHW.y, ch1.TCHWSet) annotation (Line(
+      points={{-78,30},{-74,30},{-74,31},{-22,31}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(TSetCHW.y, ch1.TCHWSet) annotation (Line(
-      points={{-78,40},{-74,40},{-74,31},{-22,31}},
+  connect(senTCWEntChi.port_b, ch2.port_a_CW) annotation (Line(
+      points={{-60,-80},{-54,-80},{-54,-38},{-20,-38}},
+      color={0,127,255},
+      thickness=1));
+  connect(senTCWEntChi.port_b, ch1.port_a_CW) annotation (Line(
+      points={{-60,-80},{-54,-80},{-54,20},{-20,20}},
+      color={0,127,255},
+      thickness=1));
+  connect(senMasFloCW.port_a, ch1.port_b_CW) annotation (Line(
+      points={{-46,80},{-40,80},{-40,36},{-20,36}},
+      color={0,127,255},
+      thickness=1));
+  connect(senMasFloCW.port_a, ch2.port_b_CW) annotation (Line(
+      points={{-46,80},{-40,80},{-40,-22},{-20,-22}},
+      color={0,127,255},
+      thickness=1));
+  connect(senTCHWLeaChi.port_a, ch1.port_b_CHW) annotation (Line(
+      points={{42,-80},{34,-80},{34,20},{0,20}},
+      color={0,127,255},
+      thickness=1));
+  connect(senTCHWLeaChi.port_a, ch2.port_b_CHW) annotation (Line(
+      points={{42,-80},{34,-80},{34,-38},{0,-38}},
+      color={0,127,255},
+      thickness=1));
+  connect(ch1.P, P[1]) annotation (Line(
+      points={{1,32},{40,32},{40,35},{110,35}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
+  connect(ch2.P, P[2]) annotation (Line(
+      points={{1,-26},{40,-26},{40,45},{110,45}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
+  connect(on[1], ch1.On) annotation (Line(
+      points={{-110,5},{-70,5},{-70,23},{-22,23}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(TSetCHW.y, ch2.TCHWSet) annotation (Line(
-      points={{-78,40},{-70,40},{-70,-5},{-22,-5}},
+      points={{-78,30},{-74,30},{-74,-27},{-22,-27}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(TSetCHW.y, ch3.TCHWSet) annotation (Line(
-      points={{-78,40},{-66,40},{-66,-45},{-22,-45}},
+  connect(on, rat) annotation (Line(
+      points={{-110,0},{-70,0},{-70,-40},{110,-40}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   annotation (Documentation(info="<html>
