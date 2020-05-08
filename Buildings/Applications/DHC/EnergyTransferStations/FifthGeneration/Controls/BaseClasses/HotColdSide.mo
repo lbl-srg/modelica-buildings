@@ -27,10 +27,10 @@ partial block HotColdSide "State machine enabling production and ambient source 
     "Temperature at bottom of tank"
     annotation (Placement(transformation(extent={{-220,-140},{-180,-100}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yIso(unit="1")
-    "Ambient loop isolation valve control signal"
-    annotation (Placement(transformation(extent={{180,-40},{220,0}}),
-      iconTransformation(extent={{100,-60},{140,-20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yIsoAmb(unit="1")
+    "Ambient loop isolation valve control signal" annotation (Placement(
+        transformation(extent={{180,-100},{220,-60}}), iconTransformation(
+          extent={{100,-60},{140,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yRej
     "Enabled signal for full heat or cold rejection to ambient loop"
     annotation (Placement(transformation(extent={{180,0},{220,40}}), iconTransformation(
@@ -79,10 +79,10 @@ partial block HotColdSide "State machine enabling production and ambient source 
     "Output TSet + THysSig"
     annotation (Placement(transformation(extent={{-130,-150},{-110,-130}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
-    annotation (Placement(transformation(extent={{90,-30},{110,-10}})));
+    annotation (Placement(transformation(extent={{90,-90},{110,-70}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     "Boolean to real conversion"
-    annotation (Placement(transformation(extent={{140,-30},{160,-10}})));
+    annotation (Placement(transformation(extent={{140,-90},{160,-70}})));
   Inequality enaHeaCoo
     "Threshold comparison for enabling heating or cooling system"
     annotation (Placement(transformation(extent={{-140,30},{-120,50}})));
@@ -105,6 +105,10 @@ partial block HotColdSide "State machine enabling production and ambient source 
     "Enabled signal for heating or cooling system"
     annotation (Placement(transformation(extent={{180,140},{220,180}}),
       iconTransformation(extent={{100,60},{140,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yAmb
+    "Enabled signal for connecting ambient loop " annotation (Placement(
+        transformation(extent={{180,-60},{220,-20}}), iconTransformation(extent
+          ={{100,-20},{140,20}})));
 initial equation
   assert(THys >= 0, "In " + getInstanceName() +
     ": THys (" + String(THys) + ") must be an absolute value.");
@@ -141,8 +145,7 @@ equation
           60,120},{60,140},{140.6,140}}, color={0,0,0}));
   connect(enaHeaCoo.y, t1.condition) annotation (Line(points={{-118,40},{-100,40},
           {-100,160},{-60,160},{-60,168}}, color={255,0,255}));
-  connect(booToRea.u, or2.y) annotation (Line(points={{138,-20},{112,-20}}, color={255,0,255}));
-  connect(yIso, booToRea.y) annotation (Line(points={{200,-20},{162,-20}}, color={0,0,127}));
+  connect(booToRea.u, or2.y) annotation (Line(points={{138,-80},{112,-80}}, color={255,0,255}));
   connect(TSet, disHeaCoo.u2) annotation (Line(points={{-200,120},{-160,120},{-160,
           -8},{-142,-8}}, color={0,0,127}));
   connect(TSet, enaHeaCoo.u1) annotation (Line(points={{-200,120},{-160,120},{-160,
@@ -159,8 +162,9 @@ equation
     annotation (Line(points={{-108,-240},{-44,-240}}, color={0,0,127}));
   connect(TSet1THys.y, cloIso.u1)
     annotation (Line(points={{-108,-140},{-42,-140}}, color={0,0,127}));
-  connect(or2.u2, rejPar.active) annotation (Line(points={{88,-28},{-30,-28},{-30,
-          109}}, color={255,0,255}));
+  connect(or2.u2, rejPar.active) annotation (Line(points={{88,-88},{-30,-88},{
+          -30,109}},
+                 color={255,0,255}));
   connect(opeIso.y, t3.condition) annotation (Line(points={{-68,-40},{-60,-40},{
           -60,108}}, color={255,0,255}));
   connect(enaRej.y, t5.condition) annotation (Line(points={{-18,-200},{40,-200},
@@ -172,7 +176,7 @@ equation
   connect(cloIso.y, t4.condition) annotation (Line(points={{-18,-140},{20,-140},
           {20,108}}, color={255,0,255}));
   connect(rejFul.active, or2.u1)
-    annotation (Line(points={{80,89},{80,-20},{88,-20}}, color={255,0,255}));
+    annotation (Line(points={{80,89},{80,-80},{88,-80}}, color={255,0,255}));
   connect(rejFul.active, yRej)
     annotation (Line(points={{80,89},{80,20},{200,20}}, color={255,0,255}));
   connect(run.active, yHeaCoo) annotation (Line(points={{-30,169},{-30,160},{200,
@@ -181,6 +185,10 @@ equation
           -200},{-132,-200}}, color={0,0,127}));
   connect(TSet, TSet2p5THys.u) annotation (Line(points={{-200,120},{-160,120},{-160,
           -240},{-132,-240}}, color={0,0,127}));
+  connect(booToRea.y, yIsoAmb)
+    annotation (Line(points={{162,-80},{200,-80}}, color={0,0,127}));
+  connect(or2.y, yAmb) annotation (Line(points={{112,-80},{130,-80},{130,-40},{
+          200,-40}}, color={255,0,255}));
    annotation (
  Documentation(info="<html>
 

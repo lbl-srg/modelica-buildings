@@ -58,13 +58,9 @@ model HeatExchanger
     "Time constant of integrator block"
     annotation (Dialog(group="Controls"));
   // IO CONNECTORS
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uColRej
-    "Control signal enabling full cold rejection to ambient loop"
-    annotation (Placement(transformation(extent={{-140,100},{-100,140}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaRej
-    "Control signal enabling full heat rejection to ambient loop"
-    annotation (Placement(transformation(extent={{-140,130},{-100,170}}),
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEnaHex
+    "Control signal enabling heat exchanger operation"
+    annotation (Placement(transformation(extent={{-140,120},{-100,160}}),
         iconTransformation(extent={{-140,10},{-100,50}})));
   Modelica.Blocks.Interfaces.RealOutput PPum(final unit="W")
     "Power drawn by pump motors"
@@ -80,7 +76,7 @@ model HeatExchanger
     final k=k,
     final Ti=Ti)
     "District heat exchanger loop controller"
-    annotation (Placement(transformation(extent={{-40,124},{-20,144}})));
+    annotation (Placement(transformation(extent={{-40,122},{-20,142}})));
   Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU hex(
     redeclare final package Medium1 = Medium1,
     redeclare final package Medium2 = Medium2,
@@ -101,7 +97,7 @@ model HeatExchanger
       extent={{10,10},{-10,-10}},
       rotation=180,
       origin={0,0})));
-  Pump_m_flow                        pum2Hex(
+  Pump_m_flow pum2Hex(
     redeclare final package Medium = Medium2,
     final m_flow_nominal=m2_flow_nominal,
     final dp_nominal=dp2Hex_nominal,
@@ -207,14 +203,9 @@ equation
     connect(port_a1, senT1HexWatEnt.port_a)
       annotation (Line(points={{-100,60},{-20,60},{-20,50}}, color={0,127,255}));
   end if;
-  connect(uHeaRej, conHex.uHeaRej) annotation (Line(points={{-120,150},{-90,150},
-          {-90,143},{-42,143}},
-    color={255,0,255}));
-  connect(uColRej, conHex.uColRej) annotation (Line(points={{-120,120},{-90,120},
-          {-90,140},{-42,140}}, color={255,0,255}));
   connect(port_a2, pum2Hex.port_a)
     annotation (Line(points={{100,-60},{90,-60}}, color={0,127,255}));
-  connect(conHex.y2Hex, gai2.u) annotation (Line(points={{-18,128},{10,128},{10,
+  connect(conHex.y2Hex, gai2.u) annotation (Line(points={{-18,126},{10,126},{10,
           100},{18,100}}, color={0,0,127}));
   connect(gai2.y, pum2Hex.m_flow_in)
     annotation (Line(points={{42,100},{80,100},{80,-48}}, color={0,0,127}));
@@ -241,8 +232,8 @@ equation
   connect(val1Hex.port_a, senT1HexWatLvg.port_b)
     annotation (Line(points={{50,80},{20,80},{20,30}}, color={0,127,255}));
   connect(conHex.y1Hex, val1Hex.y)
-    annotation (Line(points={{-18,140},{60,140},{60,92}}, color={0,0,127}));
-  connect(conHex.y1Hex, gai1.u) annotation (Line(points={{-18,140},{-10,140},{-10,
+    annotation (Line(points={{-18,138},{60,138},{60,92}}, color={0,0,127}));
+  connect(conHex.y1Hex, gai1.u) annotation (Line(points={{-18,138},{-10,138},{-10,
           100},{-18,100}}, color={0,0,127}));
   connect(gai1.y, pum1Hex.m_flow_in)
     annotation (Line(points={{-42,100},{-60,100},{-60,92}}, color={0,0,127}));
@@ -262,6 +253,8 @@ equation
     annotation (Line(points={{72,0},{120,0}}, color={0,0,127}));
   connect(yValIso, conHex.yValIso) annotation (Line(points={{-120,90},{-88,90},{
           -88,137},{-42,137}}, color={0,0,127}));
+  connect(uEnaHex, conHex.uEnaHex)
+    annotation (Line(points={{-120,140},{-42,140}}, color={255,0,255}));
   annotation (
   defaultComponentName="hex",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

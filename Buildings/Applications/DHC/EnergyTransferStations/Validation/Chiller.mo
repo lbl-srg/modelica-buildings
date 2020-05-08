@@ -34,44 +34,29 @@ model Chiller
     y(final unit="K", displayUnit="degC"))
     "Heating water supply temperature set-point"
     annotation (Placement(transformation(extent={{-160,130},{-140,150}})));
-  Fluid.Sources.PropertySource_T
-                            chiWat(
-    redeclare package Medium = Medium,
-    use_T_in=true)
-              "Chilled water boundary conditions"
-    annotation (Placement(
-      transformation(
-      extent={{-10,-10},{10,10}},
-      rotation=-90,
-      origin={140,0})));
   Fluid.Sources.Boundary_pT heaWat(
     redeclare package Medium = Medium,
-    use_T_in=true,
     nPorts=2) "Heating water boundary conditions"
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-150,0})));
+        rotation=90,
+        origin={-106,-50})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatSupSet(
     k=7 + 273.15,
     y(final unit="K", displayUnit="degC"))
     "Chilled water supply temperature set-point"
     annotation (Placement(transformation(extent={{-160,90},{-140,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TChiWatRet(
-    offset=9 + 273.15,
-    y(final unit="K", displayUnit="degC"),
-    height=5,
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramLoaCoo(
+    height=1,
     duration=1000,
-    startTime=1000) "Chilled water return temperature"
-    annotation (Placement(transformation(extent={{260,-30},{240,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp THeaWatRet(
-    offset=44 + 273.15,
-    y(final unit="K", displayUnit="degC"),
-    height=-10,
+    startTime=1000) "Cooling load ramp (fractional)"
+    annotation (Placement(transformation(extent={{270,10},{250,30}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramLoaHea(
+    height=1.1,
     duration=1000,
-    startTime=2000) "Heating water return temperature"
-    annotation (Placement(transformation(extent={{-260,-30},{-240,-10}})));
+    startTime=2000) "Heating load ramp (fractional)"
+    annotation (Placement(transformation(extent={{-270,30},{-250,50}})));
   Fluid.Sensors.TemperatureTwoPort senTHeaWatSup(redeclare final package Medium =
         Medium, m_flow_nominal=datChi.mCon_flow_nominal)
     "Heating water supply temperature" annotation (Placement(transformation(
@@ -96,25 +81,23 @@ model Chiller
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={70,-40})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp dTChiWatRet(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramLoaCoo1(
     offset=0,
-    y(final unit="K", displayUnit="degC"),
-    height=-3,
+    height=-0.5,
     duration=1000,
-    startTime=3000) "Chilled water return additional deltaT"
-    annotation (Placement(transformation(extent={{260,10},{240,30}})));
+    startTime=3000) "Cooling load ramp (fractional)"
+    annotation (Placement(transformation(extent={{270,50},{250,70}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=2)
     "Sum T and deltaT"
-    annotation (Placement(transformation(extent={{210,-10},{190,10}})));
+    annotation (Placement(transformation(extent={{220,30},{200,50}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum1(nin=2)
     "Sum T and deltaT"
-    annotation (Placement(transformation(extent={{-212,-10},{-192,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp dTHeaWatRet(
-    y(final unit="K", displayUnit="degC"),
-    height=14,
+    annotation (Placement(transformation(extent={{-222,50},{-202,70}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramLoaHea1(
+    height=-0.5,
     duration=500,
-    startTime=4500) "Heating water return additional deltaT"
-    annotation (Placement(transformation(extent={{-260,10},{-240,30}})));
+    startTime=4500) "Heating load ramp (fractional)"
+    annotation (Placement(transformation(extent={{-270,70},{-250,90}})));
   FifthGeneration.Chiller ets(
     redeclare final package MediumBui = Medium,
     redeclare final package MediumDis = Medium,
@@ -154,39 +137,70 @@ model Chiller
     redeclare final package Medium = Medium,
     final m_flow_nominal=mChiWat_flow_nominal,
     dp_nominal=100E3) "Chilled water distribution pump"
-    annotation (Placement(transformation(extent={{100,30},{120,50}})));
+    annotation (Placement(transformation(extent={{90,30},{110,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai2(final k=mChiWat_flow_nominal)
     "Scale to nominal mass flow rate"
-    annotation (Placement(transformation(extent={{90,70},{110,90}})));
+    annotation (Placement(transformation(extent={{72,70},{92,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai1(final k=mHeaWat_flow_nominal)
     "Scale to nominal mass flow rate"
-    annotation (Placement(transformation(extent={{10,70},{-10,90}})));
+    annotation (Placement(transformation(extent={{48,70},{28,90}})));
   FifthGeneration.BaseClasses.Pump_m_flow pumHeaWat(
     redeclare final package Medium = Medium,
     final m_flow_nominal=mHeaWat_flow_nominal,
     dp_nominal=100E3) "Heating water distribution pump"
-    annotation (Placement(transformation(extent={{-10,30},{-30,50}})));
+    annotation (Placement(transformation(extent={{10,30},{-10,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yPum(k=1)
     "Distribution pump control signal"
     annotation (Placement(transformation(extent={{20,110},{40,130}})));
+  Fluid.MixingVolumes.MixingVolume volHeaWat(
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    T_start=45 + 273.15,
+    final prescribedHeatFlowRate=true,
+    redeclare final package Medium = Medium,
+    V=10,
+    final mSenFac=1,
+    final m_flow_nominal=mHeaWat_flow_nominal,
+    nPorts=2) "Volume for heating water distribution circuit" annotation (
+      Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=-90,
+        origin={-131,0})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai3(final k=-ets.QHeaWat_flow_nominal)
+    "Scale to nominal mass flow rate"
+    annotation (Placement(transformation(extent={{-190,50},{-170,70}})));
+  HeatTransfer.Sources.PrescribedHeatFlow loaHea
+    "Heating load as prescribed heat flow rate"
+    annotation (Placement(transformation(extent={{-160,50},{-140,70}})));
+  Fluid.MixingVolumes.MixingVolume volChiWat(
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    T_start=7 + 273.15,
+    final prescribedHeatFlowRate=true,
+    redeclare final package Medium = Medium,
+    V=10,
+    final mSenFac=1,
+    final m_flow_nominal=mChiWat_flow_nominal,
+    nPorts=2) "Volume for chilled water distribution circuit" annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={129,0})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai4(final k=-ets.QChiWat_flow_nominal)
+    "Scale to nominal mass flow rate"
+    annotation (Placement(transformation(extent={{190,30},{170,50}})));
+  HeatTransfer.Sources.PrescribedHeatFlow loaHea1
+    "Heating load as prescribed heat flow rate"
+    annotation (Placement(transformation(extent={{160,30},{140,50}})));
 equation
-  connect(senTHeaWatSup.port_b,heaWat. ports[1]) annotation (Line(points={{-90,40},
-          {-140,40},{-140,2}},         color={0,127,255}));
-  connect(heaWat.ports[2], senTHeaWatRet.port_a) annotation (Line(points={{-140,-2},
-          {-140,-40},{-90,-40}},      color={0,127,255}));
-  connect(mulSum.y,chiWat. T_in) annotation (Line(points={{188,0},{186,0},{186,
-          4},{152,4}},         color={0,0,127}));
-  connect(dTChiWatRet.y, mulSum.u[1]) annotation (Line(points={{238,20},{220,20},
-          {220,1},{212,1}},          color={0,0,127}));
-  connect(TChiWatRet.y, mulSum.u[2]) annotation (Line(points={{238,-20},{220,-20},
-          {220,-1},{212,-1}},        color={0,0,127}));
-  connect(THeaWatRet.y, mulSum1.u[1]) annotation (Line(points={{-238,-20},{-220,
-          -20},{-220,1},{-214,1}},
-                            color={0,0,127}));
-  connect(mulSum1.y,heaWat. T_in) annotation (Line(points={{-190,0},{-188,0},{
-          -188,4},{-162,4}},      color={0,0,127}));
-  connect(dTHeaWatRet.y, mulSum1.u[2]) annotation (Line(points={{-238,20},{-220,
-          20},{-220,-1},{-214,-1}},         color={0,0,127}));
+  connect(heaWat.ports[1], senTHeaWatRet.port_a) annotation (Line(points={{-108,
+          -40},{-90,-40}},            color={0,127,255}));
+  connect(ramLoaCoo1.y, mulSum.u[1]) annotation (Line(points={{248,60},{230,60},
+          {230,41},{222,41}}, color={0,0,127}));
+  connect(ramLoaCoo.y, mulSum.u[2]) annotation (Line(points={{248,20},{230,20},{
+          230,39},{222,39}}, color={0,0,127}));
+  connect(ramLoaHea.y, mulSum1.u[1]) annotation (Line(points={{-248,40},{-230,40},
+          {-230,61},{-224,61}}, color={0,0,127}));
+  connect(ramLoaHea1.y, mulSum1.u[2]) annotation (Line(points={{-248,80},{-230,80},
+          {-230,59},{-224,59}}, color={0,0,127}));
   connect(senTHeaWatRet.port_b, ets.ports_aHeaWat[1]) annotation (Line(points={{
           -70,-40},{-60,-40},{-60,-28},{-30,-28}}, color={0,127,255}));
   connect(ets.ports_bChiWat[1], senTChiWatSup.port_a) annotation (Line(points={{
@@ -205,23 +219,39 @@ equation
   connect(TDisWatSup.y, disWat.T_in) annotation (Line(points={{-238,-140},{-192,
           -140},{-192,-136},{-162,-136}}, color={0,0,127}));
   connect(pumChiWat.port_a, senTChiWatSup.port_b)
-    annotation (Line(points={{100,40},{80,40}}, color={0,127,255}));
+    annotation (Line(points={{90,40},{80,40}},  color={0,127,255}));
   connect(gai2.y, pumChiWat.m_flow_in)
-    annotation (Line(points={{112,80},{110,80},{110,52}}, color={0,0,127}));
+    annotation (Line(points={{94,80},{100,80},{100,52}},  color={0,0,127}));
   connect(ets.ports_bHeaWat[1], pumHeaWat.port_a) annotation (Line(points={{30,-28},
-          {40,-28},{40,40},{-10,40}}, color={0,127,255}));
+          {40,-28},{40,40},{10,40}},  color={0,127,255}));
   connect(pumHeaWat.port_b, senTHeaWatSup.port_a)
-    annotation (Line(points={{-30,40},{-70,40}}, color={0,127,255}));
+    annotation (Line(points={{-10,40},{-70,40}}, color={0,127,255}));
   connect(gai1.y, pumHeaWat.m_flow_in)
-    annotation (Line(points={{-12,80},{-20,80},{-20,52}}, color={0,0,127}));
-  connect(yPum.y, gai1.u) annotation (Line(points={{42,120},{60,120},{60,80},{12,
+    annotation (Line(points={{26,80},{0,80},{0,52}},      color={0,0,127}));
+  connect(yPum.y, gai1.u) annotation (Line(points={{42,120},{60,120},{60,80},{50,
           80}}, color={0,0,127}));
-  connect(yPum.y, gai2.u) annotation (Line(points={{42,120},{60,120},{60,80},{88,
+  connect(yPum.y, gai2.u) annotation (Line(points={{42,120},{60,120},{60,80},{70,
           80}}, color={0,0,127}));
-  connect(pumChiWat.port_b, chiWat.port_a)
-    annotation (Line(points={{120,40},{140,40},{140,10}}, color={0,127,255}));
-  connect(chiWat.port_b, senTChiWatRet.port_a) annotation (Line(points={{140,-10},
-          {140,-40},{80,-40}},      color={0,127,255}));
+  connect(mulSum1.y, gai3.u)
+    annotation (Line(points={{-200,60},{-192,60}}, color={0,0,127}));
+  connect(gai3.y, loaHea.Q_flow)
+    annotation (Line(points={{-168,60},{-160,60}}, color={0,0,127}));
+  connect(loaHea.port, volHeaWat.heatPort) annotation (Line(points={{-140,60},{-132,
+          60},{-132,10},{-131,10}}, color={191,0,0}));
+  connect(pumChiWat.port_b, volChiWat.ports[1])
+    annotation (Line(points={{110,40},{119,40},{119,2}}, color={0,127,255}));
+  connect(volChiWat.ports[2], senTChiWatRet.port_a)
+    annotation (Line(points={{119,-2},{119,-40},{80,-40}}, color={0,127,255}));
+  connect(senTHeaWatSup.port_b, volHeaWat.ports[1])
+    annotation (Line(points={{-90,40},{-121,40},{-121,2}}, color={0,127,255}));
+  connect(volHeaWat.ports[2], heaWat.ports[2]) annotation (Line(points={{-121,-2},
+          {-121,-40},{-104,-40}}, color={0,127,255}));
+  connect(mulSum.y, gai4.u)
+    annotation (Line(points={{198,40},{192,40}}, color={0,0,127}));
+  connect(gai4.y, loaHea1.Q_flow)
+    annotation (Line(points={{168,40},{160,40}}, color={0,0,127}));
+  connect(loaHea1.port, volChiWat.heatPort)
+    annotation (Line(points={{140,40},{129,40},{129,10}}, color={191,0,0}));
   annotation (Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-280,-220},{280,220}})),
   __Dymola_Commands(file=

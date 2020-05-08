@@ -232,35 +232,28 @@ equation
   connect(TChiWatSupSet, conSup.TChiWatSupSet) annotation (Line(points={{-320,-20},
           {-276,-20},{-276,49},{-262,49}}, color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(conSup.yIsoEva, valIsoEva.y) annotation (Line(points={{-238,43},{-198,
-          43},{-198,-80},{80,-80},{80,-88}}, color={0,0,127},
+  connect(conSup.yIsoEva, valIsoEva.y) annotation (Line(points={{-238,41},{-198,
+          41},{-198,-80},{80,-80},{80,-88}}, color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(conSup.yIsoCon, valIsoCon.y) annotation (Line(points={{-238,46},{-194,
-          46},{-194,-76},{-80,-76},{-80,-88}}, color={0,0,127},
+  connect(conSup.yIsoCon, valIsoCon.y) annotation (Line(points={{-238,44},{-194,
+          44},{-194,-76},{-80,-76},{-80,-88}}, color={0,0,127},
       pattern=LinePattern.Dash));
   connect(port_aDis,int. port_a1) annotation (Line(points={{-300,-260},{-10,-260}},
                   color={0,127,255}));
   connect(int.port_b1, port_bDis) annotation (Line(points={{10,-260},{300,-260}},
                                                               color={0,127,255}));
-  connect(conSup.yHea, chi.uHea) annotation (Line(points={{-238,58},{-20,58},{
+  connect(conSup.yHea, chi.uHea) annotation (Line(points={{-238,59},{-20,59},{
           -20,3},{-12,3}},
                        color={255,0,255},
       pattern=LinePattern.Dash));
-  connect(conSup.yCoo, chi.uCoo) annotation (Line(points={{-238,55},{-140,55},{
-          -140,54},{-24,54},{-24,1},{-12,1}},
-                                         color={255,0,255},
+  connect(conSup.yCoo, chi.uCoo) annotation (Line(points={{-238,56},{-24,56},{
+          -24,1},{-12,1}},               color={255,0,255},
       pattern=LinePattern.Dash));
   connect(THeaWatSupSet, chi.THeaWatSupSet) annotation (Line(points={{-320,20},
           {-28,20},{-28,-1},{-12,-1}},color={0,0,127},
       pattern=LinePattern.Dash));
   connect(TChiWatSupSet, chi.TChiWatSupSet) annotation (Line(points={{-320,-20},
           {-28,-20},{-28,-3},{-12,-3}}, color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(conSup.yHeaRej,int. uHeaRej) annotation (Line(points={{-238,52},{-186,
-          52},{-186,-257},{-12,-257}}, color={255,0,255},
-      pattern=LinePattern.Dash));
-  connect(conSup.yColRej,int. uColRej) annotation (Line(points={{-238,49},{-190,
-          49},{-190,-254},{-12,-254}}, color={255,0,255},
       pattern=LinePattern.Dash));
   connect(ports_aHeaWat[1], tanHeaWat.port_aBot) annotation (Line(points={{-300,
           260},{-288,260},{-288,100},{-220,100}}, color={0,127,255}));
@@ -335,6 +328,10 @@ equation
   connect(int.yValIso[2], valIsoEva.y_actual) annotation (Line(
       points={{-12,-252},{-16,-252},{-16,-240},{60,-240},{60,-93},{75,-93}},
       color={0,0,127},
+      pattern=LinePattern.Dash));
+  connect(conSup.yAmb, int.uEnaHex) annotation (Line(
+      points={{-238,47},{-190,47},{-190,-257},{-12,-257}},
+      color={255,0,255},
       pattern=LinePattern.Dash));
 annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
         Diagram(coordinateSystem(preserveAspectRatio=false,

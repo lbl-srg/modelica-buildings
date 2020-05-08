@@ -36,8 +36,8 @@ model Borefield "Controller for borefield loop"
         iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIso[2]
     "Isolation valves return position (fractional)" annotation (Placement(
-        transformation(extent={{-260,40},{-220,80}}), iconTransformation(extent
-          ={{-140,-20},{-100,20}})));
+        transformation(extent={{-260,40},{-220,80}}), iconTransformation(extent=
+           {{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMixBor(final unit="1")
     "Control signal for borefield three-way mixing valve" annotation (Placement(
         transformation(extent={{220,-20},{260,20}}), iconTransformation(extent={{100,40},
@@ -105,8 +105,8 @@ model Borefield "Controller for borefield loop"
   Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax(nin=3)
     "Maximize pump control signal"
     annotation (Placement(transformation(extent={{140,-90},{160,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold enaBorFie(threshold
-      =0.9)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold enaBorFie(threshold=
+       0.9)
     "Borefield enabled signal, true if at least one isolation valve is open"
     annotation (Placement(transformation(extent={{-160,50},{-140,70}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax1(nin=2)

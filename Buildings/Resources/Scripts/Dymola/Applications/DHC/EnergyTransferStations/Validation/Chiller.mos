@@ -7,7 +7,7 @@ simulateModel("Buildings.Applications.DHC.EnergyTransferStations.Validation.Chil
     stopTime=10000,
     resultFile="Chiller");
 Advanced.FilenameInLegend = true;
-createPlot(id=1, position={9, 9, 1082, 1134}, y={"senTHeaWatSup.T", "senTHeaWatRet.T", "ets.THeaWatSupSet"},
+createPlot(id=1, position={4, 5, 546, 748}, y={"senTHeaWatSup.T", "senTHeaWatRet.T", "ets.THeaWatSupSet"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -28,7 +28,7 @@ createPlot(id=1, y={"ets.conSup.yHea", "ets.conSup.yHeaRej", "ets.conSup.yCoo", 
     grid=true,
     color=true);
 createPlot(id=2, y={"ets.chi.pumCon.m_flow", "ets.chi.pumEva.m_flow", "ets.int.pum1Hex.m_flow",  "ets.int.pum2Hex.m_flow", "pumChiWat.m_flow", "pumHeaWat.m_flow"},
-    position={123, 46, 1076, 1131},
+    position={41, 41, 545, 747},
     autoscale=true,
     autoerase=true,
     autoreplot=true,

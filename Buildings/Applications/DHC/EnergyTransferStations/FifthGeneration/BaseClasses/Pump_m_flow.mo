@@ -6,8 +6,7 @@ model Pump_m_flow "Pump with prescribed mass flow rate"
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
     final addPowerToMedium=false,
     final nominalValuesDefineDefaultPressureCurve=true,
-    final use_inputFilter=false,
-    final show_T=true);
+    final use_inputFilter=false);
   annotation (Icon(graphics={
         Ellipse(
           extent={{-58,58},{58,-58}},

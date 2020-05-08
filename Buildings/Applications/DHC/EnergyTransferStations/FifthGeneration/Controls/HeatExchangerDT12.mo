@@ -1,6 +1,5 @@
 within Buildings.Applications.DHC.EnergyTransferStations.FifthGeneration.Controls;
-model HeatExchanger
-  "Controller for district heat exchanger secondary loop"
+model HeatExchangerDT12 "Controller for district heat exchanger loop"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Boolean have_val1Hex
@@ -219,4 +218,4 @@ Added the three way valve controller and the documentation.
 
 </ul>
 </html>"));
-end HeatExchanger;
+end HeatExchangerDT12;

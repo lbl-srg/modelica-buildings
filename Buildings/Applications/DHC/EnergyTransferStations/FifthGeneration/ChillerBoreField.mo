@@ -278,7 +278,7 @@ equation
           {-40,-20},{-40,31},{-10,31}},   color={0,0,127}));
   connect(conSup.yColRej, hex.uColRej) annotation (Line(points={{-238,49},{-188,
           49},{-188,-266},{-82,-266}}, color={255,0,255}));
-  connect(conSup.yHeaRej, hex.uHeaRej) annotation (Line(points={{-238,52},{-186,
+  connect(conSup.yHeaRej,hex.uEnaHex)  annotation (Line(points={{-238,52},{-186,
           52},{-186,-269},{-82,-269}}, color={255,0,255}));
   connect(manChiWatSup.port_2, tanChiWat.port_aBot) annotation (Line(points={{130,
           40},{160,40},{160,204},{200,204}}, color={0,127,255}));
