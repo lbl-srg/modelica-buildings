@@ -1,9 +1,10 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
-model WetcalcsFuzzy_V2_2_2 "Description"
+model WetcalcsFuzzy_V2_2 "Fuzzy wet coil model final"
   //WetcalcsFuzzy_V2_2 wet(pAir=pAir, TAirIn=TAirIn, wAirIn=wAirIn,
   // mAir_flow=mAir_flow, TWatIn=TWatIn, mWat_flow=mWat_flow,UAAir=UAAir,UAWat=UAWat,cpAir=cpAir,cpWat=cpWat,dryfra=dryfra)
 
   // - water
+
   input Modelica.SIunits.ThermalConductance UAWat
     "UA for water side";
   input Real dryfra(min=0, max=1)
@@ -115,34 +116,6 @@ model WetcalcsFuzzy_V2_2_2 "Description"
     "Surface Temperature at air outlet";
 
 equation
-  if (dryfra<=-1) then
-    deltamStaMin=-1;
-    deltamStaMax=-1;
-    hAirIn=-1;
-    hSatWatIn=-1;
-    hSatWatOut=-1;
-    cpEff=-1;
-    wetfraNonZero=-1;
-    mStaMin=-1;
-    mStaMax=-1;
-    mStaMinNonZero=-1;
-    mStaMaxNonZero=-1;
-    mStaRat = -1;
-    UASta=-1;
-    gai=-1;
-    NTUSta=-1;
-    epsSta=-1;
-    QTot_flow=-1;
-    hAirOut=-1;
-    TWatOut=30+273.15;
-    NTUAirSta = -1;
-    hSatSurEff = -1;
-    TSurEff = 30+273.15; //    hSatSurEffM.hSat=hSatSurEff;
-    TAirOut = -1;
-    QSen_flow= -1;
-    TSurAirIn=-1;
-
-  else
   deltamStaMin= delta*min(mAir_flow_nominal,mWat_flow_nominal*2050/4200);
   deltamStaMax= delta*max(mAir_flow_nominal,mWat_flow_nominal*2050/4200);
 
@@ -195,7 +168,7 @@ equation
            neg=0,
            x=mStaMin-deltamStaMin,
            deltax=deltamStaMin/2);
-  if (gai<=0) and (gai>=0) then
+  if (gai <= 0) and (gai >= 0) then
     NTUSta = 0;
     epsSta = 1; // around zero flow, eps=Q/(CMin*dT) should be one
   else
@@ -223,12 +196,10 @@ equation
   QSen_flow= min(mAir_flow*cpAir*(TAirIn-TAirOut),QTot_flow);
 
   (TAirIn-TSurAirIn)*UAAir=(TSurAirIn-TWatOut)*UAWat;
-
-   end if;
   annotation (Icon(graphics={
           Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={28,108,200},
           fillColor={170,213,255},
           fillPattern=FillPattern.Solid)}));
-end WetcalcsFuzzy_V2_2_2;
+end WetcalcsFuzzy_V2_2;

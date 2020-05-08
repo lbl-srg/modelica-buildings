@@ -8,3 +8,6 @@ WetCoilDiscretizedInitialization
 WetCoilDiscretizedInitializationPerfectGases
 UnitTestWetCoilHeatingFuzzy_V2_2_2
 UnitTestWetCoilCoolingFuzzy_V2_2_2
+UnitTestWetCoilHeatingFuzzy_V2_2
+UnitTestWetCoilCoolingFuzzy_V2_2
+

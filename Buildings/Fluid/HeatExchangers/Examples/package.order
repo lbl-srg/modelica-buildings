@@ -1,4 +1,4 @@
-AirHeater_T
+﻿AirHeater_T
 AirHeater_u
 DryCoilCounterFlowMassFlow
 DryCoilCounterFlowPControl
@@ -15,3 +15,4 @@ WetCoilCounterFlowPControl
 WetCoilDiscretizedMassFlow
 WetCoilDiscretizedPControl
 BaseClasses
+WetCoilEffNtuMassFlowFuzzy_V2_2
