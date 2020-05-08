@@ -87,8 +87,8 @@ model Supervisory "Energy transfer station supervisory controller"
     annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yAmb
     "Enabled signal for connecting ambient loop" annotation (Placement(
-        transformation(extent={{100,-50},{140,-10}}), iconTransformation(extent
-          ={{100,-50},{140,-10}})));
+        transformation(extent={{100,-50},{140,-10}}), iconTransformation(extent=
+           {{100,-50},{140,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
     annotation (Placement(transformation(extent={{30,-40},{50,-20}})));
 equation

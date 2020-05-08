@@ -107,8 +107,8 @@ partial block HotColdSide "State machine enabling production and ambient source 
       iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yAmb
     "Enabled signal for connecting ambient loop " annotation (Placement(
-        transformation(extent={{180,-60},{220,-20}}), iconTransformation(extent
-          ={{100,-20},{140,20}})));
+        transformation(extent={{180,-60},{220,-20}}), iconTransformation(extent=
+           {{100,-20},{140,20}})));
 initial equation
   assert(THys >= 0, "In " + getInstanceName() +
     ": THys (" + String(THys) + ") must be an absolute value.");

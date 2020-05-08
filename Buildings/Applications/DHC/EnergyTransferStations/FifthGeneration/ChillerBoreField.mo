@@ -231,14 +231,14 @@ equation
           {-280,20},{-280,58},{-262,58}}, color={0,0,127}));
   connect(TChiWatSupSet, conSup.TChiWatSupSet) annotation (Line(points={{-320,-20},
           {-276,-20},{-276,49},{-262,49}}, color={0,0,127}));
-  connect(conSup.yIsoEva, valIsoEva.y) annotation (Line(points={{-238,43},{-194,
-          43},{-194,-80},{80,-80},{80,-88}},   color={0,0,127}));
-  connect(conSup.yIsoCon, valIsoCon.y) annotation (Line(points={{-238,46},{-192,
-          46},{-192,-76},{-80,-76},{-80,-88}},   color={0,0,127}));
-  connect(conSup.yHeaRej, borFie.uHeaRej) annotation (Line(points={{-238,52},{-186,
-          52},{-186,-192},{-82,-192}},      color={255,0,255}));
-  connect(conSup.yColRej, borFie.uColRej) annotation (Line(points={{-238,49},{
-          -188,49},{-188,-196},{-82,-196}}, color={255,0,255}));
+  connect(conSup.yIsoEva, valIsoEva.y) annotation (Line(points={{-238,41},{-194,
+          41},{-194,-80},{80,-80},{80,-88}},   color={0,0,127}));
+  connect(conSup.yIsoCon, valIsoCon.y) annotation (Line(points={{-238,44},{-192,
+          44},{-192,-76},{-80,-76},{-80,-88}},   color={0,0,127}));
+  connect(conSup.yHeaRej, borFie.uHeaRej) annotation (Line(points={{-238,53},{
+          -186,53},{-186,-192},{-82,-192}}, color={255,0,255}));
+  connect(conSup.yColRej, borFie.uColRej) annotation (Line(points={{-238,50},{
+          -188,50},{-188,-196},{-82,-196}}, color={255,0,255}));
   connect(conSup.yIsoEva, borFie.uIsoEva) annotation (Line(points={{-238,43},{-194,
           43},{-194,-198},{-82,-198}},      color={0,0,127}));
   connect(conSup.yIsoCon, borFie.uIsoCon) annotation (Line(points={{-238,46},{-192,
@@ -266,20 +266,20 @@ equation
           {120,-100},{90,-100}},  color={0,127,255}));
   connect(manAmbWatRet.port_1, valIsoEva.port_b)
     annotation (Line(points={{10,-100},{70,-100}}, color={0,127,255}));
-  connect(conSup.yHea, chi.uHea) annotation (Line(points={{-238,58},{-40,58},{
+  connect(conSup.yHea, chi.uHea) annotation (Line(points={{-238,59},{-40,59},{
           -40,37},{-10,37}},
                            color={255,0,255}));
-  connect(conSup.yCoo, chi.uCoo) annotation (Line(points={{-238,55},{-140,55},{
+  connect(conSup.yCoo, chi.uCoo) annotation (Line(points={{-238,56},{-140,56},{
           -140,54},{-44,54},{-44,35},{-10,35}},
                            color={255,0,255}));
   connect(THeaWatSupSet, chi.THeaWatSupSet) annotation (Line(points={{-320,20},
           {-42,20},{-42,33},{-10,33}},  color={0,0,127}));
-  connect(TChiWatSupSet, chi.TChiWatSupSet) annotation (Line(points={{-320,-20},
-          {-40,-20},{-40,31},{-10,31}},   color={0,0,127}));
+  connect(TChiWatSupSet, chi.TChiWatSupPreSet) annotation (Line(points={{-320,-20},
+          {-40,-20},{-40,31},{-10,31}}, color={0,0,127}));
   connect(conSup.yColRej, hex.uColRej) annotation (Line(points={{-238,49},{-188,
           49},{-188,-266},{-82,-266}}, color={255,0,255}));
-  connect(conSup.yHeaRej,hex.uEnaHex)  annotation (Line(points={{-238,52},{-186,
-          52},{-186,-269},{-82,-269}}, color={255,0,255}));
+  connect(conSup.yHeaRej,hex.uEnaHex)  annotation (Line(points={{-238,53},{-186,
+          53},{-186,-275},{-82,-275}}, color={255,0,255}));
   connect(manChiWatSup.port_2, tanChiWat.port_aBot) annotation (Line(points={{130,
           40},{160,40},{160,204},{200,204}}, color={0,127,255}));
   connect(ports_aHeaWat[1], tanHeaWat.port_aBot) annotation (Line(points={{-300,

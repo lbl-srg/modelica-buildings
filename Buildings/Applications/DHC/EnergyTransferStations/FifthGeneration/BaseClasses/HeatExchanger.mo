@@ -60,8 +60,8 @@ model HeatExchanger
   // IO CONNECTORS
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEnaHex
     "Control signal enabling heat exchanger operation"
-    annotation (Placement(transformation(extent={{-140,120},{-100,160}}),
-        iconTransformation(extent={{-140,10},{-100,50}})));
+    annotation (Placement(transformation(extent={{-140,130},{-100,170}}),
+        iconTransformation(extent={{-140,70},{-100,110}})));
   Modelica.Blocks.Interfaces.RealOutput PPum(final unit="W")
     "Power drawn by pump motors"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
@@ -176,8 +176,8 @@ model HeatExchanger
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIso[2]
     "Isolation valves return position (fractional)"
-    annotation (Placement(transformation(extent={{-140,70},{-100,110}}),
-      iconTransformation(extent={{-140,-50},{-100,-10}})));
+    annotation (Placement(transformation(extent={{-140,110},{-100,150}}),
+      iconTransformation(extent={{-140,10},{-100,50}})));
 protected
   final parameter Medium1.ThermodynamicState sta1_default = Medium1.setState_pTX(
     T=Medium1.T_default,
@@ -205,8 +205,6 @@ equation
   end if;
   connect(port_a2, pum2Hex.port_a)
     annotation (Line(points={{100,-60},{90,-60}}, color={0,127,255}));
-  connect(conHex.y2Hex, gai2.u) annotation (Line(points={{-18,126},{10,126},{10,
-          100},{18,100}}, color={0,0,127}));
   connect(gai2.y, pum2Hex.m_flow_in)
     annotation (Line(points={{42,100},{80,100},{80,-48}}, color={0,0,127}));
   connect(port_a1, pum1Hex.port_a)
@@ -233,28 +231,28 @@ equation
     annotation (Line(points={{50,80},{20,80},{20,30}}, color={0,127,255}));
   connect(conHex.y1Hex, val1Hex.y)
     annotation (Line(points={{-18,138},{60,138},{60,92}}, color={0,0,127}));
-  connect(conHex.y1Hex, gai1.u) annotation (Line(points={{-18,138},{-10,138},{-10,
-          100},{-18,100}}, color={0,0,127}));
+  connect(conHex.y1Hex, gai1.u) annotation (Line(points={{-18,138},{-10,138},{
+          -10,100},{-18,100}},
+                           color={0,0,127}));
   connect(gai1.y, pum1Hex.m_flow_in)
     annotation (Line(points={{-42,100},{-60,100},{-60,92}}, color={0,0,127}));
-  connect(senT1HexWatEnt.T, conHex.T1HexWatEnt) annotation (Line(points={{-31,40},
-          {-86,40},{-86,134},{-42,134}}, color={0,0,127}));
-  connect(senT1HexWatLvg.T, conHex.T1HexWatLvg) annotation (Line(points={{9,20},{
-          -84,20},{-84,131},{-42,131}},  color={0,0,127}));
   connect(senT2HexWatLvg.T, conHex.T2HexWatLvg) annotation (Line(points={{-31,-20},
-          {-80,-20},{-80,125},{-42,125}}, color={0,0,127}));
+          {-80,-20},{-80,131},{-42,131}}, color={0,0,127}));
   connect(senT2HexWatEnt.T, conHex.T2HexWatEnt) annotation (Line(points={{9,-40},
-          {-82,-40},{-82,128},{-42,128}}, color={0,0,127}));
+          {-82,-40},{-82,134},{-42,134}}, color={0,0,127}));
   connect(pum1Hex.P, totPPum.u[2]) annotation (Line(points={{-49,89},{0,89},{0,40},
           {40,40},{40,0},{48,0}}, color={0,0,127}));
   connect(pum2Hex.P, totPPum.u[1]) annotation (Line(points={{69,-51},{40,-51},{40,
           0},{48,0}}, color={0,0,127}));
   connect(totPPum.y, PPum)
     annotation (Line(points={{72,0},{120,0}}, color={0,0,127}));
-  connect(yValIso, conHex.yValIso) annotation (Line(points={{-120,90},{-88,90},{
-          -88,137},{-42,137}}, color={0,0,127}));
+  connect(yValIso, conHex.yValIso) annotation (Line(points={{-120,130},{-96,130},
+          {-96,137},{-42,137}},color={0,0,127}));
   connect(uEnaHex, conHex.uEnaHex)
-    annotation (Line(points={{-120,140},{-42,140}}, color={255,0,255}));
+    annotation (Line(points={{-120,150},{-80,150},{-80,140},{-42,140}},
+                                                    color={255,0,255}));
+  connect(conHex.y2Hex, gai2.u) annotation (Line(points={{-18,126},{0,126},{0,
+          100},{18,100}}, color={0,0,127}));
   annotation (
   defaultComponentName="hex",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

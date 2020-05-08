@@ -229,9 +229,6 @@ equation
   connect(THeaWatSupSet, conSup.THeaWatSupSet) annotation (Line(points={{-320,20},
           {-280,20},{-280,58},{-262,58}}, color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(TChiWatSupSet, conSup.TChiWatSupSet) annotation (Line(points={{-320,-20},
-          {-276,-20},{-276,49},{-262,49}}, color={0,0,127},
-      pattern=LinePattern.Dash));
   connect(conSup.yIsoEva, valIsoEva.y) annotation (Line(points={{-238,41},{-198,
           41},{-198,-80},{80,-80},{80,-88}}, color={0,0,127},
       pattern=LinePattern.Dash));
@@ -252,8 +249,9 @@ equation
   connect(THeaWatSupSet, chi.THeaWatSupSet) annotation (Line(points={{-320,20},
           {-28,20},{-28,-1},{-12,-1}},color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(TChiWatSupSet, chi.TChiWatSupSet) annotation (Line(points={{-320,-20},
-          {-28,-20},{-28,-3},{-12,-3}}, color={0,0,127},
+  connect(TChiWatSupSet, chi.TChiWatSupPreSet) annotation (Line(
+      points={{-320,-20},{-28,-20},{-28,-3},{-12,-3}},
+      color={0,0,127},
       pattern=LinePattern.Dash));
   connect(ports_aHeaWat[1], tanHeaWat.port_aBot) annotation (Line(points={{-300,
           260},{-288,260},{-288,100},{-220,100}}, color={0,127,255}));
@@ -322,16 +320,20 @@ equation
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(int.yValIso[1], valIsoCon.y_actual) annotation (Line(
-      points={{-12,-250},{-60,-250},{-60,-93},{-75,-93}},
+      points={{-12,-256},{-60,-256},{-60,-93},{-75,-93}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(int.yValIso[2], valIsoEva.y_actual) annotation (Line(
-      points={{-12,-252},{-16,-252},{-16,-240},{60,-240},{60,-93},{75,-93}},
+      points={{-12,-258},{-16,-258},{-16,-240},{60,-240},{60,-93},{75,-93}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(conSup.yAmb, int.uEnaHex) annotation (Line(
-      points={{-238,47},{-190,47},{-190,-257},{-12,-257}},
+      points={{-238,47},{-190,47},{-190,-263},{-12,-263}},
       color={255,0,255},
+      pattern=LinePattern.Dash));
+  connect(TChiWatSupSet, conSup.TChiWatSupSet) annotation (Line(
+      points={{-320,-20},{-276,-20},{-276,49},{-262,49}},
+      color={0,0,127},
       pattern=LinePattern.Dash));
 annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
         Diagram(coordinateSystem(preserveAspectRatio=false,

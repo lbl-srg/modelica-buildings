@@ -119,8 +119,8 @@ model BaseChiller
     "Cooling enabled signal"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
 equation
-  connect(TChiWatSupSet.y, chi.TChiWatSupSet) annotation (Line(points={{-98,0},{
-          -32,0},{-32,-65},{-12,-65}}, color={0,0,127}));
+  connect(TChiWatSupSet.y, chi.TChiWatSupPreSet) annotation (Line(points={{-98,
+          0},{-32,0},{-32,-65},{-12,-65}}, color={0,0,127}));
   connect(THeaWatSupSet.y, chi.THeaWatSupSet) annotation (Line(points={{-98,40},
           {-28,40},{-28,-63},{-12,-63}}, color={0,0,127}));
   connect(chi.port_bHeaWat, senTHeaWatSup.port_a) annotation (Line(points={{-10,-56},

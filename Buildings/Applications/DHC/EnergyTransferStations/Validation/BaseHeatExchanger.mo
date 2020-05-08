@@ -46,7 +46,7 @@ model BaseHeatExchanger
     annotation (Placement(transformation(extent={{170,-70},{150,-50}})));
   Modelica.Blocks.Sources.BooleanExpression uHeaRej(y=time >= 3000)
     "Full heat rejection enabled signal"
-    annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
+    annotation (Placement(transformation(extent={{-230,110},{-210,130}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum1(nin=2)
     "Sum T and deltaT"
     annotation (Placement(transformation(extent={{-192,8},{-172,28}})));
@@ -59,7 +59,7 @@ model BaseHeatExchanger
   Modelica.Blocks.Sources.BooleanExpression uColRej(y=time >= 1000 and time <
         2000)
     "Full cold rejection enabled signal"
-    annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
+    annotation (Placement(transformation(extent={{-230,90},{-210,110}})));
   FifthGeneration.BaseClasses.HeatExchanger hexPum(
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium,
@@ -180,14 +180,14 @@ model BaseHeatExchanger
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={50,20})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp yValIso[2](
-    height={1, 0},
-    each duration=500,
-    each startTime=1000)
-    "Isolation valves return position (fractional)"
-    annotation (Placement(transformation(extent={{-230,70},{-210,90}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
-    annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
+    annotation (Placement(transformation(extent={{-170,90},{-150,110}})));
+  Modelica.Blocks.Sources.RealExpression yValIsoCon(y=if time >= 2500 then 1
+         else 0) "Condenser loop isolation valve opening"
+    annotation (Placement(transformation(extent={{-230,70},{-210,90}})));
+  Modelica.Blocks.Sources.RealExpression yValIsoEva(y=if time >= 500 then 1
+         else 0) "Evaporator loop isolation valve opening"
+    annotation (Placement(transformation(extent={{-230,50},{-210,70}})));
 equation
   connect(mulSum.y, bou1.T_in) annotation (Line(points={{148,-60},{132,-60},{132,
           -58},{122,-58}}, color={0,0,127}));
@@ -201,8 +201,8 @@ equation
           {-200,17},{-194,17}}, color={0,0,127}));
   connect(swi.y, bou2.T_in) annotation (Line(points={{-138,-60},{-130,-60},{
           -130,-58},{-122,-58}}, color={0,0,127}));
-  connect(uColRej.y, swi.u2) annotation (Line(points={{-99,100},{-80,100},{-80,60},
-          {-160,60},{-160,-40},{-170,-40},{-170,-60},{-162,-60}},
+  connect(uColRej.y, swi.u2) annotation (Line(points={{-209,100},{-180,100},{
+          -180,60},{-160,60},{-160,-40},{-170,-40},{-170,-60},{-162,-60}},
                                                   color={255,0,255}));
   connect(mulSum1.y, swi.u1) annotation (Line(points={{-170,18},{-166,18},{-166,
           -52},{-162,-52}}, color={0,0,127}));
@@ -252,18 +252,24 @@ equation
           26},{-20,40},{50,40},{50,30}}, color={0,127,255}));
   connect(senRelPre.port_b, senT1OutVal.port_a)
     annotation (Line(points={{50,10},{50,0},{60,0}}, color={0,127,255}));
-  connect(hexVal.yValIso, yValIso.y) annotation (Line(points={{-12,17},{-30,17},
-          {-30,80},{-208,80}}, color={0,0,127}));
-  connect(hexPum.yValIso, yValIso.y) annotation (Line(points={{-12,-63},{-30,-63},
-          {-30,80},{-208,80}}, color={0,0,127}));
-  connect(uColRej.y, or2.u2) annotation (Line(points={{-99,100},{-80,100},{-80,
-          92},{-62,92}}, color={255,0,255}));
-  connect(uHeaRej.y, or2.u1) annotation (Line(points={{-99,120},{-70,120},{-70,
-          100},{-62,100}}, color={255,0,255}));
-  connect(or2.y, hexVal.uEnaHex) annotation (Line(points={{-38,100},{-24,100},{
-          -24,23},{-12,23}}, color={255,0,255}));
-  connect(or2.y, hexPum.uEnaHex) annotation (Line(points={{-38,100},{-24.0625,
-          100},{-24.0625,23},{-24,23},{-24,-57},{-12,-57}}, color={255,0,255}));
+  connect(uColRej.y, or2.u2) annotation (Line(points={{-209,100},{-180,100},{
+          -180,92},{-172,92}},
+                         color={255,0,255}));
+  connect(uHeaRej.y, or2.u1) annotation (Line(points={{-209,120},{-176,120},{
+          -176,100},{-172,100}},
+                           color={255,0,255}));
+  connect(or2.y, hexVal.uEnaHex) annotation (Line(points={{-148,100},{-24,100},
+          {-24,29},{-12,29}},color={255,0,255}));
+  connect(or2.y, hexPum.uEnaHex) annotation (Line(points={{-148,100},{-24.0625,
+          100},{-24.0625,23},{-24,23},{-24,-51},{-12,-51}}, color={255,0,255}));
+  connect(yValIsoCon.y, hexVal.yValIso[1]) annotation (Line(points={{-209,80},{
+          -32,80},{-32,22},{-12,22}}, color={0,0,127}));
+  connect(yValIsoCon.y, hexPum.yValIso[1]) annotation (Line(points={{-209,80},{
+          -32,80},{-32,-58},{-12,-58}}, color={0,0,127}));
+  connect(yValIsoEva.y, hexVal.yValIso[2]) annotation (Line(points={{-209,60},{
+          -36,60},{-36,24},{-12,24}}, color={0,0,127}));
+  connect(yValIsoEva.y, hexPum.yValIso[2]) annotation (Line(points={{-209,60},{
+          -36,60},{-36,-56},{-12,-56}}, color={0,0,127}));
   annotation (
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-240,-140},{240,140}})),

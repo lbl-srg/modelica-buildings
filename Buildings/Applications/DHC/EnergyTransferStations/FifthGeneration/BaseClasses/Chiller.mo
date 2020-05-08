@@ -56,11 +56,11 @@ model Chiller "Base subsystem with heat recovery chiller"
     "Cooling mode enabled signal"
     annotation (Placement(transformation(extent={{-240,130},{-200,170}}),
       iconTransformation(extent={{-140,-10},{-100,30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
-    final unit="K", displayUnit="degC")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupPreSet(final unit=
+        "K", displayUnit="degC")
     "Chilled water supply temperature set-point (may be reset down)"
     annotation (Placement(transformation(extent={{-240,70},{-200,110}}),
-      iconTransformation(extent={{-140,-50},{-100,-10}})));
+        iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSupSet(
     final unit="K", displayUnit="degC")
     "Heating water supply temperature set-point"
@@ -258,8 +258,8 @@ equation
           {-72,148}},  color={255,0,255}));
   connect(uCoo, con.uCoo) annotation (Line(points={{-220,150},{-186,150},{-186,146},
           {-72,146}},  color={255,0,255}));
-  connect(TChiWatSupSet,con.TChiWatSupPreSet)  annotation (Line(points={{-220,90},
-          {-186,90},{-186,142},{-72,142}},   color={0,0,127}));
+  connect(TChiWatSupPreSet, con.TChiWatSupPreSet) annotation (Line(points={{-220,
+          90},{-186,90},{-186,142},{-72,142}}, color={0,0,127}));
   connect(senTConEnt.T, con.TConWatEnt) annotation (Line(points={{-31,40},{-78,40},
           {-78,136},{-72,136}},              color={0,0,127}));
   connect(senTEvaEnt.T, con.TEvaWatEnt) annotation (Line(points={{9,-40},{-80,-40},
