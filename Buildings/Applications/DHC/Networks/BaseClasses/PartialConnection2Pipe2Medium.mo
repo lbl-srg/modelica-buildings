@@ -8,13 +8,23 @@ partial model PartialConnection2Pipe2Medium
       Modelica.Media.Interfaces.PartialMedium
     "Medium model for return fluid";
 
-  replaceable model Model_pipDisSup = Fluid.Interfaces.PartialTwoPortInterface
-      (
+  replaceable model Model_pip_aDisSup =
+      Fluid.Interfaces.PartialTwoPortInterface (
     redeclare final package Medium = MediumSup,
     final m_flow_nominal=mDis_flow_nominal,
     final allowFlowReversal=allowFlowReversal);
-  replaceable model Model_pipDisRet = Fluid.Interfaces.PartialTwoPortInterface
-      (
+  replaceable model Model_pip_bDisRet =
+      Fluid.Interfaces.PartialTwoPortInterface (
+    redeclare final package Medium = MediumRet,
+    final m_flow_nominal=mDis_flow_nominal,
+    final allowFlowReversal=allowFlowReversal);
+  replaceable model Model_pip_bDisSup =
+      Fluid.Interfaces.PartialTwoPortInterface (
+    redeclare final package Medium = MediumSup,
+    final m_flow_nominal=mDis_flow_nominal,
+    final allowFlowReversal=allowFlowReversal);
+  replaceable model Model_pip_aDisRet =
+      Fluid.Interfaces.PartialTwoPortInterface (
     redeclare final package Medium = MediumRet,
     final m_flow_nominal=mDis_flow_nominal,
     final allowFlowReversal=allowFlowReversal);
@@ -113,12 +123,18 @@ partial model PartialConnection2Pipe2Medium
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,30},{120,50}})));
   // COMPONENTS
-  Model_pipDisSup pipDisSup
+  Model_pip_aDisSup pip_aDisSup
     "Distribution supply pipe"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Model_pipDisRet pipDisRet
+  Model_pip_bDisRet pip_bDisRet
     "Distribution return pipe"
     annotation (Placement(transformation(extent={{-60,-90},{-80,-70}})));
+  Model_pip_bDisSup pip_bDisSup
+    "Distribution supply pipe"
+    annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
+  Model_pip_aDisRet pip_aDisRet
+    "Distribution return pipe"
+    annotation (Placement(transformation(extent={{80,-90},{60,-70}})));
   Model_pipConSup pipConSup "Connection supply pipe"
     annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},
@@ -126,7 +142,7 @@ partial model PartialConnection2Pipe2Medium
       origin={-20,-10})));
   Model_pipConRet pipConRet "Connection return pipe"
     annotation (Placement(transformation(
-      extent={{-10,-10},{10,10}},
+      extent={{10,-10},{-10,10}},
       rotation=90,
       origin={20,-10})));
   Fluid.FixedResistances.Junction junConSup(
@@ -216,7 +232,7 @@ partial model PartialConnection2Pipe2Medium
     "Supply pressure sensor"
     annotation (Placement(transformation(extent={{-50,-50},{-30,-70}})));
   Modelica.Blocks.Math.Add dpSen(k2=-1) "Sensed change in pressure"
-    annotation (Placement(transformation(extent={{50,-76},{70,-56}})));
+    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 protected
   parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
     MediumRet.specificHeatCapacityCp(MediumRet.setState_pTX(
@@ -235,22 +251,18 @@ equation
   end if;
   connect(junConSup.port_3, pipConSup.port_a)
     annotation (Line(points={{-20,-30},{-20,-20}}, color={0,127,255}));
-  connect(pipDisSup.port_b, junConSup.port_1)
+  connect(pip_aDisSup.port_b, junConSup.port_1)
     annotation (Line(points={{-60,-40},{-30,-40}}, color={0,127,255}));
   connect(senMasFloCon.m_flow, mCon_flow)
     annotation (Line(points={{-9,30},{54,30},{54,40},{120,40}},
       color={0,0,127}));
   connect(pipConSup.port_b, senMasFloCon.port_a)
     annotation (Line(points={{-20,0},{-20,20}}, color={0,127,255}));
-  connect(port_aDisSup, pipDisSup.port_a)
+  connect(port_aDisSup, pip_aDisSup.port_a)
     annotation (Line(points={{-100,-40},{-80,-40}}, color={0,127,255}));
-  connect(port_aDisRet, junConRet.port_1)
-    annotation (Line(points={{100,-80},{30,-80}}, color={0,127,255}));
-  connect(junConSup.port_2, port_bDisSup)
-    annotation (Line(points={{-10,-40},{100,-40}}, color={0,127,255}));
-  connect(junConRet.port_2, pipDisRet.port_a)
+  connect(junConRet.port_2, pip_bDisRet.port_a)
     annotation (Line(points={{10,-80},{-60,-80}}, color={0,127,255}));
-  connect(pipDisRet.port_b, port_bDisRet)
+  connect(pip_bDisRet.port_b, port_bDisRet)
     annotation (Line(points={{-80,-80},{-100,-80}}, color={0,127,255}));
   connect(senMasFloCon.port_b, senTConSup.port_a)
     annotation (Line(points={{-20,40},{-20,76},{-40,76},{-40,80}},
@@ -273,22 +285,31 @@ equation
     annotation (Line(points={{-51,90},{-60,90},{-60, 54},{-12,54}}, color={0,0,127}));
   connect(senTConRet.T, sub.u1)
     annotation (Line(points={{-11,90},{-16,90},{-16, 66},{-12,66}}, color={0,0,127}));
-  connect(junConRet.port_3, pipConRet.port_a)
-    annotation (Line(points={{20,-70},{20,-20}}, color={0,127,255}));
-  connect(pipConRet.port_b, port_aCon)
-    annotation (Line(points={{20,0},{20,120}}, color={0,127,255}));
-  connect(pipConRet.port_b, senTConRet.port_b)
-    annotation (Line(points={{20,0},{20,76},{0,76},{0,80}}, color={0,127,255}));
   connect(senPreSup.port, junConSup.port_1)
     annotation (Line(points={{-40,-50},{-40,-40},{-30,-40}}, color={0,127,255}));
   connect(senPreRet.port, junConRet.port_2)
     annotation (Line(points={{-40,-90},{-40,-80},{10,-80}}, color={0,127,255}));
   connect(senPreSup.p, dpSen.u1)
-    annotation (Line(points={{-29,-60},{48,-60}}, color={0,0,127}));
+    annotation (Line(points={{-29,-60},{40,-60},{40,6},{68,6}},
+                                                  color={0,0,127}));
   connect(senPreRet.p, dpSen.u2)
-    annotation (Line(points={{-29,-100},{40,-100},{40,-72},{48,-72}}, color={0,0,127}));
+    annotation (Line(points={{-29,-100},{46,-100},{46,-6},{68,-6}},   color={0,0,127}));
   connect(dpSen.y, dp)
-    annotation (Line(points={{71,-66},{76,-66},{76,0},{120,0}},color={0,0,127}));
+    annotation (Line(points={{91,0},{120,0}},                  color={0,0,127}));
+  connect(pipConRet.port_a, port_aCon)
+    annotation (Line(points={{20,0},{20,0},{20,120}}, color={0,127,255}));
+  connect(pipConRet.port_a, senTConRet.port_b)
+    annotation (Line(points={{20,0},{20,76},{0,76},{0,80}}, color={0,127,255}));
+  connect(pipConRet.port_b, junConRet.port_3)
+    annotation (Line(points={{20,-20},{20,-20},{20,-70}}, color={0,127,255}));
+  connect(junConSup.port_2, pip_bDisSup.port_a)
+    annotation (Line(points={{-10,-40},{60,-40}}, color={0,127,255}));
+  connect(pip_bDisSup.port_b, port_bDisSup)
+    annotation (Line(points={{80,-40},{90,-40},{90,-40},{100,-40}}, color={0,127,255}));
+  connect(port_aDisRet, pip_aDisRet.port_a)
+    annotation (Line(points={{100,-80},{80,-80}}, color={0,127,255}));
+  connect(pip_aDisRet.port_b, junConRet.port_1)
+    annotation (Line(points={{60,-80},{30,-80}}, color={0,127,255}));
   annotation (
     defaultComponentName="con",
     Documentation(info="
@@ -299,12 +320,16 @@ to a two-pipe distribution network featuring different supply and return fluids
 (e.g. steam and liquid water).
 </p>
 <p>
-Four instances of a replaceable partial model are used to represent the pipes:
+Six instances of a replaceable partial model are used to represent the pipes:
 </p>
 <ul>
 <li>
 Two representing the main distribution supply and return pipes immediately upstream
-and downstream of the connection, respectively.
+of the connection.
+</li>
+<li>
+Two representing the main distribution supply and return pipes immediately downstream
+of the connection.
 </li>
 <li>
 The other two representing the branch connection supply and return pipes immediately 
@@ -341,20 +366,6 @@ First implementation.
         textString="%name",
         lineColor={0,0,255}),
         Rectangle(
-          extent={{-76,12},{-20,-12}},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None,
-          lineColor={0,0,0}),
-        Rectangle(
-          extent={{-25,8},{25,-8}},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None,
-          lineColor={0,0,0},
-          origin={0,45},
-          rotation=90),
-        Rectangle(
           extent={{58,6},{62,100}},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
@@ -367,24 +378,22 @@ First implementation.
           pattern=LinePattern.None,
           lineColor={0,0,0}),
         Rectangle(
-          extent={{-76,-48},{-20,-72}},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None,
-          lineColor={0,0,0}),
-        Rectangle(
           extent={{58,-62},{62,-6}},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
           lineColor={0,0,0}),
         Rectangle(
-          extent={{-25.5,7.5},{25.5,-7.5}},
+          extent={{-76,12},{-20,-12}},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
-          lineColor={0,0,0},
-          origin={59.5,45.5},
-          rotation=90)}),       Diagram(coordinateSystem(extent={{-100,-120},{100,
+          lineColor={0,0,0}),
+        Rectangle(
+          extent={{-76,-48},{-20,-72}},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0})}), Diagram(coordinateSystem(extent={{-100,-120},{100,
             120}})));
 end PartialConnection2Pipe2Medium;
