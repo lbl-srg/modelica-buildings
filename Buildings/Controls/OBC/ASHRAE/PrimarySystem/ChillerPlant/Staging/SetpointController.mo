@@ -245,7 +245,7 @@ block SetpointController
     annotation (Placement(transformation(extent={{-442,330},{-402,370}}),
     iconTransformation(extent={{-140,130},{-100,170}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChi[nChi]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChiSet[nChi]
     "Chiller status setpoint vector for the current chiller stage setpoint"
     annotation (Placement(transformation(extent={{120,-280},{160,-240}}),
         iconTransformation(extent={{100,-90},{140,-50}})));
@@ -466,9 +466,8 @@ equation
                      color={255,127,0}));
   connect(cha.yChaEdg, yChaEdg) annotation (Line(points={{2,-174},{114,-174},{
           114,-180},{140,-180}}, color={255,0,255}));
-  connect(chiInd.yChi, yChi)
-    annotation (Line(points={{62,-200},{80,-200},{80,-260},{140,-260}},
-                                                     color={255,0,255}));
+  connect(chiInd.yChi, yChiSet) annotation (Line(points={{62,-200},{80,-200},{
+          80,-260},{140,-260}}, color={255,0,255}));
   connect(cha.ySta, chiInd.u) annotation (Line(points={{2,-166},{20,-166},{20,-200},
           {38,-200}},        color={255,127,0}));
   annotation (defaultComponentName = "staSetCon",
