@@ -2,7 +2,7 @@
 // Plot commands
 removePlots(false);
 simulateModel(
-    "Buildings.Applications.DHC.EnergyTransferStations.Validation.BaseHeatExchanger",
+    "Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.Validation.HeatExchanger",
     method="Cvode",
     tolerance=1e-6,
     stopTime=5000,

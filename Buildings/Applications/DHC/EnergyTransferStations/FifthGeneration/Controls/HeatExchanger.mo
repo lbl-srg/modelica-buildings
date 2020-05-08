@@ -53,7 +53,7 @@ model HeatExchanger
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant off(final k=0)
     "Zero pump speed representing off command"
-    annotation (Placement(transformation(extent={{130,-30},{150,-10}})));
+    annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
   Buildings.Controls.Continuous.LimPID con1(
     final k=k,
     final Ti=Ti,
@@ -69,7 +69,7 @@ model HeatExchanger
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swiOff1
     "Output zero if not enabled"
-    annotation (Placement(transformation(extent={{190,-10},{210,10}})));
+    annotation (Placement(transformation(extent={{160,-10},{180,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant min1(final k=if
     have_val1Hex then yVal1HexMin else spePum1HexMin)
     "Minimum pump speed or actuator opening"
@@ -87,10 +87,10 @@ model HeatExchanger
         iconTransformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swiOff2
     "Output zero if not enabled"
-    annotation (Placement(transformation(extent={{188,-50},{208,-30}})));
+    annotation (Placement(transformation(extent={{158,-50},{178,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant speMax(final k=1)
     "Maximum pump speed"
-    annotation (Placement(transformation(extent={{130,-90},{150,-70}})));
+    annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
 equation
   connect(delT2.y, absDelT2.u)
     annotation (Line(points={{-138,-20},{-122,-20}},   color={0,0,127}));
@@ -100,11 +100,11 @@ equation
           {-180,-26},{-162,-26}},       color={0,0,127}));
 
   connect(swiOff1.y, y1Hex)
-    annotation (Line(points={{212,0},{240,0}},   color={0,0,127}));
-  connect(off.y, swiOff1.u3) annotation (Line(points={{152,-20},{160,-20},{160,-8},
-          {188,-8}},     color={0,0,127}));
-  connect(multiMax1.y, swiOff1.u1) annotation (Line(points={{72,0},{140,0},{140,
-          8},{188,8}},       color={0,0,127}));
+    annotation (Line(points={{182,0},{240,0}},   color={0,0,127}));
+  connect(off.y, swiOff1.u3) annotation (Line(points={{122,-20},{130,-20},{130,
+          -8},{158,-8}}, color={0,0,127}));
+  connect(multiMax1.y, swiOff1.u1) annotation (Line(points={{72,0},{110,0},{110,
+          8},{158,8}},       color={0,0,127}));
   connect(con1.y, multiMax1.u[1]) annotation (Line(points={{11,0},{30,0},{30,1},
           {48,1}},  color={0,0,127}));
   connect(min1.y, multiMax1.u[2]) annotation (Line(points={{12,-40},{30,-40},{30,
@@ -119,20 +119,22 @@ equation
           {-62,40}},          color={255,0,255}));
   connect(and2.y, con1.trigger) annotation (Line(points={{-38,40},{-20,40},{-20,
           -16},{-8,-16},{-8,-12}}, color={255,0,255}));
-  connect(and2.y, swiOff1.u2) annotation (Line(points={{-38,40},{170,40},{170,0},
-          {188,0}}, color={255,0,255}));
+  connect(and2.y, swiOff1.u2) annotation (Line(points={{-38,40},{140,40},{140,0},
+          {158,0}}, color={255,0,255}));
   connect(delT2HexWatSet.y, con1.u_s)
     annotation (Line(points={{-58,0},{-12,0}}, color={0,0,127}));
   connect(absDelT2.y, con1.u_m)
     annotation (Line(points={{-98,-20},{0,-20},{0,-12}}, color={0,0,127}));
-  connect(off.y, swiOff2.u3) annotation (Line(points={{152,-20},{160,-20},{160,-48},
-          {186,-48}}, color={0,0,127}));
+  connect(off.y, swiOff2.u3) annotation (Line(points={{122,-20},{130,-20},{130,
+          -48},{156,-48}},
+                      color={0,0,127}));
+  connect(and2.y, swiOff2.u2) annotation (Line(points={{-38,40},{140,40},{140,
+          -40},{156,-40}},
+                      color={255,0,255}));
+  connect(speMax.y, swiOff2.u1) annotation (Line(points={{122,-80},{150,-80},{
+          150,-32},{156,-32}}, color={0,0,127}));
   connect(swiOff2.y, y2Hex)
-    annotation (Line(points={{210,-40},{240,-40}}, color={0,0,127}));
-  connect(and2.y, swiOff2.u2) annotation (Line(points={{-38,40},{170,40},{170,-40},
-          {186,-40}}, color={255,0,255}));
-  connect(speMax.y, swiOff2.u1) annotation (Line(points={{152,-80},{180,-80},{
-          180,-32},{186,-32}}, color={0,0,127}));
+    annotation (Line(points={{180,-40},{240,-40}}, color={0,0,127}));
 annotation (Diagram(
   coordinateSystem(preserveAspectRatio=false,
   extent={{-220,-180},{220,180}})),

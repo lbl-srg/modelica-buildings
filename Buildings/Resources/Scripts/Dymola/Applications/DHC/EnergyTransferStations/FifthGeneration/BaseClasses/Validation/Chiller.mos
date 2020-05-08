@@ -1,5 +1,5 @@
 removePlots(false);
-simulateModel("Buildings.Applications.DHC.EnergyTransferStations.Validation.BaseChiller",
+simulateModel("Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.Validation.Chiller",
     method="Cvode",
     tolerance=1e-6,
     stopTime=5000,
