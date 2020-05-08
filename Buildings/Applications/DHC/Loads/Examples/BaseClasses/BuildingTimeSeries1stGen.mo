@@ -32,7 +32,7 @@ model BuildingTimeSeries1stGen
     timeScale=3600,
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     "Heating demand"
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Applications.DHC.EnergyTransferStations.Heating1stGenIdeal ets(
     redeclare final package Medium_a = Medium_a,
     redeclare final package Medium_b = Medium_b,
@@ -44,10 +44,10 @@ model BuildingTimeSeries1stGen
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
         Medium_a)
-    annotation (Placement(transformation(extent={{90,30},{110,50}})));
+    annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
         Medium_b)
-    annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
+    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Modelica.Blocks.Interfaces.RealOutput Q_flow(
     final quantity="HeatFlowRate",
     final unit="W",
@@ -58,15 +58,16 @@ model BuildingTimeSeries1stGen
     height=QPea_flow_real,
     duration(displayUnit="h") = 10800,
     startTime(displayUnit="h") = 21600)
-    annotation (Placement(transformation(extent={{-52,60},{-32,80}})));
+    annotation (Placement(transformation(extent={{-52,70},{-32,90}})));
 equation
-  connect(port_a, ets.port_a) annotation (Line(points={{100,40},{-40,40},{-40,0},
-          {-10,0}}, color={0,127,255}));
-  connect(ets.port_b, port_b) annotation (Line(points={{10,0},{60,0},{60,-40},{100,
-          -40}}, color={0,127,255}));
-  connect(ramp.y, Q_flow) annotation (Line(points={{-31,70},{36,70},{36,80},{
-          110,80}}, color={0,0,127}));
-  connect(ramp.y, ets.Q_flow) annotation (Line(points={{-31,70},{-22,70},{-22,6},
+  connect(port_a, ets.port_a) annotation (Line(points={{100,-60},{-40,-60},{-40,
+          0},{-10,0}},
+                    color={0,127,255}));
+  connect(ets.port_b, port_b) annotation (Line(points={{10,0},{100,0}},
+                 color={0,127,255}));
+  connect(ramp.y, Q_flow) annotation (Line(points={{-31,80},{110,80}},
+                    color={0,0,127}));
+  connect(ramp.y, ets.Q_flow) annotation (Line(points={{-31,80},{-20,80},{-20,6},
           {-12,6}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Polygon(
