@@ -5,14 +5,14 @@ compareVars :=
     "staSetCon.capReq.y",
     "staSetCon.staUp.y",
     "staSetCon.staDow.y",
-    "staSetCon.yChi[1]",
-    "staSetCon.yChi[2]",
+    "staSetCon.yChiSet[1]",
+    "staSetCon.yChiSet[2]",
     "staSetCon1.ySta",
     "staSetCon1.cap.yDes",
     "staSetCon1.capReq.y",
     "staSetCon1.staUp.y",
     "staSetCon1.staDow.y",
-    "staSetCon1.yChi[1]",
-    "staSetCon1.yChi[2]",
-    "staSetCon1.yChi[3]"
+    "staSetCon1.yChiSet[1]",
+    "staSetCon1.yChiSet[2]",
+    "staSetCon1.yChiSet[3]"
   };
