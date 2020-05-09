@@ -173,7 +173,8 @@ block SetpointController
         iconTransformation(extent={{-140,-110},{-100,-70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TWsePre(
-    final unit="1") if have_WSE
+    final quantity="ThermodynamicTemperature",
+    final unit="K") if have_WSE
     "Predicted WSE outlet temperature"
     annotation (Placement(transformation(extent={{-442,130},{-402,170}}),
        iconTransformation(extent={{-140,-70},{-100,-30}})));

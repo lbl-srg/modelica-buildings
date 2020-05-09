@@ -86,8 +86,8 @@ block Controller "Waterside economizer (WSE) enable/disable status"
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "WSE enable/disable status"
-    annotation (Placement(transformation(extent={{180,-10},{200,10}}),
-    iconTransformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{180,70},{200,90}}),
+    iconTransformation(extent={{100,40},{120,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTunPar
     "Tuning parameter"
@@ -105,6 +105,10 @@ block Controller "Waterside economizer (WSE) enable/disable status"
     "Enable condition based on the outdoor wet bulb temperature"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
 
+  CDL.Interfaces.RealOutput TWsePre(final quantity="ThermodynamicTemperature",
+      final unit="K") "Predicted waterside economizer outlet temperature"
+    annotation (Placement(transformation(extent={{180,-10},{200,10}}),
+        iconTransformation(extent={{100,-10},{120,10}})));
 protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.Tuning wseTun(
     final step=step,
@@ -174,7 +178,8 @@ equation
     annotation (Line(points={{162,30},{170,30},{170,-30},{130,-30},{130,-50},{138,-50}},
           color={255,0,255}));
   connect(truFalHol.y, y) annotation (
-    Line(points={{162,30},{170,30},{170,0},{190,0}}, color={255,0,255}));
+    Line(points={{162,30},{170,30},{170,80},{190,80}},
+                                                     color={255,0,255}));
   connect(enaTWet.y, and2.u1)
     annotation (Line(points={{42,50},{98,50}}, color={255,0,255}));
   connect(truFalHol.u, and2.y)
@@ -203,6 +208,8 @@ equation
     annotation (Line(points={{2,50},{18,50}}, color={0,0,127}));
   connect(wseTun.y, yTunPar)
     annotation (Line(points={{-119,-90},{190,-90}}, color={0,0,127}));
+  connect(wseTOut.y, TWsePre) annotation (Line(points={{-78,50},{-50,50},{-50,
+          20},{120,20},{120,0},{190,0}}, color={0,0,127}));
   annotation (defaultComponentName = "wseSta",
         Icon(graphics={
         Rectangle(
