@@ -156,11 +156,11 @@ equation
   // clothing insulation value
   RCl = 0.155 * ICl_in_internal;
   // clothing area factor
-fCl1 = 1.00 + 0.2*ICl_in_internal;
-fCl2 = 1.05 + 0.1*ICl_in_internal;
+  fCl1 = 1.00 + 0.2*ICl_in_internal;
+  fCl2 = 1.05 + 0.1*ICl_in_internal;
 
   // fcl eq (61)
-   fCl = fCl1 + (fCl2 - fCl1)*Buildings.Utilities.Math.Functions.smoothHeaviside(
+  fCl = fCl1 + (fCl2 - fCl1)*Buildings.Utilities.Math.Functions.smoothHeaviside(
      x=(ICl_in_internal - 0.5), delta=0.01);
 
 
