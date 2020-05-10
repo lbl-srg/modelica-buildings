@@ -54,7 +54,7 @@ extends Buildings.BaseClasses.BaseIcon;
         iconTransformation(extent={{-120,50},{-100,70}})));
 
   Modelica.SIunits.Temperature TOpe "Operative temperature";
-  Modelica.SIunits.Temperature TClo "Surface temperature of clothing";
+  Modelica.SIunits.Temperature TClo(start=273.15+40) "Surface temperature of clothing";
   Modelica.SIunits.Temperature TSki(
     min=273.15+10,
     max=273.15+42) "Skin temperature";
@@ -108,7 +108,7 @@ protected
     "Model to compute the steam mass fraction";
   Real fCl1 "work variable for fCl";
   Real fCl2 "work variable for fCl";
-  Real aux "Auxiliary variable used to eliminate common subexpressions";
+ // Real aux "Auxiliary variable used to eliminate common subexpressions";
 
   Modelica.Blocks.Interfaces.RealInput vAir_in_internal
     "Needed to connect to conditional connector";
@@ -156,35 +156,42 @@ equation
   // clothing insulation value
   RCl = 0.155 * ICl_in_internal;
   // clothing area factor
-  fCl1 = 1.00 + 0.2*ICl_in_internal;
-  fCl2 = 1.05 + 0.1*ICl_in_internal;
+fCl1 = 1.00 + 0.2*ICl_in_internal;
+fCl2 = 1.05 + 0.1*ICl_in_internal;
 
   // fcl eq (61)
-  fCl = fCl1 + (fCl2 - fCl1)*Buildings.Utilities.Math.Functions.smoothHeaviside(
-                                 x=(ICl_in_internal - 0.5), delta=0.01);
+   fCl = fCl1 + (fCl2 - fCl1)*Buildings.Utilities.Math.Functions.smoothHeaviside(
+     x=(ICl_in_internal - 0.5), delta=0.01);
+
+
   // hCon, table 6, Mitchell
-  hCon = 8.3*Buildings.Utilities.Math.Functions.smoothMax(x1=vAir_in_internal*vAir_in_internal,
-                                                          x2=0.0375213,
-                                                          deltaX=0.01)^0.3;
+//     hCon = 8.3*Buildings.Utilities.Math.Functions.smoothMax(
+//        x1=vAir_in_internal*vAir_in_internal,
+//        x2=0.0375213,
+//        deltaX=0.01)^0.3;
+     hCon = Buildings.Utilities.Math.Functions.smoothMax(
+       x1=12.1*sqrt(vAir_in_internal),
+       x2=2.38*(TClo - TAir)^0.25,
+       deltaX=0.0001);
+
   hCom = hRad + hCon;
 
   // operative temperature (8)
   TOpe = (hRad*TRad + hCon*TAir)/hCom;
 
   // Clothing temperature (59)
-  aux = - 3.05*(5.73 - 0.007*(M_in_internal - W) - pSte*1E-3)
-        - 0.42*((M_in_internal - W) - 58.15)
-        - 0.0173*M_in_internal*(5.87 - pSte*1E-3)
-        - 0.0014*M_in_internal*(307.15 - TAir);
+  TClo = 35.7 - 0.028 * (M_in_internal-W) - RCl*((3.96E-8*fCl*((TClo)^4 - (TRad)^4))+ fCl*hCon*(TClo - TAir)) + 273.15;
 
-  TClo = Modelica.SIunits.Conversions.from_degC(35.7 - 0.0275 * (M_in_internal-W)
-                 - RCl * (  (M_in_internal-W)
-                 + aux));
-  // heat load on body, see (58)
+
   L = (M_in_internal - W)
-      - 3.96*1e-8*fCl*(TClo^4 - TRad^4)
-      - fCl*hCon*(TClo - TAir)
-      + aux;
+       - 3.05E-3*(5733 - 6.99*(M_in_internal - W) - pSte)
+        - 0.42*((M_in_internal - W) - 58.15)
+        - 1.7E-5*M_in_internal*(5867 - pSte)
+        - 0.0014*M_in_internal*(307.15 - TAir)
+        - 3.96E-8*fCl*(TClo^4 - TRad^4)
+        - fCl*hCon*(TClo - TAir);
+
+  // heat load on body, see (58)
 
   // PMV (62)
   PMV = (0.303*Modelica.Math.exp(-0.036*M) + 0.028)*L;
