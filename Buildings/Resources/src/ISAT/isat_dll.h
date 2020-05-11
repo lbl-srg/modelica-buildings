@@ -22,7 +22,8 @@
 
 
 /* Windows*/
-#ifdef _MSC_VER
+/*#ifdef _MSC_VER*/
+#ifdef _WIN32 
 __declspec(dllexport)
 extern int isat_dll(CosimulationData *cosim);
 /* Linux*/
@@ -39,7 +40,8 @@ int isat_dll(CosimulationData *cosim);
 	*
 	* @return 0 if no error occurred
 	*/
-#ifdef _MSC_VER /*Windows*/
+/*#ifdef _MSC_VER*/
+#ifdef _WIN32 /*Windows*/
 DWORD WINAPI isat_thread(void *p);
 #else /*Linux*/
 void *isat_thread(void *p);

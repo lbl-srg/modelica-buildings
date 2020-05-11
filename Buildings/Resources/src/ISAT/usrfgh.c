@@ -47,7 +47,8 @@ extern int useNumericalDifferentiation;  /* pass global variable */
 | \return No return needed
 ******************************************************************************/
 /* Windows*/
-#ifdef _MSC_VER
+/*#ifdef _MSC_VER*/
+#ifdef _WIN32 
 void USRFGH(int need[], int *nx, double x[], int *nf, int *nh, int iusr[], double rusr[], double f[], double** g, double h[]) {
 
 	if (need[1] == 1 && useNumericalDifferentiation == 1) {
