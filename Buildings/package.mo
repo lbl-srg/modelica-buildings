@@ -204,11 +204,6 @@ its class name ends with the string <code>Beta</code>.
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
         </td>
     </tr>
-    <tr><td valign=\"top\">Buildings.Fluid.Actuators.Dampers.PressureIndependent
-        </td>
-        <td valign=\"top\">Added the computation of the damper opening.
-        </td>
-    </tr>
     <tr><td valign=\"top\">Buildings.Fluid.Actuators.Valves.ThreeWayTable
         </td>
         <td valign=\"top\">Three way valves with opening characteristics based on a user-provided table.
@@ -388,6 +383,12 @@ its class name ends with the string <code>Beta</code>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal<br/>
+		   Buildings.Fluid.Actuators.Dampers.PressureIndependent
+        </td>
+        <td valign=\"top\">Added the computation of the damper opening.
         </td>
     </tr>
     <tr><td valign=\"top\">
@@ -647,7 +648,8 @@ its class name ends with the string <code>Beta</code>.
                            For Dymola, a conversion script makes this change. However the script will
                            not make the <code>each</code> keyword persist in array declarations. The
                            keyword will have to be manually reintroduced after applying the script.<br/>
-                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1188\">IBPSA, #1188</a>.
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/"
+               + "issues/1188\">IBPSA, #1188</a>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
@@ -778,7 +780,7 @@ its class name ends with the string <code>Beta</code>.
                            <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1205\">IBPSA, #1205</a>.
         </td>
     </tr>
-    <tr><td colspan=\"2\"><b>Buildings.ThermalZones.D" + "etailed</b>
+    <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
         </td>
     </tr>
     <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Constructions.Examples.ExteriorWallTwoWindows<br/>
