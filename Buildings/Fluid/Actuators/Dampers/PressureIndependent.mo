@@ -13,6 +13,10 @@ model PressureIndependent
   parameter Real deltax(unit="1", min=1E-5) = 0.02 "Transition interval for flow rate"
     annotation(Dialog(tab="Advanced"));
 protected
+  Real kSquInv
+    "Square inverse of flow coefficient (damper plus fixed resistance)";
+  Real kDamSquInv
+    "Square inverse of flow coefficient (damper only)";
   parameter Real y_min = 2E-2
     "Minimum value of control signal before zeroing of the opening";
   parameter Integer sizeSupSplBnd = 5
@@ -26,7 +30,7 @@ protected
     linspace(yL, 0, sizeSupSplBnd))
     "y values of unsorted support points for spline interpolation";
   parameter Real[sizeSupSpl] kSupSpl_raw = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
-    y=ySupSpl_raw, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU)
+    y=ySupSpl_raw, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU) .^ 2
     "k values of unsorted support points for spline interpolation";
   parameter Real[sizeSupSpl] ySupSpl(each fixed=false)
     "y values of sorted support points for spline interpolation";
@@ -56,6 +60,66 @@ protected
     "Smooth interpolation result between two flow regimes";
   Real y_actual_smooth(final unit="1")
     "Fractional opening computed based on m_flow_smooth and dp";
+
+function basicFlowFunction_dp_m_flow
+  "Inverse of flow function that computes that computes the square inverse of flow coefficient"
+  extends Modelica.Icons.Function;
+  input Modelica.SIunits.MassFlowRate m_flow
+    "Mass flow rate in design flow direction";
+  input Modelica.SIunits.PressureDifference dp
+    "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
+  input Modelica.SIunits.MassFlowRate m_flow_small
+    "Minimum value of mass flow rate guarding against k=(0)/sqrt(dp)";
+  input Modelica.SIunits.PressureDifference dp_small
+    "Minimum value of pressure drop guarding against k=m_flow/(0)";
+  output Real kSquInv
+    "Square inverse of flow coefficient";
+  protected
+  Modelica.SIunits.PressureDifference dpPos=
+    Buildings.Utilities.Math.Functions.smoothMax(dp, -dp, dp_small)
+    "Regularized absolute value of pressure drop";
+  Real mSqu_flow = Buildings.Utilities.Math.Functions.smoothMax(
+    m_flow^2, m_flow_small^2, m_flow_small^2)
+    "Regularized square value of mass flow rate";
+algorithm
+  kSquInv := dpPos / mSqu_flow;
+annotation (smoothOrder=1);
+end basicFlowFunction_dp_m_flow;
+
+function exponentialDamper_inv
+  "Inverse function of the exponential damper characteristics"
+  extends Modelica.Icons.Function;
+  input Real kTheta "Loss coefficient";
+  input Real[:] kSupSpl "k values of support points";
+  input Real[:] ySupSpl "y values of support points";
+  input Real[:] invSplDer "Derivatives at support points";
+  output Real y "Fractional opening";
+  protected
+  parameter Integer sizeSupSpl = size(kSupSpl, 1) "Number of spline support points";
+  Integer i "Integer to select data interval";
+algorithm
+  i := 1;
+  for j in 2:sizeSupSpl loop
+    if kTheta <= kSupSpl[j] then
+      i := j;
+      break;
+    end if;
+  end for;
+  y := Buildings.Utilities.Math.Functions.smoothLimit(
+    Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
+      x=kTheta,
+      x1=kSupSpl[i - 1],
+      x2=kSupSpl[i],
+      y1=ySupSpl[i - 1],
+      y2=ySupSpl[i],
+      y1d=invSplDer[i - 1],
+      y2d=invSplDer[i]),
+    0,
+    1,
+    1E-3);
+annotation (smoothOrder=1);
+end exponentialDamper_inv;
+
 initial equation
   (kSupSpl, idx_sorted) = Modelica.Math.Vectors.sort(kSupSpl_raw, ascending=true);
   ySupSpl = ySupSpl_raw[idx_sorted];
@@ -156,18 +220,18 @@ equation
                  y2dd=y2dd)));
   end if;
   // Computation of damper opening
-  k = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_m_flow(
+  kSquInv = basicFlowFunction_dp_m_flow(
     m_flow=m_flow,
     dp=dp,
-    m_flow_small=1E-2*abs(m_flow_nominal),
+    m_flow_small=1E-3*abs(m_flow_nominal),
     dp_small=1E-4*dp_nominal_pos);
-  kDam = if dpFixed_nominal > Modelica.Constants.eps then
-    sqrt(1 / (1 / k^2 - 1 / kFixed^2)) else k;
+  kDamSquInv = if dpFixed_nominal > Modelica.Constants.eps then
+    kSquInv - 1 / kFixed^2 else kSquInv;
   // Use of regStep might no longer be needed when the leakage flow modeling is updated.
   y_actual_smooth = Buildings.Utilities.Math.Functions.regStep(
     x=y_internal - y_min,
-    y1=Buildings.Fluid.Actuators.BaseClasses.exponentialDamper_inv(
-      kThetaSqRt=sqrt(2*rho)*A/kDam, kSupSpl=kSupSpl, ySupSpl=ySupSpl, invSplDer=invSplDer),
+    y1=exponentialDamper_inv(
+      kTheta=kDamSquInv*2*rho*A^2, kSupSpl=kSupSpl, ySupSpl=ySupSpl, invSplDer=invSplDer),
     y2=0,
     x_small=1E-3);
   // Homotopy transformation
@@ -222,10 +286,12 @@ from the loss coefficient value (directly derived from the flow coefficient).
 </li>
 </ul>
 <p>
-As explained in
-<a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.exponentialDamper_inv\">
-Buildings.Fluid.Actuators.BaseClasses.exponentialDamper_inv</a>,
-a cubic spline is used to fit the inverse of the damper characteristics.
+The quadratic interpolation used outside the exponential domain in the function
+<a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.exponentialDamper\">
+Buildings.Fluid.Actuators.BaseClasses.exponentialDamper</a>
+yields a local extremum.
+Therefore, the formal inversion of the function is not possible.
+A cubic spline is used instead to fit the inverse of the damper characteristics.
 The central domain of the characteritics having a monotonous exponential profile, its
 inverse can be properly approximated with three equidistant support points.
 However, the quadratic functions used outside of the exponential domain can have
