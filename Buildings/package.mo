@@ -387,6 +387,27 @@ its class name ends with the string <code>Beta</code>.
                            <code>Buildings.Controls.OBC.CDL</code>.
         </td>
     </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Examples.VAVReheat</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Examples.VAVReheat.ASHRAE2006<br/>
+		   Buildings.Examples.VAVReheat.Guideline36
+        </td>
+        <td valign=\"top\">Exported actual VAV damper position as the measured input data for
+		   defining duct static pressure setpoint.<br/>
+		   This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1873\">issue #1873</a>.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Examples.VAVReheat.Controls
+        </td>
+        <td valign=\"top\">Reverse action changed to <code>true</code> for reheat controller.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Examples.VAVReheat.ThermalZones.VAVBranch
+        </td>
+        <td valign=\"top\">Added output connector for returned damper position.
+        </td>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
         </td>
     </tr>
@@ -637,7 +658,8 @@ its class name ends with the string <code>Beta</code>.
     <tr><td valign=\"top\">Buildings.Controls.SetPoints.SupplyReturnTemperatureReset
         </td>
         <td valign=\"top\">Changed name from <code>HotWaterTemperatureReset</code> to <code>SupplyReturnTemperatureReset</code>.<br/>
-                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/860\">#860</a>.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-b"
+               + "uildings/issues/860\">#860</a>.<br/>
                            For Dymola, a conversion script makes this change.
         </td>
     </tr>
@@ -794,7 +816,7 @@ its class name ends with the string <code>Beta</code>.
                            <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1205\">IBPSA, #1205</a>.
         </td>
     </tr>
-    <tr><td colspan=\"2\"><b>Buildings.ThermalZones.D" + "etailed</b>
+    <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
         </td>
     </tr>
     <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Constructions.Examples.ExteriorWallTwoWindows<br/>
