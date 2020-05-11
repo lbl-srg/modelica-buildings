@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #######################################################
 # Script the installs spawn, which generates
 # an FMU with the EnergyPlus envelope model
