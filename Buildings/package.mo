@@ -178,7 +178,6 @@ its class name ends with the string <code>Beta</code>.
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1829\">#1829</a>.
         </td>
     </tr>
-
     <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneStatus
         </td>
         <td valign=\"top\">Block that outputs zone temperature status by comparing it with setpoint temperatures, with the maximum and
@@ -194,7 +193,7 @@ its class name ends with the string <code>Beta</code>.
                            has been moved to <code>Buildings.Obsolete</code>.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1588\">issue #1588</a>.
         </td>
-        </tr>
+    </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.Utilities.OptimalStart
         </td>
         <td valign=\"top\">Block that outputs optimal start time for an HVAC system prior to the occupancy.
@@ -385,19 +384,6 @@ its class name ends with the string <code>Beta</code>.
     <tr><td colspan=\"2\"><b>Buildings.Examples.VAVReheat</b>
         </td>
     </tr>
-    <tr><td valign=\"top\">Buildings.Examples.VAVReheat.ASHRAE2006<br/>
-		   Buildings.Examples.VAVReheat.Guideline36
-        </td>
-        <td valign=\"top\">Exported actual VAV damper position as the measured input data for
-		   defining duct static pressure setpoint.<br/>
-		   This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1873\">issue #1873</a>.
-        </td>
-    </tr>
-    <tr><td valign=\"top\">Buildings.Examples.VAVReheat.Controls
-        </td>
-        <td valign=\"top\">Reverse action changed to <code>true</code> for reheat controller.
-        </td>
-    </tr>
     <tr><td valign=\"top\">Buildings.Examples.VAVReheat.ThermalZones.VAVBranch
         </td>
         <td valign=\"top\">Added output connector for returned damper position.
@@ -566,6 +552,12 @@ its class name ends with the string <code>Beta</code>.
                            For Dymola, a conversion script makes this change.
         </td>
     </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Discrete.MovingMean
+        </td>
+        <td valign=\"top\">This block became obsolete, use <code>Buildings.Controls.OBC.CDL.Discrete.TriggeredMovingMean</code> instead.<br/>
+                           For Dymola, a conversion script makes this change.
+        </td>
+    </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.SetPoints.SupplyReturnTemperatureReset
         </td>
         <td valign=\"top\">Changed name from <code>HotWaterTemperatureReset</code> to <code>SupplyReturnTemperatureReset</code>.<br/>
@@ -576,22 +568,6 @@ its class name ends with the string <code>Beta</code>.
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1</b>
         </td>
     </tr>
-    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests
-        </td>
-        <td valign=\"top\">Changed the acutual damper position name from <code>uDam</code> to <code>yDam_actual</code>.<br/>
-                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1873\">issue #1873</a>
-        </td>
-    </tr>
-    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller
-        </td>
-        <td valign=\"top\">Added actual VAV damper position as the input for generating system request.<br/>
-                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1873\">issue #1873</a>
-        </td>
-    </tr>
-    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValves
-        </td>
-        <td valign=\"top\">Added option to check if the VAV damper is pressure independent.<br/>
-                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1873\">issue #1873</a>
     <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller
         </td>
         <td valign=\"top\">Reimplemented to add new block for specifying the minimum outdoor airfow setpoint.
@@ -647,11 +623,22 @@ its class name ends with the string <code>Beta</code>.
         </td>
         <td valign=\"top\">Improved the implementation to avoid issues when heating and cooling controls occur at the same time.
     </tr>
-    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Discrete.MovingMean
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests
         </td>
-        <td valign=\"top\">This block became obsolete, use <code>Buildings.Controls.OBC.CDL.Discrete.TriggeredMovingMean</code> instead.<br/>
-                           For Dymola, a conversion script makes this change.
+        <td valign=\"top\">Changed the actual damper position name from <code>uDam</code> to <code>yDam_actual</code>.<br/>
+                         This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1873\">issue #1873</a>
         </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller
+        </td>
+        <td valign=\"top\">Added actual VAV damper position as the input for generating system request.<br/>
+                         This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1873\">issue #1873</a>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValves
+        </td>
+        <td valign=\"top\">Added option to check if the VAV damper is pressure independent.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1873\">issue #1873</a>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.Controls.SetPoints</b>
         </td>
@@ -659,8 +646,7 @@ its class name ends with the string <code>Beta</code>.
     <tr><td valign=\"top\">Buildings.Controls.SetPoints.SupplyReturnTemperatureReset
         </td>
         <td valign=\"top\">Changed name from <code>HotWaterTemperatureReset</code> to <code>SupplyReturnTemperatureReset</code>.<br/>
-                           This is for <a href=\"https://github.com/lbl-srg/modelica-b"
-               + "uildings/issues/860\">#860</a>.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/860\">#860</a>.<br/>
                            For Dymola, a conversion script makes this change.
         </td>
     </tr>
@@ -671,7 +657,7 @@ its class name ends with the string <code>Beta</code>.
                            Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential<br/>
                            Buildings.Fluid.Actuators.Dampers.Exponential<br/>
                            Buildings.Fluid.Actuators.Dampers.MixingBox<br/>
-                           Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow<br/>
+                           Buildings" + ".Fluid.Actuators.Dampers.MixingBoxMinimumFlow<br/>
                            Buildings.Fluid.Actuators.Dampers.PressureIndependent<br/>
                            Buildings.Fluid.Actuators.Dampers.VAVBoxExponential
         </td>
@@ -686,8 +672,7 @@ its class name ends with the string <code>Beta</code>.
                            For Dymola, a conversion script makes this change. However the script will
                            not make the <code>each</code> keyword persist in array declarations. The
                            keyword will have to be manually reintroduced after applying the script.<br/>
-                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/"
-               + "issues/1188\">IBPSA, #1188</a>.
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1188\">IBPSA, #1188</a>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
@@ -760,6 +745,30 @@ its class name ends with the string <code>Beta</code>.
                        accounted for in the energy exchange at the battery.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1865\">1865</a>.
       </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Examples.VAVReheat</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Examples.VAVReheat.ASHRAE2006<br/>
+		   Buildings.Examples.VAVReheat.Guideline36
+        </td>
+        <td valign=\"top\">Connected actual VAV damper position as the measured input data for
+		   defining duct static pressure setpoint.<br/>
+		   This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1873\">issue #1873</a>.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Examples.VAVReheat.Controls.DuctStaticPressureSetpoint
+        </td>
+        <td valign=\"top\">Reverse action changed to <code>true</code> for the pressure set-point controller.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Examples.VAVReheat.Controls.RoomVAV
+        </td>
+        <td valign=\"top\">Refactored the model to implement a single maximum control logic.
+		   The previous implementation led to a maximum air flow rate in heating demand.<br/>
+ 		   The input connector <code>TDis</code> is removed. This is non backward compatible.<br/>
+		   This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1873\">issue #1873</a>.
+        </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
         </td>
