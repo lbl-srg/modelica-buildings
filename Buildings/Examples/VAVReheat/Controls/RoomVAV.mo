@@ -143,23 +143,27 @@ annotation (
           textString="TRooCooSet")}),
  Documentation(info="<html>
 <p>
-Controller for terminal box of VAV system with reheat. It was implemented according
-to <a href=\"https://newbuildings.org/sites/default/files/A-11_LG_VAV_Guide_3.6.2.pdf\">
+Controller for terminal VAV box with hot water reheat and pressure independent damper. 
+It was implemented according to
+<a href=\"https://newbuildings.org/sites/default/files/A-11_LG_VAV_Guide_3.6.2.pdf\">
 [Advanced Variabled Air Volume System Design Guide]</a>, single maximum VAV reheat box
 control.
+The damper control signal <code>yDam</code> corresponds to the discharge air flow rate 
+set-point, normalized to the nominal value.
 </p>
 <ul>
 <li>
-In cooling, airflow to the zone is modulated between the minimum airflow setpoint and
-the design cooling maximum airflow setpoint <code>VCooMax_flow</code> based on the
-space cooling demand. The signal to control damper <code>yDam</code> is the normalized
-airflow by the nominal airflow rate of this thermal zone <code>V_flow_nominal</code>.
+In cooling demand, the damper control signal <code>yDam</code> is modulated between 
+a minimum value <code>ratVFloMin</code> (typically between 30% and 50%) and 1 
+(corresponding to the nominal value).
+The control signal for the reheat coil valve <code>yVal</code> is 0
+(corresponding to the valve fully closed).
 </li>
 <li>
-In heating, the airflow is fixed at the minimum airflow rate and only the reheat
-valve <code>yVal</code> is modulated. The VAV box minimum airflow setpoint it kept
-relatively high, typically between 30% and 50% (<code>minFloRat</code>) of the cooling
-maximum airflow setpoint.
+In heating demand, the damper control signal <code>yDam</code> is fixed at the minimum value 
+<code>ratVFloMin</code>. 
+The control signal for the reheat coil valve <code>yVal</code> is modulated between
+0 and 1 (corresponding to the valve fully open).
 </li>
 </ul>
 <p align=\"center\">
