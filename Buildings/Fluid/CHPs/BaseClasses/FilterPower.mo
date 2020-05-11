@@ -28,6 +28,11 @@ model FilterPower "Constraints for electric power"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 
 protected
+  final parameter Modelica.SIunits.Power unitPower = 1
+    "Unit power";
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai(
+    final k=unitPower) "Convert unit"
+    annotation (Placement(transformation(extent={{34,20},{54,40}})));
   Modelica.Blocks.Nonlinear.VariableLimiter PLim "Power limiter"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant PMax(
@@ -37,12 +42,12 @@ protected
     final k=PEleMin) "Minimum power"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.SlewRateLimiter dPLim(
-    final raisingSlewRate(unit="W/s")=dPEleMax,
-    final fallingSlewRate(unit="W/s")=-dPEleMax,
+    final raisingSlewRate=dPEleMax/unitPower,
+    final fallingSlewRate=-dPEleMax/unitPower,
     final Td=1) "Power rate limiter"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Buildings.Controls.OBC.CDL.Logical.Switch switch
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant limDp(
     final k=use_powerRateLimit)
     "Check if dP is limited"
@@ -55,18 +60,20 @@ equation
           -50,-8},{-42,-8}}, color={0,0,127}));
   connect(PLim.u, PEleDem) annotation (Line(points={{-42,0},{-120,0}},
           color={0,0,127}));
-  connect(switch.y, PEle) annotation (Line(points={{82,0},{120,0}},
+  connect(switch.y, PEle) annotation (Line(points={{92,0},{120,0}},
           color={0,0,127}));
-  connect(dPLim.y, switch.u1) annotation (Line(points={{22,30},{40,30},{40,8},
-          {58,8}}, color={0,0,127}));
   connect(PLim.y, dPLim.u) annotation (Line(points={{-19,0},{-10,0},{-10,30},{-2,30}},
           color={0,0,127}));
-  connect(PLim.y, switch.u3) annotation (Line(points={{-19,0},{-10,0},{-10,-8},
-          {58,-8}}, color={0,0,127}));
+  connect(PLim.y, switch.u3) annotation (Line(points={{-19,0},{-10,0},{-10,-8},{
+          68,-8}},  color={0,0,127}));
   connect(assPow.PEleDem, PEleDem) annotation (Line(points={{-42,-70},{-90,-70},
           {-90,0},{-120,0}}, color={0,0,127}));
   connect(limDp.y, switch.u2) annotation (Line(points={{22,-30},{40,-30},{40,0},
-          {58,0}}, color={255,0,255}));
+          {68,0}}, color={255,0,255}));
+  connect(dPLim.y, gai.u)
+    annotation (Line(points={{22,30},{32,30}}, color={0,0,127}));
+  connect(gai.y, switch.u1)
+    annotation (Line(points={{56,30},{60,30},{60,8},{68,8}}, color={0,0,127}));
 
 annotation (
   defaultComponentName="filPow",
