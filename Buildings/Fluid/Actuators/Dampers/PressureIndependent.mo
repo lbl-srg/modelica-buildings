@@ -314,7 +314,6 @@ variations.
 revisions="<html>
 <ul>
 <li>
-<li>
 April 6, 2020, by Antoine Gautier:<br/>
 Added the computation of the damper opening.
 </li>
