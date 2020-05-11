@@ -204,6 +204,11 @@ its class name ends with the string <code>Beta</code>.
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
         </td>
     </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.Actuators.Dampers.PressureIndependent
+        </td>
+        <td valign=\"top\">Added the computation of the damper opening.
+        </td>
+    </tr>
     <tr><td valign=\"top\">Buildings.Fluid.Actuators.Valves.ThreeWayTable
         </td>
         <td valign=\"top\">Three way valves with opening characteristics based on a user-provided table.
