@@ -87,7 +87,7 @@ model HeatingSystem "Generic first generation district heating system"
   Buildings.Applications.DHC.Controls.HeatingSystemControl plaCon(nu=8,
       QPla_flow_nominal=QPla_flow_nominal)
     annotation (Placement(transformation(extent={{-80,100},{-100,120}})));
-  Networks.Connection1stGen4Pipe conBld4(
+  Networks.Connection1stGen4PipeSections conBld4(
     redeclare package MediumSup = MediumSte,
     redeclare package MediumRet = MediumWat,
     nSeg=nSeg,
@@ -101,7 +101,7 @@ model HeatingSystem "Generic first generation district heating system"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-30,-56})));
-  Networks.Connection1stGen4Pipe conBld3(
+  Networks.Connection1stGen4PipeSections conBld3(
     redeclare package MediumSup = MediumSte,
     redeclare package MediumRet = MediumWat,
     nSeg=nSeg,
@@ -115,7 +115,7 @@ model HeatingSystem "Generic first generation district heating system"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-30,-16})));
-  Networks.Connection1stGen6Pipe conBld2(
+  Networks.Connection1stGen6PipeSections conBld2(
     redeclare package MediumSup = MediumSte,
     redeclare package MediumRet = MediumWat,
     nSeg=nSeg,
@@ -159,7 +159,7 @@ model HeatingSystem "Generic first generation district heating system"
     QPea_flow_real=QBld4_flow_nominal,
     pSte_nominal=pSte_nominal)
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
-  Networks.Connection1stGen4Pipe conBld1(
+  Networks.Connection1stGen4PipeSections conBld1(
     redeclare package MediumSup = MediumSte,
     redeclare package MediumRet = MediumWat,
     nSeg=nSeg,
@@ -173,7 +173,7 @@ model HeatingSystem "Generic first generation district heating system"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={90,-56})));
-  Networks.Connection1stGen4Pipe conBld5(
+  Networks.Connection1stGen4PipeSections conBld5(
     redeclare package MediumSup = MediumSte,
     redeclare package MediumRet = MediumWat,
     nSeg=nSeg,
@@ -187,7 +187,7 @@ model HeatingSystem "Generic first generation district heating system"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={90,-16})));
-  Networks.Connection1stGen6Pipe conBld6(
+  Networks.Connection1stGen6PipeSections conBld6(
     redeclare package MediumSup = MediumSte,
     redeclare package MediumRet = MediumWat,
     nSeg=nSeg,
@@ -203,7 +203,7 @@ model HeatingSystem "Generic first generation district heating system"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={90,24})));
-  Networks.Connection1stGen2Pipe conPla(
+  Networks.Connection1stGen2PipeSections conPla(
     redeclare package MediumSup = MediumSte,
     redeclare package MediumRet = MediumWat,
     nSeg=nSeg,

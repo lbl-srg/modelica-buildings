@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.Networks;
-model Connection1stGen2Pipe
-  "Connection for a first generation DHC network with 2 pipe declarations"
+model Connection1stGen2PipeSections
+  "Connection for a first generation DHC network with 2 pipe sections"
   extends
     Buildings.Applications.DHC.Networks.BaseClasses.PartialConnection2Pipe2Medium(
     redeclare model Model_pip_aDisSup = Buildings.Fluid.FixedResistances.Pipe (
@@ -42,4 +42,4 @@ equation
     annotation (Line(points={{20,-20},{20,0}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end Connection1stGen2Pipe;
+end Connection1stGen2PipeSections;
