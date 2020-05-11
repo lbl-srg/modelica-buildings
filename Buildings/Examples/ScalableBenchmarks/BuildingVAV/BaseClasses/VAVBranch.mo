@@ -255,18 +255,11 @@ annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
           textString="TRooAir")}),
      Documentation(info="<html>
 <p>
-Model for a VAV branch. It represents a terminal VAV box with a pressure
-independent damper and a water reheat coil. The pressure independent damper model
-includes an idealized flow rate controller and requires a flow rate set-point
-(ratio to the nominal value) as a control signal.
-</p>
-<p>
-The model has been developed based on
-<a href=\"modelica://Buildings.Examples.VAVReheat.ThermalZones.VAVBranch\">
-Buildings.Examples.VAVReheat.ThermalZones.VAVBranch</a>, but using different VAV
-box model
-<a href=\"modelica://Buildings.Fluid.Actuators.Dampers.PressureIndependent\">
-Buildings.Fluid.Actuators.Dampers.PressureIndependent</a>.
+Model for a VAV supply branch. 
+The terminal VAV box has a pressure independent damper and a water reheat coil. 
+The pressure independent damper model includes an idealized flow rate controller 
+and requires a discharge air flow rate set-point (normalized to the nominal value) 
+as a control signal.
 </p>
 </html>", revisions="<html>
 <ul>

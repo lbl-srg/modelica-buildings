@@ -213,5 +213,13 @@ equation
           smooth=Smooth.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,0})}));
+          lineColor={0,0,0})}), Documentation(info="<html>
+<p>
+Model for a VAV supply branch. 
+The terminal VAV box has a pressure independent damper and a water reheat coil. 
+The pressure independent damper model includes an idealized flow rate controller 
+and requires a discharge air flow rate set-point (normalized to the nominal value) 
+as a control signal.
+</p>
+</html>"));
 end VAVBranch;
