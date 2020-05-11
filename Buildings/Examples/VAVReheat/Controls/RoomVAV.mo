@@ -174,7 +174,15 @@ The control signal for the reheat coil valve <code>yVal</code> is modulated betw
 <ul>
 <li>
 April 24, 2020, by Jianjun Hu:<br/>
-First implemention.
+Refactored the model to implement a single maximum control logic.
+The previous implementation led to a maximum air flow rate in heating demand.<br/>
+The input connector <code>TDis</code> is removed. This is non backward compatible.<br/>
+This is for 
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1873\">issue 1873</a>.
+</li>
+<li>
+September 20, 2017, by Michael Wetter:<br/>
+Removed blocks with blocks from CDL package.
 </li>
 </ul>
 </html>"),
