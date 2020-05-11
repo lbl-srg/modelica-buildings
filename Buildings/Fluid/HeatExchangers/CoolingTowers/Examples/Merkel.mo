@@ -22,8 +22,6 @@ model Merkel "Test model for cooling tower using the Merkel theory"
     k=1,
     Ti=60,
     Td=10,
-    yMax=1,
-    yMin=0,
     reverseAction=true,
     u_s(
       unit="K",

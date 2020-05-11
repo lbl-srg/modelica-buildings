@@ -1,7 +1,7 @@
-dist: trusty
-sudo: false
+dist: bionic
 
 language: python
+
 python:
   - "3.6"
 
