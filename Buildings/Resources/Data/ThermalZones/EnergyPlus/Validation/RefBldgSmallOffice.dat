@@ -1,6 +1,6 @@
 #1
 double EnergyPlus(1008,9)
-#This file contains the results from the EnergyPlus simulation of RefBldgSmallOfficeNew2004.idf for Chicago
+#This file contains the results from the EnergyPlus simulation
 #Column 0: Time in seconds
 #Column 1: Environment:Site Outdoor Air Drybulb Temperature [C](TimeStep)
 #Column 2: Environment:Site Outdoor Air Relative Humidity [%](TimeStep)
