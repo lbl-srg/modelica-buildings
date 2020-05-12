@@ -23,7 +23,8 @@
 ******************************************************************************/
 void *ffd_dll(CosimulationData *cosim) {
 /* Windows*/
-#ifdef _MSC_VER
+/*#ifdef _MSC_VER*/
+#ifdef _WIN32 
   DWORD dummy;
   HANDLE workerThreadHandle[1];
 /*  Linux*/
@@ -34,7 +35,8 @@ void *ffd_dll(CosimulationData *cosim) {
   /*printf("ffd_dll():Start to launch FFD\n");*/
 
 /* Windows*/
-#ifdef _MSC_VER
+/*#ifdef _MSC_VER*/
+#ifdef _WIN32 
   workerThreadHandle[0] = CreateThread(NULL, 0, ffd_thread, (void *)cosim, 0, &dummy);
 /* Linux*/
 #else
@@ -45,7 +47,8 @@ void *ffd_dll(CosimulationData *cosim) {
 
   /*printf("ffd_dll(): Launched FFD simulation.\n");*/
 	/* return the handle or thread*/
-#ifdef _MSC_VER	
+/*#ifdef _MSC_VER*/
+#ifdef _WIN32 /*Windows*/
   return workerThreadHandle;
 #else
 	return thread1;
@@ -59,7 +62,8 @@ void *ffd_dll(CosimulationData *cosim) {
 *
 * @return 0 if no error occurred
 */
-#ifdef _MSC_VER /*Windows*/
+/*#ifdef _MSC_VER*/
+#ifdef _WIN32 /*Windows*/
 DWORD WINAPI ffd_thread(void *p){
   ULONG workerID = (ULONG)(ULONG_PTR)p;
 #else /*Linux*/
@@ -68,7 +72,8 @@ void *ffd_thread(void* p){
 int pthread_ret = 0;
   CosimulationData *cosim = (CosimulationData *) p;
 
-#ifdef _MSC_VER /*Windows*/
+/*#ifdef _MSC_VER*/
+#ifdef _WIN32 /*Windows*/
   sprintf(msg, "Start Fast Fluid Dynamics Simulation with Thread ID %lu", workerID);
 #else /*Linux*/
   sprintf(msg, "Start Fast Fluid Dynamics Simulation with Thread");
@@ -82,7 +87,8 @@ int pthread_ret = 0;
 
   if(ffd_cosimulation(cosim)!=0) {
     ffd_log("ffd_thread(): Cosimulation failed", FFD_ERROR);
-		#ifdef _MSC_VER
+		/*#ifdef _MSC_VER*/
+		#ifdef _WIN32 /*Windows*/
 			return 1;
 		#endif
   }
