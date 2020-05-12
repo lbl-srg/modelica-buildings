@@ -251,8 +251,8 @@ disabled for at least <code>plaOffThrTim</code>, e.g. 15 minutes and:
 <ul>
 <li>
 Number of boiler plant requests is greater than number of requests to be ignored,
-ie, <code>supResReq</code> &gt; <code>nReqIgn</code>
-(<code>nReqIgn</code> should default to 0 and be adjustable), and,
+ie, <code>supResReq</code> &gt; <code>nIgnReq</code>
+(<code>nIgnReq</code> should default to 0 and be adjustable), and,
 </li>
 <li>
 Measured outdoor air temperature is lower than boiler lockout temperature, ie,
@@ -269,7 +269,7 @@ The plant should be disabled when it has been enabled for at least
 <ul>
 <li>
 Number of boiler plant requests is less than number of requests to be ignored,ie,
-<code>supResReq</code> &le; <code>nReqIgn</code> for a time <code>staOnReqTim</code>, or,
+<code>supResReq</code> &le; <code>nIgnReq</code> for a time <code>staOnReqTim</code>, or,
 </li>
 <li>
 Outdoor air temperature is 1 &deg;C greater than boiler lockout temperature,ie,
