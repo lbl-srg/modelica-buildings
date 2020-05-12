@@ -2,5 +2,10 @@ compareVars :=
   {
     "iniSta.yIni",
     "iniSta.uUp",
-    "iniSta.have_WSE"
+    "iniSta.have_WSE",
+    "iniSta.uPla",
+    "iniSta1.yIni",
+    "iniSta1.uUp",
+    "iniSta1.have_WSE",
+    "iniSta1.uPla"
   };

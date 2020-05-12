@@ -26,26 +26,26 @@ block Initial "Outputs the initial stage"
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uUp
     "First higher available chiller stage"
-    annotation (Placement(transformation(extent={{-280,-100},{-240,-60}}),
+    annotation (Placement(transformation(extent={{-280,-60},{-240,-20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOutWet(
     final unit="K",
     final quantity="ThermodynamicTemperature") if have_WSE
     "Outdoor air wet bulb temperature"
-    annotation (Placement(transformation(extent={{-280,10},{-240,50}}),
+    annotation (Placement(transformation(extent={{-280,50},{-240,90}}),
       iconTransformation(extent={{-140,70},{-100,110}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTunPar if have_WSE
     "Tuning parameter as at last plant disable"
-    annotation (Placement(transformation(extent={{-280,-60},{-240,-20}}),
+    annotation (Placement(transformation(extent={{-280,-20},{-240,20}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
     final unit="K",
     final quantity="ThermodynamicTemperature") if have_WSE
     "Chilled water supply setpoint"
-    annotation (Placement(transformation(extent={{-280,50},{-240,90}}),
+    annotation (Placement(transformation(extent={{-280,90},{-240,130}}),
       iconTransformation(extent={{-140,10},{-100,50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yIni
@@ -53,7 +53,19 @@ block Initial "Outputs the initial stage"
     annotation (Placement(transformation(extent={{240,-10},{260,10}}),
     iconTransformation(extent={{100,-10},{120,10}})));
 
-protected
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla
+    "Plant enable signal"
+    annotation (Placement(transformation(extent={{-280,-110},{-240,-70}}),
+    iconTransformation(extent={{-140,-80},{-100,-40}})));
+
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam
+    "Samples first available stage up at plant enable"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Edge edg "Rising edge"
+    annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
+
+//protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.PredictedOutletTemperature
     wseTOut(
     final heaExcAppDes=heaExcAppDes,
@@ -61,73 +73,82 @@ protected
     final TOutWetDes=TOutWetDes,
     final VHeaExcDes_flow=VHeaExcDes_flow) if have_WSE
     "Waterside economizer outlet temperature predictor"
-    annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
+    annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
 
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea "Type converter"
-    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt "Type converter"
-    annotation (Placement(transformation(extent={{160,-10},{180,10}})));
+    annotation (Placement(transformation(extent={{160,30},{180,50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staZer(
     final k=0)
     "Zero stage"
-    annotation (Placement(transformation(extent={{0,60},{20,80}})));
+    annotation (Placement(transformation(extent={{0,100},{20,120}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
     final uLow=0,
     final uHigh=wseDt) if have_WSE
     "Check if the initial predicted heat exchange leaving water temperature is greater than chilled water supply temperature setpoint less offset"
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Feedback feedback if have_WSE
     "Difference between predicted heat exchanger leaving water temperature and chilled water supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-110,40},{-90,60}})));
+    annotation (Placement(transformation(extent={{-110,80},{-90,100}})));
 
   Buildings.Controls.OBC.CDL.Logical.Switch swi "Logical switch"
-    annotation (Placement(transformation(extent={{60,40},{80,60}})));
+    annotation (Placement(transformation(extent={{60,80},{80,100}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant noWSE(
     final k=false) if not have_WSE "Replacement signal for no WSE case"
-    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3(
     final k=VHeaExcDes_flow) if have_WSE
     "Design heat exchanger chiller water flow rate"
-    annotation (Placement(transformation(extent={{-220,-20},{-200,0}})));
+    annotation (Placement(transformation(extent={{-220,20},{-200,40}})));
 
 equation
   connect(reaToInt.y, yIni)
-    annotation (Line(points={{182,0},{250,0}}, color={255,127,0}));
+    annotation (Line(points={{182,40},{200,40},{200,0},{250,0}},
+                                               color={255,127,0}));
   connect(feedback.y,hys1. u)
-    annotation (Line(points={{-88,50},{-62,50}}, color={0,0,127}));
+    annotation (Line(points={{-88,90},{-62,90}}, color={0,0,127}));
   connect(noWSE.y,swi. u2)
-    annotation (Line(points={{-38,10},{-20,10},{-20,50},{58,50}},
+    annotation (Line(points={{-38,50},{-20,50},{-20,90},{58,90}},
       color={255,0,255}));
   connect(hys1.y,swi. u2)
-    annotation (Line(points={{-38,50},{58,50}}, color={255,0,255}));
+    annotation (Line(points={{-38,90},{58,90}}, color={255,0,255}));
   connect(wseTOut.TOutWet,TOutWet)
-    annotation (Line(points={{-142,-2},{-180,-2},{-180,30},{-260,30}},
+    annotation (Line(points={{-142,38},{-180,38},{-180,70},{-260,70}},
       color={0,0,127}));
   connect(con3.y,wseTOut. VChiWat_flow)
-    annotation (Line(points={{-198,-10},{-142,-10}},
+    annotation (Line(points={{-198,30},{-142,30}},
       color={0,0,127}));
   connect(wseTOut.uTunPar,uTunPar)
-    annotation (Line(points={{-142,-18},{-180,-18},{-180,-40},{-260,-40}},
+    annotation (Line(points={{-142,22},{-180,22},{-180,0},{-260,0}},
       color={0,0,127}));
   connect(wseTOut.y,feedback. u2)
-    annotation (Line(points={{-118,-10},{-100,-10},{-100,38}}, color={0,0,127}));
+    annotation (Line(points={{-118,30},{-100,30},{-100,78}},   color={0,0,127}));
   connect(TChiWatSupSet,feedback. u1)
-    annotation (Line(points={{-260,70},{-170,70},{-170,50},{-112,50}},
+    annotation (Line(points={{-260,110},{-170,110},{-170,90},{-112,90}},
       color={0,0,127}));
   connect(staZer.y,swi. u1)
-    annotation (Line(points={{22,70},{40,70},{40,58},{58,58}}, color={0,0,127}));
-  connect(uUp, intToRea.u) annotation (Line(points={{-260,-80},{-100,-80},{-100,
-          -30},{-62,-30}}, color={255,127,0}));
-  connect(intToRea.y, swi.u3) annotation (Line(points={{-38,-30},{40,-30},{40,42},
-          {58,42}}, color={0,0,127}));
-  connect(swi.y, reaToInt.u) annotation (Line(points={{82,50},{140,50},{140,0},{
-          158,0}}, color={0,0,127}));
+    annotation (Line(points={{22,110},{40,110},{40,98},{58,98}},
+                                                               color={0,0,127}));
+  connect(uUp, intToRea.u) annotation (Line(points={{-260,-40},{-100,-40},{-100,
+          0},{-62,0}},     color={255,127,0}));
+  connect(swi.y, reaToInt.u) annotation (Line(points={{82,90},{140,90},{140,40},
+          {158,40}},
+                   color={0,0,127}));
+  connect(intToRea.y, triSam.u)
+    annotation (Line(points={{-38,0},{-12,0}}, color={0,0,127}));
+  connect(triSam.y, swi.u3)
+    annotation (Line(points={{12,0},{40,0},{40,82},{58,82}}, color={0,0,127}));
+  connect(uPla, edg.u)
+    annotation (Line(points={{-260,-90},{-62,-90}}, color={255,0,255}));
+  connect(edg.y, triSam.trigger)
+    annotation (Line(points={{-38,-90},{0,-90},{0,-11.8}}, color={255,0,255}));
 annotation (defaultComponentName = "iniSta",
         Icon(graphics={
         Rectangle(
@@ -138,9 +159,18 @@ annotation (defaultComponentName = "iniSta",
         Text(
           extent={{-120,146},{100,108}},
           lineColor={0,0,255},
-          textString="%name")}),
+          textString="%name"),
+        Line(
+          points={{-54,-50},{-2,-50},{-2,54},{50,54}},
+          color={244,125,35},
+          thickness=0.5),
+        Text(
+          extent={{-68,-44},{58,-114}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          textString="At Enable")}),
         Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-240,-100},{240,100}})),
+          extent={{-240,-140},{240,140}})),
           Documentation(info="<html>
 <p>This subsequence is not directly specified in 1711 as it provides a side calculation pertaining to generalization of the staging sequences for any number of chillers and stages provided by the user. </p>
 <p>Determines the initial stage upon plant startup for both plants with and without a WSE. Implemented according to section 5.2.4.15. 1711 March 2020 Draft, under 8. (primary-only) and 15. (primary-secondary) plants. </p>

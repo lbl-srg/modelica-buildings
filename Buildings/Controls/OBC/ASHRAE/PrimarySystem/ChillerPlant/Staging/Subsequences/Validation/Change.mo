@@ -48,8 +48,8 @@ protected
   parameter Modelica.SIunits.VolumeFlowRate aveVChiWat_flow = 0.05
     "Average measured chilled water flow rate";
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timeTable(final table=
-       [0,0; 600,0; 600,1; 1200,1; 1200,0; 2500,0; 2500,1; 3700,1; 3700,0; 4300,
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timeTable(
+    final table=[0,0; 600,0; 600,1; 1200,1; 1200,0; 2500,0; 2500,1; 3700,1; 3700,0; 4300,
         0; 4300,1; 4500,1; 4500,0; 6000,0; 6000,1; 9200,1; 9200,0; 12000,0;
         12000,1; 14000,1; 14000,0])
     "Stage up signal for the first exampe and stage down signal for the second example from the top"
@@ -99,8 +99,8 @@ protected
     final k2=-1) "Addder"
     annotation (Placement(transformation(extent={{140,-20},{160,0}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timeTable2(final
-      table=[0,0; 800,0; 800,1; 2700,1; 2700,0; 4500,0; 4500,1; 5200,1; 5200,0;
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timeTable2(
+    final table=[0,0; 800,0; 800,1; 2700,1; 2700,0; 4500,0; 4500,1; 5200,1; 5200,0;
         6000,0; 6000,1; 6900,1; 6900,0; 7800,0; 7800,1; 8700,1; 8700,0; 12000,0;
         12000,1; 14000,1; 14000,0])
     "Stage up signal, if simultaneous stage up and down signals are generated the plant will stage down"
@@ -139,8 +139,8 @@ protected
     "No stage change signal"
     annotation (Placement(transformation(extent={{-200,100},{-180,120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timeTable1(final
-      table=[0,0; 1600,0; 1600,1; 2400,1; 2400,0; 3700,0; 3700,1; 5900,1; 5900,
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timeTable1(
+    final table=[0,0; 1600,0; 1600,1; 2400,1; 2400,0; 3700,0; 3700,1; 5900,1; 5900,
         0; 6900,0; 6900,1; 7800,1; 7800,0; 12000,0; 12000,1; 14000,1; 14000,0])
     "Stage down signal"
     annotation (Placement(transformation(extent={{-160,-180},{-140,-160}})));
@@ -198,6 +198,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
     final threshold=0.5) "Greater than threshold"
     annotation (Placement(transformation(extent={{-160,20},{-140,40}})));
+
 equation
   connect(cha.uIni, uIni.y) annotation (Line(points={{-42,200},{-60,200},{-60,
           270},{-98,270}}, color={255,127,0}));

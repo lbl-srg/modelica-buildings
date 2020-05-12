@@ -53,10 +53,6 @@ block Status
         transformation(extent={{440,-60},{480,-20}}), iconTransformation(extent=
            {{100,20},{140,60}})));
 
-  CDL.Interfaces.IntegerOutput                        yAvaLow(final min=1,
-      final max=nSta) "Lowest available stage used in initialization"
-    annotation (Placement(transformation(extent={{440,170},{480,210}}),
-      iconTransformation(extent={{100,50},{140,90}})));
   CDL.Conversions.BooleanToInteger booToInt[nSta](integerTrue=fill(1, nSta),
       integerFalse=fill(0, nSta))
     annotation (Placement(transformation(extent={{-360,-30},{-340,-10}})));
