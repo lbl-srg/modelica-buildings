@@ -82,7 +82,6 @@ First implementation.
  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/OneZone.mos"
         "Simulate and plot"),
 experiment(
-      StopTime=31536000,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"));
+      StopTime=432000,
+      Tolerance=1e-06));
 end OneZone;
