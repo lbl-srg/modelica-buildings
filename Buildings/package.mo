@@ -512,6 +512,19 @@ its class name ends with the string <code>Beta</code>.
     <b style=\"color:blue\">non-backward compatible</b> way:
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>Buildings.Airflow</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Airflow.Multizone
+        </td>
+        <td valign=\"top\">Set parameters <code>m_flow_small</code>, <code>m1_flow_small</code>
+                           and <code>m2_flow_small</code> to <code>final</code> so that they do
+                           no longer appear on the GUI. These parameters are not used by models
+                           in this package.
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1362\">IBPSA, #1362</a>.<br/>
+                           For Dymola, a conversion script makes this change.
+        </td>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
         </td>
     </tr>

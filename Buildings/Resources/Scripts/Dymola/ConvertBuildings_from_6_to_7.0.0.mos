@@ -4,6 +4,8 @@
 clear
 
 convertClear();
+convertModifiers("Buildings.Airflow.Multizone.BaseClasses.PowerLawResistance", {"m_flow_small"}, fill("",0), true);
+convertModifiers("Buildings.Airflow.Multizone.BaseClasses.TwoWayFlowElement", {"m1_flow_small", "m2_flow_small"}, fill("",0), true);
 
 convertModifiers("Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset", {"initType"}, fill("",0), true);
 convertModifiers("Buildings.Controls.OBC.CDL.Continuous.Derivative", {"initType"}, fill("",0), true);
