@@ -36,6 +36,16 @@ protected
   parameter Modelica.SIunits.VolumeFlowRate aveVChiWat_flow = 0.05
     "Average measured chilled water flow rate";
 
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
+    final trueHoldDuration=0,
+    final falseHoldDuration=900) "False hold"
+    annotation (Placement(transformation(extent={{100,60},{120,80}})));
+
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol1(
+    final trueHoldDuration=0,
+    final falseHoldDuration=900)
+    annotation (Placement(transformation(extent={{100,-180},{120,-160}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TChiWatRet(
     final amplitude=7,
     final offset=273.15 + 15,
@@ -68,10 +78,7 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt "Type converter"
     annotation (Placement(transformation(extent={{180,140},{200,160}})));
 
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
-    final trueHoldDuration=0,
-    final falseHoldDuration=900) "False hold"
-    annotation (Placement(transformation(extent={{100,60},{120,80}})));
+
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre "Pre block"
     annotation (Placement(transformation(extent={{140,60},{160,80}})));
@@ -79,10 +86,6 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant plaSta(
     final k=true) "Plant status"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
-    final k=1) "Constant"
-    annotation (Placement(transformation(extent={{-20,100},{0,120}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
     final delayTime=10,
@@ -121,21 +124,12 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1 "Type converter"
     annotation (Placement(transformation(extent={{180,-100},{200,-80}})));
 
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol1(
-    final trueHoldDuration=0,
-    final falseHoldDuration=900)
-    annotation (Placement(transformation(extent={{100,-180},{120,-160}})));
-
   Buildings.Controls.OBC.CDL.Logical.Pre pre1
     annotation (Placement(transformation(extent={{140,-180},{160,-160}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant plaSta1(
     final k=true) "Plant status"
     annotation (Placement(transformation(extent={{-60,-180},{-40,-160}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
-    final k=1) "Constant"
-    annotation (Placement(transformation(extent={{-20,-140},{0,-120}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1(
     final delayTime=10,
@@ -216,7 +210,7 @@ equation
           150},{-130,150},{-130,155.438},{57.6,155.438}},
                                   color={0,0,127}));
   connect(staSetCon.ySta, intToRea.u)
-    annotation (Line(points={{86.4,167.312},{90,167.312},{90,150},{98,150}},
+    annotation (Line(points={{86.4,167.312},{92,167.312},{92,150},{98,150}},
                                                color={255,127,0}));
   connect(intToRea.y, zerOrdHol.u)
     annotation (Line(points={{122,150},{138,150}},
@@ -227,16 +221,13 @@ equation
   connect(reaToInt.y, staSetCon.u) annotation (Line(points={{202,150},{210,150},
           {210,100},{50,100},{50,148.312},{57.6,148.312}},
                                      color={255,127,0}));
-  connect(staSetCon.yChaEdg, truFalHol.u) annotation (Line(points={{86.4,159},{
-          90,159},{90,70},{98,70}}, color={255,0,255}));
+  connect(staSetCon.yChaEdg, truFalHol.u) annotation (Line(points={{86.4,159},{90,
+          159},{90,70},{98,70}},    color={255,0,255}));
   connect(truFalHol.y, pre.u)
     annotation (Line(points={{122,70},{138,70}},   color={255,0,255}));
   connect(pre.y, staSetCon.chaPro) annotation (Line(points={{162,70},{170,70},{
           170,50},{40,50},{40,141.188},{57.6,141.188}},
                                      color={255,0,255}));
-  connect(staSetCon.uIni, conInt.y) annotation (Line(points={{57.6,145.938},{28,
-          145.938},{28,110},{2,110}},
-                    color={255,127,0}));
   connect(plaSta.y, truDel.u)
     annotation (Line(points={{-38,70},{-22,70}}, color={255,0,255}));
   connect(truDel.y, staSetCon.uPla) annotation (Line(points={{2,70},{34,70},{34,
@@ -268,7 +259,7 @@ equation
           -90},{-130,-90},{-130,-84.5625},{57.6,-84.5625}},
                                           color={0,0,127}));
   connect(staSetCon1.ySta, intToRea1.u)
-    annotation (Line(points={{86.4,-72.6875},{90,-72.6875},{90,-90},{98,-90}},
+    annotation (Line(points={{86.4,-72.6875},{92,-72.6875},{92,-90},{98,-90}},
                                                  color={255,127,0}));
   connect(intToRea1.y, zerOrdHol1.u)
     annotation (Line(points={{122,-90},{138,-90}}, color={0,0,127}));
@@ -284,9 +275,6 @@ equation
   connect(pre1.y, staSetCon1.chaPro) annotation (Line(points={{162,-170},{170,
           -170},{170,-190},{40,-190},{40,-98.8125},{57.6,-98.8125}},
                                                     color={255,0,255}));
-  connect(staSetCon1.uIni, conInt1.y) annotation (Line(points={{57.6,-94.0625},
-          {28,-94.0625},{28,-130},{2,-130}},
-                               color={255,127,0}));
   connect(plaSta1.y, truDel1.u)
     annotation (Line(points={{-38,-170},{-22,-170}}, color={255,0,255}));
   connect(truDel1.y, staSetCon1.uPla) annotation (Line(points={{2,-170},{34,

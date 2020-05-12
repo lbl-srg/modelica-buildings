@@ -53,6 +53,13 @@ block Status
         transformation(extent={{440,-60},{480,-20}}), iconTransformation(extent=
            {{100,20},{140,60}})));
 
+  CDL.Interfaces.IntegerOutput                        yAvaLow(final min=1,
+      final max=nSta) "Lowest available stage used in initialization"
+    annotation (Placement(transformation(extent={{440,170},{480,210}}),
+      iconTransformation(extent={{100,50},{140,90}})));
+  CDL.Conversions.BooleanToInteger booToInt[nSta](integerTrue=fill(1, nSta),
+      integerFalse=fill(0, nSta))
+    annotation (Placement(transformation(extent={{-360,-30},{-340,-10}})));
 protected
   final parameter Integer staInd[nSta] = {i for i in 1:nSta}
     "Stage index vector";
@@ -293,6 +300,8 @@ equation
           {18,-240}}, color={255,0,255}));
   connect(not1.y, yAvaCur)
     annotation (Line(points={{42,-240},{460,-240}}, color={255,0,255}));
+  connect(uAva, booToInt.u) annotation (Line(points={{-440,-80},{-400,-80},{
+          -400,-20},{-362,-20}}, color={255,0,255}));
   annotation (defaultComponentName = "sta",
         Icon(graphics={
         Rectangle(
