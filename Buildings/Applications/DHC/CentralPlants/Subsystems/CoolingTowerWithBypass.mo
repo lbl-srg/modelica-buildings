@@ -26,7 +26,7 @@ model CoolingTowerWithBypass
   parameter Modelica.SIunits.Temperature TCW_start
     "The start temperature of condenser water side";
 
-  WaterSide.Plant.CoolingTower.MultiCoolingTowerSystem mulCooTowSys(
+  CoolingTowerParellel                                 mulCooTowSys(
     redeclare package MediumCW = MediumCW,
     P_nominal=P_nominal,
     dTCW_nominal=dTCW_nominal,
@@ -40,15 +40,10 @@ model CoolingTowerWithBypass
     TWetBul_nominal=TWetBul_nominal,
     eta=eta)
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  WaterSide.BaseClasses.Components.Bypass byp(
-    redeclare package MediumCW = MediumCW,
-    m_flow_nominal=3*mCW_flow_nominal,
-    dPByp_nominal=dPByp_nominal)
-    annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Modelica.Blocks.Interfaces.RealInput On[3] "On signal"
     annotation (Placement(transformation(extent={{-118,51},{-100,69}})));
-  Controls.CondenserWaterBypassControl        bypCon(TSet=TSet)
-    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+  Controls.CondenserWaterBypass bypCon(TSet=TSet)
+    annotation (Placement(transformation(extent={{-66,20},{-46,40}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
         MediumCW)
     annotation (Placement(transformation(extent={{90,50},{110,70}})));
@@ -64,44 +59,34 @@ model CoolingTowerWithBypass
     annotation (Placement(transformation(extent={{-118,-69},{-100,-51}})));
   Modelica.Blocks.Sources.RealExpression TCWSet(y=froDegC.Celsius + dTApp)
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+  Fluid.Actuators.Valves.TwoWayEqualPercentage           valByp(
+    redeclare package Medium = MediumCW,
+    m_flow_nominal=m_flow_nominal,
+    dpValve_nominal=dPByp_nominal) annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={10,-10})));
+  Fluid.Sensors.MassFlowRate           senMasFloTow(redeclare package Medium =
+        MediumCW)
+    annotation (Placement(transformation(extent={{52,50},{32,70}})));
+  Fluid.Sensors.MassFlowRate           senMasFloByp(redeclare package Medium =
+        MediumCW)                annotation (Placement(transformation(
+        extent={{10,10},{-10,-10}},
+        rotation=90,
+        origin={12,-52})));
 equation
-  connect(mulCooTowSys.port_b_CW, byp.port_a2) annotation (Line(
-      points={{-20,-30},{-8,-30},{-8,-14},{0,-14}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=1));
-  connect(byp.port_b1, mulCooTowSys.port_a_CW) annotation (Line(
-      points={{0,-6},{-60,-6},{-60,-30},{-40,-30}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=1));
   connect(mulCooTowSys.On, On) annotation (Line(
       points={{-40.9,-26.1},{-80,-26.1},{-80,60},{-109,60}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
-  connect(bypCon.y, byp.yBypVal) annotation (Line(
-      points={{-39,30},{-20,30},{-20,-2},{-2,-2}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(byp.port_a1, port_a) annotation (Line(
-      points={{20,-6},{40,-6},{40,60},{100,60}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=1));
-  connect(byp.port_b2, senTCWEntChi.port_a) annotation (Line(
-      points={{20,-14},{40,-14},{40,-80},{60,-80}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=1));
   connect(senTCWEntChi.port_b, port_b) annotation (Line(
       points={{80,-80},{100,-80}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=1));
   connect(senTCWEntChi.T, bypCon.T) annotation (Line(
-      points={{70,-69},{70,6},{20,6},{20,60},{-72,60},{-72,30},{-62,30}},
+      points={{70,-69},{70,6},{20,6},{20,60},{-72,60},{-72,30},{-68,30}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -114,6 +99,20 @@ equation
       points={{-40.9,-22.1},{-72,-22.1},{-72,0},{-89,0}},
       color={0,0,127},
       pattern=LinePattern.Dash));
+  connect(mulCooTowSys.port_b, senTCWEntChi.port_a) annotation (Line(points={{
+          -20,-30},{-6,-30},{-6,-80},{60,-80}}, color={0,127,255}));
+  connect(port_a, senMasFloTow.port_a)
+    annotation (Line(points={{100,60},{52,60}}, color={0,127,255}));
+  connect(senMasFloTow.port_b, mulCooTowSys.port_a) annotation (Line(points={{
+          32,60},{32,74},{-40,74},{-40,-30}}, color={0,127,255}));
+  connect(valByp.port_a, mulCooTowSys.port_a) annotation (Line(points={{10,0},{
+          8,0},{8,74},{-40,74},{-40,-30}}, color={0,127,255}));
+  connect(valByp.port_b, senMasFloByp.port_a)
+    annotation (Line(points={{10,-20},{12,-20},{12,-42}}, color={0,127,255}));
+  connect(senMasFloByp.port_b, senTCWEntChi.port_a)
+    annotation (Line(points={{12,-62},{12,-80},{60,-80}}, color={0,127,255}));
+  connect(bypCon.y, valByp.y) annotation (Line(points={{-45,30},{-20,30},{-20,
+          -10},{-2,-10}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),           Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={

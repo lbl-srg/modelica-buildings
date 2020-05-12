@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.CentralPlants.Controls;
-model CondenserWaterBypassControl "Condenser water loop bypass valve control"
+model CondenserWaterBypass "Condenser water loop bypass valve control"
   parameter Modelica.SIunits.Temperature TSet
     "The lower temperatre limit of condenser water entering the chiller plant";
   Modelica.Blocks.Interfaces.RealInput T
@@ -56,4 +56,4 @@ First implementation.
 </html>", info="<html>
 <p>PI controller is employed to avoid overcooling condenser water by adjusting the three way opening.</p>
 </html>"));
-end CondenserWaterBypassControl;
+end CondenserWaterBypass;

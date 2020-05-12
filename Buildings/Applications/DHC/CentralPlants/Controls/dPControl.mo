@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.CentralPlants.Controls;
-model dPControl "Demand side pressure difference control"
+model DPControl "Demand side pressure difference control"
   parameter Modelica.SIunits.Pressure dPSetPoi "Pressure difference setpoint";
   Buildings.Controls.Continuous.LimPID conPID(
     reverseAction=false,
@@ -60,4 +60,4 @@ First implementation.
 <p>When the poistion of demand side two way valve is lower than 0.1, pressure drop set point is 0. </p>
 
 </html>"));
-end dPControl;
+end DPControl;

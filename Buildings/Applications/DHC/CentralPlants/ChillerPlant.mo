@@ -52,12 +52,9 @@ model ChillerPlant "District cooling plant model"
   parameter Real eta[:]={1} "Fan efficiency";
   parameter Modelica.SIunits.Temperature TWetBul_nominal=273.15+19.45
     "Nominal wet bulb temperature";
-  Subsystems.PumpSystemVariableSpeed pumCHW(
-    Motor_eta=Motor_eta,
-    Hydra_eta=Hydra_eta,
-    redeclare package Medium = MediumCHW,
-    m_flow_nominal=mCHW_flow_nominal)
-    annotation (Placement(transformation(extent={{70,42},{34,78}})));
+  DataCenters.ChillerCooled.Equipment.FlowMachine_y pumCHW(redeclare package
+      Medium = MediumCHW, m_flow_nominal=mCHW_flow_nominal)
+    annotation (Placement(transformation(extent={{40,40},{20,60}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTCHWByp(
     redeclare package Medium = MediumCHW,
     m_flow_nominal=mCHW_flow_nominal,
@@ -67,12 +64,12 @@ model ChillerPlant "District cooling plant model"
         origin={80,30})));
   Buildings.Fluid.Storage.ExpansionVessel expVesCHW(
       redeclare package Medium = MediumCHW)
-    annotation (Placement(transformation(extent={{30,-60},{50,-40}})));
+    annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFloByp(redeclare package Medium =
                        MediumCHW) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
-        origin={80,-60})));
+        origin={80,-30})));
   Subsystems.CoolingTowerWithBypass cooTowWitByp(
     redeclare package MediumCW = MediumCW,
     TSet=273.15 + 15.56,
@@ -84,21 +81,18 @@ model ChillerPlant "District cooling plant model"
     tIntPi=60,
     eta=eta,
     dPByp_nominal=dPByp_nominal,
-    byp(dPByp_nominal=dPByp_nominal),
     TCW_start=273.15 + 29.44,
     v_flow_rate=vTow_flow_rate,
     dTApp_nominal=dTApp_nominal,
     TWetBul_nominal=TWetBul_nominal)
-    annotation (Placement(transformation(extent={{-120,-16},{-80,24}})));
-  Subsystems.PumpSystemConstantSpeed pumCW(
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+  DataCenters.ChillerCooled.Equipment.FlowMachine_m pumCW(
     redeclare package Medium = MediumCW,
     m_flow_nominal=mCW_flow_nominal,
-    Motor_eta=Motor_eta,
-    Hydra_eta=Hydra_eta)
-    annotation (Placement(transformation(extent={{-66,-98},{-30,-62}})));
+    num=2) annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Buildings.Fluid.Storage.ExpansionVessel expVesCW(
       redeclare package Medium = MediumCW)
-    annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
+    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
   Controls.ChillerStage                      chiStaCon(
     tWai=1800,
     CooCap=-mulChiSys.per.QEva_flow_nominal,
@@ -110,7 +104,7 @@ model ChillerPlant "District cooling plant model"
     allowFlowReversal=true) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={110,-80})));
+        origin={110,-60})));
   Modelica.Blocks.Interfaces.BooleanInput on "On signal of the plant"
     annotation (Placement(transformation(extent={{-180,40},{-140,80}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
@@ -126,116 +120,60 @@ model ChillerPlant "District cooling plant model"
     annotation (Placement(transformation(extent={{130,50},{150,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{130,-90},{150,-70}})));
+    annotation (Placement(transformation(extent={{130,-70},{150,-50}})));
   Fluid.Actuators.Valves.TwoWayEqualPercentage           valByp(
     redeclare package Medium = MediumCW,
     m_flow_nominal=m_flow_nominal,
     dpValve_nominal=dPByp_nominal) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={80,-10})));
-  Controls.ChillerBypassControl chiBypCon
+        origin={80,0})));
+  Controls.ChilledWaterBypass chiBypCon
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  Subsystems.MultiChillerSystem mulChiSys
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
+  DataCenters.ChillerCooled.Equipment.ElectricChillerParallel mulChiSys(num=2)
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  Controls.VariableSpeedPump variableSpeedPumpControl
+    annotation (Placement(transformation(extent={{-14,72},{6,92}})));
 equation
   connect(senTCHWByp.port_b, pumCHW.port_a) annotation (Line(
-      points={{80,40},{80,60},{70,60}},
+      points={{80,40},{80,50},{40,50}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=1));
-  connect(mulChiSys.port_b_CHW, senMasFloByp.port_a) annotation (Line(
-      points={{20,-16},{24,-16},{24,-80},{80,-80},{80,-70}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=1));
-  connect(expVesCHW.port_a, senMasFloByp.port_a) annotation (Line(
-      points={{40,-60},{40,-80},{80,-80},{80,-70}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=1));
-  connect(cooTowWitByp.port_b, pumCW.port_a) annotation (Line(
-      points={{-80,-12},{-80,-80},{-66,-80}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=1));
+  connect(cooTowWitByp.port_b, pumCW.port_a) annotation (Line(points={{-60,-8},
+          {-60,-50},{-40,-50}}, color={0,127,255}));
 
-  connect(chiStaCon.On, on) annotation (Line(
-      points={{-102,58},{-132,58},{-132,60},{-160,60}},
-      color={255,0,255},
-      pattern=LinePattern.Dash));
-  connect(chiStaCon.CooLoa, QLoa) annotation (Line(
-      points={{-102,50},{-132,50},{-132,0},{-160,0}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
   connect(senTCHWSup.port_b, port_b) annotation (Line(
-      points={{120,-80},{140,-80}},
+      points={{120,-60},{140,-60}},
       color={0,127,255},
       thickness=1));
   connect(expVesCW.port_a, pumCW.port_a) annotation (Line(
-      points={{-110,-60},{-110,-80},{-66,-80}},
-      color={0,127,255},
-      thickness=1));
-  connect(TWetBul, cooTowWitByp.TWetBul) annotation (Line(
-      points={{-160,-60},{-132,-60},{-132,-8},{-121.8,-8}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
+      points={{-90,-40},{-90,-50},{-40,-50}},
+      color={0,127,255}));
   connect(pumCHW.port_a, port_a) annotation (Line(
-      points={{70,60},{140,60}},
+      points={{40,50},{106,50},{106,60},{140,60}},
       color={0,127,255},
       thickness=1));
-  connect(chiStaCon.y,mulChiSys.on)  annotation (Line(
-      points={{-79,50},{-60,50},{-60,0},{-22,0}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(chiStaCon.y, pumCW.On) annotation (Line(
-      points={{-79,50},{-74,50},{-74,-69.2},{-67.62,-69.2}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(chiStaCon.y, cooTowWitByp.On) annotation (Line(
-      points={{-79,50},{-74,50},{-74,24},{-128,24},{-128,16},{-121.8,16}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
   connect(senMasFloByp.port_b, valByp.port_a) annotation (Line(
-      points={{80,-50},{80,-20}},
+      points={{80,-20},{80,-10}},
       color={0,127,255},
       thickness=1));
   connect(valByp.port_b, senTCHWByp.port_a) annotation (Line(
-      points={{80,0},{80,20}},
+      points={{80,10},{80,20}},
       color={0,127,255},
       thickness=1));
-  connect(chiStaCon.y[1], chiBypCon.T) annotation (Line(
-      points={{-79,49.3333},{-50,49.3333},{-50,50},{-22,50}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(chiBypCon.y, valByp.y) annotation (Line(
-      points={{1,50},{40,50},{40,-10},{68,-10}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(pumCW.port_b, mulChiSys.port_a_CW) annotation (Line(
-      points={{-30,-80},{-26,-80},{-26,-16},{-20,-16}},
-      color={0,127,255},
-      thickness=1));
-  connect(cooTowWitByp.port_a, mulChiSys.port_b_CW) annotation (Line(
-      points={{-80,16},{-20,16}},
-      color={0,127,255},
-      thickness=1));
-  connect(pumCHW.port_b, mulChiSys.port_a_CHW) annotation (Line(
-      points={{34,60},{26,60},{26,16},{20,16}},
-      color={0,127,255},
-      thickness=1));
-  connect(mulChiSys.port_b_CHW, senTCHWSup.port_a) annotation (Line(
-      points={{20,-16},{24,-16},{24,-80},{100,-80}},
-      color={0,127,255},
-      thickness=1));
-  connect(mulChiSys.rat, chiStaCon.Status) annotation (Line(
-      points={{22,-8},{32,-8},{32,34},{-112,34},{-112,42},{-102,42}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(chiStaCon.y, pumCHW.Spe) annotation (Line(
-      points={{-79,50},{-74,50},{-74,80},{80,80},{80,70.8},{71.62,70.8}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
+  connect(pumCW.port_b, mulChiSys.port_a2) annotation (Line(points={{-20,-50},{
+          20,-50},{20,-6},{10,-6}}, color={0,127,255}));
+  connect(mulChiSys.port_b2, cooTowWitByp.port_a) annotation (Line(points={{-10,
+          -6},{-40,-6},{-40,6},{-60,6}}, color={0,127,255}));
+  connect(pumCHW.port_b, mulChiSys.port_a1) annotation (Line(points={{20,50},{
+          20,22},{-10,22},{-10,6}}, color={0,127,255}));
+  connect(mulChiSys.port_b1, senTCHWSup.port_a) annotation (Line(points={{10,6},
+          {28,6},{28,-60},{100,-60}}, color={0,127,255}));
+  connect(senMasFloByp.port_a, senTCHWSup.port_a)
+    annotation (Line(points={{80,-40},{80,-60},{100,-60}}, color={0,127,255}));
+  connect(expVesCHW.port_a, senTCHWSup.port_a)
+    annotation (Line(points={{50,-50},{50,-60},{100,-60}}, color={0,127,255}));
   annotation (__Dymola_Commands(file=
           "modelica://ChillerPlantSystem/Resources/Scripts/Dymola/LejeunePlant/ChillerPlantSystem.mos"
         "Simulate and plot"),
