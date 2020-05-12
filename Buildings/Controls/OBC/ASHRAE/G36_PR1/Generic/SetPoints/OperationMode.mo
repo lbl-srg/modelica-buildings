@@ -220,13 +220,13 @@ protected
     annotation (Placement(transformation(extent={{200,-220},{220,-200}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     "Get the moment when the cool down time starts "
-    annotation (Placement(transformation(extent={{14,210},{34,230}})));
+    annotation (Placement(transformation(extent={{50,140},{70,160}})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(trueHoldDuration=preWarCooTim)
     "Hold the start time true signal"
     annotation (Placement(transformation(extent={{82,210},{102,230}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg1
     "Get the moment when warm up time starts"
-    annotation (Placement(transformation(extent={{14,140},{34,160}})));
+    annotation (Placement(transformation(extent={{50,210},{70,230}})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol1(trueHoldDuration=preWarCooTim)
     "Hold the start time true signal"
     annotation (Placement(transformation(extent={{82,140},{102,160}})));
@@ -262,8 +262,9 @@ protected
    annotation (Placement(transformation(extent={{180,-340},{200,-320}})));
   Buildings.Controls.OBC.CDL.Logical.And and1 "Warm-up period"
     annotation (Placement(transformation(extent={{122,140},{142,160}})));
-  Buildings.Controls.OBC.CDL.Logical.And and2 "Check if the cool-down time should be activated"
-    annotation (Placement(transformation(extent={{48,210},{68,230}})));
+  Buildings.Controls.OBC.CDL.Logical.And and2
+    "Get the start of the cool-down time"
+    annotation (Placement(transformation(extent={{20,210},{40,230}})));
   Buildings.Controls.OBC.CDL.Logical.Or or1
     "Check if the number of cold zone is more than 5 or all zones are cold"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
@@ -307,7 +308,6 @@ protected
        have_winSen
     "Generate alarm message when window open during modes other than occupied mode"
     annotation (Placement(transformation(extent={{340,40},{360,60}})));
-
   Buildings.Controls.OBC.CDL.Logical.Switch swi1
     "If occupied mode is on, then cool down mode should not be activated"
     annotation (Placement(transformation(extent={{250,212},{270,232}})));
@@ -322,8 +322,10 @@ protected
     annotation (Placement(transformation(extent={{288,142},{308,162}})));
   Buildings.Controls.OBC.CDL.Logical.And and4 "Cool-down period"
     annotation (Placement(transformation(extent={{122,210},{142,230}})));
-  Buildings.Controls.OBC.CDL.Logical.And and5 "Check if the cool-down time should be activated"
-    annotation (Placement(transformation(extent={{48,140},{68,160}})));
+  Buildings.Controls.OBC.CDL.Logical.And and5
+    "Get the start of the warm-up time"
+    annotation (Placement(transformation(extent={{20,140},{40,160}})));
+
 equation
   connect(swi.y, occMod.u)
     annotation (Line(points={{282,280},{298,280}},
@@ -531,7 +533,6 @@ equation
           10},{180,10},{180,30},{198,30}}, color={255,127,0}));
   connect(not1.y, winOpe.u)
     annotation (Line(points={{322,50},{338,50}}, color={255,0,255}));
-
   connect(booToRea.y, swi1.u3) annotation (Line(points={{200,220},{210,220},{
           210,214},{248,214}}, color={0,0,127}));
   connect(uOcc, swi1.u2) annotation (Line(points={{-280,330},{-220,330},{-220,
@@ -564,34 +565,35 @@ equation
     annotation (Line(points={{274,152},{286,152}}, color={0,0,127}));
   connect(setBacMod2.y, addInt.u2) annotation (Line(points={{310,152},{328,152},
           {328,244},{338,244}}, color={255,127,0}));
-  connect(edg.y, and2.u1)
-    annotation (Line(points={{36,220},{46,220}}, color={255,0,255}));
-  connect(and2.y, truFalHol.u)
-    annotation (Line(points={{70,220},{80,220}}, color={255,0,255}));
   connect(and4.y, booToRea.u)
     annotation (Line(points={{144,220},{176,220}}, color={255,0,255}));
   connect(and4.y, or3.u2) annotation (Line(points={{144,220},{164,220},{164,72},
           {-30,72},{-30,30},{-2,30}}, color={255,0,255}));
-  connect(hys4.y, edg.u)
-    annotation (Line(points={{0,220},{12,220}}, color={255,0,255}));
-  connect(uHigOccCoo, and2.u2) annotation (Line(points={{-280,80},{-120,80},{-120,
-          100},{42,100},{42,212},{46,212}}, color={255,0,255}));
   connect(truFalHol.y, and4.u1)
     annotation (Line(points={{104,220},{120,220}}, color={255,0,255}));
   connect(hys4.y, and4.u2) annotation (Line(points={{0,220},{4,220},{4,206},{
           110,206},{110,212},{120,212}}, color={255,0,255}));
-  connect(edg1.y, and5.u1)
-    annotation (Line(points={{36,150},{46,150}}, color={255,0,255}));
-  connect(and5.y, truFalHol1.u)
-    annotation (Line(points={{70,150},{80,150}}, color={255,0,255}));
   connect(truFalHol1.y, and1.u1)
     annotation (Line(points={{104,150},{120,150}}, color={255,0,255}));
   connect(hys5.y, and1.u2) annotation (Line(points={{0,150},{4,150},{4,132},{
           110,132},{110,142},{120,142}}, color={255,0,255}));
-  connect(uOccHeaHig, and5.u2) annotation (Line(points={{-280,110},{38,110},{38,
-          142},{46,142}}, color={255,0,255}));
-  connect(hys5.y, edg1.u)
-    annotation (Line(points={{0,150},{12,150}}, color={255,0,255}));
+  connect(hys4.y, and2.u1)
+    annotation (Line(points={{0,220},{18,220}}, color={255,0,255}));
+  connect(uHigOccCoo, and2.u2) annotation (Line(points={{-280,80},{10,80},{10,212},
+          {18,212}}, color={255,0,255}));
+  connect(uOccHeaHig, and5.u2) annotation (Line(points={{-280,110},{14,110},{14,
+          142},{18,142}}, color={255,0,255}));
+  connect(hys5.y, and5.u1)
+    annotation (Line(points={{0,150},{18,150}}, color={255,0,255}));
+  connect(truFalHol1.u, edg.y)
+    annotation (Line(points={{80,150},{72,150}}, color={255,0,255}));
+  connect(and5.y, edg.u)
+    annotation (Line(points={{42,150},{48,150}}, color={255,0,255}));
+  connect(and2.y, edg1.u)
+    annotation (Line(points={{42,220},{48,220}}, color={255,0,255}));
+  connect(edg1.y, truFalHol.u) annotation (Line(points={{72,220},{76,220},{76,220},
+          {80,220}}, color={255,0,255}));
+
 annotation (
   defaultComponentName = "opeModSel",
   Diagram(

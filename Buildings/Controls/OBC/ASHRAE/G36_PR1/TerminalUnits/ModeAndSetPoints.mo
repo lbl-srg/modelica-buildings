@@ -352,9 +352,9 @@ equation
           {-76,150},{-76,-75.2},{78,-75.2}}, color={0,0,127}));
   connect(TSetRooHeaOff.y, TZonSet.TZonHeaSetUno) annotation (Line(points={{-98,70},
           {-80,70},{-80,-79},{78,-79}},     color={0,0,127}));
-
   connect(uWinSta, opeModSel.uWinSta) annotation (Line(points={{-180,-200},{-72,
           -200},{-72,-10},{38,-10}}, color={255,0,255}));
+
 annotation (defaultComponentName="modSetPoi",
   Diagram(coordinateSystem(extent={{-160,-220},{160,220}})),
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

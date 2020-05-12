@@ -10,7 +10,6 @@ model ZoneStatus
     witWinZonSta(final have_winSen=true)
     "Status of zone when there is window operation sensor"
     annotation (Placement(transformation(extent={{120,40},{140,60}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
     final offset=0,
     final height=6.2831852,
