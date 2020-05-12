@@ -25,7 +25,8 @@
 #include "uthash.h"
 
 /* Windows*/
-#ifdef _MSC_VER
+/*#ifdef _MSC_VER*/
+#ifdef _WIN32 
 #include <windows.h>
 #else
 /* Linux*/
