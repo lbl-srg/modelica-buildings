@@ -137,8 +137,9 @@ equation
     nextSunSet = sunSet(time,staTim,lat);
   end when;
 
-  sunUp = nextSunSet < nextSunRise
-  annotation (defaultComponentName="sunRiseSet",
+  sunUp = nextSunSet < nextSunRise;
+
+annotation (defaultComponentName="sunRiseSet",
   Documentation(info="<html>
 <p>
 This block outputs the next sunrise and sunset time.

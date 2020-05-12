@@ -3,15 +3,15 @@ block Limits
   "Multi zone VAV AHU minimum outdoor air control - damper position limits"
 
   constant Real yMin=-1 "Lower limit of control loop signal"
-    annotation (Evaluate=true,Dialog(tab="Commissioning", group="Controller"));
+    annotation (Dialog(tab="Commissioning", group="Controller"));
   constant Real yMax=1 "Upper limit of control loop signal"
-    annotation (Evaluate=true,Dialog(tab="Commissioning", group="Controller"));
+    annotation (Dialog(tab="Commissioning", group="Controller"));
   parameter Real uRetDamMin(
     final min=yMin,
     final max=yMax,
     final unit="1") = 0.5
     "Minimum control signal for the return air damper position limit"
-    annotation (Evaluate=true,Dialog(tab="Commissioning", group="Controller"));
+    annotation (Dialog(tab="Commissioning", group="Controller"));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -22,13 +22,17 @@ block Limits
     final unit="1")=0.05 "Gain of damper limit controller"
     annotation (Dialog(group="Controller"));
 
-  parameter Modelica.SIunits.Time Ti=1200
+  parameter Real Ti(
+    final unit="s",
+    final quantity="Time")=1200
     "Time constant of damper limit controller integrator block"
     annotation (Dialog(group="Controller",
     enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
         or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Modelica.SIunits.Time Td=0.1
+  parameter Real Td(
+    final unit="s",
+    final quantity="Time")=0.1
   "Time constant of damper limit controller derivative block"
     annotation (Dialog(group="Controller",
     enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
@@ -38,29 +42,25 @@ block Limits
     final min=0,
     final max=1,
     final unit="1") = 1 "Physically fixed maximum position of the return air damper"
-    annotation (Evaluate=true, Dialog(tab="Commissioning",
-        group="Physical damper position limits"));
+    annotation (Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real retDamPhyPosMin(
     final min=0,
     final max=1,
     final unit="1") = 0
     "Physically fixed minimum position of the return air damper"
-    annotation (Evaluate=true, Dialog(tab="Commissioning",
-      group="Physical damper position limits"));
+    annotation (Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real outDamPhyPosMax(
     final min=0,
     final max=1,
     final unit="1") = 1
     "Physically fixed maximum position of the outdoor air damper"
-    annotation (Evaluate=true,
-                Dialog(tab="Commissioning", group="Physical damper position limits"));
+    annotation (Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real outDamPhyPosMin(
     final min=0,
     final max=1,
     final unit="1") = 0
     "Physically fixed minimum position of the outdoor air damper"
-    annotation (Evaluate=true,
-                Dialog(tab="Commissioning", group="Physical damper position limits"));
+    annotation (Dialog(tab="Commissioning", group="Physical damper position limits"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VOut_flow_normalized(
    final unit="1")
@@ -172,11 +172,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch outDamPosMaxSwitch
     "A switch to deactivate the outdoor air damper minimal outdoor airflow control"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd and1(final nu=3)
-    "Locigal and block"
-    annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not block"
-    annotation (Placement(transformation(extent={{-8,-100},{12,-80}})));
+    annotation (Placement(transformation(extent={{-8,-110},{12,-90}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
     final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage1)
     "Freeze protection stage 1"
@@ -191,16 +188,20 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
     "Check if operation mode is occupied"
     annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
+  Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
+    annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
+  Buildings.Controls.OBC.CDL.Logical.And and3 "Logical and"
+    annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
 
 equation
   connect(minRetDam.y, yRetDamPosMax) annotation (Line(points={{142,110},{150,110},
-          {150,-50},{200,-50}},               color={0,0,127}));
+          {150,-50},{200,-50}}, color={0,0,127}));
   connect(retDamPosMinSwitch.y, minRetDam.f2) annotation (Line(points={{62,-20},
           {62,-18},{62,-20},{100,-20},{100,102},{118,102}}, color={0,0,127}));
   connect(sigFraForOutDam.y, minRetDam.x1) annotation (Line(points={{-38,210},{-30,
-          210},{-30,118},{118,118}},     color={0,0,127}));
+          210},{-30,118},{118,118}}, color={0,0,127}));
   connect(maxSigLim.y, minRetDam.x2) annotation (Line(points={{2,210},{8,210},{8,
-          106},{118,106}},   color={0,0,127}));
+          106},{118,106}}, color={0,0,127}));
   connect(VOut_flow_normalized, damLimCon.u_m) annotation (Line(points={{-200,170},
           {-130,170},{-130,178}}, color={0,0,127}));
   connect(VOutMinSet_flow_normalized, damLimCon.u_s) annotation (Line(points={{-200,
@@ -231,39 +232,37 @@ equation
           {0,80},{0,28},{38,28}},           color={0,0,127}));
   connect(outDamPhyPosMinSig.y, minOutDam.f1) annotation (Line(points={{-138,80},
           {0,80},{0,154},{118,154}}, color={0,0,127}));
-  connect(and1.y, not1.u)
-    annotation (Line(points={{-18,-90},{-10,-90}},   color={255,0,255}));
-  connect(not1.y, retDamPosMinSwitch.u2) annotation (Line(points={{14,-90},{20,-90},
-          {20,-20},{38,-20}},      color={255,0,255}));
-  connect(not1.y, outDamPosMaxSwitch.u2) annotation (Line(points={{14,-90},{20,-90},
-          {20,20},{38,20}},      color={255,0,255}));
+  connect(not1.y, retDamPosMinSwitch.u2) annotation (Line(points={{14,-100},{20,
+          -100},{20,-20},{38,-20}},color={255,0,255}));
+  connect(not1.y, outDamPosMaxSwitch.u2) annotation (Line(points={{14,-100},{20,
+          -100},{20,20},{38,20}},color={255,0,255}));
   connect(retDamPosMinSwitch.y, yRetDamPosMin) annotation (Line(points={{62,-20},
           {100,-20},{100,0},{200,0}}, color={0,0,127}));
   connect(retDamPhyPosMaxSig.y, yRetDamPhyPosMax) annotation (Line(points={{-138,
           -40},{40,-40},{40,-90},{200,-90}}, color={0,0,127}));
-  connect(and1.u[1], uSupFan)
-    annotation (Line(points={{-42,-85.3333},{-160,-85.3333},{-160,-100},{-200,
-          -100}},
-      color={255,0,255}));
   connect(uOpeMod, intEqu.u1)
     annotation (Line(points={{-200,-180},{-122,-180}}, color={255,127,0}));
   connect(conInt1.y, intEqu.u2)
     annotation (Line(points={{-138,-200},{-130,-200},{-130,-188},{-122,-188}},
       color={255,127,0}));
-  connect(intLesEqu.y, and1.u[2])
-    annotation (Line(points={{-98,-140},{-94,-140},{-94,-90},{-42,-90}},
-      color={255,0,255}));
-  connect(intEqu.y, and1.u[3])
-    annotation (Line(points={{-98,-180},{-60,-180},{-60,-94.6667},{-42,-94.6667}},
-                       color={255,0,255}));
   connect(conInt.y, intLesEqu.u2)
     annotation (Line(points={{-138,-160},{-130,-160},{-130,-148},{-122,-148}},
       color={255,127,0}));
   connect(uFreProSta, intLesEqu.u1)
     annotation (Line(points={{-200,-140},{-122,-140}}, color={255,127,0}));
   connect(damLimCon.trigger, uSupFan)
-    annotation (Line(points={{-138,178},{-138,166},{-94,166},{-94,-84},{-160,-84},
-      {-160,-100},{-200,-100}}, color={255,0,255}));
+    annotation (Line(points={{-138,178},{-138,166},{-100,166},{-100,-100},{-200,
+          -100}},               color={255,0,255}));
+  connect(uSupFan, and2.u1) annotation (Line(points={{-200,-100},{-140,-100},{-140,
+          -100},{-82,-100}}, color={255,0,255}));
+  connect(intLesEqu.y, and2.u2) annotation (Line(points={{-98,-140},{-90,-140},{
+          -90,-108},{-82,-108}}, color={255,0,255}));
+  connect(and2.y, and3.u1)
+    annotation (Line(points={{-58,-100},{-42,-100}}, color={255,0,255}));
+  connect(and3.y, not1.u)
+    annotation (Line(points={{-18,-100},{-10,-100}}, color={255,0,255}));
+  connect(intEqu.y, and3.u2) annotation (Line(points={{-98,-180},{-50,-180},{-50,
+          -108},{-42,-108}}, color={255,0,255}));
 
 annotation (
     defaultComponentName="damLim",
@@ -283,7 +282,7 @@ annotation (
           thickness=0.5)}),
     Diagram(coordinateSystem(extent={{-180,-240},{180,240}}), graphics={
         Rectangle(
-          extent={{-172,-72},{16,-232}},
+          extent={{-172,-74},{16,-234}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
@@ -381,6 +380,11 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/Mul
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 14, 2020, by Jianjun Hu:<br/>
+Replaced mulAnd by logic and block to avoid vector-valued calculation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1829\">#1829</a>.
+</li>
 <li>
 July 17, 2017, by Michael Wetter:<br/>
 Replaced block that checks for equality of real values within a tolerance

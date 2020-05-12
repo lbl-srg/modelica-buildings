@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "conGloRad.HOut",
-    "conDifRad.HOut"
-  };

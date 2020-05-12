@@ -10,9 +10,14 @@ model Enable_FreProSta_ZonSta
     annotation (Placement(transformation(extent={{82,-40},{102,-20}})));
 
 protected
-  final parameter Modelica.SIunits.Temperature TOutCutoff=297.15
+  final parameter Real TOutCutoff(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity = "ThermodynamicTemperature")=297.15
     "Outdoor temperature high limit cutoff";
-  final parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
+  final parameter Real hOutCutoff(
+    final unit="J/kg",
+    final quantity = "SpecificEnergy")=65100
     "Outdoor air enthalpy high limit cutoff";
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutBelowCutoff(
@@ -55,7 +60,7 @@ protected
     "Minimal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-60,-160},{-40,-140}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant supFanSta(
-    final k=true)
+    final k=true) "Supply fan status"
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
 
 equation

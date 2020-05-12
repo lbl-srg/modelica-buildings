@@ -36,10 +36,10 @@ Building,
 
 !-   ===========  ALL OBJECTS IN CLASS: SHADOWCALCULATION ===========
 
-ShadowCalculation,
-    AverageOverDaysInFrequency,  !- Calculation Method
-    20,                      !- Calculation Frequency
-    15000;                   !- Maximum Figures in Shadow Overlap Calculations
+!ShadowCalculation,
+!    AverageOverDaysInFrequency,  !- Calculation Method
+!    20,                      !- Calculation Frequency
+!    15000;                   !- Maximum Figures in Shadow Overlap Calculations
 
 
 !-   ===========  ALL OBJECTS IN CLASS: SURFACECONVECTIONALGORITHM:INSIDE ===========

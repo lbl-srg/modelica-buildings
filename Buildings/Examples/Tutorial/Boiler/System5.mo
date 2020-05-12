@@ -259,8 +259,6 @@ model System5
     Ti=120,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=0.1,
-    yMax=1,
-    yMin=0,
     reverseAction=true) "Controller for valve in boiler loop"
     annotation (Placement(transformation(extent={{160,-270},{180,-250}})));
 //--------------------------------------------------------------------------------//
@@ -270,9 +268,7 @@ model System5
     Td=1,
     Ti=120,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    k=0.1,
-    yMax=1,
-    yMin=0)
+    k=0.1)
            "Controller for valve in radiator loop"
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
 //--------------------------------------------------------------------------------//
@@ -544,8 +540,6 @@ We configured the controller as
     k=0.1,
     Ti=120,
     Td=1,
-    yMax=1,
-    yMin=0,
     reverseAction=true) \"Controller for valve in boiler loop\";
 </pre>
 <p>

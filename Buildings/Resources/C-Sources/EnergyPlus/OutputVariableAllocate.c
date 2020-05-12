@@ -74,13 +74,6 @@ void* OutputVariableAllocate(
   if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaFormatMessage("Entered OutputVariableAllocate for zone %s.\n", modelicaNameOutputVariable);
 
-  /* EnergyPlus cannot return Zone Mean Air Temperature as this is computed in Modelica.
-     See email Kyle Benne, 11/22/19  */
-  if (strcasecmp(outputName, "Zone Mean Air Temperature") == 0){
-    ModelicaFormatError("'%s' requested output '%s' but EnergyPlus cannot return this type of output. Use instead the Modelica zone air temperature.",
-    modelicaNameOutputVariable, outputName);
-  }
-
   checkAndSetVerbosity(verbosity);
 
   /* Dymola 2019FD01 calls in some cases the allocator twice. In this case, simply return the previously instanciated zone pointer */

@@ -6,19 +6,27 @@ block FreezeProtectionMixedAir "Freeze protection based on mixed air temperature
     "Type of controller";
   parameter Real k(final unit="1/K")=0.1 "Gain";
 
-  parameter Modelica.SIunits.Time Ti=120 "Time constant of integrator block";
+  parameter Real Ti(
+    final unit="s",
+    final quantity="Time")= 120 "Time constant of integrator block";
 
-  parameter Modelica.SIunits.Time Td=0.1
+  parameter Real Td(
+    final unit="s",
+    final quantity="Time")= 0.1
     "Time constant of derivative block"
     annotation (Dialog(
       enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Modelica.SIunits.Temperature TFreSet = 279.15
+  parameter Real TFreSet(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")= 279.15
     "Lower limit for mixed air temperature for freeze protection";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
     final unit="K",
+    final displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
     "Mixed air temperature measurement"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));

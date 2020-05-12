@@ -13,13 +13,18 @@ block Controller "Single zone VAV AHU economizer control sequence"
   parameter Boolean use_G36FrePro=false
     "Set to true if G36 freeze protection is implemented";
 
-  parameter Modelica.SIunits.TemperatureDifference delTOutHis=1
+  parameter Real delTOutHis(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference")=1
     "Delta between the temperature hysteresis high and low limit"
-    annotation(Evaluate=true, Dialog(tab="Advanced", group="Hysteresis"));
+    annotation(Dialog(tab="Advanced", group="Hysteresis"));
 
-  parameter Modelica.SIunits.SpecificEnergy delEntHis=1000
+  parameter Real delEntHis(
+    final unit="J/kg",
+    final quantity="SpecificEnergy")=1000
     "Delta between the enthalpy hysteresis high and low limits"
-    annotation(Evaluate=true, Dialog(tab="Advanced", group="Hysteresis", enable = use_enthalpy));
+    annotation(Dialog(tab="Advanced", group="Hysteresis", enable = use_enthalpy));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeMod=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -29,13 +34,17 @@ block Controller "Single zone VAV AHU economizer control sequence"
   parameter Real kMod(final unit="1/K")=1 "Gain of modulation controller"
     annotation(Dialog(group="Modulation"));
 
-  parameter Modelica.SIunits.Time TiMod=300
+  parameter Real TiMod(
+    final unit="s",
+    final quantity="Time")=300
     "Time constant of modulation controller integrator block"
     annotation (Dialog(group="Modulation",
       enable=controllerTypeMod == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or controllerTypeMod == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Modelica.SIunits.Time TdMod=0.1
+  parameter Real TdMod(
+    final unit="s",
+    final quantity="Time")=0.1
     "Time constant of derivative block for modulation controller"
     annotation (Dialog(group="Modulation",
       enable=controllerTypeMod == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
@@ -61,21 +70,28 @@ block Controller "Single zone VAV AHU economizer control sequence"
     "Gain for mixed air temperature tracking for freeze protection, used if use_TMix=true"
      annotation(Dialog(group="Freeze protection", enable=use_TMix));
 
-  parameter Modelica.SIunits.Time TiFre=120
+  parameter Real TiFre(
+    final unit="s",
+    final quantity="Time")=120
     "Time constant of controller for mixed air temperature tracking for freeze protection. Require TiFre < TiMinOut"
      annotation(Dialog(group="Freeze protection",
        enable=use_TMix
          and (controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
            or controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
 
-  parameter Modelica.SIunits.Time TdFre=0.1
+  parameter Real TdFre(
+    final unit="s",
+    final quantity="Time")=0.1
      "Time constant of derivative block for freeze protection"
      annotation (Dialog(group="Freeze protection",
        enable=use_TMix and
            (controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
            or controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
 
-  parameter Modelica.SIunits.Temperature TFreSet = 277.15
+  parameter Real TFreSet(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature") = 277.15
     "Lower limit for mixed air temperature for freeze protection, used if use_TMix=true"
      annotation(Dialog(group="Freeze protection", enable=use_TMix));
 
@@ -83,93 +99,102 @@ block Controller "Single zone VAV AHU economizer control sequence"
     final min=0,
     final max=1,
     final unit="1") = 0.1 "Minimum supply fan operation speed"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
+    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real yFanMax(
     final min=0,
     final max=1,
     final unit="1") = 0.9 "Maximum supply fan operation speed"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
-  parameter Modelica.SIunits.VolumeFlowRate VOutMin_flow=1.0
+    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
+  parameter Real VOutMin_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")=1.0
     "Calculated minimum outdoor airflow rate"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
-  parameter Modelica.SIunits.VolumeFlowRate VOutDes_flow=2.0
+    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
+  parameter Real VOutDes_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")=2.0
     "Calculated design outdoor airflow rate"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
+    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real yDam_VOutMin_minSpe(
     final min=outDamPhyPosMin,
     final max=outDamPhyPosMax,
     final unit="1") = 0.4
     "Outdoor air damper position to supply minimum outdoor airflow at minimum fan speed"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
+    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real yDam_VOutMin_maxSpe(
     final min=outDamPhyPosMin,
     final max=outDamPhyPosMax,
     final unit="1") = 0.3
     "Outdoor air damper position to supply minimum outdoor airflow at maximum fan speed"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
+    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real yDam_VOutDes_minSpe(
     final min=yDam_VOutMin_minSpe,
     final max=outDamPhyPosMax,
     final unit="1") = 0.9
     "Outdoor air damper position to supply design outdoor airflow at minimum fan speed"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
+    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real yDam_VOutDes_maxSpe(
     final min=yDam_VOutMin_maxSpe,
     final max=outDamPhyPosMax,
     final unit="1") = 0.8
     "Outdoor air damper position to supply design outdoor airflow at maximum fan speed"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
+    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real outDamPhyPosMax(
     final min=0,
     final max=1,
     final unit="1") = 1
     "Physically fixed maximum position of the outdoor air damper"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
+    annotation(Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real outDamPhyPosMin(
     final min=0,
     final max=1,
     final unit="1") = 0
     "Physically fixed minimum position of the outdoor air damper"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
+    annotation(Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real retDamPhyPosMax(
     final min=0,
     final max=1,
     final unit="1") = 1
     "Physically fixed maximum position of the return air damper"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
+    annotation(Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real retDamPhyPosMin(
     final min=0,
     final max=1,
     final unit="1") = 0
     "Physically fixed minimum position of the return air damper"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
+    annotation(Dialog(tab="Commissioning", group="Physical damper position limits"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSupSet(
     final unit="K",
+    final displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
     "Supply air temperature heating setpoint"
     annotation (Placement(transformation(extent={{-160,10},{-140,30}}),
       iconTransformation(extent={{-120,-12},{-100,8}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
+    final displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-160,30},{-140,50}}),
       iconTransformation(extent={{-120,4},{-100,24}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
+    final displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-160,130},{-140,150}}),
       iconTransformation(extent={{-120,84},{-100,104}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TCut(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Outdoor air temperature high limit cutoff. For differential dry bulb temeprature condition use return air temperature measurement"
     annotation (Placement(transformation(extent={{-160,110},{-140,130}}),
         iconTransformation(extent={{-120,68},{-100,88}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRet(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature") if
        use_fixed_plus_differential_drybulb
     "Used only for fixed plus differential dry bulb temperature high limit cutoff"
@@ -188,6 +213,7 @@ block Controller "Single zone VAV AHU economizer control sequence"
         iconTransformation(extent={{-120,20},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
     final unit="K",
+    final displayUnit="degC",
     final quantity = "ThermodynamicTemperature") if use_TMix
     "Measured mixed air temperature, used for freeze protection"
     annotation (Placement(transformation(extent={{-160,-50},{-140,-30}}),

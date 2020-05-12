@@ -5,54 +5,57 @@ block Limits "Single zone VAV AHU minimum outdoor air control - damper position 
     final min=0,
     final max=1,
     final unit="1") = 0.1 "Minimum supply fan operation speed"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
+    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real yFanMax(
     final min=0,
     final max=1,
     final unit="1") = 1 "Maximum supply fan operation speed"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
+    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real yDam_VOutMin_minSpe(
     final min=outDamPhyPosMin,
     final max=outDamPhyPosMax,
     final unit="1") = 0.4
     "OA damper position to supply minimum outdoor airflow at minimum fan speed"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
+    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real yDam_VOutMin_maxSpe(
     final min=outDamPhyPosMin,
     final max=outDamPhyPosMax,
     final unit="1") = 0.3
     "OA damper position to supply minimum outdoor airflow at maximum fan speed"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
+    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real yDam_VOutDes_minSpe(
     final min=yDam_VOutMin_minSpe,
     final max=outDamPhyPosMax,
     final unit="1") = 0.9
     "OA damper position to supply design outdoor airflow at minimum fan speed"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
+    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real yDam_VOutDes_maxSpe(
     final min=yDam_VOutMin_maxSpe,
     final max=outDamPhyPosMax,
     final unit="1") = 0.8
     "OA damper position to supply design outdoor airflow at maximum fan speed"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
-  parameter Modelica.SIunits.VolumeFlowRate VOutMin_flow
-    "Calculated minimum outdoor airflow rate"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
-  parameter Modelica.SIunits.VolumeFlowRate VOutDes_flow
+    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
+  parameter Real VOutMin_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate") "Calculated minimum outdoor airflow rate"
+    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
+  parameter Real VOutDes_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")
     "Calculated design outdoor airflow rate"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
+    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real outDamPhyPosMax(
     final min=0,
     final max=1,
     final unit="1") = 1
-    "Physically fixed maximum position of the outdoor air (OA) damper"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
+    "Physically fixed maximum position of the outdoor air damper"
+    annotation(Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real outDamPhyPosMin(
     final min=0,
     final max=1,
     final unit="1") = 0
     "Physically fixed minimum position of the outdoor air damper"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
+    annotation(Dialog(tab="Commissioning", group="Physical damper position limits"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFanSpe(
     final min=0,
@@ -103,11 +106,11 @@ protected
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPhyPosMinSig(
     final k=outDamPhyPosMin)
-    "Physically fixed minimum position of the outdoor air (OA) damper"
+    "Physically fixed minimum position of the outdoor air damper"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPhyPosMaxSig(
     final k=outDamPhyPosMax)
-    "Physically fixed maximum position of the outdoor air (OA) damper"
+    "Physically fixed maximum position of the outdoor air damper"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFanMaxSig(
     final k=yFanMax) "Maximum supply fan speed"
