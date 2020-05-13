@@ -3,7 +3,7 @@ model SteamHeatExchangerIdeal
   "Example model for the ideal two-port steam heat exchanger"
   extends Modelica.Icons.Example;
 
-  package MediumSte = IBPSA.Media.Steam "Steam medium";
+  package MediumSte = IBPSA.Media.Steam.Steam "Steam medium";
   package MediumWat = IBPSA.Media.Water(T_max= 200+273.15) "Water medium";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal= 1

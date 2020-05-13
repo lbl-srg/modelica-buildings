@@ -3,7 +3,7 @@ model SteamBoilerFourPort
   "Test model for the steam boiler with four fluid ports"
   extends Modelica.Icons.Example;
 
-  package MediumSte = IBPSA.Media.Steam "Steam medium";
+  package MediumSte = IBPSA.Media.Steam.Steam "Steam medium";
   package MediumWat = IBPSA.Media.Water (T_max = 200+273.15)
     "Water medium";
   package MediumFlu = Buildings.Media.Air
@@ -24,7 +24,7 @@ model SteamBoilerFourPort
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal=4.0697
     "Nominal mass flow rate for air side";
 
-  parameter Modelica.SIunits.Temperature TOut_nominal = MediumSte.saturationTemperature(pOut_nominal)
+  parameter Modelica.SIunits.Temperature TOut_nominal = MediumSte.saturationTemperature_p(pOut_nominal)
     "Nominal temperature leaving the boiler";
 
   parameter Modelica.SIunits.SpecificHeatCapacityAtConstantPressure cp_default=
@@ -34,8 +34,8 @@ model SteamBoilerFourPort
 
   parameter Modelica.SIunits.SpecificEnthalpy dh_nominal=
     cp_default*(TOut_nominal - TIn_nominal) +
-    MediumSte.dewEnthalpy(MediumSte.setSat_p(pOut_nominal)) -
-    MediumSte.bubbleEnthalpy(MediumSte.setSat_p(pOut_nominal))
+    MediumSte.enthalpyOfSaturatedVapor_sat(MediumSte.saturationState_p(pOut_nominal)) -
+    MediumSte.enthalpyOfSaturatedLiquid_sat(MediumSte.saturationState_p(pOut_nominal))
    "Nominal change in enthalpy of boiler";
 
   Sources.Boundary_pT steSin(
@@ -150,8 +150,7 @@ equation
           -24},{-32,-24}}, color={0,0,127}));
   connect(m2Act_flow.y, fan.m_flow_in) annotation (Line(points={{-9,-30},{0,-30},
           {0,-70},{-20,-70},{-20,-78}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},
-            {120,120}})),                                        Diagram(
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
 experiment(Tolerance=1e-6, StopTime=3600.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Boilers/Examples/SteamBoilerFourPort.mos"

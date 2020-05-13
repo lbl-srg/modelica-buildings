@@ -2,13 +2,13 @@ within Buildings.Fluid.Boilers;
 model SteamBoilerIdeal "Simple steam boiler model for testing"
   extends Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium;
 
-  replaceable package Medium_a =
-      Modelica.Media.Interfaces.PartialTwoPhaseMedium
+/*  replaceable package Medium_a =
+      IBPSA.Media.Steam.Interfaces.PartialPureSubstanceWithSat
     "Medium model for port_a (inlet)";
   replaceable package Medium_b =
-      Modelica.Media.Interfaces.PartialTwoPhaseMedium
+      IBPSA.Media.Steam.Interfaces.PartialPureSubstanceWithSat
     "Medium model for port_b (outlet)";
-
+*/
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate";
 

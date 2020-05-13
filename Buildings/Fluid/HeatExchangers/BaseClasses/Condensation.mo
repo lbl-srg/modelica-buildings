@@ -5,10 +5,10 @@ model Condensation
     final show_T = true);
 
   replaceable package Medium_a =
-      Modelica.Media.Interfaces.PartialTwoPhaseMedium
+      IBPSA.Media.Steam.Interfaces.PartialPureSubstanceWithSat
     "Medium model for port_a (inlet)";
   replaceable package Medium_b =
-      Modelica.Media.Interfaces.PartialTwoPhaseMedium
+      IBPSA.Media.Steam.Interfaces.PartialPureSubstanceWithSat
     "Medium model for port_b (outlet)";
 
   Modelica.Blocks.Interfaces.RealOutput dh(unit="J/kg") "Change in enthalpy"
@@ -18,15 +18,15 @@ model Condensation
   parameter Modelica.SIunits.AbsolutePressure pSte_nominal
     "Nominal steam pressure";
   final parameter Modelica.SIunits.SpecificEnthalpy dhCon=
-     Medium_a.dewEnthalpy(Medium_a.setSat_p(pSte_nominal)) -
-    Medium_a.bubbleEnthalpy(Medium_a.setSat_p(pSte_nominal))
+     Medium_a.enthalpyOfSaturatedVapor_sat(Medium_a.saturationState_p(pSte_nominal)) -
+    Medium_a.enthalpyOfSaturatedLiquid_sat(Medium_a.saturationState_p(pSte_nominal))
     "Change in enthalpy";
   final parameter Modelica.SIunits.SpecificHeatCapacity cp=
      Medium_a.specificHeatCapacityCp(state=
     Medium_a.setState_pTX(p=pSte_nominal,T=TSat,X=Medium_a.X_default))
     "Specific Heat";
   final parameter Modelica.SIunits.Temperature TSat=
-     Medium_a.saturationTemperature(pSte_nominal)
+     Medium_a.saturationTemperature_p(pSte_nominal)
      "Saturation temperature";
 
   Medium_a.Temperature Ta;

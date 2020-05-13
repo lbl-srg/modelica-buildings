@@ -3,10 +3,10 @@ partial model PartialFourPortFourMediumParallel
   "Partial model with four ports,  four separate medium models, and parallel flow without storing mass or energy"
 
   replaceable package Medium_a1 =
-      Modelica.Media.Interfaces.PartialTwoPhaseMedium
+      IBPSA.Media.Steam.Interfaces.PartialPureSubstanceWithSat
     "Medium model for port_a1 (inlet)";
   replaceable package Medium_b1 =
-      Modelica.Media.Interfaces.PartialTwoPhaseMedium
+      IBPSA.Media.Steam.Interfaces.PartialPureSubstanceWithSat
     "Medium model for port_b1 (outlet)";
   replaceable package Medium_a2 =
       Modelica.Media.Interfaces.PartialMedium

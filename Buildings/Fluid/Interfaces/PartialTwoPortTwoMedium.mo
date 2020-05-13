@@ -3,10 +3,10 @@ partial model PartialTwoPortTwoMedium
   "Partial model with two ports with two separate medium models without storing mass or energy"
 
   replaceable package Medium_a =
-      Modelica.Media.Interfaces.PartialTwoPhaseMedium
+      IBPSA.Media.Steam.Interfaces.PartialPureSubstanceWithSat
     "Medium model for port_a (inlet)";
   replaceable package Medium_b =
-      Modelica.Media.Interfaces.PartialTwoPhaseMedium
+      IBPSA.Media.Steam.Interfaces.PartialPureSubstanceWithSat
     "Medium model for port_b (outlet)";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal

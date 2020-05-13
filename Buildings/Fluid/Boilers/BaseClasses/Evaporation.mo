@@ -4,10 +4,10 @@ model Evaporation
   extends Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium;
 
   replaceable package Medium_a =
-      Modelica.Media.Interfaces.PartialTwoPhaseMedium
+      IBPSA.Media.Steam.Interfaces.PartialPureSubstanceWithSat
     "Medium model for port_a (inlet)";
   replaceable package Medium_b =
-      Modelica.Media.Interfaces.PartialTwoPhaseMedium
+      IBPSA.Media.Steam.Interfaces.PartialPureSubstanceWithSat
     "Medium model for port_b (outlet)";
 
   Modelica.Blocks.Interfaces.RealOutput dh(unit="J/kg") "Change in enthalpy"
@@ -17,15 +17,15 @@ model Evaporation
   parameter Modelica.SIunits.AbsolutePressure pSte_nominal
     "Nominal steam pressure";
   final parameter Modelica.SIunits.SpecificEnthalpy dhVap=
-     Medium_b.dewEnthalpy(Medium_b.setSat_p(pSte_nominal)) -
-    Medium_b.bubbleEnthalpy(Medium_b.setSat_p(pSte_nominal))
+     Medium_b.enthalpyOfSaturatedVapor_sat(Medium_b.saturationState_p(pSte_nominal)) -
+    Medium_b.enthalpyOfSaturatedLiquid_sat(Medium_b.saturationState_p(pSte_nominal))
     "Change in enthalpy";
   final parameter Modelica.SIunits.SpecificHeatCapacity cp=
      Medium_a.specificHeatCapacityCp(state=
     Medium_a.setState_pTX(p=pSte_nominal,T=TSat,X=Medium_a.X_default))
     "Specific Heat";
   final parameter Modelica.SIunits.Temperature TSat=
-     Medium_b.saturationTemperature(pSte_nominal)
+     Medium_b.saturationTemperature_p(pSte_nominal)
      "Saturation temperature";
 
   Medium_b.Temperature Tb;
