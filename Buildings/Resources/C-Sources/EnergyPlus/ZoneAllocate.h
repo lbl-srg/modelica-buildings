@@ -15,7 +15,6 @@ void* ZoneAllocate(
   const char* modelicaNameThermalZone,
   const char* idfName,
   const char* weaName,
-  const char* iddName,
   const char* zoneName,
   int usePrecompiledFMU,
   const char* fmuName,

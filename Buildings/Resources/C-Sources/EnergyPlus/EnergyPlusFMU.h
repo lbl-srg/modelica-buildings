@@ -23,7 +23,6 @@ size_t AllocateBuildingDataStructure(
   const char* modelicaNameBuilding,
   const char* idfName,
   const char* weaName,
-  const char* iddName,
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsLibraryRoot);

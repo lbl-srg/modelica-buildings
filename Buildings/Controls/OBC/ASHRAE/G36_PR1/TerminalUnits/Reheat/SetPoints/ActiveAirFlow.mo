@@ -11,24 +11,37 @@ block ActiveAirFlow
   parameter Boolean have_CO2Sen
     "Set to true if the zone has CO2 sensor"
     annotation(Dialog(group="Zone sensors"));
-  parameter Modelica.SIunits.VolumeFlowRate VDisCooSetMax_flow
+  parameter Real VDisCooSetMax_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")
     "Zone maximum cooling airflow setpoint"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.VolumeFlowRate VDisSetMin_flow
+  parameter Real VDisSetMin_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")
     "Zone minimum airflow setpoint"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.VolumeFlowRate VDisHeaSetMax_flow
+  parameter Real VDisHeaSetMax_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")
     "Zone maximum heating airflow setpoint"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.VolumeFlowRate VDisConMin_flow
+  parameter Real VDisConMin_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")
     "VAV box controllable minimum"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Area AFlo "Area of the zone"
+  parameter Real AFlo(
+    final unit="m2",
+    final quantity="Area") "Area of the zone"
     annotation(Dialog(group="Nominal condition"));
-  parameter Real VOutPerAre_flow(final unit = "m3/(s.m2)")=3e-4
+  parameter Real VOutPerAre_flow(
+    final unit = "m3/(s.m2)")=3e-4
     "Outdoor air rate per unit area"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.VolumeFlowRate VOutPerPer_flow=2.5e-3
+  parameter Real VOutPerPer_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")=2.5e-3
     "Outdoor air rate per person"
     annotation(Dialog(group="Nominal condition"));
   parameter Real CO2Set = 894 "CO2 setpoint in ppm"
@@ -658,11 +671,13 @@ according to operation modes")}),
           lineColor={0,0,0},
           textString="actAirSet"),
         Text(
+          visible=have_CO2Sen,
           extent={{-98,48},{-70,36}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="CO2"),
         Text(
+          visible=have_occSen,
           extent={{-98,-32},{-70,-44}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
@@ -673,6 +688,7 @@ according to operation modes")}),
           pattern=LinePattern.Dash,
           textString="uOpeMod"),
         Text(
+          visible=have_winSen,
           extent={{-98,-74},{-72,-84}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,

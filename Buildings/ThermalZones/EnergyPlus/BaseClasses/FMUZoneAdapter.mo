@@ -89,7 +89,6 @@ protected
       modelicaNameThermalZone=modelicaNameThermalZone,
       idfName=idfName,
       weaName=weaName,
-      iddName=iddName,
       zoneName=zoneName,
       usePrecompiledFMU=usePrecompiledFMU,
       fmuName=fmuName,

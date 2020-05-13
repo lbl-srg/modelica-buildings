@@ -22,7 +22,6 @@ protected
       modelicaNameOutputVariable=modelicaNameOutputVariable,
       idfName=idfName,
       weaName=epWeaName,
-      iddName=Buildings.ThermalZones.EnergyPlus.BaseClasses.iddName,
       outputKey=key,
       outputName=name,
       usePrecompiledFMU=usePrecompiledFMU,

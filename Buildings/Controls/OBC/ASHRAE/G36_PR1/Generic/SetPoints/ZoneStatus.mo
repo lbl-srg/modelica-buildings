@@ -1,7 +1,11 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints;
 block ZoneStatus "Block that outputs zone temperature status"
 
-  parameter Modelica.SIunits.TemperatureDifference bouLim(min=0.5) = 1.1
+  parameter Real bouLim(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference",
+    final min=0.5) = 1.1
     "Value limit to indicate the end of setback or setup mode";
   parameter Boolean have_winSen=false
     "Check if the zone has window status sensor";
@@ -24,42 +28,49 @@ block ZoneStatus "Block that outputs zone temperature status"
         iconTransformation(extent={{-140,30},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonHeaSetOcc(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Occupied heating setpoint temperature"
     annotation (Placement(transformation(extent={{-180,50},{-140,90}}),
         iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonCooSetOcc(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Occupied cooling setpoint temperature"
     annotation (Placement(transformation(extent={{-180,0},{-140,40}}),
       iconTransformation(extent={{-140,-10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonMax(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Maximum zone temperature in the zone group"
     annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
         iconTransformation(extent={{-140,-30},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Single zone temperature"
     annotation (Placement(transformation(extent={{-180,-80},{-140,-40}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonMin(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Minimum zone temperature in the zone group"
     annotation (Placement(transformation(extent={{-180,-130},{-140,-90}}),
         iconTransformation(extent={{-140,-70},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonHeaSetUno(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Unoccupied heating setpoint temperature"
     annotation (Placement(transformation(extent={{-180,-170},{-140,-130}}),
         iconTransformation(extent={{-140,-90},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonCooSetUno(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Unoccupied cooling setpoint temperature"
     annotation (Placement(transformation(extent={{-180,-260},{-140,-220}}),
@@ -319,6 +330,7 @@ annotation (
           pattern=LinePattern.Dash,
           textString="TZonHeaSetUno"),
         Text(
+          visible=have_winSen,
           extent={{-98,56},{-60,46}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,

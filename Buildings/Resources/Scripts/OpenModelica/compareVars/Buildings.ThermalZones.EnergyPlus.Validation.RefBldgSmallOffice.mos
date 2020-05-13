@@ -1,17 +1,17 @@
 compareVars :=
   {
+    "building.weaBus.TDryBul",
     "att.TAir",
     "cor.TAir",
     "sou.TAir",
     "eas.TAir",
     "nor.TAir",
     "wes.TAir",
-    "building.weaBus.TDryBul",
-    "datRea.y[1]",
-    "datRea.y[2]",
-    "datRea.y[3]",
-    "datRea.y[4]",
-    "datRea.y[5]",
-    "datRea.y[6]",
-    "datRea.y[7]"
+    "TOutEP",
+    "TAttEP",
+    "TCorEP",
+    "TSouEP",
+    "TEasEP",
+    "TNorEP",
+    "TWesEP"
   };

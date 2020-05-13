@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "thermalZoneFourElements.TAir",
+    "thermalZoneFourElements.volAir.C[1]"
+  };

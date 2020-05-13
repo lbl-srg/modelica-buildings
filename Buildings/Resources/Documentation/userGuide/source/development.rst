@@ -241,9 +241,14 @@ The following rules need to be followed, in addition to the guidelines described
 #. For simple, small controllers, provide a unit test in a ``Validation`` or ``Examples`` package
    that is in the hierarchy one level below the implemented controller.
    See :numref:`sec_val` for unit test implementation.
-   For equipment and system controllers, provide also a closed loop example outside of the
-   ``Buildings.Controls.OBC`` package because some control logic errors may only be noticed
-   when used in a closed loop test.
+   Because some control logic errors may only be noticed
+   when used in a closed loop test,
+   for equipment and system controllers, provide also closed loop examples that test the sequence
+   for all modes of operation. If the closed loop examples include HVAC models, then put them
+   outside of the ``Buildings.Controls.OBC`` package.
+   Make sure sequences are tested for all modes of operation, and as applicable, for winter, shoulder
+   and summer days.
+
 
 
 .. _sec_val:
@@ -251,10 +256,15 @@ The following rules need to be followed, in addition to the guidelines described
 Validation
 ----------
 
-All models that are implemented need to be validated for a range of
+All models that are implemented need to be validated for all
 realistic operating modes.
 These validations need to be part of the
 `unit tests <https://github.com/lbl-srg/modelica-buildings/wiki/Unit-Tests>`_.
+
+Add a couple of sentences that explain to others the intent of the unit test.
+For example, an air handler unit controller test could describe
+"This model verifies that as the cooling load of the room increases, the controller
+first increases the mass flow rate setpoint and then reduces the supply temperature setpoint."
 
 For simple models, the validation can be against analytic solutions.
 This is for example done in

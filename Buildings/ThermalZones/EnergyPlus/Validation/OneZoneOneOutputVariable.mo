@@ -2,8 +2,10 @@ within Buildings.ThermalZones.EnergyPlus.Validation;
 model OneZoneOneOutputVariable
   "Validation model for one zone with one output variable"
   extends Buildings.ThermalZones.EnergyPlus.Validation.OneZone;
+
   Buildings.ThermalZones.EnergyPlus.OutputVariable equEle(
-    key="Core_ZN", name="Zone Electric Equipment Electric Power",
+    key="LIVING ZONE",
+    name="Zone Electric Equipment Electric Power",
     y(final unit="W"))
     "Block that reads output from EnergyPlus"
     annotation (Placement(transformation(extent={{70,50},{90,70}})));

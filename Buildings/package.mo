@@ -169,6 +169,16 @@ its class name ends with the string <code>Beta</code>.
     <tr><td colspan=\"2\"><b>Buildings.Controls</b>
         </td>
     </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow
+        </td>
+        <td valign=\"top\">Package of sequences for specifying the minimum outdoor airflow rate.
+                           This replaces <code>Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutsideAirFlow</code>.
+                           The new implemented sequences separated zone level calculation from the system level calculation.
+                           It avoids vector-valued calculations.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1829\">#1829</a>.
+        </td>
+    </tr>
+
     <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneStatus
         </td>
         <td valign=\"top\">Block that outputs zone temperature status by comparing it with setpoint temperatures, with the maximum and
@@ -234,6 +244,22 @@ its class name ends with the string <code>Beta</code>.
     <b style=\"color:blue\">backward compatible</b> way:
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions.WeatherData</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3
+        </td>
+        <td valign=\"top\">Refactored weather data reader and changed implementation to allow exactly zero radiation rather
+                           than a small positive value.
+                           This was required to allow simulating buildings at steady-state, which is needed
+                           for some controls design.
+                           For examples in which buildings are simulated at steady-state, see
+                           <code>Buildings.ThermalZones.Detailed.Validation.MixedAirFreeResponseSteadyState</code>,
+                           <code>Buildings.Examples.VAVReheat.Validation.Guideline36SteadyState</code> and
+                           <code>Buildings.ThermalZones.ReducedOrder.Validation.RoomSteadyState</code>.<br/>
+                         This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1340\">IBPSA, #1340</a>.
+        </td>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.Controls.Continuous</b>
         </td>
     </tr>
@@ -246,10 +272,25 @@ its class name ends with the string <code>Beta</code>.
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
         </td>
     </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Derivative
+        </td>
+        <td valign=\"top\">Removed parameter <code>initType</code> and <code>x_start</code>.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1887\">IBPSA, #1887</a>.<br/>
+                           For Dymola, a conversion script makes this change.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset
+        </td>
+        <td valign=\"top\">Removed parameter <code>initType</code>.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1887\">IBPSA, #1887</a>.<br/>
+                           For Dymola, a conversion script makes this change.
+        </td>
+    </tr>
+
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.LimPID
         </td>
         <td valign=\"top\">Removed homotopy that may be used during initialization to ensure that outputs are bounded.<br/>
-                         This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1221\">IBPSA, #1221</a>.
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1221\">IBPSA, #1221</a>.
         </td>
     </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Sources.CalendarTime<br/>
@@ -283,16 +324,28 @@ its class name ends with the string <code>Beta</code>.
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1221\">#1221</a>.
         </td>
     </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Types.Init
+        </td>
+        <td valign=\"top\">Removed this enumeration because it is no longer used.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1887\">#1887</a>.
+        </td>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1 </b>
         </td>
-    </tr>        
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.TrimAndRespond
+        </td>
+        <td valign=\"top\">Corrected to delay the true initial device status.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1876\">issue #1876</a>
+        </td>
+    </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValves
         </td>
         <td valign=\"top\">Replaced multisum block with add blocks, replaced gain block used for normalization
                            with division block.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1830\">issue #1830</a>
         </td>
-    </tr> 
+    </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller
         </td>
         <td valign=\"top\">Replaced the mode and setpoint calculation block with
@@ -352,6 +405,17 @@ its class name ends with the string <code>Beta</code>.
                            This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1230\">IBPSA, #1230</a>.
         </td>
     </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage<br/>
+                           Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleSpeed<br/>
+                           Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed<br/>
+                           Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.MultiStage<br/>
+                           Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.SingleSpeed<br/>
+                           Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.VariableSpeed
+        </td>
+        <td valign=\"top\">Corrected wrong <code>min</code> and <code>max</code> attribute for change in humidity.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1933\">#1933</a>.
+        </td>
+    </tr>
     <tr><td valign=\"top\">Buildings.Fluid.Storage.Stratified<br/>
                            Buildings.Fluid.Storage.StratifiedEnhanced<br/>
                            Buildings.Fluid.Storage.StratifiedEnhancedInternalHex
@@ -366,11 +430,20 @@ its class name ends with the string <code>Beta</code>.
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1636\">#1636</a>.
         </td>
     </tr>
+    <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.HeatTransfer.Convection.Exterior
+        </td>
+        <td valign=\"top\">Set wind direction modifier to a constant as wind speed approaches zero.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1923\">#1923</a>.
+        </td>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx</b>
         </td>
     </tr>
     <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case600<br/>
-                           Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case600FF<br/>
+                           Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case600FF
         </td>
         <td valign=\"top\">Changed computation of time averaged values to avoid a time event every hour.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1714\">#1714</a>.
@@ -382,7 +455,7 @@ its class name ends with the string <code>Beta</code>.
     <tr><td valign=\"top\">Buildings.ThermalZones.ReducedOrder.RC.OneElement<br/>
                            Buildings.ThermalZones.ReducedOrder.RC.TwoElements<br/>
                            Buildings.ThermalZones.ReducedOrder.RC.ThreeElements<br/>
-                           Buildings.ThermalZones.ReducedOrder.RC.FourElements<br/>
+                           Buildings.ThermalZones.ReducedOrder.RC.FourElements
         </td>
         <td valign=\"top\">Added option to also simulate moisture balance in room air volume.
                            This can be enabled by setting the parameter <code>use_moisture_balance = true</code>.<br/>
@@ -442,6 +515,30 @@ its class name ends with the string <code>Beta</code>.
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
         </td>
     </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.LimPID
+        </td>
+        <td valign=\"top\">Refactored model so that it is itself a CDL conformant composite block.
+                           This refactoring removes the no longer use parameters <code>xd_start</code> that was
+                           used to initialize the state of the derivative term. This state is now initialized
+                           based on the requested initial output <code>yd_start</code> which is a new parameter
+                           with a default of <code>0</code>.
+                           Also, removed the parameters <code>y_start</code> and <code>initType</code> because
+                           the initial output of the controller can be set by using <code>xi_start</code>
+                           and <code>yd_start</code>.
+                           This refactoring also removes the parameter <code>strict</code> that
+                           was used in the output limiter. The new implementation enforces a strict check by default.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1878\">#1878</a>.<br/>
+                           For Dymola, a conversion script makes this change.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.LimPID
+        </td>
+        <td valign=\"top\">Changed the default values for the output limiter from <code>yMin=-yMax</code> to <code>yMin=0</code>
+                           and from <code>yMax</code> being unspecified to <code>yMax=1</code>.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1888\">#1888</a>.<br/>
+                           For Dymola, a conversion script makes this change.
+        </td>
+    </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.SetPoints.SupplyReturnTemperatureReset
         </td>
         <td valign=\"top\">Changed name from <code>HotWaterTemperatureReset</code> to <code>SupplyReturnTemperatureReset</code>.<br/>
@@ -450,6 +547,22 @@ its class name ends with the string <code>Beta</code>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller
+        </td>
+        <td valign=\"top\">Reimplemented to add new block for specifying the minimum outdoor airfow setpoint.
+                           The new block avoids vector-valued calculations.<br/>
+                           The reimplemented controller needs to work with
+                           <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Zone\">
+                           Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Zone</a> and
+                           <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.SumZone\">
+                           Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.SumZone</a>,
+                           to calculate the zone level minimum outdoor airflow setpoints and then find the sum, the minimum and
+                           the maximum of these setpoints. See
+                           <a href=\"modelica://Buildings.Examples.VAVReheat.Guideline36\">Buildings.Examples.VAVReheat.Guideline36</a>.
+                           <br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1829\">#1829</a>.
         </td>
     </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode
@@ -593,6 +706,16 @@ its class name ends with the string <code>Beta</code>.
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1577\">1577</a>.
         </td>
     </tr>
+    <tr><td valign=\"top\">Buildings.Electrical.AC.OnePhase.Storage.Battery<br/>
+                         Buildings.Electrical.AC.ThreePhasesBalanced.Storage.Battery
+    </td>
+      <td valign=\"top\">Corrected model and improved the documentation. The previous model extracted from
+                       the AC connector the input power <code>P</code> plus the AC/DC conversion losses, but <code>P</code>
+                       should be the power exchanged at the AC connector. Conversion losses are now only
+                       accounted for in the energy exchange at the battery.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1865\">1865</a>.
+      </td>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
         </td>
     </tr>
@@ -650,7 +773,7 @@ its class name ends with the string <code>Beta</code>.
                            <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1205\">IBPSA, #1205</a>.
         </td>
     </tr>
-    <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
+    <tr><td colspan=\"2\"><b>Buildings.ThermalZones.D" + "etailed</b>
         </td>
     </tr>
     <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Constructions.Examples.ExteriorWallTwoWindows<br/>
@@ -2125,7 +2248,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
    <tr><td valign=\"top\">Buildings.Examples.VAVReheat.ClosedLoop
 
        </td>
-       <td valign=\"top\">Changed chilled water supply temperature to <i>6&circ;C</i>.
+       <td valign=\"top\">Changed chilled water supply temperature to <i>6&deg;C</i>.
                           This closes
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/509\">issue 509</a>.
        </td>

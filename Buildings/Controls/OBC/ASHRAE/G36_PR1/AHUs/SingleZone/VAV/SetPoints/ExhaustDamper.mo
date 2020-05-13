@@ -4,27 +4,27 @@ block ExhaustDamper
   parameter Real minExhDamPos(
     min=0,
     max=1,
-    final unit="1") = 0.1
+    final unit="1") = 0.2
     "Exhaust damper position maintaining building static pressure at setpoint when the system is at minPosMin"
-    annotation(Evaluate=true, Dialog(group="Nominal parameters"));
+    annotation(Dialog(group="Nominal parameters"));
   parameter Real maxExhDamPos(
     min=0,
     max=1,
     final unit="1") = 0.9
     "Exhaust damper position maintaining building static pressure at setpoint when outdoor air damper is fully open and fan speed is at cooling maximum"
-    annotation(Evaluate=true, Dialog(group="Nominal parameters"));
+    annotation(Dialog(group="Nominal parameters"));
   parameter Real minOutPosMin(
     min=0,
     max=1,
     final unit="1") = 0.4
     "Outdoor air damper position when fan operating at minimum speed to supply minimum outdoor air flow"
-    annotation(Evaluate=true, Dialog(group="Nominal parameters"));
+    annotation(Dialog(group="Nominal parameters"));
   parameter Real outDamPhyPosMax(
     min=0,
     max=1,
     final unit="1")=1
     "Physical or at the comissioning fixed maximum position of the outdoor air damper"
-    annotation(Evaluate=true, Dialog(group="Nominal parameters"));
+    annotation(Dialog(group="Nominal parameters"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan "Supply fan status"
     annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),

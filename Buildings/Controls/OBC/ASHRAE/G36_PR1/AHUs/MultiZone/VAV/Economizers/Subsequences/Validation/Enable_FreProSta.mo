@@ -1,9 +1,14 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Economizers.Subsequences.Validation;
 model Enable_FreProSta
   "Model validates economizer disable for heating zone state and activated freeze protection"
-  parameter Modelica.SIunits.Temperature TOutCutoff=297.15
+  parameter Real TOutCutoff(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=297.15
     "Outdoor temperature high limit cutoff";
-  parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
+  parameter Real hOutCutoff(
+    final unit="J/kg",
+    final quantity="SpecificEnergy")=65100
     "Outdoor air enthalpy high limit cutoff";
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Economizers.Subsequences.Enable
@@ -15,7 +20,7 @@ model Enable_FreProSta
     "Outdoor air temperature is slightly below the cutoff"
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutCut(
-    final k=TOutCutoff)
+    final k=TOutCutoff) "OA temperature high limit cutoff"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutBelowCutoff(
     final k=hOutCutoff - 1000)
@@ -41,45 +46,49 @@ model Enable_FreProSta
     final k=0) "Minimal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-110,-90},{-90,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant supFanSta(k=true)
+    "Supply fan status"
     annotation (Placement(transformation(extent={{-140,-40},{-120,-20}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(period=1800)
+    "Boolean pulse for generating freeze protection stage"
     annotation (Placement(transformation(extent={{-20,-160},{0,-140}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger freProSta1(
     integerTrue=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage0,
     integerFalse=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage1)
-    "Freese protection stage changes from stage 0 to stage 1"
+    "Freeze protection stage changes from stage 0 to stage 1"
     annotation (Placement(transformation(extent={{20,-160},{40,-140}})));
 
 equation
   connect(TOutCut.y, enaDis.TOutCut)
-    annotation (Line(points={{-59,110},{-20,110},{-20,-22},{59,-22}},color={0,0,127}));
+    annotation (Line(points={{-58,110},{-20,110},{-20,-22},{58,-22}},color={0,0,127}));
   connect(TOutBelowCutoff.y, enaDis.TOut)
-    annotation (Line(points={{-59,150},{-10,150},{-10,-20},{59,-20}},color={0,0,127}));
+    annotation (Line(points={{-58,150},{-10,150},{-10,-20},{58,-20}},color={0,0,127}));
   connect(hOutBelowCutoff.y, enaDis.hOut)
-    annotation (Line(points={{-119,90},{-100,90},{-100,60},{-30,60},{-30,-24},{59,-24}},
+    annotation (Line(points={{-118,90},{-100,90},{-100,60},{-30,60},{-30,-24},{58,
+          -24}},
     color={0,0,127}));
   connect(hOutCut.y, enaDis.hOutCut)
-    annotation (Line(points={{-119,50},{-40,50},{-40,-26},{59,-26}},color={0,0,127}));
+    annotation (Line(points={{-118,50},{-40,50},{-40,-26},{58,-26}},color={0,0,127}));
   connect(outDamPosMin.y, enaDis.uOutDamPosMin)
-    annotation (Line(points={{-119,-140},{-30,-140},{-30,-34},{59,-34}},
+    annotation (Line(points={{-118,-140},{-30,-140},{-30,-34},{58,-34}},
     color={0,0,127}));
   connect(outDamPosMax.y, enaDis.uOutDamPosMax)
-    annotation (Line(points={{-89,-110},{-40,-110},{-40,-32},{59,-32}},color={0,0,127}));
+    annotation (Line(points={{-88,-110},{-40,-110},{-40,-32},{58,-32}},color={0,0,127}));
   connect(retDamPosMin.y, enaDis.uRetDamPosMin)
-    annotation (Line(points={{-89,-80},{48,-80},{48,-40},{59,-40}},color={0,0,127}));
+    annotation (Line(points={{-88,-80},{48,-80},{48,-40},{58,-40}},color={0,0,127}));
   connect(retDamPosMax.y, enaDis.uRetDamPosMax)
-    annotation (Line(points={{-89,-50},{-60,-50},{-60,-38},{59,-38}},
+    annotation (Line(points={{-88,-50},{-60,-50},{-60,-38},{58,-38}},
     color={0,0,127}));
   connect(retDamPhyPosMax.y, enaDis.uRetDamPhyPosMax)
-    annotation (Line(points={{-119,10},{-60,10},{-60,-36},{59,-36}},color={0,0,127}));
+    annotation (Line(points={{-118,10},{-60,10},{-60,-36},{58,-36}},color={0,0,127}));
   connect(supFanSta.y, enaDis.uSupFan)
-    annotation (Line(points={{-119,-30},{-70,-30},{-70,-28},{59,-28}},color={255,0,255}));
+    annotation (Line(points={{-118,-30},{-70,-30},{-70,-28},{58,-28}},color={255,0,255}));
   connect(booPul1.y, freProSta1.u)
-    annotation (Line(points={{1,-150},{4,-150},{4,-150},{8,-150},{8,-150},{18,-150}},
+    annotation (Line(points={{2,-150},{4,-150},{4,-150},{8,-150},{8,-150},{18,-150}},
     color={255,0,255}));
   connect(freProSta1.y, enaDis.uFreProSta)
-    annotation (Line(points={{41,-150},{50,-150},{50,-120},{-20,-120},{-20,-30},{59,-30}},
+    annotation (Line(points={{42,-150},{50,-150},{50,-120},{-20,-120},{-20,-30},
+          {58,-30}},
     color={255,127,0}));
   annotation (
     experiment(StopTime=1800.0, Tolerance=1e-06),
