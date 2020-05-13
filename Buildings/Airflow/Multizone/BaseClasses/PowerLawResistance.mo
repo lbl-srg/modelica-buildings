@@ -2,8 +2,12 @@ within Buildings.Airflow.Multizone.BaseClasses;
 partial model PowerLawResistance "Flow resistance that uses the power law"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     final allowFlowReversal=true,
-    final m_flow_nominal=rho_default*k*dp_turbulent);
+    final m_flow_nominal=rho_default*k*dp_turbulent,
+    final m_flow_small=1E-4*abs(m_flow_nominal));
   extends Buildings.Airflow.Multizone.BaseClasses.ErrorControl;
+
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
 
   parameter Real m(min=0.5, max=1)
     "Flow exponent, m=0.5 for turbulent, m=1 for laminar";
@@ -13,9 +17,6 @@ partial model PowerLawResistance "Flow resistance that uses the power law"
   parameter Modelica.SIunits.PressureDifference dp_turbulent(min=0, displayUnit="Pa") = 0.1
     "Pressure difference where laminar and turbulent flow relation coincide. Recommended = 0.1"
     annotation(Dialog(tab="Advanced"));
-
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   Modelica.SIunits.VolumeFlowRate V_flow
     "Volume flow rate through the component";
@@ -54,6 +55,10 @@ protected
     "Air mass exchanged (for purpose of error control only)";
 initial equation
   mExc=0;
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
+
 equation
   if forceErrorControlOnFlow then
     der(mExc) = port_a.m_flow;
@@ -127,6 +132,18 @@ The model is used as a base for the interzonal air flow models.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 12, 2020, by Michael Wetter:<br/>
+Changed assignment of <code>m_flow_small</code> to <code>final</code>.
+This quantity are not used in this model and models that extend from it.
+Hence there is no need for the user to change the value.
+</li>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">Buildings, #1341</a>.
+</li>
 <li>
 June 24, 2018, by Michael Wetter:<br/>
 Removed parameter <code>A</code> because

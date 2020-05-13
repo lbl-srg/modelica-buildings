@@ -1,5 +1,7 @@
 OneZone
+OneZoneCompareZoneTemperatureOutput
 OneZoneOneOutputVariable
+OneZoneOneOutputVariableSummer
 OneZoneTwoDifferentOutputVariables
 OneZoneTwoIdenticalOutputVariables
 OneZoneWithControl

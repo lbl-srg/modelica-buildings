@@ -107,7 +107,7 @@ equation
       points={{-60,50},{-40,50}},
       color={255,204,51},
       thickness=0.5));
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})),
+    annotation (
  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/VAVReheatRefBldgSmallOffice/FloorOpenLoop.mos"
         "Simulate and plot"),
 experiment(

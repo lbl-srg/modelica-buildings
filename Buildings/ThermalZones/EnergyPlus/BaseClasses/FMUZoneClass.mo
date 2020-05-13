@@ -11,8 +11,6 @@ extends ExternalObject;
       "Name of the Modelica instance of this thermal zone";
     input String idfName "Name of the IDF";
     input String weaName "Name of the weather file";
-    input String iddName "Name of the IDD file";
-    //    input String epLibName "Name of the Energyplus FMI library";
     input String zoneName "Name of the thermal zone";
     input Boolean usePrecompiledFMU "Set to true to use precompiled FMU with name specified by input fmuName";
     input String fmuName
@@ -27,7 +25,6 @@ extends ExternalObject;
       modelicaNameThermalZone,
       idfName,
       weaName,
-      iddName,
       zoneName,
       usePrecompiledFMU,
       fmuName,

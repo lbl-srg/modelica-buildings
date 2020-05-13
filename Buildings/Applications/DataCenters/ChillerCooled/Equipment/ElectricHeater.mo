@@ -4,6 +4,9 @@ model ElectricHeater "Model for electric heater"
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=(abs(dp_nominal) > Modelica.Constants.eps));
 
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
+
   parameter Modelica.SIunits.Efficiency eta(max=1) = 1
     "Effciency of electrical heater";
   parameter Modelica.SIunits.HeatFlowRate QMax_flow(min=0) = Modelica.Constants.inf
@@ -20,8 +23,6 @@ model ElectricHeater "Model for electric heater"
     "Time constant at nominal flow rate (used
     if energyDynamics or massDynamics not equal Modelica.Fluid.Types.Dynamics.SteadyState)"
     annotation(Dialog(tab = "Dynamics"));
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   Modelica.Blocks.Interfaces.RealOutput Q_flow(
     final quantity="HeatFlowRate",
@@ -70,6 +71,11 @@ protected
   Modelica.Blocks.Sources.Constant zer(final k=-273.15)
                                                   "Zero signal"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
+
+initial equation
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
 
 equation
   connect(port_a, hea.port_a)
@@ -148,6 +154,12 @@ The switch model <code>swi</code> is used to turn on/off the heater.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
+</li>
 <li>May 11, 2017 by Yangyang Fu:<br/>
 First implementation.
 </li>

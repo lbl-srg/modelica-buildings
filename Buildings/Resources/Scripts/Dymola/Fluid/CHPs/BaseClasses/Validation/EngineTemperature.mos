@@ -1,0 +1,6 @@
+simulateModel("Buildings.Fluid.CHPs.BaseClasses.Validation.EngineTemperature",
+    method="cvode", stopTime=1500, tolerance=1e-06, resultFile="EngineTemperature");
+createPlot(id=1, position={20, 20, 900, 1200}, subPlot=1, y={"eng.TRoo.T", "eng.TWat.T"}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={20, 20, 900, 1200}, subPlot=2, y={"eng.QGen_flow"}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 20, 900, 1200}, subPlot=3, y={"per.capEng"}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 20, 900, 1200}, subPlot=4, y={"eng.TEng"}, grid=true, colors={{28,108,200}});
