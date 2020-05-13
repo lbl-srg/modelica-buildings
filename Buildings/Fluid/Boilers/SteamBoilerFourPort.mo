@@ -20,10 +20,10 @@ model SteamBoilerFourPort
       nominalValuesDefineDefaultPressureCurve=true));
 
   replaceable package Medium_a1 =
-      Modelica.Media.Interfaces.PartialTwoPhaseMedium
+      IBPSA.Media.Steam.Interfaces.PartialPureSubstanceWithSat
     "Medium model for port_a1 (inlet)";
   replaceable package Medium_b1 =
-      Modelica.Media.Interfaces.PartialTwoPhaseMedium
+      IBPSA.Media.Steam.Interfaces.PartialPureSubstanceWithSat
     "Medium model for port_b1 (outlet)";
   replaceable package Medium2 =
       Modelica.Media.Interfaces.PartialMixtureMedium

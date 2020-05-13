@@ -2,7 +2,7 @@ within Buildings.Fluid.Boilers.Examples;
 model SteamBoilerTwoPort "Test model for the steam boiler with two fluid ports"
   extends Modelica.Icons.Example;
 
-  package MediumSte = IBPSA.Media.Steam "Steam medium";
+  package MediumSte = IBPSA.Media.Steam.Steam "Steam medium";
   package MediumWat = IBPSA.Media.Water (
    T_max = 200+273.15)
                       "Water medium";
@@ -19,7 +19,7 @@ model SteamBoilerTwoPort "Test model for the steam boiler with two fluid ports"
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=Q_flow_nominal/dh_nominal
     "Nominal mass flow rate";
 
-  parameter Modelica.SIunits.Temperature TOut_nominal = MediumSte.saturationTemperature(pOut_nominal)
+  parameter Modelica.SIunits.Temperature TOut_nominal = MediumSte.saturationTemperature_p(pOut_nominal)
     "Nominal temperature leaving the boiler";
 
   parameter Modelica.SIunits.SpecificHeatCapacityAtConstantPressure cp_default=
@@ -29,8 +29,8 @@ model SteamBoilerTwoPort "Test model for the steam boiler with two fluid ports"
 
   parameter Modelica.SIunits.SpecificEnthalpy dh_nominal=
     cp_default*(TOut_nominal - TIn_nominal) +
-    MediumSte.dewEnthalpy(MediumSte.setSat_p(pOut_nominal)) -
-    MediumSte.bubbleEnthalpy(MediumSte.setSat_p(pOut_nominal))
+    MediumSte.enthalpyOfSaturatedVapor_sat(MediumSte.saturationState_p(pOut_nominal)) -
+    MediumSte.enthalpyOfSaturatedLiquid_sat(MediumSte.saturationState_p(pOut_nominal))
    "Nominal change in enthalpy of boiler";
 
   Sources.Boundary_pT steSin(

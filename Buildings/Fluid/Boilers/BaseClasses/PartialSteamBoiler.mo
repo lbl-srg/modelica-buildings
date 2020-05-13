@@ -4,10 +4,10 @@ partial model PartialSteamBoiler
   phase change between the working fluid's ports"
 
   replaceable package Medium_a =
-      Modelica.Media.Interfaces.PartialTwoPhaseMedium
+      IBPSA.Media.Steam.Interfaces.PartialPureSubstanceWithSat
     "Medium model for port_a (inlet)";
   replaceable package Medium_b =
-      Modelica.Media.Interfaces.PartialTwoPhaseMedium
+      IBPSA.Media.Steam.Interfaces.PartialPureSubstanceWithSat
     "Medium model for port_b (outlet)";
 
   // Advanced
@@ -56,7 +56,7 @@ partial model PartialSteamBoiler
   parameter Modelica.SIunits.AbsolutePressure pOut_nominal
     "Nominal pressure of boiler"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.Temperature TOut_nominal = Medium_b.saturationTemperature(pOut_nominal)
+  parameter Modelica.SIunits.Temperature TOut_nominal = Medium_b.saturationTemperature_p(pOut_nominal)
     "Nominal temperature leaving the boiler";
 
   // Assumptions
