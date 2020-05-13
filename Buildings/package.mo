@@ -209,6 +209,11 @@ its class name ends with the string <code>Beta</code>.
         <td valign=\"top\">Three way valves with opening characteristics based on a user-provided table.
         </td>
     </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.CHPs
+        </td>
+        <td valign=\"top\">Package with model for combined heat and power device.
+        </td>
+    </tr>
     <tr><td valign=\"top\">Buildings.Fluid.Chillers.AbsorptionIndirectSteam
         </td>
         <td valign=\"top\">Indirect steam heated absorption chiller based on performance curves.
