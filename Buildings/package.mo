@@ -385,6 +385,12 @@ its class name ends with the string <code>Beta</code>.
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
         </td>
     </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal<br/>
+		   Buildings.Fluid.Actuators.Dampers.PressureIndependent
+        </td>
+        <td valign=\"top\">Added the computation of the damper opening.
+        </td>
+    </tr>
     <tr><td valign=\"top\">
                            Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve<br/>
                            Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage<br/>
@@ -773,7 +779,7 @@ its class name ends with the string <code>Beta</code>.
                            <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1205\">IBPSA, #1205</a>.
         </td>
     </tr>
-    <tr><td colspan=\"2\"><b>Buildings.ThermalZones.D" + "etailed</b>
+    <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
         </td>
     </tr>
     <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Constructions.Examples.ExteriorWallTwoWindows<br/>
