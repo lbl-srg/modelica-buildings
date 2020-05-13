@@ -16,8 +16,8 @@ block LimPID
     annotation (Dialog(enable=
           controllerType == CDL.Types.SimpleController.PD or
           controllerType == CDL.Types.SimpleController.PID));
-  parameter Real yMax "Upper limit of output";
-  parameter Real yMin=-yMax "Lower limit of output";
+  parameter Real yMax = 1 "Upper limit of output";
+  parameter Real yMin = 0 "Lower limit of output";
   parameter Real wp(min=0) = 1 "Set-point weight for Proportional block (0..1)";
   parameter Real wd(min=0) = 0 "Set-point weight for Derivative block (0..1)"
        annotation(Dialog(enable=controllerType==CDL.Types.SimpleController.PD or
@@ -465,6 +465,13 @@ or the control literature.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 23, 2020, by Michael Wetter:<br/>
+Changed default parameters for limits <code>yMax</code> from unspecified to <code>1</code>
+and <code>yMin</code> from <code>-yMax</code> to <code>0</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1888\">issue 1888</a>.
+</li>
 <li>
 April 7, 2020, by Michael Wetter:<br/>
 Reimplemented block using only CDL constructs.

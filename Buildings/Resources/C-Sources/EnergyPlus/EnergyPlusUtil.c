@@ -154,17 +154,8 @@ void setVariables(FMUBuilding* bui, const char* modelicaInstanceName, const spaw
       modelicaInstanceName, fmuModeToString(bui->mode));
 
   for(i = 0; i < ptrReals->n; i++){
-    if (ptrReals->units[i]){ /* Units are defined */
-    /* fixme: For now, disabled until the E+ generated FMU provides UnitDefinitions
+    if (ptrReals->units[i]) /* Units are defined */
       ptrReals->valsEP[i] = fmi2_import_convert_from_SI_base_unit(ptrReals->valsSI[i], ptrReals->units[i]);
-
-      Manual hack to provide functionality in the meantime:
-      */
-      if (!strcmp("degC", fmi2_import_get_unit_name(ptrReals->units[i])))
-        ptrReals->valsEP[i] = ptrReals->valsSI[i] - 273.15;
-      else
-        ptrReals->valsEP[i] = ptrReals->valsSI[i];
-    }
     else
       ptrReals->valsEP[i] = ptrReals->valsSI[i];
   }
@@ -213,17 +204,8 @@ void getVariables(FMUBuilding* bui, const char* modelicaInstanceName, spawnReals
   }
   /* Set SI unit value */
   for(i = 0; i < ptrReals->n; i++){
-    if (ptrReals->units[i]){ /* Units are defined */
-    /* fixme: For now, disabled until the E+ generated FMU provides UnitDefinitions
+    if (ptrReals->units[i]) /* Units are defined */
       ptrReals->valsSI[i] = fmi2_import_convert_to_SI_base_unit(ptrReals->valsEP[i], ptrReals->units[i]);
-
-      Manual hack to provide functionality in the meantime:
-      */
-      if (!strcmp("degC", fmi2_import_get_unit_name(ptrReals->units[i])))
-        ptrReals->valsSI[i] = ptrReals->valsEP[i] + 273.15;
-      else
-        ptrReals->valsSI[i] = ptrReals->valsEP[i];
-    }
     else
       ptrReals->valsSI[i] = ptrReals->valsEP[i];
   }

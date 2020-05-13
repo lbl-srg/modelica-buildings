@@ -261,7 +261,7 @@ block Controller
     final min=0,
     final max=1,
     final unit="1") = 1
-    "Physically fixed maximum position of the outdoor air (OA) damper"
+    "Physically fixed maximum position of the outdoor air damper"
     annotation(Dialog(tab="Economizer", group="Commissioning"));
   parameter Real outDamPhyPosMin(
     final min=0,
@@ -432,8 +432,6 @@ block Controller
     final k=kCoo,
     final Ti=TiCoo,
     final Td=TdCoo,
-    final yMax=1,
-    final yMin=0,
     final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
     "Zone cooling control signal"
     annotation (Placement(transformation(extent={{-50,150},{-30,170}})));
@@ -442,9 +440,7 @@ block Controller
     final controllerType=controllerTypeHea,
     final k=kHea,
     final Ti=TiHea,
-    final Td=TdHea,
-    final yMax=1,
-    final yMin=0) "Zone heating control signal"
+    final Td=TdHea) "Zone heating control signal"
     annotation (Placement(transformation(extent={{-50,210},{-30,230}})));
   Buildings.Controls.OBC.CDL.Continuous.Average ave
     "Average of zone heating and cooling setpoint"
