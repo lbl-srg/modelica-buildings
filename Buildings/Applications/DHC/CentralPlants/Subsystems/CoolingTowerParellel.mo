@@ -1,5 +1,6 @@
 within Buildings.Applications.DHC.CentralPlants.Subsystems;
-model CoolingTowerParellel "Multipul cooling towers in parallel connection"
+model CoolingTowerParellel
+  "Multipul cooling towers in parallel connection"
   replaceable package MediumCW =
       Buildings.Media.Water
     "Medium in the  condenser water side";
@@ -31,245 +32,157 @@ model CoolingTowerParellel "Multipul cooling towers in parallel connection"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Modelica.Blocks.Interfaces.RealInput TWetBul
     "Entering air wet bulb temperature"
-    annotation (Placement(transformation(extent={{-118,-69},{-100,-51}})));
-  Modelica.Blocks.Interfaces.RealInput TCWSet
-    "Temperature set point of the condenser water"
-    annotation (Placement(transformation(extent={{-118,70},{-100,88}})));
-  WaterSide.BaseClasses.Components.VSDCoolingTower ct2(
-    redeclare package MediumCW = MediumCW,
-    P_nominal=P_nominal,
-    dTCW_nominal=dTCW_nominal,
-    dTApp_nominal=dTApp_nominal,
-    TWetBul_nominal=TWetBul_nominal,
-    dP_nominal=dP_nominal,
-    mCW_flow_nominal=mCW_flow_nominal,
-    GaiPi=GaiPi,
-    tIntPi=tIntPi,
-    eta=eta,
-    TCW_start=TCW_start,
-    v_flow_rate=v_flow_rate)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  WaterSide.BaseClasses.Components.VSDCoolingTower ct3(
-    redeclare package MediumCW = MediumCW,
-    P_nominal=P_nominal,
-    dTCW_nominal=dTCW_nominal,
-    dTApp_nominal=dTApp_nominal,
-    TWetBul_nominal=TWetBul_nominal,
-    dP_nominal=dP_nominal,
-    mCW_flow_nominal=mCW_flow_nominal,
-    GaiPi=GaiPi,
-    tIntPi=tIntPi,
-    eta=eta,
-    TCW_start=TCW_start,
-    v_flow_rate=v_flow_rate)
-    annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
-  Modelica.Blocks.Interfaces.RealInput On[3]
-    "Temperature set point of the condenser water"
-    annotation (Placement(transformation(extent={{-118,30},{-100,48}})));
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
+  Fluid.HeatExchangers.CoolingTowers.Merkel cooTow1 "Cooling tower 1"
+    annotation (Placement(transformation(extent={{20,20},{40,40}})));
+  Fluid.Actuators.Valves.TwoWayEqualPercentage val1(
+    redeclare package Medium = MediumCW,
+    m_flow_nominal=mCW_flow_nominal,
+    dpValve_nominal=dP_nominal) "Cooling tower 1 valve"
+    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
+  Fluid.HeatExchangers.CoolingTowers.Merkel cooTow2 "Cooling tower 1"
+    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
+  Fluid.Actuators.Valves.TwoWayEqualPercentage val2(
+    redeclare package Medium = MediumCW,
+    m_flow_nominal=mCW_flow_nominal,
+    dpValve_nominal=dP_nominal) "Cooling tower 1 valve"
+    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
+  Modelica.Blocks.Interfaces.RealInput on[2] "On signal for cooling towers"
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
+  Modelica.Blocks.Interfaces.RealInput speFan "Fan speed control signal"
+    annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
+  Modelica.Blocks.Interfaces.RealOutput PFan[2]
+    "Electric power consumed by fan"
+    annotation (Placement(transformation(extent={{100,50},{120,70}})));
+  Modelica.Blocks.Interfaces.RealOutput TLvg[2]
+                        "Leaving water temperature"
+    annotation (Placement(transformation(extent={{100,20},{120,40}})));
 equation
-  connect(ct2.port_a_CW, port_a) annotation (Line(
-      points={{-10,0},{-100,0}},
-      color={0,127,255},
-      thickness=1));
-  connect(ct3.port_a_CW, port_a) annotation (Line(
-      points={{-10,-60},{-60,-60},{-60,0},{-100,0}},
-      color={0,127,255},
-      thickness=1));
-  connect(ct2.port_b_CW, port_b) annotation (Line(
-      points={{10,0},{100,0}},
-      color={0,127,255},
-      thickness=1));
-  connect(ct3.port_b_CW, port_b) annotation (Line(
-      points={{10,-60},{60,-60},{60,0},{100,0}},
-      color={0,127,255},
-      thickness=1));
-  connect(ct2.TSet, TCWSet) annotation (Line(
-      points={{-12,8},{-40,8},{-40,68},{-56,68},{-56,79},{-109,79}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(ct3.TSet, TCWSet) annotation (Line(
-      points={{-12,-52},{-40,-52},{-40,68},{-56,68},{-56,79},{-109,79}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(TWetBul, ct3.TWetBul) annotation (Line(
-      points={{-109,-60},{-68,-60},{-68,-64},{-12,-64}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(ct2.TWetBul, ct3.TWetBul) annotation (Line(
-      points={{-12,-4},{-68,-4},{-68,-64},{-12,-64}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(On[3], ct3.On) annotation (Line(
-      points={{-109,45},{-50,45},{-50,-56},{-12,-56}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(ct2.On, On[2]) annotation (Line(
-      points={{-12,4},{-12,4},{-78,4},{-78,39},{-109,39}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
+  connect(val1.port_b, cooTow1.port_a)
+    annotation (Line(points={{-20,30},{20,30}}, color={0,127,255}));
+  connect(cooTow1.port_b, port_b) annotation (Line(points={{40,30},{60,30},{60,0},
+          {100,0}}, color={0,127,255}));
+  connect(val1.port_a, port_a) annotation (Line(points={{-40,30},{-60,30},{-60,0},
+          {-100,0}}, color={0,127,255}));
+  connect(cooTow2.port_b, port_b) annotation (Line(points={{40,-30},{60,-30},{60,
+          0},{100,0}}, color={0,127,255}));
+  connect(val2.port_b, cooTow2.port_a)
+    annotation (Line(points={{-20,-30},{20,-30}}, color={0,127,255}));
+  connect(val2.port_a, port_a) annotation (Line(points={{-40,-30},{-60,-30},{-60,
+          0},{-100,0}}, color={0,127,255}));
+  connect(on[1], val1.y)
+    annotation (Line(points={{-120,50},{-30,50},{-30,42}}, color={0,0,127}));
+  connect(on[2], val2.y) annotation (Line(points={{-120,70},{-16,70},{-16,-12},
+          {-30,-12},{-30,-18}}, color={0,0,127}));
+  connect(speFan, cooTow1.y) annotation (Line(points={{-120,20},{-80,20},{-80,46},
+          {12,46},{12,38},{18,38}}, color={0,0,127}));
+  connect(speFan, cooTow2.y) annotation (Line(points={{-120,20},{-80,20},{-80,46},
+          {12,46},{12,-22},{18,-22}}, color={0,0,127}));
+  connect(TWetBul, cooTow2.TAir) annotation (Line(points={{-120,-60},{4,-60},{4,
+          -26},{18,-26}}, color={0,0,127}));
+  connect(TWetBul, cooTow1.TAir) annotation (Line(points={{-120,-60},{4,-60},{4,
+          34},{18,34}}, color={0,0,127}));
+  connect(cooTow2.PFan, PFan[2]) annotation (Line(points={{41,-22},{70,-22},{70,
+          65},{110,65}}, color={0,0,127}));
+  connect(cooTow1.PFan, PFan[1]) annotation (Line(points={{41,38},{70,38},{70,55},
+          {110,55}}, color={0,0,127}));
+  connect(cooTow2.TLvg, TLvg[2]) annotation (Line(points={{41,-36},{80,-36},{80,
+          35},{110,35}}, color={0,0,127}));
+  connect(cooTow1.TLvg, TLvg[1]) annotation (Line(points={{41,24},{80,24},{80,
+          25},{110,25}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),           Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
+        Rectangle(
+          extent={{-30,66},{30,6}},
+          lineColor={95,95,95},
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-24,80},{24,66}},
+          lineColor={95,95,95},
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-18,74},{0,70}},
+          lineColor={255,255,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{0,74},{18,70}},
+          lineColor={255,255,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-16,56},{-22,44}},
+          color={255,0,0}),
+        Line(
+          points={{16,56},{22,44}},
+          color={255,0,0}),
+        Line(
+          points={{-60,56},{16,56}},
+          color={255,0,0}),
+        Line(
+          points={{0,56},{6,44}},
+          color={255,0,0}),
+        Line(
+          points={{-16,56},{-10,44}},
+          color={255,0,0}),
+        Line(
+          points={{0,56},{-6,44}},
+          color={255,0,0}),
+        Line(
+          points={{16,56},{10,44}},
+          color={255,0,0}),
+        Rectangle(
+          extent={{-30,-20},{30,-80}},
+          lineColor={95,95,95},
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-24,-6},{24,-20}},
+          lineColor={95,95,95},
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-18,-12},{0,-16}},
+          lineColor={255,255,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{0,-12},{18,-16}},
+          lineColor={255,255,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-16,-30},{-22,-42}},
+          color={255,0,0}),
+        Line(
+          points={{16,-30},{22,-42}},
+          color={255,0,0}),
+        Line(
+          points={{-60,-30},{16,-30}},
+          color={255,0,0}),
+        Line(
+          points={{0,-30},{6,-42}},
+          color={255,0,0}),
+        Line(
+          points={{-16,-30},{-10,-42}},
+          color={255,0,0}),
+        Line(
+          points={{0,-30},{-6,-42}},
+          color={255,0,0}),
+        Line(
+          points={{16,-30},{10,-42}},
+          color={255,0,0}),
+        Line(points={{-60,56},{-60,0},{-94,0}}, color={255,0,0}),
+        Line(points={{-60,0},{-60,-30}}, color={255,0,0}),
+        Line(points={{30,6},{60,6},{60,0},{96,0}}, color={28,108,200}),
+        Line(points={{30,-80},{60,-80},{60,0}}, color={28,108,200}),
         Text(
-          extent={{-44,-144},{50,-112}},
+          extent={{-149,-114},{151,-154}},
           lineColor={0,0,255},
-          textString="%name"),
-        Rectangle(
-          extent={{-14,68},{14,40}},
-          lineColor={95,95,95},
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-10,76},{10,68}},
-          lineColor={95,95,95},
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{-10,72},{-2,70}},
-          lineColor={255,255,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{2,72},{10,70}},
-          lineColor={255,255,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Line(
-          points={{-8,60},{-10,54}},
-          color={255,0,0},
-          smooth=Smooth.None),
-        Line(
-          points={{-8,60},{-6,54}},
-          color={255,0,0},
-          smooth=Smooth.None),
-        Line(
-          points={{0,60},{-2,54}},
-          color={255,0,0},
-          smooth=Smooth.None),
-        Line(
-          points={{0,60},{2,54}},
-          color={255,0,0},
-          smooth=Smooth.None),
-        Line(
-          points={{8,60},{6,54}},
-          color={255,0,0},
-          smooth=Smooth.None),
-        Line(
-          points={{8,60},{10,54}},
-          color={255,0,0},
-          smooth=Smooth.None),
-        Rectangle(
-          extent={{-14,8},{14,-20}},
-          lineColor={95,95,95},
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-10,16},{10,8}},
-          lineColor={95,95,95},
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{-10,12},{-2,10}},
-          lineColor={255,255,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{2,12},{10,10}},
-          lineColor={255,255,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Line(
-          points={{-8,0},{-10,-6}},
-          color={255,0,0},
-          smooth=Smooth.None),
-        Line(
-          points={{-8,0},{-6,-6}},
-          color={255,0,0},
-          smooth=Smooth.None),
-        Line(
-          points={{0,0},{-2,-6}},
-          color={255,0,0},
-          smooth=Smooth.None),
-        Line(
-          points={{0,0},{2,-6}},
-          color={255,0,0},
-          smooth=Smooth.None),
-        Line(
-          points={{8,0},{6,-6}},
-          color={255,0,0},
-          smooth=Smooth.None),
-        Line(
-          points={{8,0},{10,-6}},
-          color={255,0,0},
-          smooth=Smooth.None),
-        Rectangle(
-          extent={{-14,-52},{14,-80}},
-          lineColor={95,95,95},
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-10,-44},{10,-52}},
-          lineColor={95,95,95},
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{-10,-48},{-2,-50}},
-          lineColor={255,255,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{2,-48},{10,-50}},
-          lineColor={255,255,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Line(
-          points={{-8,-60},{-10,-66}},
-          color={255,0,0},
-          smooth=Smooth.None),
-        Line(
-          points={{-8,-60},{-6,-66}},
-          color={255,0,0},
-          smooth=Smooth.None),
-        Line(
-          points={{0,-60},{-2,-66}},
-          color={255,0,0},
-          smooth=Smooth.None),
-        Line(
-          points={{0,-60},{2,-66}},
-          color={255,0,0},
-          smooth=Smooth.None),
-        Line(
-          points={{8,-60},{6,-66}},
-          color={255,0,0},
-          smooth=Smooth.None),
-        Line(
-          points={{8,-60},{10,-66}},
-          color={255,0,0},
-          smooth=Smooth.None),
-        Line(
-          points={{-100,0},{-40,0},{-40,60},{8,60}},
-          color={255,0,0},
-          smooth=Smooth.None),
-        Line(
-          points={{-40,0},{8,0}},
-          color={255,0,0},
-          smooth=Smooth.None),
-        Line(
-          points={{-40,0},{-40,-60},{8,-60}},
-          color={255,0,0},
-          smooth=Smooth.None),
-        Line(
-          points={{14,40},{40,40},{40,0},{90,0}},
-          color={0,0,255},
-          smooth=Smooth.None),
-        Line(
-          points={{14,-20},{40,-20},{40,0}},
-          color={0,0,255},
-          smooth=Smooth.None),
-        Line(
-          points={{14,-80},{40,-80},{40,-20}},
-          color={0,0,255},
-          smooth=Smooth.None)}),
+          textString="%name")}),
     Documentation(revisions="<html>
 <ul>
 <li>

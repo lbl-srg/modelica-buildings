@@ -1,6 +1,5 @@
 ChillerStage
 ChilledWaterBypass
-VariableSpeedPump
+ChilledWaterPumpSpeed
 DPControl
 CoolingTowerSpeed
-CondenserWaterBypass

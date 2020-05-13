@@ -171,19 +171,14 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),           Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
-          Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={0,0,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-56,42},{58,-42}},
-          lineColor={0,0,255},
-          textString="CompressorStage"),
-        Text(
-          extent={{-44,-144},{50,-112}},
-          lineColor={0,0,255},
-          textString="%name")}),
+                                Rectangle(
+        extent={{-100,-100},{100,100}},
+        lineColor={0,0,127},
+        fillColor={255,255,255},
+        fillPattern=FillPattern.Solid), Text(
+        extent={{-150,150},{150,110}},
+        textString="%name",
+        lineColor={0,0,255})}),
     Documentation(revisions="<html>
 <ul>
 <li>

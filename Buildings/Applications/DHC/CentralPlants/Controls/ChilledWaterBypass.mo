@@ -33,19 +33,14 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
-        Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={0,0,255},
-          fillPattern=FillPattern.Solid,
-          fillColor={255,255,255}),
-        Text(
-          extent={{-44,22},{44,-22}},
-          lineColor={0,0,255},
-          textString="BypassControl"),
-        Text(
-          extent={{-42,-108},{52,-150}},
-          lineColor={0,0,255},
-          textString="%name")}),
+                                Rectangle(
+        extent={{-100,-100},{100,100}},
+        lineColor={0,0,127},
+        fillColor={255,255,255},
+        fillPattern=FillPattern.Solid), Text(
+        extent={{-150,150},{150,110}},
+        textString="%name",
+        lineColor={0,0,255})}),
     Documentation(revisions="<html>
 <ul>
 <li>

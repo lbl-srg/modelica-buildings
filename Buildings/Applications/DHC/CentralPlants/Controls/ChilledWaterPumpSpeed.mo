@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.CentralPlants.Controls;
-model VariableSpeedPump "Controller for variable speed chilled water pumps"
+model ChilledWaterPumpSpeed "Controller for variable speed chilled water pumps"
   parameter Modelica.SIunits.Pressure dPSetPoi "Pressure difference setpoint";
   parameter Real tWai = 300 "Waiting time";
   WaterSide.BaseClasses.Control.TwoStage pumStage(tWai=tWai)
@@ -67,6 +67,10 @@ equation
           extent={{-100,100},{100,-100}},
           lineColor={0,0,127},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}), Diagram(coordinateSystem(
+          fillPattern=FillPattern.Solid),
+                                        Text(
+        extent={{-150,150},{150,110}},
+        textString="%name",
+        lineColor={0,0,255})}),             Diagram(coordinateSystem(
           preserveAspectRatio=false)));
-end VariableSpeedPump;
+end ChilledWaterPumpSpeed;

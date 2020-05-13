@@ -1,6 +1,5 @@
 within Buildings.Applications.DHC.CentralPlants.Subsystems;
-model CoolingTowerWithBypass
-  "Cooling tower system with bypass valve"
+model CoolingTowerWithBypass2 "Cooling tower system with bypass valve"
   replaceable package MediumCW =
       Buildings.Media.Water
     "Medium condenser water side";
@@ -74,12 +73,17 @@ model CoolingTowerWithBypass
   Modelica.Blocks.Sources.Constant TSetByPas(k=TSet)
     "Minimum allowed condenser water temperature"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  Buildings.Controls.Continuous.LimPID conPID(
+  Buildings.Controls.Continuous.LimPID conPID2(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=1,
     Ti=60) annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
-  Controls.CoolingTowerSpeed cooTowSpeCon "Cooling tower speed controllers"
-    annotation (Placement(transformation(extent={{-10,40},{10,58}})));
+  Buildings.Controls.Continuous.LimPID conPID1(
+    reverseAction=true,
+    controllerType=Modelica.Blocks.Types.SimpleController.PID,
+    k=GaiPi,
+    Ti=tIntPi,
+    reset=Buildings.Types.Reset.Disabled)
+    annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 equation
   connect(cooTowSys.TWetBul, TWetBul) annotation (Line(points={{-12,-6},{-40,-6},
           {-40,-40},{-120,-40}}, color={0,0,127}));
@@ -95,24 +99,24 @@ equation
     annotation (Line(points={{-100,0},{-80,0}}, color={0,127,255}));
   connect(senMasFloTow.port_b, cooTowSys.port_a)
     annotation (Line(points={{-60,0},{-10,0}}, color={0,127,255}));
-  connect(TSetByPas.y, conPID.u_s)
+  connect(TSetByPas.y, conPID2.u_s)
     annotation (Line(points={{-59,-70},{-42,-70}}, color={0,0,127}));
-  connect(conPID.y, valByp.y) annotation (Line(points={{-19,-70},{-4,-70},{-4,
+  connect(conPID2.y, valByp.y) annotation (Line(points={{-19,-70},{-4,-70},{-4,
           -20},{-20,-20},{-20,-28}}, color={0,0,127}));
-  connect(senTCWEntChi.T, conPID.u_m) annotation (Line(points={{70,-11},{70,-90},
-          {-30,-90},{-30,-82}}, color={0,0,127}));
-  connect(TCWSet.y, cooTowSpeCon.TCWSet) annotation (Line(points={{-39,60},{-26,
-          60},{-26,54},{-12,54}}, color={0,0,127}));
-  connect(cooTowSpeCon.y, cooTowSys.speFan) annotation (Line(points={{11,50},{
-          20,50},{20,20},{-26,20},{-26,2},{-12,2}}, color={0,0,127}));
+  connect(senTCWEntChi.T, conPID2.u_m) annotation (Line(points={{70,-11},{70,
+          -90},{-30,-90},{-30,-82}}, color={0,0,127}));
   connect(valByp.port_a, cooTowSys.port_a) annotation (Line(points={{-30,-40},{
           -34,-40},{-34,0},{-10,0}}, color={0,127,255}));
   connect(valByp.port_b, senMasFloByp.port_a)
     annotation (Line(points={{-10,-40},{10,-40}}, color={0,127,255}));
   connect(senMasFloByp.port_b, senTCWEntChi.port_a) annotation (Line(points={{
           30,-40},{34,-40},{34,0},{60,0}}, color={0,127,255}));
-  connect(senTCWEntChi.T, cooTowSpeCon.TCWMea) annotation (Line(points={{70,-11},
-          {70,-20},{50,-20},{50,34},{-26,34},{-26,46},{-12,46}}, color={0,0,127}));
+  connect(TCWSet.y, conPID1.u_s)
+    annotation (Line(points={{-39,60},{-12,60}}, color={0,0,127}));
+  connect(senTCWEntChi.T, conPID1.u_m) annotation (Line(points={{70,-11},{70,
+          -20},{50,-20},{50,40},{0,40},{0,48}}, color={0,0,127}));
+  connect(conPID1.y, cooTowSys.speFan) annotation (Line(points={{11,60},{20,60},
+          {20,20},{-20,20},{-20,2},{-12,2}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),           Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
@@ -226,4 +230,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end CoolingTowerWithBypass;
+end CoolingTowerWithBypass2;

@@ -36,19 +36,17 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
-        Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={0,0,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-30,12},{20,-8}},
-          lineColor={0,0,255},
-          textString="dPCon"),
         Text(
           extent={{-42,-106},{52,-148}},
           lineColor={0,0,255},
-          textString="%name")}),
+          textString="%name"),  Rectangle(
+        extent={{-100,-100},{100,100}},
+        lineColor={0,0,127},
+        fillColor={255,255,255},
+        fillPattern=FillPattern.Solid), Text(
+        extent={{-150,150},{150,110}},
+        textString="%name",
+        lineColor={0,0,255})}),
     Documentation(revisions="<html>
 <ul>
 <li>
