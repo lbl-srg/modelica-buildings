@@ -6,7 +6,7 @@ extends ExternalObject;
       "Construct an external object that can be used to store a Python object"
     output PythonObject pytObj;
     external "C" pytObj = initPythonMemory()
-        annotation (Library={"ModelicaBuildingsPython3.6",  "python3.6m"},
+        annotation (Library={"ModelicaBuildingsPython3.6",  "python3.6"},
           LibraryDirectory="modelica://Buildings/Resources/Library",
           __iti_dll = "ITI_ModelicaBuildingsPython3.6.dll",
           __iti_dllNoExport = true);
@@ -48,7 +48,7 @@ First implementation.
   function destructor "Release memory"
     input PythonObject pytObj;
     external "C" freePythonMemory(pytObj)
-      annotation (Library={"ModelicaBuildingsPython3.6",  "python3.6m"},
+      annotation (Library={"ModelicaBuildingsPython3.6",  "python3.6"},
         LibraryDirectory="modelica://Buildings/Resources/Library",
         __iti_dll = "ITI_ModelicaBuildingsPython3.6.dll",
         __iti_dllNoExport = true);
