@@ -6,7 +6,7 @@ partial model PartialDistribution1Pipe
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal)
     "Model for distribution pipe";
-  parameter Boolean have_heaFloOut = false
+  parameter Boolean show_heaFlo = false
     "Set to true to output the heat flow rate transferred to each connected load"
     annotation(Evaluate=true);
   parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal
@@ -25,7 +25,7 @@ partial model PartialDistribution1Pipe
       enable=not energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState));
   // IO CONNECTORS
   Modelica.Blocks.Interfaces.RealOutput Q_flow[nCon](
-    each final quantity="HeatFlowRate",each final unit="W") if have_heaFloOut
+    each final quantity="HeatFlowRate",each final unit="W") if show_heaFlo
     "Heat flow rate transferred to the connected load (>=0 for heating)"
     annotation (Placement(transformation(extent={{100,60},{140,100}}),
       iconTransformation(extent={{200,60},{220,80}})));
@@ -43,7 +43,7 @@ partial model PartialDistribution1Pipe
   // COMPONENTS
   replaceable PartialConnection1Pipe con[nCon](
     redeclare each final package Medium = Medium,
-    each final have_heaFloOut=have_heaFloOut,
+    each final show_heaFlo=show_heaFlo,
     each final mDis_flow_nominal=mDis_flow_nominal,
     final mCon_flow_nominal=mCon_flow_nominal,
     each final allowFlowReversal=allowFlowReversal,

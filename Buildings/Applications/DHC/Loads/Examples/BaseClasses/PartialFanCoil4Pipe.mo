@@ -89,12 +89,13 @@ partial model PartialFanCoil4Pipe
     yMin=0) "PI controller for cooling"
     annotation (Placement(transformation(extent={{-10,170},{10,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiCooFloNom(k=mChiWat_flow_nominal)
+    "Scaling"
     annotation (Placement(transformation(extent={{40,170},{60,190}})));
   Utilities.Math.SmoothMax smoothMax(deltaX=1E-2) "C1 maximum"
     annotation (Placement(transformation(extent={{-10,130},{10,150}})));
 equation
   connect(hexCoo.port_b2, hexHea.port_a2)
-    annotation (Line(points={{0,0},{-60,0}},     color={0,127,255}));
+    annotation (Line(points={{0,0},{-60,0}}, color={0,127,255}));
   connect(fan.port_b, hexCoo.port_a2)
     annotation (Line(points={{70,0},{20,0}}, color={0,127,255}));
   connect(gaiFloNom2.y, fan.m_flow_in)
@@ -104,28 +105,27 @@ equation
   connect(conCoo.y, gaiCooFloNom.u)
     annotation (Line(points={{12,180},{38,180}}, color={0,0,127}));
   connect(gaiHeaFloNom.y,scaMasFloReqHeaWat.u)  annotation (Line(points={{62,220},
-          {108,220},{108,100},{158,100}},      color={0,0,127}));
+          {108,220},{108,100},{158,100}}, color={0,0,127}));
   connect(gaiCooFloNom.y, scaMasFloReqChiWat.u) annotation (Line(points={{62,180},
-          {100,180},{100,80},{158,80}},      color={0,0,127}));
+          {100,180},{100,80},{158,80}}, color={0,0,127}));
   connect(fan.P, scaPFan.u) annotation (Line(points={{69,9},{60,9},{60,-20},{
-          140,-20},{140,140},{158,140}},
-                     color={0,0,127}));
+          140,-20},{140,140},{158,140}}, color={0,0,127}));
   connect(Q_flowHea.y, scaQActHea_flow.u) annotation (Line(points={{141,220},
           {150,220},{150,220},{158,220}}, color={0,0,127}));
   connect(Q_flowCoo.y, scaQActCoo_flow.u) annotation (Line(points={{141,200},
           {158,200},{158,200}}, color={0,0,127}));
   connect(TSetCoo, conCoo.u_s)
     annotation (Line(points={{-220,180},{-20,180},{-20,180},{-12,180}},
-                                                    color={0,0,127}));
+      color={0,0,127}));
   connect(TSetHea, conHea.u_s)
     annotation (Line(points={{-220,220},{-60,220},{-60,220},{-12,220}},
-                                                    color={0,0,127}));
+      color={0,0,127}));
   connect(smoothMax.y, gaiFloNom2.u)
     annotation (Line(points={{11,140},{38,140}}, color={0,0,127}));
   connect(conHea.y, smoothMax.u1) annotation (Line(points={{12,220},{20,220},{20,
           200},{-20,200},{-20,146},{-12,146}},    color={0,0,127}));
   connect(conCoo.y, smoothMax.u2) annotation (Line(points={{12,180},{20,180},{20,
-          120},{-20,120},{-20,134},{-12,134}},    color={0,0,127}));
+          120},{-20,120},{-20,134},{-12,134}}, color={0,0,127}));
   connect(scaChiWatFloInl.port_b, hexCoo.port_a1) annotation (Line(points={{
           -160,-180},{-20,-180},{-20,-12},{0,-12}}, color={0,127,255}));
   connect(hexCoo.port_b1, scaChiWatFloOut.port_a) annotation (Line(points={{20,
@@ -134,6 +134,10 @@ equation
           -12},{-40,-12},{-40,-220},{160,-220}}, color={0,127,255}));
   connect(scaHeaWatFloInl.port_b, hexHea.port_a1) annotation (Line(points={{
           -160,-220},{-100,-220},{-100,-12},{-80,-12}}, color={0,127,255}));
+  connect(fan.port_a, scaLoaMasFloInl.port_b)
+    annotation (Line(points={{90,0},{160,0}}, color={0,127,255}));
+  connect(hexHea.port_b2, scaLoaMasFloOut.port_a)
+    annotation (Line(points={{-80,0},{-160,0}}, color={0,127,255}));
   annotation (
 Documentation(
 info="<html>

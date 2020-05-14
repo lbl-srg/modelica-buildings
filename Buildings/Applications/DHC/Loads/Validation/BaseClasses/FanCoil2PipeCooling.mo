@@ -19,8 +19,6 @@ model FanCoil2PipeCooling
     final have_TSen=false,
     final have_weaBus=false,
     final have_pum=false,
-    final mHeaWat_flow_nominal=abs(QHea_flow_nominal/cpHeaWat_nominal/(
-          T_aHeaWat_nominal - T_bHeaWat_nominal)),
     final mChiWat_flow_nominal=abs(QCoo_flow_nominal/cpChiWat_nominal/(
       T_aChiWat_nominal - T_bChiWat_nominal)));
   import hexConfiguration = Buildings.Fluid.Types.HeatExchangerConfiguration;
@@ -75,7 +73,7 @@ model FanCoil2PipeCooling
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-152,0})));
+        origin={-110,0})));
   Fluid.Sources.Boundary_pT retAir(
     redeclare package Medium = Medium2,
     use_T_in=true,
@@ -84,7 +82,7 @@ model FanCoil2PipeCooling
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={150,0})));
+        origin={112,0})));
   Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoomODE TLoaODE(
     TOutHea_nominal=273.15 - 5,
     TIndHea_nominal=T_aLoaHea_nominal,
@@ -107,11 +105,11 @@ equation
   connect(fan.port_b, hex.port_a2)
     annotation (Line(points={{70,0},{-60,0}}, color={0,127,255}));
   connect(hex.port_b2, sinAir.ports[1])
-    annotation (Line(points={{-80,0},{-142,0}}, color={0,127,255}));
+    annotation (Line(points={{-80,0},{-100,0}}, color={0,127,255}));
   connect(Q_flowCoo.y, TLoaODE.QAct_flow) annotation (Line(points={{141,200},{
           150,200},{150,160},{-20,160},{-20,32},{-12,32}},      color={0,0,127}));
-  connect(TLoaODE.TAir, retAir.T_in) annotation (Line(points={{12,40},{180,40},{
-          180,4},{162,4}}, color={0,0,127}));
+  connect(TLoaODE.TAir, retAir.T_in) annotation (Line(points={{12,40},{140,40},
+          {140,4},{124,4}},color={0,0,127}));
   connect(gaiMasFlo.y, scaMasFloReqChiWat.u) annotation (Line(points={{62,220},
           {100,220},{100,80},{158,80}},color={0,0,127}));
   connect(scaQReqCoo_flow.y, TLoaODE.QReq_flow) annotation (Line(points={{-158,60},
@@ -135,7 +133,7 @@ equation
   connect(con.y, gaiFloNom2.u) annotation (Line(points={{12,220},{20,220},{20,
           180},{36,180}}, color={0,0,127}));
   connect(retAir.ports[1], fan.port_a)
-    annotation (Line(points={{140,0},{90,0}}, color={0,127,255}));
+    annotation (Line(points={{102,0},{90,0}}, color={0,127,255}));
 annotation (
 Documentation(
 info="<html>

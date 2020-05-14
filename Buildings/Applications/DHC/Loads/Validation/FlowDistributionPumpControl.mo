@@ -265,7 +265,7 @@ equation
           70},{-40,-7},{-10.8333,-7}},
                                      color={0,0,127}));
   connect(reaRep1.y, terUniHea1.QReqHea_flow) annotation (Line(points={{-106,30},
-          {-46,30},{-46,-14},{-30,-14},{-30,-13.6667},{-10.8333,-13.6667}},
+          {-46,30},{-46,-13.6667},{-30,-13.6667},{-10.8333,-13.6667}},
         color={0,0,127}));
   connect(terUniHea1.mReqHeaWat_flow, disCstDp.mReq_flow) annotation (Line(
         points={{10.8333,-15.3333},{26,-15.3333},{26,-80},{-20,-80},{-20,-64},{
@@ -296,7 +296,7 @@ equation
   connect(reaRep.y, terUniHea2.TSetHea) annotation (Line(points={{-106,70},{-40,
           70},{-40,132},{-10.8333,132},{-10.8333,133}}, color={0,0,127}));
   connect(reaRep1.y, terUniHea2.QReqHea_flow) annotation (Line(points={{-106,30},
-          {-46,30},{-46,126},{-30,126},{-30,126.333},{-10.8333,126.333}}, color=
+          {-46,30},{-46,126},{-10.8333,126},{-10.8333,126.333}},          color=
          {0,0,127}));
   connect(disCstSpe.mReqTot_flow, pipPre.m_flow_in) annotation (Line(points={{
           11,76},{40,76},{40,200},{-4,200},{-4,188}}, color={0,0,127}));

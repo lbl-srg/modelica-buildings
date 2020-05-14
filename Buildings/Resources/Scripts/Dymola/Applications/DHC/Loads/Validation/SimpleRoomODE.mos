@@ -6,7 +6,7 @@ simulateModel("Buildings.Applications.DHC.Loads.Validation.SimpleRoomODE",
     resultFile="SimpleRoomODE");
 createPlot(
     id=1,
-    position={111, 107, 942, 1232},
+    position={1, 20, 492, 682},
     y={"romHeaUnm.TAir", "rooOdeHea.TAir", "romCooUnm.TAir", "rooOdeCoo.TAir"},
     grid=true,
     color=true,
@@ -14,7 +14,6 @@ createPlot(
     displayUnits={"degC", "degC", "degC", "degC"});
 createPlot(
     id=1,
-    position={111, 107, 942, 612},
     y={"rooOdeHea.QReq_flow", "rooOdeCoo.QReq_flow", "rooOdeHea.QAct_flow", "rooOdeCoo.QAct_flow"},
     grid=true,
     color = true,

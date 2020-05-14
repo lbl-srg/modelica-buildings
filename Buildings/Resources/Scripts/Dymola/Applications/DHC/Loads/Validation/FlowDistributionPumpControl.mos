@@ -6,7 +6,7 @@ simulateModel("Buildings.Applications.DHC.Loads.Validation.FlowDistributionPumpC
     resultFile="FlowDistributionPumpControl");
 createPlot(
     id=1,
-    position={425, 129, 936, 1336},
+    position={1, 20, 492, 682},
     y={"pumCstDp.dpMachine", "disCstDp.pumFlo.dpMachine", "pumCstSpe.dpMachine", "disCstSpe.pumSpe.dpMachine"},
     grid=true,
     color=true,

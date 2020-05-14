@@ -6,7 +6,7 @@ simulateModel("Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribu
     resultFile="BenchmarkFlowDistribution2");
 createPlot(
     id=1,
-    position={35, 35, 1118, 1406},
+    position={1, 20, 492, 682},
     y={"ter[1].TLoaODE.TAir", "minTSet.y"},
     grid=true,
     color=true,

@@ -9,7 +9,7 @@ partial model PartialDistribution2Pipe
   parameter Integer iConDpSen(final max=nCon) = nCon
     "Index of the connection where the pressure drop is measured"
     annotation(Dialog(tab="General"), Evaluate=true);
-  parameter Boolean have_heaFloOut = false
+  parameter Boolean show_heaFlo = false
     "Set to true to output the heat flow rate transferred to each connected load"
     annotation(Evaluate=true);
   parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal[nCon]
@@ -51,7 +51,7 @@ partial model PartialDistribution2Pipe
     annotation (Placement(transformation(extent={{100,20},{140,60}}),
       iconTransformation(extent={{200,20},{220,40}})));
   Modelica.Blocks.Interfaces.RealOutput Q_flow[nCon](
-    each final quantity="HeatFlowRate", each final unit="W") if have_heaFloOut
+    each final quantity="HeatFlowRate", each final unit="W") if show_heaFlo
     "Heat flow rate transferred to the connected load (>=0 for heating)"
     annotation (Placement(transformation(extent={{100,60},{140,100}}),
       iconTransformation(extent={{200,60},{220,80}})));
@@ -64,7 +64,7 @@ partial model PartialDistribution2Pipe
   // COMPONENTS
   replaceable BaseClasses.PartialConnection2Pipe con[nCon](
     redeclare each final package Medium = Medium,
-    each final have_heaFloOut=have_heaFloOut,
+    each final show_heaFlo=show_heaFlo,
     final mDis_flow_nominal=mDis_flow_nominal,
     final mCon_flow_nominal=mCon_flow_nominal,
     each final allowFlowReversal=allowFlowReversal,
@@ -143,9 +143,9 @@ the supply and return line after the last connection.
 </p>
 <p>
 The parameter <code>iConDpSen</code> is provided to specify the index of the
-connection where the pressure drop is measured. 
+connection where the pressure drop is measured.
 Use zero for a sensor connected  to the supply pipe inlet and return pipe outlet.
-Use a negative value if no sensor is needed. 
+Use a negative value if no sensor is needed.
 </p>
 <p>
 Optionally the heat flow rate transferred to each connected load can be output.

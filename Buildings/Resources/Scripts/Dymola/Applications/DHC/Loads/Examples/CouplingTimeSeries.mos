@@ -6,7 +6,7 @@ simulateModel("Buildings.Applications.DHC.Loads.Examples.CouplingTimeSeries",
     resultFile="CouplingTimeSeries");
 createPlot(
     id=1,
-    position={10, 20, 670, 900},
+    position={1, 20, 492, 682},
     y={"bui.maxTSet.y", "bui.minTSet.y", "bui.terUniCoo.TLoaODE.TAir", "bui.terUniHea.TLoaODE.TAir"},
     autoscale=true,
     grid=true
@@ -25,14 +25,14 @@ createPlot(
 );
 createPlot(
     id=2,
-    position={700, 20, 670, 900},
+    position={499, 20, 510, 682},
     y={"supHeaWat.T_in", "bui.terUniHea.T_aHeaWat_nominal"},
     autoscale=true,
     grid=true
 );
 createPlot(
     id=2,
-    y={"bui.disFloHea.mReq_flow[1]", "bui.disFloHea.mAct_flow[1].y", "bui.terUniHea.mHeaWat_flow_nominal"},
+    y={"bui.disFloHea.mReq_flow[1]", "bui.disFloHea.mAct_flow[1].y", "bui.disFloHea.m_flow_nominal"},
     grid=true,
     subPlot=2
 );
@@ -44,14 +44,14 @@ createPlot(
 );
 createPlot(
     id=3,
-    position={1400, 20, 670, 900},
+    position={1016, 21, 485, 681},
     y={"supChiWat.T_in", "bui.terUniCoo.T_aChiWat_nominal"},
     autoscale=true,
     grid=true
 );
 createPlot(
     id=3,
-    y={"bui.disFloCoo.mReq_flow[1]", "bui.disFloCoo.mAct_flow[1].y", "bui.terUniCoo.mChiWat_flow_nominal"},
+    y={"bui.disFloCoo.mReq_flow[1]", "bui.disFloCoo.mAct_flow[1].y", "bui.disFloCoo.m_flow_nominal"},
     grid=true,
     subPlot=2
 );
