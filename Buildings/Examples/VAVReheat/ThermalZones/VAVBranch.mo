@@ -213,7 +213,16 @@ equation
           smooth=Smooth.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,0})}), Documentation(info="<html>
+          lineColor={0,0,0}),
+        Text(
+         extent={{96,94},{26,68}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("y", String(y_actual, leftjustified=false, significantDigits=3))),
+        Text(
+         extent={{94,-72},{24,-96}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(ACH.y, leftjustified=false, significantDigits=3)))}),
+Documentation(info="<html>
 <p>
 Model for a VAV supply branch. 
 The terminal VAV box has a pressure independent damper and a water reheat coil. 
