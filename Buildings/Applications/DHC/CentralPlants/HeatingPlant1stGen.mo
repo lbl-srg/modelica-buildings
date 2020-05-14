@@ -2,10 +2,10 @@ within Buildings.Applications.DHC.CentralPlants;
 model HeatingPlant1stGen "First generation district heating plant"
 
   replaceable package Medium_a =
-      Modelica.Media.Interfaces.PartialTwoPhaseMedium
+      IBPSA.Media.Steam.Interfaces.PartialPureSubstanceWithSat
     "Medium model for port_a (inlet)";
   replaceable package Medium_b =
-      Modelica.Media.Interfaces.PartialTwoPhaseMedium
+      IBPSA.Media.Steam.Interfaces.PartialPureSubstanceWithSat
     "Medium model for port_b (outlet)";
 
   // Nominal Conditions

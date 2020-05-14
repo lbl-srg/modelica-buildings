@@ -2,7 +2,7 @@ within Buildings.Applications.DHC.Examples.FirstGeneration;
 model HeatingSystem "Generic first generation district heating system"
   extends Modelica.Icons.Example;
 
-  package MediumSte = IBPSA.Media.Steam "Steam medium";
+  package MediumSte = IBPSA.Media.Steam.Steam "Steam medium";
   package MediumWat = IBPSA.Media.WaterHighTemperature "Water medium";
 
   // Building loads
@@ -33,8 +33,7 @@ model HeatingSystem "Generic first generation district heating system"
 //    MediumSte.saturationTemperature(pSte_nominal)
 //    "Nominal steam supply temperature";
   final parameter Modelica.SIunits.SpecificEnthalpy dh_nominal=
-    MediumSte.dewEnthalpy(MediumSte.setSat_p(pSte_nominal)) -
-    MediumSte.bubbleEnthalpy(MediumSte.setSat_p(pSte_nominal))
+    MediumSte.enthalpyOfVaporization_sat(MediumSte.saturationState_p(pSte_nominal))
     "Nominal change in enthalpy";
   final parameter Modelica.SIunits.MassFlowRate mPla_flow_nominal=
     QPla_flow_nominal/dh_nominal
@@ -296,5 +295,6 @@ equation
           {60,110},{-80,110},{-80,111.75}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
                           Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-150,-150},{150,150}})));
+          extent={{-150,-150},{150,150}})),
+    experiment(StopTime=3600));
 end HeatingSystem;

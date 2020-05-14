@@ -2,10 +2,10 @@ within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
 model BuildingTimeSeries1stGen
 
   replaceable package Medium_a =
-      Modelica.Media.Interfaces.PartialTwoPhaseMedium
+      IBPSA.Media.Steam.Interfaces.PartialPureSubstanceWithSat
     "Medium model for port_a (inlet)";
   replaceable package Medium_b =
-      Modelica.Media.Interfaces.PartialTwoPhaseMedium
+      IBPSA.Media.Steam.Interfaces.PartialPureSubstanceWithSat
     "Medium model for port_b (outlet)";
 
   parameter Real timSer_norHeaLoa[:, :]= [0, 1; 6, 1; 6, 0.25; 18, 0.25; 18, 0.375; 24, 0.375]
@@ -17,8 +17,7 @@ model BuildingTimeSeries1stGen
   parameter Modelica.SIunits.AbsolutePressure pSte_nominal
     "Nominal steam pressure";
   final parameter Modelica.SIunits.SpecificEnthalpy dh_nominal=
-    Medium_a.dewEnthalpy(Medium_a.setSat_p(pSte_nominal)) -
-    Medium_a.bubbleEnthalpy(Medium_a.setSat_p(pSte_nominal))
+    Medium_a.enthalpyOfVaporization_sat(Medium_a.saturationState_p(pSte_nominal))
     "Nominal change in enthalpy";
   final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
     QPea_flow_real/dh_nominal
@@ -54,21 +53,16 @@ model BuildingTimeSeries1stGen
     displayUnit="kW") "Total heat transfer rate"
     annotation (Placement(transformation(extent={{100,70},{120,90}}),
         iconTransformation(extent={{100,70},{120,90}})));
-  Modelica.Blocks.Sources.Ramp ramp(
-    height=QPea_flow_real,
-    duration(displayUnit="h") = 10800,
-    startTime(displayUnit="h") = 21600)
-    annotation (Placement(transformation(extent={{-52,70},{-32,90}})));
 equation
   connect(port_a, ets.port_a) annotation (Line(points={{100,-60},{-40,-60},{-40,
           0},{-10,0}},
                     color={0,127,255}));
   connect(ets.port_b, port_b) annotation (Line(points={{10,0},{100,0}},
                  color={0,127,255}));
-  connect(ramp.y, Q_flow) annotation (Line(points={{-31,80},{110,80}},
-                    color={0,0,127}));
-  connect(ramp.y, ets.Q_flow) annotation (Line(points={{-31,80},{-20,80},{-20,6},
-          {-12,6}}, color={0,0,127}));
+  connect(QHea.y[1], Q_flow)
+    annotation (Line(points={{-59,80},{110,80}}, color={0,0,127}));
+  connect(ets.Q_flow, QHea.y[1]) annotation (Line(points={{-12,6},{-40,6},{-40,
+          80},{-59,80}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Polygon(
           points={{20,-70},{60,-85},{20,-100},{20,-70}},
