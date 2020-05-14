@@ -577,72 +577,46 @@ equation
       thickness=0.5));
   connect(amb.ports[1], VOut1.port_a) annotation (Line(
       points={{-114,-42.0667},{-94,-42.0667},{-94,-33},{-72,-33}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
+      color={0,127,255}));
   connect(splRetRoo1.port_1, dpRetDuc.port_a) annotation (Line(
       points={{630,0},{430,0},{430,140},{400,140}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
+      color={0,127,255}));
   connect(splRetNor.port_1, splRetEas.port_2) annotation (Line(
       points={{1142,0},{1110,0},{1110,0},{1078,0},{1078,0},{1012,0}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
+      color={0,127,255}));
   connect(splRetEas.port_1, splRetSou.port_2) annotation (Line(
       points={{992,0},{952,0},{952,0},{912,0},{912,0},{832,0}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
+      color={0,127,255}));
   connect(splRetSou.port_1, splRetRoo1.port_2) annotation (Line(
       points={{812,0},{650,0}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
+      color={0,127,255}));
   connect(splSupRoo1.port_3, cor.port_a) annotation (Line(
       points={{580,-30},{580,22}},
-      color={0,127,255},
-      thickness=0.5));
+      color={0,127,255}));
   connect(splSupRoo1.port_2, splSupSou.port_1) annotation (Line(
       points={{590,-40},{750,-40}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
+      color={0,127,255}));
   connect(splSupSou.port_3, sou.port_a) annotation (Line(
       points={{760,-30},{760,20}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
+      color={0,127,255}));
   connect(splSupSou.port_2, splSupEas.port_1) annotation (Line(
       points={{770,-40},{930,-40}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
+      color={0,127,255}));
   connect(splSupEas.port_3, eas.port_a) annotation (Line(
       points={{940,-30},{940,20}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
+      color={0,127,255}));
   connect(splSupEas.port_2, splSupNor.port_1) annotation (Line(
       points={{950,-40},{1090,-40}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
+      color={0,127,255}));
   connect(splSupNor.port_3, nor.port_a) annotation (Line(
       points={{1100,-30},{1100,20}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
+      color={0,127,255}));
   connect(splSupNor.port_2, wes.port_a) annotation (Line(
       points={{1110,-40},{1300,-40},{1300,20}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
+      color={0,127,255}));
   connect(cooCoi.port_b1, sinCoo.ports[1]) annotation (Line(
       points={{190,-52},{180,-52},{180,-110}},
-      color={28,108,200},
-      thickness=0.5));
+      color={28,108,200}));
   connect(weaDat.weaBus, weaBus) annotation (Line(
       points={{-340,180},{-320,180}},
       color={255,204,51},
@@ -661,24 +635,19 @@ equation
   connect(splRetRoo1.port_3, flo.portsCor[2]) annotation (Line(
       points={{640,10},{640,364},{874,364},{874,472},{898,472},{898,449.533},{
           924.286,449.533}},
-      color={0,127,255},
-      thickness=0.5));
+      color={0,127,255}));
   connect(splRetSou.port_3, flo.portsSou[2]) annotation (Line(
       points={{822,10},{822,350},{900,350},{900,420.2},{924.286,420.2}},
-      color={0,127,255},
-      thickness=0.5));
+      color={0,127,255}));
   connect(splRetEas.port_3, flo.portsEas[2]) annotation (Line(
       points={{1002,10},{1002,368},{1067.2,368},{1067.2,445.867}},
-      color={0,127,255},
-      thickness=0.5));
+      color={0,127,255}));
   connect(splRetNor.port_3, flo.portsNor[2]) annotation (Line(
       points={{1152,10},{1152,446},{924.286,446},{924.286,478.867}},
-      color={0,127,255},
-      thickness=0.5));
+      color={0,127,255}));
   connect(splRetNor.port_2, flo.portsWes[2]) annotation (Line(
       points={{1162,0},{1342,0},{1342,394},{854,394},{854,449.533}},
-      color={0,127,255},
-      thickness=0.5));
+      color={0,127,255}));
   connect(weaBus, flo.weaBus) annotation (Line(
       points={{-320,180},{-320,506},{988.714,506}},
       color={255,204,51},
@@ -703,89 +672,69 @@ equation
 
   connect(cooCoi.port_b2, fanSup.port_a) annotation (Line(
       points={{210,-40},{300,-40}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
+      color={0,127,255}));
   connect(cor.port_b, TSupCor.port_a) annotation (Line(
       points={{580,62},{580,82}},
-      color={0,127,255},
-      thickness=0.5));
+      color={0,127,255}));
 
   connect(sou.port_b, TSupSou.port_a) annotation (Line(
       points={{760,60},{760,82}},
-      color={0,127,255},
-      thickness=0.5));
+      color={0,127,255}));
   connect(eas.port_b, TSupEas.port_a) annotation (Line(
       points={{940,60},{940,80}},
-      color={0,127,255},
-      thickness=0.5));
+      color={0,127,255}));
   connect(nor.port_b, TSupNor.port_a) annotation (Line(
       points={{1100,60},{1100,84}},
-      color={0,127,255},
-      thickness=0.5));
+      color={0,127,255}));
   connect(wes.port_b, TSupWes.port_a) annotation (Line(
       points={{1300,60},{1300,80}},
-      color={0,127,255},
-      thickness=0.5));
+      color={0,127,255}));
 
   connect(TSupCor.port_b, VSupCor_flow.port_a) annotation (Line(
       points={{580,102},{580,120}},
-      color={0,127,255},
-      thickness=0.5));
+      color={0,127,255}));
   connect(TSupSou.port_b, VSupSou_flow.port_a) annotation (Line(
       points={{760,102},{760,120}},
-      color={0,127,255},
-      thickness=0.5));
+      color={0,127,255}));
   connect(TSupEas.port_b, VSupEas_flow.port_a) annotation (Line(
       points={{940,100},{940,100},{940,118}},
-      color={0,127,255},
-      thickness=0.5));
+      color={0,127,255}));
   connect(TSupNor.port_b, VSupNor_flow.port_a) annotation (Line(
       points={{1100,104},{1100,122}},
-      color={0,127,255},
-      thickness=0.5));
+      color={0,127,255}));
   connect(TSupWes.port_b, VSupWes_flow.port_a) annotation (Line(
       points={{1300,100},{1300,118}},
-      color={0,127,255},
-      thickness=0.5));
+      color={0,127,255}));
   connect(VSupCor_flow.port_b, flo.portsCor[1]) annotation (Line(
       points={{580,140},{580,372},{866,372},{866,480},{912.571,480},{912.571,
           449.533}},
-      color={0,127,255},
-      thickness=0.5));
+      color={0,127,255}));
 
   connect(VSupSou_flow.port_b, flo.portsSou[1]) annotation (Line(
       points={{760,140},{760,356},{912.571,356},{912.571,420.2}},
-      color={0,127,255},
-      thickness=0.5));
+      color={0,127,255}));
   connect(VSupEas_flow.port_b, flo.portsEas[1]) annotation (Line(
       points={{940,138},{940,376},{1055.49,376},{1055.49,445.867}},
-      color={0,127,255},
-      thickness=0.5));
+      color={0,127,255}));
   connect(VSupNor_flow.port_b, flo.portsNor[1]) annotation (Line(
       points={{1100,142},{1100,498},{912.571,498},{912.571,478.867}},
-      color={0,127,255},
-      thickness=0.5));
+      color={0,127,255}));
   connect(VSupWes_flow.port_b, flo.portsWes[1]) annotation (Line(
       points={{1300,138},{1300,384},{842.286,384},{842.286,449.533}},
-      color={0,127,255},
-      thickness=0.5));
+      color={0,127,255}));
   connect(VOut1.port_b, eco.port_Out) annotation (Line(
       points={{-50,-33},{-42,-33},{-42,-40},{-20,-40}},
-      color={0,127,255},
-      thickness=0.5));
+      color={0,127,255}));
   connect(eco.port_Sup, TMix.port_a) annotation (Line(
       points={{0,-40},{30,-40}},
       color={0,127,255},
       thickness=0.5));
   connect(eco.port_Exh, amb.ports[2]) annotation (Line(
       points={{-20,-52},{-96,-52},{-96,-45},{-114,-45}},
-      color={0,127,255},
-      thickness=0.5));
+      color={0,127,255}));
   connect(eco.port_Ret, TRet.port_b) annotation (Line(
       points={{0,-52},{10,-52},{10,140},{90,140}},
-      color={0,127,255},
-      thickness=0.5));
+      color={0,127,255}));
   connect(senRetFlo.port_a, dpRetDuc.port_b)
     annotation (Line(points={{360,140},{380,140}}, color={0,127,255}));
   connect(TSup.port_b, senSupFlo.port_a)
@@ -794,8 +743,7 @@ equation
     annotation (Line(points={{420,-40},{570,-40}}, color={0,127,255}));
   connect(cooCoi.port_a1, souCoo.ports[1]) annotation (Line(
       points={{210,-52},{230,-52},{230,-110}},
-      color={28,108,200},
-      thickness=0.5));
+      color={28,108,200}));
   connect(gaiHeaCoi.y, souHea.m_flow_in) annotation (Line(points={{122,-210},{
           124,-210},{124,-132}}, color={0,0,127}));
   connect(gaiCooCoi.y, souCoo.m_flow_in) annotation (Line(points={{122,-248},{
@@ -812,20 +760,16 @@ equation
           {20,-70},{20,-20},{40,-20},{40,-29}}, color={0,0,127}));
   connect(TMix.port_b, heaCoi.port_a2) annotation (Line(
       points={{50,-40},{98,-40}},
-      color={0,127,255},
-      thickness=0.5));
+      color={0,127,255}));
   connect(heaCoi.port_b2, cooCoi.port_a2) annotation (Line(
       points={{118,-40},{190,-40}},
-      color={0,127,255},
-      thickness=0.5));
+      color={0,127,255}));
   connect(souHea.ports[1], heaCoi.port_a1) annotation (Line(
       points={{132,-110},{132,-52},{118,-52}},
-      color={28,108,200},
-      thickness=0.5));
+      color={28,108,200}));
   connect(heaCoi.port_b1, sinHea.ports[1]) annotation (Line(
       points={{98,-52},{80,-52},{80,-112}},
-      color={28,108,200},
-      thickness=0.5));
+      color={28,108,200}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-380,
             -400},{1420,600}})), Documentation(info="<html>
 <p>
