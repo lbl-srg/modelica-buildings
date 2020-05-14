@@ -1,7 +1,7 @@
 ############################################################
 # Makefile for the regression tests that are run on travis
 ############################################################
-ROOT = ../../../..
+ROOT = $(shell dirname $(PWD)/../../../../..)
 
 test-documentation:
 	(cd $(ROOT)/Buildings; ../bin/runUnitTests.py --validate-html-only)
@@ -37,13 +37,14 @@ test-verify-files:
 # Test whether all EnergyPlus validation files are up to date.
 # This targets searches all files `run.sh` and executes them.
 test-energyplus-validations:
-	export PATH=$(ROOT)/ENERGYPLUS_VERSION:$(PATH)
-	(cd $(ROOT)/Buildings/Resources/Data && \
-	for ff in `find . -name run.sh`; do; \
-	(echo "*** Testing $ff" && cd `dirname $ff` && ./run.sh);
-	done; \
-	cd $(ROOT)/Buildings/Resources/Data && \
-	git diff --exit-code .)
+	export PATH=$(ROOT)/$(ENERGYPLUS_VERSION):$(PATH)
+	find $(ROOT)/Buildings/Resources/Data -name run.sh | xargs -I {} sh -c \
+	  'cd `dirname {}` && \
+	   echo "*********************************************************" && \
+	   echo "**** Testing `pwd`/run.sh" && \
+	   chmod +x ./run.sh && \
+	   ./run.sh'
+	git diff --exit-code $(ROOT)/Buildings/Resources/Data
 
 test-dymola:
 	(cd $(ROOT)/Buildings && \
