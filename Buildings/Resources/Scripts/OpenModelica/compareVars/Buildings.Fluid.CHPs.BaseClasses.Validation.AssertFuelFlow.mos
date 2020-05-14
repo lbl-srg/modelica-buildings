@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "assFue.assMes.u",
+    "assFue.mFue_flow"
+  };

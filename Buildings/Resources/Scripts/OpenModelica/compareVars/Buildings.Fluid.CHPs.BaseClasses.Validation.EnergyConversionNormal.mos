@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "opeModBas.PEle",
+    "opeModBas.QGen_flow",
+    "opeModBas.mWat_flow",
+    "opeModBas.TWatIn",
+    "opeModBas.mAir_flow",
+    "opeModBas.mFue_flow"
+  };
