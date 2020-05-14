@@ -60,7 +60,7 @@ protected
     "Minimal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-60,-160},{-40,-140}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant supFanSta(
-    final k=true)
+    final k=true) "Supply fan status"
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
 
 equation

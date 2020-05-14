@@ -1,0 +1,4 @@
+simulateModel("Buildings.Fluid.CHPs.BaseClasses.Validation.Controller", method="cvode", stopTime=3000, tolerance=1e-06, resultFile="chpCon");
+createPlot(id=1, position={20, 20, 1500, 1200}, subPlot=1, y={"con.runSig","con.avaSig"}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={20, 20, 1500, 1200}, subPlot=2, y={"con.mWat_flow"}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 20, 1500, 1200}, subPlot=3, y={"con.opeMod"}, grid=true, colors={{28,108,200}});
