@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
-model DryWetCalcsFuzzy_V2_2_2
-  "V2_2 starts with making an extension function while V2_2_2 doesn't relies on it."
+model DryWetCalcsFuzzy_V2_2
+  "Fuzzy logic for mode swtiching between dry, wet, partially wet cooling coil"
 
   replaceable package Medium2 = Modelica.Media.Interfaces.PartialMedium
     "Medium 2 in the component"
@@ -157,13 +157,7 @@ model DryWetCalcsFuzzy_V2_2_2
   final parameter Real SigA=20;
   final parameter Real SigC=0.4;
 
-  Real dryfra(start=0.0);
-  Modelica.SIunits.Temperature TSurTra(start=0.5*(fullydry.TSurAirOut+fullywet.TSurAirIn));
-
-  Modelica.SIunits.HeatFlowRate parQTot_flow;
-  Modelica.SIunits.HeatFlowRate parQSen_flow;
-
-  Buildings.Fluid.HeatExchangers.BaseClasses.DryCalcsFuzzy_V2_2_2 fullydry(
+  Buildings.Fluid.HeatExchangers.BaseClasses.DryCalcsFuzzy_V2_2 fullydry(
    UAWat = UAWat,
    final dryfra = 1,
    mWat_flow = mWat_flow,
@@ -179,45 +173,30 @@ model DryWetCalcsFuzzy_V2_2_2
    mAir_flow_nominal=mAir_flow_nominal,
   mWat_flow_nominal=mWat_flow_nominal);
 
-   Buildings.Fluid.HeatExchangers.BaseClasses.WetcalcsFuzzy_V2_2_2 fullywet(pAir=pAir, TAirIn=TAirIn, wAirIn=wAirIn,
-     mAir_flow=mAir_flow, TWatIn=TWatIn, mWat_flow=mWat_flow,UAAir=UAAir,UAWat=UAWat,cpAir=cpAir,cpWat=cpWat,dryfra=0,
-     final cfg = cfg,  mWatNonZer_flow = mWatNonZer_flow,
-    mAirNonZer_flow = mAirNonZer_flow,
+  Buildings.Fluid.HeatExchangers.BaseClasses.WetcalcsFuzzy_V2_2 fullywet(
+    pAir=pAir,
+    TAirIn=TAirIn,
+    wAirIn=wAirIn,
+    mAir_flow=mAir_flow,
+    TWatIn=TWatIn,
+    mWat_flow=mWat_flow,
+    UAAir=UAAir,
+    UAWat=UAWat,
+    cpAir=cpAir,
+    cpWat=cpWat,
+    dryfra=0,
+    final cfg=cfg,
+    mWatNonZer_flow=mWatNonZer_flow,
+    mAirNonZer_flow=mAirNonZer_flow,
     mAir_flow_nominal=mAir_flow_nominal,
     mWat_flow_nominal=mWat_flow_nominal);
 
-  Buildings.Fluid.HeatExchangers.BaseClasses.DryCalcsFuzzy_V2_2_2 pardry(
-  UAWat = UAWat,
-  final dryfra = dryfra,
-  mWat_flow = mWat_flow,
-  cpWat = cpWat,
-  TWatIn = parwet.TWatOut,
-  UAAir = UAAir,
-  mAir_flow = mAir_flow,
-  mWatNonZer_flow = mWatNonZer_flow,
-  mAirNonZer_flow = mAirNonZer_flow,
-  cpAir = cpAir,
-  TAirIn = TAirIn,
-  final cfg = Buildings.Fluid.Types.HeatExchangerFlowRegime.CounterFlow,
-  mAir_flow_nominal=mAir_flow_nominal,
-  mWat_flow_nominal=mWat_flow_nominal);
-
-  Buildings.Fluid.HeatExchangers.BaseClasses.WetcalcsFuzzy_V2_2_2 parwet(
-  UAWat = UAWat,
-  dryfra = dryfra,
-  mWat_flow = mWat_flow,
-  cpWat = cpWat,
-  TWatIn = TWatIn,
-  UAAir = UAAir,
-  mAir_flow = mAir_flow,
-  mWatNonZer_flow = mWatNonZer_flow,
-  mAirNonZer_flow = mAirNonZer_flow,
-  cpAir = cpAir,
-  TAirIn = pardry.TAirOut,
-  final cfg = Buildings.Fluid.Types.HeatExchangerFlowRegime.CounterFlow,
-  mAir_flow_nominal=mAir_flow_nominal,
-  mWat_flow_nominal=mWat_flow_nominal,
-  pAir=pAir,wAirIn=wAirIn);
+    Buildings.Fluid.HeatExchangers.BaseClasses.ParcalcsFuzzy_V2_2 par(pAir=pAir, TAirIn=TAirIn, wAirIn=wAirIn,
+      mAir_flow=mAir_flow, TWatIn=TWatIn, mWat_flow=mWat_flow,UAAir=UAAir,UAWat=UAWat,cpAir=cpAir,cpWat=cpWat,
+      final cfg = cfg,mWatNonZer_flow = mWatNonZer_flow,
+    mAirNonZer_flow = mAirNonZer_flow,TSurAirOutDry=fullydry.TSurAirOut,TSurAirInWet=fullywet.TSurAirIn,
+    mAir_flow_nominal=mAir_flow_nominal,
+    mWat_flow_nominal=mWat_flow_nominal);
 
 equation
 
@@ -229,23 +208,6 @@ equation
 //   mu_CoiIn_War = sigmoid(x=fullywet.TSurAirIn-TAirInDewPoi,a=SigA,c=SigC);
 //   mu_CoiOut_War= sigmoid(x=fullydry.TSurAirOut-TAirInDewPoi,a=SigA,c=-SigC);
 
-   if fullydry.TSurAirOut>=TDewIn.T then
-    dryfra  = -1;
-    TSurTra = 273.15;
-    parQTot_flow=0;
-    parQSen_flow=0;
-   elseif fullywet.TSurAirIn<=TDewIn.T then
-    dryfra  = -1;
-    TSurTra = 273.15;
-    parQTot_flow=0;
-    parQSen_flow=0;
-   else
-    (pardry.TAirOut-TSurTra)*UAAir=(TSurTra-parwet.TWatOut)*UAWat;
-     TDewIn.T = TSurTra;
-     parQTot_flow=pardry.QTot_flow+parwet.QTot_flow;
-     parQSen_flow=pardry.QTot_flow+parwet.QSen_flow;
-  end if;
-
   mu_CoiIn_Col= Buildings.Utilities.Math.Functions.spliceFunction(
   pos=0,neg=1,x=fullywet.TSurAirIn-TAirInDewPoi-0.3,deltax=0.1);
   mu_CoiOut_Col= Buildings.Utilities.Math.Functions.spliceFunction(
@@ -255,6 +217,7 @@ equation
   mu_CoiOut_War= Buildings.Utilities.Math.Functions.spliceFunction(
   pos=1,neg=0,x=fullydry.TSurAirOut-TAirInDewPoi+0.3,deltax=0.1);
 
+
   mu_FW=mu_CoiIn_Col;
   mu_FD=mu_CoiOut_War;
   mu_PW=mu_CoiIn_War*mu_CoiOut_Col;
@@ -262,8 +225,9 @@ equation
   w_FD=mu_FD/(mu_FW+mu_FD+mu_PW);
   w_PW=mu_PW/(mu_FW+mu_FD+mu_PW);
 
-  QTot_flow=-(w_FW*fullywet.QTot_flow+w_FD*fullydry.QTot_flow+w_PW*parQTot_flow);
-  QSen_flow= -(w_FW*fullywet.QSen_flow+w_FD*fullydry.QTot_flow+w_PW*parQSen_flow);
+  QTot_flow=-(w_FW*fullywet.QTot_flow+w_FD*fullydry.QTot_flow+w_PW*par.QTot_flow); // direction?
+  QSen_flow= -(w_FW*fullywet.QSen_flow+w_FD*fullydry.QTot_flow+w_PW*par.QSen_flow); // direction?
+
   QLat_flow=QTot_flow-QSen_flow;// DK
   mCon_flow=QLat_flow/Buildings.Utilities.Psychrometrics.Constants.h_fg;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,-120},
@@ -469,4 +433,4 @@ See
 Buildings.Fluid.HeatExchangers.WetEffectivenessNTU</a> for documentation.
 </p>
 </html>"));
-end DryWetCalcsFuzzy_V2_2_2;
+end DryWetCalcsFuzzy_V2_2;

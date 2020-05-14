@@ -1,5 +1,6 @@
 within Buildings.Fluid.HeatExchangers;
-model WetEffectivenessNTU_Fuzzy_V2_2_2 "V2_2"
+model WetEffectivenessNTU_Fuzzy_V2_2
+  "Heat exchanger with effectiveness - NTU relation including moisture condensation"
   extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
     redeclare replaceable package Medium2 = Buildings.Media.Air);
   extends Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters(
@@ -90,7 +91,7 @@ protected
     r_nominal = r_nominal)
     "Model for convective heat transfer coefficient"
     annotation (Placement(transformation(extent={{-68,-13},{-50,9}})));
-  BaseClasses.DryWetCalcsFuzzy_V2_2_2                         dryWetCalcs(
+  BaseClasses.DryWetCalcsFuzzy_V2_2                           dryWetCalcs(
     redeclare final package Medium2 = Medium2,
     final cfg = flowRegime,
     final mWat_flow_nominal=m1_flow_nominal,
@@ -1263,4 +1264,4 @@ issue 622</a> for more information.
 </html>"),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WetCoilEffNtuMassFlowFuzzy.mos"));
-end WetEffectivenessNTU_Fuzzy_V2_2_2;
+end WetEffectivenessNTU_Fuzzy_V2_2;

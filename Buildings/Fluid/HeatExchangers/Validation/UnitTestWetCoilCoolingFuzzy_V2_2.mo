@@ -117,12 +117,12 @@ equation
     annotation (Line(points={{18,6},{0,6},{0,40},{-140,40}},    color={0,127,255}));
   connect(sup1.ports[1], hexWetNtu.port_a1)
     annotation (Line(points={{-8,-40},{0,-40},{0,-6},{18,-6}},color={0,127,255}));
-  connect(gai.y, sup1.m_flow_in) annotation (Line(points={{-39,-60},{-39,-32},{
+  connect(gai.y, sup1.m_flow_in) annotation (Line(points={{-38,-60},{-38,-32},{
           -30,-32}},                                                                      color={0,0,127}));
-  connect(ySou.y, swi.u3) annotation (Line(points={{-139,-90},{-100,-90},{-100,
+  connect(ySou.y, swi.u3) annotation (Line(points={{-138,-90},{-100,-90},{-100,
           -68},{-94,-68}},                                                                      color={0,0,127}));
-  connect(gai.u, swi.y) annotation (Line(points={{-62,-60},{-71,-60}}, color={0,0,127}));
-  connect(con.y, swi.u1) annotation (Line(points={{-139,-30},{-100,-30},{-100,
+  connect(gai.u, swi.y) annotation (Line(points={{-62,-60},{-70,-60}}, color={0,0,127}));
+  connect(con.y, swi.u1) annotation (Line(points={{-138,-30},{-100,-30},{-100,
           -52},{-94,-52}},                                                                     color={0,0,127}));
   connect(swi.u2, booleanExpression.y) annotation (Line(points={{-94,-60},{-139,-60}}, color={255,0,255}));
   connect(TAin.port, hexWetNtu.port_a2) annotation (Line(points={{50,42},{44,42},
