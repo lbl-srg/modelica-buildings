@@ -168,8 +168,7 @@ partial model PartialConnection2Pipe
   Fluid.Sensors.TemperatureTwoPort senTConSup(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
-    final m_flow_nominal=mCon_flow_nominal,
-    final tau=if allowFlowReversal then 1 else 0) if show_heaFlo
+    final m_flow_nominal=mCon_flow_nominal) if show_heaFlo
     "Connection supply temperature sensor"
     annotation (Placement(
         transformation(
@@ -179,8 +178,7 @@ partial model PartialConnection2Pipe
   Fluid.Sensors.TemperatureTwoPort senTConRet(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
-    final m_flow_nominal=mCon_flow_nominal,
-    final tau=if allowFlowReversal then 1 else 0) if show_heaFlo
+    final m_flow_nominal=mCon_flow_nominal) if show_heaFlo
     "Connection return temperature sensor"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
