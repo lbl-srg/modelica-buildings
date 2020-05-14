@@ -1,7 +1,8 @@
 ############################################################
 # Makefile for the regression tests that are run on travis
 ############################################################
-ROOT = $(shell dirname $(PWD)/../../../../..)
+#ROOT = $(shell dirname $(PWD)/../../../../..)
+ROOT = ../../../..
 
 test-documentation:
 	(cd $(ROOT)/Buildings; ../bin/runUnitTests.py --validate-html-only)
