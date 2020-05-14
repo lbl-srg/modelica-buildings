@@ -40,7 +40,7 @@ equation
     Documentation(info="<html>
 <p>
 This model multiplies the heat flow rate so that
-<code>0 = port_b.Q_flow + k * port_Q.m_flow</code>.
+<code>0 = port_b.Q_flow + k * port_a.Q_flow</code>.
 </p>
 <p>
 The temperature remains unchanged.

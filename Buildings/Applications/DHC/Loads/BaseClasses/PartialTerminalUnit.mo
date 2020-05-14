@@ -366,7 +366,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     annotation (Placement(transformation(extent={{160,-190},{180,-170}})));
   Fluid.BaseClasses.MassFlowRateMultiplier scaLoaMasFloOut(
     redeclare final package Medium = Medium2,
-    final k=if have_scaLoa then 1/facSca else 1,
+    final k=if have_scaLoa then facSca else 1,
     final allowFlowReversal=allowFlowReversal) if have_fluPor
     "Load side mass flow rate scaling"
     annotation (Placement(transformation(extent={{-160,-10},{-180,10}})));
@@ -376,6 +376,14 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     final allowFlowReversal=allowFlowReversal) if have_fluPor
     "Load side mass flow rate scaling"
     annotation (Placement(transformation(extent={{180,-10},{160,10}})));
+  Fluid.HeatExchangers.RadiantSlabs.BaseClasses.HeatFlowRateMultiplier
+    scaHeaFloCon(k=if have_scaLoa then facSca else 1) if have_heaPor
+    "Convective heat flow rate scaling"
+    annotation (Placement(transformation(extent={{160,30},{180,50}})));
+  Fluid.HeatExchangers.RadiantSlabs.BaseClasses.HeatFlowRateMultiplier
+    scaHeaFloRad(k=if have_scaLoa then facSca else 1) if have_heaPor
+    "Radiative heat flow rate scaling"
+    annotation (Placement(transformation(extent={{160,-50},{180,-30}})));
 protected
   parameter Modelica.SIunits.SpecificHeatCapacity cpHeaWat_nominal=
     Medium1.specificHeatCapacityCp(
@@ -428,6 +436,10 @@ equation
     annotation (Line(points={{-180,0},{-200,0}}, color={0,127,255}));
   connect(port_aLoa, scaLoaMasFloInl.port_a)
     annotation (Line(points={{200,0},{180,0}}, color={0,127,255}));
+  connect(scaHeaFloCon.port_b, heaPorCon)
+    annotation (Line(points={{180,40},{200,40}}, color={191,0,0}));
+  connect(scaHeaFloRad.port_b, heaPorRad)
+    annotation (Line(points={{180,-40},{200,-40}}, color={191,0,0}));
 annotation (
   defaultComponentName="ter",
   Documentation(info="<html>

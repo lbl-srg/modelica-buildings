@@ -7,8 +7,7 @@ model BuildingTimeSeries
     final have_pum=true,
     final have_eleHea=false,
     final have_eleCoo=false,
-    final have_weaBus=false,
-    nPorts_aChiWat=1);
+    final have_weaBus=false);
   package Medium2 = Buildings.Media.Air
     "Load side medium";
   parameter String filNam

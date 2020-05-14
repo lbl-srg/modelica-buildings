@@ -6,12 +6,11 @@ model BuildingSpawnZ6
     final have_eleHea=false,
     final have_eleCoo=false,
     final have_pum=true,
-    final have_weaBus=false,
-    nPorts_aChiWat=1);
+    final have_weaBus=false);
   package Medium2 = Buildings.Media.Air "Medium model";
-  parameter Integer nZon = 6
+  parameter Integer nZon = 5
     "Number of conditioned thermal zones";
-  parameter Integer facSca = 5
+  parameter Integer facSca = fill(5, nZon)
     "Scaling factor to be applied to on each extensive quantity";
   parameter String idfName=
     "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf"
@@ -71,17 +70,16 @@ model BuildingSpawnZ6
     weaName=Modelica.Utilities.Files.loadResource(weaName))
     "Building outer component"
     annotation (Placement(transformation(extent={{30,138},{52,158}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=6)
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(final nin=nZon)
     annotation (Placement(transformation(extent={{260,110},{280,130}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum3(nin=2)
     annotation (Placement(transformation(extent={{260,70},{280,90}})));
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.FanCoil4Pipe terUni[
-    nZon](
-    redeclare package Medium1 = Medium,
-    redeclare package Medium2 = Medium2,
-    each facSca=facSca,
+  BaseClasses.FanCoil4Pipe terUni[nZon](
+    redeclare each final package Medium1 = Medium,
+    redeclare each final package Medium2 = Medium2,
+    final facSca=facSca,
     QHea_flow_nominal=fill(2000, nZon),
-    QCoo_flow_nominal=fille(-2000, nZon),
+    QCoo_flow_nominal=fill(-2000, nZon),
     each T_aLoaHea_nominal=293.15,
     each T_aLoaCoo_nominal=297.15,
     each T_bHeaWat_nominal=308.15,
@@ -135,25 +133,25 @@ equation
     annotation (Line(points={{1,140},{20,140},{20,-50},{22,-50}}, color={0,0,127}));
   connect(multiplex3_1.y,znPerimeter_ZN_4.qGai_flow)
     annotation (Line(points={{1,140},{20,140},{20,-90},{22,-90}}, color={0,0,127}));
-  connect(znCore_ZN.ports[1], terUni[2].port_aLoa) annotation (Line(points={{42,42.9},
+  connect(znCore_ZN.ports[1], terUni[1].port_aLoa) annotation (Line(points={{42,42.9},
           {-8,42.9},{-8,20},{-116,20}}, color={0,127,255}));
-  connect(terUni[2].port_bLoa, znCore_ZN.ports[2]) annotation (Line(points={{-140,20},
+  connect(terUni[1].port_bLoa, znCore_ZN.ports[2]) annotation (Line(points={{-140,20},
           {-20,20},{-20,42.9},{46,42.9}}, color={0,127,255}));
-  connect(znPerimeter_ZN_1.ports[1], terUni[3].port_aLoa) annotation (Line(points={{42,0.9},
+  connect(znPerimeter_ZN_1.ports[1], terUni[2].port_aLoa) annotation (Line(points={{42,0.9},
           {-8,0.9},{-8,20},{-116,20}}, color={0,127,255}));
-  connect(terUni[3].port_bLoa, znPerimeter_ZN_1.ports[2]) annotation (Line(points={{-140,20},
+  connect(terUni[2].port_bLoa, znPerimeter_ZN_1.ports[2]) annotation (Line(points={{-140,20},
           {-20,20},{-20,0.9},{46,0.9}}, color={0,127,255}));
-  connect(znPerimeter_ZN_2.ports[1], terUni[4].port_aLoa) annotation (Line(points={{42,
+  connect(znPerimeter_ZN_2.ports[1], terUni[3].port_aLoa) annotation (Line(points={{42,
           -39.1},{-8,-39.1},{-8,20},{-116,20}}, color={0,127,255}));
-  connect(terUni[4].port_bLoa, znPerimeter_ZN_2.ports[2]) annotation (Line(points={{-140,20},
+  connect(terUni[3].port_bLoa, znPerimeter_ZN_2.ports[2]) annotation (Line(points={{-140,20},
           {-20,20},{-20,-39.1},{46,-39.1}}, color={0,127,255}));
-  connect(znPerimeter_ZN_3.ports[1], terUni[5].port_aLoa) annotation (Line(points={{42,
+  connect(znPerimeter_ZN_3.ports[1], terUni[4].port_aLoa) annotation (Line(points={{42,
           -79.1},{-8,-79.1},{-8,20},{-116,20}}, color={0,127,255}));
-  connect(terUni[5].port_bLoa, znPerimeter_ZN_3.ports[2]) annotation (Line(points={{-140,20},
+  connect(terUni[4].port_bLoa, znPerimeter_ZN_3.ports[2]) annotation (Line(points={{-140,20},
           {-20,20},{-20,-79.1},{46,-79.1}}, color={0,127,255}));
-  connect(znPerimeter_ZN_4.ports[1], terUni[6].port_aLoa) annotation (Line(points={{42,
+  connect(znPerimeter_ZN_4.ports[1], terUni[5].port_aLoa) annotation (Line(points={{42,
           -119.1},{-8,-119.1},{-8,20},{-116,20}}, color={0,127,255}));
-  connect(terUni[6].port_bLoa, znPerimeter_ZN_4.ports[2]) annotation (Line(points={{-140,20},
+  connect(terUni[5].port_bLoa, znPerimeter_ZN_4.ports[2]) annotation (Line(points={{-140,20},
           {-20,20},{-20,-119.1},{46,-119.1}}, color={0,127,255}));
   connect(terUni.port_bHeaWat, disFloHea.ports_a1) annotation (Line(points={{-116,0},
           {-40,0},{-40,-174},{-200,-174}},  color={0,127,255}));
@@ -167,9 +165,8 @@ equation
           {-104,4},{-104,-80},{-180,-80},{-180,-264},{-159,-264}}, color={0,0,127}));
   connect(terUni.mReqHeaWat_flow, disFloHea.mReq_flow) annotation (Line(points={{-115,6},
           {-100,6},{-100,-90.5},{-221,-90.5},{-221,-184}}, color={0,0,127}));
-  connect(terUni.PFan, mulSum.u[1:6]) annotation (Line(points={{-115,10},{-100,
-          10},{-100,220},{220,220},{220,118.333},{258,118.333}},
-                                                             color={0,0,127}));
+  connect(terUni.PFan, mulSum.u) annotation (Line(points={{-115,10},{-100,10},{-100,
+          220},{220,220},{220,120},{258,120}},               color={0,0,127}));
   connect(mulSum.y, PFan) annotation (Line(points={{282,120},{302,120},{302,120},
           {320,120}}, color={0,0,127}));
   connect(PPum, mulSum3.y)
@@ -182,17 +179,15 @@ equation
           {212,-186},{212,280},{320,280}}, color={0,0,127}));
   connect(disFloCoo.QActTot_flow, QCoo_flow) annotation (Line(points={{-137,-266},
           {216,-266},{216,240},{320,240}}, color={0,0, 127}));
-  connect(znAttic.TAir, terUni[1].TSen) annotation (Line(points={{65,117.8},{72,
-          118},{80,118},{80,160},{-152,160},{-152,12},{-141,12}}, color={0,0,127}));
-  connect(znCore_ZN.TAir, terUni[2].TSen) annotation (Line(points={{65,75.8},{
+  connect(znCore_ZN.TAir, terUni[1].TSen) annotation (Line(points={{65,75.8},{
           65,76},{80,76},{80,160},{-152,160},{-152,12},{-141,12}}, color={0,0,127}));
-  connect(znPerimeter_ZN_1.TAir, terUni[3].TSen) annotation (Line(points={{65,
+  connect(znPerimeter_ZN_1.TAir, terUni[2].TSen) annotation (Line(points={{65,
           33.8},{72,33.8},{72,34},{80,34},{80,160},{-152,160},{-152,12},{-141, 12}}, color={0,0,127}));
-  connect(znPerimeter_ZN_2.TAir, terUni[4].TSen) annotation (Line(points={{65,
+  connect(znPerimeter_ZN_2.TAir, terUni[3].TSen) annotation (Line(points={{65,
           -6.2},{80,-6.2},{80,-140},{-152,-140},{-152,12},{-141,12}}, color={0,0,127}));
-  connect(znPerimeter_ZN_3.TAir, terUni[5].TSen) annotation (Line(points={{65,
+  connect(znPerimeter_ZN_3.TAir, terUni[4].TSen) annotation (Line(points={{65,
           -46.2},{80,-46.2},{80,-140},{-152,-140},{-152,12},{-141,12}}, color={0,0,127}));
-  connect(znPerimeter_ZN_4.TAir, terUni[6].TSen) annotation (Line(points={{65,
+  connect(znPerimeter_ZN_4.TAir, terUni[5].TSen) annotation (Line(points={{65,
           -86.2},{80,-86.2},{80,-140},{-152,-140},{-152,12},{-141,12}}, color={0,0,127}));
   connect(maxTSet.y, terUni.TSetCoo) annotation (Line(points={{-258,220},{-200,220},
           {-200,14},{-141,14}}, color={0,0,127}));

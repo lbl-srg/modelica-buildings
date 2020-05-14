@@ -10,18 +10,20 @@ model CouplingSpawnZ6
     nPorts_bHeaWat=1,
     nPorts_bChiWat=1) "Building"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
-  Buildings.Fluid.Sources.Boundary_pT sinHeaWat(redeclare package Medium =
-        Medium1, nPorts=1) "Sink for heating water" annotation (Placement(
-        transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=0,
-        origin={130,0})));
-  Buildings.Fluid.Sources.Boundary_pT sinChiWat(redeclare package Medium =
-        Medium1, nPorts=1) "Sink for chilled water" annotation (Placement(
-        transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=0,
-        origin={130,-60})));
+  Buildings.Fluid.Sources.Boundary_pT sinHeaWat(
+    redeclare final package Medium = Medium1, nPorts=1)
+    "Sink for heating water" annotation (Placement(
+      transformation(
+      extent={{10,-10},{-10,10}},
+      rotation=0,
+      origin={130,0})));
+  Buildings.Fluid.Sources.Boundary_pT sinChiWat(
+    redeclare final package Medium = Medium1, nPorts=1)
+    "Sink for chilled water" annotation (Placement(
+      transformation(
+      extent={{10,-10},{-10,10}},
+      rotation=0,
+      origin={130,-60})));
   Modelica.Blocks.Sources.RealExpression THeaWatSup(y=max(bui.terUni.T_aHeaWat_nominal))
     "Heating water supply temperature"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
@@ -29,16 +31,18 @@ model CouplingSpawnZ6
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
   Fluid.Sources.Boundary_pT supHeaWat(
-    redeclare package Medium = Medium1,
+    redeclare final package Medium = Medium1,
     use_T_in=true,
-    nPorts=1) "Heating water supply" annotation (Placement(transformation(
+    nPorts=1) "Heating water supply"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-30,0})));
   Fluid.Sources.Boundary_pT supChiWat(
-    redeclare package Medium = Medium1,
+    redeclare final package Medium = Medium1,
     use_T_in=true,
-    nPorts=1) "Chilled water supply" annotation (Placement(transformation(
+    nPorts=1) "Chilled water supply"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-30,-60})));

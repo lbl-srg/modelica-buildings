@@ -61,7 +61,7 @@ partial model PartialFanCoil4Pipe
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaFloNom(k=mHeaWat_flow_nominal)
     annotation (Placement(transformation(extent={{40,210},{60,230}})));
   Modelica.Blocks.Sources.RealExpression Q_flowHea(y=hexHea.Q2_flow)
-    annotation (Placement(transformation(extent={{120,210},{140,230}})));
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hexCoo(
     redeclare final package Medium1=Medium1,
     redeclare final package Medium2=Medium2,
@@ -77,7 +77,7 @@ partial model PartialFanCoil4Pipe
     final allowFlowReversal2=allowFlowReversalLoa)
     annotation (Placement(transformation(extent={{0,4},{20,-16}})));
   Modelica.Blocks.Sources.RealExpression Q_flowCoo(y=hexCoo.Q2_flow)
-    annotation (Placement(transformation(extent={{120,190},{140,210}})));
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiFloNom2(k=max({
     mLoaHea_flow_nominal,mLoaCoo_flow_nominal}))
     annotation (Placement(transformation(extent={{40,130},{60,150}})));
@@ -105,15 +105,15 @@ equation
   connect(conCoo.y, gaiCooFloNom.u)
     annotation (Line(points={{12,180},{38,180}}, color={0,0,127}));
   connect(gaiHeaFloNom.y,scaMasFloReqHeaWat.u)  annotation (Line(points={{62,220},
-          {108,220},{108,100},{158,100}}, color={0,0,127}));
+          {134,220},{134,100},{158,100}}, color={0,0,127}));
   connect(gaiCooFloNom.y, scaMasFloReqChiWat.u) annotation (Line(points={{62,180},
-          {100,180},{100,80},{158,80}}, color={0,0,127}));
-  connect(fan.P, scaPFan.u) annotation (Line(points={{69,9},{60,9},{60,-20},{
-          140,-20},{140,140},{158,140}}, color={0,0,127}));
-  connect(Q_flowHea.y, scaQActHea_flow.u) annotation (Line(points={{141,220},
-          {150,220},{150,220},{158,220}}, color={0,0,127}));
-  connect(Q_flowCoo.y, scaQActCoo_flow.u) annotation (Line(points={{141,200},
-          {158,200},{158,200}}, color={0,0,127}));
+          {128,180},{128,80},{158,80}}, color={0,0,127}));
+  connect(fan.P, scaPFan.u) annotation (Line(points={{69,9},{60,9},{60,16},{152,
+          16},{152,140},{158,140}}, color={0,0,127}));
+  connect(Q_flowHea.y, scaQActHea_flow.u) annotation (Line(points={{-59,60},{140,
+          60},{140,220},{158,220}}, color={0,0,127}));
+  connect(Q_flowCoo.y, scaQActCoo_flow.u) annotation (Line(points={{-59,40},{146,
+          40},{146,200},{158,200}}, color={0,0,127}));
   connect(TSetCoo, conCoo.u_s)
     annotation (Line(points={{-220,180},{-20,180},{-20,180},{-12,180}},
       color={0,0,127}));
@@ -134,10 +134,6 @@ equation
           -12},{-40,-12},{-40,-220},{160,-220}}, color={0,127,255}));
   connect(scaHeaWatFloInl.port_b, hexHea.port_a1) annotation (Line(points={{
           -160,-220},{-100,-220},{-100,-12},{-80,-12}}, color={0,127,255}));
-  connect(fan.port_a, scaLoaMasFloInl.port_b)
-    annotation (Line(points={{90,0},{160,0}}, color={0,127,255}));
-  connect(hexHea.port_b2, scaLoaMasFloOut.port_a)
-    annotation (Line(points={{-80,0},{-160,0}}, color={0,127,255}));
   annotation (
 Documentation(
 info="<html>
