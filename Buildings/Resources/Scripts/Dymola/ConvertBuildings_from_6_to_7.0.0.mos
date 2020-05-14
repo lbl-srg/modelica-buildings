@@ -90,6 +90,10 @@ convertElement(
     "Buildings.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow",
     "alphaWinOut",
     "hConWinOut");
+convertElement(
+    "Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests",
+    "uDam",
+    "yDam_actual");
 
 // Refactoring damper models.
 convertElement(
