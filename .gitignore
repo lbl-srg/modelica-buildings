@@ -69,3 +69,6 @@ Buildings/Resources/src/fluid/heatpumps/calibration/doc/build/doctrees
 # Spawn temporary directories
 #########################################
 tmp-eplus-*
+eplus*
+sqlite*
+*/tmp-simulation*
