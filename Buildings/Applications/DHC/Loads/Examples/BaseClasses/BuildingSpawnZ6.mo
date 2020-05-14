@@ -10,7 +10,7 @@ model BuildingSpawnZ6
   package Medium2 = Buildings.Media.Air "Medium model";
   parameter Integer nZon = 5
     "Number of conditioned thermal zones";
-  parameter Integer facSca = fill(5, nZon)
+  parameter Integer facSca[nZon] = fill(5, nZon)
     "Scaling factor to be applied to on each extensive quantity";
   parameter String idfName=
     "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf"
