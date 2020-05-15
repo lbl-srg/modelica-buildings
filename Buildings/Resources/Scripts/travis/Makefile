@@ -48,7 +48,8 @@ test-energyplus-validations:
 	   echo "*********************************************************" && \
 	   echo "**** Testing `pwd`/run.sh" && \
 	   chmod +x ./run.sh && \
-	   ./run.sh'
+	   echo "PATH=$(PATH)" &&
+	   ls -l $(ROOT)/$(ENERGYPLUS_VERSION)'
 	git diff --exit-code $(ROOT)/Buildings/Resources/Data
 
 
