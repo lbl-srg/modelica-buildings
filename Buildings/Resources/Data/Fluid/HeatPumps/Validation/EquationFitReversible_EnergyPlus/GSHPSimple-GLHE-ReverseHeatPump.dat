@@ -1,5 +1,5 @@
 #1
-double EnergyPlus(2879,8)
+double EnergyPlus(2880,8)
 #This file contains the results from the EnergyPlus simulation
 #Column 0: Time in seconds
 #Column 1: GSHPHEATING:Heat Pump Electric Power [W](TimeStep)
@@ -2888,3 +2888,4 @@ double EnergyPlus(2879,8)
 172560,8.626e+02,2.492e+03,1.629e+03,5.518e+01,5.486e+01,1.301e+01,1.301e+01
 172620,8.636e+02,2.494e+03,1.631e+03,5.518e+01,5.486e+01,1.301e+01,1.301e+01
 172680,8.647e+02,2.498e+03,1.633e+03,5.518e+01,5.486e+01,1.301e+01,1.301e+01
+172740,8.660e+02,2.502e+03,1.636e+03,5.518e+01,5.486e+01,1.301e+01,1.301e+01
