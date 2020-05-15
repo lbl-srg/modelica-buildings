@@ -93,7 +93,7 @@ before_install:
       wget --no-verbose https://github.com/NREL/EnergyPlus/releases/download/v9.3.0/${ENERGYPLUS_VERSION}.tar.gz;
       tar xzf ${ENERGYPLUS_VERSION}.tar.gz;
       mv ${ENERGYPLUS_VERSION}/energyplus ${ENERGYPLUS_VERSION}/EnergyPlus;
-      echo "Installed EnergyPlus in ${PWD}/${ENERGYPLUS_VERSION}"
+      echo "Installed EnergyPlus in ${PWD}/${ENERGYPLUS_VERSION}";
     fi;
 
 # Install dependencies
