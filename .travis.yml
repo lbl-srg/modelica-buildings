@@ -95,6 +95,7 @@ before_install:
       mv -v ${ENERGYPLUS_VERSION}/energyplus ${ENERGYPLUS_VERSION}/EnergyPlus;
       file ${ENERGYPLUS_VERSION}/EnergyPlus
       ls -l ${ENERGYPLUS_VERSION}
+      export PATH=${PATH}:${TRAVIS_BUILD_DIR}/${ENERGYPLUS_VERSION}
       echo "Installed EnergyPlus in ${PWD}/${ENERGYPLUS_VERSION}";
     fi;
 
