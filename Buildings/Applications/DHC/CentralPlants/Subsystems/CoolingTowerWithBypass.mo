@@ -79,7 +79,7 @@ model CoolingTowerWithBypass
     k=1,
     Ti=60) annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
   Controls.CoolingTowerSpeed cooTowSpeCon "Cooling tower speed controllers"
-    annotation (Placement(transformation(extent={{-10,40},{10,58}})));
+    annotation (Placement(transformation(extent={{-10,40},{10,60}})));
 equation
   connect(cooTowSys.TWetBul, TWetBul) annotation (Line(points={{-12,-6},{-40,-6},
           {-40,-40},{-120,-40}}, color={0,0,127}));

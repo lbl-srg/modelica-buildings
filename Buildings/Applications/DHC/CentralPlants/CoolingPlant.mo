@@ -85,7 +85,7 @@ model CoolingPlant "District cooling plant model"
     v_flow_rate=vTow_flow_rate,
     dTApp_nominal=dTApp_nominal,
     TWetBul_nominal=TWetBul_nominal)
-    annotation (Placement(transformation(extent={{-58,-60},{-38,-40}})));
+    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
   DataCenters.ChillerCooled.Equipment.FlowMachine_m pumCW(
     redeclare package Medium = MediumCW,
     m_flow_nominal=mCW_flow_nominal,
@@ -97,7 +97,7 @@ model CoolingPlant "District cooling plant model"
     tWai=1800,
     CooCap=-mulChiSys.per.QEva_flow_nominal,
     thehol=0.9)
-    annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTCHWSup(
     redeclare package Medium = MediumCHW,
     m_flow_nominal=mCHW_flow_nominal,
@@ -131,11 +131,11 @@ model CoolingPlant "District cooling plant model"
         rotation=90,
         origin={80,0})));
   Controls.ChilledWaterBypass chiBypCon
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
+    annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
   DataCenters.ChillerCooled.Equipment.ElectricChillerParallel mulChiSys(num=2)
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   Controls.ChilledWaterPumpSpeed CHWPumCon
-    annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
+    annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
 equation
   connect(senTCHWByp.port_b, pumCHW.port_a) annotation (Line(
       points={{80,40},{80,50},{10,50}},
@@ -162,9 +162,9 @@ equation
   connect(expVesCHW.port_a, senTCHWSup.port_a)
     annotation (Line(points={{50,-30},{50,-50},{100,-50}}, color={0,127,255}));
   connect(cooTowWitByp.port_b, pumCW.port_a)
-    annotation (Line(points={{-38,-50},{-10,-50}}, color={0,127,255}));
-  connect(mulChiSys.port_b2, cooTowWitByp.port_a) annotation (Line(points={{-10,
-          4},{-70,4},{-70,-50},{-58,-50}}, color={0,127,255}));
+    annotation (Line(points={{-40,-50},{-10,-50}}, color={0,127,255}));
+  connect(mulChiSys.port_b2, cooTowWitByp.port_a) annotation (Line(points={{-10,4},
+          {-70,4},{-70,-50},{-60,-50}},    color={0,127,255}));
   connect(expVesCW.port_a, pumCW.port_a) annotation (Line(points={{-30,-30},{-30,
           -50},{-10,-50}}, color={0,127,255}));
   connect(pumCHW.port_b, mulChiSys.port_a1) annotation (Line(points={{-10,50},{-20,
