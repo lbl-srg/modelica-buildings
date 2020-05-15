@@ -2,7 +2,7 @@
 # Makefile for the regression tests that are run on travis
 ############################################################
 #ROOT = $(shell dirname $(PWD)/../../../../..)
-ROOT = ../../../..
+ROOT = $(TRAVIS_BUILD_DIR)
 
 test-documentation:
 	(cd $(ROOT)/Buildings; ../bin/runUnitTests.py --validate-html-only)
@@ -39,6 +39,9 @@ test-verify-files:
 # This targets searches all files `run.sh` and executes them.
 test-energyplus-validations:
 	export PATH=$(ROOT)/$(ENERGYPLUS_VERSION):$(PATH)
+	echo "********** Directory listing"
+	ls
+	pwd
 	find $(ROOT)/Buildings/Resources/Data -name run.sh | xargs -I {} sh -c \
 	  'cd `dirname {}` && \
 	   echo "*********************************************************" && \
