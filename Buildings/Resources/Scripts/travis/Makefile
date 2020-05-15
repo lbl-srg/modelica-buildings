@@ -41,12 +41,13 @@ test-energyplus-validations:
 	echo "********** Directory listing"
 	ls
 	echo "**** ROOT = $(ROOT)"
-	export PATH=$(PATH):$(ROOT)/$(ENERGYPLUS_VERSION)
+	ls -l $(ROOT)/$(ENERGYPLUS_VERSION)
 	find $(ROOT)/Buildings/Resources/Data -name run.sh | xargs -I {} sh -c \
   	  'cd `dirname {}` && \
 	   echo "*********************************************************" && \
 	   echo "**** Testing `pwd`/run.sh" && \
 	   chmod +x ./run.sh && \
+	   PATH = $(PATH):$(ROOT)/$(ENERGYPLUS_VERSION) && \
 	   ./run.sh'
 	git diff --exit-code $(ROOT)/Buildings/Resources/Data
 
