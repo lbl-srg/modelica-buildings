@@ -89,12 +89,12 @@ before_install:
        chmod +x Buildings/Resources/Scripts/travis/jmodelica/jm_ipython.sh;
        cp Buildings/Resources/Scripts/travis/jmodelica/jm_ipython.sh $HOME/bin/jm_ipython.sh;
     fi;
-#  - if [[ "$TEST_ARG" == *test-energyplus* ]]; then
-#      wget --no-verbose https://github.com/NREL/EnergyPlus/releases/download/v9.3.0/${ENERGYPLUS_VERSION}.tar.gz;
-#      tar xzf ${ENERGYPLUS_VERSION}.tar.gz;
-#      cd ${ENERGYPLUS_VERSION};
-#      mv energyplus EnergyPlus;
-#    fi;
+  - if [[ "$TEST_ARG" == *test-energyplus* ]]; then
+      wget --no-verbose https://github.com/NREL/EnergyPlus/releases/download/v9.3.0/${ENERGYPLUS_VERSION}.tar.gz;
+      tar xzf ${ENERGYPLUS_VERSION}.tar.gz;
+      mv ${ENERGYPLUS_VERSION}/energyplus ${ENERGYPLUS_VERSION}/EnergyPlus;
+      echo "Installed EnergyPlus in ${PWD}/${ENERGYPLUS_VERSION}"
+    fi;
 
 # Install dependencies
 # For sphinx, we need to install specific package versions, otherwise
