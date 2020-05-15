@@ -38,7 +38,6 @@ test-verify-files:
 # Test whether all EnergyPlus validation files are up to date.
 # This targets searches all files `run.sh` and executes them.
 test-energyplus-validations:
-	export PATH=$(ROOT)/$(ENERGYPLUS_VERSION):$(PATH)
 	echo "********** Directory listing"
 	ls
 	echo "**** ROOT = $(ROOT)"
