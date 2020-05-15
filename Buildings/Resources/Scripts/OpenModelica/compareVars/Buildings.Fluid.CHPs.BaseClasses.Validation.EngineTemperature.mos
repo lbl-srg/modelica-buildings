@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "eng.TRoo.T",
+    "eng.TWat.T",
+    "eng.QGen_flow",
+    "per.capEng",
+    "eng.TEng"
+  };
