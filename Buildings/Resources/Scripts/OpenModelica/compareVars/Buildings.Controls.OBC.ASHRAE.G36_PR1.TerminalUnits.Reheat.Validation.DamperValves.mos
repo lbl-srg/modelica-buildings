@@ -3,7 +3,6 @@ compareVars :=
     "damVal.uHea",
     "damVal.uCoo",
     "damVal.VDisSet_flow",
-    "damVal.VDis_flow",
     "damVal.yDam",
     "damVal.TDisHeaSet",
     "damVal.yHeaVal",
