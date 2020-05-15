@@ -92,7 +92,9 @@ before_install:
   - if [[ "$TEST_ARG" == *test-energyplus* ]]; then
       wget --no-verbose https://github.com/NREL/EnergyPlus/releases/download/v9.3.0/${ENERGYPLUS_VERSION}.tar.gz;
       tar xzf ${ENERGYPLUS_VERSION}.tar.gz;
-      mv ${ENERGYPLUS_VERSION}/energyplus ${ENERGYPLUS_VERSION}/EnergyPlus;
+      mv -v ${ENERGYPLUS_VERSION}/energyplus ${ENERGYPLUS_VERSION}/EnergyPlus;
+      file ${ENERGYPLUS_VERSION}/EnergyPlus
+      ls -l ${ENERGYPLUS_VERSION}
       echo "Installed EnergyPlus in ${PWD}/${ENERGYPLUS_VERSION}";
     fi;
 

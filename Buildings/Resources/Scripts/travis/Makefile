@@ -41,7 +41,7 @@ test-energyplus-validations:
 	echo "********** Directory listing"
 	ls
 	echo "**** ROOT = $(ROOT)"
-	export PATH=$(ROOT)/$(ENERGYPLUS_VERSION):$(PATH)
+	export PATH=$(PATH):$(ROOT)/$(ENERGYPLUS_VERSION)
 	find $(ROOT)/Buildings/Resources/Data -name run.sh | xargs -I {} sh -c \
   	  'cd `dirname {}` && \
 	   echo "*********************************************************" && \
