@@ -1,0 +1,32 @@
+﻿// Simulate
+simulateModel("Buildings.Applications.DHC.EnergyTransferStations.Examples.Heating1stGenIdeal", stopTime=8600, method="dassl", tolerance=1e-06, resultFile="Heating1stGenIdeal");
+// Plot
+createPlot(id=1, position={15, 10, 435, 427}, 
+  y={"ets.Q_flow"}, 
+  range={0.0, 90000.0, 0.0, 250000.0}, 
+  grid=true, 
+  colors={{28,108,200}});
+createPlot(id=1, position={15, 10, 435, 211}, 
+  y={"ets.m_flow"}, 
+  range={0.0, 90000.0, 0.02, 0.12}, 
+  grid=true, 
+  subPlot=2, 
+  colors={{28,108,200}});
+createPlot(id=2, position={456, 9, 433, 427}, 
+  y={"ets.sta_a.p", "ets.sta_b.p"}, 
+  range={0.0, 90000.0, 2.0, 12.0}, 
+  grid=true, 
+  colors={{28,108,200}, {238,46,47}}, 
+  displayUnits={"bar", "bar"});
+createPlot(id=2, position={456, 9, 433, 211}, 
+  y={"ets.sta_a.T", "ets.sta_b.T"}, 
+  range={0.0, 90000.0, -400.0, 200.0}, 
+  grid=true, 
+  subPlot=2, 
+  colors={{28,108,200}, {238,46,47}}, 
+  displayUnits={"degC", "degC"});
+createPlot(id=3, position={899, 7, 639, 427}, 
+  y={"ets.port_a.h_outflow", "ets.port_b.h_outflow", "ets.hex.dh", "ets.hex.con.dhCon"}, 
+  range={0.0, 90000.0, -2500000.0, 2500000.0}, 
+  grid=true, 
+  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
