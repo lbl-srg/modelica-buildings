@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.CentralPlants;
+within Buildings.Applications.DHC.CentralPlants.Gen1st.Cooling;
 model CoolingPlant "District cooling plant model"
   import ChillerPlantSystem = WaterSide.Plant;
 
@@ -202,22 +202,22 @@ equation
   connect(chiStaCon.y, chiOn.u)
     annotation (Line(points={{-99,56},{-90,56},{-90,60},{-82,60}},
                                                  color={0,0,127}));
-  connect(chiOn.y, mulChiSys.on) annotation (Line(points={{-59,60},{-50,60},{
-          -50,14},{-12,14}}, color={255,0,255}));
+  connect(chiOn.y, mulChiSys.on) annotation (Line(points={{-59,60},{-50,60},{-50,
+          14},{-12,14}}, color={255,0,255}));
   connect(CHWPumCon.dpMea, dpMea)
     annotation (Line(points={{-122,-20},{-160,-20}}, color={0,0,127}));
-  connect(mPum_flow.y, CHWPumCon.masFloPum) annotation (Line(points={{-121,8},{
-          -132,8},{-132,-12},{-122,-12}}, color={0,0,127}));
-  connect(CHWPumCon.y, pumCHW.u) annotation (Line(points={{-99,-16},{-80,-16},{
-          -80,8},{-40,8},{-40,60},{20,60},{20,54},{12,54}}, color={0,0,127}));
+  connect(mPum_flow.y, CHWPumCon.masFloPum) annotation (Line(points={{-121,8},
+          {-132,8},{-132,-12},{-122,-12}}, color={0,0,127}));
+  connect(CHWPumCon.y, pumCHW.u) annotation (Line(points={{-99,-16},{-80,-16},
+          {-80,8},{-40,8},{-40,60},{20,60},{20,54},{12,54}}, color={0,0,127}));
   connect(TCHWSupSet.y, mulChiSys.TSet) annotation (Line(points={{-59,30},{-52,
           30},{-52,10},{-12,10}}, color={0,0,127}));
   connect(conPID.y, valByp.y)
     annotation (Line(points={{99,0},{92,0}}, color={0,0,127}));
-  connect(mValByp_flow.y, conPID.u_m)
-    annotation (Line(points={{119,-20},{110,-20},{110,-12}}, color={0,0,127}));
-  connect(mSet_flow.y, conPID.u_s) annotation (Line(points={{121,24},{132,24},{
-          132,0},{122,0}}, color={0,0,127}));
+  connect(mValByp_flow.y, conPID.u_m) annotation (Line(points={{119,-20},{110,
+          -20},{110,-12}}, color={0,0,127}));
+  connect(mSet_flow.y, conPID.u_s) annotation (Line(points={{121,24},{132,24},
+          {132,0},{122,0}}, color={0,0,127}));
   annotation (__Dymola_Commands,
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-80},{140,80}})),
     experiment(
