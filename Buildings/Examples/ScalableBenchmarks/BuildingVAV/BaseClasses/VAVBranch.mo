@@ -47,7 +47,7 @@ model VAVBranch "Supply branch of a VAV system"
     "Fluid connector b (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{40,190},{60,210}}),
         iconTransformation(extent={{40,190},{60,210}})));
-  Modelica.Blocks.Interfaces.RealOutput yDam "Signal for VAV damper"
+  Modelica.Blocks.Interfaces.RealOutput yDam "Actual VAV damper position"
     annotation (Placement(transformation(extent={{200,-10},{220,10}})));
 
   Fluid.Actuators.Dampers.PressureIndependent vav(
@@ -79,7 +79,8 @@ model VAVBranch "Supply branch of a VAV system"
     nPorts=1) "Sink for terminal box "
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=180,
       origin={132,24})));
-  Buildings.Examples.VAVReheat.Controls.RoomVAV con "Room temperature controller"
+  Buildings.Examples.VAVReheat.Controls.RoomVAV con
+    "Room temperature controller"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(
     redeclare package Medium =  MediumA) "Sensor for mass flow rate"
@@ -96,7 +97,7 @@ model VAVBranch "Supply branch of a VAV system"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,  origin={50,74})));
   Modelica.Blocks.Math.Gain ACH(k=1/VRoo/1.2*3600) "Air change per hour"
-    annotation (Placement(transformation(extent={{100,94},{120,114}})));
+    annotation (Placement(transformation(extent={{100,80},{120,100}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear valHea(
     redeclare package Medium = MediumW,
     m_flow_nominal=m_flow_nominal*1000*15/4200/10,
@@ -116,9 +117,6 @@ equation
    connect(fraMasFlo.u, senMasFlo.m_flow)
       annotation (Line(points={{100,144},{80,144},{80,134},{61,134}},
         color={0,0,127}, smooth=Smooth.None, pattern=LinePattern.Dash));
-   connect(TSup.T,con.TDis)
-      annotation (Line(points={{39,74},{-20,74},{-20,-8},{-2,-8}},
-        color={0,0,127}));
    connect(con.yDam, vav.y)
       annotation (Line(points={{21,4.8},{32,4.8},{32,104},{38,104}},
         color={0,0,127}, smooth=Smooth.None,  pattern=LinePattern.Dash));
@@ -131,11 +129,8 @@ equation
    connect(vav.port_b, senMasFlo.port_a)
       annotation (Line(points={{50,114},{50,124}},
         color={0,127,255}, smooth=Smooth.None, thickness=0.5));
-   connect(con.yDam, yDam)
-      annotation (Line(points={{21,4.8},{188,4.8},{188,5.55112e-16},{210,5.55112e-16}},
-        color={0,0,127}, smooth=Smooth.None, pattern=LinePattern.Dash));
    connect(ACH.u, senMasFlo.m_flow)
-      annotation (Line(points={{98,104},{80,104},{80,134},{61,134}},
+      annotation (Line(points={{98,90},{80,90},{80,134},{61,134}},
         color={0,0,127}, smooth=Smooth.None, pattern=LinePattern.Dash));
    connect(con.yVal, valHea.y)
       annotation (Line(points={{21,-5},{92,-5},{92,12}},
@@ -156,13 +151,17 @@ equation
       annotation (Line(points={{50,144},{50,200}},
         color={0,127,255}, smooth=Smooth.None, thickness=0.5));
    connect(con.TRoo, TRoo)
-      annotation (Line(points={{-2,-4},{-60,-4},{-60,-40},{-120,-40}},
+      annotation (Line(points={{-1,-7},{-60,-7},{-60,-40},{-120,-40}},
         color={0,0,127}));
 
-  connect(con.TRooHeaSet, TRooHeaSet) annotation (Line(points={{-2,8},{-40,8},{
-          -40,80},{-120,80}}, color={0,0,127}));
-  connect(TRooCooSet, con.TRooCooSet) annotation (Line(points={{-120,40},{-44,
-          40},{-44,4},{-2,4}}, color={0,0,127}));
+  connect(con.TRooHeaSet, TRooHeaSet) annotation (Line(points={{-2,7},{-40,7},{-40,
+          80},{-120,80}},     color={0,0,127}));
+  connect(TRooCooSet, con.TRooCooSet) annotation (Line(points={{-120,40},{-44,40},
+          {-44,0},{-2,0}},     color={0,0,127}));
+  connect(vav.y_actual, yDam) annotation (Line(
+      points={{43,109},{43,120},{180,120},{180,0},{210,0}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
 annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{200,200}})), Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{200,200}}), graphics={
@@ -256,15 +255,11 @@ annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
           textString="TRooAir")}),
      Documentation(info="<html>
 <p>
-Model for a VAV branch.
-</p>
-<p>
-The model has been developed based on
-<a href=\"modelica://Buildings.Examples.VAVReheat.ThermalZones.VAVBranch\">
-Buildings.Examples.VAVReheat.ThermalZones.VAVBranch</a>, but using different VAV
-box model
-<a href=\"modelica://Buildings.Fluid.Actuators.Dampers.PressureIndependent\">
-Buildings.Fluid.Actuators.Dampers.PressureIndependent</a>.
+Model for a VAV supply branch. 
+The terminal VAV box has a pressure independent damper and a water reheat coil. 
+The pressure independent damper model includes an idealized flow rate controller 
+and requires a discharge air flow rate set-point (normalized to the nominal value) 
+as a control signal.
 </p>
 </html>", revisions="<html>
 <ul>
