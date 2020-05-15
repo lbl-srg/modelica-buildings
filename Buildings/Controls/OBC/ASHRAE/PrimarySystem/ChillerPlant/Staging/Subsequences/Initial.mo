@@ -62,7 +62,8 @@ block Initial "Outputs the initial stage"
     "Samples first available stage up at plant enable"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Edge edg "Rising edge"
+  Buildings.Controls.OBC.CDL.Logical.Edge edg(
+    final pre_u_start=false) "Rising edge"
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
 
 //protected
