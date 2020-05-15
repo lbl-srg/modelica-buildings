@@ -4,7 +4,7 @@ sys.path.append('../../../../../Scripts/EnergyPlus')
 import energyplus_csv_to_mos as e
 
 if __name__ == '__main__':
-  dat_fil = "CoolingTower_VariableSpeed_Merkel.dat"
+  dat_fil = "RefBldgSmallOfficeNew2004_Chicago.dat"
   output_list =[
     "Environment:Site Outdoor Air Drybulb Temperature [C](TimeStep)",
     "Environment:Site Outdoor Air Relative Humidity [%](TimeStep)",
@@ -13,7 +13,7 @@ if __name__ == '__main__':
     "PERIMETER_ZN_1:Zone Mean Air Temperature [C](TimeStep)",
     "PERIMETER_ZN_2:Zone Mean Air Temperature [C](TimeStep)",
     "PERIMETER_ZN_3:Zone Mean Air Temperature [C](TimeStep)",
-   "PERIMETER_ZN_4:Zone Mean Air Temperature [C](TimeStep)"
+    "PERIMETER_ZN_4:Zone Mean Air Temperature [C](TimeStep)"
   ]
 
   e.energyplus_csv_to_mos(

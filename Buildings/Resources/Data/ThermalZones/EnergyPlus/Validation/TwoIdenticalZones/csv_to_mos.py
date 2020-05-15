@@ -4,7 +4,7 @@ sys.path.append('../../../../../Scripts/EnergyPlus')
 import energyplus_csv_to_mos as e
 
 if __name__ == '__main__':
-  dat_fil = "CoolingTower_VariableSpeed_Merkel.dat"
+  dat_fil = "TwoIdenticalZones.dat"
   output_list =[
     "Environment:Site Outdoor Air Drybulb Temperature [C](TimeStep)",
     "Environment:Site Outdoor Air Wetbulb Temperature [C](TimeStep)",
