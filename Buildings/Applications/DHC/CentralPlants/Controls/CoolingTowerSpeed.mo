@@ -1,5 +1,6 @@
 within Buildings.Applications.DHC.CentralPlants.Controls;
-model CoolingTowerSpeed "Controller for the fan speed in cooling towers"
+model CoolingTowerSpeed
+  "Controller for the fan speed in cooling towers"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Modelica.Blocks.Types.SimpleController controllerType=
@@ -46,14 +47,14 @@ model CoolingTowerSpeed "Controller for the fan speed in cooling towers"
     "Temperature measurement of the condenser water"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
 equation
-  connect(TCWSet, conPID.u_s) annotation (Line(points={{-120,40},{-80,40},{-80,
-          0},{-12,0}}, color={0,0,127}));
+  connect(TCWSet, conPID.u_s) annotation (Line(points={{-120,40},{-80,40},{-80,0},
+          {-12,0}}, color={0,0,127}));
   connect(TCWMea, conPID.u_m)
     annotation (Line(points={{-120,-40},{0,-40},{0,-12}}, color={0,0,127}));
   connect(conPID.y, y)
     annotation (Line(points={{11,0},{110,0}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,80}})),    Documentation(info="<html>
+            -100},{100,100}})),    Documentation(info="<html>
 <p>This model describes a simple cooling tower speed controller for
 a chilled water system with integrated waterside economizers.
 </p>

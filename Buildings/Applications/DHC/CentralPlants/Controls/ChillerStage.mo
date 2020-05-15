@@ -1,173 +1,130 @@
 within Buildings.Applications.DHC.CentralPlants.Controls;
 model ChillerStage "Stage controller for chillers"
   parameter Real tWai "Waiting time";
-
-  parameter Real thehol "Threshold";
+  parameter Modelica.SIunits.Power  criPoiLoa = 0.55*QEva_nominal
+    "Critical point of cooling load for switching one chiller on or off";
+  parameter Modelica.SIunits.Power  dQ = 0.25*QEva_nominal
+    "Deadband for critical point of cooling load";
 
   parameter Real CooCap "Normal Cooling Capacity";
 
-  Modelica.Blocks.Interfaces.RealOutput y[3](min=0, max=2)
-    "Output of stage control"
+  Modelica.Blocks.Interfaces.RealOutput y[2]
+    "On/off signal for the chillers - 0: off; 1: on"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Modelica.StateGraph.StepWithSignal
-                            AllOff(
-    nOut=1, nIn=1)
-           "Both of the two compressors are off"
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}},
+  Modelica.StateGraph.InitialStep off(nIn=2)         "No cooling is needed"
+    annotation (Placement(transformation(
+        extent={{-10,10},{10,-10}},
         rotation=-90,
-        origin={0,70})));
+        origin={-50,70})));
   Modelica.Blocks.Interfaces.BooleanInput
-                                       On "On signal"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Modelica.Blocks.Interfaces.RealInput Status[3] "Compressor speed ratio"
-    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
+                                       on "On signal of the chillers"
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
   Modelica.StateGraph.InitialStepWithSignal
-                                     OneOn(       nOut=2, nIn=3)
+                                     oneOn(       nOut=2, nIn=2)
+    "One chiller is on"                                   annotation (Placement(
+        transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={-50,0})));
+  Modelica.StateGraph.StepWithSignal twoOn "Two chillers are on"
                                                           annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={0,18})));
-  Modelica.StateGraph.StepWithSignal TwoOn(nIn=3, nOut=3) annotation (Placement(
-        transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=90,
-        origin={0,-20})));
-  Modelica.StateGraph.Transition Off2One(condition=On) annotation (Placement(
-        transformation(
+        origin={-50,-70})));
+  Modelica.StateGraph.Transition offToOne(
+    condition=on,
+    enableTimer=true,
+    waitTime=tWai) "Condition of transition from off to one chiller on"
+    annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
-        origin={-50,44})));
-  Modelica.StateGraph.Transition One2Two(
+        origin={-50,40})));
+  Modelica.StateGraph.Transition oneToTwo(
     enableTimer=true,
     waitTime=tWai,
-    condition=PLR1.y > thehol*0.9 and OneOn.active)
-                   annotation (Placement(transformation(
+    condition=oneOn.active and (-QLoa) > (criPoiLoa + dQ))
+    "Condition of transition from one chiller to two chillers" annotation (
+      Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
-        origin={-50,0})));
-  Modelica.StateGraph.Transition Two2One(
+        origin={-50,-40})));
+  Modelica.StateGraph.Transition twoToOne(
     enableTimer=true,
     waitTime=tWai,
-    condition=(PLR1.y < thehol*0.9/2 and PLR2.y < thehol*0.9/2 and TwoOn.active))
-                               annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=90,
-        origin={54,6})));
-  Modelica.StateGraph.Transition One2Off(condition=not On) annotation (
+    condition=twoOn.active and (-QLoa) < (criPoiLoa - dQ))
+    "Condition of transion from two chillers to one chiller" annotation (
       Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
-        origin={52,48})));
-  Modelica.StateGraph.StepWithSignal ThreeOn(nOut=2)
-                                             annotation (Placement(
-        transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=90,
-        origin={0,-70})));
-  Modelica.StateGraph.Transition Two2Three(
+        origin={-20,-40})));
+  Modelica.StateGraph.Transition oneToOff(
+    condition=not on,
     enableTimer=true,
-    waitTime=tWai,
-    condition=PLR1.y > thehol and PLR2.y > thehol and TwoOn.active)
-                   annotation (Placement(transformation(
-        extent={{10,10},{-10,-10}},
-        rotation=90,
-        origin={-50,-50})));
-  Modelica.StateGraph.Transition Three2Two(
-    waitTime=tWai,
-    enableTimer=true,
-    condition=(PLR1.y < thehol*0.9*2/3 and PLR2.y < thehol*0.9*2/3 and PLR3.y < thehol*0.9*2/3 and
-        ThreeOn.active))                                  annotation (Placement(
+    waitTime=tWai) "Transition from one chiller to off" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
-        origin={50,-62})));
+        origin={-10,40})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
-    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  WaterSide.BaseClasses.Control.MultiSwitch multiSwitch1(nu=4, expr={0,1,2,3})
-    annotation (Placement(transformation(extent={{60,-34},{76,-14}})));
-  Modelica.Blocks.Tables.CombiTable1Ds combiTable1D(table=[0,0,0,0; 1,1,0,0; 2,
-        1,1,0; 3,1,1,1])
-    annotation (Placement(transformation(extent={{84,-70},{104,-50}})));
-  Modelica.StateGraph.Transition Two2One_short(condition=not On) annotation (
-      Placement(transformation(
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+  Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds(table=[0,0,0; 1,1,0; 2,1,1])
+    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
+  Modelica.StateGraph.Transition twoToOff(
+    condition=not on,
+    enableTimer=true,
+    waitTime=tWai) "Transition from two chillers to off" annotation (Placement(
+        transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
-        origin={84,6})));
-  Modelica.StateGraph.Transition Three2Two_short(
-    waitTime=tWai,
-    enableTimer=false,
-    condition=not On) annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=90,
-        origin={80,-80})));
-  Modelica.Blocks.Interfaces.RealInput CooLoa
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Sources.RealExpression PLR1(y=CooLoa/CooCap/(Status[1] +
-        Status[2] + Status[3]))
-    annotation (Placement(transformation(extent={{-94,12},{-74,32}})));
-  Modelica.Blocks.Sources.RealExpression PLR2(y=if Status[3] > 0 then CooLoa/3/
-        CooCap else (if Status[2] > 0 then CooLoa/2/CooCap else 0))
-    annotation (Placement(transformation(extent={{-92,-10},{-72,10}})));
-  Modelica.Blocks.Sources.RealExpression PLR3(y=if Status[3] > 0 then CooLoa/3/
-        CooCap else 0)
-    annotation (Placement(transformation(extent={{-92,-30},{-72,-10}})));
+        origin={10,-40})));
+  Modelica.Blocks.Interfaces.RealInput QLoa "Total cooling load, negative"
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1(final
+      integerTrue=1, final integerFalse=0)
+    annotation (Placement(transformation(extent={{30,-40},{50,-20}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt2(final
+      integerFalse=0, final integerTrue=1)
+    annotation (Placement(transformation(extent={{30,-80},{50,-60}})));
+  Buildings.Controls.OBC.CDL.Integers.Add addInt
+    annotation (Placement(transformation(extent={{70,-60},{90,-40}})));
+  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 equation
-  connect(AllOff.outPort[1], Off2One.inPort) annotation (Line(points={{0,59.5},
-          {0,59.5},{0,54},{0,52},{-50,52},{-50,48}}, color={0,0,0}));
-  connect(Off2One.outPort, OneOn.inPort[1]) annotation (Line(points={{-50,42.5},
-          {-50,36},{-0.666667,36},{-0.666667,29}},
-                                         color={0,0,0}));
-  connect(OneOn.outPort[1], One2Two.inPort) annotation (Line(points={{-0.25,7.5},
-          {-0.25,8},{-50,8},{-50,4}}, color={0,0,0}));
-  connect(One2Two.outPort, TwoOn.inPort[1]) annotation (Line(points={{-50,-1.5},
-          {-50,-6},{-0.666667,-6},{-0.666667,-9}},
-                                         color={0,0,0}));
-  connect(TwoOn.outPort[1], Two2Three.inPort) annotation (Line(points={{
-          -0.333333,-30.5},{-0.333333,-40},{-50,-40},{-50,-46}},
-                                                   color={0,0,0}));
-  connect(Two2Three.outPort, ThreeOn.inPort[1]) annotation (Line(points={{-50,-51.5},
-          {-50,-56},{0,-56},{0,-59}}, color={0,0,0}));
-  connect(ThreeOn.outPort[1], Three2Two.inPort) annotation (Line(points={{-0.25,
-          -80.5},{-0.25,-88},{50,-88},{50,-66}},
-                                      color={0,0,0}));
-  connect(Three2Two.outPort, TwoOn.inPort[2]) annotation (Line(points={{50,
-          -60.5},{50,-60.5},{50,-6},{7.21645e-016,-6},{7.21645e-016,-9}},
-                                                        color={0,0,0}));
-  connect(Two2One.outPort, OneOn.inPort[2]) annotation (Line(points={{54,7.5},{
-          54,7.5},{54,32},{7.21645e-016,32},{7.21645e-016,29}},
-                                              color={0,0,0}));
-  connect(One2Off.outPort, AllOff.inPort[1]) annotation (Line(points={{52,49.5},
-          {52,49.5},{52,86},{52,88},{1.9984e-015,88},{1.9984e-015,81}}, color={
-          0,0,0}));
-  connect(OneOn.outPort[2], One2Off.inPort) annotation (Line(points={{0.25,7.5},
-          {2,7.5},{2,0},{30,0},{30,38},{52,38},{52,44}}, color={0,0,0}));
-  connect(Two2One.inPort, TwoOn.outPort[2]) annotation (Line(points={{54,2},{54,
-          -40},{-6.10623e-016,-40},{-6.10623e-016,-30.5}},
-                                         color={0,0,0}));
-  connect(multiSwitch1.u[2], OneOn.active) annotation (Line(points={{60,-23.25},
-          {36,-23.25},{36,18},{11,18}}, color={255,0,255}));
-  connect(TwoOn.active, multiSwitch1.u[3]) annotation (Line(points={{11,-20},{
-          24,-20},{24,-24.75},{60,-24.75}},
-                                         color={255,0,255}));
-  connect(ThreeOn.active, multiSwitch1.u[4]) annotation (Line(points={{11,-70},
-          {34,-70},{52,-70},{52,-26.25},{60,-26.25}},color={255,0,255}));
-  connect(AllOff.active, multiSwitch1.u[1]) annotation (Line(points={{11,70},{
-          24,70},{44,70},{44,-21.75},{60,-21.75}},
-                                                color={255,0,255}));
-  connect(combiTable1D.y, y) annotation (Line(points={{105,-60},{116,-60},{116,
-          -22},{88,-22},{88,0},{110,0}}, color={0,0,127}));
-  connect(multiSwitch1.y, combiTable1D.u) annotation (Line(points={{76.4,-24},{
-          78,-24},{78,-60},{82,-60}}, color={0,0,127}));
-  connect(ThreeOn.outPort[2], Three2Two_short.inPort) annotation (Line(points={
-          {0.25,-80.5},{2,-80.5},{2,-92},{2,-94},{80,-94},{80,-84}}, color={0,0,
-          0}));
-  connect(Three2Two_short.outPort, TwoOn.inPort[3]) annotation (Line(points={{
-          80,-78.5},{80,-9},{0.666667,-9}}, color={0,0,0}));
-  connect(Two2One_short.inPort, TwoOn.outPort[3]) annotation (Line(points={{84,
-          2},{84,-34},{0.333333,-34},{0.333333,-30.5}}, color={0,0,0}));
-  connect(Two2One_short.outPort, OneOn.inPort[3]) annotation (Line(points={{84,
-          7.5},{84,7.5},{84,52},{6,52},{6,29},{0.666667,29}}, color={0,0,0}));
+  connect(off.outPort[1], offToOne.inPort) annotation (Line(points={{-50,59.5},{
+          -50,44}},               color={0,0,0}));
+  connect(oneToOff.outPort, off.inPort[1]) annotation (Line(points={{-10,41.5},{
+          -10,88},{-50.5,88},{-50.5,81}}, color={0,0,0}));
+  connect(oneToTwo.outPort, twoOn.inPort[1])
+    annotation (Line(points={{-50,-41.5},{-50,-59}}, color={0,0,0}));
+  connect(twoOn.outPort[1], twoToOne.inPort) annotation (Line(points={{-50,-80.5},
+          {-50,-88},{-20,-88},{-20,-44}}, color={0,0,0}));
+  connect(twoToOne.outPort, oneOn.inPort[2]) annotation (Line(points={{-20,-38.5},
+          {-20,16},{-49.5,16},{-49.5,11}}, color={0,0,0}));
+  connect(offToOne.outPort, oneOn.inPort[1]) annotation (Line(points={{-50,38.5},
+          {-50,24},{-50,11},{-50.5,11}}, color={0,0,0}));
+  connect(twoOn.outPort[1], twoToOff.inPort) annotation (Line(points={{-50,-80.5},
+          {-50,-88},{10,-88},{10,-44}}, color={0,0,0}));
+  connect(oneOn.outPort[2], oneToOff.inPort) annotation (Line(points={{-49.75,-10.5},
+          {-49.75,-18},{-10,-18},{-10,36}}, color={0,0,0}));
+  connect(oneOn.outPort[1], oneToTwo.inPort) annotation (Line(points={{-50.25,-10.5},
+          {-50.25,-18},{-50,-18},{-50,-36}}, color={0,0,0}));
+  connect(twoToOff.outPort, off.inPort[2]) annotation (Line(points={{10,-38.5},{
+          10,88},{-49.5,88},{-49.5,81}}, color={0,0,0}));
+  connect(combiTable1Ds.y, y)
+    annotation (Line(points={{91,0},{110,0}}, color={0,0,127}));
+  connect(combiTable1Ds.u, intToRea.y)
+    annotation (Line(points={{68,0},{62,0}}, color={0,0,127}));
+  connect(addInt.u2, booToInt2.y) annotation (Line(points={{68,-56},{64,-56},{
+          64,-70},{52,-70}}, color={255,127,0}));
+  connect(oneOn.active, booToInt1.u) annotation (Line(points={{-39,0},{20,0},{
+          20,-30},{28,-30}}, color={255,0,255}));
+  connect(twoOn.active, booToInt2.u)
+    annotation (Line(points={{-39,-70},{28,-70}}, color={255,0,255}));
+  connect(booToInt1.y, addInt.u1) annotation (Line(points={{52,-30},{60,-30},{
+          60,-44},{68,-44}}, color={255,127,0}));
+  connect(addInt.y, intToRea.u) annotation (Line(points={{92,-50},{94,-50},{94,
+          -14},{34,-14},{34,0},{38,0}}, color={255,127,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),           Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
