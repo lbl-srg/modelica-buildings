@@ -5,7 +5,7 @@ model RefBldgSmallOffice "Validation model for six zones small office building"
 
   inner Building building(
     idfName = Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf"),
+      "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf"),
     weaName = Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     fmuName = Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/ThermalZones/EnergyPlus/FMUs/Zones1.fmu"))
@@ -46,7 +46,7 @@ model RefBldgSmallOffice "Validation model for six zones small office building"
     annotation (Placement(transformation(extent={{40,-156},{80,-116}})));
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     tableOnFile=true,
-    fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOffice.dat"),
+    fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.dat"),
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     tableName="EnergyPlus",
     columns=2:9,
