@@ -1,7 +1,7 @@
 ############################################################
 # Makefile for the regression tests that are run on travis
 ############################################################
-#ROOT = $(shell dirname $(PWD)/../../../../..)
+# $(TRAVIS_BUILD_DIR) is /home/travis/build/lbl-srg/modelica-buildings
 ROOT = $(TRAVIS_BUILD_DIR)
 
 test-documentation:
@@ -41,6 +41,15 @@ test-energyplus-validations:
 	echo "********** Directory listing"
 	ls
 	echo "**** ROOT = $(ROOT)"
+	export PATH=$(ROOT)/$(ENERGYPLUS_VERSION):$(PATH)
+	find $(ROOT)/Buildings/Resources/Data -name run.sh | xargs -I {} sh -c \
+  	  'cd `dirname {}` && \
+	   echo "*********************************************************" && \
+	   echo "**** Testing `pwd`/run.sh" && \
+	   chmod +x ./run.sh && \
+	   ./run.sh'
+	git diff --exit-code $(ROOT)/Buildings/Resources/Data
+
 
 test-dymola:
 	(cd $(ROOT)/Buildings && \
