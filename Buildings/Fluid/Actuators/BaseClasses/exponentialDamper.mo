@@ -11,7 +11,7 @@ function exponentialDamper
   input Real yL "Lower value for damper curve";
   input Real yU "Upper value for damper curve";
   output Real kThetaSqRt(min=0)
-    "Flow coefficient, kThetaSqRT = =sqrt(kTheta) = sqrt(pressure drop/dynamic pressure)";
+    "Square root of loss coefficient, sqrt(pressure drop/dynamic pressure)";
 protected
   Real yC(min=0, max=1, unit="")
     "y constrained to 0 <= y <= 1 to avoid numerical problems";

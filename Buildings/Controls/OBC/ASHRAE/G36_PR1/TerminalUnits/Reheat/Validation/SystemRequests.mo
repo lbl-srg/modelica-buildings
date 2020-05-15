@@ -61,32 +61,31 @@ model SystemRequests
 
 equation
   connect(sine.y, TZonCooSet.u)
-    annotation (Line(points={{-39,90},{-22,90}}, color={0,0,127}));
-  connect(TZonCooSet.y, sysReq_RehBox.TZonCooSet) annotation (Line(points={{1,90},
-          {46,90},{46,79},{59,79}}, color={0,0,127}));
+    annotation (Line(points={{-38,90},{-22,90}}, color={0,0,127}));
+  connect(TZonCooSet.y, sysReq_RehBox.TZonCooSet) annotation (Line(points={{2,90},{
+          46,90},{46,78},{58,78}},  color={0,0,127}));
   connect(TZon.y, sysReq_RehBox.TZon)
-    annotation (Line(points={{-39,60},{16,60},{16,77},{59,77}},
+    annotation (Line(points={{-38,60},{16,60},{16,76},{58,76}},
       color={0,0,127}));
   connect(uCoo.y, sysReq_RehBox.uCoo)
-    annotation (Line(points={{1,40},{18,40},{18,75},{59,75}},
+    annotation (Line(points={{2,40},{18,40},{18,74},{58,74}},
       color={0,0,127}));
-  connect(disAirSet.y, sysReq_RehBox.VDisSet_flow) annotation (Line(points={{-39,
-          20},{20,20},{20,72},{59,72}}, color={0,0,127}));
+  connect(disAirSet.y, sysReq_RehBox.VDisSet_flow) annotation (Line(points={{-38,20},
+          {20,20},{20,72},{58,72}},     color={0,0,127}));
   connect(disAirRate.y, sysReq_RehBox.VDis_flow)
-    annotation (Line(points={{1,0},{22,0},{22,70},{59,70}}, color={0,0,127}));
-  connect(damPos.y, sysReq_RehBox.uDam)
-    annotation (Line(points={{-39,-20},{24,-20},{24,68},{59,68}},
-      color={0,0,127}));
+    annotation (Line(points={{2,0},{22,0},{22,70},{58,70}}, color={0,0,127}));
+  connect(damPos.y,sysReq_RehBox.yDam_actual)  annotation (Line(points={{-38,
+          -20},{24,-20},{24,68},{58,68}}, color={0,0,127}));
   connect(sine1.y, TDisHeaSet.u)
-    annotation (Line(points={{-69,-40},{-22,-40}}, color={0,0,127}));
+    annotation (Line(points={{-68,-40},{-22,-40}}, color={0,0,127}));
   connect(TDisHeaSet.y, sysReq_RehBox.TDisHeaSet)
-    annotation (Line(points={{1,-40},{26,-40},{26,65},{59,65}},
+    annotation (Line(points={{2,-40},{26,-40},{26,66},{58,66}},
       color={0,0,127}));
   connect(TDis.y, sysReq_RehBox.TDis)
-    annotation (Line(points={{-39,-60},{28,-60},{28,63},{59,63}},
+    annotation (Line(points={{-38,-60},{28,-60},{28,64},{58,64}},
       color={0,0,127}));
   connect(valPos.y,sysReq_RehBox.uHeaVal)
-    annotation (Line(points={{1,-80},{30,-80},{30,61},{59,61}},
+    annotation (Line(points={{2,-80},{30,-80},{30,62},{58,62}},
       color={0,0,127}));
 
 annotation (
