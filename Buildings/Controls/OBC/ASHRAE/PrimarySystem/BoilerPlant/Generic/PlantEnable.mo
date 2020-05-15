@@ -249,8 +249,8 @@ equation
   Documentation(info="<html>
     <p>
     Block that generates boiler plant enable signal according to ASHRAE RP-1711
-    Advanced Sequences of Operation for HVAC Systems Phase II – Central Plants and
-    Hydronic Systems (March 23, 2020), section 5.3.2.1, 5.3.2.2, and 5.3.2.3.
+    Advanced Sequences of Operation for HVAC Systems Phase II – Central Plants
+    and Hydronic Systems (March 23, 2020), section 5.3.2.1, 5.3.2.2, and 5.3.2.3.
     </p>
     <p>
     The boiler plant should be enabled and disabled according to the following
@@ -280,12 +280,13 @@ equation
     </ul>
     </li>
     <li>
-    The plant should be disabled when it has been continuously enabled for at least 
-    <code>plaOnThrTim</code> and:
+    The plant should be disabled when it has been continuously enabled for at
+    least <code>plaOnThrTim</code> and:
     <ul>
     <li>
     Number of boiler plant requests <code>supResReq</code> is less than number
-    of requests to be ignored <code>nIgnReq</code> for a time <code>staOnReqTim</code>, or,
+    of requests to be ignored <code>nIgnReq</code> for a time
+    <code>staOnReqTim</code>, or,
     </li>
     <li>
     Outdoor air temperature <code>TOut</code> is greater than boiler lockout
