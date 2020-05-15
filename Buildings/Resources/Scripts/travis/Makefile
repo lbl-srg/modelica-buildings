@@ -38,18 +38,11 @@ test-verify-files:
 # Test whether all EnergyPlus validation files are up to date.
 # This targets searches all files `run.sh` and executes them.
 test-energyplus-validations:
-	echo "********** Directory listing"
-	ls
-	echo "**** ROOT = $(ROOT)"
-	ls -l $(ROOT)/$(ENERGYPLUS_VERSION)
-	echo "********** path: $(PATH)"
 	find $(ROOT)/Buildings/Resources/Data -name run.sh | xargs -I {} sh -c \
   	  'cd `dirname {}` && \
 	   echo "*********************************************************" && \
 	   echo "**** Testing `pwd`/run.sh" && \
-	   chmod +x ./run.sh && \
-	   echo "PATH=$(PATH)" && \
-	   ls -l ${ROOT}/${ENERGYPLUS_VERSION} '
+	   ./run.sh'
 	git diff --exit-code $(ROOT)/Buildings/Resources/Data
 
 
