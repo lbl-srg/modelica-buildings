@@ -19,9 +19,15 @@ def energyplus_csv_to_mos(output_list, dat_file_name, step_size, final_time):
 
 
     df = pd.read_csv(data_file, delimiter=',')
+    #print("\n".join(column_names))
 
     column_names = ( df.columns.tolist() )
-    #print("\n".join(column_names))
+
+    # EnergyPlus reports the first results after the first time step.
+    # In order to have a value at time=0, we add one time step, and
+    # write the results of the first time step twice to the data file.
+    df = pd.concat([df.head(1), df])
+    tot_steps = int (final_time / step_size ) + 1
 
     # Step-1.0 read data into dictionary with lists
     di = []
@@ -37,11 +43,7 @@ def energyplus_csv_to_mos(output_list, dat_file_name, step_size, final_time):
         if not found:
             raise ValueError(f"Failed to find output series {name}")
 
-    # Step-2.0 make timesteps, because energyplus timesteps is not in seconds
-    # timestep size in EnergyPlus is 10 minutes = 600 seconds
-    step_size = step_size # seconds
-    tot_steps = int (final_time / step_size )
-    print("steps {}".format(tot_steps))
+    # Step-2.0 make timesteps, because energyplus timesteps are not in seconds
     time_seconds=[]
     for y in range(tot_steps):
         time_seconds.append( y * step_size)

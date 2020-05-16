@@ -19,4 +19,4 @@ if __name__ == '__main__':
     output_list = output_list,
     dat_file_name=dat_fil,
     step_size=60,
-    final_time=172740)
+    final_time=172800)
