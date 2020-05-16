@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences;
 block MinimumLeadRuntime
-  "Generates equipment rotation signal when a minimum lead device runtime gets exceeded and all devices are either on or off"
+  "Generates equipment rotation signal when a lead device/group of devices exceeds a miminum cumulative runtime"
 
   parameter Boolean initRoles[nDev] = {true, false}
     "Initial roles: true = lead, false = lag/standby"
@@ -8,7 +8,7 @@ block MinimumLeadRuntime
 
   parameter Modelica.SIunits.Time minLeaRuntime(
     final displayUnit = "h") = 864000
-    "Staging runtime for each device";
+    "Minimum cumulative runtime period for a current lead device before rotation may occur";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDevSta[nDev]
     "Device status: true = proven ON, false = proven OFF"
@@ -133,20 +133,19 @@ equation
         color={0,0,127})}),
   Documentation(info="<html>
 <p>
-This subsequence generates a rotation trigger based on measuring the time each of the devices has spent in its current role. 
-The rotation trigger output <code>yRot</code> is generated as the current lead device runtime in the role
+This subsequence generates a rotation trigger based on measuring time each of the devices enable time. 
+The rotation trigger output <code>yRot</code> is generated as the current lead device runtime
 exceeds <code>minLeaRuntime</code> and the conditions are met such that the devices are not hot swapped. To
 avoid hot swapping the lead and lag/standby device need to be either both ON or both OFF for the rotation to occur.
-
-fixme: revise as this is not in 1711
-</p>
+As the rotation trigger output <code>yRot</code> signal is generated, the runtime for the previous lead device
+or group of devices is reset to zero.
 <p>
-The implementation is based on section 5.1.2.3. and 5.1.2.4.1. of RP1711 July draft.
+This is an OBC custom implementation.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-September 18, by Milica Grahovac:<br/>
+May 15 2020, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>

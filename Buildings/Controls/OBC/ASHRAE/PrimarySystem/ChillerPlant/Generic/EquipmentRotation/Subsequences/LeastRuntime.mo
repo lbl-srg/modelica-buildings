@@ -19,7 +19,8 @@ block LeastRuntime
     annotation (Placement(transformation(extent={{-200,-60},{-160,-20}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yRot "Rotation trigger signal"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yRot
+    "Rotation trigger signal"
     annotation (Placement(transformation(extent={{160,-20},{200,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
@@ -28,7 +29,8 @@ block LeastRuntime
     "Measures time spent loaded at the current role (lead or lag)"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[nDev](k=fill(false, nDev))
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[nDev](
+    final k=fill(false, nDev))
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqual longer1
@@ -36,6 +38,10 @@ block LeastRuntime
 
   Buildings.Controls.OBC.CDL.Continuous.Greater longer2
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
+
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
+    final nu=nDev)
+    annotation (Placement(transformation(extent={{130,-10},{150,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not1 if lag
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
@@ -49,24 +55,22 @@ block LeastRuntime
   Buildings.Controls.OBC.CDL.Logical.And3 and3[nDev] if lag
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
 
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(nu=nDev)
-    annotation (Placement(transformation(extent={{130,-10},{150,10}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Edge edg [nDev](pre_u_start=fill(false, nDev)) if lag "Rising edge"
+  Buildings.Controls.OBC.CDL.Logical.Edge edg [nDev](
+    final pre_u_start=fill(false, nDev)) if lag "Rising edge"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 
   Buildings.Controls.OBC.CDL.Logical.And  and1[nDev] if not lag
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
 
-  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg [nDev](pre_u_start=fill(false, nDev)) if not lag "Falling edge"
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg [nDev](
+    final pre_u_start=fill(false, nDev)) if not lag "Falling edge"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
 
-//protected
+protected
   final parameter Integer nDev = 2
     "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
 
 equation
-
   connect(uDevSta, tim.u)
     annotation (Line(points={{-180,60},{-62,60}},  color={255,0,255}));
   connect(con.y, tim.reset) annotation (Line(points={{-78,30},{-70,30},{-70,52},
@@ -107,10 +111,10 @@ equation
           {80,-20},{80,-60},{98,-60}}, color={255,0,255}));
   connect(longer2.y, and1[2].u1) annotation (Line(points={{2,30},{10,30},{10,-20},
           {80,-20},{80,-60},{98,-60}}, color={255,0,255}));
-  connect(falEdg.y, and1.u2)
-    annotation (Line(points={{-78,-70},{98,-70},{98,-68}}, color={255,0,255}));
   connect(and1.y, mulOr.u) annotation (Line(points={{122,-60},{122,0},{128,0}},
                        color={255,0,255}));
+  connect(falEdg.y, and1.u2) annotation (Line(points={{-78,-70},{20,-70},{20,
+          -68},{98,-68}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-160,-80},{160,80}})),
       defaultComponentName="leaRunTim",
     Icon(graphics={
@@ -141,12 +145,20 @@ equation
         color={0,0,127})}),
   Documentation(info="<html>
 <p>
-This subsequence generates a rotation trigger based on measuring the time each of the devices has spent in its current role. 
-The rotation trigger output <code>yRot</code> is generated when a device/a group of devices is enabled 
-that has/have the shortest cumulative runtime.
+This subsequence generates a rotation trigger signal <code>yRot</code> based on measuring the time each of the devices/groups of devices
+has spent in its current role. The rotation trigger output <code>yRot</code> is generated:
 </p>
+<ul>
+<li>
+for lead/lag operation when a device/a group of devices is enabled that has the shortest cumulative runtime
+</li>
+<li>
+for lead/standby operation when a device/a group of devices is disbled that has the longest cumulative runtime
+</li>
+</ul>
 <p>
-The implementation is based on section 5.1.2.3. and 5.1.2.4.1. of RP1711 March 2020 draft.
+The implementation corresponts sections 5.1.2.3. and 5.1.2.4.1. of RP1711 March 2020 draft when applied to
+two devices or groups of devices.
 </p>
 </html>", revisions="<html>
 <ul>

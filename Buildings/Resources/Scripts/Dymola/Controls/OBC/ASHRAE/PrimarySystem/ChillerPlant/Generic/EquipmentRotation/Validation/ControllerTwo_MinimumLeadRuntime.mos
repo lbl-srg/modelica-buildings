@@ -1,4 +1,4 @@
-simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Validation.ControllerTwo_LeastRuntime", method="Cvode", stopTime=1000000, tolerance=1e-06, resultFile="ControllerTwo_LeastRuntime");
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Validation.ControllerTwo_MinimumLeadRuntime", method="Cvode", stopTime=1000000, tolerance=1e-06, resultFile="ControllerTwo_MinimumLeadRuntime");
 
 createPlot(id=1, subPlot=1, position={10, 10, 1200, 800}, y={"leaLag.yDevStaSet[1]","leaLag.yDevStaSet[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
 createPlot(id=1, subPlot=2, position={10, 10, 1200, 800}, y={"leaLag.yDevRol[1]","leaLag.yDevRol[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
@@ -14,7 +14,3 @@ createPlot(id=3, subPlot=1, position={20, 10, 1200, 800}, y={"leaSta.yDevStaSet[
 createPlot(id=3, subPlot=2, position={20, 10, 1200, 800}, y={"leaSta.yDevRol[1]","leaSta.yDevRol[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
 createPlot(id=3, subPlot=3, position={20, 10, 1200, 800}, y={"leaSta.minLeaTim.tim[1].y","leaSta.minLeaTim.tim[2].y","leaSta.minLeaRuntime"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72},{50, 50, 50}});
 createPlot(id=3, subPlot=4, position={20, 10, 1200, 800}, y={"leaSta.minLeaTim.greEquThr[1].y","leaSta.minLeaTim.greEquThr[2].y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
-
-createPlot(id=4, subPlot=1, position={20, 10, 1200, 800}, y={"conLea.yDevStaSet[1]","conLea.yDevStaSet[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
-createPlot(id=4, subPlot=2, position={20, 10, 1200, 800}, y={"conLea.yDevRol[1]","conLea.yDevRol[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
-createPlot(id=4, subPlot=3, position={20, 10, 1200, 800}, y={"conLea.rotSch.onCouInt.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});

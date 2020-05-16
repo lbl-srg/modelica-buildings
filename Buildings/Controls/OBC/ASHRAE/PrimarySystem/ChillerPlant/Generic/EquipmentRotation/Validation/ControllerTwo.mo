@@ -1,22 +1,23 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Validation;
-model ControllerTwo "Validates lead/lag and lead/standby equipment rotation controller for two devices or groups of devices"
+model ControllerTwo
+  "Validates lead/lag and lead/standby equipment rotation controller for two devices or groups of devices"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.ControllerTwo
     leaLag(
     final lag=true,
-    final minLeaRuntime=43200) "Lead/lag rotation"
+    final minLim=false) "Lead/lag rotation"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.ControllerTwo
     leaLag1(
     final lag=true,
-    final minLeaRuntime=54000) "Lead/lag rotation"
+    final minLim=false) "Lead/lag rotation"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.ControllerTwo
     leaSta(
     final lag=false,
-    final minLeaRuntime=43200) "Lead/standby rotation"
+    final minLim=false) "Lead/lag rotation"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.ControllerTwo
@@ -27,7 +28,8 @@ model ControllerTwo "Validates lead/lag and lead/standby equipment rotation cont
     final houOfDay=2,
     final weeCou=1,
     final weekday=6,
-    final dayCou=3) "Lead/standby rotation for continuously operating devices"
+    final dayCou=3)
+    "Lead/standby rotation for continuously operating devices"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
 
 protected

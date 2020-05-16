@@ -2,18 +2,18 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.Equipmen
 model LeastRuntime_uDevRol
   "Validate lead/lag and lead/standby switching signal based on least device runtime"
 
-  LeastRuntime
-    leaRunTim
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.LeastRuntime
+    leaRunTim(final lag=true)
     "Equipment rotation signal based on device runtime and current device status"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
 
-  LeastRuntime
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.LeastRuntime
     leaRunTim1(lag=false)
     "Equipment rotation signal based on device runtime and current device status"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
-  LeastRuntime
-    leaRunTim2
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.LeastRuntime
+    leaRunTim2(final lag=true)
     "Equipment rotation signal based on device runtime and current device status"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
 

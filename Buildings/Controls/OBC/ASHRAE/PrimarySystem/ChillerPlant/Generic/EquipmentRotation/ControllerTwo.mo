@@ -10,8 +10,8 @@ block ControllerTwo
     annotation (Evaluate=true, Dialog(enable=not lag));
 
   parameter Boolean minLim = false
-    "Continuous lead device operation"
-    annotation (Evaluate=true, Dialog(enable=lag));
+    "Utilize minimum runtime period for a current lead device before rotation may occur"
+    annotation (Evaluate=true, Dialog(enable=not continuous));
 
   parameter Boolean initRoles[nDev] = {true, false}
     "Initial roles: true = lead, false = lag/standby"
@@ -19,8 +19,8 @@ block ControllerTwo
 
   parameter Modelica.SIunits.Time minLeaRuntime(
     final displayUnit = "h") = 43200
-    "Staging runtime for each device"
-    annotation (Evaluate=true, Dialog(enable=not continuous));
+    "Minimum cumulative runtime period for a current lead device before rotation may occur"
+    annotation (Evaluate=true, Dialog(enable=(not continuous and minLim)));
 
   parameter Buildings.Controls.OBC.CDL.Types.ZeroTime zerTim = Buildings.Controls.OBC.CDL.Types.ZeroTime.NY2019
     "Enumeration for choosing how reference time (time = 0) should be defined"
@@ -63,13 +63,13 @@ block ControllerTwo
                           iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDevSta[nDev]
-    "Device proven ON status, where each index represents a physical device"
+    "Device proven ON status, where each index represents a physical device/group of devices"
     annotation (Placement(transformation(extent={{-200,60},{-160,100}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDevStaSet[nDev]
-    "Device status setpoint, where each index represents a physical device" annotation (
-      Placement(transformation(extent={{160,10},{180,30}}), iconTransformation(
+    "Device status setpoint, where each index represents a physical device/group of devices"
+    annotation (Placement(transformation(extent={{160,10},{180,30}}), iconTransformation(
           extent={{100,40},{140,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDevRol[nDev]
@@ -248,23 +248,43 @@ equation
 This controller block rotates equipment, such as chillers, pumps or valves, in order 
 to ensure equal wear and tear. It is intended to be used for lead/lag and 
 lead/standby operation of two devices or groups of devices. The implementation is 
-based on the specification from ASHRAE RP1711, July Draft, section 5.1.2.
+based on the specification from ASHRAE RP-1711, March 2020 Draft, section 5.1.2.1.-4.  
+In addition to the specification in RP-1711, this model allows the user to:
 </p>
+<ul>
+<li>
+specify time of day and either a number of days or a weekday with a number of weeks 
+as time period to rotate devices or groups of devices that run continuously.
+</li>
+<li>
+optionally impose a minimum cumulative runtime period <code>minLeaRuntime</code> for a current 
+lead device before rotation may occur. The time is accumulated in any role for each device and 
+reset for each lead device or group of devices at role rotation. 
+This implementation assumes that a more frequent load is being sent to a lead device or group of devices.
+</li>
+</ul>
 <p>
 The controller takes as inputs the current device proven ON/OFF status vector <code>uDevSta</code>,
 lead device status setpoint <code>uLeaStaSet</code> and lag device status setpoint <code>uLagStaSet</code>.
-The controller implements two different rotation subsequences to generate the device status setpoints <code>yDevStaSet</code>
+The controller features the following rotation subsequences to generate the device status setpoints <code>yDevStaSet</code>
 and device roles <code>yDevRol</code> outputs:
 </p>
 <ul>
 <li>
 To rotate lead/lag device configurations, and lead/standby device configurations where the lead does 
-not operate continuously, the controller uses 
-the <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.RuntimeCounter\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.RuntimeCounter</a> subsequence.
-In this subsequence the rotation signal is generated based on the staging runtime,
-defined as the time each of the devices has spent in its current role. The implementation is based on section 
-5.1.2.3. and 5.1.2.4.1. of RP1711 July draft.
+not operate continuously, the controller can use:
+<ul>
+<li>
+the <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.LeastRuntime\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.LeastRuntime</a> subsequence.
+In this subsequence the rotation signal is generated based on RP-1711 5.1.2.3 and 5.1.2.4.1. as applied to two devices/groups of devices.
+</li>
+<li>
+the <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.MinimumLeadRuntime\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.MinimumLeadRuntime</a> subsequence.
+This subsequences uses a minimum cumulative runtime period <code>minLeaRuntime</code> for a current lead device before rotation may occur.
+</li>
+</ul>
 </li>
 <li>
 To rotate lead/standby device configurations where the lead operates continuously the controller uses 
@@ -274,7 +294,7 @@ In this subsequence the rotation signal is generated based on the lifetime runti
 Before a device is changed to standby, the new lead device must be proven on, as implemented by the 
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.ContinuousLeadSwapTwo\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.ContinuousLeadSwapTwo</a> subsequence. 
-The implementations are based on section 5.1.2.4.2. of RP1711 July draft. 
+The implementations are based on section 5.1.2.4.2. 
 </li>
 </ul>
 <p>

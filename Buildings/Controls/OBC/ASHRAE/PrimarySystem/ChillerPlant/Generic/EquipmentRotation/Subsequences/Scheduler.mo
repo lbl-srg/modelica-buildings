@@ -163,9 +163,10 @@ equation
 <p>
 This block outputs generates a rotation trigger at
 chosen time intervals for lead/standby configurations where a lead device runs continuously. 
-The implementation is based on RP 1711 5.1.2.4.2, except 5.1.2.4.2 a).
+The implementation is based on RP 1711 5.1.2.4.2, except 5.1.2.4.2 a.
 
 The user needs to select the time of the day as an hour between 0 and 23 at which the rotation shall occur.
+Hour 0 is midnight.
 The block implements two options to select the time interval for the equipment rotation:
 </p>
 <ul>
