@@ -18,5 +18,3 @@ createPlot(id=3, subPlot=4, position={20, 10, 1200, 800}, y={"leaSta.minLeaTim.g
 createPlot(id=4, subPlot=1, position={20, 10, 1200, 800}, y={"conLea.yDevStaSet[1]","conLea.yDevStaSet[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
 createPlot(id=4, subPlot=2, position={20, 10, 1200, 800}, y={"conLea.yDevRol[1]","conLea.yDevRol[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
 createPlot(id=4, subPlot=3, position={20, 10, 1200, 800}, y={"conLea.rotSch.onCouInt.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
-
-

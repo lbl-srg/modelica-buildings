@@ -96,7 +96,7 @@ block ControllerTwo
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.LeastRuntime
-    leaRunTim if (not minLim and not continuous)
+    leaRunTim(final lag=lag) if (not minLim and not continuous)
     "Rotation signal generator based on least runtime, at device enable"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
 

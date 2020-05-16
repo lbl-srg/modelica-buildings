@@ -2,13 +2,12 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.Equipmen
 block LeastRuntime
   "Generates equipment rotation signal at each device enable if that device has a least total runtime"
 
+  parameter Boolean lag = true
+    "true = lead/lag; false = lead/standby";
+
   parameter Boolean initRoles[nDev] = {true, false}
     "Initial roles: true = lead, false = lag/standby"
     annotation (Evaluate=true, Dialog(tab="Advanced", group="Initiation"));
-
-  parameter Modelica.SIunits.Time minLeaRuntime(
-    final displayUnit = "h") = 864000
-    "Staging runtime for each device";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDevSta[nDev]
     "Device status: true = proven ON, false = proven OFF"
@@ -29,32 +28,42 @@ block LeastRuntime
     "Measures time spent loaded at the current role (lead or lag)"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
 
-  CDL.Logical.Sources.Constant con[nDev](k=fill(false, nDev))
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[nDev](k=fill(false, nDev))
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
-  CDL.Continuous.GreaterEqual longer1
+
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual longer1
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
-  CDL.Continuous.Greater longer2
+
+  Buildings.Controls.OBC.CDL.Continuous.Greater longer2
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-  CDL.Logical.Not not1
+
+  Buildings.Controls.OBC.CDL.Logical.Not not1 if lag
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
-  CDL.Logical.Not not2
+
+  Buildings.Controls.OBC.CDL.Logical.Not not2 if lag
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  CDL.Logical.Not not3[nDev]
+
+  Buildings.Controls.OBC.CDL.Logical.Not not3[nDev] if lag
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
-  CDL.Logical.And3 and3[nDev]
+
+  Buildings.Controls.OBC.CDL.Logical.And3 and3[nDev] if lag
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
-  CDL.Logical.MultiOr mulOr(nu=2)
+
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(nu=nDev)
     annotation (Placement(transformation(extent={{130,-10},{150,10}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Edge edg [nDev](pre_u_start=fill(false, nDev)) if lag "Rising edge"
+    annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And  and1[nDev] if not lag
+    annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
+
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg [nDev](pre_u_start=fill(false, nDev)) if not lag "Falling edge"
+    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
+
 //protected
   final parameter Integer nDev = 2
     "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
-
-  final parameter Modelica.SIunits.Time minLeaRuntimes[nDev] = fill(minLeaRuntime, nDev)
-    "Staging runtimes array";
-
-  CDL.Logical.Edge                                edg    [nDev](pre_u_start=
-        fill(false, nDev)) "Falling edge"
-    annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 
 equation
 
@@ -90,8 +99,18 @@ equation
           98,28}}, color={255,0,255}));
   connect(mulOr.y, yRot)
     annotation (Line(points={{152,0},{180,0}}, color={255,0,255}));
-  connect(and3.y, mulOr.u[1:2]) annotation (Line(points={{122,20},{124,20},{124,
-          0},{128,0},{128,-3.5}}, color={255,0,255}));
+  connect(and3.y, mulOr.u) annotation (Line(points={{122,20},{124,20},{124,0},{128,
+          0},{128,0}},            color={255,0,255}));
+  connect(uDevSta, falEdg.u) annotation (Line(points={{-180,60},{-120,60},{-120,
+          -70},{-102,-70}}, color={255,0,255}));
+  connect(longer1.y, and1[1].u1) annotation (Line(points={{2,60},{10,60},{10,-20},
+          {80,-20},{80,-60},{98,-60}}, color={255,0,255}));
+  connect(longer2.y, and1[2].u1) annotation (Line(points={{2,30},{10,30},{10,-20},
+          {80,-20},{80,-60},{98,-60}}, color={255,0,255}));
+  connect(falEdg.y, and1.u2)
+    annotation (Line(points={{-78,-70},{98,-70},{98,-68}}, color={255,0,255}));
+  connect(and1.y, mulOr.u) annotation (Line(points={{122,-60},{122,0},{128,0}},
+                       color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-160,-80},{160,80}})),
       defaultComponentName="leaRunTim",
     Icon(graphics={

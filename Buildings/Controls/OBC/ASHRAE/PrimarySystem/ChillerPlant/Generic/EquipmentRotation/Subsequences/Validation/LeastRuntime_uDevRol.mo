@@ -3,17 +3,17 @@ model LeastRuntime_uDevRol
   "Validate lead/lag and lead/standby switching signal based on least device runtime"
 
   LeastRuntime
-    leaRunTim(final minLeaRuntime=43200)
+    leaRunTim
     "Equipment rotation signal based on device runtime and current device status"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
 
   LeastRuntime
-    leaRunTim1(final minLeaRuntime=18000)
+    leaRunTim1(lag=false)
     "Equipment rotation signal based on device runtime and current device status"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   LeastRuntime
-    leaRunTim2(final minLeaRuntime=14400)
+    leaRunTim2
     "Equipment rotation signal based on device runtime and current device status"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
 
