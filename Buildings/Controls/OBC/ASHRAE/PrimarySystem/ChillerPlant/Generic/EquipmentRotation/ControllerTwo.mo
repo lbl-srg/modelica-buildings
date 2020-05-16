@@ -9,11 +9,15 @@ block ControllerTwo
     "Continuous lead device operation"
     annotation (Evaluate=true, Dialog(enable=not lag));
 
+  parameter Boolean minLim = false
+    "Continuous lead device operation"
+    annotation (Evaluate=true, Dialog(enable=lag));
+
   parameter Boolean initRoles[nDev] = {true, false}
     "Initial roles: true = lead, false = lag/standby"
     annotation (Evaluate=true, Dialog(tab="Advanced", group="Initiation"));
 
-  parameter Modelica.SIunits.Time stagingRuntime(
+  parameter Modelica.SIunits.Time minLeaRuntime(
     final displayUnit = "h") = 43200
     "Staging runtime for each device"
     annotation (Evaluate=true, Dialog(enable=not continuous));
@@ -86,10 +90,15 @@ block ControllerTwo
     "Generates equipment rotation trigger based on a schedule"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.RuntimeCounter
-    runCou(final stagingRuntime=stagingRuntime) if not continuous
-    "Runtime counter"
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.MinimumLeadRuntime
+    minLeaTim(final minLeaRuntime=minLeaRuntime) if (minLim and not continuous)
+    "Rotation signal generator with a minimum leading device runtime limiter"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.LeastRuntime
+    leaRunTim if (not minLim and not continuous)
+    "Rotation signal generator based on least runtime, at device enable"
+    annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
 
 protected
   final parameter Integer nDev = 2
@@ -152,26 +161,33 @@ equation
   connect(leaSwa.yDevStaSet, yDevStaSet) annotation (Line(points={{122,30},{140,
           30},{140,20},{170,20}},
                               color={255,0,255}));
-  connect(runCou.yRot, rotTwo.uRot) annotation (Line(points={{62,-30},{98,-30}},
-                            color={255,0,255}));
-  connect(rotTwo.yDevRol, yDevRol) annotation (Line(points={{121,-30},{140,-30},
+  connect(minLeaTim.yRot, rotTwo.uRot)
+    annotation (Line(points={{62,-30},{98,-30}}, color={255,0,255}));
+  connect(rotTwo.yDevRol, yDevRol) annotation (Line(points={{122,-30},{140,-30},
           {140,-20},{170,-20}},color={255,0,255}));
-  connect(rotTwo.yPreDevRolSig, runCou.uPreDevRolSig) annotation (Line(points={{121,-36},
-          {140,-36},{140,-60},{20,-60},{20,-38},{38,-38}},            color={255,
-          0,255}));
-  connect(rotTwo.yPreDevRolSig, logSwi1.u2) annotation (Line(points={{121,-36},{
+  connect(rotTwo.yPreDevRolSig, minLeaTim.uPreDevRolSig) annotation (Line(
+        points={{122,-36},{140,-36},{140,-60},{20,-60},{20,-38},{38,-38}},
+        color={255,0,255}));
+  connect(rotTwo.yPreDevRolSig, logSwi1.u2) annotation (Line(points={{122,-36},{
           140,-36},{140,-60},{-80,-60},{-80,-32},{-62,-32}}, color={255,0,255}));
   connect(rotSch.yRot, rotTwoCon.uRot)
     annotation (Line(points={{22,30},{38,30}},   color={255,0,255}));
   connect(uDevSta, leaSwa.uDevSta) annotation (Line(points={{-180,80},{90,80},{90,
           26},{98,26}}, color={255,0,255}));
-  connect(rotTwoCon.yDevRol, leaSwa.uDevRolSet) annotation (Line(points={{61,30},
+  connect(rotTwoCon.yDevRol, leaSwa.uDevRolSet) annotation (Line(points={{62,30},
           {80,30},{80,34},{98,34}},
                                   color={255,0,255}));
-  connect(rotTwoCon.yDevRol, yDevRol) annotation (Line(points={{61,30},{80,30},{
+  connect(rotTwoCon.yDevRol, yDevRol) annotation (Line(points={{62,30},{80,30},{
           80,0},{140,0},{140,-20},{170,-20}},    color={255,0,255}));
-  connect(uDevSta, runCou.uDevSta) annotation (Line(points={{-180,80},{-20,80},{
-          -20,-30},{38,-30}},    color={255,0,255}));
+  connect(uDevSta, minLeaTim.uDevSta) annotation (Line(points={{-180,80},{-20,80},
+          {-20,-30},{38,-30}}, color={255,0,255}));
+  connect(rotTwo.yPreDevRolSig, leaRunTim.uPreDevRolSig) annotation (Line(
+        points={{122,-36},{140,-36},{140,-94},{30,-94},{30,-88},{38,-88}},
+        color={255,0,255}));
+  connect(uDevSta, leaRunTim.uDevSta) annotation (Line(points={{-180,80},{-20,80},
+          {-20,-80},{38,-80}}, color={255,0,255}));
+  connect(leaRunTim.yRot, rotTwo.uRot) annotation (Line(points={{62,-80},{80,-80},
+          {80,-30},{98,-30}}, color={255,0,255}));
     annotation(Dialog(group="Scheduler"),
                 Evaluate=true, Dialog(group="Scheduler"),
                 Evaluate=true,

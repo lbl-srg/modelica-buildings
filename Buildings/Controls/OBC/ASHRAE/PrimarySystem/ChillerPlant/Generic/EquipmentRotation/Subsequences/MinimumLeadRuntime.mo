@@ -1,8 +1,12 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences;
-block RuntimeCounter
-  "Equipment rotation signal based on device runtime and current device status"
+block MinimumLeadRuntime
+  "Generates equipment rotation signal when a minimum lead device runtime gets exceeded and all devices are either on or off"
 
-  parameter Modelica.SIunits.Time stagingRuntime(
+  parameter Boolean initRoles[nDev] = {true, false}
+    "Initial roles: true = lead, false = lag/standby"
+    annotation (Evaluate=true, Dialog(tab="Advanced", group="Initiation"));
+
+  parameter Modelica.SIunits.Time minLeaRuntime(
     final displayUnit = "h") = 864000
     "Staging runtime for each device";
 
@@ -21,11 +25,12 @@ block RuntimeCounter
       iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr[nDev](
-    final threshold=stagingRuntimes)
+    final threshold=fill(minLeaRuntime, nDev))
     "Staging runtime hysteresis"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer tim[nDev](accumulate=fill(true, nDev))
+  Buildings.Controls.OBC.CDL.Logical.Timer tim[nDev](
+    final accumulate=fill(true, nDev))
     "Measures time spent loaded at the current role (lead or lag)"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
 
@@ -33,11 +38,7 @@ protected
   final parameter Integer nDev = 2
     "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
 
-  final parameter Boolean initRoles[nDev] = {true, false}
-    "Initial roles: true = lead, false = lag/standby"
-    annotation (Evaluate=true,Dialog(tab="Advanced", group="Initiation"));
-
-  final parameter Modelica.SIunits.Time stagingRuntimes[nDev] = fill(stagingRuntime, nDev)
+  final parameter Modelica.SIunits.Time minLeaRuntimes[nDev] = fill(minLeaRuntime, nDev)
     "Staging runtimes array";
 
   Buildings.Controls.OBC.CDL.Logical.And and2[nDev] "Logical and"
@@ -71,14 +72,15 @@ protected
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
 
 equation
-  connect(greEquThr.y,and2. u1) annotation (Line(points={{42,60},{60,60},{60,20},
+  connect(greEquThr.y, and2.u1) annotation (Line(points={{42,60},{60,60},{60,20},
           {78,20}},color={255,0,255}));
-  connect(mulOr.u[1:2],and2. y)
+  connect(mulOr.u, and2.y)
     annotation (Line(points={{118,20},{102,20}},
                                              color={255,0,255}));
-  connect(tim.y,greEquThr. u)
+  connect(tim.y, greEquThr.u)
     annotation (Line(points={{-38,60},{18,60}}, color={0,0,127}));
-  connect(booRep1.y,and2. u2)
+
+  connect(booRep1.y, and2.u2)
     annotation (Line(points={{42,20},{50,20},{50,12},{78,12}},
                                                              color={255,0,255}));
   connect(anyOn.y, allOff.u)
@@ -91,19 +93,18 @@ equation
           {-22,20}},color={255,0,255}));
   connect(uDevSta, tim.u)
     annotation (Line(points={{-180,60},{-62,60}},  color={255,0,255}));
-  connect(uDevSta, allOn.u[1:2]) annotation (Line(points={{-180,60},{-80,60},{-80,
+  connect(uDevSta, allOn.u) annotation (Line(points={{-180,60},{-80,60},{-80,
           30},{-62,30}},       color={255,0,255}));
-  connect(uDevSta, anyOn.u[1:2]) annotation (Line(points={{-180,60},{-120,60},{-120,
+  connect(uDevSta, anyOn.u) annotation (Line(points={{-180,60},{-120,60},{-120,
           -10},{-102,-10}},      color={255,0,255}));
   connect(mulOr.y, yRot)
-    annotation (Line(points={{142,20},{180,20}},
-                                               color={255,0,255}));
+    annotation (Line(points={{142,20},{180,20}}, color={255,0,255}));
   connect(uPreDevRolSig, falEdg1.u)
     annotation (Line(points={{-180,-60},{-142,-60}}, color={255,0,255}));
   connect(falEdg1.y, tim.reset) annotation (Line(points={{-118,-60},{-110,-60},{
           -110,52},{-62,52}},   color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-160,-80},{160,80}})),
-      defaultComponentName="runCou",
+      defaultComponentName="minLeaTim",
     Icon(graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
@@ -134,8 +135,10 @@ equation
 <p>
 This subsequence generates a rotation trigger based on measuring the time each of the devices has spent in its current role. 
 The rotation trigger output <code>yRot</code> is generated as the current lead device runtime in the role
-exceeds <code>stagingRuntime</code> and the conditions are met such that the devices are not hot swapped. To
-avoid hot swapping the lead and lag/standby device need to be either both ON or both OFF for the rotation to occur. 
+exceeds <code>minLeaRuntime</code> and the conditions are met such that the devices are not hot swapped. To
+avoid hot swapping the lead and lag/standby device need to be either both ON or both OFF for the rotation to occur.
+
+fixme: revise as this is not in 1711
 </p>
 <p>
 The implementation is based on section 5.1.2.3. and 5.1.2.4.1. of RP1711 July draft.
@@ -148,4 +151,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end RuntimeCounter;
+end MinimumLeadRuntime;
