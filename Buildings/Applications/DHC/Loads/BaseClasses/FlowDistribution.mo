@@ -305,6 +305,7 @@ model FlowDistribution "Model of a building hydraulic distribution system"
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m_flow_nominal,
+    tau=if allowFlowReversal then 1 else 0,
     initType=Modelica.Blocks.Types.Init.InitialState)
     "Supply temperature"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));

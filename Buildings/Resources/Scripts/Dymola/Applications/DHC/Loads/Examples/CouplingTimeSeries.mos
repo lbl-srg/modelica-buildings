@@ -62,4 +62,10 @@ createPlot(
     subPlot=3
 );
 plotExpression(apply(-1*CouplingTimeSeries[end].bui.terUniCoo.QCoo_flow_nominal), false, "-1*bui.terUniCoo.QCoo_flow_nominal", 3);
-
+createPlot(
+    id=4,
+    position={75, 75, 542, 347},
+    y={"EHeaReq.y", "EHeaAct.y", "ECooReq.y", "ECooAct.y"},
+    autoscale=true,
+    grid=true
+);

@@ -125,6 +125,20 @@ model BuildingTimeSeries
     final T_aLoaCoo_nominal=T_aLoaCoo_nominal)
     "Cooling terminal unit"
     annotation (Placement(transformation(extent={{70,26},{90,46}})));
+  Modelica.Blocks.Interfaces.RealOutput QReqHea_flow(final quantity=
+        "HeatFlowRate", final unit="W") if            have_heaLoa
+    "Heating load" annotation (Placement(transformation(extent={{300,20},{340,
+            60}}), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={200,-320})));
+  Modelica.Blocks.Interfaces.RealOutput QReqCoo_flow(final quantity=
+        "HeatFlowRate", final unit="W") if            have_cooLoa
+    "Cooling load" annotation (Placement(transformation(extent={{300,-20},{340,
+            20}}), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={260,-320})));
 equation
   connect(terUniHea.port_bHeaWat, disFloHea.ports_a1[1]) annotation (Line(
         points={{90,-32.3333},{90,-22},{148,-22},{148,-54},{140,-54}}, color={0,
@@ -170,6 +184,10 @@ equation
     annotation (Line(points={{-300,-260},{120,-260}}, color={0,127,255}));
   connect(ports_bChiWat[1], disFloCoo.port_b)
     annotation (Line(points={{300,-260},{140,-260}}, color={0,127,255}));
+  connect(loa.y[1], QReqCoo_flow)
+    annotation (Line(points={{21,0},{320,0},{320,0}}, color={0,0,127}));
+  connect(loa.y[2], QReqHea_flow) annotation (Line(points={{21,0},{280,0},{280,
+          40},{320,40}}, color={0,0,127}));
   annotation (
   Documentation(info="
 <html>
@@ -186,5 +204,6 @@ February 21, 2020, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-300,-300},
+            {300,300}})));
 end BuildingTimeSeries;

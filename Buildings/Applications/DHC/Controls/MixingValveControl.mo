@@ -16,7 +16,7 @@ block MixingValveControl "Mixing valve controller"
 
   // IO CONNECTORS
   Modelica.Blocks.Interfaces.RealInput TSupSet(
-    final quantity="ThermodynamicTemperature", final unit="K", final displayUnit="degC")
+    final unit="K", displayUnit="degC")
     "Supply temperature set point"
     annotation (Placement(transformation(
       extent={{-20,-20},{20,20}},
@@ -27,7 +27,7 @@ block MixingValveControl "Mixing valve controller"
       rotation=0,
       origin={-110,40})));
   Modelica.Blocks.Interfaces.IntegerInput modChaOve if typDis == Type_dis.ChangeOver
-    "Operating mode in change-over (1 for heating, -1 for cooling)"
+    "Operating mode in change-over (1 for heating, 2 for cooling)"
     annotation (Placement(
       transformation(
       extent={{-20,-20},{20,20}},
@@ -38,7 +38,7 @@ block MixingValveControl "Mixing valve controller"
       rotation=0,
       origin={-110,80})));
   Modelica.Blocks.Interfaces.RealInput TSupMes(
-    final quantity="ThermodynamicTemperature",  final unit="K", final displayUnit="degC")
+    final unit="K", displayUnit="degC")
     "Supply temperature (measured)"
     annotation (Placement(
         transformation(
@@ -64,7 +64,7 @@ block MixingValveControl "Mixing valve controller"
     annotation (Placement(transformation(extent={{-70,-30},{-50,-10}})));
   Modelica.Blocks.Math.IntegerToBoolean toBoo(threshold=2) if
     typDis == Type_dis.ChangeOver
-    "Conversion to boolean (true if heating mode)"
+    "Conversion to boolean (true if cooling mode)"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conTSup(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
@@ -127,7 +127,8 @@ equation
   connect(modChaOve, cha.u)
     annotation (Line(points={{-120,80},{-82,80}}, color={255,127,0}));
   connect(cha.y, conTSup.trigger)
-    annotation (Line(points={{-58,80},{-40,80},{-40,60},{-80,60},{-80,-76},{-68,-76},{-68,-72}},
+    annotation (Line(points={{-58,80},{-40,80},{-40,60},{-80,60},{-80,-76},{-66,
+          -76},{-66,-72}},
       color={255,0,255}));
   connect(opp.y, swi.u1)
     annotation (Line(points={{42,-40},{50,-40},{50,8},{68, 8}}, color={0,0,127}));
