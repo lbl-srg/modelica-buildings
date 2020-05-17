@@ -29,6 +29,10 @@ block LeastRuntime
     "Measures time spent loaded at the current role (lead or lag)"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
 
+protected
+  final parameter Integer nDev = 2
+    "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
+
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[nDev](
     final k=fill(false, nDev))
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
@@ -65,10 +69,6 @@ block LeastRuntime
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg [nDev](
     final pre_u_start=fill(false, nDev)) if not lag "Falling edge"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
-
-protected
-  final parameter Integer nDev = 2
-    "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
 
 equation
   connect(uDevSta, tim.u)
