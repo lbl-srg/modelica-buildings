@@ -100,10 +100,10 @@ before_install:
   - if [[ "$TEST_ARG" == *test-cdl-conformance* ]]; then
       wget --no-verbose https://github.com/lbl-srg/modelica-json/archive/${MODELICA_JSON_VERSION}.tar.gz;
       tar xzf ${MODELICA_JSON_VERSION}.tar.gz;
-      mv ${MODELICA_JSON_VERSION}.tar.gz modelica-json;
+      mv ${MODELICA_JSON_VERSION} modelica-json;
       cd modelica-json;
-      make install-node-packages
-      make compile
+      make install-node-packages;
+      make compile;
       echo "Installed modelica-json in ${PWD}/modelica-json";
     fi;
 
