@@ -100,9 +100,10 @@ before_install:
       wget --no-verbose https://github.com/lbl-srg/modelica-json/archive/${MODELICA_JSON_VERSION}.tar.gz;
       tar xzf ${MODELICA_JSON_VERSION}.tar.gz;
       mv modelica-json-${MODELICA_JSON_VERSION} ${MODELICA_JSON_HOME};
-      cd ${MODELICA_JSON_HOME};
-      make install-node-packages;
-      make compile;
+      (cd ${MODELICA_JSON_HOME} && \
+        make install-node-packages && \
+        make compile && \
+        cd - )
       echo "Installed modelica-json in ${MODELICA_JSON_HOME}";
     fi;
 
