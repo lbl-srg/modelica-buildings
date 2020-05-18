@@ -58,7 +58,8 @@
 
 
 /* Windows*/
-#ifdef _MSC_VER
+/*#ifdef _MSC_VER*/
+#ifdef _WIN32 
 void ISATAB(int *idtab, int *mode, const int *nx, double x[], const int *nf, const int *nh, const int *nhd, void *usrfgh, \
 	int iusr[], double rusr[], int info[], double rinfo[], double fa[], double ga[nx_SIZE][nf_SIZE], double ha[], double stats[]);
 /* Linux*/
@@ -370,10 +371,12 @@ void evaluate(){
   }
   if (useISAT){
     tStart = clock();
-				/* Windows*/
-#ifdef _MSC_VER
+	
+/* Windows*/
+/*#ifdef _MSC_VER*/
+#ifdef _WIN32 
 				ISATAB(&idtab, &mode, &nx, x, &nf, &nh, &nhd, (void *)&unusedPointer, (int *)&ffdStruct, rusr, info, rinfo, fa, ga, ha, stats);
-				/* Linux*/
+/* Linux*/
 #else
 				isatab_(&idtab, &mode, &nx, x, &nf, &nh, &nhd, (void *)&unusedPointer, (int *)&ffdStruct, rusr, info, rinfo, fa, ga, ha, stats);
 #endif

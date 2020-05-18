@@ -22,7 +22,8 @@
 ******************************************************************************/
 int isat_dll(CosimulationData *cosim) {
 /* Windows*/
-#ifdef _MSC_VER
+/*#ifdef _MSC_VER*/
+#ifdef _WIN32
   DWORD dummy;
   HANDLE workerThreadHandle;
 /*  Linux*/
@@ -31,7 +32,8 @@ int isat_dll(CosimulationData *cosim) {
 #endif
 
 /* Windows*/
-#ifdef _MSC_VER
+/*#ifdef _MSC_VER*/
+#ifdef _WIN32
   workerThreadHandle = CreateThread(NULL, 0, isat_thread, (void *)cosim, 0, &dummy);
 /* Linux*/
 #else
@@ -50,7 +52,8 @@ int isat_dll(CosimulationData *cosim) {
 	*
 	* @return 0 if no error occurred
 	*/
-#ifdef _MSC_VER /*Windows*/
+/*#ifdef _MSC_VER*/
+#ifdef _WIN32 /*Windows*/
 DWORD WINAPI isat_thread(void *p){
   ULONG workerID = (ULONG)(ULONG_PTR)p;
 #else /*Linux*/
@@ -59,7 +62,8 @@ void *isat_thread(void* p){
 
   CosimulationData *cosim = (CosimulationData *) p;
 
-#ifdef _MSC_VER /*Windows*/
+/*#ifdef _MSC_VER*/
+#ifdef _WIN32 /*Windows*/
   sprintf(msg, "Start ISAT Simulation with Thread ID %lu", workerID);
 #else /*Linux*/
   sprintf(msg, "Start ISAT Simulation with Thread");
@@ -73,13 +77,15 @@ void *isat_thread(void* p){
 
   if(isat_cosimulation(cosim)!=0) {
     ffd_log("isat_thread(): Cosimulation failed", FFD_ERROR);
-#ifdef _MSC_VER
+/*#ifdef _MSC_VER*/
+#ifdef _WIN32 /*Windows*/
     return 1;
 #endif
   }
   else {
     ffd_log("Successfully exit ISAT.", FFD_NORMAL);
-#ifdef _MSC_VER
+/*#ifdef _MSC_VER*/
+#ifdef _WIN32 /*Windows*/
     return 0;
 #endif
   }

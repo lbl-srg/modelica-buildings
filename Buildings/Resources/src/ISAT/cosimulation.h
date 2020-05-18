@@ -56,7 +56,8 @@
 #include "../FastFluidDynamics/geometry.h"
 #endif
 
-#ifndef _MSC_VER /*Linux*/
+
+#ifndef _WIN32 /*Linux*/
 #define Sleep(x) sleep(x/1000)
 #endif
 
