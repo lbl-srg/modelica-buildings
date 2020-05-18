@@ -51,8 +51,13 @@ test-energyplus-validations:
 
 test-cdl-conformance:
 	(cd $(ROOT) && \
-	export MODELICAPATH=`pwd` && \
-	node $(ROOT)/modelica-json/app.js -f Buildings/Controls/OBC -o json -m modelica -d out)
+	 echo "*********************************************************" && \
+	 echo "*** Running modelica-json" && \
+ 	 export MODELICAPATH=`pwd` && \
+	 ls $(ROOT)/modelica-json && \
+	 ls -l )
+
+#	node $(ROOT)/modelica-json/app.js -f Buildings/Controls/OBC -o json -m modelica -d out)
 
 test-dymola:
 	(cd $(ROOT)/Buildings && \
