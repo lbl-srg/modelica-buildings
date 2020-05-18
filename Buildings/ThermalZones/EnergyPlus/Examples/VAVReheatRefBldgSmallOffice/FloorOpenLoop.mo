@@ -4,9 +4,6 @@ model FloorOpenLoop "Open loop model of one floor"
 
   replaceable package Medium = Buildings.Media.Air "Medium for air";
 
-  parameter String idfName=Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf")
-    "Name of the IDF file";
   parameter String weaName = Modelica.Utilities.Files.loadResource(
     "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     "Name of the weather file";
@@ -15,9 +12,7 @@ model FloorOpenLoop "Open loop model of one floor"
   final parameter Modelica.SIunits.MassFlowRate mOut_flow = 2
     "Outside air infiltration for each room";
 
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=weaName)
     "Weather data reader"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
@@ -93,10 +88,6 @@ equation
       thickness=0.5));
   connect(weaBus, bou[4].weaBus) annotation (Line(
       points={{-40,50},{-40,-20},{-28,-20},{-28,-19.8}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(building.weaBus, weaBus) annotation (Line(
-      points={{-60,50},{-40,50}},
       color={255,204,51},
       thickness=0.5));
     annotation (
