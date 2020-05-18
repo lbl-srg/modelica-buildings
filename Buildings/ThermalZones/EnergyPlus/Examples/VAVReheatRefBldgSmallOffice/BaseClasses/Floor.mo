@@ -2,11 +2,11 @@ within Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.Ba
 model Floor "Model of a floor of the building"
   extends
     Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.PartialFloor(
-    final VRooCor=cor.V,
-    final VRooSou=sou.V,
-    final VRooNor=nor.V,
-    final VRooEas=eas.V,
-    final VRooWes=wes.V,
+    final VRooCor=456.455,
+    final VRooSou=346.022,
+    final VRooNor=346.022,
+    final VRooEas=205.265,
+    final VRooWes=205.265,
     intGaiFra(table=[0,0; 24,0]),
     opeWesCor(wOpe=10*(17.69 + 8.46)/(40.76 + 24.13)),
     opeSouCor(wOpe=10*(17.69 + 8.46)/(40.76 + 24.13)),
@@ -28,6 +28,7 @@ model Floor "Model of a floor of the building"
   final parameter Modelica.SIunits.Area AFloEas=eas.AFlo "Floor area east";
   final parameter Modelica.SIunits.Area AFloWes=wes.AFlo "Floor area west";
   final parameter Modelica.SIunits.Area AFlo=AFloCor+AFloSou+AFloNor+AFloEas+AFloWes "Floor area west";
+
 
   Modelica.SIunits.Temperature TAirCor = cor.TAir
     "Air temperature corridor";
@@ -90,6 +91,12 @@ protected
     "Building model"
     annotation (Placement(transformation(extent={{140,458},{160,478}})));
 
+initial equation
+  assert(abs(cor.V-VRooCor) < 0.01, "Volumes don't match. These had to be entered manually to avoid using a non-literal value.");
+  assert(abs(sou.V-VRooSou) < 0.01, "Volumes don't match. These had to be entered manually to avoid using a non-literal value.");
+  assert(abs(nor.V-VRooNor) < 0.01, "Volumes don't match. These had to be entered manually to avoid using a non-literal value.");
+  assert(abs(eas.V-VRooEas) < 0.01, "Volumes don't match. These had to be entered manually to avoid using a non-literal value.");
+  assert(abs(wes.V-VRooWes) < 0.01, "Volumes don't match. These had to be entered manually to avoid using a non-literal value.");
 equation
   connect(gai.y, cor.qGai_flow)          annotation (Line(
       points={{-79,110},{120,110},{120,66},{142,66}},
