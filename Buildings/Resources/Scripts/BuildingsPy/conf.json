@@ -44,8 +44,11 @@
     },
     "model_name": "Buildings.Utilities.IO.Python27.Functions.Examples.Exchange"
   },
-  {
-       "optimica": {
+    {
+    "jmodelica": {
+        "simulate": false
+    },
+    "optimica": {
          "translate": false
     },
     "model_name": "Buildings.Utilities.IO.Python27.Examples.KalmanFilter"
