@@ -49,6 +49,10 @@ test-energyplus-validations:
 	@echo "*** Verify that all files in repository are up to date"
 	git diff --exit-code $(ROOT)/Buildings/Resources/Data
 
+test-cdl-conformance:
+	(cd $(ROOT) && \
+	export MODELICAPATH=`pwd` && \
+	node $(ROOT)/modelica-json/app.js -f Buildings/Controls/OBC -o json -m modelica -d out)
 
 test-dymola:
 	(cd $(ROOT)/Buildings && \
