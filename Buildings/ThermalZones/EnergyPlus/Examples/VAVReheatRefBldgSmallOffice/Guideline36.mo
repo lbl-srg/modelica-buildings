@@ -8,7 +8,8 @@ model Guideline36
     ACHSou=0.75*6,
     ACHEas=1*9,
     ACHNor=0.75*6,
-    ACHWes=1*7);
+    ACHWes=1*7,
+    conAHU(kFanSpe=1));
 
   annotation (
     __Dymola_Commands(file=
