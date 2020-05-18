@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.Detailed.Examples.FFD.Tutorial;
-model NaturalConvection "Tutorial for Natural Convection case"
+model NaturalConvection "Tutorial for the natural convection case"
   extends Modelica.Icons.Example;
   package MediumA =
       Buildings.Media.Air (

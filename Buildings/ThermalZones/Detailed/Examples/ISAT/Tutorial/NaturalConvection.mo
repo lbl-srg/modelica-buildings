@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.Detailed.Examples.ISAT.Tutorial;
-model NaturalConvection "Tutorial for Natural Convection case"
+model NaturalConvection "Tutorial for the natural convection case"
   extends Modelica.Icons.Example;
   package MediumA =
       Buildings.Media.Air (
@@ -289,34 +289,11 @@ equation
 </ol>
 </html>",revisions="<html>
 <ul>
-<li>
-September 07, 2017, by Thierry Nouidui:<br/>
-Refactored the FFD C-code and revised the documentation.
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/612\">issue 612</a>.
-</li>
-<li>
-July 7, 2015 by Michael Wetter:<br/>
-Removed model for prescribed heat flow boundary condition
-as the value was zero and hence the model is not needed.
-This is for <a href=\"/https://github.com/lbl-srg/modelica-buildings/issues/439\">issue 439</a>.
-</li>
-<li>
-July 25, 2014, by Michael Wetter:<br/>
-Revised documentation.
-</li>
-<li>
-June 27, 2014, by Wei Tian, Thomas Sevilla, Wangda Zuo:<br/>
-First implementation.
-</li>
+<li>April 5, 2020, by Xu Han, Cary Faulkner, Wangda Zuo:<br>First implementation. </li>
 </ul>
 <h4>References</h4>
-<p>
-<a name=\"ZuoEtAl2012\"/>
-Wangda Zuo, Mingang Jin, Qingyan Chen, 2012.<br/>
-<a href=\"http://doi.org/10.1080/19942060.2012.11015418\">
-Reduction of numerical viscosity in FFD model.</a><br/>
-Journal of Engineering Applications of Computational Fluid Mechanics, 6(2), p. 234-247.
-</p>
+<p><a name=\"ZuoEtAl2012\">W</a>angda Zuo, Mingang Jin, Qingyan Chen, 2012.</p>
+<p><a href=\"http://doi.org/10.1080/19942060.2012.11015418\">Reduction of numerical viscosity in FFD model.</a></p>
+<p>Journal of Engineering Applications of Computational Fluid Mechanics, 6(2), p. 234-247. </p>
 </html>"));
 end NaturalConvection;

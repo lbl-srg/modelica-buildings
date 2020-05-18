@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.Detailed.Examples.ISAT.Tutorial;
-model MixedConvection "Tutorial for Mixed Convection case"
+model MixedConvection "Tutorial for the mixed convection case"
   extends Modelica.Icons.Example;
   package MediumA = Buildings.Media.Air (
         T_default=283.15) "Medium model";
@@ -326,20 +326,7 @@ equation
 </ol>
 </html>",revisions="<html>
 <ul>
-<li>
-September 07, 2017, by Thierry Nouidui:<br/>
-Refactored the FFD C-code and revised the documentation.
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/612\">issue 612</a>.
-</li>
-<li>
-July 25, 2014, by Michael Wetter:<br/>
-Revised documentation.
-</li>
-<li>
-June 27, 2014, by Wei Tian, Thomas Sevilla, Wangda Zuo:<br/>
-First implementation.
-</li>
+<li>April 5, 2020, by Xu Han, Cary Faulkner, Wangda Zuo:<br>First implementation. </li>
 </ul>
 </html>"),
     experiment(Tolerance=1e-06, StopTime=180),

@@ -28,8 +28,7 @@ model NaturalConvectionWithControl
         origin={90,50})));
 equation
   connect(roo.yCFD[1], conPID.u_m) annotation (Line(
-      points={{101,-26.5},{100,-26.5},{100,-26},{110,-26},{110,20},{50,20},{50,
-          38}},
+      points={{101,-26},{100,-26},{100,-26},{110,-26},{110,20},{50,20},{50,38}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TSet.y, conPID.u_s) annotation (Line(

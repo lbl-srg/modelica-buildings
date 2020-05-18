@@ -13,10 +13,7 @@ are rather designed to test the coupled simulation.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-April 5, 2020, by Xu Han, Wangda Zuo and Michael Wetter:<br/>
-First implementation.
-</li>
+<li>April 5, 2020, by Xu Han, Cary Faulkner, Wangda Zuo:<br>First implementation. </li>
 </ul>
 </html>"));
 end ISAT;

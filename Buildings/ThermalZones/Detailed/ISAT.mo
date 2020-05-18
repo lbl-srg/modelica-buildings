@@ -31,10 +31,7 @@ model ISAT
 <p>Proc. of the 16th Conference of International Building Performance Simulation Association (Building Simulation 2019), Italy, September 2-4, Rome, 2019. </p>
 </html>",   revisions="<html>
 <ul>
-<li>
-April 5, 2020, by Xu Han, Wangda Zuo and Michael Wetter:<br/>
-First implementation.
-</li>
+<li>April 5, 2020, by Xu Han, Wangda Zuo, Cary Faulkner, Jianjun Hu and Michael Wetter:<br>First implementation. </li>
 </ul>
 </html>"));
 end ISAT;

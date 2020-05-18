@@ -5,6 +5,7 @@ package UsersGuide
   Documentation(info="<html>
 <h4>Introduction</h4>
 <p>For an introduction to the coupled simulation and for detailed information on <a href=\"modelica://Buildings.ThermalZones.Detailed.ISAT\">Buildings.ThermalZones.Detailed.ISAT</a>, please refer to <a href=\"modelica://Buildings.ThermalZones.Detailed.UsersGuide.ISAT\">Buildings.ThermalZones.Detailed.UsersGuide.ISAT</a>. For a step by step guide on performing the coupled simulation, please refer to <a href=\"modelica://Buildings.ThermalZones.Detailed.Examples.ISAT.Tutorial\">Buildings.ThermalZones.Detailed.Examples.ISAT.Tutorial</a>. </p>
+<p>Before running examples of the ISAT model, a fortran compiler needs to be installed. Please refer to <a href=\"https://www.colorado.edu/lab/sbs/data-center-package\">ISAT project website</a> for more detailed tutorials.</p>
 <p><b>Files for the Coupled Simulation</b> </p>
 <p>The source code of the ISAT program is located at <span style=\"font-family: Courier New;\">Buildings/Resources/src/ISAT</span>. The <span style=\"font-family: Courier New;\">Buildings</span> library contains precompiled versions of this source code in the subdirectories of <span style=\"font-family: Courier New;\">Buildings/Resources/Library</span>. </p>
 <p>To run the coupled simulation with ISAT, the following files are needed and provided in the <span style=\"font-family: Courier New;\">Buildings</span> library: </p>
@@ -45,10 +46,7 @@ package UsersGuide
 </ol>
 </html>", revisions="<html>
 <ul>
-<li>
-April 5, 2020, by Xu Han, Wangda Zuo and Michael Wetter:<br/>
-First implementation.
-</li>
+<li>April 5, 2020, by Xu Han, Cary Faulkner, Wangda Zuo:<br>First implementation. </li>
 </ul>
 </html>"));
 end UsersGuide;

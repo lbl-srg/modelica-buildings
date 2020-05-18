@@ -1,6 +1,6 @@
 within Buildings.ThermalZones.Detailed.Examples.FFD.Tutorial;
 model MixedConvectionWithBox
-  "Tutorial for Mixed Convection case with a heated box"
+  "Tutorial for the mixed convection case with a heated box"
   extends Modelica.Icons.Example;
   package MediumA = Buildings.Media.Air (
         T_default=283.15) "Medium model";
