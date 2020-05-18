@@ -8,11 +8,10 @@ model BuildingTimeSeries1stGen
       IBPSA.Media.Steam.Interfaces.PartialPureSubstanceWithSat
     "Medium model for port_b (outlet)";
 
-  parameter Real timSer_norHeaLoa[:, :]= [0, 1; 6, 1; 6, 0.25; 18, 0.25; 18, 0.375; 24, 0.375]
-    "Normalized time series heating load";
-
-  parameter Real QPea_flow_real= 200E3
-    "Peak heat flow rate (real data type)";
+  parameter Real QHeaLoa[:, :]=[0, 200E3; 6, 200E3; 6, 50E3; 18, 50E3; 18, 75E3; 24, 75E3]
+    "Heating load profile for the building";
+  parameter Modelica.SIunits.Power Q_flow_nominal
+    "Nominal heat flow rate";
 
   parameter Modelica.SIunits.AbsolutePressure pSte_nominal
     "Nominal steam pressure";
@@ -20,14 +19,14 @@ model BuildingTimeSeries1stGen
     Medium_a.enthalpyOfVaporization_sat(Medium_a.saturationState_p(pSte_nominal))
     "Nominal change in enthalpy";
   final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
-    QPea_flow_real/dh_nominal
+    Q_flow_nominal/dh_nominal
     "Nominal mass flow rate";
 
   parameter Modelica.SIunits.Time riseTime=120
     "Rise time of the filter (time to reach 99.6 % of an opening step)";
 
   Modelica.Blocks.Sources.CombiTimeTable QHea(
-    table=timSer_norHeaLoa/QPea_flow_real,
+    table=QHeaLoa,
     timeScale=3600,
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     "Heating demand"
@@ -36,7 +35,7 @@ model BuildingTimeSeries1stGen
     redeclare final package Medium_a = Medium_a,
     redeclare final package Medium_b = Medium_b,
     m_flow_nominal=m_flow_nominal,
-    Q_flow_nominal=200E3,
+    Q_flow_nominal=Q_flow_nominal,
     pSte_nominal=pSte_nominal)
                           "Energy transfer station"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
