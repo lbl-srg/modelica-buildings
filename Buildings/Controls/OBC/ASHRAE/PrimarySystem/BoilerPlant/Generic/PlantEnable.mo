@@ -142,41 +142,54 @@ equation
     annotation (Line(points={{-48,-30},{-42,-30}},
       color={255,0,255}));
   connect(tim1.y, greThr1.u)
-    annotation (Line(points={{-18,-30},{-12,-30}}, color={0,0,127}));
-  connect(not2.u, hys.y) annotation (Line(points={{-12,-70},{-20,-70},{-20,-50},
-  {-98,-50}}, color={255,0,255}));
-  connect(intGreThr.y, not3.u) annotation (Line(points={{-98,50},{-80,50},{-80,-30},
-  {-72,-30}}, color={255,0,255}));
-  connect(greThr.y, mulAnd.u[1]) annotation (Line(points={{-98,-110},{-92,-110},
-          {-92,94.6667},{-12,94.6667}},
-                             color={255,0,255}));
-  connect(hys.y, mulAnd.u[2]) annotation (Line(points={{-98,-50},{-86,-50},{-86,
-          90},{-12,90}},        color={255,0,255}));
-  connect(intGreThr.y, mulAnd.u[3]) annotation (Line(points={{-98,50},{-80,50},
-          {-80,85.3333},{-12,85.3333}},
-                                    color={255,0,255}));
-  connect(mulAnd.y, lat.u) annotation (Line(points={{12,90},{60,90},{60,0},{78,0}},
-                    color={255,0,255}));
-  connect(greThr1.y, mulOr.u[1]) annotation (Line(points={{12,-30},{20,-30},{20,
-          -65.3333},{28,-65.3333}}, color={255,0,255}));
-  connect(not2.y, mulOr.u[2]) annotation (Line(points={{12,-70},{20,-70},{20,-70},
-          {28,-70}}, color={255,0,255}));
-  connect(not1.y, mulOr.u[3]) annotation (Line(points={{12,-110},{20,-110},{20,
-          -74.6667},{28,-74.6667}},
-                          color={255,0,255}));
+    annotation (Line(points={{-18,-30},{-12,-30}},
+      color={0,0,127}));
+  connect(not2.u, hys.y)
+    annotation (Line(points={{-12,-70},{-20,-70},{-20,-50},{-98,-50}},
+      color={255,0,255}));
+  connect(intGreThr.y, not3.u)
+    annotation (Line(points={{-98,50},{-80,50},{-80,-30},{-72,-30}},
+      color={255,0,255}));
+  connect(greThr.y, mulAnd.u[1])
+    annotation (Line(points={{-98,-110},{-92,-110},{-92,94.6667},{-12,94.6667}},
+      color={255,0,255}));
+  connect(hys.y, mulAnd.u[2])
+    annotation (Line(points={{-98,-50},{-86,-50},{-86,90},{-12,90}},
+      color={255,0,255}));
+  connect(intGreThr.y, mulAnd.u[3])
+    annotation (Line(points={{-98,50},{-80,50},{-80,85.3333},{-12,85.3333}},
+      color={255,0,255}));
+  connect(mulAnd.y, lat.u)
+    annotation (Line(points={{12,90},{60,90},{60,0},{78,0}},
+      color={255,0,255}));
+  connect(greThr1.y, mulOr.u[1])
+    annotation (Line(points={{12,-30},{20,-30},{20,-65.3333},{28,-65.3333}},
+      color={255,0,255}));
+  connect(not2.y, mulOr.u[2])
+    annotation (Line(points={{12,-70},{20,-70},{20,-70},{28,-70}},
+      color={255,0,255}));
+  connect(not1.y, mulOr.u[3])
+    annotation (Line(points={{12,-110},{20,-110},{20,-74.6667},{28,-74.6667}},
+      color={255,0,255}));
   connect(intGreThr.u, supResReq)
     annotation (Line(points={{-122,50},{-180,50}},
       color={255,127,0}));
   connect(addPar.u, TOut)
-    annotation (Line(points={{-152,-50},{-180,-50}}, color={0,0,127}));
+    annotation (Line(points={{-152,-50},{-180,-50}},
+      color={0,0,127}));
   connect(enaSch.y[1], greThr.u)
-    annotation (Line(points={{-128,-110},{-122,-110}}, color={0,0,127}));
-  connect(mulOr.y, lat.clr) annotation (Line(points={{52,-70},{60,-70},{60,-6},{
-          78,-6}}, color={255,0,255}));
+    annotation (Line(points={{-128,-110},{-122,-110}},
+      color={0,0,127}));
+  connect(mulOr.y, lat.clr)
+    annotation (Line(points={{52,-70},{60,-70},{60,-6},{78,-6}},
+      color={255,0,255}));
   connect(truFalHol.u, lat.y)
-    annotation (Line(points={{118,0},{102,0}}, color={255,0,255}));
+    annotation (Line(points={{118,0},{102,0}},
+      color={255,0,255}));
   connect(truFalHol.y, yPla)
-    annotation (Line(points={{142,0},{180,0}}, color={255,0,255}));
+    annotation (Line(points={{142,0},{180,0}},
+      color={255,0,255}));
+
   annotation (defaultComponentName = "plaEna",
     Icon(graphics={
       Rectangle(
