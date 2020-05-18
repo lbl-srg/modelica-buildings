@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.Loads.Validation.BaseClasses;
 model FanCoil2PipeCooling
-  "Model of a sensible only two-pipe fan coil unit for cooling, 
+  "Model of a sensible only two-pipe fan coil unit for cooling,
   computing a required chilled water mass flow rate"
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit(
     redeclare package Medium1 = Buildings.Media.Water,
@@ -30,22 +30,21 @@ model FanCoil2PipeCooling
     "Cooling heat exchanger configuration";
   Buildings.Controls.OBC.CDL.Continuous.LimPID con(
     Ti=10,
-    yMax=1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    reverseAction=false,
-    yMin=0,
+    final reverseAction=false,
     reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
-            "PI controller"
+    "PI controller"
     annotation (Placement(transformation(extent={{-10,210},{10,230}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
     redeclare final package Medium=Medium2,
-    final energyDynamics=energyDynamics,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversalLoa,
     m_flow_nominal=mLoaCoo_flow_nominal,
     redeclare Fluid.Movers.Data.Generic per,
     nominalValuesDefineDefaultPressureCurve=true,
-    use_inputFilter=true,
+    final use_inputFilter=false,
     dp_nominal=200)
+    "Fan"
     annotation (Placement(transformation(extent={{90,-10},{70,10}})));
   Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hex(
     redeclare final package Medium1 = Medium1,
@@ -60,13 +59,14 @@ model FanCoil2PipeCooling
     final T_a2_nominal=T_aLoaCoo_nominal,
     final allowFlowReversal1=allowFlowReversal,
     final allowFlowReversal2=allowFlowReversalLoa)
+    "Cooling coil"
     annotation (Placement(transformation(extent={{-80,4},{-60,-16}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiMasFlo(k=mChiWat_flow_nominal)
     annotation (Placement(transformation(extent={{40,210},{60,230}})));
   Modelica.Blocks.Sources.RealExpression Q_flowCoo(y=hex.Q2_flow)
     annotation (Placement(transformation(extent={{120,190},{140,210}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiFloNom2(k=mLoaCoo_flow_nominal)
-    annotation (Placement(transformation(extent={{38,170},{58,190}})));
+    annotation (Placement(transformation(extent={{40,170},{60,190}})));
   Fluid.Sources.Boundary_pT sinAir(
     redeclare package Medium = Medium2,
     use_T_in=false,
@@ -102,7 +102,7 @@ model FanCoil2PipeCooling
     annotation (Placement(transformation(extent={{-50,190},{-30,210}})));
 equation
   connect(gaiFloNom2.y, fan.m_flow_in)
-    annotation (Line(points={{60,180},{80,180},{80,12}}, color={0,0,127}));
+    annotation (Line(points={{62,180},{80,180},{80,12}}, color={0,0,127}));
   connect(con.y, gaiMasFlo.u)
     annotation (Line(points={{12,220},{38,220}}, color={0,0,127}));
   connect(fan.P, scaPFan.u) annotation (Line(points={{69,9},{60,9},{60,140},{
@@ -136,8 +136,8 @@ equation
           6.66134e-16,202}}, color={0,0,127}));
   connect(Q_flowCoo.y, gaiHeaFlo1.u) annotation (Line(points={{141,200},{150,
           200},{150,160},{0,160},{0,178},{-8.88178e-16,178}}, color={0,0,127}));
-  connect(con.y, gaiFloNom2.u) annotation (Line(points={{12,220},{20,220},{20,
-          180},{36,180}}, color={0,0,127}));
+  connect(con.y, gaiFloNom2.u) annotation (Line(points={{12,220},{20,220},{20,180},
+          {38,180}},      color={0,0,127}));
   connect(retAir.ports[1], fan.port_a)
     annotation (Line(points={{102,0},{90,0}}, color={0,127,255}));
   connect(greThr.y, con.trigger)
@@ -148,7 +148,7 @@ annotation (
 Documentation(
 info="<html>
 <p>
-This is a sensible only simplified model of a two-pipe fan coil unit for cooling. 
+This is a sensible only simplified model of a two-pipe fan coil unit for cooling.
 It is intended to be used
 </p>
 <ul>
@@ -159,7 +159,7 @@ takes the load as an input, and
 <li>
 in conjunction with
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>:  
+Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>:
 it therefore computes the water mass flow rate required to meet the load.
 </li>
 </ul>
@@ -167,9 +167,9 @@ it therefore computes the water mass flow rate required to meet the load.
 For the sake of simplicity, a sensible only heat exchanger model is considered.
 </p>
 <p>
-For the sake of computational performance, a PI controller is used instead of an inverse 
-model of the heat exchanger to assess the required water mass flow rate. 
-The controller output signal is mapped linearly to both, 
+For the sake of computational performance, a PI controller is used instead of an inverse
+model of the heat exchanger to assess the required water mass flow rate.
+The controller output signal is mapped linearly to both,
 </p>
 <ul>
 <li>
@@ -180,7 +180,7 @@ the air mass flow rate, from zero to its nominal value.
 </li>
 </ul>
 <p>
-The controller tracks the load while the impact of an unmet load on the room 
+The controller tracks the load while the impact of an unmet load on the room
 air temperature is assessed with
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom\">
 Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom</a>.
