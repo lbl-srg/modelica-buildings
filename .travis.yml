@@ -2,8 +2,6 @@ dist: bionic
 
 language: python
 
-language: java # for modelica-json
-
 python:
   - "3.6"
 
@@ -100,7 +98,7 @@ before_install:
   - if [[ "$TEST_ARG" == *test-cdl-conformance* ]]; then
       wget --no-verbose https://github.com/lbl-srg/modelica-json/archive/${MODELICA_JSON_VERSION}.tar.gz;
       tar xzf ${MODELICA_JSON_VERSION}.tar.gz;
-      mv ${MODELICA_JSON_VERSION} modelica-json;
+      mv modelica-json-${MODELICA_JSON_VERSION} modelica-json;
       cd modelica-json;
       make install-node-packages;
       make compile;
