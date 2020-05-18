@@ -5,7 +5,7 @@ model FloorOpenLoop "Open loop model of one floor"
   replaceable package Medium = Buildings.Media.Air "Medium for air";
 
   parameter String idfName=Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf")
+    "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf")
     "Name of the IDF file";
   parameter String weaName = Modelica.Utilities.Files.loadResource(
     "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
@@ -95,7 +95,11 @@ equation
       points={{-40,50},{-40,-20},{-28,-20},{-28,-19.8}},
       color={255,204,51},
       thickness=0.5));
-  annotation (
+  connect(building.weaBus, weaBus) annotation (Line(
+      points={{-60,50},{-40,50}},
+      color={255,204,51},
+      thickness=0.5));
+    annotation (
  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/VAVReheatRefBldgSmallOffice/FloorOpenLoop.mos"
         "Simulate and plot"),
 experiment(

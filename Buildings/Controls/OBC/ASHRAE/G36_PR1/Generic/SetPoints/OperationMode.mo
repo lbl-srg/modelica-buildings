@@ -7,9 +7,15 @@ block OperationMode "Block that outputs the operation mode"
   parameter Integer numZon(min=1) "Number of zones";
   parameter Real preWarCooTim(unit="s") = 10800
     "Maximum cool-down or warm-up time";
-  parameter Real TZonFreProOn(unit="K") = 277.55
+  parameter Real TZonFreProOn(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature") = 277.55
     "Threshold zone temperature value to activate freeze protection mode";
-  parameter Real TZonFreProOff(unit="K") = 280.35
+  parameter Real TZonFreProOff(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature") = 280.35
     "Threshold zone temperature value to finish the freeze protection mode";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOcc
@@ -17,7 +23,8 @@ block OperationMode "Block that outputs the operation mode"
     annotation (Placement(transformation(extent={{-300,310},{-260,350}}),
         iconTransformation(extent={{-140,100},{-100,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tNexOcc(
-    final unit="s", quantity="Time")
+    final unit="s",
+    final quantity="Time")
     "Time to next occupied period"
     annotation (Placement(transformation(extent={{-300,270},{-260,310}}),
         iconTransformation(extent={{-140,80},{-100,120}})));
@@ -53,12 +60,14 @@ block OperationMode "Block that outputs the operation mode"
         iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonMax(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Maximum zone temperature"
     annotation (Placement(transformation(extent={{-300,-130},{-260,-90}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonMin(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Minimum zone temperature"
     annotation (Placement(transformation(extent={{-300,-170},{-260,-130}}),
@@ -709,6 +718,7 @@ annotation (
           pattern=LinePattern.Dash,
           textString="maxHigUnoCoo"),
         Text(
+          visible=have_winSen,
           extent={{-98,8},{-68,-4}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,

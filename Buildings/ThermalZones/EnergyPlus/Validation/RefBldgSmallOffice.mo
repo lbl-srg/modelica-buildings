@@ -5,7 +5,7 @@ model RefBldgSmallOffice "Validation model for six zones small office building"
 
   inner Building building(
     idfName = Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf"),
+      "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf"),
     weaName = Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     fmuName = Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/ThermalZones/EnergyPlus/FMUs/Zones1.fmu"))
@@ -46,14 +46,31 @@ model RefBldgSmallOffice "Validation model for six zones small office building"
     annotation (Placement(transformation(extent={{40,-156},{80,-116}})));
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     tableOnFile=true,
-    fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOffice.dat"),
+    fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.dat"),
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     tableName="EnergyPlus",
-    columns=2:8,
-    y(each unit="K", each displayUnit="degC"),
+    columns=2:9,
     extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint)
     "Data reader with results from EnergyPlus"
     annotation (Placement(transformation(extent={{-80,-120},{-60,-100}})));
+
+  Modelica.SIunits.Temperature TOutEP = datRea.y[1] + 273.15
+    "Outside air temperature of EnergyPlus simulation";
+  Real relHumEP(unit="1") = datRea.y[2] / 100
+    "Outside air relative humidity of EnergyPlus simulation";
+  Modelica.SIunits.Temperature TAttEP = datRea.y[3] + 273.15
+    "Attic air temperature of EnergyPlus simulation";
+  Modelica.SIunits.Temperature TCorEP = datRea.y[4] + 273.15
+    "Core zone air temperature of EnergyPlus simulation";
+  Modelica.SIunits.Temperature TSouEP = datRea.y[5] + 273.15
+    "South zone air temperature of EnergyPlus simulation";
+  Modelica.SIunits.Temperature TEasEP = datRea.y[6] + 273.15
+    "East zone air temperature of EnergyPlus simulation";
+  Modelica.SIunits.Temperature TNorEP = datRea.y[7] + 273.15
+    "North zone air temperature of EnergyPlus simulation";
+  Modelica.SIunits.Temperature TWesEP = datRea.y[8] + 273.15
+    "West zone air temperature of EnergyPlus simulation";
+
 
 equation
   connect(qRadGai_flow.y, mul.u1[1]) annotation (Line(

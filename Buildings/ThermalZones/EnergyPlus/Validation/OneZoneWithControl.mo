@@ -5,7 +5,7 @@ model OneZoneWithControl "Validation model for one zone"
 
   inner Building building(
     idfName = Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf"),
+      "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/SingleFamilyHouse_TwoSpeed_ZoneAirBalance/SingleFamilyHouse_TwoSpeed_ZoneAirBalance.idf"),
     weaName = Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     fmuName = Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/ThermalZones/EnergyPlus/FMUs/Zones1.fmu"),
@@ -13,14 +13,14 @@ model OneZoneWithControl "Validation model for one zone"
     "Building model"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
 
-  parameter Modelica.SIunits.Volume AFlo = 149.657+2*(113.45+67.3) "Floor area of the whole floor of the building";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = AFlo*2.7*3*1.2/3600
+  parameter Modelica.SIunits.Volume AFlo = 185 "Floor area of the whole floor of the building";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 6*AFlo*2.7*1.2/3600
     "Nominal mass flow rate";
 
   ThermalZone zon(
     redeclare package Medium = Medium,
-    zoneName="Core_ZN",
-    nPorts=2) "South zone"
+    zoneName="LIVING ZONE",
+    nPorts=2) "Thermal zone"
     annotation (Placement(transformation(extent={{20,20},{60,60}})));
   Fluid.Movers.FlowControlled_m_flow fan(
     redeclare package Medium = Medium,
@@ -81,9 +81,9 @@ equation
   connect(fan.port_b, hea.port_a)
     annotation (Line(points={{-20,-40},{18,-40}}, color={0,127,255}));
   connect(fan.port_a, zon.ports[1]) annotation (Line(points={{-40,-40},{-50,-40},
-          {-50,0},{38,0},{38,20.8}}, color={0,127,255}));
+          {-50,0},{38,0},{38,20.9}}, color={0,127,255}));
   connect(hea.port_b, zon.ports[2])
-    annotation (Line(points={{38,-40},{42,-40},{42,20.8}}, color={0,127,255}));
+    annotation (Line(points={{38,-40},{42,-40},{42,20.9}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
 Simple test case for one building with one thermal zone

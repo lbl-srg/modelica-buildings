@@ -9,27 +9,33 @@ block Enable
     "Set to true to evaluate fixed plus differential dry bulb temperature high limit cutoff;
     shall not be used with enthalpy"
     annotation(Dialog(group="Conditional", enable=not use_enthalpy));
-  parameter Modelica.SIunits.TemperatureDifference delTOutHis=1
+  parameter Real delTOutHis(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference")=1
     "Delta between the temperature hysteresis high and low limit"
-    annotation(Evaluate=true, Dialog(tab="Advanced", group="Hysteresis"));
-  parameter Modelica.SIunits.SpecificEnergy delEntHis=1000
+    annotation(Dialog(tab="Advanced", group="Hysteresis"));
+  parameter Real delEntHis(
+    final unit="J/kg",
+    final quantity="SpecificEnergy")=1000
     "Delta between the enthalpy hysteresis high and low limits"
-    annotation(Evaluate=true, Dialog(tab="Advanced", group="Hysteresis", enable = use_enthalpy));
+    annotation(Dialog(tab="Advanced", group="Hysteresis", enable = use_enthalpy));
   parameter Real retDamPhyPosMax(
     final min=0,
     final max=1,
     final unit="1") = 1
     "Physically fixed maximum position of the return air damper"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
+    annotation(Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real retDamPhyPosMin(
     final min=0,
     final max=1,
     final unit="1") = 0
     "Physically fixed minimum position of the return air damper"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
+    annotation(Dialog(tab="Commissioning", group="Physical damper position limits"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
+    final displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-220,250},{-180,290}}),
@@ -40,13 +46,16 @@ block Enable
     "Outdoor air enthalpy"
     annotation (Placement(transformation(extent={{-220,160},{-180,200}}),
       iconTransformation(extent={{-120,30},{-100,50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TCut(final unit="K", final
-      quantity="ThermodynamicTemperature")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TCut(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
     "OA temperature high limit cutoff. For differential dry bulb temeprature condition use return air temperature measurement"
     annotation (Placement(transformation(extent={{-220,220},{-180,260}}),
         iconTransformation(extent={{-120,68},{-100,88}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRet(
     final unit="K",
+    final displayUnit="degC",
     final quantity = "ThermodynamicTemperature") if use_fixed_plus_differential_drybulb
     "Used only for fixed plus differential dry bulb temperature high limit cutoff"
     annotation (Placement(transformation(extent={{-220,190},{-180,230}}),
@@ -114,11 +123,16 @@ block Enable
   CDL.Logical.Xor xor "Either fixed+differential temperature cutoff or others"
     annotation (Placement(transformation(extent={{74,242},{94,262}})));
 protected
-  final parameter Modelica.SIunits.Temperature TOutHigLimCutHig = 0
+  final parameter Real TOutHigLimCutHig(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference") = 0
     "Hysteresis high limit cutoff";
   final parameter Real TOutHigLimCutLow = TOutHigLimCutHig - delTOutHis
     "Hysteresis low limit cutoff";
-  final parameter Modelica.SIunits.SpecificEnergy hOutHigLimCutHig = 0
+  final parameter Real hOutHigLimCutHig(
+    final unit="J/kg",
+    final quantity="SpecificEnergy") = 0
     "Hysteresis block high limit cutoff";
   final parameter Real hOutHigLimCutLow = hOutHigLimCutHig - delEntHis
     "Hysteresis block low limit cutoff";
@@ -165,12 +179,14 @@ protected
     annotation (Placement(transformation(extent={{4,100},{24,120}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
     final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage0)
+    "Freeze protection stage 0"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
     "Logical block to check if the freeze protection is deactivated"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
     final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates.heating)
+    "Heating zone state"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1
     "Logical block to check if the freeze protection is deactivated"
@@ -279,8 +295,10 @@ equation
   connect(xor.y, truFalHol.u) annotation (Line(points={{96,252},{106,252},{106,
           224},{122,224}},
                       color={255,0,255}));
-    annotation (
-    Icon(graphics={
+
+annotation (
+  defaultComponentName = "enaDis",
+  Icon(graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
           lineColor={0,0,127},
