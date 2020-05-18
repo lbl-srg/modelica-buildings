@@ -21,7 +21,7 @@ services:
 env:
   global:
     - ENERGYPLUS_VERSION=EnergyPlus-9.3.0-baff08990c-Linux-x86_64
-    - MODElICA_JSON_VERSION=4571bdd60861bec14211b6ed0bf41817f69473b6
+    - MODELICA_JSON_VERSION=4571bdd60861bec14211b6ed0bf41817f69473b6
 
   jobs:
     - TEST_ARG="make test-cdl-conformance"
