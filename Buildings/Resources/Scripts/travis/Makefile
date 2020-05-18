@@ -54,10 +54,10 @@ test-cdl-conformance:
 	 echo "*********************************************************" && \
 	 echo "*** Running modelica-json" && \
  	 export MODELICAPATH=`pwd` && \
-	 ls $(ROOT)/modelica-json && \
+	 ls $(MODELICA_JSON_HOME) && \
 	 ls -l )
 
-#	node $(ROOT)/modelica-json/app.js -f Buildings/Controls/OBC -o json -m modelica -d out)
+#	node $(MODELICA_JSON_HOME)/app.js -f Buildings/Controls/OBC -o json -m modelica -d out)
 
 test-dymola:
 	(cd $(ROOT)/Buildings && \
