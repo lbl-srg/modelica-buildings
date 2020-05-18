@@ -44,7 +44,9 @@ model FanCoil2PipeHeating
     yMax=1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     reverseAction=false,
-    yMin=0) "PI controller"
+    yMin=0,
+    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
+            "PI controller"
     annotation (Placement(transformation(extent={{-10,210},{10,230}})));
   Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hex(
     redeclare final package Medium1 = Medium1,
@@ -91,7 +93,7 @@ model FanCoil2PipeHeating
     QHea_flow_nominal=QHea_flow_nominal)
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaFlo(k=1/QHea_flow_nominal)
-    annotation (Placement(transformation(extent={{-40,210},{-20,230}})));
+    annotation (Placement(transformation(extent={{-70,210},{-50,230}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaFlo1(k=1/QHea_flow_nominal)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -105,6 +107,9 @@ model FanCoil2PipeHeating
     annotation (Placement(transformation(extent={{0,130},{20,150}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(k=have_speVar)
     annotation (Placement(transformation(extent={{-60,160},{-40,180}})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr
+    "Reset when demand rises from zero"
+    annotation (Placement(transformation(extent={{-40,190},{-20,210}})));
 equation
   connect(gaiFloNom2.y, fan.m_flow_in)
     annotation (Line(points={{78,180},{80,180},{80,12}}, color={0,0,127}));
@@ -126,7 +131,7 @@ equation
   connect(TLoaODE.TAir, retAir.T_in) annotation (Line(points={{12,40},{140,40},
           {140,4},{124,4}},color={0,0,127}));
   connect(gaiHeaFlo.y, con.u_s)
-    annotation (Line(points={{-18,220},{-12,220}}, color={0,0,127}));
+    annotation (Line(points={{-48,220},{-12,220}}, color={0,0,127}));
   connect(con.u_m, gaiHeaFlo1.y) annotation (Line(points={{0,208},{0,207},{
           8.88178e-16,207},{8.88178e-16,202}}, color={0,0,127}));
   connect(retAir.ports[1], fan.port_a)
@@ -140,7 +145,7 @@ equation
   connect(con1.y, swi.u2) annotation (Line(points={{-38,170},{20,170},{20,180},{
           28,180}}, color={255,0,255}));
   connect(scaQReqHea_flow.y, gaiHeaFlo.u) annotation (Line(points={{-158,100},{
-          -80,100},{-80,220},{-42,220}}, color={0,0,127}));
+          -80,100},{-80,220},{-72,220}}, color={0,0,127}));
   connect(scaQReqHea_flow.y, TLoaODE.QReq_flow) annotation (Line(points={{-158,
           100},{-80,100},{-80,40},{-12,40}}, color={0,0,127}));
   connect(Q_flowHea.y, gaiHeaFlo1.u) annotation (Line(points={{141,220},{150,
@@ -151,6 +156,10 @@ equation
           -220},{-100,-220},{-100,-12},{-80,-12}}, color={0,127,255}));
   connect(hex.port_b1, scaHeaWatFloOut.port_a) annotation (Line(points={{-60,-12},
           {-40,-12},{-40,-220},{160,-220}}, color={0,127,255}));
+  connect(gaiHeaFlo.y, greThr.u) annotation (Line(points={{-48,220},{-46,220},{
+          -46,200},{-42,200}}, color={0,0,127}));
+  connect(greThr.y, con.trigger)
+    annotation (Line(points={{-18,200},{-6,200},{-6,208}}, color={255,0,255}));
 annotation (
 Documentation(
 info="<html>
