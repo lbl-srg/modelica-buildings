@@ -12,9 +12,13 @@ compareVars :=
     "leaSta.yDevStaSet[2]",
     "leaSta.yDevRol[1]",
     "leaSta.yDevRol[2]",
-    "conLea.yDevStaSet[1]",
-    "conLea.yDevStaSet[2]",
-    "conLea.yDevRol[1]",
-    "conLea.yDevRol[2]",
-    "conLea.rotSch.onCouInt.y"
+    "conLeaSimSta.yDevStaSet[1]",
+    "conLeaSimSta.yDevStaSet[2]",
+    "conLeaSimSta.yDevRol[1]",
+    "conLeaSimSta.yDevRol[2]",
+    "conLeaSch.yDevStaSet[1]",
+    "conLeaSch.yDevStaSet[2]",
+    "conLeaSch.yDevRol[1]",
+    "conLeaSch.yDevRol[2]",
+    "conLeaSch.rotSch.onCouInt.y"
   };

@@ -17,40 +17,48 @@ block ControllerTwo
     "Initial roles: true = lead, false = lag/standby"
     annotation (Evaluate=true, Dialog(tab="Advanced", group="Initiation"));
 
+  parameter Boolean simTimSta = true
+    "Measure rotation time from the simulation start"
+    annotation(Evaluate=true, Dialog(group="Scheduler", enable=continuous));
+
+  parameter Boolean weeInt = true
+    "Rotation is scheduled in: true = weekly intervals; false = daily intervals"
+    annotation(Evaluate=true, Dialog(group="Scheduler", enable=not simTimSta));
+
+  parameter Modelica.SIunits.Time rotationPeriod = 1209600
+    "Offset that is added to 'time', may be used for computing time in different time zone"
+    annotation(Dialog(group="Calendar", enable=simTimSta));
+
   parameter Modelica.SIunits.Time minLeaRuntime(
     final displayUnit = "h") = 43200
     "Minimum cumulative runtime period for a current lead device before rotation may occur"
     annotation (Evaluate=true, Dialog(enable=(not continuous and minLim)));
 
+  parameter Modelica.SIunits.Time offset = 0
+    "Offset that is added to 'time', may be used for computing time in a different time zone"
+    annotation(Evaluate=true, Dialog(group="Calendar", enable=(continuous and not simTimSta)));
+
   parameter Buildings.Controls.OBC.CDL.Types.ZeroTime zerTim = Buildings.Controls.OBC.CDL.Types.ZeroTime.NY2019
     "Enumeration for choosing how reference time (time = 0) should be defined"
-    annotation(Evaluate=true, Dialog(group="Calendar", enable=continuous));
+    annotation(Evaluate=true, Dialog(group="Calendar", enable=(continuous and not simTimSta)));
 
   parameter Integer yearRef(min=firstYear, max=lastYear) = 2019
     "Year when time = 0, used if zerTim=Custom"
     annotation(Evaluate=true, Dialog(group="Calendar", enable=zerTim==Buildings.Controls.OBC.CDL.Types.ZeroTime.Custom and continuous));
 
-  parameter Modelica.SIunits.Time offset = 0
-    "Offset that is added to 'time', may be used for computing time in a different time zone"
-    annotation(Evaluate=true, Dialog(group="Calendar", enable=continuous));
-
-  parameter Boolean weeInt = true
-    "Rotation is scheduled in: true = weekly intervals; false = daily intervals"
-    annotation(Dialog(group="Scheduler"));
-
   parameter Integer houOfDay = 2
     "Rotation hour of the day: 0 = midnight; 23 = 11pm"
-    annotation(Dialog(group="Scheduler"));
+    annotation(Evaluate=true, Dialog(group="Scheduler", enable=weeInt and not simTimSta));
 
   parameter Integer weeCou = 1 "Number of weeks"
-    annotation (Evaluate=true, Dialog(enable=weeInt, group="Scheduler"));
+    annotation (Evaluate=true, Dialog(enable=weeInt and not simTimSta, group="Scheduler"));
 
   parameter Integer weekday = 1
     "Rotation weekday, 1 = Monday, 7 = Sunday"
-    annotation (Evaluate=true, Dialog(enable=weeInt, group="Scheduler"));
+    annotation (Evaluate=true, Dialog(enable=weeInt and not simTimSta, group="Scheduler"));
 
   parameter Integer dayCou = 1 "Number of days"
-    annotation (Evaluate=true, Dialog(enable=not weeInt, group="Scheduler"));
+    annotation (Evaluate=true, Dialog(enable=not weeInt and not simTimSta, group="Scheduler"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaStaSet if not continuous
     "Lead device status setpoint"
@@ -79,6 +87,8 @@ block ControllerTwo
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Scheduler
     rotSch(
+    final rotationPeriod=rotationPeriod,
+    final simTimSta=simTimSta,
     final weeInt=weeInt,
     final houOfDay=houOfDay,
     final weeCou=weeCou,
@@ -95,11 +105,6 @@ block ControllerTwo
     "Rotation signal generator with a minimum leading device runtime limiter"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.LeastRuntime
-    leaRunTim(final lag=lag) if (not minLim and not continuous)
-    "Rotation signal generator based on least runtime, at device enable"
-    annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
-
 protected
   final parameter Integer nDev = 2
     "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
@@ -111,6 +116,11 @@ protected
   final constant Integer lastYear = firstYear + 20
     "Last year that is currently supported"
     annotation (Evaluate=true, Dialog(enable=not continuous));
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.LeastRuntime
+    leaRunTim(final lag=lag) if (not minLim and not continuous)
+    "Rotation signal generator based on least runtime, at device enable"
+    annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.ContinuousLeadSwapTwo
     leaSwa if continuous
@@ -248,21 +258,8 @@ equation
 This controller block rotates equipment, such as chillers, pumps or valves, in order 
 to ensure equal wear and tear. It is intended to be used for lead/lag and 
 lead/standby operation of two devices or groups of devices. The implementation is 
-based on the specification from ASHRAE RP-1711, March 2020 Draft, section 5.1.2.1.-4.  
-In addition to the specification in RP-1711, this model allows the user to:
+based on the specification from ASHRAE RP-1711, March 2020 Draft, section 5.1.2.1.-4.
 </p>
-<ul>
-<li>
-specify time of day and either a number of days or a weekday with a number of weeks 
-as time period to rotate devices or groups of devices that run continuously.
-</li>
-<li>
-optionally impose a minimum cumulative runtime period <code>minLeaRuntime</code> for a current 
-lead device before rotation may occur. The time is accumulated in any role for each device and 
-reset for each lead device or group of devices at role rotation. 
-This implementation assumes that a more frequent load is being sent to a lead device or group of devices.
-</li>
-</ul>
 <p>
 The controller takes as inputs the current device proven ON/OFF status vector <code>uDevSta</code>,
 lead device status setpoint <code>uLeaStaSet</code> and lag device status setpoint <code>uLagStaSet</code>.
@@ -290,8 +287,8 @@ This subsequences uses a minimum cumulative runtime period <code>minLeaRuntime</
 To rotate lead/standby device configurations where the lead operates continuously the controller uses 
 the <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Scheduler\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Scheduler</a> subsequence.
-In this subsequence the rotation signal is generated based on the lifetime runtime, as the time since the device start-up. 
-Before a device is changed to standby, the new lead device must be proven on, as implemented by the 
+In this subsequence the rotation signal is generated in regular time intervals, either measured from the simulation start or prescribed using a schedule. 
+Before a device is put to stand-by, the new lead device must be proven on, as implemented by the 
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.ContinuousLeadSwapTwo\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.ContinuousLeadSwapTwo</a> subsequence. 
 The implementations are based on section 5.1.2.4.2. 
@@ -309,10 +306,25 @@ represents a lead role and false represents a lag or a standby role.
 <p>
 The indices of both output vectors and the <code>uDevSta</code> input vector represent physical devices.
 </p>
+<p>
+In addition to the specification in RP-1711, this model allows the user to:
+</p>
+<ul>
+<li>
+specify time of day and either a number of days or a weekday with a number of weeks 
+as time period to rotate devices or groups of devices that run continuously.
+</li>
+<li>
+optionally impose a minimum cumulative runtime period <code>minLeaRuntime</code> for a current 
+lead device before rotation may occur. The time is accumulated in any role for each device and 
+reset for each lead device or group of devices at role rotation. 
+This implementation assumes that a more frequent load is being sent to a lead device or group of devices.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>
-September 18, by Milica Grahovac:<br/>
+May 18, 2020, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>

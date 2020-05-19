@@ -4,6 +4,7 @@ compareVars :=
     "truFalHol1.y",
     "truFalHol2.y",
     "truFalHol3.y",
+    "truFalHol4.y",
     "rotSch.calTim.weekDay",
     "rotSch.calTim.hour"
   };

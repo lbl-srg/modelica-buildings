@@ -60,7 +60,7 @@ according to March 2020 Draft RP-1711, section 5.1.2.4.2.
 </html>", revisions="<html>
 <ul>
 <li>
-September 18, by Milica Grahovac:<br/>
+May 18, 2020, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>

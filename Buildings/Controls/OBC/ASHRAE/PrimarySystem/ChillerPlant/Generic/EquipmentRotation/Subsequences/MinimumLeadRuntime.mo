@@ -145,7 +145,7 @@ This is an OBC custom implementation.
 </html>", revisions="<html>
 <ul>
 <li>
-May 15 2020, by Milica Grahovac:<br/>
+May 15, 2020, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>
