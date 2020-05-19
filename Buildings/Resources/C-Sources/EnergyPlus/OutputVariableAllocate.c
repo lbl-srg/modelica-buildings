@@ -56,7 +56,6 @@ void* OutputVariableAllocate(
   const char* modelicaNameOutputVariable,
   const char* idfName,
   const char* weaName,
-  const char* iddName,
   const char* outputKey,
   const char* outputName,
   int usePrecompiledFMU,
@@ -74,13 +73,6 @@ void* OutputVariableAllocate(
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaFormatMessage("Entered OutputVariableAllocate for zone %s.\n", modelicaNameOutputVariable);
-
-  /* EnergyPlus cannot return Zone Mean Air Temperature as this is computed in Modelica.
-     See email Kyle Benne, 11/22/19  */
-  if (strcasecmp(outputName, "Zone Mean Air Temperature") == 0){
-    ModelicaFormatError("'%s' requested output '%s' but EnergyPlus cannot return this type of output. Use instead the Modelica zone air temperature.",
-    modelicaNameOutputVariable, outputName);
-  }
 
   checkAndSetVerbosity(verbosity);
 
@@ -185,7 +177,6 @@ void* OutputVariableAllocate(
       modelicaNameBuilding,
       idfName,
       weaName,
-      iddName,
       usePrecompiledFMU,
       fmuName,
       buildingsLibraryRoot);

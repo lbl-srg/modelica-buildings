@@ -14,8 +14,6 @@ class FMUOutputVariableClass
       "Name of the Modelica instance that requests this output variable";
     input String idfName "Name of the IDF";
     input String weaName "Name of the weather file";
-    input String iddName "Name of the IDD file";
-    //    input String epLibName "Name of the Energyplus FMI library";
     input String outputKey "EnergyPlus key of the output variable";
     input String outputName "EnergyPlus name of the output variable as in the EnergyPlus .rdd or .mdd file";
     input Boolean usePrecompiledFMU "Set to true to use precompiled FMU with name specified by input fmuName";
@@ -31,7 +29,6 @@ class FMUOutputVariableClass
       modelicaNameOutputVariable,
       idfName,
       weaName,
-      iddName,
       outputKey,
       outputName,
       usePrecompiledFMU,

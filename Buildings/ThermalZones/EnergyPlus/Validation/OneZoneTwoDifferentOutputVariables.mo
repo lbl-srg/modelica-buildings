@@ -4,7 +4,7 @@ model OneZoneTwoDifferentOutputVariables
   extends OneZoneOneOutputVariable;
 
   Buildings.ThermalZones.EnergyPlus.OutputVariable incBeaSou(
-    key="Perimeter_ZN_1_wall_south_Window_1",
+    key="Living:South",
     name="Surface Outside Face Incident Beam Solar Radiation Rate per Area",
     y(final unit="W/m2"))
     "Block that reads incident beam solar radiation on south window from EnergyPlus"
@@ -26,6 +26,5 @@ First implementation.
         "Simulate and plot"),
 experiment(
       StopTime=432000,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"));
+      Tolerance=1e-06));
 end OneZoneTwoDifferentOutputVariables;

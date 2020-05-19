@@ -5,54 +5,57 @@ block Limits "Single zone VAV AHU minimum outdoor air control - damper position 
     final min=0,
     final max=1,
     final unit="1") = 0.1 "Minimum supply fan operation speed"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
+    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real yFanMax(
     final min=0,
     final max=1,
     final unit="1") = 1 "Maximum supply fan operation speed"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
+    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real yDam_VOutMin_minSpe(
     final min=outDamPhyPosMin,
     final max=outDamPhyPosMax,
     final unit="1") = 0.4
     "OA damper position to supply minimum outdoor airflow at minimum fan speed"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
+    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real yDam_VOutMin_maxSpe(
     final min=outDamPhyPosMin,
     final max=outDamPhyPosMax,
     final unit="1") = 0.3
     "OA damper position to supply minimum outdoor airflow at maximum fan speed"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
+    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real yDam_VOutDes_minSpe(
     final min=yDam_VOutMin_minSpe,
     final max=outDamPhyPosMax,
     final unit="1") = 0.9
     "OA damper position to supply design outdoor airflow at minimum fan speed"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
+    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real yDam_VOutDes_maxSpe(
     final min=yDam_VOutMin_maxSpe,
     final max=outDamPhyPosMax,
     final unit="1") = 0.8
     "OA damper position to supply design outdoor airflow at maximum fan speed"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
-  parameter Modelica.SIunits.VolumeFlowRate VOutMin_flow
-    "Calculated minimum outdoor airflow rate"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
-  parameter Modelica.SIunits.VolumeFlowRate VOutDes_flow
+    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
+  parameter Real VOutMin_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate") "Calculated minimum outdoor airflow rate"
+    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
+  parameter Real VOutDes_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")
     "Calculated design outdoor airflow rate"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
+    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real outDamPhyPosMax(
     final min=0,
     final max=1,
     final unit="1") = 1
-    "Physically fixed maximum position of the outdoor air (OA) damper"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
+    "Physically fixed maximum position of the outdoor air damper"
+    annotation(Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real outDamPhyPosMin(
     final min=0,
     final max=1,
     final unit="1") = 0
     "Physically fixed minimum position of the outdoor air damper"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
+    annotation(Dialog(tab="Commissioning", group="Physical damper position limits"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFanSpe(
     final min=0,
@@ -103,11 +106,11 @@ protected
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPhyPosMinSig(
     final k=outDamPhyPosMin)
-    "Physically fixed minimum position of the outdoor air (OA) damper"
+    "Physically fixed minimum position of the outdoor air damper"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPhyPosMaxSig(
     final k=outDamPhyPosMax)
-    "Physically fixed maximum position of the outdoor air (OA) damper"
+    "Physically fixed maximum position of the outdoor air damper"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFanMaxSig(
     final k=yFanMax) "Maximum supply fan speed"
@@ -152,8 +155,6 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch enaDis
     "Logical switch to enable damper position limit calculation or disable it (set min limit to physical minimum)"
     annotation (Placement(transformation(extent={{82,-120},{102,-100}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd and1(final nu=3) "Logical and block"
-    annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not block"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Switch enaDis1
@@ -172,6 +173,8 @@ protected
     annotation (Placement(transformation(extent={{-140,-190},{-120,-170}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1 "Check if operation mode is occupied"
     annotation (Placement(transformation(extent={{-100,-170},{-80,-150}})));
+  Buildings.Controls.OBC.CDL.Logical.And3 and3 "Logical and"
+    annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 
 equation
   connect(minVOutSig.y, minVOutSetCurFanSpePos.x1)
@@ -208,8 +211,6 @@ equation
     annotation (Line(points={{-180,180},{-20,180},{-20,160},{60,160},{60,120},{98,120}}, color={0,0,127}));
   connect(uSupFanSpe, yDam_VOutDes_curSpe.u)
     annotation (Line(points={{-180,110},{-24,110},{-24,50},{14,50}}, color={0,0,127}));
-  connect(and1.y,not1. u)
-    annotation (Line(points={{-38,-70},{-22,-70}},   color={255,0,255}));
   connect(not1.y, enaDis.u2)
     annotation (Line(points={{2,-70},{2,-70},{2,-70},{0,-70},{40,-70},{40,-110},
           {80,-110}},                                                                      color={255,0,255}));
@@ -227,24 +228,23 @@ equation
     annotation (Line(points={{102,-70},{140,-70},{140,42},{180,42}}, color={0,0,127}));
   connect(not1.y, enaDis1.u2)
     annotation (Line(points={{2,-70},{78,-70}}, color={255,0,255}));
-  connect(uSupFan, and1.u[1])
-    annotation (Line(points={{-180,-80},{-122,-80},{-122,-65.3333},{-62,
-          -65.3333}},
-      color={255,0,255}));
   connect(uOpeMod, intEqu1.u1)
     annotation (Line(points={{-180,-160},{-102,-160}}, color={255,127,0}));
   connect(conInt1.y, intEqu1.u2)
     annotation (Line(points={{-118,-180},{-112,-180},{-112,-168},{-102,-168}},
       color={255,127,0}));
-  connect(intLesEqu.y, and1.u[2])
-    annotation (Line(points={{-78,-120},{-74,-120},{-74,-70},{-62,-70}}, color={255,0,255}));
-  connect(intEqu1.y, and1.u[3])
-    annotation (Line(points={{-78,-160},{-68,-160},{-68,-74.6667},{-62,-74.6667}},
-      color={255,0,255}));
   connect(intLesEqu.u2, conInt.y)
     annotation (Line(points={{-102,-128},{-110,-128},{-110,-140},{-118,-140}}, color={255,127,0}));
   connect(uFreProSta, intLesEqu.u1)
     annotation (Line(points={{-180,-120},{-102,-120}}, color={255,127,0}));
+  connect(uSupFan, and3.u1) annotation (Line(points={{-180,-80},{-80,-80},{-80,
+          -62},{-62,-62}}, color={255,0,255}));
+  connect(intLesEqu.y, and3.u2) annotation (Line(points={{-78,-120},{-74,-120},
+          {-74,-70},{-62,-70}}, color={255,0,255}));
+  connect(intEqu1.y, and3.u3) annotation (Line(points={{-78,-160},{-68,-160},{
+          -68,-78},{-62,-78}}, color={255,0,255}));
+  connect(and3.y, not1.u)
+    annotation (Line(points={{-38,-70},{-22,-70}}, color={255,0,255}));
 annotation (Placement(transformation(extent={{-20,110},{0,130}})),
                 Placement(transformation(extent={{-20,20},{0,40}})),
                 Placement(transformation(extent={{60,90},{80,110}})),
@@ -418,6 +418,11 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/Sin
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 13, 2020, by Jianjun Hu:<br/>
+Replaced multiAnd block with and3 block to avoid vector related implementation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1709\">#1709</a>.
+</li>
 <li>
 July 06, 2017, by Milica Grahovac:<br/>
 Refactored implementation.

@@ -2,6 +2,9 @@ within Buildings.HeatTransfer.Convection;
 model Interior "Model for a interior (room-side) convective heat transfer"
   extends Buildings.HeatTransfer.Convection.BaseClasses.PartialConvection;
 
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
+
   parameter Buildings.HeatTransfer.Types.InteriorConvection conMod=
     Buildings.HeatTransfer.Types.InteriorConvection.Fixed
     "Convective heat transfer model"
@@ -10,9 +13,6 @@ model Interior "Model for a interior (room-side) convective heat transfer"
   parameter Modelica.SIunits.CoefficientOfHeatTransfer hFixed=3
     "Constant convection coefficient"
    annotation (Dialog(enable=(conMod == Buildings.HeatTransfer.Types.InteriorConvection.Fixed)));
-
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   parameter Modelica.SIunits.Angle til(displayUnit="deg") "Surface tilt"
     annotation (Dialog(enable=(conMod <> Buildings.HeatTransfer.Types.InteriorConvection.Fixed)));
@@ -27,6 +27,12 @@ protected
     "Flag, true if the surface is a ceiling";
   final parameter Boolean isFloor = abs(sinTil) < 10E-10 and cosTil < 0
     "Flag, true if the surface is a floor";
+
+initial equation
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
+
 equation
   if (conMod == Buildings.HeatTransfer.Types.InteriorConvection.Fixed) then
     q_flow = hFixed * dT;
@@ -133,6 +139,12 @@ Buildings.HeatTransfer.Convection.Functions.HeatFlux.wall</a>
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
+</li>
 <li>
 September 17, 2016, by Michael Wetter:<br/>
 Refactored model as part of enabling the pedantic model check in Dymola 2017 FD01 beta 2.<br/>

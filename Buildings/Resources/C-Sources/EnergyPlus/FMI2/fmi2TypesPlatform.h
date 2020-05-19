@@ -38,7 +38,7 @@
                      Hans Olsson (Dynasim).
 
 
-   Copyright © 2008-2011 MODELISAR consortium,
+   Copyright ï¿½ 2008-2011 MODELISAR consortium,
                2012-2013 Modelica Association Project "FMI"
                All rights reserved.
    This file is licensed by the copyright holders under the BSD 2-Clause License
@@ -97,15 +97,27 @@
    fmi2Byte                : smallest addressable unit of the machine, typically one byte.
 */
    typedef void*           fmi2Component;               /* Pointer to FMU instance       */
+#ifndef fmi2Component_defined
+#define fmi2Component_defined
    typedef void*           fmi2ComponentEnvironment;    /* Pointer to FMU environment    */
+#endif
+#ifndef fmi2FMUstate_defined
+#define fmi2FMUstate_defined
    typedef void*           fmi2FMUstate;                /* Pointer to internal FMU state */
+#endif
    typedef unsigned int    fmi2ValueReference;
    typedef double          fmi2Real   ;
    typedef int             fmi2Integer;
    typedef int             fmi2Boolean;
+#ifndef fmi2Char_defined
+#define fmi2Char_defined
    typedef char            fmi2Char;
+#endif
    typedef const fmi2Char* fmi2String;
+#ifndef fmi2Byte_defined
+#define fmi2Byte_defined
    typedef char            fmi2Byte;
+#endif
 
 /* Values for fmi2Boolean  */
 #define fmi2True  1

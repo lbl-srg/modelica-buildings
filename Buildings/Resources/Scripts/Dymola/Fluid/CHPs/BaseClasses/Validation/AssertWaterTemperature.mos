@@ -1,0 +1,4 @@
+simulateModel("Buildings.Fluid.CHPs.BaseClasses.Validation.AssertWaterTemperature",
+    method="cvode", stopTime=900, tolerance=1e-06, resultFile="AssertWaterTemperature");
+createPlot(id=1, position={20, 20, 900, 800}, subPlot=1, y={"TWat.y[1]", "per.TWatMax"}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={20, 20, 900, 800}, subPlot=2, y={"assWatTem.assMes.u"}, grid=true, colors={{28,108,200}});

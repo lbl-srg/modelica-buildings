@@ -66,9 +66,9 @@ model ThermalZone "Model to connect to an EnergyPlus thermal zone"
         extent={{40,-10},{-40,10}},
         rotation=180,
         origin={0,-150}), iconTransformation(
-        extent={{40,-10},{-40,10}},
+        extent={{40,-9},{-40,9}},
         rotation=180,
-        origin={0,-192})));
+        origin={0,-191})));
   Modelica.Blocks.Interfaces.RealOutput TAir(
     final unit="K",
     displayUnit="degC")
@@ -288,11 +288,12 @@ equation
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-172,178},{180,-182}},
-          pattern=LinePattern.None,
+          extent={{-176,182},{180,-182}},
           lineColor={117,148,176},
-          fillColor={170,213,255},
-          fillPattern=FillPattern.Sphere),
+          fillPattern=FillPattern.Solid,
+          fillColor=DynamicSelect({170,213,255},
+            min(1, max(0, (1-(heaPorAir.T-295.15)/10)))*{28,108,200}+
+            min(1, max(0, (heaPorAir.T-295.15)/10))*{255,0,0})),
         Bitmap(extent={{62,-190},{164,-88}},
           fileName="modelica://Buildings/Resources/Images/Fluid/FMI/FMI_icon.png",
           visible=usePrecompiledFMU),
@@ -328,7 +329,7 @@ equation
           fillColor={170,213,255},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-220,118},{-144,86}},
+          extent={{-202,118},{-126,86}},
           lineColor={0,0,0},
           textString="q"),
         Text(
@@ -345,7 +346,11 @@ equation
         Text(
           extent={{-58,244},{56,204}},
           lineColor={0,0,255},
-          textString="%name")}),
+          textString="%name"),
+        Text(
+          extent={{174,-126},{54,-176}},
+          lineColor={255,255,255},
+          textString=DynamicSelect("", String(heaPorAir.T-273.15, format=".1f")))}),
    Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},{200,200}})),
     Documentation(info="<html>
