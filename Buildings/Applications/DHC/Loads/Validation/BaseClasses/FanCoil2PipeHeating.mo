@@ -22,6 +22,27 @@ model FanCoil2PipeHeating
     final mHeaWat_flow_nominal=abs(QHea_flow_nominal/cpHeaWat_nominal/(
       T_aHeaWat_nominal - T_bHeaWat_nominal)));
   import hexConfiguration = Buildings.Fluid.Types.HeatExchangerConfiguration;
+  parameter Real k(min=0) = 1 "Gain of controller";
+  parameter Modelica.SIunits.Time Ti(min=Modelica.Constants.small) = 10
+    "Time constant of integrator block";
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
+    "Type of energy balance for fan air volume"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+  final parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
+    "Type of mass balance for fan air volume"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Zone air"));
+  parameter Modelica.SIunits.Time tau=1
+    "Time constant of fan air volume, used if energy or mass balance is dynamic"
+    annotation (Dialog(tab="Dynamics",
+                       group="Nominal condition",
+                       enable=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState or
+                              massDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState));
+  parameter Boolean use_inputFilter=true
+    "= true, if fan speed is filtered with a 2nd order CriticalDamping filter"
+    annotation(Dialog(tab="Dynamics", group="Filtered speed"));
+  parameter Modelica.SIunits.Time riseTime=30
+    "Rise time of the filter (time to reach 99.6 % of the speed)"
+    annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=use_inputFilter));
   final parameter hexConfiguration hexConHea=
     hexConfiguration.CounterFlow
     "Heating heat exchanger configuration";
@@ -32,17 +53,21 @@ model FanCoil2PipeHeating
     "Set to true for a variable speed fan (otherwise fan is always on)";
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
     redeclare final package Medium=Medium2,
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    final use_inputFilter=false,
     final allowFlowReversal=allowFlowReversalLoa,
     final m_flow_nominal=mLoaHea_flow_nominal,
     redeclare Fluid.Movers.Data.Generic per,
     nominalValuesDefineDefaultPressureCurve=true,
+    final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
+    final tau=tau,
+    final use_inputFilter=use_inputFilter,
+    final riseTime=riseTime,
     dp_nominal=200)
     "Fan"
     annotation (Placement(transformation(extent={{90,-10},{70,10}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID con(
-    Ti=10,
+    final k=k,
+    final Ti=Ti,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final reverseAction=false,
     reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
@@ -64,10 +89,12 @@ model FanCoil2PipeHeating
     "Heating coil"
     annotation (Placement(transformation(extent={{-80,4},{-60,-16}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiMasFlo(k=mHeaWat_flow_nominal)
+    "Scale water flow rate"
     annotation (Placement(transformation(extent={{40,210},{60,230}})));
   Modelica.Blocks.Sources.RealExpression Q_flowHea(y=hex.Q2_flow)
     annotation (Placement(transformation(extent={{120,210},{140,230}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiFloNom2(k=mLoaHea_flow_nominal)
+    "Scale air flow rate"
     annotation (Placement(transformation(extent={{56,170},{76,190}})));
   Fluid.Sources.Boundary_pT sinAir(
     redeclare package Medium = Medium2,
