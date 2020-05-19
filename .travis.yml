@@ -91,6 +91,7 @@ before_install:
   - if [[ "$TEST_ARG" == *test-energyplus* ]]; then
       wget --no-verbose https://github.com/NREL/EnergyPlus/releases/download/v9.3.0/${ENERGYPLUS_VERSION}.tar.gz;
       tar xzf ${ENERGYPLUS_VERSION}.tar.gz;
+      rm ${ENERGYPLUS_VERSION}.tar.gz;
       mv -v ${ENERGYPLUS_VERSION}/energyplus ${ENERGYPLUS_VERSION}/EnergyPlus;
       file ${ENERGYPLUS_VERSION}/EnergyPlus
       ls -l ${ENERGYPLUS_VERSION}
@@ -99,11 +100,11 @@ before_install:
   - if [[ "$TEST_ARG" == *test-cdl-conformance* ]]; then
       wget --no-verbose https://github.com/lbl-srg/modelica-json/archive/${MODELICA_JSON_VERSION}.tar.gz;
       tar xzf ${MODELICA_JSON_VERSION}.tar.gz;
+      rm ${MODELICA_JSON_VERSION}.tar.gz;
       mv modelica-json-${MODELICA_JSON_VERSION} ${MODELICA_JSON_HOME};
       cd ${MODELICA_JSON_HOME};
       make install-node-packages;
       make compile;
-      cd -;
       echo "Installed modelica-json in ${MODELICA_JSON_HOME}";
     fi;
 
