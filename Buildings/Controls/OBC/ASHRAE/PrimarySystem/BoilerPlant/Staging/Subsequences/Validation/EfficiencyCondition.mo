@@ -141,22 +141,23 @@ equation
       color={0,0,127}));
 
   annotation(Icon(coordinateSystem(preserveAspectRatio=false,
-                                    extent={{-100,-100},{100,100}}),
-               graphics={Ellipse(lineColor = {75,138,73},
-                                 fillColor={255,255,255},
-                                 fillPattern = FillPattern.Solid,
-                                 extent={{-100,-100},{100,100}}),
-                         Polygon(lineColor = {0,0,255},
-                                 fillColor = {75,138,73},
-                                 pattern = LinePattern.None,
-                                 fillPattern = FillPattern.Solid,
-                                 points={{-36,60},{64,0},{-36,-60},{-36,60}})}),
+                                   extent={{-100,-100},{100,100}}),
+             graphics={Ellipse(lineColor = {75,138,73},
+                               fillColor={255,255,255},
+                               fillPattern = FillPattern.Solid,
+                               extent={{-100,-100},{100,100}}),
+                       Polygon(lineColor = {0,0,255},
+                               fillColor = {75,138,73},
+                               pattern = LinePattern.None,
+                               fillPattern = FillPattern.Solid,
+                               points={{-36,60},{64,0},{-36,-60},{-36,60}})}),
     Diagram(coordinateSystem(preserveAspectRatio=false,
                              extent={{-140,-140},{140,140}})),
     experiment(
       StopTime=7200,
-      Interval=1),
-      __Dymola_Commands(file="./Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/Subsequences/Validation/EfficiencyCondition.mos"
+      Interval=1,
+      Tolerance=1e-6),
+    __Dymola_Commands(file="./Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/Subsequences/Validation/EfficiencyCondition.mos"
       "Simulate and plot"),
     Documentation(info="<html>
       <p>This example validates
