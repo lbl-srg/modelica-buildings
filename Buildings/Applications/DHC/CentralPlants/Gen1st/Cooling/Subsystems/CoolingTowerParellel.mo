@@ -1,194 +1,233 @@
 within Buildings.Applications.DHC.CentralPlants.Gen1st.Cooling.Subsystems;
 model CoolingTowerParellel
-  "Multipul cooling towers in parallel connection"
-  replaceable package MediumCW =
-      Buildings.Media.Water
-    "Medium in the  condenser water side";
-  parameter Modelica.SIunits.Power P_nominal
-    "Nominal cooling tower power (at y=1)";
-  parameter Modelica.SIunits.TemperatureDifference dTCW_nominal
-    "Temperature difference between the outlet and inlet of the tower ";
-  parameter Modelica.SIunits.TemperatureDifference dTApp_nominal
-    "Nominal approach temperature";
-  parameter Modelica.SIunits.Temperature TWetBul_nominal
-    "Nominal wet bulb temperature";
-  parameter Modelica.SIunits.Pressure dP_nominal
-    "Pressure difference between the outlet and inlet of the tower ";
-  parameter Modelica.SIunits.MassFlowRate mCW_flow_nominal
-    "Nominal mass flow rate at condenser water wide";
-  parameter Real GaiPi "Gain of the tower PI controller";
-  parameter Real tIntPi "Integration time of the tower PI controller";
-  parameter Real v_flow_rate[:] "Air volume flow rate ratio";
-  parameter Real eta[:] "Fan efficiency";
-  parameter Modelica.SIunits.Temperature TCW_start
-    "The start temperature of condenser water side";
-  Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
-        MediumCW)
+  "Multiple identical cooling towers in parallel connection"
+  replaceable package Medium=Buildings.Media.Water
+    "Condenser water medium";
+  parameter Integer num=2 "Number of cooling towers";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.5
+    "Nominal mass flow rate of condenser water"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.Pressure dp_nominal=6000
+    "Nominal pressure difference of the tower"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Real ratWatAir_nominal=0.625
+    "Design water-to-air ratio"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.Temperature TAirInWB_nominal=273.15+25.55
+    "Nominal outdoor (air inlet) wetbulb temperature"
+    annotation (Dialog(group="Heat transfer"));
+  parameter Modelica.SIunits.Temperature TWatIn_nominal=273.15+35
+    "Nominal water inlet temperature"
+    annotation (Dialog(group="Heat transfer"));
+  parameter Modelica.SIunits.TemperatureDifference dT_nominal=5.56
+    "Temperature difference between inlet and outlet of the tower"
+     annotation (Dialog(group="Heat transfer"));
+  parameter Modelica.SIunits.Power PFan_nominal=4800
+    "Fan power"
+    annotation (Dialog(group="Fan"));
+
+  Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium=Medium)
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
-        MediumCW)
+  Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium=Medium)
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Modelica.Blocks.Interfaces.RealInput TWetBul
-    "Entering air wet bulb temperature"
+    "Entering air wetbulb temperature"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
-  Fluid.HeatExchangers.CoolingTowers.Merkel cooTow1 "Cooling tower 1"
-    annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  Fluid.Actuators.Valves.TwoWayEqualPercentage val1(
-    redeclare package Medium = MediumCW,
-    m_flow_nominal=mCW_flow_nominal,
-    dpValve_nominal=dP_nominal) "Cooling tower 1 valve"
-    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Fluid.HeatExchangers.CoolingTowers.Merkel cooTow2 "Cooling tower 1"
-    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-  Fluid.Actuators.Valves.TwoWayEqualPercentage val2(
-    redeclare package Medium = MediumCW,
-    m_flow_nominal=mCW_flow_nominal,
-    dpValve_nominal=dP_nominal) "Cooling tower 1 valve"
-    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  Modelica.Blocks.Interfaces.RealInput on[2] "On signal for cooling towers"
+  replaceable Fluid.HeatExchangers.CoolingTowers.Merkel cooTow[num]
+    constrainedby
+    Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower(
+     redeclare each final package Medium = Medium,
+     each final m_flow_nominal=m_flow_nominal,
+     each final dp_nominal=dp_nominal,
+     each final ratWatAir_nominal=ratWatAir_nominal,
+     each final TAirInWB_nominal=TAirInWB_nominal,
+     each final TWatIn_nominal=TWatIn_nominal,
+     each final TWatOut_nominal=TWatIn_nominal-dT_nominal,
+     each final PFan_nominal=PFan_nominal)
+    "Cooling tower type"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  Fluid.Actuators.Valves.TwoWayEqualPercentage val[num](
+    redeclare package Medium = Medium,
+    each final m_flow_nominal=m_flow_nominal,
+    each final dpValve_nominal=dp_nominal)
+    "Cooling tower valves"
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+  Modelica.Blocks.Interfaces.RealInput on[num]
+    "On signal for cooling towers"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Modelica.Blocks.Interfaces.RealInput speFan "Fan speed control signal"
+  Modelica.Blocks.Interfaces.RealInput speFan
+    "Fan speed control signal"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
-  Modelica.Blocks.Interfaces.RealOutput PFan[2]
+  Modelica.Blocks.Interfaces.RealOutput PFan[num]
     "Electric power consumed by fan"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  Modelica.Blocks.Interfaces.RealOutput TLvg[2]
-                        "Leaving water temperature"
+  Modelica.Blocks.Interfaces.RealOutput TLvg[num]
+    "Leaving water temperature"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
 equation
-  connect(val1.port_b, cooTow1.port_a)
-    annotation (Line(points={{-20,30},{20,30}}, color={0,127,255}));
-  connect(cooTow1.port_b, port_b) annotation (Line(points={{40,30},{60,30},{60,0},
-          {100,0}}, color={0,127,255}));
-  connect(val1.port_a, port_a) annotation (Line(points={{-40,30},{-60,30},{-60,0},
-          {-100,0}}, color={0,127,255}));
-  connect(cooTow2.port_b, port_b) annotation (Line(points={{40,-30},{60,-30},{60,
-          0},{100,0}}, color={0,127,255}));
-  connect(val2.port_b, cooTow2.port_a)
-    annotation (Line(points={{-20,-30},{20,-30}}, color={0,127,255}));
-  connect(val2.port_a, port_a) annotation (Line(points={{-40,-30},{-60,-30},{-60,
-          0},{-100,0}}, color={0,127,255}));
-  connect(on[1], val1.y)
-    annotation (Line(points={{-120,50},{-30,50},{-30,42}}, color={0,0,127}));
-  connect(on[2], val2.y) annotation (Line(points={{-120,70},{-16,70},{-16,-12},
-          {-30,-12},{-30,-18}}, color={0,0,127}));
-  connect(speFan, cooTow1.y) annotation (Line(points={{-120,20},{-80,20},{-80,46},
-          {12,46},{12,38},{18,38}}, color={0,0,127}));
-  connect(speFan, cooTow2.y) annotation (Line(points={{-120,20},{-80,20},{-80,46},
-          {12,46},{12,-22},{18,-22}}, color={0,0,127}));
-  connect(TWetBul, cooTow2.TAir) annotation (Line(points={{-120,-60},{4,-60},{4,
-          -26},{18,-26}}, color={0,0,127}));
-  connect(TWetBul, cooTow1.TAir) annotation (Line(points={{-120,-60},{4,-60},{4,
-          34},{18,34}}, color={0,0,127}));
-  connect(cooTow2.PFan, PFan[2]) annotation (Line(points={{41,-22},{70,-22},{70,
-          65},{110,65}}, color={0,0,127}));
-  connect(cooTow1.PFan, PFan[1]) annotation (Line(points={{41,38},{70,38},{70,55},
-          {110,55}}, color={0,0,127}));
-  connect(cooTow2.TLvg, TLvg[2]) annotation (Line(points={{41,-36},{80,-36},{80,
-          35},{110,35}}, color={0,0,127}));
-  connect(cooTow1.TLvg, TLvg[1]) annotation (Line(points={{41,24},{80,24},{80,
-          25},{110,25}}, color={0,0,127}));
+  for i in 1:num loop
+    connect(port_a, val[i].port_a) annotation (Line(points={{-100,0},{-60,0}},color={0,127,255}));
+    connect(val[i].port_b, cooTow[i].port_a) annotation (Line(points={{-40,0},{-10,0}},  color={0,127,255}));
+    connect(cooTow[i].port_b, port_b) annotation (Line(points={{10,0},{100,0}},
+                    color={0,127,255}));
+    connect(speFan, cooTow[i].y) annotation (Line(points={{-120,20},{-20,20},{-20,8},
+          {-12,8}},                 color={0,0,127}));
+    connect(TWetBul, cooTow[i].TAir) annotation (Line(points={{-120,-60},{-20,-60},{
+          -20,4},{-12,4}},
+                        color={0,0,127}));
+    connect(on[i], val[i].y) annotation (Line(points={{-120,60},{-50,60},{-50,12}}, color={0,0,127}));
+    connect(cooTow[i].PFan, PFan[i]) annotation (Line(points={{11,8},{20,8},{20,60},{110,
+          60}}, color={0,0,127}));
+    connect(cooTow[i].TLvg, TLvg[i]) annotation (Line(points={{11,-6},{26,-6},{26,30},{110,
+          30}}, color={0,0,127}));
+  end for;
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),           Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
-          extent={{-30,66},{30,6}},
-          lineColor={95,95,95},
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-24,80},{24,66}},
+          extent={{-30,80},{30,6}},
           lineColor={95,95,95},
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{-18,74},{0,70}},
+          extent={{-22,74},{0,66}},
           lineColor={255,255,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{0,74},{18,70}},
+          extent={{0,74},{22,66}},
           lineColor={255,255,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Line(
-          points={{-16,56},{-22,44}},
-          color={255,0,0}),
         Line(
           points={{16,56},{22,44}},
-          color={255,0,0}),
-        Line(
-          points={{-60,56},{16,56}},
-          color={255,0,0}),
+          color={255,0,0},
+          thickness=0.5),
         Line(
           points={{0,56},{6,44}},
-          color={255,0,0}),
-        Line(
-          points={{-16,56},{-10,44}},
-          color={255,0,0}),
+          color={255,0,0},
+          thickness=0.5),
         Line(
           points={{0,56},{-6,44}},
-          color={255,0,0}),
+          color={255,0,0},
+          thickness=0.5),
         Line(
           points={{16,56},{10,44}},
-          color={255,0,0}),
+          color={255,0,0},
+          thickness=0.5),
         Rectangle(
-          extent={{-30,-20},{30,-80}},
+          extent={{-30,-6},{30,-80}},
           lineColor={95,95,95},
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-24,-6},{24,-20}},
-          lineColor={95,95,95},
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-149,-114},{151,-154}},
+          lineColor={0,0,255},
+          textString="%name"),
         Ellipse(
-          extent={{-18,-12},{0,-16}},
+          extent={{-22,-12},{0,-20}},
           lineColor={255,255,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{0,-12},{18,-16}},
+          extent={{0,-12},{22,-20}},
           lineColor={255,255,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Line(
           points={{-16,-30},{-22,-42}},
-          color={255,0,0}),
-        Line(
-          points={{16,-30},{22,-42}},
-          color={255,0,0}),
-        Line(
-          points={{-60,-30},{16,-30}},
-          color={255,0,0}),
-        Line(
-          points={{0,-30},{6,-42}},
-          color={255,0,0}),
+          color={255,0,0},
+          thickness=0.5),
         Line(
           points={{-16,-30},{-10,-42}},
-          color={255,0,0}),
+          color={255,0,0},
+          thickness=0.5),
         Line(
           points={{0,-30},{-6,-42}},
-          color={255,0,0}),
+          color={255,0,0},
+          thickness=0.5),
+        Line(
+          points={{0,-30},{6,-42}},
+          color={255,0,0},
+          thickness=0.5),
         Line(
           points={{16,-30},{10,-42}},
-          color={255,0,0}),
-        Line(points={{-60,56},{-60,0},{-94,0}}, color={255,0,0}),
-        Line(points={{-60,0},{-60,-30}}, color={255,0,0}),
-        Line(points={{30,6},{60,6},{60,0},{96,0}}, color={28,108,200}),
-        Line(points={{30,-80},{60,-80},{60,0}}, color={28,108,200}),
-        Text(
-          extent={{-149,-114},{151,-154}},
+          color={255,0,0},
+          thickness=0.5),
+        Line(
+          points={{16,-30},{22,-42}},
+          color={255,0,0},
+          thickness=0.5),
+        Rectangle(
+          extent={{30,10},{60,6}},
           lineColor={0,0,255},
-          textString="%name")}),
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{30,-76},{60,-80}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{62,2},{92,-2}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{58,-80},{62,10}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-90,2},{-60,-2}},
+          lineColor={238,46,47},
+          pattern=LinePattern.None,
+          fillColor={238,46,47},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-64,-30},{-60,60}},
+          lineColor={238,46,47},
+          pattern=LinePattern.None,
+          fillColor={238,46,47},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-60,-26},{16,-30}},
+          lineColor={238,46,47},
+          pattern=LinePattern.None,
+          fillColor={238,46,47},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-60,60},{16,56}},
+          lineColor={238,46,47},
+          pattern=LinePattern.None,
+          fillColor={238,46,47},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-16,56},{-22,44}},
+          color={255,0,0},
+          thickness=0.5),
+        Line(
+          points={{-16,56},{-10,44}},
+          color={255,0,0},
+          thickness=0.5)}),
     Documentation(revisions="<html>
 <ul>
 <li>
-March 30, 2014 by Sen Huang:<br/>
+May 19, 2020 by Jing Wang:<br/>
 First implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This model implements a parallel cooling tower system with <code>num</code> identical cooling towers. 
+The cooling tower type is replacable.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel\">Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel</a> is currently used in this model. 
+</p>
 </html>"));
 end CoolingTowerParellel;
