@@ -13,7 +13,7 @@ model BuildingSpawnZ6
   parameter Integer facSca=1
     "Scaling factor to be applied to on each extensive quantity";
   parameter String idfName=
-    "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf"
+    "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf"
     "Name of the IDF file";
   parameter String weaName=
     "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"
@@ -145,30 +145,30 @@ equation
   connect(disFloCoo.port_b, ports_b[2]) annotation (Line(points={{-140,-220},{
           280,-220},{280,0},{300,0}},
                                     color={0,127,255}));
-  connect(znAttic.ports[1], terUni[1].port_aLoa) annotation (Line(points={{42,84.8},
-          {-8,84.8},{-8,20},{-116,20}},      color={0,127,255}));
+  connect(znAttic.ports[1], terUni[1].port_aLoa) annotation (Line(points={{42,84.9},
+          {-8,84.9},{-8,20},{-116,20}},      color={0,127,255}));
   connect(terUni[1].port_bLoa, znAttic.ports[2]) annotation (Line(points={{-140,20},
-          {-20,20},{-20,84.8},{46,84.8}},      color={0,127,255}));
-  connect(znCore_ZN.ports[1], terUni[2].port_aLoa) annotation (Line(points={{42,42.8},
-          {-8,42.8},{-8,20},{-116,20}},      color={0,127,255}));
+          {-20,20},{-20,84.9},{46,84.9}},      color={0,127,255}));
+  connect(znCore_ZN.ports[1], terUni[2].port_aLoa) annotation (Line(points={{42,42.9},
+          {-8,42.9},{-8,20},{-116,20}},      color={0,127,255}));
   connect(terUni[2].port_bLoa, znCore_ZN.ports[2]) annotation (Line(points={{-140,20},
-          {-20,20},{-20,42.8},{46,42.8}},      color={0,127,255}));
-  connect(znPerimeter_ZN_1.ports[1], terUni[3].port_aLoa) annotation (Line(points={{42,0.8},
-          {-8,0.8},{-8,20},{-116,20}},              color={0,127,255}));
+          {-20,20},{-20,42.9},{46,42.9}},      color={0,127,255}));
+  connect(znPerimeter_ZN_1.ports[1], terUni[3].port_aLoa) annotation (Line(points={{42,0.9},
+          {-8,0.9},{-8,20},{-116,20}},              color={0,127,255}));
   connect(terUni[3].port_bLoa, znPerimeter_ZN_1.ports[2]) annotation (Line(points={{-140,20},
-          {-20,20},{-20,0.8},{46,0.8}},               color={0,127,255}));
+          {-20,20},{-20,0.9},{46,0.9}},               color={0,127,255}));
   connect(znPerimeter_ZN_2.ports[1], terUni[4].port_aLoa) annotation (Line(points={{42,
-          -39.2},{-8,-39.2},{-8,20},{-116,20}},         color={0,127,255}));
+          -39.1},{-8,-39.1},{-8,20},{-116,20}},         color={0,127,255}));
   connect(terUni[4].port_bLoa, znPerimeter_ZN_2.ports[2]) annotation (Line(points={{-140,20},
-          {-20,20},{-20,-39.2},{46,-39.2}},               color={0,127,255}));
+          {-20,20},{-20,-39.1},{46,-39.1}},               color={0,127,255}));
   connect(znPerimeter_ZN_3.ports[1], terUni[5].port_aLoa) annotation (Line(points={{42,
-          -79.2},{-8,-79.2},{-8,20},{-116,20}},         color={0,127,255}));
+          -79.1},{-8,-79.1},{-8,20},{-116,20}},         color={0,127,255}));
   connect(terUni[5].port_bLoa, znPerimeter_ZN_3.ports[2]) annotation (Line(points={{-140,20},
-          {-20,20},{-20,-79.2},{46,-79.2}},               color={0,127,255}));
+          {-20,20},{-20,-79.1},{46,-79.1}},               color={0,127,255}));
   connect(znPerimeter_ZN_4.ports[1], terUni[6].port_aLoa) annotation (Line(points={{42,
-          -119.2},{-8,-119.2},{-8,20},{-116,20}},         color={0,127,255}));
+          -119.1},{-8,-119.1},{-8,20},{-116,20}},         color={0,127,255}));
   connect(terUni[6].port_bLoa, znPerimeter_ZN_4.ports[2]) annotation (Line(points={{-140,20},
-          {-20,20},{-20,-119.2},{46,-119.2}},               color={0,127,255}));
+          {-20,20},{-20,-119.1},{46,-119.1}},               color={0,127,255}));
   connect(terUni.port_bHeaWat, disFloHea.ports_a1) annotation (Line(points={{-116,0},
           {-40,0},{-40,-172},{-216,-172}},  color={0,127,255}));
   connect(disFloHea.ports_b1, terUni.port_aHeaWat) annotation (Line(points={{-236,-172},
