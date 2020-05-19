@@ -8,6 +8,9 @@ model CouplingTimeSeries
     bui(
       filNam=
       "modelica://Buildings/Applications/DHC/Loads/Examples/Resources/SwissResidential_20190916.mos",
+    k=1,
+    Ti=10,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nPorts_aHeaWat=1,
     nPorts_aChiWat=1,
     nPorts_bHeaWat=1,
@@ -87,8 +90,10 @@ equation
           {40,53.3333},{40,0},{90,0},{90,-20},{98,-20}}, color={0,0,127}));
   annotation (
   experiment(
-      StopTime=604800,
-      Tolerance=1e-06),
+      StopTime=31536000,
+      __Dymola_NumberOfIntervals=8760,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"),
   Documentation(info="<html>
 <p>
 This example illustrates the use of
