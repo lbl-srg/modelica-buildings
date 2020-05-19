@@ -1,0 +1,33 @@
+Automatically generated BuildingsPy dump file for failed translations.
+
+===============================
+=====START OF NEW LOG FILE=====
+===============================
+﻿ = true
+
+    
+    rCheck = checkModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences.Validation.CapacityRequirement");
+Check of Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences.Validation.CapacityRequirement:
+The model has the same number of unknowns and equations: 120
+Check of Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences.Validation.CapacityRequirement successful.
+Declaring variable: Boolean rCheck ;
+    
+    Modelica.Utilities.Streams.print("    { \"file\" :  \"Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/Subsequences/Validation/CapacityRequirement.mos\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"model\" : \"Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences.Validation.CapacityRequirement\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"check\" : {", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences.Validation.CapacityRequirement\\\");\",", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "statistics.json");
+    Modelica.Utilities.Streams.print("      },", "statistics.json");
+    
+    
+    rScript=RunScript("Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/Subsequences/Validation/CapacityRequirement.mos");
+
+ExportPlotAsImage("./Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/Subsequences/CapacityRequirement.png", 4, true, false);
+Error: No plot window with ID 4.
+ = false
+
+Declaring variable: Boolean rScript ;
+    
+    savelog("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences.Validation.CapacityRequirement.translation.log");
+
+
