@@ -163,13 +163,11 @@ model FlowDistribution "Model of a building hydraulic distribution system"
     annotation (Placement(transformation(extent={{-50,130},{-30,150}})));
   Modelica.Blocks.Sources.RealExpression mAct_flow[nUni](
     final y(each final unit="kg/s")=if have_pum then mReq_flow else mReq_flow .*
-    Buildings.Utilities.Math.Functions.smoothMin(
-      1,
-      senMasFlo.m_flow/Buildings.Utilities.Math.Functions.smoothMax(
-        mReqTot_flow,
-        m_flow_small,
-        m_flow_small),
-      1E-2))
+      senMasFlo.m_flow/Buildings.Utilities.Math.Functions.smoothLimit(
+        x=mReqTot_flow,
+        l=m_flow_small,
+        u=senMasFlo.m_flow,
+        deltaX=m_flow_small))
     "Actual supplied mass flow rate"
     annotation (Placement(transformation(extent={{-90,150},{-70,170}})));
   Modelica.Blocks.Sources.RealExpression QAct_flow[nUni](
@@ -250,18 +248,18 @@ model FlowDistribution "Model of a building hydraulic distribution system"
     final y(final unit="Pa")=dpPum - dpVal_nominal)
     "Pressure drop over the distribution network (excluding mixing valve)"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},
-      rotation=180, origin={-78,120})));
+      rotation=180, origin={-80,120})));
   Modelica.Blocks.Sources.RealExpression masFloPum(
     final y(final unit="kg/s")=mPum_flow)
     "Pump mass flow rate value"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},
-      rotation=180, origin={-78,100})));
+      rotation=180, origin={-80,100})));
   Modelica.Blocks.Sources.RealExpression spePum(
     final y(final unit="1")=spePum_nominal)
     "Pump speed (fractional)" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
-        origin={-78,80})));
+        origin={-80,80})));
   Buildings.Fluid.Movers.FlowControlled_m_flow pumFlo(
     redeclare final package Medium = Medium,
     per(
@@ -349,8 +347,8 @@ initial equation
 equation
   assert(mReqTot_flow < m_flow_nominal + m_flow_small,
     "In " + getInstanceName() + ": The total required mass flow rate equals "
-    + String(mReqTot_flow) + " kg/s which is higher than the nominal mass
-    flow rate value of " + String(m_flow_nominal) + " kg/s.",
+    + String(mReqTot_flow) + " which is higher than the nominal mass
+    flow rate value of " + String(m_flow_nominal) + ".",
     AssertionLevel.error);
   // Connect statements involving conditionally removed components are
   // removed at translation time by Modelica specification.
@@ -375,7 +373,7 @@ equation
   connect(mReq_flow, sumMasFloReq.u)
     annotation (Line(points={{-120,260},{-82,260}}, color={0,0,127}));
   connect(mAct_flow.y, sou_m_flow.m_flow_in)
-    annotation (Line(points={{-69,160},{-20,160},{-20,208},{58,208}},
+    annotation (Line(points={{-69,160},{-40,160},{-40,208},{58,208}},
       color={0,0,127}));
   connect(ports_a1, sin.ports)
     annotation (Line(points={{-100,200},{-80,200}}, color={0,127,255}));
@@ -423,13 +421,13 @@ equation
   connect(pumSpe.P, PPum)
     annotation (Line(points={{-29,-31},{-14,-31},{-14,80},{120,80}}, color={0,0,127}));
   connect(dpNetVal.y, pipPre.dp_in)
-    annotation (Line(points={{-67,120},{12,120},{12,8}}, color={0,0,127}));
+    annotation (Line(points={{-69,120},{12,120},{12,8}}, color={0,0,127}));
   connect(masFloPum.y, pipPre.m_flow_in)
-    annotation (Line(points={{-67,100},{0,100},{0,8}}, color={0,0,127}));
+    annotation (Line(points={{-69,100},{0,100},{0,8}}, color={0,0,127}));
   connect(masFloPum.y, pumFlo.m_flow_in)
-    annotation (Line(points={{-67,100},{-40,100},{-40,52}}, color={0,0,127}));
+    annotation (Line(points={{-69,100},{-40,100},{-40,52}}, color={0,0,127}));
   connect(spePum.y, pumSpe.y)
-    annotation (Line(points={{-67,80},{-52,80},{-52,-24},{-40,-24},{-40,-28}},
+    annotation (Line(points={{-69,80},{-52,80},{-52,-24},{-40,-24},{-40,-28}},
       color={0,0,127}));
   connect(pipPre.port_a, senTSup.port_b)
     annotation (Line(points={{-4,0},{-10,0}},  color={0,127,255}));
