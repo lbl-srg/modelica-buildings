@@ -16,7 +16,8 @@ block Scheduler
     "Offset that is added to 'time', may be used for computing time in different time zone"
     annotation(Dialog(group="Calendar", enable=not simTimSta));
 
-  parameter Modelica.SIunits.Time rotationPeriod = 1209600
+  parameter Modelica.SIunits.Time rotationPeriod(
+    final displayUnit="h") = 1209600
     "Rotation time period measured from simulation start"
     annotation(Dialog(group="Calendar", enable=simTimSta));
 

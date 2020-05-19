@@ -25,9 +25,10 @@ block ControllerTwo
     "Rotation is scheduled in: true = weekly intervals; false = daily intervals"
     annotation(Evaluate=true, Dialog(group="Scheduler", enable=not simTimSta));
 
-  parameter Modelica.SIunits.Time rotationPeriod = 1209600
+  parameter Modelica.SIunits.Time rotationPeriod(
+    final displayUnit="h") = 1209600
     "Rotation time period measured from simulation start"
-    annotation(Dialog(group="Calendar", enable=simTimSta));
+    annotation(Dialog(group="Scheduler", enable=simTimSta));
 
   parameter Modelica.SIunits.Time minLeaRuntime(
     final displayUnit = "h") = 43200

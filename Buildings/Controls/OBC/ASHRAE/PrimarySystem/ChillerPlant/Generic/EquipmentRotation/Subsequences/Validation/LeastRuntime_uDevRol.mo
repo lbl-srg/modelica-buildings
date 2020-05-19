@@ -8,7 +8,7 @@ model LeastRuntime_uDevRol
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.LeastRuntime
-    leaRunTim1(lag=false)
+    leaRunTim1(final lag=false)
     "Equipment rotation signal based on device runtime and current device status"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 

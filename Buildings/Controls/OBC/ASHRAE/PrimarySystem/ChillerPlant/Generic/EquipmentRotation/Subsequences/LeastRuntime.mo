@@ -34,36 +34,38 @@ protected
     "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[nDev](
-    final k=fill(false, nDev))
+    final k=fill(false, nDev)) "Constant"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqual longer1
+    "Runtime of the first device is longer or equal runtime of the second device"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Greater longer2
+    "Runtime of the second device is longer than the runtime of the first device"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nu=nDev)
+    final nu=nDev) "Multiple or"
     annotation (Placement(transformation(extent={{130,-10},{150,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Not not1 if lag
+  Buildings.Controls.OBC.CDL.Logical.Not not1 if lag "Logical not"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Not not2 if lag
+  Buildings.Controls.OBC.CDL.Logical.Not not2 if lag "Logical not"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Not not3[nDev] if lag
+  Buildings.Controls.OBC.CDL.Logical.Not not3[nDev] if lag "Logical not"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And3 and3[nDev] if lag
+  Buildings.Controls.OBC.CDL.Logical.And3 and3[nDev] if lag "Logical not"
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
 
   Buildings.Controls.OBC.CDL.Logical.Edge edg [nDev](
     final pre_u_start=fill(false, nDev)) if lag "Rising edge"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And  and1[nDev] if not lag
+  Buildings.Controls.OBC.CDL.Logical.And and1[nDev] if not lag "Logical and"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
 
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg [nDev](
