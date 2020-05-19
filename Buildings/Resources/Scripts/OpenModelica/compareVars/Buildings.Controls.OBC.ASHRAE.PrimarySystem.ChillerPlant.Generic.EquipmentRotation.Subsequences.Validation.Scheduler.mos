@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "truFalHol.y",
+    "truFalHol1.y",
+    "truFalHol2.y",
+    "truFalHol3.y",
+    "rotSch.calTim.weekDay",
+    "rotSch.calTim.hour"
+  };

@@ -1,0 +1,12 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.Validation.MappingWithWSE", method="Cvode", stopTime=5, tolerance=1e-06, resultFile="MappingWithWSE");
+createPlot(id=1, position={20, 10, 700, 850}, subPlot=1, y={"witWSE.uHeaPreCon"}, range={0.0, 5.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 10, 700, 850}, subPlot=2, y={"witWSE.yMaxTowSpeSet"}, range={0.0, 5.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 10, 700, 850}, subPlot=3, y={"witWSE.yConWatPumSpeSet"}, range={0.0, 5.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 10, 700, 850}, subPlot=4, y={"witWSE.yHeaPreConVal"}, range={0.0, 5.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
+
+createPlot(id=2, position={740, 10, 700, 850}, subPlot=1, y={"noWSE.uHeaPreCon"}, range={0.0, 5.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={740, 10, 700, 850}, subPlot=2, y={"noWSE.yMaxTowSpeSet"}, range={0.0, 5.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={740, 10, 700, 850}, subPlot=3, y={"noWSE.yConWatPumSpeSet"}, range={0.0, 5.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={740, 10, 700, 850}, subPlot=4, y={"noWSE.yHeaPreConVal"}, range={0.0, 5.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
+
+

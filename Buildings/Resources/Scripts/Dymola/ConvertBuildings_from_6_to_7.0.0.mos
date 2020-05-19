@@ -4,6 +4,14 @@
 clear
 
 convertClear();
+convertModifiers("Buildings.Airflow.Multizone.BaseClasses.PowerLawResistance", {"m_flow_small"}, fill("",0), true);
+convertModifiers("Buildings.Airflow.Multizone.BaseClasses.TwoWayFlowElement", {"m1_flow_small", "m2_flow_small"}, fill("",0), true);
+convertModifiers("Buildings.Airflow.Multizone.EffectiveAirLeakageArea", {"m_flow_small"}, fill("",0), true);
+convertModifiers("Buildings.Airflow.Multizone.Orifice", {"m_flow_small"}, fill("",0), true);
+convertModifiers("Buildings.Airflow.Multizone.DoorDiscretizedOpen", {"m1_flow_small", "m2_flow_small"}, fill("",0), true);
+convertModifiers("Buildings.Airflow.Multizone.DoorDiscretizedOperable", {"m1_flow_small", "m2_flow_small"}, fill("",0), true);
+convertModifiers("Buildings.Airflow.Multizone.ZonalFlow_ACS", {"m1_flow_small", "m2_flow_small"}, fill("",0), true);
+convertModifiers("Buildings.Airflow.Multizone.ZonalFlow_m_flow", {"m1_flow_small", "m2_flow_small"}, fill("",0), true);
 
 convertModifiers("Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset", {"initType"}, fill("",0), true);
 convertModifiers("Buildings.Controls.OBC.CDL.Continuous.Derivative", {"initType"}, fill("",0), true);
@@ -80,6 +88,10 @@ convertElement(
     "Buildings.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow",
     "alphaWinOut",
     "hConWinOut");
+convertElement(
+    "Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests",
+    "uDam",
+    "yDam_actual");
 
 // Refactoring damper models.
 convertElement(

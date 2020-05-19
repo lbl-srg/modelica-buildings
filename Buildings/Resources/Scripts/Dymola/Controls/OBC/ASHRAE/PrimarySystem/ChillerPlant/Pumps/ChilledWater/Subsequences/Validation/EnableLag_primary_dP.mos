@@ -1,0 +1,7 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.Validation.EnableLag_primary_dP", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="enaLagChiPum_primary");
+createPlot(id=1, position={20, 10, 700, 900}, subPlot=1, y={"enaLagChiPum.chiWatFloRat.y", "enaLagChiPum.addPar2.y"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={20, 10, 700, 900}, subPlot=2, y={"enaLagChiPum.hys.y", "enaLagChiPum.yUp"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={20, 10, 700, 900}, subPlot=3, y={"enaLagChiPum.hys1.y", "enaLagChiPum.yDown"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=2, position={730, 10, 700, 900}, subPlot=1, y={"enaLagChiPum.tim.y"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={730, 10, 700, 900}, subPlot=2, y={"enaLagChiPum.tim1.y"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={730, 10, 700, 900}, subPlot=3, y={"nexLagPumTri.y", "lasLagPumTri.y"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{238,46,47}});
