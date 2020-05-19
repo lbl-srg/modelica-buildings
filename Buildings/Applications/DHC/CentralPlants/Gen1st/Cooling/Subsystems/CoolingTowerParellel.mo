@@ -1,6 +1,8 @@
 within Buildings.Applications.DHC.CentralPlants.Gen1st.Cooling.Subsystems;
 model CoolingTowerParellel
   "Multiple identical cooling towers in parallel connection"
+  extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.SignalFilter(
+    final numFil=num);
   replaceable package Medium=Buildings.Media.Water
     "Condenser water medium";
   parameter Integer num=2 "Number of cooling towers";
@@ -77,12 +79,15 @@ equation
     connect(TWetBul, cooTow[i].TAir) annotation (Line(points={{-120,-60},{-20,-60},{
           -20,4},{-12,4}},
                         color={0,0,127}));
-    connect(on[i], val[i].y) annotation (Line(points={{-120,60},{-50,60},{-50,12}}, color={0,0,127}));
     connect(cooTow[i].PFan, PFan[i]) annotation (Line(points={{11,8},{20,8},{20,60},{110,
           60}}, color={0,0,127}));
     connect(cooTow[i].TLvg, TLvg[i]) annotation (Line(points={{11,-6},{26,-6},{26,30},{110,
           30}}, color={0,0,127}));
   end for;
+  connect(on, filter.u) annotation (Line(points={{-120,60},{-60,60},{-60,84},{
+          -55.2,84}}, color={0,0,127}));
+  connect(y_actual, val.y) annotation (Line(points={{-20,74},{-14,74},{-14,60},
+          {-50,60},{-50,12}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),           Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
