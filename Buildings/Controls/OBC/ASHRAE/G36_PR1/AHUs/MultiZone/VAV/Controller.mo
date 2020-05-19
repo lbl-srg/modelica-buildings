@@ -4,8 +4,7 @@ block Controller
 
   parameter Real samplePeriod(
     final unit="s",
-    final quantity="Time")=120
-    "Sample period of component, set to the same value to the trim and respond sequence";
+    final quantity="Time")=120;
 
   parameter Boolean have_perZonRehBox=true
     "Check if there is any VAV-reheat boxes on perimeter zones"
