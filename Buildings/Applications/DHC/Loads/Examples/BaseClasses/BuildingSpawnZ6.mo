@@ -13,7 +13,7 @@ model BuildingSpawnZ6
   parameter Integer facSca[nZon] = fill(5, nZon)
     "Scaling factor to be applied to on each extensive quantity";
   parameter String idfName=
-    "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf"
+    "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf"
     "Name of the IDF file";
   parameter String weaName=
     "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"
