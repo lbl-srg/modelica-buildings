@@ -19,7 +19,7 @@ services:
 env:
   global:
     - ENERGYPLUS_VERSION=EnergyPlus-9.3.0-baff08990c-Linux-x86_64
-    - MODELICA_JSON_VERSION=4571bdd60861bec14211b6ed0bf41817f69473b6
+    - MODELICA_JSON_VERSION=6243547e961f6d13b098a56a2703d40de65fc6a5
     - MODELICA_JSON_HOME=${TRAVIS_BUILD_DIR}/modelica-json
 
   jobs:
