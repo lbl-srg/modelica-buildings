@@ -126,8 +126,6 @@ model FanCoil2PipeHeatingValve
 equation
   connect(gaiFloNom2.y, fan.m_flow_in)
     annotation (Line(points={{78,180},{80,180},{80,12}}, color={0,0,127}));
-  connect(port_aHeaWat, hex.port_a1) annotation (Line(points={{-200,-220},{-100,
-          -220},{-100,-12},{-80,-12}}, color={0,127,255}));
   connect(fan.P, scaPFan.u) annotation (Line(points={{69,9},{60,9},{60,140},{
           158,140}}, color={0,0,127}));
   connect(Q_flowHea.y, scaQActHea_flow.u) annotation (Line(points={{141,220},
@@ -149,8 +147,6 @@ equation
           {-40,-70}}, color={0,127,255}));
   connect(val.port_b, senMasFlo.port_a)
     annotation (Line(points={{-40,-90},{-40,-110}}, color={0,127,255}));
-  connect(senMasFlo.port_b, port_bHeaWat) annotation (Line(points={{-40,-130},{-40,
-          -220},{200,-220}}, color={0,127,255}));
   connect(con.y, val.y) annotation (Line(points={{12,220},{20,220},{20,-80},{
           -28,-80}}, color={0,0,127}));
   connect(senMasFlo.m_flow, scaMasFloReqHeaWat.u) annotation (Line(points={{-29,
@@ -173,6 +169,10 @@ equation
           28,180}}, color={255,0,255}));
   connect(one.y, swi.u3) annotation (Line(points={{12,140},{26,140},{26,172},{28,
           172}}, color={0,0,127}));
+  connect(senMasFlo.port_b, scaHeaWatFloOut.port_a) annotation (Line(points={{
+          -40,-130},{-40,-220},{160,-220}}, color={0,127,255}));
+  connect(scaHeaWatFloInl.port_b, hex.port_a1) annotation (Line(points={{-160,
+          -220},{-100,-220},{-100,-12},{-80,-12}}, color={0,127,255}));
 annotation (
 Documentation(
 info="<html>
