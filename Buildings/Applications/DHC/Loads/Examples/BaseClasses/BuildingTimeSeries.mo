@@ -58,6 +58,23 @@ model BuildingTimeSeries
     filNam=Modelica.Utilities.Files.loadResource(filNam))
     "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Design parameter"));
+  parameter Real k(min=0) = 1 "Gain of controller";
+  parameter Modelica.SIunits.Time Ti(min=Modelica.Constants.small) = 10
+    "Time constant of integrator block";
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
+    "Type of energy balance for fan air volume"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+  parameter Modelica.SIunits.Time tau=1
+    "Time constant of fan air volume, used if energy or mass balance is dynamic"
+    annotation (Dialog(tab="Dynamics",
+                       group="Nominal condition",
+                       enable=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState));
+  parameter Boolean use_inputFilter=true
+    "= true, if fan speed is filtered with a 2nd order CriticalDamping filter"
+    annotation(Dialog(tab="Dynamics", group="Filtered speed"));
+  parameter Modelica.SIunits.Time riseTime=30
+    "Rise time of the filter (time to reach 99.6 % of the speed)"
+    annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=use_inputFilter));
   Modelica.Blocks.Sources.CombiTimeTable loa(
     tableOnFile=true,
     tableName="tab1",
@@ -77,8 +94,7 @@ model BuildingTimeSeries
       y(final unit="K", displayUnit="degC"))
     "Maximum temperature set point"
     annotation (Placement(transformation(extent={{-280,210},{-260,230}})));
-  Buildings.Applications.DHC.Loads.Validation.BaseClasses.FanCoil2PipeHeating
-    terUniHea(
+  DHC.Loads.Validation.BaseClasses.FanCoil2PipeHeating terUniHea(
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium2,
     final facSca=facScaHea,
@@ -86,7 +102,13 @@ model BuildingTimeSeries
     final mLoaHea_flow_nominal=mLoaHea_flow_nominal,
     final T_aHeaWat_nominal=T_aHeaWat_nominal,
     final T_bHeaWat_nominal=T_bHeaWat_nominal,
-    final T_aLoaHea_nominal=T_aLoaHea_nominal)
+    final T_aLoaHea_nominal=T_aLoaHea_nominal,
+    final k=k,
+    final Ti=Ti,
+    final energyDynamics=energyDynamics,
+    final tau=tau,
+    final use_inputFilter=use_inputFilter,
+    final riseTime=riseTime)
     "Heating terminal unit"
     annotation (Placement(transformation(extent={{70,-34},{90,-14}})));
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
@@ -110,7 +132,7 @@ model BuildingTimeSeries
     annotation (Placement(transformation(extent={{120,-270},{140,-250}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=2)
     annotation (Placement(transformation(extent={{212,68},{232,88}})));
-  Validation.BaseClasses.FanCoil2PipeCooling terUniCoo(
+  DHC.Loads.Validation.BaseClasses.FanCoil2PipeCooling terUniCoo(
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium2,
     final facSca=facScaCoo,
@@ -122,7 +144,13 @@ model BuildingTimeSeries
     final T_bHeaWat_nominal=T_bHeaWat_nominal,
     final T_bChiWat_nominal=T_bChiWat_nominal,
     final T_aLoaHea_nominal=T_aLoaHea_nominal,
-    final T_aLoaCoo_nominal=T_aLoaCoo_nominal)
+    final T_aLoaCoo_nominal=T_aLoaCoo_nominal,
+    final k=k,
+    final Ti=Ti,
+    final energyDynamics=energyDynamics,
+    final tau=tau,
+    final use_inputFilter=use_inputFilter,
+    final riseTime=riseTime)
     "Cooling terminal unit"
     annotation (Placement(transformation(extent={{70,26},{90,46}})));
   Modelica.Blocks.Interfaces.RealOutput QReqHea_flow(final quantity=
@@ -141,13 +169,12 @@ model BuildingTimeSeries
         origin={260,-320})));
 equation
   connect(terUniHea.port_bHeaWat, disFloHea.ports_a1[1]) annotation (Line(
-        points={{90,-32.3333},{90,-22},{148,-22},{148,-54},{140,-54}}, color={0,
+        points={{90,-32.3333},{90,-32},{146,-32},{146,-54},{140,-54}}, color={0,
           127,255}));
   connect(disFloHea.ports_b1[1],terUniHea. port_aHeaWat) annotation (Line(
         points={{120,-54},{64,-54},{64,-32.3333},{70,-32.3333}}, color={0,127,255}));
   connect(terUniHea.mReqHeaWat_flow, disFloHea.mReq_flow[1]) annotation (Line(
-        points={{90.8333,-27.3333},{92,-27.3333},{92,-18},{100,-18},{100,-64},{
-          119,-64}},
+        points={{90.8333,-27.3333},{90.8333,-28},{100,-28},{100,-64},{119,-64}},
                  color={0,0,127}));
   connect(disFloHea.QActTot_flow, QHea_flow) annotation (Line(points={{141,-66},
           {260,-66},{260,280},{320,280}}, color={0,0,127}));
@@ -167,8 +194,7 @@ equation
   connect(disFloCoo.ports_b1[1], terUniCoo.port_aChiWat) annotation (Line(
         points={{120,-254},{60,-254},{60,29.3333},{70,29.3333}}, color={0,127,255}));
   connect(terUniCoo.port_bChiWat, disFloCoo.ports_a1[1]) annotation (Line(
-        points={{90,29.3333},{112,29.3333},{112,14},{160,14},{160,-254},{140,
-          -254}},
+        points={{90,29.3333},{112,29.3333},{160,29.3333},{160,-254},{140,-254}},
         color={0,127,255}));
   connect(terUniCoo.mReqChiWat_flow, disFloCoo.mReq_flow[1]) annotation (Line(
         points={{90.8333,31},{108,31},{108,-264},{119,-264}}, color={0,0,127}));
