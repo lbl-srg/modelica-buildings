@@ -13,6 +13,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 
 static unsigned int Buildings_nFMU = 0;     /* Number of FMUs */
@@ -27,12 +28,17 @@ size_t AllocateBuildingDataStructure(
   const char* fmuName,
   const char* buildingsLibraryRoot){
 
-  /* Allocate memory */
-
   const size_t nFMU = getBuildings_nFMU();
   if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaFormatMessage("AllocateBuildingDataStructure: Allocating data structure for building %lu with name %s", nFMU, modelicaNameBuilding);
 
+  /* Validate the input date */
+  if (access(idfName, R_OK) != 0)
+    ModelicaFormatError("Cannot read idf file '%s' specified in '%s': %s.", idfName, modelicaNameBuilding, strerror(errno));
+  if (access(weaName, R_OK) != 0)
+    ModelicaFormatError("Cannot read weather file '%s' specified in '%s': %s.", weaName, modelicaNameBuilding, strerror(errno));
+
+  /* Allocate memory */
   if (nFMU == 0)
     Buildings_FMUS = malloc(sizeof(struct FMUBuilding*));
   else
