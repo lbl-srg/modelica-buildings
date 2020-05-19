@@ -105,6 +105,7 @@ before_install:
       cd ${MODELICA_JSON_HOME};
       make install-node-packages;
       make compile;
+      cd -;
       echo "Installed modelica-json in ${MODELICA_JSON_HOME}";
     fi;
 
