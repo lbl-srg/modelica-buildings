@@ -19,6 +19,11 @@ model HeatingPlant1stGen "First generation district heating plant"
     "Nominal pressure of boiler"
     annotation(Dialog(group = "Nominal condition"));
 
+  // Boiler efficiency curve parameters
+  parameter Buildings.Fluid.Types.EfficiencyCurves effCur
+    "Curve used to compute the efficiency";
+  parameter Real a[:] "Coefficients for efficiency curve";
+
   Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
         Medium_a)
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
@@ -30,8 +35,10 @@ model HeatingPlant1stGen "First generation district heating plant"
     m_flow_nominal=mPla_flow_nominal,
     Q_flow_nominal=QPla_flow_nominal,
     pOut_nominal=pOut_nominal,
+    effCur=effCur,
+    a=a,
     fue=Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue())
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+    annotation (Placement(transformation(extent={{50,-10},{70,10}})));
   Modelica.Blocks.Interfaces.RealInput y(min=0, max=1) "Part load ratio"
     annotation (Placement(transformation(extent={{-140,50},{-100,90}}),
         iconTransformation(extent={{-120,70},{-100,90}})));
@@ -47,6 +54,9 @@ model HeatingPlant1stGen "First generation district heating plant"
     displayUnit="kW") "Total heat transfer rate of boiler"
     annotation (Placement(transformation(extent={{100,70},{120,90}}),
         iconTransformation(extent={{100,70},{120,90}})));
+  Fluid.Storage.ExpansionVessel exp(redeclare package Medium = Medium_a,
+      V_start=10)
+    annotation (Placement(transformation(extent={{10,20},{30,40}})));
 protected
   Buildings.Fluid.Movers.FlowControlled_m_flow  pum(
     redeclare final package Medium = Medium_a,
@@ -64,17 +74,19 @@ equation
           {-62,26}}, color={0,0,127}));
   connect(mAct_flow.y, pum.m_flow_in)
     annotation (Line(points={{-39,20},{-10,20},{-10,12}}, color={0,0,127}));
-  connect(boi.y, y) annotation (Line(points={{19,9},{10,9},{10,70},{-120,70}},
+  connect(boi.y, y) annotation (Line(points={{49,9},{40,9},{40,70},{-120,70}},
         color={0,0,127}));
   connect(port_a, pum.port_a) annotation (Line(points={{100,-60},{-40,-60},{-40,
           0},{-20,0}},
                     color={0,127,255}));
   connect(pum.port_b, boi.port_a)
-    annotation (Line(points={{0,0},{20,0}}, color={0,127,255}));
-  connect(boi.port_b, port_b) annotation (Line(points={{40,0},{100,0}},
+    annotation (Line(points={{0,0},{50,0}}, color={0,127,255}));
+  connect(boi.port_b, port_b) annotation (Line(points={{70,0},{100,0}},
                  color={0,127,255}));
-  connect(boi.Q_flow, Q_flow) annotation (Line(points={{41,9},{41,8},{60,8},{60,
+  connect(boi.Q_flow, Q_flow) annotation (Line(points={{71,9},{71,8},{80,8},{80,
           80},{110,80}},     color={0,0,127}));
+  connect(exp.port_a, pum.port_b)
+    annotation (Line(points={{20,20},{20,0},{0,0}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                 Rectangle(
         extent={{-100,-100},{100,100}},
