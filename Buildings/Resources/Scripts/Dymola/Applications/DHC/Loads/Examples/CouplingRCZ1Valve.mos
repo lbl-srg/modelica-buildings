@@ -26,7 +26,7 @@ createPlot(
 createPlot(
     id=2,
     position={499, 20, 510, 682},
-    y={"supHeaWat.T_in", "bui.disFloHea.TSup", "bui.terUni.T_aHeaWat_nominal"},
+    y={"supHeaWat.T_in", "bui.disFloHea.senTSup.T", "bui.terUni.T_aHeaWat_nominal"},
     autoscale=true,
     grid=true
 );
@@ -45,7 +45,7 @@ createPlot(
 createPlot(
     id=3,
     position={1016, 21, 485, 681},
-    y={"supChiWat.T_in",  "bui.disFloCoo.TSup", "bui.terUni.T_aChiWat_nominal"},
+    y={"supChiWat.T_in",  "bui.disFloCoo.senTSup.T", "bui.terUni.T_aChiWat_nominal"},
     autoscale=true,
     grid=true
 );
