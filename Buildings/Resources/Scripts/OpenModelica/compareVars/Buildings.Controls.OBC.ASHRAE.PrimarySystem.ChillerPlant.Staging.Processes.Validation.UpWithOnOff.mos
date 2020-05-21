@@ -1,6 +1,6 @@
 compareVars :=
   {
-    "upProCon.uStaUp",
+    "upProCon.uStaSet",
     "upProCon.uChi[1]",
     "upProCon.uChi[2]",
     "upProCon.yStaPro",

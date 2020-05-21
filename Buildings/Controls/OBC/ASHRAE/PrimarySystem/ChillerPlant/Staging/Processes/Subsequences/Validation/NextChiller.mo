@@ -3,295 +3,312 @@ model NextChiller
   "Validate sequence of identifying next enable or disable chillers"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.NextChiller
-    nexEnaDisChi(
-    final nChi=3,
-    final havePonyChiller=true,
-    final totChiSta=5,
-    final upOnOffSta={false,false,true,false,true},
-    final dowOnOffSta={false,true,false,true,false})
-    "Identify chillers being enabled and disabled in stage up process"
-    annotation (Placement(transformation(extent={{-80,190},{-60,210}})));
+    nexChi
+    "Identify next enabling and disabling chiller during the staging up process"
+    annotation (Placement(transformation(extent={{-60,170},{-40,190}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.NextChiller
-    nexEnaChi(
-    final nChi=3,
-    final havePonyChiller=true,
-    final totChiSta=5,
-    final upOnOffSta={false,false,true,false,true},
-    final dowOnOffSta={false,true,false,true,false})
-    "Identify chillers being enabled in stage up process"
-    annotation (Placement(transformation(extent={{240,190},{260,210}})));
+    nexChi1 "Identify next enabling during the staging up process"
+    annotation (Placement(transformation(extent={{240,170},{260,190}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.NextChiller
-    nexEnaDisChi1(
-    final nChi=3,
-    final havePonyChiller=true,
-    final totChiSta=5,
-    final upOnOffSta={false,false,true,false,true},
-    final dowOnOffSta={false,true,false,true,false})
-    "Identify chillers being enabled or disabled in stage down process"
-    annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
+    nexChi2
+    "Identify next enabling and disabling chiller during the staging down process"
+    annotation (Placement(transformation(extent={{-60,-150},{-40,-130}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.NextChiller
-    nexDisChi(
-    final nChi=3,
-    final havePonyChiller=true,
-    final totChiSta=5,
-    final upOnOffSta={false,false,true,false,true},
-    final dowOnOffSta={false,true,false,true,false})
-    "Identify chillers being disabled in stage down process"
-    annotation (Placement(transformation(extent={{240,-130},{260,-110}})));
+    nexChi3 "Identify next disabling chiller during the staging down process"
+    annotation (Placement(transformation(extent={{240,-150},{260,-130}})));
 
 protected
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch chiSet[2]
+    "Chiller status setpoint"
+    annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch inPro
+    "Check if it is in the staging process"
+    annotation (Placement(transformation(extent={{-140,30},{-120,50}})));
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch chiSet1[2]
+    "Chiller status setpoint"
+    annotation (Placement(transformation(extent={{160,90},{180,110}})));
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch inPro1
+    "Check if it is in the staging process"
+    annotation (Placement(transformation(extent={{160,30},{180,50}})));
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch chiSet2[2]
+    "Chiller status setpoint"
+    annotation (Placement(transformation(extent={{-140,-230},{-120,-210}})));
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch inPro2
+    "Check if it is in the staging process"
+    annotation (Placement(transformation(extent={{-140,-290},{-120,-270}})));
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch chiSet3[2]
+    "Chiller status setpoint"
+    annotation (Placement(transformation(extent={{160,-230},{180,-210}})));
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch inPro3
+    "Check if it is in the staging process"
+    annotation (Placement(transformation(extent={{160,-290},{180,-270}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
     final width=0.15,
     final period=120) "Boolean pulse"
-    annotation (Placement(transformation(extent={{-260,120},{-240,140}})));
+    annotation (Placement(transformation(extent={{-260,150},{-240,170}})));
   Buildings.Controls.OBC.CDL.Logical.Not staUp "Stage up command"
-    annotation (Placement(transformation(extent={{-220,120},{-200,140}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiOn(final k=true)
-    "Operating chiller one"
-    annotation (Placement(transformation(extent={{-220,190},{-200,210}})));
+    annotation (Placement(transformation(extent={{-220,150},{-200,170}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant staOneChi[2](
+    final k={true,false}) "Vector of chillers status setpoint at stage one"
+    annotation (Placement(transformation(extent={{-260,70},{-240,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant upSta(
     final k=2) "Stage two"
-    annotation (Placement(transformation(extent={{-260,80},{-240,100}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant enaPri[3](final k={1,2,3})
-    "Chiller enabling priority"
-    annotation (Placement(transformation(extent={{-220,230},{-200,250}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiOff(final k=false)
-    "Chiller off status"
-    annotation (Placement(transformation(extent={{-220,160},{-200,180}})));
+    annotation (Placement(transformation(extent={{-260,230},{-240,250}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dowSta(
     final k=1) "Stage one"
-    annotation (Placement(transformation(extent={{-260,40},{-240,60}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant staDow(
-    final k=false) "Stage down status"
+    annotation (Placement(transformation(extent={{-260,190},{-240,210}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch swi "Logical switch"
+    annotation (Placement(transformation(extent={{-180,210},{-160,230}})));
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger staSet
+    "Stage setpoint index"
+    annotation (Placement(transformation(extent={{-140,210},{-120,230}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant staTwoChi[2](
+    final k={false,true})
+    "Vector of chillers status setpoint at stage two"
+    annotation (Placement(transformation(extent={{-260,110},{-240,130}})));
+  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+    final nout=2)
+    "Replicate boolean input"
+    annotation (Placement(transformation(extent={{-180,90},{-160,110}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul4(
+    final width=0.5,
+    final period=120) "Boolean pulse"
+    annotation (Placement(transformation(extent={{-260,30},{-240,50}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant notIn(
+    final k=false) "Not in the process"
     annotation (Placement(transformation(extent={{-220,10},{-200,30}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant enaPri1[3](final k={2,1,3})
-    "Chiller enabling priority"
-    annotation (Placement(transformation(extent={{100,230},{120,250}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiOn1(final k=true)
-    "Operating chiller one"
-    annotation (Placement(transformation(extent={{100,190},{120,210}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiOff1(
-    final k=false) "Chiller off status"
-    annotation (Placement(transformation(extent={{100,160},{120,180}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
     final width=0.15,
     final period=120) "Boolean pulse"
-    annotation (Placement(transformation(extent={{60,120},{80,140}})));
+    annotation (Placement(transformation(extent={{40,150},{60,170}})));
+  Buildings.Controls.OBC.CDL.Logical.Not staUp1  "Stage up command"
+    annotation (Placement(transformation(extent={{80,150},{100,170}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant staOneChi1[2](
+    final k={true,false})
+    "Vector of chillers status setpoint at stage one"
+    annotation (Placement(transformation(extent={{40,70},{60,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant upSta1(
-    final k=3) "Stage 3"
-    annotation (Placement(transformation(extent={{60,80},{80,100}})));
+    final k=2)
+    "Stage two"
+    annotation (Placement(transformation(extent={{40,230},{60,250}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dowSta1(
-    final k=2) "Stage one"
-    annotation (Placement(transformation(extent={{60,40},{80,60}})));
-  Buildings.Controls.OBC.CDL.Logical.Not staUp1 "Stage up command"
-    annotation (Placement(transformation(extent={{100,120},{120,140}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant staDow1(
-    final k=false) "Stage down status"
-    annotation (Placement(transformation(extent={{100,10},{120,30}})));
+    final k=1)
+    "Stage one"
+    annotation (Placement(transformation(extent={{40,190},{60,210}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch swi1 "Logical switch"
+    annotation (Placement(transformation(extent={{120,210},{140,230}})));
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger staSet1
+    "Stage setpoint index"
+    annotation (Placement(transformation(extent={{160,210},{180,230}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant staTwoChi1[2](
+    final k={true,true})
+    "Vector of chillers status setpoint at stage two"
+    annotation (Placement(transformation(extent={{40,110},{60,130}})));
+  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep1(
+    final nout=2)
+    "Replicate boolean input"
+    annotation (Placement(transformation(extent={{120,90},{140,110}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul5(
+    final width=0.5,
+    final period=120) "Boolean pulse"
+    annotation (Placement(transformation(extent={{40,30},{60,50}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant notIn1(
+    final k=false) "Not in the process"
+    annotation (Placement(transformation(extent={{80,10},{100,30}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul2(
     final width=0.15,
     final period=120) "Boolean pulse"
-    annotation (Placement(transformation(extent={{-260,-310},{-240,-290}})));
-  Buildings.Controls.OBC.CDL.Logical.Not staDow2 "Stage down command"
-    annotation (Placement(transformation(extent={{-220,-310},{-200,-290}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiOn2(
-    final k=true) "Operating chiller one"
-    annotation (Placement(transformation(extent={{-220,-130},{-200,-110}})));
+    annotation (Placement(transformation(extent={{-260,-170},{-240,-150}})));
+  Buildings.Controls.OBC.CDL.Logical.Not staDow "Stage down command"
+    annotation (Placement(transformation(extent={{-220,-170},{-200,-150}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant staOneChi2[2](
+    final k={true,false})
+    "Vector of chillers status setpoint at stage one"
+    annotation (Placement(transformation(extent={{-260,-210},{-240,-190}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant upSta2(
-    final k=4) "Stage four"
-    annotation (Placement(transformation(extent={{-260,-270},{-240,-250}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant enaPri2[3](
-    final k={2,3,1}) "Chiller enabling priority"
-    annotation (Placement(transformation(extent={{-220,-90},{-200,-70}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiOff2(
-    final k=false) "Chiller off status"
-    annotation (Placement(transformation(extent={{-220,-160},{-200,-140}})));
+    final k=2) "Stage two"
+    annotation (Placement(transformation(extent={{-260,-130},{-240,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dowSta2(
-    final k=3) "Stage three"
-    annotation (Placement(transformation(extent={{-260,-230},{-240,-210}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant staUp2(
-    final k=false) "Stage up status"
-    annotation (Placement(transformation(extent={{-220,-200},{-200,-180}})));
+    final k=1) "Stage one"
+    annotation (Placement(transformation(extent={{-260,-90},{-240,-70}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch swi2 "Logical switch"
+    annotation (Placement(transformation(extent={{-180,-110},{-160,-90}})));
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger staSet2
+    "Stage setpoint index"
+    annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant staTwoChi2[2](
+    final k={false,true})
+    "Vector of chillers status setpoint at stage two"
+    annotation (Placement(transformation(extent={{-260,-250},{-240,-230}})));
+  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep2(
+    final nout=2) "Replicate boolean input"
+    annotation (Placement(transformation(extent={{-180,-230},{-160,-210}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul6(
+    final width=0.5,
+    final period=120) "Boolean pulse"
+    annotation (Placement(transformation(extent={{-260,-290},{-240,-270}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant notIn2(
+    final k=false) "Not in the process"
+    annotation (Placement(transformation(extent={{-220,-310},{-200,-290}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul3(
     final width=0.15,
     final period=120) "Boolean pulse"
-    annotation (Placement(transformation(extent={{60,-310},{80,-290}})));
-  Buildings.Controls.OBC.CDL.Logical.Not staDow3 "Stage down command"
-    annotation (Placement(transformation(extent={{100,-310},{120,-290}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiOn3(
-    final k=true) "Operating chiller one"
-    annotation (Placement(transformation(extent={{100,-130},{120,-110}})));
+    annotation (Placement(transformation(extent={{40,-170},{60,-150}})));
+  Buildings.Controls.OBC.CDL.Logical.Not staDow1 "Stage down command"
+    annotation (Placement(transformation(extent={{80,-170},{100,-150}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant staOneChi3[2](
+    final k={true,false})
+    "Vector of chillers status setpoint at stage one"
+    annotation (Placement(transformation(extent={{40,-210},{60,-190}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant upSta3(
-    final k=3) "Stage three"
-    annotation (Placement(transformation(extent={{60,-270},{80,-250}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant enaPri3[3](
-    final k={2,1,3})
-    "Chiller enabling priority"
-    annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiOff3(
-    final k=false) "Chiller off status"
-    annotation (Placement(transformation(extent={{100,-160},{120,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dowSta3(
     final k=2) "Stage two"
-    annotation (Placement(transformation(extent={{60,-230},{80,-210}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant staUp3(
-    final k=false) "Stage up status"
-    annotation (Placement(transformation(extent={{100,-200},{120,-180}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi "Logical switch"
-    annotation (Placement(transformation(extent={{-180,60},{-160,80}})));
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger sta "Stage index"
-    annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1 "Logical switch"
-    annotation (Placement(transformation(extent={{140,60},{160,80}})));
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger sta1 "Stage index"
-    annotation (Placement(transformation(extent={{180,60},{200,80}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2 "Logical switch"
-    annotation (Placement(transformation(extent={{-180,-250},{-160,-230}})));
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger sta2 "Stage index"
-    annotation (Placement(transformation(extent={{-140,-250},{-120,-230}})));
+    annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dowSta3(
+    final k=1) "Stage one"
+    annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi3 "Logical switch"
-    annotation (Placement(transformation(extent={{140,-250},{160,-230}})));
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger sta3 "Stage index"
-    annotation (Placement(transformation(extent={{180,-250},{200,-230}})));
+    annotation (Placement(transformation(extent={{120,-110},{140,-90}})));
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger staSet3 "Stage setpoint index"
+    annotation (Placement(transformation(extent={{160,-110},{180,-90}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant staTwoChi3[2](
+    final k={true,true})
+    "Vector of chillers status setpoint at stage two"
+    annotation (Placement(transformation(extent={{40,-250},{60,-230}})));
+  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep3(
+    final nout=2) "Replicate boolean input"
+    annotation (Placement(transformation(extent={{120,-230},{140,-210}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul7(
+    final width=0.5,
+    final period=120) "Boolean pulse"
+    annotation (Placement(transformation(extent={{40,-290},{60,-270}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant notIn3(
+    final k=false) "Not in the process"
+    annotation (Placement(transformation(extent={{80,-310},{100,-290}})));
 
 equation
   connect(booPul.y, staUp.u)
-    annotation (Line(points={{-238,130},{-222,130}}, color={255,0,255}));
+    annotation (Line(points={{-238,160},{-222,160}}, color={255,0,255}));
   connect(staUp.y, swi.u2)
-    annotation (Line(points={{-198,130},{-190,130},{-190,70},{-182,70}},
+    annotation (Line(points={{-198,160},{-190,160},{-190,220},{-182,220}},
       color={255,0,255}));
   connect(dowSta.y, swi.u3)
-    annotation (Line(points={{-238,50},{-220,50},{-220,62},{-182,62}},
+    annotation (Line(points={{-238,200},{-220,200},{-220,212},{-182,212}},
       color={0,0,127}));
   connect(upSta.y, swi.u1)
-    annotation (Line(points={{-238,90},{-220,90},{-220,78},{-182,78}},
+    annotation (Line(points={{-238,240},{-220,240},{-220,228},{-182,228}},
       color={0,0,127}));
-  connect(swi.y, sta.u)
-    annotation (Line(points={{-158,70},{-142,70}}, color={0,0,127}));
-  connect(enaPri.y, nexEnaDisChi.uChiPri)
-    annotation (Line(points={{-198,240},{-140,240},{-140,208},{-82,208}},
-      color={255,127,0}));
-  connect(chiOn.y, nexEnaDisChi.uChiEna[1])
-    annotation (Line(points={{-198,200},{-140,200},{-140,202.667},{-82,202.667}},
-      color={255,0,255}));
-  connect(chiOff.y, nexEnaDisChi.uChiEna[2])
-    annotation (Line(points={{-198,170},{-136,170},{-136,204},{-82,204}},
-      color={255,0,255}));
-  connect(chiOff.y, nexEnaDisChi.uChiEna[3])
-    annotation (Line(points={{-198,170},{-132,170},{-132,205.333},{-82,205.333}},
-      color={255,0,255}));
-  connect(staUp.y, nexEnaDisChi.uStaUp)
-    annotation (Line(points={{-198,130},{-128,130},{-128,200},{-82,200}},
-      color={255,0,255}));
-  connect(sta.y, nexEnaDisChi.uChiSta)
-    annotation (Line(points={{-118,70},{-100,70},{-100,196},{-82,196}},
-      color={255,127,0}));
-  connect(staDow.y, nexEnaDisChi.uStaDow)
-    annotation (Line(points={{-198,20},{-96,20},{-96,192},{-82,192}},
-      color={255,0,255}));
-  connect(enaPri1.y, nexEnaChi.uChiPri)
-    annotation (Line(points={{122,240},{180,240},{180,208},{238,208}},
-      color={255,127,0}));
-  connect(chiOn1.y, nexEnaChi.uChiEna[2])
-    annotation (Line(points={{122,200},{180,200},{180,204},{238,204}},
-      color={255,0,255}));
-  connect(chiOff1.y, nexEnaChi.uChiEna[1])
-    annotation (Line(points={{122,170},{184,170},{184,202.667},{238,202.667}},
-      color={255,0,255}));
-  connect(chiOff1.y, nexEnaChi.uChiEna[3])
-    annotation (Line(points={{122,170},{188,170},{188,205.333},{238,205.333}},
-      color={255,0,255}));
+  connect(swi.y, staSet.u)
+    annotation (Line(points={{-158,220},{-142,220}}, color={0,0,127}));
+  connect(staUp.y, booRep.u) annotation (Line(points={{-198,160},{-190,160},{-190,
+          100},{-182,100}}, color={255,0,255}));
+  connect(booRep.y, chiSet.u2)
+    annotation (Line(points={{-158,100},{-142,100}}, color={255,0,255}));
+  connect(staUp.y, inPro.u2) annotation (Line(points={{-198,160},{-190,160},{-190,
+          40},{-142,40}}, color={255,0,255}));
+  connect(booPul4.y, inPro.u1) annotation (Line(points={{-238,40},{-220,40},{-220,
+          48},{-142,48}}, color={255,0,255}));
+  connect(notIn.y, inPro.u3) annotation (Line(points={{-198,20},{-160,20},{-160,
+          32},{-142,32},{-142,32}}, color={255,0,255}));
+  connect(staSet.y, nexChi.uStaSet) annotation (Line(points={{-118,220},{-80,220},
+          {-80,187},{-62,187}}, color={255,127,0}));
+  connect(chiSet.y, nexChi.uChiSet) annotation (Line(points={{-118,100},{-100,100},
+          {-100,180},{-62,180}}, color={255,0,255}));
+  connect(inPro.y, nexChi.uInPro) annotation (Line(points={{-118,40},{-80,40},{-80,
+          173},{-62,173}}, color={255,0,255}));
   connect(booPul1.y, staUp1.u)
-    annotation (Line(points={{82,130},{98,130}}, color={255,0,255}));
-  connect(staUp1.y, swi1.u2)
-    annotation (Line(points={{122,130},{130,130},{130,70},{138,70}},
-      color={255,0,255}));
-  connect(dowSta1.y, swi1.u3)
-    annotation (Line(points={{82,50},{100,50},{100,62},{138,62}}, color={0,0,127}));
-  connect(upSta1.y, swi1.u1)
-    annotation (Line(points={{82,90},{100,90},{100,78},{138,78}},
-      color={0,0,127}));
-  connect(swi1.y, sta1.u)
-    annotation (Line(points={{162,70},{178,70}}, color={0,0,127}));
-  connect(staUp1.y, nexEnaChi.uStaUp)
-    annotation (Line(points={{122,130},{192,130},{192,200},{238,200}},
-      color={255,0,255}));
-  connect(sta1.y, nexEnaChi.uChiSta)
-    annotation (Line(points={{202,70},{220,70},{220,196},{238,196}},
-      color={255,127,0}));
-  connect(staDow1.y, nexEnaChi.uStaDow)
-    annotation (Line(points={{122,20},{224,20},{224,192},{238,192}},
-      color={255,0,255}));
-  connect(booPul2.y, staDow2.u)
-    annotation (Line(points={{-238,-300},{-222,-300}}, color={255,0,255}));
-  connect(swi2.y, sta2.u)
-    annotation (Line(points={{-158,-240},{-142,-240}}, color={0,0,127}));
-  connect(enaPri2.y, nexEnaDisChi1.uChiPri)
-    annotation (Line(points={{-198,-80},{-140,-80},{-140,-112},{-82,-112}},
-      color={255,127,0}));
-  connect(sta2.y, nexEnaDisChi1.uChiSta)
-    annotation (Line(points={{-118,-240},{-100,-240},{-100,-124},{-82,-124}},
-      color={255,127,0}));
-  connect(staDow2.y, swi2.u2)
-    annotation (Line(points={{-198,-300},{-190,-300},{-190,-240},{-182,-240}},
-      color={255,0,255}));
-  connect(upSta2.y, swi2.u3)
-    annotation (Line(points={{-238,-260},{-220,-260},{-220,-248},{-182,-248}},
-      color={0,0,127}));
-  connect(dowSta2.y, swi2.u1)
-    annotation (Line(points={{-238,-220},{-220,-220},{-220,-232},{-182,-232}},
-      color={0,0,127}));
-  connect(chiOff2.y, nexEnaDisChi1.uChiEna[1])
-    annotation (Line(points={{-198,-150},{-132,-150},{-132,-117.333},{-82,
-          -117.333}},
-      color={255,0,255}));
-  connect(chiOn2.y, nexEnaDisChi1.uChiEna[2])
-    annotation (Line(points={{-198,-120},{-136,-120},{-136,-116},{-82,-116}},
-      color={255,0,255}));
-  connect(chiOn2.y, nexEnaDisChi1.uChiEna[3])
-    annotation (Line(points={{-198,-120},{-140,-120},{-140,-114.667},{-82,
-          -114.667}},
-      color={255,0,255}));
-  connect(staUp2.y, nexEnaDisChi1.uStaUp)
-    annotation (Line(points={{-198,-190},{-128,-190},{-128,-120},{-82,-120}},
-      color={255,0,255}));
-  connect(staDow2.y, nexEnaDisChi1.uStaDow)
-    annotation (Line(points={{-198,-300},{-96,-300},{-96,-128},{-82,-128}},
-      color={255,0,255}));
-  connect(booPul3.y, staDow3.u)
-    annotation (Line(points={{82,-300},{98,-300}}, color={255,0,255}));
-  connect(swi3.y, sta3.u)
-    annotation (Line(points={{162,-240},{178,-240}}, color={0,0,127}));
-  connect(enaPri3.y, nexDisChi.uChiPri)
-    annotation (Line(points={{122,-80},{180,-80},{180,-112},{238,-112}},
-      color={255,127,0}));
-  connect(sta3.y, nexDisChi.uChiSta)
-    annotation (Line(points={{202,-240},{220,-240},{220,-124},{238,-124}},
-      color={255,127,0}));
-  connect(staDow3.y, swi3.u2)
-    annotation (Line(points={{122,-300},{130,-300},{130,-240},{138,-240}},
-      color={255,0,255}));
-  connect(upSta3.y, swi3.u3)
-    annotation (Line(points={{82,-260},{100,-260},{100,-248},{138,-248}},
-      color={0,0,127}));
-  connect(dowSta3.y, swi3.u1)
-    annotation (Line(points={{82,-220},{100,-220},{100,-232},{138,-232}},
-      color={0,0,127}));
-  connect(staUp3.y, nexDisChi.uStaUp)
-    annotation (Line(points={{122,-190},{192,-190},{192,-120},{238,-120}},
-      color={255,0,255}));
-  connect(staDow3.y, nexDisChi.uStaDow)
-    annotation (Line(points={{122,-300},{224,-300},{224,-128},{238,-128}},
-      color={255,0,255}));
-  connect(chiOn3.y, nexDisChi.uChiEna[1])
-    annotation (Line(points={{122,-120},{188,-120},{188,-117.333},{238,-117.333}},
-      color={255,0,255}));
-  connect(chiOn3.y, nexDisChi.uChiEna[2])
-    annotation (Line(points={{122,-120},{184,-120},{184,-116},{238,-116}},
-      color={255,0,255}));
-  connect(chiOff3.y, nexDisChi.uChiEna[3])
-    annotation (Line(points={{122,-150},{180,-150},{180,-114.667},{238,-114.667}},
-      color={255,0,255}));
+    annotation (Line(points={{62,160},{78,160}}, color={255,0,255}));
+  connect(staUp1.y, swi1.u2) annotation (Line(points={{102,160},{110,160},{110,220},
+          {118,220}}, color={255,0,255}));
+  connect(dowSta1.y, swi1.u3) annotation (Line(points={{62,200},{80,200},{80,212},
+          {118,212}}, color={0,0,127}));
+  connect(upSta1.y, swi1.u1) annotation (Line(points={{62,240},{80,240},{80,228},
+          {118,228}}, color={0,0,127}));
+  connect(swi1.y, staSet1.u)
+    annotation (Line(points={{142,220},{158,220}}, color={0,0,127}));
+  connect(staUp1.y, booRep1.u) annotation (Line(points={{102,160},{110,160},{110,
+          100},{118,100}}, color={255,0,255}));
+  connect(booRep1.y, chiSet1.u2)
+    annotation (Line(points={{142,100},{158,100}}, color={255,0,255}));
+  connect(staUp1.y, inPro1.u2) annotation (Line(points={{102,160},{110,160},{110,
+          40},{158,40}}, color={255,0,255}));
+  connect(booPul5.y, inPro1.u1) annotation (Line(points={{62,40},{80,40},{80,48},
+          {158,48}}, color={255,0,255}));
+  connect(notIn1.y, inPro1.u3) annotation (Line(points={{102,20},{140,20},{140,32},
+          {158,32}}, color={255,0,255}));
+  connect(staSet1.y, nexChi1.uStaSet) annotation (Line(points={{182,220},{220,220},
+          {220,187},{238,187}}, color={255,127,0}));
+  connect(chiSet1.y, nexChi1.uChiSet) annotation (Line(points={{182,100},{200,100},
+          {200,180},{238,180}}, color={255,0,255}));
+  connect(inPro1.y, nexChi1.uInPro) annotation (Line(points={{182,40},{220,40},{
+          220,173},{238,173}}, color={255,0,255}));
+  connect(booPul2.y, staDow.u)
+    annotation (Line(points={{-238,-160},{-222,-160}}, color={255,0,255}));
+  connect(staDow.y, swi2.u2) annotation (Line(points={{-198,-160},{-190,-160},{-190,
+          -100},{-182,-100}}, color={255,0,255}));
+  connect(swi2.y, staSet2.u)
+    annotation (Line(points={{-158,-100},{-142,-100}}, color={0,0,127}));
+  connect(staDow.y, booRep2.u) annotation (Line(points={{-198,-160},{-190,-160},
+          {-190,-220},{-182,-220}}, color={255,0,255}));
+  connect(staOneChi2.y, chiSet2.u1) annotation (Line(points={{-238,-200},{-150,-200},
+          {-150,-212},{-142,-212}}, color={255,0,255}));
+  connect(booRep2.y, chiSet2.u2)
+    annotation (Line(points={{-158,-220},{-142,-220}}, color={255,0,255}));
+  connect(staTwoChi2.y, chiSet2.u3) annotation (Line(points={{-238,-240},{-148,-240},
+          {-148,-228},{-142,-228}}, color={255,0,255}));
+  connect(staDow.y, inPro2.u2) annotation (Line(points={{-198,-160},{-190,-160},
+          {-190,-280},{-142,-280}}, color={255,0,255}));
+  connect(booPul6.y, inPro2.u1) annotation (Line(points={{-238,-280},{-220,-280},
+          {-220,-272},{-142,-272}}, color={255,0,255}));
+  connect(notIn2.y, inPro2.u3) annotation (Line(points={{-198,-300},{-160,-300},
+          {-160,-288},{-142,-288}}, color={255,0,255}));
+  connect(staSet2.y, nexChi2.uStaSet) annotation (Line(points={{-118,-100},{-80,
+          -100},{-80,-133},{-62,-133}}, color={255,127,0}));
+  connect(chiSet2.y, nexChi2.uChiSet) annotation (Line(points={{-118,-220},{-100,
+          -220},{-100,-140},{-62,-140}}, color={255,0,255}));
+  connect(inPro2.y, nexChi2.uInPro) annotation (Line(points={{-118,-280},{-80,-280},
+          {-80,-147},{-62,-147}}, color={255,0,255}));
+  connect(dowSta2.y, swi2.u1) annotation (Line(points={{-238,-80},{-200,-80},{-200,
+          -92},{-182,-92}}, color={0,0,127}));
+  connect(upSta2.y, swi2.u3) annotation (Line(points={{-238,-120},{-200,-120},{-200,
+          -108},{-182,-108}}, color={0,0,127}));
+  connect(staTwoChi.y, chiSet.u1) annotation (Line(points={{-238,120},{-150,120},
+          {-150,108},{-142,108}}, color={255,0,255}));
+  connect(staOneChi.y, chiSet.u3) annotation (Line(points={{-238,80},{-150,80},{
+          -150,92},{-142,92}}, color={255,0,255}));
+  connect(staTwoChi1.y, chiSet1.u1) annotation (Line(points={{62,120},{150,120},
+          {150,108},{158,108}}, color={255,0,255}));
+  connect(staOneChi1.y, chiSet1.u3) annotation (Line(points={{62,80},{150,80},{150,
+          92},{158,92}}, color={255,0,255}));
+  connect(booPul3.y, staDow1.u)
+    annotation (Line(points={{62,-160},{78,-160}}, color={255,0,255}));
+  connect(staDow1.y, swi3.u2) annotation (Line(points={{102,-160},{110,-160},{110,
+          -100},{118,-100}}, color={255,0,255}));
+  connect(swi3.y, staSet3.u)
+    annotation (Line(points={{142,-100},{158,-100}}, color={0,0,127}));
+  connect(staDow1.y, booRep3.u) annotation (Line(points={{102,-160},{110,-160},{
+          110,-220},{118,-220}}, color={255,0,255}));
+  connect(staOneChi3.y, chiSet3.u1) annotation (Line(points={{62,-200},{150,-200},
+          {150,-212},{158,-212}}, color={255,0,255}));
+  connect(booRep3.y, chiSet3.u2)
+    annotation (Line(points={{142,-220},{158,-220}}, color={255,0,255}));
+  connect(staTwoChi3.y, chiSet3.u3) annotation (Line(points={{62,-240},{152,-240},
+          {152,-228},{158,-228}}, color={255,0,255}));
+  connect(staDow1.y, inPro3.u2) annotation (Line(points={{102,-160},{110,-160},{
+          110,-280},{158,-280}}, color={255,0,255}));
+  connect(booPul7.y, inPro3.u1) annotation (Line(points={{62,-280},{80,-280},{80,
+          -272},{158,-272}}, color={255,0,255}));
+  connect(notIn3.y, inPro3.u3) annotation (Line(points={{102,-300},{140,-300},{140,
+          -288},{158,-288}}, color={255,0,255}));
+  connect(staSet3.y, nexChi3.uStaSet) annotation (Line(points={{182,-100},{220,-100},
+          {220,-133},{238,-133}}, color={255,127,0}));
+  connect(chiSet3.y, nexChi3.uChiSet) annotation (Line(points={{182,-220},{200,-220},
+          {200,-140},{238,-140}}, color={255,0,255}));
+  connect(inPro3.y, nexChi3.uInPro) annotation (Line(points={{182,-280},{220,-280},
+          {220,-147},{238,-147}}, color={255,0,255}));
+  connect(dowSta3.y, swi3.u1) annotation (Line(points={{62,-80},{100,-80},{100,-92},
+          {118,-92}}, color={0,0,127}));
+  connect(upSta3.y, swi3.u3) annotation (Line(points={{62,-120},{100,-120},{100,
+          -108},{118,-108}}, color={0,0,127}));
 
 annotation (
  experiment(StopTime=120, Tolerance=1e-06),
@@ -343,17 +360,17 @@ Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
         Text(
           extent={{-256,-40},{-96,-52}},
           lineColor={0,0,127},
-          textString="requires large chiller (3) off and small chiller (1) on."),
+          textString="requires large chiller (2) off and small chiller (1) on."),
         Text(
           extent={{-260,-26},{-140,-36}},
           lineColor={0,0,127},
-          textString="In stage down process (stage 4 to 3),"),
+          textString="In stage down process (stage 2 to 1),"),
         Text(
-          extent={{64,-42},{228,-54}},
+          extent={{58,-42},{130,-52}},
           lineColor={0,0,127},
-          textString="disable chiller (1) from current chiller array (2, 1)."),
+          textString="disable chiller (2)."),
         Text(
           extent={{62,-28},{182,-38}},
           lineColor={0,0,127},
-          textString="In stage down process (stage 3 to 2),")}));
+          textString="In stage down process (stage 2 to 1),")}));
 end NextChiller;
