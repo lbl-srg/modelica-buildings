@@ -59,6 +59,18 @@ model HeatingPlantOpenLoop
     annotation (Placement(transformation(extent={{-80,-26},{-60,-6}})));
   Modelica.Blocks.Math.Product mAct_flow "Actual mass flow rate"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
+  Fluid.FixedResistances.Pipe pip(
+    redeclare package Medium = MediumSte,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    p_start=pSte,
+    T_start=TSte,
+    allowFlowReversal=false,
+    m_flow_nominal=m_flow_nominal,
+    nSeg=1,
+    thicknessIns=0.01,
+    lambdaIns=0.04,
+    length=100)
+    annotation (Placement(transformation(extent={{40,0},{60,20}})));
 protected
   Fluid.Movers.FlowControlled_m_flow            pum(
     redeclare final package Medium = MediumWat,
@@ -71,8 +83,6 @@ protected
     final use_inputFilter=false) "Pump"
     annotation (Placement(transformation(extent={{60,-40},{40,-20}})));
 equation
-  connect(pla.port_b, steSin.ports[1])
-    annotation (Line(points={{20,10},{70,10}}, color={0,127,255}));
   connect(mMax_flow.y, mAct_flow.u2)
     annotation (Line(points={{-59,-16},{-42,-16}}, color={0,0,127}));
   connect(PLR.y, mAct_flow.u1) annotation (Line(points={{-59,18},{-50,18},{-50,
@@ -83,6 +93,10 @@ equation
     annotation (Line(points={{70,-30},{60,-30}}, color={0,127,255}));
   connect(pum.port_b, pla.port_a) annotation (Line(points={{40,-30},{30,-30},{
           30,4},{20,4}}, color={0,127,255}));
+  connect(pla.port_b, pip.port_a)
+    annotation (Line(points={{20,10},{40,10}}, color={0,127,255}));
+  connect(pip.port_b, steSin.ports[1])
+    annotation (Line(points={{60,10},{70,10}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
   __Dymola_Commands(file=

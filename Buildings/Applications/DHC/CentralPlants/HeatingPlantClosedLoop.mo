@@ -40,19 +40,17 @@ model HeatingPlantClosedLoop
     effCur=Buildings.Fluid.Types.EfficiencyCurves.Constant,
     a={0.9},
     show_T=true) "Heating plant"
-    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Modelica.Blocks.Sources.Ramp Q_flow(
-    height=Q_flow_nominal,
-    duration(displayUnit="h") = 3600,
-    startTime(displayUnit="h") = 3600)
-    annotation (Placement(transformation(extent={{20,20},{40,40}})));
+    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
+  Modelica.Blocks.Sources.Ramp ramp(duration(displayUnit="min") = 1200,
+      startTime(displayUnit="h"))
+    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   EnergyTransferStations.Heating1stGenIdeal ets(
     redeclare package Medium_a = MediumSte,
     redeclare package Medium_b = MediumWat,
     m_flow_nominal=m_flow_nominal,
     Q_flow_nominal=Q_flow_nominal,
     pSte_nominal=pSte) "Energy transfer station"
-    annotation (Placement(transformation(extent={{60,0},{80,20}})));
+    annotation (Placement(transformation(extent={{40,-20},{60,0}})));
   Fluid.FixedResistances.Pipe pip(
     redeclare package Medium = MediumWat,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -64,23 +62,35 @@ model HeatingPlantClosedLoop
     thicknessIns=0.01,
     lambdaIns=0.04,
     length=100)
-    annotation (Placement(transformation(extent={{40,-30},{20,-10}})));
+    annotation (Placement(transformation(extent={{20,-80},{0,-60}})));
+  Modelica.Blocks.Sources.TimeTable QHea(table=Q_flow_profile, timeScale(
+        displayUnit="s") = 3600)           "Heating demand"
+    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
+  Modelica.Blocks.Math.Product Q_flow
+    annotation (Placement(transformation(extent={{0,26},{20,46}})));
 equation
   connect(pla.port_b, ets.port_a)
-    annotation (Line(points={{-20,10},{60,10}}, color={0,127,255}));
-  connect(ets.port_b, pip.port_a) annotation (Line(points={{80,10},{90,10},{90,
-          -20},{40,-20}}, color={0,127,255}));
-  connect(pip.port_b, pla.port_a) annotation (Line(points={{20,-20},{0,-20},{0,
-          4},{-20,4}}, color={0,127,255}));
-  connect(Q_flow.y, ets.Q_flow) annotation (Line(points={{41,30},{50,30},{50,16},
-          {58,16}}, color={0,0,127}));
+    annotation (Line(points={{-40,-10},{40,-10}},
+                                                color={0,127,255}));
+  connect(ets.port_b, pip.port_a) annotation (Line(points={{60,-10},{70,-10},{
+          70,-70},{20,-70}},
+                          color={0,127,255}));
+  connect(pip.port_b, pla.port_a) annotation (Line(points={{0,-70},{-30,-70},{
+          -30,-16},{-40,-16}},
+                       color={0,127,255}));
+  connect(QHea.y, Q_flow.u2)
+    annotation (Line(points={{-19,30},{-2,30}}, color={0,0,127}));
+  connect(Q_flow.u1, ramp.y) annotation (Line(points={{-2,42},{-8,42},{-8,70},{
+          -19,70}}, color={0,0,127}));
+  connect(Q_flow.y, ets.Q_flow) annotation (Line(points={{21,36},{30,36},{30,-4},
+          {38,-4}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
   __Dymola_Commands(file=
     "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/CentralPlants/HeatingPlantClosedLoop.mos"
     "Simulate and plot"),
   experiment(
-      StopTime=10800,
+      StopTime=86400,
       Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"));
+      __Dymola_Algorithm="Radau"));
 end HeatingPlantClosedLoop;
