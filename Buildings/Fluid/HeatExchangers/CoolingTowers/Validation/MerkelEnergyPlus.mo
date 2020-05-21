@@ -43,9 +43,10 @@ model MerkelEnergyPlus
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     tableOnFile=true,
     fileName=ModelicaServices.ExternalReferences.loadResource(
-      "modelica://Buildings//Resources/Data/Fluid/HeatExchangers/CoolingTowers/Validation/MerkelEnergyPlus/modelica.csv"),
-    columns=2:16,
-    tableName="modelica",
+      "modelica://Buildings//Resources/Data/Fluid/HeatExchangers/CoolingTowers/Validation/MerkelEnergyPlus/CoolingTower_VariableSpeed_Merkel.dat"),
+    verboseRead=false,
+    columns=2:10,
+    tableName="EnergyPlus",
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
     "Reader for \"CoolingTower_VariableSpeed_Merkel.idf\" energy plus example results"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
@@ -138,12 +139,12 @@ equation
 This model validates the model
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel\">
 Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel</a> by comparing against
-results obtained from EnergyPlus 9.2.
+results obtained from EnergyPlus.
 </p>
 <p>
 The EnergyPlus results were obtained using the example file
 <code>CoolingTower:VariableSpeed</code>, with the cooling tower evaluated as
-the <code>CoolingTower:VariableSpeed:Merkel</code> model from EnergyPlus 9.2.
+the <code>CoolingTower:VariableSpeed:Merkel</code> model from EnergyPlus.
 </p>
 <p>
 The difference in results of the cooling tower's leaving water temperature
