@@ -133,10 +133,10 @@ equation
   connect(conInt1.y, effCon1.uAvaUp)
     annotation (Line(points={{32,-120},{100,-120},{100,-9},{108,-9}},
       color={255,127,0}));
-  connect(con4.y, effCon.uUpMinFloSetPoi)
+  connect(con4.y, effCon.uUpMinFloSet)
     annotation (Line(points={{-108,-40},{-60,-40},{-60,-3},{-32,-3}},
       color={0,0,127}));
-  connect(con5.y, effCon1.uUpMinFloSetPoi)
+  connect(con5.y, effCon1.uUpMinFloSet)
     annotation (Line(points={{32,-40},{80,-40},{80,-3},{108,-3}},
       color={0,0,127}));
 

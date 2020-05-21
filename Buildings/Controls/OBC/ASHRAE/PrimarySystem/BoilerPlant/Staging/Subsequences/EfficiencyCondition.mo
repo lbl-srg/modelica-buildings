@@ -62,7 +62,7 @@ block EfficiencyCondition
     annotation (Placement(transformation(extent={{-160,-40},{-120,0}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uUpMinFloSetPoi(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uUpMinFloSet(
     final unit="m3/s",
     final displayUnit="m3/s",
     final quantity="VolumeFlowRate")
@@ -164,13 +164,13 @@ equation
   connect(add1.u1, uHotWatFloRat)
     annotation (Line(points={{-102,-34},{-110,-34},{-110,-20},{-140,-20}},
       color={0,0,127}));
-  connect(add1.u2, uUpMinFloSetPoi)
+  connect(add1.u2, uUpMinFloSet)
     annotation (Line(points={{-102,-46},{-110,-46},{-110,-60},{-140,-60}},
       color={0,0,127}));
   connect(add1.y, div2.u1)
     annotation (Line(points={{-78,-40},{-70,-40},{-70,-44},{-62,-44}},
       color={0,0,127}));
-  connect(div2.u2, uUpMinFloSetPoi)
+  connect(div2.u2, uUpMinFloSet)
     annotation (Line(points={{-62,-56},{-70,-56},{-70,-60},{-140,-60}},
       color={0,0,127}));
   connect(div2.y, hys.u)
