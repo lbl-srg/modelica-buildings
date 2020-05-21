@@ -17,14 +17,14 @@ model Scheduler
     final simTimSta=false,
     final weeCou=2,
     final weekday=2) "Equipment rotation happens bi-weekly on Tuesday at 2am"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Scheduler
     rotSch2(
     final weeInt=false,
     final houOfDay=5,
     final dayCou=6) "Equipment rotation happens every 5 days at 6am"
-    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Scheduler
     rotSch3(
@@ -52,12 +52,12 @@ model Scheduler
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol1(
     final trueHoldDuration=1800,
     final falseHoldDuration=0) "Holds the signal for visualization purposes"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+    annotation (Placement(transformation(extent={{20,30},{40,50}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol2(
     final trueHoldDuration=1800,
     final falseHoldDuration=0) "Holds the signal for visualization purposes"
-    annotation (Placement(transformation(extent={{20,30},{40,50}})));
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol3(
     final trueHoldDuration=1800,
@@ -74,9 +74,9 @@ equation
   connect(rotSch.yRot, truFalHol.u)
     annotation (Line(points={{-18,80},{18,80}},  color={255,0,255}));
   connect(rotSch1.yRot, truFalHol1.u)
-    annotation (Line(points={{-18,0},{18,0}},  color={255,0,255}));
+    annotation (Line(points={{-18,40},{18,40}},color={255,0,255}));
   connect(rotSch2.yRot, truFalHol2.u)
-    annotation (Line(points={{-18,40},{18,40}},    color={255,0,255}));
+    annotation (Line(points={{-18,0},{18,0}},      color={255,0,255}));
   connect(rotSch3.yRot, truFalHol3.u)
     annotation (Line(points={{-18,-40},{18,-40}},color={255,0,255}));
   connect(rotSch4.yRot,truFalHol4. u)
