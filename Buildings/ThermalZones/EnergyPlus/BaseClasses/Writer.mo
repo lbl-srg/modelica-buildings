@@ -40,14 +40,17 @@ protected
     annotation(HideResult=true);
   constant Integer objectType "Set to 1 for Actuator and 2 for Schedule";
 
+  parameter Modelica.SIunits.Time startTime(fixed=false) "Simulation start time";
+
+  Modelica.SIunits.Time tNext(start=startTime, fixed=true) "Next sampling time";
+
   Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUWriterClass adapter=
       Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUWriterClass(
       objectType=objectType,
       modelicaNameBuilding=modelicaNameBuilding,
       modelicaNameWriter=modelicaNameWriter,
       idfName=idfName,
-      weaName=weaName,
-      iddName=Buildings.ThermalZones.EnergyPlus.BaseClasses.iddName,
+      weaName=epWeaName,
       writerName=name,
       unit=unit,
       componentName=componentName,

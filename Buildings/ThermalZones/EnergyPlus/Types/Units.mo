@@ -1,5 +1,6 @@
 within Buildings.ThermalZones.EnergyPlus.Types;
 type Units = enumeration(
+    UnitLess        "No units, such as a control signal between 0 and 1",
     AngleRad        "Angle (rad)",
     AngleDeg        "Angle (deg)",
     EnergyJ         "Energy (J)",

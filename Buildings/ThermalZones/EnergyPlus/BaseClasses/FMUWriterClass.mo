@@ -15,7 +15,6 @@ class FMUWriterClass
       "Name of the Modelica instance that requests this output variable";
     input String idfName "Name of the IDF";
     input String weaName "Name of the weather file";
-    input String iddName "Name of the IDD file";
     input String writerName "EnergyPlus name of the actuator or schedule";
     input Buildings.ThermalZones.EnergyPlus.Types.Units unit "Unit of variable as used in Modelica";
     input String componentName "Actuated component unique name in the EnergyPlus idf file (not used for schedule)";
@@ -35,7 +34,6 @@ class FMUWriterClass
       modelicaNameWriter,
       idfName,
       weaName,
-      iddName,
       writerName,
       unit,
       componentName,
