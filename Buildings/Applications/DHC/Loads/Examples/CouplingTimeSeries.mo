@@ -180,6 +180,5 @@ First implementation.
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,140}})),
   __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingTimeSeries.mos"
-        "Simulate and plot"),
-    Icon(coordinateSystem(extent={{-160,-140},{160,140}})));
+        "Simulate and plot"));
 end CouplingTimeSeries;
