@@ -36,7 +36,7 @@ package Staging "Boiler staging sequences"
           extent={{-80.0,0.0},{-20.0,60.0}})}),
         Documentation(info="<html>
         <p>
-        This package contains the boiler staging seqeunces.
+        This package contains the boiler staging sequences.
         </p>
         </html>"));
 end Staging;

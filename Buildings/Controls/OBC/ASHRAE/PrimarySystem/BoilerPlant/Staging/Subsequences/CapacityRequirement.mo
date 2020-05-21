@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences;
-block CapacityRequirement "Heating capacity requirement"
+block CapacityRequirement
+  "Heating capacity requirement"
 
   parameter Real avePer(
     final unit="s",
@@ -143,7 +144,8 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="Load")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{120,100}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false,
+      extent={{-120,-100},{120,100}})),
     Documentation(info="<html>
       <p>
       Calculates heating capacity requirement based on the measured hot water return

@@ -37,7 +37,7 @@ package Subsequences "Boiler staging subsequences"
           extent={{-80.0,0.0},{-20.0,60.0}})}),
         Documentation(info="<html>
           <p>
-          This package contains boiler staging control sequences.
+          This package contains subsequences used in boiler staging control.
           </p>
           </html>"));
 end Subsequences;

@@ -75,6 +75,7 @@ block EfficiencyCondition
     annotation (Placement(transformation(extent={{120,-20},{160,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
+protected
   Buildings.Controls.OBC.CDL.Continuous.Division div
     "Divider to get relative value of required heating capacity"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
@@ -257,10 +258,10 @@ annotation (
     specification provided in 5.3.3.10, 1711 March 2020 Draft.
     </p>
     <p align=\"center\">
-    <img alt=\"Pseudo-code for EfficiencyCondition\"
-    src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/Subsequences/EfficiencyCondition_pseudoCode.png\"/>
+    <img alt=\"State-machine chart for EfficiencyCondition\"
+    src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/Subsequences/EfficiencyCondition_stateMachineChart.png\"/>
     <br/>
-    Pseudo-code for the sequence defined in RP-1711
+    State-machine chart for the sequence defined in RP-1711
     </p>
     <p align=\"center\">
     <img alt=\"Validation plot for EfficiencyCondition1\"
@@ -280,7 +281,7 @@ annotation (
     revisions="<html>
     <ul>
     <li>
-    May 18, 2020, by Karthik Devaprasad:<br/>
+    May 21, 2020, by Karthik Devaprasad:<br/>
     First implementation.
     </li>
     </ul>

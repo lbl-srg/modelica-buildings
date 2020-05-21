@@ -9,17 +9,21 @@ block FailsafeCondition
 
   parameter Real TDif(
     final unit="K",
+    final displayUnit="K",
     final quantity="ThermodynamicTemperature") = 10
     "Required temperature difference between setpoint and measured temperature
     for failsafe condition";
 
   parameter Real TDifHys(
     final unit="K",
+    final displayUnit="K",
     final quantity="ThermodynamicTemperature") = 1
-    "Temperature deadband for hysteresis loop";
+    "Temperature deadband for hysteresis loop"
+    annotation (Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupSet(
     final unit="K",
+    final displayUnit="K",
     final quantity="ThermodynamicTemperature")
     "Hot water supply temperature setpoint"
     annotation (Placement(
@@ -28,6 +32,7 @@ block FailsafeCondition
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
+    final displayUnit="K",
     final quantity="ThermodynamicTemperature")
     "Measured hot water supply temperature"
     annotation (Placement(
@@ -47,6 +52,7 @@ block FailsafeCondition
     "Difference between setpoint and measured temperature"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
+protected
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
     final uLow=TDif - TDifHys,
     final uHigh=TDif)
@@ -60,17 +66,22 @@ block FailsafeCondition
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
 equation
-
-  connect(add2.u2, TSup) annotation (Line(points={{-82,-6},{-90,-6},{-90,-50},{-120,
-          -50}}, color={0,0,127}));
-  connect(add2.u1, TSupSet) annotation (Line(points={{-82,6},{-90,6},{-90,50},{-120,
-          50}}, color={0,0,127}));
+  connect(add2.u2, TSup)
+    annotation (Line(points={{-82,-6},{-90,-6},{-90,-50},{-120,-50}},
+      color={0,0,127}));
+  connect(add2.u1, TSupSet)
+    annotation (Line(points={{-82,6},{-90,6},{-90,50},{-120,50}},
+      color={0,0,127}));
   connect(add2.y, hys.u)
-    annotation (Line(points={{-58,0},{-42,0}}, color={0,0,127}));
+    annotation (Line(points={{-58,0},{-42,0}},
+      color={0,0,127}));
   connect(hys.y, truDel.u)
-    annotation (Line(points={{-18,0},{-2,0}}, color={255,0,255}));
+    annotation (Line(points={{-18,0},{-2,0}},
+      color={255,0,255}));
   connect(truDel.y, y)
-    annotation (Line(points={{22,0},{120,0}}, color={255,0,255}));
+    annotation (Line(points={{22,0},{120,0}},
+      color={255,0,255}));
+
 annotation (defaultComponentName = "faiSafCon",
   Icon(coordinateSystem(extent={{-100,-80},{100,100}}),
     graphics={
@@ -101,7 +112,7 @@ annotation (defaultComponentName = "faiSafCon",
     revisions="<html>
     <ul>
     <li>
-    May 15, 2020, by Karthik Devaprasad:<br/>
+    May 21, 2020, by Karthik Devaprasad:<br/>
     First implementation.
     </li>
     </ul>
