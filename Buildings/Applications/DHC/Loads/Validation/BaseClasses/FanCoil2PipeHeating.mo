@@ -25,18 +25,6 @@ model FanCoil2PipeHeating
   parameter Real k(min=0) = 1 "Gain of controller";
   parameter Modelica.SIunits.Time Ti(min=Modelica.Constants.small) = 10
     "Time constant of integrator block";
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
-    "Type of energy balance for fan air volume"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  final parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Type of mass balance for fan air volume"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Zone air"));
-  parameter Modelica.SIunits.Time tau=1
-    "Time constant of fan air volume, used if energy or mass balance is dynamic"
-    annotation (Dialog(tab="Dynamics",
-                       group="Nominal condition",
-                       enable=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState or
-                              massDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState));
   parameter Boolean use_inputFilter=true
     "= true, if fan speed is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Filtered speed"));
