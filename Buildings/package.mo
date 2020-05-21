@@ -145,11 +145,6 @@ its class name ends with the string <code>Beta</code>.
                            models for the OpenBuildingControl (OBC) library.
         </td>
         </tr>
-    <tr><td valign=\"top\">Buildings.Media.Steam
-        </td>
-        <td valign=\"top\">Package with steam medium model for modeling steam heating systems.
-        </td>
-        </tr>
     <tr><td valign=\"top\">Buildings.Utilities.IO.SignalExchange
         </td>
         <td valign=\"top\">Package with blocks that can be used
