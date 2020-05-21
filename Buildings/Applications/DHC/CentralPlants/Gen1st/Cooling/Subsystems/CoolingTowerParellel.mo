@@ -3,27 +3,40 @@ model CoolingTowerParellel
   "Multiple identical cooling towers in parallel connection"
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.SignalFilter(
     final numFil=num);
+
+  parameter Integer num=2 "Number of cooling towers";
+
   replaceable package Medium=Buildings.Media.Water
     "Condenser water medium";
-  parameter Integer num=2 "Number of cooling towers";
+
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.5
     "Nominal mass flow rate of condenser water"
     annotation (Dialog(group="Nominal condition"));
+
   parameter Modelica.SIunits.Pressure dp_nominal=6000
     "Nominal pressure difference of the tower"
     annotation (Dialog(group="Nominal condition"));
-  parameter Real ratWatAir_nominal=0.625
+
+  parameter Real ratWatAir_nominal(min=0, unit="1")=0.625
     "Design water-to-air ratio"
     annotation (Dialog(group="Nominal condition"));
+
   parameter Modelica.SIunits.Temperature TAirInWB_nominal=273.15+25.55
     "Nominal outdoor (air inlet) wetbulb temperature"
     annotation (Dialog(group="Heat transfer"));
+
   parameter Modelica.SIunits.Temperature TWatIn_nominal=273.15+35
     "Nominal water inlet temperature"
     annotation (Dialog(group="Heat transfer"));
+
   parameter Modelica.SIunits.TemperatureDifference dT_nominal=5.56
     "Temperature difference between inlet and outlet of the tower"
      annotation (Dialog(group="Heat transfer"));
+
   parameter Modelica.SIunits.Power PFan_nominal=4800
     "Fan power"
     annotation (Dialog(group="Fan"));
@@ -31,12 +44,17 @@ model CoolingTowerParellel
   Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium=Medium)
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+
   Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium=Medium)
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  Modelica.Blocks.Interfaces.RealInput TWetBul
+
+  Modelica.Blocks.Interfaces.RealInput TWetBul(
+    final unit="K",
+    displayUnit="degC")
     "Entering air wetbulb temperature"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
+
   replaceable Fluid.HeatExchangers.CoolingTowers.Merkel cooTow[num]
     constrainedby
     Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower(
@@ -50,22 +68,32 @@ model CoolingTowerParellel
      each final PFan_nominal=PFan_nominal)
     "Cooling tower type"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Fluid.Actuators.Valves.TwoWayEqualPercentage val[num](
+
+  Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val[num](
     redeclare package Medium = Medium,
     each final m_flow_nominal=m_flow_nominal,
     each final dpValve_nominal=dp_nominal)
     "Cooling tower valves"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Modelica.Blocks.Interfaces.RealInput on[num]
+
+  Modelica.Blocks.Interfaces.RealInput on[num](
+    min=0, max=1, unit="1")
     "On signal for cooling towers"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Modelica.Blocks.Interfaces.RealInput speFan
+
+  Modelica.Blocks.Interfaces.RealInput speFan(unit="1")
     "Fan speed control signal"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
-  Modelica.Blocks.Interfaces.RealOutput PFan[num]
+
+  Modelica.Blocks.Interfaces.RealOutput PFan[num](
+    final quantity="Power",
+    final unit="W")
     "Electric power consumed by fan"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  Modelica.Blocks.Interfaces.RealOutput TLvg[num]
+
+  Modelica.Blocks.Interfaces.RealOutput TLvg[num](
+    final unit="K",
+    displayUnit="degC")
     "Leaving water temperature"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
 equation
@@ -84,10 +112,10 @@ equation
     connect(cooTow[i].TLvg, TLvg[i]) annotation (Line(points={{11,-6},{26,-6},{26,30},{110,
           30}}, color={0,0,127}));
   end for;
-  connect(on, filter.u) annotation (Line(points={{-120,60},{-60,60},{-60,84},{
-          -55.2,84}}, color={0,0,127}));
-  connect(y_actual, val.y) annotation (Line(points={{-20,74},{-14,74},{-14,60},
-          {-50,60},{-50,12}}, color={0,0,127}));
+  connect(on, filter.u) annotation (Line(points={{-120,60},{-60,60},{-60,84},{-55.2,
+          84}}, color={0,0,127}));
+  connect(y_actual, val.y) annotation (Line(points={{-20,74},{-14,74},{-14,60},{
+          -50,60},{-50,12}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),           Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
