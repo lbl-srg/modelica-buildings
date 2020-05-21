@@ -4,6 +4,10 @@ model CouplingTimeSeries
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water
     "Source side medium";
+  parameter Boolean have_timAve = false
+    "Set to true to compute time averaged load and actual heat flow rate";
+  parameter Modelica.SIunits.Time perAve = 900
+    "Sample period for time averaged variables";
   Buildings.Applications.DHC.Loads.Examples.BaseClasses.BuildingTimeSeries
     bui(
       filNam=
@@ -68,6 +72,34 @@ model CouplingTimeSeries
   Modelica.Blocks.Continuous.Integrator ECooAct(y(unit="J"))
     "Actual energy used for cooling"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
+  Modelica.Blocks.Continuous.Integrator QAveHeaReq_flow(
+    k=1/perAve,
+    use_reset=true,
+    y(unit="J")) if  have_timAve
+    "Time average of heating load"
+    annotation (Placement(transformation(extent={{60,110},{80,130}})));
+  Modelica.Blocks.Continuous.Integrator QAveHeaAct_flow(
+    k=1/perAve,
+    use_reset=true,
+    y(unit="J")) if  have_timAve
+    "Time average of heating heat flow rate"
+    annotation (Placement(transformation(extent={{100,110},{120,130}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(period=perAve) if
+       have_timAve
+    "Block that outputs cyclic on and off"
+    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
+  Modelica.Blocks.Continuous.Integrator QAveCooReq_flow(
+    k=1/perAve,
+    use_reset=true,
+    y(unit="J")) if  have_timAve
+    "Time average of cooling load"
+    annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
+  Modelica.Blocks.Continuous.Integrator QAveCooAct_flow(
+    k=1/perAve,
+    use_reset=true,
+    y(unit="J")) if have_timAve
+    "Time average of cooling heat flow rate"
+    annotation (Placement(transformation(extent={{100,-110},{120,-90}})));
 equation
   connect(supHeaWat.T_in,THeaWatSup. y) annotation (Line(points={{-62,44},{-80,44},
           {-80,40},{-99,40}},     color={0,0,127}));
@@ -91,6 +123,26 @@ equation
   connect(bui.QCoo_flow, ECooAct.u) annotation (Line(points={{30.6667,13.3333},
           {40,13.3333},{40,-40},{90,-40},{90,-60},{98,-60}},
                                                          color={0,0,127}));
+  connect(bui.QReqHea_flow, QAveHeaReq_flow.u) annotation (Line(points={{26.6667,
+          -4.66667},{26.6667,-7.90323},{35.9677,-7.90323},{35.9677,120},{58,120}},
+        color={0,0,127}));
+  connect(bui.QHea_flow, QAveHeaAct_flow.u) annotation (Line(points={{30.6667,
+          14.6667},{40,14.6667},{40,60},{90,60},{90,120},{98,120}},
+                                                           color={0,0,127}));
+  connect(booPul.y, QAveHeaReq_flow.reset) annotation (Line(points={{-38,10},{-20,
+          10},{-20,100},{76,100},{76,108}}, color={255,0,255}));
+  connect(booPul.y, QAveHeaAct_flow.reset) annotation (Line(points={{-38,10},{-20,
+          10},{-20,100},{116,100},{116,108}}, color={255,0,255}));
+  connect(bui.QReqCoo_flow, QAveCooReq_flow.u) annotation (Line(points={{28.6667,
+          -4.66667},{28.6316,-4.66667},{28.6316,-60},{28.6316,-100},{58,-100}},
+        color={0,0,127}));
+  connect(bui.QCoo_flow, QAveCooAct_flow.u) annotation (Line(points={{30.6667,
+          13.3333},{40,13.3333},{40,-40},{90,-40},{90,-100},{98,-100}},
+                                                               color={0,0,127}));
+  connect(booPul.y, QAveCooReq_flow.reset) annotation (Line(points={{-38,10},{-20,
+          10},{-20,-120},{76,-120},{76,-112}}, color={255,0,255}));
+  connect(booPul.y, QAveCooAct_flow.reset) annotation (Line(points={{-38,10},{-20,
+          10},{-20,-120},{116,-120},{116,-112}}, color={255,0,255}));
   annotation (
   experiment(
       StopTime=604800,
@@ -126,7 +178,8 @@ First implementation.
 </ul>
 </html>"),
   Diagram(
-  coordinateSystem(preserveAspectRatio=false, extent={{-160,-100},{160,100}})),
+  coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,140}})),
   __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingTimeSeries.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    Icon(coordinateSystem(extent={{-160,-140},{160,140}})));
 end CouplingTimeSeries;
