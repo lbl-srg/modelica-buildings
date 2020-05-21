@@ -1,4 +1,4 @@
-﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences;
 block MappingWithWSE
   "Equipment setpoints when chiller head pressure control is enabled, for plants with waterside economizer and headered condenser water pumps"
   parameter Real minTowSpe = 0.1
