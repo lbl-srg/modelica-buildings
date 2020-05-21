@@ -48,7 +48,7 @@ model HeatingSystem "Generic first generation district heating system"
 //    "Pipe diameter (without insulation)";
   parameter Modelica.SIunits.Length length=50 "Length of the pipe";
 
-  Buildings.Applications.DHC.CentralPlants.HeatingPlant1stGen pla(
+  Buildings.Applications.DHC.CentralPlants.xxHeatingPlant1stGen pla(
     redeclare package Medium_a = MediumWat,
     redeclare package Medium_b = MediumSte,
     mPla_flow_nominal=mPla_flow_nominal,

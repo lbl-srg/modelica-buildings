@@ -30,7 +30,7 @@ model BuildingTimeSeries1stGen
     timeScale=3600,
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     "Heating demand"
-    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Applications.DHC.EnergyTransferStations.Heating1stGenIdeal ets(
     redeclare final package Medium_a = Medium_a,
     redeclare final package Medium_b = Medium_b,
@@ -38,7 +38,7 @@ model BuildingTimeSeries1stGen
     Q_flow_nominal=Q_flow_nominal,
     pSte_nominal=pSte_nominal)
                           "Energy transfer station"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
         Medium_a)
@@ -52,16 +52,23 @@ model BuildingTimeSeries1stGen
     displayUnit="kW") "Total heat transfer rate"
     annotation (Placement(transformation(extent={{100,70},{120,90}}),
         iconTransformation(extent={{100,70},{120,90}})));
+  Modelica.Blocks.Sources.Ramp ram(duration=120)
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+  Modelica.Blocks.Math.Product pro
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 equation
-  connect(port_a, ets.port_a) annotation (Line(points={{100,-60},{-40,-60},{-40,
-          0},{-10,0}},
-                    color={0,127,255}));
-  connect(ets.port_b, port_b) annotation (Line(points={{10,0},{100,0}},
+  connect(port_a, ets.port_a) annotation (Line(points={{100,-60},{0,-60},{0,0},
+          {40,0}},  color={0,127,255}));
+  connect(ets.port_b, port_b) annotation (Line(points={{60,0},{100,0}},
                  color={0,127,255}));
-  connect(QHea.y[1], Q_flow)
-    annotation (Line(points={{-59,80},{110,80}}, color={0,0,127}));
-  connect(ets.Q_flow, QHea.y[1]) annotation (Line(points={{-12,6},{-40,6},{-40,
-          80},{-59,80}}, color={0,0,127}));
+  connect(QHea.y[1], pro.u1) annotation (Line(points={{-59,70},{-50,70},{-50,56},
+          {-42,56}}, color={0,0,127}));
+  connect(ram.y, pro.u2) annotation (Line(points={{-59,30},{-50,30},{-50,44},{
+          -42,44}}, color={0,0,127}));
+  connect(pro.y, Q_flow) annotation (Line(points={{-19,50},{0,50},{0,80},{110,
+          80}}, color={0,0,127}));
+  connect(pro.y, ets.Q_flow)
+    annotation (Line(points={{-19,50},{0,50},{0,6},{38,6}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Polygon(
           points={{20,-70},{60,-85},{20,-100},{20,-70}},
