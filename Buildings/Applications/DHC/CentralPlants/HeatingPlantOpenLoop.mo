@@ -39,13 +39,12 @@ model HeatingPlantOpenLoop
     effCur=Buildings.Fluid.Types.EfficiencyCurves.Constant,
     a={0.9},
     show_T=true) "Heating plant"
-    annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Modelica.Blocks.Sources.Ramp PLR(
-    height=0.5,
+    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
+  Modelica.Blocks.Sources.Ramp m_flow(
+    height=m_flow_nominal,
     duration(displayUnit="h") = 3600,
-    offset=0.5,
     startTime(displayUnit="h") = 3600)
-    annotation (Placement(transformation(extent={{-80,8},{-60,28}})));
+    annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
   Fluid.Sources.Boundary_pT steSin(
     redeclare package Medium = MediumSte,
     p=pSte,
@@ -53,12 +52,7 @@ model HeatingPlantOpenLoop
     annotation (Placement(transformation(extent={{90,0},{70,20}})));
   Fluid.Sources.Boundary_pT watSou(redeclare package Medium = MediumWat, nPorts=
        1) "Water source"
-    annotation (Placement(transformation(extent={{90,-40},{70,-20}})));
-  Modelica.Blocks.Sources.RealExpression mMax_flow(y=m_flow_nominal)
-    "Maximum (nominal) mass flow rate"
-    annotation (Placement(transformation(extent={{-80,-26},{-60,-6}})));
-  Modelica.Blocks.Math.Product mAct_flow "Actual mass flow rate"
-    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
+    annotation (Placement(transformation(extent={{90,-60},{70,-40}})));
   Fluid.FixedResistances.Pipe pip(
     redeclare package Medium = MediumSte,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -81,22 +75,19 @@ protected
     addPowerToMedium=false,
     nominalValuesDefineDefaultPressureCurve=true,
     final use_inputFilter=false) "Pump"
-    annotation (Placement(transformation(extent={{60,-40},{40,-20}})));
+    annotation (Placement(transformation(extent={{60,-60},{40,-40}})));
 equation
-  connect(mMax_flow.y, mAct_flow.u2)
-    annotation (Line(points={{-59,-16},{-42,-16}}, color={0,0,127}));
-  connect(PLR.y, mAct_flow.u1) annotation (Line(points={{-59,18},{-50,18},{-50,
-          -4},{-42,-4}}, color={0,0,127}));
-  connect(mAct_flow.y, pum.m_flow_in)
-    annotation (Line(points={{-19,-10},{50,-10},{50,-18}}, color={0,0,127}));
   connect(watSou.ports[1], pum.port_a)
-    annotation (Line(points={{70,-30},{60,-30}}, color={0,127,255}));
-  connect(pum.port_b, pla.port_a) annotation (Line(points={{40,-30},{30,-30},{
-          30,4},{20,4}}, color={0,127,255}));
+    annotation (Line(points={{70,-50},{60,-50}}, color={0,127,255}));
+  connect(pum.port_b, pla.port_a) annotation (Line(points={{40,-50},{-20,-50},{
+          -20,4},{-40,4}},
+                         color={0,127,255}));
   connect(pla.port_b, pip.port_a)
-    annotation (Line(points={{20,10},{40,10}}, color={0,127,255}));
+    annotation (Line(points={{-40,10},{40,10}}, color={0,127,255}));
   connect(pip.port_b, steSin.ports[1])
     annotation (Line(points={{60,10},{70,10}}, color={0,127,255}));
+  connect(m_flow.y, pum.m_flow_in)
+    annotation (Line(points={{21,-20},{50,-20},{50,-38}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
   __Dymola_Commands(file=
