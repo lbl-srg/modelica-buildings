@@ -12,9 +12,9 @@ model Connection1stGen4PipeSections
       lambdaIns=lambdaIns,
       length=lengthDisRet),
     redeclare final model Model_pip_bDisSup =
-        Fluid.Interfaces.PartialTwoPortInterface,
+        Buildings.Fluid.FixedResistances.LosslessPipe,
     redeclare final model Model_pip_aDisRet =
-        Fluid.Interfaces.PartialTwoPortInterface,
+        Buildings.Fluid.FixedResistances.LosslessPipe,
     redeclare model Model_pipConSup = Buildings.Fluid.FixedResistances.Pipe (
       thicknessIns=thicknessInsSup,
       lambdaIns=lambdaIns,
@@ -37,11 +37,6 @@ model Connection1stGen4PipeSections
   parameter Modelica.SIunits.Length lengthConSup "Length of connection supply pipe";
   parameter Modelica.SIunits.Length lengthConRet "Length of connection return pipe";
 
-equation
-  connect(pip_bDisSup.port_a, pip_bDisSup.port_b)
-    annotation (Line(points={{60,-40},{80,-40}}, color={0,127,255}));
-  connect(pip_aDisRet.port_b, pip_aDisRet.port_a)
-    annotation (Line(points={{60,-80},{80,-80}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-25,8},{25,-8}},
