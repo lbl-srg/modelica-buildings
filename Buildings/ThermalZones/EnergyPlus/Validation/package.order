@@ -1,5 +1,6 @@
 OneZone
 OneZoneCompareZoneTemperatureOutput
+OneZoneEquipmentScheduleNonSampled
 OneZoneOneOutputVariable
 OneZoneOneOutputVariableSummer
 OneZoneTwoDifferentOutputVariables
@@ -10,4 +11,3 @@ ThreeZonesTwoBuildings
 TwoIdenticalOneZoneBuildings
 TwoIdenticalTwoZoneBuildings
 TwoIdenticalZones
-OneZoneEquipmentScheduleNonSampled
