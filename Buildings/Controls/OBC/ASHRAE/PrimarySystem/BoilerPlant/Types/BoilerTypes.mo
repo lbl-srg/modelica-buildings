@@ -17,7 +17,8 @@ May 21, 2020, by Karthik Devaprasad:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), Icon(graphics={
+</html>"),
+Icon(graphics={
         Rectangle(
           lineColor={200,200,200},
           fillColor={248,248,248},
