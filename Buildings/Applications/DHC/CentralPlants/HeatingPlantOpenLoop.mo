@@ -38,7 +38,7 @@ model HeatingPlantOpenLoop
     dp_nominal=6000,
     effCur=Buildings.Fluid.Types.EfficiencyCurves.Constant,
     a={0.9},
-    show_T=true)         "Heating plant"
+    show_T=true) "Heating plant"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Modelica.Blocks.Sources.Ramp PLR(
     height=0.5,
@@ -51,8 +51,8 @@ model HeatingPlantOpenLoop
     p=pSte,
     nPorts=1) "Steam sink"
     annotation (Placement(transformation(extent={{90,0},{70,20}})));
-  Fluid.Sources.Boundary_pT watSou(redeclare package Medium = MediumWat, nPorts
-      =1) "Water source"
+  Fluid.Sources.Boundary_pT watSou(redeclare package Medium = MediumWat, nPorts=
+       1) "Water source"
     annotation (Placement(transformation(extent={{90,-40},{70,-20}})));
   Modelica.Blocks.Sources.RealExpression mMax_flow(y=m_flow_nominal)
     "Maximum (nominal) mass flow rate"
@@ -73,8 +73,6 @@ protected
 equation
   connect(pla.port_b, steSin.ports[1])
     annotation (Line(points={{20,10},{70,10}}, color={0,127,255}));
-  connect(PLR.y, pla.y)
-    annotation (Line(points={{-59,18},{-1,18}}, color={0,0,127}));
   connect(mMax_flow.y, mAct_flow.u2)
     annotation (Line(points={{-59,-16},{-42,-16}}, color={0,0,127}));
   connect(PLR.y, mAct_flow.u1) annotation (Line(points={{-59,18},{-50,18},{-50,
