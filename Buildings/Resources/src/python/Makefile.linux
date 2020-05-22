@@ -13,7 +13,7 @@ ARCH = $(shell getconf LONG_BIT)
 ifndef PYTHONHOME
 $(error PYTHONHOME is not set)
 endif
-PYTHONInc=$(PYTHONHOME)/include/python3.6
+PYTHONInc=$(PYTHONHOME)/include/python3.6m
 PYTHONLib=$(PYTHONHOME)/lib
 
 # Directory where executable will be copied to
