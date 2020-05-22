@@ -262,5 +262,8 @@ This model implements a parallel cooling tower system with <code>num</code> iden
 The cooling tower type is replacable.
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel\">Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel</a> is currently used in this model. 
 </p>
-</html>"));
+</html>"),
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Applications/DHC/CentralPlants/Cooling/Subsystems/CoolingTowerParallel.mos"
+        "Simulate and Plot"));
 end CoolingTowerParellel;
