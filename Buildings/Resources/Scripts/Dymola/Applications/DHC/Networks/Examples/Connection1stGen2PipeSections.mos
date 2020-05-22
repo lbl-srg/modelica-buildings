@@ -1,0 +1,30 @@
+﻿// Simulate
+simulateModel("Buildings.Applications.DHC.Networks.Examples.Connection1stGen2PipeSections", stopTime=60, tolerance=1e-6, method="Cvode", resultFile="Connection1stGen2PipeSections");
+// Plot commands
+removePlots(false);
+createPlot(id=1, position={18, 4, 1281, 585}, 
+  y={"con.port_aDisSup.m_flow", "con.port_bDisSup.m_flow", "con.port_aDisRet.m_flow",
+  "con.port_bDisRet.m_flow", "con.port_bCon.m_flow", "con.port_aCon.m_flow"}, 
+  range={0.0, 0.017, -10.0, 10.0},  
+  grid=true, 
+  filename="Connection1stGen2PipeSections.mat", 
+  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}, {162,29,33}}, 
+  timeUnit="h");
+createPlot(id=1, position={18, 4, 1281, 193}, 
+  y={"con.port_aDisSup.p", "con.port_bDisSup.p", "con.port_aDisRet.p", 
+  "con.port_bDisRet.p", "con.port_bCon.p", "con.port_aCon.p"}, 
+  range={0.0, 0.017, -5.0, 15.0}, 
+  grid=true, 
+  subPlot=2, 
+  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}, {162,29,33}}, 
+  timeUnit="h", 
+  displayUnits={"bar", "bar", "bar", "bar", "bar", "bar"});
+createPlot(id=1, position={18, 4, 1281, 192}, 
+  y={"con.port_aDisSup.h_outflow", "con.port_bDisSup.h_outflow", "con.port_aDisRet.h_outflow",
+  "con.port_bDisRet.h_outflow", "con.port_bCon.h_outflow", "con.port_aCon.h_outflow"}, 
+  range={0.0, 0.017, -1000000.0, 3000000.0}, 
+  grid=true, 
+  subPlot=3, 
+  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}, {162,29,33}}, 
+  timeUnit="h");
+
