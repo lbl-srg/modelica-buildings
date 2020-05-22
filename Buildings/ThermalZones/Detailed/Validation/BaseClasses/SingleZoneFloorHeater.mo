@@ -30,8 +30,6 @@ model SingleZoneFloorHeater
   Buildings.Controls.OBC.CDL.Continuous.LimPID conPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     Ti=900,
-    yMax=1,
-    yMin=0,
     u_s(unit="K", displayUnit="degC"),
     u_m(unit="K", displayUnit="degC")) "Controller for heater"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
