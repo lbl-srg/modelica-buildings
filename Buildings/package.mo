@@ -8073,6 +8073,8 @@ The following people have directly contributed to the implementation of the Buil
 </li>
 <li>Michael Wetter, Lawrence Berkeley National Laboratory, USA
 </li>
+<li>Tea Zakula, University of Zagreb, Croatia
+</li>
 <li>Rebecca Zarin Pass, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Kun Zhang, Lawrence Berkeley National Laboratory, USA
