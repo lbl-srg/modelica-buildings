@@ -7,32 +7,40 @@ model CoolingTowerParallel
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 1
     "Design water flow rate"
-      annotation (Dialog(group="Nominal condition"));
-
+    annotation (Dialog(group="Nominal condition"));
 
   Buildings.Applications.DHC.CentralPlants.Gen1st.Cooling.Subsystems.CoolingTowerParellel
-    cooTowPar(m_flow_nominal=m_flow_nominal/2) "Parallel cooling towers"
+    cooTowPar(m_flow_nominal=m_flow_nominal/2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Parallel cooling towers"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
+
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     final computeWetBulbTemperature=true,
     filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+
   Modelica.Blocks.Logical.OnOffController onOffCon(
     bandwidth=2,
     reference(unit="K", displayUnit="degC"),
     u(unit="K", displayUnit="degC"))
     "On/off controller"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
+
   Modelica.Blocks.Logical.Switch swi "Control switch for chilled water pump"
     annotation (Placement(transformation(extent={{30,-90},{50,-70}})));
+
   Modelica.Blocks.Sources.Constant TSwi(k=273.15 + 22)
     "Switch temperature for switching tower pump on"
     annotation (Placement(transformation(extent={{-60,-96},{-40,-76}})));
+
   Modelica.Blocks.Sources.Constant zer(k=0) "Zero flow rate"
     annotation (Placement(transformation(extent={{-10,-120},{10,-100}})));
+
   Modelica.Blocks.Sources.Constant m_flow(k=m_flow_nominal)
     "Water flow rate"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
+
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
     nPorts=3,
     redeclare package Medium = Medium,
@@ -40,15 +48,19 @@ model CoolingTowerParallel
     V=0.5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
+
   Buildings.Fluid.Sources.Boundary_pT exp(redeclare package Medium = Medium,
     nPorts=1) "Expansion vessel"
     annotation (Placement(transformation(extent={{100,-30},{80,-10}})));
+
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow fixHeaFlo(
     Q_flow=0.5*m_flow_nominal*4200*5) "Fixed heat flow rate"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TVol
     "Water temperature"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
+
   Buildings.Fluid.Movers.FlowControlled_m_flow pum(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
@@ -56,6 +68,7 @@ model CoolingTowerParallel
     nominalValuesDefineDefaultPressureCurve=true)
     "Pump for chilled water loop"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+
   Buildings.Controls.OBC.CDL.Continuous.LimPID conFan(
     k=1,
     Ti=60,
@@ -68,15 +81,19 @@ model CoolingTowerParallel
   Modelica.Blocks.Sources.Constant TSetLea(k=273.15 + 18)
     "Setpoint for leaving temperature"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
+
   Buildings.Fluid.Sensors.TemperatureTwoPort senTCWLvg(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal)
     "Sensor for leaving conderser water temperature"
     annotation (Placement(transformation(extent={{30,40},{50,60}})));
+
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+
   Modelica.Blocks.Sources.Constant on[2](each k=1) "On signal for cooling towers"
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
+
 equation
   connect(onOffCon.y,swi. u2) annotation (Line(points={{11,-80},{28,-80}}, color={255,0,255}));
   connect(zer.y,swi. u3) annotation (Line(points={{11,-110},{18,-110},{18,-88},{28,-88}},
@@ -119,5 +136,12 @@ equation
           {-12,70},{-12,56},{-2,56}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),
-            Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-140},{120,120}})));
+            Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-140},{120,120}})),
+    experiment(
+      StartTime=15552000,
+      StopTime=15724800,
+      Tolerance=1e-06),
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Applications/DHC/CentralPlants/Cooling/Subsystems/CoolingTowerParallel.mos"
+        "Simulate and Plot"));
 end CoolingTowerParallel;
