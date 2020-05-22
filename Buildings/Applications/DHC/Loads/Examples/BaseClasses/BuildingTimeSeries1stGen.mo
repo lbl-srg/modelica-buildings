@@ -57,11 +57,11 @@ model BuildingTimeSeries1stGen
                           "Energy transfer station"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
-        Medium_a)
+  Modelica.Fluid.Interfaces.FluidPort_a port_a(
+    redeclare package Medium = Medium_a)
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
-        Medium_b)
+  Modelica.Fluid.Interfaces.FluidPort_b port_b(
+    redeclare package Medium = Medium_b)
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Modelica.Blocks.Interfaces.RealOutput Q_flow(
     final quantity="HeatFlowRate",
