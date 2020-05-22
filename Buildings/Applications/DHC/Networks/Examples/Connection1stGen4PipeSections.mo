@@ -89,5 +89,11 @@ equation
     annotation (Line(points={{16,20},{16,50},{-20,50}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    experiment(StopTime=86400, __Dymola_Algorithm="Cvode"));
+  __Dymola_Commands(file=
+    "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/Networks/Examples/Connection1stGen4PipeSections.mos"
+    "Simulate and plot"),
+  experiment(
+      StopTime=86400,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"));
 end Connection1stGen4PipeSections;
