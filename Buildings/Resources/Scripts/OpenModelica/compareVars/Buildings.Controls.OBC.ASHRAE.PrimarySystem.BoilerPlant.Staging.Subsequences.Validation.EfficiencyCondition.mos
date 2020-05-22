@@ -3,7 +3,7 @@ compareVars :=
     "effCon.uQReq",
     "effCon.uQUpMin",
     "effCon.uHotWatFloRat",
-    "effCon.uUpMinFloSetPoi",
+    "effCon.uUpMinFloSet",
     "effCon.yEffCon",
     "effCon1.uQReq",
     "effCon1.uQDes",
