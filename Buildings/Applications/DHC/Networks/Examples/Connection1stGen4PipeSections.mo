@@ -15,8 +15,10 @@ model Connection1stGen4PipeSections
 
   parameter Modelica.SIunits.Power QBui_flow_nominal= 9000E3
     "Nominal heat flow rate";
-  parameter Real QBui_flow_profile[:, :]= [0, 9000E3; 1, 9000E3]
-    "Normalized time series heating load";
+  parameter Real QBui1_flow_profile[:, :]= [0, 9000E3; 6, 9000E3; 6, 500E3; 18, 500E3; 18, 800E3; 24, 800E3]
+    "Building 1 load profile ";
+  parameter Real QBui2_flow_profile[:, :]= [0, 4500E3; 6, 4500E3; 6, 9000E3; 12, 9000E3; 18, 1000E3; 24, 1000E3]
+    "Building 2 load profile ";
     //[0, 9000E3; 6, 9000E3; 6, 500E3; 18, 500E3; 18, 800E3; 24, 800E3]
 
   parameter Modelica.SIunits.SpecificEnthalpy dh_nominal=
@@ -54,7 +56,7 @@ model Connection1stGen4PipeSections
   Loads.Examples.BaseClasses.BuildingTimeSeries1stGen bld1(
     redeclare package Medium_a = MediumSte,
     redeclare package Medium_b = MediumWat,
-    QHeaLoa=QBui_flow_profile,
+    QHeaLoa=QBui1_flow_profile,
     Q_flow_nominal=QBui_flow_nominal,
     pSte_nominal=pSte) "Building"
     annotation (Placement(transformation(extent={{-40,6},{-20,26}})));
@@ -68,7 +70,7 @@ model Connection1stGen4PipeSections
   Loads.Examples.BaseClasses.BuildingTimeSeries1stGen bld2(
     redeclare package Medium_a = MediumSte,
     redeclare package Medium_b = MediumWat,
-    QHeaLoa=QBui_flow_profile,
+    QHeaLoa=QBui2_flow_profile,
     Q_flow_nominal=QBui_flow_nominal,
     pSte_nominal=pSte) "Building"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
@@ -87,5 +89,5 @@ equation
     annotation (Line(points={{16,20},{16,50},{-20,50}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    experiment(StopTime=3600, __Dymola_Algorithm="Cvode"));
+    experiment(StopTime=86400, __Dymola_Algorithm="Cvode"));
 end Connection1stGen4PipeSections;

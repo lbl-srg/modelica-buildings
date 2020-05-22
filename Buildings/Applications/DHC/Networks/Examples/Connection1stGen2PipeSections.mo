@@ -35,6 +35,8 @@ model Connection1stGen2PipeSections
     mDis_flow_nominal=mDis_flow_nominal,
     mCon_flow_nominal=mBui_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    p_start=pSte,
+    T_start=TSte,
     nSeg=3,
     thicknessInsSup=0.01,
     thicknessInsRet=0.01,
