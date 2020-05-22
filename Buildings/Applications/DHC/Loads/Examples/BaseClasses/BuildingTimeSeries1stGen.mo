@@ -25,6 +25,23 @@ model BuildingTimeSeries1stGen
   parameter Modelica.SIunits.Time riseTime=120
     "Rise time of the filter (time to reach 99.6 % of an opening step)";
 
+  // Diagnostics
+   parameter Boolean show_T = false
+    "= true, if actual temperature at port is computed"
+    annotation(Dialog(tab="Advanced",group="Diagnostics"));
+
+  Medium_a.ThermodynamicState sta_a=
+      Medium_a.setState_phX(port_a.p,
+                          noEvent(actualStream(port_a.h_outflow)),
+                          noEvent(actualStream(port_a.Xi_outflow))) if show_T
+    "Medium properties in port_a";
+
+  Medium_b.ThermodynamicState sta_b=
+      Medium_b.setState_phX(port_b.p,
+                          noEvent(actualStream(port_b.h_outflow)),
+                          noEvent(actualStream(port_b.Xi_outflow))) if show_T
+    "Medium properties in port_b";
+
   Modelica.Blocks.Sources.CombiTimeTable QHea(
     table=QHeaLoa,
     timeScale=3600,
