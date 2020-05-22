@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Controls.Validation;
+within Buildings.Applications.DHC.CentralPlants.Gen1st.Heating.Controls.Validation;
 model HeatingSystemControl
   extends Modelica.Icons.Example;
 
