@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.CentralPlants;
+within Buildings.Applications.DHC.CentralPlants.Gen1st.Heating.Examples;
 model HeatingPlantClosedLoop
   "Example model for the first generation heating plant"
   extends Modelica.Icons.Example;
@@ -30,7 +30,7 @@ model HeatingPlantClosedLoop
   parameter Modelica.SIunits.Power Q_flow_nominal= 9000E3
     "Nominal heat flow rate";
 
-  HeatingPlant1stGen pla(
+  Gen1st.Heating.HeatingPlant1stGen pla(
     redeclare package Medium_a = MediumWat,
     redeclare package Medium_b = MediumSte,
     mPla_flow_nominal=m_flow_nominal,
@@ -87,7 +87,7 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
   __Dymola_Commands(file=
-    "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/CentralPlants/HeatingPlantClosedLoop.mos"
+    "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/CentralPlants/Gen1st/Heating/Examples/HeatingPlantClosedLoop.mos"
     "Simulate and plot"),
   experiment(
       StopTime=86400,

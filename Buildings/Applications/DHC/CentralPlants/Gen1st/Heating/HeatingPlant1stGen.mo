@@ -1,5 +1,5 @@
-within Buildings.Applications.DHC.CentralPlants;
-model xxHeatingPlant1stGen "First generation district heating plant"
+within Buildings.Applications.DHC.CentralPlants.Gen1st.Heating;
+model HeatingPlant1stGen "First generation district heating plant"
 
   replaceable package Medium_a =
       IBPSA.Media.Steam.Interfaces.PartialPureSubstanceWithSat
@@ -18,6 +18,9 @@ model xxHeatingPlant1stGen "First generation district heating plant"
   parameter Modelica.SIunits.AbsolutePressure pOut_nominal
     "Nominal pressure of boiler"
     annotation(Dialog(group = "Nominal condition"));
+  final parameter Modelica.SIunits.Temperature TOut_nominal=
+    Medium_b.saturationTemperature_p(pOut_nominal)
+    "Nominal temperature of boiler";
 
   parameter Modelica.SIunits.PressureDifference dp_nominal(displayUnit="Pa")
     "Pressure drop at nominal mass flow rate"
@@ -58,15 +61,13 @@ model xxHeatingPlant1stGen "First generation district heating plant"
         Medium_a, redeclare package Medium_b = Medium_b,
     m_flow_nominal=mPla_flow_nominal,
     show_T=show_T,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     Q_flow_nominal=QPla_flow_nominal,
     pOut_nominal=pOut_nominal,
     effCur=effCur,
     a=a,
     fue=Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue())
-    annotation (Placement(transformation(extent={{50,-10},{70,10}})));
-  Modelica.Blocks.Interfaces.RealInput y(min=0, max=1) "Part load ratio"
-    annotation (Placement(transformation(extent={{-140,50},{-100,90}}),
-        iconTransformation(extent={{-120,70},{-100,90}})));
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
   Modelica.Blocks.Interfaces.RealOutput Q_flow(
     final quantity="HeatFlowRate",
@@ -80,18 +81,59 @@ model xxHeatingPlant1stGen "First generation district heating plant"
     show_T=show_T,
     dp_nominal(displayUnit="Pa") = dp_nominal)
                                   "Pressure drop in pipe network"
-    annotation (Placement(transformation(extent={{10,-10},{30,10}})));
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+  Fluid.Sensors.MassFlowRate mSen_flow(redeclare package Medium = Medium_a)
+    annotation (Placement(transformation(extent={{32,-70},{12,-50}})));
+  Fluid.Sensors.SpecificEnthalpyTwoPort hSen_b(redeclare package Medium =
+        Medium_b, m_flow_nominal=mPla_flow_nominal)
+    "Specific enthalpy sensor, medium b"
+    annotation (Placement(transformation(extent={{50,-10},{70,10}})));
+  Fluid.Sensors.SpecificEnthalpyTwoPort hSen_a(redeclare package Medium =
+        Medium_a, m_flow_nominal=mPla_flow_nominal)
+    "Specific enthalpy sensor, medium a"
+    annotation (Placement(transformation(extent={{70,-70},{50,-50}})));
+  Modelica.Blocks.Math.Add dh(k2=-1) "Change in enthalpy"
+    annotation (Placement(transformation(extent={{30,-34},{10,-14}})));
+  Modelica.Blocks.Math.Product QMea_flow "Measured heat flow rate"
+    annotation (Placement(transformation(extent={{0,-40},{-20,-20}})));
+  Modelica.Blocks.Math.Gain PLR(k=1/QPla_flow_nominal)
+    "Measured part load ratio"
+    annotation (Placement(transformation(extent={{-32,-40},{-52,-20}})));
+  Fluid.Sources.Boundary_pT exp(
+    redeclare package Medium = Medium_b,
+    p=pOut_nominal,
+    T=TOut_nominal,
+    nPorts=1) "Expansion boundary"
+    annotation (Placement(transformation(extent={{10,20},{30,40}})));
 equation
-  connect(boi.y, y) annotation (Line(points={{49,9},{40,9},{40,70},{-120,70}},
-        color={0,0,127}));
-  connect(boi.port_b, port_b) annotation (Line(points={{70,0},{100,0}},
-                 color={0,127,255}));
-  connect(boi.Q_flow, Q_flow) annotation (Line(points={{71,9},{71,8},{80,8},{80,
+  connect(boi.Q_flow, Q_flow) annotation (Line(points={{-19,9},{-19,8},{0,8},{0,
           80},{110,80}},     color={0,0,127}));
   connect(dp.port_b, boi.port_a)
-    annotation (Line(points={{30,0},{40,0},{40,0},{50,0}}, color={0,127,255}));
-  connect(dp.port_a, port_a) annotation (Line(points={{10,0},{-20,0},{-20,-60},
-          {100,-60}}, color={0,127,255}));
+    annotation (Line(points={{-60,0},{-40,0}},             color={0,127,255}));
+  connect(hSen_b.h_out, dh.u1) annotation (Line(points={{60,11},{60,20},{40,20},
+          {40,-18},{32,-18}}, color={0,0,127}));
+  connect(hSen_a.h_out, dh.u2)
+    annotation (Line(points={{60,-49},{60,-30},{32,-30}}, color={0,0,127}));
+  connect(mSen_flow.m_flow, QMea_flow.u2)
+    annotation (Line(points={{22,-49},{22,-36},{2,-36}}, color={0,0,127}));
+  connect(dh.y, QMea_flow.u1)
+    annotation (Line(points={{9,-24},{2,-24}}, color={0,0,127}));
+  connect(QMea_flow.y, PLR.u)
+    annotation (Line(points={{-21,-30},{-30,-30}}, color={0,0,127}));
+  connect(boi.port_b, hSen_b.port_a)
+    annotation (Line(points={{-20,0},{50,0}}, color={0,127,255}));
+  connect(hSen_b.port_b, port_b)
+    annotation (Line(points={{70,0},{100,0}}, color={0,127,255}));
+  connect(port_a, hSen_a.port_a)
+    annotation (Line(points={{100,-60},{70,-60}}, color={0,127,255}));
+  connect(hSen_a.port_b, mSen_flow.port_a)
+    annotation (Line(points={{50,-60},{32,-60}}, color={0,127,255}));
+  connect(mSen_flow.port_b, dp.port_a) annotation (Line(points={{12,-60},{-90,-60},
+          {-90,0},{-80,0}}, color={0,127,255}));
+  connect(PLR.y, boi.y) annotation (Line(points={{-53,-30},{-86,-30},{-86,9},{-41,
+          9}}, color={0,0,127}));
+  connect(exp.ports[1], boi.port_b) annotation (Line(points={{30,30},{34,30},{34,
+          0},{-20,0}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                 Rectangle(
         extent={{-100,-100},{100,100}},
@@ -173,4 +215,4 @@ equation
           extent={{-149,-114},{151,-154}},
           lineColor={0,0,255},
           textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false)));
-end xxHeatingPlant1stGen;
+end HeatingPlant1stGen;

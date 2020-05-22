@@ -1,5 +1,5 @@
 ﻿// Simulate
-simulateModel("Buildings.Applications.DHC.CentralPlants.HeatingPlantClosedLoop", method="Cvode",stopTime=86400, tolerance=1e-06, resultFile="HeatingPlantClosedLoop");
+simulateModel("Buildings.Applications.DHC.CentralPlants.Gen1st.Heating.Examples.HeatingPlantClosedLoop", method="Cvode",stopTime=86400, tolerance=1e-06, resultFile="HeatingPlantClosedLoop");
 // Plot
 createPlot(id=1, position={15, 9, 450, 409}, 
   y={"pla.port_a.m_flow"}, 
