@@ -22,7 +22,19 @@ model Connection1stGen4PipeSections
     redeclare model Model_pipConRet = Buildings.Fluid.FixedResistances.Pipe (
       thicknessIns=thicknessInsRet,
       lambdaIns=lambdaIns,
-      length=lengthConRet));
+      length=lengthConRet),
+    pip_aDisSup(
+      energyDynamics=energyDynamics,
+                p_start=p_start, T_start=T_start),
+    pip_bDisRet(
+      energyDynamics=energyDynamics,
+                p_start=p_start, T_start=T_start),
+    pipConSup(
+      energyDynamics=energyDynamics,
+              p_start=p_start, T_start=T_start),
+    pipConRet(
+      energyDynamics=energyDynamics,
+              p_start=p_start, T_start=T_start));
 
   parameter Integer nSeg "Number of volume segments";
   parameter Modelica.SIunits.Length thicknessInsSup
@@ -36,6 +48,14 @@ model Connection1stGen4PipeSections
   parameter Modelica.SIunits.Length lengthDisRet "Length of district return pipe";
   parameter Modelica.SIunits.Length lengthConSup "Length of connection supply pipe";
   parameter Modelica.SIunits.Length lengthConRet "Length of connection return pipe";
+
+  // Initialization
+  parameter Modelica.SIunits.AbsolutePressure p_start
+    "Start value of pressure in pipes"
+    annotation(Dialog(tab="Initialization"));
+  parameter Modelica.SIunits.Temperature T_start
+    "Start value of temperature in pipes"
+    annotation(Dialog(tab="Initialization"));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(

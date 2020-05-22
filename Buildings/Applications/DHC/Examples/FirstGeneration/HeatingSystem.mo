@@ -48,7 +48,8 @@ model HeatingSystem "Generic first generation district heating system"
 //    "Pipe diameter (without insulation)";
   parameter Modelica.SIunits.Length length=50 "Length of the pipe";
 
-  Buildings.Applications.DHC.CentralPlants.xxHeatingPlant1stGen pla(
+  Buildings.Applications.DHC.CentralPlants.Gen1st.Heating.xxHeatingPlant1stGen
+    pla(
     redeclare package Medium_a = MediumWat,
     redeclare package Medium_b = MediumSte,
     mPla_flow_nominal=mPla_flow_nominal,
@@ -83,8 +84,8 @@ model HeatingSystem "Generic first generation district heating system"
     QPea_flow_real=QBld4_flow_nominal,
     pSte_nominal=pSte_nominal)
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
-  Buildings.Applications.DHC.Controls.HeatingSystemControl plaCon(nu=8,
-      QPla_flow_nominal=QPla_flow_nominal)
+  Buildings.Applications.DHC.CentralPlants.Gen1st.Heating.Controls.HeatingSystemControl
+    plaCon(nu=8, QPla_flow_nominal=QPla_flow_nominal)
     annotation (Placement(transformation(extent={{-80,100},{-100,120}})));
   Networks.Connection1stGen4PipeSections conBld4(
     redeclare package MediumSup = MediumSte,
