@@ -103,8 +103,8 @@ package Examples "Collection of models that illustrate model use and test models
        color={0,0,127}));
     connect(m_flow.y,swi. u1) annotation (Line(points={{11,-40},{18,-40},{18,-72},{28,-72}},
        color={0,0,127}));
-    connect(vol.ports[1],pum. port_a) annotation (Line(points={{27.3333,-20},{-60,
-            -20},{-60,50},{-40,50}},
+    connect(vol.ports[1],pum. port_a) annotation (Line(points={{27.3333,-20},{
+          -60,-20},{-60,50},{-40,50}},
         color={0,127,255}));
     connect(fixHeaFlo.port,vol. heatPort) annotation (Line(points={{-20,10},{10,10},{10,-10},{20,-10}},
        color={191,0,0}));
@@ -116,8 +116,8 @@ package Examples "Collection of models that illustrate model use and test models
     connect(swi.y,pum. m_flow_in) annotation (Line(points={{51,-80},{60,-80},{60,-128},
             {-80,-128},{-80,68},{-30,68},{-30,62}},
                                        color={0,0,127}));
-    connect(exp.ports[1],vol. ports[3]) annotation (Line(points={{80,-20},{32.6667,
-            -20}},                                                                         color={0,127,255}));
+    connect(exp.ports[1],vol. ports[3]) annotation (Line(points={{80,-20},{
+          32.6667,-20}},                                                                   color={0,127,255}));
     connect(pum.port_b, cooTowPar.port_a) annotation (Line(points={{-20,50},{0,50}}, color={0,127,255}));
     connect(TSetLea.y, conFan.u_s) annotation (Line(points={{-39,90},{-22,90}}, color={0,0,127}));
     connect(senTCWLvg.T, conFan.u_m) annotation (Line(points={{40,61},{40,70},{-10,
@@ -144,7 +144,8 @@ package Examples "Collection of models that illustrate model use and test models
         StartTime=15552000,
         StopTime=15724800,
         Tolerance=1e-06),
-      __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/CentralPlants/Cooling/Subsystems/CoolingTowerParallel.mos"
-          "Simulate and Plot"));
+      __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Applications/DHC/CentralPlants/Cooling/Subsystems/Examples/CoolingTowerParallel.mos"
+        "Simulate and Plot"));
   end CoolingTowerParallel;
 end Examples;

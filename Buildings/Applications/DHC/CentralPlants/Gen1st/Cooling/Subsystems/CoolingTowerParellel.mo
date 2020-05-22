@@ -4,7 +4,7 @@ model CoolingTowerParellel
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.SignalFilter(
     final numFil=num);
 
-  parameter Integer num=2 "Number of cooling towers";
+  parameter Integer num(min=1)=2 "Number of cooling towers";
 
   replaceable package Medium=Buildings.Media.Water
     "Condenser water medium";
@@ -49,33 +49,6 @@ model CoolingTowerParellel
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
-  Modelica.Blocks.Interfaces.RealInput TWetBul(
-    final unit="K",
-    displayUnit="degC")
-    "Entering air wetbulb temperature"
-    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
-
-  replaceable Fluid.HeatExchangers.CoolingTowers.Merkel cooTow[num]
-    constrainedby
-    Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower(
-     redeclare each final package Medium = Medium,
-     each final m_flow_nominal=m_flow_nominal,
-     each final dp_nominal=dp_nominal,
-     each final ratWatAir_nominal=ratWatAir_nominal,
-     each final TAirInWB_nominal=TAirInWB_nominal,
-     each final TWatIn_nominal=TWatIn_nominal,
-     each final TWatOut_nominal=TWatIn_nominal-dT_nominal,
-     each final PFan_nominal=PFan_nominal)
-    "Cooling tower type"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
-  Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val[num](
-    redeclare package Medium = Medium,
-    each final m_flow_nominal=m_flow_nominal,
-    each final dpValve_nominal=dp_nominal)
-    "Cooling tower valves"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-
   Modelica.Blocks.Interfaces.RealInput on[num](
     min=0, max=1, unit="1")
     "On signal for cooling towers"
@@ -84,6 +57,12 @@ model CoolingTowerParellel
   Modelica.Blocks.Interfaces.RealInput speFan(unit="1")
     "Fan speed control signal"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
+
+  Modelica.Blocks.Interfaces.RealInput TWetBul(
+    final unit="K",
+    displayUnit="degC")
+    "Entering air wetbulb temperature"
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
 
   Modelica.Blocks.Interfaces.RealOutput PFan[num](
     final quantity="Power",
@@ -96,6 +75,29 @@ model CoolingTowerParellel
     displayUnit="degC")
     "Leaving water temperature"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
+
+  replaceable Fluid.HeatExchangers.CoolingTowers.Merkel cooTow[num]
+    constrainedby
+    Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower(
+     redeclare each final package Medium = Medium,
+     each final m_flow_nominal=m_flow_nominal,
+     each final dp_nominal=dp_nominal,
+     each final ratWatAir_nominal=ratWatAir_nominal,
+     each final TAirInWB_nominal=TAirInWB_nominal,
+     each final TWatIn_nominal=TWatIn_nominal,
+     each final TWatOut_nominal=TWatIn_nominal-dT_nominal,
+     each final PFan_nominal=PFan_nominal,
+     each final energyDynamics=energyDynamics)
+    "Cooling tower type"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
+  Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val[num](
+    redeclare package Medium = Medium,
+    each final m_flow_nominal=m_flow_nominal,
+    each final dpValve_nominal=dp_nominal)
+    "Cooling tower valves"
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+
 equation
   for i in 1:num loop
     connect(port_a, val[i].port_a) annotation (Line(points={{-100,0},{-60,0}},color={0,127,255}));
@@ -263,7 +265,5 @@ The cooling tower type is replacable.
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel\">Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel</a> is currently used in this model. 
 </p>
 </html>"),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Applications/DHC/CentralPlants/Cooling/Subsystems/CoolingTowerParallel.mos"
-        "Simulate and Plot"));
+    __Dymola_Commands);
 end CoolingTowerParellel;
