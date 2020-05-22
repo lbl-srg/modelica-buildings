@@ -92,5 +92,5 @@ equation
   experiment(
       StopTime=86400,
       Tolerance=1e-06,
-      __Dymola_Algorithm="Radau"));
+      __Dymola_Algorithm="Cvode"));
 end HeatingPlantClosedLoop;

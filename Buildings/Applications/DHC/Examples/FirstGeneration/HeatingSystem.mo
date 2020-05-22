@@ -396,5 +396,11 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
                           Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-150,-150},{150,150}})),
-    experiment(StopTime=86400, __Dymola_Algorithm="Cvode"));
+  __Dymola_Commands(file=
+    "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/Examples/FirstGeneration/HeatingSystem.mos"
+    "Simulate and plot"),
+  experiment(
+      StopTime=86400,
+      Tolerance=0001,
+      __Dymola_Algorithm="Cvode"));
 end HeatingSystem;
