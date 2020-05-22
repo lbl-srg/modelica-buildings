@@ -1,0 +1,29 @@
+﻿// Simulate
+simulateModel("Buildings.Fluid.Boilers.Examples.SteamBoilerIdeal", stopTime=100, method="dassl", resultFile="SteamBoilerIdeal");
+// Plot
+removePlots(false);
+createPlot(id=1, position={15, 10, 555, 516}, 
+  y={"boi.sta_a.T", "boi.sta_b.T", "boi.eva.TSat"}, 
+  range={0.0, 100.0, 0.0, 200.0}, 
+  grid=true, 
+  colors={{28,108,200}, {238,46,47}, {0,140,72}}, 
+  displayUnits={"degC", "degC", "degC"});
+createPlot(id=1, position={15, 10, 555, 256}, 
+  y={"boi.port_a.m_flow", "boi.port_b.m_flow"}, 
+  range={0.0, 100.0, -1.5, 1.5}, 
+  grid=true, 
+  subPlot=2, 
+  colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={578, 11, 832, 514}, 
+  y={"boi.eva.hWat_instream", "boi.port_b.h_outflow", "boi.eva.dh", "boi.eva.dhVap"}, 
+  range={0.0, 100.0, 0.0, 3000000.0}, 
+  grid=true, 
+  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+createPlot(id=2, position={578, 11, 832, 255}, 
+  y={"boi.port_a.p", "boi.port_b.p", "watSou.ports[1].p", "steSin.ports[1].p", "boi.pum.dp"}, 
+  range={0.0, 100.0, -2.0, 12.0}, 
+  grid=true, 
+  subPlot=2, 
+  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}}, 
+  patterns={LinePattern.Solid, LinePattern.Solid, LinePattern.Solid, LinePattern.Solid, LinePattern.Dash}, 
+  displayUnits={"bar", "bar", "bar", "bar", "bar"});

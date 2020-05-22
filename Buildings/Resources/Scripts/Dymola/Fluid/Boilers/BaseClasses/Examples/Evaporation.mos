@@ -1,0 +1,29 @@
+﻿// Simulate
+simulateModel("Buildings.Fluid.Boilers.BaseClasses.Examples.Evaporation", stopTime=100, method="dassl", resultFile="Evaporation");
+// Plot
+removePlots(false);
+createPlot(id=1, position={15, 10, 628, 480}, 
+  y={"eva.sta_a.T", "eva.sta_b.T", "eva.TSat"}, 
+  range={0.0, 100.0, 0.0, 200.0}, 
+  grid=true, 
+  colors={{28,108,200}, {238,46,47}, {0,140,72}}, 
+  displayUnits={"degC", "degC", "degC"});
+createPlot(id=1, position={15, 10, 628, 238}, 
+  y={"eva.sta_a.p", "eva.sta_b.p"}, 
+  range={0.0, 100.0, 8.5, 11.5}, 
+  grid=true, 
+  subPlot=2, 
+  colors={{28,108,200}, {238,46,47}}, 
+  displayUnits={"bar", "bar"});
+createPlot(id=2, position={653, 11, 625, 477}, 
+  y={"eva.port_a.m_flow", "eva.port_b.m_flow"}, 
+  range={0.0, 100.0, -1.5, 1.5}, 
+  grid=true, 
+  colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={653, 11, 625, 236}, 
+  y={"eva.hWat_instream", "eva.port_b.h_outflow", "eva.dh", "eva.dhVap"}, 
+  range={0.0, 100.0, 0.0, 3000000.0}, 
+  grid=true, 
+  subPlot=2, 
+  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+

@@ -1,0 +1,34 @@
+﻿// Simulate
+simulateModel("Buildings.Fluid.Boilers.Examples.SteamBoilerClosedLoop", stopTime=100, method="dassl", resultFile="SteamBoilerClosedLoop");
+// Plot
+removePlots(false);
+createPlot(id=1, position={24, 7, 687, 519}, 
+  y={"boi.sta_a.T", "boi.sta_b.T", "hex.sta_a.T", "hex.sta_b.T", "boi.boi.TSat"}, 
+  range={0.0, 100.0, 0.0, 200.0}, grid=true, 
+  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}}, 
+  displayUnits={"degC", "degC", "degC", "degC", "degC"});
+createPlot(id=1, position={24, 7, 687, 257}, 
+  y={"boi.port_a.m_flow", "boi.port_b.m_flow"}, 
+  range={0.0, 100.0, -0.8, 0.8}, 
+  grid=true, 
+  subPlot=2, 
+  colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={719, 9, 682, 511}, 
+  y={"boi.boi.hWat_instream", "boi.port_b.h_outflow", "boi.boi.dh", "boi.boi.dhVap"}, 
+  range={0.0, 100.0, 0.0, 3000000.0}, 
+  grid=true, 
+  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+createPlot(id=2, position={719, 9, 682, 167}, 
+  y={"boi.port_a.p", "boi.port_b.p", "hex.port_a.p", "hex.port_b.p"}, 
+  range={0.0, 100.0, 9.6, 10.1}, 
+  grid=true, 
+  subPlot=2, 
+  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, 
+  displayUnits={"bar", "bar", "bar", "bar"});
+createPlot(id=2, position={719, 9, 682, 168}, 
+  y={"preDro_ste.dp", "preDro_wat.dp"}, 
+  range={0.0, 100.0, -20000.0, 40000.0}, 
+  grid=true, 
+  subPlot=3, 
+  colors={{28,108,200}, {238,46,47}});
+

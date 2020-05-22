@@ -1,0 +1,17 @@
+﻿// Simulate
+simulateModel("Buildings.Fluid.Boilers.BaseClasses.Examples.Combustion", stopTime=3600, method="dassl", resultFile="Combustion");
+// Plot
+removePlots(false);
+createPlot(id=1, position={15, 10, 717, 533}, 
+  y={"com.y"}, 
+  range={0.0, 3600.0, -0.2, 1.2}, 
+  grid=true, 
+  colors={{28,108,200}});
+createPlot(id=1, position={15, 10, 717, 264}, 
+  y={"com.TFluGas"}, 
+  range={0.0, 3600.0, 170.0, 250.0}, 
+  grid=true,
+  subPlot=2, 
+  colors={{28,108,200}}, 
+  displayUnits={"degC"});
+

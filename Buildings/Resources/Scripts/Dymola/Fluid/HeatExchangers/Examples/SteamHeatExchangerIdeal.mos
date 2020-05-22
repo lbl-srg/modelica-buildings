@@ -1,0 +1,35 @@
+﻿// Simulate
+simulateModel("Buildings.Fluid.HeatExchangers.Examples.SteamHeatExchangerIdeal", stopTime=3600, method="dassl", resultFile="SteamHeatExchangerIdeal");
+// Plot
+removePlots(false);
+createPlot(id=1, position={41, 31, 592, 511}, 
+  y={"hex.sta_a.T", "hex.sta_b.T", "hex.con.TSat"}, 
+  range={0.0, 3600.0, 150.0, 300.0}, 
+  grid=true, 
+  colors={{28,108,200}, {238,46,47}, {0,140,72}}, 
+  displayUnits={"degC", "degC", "degC"});
+createPlot(id=1, position={41, 31, 592, 122}, 
+  y={"hex.port_a.p", "hex.port_b.p"}, 
+  range={0.0, 3600.0, 8.0, 12.0}, 
+  grid=true, 
+  subPlot=2, 
+  colors={{28,108,200}, {238,46,47}}, 
+  displayUnits={"bar", "bar"});
+createPlot(id=1, position={41, 31, 592, 251}, 
+  y={"hex.port_a.h_outflow", "hex.port_b.h_outflow", "hex.dh", "hex.con.dhCon"}, 
+  range={0.0, 3600.0, -3000000.0, 4000000.0}, 
+  grid=true, 
+  subPlot=3, 
+  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+createPlot(id=2, position={643, 32, 592, 509}, 
+  y={"y.y"}, 
+  range={0.0, 3600.0, -0.2, 1.2}, 
+  grid=true, colors={{28,108,200}});
+createPlot(id=2, position={643, 32, 592, 252}, 
+  y={"pum.m_flow"}, 
+  range={0.0, 3600.0, -0.2, 1.2}, 
+  grid=true, 
+  subPlot=2, 
+  colors={{28,108,200}});
+
+

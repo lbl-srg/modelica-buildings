@@ -114,7 +114,7 @@ partial model PartialConnection2Pipe
       rotation=90,
       origin={-20,-10})));
   Fluid.FixedResistances.Junction junConSup(
-    redeclare final package Medium = Medium,
+    redeclare final package Medium = MediumSup,
     final portFlowDirection_1=if allowFlowReversal then
       Modelica.Fluid.Types.PortFlowDirection.Bidirectional
       else Modelica.Fluid.Types.PortFlowDirection.Entering,
@@ -132,7 +132,7 @@ partial model PartialConnection2Pipe
     "Junction with connection supply"
     annotation (Placement(transformation(extent={{-30,-30},{-10,-50}})));
   Fluid.FixedResistances.Junction junConRet(
-    redeclare final package Medium = Medium,
+    redeclare final package Medium = MediumRet,
     final portFlowDirection_1=if allowFlowReversal then
       Modelica.Fluid.Types.PortFlowDirection.Bidirectional
       else Modelica.Fluid.Types.PortFlowDirection.Entering,
@@ -149,8 +149,8 @@ partial model PartialConnection2Pipe
     final m_flow_nominal={mDis_flow_nominal,-mDis_flow_nominal,mCon_flow_nominal})
     "Junction with connection return"
     annotation (Placement(transformation(extent={{30,-70},{10,-90}})));
-  Buildings.Fluid.Sensors.MassFlowRate senMasFloCon(
-    redeclare final package Medium=Medium,
+  Buildings.Fluid.Sensors.MassFlowRate senMasFloCon(redeclare final package
+      Medium = Medium,
     final allowFlowReversal=allowFlowReversal)
     "Connection supply mass flow rate (measured)"
     annotation (Placement(

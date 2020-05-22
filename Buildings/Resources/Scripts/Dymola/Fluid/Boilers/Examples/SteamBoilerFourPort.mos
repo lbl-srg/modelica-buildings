@@ -1,0 +1,12 @@
+﻿// Simulate
+simulateModel("Buildings.Fluid.Boilers.Examples.SteamBoilerFourPort", stopTime=3600, method="dassl", tolerance=1e-06, resultFile="SteamBoilerFourPort");
+// Plot
+removePlots(false);
+createPlot(id=1, position={15, 10, 518, 755}, y={"boi.m1_flow"}, range={0.0, 3600.0, -1.0, 5.0}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={15, 10, 518, 249}, y={"boi.sta_a1.T", "boi.sta_b1.T"}, range={0.0, 3600.0, 0.0, 250.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}}, displayUnits={"degC", "degC"});
+createPlot(id=1, position={15, 10, 518, 249}, y={"boi.sta_a1.p", "boi.sta_b1.p"}, range={0.0, 3600.0, 1.01, 1.03}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}}, displayUnits={"bar", "bar"});
+createPlot(id=2, position={541, 8, 516, 751}, y={"boi.m2_flow"}, range={0.0, 3600.0, -1.0, 4.0}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={541, 8, 516, 247}, y={"boi.sta_a2.T", "boi.sta_b2.T"}, range={0.0, 3600.0, 0.0, 200.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}}, displayUnits={"degC", "degC"});
+createPlot(id=2, position={541, 8, 516, 248}, y={"boi.sta_a2.p", "boi.sta_b2.p"}, range={0.0, 3600.0, 7.5, 10.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}}, displayUnits={"bar", "bar"});
+createPlot(id=3, position={1079, 66, 434, 277}, y={"y.y"}, range={0.0, 3600.0, -0.2, 1.2}, grid=true, colors={{28,108,200}});
+

@@ -8,13 +8,15 @@ Heater_T
 PlateHeatExchangerEffectivenessNTU
 PrescribedOutlet
 SensibleCooler_T
+SteamHeatExchangerEffectivenessNTU
+SteamHeatExchangerIdeal
 WetCoilCounterFlow
 WetCoilDiscretized
 ActiveBeams
 CoolingTowers
 DXCoils
+Examples
 RadiantSlabs
 Radiators
-Examples
 Validation
 BaseClasses

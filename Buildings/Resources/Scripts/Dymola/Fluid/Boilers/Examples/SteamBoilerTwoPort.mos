@@ -1,0 +1,42 @@
+﻿// Simulate
+simulateModel("Buildings.Fluid.Boilers.Examples.SteamBoilerTwoPort", stopTime=3600, method="dassl", tolerance=1e-06, resultFile="SteamBoilerTwoPort");
+// Plot
+removePlots(false);
+createPlot(id=1, position={15, 10, 870, 653}, 
+  y={"boi.sta_a.T", "boi.sta_b.T", "boi.eva.sta_a.T", "boi.eva.sta_b.T", "boi.vol.T", "boi.temSen_out.T"}, 
+  range={0.0, 3600.0, 0.0, 250.0}, 
+  grid=true, 
+  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}, {238,46,47}}, 
+  displayUnits={"degC", "degC", "degC", "degC", "degC", "degC"});
+createPlot(id=1, position={15, 10, 870, 215}, 
+  y={"boi.port_a.p", "boi.port_b.p", "watSou.p", "dp_wat.port_a.p", "dp_wat.port_b.p"}, 
+  range={0.0, 3600.0, -2.0, 10.0}, 
+  grid=true, 
+  subPlot=2,
+  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}}, 
+  displayUnits={"bar", "bar", "bar", "bar", "bar"});
+createPlot(id=1, position={15, 10, 870, 215}, 
+  y={"boi.port_a.h_outflow", "boi.port_b.h_outflow", "watSou.ports[1].h_outflow", "boi.eva.dh", "boi.eva.dhVap"}, 
+  range={0.0, 3600.0, -1000000.0, 3000000.0}, 
+  grid=true, 
+  subPlot=3, 
+  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
+createPlot(id=2, position={890, 11, 684, 652}, 
+  y={"boi.preHeaFlo.Q_flow", "boi.Q_flow_nominal", "boi.Q_flow", "boi.QFue_flow"}, 
+  range={0.0, 3600.0, -2000000.0, 12000000.0}, 
+  grid=true, 
+  colors={{238,46,47}, {28,108,200}, {0,140,72}, {217,67,180}});
+createPlot(id=2, position={890, 11, 684, 214}, 
+  y={"boi.m_flow", "boi.m_flow_nominal"}, 
+  range={0.0, 3600.0, -1.0, 4.0}, 
+  grid=true, 
+  subPlot=2, 
+  colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={890, 11, 684, 215}, 
+  y={"y.y"}, 
+  range={0.0, 3600.0, -0.5, 1.5}, 
+  grid=true, 
+  subPlot=3, 
+  colors={{28,108,200}});
+
+
