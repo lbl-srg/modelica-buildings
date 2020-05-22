@@ -2,7 +2,7 @@ within Buildings.Applications.DHC.CentralPlants.Gen1st.Cooling.Controls;
 model ChilledWaterPumpSpeed
   "Controller for variable speed chilled water pumps"
 
-  parameter Integer numPum(min=1)=2 "Number of chilled water pumps";
+  parameter Integer numPum(min=1, max=2)=2 "Number of chilled water pumps";
 
   parameter Modelica.SIunits.PressureDifference dpSetPoi=68900 "Pressure difference setpoint";
 

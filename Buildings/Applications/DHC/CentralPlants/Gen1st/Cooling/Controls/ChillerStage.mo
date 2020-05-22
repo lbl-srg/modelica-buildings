@@ -1,7 +1,7 @@
 within Buildings.Applications.DHC.CentralPlants.Gen1st.Cooling.Controls;
 model ChillerStage "Stage controller for chillers"
 
-  parameter Real tWai "Waiting time";
+  parameter Modelica.SIunits.Time tWai "Waiting time";
 
   parameter Modelica.SIunits.Power QEva_nominal
     "Nominal cooling capaciaty (negative means cooling)";
