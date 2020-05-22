@@ -1,30 +1,52 @@
 within Buildings.Applications.DHC.CentralPlants.Gen1st.Cooling.Controls;
 model ChilledWaterPumpSpeed
   "Controller for variable speed chilled water pumps"
-  parameter Modelica.SIunits.Pressure dpSetPoi "Pressure difference setpoint";
-  parameter Real tWai = 300 "Waiting time";
-  DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage pumStaCon(tWai=tWai)
-    "Chilled water pump staging control"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Blocks.Interfaces.RealInput dpMea "Measured pressure difference"
+
+  parameter Integer numPum(min=1)=2 "Number of chilled water pumps";
+
+  parameter Modelica.SIunits.PressureDifference dpSetPoi=68900 "Pressure difference setpoint";
+
+  parameter Modelica.SIunits.Time tWai "Waiting time";
+
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+    "Nominal mass flow rate of single chilled water pump";
+
+  parameter Real minSpe(unit="1",min=0,max=1) = 0.05
+    "Minimum speed ratio required by chilled water pumps";
+
+  Modelica.Blocks.Interfaces.RealInput masFloPum(
+    final unit="kg/s")
+    "Total mass flowrate of chilled water pumps"
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
+
+  Modelica.Blocks.Interfaces.RealInput dpMea(
+    final unit="bar")
+    "Measured pressure difference"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
-  Modelica.Blocks.Math.Product pumSpe[2] "Output pump speed"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Modelica.Blocks.Interfaces.RealOutput y[2] "Connector of Real output signal"
+
+  Modelica.Blocks.Interfaces.RealOutput y[numPum](
+    unit="1",min=0,max=1) "Pump speed signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-  Buildings.Controls.Continuous.LimPID conPID(
-    reverseAction=false,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    Ti=240,
-    k=0.000001)
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+  Modelica.Blocks.Math.Product pumSpe[numPum] "Output pump speed"
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+
   Modelica.Blocks.Sources.RealExpression dpSet(y=dpSetPoi)
     "Pressure difference setpoint"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-  Modelica.Blocks.Interfaces.RealInput masFloPum
-    "Total mass flowrate in the variable speed pumps"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
+
+  Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage pumStaCon(
+    tWai=tWai,
+    m_flow_nominal=m_flow_nominal,
+    minSpe=minSpe)
+    "Chilled water pump staging control"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
+  Buildings.Controls.Continuous.LimPID conPID(
+    controllerType=Modelica.Blocks.Types.SimpleController.PID,
+    Ti=240,
+    k=0.000001) "PID controller of pump speed"
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 equation
   connect(pumStaCon.masFloPum, masFloPum) annotation (Line(points={{-12,8},{-20,
           8},{-20,40},{-120,40}}, color={0,0,127}));
@@ -32,8 +54,8 @@ equation
           -12}}, color={0,0,127}));
   connect(dpSet.y, conPID.u_s)
     annotation (Line(points={{-79,0},{-62,0}}, color={0,0,127}));
-  connect(conPID.y, pumStaCon.speSig) annotation (Line(points={{-39,0},{-20,0},
-          {-20,4},{-12,4}}, color={0,0,127}));
+  connect(conPID.y, pumStaCon.speSig) annotation (Line(points={{-39,0},{-20,0},{
+          -20,4},{-12,4}}, color={0,0,127}));
   connect(pumStaCon.y, pumSpe.u1)
     annotation (Line(points={{11,0},{28,0},{28,6},{38,6}}, color={0,0,127}));
   connect(conPID.y, pumSpe[1].u2) annotation (Line(points={{-39,0},{-30,0},{-30,
