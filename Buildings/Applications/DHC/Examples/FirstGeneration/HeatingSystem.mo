@@ -11,24 +11,24 @@ model HeatingSystem "Generic first generation district heating system"
 
   // Building loads
   // Load profiles
-  parameter Real Q_flow_profile1[:, :]= [0, 200E3; 1, 200E3]
+  parameter Real Q_flow_profile1[:, :]= [0, 200E3; 6, 200E3; 6, 50E3; 18, 50E3; 18, 125E3; 24, 125E3]
     "Time series heating load, building 1";
-  parameter Real Q_flow_profile2[:, :]= [0, 150E3; 1, 150E3]
+  parameter Real Q_flow_profile2[:, :]= [0, 75E3; 6, 75E3; 6, 150E3; 12, 150E3; 18, 35E3; 24, 35E3]
     "Time series heating load, building 2";
-  parameter Real Q_flow_profile3[:, :]= [0, 100E3; 1, 100E3]
+  parameter Real Q_flow_profile3[:, :]= [0, 1E3; 6, 1E3; 6, 100E3; 12, 50E3; 18, 50E3; 24, 1E3]
     "Time series heating load, building 3";
   parameter Real Q_flow_profile4[:, :]= [0, 300E3; 1, 300E3]
     "Time series heating load, building 4";
-  parameter Real Q_flow_profile5[:, :]= [0, 300E3; 1, 300E3]
+  parameter Real Q_flow_profile5[:, :]= [0, 300E3; 6, 300E3; 6, 75E3; 18, 75E3; 18, 100E3; 24, 100E3]
     "Time series heating load, building 5";
   parameter Real Q_flow_profile6[:, :]= [0, 100E3; 1, 100E3]
     "Time series heating load, building 6";
-  parameter Real Q_flow_profile7[:, :]= [0, 150E3; 1, 150E3]
+  parameter Real Q_flow_profile7[:, :]= [0, 150E3; 6, 150E3; 6, 45E3; 18, 45E3; 18, 125E3; 24, 125E3]
     "Time series heating load, building 7";
-  parameter Real Q_flow_profile8[:, :]= [0, 200E3; 1, 200E3]
+  parameter Real Q_flow_profile8[:, :]= [0, 100E3; 6, 100E3; 6, 200E3; 12, 200E3; 18, 50E3; 24, 50E3]
     "Time series heating load, building 8";
   //[0, 1; 6, 1; 6, 0.25; 18, 0.25; 18, 0.375; 24, 0.375]
-  //[0, 0.5; 6, 0.5; 6, 1; 12,1; 18, 0.25; 24, 0.25]
+  //[0, 0.5; 6, 0.5; 6, 1; 12, 1; 18, 0.25; 24, 0.25]
 
   // Nominal loads
   parameter Modelica.SIunits.Power QBld18_flow_nominal= 200E3
