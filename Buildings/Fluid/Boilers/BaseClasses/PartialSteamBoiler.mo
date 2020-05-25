@@ -173,7 +173,7 @@ protected
     "Default value for specific heat";
 
   // Boiler
-  parameter Real eta_nominal(fixed=false) "Boiler efficiency at nominal condition";
+  parameter Real eta_nominal(fixed=false, start=0.9) "Boiler efficiency at nominal condition";
   parameter Real aQuaLin[6] = if size(a, 1) == 6 then a else fill(0, 6)
   "Auxiliary variable for efficiency curve because quadraticLinear requires exactly 6 elements";
 
