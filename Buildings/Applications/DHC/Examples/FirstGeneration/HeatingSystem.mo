@@ -2,7 +2,7 @@ within Buildings.Applications.DHC.Examples.FirstGeneration;
 model HeatingSystem "Generic first generation district heating system"
   extends Modelica.Icons.Example;
 
-  package MediumSte = IBPSA.Media.Steam.Steam (
+  package MediumSte = IBPSA.Media.Steam (
      T_default=179.91+273.15,
      p_default=1000000) "Steam medium";
   package MediumWat = IBPSA.Media.WaterHighTemperature (

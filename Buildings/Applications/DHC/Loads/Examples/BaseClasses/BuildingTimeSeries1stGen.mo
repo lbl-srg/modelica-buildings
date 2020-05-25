@@ -2,10 +2,10 @@ within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
 model BuildingTimeSeries1stGen
 
   replaceable package Medium_a =
-      IBPSA.Media.Steam.Interfaces.PartialPureSubstanceWithSat
+      IBPSA.Media.Interfaces.PartialPureSubstanceWithSat
     "Medium model for port_a (inlet)";
   replaceable package Medium_b =
-      IBPSA.Media.Steam.Interfaces.PartialPureSubstanceWithSat
+      IBPSA.Media.Interfaces.PartialPureSubstanceWithSat
     "Medium model for port_b (outlet)";
 
   parameter Real QHeaLoa[:, :]=[0, 200E3; 6, 200E3; 6, 50E3; 18, 50E3; 18, 75E3; 24, 75E3]

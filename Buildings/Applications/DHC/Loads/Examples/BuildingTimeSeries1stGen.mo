@@ -3,7 +3,7 @@ model BuildingTimeSeries1stGen
   "Example model for the 1st generation building time series model"
   extends Modelica.Icons.Example;
 
-  package MediumSte = IBPSA.Media.Steam.Steam "Steam medium";
+  package MediumSte = IBPSA.Media.Steam "Steam medium";
   package MediumWat = IBPSA.Media.WaterHighTemperature "Water medium";
 
   parameter Modelica.SIunits.SpecificEnthalpy dh_nominal=

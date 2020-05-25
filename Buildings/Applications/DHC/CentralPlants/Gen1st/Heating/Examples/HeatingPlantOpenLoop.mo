@@ -3,7 +3,7 @@ model HeatingPlantOpenLoop
   "Example model for the first generation heating plant"
   extends Modelica.Icons.Example;
 
-  package MediumSte = IBPSA.Media.Steam.Steam "Steam medium";
+  package MediumSte = IBPSA.Media.Steam "Steam medium";
   package MediumWat = IBPSA.Media.WaterHighTemperature "Water medium";
 
   parameter Modelica.SIunits.SpecificEnthalpy dh_nominal=

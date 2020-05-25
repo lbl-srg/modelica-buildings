@@ -2,7 +2,7 @@ within Buildings.Applications.DHC.Networks.Examples;
 model Connection1stGen6PipeSections
   extends Modelica.Icons.Example;
 
-  package MediumSte = IBPSA.Media.Steam.Steam (
+  package MediumSte = IBPSA.Media.Steam (
      T_default=179.91+273.15) "Steam medium";
   package MediumWat = IBPSA.Media.WaterHighTemperature "Water medium";
 
