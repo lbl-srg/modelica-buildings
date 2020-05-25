@@ -1,5 +1,6 @@
-within Buildings.Utilities.Comfort.Examples;
-model PMV_tester
+within Buildings.Utilities.Comfort.Validation;
+model FangerCBE
+  "Script for comparing the PMV model with the CBE thermal comfort tool"
   extends Modelica.Icons.Example;
   Buildings.Utilities.Comfort.Fanger comfort(
     use_vAir_in=true,
@@ -49,9 +50,11 @@ equation
       StopTime=2300,
       Interval=100,
       Tolerance=1e-06),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Comfort/Examples/Fanger.mos"
+__Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Utilities/Comfort/Validation/FangerCBE.mos"
         "Simulate and plot"),
-    Documentation(info="<html>
-This is a test of the Thermal Comfort Model.
-</html>"));
-end PMV_tester;
+        Documentation(info="<html>
+<p>This compares PMV values calculated from the CBE (Center for the Built Environment, UC Berkeley) <a href=\"comfort.cbe.berkeley.edu\">Thermal Comfort Tool</a> a variety of cases. </p>
+</html>"),    Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+        coordinateSystem(preserveAspectRatio=false)));
+end FangerCBE;

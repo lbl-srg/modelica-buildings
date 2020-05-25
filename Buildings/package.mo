@@ -480,6 +480,10 @@ its class name ends with the string <code>Beta</code>.
                            This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1192\">IBPSA, #1192</a>.
         </td>
     </tr>
+    <tr>
+    <td><p>Buildings.Utilities.Comfort.Fanger</p><p>Buildings.Utilities.Comfort.Validation.FangerCBE</p></td>
+    <td><p>The Fanger&apos;s PMV model was updated according to ANSI/ASHRAE 55-2017 and a validation model which compares results with another comfort evaluation tool was provided. </p><p>This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1936\">#1936</a>.</p></td>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.Examples</b>
         </td>
     </tr>

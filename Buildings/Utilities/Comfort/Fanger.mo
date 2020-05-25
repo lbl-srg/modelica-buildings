@@ -171,7 +171,7 @@ equation
 //        deltaX=0.01)^0.3;
      hCon = Buildings.Utilities.Math.Functions.smoothMax(
        x1=12.1*sqrt(vAir_in_internal),
-       x2=2.38*(TClo - TAir)^0.25,
+       x2=2.38*abs(TClo - TAir)^0.25,
        deltaX=0.0001);
 
   hCom = hRad + hCon;
@@ -194,7 +194,7 @@ equation
   // heat load on body, see (58)
 
   // PMV (62)
-  PMV = (0.303*Modelica.Math.exp(-0.036*M) + 0.028)*L;
+  PMV = (0.303*Modelica.Math.exp(-0.036*M_in_internal) + 0.028)*L;
   // PPD (64)
   PPD = 1 - 0.95*Modelica.Math.exp(-(0.03353*PMV^4 + 0.2179*PMV^2));
   annotation (
@@ -202,7 +202,7 @@ defaultComponentName="com",
     Documentation(info="<html>
 <p>
 Thermal comfort model according to Fanger, as described in
-the ASHRAE Fundamentals (1997).
+the ASHRAE Fundamentals (2017).
 </p>
 <p>
 The thermal sensation of a human being is mainly related to the thermal balance of its
@@ -226,7 +226,7 @@ of a large group of people.
 </p>
 <p>
 To determine appropriate thermal conditions, practitioners refer to standards such
-as ASHRAE Standard 55 (ASHRAE, 1992) and ISO Standard 7730 (ISO, 1994).
+as ASHRAE Standard 55 (ASHRAE, 2017) and ISO Standard 7730 (ISO, 1994).
 These standards define temperature ranges that should result in thermal satisfaction
 for at least 80% of occupants in a space.
 </p>
@@ -344,6 +344,10 @@ per unit surface area of a seated person at rest.</p>
 <h4>References</h4>
 
 <ul><li>
+ANSI/ASHRAE Standard 55-2017:Thermal Environmental Conditions for Human Occupancy.
+ American Society of Heating, Refrigerating and Air-Conditioning Engineers,2017.
+</li>
+<li>
 ASHRAE Handbook, Fundamentals (SI Edition).
  American Society of Heating, Refrigerating and Air-Conditioning Engineers,
 Chapter 8, Thermal Comfort; pages 8.1-8.26; Atlanta, USA, 1997.
@@ -354,48 +358,17 @@ Moderate Thermal Environments: Determination of the PMV and PPD Indices
 and Specification of the Conditions for Thermal Comfort (ISO 7730).
 Geneva, Switzerland: ISO. 1994.
 </li>
-<li>
-Charles, K.E. Fanger Thermal Comfort and Draught Models. Institute for Research in Construction
-National Research Council of Canada, Ottawa, K1A 0R6, Canada.
-IRC Research Report RR-162. October 2003.
-<a href=\"http://irc.nrc-cnrc.gc.ca/ircpubs\">http://irc.nrc-cnrc.gc.ca/ircpubs</a>.
-</li>
-<li>
-Data, References and Links at: Thermal Comfort; Dr. Sam C M Hui
-Department of Mechanical Engineering
-The University of Hong Kong MEBS6006 Environmental Services I;
-<a href=\"http://me.hku.hk/msc-courses/MEBS6006/index.html\">
-http://me.hku.hk/msc-courses/MEBS6006/index.html</a>
-</li>
 </ul>
+
 </html>", revisions="<html>
 <ul>
-<li>
-May 30, 2014, by Michael Wetter:<br/>
-Removed undesirable annotation <code>Evaluate=true</code>.
-Added default value for <code>ICl</code>.
-</li>
-<li><i>October 9, 2013</i>, by Michael Wetter:<br/>
-Corrected use of conditional connector.
-</li>
-<li><i>July 14, 2010</i>, by Michael Wetter:<br/>
-Merged models into <code>Buildings</code> library.
-Fixed bug in computation of lower value for <code>hCon</code>.
-The original implementation lead to too high a lower value.
-</li>
-<li><i>August 2, 2005</i>
-Revised model, fixed bug in computing clothing surface temperature, changed various
-other computations, changed parameter and input to model, set clothing insulation value as input
-rather than computing it in model, added model to UTC library.
-</li>
-<li><i>June, 2005</i>
-       Michael Wetter and Sorin Costiner:<br/>
-       Improved version, added PPDDraft, TOpe, performed studies
-</li>
-<li><i>March 03, 2005</i>
-       Michael Wetter and Sorin Costiner:<br/>
-       First implementation.
-</li>
+<li>May 25, 2019, by Michael Wetter:<br>Updated model according to ASHRAE 55-2017, heat transfer coefficients (forced and natural convective) and equations for clothing surface temperature. </li>
+<li>May 30, 2014, by Michael Wetter:<br>Removed undesirable annotation <span style=\"font-family: monospace;\">Evaluate=true</span>. Added default value for <span style=\"font-family: monospace;\">ICl</span>. </li>
+<li><i>October 9, 2013</i>, by Michael Wetter:<br>Corrected use of conditional connector. </li>
+<li><i>July 14, 2010</i>, by Michael Wetter:<br>Merged models into <span style=\"font-family: monospace;\">Buildings</span> library. Fixed bug in computation of lower value for <span style=\"font-family: monospace;\">hCon</span>. The original implementation lead to too high a lower value. </li>
+<li><i>August 2, 2005</i> Revised model, fixed bug in computing clothing surface temperature, changed various other computations, changed parameter and input to model, set clothing insulation value as input rather than computing it in model, added model to UTC library. </li>
+<li><i>June, 2005</i> Michael Wetter and Sorin Costiner:<br>Improved version, added PPDDraft, TOpe, performed studies </li>
+<li><i>March 03, 2005</i> Michael Wetter and Sorin Costiner:<br>First implementation. </li>
 </ul>
 </html>"), Icon(graphics={
         Rectangle(
