@@ -2,7 +2,7 @@ within Buildings.Applications.DHC.Networks.BaseClasses;
 partial model PartialConnection2Pipe2Medium
   "Partial model for connecting an agent to a two-pipe distribution network with 2 medium models"
   replaceable package MediumSup =
-      Modelica.Media.Interfaces.PartialTwoPhaseMedium
+      Modelica.Media.Interfaces.PartialMedium
     "Medium model for supply fluid";
   replaceable package MediumRet =
       Modelica.Media.Interfaces.PartialMedium

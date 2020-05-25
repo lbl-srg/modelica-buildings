@@ -2,11 +2,11 @@ within Buildings.Applications.DHC.CentralPlants.Gen1st.Heating;
 model HeatingPlant1stGen "First generation district heating plant"
 
   replaceable package Medium_a =
-      IBPSA.Media.Interfaces.PartialPureSubstanceWithSat
-    "Medium model for port_a (inlet)";
+      Modelica.Media.Interfaces.PartialMedium
+    "Medium model (liquid state) for port_a (inlet)";
   replaceable package Medium_b =
       IBPSA.Media.Interfaces.PartialPureSubstanceWithSat
-    "Medium model for port_b (outlet)";
+    "Medium model (vapor state) for port_b (outlet)";
 
   // Nominal Conditions
   parameter Modelica.SIunits.MassFlowRate mPla_flow_nominal
