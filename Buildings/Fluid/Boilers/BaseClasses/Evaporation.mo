@@ -4,10 +4,10 @@ model Evaporation
   extends Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium;
 
   replaceable package Medium_a =
-      IBPSA.Media.Steam.Interfaces.PartialPureSubstanceWithSat
+      IBPSA.Media.Interfaces.PartialPureSubstanceWithSat
     "Medium model for port_a (inlet)";
   replaceable package Medium_b =
-      IBPSA.Media.Steam.Interfaces.PartialPureSubstanceWithSat
+      IBPSA.Media.Interfaces.PartialPureSubstanceWithSat
     "Medium model for port_b (outlet)";
 
   Modelica.Blocks.Interfaces.RealOutput dh(unit="J/kg") "Change in enthalpy"
