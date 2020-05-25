@@ -3,7 +3,7 @@ model Condensation
   "Test model for water condensation process - WaterIF97_R2pT model"
   extends Modelica.Icons.Example;
 
-  package MediumSte = IBPSA.Media.Steam.Steam "Steam medium";
+  package MediumSte = IBPSA.Media.Steam "Steam medium";
   package MediumWat = IBPSA.Media.Water "Water medium";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 1
