@@ -4,10 +4,10 @@ partial model PartialSteamBoiler
   phase change between the working fluid's ports"
 
   replaceable package Medium_a =
-      IBPSA.Media.Steam.Interfaces.PartialPureSubstanceWithSat
+      IBPSA.Media.Interfaces.PartialPureSubstanceWithSat
     "Medium model for port_a (inlet)";
   replaceable package Medium_b =
-      IBPSA.Media.Steam.Interfaces.PartialPureSubstanceWithSat
+      IBPSA.Media.Interfaces.PartialPureSubstanceWithSat
     "Medium model for port_b (outlet)";
 
   // Advanced
