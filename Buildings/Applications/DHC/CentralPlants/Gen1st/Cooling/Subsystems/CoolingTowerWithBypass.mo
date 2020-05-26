@@ -10,11 +10,11 @@ model CoolingTowerWithBypass "Cooling tower system with bypass valve"
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Total nominal mass flow rate of condenser water"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.Pressure dp_nominal=6000
+  parameter Modelica.SIunits.Pressure dp_nominal
     "Nominal pressure difference of the tower"
     annotation (Dialog(group="Nominal condition"));
 
@@ -22,19 +22,19 @@ model CoolingTowerWithBypass "Cooling tower system with bypass valve"
     "Design water-to-air ratio"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.Temperature TAirInWB_nominal=273.15+25.55
+  parameter Modelica.SIunits.Temperature TAirInWB_nominal
     "Nominal outdoor (air inlet) wetbulb temperature"
     annotation (Dialog(group="Heat transfer"));
 
-  parameter Modelica.SIunits.Temperature TWatIn_nominal=273.15+35
+  parameter Modelica.SIunits.Temperature TWatIn_nominal
     "Nominal water inlet temperature"
     annotation (Dialog(group="Heat transfer"));
 
-  parameter Modelica.SIunits.TemperatureDifference dT_nominal=5.56
+  parameter Modelica.SIunits.TemperatureDifference dT_nominal
     "Temperature difference between inlet and outlet of the tower"
      annotation (Dialog(group="Heat transfer"));
 
-  parameter Modelica.SIunits.Power PFan_nominal=4800
+  parameter Modelica.SIunits.Power PFan_nominal
     "Fan power"
     annotation (Dialog(group="Fan"));
 
@@ -42,19 +42,19 @@ model CoolingTowerWithBypass "Cooling tower system with bypass valve"
     "Approach temperature"
     annotation (Dialog(group="Control Settings"));
 
-  parameter Modelica.SIunits.Temperature TMin=273.15 + 10
+  parameter Modelica.SIunits.Temperature TMin
     "Minimum allowed water temperature entering chiller"
     annotation (Dialog(group="Control Settings"));
 
-  parameter Real k=1
+  parameter Real k
     "Gain of the tower PID controller"
     annotation (Dialog(group="Control Settings"));
 
-  parameter Real Ti=60
+  parameter Real Ti
     "Integrator time constant of the tower PID controller"
     annotation (Dialog(group="Control Settings"));
 
-  parameter Real Td=0.1
+  parameter Real Td
     "Derivative time constant of the tower PID controller"
     annotation (Dialog(group="Control Settings"));
 
@@ -90,6 +90,7 @@ model CoolingTowerWithBypass "Cooling tower system with bypass valve"
 
   Buildings.Applications.DHC.CentralPlants.Gen1st.Cooling.Subsystems.CoolingTowerParellel cooTowSys(
     redeclare package Medium = Medium,
+    num=num,
     m_flow_nominal=m_flow_nominal/num,
     dp_nominal=dp_nominal,
     ratWatAir_nominal=ratWatAir_nominal,
@@ -120,13 +121,13 @@ model CoolingTowerWithBypass "Cooling tower system with bypass valve"
 
   Modelica.Blocks.Sources.Constant TSetByPas(k=TMin)
     "Bypass loop temperature setpoint"
-    annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
+    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
 
   Buildings.Controls.Continuous.LimPID bypValCon(
     controllerType=Modelica.Blocks.Types.SimpleController.PID,
     k=1,
     Ti=60) "Bypass valve controller"
-    annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
+    annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 
   Buildings.Controls.Continuous.LimPID cooTowSpeCon(
     final reverseAction=true,
@@ -145,11 +146,10 @@ equation
   connect(port_a, cooTowSys.port_a) annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
   connect(cooTowSys.port_b, senTCWSup.port_a) annotation (Line(points={{10,0},{60,0}}, color={0,127,255}));
   connect(senTCWSup.port_b, port_b) annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
-  connect(TSetByPas.y, bypValCon.u_s) annotation (Line(points={{-39,-70},{-12,-70}}, color={0,0,127}));
-  connect(bypValCon.y, valByp.y) annotation (Line(points={{11,-70},{20,-70},{20,
-          -20},{0,-20},{0,-28}}, color={0,0,127}));
+  connect(TSetByPas.y, bypValCon.u_s) annotation (Line(points={{-79,-70},{-62,-70}}, color={0,0,127}));
   connect(senTCWSup.T, bypValCon.u_m) annotation (Line(points={{70,-11},{70,-90},
-          {0,-90},{0,-82}}, color={0,0,127}));
+          {-50,-90},{-50,-82}},
+                            color={0,0,127}));
   connect(valByp.port_a, cooTowSys.port_a) annotation (Line(points={{-10,-40},{-30,
           -40},{-30,0},{-10,0}}, color={0,127,255}));
   connect(valByp.port_b, senTCWSup.port_a) annotation (Line(points={{10,-40},{30,-40},{30,0},{60,0}}, color={0,127,255}));
@@ -160,8 +160,11 @@ equation
           60},{20,20},{-20,20},{-20,2},{-12,2}}, color={0,0,127}));
   connect(cooTowSys.PFan, PFan) annotation (Line(points={{11,6},{40,6},{40,60},{
           110,60}}, color={0,0,127}));
-  connect(cooTowSys.TLvg, TLvg) annotation (Line(points={{11,3},{40,3},{40,30},{
+  connect(cooTowSys.TLvg, TLvg) annotation (Line(points={{11,3},{44,3},{44,30},{
           110,30}}, color={0,0,127}));
+  connect(bypValCon.y, valByp.y) annotation (Line(points={{-39,-70},{-20,-70},{-20,
+          -20},{0,-20},{0,-28}}, color={0,0,127}));
+
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),           Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
