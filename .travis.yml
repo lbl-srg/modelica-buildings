@@ -78,6 +78,7 @@ env:
     - TEST_ARG="make test-jmodelica PACKAGE=\"Buildings.Utilities.IO.Python36\""
 
 before_install:
+  - sudo apt-get -y install python3.6-minimal  # Provides /usr/bin/python3.6m
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - if [[ "$TEST_ARG" == *test-dymola* ]]; then
        docker pull "$DOCKER_USERNAME"/travis_ubuntu-1804_dymola-2020x-x86_64;
