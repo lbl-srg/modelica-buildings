@@ -19,7 +19,7 @@ def doStep(dblInp, state):
         # cases JModelica does not converge during the event iteration.
         # This guard is fine because the component is sampled at discrete time steps.
         if dt > 1E-2:
-            C = 2000 # Heat capacity
+            C = 200 # Heat capacity
             K = 0.01 # Heat loss coefficient
             T = state['T'] + dt/C * ( K * (TAmb-state['T']) + Q_flow )
             E = state['E'] + dt * Q_flow
