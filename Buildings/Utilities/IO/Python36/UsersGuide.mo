@@ -21,154 +21,67 @@ Linux 64 bit and Windows 64 bit.
 To use classes from this package, a Python 3.6
 runtime environment must be installed.
 Also, the system environment variable
-<code>PYTHONPATH</code> must be set in order for Python
+<code>PYTHONPATH</code> may need to be set in order for Python
 to find the modules that contain the functions.
 These modules are stored in the directory
 <code>Buildings/Resources/Python-Sources</code>.
 In addition, an environment variable (<code>LD_LIBRARY_PATH</code> on Linux
-and <code>PATH</code> on Windows) must be set in order for a simulation
+and <code>PATH</code> on Windows) may need to be set in order for a simulation
 environment to find the dynamically linked libraries.
-The table below explains how to set these variables for
-various system configurations.
 </p>
 <p>
-Because some Python libraries may also link to compiled C code, we
-recommend that if you are using a 64-bit operating system, you configure
-Dymola to generate 64 bit code. Configuring the compilation
-can be done by entering on the
-Dymola command line the assignment
-<code>Advanced.CompileWith64=1</code> for 32-bit, or
-<code>Advanced.CompileWith64=2</code> for 64-bit.
+The table below gives hints if there are problems running models that use Python code.
 </p>
-  <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-  <tr>
-      <th>System</th>
-      <th>Settings</th>
-   </tr>
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr>
+  <th>System</th>
+  <th>Settings</th>
+</tr>
   <!-- =================================================================== -->
-    <tr>
-      <td>Linux 64 bit, Dymola 2020x</td>
-      <td>
-      <p>
-      Enter on a console the commands
-      </p>
-<pre>
- $ whereis libpython3.6m.so  
-  </pre>
-      <p>
-      to check if the dynamical linked library <code>libpython3.6m.so</code> is in
-      <code>/usr/lib</code>. If it is not there, create a symbolic link
-      </p>
-<pre>
-$ sudo ln -s \"Path_To_libpython3.6m.so\" /usr/lib/libpython3.6m.so  
-  </pre>  
-      </td>
-    </tr>
-   <!-- =================================================================== -->    
-  <!-- =================================================================== -->
-    <tr>
-      <td>Linux 32 bit, Dymola 2016</td>
-      <td>
-      <p>
-      Enter on a console the commands
-      </p>
-<pre>
-  export PYTHONPATH=${PYTHONPATH}:\"Path_To_Buildings_Library\"/Resources/Python-Sources
-  export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:\"Path_To_Buildings_Library\"/Resources/Library/linux32
-  </pre>
+<tr>
+  <td>Linux 64 bit</td>
+  <td>
   <p>
-  Alternatively, these lines could be added to the file <code>~/.bashrc</code>.
+  If the examples do not translate or simulate, enter on a console the commands
   </p>
-      </td>
-    </tr>
-   <!-- =================================================================== -->  
-    <tr>
-      <td>Linux 64 bit, Dymola 2016</td>
-      <td>
-      <p>
-      Use the same commands as for <i>Linux 64 bit, Dymola 2016</i>
-      because Dymola 2016 generates by default 32 bit code.
-      </p>
-      <p>
-      However, if you load other Python libraries such as numpy, you need to make sure
-      that Dymola compiles 64 bit and uses the 64 bit library from
-      <code>Buildings/Resources/Library/linux64</code>.
-      To do so, enter on a console the commands
-      </p>
 <pre>
-  export PYTHONPATH=${PYTHONPATH}:\"Path_To_Buildings_Library\"/Resources/Python-Sources
-  export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:\"Path_To_Buildings_Library\"/Resources/Library/linux64
-  </pre>
-  <p>
-Alternatively, these lines could be added to the file <code>~/.bashrc</code>.</p>
+export PYTHONPATH=${PYTHONPATH}:\"Path_To_Buildings_Library\"/Resources/Python-Sources
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:\"Path_To_Buildings_Library\"/Resources/Library/linux64
+</pre>
 <p>
-Next, in the Dymola command window, set
+and restart the Modelica environment.
+</p>
+<p>
+If this does not help, make sure <code>libpython3.6.m.so</code> is installed
+on your system. You can check this with
 </p>
 <pre>
- Advanced.CompileWith64=2;
+whereis libpython3.6m.so
 </pre>
-      </td>
-    </tr>
-  <!-- =================================================================== -->
-    <tr>
-      <td>Linux 32 bit, Dymola 2014</td>
-      <td>
-Enter on a console the commands
+<p>
+On Ubuntu 18.04, this library can be installed with
+</p>
 <pre>
-  export PYTHONPATH=${PYTHONPATH}:\"Path_To_Buildings_Library\"/Resources/Python-Sources
-  export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:\"Path_To_Buildings_Library\"/Resources/Library/linux32
+sudo apt-get install libpython3.6-dev
 </pre>
-Alternatively, these lines could be added to the file <code>~/.bashrc</code>.
-      </td>
-    </tr>
-    <tr>
-  <!-- =================================================================== -->
-      <td>Linux 64 bit, Dymola 2014</td>
-      <td>
-Use the same commands as for <i>Linux 64 bit, Dymola 2014</i> because Dymola 2014 only generates 32 bit code.
-      </td>
-    </tr>
-  <!-- =================================================================== -->
-    <tr>
-      <td>Linux 32 bit, Dymola 2013 FD01</td>
-      <td>
-Enter on a console the commands
+</td>
+</tr>
+<!-- =================================================================== -->
+<tr>
+<td>Dymola</td>
+<td>
+<p>
+Because the Python libraries link to compiled C code,
+Dymola needs to be configured to generate code for 64-bit.
+This can be done by entering on the
+Dymola command line the assignment</p>
 <pre>
-  export PYTHONPATH=${PYTHONPATH}:\"Path_To_Buildings_Library\"/Resources/Python-Sources
+Advanced.CompileWith64=2
 </pre>
-Alternatively, these lines could be added to the file <code>~/.bashrc</code>.<br/>
-<br/>
-Next, modify <code>/opt/dymola/bin/dymola.sh</code> by replacing the line
-<pre>
-  export LD_LIBRARY_PATH=$DYMOLA/bin/lib
-</pre>
-with
-<pre>
-  export LD_LIBRARY_PATH=$DYMOLA/bin/lib:\"Path_To_Buildings_Library\"/Resources/Library/linux32
-  export LD_LIBRARY_PATH=$DYMOLA/bin/lib:Resources/Library/linux32
-</pre>
-      </td>
-    </tr>
-  <!-- =================================================================== -->
-    <tr>
-      <td>Linux 64 bit, Dymola 2013 FD01</td>
-      <td>
-Use the same commands as for <i>Linux 32 bit, Dymola 2013 FD01</i> because Dymola 2013 FD01 only generates 32 bit code.
-      </td>
-    </tr>
-  <!-- =================================================================== -->
-    <tr>
-      <td>Windows 32 bit, Dymola 2014
-      <br/>Windows 64 bit, Dymola 2014
-      <br/>Windows 32 bit, Dymola 2013 FD01
-      <br/>Windows 64 bit, Dymola 2013 FD01 </td>
-      <td>
-        Add to the system environment variable <code>PYTHONPATH</code> the directory
-        <code>\"Path_To_Buildings_Library\"\\Resources\\Python-Sources</code>.
-      </td>
-    </tr>
-  <!-- =================================================================== -->
-  </table>
+</td>
+</tr>
+<!-- =================================================================== -->
+</table>
 
 <h4>Type of Python functions</h4>
 <p>
