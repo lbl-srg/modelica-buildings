@@ -179,14 +179,12 @@ protected
     annotation (Placement(transformation(extent={{4,100},{24,120}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
     final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage0)
-    "Freeze protection stage 0"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
     "Logical block to check if the freeze protection is deactivated"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
     final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates.heating)
-    "Heating zone state"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1
     "Logical block to check if the freeze protection is deactivated"

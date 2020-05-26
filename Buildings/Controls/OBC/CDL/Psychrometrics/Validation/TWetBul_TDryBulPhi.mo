@@ -32,52 +32,48 @@ model TWetBul_TDryBulPhi
   // ===================================================================
 
   Buildings.Controls.OBC.CDL.Continuous.Add add(k2=-1)
-    "Wet bulb temperature difference"
     annotation (Placement(transformation(extent={{40,6},{60,26}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add1(k2=-1)
-    "Wet bulb temperature difference"
     annotation (Placement(transformation(extent={{40,-34},{60,-14}})));
 equation
   connect(x_pTphi.X[1], wetBulXi.Xi[1])
     annotation (Line(points={{-19.4,-24},{-11,-24}},
       color={0,0,127}));
   connect(TDryBul.y, wetBulPhi.TDryBul)
-    annotation (Line(points={{-68,56},{-40,56},{-40,64},{-12,64}},
+    annotation (Line(points={{-69,56},{-40,56},{-40,64},{-11,64}},
       color={0,0,127}));
   connect(TDryBul.y, wetBulPhi_BuiLib.TDryBul)
-    annotation (Line(points={{-68,56},{-40,56},{-40,24},{-11,24}},
+    annotation (Line(points={{-69,56},{-40,56},{-40,24},{-11,24}},
       color={0,0,127}));
   connect(TDryBul.y, wetBulXi.TDryBul)
-    annotation (Line(points={{-68,56},{-40,56},{-40,-10},{-16,-10},{-16,-16},{
-          -11,-16}},
+    annotation (Line(points={{-69,56},{-40,56},{-40,-10},{-16,-10},{-16,-16},{-11,-16}},
       color={0,0,127}));
   connect(p.y, x_pTphi.p_in)
-    annotation (Line(points={{-68,-24},{-52,-24},{-52,-20.4},{-33.2,-20.4}},
+    annotation (Line(points={{-69,-24},{-52,-24},{-52,-20.4},{-33.2,-20.4}},
       color={0,0,127}));
   connect(phi.y, x_pTphi.phi)
-    annotation (Line(points={{-68,16},{-46,16},{-46,-27.6},{-33.2,-27.6}},
+    annotation (Line(points={{-69,16},{-46,16},{-46,-27.6},{-33.2,-27.6}},
       color={0,0,127}));
   connect(p.y, wetBulXi.p)
-    annotation (Line(points={{-68,-24},{-52,-24},{-52,-32},{-11,-32}},
+    annotation (Line(points={{-69,-24},{-52,-24},{-52,-32},{-11,-32}},
       color={0,0,127}));
   connect(phi.y, wetBulPhi_BuiLib.phi)
-    annotation (Line(points={{-68,16},{-11,16}},
+    annotation (Line(points={{-69,16},{-11,16}},
       color={0,0,127}));
   connect(phi.y, wetBulPhi.phi)
-    annotation (Line(points={{-68,16},{-46,16},{-46,52},{-28,52},{-28,56},{-12,
-          56}},
+    annotation (Line(points={{-69,16},{-46,16},{-46,52},{-28,52},{-28,56},{-11,56}},
       color={0,0,127}));
   connect(p.y, wetBulPhi.p)
-    annotation (Line(points={{-68,-24},{-52,-24},{-52,48},{-12,48}},
+    annotation (Line(points={{-69,-24},{-52,-24},{-52,48},{-11,48}},
       color={0,0,127}));
   connect(p.y, wetBulPhi_BuiLib.p)
-    annotation (Line(points={{-68,-24},{-52,-24},{-52,8},{-11,8}},
+    annotation (Line(points={{-69,-24},{-52,-24},{-52,8},{-11,8}},
       color={0,0,127}));
   connect(TDryBul.y, x_pTphi.T)
-    annotation (Line(points={{-68,56},{-40,56},{-40,-24},{-33.2,-24}},
+    annotation (Line(points={{-69,56},{-40,56},{-40,-24},{-33.2,-24}},
       color={0,0,127}));
   connect(wetBulPhi.TWetBul, add.u1)
-    annotation (Line(points={{12,56},{22,56},{22,22},{38,22}},
+    annotation (Line(points={{11,56},{22,56},{22,22},{38,22}},
       color={0,0,127}));
   connect(wetBulPhi_BuiLib.TWetBul, add.u2)
     annotation (Line(points={{11,16},{28,16},{28,10},{38,10}},

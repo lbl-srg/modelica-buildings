@@ -102,7 +102,7 @@ protected
     amplitude=20,
     freqHz=1/1800,
     offset=272.15,
-    startTime=0) "Mixed air temerature"
+    startTime=0)
     annotation (Placement(transformation(extent={{90,-98},{110,-80}})));
 
 equation

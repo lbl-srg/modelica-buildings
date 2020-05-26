@@ -14,18 +14,15 @@ model LogicalSwitch "Validation model for the LogicalSwitch block"
     annotation (Placement(transformation(extent={{-26,-46},{-6,-26}})));
 
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logicalSwitch
-    "Switch between two boolean inputs"
     annotation (Placement(transformation(extent={{26,-10},{46,10}})));
 
 equation
   connect(booPul2.y, logicalSwitch.u2)
-    annotation (Line(points={{-4,0},{-4,0},{24,0}}, color={255,0,255}));
-  connect(booPul1.y, logicalSwitch.u1) annotation (Line(points={{-4,34},{10,34},
-          {10,8},{24,8}},
-                      color={255,0,255}));
-  connect(booPul3.y, logicalSwitch.u3) annotation (Line(points={{-4,-36},{10,
-          -36},{10,-8},{24,-8}},
-                            color={255,0,255}));
+    annotation (Line(points={{-5,0},{10,0},{24,0}}, color={255,0,255}));
+  connect(booPul1.y, logicalSwitch.u1) annotation (Line(points={{-5,34},{10,34},{10,
+          8},{24,8}}, color={255,0,255}));
+  connect(booPul3.y, logicalSwitch.u3) annotation (Line(points={{-5,-36},{10,-36},
+          {10,-8},{24,-8}}, color={255,0,255}));
   annotation (
   experiment(StopTime=5.0, Tolerance=1e-06),
    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Validation/LogicalSwitch.mos"

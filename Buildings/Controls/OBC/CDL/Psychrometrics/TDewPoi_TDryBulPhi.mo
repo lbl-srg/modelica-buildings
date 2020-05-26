@@ -25,12 +25,13 @@ block TDewPoi_TDryBulPhi
 
 protected
   Modelica.SIunits.Pressure p_w(displayUnit="Pa") "Water vapor pressure";
-  constant Real C14=6.54 "Constant used in the equation";
-  constant Real C15=14.526 "Constant used in the equation";
-  constant Real C16=0.7389 "Constant used in the equation";
-  constant Real C17=0.09486 "Constant used in the equation";
-  constant Real C18=0.4569 "Constant used in the equation";
-  Real alpha "Variable used in the equation";
+  constant Real C14=6.54;
+  constant Real C15=14.526;
+  constant Real C16=0.7389;
+  constant Real C17=0.09486;
+  constant Real C18=0.4569;
+  Real alpha;
+
 
 equation
   p_w = phi * Buildings.Utilities.Psychrometrics.Functions.saturationPressure(TDryBul);

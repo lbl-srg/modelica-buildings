@@ -2,7 +2,6 @@ within Buildings.Controls.OBC.CDL.Logical.Validation;
 model MultiAnd "Model to validate the application of MultiAnd block"
 
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd0
-    "Logical and with multiple inputs: 0 input"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd1(nu=1)
@@ -38,28 +37,22 @@ model MultiAnd "Model to validate the application of MultiAnd block"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
 
 equation
-  connect(booPul1.y, mulAnd5.u[1]) annotation (Line(points={{-38,60},{-38,60},{
-          20,60},{20,-24.4},{38,-24.4}},
-                                      color={255,0,255}));
-  connect(booPul2.y, mulAnd5.u[2]) annotation (Line(points={{-38,30},{14,30},{
-          14,-27.2},{38,-27.2}},
-                              color={255,0,255}));
-  connect(booPul3.y, mulAnd5.u[3]) annotation (Line(points={{-38,0},{0,0},{0,
-          -30},{38,-30}},
-                     color={255,0,255}));
-  connect(booPul4.y, mulAnd5.u[4]) annotation (Line(points={{-38,-30},{-38,-30},
+  connect(booPul1.y, mulAnd5.u[1]) annotation (Line(points={{-39,60},{-39,60},{20,
+          60},{20,-24.4},{38,-24.4}}, color={255,0,255}));
+  connect(booPul2.y, mulAnd5.u[2]) annotation (Line(points={{-39,30},{14,30},{14,
+          -27.2},{38,-27.2}}, color={255,0,255}));
+  connect(booPul3.y, mulAnd5.u[3]) annotation (Line(points={{-39,0},{0,0},{0,-30},
+          {38,-30}}, color={255,0,255}));
+  connect(booPul4.y, mulAnd5.u[4]) annotation (Line(points={{-39,-30},{-39,-30},
           {-4,-30},{-4,-32},{-4,-32},{-4,-32.8},{38,-32.8}}, color={255,0,255}));
-  connect(booPul5.y, mulAnd5.u[5]) annotation (Line(points={{-38,-60},{-38,-60},
+  connect(booPul5.y, mulAnd5.u[5]) annotation (Line(points={{-39,-60},{-39,-60},
           {20,-60},{20,-35.6},{38,-35.6}}, color={255,0,255}));
-  connect(booPul1.y, mulAnd2.u[1]) annotation (Line(points={{-38,60},{-38,60},{
-          20,60},{20,3.5},{38,3.5}},
-                                  color={255,0,255}));
-  connect(booPul2.y, mulAnd2.u[2]) annotation (Line(points={{-38,30},{-38,30},{
-          14,30},{14,-3.5},{38,-3.5}},
-                                    color={255,0,255}));
-  connect(booPul1.y, mulAnd1.u[1]) annotation (Line(points={{-38,60},{20,60},{
-          20,30},{38,30}},
-                        color={255,0,255}));
+  connect(booPul1.y, mulAnd2.u[1]) annotation (Line(points={{-39,60},{-39,60},{20,
+          60},{20,3.5},{38,3.5}}, color={255,0,255}));
+  connect(booPul2.y, mulAnd2.u[2]) annotation (Line(points={{-39,30},{-39,30},{14,
+          30},{14,-3.5},{38,-3.5}}, color={255,0,255}));
+  connect(booPul1.y, mulAnd1.u[1]) annotation (Line(points={{-39,60},{20,60},{20,
+          30},{38,30}}, color={255,0,255}));
   annotation (
   experiment(StopTime=10.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Validation/MultiAnd.mos"

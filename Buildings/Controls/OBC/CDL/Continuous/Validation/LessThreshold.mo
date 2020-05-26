@@ -6,15 +6,13 @@ model LessThreshold "Validation model for the LessThreshold block"
     height=4)  "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-36,-10},{-16,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr
-    "Check if the input is less than the threshold"
+  Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesThr
     annotation (Placement(transformation(extent={{16,-10},{36,10}})));
 
 equation
   connect(ramp1.y, lesThr.u)
-    annotation (Line(points={{-14,0},{-14,0},{14,0}}, color={0,0,127}));
-
-annotation (
+    annotation (Line(points={{-15,0},{0,0},{14,0}}, color={0,0,127}));
+  annotation (
   experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/LessThreshold.mos"
         "Simulate and plot"),

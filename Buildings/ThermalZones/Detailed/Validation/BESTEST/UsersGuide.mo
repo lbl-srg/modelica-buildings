@@ -283,7 +283,7 @@ in the table after the plots below.
 <td>2.489</td>
 <td>2.416</td>
 <td>0.000</td>
-<td>3.179</td>
+<td>3.180</td>
 </tr>
 <tr>
 <td>Case640</td>
@@ -343,7 +343,7 @@ in the table after the plots below.
 <td>2.489</td>
 <td>2.383</td>
 <td>2.516</td>
-<td>2.113</td>
+<td>2.114</td>
 </tr>
 <tr>
 <td>Case950</td>
@@ -677,7 +677,7 @@ in the table after the plots below.
 <td>26-Jul:17</td>
 <td>5.096</td>
 <td>26-Jul:16</td>
-<td>4.033</td>
+<td>4.032</td>
 <td>26-Jul:17</td>
 </tr>
 <tr>

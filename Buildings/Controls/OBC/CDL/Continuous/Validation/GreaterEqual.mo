@@ -12,13 +12,12 @@ model GreaterEqual "Validation model for the GreaterEqual block"
     annotation (Placement(transformation(extent={{-26,-30},{-6,-10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqual greEqu
-    "Check if the first input is greater than or equal to the second input"
     annotation (Placement(transformation(extent={{26,-8},{46,12}})));
 
 equation
   connect(ramp1.y, greEqu.u1)
-    annotation (Line(points={{-4,22},{8,22},{8,2},{24,2}}, color={0,0,127}));
-  connect(ramp2.y, greEqu.u2) annotation (Line(points={{-4,-20},{10,-20},{10,-6},
+    annotation (Line(points={{-5,22},{8,22},{8,2},{24,2}}, color={0,0,127}));
+  connect(ramp2.y, greEqu.u2) annotation (Line(points={{-5,-20},{10,-20},{10,-6},
           {24,-6}}, color={0,0,127}));
   annotation (
   experiment(StopTime=1.0, Tolerance=1e-06),

@@ -405,17 +405,6 @@ its class name ends with the string <code>Beta</code>.
                            This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1230\">IBPSA, #1230</a>.
         </td>
     </tr>
-    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage<br/>
-                           Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleSpeed<br/>
-                           Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed<br/>
-                           Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.MultiStage<br/>
-                           Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.SingleSpeed<br/>
-                           Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.VariableSpeed
-        </td>
-        <td valign=\"top\">Corrected wrong <code>min</code> and <code>max</code> attribute for change in humidity.<br/>
-                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1933\">#1933</a>.
-        </td>
-    </tr>
     <tr><td valign=\"top\">Buildings.Fluid.Storage.Stratified<br/>
                            Buildings.Fluid.Storage.StratifiedEnhanced<br/>
                            Buildings.Fluid.Storage.StratifiedEnhancedInternalHex
@@ -430,20 +419,11 @@ its class name ends with the string <code>Beta</code>.
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1636\">#1636</a>.
         </td>
     </tr>
-    <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
-        </td>
-    </tr>
-    <tr><td valign=\"top\">Buildings.HeatTransfer.Convection.Exterior
-        </td>
-        <td valign=\"top\">Set wind direction modifier to a constant as wind speed approaches zero.<br/>
-                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1923\">#1923</a>.
-        </td>
-    </tr>
     <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx</b>
         </td>
     </tr>
     <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case600<br/>
-                           Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case600FF
+                           Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case600FF<br/>
         </td>
         <td valign=\"top\">Changed computation of time averaged values to avoid a time event every hour.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1714\">#1714</a>.
@@ -455,7 +435,7 @@ its class name ends with the string <code>Beta</code>.
     <tr><td valign=\"top\">Buildings.ThermalZones.ReducedOrder.RC.OneElement<br/>
                            Buildings.ThermalZones.ReducedOrder.RC.TwoElements<br/>
                            Buildings.ThermalZones.ReducedOrder.RC.ThreeElements<br/>
-                           Buildings.ThermalZones.ReducedOrder.RC.FourElements
+                           Buildings.ThermalZones.ReducedOrder.RC.FourElements<br/>
         </td>
         <td valign=\"top\">Added option to also simulate moisture balance in room air volume.
                            This can be enabled by setting the parameter <code>use_moisture_balance = true</code>.<br/>

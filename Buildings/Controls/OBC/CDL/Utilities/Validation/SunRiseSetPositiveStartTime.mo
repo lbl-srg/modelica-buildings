@@ -22,6 +22,7 @@ model SunRiseSetPositiveStartTime "Test model for the block SunRiseSet with posi
     lon=2.6354471705114,
     timZon=36000) "Sydney as a test example in the southern hemisphere"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
+equation
 
 annotation (
   experiment(StartTime=43200, StopTime=345600, Tolerance=1e-06),

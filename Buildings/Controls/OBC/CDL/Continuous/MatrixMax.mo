@@ -18,9 +18,8 @@ equation
     y = {max(u[i,:]) for i in 1:size(u, 1)};
   else
     y = {max(u[:,i]) for i in 1:size(u, 2)};
-  end if;
-
-annotation (
+  end if
+  annotation (
     defaultComponentName="matMax",
     Documentation(info="<html>
 <p>

@@ -31,8 +31,6 @@ model Exterior "Model for a exterior (outside) convective heat transfer"
   Modelica.SIunits.HeatFlux qF_flow
     "Convective heat flux from solid -> fluid due to forced convection";
 protected
-  constant Modelica.SIunits.Velocity v_small = 0.5
-    "Small value for wind velocity below which equations are regularized";
   final parameter Real cosTil=Modelica.Math.cos(til) "Cosine of window tilt";
   final parameter Real sinTil=Modelica.Math.sin(til) "Sine of window tilt";
   final parameter Boolean isCeiling = abs(sinTil) < 10E-10 and cosTil > 0
@@ -41,9 +39,7 @@ protected
     "Flag, true if the surface is a floor";
 
   parameter Real R(fixed=false) "Surface roughness";
-
-  Real W(min=0.5, max=1) "Wind direction modifier";
-
+   Real W(min=0.5, max=1) "Wind direction modifier";
 initial equation
   if (roughness == Buildings.HeatTransfer.Types.SurfaceRoughness.VeryRough) then
     R=2.17;
@@ -78,18 +74,14 @@ equation
        qN_flow = Buildings.HeatTransfer.Convection.Functions.HeatFlux.wall(dT=dT);
     end if;
     // Forced convection
-    W = Buildings.Utilities.Math.Functions.regStep(
-          x = v-v_small/2,
-          y1 = Buildings.HeatTransfer.Convection.Functions.windDirectionModifier(
-            azi=azi,
-            dir=dir),
-          y2 = 0.75,
-          x_small=v_small/4);
+    W = Buildings.HeatTransfer.Convection.Functions.windDirectionModifier(
+          azi=azi,
+          dir=dir);
     hF = 2.537 * W * R * 2 / A^(0.25) *
-       Buildings.Utilities.Math.Functions.regNonZeroPower(
+         Buildings.Utilities.Math.Functions.regNonZeroPower(
            x=v,
            n=0.5,
-           delta=v_small);
+           delta=0.5);
     qF_flow = hF*dT;
   end if;
   q_flow = qN_flow + qF_flow;
@@ -230,12 +222,6 @@ Engineering Research Laboratory, Champaign, IL.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-May 7, 2020, by Michael Wetter:<br/>
-Set wind direction modifier to a constant as wind velocity approaches zero.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1923\">#1923</a>.
-</li>
 <li>
 September 17, 2016, by Michael Wetter:<br/>
 Refactored model as part of enabling the pedantic model check in Dymola 2017 FD01 beta 2.<br/>
