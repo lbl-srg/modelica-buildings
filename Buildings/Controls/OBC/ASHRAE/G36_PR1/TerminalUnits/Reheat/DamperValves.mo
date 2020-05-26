@@ -38,6 +38,10 @@ block DamperValves
       enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
+  parameter Boolean have_pressureIndependentDamper = true
+    "True: the VAV damper is pressure independent (with built-in flow controller)"
+    annotation(Dialog(group="Damper"));
+
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeDam=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
@@ -122,7 +126,7 @@ block DamperValves
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow(
     final min=0,
     final unit="m3/s",
-    final quantity="VolumeFlowRate")
+    final quantity="VolumeFlowRate") if not have_pressureIndependentDamper
     "Measured discharge airflow rate airflow rate"
     annotation (Placement(transformation(extent={{-360,320},{-320,360}}),
       iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={40,-120})));
@@ -161,8 +165,7 @@ block DamperValves
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDam(
     final min=0,
     final max=1,
-    final unit="1")
-    "Damper position"
+    final unit="1") "Signal for VAV damper"
     annotation (Placement(transformation(extent={{320,20},{360,60}}),
         iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaVal(
@@ -176,7 +179,7 @@ block DamperValves
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate") "Discharge airflow setpoint"
-    annotation (Placement(transformation(extent={{320,210},{360,250}}),
+    annotation (Placement(transformation(extent={{320,240},{360,280}}),
         iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TDisHeaSet(
     final unit="K",
@@ -226,8 +229,9 @@ block DamperValves
     final yMax=1,
     final yMin=0,
     final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
-    final y_reset=0) "Damper position controller"
-    annotation (Placement(transformation(extent={{280,180},{300,200}})));
+    final y_reset=0) if not have_pressureIndependentDamper
+    "Damper position controller"
+    annotation (Placement(transformation(extent={{280,220},{300,240}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     "Output active cooling airflow according to cooling control signal"
     annotation (Placement(transformation(extent={{140,260},{160,280}})));
@@ -350,19 +354,24 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and1
     annotation (Placement(transformation(extent={{20,-56},{40,-36}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add3 "Active airflow setpoint"
-    annotation (Placement(transformation(extent={{200,220},{220,240}})));
+    annotation (Placement(transformation(extent={{200,250},{220,270}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add4 "Active airflow set point"
     annotation (Placement(transformation(extent={{180,40},{200,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division VDis_flowNor
+  Buildings.Controls.OBC.CDL.Continuous.Division VDis_flowNor if
+       not have_pressureIndependentDamper
     "Normalized discharge volume flow rate"
-    annotation (Placement(transformation(extent={{260,140},{280,160}})));
+    annotation (Placement(transformation(extent={{240,150},{260,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant nomFlow(
     final k=V_flow_nominal)
     "Nominal volume flow rate"
-    annotation (Placement(transformation(extent={{200,110},{220,130}})));
+    annotation (Placement(transformation(extent={{200,200},{220,220}})));
   Buildings.Controls.OBC.CDL.Continuous.Division VDisSet_flowNor
     "Normalized setpoint for discharge volume flow rate"
-    annotation (Placement(transformation(extent={{240,180},{260,200}})));
+    annotation (Placement(transformation(extent={{240,220},{260,240}})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai(
+    final k=1) if have_pressureIndependentDamper
+    "Block that can be disabled so remove the connection"
+    annotation (Placement(transformation(extent={{220,120},{240,140}})));
 
 equation
   connect(uCoo, lin.u)
@@ -496,10 +505,10 @@ equation
       color={255,0,255}));
   connect(truHol2.y, not2.u)
     annotation (Line(points={{-200,-210},{-180,-210},{-180,-128},{-280,-128},{-280,
-          10},{-222,10}},     color={255,0,255}));
+          10},{-222,10}}, color={255,0,255}));
   connect(truDel4.y, not1.u)
     annotation (Line(points={{-218,230},{-200,230},{-200,184},{-304,184},{-304,50},
-          {-222,50}},       color={255,0,255}));
+          {-222,50}}, color={255,0,255}));
   connect(not1.y, and2.u1)
     annotation (Line(points={{-198,50},{-82,50}}, color={255,0,255}));
   connect(not2.y, and2.u2)
@@ -521,8 +530,8 @@ equation
     annotation (Line(points={{302,-20},{340,-20}}, color={0,0,127}));
   connect(conZer2.y, damPosUno.u1) annotation (Line(points={{-58,8},{-20,8},{-20,
           -12},{250,-12},{250,78},{278,78}}, color={0,0,127}));
-  connect(conDam.y, damPosUno.u3) annotation (Line(points={{302,190},{310,190},{
-          310,96},{272,96},{272,62},{278,62}}, color={0,0,127}));
+  connect(conDam.y, damPosUno.u3) annotation (Line(points={{302,230},{310,230},{
+          310,100},{272,100},{272,62},{278,62}}, color={0,0,127}));
   connect(damPosUno.y, yDam) annotation (Line(points={{302,70},{308,70},{308,40},
           {340,40}}, color={0,0,127}));
   connect(isUno.y, damPosUno.u2) annotation (Line(points={{242,-312},{266,-312},
@@ -567,24 +576,28 @@ equation
           178,56}}, color={0,0,127}));
   connect(swi4.y, add4.u2) annotation (Line(points={{162,-250},{170,-250},{170,44},
           {178,44}}, color={0,0,127}));
-  connect(swi.y, add3.u1) annotation (Line(points={{162,270},{180,270},{180,236},
-          {198,236}}, color={0,0,127}));
+  connect(swi.y, add3.u1) annotation (Line(points={{162,270},{180,270},{180,266},
+          {198,266}}, color={0,0,127}));
   connect(add4.y, add3.u2) annotation (Line(points={{202,50},{220,50},{220,80},{
-          180,80},{180,224},{198,224}}, color={0,0,127}));
+          180,80},{180,254},{198,254}}, color={0,0,127}));
   connect(add3.y, VDisSet_flow)
-    annotation (Line(points={{222,230},{340,230}}, color={0,0,127}));
+    annotation (Line(points={{222,260},{340,260}}, color={0,0,127}));
   connect(VDis_flow, VDis_flowNor.u1) annotation (Line(points={{-340,340},{190,340},
-          {190,156},{258,156}}, color={0,0,127}));
-  connect(nomFlow.y, VDis_flowNor.u2) annotation (Line(points={{222,120},{240,120},
-          {240,144},{258,144}}, color={0,0,127}));
+          {190,166},{238,166}}, color={0,0,127}));
+  connect(nomFlow.y, VDis_flowNor.u2) annotation (Line(points={{222,210},{230,210},
+          {230,154},{238,154}}, color={0,0,127}));
   connect(VDis_flowNor.y, conDam.u_m)
-    annotation (Line(points={{282,150},{290,150},{290,178}}, color={0,0,127}));
-  connect(nomFlow.y, VDisSet_flowNor.u2) annotation (Line(points={{222,120},{240,
-          120},{240,144},{220,144},{220,184},{238,184}}, color={0,0,127}));
-  connect(add3.y, VDisSet_flowNor.u1) annotation (Line(points={{222,230},{230,230},
-          {230,196},{238,196}}, color={0,0,127}));
+    annotation (Line(points={{262,160},{290,160},{290,218}}, color={0,0,127}));
+  connect(nomFlow.y, VDisSet_flowNor.u2) annotation (Line(points={{222,210},{230,
+          210},{230,224},{238,224}},                     color={0,0,127}));
+  connect(add3.y, VDisSet_flowNor.u1) annotation (Line(points={{222,260},{230,260},
+          {230,236},{238,236}}, color={0,0,127}));
   connect(VDisSet_flowNor.y, conDam.u_s)
-    annotation (Line(points={{262,190},{278,190}}, color={0,0,127}));
+    annotation (Line(points={{262,230},{278,230}}, color={0,0,127}));
+  connect(VDisSet_flowNor.y, gai.u) annotation (Line(points={{262,230},{270,230},
+          {270,180},{210,180},{210,130},{218,130}}, color={0,0,127}));
+  connect(gai.y, damPosUno.u3) annotation (Line(points={{242,130},{272,130},{272,
+          62},{278,62}}, color={0,0,127}));
 
 annotation (
   defaultComponentName="damVal",
@@ -728,6 +741,7 @@ in heating state")}),
           pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
+          visible=not have_pressureIndependentDamper,
           extent={{-11.5,4.5},{11.5,-4.5}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
@@ -864,6 +878,12 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/Terminal
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 18, 2020, by Jianjun Hu:<br/>
+Added option to check if the VAV damper is pressure independent.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1873\">#1873</a>.
+</li>
 <li>
 March 11, 2020, by Jianjun Hu:<br/>
 Replaced multisum block with add blocks, replaced gain block used for normalization

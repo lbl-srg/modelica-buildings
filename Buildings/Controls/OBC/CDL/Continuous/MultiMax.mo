@@ -11,7 +11,9 @@ block MultiMax "Output the maximum element of the input vector"
 equation
   y = max(u);
 
-annotation (Icon(coordinateSystem(
+annotation (
+  defaultComponentName = "mulMax",
+  Icon(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}}),
       graphics={

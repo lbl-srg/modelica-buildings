@@ -293,8 +293,10 @@ equation
   connect(xor.y, truFalHol.u) annotation (Line(points={{96,252},{106,252},{106,
           224},{122,224}},
                       color={255,0,255}));
-    annotation (
-    Icon(graphics={
+
+annotation (
+  defaultComponentName = "enaDis",
+  Icon(graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
           lineColor={0,0,127},

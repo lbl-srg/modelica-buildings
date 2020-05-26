@@ -1,0 +1,4 @@
+simulateModel("Buildings.Fluid.CHPs.BaseClasses.Validation.FilterPower", method="cvode", stopTime=1800, tolerance=1e-06, resultFile="filPow");
+createPlot(id=1, position={20, 20, 900, 1200}, subPlot=1, y={"filPow.PEleDem","filPow.PEle"}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={20, 20, 900, 1200}, subPlot=2, y={"filPow.assPow.assMesP.u"}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 20, 900, 1200}, subPlot=3, y={"filPow.assPow.assMesDP.u"}, grid=true, colors={{28,108,200}});
