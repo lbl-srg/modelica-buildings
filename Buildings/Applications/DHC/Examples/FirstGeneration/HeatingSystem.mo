@@ -135,7 +135,8 @@ model HeatingSystem "Generic first generation district heating system"
     a={0.9},
     show_T=true)
     annotation (Placement(transformation(extent={{-80,-120},{-60,-100}})));
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.BuildingTimeSeries1stGen bld1(
+  Buildings.Applications.DHC.Examples.FirstGeneration.BaseClasses.BuildingTimeSeriesHeating
+    bld1(
     redeclare package Medium_a = MediumSte,
     redeclare package Medium_b = MediumWat,
     QHeaLoa=Q_flow_profile1,
@@ -143,7 +144,8 @@ model HeatingSystem "Generic first generation district heating system"
     pSte_nominal=pSte,
     show_T=true)
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.BuildingTimeSeries1stGen bld2(
+  Buildings.Applications.DHC.Examples.FirstGeneration.BaseClasses.BuildingTimeSeriesHeating
+    bld2(
     redeclare package Medium_a = MediumSte,
     redeclare package Medium_b = MediumWat,
     QHeaLoa=Q_flow_profile2,
@@ -151,7 +153,8 @@ model HeatingSystem "Generic first generation district heating system"
     pSte_nominal=pSte,
     show_T=true)
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.BuildingTimeSeries1stGen bld3(
+  Buildings.Applications.DHC.Examples.FirstGeneration.BaseClasses.BuildingTimeSeriesHeating
+    bld3(
     redeclare package Medium_a = MediumSte,
     redeclare package Medium_b = MediumWat,
     QHeaLoa=Q_flow_profile3,
@@ -159,7 +162,8 @@ model HeatingSystem "Generic first generation district heating system"
     pSte_nominal=pSte,
     show_T=true)
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.BuildingTimeSeries1stGen bld4(
+  Buildings.Applications.DHC.Examples.FirstGeneration.BaseClasses.BuildingTimeSeriesHeating
+    bld4(
     redeclare package Medium_a = MediumSte,
     redeclare package Medium_b = MediumWat,
     QHeaLoa=Q_flow_profile4,
@@ -226,7 +230,7 @@ model HeatingSystem "Generic first generation district heating system"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-30,24})));
-  Loads.Examples.BaseClasses.BuildingTimeSeries1stGen bld5(
+  BaseClasses.BuildingTimeSeriesHeating bld5(
     redeclare package Medium_a = MediumSte,
     redeclare package Medium_b = MediumWat,
     QHeaLoa=Q_flow_profile5,
@@ -234,7 +238,7 @@ model HeatingSystem "Generic first generation district heating system"
     pSte_nominal=pSte,
     show_T=true)
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
-  Loads.Examples.BaseClasses.BuildingTimeSeries1stGen bld6(
+  BaseClasses.BuildingTimeSeriesHeating bld6(
     redeclare package Medium_a = MediumSte,
     redeclare package Medium_b = MediumWat,
     QHeaLoa=Q_flow_profile6,
@@ -242,7 +246,7 @@ model HeatingSystem "Generic first generation district heating system"
     pSte_nominal=pSte,
     show_T=true)
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  Loads.Examples.BaseClasses.BuildingTimeSeries1stGen bld7(
+  BaseClasses.BuildingTimeSeriesHeating bld7(
     redeclare package Medium_a = MediumSte,
     redeclare package Medium_b = MediumWat,
     QHeaLoa=Q_flow_profile7,
@@ -250,7 +254,7 @@ model HeatingSystem "Generic first generation district heating system"
     pSte_nominal=pSte,
     show_T=true)
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  Loads.Examples.BaseClasses.BuildingTimeSeries1stGen bld8(
+  BaseClasses.BuildingTimeSeriesHeating bld8(
     redeclare package Medium_a = MediumSte,
     redeclare package Medium_b = MediumWat,
     QHeaLoa=Q_flow_profile8,

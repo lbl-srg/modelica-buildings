@@ -1,22 +1,18 @@
-within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
+within Buildings.Applications.DHC.Examples.FirstGeneration.BaseClasses;
 model BuildingTimeSeriesCooling
 
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium
     "Medium model";
 
-  parameter Real timSer_norHeaLoa[:, :]= [0, 1; 6, 1; 6, 0.25; 18, 0.25; 18, 0.375; 24, 0.375]
-    "Normalized time series heating load";
+  parameter Real QCooLoa[:, :]= [0, 1; 6, 1; 6, 0.25; 18, 0.25; 18, 0.375; 24, 0.375]
+    "Time series cooling load";
 
-  parameter Real QPea_flow_real
-    "Peak heat flow rate (real data type)";
+  parameter Modelica.SIunits.Power Q_flow_nominal
+    "Nominal heat flow rate";
 
-  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
-    QPea_flow_real/dh_nominal
-    "Nominal mass flow rate";
-
-  Modelica.Blocks.Sources.CombiTimeTable QHea(
-    table=timSer_norHeaLoa/QPea_flow_real,
+  Modelica.Blocks.Sources.CombiTimeTable QCoo(
+    table=QCooLoa,
     timeScale=3600,
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     "Heating demand"

@@ -1,5 +1,5 @@
-within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
-model BuildingTimeSeries1stGen
+within Buildings.Applications.DHC.Examples.FirstGeneration.BaseClasses;
+model BuildingTimeSeriesHeating
 
   replaceable package Medium_a =
       IBPSA.Media.Interfaces.PartialPureSubstanceWithSat
@@ -137,4 +137,4 @@ equation
           extent={{-149,-114},{151,-154}},
           lineColor={0,0,255},
           textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false)));
-end BuildingTimeSeries1stGen;
+end BuildingTimeSeriesHeating;
