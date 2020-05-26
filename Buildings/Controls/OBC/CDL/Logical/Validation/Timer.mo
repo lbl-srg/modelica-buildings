@@ -26,10 +26,9 @@ model Timer "Validation model for the Timer block"
     "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
-    final threshold=1.5) "Output true when input is greater than threshold"
+    final threshold=1.5)
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre
-    "Returns the value of the input signal from the last event iteration"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
     final width=0.5,

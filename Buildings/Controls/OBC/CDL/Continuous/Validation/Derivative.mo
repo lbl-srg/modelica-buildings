@@ -10,7 +10,7 @@ model Derivative "Validation model for the Derivative block"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Derivative der1(
-    y_start=-10) "Approximate the derivative of the input"
+    y_start=-10)
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
 equation

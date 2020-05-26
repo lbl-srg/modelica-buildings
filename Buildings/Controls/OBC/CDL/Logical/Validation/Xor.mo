@@ -10,13 +10,12 @@ model Xor "Validation model for the Xor block"
     annotation (Placement(transformation(extent={{-26,-26},{-6,-6}})));
 
   Buildings.Controls.OBC.CDL.Logical.Xor xor1
-    "Outputs true if exactly one input is true"
     annotation (Placement(transformation(extent={{26,-8},{46,12}})));
 
 equation
-  connect(booPul2.y, xor1.u2) annotation (Line(points={{-4,-16},{8,-16},{8,-6},
+  connect(booPul2.y, xor1.u2) annotation (Line(points={{-5,-16},{8,-16},{8,-6},
           {24,-6}}, color={255,0,255}));
-  connect(booPul1.y, xor1.u1) annotation (Line(points={{-4,18},{10,18},{10,2},{
+  connect(booPul1.y, xor1.u1) annotation (Line(points={{-5,18},{10,18},{10,2},{
           24,2}}, color={255,0,255}));
   annotation (
   experiment(StopTime=5.0, Tolerance=1e-06),

@@ -7,7 +7,7 @@ block ZoneStatus "Block that outputs zone temperature status"
     final quantity="TemperatureDifference",
     final min=0.5) = 1.1
     "Value limit to indicate the end of setback or setup mode";
-  parameter Boolean have_winSen=false
+  parameter Boolean have_winSen
     "Check if the zone has window status sensor";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput cooDowTim(
@@ -85,12 +85,12 @@ block ZoneStatus "Block that outputs zone temperature status"
     final quantity="Time") "Warm-up time"
     annotation (Placement(transformation(extent={{140,140},{180,180}}),
         iconTransformation(extent={{100,50},{140,90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yOccHeaHigMin
-    "True when the occupied heating setpoint temperature is higher than the minimum zone temperature"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yOccHeaHig
+    "True when the occupied heating setpoint temperature is higher than the  zone temperature"
     annotation (Placement(transformation(extent={{140,50},{180,90}}),
         iconTransformation(extent={{100,10},{140,50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yMaxHigOccCoo
-    "True when the maximum zone temperature is higher than the occupied cooling setpoint"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHigOccCoo
+    "True when the zone temperature is higher than the occupied cooling setpoint"
     annotation (Placement(transformation(extent={{140,0},{180,40}}),
         iconTransformation(extent={{100,-10},{140,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLowUnoHea
@@ -196,14 +196,10 @@ equation
           {78,154}}, color={0,0,127}));
   connect(TZonHeaSetOcc, add.u1) annotation (Line(points={{-160,70},{-60,70},{-60,
           76},{-22,76}}, color={0,0,127}));
-  connect(TZonMin, add.u2) annotation (Line(points={{-160,-110},{-60,-110},{-60,
-          64},{-22,64}}, color={0,0,127}));
   connect(add.y, hys.u)
     annotation (Line(points={{2,70},{18,70}}, color={0,0,127}));
   connect(TZonCooSetOcc, add1.u1) annotation (Line(points={{-160,20},{-80,20},{-80,
           26},{-22,26}}, color={0,0,127}));
-  connect(TZonMax, add1.u2) annotation (Line(points={{-160,-20},{-80,-20},{-80,14},
-          {-22,14}}, color={0,0,127}));
   connect(add1.y, hys1.u)
     annotation (Line(points={{2,20},{18,20}}, color={0,0,127}));
   connect(uWinSta, not1.u)
@@ -246,9 +242,9 @@ equation
     annotation (Line(points={{62,-170},{78,-170}}, color={0,0,127}));
   connect(not1.y, booToRea.u)
     annotation (Line(points={{2,120},{18,120}}, color={255,0,255}));
-  connect(hys.y, yOccHeaHigMin)
+  connect(hys.y, yOccHeaHig)
     annotation (Line(points={{42,70},{160,70}}, color={255,0,255}));
-  connect(hys1.y, yMaxHigOccCoo)
+  connect(hys1.y, yHigOccCoo)
     annotation (Line(points={{42,20},{160,20}}, color={255,0,255}));
   connect(pro.y, yCooTim)
     annotation (Line(points={{102,220},{160,220}}, color={0,0,127}));
@@ -268,6 +264,11 @@ equation
           {-22,-60}}, color={255,0,255}));
   connect(con.y, swi1.u2) annotation (Line(points={{-106,140},{-100,140},{-100,-220},
           {-22,-220}}, color={255,0,255}));
+
+  connect(TZon, add.u2) annotation (Line(points={{-160,-60},{-120,-60},{-120,64},
+          {-22,64}}, color={0,0,127}));
+  connect(TZon, add1.u2) annotation (Line(points={{-160,-60},{-120,-60},{-120,
+          14},{-22,14}}, color={0,0,127}));
 
 annotation (
   defaultComponentName = "zonSta",
@@ -418,6 +419,11 @@ the unoccupied cooling setpoint <code>TZonCooSetUno</code>,
 </ul>
 </html>",revisions="<html>
 <ul>
+<li>
+April 29, 2020, by Kun Zhang:<br/>
+Fixed bug related to activation of warm-up and cool down mode.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">#1893</a>.
+</li>
 <li>
 January 15, 2020, by Jianjun Hu:<br/>
 First implementation.

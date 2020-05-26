@@ -60,7 +60,7 @@ protected
     final k=TOutCutoff - 5) "Outdoor air temperature is slightly below the cutoff"
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutCut1(
-    final k=TOutCutoff) "OA temperature high limit cutoff"
+    final k=TOutCutoff)
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TMixMea(
     final k=303.15)

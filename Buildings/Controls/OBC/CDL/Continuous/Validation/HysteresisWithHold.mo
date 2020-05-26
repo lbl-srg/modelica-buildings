@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model HysteresisWithHold "Validation model for the HysteresisWithHold block"
   Modelica.Blocks.Sources.Sine pulse1(
     amplitude = 0.2,
-    freqHz =    1/360) "Generate sine wave signal"
+    freqHz =    1/360)
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Controls.OBC.CDL.Continuous.HysteresisWithHold noHold(
     trueHoldDuration =  0,

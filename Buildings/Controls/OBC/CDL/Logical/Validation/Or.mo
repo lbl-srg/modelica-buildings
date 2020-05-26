@@ -8,13 +8,12 @@ model Or "Validation model for the Or block"
       width=0.5, period=3) "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-26,-26},{-6,-6}})));
   Buildings.Controls.OBC.CDL.Logical.Or or1
-    "Output true if at least one input is true"
     annotation (Placement(transformation(extent={{26,-8},{46,12}})));
 
 equation
-  connect(booPul2.y, or1.u2) annotation (Line(points={{-4,-16},{8,-16},{8,-6},{
-          24,-6}},  color={255,0,255}));
-  connect(booPul1.y, or1.u1) annotation (Line(points={{-4,18},{10,18},{10,2},{
+  connect(booPul2.y, or1.u2) annotation (Line(points={{-5,-16},{8,-16},{8,-6},
+          {24,-6}}, color={255,0,255}));
+  connect(booPul1.y, or1.u1) annotation (Line(points={{-5,18},{10,18},{10,2},{
           24,2}}, color={255,0,255}));
   annotation (
   experiment(StopTime=10.0, Tolerance=1e-06),

@@ -7,14 +7,12 @@ model LessEqualThreshold  "Validation model for the LessEqualThreshold block"
     annotation (Placement(transformation(extent={{-36,-10},{-16,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr
-    "Check if the input is less than or equal to the threshold"
     annotation (Placement(transformation(extent={{16,-10},{36,10}})));
 
 equation
   connect(ramp1.y, lesEquThr.u)
-    annotation (Line(points={{-14,0},{-14,0},{14,0}}, color={0,0,127}));
-
-annotation (
+    annotation (Line(points={{-15,0},{0,0},{14,0}}, color={0,0,127}));
+  annotation (
   experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/LessEqualThreshold.mos"
         "Simulate and plot"),

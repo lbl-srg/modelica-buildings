@@ -47,9 +47,9 @@ block ModeAndSetPoints
     annotation (Dialog(tab="Operation mode", group="Parameters"));
   parameter Real warCooTim(
     final unit="s",
-    final quantity="Time")=1800
+    final quantity="Time")=0
     "Defined cool-down/warm-up time"
-    annotation (Dialog(tab="Operation mode", group="Test setting"));
+    annotation (Dialog(tab="Operation mode", group="Parameters"));
   parameter Boolean have_occSen=false
     "Check if the zone has occupancy sensor"
     annotation (Dialog(tab="Setpoint adjust", group="Sensors"));
@@ -320,10 +320,10 @@ equation
           {30,59},{30,-2},{38,-2}},     color={0,0,127}));
   connect(zonSta.yWarTim, opeModSel.maxWarUpTim) annotation (Line(points={{-38,57},
           {28,57},{28,-4},{38,-4}}, color={0,0,127}));
-  connect(zonSta.yOccHeaHigMin, opeModSel.occHeaHigMin) annotation (Line(points={{-38,53},
+  connect(zonSta.yOccHeaHig, opeModSel.uOccHeaHig) annotation (Line(points={{-38,53},
           {26,53},{26,-6},{38,-6}},          color={255,0,255}));
-  connect(zonSta.yMaxHigOccCoo, opeModSel.maxHigOccCoo) annotation (Line(points={{-38,51},
-          {24,51},{24,-8},{38,-8}},          color={255,0,255}));
+  connect(zonSta.yHigOccCoo, opeModSel.uHigOccCoo) annotation (Line(points={{-38,
+          51},{24,51},{24,-8},{38,-8}}, color={255,0,255}));
   connect(zonSta.yUnoHeaHigMin, opeModSel.unoHeaHigMin) annotation (Line(points={{-38,45},
           {22,45},{22,-14},{38,-14}},          color={255,0,255}));
   connect(TZon, opeModSel.TZonMax) annotation (Line(points={{-180,-50},{-68,-50},
@@ -352,9 +352,9 @@ equation
           {-76,150},{-76,-75.2},{78,-75.2}}, color={0,0,127}));
   connect(TSetRooHeaOff.y, TZonSet.TZonHeaSetUno) annotation (Line(points={{-98,70},
           {-80,70},{-80,-79},{78,-79}},     color={0,0,127}));
-
   connect(uWinSta, opeModSel.uWinSta) annotation (Line(points={{-180,-200},{-72,
           -200},{-72,-10},{38,-10}}, color={255,0,255}));
+
 annotation (defaultComponentName="modSetPoi",
   Diagram(coordinateSystem(extent={{-160,-220},{160,220}})),
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

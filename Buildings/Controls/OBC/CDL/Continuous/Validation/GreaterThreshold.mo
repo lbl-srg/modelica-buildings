@@ -7,12 +7,11 @@ model GreaterThreshold  "Validation model for the GreaterThreshold block"
     annotation (Placement(transformation(extent={{-26,-8},{-6,12}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr
-    "Check if the input is greater than the threshold"
     annotation (Placement(transformation(extent={{26,-8},{46,12}})));
 
 equation
   connect(ramp2.y, greThr.u)
-    annotation (Line(points={{-4,2},{-4,2},{24,2}},color={0,0,127}));
+    annotation (Line(points={{-5,2},{8,2},{24,2}}, color={0,0,127}));
   annotation (
   experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/GreaterThreshold.mos"

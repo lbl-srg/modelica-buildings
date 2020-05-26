@@ -351,7 +351,6 @@ protected
     "Output 0 or 1 request "
     annotation (Placement(transformation(extent={{100,-440},{120,-420}})));
   Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol(duration=samplePeriod)
-    "Hold true signal for sample period of time"
     annotation (Placement(transformation(extent={{120,330},{140,350}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi "Logical switch"
     annotation (Placement(transformation(extent={{120,300},{140,280}})));
