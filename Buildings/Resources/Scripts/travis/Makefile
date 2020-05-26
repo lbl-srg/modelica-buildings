@@ -59,6 +59,7 @@ test-cdl-conformance:
 
 test-dymola:
 	(cd $(ROOT)/Buildings && \
+	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/Buildings/Resources/Python-Sources && \
 	  python ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool dymola)
 
 test-optimica:
