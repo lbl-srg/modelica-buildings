@@ -1,19 +1,18 @@
 within Buildings.ThermalZones.EnergyPlus.BaseClasses;
-function writerExchange
+function inputVariableExchange
   "Exchange the values with the EnergyPlus actuator or schedule"
   extends Modelica.Icons.Function;
 
-  input Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUWriterClass adapter
+  input Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUInputVariableClass adapter
     "External object";
   input Boolean initialCall "Set to true if initial() is true, false otherwise";
-  input Modelica.SIunits.Time tModel "Current model time";
   input Real u "Value for the EnergyPlus actuator or schedule";
-  output Modelica.SIunits.Time tNext "Next time that the actuator or schedule variable needs to be sent";
+  input Modelica.SIunits.Time tModel "Current model time";
 
-  external "C" WriterExchange(adapter, initialCall, tModel, u, tNext)
+  external "C" InputVariableExchange(adapter, initialCall, u, tModel)
       annotation (
         IncludeDirectory="modelica://Buildings/Resources/C-Sources/EnergyPlus",
-        Include="#include \"WriterExchange.c\"");
+        Include="#include \"InputVariableExchange.c\"");
 
   annotation (Documentation(info="<html>
 <p>
@@ -28,4 +27,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end writerExchange;
+end inputVariableExchange;

@@ -1,16 +1,16 @@
 within Buildings.ThermalZones.EnergyPlus.BaseClasses;
-function writerInitialize
+function inputVariableInitialize
   "Initialization for an EnergyPlus actuator or schedule"
   extends Modelica.Icons.Function;
 
-  input Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUWriterClass adapter
+  input Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUInputVariableClass adapter
     "External object";
   input Modelica.SIunits.Time startTime "Start time of the simulation";
 
-  external "C" WriterInstantiate(adapter, startTime)
+  external "C" InputVariableInstantiate(adapter, startTime)
  annotation (
    IncludeDirectory="modelica://Buildings/Resources/C-Sources/EnergyPlus",
-   Include="#include \"WriterInstantiate.c\"");
+   Include="#include \"InputVariableInstantiate.c\"");
 
   annotation (Documentation(info="<html>
 <p>
@@ -25,4 +25,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end writerInitialize;
+end inputVariableInitialize;

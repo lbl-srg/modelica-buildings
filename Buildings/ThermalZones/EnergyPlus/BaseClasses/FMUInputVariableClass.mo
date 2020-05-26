@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.EnergyPlus.BaseClasses;
-class FMUWriterClass
+class FMUInputVariableClass
   "Class used to couple the FMU to send values to actuators and schedules"
   extends Modelica.Icons.BasesPackage;
   extends ExternalObject;
@@ -11,15 +11,15 @@ class FMUWriterClass
     input Integer objectType "Set to 1 for Actuator and 2 for Schedule";
     input String modelicaNameBuilding
       "Name of this Modelica building instance that requests this output variable";
-    input String modelicaNameWriter
+    input String modelicaNameInputVariable
       "Name of the Modelica instance that requests this output variable";
     input String idfName "Name of the IDF";
     input String weaName "Name of the weather file";
     input String writerName "EnergyPlus name of the actuator or schedule";
-    input Buildings.ThermalZones.EnergyPlus.Types.Units unit "Unit of variable as used in Modelica";
     input String componentName "Actuated component unique name in the EnergyPlus idf file (not used for schedule)";
     input String componentType "Actuated component type (not used for schedule)";
     input String controlType   "Actuated component control type (not used for schedule)";
+    input String unit "Unit of the input in Modelica";
     input Boolean usePrecompiledFMU "Set to true to use precompiled FMU with name specified by input fmuName";
     input String fmuName
       "Specify if a pre-compiled FMU should be used instead of EnergyPlus (mainly for development)";
@@ -27,25 +27,25 @@ class FMUWriterClass
     input Buildings.ThermalZones.EnergyPlus.Types.Verbosity verbosity
     "Verbosity of EnergyPlus output"
     annotation(Dialog(tab="Debug"));
-    output FMUWriterClass adapter;
-    external "C" adapter = WriterAllocate(
+    output FMUInputVariableClass adapter;
+    external "C" adapter = InputVariableAllocate(
       objectType,
       modelicaNameBuilding,
-      modelicaNameWriter,
+      modelicaNameInputVariable,
       idfName,
       weaName,
       writerName,
-      unit,
       componentName,
       componentType,
       controlType,
+      unit,
       usePrecompiledFMU,
       fmuName,
       buildingsLibraryRoot,
       verbosity)
         annotation (
           IncludeDirectory="modelica://Buildings/Resources/C-Sources/EnergyPlus",
-          Include="#include \"WriterAllocate.c\"",
+          Include="#include \"InputVariableAllocate.c\"",
           Library={"fmilib_shared", "dl"});
           // dl provides dlsym to load EnergyPlus dll, which is needed by OpenModelica compiler
 
@@ -69,11 +69,11 @@ First implementation.
   function destructor "Release storage"
     extends Modelica.Icons.Function;
 
-    input FMUWriterClass adapter;
-    external "C" ScheduleFree(adapter)
+    input FMUInputVariableClass adapter;
+    external "C" InputVariableFree(adapter)
         annotation (
           IncludeDirectory="modelica://Buildings/Resources/C-Sources/EnergyPlus",
-          Include="#include \"ScheduleFree.c\"");
+          Include="#include \"InputVariableFree.c\"");
 
   annotation(Documentation(info="<html>
 <p>
@@ -105,4 +105,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end FMUWriterClass;
+end FMUInputVariableClass;

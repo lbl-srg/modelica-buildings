@@ -3,10 +3,11 @@ model OutputVariable
   "Block to read an EnergyPlus output variable for use in Modelica"
   extends Buildings.ThermalZones.EnergyPlus.BaseClasses.PartialEnergyPlusObject;
 
-  parameter String key
-    "EnergyPlus key of the output variable";
   parameter String name
     "EnergyPlus name of the output variable as in the EnergyPlus .rdd or .mdd file";
+  parameter String key
+    "EnergyPlus key of the output variable";
+
 
   discrete Modelica.Blocks.Interfaces.RealOutput y "Output received from EnergyPlus" annotation (Placement(
         transformation(extent={{100,-10},{120,10}})));
@@ -22,8 +23,8 @@ protected
       modelicaNameOutputVariable=modelicaNameOutputVariable,
       idfName=idfName,
       weaName=epWeaName,
-      outputKey=key,
-      outputName=name,
+      componentName=name,
+      componentKey=key,
       usePrecompiledFMU=usePrecompiledFMU,
       fmuName=fmuName,
       buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
@@ -73,7 +74,7 @@ Block that retrieves an output variable from EnergyPlus.
 <p>
 This model instantiates an FMU with the name <code>idfName</code> and
 reads at every EnergyPlus zone time step the output variable specified
-by the parameters <code>outputKey</code> and <code>outputName</code>.
+by the parameters <code>componentKey</code> and <code>componentName</code>.
 These parameters are the values for the EnergyPlus variable key and name,
 which can be found in the EnergyPlus result dictionary file (<code>.rdd</code> file)
 or the EnergyPlus meter dictionary file (<code>.mdd</code> file).

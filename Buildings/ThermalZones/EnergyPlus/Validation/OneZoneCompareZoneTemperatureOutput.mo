@@ -4,8 +4,8 @@ model OneZoneCompareZoneTemperatureOutput
   extends Buildings.ThermalZones.EnergyPlus.Validation.OneZone;
 
   Buildings.ThermalZones.EnergyPlus.OutputVariable zonMeaAirTem(
-    key="LIVING ZONE",
     name="Zone Mean Air Temperature",
+    key="LIVING ZONE",
     y(final unit="K",
       displayUnit="degC"))
     "Block that reads output from EnergyPlus"

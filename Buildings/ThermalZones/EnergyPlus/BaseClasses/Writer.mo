@@ -5,10 +5,9 @@ partial model Writer "Block to write to an EnergyPlus actuator or schedule"
   parameter String name
     "Name of an EnergyPlus variable (need not be present in the idf file)";
 
-  parameter Buildings.ThermalZones.EnergyPlus.Types.Units unit=
-    Buildings.ThermalZones.EnergyPlus.Types.Units.unspecified
+  parameter Buildings.ThermalZones.EnergyPlus.Types.Units unit
     "Unit of variable as used in Modelica"
-    annotation(Evaluate=true);
+    annotation(choicesAllMatching = true);
 
   parameter String componentName
     "Actuated component unique name in the EnergyPlus idf file";
@@ -35,27 +34,58 @@ partial model Writer "Block to write to an EnergyPlus actuator or schedule"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
 protected
-  constant String modelicaNameWriter = getInstanceName()
+  constant String modelicaNameInputVariable = getInstanceName()
     "Name of this instance"
     annotation(HideResult=true);
   constant Integer objectType "Set to 1 for Actuator and 2 for Schedule";
 
-  parameter Modelica.SIunits.Time startTime(fixed=false) "Simulation start time";
+  parameter String unitAsString=
+  if unit==Types.Units.Normalized then
+    "1"
+  elseif unit == Types.Units.AngleRad then
+    "rad"
+  elseif unit == Types.Units.AngleDeg then
+    "deg"
+  elseif unit == Types.Units.Energy then
+    "J"
+  elseif unit == Types.Units.Illuminance then
+    "lm/m2"
+  elseif unit == Types.Units.HumidityAbsolute then
+    "kg/kg"
+  elseif unit == Types.Units.HumidityRelative then
+    "1"
+  elseif unit == Types.Units.LuminousFlux then
+    "cd.sr"
+  elseif unit == Types.Units.MassFlowRate then
+    "kg/s"
+  elseif unit == Types.Units.Power then
+    "W"
+  elseif unit == Types.Units.Pressure then
+    "Pa"
+  elseif unit == Types.Units.Status then
+    "1"
+  elseif unit == Types.Units.Temperature then
+    "K"
+  elseif unit == Types.Units.Time then
+    "s"
+  elseif unit == Types.Units.VolumeFlowRate then
+    "m3/s"
+  else
+    "error";
 
-  Modelica.SIunits.Time tNext(start=startTime, fixed=true) "Next sampling time";
 
-  Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUWriterClass adapter=
-      Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUWriterClass(
+  Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUInputVariableClass adapter=
+      Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUInputVariableClass(
       objectType=objectType,
       modelicaNameBuilding=modelicaNameBuilding,
-      modelicaNameWriter=modelicaNameWriter,
+      modelicaNameInputVariable=modelicaNameInputVariable,
       idfName=idfName,
       weaName=epWeaName,
       writerName=name,
-      unit=unit,
       componentName=componentName,
       componentType=componentType,
       controlType=controlType,
+      unit=unitAsString,
       usePrecompiledFMU=usePrecompiledFMU,
       fmuName=fmuName,
       buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
@@ -66,23 +96,55 @@ protected
   Integer counter "Counter for number of calls to EnergyPlus during time steps";
 
 initial equation
-  Buildings.ThermalZones.EnergyPlus.BaseClasses.writerInitialize(
+  Buildings.ThermalZones.EnergyPlus.BaseClasses.inputVariableInitialize(
     adapter = adapter,
     startTime = time);
   counter = 0;
-
+/*
+  if unit==Types.Units.Normalized then
+    unitAsString = "1";
+  elseif unit == Types.Units.AngleRad then
+    unitAsString = "rad";
+  elseif unit == Types.Units.AngleDeg then
+    unitAsString = "deg";
+  elseif unit == Types.Units.Energy then
+    unitAsString = "J";
+  elseif unit == Types.Units.Illuminance then
+    unitAsString = "lm/m2";
+  elseif unit == Types.Units.HumidityAbsolute then
+    unitAsString = "kg/kg";
+  elseif unit == Types.Units.HumidityRelative then
+    unitAsString = "1";
+  elseif unit == Types.Units.LuminousFlux then
+    unitAsString = "cd.sr";
+  elseif unit == Types.Units.MassFlowRate then
+    unitAsString = "kg/s";
+  elseif unit == Types.Units.Power then
+    unitAsString = "W";
+  elseif unit == Types.Units.Pressure then
+    unitAsString = "Pa";
+  elseif unit == Types.Units.Status then
+    unitAsString = "1";
+  elseif unit == Types.Units.Temperature then
+    unitAsString = "K";
+  elseif unit == Types.Units.Time then
+    unitAsString = "s";
+  elseif unit == Types.Units.VolumeFlowRate then
+    unitAsString = "m3/s";
+  end if;
+  */
 equation
   sampleTrigger = if useSamplePeriod then sample(startTime, samplePeriod) else false;
 
   // The 'not initial()' triggers one sample when the continuous time simulation starts.
   // This is required for the correct event handling. Otherwise the regression tests will fail.
- // when {initial(), not initial(), time >= pre(tNext)} then
-  when {initial(), time >= pre(tNext), sampleTrigger, not initial()} then
-    tNext = Buildings.ThermalZones.EnergyPlus.BaseClasses.writerExchange(
+ // when {initial(), not initial()} then
+  when {initial(), sampleTrigger, not initial()} then
+    Buildings.ThermalZones.EnergyPlus.BaseClasses.inputVariableExchange(
       adapter,
       initial(),
-      round(time, 1E-3),
-      u);
+      u,
+      round(time, 1E-3));
     counter = pre(counter) + 1;
   end when;
 

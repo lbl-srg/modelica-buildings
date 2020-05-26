@@ -102,6 +102,10 @@ size_t AllocateBuildingDataStructure(
   Buildings_FMUS[nFMU]->nZon = 0;
   Buildings_FMUS[nFMU]->zones = NULL;
 
+  /* Initialize input variable data */
+  Buildings_FMUS[nFMU]->nInputVariables = 0;
+  Buildings_FMUS[nFMU]->inputVariables = NULL;
+
   /* Initialize output variable data */
   Buildings_FMUS[nFMU]->nOutputVariables = 0;
   Buildings_FMUS[nFMU]->outputVariables = NULL;
@@ -145,12 +149,43 @@ void AddZoneToBuilding(FMUZone* ptrZone){
   fmu->nZon++;
 }
 
-void AddOutputVariableToBuilding(FMUOutputVariable* ptrOutVar){
-  FMUBuilding* fmu = ptrOutVar->ptrBui;
+void AddInputVariableToBuilding(FMUInputVariable* ptrVar){
+  FMUBuilding* fmu = ptrVar->ptrBui;
+  const size_t nInputVariables = fmu->nInputVariables;
+
+  if (FMU_EP_VERBOSITY >= MEDIUM)
+    ModelicaFormatMessage("EnergyPlusFMU.c: Adding input variable %lu with name %s",
+      nInputVariables+1,
+      ptrVar->modelicaNameInputVariable);
+
+  if (nInputVariables == 0){
+    fmu->inputVariables=malloc(sizeof(FMUInputVariable *));
+    if ( fmu->inputVariables== NULL )
+      ModelicaError("Not enough memory in EnergyPlusFMU.c. to allocate input variables.");
+  }
+  else{
+    /* We already have nInputVariables > 0 input variables. */
+
+    /* Increment size of vector that contains the input variables. */
+    fmu->inputVariables = realloc(fmu->inputVariables, (nInputVariables + 1) * sizeof(FMUInputVariable*));
+    if (fmu->inputVariables == NULL){
+      ModelicaError("Not enough memory in EnergyPlusFMU.c. to allocate memory for fmu->inputVariables.");
+    }
+  }
+  /* Assign the input variable */
+  fmu->inputVariables[nInputVariables] = ptrVar;
+  /* Increment the count of input variables of this building. */
+  fmu->nInputVariables++;
+}
+
+void AddOutputVariableToBuilding(FMUOutputVariable* ptrVar){
+  FMUBuilding* fmu = ptrVar->ptrBui;
   const size_t nOutputVariables = fmu->nOutputVariables;
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("EnergyPlusFMU.c: Adding output variable %lu with name %s", nOutputVariables+1, ptrOutVar->modelicaNameOutputVariable);
+    ModelicaFormatMessage("EnergyPlusFMU.c: Adding output variable %lu with name %s",
+      nOutputVariables+1,
+      ptrVar->modelicaNameOutputVariable);
 
   if (nOutputVariables == 0){
     fmu->outputVariables=malloc(sizeof(FMUOutputVariable *));
@@ -167,7 +202,7 @@ void AddOutputVariableToBuilding(FMUOutputVariable* ptrOutVar){
     }
   }
   /* Assign the output variable */
-  fmu->outputVariables[nOutputVariables] = ptrOutVar;
+  fmu->outputVariables[nOutputVariables] = ptrVar;
   /* Increment the count of output variables of this building. */
   fmu->nOutputVariables++;
 }

@@ -1,11 +1,10 @@
 within Buildings.ThermalZones.EnergyPlus.Types;
 type Units = enumeration(
-    UnitLess        "No units, such as a control signal between 0 and 1",
+    Normalized      "Normalized, such as a control signal between 0 and 1 or status 0, 1, 2, ... (1)",
     AngleRad        "Angle (rad)",
     AngleDeg        "Angle (deg)",
-    EnergyJ         "Energy (J)",
-    Illuminance_lm_m2
-                    "Illuminance",
+    Energy          "Energy (J)",
+    Illuminance     "Illuminance",
     HumidityAbsolute
                     "Absolute humidity (mass fraction per total mass of moist air)",
     HumidityRelative
@@ -17,9 +16,7 @@ type Units = enumeration(
     Status          "Status (e.g., rain) (1)",
     Temperature     "Temperature (K)",
     Time            "Time (s)",
-    Transmittance   "Transmittance, reflectance and absorptance (1)",
-    VolumeFlowRate  "VolumeFlowRate (m3/s)",
-    unspecified     "Unspecified (not a valid entry for simulation)")
+    VolumeFlowRate  "VolumeFlowRate (m3/s)")
   "Enumeration for units used for schedules and EMS actuators"
  annotation (
     Documentation(info="<html>
@@ -97,16 +94,7 @@ per total mass of moist air)</p></td>
 <td><p>s</p></td>
 <td><p>s</p></td>
 </tr>
-<tr class=\"row-odd\"><td><p>Transmittance,
-reflectance, and
-absorptance</p></td>
-<td><p>(no character,
-specified as a
-value between 0
-and 1)</p></td>
-<td><p>1</p></td>
-</tr>
-<tr class=\"row-even\"><td><p>Volume flow rate</p></td>
+<tr class=\"row-odd\"><td><p>Volume flow rate</p></td>
 <td><p>m3/s</p></td>
 <td><p>m3/s</p></td>
 </tr>

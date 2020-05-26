@@ -14,26 +14,37 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <stdbool.h>
 #include "../cryptographicsHash.c"
+
+void buildJSONKeyValue(char* *buffer, const char* key, const char* value, bool addComma, size_t* size){
+  saveAppend(buffer, "    \"", size);
+  saveAppend(buffer, key, size);
+  saveAppend(buffer, "\": \"", size);
+  saveAppend(buffer, value, size);
+  if (addComma)
+    saveAppend(buffer, "\",\n", size);
+  else
+    saveAppend(buffer, "\"\n", size);
+}
 
 void buildJSONModelStructureForEnergyPlus(
   const FMUBuilding* bui, char* *buffer, size_t* size, char** modelHash){
   int i;
+  int iWri;
+  int nSch;
   FMUZone** zones = (FMUZone**)bui->zones;
+  FMUInputVariable** inpVars;
   FMUOutputVariable** outVars;
 
   saveAppend(buffer, "{\n", size);
-  saveAppend(buffer, "  \"version\": \"0.1\",\n", size);
+  buildJSONKeyValue(buffer, "version", "0.1", true, size);
   saveAppend(buffer, "  \"EnergyPlus\": {\n", size);
   /* idf name */
-  saveAppend(buffer, "    \"idf\": \"", size);
-  saveAppend(buffer, bui->idfName, size);
-  saveAppend(buffer, "\",\n", size);
+  buildJSONKeyValue(buffer, "idf", bui->idfName, true, size);
 
   /* weather file */
-  saveAppend(buffer, "    \"weather\": \"", size);
-  saveAppend(buffer, bui->weather, size);
-  saveAppend(buffer, "\"\n", size);
+  buildJSONKeyValue(buffer, "weather", bui->weather, false, size);
   saveAppend(buffer, "  },\n", size);
 
   /* model information */
@@ -41,23 +52,97 @@ void buildJSONModelStructureForEnergyPlus(
   saveAppend(buffer, "    \"zones\": [\n", size);
   /* Write zone names */
   for(i = 0; i < bui->nZon; i++){
-    saveAppend(buffer, "        { \"name\": \"", size);
-    saveAppend(buffer, zones[i]->name, size);
-    if (i < (bui->nZon) - 1)
-      saveAppend(buffer, "\" },\n", size);
+    saveAppend(buffer, "        {\n", size);
+    buildJSONKeyValue(buffer, "name", zones[i]->name, (i < (bui->nZon) - 1), size);
+    /* closing the zones array */
+    if (i < bui->nZon -1)
+      saveAppend(buffer, "        },\n", size);
     else
-      saveAppend(buffer, "\" }\n", size);
+      saveAppend(buffer, "        }\n", size);
+
   }
   /* Close json array for zones */
   saveAppend(buffer, "    ]", size);
-  if (bui->nOutputVariables == 0){
-    /* There are no more other objects */
+  if (bui->nInputVariables + bui->nOutputVariables == 0){
+    /* There are no more other objects that belong to "model" */
     saveAppend(buffer, "\n", size);
   }
   else{
     /* There are other objects that belong to "model" */
     saveAppend(buffer, ",\n", size);
   }
+
+  /* Write schedule names */
+  inpVars = (FMUInputVariable**)bui->inputVariables;
+  /* Count the number of schedules */
+  nSch = 0;
+  for(i = 0; i < bui->nInputVariables; i++){
+    if (inpVars[i]->componentType == NULL){
+      /* This is a schedule, not an EMS actuator */
+      nSch++;
+    }
+  }
+  /* Write the schedule objects, if any. */
+  iWri = 0;
+  for(i = 0; i < bui->nInputVariables; i++){
+    if (inpVars[i]->componentType == NULL){ /* Found a schedule */
+      if (iWri == 0)
+        saveAppend(buffer, "    \"schedules\": [\n", size);
+      saveAppend(buffer, "        {\n", size);
+      buildJSONKeyValue(buffer, "name", inpVars[i]->name, true, size);
+      buildJSONKeyValue(buffer, "unit", inpVars[i]->unit, true, size);
+      buildJSONKeyValue(buffer, "fmiName", inpVars[i]->inputs->fmiNames[0], false, size);
+      /* closing the inputVariables array */
+      if (iWri < nSch-1)
+        saveAppend(buffer, "        },\n", size);
+      else
+        saveAppend(buffer, "        }\n", size);
+      iWri++;
+    }
+    /* Close json array for schedules */
+    saveAppend(buffer, "    ]", size);
+    if (bui->nInputVariables - iWri + bui->nOutputVariables == 0){
+      /* There are no more other objects that belong to "model" */
+      saveAppend(buffer, "\n", size);
+    }
+    else{
+      /* There are other objects that belong to "model" */
+      saveAppend(buffer, ",\n", size);
+    }
+  }
+
+  /* Write the EMS actuator objects, if any */
+  iWri = 0;
+  for(i = 0; i < bui->nInputVariables; i++){
+    if (inpVars[i]->componentType != NULL){ /* Found an EMS actuator */
+      if (iWri == 0)
+        saveAppend(buffer, "    \"emsActuators\": [\n", size);
+      saveAppend(buffer, "        {\n", size);
+      buildJSONKeyValue(buffer, "name", inpVars[i]->name, true, size);
+      buildJSONKeyValue(buffer, "componentName", inpVars[i]->componentName, true, size);
+      buildJSONKeyValue(buffer, "componentType", inpVars[i]->componentType, true, size);
+      buildJSONKeyValue(buffer, "controlType", inpVars[i]->controlType, true, size);
+      buildJSONKeyValue(buffer, "unit", inpVars[i]->unit, true, size);
+      buildJSONKeyValue(buffer, "fmiName", inpVars[i]->inputs->fmiNames[0], false, size);
+      /* closing the inputVariables array */
+      if (iWri < bui->nInputVariables-nSch-1)
+        saveAppend(buffer, "        },\n", size);
+      else
+        saveAppend(buffer, "        }\n", size);
+      iWri++;
+    }
+    /* Close json array for EMS actuators */
+    saveAppend(buffer, "    ]", size);
+    if (bui->nOutputVariables == 0){
+      /* There are no more other objects that belong to "model"  */
+      saveAppend(buffer, "\n", size);
+    }
+    else{
+      /* There are other objects that belong to "model" */
+      saveAppend(buffer, ",\n", size);
+    }
+  }
+
   /* Write output names */
   if (bui->nOutputVariables > 0){
     outVars = (FMUOutputVariable**)bui->outputVariables;
@@ -65,25 +150,16 @@ void buildJSONModelStructureForEnergyPlus(
   }
   for(i = 0; i < bui->nOutputVariables; i++){
     saveAppend(buffer, "        {\n", size);
-    /* name */
-    saveAppend(buffer, "          \"name\": \"", size);
-    saveAppend(buffer, outVars[i]->name, size);
-    saveAppend(buffer, "\",\n", size);
-    /* key */
-    saveAppend(buffer, "          \"key\": \"", size);
-    saveAppend(buffer, outVars[i]->key, size);
-    saveAppend(buffer, "\",\n", size);
-    /* fmiName */
-    saveAppend(buffer, "          \"fmiName\": \"", size);
-    saveAppend(buffer, outVars[i]->outputs->fmiNames[0], size);
-    saveAppend(buffer, "\"\n", size);
-    /* closing the outputVariables item */
-    saveAppend(buffer, "        }", size);
+    buildJSONKeyValue(buffer, "name", outVars[i]->name, true, size);
+    buildJSONKeyValue(buffer, "key",  outVars[i]->key,  true, size);
+    buildJSONKeyValue(buffer, "fmiName",  outVars[i]->outputs->fmiNames[0], false, size);
+    /* closing the outputVariables array */
     if (i < (bui->nOutputVariables) - 1)
-      saveAppend(buffer, ",\n", size);
+      saveAppend(buffer, "        },\n", size);
     else
-      saveAppend(buffer, "\n    ]\n", size);
+      saveAppend(buffer, "        }\n    ]\n", size);
   }
+
   /* Close json object for model */
   saveAppend(buffer, "  },\n", size);
 
@@ -91,11 +167,9 @@ void buildJSONModelStructureForEnergyPlus(
 
     /* fmu */
   saveAppend(buffer, "  \"fmu\": {\n", size);
-  saveAppend(buffer, "      \"name\": \"", size);
-  saveAppend(buffer, bui->fmuAbsPat, size);
-  saveAppend(buffer, "\",\n", size);
-  saveAppend(buffer, "      \"version\": \"2.0\",\n", size);
-  saveAppend(buffer, "      \"kind\"   : \"ME\"\n", size);
+  buildJSONKeyValue(buffer, "name", bui->fmuAbsPat, true, size);
+  buildJSONKeyValue(buffer, "version", "2.0", true, size);
+  buildJSONKeyValue(buffer, "kind", "ME", false, size);
   saveAppend(buffer, "  }\n", size);
 
   /* Close json structure */
@@ -196,6 +270,7 @@ void setValueReferences(FMUBuilding* fmuBui){
   size_t iVar;
   size_t vr;
   FMUZone* zone;
+  FMUInputVariable* inpVar;
   FMUOutputVariable* outVar;
 
   fmi2_import_variable_list_t* vl = fmi2_import_get_variable_list(fmuBui->fmu, 0);
@@ -212,6 +287,13 @@ void setValueReferences(FMUBuilding* fmuBui){
     setAttributesReal(fmuBui->fmuAbsPat, fmuBui->idfName, vl, vrl, nv, zone->parameters);
     setAttributesReal(fmuBui->fmuAbsPat, fmuBui->idfName, vl, vrl, nv, zone->inputs);
     setAttributesReal(fmuBui->fmuAbsPat, fmuBui->idfName, vl, vrl, nv, zone->outputs);
+  }
+
+  /* Set value references for the input variables by assigning the values obtained from the FMU */
+  for(i = 0; i < fmuBui->nInputVariables; i++){
+    inpVar = (FMUInputVariable*) fmuBui->inputVariables[i];
+    setAttributesReal(fmuBui->fmuAbsPat, fmuBui->idfName, vl, vrl, nv, inpVar->inputs);
+    inpVar->valueReferenceIsSet = true;
   }
 
   /* Set value references for the output variables by assigning the values obtained from the FMU */

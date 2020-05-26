@@ -61,7 +61,7 @@ void OutputVariableExchange(
       if (outVar->outputs->units[0]) /* modelDescription.xml defines unit */
         ModelicaFormatMessage("Output %s.y has in Modelica the unit %s.\n",
           outVar->modelicaNameOutputVariable,
-          fmi2_import_get_unit_name(outVar->outputs->units[0]));      
+          fmi2_import_get_unit_name(outVar->outputs->units[0]));
       else
         ModelicaFormatMessage("Output %s.y has same unit as EnergyPlus, but EnergyPlus does not define the unit of this output.\n",
           outVar->modelicaNameOutputVariable);
@@ -113,7 +113,7 @@ void OutputVariableExchange(
   /* Get output */
   getVariables(bui, outVar->modelicaNameOutputVariable, outVar->outputs);
 
-  *y = outVar->outputs->valsEP[0];
+  *y = outVar->outputs->valsSI[0];
 
   if (FMU_EP_VERBOSITY >= TIMESTEP)
     ModelicaFormatMessage("Returning from OutputVariablesExchange with nextEventTime = %.2f, y = %.2f, output variable = %s, mode = %s\n",

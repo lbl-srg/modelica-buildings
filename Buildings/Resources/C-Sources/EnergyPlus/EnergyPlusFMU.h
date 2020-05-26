@@ -31,6 +31,8 @@ void AddZoneToBuilding(FMUZone* ptrZone);
 
 void AddOutputVariableToBuilding(FMUOutputVariable* ptrOutVar);
 
+void AddInputVariableToBuilding(FMUInputVariable* ptrOutVar);
+
 FMUBuilding* getBuildingsFMU(size_t iFMU);
 
 void FMUBuildingFree(FMUBuilding* ptrBui);
