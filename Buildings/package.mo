@@ -429,7 +429,7 @@ its class name ends with the string <code>Beta</code>.
         </td>
     </tr>
     <tr><td valign=\"top\">Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal<br/>
-		   Buildings.Fluid.Actuators.Dampers.PressureIndependent
+                           Buildings.Fluid.Actuators.Dampers.PressureIndependent
         </td>
         <td valign=\"top\">Added the computation of the damper opening.
         </td>
@@ -799,11 +799,11 @@ its class name ends with the string <code>Beta</code>.
         </td>
     </tr>
     <tr><td valign=\"top\">Buildings.Examples.VAVReheat.ASHRAE2006<br/>
-		   Buildings.Examples.VAVReheat.Guideline36
+                           Buildings.Examples.VAVReheat.Guideline36
         </td>
         <td valign=\"top\">Connected actual VAV damper position as the measured input data for
-		   defining duct static pressure setpoint.<br/>
-		   This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1873\">#1873</a>.
+                           defining duct static pressure setpoint.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1873\">#1873</a>.
         </td>
     </tr>
     <tr><td valign=\"top\">Buildings.Examples.VAVReheat.Controls.DuctStaticPressureSetpoint
@@ -814,9 +814,9 @@ its class name ends with the string <code>Beta</code>.
     <tr><td valign=\"top\">Buildings.Examples.VAVReheat.Controls.RoomVAV
         </td>
         <td valign=\"top\">Refactored the model to implement a single maximum control logic.
-		   The previous implementation led to a maximum air flow rate in heating demand.<br/>
- 		   The input connector <code>TDis</code> is removed. This is non backward compatible.<br/>
-		   This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1873\">#1873</a>.
+                           The previous implementation led to a maximum air flow rate in heating demand.<br/>
+                           The input connector <code>TDis</code> is removed. This is non backward compatible.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1873\">#1873</a>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
