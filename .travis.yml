@@ -28,7 +28,6 @@ env:
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Controls.OBC\""
     - TEST_ARG="make test-jmodelica PACKAGE=\"Buildings.Controls.OBC\""
 
-
 before_install:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - if [[ "$TEST_ARG" == *test-dymola* ]]; then
