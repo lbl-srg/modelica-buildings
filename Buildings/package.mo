@@ -145,11 +145,6 @@ its class name ends with the string <code>Beta</code>.
                            models for the OpenBuildingControl (OBC) library.
         </td>
         </tr>
-    <tr><td valign=\"top\">Buildings.Media.Steam
-        </td>
-        <td valign=\"top\">Package with steam medium model for modeling steam heating systems.
-        </td>
-        </tr>
     <tr><td valign=\"top\">Buildings.Utilities.IO.SignalExchange
         </td>
         <td valign=\"top\">Package with blocks that can be used
@@ -8092,6 +8087,8 @@ The following people have directly contributed to the implementation of the Buil
 <li>Vladimir Vukovic, Austrian Institute of Technology, Austria
 </li>
 <li>Michael Wetter, Lawrence Berkeley National Laboratory, USA
+</li>
+<li>Tea Zakula, University of Zagreb, Croatia
 </li>
 <li>Rebecca Zarin Pass, Lawrence Berkeley National Laboratory, USA
 </li>
