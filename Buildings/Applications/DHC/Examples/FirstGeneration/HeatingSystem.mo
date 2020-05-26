@@ -123,8 +123,7 @@ model HeatingSystem "Generic first generation district heating system"
     "Type of energy balance: steady state";
 
 
-  Buildings.Applications.DHC.CentralPlants.Gen1st.Heating.HeatingPlant1stGen
-    pla(
+  Buildings.Applications.DHC.CentralPlants.Gen1st.Heating.HeatingPlant pla(
     redeclare package Medium_a = MediumWat,
     redeclare package Medium_b = MediumSte,
     mPla_flow_nominal=mConPlaDis_flow_nominal,

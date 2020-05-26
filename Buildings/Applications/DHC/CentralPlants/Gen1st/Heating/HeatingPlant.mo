@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.CentralPlants.Gen1st.Heating;
-model HeatingPlant1stGen "First generation district heating plant"
+model HeatingPlant "First generation district heating plant"
 
   replaceable package Medium_a =
       Modelica.Media.Interfaces.PartialMedium
@@ -215,4 +215,4 @@ equation
           extent={{-149,-114},{151,-154}},
           lineColor={0,0,255},
           textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false)));
-end HeatingPlant1stGen;
+end HeatingPlant;

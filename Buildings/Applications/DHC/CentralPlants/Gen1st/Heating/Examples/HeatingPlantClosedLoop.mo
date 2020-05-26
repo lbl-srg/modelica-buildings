@@ -15,9 +15,6 @@ model HeatingPlantClosedLoop
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = Q_flow_nominal/dh_nominal
     "Nominal mass flow rate";
 
-//  parameter Modelica.SIunits.Power QPla_flow_small = pla.mPla_flow_small*dh_nominal
-//    "Small heat flow rate for normalization";
-
   parameter Modelica.SIunits.AbsolutePressure pSte=1000000
     "Steam pressure";
 
@@ -31,7 +28,7 @@ model HeatingPlantClosedLoop
   parameter Modelica.SIunits.Power Q_flow_nominal= 9000E3
     "Nominal heat flow rate";
 
-  Gen1st.Heating.HeatingPlant1stGen pla(
+  HeatingPlant pla(
     redeclare package Medium_a = MediumWat,
     redeclare package Medium_b = MediumSte,
     mPla_flow_nominal=m_flow_nominal,
