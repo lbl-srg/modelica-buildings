@@ -13,11 +13,11 @@ model CoolingTowerParellel
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.5
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate of condenser water"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.Pressure dp_nominal=6000
+  parameter Modelica.SIunits.Pressure dp_nominal
     "Nominal pressure difference of the tower"
     annotation (Dialog(group="Nominal condition"));
 
@@ -25,19 +25,19 @@ model CoolingTowerParellel
     "Design water-to-air ratio"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.Temperature TAirInWB_nominal=273.15+25.55
+  parameter Modelica.SIunits.Temperature TAirInWB_nominal
     "Nominal outdoor (air inlet) wetbulb temperature"
     annotation (Dialog(group="Heat transfer"));
 
-  parameter Modelica.SIunits.Temperature TWatIn_nominal=273.15+35
+  parameter Modelica.SIunits.Temperature TWatIn_nominal
     "Nominal water inlet temperature"
     annotation (Dialog(group="Heat transfer"));
 
-  parameter Modelica.SIunits.TemperatureDifference dT_nominal=5.56
+  parameter Modelica.SIunits.TemperatureDifference dT_nominal
     "Temperature difference between inlet and outlet of the tower"
      annotation (Dialog(group="Heat transfer"));
 
-  parameter Modelica.SIunits.Power PFan_nominal=4800
+  parameter Modelica.SIunits.Power PFan_nominal
     "Fan power"
     annotation (Dialog(group="Fan"));
 
