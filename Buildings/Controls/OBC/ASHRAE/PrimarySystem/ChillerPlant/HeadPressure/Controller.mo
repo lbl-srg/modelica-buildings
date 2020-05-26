@@ -1,4 +1,4 @@
-﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure;
 block Controller "Head pressure controller"
   parameter Real minTowSpe=0.1 "Minimum cooling tower fan speed";
   parameter Real minConWatPumSpe=0.1 "Minimum condenser water pump speed"

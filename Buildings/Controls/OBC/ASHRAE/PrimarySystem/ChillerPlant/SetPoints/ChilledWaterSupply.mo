@@ -1,4 +1,4 @@
-﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints;
 block ChilledWaterSupply
   "Sequences to generate setpoints of chilled water supply temperature and the pump differential static pressure"
 

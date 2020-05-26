@@ -1,4 +1,4 @@
-﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences;
 block EnableLead_dedicated
   "Sequence for enabling lead pump of plants with dedicated condenser water pumps"
 
