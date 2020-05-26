@@ -443,20 +443,16 @@ equation
   connect(addPar.y, hys9.u)
     annotation (Line(points={{-158,-110},{-142,-110}},       color={0,0,127}));
   connect(hys9.y, lat1.u)
-    annotation (Line(points={{-118,-110},{-42,-110}},
-                                                    color={255,0,255}));
+    annotation (Line(points={{-118,-110},{-42,-110}}, color={255,0,255}));
   connect(addPar1.y, hys10.u)
-    annotation (Line(points={{-158,-150},{-142,-150}},
-                                                   color={0,0,127}));
+    annotation (Line(points={{-158,-150},{-142,-150}}, color={0,0,127}));
   connect(hys10.y, lat1.clr)
     annotation (Line(points={{-118,-150},{-80,-150},{-80,-116},{-42,-116}},
       color={255,0,255}));
   connect(addPar2.y, hys2.u)
-    annotation (Line(points={{-156,210},{-148,210}},
-                                                   color={0,0,127}));
+    annotation (Line(points={{-156,210},{-148,210}}, color={0,0,127}));
   connect(addPar3.y, hys3.u)
-    annotation (Line(points={{-156,140},{-148,140}},
-                                                   color={0,0,127}));
+    annotation (Line(points={{-156,140},{-148,140}}, color={0,0,127}));
   connect(maxWarCooTime.y, corCooDowTim.u3)
     annotation (Line(points={{-192,190},{-120,190},{-120,202},{-106,202}},
       color={0,0,127}));
@@ -478,11 +474,9 @@ equation
   connect(not5.y, assMes.u)
     annotation (Line(points={{82,-150},{98,-150}},   color={255,0,255}));
   connect(maxCooDowTim, addPar2.u) annotation (Line(points={{-280,230},{-188,
-          230},{-188,210},{-180,210}},
-                                  color={0,0,127}));
+          230},{-188,210},{-180,210}}, color={0,0,127}));
   connect(maxCooDowTim, corCooDowTim.u1) annotation (Line(points={{-280,230},{
-          -116,230},{-116,218},{-106,218}},
-                                     color={0,0,127}));
+          -116,230},{-116,218},{-106,218}}, color={0,0,127}));
   connect(maxWarUpTim, addPar3.u) annotation (Line(points={{-280,150},{-230,150},
           {-230,140},{-180,140}}, color={0,0,127}));
   connect(maxWarUpTim, corWarUpTim.u1) annotation (Line(points={{-280,150},{
@@ -503,8 +497,7 @@ equation
   connect(totHotZon, intGreThr2.u)
     annotation (Line(points={{-280,-210},{-182,-210}}, color={255,127,0}));
   connect(totHotZon, intGreThr3.u) annotation (Line(points={{-280,-210},{-220,
-          -210},{-220,-240},{-182,-240}},
-                                    color={255,127,0}));
+          -210},{-220,-240},{-182,-240}}, color={255,127,0}));
   connect(intGreThr2.y, or4.u1)
     annotation (Line(points={{-158,-210},{-102,-210}}, color={255,0,255}));
   connect(intGreThr3.y, or4.u2) annotation (Line(points={{-158,-240},{-120,-240},
