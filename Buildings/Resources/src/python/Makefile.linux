@@ -14,7 +14,7 @@ ifndef PYTHONHOME
 $(error PYTHONHOME is not set)
 endif
 PYTHONInc=$(PYTHONHOME)/include/python3.6m
-PYTHONLib=$(PYTHONHOME)/lib
+PYTHONLib=$(PYTHONHOME)/local/lib
 
 # Directory where executable will be copied to
 BINDIR = ../../Library/linux$(ARCH)
