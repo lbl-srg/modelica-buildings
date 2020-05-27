@@ -62,6 +62,18 @@ model CoolingTowerWithBypass "Cooling tower system with bypass valve"
     "Derivative time constant of the tower PID controller"
     annotation (Dialog(group="Control Settings"));
 
+  Medium.ThermodynamicState sta_a=
+      Medium.setState_phX(port_a.p,
+                          noEvent(actualStream(port_a.h_outflow)),
+                          noEvent(actualStream(port_a.Xi_outflow))) if
+         show_T "Medium properties in port_a";
+
+  Medium.ThermodynamicState sta_b=
+      Medium.setState_phX(port_b.p,
+                          noEvent(actualStream(port_b.h_outflow)),
+                          noEvent(actualStream(port_b.Xi_outflow))) if
+          show_T "Medium properties in port_b";
+
   Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium=Medium)
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
@@ -93,6 +105,7 @@ model CoolingTowerWithBypass "Cooling tower system with bypass valve"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
 
   Buildings.Applications.DHC.CentralPlants.Gen1st.Cooling.Subsystems.CoolingTowerParellel cooTowSys(
+    use_inputFilter=false,
     redeclare package Medium = Medium,
     num=num,
     show_T=show_T,
@@ -129,12 +142,16 @@ model CoolingTowerWithBypass "Cooling tower system with bypass valve"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
 
   Buildings.Controls.Continuous.LimPID bypValCon(
+    u_s(unit="K", displayUnit="degC"),
+    u_m(unit="K", displayUnit="degC"),
     controllerType=Modelica.Blocks.Types.SimpleController.PID,
     k=1,
     Ti=60) "Bypass valve controller"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 
   Buildings.Controls.Continuous.LimPID cooTowSpeCon(
+    u_s(unit="K", displayUnit="degC"),
+    u_m(unit="K", displayUnit="degC"),
     final reverseAction=true,
     controllerType=Modelica.Blocks.Types.SimpleController.PID,
     k=k,

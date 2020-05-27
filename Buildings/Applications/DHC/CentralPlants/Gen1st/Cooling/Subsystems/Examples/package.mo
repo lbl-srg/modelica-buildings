@@ -14,14 +14,14 @@ package Examples "Collection of models that illustrate model use and test models
 
     Buildings.Applications.DHC.CentralPlants.Gen1st.Cooling.Subsystems.CoolingTowerParellel
       cooTowPar(
-    use_inputFilter=false,
-                m_flow_nominal=m_flow_nominal/2,
+      use_inputFilter=false,
+      m_flow_nominal=m_flow_nominal/2,
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    dp_nominal=60000,
-    TAirInWB_nominal=273.15 + 25.55,
-    TWatIn_nominal=273.15 + 35,
-    dT_nominal=5.56,
-    PFan_nominal=4800)
+      dp_nominal=60000,
+      TAirInWB_nominal=273.15 + 25.55,
+      TWatIn_nominal=273.15 + 35,
+      dT_nominal=5.56,
+      PFan_nominal=4800)
       "Parallel cooling towers"
       annotation (Placement(transformation(extent={{0,40},{20,60}})));
 
@@ -139,12 +139,10 @@ package Examples "Collection of models that illustrate model use and test models
     connect(cooTowPar.port_b, senTCWLvg.port_a)  annotation (Line(points={{20,50},{30,50}}, color={0,127,255}));
     connect(senTCWLvg.port_b, vol.ports[2]) annotation (Line(points={{50,50},{60,50},
             {60,-20},{30,-20}}, color={0,127,255}));
-  connect(swi.y, cooTowPar.on[1]) annotation (Line(points={{51,-80},{60,-80},{
-          60,-128},{-80,-128},{-80,68},{-12,68},{-12,56},{-2,56}}, color={0,0,
-          127}));
-  connect(swi.y, cooTowPar.on[2]) annotation (Line(points={{51,-80},{60,-80},{
-          60,-128},{-80,-128},{-80,68},{-12,68},{-12,56},{-2,56}}, color={0,0,
-          127}));
+    connect(swi.y, cooTowPar.on[1]) annotation (Line(points={{51,-80},{60,-80},{60,
+            -128},{-80,-128},{-80,68},{-12,68},{-12,56},{-2,56}}, color={0,0,127}));
+    connect(swi.y, cooTowPar.on[2]) annotation (Line(points={{51,-80},{60,-80},{60,
+            -128},{-80,-128},{-80,68},{-12,68},{-12,56},{-2,56}}, color={0,0,127}));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
               {100,100}})),
               Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-140},{120,120}})),
@@ -152,8 +150,7 @@ package Examples "Collection of models that illustrate model use and test models
         StartTime=15552000,
         StopTime=15724800,
         Tolerance=1e-06),
-      __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Applications/DHC/CentralPlants/Cooling/Subsystems/Examples/CoolingTowerParallel.mos"
-        "Simulate and Plot"));
+      __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/CentralPlants/Cooling/Subsystems/Examples/CoolingTowerParallel.mos"
+          "Simulate and Plot"));
   end CoolingTowerParallel;
 end Examples;
