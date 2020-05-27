@@ -50,15 +50,15 @@ model CoolingTowerWithBypass "Cooling tower system with bypass valve"
     "Minimum allowed water temperature entering chiller"
     annotation (Dialog(group="Control Settings"));
 
-  parameter Real k
+  parameter Real k=1
     "Gain of the tower PID controller"
     annotation (Dialog(group="Control Settings"));
 
-  parameter Real Ti
+  parameter Real Ti=60
     "Integrator time constant of the tower PID controller"
     annotation (Dialog(group="Control Settings"));
 
-  parameter Real Td
+  parameter Real Td=0.1
     "Derivative time constant of the tower PID controller"
     annotation (Dialog(group="Control Settings"));
 

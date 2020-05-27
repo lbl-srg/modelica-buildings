@@ -18,18 +18,6 @@ model CoolingTowerParellel
     "= true, if actual temperature at port is computed"
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
 
-  Medium.ThermodynamicState sta_a=
-      Medium.setState_phX(port_a.p,
-                          noEvent(actualStream(port_a.h_outflow)),
-                          noEvent(actualStream(port_a.Xi_outflow))) if
-         show_T "Medium properties in port_a";
-
-  Medium.ThermodynamicState sta_b=
-      Medium.setState_phX(port_b.p,
-                          noEvent(actualStream(port_b.h_outflow)),
-                          noEvent(actualStream(port_b.Xi_outflow))) if
-          show_T "Medium properties in port_b";
-
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate of condenser water in each tower"
     annotation (Dialog(group="Nominal condition"));
@@ -57,6 +45,18 @@ model CoolingTowerParellel
   parameter Modelica.SIunits.Power PFan_nominal
     "Fan power"
     annotation (Dialog(group="Fan"));
+
+  Medium.ThermodynamicState sta_a=
+      Medium.setState_phX(port_a.p,
+                          noEvent(actualStream(port_a.h_outflow)),
+                          noEvent(actualStream(port_a.Xi_outflow))) if
+         show_T "Medium properties in port_a";
+
+  Medium.ThermodynamicState sta_b=
+      Medium.setState_phX(port_b.p,
+                          noEvent(actualStream(port_b.h_outflow)),
+                          noEvent(actualStream(port_b.Xi_outflow))) if
+          show_T "Medium properties in port_b";
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium=Medium)
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
