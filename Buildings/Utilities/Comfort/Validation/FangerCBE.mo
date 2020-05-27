@@ -29,7 +29,7 @@ model FangerCBE
         800,-0.76; 900,-0.68; 1000,-0.60; 1100,-0.52; 1200,-0.44; 1300,-0.36;
         1400,0.08; 1500,0.45; 1600,0.73; 1700,-1.04; 1800,-0.52; 1900,-0.12;
         2000,0.20; 2100,0.20], smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
-    "PMV value calculated from CBE Thermal Comfort Tool (comfort.cbe.berkeley.edu)"
+    "PMV value calculated from CBE Thermal Comfort Tool"
     annotation (Placement(transformation(extent={{-82,-40},{-62,-20}})));
 equation
   connect(comfort.PMV, realValue.numberPort)
@@ -48,13 +48,26 @@ equation
           {-28,50},{-28,1},{5,1}}, color={0,0,127}));
  annotation (experiment(
       StopTime=2300,
-      Interval=100,
       Tolerance=1e-06),
 __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Utilities/Comfort/Validation/FangerCBE.mos"
         "Simulate and plot"),
         Documentation(info="<html>
-<p>This compares PMV values calculated from the CBE (Center for the Built Environment, UC Berkeley) <a href=\"comfort.cbe.berkeley.edu\">Thermal Comfort Tool</a> a variety of cases. </p>
-</html>"),    Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+<p>
+This example validates the PMV values against values calculated with
+the CBE (Center for the Built Environment, UC Berkeley)
+<a href=\"https://comfort.cbe.berkeley.edu\">Thermal Comfort Tool</a> for a variety of cases.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 27, 2020, by Donghun Kim and Michael Wetter:<br/>
+First implementation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1936\">#1936</a>.
+</li>
+</ul>
+</html>"),
+Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end FangerCBE;
