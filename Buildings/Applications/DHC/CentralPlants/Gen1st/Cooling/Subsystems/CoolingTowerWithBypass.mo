@@ -10,6 +10,10 @@ model CoolingTowerWithBypass "Cooling tower system with bypass valve"
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
+  parameter Boolean show_T = true
+    "= true, if actual temperature at port is computed"
+    annotation(Dialog(tab="Advanced",group="Diagnostics"));
+
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Total nominal mass flow rate of condenser water"
     annotation (Dialog(group="Nominal condition"));
@@ -91,6 +95,7 @@ model CoolingTowerWithBypass "Cooling tower system with bypass valve"
   Buildings.Applications.DHC.CentralPlants.Gen1st.Cooling.Subsystems.CoolingTowerParellel cooTowSys(
     redeclare package Medium = Medium,
     num=num,
+    show_T=show_T,
     m_flow_nominal=m_flow_nominal/num,
     dp_nominal=dp_nominal,
     ratWatAir_nominal=ratWatAir_nominal,

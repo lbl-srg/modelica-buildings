@@ -2,6 +2,7 @@ within Buildings.Applications.DHC.CentralPlants.Gen1st.Cooling.Subsystems;
 model CoolingTowerParellel
   "Multiple identical cooling towers in parallel connection"
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.SignalFilter(
+      use_inputFilter=true,
     final numFil=num);
 
   parameter Integer num(min=1)=2 "Number of cooling towers";
@@ -13,8 +14,24 @@ model CoolingTowerParellel
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
+  parameter Boolean show_T = true
+    "= true, if actual temperature at port is computed"
+    annotation(Dialog(tab="Advanced",group="Diagnostics"));
+
+  Medium.ThermodynamicState sta_a=
+      Medium.setState_phX(port_a.p,
+                          noEvent(actualStream(port_a.h_outflow)),
+                          noEvent(actualStream(port_a.Xi_outflow))) if
+         show_T "Medium properties in port_a";
+
+  Medium.ThermodynamicState sta_b=
+      Medium.setState_phX(port_b.p,
+                          noEvent(actualStream(port_b.h_outflow)),
+                          noEvent(actualStream(port_b.Xi_outflow))) if
+          show_T "Medium properties in port_b";
+
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Nominal mass flow rate of condenser water"
+    "Nominal mass flow rate of condenser water in each tower"
     annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.SIunits.Pressure dp_nominal
@@ -80,6 +97,7 @@ model CoolingTowerParellel
     constrainedby
     Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower(
      redeclare each final package Medium = Medium,
+     each show_T=show_T,
      each final m_flow_nominal=m_flow_nominal,
      each final dp_nominal=dp_nominal,
      each final ratWatAir_nominal=ratWatAir_nominal,
@@ -114,8 +132,15 @@ equation
     connect(cooTow[i].TLvg, TLvg[i]) annotation (Line(points={{11,-6},{26,-6},{26,30},{110,
           30}}, color={0,0,127}));
   end for;
-  connect(on, filter.u) annotation (Line(points={{-120,60},{-60,60},{-60,84},{-55.2,
-          84}}, color={0,0,127}));
+  if use_inputFilter then
+    connect(on, filter.u)
+      annotation (Line(points={{-120,60},{-60,60},{-60,84},{-55.2,84}},
+        color={0,0,127}));
+  else
+    connect(on, y_actual)
+      annotation (Line(points={{-120,60},{-60,60},{-60,74},{-20,74}},
+        color={0,0,127}));
+  end if;
   connect(y_actual, val.y) annotation (Line(points={{-20,74},{-14,74},{-14,60},{
           -50,60},{-50,12}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
