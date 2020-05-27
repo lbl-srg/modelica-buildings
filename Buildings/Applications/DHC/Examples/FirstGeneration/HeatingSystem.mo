@@ -154,7 +154,7 @@ model HeatingSystem "Generic first generation district heating system"
     pSte_nominal=pSte,
     timeScale=timeScale,
     show_T=true)
-    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
+    annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
   Buildings.Applications.DHC.Examples.FirstGeneration.BaseClasses.BuildingTimeSeriesHeating
     bld3(
     redeclare package Medium_a = MediumSte,
@@ -174,7 +174,7 @@ model HeatingSystem "Generic first generation district heating system"
     pSte_nominal=pSte,
     timeScale=timeScale,
     show_T=true)
-    annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
+    annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
   Networks.Connection1stGen4PipeSections conBld4(
     redeclare package MediumSup = MediumSte,
     redeclare package MediumRet = MediumWat,
@@ -193,7 +193,7 @@ model HeatingSystem "Generic first generation district heating system"
     lengthConRet=length) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-30,-56})));
+        origin={-30,-46})));
   Networks.Connection1stGen4PipeSections conBld3(
     redeclare package MediumSup = MediumSte,
     redeclare package MediumRet = MediumWat,
@@ -206,8 +206,8 @@ model HeatingSystem "Generic first generation district heating system"
     thicknessInsSup=thicknessIns,
     thicknessInsRet=thicknessIns,
     lambdaIns=lambdaIns,
-    lengthDisSup=length,
-    lengthDisRet=length,
+    lengthDisSup=1,
+    lengthDisRet=1,
     lengthConSup=length,
     lengthConRet=length) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -233,7 +233,7 @@ model HeatingSystem "Generic first generation district heating system"
     lengthConRet=length) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-30,24})));
+        origin={-30,34})));
   BaseClasses.BuildingTimeSeriesHeating bld5(
     redeclare package Medium_a = MediumSte,
     redeclare package Medium_b = MediumWat,
@@ -251,7 +251,7 @@ model HeatingSystem "Generic first generation district heating system"
     pSte_nominal=pSte,
     timeScale=timeScale,
     show_T=true)
-    annotation (Placement(transformation(extent={{20,20},{40,40}})));
+    annotation (Placement(transformation(extent={{20,30},{40,50}})));
   BaseClasses.BuildingTimeSeriesHeating bld7(
     redeclare package Medium_a = MediumSte,
     redeclare package Medium_b = MediumWat,
@@ -269,7 +269,7 @@ model HeatingSystem "Generic first generation district heating system"
     pSte_nominal=pSte,
     timeScale=timeScale,
     show_T=true)
-    annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
+    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Networks.Connection1stGen4PipeSections conBld8(
     redeclare package MediumSup = MediumSte,
     redeclare package MediumRet = MediumWat,
@@ -288,7 +288,7 @@ model HeatingSystem "Generic first generation district heating system"
     lengthConRet=length) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={90,-56})));
+        origin={90,-46})));
   Networks.Connection1stGen4PipeSections conBld7(
     redeclare package MediumSup = MediumSte,
     redeclare package MediumRet = MediumWat,
@@ -301,8 +301,8 @@ model HeatingSystem "Generic first generation district heating system"
     thicknessInsSup=thicknessIns,
     thicknessInsRet=thicknessIns,
     lambdaIns=lambdaIns,
-    lengthDisSup=length,
-    lengthDisRet=length,
+    lengthDisSup=1,
+    lengthDisRet=1,
     lengthConSup=length,
     lengthConRet=length) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -328,7 +328,7 @@ model HeatingSystem "Generic first generation district heating system"
     lengthConRet=length) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={90,24})));
+        origin={90,34})));
   Networks.Connection1stGen2PipeSections conPla(
     redeclare package MediumSup = MediumSte,
     redeclare package MediumRet = MediumWat,
@@ -346,65 +346,65 @@ model HeatingSystem "Generic first generation district heating system"
     annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
 equation
   connect(conPla.port_bDisSup,conBld8. port_aDisSup)
-    annotation (Line(points={{-20,-110},{90,-110},{90,-66}}, color={0,127,255}));
+    annotation (Line(points={{-20,-110},{90,-110},{90,-56}}, color={0,127,255}));
   connect(pla.port_b, conPla.port_aDisSup)
     annotation (Line(points={{-60,-110},{-40,-110}}, color={0,127,255}));
   connect(conPla.port_bCon, conBld4.port_aDisSup)
-    annotation (Line(points={{-30,-100},{-30,-66}}, color={0,127,255}));
+    annotation (Line(points={{-30,-100},{-30,-56}}, color={0,127,255}));
   connect(conPla.port_aCon, conBld4.port_bDisRet)
-    annotation (Line(points={{-24,-100},{-24,-66}}, color={0,127,255}));
+    annotation (Line(points={{-24,-100},{-24,-56}}, color={0,127,255}));
   connect(pla.port_a, conPla.port_bDisRet)
     annotation (Line(points={{-60,-116},{-40,-116}}, color={0,127,255}));
   connect(conPla.port_aDisRet,conBld8. port_bDisRet)
-    annotation (Line(points={{-20,-116},{96,-116},{96,-66}}, color={0,127,255}));
+    annotation (Line(points={{-20,-116},{96,-116},{96,-56}}, color={0,127,255}));
   connect(conBld4.port_bCon, bld4.port_a)
-    annotation (Line(points={{-40,-56},{-80,-56}}, color={0,127,255}));
+    annotation (Line(points={{-40,-46},{-80,-46}}, color={0,127,255}));
   connect(conBld4.port_aCon, bld4.port_b)
-    annotation (Line(points={{-40,-50},{-80,-50}}, color={0,127,255}));
+    annotation (Line(points={{-40,-40},{-80,-40}}, color={0,127,255}));
   connect(conBld3.port_bCon, bld3.port_a)
     annotation (Line(points={{-40,-16},{-80,-16}}, color={0,127,255}));
   connect(conBld3.port_aCon, bld3.port_b)
     annotation (Line(points={{-40,-10},{-80,-10}}, color={0,127,255}));
   connect(conBld12.port_bCon, bld2.port_a)
-    annotation (Line(points={{-40,24},{-80,24}}, color={0,127,255}));
+    annotation (Line(points={{-40,34},{-80,34}}, color={0,127,255}));
   connect(conBld12.port_aCon, bld2.port_b)
-    annotation (Line(points={{-40,30},{-80,30}}, color={0,127,255}));
+    annotation (Line(points={{-40,40},{-80,40}}, color={0,127,255}));
   connect(conBld12.port_bDisSup, bld1.port_a)
-    annotation (Line(points={{-30,34},{-30,64},{-80,64}}, color={0,127,255}));
+    annotation (Line(points={{-30,44},{-30,64},{-80,64}}, color={0,127,255}));
   connect(conBld12.port_aDisRet, bld1.port_b)
-    annotation (Line(points={{-24,34},{-24,70},{-80,70}}, color={0,127,255}));
+    annotation (Line(points={{-24,44},{-24,70},{-80,70}}, color={0,127,255}));
   connect(conBld4.port_bDisSup, conBld3.port_aDisSup)
-    annotation (Line(points={{-30,-46},{-30,-26}}, color={0,127,255}));
+    annotation (Line(points={{-30,-36},{-30,-26}}, color={0,127,255}));
   connect(conBld3.port_bDisSup, conBld12.port_aDisSup)
-    annotation (Line(points={{-30,-6},{-30,14}}, color={0,127,255}));
+    annotation (Line(points={{-30,-6},{-30,24}}, color={0,127,255}));
   connect(conBld12.port_bDisRet, conBld3.port_aDisRet)
-    annotation (Line(points={{-24,14},{-24,14},{-24,-6}}, color={0,127,255}));
+    annotation (Line(points={{-24,24},{-24,-6}},          color={0,127,255}));
   connect(conBld3.port_bDisRet, conBld4.port_aDisRet)
-    annotation (Line(points={{-24,-26},{-24,-46}}, color={0,127,255}));
+    annotation (Line(points={{-24,-26},{-24,-36}}, color={0,127,255}));
   connect(conBld8.port_bDisSup,conBld7. port_aDisSup)
-    annotation (Line(points={{90,-46},{90,-46},{90,-26}}, color={0,127,255}));
+    annotation (Line(points={{90,-36},{90,-26}},          color={0,127,255}));
   connect(conBld7.port_bDisSup, conBld56.port_aDisSup)
-    annotation (Line(points={{90,-6},{90,14}}, color={0,127,255}));
+    annotation (Line(points={{90,-6},{90,24}}, color={0,127,255}));
   connect(conBld56.port_bDisRet, conBld7.port_aDisRet)
-    annotation (Line(points={{96,14},{96,14},{96,-6}}, color={0,127,255}));
+    annotation (Line(points={{96,24},{96,-6}},         color={0,127,255}));
   connect(conBld7.port_bDisRet,conBld8. port_aDisRet)
-    annotation (Line(points={{96,-26},{96,-26},{96,-46}}, color={0,127,255}));
+    annotation (Line(points={{96,-26},{96,-36}},          color={0,127,255}));
   connect(conBld8.port_bCon, bld8.port_a)
-    annotation (Line(points={{80,-56},{40,-56}}, color={0,127,255}));
+    annotation (Line(points={{80,-46},{40,-46}}, color={0,127,255}));
   connect(conBld8.port_aCon, bld8.port_b)
-    annotation (Line(points={{80,-50},{40,-50}}, color={0,127,255}));
-  connect(conBld7.port_bCon, bld7.port_a) annotation (Line(points={{80,-16},{60,-16},
-          {60,-16},{40,-16}}, color={0,127,255}));
+    annotation (Line(points={{80,-40},{40,-40}}, color={0,127,255}));
+  connect(conBld7.port_bCon, bld7.port_a) annotation (Line(points={{80,-16},{40,
+          -16}},              color={0,127,255}));
   connect(bld7.port_b,conBld7. port_aCon)
     annotation (Line(points={{40,-10},{80,-10}}, color={0,127,255}));
-  connect(conBld56.port_bCon, bld6.port_a) annotation (Line(points={{80,24},{60,
-          24},{60,24},{40,24}}, color={0,127,255}));
-  connect(bld6.port_b, conBld56.port_aCon) annotation (Line(points={{40,30},{60,
-          30},{60,30},{80,30}}, color={0,127,255}));
+  connect(conBld56.port_bCon, bld6.port_a) annotation (Line(points={{80,34},{40,
+          34}},                 color={0,127,255}));
+  connect(bld6.port_b, conBld56.port_aCon) annotation (Line(points={{40,40},{80,
+          40}},                 color={0,127,255}));
   connect(conBld56.port_bDisSup, bld5.port_a)
-    annotation (Line(points={{90,34},{90,64},{40,64}}, color={0,127,255}));
+    annotation (Line(points={{90,44},{90,64},{40,64}}, color={0,127,255}));
   connect(conBld56.port_aDisRet, bld5.port_b)
-    annotation (Line(points={{96,34},{96,70},{40,70}}, color={0,127,255}));
+    annotation (Line(points={{96,44},{96,70},{40,70}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
                           Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-150,-150},{150,150}})),
