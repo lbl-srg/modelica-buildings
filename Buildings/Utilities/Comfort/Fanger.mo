@@ -355,13 +355,32 @@ Geneva, Switzerland: ISO. 1994.
 
 </html>", revisions="<html>
 <ul>
-<li>May 25, 2019, by Michael Wetter:<br>Updated model according to ASHRAE 55-2017, heat transfer coefficients (forced and natural convective) and equations for clothing surface temperature. </li>
-<li>May 30, 2014, by Michael Wetter:<br>Removed undesirable annotation <span style=\"font-family: monospace;\">Evaluate=true</span>. Added default value for <span style=\"font-family: monospace;\">ICl</span>. </li>
-<li><i>October 9, 2013</i>, by Michael Wetter:<br>Corrected use of conditional connector. </li>
-<li><i>July 14, 2010</i>, by Michael Wetter:<br>Merged models into <span style=\"font-family: monospace;\">Buildings</span> library. Fixed bug in computation of lower value for <span style=\"font-family: monospace;\">hCon</span>. The original implementation lead to too high a lower value. </li>
-<li><i>August 2, 2005</i> Revised model, fixed bug in computing clothing surface temperature, changed various other computations, changed parameter and input to model, set clothing insulation value as input rather than computing it in model, added model to UTC library. </li>
-<li><i>June, 2005</i> Michael Wetter and Sorin Costiner:<br>Improved version, added PPDDraft, TOpe, performed studies </li>
-<li><i>March 03, 2005</i> Michael Wetter and Sorin Costiner:<br>First implementation. </li>
+<li>
+May 30, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+Added default value for <code>ICl</code>.
+</li>
+<li><i>October 9, 2013</i>, by Michael Wetter:<br/>
+Corrected use of conditional connector.
+</li>
+<li><i>July 14, 2010</i>, by Michael Wetter:<br/>
+Merged models into <code>Buildings</code> library.
+Fixed bug in computation of lower value for <code>hCon</code>.
+The original implementation lead to too high a lower value.
+</li>
+<li><i>August 2, 2005</i>
+Revised model, fixed bug in computing clothing surface temperature, changed various
+other computations, changed parameter and input to model, set clothing insulation value as input
+rather than computing it in model, added model to UTC library.
+</li>
+<li><i>June, 2005</i>
+       Michael Wetter and Sorin Costiner:<br/>
+       Improved version, added PPDDraft, TOpe, performed studies
+</li>
+<li><i>March 03, 2005</i>
+       Michael Wetter and Sorin Costiner:<br/>
+       First implementation.
+</li>
 </ul>
 </html>"), Icon(graphics={
         Rectangle(
