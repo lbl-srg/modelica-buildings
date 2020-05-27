@@ -176,7 +176,7 @@ def incrementAndReturnACounter(i, obj):
 </pre>
 <p>
 For the first case, set in the function
-<a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.exchange\">
+<a href=\"modelica://Buildings.Obsolete.Utilities.IO.Python27.Functions.exchange\">
 Buildings.Utilities.IO.Python27.Functions.exchange</a>
 the input argument <code>passPythonObject = false</code>,
 and for the second case, set <code>passPythonObject = true</code>.
@@ -318,16 +318,16 @@ Various examples are provided, and for each of these, the Python functions are s
 </p>
 <p>
 The examples
-<a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.Examples.Exchange\">
+<a href=\"modelica://Buildings.Obsolete.Utilities.IO.Python27.Functions.Examples.Exchange\">
 Buildings.Utilities.IO.Python27.Functions.Examples.Exchange</a>
 and
-<a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.Examples.ExchangeWithPassPythonObject\">
+<a href=\"modelica://Buildings.Obsolete.Utilities.IO.Python27.Functions.Examples.ExchangeWithPassPythonObject\">
 Buildings.Utilities.IO.Python27.Functions.Examples.ExchangeWithPassPythonObject</a>
 contains various calls to different Python functions without and with memory.
 </p>
 <p>
 The example
-<a href=\"modelica://Buildings.Utilities.IO.Python27.Examples.KalmanFilter\">
+<a href=\"modelica://Buildings.Obsolete.Utilities.IO.Python27.Examples.KalmanFilter\">
 Buildings.Utilities.IO.Python27.Examples.KalmanFilter</a>
 shows how to implement in a Modelica block a call to a Python function.
 This Python function stores its memory on disk between invocations (which,
@@ -335,7 +335,7 @@ in general, is not recommended).
 </p>
 <p>
 The example
-<a href=\"modelica://Buildings.Utilities.IO.Python27.Examples.SimpleRoom\">
+<a href=\"modelica://Buildings.Obsolete.Utilities.IO.Python27.Examples.SimpleRoom\">
 Buildings.Utilities.IO.Python27.Examples.SimpleRoom</a>
 shows a similiar example. However, rather than using a file to store the
 room temperature and energy between invocations, the function returns

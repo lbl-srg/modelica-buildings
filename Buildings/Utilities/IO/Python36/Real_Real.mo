@@ -163,8 +163,7 @@ This is for
 June 9, 2015 by Michael Wetter:<br/>
 Set <code>firstTrigger(fixed=true, start=false)</code> to avoid a
 warning about unspecified initial conditions if
-<a href=\"modelica://Buildings.Utilities.IO.Python27.Examples.KalmanFilter\">
-Buildings.Utilities.IO.Python27.Examples.KalmanFilter</a>
+<code>Buildings.Obsolete.Utilities.IO.Python27.Examples.KalmanFilter</code>
 is translated
 using pedantic mode in Dymola 2016.
 This is for

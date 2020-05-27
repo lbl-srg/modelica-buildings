@@ -5316,8 +5316,8 @@ have been fixed:
      annotation (preferredView="info",
      Documentation(info="<html>
 <p>
-Version 1.4 build 1 contains the new package <a href=\"modelica://Buildings.Utilities.IO.Python27\">
-Buildings.Utilities.IO.Python27</a> that allows calling Python functions from Modelica.
+Version 1.4 build 1 contains the new package <code>Buildings.Utilities.IO.Python27</code>
+that allows calling Python functions from Modelica.
 It also contains in the package <a href=\"modelica://Buildings.HeatTransfer.Conduction.SingleLayer\">
 Buildings.HeatTransfer.Conduction.SingleLayer</a>
 a new model for heat conduction in phase change material. This model can be used as a layer
@@ -8363,7 +8363,7 @@ particular package.<br/>
                       the computational fluid dynamics.</td>
 </tr>
 
-<tr><td valign=\"top\"><a href=\"modelica://Buildings.Utilities.IO.Python27.UsersGuide\">Utilities.IO.Python27</a>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Utilities.IO.Python36.UsersGuide\">Utilities.IO.Python36</a>
    </td>
    <td valign=\"top\">Package to call Python functions from Modelica.</td>
 </tr>

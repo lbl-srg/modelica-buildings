@@ -12,16 +12,16 @@ Python is used to communicate with hardware.
 </p>
 <p>
 See
-<a href=\"modelica://Buildings.Utilities.IO.Python27.UsersGuide\">
-Buildings.Utilities.IO.Python27.UsersGuide</a>
+<a href=\"modelica://Buildings.Obsolete.Utilities.IO.Python27.UsersGuide\">
+Buildings.Obsolete.Utilities.IO.Python27.UsersGuide</a>
 for instruction.
 </p>
 </html>",revisions="<html>
 <ul>
 <li>
 March 06, 2020, by Jianjun Hu:<br/>
-Moved from Buildings.Utilities.IO.Python27 to here.<br/>
-This is for  
+Moved from <code>Buildings.Utilities.IO</code> to here.<br/>
+This is for
 <a href=\"https://github.com/Buildings/modelica-Buildings/issues/1760\"> #1760</a>.
 </li>
 </ul>
