@@ -1,5 +1,5 @@
 compareVars :=
   {
-    "Table_PMV_reference.y[1]",
-    "comfort.PMV"
+    "PMVRef.y[1]",
+    "com.PMV"
   };
