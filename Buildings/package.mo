@@ -8389,8 +8389,8 @@ end UsersGuide;
 annotation (
 preferredView="info",
 version="7.0.0",
-versionDate="2019-07-15",
-dateModified="2019-07-15",
+versionDate="2020-05-28",
+dateModified="2020-05-28",
 uses(Modelica(version="3.2.3")),
 conversion(
   from(version={"6.0.0"},
