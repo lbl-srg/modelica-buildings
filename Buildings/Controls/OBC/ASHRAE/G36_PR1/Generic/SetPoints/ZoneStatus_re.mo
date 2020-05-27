@@ -43,8 +43,7 @@ block ZoneStatus_re "Block that outputs zone temperature status"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
-    "Single zone temperature"
+    final quantity="ThermodynamicTemperature") "Single zone temperature"
     annotation (Placement(transformation(extent={{-180,-80},{-140,-40}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonHeaSetUno(
@@ -88,12 +87,18 @@ block ZoneStatus_re "Block that outputs zone temperature status"
     annotation (Placement(transformation(extent={{180,-190},{220,-150}}),
         iconTransformation(extent={{100,-90},{140,-50}})));
 
-  CDL.Interfaces.IntegerOutput yColZon "Connector of Integer output signal"
-    annotation (Placement(transformation(extent={{100,-50},{140,-10}}),
-        iconTransformation(extent={{100,-50},{140,-10}})));
-  CDL.Interfaces.IntegerOutput yHotZon "Connector of Integer output signal"
-    annotation (Placement(transformation(extent={{100,-110},{140,-70}}),
-        iconTransformation(extent={{100,-110},{140,-70}})));
+  CDL.Interfaces.RealOutput TZonAll(final unit="K", final quantity=
+        "ThermodynamicTemperature") "All zone temperature in the zone group"
+    annotation (Placement(transformation(extent={{180,-50},{220,-10}}),
+        iconTransformation(extent={{100,-30},{140,10}})));
+  CDL.Interfaces.IntegerOutput yColZon
+    "Output 1 when the zone is a cold zone; otherwise 0" annotation (Placement(
+        transformation(extent={{180,-80},{220,-40}}), iconTransformation(extent
+          ={{100,-50},{140,-10}})));
+  CDL.Interfaces.IntegerOutput yHotZon
+    "Output 1 when the zone is a hot zone; otherwise 0" annotation (Placement(
+        transformation(extent={{180,-240},{220,-200}}), iconTransformation(
+          extent={{100,-110},{140,-70}})));
 protected
   Buildings.Controls.OBC.CDL.Continuous.Product pro
     "Decide if the cool down time of one zone should be ignored: if window is open, then output zero, otherwise, output cool-down time from optimal cool-down block"
@@ -251,10 +256,6 @@ equation
     annotation (Line(points={{102,-60},{118,-60}}, color={255,0,255}));
   connect(hys5.y, hotZon.u)
     annotation (Line(points={{102,-220},{118,-220}}, color={255,0,255}));
-  connect(hotZon.y, yHotZon) annotation (Line(points={{142,-220},{132,-220},{
-          132,-90},{120,-90}}, color={255,127,0}));
-  connect(colZon.y, yColZon) annotation (Line(points={{142,-60},{132,-60},{132,
-          -30},{120,-30}}, color={255,127,0}));
   connect(TZon, add1.u2) annotation (Line(points={{-160,-60},{-120,-60},{-120,
           14},{-22,14}}, color={0,0,127}));
   connect(TZon, add.u2) annotation (Line(points={{-160,-60},{-120,-60},{-120,64},
@@ -263,6 +264,12 @@ equation
           -116},{38,-116}}, color={0,0,127}));
   connect(TZon, add4.u1) annotation (Line(points={{-160,-60},{-120,-60},{-120,
           -164},{38,-164}}, color={0,0,127}));
+  connect(TZon, TZonAll) annotation (Line(points={{-160,-60},{-130,-60},{-130,
+          -136},{162,-136},{162,-30},{200,-30}}, color={0,0,127}));
+  connect(colZon.y, yColZon)
+    annotation (Line(points={{142,-60},{200,-60}}, color={255,127,0}));
+  connect(hotZon.y, yHotZon)
+    annotation (Line(points={{142,-220},{200,-220}}, color={255,127,0}));
 annotation (
   defaultComponentName = "zonSta",
    Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
@@ -406,5 +413,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-140,-280},{180,240}})));
+    Diagram(coordinateSystem(extent={{-140,-280},{180,240}},
+          preserveAspectRatio=false)));
 end ZoneStatus_re;
