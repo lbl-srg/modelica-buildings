@@ -101,6 +101,15 @@ model BuildingTimeSeriesHeating
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Blocks.Math.Product pro
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+  Modelica.Blocks.Continuous.Integrator IntEHea(y(unit="J"))
+    "Integrator for heating energy of building"
+    annotation (Placement(transformation(extent={{60,40},{80,60}})));
+  Modelica.Blocks.Interfaces.RealOutput EHea(
+    final quantity="HeatFlow",
+    final unit="J",
+    displayUnit="kWh") "Total heating energy" annotation (Placement(
+        transformation(extent={{100,40},{120,60}}), iconTransformation(extent={
+            {100,40},{120,60}})));
 equation
   connect(port_a, ets.port_a) annotation (Line(points={{100,-60},{0,-60},{0,0},
           {40,0}},  color={0,127,255}));
@@ -114,6 +123,12 @@ equation
           80}}, color={0,0,127}));
   connect(pro.y, ets.Q_flow)
     annotation (Line(points={{-19,50},{0,50},{0,6},{38,6}}, color={0,0,127}));
+  connect(pro.y, IntEHea.u)
+    annotation (Line(points={{-19,50},{58,50}}, color={0,0,127}));
+  connect(Q_flow, Q_flow) annotation (Line(points={{110,80},{107,80},{107,80},{
+          110,80}}, color={0,0,127}));
+  connect(IntEHea.y, EHea) annotation (Line(points={{81,50},{96,50},{96,50},{
+          110,50}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Polygon(
           points={{20,-70},{60,-85},{20,-100},{20,-70}},
