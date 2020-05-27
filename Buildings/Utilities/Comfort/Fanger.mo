@@ -108,7 +108,6 @@ protected
     "Model to compute the steam mass fraction";
   Real fCl1 "work variable for fCl";
   Real fCl2 "work variable for fCl";
- // Real aux "Auxiliary variable used to eliminate common subexpressions";
 
   Modelica.Blocks.Interfaces.RealInput vAir_in_internal
     "Needed to connect to conditional connector";
@@ -126,6 +125,7 @@ protected
 
 initial equation
  assert(W <= 0, "Parameter W must be equal to zero or negative.");
+
 equation
   // Conditional connectors
   connect(vAir_in, vAir_in_internal);
