@@ -165,8 +165,8 @@ its class name ends with the string <code>Beta</code>.
       or control signals while the simulation is running.
     </li>
     <li>
-      Results of the ANSI/ASHRAE Standard 14 validation (BESTEST) are now integrated in the
-      <a href=\"modelica://Buildings.ThermalZones.Detailed.Validation.BESTEST.UsersGuide\">user's guide</a>.
+      Results of the ANSI/ASHRAE Standard 14 validation (BESTEST) are now integrated in the user's guide
+      <code>Buildings.ThermalZones.Detailed.Validation.BESTEST.UsersGuide</code>.
     </li>
     </ul>
     </div>
@@ -713,7 +713,7 @@ its class name ends with the string <code>Beta</code>.
                            Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential<br/>
                            Buildings.Fluid.Actuators.Dampers.Exponential<br/>
                            Buildings.Fluid.Actuators.Dampers.MixingBox<br/>
-                           Buildings" + ".Fluid.Actuators.Dampers.MixingBoxMinimumFlow<br/>
+                           Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow<br/>
                            Buildings.Fluid.Actuators.Dampers.PressureIndependent<br/>
                            Buildings.Fluid.Actuators.Dampers.VAVBoxExponential
         </td>
