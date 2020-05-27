@@ -10,7 +10,15 @@ model HeatingSystem "Generic first generation district heating system"
      p_default=1000000) "Water medium";
 
   // Building loads
-  // Load profiles
+  // Read in tables
+  parameter Boolean tableOnFile=true
+    "= true, if table is defined on file or in function usertab";
+  parameter String tableName="HeatingLoadProfiles"
+    "Table name on file or in function usertab";
+  parameter Modelica.SIunits.Time timeScale=1 "Time scale of first table column";
+
+
+  // Tabular load profiles
   parameter Real Q_flow_profile1[:, :]= [0, 200E3; 6, 200E3; 6, 50E3; 18, 50E3; 18, 125E3; 24, 125E3]
     "Time series heating load, building 1";
   parameter Real Q_flow_profile2[:, :]= [0, 75E3; 6, 75E3; 6, 150E3; 12, 150E3; 18, 35E3; 24, 35E3]
@@ -27,23 +35,35 @@ model HeatingSystem "Generic first generation district heating system"
     "Time series heating load, building 7";
   parameter Real Q_flow_profile8[:, :]= [0, 100E3; 6, 100E3; 6, 200E3; 12, 200E3; 18, 50E3; 24, 50E3]
     "Time series heating load, building 8";
+//  parameter Modelica.SIunits.Time timeScale=3600 "Time scale of first table column";
   //[0, 1; 6, 1; 6, 0.25; 18, 0.25; 18, 0.375; 24, 0.375]
   //[0, 0.5; 6, 0.5; 6, 1; 12, 1; 18, 0.25; 24, 0.25]
 
   // Nominal loads
-  parameter Modelica.SIunits.Power QBld18_flow_nominal= 200E3
+  parameter Modelica.SIunits.Power QBld_flow_nominal= 19347.2793
+    "Nominal heat flow rate, Project 1 WP3 DESTEST";
+/*    
+  parameter Modelica.SIunits.Power QBld1_flow_nominal= 200E3
     "Nominal heat flow rate, building 1";
-  parameter Modelica.SIunits.Power QBld27_flow_nominal= 150E3
+  parameter Modelica.SIunits.Power QBld2_flow_nominal= 150E3
     "Nominal heat flow rate, building 2";
-  parameter Modelica.SIunits.Power QBld36_flow_nominal= 100E3
+  parameter Modelica.SIunits.Power QBld3_flow_nominal= 100E3
     "Nominal heat flow rate, building 3";
-  parameter Modelica.SIunits.Power QBld45_flow_nominal= 300E3
+  parameter Modelica.SIunits.Power QBld4_flow_nominal= 300E3
     "Nominal heat flow rate, building 4";
-
+  parameter Modelica.SIunits.Power QBld5_flow_nominal= 200E3
+    "Nominal heat flow rate, building 5";
+  parameter Modelica.SIunits.Power QBld6_flow_nominal= 150E3
+    "Nominal heat flow rate, building 6";
+  parameter Modelica.SIunits.Power QBld7_flow_nominal= 100E3
+    "Nominal heat flow rate, building 7";
+  parameter Modelica.SIunits.Power QBld8_flow_nominal= 300E3
+    "Nominal heat flow rate, building 8";
+*/
   // Plant loads
-  parameter Modelica.SIunits.Power QPla_flow_nominal=
-    (QBld18_flow_nominal+QBld27_flow_nominal+QBld36_flow_nominal+QBld45_flow_nominal)*2
+  parameter Modelica.SIunits.Power QPla_flow_nominal=154778.2344
     "Nominal heat flow rate of plant";
+    //(QBld18_flow_nominal+QBld27_flow_nominal+QBld36_flow_nominal+QBld45_flow_nominal)*2
   parameter Modelica.SIunits.AbsolutePressure pSte=1000000
     "Nominal steam pressure leaving plant";
   final parameter Modelica.SIunits.Temperature TSte=
@@ -59,8 +79,11 @@ model HeatingSystem "Generic first generation district heating system"
     QPla_flow_nominal/dh_nominal
     "Nominal mass flow rate, plant connection, district main";
   final parameter Modelica.SIunits.MassFlowRate mConPlaCon_flow_nominal=
-    (QBld18_flow_nominal+QBld27_flow_nominal+QBld36_flow_nominal+QBld45_flow_nominal)/dh_nominal
+    4*QBld_flow_nominal/dh_nominal
     "Nominal mass flow rate, plant connection, connector branch";
+//  final parameter Modelica.SIunits.MassFlowRate mConPlaCon_flow_nominal=
+//    (QBld18_flow_nominal+QBld27_flow_nominal+QBld36_flow_nominal+QBld45_flow_nominal)/dh_nominal
+//    "Nominal mass flow rate, plant connection, connector branch";
 
   // Left branch
   // conBld4
@@ -68,21 +91,21 @@ model HeatingSystem "Generic first generation district heating system"
     mConPlaCon_flow_nominal
     "Nominal mass flow rate, building 4, district main";
   final parameter Modelica.SIunits.MassFlowRate mCon4Con_flow_nominal=
-    QBld45_flow_nominal/dh_nominal
+    QBld_flow_nominal/dh_nominal
     "Nominal mass flow rate, building 4, connector branch";
   // conBld3
   final parameter Modelica.SIunits.MassFlowRate mCon3Dis_flow_nominal=
-    (QBld18_flow_nominal+QBld27_flow_nominal+QBld36_flow_nominal)/dh_nominal
+    3*QBld_flow_nominal/dh_nominal
     "Nominal mass flow rate, building 3, district main";
   final parameter Modelica.SIunits.MassFlowRate mCon3Con_flow_nominal=
-    QBld36_flow_nominal/dh_nominal
+    QBld_flow_nominal/dh_nominal
     "Nominal mass flow rate, building 3, connector branch";
   // conBld12
   final parameter Modelica.SIunits.MassFlowRate mCon12Dis_flow_nominal=
-    (QBld18_flow_nominal+QBld27_flow_nominal)/dh_nominal
+    2*QBld_flow_nominal/dh_nominal
     "Nominal mass flow rate, buildings 1 & 2, district main";
   final parameter Modelica.SIunits.MassFlowRate mCon12Con_flow_nominal=
-    QBld27_flow_nominal/dh_nominal
+    QBld_flow_nominal/dh_nominal
     "Nominal mass flow rate, buildings 1 & 2, connector branch";
 
    // Right branch
@@ -91,21 +114,21 @@ model HeatingSystem "Generic first generation district heating system"
     mConPlaCon_flow_nominal
     "Nominal mass flow rate, building 8, district main";
   final parameter Modelica.SIunits.MassFlowRate mCon8Con_flow_nominal=
-    QBld18_flow_nominal/dh_nominal
+    QBld_flow_nominal/dh_nominal
     "Nominal mass flow rate, building 8, connector branch";
   // conBld7
   final parameter Modelica.SIunits.MassFlowRate mCon7Dis_flow_nominal=
-    (QBld27_flow_nominal+QBld36_flow_nominal+QBld45_flow_nominal)/dh_nominal
+    3*QBld_flow_nominal/dh_nominal
     "Nominal mass flow rate, building 7, district main";
   final parameter Modelica.SIunits.MassFlowRate mCon7Con_flow_nominal=
-    QBld27_flow_nominal/dh_nominal
+    QBld_flow_nominal/dh_nominal
     "Nominal mass flow rate, building 7, connector branch";
   // conBld56
   final parameter Modelica.SIunits.MassFlowRate mCon56Dis_flow_nominal=
-    (QBld36_flow_nominal+QBld45_flow_nominal)/dh_nominal
+    2*QBld_flow_nominal/dh_nominal
     "Nominal mass flow rate, buildings 5 & 6, district main";
   final parameter Modelica.SIunits.MassFlowRate mCon56Con_flow_nominal=
-    QBld36_flow_nominal/dh_nominal
+    QBld_flow_nominal/dh_nominal
     "Nominal mass flow rate, buildings 5 & 6, connector branch";
 
 
@@ -138,38 +161,62 @@ model HeatingSystem "Generic first generation district heating system"
     bld1(
     redeclare package Medium_a = MediumSte,
     redeclare package Medium_b = MediumWat,
+    tableOnFile=tableOnFile,
     QHeaLoa=Q_flow_profile1,
-    Q_flow_nominal=QBld18_flow_nominal,
+    Q_flow_nominal=QBld_flow_nominal,
     pSte_nominal=pSte,
+    tableName=tableName,
+    fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Applications/DHC/Examples/FirstGeneration/HeatingSystem-WP3-DESTEST/HeatingLoadProfiles.csv"),
+    columns={2},
+    timeScale=timeScale,
     show_T=true)
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
+
   Buildings.Applications.DHC.Examples.FirstGeneration.BaseClasses.BuildingTimeSeriesHeating
     bld2(
     redeclare package Medium_a = MediumSte,
     redeclare package Medium_b = MediumWat,
+    tableOnFile=tableOnFile,
     QHeaLoa=Q_flow_profile2,
-    Q_flow_nominal=QBld27_flow_nominal,
+    Q_flow_nominal=QBld_flow_nominal,
     pSte_nominal=pSte,
+    tableName=tableName,
+    fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Applications/DHC/Examples/FirstGeneration/HeatingSystem-WP3-DESTEST/HeatingLoadProfiles.csv"),
+    columns={3},
+    timeScale=timeScale,
     show_T=true)
-    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
+    annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
+
   Buildings.Applications.DHC.Examples.FirstGeneration.BaseClasses.BuildingTimeSeriesHeating
     bld3(
     redeclare package Medium_a = MediumSte,
     redeclare package Medium_b = MediumWat,
+    tableOnFile=tableOnFile,
     QHeaLoa=Q_flow_profile3,
-    Q_flow_nominal=QBld36_flow_nominal,
+    Q_flow_nominal=QBld_flow_nominal,
     pSte_nominal=pSte,
+    tableName=tableName,
+    fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Applications/DHC/Examples/FirstGeneration/HeatingSystem-WP3-DESTEST/HeatingLoadProfiles.csv"),
+    columns={4},
+    timeScale=timeScale,
     show_T=true)
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
+
   Buildings.Applications.DHC.Examples.FirstGeneration.BaseClasses.BuildingTimeSeriesHeating
     bld4(
     redeclare package Medium_a = MediumSte,
     redeclare package Medium_b = MediumWat,
+    tableOnFile=tableOnFile,
     QHeaLoa=Q_flow_profile4,
-    Q_flow_nominal=QBld45_flow_nominal,
+    Q_flow_nominal=QBld_flow_nominal,
     pSte_nominal=pSte,
+    tableName=tableName,
+    fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Applications/DHC/Examples/FirstGeneration/HeatingSystem-WP3-DESTEST/HeatingLoadProfiles.csv"),
+    columns={5},
+    timeScale=timeScale,
     show_T=true)
-    annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
+    annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
+
   Networks.Connection1stGen4PipeSections conBld4(
     redeclare package MediumSup = MediumSte,
     redeclare package MediumRet = MediumWat,
@@ -188,7 +235,7 @@ model HeatingSystem "Generic first generation district heating system"
     lengthConRet=length) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-30,-56})));
+        origin={-30,-46})));
   Networks.Connection1stGen4PipeSections conBld3(
     redeclare package MediumSup = MediumSte,
     redeclare package MediumRet = MediumWat,
@@ -201,8 +248,8 @@ model HeatingSystem "Generic first generation district heating system"
     thicknessInsSup=thicknessIns,
     thicknessInsRet=thicknessIns,
     lambdaIns=lambdaIns,
-    lengthDisSup=length,
-    lengthDisRet=length,
+    lengthDisSup=1,
+    lengthDisRet=1,
     lengthConSup=length,
     lengthConRet=length) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -228,39 +275,63 @@ model HeatingSystem "Generic first generation district heating system"
     lengthConRet=length) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-30,24})));
+        origin={-30,34})));
   BaseClasses.BuildingTimeSeriesHeating bld5(
     redeclare package Medium_a = MediumSte,
     redeclare package Medium_b = MediumWat,
+    tableOnFile=tableOnFile,
     QHeaLoa=Q_flow_profile5,
-    Q_flow_nominal=QBld45_flow_nominal,
+    Q_flow_nominal=QBld_flow_nominal,
     pSte_nominal=pSte,
+    tableName=tableName,
+    fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Applications/DHC/Examples/FirstGeneration/HeatingSystem-WP3-DESTEST/HeatingLoadProfiles.csv"),
+    columns={6},
+    timeScale=timeScale,
     show_T=true)
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
+
   BaseClasses.BuildingTimeSeriesHeating bld6(
     redeclare package Medium_a = MediumSte,
     redeclare package Medium_b = MediumWat,
+    tableOnFile=tableOnFile,
     QHeaLoa=Q_flow_profile6,
-    Q_flow_nominal=QBld36_flow_nominal,
+    Q_flow_nominal=QBld_flow_nominal,
     pSte_nominal=pSte,
+    tableName=tableName,
+    fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Applications/DHC/Examples/FirstGeneration/HeatingSystem-WP3-DESTEST/HeatingLoadProfiles.csv"),
+    columns={7},
+    timeScale=timeScale,
     show_T=true)
-    annotation (Placement(transformation(extent={{20,20},{40,40}})));
+    annotation (Placement(transformation(extent={{20,30},{40,50}})));
+
   BaseClasses.BuildingTimeSeriesHeating bld7(
     redeclare package Medium_a = MediumSte,
     redeclare package Medium_b = MediumWat,
+    tableOnFile=tableOnFile,
     QHeaLoa=Q_flow_profile7,
-    Q_flow_nominal=QBld27_flow_nominal,
+    Q_flow_nominal=QBld_flow_nominal,
     pSte_nominal=pSte,
+    tableName=tableName,
+    fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Applications/DHC/Examples/FirstGeneration/HeatingSystem-WP3-DESTEST/HeatingLoadProfiles.csv"),
+    columns={8},
+    timeScale=timeScale,
     show_T=true)
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
+
   BaseClasses.BuildingTimeSeriesHeating bld8(
     redeclare package Medium_a = MediumSte,
     redeclare package Medium_b = MediumWat,
+    tableOnFile=tableOnFile,
     QHeaLoa=Q_flow_profile8,
-    Q_flow_nominal=QBld18_flow_nominal,
+    Q_flow_nominal=QBld_flow_nominal,
     pSte_nominal=pSte,
+    tableName=tableName,
+    fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Applications/DHC/Examples/FirstGeneration/HeatingSystem-WP3-DESTEST/HeatingLoadProfiles.csv"),
+    columns={9},
+    timeScale=timeScale,
     show_T=true)
-    annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
+    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
+
   Networks.Connection1stGen4PipeSections conBld8(
     redeclare package MediumSup = MediumSte,
     redeclare package MediumRet = MediumWat,
@@ -279,7 +350,7 @@ model HeatingSystem "Generic first generation district heating system"
     lengthConRet=length) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={90,-56})));
+        origin={90,-46})));
   Networks.Connection1stGen4PipeSections conBld7(
     redeclare package MediumSup = MediumSte,
     redeclare package MediumRet = MediumWat,
@@ -292,8 +363,8 @@ model HeatingSystem "Generic first generation district heating system"
     thicknessInsSup=thicknessIns,
     thicknessInsRet=thicknessIns,
     lambdaIns=lambdaIns,
-    lengthDisSup=length,
-    lengthDisRet=length,
+    lengthDisSup=1,
+    lengthDisRet=1,
     lengthConSup=length,
     lengthConRet=length) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -319,7 +390,7 @@ model HeatingSystem "Generic first generation district heating system"
     lengthConRet=length) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={90,24})));
+        origin={90,34})));
   Networks.Connection1stGen2PipeSections conPla(
     redeclare package MediumSup = MediumSte,
     redeclare package MediumRet = MediumWat,
@@ -337,65 +408,65 @@ model HeatingSystem "Generic first generation district heating system"
     annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
 equation
   connect(conPla.port_bDisSup,conBld8. port_aDisSup)
-    annotation (Line(points={{-20,-110},{90,-110},{90,-66}}, color={0,127,255}));
+    annotation (Line(points={{-20,-110},{90,-110},{90,-56}}, color={0,127,255}));
   connect(pla.port_b, conPla.port_aDisSup)
     annotation (Line(points={{-60,-110},{-40,-110}}, color={0,127,255}));
   connect(conPla.port_bCon, conBld4.port_aDisSup)
-    annotation (Line(points={{-30,-100},{-30,-66}}, color={0,127,255}));
+    annotation (Line(points={{-30,-100},{-30,-56}}, color={0,127,255}));
   connect(conPla.port_aCon, conBld4.port_bDisRet)
-    annotation (Line(points={{-24,-100},{-24,-66}}, color={0,127,255}));
+    annotation (Line(points={{-24,-100},{-24,-56}}, color={0,127,255}));
   connect(pla.port_a, conPla.port_bDisRet)
     annotation (Line(points={{-60,-116},{-40,-116}}, color={0,127,255}));
   connect(conPla.port_aDisRet,conBld8. port_bDisRet)
-    annotation (Line(points={{-20,-116},{96,-116},{96,-66}}, color={0,127,255}));
+    annotation (Line(points={{-20,-116},{96,-116},{96,-56}}, color={0,127,255}));
   connect(conBld4.port_bCon, bld4.port_a)
-    annotation (Line(points={{-40,-56},{-80,-56}}, color={0,127,255}));
+    annotation (Line(points={{-40,-46},{-80,-46}}, color={0,127,255}));
   connect(conBld4.port_aCon, bld4.port_b)
-    annotation (Line(points={{-40,-50},{-80,-50}}, color={0,127,255}));
+    annotation (Line(points={{-40,-40},{-80,-40}}, color={0,127,255}));
   connect(conBld3.port_bCon, bld3.port_a)
     annotation (Line(points={{-40,-16},{-80,-16}}, color={0,127,255}));
   connect(conBld3.port_aCon, bld3.port_b)
     annotation (Line(points={{-40,-10},{-80,-10}}, color={0,127,255}));
   connect(conBld12.port_bCon, bld2.port_a)
-    annotation (Line(points={{-40,24},{-80,24}}, color={0,127,255}));
+    annotation (Line(points={{-40,34},{-80,34}}, color={0,127,255}));
   connect(conBld12.port_aCon, bld2.port_b)
-    annotation (Line(points={{-40,30},{-80,30}}, color={0,127,255}));
+    annotation (Line(points={{-40,40},{-80,40}}, color={0,127,255}));
   connect(conBld12.port_bDisSup, bld1.port_a)
-    annotation (Line(points={{-30,34},{-30,64},{-80,64}}, color={0,127,255}));
+    annotation (Line(points={{-30,44},{-30,64},{-80,64}}, color={0,127,255}));
   connect(conBld12.port_aDisRet, bld1.port_b)
-    annotation (Line(points={{-24,34},{-24,70},{-80,70}}, color={0,127,255}));
+    annotation (Line(points={{-24,44},{-24,70},{-80,70}}, color={0,127,255}));
   connect(conBld4.port_bDisSup, conBld3.port_aDisSup)
-    annotation (Line(points={{-30,-46},{-30,-26}}, color={0,127,255}));
+    annotation (Line(points={{-30,-36},{-30,-26}}, color={0,127,255}));
   connect(conBld3.port_bDisSup, conBld12.port_aDisSup)
-    annotation (Line(points={{-30,-6},{-30,14}}, color={0,127,255}));
+    annotation (Line(points={{-30,-6},{-30,24}}, color={0,127,255}));
   connect(conBld12.port_bDisRet, conBld3.port_aDisRet)
-    annotation (Line(points={{-24,14},{-24,14},{-24,-6}}, color={0,127,255}));
+    annotation (Line(points={{-24,24},{-24,-6}},          color={0,127,255}));
   connect(conBld3.port_bDisRet, conBld4.port_aDisRet)
-    annotation (Line(points={{-24,-26},{-24,-46}}, color={0,127,255}));
+    annotation (Line(points={{-24,-26},{-24,-36}}, color={0,127,255}));
   connect(conBld8.port_bDisSup,conBld7. port_aDisSup)
-    annotation (Line(points={{90,-46},{90,-46},{90,-26}}, color={0,127,255}));
+    annotation (Line(points={{90,-36},{90,-26}},          color={0,127,255}));
   connect(conBld7.port_bDisSup, conBld56.port_aDisSup)
-    annotation (Line(points={{90,-6},{90,14}}, color={0,127,255}));
+    annotation (Line(points={{90,-6},{90,24}}, color={0,127,255}));
   connect(conBld56.port_bDisRet, conBld7.port_aDisRet)
-    annotation (Line(points={{96,14},{96,14},{96,-6}}, color={0,127,255}));
+    annotation (Line(points={{96,24},{96,-6}},         color={0,127,255}));
   connect(conBld7.port_bDisRet,conBld8. port_aDisRet)
-    annotation (Line(points={{96,-26},{96,-26},{96,-46}}, color={0,127,255}));
+    annotation (Line(points={{96,-26},{96,-36}},          color={0,127,255}));
   connect(conBld8.port_bCon, bld8.port_a)
-    annotation (Line(points={{80,-56},{40,-56}}, color={0,127,255}));
+    annotation (Line(points={{80,-46},{40,-46}}, color={0,127,255}));
   connect(conBld8.port_aCon, bld8.port_b)
-    annotation (Line(points={{80,-50},{40,-50}}, color={0,127,255}));
-  connect(conBld7.port_bCon, bld7.port_a) annotation (Line(points={{80,-16},{60,-16},
-          {60,-16},{40,-16}}, color={0,127,255}));
+    annotation (Line(points={{80,-40},{40,-40}}, color={0,127,255}));
+  connect(conBld7.port_bCon, bld7.port_a) annotation (Line(points={{80,-16},{40,
+          -16}},              color={0,127,255}));
   connect(bld7.port_b,conBld7. port_aCon)
     annotation (Line(points={{40,-10},{80,-10}}, color={0,127,255}));
-  connect(conBld56.port_bCon, bld6.port_a) annotation (Line(points={{80,24},{60,
-          24},{60,24},{40,24}}, color={0,127,255}));
-  connect(bld6.port_b, conBld56.port_aCon) annotation (Line(points={{40,30},{60,
-          30},{60,30},{80,30}}, color={0,127,255}));
+  connect(conBld56.port_bCon, bld6.port_a) annotation (Line(points={{80,34},{40,
+          34}},                 color={0,127,255}));
+  connect(bld6.port_b, conBld56.port_aCon) annotation (Line(points={{40,40},{80,
+          40}},                 color={0,127,255}));
   connect(conBld56.port_bDisSup, bld5.port_a)
-    annotation (Line(points={{90,34},{90,64},{40,64}}, color={0,127,255}));
+    annotation (Line(points={{90,44},{90,64},{40,64}}, color={0,127,255}));
   connect(conBld56.port_aDisRet, bld5.port_b)
-    annotation (Line(points={{96,34},{96,70},{40,70}}, color={0,127,255}));
+    annotation (Line(points={{96,44},{96,70},{40,70}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
                           Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-150,-150},{150,150}})),

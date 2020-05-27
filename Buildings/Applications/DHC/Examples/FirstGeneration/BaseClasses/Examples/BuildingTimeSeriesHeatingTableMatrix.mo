@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.Examples.FirstGeneration.BaseClasses.Examples;
-model BuildingTimeSeriesHeating
-  "Example model for the 1st generation building time series model"
+model BuildingTimeSeriesHeatingTableMatrix
+  "Example model for the 1st generation building time series model. A 1 day simulation with a table matrix heating load."
   extends Modelica.Icons.Example;
 
   package MediumSte = IBPSA.Media.Steam "Steam medium";
@@ -31,7 +31,8 @@ model BuildingTimeSeriesHeating
     redeclare package Medium_b = MediumWat,
     QHeaLoa=QHeaLoa,
     Q_flow_nominal=Q_flow_nominal,
-    pSte_nominal=pSte) "Building model, heating only"
+    pSte_nominal=pSte,
+    timeScale=3600)    "Building model, heating only"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Fluid.Sources.Boundary_pT           souSte(
     redeclare package Medium = MediumSte,
@@ -52,6 +53,6 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
   experiment(Tolerance=1e-6, StopTime=86400),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/Examples/FirstGeneration/BaseClasses/Examples/BuildingTimeSeriesHeating.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/Examples/FirstGeneration/BaseClasses/Examples/BuildingTimeSeriesHeatingTableMatrix.mos"
         "Simulate and plot"));
-end BuildingTimeSeriesHeating;
+end BuildingTimeSeriesHeatingTableMatrix;
