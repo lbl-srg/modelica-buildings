@@ -161,18 +161,14 @@ equation
 
   // fcl eq (61)
   fCl = fCl1 + (fCl2 - fCl1)*Buildings.Utilities.Math.Functions.smoothHeaviside(
-     x=(ICl_in_internal - 0.5), delta=0.01);
+    x=(ICl_in_internal - 0.5),
+    delta=0.01);
 
 
-  // hCon, table 6, Mitchell
-//     hCon = 8.3*Buildings.Utilities.Math.Functions.smoothMax(
-//        x1=vAir_in_internal*vAir_in_internal,
-//        x2=0.0375213,
-//        deltaX=0.01)^0.3;
-     hCon = Buildings.Utilities.Math.Functions.smoothMax(
-       x1=12.1*sqrt(vAir_in_internal),
-       x2=2.38*abs(TClo - TAir)^0.25,
-       deltaX=0.0001);
+  hCon = Buildings.Utilities.Math.Functions.smoothMax(
+    x1=12.1*sqrt(vAir_in_internal),
+    x2=2.38*abs(TClo - TAir)^0.25,
+    deltaX=0.0001);
 
   hCom = hRad + hCon;
 
@@ -191,12 +187,9 @@ equation
         - 3.96E-8*fCl*(TClo^4 - TRad^4)
         - fCl*hCon*(TClo - TAir);
 
-  // heat load on body, see (58)
-
-  // PMV (62)
   PMV = (0.303*Modelica.Math.exp(-0.036*M_in_internal) + 0.028)*L;
-  // PPD (64)
   PPD = 1 - 0.95*Modelica.Math.exp(-(0.03353*PMV^4 + 0.2179*PMV^2));
+
   annotation (
 defaultComponentName="com",
     Documentation(info="<html>
