@@ -134,7 +134,7 @@ its class name ends with the string <code>Beta</code>.
     Version 7.0.0 is a major release release that
     contains various new packages, new models and improvements to existing models.
     The library has been tested with
-    Dymola 2020x,
+    Dymola 2020x and 2021,
     JModelica (revision 14023), and
     OPTIMICA (revision OCT-stable-r12473_JM-r14295).
     </p>
@@ -184,12 +184,19 @@ its class name ends with the string <code>Beta</code>.
     <tr><td valign=\"top\">Buildings.Utilities.IO.SignalExchange
         </td>
         <td valign=\"top\">Package with blocks that can be used
-                          to identify and activate control signal overwrites, and
-                          to identify and read sensor signals. This package is used
-                          by the Building Optimization Performance Test software
-                          <a href=\"https://github.com/ibpsa/project1-boptest\">BOPTEST</a>.
+                           to identify and activate control signal overwrites, and
+                           to identify and read sensor signals. This package is used
+                           by the Building Optimization Performance Test software
+                           <a href=\"https://github.com/ibpsa/project1-boptest\">BOPTEST</a>.
         </td>
-        </tr>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Utilities.IO.Python36
+        </td>
+        <td valign=\"top\">Upgraded from <code>Buildings.Utilities.IO.Python27</code>
+                           since Python2.7 has been deprecated.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1760\">issue #1760</a>.
+        </td>
+    </tr>
     </table>
     <!-- New components for existing libraries -->
     <p>
@@ -429,7 +436,7 @@ its class name ends with the string <code>Beta</code>.
         </td>
     </tr>
     <tr><td valign=\"top\">Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal<br/>
-		   Buildings.Fluid.Actuators.Dampers.PressureIndependent
+                           Buildings.Fluid.Actuators.Dampers.PressureIndependent
         </td>
         <td valign=\"top\">Added the computation of the damper opening.
         </td>
@@ -799,11 +806,11 @@ its class name ends with the string <code>Beta</code>.
         </td>
     </tr>
     <tr><td valign=\"top\">Buildings.Examples.VAVReheat.ASHRAE2006<br/>
-		   Buildings.Examples.VAVReheat.Guideline36
+                           Buildings.Examples.VAVReheat.Guideline36
         </td>
         <td valign=\"top\">Connected actual VAV damper position as the measured input data for
-		   defining duct static pressure setpoint.<br/>
-		   This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1873\">#1873</a>.
+                           defining duct static pressure setpoint.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1873\">#1873</a>.
         </td>
     </tr>
     <tr><td valign=\"top\">Buildings.Examples.VAVReheat.Controls.DuctStaticPressureSetpoint
@@ -814,9 +821,9 @@ its class name ends with the string <code>Beta</code>.
     <tr><td valign=\"top\">Buildings.Examples.VAVReheat.Controls.RoomVAV
         </td>
         <td valign=\"top\">Refactored the model to implement a single maximum control logic.
-		   The previous implementation led to a maximum air flow rate in heating demand.<br/>
- 		   The input connector <code>TDis</code> is removed. This is non backward compatible.<br/>
-		   This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1873\">#1873</a>.
+                           The previous implementation led to a maximum air flow rate in heating demand.<br/>
+                           The input connector <code>TDis</code> is removed. This is non backward compatible.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1873\">#1873</a>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
@@ -911,6 +918,14 @@ its class name ends with the string <code>Beta</code>.
                            replaced the original <code>MovingMean</code> block.<br/>
                            For Dymola, a conversion script makes this change.<br/>
                            This is for <a href=\"https://github.com/ibpsa/modelica-buildings/issues/1588\">#1588</a>.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Obsolete.Utilities.IO.Python27
+        </td>
+        <td valign=\"top\">The package <code>Buildings.Utilities.IO.Python27</code>
+                           has been upgraded to <code>Buildings.Utilities.IO.Python36</code>.<br/>
+                           For Dymola, a conversion script moves the Python27 package to here.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-buildings/issues/1760\">issue #1760</a>.
         </td>
     </tr>
     </table>
