@@ -545,6 +545,14 @@ its class name ends with the string <code>Beta</code>.
                            This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1192\">IBPSA, #1192</a>.
         </td>
     </tr>
+    <tr><td valign=\"top\">Buildings.Utilities.Comfort.Fanger
+        </td>
+        <td valign=\"top\">Updated the model from ASHRAE 1997 to ANSI/ASHRAE 55-2017
+                           and added a validation model which compares the PMV
+                           with an implementation from the University of California at Berkeley.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1936\">#1936</a>.
+        </td>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.Examples</b>
         </td>
     </tr>
