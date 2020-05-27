@@ -13,7 +13,7 @@ model ExchangeWithPassPythonObject
 
 equation
   yR1 = Buildings.Obsolete.Utilities.IO.Python27.Functions.exchange(
-    moduleName="testFunctions",
+    moduleName="testFunctions27",
     functionName="r1_r1PassPythonObject",
     dblWri={2.0},
     intWri={0},
@@ -30,7 +30,7 @@ equation
   // Invoke the same function with the same Python object.
   // Hence, pytObj is reused.
   yR2 = Buildings.Obsolete.Utilities.IO.Python27.Functions.exchange(
-    moduleName="testFunctions",
+    moduleName="testFunctions27",
     functionName="r1_r1PassPythonObject",
     dblWri=yR1,
     intWri={0},
@@ -50,9 +50,9 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/U
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
-This example calls various functions in the Python module <code>testFunctions.py</code>.
+This example calls various functions in the Python module <code>testFunctions27.py</code>.
 It tests whether arguments and return values are passed correctly.
-The functions in  <code>testFunctions.py</code> are very simple in order to test
+The functions in  <code>testFunctions27.py</code> are very simple in order to test
 whether they compute correctly, and whether the data conversion between Modelica and
 Python is implemented correctly.
 Each call to Python is followed by an <code>assert</code> statement which terminates

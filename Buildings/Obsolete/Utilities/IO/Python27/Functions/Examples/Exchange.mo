@@ -22,7 +22,7 @@ protected
 
 algorithm
   yR1 := Buildings.Obsolete.Utilities.IO.Python27.Functions.exchange(
-    moduleName="testFunctions",
+    moduleName="testFunctions27",
     functionName="r1_r1",
     pytObj=m[1].pytObj,
     passPythonObject=passPythonObject,
@@ -37,7 +37,7 @@ algorithm
     assert(abs(4-yR1[1]) < 1e-5, "Error in function r1_r1");
 
   yR1 := Buildings.Obsolete.Utilities.IO.Python27.Functions.exchange(
-    moduleName="testFunctions",
+    moduleName="testFunctions27",
     functionName="r2_r1",
     pytObj=m[2].pytObj,
     passPythonObject=passPythonObject,
@@ -52,7 +52,7 @@ algorithm
     assert(abs(6-yR1[1]) < 1e-5, "Error in function r2_r1");
 
   yR2 := Buildings.Obsolete.Utilities.IO.Python27.Functions.exchange(
-    moduleName="testFunctions",
+    moduleName="testFunctions27",
     functionName="r1_r2",
     pytObj=m[3].pytObj,
     passPythonObject=passPythonObject,
@@ -68,7 +68,7 @@ algorithm
 
   // In the call below, yR1 is a dummy variable, as exchange returns (Real[1], Integer[1])
   (yR1,yI1) := Buildings.Obsolete.Utilities.IO.Python27.Functions.exchange(
-    moduleName="testFunctions",
+    moduleName="testFunctions27",
     functionName="i1_i1",
     pytObj=m[4].pytObj,
     passPythonObject=passPythonObject,
@@ -84,7 +84,7 @@ algorithm
 
   // In the call below, yR1 is a dummy variable, as exchange returns (Real[1], Integer[2])
   (yR1,yI2) := Buildings.Obsolete.Utilities.IO.Python27.Functions.exchange(
-    moduleName="testFunctions",
+    moduleName="testFunctions27",
     functionName="i1_i2",
     pytObj=m[5].pytObj,
     passPythonObject=passPythonObject,
@@ -99,7 +99,7 @@ algorithm
   assert(abs(yI2[1]-2) + abs(yI2[2]-4) < 1E-5, "Error in function i1_i2");
 
   yR2 := Buildings.Obsolete.Utilities.IO.Python27.Functions.exchange(
-    moduleName="testFunctions",
+    moduleName="testFunctions27",
     functionName="r1i1_r2",
     pytObj=m[6].pytObj,
     passPythonObject=passPythonObject,
@@ -118,7 +118,7 @@ algorithm
   Modelica.Utilities.Files.removeFile(fileName="tmp-TestPythonInterface.txt");
   Modelica.Utilities.Streams.print(string="1.23", fileName="tmp-TestPythonInterface.txt");
   yR1 := Buildings.Obsolete.Utilities.IO.Python27.Functions.exchange(
-    moduleName="testFunctions",
+    moduleName="testFunctions27",
     functionName="s2_r1",
     pytObj=m[7].pytObj,
     passPythonObject=passPythonObject,
@@ -133,7 +133,7 @@ algorithm
    assert(abs(yR1[1]-1.23) < 1E-5, "Error in function s2_r1");
 
   (yR2,yI1) := Buildings.Obsolete.Utilities.IO.Python27.Functions.exchange(
-    moduleName="testFunctions",
+    moduleName="testFunctions27",
     functionName="r1i1_r2i1",
     pytObj=m[8].pytObj,
     passPythonObject=passPythonObject,
@@ -153,9 +153,9 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/U
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
-This example calls various functions in the Python module <code>testFunctions.py</code>.
+This example calls various functions in the Python module <code>testFunctions27.py</code>.
 It tests whether arguments and return values are passed correctly.
-The functions in  <code>testFunctions.py</code> are very simple in order to test
+The functions in  <code>testFunctions27.py</code> are very simple in order to test
 whether they compute correctly, and whether the data conversion between Modelica and
 Python is implemented correctly.
 Each call to Python is followed by an <code>assert</code> statement which terminates
