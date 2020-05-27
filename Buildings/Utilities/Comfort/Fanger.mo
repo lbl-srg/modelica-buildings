@@ -356,6 +356,12 @@ Geneva, Switzerland: ISO. 1994.
 </html>", revisions="<html>
 <ul>
 <li>
+May 27, 2020, by Donghun Kim and Michael Wetter:<br/>
+Updated model equations to ANSI/ASHRAE Standard 55-2017.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1936\">#1936</a>.
+</li>
+<li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.
 Added default value for <code>ICl</code>.
