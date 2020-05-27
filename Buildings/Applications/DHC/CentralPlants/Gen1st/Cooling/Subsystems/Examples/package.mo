@@ -13,8 +13,15 @@ package Examples "Collection of models that illustrate model use and test models
       annotation (Dialog(group="Nominal condition"));
 
     Buildings.Applications.DHC.CentralPlants.Gen1st.Cooling.Subsystems.CoolingTowerParellel
-      cooTowPar(m_flow_nominal=m_flow_nominal/2,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+      cooTowPar(
+    use_inputFilter=false,
+                m_flow_nominal=m_flow_nominal/2,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    dp_nominal=60000,
+    TAirInWB_nominal=273.15 + 25.55,
+    TWatIn_nominal=273.15 + 35,
+    dT_nominal=5.56,
+    PFan_nominal=4800)
       "Parallel cooling towers"
       annotation (Placement(transformation(extent={{0,40},{20,60}})));
 
@@ -94,9 +101,6 @@ package Examples "Collection of models that illustrate model use and test models
     Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
       annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 
-    Modelica.Blocks.Sources.Constant on[2](each k=1) "On signal for cooling towers"
-      annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
-
   equation
     connect(onOffCon.y,swi. u2) annotation (Line(points={{11,-80},{28,-80}}, color={255,0,255}));
     connect(zer.y,swi. u3) annotation (Line(points={{11,-110},{18,-110},{18,-88},{28,-88}},
@@ -135,8 +139,12 @@ package Examples "Collection of models that illustrate model use and test models
     connect(cooTowPar.port_b, senTCWLvg.port_a)  annotation (Line(points={{20,50},{30,50}}, color={0,127,255}));
     connect(senTCWLvg.port_b, vol.ports[2]) annotation (Line(points={{50,50},{60,50},
             {60,-20},{30,-20}}, color={0,127,255}));
-    connect(on.y, cooTowPar.on) annotation (Line(points={{-99,50},{-88,50},{-88,70},
-            {-12,70},{-12,56},{-2,56}}, color={0,0,127}));
+  connect(swi.y, cooTowPar.on[1]) annotation (Line(points={{51,-80},{60,-80},{
+          60,-128},{-80,-128},{-80,68},{-12,68},{-12,56},{-2,56}}, color={0,0,
+          127}));
+  connect(swi.y, cooTowPar.on[2]) annotation (Line(points={{51,-80},{60,-80},{
+          60,-128},{-80,-128},{-80,68},{-12,68},{-12,56},{-2,56}}, color={0,0,
+          127}));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
               {100,100}})),
               Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-140},{120,120}})),

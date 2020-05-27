@@ -1,5 +1,5 @@
-within Buildings.Applications.DHC.CentralPlants.Gen1st.Building;
-model Building "Model to simulate the demand side"
+within Buildings.Applications.DHC.Examples.FirstGeneration.BaseClasses;
+model BuildingETSCoupled "Model to simulate the demand side"
     replaceable package Medium =
       Buildings.Media.Water "Medium water";
     parameter Modelica.SIunits.MassFlowRate m_flow_nominal
@@ -185,4 +185,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Building;
+end BuildingETSCoupled;
