@@ -166,7 +166,7 @@ equation
 
 
   hCon = Buildings.Utilities.Math.Functions.smoothMax(
-    x1=12.1*sqrt(vAir_in_internal),
+    x1=12.1*sqrt(abs(vAir_in_internal)),
     x2=2.38*abs(TClo - TAir)^0.25,
     deltaX=0.0001);
 
