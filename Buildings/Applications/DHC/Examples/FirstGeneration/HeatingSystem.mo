@@ -27,6 +27,7 @@ model HeatingSystem "Generic first generation district heating system"
     "Time series heating load, building 7";
   parameter Real Q_flow_profile8[:, :]= [0, 100E3; 6, 100E3; 6, 200E3; 12, 200E3; 18, 50E3; 24, 50E3]
     "Time series heating load, building 8";
+  parameter Modelica.SIunits.Time timeScale=3600 "Time scale of first table column";
   //[0, 1; 6, 1; 6, 0.25; 18, 0.25; 18, 0.375; 24, 0.375]
   //[0, 0.5; 6, 0.5; 6, 1; 12, 1; 18, 0.25; 24, 0.25]
 
@@ -141,6 +142,7 @@ model HeatingSystem "Generic first generation district heating system"
     QHeaLoa=Q_flow_profile1,
     Q_flow_nominal=QBld18_flow_nominal,
     pSte_nominal=pSte,
+    timeScale=timeScale,
     show_T=true)
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   Buildings.Applications.DHC.Examples.FirstGeneration.BaseClasses.BuildingTimeSeriesHeating
@@ -150,6 +152,7 @@ model HeatingSystem "Generic first generation district heating system"
     QHeaLoa=Q_flow_profile2,
     Q_flow_nominal=QBld27_flow_nominal,
     pSte_nominal=pSte,
+    timeScale=timeScale,
     show_T=true)
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Buildings.Applications.DHC.Examples.FirstGeneration.BaseClasses.BuildingTimeSeriesHeating
@@ -159,6 +162,7 @@ model HeatingSystem "Generic first generation district heating system"
     QHeaLoa=Q_flow_profile3,
     Q_flow_nominal=QBld36_flow_nominal,
     pSte_nominal=pSte,
+    timeScale=timeScale,
     show_T=true)
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
   Buildings.Applications.DHC.Examples.FirstGeneration.BaseClasses.BuildingTimeSeriesHeating
@@ -168,6 +172,7 @@ model HeatingSystem "Generic first generation district heating system"
     QHeaLoa=Q_flow_profile4,
     Q_flow_nominal=QBld45_flow_nominal,
     pSte_nominal=pSte,
+    timeScale=timeScale,
     show_T=true)
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
   Networks.Connection1stGen4PipeSections conBld4(
@@ -235,6 +240,7 @@ model HeatingSystem "Generic first generation district heating system"
     QHeaLoa=Q_flow_profile5,
     Q_flow_nominal=QBld45_flow_nominal,
     pSte_nominal=pSte,
+    timeScale=timeScale,
     show_T=true)
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
   BaseClasses.BuildingTimeSeriesHeating bld6(
@@ -243,6 +249,7 @@ model HeatingSystem "Generic first generation district heating system"
     QHeaLoa=Q_flow_profile6,
     Q_flow_nominal=QBld36_flow_nominal,
     pSte_nominal=pSte,
+    timeScale=timeScale,
     show_T=true)
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   BaseClasses.BuildingTimeSeriesHeating bld7(
@@ -251,6 +258,7 @@ model HeatingSystem "Generic first generation district heating system"
     QHeaLoa=Q_flow_profile7,
     Q_flow_nominal=QBld27_flow_nominal,
     pSte_nominal=pSte,
+    timeScale=timeScale,
     show_T=true)
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   BaseClasses.BuildingTimeSeriesHeating bld8(
@@ -259,6 +267,7 @@ model HeatingSystem "Generic first generation district heating system"
     QHeaLoa=Q_flow_profile8,
     Q_flow_nominal=QBld18_flow_nominal,
     pSte_nominal=pSte,
+    timeScale=timeScale,
     show_T=true)
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Networks.Connection1stGen4PipeSections conBld8(

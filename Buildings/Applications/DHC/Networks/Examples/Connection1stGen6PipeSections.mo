@@ -61,6 +61,7 @@ model Connection1stGen6PipeSections
     QHeaLoa=QBui1_flow_profile,
     Q_flow_nominal=QBui_flow_nominal,
     pSte_nominal=pSte,
+    timeScale=3600,
     show_T=true) "Building"
     annotation (Placement(transformation(extent={{-40,6},{-20,26}})));
 
@@ -71,6 +72,7 @@ model Connection1stGen6PipeSections
     QHeaLoa=QBui2_flow_profile,
     Q_flow_nominal=QBui_flow_nominal,
     pSte_nominal=pSte,
+    timeScale=3600,
     show_T=true) "Building"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   CentralPlants.Gen1st.Heating.HeatingPlant pla(

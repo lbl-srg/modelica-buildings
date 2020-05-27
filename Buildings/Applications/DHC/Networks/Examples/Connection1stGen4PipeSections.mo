@@ -59,7 +59,8 @@ model Connection1stGen4PipeSections
     redeclare package Medium_b = MediumWat,
     QHeaLoa=QBui1_flow_profile,
     Q_flow_nominal=QBui_flow_nominal,
-    pSte_nominal=pSte) "Building"
+    pSte_nominal=pSte,
+    timeScale=3600)    "Building"
     annotation (Placement(transformation(extent={{-40,6},{-20,26}})));
 
   Fluid.Sources.Boundary_pT steDisSou(
@@ -74,7 +75,8 @@ model Connection1stGen4PipeSections
     redeclare package Medium_b = MediumWat,
     QHeaLoa=QBui2_flow_profile,
     Q_flow_nominal=QBui_flow_nominal,
-    pSte_nominal=pSte) "Building"
+    pSte_nominal=pSte,
+    timeScale=3600)    "Building"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 equation
   connect(watDisSin.ports[1], con.port_bDisRet) annotation (Line(points={{-20,-60},

@@ -8,8 +8,6 @@ model BuildingTimeSeriesHeating
       Modelica.Media.Interfaces.PartialMedium
     "Medium model (liquid state) for port_b (outlet)";
 
-  parameter Real QHeaLoa[:, :]=[0, 200E3; 6, 200E3; 6, 50E3; 18, 50E3; 18, 75E3; 24, 75E3]
-    "Heating load profile for the building";
   parameter Modelica.SIunits.Power Q_flow_nominal
     "Nominal heat flow rate";
 
@@ -21,6 +19,32 @@ model BuildingTimeSeriesHeating
   final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
     Q_flow_nominal/dh_nominal
     "Nominal mass flow rate";
+
+  // Table parameters
+  parameter Boolean tableOnFile=false
+    "= true, if table is defined on file or in function usertab"
+    annotation (Dialog(group="Table data definition"));
+  parameter Real QHeaLoa[:, :] = fill(0.0, 0, 2)
+    "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])"
+    annotation (Dialog(group="Table data definition",enable=not tableOnFile));
+  parameter String tableName="NoName"
+    "Table name on file or in function usertab (see docu)"
+    annotation (Dialog(group="Table data definition",enable=tableOnFile));
+  parameter String fileName="NoName" "File where matrix is stored"
+    annotation (Dialog(
+      group="Table data definition",
+      enable=tableOnFile,
+      loadSelector(filter="Text files (*.txt);;MATLAB MAT-files (*.mat)",
+          caption="Open file in which table is present")));
+  parameter Integer columns[:]=2:size(QHeaLoa, 2)
+    "Columns of table to be interpolated"
+    annotation (Dialog(group="Table data interpretation"));
+  parameter Modelica.Blocks.Types.Smoothness smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments
+    "Smoothness of table interpolation"
+    annotation (Dialog(group="Table data interpretation"));
+  parameter Modelica.SIunits.Time timeScale(
+    min=Modelica.Constants.eps)=1 "Time scale of first table column"
+    annotation (Dialog(group="Table data interpretation"), Evaluate=true);
 
   parameter Modelica.SIunits.Time riseTime=120
     "Rise time of the filter (time to reach 99.6 % of an opening step)";
@@ -43,9 +67,13 @@ model BuildingTimeSeriesHeating
     "Medium properties in port_b";
 
   Modelica.Blocks.Sources.CombiTimeTable QHea(
+    tableOnFile=tableOnFile,
     table=QHeaLoa,
-    timeScale=3600,
-    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
+    tableName=tableName,
+    fileName=fileName,
+    columns=columns,
+    smoothness=smoothness,
+    timeScale=timeScale)
     "Heating demand"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Applications.DHC.EnergyTransferStations.Heating1stGenIdeal ets(

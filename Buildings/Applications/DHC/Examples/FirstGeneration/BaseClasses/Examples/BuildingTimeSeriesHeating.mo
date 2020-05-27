@@ -31,7 +31,8 @@ model BuildingTimeSeriesHeating
     redeclare package Medium_b = MediumWat,
     QHeaLoa=QHeaLoa,
     Q_flow_nominal=Q_flow_nominal,
-    pSte_nominal=pSte) "Building model, heating only"
+    pSte_nominal=pSte,
+    timeScale=3600)    "Building model, heating only"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Fluid.Sources.Boundary_pT           souSte(
     redeclare package Medium = MediumSte,
