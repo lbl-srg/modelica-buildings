@@ -1,5 +1,5 @@
 simulateModel("Buildings.Fluid.HeatExchangers.Examples.WetCoilEffNtuMassFlowFuzzy_V2_2",
-  tolerance=1e-8, stopTime=3600, method="dassl", resultFile="WetCoilEffNtuMassFlowFuzzy_V2_2");
+  tolerance=1e-6, stopTime=3600, method="cvode", resultFile="WetCoilEffNtuMassFlowFuzzy_V2_2");
 createPlot(id=1,
   position={0, 0, 1614, 872},
   y={"hex.Q2_flow", "hex.QLat2_flow"},
