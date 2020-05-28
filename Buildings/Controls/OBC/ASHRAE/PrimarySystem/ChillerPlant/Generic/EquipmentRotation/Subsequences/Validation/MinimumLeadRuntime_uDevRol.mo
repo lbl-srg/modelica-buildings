@@ -116,7 +116,8 @@ equation
           255}));
   connect(rotTwo1.yPreDevRolSig, logSwi1.u2) annotation (Line(points={{102,-6},{
           110,-6},{110,-20},{-20,-20},{-20,0},{-2,0}},  color={255,0,255}));
-          annotation (
+
+annotation (
    experiment(StopTime=100000.0, Tolerance=1e-06),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Generic/EquipmentRotation/Subsequences/Validation/MinimumLeadRuntime_uDevRol.mos"
     "Simulate and plot"),

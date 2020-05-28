@@ -199,10 +199,8 @@ equation
           {-20,-80},{38,-80}}, color={255,0,255}));
   connect(leaRunTim.yRot, rotTwo.uRot) annotation (Line(points={{62,-80},{80,-80},
           {80,-30},{98,-30}}, color={255,0,255}));
-    annotation(Dialog(group="Scheduler"),
-                Evaluate=true, Dialog(group="Scheduler"),
-                Evaluate=true,
-              Diagram(coordinateSystem(extent={{-160,-100},{160,100}})),
+
+annotation(Diagram(coordinateSystem(extent={{-160,-100},{160,100}})),
       defaultComponentName="equRot",
     Icon(graphics={
         Rectangle(
