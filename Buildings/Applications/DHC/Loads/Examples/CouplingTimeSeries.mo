@@ -46,14 +46,14 @@ model CouplingTimeSeries
   Modelica.Blocks.Sources.RealExpression TChiWatSup(y=bui.terUniCoo.T_aChiWat_nominal)
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
-  Fluid.Sources.Boundary_pT           supHeaWat(
+  Fluid.Sources.Boundary_pT supHeaWat(
     redeclare package Medium = Medium1,
     use_T_in=true,
     nPorts=1) "Heating water supply" annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},
       rotation=0,
       origin={-50,40})));
-  Fluid.Sources.Boundary_pT           supChiWat(
+  Fluid.Sources.Boundary_pT supChiWat(
     redeclare package Medium = Medium1,
     use_T_in=true,
     nPorts=1) "Chilled water supply" annotation (Placement(transformation(
