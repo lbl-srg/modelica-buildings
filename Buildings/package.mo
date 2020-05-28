@@ -131,7 +131,7 @@ its class name ends with the string <code>Beta</code>.
         annotation (Documentation(info="<html>
     <div class=\"release-summary\">
     <p>
-    Version 7.0.0 is a major release release that
+    Version 7.0.0 is a major release that
     contains various new packages, new models and improvements to existing models.
     The library has been tested with
     Dymola 2020x and 2021,
