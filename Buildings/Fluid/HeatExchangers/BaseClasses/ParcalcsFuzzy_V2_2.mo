@@ -98,12 +98,12 @@ model ParcalcsFuzzy_V2_2 "Description"
     mWat_flow_nominal=mWat_flow_nominal);
 
 equation
-  if noEvent(TSurAirOutDry>=(TDewIn.T-1e-2)) then //domain restrction
+  if noEvent(TSurAirOutDry>=(TDewIn.T-1e-2)) then //domain restriction
     dryfra  = 1-1e-3;
     TWatOut = dry.TWatOut;
     TAirOut = dry.TAirOut;
     TSurTra = 0.5*(dry.TSurAirOut + wet.TSurAirIn);
-  elseif noEvent(TSurAirInWet<=(TDewIn.T+1e-2)) then //domain restrction
+  elseif noEvent(TSurAirInWet<=(TDewIn.T+1e-2)) then //domain restriction
     dryfra  = 1e-3;
     TWatOut = wet.TWatOut;
     TAirOut = wet.TAirOut;
