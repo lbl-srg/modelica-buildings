@@ -540,12 +540,12 @@ the value of <code>have_scaLoa</code>.
 <li>
 If <code>have_scaLoa</code> is <code>true</code> (default), then the mass flow rate 
 on the load side is scaled. This allows modeling multiple identical units serving 
-an aggregated load e.g. a thermal zone representing several rooms.
+an aggregated load, e.g., a thermal zone representing several rooms.
 </li>
 <li>
 If <code>have_scaLoa</code> is <code>false</code>, then the mass flow rate 
 on the load side is not scaled. This allows modeling multiple identical units serving 
-multiple identical rooms.
+multiple identical rooms, e.g., with only one zone model representing a single room.
 </li>
 </ul>
 <p>
