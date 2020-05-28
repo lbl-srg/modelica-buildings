@@ -4,10 +4,8 @@ model CouplingTimeSeries
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water
     "Source side medium";
-  parameter Boolean have_timAve = false
-    "Set to true to compute time averaged load and actual heat flow rate";
-  parameter Modelica.SIunits.Time perAve = 900
-    "Sample period for time averaged variables";
+  parameter Modelica.SIunits.Time perAve = 600
+    "Period for time averaged variables";
   Buildings.Applications.DHC.Loads.Examples.BaseClasses.BuildingTimeSeries
     bui(
       filNam=
@@ -72,81 +70,67 @@ model CouplingTimeSeries
   Modelica.Blocks.Continuous.Integrator ECooAct(y(unit="J"))
     "Actual energy used for cooling"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
-  Modelica.Blocks.Continuous.Integrator QAveHeaReq_flow(
-    k=1/perAve,
-    use_reset=true,
-    y(unit="J")) if  have_timAve
+  Buildings.Controls.OBC.CDL.Continuous.MovingMean QAveHeaReq_flow(
+    y(unit="W"),
+    final delta=perAve)
     "Time average of heating load"
     annotation (Placement(transformation(extent={{60,110},{80,130}})));
-  Modelica.Blocks.Continuous.Integrator QAveHeaAct_flow(
-    k=1/perAve,
-    use_reset=true,
-    y(unit="J")) if  have_timAve
+  Buildings.Controls.OBC.CDL.Continuous.MovingMean QAveHeaAct_flow(
+    y(unit="W"),
+    final delta=perAve)
     "Time average of heating heat flow rate"
     annotation (Placement(transformation(extent={{100,110},{120,130}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(period=perAve) if
-       have_timAve
-    "Block that outputs cyclic on and off"
-    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Modelica.Blocks.Continuous.Integrator QAveCooReq_flow(
-    k=1/perAve,
-    use_reset=true,
-    y(unit="J")) if  have_timAve
+  Buildings.Controls.OBC.CDL.Continuous.MovingMean QAveCooReq_flow(
+    y(unit="W"),
+    final delta=perAve)
     "Time average of cooling load"
     annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
-  Modelica.Blocks.Continuous.Integrator QAveCooAct_flow(
-    k=1/perAve,
-    use_reset=true,
-    y(unit="J")) if have_timAve
+  Buildings.Controls.OBC.CDL.Continuous.MovingMean QAveCooAct_flow(
+    y(unit="W"),
+    final delta=perAve)
     "Time average of cooling heat flow rate"
     annotation (Placement(transformation(extent={{100,-110},{120,-90}})));
 equation
   connect(supHeaWat.T_in,THeaWatSup. y) annotation (Line(points={{-62,44},{-80,44},
-          {-80,40},{-99,40}},     color={0,0,127}));
+          {-80,40},{-99,40}}, color={0,0,127}));
   connect(TChiWatSup.y,supChiWat. T_in) annotation (Line(points={{-99,-20},{-80,
-          -20},{-80,-16},{-62,-16}},
-                                  color={0,0,127}));
+          -20},{-80,-16},{-62,-16}}, color={0,0,127}));
   connect(supHeaWat.ports[1], bui.ports_aHeaWat[1]) annotation (Line(points={{-40,40},
-          {0,40},{0,4},{10,4}},       color={0,127,255}));
+          {0,40},{0,4},{10,4}}, color={0,127,255}));
   connect(supChiWat.ports[1], bui.ports_aChiWat[1]) annotation (Line(points={{-40,-20},
-          {0,-20},{0,0},{10,0}},      color={0,127,255}));
+          {0,-20},{0,0},{10,0}}, color={0,127,255}));
   connect(bui.ports_bHeaWat[1], sinHeaWat.ports[1]) annotation (Line(points={{30,4},{
-          60,4},{60,20},{120,20}},       color={0,127,255}));
+          60,4},{60,20},{120,20}}, color={0,127,255}));
   connect(sinChiWat.ports[1], bui.ports_bChiWat[1]) annotation (Line(points={{120,-20},
-          {60,-20},{60,0},{30,0}},      color={0,127,255}));
+          {60,-20},{60,0},{30,0}},  color={0,127,255}));
   connect(bui.QHea_flow, EHeaAct.u) annotation (Line(points={{30.6667,14.6667},
-          {40,14.6667},{40,60},{90,60},{90,80},{98,80}},     color={0,0,127}));
+          {40,14.6667},{40,60},{90,60},{90,80},{98,80}},color={0,0,127}));
   connect(bui.QReqHea_flow, EHeaReq.u) annotation (Line(points={{26.6667,
-          -4.66667},{26.6667,-8},{36,-8},{36,80},{58,80}},  color={0,0,127}));
+          -4.66667},{26.6667,-8},{36,-8},{36,80},{58,80}},
+                                                 color={0,0,127}));
   connect(bui.QReqCoo_flow, ECooReq.u) annotation (Line(points={{28.6667,
-          -4.66667},{28.6667,-60},{58,-60}},color={0,0,127}));
+          -4.66667},{28.6667,-60},{58,-60}},
+                                   color={0,0,127}));
   connect(bui.QCoo_flow, ECooAct.u) annotation (Line(points={{30.6667,13.3333},
-          {40,13.3333},{40,-40},{90,-40},{90,-60},{98,-60}},
-                                                         color={0,0,127}));
+          {40,13.3333},{40,-40},{90,-40},{90,-60},{98,-60}},color={0,0,127}));
   connect(bui.QReqHea_flow, QAveHeaReq_flow.u) annotation (Line(points={{26.6667,
           -4.66667},{26.6667,-7.90323},{35.9677,-7.90323},{35.9677,120},{58,120}},
         color={0,0,127}));
   connect(bui.QHea_flow, QAveHeaAct_flow.u) annotation (Line(points={{30.6667,
           14.6667},{40,14.6667},{40,60},{90,60},{90,120},{98,120}},
                                                            color={0,0,127}));
-  connect(booPul.y, QAveHeaReq_flow.reset) annotation (Line(points={{-38,10},{-20,
-          10},{-20,100},{76,100},{76,108}}, color={255,0,255}));
-  connect(booPul.y, QAveHeaAct_flow.reset) annotation (Line(points={{-38,10},{-20,
-          10},{-20,100},{116,100},{116,108}}, color={255,0,255}));
   connect(bui.QReqCoo_flow, QAveCooReq_flow.u) annotation (Line(points={{28.6667,
           -4.66667},{28.6316,-4.66667},{28.6316,-60},{28.6316,-100},{58,-100}},
         color={0,0,127}));
   connect(bui.QCoo_flow, QAveCooAct_flow.u) annotation (Line(points={{30.6667,
           13.3333},{40,13.3333},{40,-40},{90,-40},{90,-100},{98,-100}},
                                                                color={0,0,127}));
-  connect(booPul.y, QAveCooReq_flow.reset) annotation (Line(points={{-38,10},{-20,
-          10},{-20,-120},{76,-120},{76,-112}}, color={255,0,255}));
-  connect(booPul.y, QAveCooAct_flow.reset) annotation (Line(points={{-38,10},{-20,
-          10},{-20,-120},{116,-120},{116,-112}}, color={255,0,255}));
   annotation (
   experiment(
-      StopTime=604800,
-      Tolerance=1e-06),
+      StopTime=20000000,
+      __Dymola_NumberOfIntervals=5000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"),
   Documentation(info="<html>
 <p>
 This example illustrates the use of
