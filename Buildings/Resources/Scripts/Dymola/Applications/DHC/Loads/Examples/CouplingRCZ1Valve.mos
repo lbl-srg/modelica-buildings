@@ -32,16 +32,21 @@ createPlot(
 );
 createPlot(
     id=2,
-    y={"bui.disFloHea.mReq_flow[1]", "bui.disFloHea.mAct_flow[1].y", "bui.terUni.mHeaWat_flow_nominal"},
+    y={"bui.disFloHea.mReq_flow[1]", "bui.disFloHea.mAct_flow[1].y", "bui.disFloHea.m_flow_nominal"},
     grid=true,
     subPlot=2
 );
 createPlot(
     id=2,
-    y={"bui.terUni.QActHea_flow", "bui.terUni.QHea_flow_nominal"},
+    y={"bui.terUni.QActHea_flow"},
     grid=true,
     subPlot=3
 );
+plotExpression(
+    apply(CouplingRCZ1Valve.bui.terUni.facSca*CouplingRCZ1Valve.bui.terUni.QHea_flow_nominal),
+    false,
+    "facSca*QHea_flow_nominal",
+    2);
 createPlot(
     id=3,
     position={1016, 21, 485, 681},
@@ -51,7 +56,7 @@ createPlot(
 );
 createPlot(
     id=3,
-    y={"bui.disFloCoo.mReq_flow[1]", "bui.disFloCoo.mAct_flow[1].y", "bui.terUni.mChiWat_flow_nominal"},
+    y={"bui.disFloCoo.mReq_flow[1]", "bui.disFloCoo.mAct_flow[1].y", "bui.disFloCoo.m_flow_nominal"},
     grid=true,
     subPlot=2
 );
@@ -61,5 +66,9 @@ createPlot(
     grid=true,
     subPlot=3
 );
-plotExpression(apply(-1*CouplingRCZ1Valve[end].bui.terUni.QCoo_flow_nominal), false, "-1*bui.terUni.QCoo_flow_nominal", 3);
+plotExpression(
+    apply(CouplingRCZ1Valve.bui.terUni.facSca*CouplingRCZ1Valve.bui.terUni.QCoo_flow_nominal),
+    false,
+    "facSca*QCoo_flow_nominal",
+    3);
 
