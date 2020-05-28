@@ -351,7 +351,7 @@ equation
   connect(TChiWatRet, capReq.TChiWatRet) annotation (Line(points={{-422,300},{-374,
           300},{-374,314},{-324,314}}, color={0,0,127}));
   connect(VChiWat_flow, capReq.VChiWat_flow) annotation (Line(points={{-422,270},
-          {-366,270},{-366,309},{-324,309}}, color={0,0,127}));
+          {-370,270},{-370,309},{-324,309}}, color={0,0,127}));
   connect(conf.yDesCap, cap.uDesCap) annotation (Line(points={{-338,-162},{-322,
           -162},{-322,-161},{-272,-161}}, color={0,0,127}));
   connect(conf.yMinCap, cap.uMinCap) annotation (Line(points={{-338,-166},{-312,
@@ -404,8 +404,8 @@ equation
   connect(TChiWatSupSet, staUp.TChiWatSupSet) annotation (Line(points={{-422,370},
           {-162,370},{-162,-105},{-102,-105}},
                                        color={0,0,127}));
-  connect(TChiWatSup, staUp.TChiWatSup) annotation (Line(points={{-422,340},{-382,
-          340},{-382,270},{-164,270},{-164,-107},{-102,-107}},
+  connect(TChiWatSup, staUp.TChiWatSup) annotation (Line(points={{-422,340},{
+          -386,340},{-386,284},{-164,284},{-164,-107},{-102,-107}},
                                                          color={0,0,127}));
   connect(dpChiWatPumSet, staUp.dpChiWatPumSet) annotation (Line(points={{-422,220},
           {-144,220},{-144,-110},{-102,-110}},
@@ -428,8 +428,8 @@ equation
   connect(TChiWatSupSet, staDow.TChiWatSupSet) annotation (Line(points={{-422,370},
           {-152,370},{-152,-230},{-102,-230}},
                                          color={0,0,127}));
-  connect(TChiWatSup, staDow.TChiWatSup) annotation (Line(points={{-422,340},{-382,
-          340},{-382,270},{-154,270},{-154,-232},{-102,-232}},
+  connect(TChiWatSup, staDow.TChiWatSup) annotation (Line(points={{-422,340},{
+          -386,340},{-386,284},{-154,284},{-154,-232},{-102,-232}},
                                                        color={0,0,127}));
   connect(TWsePre, staDow.TWsePre) annotation (Line(points={{-422,120},{-156,120},
           {-156,-234},{-102,-234}},
