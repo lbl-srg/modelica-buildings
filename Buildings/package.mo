@@ -165,8 +165,8 @@ its class name ends with the string <code>Beta</code>.
       or control signals while the simulation is running.
     </li>
     <li>
-      Results of the ANSI/ASHRAE Standard 14 validation (BESTEST) are now integrated in the
-      <a href=\"modelica://Buildings.ThermalZones.Detailed.Validation.BESTEST.UsersGuide\">user's guide</a>.
+      Results of the ANSI/ASHRAE Standard 14 validation (BESTEST) are now integrated in the user's guide
+      <code>Buildings.ThermalZones.Detailed.Validation.BESTEST.UsersGuide</code>.
     </li>
     </ul>
     </div>
@@ -721,7 +721,7 @@ its class name ends with the string <code>Beta</code>.
                            Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential<br/>
                            Buildings.Fluid.Actuators.Dampers.Exponential<br/>
                            Buildings.Fluid.Actuators.Dampers.MixingBox<br/>
-                           Buildings" + ".Fluid.Actuators.Dampers.MixingBoxMinimumFlow<br/>
+                           Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow<br/>
                            Buildings.Fluid.Actuators.Dampers.PressureIndependent<br/>
                            Buildings.Fluid.Actuators.Dampers.VAVBoxExponential
         </td>
@@ -5324,8 +5324,8 @@ have been fixed:
      annotation (preferredView="info",
      Documentation(info="<html>
 <p>
-Version 1.4 build 1 contains the new package <a href=\"modelica://Buildings.Utilities.IO.Python27\">
-Buildings.Utilities.IO.Python27</a> that allows calling Python functions from Modelica.
+Version 1.4 build 1 contains the new package <code>Buildings.Utilities.IO.Python27</code>
+that allows calling Python functions from Modelica.
 It also contains in the package <a href=\"modelica://Buildings.HeatTransfer.Conduction.SingleLayer\">
 Buildings.HeatTransfer.Conduction.SingleLayer</a>
 a new model for heat conduction in phase change material. This model can be used as a layer
@@ -7918,7 +7918,7 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_7_0_0\">Version 7.0.0</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_7_0_0\">Version 7.0.0</a> (May 28, 2020)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_6_0_0\">Version 6.0.0</a> (July 15, 2019)
@@ -8150,7 +8150,7 @@ The following people have directly contributed to the implementation of the Buil
     Documentation(info="<html>
 <h4>License</h4>
 <p>
-Modelica Buildings Library. Copyright (c) 1998-2019
+Modelica Buildings Library. Copyright (c) 1998-2020
 Modelica Association,
 International Building Performance Simulation Association (IBPSA),
 The Regents of the University of California, through Lawrence Berkeley National Laboratory
@@ -8371,7 +8371,7 @@ particular package.<br/>
                       the computational fluid dynamics.</td>
 </tr>
 
-<tr><td valign=\"top\"><a href=\"modelica://Buildings.Utilities.IO.Python27.UsersGuide\">Utilities.IO.Python27</a>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Utilities.IO.Python36.UsersGuide\">Utilities.IO.Python36</a>
    </td>
    <td valign=\"top\">Package to call Python functions from Modelica.</td>
 </tr>
@@ -8397,8 +8397,8 @@ end UsersGuide;
 annotation (
 preferredView="info",
 version="7.0.0",
-versionDate="2019-07-15",
-dateModified="2019-07-15",
+versionDate="2020-05-28",
+dateModified="2020-05-28",
 uses(Modelica(version="3.2.3")),
 conversion(
   from(version={"6.0.0"},
