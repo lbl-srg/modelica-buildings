@@ -56,11 +56,10 @@ equation
       smooth=Smooth.None));
   annotation (
     experiment(Tolerance=1E-6, StopTime=3600),
-    __Dymola_Commands(executeCall=RunScript(
-          "/home/adun6414/modelica-buildings-original/Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WetCoilEffNtuMassFlowFuzzy_V2_1.mos")),
-    Icon(coordinateSystem(preserveAspectRatio=false)),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{200,200}})),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WetCoilEffNtuMassFlowFuzzy_V2_2.mos"
+      "Simulate and plot"),
+    Diagram(coordinateSystem(preserveAspectRatio=true,
+      extent={{-100, -100},{200,200}})),
     Documentation(revisions="<html>
 <ul>
 <li>

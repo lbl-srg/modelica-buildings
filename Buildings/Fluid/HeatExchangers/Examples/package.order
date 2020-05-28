@@ -14,5 +14,5 @@ WetCoilCounterFlowMassFlow
 WetCoilCounterFlowPControl
 WetCoilDiscretizedMassFlow
 WetCoilDiscretizedPControl
-BaseClasses
 WetCoilEffNtuMassFlowFuzzy_V2_2
+BaseClasses
