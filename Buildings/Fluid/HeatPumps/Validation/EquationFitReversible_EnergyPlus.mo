@@ -48,9 +48,10 @@ model EquationFitReversible_EnergyPlus "Validation with EnergyPlus model"
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     tableOnFile=true,
     fileName=ModelicaServices.ExternalReferences.loadResource(
-    "modelica://Buildings//Resources/Data/Fluid/HeatPumps/Validation/EquationFitReversible_EnergyPlus/modelica.csv"),
-    columns=2:15,
-    tableName="modelica",
+    "modelica://Buildings//Resources/Data/Fluid/HeatPumps/Validation/EquationFitReversible_EnergyPlus/GSHPSimple-GLHE-ReverseHeatPump.dat"),
+    verboseRead=false,
+    tableName="EnergyPlus",
+    columns=2:8,
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
     "Reader for \"GSHPSimple-GLHE-ReverseHeatPump.IDF\" energy plus example results"
       annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
@@ -67,13 +68,13 @@ model EquationFitReversible_EnergyPlus "Validation with EnergyPlus model"
   Buildings.Controls.OBC.UnitConversions.From_degC TSetHea
     "Block that converts set point for leaving heating water temperature "
       annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-  Modelica.Blocks.Sources.RealExpression QSou_flow_EP(y=datRea.y[9])
+  Modelica.Blocks.Sources.RealExpression QSou_flow_EP(y=datRea.y[2])
     "EnergyPlus results: source side heat flow rate"
       annotation (Placement(transformation(extent={{-90,-62},{-70,-42}})));
-  Modelica.Blocks.Sources.RealExpression QLoa_flow_EP(y=-1*datRea.y[10])
+  Modelica.Blocks.Sources.RealExpression QLoa_flow_EP(y=-datRea.y[3])
     "EnergyPlus results: load side heat flow rate"
       annotation (Placement(transformation(extent={{-90,-82},{-70,-62}})));
-  Modelica.Blocks.Sources.RealExpression P_EP(y=datRea.y[8])
+  Modelica.Blocks.Sources.RealExpression P_EP(y=datRea.y[1])
     "EnergyPlus results: load side heat flow rate"
       annotation (Placement(transformation(extent={{-90,-102},{-70,-82}})));
 equation
@@ -91,11 +92,11 @@ equation
     annotation (Line(points={{-38,-40},{92,-40},{92,-24},{82,-24}}, color={0,0,127}));
   connect(TSetHea.y, heaPum.TSet) annotation (Line(points={{-38,40},{8,40},{8,9},
           {28.6,9}},    color={0,0,127}));
-  connect(datRea.y[12], TLoaEnt.u)
+  connect(datRea.y[5], TLoaEnt.u)
     annotation (Line(points={{-79,70},{-62,70}}, color={0,0,127}));
-  connect(datRea.y[11],TSetHea. u)
+  connect(datRea.y[4],TSetHea. u)
     annotation (Line(points={{-79,70},{-70,70},{-70,40},{-62,40}}, color={0,0,127}));
-  connect(datRea.y[14], TSouEnt.u)
+  connect(datRea.y[6], TSouEnt.u)
     annotation (Line(points={{-79,70},{-70,70},{-70,-40},{-62,-40}},
                                color={0,0,127}));
   connect(heaPum.uMod, uMod.y)
@@ -126,7 +127,7 @@ Buildings.Fluid.HeatPumps.EquationFitReversible</a>
 against results obtained using EnergyPlus 9.1.
 <p>
 The EnergyPlus results were generated using the example file <code>GSHPSimple-GLHE-ReverseHeatPump.idf</code>
-from EnergyPlus 9.1, with a nominal cooling capacity of <i>39890</i> Watts and
+from EnergyPlus, with a nominal cooling capacity of <i>39890</i> Watts and
 nominal heating capacity of <i>39040</i> Watts.
 </p>
 </html>", revisions="<html>

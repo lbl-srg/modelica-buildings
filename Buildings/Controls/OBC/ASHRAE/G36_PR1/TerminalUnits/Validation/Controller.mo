@@ -64,7 +64,7 @@ model Controller "Validate model for controlling VAV terminal box with reheat"
   Buildings.Controls.OBC.CDL.Continuous.Round rou(n=0) "Round the input"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol(
-    final samplePeriod=2)
+    final samplePeriod=2) "Mimic damper position"
     annotation (Placement(transformation(extent={{80,58},{100,78}})));
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol1(
     final samplePeriod=2) "Mimic damper position"
