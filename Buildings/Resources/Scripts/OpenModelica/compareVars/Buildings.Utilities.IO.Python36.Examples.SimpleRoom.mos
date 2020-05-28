@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "TAmb.y",
+    "onOffCon.u",
+    "pyt.yR[2]"
+  };
