@@ -127,10 +127,8 @@ equation
                                                                color={0,0,127}));
   annotation (
   experiment(
-      StopTime=20000000,
-      __Dymola_NumberOfIntervals=5000,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      StopTime=604800,
+      Tolerance=1e-06),
   Documentation(info="<html>
 <p>
 This example illustrates the use of
