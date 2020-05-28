@@ -191,9 +191,10 @@ model DryWetCalcsFuzzy_V2_2
     mAir_flow_nominal=mAir_flow_nominal,
     mWat_flow_nominal=mWat_flow_nominal);
 
-    Buildings.Fluid.HeatExchangers.BaseClasses.ParcalcsFuzzy_V2_2 par(pAir=pAir, TAirIn=TAirIn, wAirIn=wAirIn,
-      mAir_flow=mAir_flow, TWatIn=TWatIn, mWat_flow=mWat_flow,UAAir=UAAir,UAWat=UAWat,cpAir=cpAir,cpWat=cpWat,
-      final cfg = cfg,mWatNonZer_flow = mWatNonZer_flow,
+  Buildings.Fluid.HeatExchangers.BaseClasses.ParcalcsFuzzy_V2_2 par(
+    pAir=pAir, TAirIn=TAirIn, wAirIn=wAirIn,
+    mAir_flow=mAir_flow, TWatIn=TWatIn, mWat_flow=mWat_flow,UAAir=UAAir,UAWat=UAWat,cpAir=cpAir,cpWat=cpWat,
+    final cfg = cfg, mWatNonZer_flow=mWatNonZer_flow,
     mAirNonZer_flow = mAirNonZer_flow,TSurAirOutDry=fullydry.TSurAirOut,TSurAirInWet=fullywet.TSurAirIn,
     mAir_flow_nominal=mAir_flow_nominal,
     mWat_flow_nominal=mWat_flow_nominal);
