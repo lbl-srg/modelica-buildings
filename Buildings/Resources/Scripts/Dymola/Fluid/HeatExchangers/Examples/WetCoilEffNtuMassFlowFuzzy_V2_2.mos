@@ -1,5 +1,8 @@
+old_StoreProtectedVariables = Advanced.StoreProtectedVariables;
+Advanced.StoreProtectedVariables = true;
 simulateModel("Buildings.Fluid.HeatExchangers.Examples.WetCoilEffNtuMassFlowFuzzy_V2_2",
   tolerance=1e-6, stopTime=3600, method="cvode", resultFile="WetCoilEffNtuMassFlowFuzzy_V2_2");
+Advanced.StoreProtectedVariables = old_StoreProtectedVariables;
 createPlot(
   id=1,
   position={0, 0, 782, 636},
@@ -12,3 +15,8 @@ createPlot(
   y={"hex.port_a1.m_flow", "hex.port_a2.m_flow"},
   grid=true,
   subPlot=2);
+createPlot(
+    id=2,
+    position={669, 15, 660, 504},
+    y={"hex.dryWetCalcs.par.dryfra", "hex.dryWetCalcs.par.dry.eps", "hex.dryWetCalcs.par.wet.epsSta"},
+    grid=true);

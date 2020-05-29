@@ -24,7 +24,7 @@ createPlot(
 createPlot(
     id=2,
     position={669, 15, 660, 504},
-    y={"hexWetNtu.dryWetCalcs.par.dryfra"},
+    y={"hexWetNtu.dryWetCalcs.par.dryfra", "hexWetNtu.dryWetCalcs.par.dry.eps", "hexWetNtu.dryWetCalcs.par.wet.epsSta"},
     grid=true);
 
 
