@@ -18,13 +18,6 @@ model PlantEnable
     final displayUnit="K") = 300
     "Boiler lock-out temperature for outdoor air";
 
-  parameter Real locDt(
-    final unit="K",
-    final displayUnit="K",
-    final quantity="ThermodynamicTemperature") = 1
-    "Temperature deadband for boiler lockout"
-    annotation (Dialog(tab="Advanced"));
-
   parameter Real plaOffThrTim(
     final unit="s",
     final displayUnit="s") = 900
@@ -40,10 +33,18 @@ model PlantEnable
     final displayUnit="s") = 180
     "Time-limit for receiving hot-water requests to maintain enabled plant on";
 
+  parameter Real locDt(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="ThermodynamicTemperature") = 1
+    "Temperature deadband for boiler lockout"
+    annotation (Dialog(tab="Advanced"));
+
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput supResReq
     "Number of heating hot-water requests"
-    annotation(Placement(transformation(extent={{-200,30},{-160,70}}),
-      iconTransformation(extent={{-140,30},{-100,70}})));
+    annotation (Placement(transformation(
+          extent={{-200,30},{-160,70}}), iconTransformation(extent={{-140,30},{-100,
+            70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
@@ -51,12 +52,12 @@ model PlantEnable
     final quantity="ThermodynamicTemperature")
     "Measured outdoor air temperature"
     annotation (Placement(transformation(extent={{-200,-70},{-160,-30}}),
-      iconTransformation(extent={{-140,-70},{-100,-30}})));
+        iconTransformation(extent={{-140,-70},{-100,-30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPla
     "Plant enable signal"
-    annotation (Placement(transformation(extent={{160,-20},{200,20}}),
-      iconTransformation(extent={{100,-20},{140,20}})));
+    annotation (Placement(transformation(extent={{160,-20},
+            {200,20}}), iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable enaSch(
     final table=schTab,
@@ -65,35 +66,15 @@ model PlantEnable
     "Table defining when plant can be enabled"
     annotation (Placement(transformation(extent={{-150,-120},{-130,-100}})));
 
+  Buildings.Controls.OBC.CDL.Logical.Timer tim
+    "Time since plant has been enabled"
+    annotation (Placement(transformation(extent={{10,0},{30,20}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Timer tim2
+    "Time since plant has been disabled"
+    annotation (Placement(transformation(extent={{10,60},{30,80}})));
+
 protected
-  Buildings.Controls.OBC.CDL.Logical.And and2
-    "Logical And"
-    annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Not not4
-    "Logical not"
-    annotation (Placement(transformation(extent={{0,60},{20,80}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Pre pre1
-    "Logical pre block"
-    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
-    final delayTime=staOnReqTim)
-    "Enable delay for minimum requests required to keep plant enabled"
-    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1(
-    final delayTime=plaOnThrTim)
-    "Enable delay to ensure plant stays enabled for required time period"
-    annotation (Placement(transformation(extent={{40,-20},{60,0}})));
-
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel2(
-    final delayTime=plaOffThrTim,
-    final delayOnInit=true)
-    "Enable delay to ensure plant stays disabled for required time period"
-    annotation (Placement(transformation(extent={{40,60},{60,80}})));
-
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
     final threshold=0.5)
     "Check if schedule lets the controller enable the plant or not"
@@ -111,19 +92,23 @@ protected
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(
     final nu=4)
     "Check if all the conditions for enabling plant have been met"
-    annotation (Placement(transformation(extent={{80,80},{100,100}})));
+    annotation (Placement(transformation(extent={{80,110},{100,130}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
     final nu=3)
     "Check if any conditions except plant-on time have been satisfied to disable plant"
-    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
+    annotation (Placement(transformation(extent={{30,-80},{50,-60}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and2
+    "Check if all conditions have been met to disable the plant"
+    annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Logical Not"
-    annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
+    annotation (Placement(transformation(extent={{-10,-120},{10,-100}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=TOutLoc,
+    final p=TLocOut,
     final k=-1)
     "Compare measured outdoor air temperature to boiler lockout temperature"
     annotation (Placement(transformation(extent={{-150,-60},{-130,-40}})));
@@ -136,123 +121,132 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.Not not3
     "Logical Not"
+    annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Timer tim1
+    "Time since number of requests was greater than number of ignores"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
+    final threshold=staOnReqTim)
+    "Time limit for receiving requests to maintain status on"
+    annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Not not4
+    "Logical Not"
+    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr1(
+    final threshold=plaOnThrTim)
+    "Check if minimum amount of time to maintain the plant on has elapsed"
+    annotation (Placement(transformation(extent={{40,0},{60,20}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
+    final threshold=plaOffThrTim)
+    "Check if minimum amount of time to maintain the plant off has elapsed"
+    annotation (Placement(transformation(extent={{40,60},{60,80}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Pre pre1
+    "Logical pre block"
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not2
     "Logical Not"
-    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
+    annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
 
 equation
   connect(yPla, yPla)
-    annotation (Line(points={{180,0},{180,0}},
-      color={255,0,255}));
+    annotation (Line(points={{180,0},{180,0}}, color={255,0,255}));
   connect(greThr.y, not1.u)
-    annotation (Line(points={{-98,-110},{-12,-110}},
-      color={255,0,255}));
-  connect(hys.u, addPar.y)
-    annotation (Line(points={{-122,-50},{-128,-50}},
-      color={0,0,127}));
+    annotation (Line(points={{-98,-110},{-12,-110}}, color={255,0,255}));
+  connect(hys.u, addPar.y) annotation (Line(points={{-122,-50},{-128,-50}}, color={0,0,127}));
   connect(not3.y, tim1.u)
-    annotation (Line(points={{-48,-30},{-42,-30}},
-      color={255,0,255}));
+    annotation (Line(points={{-48,-30},{-42,-30}}, color={255,0,255}));
   connect(tim1.y, greThr1.u)
-    annotation (Line(points={{-18,-30},{-12,-30}},
-      color={0,0,127}));
-  connect(not2.u, hys.y)
-    annotation (Line(points={{-12,-70},{-20,-70},{-20,-50},{-98,-50}},
-      color={255,0,255}));
-  connect(intGreThr.y, not3.u)
-    annotation (Line(points={{-98,50},{-80,50},{-80,-30},{-72,-30}},
-      color={255,0,255}));
-  connect(greThr.y, mulAnd.u[1])
-    annotation (Line(points={{-98,-110},{-92,-110},{-92,94.6667},{-12,94.6667}},
-      color={255,0,255}));
-  connect(hys.y, mulAnd.u[2])
-    annotation (Line(points={{-98,-50},{-86,-50},{-86,90},{-12,90}},
-      color={255,0,255}));
-  connect(intGreThr.y, mulAnd.u[3])
-    annotation (Line(points={{-98,50},{-80,50},{-80,85.3333},{-12,85.3333}},
-      color={255,0,255}));
-  connect(mulAnd.y, lat.u)
-    annotation (Line(points={{12,90},{60,90},{60,0},{78,0}},
-      color={255,0,255}));
-  connect(greThr1.y, mulOr.u[1])
-    annotation (Line(points={{12,-30},{20,-30},{20,-65.3333},{28,-65.3333}},
-      color={255,0,255}));
-  connect(not2.y, mulOr.u[2])
-    annotation (Line(points={{12,-70},{20,-70},{20,-70},{28,-70}},
-      color={255,0,255}));
-  connect(not1.y, mulOr.u[3])
-    annotation (Line(points={{12,-110},{20,-110},{20,-74.6667},{28,-74.6667}},
-      color={255,0,255}));
+    annotation (Line(points={{-18,-30},{-12,-30}}, color={0,0,127}));
+  connect(not4.y, tim2.u)
+    annotation (Line(points={{2,70},{8,70}}, color={255,0,255}));
+  connect(not2.u, hys.y) annotation (Line(points={{-12,-70},{-20,-70},{-20,-50},
+  {-98,-50}}, color={255,0,255}));
+  connect(intGreThr.y, not3.u) annotation (Line(points={{-98,50},{-80,50},{-80,-30},
+  {-72,-30}}, color={255,0,255}));
+  connect(pre1.y, not4.u) annotation (Line(points={{-38,50},{-30,50},{-30,70},{-22,
+  70}}, color={255,0,255}));
+  connect(greThr.y, mulAnd.u[1]) annotation (Line(points={{-98,-110},{-92,-110},
+  {-92,125.25},{78,125.25}}, color={255,0,255}));
+  connect(hys.y, mulAnd.u[2]) annotation (Line(points={{-98,-50},{-86,-50},{-86,
+          121.75},{78,121.75}}, color={255,0,255}));
+  connect(intGreThr.y, mulAnd.u[3]) annotation (Line(points={{-98,50},{-80,50},{
+          -80,118.25},{78,118.25}}, color={255,0,255}));
+  connect(mulAnd.y, lat.u) annotation (Line(points={{102,120},{110,120},{110,0},
+          {118,0}}, color={255,0,255}));
+  connect(and2.y, lat.clr) annotation (Line(points={{102,-30},{110,-30},{110,-6},
+          {118,-6}}, color={255,0,255}));
+  connect(greThr1.y, mulOr.u[1]) annotation (Line(points={{12,-30},{20,-30},{20,
+          -65.3333},{28,-65.3333}}, color={255,0,255}));
+  connect(not2.y, mulOr.u[2]) annotation (Line(points={{12,-70},{20,-70},{20,-70},
+          {28,-70}}, color={255,0,255}));
+  connect(not1.y, mulOr.u[3]) annotation (Line(points={{12,-110},{20,-110},{20,
+          -74.6667},{28,-74.6667}},
+                          color={255,0,255}));
+  connect(mulOr.y, and2.u2) annotation (Line(points={{52,-70},{70,-70},{70,-38},
+          {78,-38}}, color={255,0,255}));
   connect(intGreThr.u, supResReq)
-    annotation (Line(points={{-122,50},{-180,50}},
-      color={255,127,0}));
+    annotation (Line(points={{-122,50},{-180,50}}, color={255,127,0}));
   connect(addPar.u, TOut)
-    annotation (Line(points={{-152,-50},{-180,-50}},
-      color={0,0,127}));
+    annotation (Line(points={{-152,-50},{-180,-50}}, color={0,0,127}));
+  connect(greEquThr.y, mulAnd.u[4]) annotation (Line(points={{62,70},{72,70},{72,
+          114.75},{78,114.75}}, color={255,0,255}));
+  connect(greEquThr.u, tim2.y)
+    annotation (Line(points={{38,70},{32,70}}, color={0,0,127}));
+  connect(greEquThr1.u, tim.y)
+    annotation (Line(points={{38,10},{32,10}}, color={0,0,127}));
+  connect(greEquThr1.y, and2.u1) annotation (Line(points={{62,10},{70,10},{70,-30},
+          {78,-30}}, color={255,0,255}));
+  connect(lat.y, yPla)
+    annotation (Line(points={{142,0},{180,0}}, color={255,0,255}));
+  connect(lat.y, pre1.u) annotation (Line(points={{142,0},{150,0},{150,30},{-70,
+          30},{-70,50},{-62,50}}, color={255,0,255}));
+  connect(pre1.y, tim.u) annotation (Line(points={{-38,50},{-30,50},{-30,10},{8,
+          10}}, color={255,0,255}));
   connect(enaSch.y[1], greThr.u)
-    annotation (Line(points={{-128,-110},{-122,-110}},
-      color={0,0,127}));
-<<<<<<< HEAD
-  connect(mulOr.y, lat.clr)
-    annotation (Line(points={{52,-70},{60,-70},{60,-6},{78,-6}},
-      color={255,0,255}));
-  connect(truFalHol.u, lat.y)
-    annotation (Line(points={{118,0},{102,0}},
-      color={255,0,255}));
-  connect(truFalHol.y, yPla)
-    annotation (Line(points={{142,0},{180,0}},
-      color={255,0,255}));
-
+    annotation (Line(points={{-128,-110},{-122,-110}}, color={0,0,127}));
   annotation (defaultComponentName = "plaEna",
-    Icon(graphics={
-      Rectangle(
-        extent={{-100,100},{100,-100}},
-        lineColor={0,0,0},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid,
-        lineThickness=0.1),
-      Rectangle(
-        extent={{-100,100},{100,-100}},
-        lineColor={28,108,200},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid,
-        lineThickness=5,
-        borderPattern=BorderPattern.Raised),
-      Text(
-        extent={{-120,146},{100,108}},
-        lineColor={0,0,255},
-        textString="%name"),
-      Ellipse(
-        extent={{-80,80},{80,-80}},
-        lineColor={28,108,200},
-        fillColor={170,255,213},
-        fillPattern=FillPattern.Solid),
-      Ellipse(
-        extent={{-90,90},{90,-90}},
-        lineColor={28,108,200}),
-      Rectangle(
-        extent={{-75,2},{75,-2}},
-        lineColor={28,108,200},
-        fillColor={28,108,200},
-        fillPattern=FillPattern.Solid),
-      Text(
-        extent={{-66,46},{76,10}},
-        lineColor={28,108,200},
-        textString="START"),
-      Text(
-        extent={{-66,-8},{76,-44}},
-        lineColor={28,108,200},
-        textString="STOP")},
-      coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}})),
-  Diagram(
-    coordinateSystem(preserveAspectRatio=false,
-    extent={{-160,-140},{160,140}})),
-  Documentation(
-    info="<html>
+  Icon(graphics={
+        Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          lineThickness=0.1),
+        Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={28,108,200},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          lineThickness=5,
+          borderPattern=BorderPattern.Raised),
+        Text(
+          extent={{-120,146},{100,108}},
+          lineColor={0,0,255},
+          textString="%name"),
+        Ellipse(extent={{-80,80},{80,-80}}, lineColor={28,108,200},fillColor={170,255,213},
+          fillPattern=FillPattern.Solid),
+        Ellipse(extent={{-90,90},{90,-90}}, lineColor={28,108,200}),
+        Rectangle(extent={{-75,2},{75,-2}}, lineColor={28,108,200},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-66,46},{76,10}},
+          lineColor={28,108,200},
+          textString="START"),
+        Text(
+          extent={{-66,-8},{76,-44}},
+          lineColor={28,108,200},
+          textString="STOP")},
+          coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,140}})),
+  Documentation(info="<html>
     <p>
     Block that generates boiler plant enable signal according to ASHRAE RP-1711
     Advanced Sequences of Operation for HVAC Systems Phase II – Central Plants
@@ -316,7 +310,7 @@ equation
     revisions="<html>
     <ul>
     <li>
-    May 18, 2020, by Karthik Devaprasad:<br/>
+    May 7, 2020, by Karthik Devaprasad:<br/>
     First implementation.
     </li>
     </ul>
