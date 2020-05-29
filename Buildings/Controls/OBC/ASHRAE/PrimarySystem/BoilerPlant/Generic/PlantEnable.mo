@@ -42,9 +42,8 @@ model PlantEnable
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput supResReq
     "Number of heating hot-water requests"
-    annotation (Placement(transformation(
-          extent={{-200,30},{-160,70}}), iconTransformation(extent={{-140,30},{-100,
-            70}})));
+    annotation (Placement(transformation(extent={{-200,30},{-160,70}}),
+      iconTransformation(extent={{-140,30},{-100,70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
@@ -56,8 +55,8 @@ model PlantEnable
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPla
     "Plant enable signal"
-    annotation (Placement(transformation(extent={{160,-20},
-            {200,20}}), iconTransformation(extent={{100,-20},{140,20}})));
+    annotation (Placement(transformation(extent={{160,-20},{200,20}}),
+      iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable enaSch(
     final table=schTab,
