@@ -9,7 +9,7 @@ model MixedConvection "Tutorial for the mixed convection case"
   parameter Integer nSurBou=6
     "Number of surface that are connected to the room air volume";
   parameter Integer nConExt=0
-    "Number of exterior constructions withour a window";
+    "Number of exterior constructions without a window";
   parameter Integer nConPar=0 "Number of partition constructions";
   Modelica.Blocks.Sources.Constant qRadGai_flow(k=0) "Radiative heat gain"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));

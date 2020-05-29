@@ -25,60 +25,69 @@ model ForcedConvection
   Buildings.Fluid.Sources.Boundary_pT bouOut(
     nPorts=1,
     redeclare package Medium = MediumA)
+    "Pressure boundary condition"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Fluid.Sources.MassFlowSource_T bounIn(
     nPorts=1,
     redeclare package Medium = MediumA,
     m_flow=0.1,
-    T=283.15) annotation (Placement(transformation(extent={{0,20},{20,40}})));
+    T=283.15)
+    "Mass flow boundary condition"
+    annotation (Placement(transformation(extent={{0,20},{20,40}})));
   HeatTransfer.Sources.PrescribedTemperature TWalls
+    "Temperature for ceiling and walls"
     annotation (Placement(transformation(extent={{120,-20},{100,0}})));
   Modelica.Blocks.Sources.TimeTable timeTable(table=[0,293.15; 49,293.15; 50,
         296.15; 99,296.15; 100,298.15; 149,298.15; 150,296.15; 199,296.15; 200,
         295.65; 249,295.65; 250,299.65; 299,299.65; 300,302.15; 349,302.15; 350,
         298.15; 399,298.15; 400,295.65; 449,295.65; 450,293.65; 499,293.65; 500,
         292.65; 549,292.65; 550,294.15; 599,294.15; 600,294.15])
+    "Time table for surface temperature"
     annotation (Placement(transformation(extent={{160,-20},{140,0}})));
   HeatTransfer.Sources.PrescribedTemperature TFloor
+    "Temperature for floor"
     annotation (Placement(transformation(extent={{120,-56},{100,-36}})));
+
 equation
-  for i in 1:nSurBou loop
-  end for;
-    connect(bounIn.ports[1], roo.ports[1]) annotation (Line(
+  connect(bounIn.ports[1], roo.ports[1])
+   annotation (Line(
       points={{20,30},{51,30}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(bouOut.ports[1], roo.ports[2]) annotation (Line(
+  connect(bouOut.ports[1], roo.ports[2])
+   annotation (Line(
       points={{20,0},{36,0},{36,30},{51,30}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(timeTable.y,TWalls. T)
-    annotation (Line(points={{139,-10},{122,-10}}, color={0,0,127}));
+   annotation (Line(points={{139,-10},{122,-10}}, color={0,0,127}));
   connect(TWalls.port, roo.surf_surBou[1])
-    annotation (Line(points={{100,-10},{62,
+   annotation (Line(points={{100,-10},{62,
           -10},{62,26},{62.2,26}}, color={191,0,0}));
   connect(TWalls.port, roo.surf_surBou[2])
-    annotation (Line(points={{100,-10},{62,
+   annotation (Line(points={{100,-10},{62,
           -10},{62,26},{62.2,26}}, color={191,0,0}));
   connect(TWalls.port, roo.surf_surBou[3])
-    annotation (Line(points={{100,-10},{62,
+   annotation (Line(points={{100,-10},{62,
           -10},{62,26},{62.2,26}}, color={191,0,0}));
   connect(TWalls.port, roo.surf_surBou[4])
-    annotation (Line(points={{100,-10},{62,
+   annotation (Line(points={{100,-10},{62,
           -10},{62,26},{62.2,26}}, color={191,0,0}));
   connect(TWalls.port, roo.surf_surBou[5])
-    annotation (Line(points={{100,-10},{62,
+   annotation (Line(points={{100,-10},{62,
           -10},{62,26},{62.2,26}}, color={191,0,0}));
-  connect(TFloor.port, roo.surf_surBou[6]) annotation (Line(points={{100,-46},{62,
+  connect(TFloor.port, roo.surf_surBou[6])
+   annotation (Line(points={{100,-46},{62,
           -46},{62,26},{62.2,26}}, color={191,0,0}));
-  connect(timeTable.y, TFloor.T) annotation (Line(points={{139,-10},{132,-10},{132,
+  connect(timeTable.y, TFloor.T)
+   annotation (Line(points={{139,-10},{132,-10},{132,
           -46},{122,-46}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{200,200}})),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/ISAT/ForcedConvection.mos"
         "Simulate and plot"),
-    experiment(Tolerance=1e-06, StopTime=120),
+    experiment(Tolerance=1e-06, StopTime=600),
     Documentation(info="<html>
 <p>This tutorial gives step by step instructions on building and simulating a forced convection model. The model tests the coupled simulation of <a href=\"modelica://Buildings.ThermalZones.Detailed.ISAT\">Buildings.ThermalZones.Detailed.ISAT</a> with the ISAT program by simulating ventilation with forced convection in an empty room. </p>
 <h4>Case Description</h4>

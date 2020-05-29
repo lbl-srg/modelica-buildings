@@ -97,7 +97,7 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(extent={{-80,-140},{180,80}},
           preserveAspectRatio=false)),
-          __Dymola_Commands(file =    "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/FFD/Tutorial/NaturalConvection.mos"
+          __Dymola_Commands(file =    "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/ISAT/Tutorial/NaturalConvection.mos"
         "Simulate and plot"),
         experiment(Tolerance=1e-06, StopTime=7200),
        Documentation(info="<html>

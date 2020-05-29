@@ -343,7 +343,7 @@ equation
 </html>"),
     experiment(Tolerance=1e-06, StopTime=180),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/FFD/Tutorial/MixedConvectionWithBox.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/ISAT/Tutorial/MixedConvectionWithBox.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(extent={{-80,-160},{200,120}}, preserveAspectRatio=false)));
 end MixedConvectionWithBox;

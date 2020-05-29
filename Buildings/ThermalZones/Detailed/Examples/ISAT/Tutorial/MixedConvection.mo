@@ -9,7 +9,7 @@ model MixedConvection "Tutorial for the mixed convection case"
   parameter Integer nSurBou=6
     "Number of surface that are connected to the room air volume";
   parameter Integer nConExt=0
-    "Number of exterior constructions withour a window";
+    "Number of exterior constructions without a window";
   parameter Integer nConPar=0 "Number of partition constructions";
   Modelica.Blocks.Sources.Constant qRadGai_flow(k=0) "Radiative heat gain"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
@@ -53,9 +53,8 @@ model MixedConvection "Tutorial for the mixed convection case"
     samplePeriod = 200)
   annotation (Placement(transformation(extent={{80,-38},{120,2}})));
   HeatTransfer.Sources.FixedTemperature TOthWal[nSurBou-1](each T=283.15)
-    "Temperature for other walls"          annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        origin={150,-50})));
+    "Temperature for other walls"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},origin={150,-50})));
   HeatTransfer.Sources.FixedTemperature TFlo(T=303.15) "Temperature of floor"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -331,7 +330,7 @@ equation
 </html>"),
     experiment(Tolerance=1e-06, StopTime=180),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/FFD/Tutorial/MixedConvectionWithBox.mos"),
+          "Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/ISAT/Tutorial/MixedConvectionBox.mos"),
     Diagram(coordinateSystem(extent={{-80,-160},{200,120}}, preserveAspectRatio=false),
         graphics));
 end MixedConvection;
