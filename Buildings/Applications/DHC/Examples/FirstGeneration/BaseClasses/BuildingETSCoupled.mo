@@ -51,8 +51,8 @@ model BuildingETSCoupled "Model to simulate the demand side"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
   parameter Modelica.SIunits.Volume V=4000
     "Volume of water in the secondary loop";
-  Buildings.Fluid.Sensors.MassFlowRate senMasFloCHWPri(redeclare package Medium
-      = Medium)
+  Buildings.Fluid.Sensors.MassFlowRate senMasFloCHWPri(redeclare package Medium =
+        Medium)
     annotation (Placement(transformation(extent={{-18,-10},{0,10}})));
   Modelica.Blocks.Sources.RealExpression LoaCal(y=senMasFloCHWPri.m_flow*(
         senTEntPri.T - senTLeaPri.T)*4200)

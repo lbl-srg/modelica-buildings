@@ -381,5 +381,9 @@ equation
         extent={{-18,-38},{-6,-26}},
         lineColor={255,255,255},
         fillColor={255,255,255},
-        fillPattern=FillPattern.Solid)}));
+        fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-149,-114},{151,-154}},
+          lineColor={0,0,255},
+          textString="%name")}));
 end CoolingPlant;
