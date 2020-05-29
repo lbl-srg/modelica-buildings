@@ -18,7 +18,7 @@ createPlot(
     subPlot=2);
 createPlot(
     id=1,
-    y={"hexWetNtu.Q2_flow", "Q_flow_nominal", "hexWetNtu.QLat2_flow", "hexWetNtu.QSen2_flow"},
+    y={"hexWetNtu.Q2_flow", "Q_flow_nominal", "hexWetNtu.QLat2_flow"},
     grid=true,
     subPlot=3);
 createPlot(
