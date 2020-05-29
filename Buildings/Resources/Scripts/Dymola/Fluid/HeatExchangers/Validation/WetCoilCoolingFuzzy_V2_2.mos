@@ -9,7 +9,7 @@ Advanced.StoreProtectedVariables = old_StoreProtectedVariables;
 createPlot(
     id=1,
     position={15, 15, 638, 762},
-    y={"senMasFlo1.m_flow", "m1_flow_nominal","senMasFlo2.m_flow", "m2_flow_nominal"},
+    y={"senMasFlo1.m_flow", "m1_flow_nominal", "senMasFlo2.m_flow", "m2_flow_nominal"},
     grid=true);
 createPlot(
     id=1,
