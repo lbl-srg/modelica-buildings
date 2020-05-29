@@ -49,7 +49,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
     final delayTime=600,
-    final delayOnInit=true)
+    final delayOnInit=true) "True delay"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
 
 equation
@@ -75,6 +75,7 @@ equation
           {-50,-20},{-20,-20},{-20,-6},{-2,-6}}, color={255,0,255}));
   connect(truDel.y, iniStaHot.uPla) annotation (Line(points={{-58,-50},{-50,-50},
           {-50,-20},{40,-20},{40,-6},{58,-6}}, color={255,0,255}));
+
 annotation (
  experiment(StopTime=86400.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/SetPoints/Subsequences/Validation/Initial_WSE.mos"

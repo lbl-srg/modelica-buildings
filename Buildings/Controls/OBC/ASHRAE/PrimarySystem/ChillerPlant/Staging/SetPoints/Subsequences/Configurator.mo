@@ -164,6 +164,7 @@ protected
     Please make sure to follow the recommendation that is:
     any positive displacement machines first, 
     any variable speed centrifugal next and any constant speed centrifugal last.")
+    "Assert block"
     annotation (Placement(transformation(extent={{180,-160},{200,-140}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(

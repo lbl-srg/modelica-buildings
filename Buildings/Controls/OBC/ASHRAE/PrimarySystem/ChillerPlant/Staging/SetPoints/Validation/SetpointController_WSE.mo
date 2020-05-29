@@ -60,21 +60,23 @@ protected
     annotation (Placement(transformation(extent={{-160,100},{-140,120}})));
 
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol(
-    final samplePeriod=10)
+    final samplePeriod=10) "Zero order hold"
     annotation (Placement(transformation(extent={{140,140},{160,160}})));
 
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
+    "Integer to real conversion"
     annotation (Placement(transformation(extent={{100,140},{120,160}})));
 
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
+    "Real to integer conversion"
     annotation (Placement(transformation(extent={{180,140},{200,160}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
     final trueHoldDuration=0,
-    final falseHoldDuration=900)
+    final falseHoldDuration=900) "False signal hold"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Pre pre
+  Buildings.Controls.OBC.CDL.Logical.Pre pre "Pre block"
     annotation (Placement(transformation(extent={{140,60},{160,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant plaSta(
@@ -84,7 +86,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
     final delayTime=10,
-    final delayOnInit=true)
+    final delayOnInit=true) "True delay"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter wseTPre(
@@ -106,7 +108,7 @@ protected
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
-    final threshold=0.5)
+    final threshold=0.5) "Greater threshold"
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TChiWatRet1(
@@ -135,10 +137,12 @@ protected
     final samplePeriod=10) "Zero order hold"
     annotation (Placement(transformation(extent={{140,-100},{160,-80}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea1 "Type converter"
+  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea1
+    "Type converter"
     annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1 "Type converter"
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1
+    "Type converter"
     annotation (Placement(transformation(extent={{180,-100},{200,-80}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol1(

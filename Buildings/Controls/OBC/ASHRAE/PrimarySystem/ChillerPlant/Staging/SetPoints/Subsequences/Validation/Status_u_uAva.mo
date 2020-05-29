@@ -114,7 +114,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(
     final samplePeriod=1,
-    final y_start=3)
+    final y_start=3) "Unit delay"
     annotation (Placement(transformation(extent={{50,-160},{70,-140}})));
 
 equation

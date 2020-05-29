@@ -34,22 +34,25 @@ model ChillerIndices_u
     final nSta=5,
     final nChi=3,
     final staMat={{1,0,0},{1,1,0},{1,0,1},{0,1,1},{1,1,1}})
+    "Setup with three chillers and five stages"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.ChillerIndices chiInd6(
     final nSta=5,
     final nChi=3,
     final staMat={{1,0,0},{1,1,0},{1,0,1},{0,1,1},{1,1,1}})
+    "Setup with three chillers and five stages"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.ChillerIndices chiInd7(
     final nSta=5,
     final nChi=3,
     final staMat={{1,0,0},{1,1,0},{1,0,1},{0,1,1},{1,1,1}})
+    "Setup with three chillers and five stages"
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.ChillerIndices chiInd3
-    "Setup with two chillers and three stages"
+    "Setup with default settings that is two chillers and three stages"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 
 protected

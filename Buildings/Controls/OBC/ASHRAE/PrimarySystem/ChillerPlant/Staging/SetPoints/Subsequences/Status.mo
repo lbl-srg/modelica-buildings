@@ -53,9 +53,11 @@ block Status
         transformation(extent={{440,-60},{480,-20}}), iconTransformation(extent=
            {{100,20},{140,60}})));
 
-  CDL.Conversions.BooleanToInteger booToInt[nSta](integerTrue=fill(1, nSta),
-      integerFalse=fill(0, nSta))
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nSta](
+    final integerTrue=fill(1, nSta),
+    final integerFalse=fill(0, nSta)) "Type conversion"
     annotation (Placement(transformation(extent={{-360,-30},{-340,-10}})));
+
 protected
   final parameter Integer staInd[nSta] = {i for i in 1:nSta}
     "Stage index vector";
@@ -189,7 +191,7 @@ protected
     final k=0) "Zero"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And and4
+  Buildings.Controls.OBC.CDL.Logical.And and4 "Logical and"
     annotation (Placement(transformation(extent={{220,70},{240,90}})));
 
 equation

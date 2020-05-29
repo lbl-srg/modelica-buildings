@@ -87,7 +87,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
     final delayTime=10,
-    final delayOnInit=true)
+    final delayOnInit=true) "True delay"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TChiWatRet1(
@@ -122,7 +122,7 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1 "Type converter"
     annotation (Placement(transformation(extent={{180,-100},{200,-80}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Pre pre1
+  Buildings.Controls.OBC.CDL.Logical.Pre pre1 "Pre block"
     annotation (Placement(transformation(extent={{140,-180},{160,-160}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant plaSta1(
