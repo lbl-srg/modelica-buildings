@@ -70,14 +70,14 @@ model AbsorptionIndirectSteam_EnergyPlus
        annotation (Placement(transformation(extent={{80,-6},{60,14}})));
 
   Modelica.Blocks.Math.RealToBoolean realToBoolean(threshold=1)
-       annotation (Placement(transformation(extent={{-60,30},{-40,10}})));
+       annotation (Placement(transformation(extent={{-80,40},{-60,20}})));
 
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     tableOnFile=true,
     fileName=ModelicaServices.ExternalReferences.loadResource(
-        "modelica://Buildings/Resources/Data/Fluid/Chillers/Validation/IndirectAbsorptionChiller/modelica.csv"),
+        "modelica://Buildings/Resources/Data/Fluid/Chillers/Validation/IndirectAbsorptionChiller/IndirectAbsorptionChiller.dat"),
     columns=2:11,
-    tableName="modelica",
+    tableName="EnergyPlus",
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
     "Reader for \"IndirectAbsorptionChiller.idf\" EnergyPlus example results"
       annotation (Placement(transformation(extent={{-130,60},{-110,80}})));
@@ -92,31 +92,45 @@ model AbsorptionIndirectSteam_EnergyPlus
     "EnergyPlus results: evaporator heat flow rate"
     annotation (Placement(transformation(extent={{-132,-34},{-112,-14}})));
 
+  Controls.OBC.UnitConversions.From_degC TConIn "Condenser inlet temperature"
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+  Controls.OBC.UnitConversions.From_degC TEvaSet
+    "Evaporator setpoint temperature"
+    annotation (Placement(transformation(extent={{-80,-14},{-60,6}})));
+  Controls.OBC.UnitConversions.From_degC TEvaIn "Evaporator inlet temperature"
+    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
 equation
   connect(evaPum.ports[1], absChi.port_a2) annotation (Line(points={{60,-30},{
           50,-30},{50,-8},{42,-8}},
                                  color={0,127,255}));
-  connect(absChi.on, realToBoolean.y) annotation (Line(points={{21,0},{-10,0},{-10,
-          20},{-39,20}},       color={255,0,255}));
+  connect(absChi.on, realToBoolean.y) annotation (Line(points={{21,0},{-10,0},{
+          -10,30},{-59,30}},   color={255,0,255}));
   connect(conPum.ports[1], absChi.port_a1) annotation (Line(points={{-20,50},{20,
           50},{20,4},{22,4}}, color={0,127,255}));
   connect(absChi.port_b1, heaVol.ports[1]) annotation (Line(points={{42,4},{60,4}},
                              color={0,127,255}));
   connect(absChi.port_b2, cooVol.ports[1]) annotation (Line(points={{22,-8},{20,
           -8},{20,-20},{-20,-20}}, color={0,127,255}));
-  connect(datRea.y[1], realToBoolean.u) annotation (Line(points={{-109,70},{-100,
-          70},{-100,20},{-62,20}},    color={0,0,127}));
+  connect(datRea.y[1], realToBoolean.u) annotation (Line(points={{-109,70},{
+          -100,70},{-100,30},{-82,30}},
+                                      color={0,0,127}));
   connect(datRea.y[5], evaPum.m_flow_in) annotation (Line(points={{-109,70},{-100,
           70},{-100,-82},{100,-82},{100,-38},{82,-38}},            color={0,0,
           127}));
   connect(datRea.y[9], conPum.m_flow_in) annotation (Line(points={{-109,70},{-100,
           70},{-100,42},{-42,42}},      color={0,0,127}));
-  connect(datRea.y[7], conPum.T_in) annotation (Line(points={{-109,70},{-50,70},
-          {-50,46},{-42,46}}, color={0,0,127}));
-  connect(datRea.y[4], absChi.TSet) annotation (Line(points={{-109,70},{-100,70},
-          {-100,-4},{21,-4}},                   color={0,0,127}));
-  connect(datRea.y[3], evaPum.T_in) annotation (Line(points={{-109,70},{-100,70},
-          {-100,-82},{100,-82},{100,-34},{82,-34}}, color={0,0,127}));
+  connect(datRea.y[7], TConIn.u)
+    annotation (Line(points={{-109,70},{-82,70}}, color={0,0,127}));
+  connect(TConIn.y, conPum.T_in) annotation (Line(points={{-58,70},{-52,70},{
+          -52,46},{-42,46}}, color={0,0,127}));
+  connect(datRea.y[4], TEvaSet.u) annotation (Line(points={{-109,70},{-100,70},
+          {-100,-4},{-82,-4}}, color={0,0,127}));
+  connect(TEvaSet.y, absChi.TSet)
+    annotation (Line(points={{-58,-4},{21,-4}}, color={0,0,127}));
+  connect(datRea.y[3], TEvaIn.u) annotation (Line(points={{-109,70},{-100,70},{
+          -100,-60},{-82,-60}}, color={0,0,127}));
+  connect(TEvaIn.y, evaPum.T_in) annotation (Line(points={{-58,-60},{90,-60},{
+          90,-34},{82,-34}}, color={0,0,127}));
    annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Ellipse(lineColor = {75,138,73},

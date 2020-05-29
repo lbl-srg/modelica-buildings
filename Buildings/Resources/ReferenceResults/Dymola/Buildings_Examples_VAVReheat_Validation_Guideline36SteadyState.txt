@@ -1,4 +1,4 @@
-last-generated=2020-04-20
+last-generated=2020-04-23
 statistics-initialization=
 {
   "nonlinear": "1, 1, 1, 16, 16, 16, 16, 3, 0",
@@ -8,7 +8,7 @@ statistics-simulation=
 {
   "linear": "0, 0, 0, 4, 0, 13, 0, 0, 0, 13, 0, 0, 0, 13, 0, 13, 0, 0, 0, 8",
   "nonlinear": "1, 0, 0, 0, 0, 3",
-  "number of continuous time states": "193",
+  "number of continuous time states": "188",
   "numerical Jacobians": "0"
 }
 time=[0e+00, 6.048e+05]

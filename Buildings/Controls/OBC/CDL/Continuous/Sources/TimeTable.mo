@@ -51,6 +51,7 @@ equation
   connect(tab.y, y) annotation (Line(points={{9,0},{120,0}}, color={0,0,127}));
 
 annotation (
+defaultComponentName = "timTab",
 Documentation(info="<html>
 <p>
 Block that outputs values of a time table.

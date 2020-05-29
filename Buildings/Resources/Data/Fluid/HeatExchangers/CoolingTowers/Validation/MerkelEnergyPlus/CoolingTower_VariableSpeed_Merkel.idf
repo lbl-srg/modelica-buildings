@@ -117,7 +117,7 @@
 ! Utility Tariffs:                None
 !
 
-  Version,9.2;
+  Version,9.3;
 
   Building,
     Building,                !- Name
@@ -3723,4 +3723,3 @@
 
   Output:Table:SummaryReports,
     AllSummary;              !- Report 1 Name
-

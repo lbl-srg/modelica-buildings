@@ -1,0 +1,18 @@
+simulateModel("Buildings.Fluid.CHPs.Validation.ElectricalFollowing",
+    method="dassl", stopTime=10000, tolerance=1e-06, resultFile="ElectricalFollowing");
+createPlot(id=1, position={20, 20, 600, 1000}, y={"EEle.y", "EEleVal.y", "EThe.y", "ETheVal.y"},
+    subPlot=1, grid=true);
+createPlot(id=1, position={20, 20, 600, 1000}, y={"eleFol.PEleNet", "PEleNetVal.y"},
+    subPlot=2, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={20, 20, 600, 1000}, y={"eleFol.eneCon.QGen_flow", "QGenVal_flow.y"},
+    subPlot=3, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=2, position={640, 20, 600, 1000}, y={"eleFol.QWat_flow", "QWatVal_flow.y"},
+    subPlot=1, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=2, position={640, 20, 600, 1000}, y={"eleFol.QLos.Q_flow", "QLosVal_flow.y"},
+    subPlot=2, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=2, position={640, 20, 600, 1000}, y={"eleFol.opeMod.opeMod"},
+    subPlot=3, grid=true, colors={{28,108,200}});
+createPlot(id=3, position={1260, 20, 600, 1000}, y={"eleFol.TWatOut.T", "TWatOutVal.y"},
+    subPlot=1, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=3, position={1260, 20, 600, 1000}, y={"eleFol.eng.TEng", "TEngVal.y"},
+    subPlot=2, grid=true, colors={{28,108,200},{238,46,47}});

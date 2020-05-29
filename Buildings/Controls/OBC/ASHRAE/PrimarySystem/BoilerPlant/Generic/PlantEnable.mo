@@ -65,15 +65,35 @@ model PlantEnable
     "Table defining when plant can be enabled"
     annotation (Placement(transformation(extent={{-150,-120},{-130,-100}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer tim
-    "Time since plant has been enabled"
-    annotation (Placement(transformation(extent={{10,0},{30,20}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Timer tim2
-    "Time since plant has been disabled"
-    annotation (Placement(transformation(extent={{10,60},{30,80}})));
-
 protected
+  Buildings.Controls.OBC.CDL.Logical.And and2
+    "Logical And"
+    annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Not not4
+    "Logical not"
+    annotation (Placement(transformation(extent={{0,60},{20,80}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Pre pre1
+    "Logical pre block"
+    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
+    final delayTime=staOnReqTim)
+    "Enable delay for minimum requests required to keep plant enabled"
+    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1(
+    final delayTime=plaOnThrTim)
+    "Enable delay to ensure plant stays enabled for required time period"
+    annotation (Placement(transformation(extent={{40,-20},{60,0}})));
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel2(
+    final delayTime=plaOffThrTim,
+    final delayOnInit=true)
+    "Enable delay to ensure plant stays disabled for required time period"
+    annotation (Placement(transformation(extent={{40,60},{60,80}})));
+
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
     final threshold=0.5)
     "Check if schedule lets the controller enable the plant or not"
@@ -91,23 +111,19 @@ protected
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(
     final nu=4)
     "Check if all the conditions for enabling plant have been met"
-    annotation (Placement(transformation(extent={{80,110},{100,130}})));
+    annotation (Placement(transformation(extent={{80,80},{100,100}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
     final nu=3)
     "Check if any conditions except plant-on time have been satisfied to disable plant"
-    annotation (Placement(transformation(extent={{30,-80},{50,-60}})));
-
-  Buildings.Controls.OBC.CDL.Logical.And and2
-    "Check if all conditions have been met to disable the plant"
-    annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
+    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Logical Not"
-    annotation (Placement(transformation(extent={{-10,-120},{10,-100}})));
+    annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=TLocOut,
+    final p=TOutLoc,
     final k=-1)
     "Compare measured outdoor air temperature to boiler lockout temperature"
     annotation (Placement(transformation(extent={{-150,-60},{-130,-40}})));
@@ -120,38 +136,11 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.Not not3
     "Logical Not"
-    annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Timer tim1
-    "Time since number of requests was greater than number of ignores"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
-    final threshold=staOnReqTim)
-    "Time limit for receiving requests to maintain status on"
-    annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Not not4
-    "Logical Not"
-    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr1(
-    final threshold=plaOnThrTim)
-    "Check if minimum amount of time to maintain the plant on has elapsed"
-    annotation (Placement(transformation(extent={{40,0},{60,20}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
-    final threshold=plaOffThrTim)
-    "Check if minimum amount of time to maintain the plant off has elapsed"
-    annotation (Placement(transformation(extent={{40,60},{60,80}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Pre pre1
-    "Logical pre block"
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not2
     "Logical Not"
-    annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
+    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
 
 equation
   connect(yPla, yPla)
@@ -205,6 +194,7 @@ equation
   connect(enaSch.y[1], greThr.u)
     annotation (Line(points={{-128,-110},{-122,-110}},
       color={0,0,127}));
+<<<<<<< HEAD
   connect(mulOr.y, lat.clr)
     annotation (Line(points={{52,-70},{60,-70},{60,-6},{78,-6}},
       color={255,0,255}));
