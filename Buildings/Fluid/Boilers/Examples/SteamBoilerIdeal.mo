@@ -2,7 +2,7 @@ within Buildings.Fluid.Boilers.Examples;
 model SteamBoilerIdeal "Test model for the ideal steam boiler"
   extends Modelica.Icons.Example;
 
-  package MediumSte = IBPSA.Media.Steam.Steam "Steam medium";
+  package MediumSte = IBPSA.Media.Steam "Steam medium";
   package MediumWat = IBPSA.Media.Water "Water medium";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 1

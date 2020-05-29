@@ -1,5 +1,5 @@
 ﻿// Simulate
-simulateModel("Buildings.Applications.DHC.Loads.Examples.BuildingTimeSeries1stGen", stopTime=86400, method="dassl", resultFile="BuildingTimeSeries1stGen");
+simulateModel("Buildings.Applications.DHC.Examples.FirstGeneration.BaseClasses.Examples.BuildingTimeSeriesHeatingTableMatrix", stopTime=86400, method="dassl", resultFile="BuildingTimeSeriesHeatingTableMatrix");
 // Plot
 createPlot(id=1, position={15, 10, 395, 496}, 
   y={"bld.Q_flow"}, 
@@ -8,7 +8,7 @@ createPlot(id=1, position={15, 10, 395, 496},
   colors={{28,108,200}}, 
   timeUnit="h", 
   displayUnits={"kW"},
-  filename="BuildingTimeSeries1stGen.mat");
+  filename="BuildingTimeSeriesHeatingTableMatrix.mat");
 createPlot(id=1, position={15, 10, 395, 246}, 
   y={"bld.ets.m_flow"}, 
   range={0.0, 25.0, 0.02, 0.12}, 

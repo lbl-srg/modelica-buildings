@@ -3,7 +3,7 @@ model Heating1stGenIdeal
   "Example model for the ideal heating energy transfer station"
   extends Modelica.Icons.Example;
 
-  package MediumSte = IBPSA.Media.Steam.Steam "Steam medium";
+  package MediumSte = IBPSA.Media.Steam "Steam medium";
   package MediumWat = IBPSA.Media.WaterHighTemperature "Water medium";
 
   parameter Modelica.SIunits.SpecificEnthalpy dh_nominal=

@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Controls;
+within Buildings.Applications.DHC.CentralPlants.Gen1st.Heating.Controls;
 model HeatingSystemControl
   extends Modelica.Blocks.Icons.Block;
 

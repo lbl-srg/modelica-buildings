@@ -20,13 +20,13 @@ model SteamBoilerFourPort
       nominalValuesDefineDefaultPressureCurve=true));
 
   replaceable package Medium_a1 =
-      IBPSA.Media.Steam.Interfaces.PartialPureSubstanceWithSat
-    "Medium model for port_a1 (inlet)";
+      Modelica.Media.Interfaces.PartialMedium
+    "Medium model (liquid state) for port_a1 (inlet)";
   replaceable package Medium_b1 =
-      IBPSA.Media.Steam.Interfaces.PartialPureSubstanceWithSat
-    "Medium model for port_b1 (outlet)";
+      IBPSA.Media.Interfaces.PartialPureSubstanceWithSat
+    "Medium model (vapor state) for port_b1 (outlet)";
   replaceable package Medium2 =
-      Modelica.Media.Interfaces.PartialMixtureMedium
+      Modelica.Media.Interfaces.PartialMedium
     "Medium model for fluid stream 2 (from a2 to b2)";
 
   parameter Real ratAirFue = 10

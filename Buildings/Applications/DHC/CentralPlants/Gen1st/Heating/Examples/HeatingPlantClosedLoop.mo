@@ -1,10 +1,11 @@
-within Buildings.Applications.DHC.CentralPlants;
+within Buildings.Applications.DHC.CentralPlants.Gen1st.Heating.Examples;
 model HeatingPlantClosedLoop
   "Example model for the first generation heating plant"
   extends Modelica.Icons.Example;
 
-  package MediumSte = IBPSA.Media.Steam.Steam (
-     T_default=179.91+273.15) "Steam medium";
+  package MediumSte = IBPSA.Media.Steam (
+     T_default=179.91+273.15,
+     p_default=1000000) "Steam medium";
   package MediumWat = IBPSA.Media.WaterHighTemperature "Water medium";
 
   parameter Modelica.SIunits.SpecificEnthalpy dh_nominal=
@@ -13,9 +14,6 @@ model HeatingPlantClosedLoop
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = Q_flow_nominal/dh_nominal
     "Nominal mass flow rate";
-
-//  parameter Modelica.SIunits.Power QPla_flow_small = pla.mPla_flow_small*dh_nominal
-//    "Small heat flow rate for normalization";
 
   parameter Modelica.SIunits.AbsolutePressure pSte=1000000
     "Steam pressure";
@@ -30,7 +28,7 @@ model HeatingPlantClosedLoop
   parameter Modelica.SIunits.Power Q_flow_nominal= 9000E3
     "Nominal heat flow rate";
 
-  HeatingPlant1stGen pla(
+  HeatingPlant pla(
     redeclare package Medium_a = MediumWat,
     redeclare package Medium_b = MediumSte,
     mPla_flow_nominal=m_flow_nominal,
@@ -87,10 +85,10 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
   __Dymola_Commands(file=
-    "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/CentralPlants/HeatingPlantClosedLoop.mos"
+    "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/CentralPlants/Gen1st/Heating/Examples/HeatingPlantClosedLoop.mos"
     "Simulate and plot"),
   experiment(
       StopTime=86400,
       Tolerance=1e-06,
-      __Dymola_Algorithm="Radau"));
+      __Dymola_Algorithm="Cvode"));
 end HeatingPlantClosedLoop;

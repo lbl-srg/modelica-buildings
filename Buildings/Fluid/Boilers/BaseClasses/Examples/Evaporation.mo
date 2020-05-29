@@ -2,7 +2,7 @@ within Buildings.Fluid.Boilers.BaseClasses.Examples;
 model Evaporation "Test model for water evaporation process"
   extends Modelica.Icons.Example;
 
-  package MediumSte = IBPSA.Media.Steam.Steam "Steam medium";
+  package MediumSte = IBPSA.Media.Steam "Steam medium";
   package MediumWat = IBPSA.Media.Water "Water medium";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 1

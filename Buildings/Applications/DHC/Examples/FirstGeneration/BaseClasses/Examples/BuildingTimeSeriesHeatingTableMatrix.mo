@@ -1,9 +1,9 @@
-within Buildings.Applications.DHC.Loads.Examples;
-model BuildingTimeSeries1stGen
-  "Example model for the 1st generation building time series model"
+within Buildings.Applications.DHC.Examples.FirstGeneration.BaseClasses.Examples;
+model BuildingTimeSeriesHeatingTableMatrix
+  "Example model for the 1st generation building time series model. A 1 day simulation with a table matrix heating load."
   extends Modelica.Icons.Example;
 
-  package MediumSte = IBPSA.Media.Steam.Steam "Steam medium";
+  package MediumSte = IBPSA.Media.Steam "Steam medium";
   package MediumWat = IBPSA.Media.WaterHighTemperature "Water medium";
 
   parameter Modelica.SIunits.SpecificEnthalpy dh_nominal=
@@ -25,12 +25,14 @@ model BuildingTimeSeries1stGen
   parameter Modelica.SIunits.Power Q_flow_nominal= 200E3
     "Nominal heat flow rate";
 
-  BaseClasses.BuildingTimeSeries1stGen bld(
+  Buildings.Applications.DHC.Examples.FirstGeneration.BaseClasses.BuildingTimeSeriesHeating
+    bld(
     redeclare package Medium_a = MediumSte,
     redeclare package Medium_b = MediumWat,
     QHeaLoa=QHeaLoa,
     Q_flow_nominal=Q_flow_nominal,
-    pSte_nominal=pSte)                     "Building model, heating only"
+    pSte_nominal=pSte,
+    timeScale=3600)    "Building model, heating only"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Fluid.Sources.Boundary_pT           souSte(
     redeclare package Medium = MediumSte,
@@ -51,6 +53,6 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
   experiment(Tolerance=1e-6, StopTime=86400),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/BuildingTimeSeries1stGen.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/Examples/FirstGeneration/BaseClasses/Examples/BuildingTimeSeriesHeatingTableMatrix.mos"
         "Simulate and plot"));
-end BuildingTimeSeries1stGen;
+end BuildingTimeSeriesHeatingTableMatrix;

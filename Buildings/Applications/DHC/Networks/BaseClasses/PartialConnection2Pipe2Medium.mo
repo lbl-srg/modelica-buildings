@@ -2,7 +2,7 @@ within Buildings.Applications.DHC.Networks.BaseClasses;
 partial model PartialConnection2Pipe2Medium
   "Partial model for connecting an agent to a two-pipe distribution network with 2 medium models"
   replaceable package MediumSup =
-      Modelica.Media.Interfaces.PartialTwoPhaseMedium
+      Modelica.Media.Interfaces.PartialMedium
     "Medium model for supply fluid";
   replaceable package MediumRet =
       Modelica.Media.Interfaces.PartialMedium
@@ -62,6 +62,13 @@ partial model PartialConnection2Pipe2Medium
     annotation (
       Dialog(tab="Dynamics", group="Nominal condition",
       enable=not energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState));
+  // Initialization
+  parameter Modelica.SIunits.AbsolutePressure p_start
+    "Start value of pressure in pipes"
+    annotation(Dialog(tab="Initialization"));
+  parameter Modelica.SIunits.Temperature T_start
+    "Start value of temperature in pipes"
+    annotation(Dialog(tab="Initialization"));
   // IO CONNECTORS
   Modelica.Fluid.Interfaces.FluidPort_a port_aDisSup(
     redeclare final package Medium = MediumSup,

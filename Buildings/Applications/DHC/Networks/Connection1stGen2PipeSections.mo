@@ -6,11 +6,17 @@ model Connection1stGen2PipeSections
     redeclare model Model_pip_aDisSup = Buildings.Fluid.FixedResistances.Pipe (
       thicknessIns=thicknessInsSup,
       lambdaIns=lambdaIns,
-      length=lengthDisSup),
+      length=lengthDisSup,
+      energyDynamics=energyDynamics,
+      p_start=p_start,
+      T_start=T_start),
     redeclare model Model_pip_bDisRet = Buildings.Fluid.FixedResistances.Pipe (
       thicknessIns=thicknessInsSup,
       lambdaIns=lambdaIns,
-      length=lengthDisSup),
+      length=lengthDisSup,
+      energyDynamics=energyDynamics,
+      p_start=p_start,
+      T_start=T_start),
     redeclare final model Model_pip_bDisSup =
         Buildings.Fluid.FixedResistances.LosslessPipe,
     redeclare final model Model_pip_aDisRet =

@@ -1,15 +1,13 @@
-within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
-model BuildingTimeSeries1stGen
+within Buildings.Applications.DHC.Examples.FirstGeneration.BaseClasses;
+model BuildingTimeSeriesHeating
 
   replaceable package Medium_a =
-      IBPSA.Media.Steam.Interfaces.PartialPureSubstanceWithSat
-    "Medium model for port_a (inlet)";
+      IBPSA.Media.Interfaces.PartialPureSubstanceWithSat
+    "Medium model (vapor state) for port_a (inlet)";
   replaceable package Medium_b =
-      IBPSA.Media.Steam.Interfaces.PartialPureSubstanceWithSat
-    "Medium model for port_b (outlet)";
+      Modelica.Media.Interfaces.PartialMedium
+    "Medium model (liquid state) for port_b (outlet)";
 
-  parameter Real QHeaLoa[:, :]=[0, 200E3; 6, 200E3; 6, 50E3; 18, 50E3; 18, 75E3; 24, 75E3]
-    "Heating load profile for the building";
   parameter Modelica.SIunits.Power Q_flow_nominal
     "Nominal heat flow rate";
 
@@ -22,13 +20,60 @@ model BuildingTimeSeries1stGen
     Q_flow_nominal/dh_nominal
     "Nominal mass flow rate";
 
+  // Table parameters
+  parameter Boolean tableOnFile=false
+    "= true, if table is defined on file or in function usertab"
+    annotation (Dialog(group="Table data definition"));
+  parameter Real QHeaLoa[:, :] = fill(0.0, 0, 2)
+    "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])"
+    annotation (Dialog(group="Table data definition",enable=not tableOnFile));
+  parameter String tableName="NoName"
+    "Table name on file or in function usertab (see docu)"
+    annotation (Dialog(group="Table data definition",enable=tableOnFile));
+  parameter String fileName="NoName" "File where matrix is stored"
+    annotation (Dialog(
+      group="Table data definition",
+      enable=tableOnFile,
+      loadSelector(filter="Text files (*.txt);;MATLAB MAT-files (*.mat)",
+          caption="Open file in which table is present")));
+  parameter Integer columns[:]=2:size(QHeaLoa, 2)
+    "Columns of table to be interpolated"
+    annotation (Dialog(group="Table data interpretation"));
+  parameter Modelica.Blocks.Types.Smoothness smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments
+    "Smoothness of table interpolation"
+    annotation (Dialog(group="Table data interpretation"));
+  parameter Modelica.SIunits.Time timeScale(
+    min=Modelica.Constants.eps)=1 "Time scale of first table column"
+    annotation (Dialog(group="Table data interpretation"), Evaluate=true);
+
   parameter Modelica.SIunits.Time riseTime=120
     "Rise time of the filter (time to reach 99.6 % of an opening step)";
 
+  // Diagnostics
+   parameter Boolean show_T = false
+    "= true, if actual temperature at port is computed"
+    annotation(Dialog(tab="Advanced",group="Diagnostics"));
+
+  Medium_a.ThermodynamicState sta_a=
+      Medium_a.setState_phX(port_a.p,
+                          noEvent(actualStream(port_a.h_outflow)),
+                          noEvent(actualStream(port_a.Xi_outflow))) if show_T
+    "Medium properties in port_a";
+
+  Medium_b.ThermodynamicState sta_b=
+      Medium_b.setState_phX(port_b.p,
+                          noEvent(actualStream(port_b.h_outflow)),
+                          noEvent(actualStream(port_b.Xi_outflow))) if show_T
+    "Medium properties in port_b";
+
   Modelica.Blocks.Sources.CombiTimeTable QHea(
+    tableOnFile=tableOnFile,
     table=QHeaLoa,
-    timeScale=3600,
-    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
+    tableName=tableName,
+    fileName=fileName,
+    columns=columns,
+    smoothness=smoothness,
+    timeScale=timeScale)
     "Heating demand"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Applications.DHC.EnergyTransferStations.Heating1stGenIdeal ets(
@@ -40,11 +85,11 @@ model BuildingTimeSeries1stGen
                           "Energy transfer station"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
-        Medium_a)
+  Modelica.Fluid.Interfaces.FluidPort_a port_a(
+    redeclare package Medium = Medium_a)
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
-        Medium_b)
+  Modelica.Fluid.Interfaces.FluidPort_b port_b(
+    redeclare package Medium = Medium_b)
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Modelica.Blocks.Interfaces.RealOutput Q_flow(
     final quantity="HeatFlowRate",
@@ -56,6 +101,15 @@ model BuildingTimeSeries1stGen
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Blocks.Math.Product pro
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+  Modelica.Blocks.Continuous.Integrator IntEHea(y(unit="J"))
+    "Integrator for heating energy of building"
+    annotation (Placement(transformation(extent={{60,40},{80,60}})));
+  Modelica.Blocks.Interfaces.RealOutput EHea(
+    final quantity="HeatFlow",
+    final unit="J",
+    displayUnit="kWh") "Total heating energy" annotation (Placement(
+        transformation(extent={{100,40},{120,60}}), iconTransformation(extent={
+            {100,40},{120,60}})));
 equation
   connect(port_a, ets.port_a) annotation (Line(points={{100,-60},{0,-60},{0,0},
           {40,0}},  color={0,127,255}));
@@ -69,6 +123,12 @@ equation
           80}}, color={0,0,127}));
   connect(pro.y, ets.Q_flow)
     annotation (Line(points={{-19,50},{0,50},{0,6},{38,6}}, color={0,0,127}));
+  connect(pro.y, IntEHea.u)
+    annotation (Line(points={{-19,50},{58,50}}, color={0,0,127}));
+  connect(Q_flow, Q_flow) annotation (Line(points={{110,80},{107,80},{107,80},{
+          110,80}}, color={0,0,127}));
+  connect(IntEHea.y, EHea) annotation (Line(points={{81,50},{96,50},{96,50},{
+          110,50}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Polygon(
           points={{20,-70},{60,-85},{20,-100},{20,-70}},
@@ -120,4 +180,4 @@ equation
           extent={{-149,-114},{151,-154}},
           lineColor={0,0,255},
           textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false)));
-end BuildingTimeSeries1stGen;
+end BuildingTimeSeriesHeating;

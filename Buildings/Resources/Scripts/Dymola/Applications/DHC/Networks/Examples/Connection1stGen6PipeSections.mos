@@ -1,0 +1,42 @@
+﻿// Simulate
+simulateModel("Buildings.Applications.DHC.Networks.Examples.Connection1stGen6PipeSections", stopTime=86400, method="Cvode", tolerance=1e-06, resultFile="Connection1stGen6PipeSections");
+// Plot commands
+removePlots(false);
+createPlot(id=1, position={15, 10, 564, 560}, 
+  y={"pla.port_a.m_flow", "bld1.port_a.m_flow", "bld2.port_a.m_flow"}, 
+  range={0.0, 1.0, -1.0, 7.0}, 
+  grid=true, 
+  filename="Connection1stGen6PipeSections.mat", 
+  colors={{28,108,200}, {238,46,47}, {0,140,72}}, 
+  timeUnit="d");
+createPlot(id=1, position={15, 10, 564, 278}, 
+  y={"pla.Q_flow", "bld1.Q_flow", "bld2.Q_flow"}, 
+  range={0.0, 1.0, -2000.0, 14000.0},  
+  grid=true, 
+  subPlot=2, 
+  colors={{28,108,200}, {238,46,47}, {0,140,72}}, 
+  timeUnit="d", 
+  displayUnits={"kW", "kW", "kW"});
+createPlot(id=2, position={590, 9, 791, 558}, 
+  y={"pla.port_a.p", "pla.port_b.p", "bld1.port_a.p", "bld1.port_b.p", "bld2.port_a.p", "bld2.port_b.p"}, 
+  range={0.0, 1.0, 9.98, 10.08}, 
+  grid=true, 
+  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}, {162,29,33}}, 
+  timeUnit="d", 
+  displayUnits={"bar", "bar", "bar", "bar", "bar", "bar"});
+createPlot(id=2, position={590, 9, 791, 277}, 
+  y={"pla.sta_a.T", "pla.sta_b.T", "bld1.sta_a.T", "bld1.sta_b.T", "bld2.sta_a.T", "bld2.sta_b.T"}, 
+  range={0.0, 1.0, 0.0, 200.0}, 
+  grid=true, 
+  subPlot=2, 
+  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}, {162,29,33}}, 
+  timeUnit="d", 
+  displayUnits={"degC", "degC", "degC", "degC", "degC", "degC"});
+createPlot(id=3, position={388, 114, 1053, 473}, 
+  y={"pla.port_a.h_outflow", "pla.port_b.h_outflow", "bld1.port_a.h_outflow", 
+  "bld1.port_b.h_outflow", "bld2.port_a.h_outflow", "bld2.port_b.h_outflow"}, 
+  range={0.0, 1.0, 0.0, 3000000.0}, 
+  grid=true, 
+  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}, {162,29,33}}, 
+  timeUnit="d");
+

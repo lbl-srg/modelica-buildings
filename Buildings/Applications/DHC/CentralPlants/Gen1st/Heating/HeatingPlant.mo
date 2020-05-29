@@ -1,12 +1,12 @@
-within Buildings.Applications.DHC.CentralPlants;
-model HeatingPlant1stGen "First generation district heating plant"
+within Buildings.Applications.DHC.CentralPlants.Gen1st.Heating;
+model HeatingPlant "First generation district heating plant"
 
   replaceable package Medium_a =
-      IBPSA.Media.Steam.Interfaces.PartialPureSubstanceWithSat
-    "Medium model for port_a (inlet)";
+      Modelica.Media.Interfaces.PartialMedium
+    "Medium model (liquid state) for port_a (inlet)";
   replaceable package Medium_b =
-      IBPSA.Media.Steam.Interfaces.PartialPureSubstanceWithSat
-    "Medium model for port_b (outlet)";
+      IBPSA.Media.Interfaces.PartialPureSubstanceWithSat
+    "Medium model (vapor state) for port_b (outlet)";
 
   // Nominal Conditions
   parameter Modelica.SIunits.MassFlowRate mPla_flow_nominal
@@ -105,9 +105,16 @@ model HeatingPlant1stGen "First generation district heating plant"
     T=TOut_nominal,
     nPorts=1) "Expansion boundary"
     annotation (Placement(transformation(extent={{10,20},{30,40}})));
+  Modelica.Blocks.Interfaces.RealOutput EHea(
+    final quantity="HeatFlow",
+    final unit="J",
+    displayUnit="kWh") "Total heating energy" annotation (Placement(
+        transformation(extent={{100,40},{120,60}}), iconTransformation(extent={
+            {100,40},{120,60}})));
+  Modelica.Blocks.Continuous.Integrator IntEHea(y(unit="J"))
+    "Integrator for heating energy of building"
+    annotation (Placement(transformation(extent={{60,40},{80,60}})));
 equation
-  connect(boi.Q_flow, Q_flow) annotation (Line(points={{-19,9},{-19,8},{0,8},{0,
-          80},{110,80}},     color={0,0,127}));
   connect(dp.port_b, boi.port_a)
     annotation (Line(points={{-60,0},{-40,0}},             color={0,127,255}));
   connect(hSen_b.h_out, dh.u1) annotation (Line(points={{60,11},{60,20},{40,20},
@@ -134,6 +141,12 @@ equation
           9}}, color={0,0,127}));
   connect(exp.ports[1], boi.port_b) annotation (Line(points={{30,30},{34,30},{34,
           0},{-20,0}}, color={0,127,255}));
+  connect(IntEHea.u, boi.Q_flow)
+    annotation (Line(points={{58,50},{0,50},{0,9},{-19,9}}, color={0,0,127}));
+  connect(boi.Q_flow, Q_flow)
+    annotation (Line(points={{-19,9},{0,9},{0,80},{110,80}}, color={0,0,127}));
+  connect(IntEHea.y, EHea)
+    annotation (Line(points={{81,50},{110,50}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                 Rectangle(
         extent={{-100,-100},{100,100}},
@@ -215,4 +228,4 @@ equation
           extent={{-149,-114},{151,-154}},
           lineColor={0,0,255},
           textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false)));
-end HeatingPlant1stGen;
+end HeatingPlant;

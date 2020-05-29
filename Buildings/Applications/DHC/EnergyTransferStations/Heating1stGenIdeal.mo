@@ -1,6 +1,8 @@
 within Buildings.Applications.DHC.EnergyTransferStations;
 model Heating1stGenIdeal "Ideal heating energy transfer station"
   extends Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium(
+    redeclare replaceable package Medium_a =
+      IBPSA.Media.Interfaces.PartialPureSubstanceWithSat,
     show_T=true);
 
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(
@@ -23,8 +25,8 @@ model Heating1stGenIdeal "Ideal heating energy transfer station"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   Buildings.Fluid.HeatExchangers.SteamHeatExchangerIdeal hex(
     redeclare package Medium_a = Medium_a,
-    redeclare package Medium_b = Medium_b,                    m_flow_nominal=
-        m_flow_nominal,
+    redeclare package Medium_b = Medium_b,
+    m_flow_nominal=m_flow_nominal,
     pSte_nominal=pSte_nominal)
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Modelica.Blocks.Math.Division mAct_flow "Actual mass flow rate"
