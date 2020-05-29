@@ -107,8 +107,7 @@ protected
     "Logical Not"
     annotation (Placement(transformation(extent={{-10,-120},{10,-100}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=TLocOut,
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(final p=TOutLoc,
     final k=-1)
     "Compare measured outdoor air temperature to boiler lockout temperature"
     annotation (Placement(transformation(extent={{-150,-60},{-130,-40}})));
