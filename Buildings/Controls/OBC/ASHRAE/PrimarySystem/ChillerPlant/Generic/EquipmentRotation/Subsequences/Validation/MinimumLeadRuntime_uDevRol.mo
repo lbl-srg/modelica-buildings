@@ -1,19 +1,19 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Validation;
-model RuntimeCounter_uDevRol
+model MinimumLeadRuntime_uDevRol
   "Validate lead/lag and lead/standby switching signal based on device runtime"
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.RuntimeCounter
-    runCou(final stagingRuntime=43200)
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.MinimumLeadRuntime
+    minLeaTim(final minLeaRuntime=43200)
     "Equipment rotation signal based on device runtime and current device status"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.RuntimeCounter
-    runCou1(final stagingRuntime=18000)
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.MinimumLeadRuntime
+    minLeaTim1(final minLeaRuntime=18000)
     "Equipment rotation signal based on device runtime and current device status"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.RuntimeCounter
-    runCou2(final stagingRuntime=14400)
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.MinimumLeadRuntime
+    minLeaTim2(final minLeaRuntime=14400)
     "Equipment rotation signal based on device runtime and current device status"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
 
@@ -80,9 +80,9 @@ equation
           58},{-2,58}},color={255,0,255}));
   connect(repLag.y, logSwi.u3) annotation (Line(points={{-38,40},{-10,40},{-10,42},
           {-2,42}}, color={255,0,255}));
-  connect(logSwi.y, runCou.uDevSta)
+  connect(logSwi.y, minLeaTim.uDevSta)
     annotation (Line(points={{22,50},{38,50}}, color={255,0,255}));
-  connect(logSwi1.y, runCou1.uDevSta)
+  connect(logSwi1.y, minLeaTim1.uDevSta)
     annotation (Line(points={{22,0},{38,0}}, color={255,0,255}));
   connect(staSta.y,logSwi1. u3) annotation (Line(points={{-78,-10},{-40,-10},{-40,
           -8},{-2,-8}}, color={255,0,255}));
@@ -94,42 +94,43 @@ equation
           -42},{-2,-42}}, color={255,0,255}));
   connect(repLag1.y,logSwi2. u3) annotation (Line(points={{-38,-70},{-30,-70},{-30,
           -58},{-2,-58}}, color={255,0,255}));
-  connect(logSwi2.y, runCou2.uDevSta)
+  connect(logSwi2.y, minLeaTim2.uDevSta)
     annotation (Line(points={{22,-50},{38,-50}}, color={255,0,255}));
-  connect(runCou.yRot, rotTwo.uRot)
+  connect(minLeaTim.yRot, rotTwo.uRot)
     annotation (Line(points={{62,50},{78,50}}, color={255,0,255}));
-  connect(rotTwo.yPreDevRolSig, runCou.uPreDevRolSig) annotation (Line(points={
-          {101,44},{108,44},{108,30},{30,30},{30,42},{38,42}}, color={255,0,255}));
-  connect(rotTwo.yPreDevRolSig, logSwi.u2) annotation (Line(points={{101,44},{
-          108,44},{108,30},{-20,30},{-20,50},{-2,50}}, color={255,0,255}));
-  connect(runCou1.yRot, rotTwo1.uRot)
+  connect(rotTwo.yPreDevRolSig, minLeaTim.uPreDevRolSig) annotation (Line(points={{102,44},
+          {108,44},{108,30},{30,30},{30,42},{38,42}},          color={255,0,255}));
+  connect(rotTwo.yPreDevRolSig, logSwi.u2) annotation (Line(points={{102,44},{108,
+          44},{108,30},{-20,30},{-20,50},{-2,50}},     color={255,0,255}));
+  connect(minLeaTim1.yRot, rotTwo1.uRot)
     annotation (Line(points={{62,0},{78,0}}, color={255,0,255}));
-  connect(runCou2.yRot, rotTwo2.uRot)
+  connect(minLeaTim2.yRot, rotTwo2.uRot)
     annotation (Line(points={{62,-50},{78,-50}}, color={255,0,255}));
-  connect(rotTwo2.yPreDevRolSig, runCou2.uPreDevRolSig) annotation (Line(points=
-         {{101,-56},{110,-56},{110,-70},{30,-70},{30,-58},{38,-58}}, color={255,
+  connect(rotTwo2.yPreDevRolSig, minLeaTim2.uPreDevRolSig) annotation (Line(points={{102,-56},
+          {110,-56},{110,-70},{30,-70},{30,-58},{38,-58}},           color={255,
           0,255}));
-  connect(rotTwo2.yPreDevRolSig, logSwi2.u2) annotation (Line(points={{101,-56},
+  connect(rotTwo2.yPreDevRolSig, logSwi2.u2) annotation (Line(points={{102,-56},
           {110,-56},{110,-70},{-20,-70},{-20,-50},{-2,-50}}, color={255,0,255}));
-  connect(rotTwo1.yPreDevRolSig, runCou1.uPreDevRolSig) annotation (Line(points=
-         {{101,-6},{110,-6},{110,-20},{30,-20},{30,-8},{38,-8}}, color={255,0,
+  connect(rotTwo1.yPreDevRolSig, minLeaTim1.uPreDevRolSig) annotation (Line(points={{102,-6},
+          {110,-6},{110,-20},{30,-20},{30,-8},{38,-8}},          color={255,0,
           255}));
-  connect(rotTwo1.yPreDevRolSig, logSwi1.u2) annotation (Line(points={{101,-6},
-          {110,-6},{110,-20},{-20,-20},{-20,0},{-2,0}}, color={255,0,255}));
-          annotation (
+  connect(rotTwo1.yPreDevRolSig, logSwi1.u2) annotation (Line(points={{102,-6},{
+          110,-6},{110,-20},{-20,-20},{-20,0},{-2,0}},  color={255,0,255}));
+
+annotation (
    experiment(StopTime=100000.0, Tolerance=1e-06),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Generic/EquipmentRotation/Subsequences/Validation/RuntimeCounter_uDevRol.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Generic/EquipmentRotation/Subsequences/Validation/MinimumLeadRuntime_uDevRol.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.RuntimeCounter\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.RuntimeCounter</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.MinimumLeadRuntime\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.MinimumLeadRuntime</a>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-September 20, 2019, by Milica Grahovac:<br/>
+May 15, 2020, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>
@@ -151,4 +152,4 @@ Icon(graphics={
           textString="For simplicity this test assumes 
 the device ON/OFF status equals its setpoint 
 (there is no delay in starting or stopping devices).")}));
-end RuntimeCounter_uDevRol;
+end MinimumLeadRuntime_uDevRol;
