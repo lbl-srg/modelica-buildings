@@ -8,28 +8,28 @@ model WetCoilCoolingFuzzy_V2_2
     annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal = 0.1
     "Load side mass flow rate at nominal conditions";
-  parameter Modelica.SIunits.Temperature T1_a_nominal(displayUnit="degC")=
+  parameter Modelica.SIunits.Temperature T_a1_nominal(displayUnit="degC")=
       Modelica.SIunits.Conversions.from_degC(7)
     "Source side supply temperature at nominal conditions"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.Temperature T1_b_nominal(displayUnit="degC")=
+  parameter Modelica.SIunits.Temperature T_b1_nominal(displayUnit="degC")=
       Modelica.SIunits.Conversions.from_degC(12)
     "Source side return temperature at nominal conditions"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.Temperature T2_a_nominal(displayUnit="degC")=
+  parameter Modelica.SIunits.Temperature T_a2_nominal(displayUnit="degC")=
       Modelica.SIunits.Conversions.from_degC(20)
     "Load side supply temperature at nominal conditions"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.Temperature T2_b_nominal(displayUnit="degC")=
-    T2_a_nominal + Q_flow_nominal / m2_flow_nominal / cp2_nominal;  // In case of purely sensible heat transfer.
+  parameter Modelica.SIunits.Temperature T_b2_nominal(displayUnit="degC")=
+    T_a2_nominal + Q_flow_nominal / m2_flow_nominal / cp2_nominal;  // In case of purely sensible heat transfer.
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal = abs(
-    Q_flow_nominal / cp1_nominal / (T1_a_nominal - T1_b_nominal))
+    Q_flow_nominal / cp1_nominal / (T_a1_nominal - T_b1_nominal))
     "Source side mass flow rate at nominal conditions";
   parameter Modelica.SIunits.SpecificHeatCapacity cp1_nominal = Medium1.specificHeatCapacityCp(
-    Medium1.setState_pTX(Medium1.p_default, T1_a_nominal))
+    Medium1.setState_pTX(Medium1.p_default, T_a1_nominal))
     "Source side specific heat capacity at nominal conditions";
   parameter Modelica.SIunits.SpecificHeatCapacity cp2_nominal = Medium2.specificHeatCapacityCp(
-    Medium2.setState_pTX(Medium2.p_default, T2_a_nominal))
+    Medium2.setState_pTX(Medium2.p_default, T_a2_nominal))
     "Load side specific heat capacity at nominal conditions";
   parameter Modelica.SIunits.ThermalConductance CMin_nominal=
       min(m1_flow_nominal * cp1_nominal, m2_flow_nominal * cp2_nominal)
@@ -43,14 +43,14 @@ model WetCoilCoolingFuzzy_V2_2
     Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow
     "Heat exchanger configuration";
   parameter Modelica.SIunits.ThermalConductance UA_nominal=
-    Buildings.Fluid.HeatExchangers.BaseClasses.ntu_epsilonZ(
-    eps=abs(Q_flow_nominal / (CMin_nominal * (T1_a_nominal - T2_a_nominal))),
-    Z=Z,
-    flowRegime=Integer(hexCon)) * CMin_nominal
+     Buildings.Fluid.HeatExchangers.BaseClasses.ntu_epsilonZ(
+     eps=abs(Q_flow_nominal / (CMin_nominal * (T_a1_nominal - T_a2_nominal))),
+     Z=Z,
+     flowRegime=Integer(hexCon)) * CMin_nominal
     "Thermal conductance at nominal conditions";
   Buildings.Fluid.Sources.Boundary_pT sin1(
     redeclare package Medium = Medium1, nPorts=1)
-              "Sink for heating water"
+    "Sink for heating water"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
@@ -59,7 +59,7 @@ model WetCoilCoolingFuzzy_V2_2
     redeclare package Medium = Medium1,
     use_m_flow_in=true,
     m_flow=hexWetNtu.m1_flow_nominal,
-    T=T1_a_nominal,
+    T=T_a1_nominal,
     nPorts=1) "Supply for heating water"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -68,7 +68,7 @@ model WetCoilCoolingFuzzy_V2_2
   Buildings.Fluid.Sources.MassFlowSource_T sup2(
     redeclare package Medium = Medium2,
     m_flow=m2_flow_nominal,
-    T=T2_a_nominal,
+    T=T_a2_nominal,
     nPorts=1) "Supply"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -130,11 +130,13 @@ model WetCoilCoolingFuzzy_V2_2
 equation
   connect(gai.y, sup1.m_flow_in) annotation (Line(points={{-98,-60},{-92,-60},{-92,
           -52},{-82,-52}}, color={0,0,127}));
-  connect(ySou.y, swi.u3) annotation (Line(points={{-168,-90},{-158,-90},{-158,-68},
-          {-152,-68}}, color={0,0,127}));
+  connect(ySou.y, swi.u3) annotation (Line(points={{-168,-90},{-160,-90},{-160,
+          -68},{-152,-68}},
+                       color={0,0,127}));
   connect(gai.u, swi.y) annotation (Line(points={{-122,-60},{-128,-60}}, color={0,0,127}));
-  connect(con.y, swi.u1) annotation (Line(points={{-168,-30},{-158,-30},{-158,-52},
-          {-152,-52}}, color={0,0,127}));
+  connect(con.y, swi.u1) annotation (Line(points={{-168,-30},{-160,-30},{-160,
+          -52},{-152,-52}},
+                       color={0,0,127}));
   connect(swi.u2, booleanExpression.y) annotation (Line(points={{-152,-60},{-169,
           -60}}, color={255,0,255}));
   connect(sup2.ports[1], senMasFlo2.port_a)
