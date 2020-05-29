@@ -25,7 +25,7 @@ model ChillerStage "Stage controller for chillers"
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-50,70})));
-  Modelica.StateGraph.InitialStepWithSignal oneOn(nOut=2, nIn=2)
+  Modelica.StateGraph.StepWithSignal        oneOn(nOut=2, nIn=2)
     "One chiller is on"
     annotation (Placement(
         transformation(
@@ -39,7 +39,7 @@ model ChillerStage "Stage controller for chillers"
         rotation=90,
         origin={-50,-70})));
   Modelica.StateGraph.Transition offToOne(
-    condition=on,
+    condition=on == true,
     enableTimer=true,
     waitTime=tWai) "Condition of transition from off to one chiller on"
     annotation (Placement(transformation(
@@ -49,7 +49,7 @@ model ChillerStage "Stage controller for chillers"
   Modelica.StateGraph.Transition oneToTwo(
     enableTimer=true,
     waitTime=tWai,
-    condition=oneOn.active and (-QLoa) > -(criPoiLoa + dQ))
+    condition=-QLoa >= -(criPoiLoa + dQ))
     "Condition of transition from one chiller to two chillers"
     annotation (
       Placement(transformation(
@@ -59,7 +59,7 @@ model ChillerStage "Stage controller for chillers"
   Modelica.StateGraph.Transition twoToOne(
     enableTimer=true,
     waitTime=tWai,
-    condition=twoOn.active and (-QLoa) < -(criPoiLoa - dQ))
+    condition=-QLoa < -(criPoiLoa - dQ))
     "Condition of transion from two chillers to one chiller"
     annotation (
       Placement(transformation(
@@ -67,7 +67,7 @@ model ChillerStage "Stage controller for chillers"
         rotation=90,
         origin={0,-40})));
   Modelica.StateGraph.Transition oneToOff(
-    condition=not on,
+    condition=on == false,
     enableTimer=true,
     waitTime=tWai) "Transition from one chiller to off"
     annotation (Placement(
