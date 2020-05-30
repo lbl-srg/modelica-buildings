@@ -22,8 +22,7 @@ block ChilledWaterPlantReset
     annotation (Dialog(group="Trim and respond parameters"));
   parameter Real samplePeriod(
     final unit="s",
-    final quantity="Time",
-    final displayUnit="h")=300
+    final quantity="Time")=300
       "Sample period time"
     annotation (Dialog(group="Trim and respond parameters"));
   parameter Integer numIgnReq = 2
@@ -174,16 +173,16 @@ annotation (
 Documentation(info="<html>
 <p>
 Block that output chilled water plant reset <code>yChiWatPlaRes</code> according
-to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II – 
+to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
 Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), section 5.2.5.2.
 </p>
 <p>
-Following implementation is for plants with primary-only and primary-secondary 
+Following implementation is for plants with primary-only and primary-secondary
 systems serving differential pressure controlled pumps.
 </p>
 <ul>
 <li>
-Chilled water plant reset <code>yChiWatPlaRes</code> shall be reset 
+Chilled water plant reset <code>yChiWatPlaRes</code> shall be reset
 using trim-respond logic with following parameters:
 </li>
 </ul>
@@ -205,21 +204,21 @@ using trim-respond logic with following parameters:
 <ul>
 <li>
 Plant reset loop shall be enabled when the plant is enabled (any chilled water
-pump is enabled, <code>uChiWatPum</code> = true) and disabled when 
-the plant is disabled (all chilled water pumps are disabled, <code>uChiWatPum</code> = false). 
+pump is enabled, <code>uChiWatPum</code> = true) and disabled when
+the plant is disabled (all chilled water pumps are disabled, <code>uChiWatPum</code> = false).
 </li>
 </ul>
 <ul>
 <li>
-When the plant stage change is initiated (<code>uStaCha</code>=true), the plant 
-reset <code>yChiWatPlaRes</code> shall be disabled and value fixed at its last 
-value for the longer of <code>holTim</code> and the time it takes for the plant 
+When the plant stage change is initiated (<code>uStaCha</code>=true), the plant
+reset <code>yChiWatPlaRes</code> shall be disabled and value fixed at its last
+value for the longer of <code>holTim</code> and the time it takes for the plant
 to successfully stage.
 </li>
 </ul>
 <p>
 For primary-secondary plants serving more than one set of differential pressure
-controlled pumps, an unique instance of the reset shall be used for each set of 
+controlled pumps, an unique instance of the reset shall be used for each set of
 differential pressure controlled secondary pumps.
 </p>
 <ul>
@@ -228,7 +227,7 @@ Chilled water reset requests from all loads served by a set of pumps shall be
 directed to those pumps reset loop only.
 </li>
 <li>
-The differential pressure setpoint output from each reset shall be used in the 
+The differential pressure setpoint output from each reset shall be used in the
 pressure control loop for the associated set of pumps only.
 </li>
 </ul>

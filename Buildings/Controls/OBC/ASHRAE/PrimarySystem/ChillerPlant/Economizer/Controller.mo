@@ -3,7 +3,8 @@ block Controller "Waterside economizer (WSE) enable/disable status"
 
   parameter Real holdPeriod(
     final unit="s",
-    final quantity="Time")=1200
+    final quantity="Time",
+    final displayUnit="h")=1200
     "WSE minimum on or off time"
   annotation(Dialog(group="Enable parameters"));
 
@@ -48,13 +49,14 @@ block Controller "Waterside economizer (WSE) enable/disable status"
     final unit="s",
     final quantity="Time",
     final displayUnit="h") = 3600
-  "Economizer enable time needed to allow decrease of the tuning parameter"
+    "Economizer enable time needed to allow decrease of the tuning parameter"
     annotation (Evaluate=true,Dialog(tab="Advanced", group="Tuning"));
 
   parameter Real wseOnTimInc(
     final unit="s",
-    final quantity="Time") = 1800
-  "Economizer enable time needed to allow increase of the tuning parameter"
+    final quantity="Time",
+    final displayUnit="h") = 1800
+    "Economizer enable time needed to allow increase of the tuning parameter"
     annotation (Evaluate=true,Dialog(tab="Advanced", group="Tuning"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOutWet(
