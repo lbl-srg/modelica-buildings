@@ -5,8 +5,10 @@ block FlowSetpoint "Chilled water minimum flow setpoint"
     "Total number of chillers";
   parameter Boolean isParallelChiller = true
     "Flag: true means that the plant has parallel chillers";
-  parameter Modelica.SIunits.Time byPasSetTim = 300
-    "Time constant for resetting minimum bypass flow";
+  parameter Real byPasSetTim(
+    final unit="s",
+    final quantity="Time")=300
+      "Time constant for resetting minimum bypass flow";
   parameter Modelica.SIunits.VolumeFlowRate minFloSet[nChi] = {0.005, 0.005, 0.005}
     "Minimum chilled water flow through each chiller";
   parameter Modelica.SIunits.VolumeFlowRate maxFloSet[nChi] = {0.025, 0.025, 0.025}

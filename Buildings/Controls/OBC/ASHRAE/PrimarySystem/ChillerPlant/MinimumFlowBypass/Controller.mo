@@ -5,7 +5,9 @@ block Controller
   parameter Integer nChi "Total number of chillers";
   parameter Boolean isParallelChiller
     "Flag: true means that the plant has parallel chillers";
-  parameter Modelica.SIunits.Time byPasSetTim
+  parameter Real byPasSetTim(
+    final unit="s",
+    final quantity="Time")
     "Time constant for resetting minimum bypass flow";
   parameter Modelica.SIunits.VolumeFlowRate minFloSet[nChi]
     "Minimum chilled water flow through each chiller";
@@ -17,10 +19,14 @@ block Controller
     annotation (Dialog(group="Controller"));
   parameter Real k=1 "Gain of controller"
     annotation (Dialog(group="Controller"));
-  parameter Modelica.SIunits.Time Ti=0.5 "Time constant of integrator block"
+  parameter Real Ti(
+    final unit="s",
+    final quantity="Time")=0.5 "Time constant of integrator block"
     annotation (Dialog(group="Controller", enable=controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
                                                   controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time Td=0 "Time constant of derivative block"
+  parameter Real Td(
+    final unit="s",
+    final quantity="Time")=0 "Time constant of derivative block"
     annotation (Dialog(group="Controller", enable=controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
                                                   controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real yMax=1 "Upper limit of output"

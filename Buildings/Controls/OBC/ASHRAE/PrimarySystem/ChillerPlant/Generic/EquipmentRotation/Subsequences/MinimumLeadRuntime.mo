@@ -6,8 +6,10 @@ block MinimumLeadRuntime
     "Initial roles: true = lead, false = lag/standby"
     annotation (Evaluate=true, Dialog(tab="Advanced", group="Initiation"));
 
-  parameter Modelica.SIunits.Time minLeaRuntime(
-    final displayUnit = "h") = 864000
+  parameter Real minLeaRuntime(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h") = 864000
     "Minimum cumulative runtime period for a current lead device before rotation may occur";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDevSta[nDev]
@@ -38,7 +40,9 @@ protected
   final parameter Integer nDev = 2
     "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
 
-  final parameter Modelica.SIunits.Time minLeaRuntimes[nDev] = fill(minLeaRuntime, nDev)
+  final parameter Real minLeaRuntimes[nDev](
+    final unit=fill("s",nDev),
+    final quantity=fill("Time",nDev)) = fill(minLeaRuntime, nDev)
     "Staging runtimes array";
 
   Buildings.Controls.OBC.CDL.Logical.And and2[nDev] "Logical and"
@@ -133,7 +137,7 @@ equation
         color={0,0,127})}),
   Documentation(info="<html>
 <p>
-This subsequence generates a rotation trigger based on measuring time each of the devices enable time. 
+This subsequence generates a rotation trigger based on measuring time each of the devices enable time.
 The rotation trigger output <code>yRot</code> is generated as the current lead device runtime
 exceeds <code>minLeaRuntime</code> and the conditions are met such that the devices are not hot swapped. To
 avoid hot swapping the lead and lag/standby device need to be either both ON or both OFF for the rotation to occur.

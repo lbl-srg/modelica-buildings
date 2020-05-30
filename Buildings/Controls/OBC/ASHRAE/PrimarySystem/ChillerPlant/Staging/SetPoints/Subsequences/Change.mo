@@ -4,8 +4,11 @@ block Change "Calculates the chiller stage signal"
   parameter Integer nSta = 3
     "Number of chiller stages";
 
-  parameter Modelica.SIunits.Time delayStaCha = 900
-    "Hold period for each stage change";
+  parameter Real delayStaCha(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")=900
+      "Hold period for each stage change";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla
     "Plant enable signal"

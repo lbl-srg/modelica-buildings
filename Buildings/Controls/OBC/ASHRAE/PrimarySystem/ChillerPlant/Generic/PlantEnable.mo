@@ -7,11 +7,15 @@ block PlantEnable "Sequence to enable and disable plant"
   parameter Modelica.SIunits.Temperature TChiLocOut=277.5
     "Outdoor air lockout temperature below which the chiller plant should be disabled";
 
-  parameter Modelica.SIunits.Time plaThrTim = 15*60
-    "Threshold time to check status of chiller plant";
+  parameter Real plaThrTim(
+    final unit="s",
+    final quantity="Time")=15*60
+      "Threshold time to check status of chiller plant";
 
-  parameter Modelica.SIunits.Time reqThrTim = 3*60
-    "Threshold time to check current chiller plant request";
+  parameter Real reqThrTim(
+    final unit="s",
+    final quantity="Time")=3*60
+      "Threshold time to check current chiller plant request";
 
   parameter Integer ignReq = 0
     "Ignorable chiller plant requests";
@@ -243,7 +247,7 @@ annotation (
 <p>
 Block that generate chiller plant enable signals and output the initial plant stage,
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft 4 on January 7, 2019), section 5.2.2 and 
+Central Plants and Hydronic Systems (Draft 4 on January 7, 2019), section 5.2.2 and
 5.2.4.13 Table 2.
 </p>
 <p>
@@ -251,20 +255,20 @@ The chiller plant should be enabled and disabled according to following sequence
 </p>
 <ol>
 <li>
-An enabling schedule should be included to allow operators to lock out the 
+An enabling schedule should be included to allow operators to lock out the
 chiller plant during off-hour, e.g. to allow off-hour operation of HVAC systems
 except the chiller plant. The default schedule shall be 24/7 and be adjustable.
 </li>
 <li>
 The plant should be enabled in the lowest stage when the plant has been
-disabled for at least <code>plaThrTim</code>, e.g. 15 minutes and: 
+disabled for at least <code>plaThrTim</code>, e.g. 15 minutes and:
 <ul>
 <li>
 Number of chiller plant requests &gt; <code>ignReq</code> (<code>ignReq</code>
 should default to 0 and adjustable), and,
 </li>
 <li>
-Outdoor air temperature is greater than chiller lockout temperature, 
+Outdoor air temperature is greater than chiller lockout temperature,
 <code>TOut</code> &gt; <code>TChiLocOut</code>, and,
 </li>
 <li>
@@ -273,7 +277,7 @@ The chiller enable schedule is active.
 </ul>
 </li>
 <li>
-The plant should be disabled when it has been enabled for at least 
+The plant should be disabled when it has been enabled for at least
 <code>plaThrTim</code>, e.g. 15 minutes and:
 <ul>
 <li>

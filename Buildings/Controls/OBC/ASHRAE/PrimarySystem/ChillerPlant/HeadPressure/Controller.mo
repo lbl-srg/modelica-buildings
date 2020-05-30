@@ -22,8 +22,10 @@ block Controller "Head pressure controller"
     annotation (Dialog(tab="Loop signal", group="PID controller", enable=not hasHeaPreConSig));
   parameter Real k=1 "Gain of controller"
     annotation (Dialog(tab="Loop signal", group="PID controller", enable=not hasHeaPreConSig));
-  parameter Modelica.SIunits.Time Ti=0.5 "Time constant of integrator block"
-    annotation (Dialog(tab="Loop signal", group="PID controller", enable=not hasHeaPreConSig));
+  parameter Real Ti(
+    final unit="s",
+    final quantity="Time")=0.5 "Time constant of integrator block"
+      annotation (Dialog(tab="Loop signal", group="PID controller", enable=not hasHeaPreConSig));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaPreEna
     "Status of head pressure control: true = ON, false = OFF"
