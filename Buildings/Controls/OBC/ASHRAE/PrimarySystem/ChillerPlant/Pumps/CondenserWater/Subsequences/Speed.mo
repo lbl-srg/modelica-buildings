@@ -1,8 +1,8 @@
-﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences;
 block Speed
   "Output design speed of condenser water pumps at current stage"
 
-  parameter Boolean hasWSE = true
+  parameter Boolean have_WSE = true
     "Flag to indicate if the plant has water side economiser";
   parameter Integer totChiSta = 6
     "Total number of stages, including the stages with a WSE, if applicable";
@@ -19,7 +19,7 @@ block Speed
     "Current chiller stage"
     annotation (Placement(transformation(extent={{-180,40},{-140,80}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWSE if hasWSE
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWSE if have_WSE
     "Water side economizer status: true = ON, false = OFF"
     annotation (Placement(transformation(extent={{-180,-80},{-140,-40}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
@@ -56,7 +56,7 @@ protected
     "Chiller stage vector, element value like x.5 means chiller stage x plus WSE"
     annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
-    final realTrue=0.5) if hasWSE
+    final realTrue=0.5) if have_WSE
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2 "Add two real inputs"
@@ -77,7 +77,7 @@ protected
   Buildings.Controls.OBC.CDL.Integers.MultiSum mulSumInt(
     final nin=totChiSta) "Current stage index"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4(final k=0) if not hasWSE
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4(final k=0) if not have_WSE
     "Constant zero"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 

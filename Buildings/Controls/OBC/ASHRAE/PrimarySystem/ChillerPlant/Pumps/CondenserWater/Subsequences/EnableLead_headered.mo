@@ -1,11 +1,11 @@
-﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences;
 block EnableLead_headered
   "Sequence for enabling lead pump of plants with headered condenser water pumps"
-  parameter Boolean hasWSE = true
+  parameter Boolean have_WSE = true
     "Flag of waterside economizer: true=have WSE, false=no WSE";
   parameter Integer nChi=2 "Total number of chiller";
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseConIsoVal if hasWSE
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseConIsoVal if have_WSE
     "WSE condenser water isolation valve status"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
@@ -29,7 +29,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Or or2 "Logical or"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(final k=false) if
-       not hasWSE
+       not have_WSE
     "Logical false"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(final nu=nChi)

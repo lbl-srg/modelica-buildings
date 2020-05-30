@@ -1,0 +1,19 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Validation.Down", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="Down");
+
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=1, y={"withWSE.y", "withWSE.u"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=2, y={"withWSE.uOpeDow", "withWSE.uStaDow"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=3, y={"withWSE.dpChiWatPumSet", "withWSE.dpChiWatPum"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=4, y={"withWSE.TChiWatSup", "withWSE.TChiWatSupSet", "withWSE.TWsePre"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0, 0, 50}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=5, y={"withWSE.uTowFanSpeMax"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
+
+createPlot(id=2, position={30, 20, 1200, 650}, subPlot=1, y={"noWSE.y", "noWSE.u"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={30, 20, 1200, 650}, subPlot=2, y={"noWSE.uOpeDow", "noWSE.uStaDow"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={30, 20, 1200, 650}, subPlot=3, y={"noWSE.dpChiWatPumSet", "noWSE.dpChiWatPum"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={30, 20, 1200, 650}, subPlot=4, y={"noWSE.TChiWatSup", "noWSE.TChiWatSupSet"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+
+createPlot(id=3, position={40, 30, 1200, 650}, subPlot=1, y={"withWSE1.y", "withWSE1.u"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={40, 30, 1200, 650}, subPlot=2, y={"withWSE1.TChiWatSupSet", "withWSE1.TWsePre"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={40, 30, 1200, 650}, subPlot=3, y={"withWSE1.uWseSta", "withWSE1.uTowFanSpeMax"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={40, 30, 1200, 650}, subPlot=4, y={"withWSE1.TChiWatSup", "withWSE1.TChiWatSupSet"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={40, 30, 1200, 650}, subPlot=5, y={"withWSE1.dpChiWatPumSet", "withWSE1.dpChiWatPum"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+
