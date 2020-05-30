@@ -39,7 +39,7 @@ block CapacityRequirement
     annotation (Placement(transformation(extent={{140,110},{180,150}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
-protected
+//protected
   constant Modelica.SIunits.Density rhoWat = 1000 "Water density";
 
   constant Modelica.SIunits.SpecificHeatCapacity cpWat = 4184
