@@ -43,28 +43,28 @@ block FailsafeCondition
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul(
     final amplitude = -TSupVar + faiSafCon.TDifHys,
-    final period = 2.5*faiSafCon.samPer,
+    final period=2.5*faiSafCon.delayEna,
     final offset = TSupSetNom)
     "Pulse input"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul1(
     final amplitude = -TSupVar - faiSafCon.TDifHys,
-    final period = 2.5*faiSafCon.samPer,
+    final period=2.5*faiSafCon.delayEna,
     final offset = TSupSetNom)
     "Pulse input"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul2(
     final amplitude = -faiSafCon.TDifHys,
-    final period = 2.5*faiSafCon.samPer,
+    final period=2.5*faiSafCon.delayEna,
     final offset = TSupSetNom - TSupVar)
     "Pulse input"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul3(
     final amplitude = -2*faiSafCon.TDifHys - faiSafCon.TDifHys/10,
-    final period = 2.5*faiSafCon.samPer,
+    final period=2.5*faiSafCon.delayEna,
     final offset = TSupSetNom - TSupVar + faiSafCon.TDifHys + faiSafCon.TDifHys/10)
     "Pulse input"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));

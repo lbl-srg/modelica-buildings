@@ -2,22 +2,23 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequen
 block FailsafeCondition
   "Failsafe condition used in staging up and down"
 
-  parameter Real samPer(
+  parameter Real delayEna(
     final unit="s",
-    final displayUnit="s") = 900
-    "Sampling period for temperatures";
+    final displayUnit="s",
+    final quantity="Time") = 900
+    "Enable delay";
 
   parameter Real TDif(
     final unit="K",
     final displayUnit="K",
-    final quantity="ThermodynamicTemperature") = 10
+    final quantity="TemperatureDifference") = 10
     "Required temperature difference between setpoint and measured temperature
     for failsafe condition";
 
   parameter Real TDifHys(
     final unit="K",
     final displayUnit="K",
-    final quantity="ThermodynamicTemperature") = 1
+    final quantity="TemperatureDifference") = 1
     "Temperature deadband for hysteresis loop"
     annotation (Dialog(tab="Advanced"));
 
@@ -26,23 +27,21 @@ block FailsafeCondition
     final displayUnit="K",
     final quantity="ThermodynamicTemperature")
     "Hot water supply temperature setpoint"
-    annotation (Placement(
-        transformation(extent={{-140,30},{-100,70}}), iconTransformation(extent=
-           {{-140,30},{-100,70}})));
+    annotation (Placement(transformation(extent={{-140,30},{-100,70}}),
+      iconTransformation(extent={{-140,30},{-100,70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
     final displayUnit="K",
     final quantity="ThermodynamicTemperature")
     "Measured hot water supply temperature"
-    annotation (Placement(
-        transformation(extent={{-140,-70},{-100,-30}}), iconTransformation(
-          extent={{-140,-70},{-100,-30}})));
+    annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
+      iconTransformation(extent={{-140,-70},{-100,-30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Failsafe condition for chiller staging"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
-        iconTransformation(extent={{100,-20},{140,20}})));
+      iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Add add2(
     final k2=-1,
@@ -59,8 +58,7 @@ protected
     "Hysteresis deadband to prevent cycling"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
-    final delayTime=samPer,
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(final delayTime=delayEna,
     final delayOnInit=true)
     "Enable delay"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
