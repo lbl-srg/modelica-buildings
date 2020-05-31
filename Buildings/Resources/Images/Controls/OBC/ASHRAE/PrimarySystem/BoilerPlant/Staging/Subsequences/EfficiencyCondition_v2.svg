@@ -434,24 +434,24 @@
     </linearGradient>
     <inkscape:perspective
        sodipodi:type="inkscape:persp3d"
-       inkscape:vp_x="-3.7835338 : 565.25253 : 1"
-       inkscape:vp_y="0 : 3779.5274 : 0"
-       inkscape:vp_z="789.91722 : 565.25253 : 1"
-       inkscape:persp3d-origin="393.06683 : 378.16594 : 1"
+       inkscape:vp_x="-3.7835338 : 565.25257 : 1"
+       inkscape:vp_y="0 : 3779.5276 : 0"
+       inkscape:vp_z="789.91722 : 565.25257 : 1"
+       inkscape:persp3d-origin="393.06683 : 378.16597 : 1"
        id="perspective3736" />
     <inkscape:perspective
        sodipodi:type="inkscape:persp3d"
-       inkscape:vp_x="-4.2846641 : 568.83562 : 1"
-       inkscape:vp_y="0 : 3779.5274 : 0"
-       inkscape:vp_z="789.41609 : 568.83562 : 1"
-       inkscape:persp3d-origin="392.5657 : 381.74904 : 1"
+       inkscape:vp_x="-4.2846641 : 568.83566 : 1"
+       inkscape:vp_y="0 : 3779.5276 : 0"
+       inkscape:vp_z="789.41609 : 568.83566 : 1"
+       inkscape:persp3d-origin="392.5657 : 381.74907 : 1"
        id="perspective3734" />
     <inkscape:perspective
        sodipodi:type="inkscape:persp3d"
-       inkscape:vp_x="-2.7896253 : 154.11305 : 1"
-       inkscape:vp_y="0 : 999.99991 : 0"
-       inkscape:vp_z="207.21034 : 154.11305 : 1"
-       inkscape:persp3d-origin="102.21036 : 104.61306 : 1"
+       inkscape:vp_x="-2.7896253 : 154.11306 : 1"
+       inkscape:vp_y="0 : 999.99998 : 0"
+       inkscape:vp_z="207.21034 : 154.11306 : 1"
+       inkscape:persp3d-origin="102.21036 : 104.61307 : 1"
        id="perspective3690" />
     <marker
        id="marker5553-0"
@@ -664,7 +664,7 @@
      inkscape:current-layer="layer1"
      inkscape:document-units="mm"
      inkscape:cy="678.48774"
-     inkscape:cx="343.40183"
+     inkscape:cx="835.22616"
      inkscape:zoom="0.59616061"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
