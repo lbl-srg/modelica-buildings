@@ -17,8 +17,11 @@ block EfficiencyCondition
     "Signal hysteresis deadband"
     annotation (Dialog(tab="Advanced"));
 
-  parameter Real samPer = 10*60
-    "Sampling period for heating capacity and heating requirement";
+  parameter Real delayQReq(
+    final unit="s",
+    final displayUnit="s",
+    final quantity="Time") = 600
+    "Enable delay for heating requirement condition";
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uTyp[nSta]
     "Vector of boiler types for all stages"
@@ -112,13 +115,13 @@ protected
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
-    final delayTime=samPer,
+    final delayTime=delayQReq,
     final delayOnInit=true)
     "Enable delay"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1(
-    final delayTime=samPer,
+    final delayTime=delayQReq,
     final delayOnInit=true)
     "Enable delay"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
@@ -259,7 +262,7 @@ annotation (
     </p>
     <p align=\"center\">
     <img alt=\"State-machine chart for EfficiencyCondition\"
-    src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/Subsequences/EfficiencyCondition_stateMachineChart.png\"/>
+    src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/Subsequences/EfficiencyCondition_stateMachineChart_v2.png\"/>
     <br/>
     State-machine chart for the sequence defined in RP-1711
     </p>

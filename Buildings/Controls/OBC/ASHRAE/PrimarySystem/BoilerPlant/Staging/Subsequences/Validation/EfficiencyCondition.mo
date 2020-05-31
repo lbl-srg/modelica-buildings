@@ -20,14 +20,14 @@ block EfficiencyCondition
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul(
     final amplitude=1.2*effCon.sigDif,
-    final period=2.5*effCon.samPer,
+    final period=2.5*effCon.delayQReq,
     final offset=effCon.perConBoi - 1.1*effCon.sigDif)
     "Pulse source"
     annotation (Placement(transformation(extent={{-130,110},{-110,130}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul3(
     final amplitude=1.2*effCon.sigDif,
-    final period=5*effCon.samPer,
+    final period=5*effCon.delayQReq,
     final offset=1 - 1.1*effCon.sigDif)
     "Pulse source"
     annotation (Placement(transformation(extent={{-130,-10},{-110,10}})));
@@ -49,14 +49,14 @@ protected
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul1(
     final amplitude=1.2*effCon.sigDif,
-    final period=2.5*effCon.samPer,
+    final period=2.5*effCon.delayQReq,
     final offset=effCon.perNonConBoi - 1.1*effCon.sigDif)
     "Pulse source"
     annotation (Placement(transformation(extent={{10,110},{30,130}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul2(
     final amplitude=1.2*effCon.sigDif,
-    final period=5*effCon.samPer,
+    final period=5*effCon.delayQReq,
     final offset=1 - 1.1*effCon.sigDif)
     "Pulse source"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
