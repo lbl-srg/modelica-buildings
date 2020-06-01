@@ -85,7 +85,7 @@ model BenchmarkFlowDistribution2
     redeclare final package Medium = Medium1,
     nCon=nLoa,
     allowFlowReversal=false,
-    mDis_flow_nominal={sum(ter[i:nLoa].mHeaWat_flow_nominal) for i in 1:nLoa},
+    mDis_flow_nominal=sum(ter.mHeaWat_flow_nominal),
     mCon_flow_nominal=ter.mHeaWat_flow_nominal,
     dpDis_nominal=fill(1500, nLoa))
     annotation (Placement(transformation(extent={{40,-90},{80,-70}})));
