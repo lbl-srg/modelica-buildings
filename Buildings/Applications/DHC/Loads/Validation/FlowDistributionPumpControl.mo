@@ -85,8 +85,7 @@ model FlowDistributionPumpControl
     nCon=nLoa,
     allowFlowReversal=false,
     iConDpSen=nLoa,
-    mDis_flow_nominal={sum(terUniHea[i:nLoa].mHeaWat_flow_nominal) for i in 1:
-        nLoa},
+    mDis_flow_nominal=sum(terUniHea.mHeaWat_flow_nominal),
     mCon_flow_nominal=terUniHea.mHeaWat_flow_nominal,
     dpDis_nominal=dpDis_nominal) "Distribution network"
     annotation (Placement(transformation(extent={{40,-180},{80,-160}})));
@@ -111,10 +110,11 @@ model FlowDistributionPumpControl
     nPorts=2)
     "Volume for fluid stream"
      annotation (Placement(transformation(extent={{-59,-160},{-39,-140}})));
-  Fluid.Sources.Boundary_pT           supHeaWat1(
+  Fluid.Sources.Boundary_pT supHeaWat1(
     redeclare package Medium = Medium1,
     use_T_in=true,
-    nPorts=3) "Heating water source" annotation (Placement(transformation(
+    nPorts=3)
+    "Heating water source" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-130,0})));
@@ -265,7 +265,7 @@ equation
           70},{-40,-7},{-10.8333,-7}},
                                      color={0,0,127}));
   connect(reaRep1.y, terUniHea1.QReqHea_flow) annotation (Line(points={{-106,30},
-          {-46,30},{-46,-13.6667},{-30,-13.6667},{-10.8333,-13.6667}},
+          {-46,30},{-46,-13.6667},{-10.8333,-13.6667},{-10.8333,-13.6667}},
         color={0,0,127}));
   connect(terUniHea1.mReqHeaWat_flow, disCstDp.mReq_flow) annotation (Line(
         points={{10.8333,-15.3333},{26,-15.3333},{26,-80},{-20,-80},{-20,-64},{
