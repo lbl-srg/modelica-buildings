@@ -11,7 +11,7 @@ model BuildingSpawnZ1 "One-zone EnergyPlus building model"
   parameter Integer nZon = 1
     "Number of thermal zones";
   parameter String idfName=
-    "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf"
+    "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf"
     "Name of the IDF file";
   parameter String weaName=
     "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"
@@ -96,8 +96,8 @@ equation
           0},{-280,-150},{-120,-150}},  color={0,127,255}));
   connect(disFloCoo.port_b, ports_b[2]) annotation (Line(points={{-100,-150},{280,
           -150},{280,0},{300,0}},   color={0,127,255}));
-  connect(zon.ports[1], terUni.port_aLoa) annotation (Line(points={{58,-19.2},{
-          62,-19.2},{62,-41.6667},{-140,-41.6667}},
+  connect(zon.ports[1], terUni.port_aLoa) annotation (Line(points={{58,-19.1},{
+          62,-19.1},{62,-41.6667},{-140,-41.6667}},
                                        color={0,127,255}));
   connect(terUni.port_bHeaWat, disFloHea.ports_a1[1]) annotation (Line(points={{-140,
           -58.3333},{-140,-59.5833},{-100,-59.5833},{-100,-104}}, color={0,127,255}));
@@ -117,7 +117,7 @@ equation
           -139.167,-55},{-139.167,-56},{-130,-56},{-130,-154},{-121,-154}},
                         color={0,0,127}));
   connect(terUni.port_bLoa, zon.ports[2]) annotation (Line(points={{-160,
-          -41.6667},{-172,-41.6667},{-180,-41.6667},{-180,-19.2},{62,-19.2}},
+          -41.6667},{-172,-41.6667},{-180,-41.6667},{-180,-19.1},{62,-19.1}},
                                                                           color=
          {0,127,255}));
   connect(disFloHea.QActTot_flow, QHea_flow) annotation (Line(points={{-99,-116},

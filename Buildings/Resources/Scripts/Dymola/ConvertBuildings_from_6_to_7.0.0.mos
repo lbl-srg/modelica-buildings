@@ -7,8 +7,6 @@ convertClear();
 convertModifiers("Buildings.Airflow.Multizone.BaseClasses.PowerLawResistance", {"m_flow_small"}, fill("",0), true);
 convertModifiers("Buildings.Airflow.Multizone.BaseClasses.TwoWayFlowElement", {"m1_flow_small", "m2_flow_small"}, fill("",0), true);
 convertModifiers("Buildings.Airflow.Multizone.EffectiveAirLeakageArea", {"m_flow_small"}, fill("",0), true);
-convertModifiers("Buildings.Airflow.Multizone.MediumColumn", {"m_flow_small"}, fill("",0), true);
-convertModifiers("Buildings.Airflow.Multizone.MediumColumnDynamic", {"m_flow_small"}, fill("",0), true);
 convertModifiers("Buildings.Airflow.Multizone.Orifice", {"m_flow_small"}, fill("",0), true);
 convertModifiers("Buildings.Airflow.Multizone.DoorDiscretizedOpen", {"m1_flow_small", "m2_flow_small"}, fill("",0), true);
 convertModifiers("Buildings.Airflow.Multizone.DoorDiscretizedOperable", {"m1_flow_small", "m2_flow_small"}, fill("",0), true);
@@ -25,6 +23,8 @@ convertClass("Buildings.Controls.OBC.CDL.SetPoints.HotWaterTemperatureReset",
              "Buildings.Controls.OBC.CDL.SetPoints.SupplyReturnTemperatureReset");
 convertClass("Buildings.Controls.SetPoints.HotWaterTemperatureReset",
              "Buildings.Controls.SetPoints.SupplyReturnTemperatureReset");
+convertClass("Buildings.Utilities.IO.Python27",
+             "Buildings.Obsolete.Utilities.IO.Python27");
 
 convertModifiers("Buildings.Controls.OBC.CDL.Continuous.LimPID", {"yMin=fill(\"\",0)", "yMax=yMax"}, {"yMin=-%yMax%", "yMax=%yMax%"}, true);
 
@@ -90,6 +90,10 @@ convertElement(
     "Buildings.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow",
     "alphaWinOut",
     "hConWinOut");
+convertElement(
+    "Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests",
+    "uDam",
+    "yDam_actual");
 
 // Refactoring damper models.
 convertElement(

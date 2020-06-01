@@ -10,12 +10,13 @@ model DuctStaticPressureSetpoint "Computes the duct static pressure setpoint"
   parameter Modelica.SIunits.Time Td=60 "Time constant of derivative block";
   parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.PID
     "Type of controller";
-                           Buildings.Controls.Continuous.LimPID limPID(
+  Buildings.Controls.Continuous.LimPID limPID(
     controllerType=controllerType,
     k=k,
     Ti=Ti,
     Td=Td,
-    initType=Modelica.Blocks.Types.InitPID.InitialState)
+    initType=Modelica.Blocks.Types.InitPID.InitialState,
+    reverseAction=true)
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 protected
   Buildings.Utilities.Math.Max max(final nin=nin)
