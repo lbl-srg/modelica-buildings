@@ -288,18 +288,11 @@ equation
       horizontalAlignment=TextAlignment.Left));
   connect(thermalZoneOneElement.ports[1], terUni.port_aLoa)
     annotation (Line(points={{55.475,68.05},{86.5,68.05},{86.5,-39.6667},{-140,
-          -39.6667}},                                                            color={0,127,255}));
+          -39.6667}},
+               color={0,127,255}));
   connect(terUni.port_bLoa, thermalZoneOneElement.ports[2])
     annotation (Line(points={{-160,-39.6667},{-170,-39.6667},{-170,0},{58.525,0},
-          {58.525,68.05}},                                                                  color={0,127,255}));
-  connect(ports_a[1], disFloHea.port_a) annotation (Line(points={{-300,0},{-280,
-          0},{-280,-110},{-100,-110}}, color={0,127,255}));
-  connect(disFloHea.port_b, ports_b[1]) annotation (Line(points={{-80,-110},{280,
-          -110},{280,0},{300,0}}, color={0,127,255}));
-  connect(ports_a[2], disFloCoo.port_a) annotation (Line(points={{-300,0},{-280,
-          0},{-280,-150},{-100,-150}}, color={0,127,255}));
-  connect(disFloCoo.port_b, ports_b[2]) annotation (Line(points={{-80,-150},{280,
-          -150},{280,0},{300,0}}, color={0,127,255}));
+          {58.525,68.05}}, color={0,127,255}));
   connect(terUni.port_bChiWat, disFloCoo.ports_a1[1]) annotation (Line(points={{-140,
           -54.6667},{-90,-54.6667},{-40,-54.6667},{-40,-144},{-80,-144}},
         color={0,127,255}));
@@ -309,8 +302,7 @@ equation
   connect(disFloHea.ports_b1[1], terUni.port_aHeaWat) annotation (Line(points={{-100,
           -104},{-180,-104},{-180,-56.3333},{-160,-56.3333}}, color={0,127,255}));
   connect(disFloCoo.ports_b1[1], terUni.port_aChiWat) annotation (Line(points={{-100,
-          -144},{-200,-144},{-200,-54.6667},{-160,-54.6667}},
-                                                        color={0,127,255}));
+          -144},{-200,-144},{-200,-54.6667},{-160,-54.6667}}, color={0,127,255}));
   connect(terUni.PFan, PFan) annotation (Line(points={{-139.167,-48},{220,-48},
           {220,120},{320,120}}, color={0,0,127}));
   connect(terUni.mReqHeaWat_flow, disFloHea.mReq_flow[1]) annotation (Line(points={{
@@ -342,6 +334,14 @@ equation
           {-160,-220},{-160,-158},{-101,-158}}, color={0,0,127}));
   connect(TSetSecHea.y, disFloHea.TSupSet) annotation (Line(points={{-238,-180},
           {-180,-180},{-180,-118},{-101,-118}}, color={0,0,127}));
+  connect(ports_aHeaWat[1], disFloHea.port_a) annotation (Line(points={{-300,
+          -60},{-220,-60},{-220,-110},{-100,-110}}, color={0,127,255}));
+  connect(ports_aChiWat[1], disFloCoo.port_a) annotation (Line(points={{-300,
+          -260},{-140,-260},{-140,-150},{-100,-150}}, color={0,127,255}));
+  connect(ports_bHeaWat[1], disFloHea.port_b) annotation (Line(points={{300,-60},
+          {-20,-60},{-20,-110},{-80,-110}}, color={0,127,255}));
+  connect(ports_bChiWat[1], disFloCoo.port_b) annotation (Line(points={{300,
+          -260},{-60,-260},{-60,-150},{-80,-150}}, color={0,127,255}));
   annotation (
   Documentation(info="
 <html>

@@ -16,7 +16,7 @@ partial model PartialConnection1Pipe
     redeclare final package Medium = Medium,
     final m_flow_nominal=mCon_flow_nominal,
     final allowFlowReversal=allowFlowReversal);
-  parameter Boolean have_heaFloOut = false
+  parameter Boolean show_heaFlo = false
     "Set to true to output the heat flow rate transferred to the connected load"
     annotation(Evaluate=true);
   parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal
@@ -73,7 +73,7 @@ partial model PartialConnection1Pipe
       extent={{100,40},{140,80}}),
       iconTransformation(extent={{100,50},{120, 70}})));
   Modelica.Blocks.Interfaces.RealOutput Q_flow(
-    final quantity="HeatFlowRate", final unit="W") if have_heaFloOut
+    final quantity="HeatFlowRate", final unit="W") if show_heaFlo
     "Heat flow rate transferred to the connected load (>=0 for heating)"
     annotation (Placement(transformation(extent={{100,80},{140,120}}),
       iconTransformation(extent={{100,70},{120,90}})));
@@ -149,8 +149,7 @@ partial model PartialConnection1Pipe
   Fluid.Sensors.TemperatureTwoPort senTConSup(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
-    final m_flow_nominal=mCon_flow_nominal,
-    final tau=if allowFlowReversal then 1 else 0) if have_heaFloOut
+    final m_flow_nominal=mCon_flow_nominal) if show_heaFlo
     "Connection supply temperature sensor"
     annotation (Placement(
         transformation(
@@ -160,22 +159,21 @@ partial model PartialConnection1Pipe
   Fluid.Sensors.TemperatureTwoPort senTConRet(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
-    final m_flow_nominal=mCon_flow_nominal,
-    final tau=if allowFlowReversal then 1 else 0) if have_heaFloOut
+    final m_flow_nominal=mCon_flow_nominal) if show_heaFlo
     "Connection return temperature sensor"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={20,90})));
   Buildings.Controls.OBC.CDL.Continuous.Add sub(
-    final k1=-1) if have_heaFloOut
+    final k1=-1) if show_heaFlo
     "Delta T"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro if have_heaFloOut
+  Buildings.Controls.OBC.CDL.Continuous.Product pro if show_heaFlo
     "Delta T times flow rate"
     annotation (Placement(transformation(extent={{46,30},{66,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai(
-    final k=cp_default) if have_heaFloOut
+    final k=cp_default) if show_heaFlo
     "Times cp"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -193,7 +191,7 @@ equation
   // removed at translation time by Modelica specification.
   // Only obsolete statements corresponding to the default model structure need
   // to be programmatically removed.
-  if not have_heaFloOut then
+  if not show_heaFlo then
     connect(port_bCon, senMasFloCon.port_b)
       annotation (Line(points={{-40,120},{-40,70}}, color={0,127,255}));
     connect(port_aCon, junConRet.port_3)
