@@ -29,7 +29,7 @@ model FanCoil2PipeHeatingValve
     "Cooling heat exchanger configuration";
   parameter Boolean have_speVar = true
     "Set to true for a variable speed fan (otherwise fan is always on)";
-  parameter Modelica.SIunits.PressureDifference dp_nominal = 30000
+  parameter Modelica.SIunits.PressureDifference dp_nominal=30000
     "Nominal pressure drop on source side";
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
     redeclare final package Medium=Medium2,

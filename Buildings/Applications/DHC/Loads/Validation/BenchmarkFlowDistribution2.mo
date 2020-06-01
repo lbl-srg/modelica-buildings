@@ -12,25 +12,27 @@ model BenchmarkFlowDistribution2
   parameter Integer nLoa=5
     "Number of served loads"
     annotation(Evaluate=true);
-  parameter Modelica.SIunits.Temperature T_aHeaWat_nominal(
-    min=273.15, displayUnit="degC") = 273.15 + 40
+  parameter Modelica.SIunits.Temperature T_aHeaWat_nominal=273.15 + 40
     "Heating water inlet temperature at nominal conditions"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Temperature T_bHeaWat_nominal(
     min=273.15, displayUnit="degC") = T_aHeaWat_nominal - 5
     "Heating water outlet temperature at nominal conditions"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_aLoaHea_nominal(
-    min=273.15, displayUnit="degC") = 273.15 + 20
+  parameter Modelica.SIunits.Temperature T_aLoaHea_nominal=273.15 + 20
     "Load side inlet temperature at nominal conditions in heating mode"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mLoaHea_flow_nominal(min=0) = 10
+  parameter Modelica.SIunits.MassFlowRate mLoaHea_flow_nominal(min=0) = 1
     "Load side mass flow rate at nominal conditions in heating mode"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Time tau = 120
     "Time constant of fluid temperature variation at nominal flow rate"
     annotation (Dialog(tab="Dynamics", group="Nominal condition"));
-  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=sum(ter.mHeaWat_flow_nominal)
+  parameter Real facSca = 10
+    "Scaling factor to be applied to each extensive quantity"
+    annotation(Dialog(group="Scaling"));
+  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
+    sum(ter.mHeaWat_flow_nominal) * facSca
     "Nominal mass flow rate in the distribution line";
   final parameter Modelica.SIunits.PressureDifference dp_nominal=sum(dis.con.pipDisSup.dp_nominal)
        + sum(dis.con.pipDisRet.dp_nominal) + max(ter.dp_nominal)
@@ -38,10 +40,11 @@ model BenchmarkFlowDistribution2
   final parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal=
     Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
       string="#Peak space heating load",
-      filNam=Modelica.Utilities.Files.loadResource(filNam))
+      filNam=Modelica.Utilities.Files.loadResource(filNam)) / facSca
     "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Design parameter"));
   BaseClasses.FanCoil2PipeHeatingValve ter[nLoa](
+    each final facSca=facSca,
     redeclare each final package Medium1 = Medium1,
     redeclare each final package Medium2 = Medium2,
     each final QHea_flow_nominal=QHea_flow_nominal,
