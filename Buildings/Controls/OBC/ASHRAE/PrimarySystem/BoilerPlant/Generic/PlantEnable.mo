@@ -1,5 +1,5 @@
 ﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic;
-model PlantEnable
+block PlantEnable
   "Sequence to enable/disable boiler plant based on heating hot-water requirements"
 
   parameter Integer nIgnReq(
@@ -106,7 +106,8 @@ protected
     "Logical Not"
     annotation (Placement(transformation(extent={{-10,-120},{10,-100}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(final p=TOutLoc,
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
+    final p=TOutLoc,
     final k=-1)
     "Compare measured outdoor air temperature to boiler lockout temperature"
     annotation (Placement(transformation(extent={{-150,-60},{-130,-40}})));
@@ -256,13 +257,13 @@ equation
     </p>
     <ol>
     <li>
-    An enabling schedule should be included to allow operators to lock out the 
+    An enabling schedule should be included to allow operators to lock out the
     boiler plant during off-hour, e.g. to allow off-hour operation of HVAC systems
     except the boiler plant. The default schedule shall be 24/7 and be adjustable.
     </li>
     <li>
     The plant should be enabled when the plant has been continuously disabled
-    for at least <code>plaOffThrTim</code> and: 
+    for at least <code>plaOffThrTim</code> and:
     <ul>
     <li>
     Number of boiler plant requests <code>supResReq</code> is greater than
