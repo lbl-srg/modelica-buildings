@@ -196,8 +196,11 @@ If during the course of the development of application-specific models, some mod
 </div>
 <div class="section" id="building-large-system-models">
 <h2>2.2. Building large system models<a class="headerlink" href="#building-large-system-models" title="Permalink to this headline">¶</a></h2>
-<p>When creating a large system model, it is typically easier to build the system model through the composition of subsystem models that can be tested in isolation. For example, the package <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Examples_ChillerPlant_BaseClasses_Controls_Examples.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples">Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples</a>
-contains small test models that are used to test individual components in the large system model <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant">Buildings.Examples.ChillerPlant</a>.
+<p>When creating a large system model, it is typically easier to build the system model through the composition of subsystem models that can be tested in isolation. For example,
+the package
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Examples_ChillerPlant_BaseClasses_Controls_Examples.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples">Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples</a>
+contains small test models that are used to test individual components in the large system model
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant">Buildings.Examples.ChillerPlant</a>.
 Creating small test models typically saves time as the proper response of controls, and the proper operation of subsystems, can be tested in isolation of complex system-interactions that are often present in large models.</p>
 </div>
 <div class="section" id="propagating-parameters-and-media-packages">
@@ -242,7 +245,9 @@ Rather than setting these parameters individually to a numeric value, it is reco
 <h3>2.4.1. Overdetermined initialization problem and inconsistent equations<a class="headerlink" href="#overdetermined-initialization-problem-and-inconsistent-equations" title="Permalink to this headline">¶</a></h3>
 <p>We will now explain how state variables, such as temperature and pressure, can be initialized.</p>
 <p>Consider a model consisting of a mass flow source <code class="docutils literal notranslate"><span class="pre">Modelica.Fluid.Sources.MassFlowSource_T</span></code>, a fluid volume <code class="docutils literal notranslate"><span class="pre">Buildings.Fluid.MixingVolumes.MixingVolume</span></code> and
-a fixed boundary condition <code class="docutils literal notranslate"><span class="pre">Buildings.Fluid.Sources.FixedBoundary</span></code>, connected in series as shown in the figure below. Note that the instance <code class="docutils literal notranslate"><span class="pre">bou</span></code> implements an equation that sets the medium pressure at its port, i.e., the port pressure <code class="docutils literal notranslate"><span class="pre">bou.ports.p</span></code> is fixed.</p>
+a fixed boundary condition <code class="docutils literal notranslate"><span class="pre">Buildings.Fluid.Sources.Boundary_pT</span></code>,
+connected in series as shown in the figure below. Note that the instance <code class="docutils literal notranslate"><span class="pre">bou</span></code>
+implements an equation that sets the medium pressure at its port, i.e., the port pressure <code class="docutils literal notranslate"><span class="pre">bou.ports.p</span></code> is fixed.</p>
 <div class="figure align-default" id="id9">
 <a class="reference internal image-reference" href="_images/MixingVolumeInitialization.png"><img alt="_images/MixingVolumeInitialization.png" src="_images/MixingVolumeInitialization.png" style="width: 371.0px; height: 161.0px;" /></a>
 <p class="caption"><span class="caption-number">Fig. 2.1 </span><span class="caption-text">Schematic diagram of a flow source, a fluid volume, and a pressure source.</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
@@ -309,7 +314,7 @@ are not connected to each other), then the pressure starts
 at the value <code class="docutils literal notranslate"><span class="pre">p(start=Medium.p_default)</span></code>, where <code class="docutils literal notranslate"><span class="pre">Medium</span></code> is the
 name of the instance of the medium model.</p></li>
 </ol>
-<p>Since the model <code class="docutils literal notranslate"><span class="pre">Buildings.Fluid.Sources.FixedBoundary</span></code> fixes the pressure at its port, the initial conditions <span class="math notranslate nohighlight">\(p(t_0)=p_0\)</span> and <span class="math notranslate nohighlight">\(dp(t_0)/dt = 0\)</span> lead to an overspecified system for the model shown above. To avoid such situation, use different initial conditions, or add a flow resistance between the mixing volume and the pressure source. The flow resistance introduces an equation that relates the pressure of the mixing volume and the pressure source as a function of the mass flow rate, thereby removing the inconsistency.</p>
+<p>Since the model <code class="docutils literal notranslate"><span class="pre">Buildings.Fluid.Sources.Boundary_pT</span></code> fixes the pressure at its port, the initial conditions <span class="math notranslate nohighlight">\(p(t_0)=p_0\)</span> and <span class="math notranslate nohighlight">\(dp(t_0)/dt = 0\)</span> lead to an overspecified system for the model shown above. To avoid such situation, use different initial conditions, or add a flow resistance between the mixing volume and the pressure source. The flow resistance introduces an equation that relates the pressure of the mixing volume and the pressure source as a function of the mass flow rate, thereby removing the inconsistency.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>The setting <code class="docutils literal notranslate"><span class="pre">FixedInitial</span></code> should be used with caution: Since the pressure dynamics is fast, this setting
@@ -497,7 +502,8 @@ The number of scalar Real unknown elements are 58.
 The number of scalar Real equation elements are 58.
 </pre></div>
 </div>
-<p>Similarly, if the medium model <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Media_Specialized_Water_TemperatureDependentDensity.html#Buildings.Media.Specialized.Water.TemperatureDependentDensity">Buildings.Media.Specialized.Water.TemperatureDependentDensity</a>,
+<p>Similarly, if the medium model
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Media_Specialized_Water_TemperatureDependentDensity.html#Buildings.Media.Specialized.Water.TemperatureDependentDensity">Buildings.Media.Specialized.Water.TemperatureDependentDensity</a>,
 which models density as a function of pressure and enthalpy, is used, then
 the model is well-defined, but the pressure increases the longer the pump runs.
 The reason is that the pump adds heat to the water. When the water temperature
@@ -515,12 +521,12 @@ adds a pressure source and accounts for the thermal expansion
 of the medium.</span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
 </div>
 <p>Alternatively, you may use
-<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary">Buildings.Fluid.Sources.FixedBoundary</a>, which sets the pressure to a constant value
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT">Buildings.Fluid.Sources.Boundary_pT</a>, which sets the pressure to a constant value
 and adds or removes fluid as needed to maintain the pressure.
-The model <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary">Buildings.Fluid.Sources.FixedBoundary</a> usually leads to simpler equations than
+The model <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT">Buildings.Fluid.Sources.Boundary_pT</a> usually leads to simpler equations than
 <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel">Buildings.Fluid.Storage.ExpansionVessel</a>.
 Note that the medium that flows out of the fluid port of
-<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary">Buildings.Fluid.Sources.FixedBoundary</a>
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT">Buildings.Fluid.Sources.Boundary_pT</a>
 is at a fixed temperature, while the model
 <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel">Buildings.Fluid.Storage.ExpansionVessel</a> conserves energy.
 However, since the thermal expansion of the fluid is usually small, this effect can be neglected in most building HVAC applications.</p>
@@ -535,7 +541,7 @@ of the medium.</span><a class="headerlink" href="#id14" title="Permalink to this
 <p>In each water circuit, there must be one, and only one, instance of
 <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel">Buildings.Fluid.Storage.ExpansionVessel</a>,
 or instance of
-<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary">Buildings.Fluid.Sources.FixedBoundary</a>.
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT">Buildings.Fluid.Sources.Boundary_pT</a>.
 If there is no such device, then the absolute pressure
 may not be defined, or it may raise to an unrealistically large
 value if the medium density changes.
@@ -943,7 +949,7 @@ and uncontrolled, then the global integration error will grow rapidly.</p>
       
     </p>
     <p>
-        &copy; Copyright 2012-2019, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
+        &copy; Copyright 2012-2020, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
     </p>
   </div>
