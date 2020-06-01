@@ -83,12 +83,12 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
     final trueHoldDuration=0,
-    final falseHoldDuration=6)
+    final falseHoldDuration=6) "Holds false signal"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol1(
     final trueHoldDuration=0,
-    final falseHoldDuration=6)
+    final falseHoldDuration=6) "Holds false signal"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 
 equation
@@ -156,7 +156,7 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotati
 </html>", revisions="<html>
 <ul>
 <li>
-September 20, 2019, by Milica Grahovac:<br/>
+May 18, 2020, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>
