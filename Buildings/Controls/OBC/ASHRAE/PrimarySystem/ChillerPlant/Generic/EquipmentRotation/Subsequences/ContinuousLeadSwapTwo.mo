@@ -8,7 +8,7 @@ block ContinuousLeadSwapTwo
       iconTransformation(extent={{-140,20},{-100,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDevSta[nDev]
-    "Device status where: true = proven ON; false = proven OFF"
+    "Device status: true = proven ON; false = proven OFF"
     annotation (Placement(transformation(extent={{-100,-40},{-60,0}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
 
@@ -53,13 +53,14 @@ equation
     lineColor={0,0,255}, textString="%name")}),
   Documentation(info="<html>
 <p>
-This block ensures that the new lead device is started and proven on before the old lead device is switched to standby and shut off. The implementation is 
-according to RP 1711 5.1.2.4.2.
+This block ensures that the new lead device is started and proven on before the old 
+lead device is switched to standby and shut off. The implementation is 
+according to March 2020 Draft RP-1711, section 5.1.2.4.2.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-September 18, by Milica Grahovac:<br/>
+May 18, 2020, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>

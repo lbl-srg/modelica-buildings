@@ -10,7 +10,10 @@ block MultiMin "Output the minimum element of the input vector"
 
 equation
   y = min(u);
-  annotation (Icon(coordinateSystem(
+
+annotation (
+  defaultComponentName = "mulMin",
+  Icon(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}}),
         graphics={

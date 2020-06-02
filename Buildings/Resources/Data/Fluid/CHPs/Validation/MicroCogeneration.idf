@@ -74,7 +74,7 @@
 ! Environmental Emissions:        None
 ! Utility Tariffs:                Yes
 
-  Version,9.2;
+  Version,9.3;
 
   Timestep,60;
 
@@ -102,9 +102,9 @@
     3,                       !- Minimum Plant Iterations
     10;                      !- Maximum Plant Iterations
 
-  ShadowCalculation,
-    AverageOverDaysInFrequency,  !- Calculation Method
-    30;                      !- Calculation Frequency
+!  ShadowCalculation,
+!    AverageOverDaysInFrequency,  !- Calculation Method
+!    30;                      !- Calculation Frequency
 
   GlobalGeometryRules,
     UpperLeftCorner,         !- Starting Vertex Position
@@ -4652,43 +4652,43 @@
 
 !
 
-  FuelFactors,
-    FuelOil#1,               !- Existing Fuel Resource Name
-    m3,                      !- Units of Measure
-    38.656E+09,              !- Energy per Unit Factor
-    1.158,                   !- Source Energy Factor {J/J}
-    ,                        !- Source Energy Schedule Name
-    7.06E+01,                !- CO2 Emission Factor {g/MJ}
-    ,                        !- CO2 Emission Factor Schedule Name
-    1.68E-02,                !- CO Emission Factor {g/MJ}
-    ,                        !- CO Emission Factor Schedule Name
-    7.19E-04,                !- CH4 Emission Factor {g/MJ}
-    ,                        !- CH4 Emission Factor Schedule Name
-    6.67E-02,                !- NOx Emission Factor {g/MJ}
-    ,                        !- NOx Emission Factor Schedule Name
-    3.70E-04,                !- N2O Emission Factor {g/MJ}
-    ,                        !- N2O Emission Factor Schedule Name
-    1.06E-01,                !- SO2 Emission Factor {g/MJ}
-    ,                        !- SO2 Emission Factor Schedule Name
-    0.0,                     !- PM Emission Factor {g/MJ}
-    ,                        !- PM Emission Factor Schedule Name
-    5.82E-03,                !- PM10 Emission Factor {g/MJ}
-    ,                        !- PM10 Emission Factor Schedule Name
-    0.0,                     !- PM2.5 Emission Factor {g/MJ}
-    ,                        !- PM2.5 Emission Factor Schedule Name
-    0,                       !- NH3 Emission Factor {g/MJ}
-    ,                        !- NH3 Emission Factor Schedule Name
-    1.14E-03,                !- NMVOC Emission Factor {g/MJ}
-    ,                        !- NMVOC Emission Factor Schedule Name
-    0.0,                     !- Hg Emission Factor {g/MJ}
-    ,                        !- Hg Emission Factor Schedule Name
-    0.0,                     !- Pb Emission Factor {g/MJ}
-    ,                        !- Pb Emission Factor Schedule Name
-    0,                       !- Water Emission Factor {L/MJ}
-    ,                        !- Water Emission Factor Schedule Name
-    0,                       !- Nuclear High Level Emission Factor {g/MJ}
-    ,                        !- Nuclear High Level Emission Factor Schedule Name
-    0;                       !- Nuclear Low Level Emission Factor {m3/MJ}
+!  FuelFactors,
+!    FuelOil#1,               !- Existing Fuel Resource Name
+!    m3,                      !- Units of Measure
+!    38.656E+09,              !- Energy per Unit Factor
+!    1.158,                   !- Source Energy Factor {J/J}
+!    ,                        !- Source Energy Schedule Name
+!    7.06E+01,                !- CO2 Emission Factor {g/MJ}
+!    ,                        !- CO2 Emission Factor Schedule Name
+!    1.68E-02,                !- CO Emission Factor {g/MJ}
+!    ,                        !- CO Emission Factor Schedule Name
+!    7.19E-04,                !- CH4 Emission Factor {g/MJ}
+!    ,                        !- CH4 Emission Factor Schedule Name
+!    6.67E-02,                !- NOx Emission Factor {g/MJ}
+!    ,                        !- NOx Emission Factor Schedule Name
+!    3.70E-04,                !- N2O Emission Factor {g/MJ}
+!    ,                        !- N2O Emission Factor Schedule Name
+!    1.06E-01,                !- SO2 Emission Factor {g/MJ}
+!    ,                        !- SO2 Emission Factor Schedule Name
+!    0.0,                     !- PM Emission Factor {g/MJ}
+!    ,                        !- PM Emission Factor Schedule Name
+!    5.82E-03,                !- PM10 Emission Factor {g/MJ}
+!    ,                        !- PM10 Emission Factor Schedule Name
+!    0.0,                     !- PM2.5 Emission Factor {g/MJ}
+!    ,                        !- PM2.5 Emission Factor Schedule Name
+!    0,                       !- NH3 Emission Factor {g/MJ}
+!    ,                        !- NH3 Emission Factor Schedule Name
+!    1.14E-03,                !- NMVOC Emission Factor {g/MJ}
+!    ,                        !- NMVOC Emission Factor Schedule Name
+!    0.0,                     !- Hg Emission Factor {g/MJ}
+!    ,                        !- Hg Emission Factor Schedule Name
+!    0.0,                     !- Pb Emission Factor {g/MJ}
+!    ,                        !- Pb Emission Factor Schedule Name
+!    0,                       !- Water Emission Factor {L/MJ}
+!    ,                        !- Water Emission Factor Schedule Name
+!    0,                       !- Nuclear High Level Emission Factor {g/MJ}
+!    ,                        !- Nuclear High Level Emission Factor Schedule Name
+!    0;                       !- Nuclear Low Level Emission Factor {m3/MJ}
 
   FuelFactors,
     Propane,                 !- Existing Fuel Resource Name
