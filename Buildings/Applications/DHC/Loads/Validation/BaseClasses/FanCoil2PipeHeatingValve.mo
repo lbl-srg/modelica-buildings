@@ -24,9 +24,6 @@ model FanCoil2PipeHeatingValve
   final parameter hexConfiguration hexConHea=
     hexConfiguration.CounterFlow
     "Heating heat exchanger configuration";
-  final parameter hexConfiguration hexConCoo=
-    hexConfiguration.CounterFlow
-    "Cooling heat exchanger configuration";
   parameter Boolean have_speVar = true
     "Set to true for a variable speed fan (otherwise fan is always on)";
   parameter Modelica.SIunits.PressureDifference dp_nominal=30000
@@ -40,7 +37,7 @@ model FanCoil2PipeHeatingValve
     addPowerToMedium=true,
     nominalValuesDefineDefaultPressureCurve=true,
     use_inputFilter=true,
-    dp_nominal=200)
+    dp_nominal=200) "Fan"
     annotation (Placement(transformation(extent={{90,-10},{70,10}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID con(
     Ti=10,
@@ -61,7 +58,7 @@ model FanCoil2PipeHeatingValve
     final T_a1_nominal=T_aHeaWat_nominal,
     final T_a2_nominal=T_aLoaHea_nominal,
     final allowFlowReversal1=allowFlowReversal,
-    final allowFlowReversal2=allowFlowReversalLoa)
+    final allowFlowReversal2=allowFlowReversalLoa) "Heating coil"
     annotation (Placement(transformation(extent={{-80,4},{-60,-16}})));
   Modelica.Blocks.Sources.RealExpression Q_flowHea(y=hex.Q2_flow)
     annotation (Placement(transformation(extent={{120,210},{140,230}})));

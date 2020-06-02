@@ -22,17 +22,20 @@ model BenchmarkFlowDistribution2
   parameter Modelica.SIunits.Temperature T_aLoaHea_nominal=273.15 + 20
     "Load side inlet temperature at nominal conditions in heating mode"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mLoaHea_flow_nominal(min=0) = 1
+  parameter Modelica.SIunits.MassFlowRate mLoaHea_flow_nominal=1
     "Load side mass flow rate at nominal conditions in heating mode"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Time tau = 120
     "Time constant of fluid temperature variation at nominal flow rate"
     annotation (Dialog(tab="Dynamics", group="Nominal condition"));
-  parameter Real facSca = 10
+  parameter Real facSca=10
     "Scaling factor to be applied to each extensive quantity"
     annotation(Dialog(group="Scaling"));
+  final parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal[nLoa]=
+    ter.mHeaWat_flow_nominal * facSca
+    "Nominal mass flow rate in each connection line";
   final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
-    sum(ter.mHeaWat_flow_nominal) * facSca
+    sum(mCon_flow_nominal)
     "Nominal mass flow rate in the distribution line";
   final parameter Modelica.SIunits.PressureDifference dp_nominal=sum(dis.con.pipDisSup.dp_nominal)
        + sum(dis.con.pipDisRet.dp_nominal) + max(ter.dp_nominal)
@@ -85,8 +88,8 @@ model BenchmarkFlowDistribution2
     redeclare final package Medium = Medium1,
     nCon=nLoa,
     allowFlowReversal=false,
-    mDis_flow_nominal=sum(ter.mHeaWat_flow_nominal),
-    mCon_flow_nominal=ter.mHeaWat_flow_nominal,
+    mDis_flow_nominal=m_flow_nominal,
+    mCon_flow_nominal=mCon_flow_nominal,
     dpDis_nominal=fill(1500, nLoa))
     annotation (Placement(transformation(extent={{40,-90},{80,-70}})));
   Fluid.Movers.FlowControlled_dp pum(

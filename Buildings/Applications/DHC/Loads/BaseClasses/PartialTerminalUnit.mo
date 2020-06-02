@@ -23,7 +23,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     "Scaling factor to be applied to each extensive quantity"
     annotation(Dialog(group="Scaling"));
   parameter Boolean have_scaLoa = true
-    "Set to true to apply the scaling factor to the mass flow rate on the load side"
+    "Set to true to apply the scaling factor to the heat or mass flow rate on the load side"
     annotation(Dialog(group="Scaling"));
   parameter Boolean have_watHea = false
     "Set to true if the system has a heating water based heat exchanger"
@@ -367,13 +367,13 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
   Fluid.BaseClasses.MassFlowRateMultiplier scaLoaMasFloOut(
     redeclare final package Medium = Medium2,
     final k=if have_scaLoa then facSca else 1,
-    final allowFlowReversal=allowFlowReversal) if have_fluPor
+    final allowFlowReversal=allowFlowReversalLoa) if have_fluPor
     "Load side mass flow rate scaling"
     annotation (Placement(transformation(extent={{-160,-10},{-180,10}})));
   Fluid.BaseClasses.MassFlowRateMultiplier scaLoaMasFloInl(
     redeclare final package Medium = Medium2,
     final k=if have_scaLoa then 1/facSca else 1,
-    final allowFlowReversal=allowFlowReversal) if have_fluPor
+    final allowFlowReversal=allowFlowReversalLoa) if have_fluPor
     "Load side mass flow rate scaling"
     annotation (Placement(transformation(extent={{180,-10},{160,10}})));
   Fluid.HeatExchangers.RadiantSlabs.BaseClasses.HeatFlowRateMultiplier
@@ -533,19 +533,21 @@ pressure difference at the terminal unit boundaries when the fan is off.
 <p>
 Scaling is implemented by means of a scaling factor <code>facSca</code> being
 applied on each extensive quantity (mass and heat flow rate, electric power),
-except the fluid mass flow rate (at fluid ports) on the load side depending on 
+except the heat or mass flow rate on the load side depending on 
 the value of <code>have_scaLoa</code>.
 </p>
 <ul>
 <li>
-If <code>have_scaLoa</code> is <code>true</code> (default), then the mass flow rate 
-on the load side is scaled. This allows modeling multiple identical units serving 
-an aggregated load, e.g., a thermal zone representing several rooms.
+If <code>have_scaLoa</code> is <code>true</code> (default), then the heat or mass flow rate 
+on the load side is scaled. This allows modeling, with a single instance, 
+multiple identical units serving an aggregated load, for instance, 
+a thermal zone representing several rooms.
 </li>
 <li>
-If <code>have_scaLoa</code> is <code>false</code>, then the mass flow rate 
-on the load side is not scaled. This allows modeling multiple identical units serving 
-multiple identical rooms, e.g., with only one zone model representing a single room.
+If <code>have_scaLoa</code> is <code>false</code>, then the heat or mass flow rate 
+on the load side is not scaled. This allows modeling, with a single instance, 
+multiple identical units serving multiple identical rooms, for instance, 
+with only one zone model representing a single room.
 </li>
 </ul>
 <p>

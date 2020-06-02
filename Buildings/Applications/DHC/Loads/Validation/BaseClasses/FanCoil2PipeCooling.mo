@@ -31,9 +31,6 @@ model FanCoil2PipeCooling
   parameter Modelica.SIunits.Time riseTime=30
     "Rise time of the filter (time to reach 99.6 % of the speed)"
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=use_inputFilter));
-  final parameter hexConfiguration hexConHea=
-    hexConfiguration.CounterFlow
-    "Heating heat exchanger configuration";
   final parameter hexConfiguration hexConCoo=
     hexConfiguration.CounterFlow
     "Cooling heat exchanger configuration";
