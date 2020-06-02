@@ -1,6 +1,9 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic;
 block PlantEnable "Sequence to enable and disable plant"
 
+  parameter Boolean have_WSE = true
+    "Flag to indicate if the plant has waterside economizer";
+
   parameter Real schTab[4,2] = [0,1; 6*3600,1; 19*3600,1; 24*3600,1]
     "Plant enabling schedule allowing operators to lock out the plant during off-hour";
 
@@ -170,21 +173,17 @@ equation
     annotation (Line(points={{62,-70},{80,-70},{80,-30},{20,-30},{20,-18},{38,-18}},
       color={255,0,255}));
   connect(not2.y, mulOr.u1)
-    annotation (Line(points={{2,-50},{20,-50},{20,-62},{38,-62}},
-                                                               color={255,0,255}));
+    annotation (Line(points={{2,-50},{20,-50},{20,-62},{38,-62}}, color={255,0,255}));
   connect(greEquThr2.y, mulOr.u2)
-    annotation (Line(points={{-38,-70},{38,-70}},
-                                                color={255,0,255}));
+    annotation (Line(points={{-38,-70},{38,-70}}, color={255,0,255}));
   connect(hasReq.y, not3.u)
     annotation (Line(points={{-118,90},{-20,90},{-20,70},{-180,70},{-180,-70},{-142,
           -70}},   color={255,0,255}));
   connect(not3.y, enaTim1.u)
-    annotation (Line(points={{-118,-70},{-102,-70}},
-                                                   color={255,0,255}));
+    annotation (Line(points={{-118,-70},{-102,-70}}, color={255,0,255}));
   connect(lat.y, pre1.u)
     annotation (Line(points={{122,80},{140,80},{140,140},{-190,140},{-190,120},{
-          -182,120}},
-                   color={255,0,255}));
+          -182,120}}, color={255,0,255}));
   connect(pre1.y, not1.u)
     annotation (Line(points={{-158,120},{-142,120}}, color={255,0,255}));
   connect(pre1.y, enaTim.u)
@@ -197,8 +196,7 @@ equation
     annotation (Line(points={{-158,-110},{-150,-110},{-150,-124},{-142,-124}},
       color={0,0,127}));
   connect(add2.y, hys.u)
-    annotation (Line(points={{-118,-130},{-102,-130}},
-                                                     color={0,0,127}));
+    annotation (Line(points={{-118,-130},{-102,-130}}, color={0,0,127}));
   connect(hys.y, mulOr.u3)
     annotation (Line(points={{-78,-130},{20,-130},{20,-78},{38,-78}},
       color={255,0,255}));
@@ -210,6 +208,7 @@ equation
       color={255,0,255}));
   connect(and2.y, lat.clr) annotation (Line(points={{62,-10},{80,-10},{80,74},{98,
           74}},     color={255,0,255}));
+
 annotation (
   defaultComponentName = "plaEna",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-180},{200,180}})),
