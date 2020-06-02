@@ -221,9 +221,9 @@ block Down
       iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences.FailsafeCondition faiSafCon(
-    final samPer=delayFaiCon,
+    final delayEna=delayFaiCon,
     final TDif=TDifFaiCon,
-    TDifHys=dTemp)
+    final TDifHys=dTemp)
     "Failsafe condition"
     annotation (Placement(transformation(extent={{-160,126},{-140,144}})));
 

@@ -111,25 +111,19 @@ protected
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
 
 equation
-  connect(conf.uBoiAva, chiAva.y)
-    annotation (Line(points={{18,100},{-18,100}},
-      color={255,0,255}));
-  connect(chiAva1.y, conf1.uBoiAva)
-    annotation (Line(points={{-18,60},{18,60}},
-      color={255,0,255}));
-  connect(conf2.uBoiAva, chiAva2.y)
-    annotation (Line(points={{18,20},{-18,20}},
-      color={255,0,255}));
-  connect(conf3.uBoiAva, chiAva3.y)
-    annotation (Line(points={{18,-20},{-18,-20}},
-      color={255,0,255}));
-  connect(conf4.uBoiAva, chiAva4.y)
-    annotation (Line(points={{18,-60},{-18,-60}},
-      color={255,0,255}));
-  connect(conf5.uBoiAva, chiAva5.y)
-    annotation (Line(points={{18,-100},{-18,-100}},
-      color={255,0,255}));
 
+  connect(boiAva.y, conf.uBoiAva)
+    annotation (Line(points={{-18,100},{18,100}}, color={255,0,255}));
+  connect(boiAva1.y, conf1.uBoiAva)
+    annotation (Line(points={{-18,60},{18,60}}, color={255,0,255}));
+  connect(boiAva2.y, conf2.uBoiAva)
+    annotation (Line(points={{-18,20},{18,20}}, color={255,0,255}));
+  connect(boiAva3.y, conf3.uBoiAva)
+    annotation (Line(points={{-18,-20},{18,-20}}, color={255,0,255}));
+  connect(boiAva4.y, conf4.uBoiAva)
+    annotation (Line(points={{-18,-60},{18,-60}}, color={255,0,255}));
+  connect(boiAva5.y, conf5.uBoiAva)
+    annotation (Line(points={{-18,-100},{18,-100}}, color={255,0,255}));
 annotation (
   experiment(StopTime=10.0, Tolerance=1e-06),
   __Dymola_Commands(file=
