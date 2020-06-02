@@ -4,7 +4,10 @@ block ReduceDemand "Sequence for reducing operating chiller demand"
   parameter Integer nChi "Total number of chillers in the plant";
   parameter Real chiDemRedFac = 0.75
     "Demand reducing factor of current operating chillers";
-  parameter Modelica.SIunits.Time holChiDemTim = 300
+  parameter Real holChiDemTim(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h") = 300
     "Maximum time to wait for the actual demand less than percentage of current load";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDemLim

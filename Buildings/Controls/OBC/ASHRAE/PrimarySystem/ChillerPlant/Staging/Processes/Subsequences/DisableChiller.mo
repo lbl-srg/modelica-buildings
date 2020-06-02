@@ -2,7 +2,10 @@
 block DisableChiller "Sequence for disabling chiller in stage-down process"
 
   parameter Integer nChi "Total number of chillers";
-  parameter Modelica.SIunits.Time proOnTim = 300
+  parameter Real proOnTim(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h") = 300
     "Enabled chiller operation time to indicate if it is proven on";
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexEnaChi
