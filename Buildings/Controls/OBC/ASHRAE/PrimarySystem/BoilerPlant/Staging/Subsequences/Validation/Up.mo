@@ -8,8 +8,9 @@ model Up
     final perNonConBoi=0.9,
     final perConBoi=1.5,
     final sigDif=0.1,
+    final delayEffCon=600,
+    final delayFaiCon=900,
     final samPerEffCon=10*60,
-    final samPerFaiCon=900,
     final TDif=10,
     final TDifHys=1)
     "Scenario testing activation by efficiency condition"
@@ -21,8 +22,8 @@ model Up
     final perNonConBoi=0.9,
     final perConBoi=1.5,
     final sigDif=0.1,
-    final samPerEffCon=600,
-    final samPerFaiCon=900,
+    final delayEffCon=600,
+    final delayFaiCon=900,
     final TDif=10,
     final TDifHys=1)
     "Scenario testing activation by failsafe condition"
@@ -34,8 +35,8 @@ model Up
     final perNonConBoi=0.9,
     final perConBoi=1.5,
     final sigDif=0.1,
-    final samPerEffCon=600,
-    final samPerFaiCon=900,
+    final delayEffCon=600,
+    final delayFaiCon=900,
     final TDif=10,
     final TDifHys=1)
     "Scenario testing activation due to current stage unavailability"

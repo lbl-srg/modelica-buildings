@@ -20,13 +20,13 @@ block Up
     annotation (Dialog(tab="Advanced",
       group="Efficiency condition"));
 
-  parameter Real samPerEffCon(
+  parameter Real delayEffCon(
     final unit="s",
     final displayUnit="s") = 600
     "Enable delay for heating capacity and heating requirement"
     annotation(Dialog(group="Efficiency condition"));
 
-  parameter Real samPerFaiCon(
+  parameter Real delayFaiCon(
     final unit="s",
     final displayUnit="s") = 900
     "Enable delay for temperature"
@@ -128,12 +128,12 @@ protected
     final perNonConBoi=perNonConBoi,
     final perConBoi=perConBoi,
     final sigDif=sigDif,
-    final samPer=samPerEffCon)
+    final delayQReq=delayEffCon)
     "Efficiency condition for staging up"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences.FailsafeCondition faiSafCon(
-    final samPer=samPerFaiCon,
+    final delayEna=delayFaiCon,
     final TDif=TDif,
     final TDifHys=TDifHys)
     "Failsafe condition for staging up and down"
