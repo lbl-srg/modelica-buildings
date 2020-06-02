@@ -31,13 +31,15 @@ block Enable "Sequence for enabling and disabling tower fan"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TTowSet(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") "Tower temperature setpoint"
+    final quantity="ThermodynamicTemperature")
+    "Setpoint of tower temperature, could be condenser water return or supply temperature"
     annotation (Placement(transformation(extent={{-220,20},{-180,60}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TTow(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") "Measured tower temperature"
+    final quantity="ThermodynamicTemperature")
+    "Measured tower temperature, could be condenser water return or supply temperature"
     annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uTow[nTowCel]

@@ -28,9 +28,9 @@ block Setpoint "Calculate condener return water temperature setpoint"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOpeParLoaRat(
     final unit="1",
     final min=0,
-    final max=1) "Current plant partial load ratio" annotation (Placement(
-        transformation(extent={{-220,0},{-180,40}}), iconTransformation(extent=
-            {{-140,10},{-100,50}})));
+    final max=1) "Current plant partial load ratio" 
+    annotation (Placement(transformation(extent={{-220,0},{-180,40}}),
+      iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
     final unit="K",
     final displayUnit="degC",
@@ -180,8 +180,8 @@ equation
       color={0,0,127}));
   connect(lin.y, TConWatRetSet)
     annotation (Line(points={{162,-110},{200,-110}}, color={0,0,127}));
-  connect(uOpeParLoaRat, pro.u2) annotation (Line(points={{-200,20},{-60,20},{-60,
-          44},{78,44}}, color={0,0,127}));
+  connect(uOpeParLoaRat, pro.u2)
+    annotation (Line(points={{-200,20},{-60,20},{-60,44},{78,44}}, color={0,0,127}));
   connect(desConWatRet.y, maxLif.u1)
     annotation (Line(points={{-138,140},{-122,140}}, color={0,0,127}));
   connect(minChiWatSup.y, maxLif.u2)
