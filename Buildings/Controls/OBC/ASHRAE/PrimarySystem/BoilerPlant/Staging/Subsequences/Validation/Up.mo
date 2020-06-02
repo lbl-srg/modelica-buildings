@@ -10,7 +10,6 @@ model Up
     final sigDif=0.1,
     final delayEffCon=600,
     final delayFaiCon=900,
-    final samPerEffCon=10*60,
     final TDif=10,
     final TDifHys=1)
     "Scenario testing activation by efficiency condition"
