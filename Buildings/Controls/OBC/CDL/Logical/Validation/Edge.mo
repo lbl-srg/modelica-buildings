@@ -17,13 +17,19 @@ model Edge "Validation model for the Edge block"
 
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triggeredSampler "Triggered sampler"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(trueHoldDuration=
+        1.5, falseHoldDuration=0)
+    annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
 equation
   connect(booPul.y, edge1.u)
-    annotation (Line(points={{-19,0},{-8,0},{-2,0}},color={255,0,255}));
-  connect(edge1.y, triggeredSampler.trigger) annotation (Line(points={{21,0},{
+    annotation (Line(points={{-18,0},{-18,0},{-2,0}},
+                                                    color={255,0,255}));
+  connect(edge1.y, triggeredSampler.trigger) annotation (Line(points={{22,0},{
           50,0},{50,38},{50,38.2}},       color={255,0,255}));
   connect(ramp2.y, triggeredSampler.u)
-    annotation (Line(points={{21,50},{29.5,50},{38,50}}, color={0,0,127}));
+    annotation (Line(points={{22,50},{22,50},{38,50}},   color={0,0,127}));
+  connect(edge1.y, truFalHol.u) annotation (Line(points={{22,0},{40,0},{40,-30},
+          {58,-30}}, color={255,0,255}));
   annotation (
   experiment(StopTime=5.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Validation/Edge.mos"

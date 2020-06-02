@@ -1,5 +1,6 @@
 ContinuousLeadSwapTwo
-RuntimeCounter
+LeastRuntime
+MinimumLeadRuntime
 Scheduler
 Two
 Validation
