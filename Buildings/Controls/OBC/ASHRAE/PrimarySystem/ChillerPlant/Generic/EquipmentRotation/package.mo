@@ -5,9 +5,8 @@ annotation (
 preferredView="info", Documentation(info="<html>
 <p>
 This package contains equipment staging and rotation sequences implemented based on ASHRAE RP1711.
-July draft, section 5.1.2. The control intent of these sequences is, where the device configuration allows for it, 
-to have the devices be lead/lag or lead/standby rotated to maintain even wear. Note that this package does not 
-deal with the chiller staging, which is provided in a separte package.
+March 2020 draft, section 5.1.2. The control intent of these sequences is, where the device configuration allows for it, 
+to have the devices be lead/lag or lead/standby rotated to maintain even wear.
 </html>"),
 Icon(graphics={
         Rectangle(

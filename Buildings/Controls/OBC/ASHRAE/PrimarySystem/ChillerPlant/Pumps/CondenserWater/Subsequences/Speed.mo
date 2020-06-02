@@ -1,25 +1,25 @@
-﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences;
 block Speed
   "Output design speed of condenser water pumps at current stage"
 
-  parameter Boolean hasWSE = true
-    "Flag to indicate if the plant has water side economiser";
-  parameter Integer totChiSta = 6
+  parameter Boolean have_WSE = true
+    "Flag to indicate if the plant has water side economizer";
+  parameter Integer totSta = 6
     "Total number of stages, including the stages with a WSE, if applicable";
-  parameter Real staVec[totChiSta] = {0, 0.5, 1, 1.5, 2, 2.5}
+  parameter Real staVec[totSta] = {0, 0.5, 1, 1.5, 2, 2.5}
     "Chiller stage vector, element value like x.5 means chiller stage x plus WSE";
-  parameter Real desConWatPumSpe[totChiSta] = {0, 0.5, 0.75, 0.6, 0.75, 0.9}
+  parameter Real desConWatPumSpe[totSta] = {0, 0.5, 0.75, 0.6, 0.75, 0.9}
     "Design condenser water pump speed setpoint, according to current chiller stage and WSE status"
     annotation (Dialog(group="Setpoint according to stage"));
-  parameter Real desConWatPumNum[totChiSta] = {0,1,1,2,2,2}
+  parameter Real desConWatPumNum[totSta] = {0,1,1,2,2,2}
     "Design number of condenser water pumps that should be ON, according to current chiller stage and WSE status"
     annotation (Dialog(group="Setpoint according to stage"));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta
-    "Current chiller stage"
+    "Current chiller stage index that does not include the WSE"
     annotation (Placement(transformation(extent={{-180,40},{-140,80}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWSE if hasWSE
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWSE if have_WSE
     "Water side economizer status: true = ON, false = OFF"
     annotation (Placement(transformation(extent={{-180,-80},{-140,-40}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
@@ -34,50 +34,50 @@ block Speed
 
 protected
   Buildings.Controls.OBC.CDL.Routing.RealExtractor conWatPumOn(
-    final nin=totChiSta)  "Number of condenser water pump should be on"
+    final nin=totSta)  "Number of condenser water pump should be on"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor conWatPumSpe(
-    final nin=totChiSta)   "Condenser water pump speed"
+    final nin=totSta)   "Condenser water pump speed"
     annotation (Placement(transformation(extent={{80,10},{100,30}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     "Convert real input to integer output"
     annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1[totChiSta](
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1[totSta](
     final k=desConWatPumSpe) "Condenser water pump speed setpoint"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2[totChiSta](
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2[totSta](
     final k=desConWatPumNum) "Number of condenser water pump should be on"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
     "Convert integer to real number"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3[totChiSta](
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3[totSta](
     final k=staVec)
     "Chiller stage vector, element value like x.5 means chiller stage x plus WSE"
     annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
-    final realTrue=0.5) if hasWSE
+    final realTrue=0.5) if have_WSE
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2 "Add two real inputs"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
-    final nout=totChiSta) "Replicate real input"
+    final nout=totSta) "Replicate real input"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1[totChiSta](
-    final k1=fill(-1, totChiSta),
-    final k2=fill(1, totChiSta)) "Add two real inputs"
+  Buildings.Controls.OBC.CDL.Continuous.Add add1[totSta](
+    final k1=fill(-1, totSta),
+    final k2=fill(1, totSta)) "Add two real inputs"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr[totChiSta](
-    final threshold=fill(-0.1, totChiSta))  "Identify current stage"
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr[totSta](
+    final threshold=fill(-0.1, totSta))  "Identify current stage"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[totChiSta]
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[totSta]
     "Convert boolean to integer"
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum mulSumInt(
-    final nin=totChiSta) "Current stage index"
+    final nin=totSta) "Current stage index"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4(final k=0) if not hasWSE
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4(final k=0) if not have_WSE
     "Constant zero"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 

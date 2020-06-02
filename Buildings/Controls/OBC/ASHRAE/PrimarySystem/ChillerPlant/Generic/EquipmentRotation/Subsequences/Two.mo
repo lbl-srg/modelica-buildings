@@ -2,6 +2,10 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.Equipmen
 block Two
   "Updates device roles based on the equipment rotation signal"
 
+  parameter Boolean initRoles[nDev] = {true, false}
+    "Initial roles: true = lead, false = lag/standby"
+    annotation (Evaluate=true,Dialog(tab="Advanced", group="Initiation"));
+
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uRot
     "Rising edge to rotate the equipment"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
@@ -21,10 +25,6 @@ block Two
 protected
   final parameter Integer nDev = 2
     "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
-
-  final parameter Boolean initRoles[nDev] = {true, false}
-    "Initial roles: true = lead, false = lag/standby"
-    annotation (Evaluate=true,Dialog(tab="Advanced", group="Initiation"));
 
   Buildings.Controls.OBC.CDL.Logical.Not not0[nDev] "Logical not"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
@@ -107,7 +107,7 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotati
 </html>", revisions="<html>
 <ul>
 <li>
-September 18, by Milica Grahovac:<br/>
+May 18, 2020, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>
