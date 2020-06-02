@@ -6,7 +6,7 @@ model BuildingTimeSeriesCooling
     "Medium model";
 
   parameter Real QCooLoa[:, :]= [0, 1; 6, 1; 6, 0.25; 18, 0.25; 18, 0.375; 24, 0.375]
-    "Time series cooling load";
+    "Time series cooling load, negative";
 
   parameter Modelica.SIunits.Power Q_flow_nominal
     "Nominal heat flow rate";
@@ -30,7 +30,7 @@ model BuildingTimeSeriesCooling
     displayUnit="kW") "Total heat transfer rate"
     annotation (Placement(transformation(extent={{100,70},{120,90}}),
         iconTransformation(extent={{100,70},{120,90}})));
-  HeatTransfer.Sources.PrescribedHeatFlow           prescribedHeatFlow
+  HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo "Prescribed heat flow"
     annotation (Placement(transformation(extent={{-50,0},{-30,20}})));
   Fluid.MixingVolumes.MixingVolume           vol(
     redeclare package Medium = Medium,
@@ -40,8 +40,8 @@ model BuildingTimeSeriesCooling
     T_start=TBuiSetPoi,
     nPorts=2)
           annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  Modelica.Blocks.Interfaces.RealOutput dP "Pressure difference"
-    annotation (Placement(transformation(extent={{100,40},{120,60}})));
+  Modelica.Blocks.Interfaces.RealOutput dp "Pressure difference"
+    annotation (Placement(transformation(extent={{100,30},{120,50}})));
   EnergyTransferStations.CoolingDirectControlledReturn coo
     annotation (Placement(transformation(extent={{40,-20},{20,-40}})));
   Modelica.Blocks.Sources.Constant TSetDisRet_min(k=273.15 + 16)
@@ -51,10 +51,13 @@ model BuildingTimeSeriesCooling
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={70,-30})));
+  Modelica.Blocks.Interfaces.RealOutput Q
+    "Measured energy consumption at the ETS"
+    annotation (Placement(transformation(extent={{100,50},{120,70}})));
 equation
-  connect(prescribedHeatFlow.port, vol.heatPort)
+  connect(preHeaFlo.port, vol.heatPort)
     annotation (Line(points={{-30,10},{-20,10}}, color={191,0,0}));
-  connect(QCoo.y[1], prescribedHeatFlow.Q_flow)
+  connect(QCoo.y[1], preHeaFlo.Q_flow)
     annotation (Line(points={{-59,10},{-50,10}}, color={0,0,127}));
   connect(coo.port_b2, senRelPre.port_b)
     annotation (Line(points={{40,-24},{40,-20},{70,-20}}, color={0,127,255}));
@@ -66,14 +69,16 @@ equation
           {-20,-40},{-20,0},{-8,0}}, color={0,127,255}));
   connect(coo.Q_flow, Q_flow) annotation (Line(points={{19,-45},{10,-45},{10,80},
           {110,80}}, color={0,0,127}));
-  connect(TSetDisRet_min.y, coo.TSetDisRet) annotation (Line(points={{41,30},{
-          52,30},{52,-18},{42,-18}}, color={0,0,127}));
-  connect(senRelPre.p_rel, dP) annotation (Line(points={{79,-30},{90,-30},{90,
-          50},{110,50}}, color={0,0,127}));
-  connect(senRelPre.port_a, port_a) annotation (Line(points={{70,-40},{80,-40},
-          {80,-60},{100,-60}}, color={0,127,255}));
-  connect(senRelPre.port_b, port_b) annotation (Line(points={{70,-20},{80,-20},
-          {80,0},{100,0}}, color={0,127,255}));
+  connect(TSetDisRet_min.y, coo.TSetDisRet) annotation (Line(points={{41,30},{52,
+          30},{52,-18},{42,-18}}, color={0,0,127}));
+  connect(senRelPre.p_rel, dp) annotation (Line(points={{79,-30},{90,-30},{90,40},
+          {110,40}}, color={0,0,127}));
+  connect(senRelPre.port_a, port_a) annotation (Line(points={{70,-40},{80,-40},{
+          80,-60},{100,-60}}, color={0,127,255}));
+  connect(senRelPre.port_b, port_b) annotation (Line(points={{70,-20},{80,-20},{
+          80,0},{100,0}}, color={0,127,255}));
+  connect(coo.Q, Q) annotation (Line(points={{19,-41},{14,-41},{14,60},{110,60}},
+        color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Polygon(
           points={{20,-70},{60,-85},{20,-100},{20,-70}},
