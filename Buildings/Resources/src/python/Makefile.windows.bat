@@ -17,11 +17,14 @@ SET /A errno=0
 SET SRCS=pythonInterpreter.c
 SET LIBS=pythonInterpreter.lib
 
-SET MOD_DLL=ModelicaBuildingsPython2.7.dll
-SET MOD_LIB=ModelicaBuildingsPython2.7.lib
+REM SET MOD_DLL=ModelicaBuildingsPython2.7.dll
+REM SET MOD_LIB=ModelicaBuildingsPython2.7.lib
+SET MOD_DLL=ModelicaBuildingsPython3.6.dll
+SET MOD_LIB=ModelicaBuildingsPython3.6.lib
 
 SET DUMMY_SRC=dummy.c
-SET DUMMY_DLL=python2.7.dll
+REM SET DUMMY_DLL=python2.7.dll
+SET DUMMY_DLL=python3.6.dll
 
 REM The first parameter is the architecture flag (x86 or x64).
 REM + Architecture related paths must be specified before running the batch file:
@@ -39,10 +42,15 @@ REM   activate {name of Python 64-bit environment}
 REM   set PYTHONHOME=%HOME%\Miniconda2\envs\{name of Python 64-bit environment}
 REM   set CLPATH="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
 
+SET PYTHONHOME="C:\Miniconda3-4-3-31"
+SET CLPATH="C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\amd64\vcvars64.bat"
+
 IF NOT -%1-==-- (
   IF "%~1"=="x86" SET ARCH=%~1
   IF "%~1"=="x64" SET ARCH=%~1
 )
+
+SET ARCH=x64
 
 VERIFY OTHER 2>nul
 SETLOCAL ENABLEEXTENSIONS
@@ -78,7 +86,8 @@ IF %ARCH%==x64 (
 ECHO DLL will be saved in: %BINDIR%.
 
 SET PYTHONInc=%PYTHONHOME%\include
-SET PYTHONLibs=%PYTHONHOME%\libs\python27.lib
+REM SET PYTHONLibs=%PYTHONHOME%\libs\python27.lib
+SET PYTHONLibs=%PYTHONHOME%\libs\python36.lib
 
 CALL %CLPATH%
 IF %ERRORLEVEL% neq 0 (

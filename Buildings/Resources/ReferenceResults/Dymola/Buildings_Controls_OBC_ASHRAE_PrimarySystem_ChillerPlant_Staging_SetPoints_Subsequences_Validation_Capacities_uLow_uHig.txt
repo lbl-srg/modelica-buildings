@@ -1,8 +1,12 @@
+<<<<<<< HEAD
 <<<<<<< HEAD:Buildings/Resources/ReferenceResults/Dymola/Buildings_Controls_OBC_ASHRAE_PrimarySystem_ChillerPlant_Staging_Subsequences_Validation_Capacities_uLow_uHig.txt
 last-generated=2020-05-11
 =======
 last-generated=2020-04-16
 >>>>>>> issue1524_plr_stage_change:Buildings/Resources/ReferenceResults/Dymola/Buildings_Controls_OBC_ASHRAE_PrimarySystem_ChillerPlant_Staging_SetPoints_Subsequences_Validation_Capacities_uLow_uHig.txt
+=======
+last-generated=2020-05-29
+>>>>>>> issue1378_staging_primarySequences
 statistics-simulation=
 {
   "linear": " ",

@@ -46,17 +46,18 @@ protected
   "Specific heat capacity of water";
 
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam
+    "Triggered sampler"
     annotation (Placement(transformation(extent={{-40,120},{-20,140}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Logical.Switch swi "Switch"
     annotation (Placement(transformation(extent={{80,120},{100,140}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Edge edg
+  Buildings.Controls.OBC.CDL.Logical.Edge edg "Edge"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
     final trueHoldDuration=holPer,
-    final falseHoldDuration=0)
+    final falseHoldDuration=0) "True hold"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant density(

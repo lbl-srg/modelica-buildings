@@ -83,12 +83,12 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
     final trueHoldDuration=0,
-    final falseHoldDuration=6)
+    final falseHoldDuration=6) "Holds false signal"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol1(
     final trueHoldDuration=0,
-    final falseHoldDuration=6)
+    final falseHoldDuration=6) "Holds false signal"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 
 equation

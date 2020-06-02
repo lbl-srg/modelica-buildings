@@ -7,6 +7,11 @@ block Change "Calculates the chiller stage signal"
   parameter Modelica.SIunits.Time delayStaCha = 900
     "Hold period for each stage change";
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla
+    "Plant enable signal"
+    annotation (Placement(transformation(extent={{-478,140},{-438,180}}),
+    iconTransformation(extent={{-140,-120},{-100,-80}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uUp
     "Stage up status"
     annotation (Placement(transformation(extent={{-478,-60},{-438,-20}}),
@@ -38,6 +43,22 @@ block Change "Calculates the chiller stage signal"
     annotation (Placement(transformation(extent={{-478,0}, {-438,40}}),
     iconTransformation(extent={{-140,0},{-100,40}})));
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChaEdg
+    "Chiller stage change edge signal"
+    annotation (Placement(transformation(
+          extent={{440,-20},{480,20}}), iconTransformation(extent={{100,-60},{
+            140,-20}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChaUpEdg
+    "Chiller stage up change edge signal"
+    annotation (Placement(transformation(extent={{440,40},{480,80}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChaDowEdg
+    "Chiller stage down change edge signal"
+    annotation (Placement(transformation(extent={{440,-80},{480,-40}}),
+        iconTransformation(extent={{100,-100},{140,-60}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput ySta(
     final min=0,
     final max = nSta)
@@ -45,16 +66,6 @@ block Change "Calculates the chiller stage signal"
     annotation (Placement(
         transformation(extent={{440,140},{480,180}}),  iconTransformation(
           extent={{100,20},{140,60}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChaEdg
-    "Chiller stage change edge signal" annotation (Placement(transformation(
-          extent={{440,-20},{480,20}}), iconTransformation(extent={{100,-60},{
-            140,-20}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla
-    "Plant enable signal"
-    annotation (Placement(transformation(extent={{-478,140},{-438,180}}),
-    iconTransformation(extent={{-140,-120},{-100,-80}})));
 
 protected
   Buildings.Controls.OBC.CDL.Logical.Or or2 "Logical or"
@@ -139,12 +150,6 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and3 "And"
     annotation (Placement(transformation(extent={{280,90},{300,110}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Not not2 "Not"
-    annotation (Placement(transformation(extent={{340,10},{360,30}})));
-
-  Buildings.Controls.OBC.CDL.Logical.And and5 "And"
-    annotation (Placement(transformation(extent={{400,-10},{420,10}})));
-
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold staChaHol1(
     final trueHoldDuration=delayStaCha,
     final falseHoldDuration=0)
@@ -185,6 +190,9 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre1 "Previous value"
     annotation (Placement(transformation(extent={{406,-118},{426,-98}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Change cha "Integer change"
+    annotation (Placement(transformation(extent={{380,0},{400,20}})));
 
 equation
   connect(reaToInt.y,ySta)
@@ -233,8 +241,6 @@ equation
   connect(and3.y,lat1. clr) annotation (Line(points={{302,100},{320,100},{320,140},
           {80,140},{80,154},{100,154}},
                                       color={255,0,255}));
-  connect(not2.y,and5. u1) annotation (Line(points={{362,20},{380,20},{380,0},{398,
-          0}},        color={255,0,255}));
   connect(and1.y,staChaHol1. u) annotation (Line(points={{-58,-190},{-40,-190},{
           -40,-170},{-22,-170}},
                                color={255,0,255}));
@@ -278,30 +284,32 @@ equation
     annotation (Line(points={{-298,60},{-202,60}}, color={255,0,255}));
   connect(and3.u1, and6.y) annotation (Line(points={{278,100},{-100,100},{-100,-80},
           {-138,-80}}, color={255,0,255}));
-  connect(and5.y, yChaEdg)
-    annotation (Line(points={{422,0},{460,0}}, color={255,0,255}));
   connect(lat1.y, switch2.u2) annotation (Line(points={{124,160},{160,160},{160,
           200},{338,200}}, color={255,0,255}));
-  connect(lat1.y, not2.u) annotation (Line(points={{124,160},{330,160},{330,20},
-          {338,20}}, color={255,0,255}));
   connect(or1.y, staChaHol2.u) annotation (Line(points={{142,-50},{152,-50},{152,
           -24},{100,-24},{100,-10},{118,-10}}, color={255,0,255}));
   connect(staChaHol2.y, triSam.trigger) annotation (Line(points={{142,-10},{150,
           -10},{150,48.2}}, color={255,0,255}));
   connect(edg1.y, or1.u1) annotation (Line(points={{22,-80},{40,-80},{40,-50},{118,
           -50}}, color={255,0,255}));
-  connect(staChaHol2.y, and5.u2) annotation (Line(points={{142,-10},{270,-10},{270,
-          -8},{398,-8}}, color={255,0,255}));
   connect(edg1.y, or3.u2) annotation (Line(points={{22,-80},{210,-80},{210,-58},
           {218,-58}}, color={255,0,255}));
-  connect(and5.y, staChaHol3.u) annotation (Line(points={{422,0},{426,0},{426,
-          -82},{282,-82},{282,-108},{338,-108}}, color={255,0,255}));
   connect(staChaHol3.y, not1.u)
     annotation (Line(points={{362,-108},{376,-108}}, color={255,0,255}));
   connect(not1.y, pre1.u)
     annotation (Line(points={{400,-108},{404,-108}}, color={255,0,255}));
   connect(pre1.y, and6.u3) annotation (Line(points={{428,-108},{428,-286},{-170,
           -286},{-170,-88},{-162,-88}}, color={255,0,255}));
+  connect(reaToInt.y, cha.u) annotation (Line(points={{422,160},{430,160},{430,126},
+          {360,126},{360,10},{378,10}}, color={255,127,0}));
+  connect(cha.y, yChaEdg) annotation (Line(points={{402,10},{432,10},{432,0},{460,
+          0}}, color={255,0,255}));
+  connect(cha.y, staChaHol3.u) annotation (Line(points={{402,10},{410,10},{410,-60},
+          {320,-60},{320,-108},{338,-108}}, color={255,0,255}));
+  connect(cha.up, yChaUpEdg) annotation (Line(points={{402,16},{420,16},{420,60},
+          {460,60}}, color={255,0,255}));
+  connect(cha.down, yChaDowEdg) annotation (Line(points={{402,4},{420,4},{420,-60},
+          {460,-60}}, color={255,0,255}));
   annotation (defaultComponentName = "cha",
         Icon(graphics={
         Rectangle(

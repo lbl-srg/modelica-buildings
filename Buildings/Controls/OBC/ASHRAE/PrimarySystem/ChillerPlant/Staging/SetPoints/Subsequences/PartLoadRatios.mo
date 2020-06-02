@@ -348,16 +348,16 @@ protected
     "If staging down to stage 0 set staging down part load to 1"
     annotation (Placement(transformation(extent={{60,-150},{80,-130}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Equal intEqu4
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu4 "Equality"
     annotation (Placement(transformation(extent={{-180,0},{-160,20}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Max maxInt
+  Buildings.Controls.OBC.CDL.Integers.Max maxInt "Maximum"
     annotation (Placement(transformation(extent={{-240,260},{-220,280}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Max maxIntUp
+  Buildings.Controls.OBC.CDL.Integers.Max maxIntUp "Maximum"
     annotation (Placement(transformation(extent={{-240,160},{-220,180}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Max maxIntDown
+  Buildings.Controls.OBC.CDL.Integers.Max maxIntDown "Maximum"
     annotation (Placement(transformation(extent={{-240,100},{-220,120}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Max max if anyVsdCen "Maximum"

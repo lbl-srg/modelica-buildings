@@ -135,13 +135,15 @@ block SetpointController
     "Pressure difference hysteresis deadband"
     annotation (Dialog(tab="Conditionals", group="Value comparison parameters"));
 
-  parameter Real effConSigDif = 0.05
+  parameter Real effConSigDif(
+    final min=0,
+    final max=1) = 0.05
     "Signal hysteresis deadband"
     annotation (Dialog(tab="Conditionals", group="Value comparison parameters"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla "Plant enable signal"
     annotation (Placement(
-        transformation(extent={{-440,-120},{-400,-80}}),  iconTransformation(
+        transformation(extent={{-440,-120},{-400,-80}}), iconTransformation(
           extent={{-140,-230},{-100,-190}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput chaPro "Stage change process status signal"
@@ -158,8 +160,11 @@ block SetpointController
     annotation (Placement(transformation(extent={{-442,-220},{-402,-180}}),
         iconTransformation(extent={{-140,-210},{-100,-170}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uSta(final min=0, final
-      max=nSta) "Chiller stage" annotation (Placement(transformation(extent={{-440,
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uSta(
+    final min=0,
+    final max=nSta)
+    "Chiller stage"
+    annotation (Placement(transformation(extent={{-440,
             -80},{-400,-40}}), iconTransformation(extent={{-140,-140},{-100,-100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TWsePre(
@@ -236,23 +241,46 @@ block SetpointController
     annotation (Placement(transformation(extent={{-442,320},{-402,360}}),
     iconTransformation(extent={{-140,150},{-100,190}})));
 
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTunPar if have_WSE
+    "Tuning parameter as at last plant disable"
+    annotation (Placement(transformation(extent={{-440,130},{-400,170}}),
+      iconTransformation(extent={{-140,-20},{-100,20}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TOutWet(
+    final unit="K",
+    final quantity="ThermodynamicTemperature") if have_WSE
+    "Outdoor air wet bulb temperature"
+    annotation (Placement(transformation(extent={{-440,380},{-400,420}}),
+      iconTransformation(extent={{-140,0},{-100,40}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChiSet[nChi]
     "Chiller status setpoint vector for the current chiller stage setpoint"
     annotation (Placement(transformation(extent={{120,-280},{160,-240}}),
-        iconTransformation(extent={{100,-90},{140,-50}})));
+        iconTransformation(extent={{100,-190},{140,-150}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChaEdg
-    "Chiller stage change edge signal" annotation (Placement(transformation(
-          extent={{120,-200},{160,-160}}), iconTransformation(extent={{100,-20},
+    "Chiller stage change edge signal"
+    annotation (Placement(transformation(
+          extent={{120,-160},{160,-120}}), iconTransformation(extent={{100,-20},
             {140,20}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChaUpEdg
+    "Chiller stage up change edge signal"
+    annotation (Placement(transformation(extent={{120,-90},{160,-50}}),
+        iconTransformation(extent={{100,50},{140,90}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChaDowEdg
+    "Chiller stage down change edge signal"
+    annotation (Placement(transformation(extent={{120,-220},{160,-180}}),
+        iconTransformation(extent={{100,-90},{140,-50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput ySta(
     final min=0,
     final max=nSta)
     "Chiller stage integer setpoint"
     annotation (Placement(
-        transformation(extent={{120,-140},{160,-100}}),iconTransformation(
-          extent={{100,50},{140,90}})));
+        transformation(extent={{120,-20},{160,20}}),   iconTransformation(
+          extent={{100,130},{140,170}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Up staUp(
     final have_WSE=have_WSE,
@@ -290,21 +318,11 @@ block SetpointController
     final nSta=nSta) "Design and minimum capacities for relevant chiller stages"
     annotation (Placement(transformation(extent={{-270,-180},{-250,-160}})));
 
+protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Initial iniSta(
     final have_WSE=have_WSE)
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
 
-  CDL.Interfaces.RealInput                        uTunPar if have_WSE
-    "Tuning parameter as at last plant disable"
-    annotation (Placement(transformation(extent={{-440,130},{-400,170}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
-  CDL.Interfaces.RealInput                        TOutWet(final unit="K",
-      final quantity="ThermodynamicTemperature") if
-                                                  have_WSE
-    "Outdoor air wet bulb temperature"
-    annotation (Placement(transformation(extent={{-440,380},{-400,420}}),
-      iconTransformation(extent={{-140,0},{-100,40}})));
-//protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Configurator conf(
     final nSta = nSta,
     final nChi = nChi,
@@ -341,6 +359,7 @@ block SetpointController
     nChi=nChi,
     staMat=staMat) "Calculates chiller status setpoint vector"
     annotation (Placement(transformation(extent={{40,-210},{60,-190}})));
+
 equation
   connect(uChiAva, conf.uChiAva)
     annotation (Line(points={{-422,-200},{-382,-200},{-382,-170},{-362,-170}},
@@ -352,7 +371,7 @@ equation
   connect(TChiWatRet, capReq.TChiWatRet) annotation (Line(points={{-422,300},{-374,
           300},{-374,314},{-324,314}}, color={0,0,127}));
   connect(VChiWat_flow, capReq.VChiWat_flow) annotation (Line(points={{-422,270},
-          {-366,270},{-366,309},{-324,309}}, color={0,0,127}));
+          {-370,270},{-370,309},{-324,309}}, color={0,0,127}));
   connect(conf.yDesCap, cap.uDesCap) annotation (Line(points={{-338,-162},{-322,
           -162},{-322,-161},{-272,-161}}, color={0,0,127}));
   connect(conf.yMinCap, cap.uMinCap) annotation (Line(points={{-338,-166},{-312,
@@ -405,8 +424,8 @@ equation
   connect(TChiWatSupSet, staUp.TChiWatSupSet) annotation (Line(points={{-422,370},
           {-162,370},{-162,-105},{-102,-105}},
                                        color={0,0,127}));
-  connect(TChiWatSup, staUp.TChiWatSup) annotation (Line(points={{-422,340},{-382,
-          340},{-382,270},{-164,270},{-164,-107},{-102,-107}},
+  connect(TChiWatSup, staUp.TChiWatSup) annotation (Line(points={{-422,340},{
+          -386,340},{-386,284},{-164,284},{-164,-107},{-102,-107}},
                                                          color={0,0,127}));
   connect(dpChiWatPumSet, staUp.dpChiWatPumSet) annotation (Line(points={{-422,220},
           {-144,220},{-144,-110},{-102,-110}},
@@ -429,8 +448,8 @@ equation
   connect(TChiWatSupSet, staDow.TChiWatSupSet) annotation (Line(points={{-422,370},
           {-152,370},{-152,-230},{-102,-230}},
                                          color={0,0,127}));
-  connect(TChiWatSup, staDow.TChiWatSup) annotation (Line(points={{-422,340},{-382,
-          340},{-382,270},{-154,270},{-154,-232},{-102,-232}},
+  connect(TChiWatSup, staDow.TChiWatSup) annotation (Line(points={{-422,340},{
+          -386,340},{-386,284},{-154,284},{-154,-232},{-102,-232}},
                                                        color={0,0,127}));
   connect(TWsePre, staDow.TWsePre) annotation (Line(points={{-422,120},{-156,120},
           {-156,-234},{-102,-234}},
@@ -466,11 +485,10 @@ equation
   connect(uPla, cha.uPla) annotation (Line(points={{-420,-100},{-280,-100},{-280,
           -140},{-60,-140},{-60,-180},{-22,-180}},
                                              color={255,0,255}));
-  connect(cha.ySta, ySta) annotation (Line(points={{2,-166},{20,-166},{20,-120},
-          {140,-120}},
-                     color={255,127,0}));
-  connect(cha.yChaEdg, yChaEdg) annotation (Line(points={{2,-174},{114,-174},{
-          114,-180},{140,-180}}, color={255,0,255}));
+  connect(cha.ySta, ySta) annotation (Line(points={{2,-166},{20,-166},{20,0},{140,
+          0}},       color={255,127,0}));
+  connect(cha.yChaEdg, yChaEdg) annotation (Line(points={{2,-174},{80,-174},{80,
+          -140},{140,-140}},     color={255,0,255}));
   connect(chiInd.yChi, yChiSet) annotation (Line(points={{62,-200},{80,-200},{
           80,-260},{140,-260}}, color={255,0,255}));
   connect(cha.ySta, chiInd.u) annotation (Line(points={{2,-166},{20,-166},{20,-200},
@@ -487,6 +505,10 @@ equation
           {-294,110},{-82,110}}, color={255,127,0}));
   connect(uPla, iniSta.uPla) annotation (Line(points={{-420,-100},{-280,-100},{-280,
           104},{-82,104}}, color={255,0,255}));
+  connect(cha.yChaUpEdg, yChaUpEdg) annotation (Line(points={{2,-170},{60,-170},
+          {60,-70},{140,-70}}, color={255,0,255}));
+  connect(cha.yChaDowEdg, yChaDowEdg) annotation (Line(points={{2,-178},{100,-178},
+          {100,-200},{140,-200}}, color={255,0,255}));
   annotation (defaultComponentName = "staSetCon",
         Icon(coordinateSystem(extent={{-100,-160},{100,160}}, initialScale=0.2),
         graphics={
@@ -580,7 +602,7 @@ equation
           pattern=LinePattern.Dash,
           textString="uChiAva"),
         Text(
-          extent={{66,64},{98,80}},
+          extent={{64,144},{96,160}},
           lineColor={244,125,35},
           pattern=LinePattern.Dash,
           textString="ySta"),
@@ -590,10 +612,10 @@ equation
           pattern=LinePattern.Dash,
           textString="yChaEdg"),
         Text(
-          extent={{62,-62},{96,-78}},
+          extent={{40,-154},{92,-182}},
           lineColor={217,67,180},
           pattern=LinePattern.Dash,
-          textString="yChi"),
+          textString="yChiSet[]"),
         Text(
           extent={{-96,10},{-44,-8}},
           lineColor={0,0,127},
@@ -603,7 +625,17 @@ equation
           extent={{-96,30},{-44,12}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TOutWet")}),
+          textString="TOutWet"),
+        Text(
+          extent={{28,92},{94,50}},
+          lineColor={217,67,180},
+          pattern=LinePattern.Dash,
+          textString="yChaUpEdg"),
+        Text(
+          extent={{16,-50},{94,-86}},
+          lineColor={217,67,180},
+          pattern=LinePattern.Dash,
+          textString="yChaDowEdg")}),
                                  Diagram(
         coordinateSystem(preserveAspectRatio=false,
         extent={{-400,-300},{120,420}})),

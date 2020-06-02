@@ -156,7 +156,7 @@ protected
     "Measures the disable condition satisfied time "
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Not not1
+  Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 
 equation
