@@ -1,4 +1,4 @@
-﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic;
 block PlantEnable
   "Sequence to enable/disable boiler plant based on heating hot-water requirements"
 
