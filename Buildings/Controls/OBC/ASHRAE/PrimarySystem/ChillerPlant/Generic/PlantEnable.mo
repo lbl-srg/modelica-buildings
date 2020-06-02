@@ -1,7 +1,7 @@
 ﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic;
 block PlantEnable "Sequence to enable and disable plant"
 
-  parameter Boolean haveWSE = true
+  parameter Boolean have_WSE = true
     "Flag to indicate if the plant has waterside economizer";
   parameter Real schTab[4,2] = [0,1; 6*3600,1; 19*3600,1; 24*3600,1]
     "Plant enabling schedule allowing operators to lock out the plant during off-hour";
@@ -15,16 +15,16 @@ block PlantEnable "Sequence to enable and disable plant"
     "Ignorable chiller plant requests";
   parameter Modelica.SIunits.TemperatureDifference heaExcAppDes=2
     "Design heat exchanger approach"
-    annotation (Dialog(group="Waterside economizer", enable=haveWSE));
+    annotation (Dialog(group="Waterside economizer", enable=have_WSE));
   parameter Modelica.SIunits.TemperatureDifference cooTowAppDes=2
     "Design cooling tower approach"
-    annotation (Dialog(group="Waterside economizer", enable=haveWSE));
+    annotation (Dialog(group="Waterside economizer", enable=have_WSE));
   parameter Modelica.SIunits.Temperature TOutWetDes=288.15
     "Design outdoor air wet bulb temperature"
-    annotation (Dialog(group="Waterside economizer", enable=haveWSE));
+    annotation (Dialog(group="Waterside economizer", enable=have_WSE));
   parameter Modelica.SIunits.VolumeFlowRate VHeaExcDes_flow=0.01
     "Desing heat exchanger chilled water flow rate"
-    annotation (Dialog(group="Waterside economizer", enable=haveWSE));
+    annotation (Dialog(group="Waterside economizer", enable=have_WSE));
   parameter Real locDt = 1
     "Offset temperature for lockout chiller"
     annotation (Dialog(tab="Advanced"));
@@ -47,17 +47,17 @@ block PlantEnable "Sequence to enable and disable plant"
       iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOutWet(
     final unit="K",
-    final quantity="ThermodynamicTemperature") if haveWSE
+    final quantity="ThermodynamicTemperature") if have_WSE
     "Outdoor air wet bulb temperature"
     annotation (Placement(transformation(extent={{-240,-160},{-200,-120}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTunPar if haveWSE
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTunPar if have_WSE
     "Tuning parameter as at last plant disable"
     annotation (Placement(transformation(extent={{-240,-240},{-200,-200}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
     final unit="K",
-    final quantity="ThermodynamicTemperature") if haveWSE
+    final quantity="ThermodynamicTemperature") if have_WSE
     "Chilled water supply setpoint"
     annotation (Placement(transformation(extent={{-240,-120},{-200,-80}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
@@ -75,7 +75,7 @@ block PlantEnable "Sequence to enable and disable plant"
     final heaExcAppDes=heaExcAppDes,
     final cooTowAppDes=cooTowAppDes,
     final TOutWetDes=TOutWetDes,
-    final VHeaExcDes_flow=VHeaExcDes_flow) if haveWSE
+    final VHeaExcDes_flow=VHeaExcDes_flow) if have_WSE
     "Waterside economizer outlet temperature predictor"
     annotation (Placement(transformation(extent={{-140,-190},{-120,-170}})));
 
@@ -154,18 +154,18 @@ protected
     "Zero stage"
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(final uLow=wseDt,
-      final uHigh=wseDt + hysDt) if haveWSE
+      final uHigh=wseDt + hysDt) if have_WSE
     "Check if predict heat exchange leaving water temperature is greater than chilled water supply temperature setpoint minus 1degF"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback feedback if haveWSE
+  Buildings.Controls.OBC.CDL.Continuous.Feedback feedback if have_WSE
     "Difference between predicted heat exchanger leaving water temperature and chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-110,-130},{-90,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(
-    final k=true) if not haveWSE "Constant true"
+    final k=true) if not have_WSE "Constant true"
     annotation (Placement(transformation(extent={{-60,-190},{-40,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3(k=VHeaExcDes_flow) if haveWSE
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3(k=VHeaExcDes_flow) if have_WSE
     "Design heat exchanger chiller water flow rate"
     annotation (Placement(transformation(extent={{-180,-190},{-160,-170}})));
   Buildings.Controls.OBC.CDL.Logical.Not not3 "Logical not"
@@ -376,11 +376,11 @@ The initial stage <code>yIniChiSta</code> should be defined as:
 </p>
 <ol>
 <li>
-When the plant is enabled and the plant has no waterside economizer (<code>haveWSE</code>=false), 
+When the plant is enabled and the plant has no waterside economizer (<code>have_WSE</code>=false), 
 the initial stage will be 1.
 </li>
 <li>
-When the plant is enabled and the plant has waterside economizer (<code>haveWSE</code>=true),
+When the plant is enabled and the plant has waterside economizer (<code>have_WSE</code>=true),
 the initial stage should be:
 <ul>
 <li>

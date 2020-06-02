@@ -43,7 +43,7 @@ block Controller
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
       iconTransformation(extent={{-140,30},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uUpsDevSta
-    "During chiller stage changing process, resetting status of device before reset minimum flow setpoint"
+    "True only when the plant is in the chiller staging process and the upstream steps have finished"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
       iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSubCha
@@ -92,7 +92,7 @@ block Controller
     final isParallelChiller=isParallelChiller,
     final byPasSetTim=byPasSetTim,
     final minFloSet=minFloSet,
-    final maxFloSet=maxFloSet)  "Minimum by-pass flow setpoint"
+    final maxFloSet=maxFloSet)  "Minimum bypass flow setpoint"
     annotation (Placement(transformation(extent={{-20,-24},{0,-4}})));
 
 protected
@@ -154,7 +154,7 @@ equation
   connect(swi.y, yValPos)
     annotation (Line(points={{62,130},{120,130}}, color={0,0,127}));
   connect(uChiWatPum, valPos.trigger)
-    annotation (Line(points={{-120,130},{10,130},{10,60},{42,60},{42,68}},
+    annotation (Line(points={{-120,130},{10,130},{10,60},{44,60},{44,68}},
       color={255,0,255}));
   connect(nexEnaChi, minBypSet.nexEnaChi)
     annotation (Line(points={{-120,-90},{-50,-90},{-50,-13},{-22,-13}},

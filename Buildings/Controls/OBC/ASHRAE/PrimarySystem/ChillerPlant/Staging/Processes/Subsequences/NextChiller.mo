@@ -11,7 +11,7 @@ block NextChiller "Identify next enable and disable chillers"
     "Vector of chillers status setpoint"
     annotation (Placement(transformation(extent={{-260,-40},{-220,0}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uInPro
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput chaPro
     "True: in the stage change process"
     annotation (Placement(transformation(extent={{-260,-180},{-220,-140}}),
       iconTransformation(extent={{-140,-90},{-100,-50}})));
@@ -24,7 +24,7 @@ block NextChiller "Identify next enable and disable chillers"
     annotation (Placement(transformation(extent={{220,90},{260,130}}),
       iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yOnOff
-    "Indicate if the stage require one chiller to be enabled while another is disabled"
+    "True: if the stage change require one chiller to be enabled while another is disabled"
     annotation (Placement(transformation(extent={{220,-40},{260,0}}),
       iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLasDisChi
@@ -132,7 +132,7 @@ equation
           {-202,40}},       color={255,0,255}));
   connect(uChiSet, falEdg.u) annotation (Line(points={{-240,-20},{-210,-20},{-210,
           -100},{-202,-100}}, color={255,0,255}));
-  connect(uInPro, endPro.u)
+  connect(chaPro, endPro.u)
     annotation (Line(points={{-240,-160},{-202,-160}}, color={255,0,255}));
   connect(edg.y, enaChi.u)
     annotation (Line(points={{-178,40},{-122,40}},   color={255,0,255}));
@@ -252,7 +252,7 @@ annotation (
           extent={{-98,-62},{-64,-74}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uInPro"),
+          textString="chaPro"),
         Text(
           extent={{50,52},{98,32}},
           lineColor={255,127,0},

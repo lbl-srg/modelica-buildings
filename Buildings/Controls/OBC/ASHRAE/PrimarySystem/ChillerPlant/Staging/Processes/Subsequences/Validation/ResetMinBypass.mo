@@ -18,7 +18,7 @@ protected
     "Upstream device reset status"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul2(
-    final width=0.20,
+    final width=0.2,
     final period=600) "Boolean pulse"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp minFloSet(
@@ -41,7 +41,7 @@ equation
     annotation (Line(points={{-58,10},{-42,10}}, color={255,0,255}));
   connect(upStrDev.y, minBypRes.uUpsDevSta)
     annotation (Line(points={{-18,50},{0,50},{0,56},{38,56}}, color={255,0,255}));
-  connect(staUp.y, minBypRes.uStaCha)
+  connect(staUp.y, minBypRes.chaPro)
     annotation (Line(points={{-18,10},{4,10},{4,52},{38,52}}, color={255,0,255}));
   connect(meaFlo.y, minBypRes.VChiWat_flow)
     annotation (Line(points={{-18,-30},{8,-30},{8,44},{38,44}}, color={0,0,127}));

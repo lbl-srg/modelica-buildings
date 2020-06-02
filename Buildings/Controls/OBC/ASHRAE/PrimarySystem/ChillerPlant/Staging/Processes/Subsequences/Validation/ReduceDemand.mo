@@ -30,7 +30,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerLoa(
     final k=0) "Zero chiller load"
     annotation (Placement(transformation(extent={{-260,10},{-240,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minOPLR(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yOpeParLoaRatMin(
     final k=0.7)
     "Minimum cycling operative partial load ratio"
     annotation (Placement(transformation(extent={{-260,-30},{-240,-10}})));
@@ -54,7 +54,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiLoa1(
     final k=1000) "Chiller load"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minOPLR1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yOpeParLoaRatMin1(
     final k=0.7)
     "Minimum cycling operative partial load ratio"
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
@@ -97,7 +97,7 @@ equation
   connect(zerLoa.y, chiDemRed.uChiLoa[2])
     annotation (Line(points={{-238,20},{-126,20},{-126,116},{-102,116}},
       color={0,0,127}));
-  connect(minOPLR.y, chiDemRed.minOPLR)
+  connect(yOpeParLoaRatMin.y, chiDemRed.yOpeParLoaRatMin)
     annotation (Line(points={{-238,-20},{-122,-20},{-122,111},{-102,111}},
       color={0,0,127}));
   connect(staDow.y, chiDemRed.uStaDow)
@@ -117,7 +117,7 @@ equation
   connect(limDem1.y, chiDemRed1.uDemLim)
     annotation (Line(points={{102,100},{120,100},{120,69},{198,69}},
       color={255,0,255}));
-  connect(minOPLR1.y, chiDemRed1.minOPLR)
+  connect(yOpeParLoaRatMin1.y, chiDemRed1.yOpeParLoaRatMin)
     annotation (Line(points={{62,-90},{178,-90},{178,61},{198,61}},
       color={0,0,127}));
   connect(chiDemRed1.yChiDem, zerOrdHol1.u)

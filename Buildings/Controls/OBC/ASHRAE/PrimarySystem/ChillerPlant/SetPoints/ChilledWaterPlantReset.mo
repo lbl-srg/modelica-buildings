@@ -33,7 +33,7 @@ block ChilledWaterPlantReset
     "Cooling chilled water supply temperature setpoint reset request"
     annotation (Placement(transformation(extent={{-160,0},{-120,40}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaCha
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput chaPro
     "Plant staging status that indicates if the plant is in the staging process"
     annotation (Placement(transformation(extent={{-160,-60},{-120,-20}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
@@ -110,9 +110,9 @@ equation
     annotation (Line(points={{2,0},{70,0},{70,48.2}}, color={255,0,255}));
   connect(swi.y, yChiWatPlaRes)
     annotation (Line(points={{102,-40},{140,-40}}, color={0,0,127}));
-  connect(uStaCha, truHol.u)
+  connect(chaPro, truHol.u)
     annotation (Line(points={{-140,-40},{-22,-40}},color={255,0,255}));
-  connect(uStaCha, edg.u)
+  connect(chaPro, edg.u)
     annotation (Line(points={{-140,-40},{-60,-40},{-60,0},{-22,0}},
       color={255,0,255}));
 
@@ -156,7 +156,7 @@ annotation (
           extent={{-94,-52},{-56,-66}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uStaCha"),
+          textString="chaPro"),
         Text(
           extent={{38,12},{96,-12}},
           lineColor={0,0,127},
@@ -202,7 +202,7 @@ the plant is disabled (all chilled water pumps are disabled, <code>uChiWatPum</c
 </ul>
 <ul>
 <li>
-When the plant stage change is initiated (<code>uStaCha</code>=true), the plant 
+When the plant stage change is initiated (<code>chaPro</code>=true), the plant 
 reset <code>yChiWatPlaRes</code> shall be disabled and value fixed at its last 
 value for the longer of <code>holTim</code> and the time it takes for the plant 
 to successfully stage.

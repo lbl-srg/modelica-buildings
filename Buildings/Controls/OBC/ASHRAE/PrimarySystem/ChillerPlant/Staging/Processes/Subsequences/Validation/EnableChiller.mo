@@ -35,11 +35,13 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant disChi(final k=2)
     "Disabling chiller index"
     annotation (Placement(transformation(extent={{-160,-110},{-140,-90}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre pre[2] "Break algebraic loops"
+  Buildings.Controls.OBC.CDL.Logical.Pre chiStaRet[2]
+    "Chiller status return value"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch chiTwo "Chiller two status"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre pre1  "Break algebraic loops"
+  Buildings.Controls.OBC.CDL.Logical.Pre chiStaRet1
+    "Chiller status return value"
     annotation (Placement(transformation(extent={{140,70},{160,90}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant noOnOff(final k=false)
     "Does not requires one chiller on and another chiller off"
@@ -68,25 +70,21 @@ equation
   connect(chiIsoVal.y, chiTwo.u2)
     annotation (Line(points={{-138,20},{-116,20},{-116,-40},{-42,-40}},
       color={255,0,255}));
-  connect(pre[1].y, chiTwo.u1)
-    annotation (Line(points={{-18,80},{0,80},{0,0},{-60,0},{-60,-32},{-42,-32}},
-      color={255,0,255}));
+  connect(chiStaRet[1].y, chiTwo.u1) annotation (Line(points={{-18,80},{0,80},{
+          0,0},{-60,0},{-60,-32},{-42,-32}}, color={255,0,255}));
   connect(chiOne.y, chiTwo.u3)
     annotation (Line(points={{-138,-20},{-112,-20},{-112,-48},{-42,-48}},
       color={255,0,255}));
   connect(chiTwo.y, enaDisChi.uChi[2])
     annotation (Line(points={{-18,-40},{0,-40},{0,-70},{-108,-70},{-108,78},
       {-82,78}}, color={255,0,255}));
-  connect(enaDisChi.yChi[2], pre[1].u)
-    annotation (Line(points={{-58,88},{-50,88},{-50,80},{-42,80}},
-      color={255,0,255}));
-  connect(enaDisChi.yChi[3], pre[2].u)
-    annotation (Line(points={{-58,89.3333},{-50,89.3333},{-50,80},{-42,80}},
-      color={255,0,255}));
-  connect(pre[2].y, enaDisChi.uChi[3])
-    annotation (Line(points={{-18,80},{0,80},{0,40},{-104,40},{-104,79.3333},{
-          -82,79.3333}},
-                      color={255,0,255}));
+  connect(enaDisChi.yChi[2], chiStaRet[1].u) annotation (Line(points={{-58,88},
+          {-50,88},{-50,80},{-42,80}}, color={255,0,255}));
+  connect(enaDisChi.yChi[3], chiStaRet[2].u) annotation (Line(points={{-58,
+          89.3333},{-50,89.3333},{-50,80},{-42,80}}, color={255,0,255}));
+  connect(chiStaRet[2].y, enaDisChi.uChi[3]) annotation (Line(points={{-18,80},
+          {0,80},{0,40},{-104,40},{-104,79.3333},{-82,79.3333}}, color={255,0,
+          255}));
   connect(onOff.y, enaDisChi.uOnOff)
     annotation (Line(points={{-138,-60},{-100,-60},{-100,74},{-82,74}},
       color={255,0,255}));
@@ -114,13 +112,10 @@ equation
   connect(disChi1.y, enaOneChi.nexDisChi)
     annotation (Line(points={{42,-100},{60,-100},{60,71},{98,71}},
       color={255,127,0}));
-  connect(enaOneChi.yChi[3], pre1.u)
-    annotation (Line(points={{122,89.3333},{130,89.3333},{130,80},{138,80}},
-      color={255,0,255}));
-  connect(pre1.y, enaOneChi.uChi[3])
-    annotation (Line(points={{162,80},{180,80},{180,40},{52,40},{52,79.3333},{
-          98,79.3333}},
-                     color={255,0,255}));
+  connect(enaOneChi.yChi[3], chiStaRet1.u) annotation (Line(points={{122,
+          89.3333},{130,89.3333},{130,80},{138,80}}, color={255,0,255}));
+  connect(chiStaRet1.y, enaOneChi.uChi[3]) annotation (Line(points={{162,80},{
+          180,80},{180,40},{52,40},{52,79.3333},{98,79.3333}}, color={255,0,255}));
 
 annotation (
  experiment(StopTime=3600, Tolerance=1e-06),

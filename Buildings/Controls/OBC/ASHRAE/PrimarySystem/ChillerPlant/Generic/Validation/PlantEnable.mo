@@ -12,17 +12,17 @@ model PlantEnable "Validation sequence for enabling and disabling chiller plant"
     "Enabling control of plant with waterside economizer, stage up from one"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable disPlaSch(
-    final haveWSE=false,
+    final have_WSE=false,
     final schTab=[0,0; 6*3600,1; 19*3600,0; 24*3600,0])
     "Disable plant without waterside economizer, due to schedule"
     annotation (Placement(transformation(extent={{120,80},{140,100}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable disPlaReq(
-    final haveWSE=false,
+    final have_WSE=false,
     final schTab=[0,0; 6*3600,1; 19*3600,0; 24*3600,0])
     "Disable plant without waterside economizer, due to lack of request"
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable disPlaOutTem(
-    final haveWSE=false,
+    final have_WSE=false,
     final schTab=[0,0; 6*3600,1; 19*3600,0; 24*3600,0])
     "Disable plant without waterside economizer, due to low outdoor temperature"
     annotation (Placement(transformation(extent={{120,-100},{140,-80}})));

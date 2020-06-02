@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.Validation;
 model DownStartWithoutOn
-  "Validate sequence of start staging down process which does not require chiller ON"
+  "Validate sequence of starting the staging down process which does not require enabling a chiller"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.DownStart
     staStaDow(
@@ -31,7 +31,7 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant nexEnaChi(
     final k=0) "Next enabling chiller"
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minOPLR(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yOpeParLoaRatMin(
     final k=0.7)
     "Minimum cycling operative partial load ratio"
     annotation (Placement(transformation(extent={{-120,170},{-100,190}})));
@@ -62,8 +62,8 @@ protected
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt "Convert real input to integer output"
     annotation (Placement(transformation(extent={{0,-250},{20,-230}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre pre2[2](
-    final pre_u_start=fill(true,2)) "Break algebraic loop"
+  Buildings.Controls.OBC.CDL.Logical.Pre chiStaRet[2](final pre_u_start=fill(
+        true, 2)) "Chiller status return value"
     annotation (Placement(transformation(extent={{100,170},{120,190}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[2] "Logical switch"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
@@ -91,7 +91,7 @@ equation
   connect(staDow.y, staStaDow.uStaDow)
     annotation (Line(points={{-58,220},{-50,220},{-50,210},{58,210}},
       color={255,0,255}));
-  connect(minOPLR.y, staStaDow.minOPLR)
+  connect(yOpeParLoaRatMin.y, staStaDow.yOpeParLoaRatMin)
     annotation (Line(points={{-98,180},{12,180},{12,208},{58,208}},
       color={0,0,127}));
   connect(chiFlo.y, staStaDow.VChiWat_flow)
@@ -108,21 +108,18 @@ equation
   connect(reaToInt.y, staStaDow.nexDisChi)
     annotation (Line(points={{22,-240},{48,-240},{48,190},{58,190}},
       color={255,127,0}));
-  connect(staStaDow.yChi, pre2.u)
-    annotation (Line(points={{82,194},{90,194},{90,180},{98,180}},
-      color={255,0,255}));
-  connect(pre2.y, swi1.u2)
-    annotation (Line(points={{122,180},{130,180},{130,160},{-60,160},{-60,140},
-      {-42,140}}, color={255,0,255}));
+  connect(staStaDow.yChi, chiStaRet.u) annotation (Line(points={{82,194},{90,
+          194},{90,180},{98,180}}, color={255,0,255}));
+  connect(chiStaRet.y, swi1.u2) annotation (Line(points={{122,180},{130,180},{
+          130,160},{-60,160},{-60,140},{-42,140}}, color={255,0,255}));
   connect(chiLoa.y, swi1.u1)
     annotation (Line(points={{-98,140},{-90,140},{-90,148},{-42,148}},
       color={0,0,127}));
   connect(zer1.y, swi1.u3)
     annotation (Line(points={{-98,100},{-80,100},{-80,132},{-42,132}},
       color={0,0,127}));
-  connect(pre2.y, logSwi.u2)
-    annotation (Line(points={{122,180},{130,180},{130,160},{-60,160},{-60,60},
-      {-42,60}}, color={255,0,255}));
+  connect(chiStaRet.y, logSwi.u2) annotation (Line(points={{122,180},{130,180},
+          {130,160},{-60,160},{-60,60},{-42,60}}, color={255,0,255}));
   connect(chiOn.y, logSwi.u1)
     annotation (Line(points={{-98,60},{-90,60},{-90,68},{-42,68}},
       color={255,0,255}));

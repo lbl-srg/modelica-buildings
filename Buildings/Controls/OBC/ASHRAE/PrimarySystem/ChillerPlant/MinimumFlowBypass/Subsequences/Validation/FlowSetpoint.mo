@@ -56,7 +56,6 @@ protected
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not3 "Logical not"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
     final k=3) "Index of enabling chiller"
     annotation (Placement(transformation(extent={{-140,110},{-120,130}})));
@@ -173,7 +172,6 @@ equation
   connect(reaToInt1.y, onOffStaUpMinFlo.nexDisChi)
     annotation (Line(points={{22,-120},{88,-120},{88,-1},{118,-1}},
       color={255,127,0}));
-
   connect(enaNexChi.y, not3.u)
     annotation (Line(points={{-118,-20},{-102,-20}}, color={255,0,255}));
   connect(noOnOff.y, staUpMinFlo.uSubCha) annotation (Line(points={{-118,60},{
@@ -182,6 +180,7 @@ equation
           76,60},{76,-164},{118,-164}}, color={255,0,255}));
   connect(not3.y, onOffStaUpMinFlo.uSubCha) annotation (Line(points={{-78,-20},
           {20,-20},{20,-4},{118,-4}}, color={255,0,255}));
+
 annotation (
  experiment(StopTime=4.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/MinimumFlowBypass/Subsequences/Validation/FlowSetpoint.mos"

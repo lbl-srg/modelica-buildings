@@ -5,7 +5,7 @@ model DisableChiller
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.DisableChiller
     chiOnOff(
     final nChi=3,
-    final proOnTim=300) "Disable large chiller and enable small chiller"
+    final proOnTim=300) "Disable a chiller and enable another chiller"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.DisableChiller
     chiOff(
@@ -51,9 +51,11 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant noUpDev(final k=false)
     "Constant false"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre pre[2] "Break algebraic loops"
+  Buildings.Controls.OBC.CDL.Logical.Pre chiStaRet[2]
+    "Chiller status return value"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre pre1[2] "Break algebraic loops"
+  Buildings.Controls.OBC.CDL.Logical.Pre chiStaRet1[2]
+    "Chiller status return value"
     annotation (Placement(transformation(extent={{140,70},{160,90}})));
 
 equation
@@ -79,17 +81,15 @@ equation
   connect(chiOne.y, chiTwo.u3)
     annotation (Line(points={{-138,-20},{-108,-20},{-108,-48},{-42,-48}},
       color={255,0,255}));
-  connect(chiOnOff.yChi[2], pre[1].u)
+  connect(chiOnOff.yChi[2], chiStaRet[1].u)
     annotation (Line(points={{-58,80},{-42,80}}, color={255,0,255}));
-  connect(chiOnOff.yChi[3], pre[2].u)
-    annotation (Line(points={{-58,81.3333},{-50,81.3333},{-50,80},{-42,80}},
-      color={255,0,255}));
-  connect(pre[1].y, chiTwo.u1)
-    annotation (Line(points={{-18,80},{-10,80},{-10,0},{-50,0},{-50,-32},
-      {-42,-32}},color={255,0,255}));
-  connect(pre[2].y, chiOnOff.uChi[3])
-    annotation (Line(points={{-18,80},{-10,80},{-10,40},{-112,40},{-112,79.3333},
-          {-82,79.3333}}, color={255,0,255}));
+  connect(chiOnOff.yChi[3], chiStaRet[2].u) annotation (Line(points={{-58,
+          81.3333},{-50,81.3333},{-50,80},{-42,80}}, color={255,0,255}));
+  connect(chiStaRet[1].y, chiTwo.u1) annotation (Line(points={{-18,80},{-10,80},
+          {-10,0},{-50,0},{-50,-32},{-42,-32}}, color={255,0,255}));
+  connect(chiStaRet[2].y, chiOnOff.uChi[3]) annotation (Line(points={{-18,80},{
+          -10,80},{-10,40},{-112,40},{-112,79.3333},{-82,79.3333}}, color={255,
+          0,255}));
   connect(chiTwo.y, chiOnOff.uChi[2])
     annotation (Line(points={{-18,-40},{-10,-40},{-10,-70},{-120,-70},{-120,78},
       {-82,78}}, color={255,0,255}));
@@ -114,27 +114,24 @@ equation
   connect(noOnOff.y, chiOff.uOnOff)
     annotation (Line(points={{42,-100},{80,-100},{80,71},{100,71}},
       color={255,0,255}));
-  connect(chiOff.yChi[2], pre1[1].u)
+  connect(chiOff.yChi[2], chiStaRet1[1].u)
     annotation (Line(points={{124,80},{138,80}}, color={255,0,255}));
-  connect(chiOff.yChi[3], pre1[2].u)
-    annotation (Line(points={{124,81.3333},{132,81.3333},{132,80},{138,80}},
-      color={255,0,255}));
+  connect(chiOff.yChi[3], chiStaRet1[2].u) annotation (Line(points={{124,
+          81.3333},{132,81.3333},{132,80},{138,80}}, color={255,0,255}));
   connect(staCha.y, chiTwo1.u2)
     annotation (Line(points={{-138,60},{56,60},{56,-40},{138,-40}},
       color={255,0,255}));
   connect(chiOne.y, chiTwo1.u3)
     annotation (Line(points={{-138,-20},{64,-20},{64,-48},{138,-48}},
       color={255,0,255}));
-  connect(pre1[1].y, chiTwo1.u1)
-    annotation (Line(points={{162,80},{170,80},{170,-20},{130,-20},{130,-32},
-      {138,-32}}, color={255,0,255}));
+  connect(chiStaRet1[1].y, chiTwo1.u1) annotation (Line(points={{162,80},{170,
+          80},{170,-20},{130,-20},{130,-32},{138,-32}}, color={255,0,255}));
   connect(chiTwo1.y, chiOff.uChi[2])
     annotation (Line(points={{162,-40},{170,-40},{170,-70},{68,-70},
       {68,78},{100,78}}, color={255,0,255}));
-  connect(pre1[2].y, chiOff.uChi[3])
-    annotation (Line(points={{162,80},{170,80},{170,40},{72,40},{72,79.3333},{
-          100,79.3333}},
-                       color={255,0,255}));
+  connect(chiStaRet1[2].y, chiOff.uChi[3]) annotation (Line(points={{162,80},{
+          170,80},{170,40},{72,40},{72,79.3333},{100,79.3333}}, color={255,0,
+          255}));
   connect(noUpDev.y, chiOff.uEnaChiWatIsoVal)
     annotation (Line(points={{42,20},{60,20},{60,82},{100,82}},
       color={255,0,255}));
