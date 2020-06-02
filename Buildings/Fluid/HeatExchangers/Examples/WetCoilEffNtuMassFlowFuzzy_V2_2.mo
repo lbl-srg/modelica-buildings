@@ -32,13 +32,14 @@ model WetCoilEffNtuMassFlowFuzzy_V2_2
     m_flow_nominal=m2_flow_nominal)
     "Relative humidity sensor"
     annotation (Placement(transformation(extent={{60,14},{40,34}})));
-
+/*
   Modelica.Blocks.Sources.CombiTimeTable resDis(
     tableOnFile=true,
     tableName="tab1",
     fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Fluid/HeatExchangers/Examples/WetCoilEffNtuMassFlowFuzzy_V2_2.mos"),
     columns={2,3}) "Reference results from WetCoilDiscretizedMassFlow"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+    */
 
 equation
   connect(sou_1.ports[1], hex.port_a1) annotation (Line(
