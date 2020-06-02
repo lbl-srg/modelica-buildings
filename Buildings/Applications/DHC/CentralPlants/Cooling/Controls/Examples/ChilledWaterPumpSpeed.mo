@@ -7,8 +7,10 @@ model ChilledWaterPumpSpeed
     dpSetPoi=68900,
     tWai=30,
     m_flow_nominal=0.5,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.00001,
-    Ti=240) "Chilled water pump speed controller"
+    Ti=240,
+    Td=0.1) "Chilled water pump speed controller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Constant dpMea(k=0.6*chiWatPumSpe.dpSetPoi)
     "Measured demand side pressure difference"

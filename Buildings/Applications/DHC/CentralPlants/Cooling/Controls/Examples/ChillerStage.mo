@@ -6,21 +6,19 @@ model ChillerStage "Example to test the chiller staging controller"
       QEva_nominal=-200*3.517*1000) "Chiller staging controller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Modelica.Blocks.Sources.Pulse QTot(
-    amplitude=0.6*chiStaCon.QEva_nominal,
-    period=300,
-    offset=0.2*chiStaCon.QEva_nominal,
-    startTime=150) "Total district cooling load"
-    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-
   Modelica.Blocks.Sources.BooleanTable on(table(displayUnit="s") = {300,900})
     "On signal of the cooling plant"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+  Modelica.Blocks.Sources.Sine QTot(
+    amplitude=0.5*chiStaCon.QEva_nominal,
+    freqHz=1/300,
+    offset=0.5*chiStaCon.QEva_nominal) "Total cooling load"
+    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 equation
-  connect(QTot.y, chiStaCon.QLoa) annotation (Line(points={{-39,-30},{-28,-30},{
-          -28,-4},{-12,-4}}, color={0,0,127}));
   connect(on.y, chiStaCon.on) annotation (Line(points={{-39,30},{-28,30},{-28,4},
           {-12,4}}, color={255,0,255}));
+  connect(QTot.y, chiStaCon.QLoa) annotation (Line(points={{-39,-30},{-28,-30},
+          {-28,-4},{-12,-4}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=1200, Tolerance=1e-06),

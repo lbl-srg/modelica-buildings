@@ -14,9 +14,13 @@ model ChilledWaterPumpSpeed
   parameter Real minSpe(unit="1",min=0,max=1) = 0.05
     "Minimum speed ratio required by chilled water pumps";
 
-  parameter Real k(min=0) = 1 "Gain of controller";
+  parameter Modelica.Blocks.Types.SimpleController controllerType=
+    Modelica.Blocks.Types.SimpleController.PID
+    "Type of pump speed controller";
 
-  parameter Modelica.SIunits.Time Ti=60
+  parameter Real k(unit="1", min=0) = 1 "Gain of controller";
+
+  parameter Modelica.SIunits.Time Ti(min=Modelica.Constants.small)=60
     "Time constant of Integrator block" annotation (Dialog(enable=
           controllerType == Modelica.Blocks.Types.SimpleController.PI or
           controllerType == Modelica.Blocks.Types.SimpleController.PID));
@@ -55,10 +59,10 @@ model ChilledWaterPumpSpeed
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Buildings.Controls.Continuous.LimPID conPID(
-    controllerType=Modelica.Blocks.Types.SimpleController.PID,
+    controllerType=controllerType,
     Ti=Ti,
     k=k,
-    Td=Td)      "PID controller of pump speed"
+    Td=Td) "PID controller of pump speed"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 equation
   connect(pumStaCon.masFloPum, masFloPum) annotation (Line(points={{-12,8},{-20,

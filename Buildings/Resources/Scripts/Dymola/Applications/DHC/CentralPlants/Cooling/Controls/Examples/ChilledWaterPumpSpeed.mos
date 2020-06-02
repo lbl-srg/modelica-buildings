@@ -1,5 +1,5 @@
 // Simulate
-simulateModel("Buildings.Applications.DHC.CentralPlants.Gen1st.Cooling.Controls.Examples.ChilledWaterPumpSpeed", stopTime=1200, method="dassl", tolerance=1e-06, resultFile="ChilledWaterPumpSpeed");
+simulateModel("Buildings.Applications.DHC.CentralPlants.Cooling.Controls.Examples.ChilledWaterPumpSpeed", stopTime=1200, method="dassl", tolerance=1e-06, resultFile="ChilledWaterPumpSpeed");
 // Plot commands
 removePlots(false);
 createPlot(id=1, 
