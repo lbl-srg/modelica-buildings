@@ -10,8 +10,19 @@ model BuildingSpawnZ6
   package Medium2 = Buildings.Media.Air "Medium model";
   parameter Integer nZon = 5
     "Number of conditioned thermal zones";
-  parameter Integer facSca[nZon] = fill(5, nZon)
+  parameter Integer facSca[nZon]=fill(5, nZon)
     "Scaling factor to be applied to on each extensive quantity";
+  parameter Modelica.SIunits.MassFlowRate mLoa_flow_nominal[nZon]=fill(1, nZon)
+    "Load side mass flow rate at nominal conditions"
+    annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal[nZon]=
+    fill(2000, nZon) ./ facSca
+    "Design heating heat flow rate (>=0)"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal[nZon]=
+    fill(-2000, nZon) ./ facSca
+    "Design cooling heat flow rate (<=0)"
+    annotation (Dialog(group="Nominal condition"));
   parameter String idfName=
     "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf"
     "Name of the IDF file";
@@ -78,16 +89,16 @@ model BuildingSpawnZ6
     redeclare each final package Medium1 = Medium,
     redeclare each final package Medium2 = Medium2,
     final facSca=facSca,
-    QHea_flow_nominal=fill(2000, nZon),
-    QCoo_flow_nominal=fill(-2000, nZon),
+    final QHea_flow_nominal=QHea_flow_nominal,
+    final QCoo_flow_nominal=QCoo_flow_nominal,
     each T_aLoaHea_nominal=293.15,
     each T_aLoaCoo_nominal=297.15,
     each T_bHeaWat_nominal=308.15,
     each T_bChiWat_nominal=285.15,
     each T_aHeaWat_nominal=313.15,
     each T_aChiWat_nominal=280.15,
-    each mLoaHea_flow_nominal=1,
-    each mLoaCoo_flow_nominal=1)
+    final mLoaHea_flow_nominal=mLoa_flow_nominal,
+    final mLoaCoo_flow_nominal=mLoa_flow_nominal)
     "Terminal unit"
     annotation (Placement(transformation(extent={{-140,-2},{-116,22}})));
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(

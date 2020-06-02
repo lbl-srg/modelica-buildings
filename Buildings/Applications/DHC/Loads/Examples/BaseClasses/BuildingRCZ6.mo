@@ -11,17 +11,17 @@ model BuildingRCZ6
     "Load side medium";
   parameter Integer nZon = 6
     "Number of thermal zones";
-  parameter Integer facSca = 15
+  parameter Integer facSca[nZon]=fill(15, nZon)
     "Scaling factor to be applied to on each extensive quantity";
-  parameter Modelica.SIunits.MassFlowRate mLoa_flow_nominal = 1
+  parameter Modelica.SIunits.MassFlowRate mLoa_flow_nominal[nZon]=fill(1, nZon)
     "Load side mass flow rate at nominal conditions"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal[nZon]=
-    fill(10000, nZon) / facSca
+    fill(10000, nZon) ./ facSca
     "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal[nZon]=
-    cat(1, fill(-10000, nZon-1), {-50000}) / facSca
+    cat(1, fill(-10000, nZon-1), {-50000}) ./ facSca
     "Design cooling heat flow rate (<=0)"
     annotation (Dialog(group="Nominal condition"));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet[nZon](
@@ -52,17 +52,17 @@ model BuildingRCZ6
     terUni[nZon](
     redeclare each final package Medium1 = Medium,
     redeclare each final package Medium2 = Medium2,
-    each final facSca=facSca,
+    final facSca=facSca,
     final QHea_flow_nominal=QHea_flow_nominal,
     final QCoo_flow_nominal=QCoo_flow_nominal,
     each T_aLoaHea_nominal=293.15,
     each T_aLoaCoo_nominal=297.15,
-    each T_bHeaWat_nominal=35 + 273.15,
-    each T_bChiWat_nominal=12 + 273.15,
-    each T_aHeaWat_nominal=40 + 273.15,
-    each T_aChiWat_nominal=7 + 273.15,
-    each final mLoaHea_flow_nominal=mLoa_flow_nominal,
-    each final mLoaCoo_flow_nominal=mLoa_flow_nominal) "Terminal unit"
+    each T_bHeaWat_nominal=308.15,
+    each T_bChiWat_nominal=285.15,
+    each T_aHeaWat_nominal=313.15,
+    each T_aChiWat_nominal=280.15,
+    final mLoaHea_flow_nominal=mLoa_flow_nominal,
+    final mLoaCoo_flow_nominal=mLoa_flow_nominal) "Terminal unit"
     annotation (Placement(transformation(extent={{-200,-50},{-180,-30}})));
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
     redeclare package Medium = Medium,
