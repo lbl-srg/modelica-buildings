@@ -3,7 +3,8 @@ model CoolingTowerParellel
   "Multiple identical cooling towers in parallel connection"
   extends
     Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.SignalFilter(
-      use_inputFilter=true,
+     riseTimeValve=30,
+     use_inputFilter=true,
     final numFil=num);
 
   parameter Integer num(min=1)=2 "Number of cooling towers";

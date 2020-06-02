@@ -11,7 +11,8 @@ model CoolingTowerParallel
 
   Buildings.Applications.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerParellel
     cooTowPar(
-    use_inputFilter=false,
+    use_inputFilter=true,
+    riseTimeValve=30,
     m_flow_nominal=m_flow_nominal/2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     dp_nominal=60000,
@@ -60,20 +61,12 @@ model CoolingTowerParallel
     annotation (Placement(transformation(extent={{100,-30},{80,-10}})));
 
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow fixHeaFlo(
-    Q_flow=0.5*m_flow_nominal*4200*5) "Fixed heat flow rate"
+  Q_flow=m_flow_nominal*4200) "Fixed heat flow rate"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TVol
     "Water temperature"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
-
-  Buildings.Fluid.Movers.FlowControlled_m_flow pum(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    nominalValuesDefineDefaultPressureCurve=true)
-    "Pump for chilled water loop"
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID conFan(
     k=1,
@@ -97,15 +90,25 @@ model CoolingTowerParallel
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 
+  Buildings.Fluid.Movers.FlowControlled_m_flow pum(
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    nominalValuesDefineDefaultPressureCurve=true)
+    "Pump for chilled water loop"
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+  Modelica.Blocks.Math.BooleanToReal booToRea(each final realTrue=1, each final
+            realFalse=0) "Boolean to real (if true then 1 else 0)"
+    annotation (Placement(transformation(extent={{-110,40},{-90,60}})));
+  Modelica.Blocks.Nonlinear.FixedDelay del(delayTime=30)
+    "Delay of pump operation"
+    annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
 equation
   connect(onOffCon.y,swi. u2) annotation (Line(points={{11,-80},{28,-80}}, color={255,0,255}));
   connect(zer.y,swi. u3) annotation (Line(points={{11,-110},{18,-110},{18,-88},{28,-88}},
      color={0,0,127}));
   connect(m_flow.y,swi. u1) annotation (Line(points={{11,-40},{18,-40},{18,-72},{28,-72}},
      color={0,0,127}));
-  connect(vol.ports[1],pum. port_a) annotation (Line(points={{27.3333,-20},{-60,
-          -20},{-60,50},{-40,50}},
-      color={0,127,255}));
   connect(fixHeaFlo.port,vol. heatPort) annotation (Line(points={{-20,10},{10,10},{10,-10},{20,-10}},
      color={191,0,0}));
   connect(vol.heatPort,TVol. port) annotation (Line(points={{20,-10},{-70,-10},{-70,-40},{-60,-40}},
@@ -113,32 +116,39 @@ equation
   connect(onOffCon.u,TSwi. y) annotation (Line(points={{-12,-86},{-39,-86}},  color={0,0,127}));
   connect(TVol.T,onOffCon. reference) annotation (Line(points={{-40,-40},{-30,-40},{-30,-74},{-12,-74}},
       color={0,0,127}));
-  connect(swi.y,pum. m_flow_in) annotation (Line(points={{51,-80},{60,-80},{60,-128},
-          {-80,-128},{-80,68},{-30,68},{-30,62}},
-                                     color={0,0,127}));
-  connect(exp.ports[1],vol. ports[3]) annotation (Line(points={{80,-20},{
-          32.6667,-20}},                                                                 color={0,127,255}));
-  connect(pum.port_b, cooTowPar.port_a) annotation (Line(points={{-20,50},{0,50}}, color={0,127,255}));
+  connect(exp.ports[1],vol. ports[2]) annotation (Line(points={{80,-20},{30,-20}},       color={0,127,255}));
   connect(TSetLea.y, conFan.u_s) annotation (Line(points={{-39,90},{-22,90}}, color={0,0,127}));
-  connect(senTCWLvg.T, conFan.u_m) annotation (Line(points={{40,61},{40,70},{-10,
-          70},{-10,78}}, color={0,0,127}));
-  connect(conFan.y, cooTowPar.speFan) annotation (Line(points={{2,90},{8,90},{8,
-          60},{-8,60},{-8,52},{-2,52}}, color={0,0,127}));
+  connect(senTCWLvg.T, conFan.u_m) annotation (Line(points={{40,61},{40,74},{-10,
+          74},{-10,78}}, color={0,0,127}));
   connect(weaDat.weaBus, weaBus) annotation (Line(
       points={{-80,90},{-70,90}},
       color={255,204,51},
       thickness=0.5));
+  connect(senTCWLvg.port_b, vol.ports[1]) annotation (Line(points={{50,50},{60,
+          50},{60,-20},{27.3333,-20}},
+                              color={0,127,255}));
+  connect(conFan.y, cooTowPar.speFan) annotation (Line(points={{2,90},{6,90},{6,
+          70},{-10,70},{-10,52},{-2,52}}, color={0,0,127}));
+  connect(cooTowPar.port_b, senTCWLvg.port_a)
+    annotation (Line(points={{20,50},{30,50}}, color={0,127,255}));
+  connect(vol.ports[3], pum.port_a) annotation (Line(points={{32.6667,-20},{-60,
+          -20},{-60,50},{-40,50}}, color={0,127,255}));
+  connect(pum.port_b, cooTowPar.port_a)
+    annotation (Line(points={{-20,50},{0,50}}, color={0,127,255}));
   connect(weaBus.TWetBul, cooTowPar.TWetBul) annotation (Line(
-      points={{-70,90},{-70,30},{-10,30},{-10,44},{-2,44}},
+      points={{-70,90},{-70,44},{-2,44}},
       color={255,204,51},
       thickness=0.5));
-  connect(cooTowPar.port_b, senTCWLvg.port_a)  annotation (Line(points={{20,50},{30,50}}, color={0,127,255}));
-  connect(senTCWLvg.port_b, vol.ports[2]) annotation (Line(points={{50,50},{60,50},
-          {60,-20},{30,-20}}, color={0,127,255}));
-  connect(swi.y, cooTowPar.on[1]) annotation (Line(points={{51,-80},{60,-80},{60,
-          -128},{-80,-128},{-80,68},{-12,68},{-12,56},{-2,56}}, color={0,0,127}));
-  connect(swi.y, cooTowPar.on[2]) annotation (Line(points={{51,-80},{60,-80},{60,
-          -128},{-80,-128},{-80,68},{-12,68},{-12,56},{-2,56}}, color={0,0,127}));
+  connect(onOffCon.y, booToRea.u) annotation (Line(points={{11,-80},{20,-80},{20,
+          -132},{-118,-132},{-118,50},{-112,50}}, color={255,0,255}));
+  connect(booToRea.y, cooTowPar.on[1]) annotation (Line(points={{-89,50},{-84,50},
+          {-84,34},{-14,34},{-14,56},{-2,56}}, color={0,0,127}));
+  connect(booToRea.y, cooTowPar.on[2]) annotation (Line(points={{-89,50},{-84,50},
+          {-84,34},{-14,34},{-14,56},{-2,56}}, color={0,0,127}));
+  connect(swi.y, del.u)
+    annotation (Line(points={{51,-80},{58,-80}}, color={0,0,127}));
+  connect(del.y, pum.m_flow_in) annotation (Line(points={{81,-80},{86,-80},{86,-128},
+          {-78,-128},{-78,70},{-30,70},{-30,62}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),
             Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-140},{120,120}})),
