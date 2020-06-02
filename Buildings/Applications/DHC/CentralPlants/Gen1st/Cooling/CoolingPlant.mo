@@ -111,7 +111,7 @@ model CoolingPlant "District cooling plant model"
 
   Modelica.Blocks.Interfaces.RealInput QLoa(
     final unit="W")
-    "District cooling load"
+    "District cooling load, negative"
     annotation (Placement(transformation(extent={{-180,0},{-140,40}}),
         iconTransformation(extent={{-140,6},{-100,46}})));
 
