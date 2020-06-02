@@ -4,30 +4,42 @@ block Scheduler
 
   parameter Buildings.Controls.OBC.CDL.Types.ZeroTime zerTim = Buildings.Controls.OBC.CDL.Types.ZeroTime.NY2019
     "Enumeration for choosing how reference time (time = 0) should be defined"
-    annotation(Dialog(group="Calendar"));
+    annotation(Dialog(group="Calendar", enable=not simTimSta));
 
-  parameter Integer yearRef(min=firstYear, max=lastYear) = 2019
+  parameter Integer yearRef(
+    final min=firstYear,
+    final max=lastYear) = 2019
     "Year when time = 0, used if zerTim=Custom"
     annotation(Dialog(group="Calendar", enable=zerTim==Buildings.Controls.OBC.CDL.Types.ZeroTime.Custom));
 
   parameter Modelica.SIunits.Time offset = 0
     "Offset that is added to 'time', may be used for computing time in different time zone"
-    annotation(Dialog(group="Calendar"));
+    annotation(Dialog(group="Calendar", enable=not simTimSta));
 
-  parameter Boolean weeInt = true
-    "Rotation is scheduled in: true = weekly intervals; false = daily intervals";
+  parameter Modelica.SIunits.Time rotationPeriod(
+    final displayUnit="h") = 1209600
+    "Rotation time period measured from simulation start"
+    annotation(Dialog(group="Calendar", enable=simTimSta));
 
-  parameter Integer houOfDay = 2 "Rotation hour of the day: 0 = midnight; 23 = 11pm";
+  parameter Boolean simTimSta = true
+    "Measure rotation time from the simulation start";
+
+  parameter Boolean weeInt = false
+    "Rotation is scheduled in: true = weekly intervals; false = daily intervals"
+    annotation (Evaluate=true, Dialog(enable=not simTimSta));
+
+  parameter Integer houOfDay = 2 "Rotation hour of the day: 0 = midnight; 23 = 11pm"
+    annotation (Evaluate=true, Dialog(enable=weeInt and not simTimSta));
 
   parameter Integer weeCou = 1 "Number of weeks"
-    annotation (Evaluate=true, Dialog(enable=weeInt));
+    annotation (Evaluate=true, Dialog(enable=weeInt and not simTimSta));
 
   parameter Integer weekday = 1
     "Rotation weekday, 1 = Monday, 7 = Sunday"
-    annotation (Evaluate=true, Dialog(enable=weeInt));
+    annotation (Evaluate=true, Dialog(enable=weeInt and not simTimSta));
 
   parameter Integer dayCou = 1 "Number of days"
-    annotation (Evaluate=true, Dialog(enable=not weeInt));
+    annotation (Evaluate=true, Dialog(enable=not weeInt and not simTimSta));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yRot
     "Rotation trigger signal"
@@ -37,52 +49,19 @@ block Scheduler
   Buildings.Controls.OBC.CDL.Continuous.Sources.CalendarTime calTim(
     final zerTim=zerTim,
     final yearRef=yearRef,
-    final offset=offset)
-    annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
+    final offset=offset) if not simTimSta
+    "Calendar time"
+    annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
 
-  Buildings.Controls.OBC.CDL.Integers.OnCounter onCouInt "Integer counter"
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+  Buildings.Controls.OBC.CDL.Integers.OnCounter onCouInt if not simTimSta
+    "Integer counter"
+    annotation (Placement(transformation(extent={{0,10},{20,30}})));
 
-protected
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant houOfDay1(
-    final k=houOfDay)
-    "Hour of the day for rotating devices that run continuously"
-    annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant weeDay(
-    final k=weekday) if weeInt "Weekday for the rotation"
-    annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant weeCou1(
-    final k=weeCou) if weeInt "Number of weeks for scheduled rotation"
-    annotation (Placement(transformation(extent={{-140,-60},{-120,-40}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant dayCou1(
-    final k=dayCou) if not weeInt "Number of days for scheduled rotation"
-    annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Equal isWee if weeInt
-    "Checks if current weekday is the rotation weekday"
-    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Equal intEqu "Checks equality"
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-
-  Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Equal intEqu2 "Logical equal"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Pre pre "Logical pre"
-    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Edge edg "Rising edge"
-    annotation (Placement(transformation(extent={{120,-10},{140,10}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant truSig(
-    final k=true) if  not weeInt "True signal"
-    annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger rotTri(
+    final period=rotationPeriod,
+    final startTime=rotationPeriod) if simTimSta
+    "Sample trigger"
+    annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
 
 protected
   final constant Integer firstYear = 2010
@@ -91,38 +70,85 @@ protected
   final constant Integer lastYear = firstYear + 11
     "Last year that is supported (actual building automation system need to support a larger range)";
 
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant houOfDay1(
+    final k=houOfDay) if not simTimSta
+    "Hour of the day for rotating devices that run continuously"
+    annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant weeDay(
+    final k=weekday) if (weeInt and not simTimSta) "Weekday for the rotation"
+    annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant weeCou1(
+    final k=weeCou) if (weeInt and not simTimSta) "Number of weeks for scheduled rotation"
+    annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant dayCou1(
+    final k=dayCou) if (not weeInt and not simTimSta) "Number of days for scheduled rotation"
+    annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Equal isWee if (weeInt and not simTimSta)
+    "Checks if current weekday is the rotation weekday"
+    annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu if not simTimSta
+    "Checks equality"
+    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and2 if not simTimSta
+    "Logical and"
+    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu2 if not simTimSta
+    "Logical equal"
+    annotation (Placement(transformation(extent={{40,10},{60,30}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Pre pre if  not simTimSta
+    "Logical pre"
+    annotation (Placement(transformation(extent={{80,10},{100,30}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Edge edg if not simTimSta
+    "Rising edge"
+    annotation (Placement(transformation(extent={{120,10},{140,30}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant truSig(
+    final k=true) if (not weeInt and not simTimSta) "True signal"
+    annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
+
 equation
-  connect(dayCou1.y, intEqu2.u2) annotation (Line(points={{-118,-90},{30,-90},{30,
-          -8},{38,-8}}, color={255,127,0}));
-  connect(calTim.hour, intEqu.u1) annotation (Line(points={{-119,96},{-100,96},
-          {-100,70},{-82,70}},color={255,127,0}));
-  connect(houOfDay1.y, intEqu.u2) annotation (Line(points={{-118,50},{-100,50},
-          {-100,62},{-82,62}}, color={255,127,0}));
-  connect(calTim.weekDay, isWee.u1) annotation (Line(points={{-119,84},{-110,84},
-          {-110,20},{-102,20}}, color={255,127,0}));
-  connect(weeDay.y, isWee.u2) annotation (Line(points={{-118,10},{-110,10},{-110,
-          12},{-102,12}}, color={255,127,0}));
-  connect(intEqu.y, and2.u1) annotation (Line(points={{-58,70},{-50,70},{-50,0},
-          {-42,0}}, color={255,0,255}));
+  connect(dayCou1.y, intEqu2.u2) annotation (Line(points={{-118,-60},{30,-60},{30,
+          12},{38,12}}, color={255,127,0}));
+  connect(calTim.hour, intEqu.u1) annotation (Line(points={{-119,116},{-100,116},
+          {-100,90},{-82,90}},color={255,127,0}));
+  connect(houOfDay1.y, intEqu.u2) annotation (Line(points={{-118,70},{-100,70},{
+          -100,82},{-82,82}},  color={255,127,0}));
+  connect(calTim.weekDay, isWee.u1) annotation (Line(points={{-119,104},{-110,104},
+          {-110,40},{-102,40}}, color={255,127,0}));
+  connect(weeDay.y, isWee.u2) annotation (Line(points={{-118,30},{-110,30},{-110,
+          32},{-102,32}}, color={255,127,0}));
+  connect(intEqu.y, and2.u1) annotation (Line(points={{-58,90},{-50,90},{-50,20},
+          {-42,20}},color={255,0,255}));
   connect(intEqu2.y, pre.u)
-    annotation (Line(points={{62,0},{78,0}},   color={255,0,255}));
+    annotation (Line(points={{62,20},{78,20}}, color={255,0,255}));
   connect(pre.y, edg.u)
-    annotation (Line(points={{102,0},{118,0}},   color={255,0,255}));
+    annotation (Line(points={{102,20},{118,20}}, color={255,0,255}));
   connect(and2.y, onCouInt.trigger)
-    annotation (Line(points={{-18,0},{-2,0}},  color={255,0,255}));
+    annotation (Line(points={{-18,20},{-2,20}},color={255,0,255}));
   connect(onCouInt.y, intEqu2.u1)
-    annotation (Line(points={{22,0},{38,0}},   color={255,127,0}));
-  connect(pre.y, onCouInt.reset) annotation (Line(points={{102,0},{110,0},{110,-28},
-          {10,-28},{10,-12}}, color={255,0,255}));
+    annotation (Line(points={{22,20},{38,20}}, color={255,127,0}));
+  connect(pre.y, onCouInt.reset) annotation (Line(points={{102,20},{110,20},{110,
+          -8},{10,-8},{10,8}},color={255,0,255}));
   connect(edg.y, yRot)
-    annotation (Line(points={{142,0},{180,0}},                   color={255,0,255}));
-  connect(weeCou1.y, intEqu2.u2) annotation (Line(points={{-118,-50},{30,-50},{30,
-          -8},{38,-8}},    color={255,127,0}));
-  connect(isWee.y, and2.u2) annotation (Line(points={{-78,20},{-60,20},{-60,-8},
-          {-42,-8}}, color={255,0,255}));
-  connect(truSig.y, and2.u2) annotation (Line(points={{-78,-10},{-60,-10},{-60,-8},
-          {-42,-8}}, color={255,0,255}));
-  annotation (Diagram(coordinateSystem(extent={{-160,-120},{160,120}})),
+    annotation (Line(points={{142,20},{150,20},{150,0},{180,0}}, color={255,0,255}));
+  connect(weeCou1.y, intEqu2.u2) annotation (Line(points={{-118,-20},{30,-20},{30,
+          12},{38,12}},    color={255,127,0}));
+  connect(isWee.y, and2.u2) annotation (Line(points={{-78,40},{-60,40},{-60,12},
+          {-42,12}}, color={255,0,255}));
+  connect(truSig.y, and2.u2) annotation (Line(points={{-78,10},{-60,10},{-60,12},
+          {-42,12}}, color={255,0,255}));
+  connect(rotTri.y, yRot) annotation (Line(points={{-118,-110},{150,-110},{150,0},
+          {180,0}}, color={255,0,255}));
+  annotation (Diagram(coordinateSystem(extent={{-160,-140},{160,140}})),
       defaultComponentName="rotSch",
     Icon(graphics={
         Rectangle(
@@ -163,9 +189,16 @@ equation
 <p>
 This block outputs generates a rotation trigger at
 chosen time intervals for lead/standby configurations where a lead device runs continuously. 
-The implementation is based on RP 1711 5.1.2.4.2, except 5.1.2.4.2 a).
-
-The user needs to select the time of the day as an hour between 0 and 23 at which the rotation shall occur.
+The implementation is based on RP 1711 5.1.2.4.2, except 5.1.2.4.2 a.
+</p>
+<p>
+The user may chose to start counting time from simulation start to generate the 
+rotation signal at regular intervals <code>rotationPeriod</code> by setting a 
+flag <code>sinTimSta</code> to <code>true</code>, or to use a calendar.
+</p>
+<p>
+If a calender is used the user needs to select the time of the day as an hour between 0 and 23 at which the rotation shall occur.
+Hour 0 is midnight.
 The block implements two options to select the time interval for the equipment rotation:
 </p>
 <ul>
@@ -179,11 +212,10 @@ Each <code>weeCou</code> weeks on a <code>weekday</code> selected between 1 = Mo
 <p>
 To enable weekly intervals set the <code>weeInt</code> to true, otherwise a number of days can be used.
 </p>
-
 </html>", revisions="<html>
 <ul>
 <li>
-September 18, by Milica Grahovac:<br/>
+May 18, 2020, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>

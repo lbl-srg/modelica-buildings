@@ -1,9 +1,9 @@
-﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater;
 block Controller "Condenser water pump controller"
 
   parameter Boolean isHeadered = true
     "Flag of headered condenser water pumps design: true=headered, false=dedicated";
-  parameter Boolean hasWSE = true
+  parameter Boolean have_WSE = true
     "Flag of waterside economizer: true=have WSE, false=no WSE";
   parameter Integer nChi=2 "Total number of chiller";
   parameter Integer totChiSta=6
@@ -43,7 +43,7 @@ block Controller "Condenser water pump controller"
     "Current chiller stage"
     annotation (Placement(transformation(extent={{-160,-40},{-120,0}}),
       iconTransformation(extent={{-140,-30},{-100,10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWSE if hasWSE
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWSE if have_WSE
     "Water side economizer status: true = ON, false = OFF"
     annotation (Placement(transformation(extent={{-160,-70},{-120,-30}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
@@ -78,7 +78,7 @@ block Controller "Condenser water pump controller"
 
 protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.EnableLead_headered
-    enaLeaHeaPum(final hasWSE=hasWSE) if isHeadered
+    enaLeaHeaPum(final have_WSE=have_WSE) if isHeadered
     "Enable lead pumps for plants with headered condenser water pump"
     annotation (Placement(transformation(extent={{20,120},{40,140}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.EnableLead_dedicated
@@ -87,7 +87,7 @@ protected
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.Speed
     pumSpe(
-    final hasWSE=hasWSE,
+    final have_WSE=have_WSE,
     final totChiSta=totChiSta,
     final staVec=staVec,
     final desConWatPumSpe=desConWatPumSpe,
@@ -119,7 +119,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
     annotation (Placement(transformation(extent={{80,-90},{100,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(final k=false) if
-       not hasWSE
+       not have_WSE
     "Logical true"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
 

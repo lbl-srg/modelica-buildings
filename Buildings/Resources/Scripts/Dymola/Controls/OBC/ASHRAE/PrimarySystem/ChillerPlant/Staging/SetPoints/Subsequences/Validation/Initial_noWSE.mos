@@ -1,0 +1,11 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Validation.Initial_noWSE", method="Cvode", stopTime=100, tolerance=1e-06, resultFile="Initial_noWSE");
+
+createPlot(id=1, position={10, 10, 1200, 650}, subPlot=1, y={"iniSta.yIni"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={10, 10, 1200, 650}, subPlot=2, y={"iniSta.uUp"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+createPlot(id=1, position={10, 10, 1200, 650}, subPlot=3, y={"iniSta.have_WSE"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+createPlot(id=1, position={10, 10, 1200, 650}, subPlot=4, y={"iniSta.uPla"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+
+createPlot(id=2, position={10, 10, 1200, 650}, subPlot=1, y={"iniSta1.yIni"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={10, 10, 1200, 650}, subPlot=2, y={"iniSta1.uUp"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+createPlot(id=2, position={10, 10, 1200, 650}, subPlot=3, y={"iniSta1.have_WSE"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+createPlot(id=2, position={10, 10, 1200, 650}, subPlot=4, y={"iniSta1.uPla"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});

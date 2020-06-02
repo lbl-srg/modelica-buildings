@@ -27,25 +27,25 @@ protected
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 
   Buildings.Controls.OBC.CDL.Discrete.Sampler sam1(
-    final samplePeriod=60)
+    final samplePeriod=60) "Sampler"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(
     final offset=-0.2,
     final height=0.7,
-    final duration=2100)
+    final duration=2100) "Ramp"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 
 equation
   connect(ram.y, sam1.u)
-    annotation (Line(points={{-39,-50},{-22,-50}}, color={0,0,127}));
-  connect(sam1.y, wseTOut.uTunPar) annotation (Line(points={{1,-50},{20,-50},{
-          20,2},{38,2}},  color={0,0,127}));
-  connect(TOutWetSig.y, wseTOut.TOutWet) annotation (Line(points={{-39,50},{20,
-          50},{20,18},{38,18}},
-                           color={0,0,127}));
+    annotation (Line(points={{-38,-50},{-22,-50}}, color={0,0,127}));
+  connect(sam1.y, wseTOut.uTunPar) annotation (Line(points={{2,-50},{20,-50},{20,
+          2},{38,2}},     color={0,0,127}));
+  connect(TOutWetSig.y, wseTOut.TOutWet) annotation (Line(points={{-38,50},{20,50},
+          {20,18},{38,18}},color={0,0,127}));
   connect(chiWatFlow.y, wseTOut.VChiWat_flow)
-    annotation (Line(points={{-39,10},{38,10}},   color={0,0,127}));
+    annotation (Line(points={{-38,10},{38,10}},   color={0,0,127}));
+
 annotation (
  experiment(StopTime=2100.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Economizer/Subsequences/Validation/PredictedOutletTemperature.mos"
