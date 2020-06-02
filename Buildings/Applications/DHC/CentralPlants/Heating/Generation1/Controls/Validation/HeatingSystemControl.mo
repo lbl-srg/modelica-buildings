@@ -5,7 +5,8 @@ model HeatingSystemControl
   parameter Modelica.SIunits.Power QPla_flow_nominal=300E3
     "Nominal heating power of plant";
 
-  Katy.DistrictEnergy.Control.HeatingSystemControl con(QPla_flow_nominal=
+  Buildings.Applications.DHC.CentralPlants.Heating.Generation1.Controls.HeatingSystemControl
+                                                   con(QPla_flow_nominal=
         QPla_flow_nominal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.CombiTimeTable
