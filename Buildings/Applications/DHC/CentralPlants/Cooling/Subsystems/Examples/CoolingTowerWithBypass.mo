@@ -8,7 +8,7 @@ model CoolingTowerWithBypass
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 1
     "Design water flow rate";
 
-  parameter Modelica.SIunits.Temperature TMin=273.15+15
+  parameter Modelica.SIunits.Temperature TMin=273.15 + 10
     "Minimum allowed water temperature entering chiller";
 
   Buildings.Applications.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass
@@ -21,12 +21,14 @@ model CoolingTowerWithBypass
     TWatIn_nominal=273.15 + 35,
     dT_nominal=5.56,
     PFan_nominal=4800,
-    TMin=TMin) "Parallel cooling towers"
+    TMin=TMin,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI)
+    "Parallel cooling towers"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    final computeWetBulbTemperature=true,
-    filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
+    final computeWetBulbTemperature=true, filNam=
+        ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
   Modelica.Blocks.Logical.OnOffController onOffCon(
@@ -87,6 +89,12 @@ model CoolingTowerWithBypass
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 
+  Modelica.Blocks.Nonlinear.FixedDelay del(delayTime=30)
+    "Delay of pump operation"
+    annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
+  Modelica.Blocks.Math.BooleanToReal booToRea(each final realTrue=1, each final
+            realFalse=0) "Boolean to real (if true then 1 else 0)"
+    annotation (Placement(transformation(extent={{-110,40},{-90,60}})));
 equation
   connect(onOffCon.y,swi. u2) annotation (Line(points={{11,-80},{28,-80}}, color={255,0,255}));
   connect(zer.y,swi. u3) annotation (Line(points={{11,-110},{18,-110},{18,-88},{28,-88}},
@@ -103,9 +111,6 @@ equation
   connect(onOffCon.u,TSwi. y) annotation (Line(points={{-12,-86},{-39,-86}},  color={0,0,127}));
   connect(TVol.T,onOffCon. reference) annotation (Line(points={{-40,-40},{-30,-40},{-30,-74},{-12,-74}},
       color={0,0,127}));
-  connect(swi.y,pum. m_flow_in) annotation (Line(points={{51,-80},{60,-80},{60,-128},
-          {-80,-128},{-80,68},{-30,68},{-30,62}},
-                                     color={0,0,127}));
   connect(exp.ports[1],vol. ports[3]) annotation (Line(points={{80,-20},{
           32.6667,-20}},                                                                 color={0,127,255}));
   connect(pum.port_b, cooTowPar.port_a) annotation (Line(points={{-20,50},{0,50}}, color={0,127,255}));
@@ -120,10 +125,15 @@ equation
   connect(cooTowPar.port_b, senTCWLvg.port_a)  annotation (Line(points={{20,50},{30,50}}, color={0,127,255}));
   connect(senTCWLvg.port_b, vol.ports[2]) annotation (Line(points={{50,50},{60,50},
           {60,-20},{30,-20}}, color={0,127,255}));
-  connect(swi.y, cooTowPar.on[1]) annotation (Line(points={{51,-80},{60,-80},{60,
-          -128},{-80,-128},{-80,68},{-12,68},{-12,54},{-2,54}}, color={0,0,127}));
-  connect(swi.y, cooTowPar.on[2]) annotation (Line(points={{51,-80},{60,-80},{60,
-          -128},{-80,-128},{-80,68},{-12,68},{-12,54},{-2,54}}, color={0,0,127}));
+  connect(swi.y, del.u) annotation (Line(points={{51,-80},{58,-80}}, color={0,0,127}));
+  connect(del.y, pum.m_flow_in) annotation (Line(points={{81,-80},{92,-80},{92,-130},
+          {-80,-130},{-80,68},{-30,68},{-30,62}}, color={0,0,127}));
+  connect(onOffCon.y, booToRea.u) annotation (Line(points={{11,-80},{20,-80},{20,
+          -134},{-118,-134},{-118,50},{-112,50}}, color={255,0,255}));
+  connect(booToRea.y, cooTowPar.on[1]) annotation (Line(points={{-89,50},{-84,50},
+          {-84,72},{-10,72},{-10,54},{-2,54}}, color={0,0,127}));
+  connect(booToRea.y, cooTowPar.on[2]) annotation (Line(points={{-89,50},{-84,50},
+          {-84,72},{-10,72},{-10,54},{-2,54}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),
             Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-140},{120,120}})),
