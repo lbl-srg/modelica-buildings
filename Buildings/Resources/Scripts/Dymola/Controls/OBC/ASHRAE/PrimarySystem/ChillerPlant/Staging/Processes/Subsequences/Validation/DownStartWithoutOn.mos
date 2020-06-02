@@ -1,0 +1,10 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.Validation.DownStartWithoutOn", method="Cvode", stopTime=1200, tolerance=1e-06, resultFile="staDowStaWoOn");
+
+createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=1, y={"staStaDow.uStaDow"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=2, y={"staStaDow.uChiLoa[1]","staStaDow.uChiLoa[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=3, y={"staStaDow.yChiDem[1]","staStaDow.yChiDem[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=4, y={"staStaDow.yChiHeaCon[1]","staStaDow.yChiHeaCon[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=5, y={"staStaDow.yChiWatIsoVal[1]","staStaDow.yChiWatIsoVal[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=6, y={"staStaDow.yChi[1]","staStaDow.yChi[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=7, y={"staStaDow.yReaDemLim"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200}});
+

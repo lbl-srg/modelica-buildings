@@ -1,0 +1,8 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.ReturnWaterTemperature.Validation.Controller", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="towSpeConRet");
+createPlot(id=1, position={10, 10, 1000, 1200}, y={"towFanSpe.uChi[1]","towFanSpe.uChi[2]","towFanSpe.uWse", "towFanSpe.uTow[1]", "towFanSpe.uPla"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=1, colors={{28,108,200},{28,108,200},{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=1, position={10, 10, 1000, 1200}, y={"towFanSpe.TConWatRet", "towFanSpe.conWatRetSet.TConWatRetSet"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=2, colors={{28,108,200},{0,140,72}});
+createPlot(id=1, position={10, 10, 1000, 1200}, y={"towFanSpe.couTowSpe.yFanSpe", "towFanSpe.uTowSpeWSE","towFanSpe.yFanSpe"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=3, colors={{28,108,200},{0,140,72},{238,46,47}});
+createPlot(id=2, position={1020, 10, 1000, 1200}, y={"towFanSpe1.TConWatRet", "towFanSpe1.conWatRetSet.TConWatRetSet"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=1, colors={{28,108,200},{0,140,72}});
+createPlot(id=2, position={1020, 10, 1000, 1200}, y={"towFanSpe1.lesCouTowSpe.yFanSpe", "towFanSpe1.uTowSpeWSE","towFanSpe1.yFanSpe"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=2, colors={{28,108,200},{0,140,72},{238,46,47}});
+createPlot(id=2, position={1020, 10, 1000, 1200}, y={"towFanSpe2.TConWatRet", "towFanSpe2.conWatRetSet.TConWatRetSet"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=3, colors={{28,108,200},{0,140,72}});
+createPlot(id=2, position={1020, 10, 1000, 1200}, y={"towFanSpe2.couTowSpe.yFanSpe","towFanSpe2.yFanSpe"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=4, colors={{28,108,200},{238,46,47}});
