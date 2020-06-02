@@ -210,15 +210,9 @@ the plant is disabled (all chilled water pumps are disabled, <code>uChiWatPum</c
 </ul>
 <ul>
 <li>
-<<<<<<< HEAD
 When the plant stage change is initiated (<code>uStaCha</code>=true), the plant
 reset <code>yChiWatPlaRes</code> shall be disabled and value fixed at its last
 value for the longer of <code>holTim</code> and the time it takes for the plant
-=======
-When the plant stage change is initiated (<code>chaPro</code>=true), the plant 
-reset <code>yChiWatPlaRes</code> shall be disabled and value fixed at its last 
-value for the longer of <code>holTim</code> and the time it takes for the plant 
->>>>>>> issue1378_staging_primarySequences
 to successfully stage.
 </li>
 </ul>
