@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.CentralPlants;
-package Gen1st "Models of first generation central plants"
+package Combined "Combined heating and cooling plant models"
   extends Modelica.Icons.VariantsPackage;
 
-end Gen1st;
+end Combined;
