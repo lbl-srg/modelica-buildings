@@ -186,7 +186,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-  __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/SimpleRoomODE.mos"
-  "Simulate and plot"),
+  __Dymola_Commands(file=
+"modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/SimpleRoomODE.mos"
+"Simulate and plot"),
     Diagram(coordinateSystem(extent={{-180,-200},{180,200}})));
 end SimpleRoomODE;

@@ -161,6 +161,7 @@ First implementation.
 </html>"),
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,140}})),
-  __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingTimeSeries.mos"
-        "Simulate and plot"));
+  __Dymola_Commands(file=
+"modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingTimeSeries.mos"
+"Simulate and plot"));
 end CouplingTimeSeries;

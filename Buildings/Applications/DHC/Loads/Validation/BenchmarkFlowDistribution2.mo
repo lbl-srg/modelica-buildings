@@ -191,6 +191,7 @@ First implementation.
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,
             120}})),
-  __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/BenchmarkFlowDistribution2.mos"
-        "Simulate and plot"));
+  __Dymola_Commands(file=
+"modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/BenchmarkFlowDistribution2.mos"
+"Simulate and plot"));
 end BenchmarkFlowDistribution2;
