@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.EnergyTransferStations.FifthGeneration.Validation;
+within Buildings.Applications.DHC.EnergyTransferStations.Generation5.Validation;
 model Chiller
   "Validation of the ETS model with heat recovery chiller"
   extends Modelica.Icons.Example;
@@ -57,30 +57,26 @@ model Chiller
     duration=1000,
     startTime=1000) "Heating load ramp (fractional)"
     annotation (Placement(transformation(extent={{-270,30},{-250,50}})));
-  Fluid.Sensors.TemperatureTwoPort senTHeaWatSup(redeclare final package
-      Medium =
-        Medium, m_flow_nominal=datChi.mCon_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort senTHeaWatSup(redeclare final package Medium
+      = Medium, m_flow_nominal=datChi.mCon_flow_nominal)
     "Heating water supply temperature" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-80,40})));
-  Fluid.Sensors.TemperatureTwoPort senTChiWatSup(redeclare final package
-      Medium =
-        Medium, m_flow_nominal=datChi.mEva_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort senTChiWatSup(redeclare final package Medium
+      = Medium, m_flow_nominal=datChi.mEva_flow_nominal)
     "Chilled water supply temperature" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={70,40})));
-  Fluid.Sensors.TemperatureTwoPort senTHeaWatRet(redeclare final package
-      Medium =
-        Medium, m_flow_nominal=datChi.mCon_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort senTHeaWatRet(redeclare final package Medium
+      = Medium, m_flow_nominal=datChi.mCon_flow_nominal)
     "Heating water return temperature" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-80,-40})));
-  Fluid.Sensors.TemperatureTwoPort senTChiWatRet(redeclare final package
-      Medium =
-        Medium, m_flow_nominal=datChi.mEva_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort senTChiWatRet(redeclare final package Medium
+      = Medium, m_flow_nominal=datChi.mEva_flow_nominal)
     "Chilled water return temperature" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
@@ -102,7 +98,7 @@ model Chiller
     duration=500,
     startTime=6000) "Heating load ramp (fractional)"
     annotation (Placement(transformation(extent={{-270,70},{-250,90}})));
-  FifthGeneration.Chiller ets(
+  Generation5.Chiller ets(
     redeclare final package MediumBui = Medium,
     redeclare final package MediumDis = Medium,
     QChiWat_flow_nominal=datChi.QEva_flow_nominal,

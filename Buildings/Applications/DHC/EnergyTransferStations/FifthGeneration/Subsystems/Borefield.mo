@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.EnergyTransferStations.FifthGeneration.BaseClasses;
+within Buildings.Applications.DHC.EnergyTransferStations.FifthGeneration.Subsystems;
 model Borefield "Auxiliary subsystem with geothermal borefield"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     final m_flow_nominal=dat.conDat.mBorFie_flow_nominal);
@@ -45,11 +45,10 @@ model Borefield "Auxiliary subsystem with geothermal borefield"
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-80,0})));
-  Pump_m_flow pum(
+  Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pum(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
-    final dp_nominal=dp_nominal)
-    "Pump with prescribed mass flow rate"
+    final dp_nominal=dp_nominal) "Pump with prescribed mass flow rate"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -76,11 +75,9 @@ model Borefield "Auxiliary subsystem with geothermal borefield"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={22,0})));
-  Junction spl(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal .* {1,-1,-1})
-    "Flow splitter"
-    annotation (Placement(
+  Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.Junction spl(
+      redeclare final package Medium = Medium, final m_flow_nominal=
+        m_flow_nominal .* {1,-1,-1}) "Flow splitter" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,

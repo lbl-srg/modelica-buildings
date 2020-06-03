@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.EnergyTransferStations;
-package FifthGeneration "Energy transfer station models for fifth generation DHC systems"
+package Generation5 "Energy transfer station models for fifth generation DHC systems"
   extends Modelica.Icons.VariantsPackage;
 
 annotation (preferredView="info", Documentation(info="<html>
@@ -7,4 +7,4 @@ annotation (preferredView="info", Documentation(info="<html>
 This package contains models of energy transfer station for fifth generation DHC systems.
 </p>
 </html>"));
-end FifthGeneration;
+end Generation5;

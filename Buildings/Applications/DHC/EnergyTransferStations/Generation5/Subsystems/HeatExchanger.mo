@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.EnergyTransferStations.FifthGeneration.BaseClasses;
+within Buildings.Applications.DHC.EnergyTransferStations.Generation5.Subsystems;
 model HeatExchanger
   "Base subsystem for interconnection with district system based on intermediary heat exchanger"
   extends Fluid.Interfaces.PartialFourPortInterface(
@@ -97,17 +97,16 @@ model HeatExchanger
       extent={{10,10},{-10,-10}},
       rotation=180,
       origin={0,0})));
-  Pump_m_flow pum2Hex(
+  Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow
+    pum2Hex(
     redeclare final package Medium = Medium2,
     final m_flow_nominal=m2_flow_nominal,
     final dp_nominal=dp2Hex_nominal,
-    final allowFlowReversal=allowFlowReversal2)
-    "Secondary pump"
-    annotation (Placement(
-      transformation(
-      extent={{-10,10},{10,-10}},
-      rotation=180,
-      origin={80,-60})));
+    final allowFlowReversal=allowFlowReversal2) "Secondary pump" annotation (
+      Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=180,
+        origin={80,-60})));
   Fluid.Sensors.TemperatureTwoPort senT2HexWatEnt(
     redeclare final package Medium = Medium2,
     final m_flow_nominal=m2_flow_nominal,
@@ -128,17 +127,16 @@ model HeatExchanger
     final k=m2_flow_nominal)
     "Scale to nominal mass flow rate"
     annotation (Placement(transformation(extent={{20,90},{40,110}})));
-  Pump_m_flow pum1Hex(
+  Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow
+    pum1Hex(
     redeclare final package Medium = Medium1,
     final m_flow_nominal=m1_flow_nominal,
     final dp_nominal=dp1Hex_nominal,
     final allowFlowReversal=allowFlowReversal1) if not have_val1Hex
-    "District heat exchanger primary pump"
-    annotation (Placement(
-      transformation(
-      extent={{10,10},{-10,-10}},
-      rotation=180,
-      origin={-60,80})));
+    "District heat exchanger primary pump" annotation (Placement(transformation(
+        extent={{10,10},{-10,-10}},
+        rotation=180,
+        origin={-60,80})));
   Fluid.Actuators.Valves.TwoWayEqualPercentage val1Hex(
     redeclare final package Medium = Medium1,
     final m_flow_nominal=m1_flow_nominal,

@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.EnergyTransferStations.FifthGeneration;
+within Buildings.Applications.DHC.EnergyTransferStations.Generation5;
 model ChillerJunction
   "Energy transfer station model for fifth generation DHC systems with heat recovery chiller"
   extends DHC.EnergyTransferStations.BaseClasses.PartialETS(
@@ -111,8 +111,7 @@ model ChillerJunction
       iconTransformation(extent={{-382,-122},{-300,-40}})));
 
   // COMPONENTS
-  FifthGeneration.Controls.Supervisory conSup(
-    final THys=THys)
+  Generation5.Controls.Supervisory conSup(final THys=THys)
     "Supervisory controller"
     annotation (Placement(transformation(extent={{-260,40},{-240,60}})));
 

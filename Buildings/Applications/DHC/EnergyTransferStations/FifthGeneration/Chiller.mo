@@ -137,14 +137,13 @@ model Chiller
     "Condenser to ambient loop isolation valve"
     annotation (Placement(transformation(extent={{-70,-110},{-50,-90}})));
 
-  BaseClasses.Chiller chi(
+  Subsystems.Chiller chi(
     redeclare final package Medium = MediumBui,
     final dpCon_nominal=dpCon_nominal,
     final dpEva_nominal=dpEva_nominal,
-    final dat=datChi)
-    "Base subsystem with heat recovery chiller"
+    final dat=datChi) "Base subsystem with heat recovery chiller"
     annotation (Placement(transformation(extent={{-10,-16},{10,4}})));
-  BaseClasses.HeatExchanger int(
+  Subsystems.HeatExchanger int(
     redeclare final package Medium1 = MediumDis,
     redeclare final package Medium2 = MediumBui,
     final allowFlowReversal1=allowFlowReversalDis,
@@ -160,23 +159,23 @@ model Chiller
     "Base subsystem for interconnection with district system"
     annotation (Placement(transformation(extent={{-10,-244},{10,-264}})));
 
-  BaseClasses.StratifiedTank tanChiWat(
+  Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.StratifiedTank
+    tanChiWat(
     redeclare final package Medium = MediumBui,
     final m_flow_nominal=datChi.mEva_flow_nominal,
     final VTan=VTanChiWat,
     final hTan=hTanChiWat,
     final dIns=dInsTanChiWat,
-    final nSeg=nSegTan)
-    "Chilled water tank"
+    final nSeg=nSegTan) "Chilled water tank"
     annotation (Placement(transformation(extent={{200,96},{220,116}})));
-  BaseClasses.StratifiedTank tanHeaWat(
+  Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.StratifiedTank
+    tanHeaWat(
     redeclare final package Medium = MediumBui,
     final m_flow_nominal=datChi.mCon_flow_nominal,
     final VTan=VTanHeaWat,
     final hTan=hTanHeaWat,
     final dIns=dInsTanHeaWat,
-    final nSeg=nSegTan)
-    "Heating water tank"
+    final nSeg=nSegTan) "Heating water tank"
     annotation (Placement(transformation(extent={{-220,96},{-200,116}})));
   Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.CollectorDistributor
     colChiWat(

@@ -132,61 +132,59 @@ model ChillerBoreField
     "Condenser to ambient loop isolation valve"
     annotation (Placement(transformation(extent={{-90,-110},{-70,-90}})));
 
-  BaseClasses.Junction manAmbWatSup(
-    redeclare final package Medium=MediumBui,
-    final m_flow_nominal=sum(m2Hex_flow_nominal, mBorFie_flow_nominal) .* {-1,-1,1})
+  Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.Junction
+    manAmbWatSup(redeclare final package Medium = MediumBui, final
+      m_flow_nominal=sum(m2Hex_flow_nominal, mBorFie_flow_nominal) .* {-1,-1,1})
     "Ambient water supply manifold"
     annotation (Placement(transformation(extent={{-10,-170},{10,-150}})));
-  BaseClasses.Junction manAmbWatRet(
-    redeclare final package Medium=MediumBui,
-    final m_flow_nominal=sum(m2Hex_flow_nominal, mBorFie_flow_nominal) .* {1,1,-1})
+  Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.Junction
+    manAmbWatRet(redeclare final package Medium = MediumBui, final
+      m_flow_nominal=sum(m2Hex_flow_nominal, mBorFie_flow_nominal) .* {1,1,-1})
     "Ambient water return manifold"
     annotation (Placement(transformation(extent={{10,-110},{-10,-90}})));
-  BaseClasses.Junction manChiWatSup(
-    redeclare final package Medium=MediumBui,
-    final m_flow_nominal=sum(m2Hex_flow_nominal, mBorFie_flow_nominal) .* {1,-1,-1})
+  Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.Junction
+    manChiWatSup(redeclare final package Medium = MediumBui, final
+      m_flow_nominal=sum(m2Hex_flow_nominal, mBorFie_flow_nominal) .* {1,-1,-1})
     "Chilled water supply manifold"
     annotation (Placement(transformation(extent={{110,30},{130,50}})));
-  BaseClasses.Junction manChiWatRet(
-    redeclare final package Medium=MediumBui,
-    final m_flow_nominal=sum(m2Hex_flow_nominal, mBorFie_flow_nominal) .* {1,-1,-1})
+  Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.Junction
+    manChiWatRet(redeclare final package Medium = MediumBui, final
+      m_flow_nominal=sum(m2Hex_flow_nominal, mBorFie_flow_nominal) .* {1,-1,-1})
     "Chilled water return manifold"
     annotation (Placement(transformation(extent={{170,-50},{150,-30}})));
-  BaseClasses.Junction manHeaWatSup(
-    redeclare final package Medium=MediumBui,
-    final m_flow_nominal=sum(m2Hex_flow_nominal, mBorFie_flow_nominal) .* {1,-1,-1})
+  Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.Junction
+    manHeaWatSup(redeclare final package Medium = MediumBui, final
+      m_flow_nominal=sum(m2Hex_flow_nominal, mBorFie_flow_nominal) .* {1,-1,-1})
     "Heating water supply manifold"
     annotation (Placement(transformation(extent={{-90,30},{-110,50}})));
-  BaseClasses.Junction manHeaWatRet(
-    redeclare final package Medium=MediumBui,
-    final m_flow_nominal=sum(m2Hex_flow_nominal, mBorFie_flow_nominal) .* {1,-1,-1})
+  Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.Junction
+    manHeaWatRet(redeclare final package Medium = MediumBui, final
+      m_flow_nominal=sum(m2Hex_flow_nominal, mBorFie_flow_nominal) .* {1,-1,-1})
     "Heating water return manifold"
     annotation (Placement(transformation(extent={{-150,-50},{-130,-30}})));
-  BaseClasses.Junction junBorFieInl(
-    redeclare final package Medium = MediumBui,
-    final m_flow_nominal={sum(m2Hex_flow_nominal, mBorFie_flow_nominal),-
-      m2Hex_flow_nominal,-mBorFie_flow_nominal})
-    "Borefield inlet junction"
+  Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.Junction
+    junBorFieInl(redeclare final package Medium = MediumBui, final
+      m_flow_nominal={sum(m2Hex_flow_nominal, mBorFie_flow_nominal),-
+        m2Hex_flow_nominal,-mBorFie_flow_nominal}) "Borefield inlet junction"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-118,-210})));
 
-  BaseClasses.Chiller chi(
+  Subsystems.Chiller chi(
     redeclare final package Medium = MediumBui,
     final dpCon_nominal=dpCon_nominal,
     final dpEva_nominal=dpEva_nominal,
-    final dat=datChi)
-    "Base subsystem with heat recovery chiller"
+    final dat=datChi) "Base subsystem with heat recovery chiller"
     annotation (Placement(transformation(extent={{-8,24},{12,44}})));
-  BaseClasses.Borefield borFie(
+  Subsystems.Borefield borFie(
     redeclare final package Medium = MediumBui,
     final TBorWatEntMax=TBorWatEntMax,
     final dTBorFieSet=dTBorFieSet,
     final dat=datBorFie) if have_bor
     "Auxiliary subsystem with geothermal borefield"
     annotation (Placement(transformation(extent={{-80,-210},{-60,-190}})));
-  BaseClasses.HeatExchanger hex(
+  Subsystems.HeatExchanger hex(
     redeclare final package Medium1 = MediumDis,
     redeclare final package Medium2 = MediumBui,
     final allowFlowReversal1=allowFlowReversalDis,
@@ -201,23 +199,23 @@ model ChillerBoreField
     "Base subsystem with district heat exchanger"
     annotation (Placement(transformation(extent={{-80,-256},{-60,-276}})));
 
-  BaseClasses.StratifiedTank tanChiWat(
+  Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.StratifiedTank
+    tanChiWat(
     redeclare final package Medium = MediumBui,
     final m_flow_nominal=dat.mEva_flow_nominal,
     final VTan=VTanChiWat,
     final hTan=hTanChiWat,
     final dIns=dInsTanChiWat,
-    final nSeg=nSegTan)
-    "Chilled water buffer tank"
+    final nSeg=nSegTan) "Chilled water buffer tank"
     annotation (Placement(transformation(extent={{200,200},{220,220}})));
-  BaseClasses.StratifiedTank tanHeaWat(
+  Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.StratifiedTank
+    tanHeaWat(
     redeclare final package Medium = MediumBui,
     final m_flow_nominal=dat.mCon_flow_nominal,
     final VTan=VTanHeaWat,
     final hTan=hTanHeaWat,
     final dIns=dInsTanHeaWat,
-    final nSeg=nSegTan)
-    "Heating water buffer tank"
+    final nSeg=nSegTan) "Heating water buffer tank"
     annotation (Placement(transformation(extent={{-220,200},{-200,220}})));
   Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.CollectorDistributor
     colDis annotation (Placement(transformation(

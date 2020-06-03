@@ -2,3 +2,6 @@ PartialETS
 Connection2Pipe
 CollectorDistributor
 Validation
+Junction
+Pump_m_flow
+StratifiedTank

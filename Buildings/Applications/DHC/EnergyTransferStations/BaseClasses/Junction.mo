@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.EnergyTransferStations.FifthGeneration.BaseClasses;
+within Buildings.Applications.DHC.EnergyTransferStations.BaseClasses;
 model Junction "Fluid junction"
   extends Fluid.FixedResistances.Junction(
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,

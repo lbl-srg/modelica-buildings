@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.EnergyTransferStations.FifthGeneration.BaseClasses;
+within Buildings.Applications.DHC.EnergyTransferStations.Generation5.Subsystems;
 model Chiller "Base subsystem with heat recovery chiller"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model"
@@ -114,29 +114,28 @@ model Chiller "Base subsystem with heat recovery chiller"
     final per=dat)
     "Water cooled chiller (ports indexed 1 are on condenser side)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Pump_m_flow pumCon(
+  Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow
+    pumCon(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=dat.mCon_flow_nominal,
-    final dp_nominal=dpCon_nominal + dpValCon_nominal)
-    "Condenser pump"
+    final dp_nominal=dpCon_nominal + dpValCon_nominal) "Condenser pump"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
-  Pump_m_flow pumEva(
+  Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow
+    pumEva(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=dat.mEva_flow_nominal,
-    final dp_nominal=dpEva_nominal + dpValEva_nominal)
-    "Evaporator pump"
+    final dp_nominal=dpEva_nominal + dpValEva_nominal) "Evaporator pump"
     annotation (Placement(transformation(
-      extent={{10,-10},{-10,10}},
-      rotation=0,
-      origin={-100,-60})));
-  FifthGeneration.Controls.Chiller con(
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={-100,-60})));
+  Generation5.Controls.Chiller con(
     final TChiWatSupSetMin=TChiWatSupSetMin,
     final TChiWatSupSetMax=TChiWatSupSetMax,
     final TConWatEntMin=TConWatEntMin,
-    final TEvaWatEntMax=TEvaWatEntMax)
-    "Controller"
+    final TEvaWatEntMax=TEvaWatEntMax) "Controller"
     annotation (Placement(transformation(extent={{-70,130},{-50,150}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTConLvg(
     redeclare final package Medium = Medium,
@@ -174,23 +173,19 @@ model Chiller "Base subsystem with heat recovery chiller"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-20,-20})));
-  Junction splEva(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=dat.mEva_flow_nominal .* {1,-1,-1})
-    "Flow splitter for the evaporator water circuit"
-    annotation (Placement(
-      transformation(
-      extent={{10,-10},{-10,10}},
-      rotation=0,
-      origin={-140,-60})));
-  Junction splConMix(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=dat.mCon_flow_nominal .* {1,-1,-1})
-    "Flow splitter"
+  Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.Junction splEva(
+      redeclare final package Medium = Medium, final m_flow_nominal=dat.mEva_flow_nominal
+         .* {1,-1,-1}) "Flow splitter for the evaporator water circuit"
     annotation (Placement(transformation(
-      extent={{-10,10},{10,-10}},
-      rotation=0,
-      origin={120,60})));
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={-140,-60})));
+  Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.Junction
+    splConMix(redeclare final package Medium = Medium, final m_flow_nominal=dat.mCon_flow_nominal
+         .* {1,-1,-1}) "Flow splitter" annotation (Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=0,
+        origin={120,60})));
   Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valEva(
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,

@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.EnergyTransferStations.FifthGeneration.BaseClasses;
+within Buildings.Applications.DHC.EnergyTransferStations.BaseClasses;
 model Pump_m_flow "Pump with prescribed mass flow rate"
   extends Buildings.Fluid.Movers.FlowControlled_m_flow(
     per(final motorCooledByFluid=false),
