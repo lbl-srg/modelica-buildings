@@ -139,27 +139,26 @@ model BuildingRCZ1Valve
     mLoaHea_flow_nominal=1,
     mLoaCoo_flow_nominal=1) "Terminal unit"
     annotation (Placement(transformation(extent={{-160,-58},{-140,-38}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
+  Buildings.Applications.DHC.Loads.FlowDistribution disFloHea(
     redeclare package Medium = Medium,
     m_flow_nominal=terUni.mHeaWat_flow_nominal,
     have_pum=true,
     have_val=true,
     dp_nominal=100000,
     nPorts_a1=1,
-    nPorts_b1=1)
-    "Heating water distribution system"
-    annotation (Placement(transformation(extent={{-100, -120},{-80,-100}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
+    nPorts_b1=1) "Heating water distribution system"
+    annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
+  Buildings.Applications.DHC.Loads.FlowDistribution disFloCoo(
     redeclare package Medium = Medium,
     m_flow_nominal=terUni.mChiWat_flow_nominal,
     typDis=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
+
     have_pum=true,
     have_val=true,
     dp_nominal=100000,
     nPorts_a1=1,
-    nPorts_b1=1)
-    "Chilled water distribution system"
-    annotation (Placement(transformation(extent={{-100, -160},{-80,-140}})));
+    nPorts_b1=1) "Chilled water distribution system"
+    annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSecHea(k=308.15,
       y(final unit="K", displayUnit="degC"))
     "Heating water secondary supply temperature set point"

@@ -43,7 +43,7 @@ model SimpleRoomODE "Validation of the model SimpleRoomODE"
   HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow1
     "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{82,70},{62,90}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoomODE rooOdeHea(
+  Buildings.Applications.DHC.Loads.SimpleRoomODE rooOdeHea(
     TOutHea_nominal=273.15,
     TIndHea_nominal=293.15,
     QHea_flow_nominal=QHea_flow_nominal,
@@ -59,7 +59,7 @@ model SimpleRoomODE "Validation of the model SimpleRoomODE"
   Buildings.Controls.OBC.CDL.Continuous.Gain gai2(k=QCoo_flow_nominal)
     "Scaling"
     annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoomODE rooOdeCoo(
+  Buildings.Applications.DHC.Loads.SimpleRoomODE rooOdeCoo(
     TOutHea_nominal=273.15,
     TIndHea_nominal=293.15,
     QHea_flow_nominal=QHea_flow_nominal,

@@ -85,7 +85,7 @@ model FanCoil2PipeHeatingValve
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={150,0})));
-  Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoomODE TLoaODE(
+  Buildings.Applications.DHC.Loads.SimpleRoomODE TLoaODE(
     TOutHea_nominal=273.15 - 5,
     TIndHea_nominal=T_aLoaHea_nominal,
     QHea_flow_nominal=QHea_flow_nominal)

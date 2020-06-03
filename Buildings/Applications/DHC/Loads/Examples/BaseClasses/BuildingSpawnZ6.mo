@@ -91,24 +91,23 @@ model BuildingSpawnZ6
     each mLoaHea_flow_nominal=5,
     each mLoaCoo_flow_nominal=5) "Terminal unit"
     annotation (Placement(transformation(extent={{-140,-2},{-116,22}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
+  Buildings.Applications.DHC.Loads.FlowDistribution disFloHea(
     redeclare package Medium = Medium,
     m_flow_nominal=sum(terUni.mHeaWat_flow_nominal .* terUni.facSca),
     have_pum=true,
     dp_nominal=100000,
     nPorts_a1=nZon,
-    nPorts_b1=nZon)
-    "Heating water distribution system"
+    nPorts_b1=nZon) "Heating water distribution system"
     annotation (Placement(transformation(extent={{-236,-188},{-216,-168}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
+  Buildings.Applications.DHC.Loads.FlowDistribution disFloCoo(
     redeclare package Medium = Medium,
     m_flow_nominal=sum(terUni.mChiWat_flow_nominal .* terUni.facSca),
     typDis=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
+
     have_pum=true,
     dp_nominal=100000,
     nPorts_a1=nZon,
-    nPorts_b1=nZon)
-    "Chilled water distribution system"
+    nPorts_b1=nZon) "Chilled water distribution system"
     annotation (Placement(transformation(extent={{-160,-230},{-140,-210}})));
 equation
   connect(qRadGai_flow.y,multiplex3_1.u1[1])  annotation (Line(
