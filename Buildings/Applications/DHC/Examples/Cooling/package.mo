@@ -1,10 +1,10 @@
 within Buildings.Applications.DHC.Examples;
-package Cooling "Package of models for cooling production"
+package Cooling "Package of example models for DC systems"
   extends Modelica.Icons.VariantsPackage;
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains models for central plants producing chilled water.
+This package contains example models for district cooling systems.
 </p>
 </html>"));
 end Cooling;

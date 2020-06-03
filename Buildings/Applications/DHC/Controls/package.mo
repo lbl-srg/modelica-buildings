@@ -4,7 +4,7 @@ package Controls "Package of control sequences for DHC systems"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains control sequences used in district heating and
+This package contains control sequences for district heating and
 cooling systems.
 </p>
 </html>"));

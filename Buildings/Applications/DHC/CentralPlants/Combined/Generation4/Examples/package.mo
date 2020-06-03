@@ -5,8 +5,8 @@ package Examples "Example models integrating multiple components"
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains advanced examples illustrating the use of the models in
-<a href=\"modelica://Buildings.Applications.DHC.CentralPlants.Cooling\">
-Buildings.Applications.DHC.CentralPlants.Cooling</a>.
+<a href=\"modelica://Buildings.Applications.DHC.CentralPlants.Combined.Generation4\">
+Buildings.Applications.DHC.CentralPlants.Combined.Generation4</a>.
 </p>
 </html>"));
 end Examples;

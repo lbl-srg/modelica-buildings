@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.CentralPlants;
-package Heating "Package of models for heating production"
+package Heating "Package of models for central heating production"
   extends Modelica.Icons.VariantsPackage;
 
 annotation (preferredView="info", Documentation(info="<html>

@@ -4,8 +4,7 @@ package Controls "Package of control sequences for cooling plants"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains control sequences for central plants producing
-chilled water.
+This package contains control sequences for central cooling plants.
 </p>
 </html>"));
 end Controls;

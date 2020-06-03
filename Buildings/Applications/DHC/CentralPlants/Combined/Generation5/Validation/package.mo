@@ -5,8 +5,8 @@ package Validation "Collection of validation models"
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains validation models for the classes in
-<a href=\"modelica://Buildings.Applications.DHC.CentralPlants.Cooling\">
-Buildings.Applications.DHC.CentralPlants.Cooling</a>.
+<a href=\"modelica://Buildings.Applications.DHC.CentralPlants.Combined.Generation5\">
+Buildings.Applications.DHC.CentralPlants.Combined.Generation5</a>.
 </p>
 </html>"));
 end Validation;
