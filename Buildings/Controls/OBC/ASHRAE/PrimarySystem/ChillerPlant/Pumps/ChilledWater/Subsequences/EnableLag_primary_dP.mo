@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences;
 block EnableLag_primary_dP
   "Sequences for enabling and disabling lag pumps for primary-only plants using differential pressure pump speed control"
   parameter Integer nPum = 2 "Total number of pumps";
@@ -27,11 +27,11 @@ block EnableLag_primary_dP
     annotation (Placement(transformation(extent={{-180,-20},{-140,20}}),
       iconTransformation(extent={{-140,-58},{-100,-18}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yUp
-    "Next lag pump status"
+    "Next lag pump status, a rising edge indicates that next lag pump should be enabled"
     annotation (Placement(transformation(extent={{140,20},{180,60}}),
       iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDown
-    "Last lag pump status"
+    "Last lag pump status, a falling edge indicates that last lag pump should be disabled"
     annotation (Placement(transformation(extent={{140,-100},{180,-60}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
 
