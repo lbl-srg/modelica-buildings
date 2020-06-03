@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.Validation;
 model DownStartWithOn
-  "Validate sequence of start staging down process which reuires chiller ON"
+  "Validate sequence of starting the staging down process which requires enabling a chiller"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.DownStart
     staStaDow1(
@@ -27,7 +27,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerLoa(
     final k=0) "Zero load"
     annotation (Placement(transformation(extent={{-180,100},{-160,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minOPLR1(final k=0.7)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yOpeParLoaRatMin1(final k=0.7)
     "Minimum cycling operative partial load ratio"
     annotation (Placement(transformation(extent={{-180,170},{-160,190}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant onOff1(
@@ -151,7 +151,7 @@ equation
   connect(staDow1.y, staStaDow1.uStaDow)
     annotation (Line(points={{-118,220},{-110,220},{-110,150},{-2,150}},
       color={255,0,255}));
-  connect(minOPLR1.y, staStaDow1.minOPLR)
+  connect(yOpeParLoaRatMin1.y, staStaDow1.yOpeParLoaRatMin)
     annotation (Line(points={{-158,180},{-100,180},{-100,148},{-2,148}},
       color={0,0,127}));
   connect(chiOneLoa.y, staStaDow1.uChiLoa[1])

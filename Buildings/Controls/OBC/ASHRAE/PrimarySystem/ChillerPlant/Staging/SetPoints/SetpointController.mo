@@ -40,32 +40,52 @@ block SetpointController
     "Staging matrix with stage as row index and chiller as column index"
     annotation (Dialog(tab="General", group="Chiller configuration parameters"));
 
-  parameter Modelica.SIunits.Time avePer = 300
-    "Time period for the capacity requirement rolling average"
+  parameter Real avePer(
+    final unit="s",
+    final quantity="Time")=300
+      "Time period for the capacity requirement rolling average"
     annotation (Dialog(tab="Time parameters", group="Hold and delay parameters"));
 
-  parameter Modelica.SIunits.Time delayStaCha = 900
-    "Hold period for each stage change"
+  parameter Real delayStaCha(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")=900
+      "Hold period for each stage change"
     annotation (Dialog(tab="Time parameters", group="Hold and delay parameters"));
 
-  parameter Modelica.SIunits.Time parLoaRatDelay = 900
-    "Enable delay for operating and staging part load ratio condition"
+  parameter Real parLoaRatDelay(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")=900
+      "Enable delay for operating and staging part load ratio condition"
     annotation (Dialog(tab="Time parameters", group="Hold and delay parameters"));
 
-  parameter Modelica.SIunits.Time faiSafTruDelay = 900
-    "Enable delay for failsafe condition"
+  parameter Real faiSafTruDelay(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")=900
+      "Enable delay for failsafe condition"
     annotation (Dialog(tab="Time parameters", group="Hold and delay parameters"));
 
-  parameter Modelica.SIunits.Time effConTruDelay = 900
-    "Enable delay for efficiency condition"
+  parameter Real effConTruDelay(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")=900
+      "Enable delay for efficiency condition"
     annotation (Dialog(tab="Time parameters", group="Hold and delay parameters"));
 
-  parameter Modelica.SIunits.Time shortTDelay = 600
-    "Short enable delay for staging from zero to first available stage up"
+  parameter Real shortTDelay(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")=600
+      "Short enable delay for staging from zero to first available stage up"
     annotation(Evaluate=true, Dialog(enable=have_WSE, tab="Time parameters", group="Hold and delay parameters"));
 
-  parameter Modelica.SIunits.Time longTDelay = 1200
-    "Long enable delay for staging from zero to first available stage up"
+  parameter Real longTDelay(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")=1200
+      "Long enable delay for staging from zero to first available stage up"
     annotation(Evaluate=true, Dialog(enable=have_WSE, tab="Time parameters", group="Hold and delay parameters"));
 
   parameter Real posDisMult(
@@ -641,7 +661,7 @@ equation
         extent={{-400,-300},{120,420}})),
 Documentation(info="<html>
 <p>
-The sequence is a chiller stage status setpoint controller that outputs the 
+The sequence is a chiller stage status setpoint controller that outputs the
 chiller stage integer index <code>ySta</code>, chiller stage change trigger signal
 <code>y</code> and a chiller status vector for the current stage <code>yChi</code>.
 </p>
@@ -659,8 +679,8 @@ the capacity requirement
 </li>
 <li>
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Configurator\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Configurator</a> to allow the user 
-to provide the chiller plant configuration parameters such as chiller design and minimal capacities and types. It 
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Configurator</a> to allow the user
+to provide the chiller plant configuration parameters such as chiller design and minimal capacities and types. It
 calculates the design and minimal stage capacities, stage type and stage availability
 </li>
 <li>

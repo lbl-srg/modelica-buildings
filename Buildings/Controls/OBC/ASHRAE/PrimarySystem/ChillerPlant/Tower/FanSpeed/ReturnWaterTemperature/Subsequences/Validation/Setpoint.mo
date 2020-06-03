@@ -50,8 +50,8 @@ equation
       color={0,0,127}));
   connect(parLoaRat.y, swi.u1)
     annotation (Line(points={{-58,0},{-20,0},{-20,-12},{-2,-12}}, color={0,0,127}));
-  connect(swi.y, conWatRetSet.uOpeParLoaRat) annotation (Line(points={{22,-20},
-          {30,-20},{30,23},{58,23}}, color={0,0,127}));
+  connect(swi.y, conWatRetSet.uOpeParLoaRat)
+    annotation (Line(points={{22,-20},{30,-20},{30,23},{58,23}}, color={0,0,127}));
   connect(chiWatSupSet.y, conWatRetSet.TChiWatSupSet)
     annotation (Line(points={{22,-60},{40,-60},{40,17},{58,17}}, color={0,0,127}));
   connect(not1.y, conWatRetSet.uPla)
@@ -75,8 +75,8 @@ First implementation.
 </ul>
 </html>"),
  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-                                                   graphics={
-            Ellipse(lineColor = {75,138,73},
+      graphics={
+        Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
                 fillPattern = FillPattern.Solid,
                 extent = {{-100,-100},{100,100}}),
@@ -84,6 +84,6 @@ First implementation.
                 fillColor = {75,138,73},
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
-                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}), Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-80},{100,80}})));
+                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-80},{100,80}})));
 end Setpoint;

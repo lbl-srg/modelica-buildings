@@ -3,16 +3,25 @@ block UpEnd "Sequence for ending stage-up process"
 
   parameter Integer nChi "Total number of chillers";
   parameter Boolean isParallelChiller=true
-    "Flag: true means that the plant has parallel chillers";
+    "True: the plant has parallel chillers";
 
-  parameter Modelica.SIunits.Time proOnTim = 300
+  parameter Real proOnTim(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h") = 300
     "Threshold time to check if newly enabled chiller being operated by more than 5 minutes"
     annotation (Dialog(group="Enable next chiller"));
-  parameter Modelica.SIunits.Time chaChiWatIsoTim
+  parameter Real chaChiWatIsoTim(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")
     "Time to slowly change isolation valve, should be determined in the field"
     annotation (Dialog(group="Chilled water isolation valve"));
-  parameter Modelica.SIunits.Time byPasSetTim
-    "Time to slowly reset minimum by-pass flow"
+  parameter Real byPasSetTim(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")
+    "Time to slowly reset minimum bypass flow"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Modelica.SIunits.VolumeFlowRate minFloSet[nChi]
     "Minimum chilled water flow through each chiller"
@@ -20,7 +29,10 @@ block UpEnd "Sequence for ending stage-up process"
   parameter Modelica.SIunits.VolumeFlowRate maxFloSet[nChi]
     "Maximum chilled water flow through each chiller"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
-  parameter Modelica.SIunits.Time aftByPasSetTim=60
+  parameter Real aftByPasSetTim(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")=60
     "Time after minimum bypass flow being resetted to new setpoint"
     annotation (Dialog(group="Reset bypass"));
   parameter Real relFloDif=0.05
@@ -31,8 +43,7 @@ block UpEnd "Sequence for ending stage-up process"
     "Index of next enabling chiller"
     annotation (Placement(transformation(extent={{-240,220},{-200,260}}),
       iconTransformation(extent={{-140,100},{-100,140}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaUp
-    "Indicate if there is stage up"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaUp "Stage-up command"
     annotation (Placement(transformation(extent={{-240,190},{-200,230}}),
       iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEnaChiWatIsoVal
@@ -52,7 +63,7 @@ block UpEnd "Sequence for ending stage-up process"
     annotation (Placement(transformation(extent={{-240,50},{-200,90}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiWatReq[nChi]
-    "Chilled water requst status for each chiller"
+    "Chilled water request status for each chiller"
     annotation (Placement(transformation(extent={{-240,0},{-200,40}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiWatIsoVal[nChi](
@@ -62,7 +73,7 @@ block UpEnd "Sequence for ending stage-up process"
     annotation (Placement(transformation(extent={{-240,-30},{-200,10}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConWatReq[nChi]
-    "Condenser water requst status for each chiller"
+    "Condenser water request status for each chiller"
     annotation (Placement(transformation(extent={{-240,-90},{-200,-50}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiHeaCon[nChi]
@@ -231,7 +242,7 @@ equation
       color={0,0,127}));
   connect(and4.y,disChiIsoVal.uUpsDevSta)
     annotation (Line(points={{22,40},{30,40},{30,-15},{58,-15}}, color={255,0,255}));
-  connect(con2.y,disChiIsoVal. uStaCha)
+  connect(con2.y,disChiIsoVal. chaPro)
     annotation (Line(points={{-58,-40},{10,-40},{10,-18},{58,-18}},
       color={255,0,255}));
   connect(uConWatReq, booToRea2.u)
@@ -245,7 +256,7 @@ equation
     annotation (Line(points={{-98,-70},{-82,-70}}, color={0,0,127}));
   connect(lesEquThr1.y, and5.u1)
     annotation (Line(points={{-58,-70},{-22,-70}}, color={255,0,255}));
-  connect(con2.y, disHeaCon.uStaCha)
+  connect(con2.y, disHeaCon.chaPro)
     annotation (Line(points={{-58,-40},{10,-40},{10,-66},{38,-66}}, color={255,0,255}));
   connect(and5.y, disHeaCon.uUpsDevSta)
     annotation (Line(points={{2,-70},{20,-70},{20,-62},{38,-62}},
@@ -262,7 +273,7 @@ equation
   connect(con3.y, minChiWatSet.uStaDow)
     annotation (Line(points={{-138,-150},{-20,-150},{-20,-139},{38,-139}},
       color={255,0,255}));
-  connect(con2.y, minBypSet.uStaCha)
+  connect(con2.y, minBypSet.chaPro)
     annotation (Line(points={{-58,-40},{10,-40},{10,-176},{38,-176}},
       color={255,0,255}));
   connect(minBypSet.VChiWat_flow, VChiWat_flow)
@@ -602,8 +613,8 @@ Documentation(info="<html>
 <p>
 Block that controls devices at the ending step of chiller staging up process.
 This development is based on ASHRAE RP-1711 Advanced Sequences of Operation for 
-HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft 6 on July 25, 
-2019), section 5.2.4.15, item 6 and 7. These sections specify the controls of 
+HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft version,
+March 2020), section 5.2.4.16, item 6 and 7. These sections specify the controls of 
 devices at the ending step of staging up process.
 </p>
 <p>

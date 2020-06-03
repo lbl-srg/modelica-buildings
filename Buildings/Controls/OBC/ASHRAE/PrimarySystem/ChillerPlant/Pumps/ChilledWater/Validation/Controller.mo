@@ -19,7 +19,7 @@ model Controller "Validate chiller water pump control sequence"
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Controller
     dedLoc(
     isHeadered=false,
-    haveLocalSensor=true,
+    have_LocalSensor=true,
     nPum=3,
     nPum_nominal=3)
     "Pump speed control for plant with dedicated primary chilled water pump and with local DP sensor"

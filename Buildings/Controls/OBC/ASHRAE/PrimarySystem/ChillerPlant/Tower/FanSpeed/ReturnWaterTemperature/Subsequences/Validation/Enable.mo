@@ -163,8 +163,8 @@ First implementation.
 </ul>
 </html>"),
  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-                                                   graphics={
-            Ellipse(lineColor = {75,138,73},
+       graphics={
+        Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
                 fillPattern = FillPattern.Solid,
                 extent = {{-100,-100},{100,100}}),
@@ -172,6 +172,6 @@ First implementation.
                 fillColor = {75,138,73},
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
-                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}), Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-280,-120},{280,120}})));
+                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-280,-120},{280,120}})));
 end Enable;

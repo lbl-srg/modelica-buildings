@@ -53,6 +53,7 @@ protected
     "Output the input signal with a zero order hold"
     annotation (Placement(transformation(extent={{160,-20},{180,0}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
+    "Second chiller isolation valve position"
     annotation (Placement(transformation(extent={{160,30},{180,50}})));
 
 equation
@@ -69,7 +70,7 @@ equation
   connect(upsDevSta.y, enaChiIsoVal.uUpsDevSta)
     annotation (Line(points={{-138,-30},{-120,-30},{-120,5},{-102,5}},
       color={255,0,255}));
-  connect(staCha.y, enaChiIsoVal.uStaCha)
+  connect(staCha.y, enaChiIsoVal.chaPro)
     annotation (Line(points={{-138,-70},{-110,-70},{-110,2},{-102,2}},
       color={255,0,255}));
   connect(enaChiIsoVal.yChiWatIsoVal[2], zerOrdHol.u)
@@ -96,7 +97,7 @@ equation
   connect(upsDevSta.y, disChiIsoVal.uUpsDevSta)
     annotation (Line(points={{-138,-30},{100,-30},{100,-5},{118,-5}},
       color={255,0,255}));
-  connect(staCha.y, disChiIsoVal.uStaCha)
+  connect(staCha.y, disChiIsoVal.chaPro)
     annotation (Line(points={{-138,-70},{110,-70},{110,-8},{118,-8}},
       color={255,0,255}));
   connect(upsDevSta.y, swi.u2)

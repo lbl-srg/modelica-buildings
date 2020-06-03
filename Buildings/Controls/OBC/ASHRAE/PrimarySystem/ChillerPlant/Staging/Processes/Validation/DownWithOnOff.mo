@@ -1,12 +1,12 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Validation;
 model DownWithOnOff
-  "Validate sequence of staging down process which requires one chiller ON and another chiller OFF"
+  "Validate sequence of staging down process which requires enabling one chiller and disabling another chiller"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Down
     dowProCon(
     final nChi=2,
     final totSta=4,
-    final havePonyChiller=true,
+    final have_PonyChiller=true,
     final chaChiWatIsoTim=300,
     final staVec={0,0.5,1,2},
     final desConWatPumSpe={0,0.5,0.75,0.6},
@@ -33,7 +33,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiLoa1(
     final k=1000) "Chiller load"
     annotation (Placement(transformation(extent={{-200,-60},{-180,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minOPLR1(final k=0.78)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yOpeParLoaRatMin1(final k=0.78)
     "Minimum cycling operative partial load ratio"
     annotation (Placement(transformation(extent={{-200,20},{-180,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant fulOpe1(final k=1)
@@ -47,17 +47,6 @@ protected
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
   Buildings.Controls.OBC.CDL.Logical.Switch chiOneLoa "Chiller one load"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staTwo1(
-    final k=2) "Chiller stage two"
-    annotation (Placement(transformation(extent={{-200,-180},{-180,-160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staOne1(
-    final k=1) "Chiller stage one"
-    annotation (Placement(transformation(extent={{-200,-140},{-180,-120}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch chiSta1 "Logical switch"
-    annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt2
-    "Convert real input to integer output"
-    annotation (Placement(transformation(extent={{-80,-160},{-60,-140}})));
   Buildings.Controls.OBC.CDL.Logical.Switch IsoValOne "Logical switch"
     annotation (Placement(transformation(extent={{-120,-220},{-100,-200}})));
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol3[2](
@@ -131,11 +120,20 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger staSet2
     "Stage setpoint index"
     annotation (Placement(transformation(extent={{-80,210},{-60,230}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staOne(final k=1) "Stage one"
+    annotation (Placement(transformation(extent={{-200,-140},{-180,-120}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staTwo(final k=2)
+    "Stage two"
+    annotation (Placement(transformation(extent={{-200,-180},{-180,-160}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch chiSta "Current chiller stage"
+    annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger sta "Current chiller stage"
+    annotation (Placement(transformation(extent={{-80,-160},{-60,-140}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fal(final k=false)
     "Logical false"
     annotation (Placement(transformation(extent={{80,180},{100,200}})));
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
-    "Check if the up process has ended"
+    "Check if the down process has ended"
     annotation (Placement(transformation(extent={{80,210},{100,230}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "True when it is not in process"
@@ -144,8 +142,6 @@ protected
 equation
   connect(booPul1.y, staDow1.u)
     annotation (Line(points={{-178,140},{-162,140}}, color={255,0,255}));
-  connect(chiSta1.y, reaToInt2.u)
-    annotation (Line(points={{-98,-150},{-82,-150}}, color={0,0,127}));
   connect(staDow1.y, chiOneLoa.u2)
     annotation (Line(points={{-138,140},{-130,140},{-130,-10},{-122,-10}},
       color={255,0,255}));
@@ -189,7 +185,7 @@ equation
   connect(zerOrdHol7.y, chiOneLoa.u1)
     annotation (Line(points={{202,120},{210,120},{210,-30},{-140,-30},{-140,-2},
           {-122,-2}}, color={0,0,127}));
-  connect(minOPLR1.y, dowProCon.minOPLR)
+  connect(yOpeParLoaRatMin1.y, dowProCon.yOpeParLoaRatMin)
     annotation (Line(points={{-178,30},{-126,30},{-126,93},{18,93}},
       color={0,0,127}));
   connect(chiOneLoa.y, dowProCon.uChiLoa[1])
@@ -200,22 +196,13 @@ equation
       color={0,0,127}));
   connect(chiOneSta.y, dowProCon.uChi[1])
     annotation (Line(points={{122,40},{130,40},{130,20},{-80,20},{-80,87},{18,87}},
-                 color={255,0,255}));
+      color={255,0,255}));
   connect(chiTwoSta.y, dowProCon.uChi[2])
     annotation (Line(points={{122,0},{132,0},{132,-20},{-78,-20},{-78,89},{18,89}},
-                 color={255,0,255}));
+      color={255,0,255}));
   connect(chiWatFlo1.y, dowProCon.VChiWat_flow)
     annotation (Line(points={{-178,-90},{-76,-90},{-76,86},{18,86}},
       color={0,0,127}));
-  connect(staOne1.y, chiSta1.u1)
-    annotation (Line(points={{-178,-130},{-160,-130},{-160,-142},{-122,-142}},
-      color={0,0,127}));
-  connect(staTwo1.y, chiSta1.u3)
-    annotation (Line(points={{-178,-170},{-160,-170},{-160,-158},{-122,-158}},
-      color={0,0,127}));
-  connect(reaToInt2.y, dowProCon.uChiSta)
-    annotation (Line(points={{-58,-150},{-50,-150},{-50,83},{18,83}},
-      color={255,127,0}));
   connect(dowProCon.yChiHeaCon[1], chiOneHea.u)
     annotation (Line(points={{42,76},{66,76},{66,-90},{98,-90}},
       color={255,0,255}));
@@ -256,13 +243,13 @@ equation
       color={0,0,127}));
   connect(chiOneSta.y, dowProCon.uChiWatReq[1])
     annotation (Line(points={{122,40},{130,40},{130,20},{-30,20},{-30,73},{18,73}},
-                 color={255,0,255}));
+      color={255,0,255}));
   connect(chiTwoSta.y, dowProCon.uChiWatReq[2])
     annotation (Line(points={{122,0},{132,0},{132,-20},{-28,-20},{-28,75},{18,75}},
-                 color={255,0,255}));
+      color={255,0,255}));
   connect(chiOneSta.y, dowProCon.uConWatReq[1])
     annotation (Line(points={{122,40},{130,40},{130,20},{-26,20},{-26,71},{18,71}},
-                 color={255,0,255}));
+      color={255,0,255}));
   connect(chiTwoSta.y, dowProCon.uConWatReq[2])
     annotation (Line(points={{122,0},{132,0},{132,-20},{-24,-20},{-24,73},{18,73}},
       color={255,0,255}));
@@ -307,14 +294,22 @@ equation
           140},{-40,96.2},{18,96.2}}, color={255,0,255}));
   connect(staSet2.y, dowProCon.uStaSet) annotation (Line(points={{-58,220},{-36,
           220},{-36,98.2},{18,98.2}}, color={255,127,0}));
-  connect(dowProCon.yStaPro, falEdg.u) annotation (Line(points={{42,99},{50,99},
-          {50,220},{78,220}}, color={255,0,255}));
+  connect(staOne.y, chiSta.u1) annotation (Line(points={{-178,-130},{-160,-130},
+          {-160,-142},{-122,-142}}, color={0,0,127}));
+  connect(staTwo.y, chiSta.u3) annotation (Line(points={{-178,-170},{-160,-170},
+          {-160,-158},{-122,-158}}, color={0,0,127}));
+  connect(chiSta.y, sta.u)
+    annotation (Line(points={{-98,-150},{-82,-150}}, color={0,0,127}));
+  connect(dowProCon.yStaPro, falEdg.u) annotation (Line(points={{42,99},{56,99},
+          {56,220},{78,220}}, color={255,0,255}));
   connect(falEdg.y, lat.u)
     annotation (Line(points={{102,220},{118,220}}, color={255,0,255}));
   connect(fal.y, lat.clr) annotation (Line(points={{102,190},{110,190},{110,214},
           {118,214}}, color={255,0,255}));
-  connect(lat.y, chiSta1.u2) annotation (Line(points={{142,220},{216,220},{216,-106},
-          {-140,-106},{-140,-150},{-122,-150}}, color={255,0,255}));
+  connect(lat.y, chiSta.u2) annotation (Line(points={{142,220},{214,220},{214,-104},
+          {-140,-104},{-140,-150},{-122,-150}}, color={255,0,255}));
+  connect(sta.y, dowProCon.uChiSta) annotation (Line(points={{-58,-150},{-50,-150},
+          {-50,83},{18,83}}, color={255,127,0}));
 
 annotation (
  experiment(StopTime=1500, Tolerance=1e-06),

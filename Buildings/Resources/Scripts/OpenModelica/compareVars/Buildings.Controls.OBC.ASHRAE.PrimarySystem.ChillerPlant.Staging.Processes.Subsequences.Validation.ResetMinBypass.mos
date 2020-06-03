@@ -1,7 +1,7 @@
 compareVars :=
   {
     "minBypRes.uUpsDevSta",
-    "minBypRes.uStaCha",
+    "minBypRes.chaPro",
     "minBypRes.VChiWat_flow",
     "minBypRes.VMinChiWat_setpoint",
     "minBypRes.yMinBypRes"

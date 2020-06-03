@@ -3,9 +3,15 @@ block HeadControl
   "Sequences for enabling or disabling head pressure control for the chiller being enabled or disabled"
 
   parameter Integer nChi "Total number of chiller";
-  parameter Modelica.SIunits.Time thrTimEnb=10
+  parameter Real thrTimEnb(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")=10
     "Threshold time to enable head pressure control after condenser water pump being reset";
-  parameter Modelica.SIunits.Time waiTim = 30
+  parameter Real waiTim(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h") = 30
     "Waiting time after enabling next head pressure control";
   parameter Boolean heaStaCha = true
     "Flag to indicate if head pressure control of next chiller should be ON or OFF: true = in stage-up process so it should be ON";
@@ -22,7 +28,7 @@ block HeadControl
     "Chillers head pressure control status"
     annotation (Placement(transformation(extent={{-180,-110},{-140,-70}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaCha
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput chaPro
     "Indicate if there is stage change"
     annotation (Placement(transformation(extent={{-180,52},{-140,92}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
@@ -49,7 +55,7 @@ protected
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
     final threshold=thrTimEnb)
-    "Check if it is 10 seconds after condenser water pump achieves its new setpoint"
+    "Check if it has been threhold time after condenser water pump achieves its new setpoint"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam[nChi]
     "Record the old chiller head pressure control status"
@@ -68,7 +74,7 @@ protected
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
     final threshold=thrTimEnb + waiTim)
-    "Check if it is 10 seconds after condenser water pump achieves its new setpoint and have waited another 30 seconds"
+    "Check if it has been threshold time after condenser water pump achieves its new setpoint and have waited for another amount of time"
     annotation (Placement(transformation(extent={{40,110},{60,130}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep1(
     final nout=nChi) "Replicate boolean input"
@@ -133,11 +139,11 @@ equation
   connect(edg.y, and2.u1)
     annotation (Line(points={{-98,120},{-80,120},{-80,100},{-130,100},{-130,80},
       {-122,80}}, color={255,0,255}));
-  connect(uStaCha, and2.u2)
+  connect(chaPro, and2.u2)
     annotation (Line(points={{-160,72},{-122,72}}, color={255,0,255}));
   connect(and2.y, lat.u)
     annotation (Line(points={{-98,80},{-62,80}}, color={255,0,255}));
-  connect(uStaCha, not1.u)
+  connect(chaPro, not1.u)
     annotation (Line(points={{-160,72},{-130,72},{-130,40},{-122,40}},
       color={255,0,255}));
   connect(not1.y, lat.clr)
@@ -212,7 +218,7 @@ equation
   connect(and2.y, booRep.u)
     annotation (Line(points={{-98,80},{-80,80},{-80,-110},{-62,-110}},
       color={255,0,255}));
-  connect(uStaCha, booRep4.u)
+  connect(chaPro, booRep4.u)
     annotation (Line(points={{-160,72},{-130,72},{-130,-130},{78,-130}},
       color={255,0,255}));
   connect(uChiHeaCon, logSwi1.u3)
@@ -254,7 +260,7 @@ annotation (
           extent={{-100,46},{-68,36}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uStaCha"),
+          textString="chaPro"),
         Text(
           extent={{-98,-72},{-46,-86}},
           lineColor={255,0,255},
@@ -283,25 +289,25 @@ annotation (
   Documentation(info="<html>
 <p>
 Block that generates chiller head pressure control enabling status array when 
-there is stage change command (<code>uStaCha=true</code>). It also generates status 
+there is stage change command (<code>chaPro=true</code>). It also generates status 
 to indicate if the head pressure control status change process has finished.
 This development is based on ASHRAE RP-1711 Advanced Sequences of Operation for 
-HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft 6 on July 25, 
-2019):
+HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft version,
+March 2020):
 </p>
 <p>
-In stage-up process, section 5.2.4.15, item 4: 
+In stage-up process, section 5.2.4.16, item 4: 
 </p>
 <ul>
 <li>
-10 seconds (<code>thrTimEnb=10</code>) after the changes on condenser water pumps, 
-enable head pressure control for the chiller being enabled. 
+After the condenser water pumps speed or number has been changed by <code>thrTimEnb</code>,
+e.g. 10 seconds, enable head pressure control for the chiller being enabled. 
 Wait 30 seconds (<code>waiTim=30</code>).
 </li>
 </ul>
 <p>
 In stage-up process when requires smaller chiller being shut off and larger chiller
-being enabled, section 5.2.4.15, item 7.c:
+being enabled, section 5.2.4.16, item 7.c:
 </p>
 <ul>
 <li>
@@ -311,7 +317,7 @@ condenser water flow, disable the chiller's head pressure control loop,
 </li>
 </ul>
 <p>
-In stage-down process, section 5.2.4.16, item 4:
+In stage-down process, section 5.2.4.17, item 4:
 </p>
 <ul>
 <li>
@@ -322,7 +328,7 @@ water flow, disable the chiller's head pressure control loop,
 </ul>
 <p>
 In stage-down process when requires smaller chiller being enabled and larger chiller
-being disabled, section 5.2.4.16, item 1.c:
+being disabled, section 5.2.4.17, item 1.c:
 </p>
 <ul>
 <li>
@@ -334,7 +340,7 @@ the chiller being enabled. Wait 30 seconds.
 </html>", revisions="<html>
 <ul>
 <li>
-Febuary 4, 2019, by Jianjun Hu:<br/>
+February 4, 2019, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>

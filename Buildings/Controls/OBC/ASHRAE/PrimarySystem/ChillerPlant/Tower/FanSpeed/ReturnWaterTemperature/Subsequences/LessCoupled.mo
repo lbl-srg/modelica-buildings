@@ -224,9 +224,8 @@ equation
   connect(one1.y, CWSTSpd.f2)
     annotation (Line(points={{2,-80},{20,-80},{20,-38},{98,-38}}, color={0,0,127}));
   connect(CWSTSpd.y, fanSpe.u[1])
-    annotation (Line(points={{122,-30},{140,-30},{140,-80},{40,-80},{40,
-          -118.667},{58,-118.667}},
-                         color={0,0,127}));
+    annotation (Line(points={{122,-30},{140,-30},{140,-80},{40,-80},{40,-118.667},
+      {58,-118.667}}, color={0,0,127}));
   connect(maxSpe.y, fanSpe.u[2])
     annotation (Line(points={{22,-120},{58,-120}},color={0,0,127}));
   connect(plrTowMaxSpe, fanSpe.u[3])
@@ -243,7 +242,7 @@ equation
       color={255,0,255}));
   connect(zer2.y, swi.u3)
     annotation (Line(points={{82,-170},{100,-170},{100,-148},{118,-148}},
-                                                                      color={0,0,127}));
+      color={0,0,127}));
   connect(swi1.y, maxSpe.u)
     annotation (Line(points={{-18,-120},{-2,-120}},
       color={0,0,127}));

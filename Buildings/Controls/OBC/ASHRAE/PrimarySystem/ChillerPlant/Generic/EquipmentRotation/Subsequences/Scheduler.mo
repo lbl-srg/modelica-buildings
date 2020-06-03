@@ -12,11 +12,15 @@ block Scheduler
     "Year when time = 0, used if zerTim=Custom"
     annotation(Dialog(group="Calendar", enable=zerTim==Buildings.Controls.OBC.CDL.Types.ZeroTime.Custom));
 
-  parameter Modelica.SIunits.Time offset = 0
+  parameter Real offset(
+    final unit="s",
+    final quantity="Time") = 0
     "Offset that is added to 'time', may be used for computing time in different time zone"
     annotation(Dialog(group="Calendar", enable=not simTimSta));
 
-  parameter Modelica.SIunits.Time rotationPeriod(
+  parameter Real rotationPeriod(
+    final unit="s",
+    final quantity="Time",
     final displayUnit="h") = 1209600
     "Rotation time period measured from simulation start"
     annotation(Dialog(group="Calendar", enable=simTimSta));
@@ -188,12 +192,12 @@ equation
   Documentation(info="<html>
 <p>
 This block outputs generates a rotation trigger at
-chosen time intervals for lead/standby configurations where a lead device runs continuously. 
+chosen time intervals for lead/standby configurations where a lead device runs continuously.
 The implementation is based on RP 1711 5.1.2.4.2, except 5.1.2.4.2 a.
 </p>
 <p>
-The user may chose to start counting time from simulation start to generate the 
-rotation signal at regular intervals <code>rotationPeriod</code> by setting a 
+The user may chose to start counting time from simulation start to generate the
+rotation signal at regular intervals <code>rotationPeriod</code> by setting a
 flag <code>sinTimSta</code> to <code>true</code>, or to use a calendar.
 </p>
 <p>

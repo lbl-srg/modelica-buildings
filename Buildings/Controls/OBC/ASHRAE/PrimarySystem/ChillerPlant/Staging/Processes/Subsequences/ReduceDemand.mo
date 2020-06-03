@@ -4,8 +4,11 @@ block ReduceDemand "Sequence for reducing operating chiller demand"
   parameter Integer nChi "Total number of chillers in the plant";
   parameter Real chiDemRedFac = 0.75
     "Demand reducing factor of current operating chillers";
-  parameter Modelica.SIunits.Time holChiDemTim = 300
-    "Maximum time to wait for the actual demand less than percentage of currnet load";
+  parameter Real holChiDemTim(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h") = 300
+    "Maximum time to wait for the actual demand less than percentage of current load";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDemLim
     "Demand limit: true=limit chiller demand"
@@ -16,7 +19,7 @@ block ReduceDemand "Sequence for reducing operating chiller demand"
     final unit=fill("W", nChi)) "Current chiller load"
     annotation (Placement(transformation(extent={{-200,110},{-160,150}}),
       iconTransformation(extent={{-140,30},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput minOPLR(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput yOpeParLoaRatMin(
     final min=0,
     final max=1,
     final unit="1")
@@ -27,7 +30,7 @@ block ReduceDemand "Sequence for reducing operating chiller demand"
     annotation (Placement(transformation(extent={{-200,-20},{-160,20}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOnOff
-    "Indicate if the stage require one chiller to be enabled while another is disabled"
+    "True: if the stage change require one chiller to be enabled while another is disabled"
     annotation (Placement(transformation(extent={{-200,-60},{-160,-20}}),
       iconTransformation(extent={{-140,-70},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
@@ -51,7 +54,7 @@ protected
     annotation (Placement(transformation(extent={{0,120},{20,140}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
     final nout=nChi)
-    "Replicate boolean input "
+    "Replicate boolean input"
     annotation (Placement(transformation(extent={{-60,150},{-40,170}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi4[nChi]
     "Current setpoint to chillers"
@@ -164,7 +167,7 @@ equation
   connect(uOnOff, and1.u2)
     annotation (Line(points={{-180,-40},{-130,-40},{-130,-8},{-102,-8}},
       color={255,0,255}));
-  connect(minOPLR, swi1.u1)
+  connect(yOpeParLoaRatMin, swi1.u1)
     annotation (Line(points={{-180,40},{-60,40},{-60,8},{-42,8}},
       color={0,0,127}));
   connect(and1.y, swi1.u2)
@@ -286,16 +289,16 @@ annotation (
           pattern=LinePattern.Dash,
           origin={-81,11.5},
           rotation=0,
-          textString="minOPLR")}),
+          textString="yOpeParLoaRatMin")}),
   Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-160,-180},{160,180}})),
   Documentation(info="<html>
 <p>
 Block that reduces demand of current operating chillers when there is a stage-up
 command, according to ASHRAE RP-1711 Advanced Sequences of Operation for 
-HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft 6 on 
-July 25, 2019), section 5.2.4.15, item 1 which specifies how to start the stage-up
-process of the current operating chillers; and section 5.2.4.16, item 1.a which specifies
+HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft version, March 2020),
+section 5.2.4.16, item 1 which specifies how to start the stage-up
+process of the current operating chillers; and section 5.2.4.17, item 1.a which specifies
 how to start the stage-down process of the current operating chiller when the 
 stage-down process requires one chiller off and another chiller on.
 </p>
@@ -314,14 +317,14 @@ Wait until actual demand &lt; 80% of current load up to a maximum of
 </ul>
 <p>
 When there is a stage-down command (<code>uStaDow=true</code>) and the process
-requires one chiller being enabled and another chiller being disabled 
+requires a smaller chiller being enabled and a larger chiller being disabled 
 (<code>uOnOff=true</code>),
 </p>
 <ul>
 <li>
 Command operating chillers to reduce demand to <code>chiDemRedFac</code> of 
 their current load, e.g. 75% or a percentage equal to current stage
-minimum cycling operative partial load ratio <code>minOPLR</code>, whichever is 
+minimum cycling operative partial load ratio <code>yOpeParLoaRatMin</code>, whichever is 
 greater.
 </li>
 <li>

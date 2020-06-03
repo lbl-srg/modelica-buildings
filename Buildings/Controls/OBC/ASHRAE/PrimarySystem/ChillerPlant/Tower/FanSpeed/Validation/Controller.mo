@@ -163,8 +163,9 @@ equation
   connect(chiSta2.y, cloCouWitWse.uChi[2])
     annotation (Line(points={{-338,180},{-200,180},{-200,316},{-82,316}},
       color={255,0,255}));
-  connect(wseSta.y, cloCouWitWse.uWse) annotation (Line(points={{-338,150},{-190,
-          150},{-190,313},{-82,313}}, color={255,0,255}));
+  connect(wseSta.y, cloCouWitWse.uWse)
+    annotation (Line(points={{-338,150},{-190,150},{-190,313},{-82,313}},
+      color={255,0,255}));
   connect(towFanSpe3.y, cloCouWitWse.uFanSpe)
     annotation (Line(points={{-298,120},{-180,120},{-180,310},{-82,310}},
       color={0,0,127}));
@@ -189,8 +190,9 @@ equation
   connect(hpTowSpe2.y, cloCouWitWse.uMaxTowSpeSet[2])
     annotation (Line(points={{-338,-60},{-140,-60},{-140,298},{-82,298}},
       color={0,0,127}));
-  connect(booRep.y, cloCouWitWse.uTow) annotation (Line(points={{-178,-80},{-130,
-          -80},{-130,295},{-82,295}}, color={255,0,255}));
+  connect(booRep.y, cloCouWitWse.uTow)
+    annotation (Line(points={{-178,-80},{-130,-80},{-130,295},{-82,295}},
+      color={255,0,255}));
   connect(or3.y, cloCouWitWse.uPla)
     annotation (Line(points={{-238,-140},{-120,-140},{-120,289},{-82,289}},
       color={255,0,255}));
@@ -215,8 +217,9 @@ equation
   connect(chiSta2.y, lesCouWitWse.uChi[2])
     annotation (Line(points={{-338,180},{-20,180},{-20,316},{98,316}},
       color={255,0,255}));
-  connect(wseSta.y, lesCouWitWse.uWse) annotation (Line(points={{-338,150},{-10,
-          150},{-10,313},{98,313}}, color={255,0,255}));
+  connect(wseSta.y, lesCouWitWse.uWse)
+    annotation (Line(points={{-338,150},{-10,150},{-10,313},{98,313}},
+      color={255,0,255}));
   connect(towFanSpe3.y, lesCouWitWse.uFanSpe)
     annotation (Line(points={{-298,120},{0,120},{0,310},{98,310}},
       color={0,0,127}));
@@ -235,8 +238,9 @@ equation
   connect(hpTowSpe2.y, lesCouWitWse.uMaxTowSpeSet[2])
     annotation (Line(points={{-338,-60},{40,-60},{40,298},{98,298}},
       color={0,0,127}));
-  connect(booRep.y, lesCouWitWse.uTow) annotation (Line(points={{-178,-80},{50,
-          -80},{50,295},{98,295}}, color={255,0,255}));
+  connect(booRep.y, lesCouWitWse.uTow)
+    annotation (Line(points={{-178,-80},{50,-80},{50,295},{98,295}},
+      color={255,0,255}));
   connect(or3.y, lesCouWitWse.uPla)
     annotation (Line(points={{-238,-140},{60,-140},{60,289},{98,289}},
       color={255,0,255}));
@@ -270,8 +274,9 @@ equation
   connect(hpTowSpe2.y, cloCouNoWse.uMaxTowSpeSet[2])
     annotation (Line(points={{-338,-60},{180,-60},{180,298},{278,298}},
       color={0,0,127}));
-  connect(booRep.y, cloCouNoWse.uTow) annotation (Line(points={{-178,-80},{190,
-          -80},{190,295},{278,295}}, color={255,0,255}));
+  connect(booRep.y, cloCouNoWse.uTow)
+    annotation (Line(points={{-178,-80},{190,-80},{190,295},{278,295}},
+      color={255,0,255}));
   connect(or3.y, cloCouNoWse.uPla)
     annotation (Line(points={{-238,-140},{200,-140},{200,289},{278,289}},
       color={255,0,255}));
@@ -300,8 +305,8 @@ First implementation.
 </ul>
 </html>"),
  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-                                                   graphics={
-            Ellipse(lineColor = {75,138,73},
+      graphics={
+        Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
                 fillPattern = FillPattern.Solid,
                 extent = {{-100,-100},{100,100}}),
@@ -309,6 +314,6 @@ First implementation.
                 fillColor = {75,138,73},
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
-                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}), Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-400,-340},{400,340}})));
+                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-400,-340},{400,340}})));
 end Controller;

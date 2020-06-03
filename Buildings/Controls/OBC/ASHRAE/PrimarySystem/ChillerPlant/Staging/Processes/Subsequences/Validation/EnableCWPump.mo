@@ -10,14 +10,18 @@ model EnableCWPump
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Logical.Switch curSta "Current chiller stage"
+  Buildings.Controls.OBC.CDL.Logical.Switch curSta
+    "Current chiller stage setpoint"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt "Real input to integer output"
-    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch curSta1 "Current chiller stage"
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt[2]
+    "Real input to integer output"
+    annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch curSta1
+    "Current chiller stage setpoint"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1 "Real input to integer output"
-    annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1[2]
+    "Real input to integer output"
+    annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
     final width=0.15,
     final period=3600) "Boolean pulse"
@@ -73,24 +77,33 @@ equation
   connect(staOne.y, curSta.u3)
     annotation (Line(points={{-78,-20},{-40,-20},{-40,-48},{-22,-48}},
       color={0,0,127}));
-  connect(curSta.y, reaToInt.u)
-    annotation (Line(points={{2,-40},{18,-40}}, color={0,0,127}));
-  connect(reaToInt.y, staUpInd.uChiSta)
-    annotation (Line(points={{42,-40},{60,-40},{60,-20},{-14,-20},{-14,52},
-      {-2,52}}, color={255,127,0}));
   connect(staCha.y, curSta1.u2)
     annotation (Line(points={{-38,40},{-30,40},{-30,-80},{-22,-80}},
       color={255,0,255}));
-  connect(curSta1.y, reaToInt1.u)
-    annotation (Line(points={{2,-80},{18,-80}}, color={0,0,127}));
-  connect(reaToInt1.y, staDowInd.uChiSta)
-    annotation (Line(points={{42,-80},{72,-80},{72,52},{78,52}}, color={255,127,0}));
   connect(staTwo.y, curSta1.u3)
     annotation (Line(points={{-78,-60},{-60,-60},{-60,-88},{-22,-88}},
       color={0,0,127}));
   connect(staOne.y, curSta1.u1)
     annotation (Line(points={{-78,-20},{-40,-20},{-40,-72},{-22,-72}},
       color={0,0,127}));
+  connect(staOne.y, reaToInt[1].u)
+    annotation (Line(points={{-78,-20},{18,-20}}, color={0,0,127}));
+  connect(curSta.y, reaToInt[2].u)
+    annotation (Line(points={{2,-40},{10,-40},{10,-20},{18,-20}}, color={0,0,127}));
+  connect(reaToInt[1].y, staUpInd.uChiSta)
+    annotation (Line(points={{42,-20},{50,-20},{50,20},{-10,20},{-10,55},{-2,55}},
+      color={255,127,0}));
+  connect(reaToInt[2].y, staUpInd.uStaSet)
+    annotation (Line(points={{42,-20},{50,-20},{50,20},{-10,20},{-10,51},{-2,51}},
+      color={255,127,0}));
+  connect(staTwo.y, reaToInt1[1].u)
+    annotation (Line(points={{-78,-60},{18,-60}}, color={0,0,127}));
+  connect(curSta1.y, reaToInt1[2].u)
+    annotation (Line(points={{2,-80},{10,-80},{10,-60},{18,-60}}, color={0,0,127}));
+  connect(reaToInt1[1].y, staDowInd.uChiSta)
+    annotation (Line(points={{42,-60},{72,-60},{72,55},{78,55}}, color={255,127,0}));
+  connect(reaToInt1[2].y, staDowInd.uStaSet)
+    annotation (Line(points={{42,-60},{72,-60},{72,51},{78,51}}, color={255,127,0}));
 
 annotation (
  experiment(StopTime=3600, Tolerance=1e-06),

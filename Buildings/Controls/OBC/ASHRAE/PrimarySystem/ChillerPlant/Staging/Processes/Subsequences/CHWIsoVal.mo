@@ -3,7 +3,10 @@ block CHWIsoVal "Sequence of enable or disable chilled water isolation valve"
 
   parameter Integer nChi
     "Total number of chiller, which is also the total number of chilled water isolation valve";
-  parameter Modelica.SIunits.Time chaChiWatIsoTim
+  parameter Real chaChiWatIsoTim(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")
     "Time to slowly change isolation valve, should be determined in the field";
   parameter Real iniValPos
     "Initial valve position, if it needs to turn on chiller, the value should be 0";
@@ -24,7 +27,7 @@ block CHWIsoVal "Sequence of enable or disable chilled water isolation valve"
     "Status of resetting status of device before enabling or disabling isolation valve"
     annotation (Placement(transformation(extent={{-200,-160},{-160,-120}}),
       iconTransformation(extent={{-140,-70},{-100,-30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaCha
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput chaPro
     "Indicate if there is a stage up or stage down command"
     annotation (Placement(transformation(extent={{-200,-198},{-160,-158}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
@@ -148,14 +151,14 @@ equation
     annotation (Line(points={{-78,80},{38,80}}, color={0,0,127}));
   connect(uUpsDevSta, edg.u)
     annotation (Line(points={{-180,-140},{-102,-140}}, color={255,0,255}));
-  connect(uStaCha, and2.u2)
+  connect(chaPro, and2.u2)
     annotation (Line(points={{-180,-178},{-42,-178}}, color={255,0,255}));
   connect(edg.y, and2.u1)
     annotation (Line(points={{-78,-140},{-60,-140},{-60,-170},{-42,-170}},
       color={255,0,255}));
   connect(and2.y, lat.u)
     annotation (Line(points={{-18,-170},{18,-170}}, color={255,0,255}));
-  connect(uStaCha, not1.u)
+  connect(chaPro, not1.u)
     annotation (Line(points={{-180,-178},{-80,-178},{-80,-200},{-42,-200}},
       color={255,0,255}));
   connect(not1.y, lat.clr)
@@ -287,7 +290,7 @@ have been fully open")}),
           extent={{-96,-74},{-60,-86}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uStaCha"),
+          textString="chaPro"),
         Text(
           extent={{-96,-42},{-46,-56}},
           lineColor={255,0,255},
@@ -326,23 +329,23 @@ have been fully open")}),
  Documentation(info="<html>
 <p>
 Block updates chiller chilled water isolation valve enabling-disabling status when 
-there is stage change command (<code>uStaCha=true</code>). It will also generate 
+there is stage change command (<code>chaPro=true</code>). It will also generate 
 status to indicate if the valve reset process has finished.
 This development is based on ASHRAE RP-1711 Advanced Sequences of Operation for 
-HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft 6 on July 25, 
-2019), section 5.2.4.15, item 5 and section 5.2.4.16, item 3, which specifies when 
+HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft version, March 2020), 
+section 5.2.4.16, item 5 and section 5.2.4.17, item 3, which specifies when 
 and how the isolation valve should be controlled when it is in stage changing process.
 </p>
 <ul>
 <li>
-When there is stage up command (<code>uStaCha=true</code>) and next chiller 
+When there is stage up command (<code>chaPro=true</code>) and next chiller 
 head pressure control has been enabled (<code>uUpsDevSta=true</code>),
 the chilled water isolation valve of next enabling chiller indicated 
 by <code>nexChaChi</code> will be enabled (<code>iniValPos=0</code>, 
 <code>endValPos=1</code>). 
 </li>
 <li>
-When there is stage down command (<code>uStaCha=true</code>) and the disabling chiller 
+When there is stage down command (<code>chaPro=true</code>) and the disabling chiller 
 (<code>nexChaChi</code>) has been shut off (<code>uUpsDevSta=true</code>),
 the chiller's isolation valve will be disabled (<code>iniValPos=1</code>, 
 <code>endValPos=0</code>). 
@@ -363,7 +366,7 @@ are fully closed.
 </html>", revisions="<html>
 <ul>
 <li>
-Febuary 4, 2019, by Jianjun Hu:<br/>
+February 4, 2020, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>

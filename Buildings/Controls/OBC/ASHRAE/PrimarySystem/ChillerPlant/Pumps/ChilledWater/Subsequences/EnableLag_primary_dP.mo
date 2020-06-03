@@ -2,8 +2,10 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWat
 block EnableLag_primary_dP
   "Sequences for enabling and disabling lag pumps for primary-only plants using differential pressure pump speed control"
   parameter Integer nPum = 2 "Total number of pumps";
-  parameter Modelica.SIunits.Time timPer = 600
-    "Delay time period for enabling and disabling lag pumps";
+  parameter Real timPer(
+    final unit="s",
+    final quantity="Time")=600
+      "Delay time period for enabling and disabling lag pumps";
   parameter Real staCon = -0.03 "Constant used in the staging equation"
     annotation (Dialog(tab="Advanced"));
   parameter Real relFloHys = 0.01
@@ -239,29 +241,29 @@ annotation (
   Documentation(info="<html>
 <p>
 Block that enable and disable lag primary chilled water pump, for plants
-with headered primary chilled water pumps, 
+with headered primary chilled water pumps,
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), 
+Central Plants and Hydronic Systems (Draft 6 on July 25, 2019),
 section 5.2.6 Primary chilled water pumps, part 5.2.6.6.
 </p>
 <p>
-Chilled water pump shall be staged as a function of chilled water flow ratio (CHWFR), 
+Chilled water pump shall be staged as a function of chilled water flow ratio (CHWFR),
 i.e. the ratio of current chilled water flow <code>VChiWat_flow</code> to design
 flow <code>VChiWat_flow_nominal</code>, and the number of pumps <code>num_nominal</code>
 that operate at design conditions. Pumps are assumed to be equally sized.
 </p>
 <pre>
                   VChiWat_flow
-     CHWFR = ---------------------- 
+     CHWFR = ----------------------
               VChiWat_flow_nominal
 </pre>
 <p>
-1. Start the next lag pump <code>yNexLagPum</code> whenever the following is 
+1. Start the next lag pump <code>yNexLagPum</code> whenever the following is
 true for 10 minutes:
 </p>
 <pre>
               Number_of_operating_pumps
-     CHWFR &gt; ---------------------------  - 0.03 
+     CHWFR &gt; ---------------------------  - 0.03
                        num_nominal
 </pre>
 <p>
@@ -269,7 +271,7 @@ true for 10 minutes:
 </p>
 <pre>
               Number_of_operating_pumps - 1
-     CHWFR &le; -------------------------------  - 0.03 
+     CHWFR &le; -------------------------------  - 0.03
                        num_nominal
 </pre>
 </html>", revisions="<html>

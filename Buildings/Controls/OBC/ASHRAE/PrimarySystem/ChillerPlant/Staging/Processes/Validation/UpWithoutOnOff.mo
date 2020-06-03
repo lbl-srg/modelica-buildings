@@ -40,22 +40,11 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer1[2](
     final k=fill(0,2)) "Constant zero"
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre pre2[2](
-    final pre_u_start={true,false}) "Break algebraic loop"
+  Buildings.Controls.OBC.CDL.Logical.Pre chiStaRet[2](final pre_u_start={true,
+        false}) "Chiller status return value"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi1[2] "Logical switch"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staTwo(
-    final k=2) "Chiller stage two"
-    annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staOne(
-    final k=1) "Chiller stage one"
-    annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch chiSta "Logical switch"
-    annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1
-    "Convert real input to integer output"
-    annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Switch IsoVal[2] "Logical switch"
     annotation (Placement(transformation(extent={{-20,-260},{0,-240}})));
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol[2](
@@ -98,12 +87,21 @@ protected
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch chiSet[2]
     "Chiller status setpoint"
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
-  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
-    "Check if the up process has ended"
-    annotation (Placement(transformation(extent={{80,130},{100,150}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staOne(final k=1) "Stage one"
+    annotation (Placement(transformation(extent={{-140,-140},{-120,-120}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staTwo(final k=2)
+    "Stage two"
+    annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch chiSta "Current chiller stage"
+    annotation (Placement(transformation(extent={{-60,-120},{-40,-100}})));
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger sta "Current chiller stage"
+    annotation (Placement(transformation(extent={{-20,-120},{0,-100}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fal(final k=false)
     "Logical false"
     annotation (Placement(transformation(extent={{80,100},{100,120}})));
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
+    "Check if the up process has ended"
+    annotation (Placement(transformation(extent={{80,130},{100,150}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "True when it is not in process"
     annotation (Placement(transformation(extent={{120,130},{140,150}})));
@@ -117,31 +115,23 @@ equation
   connect(zer1.y, swi1.u3)
     annotation (Line(points={{-118,0},{-100,0},{-100,12},{-62,12}},
       color={0,0,127}));
-  connect(chiSta.y, reaToInt1.u)
-    annotation (Line(points={{-38,-100},{-22,-100}}, color={0,0,127}));
   connect(iniChiIsoVal.y, IsoVal.u3)
     annotation (Line(points={{-118,-250},{-100,-250},{-100,-258},{-22,-258}},
       color={0,0,127}));
-  connect(upProCon.yChi, pre2.u) annotation (Line(points={{62,49},{94,49},{94,70},
-          {98,70}},       color={255,0,255}));
-  connect(pre2.y, swi1.u2) annotation (Line(points={{122,70},{140,70},{140,40},{
-          -80,40},{-80,20},{-62,20}},  color={255,0,255}));
+  connect(upProCon.yChi, chiStaRet.u) annotation (Line(points={{62,49},{94,49},
+          {94,70},{98,70}}, color={255,0,255}));
+  connect(chiStaRet.y, swi1.u2) annotation (Line(points={{122,70},{140,70},{140,
+          40},{-80,40},{-80,20},{-62,20}}, color={255,0,255}));
   connect(swi1.y, upProCon.uChiLoa) annotation (Line(points={{-38,20},{-30,20},{
           -30,80},{38,80}},   color={0,0,127}));
-  connect(pre2.y, upProCon.uChi) annotation (Line(points={{122,70},{140,70},{140,
-          40},{-28,40},{-28,78},{38,78}},   color={255,0,255}));
+  connect(chiStaRet.y, upProCon.uChi) annotation (Line(points={{122,70},{140,70},
+          {140,40},{-28,40},{-28,78},{38,78}}, color={255,0,255}));
   connect(chiWatFlo.y, upProCon.VChiWat_flow) annotation (Line(points={{-118,-40},
           {-26,-40},{-26,75.6},{38,75.6}}, color={0,0,127}));
-  connect(pre2.y, upProCon.uChiConIsoVal) annotation (Line(points={{122,70},{140,
-          70},{140,40},{-24,40},{-24,73},{38,73}},    color={255,0,255}));
-  connect(staOne.y, chiSta.u3) annotation (Line(points={{-118,-120},{-100,-120},
-          {-100,-108},{-62,-108}}, color={0,0,127}));
-  connect(staTwo.y, chiSta.u1) annotation (Line(points={{-118,-80},{-100,-80},{-100,
-          -92},{-62,-92}}, color={0,0,127}));
-  connect(reaToInt1.y, upProCon.uChiSta) annotation (Line(points={{2,-100},{10,-100},
-          {10,70},{38,70}},   color={255,127,0}));
-  connect(pre2.y, upProCon.uConWatReq) annotation (Line(points={{122,70},{140,70},
-          {140,40},{12,40},{12,66},{38,66}},   color={255,0,255}));
+  connect(chiStaRet.y, upProCon.uChiConIsoVal) annotation (Line(points={{122,70},
+          {140,70},{140,40},{-24,40},{-24,73},{38,73}}, color={255,0,255}));
+  connect(chiStaRet.y, upProCon.uConWatReq) annotation (Line(points={{122,70},{
+          140,70},{140,40},{12,40},{12,66},{38,66}}, color={255,0,255}));
   connect(wseSta.y, upProCon.uWSE) annotation (Line(points={{-118,-170},{14,-170},
           {14,63},{38,63}},   color={255,0,255}));
   connect(upProCon.yDesConWatPumSpe, zerOrdHol1.u) annotation (Line(points={{62,67},
@@ -152,8 +142,8 @@ equation
           {140,-90},{80,-90},{80,-110},{98,-110}}, color={0,0,127}));
   connect(zerOrdHol2.y, upProCon.uConWatPumSpe) annotation (Line(points={{122,-110},
           {130,-110},{130,-134},{18,-134},{18,57},{38,57}},color={0,0,127}));
-  connect(pre2.y, upProCon.uChiHeaCon) annotation (Line(points={{122,70},{140,70},
-          {140,40},{20,40},{20,54},{38,54}},   color={255,0,255}));
+  connect(chiStaRet.y, upProCon.uChiHeaCon) annotation (Line(points={{122,70},{
+          140,70},{140,40},{20,40},{20,54},{38,54}}, color={255,0,255}));
   connect(staUp.y, booRep.u) annotation (Line(points={{-78,110},{-70,110},{-70,-220},
           {-62,-220}}, color={255,0,255}));
   connect(booRep.y, IsoVal.u2) annotation (Line(points={{-38,-220},{-30,-220},{-30,
@@ -164,8 +154,8 @@ equation
           150,-190},{-80,-190},{-80,-242},{-22,-242}}, color={0,0,127}));
   connect(IsoVal.y, upProCon.uChiWatIsoVal) annotation (Line(points={{2,-250},{22,
           -250},{22,51},{38,51}},   color={0,0,127}));
-  connect(pre2.y, upProCon.uChiWatReq) annotation (Line(points={{122,70},{140,70},
-          {140,40},{24,40},{24,49},{38,49}},   color={255,0,255}));
+  connect(chiStaRet.y, upProCon.uChiWatReq) annotation (Line(points={{122,70},{
+          140,70},{140,40},{24,40},{24,49},{38,49}}, color={255,0,255}));
   connect(staUp.y, booRep1.u)
     annotation (Line(points={{-78,110},{-62,110}}, color={255,0,255}));
   connect(staOneChi.y, chiSet.u3) annotation (Line(points={{-118,72},{-60,72},{-60,
@@ -186,14 +176,22 @@ equation
           {30,87},{38,87}}, color={255,127,0}));
   connect(chiSet.y, upProCon.uChiSet) annotation (Line(points={{2,110},{20,110},
           {20,84},{38,84}}, color={255,0,255}));
+  connect(staTwo.y, chiSta.u1) annotation (Line(points={{-118,-90},{-100,-90},{-100,
+          -102},{-62,-102}}, color={0,0,127}));
+  connect(staOne.y, chiSta.u3) annotation (Line(points={{-118,-130},{-100,-130},
+          {-100,-118},{-62,-118}}, color={0,0,127}));
+  connect(chiSta.y, sta.u)
+    annotation (Line(points={{-38,-110},{-22,-110}}, color={0,0,127}));
+  connect(sta.y, upProCon.uChiSta) annotation (Line(points={{2,-110},{8,-110},{8,
+          70},{38,70}}, color={255,127,0}));
   connect(upProCon.yStaPro, falEdg.u) annotation (Line(points={{62,87},{70,87},{
           70,140},{78,140}}, color={255,0,255}));
   connect(falEdg.y, lat.u)
     annotation (Line(points={{102,140},{118,140}}, color={255,0,255}));
   connect(fal.y, lat.clr) annotation (Line(points={{102,110},{110,110},{110,134},
           {118,134}}, color={255,0,255}));
-  connect(lat.y, chiSta.u2) annotation (Line(points={{142,140},{154,140},{154,-80},
-          {-80,-80},{-80,-100},{-62,-100}}, color={255,0,255}));
+  connect(lat.y, chiSta.u2) annotation (Line(points={{142,140},{150,140},{150,0},
+          {-80,0},{-80,-110},{-62,-110}}, color={255,0,255}));
 
 annotation (
  experiment(StopTime=1500, Tolerance=1e-06),

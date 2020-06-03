@@ -1,8 +1,11 @@
 ﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences;
 block ResetMinBypass
-  "Sequence for reset minimum chilled water flow setpoint"
+  "Sequence for minimum chilled water flow setpoint reset"
 
-  parameter Modelica.SIunits.Time aftByPasSetTim = 60
+  parameter Real aftByPasSetTim(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h") = 60
     "Time after setpoint achieved";
   parameter Real relFloDif=0.05
     "Relative error to the setpoint for checking if it has achieved flow rate setpoint"
@@ -12,7 +15,7 @@ block ResetMinBypass
     "Status of resetting status of device before reset minimum flow setpoint"
     annotation (Placement(transformation(extent={{-200,60},{-160,100}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaCha
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput chaPro
     "Indicate if there is stage change"
     annotation (Placement(transformation(extent={{-200,20},{-160,60}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
@@ -29,7 +32,7 @@ block ResetMinBypass
     annotation (Placement(transformation(extent={{-200,-100},{-160,-60}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yMinBypRes
-    "Minimum chilled water flow bypass setpoint reset status"
+    "True: minimum chilled water flow bypass setpoint has been resetted successfully"
     annotation (Placement(transformation(extent={{160,60},{200,100}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
@@ -47,7 +50,7 @@ protected
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
     final threshold=aftByPasSetTim)
-    "Check if it is 1 minute after new setpoint achieved"
+    "Check if it has been threshold time after new setpoint achieved"
     annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
@@ -79,7 +82,7 @@ protected
 equation
   connect(uUpsDevSta, and2.u1)
     annotation (Line(points={{-180,80},{-82,80}}, color={255,0,255}));
-  connect(uStaCha, and2.u2)
+  connect(chaPro, and2.u2)
     annotation (Line(points={{-180,40},{-140,40},{-140,72},{-82,72}},
       color={255,0,255}));
   connect(tim.y, greEquThr.u)
@@ -89,7 +92,7 @@ equation
       color={255,0,255}));
   connect(and1.y,yMinBypRes)
     annotation (Line(points={{142,80},{180,80}}, color={255,0,255}));
-  connect(uStaCha, not1.u)
+  connect(chaPro, not1.u)
     annotation (Line(points={{-180,40},{-140,40},{-140,20},{-122,20}},
       color={255,0,255}));
   connect(lat.y, and1.u2)
@@ -167,7 +170,7 @@ annotation (
           extent={{-98,46},{-66,36}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uStaCha"),
+          textString="chaPro"),
       Text(
         extent={{-100,100},{100,-100}},
         lineColor={0,0,0},
@@ -184,11 +187,11 @@ annotation (
 Block that generates minimum bypass flow reset status when there is 
 stage-change command.
 This development is based on ASHRAE RP-1711 Advanced Sequences of Operation for 
-HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft 6 on July 25, 
-2019), section 5.2.4.15, item 2.
+HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft version,
+March 2020), section 5.2.4.16, item 2.
 </p>
 <p>
-When there is stage-change command (<code>uStaCha</code> = true) and the upstream
+When there is stage-change command (<code>chaPro</code> = true) and the upstream
 device has finished its adjustment process (<code>uUpsDevSta</code> = true), 
 like in the stage-up process the operating chillers have reduced the demand, 
 check if the minimum chilled water flow rate <code>VChiWat_flow</code> has achieved 

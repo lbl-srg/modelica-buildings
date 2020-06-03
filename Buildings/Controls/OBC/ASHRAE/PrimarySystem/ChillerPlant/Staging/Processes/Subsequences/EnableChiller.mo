@@ -2,15 +2,17 @@
 block EnableChiller "Sequence for enabling chiller"
 
   parameter Integer nChi "Total number of chillers";
-  parameter Modelica.SIunits.Time proOnTim = 300
+  parameter Real proOnTim(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h") = 300
     "Enabled chiller operation time to indicate if it is proven on";
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexEnaChi
     "Index of next enabling chiller"
     annotation (Placement(transformation(extent={{-240,100},{-200,140}}),
       iconTransformation(extent={{-140,70},{-100,110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaUp
-    "Indicate if there is stage-up command"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaUp "Stage-up command"
     annotation (Placement(transformation(extent={{-240,40},{-200,80}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEnaChiWatIsoVal
@@ -375,7 +377,7 @@ Documentation(info="<html>
 Block that controlles chiller when there is staging up command <code>uStaUp=true</code>.
 
 This implementation is based on ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II – 
-Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), section 5.2.4.15,
+Central Plants and Hydronic Systems (Draft version, March 2020), section 5.2.4.16,
 item 6 and item 7.a. These sections specify when the next chiller should be enabled
 and when the running smaller chiller should be diabled.
 </p>

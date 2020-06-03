@@ -2,14 +2,18 @@
 block DisableChiller "Sequence for disabling chiller in stage-down process"
 
   parameter Integer nChi "Total number of chillers";
-  parameter Modelica.SIunits.Time proOnTim = 300
+  parameter Real proOnTim(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h") = 300
     "Enabled chiller operation time to indicate if it is proven on";
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexEnaChi
     "Index of next enabling chiller"
     annotation (Placement(transformation(extent={{-240,180},{-200,220}}),
       iconTransformation(extent={{-140,70},{-100,110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaDow "Indicate if there is stage-down command"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaDow
+    "Stage-down command"
     annotation (Placement(transformation(extent={{-240,120},{-200,160}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEnaChiWatIsoVal
@@ -418,13 +422,12 @@ annotation (
 Documentation(info="<html>
 <p>
 Block that controlles chiller when there is staging down command <code>uStaDow=true</code>.
-
 This implementation is based on ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II – 
-Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), section 5.2.4.16,
+Central Plants and Hydronic Systems (Draft version, March 2020), section 5.2.4.17,
 item 1.e and f. These two sections specify how to start the smaller chiller and shut
 off larger chiller when the stage change requires large chiller off and small chill on.
 In other stage change, when it does not require chiller on/off, the chiller will then
-be shut off as specified in section 5.2.4.16, item 2.
+be shut off as specified in section 5.2.4.17, item 2.
 </p>
 <p>
 When the stage-down process requires a smaller chiller being staged on and a larger

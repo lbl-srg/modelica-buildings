@@ -7,10 +7,16 @@ block DownStart "Sequence for starting stage-down process"
   parameter Real chiDemRedFac=0.75
     "Demand reducing factor of current operating chillers"
     annotation (Dialog(group="Demand limit"));
-  parameter Modelica.SIunits.Time holChiDemTim=300
-    "Maximum time to wait for the actual demand less than percentage of currnet load"
+  parameter Real holChiDemTim(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")=300
+    "Maximum time to wait for the actual demand less than percentage of current load"
     annotation (Dialog(group="Demand limit"));
-  parameter Modelica.SIunits.Time byPasSetTim
+  parameter Real byPasSetTim(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")
     "Time constant for resetting minimum bypass flow"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Modelica.SIunits.VolumeFlowRate minFloSet[nChi]
@@ -19,16 +25,28 @@ block DownStart "Sequence for starting stage-down process"
   parameter Modelica.SIunits.VolumeFlowRate maxFloSet[nChi]
     "Maximum chilled water flow through each chiller"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
-  parameter Modelica.SIunits.Time aftByPasSetTim=60
+  parameter Real aftByPasSetTim(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")=60
     "Time after setpoint achieved"
     annotation (Dialog(group="Reset bypass"));
-  parameter Modelica.SIunits.Time waiTim=30
+  parameter Real waiTim(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")=30
     "Waiting time after enabling next head pressure control"
     annotation (Dialog(group="Head pressure control"));
-  parameter Modelica.SIunits.Time chaChiWatIsoTim
+  parameter Real chaChiWatIsoTim(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")
     "Time to slowly change isolation valve, should be determined in the field"
     annotation (Dialog(group="Chilled water isolation valve"));
-  parameter Modelica.SIunits.Time proOnTim=300
+  parameter Real proOnTim(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")=300
     "Enabled chiller operation time to indicate if it is proven on"
     annotation (Dialog(group="Disable last chiller"));
   parameter Real relFloDif=0.05
@@ -39,7 +57,7 @@ block DownStart "Sequence for starting stage-down process"
     "Stage down status: true=stage-down"
     annotation (Placement(transformation(extent={{-200,190},{-160,230}}),
       iconTransformation(extent={{-140,80},{-100,120}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput minOPLR(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput yOpeParLoaRatMin(
     final min=0,
     final max=1,
     final unit="1")
@@ -67,7 +85,7 @@ block DownStart "Sequence for starting stage-down process"
     annotation (Placement(transformation(extent={{-200,30},{-160,70}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOnOff
-    "Indicate if the stage require one chiller to be enabled while another is disabled"
+    "True: if the stage change require one chiller to be enabled while another is disabled"
     annotation (Placement(transformation(extent={{-200,0},{-160,40}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexEnaChi
@@ -205,13 +223,13 @@ equation
   connect(minChiWatSet.uOnOff, uOnOff)
     annotation (Line(points={{-2,63},{-110,63},{-110,20},{-180,20}},
       color={255,0,255}));
-  connect(uStaDow, minBypRes.uStaCha)
+  connect(uStaDow, minBypRes.chaPro)
     annotation (Line(points={{-180,210},{-140,210},{-140,114},{58,114}},
       color={255,0,255}));
   connect(VChiWat_flow, minBypRes.VChiWat_flow)
     annotation (Line(points={{-180,90},{-150,90},{-150,106},{58,106}},
       color={0,0,127}));
-  connect(uStaDow, enaHeaCon.uStaCha)
+  connect(uStaDow, enaHeaCon.chaPro)
     annotation (Line(points={{-180,210},{-140,210},{-140,4},{-2,4}},
       color={255,0,255}));
   connect(enaHeaCon.nexChaChi, nexEnaChi)
@@ -226,7 +244,7 @@ equation
   connect(enaChiIsoVal.uChiWatIsoVal, uChiWatIsoVal)
     annotation (Line(points={{-2,-95},{-100,-95},{-100,-100},{-180,-100}},
       color={0,0,127}));
-  connect(uStaDow, enaChiIsoVal.uStaCha)
+  connect(uStaDow, enaChiIsoVal.chaPro)
     annotation (Line(points={{-180,210},{-140,210},{-140,-108},{-2,-108}},
       color={255,0,255}));
   connect(nexEnaChi, disChi.nexEnaChi)
@@ -291,7 +309,7 @@ equation
   connect(disChi.yReaDemLim, yReaDemLim)
     annotation (Line(points={{22,-158},{60,-158},{60,-140},{200,-140}},
       color={255,0,255}));
-  connect(minOPLR, chiDemRed.minOPLR)
+  connect(yOpeParLoaRatMin, chiDemRed.yOpeParLoaRatMin)
     annotation (Line(points={{-180,180},{-110,180},{-110,171},{-22,171}},
       color={0,0,127}));
   connect(uStaDow, chiDemRed.uStaDow)
@@ -411,7 +429,7 @@ annotation (
           extent={{-98,86},{-58,74}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="minOPLR"),
+          textString="yOpeParLoaRatMin"),
         Text(
           extent={{-100,66},{-64,56}},
           lineColor={0,0,127},
@@ -481,8 +499,8 @@ Documentation(info="<html>
 <p>
 Block that controls devices at the first step of chiller staging down process.
 This development is based on ASHRAE RP-1711 Advanced Sequences of Operation for 
-HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft 6 on July 25, 
-2019), section 5.2.4.16, item 1 and 2. The sections specifies the first step of 
+HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft version, March 2020),
+section 5.2.4.17, item 1 and 2. The sections specifies the first step of 
 staging down process.
 </p>
 <p>
@@ -493,7 +511,7 @@ larger chiller being disabled (<code>uOnOff=true</code>):
 <li>
 Command operating chilers to reduce demand to 75% (<code>chiDemRedFac</code>) of 
 their current load or a percentage equal to current stage minimum cycling operative 
-partial load ratio (<code>minOPLR</code>), whichever is greater. Wait until acutal 
+partial load ratio (<code>yOpeParLoaRatMin</code>), whichever is greater. Wait until acutal 
 demand &lt; 80% of current load up to a maximum of 5 minutes (<code>holChiDemTim</code>) 
 before proceeding. This is implemented in block <code>chiDemRed</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.ReduceDemand\">
@@ -541,7 +559,10 @@ for more decriptions.
 </ol>
 <p>
 For staging down from any other stage (<code>uOnOff=false</code>), just shut off
-the last stage chiller. This is implemented in block <code>disChi</code>. 
+the last stage chiller. This is implemented in block <code>disChi</code>, see
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.DisableChiller\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.DisableChiller</a>
+for more decriptions.
 </p>
 </html>", revisions="<html>
 <ul>

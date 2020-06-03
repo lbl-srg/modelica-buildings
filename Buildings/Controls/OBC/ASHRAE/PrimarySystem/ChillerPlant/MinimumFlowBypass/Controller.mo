@@ -5,7 +5,9 @@ block Controller
   parameter Integer nChi "Total number of chillers";
   parameter Boolean isParallelChiller
     "Flag: true means that the plant has parallel chillers";
-  parameter Modelica.SIunits.Time byPasSetTim
+  parameter Real byPasSetTim(
+    final unit="s",
+    final quantity="Time")
     "Time constant for resetting minimum bypass flow";
   parameter Modelica.SIunits.VolumeFlowRate minFloSet[nChi]
     "Minimum chilled water flow through each chiller";
@@ -17,10 +19,14 @@ block Controller
     annotation (Dialog(group="Controller"));
   parameter Real k=1 "Gain of controller"
     annotation (Dialog(group="Controller"));
-  parameter Modelica.SIunits.Time Ti=0.5 "Time constant of integrator block"
+  parameter Real Ti(
+    final unit="s",
+    final quantity="Time")=0.5 "Time constant of integrator block"
     annotation (Dialog(group="Controller", enable=controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
                                                   controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time Td=0 "Time constant of derivative block"
+  parameter Real Td(
+    final unit="s",
+    final quantity="Time")=0 "Time constant of derivative block"
     annotation (Dialog(group="Controller", enable=controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
                                                   controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real yMax=1 "Upper limit of output"
@@ -43,7 +49,7 @@ block Controller
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
       iconTransformation(extent={{-140,30},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uUpsDevSta
-    "During chiller stage changing process, resetting status of device before reset minimum flow setpoint"
+    "True only when the plant is in the chiller staging process and the upstream steps have finished"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
       iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSubCha
@@ -92,7 +98,7 @@ block Controller
     final isParallelChiller=isParallelChiller,
     final byPasSetTim=byPasSetTim,
     final minFloSet=minFloSet,
-    final maxFloSet=maxFloSet)  "Minimum by-pass flow setpoint"
+    final maxFloSet=maxFloSet)  "Minimum bypass flow setpoint"
     annotation (Placement(transformation(extent={{-20,-24},{0,-4}})));
 
 protected

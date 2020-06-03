@@ -5,39 +5,54 @@ block Down
   parameter Integer nChi = 2 "Total number of chillers in the plant";
   parameter Integer totSta = 3
     "Total number of stages, including the stages with a WSE, if applicable";
-  parameter Boolean haveWSE=true
-    "Flag: true=have waterside economizer";
-  parameter Boolean havePonyChiller=false
-    "Flag: true =have pony chiller";
+  parameter Boolean have_WSE=true
+    "True: have waterside economizer";
+  parameter Boolean have_PonyChiller=false
+    "True: have pony chiller";
   parameter Boolean isParallelChiller=true
-    "Flag: true=the plant has parallel chillers";
+    "True: the plant has parallel chillers";
   parameter Boolean isHeadered=true
-    "Flag: true=headered condenser water pumps";
+    "True: headered condenser water pumps";
   parameter Real chiDemRedFac=0.75
     "Demand reducing factor of current operating chillers"
-    annotation (Dialog(group="Disable last chiller", enable=havePonyChiller));
-  parameter Modelica.SIunits.Time holChiDemTim=300
-    "Maximum time to wait for the actual demand less than percentage of currnet load"
-    annotation (Dialog(group="Disable last chiller", enable=havePonyChiller));
-  parameter Modelica.SIunits.Time waiTim=30
+    annotation (Dialog(group="Disable last chiller", enable=have_PonyChiller));
+  parameter Real holChiDemTim(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")=300
+    "Maximum time to wait for the actual demand less than percentage of current load"
+    annotation (Dialog(group="Disable last chiller", enable=have_PonyChiller));
+  parameter Real waiTim(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")=30
     "Waiting time after enabling next head pressure control"
-    annotation (Dialog(group="Disable last chiller", enable=havePonyChiller));
-  parameter Modelica.SIunits.Time proOnTim=300
+    annotation (Dialog(group="Disable last chiller", enable=have_PonyChiller));
+  parameter Real proOnTim(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")=300
     "Enabled chiller operation time to indicate if it is proven on"
-    annotation (Dialog(group="Disable last chiller", enable=havePonyChiller));
-  parameter Modelica.SIunits.Time chaChiWatIsoTim
+    annotation (Dialog(group="Disable last chiller", enable=have_PonyChiller));
+  parameter Real chaChiWatIsoTim(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")
     "Time to slowly change isolation valve, should be determined in the field"
     annotation (Dialog(group="Disable CHW isolation valve"));
   parameter Real staVec[totSta]
     "Chiller stage vector, element value like x.5 means chiller stage x plus WSE"
     annotation (Dialog(group="Disable condenser water pump"));
   parameter Real desConWatPumSpe[totSta]
-    "Design condenser water pump speed setpoints, the size should be doule of total stage numbers"
+    "Design condenser water pump speed setpoints, the size should be double of total stage numbers"
     annotation (Dialog(group="Disable condenser water pump"));
   parameter Real desConWatPumNum[totSta]
-    "Design number of condenser water pumps that should be ON, the size should be doule of total stage numbers"
+    "Design number of condenser water pumps that should be ON, the size should be double of total stage numbers"
     annotation (Dialog(group="Disable condenser water pump"));
-  parameter Modelica.SIunits.Time byPasSetTim
+  parameter Real byPasSetTim(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")
     "Time to reset minimum by-pass flow"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Modelica.SIunits.VolumeFlowRate minFloSet[nChi]
@@ -46,7 +61,10 @@ block Down
   parameter Modelica.SIunits.VolumeFlowRate maxFloSet[nChi]
     "Maximum chilled water flow through each chiller"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
-  parameter Modelica.SIunits.Time aftByPasSetTim=60
+  parameter Real aftByPasSetTim(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")=60
     "Time to allow loop to stabilize after resetting minimum chilled water flow setpoint"
     annotation (Dialog(group="Reset bypass"));
   parameter Real relSpeDif = 0.05
@@ -64,7 +82,7 @@ block Down
     "Vector of chillers status setpoint"
     annotation (Placement(transformation(extent={{-320,300},{-280,340}}),
       iconTransformation(extent={{-140,142},{-100,182}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput minOPLR(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput yOpeParLoaRatMin(
     final min=0,
     final max=1,
     final unit="1")
@@ -89,7 +107,7 @@ block Down
     annotation (Placement(transformation(extent={{-320,170},{-280,210}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta
-    "Current chiller stage index, does not include stages like X + WSE"
+    "Current chiller stage, it would the same as chiller stage setpoint when it is not in staging process"
     annotation (Placement(transformation(extent={{-320,140},{-280,180}}),
       iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiHeaCon[nChi]
@@ -115,7 +133,7 @@ block Down
     "Chiller condenser water isolation valve status"
     annotation (Placement(transformation(extent={{-320,-200},{-280,-160}}),
       iconTransformation(extent={{-140,-130},{-100,-90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWSE if haveWSE
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWSE if have_WSE
     "Water side economizer status: true = ON, false = OFF"
     annotation (Placement(transformation(extent={{-320,-260},{-280,-220}}),
       iconTransformation(extent={{-140,-160},{-100,-120}})));
@@ -233,7 +251,7 @@ protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Controller
     conWatPumCon(
     final isHeadered=isHeadered,
-    final haveWSE=haveWSE,
+    final have_WSE=have_WSE,
     final nChi=nChi,
     final totSta=totSta,
     final staVec=staVec,
@@ -356,9 +374,8 @@ equation
     annotation (Line(points={{-18,30},{40,30},{40,28},{58,28}},
       color={255,0,255}));
   connect(nexChi.yLasDisChi, curDisChi.index)
-    annotation (Line(points={{-18,316},{20,316},{20,120},{-140,120},{-140,-30},{
-          -70,-30},{-70,-22}},
-                            color={255,127,0}));
+    annotation (Line(points={{-18,316},{20,316},{20,120},{-140,120},{-140,-30},
+      {-70,-30},{-70,-22}}, color={255,127,0}));
   connect(lesEquThr.y, and1.u2)
     annotation (Line(points={{-18,-10},{120,-10},{120,12},{138,12}},
       color={255,0,255}));
@@ -400,8 +417,7 @@ equation
       color={255,0,255}));
   connect(nexChi.yLasDisChi, curDisChi1.index)
     annotation (Line(points={{-18,316},{20,316},{20,120},{-140,120},{-140,-140},
-          {-70,-140},{-70,-132}},
-                              color={255,127,0}));
+      {-70,-140},{-70,-132}}, color={255,127,0}));
   connect(nexChi.yOnOff, booRep1.u)
     annotation (Line(points={{-18,320},{0,320},{0,-70},{58,-70}},
       color={255,0,255}));
@@ -425,9 +441,6 @@ equation
   connect(con.y,disNexCWP. uStaUp)
     annotation (Line(points={{-138,200},{-120,200},{-120,-158},{98,-158}},
       color={255,0,255}));
-  connect(uChiSta, disNexCWP.uChiSta)
-    annotation (Line(points={{-300,160},{-180,160},{-180,-168},{98,-168}},
-      color={255,127,0}));
   connect(disNexCWP.yChiSta, conWatPumCon.uChiSta)
     annotation (Line(points={{122,-160},{130,-160},{130,-183},{138,-183}},
       color={255,127,0}));
@@ -461,9 +474,9 @@ equation
   connect(disChiIsoVal.yChiWatIsoVal, yChiWatIsoVal)
     annotation (Line(points={{222,54},{260,54},{260,40},{300,40}},
       color={0,0,127}));
-  connect(lat.y, minBypSet.uStaCha)
-    annotation (Line(points={{-158,350},{-140,350},{-140,328},{-260,328},{-260,-366},
-          {98,-366}},         color={255,0,255}));
+  connect(lat.y, minBypSet.chaPro)
+    annotation (Line(points={{-158,350},{-140,350},{-140,328},{-260,328},
+      {-260,-366}, {98,-366}}, color={255,0,255}));
   connect(VChiWat_flow, minBypSet.VChiWat_flow)
     annotation (Line(points={{-300,190},{-170,190},{-170,-374},{98,-374}},
       color={0,0,127}));
@@ -476,7 +489,7 @@ equation
   connect(lat.y,dowSta. uStaDow)
     annotation (Line(points={{-158,350},{-140,350},{-140,328},{-260,328},{-260,240},
           {58,240}},        color={255,0,255}));
-  connect(lat.y, disChiIsoVal.uStaCha)
+  connect(lat.y, disChiIsoVal.chaPro)
     annotation (Line(points={{-158,350},{-140,350},{-140,328},{-260,328},{-260,52},
           {198,52}},       color={255,0,255}));
   connect(lat.y, and4.u2)
@@ -485,7 +498,7 @@ equation
   connect(lat.y, logSwi2.u3)
     annotation (Line(points={{-158,350},{-140,350},{-140,328},{-260,328},{-260,12},
           {58,12}},       color={255,0,255}));
-  connect(lat.y, disHeaCon.uStaCha)
+  connect(lat.y, disHeaCon.chaPro)
     annotation (Line(points={{-158,350},{-140,350},{-140,328},{-260,328},{-260,-96},
           {198,-96}},       color={255,0,255}));
   connect(lat.y, minChiWatFlo.uStaDow)
@@ -496,7 +509,7 @@ equation
           {98,-162}},         color={255,0,255}));
   connect(lat.y, yStaPro)
     annotation (Line(points={{-158,350},{300,350}},color={255,0,255}));
-  connect(dowSta.minOPLR, minOPLR)
+  connect(dowSta.yOpeParLoaRatMin, yOpeParLoaRatMin)
     annotation (Line(points={{58,238},{40,238},{40,280},{-300,280}},
       color={0,0,127}));
   connect(conWatPumCon.uChiConIsoVal, uChiConIsoVal)
@@ -527,8 +540,8 @@ equation
     annotation (Line(points={{-138,200},{-120,200},{-120,-324},{98,-324}},
       color={255,0,255}));
   connect(edg1.y, lat.clr)
-    annotation (Line(points={{222,-370},{260,-370},{260,-390},{-190,-390},{-190,
-          344},{-182,344}},   color={255,0,255}));
+    annotation (Line(points={{222,-370},{260,-370},{260,-390},{-190,-390},
+      {-190,344},{-182,344}},   color={255,0,255}));
   connect(conWatPumCon.yConWatPumNum, yConWatPumNum)
     annotation (Line(points={{162,-185},{220,-185},{220,-220},{300,-220}},
       color={255,127,0}));
@@ -613,17 +626,27 @@ equation
   connect(edg1.y, lat4.clr)
     annotation (Line(points={{222,-370},{260,-370},{260,-390},{-190,-390},
       {-190,-136},{198,-136}}, color={255,0,255}));
-
-  connect(lat.y, nexChi.uInPro) annotation (Line(points={{-158,350},{-140,350},{
-          -140,328},{-260,328},{-260,313},{-42,313}}, color={255,0,255}));
-  connect(uStaSet, nexChi.uStaSet) annotation (Line(points={{-300,380},{-60,380},
-          {-60,327},{-42,327}}, color={255,127,0}));
+  connect(lat.y, nexChi.chaPro)
+    annotation (Line(points={{-158,350},{-140,350},{-140,328},{-260,328},
+      {-260,313},{-42,313}}, color={255,0,255}));
+  connect(uStaSet, nexChi.uStaSet)
+    annotation (Line(points={{-300,380},{-60,380},{-60,327},{-42,327}},
+      color={255,127,0}));
   connect(nexChi.uChiSet, uChiSet)
     annotation (Line(points={{-42,320},{-300,320}}, color={255,0,255}));
-  connect(uStaSet, cha.u) annotation (Line(points={{-300,380},{-260,380},{-260,350},
-          {-242,350}}, color={255,127,0}));
-  connect(cha.down, lat.u) annotation (Line(points={{-218,344},{-200,344},{-200,
-          350},{-182,350}}, color={255,0,255}));
+  connect(uStaSet, cha.u)
+    annotation (Line(points={{-300,380},{-260,380},{-260,350},{-242,350}},
+      color={255,127,0}));
+  connect(cha.down, lat.u)
+    annotation (Line(points={{-218,344},{-200,344},{-200,350},{-182,350}},
+      color={255,0,255}));
+  connect(uStaSet, disNexCWP.uStaSet)
+    annotation (Line(points={{-300,380},{-130,380},{-130,-169},{98,-169}},
+      color={255,127,0}));
+  connect(uChiSta, disNexCWP.uChiSta)
+    annotation (Line(points={{-300,160},{-150,160},{-150,-165},{98,-165}},
+      color={255,127,0}));
+
 annotation (
   defaultComponentName="dowProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-280,-400},{280,400}})),
@@ -653,10 +676,10 @@ annotation (
           lineColor={255,127,0},
           textString="uStaSet"),
         Text(
-          extent={{-96,138},{-52,126}},
+          extent={{-96,140},{-26,126}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="minOPLR"),
+          textString="yOpeParLoaRatMin"),
         Text(
           extent={{-96,118},{-60,106}},
           lineColor={0,0,127},
@@ -671,10 +694,6 @@ annotation (
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VChiWat_flow"),
-        Text(
-          extent={{-98,36},{-60,24}},
-          lineColor={255,127,0},
-          textString="uChiSta"),
         Text(
           extent={{-96,6},{-44,-6}},
           lineColor={255,0,255},
@@ -761,7 +780,11 @@ annotation (
         Text(
           extent={{-100,170},{-60,158}},
           lineColor={255,0,255},
-          textString="uChiSet")}),
+          textString="uChiSet"),
+        Text(
+          extent={{-100,38},{-58,26}},
+          lineColor={255,127,0},
+          textString="uChiSta")}),
 Documentation(info="<html>
 <p>
 Block that controls devices when there is a stage-down command. This sequence is for
@@ -769,13 +792,13 @@ water-cooled primary-only parallel chiller plants with headered chilled water pu
 and headered condenser water pumps, or air-cooled primary-only parallel chiller
 plants with headered chilled water pumps.
 This development is based on ASHRAE RP-1711 Advanced Sequences of Operation for 
-HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft 6 on July 25, 
-2019), section 5.2.4.16, which specifies the step-by-step control of
+HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft version, March 2020),
+section 5.2.4.17, which specifies the step-by-step control of
 devices during chiller staging down process.
 </p>
 <ol>
 <li>
-Identify the chiller(s) that should be enabled (and disabled, if <code>havePonyChiller=true</code>). 
+Identify the chiller(s) that should be enabled (and disabled, if <code>have_PonyChiller=true</code>). 
 This is implemented in block <code>nexChi</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.NextChiller\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.NextChiller</a>
@@ -791,7 +814,7 @@ is disabled:
 <li>
 Command operating chillers to reduce demand to 75% (<code>chiDemRedFac</code>) of 
 their current load (<code>uChiLoa</code>) or a percentage equal to current stage 
-minimum cycling operative partial load ratio <code>minOPLR</code>, whichever is greater. 
+minimum cycling operative partial load ratio <code>yOpeParLoaRatMin</code>, whichever is greater. 
 Wait until actual demand &lt; 80% of current load up to a maximum of 5 minutes 
 (<code>holChiDemTim</code>) before proceeding.
 </li>
