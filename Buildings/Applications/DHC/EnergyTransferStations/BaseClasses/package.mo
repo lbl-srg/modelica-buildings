@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.EnergyTransferStations;
-package BaseClasses "Package with base classes for Buildings.Applications.DHC.EnergyTransferStations.Controls"
+package BaseClasses "Package with base classes"
   extends Modelica.Icons.BasesPackage;
 
 annotation (preferredView="info", Documentation(info="<html>

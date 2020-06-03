@@ -4,7 +4,7 @@ package DHC "Models for district heating and cooling systems"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains models for district energy system.
+This package contains models for district heating and cooling (DHC) systems.
 </p>
 </html>"));
 end DHC;

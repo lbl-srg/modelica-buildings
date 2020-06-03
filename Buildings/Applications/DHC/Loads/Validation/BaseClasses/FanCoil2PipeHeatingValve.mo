@@ -81,8 +81,8 @@ model FanCoil2PipeHeatingValve
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={110,0})));
-  Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoomODE TLoaODE(
+        origin={150,0})));
+  Buildings.Applications.DHC.Loads.SimpleRoomODE TLoaODE(
     TOutHea_nominal=273.15 - 5,
     TIndHea_nominal=T_aLoaHea_nominal,
     QHea_flow_nominal=QHea_flow_nominal)
@@ -174,13 +174,13 @@ annotation (
 Documentation(
 info="<html>
 <p>
-This is a simplified model of a two-pipe fan coil unit for heating. It is 
-intended to be used in a case where the room thermal loads are provided 
+This is a simplified model of a two-pipe fan coil unit for heating. It is
+intended to be used in a case where the room thermal loads are provided
 as time series, and hence it takes the load as an input.
 </p>
 <p>
 A PI controller tracks the load.
-The controller output signal is mapped linearly to both, 
+The controller output signal is mapped linearly to both,
 </p>
 <ul>
 <li>

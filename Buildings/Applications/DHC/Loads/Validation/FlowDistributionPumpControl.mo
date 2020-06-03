@@ -125,7 +125,7 @@ model FlowDistributionPumpControl
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-130,0})));
-  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disCstDp(
+  Buildings.Applications.DHC.Loads.FlowDistribution disCstDp(
     redeclare package Medium = Medium1,
     m_flow_nominal=m_flow_nominal,
     have_pum=true,
@@ -190,11 +190,12 @@ model FlowDistributionPumpControl
     each final have_speVar=false)
     "Heating terminal unit"
     annotation (Placement(transformation(extent={{-10,118},{10,138}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disCstSpe(
+  Buildings.Applications.DHC.Loads.FlowDistribution disCstSpe(
     redeclare package Medium = Medium1,
     m_flow_nominal=m_flow_nominal,
     have_pum=true,
     typCtr=Buildings.Applications.DHC.Loads.Types.PumpControlType.ConstantSpeed,
+
     dp_nominal=dp_nominal,
     dpDis_nominal=dpDis_nominal,
     dpMin=dpSet,
