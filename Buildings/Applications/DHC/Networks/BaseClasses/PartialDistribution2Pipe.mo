@@ -12,15 +12,21 @@ partial model PartialDistribution2Pipe
   parameter Boolean show_heaFlo = false
     "Set to true to output the heat flow rate transferred to each connected load"
     annotation(Evaluate=true);
-  parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal[nCon]
-    "Nominal mass flow rate in the distribution line before each connection"
+  parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal
+    "Nominal mass flow rate in the distribution line before the first connection"
     annotation(Dialog(tab="General", group="Nominal condition"));
   parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal[nCon]
     "Nominal mass flow rate in each connection line"
     annotation(Dialog(tab="General", group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mEnd_flow_nominal
+  final parameter Modelica.SIunits.MassFlowRate mEnd_flow_nominal=
+    mDis_flow_nominal - sum(mCon_flow_nominal)
     "Nominal mass flow rate in the end of the distribution line"
     annotation(Dialog(tab="General", group="Nominal condition"));
+  final parameter Modelica.SIunits.MassFlowRate mDisCon_flow_nominal[nCon]=cat(
+    1,
+    {mDis_flow_nominal},
+    {mDis_flow_nominal - sum(mCon_flow_nominal[1:i]) for i in 1:(nCon-1)})
+    "Nominal mass flow rate in the distribution line before each connection";
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
@@ -65,7 +71,7 @@ partial model PartialDistribution2Pipe
   replaceable BaseClasses.PartialConnection2Pipe con[nCon](
     redeclare each final package Medium = Medium,
     each final show_heaFlo=show_heaFlo,
-    final mDis_flow_nominal=mDis_flow_nominal,
+    final mDis_flow_nominal=mDisCon_flow_nominal,
     final mCon_flow_nominal=mCon_flow_nominal,
     each final allowFlowReversal=allowFlowReversal,
     each final energyDynamics=energyDynamics,
@@ -85,6 +91,10 @@ initial equation
   assert(iConDpSen <= nCon, "In " + getInstanceName() +
     ": iConDpSen = " + String(iConDpSen) + " whereas it must be lower than " +
     String(nCon) + ".");
+  assert(mDis_flow_nominal >= sum(mCon_flow_nominal), "In " + getInstanceName() +
+    ": mDis_flow_nominal = " + String(mDis_flow_nominal) +
+    " whereas it must be higher than sum(mCon_flow_nominal) = " +
+    String(sum(mCon_flow_nominal)) + ".");
 equation
   // Connecting outlets to inlets for all instances of connection component.
   if nCon >= 2 then

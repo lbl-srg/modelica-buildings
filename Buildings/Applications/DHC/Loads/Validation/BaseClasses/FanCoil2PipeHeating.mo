@@ -34,9 +34,6 @@ model FanCoil2PipeHeating
   final parameter hexConfiguration hexConHea=
     hexConfiguration.CounterFlow
     "Heating heat exchanger configuration";
-  final parameter hexConfiguration hexConCoo=
-    hexConfiguration.CounterFlow
-    "Cooling heat exchanger configuration";
   parameter Boolean have_speVar = true
     "Set to true for a variable speed fan (otherwise fan is always on)";
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
