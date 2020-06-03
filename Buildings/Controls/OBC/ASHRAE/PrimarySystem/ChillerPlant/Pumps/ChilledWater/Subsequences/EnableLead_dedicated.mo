@@ -2,8 +2,10 @@
 block EnableLead_dedicated
   "Sequence to enable or disable the lead pump of plants with dedicated primary chilled water pumps"
 
-  final parameter Modelica.SIunits.Time offTimThr = 180
-    "Threshold to check lead chiller off time";
+  final parameter Real offTimThr(
+    final unit="s",
+    final quantity="Time")=180
+      "Threshold to check lead chiller off time";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla
     "True: plant is enabled"

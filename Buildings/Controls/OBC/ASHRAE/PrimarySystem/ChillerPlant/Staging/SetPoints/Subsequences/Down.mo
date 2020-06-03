@@ -7,11 +7,17 @@ block Down "Generates a stage down signal"
   parameter Boolean serChi = false
     "true = series chillers plant; false = parallel chillers plant";
 
-  parameter Modelica.SIunits.Time parLoaRatDelay = 900
-    "Enable delay for operating and staging part load ratio condition";
+  parameter Real parLoaRatDelay(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")=900
+      "Enable delay for operating and staging part load ratio condition";
 
-  parameter Modelica.SIunits.Time faiSafTruDelay = 900
-    "Enable delay for failsafe condition";
+  parameter Real faiSafTruDelay(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")=900
+      "Enable delay for failsafe condition";
 
   parameter Modelica.SIunits.TemperatureDifference faiSafTDif = 1
     "Offset between the chilled water supply temperature and its setpoint for the failsafe condition";

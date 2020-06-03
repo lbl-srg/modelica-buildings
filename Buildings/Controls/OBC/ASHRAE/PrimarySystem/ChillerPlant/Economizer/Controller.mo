@@ -1,11 +1,16 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer;
 block Controller "Waterside economizer (WSE) enable/disable status"
 
-  parameter Modelica.SIunits.Time holdPeriod(displayUnit= "h")=1200
-  "WSE minimum on or off time"
+  parameter Real holdPeriod(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")=1200
+    "WSE minimum on or off time"
   annotation(Dialog(group="Enable parameters"));
 
-  parameter Modelica.SIunits.Time delDis=120
+  parameter Real delDis(
+    final unit="s",
+    final quantity="Time")=120
   "Delay disable time period"
   annotation(Dialog(group="Enable parameters"));
 
@@ -40,12 +45,18 @@ block Controller "Waterside economizer (WSE) enable/disable status"
   parameter Real step=0.02 "Tuning step"
     annotation (Evaluate=true, Dialog(tab="Advanced", group="Tuning"));
 
-  parameter Modelica.SIunits.Time wseOnTimDec(final displayUnit= "h") = 3600
-  "Economizer enable time needed to allow decrease of the tuning parameter"
+  parameter Real wseOnTimDec(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h") = 3600
+    "Economizer enable time needed to allow decrease of the tuning parameter"
     annotation (Evaluate=true,Dialog(tab="Advanced", group="Tuning"));
 
-  parameter Modelica.SIunits.Time wseOnTimInc(final displayUnit= "h") = 1800
-  "Economizer enable time needed to allow increase of the tuning parameter"
+  parameter Real wseOnTimInc(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h") = 1800
+    "Economizer enable time needed to allow increase of the tuning parameter"
     annotation (Evaluate=true,Dialog(tab="Advanced", group="Tuning"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOutWet(
@@ -232,7 +243,7 @@ exchanger leaving water temperature (PHXLWT) increased in <code>TOffsetEna</code
 </li>
 <li>
 Disable WSE if it has been enabled for at least <code>holdPeriod</code> of time and CHWRT downstream of
-WSE, <code>TChiWatRetDow</code>, is greater than <code>TChiWatRet</code> decreased in <code>TOffsetDis</code> 
+WSE, <code>TChiWatRetDow</code>, is greater than <code>TChiWatRet</code> decreased in <code>TOffsetDis</code>
 for <code>delDis</code> time period.
 </li>
 </ul>

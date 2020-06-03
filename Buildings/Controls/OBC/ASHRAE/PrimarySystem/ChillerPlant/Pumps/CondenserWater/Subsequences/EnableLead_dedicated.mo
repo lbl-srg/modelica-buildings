@@ -2,8 +2,10 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserW
 block EnableLead_dedicated
   "Sequence for enabling lead pump of plants with dedicated condenser water pumps"
 
-  final parameter Modelica.SIunits.Time offTimThr = 180
-    "Threshold to check lead chiller OFF time";
+  final parameter Real offTimThr(
+    final unit="s",
+    final quantity="Time")=180
+      "Threshold to check lead chiller OFF time";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiEna
     "Lead chiller enabling status"
@@ -107,16 +109,16 @@ annotation (
   Documentation(info="<html>
 <p>
 Block that enable and disable lead condenser water pump, for plants
-with dedicated condenser water pumps, 
+with dedicated condenser water pumps,
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), 
+Central Plants and Hydronic Systems (Draft 6 on July 25, 2019),
 section 5.2.9 Condenser water pumps, part 5.2.9.4.
 </p>
 <p>
-The lead condenser water pump should be enabled when lead chiller is commanded 
-to run (<code>uLeaChiEna</code> = true). It should be disabled when the lead 
-chiller is disabled and either the lead chiller has been proven off 
-(<code>uLeaChiSta</code> = false) for <code>offTimThr</code>, i.e. 3 minutes or 
+The lead condenser water pump should be enabled when lead chiller is commanded
+to run (<code>uLeaChiEna</code> = true). It should be disabled when the lead
+chiller is disabled and either the lead chiller has been proven off
+(<code>uLeaChiSta</code> = false) for <code>offTimThr</code>, i.e. 3 minutes or
 is not requesting condenser water flow (<code>uLeaConWatReq</code> = false).
 </p>
 </html>", revisions="<html>

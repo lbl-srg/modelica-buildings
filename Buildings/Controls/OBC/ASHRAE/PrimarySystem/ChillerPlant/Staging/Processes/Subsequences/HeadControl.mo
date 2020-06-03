@@ -3,9 +3,15 @@ block HeadControl
   "Sequences for enabling or disabling head pressure control for the chiller being enabled or disabled"
 
   parameter Integer nChi "Total number of chiller";
-  parameter Modelica.SIunits.Time thrTimEnb=10
+  parameter Real thrTimEnb(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")=10
     "Threshold time to enable head pressure control after condenser water pump being reset";
-  parameter Modelica.SIunits.Time waiTim = 30
+  parameter Real waiTim(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h") = 30
     "Waiting time after enabling next head pressure control";
   parameter Boolean heaStaCha = true
     "Flag to indicate if head pressure control of next chiller should be ON or OFF: true = in stage-up process so it should be ON";
