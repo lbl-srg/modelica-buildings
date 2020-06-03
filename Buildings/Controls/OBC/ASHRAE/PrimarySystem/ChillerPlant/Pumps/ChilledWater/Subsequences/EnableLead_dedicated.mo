@@ -2,8 +2,10 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWat
 block EnableLead_dedicated
   "Sequence to enable or disable the lead pump of plants with dedicated primary chilled water pumps"
 
-  final parameter Modelica.SIunits.Time offTimThr = 180
-    "Threshold to check lead chiller off time";
+  final parameter Real offTimThr(
+    final unit="s",
+    final quantity="Time")=180
+      "Threshold to check lead chiller off time";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiEna
     "Lead chiller enabling status"
@@ -107,16 +109,16 @@ annotation (
   Documentation(info="<html>
 <p>
 Block that enable and disable leading primary chilled water pump, for plants
-with headered primary chilled water pumps and parallel chillers, 
+with headered primary chilled water pumps and parallel chillers,
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), 
+Central Plants and Hydronic Systems (Draft 6 on July 25, 2019),
 section 5.2.6 Primary chilled water pumps, part 5.2.6.5.
 </p>
 <p>
-The lead primary chilled water pump should be enabled when lead chiller is commanded 
-to run (<code>uLeaChiEna</code> = true). It should be disabled when the lead 
-chiller is disabled and either the lead chiller has been proven off (<code>uLeaChiSta</code> 
-= false) for 3 minutes or is not requesting chilled water flow 
+The lead primary chilled water pump should be enabled when lead chiller is commanded
+to run (<code>uLeaChiEna</code> = true). It should be disabled when the lead
+chiller is disabled and either the lead chiller has been proven off (<code>uLeaChiSta</code>
+= false) for 3 minutes or is not requesting chilled water flow
 (<code>uLeaChiWatReq</code> = false).
 </p>
 </html>", revisions="<html>

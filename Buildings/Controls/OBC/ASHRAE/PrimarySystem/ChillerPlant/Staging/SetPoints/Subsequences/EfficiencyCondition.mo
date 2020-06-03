@@ -2,8 +2,11 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoint
 block EfficiencyCondition
   "Efficiency condition used in staging up and down"
 
-  parameter Modelica.SIunits.Time effConTruDelay = 900
-    "Enable delay";
+  parameter Real effConTruDelay(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")=900
+      "Enable delay";
 
   parameter Real sigDif = 0.05
     "Signal hysteresis deadband";

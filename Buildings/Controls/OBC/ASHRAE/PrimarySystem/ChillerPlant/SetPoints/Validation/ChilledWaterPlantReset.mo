@@ -76,9 +76,9 @@ equation
       color={0,0,127}));
   connect(swi.y, reaToInt3.u)
      annotation (Line(points={{-18,-50},{-2,-50}}, color={0,0,127}));
-  connect(booPul1.y, plaRes.uStaCha)
+  connect(booPul1.y, plaRes.chaPro)
     annotation (Line(points={{22,20},{50,20},{50,64},{58,64}}, color={255,0,255}));
-  connect(booPul1.y, devRes.uStaCha)
+  connect(booPul1.y, devRes.chaPro)
     annotation (Line(points={{22,20},{50,20},{50,-36},{58,-36}}, color={255,0,255}));
 
 annotation (

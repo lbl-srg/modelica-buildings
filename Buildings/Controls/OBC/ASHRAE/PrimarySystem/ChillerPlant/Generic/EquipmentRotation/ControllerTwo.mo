@@ -25,17 +25,23 @@ block ControllerTwo
     "Rotation is scheduled in: true = weekly intervals; false = daily intervals"
     annotation(Evaluate=true, Dialog(group="Scheduler", enable=not simTimSta));
 
-  parameter Modelica.SIunits.Time rotationPeriod(
+  parameter Real rotationPeriod(
+    final unit="s",
+    final quantity="Time",
     final displayUnit="h") = 1209600
     "Rotation time period measured from simulation start"
     annotation(Dialog(group="Scheduler", enable=simTimSta));
 
-  parameter Modelica.SIunits.Time minLeaRuntime(
-    final displayUnit = "h") = 43200
+  parameter Real minLeaRuntime(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h") = 43200
     "Minimum cumulative runtime period for a current lead device before rotation may occur"
     annotation (Evaluate=true, Dialog(enable=(not continuous and minLim)));
 
-  parameter Modelica.SIunits.Time offset = 0
+  parameter Real offset(
+    final unit="s",
+    final quantity="Time") = 0
     "Offset that is added to 'time', may be used for computing time in a different time zone"
     annotation(Evaluate=true, Dialog(group="Calendar", enable=(continuous and not simTimSta)));
 
@@ -254,9 +260,9 @@ annotation(Diagram(coordinateSystem(extent={{-160,-100},{160,100}})),
         Line(points={{-40,-60},{0,-60},{0,60},{40,60}}, color={128,128,128})}),
   Documentation(info="<html>
 <p>
-This controller block rotates equipment, such as chillers, pumps or valves, in order 
-to ensure equal wear and tear. It is intended to be used for lead/lag and 
-lead/standby operation of two devices or groups of devices. The implementation is 
+This controller block rotates equipment, such as chillers, pumps or valves, in order
+to ensure equal wear and tear. It is intended to be used for lead/lag and
+lead/standby operation of two devices or groups of devices. The implementation is
 based on the specification from ASHRAE RP-1711, March 2020 Draft, section 5.1.2.1.-4.
 </p>
 <p>
@@ -267,7 +273,7 @@ and device roles <code>yDevRol</code> outputs:
 </p>
 <ul>
 <li>
-To rotate lead/lag device configurations, and lead/standby device configurations where the lead does 
+To rotate lead/lag device configurations, and lead/standby device configurations where the lead does
 not operate continuously, the controller can use:
 <ul>
 <li>
@@ -283,14 +289,14 @@ This subsequences uses a minimum cumulative runtime period <code>minLeaRuntime</
 </ul>
 </li>
 <li>
-To rotate lead/standby device configurations where the lead operates continuously the controller uses 
+To rotate lead/standby device configurations where the lead operates continuously the controller uses
 the <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Scheduler\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Scheduler</a> subsequence.
-In this subsequence the rotation signal is generated in regular time intervals, either measured from the simulation start or prescribed using a schedule. 
-Before a device is put to stand-by, the new lead device must be proven on, as implemented by the 
+In this subsequence the rotation signal is generated in regular time intervals, either measured from the simulation start or prescribed using a schedule.
+Before a device is put to stand-by, the new lead device must be proven on, as implemented by the
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.ContinuousLeadSwapTwo\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.ContinuousLeadSwapTwo</a> subsequence. 
-The implementations are based on section 5.1.2.4.2. 
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.ContinuousLeadSwapTwo</a> subsequence.
+The implementations are based on section 5.1.2.4.2.
 </li>
 </ul>
 <p>
@@ -299,8 +305,8 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotati
 the status setpoints <code>yDevStaSet</code> to devices based on the rotation signal.
 </p>
 <p>
-The output vector <code>yDevRol</code> indicates the role of each device, where true 
-represents a lead role and false represents a lag or a standby role. 
+The output vector <code>yDevRol</code> indicates the role of each device, where true
+represents a lead role and false represents a lag or a standby role.
 </p>
 <p>
 The indices of both output vectors and the <code>uDevSta</code> input vector represent physical devices.
@@ -310,13 +316,13 @@ In addition to the specification in RP-1711, this model allows the user to:
 </p>
 <ul>
 <li>
-specify time of day and either a number of days or a weekday with a number of weeks 
+specify time of day and either a number of days or a weekday with a number of weeks
 as time period to rotate devices or groups of devices that run continuously.
 </li>
 <li>
-optionally impose a minimum cumulative runtime period <code>minLeaRuntime</code> for a current 
-lead device before rotation may occur. The time is accumulated in any role for each device and 
-reset for each lead device or group of devices at role rotation. 
+optionally impose a minimum cumulative runtime period <code>minLeaRuntime</code> for a current
+lead device before rotation may occur. The time is accumulated in any role for each device and
+reset for each lead device or group of devices at role rotation.
 This implementation assumes that a more frequent load is being sent to a lead device or group of devices.
 </li>
 </ul>
