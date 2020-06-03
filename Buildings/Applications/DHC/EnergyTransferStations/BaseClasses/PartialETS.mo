@@ -96,7 +96,7 @@ partial model PartialETS "Partial class for energy transfer station model"
       iconTransformation(extent={{290,120},{310,200}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aDis(
     redeclare package Medium = MediumDis,
-    m_flow(max=if allowFlowReversalDis then -Modelica.Constants.inf else 0),
+    m_flow(min=if allowFlowReversalDis then -Modelica.Constants.inf else 0),
     h_outflow(start=MediumDis.h_default, nominal=MediumDis.h_default))
     "Fluid connector for district water supply"
     annotation (Placement(transformation(extent={{-310,-270},{-290,-250}})));
