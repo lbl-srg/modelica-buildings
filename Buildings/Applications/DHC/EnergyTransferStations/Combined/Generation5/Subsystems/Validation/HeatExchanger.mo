@@ -274,6 +274,6 @@ equation
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-240,-140},{240,140}})),
   __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/FifthGeneration/BaseClasses/Validation/HeatExchanger.mos"
-        "Simulate and plot"));
+"modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Combined/Generation5/Subsystems/Validation/HeatExchanger.mos"
+"Simulate and plot"));
 end HeatExchanger;

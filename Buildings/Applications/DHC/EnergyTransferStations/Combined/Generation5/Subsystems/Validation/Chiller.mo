@@ -165,6 +165,6 @@ equation
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-200,-140},{200,140}})),
   __Dymola_Commands(file=
-    "Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Combined/Generation5/Validation/Chiller.mos"
-    "Simulate and plot"));
+"modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Combined/Generation5/Subsystems/Validation/Chiller.mos"
+"Simulate and plot"));
 end Chiller;

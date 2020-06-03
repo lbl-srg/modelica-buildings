@@ -264,6 +264,6 @@ a second secondary circuit which flow rate is constant, equal to 0.5 times
 </html>"),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-260,-200},{260,120}})),
   __Dymola_Commands(
-  file="Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/FifthGeneration/Validation/CollectorDistributor.mos"
-   "Simulate and plot"));
+file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/BaseClasses/Validation/CollectorDistributor.mos"
+"Simulate and plot"));
 end CollectorDistributor;
