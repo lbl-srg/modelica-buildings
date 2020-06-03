@@ -18,11 +18,11 @@ partial model PartialDistribution2Pipe
   parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal[nCon]
     "Nominal mass flow rate in each connection line"
     annotation(Dialog(tab="General", group="Nominal condition"));
-  final parameter Modelica.SIunits.MassFlowRate mEnd_flow_nominal=
+  parameter Modelica.SIunits.MassFlowRate mEnd_flow_nominal=
     mDis_flow_nominal - sum(mCon_flow_nominal)
     "Nominal mass flow rate in the end of the distribution line"
     annotation(Dialog(tab="General", group="Nominal condition"));
-  final parameter Modelica.SIunits.MassFlowRate mDisCon_flow_nominal[nCon]=cat(
+  parameter Modelica.SIunits.MassFlowRate mDisCon_flow_nominal[nCon]=cat(
     1,
     {mDis_flow_nominal},
     {mDis_flow_nominal - sum(mCon_flow_nominal[1:i]) for i in 1:(nCon-1)})
