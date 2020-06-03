@@ -41,13 +41,13 @@ block Speed_primary_localDp
       iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiWatPum[nPum]
     "Chilled water pump status"
-    annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
+    annotation (Placement(transformation(extent={{-180,-60},{-140,-20}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat_remote[nSen](
     final unit=fill("Pa", nSen),
     final quantity=fill("PressureDifference", nSen))
     "Chilled water differential static pressure from remote sensor"
-    annotation (Placement(transformation(extent={{-180,-110},{-140,-70}}),
+    annotation (Placement(transformation(extent={{-180,-100},{-140,-60}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatSet(
     final unit="Pa",
@@ -69,7 +69,6 @@ block Speed_primary_localDp
     final Td=Td,
     final yMax=1,
     final yMin=0,
-    final reverseAction=true,
     final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
     final y_reset=0) "Pump speed controller"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
@@ -88,7 +87,6 @@ block Speed_primary_localDp
     final Td=fill(Td, nSen),
     final yMax=fill(1, nSen),
     final yMin=fill(0, nSen),
-    final reverseAction=fill(true, nSen),
     final reset=fill(Buildings.Controls.OBC.CDL.Types.Reset.Parameter, nSen),
     final y_reset=fill(0, nSen)) "Pump speed controller"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
@@ -100,7 +98,7 @@ protected
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
     final nout=nSen)
     "Replicate boolean input"
-    annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
+    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0)
     "Constant zero"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
@@ -121,11 +119,6 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant pumSpe_max(
     final k=maxPumSpe) "Maximum pump speed"
     annotation (Placement(transformation(extent={{-20,90},{0,110}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not2[nPum] "Logical not"
-    annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(
-    final nu=nPum) "Multiple logical and"
-    annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Division div[nSen]
     "Normalized pressure difference"
     annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
@@ -135,17 +128,17 @@ protected
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep1(
     final nout=nSen) "Replicate real input"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Not pumOn
-    "Check if there is any pump is ON"
-    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{100,110},{120,130}})));
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(final nu=nPum)
+    "Check if there is any pump enabled"
+    annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
 
 equation
   connect(conPID.y, maxRemDP.u)
     annotation (Line(points={{22,-20},{38,-20}}, color={0,0,127}));
   connect(booRep.y, conPID.trigger)
-    annotation (Line(points={{-18,-60},{2,-60},{2,-32}}, color={255,0,255}));
+    annotation (Line(points={{-18,-40},{4,-40},{4,-32}}, color={255,0,255}));
   connect(dpChiWatSet, reaRep.u)
     annotation (Line(points={{-160,-120},{-122,-120}}, color={0,0,127}));
   connect(maxRemDP.y, locDpSet.u)
@@ -171,14 +164,8 @@ equation
     annotation (Line(points={{-98,20},{40,20},{40,56},{98,56}},color={0,0,127}));
   connect(pumSpe_max.y, pumSpe.f2)
     annotation (Line(points={{2,100},{20,100},{20,52},{98,52}}, color={0,0,127}));
-  connect(uChiWatPum, not2.u)
-    annotation (Line(points={{-160,-20},{-122,-20}},
-      color={255,0,255}));
-  connect(not2.y, mulAnd.u)
-    annotation (Line(points={{-98,-20},{-80,-20},{-80,-40},{-130,-40},
-      {-130,-60},{-122,-60}}, color={255,0,255}));
   connect(dpChiWat_remote, div.u1)
-    annotation (Line(points={{-160,-90},{-80,-90},{-80,-94},{-42,-94}},
+    annotation (Line(points={{-160,-80},{-80,-80},{-80,-94},{-42,-94}},
       color={0,0,127}));
   connect(reaRep.y, div.u2)
     annotation (Line(points={{-98,-120},{-80,-120},{-80,-106},{-42,-106}},
@@ -189,14 +176,6 @@ equation
   connect(dpChiWat_local, div1.u1)
     annotation (Line(points={{-160,100},{-120,100},{-120,86},{-102,86}},
       color={0,0,127}));
-  connect(mulAnd.y, pumOn.u)
-    annotation (Line(points={{-98,-60},{-82,-60}}, color={255,0,255}));
-  connect(pumOn.y, booRep.u)
-    annotation (Line(points={{-58,-60},{-42,-60}},
-      color={255,0,255}));
-  connect(pumOn.y, conPID1.trigger)
-    annotation (Line(points={{-58,-60},{-50,-60},{-50,-20},{-38,-20},{-38,48}},
-      color={255,0,255}));
   connect(one.y, reaRep1.u)
     annotation (Line(points={{-98,20},{-90,20},{-90,0},{-82,0}}, color={0,0,127}));
   connect(reaRep1.y, conPID.u_s)
@@ -211,14 +190,21 @@ equation
   connect(pumSpe.y, swi.u1)
     annotation (Line(points={{122,60},{130,60},{130,100},{80,100},{80,128},{98,128}},
       color={0,0,127}));
-  connect(pumOn.y, swi.u2)
-    annotation (Line(points={{-58,-60},{-50,-60},{-50,120},{98,120}},
-      color={255,0,255}));
   connect(zer.y, swi.u3)
     annotation (Line(points={{82,20},{90,20},{90,112},{98,112}},
       color={0,0,127}));
   connect(swi.y, yChiWatPumSpe)
     annotation (Line(points={{122,120},{160,120}}, color={0,0,127}));
+  connect(mulOr.y, booRep.u)
+    annotation (Line(points={{-98,-40},{-42,-40}}, color={255,0,255}));
+  connect(mulOr.y, swi.u2)
+    annotation (Line(points={{-98,-40},{-50,-40},{-50,120},{98,120}},
+      color={255,0,255}));
+  connect(mulOr.y, conPID1.trigger)
+    annotation (Line(points={{-98,-40},{-50,-40},{-50,-20},{-36,-20},{-36,48}},
+      color={255,0,255}));
+  connect(uChiWatPum, mulOr.u)
+    annotation (Line(points={{-160,-40},{-122,-40}},color={255,0,255}));
 
 annotation (
   defaultComponentName="chiPumSpe",
@@ -265,7 +251,7 @@ Block that control speed of enabled chilled water pumps for primary-only plants 
 the remote pressure differential (DP) sensor(s) is not hardwired to the plant controller,
 but a local DP sensor is hardwired to the plant controller,
 according to ASHRAE RP-1711 (Draft 6 on July 25, 2019),
-section 5.2.6 Primary chilled water pumps, part 5.2.6.9, 5.2.6.8.10 and 5.2.6.11.
+section 5.2.6 Primary chilled water pumps, part 5.2.6.9, 5.2.6.10 and 5.2.6.11.
 </p>
 <ol>
 <li>

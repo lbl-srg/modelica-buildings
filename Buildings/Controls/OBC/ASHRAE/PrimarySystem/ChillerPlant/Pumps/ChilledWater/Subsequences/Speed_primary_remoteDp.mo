@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences;
 block Speed_primary_remoteDp
   "Pump speed control for primary-only plants where the remote DP sensor(s) is hardwired to the plant controller"
   parameter Integer nSen = 2
@@ -62,7 +62,6 @@ block Speed_primary_remoteDp
     final Td=fill(Td, nSen),
     final yMax=fill(1, nSen),
     final yMin=fill(0, nSen),
-    final reverseAction=fill(true, nSen),
     final reset=fill(Buildings.Controls.OBC.CDL.Types.Reset.Parameter, nSen),
     final y_reset=fill(0, nSen)) "Pump speed controller"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
@@ -87,11 +86,6 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0)
     "Constant zero"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not2[nPum] "Logical not"
-    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(
-    final nu=nPum) "Multiple logical and"
-    annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Division div[nSen]
     "Normalized pressure difference"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
@@ -100,15 +94,15 @@ protected
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{80,90},{100,110}})));
-  Buildings.Controls.OBC.CDL.Logical.Not pumOn
-    "Check if there is any pump is ON"
-    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(final nu=nPum)
+    "Check if there is any pump enabled"
+    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
 
 equation
   connect(conPID.y, maxLoo.u)
     annotation (Line(points={{42,0},{58,0}}, color={0,0,127}));
   connect(booRep.y, conPID.trigger)
-    annotation (Line(points={{2,-40},{22,-40},{22,-12}}, color={255,0,255}));
+    annotation (Line(points={{2,-40},{24,-40},{24,-12}}, color={255,0,255}));
   connect(dpChiWatSet, reaRep.u)
     annotation (Line(points={{-140,-100},{-102,-100}}, color={0,0,127}));
   connect(zer.y, pumSpe.x1)
@@ -122,11 +116,6 @@ equation
   connect(maxLoo.y, pumSpe.u)
     annotation (Line(points={{82,0},{100,0},{100,40},{40,40},{40,60},{58,60}},
       color={0,0,127}));
-  connect(not2.y,mulAnd. u)
-    annotation (Line(points={{-78,0},{-60,0},{-60,-20},{-110,-20},{-110,-40},
-      {-102,-40}}, color={255,0,255}));
-  connect(uChiWatPum, not2.u)
-    annotation (Line(points={{-140,0},{-102,0}}, color={255,0,255}));
   connect(dpChiWat, div.u1)
     annotation (Line(points={{-140,-60},{-40,-60},{-40,-74},{-22,-74}},
       color={0,0,127}));
@@ -140,13 +129,6 @@ equation
       color={0,0,127}));
   connect(reaRep1.y, conPID.u_s)
     annotation (Line(points={{2,0},{18,0}}, color={0,0,127}));
-  connect(mulAnd.y, pumOn.u)
-    annotation (Line(points={{-78,-40},{-62,-40}},   color={255,0,255}));
-  connect(pumOn.y, booRep.u)
-    annotation (Line(points={{-38,-40},{-22,-40}}, color={255,0,255}));
-  connect(pumOn.y, swi.u2)
-    annotation (Line(points={{-38,-40},{-30,-40},{-30,100},{78,100}},
-      color={255,0,255}));
   connect(pumSpe.y, swi.u1)
     annotation (Line(points={{82,60},{100,60},{100,80},{60,80},{60,108},{78,108}},
       color={0,0,127}));
@@ -155,6 +137,14 @@ equation
       color={0,0,127}));
   connect(swi.y, yChiWatPumSpe)
     annotation (Line(points={{102,100},{140,100}}, color={0,0,127}));
+  connect(mulOr.y, booRep.u)
+    annotation (Line(points={{-78,0},{-50,0},{-50,-40},{-22,-40}},
+      color={255,0,255}));
+  connect(mulOr.y, swi.u2)
+    annotation (Line(points={{-78,0},{-50,0},{-50,100},{78,100}},
+      color={255,0,255}));
+  connect(uChiWatPum, mulOr.u)
+    annotation (Line(points={{-140,0},{-102,0}}, color={255,0,255}));
 
 annotation (
   defaultComponentName="chiPumSpe",
