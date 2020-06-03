@@ -1,10 +1,10 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences;
 block EnableLead_headered
   "Sequence to enable or disable the lead pump of plants with headered primary chilled water pumps"
   parameter Integer nChi=2 "Total number of chiller CHW isolation valves";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiIsoVal[nChi]
-    "Chilled water isolation valve status"
+    "True: chilled water isolation valve commended on"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLea "Lead pump status"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
@@ -64,12 +64,13 @@ annotation (
 Block that enable and disable leading primary chilled water pump, for plants
 with headered primary chilled water pumps and parallel chillers, 
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), 
+Central Plants and Hydronic Systems (Draft on March, 2020), 
 section 5.2.6 Primary chilled water pumps, part 1 and 2.
 </p>
 <ol>
 <li>
-Primary chilled water pumps shall be lead-lag.
+Primary chilled water pumps shall be lead-lag. Note that the lead-lag control is
+implemented in a separated sequence.
 </li>
 <li>
 The lead primary chilled water pump shall be enabled when any chiller
