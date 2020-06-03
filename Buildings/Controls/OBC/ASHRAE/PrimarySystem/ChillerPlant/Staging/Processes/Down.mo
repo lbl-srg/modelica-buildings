@@ -16,16 +16,28 @@ block Down
   parameter Real chiDemRedFac=0.75
     "Demand reducing factor of current operating chillers"
     annotation (Dialog(group="Disable last chiller", enable=have_PonyChiller));
-  parameter Modelica.SIunits.Time holChiDemTim=300
+  parameter Real holChiDemTim(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")=300
     "Maximum time to wait for the actual demand less than percentage of current load"
     annotation (Dialog(group="Disable last chiller", enable=have_PonyChiller));
-  parameter Modelica.SIunits.Time waiTim=30
+  parameter Real waiTim(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")=30
     "Waiting time after enabling next head pressure control"
     annotation (Dialog(group="Disable last chiller", enable=have_PonyChiller));
-  parameter Modelica.SIunits.Time proOnTim=300
+  parameter Real proOnTim(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")=300
     "Enabled chiller operation time to indicate if it is proven on"
     annotation (Dialog(group="Disable last chiller", enable=have_PonyChiller));
-  parameter Modelica.SIunits.Time chaChiWatIsoTim
+  parameter Real chaChiWatIsoTim(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")
     "Time to slowly change isolation valve, should be determined in the field"
     annotation (Dialog(group="Disable CHW isolation valve"));
   parameter Real staVec[totSta]
@@ -37,7 +49,10 @@ block Down
   parameter Real desConWatPumNum[totSta]
     "Design number of condenser water pumps that should be ON, the size should be double of total stage numbers"
     annotation (Dialog(group="Disable condenser water pump"));
-  parameter Modelica.SIunits.Time byPasSetTim
+  parameter Real byPasSetTim(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")
     "Time to reset minimum by-pass flow"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Modelica.SIunits.VolumeFlowRate minFloSet[nChi]
@@ -46,7 +61,10 @@ block Down
   parameter Modelica.SIunits.VolumeFlowRate maxFloSet[nChi]
     "Maximum chilled water flow through each chiller"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
-  parameter Modelica.SIunits.Time aftByPasSetTim=60
+  parameter Real aftByPasSetTim(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")=60
     "Time to allow loop to stabilize after resetting minimum chilled water flow setpoint"
     annotation (Dialog(group="Reset bypass"));
   parameter Real relSpeDif = 0.05

@@ -9,8 +9,10 @@ block ControlLoop
     annotation (Dialog(group="PID controller"));
   parameter Real k=1 "Gain of controller"
     annotation (Dialog(group="PID controller"));
-  parameter Modelica.SIunits.Time Ti=0.5 "Time constant of integrator block"
-    annotation (Dialog(group="PID controller"));
+  parameter Real Ti(
+    final unit="s",
+    final quantity="Time")=0.5 "Time constant of integrator block"
+      annotation (Dialog(group="PID controller"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaPreEna
     "Status of head pressure control: true = ON, false = OFF"

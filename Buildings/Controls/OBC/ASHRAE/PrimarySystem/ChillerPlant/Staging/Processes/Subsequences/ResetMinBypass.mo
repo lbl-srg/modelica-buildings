@@ -2,7 +2,10 @@
 block ResetMinBypass
   "Sequence for minimum chilled water flow setpoint reset"
 
-  parameter Modelica.SIunits.Time aftByPasSetTim = 60
+  parameter Real aftByPasSetTim(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h") = 60
     "Time after setpoint achieved";
   parameter Real relFloDif=0.05
     "Relative error to the setpoint for checking if it has achieved flow rate setpoint"

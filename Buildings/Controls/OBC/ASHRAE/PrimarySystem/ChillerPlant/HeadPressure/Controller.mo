@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure;
 block Controller "Head pressure controller"
   parameter Real minTowSpe=0.1 "Minimum cooling tower fan speed";
   parameter Real minConWatPumSpe=0.1 "Minimum condenser water pump speed"
@@ -22,7 +22,9 @@ block Controller "Head pressure controller"
     annotation (Dialog(tab="Loop signal", group="PID controller", enable=not have_HeaPreConSig));
   parameter Real k=1 "Gain of controller"
     annotation (Dialog(tab="Loop signal", group="PID controller", enable=not have_HeaPreConSig));
-  parameter Modelica.SIunits.Time Ti=0.5 "Time constant of integrator block"
+  parameter Real Ti(
+    final unit="s",
+    final quantity="Time")=0.5 "Time constant of integrator block"
     annotation (Dialog(tab="Loop signal", group="PID controller", enable=not have_HeaPreConSig));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaPreEna
