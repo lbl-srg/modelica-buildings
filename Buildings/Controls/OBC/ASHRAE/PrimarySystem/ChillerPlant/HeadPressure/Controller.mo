@@ -1,11 +1,11 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure;
 block Controller "Head pressure controller"
   parameter Real minTowSpe=0.1 "Minimum cooling tower fan speed";
   parameter Real minConWatPumSpe=0.1 "Minimum condenser water pump speed"
     annotation (Dialog(enable= not ((not have_WSE) and fixSpePum)));
   parameter Real minHeaPreValPos=0.1 "Minimum head pressure control valve position"
     annotation (Dialog(enable= (not ((not have_WSE) and (not fixSpePum)))));
-  parameter Boolean hasHeaPreConSig = false
+  parameter Boolean have_HeaPreConSig = false
     "Flag indicating if there is head pressure control signal from chiller controller"
     annotation (Dialog(group="Plant"));
   parameter Boolean have_WSE = true
@@ -16,14 +16,16 @@ block Controller "Head pressure controller"
     annotation (Dialog(group="Plant", enable=not have_WSE));
   parameter Modelica.SIunits.TemperatureDifference minChiLif=10
     "Minimum allowable lift at minimum load for chiller"
-    annotation (Dialog(tab="Loop signal", enable=not hasHeaPreConSig));
+    annotation (Dialog(tab="Loop signal", enable=not have_HeaPreConSig));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
-    annotation (Dialog(tab="Loop signal", group="PID controller", enable=not hasHeaPreConSig));
+    annotation (Dialog(tab="Loop signal", group="PID controller", enable=not have_HeaPreConSig));
   parameter Real k=1 "Gain of controller"
-    annotation (Dialog(tab="Loop signal", group="PID controller", enable=not hasHeaPreConSig));
-  parameter Modelica.SIunits.Time Ti=0.5 "Time constant of integrator block"
-    annotation (Dialog(tab="Loop signal", group="PID controller", enable=not hasHeaPreConSig));
+    annotation (Dialog(tab="Loop signal", group="PID controller", enable=not have_HeaPreConSig));
+  parameter Real Ti(
+    final unit="s",
+    final quantity="Time")=0.5 "Time constant of integrator block"
+    annotation (Dialog(tab="Loop signal", group="PID controller", enable=not have_HeaPreConSig));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaPreEna
     "Status of head pressure control: true = ON, false = OFF"
@@ -32,14 +34,14 @@ block Controller "Head pressure controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatRet(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if not hasHeaPreConSig
+    final quantity="ThermodynamicTemperature") if not have_HeaPreConSig
     "Measured condenser water return temperature"
     annotation (Placement(transformation(extent={{-140,70},{-100,110}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if not hasHeaPreConSig
+    final quantity="ThermodynamicTemperature") if not have_HeaPreConSig
     "Measured chilled water supply temperature"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
@@ -57,7 +59,7 @@ block Controller "Head pressure controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaPreCon(
     final min=0,
     final max=1,
-    final unit="1") if hasHeaPreConSig
+    final unit="1") if have_HeaPreConSig
     "Chiller head pressure control loop signal from chiller controller"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
@@ -87,7 +89,7 @@ block Controller "Head pressure controller"
     final minChiLif=minChiLif,
     final controllerType=controllerType,
     final k=k,
-    final Ti=Ti) if not hasHeaPreConSig
+    final Ti=Ti) if not have_HeaPreConSig
     "Generate chiller head pressure control loop signal"
     annotation (Placement(transformation(extent={{-20,80},{0,100}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.MappingWithoutWSE
@@ -107,10 +109,10 @@ block Controller "Head pressure controller"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Logical.Switch swi if hasHeaPreConSig
+  Buildings.Controls.OBC.CDL.Logical.Switch swi if have_HeaPreConSig
     annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
-    final k=0) if hasHeaPreConSig "Constant"
+    final k=0) if have_HeaPreConSig "Constant"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
 
 equation
