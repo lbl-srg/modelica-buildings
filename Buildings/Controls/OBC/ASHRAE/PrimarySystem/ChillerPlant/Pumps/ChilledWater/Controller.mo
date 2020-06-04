@@ -113,7 +113,7 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumSpe(
     final min=0,
     final max=1,
-    final unit=1) "Enabled chilled water pump speed"
+    final unit="1") "Enabled chilled water pump speed"
     annotation (Placement(transformation(extent={{280,-220},{320,-180}}),
       iconTransformation(extent={{100,-100},{140,-60}})));
 
