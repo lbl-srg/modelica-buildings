@@ -37,7 +37,7 @@ protected
     "Pulse source"
     annotation (Placement(transformation(extent={{-130,-10},{-110,10}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conIntp[nSta](
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conIntp[1](
     final k={1})
     "Constant source"
     annotation (Placement(transformation(extent={{-130,-90},{-110,-70}})));
@@ -66,7 +66,7 @@ protected
     "Pulse source"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conIntp1[nSta](
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conIntp1[1](
     final k={2})
     "Constant source"
     annotation (Placement(transformation(extent={{10,-90},{30,-70}})));
