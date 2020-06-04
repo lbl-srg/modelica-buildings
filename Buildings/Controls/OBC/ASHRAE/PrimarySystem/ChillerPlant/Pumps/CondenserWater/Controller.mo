@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater;
 block Controller "Condenser water pump controller"
 
   parameter Boolean isHeadered = true
@@ -244,7 +244,7 @@ annotation (
 <p>
 Block that generates control signals for condenser water pumps control, 
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), 
+Central Plants and Hydronic Systems (Draft on March 2020), 
 section 5.2.9 Condenser water pumps. 
 </p>
 <p>
