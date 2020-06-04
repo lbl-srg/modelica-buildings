@@ -60,9 +60,9 @@ model CoolingTowerParallel
     nPorts=1) "Expansion vessel"
     annotation (Placement(transformation(extent={{100,-30},{80,-10}})));
 
-  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow fixHeaFlo(Q_flow=0.5*
-        m_flow_nominal*4200*5)
-                              "Fixed heat flow rate"
+  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow fixHeaFlo(
+    Q_flow=0.5*m_flow_nominal*4200*5)
+    "Fixed heat flow rate"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TVol

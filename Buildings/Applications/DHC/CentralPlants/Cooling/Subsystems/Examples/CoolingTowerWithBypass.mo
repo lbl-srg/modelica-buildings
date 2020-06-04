@@ -92,8 +92,9 @@ model CoolingTowerWithBypass
   Modelica.Blocks.Nonlinear.FixedDelay del(delayTime=30)
     "Delay of pump operation"
     annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
-  Modelica.Blocks.Math.BooleanToReal booToRea(each final realTrue=1, each final
-            realFalse=0) "Boolean to real (if true then 1 else 0)"
+  Modelica.Blocks.Math.BooleanToReal booToRea(
+    each final realTrue=1, each final realFalse=0)
+    "Boolean to real (if true then 1 else 0)"
     annotation (Placement(transformation(extent={{-110,40},{-90,60}})));
 equation
   connect(onOffCon.y,swi. u2) annotation (Line(points={{11,-80},{28,-80}}, color={255,0,255}));
