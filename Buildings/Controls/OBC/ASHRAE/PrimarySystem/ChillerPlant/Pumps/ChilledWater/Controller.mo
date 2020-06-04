@@ -52,50 +52,54 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uPumLeaLag[nPum]
     "Chilled water pump lead-lag order"
       annotation (Placement(transformation(extent={{-320,210},{-280,250}}),
-        iconTransformation(extent={{-140,70},{-100,110}})));
+        iconTransformation(extent={{-140,80},{-100,120}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla if not isHeadered
+    "True: plant is enabled"
+    annotation (Placement(transformation(extent={{-320,160},{-280,200}}),
+        iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiWatPum[nPum]
     "Chilled water pumps operating status"
     annotation (Placement(transformation(extent={{-320,120},{-280,160}}),
-      iconTransformation(extent={{-140,50},{-100,90}})));
+      iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiEna if not isHeadered
     "Lead chiller enabling status"
     annotation (Placement(transformation(extent={{-320,90},{-280,130}}),
-      iconTransformation(extent={{-140,30},{-100,70}})));
+      iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiSta if not isHeadered
     "Lead chiller status"
     annotation (Placement(transformation(extent={{-320,60},{-280,100}}),
-      iconTransformation(extent={{-140,10},{-100,50}})));
+      iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiWatReq if not isHeadered
     "Status indicating if lead chiller is requesting chilled water"
     annotation (Placement(transformation(extent={{-320,30},{-280,70}}),
-      iconTransformation(extent={{-140,-10},{-100,30}})));
+      iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiIsoVal[nChi] if isHeadered
     "Chilled water isolation valve status"
     annotation (Placement(transformation(extent={{-320,0},{-280,40}}),
-      iconTransformation(extent={{-140,-30},{-100,10}})));
+      iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWat_flow(
     final unit="m3/s")
     "Chilled water flow"
     annotation (Placement(transformation(extent={{-320,-40},{-280,0}}),
-      iconTransformation(extent={{-140,-50},{-100,-10}})));
+      iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat_local(
     final unit="Pa",
     final quantity="PressureDifference") if have_LocalSensor
     "Chilled water differential static pressure from local sensor"
     annotation (Placement(transformation(extent={{-320,-180},{-280,-140}}),
-      iconTransformation(extent={{-140,-70},{-100,-30}})));
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat_remote[nSen](
     final unit=fill("Pa", nSen),
     final quantity=fill("PressureDifference", nSen))
     "Chilled water differential static pressure from remote sensor"
     annotation (Placement(transformation(extent={{-320,-220},{-280,-180}}),
-      iconTransformation(extent={{-140,-90},{-100,-50}})));
+      iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatSet(
     final unit="Pa",
     final quantity="PressureDifference")
     "Chilled water differential static pressure setpoint"
     annotation (Placement(transformation(extent={{-320,-260},{-280,-220}}),
-      iconTransformation(extent={{-140,-110},{-100,-70}})));
+      iconTransformation(extent={{-140,-120},{-100,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChiWatPum[nPum]
     "Chilled water pump status"
     annotation (Placement(transformation(extent={{280,-20},{320,20}}),
@@ -236,10 +240,10 @@ protected
 
 equation
   connect(enaDedLeaPum.uLeaChiEna, uLeaChiEna)
-    annotation (Line(points={{-202,118},{-240,118},{-240,110},{-300,110}},
+    annotation (Line(points={{-202,113},{-240,113},{-240,110},{-300,110}},
       color={255,0,255}));
   connect(enaDedLeaPum.uLeaChiSta, uLeaChiSta)
-    annotation (Line(points={{-202,110},{-230,110},{-230,80},{-300,80}},
+    annotation (Line(points={{-202,107},{-230,107},{-230,80},{-300,80}},
       color={255,0,255}));
   connect(enaDedLeaPum.uLeaChiWatReq, uLeaChiWatReq)
     annotation (Line(points={{-202,102},{-220,102},{-220,50},{-300,50}},
@@ -406,8 +410,12 @@ equation
       color={255,127,0}));
   connect(mulSumInt.y, lasLagPum.index)
     annotation (Line(points={{-138,-120},{-70,-120},{-70,-112}}, color={255,127,0}));
+  connect(enaDedLeaPum.uPla, uPla)
+    annotation (Line(points={{-202,118},{-240,118},{-240,180},{-300,180}},
+      color={255,0,255}));
 
 annotation (
+  defaultComponentName="chiWatPum",
   Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-280,-260},{280,260}}), graphics={
           Rectangle(
@@ -481,8 +489,8 @@ annotation (
           fillPattern=FillPattern.Solid)}),
   Documentation(info="<html>
 <p>
-Primary chilled water pump control sequence per ASHRAE RP-1711, Draft 6 (July 25, 2019), 
-section 5.2.6. It consists:
+Primary chilled water pump control sequence per ASHRAE RP-1711, (Draft on March 2020), 
+section 5.2.6. It includes:
 </p>
 <ul>
 <li>
@@ -505,7 +513,6 @@ Subsequence to stage lag pumps
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.EnableLag_primary_dP\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.EnableLag_primary_dP</a>
 </li>
-
 <li>
 Subsequences to control pump speed for primary-only plants,
 <ul>
