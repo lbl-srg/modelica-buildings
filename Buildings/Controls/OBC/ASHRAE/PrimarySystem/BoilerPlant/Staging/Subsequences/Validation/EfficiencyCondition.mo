@@ -2,33 +2,38 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequen
 block EfficiencyCondition
   "Validation model for EfficiencyCondition"
 
-  parameter Integer nSta = 1
-    "Number of boiler stages";
-
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences.EfficiencyCondition
     effCon(
-    final nSta=nSta)
+    final nSta=1,
+    final perNonConBoi=0.9,
+    final perConBoi=1.5,
+    final sigDif=0.1,
+    final delayQReq=600)
     "Testing efficiency condition for condensing boiler stage type"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences.EfficiencyCondition
     effCon1(
-    final nSta=nSta)
+    final nSta=1,
+    final perNonConBoi=0.9,
+    final perConBoi=1.5,
+    final sigDif=0.1,
+    final delayQReq=600)
     "Testing efficiency condition for non-condensing boiler stage type"
     annotation (Placement(transformation(extent={{110,-10},{130,10}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul(
-    final amplitude=1.2*effCon.sigDif,
-    final period=2.5*effCon.delayQReq,
-    final offset=effCon.perConBoi - 1.1*effCon.sigDif)
+    final amplitude=1.2*0.1,
+    final period=2.5*600,
+    final offset=1.5 - 1.1*0.1)
     "Pulse source"
     annotation (Placement(transformation(extent={{-130,110},{-110,130}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul3(
-    final amplitude=1.2*effCon.sigDif,
-    final period=5*effCon.delayQReq,
-    final offset=1 - 1.1*effCon.sigDif)
+    final amplitude=1.2*0.1,
+    final period=5*600,
+    final offset=1 - 1.1*0.1)
     "Pulse source"
     annotation (Placement(transformation(extent={{-130,-10},{-110,10}})));
 
@@ -48,16 +53,16 @@ protected
     annotation (Placement(transformation(extent={{-130,30},{-110,50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul1(
-    final amplitude=1.2*effCon.sigDif,
-    final period=2.5*effCon.delayQReq,
-    final offset=effCon.perNonConBoi - 1.1*effCon.sigDif)
+    final amplitude=1.2*0.1,
+    final period=2.5*600,
+    final offset=0.9 - 1.1*0.1)
     "Pulse source"
     annotation (Placement(transformation(extent={{10,110},{30,130}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul2(
-    final amplitude=1.2*effCon.sigDif,
-    final period=5*effCon.delayQReq,
-    final offset=1 - 1.1*effCon.sigDif)
+    final amplitude=1.2*0.1,
+    final period=5*600,
+    final offset=1 - 1.1*0.1)
     "Pulse source"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
 

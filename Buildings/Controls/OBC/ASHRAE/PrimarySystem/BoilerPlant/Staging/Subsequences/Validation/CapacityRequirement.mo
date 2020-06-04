@@ -2,24 +2,6 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequen
 block CapacityRequirement
   "Validation model for CapacityRequirement"
 
-  parameter Real TNomSupSet(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") = 333.15
-    "Nominal hot water supply temperature setpoint";
-
-  parameter Real TNomRet(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") = 322.04
-    "Nominal measured hot water return temperature";
-
-  parameter Real VNomFloRat(
-    final unit="m3/s",
-    final displayUnit="m3/s",
-    final quantity="VolumeFlowRate") = 1
-    "Nominal measured primary flow-rate";
-
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences.CapacityRequirement
     capReq(
     final avePer=300)
@@ -46,74 +28,74 @@ block CapacityRequirement
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
-    final k=TNomSupSet)
+    final k=333.15)
     "Constant input"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
-    final amplitude=TNomSupSet - TNomRet,
+    final amplitude=333.15 - 322.04,
     final freqHz=1/3600,
-    final offset=TNomRet)
+    final offset=322.04)
     "Sine input"
     annotation (Placement(transformation(extent={{-90,40},{-70,60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
-    final k=VNomFloRat)
+    final k=1)
     "Constant input"
     annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2(
-    final k=TNomRet)
+    final k=322.04)
     "Constant input"
     annotation (Placement(transformation(extent={{10,40},{30,60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin1(
-    final amplitude=TNomSupSet - TNomRet,
+    final amplitude=333.15 - 322.04,
     final freqHz=1/3600,
-    final offset=TNomSupSet)
+    final offset=333.15)
     "Sine input"
     annotation (Placement(transformation(extent={{10,70},{30,90}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3(
-    final k=VNomFloRat)
+    final k=1)
     "Constant input"
     annotation (Placement(transformation(extent={{10,10},{30,30}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4(
-    final k=TNomSupSet)
+    final k=333.15)
     "Constant input"
     annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin2(
-    final amplitude=VNomFloRat,
+    final amplitude=1,
     final freqHz=1/3600,
-    final offset=VNomFloRat)
+    final offset=1)
     "Sine input"
     annotation (Placement(transformation(extent={{-90,-90},{-70,-70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con5(
-    final k=TNomRet)
+    final k=322.04)
     "Constant input"
     annotation (Placement(transformation(extent={{-90,-60},{-70,-40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin3(
-    final amplitude=TNomSupSet - TNomRet,
+    final amplitude=333.15 - 322.04,
     final freqHz=2/3600,
-    final offset=TNomRet)
+    final offset=322.04)
     "Sine input"
     annotation (Placement(transformation(extent={{10,-60},{30,-40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin4(
-    final amplitude=TNomSupSet - TNomRet,
+    final amplitude=333.15 - 322.04,
     final freqHz=1/3600,
-    final offset=TNomSupSet)
+    final offset=333.15)
     "Sine input"
     annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin5(
-    final amplitude=VNomFloRat,
+    final amplitude=1,
     final freqHz=3/3600,
-    final offset=VNomFloRat)
+    final offset=1)
     "Sine input"
     annotation (Placement(transformation(extent={{10,-90},{30,-70}})));
 

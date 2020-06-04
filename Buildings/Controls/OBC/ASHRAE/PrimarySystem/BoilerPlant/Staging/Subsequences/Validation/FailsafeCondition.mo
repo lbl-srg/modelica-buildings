@@ -2,90 +2,84 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequen
 block FailsafeCondition
   "Validation model for FailsafeCondition"
 
-  parameter Real TSupSetNom(
-    final unit="K",
-    final displayUnit="K",
-    final quantity="ThermodynamicTemperature") = 80
-    "Nominal supply temperature setpoint";
-
-  parameter Real TSupVar(
-    final unit="K",
-    final displayUnit="K",
-    final quantity="ThermodynamicTemperature") = 10
-    "Variation in supply temperature";
-
-  parameter Real fVar(
-    final unit="Hz",
-    final displayUnit="Hz",
-    final quantity="Frequency") = 1/1800
-    "Frequency of supply temperature variation";
-
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences.FailsafeCondition
-    faiSafCon
+    faiSafCon(
+    final delayEna=900,
+    final TDif=10,
+    final TDifHys=1)
     "Testing scenario with FailsafeCondition unmet"
     annotation (Placement(transformation(extent={{-40,42},{-20,60}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences.FailsafeCondition
-    faiSafCon1
+    faiSafCon1(
+    final delayEna=900,
+    final TDif=10,
+    final TDifHys=1)
     "Testing scenario with FailsafeCondition met"
     annotation (Placement(transformation(extent={{60,42},{80,60}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences.FailsafeCondition
-    faiSafCon2
+    faiSafCon2(
+    final delayEna=900,
+    final TDif=10,
+    final TDifHys=1)
     "Testing scenario exhibiting lower limit of hysteresis loop in sequence being unmet"
     annotation (Placement(transformation(extent={{-40,-58},{-20,-40}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences.FailsafeCondition
-    faiSafCon3
+    faiSafCon3(
+    final delayEna=900,
+    final TDif=10,
+    final TDifHys=1)
     "Testing scenario exhibitng lower limit of hysteresis loop in sequence being met"
     annotation (Placement(transformation(extent={{60,-58},{80,-40}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul(
-    final amplitude = -TSupVar + faiSafCon.TDifHys,
-    final period=2.5*faiSafCon.delayEna,
-    final offset = TSupSetNom)
+    final amplitude=-10 + 1,
+    final period=2.5*900,
+    final offset=80)
     "Pulse input"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul1(
-    final amplitude = -TSupVar - faiSafCon.TDifHys,
-    final period=2.5*faiSafCon.delayEna,
-    final offset = TSupSetNom)
+    final amplitude=-10 - 1,
+    final period=2.5*900,
+    final offset=80)
     "Pulse input"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul2(
-    final amplitude = -faiSafCon.TDifHys,
-    final period=2.5*faiSafCon.delayEna,
-    final offset = TSupSetNom - TSupVar)
+    final amplitude=-1,
+    final period=2.5*900,
+    final offset=80 - 10)
     "Pulse input"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul3(
-    final amplitude = -2*faiSafCon.TDifHys - faiSafCon.TDifHys/10,
-    final period=2.5*faiSafCon.delayEna,
-    final offset = TSupSetNom - TSupVar + faiSafCon.TDifHys + faiSafCon.TDifHys/10)
+    final amplitude=-2*1 - 1/10,
+    final period=2.5*900,
+    final offset=80 - 10 + 1 + 1/10)
     "Pulse input"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
-    final k=TSupSetNom)
+    final k=80)
     "Constant input"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
-    final k=TSupSetNom)
+    final k=80)
     "Constant input"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2(
-    final k=TSupSetNom)
+    final k=80)
     "Constant input"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3(
-    final k=TSupSetNom)
+    final k=80)
     "Constant input"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 
