@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant;
-package Types
+package Types "Package with type definitions for boiler plants"
 annotation (Documentation(info="<html>
   <p>
   This package provides type definitions used in boiler plant control sequences.
