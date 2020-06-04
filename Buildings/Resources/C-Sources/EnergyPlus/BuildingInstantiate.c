@@ -127,12 +127,11 @@ void buildJSONModelStructureForEnergyPlus(
       /* closing the inputVariables array */
       if (iWri < bui->nInputVariables-nSch-1)
         saveAppend(buffer, "        },\n", size);
-      else
-        saveAppend(buffer, "        }\n", size);
+      else{
+        saveAppend(buffer, "        }\n    ]", size);
+      }
       iWri++;
     }
-    /* Close json array for EMS actuators */
-    saveAppend(buffer, "    ]", size);
     if (bui->nOutputVariables == 0){
       /* There are no more other objects that belong to "model"  */
       saveAppend(buffer, "\n", size);
