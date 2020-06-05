@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "effCon.uQReq",
+    "effCon.uQUpMin",
+    "effCon.uHotWatFloRat",
+    "effCon.uUpMinFloSet",
+    "effCon.yEffCon",
+    "effCon1.uQReq",
+    "effCon1.uQDes",
+    "effCon1.yEffCon"
+  };
