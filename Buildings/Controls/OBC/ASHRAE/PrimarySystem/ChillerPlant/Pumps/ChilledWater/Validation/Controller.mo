@@ -3,23 +3,23 @@ model Controller "Validate chiller water pump control sequence"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Controller
     heaNoLoc(
-    nPum=3,
-    nPum_nominal=3)
+    final nPum=3,
+    final nPum_nominal=3)
     "Pump speed control for plant with headered primary chilled water pump and without local DP sensor"
     annotation (Placement(transformation(extent={{80,150},{100,170}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Controller
     dedNoLoc(
-    isHeadered=false,
-    nPum=3,
-    nPum_nominal=3)
+    final isHeadered=false,
+    final nPum=3,
+    final nPum_nominal=3)
     "Pump speed control for plant with dedicated primary chilled water pump and without local DP sensor"
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Controller
     dedLoc(
-    isHeadered=false,
-    have_LocalSensor=true,
-    nPum=3,
-    nPum_nominal=3)
+    final isHeadered=false,
+    final have_LocalSensor=true,
+    final nPum=3,
+    final nPum_nominal=3)
     "Pump speed control for plant with dedicated primary chilled water pump and with local DP sensor"
     annotation (Placement(transformation(extent={{80,-90},{100,-70}})));
 

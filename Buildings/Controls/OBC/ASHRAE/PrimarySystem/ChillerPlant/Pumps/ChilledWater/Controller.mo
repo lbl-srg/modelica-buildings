@@ -14,10 +14,13 @@ block Controller
     "Total number of remote differential pressure sensors";
   parameter Real minPumSpe=0.1 "Minimum pump speed";
   parameter Real maxPumSpe=1 "Maximum pump speed";
-  parameter Integer nPum_nominal(final max=nPum, final min=1)=nPum
+  parameter Integer nPum_nominal(
+    final max=nPum,
+    final min=1)=nPum
     "Total number of pumps that operate at design conditions"
     annotation (Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.VolumeFlowRate VChiWat_flow_nominal(final min=1e-6)=0.5
+  parameter Modelica.SIunits.VolumeFlowRate VChiWat_flow_nominal(
+    final min=1e-6)=0.5
     "Total plant design chilled water flow rate"
     annotation (Dialog(group="Nominal conditions"));
   parameter Modelica.SIunits.PressureDifference maxLocDp=15*6894.75
@@ -49,15 +52,14 @@ block Controller
   final parameter Integer pumInd[nPum]={i for i in 1:nPum}
     "Pump index, {1,2,...,n}";
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uPumLeaLag[nPum] if
-    isHeadered
-    "Chilled water pump lead-lag order"
-      annotation (Placement(transformation(extent={{-320,210},{-280,250}}),
-        iconTransformation(extent={{-140,80},{-100,120}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uPumLeaLag[nPum] if isHeadered
+    "Index of chilled water pumps in lead-lag order: lead pump, first lag pump, second lag pump, etc."
+    annotation (Placement(transformation(extent={{-320,210},{-280,250}}),
+      iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla if not isHeadered
     "True: plant is enabled"
     annotation (Placement(transformation(extent={{-320,160},{-280,200}}),
-        iconTransformation(extent={{-140,60},{-100,100}})));
+      iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiWatPum[nPum]
     "Chilled water pumps operating status"
     annotation (Placement(transformation(extent={{-320,120},{-280,160}}),
@@ -67,7 +69,7 @@ block Controller
     annotation (Placement(transformation(extent={{-320,90},{-280,130}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiSta if not isHeadered
-    "Lead chiller status"
+    "Lead chiller proven on status"
     annotation (Placement(transformation(extent={{-320,60},{-280,100}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiWatReq if not isHeadered
@@ -102,12 +104,12 @@ block Controller
     annotation (Placement(transformation(extent={{-320,-260},{-280,-220}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLea
-    "Lead pump status"
+    "Lead pump status setpoint"
     annotation (Placement(transformation(extent={{280,50},{320,90}}),
       iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChiWatPum[nPum] if
     isHeadered
-    "Chilled water pump status"
+    "Chilled water pump status setpoint"
     annotation (Placement(transformation(extent={{280,-20},{320,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumSpe(
@@ -183,36 +185,36 @@ block Controller
     annotation (Placement(transformation(extent={{220,-80},{240,-60}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(final k=1) if
-    isHeadered
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
+    final k=1) if isHeadered
     "Constant one"
     annotation (Placement(transformation(extent={{-220,190},{-200,210}})));
-  Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep(final nout=nPum) if
-    isHeadered
+  Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep(
+    final nout=nPum) if isHeadered
     "Replicate integer input"
     annotation (Placement(transformation(extent={{0,220},{20,240}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(final nout=nPum) if
-    isHeadered
+  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+    final nout=nPum) if isHeadered
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
-  Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep1(final nout=nPum) if
-    isHeadered
+  Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep1(
+    final nout=nPum) if isHeadered
     "Replicate integer input"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep1(final nout=nPum) if
-    isHeadered
+  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep1(
+    final nout=nPum) if isHeadered
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep2(final nout=nPum) if
-    isHeadered
+  Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep2(
+    final nout=nPum) if isHeadered
     "Replicate integer input"
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep2(final nout=nPum) if
-    isHeadered
+  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep2(
+    final nout=nPum) if isHeadered
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nPum] if
-    isHeadered
+  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nPum] 
+    if isHeadered
     "Convert integer to real number"
     annotation (Placement(transformation(extent={{-220,220},{-200,240}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor leaPum(
@@ -249,7 +251,8 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu3[nPum] if isHeadered
     "Check next lag pump"
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nPum] if isHeadered
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nPum]
+    if isHeadered
     "Convert boolean to integer"
     annotation (Placement(transformation(extent={{-200,-130},{-180,-110}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum mulSumInt(

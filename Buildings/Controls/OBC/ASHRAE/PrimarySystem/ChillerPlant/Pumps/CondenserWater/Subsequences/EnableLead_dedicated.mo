@@ -5,14 +5,14 @@ block EnableLead_dedicated
   final parameter Real offTimThr(
     final unit="s",
     final quantity="Time")=180
-      "Threshold to check lead chiller OFF time";
+    "Threshold to check lead chiller OFF time";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiEna
     "Lead chiller enabling status"
     annotation (Placement(transformation(extent={{-140,50},{-100,90}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiSta
-    "Lead chiller status"
+    "Lead chiller proven on status"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaConWatReq
@@ -21,7 +21,7 @@ block EnableLead_dedicated
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLea "Lead pump status"
     annotation (Placement(transformation(extent={{100,50},{140,90}}),
-        iconTransformation(extent={{100,-20},{140,20}})));
+      iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
   Buildings.Controls.OBC.CDL.Logical.Or or2 "Logical or"

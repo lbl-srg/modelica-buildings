@@ -22,7 +22,8 @@ block EnableLead_dedicated
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiWatReq
     "True: lead chiller is requesting chilled water"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLea "Lead pump status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLea 
+    "Lead pump status setpoint"
     annotation (Placement(transformation(extent={{100,60},{140,100}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 

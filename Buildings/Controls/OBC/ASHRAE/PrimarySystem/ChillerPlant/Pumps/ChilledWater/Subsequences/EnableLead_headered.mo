@@ -6,7 +6,8 @@ block EnableLead_headered
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiIsoVal[nChi]
     "True: chilled water isolation valve commended on"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLea "Lead pump status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLea 
+    "Lead pump status setpoint"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected

@@ -11,12 +11,13 @@ model EnableLead_dedicated
     "Disable lead pump due to that the lead chiller has been proven off"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset leaChiProOn(duration=
-        2000) "Lead chiller proven on status"
+  Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset leaChiProOn(
+    final duration=2000) "Lead chiller proven on status"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 protected
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse leaChiEna(final period=3600,
-      final startTime=300) "Lead chiller enabling status"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse leaChiEna(
+    final period=3600,
+    final startTime=300) "Lead chiller enabling status"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Maintains a true signal until conditions changes"
