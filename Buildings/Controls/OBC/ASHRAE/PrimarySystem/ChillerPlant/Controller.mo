@@ -42,7 +42,7 @@ block Controller "Head pressure controller"
     annotation (Placement(transformation(extent={{-580,-170},{-440,-30}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Controller conWatPumCon
-    annotation (Placement(transformation(extent={{-40,-220},{20,-160}})));
+    annotation (Placement(transformation(extent={{-680,380},{-620,440}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Controller chiWatPumCon
     annotation (Placement(transformation(extent={{-150,254},{-90,314}})));
@@ -150,6 +150,41 @@ block Controller "Head pressure controller"
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
   CDL.Logical.FallingEdge falEdg
     annotation (Placement(transformation(extent={{240,40},{260,60}})));
+  CDL.Interfaces.IntegerOutput                        yNumCel
+    "Total number of enabled cells"
+    annotation (Placement(transformation(extent={{800,330},{840,370}}),
+      iconTransformation(extent={{100,150},{140,190}})));
+  CDL.Interfaces.RealOutput                        yIsoVal[nTowCel](
+    final min=fill(0, nTowCel),
+    final max=fill(1, nTowCel),
+    final unit=fill("1", nTowCel))
+    "Cooling tower cells isolation valve position"
+    annotation (Placement(transformation(extent={{800,250},{840,290}}),
+      iconTransformation(extent={{100,30},{140,70}})));
+  CDL.Interfaces.RealOutput                        yFanSpe[nTowCel](
+    final min=fill(0, nTowCel),
+    final max=fill(1, nTowCel),
+    final unit=fill("1", nTowCel)) "Fan speed of each cooling tower cell"
+    annotation (Placement(transformation(extent={{800,210},{840,250}}),
+      iconTransformation(extent={{100,-130},{140,-90}})));
+  CDL.Interfaces.BooleanOutput                        yLeaCel
+    "Lead tower cell status setpoint"
+    annotation (Placement(transformation(extent={{800,550},{840,590}}),
+      iconTransformation(extent={{100,90},{140,130}})));
+  CDL.Interfaces.BooleanOutput                        yTowSta[nTowCel]
+    "Vector of tower cells status setpoint"
+    annotation (Placement(transformation(extent={{800,510},{840,550}}),
+      iconTransformation(extent={{100,-70},{140,-30}})));
+  CDL.Interfaces.BooleanOutput                        yMakUp
+    "Makeup water valve On-Off status"
+    annotation (Placement(transformation(extent={{800,470},{840,510}}),
+      iconTransformation(extent={{100,-190},{140,-150}})));
+  CDL.Interfaces.BooleanInput                        uChiWatPum[nPum]
+    "Chilled water pump status"
+    annotation (Placement(transformation(extent={{-840,-120},{-800,-80}}),
+      iconTransformation(extent={{-140,40},{-100,80}})));
+  CDL.Logical.MultiOr mulOr(nu=nPum)
+    annotation (Placement(transformation(extent={{-640,-40},{-620,-20}})));
 equation
   connect(staSetCon.uPla, plaEna.yPla) annotation (Line(points={{-167.6,-75.0625},
           {-380,-75.0625},{-380,-358},{-498,-358},{-498,-359},{-615.9,-359}},
@@ -266,6 +301,37 @@ equation
           110},{90,-12.6},{92.4,-12.6}}, color={255,127,0}));
   connect(reaToInt1.y, staSetCon.uSta) annotation (Line(points={{82,110},{82,
           -124},{-224,-124},{-224,-22.75},{-167.6,-22.75}}, color={255,127,0}));
+  connect(mulMax.y, wseSta.uTowFanSpeMax) annotation (Line(points={{-158,-400},
+          {-146,-400},{-146,-138},{-374,-138},{-374,30},{-622,30},{-622,236},{
+          -586,236}}, color={0,0,127}));
+  connect(conWatPumCon.yDesConWatPumSpe, heaPreCon.desConWatPumSpe) annotation
+    (Line(points={{-614,419},{-604,419},{-604,154},{-486,154}}, color={0,0,127}));
+  connect(towCon.yNumCel, yNumCel) annotation (Line(points={{-207.2,-210.25},{
+          598,-210.25},{598,350},{820,350}}, color={255,127,0}));
+  connect(towCon.yIsoVal, yIsoVal) annotation (Line(points={{-207.2,-291.25},{
+          612,-291.25},{612,270},{820,270}}, color={0,0,127}));
+  connect(towCon.yFanSpe, yFanSpe) annotation (Line(points={{-207.2,-399.25},{
+          -192,-399.25},{-192,-416},{-120,-416},{-120,-302},{630,-302},{630,230},
+          {820,230}}, color={0,0,127}));
+  connect(towCon.yLeaCel, yLeaCel) annotation (Line(points={{-207.2,-250.75},{
+          538,-250.75},{538,570},{820,570}}, color={255,0,255}));
+  connect(towCon.yTowSta, yTowSta) annotation (Line(points={{-207.2,-358.75},{
+          550,-358.75},{550,530},{820,530}}, color={255,0,255}));
+  connect(towCon.yMakUp, yMakUp) annotation (Line(points={{-207.2,-439.75},{570,
+          -439.75},{570,490},{820,490}}, color={255,0,255}));
+  connect(heaPreCon.yConWatPumSpeSet, conWatPumCon.uConWatPumSpe) annotation (
+      Line(points={{-417,142},{-398,142},{-398,370},{-700,370},{-700,383},{-686,
+          383}}, color={0,0,127}));
+  connect(chaProUpDown.y, chiWatPlaRes.chaPro) annotation (Line(points={{282,
+          150},{300,150},{300,-480},{-580,-480},{-580,-304},{-568,-304}}, color
+        ={255,0,255}));
+  connect(uChiWatPum, chiWatPlaRes.uChiWatPum) annotation (Line(points={{-820,
+          -100},{-708,-100},{-708,-220},{-580,-220},{-580,-256},{-568,-256}},
+        color={255,0,255}));
+  connect(mulOr.y, minBypValCon.uChiWatPum) annotation (Line(points={{-618,-30},
+          {-604,-30},{-604,-37},{-594,-37}}, color={255,0,255}));
+  connect(uChiWatPum, mulOr.u) annotation (Line(points={{-820,-100},{-650,-100},
+          {-650,-30},{-642,-30}}, color={255,0,255}));
 annotation (
   defaultComponentName="chiPlaCon",
   Icon(coordinateSystem(extent={{-800,-740},{800,740}}),
