@@ -22,7 +22,8 @@ block CapacityRequirement
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.CapacityRequirement
     capReq3(
-    final avePer=300) "Scenario with sine input for all inputs"
+    final avePer=300)
+    "Scenario with sine input for all inputs"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
 
 protected
