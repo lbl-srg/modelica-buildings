@@ -8,7 +8,7 @@ model OneZoneOneOutputVariable
     key="LIVING ZONE",
     y(final unit="W"))
     "Block that reads output from EnergyPlus"
-    annotation (Placement(transformation(extent={{70,50},{90,70}})));
+    annotation (Placement(transformation(extent={{60,30},{80,50}})));
   annotation (Documentation(info="<html>
 <p>
 Simple test case for one building with one thermal zone and one output variable.

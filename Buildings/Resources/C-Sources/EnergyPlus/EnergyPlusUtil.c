@@ -585,20 +585,29 @@ void fmilogger(jm_callbacks* c, jm_string module, jm_log_level_enu_t log_level, 
 }
 
 void buildVariableName(
+  const char* modelicaInstanceName,
   const char* firstPart,
   const char* secondPart,
   char* *ptrFullName){
   size_t i;
   size_t len;
 
-  len = strlen(firstPart) + 1 + strlen(secondPart);
+  len = strlen(modelicaInstanceName) + 1 + strlen(firstPart);
+  /* For a schedule, the 2nd part is NULL */
+  if (secondPart != NULL){
+    len += 1 + strlen(secondPart);
+  }
 
   mallocString(len+1, "Failed to allocate memory for ptrFullName in EnergyPlusUtil.c.", ptrFullName);
   /* Copy the string */
   memset(*ptrFullName, '\0', len+1);
-  strcpy(*ptrFullName, firstPart);
-  strcat(*ptrFullName, "_");
-  strcat(*ptrFullName, secondPart);
+  strcpy(*ptrFullName, modelicaInstanceName);
+  strcat(*ptrFullName, ":");
+  strcat(*ptrFullName, firstPart);
+  if (secondPart != NULL){
+    strcat(*ptrFullName, "_");
+    strcat(*ptrFullName, secondPart);
+  }
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaFormatMessage("Built variable name '%s'.\n", *ptrFullName);

@@ -10,7 +10,7 @@ model RefBldgSmallOffice "Validation model for six zones small office building"
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     fmuName = Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/ThermalZones/EnergyPlus/FMUs/Zones1.fmu"))
     "Building model"
-    annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
+    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 
   Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));

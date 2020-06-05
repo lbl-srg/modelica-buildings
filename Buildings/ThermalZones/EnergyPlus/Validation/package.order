@@ -1,6 +1,7 @@
 OneZone
 OneZoneCompareZoneTemperatureOutput
 OneZoneEquipmentScheduleNonSampled
+OneZoneEquipmentScheduleNonSampledOutputVariable
 OneZoneOneOutputVariable
 OneZoneOneOutputVariableSummer
 OneZoneTwoDifferentOutputVariables

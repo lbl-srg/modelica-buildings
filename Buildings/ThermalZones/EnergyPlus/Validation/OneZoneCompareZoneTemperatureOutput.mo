@@ -9,7 +9,7 @@ model OneZoneCompareZoneTemperatureOutput
     y(final unit="K",
       displayUnit="degC"))
     "Block that reads output from EnergyPlus"
-    annotation (Placement(transformation(extent={{70,50},{90,70}})));
+    annotation (Placement(transformation(extent={{60,30},{80,50}})));
 
   annotation (Documentation(info="<html>
 <p>

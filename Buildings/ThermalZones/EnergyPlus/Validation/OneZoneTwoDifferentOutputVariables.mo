@@ -8,7 +8,7 @@ model OneZoneTwoDifferentOutputVariables
     key="Living:South",
     y(final unit="W/m2"))
     "Block that reads incident beam solar radiation on south window from EnergyPlus"
-    annotation (Placement(transformation(extent={{70,10},{90,30}})));
+    annotation (Placement(transformation(extent={{60,0},{80,20}})));
   annotation (Documentation(info="<html>
 <p>
 Simple test case for one building with one thermal zone and two different output variables.

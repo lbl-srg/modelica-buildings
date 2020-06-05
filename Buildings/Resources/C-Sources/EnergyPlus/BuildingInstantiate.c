@@ -53,7 +53,7 @@ void buildJSONModelStructureForEnergyPlus(
   /* Write zone names */
   for(i = 0; i < bui->nZon; i++){
     saveAppend(buffer, "        {\n", size);
-    buildJSONKeyValue(buffer, "name", zones[i]->name, (i < (bui->nZon) - 1), size);
+    buildJSONKeyValue(buffer, "name", zones[i]->name, false, size);
     /* closing the zones array */
     if (i < bui->nZon -1)
       saveAppend(buffer, "        },\n", size);
@@ -112,33 +112,36 @@ void buildJSONModelStructureForEnergyPlus(
   }
 
   /* Write the EMS actuator objects, if any */
-  iWri = 0;
-  for(i = 0; i < bui->nInputVariables; i++){
-    if (inpVars[i]->componentType != NULL){ /* Found an EMS actuator */
-      if (iWri == 0)
-        saveAppend(buffer, "    \"emsActuators\": [\n", size);
-      saveAppend(buffer, "        {\n", size);
-      buildJSONKeyValue(buffer, "name", inpVars[i]->name, true, size);
-      buildJSONKeyValue(buffer, "componentName", inpVars[i]->componentName, true, size);
-      buildJSONKeyValue(buffer, "componentType", inpVars[i]->componentType, true, size);
-      buildJSONKeyValue(buffer, "controlType", inpVars[i]->controlType, true, size);
-      buildJSONKeyValue(buffer, "unit", inpVars[i]->unit, true, size);
-      buildJSONKeyValue(buffer, "fmiName", inpVars[i]->inputs->fmiNames[0], false, size);
-      /* closing the inputVariables array */
-      if (iWri < bui->nInputVariables-nSch-1)
-        saveAppend(buffer, "        },\n", size);
-      else{
-        saveAppend(buffer, "        }\n    ]", size);
+  if (bui->nInputVariables > iWri){
+    iWri = 0;
+    for(i = 0; i < bui->nInputVariables; i++){
+      if (inpVars[i]->componentType != NULL){ /* Found an EMS actuator */
+        if (iWri == 0)
+          saveAppend(buffer, "    \"emsActuators\": [\n", size);
+        saveAppend(buffer, "        {\n", size);
+        buildJSONKeyValue(buffer, "name", inpVars[i]->name, true, size);
+        buildJSONKeyValue(buffer, "componentName", inpVars[i]->componentName, true, size);
+        buildJSONKeyValue(buffer, "componentType", inpVars[i]->componentType, true, size);
+        buildJSONKeyValue(buffer, "controlType", inpVars[i]->controlType, true, size);
+        buildJSONKeyValue(buffer, "unit", inpVars[i]->unit, true, size);
+        buildJSONKeyValue(buffer, "fmiName", inpVars[i]->inputs->fmiNames[0], false, size);
+        /* closing the inputVariables array */
+        if (iWri < bui->nInputVariables-nSch-1)
+          saveAppend(buffer, "        },\n", size);
+        else{
+          saveAppend(buffer, "        }\n    ]", size);
+        }
+        iWri++;
       }
-      iWri++;
-    }
-    if (bui->nOutputVariables == 0){
-      /* There are no more other objects that belong to "model"  */
-      saveAppend(buffer, "\n", size);
-    }
-    else{
-      /* There are other objects that belong to "model" */
-      saveAppend(buffer, ",\n", size);
+      //ModelicaFormatError("Test, have %d output variables.", bui->nOutputVariables);
+      if (bui->nOutputVariables == 0){
+        /* There are no more other objects that belong to "model"  */
+        saveAppend(buffer, "\n", size);
+      }
+      else{
+        /* There are other objects that belong to "model" */
+        saveAppend(buffer, ",\n", size);
+      }
     }
   }
 

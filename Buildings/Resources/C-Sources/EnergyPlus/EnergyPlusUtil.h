@@ -61,6 +61,7 @@ char* getFileNameWithoutExtension(const char* idfName);
 void getSimulationTemporaryDirectory(const char* modelicaNameBuilding, char** dirNam);
 
 void buildVariableName(
+  const char* modelicaInstanceName,
   const char* firstPart,
   const char* secondPart,
   char* *ptrFullName);

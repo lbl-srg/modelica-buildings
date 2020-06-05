@@ -115,6 +115,7 @@ void* OutputVariableAllocate(
   mallocSpawnReals(1, &(comVar->outputs));
   /* Assign structural data */
   buildVariableName(
+    (const char*)modelicaNameOutputVariable,
     (const char*)(comVar->name),
     (const char*)(comVar->key),
     &(comVar->outputs->fmiNames[0]));

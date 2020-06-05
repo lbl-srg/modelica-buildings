@@ -135,11 +135,12 @@ void* InputVariableAllocate(
 
   mallocSpawnReals(1, &(comVar->inputs));
   /* Assign structural data */
+
   buildVariableName(
+    (const char*)modelicaNameInputVariable,
     (const char*)(comVar->name),
     (const char*)(comVar->componentType),
     &(comVar->inputs->fmiNames[0]));
-
   /* *************************************************************************** */
   /* Initialize the pointer for the FMU to which this input variable belongs to */
 
