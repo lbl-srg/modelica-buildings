@@ -154,13 +154,14 @@ equation
   connect(swi2.y,TChiWatSupSet)
     annotation (Line(points={{142,-40},{180,-40}},
                                                color={0,0,127}));
-  connect(x1.y, mapFun.x1) annotation (Line(points={{12,-100},{16,-100},{16,-112},
-          {48,-112}},
+  connect(x1.y, mapFun.x1) annotation (Line(points={{12,-100},{20,-100},{20,
+          -112},{48,-112}},
               color={0,0,127}));
   connect(conTChiWatSet.y, mapFun.u)
     annotation (Line(points={{-49,-120},{48,-120}}, color={0,0,127}));
-  connect(x2.y, mapFun.x2) annotation (Line(points={{12,-140},{16,-140},{16,-124},
-          {48,-124}}, color={0,0,127}));
+  connect(x2.y, mapFun.x2) annotation (Line(points={{12,-140},{20,-140},{20,
+          -124},{48,-124}},
+                      color={0,0,127}));
   connect(uHea, conTChiWatSet.trigger) annotation (Line(points={{-180,80},{-140,
           80},{-140,-140},{-68,-140},{-68,-132}}, color={255,0,255}));
   connect(TChiWatSupPreSet, swi2.u1) annotation (Line(points={{-180,-40},{60,-40},

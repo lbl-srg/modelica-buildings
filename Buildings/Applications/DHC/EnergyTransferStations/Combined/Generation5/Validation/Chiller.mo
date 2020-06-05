@@ -118,6 +118,8 @@ model Chiller
     dpCon_nominal=15E3,
     dpEva_nominal=15E3,
     datChi=datChi,
+    dTHys=2,
+    dTDea=0,
     nPorts_aHeaWat=1,
     nPorts_bHeaWat=1,
     nPorts_bChiWat=1,
