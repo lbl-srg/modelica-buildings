@@ -590,7 +590,7 @@ equation
           lineColor={0,0,255},
           textString="%name"),
         Rectangle(
-        extent={{-100,-100},{100,100}},
+        extent={{-100,-180},{100,160}},
         lineColor={0,0,127},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),

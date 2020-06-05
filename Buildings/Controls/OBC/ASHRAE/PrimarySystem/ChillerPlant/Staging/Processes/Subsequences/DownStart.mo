@@ -57,7 +57,7 @@ block DownStart "Sequence for starting stage-down process"
     "Stage down status: true=stage-down"
     annotation (Placement(transformation(extent={{-200,190},{-160,230}}),
       iconTransformation(extent={{-140,80},{-100,120}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput yOpeParLoaRatMin(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOpeParLoaRatMin(
     final min=0,
     final max=1,
     final unit="1")
@@ -309,7 +309,7 @@ equation
   connect(disChi.yReaDemLim, yReaDemLim)
     annotation (Line(points={{22,-158},{60,-158},{60,-140},{200,-140}},
       color={255,0,255}));
-  connect(yOpeParLoaRatMin, chiDemRed.yOpeParLoaRatMin)
+  connect(uOpeParLoaRatMin,chiDemRed.uOpeParLoaRatMin)
     annotation (Line(points={{-180,180},{-110,180},{-110,171},{-22,171}},
       color={0,0,127}));
   connect(uStaDow, chiDemRed.uStaDow)

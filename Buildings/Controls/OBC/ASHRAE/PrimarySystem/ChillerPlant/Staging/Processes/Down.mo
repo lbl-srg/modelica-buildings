@@ -82,7 +82,7 @@ block Down
     "Vector of chillers status setpoint"
     annotation (Placement(transformation(extent={{-320,300},{-280,340}}),
       iconTransformation(extent={{-140,142},{-100,182}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput yOpeParLoaRatMin(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOpeParLoaRatMin(
     final min=0,
     final max=1,
     final unit="1")
@@ -509,7 +509,7 @@ equation
           {98,-162}},         color={255,0,255}));
   connect(lat.y, yStaPro)
     annotation (Line(points={{-158,350},{300,350}},color={255,0,255}));
-  connect(dowSta.yOpeParLoaRatMin, yOpeParLoaRatMin)
+  connect(dowSta.uOpeParLoaRatMin,uOpeParLoaRatMin)
     annotation (Line(points={{58,238},{40,238},{40,280},{-300,280}},
       color={0,0,127}));
   connect(conWatPumCon.uChiConIsoVal, uChiConIsoVal)
@@ -672,14 +672,14 @@ annotation (
           fillColor={207,207,207},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-100,190},{-58,178}},
+          extent={{-98,190},{-56,178}},
           lineColor={255,127,0},
           textString="uStaSet"),
         Text(
-          extent={{-96,140},{-26,126}},
+          extent={{-96,146},{-10,114}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="yOpeParLoaRatMin"),
+          textString="uOpeParLoaRatMin"),
         Text(
           extent={{-96,118},{-60,106}},
           lineColor={0,0,127},
@@ -690,7 +690,7 @@ annotation (
           lineColor={255,0,255},
           textString="uChi"),
         Text(
-          extent={{-98,68},{-44,54}},
+          extent={{-98,70},{-32,50}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VChiWat_flow"),
@@ -699,16 +699,16 @@ annotation (
           lineColor={255,0,255},
           textString="uChiHeaCon"),
         Text(
-          extent={{-98,-22},{-38,-34}},
+          extent={{-98,-24},{-38,-36}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uChiWatIsoVal"),
         Text(
-          extent={{-98,-54},{-48,-66}},
+          extent={{-96,-54},{-46,-66}},
           lineColor={255,0,255},
           textString="uChiWatReq"),
         Text(
-          extent={{-98,-72},{-40,-86}},
+          extent={{-96,-74},{-40,-86}},
           lineColor={255,0,255},
           textString="uConWatReq"),
         Text(
@@ -716,21 +716,21 @@ annotation (
           lineColor={255,0,255},
           textString="uChiConIsoVal"),
         Text(
-          extent={{-102,-134},{-66,-146}},
+          extent={{-98,-136},{-66,-146}},
           lineColor={255,0,255},
           textString="uWSE"),
         Text(
-          extent={{-98,-182},{-24,-196}},
+          extent={{-96,-182},{-22,-196}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uConWatPumSpe"),
         Text(
-          extent={{-98,-160},{-14,-178}},
+          extent={{-96,-160},{-12,-178}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uConWatPumSpeSet"),
         Text(
-          extent={{60,198},{100,186}},
+          extent={{58,196},{98,184}},
           lineColor={255,0,255},
           textString="yStaPro"),
         Text(
@@ -739,7 +739,7 @@ annotation (
           pattern=LinePattern.Dash,
           textString="yChiDem"),
         Text(
-          extent={{72,126},{96,114}},
+          extent={{74,126},{98,114}},
           lineColor={255,0,255},
           textString="yChi"),
         Text(
@@ -760,16 +760,16 @@ annotation (
           lineColor={255,0,255},
           textString="yLeaPum"),
         Text(
-          extent={{18,-104},{98,-114}},
+          extent={{16,-104},{96,-114}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yDesConWatPumSpe"),
         Text(
-          extent={{34,-142},{96,-156}},
+          extent={{30,-142},{96,-158}},
           lineColor={255,127,0},
           textString="yConWatPumNum"),
         Text(
-          extent={{28,-180},{98,-194}},
+          extent={{26,-182},{96,-196}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yChiWatMinFloSet"),
@@ -778,11 +778,11 @@ annotation (
           lineColor={255,0,255},
           textString="yReaDemLim"),
         Text(
-          extent={{-100,170},{-60,158}},
+          extent={{-98,168},{-58,156}},
           lineColor={255,0,255},
           textString="uChiSet"),
         Text(
-          extent={{-100,38},{-58,26}},
+          extent={{-98,34},{-62,24}},
           lineColor={255,127,0},
           textString="uChiSta")}),
 Documentation(info="<html>

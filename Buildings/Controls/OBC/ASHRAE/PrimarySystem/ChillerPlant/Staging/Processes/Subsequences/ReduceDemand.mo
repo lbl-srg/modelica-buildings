@@ -19,7 +19,7 @@ block ReduceDemand "Sequence for reducing operating chiller demand"
     final unit=fill("W", nChi)) "Current chiller load"
     annotation (Placement(transformation(extent={{-200,110},{-160,150}}),
       iconTransformation(extent={{-140,30},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput yOpeParLoaRatMin(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOpeParLoaRatMin(
     final min=0,
     final max=1,
     final unit="1")
@@ -167,7 +167,7 @@ equation
   connect(uOnOff, and1.u2)
     annotation (Line(points={{-180,-40},{-130,-40},{-130,-8},{-102,-8}},
       color={255,0,255}));
-  connect(yOpeParLoaRatMin, swi1.u1)
+  connect(uOpeParLoaRatMin, swi1.u1)
     annotation (Line(points={{-180,40},{-60,40},{-60,8},{-42,8}},
       color={0,0,127}));
   connect(and1.y, swi1.u2)
