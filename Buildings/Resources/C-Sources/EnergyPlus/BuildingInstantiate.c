@@ -133,7 +133,6 @@ void buildJSONModelStructureForEnergyPlus(
         }
         iWri++;
       }
-      //ModelicaFormatError("Test, have %d output variables.", bui->nOutputVariables);
       if (bui->nOutputVariables == 0){
         /* There are no more other objects that belong to "model"  */
         saveAppend(buffer, "\n", size);
