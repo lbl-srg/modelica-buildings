@@ -25,11 +25,15 @@ bool allOutputVariablesAreInitialized(FMUBuilding* bui){
 }
 */
 
-/* Exchange data between Modelica output variable block and EnergyPlus output variable
+/* Exchange data between Modelica output variable block and EnergyPlus output variable.
+
+   The argument directDependency is a dummy variable needed
+   to force Modelica tools to call outputs after an input has been set.
 */
 void OutputVariableExchange(
   void* object,
   int initialCall,
+  double directDependency,
   double time,
   double* y,
   double* tNext){
@@ -40,8 +44,8 @@ void OutputVariableExchange(
   fmi2Status status;
 
   if (FMU_EP_VERBOSITY >= TIMESTEP)
-    ModelicaFormatMessage("Exchanging data with EnergyPlus: t = %.2f, initialCall = %d, mode = %s, output variable = %s, valueReference = %lu.\n",
-      time, initialCall, fmuModeToString(bui->mode), outVar->modelicaNameOutputVariable, outVar->outputs->valRefs[0]);
+    ModelicaFormatMessage("Exchanging data with EnergyPlus: t = %.2f, initialCall = %d, mode = %s, output variable = %s, directDependency = %2.f, valueReference = %lu.\n",
+      time, initialCall, fmuModeToString(bui->mode), outVar->modelicaNameOutputVariable, directDependency, outVar->outputs->valRefs[0]);
 
   if (! outVar->isInstantiated){
     /* In the first call, the output variable is not yet initialized.

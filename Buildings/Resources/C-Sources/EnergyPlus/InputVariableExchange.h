@@ -15,6 +15,7 @@ void InputVariableExchange(
   void* object,
   int initialCall,
   double u,
-  double time);
+  double time,
+  double* y);
 
 #endif

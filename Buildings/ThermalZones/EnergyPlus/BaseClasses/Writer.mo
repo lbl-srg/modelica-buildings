@@ -33,6 +33,10 @@ partial model Writer "Block to write to an EnergyPlus actuator or schedule"
   Modelica.Blocks.Interfaces.RealInput u "Continuous input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
+  Modelica.Blocks.Interfaces.RealOutput y "Value written to EnergyPlus (use for direct dependency of Actuators and Schedules"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
+
 protected
   constant String modelicaNameInputVariable = getInstanceName()
     "Name of this instance"
@@ -140,7 +144,7 @@ equation
   // This is required for the correct event handling. Otherwise the regression tests will fail.
  // when {initial(), not initial()} then
   when {initial(), sampleTrigger, not initial()} then
-    Buildings.ThermalZones.EnergyPlus.BaseClasses.inputVariableExchange(
+    y = Buildings.ThermalZones.EnergyPlus.BaseClasses.inputVariableExchange(
       adapter,
       initial(),
       u,

@@ -18,7 +18,8 @@ void InputVariableExchange(
   void* object,
   int initialCall,
   double u,
-  double time){
+  double time,
+  double* y){
 
   FMUInputVariable* inpVar = (FMUInputVariable*) object;
   FMUBuilding* bui = inpVar->ptrBui;
@@ -32,9 +33,11 @@ void InputVariableExchange(
   if (! inpVar->isInstantiated){
     /* This input variable has not been initialized because the simulator removed the call to initialize().
     */
-    ModelicaFormatError(
+    InputVariableInstantiate(object, time);
+ /*   ModelicaFormatError(
       "Error, input variable %s should have been initialized. Contact support.",
       inpVar->modelicaNameInputVariable);
+      */
   }
 
   if (initialCall){
@@ -88,5 +91,7 @@ void InputVariableExchange(
   if (FMU_EP_VERBOSITY >= TIMESTEP)
     ModelicaFormatMessage("Returning from InputVariableExchange() for %s.\n", inpVar->modelicaNameInputVariable);
 
+  /* Dummy output, used to enable forcing a direct dependency of outputs to inputs */
+  *y = u;
   return;
 }

@@ -8,8 +8,9 @@ function inputVariableExchange
   input Boolean initialCall "Set to true if initial() is true, false otherwise";
   input Real u "Value for the EnergyPlus actuator or schedule";
   input Modelica.SIunits.Time tModel "Current model time";
+  output Real y "Value send to EnergyPlus (equals u, but used to enable forcing a direct dependency for Actuators and Schedules)";
 
-  external "C" InputVariableExchange(adapter, initialCall, u, tModel)
+  external "C" InputVariableExchange(adapter, initialCall, u, tModel, y)
       annotation (
         IncludeDirectory="modelica://Buildings/Resources/C-Sources/EnergyPlus",
         Include="#include \"InputVariableExchange.c\"");
