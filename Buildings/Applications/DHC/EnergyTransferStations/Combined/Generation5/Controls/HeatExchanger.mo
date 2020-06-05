@@ -26,24 +26,20 @@ model HeatExchanger
     final unit="K", displayUnit="degC")
     "District heat exchanger secondary water entering temperature" annotation (
       Placement(transformation(extent={{-260,-20},{-220,20}}),
-        iconTransformation(extent={{-140,0},{-100,40}})));
+        iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput T2HexWatLvg(
     final unit="K", displayUnit="degC")
     "District heat exchanger secondary water leaving temperature" annotation (
       Placement(transformation(extent={{-260,-60},{-220,-20}}),
-        iconTransformation(extent={{-140,-30},{-100,10}})));
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y1Hex(final unit="1")
     "District heat exchanger primary control signal" annotation (Placement(
       transformation(extent={{220,-20},{260,20}}), iconTransformation(extent={{
         100,40},{140,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEnaHex
-    "Control signal enabling heat exchanger operation" annotation (Placement(
-        transformation(extent={{-260,80},{-220,120}}), iconTransformation(
-          extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIso[2]
     "Isolation valves return position (index 1 for condenser)"
     annotation (Placement(transformation(extent={{-260,20},{-220,60}}),
-      iconTransformation(extent={{-140,30},{-100,70}})));
+      iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Add delT2(k2=-1) "Compute deltaT"
     annotation (Placement(transformation(extent={{-160,-30},{-140,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Abs absDelT2 "Absolute value"
@@ -75,22 +71,24 @@ model HeatExchanger
     "Minimum pump speed or actuator opening"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax(nin=2) "Max"
-    annotation (Placement(transformation(extent={{-170,30},{-150,50}})));
+    annotation (Placement(transformation(extent={{-160,30},{-140,50}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
-      threshold=0.9) "Check if isolation valves are open"
-    annotation (Placement(transformation(extent={{-130,30},{-110,50}})));
-  Buildings.Controls.OBC.CDL.Logical.And and2
-    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
+      threshold=0.9) "Check if one isolation valve is open"
+    annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y2Hex(final unit="1")
     "District heat exchanger secondary pump control signal" annotation (
       Placement(transformation(extent={{220,-60},{260,-20}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swiOff2
-    "Output zero if not enabled"
-    annotation (Placement(transformation(extent={{158,-50},{178,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant speMax(final k=1)
-    "Maximum pump speed"
-    annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput y2Sup
+    "Control signal for secondary side (from supervisory)" annotation (
+      Placement(transformation(extent={{-260,60},{-220,100}}),
+        iconTransformation(extent={{-140,50},{-100,90}})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold      greThr(threshold=
+        Modelica.Constants.eps)
+                     "Check if one isolation valve is open"
+    annotation (Placement(transformation(extent={{-160,70},{-140,90}})));
+  Buildings.Controls.OBC.CDL.Logical.And and2
+    annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
 equation
   connect(delT2.y, absDelT2.u)
     annotation (Line(points={{-138,-20},{-122,-20}},   color={0,0,127}));
@@ -101,43 +99,37 @@ equation
 
   connect(swiOff1.y, y1Hex)
     annotation (Line(points={{182,0},{240,0}},   color={0,0,127}));
-  connect(off.y, swiOff1.u3) annotation (Line(points={{122,-20},{130,-20},{130,
-          -8},{158,-8}}, color={0,0,127}));
-  connect(multiMax1.y, swiOff1.u1) annotation (Line(points={{72,0},{110,0},{110,
+  connect(off.y, swiOff1.u3) annotation (Line(points={{122,-20},{140,-20},{140,-8},
+          {158,-8}},     color={0,0,127}));
+  connect(multiMax1.y, swiOff1.u1) annotation (Line(points={{72,0},{120,0},{120,
           8},{158,8}},       color={0,0,127}));
   connect(con1.y, multiMax1.u[1]) annotation (Line(points={{11,0},{30,0},{30,1},
           {48,1}},  color={0,0,127}));
   connect(min1.y, multiMax1.u[2]) annotation (Line(points={{12,-40},{30,-40},{30,
           -1},{48,-1}}, color={0,0,127}));
   connect(multiMax.y, greEquThr.u)
-    annotation (Line(points={{-148,40},{-132,40}}, color={0,0,127}));
-  connect(greEquThr.y, and2.u2) annotation (Line(points={{-108,40},{-100,40},{-100,
-          32},{-62,32}}, color={255,0,255}));
+    annotation (Line(points={{-138,40},{-122,40}}, color={0,0,127}));
   connect(yValIso, multiMax.u[1:2])
-    annotation (Line(points={{-240,40},{-172,40},{-172,39}}, color={0,0,127}));
-  connect(uEnaHex, and2.u1) annotation (Line(points={{-240,100},{-80,100},{-80,40},
-          {-62,40}},          color={255,0,255}));
-  connect(and2.y, con1.trigger) annotation (Line(points={{-38,40},{-20,40},{-20,
-          -16},{-8,-16},{-8,-12}}, color={255,0,255}));
-  connect(and2.y, swiOff1.u2) annotation (Line(points={{-38,40},{140,40},{140,0},
-          {158,0}}, color={255,0,255}));
+    annotation (Line(points={{-240,40},{-162,40},{-162,39}}, color={0,0,127}));
   connect(delT2HexWatSet.y, con1.u_s)
     annotation (Line(points={{-58,0},{-12,0}}, color={0,0,127}));
   connect(absDelT2.y, con1.u_m)
     annotation (Line(points={{-98,-20},{0,-20},{0,-12}}, color={0,0,127}));
-  connect(off.y, swiOff2.u3) annotation (Line(points={{122,-20},{130,-20},{130,
-          -48},{156,-48}},
-                      color={0,0,127}));
-  connect(and2.y, swiOff2.u2) annotation (Line(points={{-38,40},{140,40},{140,
-          -40},{156,-40}},
-                      color={255,0,255}));
-  connect(speMax.y, swiOff2.u1) annotation (Line(points={{122,-80},{150,-80},{
-          150,-32},{156,-32}}, color={0,0,127}));
-  connect(swiOff2.y, y2Hex)
-    annotation (Line(points={{180,-40},{240,-40}}, color={0,0,127}));
+  connect(y2Sup, greThr.u)
+    annotation (Line(points={{-240,80},{-162,80}}, color={0,0,127}));
+  connect(greEquThr.y, and2.u2) annotation (Line(points={{-98,40},{-80,40},{-80,
+          32},{-52,32}}, color={255,0,255}));
+  connect(greThr.y, and2.u1) annotation (Line(points={{-138,80},{-60,80},{-60,40},
+          {-52,40}}, color={255,0,255}));
+  connect(and2.y, con1.trigger) annotation (Line(points={{-28,40},{-20,40},{-20,
+          -16},{-8,-16},{-8,-12}}, color={255,0,255}));
+  connect(and2.y, swiOff1.u2) annotation (Line(points={{-28,40},{140,40},{140,0},
+          {158,0}}, color={255,0,255}));
+  connect(y2Sup, y2Hex) annotation (Line(points={{-240,80},{-180,80},{-180,100},
+          {200,100},{200,-40},{240,-40}}, color={0,0,127}));
 annotation (Diagram(
   coordinateSystem(preserveAspectRatio=false,
-  extent={{-220,-180},{220,180}})),
+  extent={{-220,-140},{220,140}})),
   defaultComponentName="conHex",
 Documentation(info="<html>
 <p>

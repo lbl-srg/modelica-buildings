@@ -4,7 +4,6 @@ simulateModel("Buildings.Applications.DHC.EnergyTransferStations.Combined.Genera
     tolerance=1e-6,
     stopTime=5000,
     resultFile="Chiller");
-Advanced.FilenameInLegend = true;
 createPlot(id=1, position={4, 17, 540, 664}, y={"THeaWatSupSet.y", "senTHeaWatSup.T", "senTHeaWatRet.T"},
     autoscale=true,
     autoerase=true,

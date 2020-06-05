@@ -1,25 +1,34 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls;
-block HotSide "State machine enabling production and ambient source systems"
-  extends BaseClasses.HotColdSide(
-    final reverseActing=false);
+block HotSide_state
+  "State machine enabling production and ambient source systems"
+  extends BaseClasses.HotColdSide_state;
   Buildings.Controls.OBC.CDL.Continuous.Min min
-    annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
+    annotation (Placement(transformation(extent={{-96,-110},{-76,-90}})));
 equation
-  connect(min.u1, TTop) annotation (Line(points={{-122,-94},{-140,-94},{-140,
-          -100},{-200,-100}},
-                      color={0,0,127}));
-  connect(min.u2, TBot) annotation (Line(points={{-122,-106},{-140,-106},{-140,
-          -160},{-200,-160}},
+  connect(min.u1, TTop) annotation (Line(points={{-98,-94},{-168,-94},{-168,-40},
+          {-200,-40}},color={0,0,127}));
+  connect(TTop, enaHeaCoo.u2) annotation (Line(points={{-200,-40},{-166,-40},{
+          -166,32},{-142,32}},
+                          color={0,0,127}));
+  connect(TTop, cloIso.u2) annotation (Line(points={{-200,-40},{-166,-40},{-166,
+          -160},{-70,-160},{-70,-148},{-42,-148}}, color={0,0,127}));
+  connect(min.u2, TBot) annotation (Line(points={{-98,-106},{-112,-106},{-112,
+          -120},{-200,-120}},
                        color={0,0,127}));
-  connect(run.active, yHeaCoo) annotation (Line(points={{90,129},{90,100},{200,100}},
+  connect(TBot, opeIso.u1) annotation (Line(points={{-200,-120},{-152,-120},{-152,
+          -40},{-92,-40}}, color={0,0,127}));
+  connect(TBot, enaRej.u1) annotation (Line(points={{-200,-120},{-172,-120},{-172,
+          -180},{-52,-180},{-52,-200},{-42,-200}}, color={0,0,127}));
+  connect(TBot, disRej.u2) annotation (Line(points={{-200,-120},{-172,-120},{
+          -172,-260},{-60,-260},{-60,-248},{-42,-248}},
+                                                   color={0,0,127}));
+  connect(min.y, disHeaCoo.u1) annotation (Line(points={{-74,-100},{-40,-100},{
+          -40,22},{-152,22},{-152,0},{-142,0}},
+                                            color={0,0,127}));
+  connect(run.active, yHeaCoo) annotation (Line(points={{-30,169},{-30,160},{
+          200,160}},
                  color={255,0,255}));
 
-  connect(min.y, errDis.u2) annotation (Line(points={{-98,-100},{-80,-100},{-80,
-          -12}}, color={0,0,127}));
-  connect(TTop, errEna.u2) annotation (Line(points={{-200,-100},{-140,-100},{-140,
-          20},{-100,20},{-100,28}}, color={0,0,127}));
-  connect(TBot, conPlaSeq.u_m) annotation (Line(points={{-200,-160},{-80,-160},{
-          -80,-152}}, color={0,0,127}));
    annotation (
    defaultComponentName="conHot",
 Documentation(info="<html>
@@ -113,4 +122,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end HotSide;
+end HotSide_state;

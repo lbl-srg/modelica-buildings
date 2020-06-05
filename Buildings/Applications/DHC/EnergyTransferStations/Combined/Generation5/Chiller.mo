@@ -97,9 +97,11 @@ model Chiller
   final parameter Integer nSegTan = 3
     "Number of volume segments for tanks"
     annotation (Dialog(group="Buffer Tank"));
-  parameter Modelica.SIunits.TemperatureDifference THys = 1
+  parameter Modelica.SIunits.TemperatureDifference dTHys = 1
     "Temperature hysteresis for supervisory control"
     annotation (Dialog(group="Buffer Tank"));
+  parameter Modelica.SIunits.TemperatureDifference dTDea = 1
+    "Temperature dead band for supervisory control";
 
   parameter Modelica.SIunits.PressureDifference dpValIso_nominal(
     displayUnit="Pa") = 2E3
@@ -120,20 +122,22 @@ model Chiller
 
   // COMPONENTS
   Controls.Supervisory conSup(
-    final THys=THys)
+    final nCon=nAuxSou + 1,
+    final dTHys=dTHys,
+    final dTDea=dTDea)
     "Supervisory controller"
     annotation (Placement(transformation(extent={{-260,40},{-240,60}})));
 
   Fluid.Actuators.Valves.TwoWayLinear valIsoEva(
     redeclare final package Medium = MediumBui,
     final dpValve_nominal=dpValIso_nominal,
-    final m_flow_nominal=sum(colAmbWat.mCon_flow_nominal))
+    final m_flow_nominal=colAmbWat.mDis_flow_nominal)
     "Evaporator to ambient loop isolation valve"
     annotation (Placement(transformation(extent={{70,-110},{50,-90}})));
   Fluid.Actuators.Valves.TwoWayLinear valIsoCon(
     redeclare final package Medium = MediumBui,
     final dpValve_nominal=dpValIso_nominal,
-    final m_flow_nominal=sum(colAmbWat.mCon_flow_nominal))
+    final m_flow_nominal=colAmbWat.mDis_flow_nominal)
     "Condenser to ambient loop isolation valve"
     annotation (Placement(transformation(extent={{-70,-110},{-50,-90}})));
 
@@ -159,41 +163,35 @@ model Chiller
     "Base subsystem for interconnection with district system"
     annotation (Placement(transformation(extent={{-10,-244},{10,-264}})));
 
-  Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.StratifiedTank
-    tanChiWat(
+  EnergyTransferStations.BaseClasses.StratifiedTank tanChiWat(
     redeclare final package Medium = MediumBui,
-    final m_flow_nominal=datChi.mEva_flow_nominal,
+    final m_flow_nominal=colChiWat.mDis_flow_nominal,
     final VTan=VTanChiWat,
     final hTan=hTanChiWat,
     final dIns=dInsTanChiWat,
     final nSeg=nSegTan) "Chilled water tank"
     annotation (Placement(transformation(extent={{200,96},{220,116}})));
-  Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.StratifiedTank
-    tanHeaWat(
+  EnergyTransferStations.BaseClasses.StratifiedTank tanHeaWat(
     redeclare final package Medium = MediumBui,
-    final m_flow_nominal=datChi.mCon_flow_nominal,
+    final m_flow_nominal=colHeaWat.mDis_flow_nominal,
     final VTan=VTanHeaWat,
     final hTan=hTanHeaWat,
     final dIns=dInsTanHeaWat,
     final nSeg=nSegTan) "Heating water tank"
     annotation (Placement(transformation(extent={{-220,96},{-200,116}})));
-  Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.CollectorDistributor
-    colChiWat(
+  EnergyTransferStations.BaseClasses.CollectorDistributor colChiWat(
       redeclare final package Medium = MediumBui,
       final nCon=1 + nAuxCoo,
-      final allowFlowReversal=true,
-      mCon_flow_nominal={m2Hex_flow_nominal})
+      mCon_flow_nominal={datChi.mEva_flow_nominal})
     "Collector/distributor for chilled water"
     annotation (Placement(
       transformation(
       extent={{20,10},{-20,-10}},
       rotation=180,
       origin={120,-34})));
-  Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.CollectorDistributor
-    colAmbWat(
+  EnergyTransferStations.BaseClasses.CollectorDistributor colAmbWat(
       redeclare final package Medium = MediumBui,
       final nCon=1 + nAuxSou,
-      final allowFlowReversal=true,
       mCon_flow_nominal={m2Hex_flow_nominal})
     "Collector/distributor for ambient water"
     annotation (Placement(
@@ -201,12 +199,10 @@ model Chiller
       extent={{20,-10},{-20,10}},
       rotation=180,
       origin={0,-106})));
-  Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.CollectorDistributor
-    colHeaWat(
+  EnergyTransferStations.BaseClasses.CollectorDistributor colHeaWat(
       redeclare final package Medium = MediumBui,
       final nCon=1 + nAuxHea,
-      final allowFlowReversal=true,
-      mCon_flow_nominal={m2Hex_flow_nominal})
+      mCon_flow_nominal={datChi.mCon_flow_nominal})
     "Collector/distributor for heating water"
     annotation (Placement(
       transformation(
@@ -228,22 +224,22 @@ equation
   connect(THeaWatSupSet, conSup.THeaWatSupSet) annotation (Line(points={{-320,20},
           {-280,20},{-280,58},{-262,58}}, color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(conSup.yIsoEva, valIsoEva.y) annotation (Line(points={{-238,41},{-198,
-          41},{-198,-80},{60,-80},{60,-88}}, color={0,0,127},
+  connect(conSup.yIsoEva, valIsoEva.y) annotation (Line(points={{-238,42},{-198,
+          42},{-198,-80},{60,-80},{60,-88}}, color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(conSup.yIsoCon, valIsoCon.y) annotation (Line(points={{-238,44},{-194,
-          44},{-194,-76},{-60,-76},{-60,-88}}, color={0,0,127},
+  connect(conSup.yIsoCon, valIsoCon.y) annotation (Line(points={{-238,46},{-194,
+          46},{-194,-76},{-60,-76},{-60,-88}}, color={0,0,127},
       pattern=LinePattern.Dash));
   connect(port_aDis,int. port_a1) annotation (Line(points={{-300,-260},{-10,-260}},
                   color={0,127,255}));
   connect(int.port_b1, port_bDis) annotation (Line(points={{10,-260},{300,-260}},
                                                               color={0,127,255}));
-  connect(conSup.yHea, chi.uHea) annotation (Line(points={{-238,59},{-20,59},{
-          -20,-3},{-12,-3}},
+  connect(conSup.yHea, chi.uHea) annotation (Line(points={{-238,58},{-20,58},{-20,
+          -3},{-12,-3}},
                        color={255,0,255},
       pattern=LinePattern.Dash));
-  connect(conSup.yCoo, chi.uCoo) annotation (Line(points={{-238,56},{-24,56},{
-          -24,-5},{-12,-5}},             color={255,0,255},
+  connect(conSup.yCoo, chi.uCoo) annotation (Line(points={{-238,54},{-24,54},{-24,
+          -5},{-12,-5}},                 color={255,0,255},
       pattern=LinePattern.Dash));
   connect(THeaWatSupSet, chi.THeaWatSupSet) annotation (Line(points={{-320,20},
           {-28,20},{-28,-7},{-12,-7}},color={0,0,127},
@@ -297,16 +293,12 @@ equation
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(int.yValIso[1], valIsoCon.y_actual) annotation (Line(
-      points={{-12,-256},{-40,-256},{-40,-93},{-55,-93}},
+      points={{-12,-251},{-40,-251},{-40,-93},{-55,-93}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(int.yValIso[2], valIsoEva.y_actual) annotation (Line(
-      points={{-12,-258},{-16,-258},{-16,-240},{40,-240},{40,-93},{55,-93}},
+      points={{-12,-253},{-16,-253},{-16,-240},{40,-240},{40,-93},{55,-93}},
       color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(conSup.yAmb, int.uEnaHex) annotation (Line(
-      points={{-238,47},{-190,47},{-190,-263},{-12,-263}},
-      color={255,0,255},
       pattern=LinePattern.Dash));
   connect(TChiWatSupSet, conSup.TChiWatSupSet) annotation (Line(
       points={{-320,-20},{-276,-20},{-276,49},{-262,49}},
@@ -330,6 +322,10 @@ equation
     annotation (Line(points={{132,-24},{132,0},{10,0}}, color={0,127,255}));
   connect(colChiWat.ports_bCon[1], chi.port_aChiWat) annotation (Line(points={{
           108,-24},{108,-12},{10,-12}}, color={0,127,255}));
+  connect(conSup.y[nAuxSou+1], int.y2Sup) annotation (Line(
+      points={{-238,50},{-180,50},{-180,-256},{-12,-256}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
 annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
         Diagram(coordinateSystem(preserveAspectRatio=false,
                   extent={{-300,-300},{300,300}}),
@@ -339,6 +335,15 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
                   pattern=LinePattern.Dash)}),
         defaultComponentName="ets",
 Documentation(info="<html>
+<p>
+When extending this class 
+
+colChiWat.mCon_flow_nominal (and nCon) must be updated if an additional cooling equipment is modeled,
+colHeaWat.mCon_flow_nominal (and nCon) must be updated if an additional heating equipment is modeled,
+colAmbWat.mCon_flow_nominal (and nCon) must be updated if an additional ambient source is modeled.
+
+
+</p>
 <p>
 This models represents an energy transfer station (ETS) for fifth generation
 district heating and cooling systems.

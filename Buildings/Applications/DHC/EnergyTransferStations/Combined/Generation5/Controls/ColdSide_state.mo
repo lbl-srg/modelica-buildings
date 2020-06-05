@@ -1,23 +1,33 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls;
-model ColdSide "State machine enabling production and ambient source systems"
-  extends BaseClasses.HotColdSide(
-    final reverseActing=true);
+model ColdSide_state
+  "State machine enabling production and ambient source systems"
+  extends BaseClasses.HotColdSide_state(
+    sigTHys=-1,
+    redeclare final model Inequality =
+        Buildings.Controls.OBC.CDL.Continuous.LessEqual);
   Buildings.Controls.OBC.CDL.Continuous.Max max
     "Max"
-    annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
+    annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
 equation
-  connect(max.u1, TTop) annotation (Line(points={{-122,-94},{-130,-94},{-130,
-          -100},{-200,-100}},
+  connect(max.u1, TTop) annotation (Line(points={{-102,-94},{-168,-94},{-168,
+          -40},{-200,-40}},
                       color={0,0,127}));
-  connect(max.u2, TBot) annotation (Line(points={{-122,-106},{-140,-106},{-140,
-          -160},{-200,-160}},
+  connect(TTop, opeIso.u1)
+    annotation (Line(points={{-200,-40},{-92,-40}}, color={0,0,127}));
+  connect(TTop, enaRej.u1) annotation (Line(points={{-200,-40},{-168,-40},{-168,
+          -180},{-52,-180},{-52,-200},{-42,-200}}, color={0,0,127}));
+  connect(TTop, disRej.u2) annotation (Line(points={{-200,-40},{-168,-40},{-168,
+          -260},{-60,-260},{-60,-248},{-42,-248}}, color={0,0,127}));
+  connect(max.y, disHeaCoo.u1) annotation (Line(points={{-78,-100},{-50,-100},{
+          -50,20},{-152,20},{-152,0},{-142,0}},
+                                            color={0,0,127}));
+  connect(max.u2, TBot) annotation (Line(points={{-102,-106},{-174,-106},{-174,
+          -120},{-200,-120}},
                             color={0,0,127}));
-  connect(max.y, errDis.u2) annotation (Line(points={{-98,-100},{-80,-100},{-80,
-          -12}}, color={0,0,127}));
-  connect(TTop, conPlaSeq.u_m) annotation (Line(points={{-200,-100},{-130,-100},
-          {-130,-180},{-80,-180},{-80,-152}}, color={0,0,127}));
-  connect(TBot, errEna.u2) annotation (Line(points={{-200,-160},{-140,-160},{
-          -140,20},{-100,20},{-100,28}}, color={0,0,127}));
+  connect(TBot, cloIso.u2) annotation (Line(points={{-200,-120},{-174,-120},{-174,
+          -160},{-60,-160},{-60,-148},{-42,-148}}, color={0,0,127}));
+  connect(TBot, enaHeaCoo.u2) annotation (Line(points={{-200,-120},{-174,-120},
+          {-174,32},{-142,32}},color={0,0,127}));
   annotation (
   defaultComponentName="conCol",
 Documentation(info="<html>
@@ -117,4 +127,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ColdSide;
+end ColdSide_state;
