@@ -94,8 +94,7 @@ block Down "Generates a stage down signal"
     annotation (Placement(transformation(extent={{-220,-120},{-180,-80}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
-    "Stage down signal"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y "Stage down signal"
     annotation (Placement(transformation(extent={{180,-10},{200,10}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 

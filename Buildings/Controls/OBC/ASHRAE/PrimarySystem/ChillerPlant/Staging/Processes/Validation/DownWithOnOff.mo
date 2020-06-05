@@ -185,7 +185,7 @@ equation
   connect(zerOrdHol7.y, chiOneLoa.u1)
     annotation (Line(points={{202,120},{210,120},{210,-30},{-140,-30},{-140,-2},
           {-122,-2}}, color={0,0,127}));
-  connect(yOpeParLoaRatMin1.y, dowProCon.yOpeParLoaRatMin)
+  connect(yOpeParLoaRatMin1.y,dowProCon.uOpeParLoaRatMin)
     annotation (Line(points={{-178,30},{-126,30},{-126,93},{18,93}},
       color={0,0,127}));
   connect(chiOneLoa.y, dowProCon.uChiLoa[1])

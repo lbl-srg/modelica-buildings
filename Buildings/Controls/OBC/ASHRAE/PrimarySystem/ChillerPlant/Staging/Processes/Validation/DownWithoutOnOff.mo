@@ -113,7 +113,7 @@ protected
 equation
   connect(booPul.y,staDow. u)
     annotation (Line(points={{-118,130},{-102,130}}, color={255,0,255}));
-  connect(yOpeParLoaRatMin.y, dowProCon.yOpeParLoaRatMin)
+  connect(yOpeParLoaRatMin.y,dowProCon.uOpeParLoaRatMin)
     annotation (Line(points={{-118,20},{-58,20},{-58,83},{38,83}},
       color={0,0,127}));
   connect(dowProCon.yChi, pre2.u)

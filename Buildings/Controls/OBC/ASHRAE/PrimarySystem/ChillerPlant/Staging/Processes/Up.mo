@@ -446,7 +446,7 @@ equation
   connect(con.y, chiDemRed.uStaDow)
     annotation (Line(points={{-178,80},{-96,80},{-96,168},{-82,168}},
       color={255,0,255}));
-  connect(con1.y, chiDemRed.yOpeParLoaRatMin)
+  connect(con1.y,chiDemRed.uOpeParLoaRatMin)
     annotation (Line(points={{-178,140},{-140,140},{-140,171},{-82,171}},
       color={0,0,127}));
   connect(uChi, minChiWatFlo.uChi)

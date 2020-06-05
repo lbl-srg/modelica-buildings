@@ -91,7 +91,7 @@ equation
   connect(staDow.y, staStaDow.uStaDow)
     annotation (Line(points={{-58,220},{-50,220},{-50,210},{58,210}},
       color={255,0,255}));
-  connect(yOpeParLoaRatMin.y, staStaDow.yOpeParLoaRatMin)
+  connect(yOpeParLoaRatMin.y,staStaDow.uOpeParLoaRatMin)
     annotation (Line(points={{-98,180},{12,180},{12,208},{58,208}},
       color={0,0,127}));
   connect(chiFlo.y, staStaDow.VChiWat_flow)

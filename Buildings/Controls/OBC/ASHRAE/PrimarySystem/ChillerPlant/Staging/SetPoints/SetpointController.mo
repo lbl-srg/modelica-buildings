@@ -281,13 +281,13 @@ block SetpointController
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChaEdg
     "Chiller stage change edge signal"
     annotation (Placement(transformation(
-          extent={{120,-160},{160,-120}}), iconTransformation(extent={{100,80},{
-            140,120}})));
+          extent={{120,-160},{160,-120}}), iconTransformation(extent={{100,40},
+            {140,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChaUpEdg
     "Chiller stage up change edge signal"
     annotation (Placement(transformation(extent={{120,-90},{160,-50}}),
-        iconTransformation(extent={{100,150},{140,190}})));
+        iconTransformation(extent={{100,70},{140,110}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChaDowEdg
     "Chiller stage down change edge signal"
@@ -298,14 +298,14 @@ block SetpointController
     final min=0,
     final max=nSta)
     "Chiller stage integer setpoint"
-    annotation (Placement(transformation(extent={{120,-20},{160,20}}),
+    annotation (Placement(transformation(extent={{120,260},{160,300}}),
       iconTransformation(extent={{100,-130},{140,-90}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOpeParLoaRatMin(
     final unit="1",
     final min=0)
     "Minimum operating part load ratio at current stage"
-    annotation (Placement(transformation(extent={{120,40},{160,80}}),
+    annotation (Placement(transformation(extent={{120,320},{160,360}}),
         iconTransformation(extent={{100,-200},{140,-160}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Up staUp(
@@ -344,6 +344,12 @@ block SetpointController
     final nSta=nSta) "Design and minimum capacities for relevant chiller stages"
     annotation (Placement(transformation(extent={{-270,-180},{-250,-160}})));
 
+  CDL.Interfaces.BooleanOutput yUp "Stage up signal" annotation (Placement(
+        transformation(extent={{120,60},{160,100}}), iconTransformation(extent=
+            {{100,160},{140,200}})));
+  CDL.Interfaces.BooleanOutput yDow "Stage down signal" annotation (Placement(
+        transformation(extent={{120,22},{156,58}}), iconTransformation(extent={
+            {100,130},{140,170}})));
 protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Initial iniSta(
     final have_WSE=have_WSE)
@@ -511,8 +517,8 @@ equation
   connect(uPla, cha.uPla) annotation (Line(points={{-420,-100},{-280,-100},{-280,
           -140},{-60,-140},{-60,-180},{-22,-180}},
                                              color={255,0,255}));
-  connect(cha.ySta, ySta) annotation (Line(points={{2,-166},{20,-166},{20,0},{140,
-          0}},       color={255,127,0}));
+  connect(cha.ySta, ySta) annotation (Line(points={{2,-166},{20,-166},{20,280},
+          {140,280}},color={255,127,0}));
   connect(cha.yChaEdg, yChaEdg) annotation (Line(points={{2,-174},{80,-174},{80,
           -140},{140,-140}},     color={255,0,255}));
   connect(chiInd.yChi, yChiSet) annotation (Line(points={{62,-200},{80,-200},{
@@ -535,8 +541,13 @@ equation
           {60,-70},{140,-70}}, color={255,0,255}));
   connect(cha.yChaDowEdg, yChaDowEdg) annotation (Line(points={{2,-178},{100,-178},
           {100,-200},{140,-200}}, color={255,0,255}));
-  connect(PLRs.yOpeMin, yOpeParLoaRatMin) annotation (Line(points={{-160,-197},{-130,-197},
-          {-130,60},{140,60}}, color={0,0,127}));
+  connect(PLRs.yOpeMin, yOpeParLoaRatMin) annotation (Line(points={{-160,-197},
+          {-130,-197},{-130,340},{140,340}},
+                               color={0,0,127}));
+  connect(staUp.y, yUp) annotation (Line(points={{-78,-110},{-50,-110},{-50,80},
+          {140,80}}, color={255,0,255}));
+  connect(staDow.y, yDow) annotation (Line(points={{-78,-230},{-60,-230},{-60,
+          40},{138,40}}, color={255,0,255}));
   annotation (defaultComponentName = "staSetCon",
         Icon(coordinateSystem(extent={{-100,-160},{100,160}}, initialScale=0.2),
         graphics={
@@ -635,7 +646,7 @@ equation
           pattern=LinePattern.Dash,
           textString="ySta"),
         Text(
-          extent={{42,114},{94,90}},
+          extent={{42,74},{94,50}},
           lineColor={217,67,180},
           pattern=LinePattern.Dash,
           textString="yChaEdg"),
@@ -655,7 +666,7 @@ equation
           pattern=LinePattern.Dash,
           textString="TOutWet"),
         Text(
-          extent={{28,192},{94,150}},
+          extent={{28,112},{94,70}},
           lineColor={217,67,180},
           pattern=LinePattern.Dash,
           textString="yChaUpEdg"),
@@ -668,7 +679,17 @@ equation
           extent={{-16,-156},{92,-202}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="yOpeParLoaRatMin")}),
+          textString="yOpeParLoaRatMin"),
+        Text(
+          extent={{48,200},{96,164}},
+          lineColor={217,67,180},
+          pattern=LinePattern.Dash,
+          textString="yChaUp"),
+        Text(
+          extent={{48,168},{96,132}},
+          lineColor={217,67,180},
+          pattern=LinePattern.Dash,
+          textString="yChaDow")}),
                                  Diagram(
         coordinateSystem(preserveAspectRatio=false,
         extent={{-400,-300},{120,420}})),

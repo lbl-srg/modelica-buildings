@@ -97,7 +97,7 @@ equation
   connect(zerLoa.y, chiDemRed.uChiLoa[2])
     annotation (Line(points={{-238,20},{-126,20},{-126,116},{-102,116}},
       color={0,0,127}));
-  connect(yOpeParLoaRatMin.y, chiDemRed.yOpeParLoaRatMin)
+  connect(yOpeParLoaRatMin.y,chiDemRed.uOpeParLoaRatMin)
     annotation (Line(points={{-238,-20},{-122,-20},{-122,111},{-102,111}},
       color={0,0,127}));
   connect(staDow.y, chiDemRed.uStaDow)
@@ -117,7 +117,7 @@ equation
   connect(limDem1.y, chiDemRed1.uDemLim)
     annotation (Line(points={{102,100},{120,100},{120,69},{198,69}},
       color={255,0,255}));
-  connect(yOpeParLoaRatMin1.y, chiDemRed1.yOpeParLoaRatMin)
+  connect(yOpeParLoaRatMin1.y,chiDemRed1.uOpeParLoaRatMin)
     annotation (Line(points={{62,-90},{178,-90},{178,61},{198,61}},
       color={0,0,127}));
   connect(chiDemRed1.yChiDem, zerOrdHol1.u)

@@ -15,4 +15,10 @@ r.move_class("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.S
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.SetpointController
 ySta : yStaSet
 
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Up
+y : yUp
+
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Down
+y : yDow
+
 
