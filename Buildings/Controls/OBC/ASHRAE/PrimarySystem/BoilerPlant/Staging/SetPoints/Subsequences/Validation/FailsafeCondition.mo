@@ -6,14 +6,16 @@ block FailsafeCondition
     faiSafCon(
     final delayEna=900,
     final TDif=10,
-    final TDifHys=1) "Testing scenario with FailsafeCondition unmet"
+    final TDifHys=1)
+    "Testing scenario with FailsafeCondition unmet"
     annotation (Placement(transformation(extent={{-40,42},{-20,60}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.FailsafeCondition
     faiSafCon1(
     final delayEna=900,
     final TDif=10,
-    final TDifHys=1) "Testing scenario with FailsafeCondition met"
+    final TDifHys=1)
+    "Testing scenario with FailsafeCondition met"
     annotation (Placement(transformation(extent={{60,42},{80,60}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.FailsafeCondition

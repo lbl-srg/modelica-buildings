@@ -3,20 +3,26 @@ block CapacityRequirement
   "Validation model for CapacityRequirement"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.CapacityRequirement
-    capReq(final avePer=300) "Scenario with sine input for return temperature"
+    capReq(
+    final avePer=300)
+    "Scenario with sine input for return temperature"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.CapacityRequirement
-    capReq1(final avePer=300)
+    capReq1(
+    final avePer=300)
     "Scenario with sine input for supply setpoint temperature"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.CapacityRequirement
-    capReq2(final avePer=300) "Scenario with sine input for flow-rate"
+    capReq2(
+    final avePer=300)
+    "Scenario with sine input for flow-rate"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.CapacityRequirement
-    capReq3(final avePer=300) "Scenario with sine input for all inputs"
+    capReq3(
+    final avePer=300) "Scenario with sine input for all inputs"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
 
 protected

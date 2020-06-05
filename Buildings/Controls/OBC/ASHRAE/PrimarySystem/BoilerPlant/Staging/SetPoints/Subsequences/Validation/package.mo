@@ -1,7 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences;
 package Validation "Collection of validation models"
-
-
 annotation (Icon(graphics={
         Rectangle(
           lineColor={200,200,200},
