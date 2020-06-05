@@ -1,4 +1,4 @@
-﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences;
 block EnableLag_primary_dP
   "Sequences for enabling and disabling lag pumps for primary-only plants using differential pressure pump speed control"
   parameter Integer nPum = 2 "Total number of pumps";
@@ -14,7 +14,9 @@ block EnableLag_primary_dP
   parameter Integer nPum_nominal(final max = nPum, final min = 1) = nPum
     "Total number of pumps that operate at design conditions"
     annotation (Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.VolumeFlowRate VChiWat_flow_nominal(
+  parameter Real VChiWat_flow_nominal(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate",
     final min=1e-6)=0.5
     "Total plant design chilled water flow rate"
     annotation (Dialog(group="Nominal conditions"));

@@ -19,11 +19,15 @@ block Controller
     final min=1)=nPum
     "Total number of pumps that operate at design conditions"
     annotation (Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.VolumeFlowRate VChiWat_flow_nominal(
+  parameter Real VChiWat_flow_nominal(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate",
     final min=1e-6)=0.5
     "Total plant design chilled water flow rate"
     annotation (Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.PressureDifference maxLocDp=15*6894.75
+  parameter Real maxLocDp(
+    final unit="Pa",
+    final quantity="PressureDifference")=15*6894.75
     "Maximum chilled water loop local differential pressure setpoint"
     annotation (Dialog(group="Pump speed control when there is local DP sensor", enable=have_LocalSensor));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
@@ -46,7 +50,9 @@ block Controller
       controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
       controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  final parameter Modelica.SIunits.PressureDifference minLocDp=5*6894.75
+  final parameter Real minLocDp(
+    final unit="Pa",
+    final quantity="PressureDifference")=5*6894.75
     "Minimum chilled water loop local differential pressure setpoint"
     annotation (Dialog(group="Pump speed control when there is local DP sensor", enable=have_LocalSensor));
   final parameter Integer pumInd[nPum]={i for i in 1:nPum}

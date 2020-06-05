@@ -5,13 +5,17 @@ block Speed_primary_localDp
     "Total number of remote differential pressure sensors";
   parameter Integer nPum = 2
     "Total number of chilled water pumps";
-  parameter Modelica.SIunits.PressureDifference minLocDp(
-    final min=0,
-    final displayUnit="Pa")=5*6894.75
+  parameter Real minLocDp(
+    final unit="Pa",
+    final displayUnit="Pa",
+    final quantity="PressureDifference",
+    final min=0)=5*6894.75
     "Minimum chilled water loop local differential pressure setpoint";
-  parameter Modelica.SIunits.PressureDifference maxLocDp(
-    final min=minLocDp,
-    final displayUnit="Pa") = 15*6894.75
+  parameter Real maxLocDp(
+    final unit="Pa",
+    final displayUnit="Pa",
+    final quantity="PressureDifference",
+    final min=minLocDp) = 15*6894.75
     "Maximum chilled water loop local differential pressure setpoint";
   parameter Real minPumSpe = 0.1 "Minimum pump speed";
   parameter Real maxPumSpe = 1 "Maximum pump speed";
