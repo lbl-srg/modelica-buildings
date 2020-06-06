@@ -65,10 +65,7 @@ test-dymola:
 test-optimica:
 	(cd $(ROOT)/Buildings && \
 	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/Buildings/Resources/Python-Sources && \
-	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool optimica --skip-verification; exiVal=$(?); \
-	  cat $(TRAVIS_BUILD_DIR)/Buildings/unitTests* ; \
-	  cat $(TRAVIS_BUILD_DIR)/Buildings/simulator* ; \
-	  exit $(exiVal))
+	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool optimica --skip-verification)
 
 test-jmodelica:
 	(cd $(ROOT)/Buildings && \
