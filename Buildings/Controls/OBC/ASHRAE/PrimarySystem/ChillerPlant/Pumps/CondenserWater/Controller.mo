@@ -59,7 +59,7 @@ block Controller "Condenser water pump controller"
     annotation (Placement(transformation(extent={{-160,-130},{-120,-90}}),
       iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLeaPum
-    "Lead pump status"
+    "Lead pump status setpoint"
     annotation (Placement(transformation(extent={{120,110},{160,150}}),
       iconTransformation(extent={{100,70},{140,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDesConWatPumSpe
@@ -125,8 +125,8 @@ protected
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
   Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
     annotation (Placement(transformation(extent={{80,-90},{100,-70}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(final k=false) if
-       not have_WSE
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
+    final k=false) if not have_WSE
     "Logical true"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
 
@@ -244,7 +244,7 @@ annotation (
 <p>
 Block that generates control signals for condenser water pumps control, 
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), 
+Central Plants and Hydronic Systems (Draft on March 2020), 
 section 5.2.9 Condenser water pumps. 
 </p>
 <p>

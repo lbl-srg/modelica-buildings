@@ -3,7 +3,7 @@ model EnableLead_headered
   "Validate sequence for enabling lead pump of plants with headered primary chilled water pumps"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.EnableLead_headered
-    enaLeaChiPum(nChi=3)
+    enaLeaChiPum(final nChi=3)
     "Enable lead chilled water pump based on the status of chilled water isolation valves"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
