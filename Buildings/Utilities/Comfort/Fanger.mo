@@ -54,7 +54,7 @@ extends Buildings.BaseClasses.BaseIcon;
         iconTransformation(extent={{-120,50},{-100,70}})));
 
   Modelica.SIunits.Temperature TOpe "Operative temperature";
-  Modelica.SIunits.Temperature TClo "Surface temperature of clothing";
+  Modelica.SIunits.Temperature TClo(start=273.15+40) "Surface temperature of clothing";
   Modelica.SIunits.Temperature TSki(
     min=273.15+10,
     max=273.15+42) "Skin temperature";
@@ -108,7 +108,6 @@ protected
     "Model to compute the steam mass fraction";
   Real fCl1 "work variable for fCl";
   Real fCl2 "work variable for fCl";
-  Real aux "Auxiliary variable used to eliminate common subexpressions";
 
   Modelica.Blocks.Interfaces.RealInput vAir_in_internal
     "Needed to connect to conditional connector";
@@ -126,6 +125,7 @@ protected
 
 initial equation
  assert(W <= 0, "Parameter W must be equal to zero or negative.");
+
 equation
   // Conditional connectors
   connect(vAir_in, vAir_in_internal);
@@ -161,41 +161,41 @@ equation
 
   // fcl eq (61)
   fCl = fCl1 + (fCl2 - fCl1)*Buildings.Utilities.Math.Functions.smoothHeaviside(
-                                 x=(ICl_in_internal - 0.5), delta=0.01);
-  // hCon, table 6, Mitchell
-  hCon = 8.3*Buildings.Utilities.Math.Functions.smoothMax(x1=vAir_in_internal*vAir_in_internal,
-                                                          x2=0.0375213,
-                                                          deltaX=0.01)^0.3;
+    x=(ICl_in_internal - 0.5),
+    delta=0.01);
+
+
+  hCon = Buildings.Utilities.Math.Functions.smoothMax(
+    x1=12.1*sqrt(abs(vAir_in_internal)),
+    x2=2.38*abs(TClo - TAir)^0.25,
+    deltaX=0.0001);
+
   hCom = hRad + hCon;
 
   // operative temperature (8)
   TOpe = (hRad*TRad + hCon*TAir)/hCom;
 
   // Clothing temperature (59)
-  aux = - 3.05*(5.73 - 0.007*(M_in_internal - W) - pSte*1E-3)
-        - 0.42*((M_in_internal - W) - 58.15)
-        - 0.0173*M_in_internal*(5.87 - pSte*1E-3)
-        - 0.0014*M_in_internal*(307.15 - TAir);
+  TClo = 35.7 - 0.028 * (M_in_internal-W) - RCl*((3.96E-8*fCl*((TClo)^4 - (TRad)^4))+ fCl*hCon*(TClo - TAir)) + 273.15;
 
-  TClo = Modelica.SIunits.Conversions.from_degC(35.7 - 0.0275 * (M_in_internal-W)
-                 - RCl * (  (M_in_internal-W)
-                 + aux));
-  // heat load on body, see (58)
+
   L = (M_in_internal - W)
-      - 3.96*1e-8*fCl*(TClo^4 - TRad^4)
-      - fCl*hCon*(TClo - TAir)
-      + aux;
+       - 3.05E-3*(5733 - 6.99*(M_in_internal - W) - pSte)
+        - 0.42*((M_in_internal - W) - 58.15)
+        - 1.7E-5*M_in_internal*(5867 - pSte)
+        - 0.0014*M_in_internal*(307.15 - TAir)
+        - 3.96E-8*fCl*(TClo^4 - TRad^4)
+        - fCl*hCon*(TClo - TAir);
 
-  // PMV (62)
-  PMV = (0.303*Modelica.Math.exp(-0.036*M) + 0.028)*L;
-  // PPD (64)
+  PMV = (0.303*Modelica.Math.exp(-0.036*M_in_internal) + 0.028)*L;
   PPD = 1 - 0.95*Modelica.Math.exp(-(0.03353*PMV^4 + 0.2179*PMV^2));
+
   annotation (
 defaultComponentName="com",
     Documentation(info="<html>
 <p>
 Thermal comfort model according to Fanger, as described in
-the ASHRAE Fundamentals (1997).
+the ASHRAE Fundamentals (2017).
 </p>
 <p>
 The thermal sensation of a human being is mainly related to the thermal balance of its
@@ -219,7 +219,7 @@ of a large group of people.
 </p>
 <p>
 To determine appropriate thermal conditions, practitioners refer to standards such
-as ASHRAE Standard 55 (ASHRAE, 1992) and ISO Standard 7730 (ISO, 1994).
+as ASHRAE Standard 55 (ASHRAE, 2017) and ISO Standard 7730 (ISO, 1994).
 These standards define temperature ranges that should result in thermal satisfaction
 for at least 80% of occupants in a space.
 </p>
@@ -337,6 +337,10 @@ per unit surface area of a seated person at rest.</p>
 <h4>References</h4>
 
 <ul><li>
+ANSI/ASHRAE Standard 55-2017:Thermal Environmental Conditions for Human Occupancy.
+ American Society of Heating, Refrigerating and Air-Conditioning Engineers,2017.
+</li>
+<li>
 ASHRAE Handbook, Fundamentals (SI Edition).
  American Society of Heating, Refrigerating and Air-Conditioning Engineers,
 Chapter 8, Thermal Comfort; pages 8.1-8.26; Atlanta, USA, 1997.
@@ -347,22 +351,16 @@ Moderate Thermal Environments: Determination of the PMV and PPD Indices
 and Specification of the Conditions for Thermal Comfort (ISO 7730).
 Geneva, Switzerland: ISO. 1994.
 </li>
-<li>
-Charles, K.E. Fanger Thermal Comfort and Draught Models. Institute for Research in Construction
-National Research Council of Canada, Ottawa, K1A 0R6, Canada.
-IRC Research Report RR-162. October 2003.
-<a href=\"http://irc.nrc-cnrc.gc.ca/ircpubs\">http://irc.nrc-cnrc.gc.ca/ircpubs</a>.
-</li>
-<li>
-Data, References and Links at: Thermal Comfort; Dr. Sam C M Hui
-Department of Mechanical Engineering
-The University of Hong Kong MEBS6006 Environmental Services I;
-<a href=\"http://me.hku.hk/msc-courses/MEBS6006/index.html\">
-http://me.hku.hk/msc-courses/MEBS6006/index.html</a>
-</li>
 </ul>
+
 </html>", revisions="<html>
 <ul>
+<li>
+May 27, 2020, by Donghun Kim and Michael Wetter:<br/>
+Updated model equations to ANSI/ASHRAE Standard 55-2017.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1936\">#1936</a>.
+</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.
