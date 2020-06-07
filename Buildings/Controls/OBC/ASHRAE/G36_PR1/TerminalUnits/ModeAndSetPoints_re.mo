@@ -2,54 +2,19 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits;
 block ModeAndSetPoints_re
   "Output zone setpoint with operation mode selection"
 
-  parameter Real TZonHeaOn(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=293.15
-    "Heating setpoint during on for the zone group";
-  parameter Real TZonHeaOff(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=285.15
-    "Heating setpoint during off for the zone group";
-  parameter Real TZonCooOn(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=297.15
-    "Cooling setpoint during on for the zone group";
-  parameter Real TZonCooOff(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=303.15
-    "Cooling setpoint during off  for the zone group";
   parameter Real preWarCooTim(
     final unit="s",
     final quantity="Time")=10800
     "Maximum cool-down/warm-up time"
     annotation (Dialog(tab="Operation mode", group="Parameters"));
-  parameter Real bouLim(
-    final unit="K",
-    final displayUnit="K",
-    final quantity="TemperatureDifference")=1.1
-    "Value limit to indicate the end of setback/setup mode"
-    annotation (Dialog(tab="Operation mode", group="Parameters"));
-  parameter Real TZonFreProOn(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=277.55
+
+  parameter Real TZonFreProOn=277.55
     "Threshold zone temperature value to activate freeze protection mode"
     annotation (Dialog(tab="Operation mode", group="Parameters"));
-  parameter Real TZonFreProOff(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=280.35
+  parameter Real TZonFreProOff=280.35
     "Threshold zone temperature value to finish the freeze protection mode"
     annotation (Dialog(tab="Operation mode", group="Parameters"));
-  parameter Real warCooTim(
-    final unit="s",
-    final quantity="Time")=0
-    "Defined cool-down/warm-up time"
-    annotation (Dialog(tab="Operation mode", group="Parameters"));
+
   parameter Boolean have_occSen=false
     "Check if the zone has occupancy sensor"
     annotation (Dialog(tab="Setpoint adjust", group="Sensors"));
@@ -68,40 +33,22 @@ block ModeAndSetPoints_re
   parameter Boolean ignDemLim=true
     "Flag, set to true to exempt individual zone from demand limit setpoint adjustment"
     annotation (Dialog(tab="Setpoint adjust", group="Adjustable settings"));
-  parameter Real TZonCooOnMax(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=300.15
+  parameter Real TZonCooOnMax=300.15
     "Maximum cooling setpoint during on"
     annotation (Dialog(tab="Setpoint adjust", group="Limits"));
-  parameter Real TZonCooOnMin(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=295.15
+  parameter Real TZonCooOnMin=295.15
     "Minimum cooling setpoint during on"
     annotation (Dialog(tab="Setpoint adjust", group="Limits"));
-  parameter Real TZonHeaOnMax(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=295.15
+  parameter Real TZonHeaOnMax=295.15
     "Maximum heating setpoint during on"
     annotation (Dialog(tab="Setpoint adjust", group="Limits"));
-  parameter Real TZonHeaOnMin(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=291.15
+  parameter Real TZonHeaOnMin=291.15
     "Minimum heating setpoint during on"
     annotation (Dialog(tab="Setpoint adjust", group="Limits"));
-  parameter Real TZonCooSetWinOpe(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=322.15
+  parameter Real TZonCooSetWinOpe=322.15
     "Cooling setpoint when window is open"
     annotation (Dialog(tab="Setpoint adjust", group="Limits"));
-  parameter Real TZonHeaSetWinOpe(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=277.15
+  parameter Real TZonHeaSetWinOpe=277.15
     "Heating setpoint when window is open"
     annotation (Dialog(tab="Setpoint adjust", group="Limits"));
   parameter Real incTSetDem_1(
@@ -159,8 +106,10 @@ block ModeAndSetPoints_re
     "Current occupancy period for the zone group, true if it is in occupant period"
     annotation (Placement(transformation(extent={{-200,170},{-160,210.5}}),
       iconTransformation(extent={{-140,60},{-100,100.5}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonMin(final unit="K",
-      quantity="ThermodynamicTemperature")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonMin(
+    final unit="K",
+    final displayUnit="degC",
+    quantity="ThermodynamicTemperature")
     "Minimum zone temperature in the zone group" annotation (Placement(
         transformation(extent={{-200,-70},{-160,-30}}), iconTransformation(
           extent={{-140,-100},{-100,-60}})));
@@ -188,11 +137,13 @@ block ModeAndSetPoints_re
       iconTransformation(extent={{-140,-220},{-100,-180}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TZonCooSet(
     final unit="K",
+    final displayUnit="degC",
     quantity="ThermodynamicTemperature") "Cooling setpoint temperature"
     annotation (Placement(transformation(extent={{160,90},{200,130}}),
       iconTransformation(extent={{100,50},{140,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TZonHeaSet(
     final unit="K",
+    final displayUnit="degC",
     quantity="ThermodynamicTemperature") "Heating setpoint temperature"
     annotation (Placement(transformation(extent={{160,40},{200,80}}),
       iconTransformation(extent={{100,-20},{140,20}})));
@@ -201,44 +152,76 @@ block ModeAndSetPoints_re
     annotation (Placement(transformation(extent={{160,-30},{200,10}}),
       iconTransformation(extent={{100,-90},{140,-50}})));
 
-  CDL.Interfaces.RealInput TZonMax(final unit="K", quantity="ThermodynamicTemperature")
+  CDL.Interfaces.RealInput TZonMax(
+    final unit="K",
+    final displayUnit="degC",
+    quantity="ThermodynamicTemperature")
     "Maximum zone temperature in the zone group" annotation (Placement(
         transformation(extent={{-200,-40},{-160,0}}), iconTransformation(extent=
            {{-140,-80},{-100,-40}})));
-  CDL.Interfaces.RealInput                        maxCooDowTim(final unit="s",
-      final quantity="Time")
-                           "Maximum cool-down time among all the zones"
+  CDL.Interfaces.RealInput maxCooDowTim(
+    final unit="s",
+    final quantity="Time")
+    "Maximum cool-down time among all the zones"
     annotation (Placement(transformation(extent={{-200,140},{-160,180}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
-  CDL.Interfaces.RealInput                        maxWarUpTim(final unit="s",
-      final quantity="Time")
-                           "Maximum warm-up time among all the zones"
+  CDL.Interfaces.RealInput maxWarUpTim(
+    final unit="s",
+    final quantity="Time")
+    "Maximum warm-up time among all the zones"
     annotation (Placement(transformation(extent={{-200,110},{-160,150}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
-  CDL.Interfaces.BooleanInput                        uOccHeaHig
+  CDL.Interfaces.BooleanInput uOccHeaHig
     "True when the occupied heating setpoint temperature is higher than the zone temperature"
     annotation (Placement(transformation(extent={{-200,80},{-160,120}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
-  CDL.Interfaces.BooleanInput                        uHigOccCoo
+  CDL.Interfaces.BooleanInput uHigOccCoo
     "True when the zone temperature is higher than the occupied cooling setpoint"
     annotation (Placement(transformation(extent={{-200,50},{-160,90}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
-  CDL.Interfaces.IntegerInput                        totColZon
+  CDL.Interfaces.IntegerInput totColZon
     "Total number of cold zone"
     annotation (Placement(transformation(extent={{-200,20},{-160,60}}),
         iconTransformation(extent={{-140,-40},{-100,0}})));
-  CDL.Interfaces.BooleanInput                        unoHeaHigMin
+  CDL.Interfaces.BooleanInput unoHeaHigMin
     "True when the unoccupied heating setpoint is higher than minimum zone temperature"
     annotation (Placement(transformation(extent={{-200,-10},{-160,30}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
-  CDL.Interfaces.IntegerInput                        totHotZon
+  CDL.Interfaces.IntegerInput totHotZon
     "Total number of hot zone"
     annotation (Placement(transformation(extent={{-200,-90},{-160,-50}}),
         iconTransformation(extent={{-140,-120},{-100,-80}})));
-  CDL.Interfaces.BooleanInput                        maxHigUnoCoo
+  CDL.Interfaces.BooleanInput maxHigUnoCoo
     "True when the maximum zone temperature is higher than unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-200,-120},{-160,-80}}),
         iconTransformation(extent={{-140,-140},{-100,-100}})));
+  CDL.Interfaces.RealInput TZonCooSetOcc(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature") "Occupied zone cooling setpoint"
+    annotation (Placement(transformation(extent={{-200,-270},{-160,-230}}),
+        iconTransformation(extent={{-140,-240},{-100,-200}})));
+  CDL.Interfaces.RealInput TZonCooSetUno(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
+    "Unoccupied zone cooling setpoint"
+    annotation (Placement(transformation(extent={{-200,-300},{-160,-260}}),
+        iconTransformation(extent={{-140,-260},{-100,-220}})));
+  CDL.Interfaces.RealInput TZonHeaSetOcc(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
+    "Occupied zone heating setpoint"
+    annotation (Placement(transformation(extent={{-200,-332},{-160,-292}}),
+        iconTransformation(extent={{-140,-280},{-100,-240}})));
+  CDL.Interfaces.RealInput TZonHeaSetUno(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
+    "Unoccupied zone heating setpoint"
+    annotation (Placement(transformation(extent={{-200,-362},{-160,-322}}),
+        iconTransformation(extent={{-140,-300},{-100,-260}})));
 protected
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures
     TZonSet(
@@ -268,22 +251,6 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant heaDemLimLev(
     final k=heaDemLimLevCon) "Heating demand limit level"
     annotation (Placement(transformation(extent={{-40,-160},{-20,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRooHeaOn(
-    final k=TZonHeaOn)
-    "Heating on setpoint"
-    annotation (Placement(transformation(extent={{-20,140},{0,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRooHeaOff(
-    final k=TZonHeaOff)
-    "Heating off set point"
-    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRooCooOn(
-    final k=TZonCooOn)
-    "Cooling on setpoint"
-    annotation (Placement(transformation(extent={{-20,100},{0,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRooCooOff(
-    final k=TZonCooOff)
-    "Cooling off set point"
-    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode
     opeModSel(
     final have_winSen=have_winSen,
@@ -326,14 +293,6 @@ equation
           {70,-10},{70,-62},{78,-62}}, color={255,127,0}));
   connect(opeModSel.yOpeMod, yOpeMod)
     annotation (Line(points={{62,-10},{180,-10}}, color={255,127,0}));
-  connect(TSetRooCooOn.y, TZonSet.TZonCooSetOcc) annotation (Line(points={{2,110},
-          {22,110},{22,-67},{78,-67}},   color={0,0,127}));
-  connect(TSetRooCooOff.y, TZonSet.TZonCooSetUno) annotation (Line(points={{2,30},{
-          26,30},{26,-71.2},{78,-71.2}},        color={0,0,127}));
-  connect(TSetRooHeaOn.y, TZonSet.TZonHeaSetOcc) annotation (Line(points={{2,150},
-          {24,150},{24,-75.2},{78,-75.2}},   color={0,0,127}));
-  connect(TSetRooHeaOff.y, TZonSet.TZonHeaSetUno) annotation (Line(points={{2,70},{
-          20,70},{20,-79},{78,-79}},        color={0,0,127}));
   connect(uWinSta, opeModSel.uWinSta) annotation (Line(points={{-180,-220},{-72,
           -220},{-72,-10},{38,-10}}, color={255,0,255}));
 
@@ -357,8 +316,16 @@ equation
           {-140,-100},{-140,-22},{38,-22}}, color={255,0,255}));
   connect(totHotZon, opeModSel.totHotZon) annotation (Line(points={{-180,-70},{-144,
           -70},{-144,-20},{38,-20}}, color={255,127,0}));
+  connect(TZonCooSetOcc, TZonSet.TZonCooSetOcc) annotation (Line(points={{-180,-250},
+          {60,-250},{60,-67},{78,-67}}, color={0,0,127}));
+  connect(TZonCooSetUno, TZonSet.TZonCooSetUno) annotation (Line(points={{-180,-280},
+          {64,-280},{64,-71.2},{78,-71.2}}, color={0,0,127}));
+  connect(TZonHeaSetOcc, TZonSet.TZonHeaSetOcc) annotation (Line(points={{-180,-312},
+          {68,-312},{68,-75.2},{78,-75.2}}, color={0,0,127}));
+  connect(TZonHeaSetUno, TZonSet.TZonHeaSetUno) annotation (Line(points={{-180,-342},
+          {72,-342},{72,-79},{78,-79}}, color={0,0,127}));
 annotation (defaultComponentName="modSetPoi",
-  Diagram(coordinateSystem(extent={{-160,-220},{160,220}})),
+  Diagram(coordinateSystem(extent={{-160,-360},{160,220}})),
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
        graphics={Text(
         extent={{-100,140},{98,102}},
