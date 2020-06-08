@@ -260,7 +260,7 @@ partial model PartialDataCenter
   Buildings.Controls.Continuous.LimPID ahuValSig(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=40,
-    reverseAction=true,
+    reverseActing=false,
     yMin=yValMinAHU,
     k=0.01)          "Valve position signal for the AHU"
     annotation (Placement(transformation(extent={{-82,-90},{-62,-70}})));
@@ -271,7 +271,7 @@ partial model PartialDataCenter
   Buildings.Controls.Continuous.LimPID ahuFanSpeCon(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.1,
-    reverseAction=true,
+    reverseActing=false,
     yMin=0.2,
     Ti=240)   "Fan speed controller "
     annotation (Placement(transformation(extent={{-120,-170},{-100,-150}})));

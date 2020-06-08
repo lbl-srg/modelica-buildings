@@ -187,7 +187,7 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     "Setpoint for cooling coil"
     annotation (Placement(transformation(extent={{-238,-94},{-226,-82}})));
   Buildings.Controls.Continuous.LimPID cooCoiCon[nFlo](
-    each reverseAction=true,
+    each reverseActing=false,
     each Td=60,
     each initType=Modelica.Blocks.Types.InitPID.InitialState,
     each yMax=1,

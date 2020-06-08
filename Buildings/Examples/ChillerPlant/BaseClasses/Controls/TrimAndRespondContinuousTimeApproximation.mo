@@ -6,7 +6,7 @@ block TrimAndRespondContinuousTimeApproximation "Trim and respond logic"
     Td=1,
     yMax=1,
     yMin=0,
-    reverseAction=true,
+    reverseActing=false,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=120,
     k=0.1)     annotation (Placement(transformation(extent={{-20,40},{0,60}})));

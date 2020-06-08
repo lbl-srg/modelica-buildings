@@ -61,7 +61,7 @@ model ASHRAE2006
            "Controller for heating coil"
     annotation (Placement(transformation(extent={{-80,-212},{-60,-192}})));
   Buildings.Controls.Continuous.LimPID cooCoiCon(
-    reverseAction=true,
+    reverseActing=false,
     Td=60,
     initType=Modelica.Blocks.Types.InitPID.InitialState,
     yMax=1,

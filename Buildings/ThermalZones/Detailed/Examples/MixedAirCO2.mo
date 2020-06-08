@@ -36,7 +36,7 @@ model MixedAirCO2
     Ti=120,
     yMax=10,
     yMin=0,
-    reverseAction=true,
+    reverseActing=false,
     controllerType=Modelica.Blocks.Types.SimpleController.PI)
     "PI controller for fresh air supply, with negative minimum because of reverse action"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));

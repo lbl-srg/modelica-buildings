@@ -92,7 +92,7 @@ model WetCoilCounterFlowPControl
     annotation (Placement(transformation(extent={{100,-38},{120,-18}})));
   Buildings.Controls.Continuous.LimPID con(
     Td=1,
-    reverseAction=true,
+    reverseActing=false,
     yMin=0,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.1,

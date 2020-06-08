@@ -16,7 +16,7 @@ model DuctStaticPressureSetpoint "Computes the duct static pressure setpoint"
     Ti=Ti,
     Td=Td,
     initType=Modelica.Blocks.Types.InitPID.InitialState,
-    reverseAction=true)
+    reverseActing=false)
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 protected
   Buildings.Utilities.Math.Max max(final nin=nin)
