@@ -101,8 +101,7 @@ equation
   connect(port_aTop, tan.port_a) annotation (Line(points={{100,60},{-20,60},{-20,
           0},{-10,0}}, color={0,127,255}));
   connect(port_bTop, tan.fluPorVol[1]) annotation (Line(points={{-100,60},{-40,
-          60},{-40,20},{0,20},{0,-0.666667},{-2.6,-0.666667}},
-                                           color={0,127,255}));
+          60},{-40,20},{0,20},{0,-0.666667},{-2.6,-0.666667}}, color={0,127,255}));
   connect(tan.port_b, port_bBot) annotation (Line(points={{10,0},{20,0},{20,-60},
           {100,-60}}, color={0,127,255}));
   connect(port_aBot, tan.fluPorVol[nSeg]) annotation (Line(points={{-100,-60},{0,-60},
@@ -112,10 +111,7 @@ equation
   connect(tan.heaPorVol[nSeg], senTBot.port) annotation (Line(points={{0,0},{16,0},
           {16,-40},{30,-40}}, color={191,0,0}));
   connect(tan.heaPorVol[1], senTTop.port)
-    annotation (Line(points={{0,-0.4},{16,-0.4},{16,40},{30,40}},
-                                                            color={191,0,0}));
-  connect(TTop, TTop)
-    annotation (Line(points={{120,40},{120,40}}, color={0,0,127}));
+    annotation (Line(points={{0,-0.4},{16,-0.4},{16,40},{30,40}}, color={191,0,0}));
   connect(senTTop.T, TTop) annotation (Line(points={{50,40},{78,40},{78,40},{120,
           40}}, color={0,0,127}));
   connect(senTBot.T, TBot) annotation (Line(points={{50,-40},{80,-40},{80,-40},{
