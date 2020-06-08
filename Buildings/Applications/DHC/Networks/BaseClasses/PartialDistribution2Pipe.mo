@@ -26,7 +26,8 @@ partial model PartialDistribution2Pipe
     1,
     {mDis_flow_nominal},
     {mDis_flow_nominal - sum(mCon_flow_nominal[1:i]) for i in 1:(nCon-1)})
-    "Nominal mass flow rate in the distribution line before each connection";
+    "Nominal mass flow rate in the distribution line before each connection"
+    annotation(Dialog(tab="General", group="Nominal condition"));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
@@ -130,8 +131,6 @@ equation
     annotation (Line(points={{11,8},{16,8},{16,24},{86, 24},{86,80},{120,80}}, color={0,0,127}));
   connect(con.mCon_flow, mCon_flow)
     annotation (Line(points={{11,6},{18,6},{18,22}, {88,22},{88,60},{120,60}}, color={0,0,127}));
-  connect(port_aDisSup, port_aDisSup)
-    annotation (Line(points={{-100,0},{-100,0}}, color={0,127,255}));
   connect(port_aDisSup, senRelPre.port_a)
     annotation (Line(points={{-100,0},{-60,0},{-60,-20}}, color={0,127,255}));
   connect(senRelPre.port_b, port_bDisRet)
