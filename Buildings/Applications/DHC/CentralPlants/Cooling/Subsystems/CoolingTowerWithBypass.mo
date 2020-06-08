@@ -50,8 +50,7 @@ model CoolingTowerWithBypass "Cooling tower system with bypass valve"
     "Minimum allowed water temperature entering chiller"
     annotation (Dialog(group="Control Settings"));
 
-  parameter Modelica.Blocks.Types.SimpleController controllerType=
-    Modelica.Blocks.Types.SimpleController.PID
+  parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.PI
     "Type of fan speed controller"
     annotation (Dialog(group="Control Settings"));
 
@@ -133,8 +132,9 @@ model CoolingTowerWithBypass "Cooling tower system with bypass valve"
 
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valByp(
     redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    dpValve_nominal=dp_nominal) "Condenser water bypass valve"
+    m_flow_nominal=m_flow_nominal*0.0001,
+    dpValve_nominal=dp_nominal,
+    use_inputFilter=false) "Condenser water bypass valve"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={0,-40})));

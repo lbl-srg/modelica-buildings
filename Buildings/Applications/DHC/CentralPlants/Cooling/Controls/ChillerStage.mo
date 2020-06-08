@@ -12,7 +12,7 @@ model ChillerStage "Stage controller for chillers"
   parameter Modelica.SIunits.Power  dQ = 0.25*QEva_nominal
     "Deadband for critical point of cooling load";
 
-  Modelica.Blocks.Interfaces.RealInput QLoa "Total cooling load, negative"
+  Modelica.Blocks.Interfaces.RealInput QLoa(unit="W") "Total cooling load, negative"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   Modelica.Blocks.Interfaces.BooleanInput on "On signal of the chillers"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
@@ -24,7 +24,7 @@ model ChillerStage "Stage controller for chillers"
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-50,70})));
-  Modelica.StateGraph.StepWithSignal        oneOn(nOut=2, nIn=2)
+  Modelica.StateGraph.StepWithSignal oneOn(nOut=2, nIn=2)
     "One chiller is on"
     annotation (Placement(
         transformation(

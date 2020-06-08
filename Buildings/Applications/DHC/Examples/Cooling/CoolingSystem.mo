@@ -1,8 +1,6 @@
 within Buildings.Applications.DHC.Examples.Cooling;
 model CoolingSystem
   extends Modelica.Icons.Example;
-  CentralPlants.Cooling.Plant pla(show_T=true)
-    annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Networks.Connection1stGen4PipeSections conBld4(
     redeclare package MediumSup = MediumSte,
     redeclare package MediumRet = MediumWat,
@@ -142,27 +140,34 @@ model CoolingSystem
         "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
   Modelica.Blocks.Sources.BooleanConstant on "On signal of the plant"
-    annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
+    annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
   BoundaryConditions.WeatherData.Bus           weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=8)
-    annotation (Placement(transformation(extent={{120,20},{140,40}})));
-  Modelica.Blocks.Math.Gain gai(final k=-1)
-    "Multiplier to convert cooling load to negative"
-    annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
+  BaseClasses.BuildingTimeSeriesCooling bld1
+    annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
+  BaseClasses.BuildingTimeSeriesCooling bld2
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
+  BaseClasses.BuildingTimeSeriesCooling bld3
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+  BaseClasses.BuildingTimeSeriesCooling bld4
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+  BaseClasses.BuildingTimeSeriesCooling bld5
+    annotation (Placement(transformation(extent={{20,100},{40,120}})));
+  BaseClasses.BuildingTimeSeriesCooling bld6
+    annotation (Placement(transformation(extent={{20,70},{40,90}})));
+  BaseClasses.BuildingTimeSeriesCooling bld7
+    annotation (Placement(transformation(extent={{20,20},{40,40}})));
+  BaseClasses.BuildingTimeSeriesCooling bld8
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+  CentralPlants.Cooling.Plant plant
+    annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 equation
   connect(conPla.port_bDisSup,conBld8. port_aDisSup)
     annotation (Line(points={{0,-70},{90,-70},{90,-16}},     color={0,127,255}));
-  connect(pla.port_b,conPla. port_aDisSup)
-    annotation (Line(points={{-40,-75},{-30,-75},{-30,-70},{-20,-70}},
-                                                     color={0,127,255}));
   connect(conPla.port_bCon,conBld4. port_aDisSup)
     annotation (Line(points={{-10,-60},{-10,-16}},  color={0,127,255}));
   connect(conPla.port_aCon,conBld4. port_bDisRet)
     annotation (Line(points={{-4,-60},{-4,-16}},    color={0,127,255}));
-  connect(pla.port_a,conPla. port_bDisRet)
-    annotation (Line(points={{-40,-65},{-30,-65},{-30,-76},{-20,-76}},
-                                                     color={0,127,255}));
   connect(conPla.port_aDisRet,conBld8. port_bDisRet)
     annotation (Line(points={{0,-76},{96,-76},{96,-16}},     color={0,127,255}));
   connect(conBld4.port_bCon,bld4. port_a)
@@ -224,30 +229,14 @@ equation
       points={{-90,-100},{-80,-100},{-80,-78},{-62,-78}},
       color={255,204,51},
       thickness=0.5));
-  connect(on.y, pla.on) annotation (Line(points={{-99,-10},{-94,-10},{-94,-20},
-          {-70,-20},{-70,-62},{-62,-62}}, color={255,0,255}));
-  connect(bld5.Q_flow, mulSum.u[1]) annotation (Line(points={{41,118},{112,118},
-          {112,31.75},{118,31.75}}, color={0,0,127}));
-  connect(bld6.Q_flow, mulSum.u[2]) annotation (Line(points={{41,88},{112,88},{
-          112,31.25},{118,31.25}}, color={0,0,127}));
-  connect(bld7.Q_flow, mulSum.u[3]) annotation (Line(points={{41,38},{112,38},{
-          112,31},{118,31},{118,30.75}}, color={0,0,127}));
-  connect(bld8.Q_flow, mulSum.u[4]) annotation (Line(points={{41,8},{112,8},{
-          112,30.25},{118,30.25}}, color={0,0,127}));
-  connect(bld1.Q_flow, mulSum.u[5]) annotation (Line(points={{-59,118},{12,118},
-          {12,50},{112,50},{112,31.5},{118,31.5},{118,29.75}}, color={0,0,127}));
-  connect(bld2.Q_flow, mulSum.u[6]) annotation (Line(points={{-59,88},{12,88},{
-          12,50},{112,50},{112,31.5},{118,31.5},{118,29.25}}, color={0,0,127}));
-  connect(bld3.Q_flow, mulSum.u[7]) annotation (Line(points={{-59,38},{12,38},{
-          12,50},{112,50},{112,31.5},{118,31.5},{118,28.75}}, color={0,0,127}));
-  connect(bld4.Q_flow, mulSum.u[8]) annotation (Line(points={{-59,8},{12,8},{12,
-          50},{112,50},{112,31.5},{118,31.5},{118,28.25}}, color={0,0,127}));
-  connect(bld5.dp, pla.dpMea) annotation (Line(points={{41,114},{46,114},{46,
-          126},{-130,126},{-130,-72.8},{-62,-72.8}}, color={0,0,127}));
-  connect(mulSum.y, gai.u) annotation (Line(points={{142,30},{142,-34},{-126,
-          -34},{-126,-50},{-122,-50}}, color={0,0,127}));
-  connect(gai.y, pla.QLoa) annotation (Line(points={{-99,-50},{-80,-50},{-80,
-          -67.4},{-62,-67.4}}, color={0,0,127}));
+  connect(on.y, pla.on) annotation (Line(points={{-99,-50},{-80,-50},{-80,-62},
+          {-62,-62}}, color={255,0,255}));
+  connect(plant.dpMea, bld5.dp) annotation (Line(points={{-62,-70},{-130,-70},{
+          -130,128},{50,128},{50,114},{41,114}}, color={0,0,127}));
+  connect(conPla.port_bDisRet, plant.port_a) annotation (Line(points={{-20,-76},
+          {-30,-76},{-30,-65},{-40,-65}}, color={0,127,255}));
+  connect(plant.port_b, conPla.port_aDisSup) annotation (Line(points={{-40,-75},
+          {-32,-75},{-32,-70},{-20,-70}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-150,-150},{150,
             150}})));

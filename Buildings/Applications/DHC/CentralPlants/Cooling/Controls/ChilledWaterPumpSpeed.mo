@@ -4,7 +4,8 @@ model ChilledWaterPumpSpeed
 
   parameter Integer numPum(min=1, max=2)=2 "Number of chilled water pumps, maximum is 2";
 
-  parameter Modelica.SIunits.PressureDifference dpSetPoi "Pressure difference setpoint";
+  parameter Modelica.SIunits.PressureDifference dpSetPoi(displayUnit="Pa")
+    "Pressure difference setpoint";
 
   parameter Modelica.SIunits.Time tWai "Waiting time";
 
@@ -36,7 +37,7 @@ model ChilledWaterPumpSpeed
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
 
   Modelica.Blocks.Interfaces.RealInput dpMea(
-    final unit="bar")
+    final unit="Pa")
     "Measured pressure difference"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
 
