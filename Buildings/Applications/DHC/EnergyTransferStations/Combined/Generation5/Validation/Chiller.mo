@@ -11,14 +11,14 @@ model Chiller
     0.9 * datChi.mEva_flow_nominal
     "Nominal chilled water mass flow rate";
   parameter Fluid.Chillers.Data.ElectricEIR.Generic datChi(
-    QEva_flow_nominal=-1E6,
+    QEva_flow_nominal=-1e6,
     COP_nominal=3,
     PLRMax=1,
     PLRMinUnl=0.3,
     PLRMin=0.3,
     etaMotor=1,
-    mEva_flow_nominal=30,
-    mCon_flow_nominal=30,
+    mEva_flow_nominal=1e6 / 5 / 4186,
+    mCon_flow_nominal=1e6 * (1 + 1/3) / 5 / 4186,
     TEvaLvg_nominal=280.15,
     capFunT={1,0,0,0,0,0},
     EIRFunT={1,0,0,0,0,0},
@@ -102,8 +102,7 @@ model Chiller
     duration=500,
     startTime=6000) "Heating load ramp (fractional)"
     annotation (Placement(transformation(extent={{-270,70},{-250,90}})));
-  Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Chiller
-                          ets(
+  EnergyTransferStations.Combined.Generation5.Chiller ets(
     redeclare final package MediumBui = Medium,
     redeclare final package MediumDis = Medium,
     QChiWat_flow_nominal=datChi.QEva_flow_nominal,
@@ -111,10 +110,10 @@ model Chiller
     dp1Hex_nominal=20E3,
     dp2Hex_nominal=20E3,
     QHex_flow_nominal=-datChi.QEva_flow_nominal,
-    T_a1Hex_nominal=281.15,
+    T_a1Hex_nominal=282.15,
     T_b1Hex_nominal=277.15,
     T_a2Hex_nominal=275.15,
-    T_b2Hex_nominal=279.15,
+    T_b2Hex_nominal=280.15,
     dpCon_nominal=15E3,
     dpEva_nominal=15E3,
     datChi=datChi,
@@ -135,8 +134,7 @@ model Chiller
       extent={{-10,-10},{10,10}},
       rotation=0,
       origin={-150,-140})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TDisWatSup(
-    k=10 + 273.15,
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TDisWatSup(k=9 + 273.15,
     y(final unit="K", displayUnit="degC"))
     "District water supply temperature"
     annotation (Placement(transformation(extent={{-260,-150},{-240,-130}})));

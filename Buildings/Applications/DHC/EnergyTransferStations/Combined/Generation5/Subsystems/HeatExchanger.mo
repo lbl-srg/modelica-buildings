@@ -43,13 +43,12 @@ model HeatExchanger
   parameter Real spePum2HexMin(final unit="1") = 0.1
     "Heat exchanger secondary pump minimum speed (fractional)"
     annotation (Dialog(group="Controls"));
-  final parameter Modelica.SIunits.TemperatureDifference dT1HexSet=
-    T_b1Hex_nominal - T_a1Hex_nominal
-    "Nominal deltaT on district side"
+  parameter Modelica.SIunits.TemperatureDifference dT2HexHeaSet
+    "Heat exchanger secondary side deltaT set-point in heat rejection"
     annotation (Dialog(group="Controls"));
-  final parameter Modelica.SIunits.TemperatureDifference dT2HexSet=
+  parameter Modelica.SIunits.TemperatureDifference dT2HexCooSet=
     T_b2Hex_nominal - T_a2Hex_nominal
-    "Nominal deltaT on secondary side"
+    "Heat exchanger secondary side deltaT set-point in cold rejection"
     annotation (Dialog(group="Controls"));
   parameter Real k(final unit="1/K") = 0.1
     "Gain of controller"
@@ -67,8 +66,8 @@ model HeatExchanger
     final have_val1Hex=have_val1Hex,
     final spePum1HexMin=spePum1HexMin,
     final spePum2HexMin=spePum2HexMin,
-    final dT1HexSet=dT1HexSet,
-    final dT2HexSet=dT2HexSet,
+    final dT2HexHeaSet=dT2HexHeaSet,
+    final dT2HexCooSet=dT2HexCooSet,
     final k=k,
     final Ti=Ti)
     "District heat exchanger loop controller"
@@ -245,11 +244,11 @@ equation
   connect(totPPum.y, PPum)
     annotation (Line(points={{72,0},{120,0}}, color={0,0,127}));
   connect(yValIso, conHex.yValIso) annotation (Line(points={{-120,100},{-96,100},
-          {-96,134},{-42,134}},color={0,0,127}));
+          {-96,135},{-42,135}},color={0,0,127}));
   connect(conHex.y2Hex, gai2.u) annotation (Line(points={{-18,126},{0,126},{0,
           100},{18,100}}, color={0,0,127}));
-  connect(y2Sup, conHex.y2Sup) annotation (Line(points={{-120,140},{-60,140},{
-          -60,139},{-42,139}}, color={0,0,127}));
+  connect(y2Sup, conHex.y2Sup) annotation (Line(points={{-120,140},{-60,140},{-60,
+          140},{-42,140}},     color={0,0,127}));
   annotation (
   defaultComponentName="hex",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
