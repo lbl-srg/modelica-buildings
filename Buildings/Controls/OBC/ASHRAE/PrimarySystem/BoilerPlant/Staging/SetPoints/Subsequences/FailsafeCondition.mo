@@ -58,7 +58,8 @@ protected
     "Hysteresis deadband to prevent cycling"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(final delayTime=delayEna,
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
+    final delayTime=delayEna,
     final delayOnInit=true)
     "Enable delay"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
@@ -96,7 +97,8 @@ annotation (defaultComponentName = "faiSafCon",
     preserveAspectRatio=false,
     extent={{-100,-100},{100,100}})),
   Documentation(info="<html>
-    <p>Failsafe condition used in staging up and down, implemented according to
+    <p>
+    Failsafe condition used in staging up and down, implemented according to
     the specification provided in section 5.3.3.10 1711 March 2020 Draft.
     </p>
     <p align=\"center\">
