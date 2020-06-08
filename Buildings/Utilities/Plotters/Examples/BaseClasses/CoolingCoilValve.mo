@@ -104,7 +104,6 @@ block CoolingCoilValve "Cooling coil valve position control sequence"
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID limPI(
     final reverseActing=reverseActing,
-    final controllerType=Modelica.Blocks.Types.SimpleController.PI,
     final k=k,
     final Ti = Ti,
     final yMax=1,

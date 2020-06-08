@@ -53,7 +53,6 @@ model CoolingCoilHumidifyingHeating_ClosedLoop
     yMax=1,
     reverseActing=false,
     Td=120,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     yMin=yValMin,
     k=0.5,
     Ti=60)

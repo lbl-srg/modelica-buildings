@@ -201,7 +201,6 @@ model DXCooledAirsideEconomizer
     yMin=minSpeFan,
     Ti=240,
     k=0.5,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     reverseActing=false)
     "Fan speed controller"
     annotation (Placement(transformation(extent={{80,-42},{100,-22}})));

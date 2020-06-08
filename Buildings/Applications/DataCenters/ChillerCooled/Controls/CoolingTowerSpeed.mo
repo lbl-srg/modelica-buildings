@@ -3,7 +3,7 @@ model CoolingTowerSpeed "Controller for the fan speed in cooling towers"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Modelica.Blocks.Types.SimpleController controllerType=
-    Modelica.Blocks.Types.SimpleController.PID
+    Modelica.Blocks.Types.SimpleController.PI
     "Type of controller"
     annotation(Dialog(tab="Controller"));
   parameter Real k(min=0, unit="1") = 1

@@ -22,7 +22,6 @@ block BoilerReturn "Control for boiler return"
  Buildings.Controls.OBC.CDL.Continuous.LimPID conPID(
     final k=k,
     final Ti=Ti,
-    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     reverseActing=false) "Controller for valve in boiler loop"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
