@@ -114,7 +114,6 @@ model TestCase11 "VDI 6007 Test Case 11 model"
   Controls.Continuous.LimPID conHeaCoo(
     yMin=-1,
     Td=5,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     yMax=1,
     k=0.1,
     Ti=1.2)
