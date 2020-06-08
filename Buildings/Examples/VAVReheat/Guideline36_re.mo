@@ -102,7 +102,7 @@ model Guideline36_re
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant warCooTim[numZon](
     each k=0)
     "Warm up and cool down time"
-    annotation (Placement(transformation(extent={{-240,310},{-220,330}})));
+    annotation (Placement(transformation(extent={{-240,320},{-220,340}})));
 equation
   connect(fanSup.port_b, dpDisSupFan.port_a) annotation (Line(
       points={{320,-40},{320,0},{320,-10},{320,-10}},
@@ -447,11 +447,11 @@ equation
   connect(zonSta.TZon, zonOutAirSet.TZon) annotation (Line(points={{-202,273},{
           -204,273},{-204,660},{210,660},{210,590},{218,590}},
                                                           color={0,0,127}));
-  connect(warCooTim.y, zonSta.cooDowTim) annotation (Line(points={{-218,320},{
-          -208,320},{-208,285},{-202,285}},
+  connect(warCooTim.y, zonSta.cooDowTim) annotation (Line(points={{-218,330},{
+          -208,330},{-208,285},{-202,285}},
                                        color={0,0,127}));
-  connect(warCooTim.y, zonSta.warUpTim) annotation (Line(points={{-218,320},{
-          -208,320},{-208,283},{-202,283}},
+  connect(warCooTim.y, zonSta.warUpTim) annotation (Line(points={{-218,330},{
+          -208,330},{-208,283},{-202,283}},
                                        color={0,0,127}));
   connect(modSetPoi.TZonCooSet, conVAVCor.TZonCooSet) annotation (Line(points={
           {-78,283},{-40,283},{-40,200},{480,200},{480,50},{528,50}}, color={0,

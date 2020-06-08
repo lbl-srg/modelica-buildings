@@ -5,7 +5,7 @@ block ZoneGroupStatus "Block that outputs the zone group status"
 
   CDL.Continuous.MultiMax mulMax1(nin=numZon)
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
-  CDL.Continuous.MultiMin mulMin1(nin=numZon)
+  CDL.Continuous.MultiMax mulMax4(nin=numZon)
     annotation (Placement(transformation(extent={{-10,60},{10,80}})));
   CDL.Logical.MultiOr mulOr(nu=numZon)
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
@@ -175,7 +175,7 @@ equation
                        color={0,0,127}));
   connect(mulMax1.y, yCooTim) annotation (Line(points={{12,100},{120,100}},
                     color={0,0,127}));
-  connect(mulMin1.y, yWarTim) annotation (Line(points={{12,70},{120,70}},
+  connect(mulMax4.y, yWarTim) annotation (Line(points={{12,70},{120,70}},
                     color={0,0,127}));
   connect(mulOr.y, yOccHeaHig)   annotation (Line(points={{12,40},{120,40}}, color={255,0,255}));
   connect(mulOr1.y, yHigOccCoo)  annotation (Line(points={{12,10},{120,10}}, color={255,0,255}));
@@ -211,7 +211,7 @@ equation
     annotation (Line(points={{-120,-50},{-12,-50}}, color={255,127,0}));
   connect(uHigOccCoo, mulOr1.u)
     annotation (Line(points={{-120,10},{-12,10}}, color={255,0,255}));
-  connect(uWarTim, mulMin1.u)
+  connect(uWarTim,mulMax4. u)
     annotation (Line(points={{-120,70},{-12,70}}, color={0,0,127}));
     annotation (
   defaultComponentName = "zonGroSta",
