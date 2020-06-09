@@ -168,7 +168,7 @@ model CoolingTowerWithBypass "Cooling tower system with bypass valve"
     controllerType=controllerType,
     k=k,
     Ti=Ti) "Cooling tower fan speed controller"
-    annotation (Placement(transformation(extent={{-10,50},{10,70}})));
+    annotation (Placement(transformation(extent={{-12,50},{8,70}})));
 
   Modelica.Blocks.Sources.RealExpression TLvgCooTow(y=cooTowSys.sta_b.T)
     "Condenser water temperature leaving the towers"
@@ -188,8 +188,9 @@ equation
   connect(valByp.port_a, cooTowSys.port_a) annotation (Line(points={{-10,-40},{-30,
           -40},{-30,0},{-10,0}}, color={0,127,255}));
   connect(valByp.port_b, senTCWSup.port_a) annotation (Line(points={{10,-40},{30,-40},{30,0},{60,0}}, color={0,127,255}));
-  connect(TSetCWSup.y, cooTowSpeCon.u_s) annotation (Line(points={{-39,60},{-12,60}}, color={0,0,127}));
-  connect(cooTowSpeCon.y, cooTowSys.speFan) annotation (Line(points={{11,60},{20,
+  connect(TSetCWSup.y, cooTowSpeCon.u_s) annotation (Line(points={{-39,60},{-14,
+          60}},                                                                       color={0,0,127}));
+  connect(cooTowSpeCon.y, cooTowSys.speFan) annotation (Line(points={{9,60},{20,
           60},{20,20},{-20,20},{-20,2},{-12,2}}, color={0,0,127}));
   connect(cooTowSys.PFan, PFan) annotation (Line(points={{11,6},{40,6},{40,60},{
           110,60}}, color={0,0,127}));
@@ -199,7 +200,8 @@ equation
           -20},{0,-20},{0,-28}}, color={0,0,127}));
 
   connect(TLvgCooTow.y, cooTowSpeCon.u_m)
-    annotation (Line(points={{-9,40},{0,40},{0,48}}, color={0,0,127}));
+    annotation (Line(points={{-9,40},{-2,40},{-2,48}},
+                                                     color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),           Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
