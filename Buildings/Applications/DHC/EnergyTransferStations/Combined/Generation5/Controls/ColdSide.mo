@@ -1,9 +1,30 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls;
 model ColdSide "State machine enabling production and ambient source systems"
   extends BaseClasses.HotColdSide(
-    final reverseActing=true);
+    final reverseActing=true, mulMax(nin=nCon));
   Buildings.Controls.OBC.CDL.Continuous.Max max "Max"
     annotation (Placement(transformation(extent={{-110,-90},{-90,-70}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TTopHea(final unit="K",
+      displayUnit="degC") "Temperature at top of heating water tank"
+    annotation (Placement(transformation(extent={{-220,-200},{-180,-160}}),
+        iconTransformation(extent={{-140,-110},{-100,-70}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetHea(final unit="K",
+      displayUnit="degC") "Supply temperature set-point for heating water"
+    annotation (Placement(transformation(extent={{-220,60},{-180,100}}),
+        iconTransformation(extent={{-140,-90},{-100,-50}})));
+  LimPlaySequence conPlaSeq1(
+    final nCon=nCon,
+    final hys=fill(dTHys, nCon),
+    final dea=fill(dTDea, nCon),
+    final yMin=fill(0, nCon),
+    final yMax=fill(1, nCon),
+    final controllerType=controllerType,
+    final k=k,
+    final Ti=Ti,
+    final reverseActing=true)
+    annotation (Placement(transformation(extent={{-110,-170},{-90,-150}})));
+  Buildings.Controls.OBC.CDL.Continuous.Max max1[nCon]
+    annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
 equation
   connect(max.u1, TTop) annotation (Line(points={{-112,-74},{-130,-74},{-130,-80},
           {-200,-80}},color={0,0,127}));
@@ -15,6 +36,18 @@ equation
           -140},{-100,-140},{-100,-132}},     color={0,0,127}));
   connect(TBot, errEna.u2) annotation (Line(points={{-200,-140},{-140,-140},{-140,
           20},{-100,20},{-100,28}},      color={0,0,127}));
+  connect(TSetHea, conPlaSeq1.u_s) annotation (Line(points={{-200,80},{-168,80},
+          {-168,-160},{-112,-160}}, color={0,0,127}));
+  connect(TTopHea, conPlaSeq1.u_m) annotation (Line(points={{-200,-180},{-100,
+          -180},{-100,-172}}, color={0,0,127}));
+  connect(max1.y, mulMax.u)
+    annotation (Line(points={{-38,-120},{18,-120}}, color={0,0,127}));
+  connect(max1.y, y) annotation (Line(points={{-38,-120},{36,-120},{36,-38},{
+          114,-38},{114,0},{200,0}}, color={0,0,127}));
+  connect(conPlaSeq.y, max1.u1) annotation (Line(points={{-88,-120},{-74,-120},
+          {-74,-114},{-62,-114}}, color={0,0,127}));
+  connect(conPlaSeq1.y, max1.u2) annotation (Line(points={{-88,-160},{-76,-160},
+          {-76,-130},{-62,-130},{-62,-126}}, color={0,0,127}));
   annotation (
   defaultComponentName="conCol",
 Documentation(info="<html>

@@ -1,7 +1,7 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls;
 block HotSide "State machine enabling production and ambient source systems"
   extends BaseClasses.HotColdSide(
-    final reverseActing=false);
+    final reverseActing=false, mulMax(nin=nCon));
   Buildings.Controls.OBC.CDL.Continuous.Min min
     annotation (Placement(transformation(extent={{-110,-90},{-90,-70}})));
 equation
@@ -17,6 +17,10 @@ equation
   connect(TBot, conPlaSeq.u_m) annotation (Line(points={{-200,-140},{-100,-140},
           {-100,-132}},
                       color={0,0,127}));
+  connect(conPlaSeq.y, mulMax.u) annotation (Line(points={{-88,-120},{-34,-120},
+          {-34,-120},{18,-120}}, color={0,0,127}));
+  connect(conPlaSeq.y, y) annotation (Line(points={{-88,-120},{-40,-120},{-40,
+          -80},{160,-80},{160,0},{200,0}}, color={0,0,127}));
    annotation (
    defaultComponentName="conHot",
 Documentation(info="<html>

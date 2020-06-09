@@ -331,8 +331,8 @@ equation
           56},{-262,56}}, color={255,0,255}));
   connect(uHea, conSup.uHea) annotation (Line(points={{-320,100},{-290,100},{
           -290,58},{-262,58}}, color={255,0,255}));
-  connect(valIsoEva.y_actual, chi.yValIsoEva) annotation (Line(points={{55,-113},
-          {40,-113},{40,-20},{-20,-20},{-20,-14},{-12,-14}}, color={0,0,127}));
+  connect(conSup.y[1], chi.yValIsoEva) annotation (Line(points={{-236,50},{-40,
+          50},{-40,-14},{-12,-14}}, color={0,0,127}));
 annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
         Diagram(coordinateSystem(preserveAspectRatio=false,
                   extent={{-300,-300},{300,300}}),

@@ -10,7 +10,7 @@ partial block HotColdSide "State machine enabling production and ambient source 
   parameter Modelica.SIunits.TemperatureDifference dTDea = 1
     "Temperature dead band (absolute value)";
   parameter Boolean reverseActing = false
-    "Set to true for control output decreasing with measurement value";
+    "Set to true for control output increasing with decreasing measurement value";
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType[nCon]=
     fill(Buildings.Controls.OBC.CDL.Types.SimpleController.P, nCon)
@@ -36,8 +36,7 @@ partial block HotColdSide "State machine enabling production and ambient source 
       iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TTop(
     final unit="K",
-    displayUnit="degC")
-    "Temperature at top of tank"
+    displayUnit="degC") "Temperature at top of tank"
     annotation (Placement(transformation(extent={{-220,-100},{-180,-60}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TBot(
@@ -90,7 +89,7 @@ partial block HotColdSide "State machine enabling production and ambient source 
     final Ti=Ti,
     final reverseActing=reverseActing)
     annotation (Placement(transformation(extent={{-110,-130},{-90,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax mulMax(nin=nCon)
+  Buildings.Controls.OBC.CDL.Continuous.MultiMax mulMax
     annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr
     annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
@@ -176,10 +175,6 @@ equation
     annotation (Line(points={{90,129},{90,92},{148,92}}, color={255,0,255}));
   connect(uHeaCoo, and2.u1) annotation (Line(points={{-200,180},{140,180},{140,100},
           {148,100}}, color={255,0,255}));
-  connect(conPlaSeq.y, mulMax.u)
-    annotation (Line(points={{-88,-120},{18,-120}}, color={0,0,127}));
-  connect(conPlaSeq.y, y) annotation (Line(points={{-88,-120},{0,-120},{0,-100},
-          {160,-100},{160,0},{200,0}}, color={0,0,127}));
    annotation (
  Documentation(info="<html>
 

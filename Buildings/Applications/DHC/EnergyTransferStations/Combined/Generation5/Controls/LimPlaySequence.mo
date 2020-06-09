@@ -28,7 +28,7 @@ block LimPlaySequence "Play hysteresis controllers in sequence"
       controllerType[i] == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
       for i in 1:nCon})));
   parameter Boolean reverseActing = false
-    "Set to true for control output decreasing with measurement value";
+    "Set to true for control output increasing with decreasing measurement value";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_s
     "Connector of setpoint input signal"

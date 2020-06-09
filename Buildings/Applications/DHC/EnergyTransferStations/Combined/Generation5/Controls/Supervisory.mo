@@ -14,8 +14,7 @@ model Supervisory "Energy transfer station supervisory controller"
     "Type of controller";
   parameter Real k[nCon](each min=0) = fill(1, nCon)
     "Gain of controller";
-  parameter Modelica.SIunits.Time Ti[nCon](
-    each min=Buildings.Controls.OBC.CDL.Constants.small) = fill(0.5, nCon)
+  parameter Modelica.SIunits.Time Ti[nCon]=fill(60, nCon)
     "Time constant of integrator block"
     annotation (Dialog(enable=Modelica.Math.BooleanVectors.anyTrue({
       controllerType[i] == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
@@ -133,6 +132,10 @@ equation
           {-16,58},{-12,58}}, color={255,0,255}));
   connect(uCoo, conColSid.uHeaCoo) annotation (Line(points={{-140,90},{-20,90},{
           -20,-62},{-12,-62}}, color={255,0,255}));
+  connect(THeaWatSupSet, conColSid.TSetHea) annotation (Line(points={{-140,40},
+          {-76,40},{-76,-77},{-12,-77}}, color={0,0,127}));
+  connect(THeaWatTop, conColSid.TTopHea) annotation (Line(points={{-140,20},{
+          -76,20},{-76,-79},{-12,-79}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
         defaultComponentName="conSup",

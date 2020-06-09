@@ -22,7 +22,7 @@ block LimPlay "Play hysteresis controller with limited output"
   parameter Real hys
     "Hysteresis (full width, absolute value)";
   parameter Boolean reverseActing = false
-    "Set to true for control output decreasing with measurement value";
+    "Set to true for control output increasing with decreasing measurement value";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_s
     "Connector of setpoint input signal"
