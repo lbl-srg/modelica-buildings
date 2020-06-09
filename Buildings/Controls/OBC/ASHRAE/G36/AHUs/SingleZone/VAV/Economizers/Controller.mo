@@ -321,8 +321,7 @@ protected
     "Ignore max evaluation if there is no TMix sensor"
     annotation (Placement(transformation(extent={{60,46},{80,66}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta(
-    final k=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeProtectionStages.stage0)
-    if                                                                                    not use_G36FrePro
+    final k=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeProtectionStages.stage0) if     not use_G36FrePro
     "Freeze protection status is 0. Used if G36 freeze protection is not implemented"
     annotation (Placement(transformation(extent={{-140,-150},{-120,-130}})));
 

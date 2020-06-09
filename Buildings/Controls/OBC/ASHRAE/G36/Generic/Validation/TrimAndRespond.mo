@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.G36.Generic.SetPoints.Validation;
+within Buildings.Controls.OBC.ASHRAE.G36.Generic.Validation;
 model TrimAndRespond "Model validates the trim and respond block"
   Buildings.Controls.OBC.ASHRAE.G36.Generic.TrimAndRespond trimRespondLogic(
     final iniSet=120,
@@ -118,7 +118,7 @@ equation
     annotation (Line(points={{42,50},{60,50},{60,12},{68,12}}, color={255,127,0}));
 
 annotation (experiment(StopTime=7200.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Generic/SetPoints/Validation/TrimAndRespond.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Generic/Validation/TrimAndRespond.mos"
     "Simulate and plot"),
     Documentation(info="<html>
 <p>

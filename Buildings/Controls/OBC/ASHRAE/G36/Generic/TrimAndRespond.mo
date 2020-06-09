@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.G36.Generic.SetPoints;
+within Buildings.Controls.OBC.ASHRAE.G36.Generic;
 block TrimAndRespond "Block to inplement trim and respond logic"
   parameter Real iniSet  "Initial setpoint";
   parameter Real minSet  "Minimum setpoint";

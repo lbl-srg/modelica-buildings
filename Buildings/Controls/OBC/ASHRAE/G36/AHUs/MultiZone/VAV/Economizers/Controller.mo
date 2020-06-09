@@ -247,8 +247,7 @@ protected
     "Ignore min evaluation if there is no mixed air temperature sensor"
     annotation (Placement(transformation(extent={{80,-56},{100,-36}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta(
-    final k=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeProtectionStages.stage0)
-    if                                                                                    not use_G36FrePro
+    final k=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeProtectionStages.stage0) if     not use_G36FrePro
     "Freeze protection status is 0. Use if G36 freeze protection is not implemented"
     annotation (Placement(transformation(extent={{-140,-140},{-120,-120}})));
 
