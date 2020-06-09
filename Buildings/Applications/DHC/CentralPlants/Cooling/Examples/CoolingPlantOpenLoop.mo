@@ -62,7 +62,6 @@ model CoolingPlantOpenLoop
     dpCHWPum_nominal=dpCHWPum_nominal,
     dpCWPum_nominal=dpCWPum_nominal,
     tWai=tWai,
-    TCHWSet=TCHWSet,
     dpSetPoi=dpSetPoi,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "District cooling plant"
@@ -75,9 +74,9 @@ model CoolingPlantOpenLoop
     final computeWetBulbTemperature=true,
     filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     "Weather data"
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
-    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
+    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
   Modelica.Blocks.Sources.BooleanConstant on "On signal of the plant"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Modelica.Blocks.Sources.Ramp dpMea(
@@ -85,26 +84,32 @@ model CoolingPlantOpenLoop
     height=0.4*dpSetPoi,
     startTime=21600,
     duration=21600) "Measured pressure difference"
-    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
+    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Buildings.Fluid.Sources.MassFlowSource_T watSou(
     redeclare package Medium = Medium,
-    m_flow=mCHW_flow_nominal,
+    m_flow=pla.numChi*mCHW_flow_nominal,
     T=291.15,
     nPorts=1) "Water source"
     annotation (Placement(transformation(extent={{60,10},{40,30}})));
   Buildings.Fluid.FixedResistances.PressureDrop res(
     dp_nominal=6000,
     redeclare package Medium = Medium,
-    m_flow_nominal=mCHW_flow_nominal) "Flow resistance"
+    m_flow_nominal=pla.numChi*mCHW_flow_nominal)
+    "Flow resistance"
     annotation (Placement(transformation(extent={{12,-30},{32,-10}})));
+  Modelica.Blocks.Sources.Constant TCHWSupSet(k=TCHWSet)
+    "Chilled water supply temperature setpoint"
+    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
+
 equation
   connect(weaDat.weaBus, weaBus) annotation (Line(
-      points={{-60,-30},{-50,-30}},
+      points={{-60,-50},{-50,-50}},
       color={255,204,51},
       thickness=0.5));
-  connect(dpMea.y, pla.dpMea) annotation (Line(points={{-39,10},{-22,10}}, color={0,0,127}));
+  connect(dpMea.y, pla.dpMea) annotation (Line(points={{-39,-10},{-32,-10},{-32,
+          7},{-22,7}},                                                     color={0,0,127}));
   connect(weaBus.TWetBul, pla.TWetBul) annotation (Line(
-      points={{-50,-30},{-30,-30},{-30,2},{-22,2}},
+      points={{-50,-50},{-30,-50},{-30,2},{-22,2}},
       color={255,204,51},
       thickness=0.5));
   connect(on.y, pla.on) annotation (Line(points={{-39,50},{-30,50},{-30,18},{-22,
@@ -114,6 +119,8 @@ equation
   connect(pla.port_b, res.port_a) annotation (Line(points={{0,5},{8,5},{8,-20},{
           12,-20}}, color={0,127,255}));
   connect(res.port_b, watSin.ports[1]) annotation (Line(points={{32,-20},{42,-20}}, color={0,127,255}));
+  connect(TCHWSupSet.y, pla.TCHWSupSet) annotation (Line(points={{-39,20},{-32,20},
+          {-32,13},{-22,13}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=86400, Tolerance=1e-06),
