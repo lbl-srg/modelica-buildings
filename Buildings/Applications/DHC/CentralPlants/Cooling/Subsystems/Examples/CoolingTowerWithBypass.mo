@@ -120,7 +120,7 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(weaBus.TWetBul, cooTowPar.TWetBul) annotation (Line(
-      points={{-70,90},{-70,30},{-10,30},{-10,46},{-2,46}},
+      points={{-70,90},{-70,30},{-10,30},{-10,48},{-2,48}},
       color={255,204,51},
       thickness=0.5));
   connect(cooTowPar.port_b, senTCWLvg.port_a)  annotation (Line(points={{20,50},{30,50}}, color={0,127,255}));
