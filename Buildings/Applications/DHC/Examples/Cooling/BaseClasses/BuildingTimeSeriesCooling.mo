@@ -14,25 +14,25 @@ model BuildingTimeSeriesCooling
   // ets parameters
   parameter Modelica.SIunits.Temperature TSetDisRet = 273.15+16
     "Minimum setpoint temperature for district return"
-    annotation (Dialog(group="Energy Transfer Station"));
+    annotation (Dialog(group="Energy transfer station"));
 
   parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal(
     final min=0,
     final start=0.5)
     "Nominal mass flow rate of district cooling side"
-    annotation (Dialog(group="Energy Transfer Station"));
+    annotation (Dialog(group="Energy transfer station"));
 
   parameter Modelica.SIunits.MassFlowRate mBui_flow_nominal(
     final min=0,
     final start=0.5)=Q_flow_nominal/(cp*(7 - 18))
     "Nominal mass flow rate of building cooling side"
-    annotation (Dialog(group="Energy Transfer Station"));
+    annotation (Dialog(group="Energy transfer station"));
 
   parameter Modelica.SIunits.MassFlowRate mByp_flow_nominal(
     final min=0,
     final start=0.5)
     "Nominal mass flow rate through the bypass segment"
-    annotation (Dialog(group="Energy Transfer Station"));
+    annotation (Dialog(group="Energy transfer station"));
 
   parameter Modelica.SIunits.Time tau = 30
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
@@ -172,6 +172,7 @@ model BuildingTimeSeriesCooling
   Modelica.Blocks.Math.Gain heaGai(k=-1)
     "Multiplier for calculating heat gain of the volume"
     annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
+
 protected
   parameter Modelica.SIunits.SpecificHeatCapacity cp=
    Medium.specificHeatCapacityCp(
@@ -262,7 +263,5 @@ equation
           extent={{-149,-114},{151,-154}},
           lineColor={0,0,255},
           textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Applications/DHC/Examples/Cooling/BaseClasses/BuildingTimeSeriesCooling.mos"
-        "Simulate and Plot"));
+    __Dymola_Commands);
 end BuildingTimeSeriesCooling;

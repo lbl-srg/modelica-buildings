@@ -13,6 +13,9 @@ model BuildingTimeSeriesCooling
   parameter Modelica.SIunits.Power Q_flow_nominal=-50E3
     "Nominal heat flow rate, negative";
 
+  parameter Modelica.SIunits.Power QCooLoa[:, :]= [0, -20E3; 6, -30E3; 12, -50E3; 18, -30E3; 24, -20E3]
+    "Cooling load table matrix, negative";
+
 
   Buildings.Applications.DHC.Examples.Cooling.BaseClasses.BuildingTimeSeriesCooling
     bui(
@@ -21,7 +24,8 @@ model BuildingTimeSeriesCooling
     TSetDisRet(displayUnit="K"),
     mDis_flow_nominal=0.5,
     mByp_flow_nominal=0.01,
-    tableOnFile=false)   "Building model"
+    tableOnFile=false,
+    QCooLoa=QCooLoa)     "Building model"
     annotation (Placement(transformation(extent={{-40,-8},{-20,12}})));
 
   Buildings.Fluid.Sources.Boundary_pT watSin(
@@ -46,5 +50,8 @@ equation
   connect(bui.port_b, watSin.ports[1]) annotation (Line(points={{-20,2},{-12,2},
           {-12,30},{40,30}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Applications/DHC/Examples/Cooling/BaseClasses/BuildingTimeSeriesCooling.mos"
+        "Simulate and Plot"));
 end BuildingTimeSeriesCooling;
