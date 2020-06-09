@@ -1384,6 +1384,10 @@ shall prevail in order from highest to lowest priority.</p>
 </html>", revisions="<html>
 <ul>
 <li>
+June 3, 2020, by Jianjun Hu:<br/>
+Upgraded according to G36 official release.
+</li>
+<li>
 October 11, 2017, by Michael Wetter:<br/>
 Removed wrong conditional on <code>yAla</code>.
 </li>

@@ -380,6 +380,10 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Generic/Trim
 </html>", revisions="<html>
 <ul>
 <li>
+June 3, 2020, by Jianjun Hu:<br/>
+Upgraded according to G36 official release.
+</li>
+<li>
 April 13, 2020, by Jianjun Hu:<br/>
 Corrected to delay the true initial device status.
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1876\">#1876</a>.
