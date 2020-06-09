@@ -36,7 +36,6 @@ model HeatingOnly
   Buildings.Controls.Continuous.LimPID conPID(
     yMax=0.094,
     Td=0,
-    reverseActing=true,
     Ti=100,
     k=0.1) "Controller"
          annotation (Placement(transformation(extent={{-70,-20},{-50,0}})));
