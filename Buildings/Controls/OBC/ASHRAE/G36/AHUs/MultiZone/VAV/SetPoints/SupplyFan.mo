@@ -105,7 +105,7 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
     annotation (Placement(transformation(extent={{140,-120},{180,-80}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.Generic.SetPoints.TrimAndRespond staPreSetRes(
+  Buildings.Controls.OBC.ASHRAE.G36.Generic.TrimAndRespond staPreSetRes(
     final iniSet=iniSet,
     final minSet=minSet,
     final maxSet=maxSet,

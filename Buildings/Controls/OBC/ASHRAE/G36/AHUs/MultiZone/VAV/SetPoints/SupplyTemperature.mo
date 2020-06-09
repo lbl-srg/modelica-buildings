@@ -124,7 +124,7 @@ block SupplyTemperature
     annotation (Placement(transformation(extent={{140,-20},{180,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.Generic.SetPoints.TrimAndRespond maxSupTemRes(
+  Buildings.Controls.OBC.ASHRAE.G36.Generic.TrimAndRespond maxSupTemRes(
     final delTim=delTim,
     final iniSet=iniSet,
     final minSet=minSet,

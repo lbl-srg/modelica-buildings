@@ -725,19 +725,84 @@ according to operation modes")}),
           textString="VOccDisMin_flow")}),
 Documentation(info="<html>
 <p>
-This atomic sequence sets the active maximum and minimum setpoints <code>VActCooMax_flow</code>,
+This sequence sets the active maximum and minimum setpoints <code>VActCooMax_flow</code>,
 <code>VActCooMin_flow</code>, <code>VActMin_flow</code>, <code>VActHeaMin_flow</code>,
 <code>VActHeaMax_flow</code> for VAV reheat terminal unit according to ASHRAE
-Guideline 36 (G36), PART 5.E.3-5.
+Guideline 36, section 3.1.1.3, section 3.1.2.2, section 5.2.1.3(e), section 5.2.1.4(c),
+section 5.6.3, and section 5.6.4.
 </p>
-<h4>1. Information provided by designer</h4>
-<p>According to G36 PART 3.1.B.2, following VAV box design information should be
+<h4>1. VAV box design information</h4>
+<p>According to G36 section 3.1.2.2, following VAV box design information should be
 provided:</p>
 <ul>
 <li>Zone maximum cooling airflow setpoint <code>VDisCooSetMax_flow</code></li>
 <li>Zone minimum airflow setpoint <code>VDisSetMin_flow</code></li>
 <li>Zone maximum heating airflow setpoint <code>VDisHeaSetMax_flow</code></li>
+<li>The heating minimum airflow setpoint <code>VDisHeaSetMin_flow</code></li>
 </ul>
+<p>
+<code>VDisHeaSetMin_flow</code> is the minimum airflow required for reheat coil
+operation, as is often required for electric resistance coils. It should be as low
+as possible for best efficiency. For reheat coils with no minimum flow requirement,
+such as hot-water coils, <code>VDisHeaSetMin_flow</code> should be zero.
+</p>
+
+<h4>2. Occupied minimum airflow <code>VOccDisMin_flow</code></h4>
+<p>
+<b>For compliance with the Ventilation Rate Procedure of ASHRAE Standard 62.1-2016,</b>
+according to section 5.2.1.3(e), the occupied minimum airflow <code>VOccDisMin_flow</code>
+shall equal to zone minimum airflow setpoint <code>VDisSetMin_flow</code> except
+as below. In order from higher to lower priority:
+</p>
+<ul>
+<li>
+If the zone is in any mode other than occupied mode, and for zones that have
+window switches and the window is open, <code>VOccDisMin_flow</code> should be zero.
+</li>
+<li>
+If the zone has an occupancy sensor, is unpopulated, and occupied-standby mode is
+permitted, <code>VOccDisMin_flow</code> should be zero.
+</li>
+<li>
+Else, if the zone has an occupancy sensor, is unpopulated, and occupied-standby
+mode is not permitted, <code>VOccDisMin_flow</code> should equal to
+<code>VDisSetMin_flow</code>.
+</li>
+<li>
+If the zone has a CO2 sensor:
+<ol>
+<li>
+According to section 3.1.1.3, design engineer provide zone CO2 setpoints. 
+</li>
+<li>
+During occupied mode, a P-only loop shall maintain CO2 concentration at setpoint;
+reset from 0% at setpoint minus 200 PPM and to 10% at setpoint.
+</li>
+<li>
+Loop is disabled and output set to zero when the zone is not in occupied mode.
+</li>
+<li>
+The CO2 control loop shall reset the occupied minimum airflow setpoint <code>VOccDisMin_flow</code>
+from the zone minimum airflow setpoint <code>VDisSetMin_flow</code> at 0% loop
+output up to maximum cooling airflow setpoint <code>VDisCooSetMax_flow</code> at
+100% loop output.
+</li>
+</ol>
+</li>
+</ul>
+
+<p>
+<b>For compliance with California Title 24,</b> according to section 5.2.1.4(c),
+the occupied minimum airflow <code>VOccDisMin_flow</code> shall equal to zone
+minimum airflow setpoint <code>VDisSetMin_flow</code> except as below. In order
+from higher to lower priority:
+</p>
+
+
+
+
+
+
 
 <h4>2. Occupied minimum airflow <code>VOccDisMin_flow</code></h4>
 <p>The <code>VOccDisMin_flow</code> shall be equal to zone minimum airflow setpoint

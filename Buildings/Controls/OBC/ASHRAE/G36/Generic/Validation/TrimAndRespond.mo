@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Generic.SetPoints.Validation;
 model TrimAndRespond "Model validates the trim and respond block"
-  Buildings.Controls.OBC.ASHRAE.G36.Generic.SetPoints.TrimAndRespond trimRespondLogic(
+  Buildings.Controls.OBC.ASHRAE.G36.Generic.TrimAndRespond trimRespondLogic(
     final iniSet=120,
     final minSet=37,
     final maxSet=370,
@@ -11,7 +11,7 @@ model TrimAndRespond "Model validates the trim and respond block"
     final resAmo=15,
     final maxRes=37) "Block implementing trim and respond logic"
     annotation (Placement(transformation(extent={{70,60},{90,80}})));
-  Buildings.Controls.OBC.ASHRAE.G36.Generic.SetPoints.TrimAndRespond trimRespondLogic1(
+  Buildings.Controls.OBC.ASHRAE.G36.Generic.TrimAndRespond trimRespondLogic1(
     final iniSet=120,
     final minSet=37,
     final maxSet=370,
@@ -22,7 +22,7 @@ model TrimAndRespond "Model validates the trim and respond block"
     final resAmo=-15,
     final maxRes=-37) "Block implementing trim and respond logic"
     annotation (Placement(transformation(extent={{70,10},{90,30}})));
-  Buildings.Controls.OBC.ASHRAE.G36.Generic.SetPoints.TrimAndRespond trimRespondLogic2(
+  Buildings.Controls.OBC.ASHRAE.G36.Generic.TrimAndRespond trimRespondLogic2(
     final iniSet=120,
     final minSet=37,
     final maxSet=370,
@@ -123,8 +123,8 @@ annotation (experiment(StopTime=7200.0, Tolerance=1e-06),
     Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Generic.SetPoints.TrimAndRespond\">
-Buildings.Controls.OBC.ASHRAE.G36.Generic.SetPoints.TrimAndRespond</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Generic.TrimAndRespond\">
+Buildings.Controls.OBC.ASHRAE.G36.Generic.TrimAndRespond</a>.
 </p>
 </html>", revisions="<html>
 <ul>
