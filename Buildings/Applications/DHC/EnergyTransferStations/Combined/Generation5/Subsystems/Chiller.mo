@@ -56,8 +56,8 @@ model Chiller "Base subsystem with heat recovery chiller"
     "Cooling mode enabled signal"
     annotation (Placement(transformation(extent={{-240,130},{-200,170}}),
       iconTransformation(extent={{-140,-10},{-100,30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupPreSet(final unit=
-        "K", displayUnit="degC")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupPreSet(
+    final unit="K", displayUnit="degC")
     "Chilled water supply temperature set-point (may be reset down)"
     annotation (Placement(transformation(extent={{-240,70},{-200,110}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
@@ -94,14 +94,18 @@ model Chiller "Base subsystem with heat recovery chiller"
     "Fluid port for heating water supply"
     annotation (Placement(transformation(extent={{-210,50},{-190,70}}),
       iconTransformation(extent={{-110,50},{-90,70}})));
-  Modelica.Blocks.Interfaces.RealOutput PChi(final quantity="Power", unit="W")
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PChi(final unit="W")
     "Chiller power"
     annotation (Placement(transformation(extent={{200,-20},{240,
-      20}}), iconTransformation(extent={{100,20},{120,40}})));
-  Modelica.Blocks.Interfaces.RealOutput PPum(final quantity="Power", unit="W")
+      20}}), iconTransformation(extent={{100,-20},{140,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PPum(final unit="W")
     "Pump power"
     annotation (Placement(transformation(extent={{200,-160},{240,-120}}),
-      iconTransformation(extent={{100,-40},{120,-20}})));
+      iconTransformation(extent={{100,-60},{140,-20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatSupSet(
+    final unit="K", displayUnit="degC") "Chilled water supply temperature set-point"
+    annotation (Placement(transformation(extent={{200,120},{240,160}}),
+        iconTransformation(extent={{100,20},{140,60}})));
   // COMPONENTS
   Fluid.Chillers.ElectricEIR chi(
     redeclare final package Medium1 = Medium,
@@ -308,6 +312,8 @@ equation
     annotation (Line(points={{-100,102},{-100,72}}, color={0,0,127}));
   connect(booToRea.y, gai1.u) annotation (Line(points={{-82,180},{-100,180},{-100,
           126}}, color={0,0,127}));
+  connect(con.TChiWatSupSet, TChiWatSupSet) annotation (Line(points={{-48,144},{
+          -20,144},{-20,140},{220,140}}, color={0,0,127}));
 annotation (
   defaultComponentName="chi",
   Documentation(info="<html>

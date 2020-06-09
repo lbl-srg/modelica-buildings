@@ -7,9 +7,7 @@ model LimPlay "Validation of play hysteresis controller"
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     yMax=1,
     yMin=0,
-    Ti=5,
-    uLow=-1,
-    uHigh=1) "Play hysteresis with P control, direct acting"
+    hys=2) "Play hysteresis with P control, direct acting"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.TimeTable u_m(table=[0,0; 1,10; 2,10; 3,0])
     "Measurement values"
@@ -21,9 +19,7 @@ model LimPlay "Validation of play hysteresis controller"
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     yMax=1,
     yMin=0,
-    Ti=5,
-    uLow=-1,
-    uHigh=1,
+    hys=2,
     reverseActing=true) "Play hysteresis with P control, reverse acting"
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
   Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.LimPlay
@@ -31,9 +27,8 @@ model LimPlay "Validation of play hysteresis controller"
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     yMax=1,
     yMin=0,
-    Ti=5,
-    uLow=-1,
-    uHigh=1) "Play hysteresis with PI control, direct acting"
+    Ti=0.1,
+    hys=2) "Play hysteresis with PI control, direct acting"
     annotation (Placement(transformation(extent={{70,30},{90,50}})));
 equation
   connect(u_s.y,conPlaDirP. u_s)

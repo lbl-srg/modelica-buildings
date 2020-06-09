@@ -57,10 +57,18 @@ model HeatExchanger
     "Time constant of integrator block"
     annotation (Dialog(group="Controls"));
   // IO CONNECTORS
-  Modelica.Blocks.Interfaces.RealOutput PPum(final unit="W")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIso[2]
+    "Isolation valves return position (fractional)"
+    annotation (Placement(transformation(extent={{-140,80},{-100,120}}),
+      iconTransformation(extent={{-140,-40},{-100,0}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput y2Sup
+    "Control signal for secondary side (from supervisory)" annotation (
+      Placement(transformation(extent={{-140,120},{-100,160}}),
+        iconTransformation(extent={{-140,0},{-100,40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PPum(final unit="W")
     "Power drawn by pump motors"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+      iconTransformation(extent={{100,-20},{140,20}})));
   // COMPONENTS
   Controls.HeatExchanger conHex(
     final have_val1Hex=have_val1Hex,
@@ -167,14 +175,6 @@ model HeatExchanger
     final nin=if have_val1Hex then 1 else 2)
     "Total pump power"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIso[2]
-    "Isolation valves return position (fractional)"
-    annotation (Placement(transformation(extent={{-140,80},{-100,120}}),
-      iconTransformation(extent={{-140,-40},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput y2Sup
-    "Control signal for secondary side (from supervisory)" annotation (
-      Placement(transformation(extent={{-140,120},{-100,160}}),
-        iconTransformation(extent={{-140,0},{-100,40}})));
 protected
   final parameter Medium1.ThermodynamicState sta1_default = Medium1.setState_pTX(
     T=Medium1.T_default,

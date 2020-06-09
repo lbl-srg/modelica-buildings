@@ -73,5 +73,10 @@ plotExpression(apply( -Chiller.loaHea.Q_flow), false, "-loaHea.Q_flow", 4);
 createPlot(
     id=5,
     position={35, 35, 592, 372},
-    y={"ets.chi.senTConEnt.T", "ets.chi.senTConLvg.T", "ets.chi.senTEvaEnt.T",  "ets.chi.senTEvaLvg.T"},
+    y={"ets.chi.senTConEnt.T", "ets.chi.senTConLvg.T", "ets.chi.senTEvaEnt.T",  "ets.chi.senTEvaLvg.T", "ets.chi.THeaWatSupSet", "ets.chi.chi.TSet"},
     grid=true);
+createPlot(
+    id=5,
+    y={"ets.chi.chi.COP"},
+    grid=true,
+    subPlot=2);

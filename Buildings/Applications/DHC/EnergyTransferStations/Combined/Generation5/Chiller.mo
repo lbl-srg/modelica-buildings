@@ -140,13 +140,15 @@ model Chiller
   Fluid.Actuators.Valves.TwoWayLinear valIsoEva(
     redeclare final package Medium = MediumBui,
     final dpValve_nominal=dpValIso_nominal,
-    final m_flow_nominal=colAmbWat.mDis_flow_nominal)
+    final m_flow_nominal=colAmbWat.mDis_flow_nominal,
+    use_inputFilter=false)
     "Evaporator to ambient loop isolation valve"
     annotation (Placement(transformation(extent={{70,-130},{50,-110}})));
   Fluid.Actuators.Valves.TwoWayLinear valIsoCon(
     redeclare final package Medium = MediumBui,
     final dpValve_nominal=dpValIso_nominal,
-    final m_flow_nominal=colAmbWat.mDis_flow_nominal)
+    final m_flow_nominal=colAmbWat.mDis_flow_nominal,
+    use_inputFilter=false)
     "Condenser to ambient loop isolation valve"
     annotation (Placement(transformation(extent={{-70,-130},{-50,-110}})));
 
@@ -222,13 +224,13 @@ model Chiller
       origin={-120,-40})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum totPPum(nin=2)
     "Total pump power"
-    annotation (Placement(transformation(extent={{262,-70},{282,-50}})));
+    annotation (Placement(transformation(extent={{260,-70},{280,-50}})));
 equation
   connect(int.PPum, totPPum.u[2]) annotation (Line(
-      points={{11,-254},{36,-254},{36,-62},{260,-62},{260,-61}},
+      points={{12,-254},{36,-254},{36,-62},{258,-62},{258,-61}},
       color={0,0,127}));
   connect(chi.PPum, totPPum.u[1]) annotation (Line(
-      points={{11,-9},{40,-9},{40,-59},{260,-59}},
+      points={{12,-10},{20,-10},{20,-59},{258,-59}},
       color={0,0,127}));
   connect(THeaWatSupSet, conSup.THeaWatSupSet) annotation (Line(points={{-320,20},
           {-280,20},{-280,58},{-262,58}}, color={0,0,127}));
@@ -276,19 +278,16 @@ equation
           {290,100},{290,200},{300,200}}, color={0,127,255}));
   connect(ports_aChiWat[1], tanChiWat.port_aTop) annotation (Line(points={{-300,
           200},{280,200},{280,112},{220,112}}, color={0,127,255}));
-  connect(totPPum.y, PPum) annotation (Line(points={{284,-60},{320,-60}},
+  connect(totPPum.y, PPum) annotation (Line(points={{282,-60},{320,-60}},
                       color={0,0,127}));
   connect(chi.PChi, PCoo) annotation (Line(
-      points={{11,-3},{20,-3},{20,20},{320,20}},
+      points={{12,-6},{20,-6},{20,20},{320,20}},
       color={0,0,127}));
   connect(int.yValIso[1], valIsoCon.y_actual) annotation (Line(
       points={{-12,-251},{-40,-251},{-40,-113},{-55,-113}},
       color={0,0,127}));
   connect(int.yValIso[2], valIsoEva.y_actual) annotation (Line(
       points={{-12,-253},{-16,-253},{-16,-240},{40,-240},{40,-113},{55,-113}},
-      color={0,0,127}));
-  connect(TChiWatSupSet, conSup.TChiWatSupSet) annotation (Line(
-      points={{-320,-20},{-276,-20},{-276,49},{-262,49}},
       color={0,0,127}));
   connect(chi.port_bHeaWat, colHeaWat.ports_bCon[1])
     annotation (Line(points={{-10,0},{-108,0},{-108,-30}}, color={0,127,255}));
@@ -317,6 +316,8 @@ equation
           -120},{-30,-120},{-30,-106},{-20,-106}}, color={0,127,255}));
   connect(colHeaWat.port_bDisRet, colAmbWat.port_bDisRet) annotation (Line(
         points={{-100,-46},{-90,-46},{-90,-100},{-20,-100}}, color={0,127,255}));
+  connect(TChiWatSupSet, conSup.TChiWatSupSet) annotation (Line(points={{-320,
+          -20},{-266,-20},{-266,49},{-262,49}}, color={0,0,127}));
 annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
         Diagram(coordinateSystem(preserveAspectRatio=false,
                   extent={{-300,-300},{300,300}}),

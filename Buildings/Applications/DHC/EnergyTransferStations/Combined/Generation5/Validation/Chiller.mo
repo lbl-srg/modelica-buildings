@@ -21,14 +21,14 @@ model Chiller
     mCon_flow_nominal=1e6 * (1 + 1/3) / 5 / 4186,
     TEvaLvg_nominal=280.15,
     capFunT={1,0,0,0,0,0},
-    EIRFunT={1,0,0,0,0,0},
+    EIRFunT={0.34,-0.02,0,+0.02,0,0},
     EIRFunPLR={1,0,0},
     TEvaLvgMin=275.15,
     TEvaLvgMax=288.15,
     TConEnt_nominal=313.15,
     TConEntMin=303.15,
     TConEntMax=333.15) "Chiller performance data"
-    annotation (Placement(transformation(extent={{-220,180},{-200,200}})));
+    annotation (Placement(transformation(extent={{-220,182},{-200,202}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupSet(
     k=45 + 273.15,
     y(final unit="K", displayUnit="degC"))
