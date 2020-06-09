@@ -197,6 +197,9 @@ model Chiller
   HeatTransfer.Sources.PrescribedHeatFlow loaCoo
     "Cooling load as prescribed heat flow rate"
     annotation (Placement(transformation(extent={{162,50},{142,70}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant uHeaCoo[2](k=fill(true, 2))
+    "Heating / cooling enabled signal"
+    annotation (Placement(transformation(extent={{-200,-70},{-180,-50}})));
 equation
   connect(ramLoaCoo1.y, mulSum.u[1]) annotation (Line(points={{250,80},{232,80},
           {232,61},{224,61}}, color={0,0,127}));
@@ -214,8 +217,9 @@ equation
           -30,-38},{-40,-38},{-40,0},{50,0},{50,-40},{60,-40}}, color={0,127,255}));
   connect(TChiWatSupSet.y, ets.TChiWatSupSet) annotation (Line(points={{-138,100},
           {-52,100},{-52,-70},{-34,-70}},color={0,0,127}));
-  connect(THeaWatSupSet.y, ets.THeaWatSupSet) annotation (Line(points={{-138,140},
-          {-48,140},{-48,-54},{-34,-54}}, color={0,0,127}));
+  connect(THeaWatSupSet.y, ets.THeaWatSupSet) annotation (Line(points={{-138,
+          140},{-48,140},{-48,-61.6},{-34,-61.6}},
+                                          color={0,0,127}));
   connect(disWat.ports[1], ets.port_aDis) annotation (Line(points={{-140,-138},
           {-140,-80},{-30,-80}},color={0,127,255}));
   connect(ets.port_bDis, disWat.ports[2]) annotation (Line(points={{30,-80},{
@@ -260,6 +264,10 @@ equation
           -121,-2},{-121,-40},{-90,-40}}, color={0,127,255}));
   connect(heaWat.ports[1], pumHeaWat.port_a)
     annotation (Line(points={{20,24},{20,40},{10,40}}, color={0,127,255}));
+  connect(uHeaCoo[1].y, ets.uHea) annotation (Line(points={{-178,-60},{-60,-60},
+          {-60,-46},{-34,-46}}, color={255,0,255}));
+  connect(uHeaCoo[2].y, ets.uCoo) annotation (Line(points={{-178,-60},{-60,-60},
+          {-60,-54},{-34,-54}}, color={255,0,255}));
   annotation (Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-280,-220},{280,220}})),
   __Dymola_Commands(file=

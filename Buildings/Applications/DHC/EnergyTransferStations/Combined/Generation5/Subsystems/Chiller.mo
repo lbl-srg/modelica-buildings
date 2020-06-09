@@ -50,21 +50,21 @@ model Chiller "Base subsystem with heat recovery chiller"
   // IO CONNECTORS
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHea
     "Heating mode enabled signal"
-    annotation (Placement(transformation(extent={{-240,160},{-200,200}}),
+    annotation (Placement(transformation(extent={{-240,168},{-200,208}}),
       iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uCoo
     "Cooling mode enabled signal"
-    annotation (Placement(transformation(extent={{-240,130},{-200,170}}),
+    annotation (Placement(transformation(extent={{-240,148},{-200,188}}),
       iconTransformation(extent={{-140,-10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupPreSet(
     final unit="K", displayUnit="degC")
     "Chilled water supply temperature set-point (may be reset down)"
-    annotation (Placement(transformation(extent={{-240,70},{-200,110}}),
+    annotation (Placement(transformation(extent={{-240,108},{-200,148}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSupSet(
     final unit="K", displayUnit="degC")
     "Heating water supply temperature set-point"
-    annotation (Placement(transformation(extent={{-240,100},{-200,140}}),
+    annotation (Placement(transformation(extent={{-240,128},{-200,168}}),
       iconTransformation(extent={{-140,-30},{-100,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aChiWat(
     redeclare final package Medium = Medium,
@@ -97,15 +97,16 @@ model Chiller "Base subsystem with heat recovery chiller"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PChi(final unit="W")
     "Chiller power"
     annotation (Placement(transformation(extent={{200,-20},{240,
-      20}}), iconTransformation(extent={{100,-20},{140,20}})));
+      20}}), iconTransformation(extent={{100,-30},{140,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PPum(final unit="W")
     "Pump power"
     annotation (Placement(transformation(extent={{200,-160},{240,-120}}),
-      iconTransformation(extent={{100,-60},{140,-20}})));
+      iconTransformation(extent={{100,-50},{140,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatSupSet(
-    final unit="K", displayUnit="degC") "Chilled water supply temperature set-point"
+    final unit="K", displayUnit="degC")
+    "Chilled water supply temperature set-point"
     annotation (Placement(transformation(extent={{200,120},{240,160}}),
-        iconTransformation(extent={{100,20},{140,60}})));
+        iconTransformation(extent={{100,10},{140,50}})));
   // COMPONENTS
   Fluid.Chillers.ElectricEIR chi(
     redeclare final package Medium1 = Medium,
@@ -228,6 +229,10 @@ model Chiller "Base subsystem with heat recovery chiller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-100,-22})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIsoEva
+    "Evaporator isolation valve return position" annotation (Placement(
+        transformation(extent={{-240,90},{-200,130}}), iconTransformation(
+          extent={{-140,-100},{-100,-60}})));
 protected
   final parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(
     T=Medium.T_default,
@@ -254,18 +259,21 @@ equation
           {-12,3}}, color={255,0,255}));
   connect(con.TChiWatSupSet, chi.TSet) annotation (Line(points={{-48,144},{-40,144},
           {-40,-3},{-12,-3}},      color={0,0,127}));
-  connect(uHea, con.uHea) annotation (Line(points={{-220,180},{-180,180},{-180,148},
-          {-72,148}},  color={255,0,255}));
-  connect(uCoo, con.uCoo) annotation (Line(points={{-220,150},{-186,150},{-186,146},
-          {-72,146}},  color={255,0,255}));
+  connect(uHea, con.uHea) annotation (Line(points={{-220,188},{-180,188},{-180,
+          148},{-72,148}},
+                       color={255,0,255}));
+  connect(uCoo, con.uCoo) annotation (Line(points={{-220,168},{-186,168},{-186,
+          146},{-72,146}},
+                       color={255,0,255}));
   connect(TChiWatSupPreSet, con.TChiWatSupPreSet) annotation (Line(points={{-220,
-          90},{-186,90},{-186,142},{-72,142}}, color={0,0,127}));
+          128},{-186,128},{-186,142},{-72,142}},
+                                               color={0,0,127}));
   connect(senTConEnt.T, con.TConWatEnt) annotation (Line(points={{-31,40},{-78,40},
           {-78,136},{-72,136}},              color={0,0,127}));
   connect(senTEvaEnt.T, con.TEvaWatEnt) annotation (Line(points={{9,-40},{-80,-40},
           {-80,138},{-72,138}},              color={0,0,127}));
-  connect(THeaWatSupSet, con.THeaWatSupSet) annotation (Line(points={{-220,120},
-          {-192,120},{-192,144},{-72,144}},  color={0,0,127}));
+  connect(THeaWatSupSet, con.THeaWatSupSet) annotation (Line(points={{-220,148},
+          {-192,148},{-192,144},{-72,144}},  color={0,0,127}));
   connect(senTConLvg.T, con.THeaWatSup) annotation (Line(points={{9,20},{-82,20},
           {-82,140},{-72,140}},              color={0,0,127}));
   connect(splConMix.port_2, port_bHeaWat) annotation (Line(points={{130,60},{140,
@@ -314,6 +322,8 @@ equation
           126}}, color={0,0,127}));
   connect(con.TChiWatSupSet, TChiWatSupSet) annotation (Line(points={{-48,144},{
           -20,144},{-20,140},{220,140}}, color={0,0,127}));
+  connect(yValIsoEva, con.yValIsoEva) annotation (Line(points={{-220,110},{-180,
+          110},{-180,134},{-72,134}}, color={0,0,127}));
 annotation (
   defaultComponentName="chi",
   Documentation(info="<html>

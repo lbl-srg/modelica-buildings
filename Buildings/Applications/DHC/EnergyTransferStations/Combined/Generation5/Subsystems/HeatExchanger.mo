@@ -58,7 +58,7 @@ model HeatExchanger
     annotation (Dialog(group="Controls"));
   // IO CONNECTORS
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIso[2]
-    "Isolation valves return position (fractional)"
+    "Isolation valves return position (index 1 for condenser)"
     annotation (Placement(transformation(extent={{-140,80},{-100,120}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput y2Sup

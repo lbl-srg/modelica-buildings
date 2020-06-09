@@ -33,23 +33,22 @@ partial block HotColdSide "State machine enabling production and ambient source 
     displayUnit="degC")
     "Supply temperature set-point (heating or chilled water)"
     annotation (Placement(transformation(extent={{-220,100},{-180,140}}),
-      iconTransformation(extent={{-140,40},{-100,80}})));
+      iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TTop(
     final unit="K",
     displayUnit="degC")
     "Temperature at top of tank"
-    annotation (Placement(transformation(extent={{-220,-120},{-180,-80}}),
+    annotation (Placement(transformation(extent={{-220,-100},{-180,-60}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TBot(
     final unit="K",
-    displayUnit="degC")
-    "Temperature at bottom of tank"
-    annotation (Placement(transformation(extent={{-220,-180},{-180,-140}}),
-      iconTransformation(extent={{-140,-80},{-100,-40}})));
+    displayUnit="degC") "Temperature at bottom of tank"
+    annotation (Placement(transformation(extent={{-220,-160},{-180,-120}}),
+      iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yIsoAmb(unit="1")
     "Ambient loop isolation valve control signal"
     annotation (Placement(
-      transformation(extent={{180,-160},{220,-120}}),
+      transformation(extent={{180,-140},{220,-100}}),
       iconTransformation(
         extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y[nCon](unit="1")
@@ -90,20 +89,19 @@ partial block HotColdSide "State machine enabling production and ambient source 
     final k=k,
     final Ti=Ti,
     final reverseActing=reverseActing)
-    annotation (Placement(transformation(extent={{-90,-150},{-70,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax mulMax(
-    final nin=nCon)
-    annotation (Placement(transformation(extent={{-10,-150},{10,-130}})));
+    annotation (Placement(transformation(extent={{-110,-130},{-90,-110}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiMax mulMax(nin=nCon)
+    annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr
-    annotation (Placement(transformation(extent={{60,-150},{80,-130}})));
+    annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
-    annotation (Placement(transformation(extent={{120,-150},{140,-130}})));
+    annotation (Placement(transformation(extent={{120,-130},{140,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Feedback errEna "Error for enabling"
     annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Feedback errDis "Disabling error"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(k=0) "Zero"
-    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
+    annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Product proEna
     "Opposite if reverse acting"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
@@ -117,6 +115,12 @@ partial block HotColdSide "State machine enabling production and ambient source 
     final realTrue=-1,
     final realFalse=1)
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaCoo
+    "Heating or cooling mode enabled signal" annotation (Placement(
+        transformation(extent={{-220,160},{-180,200}}), iconTransformation(
+          extent={{-140,60},{-100,100}})));
+  Buildings.Controls.OBC.CDL.Logical.And and2 "And"
+    annotation (Placement(transformation(extent={{150,90},{170,110}})));
 initial equation
   assert(dTHys >= 0, "In " + getInstanceName() +
     ": dTHys (" + String(dTHys) + ") must be an absolute value.");
@@ -131,23 +135,19 @@ equation
           128}}, color={255,0,255}));
   connect(disHeaCoo.y, t2.condition)
     annotation (Line(points={{40,0},{120,0},{120,128}}, color={255,0,255}));
-  connect(run.active, yHeaCoo) annotation (Line(points={{90,129},{90,100},{200,100}},
-                 color={255,0,255}));
-  connect(conPlaSeq.y, mulMax.u[1:1])
-    annotation (Line(points={{-68,-140},{-12,-140}}, color={0,0,127}));
   connect(mulMax.y, greThr.u)
-    annotation (Line(points={{12,-140},{58,-140}}, color={0,0,127}));
-  connect(greThr.y, booToRea.u) annotation (Line(points={{82,-140},{118,-140}},
+    annotation (Line(points={{42,-120},{58,-120}}, color={0,0,127}));
+  connect(greThr.y, booToRea.u) annotation (Line(points={{82,-120},{118,-120}},
                      color={255,0,255}));
-  connect(booToRea.y, yIsoAmb) annotation (Line(points={{142,-140},{200,-140}},
+  connect(booToRea.y, yIsoAmb) annotation (Line(points={{142,-120},{200,-120}},
                            color={0,0,127}));
   connect(TSet, errEna.u1) annotation (Line(points={{-200,120},{-160,120},{-160,
           40},{-112,40}}, color={0,0,127}));
   connect(TSet, errDis.u1) annotation (Line(points={{-200,120},{-160,120},{-160,
           0},{-92,0}}, color={0,0,127}));
-  connect(zer.y, disHeaCoo.u1) annotation (Line(points={{-18,-40},{8,-40},{8,0},
+  connect(zer.y, disHeaCoo.u1) annotation (Line(points={{-88,-40},{8,-40},{8,0},
           {16,0}}, color={0,0,127}));
-  connect(zer.y, enaHeaCoo.u2) annotation (Line(points={{-18,-40},{8,-40},{8,32},
+  connect(zer.y, enaHeaCoo.u2) annotation (Line(points={{-88,-40},{8,-40},{8,32},
           {16,32}}, color={0,0,127}));
   connect(proEna.y, enaHeaCoo.u1)
     annotation (Line(points={{-18,40},{16,40}},  color={0,0,127}));
@@ -166,12 +166,20 @@ equation
   connect(noDemand.outPort[1], t1.inPort)
     annotation (Line(points={{20.5,140},{56,140}},  color={0,0,0}));
   connect(t2.outPort, noDemand.inPort[1]) annotation (Line(points={{121.5,140},{
-          140,140},{140,180},{-20,180},{-20,140},{-10,140},{-10,140.5},{-1,140.5}},
+          132,140},{132,160},{-10,160},{-10,140.5},{-1,140.5}},
         color={0,0,0}));
-  connect(conPlaSeq.y, y) annotation (Line(points={{-68,-140},{-40,-140},{-40,-100},
-          {160,-100},{160,0},{200,0}}, color={0,0,127}));
   connect(TSet, conPlaSeq.u_s) annotation (Line(points={{-200,120},{-160,120},{-160,
-          -140},{-92,-140}}, color={0,0,127}));
+          -120},{-112,-120}},color={0,0,127}));
+  connect(and2.y, yHeaCoo)
+    annotation (Line(points={{172,100},{200,100}}, color={255,0,255}));
+  connect(run.active, and2.u2)
+    annotation (Line(points={{90,129},{90,92},{148,92}}, color={255,0,255}));
+  connect(uHeaCoo, and2.u1) annotation (Line(points={{-200,180},{140,180},{140,100},
+          {148,100}}, color={255,0,255}));
+  connect(conPlaSeq.y, mulMax.u)
+    annotation (Line(points={{-88,-120},{18,-120}}, color={0,0,127}));
+  connect(conPlaSeq.y, y) annotation (Line(points={{-88,-120},{0,-120},{0,-100},
+          {160,-100},{160,0},{200,0}}, color={0,0,127}));
    annotation (
  Documentation(info="<html>
 

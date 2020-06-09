@@ -2,22 +2,19 @@ within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Co
 model ColdSide "State machine enabling production and ambient source systems"
   extends BaseClasses.HotColdSide(
     final reverseActing=true);
-  Buildings.Controls.OBC.CDL.Continuous.Max max
-    "Max"
-    annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
+  Buildings.Controls.OBC.CDL.Continuous.Max max "Max"
+    annotation (Placement(transformation(extent={{-110,-90},{-90,-70}})));
 equation
-  connect(max.u1, TTop) annotation (Line(points={{-122,-94},{-130,-94},{-130,
-          -100},{-200,-100}},
-                      color={0,0,127}));
-  connect(max.u2, TBot) annotation (Line(points={{-122,-106},{-140,-106},{-140,
-          -160},{-200,-160}},
-                            color={0,0,127}));
-  connect(max.y, errDis.u2) annotation (Line(points={{-98,-100},{-80,-100},{-80,
-          -12}}, color={0,0,127}));
-  connect(TTop, conPlaSeq.u_m) annotation (Line(points={{-200,-100},{-130,-100},
-          {-130,-180},{-80,-180},{-80,-152}}, color={0,0,127}));
-  connect(TBot, errEna.u2) annotation (Line(points={{-200,-160},{-140,-160},{
-          -140,20},{-100,20},{-100,28}}, color={0,0,127}));
+  connect(max.u1, TTop) annotation (Line(points={{-112,-74},{-130,-74},{-130,-80},
+          {-200,-80}},color={0,0,127}));
+  connect(max.u2, TBot) annotation (Line(points={{-112,-86},{-140,-86},{-140,-140},
+          {-200,-140}},     color={0,0,127}));
+  connect(max.y, errDis.u2) annotation (Line(points={{-88,-80},{-80,-80},{-80,-12}},
+                 color={0,0,127}));
+  connect(TTop, conPlaSeq.u_m) annotation (Line(points={{-200,-80},{-130,-80},{-130,
+          -140},{-100,-140},{-100,-132}},     color={0,0,127}));
+  connect(TBot, errEna.u2) annotation (Line(points={{-200,-140},{-140,-140},{-140,
+          20},{-100,20},{-100,28}},      color={0,0,127}));
   annotation (
   defaultComponentName="conCol",
 Documentation(info="<html>
