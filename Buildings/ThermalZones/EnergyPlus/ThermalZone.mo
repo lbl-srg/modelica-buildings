@@ -350,7 +350,10 @@ equation
         Text(
           extent={{174,-126},{54,-176}},
           lineColor={255,255,255},
-          textString=DynamicSelect("", String(heaPorAir.T-273.15, format=".1f")))}),
+          textString=DynamicSelect("", String(heaPorAir.T-273.15, format=".1f"))),
+        Bitmap(extent={{134,-176},{174,-146}},
+          fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/EnergyPlusLogo.png",
+          visible=not usePrecompiledFMU)}),
    Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},{200,200}})),
     Documentation(info="<html>
