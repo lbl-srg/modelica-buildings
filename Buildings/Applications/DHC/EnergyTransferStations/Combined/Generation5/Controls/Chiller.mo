@@ -161,8 +161,6 @@ model Chiller "Chiller controller"
   Buildings.Controls.OBC.CDL.Logical.Switch swi3
     "Pass through maximum set-point value if cooling only, otherwise reset"
     annotation (Placement(transformation(extent={{-10,-150},{10,-130}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(k=true)
-    annotation (Placement(transformation(extent={{-90,-180},{-70,-160}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(delayTime=60)
     annotation (Placement(transformation(extent={{-90,-210},{-70,-190}})));
 equation
@@ -246,8 +244,6 @@ equation
           80},{-140,-140},{-126,-140},{-126,-132}}, color={255,0,255}));
   connect(cooRej.y, truDel.u)
     annotation (Line(points={{-108,-200},{-92,-200}}, color={255,0,255}));
-  connect(con.y, swi3.u2) annotation (Line(points={{-68,-170},{-20,-170},{-20,
-          -140},{-12,-140}}, color={255,0,255}));
 annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),
   Diagram(

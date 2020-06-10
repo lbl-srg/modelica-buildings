@@ -25,6 +25,11 @@ model ColdSide "State machine enabling production and ambient source systems"
     annotation (Placement(transformation(extent={{-110,-170},{-90,-150}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max1[nCon]
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
+  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(nout=nCon)
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-70,-78})));
 equation
   connect(max.u1, TTop) annotation (Line(points={{-112,-74},{-130,-74},{-130,-80},
           {-200,-80}},color={0,0,127}));
@@ -46,8 +51,10 @@ equation
           114,-38},{114,0},{200,0}}, color={0,0,127}));
   connect(conPlaSeq.y, max1.u1) annotation (Line(points={{-88,-120},{-74,-120},
           {-74,-114},{-62,-114}}, color={0,0,127}));
-  connect(conPlaSeq1.y, max1.u2) annotation (Line(points={{-88,-160},{-76,-160},
-          {-76,-130},{-62,-130},{-62,-126}}, color={0,0,127}));
+  connect(zer.y, reaRep.u)
+    annotation (Line(points={{-88,-40},{-70,-40},{-70,-66}}, color={0,0,127}));
+  connect(reaRep.y, max1.u2) annotation (Line(points={{-70,-90},{-70,-126},{-62,
+          -126}}, color={0,0,127}));
   annotation (
   defaultComponentName="conCol",
 Documentation(info="<html>

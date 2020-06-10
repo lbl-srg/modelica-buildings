@@ -173,8 +173,9 @@ model Chiller
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant uHeaCoo[2](k=fill(true, 2))
     "Heating / cooling enabled signal"
     annotation (Placement(transformation(extent={{-200,-70},{-180,-50}})));
-  Modelica.Blocks.Sources.TimeTable loaHeaRat(table=[0,0; 1,0; 2,1; 8,1; 10,0;
-        11,0], timeScale=1000)
+  Modelica.Blocks.Sources.TimeTable loaHeaRat(table=[0,0; 1,0; 2,1; 6,1; 7,0.5;
+        9,0.5; 10,0; 11,0],
+               timeScale=1000)
                     "Heating load (ratio to nominal)"
     annotation (Placement(transformation(extent={{-240,50},{-220,70}})));
   Modelica.Blocks.Sources.TimeTable loaCooRat(table=[0,0; 3,0; 4,0.6; 14,0.6;
