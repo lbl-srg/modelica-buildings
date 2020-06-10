@@ -30,7 +30,7 @@ partial model Writer "Block to write to an EnergyPlus actuator or schedule"
       Evaluate=true,
       Dialog(group="Sampling"));
 
-  Modelica.Blocks.Interfaces.RealInput u "Continuous input signal"
+  Modelica.Blocks.Interfaces.RealInput u "Continuous input signal to be written to EnergyPlus"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   Modelica.Blocks.Interfaces.RealOutput y "Value written to EnergyPlus (use for direct dependency of Actuators and Schedules"
