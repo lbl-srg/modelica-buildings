@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "zonAli.TAir",
+    "zonNonAli.TAir"
+  };

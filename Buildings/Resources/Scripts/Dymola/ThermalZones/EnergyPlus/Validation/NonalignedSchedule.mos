@@ -1,0 +1,2 @@
+simulateModel("Buildings.ThermalZones.EnergyPlus.Validation.NonalignedSchedule", stopTime=172800, tolerance=1e-06, resultFile="NonalignedSchedule");
+createPlot(id=4, position={166, 388, 592, 372}, y={"zonAli.TAir", "zonNonAli.TAir"}, range={0.0, 180000.0, 275.0, 295.0}, grid=true, colors={{28,108,200}, {238,46,47}});
