@@ -2,6 +2,9 @@ within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Co
 model Chiller "Chiller controller"
   extends Modelica.Blocks.Icons.Block;
 
+  parameter Integer nSouAmb = 1
+    "Number of ambient sources"
+    annotation(Evaluate=true);
   parameter Boolean have_resUp = true
     "Allow resetting up chilled water supply temperature in heating only"
     annotation(Evaluate=true);
@@ -29,8 +32,7 @@ model Chiller "Chiller controller"
     annotation (Placement(transformation(extent={{-200,-60},{-160,-20}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSup(
-    final unit="K", displayUnit="degC")
-    "Heating water supply temperature"
+    final unit="K", displayUnit="degC") "Heating water supply temperature"
     annotation (Placement(transformation(extent={{-200,-180},{-160,-140}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatEnt(
@@ -68,24 +70,17 @@ model Chiller "Chiller controller"
     "Chiller enabled signal"
     annotation (Placement(transformation(extent={{160,40},
     {200,80}}), iconTransformation(extent={{100,60},{140,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y[nSouAmb](final unit="1")
+    "Control output for ambient sources"
+    annotation (Placement(transformation(
+      extent={{160,-180},{200,-140}}), iconTransformation(extent={{100,-20},{140, 20}})));
+
   Buildings.Controls.OBC.CDL.Logical.Or heaOrCoo
     "Heating or cooling mode enabled"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi2
     "Pass through maximum set-point value if cooling only, otherwise reset"
     annotation (Placement(transformation(extent={{120,-50},{140,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID
-                                       conTChiWatSet(
-    final controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    Td=0.1,
-    yMax=1,
-    yMin=0,
-    k=1,
-    Ti(displayUnit="s") = 60,
-    reverseAction=false,
-    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
-    "Controller resetting chilled water supply temperature"
-    annotation (Placement(transformation(extent={{-130,-130},{-110,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Line mapFun2
     "Mapping function resetting heating water supply temperature"
     annotation (Placement(transformation(extent={{90,-90},{110,-70}})));
@@ -94,7 +89,7 @@ model Chiller "Chiller controller"
     annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant x2(k=1)
     "PI maximum output"
-    annotation (Placement(transformation(extent={{30,-110},{50,-90}})));
+    annotation (Placement(transformation(extent={{30,-106},{50,-86}})));
   Buildings.Controls.OBC.CDL.Logical.Not notHea "Heating mode disabled"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
   Buildings.Controls.OBC.CDL.Logical.And cooOnl "Cooling only mode"
@@ -125,7 +120,7 @@ model Chiller "Chiller controller"
     y(final unit="K", displayUnit="degC"),
     final k=TChiWatSupSetMin)
     "Minimum value of chilled water supply temperature"
-    annotation (Placement(transformation(extent={{-80,-150},{-60,-130}})));
+    annotation (Placement(transformation(extent={{30,-138},{50,-118}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTEvaWatEnt(
     y(final unit="K", displayUnit="degC"),
     final k=TEvaWatEntMax)
@@ -151,28 +146,35 @@ model Chiller "Chiller controller"
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant havResUp(k=have_resUp)
     "True if allow resetting up CHWST"
     annotation (Placement(transformation(extent={{-50,10},{-30,30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIsoEva
-    "Evaporator isolation valve return position" annotation (Placement(
-        transformation(extent={{-200,-220},{-160,-180}}), iconTransformation(
-          extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold cooRej(threshold=
-        0.9) "Cold rejection if evaporator isolation valve is open"
-    annotation (Placement(transformation(extent={{-130,-210},{-110,-190}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi3
-    "Pass through maximum set-point value if cooling only, otherwise reset"
-    annotation (Placement(transformation(extent={{-10,-150},{10,-130}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(delayTime=60)
-    annotation (Placement(transformation(extent={{-90,-210},{-70,-190}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(final unit="K",
+      displayUnit="degC") "Chilled water supply temperature" annotation (
+      Placement(transformation(extent={{-200,-100},{-160,-60}}),
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
+  Buildings.Controls.OBC.CDL.Continuous.LimPID conPID1(
+    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    k=1,
+    Ti=60,
+    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
+    "Controller limiting ambient sources"
+    annotation (Placement(transformation(extent={{-130,-90},{-110,-70}})));
+  LimPlaySequence conPlaSeq(
+    nCon=nSouAmb + 1,
+    hys=fill(1, nSouAmb + 1),
+    dea=fill(0, nSouAmb + 1),
+    reverseActing=true)
+    annotation (Placement(transformation(extent={{-130,-130},{-110,-110}})));
+  Buildings.Controls.OBC.CDL.Continuous.Min min1[nSouAmb]
+    annotation (Placement(transformation(extent={{-30,-170},{-10,-150}})));
+  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(nout=nSouAmb)
+    annotation (Placement(transformation(extent={{-90,-190},{-70,-170}})));
 equation
   connect(swi2.y,TChiWatSupSet)
     annotation (Line(points={{142,-40},{180,-40}},
                                                color={0,0,127}));
   connect(x1.y, mapFun2.x1) annotation (Line(points={{52,-60},{60,-60},{60,-72},
           {88,-72}}, color={0,0,127}));
-  connect(conTChiWatSet.y, mapFun2.u) annotation (Line(points={{-108,-120},{20,
-          -120},{20,-80},{88,-80}},
-                              color={0,0,127}));
-  connect(x2.y, mapFun2.x2) annotation (Line(points={{52,-100},{60,-100},{60,-84},
+  connect(x2.y, mapFun2.x2) annotation (Line(points={{52,-96},{60,-96},{60,-84},
           {88,-84}}, color={0,0,127}));
   connect(TChiWatSupPreSet, swi2.u1) annotation (Line(points={{-180,-40},{60,-40},
           {60,-32},{118,-32}},
@@ -202,10 +204,6 @@ equation
           -8},{-102,-8}}, color={255,0,255}));
   connect(mapFun2.y, swi2.u3) annotation (Line(points={{112,-80},{114,-80},{114,
           -48},{118,-48}}, color={0,0,127}));
-  connect(THeaWatSup, conTChiWatSet.u_m) annotation (Line(points={{-180,-160},{-120,
-          -160},{-120,-132}},color={0,0,127}));
-  connect(THeaWatSupSet, conTChiWatSet.u_s)
-    annotation (Line(points={{-180,-120},{-132,-120}},color={0,0,127}));
   connect(maxTEvaWatEnt.y, conValEva.u_s)
     annotation (Line(points={{12,-220},{48,-220}}, color={0,0,127}));
   connect(minTConWatEnt.y, conValCon.u_s)
@@ -232,18 +230,28 @@ equation
                                                          color={255,0,255}));
   connect(enaResUp.y, swi1.u2) annotation (Line(points={{12,40},{20,40},{20,-60},
           {-20,-60},{-20,-80},{-12,-80}}, color={255,0,255}));
-  connect(yValIsoEva, cooRej.u)
-    annotation (Line(points={{-180,-200},{-132,-200}}, color={0,0,127}));
-  connect(minTChiWatSup.y, swi3.u1) annotation (Line(points={{-58,-140},{-24,
-          -140},{-24,-132},{-12,-132}}, color={0,0,127}));
-  connect(TChiWatSupPreSet, swi3.u3) annotation (Line(points={{-180,-40},{-16,
-          -40},{-16,-148},{-12,-148}}, color={0,0,127}));
-  connect(swi3.y, mapFun2.f2) annotation (Line(points={{12,-140},{80,-140},{80,
-          -88},{88,-88}}, color={0,0,127}));
-  connect(uHea, conTChiWatSet.trigger) annotation (Line(points={{-180,80},{-140,
-          80},{-140,-140},{-126,-140},{-126,-132}}, color={255,0,255}));
-  connect(cooRej.y, truDel.u)
-    annotation (Line(points={{-108,-200},{-92,-200}}, color={255,0,255}));
+  connect(minTChiWatSup.y, mapFun2.f2) annotation (Line(points={{52,-128},{80,-128},
+          {80,-88},{88,-88}}, color={0,0,127}));
+  connect(TChiWatSup, conPID1.u_m) annotation (Line(points={{-180,-80},{-154,-80},
+          {-154,-100},{-120,-100},{-120,-92}}, color={0,0,127}));
+  connect(TChiWatSupPreSet, conPID1.u_s) annotation (Line(points={{-180,-40},{-150,
+          -40},{-150,-80},{-132,-80}}, color={0,0,127}));
+  connect(THeaWatSupSet, conPlaSeq.u_s)
+    annotation (Line(points={{-180,-120},{-132,-120}}, color={0,0,127}));
+  connect(THeaWatSup, conPlaSeq.u_m) annotation (Line(points={{-180,-160},{-120,
+          -160},{-120,-132}}, color={0,0,127}));
+  connect(conPlaSeq.y[nSouAmb+1], mapFun2.u) annotation (Line(points={{-108,-120},{20,-120},
+          {20,-80},{88,-80}}, color={0,0,127}));
+  connect(min1.y, y)
+    annotation (Line(points={{-8,-160},{180,-160}}, color={0,0,127}));
+  connect(conPlaSeq.y[1:nSouAmb], min1.u1) annotation (Line(points={{-108,-120},{-70,-120},
+          {-70,-154},{-32,-154}}, color={0,0,127}));
+  connect(conPID1.y, reaRep.u) annotation (Line(points={{-108,-80},{-100,-80},{-100,
+          -180},{-92,-180}}, color={0,0,127}));
+  connect(reaRep.y, min1.u2) annotation (Line(points={{-68,-180},{-60,-180},{-60,
+          -166},{-32,-166}}, color={0,0,127}));
+  connect(uCoo, conPID1.trigger) annotation (Line(points={{-180,40},{-140,40},{
+          -140,-92},{-126,-92}}, color={255,0,255}));
 annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),
   Diagram(

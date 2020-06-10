@@ -19,13 +19,13 @@ model Chiller
     "Set to true in case of control valve on district side, false in case of a pump"
     annotation(Evaluate=true);
   parameter Integer nAuxHea = 0
-    "Number of auxiliary heating system"
+    "Number of auxiliary heating systems"
     annotation(Evaluate=true);
   parameter Integer nAuxCoo = 0
-    "Number of auxiliary cooling system"
+    "Number of auxiliary cooling systems"
     annotation(Evaluate=true);
-  parameter Integer nAuxSou = 0
-    "Number of auxiliary heat sources"
+  parameter Integer nSouAmb = 1
+    "Number of ambient sources"
     annotation(Evaluate=true);
 
   parameter Modelica.SIunits.PressureDifference dp1Hex_nominal(displayUnit="Pa")
@@ -131,7 +131,7 @@ model Chiller
 
   // COMPONENTS
   Controls.Supervisory conSup(
-    final nCon=nAuxSou + 1,
+    final nSouAmb=nSouAmb,
     final dTHys=dTHys,
     final dTDea=dTDea)
     "Supervisory controller"
@@ -204,7 +204,7 @@ model Chiller
       origin={120,-34})));
   EnergyTransferStations.BaseClasses.CollectorDistributor colAmbWat(
       redeclare final package Medium = MediumBui,
-      final nCon=1 + nAuxSou,
+      final nCon=nSouAmb,
       mCon_flow_nominal={m2Hex_flow_nominal})
     "Collector/distributor for ambient water"
     annotation (Placement(
@@ -331,8 +331,8 @@ equation
           56},{-262,56}}, color={255,0,255}));
   connect(uHea, conSup.uHea) annotation (Line(points={{-320,100},{-290,100},{
           -290,58},{-262,58}}, color={255,0,255}));
-  connect(conSup.y[1], chi.yValIsoEva) annotation (Line(points={{-236,50},{-40,
-          50},{-40,-14},{-12,-14}}, color={0,0,127}));
+  connect(chi.y, conSup.yExt) annotation (Line(points={{12,-5},{14,-5},{14,36},
+          {-264,36},{-264,42},{-262,42}}, color={0,0,127}));
 annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
         Diagram(coordinateSystem(preserveAspectRatio=false,
                   extent={{-300,-300},{300,300}}),

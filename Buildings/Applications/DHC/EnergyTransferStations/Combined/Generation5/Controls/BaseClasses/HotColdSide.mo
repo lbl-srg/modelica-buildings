@@ -2,8 +2,11 @@ within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Co
 partial block HotColdSide "State machine enabling production and ambient source systems"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Integer nCon = 1
-    "Number of controllers in sequence for ambient sources"
+  parameter Boolean have_yExt = false
+    "Set to true in case of external control signals for ambient sources"
+    annotation(Evaluate=true);
+  parameter Integer nSouAmb = 1
+    "Number of ambient sources to control"
     annotation(Evaluate=true);
   parameter Modelica.SIunits.TemperatureDifference dTHys = 1
     "Temperature hysteresis (full width, absolute value)";
@@ -12,21 +15,21 @@ partial block HotColdSide "State machine enabling production and ambient source 
   parameter Boolean reverseActing = false
     "Set to true for control output increasing with decreasing measurement value";
 
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType[nCon]=
-    fill(Buildings.Controls.OBC.CDL.Types.SimpleController.P, nCon)
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType[nSouAmb]=
+    fill(Buildings.Controls.OBC.CDL.Types.SimpleController.P, nSouAmb)
     "Type of controller"
     annotation(choices(
       choice=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
       choice=Buildings.Controls.OBC.CDL.Types.SimpleController.PI));
-  parameter Real k[nCon](each min=0) = fill(1, nCon)
+  parameter Real k[nSouAmb](each min=0) = fill(1, nSouAmb)
     "Gain of controller";
-  parameter Modelica.SIunits.Time Ti[nCon](
-    each min=Buildings.Controls.OBC.CDL.Constants.small) = fill(0.5, nCon)
+  parameter Modelica.SIunits.Time Ti[nSouAmb](
+    each min=Buildings.Controls.OBC.CDL.Constants.small) = fill(0.5, nSouAmb)
     "Time constant of integrator block"
     annotation (Dialog(enable=Modelica.Math.BooleanVectors.anyTrue({
       controllerType[i] == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
       controllerType[i] == Buildings.Controls.OBC.CDL.Types.SimpleController.PID
-      for i in 1:nCon})));
+      for i in 1:nSouAmb})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet(
     final unit="K",
@@ -44,13 +47,13 @@ partial block HotColdSide "State machine enabling production and ambient source 
     displayUnit="degC") "Temperature at bottom of tank"
     annotation (Placement(transformation(extent={{-220,-160},{-180,-120}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yIsoAmb(unit="1")
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yIsoAmb(final unit="1")
     "Ambient loop isolation valve control signal"
     annotation (Placement(
       transformation(extent={{180,-140},{220,-100}}),
       iconTransformation(
         extent={{100,-80},{140,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y[nCon](unit="1")
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y[nSouAmb](final unit="1")
     "Control output for ambient sources"
     annotation (Placement(transformation(
           extent={{180,-20},{220,20}}), iconTransformation(extent={{100,-20},{140,
@@ -79,11 +82,11 @@ partial block HotColdSide "State machine enabling production and ambient source 
     annotation (Placement(transformation(extent={{180,80},{220,120}}),
       iconTransformation(extent={{100,40},{140,80}})));
   LimPlaySequence conPlaSeq(
-    final nCon=nCon,
-    final hys=fill(dTHys, nCon),
-    final dea=fill(dTDea, nCon),
-    final yMin=fill(0, nCon),
-    final yMax=fill(1, nCon),
+    final nCon=nSouAmb,
+    final hys=fill(dTHys, nSouAmb),
+    final dea=fill(dTDea, nSouAmb),
+    final yMin=fill(0, nSouAmb),
+    final yMax=fill(1, nSouAmb),
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
@@ -167,8 +170,6 @@ equation
   connect(t2.outPort, noDemand.inPort[1]) annotation (Line(points={{121.5,140},{
           132,140},{132,160},{-10,160},{-10,140.5},{-1,140.5}},
         color={0,0,0}));
-  connect(TSet, conPlaSeq.u_s) annotation (Line(points={{-200,120},{-160,120},{-160,
-          -120},{-112,-120}},color={0,0,127}));
   connect(and2.y, yHeaCoo)
     annotation (Line(points={{172,100},{200,100}}, color={255,0,255}));
   connect(run.active, and2.u2)
