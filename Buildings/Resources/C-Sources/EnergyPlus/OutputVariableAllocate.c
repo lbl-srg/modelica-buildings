@@ -31,7 +31,7 @@ FMUOutputVariable* checkForDoubleOutputVariableDeclaration(
   return NULL;
 }
 
-void setOutputVariablePointerIfAlreadyInstanciated(const char* modelicaNameOutputVariable, FMUOutputVariable** ptrFMUOutputVariable){
+void setOutputVariablePointerIfAlreadyInstantiated(const char* modelicaNameOutputVariable, FMUOutputVariable** ptrFMUOutputVariable){
   int iBui;
   int iCom;
   FMUBuilding* ptrBui;
@@ -77,7 +77,7 @@ void* OutputVariableAllocate(
   checkAndSetVerbosity(verbosity);
 
   /* Dymola 2019FD01 calls in some cases the allocator twice. In this case, simply return the previously instanciated zone pointer */
-  setOutputVariablePointerIfAlreadyInstanciated(modelicaNameOutputVariable, &comVar);
+  setOutputVariablePointerIfAlreadyInstantiated(modelicaNameOutputVariable, &comVar);
   if (comVar != NULL){
     if (FMU_EP_VERBOSITY >= MEDIUM)
       ModelicaFormatMessage("*** OutputVariableAllocate called more than once for %s.\n", modelicaNameOutputVariable);

@@ -65,8 +65,6 @@ void ZoneInstantiate(
        is the last constructor to be called.
     */
     loadFMU_setupExperiment_enterInitializationMode(bui, startTime);
-    if (FMU_EP_VERBOSITY >= MEDIUM)
-      ModelicaFormatMessage("FMU for %s is now allocated at %p.\n", modelicaName, bui->fmu);
   }
 
   if (FMU_EP_VERBOSITY >= MEDIUM)

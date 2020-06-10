@@ -686,13 +686,14 @@ void loadFMU_setupExperiment_enterInitializationMode(FMUBuilding* bui, double st
   if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaFormatMessage("Instantiate building %s.\n", bui->modelicaNameBuilding);
 
-  if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("fmi2_import_setup_experiment: Setting up experiment building %s at %p with startTime = %f.\n",
-      bui->modelicaNameBuilding, bui, startTime);
   bui->time = startTime;
   setFMUMode(bui, instantiationMode);
 
   /* This function can only be called once per building FMU */
+  if (FMU_EP_VERBOSITY >= MEDIUM)
+    ModelicaFormatMessage("fmi2_import_setup_experiment: Setting up experiment building %s at %p with startTime = %f.\n",
+      bui->modelicaNameBuilding, bui, startTime);
+
   /*ModelicaFormatError("********* Calling setting up experiment... for building at %p", bui->fmu);*/
 
   status = fmi2_import_setup_experiment(
@@ -702,7 +703,9 @@ void loadFMU_setupExperiment_enterInitializationMode(FMUBuilding* bui, double st
       startTime,            /* startTime */
       fmi2False,            /* stopTimeDefined */
       0);                   /* stopTime */
-/*  ModelicaFormatError("********* Returned from setting up experiment... for %s", bui->modelicaNameBuilding);*/
+
+  if (FMU_EP_VERBOSITY >= MEDIUM)
+    ModelicaFormatMessage("fmi2_import_setup_experiment: Returned from setting up experiment with status %s.\n", fmi2_status_to_string(status));
 
   if( status != fmi2_status_ok ){
     ModelicaFormatError("Failed to setup experiment for FMU with name %s.",  bui->fmuAbsPat);

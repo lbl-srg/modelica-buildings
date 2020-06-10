@@ -25,10 +25,6 @@ void OutputVariableInstantiate(
     ModelicaFormatMessage("Entered OutputVariableInstantiate for %s.\n",
       var->modelicaNameOutputVariable);
   }
-  if (! var->valueReferenceIsSet){
-    ModelicaFormatError("Value reference is not set for %s. For Dymola 2020x, make sure you set 'Hidden.AvoidDoubleComputation=true'. See Buildings.ThermalZones.EnergyPlus.UsersGuide.",
-      var->modelicaNameOutputVariable);
-  }
   if (bui->fmu == NULL){
     /* EnergyPlus is not yet loaded.
        This section is only executed once if the 'initial equation' section is called multiple times.
@@ -38,10 +34,11 @@ void OutputVariableInstantiate(
        is the last constructor to be called.
     */
     loadFMU_setupExperiment_enterInitializationMode(bui, startTime);
-    if (FMU_EP_VERBOSITY >= MEDIUM)
-      ModelicaFormatMessage("FMU for %s is now allocated at %p.\n", var->modelicaNameOutputVariable, bui->fmu);
   }
-
+  if (! var->valueReferenceIsSet){
+    ModelicaFormatError("Value reference is not set for %s. For Dymola 2020x, make sure you set 'Hidden.AvoidDoubleComputation=true'. See Buildings.ThermalZones.EnergyPlus.UsersGuide.",
+      var->modelicaNameOutputVariable);
+  }
   /* Set flag to indicate that this output variable has been properly initialized */
   var->isInstantiated = fmi2True;
 }
