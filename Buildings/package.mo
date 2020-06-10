@@ -79,7 +79,7 @@ in addition to the ones of the Modelica Standard Library:
 The nomenclature used in the package
 <a href=\"modelica://Buildings.Utilities.Psychrometrics\">
 Buildings.Utilities.Psychrometrics</a>
- is as follows,
+is as follows,
 <ul>
 <li>
 Uppercase <code>X</code> denotes mass fraction per total mass.
@@ -98,17 +98,74 @@ and <code>TDryBul</code> (or simply <code>T</code>) denotes dry bulb temperature
 </li>
 </ul>
 <li>
-Names of models, blocks and packages should start with an upper-case letter and be a
+Class names of models, blocks and packages should start with an upper-case letter and be a
 noun or a noun with a combination of adjectives and nouns.
 Use camel-case notation to combine multiple words, such as <code>HeatTransfer</code>.
+Don't repeat higher level package names, for example, rather than <code>Chillers.CarnotChiller</code>,
+use <code>Chillers.Carnot</code>.
 </li>
 <li>
-Parameter and variables names are usually a character, such as <code>T</code>
-for temperature and <code>p</code> for pressure, or a combination of the first three
-characters of a word, such as <code>higPreSetPoi</code> for high pressure set point.
+Instance names should be a combination of the first three
+characters of a word, such as <code>preDro</code> for pressure drop model.
+Where applicable, a single character can be used if this is generally understood, such
+as <code>T</code> for temperature, <code>p</code> for pressure, <code>u</code> for control input
+and <code>y</code> for control output signal. As needed, these can be augmented, for example
+a controller that outputs a control signal for a valve and a damper may output <code>yVal</code>
+and <code>yDam</code>.<br/>
+The following strings are frequently used:
+<ul>
+<li>
+The following variables are frequently used for physical quantities:
+<code>T</code> for temperature,
+<code>p</code> for pressure,
+<code>dp</code> for pressure difference,
+<code>P</code> for power,
+<code>E</code> for energy (or <code>Q</code> for thermal energy),
+<code>X</code> for mass fraction,
+<code>Q_flow</code> for heat flow rate
+<code>m_flow</code> for mass flow rate and
+<code>H_flow</code> for enthalpy flow rate.
 </li>
 <li>
-Comments should be added to each class (package, model, function etc.).
+Control input signals usually start with <code>u</code> and control output signals usually start with <code>y</code>,
+unless use of the physical quantity is clearer.
+</li>
+<li>
+Prefix <code>use_</code> for conditionally enabled input signals, such as <code>use_T_in</code>
+for enabling an input connector for temperature.
+See <a href=\"modelica://Buildings.Fluid.Sources.Boundary_pT\">Buildings.Fluid.Sources.Boundary_pT</a>.
+</li>
+<li>
+Prefix <code>have_</code> if a controller has a certain input, such as <code>have_CO2Sen</code>
+in <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller</a> if the zone has a CO<sub>2</sub> sensor.
+</li>
+<li>
+Suffix <code>_flow</code> for a flow variable, such as <code>Q_flow</code> and <code>m_flow</code>.
+See <a href=\"Buildings.Fluid.Sensors.VolumeFlowRate\">
+Buildings.Fluid.Sensors.VolumeFlowRate</a>.
+</li>
+<li>
+Suffix <code>_nominal</code> for the design or nominal capacity, i.e., <code>Q_flow_nominal</code> is the
+capacity of a device that it has at full load, and <code>m_flow_nominal</code> is the design mass flow rate.
+See <a href=\"modelica://Buildings.Fluid.HeatExchangers.HeaterCooler_u\">
+Buildings.Fluid.HeatExchangers.HeaterCooler_u</a>.
+</li>
+<li>
+Suffix <code>_small</code> for a small value which is typically used for regularization (to ensure
+a numerically robust implementation).
+</li>
+<li>
+Suffix <code>Set</code> for set point.
+</li>
+<li>
+Suffix <code>Min</code> (<code>Max</code>) for minimum (maximum),
+such as in <code>TSupSetMin</code> for minimum supply temperature set point.
+</li>
+</ul>
+</li>
+<li>
+Comments must be added to each class (package, model, function etc.).
 The first character should be upper case.
 For one-line comments of parameters, variables and classes, no period should be used at the end of the comment.
 </li>
@@ -116,8 +173,7 @@ For one-line comments of parameters, variables and classes, no period should be 
 Where applicable, all variable must have units, also if the variable is protected.
 </li>
 <li>
-To indicate that a class (i.e., a package, model, block etc.) has not been extensively tested or validated,
-its class name ends with the string <code>Beta</code>.
+Each class (i.e., a package, model, block etc.) must be used in an example or validation case.
 </li>
 </ol>
 </html>"));
@@ -126,9 +182,9 @@ its class name ends with the string <code>Beta</code>.
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-class Version_7_0_1 "Version 7.0.1"
-  extends Modelica.Icons.ReleaseNotes;
-    annotation (Documentation(info="<html>
+    class Version_7_0_1 "Version 7.0.1"
+      extends Modelica.Icons.ReleaseNotes;
+        annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
 Version 7.0.1 is ... xxx
@@ -240,7 +296,7 @@ xxx
 </li>
 </ul>
 </html>"));
-end Version_7_0_1;
+    end Version_7_0_1;
 
     class Version_7_0_0 "Version 7.0.0"
       extends Modelica.Icons.ReleaseNotes;
