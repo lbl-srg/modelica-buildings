@@ -11,7 +11,6 @@ model FloorOpenLoop "Open loop model of one floor"
     "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     "Name of the weather file";
 
-  final parameter Modelica.SIunits.Area AFlo=flo.AFlo "Floor area west";
   final parameter Modelica.SIunits.MassFlowRate mOut_flow = 2
     "Outside air infiltration for each room";
 

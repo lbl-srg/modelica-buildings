@@ -19,7 +19,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
- __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/ThermalZone/OneZoneOneOutputVariableSummer.mos"
+ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/OutputVariable/OneZoneOneOutputVariableSummer.mos"
         "Simulate and plot"),
 experiment(
       StartTime=18748800,

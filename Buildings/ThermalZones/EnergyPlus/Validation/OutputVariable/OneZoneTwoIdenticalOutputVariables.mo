@@ -22,7 +22,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
- __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/ThermalZone/OneZoneTwoIdenticalOutputVariables.mos"
+ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/OutputVariable/OneZoneTwoIdenticalOutputVariables.mos"
         "Simulate and plot"),
 experiment(
       StopTime=432000,
