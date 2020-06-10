@@ -18,17 +18,17 @@ partial model Writer "Block to write to an EnergyPlus actuator or schedule"
   parameter String controlType
     "Actuated component control type";
 
-  parameter Boolean useSamplePeriod = true
-    "If true, sample at zone time step and at samplePeriod"
-    annotation (
-      Evaluate=true,
-      Dialog(group="Sampling"));
+//  parameter Boolean useSamplePeriod = true
+//    "If true, sample at zone time step and at samplePeriod"
+//   annotation (
+//      Evaluate=true,
+//      Dialog(group="Sampling"));
 
-  parameter Modelica.SIunits.Time samplePeriod(min=1E-3)
-    "Sample period of component, used only if useSamplePeriod=true"
-    annotation (
-      Evaluate=true,
-      Dialog(group="Sampling"));
+//  parameter Modelica.SIunits.Time samplePeriod(min=1E-3)
+//    "Sample period of component, used only if useSamplePeriod=true"
+//    annotation (
+//      Evaluate=true,
+//      Dialog(group="Sampling"));
 
   Modelica.Blocks.Interfaces.RealInput u "Continuous input signal to be written to EnergyPlus"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -95,15 +95,15 @@ protected
       buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
       verbosity=verbosity) "Class to communicate with EnergyPlus";
 
-  output Boolean sampleTrigger "True, if sample time instant";
+  //output Boolean sampleTrigger "True, if sample time instant";
 
-  Integer counter "Counter for number of calls to EnergyPlus during time steps";
+  //Integer counter "Counter for number of calls to EnergyPlus during time steps";
 
 initial equation
   Buildings.ThermalZones.EnergyPlus.BaseClasses.inputVariableInitialize(
     adapter = adapter,
     startTime = time);
-  counter = 0;
+  //counter = 0;
 /*
   if unit==Types.Units.Normalized then
     unitAsString = "1";
@@ -138,19 +138,19 @@ initial equation
   end if;
   */
 equation
-  sampleTrigger = if useSamplePeriod then sample(startTime, samplePeriod) else false;
+  //sampleTrigger = if useSamplePeriod then sample(startTime, samplePeriod) else false;
 
   // The 'not initial()' triggers one sample when the continuous time simulation starts.
   // This is required for the correct event handling. Otherwise the regression tests will fail.
  // when {initial(), not initial()} then
-  when {initial(), sampleTrigger, not initial()} then
+  //when {initial(), sampleTrigger, not initial()} then
     y = Buildings.ThermalZones.EnergyPlus.BaseClasses.inputVariableExchange(
       adapter,
       initial(),
       u,
       round(time, 1E-3));
-    counter = pre(counter) + 1;
-  end when;
+    //counter = pre(counter) + 1;
+  //end when;
 
   annotation (
     Documentation(info="<html>

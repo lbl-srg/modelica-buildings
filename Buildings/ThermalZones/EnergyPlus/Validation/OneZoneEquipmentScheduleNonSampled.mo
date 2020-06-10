@@ -5,8 +5,7 @@ model OneZoneEquipmentScheduleNonSampled
 
   Buildings.ThermalZones.EnergyPlus.Schedule schInt(
     name="INTERMITTENT",
-    unit=Buildings.ThermalZones.EnergyPlus.Types.Units.Normalized,
-    samplePeriod=1200)
+    unit=Buildings.ThermalZones.EnergyPlus.Types.Units.Normalized)
     "Block that writes to the EnergyPlus schedule INTERMITTENT"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse intLoaFra(
