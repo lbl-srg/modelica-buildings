@@ -43,7 +43,7 @@ model BuildingTimeSeriesCooling
     "= true, if table is defined on file or in function usertab"
     annotation (Dialog(group="Table data definition"));
 
-  parameter Modelica.SIunits.Power QCooLoa[:, :]= [0, -20E3; 6, -20E3; 6, -50E3; 12, -50E3; 18, -50E3; 18, -20E3; 24, -20E3]
+  parameter Modelica.SIunits.Power QCooLoa[:, :]= [0, -20E3; 6, -30E3; 12, -50E3; 18, -30E3; 24, -20E3]
     "Cooling load table matrix, negative"
     annotation (Dialog(group="Table data definition",enable=not tableOnFile));
 
