@@ -60,11 +60,6 @@ model Supervisory "Energy transfer station supervisory controller"
     "Heating water supply temperature set-point"
     annotation (Placement(transformation(extent={{-160,20},{-120,60}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput yExt[nSouAmb](
-    final unit="1") if have_yExt
-    "External control signals for ambient sources"
-    annotation (Placement(transformation(extent={{-160,-128},{-120,-88}}),
-        iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yIsoCon
     "Condenser to ambient loop isolation valve control signal"
     annotation (Placement(transformation(extent={{120,-60},{160,-20}}),
@@ -138,12 +133,8 @@ equation
           {-16,58},{-12,58}}, color={255,0,255}));
   connect(uCoo, conColSid.uHeaCoo) annotation (Line(points={{-140,90},{-20,90},{
           -20,-62},{-12,-62}}, color={255,0,255}));
-  connect(yExt, conColSid.yExt) annotation (Line(points={{-140,-108},{-20,-108},
-          {-20,-78},{-12,-78}}, color={0,0,127}));
-  connect(THeaWatSupSet, conColSid.TSetHea) annotation (Line(points={{-140,40},
-          {-76,40},{-76,-68},{-12,-68}}, color={0,0,127}));
-  connect(THeaWatTop, conColSid.TTop) annotation (Line(points={{-140,20},{-76,
-          20},{-76,-70},{-12,-70}}, color={0,0,127}));
+  connect(TChiWatTop, conColSid.TTop) annotation (Line(points={{-140,-60},{-80,
+          -60},{-80,-70},{-12,-70}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
         defaultComponentName="conSup",

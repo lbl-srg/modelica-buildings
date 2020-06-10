@@ -291,7 +291,7 @@ equation
   connect(totPPum.y, PPum) annotation (Line(points={{282,-60},{320,-60}},
                       color={0,0,127}));
   connect(chi.PChi, PCoo) annotation (Line(
-      points={{12,-7},{20,-7},{20,20},{320,20}},
+      points={{12,-6},{20,-6},{20,20},{320,20}},
       color={0,0,127}));
   connect(int.yValIso[1], valIsoCon.y_actual) annotation (Line(
       points={{-12,-251},{-40,-251},{-40,-113},{-55,-113}},
@@ -331,8 +331,6 @@ equation
           56},{-262,56}}, color={255,0,255}));
   connect(uHea, conSup.uHea) annotation (Line(points={{-320,100},{-290,100},{
           -290,58},{-262,58}}, color={255,0,255}));
-  connect(chi.y, conSup.yExt) annotation (Line(points={{12,-5},{14,-5},{14,36},
-          {-264,36},{-264,42},{-262,42}}, color={0,0,127}));
 annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
         Diagram(coordinateSystem(preserveAspectRatio=false,
                   extent={{-300,-300},{300,300}}),

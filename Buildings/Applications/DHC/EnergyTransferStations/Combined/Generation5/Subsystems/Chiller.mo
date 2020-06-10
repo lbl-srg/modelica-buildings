@@ -9,12 +9,6 @@ model Chiller "Base subsystem with heat recovery chiller"
         property_T=293.15,
         X_a=0.40) "Propylene glycol water, 40% mass fraction")));
 
-  parameter Boolean have_yExt = true
-    "Set to true in case of external control signals for ambient sources"
-    annotation(Evaluate=true);
-  parameter Integer nSouAmb = 1
-    "Number of ambient sources to control"
-    annotation(Dialog(enable=have_yExt), Evaluate=true);
   parameter Boolean allowFlowReversal = false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
@@ -103,7 +97,7 @@ model Chiller "Base subsystem with heat recovery chiller"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PChi(final unit="W")
     "Chiller power"
     annotation (Placement(transformation(extent={{200,-20},{240,
-      20}}), iconTransformation(extent={{100,-30},{140,10}})));
+      20}}), iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PPum(final unit="W")
     "Pump power"
     annotation (Placement(transformation(extent={{200,-160},{240,-120}}),
@@ -113,12 +107,6 @@ model Chiller "Base subsystem with heat recovery chiller"
     "Chilled water supply temperature set-point"
     annotation (Placement(transformation(extent={{200,120},{240,160}}),
         iconTransformation(extent={{100,10},{140,50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y[nSouAmb](
-    final unit="1") if have_yExt
-    "Control output for ambient sources"
-    annotation (Placement(transformation(
-      extent={{200,80},{240,120}}), iconTransformation(extent={{100,-10},{140,
-            30}})));
   // COMPONENTS
   Fluid.Chillers.ElectricEIR chi(
     redeclare final package Medium1 = Medium,
@@ -149,7 +137,6 @@ model Chiller "Base subsystem with heat recovery chiller"
         rotation=0,
         origin={-100,-60})));
   Controls.Chiller con(
-    final nSouAmb=nSouAmb,
     final TChiWatSupSetMin=TChiWatSupSetMin,
     final TChiWatSupSetMax=TChiWatSupSetMax,
     final TConWatEntMin=TConWatEntMin,
@@ -332,10 +319,6 @@ equation
           126}}, color={0,0,127}));
   connect(con.TChiWatSupSet, TChiWatSupSet) annotation (Line(points={{-48,144},{
           -20,144},{-20,140},{220,140}}, color={0,0,127}));
-  connect(con.y, y) annotation (Line(points={{-48,140},{-26,140},{-26,126},{180,
-          126},{180,100},{220,100}}, color={0,0,127}));
-  connect(senTEvaLvg.T, con.TChiWatSup) annotation (Line(points={{-31,-20},{-76,
-          -20},{-76,134},{-72,134}}, color={0,0,127}));
 annotation (
   defaultComponentName="chi",
   Documentation(info="<html>

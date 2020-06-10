@@ -2,9 +2,6 @@ within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Co
 partial block HotColdSide "State machine enabling production and ambient source systems"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Boolean have_yExt = false
-    "Set to true in case of external control signals for ambient sources"
-    annotation(Evaluate=true);
   parameter Integer nSouAmb = 1
     "Number of ambient sources to control"
     annotation(Evaluate=true);
@@ -92,7 +89,7 @@ partial block HotColdSide "State machine enabling production and ambient source 
     final Ti=Ti,
     final reverseActing=reverseActing)
     annotation (Placement(transformation(extent={{-110,-130},{-90,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax mulMax
+  Buildings.Controls.OBC.CDL.Continuous.MultiMax mulMax(nin=nSouAmb)
     annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr
     annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
@@ -176,6 +173,12 @@ equation
     annotation (Line(points={{90,129},{90,92},{148,92}}, color={255,0,255}));
   connect(uHeaCoo, and2.u1) annotation (Line(points={{-200,180},{140,180},{140,100},
           {148,100}}, color={255,0,255}));
+  connect(conPlaSeq.y, mulMax.u)
+    annotation (Line(points={{-88,-120},{18,-120}}, color={0,0,127}));
+  connect(conPlaSeq.y, y) annotation (Line(points={{-88,-120},{0,-120},{0,-98},{
+          160,-98},{160,0},{200,0}}, color={0,0,127}));
+  connect(TSet, conPlaSeq.u_s) annotation (Line(points={{-200,120},{-160,120},{-160,
+          -120},{-112,-120}}, color={0,0,127}));
    annotation (
  Documentation(info="<html>
 

@@ -2,9 +2,6 @@ within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Co
 model Chiller "Chiller controller"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Integer nSouAmb = 1
-    "Number of ambient sources"
-    annotation(Evaluate=true);
   parameter Boolean have_resUp = true
     "Allow resetting up chilled water supply temperature in heating only"
     annotation(Evaluate=true);
@@ -70,10 +67,6 @@ model Chiller "Chiller controller"
     "Chiller enabled signal"
     annotation (Placement(transformation(extent={{160,40},
     {200,80}}), iconTransformation(extent={{100,60},{140,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y[nSouAmb](final unit="1")
-    "Control output for ambient sources"
-    annotation (Placement(transformation(
-      extent={{160,-180},{200,-140}}), iconTransformation(extent={{100,-20},{140, 20}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or heaOrCoo
     "Heating or cooling mode enabled"
@@ -147,27 +140,12 @@ model Chiller "Chiller controller"
     "True if allow resetting up CHWST"
     annotation (Placement(transformation(extent={{-50,10},{-30,30}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(final unit="K",
-      displayUnit="degC") "Chilled water supply temperature" annotation (
-      Placement(transformation(extent={{-200,-100},{-160,-60}}),
-        iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPID1(
+  Buildings.Controls.OBC.CDL.Continuous.LimPID conPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    k=1,
     Ti=60,
     reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
-    "Controller limiting ambient sources"
-    annotation (Placement(transformation(extent={{-130,-90},{-110,-70}})));
-  LimPlaySequence conPlaSeq(
-    nCon=nSouAmb + 1,
-    hys=fill(1, nSouAmb + 1),
-    dea=fill(0, nSouAmb + 1),
-    reverseActing=true)
+    "Controller for HWS reset"
     annotation (Placement(transformation(extent={{-130,-130},{-110,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min min1[nSouAmb]
-    annotation (Placement(transformation(extent={{-30,-170},{-10,-150}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(nout=nSouAmb)
-    annotation (Placement(transformation(extent={{-90,-190},{-70,-170}})));
 equation
   connect(swi2.y,TChiWatSupSet)
     annotation (Line(points={{142,-40},{180,-40}},
@@ -232,26 +210,14 @@ equation
           {-20,-60},{-20,-80},{-12,-80}}, color={255,0,255}));
   connect(minTChiWatSup.y, mapFun2.f2) annotation (Line(points={{52,-128},{80,-128},
           {80,-88},{88,-88}}, color={0,0,127}));
-  connect(TChiWatSup, conPID1.u_m) annotation (Line(points={{-180,-80},{-154,-80},
-          {-154,-100},{-120,-100},{-120,-92}}, color={0,0,127}));
-  connect(TChiWatSupPreSet, conPID1.u_s) annotation (Line(points={{-180,-40},{-150,
-          -40},{-150,-80},{-132,-80}}, color={0,0,127}));
-  connect(THeaWatSupSet, conPlaSeq.u_s)
+  connect(THeaWatSupSet, conPID.u_s)
     annotation (Line(points={{-180,-120},{-132,-120}}, color={0,0,127}));
-  connect(THeaWatSup, conPlaSeq.u_m) annotation (Line(points={{-180,-160},{-120,
+  connect(THeaWatSup, conPID.u_m) annotation (Line(points={{-180,-160},{-120,
           -160},{-120,-132}}, color={0,0,127}));
-  connect(conPlaSeq.y[nSouAmb+1], mapFun2.u) annotation (Line(points={{-108,-120},{20,-120},
-          {20,-80},{88,-80}}, color={0,0,127}));
-  connect(min1.y, y)
-    annotation (Line(points={{-8,-160},{180,-160}}, color={0,0,127}));
-  connect(conPlaSeq.y[1:nSouAmb], min1.u1) annotation (Line(points={{-108,-120},{-70,-120},
-          {-70,-154},{-32,-154}}, color={0,0,127}));
-  connect(conPID1.y, reaRep.u) annotation (Line(points={{-108,-80},{-100,-80},{-100,
-          -180},{-92,-180}}, color={0,0,127}));
-  connect(reaRep.y, min1.u2) annotation (Line(points={{-68,-180},{-60,-180},{-60,
-          -166},{-32,-166}}, color={0,0,127}));
-  connect(uCoo, conPID1.trigger) annotation (Line(points={{-180,40},{-140,40},{
-          -140,-92},{-126,-92}}, color={255,0,255}));
+  connect(conPID.y, mapFun2.u) annotation (Line(points={{-108,-120},{20,-120},{
+          20,-80},{88,-80}}, color={0,0,127}));
+  connect(uHea, conPID.trigger) annotation (Line(points={{-180,80},{-140,80},{
+          -140,-140},{-126,-140},{-126,-132}}, color={255,0,255}));
 annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),
   Diagram(

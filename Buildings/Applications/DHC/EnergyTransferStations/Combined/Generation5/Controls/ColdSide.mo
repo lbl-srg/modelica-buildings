@@ -1,23 +1,9 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls;
 model ColdSide "State machine enabling production and ambient source systems"
   extends BaseClasses.HotColdSide(
-    final reverseActing=true,
-    final have_yExt=true,
-    mulMax(nin=nSouAmb));
+    final reverseActing=true);
   Buildings.Controls.OBC.CDL.Continuous.Max max "Max"
     annotation (Placement(transformation(extent={{-110,-90},{-90,-70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput yExt[nSouAmb](final unit="1")
-    if                 have_yExt
-    "External control signals for ambient sources"
-    annotation (Placement(transformation(extent={{-220,-200},{-180,-160}}),
-        iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min min1[nSouAmb]
-    annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetHea(final unit="K",
-      displayUnit="degC")
-    "Supply temperature set-point (heating or chilled water)" annotation (
-      Placement(transformation(extent={{-220,60},{-180,100}}),
-        iconTransformation(extent={{-140,0},{-100,40}})));
 equation
   connect(max.u2, TBot) annotation (Line(points={{-112,-86},{-140,-86},{-140,-140},
           {-200,-140}},     color={0,0,127}));
@@ -25,20 +11,10 @@ equation
                  color={0,0,127}));
   connect(TBot, errEna.u2) annotation (Line(points={{-200,-140},{-140,-140},{-140,
           20},{-100,20},{-100,28}},      color={0,0,127}));
-  connect(conPlaSeq.y, min1.u1) annotation (Line(points={{-88,-120},{-80,-120},
-          {-80,-114},{-62,-114}}, color={0,0,127}));
-  connect(yExt, min1.u2) annotation (Line(points={{-200,-180},{-134,-180},{-134,
-          -138},{-62,-138},{-62,-126}}, color={0,0,127}));
-  connect(min1.y, mulMax.u)
-    annotation (Line(points={{-38,-120},{18,-120}}, color={0,0,127}));
-  connect(min1.y, y) annotation (Line(points={{-38,-120},{74,-120},{74,0},{200,
-          0}}, color={0,0,127}));
-  connect(zer.y, max.u1) annotation (Line(points={{-88,-40},{-90,-40},{-90,-60},
-          {-120,-60},{-120,-74},{-112,-74}}, color={0,0,127}));
-  connect(TTop, conPlaSeq.u_m) annotation (Line(points={{-200,-80},{-170,-80},{
-          -170,-160},{-100,-160},{-100,-132}}, color={0,0,127}));
-  connect(TSetHea, conPlaSeq.u_s) annotation (Line(points={{-200,80},{-166,80},
-          {-166,-120},{-112,-120}}, color={0,0,127}));
+  connect(TTop, max.u1) annotation (Line(points={{-200,-80},{-120,-80},{-120,
+          -74},{-112,-74}}, color={0,0,127}));
+  connect(TTop, conPlaSeq.u_m) annotation (Line(points={{-200,-80},{-120,-80},{
+          -120,-140},{-100,-140},{-100,-132}}, color={0,0,127}));
   annotation (
   defaultComponentName="conCol",
 Documentation(info="<html>
