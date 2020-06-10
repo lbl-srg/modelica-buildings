@@ -149,7 +149,7 @@ equation
   annotation (Documentation(info="<html>
 <p>
 Model with two identical thermal zones that validates that they yield the same indoor air temperatures and humidity,
-and that these results are close to the values computed by EnergyPlus 9.1.
+and that these results are close to the values computed by EnergyPlus.
 </p>
 <p>
 Each zone has a floor area of <i>900</i> m<sup>2</sup>,
