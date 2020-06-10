@@ -5,11 +5,6 @@ model BuildingTimeSeriesCooling
 
   package Medium = Buildings.Media.Water "Medium model";
 
-  parameter Modelica.SIunits.SpecificHeatCapacity cp=
-   Medium.specificHeatCapacityCp(
-      Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default))
-    "Default specific heat capacity of medium";
-
   parameter Modelica.SIunits.Power Q_flow_nominal=-50E3
     "Nominal heat flow rate, negative";
 
@@ -51,7 +46,6 @@ equation
           {-12,30},{40,30}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Applications/DHC/Examples/Cooling/BaseClasses/BuildingTimeSeriesCooling.mos"
+    __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Examples/Cooling/BaseClasses/BuildingTimeSeriesCooling.mos"
         "Simulate and Plot"));
 end BuildingTimeSeriesCooling;
