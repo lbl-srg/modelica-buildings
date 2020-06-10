@@ -46,6 +46,7 @@ equation
           {-12,30},{40,30}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Examples/Cooling/BaseClasses/BuildingTimeSeriesCooling.mos"
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Applications/DHC/Examples/Cooling/BaseClasses/Examples/BuildingTimeSeriesCooling.mos"
         "Simulate and Plot"));
 end BuildingTimeSeriesCooling;

@@ -53,6 +53,7 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
   experiment(Tolerance=1e-6, StopTime=86400),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/Examples/FirstGeneration/BaseClasses/Examples/BuildingTimeSeriesHeatingTableMatrix.mos"
+__Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Applications/DHC/Examples/Heating/Generation1/BaseClasses/Examples/BuildingTimeSeriesHeatingTableMatrix.mos"
         "Simulate and plot"));
 end BuildingTimeSeriesHeatingTableMatrix;

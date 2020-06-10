@@ -1,5 +1,5 @@
 ﻿// Simulate
-simulateModel("Buildings.Applications.DHC.CentralPlants.Gen1st.Heating.Examples.HeatingPlantOpenLoop", stopTime=10800, tolerance=1e-6, method="dassl", resultFile="HeatingPlantOpenLoop");
+simulateModel("Buildings.Applications.DHC.CentralPlants.Heating.Generation1.Examples.HeatingPlantOpenLoop", stopTime=10800, tolerance=1e-6, method="dassl", resultFile="HeatingPlantOpenLoop");
 // Plot
 createPlot(id=1, position={15, 10, 444, 574}, 
   y={"pla.PLR.y"}, 

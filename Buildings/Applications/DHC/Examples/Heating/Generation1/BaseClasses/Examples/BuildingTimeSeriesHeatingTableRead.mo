@@ -34,7 +34,6 @@ model BuildingTimeSeriesHeatingTableRead
     tableName="HeatingLoadProfiles",
     fileName=ModelicaServices.ExternalReferences.loadResource(
         "modelica://Buildings/Resources/Data/Applications/DHC/Examples/FirstGeneration/HeatingSystem-WP3-DESTEST/HeatingLoadProfiles.csv"),
-
     columns={2},
     timeScale=1) "Building model, heating only"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
@@ -58,6 +57,7 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
   experiment(StopTime=31536000),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/Examples/FirstGeneration/BaseClasses/Examples/BuildingTimeSeriesHeatingTableRead.mos"
+__Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Applications/DHC/Examples/Heating/Generation1/BaseClasses/Examples/BuildingTimeSeriesHeatingTableRead.mos"
         "Simulate and plot"));
 end BuildingTimeSeriesHeatingTableRead;

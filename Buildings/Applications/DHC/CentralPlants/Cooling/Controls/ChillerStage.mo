@@ -107,8 +107,9 @@ equation
           {-50.25,-18},{-50,-18},{-50,-36}}, color={0,0,0}));
   connect(combiTable1Ds.y, y) annotation (Line(points={{91,0},{110,0}}, color={0,0,127}));
   connect(combiTable1Ds.u, intToRea.y) annotation (Line(points={{68,0},{62,0}}, color={0,0,127}));
-  connect(addInt.u2, booToInt1.y) annotation (Line(points={{68,-56},{64,-56},{64,
-          -70},{52,-70}}, color={255,127,0}));
+  connect(addInt.u2, booToInt1.y) annotation (Line(points={{68,-56},{60,-56},{
+          60,-70},{52,-70}},
+                          color={255,127,0}));
   connect(oneOn.active, booToInt.u) annotation (Line(points={{-39,0},{20,0},{20,
           -30},{28,-30}}, color={255,0,255}));
   connect(twoOn.active, booToInt1.u) annotation (Line(points={{-39,-70},{28,-70}}, color={255,0,255}));

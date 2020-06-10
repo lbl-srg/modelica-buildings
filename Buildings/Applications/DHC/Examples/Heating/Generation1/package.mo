@@ -473,8 +473,8 @@ package Generation1 "First generation district heating plant model"
                             Diagram(coordinateSystem(preserveAspectRatio=false,
             extent={{-150,-150},{150,150}})),
     __Dymola_Commands(file=
-      "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/Examples/FirstGeneration/HeatingSystem.mos"
-      "Simulate and plot"),
+          "Resources/Scripts/Dymola/Applications/DHC/Examples/Heating/Generation1/HeatingSystem.mos"
+        "Simulate and plot"),
     experiment(
         StopTime=86400,
         Tolerance=0001,
