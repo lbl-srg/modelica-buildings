@@ -12,7 +12,7 @@ model OneZoneEquipmentScheduleNonSampled
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse intLoaFra(
     period=86400,
     startTime=7*3600)
-    "Schedule for fraction of internal loads from 7:00 to 19:00"
+    "Schedule for fraction of internal loads"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 equation
   connect(schInt.u, intLoaFra.y)
