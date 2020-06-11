@@ -50,9 +50,10 @@ model ShadeControl
     "Block that reads incident beam solar radiation on south window from EnergyPlus"
     annotation (Placement(transformation(extent={{20,-110},{40,-90}})));
 
-  Buildings.ThermalZones.EnergyPlus.OutputVariable shaAbsSol(name=
-        "Surface Window Shading Device Absorbed Solar Radiation Rate",
-    key="Zn001:Wall001:Win001") "Window shade absorbed solar radiation"
+  Buildings.ThermalZones.EnergyPlus.OutputVariable shaAbsSol(
+    name="Surface Window Shading Device Absorbed Solar Radiation Rate",
+    key="Zn001:Wall001:Win001",
+    y(unit="W")) "Window shade absorbed solar radiation"
     annotation (Placement(transformation(extent={{20,-140},{40,-120}})));
 
   Buildings.Controls.OBC.Shade.Shade_T shaT(
@@ -106,11 +107,6 @@ model ShadeControl
   Cooling cooEas "Idealized cooling system" annotation (Placement(
         transformation(rotation=0, extent={{120,0},{100,20}})));
 
-  Buildings.ThermalZones.EnergyPlus.OutputVariable winHeaGai1(name=
-        "Surface Window Shading Device Absorbed Solar Radiation Rate", key=
-        "Zn001:Wall001:Win001")
-    "Surface window heat gain rate"
-    annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
 equation
   connect(qIntGai.y, zonNor.qGai_flow) annotation (Line(points={{-99,70},{-2,70}},
                                     color={0,0,127}));
