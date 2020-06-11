@@ -18,7 +18,7 @@
 #include "../cryptographicsHash.c"
 
 void buildJSONKeyValue(char* *buffer, const char* key, const char* value, bool addComma, size_t* size){
-  saveAppend(buffer, "    \"", size);
+  saveAppend(buffer, "        \"", size);
   saveAppend(buffer, key, size);
   saveAppend(buffer, "\": \"", size);
   saveAppend(buffer, value, size);
@@ -26,6 +26,29 @@ void buildJSONKeyValue(char* *buffer, const char* key, const char* value, bool a
     saveAppend(buffer, "\",\n", size);
   else
     saveAppend(buffer, "\"\n", size);
+}
+
+void openJSONModelBracket(char* *buffer, size_t* size){
+  saveAppend(buffer, "      {\n", size);
+}
+
+void closeJSONModelBracket(char* *buffer, int i, int iMax, size_t* size){
+  if (i < iMax -1)
+    saveAppend(buffer, "      },\n", size);
+  else
+    saveAppend(buffer, "      }\n", size);
+}
+
+void closeJSONModelArrayBracket(char* *buffer, int iMod, int nMod, size_t* size){
+  /* Close json array bracket */
+  if (iMod == nMod){
+    /* There are no more other objects that belong to "model" */
+    saveAppend(buffer, "    ]\n", size);
+  }
+  else{
+    /* There are other objects that belong to "model" */
+    saveAppend(buffer, "    ],\n", size);
+  }
 }
 
 void buildJSONModelStructureForEnergyPlus(
@@ -36,6 +59,10 @@ void buildJSONModelStructureForEnergyPlus(
   FMUZone** zones = (FMUZone**)bui->zones;
   FMUInputVariable** inpVars;
   FMUOutputVariable** outVars;
+  /* Total number of models */
+  const int nMod = bui->nZon + bui->nInputVariables + bui->nOutputVariables;
+  /* Number of models written to json so far */
+  int iMod = 0;
 
   saveAppend(buffer, "{\n", size);
   buildJSONKeyValue(buffer, "version", "0.1", true, size);
@@ -49,31 +76,24 @@ void buildJSONModelStructureForEnergyPlus(
 
   /* model information */
   saveAppend(buffer, "  \"model\": {\n", size);
-  saveAppend(buffer, "    \"zones\": [\n", size);
   /* Write zone names */
   for(i = 0; i < bui->nZon; i++){
-    saveAppend(buffer, "        {\n", size);
+    if (i == 0){
+      saveAppend(buffer, "    \"zones\": [\n", size);
+    }
+    openJSONModelBracket(buffer, size);
     buildJSONKeyValue(buffer, "name", zones[i]->name, false, size);
-    /* closing the zones array */
-    if (i < bui->nZon -1)
-      saveAppend(buffer, "        },\n", size);
-    else
-      saveAppend(buffer, "        }\n", size);
+    closeJSONModelBracket(buffer, i, bui->nZon, size);
+  }
+  iMod = bui->nZon;
+  if (iMod > 0)
+    closeJSONModelArrayBracket(buffer, iMod, nMod, size);
 
-  }
-  /* Close json array for zones */
-  saveAppend(buffer, "    ]", size);
-  if (bui->nInputVariables + bui->nOutputVariables == 0){
-    /* There are no more other objects that belong to "model" */
-    saveAppend(buffer, "\n", size);
-  }
-  else{
-    /* There are other objects that belong to "model" */
-    saveAppend(buffer, ",\n", size);
-  }
 
   /* Write schedule names */
-  inpVars = (FMUInputVariable**)bui->inputVariables;
+  if (bui->nInputVariables > 0)
+    inpVars = (FMUInputVariable**)bui->inputVariables;
+
   /* Count the number of schedules */
   nSch = 0;
   for(i = 0; i < bui->nInputVariables; i++){
@@ -86,79 +106,63 @@ void buildJSONModelStructureForEnergyPlus(
   iWri = 0;
   for(i = 0; i < bui->nInputVariables; i++){
     if (inpVars[i]->componentType == NULL){ /* Found a schedule */
-      if (iWri == 0)
+      if (iWri == 0){
         saveAppend(buffer, "    \"schedules\": [\n", size);
-      saveAppend(buffer, "        {\n", size);
+      }
+      openJSONModelBracket(buffer, size);
       buildJSONKeyValue(buffer, "name", inpVars[i]->name, true, size);
       buildJSONKeyValue(buffer, "unit", inpVars[i]->unit, true, size);
       buildJSONKeyValue(buffer, "fmiName", inpVars[i]->inputs->fmiNames[0], false, size);
-      /* closing the inputVariables array */
-      if (iWri < nSch-1)
-        saveAppend(buffer, "        },\n", size);
-      else
-        saveAppend(buffer, "        }\n", size);
+      closeJSONModelBracket(buffer, iWri, nSch, size);
       iWri++;
     }
-    /* Close json array for schedules */
-    saveAppend(buffer, "    ]", size);
-    if (bui->nInputVariables - iWri + bui->nOutputVariables == 0){
-      /* There are no more other objects that belong to "model" */
-      saveAppend(buffer, "\n", size);
-    }
-    else{
-      /* There are other objects that belong to "model" */
-      saveAppend(buffer, ",\n", size);
-    }
+  }
+  if (nSch > 0){
+    iMod += nSch;
+    closeJSONModelArrayBracket(buffer, iMod, nMod, size);
   }
 
+
   /* Write the EMS actuator objects, if any */
-  if (bui->nInputVariables > iWri){
-    iWri = 0;
-    for(i = 0; i < bui->nInputVariables; i++){
-      if (inpVars[i]->componentType != NULL){ /* Found an EMS actuator */
-        if (iWri == 0)
-          saveAppend(buffer, "    \"emsActuators\": [\n", size);
-        saveAppend(buffer, "        {\n", size);
-        buildJSONKeyValue(buffer, "name", inpVars[i]->name, true, size);
-        buildJSONKeyValue(buffer, "componentName", inpVars[i]->componentName, true, size);
-        buildJSONKeyValue(buffer, "componentType", inpVars[i]->componentType, true, size);
-        buildJSONKeyValue(buffer, "controlType", inpVars[i]->controlType, true, size);
-        buildJSONKeyValue(buffer, "unit", inpVars[i]->unit, true, size);
-        buildJSONKeyValue(buffer, "fmiName", inpVars[i]->inputs->fmiNames[0], false, size);
-        /* closing the inputVariables array */
-        if (iWri < bui->nInputVariables-nSch-1)
-          saveAppend(buffer, "        },\n", size);
-        else{
-          saveAppend(buffer, "        }\n    ]", size);
-        }
-        iWri++;
+  iWri = 0;
+  for(i = 0; i < bui->nInputVariables; i++){
+    if (inpVars[i]->componentType != NULL){ /* Found an EMS actuator */
+      if (iWri == 0){
+        saveAppend(buffer, "    \"emsActuators\": [\n", size);
       }
-      if (bui->nOutputVariables == 0){
-        /* There are no more other objects that belong to "model"  */
-        saveAppend(buffer, "\n", size);
-      }
-      else{
-        /* There are other objects that belong to "model" */
-        saveAppend(buffer, ",\n", size);
-      }
+      openJSONModelBracket(buffer, size);
+      buildJSONKeyValue(buffer, "name", inpVars[i]->name, true, size);
+      buildJSONKeyValue(buffer, "componentName", inpVars[i]->componentName, true, size);
+      buildJSONKeyValue(buffer, "componentType", inpVars[i]->componentType, true, size);
+      buildJSONKeyValue(buffer, "controlType", inpVars[i]->controlType, true, size);
+      buildJSONKeyValue(buffer, "unit", inpVars[i]->unit, true, size);
+      buildJSONKeyValue(buffer, "fmiName", inpVars[i]->inputs->fmiNames[0], false, size);
+      closeJSONModelBracket(buffer, iWri, bui->nInputVariables-nSch, size);
+      iWri++;
     }
+  }
+  if (bui->nInputVariables-nSch > 0){
+    iMod += bui->nInputVariables-nSch;
+    closeJSONModelArrayBracket(buffer, iMod, nMod, size);
   }
 
   /* Write output names */
   if (bui->nOutputVariables > 0){
     outVars = (FMUOutputVariable**)bui->outputVariables;
-    saveAppend(buffer, "    \"outputVariables\": [\n", size);
   }
   for(i = 0; i < bui->nOutputVariables; i++){
-    saveAppend(buffer, "        {\n", size);
+    if (i == 0){
+      saveAppend(buffer, "    \"outputVariables\": [\n", size);
+    }
+    openJSONModelBracket(buffer, size);
     buildJSONKeyValue(buffer, "name", outVars[i]->name, true, size);
     buildJSONKeyValue(buffer, "key",  outVars[i]->key,  true, size);
     buildJSONKeyValue(buffer, "fmiName",  outVars[i]->outputs->fmiNames[0], false, size);
-    /* closing the outputVariables array */
-    if (i < (bui->nOutputVariables) - 1)
-      saveAppend(buffer, "        },\n", size);
-    else
-      saveAppend(buffer, "        }\n    ]\n", size);
+    closeJSONModelBracket(buffer, i, bui->nOutputVariables, size);
+  }
+  if (bui->nOutputVariables > 0){
+    iMod += bui->nOutputVariables;
+    closeJSONModelArrayBracket(buffer, iMod, nMod, size);
   }
 
   /* Close json object for model */
