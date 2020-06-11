@@ -1,10 +1,10 @@
 old_StoreProtectedVariables = Advanced.StoreProtectedVariables;
 Advanced.StoreProtectedVariables = true;
 simulateModel(
-    "Buildings.Fluid.HeatExchangers.Validation.WetCoilCoolingFuzzy_V2_2",
+    "Buildings.Fluid.HeatExchangers.Validation.WetCoilEffectivenessNTU_cooling",
     stopTime=2000,
     method="cvode",
-    tolerance=1e-6, resultFile="WetCoilCoolingFuzzy_V2_2");
+    tolerance=1e-6, resultFile="WetCoilEffectivenessNTU_cooling");
 Advanced.StoreProtectedVariables = old_StoreProtectedVariables;
 createPlot(
     id=1,

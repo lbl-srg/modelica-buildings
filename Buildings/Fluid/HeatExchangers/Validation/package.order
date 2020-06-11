@@ -6,5 +6,5 @@ PrescribedOutlet
 PrescribedOutlet_dynamic
 WetCoilDiscretizedInitialization
 WetCoilDiscretizedInitializationPerfectGases
-WetCoilHeatingFuzzy_V2_2
-WetCoilCoolingFuzzy_V2_2
+WetCoilEffectivenessNTU_heating
+WetCoilEffectivenessNTU_cooling

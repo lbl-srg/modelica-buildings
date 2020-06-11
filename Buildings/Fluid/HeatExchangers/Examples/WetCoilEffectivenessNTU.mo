@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.Examples;
-model WetCoilEffNtuMassFlowFuzzy_V2_2
+model WetCoilEffectivenessNTU
   "Duplicates WetCoilCounterFlowMassFlow example using fuzzy model"
   extends Modelica.Icons.Example;
   extends
@@ -9,7 +9,8 @@ model WetCoilEffNtuMassFlowFuzzy_V2_2
     sou_2(nPorts=1),
     sin_2(nPorts=1));
 
-  WetEffectivenessNTU_Fuzzy_V2_2 hex(
+  WetEffectivenessNTU_Fuzzy_V2_2_2
+                                 hex(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     m1_flow_nominal=m1_flow_nominal,
@@ -64,7 +65,7 @@ equation
       smooth=Smooth.None));
   annotation (
     experiment(Tolerance=1E-6, StopTime=3600),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WetCoilEffNtuMassFlowFuzzy_V2_2.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WetCoilEffectivenessNTU.mos"
       "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=true,
       extent={{-100, -100},{200,200}})),
@@ -97,4 +98,4 @@ does not agree well over the second half which subjects the model to
 flow reversals.
 </p>
 </html>"));
-end WetCoilEffNtuMassFlowFuzzy_V2_2;
+end WetCoilEffectivenessNTU;

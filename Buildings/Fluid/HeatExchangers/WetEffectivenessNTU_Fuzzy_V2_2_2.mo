@@ -62,7 +62,7 @@ model WetEffectivenessNTU_Fuzzy_V2_2_2 "V2_2"
 
 protected
   Buildings.Fluid.HeatExchangers.HeaterCooler_u heaCoo(
-    redeclare package Medium = Medium1,
+    redeclare final package Medium = Medium1,
     dp_nominal = dp1_nominal,
     m_flow_nominal = m1_flow_nominal,
     energyDynamics = energyDynamics,
@@ -70,8 +70,9 @@ protected
     Q_flow_nominal=-1)
     "Heat exchange with water stream"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
+
   Buildings.Fluid.Humidifiers.Humidifier_u heaCooHum_u(
-    redeclare package Medium = Medium2,
+    redeclare final package Medium = Medium2,
     mWat_flow_nominal = 1,
     dp_nominal = dp2_nominal,
     m_flow_nominal = m2_flow_nominal,

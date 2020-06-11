@@ -1,7 +1,7 @@
 old_StoreProtectedVariables = Advanced.StoreProtectedVariables;
 Advanced.StoreProtectedVariables = true;
-simulateModel("Buildings.Fluid.HeatExchangers.Examples.WetCoilEffNtuMassFlowFuzzy_V2_2",
-  tolerance=1e-6, stopTime=3600, method="cvode", resultFile="WetCoilEffNtuMassFlowFuzzy_V2_2");
+simulateModel("Buildings.Fluid.HeatExchangers.Examples.WetCoilEffectivenessNTU",
+  tolerance=1e-6, stopTime=3600, method="cvode", resultFile="WetCoilEffectivenessNTU");
 Advanced.StoreProtectedVariables = old_StoreProtectedVariables;
 createPlot(
   id=1,
