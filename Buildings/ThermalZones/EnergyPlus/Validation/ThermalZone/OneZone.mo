@@ -3,11 +3,6 @@ model OneZone "Validation model for one zone"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air "Medium model";
 
-  Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
-    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Modelica.Blocks.Sources.Constant qRadGai_flow(k=0) "Radiative heat gain"
-    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-
   inner Buildings.ThermalZones.EnergyPlus.Building building(
     idfName = Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/SingleFamilyHouse_TwoSpeed_ZoneAirBalance/SingleFamilyHouse_TwoSpeed_ZoneAirBalance.idf"),
@@ -18,9 +13,6 @@ model OneZone "Validation model for one zone"
     "Building model"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
-  Modelica.Blocks.Routing.Multiplex3 mul
-    "Multiplex to combine signals into a vector"
-    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Buildings.ThermalZones.EnergyPlus.ThermalZone zon(
     redeclare package Medium = Medium,
     zoneName="LIVING ZONE",
@@ -46,27 +38,17 @@ model OneZone "Validation model for one zone"
     nPorts=1)
     "Boundary condition"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
-  Modelica.Blocks.Sources.Constant qLatGai_flow(k=0) "Latent heat gain"
-    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
+  Modelica.Blocks.Sources.Constant qIntGai[3](each k=0) "Internal heat gains"
+    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 equation
-  connect(qRadGai_flow.y, mul.u1[1]) annotation (Line(
-      points={{-59,10},{-52,10},{-52,17},{-42,17}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(qConGai_flow.y, mul.u2[1]) annotation (Line(
-      points={{-59,-20},{-50,-20},{-50,10},{-42,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(zon.qGai_flow, mul.y)
-    annotation (Line(points={{-2,10},{-19,10}}, color={0,0,127}));
-  connect(mul.u3[1], qLatGai_flow.y) annotation (Line(points={{-42,3},{-48,3},{
-          -48,-50},{-59,-50}}, color={0,0,127}));
   connect(freshAir.ports[1], duc.port_b)
     annotation (Line(points={{-20,-40},{-10,-40}}, color={0,127,255}));
   connect(duc.port_a, zon.ports[1]) annotation (Line(points={{10,-40},{18,-40},
           {18,-19.1}}, color={0,127,255}));
   connect(bou.ports[1], zon.ports[2]) annotation (Line(points={{-20,-80},{22,
           -80},{22,-19.1}}, color={0,127,255}));
+  connect(zon.qGai_flow, qIntGai.y)
+    annotation (Line(points={{-2,10},{-19,10}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 Simple test case for one building with one thermal zone in which the room air temperature
