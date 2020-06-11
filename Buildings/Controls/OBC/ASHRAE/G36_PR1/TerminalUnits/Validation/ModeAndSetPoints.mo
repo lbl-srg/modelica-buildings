@@ -9,6 +9,7 @@ model ModeAndSetPoints
       have_occSen=true, have_winSen=true)
     "Output resetted zone setpoint remperature"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
+
   Buildings.Controls.SetPoints.OccupancySchedule occSch "Occupancy schedule"
     annotation (Placement(transformation(extent={{-90,72},{-70,92}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine heaSetAdj(
@@ -55,6 +56,7 @@ equation
   connect(heaSetAdj.y, setPoi.heaSetAdj)
     annotation (Line(points={{-24,10},{-16,10},{-16,77},{18,77}},
       color={0,0,127}));
+
   connect(occSen2.y, setPoi3.uOccSen) annotation (Line(points={{-24,-30},{-2,-30},
           {-2,-56},{18,-56}},      color={255,0,255}));
   connect(winSta2.y, setPoi3.uWinSta) annotation (Line(points={{-24,-70},{-2,-70},
@@ -92,7 +94,6 @@ equation
           {-58,-14},{-10,-14},{-10,34},{18,34}},      color={255,0,255}));
   connect(winSta1.y, setPoi1.uWinSta) annotation (Line(points={{-66,-70},{-60,-70},
           {-60,-48},{0,-48},{0,31},{18,31}},      color={255,0,255}));
-
 annotation (experiment(StopTime=86400.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/TerminalUnits/Validation/ModeAndSetPoints.mos"
     "Simulate and plot"),
