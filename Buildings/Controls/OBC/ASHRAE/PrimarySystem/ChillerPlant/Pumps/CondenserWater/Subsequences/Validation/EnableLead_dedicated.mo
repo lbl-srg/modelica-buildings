@@ -14,7 +14,7 @@ model EnableLead_dedicated
 protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
     final period=3600,
-    final startTime=300) "Lead chiller enabling status"
+    final startTime=300)
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Maintains a true signal until conditions changes"
