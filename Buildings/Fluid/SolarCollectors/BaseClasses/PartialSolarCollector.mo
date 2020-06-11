@@ -228,9 +228,9 @@ estimated based on the dry mass and the specific heat capacity of copper.
 This heat capacity is then added to the model by increasing the size of the fluid
 volume. Note that in earlier implementations, there was a separate model to take into
 account this heat capacity. However, this led to a translation error if glycol
-was used as the medium, because during the translation, the function
-<a href=\"modelica://Modelica.Media.Incompressible.Examples.Glycol47.T_ph\">
-Modelica.Media.Incompressible.Examples.Glycol47.T_ph</a> had to be differentiated,
+was used as the medium, because during the translation, the function <code>T_ph</code> for
+<a href=\"modelica://Modelica.Media.Incompressible.Examples.Glycol47\">
+Modelica.Media.Incompressible.Examples.Glycol47</a> had to be differentiated,
 but this function is not differentiable.
 </p>
 <h4>References</h4>

@@ -14,6 +14,7 @@ git:
 
 services:
   - docker
+  - xvfb
 
 env:
   global:
@@ -66,17 +67,18 @@ env:
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.HeatTransfer\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.HeatTransfer\""
     - TEST_ARG="make test-jmodelica PACKAGE=\"Buildings.HeatTransfer\""
-    - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.{Obsolete,Occupants,Media}\""
-    - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.{Obsolete,Occupants,Media}\""
-    - TEST_ARG="make test-jmodelica PACKAGE=\"Buildings.{Obsolete,Occupants,Media}\""
+    - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.{Obsolete.Controls,Occupants,Media}\""
+    - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.{Obsolete.Controls,Occupants,Media}\""
+    - TEST_ARG="make test-jmodelica PACKAGE=\"Buildings.{Obsolete.Controls,Occupants,Media}\""
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.Utilities\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Utilities\""
     - TEST_ARG="make test-jmodelica PACKAGE=\"Buildings.Utilities\""
 
 before_install:
+  - sudo apt-get -y install python3.6-minimal  # Provides /usr/bin/python3.6m
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - if [[ "$TEST_ARG" == *test-dymola* ]]; then
-       docker pull "$DOCKER_USERNAME"/travis_ubuntu-1804_dymola-2020x-x86_64;
+       docker pull "$DOCKER_USERNAME"/travis_ubuntu-1804_dymola:2021-x86_64;
        cp Buildings/Resources/Scripts/travis/dymola/dymola $HOME/bin/;
     fi;
   - if [[ "$TEST_ARG" == *test-optimica* ]]; then
@@ -143,3 +145,11 @@ install:
 # Execute tests
 script:
   - (cd Buildings/Resources/Scripts/travis && travis_wait 90 $TEST_ARG)
+
+after_failure:
+  - |
+    for ff in `find Buildings -maxdepth 1 -name '*.log'`; do
+      echo "*** Content of $ff"
+      cat $ff
+      echo "*** End of $ff"
+    done
