@@ -112,13 +112,15 @@ protected
     "Constant boolean source"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(final uLow=fraNonConBoi -
-        sigDif, final uHigh=fraNonConBoi)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
+    final uLow=fraNonConBoi - sigDif,
+    final uHigh=fraNonConBoi)
     "Hysteresis loop for heating capacity condition of non-condensing boilers"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(final uLow=fraConBoi -
-        sigDif, final uHigh=fraConBoi)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(
+    final uLow=fraConBoi - sigDif,
+    final uHigh=fraConBoi)
     "Hysteresis loop for heating capacity condition of condensing boilers"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 
