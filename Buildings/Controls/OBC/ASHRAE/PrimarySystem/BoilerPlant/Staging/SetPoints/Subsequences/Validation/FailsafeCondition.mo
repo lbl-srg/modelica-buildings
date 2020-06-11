@@ -4,7 +4,7 @@ block FailsafeCondition
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.FailsafeCondition
     faiSafCon(
-    final delayEna=900,
+    final delEna=900,
     final TDif=10,
     final TDifHys=1)
     "Testing scenario with FailsafeCondition unmet"
@@ -12,7 +12,7 @@ block FailsafeCondition
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.FailsafeCondition
     faiSafCon1(
-    final delayEna=900,
+    final delEna=900,
     final TDif=10,
     final TDifHys=1)
     "Testing scenario with FailsafeCondition met"
@@ -20,7 +20,7 @@ block FailsafeCondition
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.FailsafeCondition
     faiSafCon2(
-    final delayEna=900,
+    final delEna=900,
     final TDif=10,
     final TDifHys=1)
     "Testing scenario exhibiting lower limit of hysteresis loop in sequence being unmet"
@@ -28,7 +28,7 @@ block FailsafeCondition
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.FailsafeCondition
     faiSafCon3(
-    final delayEna=900,
+    final delEna=900,
     final TDif=10,
     final TDifHys=1)
     "Testing scenario exhibitng lower limit of hysteresis loop in sequence being met"

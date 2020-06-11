@@ -158,8 +158,8 @@ equation
       setpoint <code>TSupSet</code>, and the measured hot water flow rate,
       <code>VHotWat_flow</code>.
       <br/> 
-      The calculation is according to the draft dated March 23rd, 2020, section
-      5.3.3.5 and 5.3.3.6.
+      The calculation is according to section 5.3.3.5 and 5.3.3.6. in RP-1711, March
+      2020 draft.
       </p>
       <p align=\"center\">
       <img alt=\"Validation plot for CapacityRequirement\"

@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints
 block FailsafeCondition
   "Failsafe condition used in staging up and down"
 
-  parameter Real delayEna(
+  parameter Real delEna(
     final unit="s",
     final displayUnit="s",
     final quantity="Time") = 900
@@ -38,20 +38,17 @@ block FailsafeCondition
     annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
       iconTransformation(extent={{-140,-70},{-100,-30}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
-    "Failsafe condition for chiller staging"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
-      iconTransformation(extent={{100,-20},{140,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yFaiCon
+    "Failsafe condition for chiller staging" annotation (Placement(
+        transformation(extent={{100,-20},{140,20}}), iconTransformation(extent=
+            {{100,-20},{140,20}})));
 
+protected
   Buildings.Controls.OBC.CDL.Continuous.Add add2(
-    final k2=-1,
-    y(
-    final unit="K",
-    final displayUnit="K"))
+    final k2=-1)
     "Difference between setpoint and measured temperature"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
-protected
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
     final uLow=TDif - TDifHys,
     final uHigh=TDif)
@@ -59,7 +56,7 @@ protected
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
-    final delayTime=delayEna,
+    final delayTime=delEna,
     final delayOnInit=true)
     "Enable delay"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
@@ -77,9 +74,8 @@ equation
   connect(hys.y, truDel.u)
     annotation (Line(points={{-18,0},{-2,0}},
       color={255,0,255}));
-  connect(truDel.y, y)
-    annotation (Line(points={{22,0},{120,0}},
-      color={255,0,255}));
+  connect(truDel.y, yFaiCon)
+    annotation (Line(points={{22,0},{120,0}}, color={255,0,255}));
 
 annotation (defaultComponentName = "faiSafCon",
   Icon(coordinateSystem(extent={{-100,-80},{100,100}}),
@@ -99,7 +95,14 @@ annotation (defaultComponentName = "faiSafCon",
   Documentation(info="<html>
     <p>
     Failsafe condition used in staging up and down, implemented according to
-    the specification provided in section 5.3.3.10 1711 March 2020 Draft.
+    the specification provided in section 5.3.3.10, subsections 6.c, 8.c, 10.c
+    and 12.c in RP-1711, March 2020 Draft.
+    </p>
+    <p align=\"center\">
+    <img alt=\"State-machine chart for FailsafeCondition\"
+    src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/FailsafeCondition_stateMachineChart.png\"/>
+    <br/>
+    State-machine chart for the sequence defined in RP-1711
     </p>
     <p align=\"center\">
     <img alt=\"Validation plot for FailsafeCondition\"
