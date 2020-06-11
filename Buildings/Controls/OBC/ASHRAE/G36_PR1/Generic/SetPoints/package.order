@@ -1,4 +1,6 @@
 OperationMode
 TrimAndRespond
 ZoneStatus
+ZoneStatus_re
+ZoneGroupStatus
 Validation
