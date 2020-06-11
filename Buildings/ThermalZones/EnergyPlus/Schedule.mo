@@ -49,6 +49,37 @@ If the value of the parameter <code>unit</code> is left at its default value of
 <code>Buildings.ThermalZones.EnergyPlus.Types.Units.unspecified</code>, then
 the simulation will stop with an error.
 </p>
+<h4>Usage</h4>
+<p>
+To use an schedule, set up the schedule in the EnergyPlus idf file.
+For example, an entry may be
+</p>
+<pre>
+Schedule:Compact,
+  INTERMITTENT,            !- Name
+  Fraction,                !- Schedule Type Limits Name
+  Through: 12/31,          !- Field 1
+  For: WeekDays,           !- Field 2
+  Until: 8:00,0.0,         !- Field 3
+  Until: 18:00,1.00,       !- Field 5
+  Until: 24:00,0.0,        !- Field 7
+  For: AllOtherDays,       !- Field 9
+  Until: 24:00,0.0;        !- Field 10
+</pre>
+<p>
+Next, instantiate the actuator in Modelica. For the above
+<code>Schedule:Compact</code>, the Modelica instantiation would be
+</p>
+<pre>
+  Buildings.ThermalZones.EnergyPlus.Schedule schInt(
+    name = \"INTERMITTENT\",
+    unit = Buildings.ThermalZones.EnergyPlus.Types.Units.Normalized)
+    \"Block that writes to the EnergyPlus schedule INTERMITTENT\";
+</pre>
+<p>
+The entry <code>units=Buildings.ThermalZones.EnergyPlus.Types.Units.Normalized</code>
+will cause the value to be sent to EnergyPlus without any unit conversion.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

@@ -22,19 +22,19 @@ model ShadeControl
   Buildings.ThermalZones.EnergyPlus.ThermalZone zonWes(
     redeclare package Medium = Medium,
     zoneName="West Zone",
-    nPorts=2)             "West zone"
+    nPorts=2) "West zone"
     annotation (Placement(transformation(extent={{-28,-22},{12,18}})));
 
   Buildings.ThermalZones.EnergyPlus.ThermalZone zonEas(
     redeclare package Medium = Medium,
     zoneName="EAST ZONE",
-    nPorts=2)             "East zone"
+    nPorts=2) "East zone"
     annotation (Placement(transformation(extent={{40,-22},{80,18}})));
 
   Buildings.ThermalZones.EnergyPlus.ThermalZone zonNor(
     redeclare package Medium = Medium,
     zoneName="NORTH ZONE",
-    nPorts=2)              "North zone"
+    nPorts=2) "North zone"
     annotation (Placement(transformation(extent={{0,40},{40,80}})));
   Buildings.ThermalZones.EnergyPlus.Actuator actSha(
     name="Zn001_Wall001_Win001_Shading_Deploy_Status",

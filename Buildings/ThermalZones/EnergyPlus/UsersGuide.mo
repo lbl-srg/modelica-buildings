@@ -66,6 +66,44 @@ The coupling time step is determined by EnergyPlus based on the zone time step,
 as declared in the idf file.
 </li>
 </ul>
+<h4>Unit conversion</h4>
+<p>
+Units between Modelica and EnergyPlus are automatically converted, if they are specified.
+The conversion is according to the table at
+<a href=\\\"modelica://Buildings.ThermalZones.EnergyPlus.Types.Units\\\">
+Buildings.ThermalZones.EnergyPlus.Types.Units</a>.
+</p>
+<p>
+To see what units are used, set <code>printUnits=true</code> (the default) in the
+instance
+<a href=\\\"modelica://Buildings.ThermalZones.EnergyPlus.Building\\\">
+Buildings.ThermalZones.EnergyPlus.Building</a>.
+This will cause the used units to be reported in the Modelica log file.
+</p>
+<p>
+The thermal zone model automatically converts the units.
+</p>
+<p>
+To do unit conversion for values sent by
+<a href=\\\"modelica://Buildings.ThermalZones.EnergyPlus.Actuator\\\">
+Buildings.ThermalZones.EnergyPlus.Actuator</a>
+and by
+<a href=\\\"modelica://Buildings.ThermalZones.EnergyPlus.Schedule\\\">
+Buildings.ThermalZones.EnergyPlus.Schedule</a>,
+set the parameter <code>unit</code> to the unit of the variable obtained at
+the input connector <code>u</code>. The value will then be converted
+before it is sent to EnergyPlus.
+The units that are used in the input <code>u</code> of this block
+are reported to the Modelica log file.
+</p>
+<p>
+To do unit conversion for values read by
+<a href=\\\"modelica://Buildings.ThermalZones.EnergyPlus.OutputVariable\\\">
+Buildings.ThermalZones.EnergyPlus.OutputVariable</a>,
+Modelica will use the units reported by EnergyPlus.
+The units that are used in the output <code>y</code> of this block
+are reported to the Modelica log file.
+</p>
 <h4>Notes for Dymola</h4>
 <h5>64 bit configuration</h5>
 <p>

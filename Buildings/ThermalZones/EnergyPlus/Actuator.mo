@@ -16,8 +16,10 @@ Block that writes to an EMS actuator object in EnergyPlus.
 This model instantiates an FMU with the name <code>idfName</code> and
 writes at every EnergyPlus zone time step the value of the input <code>u</code>
 to an EnergyPlus EMS actuator with name <code>name</code>.
+<!--
 If <code>useSamplePeriod = true</code>, then the value <code>u</code> is
 written at each multiple of <code>samplePeriod</code>, in addition to the EnergyPlus zone time step.
+-->
 </p>
 <p>
 The parameter <code>unit</code> specifies the unit of the signal <code>u</code>.
@@ -28,6 +30,34 @@ for the supported units.
 If the value of the parameter <code>unit</code> is left at its default value of
 <code>Buildings.ThermalZones.EnergyPlus.Types.Units.unspecified</code>, then
 the simulation will stop with an error.
+</p>
+<h4>Usage</h4>
+<p>
+To use an actuator, set up the EMS actuator in the EnergyPlus idf file.
+For example, an entry may be
+</p>
+<pre>
+EnergyManagementSystem:Actuator,
+  Zn001_Wall001_Win001_Shading_Deploy_Status,  !- Name
+  Zn001:Wall001:Win001,    !- Actuated Component Unique Name
+  Window Shading Control,  !- Actuated Component Type
+  Control Status;          !- Actuated Component Control Type
+</pre>
+<p>
+Next, instantiate the actuator in Modelica. For the above
+<code>EnergyManagementSystem:Actuator</code>, the Modelica instantiation would be
+</p>
+<pre>
+  Buildings.ThermalZones.EnergyPlus.Actuator actSha(
+    name =          \"Zn001_Wall001_Win001_Shading_Deploy_Status\",
+    unit =          Buildings.ThermalZones.EnergyPlus.Types.Units.Normalized,
+    componentName = \"Zn001:Wall001:Win001\",
+    componentType = \"Window Shading Control\",
+    controlType =   \"Control Status\") \"Actuator for window shade\";
+</pre>
+<p>
+The entry <code>units=Buildings.ThermalZones.EnergyPlus.Types.Units.Normalized</code>
+will cause the value to be sent to EnergyPlus without any unit conversion.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -102,6 +102,47 @@ For example, temperatures will be in Kelvin, and mass flow rates will be in
 <p>
 The output signal <code>y</code> gets updated at each EnergyPlus time step.
 </p>
+
+<h4>Usage</h4>
+<p>
+To use an output variable, it is best to add in the EnergyPlus idf file the entry
+</p>
+<pre>
+Output:VariableDictionary, Regular;
+</pre>
+<p>
+and then simulate the model. This will create the file
+<code>eplusout.rdd</code> that contains all output variables. The file has lines such as
+</p>
+<pre>
+Zone,Average,Zone Electric Equipment Electric Power [W]
+</pre>
+<p>
+<p>
+Next, instantiate the output variable in Modelica. To obtain the value of
+<code>Zone,Average,Zone Electric Equipment Electric Power [W]</code>
+for the zone <code>LIVING ZONE</code>,
+the Modelica instantiation would be
+</p>
+<pre>
+Buildings.ThermalZones.EnergyPlus.OutputVariable equEle(
+  name=\"Zone Electric Equipment Electric Power\",
+  key=\"LIVING ZONE\")
+  \"Block that reads output from EnergyPlus\";
+</pre>
+<p>
+By default, the Modelica log file will display the unit in the form
+</p>
+<pre>
+Output OneZoneOneOutputVariable.equEle.y has in Modelica the unit W.
+</pre>
+<p>
+For this diagnostic message, Modelica knows that the unit is Watts because EnergyPlus
+wrote the unit for this output when it instantiated the model.
+(The output signal <code>y</code> of this block will <i>not</i> have a unit attribute set
+because it is not possible to automatically set the unit attribute of the output <code>y</code>
+based on the information that EnergyPlus provides.)
+</p>
 <h4>Direct dependency of output</h4>
 <p>
 Some output variables <i>directly</i> depend on input variable, i.e.,
