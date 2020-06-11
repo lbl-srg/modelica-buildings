@@ -2,18 +2,14 @@ compareVars :=
   {
     "faiSafCon.TSup",
     "faiSafCon.TSupSet",
-    "faiSafCon.add2.y",
-    "faiSafCon.y",
+    "faiSafCon.yFaiCon",
     "faiSafCon1.TSup",
     "faiSafCon1.TSupSet",
-    "faiSafCon1.add2.y",
-    "faiSafCon1.y",
+    "faiSafCon1.yFaiCon",
     "faiSafCon2.TSup",
     "faiSafCon2.TSupSet",
-    "faiSafCon2.add2.y",
-    "faiSafCon2.y",
+    "faiSafCon2.yFaiCon",
     "faiSafCon3.TSup",
     "faiSafCon3.TSupSet",
-    "faiSafCon3.add2.y",
-    "faiSafCon3.y"
+    "faiSafCon3.yFaiCon"
   };
