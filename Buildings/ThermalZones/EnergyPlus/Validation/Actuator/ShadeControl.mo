@@ -47,7 +47,7 @@ model ShadeControl
     componentType="Window Shading Control",
     controlType="Control Status")
     annotation (Placement(transformation(extent={{170,-100},{190,-80}})));
-  Buildings.Buildings.ThermalZones.EnergyPlus.OutputVariable incBeaSou(
+  Buildings.ThermalZones.EnergyPlus.OutputVariable incBeaSou(
     name="Surface Outside Face Incident Beam Solar Radiation Rate per Area",
     key="Zn001:Wall001:Win001",
     y(final unit="W/m2"))
@@ -225,5 +225,18 @@ equation
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
     Diagram(coordinateSystem(extent={{-200,-140},{200,100}})),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
+    Documentation(info="<html>
+<p>
+Simple test case for one building with one thermal zone in which the room air temperature
+is free floating.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 11, 2020, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end ShadeControl;

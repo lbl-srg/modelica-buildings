@@ -55,7 +55,8 @@ Simple test case for one building with one thermal zone in which the room air te
 is free floating.
 </p>
 </html>", revisions="<html>
-<ul><li>
+<ul>
+<li>
 March 1, 2018, by Michael Wetter:<br/>
 First implementation.
 </li>
