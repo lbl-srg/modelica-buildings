@@ -9,5 +9,5 @@ compareVars :=
     "shaT.y",
     "shaH.y",
     "cooWes.conPID.y",
-    "act.u"
+    "actSha.u"
   };

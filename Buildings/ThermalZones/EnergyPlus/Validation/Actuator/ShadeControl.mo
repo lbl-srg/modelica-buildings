@@ -1,14 +1,10 @@
 within Buildings.ThermalZones.EnergyPlus.Validation.Actuator;
 model ShadeControl
-  "Validation model for one actuator that controls the shade"
+  "Validation model for one actuator that controls a shade"
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Air "Medium model";
 
-  /*
-  https://energyplus.net/sites/all/modules/custom/nrel_custom/pdfs/pdfs_v9.3.0/EMSApplicationGuide.pdf
-  EnergyManagementSystem:OutputVariable,Erl Shading Control Status, ! NameZn001_Wall001_Win001_Shading_Deploy_Status , ! EMS Variable NameAveraged, ! Type of Data in VariableZoneTimeStep ; ! Update Frequency
-  */
   inner Building building(
     idfName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/EMSWindowShadeControl/EMSWindowShadeControl.idf"),
     weaName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
@@ -40,12 +36,12 @@ model ShadeControl
     zoneName="NORTH ZONE",
     nPorts=2)              "North zone"
     annotation (Placement(transformation(extent={{0,40},{40,80}})));
-  Buildings.ThermalZones.EnergyPlus.Actuator act(
+  Buildings.ThermalZones.EnergyPlus.Actuator actSha(
     name="Zn001_Wall001_Win001_Shading_Deploy_Status",
     unit=Buildings.ThermalZones.EnergyPlus.Types.Units.Normalized,
     componentName="Zn001:Wall001:Win001",
     componentType="Window Shading Control",
-    controlType="Control Status")
+    controlType="Control Status") "Actuator for window shade"
     annotation (Placement(transformation(extent={{170,-100},{190,-80}})));
   Buildings.ThermalZones.EnergyPlus.OutputVariable incBeaSou(
     name="Surface Outside Face Incident Beam Solar Radiation Rate per Area",
@@ -53,6 +49,12 @@ model ShadeControl
     y(final unit="W/m2"))
     "Block that reads incident beam solar radiation on south window from EnergyPlus"
     annotation (Placement(transformation(extent={{20,-110},{40,-90}})));
+
+  Buildings.ThermalZones.EnergyPlus.OutputVariable shaAbsSol(name=
+        "Surface Window Shading Device Absorbed Solar Radiation Rate",
+    key="Zn001:Wall001:Win001") "Window shade absorbed solar radiation"
+    annotation (Placement(transformation(extent={{20,-140},{40,-120}})));
+
   Buildings.Controls.OBC.Shade.Shade_T shaT(
     THigh=297.15,
     TLow=295.15)
@@ -103,6 +105,12 @@ model ShadeControl
         transformation(rotation=0, extent={{120,30},{100,50}})));
   Cooling cooEas "Idealized cooling system" annotation (Placement(
         transformation(rotation=0, extent={{120,0},{100,20}})));
+
+  Buildings.ThermalZones.EnergyPlus.OutputVariable winHeaGai1(name=
+        "Surface Window Shading Device Absorbed Solar Radiation Rate", key=
+        "Zn001:Wall001:Win001")
+    "Surface window heat gain rate"
+    annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
 equation
   connect(qIntGai.y, zonNor.qGai_flow) annotation (Line(points={{-99,70},{-2,70}},
                                     color={0,0,127}));
@@ -124,9 +132,8 @@ equation
   connect(and2.y, booToRea.u)
     annotation (Line(points={{132,-90},{138,-90}},
                                                  color={255,0,255}));
-  connect(act.u, booToRea.y)
-    annotation (Line(points={{168,-90},{162,-90}},
-                                                 color={0,0,127}));
+  connect(actSha.u, booToRea.y)
+    annotation (Line(points={{168,-90},{162,-90}}, color={0,0,127}));
   connect(shaT.T, zonWes.TAir) annotation (Line(points={{48,-70},{20,-70},{20,11.8},
           {13,11.8}},                         color={0,0,127}));
   connect(shaH.H, incBeaSou.y)
@@ -137,20 +144,16 @@ equation
       thickness=0.5));
   connect(bou[:].ports[1],res1 [:].port_a) annotation (Line(points={{-148,0},{-134,
           0}},               color={0,127,255}));
-  connect(weaBus,bou [1].weaBus) annotation (Line(
+  connect(weaBus,bou[1].weaBus) annotation (Line(
       points={{-180,40},{-180,0.2},{-168,0.2}},
       color={255,204,51},
       thickness=0.5));
-  connect(weaBus,bou [2].weaBus) annotation (Line(
+  connect(weaBus,bou[2].weaBus) annotation (Line(
       points={{-180,40},{-180,0},{-168,0},{-168,0.2}},
       color={255,204,51},
       thickness=0.5));
-  connect(weaBus,bou [3].weaBus) annotation (Line(
+  connect(weaBus,bou[3].weaBus) annotation (Line(
       points={{-180,40},{-180,0.2},{-168,0.2}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(weaBus,bou [4].weaBus) annotation (Line(
-      points={{-180,40},{-180,0},{-168,0},{-168,0.2}},
       color={255,204,51},
       thickness=0.5));
   connect(building.weaBus, weaBus) annotation (Line(
@@ -224,12 +227,18 @@ equation
       StopTime=8899200,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
-    Diagram(coordinateSystem(extent={{-200,-140},{200,100}})),
+    Diagram(coordinateSystem(extent={{-200,-160},{200,120}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
-Simple test case for one building with one thermal zone in which the room air temperature
-is free floating.
+Validation case for a building that uses an EMS actuator.
+The building has three thermal zones and is simulated in EnergyPlus.
+The west-facing thermal zone has
+a window blind that is open if its control signal is <i>0</i> or closed if it is <i>6</i>.
+The instance <code>actSha</code> connects to the EMS actuator in EnergyPlus that activates this shade.
+The shade is controlled based the incident solar radiation which is computed by EnergyPlus,
+and the room air temperature.
+An idealized cooling system keeps the room air temperature below <i>25</i>&deg;C.
 </p>
 </html>", revisions="<html>
 <ul>
