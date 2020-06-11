@@ -17,8 +17,11 @@
 #include <stdbool.h>
 #include "../cryptographicsHash.c"
 
-void buildJSONKeyValue(char* *buffer, const char* key, const char* value, bool addComma, size_t* size){
-  saveAppend(buffer, "        \"", size);
+void buildJSONKeyValue(char* *buffer, size_t level, const char* key, const char* value, bool addComma, size_t* size){
+  size_t i;
+  for(i = 0; i < level; i++)
+    saveAppend(buffer, "  ", size);
+  saveAppend(buffer, "\"", size);
   saveAppend(buffer, key, size);
   saveAppend(buffer, "\": \"", size);
   saveAppend(buffer, value, size);
@@ -65,13 +68,13 @@ void buildJSONModelStructureForEnergyPlus(
   int iMod = 0;
 
   saveAppend(buffer, "{\n", size);
-  buildJSONKeyValue(buffer, "version", "0.1", true, size);
+  buildJSONKeyValue(buffer, 1, "version", "0.1", true, size);
   saveAppend(buffer, "  \"EnergyPlus\": {\n", size);
   /* idf name */
-  buildJSONKeyValue(buffer, "idf", bui->idfName, true, size);
+  buildJSONKeyValue(buffer, 2, "idf", bui->idfName, true, size);
 
   /* weather file */
-  buildJSONKeyValue(buffer, "weather", bui->weather, false, size);
+  buildJSONKeyValue(buffer, 2, "weather", bui->weather, false, size);
   saveAppend(buffer, "  },\n", size);
 
   /* model information */
@@ -82,7 +85,7 @@ void buildJSONModelStructureForEnergyPlus(
       saveAppend(buffer, "    \"zones\": [\n", size);
     }
     openJSONModelBracket(buffer, size);
-    buildJSONKeyValue(buffer, "name", zones[i]->name, false, size);
+    buildJSONKeyValue(buffer, 4, "name", zones[i]->name, false, size);
     closeJSONModelBracket(buffer, i, bui->nZon, size);
   }
   iMod = bui->nZon;
@@ -110,9 +113,9 @@ void buildJSONModelStructureForEnergyPlus(
         saveAppend(buffer, "    \"schedules\": [\n", size);
       }
       openJSONModelBracket(buffer, size);
-      buildJSONKeyValue(buffer, "name", inpVars[i]->name, true, size);
-      buildJSONKeyValue(buffer, "unit", inpVars[i]->unit, true, size);
-      buildJSONKeyValue(buffer, "fmiName", inpVars[i]->inputs->fmiNames[0], false, size);
+      buildJSONKeyValue(buffer, 4, "name", inpVars[i]->name, true, size);
+      buildJSONKeyValue(buffer, 4, "unit", inpVars[i]->unit, true, size);
+      buildJSONKeyValue(buffer, 4, "fmiName", inpVars[i]->inputs->fmiNames[0], false, size);
       closeJSONModelBracket(buffer, iWri, nSch, size);
       iWri++;
     }
@@ -131,12 +134,12 @@ void buildJSONModelStructureForEnergyPlus(
         saveAppend(buffer, "    \"emsActuators\": [\n", size);
       }
       openJSONModelBracket(buffer, size);
-      buildJSONKeyValue(buffer, "name", inpVars[i]->name, true, size);
-      buildJSONKeyValue(buffer, "componentName", inpVars[i]->componentName, true, size);
-      buildJSONKeyValue(buffer, "componentType", inpVars[i]->componentType, true, size);
-      buildJSONKeyValue(buffer, "controlType", inpVars[i]->controlType, true, size);
-      buildJSONKeyValue(buffer, "unit", inpVars[i]->unit, true, size);
-      buildJSONKeyValue(buffer, "fmiName", inpVars[i]->inputs->fmiNames[0], false, size);
+      buildJSONKeyValue(buffer, 4, "name", inpVars[i]->name, true, size);
+      buildJSONKeyValue(buffer, 4, "componentName", inpVars[i]->componentName, true, size);
+      buildJSONKeyValue(buffer, 4, "componentType", inpVars[i]->componentType, true, size);
+      buildJSONKeyValue(buffer, 4, "controlType", inpVars[i]->controlType, true, size);
+      buildJSONKeyValue(buffer, 4, "unit", inpVars[i]->unit, true, size);
+      buildJSONKeyValue(buffer, 4, "fmiName", inpVars[i]->inputs->fmiNames[0], false, size);
       closeJSONModelBracket(buffer, iWri, bui->nInputVariables-nSch, size);
       iWri++;
     }
@@ -155,9 +158,9 @@ void buildJSONModelStructureForEnergyPlus(
       saveAppend(buffer, "    \"outputVariables\": [\n", size);
     }
     openJSONModelBracket(buffer, size);
-    buildJSONKeyValue(buffer, "name", outVars[i]->name, true, size);
-    buildJSONKeyValue(buffer, "key",  outVars[i]->key,  true, size);
-    buildJSONKeyValue(buffer, "fmiName",  outVars[i]->outputs->fmiNames[0], false, size);
+    buildJSONKeyValue(buffer, 4, "name", outVars[i]->name, true, size);
+    buildJSONKeyValue(buffer, 4, "key",  outVars[i]->key,  true, size);
+    buildJSONKeyValue(buffer, 4, "fmiName",  outVars[i]->outputs->fmiNames[0], false, size);
     closeJSONModelBracket(buffer, i, bui->nOutputVariables, size);
   }
   if (bui->nOutputVariables > 0){
@@ -172,9 +175,9 @@ void buildJSONModelStructureForEnergyPlus(
 
     /* fmu */
   saveAppend(buffer, "  \"fmu\": {\n", size);
-  buildJSONKeyValue(buffer, "name", bui->fmuAbsPat, true, size);
-  buildJSONKeyValue(buffer, "version", "2.0", true, size);
-  buildJSONKeyValue(buffer, "kind", "ME", false, size);
+  buildJSONKeyValue(buffer, 3, "name", bui->fmuAbsPat, true, size);
+  buildJSONKeyValue(buffer, 3, "version", "2.0", true, size);
+  buildJSONKeyValue(buffer, 3, "kind", "ME", false, size);
   saveAppend(buffer, "  }\n", size);
 
   /* Close json structure */
