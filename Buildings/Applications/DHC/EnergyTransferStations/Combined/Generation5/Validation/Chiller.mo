@@ -177,11 +177,17 @@ model Chiller
         9,0.5; 10,0; 11,0],
                timeScale=1000)
                     "Heating load (ratio to nominal)"
-    annotation (Placement(transformation(extent={{-240,50},{-220,70}})));
+    annotation (Placement(transformation(extent={{-260,50},{-240,70}})));
   Modelica.Blocks.Sources.TimeTable loaCooRat(table=[0,0; 3,0; 4,1; 14,1; 15,
         0.5; 16,0.5],    timeScale=1000)
                       "Cooling load (ratio to nominal)"
-    annotation (Placement(transformation(extent={{240,52},{220,72}})));
+    annotation (Placement(transformation(extent={{260,50},{240,70}})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold reqHea
+    "Heating request"
+    annotation (Placement(transformation(extent={{-200,-30},{-180,-10}})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold reqCoo
+    "Cooling request"
+    annotation (Placement(transformation(extent={{-200,-110},{-180,-90}})));
 equation
   connect(senTHeaWatRet.port_b, ets.ports_aHeaWat[1]) annotation (Line(points={{
           -70,-40},{-60,-40},{-60,-28},{-30,-28}}, color={0,127,255}));
@@ -234,15 +240,18 @@ equation
           -121,-2},{-121,-40},{-90,-40}}, color={0,127,255}));
   connect(heaWat.ports[1], pumHeaWat.port_a)
     annotation (Line(points={{20,24},{20,40},{10,40}}, color={0,127,255}));
-  connect(uHeaCoo[1].y, ets.uHea) annotation (Line(points={{-178,-60},{-60,-60},
-          {-60,-46},{-34,-46}}, color={255,0,255}));
-  connect(uHeaCoo[2].y, ets.uCoo) annotation (Line(points={{-178,-60},{-60,-60},
-          {-60,-54},{-34,-54}}, color={255,0,255}));
   connect(loaHeaRat.y, gai3.u)
-    annotation (Line(points={{-219,60},{-202,60}}, color={0,0,127}));
+    annotation (Line(points={{-239,60},{-202,60}}, color={0,0,127}));
   connect(loaCooRat.y, gai4.u)
-    annotation (Line(points={{219,62},{210,62},{210,60},{202,60}},
-                                                 color={0,0,127}));
+    annotation (Line(points={{239,60},{202,60}}, color={0,0,127}));
+  connect(loaHeaRat.y, reqHea.u) annotation (Line(points={{-239,60},{-220,60},{
+          -220,-20},{-202,-20}}, color={0,0,127}));
+  connect(loaCooRat.y, reqCoo.u) annotation (Line(points={{239,60},{220,60},{
+          220,-120},{-220,-120},{-220,-100},{-202,-100}}, color={0,0,127}));
+  connect(reqHea.y, ets.uHea) annotation (Line(points={{-178,-20},{-160,-20},{
+          -160,-46},{-34,-46}}, color={255,0,255}));
+  connect(reqCoo.y, ets.uCoo) annotation (Line(points={{-178,-100},{-160,-100},
+          {-160,-54},{-34,-54}}, color={255,0,255}));
   annotation (Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-280,-220},{280,220}})),
   __Dymola_Commands(file=

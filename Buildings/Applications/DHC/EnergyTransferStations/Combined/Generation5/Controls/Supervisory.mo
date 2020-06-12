@@ -12,10 +12,10 @@ model Supervisory "Energy transfer station supervisory controller"
     "Temperature hysteresis (absolute value)";
   parameter Modelica.SIunits.TemperatureDifference dTDea = 1
     "Temperature dead band (absolute value)";
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType[nSouAmb]=
-    fill(Buildings.Controls.OBC.CDL.Types.SimpleController.P, nSouAmb)
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType[nSouAmb]=fill(
+      Buildings.Controls.OBC.CDL.Types.SimpleController.PI, nSouAmb)
     "Type of controller";
-  parameter Real k[nSouAmb](each min=0) = fill(1, nSouAmb)
+  parameter Real k[nSouAmb](each min=0)=fill(0.1, nSouAmb)
     "Gain of controller";
   parameter Modelica.SIunits.Time Ti[nSouAmb]=fill(60, nSouAmb)
     "Time constant of integrator block"
