@@ -45,7 +45,7 @@ model CoolingPlantClosedLoop
     "Nominal pressure drop of chilled water pumps";
 
   // building
-  parameter Modelica.SIunits.Power Q_flow_nominal=-50E3
+  parameter Modelica.SIunits.Power Q_flow_nominal=-500E3
     "Nominal heat flow rate, negative";
   parameter Modelica.SIunits.Power QCooLoa[:, :]= [0, -200E3; 6, -300E3; 12, -500E3; 18, -300E3; 24, -200E3]
     "Cooling load table matrix, negative";
@@ -136,7 +136,6 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=86400, Tolerance=1e-06),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Applications/DHC/CentralPlants/Cooling/Examples/CoolingPlantClosedLoop.mos"
+    __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/CentralPlants/Cooling/Examples/CoolingPlantClosedLoop.mos"
         "Simulate and Plot"));
 end CoolingPlantClosedLoop;
