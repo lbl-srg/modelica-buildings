@@ -41,7 +41,7 @@
 | \return 0 if no error occurred
 ***************************************************************************/
 int set_bnd(PARA_DATA *para, REAL **var, int var_type, int index, REAL *psi,
-            int **BINDEX) {
+	int **BINDEX) {
   int flag;
   switch(var_type) {
     case VX:
@@ -442,7 +442,7 @@ int set_bnd_vel(PARA_DATA *para, REAL **var, int var_type, REAL *psi,
  | \ V2.0: 1/22/2018, by Wei Tian: add the boundary conditions for rack inlet and outlet
  ***************************************************************************/
 int set_bnd_vel_adv(PARA_DATA *para, REAL **var, int var_type, REAL *psi,
-  int **BINDEX) {
+	int **BINDEX) {
   int i, j, k;
   int it;
   int imax = para->geom->imax, jmax = para->geom->jmax;
@@ -737,7 +737,7 @@ int set_bnd_vel_adv(PARA_DATA *para, REAL **var, int var_type, REAL *psi,
 | \ V2.0: 1/22/2018, by Wei Tian: add the boundary conditions for rack inlet
 ***************************************************************************/
 int set_bnd_temp(PARA_DATA *para, REAL **var, int var_type, REAL *psi,
-                 int **BINDEX) {
+	int **BINDEX) {
   int i, j, k;
   int it;
   int index=para->geom->index;

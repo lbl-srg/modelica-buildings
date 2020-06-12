@@ -42,55 +42,53 @@ REAL nu_t_chen_zero_equ(PARA_DATA *para, REAL **var, int i, int j, int k) {
   REAL nu_t, l;
   REAL *x = var[X], *y = var[Y], *z = var[Z];
   REAL *u = var[VX], *v = var[VY], *w = var[VZ];
-    REAL *flagp = var[FLAGP];
+  REAL *flagp = var[FLAGP];
   int imax = para->geom->imax, jmax = para->geom->jmax,
       kmax = para->geom->kmax;
   int IMAX = imax+2, IJMAX = (imax+2)*(jmax+2);
-    REAL coeff = para->prob->chen_a;
-    REAL jim_a = 0.0185;
+  REAL coeff = para->prob->chen_a;
+  REAL jim_a = 0.0185;
   REAL lx=0, ly=0, lz =0;
   REAL lx1=0,lx2=0, ly1=0, ly2=0, lz1=0, lz2=0;
-        /****************************************************************************
-        |  reserve the flexibility to implement the revised CHEN's model
-        |  proposed by Jim and Chris, assigning a different coefficient of chen_a
-        |  for the fluid cell adjacent to the boudnary cells
-        |  Refer to the Turbulence_Model_Assessment_v17.pdf
-        | \ Note Makers: Wei Tian
-        | \ Contact: Wei.Tian@Schneider-Electric.com, Schneider Electric
-        | \ Date: 7/04/2017
-        ****************************************************************************/
-        /*l = var[MIN_DISTANCE][IX(i, j, k)];*/
-        lx1 = x[IX(i,j,k)] - x[IX(0,j,k)];
-        lx2 = x[IX(imax+1,j,k)] - x[IX(i,j,k)];
-        lx = lx1 < lx2 ? lx1 : lx2;
+  
+  /****************************************************************************
+  |  reserve the flexibility to implement the revised CHEN's model
+  |  proposed by Jim and Chris, assigning a different coefficient of chen_a
+  |  for the fluid cell adjacent to the boudnary cells
+  |  Refer to the Turbulence_Model_Assessment_v17.pdf
+  | \ Note Makers: Wei Tian
+  | \ Contact: Wei.Tian@Schneider-Electric.com, Schneider Electric
+  | \ Date: 7/04/2017
+  ****************************************************************************/
+  lx1 = x[IX(i,j,k)] - x[IX(0,j,k)];
+  lx2 = x[IX(imax+1,j,k)] - x[IX(i,j,k)];
+  lx = lx1 < lx2 ? lx1 : lx2;
 
-        ly1 = y[IX(i,j,k)] - y[IX(i,0,k)];
-        ly2 = y[IX(i,jmax,k)] - y[IX(i,j,k)];
-        ly = ly1 < ly2 ? ly1 : ly2;
+  ly1 = y[IX(i,j,k)] - y[IX(i,0,k)];
+  ly2 = y[IX(i,jmax,k)] - y[IX(i,j,k)];
+  ly = ly1 < ly2 ? ly1 : ly2;
 
-        lz1 = z[IX(i,j,k)] - z[IX(i,j,0)];
-        lz2 = z[IX(i,j,kmax+1)] - z[IX(i,j,k)];
-        lz = lz1 < lz2 ? lz1 : lz2;
+  lz1 = z[IX(i,j,k)] - z[IX(i,j,0)];
+  lz2 = z[IX(i,j,kmax+1)] - z[IX(i,j,k)];
+  lz = lz1 < lz2 ? lz1 : lz2;
 
-        l = lx < ly ? lx : ly;
-        l = lz < l ? lz : l;
-        /* check if sorrounding cell is solid */
+  l = lx < ly ? lx : ly;
+  l = lz < l ? lz : l;
+  /* check if surrounding cell is solid */
 
-        if (flagp[IX(i - 1, j, k)] >= 0 || flagp[IX(i + 1, j, k)] >= 0 ||
-                        flagp[IX(i, j - 1, k)] >= 0 || flagp[IX(i, j + 1, k)] >= 0 ||
-                        flagp[IX(i, j, k - 1)] >= 0 || flagp[IX(i, j, k + 1)] >= 0) {
-                /* if the cell is adjacent to solid boundaries, assign a otherwise coffecient */
-                coeff = jim_a;
-        }
-        else {
-                /* if the cell is not adjacent to solid boundaries, assign a standard coffecient */
-                coeff = para->prob->chen_a;
-        }
+  if (flagp[IX(i - 1, j, k)] >= 0 || flagp[IX(i + 1, j, k)] >= 0 ||
+		flagp[IX(i, j - 1, k)] >= 0 || flagp[IX(i, j + 1, k)] >= 0 ||
+		flagp[IX(i, j, k - 1)] >= 0 || flagp[IX(i, j, k + 1)] >= 0) {
+	/* if the cell is adjacent to solid boundaries, assign a otherwise coffecient */
+	coeff = jim_a;
+  }
+  else {
+	/* if the cell is not adjacent to solid boundaries, assign a standard coffecient */
+	coeff = para->prob->chen_a;
+  }
 
-        nu_t = coeff * l
-                * (REAL)sqrt(u[IX(i,j,k)]*u[IX(i,j,k)]
-                                        +v[IX(i,j,k)]*v[IX(i,j,k)]
-                                        +w[IX(i,j,k)]*w[IX(i,j,k)] );
+	nu_t = coeff * l * (REAL)sqrt(u[IX(i,j,k)]*u[IX(i,j,k)]
+		+v[IX(i,j,k)]*v[IX(i,j,k)] +w[IX(i,j,k)]*w[IX(i,j,k)] );
 
   return nu_t;
 } /* End of nu_t_chen_zero_equ() */
@@ -124,23 +122,23 @@ REAL nu_t_chen_zero_equ(PARA_DATA *para, REAL **var, int i, int j, int k) {
 | \ Last update: 7/11/2017
 ****************************************************************************/
 REAL alpha_t_chen_zero_equ(PARA_DATA *para, REAL **var) {
-        int i, j, k;
-        REAL *x = var[X], *y = var[Y], *z = var[Z];
-        REAL *u = var[VX], *v = var[VY], *w = var[VZ];
-        REAL *flagp = var[FLAGP];
-        int imax = para->geom->imax, jmax = para->geom->jmax,
-                kmax = para->geom->kmax;
-        int IMAX = imax + 2, IJMAX = (imax + 2)*(jmax + 2);
-        REAL sum_tur_alpha = 0.0;
-        int count = 0;
+  int i, j, k;
+  REAL *x = var[X], *y = var[Y], *z = var[Z];
+  REAL *u = var[VX], *v = var[VY], *w = var[VZ];
+  REAL *flagp = var[FLAGP];
+  int imax = para->geom->imax, jmax = para->geom->jmax,
+	kmax = para->geom->kmax;
+  int IMAX = imax + 2, IJMAX = (imax + 2)*(jmax + 2);
+  REAL sum_tur_alpha = 0.0;
+  int count = 0;
         
-        FOR_EACH_CELL
-                if (flagp[IX(i, j, k)] >= 0) continue;
-                sum_tur_alpha += nu_t_chen_zero_equ(para, var, i, j, k) / 0.900000 /*Pr number*/;
-                count += 1;
-        END_FOR
+  FOR_EACH_CELL
+	if (flagp[IX(i, j, k)] >= 0) continue;
+	sum_tur_alpha += nu_t_chen_zero_equ(para, var, i, j, k) / 0.900000 /*Pr number*/;
+	count += 1;
+  END_FOR
 
-        return sum_tur_alpha / count; /* turbulent alpha for each cell */
+  return sum_tur_alpha / count; /* turbulent alpha for each cell */
 } /* end of alpha_t */
 
 
