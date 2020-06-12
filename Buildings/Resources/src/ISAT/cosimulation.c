@@ -68,51 +68,51 @@ int read_cosim_parameter(PARA_DATA *para) {
   | Compare number of solid surface boundaries
   | (Wall, Window Glass with and without shading, and Window Frame)
   ****************************************************************************/
-		if (para->cosim->para->version == "DEBUG") {
-			cosim_log("Modelica Surfaces are:", COSIM_NORMAL);
-			for (i = 0; i<para->cosim->para->nSur; i++) {
-				sprintf(comsg, "\t%s", para->cosim->para->name[i]);
-				cosim_log(comsg, COSIM_NORMAL);
-			}
+	if (para->cosim->para->version == "DEBUG") {
+		cosim_log("Modelica Surfaces are:", COSIM_NORMAL);
+		for (i = 0; i<para->cosim->para->nSur; i++) {
+			sprintf(comsg, "\t%s", para->cosim->para->name[i]);
+			cosim_log(comsg, COSIM_NORMAL);
 		}
+	}
 
   /****************************************************************************
   | Compare the number of fluid ports
   ****************************************************************************/
-		if (para->cosim->para->version == "DEBUG") {
-			sprintf(comsg, "\tnPorts=%d", para->cosim->para->nPorts);
-			cosim_log(comsg, COSIM_NORMAL);
-			}
+	if (para->cosim->para->version == "DEBUG") {
+		sprintf(comsg, "\tnPorts=%d", para->cosim->para->nPorts);
+		cosim_log(comsg, COSIM_NORMAL);
+	}
 
   /****************************************************************************
   | Compare the number of sensors
   ****************************************************************************/
-		if (para->cosim->para->version == "DEBUG") {
-			sprintf(comsg, "\tnSen=%d", para->cosim->para->nSen);
-			cosim_log(comsg, COSIM_NORMAL);
-		}
+	if (para->cosim->para->version == "DEBUG") {
+		sprintf(comsg, "\tnSen=%d", para->cosim->para->nSen);
+		cosim_log(comsg, COSIM_NORMAL);
+	}
 
   /****************************************************************************
   | Compare the number of species
   ****************************************************************************/
-		if (para->cosim->para->version == "DEBUG") {
-			sprintf(comsg, "\tnXi=%d", para->cosim->para->nXi);
-			cosim_log(comsg, COSIM_NORMAL);
-		}
+	if (para->cosim->para->version == "DEBUG") {
+		sprintf(comsg, "\tnXi=%d", para->cosim->para->nXi);
+		cosim_log(comsg, COSIM_NORMAL);
+	}
 
   /****************************************************************************
   | Compare the number of trace substances
   ****************************************************************************/
-		if (para->cosim->para->version == "DEBUG") {
-			sprintf(comsg, "\tnC=%d", para->cosim->para->nC);
-			cosim_log(comsg, COSIM_NORMAL);
+	if (para->cosim->para->version == "DEBUG") {
+		sprintf(comsg, "\tnC=%d", para->cosim->para->nC);
+		cosim_log(comsg, COSIM_NORMAL);
 
-			sprintf(comsg, "\tnConExtWin=%d", para->cosim->para->nConExtWin);
-			cosim_log(comsg, COSIM_NORMAL);
+		sprintf(comsg, "\tnConExtWin=%d", para->cosim->para->nConExtWin);
+		cosim_log(comsg, COSIM_NORMAL);
 
-			sprintf(comsg, "\tsha=%d", para->cosim->para->sha);
-			cosim_log(comsg, COSIM_NORMAL);
-		}
+		sprintf(comsg, "\tsha=%d", para->cosim->para->sha);
+		cosim_log(comsg, COSIM_NORMAL);
+	}
 
   /****************************************************************************
   | Print the information for surface boundaries
@@ -150,8 +150,8 @@ int read_cosim_parameter(PARA_DATA *para) {
     cosim_log(comsg, COSIM_NORMAL);
   }
 
-		sprintf(comsg,"read_cosim_parameter(): check para->cosim->modelica->flag=%d", para->cosim->modelica->flag);
-		cosim_log(comsg, COSIM_NORMAL);
+	sprintf(comsg,"read_cosim_parameter(): check para->cosim->modelica->flag=%d", para->cosim->modelica->flag);
+	cosim_log(comsg, COSIM_NORMAL);
 
   return 0;
 } /* End of read_cosim_parameter()*/
@@ -306,29 +306,29 @@ int write_cosim_data(PARA_DATA *para){
   /****************************************************************************
   | Start to write new data
   ****************************************************************************/
-		cosim_log("write_cosim_data(): "
-			"Start to write the following coupled simulation data to Modelica:",
-			COSIM_NORMAL);
+	cosim_log("write_cosim_data(): "
+		"Start to write the following coupled simulation data to Modelica:",
+		COSIM_NORMAL);
 
-		/****************************************************************************
-		| Note: we assumed fixed values by default for some parameters. The values
-		| can be assigned by isat output, which is defined by users. 
-		| For example, para->cosim->ffd->TRoo = para->cosim->ffd->output[0];
-		****************************************************************************/
+  /****************************************************************************
+  | Note: we assumed fixed values by default for some parameters. The values
+  | can be assigned by isat output, which is defined by users. 
+  | For example, para->cosim->ffd->TRoo = para->cosim->ffd->output[0];
+  ****************************************************************************/
 
   /****************************************************************************
   | Set the time and space averaged temperature of space
   | Convert T from degC to K
   ****************************************************************************/
-		para->cosim->ffd->TRoo = 25.0; /*assumed a fixed value*/
+	para->cosim->ffd->TRoo = 25.0; /*assumed a fixed value*/
 
   /****************************************************************************
   | Set temperature of shading devices (currently not supported)
   ****************************************************************************/
-		/*Note: we assumed a fixed value here, which can be assigned by isat outputs*/
+  /*Note: we assumed a fixed value here, which can be assigned by isat outputs*/
   if(para->cosim->para->sha==1) {
     for(i=0; i<para->cosim->para->nConExtWin; i++) {
-      para->cosim->ffd->TSha[i] = 20 + 273.15;  /*assumed a fixed value*/
+      para->cosim->ffd->TSha[i] = 20 + 273.15; /*assumed a fixed value*/
     }
   }
 			
@@ -340,30 +340,30 @@ int write_cosim_data(PARA_DATA *para){
     /*-------------------------------------------------------------------------
     | Assign the temperature
     -------------------------------------------------------------------------*/   
-	para->cosim->ffd->TPor[i] = 25.0;  /*assumed a fixed value*/
+	para->cosim->ffd->TPor[i] = 25.0; /*assumed a fixed value*/
 
     for(j=0; j<para->cosim->para->nXi; j++) {
-					 para->cosim->ffd->XiPor[i][j] = 0.01;  /*assumed a fixed value*/
+		para->cosim->ffd->XiPor[i][j] = 0.01; /*assumed a fixed value*/
     }
     /*-------------------------------------------------------------------------
     | Assign the C
     -------------------------------------------------------------------------*/
     for(j=0; j<para->cosim->para->nC; j++) {
-					para->cosim->ffd->CPor[i][j] = 0.01;  /*assumed a fixed value*/
+		para->cosim->ffd->CPor[i][j] = 0.01; /*assumed a fixed value*/
     }
   }
 
   /****************************************************************************
   | Set data for solid surfaces
   ****************************************************************************/
-		for (i = 0; i < para->cosim->para->nSur; i++) {
+	for (i = 0; i < para->cosim->para->nSur; i++) {
     /* Set the B.C. Temperature*/
     if(para->cosim->para->bouCon[i]==2) {
 		para->cosim->ffd->temHea[i] = 25 + 273.15; /*assumed a fixed value*/
     }
     /* Set the heat flux*/
     else {
-					 para->cosim->ffd->temHea[i] = 0.0; /*assumed a fixed value*/
+		para->cosim->ffd->temHea[i] = 0.0; /*assumed a fixed value*/
     }
   }
 
@@ -371,9 +371,9 @@ int write_cosim_data(PARA_DATA *para){
   | Set data for sensors
   ****************************************************************************/
   for(i=0; i<para->cosim->para->nSen; i++) {
-			para->cosim->ffd->senVal[i] = para->cosim->ffd->output[i];
+	para->cosim->ffd->senVal[i] = para->cosim->ffd->output[i];
     sprintf(comsg, "\tpara->cosim->ffd->output[%d]: %f",
-            i, para->cosim->ffd->senVal[i]);
+		i, para->cosim->ffd->senVal[i]);
     cosim_log(comsg, COSIM_NORMAL);
   }
 
@@ -558,7 +558,7 @@ void cosim_log(char *message, COSIM_MSG_TYPE msg_type) {
 	case COSIM_ERROR:
 		fprintf(file_log, "ERROR in %s\n", message);
 		break;
-		/* Normal log */
+	/* Normal log */
 	default:
 		fprintf(file_log, "%s\n", message);
 	}
