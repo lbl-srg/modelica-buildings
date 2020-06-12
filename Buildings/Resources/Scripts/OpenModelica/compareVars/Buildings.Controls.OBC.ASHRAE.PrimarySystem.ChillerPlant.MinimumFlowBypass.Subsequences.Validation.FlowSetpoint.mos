@@ -7,7 +7,7 @@ compareVars :=
     "onOffStaUpMinFlo.uStaUp",
     "onOffStaUpMinFlo.uUpsDevSta",
     "onOffStaUpMinFlo.uOnOff",
-    "onOffStaUpMinFlo.uEnaNexChi",
+    "onOffStaUpMinFlo.uSubCha",
     "onOffStaUpMinFlo.yChiWatMinFloSet",
     "staDowMinFlo.uStaDow",
     "staDowMinFlo.uUpsDevSta",

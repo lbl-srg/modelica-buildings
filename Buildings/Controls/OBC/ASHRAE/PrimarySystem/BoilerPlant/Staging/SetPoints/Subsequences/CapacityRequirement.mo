@@ -1,14 +1,16 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences;
 block CapacityRequirement
   "Heating capacity requirement"
 
   parameter Real avePer(
     final unit="s",
-    final displayUnit="s") = 300
+    final displayUnit="s",
+    final quantity="Time") = 300
     "Time period for the rolling average";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupSet(
     final unit="K",
+    final displayUnit="K",
     final quantity="ThermodynamicTemperature")
     "Hot water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-160,50},{-120,90}}),
@@ -16,6 +18,7 @@ block CapacityRequirement
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRet(
     final unit="K",
+    final displayUnit="K",
     final quantity="ThermodynamicTemperature")
     "Measured hot water return temperature"
     annotation (Placement(transformation(extent={{-160,-20},{-120,20}}),
@@ -23,14 +26,16 @@ block CapacityRequirement
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VHotWat_flow(
     final quantity="VolumeFlowRate",
-    final unit="m3/s")
+    final unit="m3/s",
+    final displayUnit="m3/s")
     "Measured hot water flow rate"
     annotation (Placement(transformation(extent={{-160,-90},{-120,-50}}),
       iconTransformation(extent={{-140,-90},{-100,-50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
     final quantity="Power",
-    final unit="W")
+    final unit="W",
+    final displayUnit="W")
     "Hot water heating capacity requirement"
     annotation (Placement(transformation(extent={{120,-20},{160,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
@@ -151,15 +156,17 @@ equation
       Calculates heating capacity requirement based on the measured hot water return
       temperature, <code>TRet</code>, calculated hot water supply temperature
       setpoint <code>TSupSet</code>, and the measured hot water flow rate,
-      <code>VHotWat_flow</code>.<br/> The calculation is according to the draft
-      dated March 23rd, 2020, section 5.3.3.5 and 5.3.3.6.
+      <code>VHotWat_flow</code>.
+      <br/> 
+      The calculation is according to section 5.3.3.5 and 5.3.3.6. in RP-1711, March
+      2020 draft.
       </p>
       <p align=\"center\">
       <img alt=\"Validation plot for CapacityRequirement\"
-      src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/Subsequences/CapacityRequirement.png\"/>
+      src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/CapacityRequirement.png\"/>
       <br/>
-      Validation plot generated from model <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences.Validation.CapacityRequirement\">
-      Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences.Validation.CapacityRequirement</a>.
+      Validation plot generated from model <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.CapacityRequirement\">
+      Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.CapacityRequirement</a>.
       </p>
       </html>",
       revisions="<html>

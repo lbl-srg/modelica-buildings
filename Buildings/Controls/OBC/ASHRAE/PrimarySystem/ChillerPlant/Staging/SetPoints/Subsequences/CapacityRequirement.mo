@@ -2,11 +2,16 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoint
 block CapacityRequirement
   "Cooling capacity requirement"
 
-  parameter Modelica.SIunits.Time avePer = 300
-  "Time period for the rolling average";
+  parameter Real avePer(
+    final unit="s",
+    final quantity="Time")=300
+    "Time period for the rolling average";
 
-  parameter Modelica.SIunits.Time holPer = 900
-  "Time period for the value hold at stage change";
+  parameter Real holPer(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")=900
+    "Time period for the value hold at stage change";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput chaPro
     "Stage change process status, true = on, false = off"
@@ -162,7 +167,7 @@ Documentation(info="<html>
 Calculates cooling capacity requirement based on the measured chilled water return temperature <code>TChiWatRet</code>,
 calculated chilled water supply temperature setpoint
 <code>TChiWatSupSet</code> and the measured chilled water flow <code>VChiWat_flow</code>.<br/>
-The calculation is according to 1711 March 2020 Draft, section 5.2.4.8. 
+The calculation is according to 1711 March 2020 Draft, section 5.2.4.8.
 </p>
 <p>
 When a stage change process is in progress, as indicated by a boolean input

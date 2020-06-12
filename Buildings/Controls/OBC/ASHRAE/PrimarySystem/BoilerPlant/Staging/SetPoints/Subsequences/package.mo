@@ -1,5 +1,5 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging;
-package Subsequences "Boiler staging subsequences"
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints;
+package Subsequences "Boiler staging setpoint subsequences"
 
   annotation (Icon(graphics={
         Rectangle(
