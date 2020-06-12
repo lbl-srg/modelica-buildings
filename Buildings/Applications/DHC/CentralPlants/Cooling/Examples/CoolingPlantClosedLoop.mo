@@ -24,7 +24,7 @@ model CoolingPlantClosedLoop
   // control settings
   parameter Modelica.SIunits.Pressure dpSetPoi=68900
     "Differential pressure setpoint";
-  parameter Modelica.SIunits.Temperature TCHWSet = 273.15 + 8
+  parameter Modelica.SIunits.Temperature TCHWSet=273.15 + 7
     "Chilled water temperature setpoint";
   parameter Modelica.SIunits.Time tWai=30 "Waiting time";
 
@@ -50,27 +50,29 @@ model CoolingPlantClosedLoop
   parameter Modelica.SIunits.Power QCooLoa[:, :]= [0, -200E3; 6, -300E3; 12, -500E3; 18, -300E3; 24, -200E3]
     "Cooling load table matrix, negative";
 
-  Fluid.FixedResistances.Pipe pip(
+  Buildings.Fluid.FixedResistances.Pipe pip(
     redeclare package Medium=Medium,
     m_flow_nominal=mCHW_flow_nominal,
     nSeg=10,
     thicknessIns=0.01,
     lambdaIns=0.04,
-    length=100) "Distribution pipe"
+    length=100,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Distribution pipe"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
 
-  BoundaryConditions.WeatherData.ReaderTMY3           weaDat(final
-      computeWetBulbTemperature=true, filNam=
-        Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
+  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
+    final computeWetBulbTemperature=true, filNam=
+    Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 
-  BoundaryConditions.WeatherData.Bus           weaBus "Weather data bus"
+  Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 
   Modelica.Blocks.Sources.BooleanConstant on "On signal of the plant"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 
-  Plant                                                  pla(
+  Buildings.Applications.DHC.CentralPlants.Cooling.Plant pla(
     perChi=perChi,
     perCHWPum=perCHWPum,
     perCWPum=perCWPum,
@@ -100,7 +102,7 @@ model CoolingPlantClosedLoop
     mDis_flow_nominal=mCHW_flow_nominal,
     mByp_flow_nominal=0.1,
     QCooLoa=QCooLoa)
-        "Building with cooling load"
+    "Building with cooling load"
     annotation (Placement(transformation(extent={{80,0},{60,20}})));
 
   Modelica.Blocks.Sources.Constant TCHWSupSet(k=TCHWSet)
@@ -133,5 +135,8 @@ equation
           -22,18}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    experiment(StopTime=86400, Tolerance=1e-06));
+    experiment(StopTime=86400, Tolerance=1e-06),
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Applications/DHC/CentralPlants/Cooling/Examples/CoolingPlantClosedLoop.mos"
+        "Simulate and Plot"));
 end CoolingPlantClosedLoop;

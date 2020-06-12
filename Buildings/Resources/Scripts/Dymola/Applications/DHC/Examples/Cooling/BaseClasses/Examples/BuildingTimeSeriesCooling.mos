@@ -7,6 +7,7 @@ createPlot(id=1,
 	y={"bui.QCoo.y[1]"}, 
 	range={0.0, 90000.0, -60000.0, -10000.0}, 
 	grid=true, 
+	filename="BuildingTimeSeriesCooling.mat",
 	colors={{28,108,200}});
 createPlot(id=1, 
 	position={51, 33, 576, 200}, 
