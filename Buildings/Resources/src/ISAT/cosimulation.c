@@ -336,10 +336,10 @@ int write_cosim_data(PARA_DATA *para){
   | Set data for fluid ports
   ****************************************************************************/
   for(i=0; i<para->cosim->para->nPorts; i++) {
-    /* Get the corresponding ID in Modelica*/
-    /*-------------------------------------------------------------------------
-    | Assign the temperature
-    -------------------------------------------------------------------------*/   
+	/* Get the corresponding ID in Modelica*/
+	/*-------------------------------------------------------------------------
+	| Assign the temperature
+	-------------------------------------------------------------------------*/   
 	para->cosim->ffd->TPor[i] = 25.0; /*assumed a fixed value*/
 
     for(j=0; j<para->cosim->para->nXi; j++) {
