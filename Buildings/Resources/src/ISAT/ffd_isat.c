@@ -367,7 +367,7 @@ void evaluate(){
     }
   }
   if (useISAT){
-    tStart = clock();
+	tStart = clock();
 		
 	/* Windows*/
 	#ifdef _MSC_VER
@@ -376,7 +376,7 @@ void evaluate(){
 	#else
 		isatab_(&idtab, &mode, &nx, x, &nf, &nh, &nhd, (void *)&unusedPointer, (int *)&ffdStruct, rusr, info, rinfo, fa, ga, ha, stats);
 	#endif
-    
+
 	tEnd = clock();
 	cpuCum = (double)(tEnd - tStart) / CLOCKS_PER_SEC;
 	cpuISAT += cpuCum;
