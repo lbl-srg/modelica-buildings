@@ -171,13 +171,13 @@ model Chiller
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant uHeaCoo[2](k=fill(true, 2))
     "Heating / cooling enabled signal"
     annotation (Placement(transformation(extent={{-200,-70},{-180,-50}})));
-  Modelica.Blocks.Sources.TimeTable loaHeaRat(table=[0,0.1; 2,1; 6,1; 7,0.5; 9,
+  Modelica.Blocks.Sources.TimeTable loaHeaRat(table=[0,0.1; 2,1; 3,1; 7,0.2; 9,
         0.5; 10,0; 11,0],
                timeScale=1000)
                     "Heating load (ratio to nominal)"
-    annotation (Placement(transformation(extent={{-258,50},{-238,70}})));
-  Modelica.Blocks.Sources.TimeTable loaCooRat(table=[0,0; 3,0; 4,1; 14,1; 15,
-        0.5; 16,0.5],    timeScale=1000)
+    annotation (Placement(transformation(extent={{-260,50},{-240,70}})));
+  Modelica.Blocks.Sources.TimeTable loaCooRat(table=[0,0; 3,0; 4,1; 5,1; 15,0.5;
+        16,0.5],         timeScale=1000)
                       "Cooling load (ratio to nominal)"
     annotation (Placement(transformation(extent={{260,50},{240,70}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold reqHea
@@ -239,10 +239,10 @@ equation
   connect(heaWat.ports[1], pumHeaWat.port_a)
     annotation (Line(points={{20,24},{20,40},{10,40}}, color={0,127,255}));
   connect(loaHeaRat.y, gai3.u)
-    annotation (Line(points={{-237,60},{-202,60}}, color={0,0,127}));
+    annotation (Line(points={{-239,60},{-202,60}}, color={0,0,127}));
   connect(loaCooRat.y, gai4.u)
     annotation (Line(points={{239,60},{202,60}}, color={0,0,127}));
-  connect(loaHeaRat.y, reqHea.u) annotation (Line(points={{-237,60},{-220,60},{
+  connect(loaHeaRat.y, reqHea.u) annotation (Line(points={{-239,60},{-220,60},{
           -220,-20},{-202,-20}}, color={0,0,127}));
   connect(loaCooRat.y, reqCoo.u) annotation (Line(points={{239,60},{220,60},{
           220,-120},{-220,-120},{-220,-100},{-202,-100}}, color={0,0,127}));

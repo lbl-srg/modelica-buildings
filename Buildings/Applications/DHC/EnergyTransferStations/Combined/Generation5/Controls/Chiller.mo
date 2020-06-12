@@ -120,6 +120,7 @@ model Chiller "Chiller controller"
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID conPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    k=1,
     Ti=60,
     reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
     "Controller for HWS reset"
