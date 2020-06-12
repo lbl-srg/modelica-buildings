@@ -219,13 +219,13 @@ protected
     "Convert Real number to Integer number"
     annotation (Placement(transformation(extent={{200,-220},{220,-200}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg
-    "Get the moment when the cool down time starts "
+    "Get the moment when the warm up time starts "
     annotation (Placement(transformation(extent={{50,140},{70,160}})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(trueHoldDuration=preWarCooTim)
     "Hold the start time true signal"
     annotation (Placement(transformation(extent={{82,210},{102,230}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg1
-    "Get the moment when warm up time starts"
+    "Get the moment when cool down time starts"
     annotation (Placement(transformation(extent={{50,210},{70,230}})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol1(trueHoldDuration=preWarCooTim)
     "Hold the start time true signal"

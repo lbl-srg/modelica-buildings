@@ -86,7 +86,7 @@ model Guideline36_re
     "Replicate signal whether the outdoor airflow is required"
     annotation (Placement(transformation(extent={{460,550},{480,570}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneGroupStatus zonGroSta
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.GroupStatus zonGroSta
     "Zone group status"
     annotation (Placement(transformation(extent={{-150,266},{-130,286}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneStatus_re zonSta[numZon](
@@ -408,18 +408,14 @@ equation
   connect(zonSta.TZonGro,zonGroSta. TZon) annotation (Line(points={{-178,277},{
           -166,277},{-166,280},{-152,280}},
                                  color={0,0,127}));
-  connect(zonSta.TZonCooSetOcc,zonGroSta. TZonCooSetOcc) annotation (Line(
-        points={{-178,267},{-166,267},{-166,270},{-152,270}},
-                                                  color={0,0,127}));
-  connect(zonSta.TZonCooSetUno,zonGroSta. TZonCooSetUno) annotation (Line(
-        points={{-178,265},{-166,265},{-166,268},{-152,268}},
-                                                    color={0,0,127}));
-  connect(zonSta.TZonHeaSetOcc,zonGroSta. TZonHeaSetOcc) annotation (Line(
-        points={{-178,263},{-164,263},{-164,266},{-152,266}},
-                                                    color={0,0,127}));
-  connect(zonSta.TZonHeaSetUno,zonGroSta. TZonHeaSetUno) annotation (Line(
-        points={{-178,261},{-164,261},{-164,264},{-152,264}},
-                                                      color={0,0,127}));
+  connect(zonSta.TCooSetOn, zonGroSta.TZonCooSetOcc) annotation (Line(points={{
+          -178,267},{-166,267},{-166,270},{-152,270}}, color={0,0,127}));
+  connect(zonSta.TCooSetOff, zonGroSta.TZonCooSetUno) annotation (Line(points={
+          {-178,265},{-166,265},{-166,268},{-152,268}}, color={0,0,127}));
+  connect(zonSta.THeaSetOn, zonGroSta.TZonHeaSetOcc) annotation (Line(points={{
+          -178,263},{-164,263},{-164,266},{-152,266}}, color={0,0,127}));
+  connect(zonSta.THeaSetOff, zonGroSta.TZonHeaSetUno) annotation (Line(points={
+          {-178,261},{-164,261},{-164,264},{-152,264}}, color={0,0,127}));
   connect(zonGroSta.TGroCooOcc,modSetPoi. TZonCooSetOcc) annotation (Line(
         points={{-128,265},{-114,265},{-114,254},{-102,254}},
                                                     color={0,0,127}));
