@@ -35,7 +35,6 @@ model ASHRAE2006
     annotation (Placement(transformation(extent={{-300,-358},{-280,-338}})));
   Controls.DuctStaticPressureSetpoint pSetDuc(
     nin=5,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     pMin=50) "Duct static pressure setpoint"
     annotation (Placement(transformation(extent={{160,-16},{180,4}})));
   Controls.CoolingCoilTemperatureSetpoint TSetCoo "Setpoint for cooling coil"
@@ -55,18 +54,16 @@ model ASHRAE2006
     yMin=0,
     Td=60,
     initType=Modelica.Blocks.Types.InitPID.InitialState,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.02,
     Ti=300)
            "Controller for heating coil"
     annotation (Placement(transformation(extent={{-80,-212},{-60,-192}})));
   Buildings.Controls.Continuous.LimPID cooCoiCon(
-    reverseAction=true,
+    reverseActing=false,
     Td=60,
     initType=Modelica.Blocks.Types.InitPID.InitialState,
     yMax=1,
     yMin=0,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=600,
     k=0.1) "Controller for cooling coil"
     annotation (Placement(transformation(extent={{-80,-250},{-60,-230}})));

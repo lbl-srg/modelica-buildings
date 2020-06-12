@@ -15,7 +15,7 @@ model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
   Buildings.Controls.OBC.CDL.Continuous.LimPID conCoo(
     k=0.1,
     Ti=300,
-    reverseAction=true,
+    reverseActing=false,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI)
     "Controller for cooling"
     annotation (Placement(transformation(extent={{-72,8},{-64,16}})));

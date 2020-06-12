@@ -3,7 +3,7 @@ model CoolingTowerSpeed "Controller for the fan speed in cooling towers"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Modelica.Blocks.Types.SimpleController controllerType=
-    Modelica.Blocks.Types.SimpleController.PID
+    Modelica.Blocks.Types.SimpleController.PI
     "Type of controller"
     annotation(Dialog(tab="Controller"));
   parameter Real k(min=0, unit="1") = 1
@@ -25,7 +25,7 @@ model CoolingTowerSpeed "Controller for the fan speed in cooling towers"
   parameter Real yMin=0
    "Lower limit of output"
     annotation(Dialog(tab="Controller"));
-  parameter Boolean reverseAction = true
+  parameter Boolean reverseActing=false
     "Set to true for throttling the water flow rate through a cooling coil controller"
     annotation(Dialog(tab="Controller"));
   Modelica.Blocks.Interfaces.RealInput TCHWSupSet(
@@ -75,7 +75,7 @@ model CoolingTowerSpeed "Controller for the fan speed in cooling towers"
     Td=Td,
     yMax=yMax,
     yMin=yMin,
-    reverseAction=reverseAction)
+    reverseActing=reverseActing)
     "PID controller"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Modelica.Blocks.Math.IntegerToBoolean fmcMod(threshold=3)
