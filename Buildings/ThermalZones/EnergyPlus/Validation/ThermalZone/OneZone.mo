@@ -18,7 +18,7 @@ model OneZone "Validation model for one zone"
     zoneName="LIVING ZONE",
     nPorts = 2) "Thermal zone"
     annotation (Placement(transformation(extent={{0,-20},{40,20}})));
-  Fluid.FixedResistances.PressureDrop duc(
+  Buildings.Fluid.FixedResistances.PressureDrop duc(
     redeclare package Medium = Medium,
     allowFlowReversal=false,
     linearized=true,
@@ -27,13 +27,13 @@ model OneZone "Validation model for one zone"
     m_flow_nominal=47*6/3600*1.2)
     "Duct resistance (to decouple room and outside pressure)"
     annotation (Placement(transformation(extent={{10,-50},{-10,-30}})));
-  Fluid.Sources.MassFlowSource_T bou(
+  Buildings.Fluid.Sources.MassFlowSource_T bou(
     redeclare package Medium = Medium,
     nPorts=1,
     m_flow=0,
     T=293.15) "Boundary condition"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
-  Fluid.Sources.Boundary_pT freshAir(
+  Buildings.Fluid.Sources.Boundary_pT freshAir(
     redeclare package Medium = Medium,
     nPorts=1)
     "Boundary condition"
