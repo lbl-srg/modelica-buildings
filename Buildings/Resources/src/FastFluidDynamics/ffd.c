@@ -205,18 +205,18 @@ int ffd(int cosimulation) {
   #endif
   
   if (para.solv->cosimulation != 1) {
-	  if (para.outp->result_file == VTK) {
-		  if (write_vtk_data(&para, var, "result") != 0) {
-			  ffd_log("FFD_solver(): Could not write the result file.", FFD_ERROR);
-			  return 1;
-		  }
-	  }
-			else if (para.outp->result_file == PLT) {
-				if (write_tecplot_data(&para, var, "result") != 0) {
-					ffd_log("FFD_solver(): Could not write the result file.", FFD_ERROR);
-					return 1;
-				}
-			}
+	if (para.outp->result_file == VTK) {
+		if (write_vtk_data(&para, var, "result") != 0) {
+			ffd_log("FFD_solver(): Could not write the result file.", FFD_ERROR);
+			return 1;
+		}
+	}
+	else if (para.outp->result_file == PLT) {
+		if (write_tecplot_data(&para, var, "result") != 0) {
+			ffd_log("FFD_solver(): Could not write the result file.", FFD_ERROR);
+			return 1;
+		}
+	}
   }
 
   /* Free the memory */
