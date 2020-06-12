@@ -185,7 +185,6 @@ REAL length_z(PARA_DATA *para, REAL **var, int i, int j, int k) {
 int bounary_area(PARA_DATA *para, REAL **var, int **BINDEX) {
 
   int i, j, k, it, id;
-  /*int id0;*/
   int index= para->geom->index, imax = para->geom->imax,
       jmax = para->geom->jmax, kmax = para->geom->kmax;
   int IMAX = imax+2, IJMAX = (imax+2)*(jmax+2);
@@ -206,14 +205,6 @@ int bounary_area(PARA_DATA *para, REAL **var, int **BINDEX) {
     k = BINDEX[2][it];
     id = BINDEX[4][it] - para->bc->nb_block;
 
-    /*
-    if(id!=id0) {
-       sprintf(msg, "bounary_area(): Area of cells on %s are:",
-               para->bc->wallName[id]);
-       ffd_log(msg, FFD_NORMAL);
-       id0 = id;
-    }
-    */
     /*-------------------------------------------------------------------------
     | Calculate wall or windows
     --------------------------------------------------------------------------*/
@@ -221,22 +212,16 @@ int bounary_area(PARA_DATA *para, REAL **var, int **BINDEX) {
       /* West or East Boundary */
       if(i==0 || i==imax+1) {
         tmp = area_yz(para, var, i, j, k);
-        /*sprintf(msg, "Cell(%d,%d,%d):%d,\t %f", i, j, k, id,tmp);*/
-        /*ffd_log(msg, FFD_NORMAL);*/
         AWall[id] += tmp;
       }
       /* South and North Boundary */
       if(j==0 || j==jmax+1) {
         tmp = area_zx(para, var, i, j, k);
-        /*sprintf(msg, "Cell(%d,%d,%d):\t %f", i, j, k, tmp);*/
-        /*ffd_log(msg, FFD_NORMAL);*/
         AWall[id] += tmp;
       }
       /* Ceiling and Floor Boundary */
       if(k==0 || k==kmax+1) {
         tmp = area_xy(para, var, i, j, k);
-        /*sprintf(msg, "Cell(%d,%d,%d):\t %f", i, j, k, tmp);*/
-        /*ffd_log(msg, FFD_NORMAL);*/
         AWall[id] += tmp;
       }
     } /* End of Wall boudary */
@@ -255,15 +240,11 @@ int bounary_area(PARA_DATA *para, REAL **var, int **BINDEX) {
       /* South and North Boundary */
       if(j==0 || j==jmax+1) {
         tmp = area_zx(para, var, i, j, k);
-        /*sprintf(msg, "Cell(%d,%d,%d):\t %f", i, j, k, tmp);*/
-        /*ffd_log(msg, FFD_NORMAL);*/
         APort[id + para->bc->nb_block] += tmp;
       }
       /* Ceiling and Floor Boundary */
       if(k==0 || k==kmax+1) {
         tmp = area_xy(para, var, i, j, k);
-        /*sprintf(msg, "Cell(%d,%d,%d):\t %f", i, j, k, tmp);*/
-        /*ffd_log(msg, FFD_NORMAL);*/
         APort[id + para->bc->nb_block] += tmp;
       }
     }

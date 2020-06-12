@@ -123,50 +123,14 @@ int write_tecplot_data(PARA_DATA *para, REAL **var, char *name) {
           kmax + 2);
 
   FOR_ALL_CELL
-  /* ommit the internal block for better visualization
-     tianwei
-     3/11/2015 */
-  /*  if (var[FLAGP][IX(i,j,k)] == SOLID) {
-      // X
-      if (i == 0) {
-        if (var[FLAGP][IX(i+1,j,k)] == SOLID) continue;
-      }
-      else if (i == imax+1) {
-        if (var[FLAGP][IX(i-1,j,k)] == SOLID) continue;
-      }
-      else
-        continue;
-    
-      // Y
-      if (j == 0) {
-        if (var[FLAGP][IX(i,j+1,k)] == SOLID) continue;
-      }
-      else if (j == jmax+1) {
-        if (var[FLAGP][IX(i,j-1,k)] == SOLID) continue;
-      }
-      else
-        continue;
-
-      //Z
-      if (k == 0) {
-        if (var[FLAGP][IX(i,j,k+1)] == SOLID) continue;
-      }
-      else if (k == kmax+1) {
-        if (var[FLAGP][IX(i,j,k-1)] == SOLID) continue;
-      }
-      else
-        continue;
-    
-    }// end of if for finding internal blocks */
-
-  fprintf(datafile, "%f\t%f\t%f\t%d\t%d\t%d\t", x[IX(i, j, k)], y[IX(i, j, k)],
-          z[IX(i, j, k)], i, j, k);
-  fprintf(datafile, "%f\t%f\t%f\t%f\t%f\t%f\t%f\t%f\n", u[IX(i, j, k)],
-          v[IX(i, j, k)], w[IX(i, j, k)], T[IX(i, j, k)], Xi[IX(i, j, k)],
-          flagp[IX(i, j, k)], p[IX(i, j, k)],
-          sqrt(u[IX(i, j, k)] * u[IX(i, j, k)] +
-               v[IX(i, j, k)] * v[IX(i, j, k)] +
-               w[IX(i, j, k)] * w[IX(i, j, k)]));
+	  fprintf(datafile, "%f\t%f\t%f\t%d\t%d\t%d\t", x[IX(i, j, k)], y[IX(i, j, k)],
+			  z[IX(i, j, k)], i, j, k);
+	  fprintf(datafile, "%f\t%f\t%f\t%f\t%f\t%f\t%f\t%f\n", u[IX(i, j, k)],
+			  v[IX(i, j, k)], w[IX(i, j, k)], T[IX(i, j, k)], Xi[IX(i, j, k)],
+			  flagp[IX(i, j, k)], p[IX(i, j, k)],
+			  sqrt(u[IX(i, j, k)] * u[IX(i, j, k)] +
+				   v[IX(i, j, k)] * v[IX(i, j, k)] +
+				   w[IX(i, j, k)] * w[IX(i, j, k)]));
   END_FOR
 
   sprintf(msg, "write_tecplot_data(): Wrote file %s.", filename);
@@ -271,7 +235,7 @@ int write_vtk_data(PARA_DATA *para, REAL **var, char *name) {
   fprintf(datafile, "SCALARS T float 1\n");
   fprintf(datafile, "LOOKUP_TABLE default\n");
   FOR_ALL_CELL
-  fprintf(datafile, "%f\t", T[IX(i, j, k)]);
+	fprintf(datafile, "%f\t", T[IX(i, j, k)]);
   END_FOR
   fprintf(datafile, "\n");
 
@@ -279,7 +243,7 @@ int write_vtk_data(PARA_DATA *para, REAL **var, char *name) {
   fprintf(datafile, "SCALARS P float 1\n");
   fprintf(datafile, "LOOKUP_TABLE default\n");
   FOR_ALL_CELL
-  fprintf(datafile, "%f\t", p[IX(i, j, k)]);
+	fprintf(datafile, "%f\t", p[IX(i, j, k)]);
   END_FOR
   fprintf(datafile, "\n");
 
@@ -287,10 +251,10 @@ int write_vtk_data(PARA_DATA *para, REAL **var, char *name) {
   fprintf(datafile, "SCALARS VEL float 1\n");
   fprintf(datafile, "LOOKUP_TABLE default\n");
   FOR_ALL_CELL
-  fprintf(datafile, "%f\t",
-          sqrt(u[IX(i, j, k)] * u[IX(i, j, k)] +
-               v[IX(i, j, k)] * v[IX(i, j, k)] +
-               w[IX(i, j, k)] * w[IX(i, j, k)]));
+	  fprintf(datafile, "%f\t",
+			  sqrt(u[IX(i, j, k)] * u[IX(i, j, k)] +
+				   v[IX(i, j, k)] * v[IX(i, j, k)] +
+				   w[IX(i, j, k)] * w[IX(i, j, k)]));
   END_FOR
   fprintf(datafile, "\n");
 
@@ -298,7 +262,7 @@ int write_vtk_data(PARA_DATA *para, REAL **var, char *name) {
   fprintf(datafile, "SCALARS U float 1\n");
   fprintf(datafile, "LOOKUP_TABLE default\n");
   FOR_ALL_CELL
-  fprintf(datafile, "%f\t", u[IX(i, j, k)]);
+	fprintf(datafile, "%f\t", u[IX(i, j, k)]);
   END_FOR
   fprintf(datafile, "\n");
 
@@ -306,7 +270,7 @@ int write_vtk_data(PARA_DATA *para, REAL **var, char *name) {
   fprintf(datafile, "SCALARS V float 1\n");
   fprintf(datafile, "LOOKUP_TABLE default\n");
   FOR_ALL_CELL
-  fprintf(datafile, "%f\t", v[IX(i, j, k)]);
+	fprintf(datafile, "%f\t", v[IX(i, j, k)]);
   END_FOR
   fprintf(datafile, "\n");
 
@@ -314,15 +278,15 @@ int write_vtk_data(PARA_DATA *para, REAL **var, char *name) {
   fprintf(datafile, "SCALARS W float 1\n");
   fprintf(datafile, "LOOKUP_TABLE default\n");
   FOR_ALL_CELL
-  fprintf(datafile, "%f\t", w[IX(i, j, k)]);
+	fprintf(datafile, "%f\t", w[IX(i, j, k)]);
   END_FOR
   fprintf(datafile, "\n");
 
   /* From lines: Write velocity vector */
   fprintf(datafile, "VECTORS velocity float\n");
   FOR_ALL_CELL
-  fprintf(datafile, "%f\t%f\t%f\n", u[IX(i, j, k)], v[IX(i, j, k)],
-          w[IX(i, j, k)]);
+	fprintf(datafile, "%f\t%f\t%f\n", u[IX(i, j, k)], v[IX(i, j, k)],
+			w[IX(i, j, k)]);
   END_FOR
 
   sprintf(msg, "write_vtk_data(): Wrote file %s.", filename);
@@ -334,8 +298,8 @@ int write_vtk_data(PARA_DATA *para, REAL **var, char *name) {
   /* write to the stream */
   /* FIXME: need to talk to Mike about the coordinate */
   FOR_ALL_CELL_IJK
-  fprintf(stdout, "%f\t%f\t%f\n", u[IX(i, j, k)], v[IX(i, j, k)],
-          w[IX(i, j, k)]);
+	  fprintf(stdout, "%f\t%f\t%f\n", u[IX(i, j, k)], v[IX(i, j, k)],
+			  w[IX(i, j, k)]);
   END_FOR
 
   return 0;
@@ -449,7 +413,7 @@ int write_vtk_fluid(PARA_DATA *para, REAL **var, char *name) {
   fprintf(datafile, "SCALARS T float 1\n");
   fprintf(datafile, "LOOKUP_TABLE default\n");
   FOR_EACH_CELL
-  fprintf(datafile, "%f\t", T[IX(i, j, k)]);
+	fprintf(datafile, "%f\t", T[IX(i, j, k)]);
   END_FOR
   fprintf(datafile, "\n");
 
@@ -457,7 +421,7 @@ int write_vtk_fluid(PARA_DATA *para, REAL **var, char *name) {
   fprintf(datafile, "SCALARS P float 1\n");
   fprintf(datafile, "LOOKUP_TABLE default\n");
   FOR_EACH_CELL
-  fprintf(datafile, "%f\t", p[IX(i, j, k)]);
+	fprintf(datafile, "%f\t", p[IX(i, j, k)]);
   END_FOR
   fprintf(datafile, "\n");
 
@@ -465,10 +429,10 @@ int write_vtk_fluid(PARA_DATA *para, REAL **var, char *name) {
   fprintf(datafile, "SCALARS VEL float 1\n");
   fprintf(datafile, "LOOKUP_TABLE default\n");
   FOR_EACH_CELL
-  fprintf(datafile, "%f\t",
-          sqrt(u[IX(i, j, k)] * u[IX(i, j, k)] +
-               v[IX(i, j, k)] * v[IX(i, j, k)] +
-               w[IX(i, j, k)] * w[IX(i, j, k)]));
+	  fprintf(datafile, "%f\t",
+			  sqrt(u[IX(i, j, k)] * u[IX(i, j, k)] +
+				   v[IX(i, j, k)] * v[IX(i, j, k)] +
+				   w[IX(i, j, k)] * w[IX(i, j, k)]));
   END_FOR
   fprintf(datafile, "\n");
 
@@ -476,7 +440,7 @@ int write_vtk_fluid(PARA_DATA *para, REAL **var, char *name) {
   fprintf(datafile, "SCALARS U float 1\n");
   fprintf(datafile, "LOOKUP_TABLE default\n");
   FOR_EACH_CELL
-  fprintf(datafile, "%f\t", u[IX(i, j, k)]);
+	fprintf(datafile, "%f\t", u[IX(i, j, k)]);
   END_FOR
   fprintf(datafile, "\n");
 
@@ -484,7 +448,7 @@ int write_vtk_fluid(PARA_DATA *para, REAL **var, char *name) {
   fprintf(datafile, "SCALARS V float 1\n");
   fprintf(datafile, "LOOKUP_TABLE default\n");
   FOR_EACH_CELL
-  fprintf(datafile, "%f\t", v[IX(i, j, k)]);
+	fprintf(datafile, "%f\t", v[IX(i, j, k)]);
   END_FOR
   fprintf(datafile, "\n");
 
@@ -492,15 +456,15 @@ int write_vtk_fluid(PARA_DATA *para, REAL **var, char *name) {
   fprintf(datafile, "SCALARS W float 1\n");
   fprintf(datafile, "LOOKUP_TABLE default\n");
   FOR_EACH_CELL
-  fprintf(datafile, "%f\t", w[IX(i, j, k)]);
+	fprintf(datafile, "%f\t", w[IX(i, j, k)]);
   END_FOR
   fprintf(datafile, "\n");
 
   /* From lines: Write velocity vector */
   fprintf(datafile, "VECTORS velocity float\n");
   FOR_EACH_CELL
-  fprintf(datafile, "%f\t%f\t%f\n", u[IX(i, j, k)], v[IX(i, j, k)],
-          w[IX(i, j, k)]);
+	fprintf(datafile, "%f\t%f\t%f\n", u[IX(i, j, k)], v[IX(i, j, k)],
+			w[IX(i, j, k)]);
   END_FOR
 
   sprintf(msg, "write_vtk_fluid(): Wrote file %s.", filename);
@@ -577,43 +541,43 @@ int write_tecplot_all_data(PARA_DATA *para, REAL **var, char *name) {
           kmax + 2);
 
   FOR_ALL_CELL
-  /* Coordinates */
-  fprintf(dataFile, "%f\t%f\t%f\t%d\t%d\t%d\t", x[IX(i, j, k)], y[IX(i, j, k)],
-          z[IX(i, j, k)], i, j, k);
-  /* Velocities */
-  fprintf(dataFile, "%f\t%f\t%f\t%f\t%f\t%f\t%f\t%f\t%f\t",
-          var[VX][IX(i, j, k)], var[VY][IX(i, j, k)], var[VZ][IX(i, j, k)],
-          var[VXM][IX(i, j, k)], var[VYM][IX(i, j, k)], var[VZM][IX(i, j, k)],
-          var[VXS][IX(i, j, k)], var[VYS][IX(i, j, k)], var[VZS][IX(i, j, k)]);
-  /* Pressure */
-  fprintf(dataFile, "%f\t", var[IP][IX(i, j, k)]);
-  /* Temperature */
-  fprintf(dataFile, "%f\t%f\t%f\t", var[TEMP][IX(i, j, k)],
-          var[TEMPM][IX(i, j, k)], var[TEMPS][IX(i, j, k)]);
-  /* Gravity */
-  fprintf(dataFile, "%f\t%f\t%f\t", var[GX][IX(i, j, k)], var[GY][IX(i, j, k)],
-          var[GZ][IX(i, j, k)]);
-  /* Flags for simulation */
-  fprintf(dataFile, "%f\t%f\t%f\t%f\t", var[FLAGU][IX(i, j, k)],
-          var[FLAGV][IX(i, j, k)], var[FLAGW][IX(i, j, k)],
-          var[FLAGP][IX(i, j, k)]);
-  /* Boundary conditions */
-  fprintf(dataFile, "%f\t%f\t%f\t%f\t", var[VXBC][IX(i, j, k)],
-          var[VYBC][IX(i, j, k)], var[VZBC][IX(i, j, k)],
-          var[TEMPBC][IX(i, j, k)]);
-  fprintf(dataFile, "%f\t%f\t%f\t%f\t", var[Xi1BC][IX(i, j, k)],
-          var[Xi2BC][IX(i, j, k)], var[C1BC][IX(i, j, k)],
-          var[C2BC][IX(i, j, k)]);
-  /* Heat flux */
-  fprintf(dataFile, "%f\t%f\t", var[QFLUX][IX(i, j, k)],
-          var[QFLUXBC][IX(i, j, k)]);
+	  /* Coordinates */
+	  fprintf(dataFile, "%f\t%f\t%f\t%d\t%d\t%d\t", x[IX(i, j, k)], y[IX(i, j, k)],
+			  z[IX(i, j, k)], i, j, k);
+	  /* Velocities */
+	  fprintf(dataFile, "%f\t%f\t%f\t%f\t%f\t%f\t%f\t%f\t%f\t",
+			  var[VX][IX(i, j, k)], var[VY][IX(i, j, k)], var[VZ][IX(i, j, k)],
+			  var[VXM][IX(i, j, k)], var[VYM][IX(i, j, k)], var[VZM][IX(i, j, k)],
+			  var[VXS][IX(i, j, k)], var[VYS][IX(i, j, k)], var[VZS][IX(i, j, k)]);
+	  /* Pressure */
+	  fprintf(dataFile, "%f\t", var[IP][IX(i, j, k)]);
+	  /* Temperature */
+	  fprintf(dataFile, "%f\t%f\t%f\t", var[TEMP][IX(i, j, k)],
+			  var[TEMPM][IX(i, j, k)], var[TEMPS][IX(i, j, k)]);
+	  /* Gravity */
+	  fprintf(dataFile, "%f\t%f\t%f\t", var[GX][IX(i, j, k)], var[GY][IX(i, j, k)],
+			  var[GZ][IX(i, j, k)]);
+	  /* Flags for simulation */
+	  fprintf(dataFile, "%f\t%f\t%f\t%f\t", var[FLAGU][IX(i, j, k)],
+			  var[FLAGV][IX(i, j, k)], var[FLAGW][IX(i, j, k)],
+			  var[FLAGP][IX(i, j, k)]);
+	  /* Boundary conditions */
+	  fprintf(dataFile, "%f\t%f\t%f\t%f\t", var[VXBC][IX(i, j, k)],
+			  var[VYBC][IX(i, j, k)], var[VZBC][IX(i, j, k)],
+			  var[TEMPBC][IX(i, j, k)]);
+	  fprintf(dataFile, "%f\t%f\t%f\t%f\t", var[Xi1BC][IX(i, j, k)],
+			  var[Xi2BC][IX(i, j, k)], var[C1BC][IX(i, j, k)],
+			  var[C2BC][IX(i, j, k)]);
+	  /* Heat flux */
+	  fprintf(dataFile, "%f\t%f\t", var[QFLUX][IX(i, j, k)],
+			  var[QFLUXBC][IX(i, j, k)]);
 
-  /* Coefficients */
-  fprintf(dataFile, "%f\t%f\t%f\t%f\t%f\t%f\t%f\t%f\t%f\t%f\n",
-          var[AP][IX(i, j, k)], var[AN][IX(i, j, k)], var[AS][IX(i, j, k)],
-          var[AW][IX(i, j, k)], var[AE][IX(i, j, k)], var[AF][IX(i, j, k)],
-          var[AB][IX(i, j, k)], var[B][IX(i, j, k)], var[AP0][IX(i, j, k)],
-          var[PP][IX(i, j, k)]);
+	  /* Coefficients */
+	  fprintf(dataFile, "%f\t%f\t%f\t%f\t%f\t%f\t%f\t%f\t%f\t%f\n",
+			  var[AP][IX(i, j, k)], var[AN][IX(i, j, k)], var[AS][IX(i, j, k)],
+			  var[AW][IX(i, j, k)], var[AE][IX(i, j, k)], var[AF][IX(i, j, k)],
+			  var[AB][IX(i, j, k)], var[B][IX(i, j, k)], var[AP0][IX(i, j, k)],
+			  var[PP][IX(i, j, k)]);
 
   END_FOR
 
@@ -786,10 +750,10 @@ int write_unsteady(PARA_DATA *para, REAL **var, char *name) {
   }
 
   FOR_ALL_CELL
-  fprintf(datafile, "%f\t%f\t%f\t", u[IX(i, j, k)], v[IX(i, j, k)],
-          w[IX(i, j, k)]);
-  fprintf(datafile, "%f\t%f\t%f\n", T[IX(i, j, k)], d[IX(i, j, k)],
-          p[IX(i, j, k)]);
+	  fprintf(datafile, "%f\t%f\t%f\t", u[IX(i, j, k)], v[IX(i, j, k)],
+			  w[IX(i, j, k)]);
+	  fprintf(datafile, "%f\t%f\t%f\n", T[IX(i, j, k)], d[IX(i, j, k)],
+			  p[IX(i, j, k)]);
   END_FOR
 
   sprintf(msg, "write_unsteady(): Wrote the unsteady data file %s.", filename);

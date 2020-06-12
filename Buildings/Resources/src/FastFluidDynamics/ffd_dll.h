@@ -28,8 +28,7 @@
 /*static PARA_DATA para;*/
 
 /* Windows*/
-/*#ifdef _MSC_VER*/
-#ifdef _WIN32 
+#ifdef _MSC_VER
 __declspec(dllexport)
 extern void *ffd_dll(CosimulationData *cosim);
 /* Linux*/
@@ -46,8 +45,7 @@ void *ffd_dll(CosimulationData *cosim);
 	*
 	* @return 0 if no error occurred
 	*/
-/*#ifdef _MSC_VER*/
-#ifdef _WIN32 /*Windows*/
+#ifdef _MSC_VER /*Windows*/
 DWORD WINAPI ffd_thread(void *p);
 #else /*Linux*/
 void *ffd_thread(void *p);

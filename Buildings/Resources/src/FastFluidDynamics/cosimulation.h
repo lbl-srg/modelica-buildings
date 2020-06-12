@@ -33,7 +33,7 @@
 #include "geometry.h"
 #endif
 
-#ifndef _WIN32 /*Linux*/
+#ifndef _MSC_VER /*Linux*/
 #define Sleep(x) sleep(x/1000)
 #endif
 /*

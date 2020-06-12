@@ -69,12 +69,6 @@ Override the definition in glut.h with that in stdlib.h.
 Place the stdlib.h line above the glut.h line in the code.
 -----------------------------------------------------------------------------*/
 
-/*#ifdef _MSC_VER // Windows*/
-/*#include "glut.h"*/
-/*#else // Linux*/
-/*#include <GL/glut.h>*/
-/*#endif*/
-
 #define IX(i,j,k) ((i)+(IMAX)*(j)+(IJMAX)*(k))
 #define FOR_EACH_CELL for(i=1; i<=imax; i++) { for(j=1; j<=jmax; j++) { for(k=1; k<=kmax; k++) {
 #define FOR_ALL_CELL for(k=0; k<=kmax+1; k++) { for(j=0; j<=jmax+1; j++) { for(i=0; i<=imax+1; i++) {
@@ -290,7 +284,6 @@ typedef struct{
   REAL  gravz; /* Gravity in z direction*/
   REAL  beta; /* Thermal expansion coefficient*/
   REAL cond; /* Conductivity*/
-  /*REAL trefmax; // T Reference max defined by SCI*/
   REAL Cp; /* Specific heat capacity*/
   REAL force; /* Force to be added in demo window for velocity when left-click on mouse*/
   REAL heat; /* Heat to be added in demo window for contaminants when click middle button on mouse*/
@@ -327,7 +320,6 @@ typedef struct {
   char **sourceName; /* *sourceName[nb_source]: Name of the source*/
   char** rackName; /* *rackNmae[nb_rack]: name of rack */
   int *wallId; /* wallId[nb_wall]: Modelica wall boundary ID*/
-  /*int *inletId; // Modelica inlet boundary ID*/
   int *portId; /* portId[nb_port]: Modelica outlet boundary ID*/
   REAL *AWall; /* AWall[nb_wall]: Area of the surfaces*/
   REAL *APort; /* APort[nb_port]: Area of the outlets*/
@@ -355,25 +347,25 @@ typedef struct {
   REAL* HeatDiss; /* Heat dissipation of rack in W, a vector of N element */
   REAL* RackArea; /* Inlet or outlet area of rack, a vector of N element */
   BC_TYPE outlet_bc; /* type of outlet bc */
-		int hasTile; /* 1: Has tile, 0: no tile */
+  int hasTile; /* 1: Has tile, 0: no tile */
 }BC_DATA;
 
 typedef struct {
-	int nb_inlet; /* Number of inlet boundaries, provided by SCI */
-	int nb_outlet; /* Number of outlet boundaries, provided by SCI */
-	int nb_block; /* Number of internal block boundaries, provided by SCI */
-	int nb_wall; /* Number of wall boundaries, provided by SCI */
-	int nb_source; /* Number of sources, provided by SCI */
-	int nb_bc; /* Number of boundaries, provided by SCI */
-	int nb_ConExtWin; /* Number of exterior construction with windows */
-	int nb_port; /* nPort = nInlet + nOutlet */
-	int nb_Xi; /* Number of species */
-	int nb_C; /* Number of substances */
-	int sha; /* 1: have shade ; 0: no shade */
-	REAL mass_in;
-	REAL mass_out;
-	REAL mass_corr;
-	BC_TYPE outlet_bc; /* type of outlet bc */
+  int nb_inlet; /* Number of inlet boundaries, provided by SCI */
+  int nb_outlet; /* Number of outlet boundaries, provided by SCI */
+  int nb_block; /* Number of internal block boundaries, provided by SCI */
+  int nb_wall; /* Number of wall boundaries, provided by SCI */
+  int nb_source; /* Number of sources, provided by SCI */
+  int nb_bc; /* Number of boundaries, provided by SCI */
+  int nb_ConExtWin; /* Number of exterior construction with windows */
+  int nb_port; /* nPort = nInlet + nOutlet */
+  int nb_Xi; /* Number of species */
+  int nb_C; /* Number of substances */
+  int sha; /* 1: have shade ; 0: no shade */
+  REAL mass_in;
+  REAL mass_out;
+  REAL mass_corr;
+  BC_TYPE outlet_bc; /* type of outlet bc */
 }BC_DATA_SIMP;
 
 typedef struct {
@@ -389,9 +381,9 @@ typedef struct {
 } SENSOR_DATA;
 
 typedef struct {
-	int nb_sensor; /* Number of sensors */
-	REAL TRoo; /* Volumed averaged value of temperature in the space */
-	REAL TRooMean; /* Time averaged value of TRoo; */
+  int nb_sensor; /* Number of sensors */
+  REAL TRoo; /* Volumed averaged value of temperature in the space */
+  REAL TRooMean; /* Time averaged value of TRoo; */
 } SENSOR_DATA_SIMP;
 
 typedef struct {
@@ -406,14 +398,14 @@ typedef struct {
 }TIME_DATA;
 
 typedef struct {
-	REAL dt; /* FFD simulation time step size */
-	REAL t; /* Internal: current time */
-	REAL t_steady; /* Necessary time for reaching the steady state from initial condition */
-	int step_total; /* The interval of iteration step to output data */
-	int step_current; /* Internal: current iteration step */
-	int step_mean; /* Internal: steps for time average */
-	REAL t_start; /* Internal: clock time when simulation starts */
-	REAL t_end; /* Internal: clock time when simulation ends */
+  REAL dt; /* FFD simulation time step size */
+  REAL t; /* Internal: current time */
+  REAL t_steady; /* Necessary time for reaching the steady state from initial condition */
+  int step_total; /* The interval of iteration step to output data */
+  int step_current; /* Internal: current iteration step */
+  int step_mean; /* Internal: steps for time average */
+  REAL t_start; /* Internal: clock time when simulation starts */
+  REAL t_end; /* Internal: clock time when simulation ends */
 }GPU_TIME_DATA;
 
 typedef struct {
@@ -452,14 +444,14 @@ typedef struct {
 }PARA_DATA;
 
 typedef struct {
-	GEOM_DATA  geom;
-	OUTP_DATA_SIMP  outp_simp;
-	PROB_DATA  prob;
-	GPU_TIME_DATA  mytime;
-	BC_DATA_SIMP  bc_simp;
-	SOLV_DATA  solv;
-	SENSOR_DATA_SIMP sens_simp;
-	INIT_DATA init;
+  GEOM_DATA  geom;
+  OUTP_DATA_SIMP  outp_simp;
+  PROB_DATA  prob;
+  GPU_TIME_DATA  mytime;
+  BC_DATA_SIMP  bc_simp;
+  SOLV_DATA  solv;
+  SENSOR_DATA_SIMP sens_simp;
+  INIT_DATA init;
 }PARA_DATA_SIMP;
 
 typedef struct {

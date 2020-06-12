@@ -37,10 +37,10 @@ int assign_parameter(PARA_DATA *para, char *string) {
   int senId = -1;
 
   /****************************************************************************
-  sscanf() reads data from string and stores them according to parameter format
-  into the locations given by the additional arguments.
-  When sscanf() scans an empty line, it gets nothing and returns EOF.
-  Thus, when sscanf returns EOF, no need to compare the tmp with parameter.
+  | sscanf() reads data from string and stores them according to parameter format
+  | into the locations given by the additional arguments.
+  | When sscanf() scans an empty line, it gets nothing and returns EOF.
+  | Thus, when sscanf returns EOF, no need to compare the tmp with parameter.
   ****************************************************************************/
   if (EOF==sscanf(string, "%s", tmp)){
     return 0;
@@ -221,16 +221,16 @@ int assign_parameter(PARA_DATA *para, char *string) {
     ffd_log(msg, FFD_NORMAL);
   }
   else if(!strcmp(tmp, "inpu.parameter_file_name")) {
-#ifndef FFD_ISAT
+  #ifndef FFD_ISAT
     sscanf(string, "%s%s", tmp, tmp_par);
 				sprintf(para->inpu->parameter_file_name, "%s%s", para->cosim->para->filePath, tmp_par);
     sprintf(msg, "assign_parameter(): %s=%s", tmp, para->inpu->parameter_file_name);
     ffd_log(msg, FFD_NORMAL);
-#else
+  #else
 			sscanf(string, "%s%s", tmp, para->inpu->parameter_file_name);
 			sprintf(msg, "assign_parameter(): %s=%s", tmp, para->inpu->parameter_file_name);
 			ffd_log(msg, FFD_NORMAL);
-#endif
+  #endif
   }
   else if (!strcmp(tmp, "outp.OutputDynamicFile")) {
     sscanf(string, "%s%d", tmp, &para->outp->OutputDynamicFile);
@@ -238,16 +238,16 @@ int assign_parameter(PARA_DATA *para, char *string) {
     ffd_log(msg, FFD_NORMAL);
   }
   else if(!strcmp(tmp, "inpu.block_file_name")) {
-#ifndef FFD_ISAT
+  #ifndef FFD_ISAT
     sscanf(string, "%s%s", tmp, tmp_par);
     sprintf(para->inpu->block_file_name, "%s%s", para->cosim->para->filePath, tmp_par);
     sprintf(msg, "assign_parameter(): %s=%s", tmp, para->inpu->block_file_name);
     ffd_log(msg, FFD_NORMAL);
-#else
+  #else
 			sscanf(string, "%s%s", tmp, para->inpu->block_file_name);
 			sprintf(msg, "assign_parameter(): %s=%s", tmp, para->inpu->block_file_name);
 			ffd_log(msg, FFD_NORMAL);
-#endif
+  #endif
   }
   else if(!strcmp(tmp, "inpu.read_old_ffd_file")) {
     sscanf(string, "%s%d", tmp, &para->inpu->read_old_ffd_file);
@@ -704,11 +704,11 @@ int read_parameter(PARA_DATA *para) {
   /****************************************************************************
   | Open the FFD parameter file
   ****************************************************************************/
-/*---------------------------------------------------------------------------
-| Stand alone simulation
----------------------------------------------------------------------------*/
+  /*---------------------------------------------------------------------------
+  | Stand alone simulation
+  ---------------------------------------------------------------------------*/
   if (para->solv->cosimulation == 0) {
-#ifndef FFD_ISAT /*if no ISAT*/
+  #ifndef FFD_ISAT /*if no ISAT*/
 	  if ((file_para = fopen("input.ffd", "r")) == NULL) {
 		  sprintf(msg, "read_parameter(): "
 			  "Could not open the default FFD parameter file input.ffd");
@@ -719,7 +719,7 @@ int read_parameter(PARA_DATA *para) {
 		  sprintf(msg, "read_parameter(): Opened input.ffd for FFD parameters");
 		  ffd_log(msg, FFD_NORMAL);
 	  }
-#else /*if called by ISAT*/
+  #else /*if called by ISAT*/
 			char filenametmp[400] = { 0 };
 			snprintf(filenametmp, sizeof(filenametmp), "%s%s", filepath, "input.ffd");
 			if ((file_para = fopen(filenametmp, "r")) == NULL) {
@@ -732,7 +732,7 @@ int read_parameter(PARA_DATA *para) {
 				sprintf(msg, "read_parameter(): Opened %s for FFD parameters", filenametmp);
 				ffd_log(msg, FFD_NORMAL);
 			}
-#endif
+  #endif
   }
   /*---------------------------------------------------------------------------
   | Co-simulation
