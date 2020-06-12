@@ -354,7 +354,7 @@ block Controller "Controller for room VAV box"
     final Td=TdCoo,
     final yMax=1,
     final yMin=0,
-    reverseAction=true,
+    reverseActing=false,
     reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter) "Cooling loop signal"
     annotation (Placement(transformation(extent={{-110,110},{-90,130}})));
 
@@ -577,8 +577,8 @@ reset request <code>yZonPreResReq</code>.
 <p>
 The subsequence is implementd according to Part 5.B.5. The measured zone
 temperature <code>TZon</code>, zone setpoints temperatures <code>TZonHeaSet</code> and
-<code>TZonCooSet</code> are inputs to the block <code>conHeaLoo</code> and 
-<code>conCooLoo</code> to generate the control loop signal. 
+<code>TZonCooSet</code> are inputs to the block <code>conHeaLoo</code> and
+<code>conCooLoo</code> to generate the control loop signal.
 </p>
 <h4>b. Active airflow setpoint calculation</h4>
 <p>

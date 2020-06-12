@@ -10,7 +10,7 @@ block RoomMixingBox "Controller for room mixing box"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conCoo(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    reverseAction=true,
+    reverseActing=false,
     Td=60,
     k=0.1,
     Ti=120) "Controller for cooling (acts on damper)"
