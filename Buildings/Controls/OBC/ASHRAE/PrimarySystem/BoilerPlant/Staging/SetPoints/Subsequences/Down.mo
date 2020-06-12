@@ -220,7 +220,6 @@ block Down
     annotation (Placement(transformation(extent={{180,-10},{200,10}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.FailsafeCondition faiSafCon(
     final delEna=delFaiCon,
     final TDif=TDifFaiCon,
@@ -228,6 +227,7 @@ protected
     "Failsafe condition"
     annotation (Placement(transformation(extent={{-160,126},{-140,144}})));
 
+protected
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Logical Not"
     annotation (Placement(transformation(extent={{-120,124},{-100,144}})));
