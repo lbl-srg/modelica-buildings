@@ -175,8 +175,9 @@ equation
           {148,100}}, color={255,0,255}));
   connect(conPlaSeq.y, mulMax.u)
     annotation (Line(points={{-88,-120},{18,-120}}, color={0,0,127}));
-  connect(conPlaSeq.y, y) annotation (Line(points={{-88,-120},{0,-120},{0,-98},{
-          160,-98},{160,0},{200,0}}, color={0,0,127}));
+  connect(conPlaSeq.y, y) annotation (Line(points={{-88,-120},{0,-120},{0,-100},
+          {160,-100},{160,0},{200,0}},
+                                     color={0,0,127}));
   connect(TSet, conPlaSeq.u_s) annotation (Line(points={{-200,120},{-160,120},{-160,
           -120},{-112,-120}}, color={0,0,127}));
    annotation (
