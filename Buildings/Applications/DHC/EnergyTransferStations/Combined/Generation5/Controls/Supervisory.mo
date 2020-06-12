@@ -17,7 +17,7 @@ model Supervisory "Energy transfer station supervisory controller"
     "Type of controller";
   parameter Real k[nSouAmb](each min=0)=fill(0.1, nSouAmb)
     "Gain of controller";
-  parameter Modelica.SIunits.Time Ti[nSouAmb]=fill(60, nSouAmb)
+  parameter Modelica.SIunits.Time Ti[nSouAmb]=fill(120, nSouAmb)
     "Time constant of integrator block"
     annotation (Dialog(enable=Modelica.Math.BooleanVectors.anyTrue({
       controllerType[i] == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
