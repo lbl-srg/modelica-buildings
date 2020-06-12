@@ -176,7 +176,7 @@ model Chiller
                timeScale=1000)
                     "Heating load (ratio to nominal)"
     annotation (Placement(transformation(extent={{-258,50},{-238,70}})));
-  Modelica.Blocks.Sources.TimeTable loaCooRat(table=[0,0; 3,0; 4,0; 14,1; 15,
+  Modelica.Blocks.Sources.TimeTable loaCooRat(table=[0,0; 3,0; 4,1; 14,1; 15,
         0.5; 16,0.5],    timeScale=1000)
                       "Cooling load (ratio to nominal)"
     annotation (Placement(transformation(extent={{260,50},{240,70}})));

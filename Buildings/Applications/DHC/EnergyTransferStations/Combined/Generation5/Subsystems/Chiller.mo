@@ -27,17 +27,10 @@ model Chiller "Base subsystem with heat recovery chiller"
   parameter Modelica.SIunits.Pressure dpValEva_nominal=dpEva_nominal / 4
     "Nominal pressure drop accross control valve on evaporator side"
     annotation (Dialog(group="Nominal condition"));
-  parameter Boolean have_resUp = true
-    "Allow resetting up chilled water supply temperature in heating only"
-    annotation(Dialog(group="Controls"), Evaluate=true);
   parameter Modelica.SIunits.Temperature TChiWatSupSetMin(
     displayUnit="degC") = dat.TEvaLvgMin
     "Minimum value of chilled water supply temperature set-point"
     annotation(Dialog(group="Controls"));
-  parameter Modelica.SIunits.Temperature TChiWatSupSetMax(
-    displayUnit="degC") = dat.TEvaLvgMax
-    "Maximum value of chilled water supply temperature set-point"
-    annotation(Dialog(group="Controls", enable=have_resUp));
   parameter Modelica.SIunits.Temperature TConWatEntMin(
     displayUnit="degC") = dat.TConEntMin
     "Minimum value of condenser water entering temperature"
@@ -138,7 +131,6 @@ model Chiller "Base subsystem with heat recovery chiller"
         origin={-100,-60})));
   Controls.Chiller con(
     final TChiWatSupSetMin=TChiWatSupSetMin,
-    final TChiWatSupSetMax=TChiWatSupSetMax,
     final TConWatEntMin=TConWatEntMin,
     final TEvaWatEntMax=TEvaWatEntMax)
     "Controller"
