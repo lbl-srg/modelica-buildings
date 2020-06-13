@@ -244,9 +244,9 @@ int assign_parameter(PARA_DATA *para, char *string) {
     sprintf(msg, "assign_parameter(): %s=%s", tmp, para->inpu->block_file_name);
     ffd_log(msg, FFD_NORMAL);
   #else
-			sscanf(string, "%s%s", tmp, para->inpu->block_file_name);
-			sprintf(msg, "assign_parameter(): %s=%s", tmp, para->inpu->block_file_name);
-			ffd_log(msg, FFD_NORMAL);
+	sscanf(string, "%s%s", tmp, para->inpu->block_file_name);
+	sprintf(msg, "assign_parameter(): %s=%s", tmp, para->inpu->block_file_name);
+	ffd_log(msg, FFD_NORMAL);
   #endif
   }
   else if(!strcmp(tmp, "inpu.read_old_ffd_file")) {
@@ -436,8 +436,8 @@ int assign_parameter(PARA_DATA *para, char *string) {
       para->outp->result_file = VTK;
     if(!strcmp(tmp2, "PLT"))
       para->outp->result_file = PLT;
-				if (!strcmp(tmp2, "NO"))
-					para->outp->result_file = NO;
+	if (!strcmp(tmp2, "NO"))
+		para->outp->result_file = NO;
   }
   else if(!strcmp(tmp, "prob.Temp_Buoyancy")) {
     if (ifDouble) {
@@ -459,18 +459,18 @@ int assign_parameter(PARA_DATA *para, char *string) {
     sprintf(msg, "assign_parameter(): %s=%f", tmp, para->prob->coef_stanchion);
     ffd_log(msg, FFD_NORMAL);
   }
-		else if (!strcmp(tmp, "bc.outlet_bc")) {
-			sscanf(string, "%s%s", tmp, tmp2);
-			if (!strcmp(tmp2, "ZERO_GRADIENT"))
-				para->bc->outlet_bc = ZERO_GRADIENT;
-			if (!strcmp(tmp2, "PRESCRIBED_VALUE"))
-				para->bc->outlet_bc = PRESCRIBED_VALUE;
-		}
-		else if (!strcmp(tmp, "bc.hasTile")) {
-			sscanf(string, "%s%d", tmp, &para->bc->hasTile);
-			sprintf(msg, "assign_parameter(): %s=%d", tmp, para->bc->hasTile);
-			ffd_log(msg, FFD_NORMAL);
-		}	
+  else if (!strcmp(tmp, "bc.outlet_bc")) {
+	sscanf(string, "%s%s", tmp, tmp2);
+	if (!strcmp(tmp2, "ZERO_GRADIENT"))
+		para->bc->outlet_bc = ZERO_GRADIENT;
+	if (!strcmp(tmp2, "PRESCRIBED_VALUE"))
+		para->bc->outlet_bc = PRESCRIBED_VALUE;
+  }
+  else if (!strcmp(tmp, "bc.hasTile")) {
+	sscanf(string, "%s%d", tmp, &para->bc->hasTile);
+	sprintf(msg, "assign_parameter(): %s=%d", tmp, para->bc->hasTile);
+	ffd_log(msg, FFD_NORMAL);
+  }	
   else if(!strcmp(tmp, "mytime.t_steady")) {
     if (ifDouble) {
       sscanf(string, "%s%lf", tmp, &para->mytime->t_steady);
@@ -559,21 +559,21 @@ int assign_parameter(PARA_DATA *para, char *string) {
     sprintf(msg, "assign_parameter(): %s=%d", tmp, para->solv->cosimulation);
     ffd_log(msg, FFD_NORMAL);
   }
-		else if (!strcmp(tmp, "solv.mass_conservation_on")) {
-			sscanf(string, "%s%d", tmp, &para->solv->mass_conservation_on);
-			sprintf(msg, "assign_parameter(): %s=%d", tmp, para->solv->mass_conservation_on);
-			ffd_log(msg, FFD_NORMAL);
-		}
-		else if (!strcmp(tmp, "solv.tile_flow_correct")) {
-			sscanf(string, "%s%s", tmp, tmp2);
-			if (!strcmp(tmp2, "PRESSURE_BASE"))
-				para->solv->tile_flow_correct = PRESSURE_BASE;
-			if (!strcmp(tmp2, "NS_SOURCE"))
-				para->solv->tile_flow_correct = NS_SOURCE;
-			/* Turn off mass balance if using pressure_base */
-			if (para->solv->tile_flow_correct == PRESSURE_BASE && para->bc->hasTile > 0)
-			para->solv->mass_conservation_on = 0;
-		}	
+  else if (!strcmp(tmp, "solv.mass_conservation_on")) {
+	sscanf(string, "%s%d", tmp, &para->solv->mass_conservation_on);
+	sprintf(msg, "assign_parameter(): %s=%d", tmp, para->solv->mass_conservation_on);
+	ffd_log(msg, FFD_NORMAL);
+  }
+  else if (!strcmp(tmp, "solv.tile_flow_correct")) {
+	sscanf(string, "%s%s", tmp, tmp2);
+	if (!strcmp(tmp2, "PRESSURE_BASE"))
+		para->solv->tile_flow_correct = PRESSURE_BASE;
+	if (!strcmp(tmp2, "NS_SOURCE"))
+		para->solv->tile_flow_correct = NS_SOURCE;
+	/* Turn off mass balance if using pressure_base */
+	if (para->solv->tile_flow_correct == PRESSURE_BASE && para->bc->hasTile > 0)
+	para->solv->mass_conservation_on = 0;
+  }	
   /****************************************************************************
   | get the initial condition
   ****************************************************************************/
@@ -720,18 +720,18 @@ int read_parameter(PARA_DATA *para) {
 		  ffd_log(msg, FFD_NORMAL);
 	  }
   #else /*if called by ISAT*/
-			char filenametmp[400] = { 0 };
-			snprintf(filenametmp, sizeof(filenametmp), "%s%s", filepath, "input.ffd");
-			if ((file_para = fopen(filenametmp, "r")) == NULL) {
-				sprintf(msg, "read_parameter(): "
-					"Could not open the default FFD parameter file %s", filenametmp);
-				ffd_log(msg, FFD_ERROR);
-				return 1;
-			}
-			else {
-				sprintf(msg, "read_parameter(): Opened %s for FFD parameters", filenametmp);
-				ffd_log(msg, FFD_NORMAL);
-			}
+	  char filenametmp[400] = { 0 };
+	  snprintf(filenametmp, sizeof(filenametmp), "%s%s", filepath, "input.ffd");
+	  if ((file_para = fopen(filenametmp, "r")) == NULL) {
+		sprintf(msg, "read_parameter(): "
+			"Could not open the default FFD parameter file %s", filenametmp);
+		ffd_log(msg, FFD_ERROR);
+		return 1;
+	  }
+	  else {
+		sprintf(msg, "read_parameter(): Opened %s for FFD parameters", filenametmp);
+		ffd_log(msg, FFD_NORMAL);
+	  }
   #endif
   }
   /*---------------------------------------------------------------------------
