@@ -181,7 +181,7 @@ protected
     Controls.OBC.CDL.Continuous.Gain gai(k=-5000)
                                                  "Gain"
       annotation (Placement(transformation(extent={{10,-10},{30,10}})));
-    Controls.OBC.CDL.Continuous.LimPID conPID(Ti=120, reverseAction=true)
+    Controls.OBC.CDL.Continuous.LimPID conPID(Ti=120, reverseActing=false)
       annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
     Controls.OBC.CDL.Continuous.Sources.Constant TSet(k=273.15 + 25)
       "Set point temperature"
