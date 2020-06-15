@@ -71,7 +71,7 @@ block RoomVAV "Controller for room VAV box"
     Ti=TiCoo,
     controllerType=cooController,
     yMin=yMin,
-    reverseAction=true)
+    reverseActing=false)
     "Controller for cooling (acts on damper)"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Line reqFlo "Required flow rate"
@@ -143,25 +143,25 @@ annotation (
           textString="TRooCooSet")}),
  Documentation(info="<html>
 <p>
-Controller for terminal VAV box with hot water reheat and pressure independent damper. 
+Controller for terminal VAV box with hot water reheat and pressure independent damper.
 It was implemented according to
 <a href=\"https://newbuildings.org/sites/default/files/A-11_LG_VAV_Guide_3.6.2.pdf\">
 [Advanced Variabled Air Volume System Design Guide]</a>, single maximum VAV reheat box
 control.
-The damper control signal <code>yDam</code> corresponds to the discharge air flow rate 
+The damper control signal <code>yDam</code> corresponds to the discharge air flow rate
 set-point, normalized to the nominal value.
 </p>
 <ul>
 <li>
-In cooling demand, the damper control signal <code>yDam</code> is modulated between 
-a minimum value <code>ratVFloMin</code> (typically between 30% and 50%) and 1 
+In cooling demand, the damper control signal <code>yDam</code> is modulated between
+a minimum value <code>ratVFloMin</code> (typically between 30% and 50%) and 1
 (corresponding to the nominal value).
 The control signal for the reheat coil valve <code>yVal</code> is 0
 (corresponding to the valve fully closed).
 </li>
 <li>
-In heating demand, the damper control signal <code>yDam</code> is fixed at the minimum value 
-<code>ratVFloMin</code>. 
+In heating demand, the damper control signal <code>yDam</code> is fixed at the minimum value
+<code>ratVFloMin</code>.
 The control signal for the reheat coil valve <code>yVal</code> is modulated between
 0 and 1 (corresponding to the valve fully open).
 </li>
@@ -177,7 +177,7 @@ April 24, 2020, by Jianjun Hu:<br/>
 Refactored the model to implement a single maximum control logic.
 The previous implementation led to a maximum air flow rate in heating demand.<br/>
 The input connector <code>TDis</code> is removed. This is non backward compatible.<br/>
-This is for 
+This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1873\">issue 1873</a>.
 </li>
 <li>

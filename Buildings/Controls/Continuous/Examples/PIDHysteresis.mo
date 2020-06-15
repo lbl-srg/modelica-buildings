@@ -4,7 +4,6 @@ model PIDHysteresis "Example model for PID controller with hysteresis"
 
   Buildings.Controls.Continuous.PIDHysteresis con(
     pre_y_start=false,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     yMin=0.3,
     Ti=600,
     Td=60)
