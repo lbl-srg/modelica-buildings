@@ -49,17 +49,25 @@ test-energyplus-validations:
 	@echo "*** Verify that all files in repository are up to date"
 	git diff --exit-code $(ROOT)/Buildings/Resources/Data
 
+test-cdl-conformance:
+	(cd $(ROOT) && \
+	 echo "*********************************************************" && \
+	 echo "*** Running modelica-json" && \
+ 	 export MODELICAPATH=`pwd` && \
+	 node $(MODELICA_JSON_HOME)/app.js -f Buildings/Controls/OBC -o json -m modelica -d out --strict true && \
+	 rm -rf out)
 
 test-dymola:
 	(cd $(ROOT)/Buildings && \
-	  python ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool dymola)
+	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/Buildings/Resources/Python-Sources && \
+	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool dymola)
 
 test-optimica:
 	(cd $(ROOT)/Buildings && \
 	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/Buildings/Resources/Python-Sources && \
-	  python ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool optimica --skip-verification)
+	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool optimica --skip-verification)
 
 test-jmodelica:
 	(cd $(ROOT)/Buildings && \
 	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/Buildings/Resources/Python-Sources && \
-	  python ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool jmodelica --skip-verification)
+	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool jmodelica --skip-verification)

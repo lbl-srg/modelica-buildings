@@ -9,8 +9,7 @@ block FanVFD "Controller for fan revolution"
     k=k,
     Ti=Ti,
     controllerType=controllerType,
-    reset=Buildings.Types.Reset.Disabled)
-                                   "Controller"
+    reset=Buildings.Types.Reset.Disabled) "Controller"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Modelica.Blocks.Math.Gain gaiMea(k=1/xSet_nominal)
     "Gain to normalize measurement signal"
@@ -33,7 +32,7 @@ block FanVFD "Controller for fan revolution"
   parameter Real y_start=0 "Initial or guess value of output (= state)";
 
   parameter Modelica.Blocks.Types.SimpleController
-    controllerType=.Modelica.Blocks.Types.SimpleController.PI
+    controllerType=Modelica.Blocks.Types.SimpleController.PI
     "Type of controller"
     annotation (Dialog(group="Setpoint tracking"));
   parameter Real k=0.5 "Gain of controller"
