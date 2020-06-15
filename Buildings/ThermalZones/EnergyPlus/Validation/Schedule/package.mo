@@ -1,10 +1,10 @@
 within Buildings.ThermalZones.EnergyPlus.Validation;
-package Schedule "fixme: add brief description"
+package Schedule "Collection of validation models for EnergyPlus schedules"
   extends Modelica.Icons.Package;
 
-annotation (preferredView="info", Documentation(info="<html>
+  annotation (preferredView="info", Documentation(info="<html>
 <p>
-fixme: add a package description.
+This package contains validation models for EnergyPlus schedules.
 </p>
 </html>"));
 end Schedule;

@@ -118,7 +118,6 @@ and then simulate the model. This will create the file
 Zone,Average,Zone Electric Equipment Electric Power [W]
 </pre>
 <p>
-<p>
 Next, instantiate the output variable in Modelica. To obtain the value of
 <code>Zone,Average,Zone Electric Equipment Electric Power [W]</code>
 for the zone <code>LIVING ZONE</code>,

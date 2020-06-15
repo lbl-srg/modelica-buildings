@@ -1,10 +1,10 @@
 within Buildings.ThermalZones.EnergyPlus.Validation;
-package OutputVariable "fixme: add brief description"
+package OutputVariable "Collection of validation models for EnergyPlus output variables"
   extends Modelica.Icons.Package;
 
-annotation (preferredView="info", Documentation(info="<html>
+  annotation (preferredView="info", Documentation(info="<html>
 <p>
-fixme: add a package description.
+This package contains validation models for EnergyPlus output variables.
 </p>
 </html>"));
 end OutputVariable;

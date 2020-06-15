@@ -1,10 +1,10 @@
 within Buildings.ThermalZones.EnergyPlus.Validation;
-package MultipleBuildings "fixme: add brief description"
+package MultipleBuildings "Collection of validation models for multiple EnergyPlus buildings"
   extends Modelica.Icons.Package;
 
-annotation (preferredView="info", Documentation(info="<html>
+  annotation (preferredView="info", Documentation(info="<html>
 <p>
-fixme: add a package description.
+This package contains validation models for multiple EnergyPlus buildings in one Modelica model.
 </p>
 </html>"));
 end MultipleBuildings;
