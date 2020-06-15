@@ -14,21 +14,21 @@ model YorkCalc
     k=1,
     Ti=60,
     Td=10,
-    reverseAction=true,
+    reverseActing=false,
     initType=Modelica.Blocks.Types.InitPID.InitialState)
     "Controller for tower fan"
-    annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
+    annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
 equation
   connect(TSetLea.y, conFan.u_s) annotation (Line(
-      points={{-39,-10},{-22,-10}},
+      points={{-39,-10},{-32,-10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conFan.y, tow.y) annotation (Line(
-      points={{1,-10},{6,-10},{6,-42},{20,-42}},
+      points={{-9,-10},{6,-10},{6,-42},{20,-42}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(tow.TLvg, conFan.u_m) annotation (Line(
-      points={{43,-56},{54,-56},{54,-32},{-10,-32},{-10,-22}},
+      points={{43,-56},{54,-56},{54,-32},{-20,-32},{-20,-22}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaBus.TWetBul, tow.TAir) annotation (Line(
