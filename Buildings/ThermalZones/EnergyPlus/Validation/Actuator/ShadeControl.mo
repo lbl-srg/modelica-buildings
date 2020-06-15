@@ -101,11 +101,11 @@ model ShadeControl
     annotation (Placement(transformation(extent={{-190,30},{-170,50}}),
         iconTransformation(extent={{-160,-10},{-140,10}})));
   Cooling cooNor "Idealized cooling system" annotation (Placement(
-        transformation(rotation=0, extent={{120,60},{100,80}})));
+        transformation(rotation=0, extent={{120,50},{100,70}})));
   Cooling cooWes "Idealized cooling system" annotation (Placement(
-        transformation(rotation=0, extent={{120,30},{100,50}})));
+        transformation(rotation=0, extent={{120,20},{100,40}})));
   Cooling cooEas "Idealized cooling system" annotation (Placement(
-        transformation(rotation=0, extent={{120,0},{100,20}})));
+        transformation(rotation=0, extent={{120,-12},{100,8}})));
 
 equation
   connect(qIntGai.y, zonNor.qGai_flow) annotation (Line(points={{-99,70},{-2,70}},
@@ -209,18 +209,18 @@ protected
           coordinateSystem(extent={{-100,-100},{100,100}})));
   end Cooling;
 equation
-  connect(cooNor.heaPor, zonNor.heaPorAir) annotation (Line(points={{100,70},{60,
-          70},{60,60},{20,60}}, color={191,0,0}));
-  connect(cooWes.heaPor, zonWes.heaPorAir) annotation (Line(points={{100,40},{60,
-          40},{60,30},{24,30},{24,-2},{-8,-2}}, color={191,0,0}));
-  connect(cooEas.heaPor, zonEas.heaPorAir) annotation (Line(points={{100,10},{94,
-          10},{94,-2},{60,-2}}, color={191,0,0}));
+  connect(cooNor.heaPor, zonNor.heaPorAir) annotation (Line(points={{100,60},{
+          20,60}},              color={191,0,0}));
+  connect(cooWes.heaPor, zonWes.heaPorAir) annotation (Line(points={{100,30},{
+          24,30},{24,-2},{-8,-2}},              color={191,0,0}));
+  connect(cooEas.heaPor, zonEas.heaPorAir) annotation (Line(points={{100,-2},{
+          60,-2}},              color={191,0,0}));
   annotation (
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/Actuator/ShadeControl.mos"
         "Simulate and plot"),
   experiment(
-      StartTime=8640000,
-      StopTime=8899200,
+      StartTime=8208000,
+      StopTime=8640000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
     Diagram(coordinateSystem(extent={{-200,-160},{200,120}})),
