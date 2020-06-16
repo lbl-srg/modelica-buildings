@@ -167,12 +167,15 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers.RadiantSlabs</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.AverageResistance
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Corrected inequality test on <code>alpha</code>,
+                       and changed print statement to an assertion with assertion level set to warning.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2009\">issue 2009</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
@@ -8263,6 +8266,8 @@ The following people have directly contributed to the implementation of the Buil
 <li>Michael Wetter, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Tea Zakula, University of Zagreb, Croatia
+</li>
+<li>Ettore Zanetti, Politecnico di Milano, Italy
 </li>
 <li>Rebecca Zarin Pass, Lawrence Berkeley National Laboratory, USA
 </li>
