@@ -55,7 +55,7 @@ block ReturnFanDirectPressure
   Buildings.Controls.OBC.CDL.Continuous.LimPID conP(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     final k=k,
-    reverseAction=true) "Building static pressure controller"
+    reverseActing=false) "Building static pressure controller"
     annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
   Buildings.Controls.OBC.CDL.Continuous.Line linExhAirDam
     "Exhaust air damper position"

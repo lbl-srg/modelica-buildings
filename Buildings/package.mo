@@ -182,12 +182,12 @@ Each class (i.e., a package, model, block etc.) must be used in an example or va
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-    class Version_7_0_1 "Version 7.0.1"
+    class Version_8_0_0 "Version 8.0.0"
       extends Modelica.Icons.ReleaseNotes;
         annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
-Version 7.0.1 is ... xxx
+Version 8.0.0 is ... xxx
 </p>
 </div>
 <!-- New libraries -->
@@ -247,13 +247,24 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
- <tr><td colspan=\"2\"><b>xxx</b>
+ <tr><td colspan=\"2\"><b>Buildings.Controls.Continuous</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Controls.Continuous.LimPID<br/>
+                       Buildings.Controls.Continuous.PIDHysteresis<br/>
+                       Buildings.Controls.Continuous.PIDHysteresisTimer<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.LimPID
     </td>
-    <td valign=\"top\">xxx.
-    </td>
+    <td valign=\"top\">Corrected wrong convention of reverse and direct action.
+                       The previous parameter <code>reverseAction</code> with a default of <code>false</code>
+                       has been removed, and
+                       a new parameter <code>reverseActing</code> with a default of <code>true</code>
+                       has been added. This was done because the previous implementation wrongly interpreted reverse action
+                       as the control output changing in reverse to the change in control error, but the
+                       industry convention is that reverse action means that the control output
+                       changes in reverse to the measurement signal.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1365\">IBPSA, #1365</a>.<br/>
+                       For Dymola, a conversion script makes this change.</td>
 </tr>
 </table>
 <!-- Errors that have been fixed -->
@@ -296,7 +307,7 @@ xxx
 </li>
 </ul>
 </html>"));
-    end Version_7_0_1;
+    end Version_8_0_0;
 
     class Version_7_0_0 "Version 7.0.0"
       extends Modelica.Icons.ReleaseNotes;
@@ -8571,13 +8582,13 @@ end UsersGuide;
 
 annotation (
 preferredView="info",
-version="7.0.1",
+version="8.0.0",
 versionDate="2020-05-28",
 dateModified="2020-05-28",
 uses(Modelica(version="3.2.3")),
 conversion(
-  from(version={"6.0.0"},
-      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_6_to_7.0.0.mos")),
+  from(version={"7.0.0"},
+      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_7_to_8.0.0.mos")),
 preferredView="info",
 Documentation(info="<html>
 <p>

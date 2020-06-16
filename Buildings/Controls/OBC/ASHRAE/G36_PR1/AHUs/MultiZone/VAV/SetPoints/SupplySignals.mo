@@ -79,7 +79,7 @@ protected
     final yMax=1,
     final yMin=-1,
     final y_reset=0,
-    final reverseAction=true,
+    final reverseActing=false,
     final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
     "Controller for supply air temperature control signal (to be used by heating coil, cooling coil and economizer)"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
