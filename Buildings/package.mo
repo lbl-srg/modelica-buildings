@@ -56,7 +56,7 @@ as <code>T</code> for temperature, <code>p</code> for pressure, <code>u</code> f
 and <code>y</code> for control output signal. As needed, these can be augmented, for example
 a controller that outputs a control signal for a valve and a damper may output <code>yVal</code>
 and <code>yDam</code>.
-<ul>
+</li>
 <li>
 The following variables are frequently used for physical quantities:
 <ul>
@@ -76,6 +76,23 @@ The nomenclature used in the package
 <a href=\"modelica://Buildings.Utilities.Psychrometrics\">
 Buildings.Utilities.Psychrometrics</a>
 is as follows,
+<ul>
+<li>
+Uppercase <code>X</code> denotes mass fraction per total mass.
+</li>
+<li>
+Lowercase <code>x</code> denotes mass fraction per mass of dry air.
+</li>
+<li>
+The notation <code>z_xy</code> denotes that the function or block has output
+<code>z</code> and inputs <code>x</code> and <code>y</code>.
+</li>
+<li>
+The symbol <code>pW</code> denotes water vapor pressure, <code>TDewPoi</code>
+denotes dew point temperature, <code>TWetBul</code> denotes wet bulb temperature,
+and <code>TDryBul</code> (or simply <code>T</code>) denotes dry bulb temperature.
+</li>
+</ul>
 </li>
 <li>
 Control input signals usually start with <code>u</code> and control output signals usually start with <code>y</code>,
@@ -83,7 +100,6 @@ unless use of the physical quantity is clearer.
 </li>
 <li>
 The following strings are frequently used:
-</li>
 <ul>
 <li>
 Prefix <code>use_</code> for conditionally enabled input signals, such as <code>use_T_in</code>
@@ -118,6 +134,7 @@ Suffix <code>Min</code> (<code>Max</code>) for minimum (maximum),
 such as in <code>TSupSetMin</code> for minimum supply temperature set point.
 </li>
 </ul>
+</li>
 <li>
 The two connectors of a domain that have identical declarations
 and different icons are usually distinguished by <code>_a</code>, <code>_b</code>
