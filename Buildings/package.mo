@@ -76,23 +76,7 @@ The nomenclature used in the package
 <a href=\"modelica://Buildings.Utilities.Psychrometrics\">
 Buildings.Utilities.Psychrometrics</a>
 is as follows,
-<ul>
-<li>
-Uppercase <code>X</code> denotes mass fraction per total mass.
 </li>
-<li>
-Lowercase <code>x</code> denotes mass fraction per mass of dry air.
-</li>
-<li>
-The notation <code>z_xy</code> denotes that the function or block has output
-<code>z</code> and inputs <code>x</code> and <code>y</code>.
-</li>
-<li>
-The symbol <code>pW</code> denotes water vapor pressure, <code>TDewPoi</code>
-denotes dew point temperature, <code>TWetBul</code> denotes wet bulb temperature,
-and <code>TDryBul</code> (or simply <code>T</code>) denotes dry bulb temperature.
-</li>
-</ul>
 <li>
 Control input signals usually start with <code>u</code> and control output signals usually start with <code>y</code>,
 unless use of the physical quantity is clearer.
