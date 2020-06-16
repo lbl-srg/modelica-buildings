@@ -18,7 +18,7 @@ model Chiller "Chiller controller"
       iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupPreSet(
     final unit="K", displayUnit="degC")
-    "Chilled water supply temperature set-point (may be reset down)"
+    "Chilled water supply temperature set-point"
     annotation (Placement(transformation(extent={{-200,-60},{-160,-20}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSup(

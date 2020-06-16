@@ -1,7 +1,7 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls;
 block HotSide "State machine enabling production and ambient source systems"
   extends BaseClasses.HotColdSide(
-    final reverseActing=false);
+    final reverseActing=false, t2(enableTimer=true, waitTime=120));
   Buildings.Controls.OBC.CDL.Continuous.Min min
     annotation (Placement(transformation(extent={{-110,-90},{-90,-70}})));
 equation

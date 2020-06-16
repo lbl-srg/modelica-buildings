@@ -32,7 +32,7 @@ partial block HotColdSide "State machine enabling production and ambient source 
     final unit="K",
     displayUnit="degC")
     "Supply temperature set-point (heating or chilled water)"
-    annotation (Placement(transformation(extent={{-220,100},{-180,140}}),
+    annotation (Placement(transformation(extent={{-220,20},{-180,60}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TTop(
     final unit="K",
@@ -49,12 +49,12 @@ partial block HotColdSide "State machine enabling production and ambient source 
     annotation (Placement(
       transformation(extent={{180,-140},{220,-100}}),
       iconTransformation(
-        extent={{100,-80},{140,-40}})));
+        extent={{100,-90},{140,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y[nSouAmb](final unit="1")
     "Control output for ambient sources"
     annotation (Placement(transformation(
-          extent={{180,-20},{220,20}}), iconTransformation(extent={{100,-20},{140,
-            20}})));
+          extent={{180,-20},{220,20}}), iconTransformation(extent={{100,-50},{
+            140,-10}})));
 
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{-60,140},{-40,160}})));
@@ -77,7 +77,7 @@ partial block HotColdSide "State machine enabling production and ambient source 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHeaCoo
     "Enabled signal for heating or cooling system"
     annotation (Placement(transformation(extent={{180,80},{220,120}}),
-      iconTransformation(extent={{100,40},{140,80}})));
+      iconTransformation(extent={{100,50},{140,90}})));
   LimPlaySequence conPlaSeq(
     final nCon=nSouAmb,
     final hys=fill(dTHys, nSouAmb),
@@ -140,10 +140,10 @@ equation
                      color={255,0,255}));
   connect(booToRea.y, yIsoAmb) annotation (Line(points={{142,-120},{200,-120}},
                            color={0,0,127}));
-  connect(TSet, errEna.u1) annotation (Line(points={{-200,120},{-160,120},{-160,
-          40},{-112,40}}, color={0,0,127}));
-  connect(TSet, errDis.u1) annotation (Line(points={{-200,120},{-160,120},{-160,
-          0},{-92,0}}, color={0,0,127}));
+  connect(TSet, errEna.u1) annotation (Line(points={{-200,40},{-112,40}},
+                          color={0,0,127}));
+  connect(TSet, errDis.u1) annotation (Line(points={{-200,40},{-160,40},{-160,0},
+          {-92,0}},    color={0,0,127}));
   connect(zer.y, disHeaCoo.u1) annotation (Line(points={{-88,-40},{8,-40},{8,0},
           {16,0}}, color={0,0,127}));
   connect(zer.y, enaHeaCoo.u2) annotation (Line(points={{-88,-40},{8,-40},{8,32},
@@ -178,8 +178,9 @@ equation
   connect(conPlaSeq.y, y) annotation (Line(points={{-88,-120},{0,-120},{0,-100},
           {160,-100},{160,0},{200,0}},
                                      color={0,0,127}));
-  connect(TSet, conPlaSeq.u_s) annotation (Line(points={{-200,120},{-160,120},{-160,
-          -120},{-112,-120}}, color={0,0,127}));
+  connect(TSet, conPlaSeq.u_s) annotation (Line(points={{-200,40},{-160,40},{
+          -160,-120},{-112,-120}},
+                              color={0,0,127}));
    annotation (
  Documentation(info="<html>
 
