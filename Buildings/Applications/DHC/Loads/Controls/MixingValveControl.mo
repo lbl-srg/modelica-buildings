@@ -72,7 +72,7 @@ block MixingValveControl "Mixing valve controller"
     final Ti=Ti,
     final yMax=1,
     final yMin=-1,
-    final reverseAction=false,
+    final reverseActing=true,
     final reset=if typDis == Type_dis.ChangeOver then
       Buildings.Controls.OBC.CDL.Types.Reset.Parameter else
       Buildings.Controls.OBC.CDL.Types.Reset.Disabled,

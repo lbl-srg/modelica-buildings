@@ -43,7 +43,7 @@ model FanCoil2PipeHeating
     Ti=10,
     yMax=1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    reverseAction=false,
+    reverseActing=true,
     yMin=0) "PI controller"
     annotation (Placement(transformation(extent={{-10,210},{10,230}})));
   Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hex(
@@ -155,7 +155,7 @@ annotation (
 Documentation(
 info="<html>
 <p>
-This is a simplified model of a two-pipe fan coil unit for heating. 
+This is a simplified model of a two-pipe fan coil unit for heating.
 It is intended to be used
 </p>
 <ul>
@@ -166,14 +166,14 @@ therefore takes the load as an input, and
 <li>
 in conjunction with
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>: 
+Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>:
 it therefore computes the water mass flow rate required to meet the load.
 </li>
 </ul>
 <p>
-For the sake of computational performance, a PI controller is used instead of an inverse 
+For the sake of computational performance, a PI controller is used instead of an inverse
 model of the heat exchanger to assess the required water mass flow rate.
-The controller output signal is mapped linearly to both, 
+The controller output signal is mapped linearly to both,
 </p>
 <ul>
 <li>
@@ -184,7 +184,7 @@ the air mass flow rate, from zero to its nominal value.
 </li>
 </ul>
 <p>
-The controller tracks the load while the impact of an unmet load on the room 
+The controller tracks the load while the impact of an unmet load on the room
 air temperature is assessed with
 <a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom\">
 Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom</a>.

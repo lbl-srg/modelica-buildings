@@ -52,9 +52,10 @@ model SimpleRoomODE "Validation of the model SimpleRoomODE"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=297.15,
       y(final unit="K", displayUnit="degC")) "Maximum temperature set point"
     annotation (Placement(transformation(extent={{-140,-170},{-120,-150}})));
-  Buildings.Controls.Continuous.LimPID conCoo(controllerType=Modelica.Blocks.Types.SimpleController.PI,
+  Buildings.Controls.Continuous.LimPID conCoo(
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=10,
-      reverseAction=true) "PI controller tracking the room maximum temperature"
+    reverseActing=false) "PI controller tracking the room maximum temperature"
     annotation (Placement(transformation(extent={{30,-110},{50,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai2(k=QCoo_flow_nominal)
     "Scaling"
