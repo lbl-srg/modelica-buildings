@@ -39,7 +39,7 @@ block FailsafeCondition
       iconTransformation(extent={{-140,-70},{-100,-30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yFaiCon
-    "Failsafe condition for chiller staging"
+    "Failsafe condition for boiler staging"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
