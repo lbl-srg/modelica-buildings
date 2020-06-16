@@ -111,19 +111,19 @@ model BuildingTimeSeries
     final riseTime=riseTime)
     "Heating terminal unit"
     annotation (Placement(transformation(extent={{70,-34},{90,-14}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
+  Buildings.Applications.DHC.Loads.FlowDistribution disFloHea(
     redeclare package Medium = Medium,
     m_flow_nominal=terUniHea.mHeaWat_flow_nominal * facScaHea,
     have_pum=true,
     dp_nominal=100000,
     nPorts_a1=1,
-    nPorts_b1=1)
-    "Heating water distribution system"
-    annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
+    nPorts_b1=1) "Heating water distribution system"
+    annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
+  Buildings.Applications.DHC.Loads.FlowDistribution disFloCoo(
     redeclare package Medium = Medium,
     m_flow_nominal=terUniCoo.mChiWat_flow_nominal * facScaCoo,
     typDis=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
+
     have_pum=true,
     dp_nominal=100000,
     nPorts_b1=1,

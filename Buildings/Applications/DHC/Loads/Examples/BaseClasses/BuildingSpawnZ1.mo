@@ -58,23 +58,22 @@ model BuildingSpawnZ1 "One-zone EnergyPlus building model"
     mLoaHea_flow_nominal=1,
     mLoaCoo_flow_nominal=1) "Terminal unit"
     annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
+  Buildings.Applications.DHC.Loads.FlowDistribution disFloHea(
     redeclare package Medium = Medium,
     m_flow_nominal=terUni.mHeaWat_flow_nominal,
     dp_nominal=100000,
     nPorts_a1=nZon,
-    nPorts_b1=nZon)
-    "Heating water distribution system"
-    annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
+    nPorts_b1=nZon) "Heating water distribution system"
+    annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
+  Buildings.Applications.DHC.Loads.FlowDistribution disFloCoo(
     redeclare package Medium = Medium,
     m_flow_nominal=terUni.mChiWat_flow_nominal,
     typDis=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
+
     dp_nominal=100000,
     nPorts_a1=nZon,
-    nPorts_b1=nZon)
-    "Chilled water distribution system"
-    annotation (Placement(transformation(extent={{-120,-270},{-100,-250}})));
+    nPorts_b1=nZon) "Chilled water distribution system"
+    annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
 equation
   connect(qRadGai_flow.y,multiplex3_1.u1[1])  annotation (Line(
       points={{-59,110},{-40,110},{-40,77},{-36,77}},

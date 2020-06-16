@@ -43,7 +43,7 @@ model FanCoil2PipeHeatingValve
     Ti=10,
     yMax=1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    reverseAction=false,
+    reverseActing=true,
     yMin=0) "PI controller"
     annotation (Placement(transformation(extent={{-10,210},{10,230}})));
   Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hex(
@@ -174,13 +174,13 @@ annotation (
 Documentation(
 info="<html>
 <p>
-This is a simplified model of a two-pipe fan coil unit for heating. It is 
-intended to be used in a case where the room thermal loads are provided 
+This is a simplified model of a two-pipe fan coil unit for heating. It is
+intended to be used in a case where the room thermal loads are provided
 as time series, and hence it takes the load as an input.
 </p>
 <p>
 A PI controller tracks the load.
-The controller output signal is mapped linearly to both, 
+The controller output signal is mapped linearly to both,
 </p>
 <ul>
 <li>

@@ -54,7 +54,7 @@ model FanCoil2PipeHeating
     final k=k,
     final Ti=Ti,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final reverseAction=false,
+    final reverseActing=true,
     reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
     "PI controller"
     annotation (Placement(transformation(extent={{-10,210},{10,230}})));

@@ -44,8 +44,8 @@ block LimPID
       enable=
         controllerType==CDL.Types.SimpleController.PD or
         controllerType==CDL.Types.SimpleController.PID));
-    parameter Boolean reverseAction = false
-    "Set to true for throttling the water flow rate through a cooling coil controller";
+  parameter Boolean reverseActing = true
+    "Set to true for reverse acting, or false for direct acting control action";
   parameter Buildings.Controls.OBC.CDL.Types.Reset reset = Buildings.Controls.OBC.CDL.Types.Reset.Disabled
     "Type of controller output reset"
     annotation(Evaluate=true,
@@ -125,14 +125,14 @@ block LimPID
     "Limiter"
     annotation (Placement(transformation(extent={{120,80},{140,100}})));
 protected
-  final parameter Real revAct = if reverseAction then -1 else 1
-    "Switch for sign for reverse action";
+  final parameter Real revAct = if reverseActing then 1 else -1
+    "Switch for sign for reverse or direct acting controller";
   final parameter Boolean with_I = controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-                             controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID
+                                   controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID
     "Boolean flag to enable integral action"
     annotation(Evaluate=true, HideResult=true);
   final parameter Boolean with_D = controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
-                             controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID
+                                   controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID
     "Boolean flag to enable derivative action"
     annotation(Evaluate=true, HideResult=true);
 
@@ -383,88 +383,85 @@ while the units of <i>T<sub>i</sub></i> and <i>T<sub>d</sub></i> are seconds.
 <p>
 For detailed treatment of integrator anti-windup, set-point weights and output limitation, see
 <a href=\"modelica://Modelica.Blocks.Continuous.LimPID\">Modelica.Blocks.Continuous.LimPID</a>.
-The model is similar to
-<a href=\"modelica://Modelica.Blocks.Continuous.LimPID\">Modelica.Blocks.Continuous.LimPID</a>,
-except for the following changes:
 </p>
-<ol>
-<li>
+<h4>Options</h4>
+This controller can be configured as follows.
+<h5>P, PI, PD, or PID action</h5>
 <p>
-It can be configured to have a reverse action.
+Through the parameter <code>controllerType</code>, the controller can be configured
+as P, PI, PD or PID controller. The default configuration is PI.
 </p>
-<p>If the parameter <code>reverseAction=false</code> (the default), then
-<code>u_m &lt; u_s</code> increases the controller output,
-otherwise the controller output is decreased. Thus,
+<h5>Direct or reverse acting</h5>
+<p>
+Through the parameter <code>reverseActing</code>, the controller can be configured to
+be reverse or direct acting.
+The above standard form is reverse acting, which is the default configuration.
+For a reverse acting controller, for a constant set point,
+an increase in measurement signal <code>u_m</code> decreases the control output signal <code>y</code>
+(Montgomery and McDowall, 2008).
+Thus,
 </p>
 <ul>
-  <li>for a heating coil with a two-way valve, set <code>reverseAction = false</code>, </li>
-  <li>for a cooling coils with a two-way valve, set <code>reverseAction = true</code>. </li>
+  <li>
+  for a heating coil with a two-way valve, leave <code>reverseActing = true</code>, but
+  </li>
+  <li>
+  for a cooling coil with a two-way valve, set <code>reverseActing = false</code>.
+  </li>
 </ul>
-</li>
-<li>
+<h5>Reset of the controller output</h5>
 <p>
-It can be configured to enable an input port that allows resetting the controller
+The controller can be configured to enable an input port that allows resetting the controller
 output. The controller output can be reset as follows:
 </p>
 <ul>
   <li>
-  If <code>reset = CDL.Types.Reset.Disabled</code>, which is the default,
+  If <code>reset = Buildings.Types.Reset.Disabled</code>, which is the default,
   then the controller output is never reset.
   </li>
   <li>
-  If <code>reset = CDL.Types.Reset.Parameter</code>, then a boolean
+  If <code>reset = Buildings.Types.Reset.Parameter</code>, then a boolean
   input signal <code>trigger</code> is enabled. Whenever the value of
   this input changes from <code>false</code> to <code>true</code>,
   the controller output is reset by setting <code>y</code>
   to the value of the parameter <code>y_reset</code>.
   </li>
   <li>
-  If <code>reset = CDL.Types.Reset.Input</code>, then a boolean
-  input signal <code>trigger</code> is enabled. Whenever the value of
-  this input changes from <code>false</code> to <code>true</code>,
-  the controller output is reset by setting <code>y</code>
-  to the value of the input signal <code>y_reset_in</code>.
+  If <code>reset = Buildings.Types.Reset.Input</code>, then a boolean
+  input signal <code>trigger</code> and a real input signal <code>y_reset_in</code>
+  are enabled. Whenever the value of
+  <code>trigger</code> changes from <code>false</code> to <code>true</code>,
+  the controller output is reset by setting the value of <code>y</code>
+  to <code>y_reset_in</code>.
   </li>
 </ul>
 <p>
 Note that this controller implements an integrator anti-windup. Therefore,
 for most applications, keeping the default setting of
-<code>reset = CDL.Types.Reset.Disabled</code> suffices.
-However, better control performance is typically achieved if the output of the
-controller is reset when a control loop is activated.
-Examples where it may be beneficial to reset the controller output are situations
+<code>reset = Buildings.Types.Reset.Disabled</code> is sufficient.
+However, if the controller is used in conjuction with equipment that is being
+switched on, better control performance may be achieved by resetting the controller
+output when the equipment is switched on.
+This is in particular the case in situations
 where the equipment control input should continuously increase as the equipment is
-switched on, such as as a light dimmer that may slowly increase the luminance, or
-a variable speed drive of a motor that should continuously increase the speed,
-or a mixing valve that should slowly open.
+switched on, such as a light dimmer that may slowly increase the luminance, or
+a variable speed drive of a motor that should continuously increase the speed.
 </p>
-</li>
-<li>
-There is no optional input for a feedforward compensation.
-</li>
-<li>
-The parameter <code>limitsAtInit</code> has been removed.
-</li>
-<li>
-Homotopy initialization is not implemented.
-</li>
-</ol>
+<h4>References</h4>
 <p>
-During initialization, the state, and hence the output, of the integrator is set to the
-parameter <code>xi_start</code>,
-and the output of the derivative action is set to the parameter
-<code>yd_start</code>.
-Note that both will be multiplied by the gain <code>k</code> before the values
-are sent to the output limiter and then the controller output.
+R. Montgomery and R. McDowall (2008).
+\"Fundamentals of HVAC Control Systems.\"
+American Society of Heating Refrigerating and Air-Conditioning Engineers Inc. Atlanta, GA.
 </p>
-<p>
-For recommendations regarding tuning of closed loop control, see
-<a href=\"modelica://Modelica.Blocks.Continuous.LimPID\">Modelica.Blocks.Continuous.LimPID</a>
-or the control literature.
-</p>
+
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 1, 2020, by Michael Wetter:<br/>
+Corrected wrong convention of reverse and direct action.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1365\">issue 1365</a>.
+</li>
 <li>
 April 23, 2020, by Michael Wetter:<br/>
 Changed default parameters for limits <code>yMax</code> from unspecified to <code>1</code>

@@ -42,14 +42,13 @@ model BenchmarkFlowDistribution1
     filNam=Modelica.Utilities.Files.loadResource(filNam)) / facSca
     "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Design parameter"));
-  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
+  Buildings.Applications.DHC.Loads.FlowDistribution disFloHea(
     redeclare package Medium = Medium1,
     m_flow_nominal=m_flow_nominal,
     have_pum=true,
     dp_nominal=dp_nominal,
     nPorts_a1=nLoa,
-    nPorts_b1=nLoa)
-    "Heating water distribution system"
+    nPorts_b1=nLoa) "Heating water distribution system"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
   BaseClasses.FanCoil2PipeHeating ter[nLoa](
     each final facSca=facSca,

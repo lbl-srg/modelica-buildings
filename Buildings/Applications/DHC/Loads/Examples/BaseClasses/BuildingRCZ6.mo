@@ -57,32 +57,31 @@ model BuildingRCZ6
     final QCoo_flow_nominal=QCoo_flow_nominal,
     each T_aLoaHea_nominal=293.15,
     each T_aLoaCoo_nominal=297.15,
-    each T_bHeaWat_nominal=308.15,
-    each T_bChiWat_nominal=285.15,
-    each T_aHeaWat_nominal=313.15,
-    each T_aChiWat_nominal=280.15,
-    final mLoaHea_flow_nominal=mLoa_flow_nominal,
-    final mLoaCoo_flow_nominal=mLoa_flow_nominal) "Terminal unit"
-    annotation (Placement(transformation(extent={{-200,-50},{-180,-30}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
+    each T_bHeaWat_nominal=35 + 273.15,
+    each T_bChiWat_nominal=12 + 273.15,
+    each T_aHeaWat_nominal=40 + 273.15,
+    each T_aChiWat_nominal=7 + 273.15,
+    each mLoaHea_flow_nominal=5,
+    each mLoaCoo_flow_nominal=5) "Terminal unit"
+    annotation (Placement(transformation(extent={{-200,-60},{-180,-40}})));
+  Buildings.Applications.DHC.Loads.FlowDistribution disFloHea(
     redeclare package Medium = Medium,
     m_flow_nominal=sum(terUni.mHeaWat_flow_nominal .* terUni.facSca),
     have_pum=true,
     dp_nominal=100000,
     nPorts_a1=nZon,
-    nPorts_b1=nZon)
-    "Heating water distribution system"
-    annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
+    nPorts_b1=nZon) "Heating water distribution system"
+    annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
+  Buildings.Applications.DHC.Loads.FlowDistribution disFloCoo(
     redeclare package Medium = Medium,
     m_flow_nominal=sum(terUni.mChiWat_flow_nominal .* terUni.facSca),
     typDis=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
+
     have_pum=true,
     dp_nominal=100000,
     nPorts_a1=nZon,
-    nPorts_b1=nZon)
-    "Chilled water distribution system"
-    annotation (Placement(transformation(extent={{-140,-270},{-120,-250}})));
+    nPorts_b1=nZon) "Chilled water distribution system"
+    annotation (Placement(transformation(extent={{-140,-160},{-120,-140}})));
 equation
   connect(terUni.port_bHeaWat, disFloHea.ports_a1) annotation (Line(points={{-180,
           -48.3333},{-100,-48.3333},{-100,-94},{-120,-94}}, color={0,127,255}));

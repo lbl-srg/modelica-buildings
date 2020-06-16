@@ -31,7 +31,7 @@ partial model PartialFanCoil4Pipe
     Ti=10,
     yMax=1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    reverseAction=false,
+    reverseActing=true,
     yMin=0) "PI controller for heating"
     annotation (Placement(transformation(extent={{-10,210},{10,230}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
@@ -85,7 +85,7 @@ partial model PartialFanCoil4Pipe
     Ti=10,
     yMax=1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    reverseAction=true,
+    reverseActing=false,
     yMin=0) "PI controller for cooling"
     annotation (Placement(transformation(extent={{-10,170},{10,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiCooFloNom(k=mChiWat_flow_nominal)
