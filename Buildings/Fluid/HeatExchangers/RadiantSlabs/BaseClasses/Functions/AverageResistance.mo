@@ -25,7 +25,7 @@ algorithm
   if sysTyp == Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor then
     alpha := kIns/dIns;
     if alpha >= 1.212 then
-       Modelica.Utilities.Streams.print("Warning: In RadiantAverageResistance, require alpha = kIns/dIns >= 1.212 W/(m2.K).\n" +
+       Modelica.Utilities.Streams.print("Warning: In RadiantAverageResistance, require alpha = kIns/dIns <= 1.212 W/(m2.K).\n" +
                      "   Obtained alpha = " + String(alpha) + " W/(m2.K)\n" +
                      "            kIns = " + String(kIns) + " W/(m.K)\n" +
                      "            dIns = " + String(dIns) + " m\n" +
@@ -56,7 +56,7 @@ Documentation(info="<html>
 <p>
 This function computes a fictitious thermal resistance between the pipe outer wall
 and a fictitious, average temperature of the plane that contains the pipes.
-The equation is the same as is implemented in TRNSYS 17.
+The equation is the same as is implemented in TRNSYS 17 Type 56 active layer component, manual page 197-201.
 Different equations are used for
 </p>
 <ul>
