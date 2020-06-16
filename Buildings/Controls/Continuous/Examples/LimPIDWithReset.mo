@@ -130,7 +130,6 @@ First implementation.
       final reset=reset,
       yMax=1,
       yMin=0,
-      controllerType=Modelica.Blocks.Types.SimpleController.PI,
       Ti=1,
       k=10) "PI controller"
       annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
