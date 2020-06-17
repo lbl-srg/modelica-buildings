@@ -55,13 +55,9 @@ model Chiller
   parameter Modelica.SIunits.Temperature T_b2Hex_nominal
     "Nominal water outlet temperature on building side"
     annotation (Dialog(group="District heat exchanger"));
-  parameter Modelica.SIunits.TemperatureDifference dT2HexHeaSet=
-    abs(dT2HexCooSet) * (1 + 1/datChi.COP_nominal)
-    "Heat exchanger secondary side deltaT set-point in heat rejection"
-    annotation (Dialog(group="District heat exchanger"));
-  parameter Modelica.SIunits.TemperatureDifference dT2HexCooSet=
-    T_b2Hex_nominal - T_a2Hex_nominal
-    "Heat exchanger secondary side deltaT set-point in cold rejection"
+  parameter Modelica.SIunits.TemperatureDifference dT2HexSet[2]=
+    abs(T_b2Hex_nominal - T_a2Hex_nominal) .* {1 + 1/datChi.COP_nominal, 1}
+    "Secondary side deltaT set-point schedule (index 1 for heat rejection)"
     annotation (Dialog(group="District heat exchanger"));
   final parameter Modelica.SIunits.MassFlowRate m1Hex_flow_nominal=int.m1_flow_nominal
     "Nominal mass flow rate on district side"
@@ -131,6 +127,14 @@ model Chiller
     annotation (Dialog(group="Generic"));
 
   // IO VARIABLES
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHea
+    "Heating mode enabled signal"
+    annotation (Placement(transformation(extent={{-340,80},{-300,120}}),
+      iconTransformation(extent={{-380,40},{-300,120}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uCoo
+    "Cooling mode enabled signal"
+    annotation (Placement(transformation(extent={{-340,40},{-300,80}}),
+      iconTransformation(extent={{-380,-40},{-300, 40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSupSet(
     final unit="K", displayUnit="degC")
     "Heating water supply temperature set-point"
@@ -186,8 +190,7 @@ model Chiller
     final T_b1Hex_nominal=T_b1Hex_nominal,
     final T_a2Hex_nominal=T_a2Hex_nominal,
     final T_b2Hex_nominal=T_b2Hex_nominal,
-    final dT2HexHeaSet=dT2HexHeaSet,
-    final dT2HexCooSet=dT2HexCooSet)
+    final dT2HexSet=dT2HexSet)
     "Base subsystem for interconnection with district system"
     annotation (Placement(transformation(extent={{-10,-244},{10,-264}})));
 
@@ -240,14 +243,7 @@ model Chiller
   Buildings.Controls.OBC.CDL.Continuous.MultiSum totPPum(nin=2)
     "Total pump power"
     annotation (Placement(transformation(extent={{260,-70},{280,-50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHea
-    "Heating mode enabled signal" annotation (Placement(transformation(extent={{-340,80},
-            {-300,120}}),           iconTransformation(extent={{-380,40},{-300,
-            120}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uCoo
-    "Cooling mode enabled signal" annotation (Placement(transformation(extent={{-340,40},
-            {-300,80}}),           iconTransformation(extent={{-380,-40},{-300,
-            40}})));
+
 equation
   connect(int.PPum, totPPum.u[2]) annotation (Line(
       points={{12,-254},{36,-254},{36,-62},{258,-62},{258,-61}},

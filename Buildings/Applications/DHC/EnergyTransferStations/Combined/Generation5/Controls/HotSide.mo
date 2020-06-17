@@ -1,18 +1,20 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls;
 block HotSide "State machine enabling production and ambient source systems"
   extends BaseClasses.HotColdSide(
-    final reverseActing=false, t2(enableTimer=true, waitTime=120));
+    final reverseActing=false);
   Buildings.Controls.OBC.CDL.Continuous.Min min
     annotation (Placement(transformation(extent={{-110,-90},{-90,-70}})));
 equation
-  connect(min.u1, TTop) annotation (Line(points={{-112,-74},{-140,-74},{-140,-80},
-          {-200,-80}},color={0,0,127}));
-  connect(min.u2, TBot) annotation (Line(points={{-112,-86},{-140,-86},{-140,-140},
-          {-200,-140}},color={0,0,127}));
+  connect(min.u1, TTop) annotation (Line(points={{-112,-74},{-120,-74},{-120,
+          -80},{-200,-80}},
+                      color={0,0,127}));
+  connect(min.u2, TBot) annotation (Line(points={{-112,-86},{-120,-86},{-120,
+          -140},{-200,-140}},
+                       color={0,0,127}));
 
   connect(min.y, errDis.u2) annotation (Line(points={{-88,-80},{-80,-80},{-80,-12}},
                  color={0,0,127}));
-  connect(TTop, errEna.u2) annotation (Line(points={{-200,-80},{-140,-80},{-140,
+  connect(TTop, errEna.u2) annotation (Line(points={{-200,-80},{-120,-80},{-120,
           20},{-100,20},{-100,28}}, color={0,0,127}));
   connect(TBot, conPlaSeq.u_m) annotation (Line(points={{-200,-140},{-100,-140},
           {-100,-132}},

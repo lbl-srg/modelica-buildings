@@ -48,12 +48,8 @@ model Reset "Supply temperature reset"
 equation
   connect(TChiWatSupPreSet, swiCoo.u1) annotation (Line(points={{-120,-80},{-40,
           -80},{-40,-52},{38,-52}}, color={0,0,127}));
-  connect(uCoo, swiCoo.u2) annotation (Line(points={{-120,40},{-20,40},{-20,-60},
-          {38,-60}}, color={255,0,255}));
   connect(THeaWatSupPreSet, swiHea.u1) annotation (Line(points={{-120,-40},{-60,
           -40},{-60,68},{38,68}}, color={0,0,127}));
-  connect(uHea, swiHea.u2) annotation (Line(points={{-120,80},{-20,80},{-20,60},
-          {38,60}}, color={255,0,255}));
   connect(minSet.y, swiHea.u3) annotation (Line(points={{12,40},{20,40},{20,52},
           {38,52}}, color={0,0,127}));
   connect(maxSet.y, swiCoo.u3) annotation (Line(points={{10,-80},{20,-80},{20,-68},
@@ -62,6 +58,10 @@ equation
     annotation (Line(points={{62,-60},{120,-60}}, color={0,0,127}));
   connect(swiHea.y, THeaWatSupSet)
     annotation (Line(points={{62,60},{120,60}}, color={0,0,127}));
+  connect(uHea, swiHea.u2) annotation (Line(points={{-120,80},{-20,80},{-20,60},
+          {38,60}}, color={255,0,255}));
+  connect(uCoo, swiCoo.u2) annotation (Line(points={{-120,40},{-20,40},{-20,-60},
+          {38,-60}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end Reset;

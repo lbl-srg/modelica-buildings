@@ -5,12 +5,13 @@ model ColdSide "State machine enabling production and ambient source systems"
   Buildings.Controls.OBC.CDL.Continuous.Max max "Max"
     annotation (Placement(transformation(extent={{-110,-90},{-90,-70}})));
 equation
-  connect(max.u2, TBot) annotation (Line(points={{-112,-86},{-140,-86},{-140,-140},
-          {-200,-140}},     color={0,0,127}));
+  connect(max.u2, TBot) annotation (Line(points={{-112,-86},{-130,-86},{-130,
+          -140},{-200,-140}},
+                            color={0,0,127}));
   connect(max.y, errDis.u2) annotation (Line(points={{-88,-80},{-80,-80},{-80,-12}},
                  color={0,0,127}));
-  connect(TBot, errEna.u2) annotation (Line(points={{-200,-140},{-140,-140},{-140,
-          20},{-100,20},{-100,28}},      color={0,0,127}));
+  connect(TBot, errEna.u2) annotation (Line(points={{-200,-140},{-130,-140},{
+          -130,20},{-100,20},{-100,28}}, color={0,0,127}));
   connect(TTop, max.u1) annotation (Line(points={{-200,-80},{-120,-80},{-120,
           -74},{-112,-74}}, color={0,0,127}));
   connect(TTop, conPlaSeq.u_m) annotation (Line(points={{-200,-80},{-120,-80},{
