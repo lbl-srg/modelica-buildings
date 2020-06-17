@@ -190,21 +190,23 @@ model Chiller
     "Delay signal indicating no load"
     annotation (Placement(transformation(extent={{-200,-110},{-180,-90}})));
 equation
-  connect(senTHeaWatRet.port_b, ets.ports_aHeaWat[1]) annotation (Line(points={{
-          -70,-40},{-60,-40},{-60,-28},{-30,-28}}, color={0,127,255}));
-  connect(ets.ports_bChiWat[1], senTChiWatSup.port_a) annotation (Line(points={{
-          30,-38},{44,-38},{44,40},{60,40}}, color={0,127,255}));
-  connect(ets.ports_aChiWat[1], senTChiWatRet.port_b) annotation (Line(points={{
-          -30,-38},{-40,-38},{-40,0},{50,0},{50,-40},{60,-40}}, color={0,127,255}));
-  connect(TChiWatSupSet.y, ets.TChiWatSupSet) annotation (Line(points={{-138,100},
-          {-52,100},{-52,-70},{-34,-70}},color={0,0,127}));
+  connect(senTHeaWatRet.port_b, ets.ports_aHeaWat[1]) annotation (Line(points={{-70,-40},
+          {-60,-40},{-60,-28},{-30,-28}},          color={0,127,255}));
+  connect(ets.ports_bChiWat[1], senTChiWatSup.port_a) annotation (Line(points={{30,-38},
+          {44,-38},{44,40},{60,40}},         color={0,127,255}));
+  connect(ets.ports_aChiWat[1], senTChiWatRet.port_b) annotation (Line(points={{-30,-38},
+          {-40,-38},{-40,0},{50,0},{50,-40},{60,-40}},          color={0,127,255}));
+  connect(TChiWatSupSet.y, ets.TChiWatSupSet) annotation (Line(points={{-138,
+          100},{-52,100},{-52,-70},{-34,-70}},
+                                         color={0,0,127}));
   connect(THeaWatSupSet.y, ets.THeaWatSupSet) annotation (Line(points={{-138,
           140},{-48,140},{-48,-61.6},{-34,-61.6}},
                                           color={0,0,127}));
-  connect(disWat.ports[1], ets.port_aDis) annotation (Line(points={{-120,-138},{
-          -120,-80},{-30,-80}}, color={0,127,255}));
-  connect(ets.port_bDis, disWat.ports[2]) annotation (Line(points={{30,-80},{140,
-          -80},{140,-180},{-120,-180},{-120,-142}}, color={0,127,255}));
+  connect(disWat.ports[1], ets.port_aDis) annotation (Line(points={{-120,-138},
+          {-120,-80},{-30,-80}},color={0,127,255}));
+  connect(ets.port_bDis, disWat.ports[2]) annotation (Line(points={{30,-80},{
+          140,-80},{140,-180},{-120,-180},{-120,-142}},
+                                                    color={0,127,255}));
   connect(TDisWatSup.y, disWat.T_in) annotation (Line(points={{-248,-140},{-192,
           -140},{-192,-136},{-142,-136}}, color={0,0,127}));
   connect(pumChiWat.port_a, senTChiWatSup.port_b)
@@ -243,10 +245,11 @@ equation
     annotation (Line(points={{-259,60},{-202,60}}, color={0,0,127}));
   connect(loaCooRat.y, gai4.u)
     annotation (Line(points={{239,60},{202,60}}, color={0,0,127}));
-  connect(reqHea.y, ets.uHea) annotation (Line(points={{-148,-20},{-140,-20},{-140,
-          -46},{-34,-46}}, color={255,0,255}));
-  connect(reqCoo.y, ets.uCoo) annotation (Line(points={{-148,-100},{-140,-100},{
-          -140,-54},{-34,-54}}, color={255,0,255}));
+  connect(reqHea.y, ets.uHea) annotation (Line(points={{-148,-20},{-140,-20},{
+          -140,-46},{-34,-46}},
+                           color={255,0,255}));
+  connect(reqCoo.y, ets.uCoo) annotation (Line(points={{-148,-100},{-140,-100},
+          {-140,-54},{-34,-54}},color={255,0,255}));
   connect(loaHeaRat.y, noLoaHea.u) annotation (Line(points={{-259,60},{-240,60},
           {-240,-20},{-232,-20}}, color={0,0,127}));
   connect(loaCooRat.y, noLoaCoo.u) annotation (Line(points={{239,60},{220,60},{220,

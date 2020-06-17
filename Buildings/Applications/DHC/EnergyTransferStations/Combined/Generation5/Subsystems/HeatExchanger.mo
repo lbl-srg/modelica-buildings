@@ -43,17 +43,13 @@ model HeatExchanger
   parameter Real spePum2HexMin(final unit="1") = 0.1
     "Heat exchanger secondary pump minimum speed (fractional)"
     annotation (Dialog(group="Controls"));
-  parameter Modelica.SIunits.TemperatureDifference dT2HexHeaSet
-    "Heat exchanger secondary side deltaT set-point in heat rejection"
+  parameter Modelica.SIunits.TemperatureDifference dT2HexSet[2]
+    "Secondary side deltaT set-point schedule (index 1 for heat rejection)"
     annotation (Dialog(group="Controls"));
-  parameter Modelica.SIunits.TemperatureDifference dT2HexCooSet=
-    T_b2Hex_nominal - T_a2Hex_nominal
-    "Heat exchanger secondary side deltaT set-point in cold rejection"
+  parameter Real k[2] = {0.1, 0.05}
+    "Gain schedule for controller (index 1 for heat rejection)"
     annotation (Dialog(group="Controls"));
-  parameter Real k(final unit="1/K") = 0.1
-    "Gain of controller"
-    annotation (Dialog(group="Controls"));
-  parameter Modelica.SIunits.Time Ti(min=0) = 60
+  parameter Modelica.SIunits.Time Ti(min=0) = 1
     "Time constant of integrator block"
     annotation (Dialog(group="Controls"));
   // IO CONNECTORS
@@ -74,8 +70,7 @@ model HeatExchanger
     final have_val1Hex=have_val1Hex,
     final spePum1HexMin=spePum1HexMin,
     final spePum2HexMin=spePum2HexMin,
-    final dT2HexHeaSet=dT2HexHeaSet,
-    final dT2HexCooSet=dT2HexCooSet,
+    final dT2HexSet=dT2HexSet,
     final k=k,
     final Ti=Ti)
     "District heat exchanger loop controller"
@@ -144,6 +139,7 @@ model HeatExchanger
     redeclare final package Medium = Medium1,
     final m_flow_nominal=m1_flow_nominal,
     final dpValve_nominal=dpVal1Hex_nominal,
+    use_inputFilter=false,
     final dpFixed_nominal=dp1Hex_nominal) if have_val1Hex
     "Heat exchanger primary control valve"
     annotation (Placement(transformation(extent={{50,70},{70,90}})));
