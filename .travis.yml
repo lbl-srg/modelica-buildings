@@ -150,6 +150,8 @@ install:
 # Execute tests
 script:
   - (cd Buildings/Resources/Scripts/travis && travis_wait 90 $TEST_ARG)
+  - python3 -m pip freeze
+  - echo "PYTHONPATH = $PYTHONPATH"
 
 after_failure:
   - |
