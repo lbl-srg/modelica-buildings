@@ -51,7 +51,7 @@ model HeatExchanger
     final k=k,
     final Ti=Ti,
     final reset=Buildings.Types.Reset.Parameter,
-    final reverseAction=false,
+    final reverseActing=true,
     final yMin=0,
     final yMax=1,
     final controllerType=Modelica.Blocks.Types.SimpleController.PI)

@@ -64,7 +64,7 @@ model Borefield "Controller for borefield loop"
   Buildings.Controls.Continuous.LimPID conPumBor(
     final Td=Td,
     reset=Buildings.Types.Reset.Parameter,
-    reverseAction=true,
+    final reverseActing=false,
     y_reset=0,
     final k=1,
     yMin=0,
@@ -82,7 +82,7 @@ model Borefield "Controller for borefield loop"
     final yMin=0,
     final yMax=1,
     reset=Buildings.Types.Reset.Parameter,
-    final reverseAction=false,
+    final reverseActing=true,
     y_reset=0,
     final k=1,
     final controllerType=Modelica.Blocks.Types.SimpleController.PI,

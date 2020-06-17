@@ -82,7 +82,7 @@ model Chiller_bck "Chiller controller"
     y_reset=0,
     k=0.1,
     Ti(displayUnit="s") = 60,
-    reverseAction=false)
+    reverseActing=true)
     "Controller resetting chilled water supply temperature"
     annotation (Placement(transformation(extent={{-70,-130},{-50,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Line mapFun
@@ -106,7 +106,7 @@ model Chiller_bck "Chiller controller"
     y_reset=0,
     k=0.1,
     Ti(displayUnit="s") = 60,
-    final reverseAction=false)
+    final reverseActing=true)
     "Evaporator three-way valve control"
     annotation (Placement(transformation(extent={{50,-230},{70,-210}})));
   Buildings.Controls.Continuous.LimPID conValCon(
@@ -117,7 +117,7 @@ model Chiller_bck "Chiller controller"
     y_reset=0,
     k=0.1,
     Ti(displayUnit="s") = 60,
-    final reverseAction=true)
+    final reverseActing=false)
     "Condenser three-way valve control"
     annotation (Placement(transformation(extent={{50,-290},{70,-270}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTChiWatSup(
@@ -251,7 +251,7 @@ The three-way valve at the condenser inlet is controlled with
 a P or PI controller to track a constant, minimum water inlet temperature.
 </p>
 <p>
-The block in addition, resets <code>TSetCoo</code> based on the thermal operational 
+The block in addition, resets <code>TSetCoo</code> based on the thermal operational
 mode i.e. cooling only, heating only or
 simultaneous heating and cooling.
 </p>
@@ -261,7 +261,7 @@ As shown in the control scheme below and during
 </p>
 <ol>
   <li>
-  simultaneous heating and cooling and heating only operational modes, the control 
+  simultaneous heating and cooling and heating only operational modes, the control
   sequence resets the cooling setpoint <code>TReSetCoo</code> till the leaving heating
   water temperature from the condenser side meets the heating setpoint <code>TSetHea</code>
   <p align=\"center\">
@@ -283,7 +283,7 @@ As shown in the control scheme below and during
   <li>
   cooling only operational mode, the leaving water form the chiller evaporator side
   tracks the cooling setpoint <code>TSetCoo</code>
-   and the leaving water from the condenser floats depending on the entering water 
+   and the leaving water from the condenser floats depending on the entering water
    temperature and flow rate.
   </li>
 </ol>

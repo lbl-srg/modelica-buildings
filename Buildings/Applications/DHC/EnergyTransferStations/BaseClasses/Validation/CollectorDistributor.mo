@@ -96,7 +96,7 @@ model CollectorDistributor
     yMax=1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     yMin=0,
-    reverseAction=true)
+    reverseActing=false)
     "PI controller for chilled water supply"
     annotation (Placement(transformation(extent={{90,50},{110,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp m2_1(
@@ -157,7 +157,7 @@ model CollectorDistributor
     yMax=1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     yMin=0,
-    reverseAction=true)
+    reverseActing=false)
     "PI controller for chilled water supply"
     annotation (Placement(transformation(extent={{90,-90},{110,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant m2_2(k=0.5)
@@ -249,15 +249,15 @@ in a configuration where the model is used to ensure hydronic decoupling between
 </p>
 <ol>
 <li>
-a primary circuit which mass flow rate varies from 0 to 1.1 times 
+a primary circuit which mass flow rate varies from 0 to 1.1 times
 <code>m_flow_nominal</code>,
 </li>
 <li>
-a first secondary circuit which mass flow rate varies from 0.5 to 1 times 
+a first secondary circuit which mass flow rate varies from 0.5 to 1 times
 <code>m_flow_nominal</code>,
 </li>
 <li>
-a second secondary circuit which flow rate is constant, equal to 0.5 times 
+a second secondary circuit which flow rate is constant, equal to 0.5 times
 <code>m_flow_nominal</code>.
 </li>
 </ol>

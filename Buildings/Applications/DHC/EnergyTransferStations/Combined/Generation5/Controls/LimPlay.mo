@@ -43,7 +43,7 @@ block LimPlay "Play hysteresis controller with limited output"
     final yMax=yMax,
     final k=k,
     final Ti=Ti,
-    final reverseAction=not reverseActing)
+    final reverseActing=reverseActing)
     "Controller with high offset set-point"
     annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conLow(
@@ -52,7 +52,7 @@ block LimPlay "Play hysteresis controller with limited output"
     final yMax=yMax,
     final k=k,
     final Ti=Ti,
-    final reverseAction=not reverseActing)
+    final reverseActing=reverseActing)
     "Controller with low offset set-point"
     annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysBlo(
@@ -146,13 +146,13 @@ equation
     coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,140}})),
     Documentation(info="<html>
 <p>
-This is an enhanced hysteresis controller allowing for proportional 
+This is an enhanced hysteresis controller allowing for proportional
 or proportional integral control when transitioning between <code>yMin</code>
 and <code>yMax</code>.
 It is also known as a play hysteresis operator.
 </p>
 <p>
-The controller is symmetric as the two P/PI controllers have the 
+The controller is symmetric as the two P/PI controllers have the
 same parameters.
 </p>
 </html>"));
