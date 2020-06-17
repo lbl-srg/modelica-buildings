@@ -1,0 +1,616 @@
+{
+    "testCase": [
+        {
+            "check": {
+                "command": "checkModel(\"Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.Validation.PlantEnable\");",
+                "result": true
+            },
+            "file": "Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Generic/Validation/PlantEnable.mos",
+            "model": "Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.Validation.PlantEnable",
+            "simulate": {
+                "command": "RunScript(\"Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Generic/Validation/PlantEnable.mos\");",
+                "elapsed_time": 0.0177269,
+                "final_time": 86400,
+                "jacobians": 125,
+                "result": true,
+                "start_time": 0,
+                "state_events": 14,
+                "translationLog": "/tmp/tmp-Buildings-0-32z50gw0/Buildings/Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.Validation.PlantEnable.translation.log"
+            }
+        },
+        {
+            "check": {
+                "command": "checkModel(\"Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Validation.Controller\");",
+                "result": true
+            },
+            "file": "Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Pumps/ChilledWater/Validation/Controller.mos",
+            "model": "Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Validation.Controller",
+            "simulate": {
+                "command": "RunScript(\"Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Pumps/ChilledWater/Validation/Controller.mos\");",
+                "elapsed_time": 0.014102,
+                "final_time": 3600,
+                "jacobians": 34,
+                "result": true,
+                "start_time": 0,
+                "state_events": 7,
+                "translationLog": "/tmp/tmp-Buildings-0-32z50gw0/Buildings/Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Validation.Controller.translation.log"
+            }
+        },
+        {
+            "check": {
+                "command": "checkModel(\"Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation.CapacityRequirement\");",
+                "result": true
+            },
+            "file": "Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/CapacityRequirement.mos",
+            "model": "Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation.CapacityRequirement",
+            "simulate": {
+                "command": "RunScript(\"Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/CapacityRequirement.mos\");",
+                "elapsed_time": 0.00403595,
+                "final_time": 3600,
+                "jacobians": 14,
+                "result": true,
+                "start_time": 0,
+                "state_events": 0,
+                "translationLog": "/tmp/tmp-Buildings-0-32z50gw0/Buildings/Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation.CapacityRequirement.translation.log"
+            }
+        },
+        {
+            "check": {
+                "command": "checkModel(\"Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Validation.ControllerTwo\");",
+                "result": true
+            },
+            "file": "Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Generic/EquipmentRotation/Validation/ControllerTwo.mos",
+            "model": "Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Validation.ControllerTwo",
+            "simulate": {
+                "command": "RunScript(\"Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Generic/EquipmentRotation/Validation/ControllerTwo.mos\");",
+                "elapsed_time": 0.049356,
+                "final_time": 1000000,
+                "jacobians": 1144,
+                "result": true,
+                "start_time": 0,
+                "state_events": 32,
+                "translationLog": "/tmp/tmp-Buildings-1-7rwr4qdv/Buildings/Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Validation.ControllerTwo.translation.log"
+            }
+        },
+        {
+            "check": {
+                "command": "checkModel(\"Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.Validation.EnableLead_dedicated\");",
+                "result": true
+            },
+            "file": "Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Pumps/ChilledWater/Subsequences/Validation/EnableLead_dedicated.mos",
+            "model": "Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.Validation.EnableLead_dedicated",
+            "simulate": {
+                "command": "RunScript(\"Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Pumps/ChilledWater/Subsequences/Validation/EnableLead_dedicated.mos\");",
+                "elapsed_time": 0.003613,
+                "final_time": 3600,
+                "jacobians": 5,
+                "result": true,
+                "start_time": 0,
+                "state_events": 2,
+                "translationLog": "/tmp/tmp-Buildings-1-7rwr4qdv/Buildings/Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.Validation.EnableLead_dedicated.translation.log"
+            }
+        },
+        {
+            "check": {
+                "command": "checkModel(\"Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Validation.Controller\");",
+                "result": true
+            },
+            "file": "Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Economizer/Validation/Controller.mos",
+            "model": "Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Validation.Controller",
+            "simulate": {
+                "command": "RunScript(\"Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Economizer/Validation/Controller.mos\");",
+                "elapsed_time": 0.00514102,
+                "final_time": 3600,
+                "jacobians": 14,
+                "result": true,
+                "start_time": 0,
+                "state_events": 8,
+                "translationLog": "/tmp/tmp-Buildings-1-7rwr4qdv/Buildings/Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Validation.Controller.translation.log"
+            }
+        },
+        {
+            "check": {
+                "command": "checkModel(\"Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Validation.ContinuousLeadSwapTwo_uDevSta\");",
+                "result": true
+            },
+            "file": "Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Generic/EquipmentRotation/Subsequences/Validation/ContinuousLeadSwapTwo_uDevSta.mos",
+            "model": "Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Validation.ContinuousLeadSwapTwo_uDevSta",
+            "simulate": {
+                "command": "RunScript(\"Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Generic/EquipmentRotation/Subsequences/Validation/ContinuousLeadSwapTwo_uDevSta.mos\");",
+                "elapsed_time": 0.00757194,
+                "final_time": 180,
+                "jacobians": 143,
+                "result": true,
+                "start_time": 0,
+                "state_events": 0,
+                "translationLog": "/tmp/tmp-Buildings-2-d7_jh1r5/Buildings/Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Validation.ContinuousLeadSwapTwo_uDevSta.translation.log"
+            }
+        },
+        {
+            "check": {
+                "command": "checkModel(\"Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.Validation.Speed_primary_localDp\");",
+                "result": true
+            },
+            "file": "Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Pumps/ChilledWater/Subsequences/Validation/Speed_primary_localDp.mos",
+            "model": "Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.Validation.Speed_primary_localDp",
+            "simulate": {
+                "command": "RunScript(\"Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Pumps/ChilledWater/Subsequences/Validation/Speed_primary_localDp.mos\");",
+                "elapsed_time": 0.00611901,
+                "final_time": 10,
+                "jacobians": 7,
+                "result": true,
+                "start_time": 0,
+                "state_events": 0,
+                "translationLog": "/tmp/tmp-Buildings-2-d7_jh1r5/Buildings/Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.Validation.Speed_primary_localDp.translation.log"
+            }
+        },
+        {
+            "check": {
+                "command": "checkModel(\"Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.Validation.PredictedOutletTemperature\");",
+                "result": true
+            },
+            "file": "Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Economizer/Subsequences/Validation/PredictedOutletTemperature.mos",
+            "model": "Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.Validation.PredictedOutletTemperature",
+            "simulate": {
+                "command": "RunScript(\"Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Economizer/Subsequences/Validation/PredictedOutletTemperature.mos\");",
+                "elapsed_time": 0.00324106,
+                "final_time": 2100,
+                "jacobians": 35,
+                "result": true,
+                "start_time": 0,
+                "state_events": 0,
+                "translationLog": "/tmp/tmp-Buildings-2-d7_jh1r5/Buildings/Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.Validation.PredictedOutletTemperature.translation.log"
+            }
+        },
+        {
+            "check": {
+                "command": "checkModel(\"Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Validation.RuntimeCounter_uDevRol\");",
+                "result": true
+            },
+            "file": "Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Generic/EquipmentRotation/Subsequences/Validation/RuntimeCounter_uDevRol.mos",
+            "model": "Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Validation.RuntimeCounter_uDevRol",
+            "simulate": {
+                "command": "RunScript(\"Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Generic/EquipmentRotation/Subsequences/Validation/RuntimeCounter_uDevRol.mos\");",
+                "elapsed_time": 0.00672507,
+                "final_time": 100000,
+                "jacobians": 101,
+                "result": true,
+                "start_time": 0,
+                "state_events": 3,
+                "translationLog": "/tmp/tmp-Buildings-3-cgw2lx7a/Buildings/Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Validation.RuntimeCounter_uDevRol.translation.log"
+            }
+        },
+        {
+            "check": {
+                "command": "checkModel(\"Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.Validation.EnableLead_headered\");",
+                "result": true
+            },
+            "file": "Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Pumps/ChilledWater/Subsequences/Validation/EnableLead_headered.mos",
+            "model": "Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.Validation.EnableLead_headered",
+            "simulate": {
+                "command": "RunScript(\"Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Pumps/ChilledWater/Subsequences/Validation/EnableLead_headered.mos\");",
+                "elapsed_time": 0.00458407,
+                "final_time": 3600,
+                "jacobians": 7,
+                "result": true,
+                "start_time": 0,
+                "state_events": 0,
+                "translationLog": "/tmp/tmp-Buildings-3-cgw2lx7a/Buildings/Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.Validation.EnableLead_headered.translation.log"
+            }
+        },
+        {
+            "check": {
+                "command": "checkModel(\"Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.Validation.Tuning_uEcoSta_uTowFanSpeMax\");",
+                "result": true
+            },
+            "file": "Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Economizer/Subsequences/Validation/Tuning_uEcoSta_uTowFanSpeMax.mos",
+            "model": "Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.Validation.Tuning_uEcoSta_uTowFanSpeMax",
+            "simulate": {
+                "command": "RunScript(\"Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Economizer/Subsequences/Validation/Tuning_uEcoSta_uTowFanSpeMax.mos\");",
+                "elapsed_time": 0.047864,
+                "final_time": 150000,
+                "jacobians": 489,
+                "result": true,
+                "start_time": 0,
+                "state_events": 101,
+                "translationLog": "/tmp/tmp-Buildings-3-cgw2lx7a/Buildings/Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.Validation.Tuning_uEcoSta_uTowFanSpeMax.translation.log"
+            }
+        },
+        {
+            "check": {
+                "command": "checkModel(\"Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Validation.Two_uRot\");",
+                "result": true
+            },
+            "file": "Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Generic/EquipmentRotation/Subsequences/Validation/Two_uRot.mos",
+            "model": "Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Validation.Two_uRot",
+            "simulate": {
+                "command": "RunScript(\"Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Generic/EquipmentRotation/Subsequences/Validation/Two_uRot.mos\");",
+                "elapsed_time": 0.00462294,
+                "final_time": 1000000,
+                "jacobians": 13,
+                "result": true,
+                "start_time": 0,
+                "state_events": 0,
+                "translationLog": "/tmp/tmp-Buildings-4-91z6csvl/Buildings/Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Validation.Two_uRot.translation.log"
+            }
+        },
+        {
+            "check": {
+                "command": "checkModel(\"Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.Validation.Speed_primary_remoteDp\");",
+                "result": true
+            },
+            "file": "Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Pumps/ChilledWater/Subsequences/Validation/Speed_primary_remoteDp.mos",
+            "model": "Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.Validation.Speed_primary_remoteDp",
+            "simulate": {
+                "command": "RunScript(\"Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Pumps/ChilledWater/Subsequences/Validation/Speed_primary_remoteDp.mos\");",
+                "elapsed_time": 0.00459909,
+                "final_time": 10,
+                "jacobians": 5,
+                "result": true,
+                "start_time": 0,
+                "state_events": 0,
+                "translationLog": "/tmp/tmp-Buildings-4-91z6csvl/Buildings/Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.Validation.Speed_primary_remoteDp.translation.log"
+            }
+        },
+        {
+            "check": {
+                "command": "checkModel(\"Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Validation.Controller\");",
+                "result": true
+            },
+            "file": "Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/HeadPressure/Validation/Controller.mos",
+            "model": "Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Validation.Controller",
+            "simulate": {
+                "command": "RunScript(\"Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/HeadPressure/Validation/Controller.mos\");",
+                "elapsed_time": 0.00575209,
+                "final_time": 5,
+                "jacobians": 5,
+                "result": true,
+                "start_time": 0,
+                "state_events": 0,
+                "translationLog": "/tmp/tmp-Buildings-4-91z6csvl/Buildings/Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Validation.Controller.translation.log"
+            }
+        },
+        {
+            "check": {
+                "command": "checkModel(\"Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Validation.Scheduler\");",
+                "result": true
+            },
+            "file": "Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Generic/EquipmentRotation/Subsequences/Validation/Scheduler.mos",
+            "model": "Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Validation.Scheduler",
+            "simulate": {
+                "command": "RunScript(\"Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Generic/EquipmentRotation/Subsequences/Validation/Scheduler.mos\");",
+                "elapsed_time": 0.0764751,
+                "final_time": 3000000,
+                "jacobians": 845,
+                "result": true,
+                "start_time": 0,
+                "state_events": 0,
+                "translationLog": "/tmp/tmp-Buildings-5-lmbkrzjf/Buildings/Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Validation.Scheduler.translation.log"
+            }
+        },
+        {
+            "check": {
+                "command": "checkModel(\"Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.Validation.EnableLag_primary_dP\");",
+                "result": true
+            },
+            "file": "Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Pumps/ChilledWater/Subsequences/Validation/EnableLag_primary_dP.mos",
+            "model": "Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.Validation.EnableLag_primary_dP",
+            "simulate": {
+                "command": "RunScript(\"Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Pumps/ChilledWater/Subsequences/Validation/EnableLag_primary_dP.mos\");",
+                "elapsed_time": 0.00412488,
+                "final_time": 3600,
+                "jacobians": 9,
+                "result": true,
+                "start_time": 0,
+                "state_events": 8,
+                "translationLog": "/tmp/tmp-Buildings-5-lmbkrzjf/Buildings/Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.Validation.EnableLag_primary_dP.translation.log"
+            }
+        },
+        {
+            "check": {
+                "command": "checkModel(\"Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.Validation.MappingWithWSE\");",
+                "result": true
+            },
+            "file": "Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/HeadPressure/Subsequences/Validation/MappingWithWSE.mos",
+            "model": "Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.Validation.MappingWithWSE",
+            "simulate": {
+                "command": "RunScript(\"Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/HeadPressure/Subsequences/Validation/MappingWithWSE.mos\");",
+                "elapsed_time": 0.00303793,
+                "final_time": 5,
+                "jacobians": 1,
+                "result": true,
+                "start_time": 0,
+                "state_events": 0,
+                "translationLog": "/tmp/tmp-Buildings-5-lmbkrzjf/Buildings/Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.Validation.MappingWithWSE.translation.log"
+            }
+        },
+        {
+            "check": {
+                "command": "checkModel(\"Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.Validation.ChilledWaterSupply\");",
+                "result": true
+            },
+            "file": "Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/SetPoints/Validation/ChilledWaterSupply.mos",
+            "model": "Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.Validation.ChilledWaterSupply",
+            "simulate": {
+                "command": "RunScript(\"Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/SetPoints/Validation/ChilledWaterSupply.mos\");",
+                "elapsed_time": 0.00403,
+                "final_time": 3600,
+                "jacobians": 18,
+                "result": true,
+                "start_time": 0,
+                "state_events": 0,
+                "translationLog": "/tmp/tmp-Buildings-6-ocqk7u00/Buildings/Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.Validation.ChilledWaterSupply.translation.log"
+            }
+        },
+        {
+            "check": {
+                "command": "checkModel(\"Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation.Capacities_u\");",
+                "result": true
+            },
+            "file": "Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Capacities_u.mos",
+            "model": "Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation.Capacities_u",
+            "simulate": {
+                "command": "RunScript(\"Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Capacities_u.mos\");",
+                "elapsed_time": 0.00412011,
+                "final_time": 10,
+                "jacobians": 1,
+                "result": true,
+                "start_time": 0,
+                "state_events": 0,
+                "translationLog": "/tmp/tmp-Buildings-6-ocqk7u00/Buildings/Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation.Capacities_u.translation.log"
+            }
+        },
+        {
+            "check": {
+                "command": "checkModel(\"Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.Validation.MappingWithoutWSE\");",
+                "result": true
+            },
+            "file": "Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/HeadPressure/Subsequences/Validation/MappingWithoutWSE.mos",
+            "model": "Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.Validation.MappingWithoutWSE",
+            "simulate": {
+                "command": "RunScript(\"Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/HeadPressure/Subsequences/Validation/MappingWithoutWSE.mos\");",
+                "elapsed_time": 0.0105979,
+                "final_time": 5,
+                "jacobians": 1,
+                "result": true,
+                "start_time": 0,
+                "state_events": 0,
+                "translationLog": "/tmp/tmp-Buildings-6-ocqk7u00/Buildings/Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.Validation.MappingWithoutWSE.translation.log"
+            }
+        },
+        {
+            "check": {
+                "command": "checkModel(\"Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.Validation.ChilledWaterPlantReset\");",
+                "result": true
+            },
+            "file": "Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/SetPoints/Validation/ChilledWaterPlantReset.mos",
+            "model": "Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.Validation.ChilledWaterPlantReset",
+            "simulate": {
+                "command": "RunScript(\"Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/SetPoints/Validation/ChilledWaterPlantReset.mos\");",
+                "elapsed_time": 0.0108,
+                "final_time": 9000,
+                "jacobians": 844,
+                "result": true,
+                "start_time": 0,
+                "state_events": 0,
+                "translationLog": "/tmp/tmp-Buildings-7-igwbtpha/Buildings/Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.Validation.ChilledWaterPlantReset.translation.log"
+            }
+        },
+        {
+            "check": {
+                "command": "checkModel(\"Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation.FailsafeCondition\");",
+                "result": true
+            },
+            "file": "Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/FailsafeCondition.mos",
+            "model": "Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation.FailsafeCondition",
+            "simulate": {
+                "command": "RunScript(\"Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/FailsafeCondition.mos\");",
+                "elapsed_time": 0.0048418,
+                "final_time": 3600,
+                "jacobians": 26,
+                "result": true,
+                "start_time": 0,
+                "state_events": 19,
+                "translationLog": "/tmp/tmp-Buildings-7-igwbtpha/Buildings/Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation.FailsafeCondition.translation.log"
+            }
+        },
+        {
+            "check": {
+                "command": "checkModel(\"Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.Validation.ControlLoop\");",
+                "result": true
+            },
+            "file": "Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/HeadPressure/Subsequences/Validation/ControlLoop.mos",
+            "model": "Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.Validation.ControlLoop",
+            "simulate": {
+                "command": "RunScript(\"Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/HeadPressure/Subsequences/Validation/ControlLoop.mos\");",
+                "elapsed_time": 0.00246096,
+                "final_time": 5,
+                "jacobians": 5,
+                "result": true,
+                "start_time": 0,
+                "state_events": 0,
+                "translationLog": "/tmp/tmp-Buildings-7-igwbtpha/Buildings/Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.Validation.ControlLoop.translation.log"
+            }
+        },
+        {
+            "check": {
+                "command": "checkModel(\"Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Validation.Controller\");",
+                "result": true
+            },
+            "file": "Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Pumps/CondenserWater/Validation/Controller.mos",
+            "model": "Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Validation.Controller",
+            "simulate": {
+                "command": "RunScript(\"Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Pumps/CondenserWater/Validation/Controller.mos\");",
+                "elapsed_time": 0.00745392,
+                "final_time": 3600,
+                "jacobians": 19,
+                "result": true,
+                "start_time": 0,
+                "state_events": 6,
+                "translationLog": "/tmp/tmp-Buildings-8-mtktq9ld/Buildings/Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Validation.Controller.translation.log"
+            }
+        },
+        {
+            "check": {
+                "command": "checkModel(\"Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation.Configurator_uChiAva\");",
+                "result": true
+            },
+            "file": "Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Configurator_uChiAva.mos",
+            "model": "Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation.Configurator_uChiAva",
+            "simulate": {
+                "command": "RunScript(\"Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Configurator_uChiAva.mos\");",
+                "elapsed_time": 0.00514889,
+                "final_time": 10,
+                "jacobians": 1,
+                "result": true,
+                "start_time": 0,
+                "state_events": 0,
+                "translationLog": "/tmp/tmp-Buildings-8-mtktq9ld/Buildings/Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation.Configurator_uChiAva.translation.log"
+            }
+        },
+        {
+            "check": {
+                "command": "checkModel(\"Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Validation.Controller\");",
+                "result": true
+            },
+            "file": "Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/MinimumFlowBypass/Validation/Controller.mos",
+            "model": "Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Validation.Controller",
+            "simulate": {
+                "command": "RunScript(\"Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/MinimumFlowBypass/Validation/Controller.mos\");",
+                "elapsed_time": 0.00500393,
+                "final_time": 4,
+                "jacobians": 8,
+                "result": true,
+                "start_time": 0,
+                "state_events": 0,
+                "translationLog": "/tmp/tmp-Buildings-8-mtktq9ld/Buildings/Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Validation.Controller.translation.log"
+            }
+        },
+        {
+            "check": {
+                "command": "checkModel(\"Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.Validation.EnableLead_dedicated\");",
+                "result": true
+            },
+            "file": "Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Pumps/CondenserWater/Subsequences/Validation/EnableLead_dedicated.mos",
+            "model": "Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.Validation.EnableLead_dedicated",
+            "simulate": {
+                "command": "RunScript(\"Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Pumps/CondenserWater/Subsequences/Validation/EnableLead_dedicated.mos\");",
+                "elapsed_time": 0.00378799,
+                "final_time": 3600,
+                "jacobians": 5,
+                "result": true,
+                "start_time": 0,
+                "state_events": 2,
+                "translationLog": "/tmp/tmp-Buildings-9-w0s55x3l/Buildings/Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.Validation.EnableLead_dedicated.translation.log"
+            }
+        },
+        {
+            "check": {
+                "command": "checkModel(\"Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation.Capacities_uLow_uHig\");",
+                "result": true
+            },
+            "file": "Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Capacities_uLow_uHig.mos",
+            "model": "Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation.Capacities_uLow_uHig",
+            "simulate": {
+                "command": "RunScript(\"Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Capacities_uLow_uHig.mos\");",
+                "elapsed_time": 0.00340509,
+                "final_time": 10,
+                "jacobians": 1,
+                "result": true,
+                "start_time": 0,
+                "state_events": 0,
+                "translationLog": "/tmp/tmp-Buildings-9-w0s55x3l/Buildings/Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation.Capacities_uLow_uHig.translation.log"
+            }
+        },
+        {
+            "check": {
+                "command": "checkModel(\"Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Subsequences.Validation.FlowSetpoint\");",
+                "result": true
+            },
+            "file": "Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/MinimumFlowBypass/Subsequences/Validation/FlowSetpoint.mos",
+            "model": "Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Subsequences.Validation.FlowSetpoint",
+            "simulate": {
+                "command": "RunScript(\"Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/MinimumFlowBypass/Subsequences/Validation/FlowSetpoint.mos\");",
+                "elapsed_time": 0.0046649,
+                "final_time": 4,
+                "jacobians": 4,
+                "result": true,
+                "start_time": 0,
+                "state_events": 0,
+                "translationLog": "/tmp/tmp-Buildings-9-w0s55x3l/Buildings/Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Subsequences.Validation.FlowSetpoint.translation.log"
+            }
+        },
+        {
+            "check": {
+                "command": "checkModel(\"Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.Validation.EnableLead_headered\");",
+                "result": true
+            },
+            "file": "Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Pumps/CondenserWater/Subsequences/Validation/EnableLead_headered.mos",
+            "model": "Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.Validation.EnableLead_headered",
+            "simulate": {
+                "command": "RunScript(\"Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Pumps/CondenserWater/Subsequences/Validation/EnableLead_headered.mos\");",
+                "elapsed_time": 0.00364494,
+                "final_time": 3600,
+                "jacobians": 5,
+                "result": true,
+                "start_time": 0,
+                "state_events": 0,
+                "translationLog": "/tmp/tmp-Buildings-10-v0kovbmi/Buildings/Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.Validation.EnableLead_headered.translation.log"
+            }
+        },
+        {
+            "check": {
+                "command": "checkModel(\"Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation.EfficiencyCondition\");",
+                "result": true
+            },
+            "file": "Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/EfficiencyCondition.mos",
+            "model": "Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation.EfficiencyCondition",
+            "simulate": {
+                "command": "RunScript(\"Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/EfficiencyCondition.mos\");",
+                "elapsed_time": 0.00460696,
+                "final_time": 3600,
+                "jacobians": 8,
+                "result": true,
+                "start_time": 0,
+                "state_events": 4,
+                "translationLog": "/tmp/tmp-Buildings-10-v0kovbmi/Buildings/Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation.EfficiencyCondition.translation.log"
+            }
+        },
+        {
+            "check": {
+                "command": "checkModel(\"Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.Validation.Speed\");",
+                "result": true
+            },
+            "file": "Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Pumps/CondenserWater/Subsequences/Validation/Speed.mos",
+            "model": "Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.Validation.Speed",
+            "simulate": {
+                "command": "RunScript(\"Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Pumps/CondenserWater/Subsequences/Validation/Speed.mos\");",
+                "elapsed_time": 0.00378895,
+                "final_time": 1,
+                "jacobians": 7,
+                "result": true,
+                "start_time": 0,
+                "state_events": 4,
+                "translationLog": "/tmp/tmp-Buildings-11-gvs1o4ad/Buildings/Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.Validation.Speed.translation.log"
+            }
+        },
+        {
+            "check": {
+                "command": "checkModel(\"Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation.Status_u_uAva\");",
+                "result": true
+            },
+            "file": "Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Status_u_uAva.mos",
+            "model": "Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation.Status_u_uAva",
+            "simulate": {
+                "command": "RunScript(\"Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Status_u_uAva.mos\");",
+                "elapsed_time": 0.00838208,
+                "final_time": 10,
+                "jacobians": 10,
+                "result": true,
+                "start_time": 0,
+                "state_events": 0,
+                "translationLog": "/tmp/tmp-Buildings-11-gvs1o4ad/Buildings/Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation.Status_u_uAva.translation.log"
+            }
+        }
+    ]
+}
