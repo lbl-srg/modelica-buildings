@@ -3,12 +3,12 @@ model Chiller "ETS model for 5GDHC systems with heat recovery chiller"
   extends DHC.EnergyTransferStations.BaseClasses.PartialETS(
     final have_heaWat=true,
     final have_chiWat=true,
-    have_hotWat=false,
-    have_eleHea=false,
     final have_eleCoo=true,
     final have_fan=false,
-    have_weaBus=false,
     final have_pum=true,
+    have_hotWat=false,
+    have_eleHea=false,
+    have_weaBus=false,
     nPorts_aHeaWat=1,
     nPorts_bHeaWat=1,
     nPorts_aChiWat=1,
@@ -26,10 +26,10 @@ model Chiller "ETS model for 5GDHC systems with heat recovery chiller"
   parameter Integer nSouAmb = 1
     "Number of ambient sources"
     annotation(Evaluate=true);
-  final parameter Integer nConHeaWat = 1 + nAuxHea + nSouAmb
+  final parameter Integer nConHeaWat = 2 + nAuxHea
     "Number of connections for heating water collector"
     annotation(Evaluate=true);
-  final parameter Integer nConChiWat = 1 + nAuxCoo + nSouAmb
+  final parameter Integer nConChiWat = 2 + nAuxCoo
     "Number of connections for chilled water collector"
     annotation(Evaluate=true);
 

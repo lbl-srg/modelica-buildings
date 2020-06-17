@@ -3,7 +3,7 @@ model ChillerBorefield
   "ETS model for 5GDHC systems with heat recovery chiller and borefield"
   extends Chiller(
     nSouAmb=2,
-    colAmbWat(mCon_flow_nominal={m2Hex_flow_nominal, mBorFie_flow_nominal}));
+    colAmbWat(mCon_flow_nominal={m2Hex_flow_nominal, borFie.m_flow_nominal}));
 
   parameter Fluid.Geothermal.Borefields.Data.Borefield.Template datBorFie
     "Borefield parameters" annotation (Dialog(group="Borefield"), Placement(
@@ -20,6 +20,7 @@ model ChillerBorefield
     annotation (Dialog(group="Borefield"));
 
   Subsystems.Borefield borFie(
+    redeclare final package Medium = MediumBui,
     final dat=datBorFie,
     final TBorWatEntMax=TBorWatEntMax,
     final dTBorFieSet=dTBorFieSet,

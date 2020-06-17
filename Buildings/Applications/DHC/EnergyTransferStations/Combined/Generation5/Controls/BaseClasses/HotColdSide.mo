@@ -2,12 +2,12 @@ within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Co
 partial block HotColdSide "State machine enabling production and ambient source systems"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Integer nSouAmb = 1
+  parameter Integer nSouAmb
     "Number of ambient sources to control"
     annotation(Evaluate=true);
-  parameter Modelica.SIunits.TemperatureDifference dTHys = 1
+  parameter Modelica.SIunits.TemperatureDifference dTHys = 2
     "Temperature hysteresis (full width, absolute value)";
-  parameter Modelica.SIunits.TemperatureDifference dTDea = 1
+  parameter Modelica.SIunits.TemperatureDifference dTDea = 0
     "Temperature dead band (absolute value)";
   parameter Boolean reverseActing = false
     "Set to true for control output increasing with decreasing measurement value";
@@ -132,7 +132,10 @@ partial block HotColdSide "State machine enabling production and ambient source 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea2
     "Conversion of DI to AI"
     annotation (Placement(transformation(extent={{-170,130},{-150,150}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep annotation (
+  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
+    final nout=nSouAmb)
+    "Replicate signal"
+    annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,

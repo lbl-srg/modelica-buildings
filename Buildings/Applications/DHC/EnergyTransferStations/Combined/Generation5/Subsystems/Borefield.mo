@@ -93,6 +93,7 @@ model Borefield "Auxiliary subsystem with geothermal borefield"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
   Controls.Borefield con(
+    final m_flow_nominal=m_flow_nominal,
     final TBorWatEntMax=TBorWatEntMax,
     final dTBorFieSet=dTBorFieSet,
     final spePumBorMin=spePumBorMin)

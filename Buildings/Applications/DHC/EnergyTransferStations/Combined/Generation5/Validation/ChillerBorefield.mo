@@ -4,6 +4,9 @@ model ChillerBorefield
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Water "Medium model";
+  parameter Integer nBorHol = 100
+    "number of boreholes";
+  parameter Real dxy = 6;
   parameter Modelica.SIunits.MassFlowRate mHeaWat_flow_nominal=
     0.9 * datChi.mCon_flow_nominal
     "Nominal heating water mass flow rate";
@@ -28,7 +31,7 @@ model ChillerBorefield
     TConEnt_nominal=313.15,
     TConEntMin=303.15,
     TConEntMax=333.15) "Chiller performance data"
-    annotation (Placement(transformation(extent={{-202,182},{-182,202}})));
+    annotation (Placement(transformation(extent={{-200,182},{-180,202}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupSet(
     k=45 + 273.15,
     y(final unit="K", displayUnit="degC"))
@@ -36,7 +39,7 @@ model ChillerBorefield
     annotation (Placement(transformation(extent={{-140,130},{-120,150}})));
   Fluid.Sources.Boundary_pT heaWat(
     redeclare package Medium = Medium, nPorts=1)
-              "Heating water boundary conditions"
+    "Heating water boundary conditions"
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -87,6 +90,8 @@ model ChillerBorefield
     dpCon_nominal=15E3,
     dpEva_nominal=15E3,
     datChi=datChi,
+    datBorFie=datBorFie,
+    dTBorFieSet=2,
     nPorts_aHeaWat=1,
     nPorts_bHeaWat=1,
     nPorts_bChiWat=1,
@@ -187,6 +192,11 @@ model ChillerBorefield
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDelCoo(delayTime=120)
     "Delay signal indicating no load"
     annotation (Placement(transformation(extent={{-180,-110},{-160,-90}})));
+  parameter Fluid.Geothermal.Borefields.Data.Borefield.Example datBorFie(conDat=
+        Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(cooBor=
+        {{i*6,j*6} for i in 0:10,j in 0:10}))
+    "Borefield design data"
+    annotation (Placement(transformation(extent={{-160,182},{-140,202}})));
 equation
   connect(senTHeaWatRet.port_b, ets.ports_aHeaWat[1]) annotation (Line(points={
           {-50,-40},{-40,-40},{-40,-28},{-10,-28}}, color={0,127,255}));

@@ -98,6 +98,7 @@ model Supervisory "Energy transfer station supervisory controller"
             80}})));
 
   HotSide conHotSid(
+    final nSouAmb=nSouAmb,
     final dTHys=dTHys,
     final dTDea=dTDea,
     final controllerType=controllerType,
@@ -106,6 +107,7 @@ model Supervisory "Energy transfer station supervisory controller"
     "Hot side controller"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
   ColdSide conColSid(
+    final nSouAmb=nSouAmb,
     final dTHys=dTHys,
     final dTDea=dTDea,
     final controllerType=controllerType,
