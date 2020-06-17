@@ -8,17 +8,19 @@ model Supervisory "Energy transfer station supervisory controller"
   parameter Integer nSouAmb = 1
     "Number of ambient sources to control"
     annotation(Evaluate=true);
-  parameter Modelica.SIunits.TemperatureDifference dTHys = 1
+  parameter Modelica.SIunits.TemperatureDifference dTHys = 2
     "Temperature hysteresis (absolute value)";
-  parameter Modelica.SIunits.TemperatureDifference dTDea = 1
+  parameter Modelica.SIunits.TemperatureDifference dTDea = 0
     "Temperature dead band (absolute value)";
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType[nSouAmb]=fill(
-      Buildings.Controls.OBC.CDL.Types.SimpleController.PI, nSouAmb)
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType[nSouAmb]=
+    fill(Buildings.Controls.OBC.CDL.Types.SimpleController.PI, nSouAmb)
     "Type of controller";
-  parameter Real k[nSouAmb](each min=0)=fill(0.1, nSouAmb)
-    "Gain of controller";
+  parameter Real kHot[nSouAmb](each min=0)=fill(0.05, nSouAmb)
+    "Gain of controller on hot side";
+  parameter Real kCol[nSouAmb](each min=0)=fill(0.1, nSouAmb)
+    "Gain of controller on cold side";
   parameter Modelica.SIunits.Time Ti[nSouAmb]=fill(120, nSouAmb)
-    "Time constant of integrator block"
+    "Time constant of integrator block (hot and cold side)"
     annotation (Dialog(enable=Modelica.Math.BooleanVectors.anyTrue({
       controllerType[i] == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
       controllerType[i] == Buildings.Controls.OBC.CDL.Types.SimpleController.PID
@@ -60,17 +62,17 @@ model Supervisory "Energy transfer station supervisory controller"
     "Heating water temperature at tank bottom"
     annotation (Placement(transformation(extent={{-160,-20},{-120,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSupPreSet(final unit="K",
-      displayUnit="degC") "Heating water supply temperature set-point"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSupPreSet(
+    final unit="K", displayUnit="degC") "Heating water supply temperature set-point"
     annotation (Placement(transformation(extent={{-160,20},{-120,60}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput THeaWatSupSet(final unit="K",
-      displayUnit="degC")
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput THeaWatSupSet(
+    final unit="K", displayUnit="degC")
     "Heating water supply temperature set-point after reset" annotation (
       Placement(transformation(extent={{120,-70},{160,-30}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatSupSet(final unit="K",
-      displayUnit="degC")
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatSupSet(
+    final unit="K", displayUnit="degC")
     "Chilled water supply temperature set-point after reset" annotation (
       Placement(transformation(extent={{120,-100},{160,-60}}),
         iconTransformation(extent={{100,-110},{140,-70}})));
@@ -81,7 +83,7 @@ model Supervisory "Energy transfer station supervisory controller"
           extent={{100,-50},{140,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yIsoCon(
     final unit="1") "Condenser to ambient loop isolation valve control signal"
-                                                               annotation (
+    annotation (
       Placement(transformation(extent={{120,-10},{160,30}}), iconTransformation(
           extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yAmb[nSouAmb](
@@ -101,7 +103,7 @@ model Supervisory "Energy transfer station supervisory controller"
     final dTHys=dTHys,
     final dTDea=dTDea,
     final controllerType=controllerType,
-    final k=k,
+    final k=kHot,
     final Ti=Ti)
     "Hot side controller"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
@@ -109,7 +111,7 @@ model Supervisory "Energy transfer station supervisory controller"
     final dTHys=dTHys,
     final dTDea=dTDea,
     final controllerType=controllerType,
-    final k=k,
+    final k=kCol,
     final Ti=Ti)
     "Cold side controller"
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
@@ -123,21 +125,21 @@ model Supervisory "Energy transfer station supervisory controller"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
 equation
   connect(THeaWatTop, conHotSid.TTop) annotation (Line(points={{-140,20},{-64,20},
-          {-64,50},{-12,50}},     color={0,0,127}));
+          {-64,46},{-12,46}},     color={0,0,127}));
   connect(THeaWatBot, conHotSid.TBot) annotation (Line(points={{-140,0},{-60,0},
-          {-60,46},{-12,46}},     color={0,0,127}));
+          {-60,42},{-12,42}},     color={0,0,127}));
   connect(TChiWatBot, conColSid.TBot) annotation (Line(points={{-140,-80},{-60,-80},
-          {-60,-54},{-12,-54}},      color={0,0,127}));
+          {-60,-58},{-12,-58}},      color={0,0,127}));
   connect(conHotSid.y, max1.u1)
-    annotation (Line(points={{12,47},{20,47},{20,6},{28,6}}, color={0,0,127}));
-  connect(conColSid.y, max1.u2) annotation (Line(points={{12,-53},{20,-53},{20,-6},
+    annotation (Line(points={{12,49},{20,49},{20,6},{28,6}}, color={0,0,127}));
+  connect(conColSid.y, max1.u2) annotation (Line(points={{12,-51},{20,-51},{20,-6},
           {28,-6}}, color={0,0,127}));
   connect(uHea, conHotSid.uHeaCoo) annotation (Line(points={{-140,110},{-16,110},
           {-16,58},{-12,58}}, color={255,0,255}));
   connect(uCoo, conColSid.uHeaCoo) annotation (Line(points={{-140,90},{-20,90},{
           -20,-42},{-12,-42}}, color={255,0,255}));
   connect(TChiWatTop, conColSid.TTop) annotation (Line(points={{-140,-60},{-80,-60},
-          {-80,-50},{-12,-50}},      color={0,0,127}));
+          {-80,-54},{-12,-54}},      color={0,0,127}));
   connect(uHea, reset.uHea) annotation (Line(points={{-140,110},{-112,110},{-112,
           -92},{-82,-92}}, color={255,0,255}));
   connect(uCoo, reset.uCoo) annotation (Line(points={{-140,90},{-100,90},{-100,-97},
@@ -154,16 +156,20 @@ equation
           {100,-20},{140,-20}}, color={0,0,127}));
   connect(max1.y, yAmb) annotation (Line(points={{52,0},{100,0},{100,40},{140,40}},
         color={0,0,127}));
-  connect(conColSid.yHeaCoo, yCoo) annotation (Line(points={{12,-43},{80,-43},{80,
+  connect(conColSid.yHeaCoo, yCoo) annotation (Line(points={{12,-45},{80,-45},{80,
           70},{140,70}}, color={255,0,255}));
-  connect(conHotSid.yHeaCoo, yHea) annotation (Line(points={{12,57},{60,57},{60,
+  connect(conHotSid.yHeaCoo, yHea) annotation (Line(points={{12,55},{60,55},{60,
           100},{140,100}}, color={255,0,255}));
   connect(conHotSid.yIsoAmb, yIsoCon) annotation (Line(points={{12,43},{60,43},{
           60,10},{140,10}}, color={0,0,127}));
   connect(reset.THeaWatSupSet, conHotSid.TSet) annotation (Line(points={{-58,-95},
-          {-40,-95},{-40,54},{-12,54}}, color={0,0,127}));
+          {-40,-95},{-40,50},{-12,50}}, color={0,0,127}));
   connect(reset.TChiWatSupSet, conColSid.TSet) annotation (Line(points={{-58,-105},
-          {-30,-105},{-30,-46},{-12,-46}}, color={0,0,127}));
+          {-30,-105},{-30,-50},{-12,-50}}, color={0,0,127}));
+  connect(conColSid.yHeaCoo, conHotSid.uCooHea) annotation (Line(points={{12,-45},
+          {14,-45},{14,20},{-16,20},{-16,54},{-12,54}}, color={255,0,255}));
+  connect(conHotSid.yHeaCoo, conColSid.uCooHea) annotation (Line(points={{12,55},
+          {20,55},{20,80},{-30,80},{-30,-46},{-12,-46}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
         defaultComponentName="conSup",
