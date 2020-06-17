@@ -37,6 +37,7 @@ model Borefield "Auxiliary subsystem with geothermal borefield"
   Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear val(
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    use_inputFilter=false,
     final m_flow_nominal=m_flow_nominal,
     final dpValve_nominal=dpValBorFie_nominal,
     final dpFixed_nominal=dp_nominal - dpValBorFie_nominal)

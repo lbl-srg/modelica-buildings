@@ -187,6 +187,7 @@ model Chiller "Base subsystem with heat recovery chiller"
   Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valEva(
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    use_inputFilter=false,
     final m_flow_nominal=dat.mEva_flow_nominal,
     final dpValve_nominal=dpValEva_nominal,
     final dpFixed_nominal=fill(dpEva_nominal, 2))
@@ -198,6 +199,7 @@ model Chiller "Base subsystem with heat recovery chiller"
   Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valCon(
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    use_inputFilter=false,
     final m_flow_nominal=dat.mCon_flow_nominal,
     final dpValve_nominal=dpValCon_nominal,
     final dpFixed_nominal=fill(dpCon_nominal, 2))
