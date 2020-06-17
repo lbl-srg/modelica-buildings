@@ -15,7 +15,7 @@ model PIDHysteresisTimer
     "Value of hysteresis output at initial time"
     annotation (Dialog(group="On/off controller"));
 
-  parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.PID
+  parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.PI
     "Type of controller"
       annotation (Dialog(group="Set point tracking"));
   parameter Real k=1 "Gain of controller"
@@ -37,8 +37,8 @@ model PIDHysteresisTimer
       annotation (Dialog(group="Set point tracking"));
   parameter Real Nd=10 "The higher Nd, the more ideal the derivative block"
       annotation (Dialog(group="Set point tracking"));
-  parameter Boolean reverseAction = false
-    "Set to true to enable reverse action (such as for a cooling coil controller)"
+  parameter Boolean reverseActing = true
+    "Set to true for reverse acting, or false for direct acting control action"
      annotation (Dialog(group="Set point tracking"));
 
   parameter Modelica.Blocks.Types.InitPID initType=Modelica.Blocks.Types.InitPID.DoNotUse_InitialIntegratorState
@@ -76,7 +76,7 @@ model PIDHysteresisTimer
     final y_start=y_start,
     final yMin=yMin,
     final yMax=yMax,
-    final reverseAction=reverseAction,
+    final reverseActing=reverseActing,
     final strict=strict) "Controller to track setpoint"
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
   OffTimer offHys
@@ -216,6 +216,12 @@ avoids the controller from switching on until <code>minOffTime</code> seconds el
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 1, 2020, by Michael Wetter:<br/>
+Corrected wrong convention of reverse and direct action.<br/>
+Changed default configuration from PID to PI.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1365\">issue 1365</a>.
+</li>
 <li>
 September 29, 2016, by Michael Wetter:<br/>
 Removed parameter <code>limitsAtInit</code> because it is no longer

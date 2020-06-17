@@ -36,10 +36,8 @@ model CoolingAndHeating
   Buildings.Controls.Continuous.LimPID conHea(
     yMax=0.094,
     Td=0,
-    reverseAction=false,
     Ti=100,
-    k=0.1,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI)
+    k=0.1)
     "Controller for heating"
          annotation (Placement(transformation(extent={{-70,-20},{-50,0}})));
   Sources.MassFlowSource_T pumCoo(
@@ -80,11 +78,10 @@ model CoolingAndHeating
     annotation (Placement(transformation(extent={{-110,20},{-90,40}})));
   Buildings.Controls.Continuous.LimPID conCoo(
     yMax=0.094,
-    reverseAction=true,
+    reverseActing=false,
     Td=0,
     k=0.5,
-    Ti=70,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI)
+    Ti=70)
     "Controller for cooling"
     annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
 
@@ -155,7 +152,7 @@ for both heating and cooling mode. An air volume is maintained at a temperature 
 <ul>
 <li>
 May 15, 2019, by Jianjun Hu:<br/>
-Replaced fluid source. This is for 
+Replaced fluid source. This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
 </li>
 <li>

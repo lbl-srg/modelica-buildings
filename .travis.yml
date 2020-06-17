@@ -100,3 +100,11 @@ install:
 # Execute tests
 script:
   - (cd Buildings/Resources/Scripts/travis && travis_wait 90 $TEST_ARG)
+
+after_failure:
+  - |
+    for ff in `find Buildings -maxdepth 1 -name '*.log'`; do
+      echo "*** Content of $ff"
+      cat $ff
+      echo "*** End of $ff"
+    done
