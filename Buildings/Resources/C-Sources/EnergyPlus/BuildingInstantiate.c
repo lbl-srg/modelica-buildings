@@ -326,6 +326,9 @@ void generateFMU(
   /* Generate the FMU */
   char* cmd;
   char* cmdFla;
+  char* optionFlags;
+  char* outputFlag;
+  char* createFlag;
   char* testFMU;
   char* fulCmd;
   size_t len;
@@ -354,10 +357,13 @@ void generateFMU(
       ModelicaFormatError("Requested to use json file '%s' which does not exist.", modelicaBuildingsJsonFile);
     }
     cmd = "/Resources/bin/spawn-linux64/bin/spawn";
-    cmdFla = "--no-compress -c"; /* Flag for command */
-    /* The + 1 are for spaces, the quotes around the file name (needed if the Modelica name has array brackets) and
-       the end of line character */
-    len = strlen(buildingsLibraryRoot) + strlen(cmd) + 1 + strlen(cmdFla) + 1 + 1 + strlen(modelicaBuildingsJsonFile) + 1 + 1;
+    optionFlags = " --no-compress "; /* Flag for command */
+    outputFlag = " --output-path "; /* Flag for command */
+    createFlag = " --create "; /* Flag for command */
+    len = strlen(buildingsLibraryRoot) + strlen(cmd) + strlen(optionFlags)
+      + strlen(outputFlag) + strlen("\"") + strlen(FMUPath) + strlen("\"")
+      + strlen(createFlag) + strlen("\"") + strlen(modelicaBuildingsJsonFile) + strlen("\"");
+      + strlen("\0");
 
     mallocString(len, "Failed to allocate memory in generateFMU().", &fulCmd);
     memset(fulCmd, '\0', len);
@@ -372,13 +378,16 @@ void generateFMU(
       ModelicaFormatError("File '%s' exists, but fails to be executable.", fulCmd);
     }
     /* Continue building the command line */
-    strcat(fulCmd, " ");
-    strcat(fulCmd, cmdFla);
-    strcat(fulCmd, " \"");
+    strcat(fulCmd, optionFlags);
+    strcat(fulCmd, outputFlag);
+    strcat(fulCmd, "\"");
+    strcat(fulCmd, FMUPath);
+    strcat(fulCmd, "\"");
+    strcat(fulCmd, createFlag);
+    strcat(fulCmd, "\"");
     strcat(fulCmd, modelicaBuildingsJsonFile);
     strcat(fulCmd, "\"");
   }
-
 
   /* Remove the old fmu if it already exists */
   if (stat(FMUPath, &st) != -1) {
