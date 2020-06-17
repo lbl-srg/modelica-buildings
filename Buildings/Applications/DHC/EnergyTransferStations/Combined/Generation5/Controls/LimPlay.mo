@@ -89,6 +89,15 @@ block LimPlay "Play hysteresis controller with limited output"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
+protected
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant cheYMinMax(final k=yMin
+         < yMax)
+    "Check for values of yMin and yMax"
+    annotation (Placement(transformation(extent={{60,-120},{80,-100}})));
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMesYMinMax(message=
+        "LimPID: Limits must be yMin < yMax")
+    "Assertion on yMin and yMax"
+    annotation (Placement(transformation(extent={{100,-120},{120,-100}})));
 equation
   connect(conLow.y, swi.u1) annotation (Line(points={{-68,-40},{100,-40},{100,
           -8},{108,-8}},
@@ -140,6 +149,8 @@ equation
           {60,20},{60,8.8},{68,8.8}}, color={255,0,255}));
   connect(con.y, logSwi.u2) annotation (Line(points={{42,-60},{60,-60},{60,0},{
           68,0}}, color={255,0,255}));
+  connect(cheYMinMax.y,assMesYMinMax. u)
+    annotation (Line(points={{82,-110},{98,-110}},   color={255,0,255}));
   annotation (defaultComponentName="conPla",
   Icon(coordinateSystem(preserveAspectRatio=false)),
   Diagram(

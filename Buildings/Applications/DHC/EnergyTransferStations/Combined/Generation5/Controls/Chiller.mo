@@ -2,14 +2,14 @@ within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Co
 model Chiller "Chiller controller"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Modelica.SIunits.Temperature TChiWatSupSetMin(
-    displayUnit="degC")
+  parameter Modelica.SIunits.Temperature TChiWatSupSetMin=TChiWatSupSetMin(
+      displayUnit="degC")
     "Minimum value of chilled water supply temperature set-point";
-  parameter Modelica.SIunits.Temperature TConWatEntMin(
-    displayUnit="degC")
+  parameter Modelica.SIunits.Temperature TConWatEntMin=TConWatEntMin(
+      displayUnit="degC")
     "Minimum value of condenser water entering temperature";
-  parameter Modelica.SIunits.Temperature TEvaWatEntMax(
-    displayUnit="degC")
+  parameter Modelica.SIunits.Temperature TEvaWatEntMax=TEvaWatEntMax(
+      displayUnit="degC")
     "Maximum value of evaporator water entering temperature";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSupSet(
     final unit="K", displayUnit="degC")
@@ -167,8 +167,8 @@ equation
     annotation (Line(points={{12,-280},{48,-280}}, color={0,0,127}));
   connect(notHea.y, cooOnl.u1)
     annotation (Line(points={{-78,80},{-12,80}}, color={255,0,255}));
-  connect(uCoo, cooOnl.u2) annotation (Line(points={{-180,40},{-120,40},{-120,64},
-          {-60,64},{-60,72},{-12,72}}, color={255,0,255}));
+  connect(uCoo, cooOnl.u2) annotation (Line(points={{-180,40},{-20,40},{-20,72},
+          {-12,72}},                   color={255,0,255}));
   connect(minTChiWatSup.y, mapFun2.f2) annotation (Line(points={{52,-128},{80,-128},
           {80,-88},{88,-88}}, color={0,0,127}));
   connect(THeaWatSupSet, conPID.u_s)

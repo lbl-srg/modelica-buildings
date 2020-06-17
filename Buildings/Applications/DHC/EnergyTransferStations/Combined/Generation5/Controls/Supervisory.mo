@@ -2,10 +2,7 @@ within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Co
 model Supervisory "Energy transfer station supervisory controller"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Boolean have_yExt = true
-    "Set to true in case of external control signals for ambient sources"
-    annotation(Evaluate=true);
-  parameter Integer nSouAmb = 1
+  parameter Integer nSouAmb
     "Number of ambient sources to control"
     annotation(Evaluate=true);
   parameter Modelica.SIunits.TemperatureDifference dTHys = 2
@@ -15,11 +12,12 @@ model Supervisory "Energy transfer station supervisory controller"
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType[nSouAmb]=
     fill(Buildings.Controls.OBC.CDL.Types.SimpleController.PI, nSouAmb)
     "Type of controller";
-  parameter Real kHot[nSouAmb](each min=0)=fill(0.05, nSouAmb)
+  parameter Real kHot[nSouAmb](each min=0)=fill(0.1, nSouAmb)
     "Gain of controller on hot side";
-  parameter Real kCol[nSouAmb](each min=0)=fill(0.1, nSouAmb)
+  parameter Real kCol[nSouAmb](each min=0)=fill(0.2, nSouAmb)
     "Gain of controller on cold side";
-  parameter Modelica.SIunits.Time Ti[nSouAmb]=fill(120, nSouAmb)
+  parameter Modelica.SIunits.Time Ti[nSouAmb](
+    each min=Buildings.Controls.OBC.CDL.Constants.small)=fill(300, nSouAmb)
     "Time constant of integrator block (hot and cold side)"
     annotation (Dialog(enable=Modelica.Math.BooleanVectors.anyTrue({
       controllerType[i] == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or

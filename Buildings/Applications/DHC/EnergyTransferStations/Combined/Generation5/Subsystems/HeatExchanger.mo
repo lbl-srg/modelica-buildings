@@ -57,7 +57,7 @@ model HeatExchanger
     "Isolation valves return position (index 1 for condenser)"
     annotation (Placement(transformation(extent={{-140,80},{-100,120}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput y2Sup
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Control signal for secondary side (from supervisory)" annotation (
       Placement(transformation(extent={{-140,120},{-100,160}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
@@ -232,19 +232,19 @@ equation
   connect(senT2HexWatLvg.T, conHex.T2HexWatLvg) annotation (Line(points={{-31,-20},
           {-80,-20},{-80,124},{-42,124}}, color={0,0,127}));
   connect(senT2HexWatEnt.T, conHex.T2HexWatEnt) annotation (Line(points={{9,-40},
-          {-82,-40},{-82,129},{-42,129}}, color={0,0,127}));
+          {-86,-40},{-86,129},{-42,129}}, color={0,0,127}));
   connect(pum1Hex.P, totPPum.u[2]) annotation (Line(points={{-49,89},{0,89},{0,40},
           {40,40},{40,0},{48,0}}, color={0,0,127}));
   connect(pum2Hex.P, totPPum.u[1]) annotation (Line(points={{69,-51},{40,-51},{40,
           0},{48,0}}, color={0,0,127}));
   connect(totPPum.y, PPum)
     annotation (Line(points={{72,0},{120,0}}, color={0,0,127}));
-  connect(yValIso, conHex.yValIso) annotation (Line(points={{-120,100},{-96,100},
-          {-96,135},{-42,135}},color={0,0,127}));
+  connect(yValIso, conHex.yValIso) annotation (Line(points={{-120,100},{-92,100},
+          {-92,135},{-42,135}},color={0,0,127}));
   connect(conHex.y2Hex, gai2.u) annotation (Line(points={{-18,126},{0,126},{0,
           100},{18,100}}, color={0,0,127}));
-  connect(y2Sup, conHex.y2Sup) annotation (Line(points={{-120,140},{-60,140},{-60,
-          140},{-42,140}},     color={0,0,127}));
+  connect(u, conHex.u) annotation (Line(points={{-120,140},{-60,140},{-60,140},
+          {-42,140}}, color={0,0,127}));
   annotation (
   defaultComponentName="hex",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

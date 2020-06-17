@@ -72,10 +72,10 @@ partial block HotColdSide "State machine enabling production and ambient source 
     annotation (Placement(transformation(extent={{110,130},{130,150}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqual enaHeaCoo
     "Threshold comparison for enabling heating or cooling system"
-    annotation (Placement(transformation(extent={{20,30},{40,50}})));
+    annotation (Placement(transformation(extent={{30,30},{50,50}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqual disHeaCoo
     "Threshold comparison for disabling heating or cooling system"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+    annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHeaCoo
     "Enabled signal for heating or cooling system"
     annotation (Placement(transformation(extent={{180,80},{220,120}}),
@@ -90,35 +90,35 @@ partial block HotColdSide "State machine enabling production and ambient source 
     final k=k,
     final Ti=Ti,
     final reverseActing=reverseActing)
-    annotation (Placement(transformation(extent={{-110,-130},{-90,-110}})));
+    annotation (Placement(transformation(extent={{-90,-130},{-70,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMax mulMax(nin=nSouAmb)
     "Max of control signals"
-    annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
+    annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(threshold=
         Modelica.Constants.eps) "At least one signal is non zero"
-    annotation (Placement(transformation(extent={{70,-130},{90,-110}})));
+    annotation (Placement(transformation(extent={{80,-130},{100,-110}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     "Convert DO to AO signal"
     annotation (Placement(transformation(extent={{120,-130},{140,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Feedback errEna "Error for enabling"
-    annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
+    annotation (Placement(transformation(extent={{-98,30},{-78,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Feedback errDis "Disabling error"
-    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
+    annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(k=0) "Zero"
-    annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
+    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Product proEna
     "Opposite if reverse acting"
-    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
+    annotation (Placement(transformation(extent={{-20,30},{0,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Product proDis
     "Opposite if reverse acting"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant revAct(
     final k= reverseActing) "Output true in case of reverse acting"
-    annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
+    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1(
     final realTrue=-1,
-    final realFalse=1)
-    annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
+    final realFalse=1) "Output -1 if reverse acting, else 1"
+    annotation (Placement(transformation(extent={{-70,70},{-50,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaCoo
     "Heating or cooling mode enabled signal" annotation (Placement(
         transformation(extent={{-220,160},{-180,200}}), iconTransformation(
@@ -139,7 +139,7 @@ partial block HotColdSide "State machine enabling production and ambient source 
         origin={-140,110})));
   Buildings.Controls.OBC.CDL.Continuous.Min min1[nSouAmb]
     "Enable ambient sources only if antagonistic mode is enabled"
-    annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
+    annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
 initial equation
   assert(dTHys >= 0, "In " + getInstanceName() +
     ": dTHys (" + String(dTHys) + ") must be an absolute value.");
@@ -150,39 +150,42 @@ equation
     annotation (Line(points={{61.5,140},{79,140}},   color={0,0,0}));
   connect(run.outPort[1], t2.inPort)
     annotation (Line(points={{100.5,140},{116,140}},color={0,0,0}));
-  connect(enaHeaCoo.y, t1.condition) annotation (Line(points={{42,40},{60,40},{
+  connect(enaHeaCoo.y, t1.condition) annotation (Line(points={{52,40},{60,40},{
           60,128}},
                  color={255,0,255}));
   connect(disHeaCoo.y, t2.condition)
-    annotation (Line(points={{42,0},{120,0},{120,128}}, color={255,0,255}));
+    annotation (Line(points={{52,0},{120,0},{120,128}}, color={255,0,255}));
   connect(mulMax.y, greThr.u)
-    annotation (Line(points={{42,-120},{68,-120}}, color={0,0,127}));
-  connect(greThr.y, booToRea.u) annotation (Line(points={{92,-120},{118,-120}},
+    annotation (Line(points={{62,-120},{78,-120}}, color={0,0,127}));
+  connect(greThr.y, booToRea.u) annotation (Line(points={{102,-120},{118,-120}},
                      color={255,0,255}));
   connect(booToRea.y, yIsoAmb) annotation (Line(points={{142,-120},{200,-120}},
                            color={0,0,127}));
-  connect(TSet, errEna.u1) annotation (Line(points={{-200,40},{-112,40}},
+  connect(TSet, errEna.u1) annotation (Line(points={{-200,40},{-100,40}},
                           color={0,0,127}));
   connect(TSet, errDis.u1) annotation (Line(points={{-200,40},{-160,40},{-160,0},
-          {-92,0}},    color={0,0,127}));
-  connect(zer.y, disHeaCoo.u1) annotation (Line(points={{-88,-40},{8,-40},{8,0},
-          {18,0}}, color={0,0,127}));
-  connect(zer.y, enaHeaCoo.u2) annotation (Line(points={{-88,-40},{8,-40},{8,32},
-          {18,32}}, color={0,0,127}));
+          {-72,0}},    color={0,0,127}));
+  connect(zer.y, disHeaCoo.u1) annotation (Line(points={{2,-40},{20,-40},{20,0},
+          {28,0}}, color={0,0,127}));
+  connect(zer.y, enaHeaCoo.u2) annotation (Line(points={{2,-40},{20,-40},{20,32},
+          {28,32}}, color={0,0,127}));
   connect(proEna.y, enaHeaCoo.u1)
-    annotation (Line(points={{-18,40},{18,40}},  color={0,0,127}));
-  connect(proDis.y, disHeaCoo.u2) annotation (Line(points={{-18,0},{0,0},{0,-8},
-          {18,-8}}, color={0,0,127}));
+    annotation (Line(points={{2,40},{28,40}},    color={0,0,127}));
+  connect(proDis.y, disHeaCoo.u2) annotation (Line(points={{2,0},{12,0},{12,-8},
+          {28,-8}}, color={0,0,127}));
   connect(revAct.y, booToRea1.u)
-    annotation (Line(points={{-98,80},{-92,80}}, color={255,0,255}));
-  connect(errEna.y, proEna.u2) annotation (Line(points={{-88,40},{-80,40},{-80,34},
-          {-42,34}}, color={0,0,127}));
-  connect(errDis.y, proDis.u2) annotation (Line(points={{-68,0},{-60,0},{-60,-6},
-          {-42,-6}}, color={0,0,127}));
-  connect(booToRea1.y, proDis.u1) annotation (Line(points={{-68,80},{-60,80},{-60,
-          6},{-42,6}}, color={0,0,127}));
-  connect(booToRea1.y, proEna.u1) annotation (Line(points={{-68,80},{-60,80},{-60,
-          46},{-42,46}}, color={0,0,127}));
+    annotation (Line(points={{-78,80},{-72,80}}, color={255,0,255}));
+  connect(errEna.y, proEna.u2) annotation (Line(points={{-76,40},{-30,40},{-30,
+          34},{-22,34}},
+                     color={0,0,127}));
+  connect(errDis.y, proDis.u2) annotation (Line(points={{-48,0},{-30,0},{-30,-6},
+          {-22,-6}}, color={0,0,127}));
+  connect(booToRea1.y, proDis.u1) annotation (Line(points={{-48,80},{-40,80},{
+          -40,6},{-22,6}},
+                       color={0,0,127}));
+  connect(booToRea1.y, proEna.u1) annotation (Line(points={{-48,80},{-40,80},{
+          -40,46},{-22,46}},
+                         color={0,0,127}));
   connect(noDemand.outPort[1], t1.inPort)
     annotation (Line(points={{20.5,140},{56,140}},  color={0,0,0}));
   connect(t2.outPort, noDemand.inPort[1]) annotation (Line(points={{121.5,140},{
@@ -195,19 +198,19 @@ equation
   connect(uHeaCoo, and2.u1) annotation (Line(points={{-200,180},{140,180},{140,100},
           {148,100}}, color={255,0,255}));
   connect(TSet, conPlaSeq.u_s) annotation (Line(points={{-200,40},{-160,40},{
-          -160,-120},{-112,-120}},
+          -160,-120},{-92,-120}},
                               color={0,0,127}));
   connect(uCooHea, booToRea2.u)
     annotation (Line(points={{-200,140},{-172,140}}, color={255,0,255}));
   connect(booToRea2.y, reaRep.u) annotation (Line(points={{-148,140},{-140,140},
           {-140,122}}, color={0,0,127}));
-  connect(conPlaSeq.y, min1.u2) annotation (Line(points={{-88,-120},{-80,-120},
-          {-80,-126},{-62,-126}}, color={0,0,127}));
+  connect(conPlaSeq.y, min1.u2) annotation (Line(points={{-68,-120},{-60,-120},
+          {-60,-126},{-42,-126}}, color={0,0,127}));
   connect(min1.y, mulMax.u)
-    annotation (Line(points={{-38,-120},{18,-120}}, color={0,0,127}));
-  connect(reaRep.y, min1.u1) annotation (Line(points={{-140,98},{-140,-102},{
-          -80,-102},{-80,-114},{-62,-114}}, color={0,0,127}));
-  connect(min1.y, y) annotation (Line(points={{-38,-120},{0,-120},{0,-100},{160,
+    annotation (Line(points={{-18,-120},{38,-120}}, color={0,0,127}));
+  connect(reaRep.y, min1.u1) annotation (Line(points={{-140,98},{-140,-100},{
+          -60,-100},{-60,-114},{-42,-114}}, color={0,0,127}));
+  connect(min1.y, y) annotation (Line(points={{-18,-120},{0,-120},{0,-100},{160,
           -100},{160,0},{200,0}}, color={0,0,127}));
    annotation (
  Documentation(info="<html>

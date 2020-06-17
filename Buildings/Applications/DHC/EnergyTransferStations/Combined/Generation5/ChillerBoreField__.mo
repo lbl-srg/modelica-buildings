@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5;
-model ChillerBoreField
+model ChillerBoreField__
   "Energy transfer station model for fifth generation DHC systems with heat recovery chiller and borefield"
   extends DHC.EnergyTransferStations.BaseClasses.PartialETS(
     final have_heaWat=true,
@@ -468,4 +468,4 @@ First implementation
 </li>
 </ul>
 </html>"));
-end ChillerBoreField;
+end ChillerBoreField__;

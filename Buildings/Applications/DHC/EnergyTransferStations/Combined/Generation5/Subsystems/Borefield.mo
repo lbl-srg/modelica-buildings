@@ -14,36 +14,26 @@ model Borefield "Auxiliary subsystem with geothermal borefield"
   parameter Modelica.SIunits.Pressure dpValBorFie_nominal=dat.conDat.dp_nominal / 4
     "Nominal pressure drop of control valve";
 
-  parameter Modelica.SIunits.Temperature TBorWatEntMax(
-    displayUnit="degC")
+  parameter Modelica.SIunits.Temperature TBorWatEntMax(displayUnit="degC")
     "Maximum value of borefield water entering temperature";
   parameter Modelica.SIunits.TemperatureDifference dTBorFieSet(min=0)
     "Set-point for temperature difference accross borefield (absolute value)";
+  parameter Real spePumBorMin(final unit="1") = 0.1
+    "Borefield pump minimum speed";
+
   // IO VARIABLES
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uColRej
-    "Control signal enabling full cold rejection to ambient loop" annotation (
-      Placement(transformation(extent={{-140,20},{-100,60}}),
-        iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaRej
-    "Control signal enabling full heat rejection to ambient loop" annotation (
-      Placement(transformation(extent={{-140,60},{-100,100}}),
-        iconTransformation(extent={{-140,60},{-100,100}})));
 
   // COMPONENTS
-  Buildings.Controls.OBC.CDL.Continuous.Gain gaiBor(
-    final k=m_flow_nominal)
-    "Gain for mass flow rate of borefield"
-    annotation (Placement(transformation(extent={{50,50},{70,70}})));
   Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear val(
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     use_inputFilter=false,
     final m_flow_nominal=m_flow_nominal,
     final dpValve_nominal=dpValBorFie_nominal,
-    final dpFixed_nominal=dp_nominal - dpValBorFie_nominal)
+    final dpFixed_nominal=fill(dat.conDat.dp_nominal, 2))
     "Mixing valve controlling entering temperature" annotation (Placement(
         transformation(
-        extent={{10,-10},{-10,10}},
+        extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-80,0})));
   Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pum(
@@ -68,7 +58,7 @@ model Borefield "Auxiliary subsystem with geothermal borefield"
   Fluid.Geothermal.Borefields.OneUTube borFie(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
-    final borFieDat=borFieDat,
+    final borFieDat=dat,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Geothermal borefield"
     annotation (Placement(
@@ -93,18 +83,22 @@ model Borefield "Auxiliary subsystem with geothermal borefield"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={50,0})));
-  Controls.Borefield con "Controller"
-    annotation (Placement(transformation(extent={{0,50},{20,70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIso[2]
     "Isolation valves return position (fractional)" annotation (Placement(
-        transformation(extent={{-140,-70},{-100,-30}}), iconTransformation(
-          extent={{-140,-70},{-100,-30}})));
+        transformation(extent={{-140,10},{-100,50}}),   iconTransformation(
+          extent={{-140,10},{-100,50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u
+    "Control signal from supervisory"
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
+      iconTransformation(extent={{-140,60},{-100,100}})));
+  Controls.Borefield con(
+    final TBorWatEntMax=TBorWatEntMax,
+    final dTBorFieSet=dTBorFieSet,
+    final spePumBorMin=spePumBorMin)
+    "Controller"
+    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
 equation
-  connect(port_a, val.port_2)
-    annotation (Line(points={{-100,0},{-90,0}}, color={0,127,255}));
-  connect(val.port_1, pum.port_a)
-    annotation (Line(points={{-70,0},{-50,0}}, color={0,127,255}));
   connect(pum.port_b, senTEnt.port_a)
     annotation (Line(points={{-30,0},{-20,0}}, color={0,127,255}));
   connect(senTEnt.port_b, borFie.port_a)
@@ -117,25 +111,22 @@ equation
     annotation (Line(points={{32,0},{40,0}}, color={0,127,255}));
   connect(spl.port_3, val.port_3) annotation (Line(points={{80,-10},{80,-40},{-80,
           -40},{-80,-10}}, color={0,127,255}));
-  connect(con.yPumBor, gaiBor.u) annotation (Line(points={{22.1,53.9},{40,53.9},
-          {40,60},{48,60}},                 color={0,0,127}));
-  connect(con.yMixBor, val.y) annotation (Line(points={{22,66},{40,66},{40,80},{
-          -80,80},{-80,12}}, color={0,0,127}));
-  connect(gaiBor.y, pum.m_flow_in) annotation (Line(points={{72,60},{80,60},{80,
-          20},{-40,20},{-40,12}}, color={0,0,127}));
-  connect(senTEnt.T, con.TBorWatEnt)
-    annotation (Line(points={{-10,11},{-10,56},{-2,56}}, color={0,0,127}));
-  connect(uHeaRej, con.uHeaRej) annotation (Line(points={{-120,80},{-92,80},{
-          -92,68},{-2,68}},
-                        color={255,0,255}));
-  connect(uColRej, con.uColRej) annotation (Line(points={{-120,40},{-92,40},{
-          -92,64},{-2,64}},
-                        color={255,0,255}));
-  connect(senTLvg.T, con.TBorWatLvg) annotation (Line(points={{50,11},{50,40},{
-          -4,40},{-4,52},{-2,52}},
-                                color={0,0,127}));
-  connect(yValIso, con.yValIso) annotation (Line(points={{-120,-50},{-60,-50},{
-          -60,60},{-2,60}}, color={0,0,127}));
+  connect(u, con.u) annotation (Line(points={{-120,80},{-80,80},{-80,66},{-62,
+          66}},
+        color={0,0,127}));
+  connect(yValIso, con.yValIso)
+    annotation (Line(points={{-120,30},{-80,30},{-80,60},{-62,60}},
+                                                  color={0,0,127}));
+  connect(con.yPum, pum.m_flow_in) annotation (Line(points={{-38,66},{0,66},{0,20},
+          {-40,20},{-40,12}}, color={0,0,127}));
+  connect(con.yValMix, val.y) annotation (Line(points={{-38,54},{-20,54},{-20,24},
+          {-80,24},{-80,12}}, color={0,0,127}));
+  connect(port_a, val.port_1)
+    annotation (Line(points={{-100,0},{-90,0}}, color={0,127,255}));
+  connect(val.port_2, pum.port_a)
+    annotation (Line(points={{-70,0},{-50,0}}, color={0,127,255}));
+  connect(senTEnt.T, con.TBorWatEnt) annotation (Line(points={{-10,11},{-10,40},
+          {-70,40},{-70,54},{-62,54}}, color={0,0,127}));
   annotation (
   defaultComponentName="borFie",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -149,5 +140,5 @@ equation
           lineColor={27,0,55},
           fillColor={170,213,255},
           fillPattern=FillPattern.Solid)}), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})));
 end Borefield;

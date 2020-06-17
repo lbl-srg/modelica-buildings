@@ -4,8 +4,8 @@ removePlots(false);
 simulateModel("Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Validation.ChillerTimeSeries",
     method="Cvode",
     tolerance=1e-6,
-    startTime=1.1E7,
-    stopTime=1.2E7,
+    startTime=1E7,
+    stopTime=1.5E7,
     resultFile="ChillerTimeSeries");
 Advanced.FilenameInLegend = true;
 createPlot(id=1, position={4, 5, 546, 748}, y={"ets.tanHeaWat.TTop", "ets.tanHeaWat.TBot", "senTHeaWatSup.T", "senTHeaWatRet.T", "ets.conSup.THeaWatSupPreSet", "ets.conSup.THeaWatSupSet"},

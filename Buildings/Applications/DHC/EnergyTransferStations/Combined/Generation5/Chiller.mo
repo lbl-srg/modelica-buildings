@@ -1,6 +1,5 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5;
-model Chiller
-  "Energy transfer station model for fifth generation DHC systems with heat recovery chiller"
+model Chiller "ETS model for 5GDHC systems with heat recovery chiller"
   extends DHC.EnergyTransferStations.BaseClasses.PartialETS(
     final have_heaWat=true,
     final have_chiWat=true,
@@ -333,8 +332,8 @@ equation
           19},{-216,-80},{60,-80},{60,-108}}, color={0,0,127}));
   connect(conSup.yIsoCon, valIsoCon.y) annotation (Line(points={{-238,22},{-228,
           22},{-228,22},{-220,22},{-220,-84},{-60,-84},{-60,-108}}, color={0,0,127}));
-  connect(conSup.yAmb[nSouAmb], int.y2Sup) annotation (Line(points={{-238,25},{-200,25},
-          {-200,-256},{-12,-256}}, color={0,0,127}));
+  connect(conSup.yAmb[nSouAmb], int.u) annotation (Line(points={{-238,25},{-200,
+          25},{-200,-256},{-12,-256}}, color={0,0,127}));
 annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
         Diagram(coordinateSystem(preserveAspectRatio=false,
                   extent={{-300,-300},{300,300}}),
@@ -347,9 +346,11 @@ Documentation(info="<html>
 <p>
 When extending this class 
 
-colChiWat.mCon_flow_nominal (and nCon) must be updated if an additional cooling equipment is modeled,
-colHeaWat.mCon_flow_nominal (and nCon) must be updated if an additional heating equipment is modeled,
-colAmbWat.mCon_flow_nominal (and nCon) must be updated if an additional ambient source is modeled.
+nAuxCoo and colChiWat.mCon_flow_nominal must be updated if an additional cooling equipment is modeled,
+
+nAuxHea and colHeaWat.mCon_flow_nominal must be updated if an additional heating equipment is modeled,
+
+nSouAmb and colAmbWat.mCon_flow_nominal must be updated if an additional ambient source is modeled.
 
 
 </p>

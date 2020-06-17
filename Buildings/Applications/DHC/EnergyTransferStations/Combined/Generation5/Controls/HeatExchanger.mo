@@ -66,12 +66,12 @@ model HeatExchanger
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant min1(final k=if
     have_val1Hex then yVal1HexMin else spePum1HexMin)
     "Minimum pump speed or actuator opening"
-    annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
+    annotation (Placement(transformation(extent={{50,-70},{70,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y2Hex(final unit="1")
     "District heat exchanger secondary pump control signal" annotation (
       Placement(transformation(extent={{220,-40},{260,0}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput y2Sup
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Control signal for secondary side (from supervisory)" annotation (
       Placement(transformation(extent={{-260,100},{-220,140}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
@@ -133,18 +133,18 @@ equation
   connect(con1Hex.y, multiMax1.u[1])
     annotation (Line(points={{71,20},{88,20},{88,21},{98,21}},
                                                            color={0,0,127}));
-  connect(min1.y, multiMax1.u[2]) annotation (Line(points={{62,-80},{80,-80},{80,
-          18},{96,18},{96,20},{98,20},{98,19}},
+  connect(min1.y, multiMax1.u[2]) annotation (Line(points={{72,-60},{80,-60},{
+          80,18},{96,18},{96,20},{98,20},{98,19}},
                         color={0,0,127}));
-  connect(y2Sup, greThr.u)
+  connect(u, greThr.u)
     annotation (Line(points={{-240,120},{-172,120}}, color={0,0,127}));
   connect(greThr.y, and2.u1) annotation (Line(points={{-148,120},{-60,120},{-60,
           80},{-12,80}},
                      color={255,0,255}));
   connect(and2.y, swiOff1.u2) annotation (Line(points={{12,80},{140,80},{140,20},
           {158,20}},color={255,0,255}));
-  connect(y2Sup, y2Hex) annotation (Line(points={{-240,120},{-180,120},{-180,140},
-          {200,140},{200,-20},{240,-20}}, color={0,0,127}));
+  connect(u, y2Hex) annotation (Line(points={{-240,120},{-180,120},{-180,140},{
+          200,140},{200,-20},{240,-20}}, color={0,0,127}));
   connect(cooRej.y, or1.u2) annotation (Line(points={{-148,40},{-100,40},{-100,52},
           {-92,52}}, color={255,0,255}));
   connect(heaRej.y, or1.u1) annotation (Line(points={{-148,80},{-100,80},{-100,60},
@@ -155,7 +155,7 @@ equation
           60},{-200,80},{-172,80}}, color={0,0,127}));
   connect(yValIso[2], cooRej.u) annotation (Line(points={{-240,70},{-240,60},{-200,
           60},{-200,40},{-172,40}}, color={0,0,127}));
-  connect(and2.y, con1Hex.trigger) annotation (Line(points={{12,80},{20,80},{20,
+  connect(and2.y, con1Hex.trigger) annotation (Line(points={{12,80},{40,80},{40,
           0},{52,0},{52,8}}, color={255,0,255}));
   connect(pro.y, con1Hex.u_s) annotation (Line(points={{8.88178e-16,-28},{8.88178e-16,
           20},{48,20}}, color={0,0,127}));
