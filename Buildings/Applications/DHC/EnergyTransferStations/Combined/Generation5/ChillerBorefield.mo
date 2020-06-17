@@ -8,12 +8,8 @@ model ChillerBorefield
   parameter Fluid.Geothermal.Borefields.Data.Borefield.Template datBorFie
     "Borefield parameters" annotation (Dialog(group="Borefield"), Placement(
         transformation(extent={{20,222},{40,242}})));
-  parameter Modelica.SIunits.Temperature TBorWatEntMax(
-    displayUnit="degC") = 35 + 273.15
+  parameter Modelica.SIunits.Temperature TBorWatEntMax=313.15
     "Maximum value of borefield water entering temperature"
-    annotation (Dialog(group="Borefield"));
-  parameter Modelica.SIunits.TemperatureDifference dTBorFieSet(min=0)
-    "Set-point for temperature difference accross borefield (absolute value)"
     annotation (Dialog(group="Borefield"));
   parameter Real spePumBorMin(final unit="1") = 0.1
     "Borefield pump minimum speed"
@@ -23,7 +19,6 @@ model ChillerBorefield
     redeclare final package Medium = MediumBui,
     final dat=datBorFie,
     final TBorWatEntMax=TBorWatEntMax,
-    final dTBorFieSet=dTBorFieSet,
     final spePumBorMin=spePumBorMin)
     "Borefield subsystem"
     annotation (Placement(transformation(extent={{-80,-230},{-60,-210}})));

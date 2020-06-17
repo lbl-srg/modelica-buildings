@@ -16,8 +16,6 @@ model Borefield "Auxiliary subsystem with geothermal borefield"
 
   parameter Modelica.SIunits.Temperature TBorWatEntMax(displayUnit="degC")
     "Maximum value of borefield water entering temperature";
-  parameter Modelica.SIunits.TemperatureDifference dTBorFieSet(min=0)
-    "Set-point for temperature difference accross borefield (absolute value)";
   parameter Real spePumBorMin(final unit="1") = 0.1
     "Borefield pump minimum speed";
 
@@ -95,7 +93,6 @@ model Borefield "Auxiliary subsystem with geothermal borefield"
   Controls.Borefield con(
     final m_flow_nominal=m_flow_nominal,
     final TBorWatEntMax=TBorWatEntMax,
-    final dTBorFieSet=dTBorFieSet,
     final spePumBorMin=spePumBorMin)
     "Controller"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));

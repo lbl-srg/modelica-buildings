@@ -5,14 +5,23 @@ model ChillerBorefield
 
   package Medium = Buildings.Media.Water "Medium model";
   parameter Integer nBorHol = 100
-    "number of boreholes";
-  parameter Real dxy = 6;
+    "Number of boreholes";
+  parameter Modelica.SIunits.Distance dxy = 6
+    "Distance in x-axis (and y-axis) between borehole axes";
+  final parameter Modelica.SIunits.Distance cooBor[nBorHol, 2]=
+    computeCoordinates(nBorHol, dxy)
+    "Coordinates of boreholes";
   parameter Modelica.SIunits.MassFlowRate mHeaWat_flow_nominal=
     0.9 * datChi.mCon_flow_nominal
     "Nominal heating water mass flow rate";
   parameter Modelica.SIunits.MassFlowRate mChiWat_flow_nominal=
     0.9 * datChi.mEva_flow_nominal
     "Nominal chilled water mass flow rate";
+  parameter Fluid.Geothermal.Borefields.Data.Borefield.Example datBorFie(
+    conDat=Fluid.Geothermal.Borefields.Data.Configuration.Example(
+      cooBor=cooBor))
+    "Borefield design data"
+    annotation (Placement(transformation(extent={{-160,182},{-140,202}})));
   parameter Fluid.Chillers.Data.ElectricEIR.Generic datChi(
     QEva_flow_nominal=-1e6,
     COP_nominal=2,
@@ -91,7 +100,6 @@ model ChillerBorefield
     dpEva_nominal=15E3,
     datChi=datChi,
     datBorFie=datBorFie,
-    dTBorFieSet=2,
     nPorts_aHeaWat=1,
     nPorts_bHeaWat=1,
     nPorts_bChiWat=1,
@@ -168,13 +176,12 @@ model ChillerBorefield
     "Cooling load as prescribed heat flow rate"
     annotation (Placement(transformation(extent={{182,50},{162,70}})));
   Modelica.Blocks.Sources.TimeTable loaHeaRat(table=[0,0.1; 2,1; 3,1; 7,0.2; 9,
-        0.5; 10,0; 11,0],
-               timeScale=1000)
-                    "Heating load (ratio to nominal)"
+        0.5; 10,0; 11,0], timeScale=1000)
+    "Heating load (ratio to nominal)"
     annotation (Placement(transformation(extent={{-260,110},{-240,130}})));
   Modelica.Blocks.Sources.TimeTable loaCooRat(table=[0,0; 3,0; 4,1; 5,1; 15,0.5;
-        16,0.5],         timeScale=1000)
-                      "Cooling load (ratio to nominal)"
+        16,0.5], timeScale=1000)
+    "Cooling load (ratio to nominal)"
     annotation (Placement(transformation(extent={{280,50},{260,70}})));
   Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold noLoaHea(threshold=0.01)
     "No heating load"
@@ -192,11 +199,23 @@ model ChillerBorefield
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDelCoo(delayTime=120)
     "Delay signal indicating no load"
     annotation (Placement(transformation(extent={{-180,-110},{-160,-90}})));
-  parameter Fluid.Geothermal.Borefields.Data.Borefield.Example datBorFie(conDat=
-        Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(cooBor=
-        {{i*6,j*6} for i in 0:10,j in 0:10}))
-    "Borefield design data"
-    annotation (Placement(transformation(extent={{-160,182},{-140,202}})));
+function computeCoordinates
+  input Integer nBorHol
+    "Number of boreholes";
+  input Modelica.SIunits.Distance dxy = 6
+    "Distance in x-axis (and y-axis) between borehole axes";
+  output Modelica.SIunits.Distance coo[nBorHol, 2]
+    "Coordinates of boreholes";
+  protected
+  Integer k = 1 "Iteration index";
+algorithm
+  for i in 0:sqrt(nBorHol)-1 loop
+    for j in 0:sqrt(nBorHol)-1 loop
+      coo[k] := {i*dxy, j*dxy};
+      k := k + 1;
+    end for;
+  end for;
+end computeCoordinates;
 equation
   connect(senTHeaWatRet.port_b, ets.ports_aHeaWat[1]) annotation (Line(points={
           {-50,-40},{-40,-40},{-40,-28},{-10,-28}}, color={0,127,255}));

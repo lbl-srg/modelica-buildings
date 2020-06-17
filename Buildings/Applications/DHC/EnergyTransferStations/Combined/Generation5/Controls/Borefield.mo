@@ -7,8 +7,6 @@ model Borefield "Controller for borefield loop"
     annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.SIunits.Temperature TBorWatEntMax(displayUnit="degC")
     "Maximum value of borefield water entering temperature";
-  parameter Modelica.SIunits.TemperatureDifference dTBorFieSet(min=0)
-    "Set-point for temperature difference accross borefield (absolute value)";
   parameter Real spePumBorMin(final unit="1") = 0.1
     "Borefield pump minimum speed";
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiBor(
@@ -25,7 +23,7 @@ model Borefield "Controller for borefield loop"
     y_reset=0,
     k=0.1,
     final controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    Ti(displayUnit="s") = 60)
+    Ti(displayUnit="s") = 120)
     "Mixing valve controller"
     annotation (Placement(transformation(extent={{50,-70},{70,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTBorWatEnt(
