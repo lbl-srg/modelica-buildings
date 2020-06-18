@@ -114,7 +114,7 @@ partial model PartialConnection2Pipe
       rotation=90,
       origin={-20,-10})));
   Fluid.FixedResistances.Junction junConSup(
-    redeclare final package Medium = MediumSup,
+    redeclare final package Medium = Medium,
     final portFlowDirection_1=if allowFlowReversal then
       Modelica.Fluid.Types.PortFlowDirection.Bidirectional
       else Modelica.Fluid.Types.PortFlowDirection.Entering,
@@ -132,7 +132,7 @@ partial model PartialConnection2Pipe
     "Junction with connection supply"
     annotation (Placement(transformation(extent={{-30,-30},{-10,-50}})));
   Fluid.FixedResistances.Junction junConRet(
-    redeclare final package Medium = MediumRet,
+    redeclare final package Medium = Medium,
     final portFlowDirection_1=if allowFlowReversal then
       Modelica.Fluid.Types.PortFlowDirection.Bidirectional
       else Modelica.Fluid.Types.PortFlowDirection.Entering,
