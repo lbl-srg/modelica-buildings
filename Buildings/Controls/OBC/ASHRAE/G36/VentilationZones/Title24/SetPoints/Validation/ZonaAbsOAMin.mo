@@ -16,9 +16,8 @@ model ZonaAbsOAMin "Validates zone minimum outdoor air setpoint"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 
 equation
-  connect(supFan.y, exhDamPos.uSupFan) annotation (Line(points={{-18,-42},{0,
-          -42},{0,-6},{38,-6}},
-                           color={255,0,255}));
+  connect(supFan.y, exhDamPos.uSupFan) annotation (Line(points={{-18,-42},{0,-42},
+          {0,-6},{38,-6}}, color={255,0,255}));
   connect(outDamPos.y, exhDamPos.uOutDamPos)
     annotation (Line(points={{-18,40},{0,40},{0,6},{38,6}},
       color={0,0,127}));
@@ -36,7 +35,7 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.ExhaustDampe
 </html>", revisions="<html>
 <ul>
 <li>
-May 15, 2017, by Jianjun Hu:<br/>
+Jun 20, 2020, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>

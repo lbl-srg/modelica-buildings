@@ -1,0 +1,3 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.Title24.Conditionals.UnpopulatedWithOccupancySensor", method="Cvode", stopTime=1, tolerance=1e-06, resultFile="UnpopulatedWithOccupancySensor1");
+
+createPlot(id=1, position={20, 10, 992, 920}, y={"unpWitOcc.VOutMinSet_flow"}, range={0.0, 24.0, 0.0, 10.0}, grid=true, colors={{28,108,200}});

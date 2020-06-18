@@ -42,79 +42,7 @@ block CO2ConcetrationControlLoop
     final unit="1") "Exhaust damper position"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Line exhDamPos
-    "Linearly map exhaust damper position to the outdoor air damper position"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1
-    "Check if exhaust damper should be open"
-    annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis greThr(
-    final uLow=0.02,
-    final uHigh=0.05)
-    "Check if outdoor air damper is open"
-    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Buildings.Controls.OBC.CDL.Logical.And and2
-    "Check if exhaust damper should be activated"
-    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
-
-protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerDam(
-    final k=0)
-    "Close damper when disabled"
-    annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minExhDam(
-    final k=minExhDamPos)
-    "Exhaust damper position maintaining building static pressure at setpoint while the system is at minPosMin"
-    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxExhDam(
-    final k=maxExhDamPos)
-    "Exhaust damper position maintaining building static pressure at setpoint when outdoor air damper is fully open and fan speed is at cooling maximum"
-    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minPosAtMinSpd(
-    final k=minOutPosMin)
-    "Outdoor air damper position when fan operating at minimum speed to supply minimum outdoor air flow"
-    annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPhyPosMaxSig(
-    final k=outDamPhyPosMax)
-    "Physical or at the comissioning fixed maximum position of the outdoor air damper"
-    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-
 equation
-  connect(outDamPhyPosMaxSig.y, exhDamPos.x2)
-    annotation (Line(points={{-18,40},{-4,40},{-4,-4},{18,-4}},
-      color={0,0,127}));
-  connect(maxExhDam.y, exhDamPos.f2)
-    annotation (Line(points={{-58,20},{-12,20},{-12,-8},{18,-8}},
-      color={0,0,127}));
-  connect(uOutDamPos, exhDamPos.u)
-    annotation (Line(points={{-120,0},{18,0}},
-      color={0,0,127}));
-  connect(zerDam.y, swi1.u3)
-    annotation (Line(points={{42,-80},{50,-80},{50,-58},{58,-58}},
-      color={0,0,127}));
-  connect(and2.y, swi1.u2)
-    annotation (Line(points={{2,-50},{58,-50}},
-      color={255,0,255}));
-  connect(minPosAtMinSpd.y, exhDamPos.x1)
-    annotation (Line(points={{-18,80},{12,80},{12,8},{18,8}},
-      color={0,0,127}));
-  connect(minExhDam.y, exhDamPos.f1)
-    annotation (Line(points={{-58,60},{4,60},{4,4},{18,4}},
-      color={0,0,127}));
-  connect(uOutDamPos, greThr.u)
-    annotation (Line(points={{-120,0},{-80,0},{-80,-30},{-62,-30}},
-      color={0,0,127}));
-  connect(uSupFan, and2.u2)
-    annotation (Line(points={{-120,-50},{-60,-50},{-60,-58},{-22,-58}},
-      color={255,0,255}));
-  connect(greThr.y, and2.u1)
-    annotation (Line(points={{-38,-30},{-32,-30},{-32,-50},{-22,-50}},
-      color={255,0,255}));
-  connect(exhDamPos.y, swi1.u1)
-    annotation (Line(points={{42,0},{50,0},{50,-42},{58,-42}},
-      color={0,0,127}));
-  connect(swi1.y, yExhDamPos)
-    annotation (Line(points={{82,-50},{90,-50},{90,0},{120,0}},    color={0,0,127}));
 
 annotation (
   defaultComponentName = "exhDam",

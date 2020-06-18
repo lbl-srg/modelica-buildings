@@ -3,40 +3,23 @@ model UnpopulatedWithOccupancySensor
   "Validates a subsequence that sets minimum area volume when the zone has an occupancy sensor and is unpopulated"
 
   Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.Title24.Conditionals.UnpopulatedWithOccupancySensor
-    exhDamPos "Block of controlling actuated exhaust damper without fan"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant supFan(k=true)
-    "Supply fan status"
-    annotation (Placement(transformation(extent={{-40,-52},{-20,-32}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp outDamPos(
-    duration=1200,
-    startTime=0,
-    height=0.6,
-    offset=0.4)
-    "Outdoor air damper position"
-    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-
+    unpWitOcc annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 equation
-  connect(supFan.y, exhDamPos.uSupFan) annotation (Line(points={{-18,-42},{0,-42},
-          {0,-6},{38,-6}}, color={255,0,255}));
-  connect(outDamPos.y, exhDamPos.uOutDamPos)
-    annotation (Line(points={{-18,40},{0,40},{0,6},{38,6}},
-      color={0,0,127}));
 
 annotation (
-  experiment(StopTime=1200.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/SetPoints/Validation/ExhaustDamper.mos"
+  experiment(StopTime=1.0, Tolerance=1e-06),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/VentilationZones/SetPoints/Validation/UnpopulatedWithOccupancySensor.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.ExhaustDamper\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.ExhaustDamper</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.Title24.Conditionals.UnpopulatedWithOccupancySensor\">
+Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.Title24.Conditionals.UnpopulatedWithOccupancySensor</a>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-May 15, 2017, by Jianjun Hu:<br/>
+Jun 20, 2020, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>
@@ -50,5 +33,6 @@ First implementation.
                 fillColor = {75,138,73},
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
-                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}));
+                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
+    Diagram(coordinateSystem(extent={{-40,-20},{20,20}})));
 end UnpopulatedWithOccupancySensor;
