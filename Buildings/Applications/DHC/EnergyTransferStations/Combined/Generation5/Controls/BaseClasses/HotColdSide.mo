@@ -50,7 +50,7 @@ partial block HotColdSide "State machine enabling production and ambient source 
       transformation(extent={{180,-140},{220,-100}}),
       iconTransformation(
         extent={{100,-90},{140,-50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y[nSouAmb](final unit="1")
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y[nSouAmb](each final unit="1")
     "Control output for ambient sources"
     annotation (Placement(transformation(
           extent={{180,-20},{220,20}}), iconTransformation(extent={{100,-30},{

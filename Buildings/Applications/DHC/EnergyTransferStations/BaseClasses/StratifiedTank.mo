@@ -30,14 +30,14 @@ model StratifiedTank "Stratified buffer tank model"
   Modelica.Fluid.Interfaces.FluidPort_a port_aTop(
     redeclare final package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Inlet fluid port at tank top"
     annotation (Placement(transformation(extent={
       {90,50},{110,70}}), iconTransformation(extent={{90,50},{110,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bBot(
     redeclare final package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Outlet fluid port at tank bottom"
     annotation (Placement(transformation(
     extent={{90,-70},{110,-50}}), iconTransformation(extent={{90,-70},{110,
@@ -45,7 +45,7 @@ model StratifiedTank "Stratified buffer tank model"
   Modelica.Fluid.Interfaces.FluidPort_a port_aBot(
     redeclare final package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Inlet fluid port at tank bottom"
     annotation (Placement(transformation(
       extent={{-110,-70},{-90,-50}}), iconTransformation(extent={{-110,-70},
@@ -53,7 +53,7 @@ model StratifiedTank "Stratified buffer tank model"
   Modelica.Fluid.Interfaces.FluidPort_b port_bTop(
     redeclare final package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Outlet fluid port at tank top"
     annotation (Placement(transformation(extent=
        {{-110,50},{-90,70}}), iconTransformation(extent={{-110,50},{-90,70}})));

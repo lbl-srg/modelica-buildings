@@ -62,8 +62,6 @@ equation
           {38,60}}, color={255,0,255}));
   connect(uCoo, swiCoo.u2) annotation (Line(points={{-120,40},{-20,40},{-20,-60},
           {38,-60}}, color={255,0,255}));
-  connect(THeaWatSupSet, THeaWatSupSet) annotation (Line(points={{120,60},{113,
-          60},{113,60},{120,60}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end Reset;

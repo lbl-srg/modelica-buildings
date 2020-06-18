@@ -124,12 +124,12 @@ model Supervisory "Energy transfer station supervisory controller"
     "Supply temperature reset"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
 equation
-  connect(THeaWatTop, conHotSid.TTop) annotation (Line(points={{-140,20},{-64,20},
-          {-64,46},{-12,46}},     color={0,0,127}));
-  connect(THeaWatBot, conHotSid.TBot) annotation (Line(points={{-140,0},{-60,0},
-          {-60,42},{-12,42}},     color={0,0,127}));
-  connect(TChiWatBot, conColSid.TBot) annotation (Line(points={{-140,-80},{-60,-80},
-          {-60,-58},{-12,-58}},      color={0,0,127}));
+  connect(THeaWatTop, conHotSid.TTop) annotation (Line(points={{-140,20},{-32,
+          20},{-32,46},{-12,46}}, color={0,0,127}));
+  connect(THeaWatBot, conHotSid.TBot) annotation (Line(points={{-140,0},{-28,0},
+          {-28,42},{-12,42}},     color={0,0,127}));
+  connect(TChiWatBot, conColSid.TBot) annotation (Line(points={{-140,-80},{-20,
+          -80},{-20,-58},{-12,-58}}, color={0,0,127}));
   connect(conHotSid.y, max1.u1)
     annotation (Line(points={{12,49},{20,49},{20,6},{28,6}}, color={0,0,127}));
   connect(conColSid.y, max1.u2) annotation (Line(points={{12,-51},{20,-51},{20,-6},
@@ -138,8 +138,8 @@ equation
           {-16,58},{-12,58}}, color={255,0,255}));
   connect(uCoo, conColSid.uHeaCoo) annotation (Line(points={{-140,90},{-20,90},{
           -20,-42},{-12,-42}}, color={255,0,255}));
-  connect(TChiWatTop, conColSid.TTop) annotation (Line(points={{-140,-60},{-80,-60},
-          {-80,-54},{-12,-54}},      color={0,0,127}));
+  connect(TChiWatTop, conColSid.TTop) annotation (Line(points={{-140,-60},{-24,
+          -60},{-24,-54},{-12,-54}}, color={0,0,127}));
   connect(uHea, reset.uHea) annotation (Line(points={{-140,110},{-112,110},{-112,
           -92},{-82,-92}}, color={255,0,255}));
   connect(uCoo, reset.uCoo) annotation (Line(points={{-140,90},{-100,90},{-100,-97},
@@ -162,14 +162,14 @@ equation
           100},{140,100}}, color={255,0,255}));
   connect(conHotSid.yIsoAmb, yIsoCon) annotation (Line(points={{12,43},{60,43},{
           60,10},{140,10}}, color={0,0,127}));
-  connect(reset.THeaWatSupSet, conHotSid.TSet) annotation (Line(points={{-58,-95},
-          {-40,-95},{-40,50},{-12,50}}, color={0,0,127}));
-  connect(reset.TChiWatSupSet, conColSid.TSet) annotation (Line(points={{-58,-105},
-          {-30,-105},{-30,-50},{-12,-50}}, color={0,0,127}));
   connect(conColSid.yHeaCoo, conHotSid.uCooHea) annotation (Line(points={{12,-45},
           {14,-45},{14,20},{-16,20},{-16,54},{-12,54}}, color={255,0,255}));
   connect(conHotSid.yHeaCoo, conColSid.uCooHea) annotation (Line(points={{12,55},
-          {20,55},{20,80},{-30,80},{-30,-46},{-12,-46}}, color={255,0,255}));
+          {20,55},{20,80},{-24,80},{-24,-46},{-12,-46}}, color={255,0,255}));
+  connect(reset.THeaWatSupSet, conHotSid.TSet) annotation (Line(points={{-58,
+          -95},{-40,-95},{-40,50},{-12,50}}, color={0,0,127}));
+  connect(reset.TChiWatSupSet, conColSid.TSet) annotation (Line(points={{-58,
+          -105},{-32,-105},{-32,-50},{-12,-50}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
         defaultComponentName="conSup",

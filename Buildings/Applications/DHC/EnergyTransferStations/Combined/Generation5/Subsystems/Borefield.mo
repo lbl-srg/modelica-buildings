@@ -84,8 +84,8 @@ model Borefield "Auxiliary subsystem with geothermal borefield"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIso[2]
     "Isolation valves return position (fractional)" annotation (Placement(
-        transformation(extent={{-140,10},{-100,50}}),   iconTransformation(
-          extent={{-140,10},{-100,50}})));
+        transformation(extent={{-140,20},{-100,60}}),   iconTransformation(
+          extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Control signal from supervisory"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
@@ -113,7 +113,7 @@ equation
           66}},
         color={0,0,127}));
   connect(yValIso, con.yValIso)
-    annotation (Line(points={{-120,30},{-80,30},{-80,60},{-62,60}},
+    annotation (Line(points={{-120,40},{-80,40},{-80,60},{-62,60}},
                                                   color={0,0,127}));
   connect(con.yPum, pum.m_flow_in) annotation (Line(points={{-38,66},{0,66},{0,20},
           {-40,20},{-40,12}}, color={0,0,127}));

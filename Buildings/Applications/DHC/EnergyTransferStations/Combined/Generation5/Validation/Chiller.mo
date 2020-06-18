@@ -36,7 +36,7 @@ model Chiller
     annotation (Placement(transformation(extent={{-140,130},{-120,150}})));
   Fluid.Sources.Boundary_pT heaWat(
     redeclare package Medium = Medium, nPorts=1)
-              "Heating water boundary conditions"
+    "Heating water boundary conditions"
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -90,6 +90,7 @@ model Chiller
     nPorts_bHeaWat=1,
     nPorts_bChiWat=1,
     nPorts_aChiWat=1)
+    "ETS"
     annotation (Placement(transformation(extent={{-10,-84},{50,-24}})));
   Fluid.Sources.Boundary_pT disWat(
     redeclare final package Medium = Medium,

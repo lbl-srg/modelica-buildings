@@ -5,7 +5,7 @@ model ChillerBorefield
 
   package Medium = Buildings.Media.Water "Medium model";
   parameter Integer nBorHol = 100
-    "Number of boreholes";
+    "Number of boreholes (must be a square number)";
   parameter Modelica.SIunits.Distance dxy = 6
     "Distance in x-axis (and y-axis) between borehole axes";
   final parameter Modelica.SIunits.Distance cooBor[nBorHol, 2]=
@@ -100,6 +100,7 @@ model ChillerBorefield
     dpEva_nominal=15E3,
     datChi=datChi,
     datBorFie=datBorFie,
+    TBorWatEntMax=313.15,
     nPorts_aHeaWat=1,
     nPorts_bHeaWat=1,
     nPorts_bChiWat=1,
@@ -204,14 +205,15 @@ function computeCoordinates
     "Number of boreholes";
   input Modelica.SIunits.Distance dxy = 6
     "Distance in x-axis (and y-axis) between borehole axes";
-  output Modelica.SIunits.Distance coo[nBorHol, 2]
+  output Modelica.SIunits.Distance cooBor[nBorHol, 2]
     "Coordinates of boreholes";
   protected
   Integer k = 1 "Iteration index";
 algorithm
   for i in 0:sqrt(nBorHol)-1 loop
     for j in 0:sqrt(nBorHol)-1 loop
-      coo[k] := {i*dxy, j*dxy};
+      cooBor[k, 1] := i*dxy;
+      cooBor[k, 2] := j*dxy;
       k := k + 1;
     end for;
   end for;
@@ -288,7 +290,11 @@ equation
   connect(loaCooRat.y, gai2.u) annotation (Line(points={{259,60},{240,60},{240,120},
           {80,120},{80,80},{90,80}}, color={0,0,127}));
   annotation (Diagram(
-  coordinateSystem(preserveAspectRatio=false, extent={{-300,-220},{300,220}})),
+  coordinateSystem(preserveAspectRatio=false, extent={{-300,-220},{300,220}}),
+        graphics={Text(
+          extent={{-82,242},{140,120}},
+          lineColor={28,108,200},
+          textString="Borefield entering T control disabled")}),
   __Dymola_Commands(file=
 "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Combined/Generation5/Validation/ChillerBorefield.mos"
 "Simulate and plot"),

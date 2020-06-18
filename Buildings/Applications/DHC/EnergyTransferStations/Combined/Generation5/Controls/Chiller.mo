@@ -2,14 +2,11 @@ within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Co
 model Chiller "Chiller controller"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Modelica.SIunits.Temperature TChiWatSupSetMin=TChiWatSupSetMin(
-      displayUnit="degC")
+  parameter Modelica.SIunits.Temperature TChiWatSupSetMin(displayUnit="degC")
     "Minimum value of chilled water supply temperature set-point";
-  parameter Modelica.SIunits.Temperature TConWatEntMin=TConWatEntMin(
-      displayUnit="degC")
+  parameter Modelica.SIunits.Temperature TConWatEntMin(displayUnit="degC")
     "Minimum value of condenser water entering temperature";
-  parameter Modelica.SIunits.Temperature TEvaWatEntMax=TEvaWatEntMax(
-      displayUnit="degC")
+  parameter Modelica.SIunits.Temperature TEvaWatEntMax(displayUnit="degC")
     "Maximum value of evaporator water entering temperature";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSupSet(
     final unit="K", displayUnit="degC")

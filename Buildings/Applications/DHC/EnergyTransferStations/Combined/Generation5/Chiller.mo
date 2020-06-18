@@ -210,9 +210,9 @@ model Chiller "ETS model for 5GDHC systems with heat recovery chiller"
     final nSeg=nSegTan) "Heating water tank"
     annotation (Placement(transformation(extent={{-220,96},{-200,116}})));
   EnergyTransferStations.BaseClasses.CollectorDistributor colChiWat(
-      redeclare final package Medium = MediumBui,
-      final nCon=nConChiWat,
-      mCon_flow_nominal={datChi.mEva_flow_nominal, m2Hex_flow_nominal})
+    redeclare final package Medium = MediumBui,
+    final nCon=nConChiWat,
+    mCon_flow_nominal={datChi.mEva_flow_nominal, colAmbWat.mDis_flow_nominal})
     "Collector/distributor for chilled water"
     annotation (Placement(
       transformation(
@@ -220,19 +220,19 @@ model Chiller "ETS model for 5GDHC systems with heat recovery chiller"
       rotation=180,
       origin={120,-34})));
   EnergyTransferStations.BaseClasses.CollectorDistributor colHeaWat(
-      redeclare final package Medium = MediumBui,
-      final nCon=nConHeaWat,
-      mCon_flow_nominal={datChi.mCon_flow_nominal, m2Hex_flow_nominal})
+    redeclare final package Medium = MediumBui,
+    final nCon=nConHeaWat,
+    mCon_flow_nominal={datChi.mCon_flow_nominal, colAmbWat.mDis_flow_nominal})
     "Collector/distributor for heating water"
     annotation (Placement(
       transformation(
       extent={{-20,10},{20,-10}},
       rotation=180,
-      origin={-120,-40})));
+      origin={-120,-34})));
   EnergyTransferStations.BaseClasses.CollectorDistributor colAmbWat(
-      redeclare final package Medium = MediumBui,
-      final nCon=nSouAmb,
-      mCon_flow_nominal={m2Hex_flow_nominal})
+    redeclare final package Medium = MediumBui,
+    final nCon=nSouAmb,
+    mCon_flow_nominal={m2Hex_flow_nominal})
     "Collector/distributor for ambient water"
     annotation (Placement(
       transformation(
@@ -272,14 +272,15 @@ equation
           {238,115},{238,80},{-272,80},{-272,18},{-262,18}}, color={0,0,127}));
   connect(tanChiWat.TBot, conSup.TChiWatBot) annotation (Line(points={{221,97},{
           240,97},{240,78},{-270,78},{-270,16},{-262,16}},   color={0,0,127}));
-  connect(int.port_b2, colAmbWat.ports_aCon[1]) annotation (Line(points={{-10,-248},
-          {-20,-248},{-20,-140},{12,-140},{12,-116}}, color={0,127,255}));
+  connect(int.port_b2, colAmbWat.ports_aCon[1]) annotation (Line(points={{-10,
+          -248},{-20,-248},{-20,-160},{12,-160},{12,-116}},
+                                                      color={0,127,255}));
   connect(colHeaWat.port_bDisSup, tanHeaWat.port_aTop) annotation (Line(points={{-140,
-          -40},{-154,-40},{-154,112},{-200,112}},     color={0,127,255}));
+          -34},{-154,-34},{-154,112},{-200,112}},     color={0,127,255}));
   connect(tanHeaWat.port_bBot, colHeaWat.port_aDisRet) annotation (Line(points={{-200,
-          100},{-160,100},{-160,-46},{-140,-46}},     color={0,127,255}));
+          100},{-160,100},{-160,-40},{-140,-40}},     color={0,127,255}));
   connect(int.port_a2, colAmbWat.ports_bCon[1]) annotation (Line(points={{10,-248},
-          {20,-248},{20,-130},{-12,-130},{-12,-116}}, color={0,127,255}));
+          {20,-248},{20,-140},{-12,-140},{-12,-116}}, color={0,127,255}));
   connect(tanChiWat.port_bBot, ports_bChiWat[1]) annotation (Line(points={{220,100},
           {290,100},{290,200},{300,200}}, color={0,127,255}));
   connect(ports_aChiWat[1], tanChiWat.port_aTop) annotation (Line(points={{-300,
@@ -295,9 +296,9 @@ equation
       points={{-12,-253},{-16,-253},{-16,-240},{40,-240},{40,-113},{55,-113}},
       color={0,0,127}));
   connect(chi.port_bHeaWat, colHeaWat.ports_bCon[1])
-    annotation (Line(points={{-10,0},{-108,0},{-108,-30}}, color={0,127,255}));
-  connect(colHeaWat.ports_aCon[1], chi.port_aHeaWat) annotation (Line(points={{
-          -132,-30},{-134,-30},{-134,-12},{-10,-12}}, color={0,127,255}));
+    annotation (Line(points={{-10,0},{-108,0},{-108,-24}}, color={0,127,255}));
+  connect(colHeaWat.ports_aCon[1], chi.port_aHeaWat) annotation (Line(points={{-132,
+          -24},{-134,-24},{-134,-12},{-10,-12}},      color={0,127,255}));
   connect(colChiWat.port_aDisRet, tanChiWat.port_aBot) annotation (Line(points={
           {140,-40},{180,-40},{180,100},{200,100}}, color={0,127,255}));
   connect(colChiWat.port_bDisSup, tanChiWat.port_bTop) annotation (Line(points={
@@ -315,15 +316,15 @@ equation
   connect(uCoo, conSup.uCoo) annotation (Line(points={{-320,60},{-292,60},{-292,
           28},{-262,28}}, color={255,0,255}));
   connect(uHea, conSup.uHea) annotation (Line(points={{-320,100},{-290,100},{-290,
-          30},{-262,30}},      color={255,0,255}));
+          30},{-262,30}}, color={255,0,255}));
   connect(valIsoEva.port_a, colChiWat.ports_aCon[nConChiWat]) annotation (Line(points={{70,
           -120},{132,-120},{132,-24}}, color={0,127,255}));
   connect(colAmbWat.port_aDisRet, colChiWat.ports_bCon[nConChiWat]) annotation (Line(
         points={{20,-100},{108,-100},{108,-24}}, color={0,127,255}));
   connect(colAmbWat.port_bDisRet, colHeaWat.ports_aCon[nConHeaWat]) annotation (Line(
-        points={{-20,-100},{-132,-100},{-132,-30}}, color={0,127,255}));
+        points={{-20,-100},{-132,-100},{-132,-24}}, color={0,127,255}));
   connect(valIsoCon.port_a, colHeaWat.ports_bCon[nConHeaWat]) annotation (Line(points={{-70,
-          -120},{-108,-120},{-108,-30}}, color={0,127,255}));
+          -120},{-108,-120},{-108,-24}}, color={0,127,255}));
   connect(conSup.THeaWatSupSet, chi.THeaWatSupSet) annotation (Line(points={{-238,
           16},{-28,16},{-28,-7},{-12,-7}}, color={0,0,127}));
   connect(conSup.TChiWatSupSet, chi.TChiWatSupPreSet) annotation (Line(points={{
@@ -344,6 +345,11 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
         defaultComponentName="ets",
 Documentation(info="<html>
 <p>
+colChiWat and colHeaWat connection index starts with 1 for the connection with the chiller
+and ends with nConChiWat and nConHeaWat for the last connection before the buffer 
+tank which corresponds to the ambient water loop. 
+
+
 When extending this class 
 
 nAuxCoo and colChiWat.mCon_flow_nominal must be updated if an additional cooling equipment is modeled,

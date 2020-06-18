@@ -62,28 +62,28 @@ model Chiller "Base subsystem with heat recovery chiller"
   Modelica.Fluid.Interfaces.FluidPort_a port_aChiWat(
     redeclare final package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Fluid port for chilled water return"
     annotation (Placement(transformation(extent={{190,-70},{210,-50}}),
       iconTransformation(extent={{90,-70},{110,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bChiWat(
     redeclare final package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Fluid port for chilled water supply"
     annotation (Placement(transformation(extent={{190,50},{210,70}}),
       iconTransformation(extent={{90,50},{110,70}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aHeaWat(
     redeclare final package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Fluid port for heating water return"
     annotation (Placement(transformation(extent={{-210,-70},{-190,-50}}),
       iconTransformation(extent={{-110,-70},{-90,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bHeaWat(
     redeclare final package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Fluid port for heating water supply"
     annotation (Placement(transformation(extent={{-210,50},{-190,70}}),
       iconTransformation(extent={{-110,50},{-90,70}})));
