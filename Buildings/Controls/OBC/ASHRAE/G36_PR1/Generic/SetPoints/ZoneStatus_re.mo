@@ -42,10 +42,10 @@ block ZoneStatus_re "Block that outputs zone temperature status"
     "Warm-up time retrieved from optimal warm-up block"
     annotation (Placement(transformation(extent={{-200,160},{-160,200}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWinSta if have_winSen
-    "Window status: true=open, false=close"
-    annotation (Placement(transformation(extent={{-200,130},{-160,170}}),
-        iconTransformation(extent={{-140,-60},{-100,-20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin if    have_winSen
+    "Window status: true=open, false=close" annotation (Placement(
+        transformation(extent={{-200,130},{-160,170}}), iconTransformation(
+          extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
     final displayUnit="degC",
@@ -56,22 +56,22 @@ block ZoneStatus_re "Block that outputs zone temperature status"
     final unit="s",
     final quantity="Time") "Cool-down time"
     annotation (Placement(transformation(extent={{160,200},{200,240}}),
-        iconTransformation(extent={{100,90},{140,130}})));
+        iconTransformation(extent={{100,110},{140,150}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yWarTim(
     final unit="s",
     final quantity="Time") "Warm-up time"
     annotation (Placement(transformation(extent={{160,160},{200,200}}),
-        iconTransformation(extent={{100,70},{140,110}})));
+        iconTransformation(extent={{100,90},{140,130}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput THeaSetOn(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature") "Occupied heating setpoint"
     annotation (Placement(transformation(extent={{160,110},{200,150}}),
-        iconTransformation(extent={{100,50},{140,90}})));
+        iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yOccHeaHig
     "True when the zone temperature is lower than the occupied heating setpoint"
     annotation (Placement(transformation(extent={{160,70},{200,110}}),
-        iconTransformation(extent={{100,30},{140,70}})));
+        iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TCooSetOn(
     final unit="K",
     final displayUnit="degC",
@@ -88,29 +88,29 @@ block ZoneStatus_re "Block that outputs zone temperature status"
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature") "Unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{160,-60},{200,-20}}),
-        iconTransformation(extent={{100,-30},{140,10}})));
+        iconTransformation(extent={{100,-40},{140,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yUnoHeaHig
     "True when the zone temperature is lower than the unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{160,-100},{200,-60}}),
-        iconTransformation(extent={{100,-50},{140,-10}})));
+        iconTransformation(extent={{100,-60},{140,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yEndSetBac
     "True when the zone could end setback mode"
     annotation (Placement(transformation(extent={{160,-140},{200,-100}}),
-        iconTransformation(extent={{100,-70},{140,-30}})));
+        iconTransformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TCooSetOff(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature") "Unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{160,-180},{200,-140}}),
-        iconTransformation(extent={{100,-90},{140,-50}})));
+        iconTransformation(extent={{100,-110},{140,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHigUnoCoo
     "True when the zone temperature is higher than the unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{160,-220},{200,-180}}),
-        iconTransformation(extent={{100,-110},{140,-70}})));
+        iconTransformation(extent={{100,-130},{140,-90}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yEndSetUp
     "True when the zone could end setup mode"
     annotation (Placement(transformation(extent={{160,-260},{200,-220}}),
-        iconTransformation(extent={{100,-130},{140,-90}})));
+        iconTransformation(extent={{100,-150},{140,-110}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Product pro
@@ -217,9 +217,9 @@ protected
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
 
 equation
-  connect(cooDowTim, pro.u1) annotation (Line(points={{-180,220},{-80,220},{-80,
+  connect(cooDowTim, pro.u1) annotation (Line(points={{-180,220},{60,220},{60,
           226},{98,226}}, color={0,0,127}));
-  connect(warUpTim, pro1.u1) annotation (Line(points={{-180,180},{-80,180},{-80,
+  connect(warUpTim, pro1.u1) annotation (Line(points={{-180,180},{60,180},{60,
           186},{98,186}}, color={0,0,127}));
   connect(booToRea.y, pro.u2) annotation (Line(points={{62,150},{80,150},{80,214},
           {98,214}}, color={0,0,127}));
@@ -229,16 +229,16 @@ equation
     annotation (Line(points={{82,90},{98,90}}, color={0,0,127}));
   connect(add1.y, hys1.u)
     annotation (Line(points={{82,10},{98,10}},color={0,0,127}));
-  connect(uWinSta, not1.u)
-    annotation (Line(points={{-180,150},{-2,150}},  color={255,0,255}));
-  connect(uWinSta, swi.u2) annotation (Line(points={{-180,150},{-100,150},{-100,
-          -100},{-2,-100}}, color={255,0,255}));
+  connect(uWin, not1.u)
+    annotation (Line(points={{-180,150},{-2,150}}, color={255,0,255}));
+  connect(uWin, swi.u2) annotation (Line(points={{-180,150},{-100,150},{-100,-100},
+          {-2,-100}}, color={255,0,255}));
   connect(TZon, swi.u3) annotation (Line(points={{-180,-50},{-140,-50},{-140,-108},
           {-2,-108}}, color={0,0,127}));
   connect(add2.y, hys2.u)
     annotation (Line(points={{82,-80},{98,-80}},   color={0,0,127}));
-  connect(uWinSta, swi1.u2) annotation (Line(points={{-180,150},{-100,150},{-100,
-          -220},{-2,-220}}, color={255,0,255}));
+  connect(uWin, swi1.u2) annotation (Line(points={{-180,150},{-100,150},{-100,-220},
+          {-2,-220}}, color={255,0,255}));
   connect(TZon, swi1.u3) annotation (Line(points={{-180,-50},{-140,-50},{-140,-228},
           {-2,-228}},  color={0,0,127}));
   connect(add5.y, hys5.u)
@@ -303,7 +303,7 @@ equation
     annotation (Line(points={{82,-240},{98,-240}},   color={0,0,127}));
   connect(hys4.y, yEndSetUp) annotation (Line(points={{122,-240},{180,-240}},
           color={255,0,255}));
-  connect(uWinSta, swi2.u2) annotation (Line(points={{-180,150},{-100,150},{-100,
+  connect(uWin, swi2.u2) annotation (Line(points={{-180,150},{-100,150},{-100,
           100},{-2,100}}, color={255,0,255}));
   connect(TZon, swi2.u1) annotation (Line(points={{-180,-50},{-140,-50},{-140,108},
           {-2,108}}, color={0,0,127}));
@@ -313,7 +313,7 @@ equation
           96}}, color={0,0,127}));
   connect(con.y, swi2.u2) annotation (Line(points={{-118,130},{-100,130},{-100,100},
           {-2,100}}, color={255,0,255}));
-  connect(uWinSta, swi3.u2) annotation (Line(points={{-180,150},{-100,150},{-100,
+  connect(uWin, swi3.u2) annotation (Line(points={{-180,150},{-100,150},{-100,
           20},{-2,20}}, color={255,0,255}));
   connect(con.y, swi3.u2) annotation (Line(points={{-118,130},{-100,130},{-100,20},
           {-2,20}}, color={255,0,255}));
@@ -326,10 +326,10 @@ equation
 
 annotation (
   defaultComponentName = "zonSta",
-   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
+   Icon(coordinateSystem(extent={{-100,-140},{100,140}}),
         graphics={
         Rectangle(
-        extent={{-100,-100},{100,100}},
+        extent={{-100,-140},{100,140}},
         lineColor={0,0,127},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
@@ -344,7 +344,7 @@ annotation (
           pattern=LinePattern.Dash,
           textString="warUpTim"),
         Text(
-          extent={{-120,144},{100,106}},
+          extent={{-120,180},{100,140}},
           lineColor={0,0,255},
           textString="%name"),
         Text(
@@ -358,17 +358,17 @@ annotation (
           pattern=LinePattern.Dash,
           textString="uWinSta"),
         Text(
-          extent={{60,106},{98,90}},
+          extent={{60,140},{98,124}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yCooTim"),
         Text(
-          extent={{60,94},{98,78}},
+          extent={{60,120},{98,104}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yWarTim"),
         Text(
-          extent={{38,60},{96,44}},
+          extent={{38,70},{96,54}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="yOccHeaHig"),
@@ -378,17 +378,17 @@ annotation (
           pattern=LinePattern.Dash,
           textString="yHigOccCoo"),
         Text(
-          extent={{40,-20},{96,-36}},
+          extent={{40,-30},{96,-46}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="yUnoHeaHig"),
         Text(
-          extent={{40,-82},{96,-98}},
+          extent={{42,-102},{98,-118}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="yHigUnoCoo"),
         Text(
-          extent={{46,80},{96,64}},
+          extent={{46,90},{96,74}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="THeaSetOn"),
@@ -398,22 +398,22 @@ annotation (
           pattern=LinePattern.Dash,
           textString="TCooSetOn"),
         Text(
-          extent={{46,0},{96,-16}},
+          extent={{46,-10},{96,-26}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="THeaSetOff"),
         Text(
-          extent={{46,-60},{96,-76}},
+          extent={{46,-80},{96,-96}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TCooSetOff"),
         Text(
-          extent={{42,-40},{98,-56}},
+          extent={{42,-50},{98,-66}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="yEndSetBac"),
         Text(
-          extent={{42,-100},{98,-116}},
+          extent={{46,-124},{98,-138}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="yEndSetUp")}),
