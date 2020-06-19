@@ -100,12 +100,12 @@ model ChillerBorefield
     dpEva_nominal=15E3,
     datChi=datChi,
     datBorFie=datBorFie,
-    TBorWatEntMax=313.15,
+    TBorWatEntMax=373.15,
     nPorts_aHeaWat=1,
     nPorts_bHeaWat=1,
     nPorts_bChiWat=1,
     nPorts_aChiWat=1) "ETS"
-    annotation (Placement(transformation(extent={{-10,-84},{50,-24}})));
+    annotation (Placement(transformation(extent={{-12,-84},{48,-24}})));
   Fluid.Sources.Boundary_pT disWat(
     redeclare final package Medium = Medium,
     use_T_in=true,
@@ -219,20 +219,20 @@ algorithm
   end for;
 end computeCoordinates;
 equation
-  connect(senTHeaWatRet.port_b, ets.ports_aHeaWat[1]) annotation (Line(points={
-          {-50,-40},{-40,-40},{-40,-28},{-10,-28}}, color={0,127,255}));
-  connect(ets.ports_bChiWat[1], senTChiWatSup.port_a) annotation (Line(points={
-          {50,-38},{64,-38},{64,40},{80,40}}, color={0,127,255}));
-  connect(ets.ports_aChiWat[1], senTChiWatRet.port_b) annotation (Line(points={
-          {-10,-38},{-20,-38},{-20,0},{70,0},{70,-40},{80,-40}}, color={0,127,
+  connect(senTHeaWatRet.port_b, ets.ports_aHeaWat[1]) annotation (Line(points={{-50,-40},
+          {-40,-40},{-40,-28},{-12,-28}},           color={0,127,255}));
+  connect(ets.ports_bChiWat[1], senTChiWatSup.port_a) annotation (Line(points={{48,-38},
+          {64,-38},{64,40},{80,40}},          color={0,127,255}));
+  connect(ets.ports_aChiWat[1], senTChiWatRet.port_b) annotation (Line(points={{-12,-38},
+          {-20,-38},{-20,0},{70,0},{70,-40},{80,-40}},           color={0,127,
           255}));
   connect(TChiWatSupSet.y, ets.TChiWatSupSet) annotation (Line(points={{-118,
-          100},{-32,100},{-32,-70},{-14,-70}}, color={0,0,127}));
+          100},{-32,100},{-32,-70},{-16,-70}}, color={0,0,127}));
   connect(THeaWatSupSet.y, ets.THeaWatSupSet) annotation (Line(points={{-118,
-          140},{-28,140},{-28,-61.6},{-14,-61.6}}, color={0,0,127}));
+          140},{-28,140},{-28,-61.6},{-16,-61.6}}, color={0,0,127}));
   connect(disWat.ports[1], ets.port_aDis) annotation (Line(points={{-100,-138},
-          {-100,-80},{-10,-80}}, color={0,127,255}));
-  connect(ets.port_bDis, disWat.ports[2]) annotation (Line(points={{50,-80},{
+          {-100,-80},{-12,-80}}, color={0,127,255}));
+  connect(ets.port_bDis, disWat.ports[2]) annotation (Line(points={{48,-80},{
           160,-80},{160,-180},{-100,-180},{-100,-142}}, color={0,127,255}));
   connect(TDisWatSup.y, disWat.T_in) annotation (Line(points={{-228,-140},{-172,
           -140},{-172,-136},{-122,-136}}, color={0,0,127}));
@@ -240,8 +240,8 @@ equation
     annotation (Line(points={{110,40},{100,40}},color={0,127,255}));
   connect(gai2.y, pumChiWat.m_flow_in)
     annotation (Line(points={{114,80},{120,80},{120,52}}, color={0,0,127}));
-  connect(ets.ports_bHeaWat[1], pumHeaWat.port_a) annotation (Line(points={{50,
-          -28},{60,-28},{60,40},{30,40}}, color={0,127,255}));
+  connect(ets.ports_bHeaWat[1], pumHeaWat.port_a) annotation (Line(points={{48,-28},
+          {60,-28},{60,40},{30,40}},      color={0,127,255}));
   connect(pumHeaWat.port_b, senTHeaWatSup.port_a)
     annotation (Line(points={{10,40},{-50,40}},  color={0,127,255}));
   connect(gai1.y, pumHeaWat.m_flow_in)
@@ -269,10 +269,11 @@ equation
                                                    color={0,0,127}));
   connect(loaCooRat.y, gai4.u)
     annotation (Line(points={{259,60},{222,60}}, color={0,0,127}));
-  connect(reqHea.y, ets.uHea) annotation (Line(points={{-128,-20},{-120,-20},{-120,
-          -46},{-14,-46}}, color={255,0,255}));
+  connect(reqHea.y, ets.uHea) annotation (Line(points={{-128,-20},{-120,-20},{
+          -120,-46},{-16,-46}},
+                           color={255,0,255}));
   connect(reqCoo.y, ets.uCoo) annotation (Line(points={{-128,-100},{-120,-100},
-          {-120,-54},{-14,-54}}, color={255,0,255}));
+          {-120,-54},{-16,-54}}, color={255,0,255}));
   connect(loaHeaRat.y, noLoaHea.u) annotation (Line(points={{-239,120},{-220,120},
           {-220,-20},{-212,-20}}, color={0,0,127}));
   connect(loaCooRat.y, noLoaCoo.u) annotation (Line(points={{259,60},{240,60},{240,

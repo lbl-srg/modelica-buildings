@@ -28,7 +28,7 @@ createPlot(id=1, y={"ets.conSup.yHea", "ets.conSup.yHeaRej", "ets.conSup.yCoo", 
     grid=true,
     color=true);
 createPlot(id=2, y={"ets.chi.pumCon.m_flow", "ets.chi.pumEva.m_flow", "ets.int.pum1Hex.m_flow",  "ets.int.pum2Hex.m_flow", "ets.m1Hex_flow_nominal", "ets.m2Hex_flow_nominal"},
-    position={41, 41, 545, 747},
+    position={24, 27, 545, 747},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -49,7 +49,7 @@ createPlot(id=2, y={"ets.chi.chi.PLR2"},
     grid=true,
     color=true);
 createPlot(id=3, y={"ets.int.conHex.T1HexWatEnt", "ets.int.conHex.T1HexWatLvg", "ets.int.conHex.T2HexWatEnt", "ets.int.conHex.T2HexWatLvg"},
-    position={85, 89, 526, 518},
+    position={51, 53, 545, 518},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -62,7 +62,7 @@ createPlot(id=3, y={"ets.int.conHex.con1Hex.u_s", "ets.int.conHex.con1Hex.u_m"},
     autoreplot=true,
     grid=true,
     color=true);
-createPlot(id=4, position={35, 35, 542, 347}, y={"ets.QChiWat_flow_nominal", "ets.QHeaWat_flow_nominal"},
+createPlot(id=4, position={75, 77, 545, 347}, y={"ets.QChiWat_flow_nominal", "ets.QHeaWat_flow_nominal"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -72,7 +72,7 @@ plotExpression(apply( -Chiller.loaCoo.Q_flow), false, "-loaCoo.Q_flow", 4);
 plotExpression(apply( -Chiller.loaHea.Q_flow), false, "-loaHea.Q_flow", 4);
 createPlot(
     id=5,
-    position={35, 35, 592, 372},
+    position={96, 100, 549, 372},
     y={"ets.chi.senTConEnt.T", "ets.chi.senTConLvg.T", "ets.chi.senTEvaEnt.T",  "ets.chi.senTEvaLvg.T", "ets.chi.THeaWatSupSet", "ets.chi.chi.TSet"},
     grid=true);
 createPlot(
