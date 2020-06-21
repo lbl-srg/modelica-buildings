@@ -337,7 +337,8 @@ protected
     "Hysteresis loop"
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(uLow=0,
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(
+    final uLow=0,
     final uHigh=sigDif) if not primaryOnly
     "Hysteresis loop"
     annotation (Placement(transformation(extent={{-160,-90},{-140,-70}})));
