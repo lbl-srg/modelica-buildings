@@ -77,7 +77,7 @@ block Down
   parameter Real TCirDif(
     final unit="K",
     final displayUnit="K",
-    final quantity="TemperatureDifference")= 3
+    final quantity="TemperatureDifference") = 3
     "Required return water temperature difference between the primary and
     secondary circuits for staging down"
     annotation (
@@ -106,7 +106,7 @@ block Down
     "Hysteresis deadband for measured temperatures"
     annotation(Dialog(tab="Advanced"));
 
-  parameter Real TDifFaiCon(
+  parameter Real TDif(
     final unit="K",
     final displayUnit="K",
     final quantity="TemperatureDifference") = 10
@@ -135,8 +135,9 @@ block Down
     annotation (Placement(transformation(
         extent={{-220,90},{-180,130}},
         rotation=90,
-        origin={0,-20}), iconTransformation(extent={{-140,50},{-100,90}},
-          rotation=90)));
+        origin={0,-20}),
+      iconTransformation(extent={{-140,50},{-100,90}},
+        rotation=90)));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatSupSet(
     final unit="K",
@@ -178,21 +179,12 @@ block Down
     annotation (Placement(transformation(extent={{-220,-50},{-180,-10}}),
       iconTransformation(extent={{-140,-30},{-100,10}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VHotWat_flow(
-    final unit="m3/s",
-    final displayUnit="m3/s",
-    final quantity="VolumeFlowRate") if not primaryOnly
-    "Measured primary circuit flow rate"
-    annotation (Placement(transformation(extent={{-220,-80},{-180,-40}}),
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uPumSpe(
+    final unit="1",
+    final displayUnit="1") if not primaryOnly
+    "Pump speed signal"
+    annotation (Placement(transformation(extent={{-220,-100},{-180,-60}}),
       iconTransformation(extent={{-140,-50},{-100,-10}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VMinSet_flow(
-    final unit="m3/s",
-    final displayUnit="m3/s",
-    final quantity="VolumeFlowRate") if not primaryOnly
-    "Minimum primary pump flow-rate for the current stage"
-    annotation (Placement(transformation(extent={{-220,-110},{-180,-70}}),
-      iconTransformation(extent={{-140,-70},{-100,-30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uBypValPos if primaryOnly
     "Bypass valve position"
@@ -222,7 +214,7 @@ block Down
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.FailsafeCondition faiSafCon(
     final delEna=delFaiCon,
-    final TDif=TDifFaiCon,
+    final TDif=TDif,
     final TDifHys=dTemp)
     "Failsafe condition"
     annotation (Placement(transformation(extent={{-160,126},{-140,144}})));
@@ -278,11 +270,6 @@ protected
     "Logical And"
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add3(
-    final k2=-1) if not primaryOnly
-    "Compare measured flow rate to minimum flow setpoint"
-    annotation (Placement(transformation(extent={{-160,-90},{-140,-70}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Add add4(
     final k2=-1) if not primaryOnly
     "Compare primary and secondary circuit return temperature"
@@ -298,11 +285,11 @@ protected
     final delayTime=delTRetDif,
     final delayOnInit=true) if not primaryOnly
     "Enable delay for return water temperature condition"
-    annotation (Placement(transformation(extent={{-80,-140},{-60,-120}})));
+    annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and2 if not primaryOnly
     "Logical And"
-    annotation (Placement(transformation(extent={{-40,-108},{-20,-88}})));
+    annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or or1 if not primaryOnly
     "Logical Or"
@@ -350,15 +337,14 @@ protected
     "Hysteresis loop"
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(
-    final uLow=dFloRatLow,
-    final uHigh=dFloRatHig) if not primaryOnly
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(uLow=0,
+    final uHigh=sigDif) if not primaryOnly
     "Hysteresis loop"
-    annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
+    annotation (Placement(transformation(extent={{-160,-90},{-140,-70}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not4 if not primaryOnly
     "Logical Not"
-    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
+    annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
 
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     "Real to Integer conversion"
@@ -395,22 +381,12 @@ equation
           134}},     color={255,0,255}));
   connect(and3.u2, or2.y) annotation (Line(points={{138,0},{114,0},{114,20},{22,
           20}}, color={255,0,255}));
-  connect(add3.u1, VHotWat_flow) annotation (Line(points={{-162,-74},{-168,-74},
-          {-168,-60},{-200,-60}}, color={0,0,127}));
-  connect(add3.u2, VMinSet_flow) annotation (Line(points={{-162,-86},{-168,-86},
-          {-168,-90},{-200,-90}}, color={0,0,127}));
   connect(add4.u1, TPriHotWatRet) annotation (Line(points={{-162,-124},{-168,
           -124},{-168,-120},{-200,-120}}, color={0,0,127}));
   connect(add4.u2, TSecHotWatRet) annotation (Line(points={{-162,-136},{-168,
           -136},{-168,-150},{-200,-150}}, color={0,0,127}));
   connect(hys3.u, add4.y)
     annotation (Line(points={{-122,-130},{-138,-130}}, color={0,0,127}));
-  connect(truDel3.u, hys3.y)
-    annotation (Line(points={{-82,-130},{-98,-130}}, color={255,0,255}));
-  connect(and2.u2, truDel3.y) annotation (Line(points={{-42,-106},{-50,-106},{-50,
-          -130},{-58,-130}},     color={255,0,255}));
-  connect(and2.y, or1.u2)
-    annotation (Line(points={{-18,-98},{-2,-98}},   color={255,0,255}));
   connect(or1.u1, truDel.y) annotation (Line(points={{-2,-90},{-10,-90},{-10,44},
           {-28,44}}, color={255,0,255}));
   connect(truDel4.y, logSwi.u3) annotation (Line(points={{62,-60},{70,-60},{70,-48},
@@ -451,12 +427,9 @@ equation
   connect(hys4.y, truDel1.u)
     annotation (Line(points={{-118,0},{-82,0}}, color={255,0,255}));
 
-  connect(add3.y, hys2.u)
-    annotation (Line(points={{-138,-80},{-122,-80}}, color={0,0,127}));
   connect(hys2.y, not4.u)
-    annotation (Line(points={{-98,-80},{-82,-80}}, color={255,0,255}));
-  connect(not4.y, and2.u1) annotation (Line(points={{-58,-80},{-50,-80},{-50,-98},
-          {-42,-98}}, color={255,0,255}));
+    annotation (Line(points={{-138,-80},{-122,-80}},
+                                                   color={255,0,255}));
   connect(extIndSig.y, reaToInt.u)
     annotation (Line(points={{-78,-170},{-62,-170}}, color={0,0,127}));
   connect(intGreThr.u, reaToInt.y)
@@ -467,6 +440,16 @@ equation
           74,-90},{118,-90}}, color={255,0,255}));
   connect(faiSafCon.yFaiCon, not1.u)
     annotation (Line(points={{-138,134},{-122,134}}, color={255,0,255}));
+  connect(hys2.u, uPumSpe)
+    annotation (Line(points={{-162,-80},{-200,-80}}, color={0,0,127}));
+  connect(not4.y, and2.u1) annotation (Line(points={{-98,-80},{-90,-80},{-90,-100},
+          {-82,-100}}, color={255,0,255}));
+  connect(hys3.y, and2.u2) annotation (Line(points={{-98,-130},{-90,-130},{-90,-108},
+          {-82,-108}}, color={255,0,255}));
+  connect(truDel3.u, and2.y)
+    annotation (Line(points={{-42,-100},{-58,-100}}, color={255,0,255}));
+  connect(truDel3.y, or1.u2) annotation (Line(points={{-18,-100},{-10,-100},{-10,
+          -98},{-2,-98}}, color={255,0,255}));
   annotation(defaultComponentName = "staDow",
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
       graphics={
