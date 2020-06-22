@@ -20,6 +20,14 @@ model Borefield "Auxiliary subsystem with geothermal borefield"
     "Borefield pump minimum speed";
 
   // IO VARIABLES
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIso[2]
+    "Isolation valves return position (fractional)" annotation (Placement(
+        transformation(extent={{-140,20},{-100,60}}),   iconTransformation(
+          extent={{-140,20},{-100,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u
+    "Control signal from supervisory"
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
+      iconTransformation(extent={{-140,60},{-100,100}})));
 
   // COMPONENTS
   Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear val(
@@ -81,15 +89,6 @@ model Borefield "Auxiliary subsystem with geothermal borefield"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={50,0})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIso[2]
-    "Isolation valves return position (fractional)" annotation (Placement(
-        transformation(extent={{-140,20},{-100,60}}),   iconTransformation(
-          extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput u
-    "Control signal from supervisory"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
-      iconTransformation(extent={{-140,60},{-100,100}})));
   Controls.Borefield con(
     final m_flow_nominal=m_flow_nominal,
     final TBorWatEntMax=TBorWatEntMax,

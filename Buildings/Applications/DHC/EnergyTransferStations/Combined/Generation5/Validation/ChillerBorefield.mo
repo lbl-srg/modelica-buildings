@@ -302,5 +302,5 @@ equation
     experiment(
       StopTime=20000,
       Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"));
+      __Dymola_Algorithm="Dassl"));
 end ChillerBorefield;

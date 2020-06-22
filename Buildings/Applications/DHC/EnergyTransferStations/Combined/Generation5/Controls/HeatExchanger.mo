@@ -34,7 +34,7 @@ model HeatExchanger
         iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y1Hex(final unit="1")
     "District heat exchanger primary control signal" annotation (Placement(
-      transformation(extent={{220,0},{260,40}}),   iconTransformation(extent={{
+      transformation(extent={{220,0},{260,40}}), iconTransformation(extent={{
         100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIso[2]
     "Isolation valves return position (index 1 for condenser)"
@@ -81,10 +81,10 @@ model HeatExchanger
   Buildings.Controls.OBC.CDL.Logical.And and2
     "At least one valve is open and HX circuit is enabled"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold      heaRej(threshold=0.9)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold heaRej(threshold=0.9)
     "Heat rejection if condenser isolation valve is open"
     annotation (Placement(transformation(extent={{-170,70},{-150,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold      cooRej(threshold=0.9)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold cooRej(threshold=0.9)
     "Cold rejection if evaporator isolation valve is open"
     annotation (Placement(transformation(extent={{-170,30},{-150,50}})));
   Buildings.Controls.OBC.CDL.Logical.Or or1 "At least one valve is open "

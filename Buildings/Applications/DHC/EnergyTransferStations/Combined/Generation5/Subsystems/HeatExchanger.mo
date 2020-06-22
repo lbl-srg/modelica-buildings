@@ -186,7 +186,7 @@ protected
     X=Medium2.X_default[1:Medium2.nXi])
     "Medium state at default properties";
   final parameter Modelica.SIunits.SpecificHeatCapacity cp2_default=
-    Medium1.specificHeatCapacityCp(sta2_default)
+    Medium2.specificHeatCapacityCp(sta2_default)
     "Specific heat capacity of the fluid";
 equation
   if not have_val1Hex then
