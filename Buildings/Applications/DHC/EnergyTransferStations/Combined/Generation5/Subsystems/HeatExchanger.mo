@@ -46,10 +46,10 @@ model HeatExchanger
   parameter Modelica.SIunits.TemperatureDifference dT2HexSet[2]
     "Secondary side deltaT set-point schedule (index 1 for heat rejection)"
     annotation (Dialog(group="Controls"));
-  parameter Real k[2] = {0.1, 0.05}
+  parameter Real k[2] = {0.1, 0.2}
     "Gain schedule for controller (index 1 for heat rejection)"
     annotation (Dialog(group="Controls"));
-  parameter Modelica.SIunits.Time Ti(min=0) = 1
+  parameter Modelica.SIunits.Time Ti=10
     "Time constant of integrator block"
     annotation (Dialog(group="Controls"));
   // IO CONNECTORS
