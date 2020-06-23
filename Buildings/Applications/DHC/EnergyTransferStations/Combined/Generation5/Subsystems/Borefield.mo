@@ -3,15 +3,25 @@ model Borefield "Auxiliary subsystem with geothermal borefield"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     final m_flow_nominal=dat.conDat.mBorFie_flow_nominal);
 
-  extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(
-    final dp_nominal=dpValBorFie_nominal+dat.conDat.dp_nominal,
-    final computeFlowResistance=(dat.conDat.dp_nominal > Modelica.Constants.eps));
+  replaceable model BoreFieldType = Fluid.Geothermal.Borefields.OneUTube
+    constrainedby Fluid.Geothermal.Borefields.BaseClasses.PartialBorefield(
+      redeclare final package Medium = Medium,
+      final allowFlowReversal=allowFlowReversal,
+      final borFieDat=dat,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Wall heat transfer"
+    annotation (choicesAllMatching=true);
 
-  parameter Fluid.Geothermal.Borefields.Data.Borefield.Template dat
+  parameter Fluid.Geothermal.Borefields.Data.Borefield.Template dat(
+    conDat(final dp_nominal=0))
     "Borefield parameters"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
-  parameter Modelica.SIunits.Pressure dpValBorFie_nominal=dat.conDat.dp_nominal / 4
+  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")
+    "Pressure losses for the entire borefield (control valve excluded)"
+    annotation (Dialog(group="Nominal condition"));
+
+  parameter Modelica.SIunits.Pressure dpValBorFie_nominal=dp_nominal / 2
     "Nominal pressure drop of control valve";
 
   parameter Modelica.SIunits.Temperature TBorWatEntMax(displayUnit="degC")
@@ -33,10 +43,11 @@ model Borefield "Auxiliary subsystem with geothermal borefield"
   Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear val(
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    from_dp=false,
     use_inputFilter=false,
     final m_flow_nominal=m_flow_nominal,
     final dpValve_nominal=dpValBorFie_nominal,
-    final dpFixed_nominal=fill(dat.conDat.dp_nominal, 2))
+    final dpFixed_nominal=fill(dp_nominal, 2))
     "Mixing valve controlling entering temperature" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -45,7 +56,7 @@ model Borefield "Auxiliary subsystem with geothermal borefield"
   Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pum(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
-    final dp_nominal=dp_nominal) "Pump with prescribed mass flow rate"
+    final dp_nominal=dpValBorFie_nominal+dp_nominal) "Pump with prescribed mass flow rate"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -61,11 +72,7 @@ model Borefield "Auxiliary subsystem with geothermal borefield"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-10,0})));
-  Fluid.Geothermal.Borefields.OneUTube borFie(
-    redeclare final package Medium = Medium,
-    final allowFlowReversal=allowFlowReversal,
-    final borFieDat=dat,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+  BoreFieldType borFie
     "Geothermal borefield"
     annotation (Placement(
         transformation(

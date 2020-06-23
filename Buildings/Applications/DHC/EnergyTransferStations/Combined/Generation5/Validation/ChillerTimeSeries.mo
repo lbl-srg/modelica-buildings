@@ -224,7 +224,7 @@ equation
           100},{-32,100},{-32,-70},{-14,-70}},
                                          color={0,0,127}));
   connect(THeaWatSupSet.y, ets.THeaWatSupSet) annotation (Line(points={{-118,
-          140},{-28,140},{-28,-61.6},{-14,-61.6}},
+          140},{-28,140},{-28,-62},{-14,-62}},
                                           color={0,0,127}));
   connect(disWat.ports[1], ets.port_aDis) annotation (Line(points={{-100,-138},
           {-100,-80},{-10,-80}},color={0,127,255}));

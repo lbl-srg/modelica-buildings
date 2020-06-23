@@ -14,12 +14,16 @@ model ChillerBorefield
   parameter Real spePumBorMin(final unit="1") = 0.1
     "Borefield pump minimum speed"
     annotation (Dialog(group="Borefield"));
+  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")
+    "Pressure losses for the entire borefield (control valve excluded)"
+    annotation (Dialog(group="Borefield"));
 
   Subsystems.Borefield borFie(
     redeclare final package Medium = MediumBui,
     final dat=datBorFie,
     final TBorWatEntMax=TBorWatEntMax,
-    final spePumBorMin=spePumBorMin)
+    final spePumBorMin=spePumBorMin,
+    final dp_nominal=dp_nominal)
     "Borefield subsystem"
     annotation (Placement(transformation(extent={{-80,-230},{-60,-210}})));
 equation

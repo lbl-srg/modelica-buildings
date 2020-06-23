@@ -8,13 +8,13 @@ model Borefield
     "Number of boreholes (must be a square number)";
   parameter Modelica.SIunits.Distance dxy = 6
     "Distance in x-axis (and y-axis) between borehole axes";
-  final parameter Modelica.SIunits.Distance cooBor[nBorHol, 2]=
-    Generation5.Validation.ChillerBorefield.computeCoordinates(nBorHol, dxy)
-    "Coordinates of boreholes";
+  final parameter Modelica.SIunits.Distance cooBor[nBorHol,2]=
+      BaseClasses.computeCoordinates(nBorHol, dxy) "Coordinates of boreholes";
   Generation5.Subsystems.Borefield borFie(
     redeclare final package Medium = Medium,
     final dat=datBorFie,
-    TBorWatEntMax=308.15)
+    dp_nominal=5E4,
+    TBorWatEntMax=313.15)
     "Subsystem with heat recovery chiller"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Fluid.Sources.Boundary_pT conWat(

@@ -137,8 +137,8 @@ model Chiller "ETS model for 5GDHC systems with heat recovery chiller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSupSet(
     final unit="K", displayUnit="degC")
     "Heating water supply temperature set-point"
-    annotation (Placement(transformation(extent={{-340,-76},{-300,-36}}),
-      iconTransformation(extent={{-380,-116},{-300,-36}})));
+    annotation (Placement(transformation(extent={{-340,-80},{-300,-40}}),
+      iconTransformation(extent={{-380,-120},{-300,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
     final unit="K", displayUnit="degC")
     "Chilled water supply temperature set-point"
@@ -216,7 +216,7 @@ model Chiller "ETS model for 5GDHC systems with heat recovery chiller"
     "Collector/distributor for chilled water"
     annotation (Placement(
       transformation(
-      extent={{20,10},{-20,-10}},
+      extent={{-20,10},{20,-10}},
       rotation=180,
       origin={120,-34})));
   EnergyTransferStations.BaseClasses.CollectorDistributor colHeaWat(
@@ -226,7 +226,7 @@ model Chiller "ETS model for 5GDHC systems with heat recovery chiller"
     "Collector/distributor for heating water"
     annotation (Placement(
       transformation(
-      extent={{-20,10},{20,-10}},
+      extent={{20,10},{-20,-10}},
       rotation=180,
       origin={-120,-34})));
   EnergyTransferStations.BaseClasses.CollectorDistributor colAmbWat(
@@ -251,7 +251,7 @@ equation
       points={{12,-9},{20,-9},{20,-59},{258,-59}},
       color={0,0,127}));
   connect(THeaWatSupSet, conSup.THeaWatSupPreSet) annotation (Line(points={{-320,
-          -56},{-280,-56},{-280,26},{-262,26}}, color={0,0,127}));
+          -60},{-280,-60},{-280,26},{-262,26}}, color={0,0,127}));
   connect(port_aDis,int. port_a1) annotation (Line(points={{-300,-260},{-10,-260}},
                   color={0,127,255}));
   connect(int.port_b1, port_bDis) annotation (Line(points={{10,-260},{300,-260}},
@@ -265,9 +265,9 @@ equation
   connect(tanHeaWat.port_bTop, ports_bHeaWat[1]) annotation (Line(points={{-220,
           112},{-260,112},{-260,260},{300,260}}, color={0,127,255}));
   connect(tanHeaWat.TTop, conSup.THeaWatTop) annotation (Line(points={{-199,115},
-          {-180,115},{-180,82},{-274,82},{-274,24},{-262,24}}, color={0,0,127}));
+          {-182,115},{-182,82},{-274,82},{-274,24},{-262,24}}, color={0,0,127}));
   connect(tanHeaWat.TBot, conSup.THeaWatBot) annotation (Line(points={{-199,97},
-          {-182,97},{-182,84},{-276,84},{-276,22},{-262,22}},  color={0,0,127}));
+          {-184,97},{-184,84},{-276,84},{-276,22},{-262,22}},  color={0,0,127}));
   connect(tanChiWat.TTop, conSup.TChiWatTop) annotation (Line(points={{221,115},
           {238,115},{238,80},{-272,80},{-272,18},{-262,18}}, color={0,0,127}));
   connect(tanChiWat.TBot, conSup.TChiWatBot) annotation (Line(points={{221,97},{
@@ -275,10 +275,6 @@ equation
   connect(int.port_b2, colAmbWat.ports_aCon[1]) annotation (Line(points={{-10,
           -248},{-20,-248},{-20,-160},{12,-160},{12,-116}},
                                                       color={0,127,255}));
-  connect(colHeaWat.port_bDisSup, tanHeaWat.port_aTop) annotation (Line(points={{-140,
-          -34},{-154,-34},{-154,112},{-200,112}},     color={0,127,255}));
-  connect(tanHeaWat.port_bBot, colHeaWat.port_aDisRet) annotation (Line(points={{-200,
-          100},{-160,100},{-160,-40},{-140,-40}},     color={0,127,255}));
   connect(int.port_a2, colAmbWat.ports_bCon[1]) annotation (Line(points={{10,-248},
           {20,-248},{20,-140},{-12,-140},{-12,-116}}, color={0,127,255}));
   connect(tanChiWat.port_bBot, ports_bChiWat[1]) annotation (Line(points={{220,100},
@@ -295,18 +291,10 @@ equation
   connect(int.yValIso[2], valIsoEva.y_actual) annotation (Line(
       points={{-12,-253},{-16,-253},{-16,-240},{40,-240},{40,-113},{55,-113}},
       color={0,0,127}));
-  connect(chi.port_bHeaWat, colHeaWat.ports_bCon[1])
-    annotation (Line(points={{-10,0},{-108,0},{-108,-24}}, color={0,127,255}));
-  connect(colHeaWat.ports_aCon[1], chi.port_aHeaWat) annotation (Line(points={{-132,
-          -24},{-134,-24},{-134,-12},{-10,-12}},      color={0,127,255}));
-  connect(colChiWat.port_aDisRet, tanChiWat.port_aBot) annotation (Line(points={
-          {140,-40},{180,-40},{180,100},{200,100}}, color={0,127,255}));
-  connect(colChiWat.port_bDisSup, tanChiWat.port_bTop) annotation (Line(points={
-          {140,-34},{160,-34},{160,112},{200,112}}, color={0,127,255}));
-  connect(colChiWat.ports_bCon[1], chi.port_aChiWat) annotation (Line(points={{108,
-          -24},{108,-12},{10,-12}}, color={0,127,255}));
+  connect(colChiWat.ports_bCon[1], chi.port_aChiWat) annotation (Line(points={{132,-24},
+          {132,-12},{10,-12}},      color={0,127,255}));
   connect(chi.port_bChiWat, colChiWat.ports_aCon[1])
-    annotation (Line(points={{10,0},{132,0},{132,-24}}, color={0,127,255}));
+    annotation (Line(points={{10,0},{108,0},{108,-24}}, color={0,127,255}));
   connect(valIsoEva.port_b, colAmbWat.port_bDisSup) annotation (Line(points={{50,
           -120},{30,-120},{30,-106},{20,-106}}, color={0,127,255}));
   connect(valIsoCon.port_b, colAmbWat.port_aDisSup) annotation (Line(points={{-50,
@@ -317,14 +305,10 @@ equation
           28},{-262,28}}, color={255,0,255}));
   connect(uHea, conSup.uHea) annotation (Line(points={{-320,100},{-290,100},{-290,
           30},{-262,30}}, color={255,0,255}));
-  connect(valIsoEva.port_a, colChiWat.ports_aCon[nConChiWat]) annotation (Line(points={{70,
-          -120},{132,-120},{132,-24}}, color={0,127,255}));
+  connect(valIsoEva.port_a, colChiWat.ports_aCon[nConChiWat]) annotation (Line(points={{70,-120},
+          {108,-120},{108,-24}},       color={0,127,255}));
   connect(colAmbWat.port_aDisRet, colChiWat.ports_bCon[nConChiWat]) annotation (Line(
-        points={{20,-100},{108,-100},{108,-24}}, color={0,127,255}));
-  connect(colAmbWat.port_bDisRet, colHeaWat.ports_aCon[nConHeaWat]) annotation (Line(
-        points={{-20,-100},{-132,-100},{-132,-24}}, color={0,127,255}));
-  connect(valIsoCon.port_a, colHeaWat.ports_bCon[nConHeaWat]) annotation (Line(points={{-70,
-          -120},{-108,-120},{-108,-24}}, color={0,127,255}));
+        points={{20,-100},{132,-100},{132,-24}}, color={0,127,255}));
   connect(conSup.THeaWatSupSet, chi.THeaWatSupSet) annotation (Line(points={{-238,
           16},{-28,16},{-28,-7},{-12,-7}}, color={0,0,127}));
   connect(conSup.TChiWatSupSet, chi.TChiWatSupPreSet) annotation (Line(points={{
@@ -335,6 +319,22 @@ equation
           22},{-228,22},{-220,22},{-220,-84},{-60,-84},{-60,-108}}, color={0,0,127}));
   connect(conSup.yAmb[nSouAmb], int.u) annotation (Line(points={{-238,25},{-200,
           25},{-200,-256},{-12,-256}}, color={0,0,127}));
+  connect(colChiWat.port_bDisRet, tanChiWat.port_aBot) annotation (Line(points={
+          {140,-40},{180,-40},{180,100},{200,100}}, color={0,127,255}));
+  connect(colChiWat.port_aDisSup, tanChiWat.port_bTop) annotation (Line(points={
+          {140,-34},{160,-34},{160,112},{200,112}}, color={0,127,255}));
+  connect(chi.port_bHeaWat, colHeaWat.ports_aCon[1])
+    annotation (Line(points={{-10,0},{-108,0},{-108,-24}}, color={0,127,255}));
+  connect(chi.port_aHeaWat, colHeaWat.ports_bCon[1]) annotation (Line(points={{-10,
+          -12},{-132,-12},{-132,-24}}, color={0,127,255}));
+  connect(colHeaWat.port_bDisRet, tanHeaWat.port_aTop) annotation (Line(points={
+          {-140,-40},{-160,-40},{-160,112},{-200,112}}, color={0,127,255}));
+  connect(tanHeaWat.port_bBot, colHeaWat.port_aDisSup) annotation (Line(points={{-200,
+          100},{-180,100},{-180,-34},{-140,-34}},       color={0,127,255}));
+  connect(valIsoCon.port_a, colHeaWat.ports_aCon[nConHeaWat]) annotation (Line(points={{-70,
+          -120},{-108,-120},{-108,-24}}, color={0,127,255}));
+  connect(colAmbWat.port_bDisRet, colHeaWat.ports_bCon[nConHeaWat]) annotation (Line(
+        points={{-20,-100},{-132,-100},{-132,-24}}, color={0,127,255}));
 annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
         Diagram(coordinateSystem(preserveAspectRatio=false,
                   extent={{-300,-300},{300,300}}),

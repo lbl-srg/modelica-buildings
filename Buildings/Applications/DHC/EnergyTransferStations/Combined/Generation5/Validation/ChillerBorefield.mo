@@ -8,8 +8,8 @@ model ChillerBorefield
     "Number of boreholes (must be a square number)";
   parameter Modelica.SIunits.Distance dxy = 6
     "Distance in x-axis (and y-axis) between borehole axes";
-  final parameter Modelica.SIunits.Distance cooBor[nBorHol, 2]=
-    computeCoordinates(nBorHol, dxy)
+  final parameter Modelica.SIunits.Distance cooBor[nBorHol,2]=
+    EnergyTransferStations.BaseClasses.computeCoordinates(nBorHol, dxy)
     "Coordinates of boreholes";
   parameter Modelica.SIunits.MassFlowRate mHeaWat_flow_nominal=
     0.9 * datChi.mCon_flow_nominal
@@ -19,7 +19,8 @@ model ChillerBorefield
     "Nominal chilled water mass flow rate";
   parameter Fluid.Geothermal.Borefields.Data.Borefield.Example datBorFie(
     conDat=Fluid.Geothermal.Borefields.Data.Configuration.Example(
-      cooBor=cooBor))
+      cooBor=cooBor,
+      dp_nominal=0))
     "Borefield design data"
     annotation (Placement(transformation(extent={{-160,182},{-140,202}})));
   parameter Fluid.Chillers.Data.ElectricEIR.Generic datChi(
@@ -100,7 +101,7 @@ model ChillerBorefield
     dpEva_nominal=15E3,
     datChi=datChi,
     datBorFie=datBorFie,
-    TBorWatEntMax=373.15,
+    dp_nominal=5E4,
     nPorts_aHeaWat=1,
     nPorts_bHeaWat=1,
     nPorts_bChiWat=1,
@@ -200,24 +201,6 @@ model ChillerBorefield
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDelCoo(delayTime=120)
     "Delay signal indicating no load"
     annotation (Placement(transformation(extent={{-180,-110},{-160,-90}})));
-function computeCoordinates
-  input Integer nBorHol
-    "Number of boreholes";
-  input Modelica.SIunits.Distance dxy = 6
-    "Distance in x-axis (and y-axis) between borehole axes";
-  output Modelica.SIunits.Distance cooBor[nBorHol, 2]
-    "Coordinates of boreholes";
-  protected
-  Integer k = 1 "Iteration index";
-algorithm
-  for i in 0:sqrt(nBorHol)-1 loop
-    for j in 0:sqrt(nBorHol)-1 loop
-      cooBor[k, 1] := i*dxy;
-      cooBor[k, 2] := j*dxy;
-      k := k + 1;
-    end for;
-  end for;
-end computeCoordinates;
 equation
   connect(senTHeaWatRet.port_b, ets.ports_aHeaWat[1]) annotation (Line(points={{-50,-40},
           {-40,-40},{-40,-28},{-12,-28}},           color={0,127,255}));
@@ -229,7 +212,7 @@ equation
   connect(TChiWatSupSet.y, ets.TChiWatSupSet) annotation (Line(points={{-118,
           100},{-32,100},{-32,-70},{-16,-70}}, color={0,0,127}));
   connect(THeaWatSupSet.y, ets.THeaWatSupSet) annotation (Line(points={{-118,
-          140},{-28,140},{-28,-61.6},{-16,-61.6}}, color={0,0,127}));
+          140},{-28,140},{-28,-62},{-16,-62}},     color={0,0,127}));
   connect(disWat.ports[1], ets.port_aDis) annotation (Line(points={{-100,-138},
           {-100,-80},{-12,-80}}, color={0,127,255}));
   connect(ets.port_bDis, disWat.ports[2]) annotation (Line(points={{48,-80},{

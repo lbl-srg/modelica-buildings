@@ -21,10 +21,10 @@ model Chiller "Base subsystem with heat recovery chiller"
   parameter Modelica.SIunits.PressureDifference dpEva_nominal(displayUnit="Pa")
     "Nominal pressure drop accross evaporator"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Pressure dpValCon_nominal=dpCon_nominal / 4
+  parameter Modelica.SIunits.Pressure dpValCon_nominal=dpCon_nominal / 2
     "Nominal pressure drop accross control valve on condenser side"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Pressure dpValEva_nominal=dpEva_nominal / 4
+  parameter Modelica.SIunits.Pressure dpValEva_nominal=dpEva_nominal / 2
     "Nominal pressure drop accross control valve on evaporator side"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Temperature TChiWatSupSetMin(
@@ -117,14 +117,16 @@ model Chiller "Base subsystem with heat recovery chiller"
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=dat.mCon_flow_nominal,
-    final dp_nominal=dpCon_nominal + dpValCon_nominal) "Condenser pump"
+    final dp_nominal=dpCon_nominal + dpValCon_nominal)
+    "Condenser pump"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
   Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow
     pumEva(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=dat.mEva_flow_nominal,
-    final dp_nominal=dpEva_nominal + dpValEva_nominal) "Evaporator pump"
+    final dp_nominal=dpEva_nominal + dpValEva_nominal)
+    "Evaporator pump"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
@@ -187,6 +189,7 @@ model Chiller "Base subsystem with heat recovery chiller"
   Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valEva(
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    from_dp=false,
     use_inputFilter=false,
     final m_flow_nominal=dat.mEva_flow_nominal,
     final dpValve_nominal=dpValEva_nominal,
@@ -199,6 +202,7 @@ model Chiller "Base subsystem with heat recovery chiller"
   Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valCon(
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    from_dp=false,
     use_inputFilter=false,
     final m_flow_nominal=dat.mCon_flow_nominal,
     final dpValve_nominal=dpValCon_nominal,

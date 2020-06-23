@@ -4,4 +4,5 @@ CollectorDistributor
 Junction
 Pump_m_flow
 StratifiedTank
+computeCoordinates
 Validation

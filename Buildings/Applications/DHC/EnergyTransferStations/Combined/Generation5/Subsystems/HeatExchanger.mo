@@ -16,7 +16,7 @@ model HeatExchanger
     "Nominal pressure drop across heat exchanger on building side"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.PressureDifference dpVal1Hex_nominal(displayUnit="Pa")=
-    dp1Hex_nominal / 4
+    dp1Hex_nominal / 2
     "Nominal pressure drop of primary control valve"
     annotation(Dialog(enable=have_val1Hex, group="Nominal condition"));
   parameter Modelica.SIunits.HeatFlowRate QHex_flow_nominal
@@ -138,6 +138,7 @@ model HeatExchanger
   Fluid.Actuators.Valves.TwoWayEqualPercentage val1Hex(
     redeclare final package Medium = Medium1,
     final m_flow_nominal=m1_flow_nominal,
+    from_dp=true,
     final dpValve_nominal=dpVal1Hex_nominal,
     use_inputFilter=false,
     final dpFixed_nominal=dp1Hex_nominal) if have_val1Hex
