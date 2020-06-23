@@ -2,12 +2,6 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints
 block FailsafeCondition
   "Failsafe condition used in staging up and down"
 
-  parameter Real delEna(
-    final unit="s",
-    final displayUnit="s",
-    final quantity="Time") = 900
-    "Enable delay";
-
   parameter Real TDif(
     final unit="K",
     final displayUnit="K",
@@ -21,6 +15,12 @@ block FailsafeCondition
     final quantity="TemperatureDifference") = 1
     "Temperature deadband for hysteresis loop"
     annotation (Dialog(tab="Advanced"));
+
+  parameter Real delEna(
+    final unit="s",
+    final displayUnit="s",
+    final quantity="Time") = 900
+    "Enable delay";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupSet(
     final unit="K",

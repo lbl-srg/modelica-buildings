@@ -267,10 +267,16 @@ annotation (
     RP-1711, March 2020 Draft.
     </p>
     <p align=\"center\">
-    <img alt=\"State-machine chart for EfficiencyCondition\"
-    src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/EfficiencyCondition_stateMachineChart_v2.png\"/>
+    <img alt=\"State-machine chart for EfficiencyCondition for condensing boilers\"
+    src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/EfficiencyCondition_stateMachineChart_v3_conBoi.png\"/>
     <br/>
-    State-machine chart for the sequence defined in RP-1711
+    State-machine chart for the sequence for condensing boilers defined in RP-1711
+    </p>
+    <p align=\"center\">
+    <img alt=\"State-machine chart for EfficiencyCondition for non-condensing boilers\"
+    src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/EfficiencyCondition_stateMachineChart_v3_nonConBoi.png\"/>
+    <br/>
+    State-machine chart for the sequence for non-condensing boilers defined in RP-1711
     </p>
     <p align=\"center\">
     <img alt=\"Validation plot for EfficiencyCondition1\"
