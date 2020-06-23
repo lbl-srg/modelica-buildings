@@ -12,13 +12,11 @@ model Down
     final delDesCapNonConBoi=600,
     final delDesCapConBoi=300,
     final sigDif=0.01,
-    final dFloRatLow=0,
-    final dFloRatHig=0.1,
     final bypValClo=0,
     final TCirDif=3,
     final delTRetDif=300,
     final dTemp=0.1,
-    final TDifFaiCon=10,
+    final TDif=10,
     final delFaiCon=900)
     "Scenario testing sequence for condensing-type stage"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
@@ -33,13 +31,11 @@ model Down
     final delDesCapNonConBoi=600,
     final delDesCapConBoi=300,
     final sigDif=0.01,
-    final dFloRatLow=0,
-    final dFloRatHig=0.1,
     final bypValClo=0,
     final TCirDif=3,
     final delTRetDif=300,
     final dTemp=0.1,
-    final TDifFaiCon=10,
+    final TDif=10,
     final delFaiCon=900)
     "Scenario testing sequence for non-condensing-type stage"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
@@ -53,13 +49,11 @@ model Down
     final fraDesCap=0.8,
     final delDesCapConBoi=300,
     final sigDif=0.01,
-    final dFloRatLow=0,
-    final dFloRatHig=0.1,
     final delBypVal=300,
     final bypValClo=0,
     final TCirDif=3,
     final dTemp=0.1,
-    final TDifFaiCon=10,
+    final TDif=10,
     final delFaiCon=900)
     "Scenario testing primary-only, condensing-type boiler plant"
     annotation (Placement(transformation(extent={{160,-10},{180,10}})));
@@ -111,15 +105,10 @@ protected
     "Constant real source"
     annotation (Placement(transformation(extent={{-170,50},{-150,70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4(
-    final k=1)
-    "Constant real source"
-    annotation (Placement(transformation(extent={{-170,-36},{-150,-16}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul3(
     final amplitude=0.3,
     final period=8000,
-    final offset=0.8)
+    final offset=0)
     "Pulse source"
     annotation (Placement(transformation(extent={{-196,-10},{-176,10}})));
 
@@ -169,17 +158,12 @@ protected
     "Constant real source"
     annotation (Placement(transformation(extent={{-30,50},{-10,70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con9(
-    final k=1)
-    "Constant real source"
-    annotation (Placement(transformation(extent={{-30,-36},{-10,-16}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul7(
     final amplitude=0.3,
     final period=8000,
-    final offset=0.8)
+    final offset=0)
     "Pulse source"
-    annotation (Placement(transformation(extent={{-56,-10},{-36,10}})));
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con10(
     final k=80)
@@ -252,10 +236,8 @@ equation
           {-130,5},{-122,5}}, color={0,0,127}));
   connect(con2.y, staDow.uCapMin) annotation (Line(points={{-148,60},{-132,60},{
           -132,3},{-122,3}}, color={0,0,127}));
-  connect(pul3.y, staDow.VHotWat_flow) annotation (Line(points={{-174,0},{-136,0},
-          {-136,-3},{-122,-3}}, color={0,0,127}));
-  connect(con4.y, staDow.VMinSet_flow) annotation (Line(points={{-148,-26},{-136,
-          -26},{-136,-5},{-122,-5}}, color={0,0,127}));
+  connect(pul3.y, staDow.uPumSpe) annotation (Line(points={{-174,0},{-136,0},{-136,
+          -3},{-122,-3}}, color={0,0,127}));
   connect(pul2.y, staDow.TPriHotWatRet) annotation (Line(points={{-148,-60},{-134,
           -60},{-134,-7},{-122,-7}}, color={0,0,127}));
   connect(con1.y, staDow.TSecHotWatRet) annotation (Line(points={{-148,-100},{-128,
@@ -268,10 +250,8 @@ equation
           5},{18,5}}, color={0,0,127}));
   connect(con7.y, staDow1.uCapMin)
     annotation (Line(points={{-8,60},{8,60},{8,3},{18,3}}, color={0,0,127}));
-  connect(pul7.y, staDow1.VHotWat_flow)
-    annotation (Line(points={{-34,0},{4,0},{4,-3},{18,-3}}, color={0,0,127}));
-  connect(con9.y, staDow1.VMinSet_flow) annotation (Line(points={{-8,-26},{4,-26},
-          {4,-5},{18,-5}}, color={0,0,127}));
+  connect(pul7.y, staDow1.uPumSpe)
+    annotation (Line(points={{-38,0},{4,0},{4,-3},{18,-3}}, color={0,0,127}));
   connect(pul6.y, staDow1.TPriHotWatRet) annotation (Line(points={{-8,-60},{6,-60},
           {6,-7},{18,-7}}, color={0,0,127}));
   connect(con6.y, staDow1.TSecHotWatRet) annotation (Line(points={{-8,-100},{12,
