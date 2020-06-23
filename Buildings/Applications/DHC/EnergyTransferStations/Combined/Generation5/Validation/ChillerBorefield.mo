@@ -274,11 +274,7 @@ equation
   connect(loaCooRat.y, gai2.u) annotation (Line(points={{259,60},{240,60},{240,120},
           {80,120},{80,80},{90,80}}, color={0,0,127}));
   annotation (Diagram(
-  coordinateSystem(preserveAspectRatio=false, extent={{-300,-220},{300,220}}),
-        graphics={Text(
-          extent={{-82,242},{140,120}},
-          lineColor={28,108,200},
-          textString="Borefield entering T control disabled")}),
+  coordinateSystem(preserveAspectRatio=false, extent={{-300,-220},{300,220}})),
   __Dymola_Commands(file=
 "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Combined/Generation5/Validation/ChillerBorefield.mos"
 "Simulate and plot"),
