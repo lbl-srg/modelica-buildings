@@ -1,150 +1,143 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences;
-block BoilerIndices
-  "Returns boiler indices for the current stage"
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation;
+model BoilerIndices
+  "Validates extraction of boiler indices in a given stage"
 
-  parameter Integer nSta = 3
-    "Number of stages";
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.BoilerIndices
+    boiInd(
+    final nSta=3,
+    final nBoi=2,
+    final staMat={{1,0},{0,1},{1,1}})
+    "Boiler index generator"
+    annotation (Placement(transformation(extent={{0,80},{20,100}})));
 
-  parameter Integer nBoi = 2
-    "Number of boilers";
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.BoilerIndices
+    boiInd1(
+    final nSta=3,
+    final nBoi=2,
+    final staMat={{1,0},{0,1},{1,1}})
+    "Boiler index generator"
+    annotation (Placement(transformation(extent={{0,40},{20,60}})));
 
-  parameter Integer staMat[nSta, nBoi] = {{1,0},{0,1},{1,1}}
-    "Staging matrix with stages in rows and boilers in columns";
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.BoilerIndices
+    boiInd2(
+    final nSta=3,
+    final nBoi=2,
+    final staMat={{1,0},{0,1},{1,1}})
+    "Boiler index generator"
+    annotation (Placement(transformation(extent={{0,0},{20,20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u(
-    final min=0,
-    final max=nSta,
-    final start=0) "Current boiler stage"
-    annotation (Placement(transformation(extent={{-240,0},{-200,40}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.BoilerIndices
+    boiInd3(
+    final nSta=3,
+    final nBoi=2,
+    final staMat={{1,0},{0,1},{1,1}})
+    "Boiler index generator"
+    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yBoi[nBoi]
-    "Boiler status setpoint vector for the current stage"
-    annotation (Placement(transformation(extent={{200,-20},{240,20}}),
-      iconTransformation(extent={{100,-20},{140,20}})));
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.BoilerIndices
+    boiInd4(
+    final nSta=5,
+    final nBoi=3,
+    final staMat={{1,0,0},{1,1,0},{1,0,1},{0,1,1},{1,1,1}})
+    "Boiler index generator"
+    annotation (Placement(transformation(extent={{40,60},{60,80}})));
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.BoilerIndices
+    boiInd5(
+    final nSta=5,
+    final nBoi=3,
+    final staMat={{1,0,0},{1,1,0},{1,0,1},{0,1,1},{1,1,1}})
+    "Boiler index generator"
+    annotation (Placement(transformation(extent={{40,20},{60,40}})));
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.BoilerIndices
+    boiInd6(
+    final nSta=5,
+    final nBoi=3,
+    final staMat={{1,0,0},{1,1,0},{1,0,1},{0,1,1},{1,1,1}})
+    "Boiler index generator"
+    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.BoilerIndices
+    boiInd7(
+    final nSta=5,
+    final nBoi=3,
+    final staMat={{1,0,0},{1,1,0},{1,0,1},{0,1,1},{1,1,1}})
+    "Boiler index generator"
+    annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
 
 protected
-  final parameter Integer staInd[nSta] = {i for i in 1:nSta}
-    "Stage index vector";
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant u(
+    final k=0)
+    "Boiler stage"
+    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 
-  final parameter Integer staIndMat[nSta, nBoi] = {j for i in 1:nBoi, j in 1:nSta}
-    "Matrix of staging matrix dimensions with stage indices in each column";
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant u1(
+    final k=1)
+    "Boiler stage"
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 
-  final parameter Integer lowDia[nSta, nSta] = {if i<=j then 1 else 0 for i in 1:nSta, j in 1:nSta}
-    "Lower diagonal unit matrix";
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant u2(
+    final k=2)
+    "Boiler stage"
+    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 
-  Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep(
-    final nout=nSta)
-    "Replicates signal to a length equal the stage count"
-    annotation (Placement(transformation(extent={{-180,10},{-160,30}})));
-
-  Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep1[nSta](
-    final nout=fill(nBoi, nSta))
-    "Replicates signal to dimensions of the staging matrix"
-    annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant staIndMatr[nSta,nBoi](
-    final k=staIndMat)
-    "Matrix with stage index in each column"
-    annotation (Placement(transformation(extent={{-140,-40},{-120,-20}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Equal intEqu1[nSta,nBoi]
-    "Outputs a zero matrix populated with ones in the current stage index row"
-    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant boiStaMatr[nSta,nBoi](
-    final k=staMat)
-    "Staging matrix"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant u3(
+    final k=3)
+    "Boiler stage"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MatrixMax matMax(
-    final nRow=nSta,
-    final nCol=nBoi,
-    final rowMax=false)
-    "Column-wise matrix maximum"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold boiInSta[nBoi](
-    final threshold=fill(0.5, nBoi))
-    "Identifies boilers designated to operate in a given stage"
-    annotation (Placement(transformation(extent={{140,-10},{160,10}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Product proInt[nSta,nBoi]
-    "Outputs a zero matrix populated with ones for any available boiler in the current stage"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nSta,nBoi](
-    final integerTrue=fill(1,nSta,nBoi),
-    final integerFalse=fill(0,nSta,nBoi))
-    "Type converter"
-    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-
-  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nSta,nBoi]
-    "Type converter"
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant u4(
+    final k=5)
+    "Boiler stage"
+    annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 
 equation
-  connect(intRep.y, intRep1.u)
-    annotation (Line(points={{-158,20},{-142,20}}, color={255,127,0}));
-  connect(intRep1.y, intEqu1.u1)
-    annotation (Line(points={{-118,20},{-82,20}}, color={255,127,0}));
-  connect(matMax.y,boiInSta. u)
-    annotation (Line(points={{122,0},{138,0}},    color={0,0,127}));
-  connect(staIndMatr.y, intEqu1.u2) annotation (Line(points={{-118,-30},{-100,-30},
-          {-100,12},{-82,12}},         color={255,127,0}));
-  connect(boiInSta.y, yBoi)
-    annotation (Line(points={{162,0},{220,0}},
-          color={255,0,255}));
-  connect(proInt.y, intToRea.u)
-    annotation (Line(points={{42,0},{58,0}},    color={255,127,0}));
-  connect(intToRea.y, matMax.u)
-    annotation (Line(points={{82,0},{98,0}},     color={0,0,127}));
-  connect(booToInt.y, proInt.u1) annotation (Line(points={{-18,20},{0,20},{0,6},
-          {18,6}},            color={255,127,0}));
-  connect(intEqu1.y, booToInt.u)
-    annotation (Line(points={{-58,20},{-42,20}},   color={255,0,255}));
-  connect(boiStaMatr.y, proInt.u2) annotation (Line(points={{-38,-30},{0,-30},{0,
-          -6},{18,-6}},         color={255,127,0}));
-  connect(u, intRep.u) annotation (Line(points={{-220,20},{-182,20}},
-                       color={255,127,0}));
-  annotation (defaultComponentName = "boiInd",
-        Icon(graphics={
-        Rectangle(
-        extent={{-100,-100},{100,100}},
-        lineColor={0,0,127},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
-          textString="%name")}),
-        Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-200,-60},{200,60}})),
-Documentation(info="<html>
-<p>
-This subsequence is not directly specified in 1711 as it provides
-a side calculation pertaining to generalization of the staging 
-sequences for any number of boilers and stages provided by the 
-user.
-</p>
-<p>
-The subsequence outputs a vector of boiler indices <code>yBoi</code>
-for a stage index input <code>u</code> given a staging matrix <code>staMat</code>.
-</p>
-<p align=\"center\">
-<img alt=\"Validation plot for BoilerIndices\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/Subsequences/BoilerIndices.png\"/>
-<br/>
-Validation plot generated from model <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences.Validation.BoilerIndices\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences.Validation.BoilerIndices</a>.
-</p>
-</html>",
-revisions="<html>
-<ul>
-<li>
-May 31, 2020, by Karthik Devaprasad:<br/>
-First implementation.
-</li>
-</ul>
-</html>"));
+  connect(u.y, boiInd.u)
+    annotation (Line(points={{-38,90},{-2,90}}, color={255,127,0}));
+  connect(u1.y, boiInd1.u)
+    annotation (Line(points={{-38,50},{-2,50}}, color={255,127,0}));
+  connect(u2.y, boiInd2.u)
+    annotation (Line(points={{-38,10},{-2,10}}, color={255,127,0}));
+  connect(u3.y, boiInd3.u)
+    annotation (Line(points={{-38,-30},{-2,-30}}, color={255,127,0}));
+  connect(boiInd4.u, u.y) annotation (Line(points={{38,70},{-20,70},{-20,90},{-38,
+          90}}, color={255,127,0}));
+  connect(boiInd5.u, u1.y) annotation (Line(points={{38,30},{-20,30},{-20,50},{-38,
+          50}}, color={255,127,0}));
+  connect(boiInd6.u, u3.y) annotation (Line(points={{38,-50},{-20,-50},{-20,-30},
+          {-38,-30}}, color={255,127,0}));
+  connect(boiInd7.u, u4.y) annotation (Line(points={{38,-90},{-20,-90},{-20,-70},
+          {-38,-70}}, color={255,127,0}));
+annotation (
+ experiment(StopTime=10.0, Tolerance=1e-06),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/Validation/BoilerIndices.mos"
+    "Simulate and plot"),
+  Documentation(info="<html>
+    <p>
+    This example validates
+    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.BoilerIndices\">
+    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.BoilerIndices</a>.
+    </p>
+    </html>",
+    revisions="<html>
+    <ul>
+    <li>
+    May 31, 2020, by Karthik Devaprasad:<br/>
+    First implementation.
+    </li>
+    </ul>
+    </html>"),
+  Icon(graphics={
+        Ellipse(lineColor = {75,138,73},
+                fillColor={255,255,255},
+                fillPattern = FillPattern.Solid,
+                extent = {{-100,-100},{100,100}}),
+        Polygon(lineColor = {0,0,255},
+                fillColor = {75,138,73},
+                pattern = LinePattern.None,
+                fillPattern = FillPattern.Solid,
+                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
+  Diagram(coordinateSystem(preserveAspectRatio=false,
+    extent={{-80,-120},{80,120}})));
 end BoilerIndices;

@@ -1,298 +1,181 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences;
-block Capacities
-  "Returns design and minimal stage capacities for current and next available higher and lower stage"
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation;
+model Capacities
+  "Validate stage capacities subsequence for boiler stage inputs"
 
-  parameter Integer nSta = 3
-    "Total number of stages";
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Capacities
+    staCap0(
+    final nSta=3)
+    "Outputs design capacitites at the current and stage one lower"
+    annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLow
-    "Current stage is the lowest available stage"
-    annotation (Placement(transformation(extent={{-240,-80},{-200,-40}}),
-      iconTransformation(extent={{-140,-110},{-100,-70}})));
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Capacities
+    staCap1(
+    final nSta=3)
+    "Outputs design capacitites at the current and stage one lower"
+    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHig
-    "Current stage is the highest available stage"
-    annotation (Placement(transformation(extent={{-240,-140},{-200,-100}}),
-      iconTransformation(extent={{-140,-80},{-100,-40}})));
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Capacities
+    staCap2(
+    final nSta=3)
+    "Outputs design capacitites at the current and stage one lower"
+    annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u(
-    final min=0,
-    final max=nSta)
-    "Boiler plant stage"
-    annotation (Placement(transformation(extent={{-240,100},{-200,140}}),
-      iconTransformation(extent={{-140,10},{-100,50}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uUp(
-    final min=0,
-    final max=nSta)
-    "Next available higher stage"
-    annotation (Placement(transformation(extent={{-240,40},{-200,80}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uDown(
-    final min=0,
-    final max=nSta)
-    "Next available lower stage"
-    annotation (Placement(transformation(extent={{-240,-20},{-200,20}}),
-      iconTransformation(extent={{-140,-50},{-100,-10}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDesCap[nSta](
-    final quantity=fill("Power", nSta),
-    final unit=fill("W", nSta))
-    "Design stage capacities"
-    annotation (Placement(transformation(extent={{-240,160},{-200,200}}),
-      iconTransformation(extent={{-140,70},{-100,110}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uMinCap[nSta](
-    final quantity=fill("Power", nSta),
-    final unit=fill("W", nSta))
-    "Unload stage capacities"
-    annotation (Placement(transformation(extent={{-240,-200},{-200,-160}}),
-      iconTransformation(extent={{-140,40},{-100,80}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDes(
-    final unit="W",
-    final quantity="Power")
-    "Design capacity of the current stage"
-    annotation (Placement(transformation(extent={{200,130},{240,170}}),
-      iconTransformation(extent={{100,60},{140,100}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDowDes(
-    final unit="W",
-    final quantity="Power")
-    "Design capacity of the next available lower stage"
-    annotation (Placement(transformation(extent={{200,0},{240,40}}),
-      iconTransformation(extent={{100,-20},{140,20}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yUpDes(
-    final unit="W",
-    final quantity="Power")
-    "Design capacity of the next available higher stage"
-    annotation (Placement(transformation(extent={{200,40},{240,80}}),
-      iconTransformation(extent={{100,20},{140,60}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMin(
-    final unit="W",
-    final quantity="Power")
-    "Minimum capacity of the current stage"
-    annotation (Placement(transformation(extent={{200,-40},{240,0}}),
-      iconTransformation(extent={{100,-60},{140,-20}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yUpMin(
-    final unit="W",
-    final quantity="Power")
-    "Minimum capacity of the next available higher stage"
-    annotation (Placement(transformation(extent={{200,-110},{240,-70}}),
-      iconTransformation(extent={{100,-100},{140,-60}})));
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Capacities
+    staCap3(
+    final nSta=3)
+    "Outputs design capacitites at the current and stage one lower"
+    annotation (Placement(transformation(extent={{140,0},{160,20}})));
 
 protected
-  final parameter Real small = 0.001
-  "Small number to avoid division with zero";
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant desStaCap[3](
+    final k={2e5,1e6,1.5e6})
+    "Design stage capacities"
+    annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
 
-  final parameter Real larGai = 10
-  "Large gain";
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minStaCap[3](
+    final k={4e4,2e5,3e5})
+    "Minimum stage capacities"
+    annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor cap(
-    final nin=nSta,
-    final outOfRangeValue=small,
-    final allowOutOfRange=true)
-    "Extracts the design capacity at the current stage"
-    annotation (Placement(transformation(extent={{-100,140},{-80,160}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage0(
+    final k=0)
+    "Boiler stage"
+    annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor dowCap(
-    final nin=nSta,
-    final outOfRangeValue=small,
-    final allowOutOfRange=true)
-    "Extracts the design capacity of one stage lower than the current stage"
-    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage1(
+    final k=1)
+    "Boiler stage"
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor upCapMin(
-    final nin=nSta,
-    final allowOutOfRange=true,
-    final outOfRangeValue=small)
-    "Extracts minimal capacity of the next higher stage"
-    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage2(
+    final k=2)
+    "Boiler stage"
+    annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor upCap(
-    final nin=nSta,
-    final allowOutOfRange=true,
-    final outOfRangeValue=small)
-    "Extracts the design capacity of the next stage"
-    annotation (Placement(transformation(extent={{0,70},{20,90}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
+    final k=true)
+    "Boolean signal"
+    annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor capMin(
-    final nin=nSta,
-    final outOfRangeValue=small,
-    final allowOutOfRange=true)
-    "Extracts the minimum capacity of the current stage"
-    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage3(
+    final k=3)
+    "Boiler stage"
+    annotation (Placement(transformation(extent={{100,20},{120,40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2
-    "Switch"
-    annotation (Placement(transformation(extent={{160,50},{180,70}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage4(
+    final k=3)
+    "Boiler stage"
+    annotation (Placement(transformation(extent={{100,-20},{120,0}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi4
-    "Switch"
-    annotation (Placement(transformation(extent={{160,-100},{180,-80}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage5(
+    final k=3)
+    "Boiler stage"
+    annotation (Placement(transformation(extent={{20,-20},{40,0}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1
-    "Outputs minimum current stage capacity as design stage down capacity if
-    operating in the lowest available stage"
-    annotation (Placement(transformation(extent={{100,10},{120,30}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage6(
+    final k=3)
+    "Boiler stage"
+    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(
-    final k=larGai)
-    "Ouputs a very large and unachievable staging up capacity when current is
-    the highest available stage"
-    annotation (Placement(transformation(extent={{-60,110},{-40,130}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage7(
+    final k=1)
+    "Boiler stage"
+    annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
+    final k=false)
+    "Boolean signal"
+    annotation (Placement(transformation(extent={{-140,-60},{-120,-40}})));
 
 equation
-  connect(swi2.y, yUpDes) annotation (Line(points={{182,60},{220,60}}, color={0,0,127}));
-  connect(upCap.y, swi2.u3) annotation (
-    Line(points={{22,80},{80,80},{80,52},{158,52}}, color={0,0,127}));
-  connect(yMin, yMin)
-    annotation (Line(points={{220,-20},{220,-20}}, color={0,0,127}));
-  connect(upCapMin.y, swi4.u3) annotation (Line(points={{22,-30},{40,-30},{40,-98},
-          {158,-98}}, color={0,0,127}));
-  connect(swi4.y, yUpMin) annotation (Line(points={{182,-90},{220,-90}}, color={0,0,127}));
-  connect(capMin.y, yMin) annotation (Line(points={{22,-70},{80,-70},{80,-20},{220,
-          -20}},      color={0,0,127}));
-  connect(dowCap.y, swi1.u3) annotation (Line(points={{-78,80},{-40,80},{-40,12},
-          {98,12}}, color={0,0,127}));
-  connect(uMinCap, upCapMin.u) annotation (Line(points={{-220,-180},{-120,-180},
-          {-120,-30},{-2,-30}}, color={0,0,127}));
-  connect(uMinCap, capMin.u) annotation (Line(points={{-220,-180},{-120,-180},{-120,
-          -70},{-2,-70}}, color={0,0,127}));
-  connect(uDesCap, cap.u) annotation (Line(points={{-220,180},{-120,180},{-120,150},
-          {-102,150}}, color={0,0,127}));
-  connect(uDesCap, dowCap.u) annotation (Line(points={{-220,180},{-140,180},{-140,
-          80},{-102,80}},                            color={0,0,127}));
-  connect(uDesCap, upCap.u) annotation (Line(points={{-220,180},{-20,180},{-20,80},
-          {-2,80}}, color={0,0,127}));
-  connect(uLow, swi1.u2) annotation (Line(points={{-220,-60},{-140,-60},{-140,20},
-          {98,20}},  color={255,0,255}));
-  connect(uHig, swi2.u2) annotation (Line(points={{-220,-120},{140,-120},{140,60},
-          {158,60}}, color={255,0,255}));
-  connect(uHig, swi4.u2) annotation (Line(points={{-220,-120},{140,-120},{140,-90},
-          {158,-90}}, color={255,0,255}));
-  connect(cap.y, gai.u) annotation (Line(points={{-78,150},{-70,150},{-70,120},{
-          -62,120}}, color={0,0,127}));
-  connect(gai.y, swi2.u1) annotation (Line(points={{-38,120},{100,120},{100,68},
-          {158,68}}, color={0,0,127}));
-  connect(gai.y, swi4.u1) annotation (Line(points={{-38,120},{60,120},{60,-82},{
-          158,-82}}, color={0,0,127}));
-  connect(swi1.y, yDowDes) annotation (Line(points={{122,20},{220,20}}, color={0,0,127}));
-  connect(u, cap.index) annotation (Line(points={{-220,120},{-90,120},{-90,138}},
-                 color={255,127,0}));
-  connect(uDown, dowCap.index) annotation (Line(points={{-220,0},{-90,0},{-90,68}},
-          color={255,127,0}));
-  connect(uUp, upCap.index) annotation (Line(points={{-220,60},{10,60},{10,68}},
-          color={255,127,0}));
-  connect(uUp, upCapMin.index) annotation (Line(points={{-220,60},{-60,60},{-60,
-          -50},{10,-50},{10,-42}}, color={255,127,0}));
-  connect(cap.y, yDes) annotation (Line(points={{-78,150},{220,150}},
-          color={0,0,127}));
-  connect(capMin.y, swi1.u1) annotation (Line(points={{22,-70},{80,-70},{80,28},
-          {98,28}},color={0,0,127}));
-  connect(u, capMin.index) annotation (Line(points={{-220,120},{-160,120},{-160,
-          -90},{10,-90},{10,-82}}, color={255,127,0}));
-  connect(yUpMin, yUpMin)
-    annotation (Line(points={{220,-90},{220,-90}}, color={0,0,127}));
-
-annotation (defaultComponentName = "cap",
-        Icon(graphics={
-        Rectangle(
-        extent={{-100,-100},{100,100}},
-        lineColor={0,0,127},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
-          textString="%name")}),
-        Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-200,-200},{200,200}})),
-Documentation(info="<html>
+  connect(stage0.y, staCap0.u)
+    annotation (Line(points={{-118,30},{-110,30},{-110,13},{-102,13}},
+      color={255,127,0}));
+  connect(stage1.y, staCap1.u)
+    annotation (Line(points={{-38,30},{-30,30},{-30,13},{-22,13}},
+      color={255,127,0}));
+  connect(stage2.y, staCap2.u)
+    annotation (Line(points={{42,30},{50,30},{50,13},{58,13}},
+      color={255,127,0}));
+  connect(stage3.y, staCap3.u)
+    annotation (Line(points={{122,30},{130,30},{130,13},{138,13}},
+      color={255,127,0}));
+  connect(stage0.y, staCap0.uDown) annotation (Line(points={{-118,30},{-110,30},
+          {-110,7},{-102,7}},   color={255,127,0}));
+  connect(staCap0.uUp, stage7.y) annotation (Line(points={{-102,10},{-116,10},{-116,
+          -10},{-118,-10}},      color={255,127,0}));
+  connect(stage0.y, staCap1.uDown) annotation (Line(points={{-118,30},{-70,30},{
+          -70,7},{-22,7}},     color={255,127,0}));
+  connect(stage6.y, staCap1.uUp) annotation (Line(points={{-38,-10},{-30,-10},{-30,
+          10},{-22,10}},     color={255,127,0}));
+  connect(stage1.y, staCap2.uDown) annotation (Line(points={{-38,30},{10,30},{10,
+          7},{58,7}},      color={255,127,0}));
+  connect(staCap2.uUp, stage5.y) annotation (Line(points={{58,10},{50,10},{50,-10},
+          {42,-10}},      color={255,127,0}));
+  connect(stage2.y, staCap3.uDown) annotation (Line(points={{42,30},{90,30},{90,
+          7},{138,7}},   color={255,127,0}));
+  connect(staCap3.uUp, stage4.y) annotation (Line(points={{138,10},{130,10},{130,
+          -10},{122,-10}},     color={255,127,0}));
+  connect(desStaCap.y, staCap0.uDesCap) annotation (Line(points={{-118,110},{
+          -106,110},{-106,19},{-102,19}}, color={0,0,127}));
+  connect(minStaCap.y, staCap0.uMinCap) annotation (Line(points={{-118,70},{-108,
+          70},{-108,16},{-102,16}},     color={0,0,127}));
+  connect(desStaCap.y, staCap1.uDesCap) annotation (Line(points={{-118,110},{
+          -24,110},{-24,19},{-22,19}}, color={0,0,127}));
+  connect(minStaCap.y, staCap1.uMinCap) annotation (Line(points={{-118,70},{-26,
+          70},{-26,16},{-22,16}}, color={0,0,127}));
+  connect(desStaCap.y, staCap2.uDesCap) annotation (Line(points={{-118,110},{54,
+          110},{54,19},{58,19}}, color={0,0,127}));
+  connect(minStaCap.y, staCap2.uMinCap) annotation (Line(points={{-118,70},{52,70},
+          {52,16},{58,16}},   color={0,0,127}));
+  connect(desStaCap.y, staCap3.uDesCap) annotation (Line(points={{-118,110},{
+          134,110},{134,19},{138,19}}, color={0,0,127}));
+  connect(staCap3.uMinCap, minStaCap.y) annotation (Line(points={{138,16},{132,16},
+          {132,70},{-118,70}}, color={0,0,127}));
+  connect(con1.y, staCap1.uHig) annotation (Line(points={{-118,-50},{-28,-50},{-28,
+          4},{-22,4}},     color={255,0,255}));
+  connect(con.y, staCap1.uLow) annotation (Line(points={{-118,-90},{-26,-90},{-26,
+          1},{-22,1}},     color={255,0,255}));
+  connect(staCap0.uHig, con1.y) annotation (Line(points={{-102,4},{-110,4},{-110,
+          -50},{-118,-50}},      color={255,0,255}));
+  connect(staCap0.uLow, con.y) annotation (Line(points={{-102,1},{-108,1},{-108,
+          -90},{-118,-90}}, color={255,0,255}));
+  connect(con1.y, staCap2.uHig) annotation (Line(points={{-118,-50},{52,-50},{52,
+          4},{58,4}},    color={255,0,255}));
+  connect(con1.y, staCap2.uLow) annotation (Line(points={{-118,-50},{54,-50},{54,
+          1},{58,1}},    color={255,0,255}));
+  connect(con.y, staCap3.uHig) annotation (Line(points={{-118,-90},{132,-90},{132,
+          4},{138,4}},     color={255,0,255}));
+  connect(con1.y, staCap3.uLow) annotation (Line(points={{-118,-50},{134,-50},{134,
+          1},{138,1}},     color={255,0,255}));
+annotation (
+ experiment(StopTime=10.0, Tolerance=1e-06),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/Validation/Capacities.mos"
+    "Simulate and plot"),
+  Documentation(info="<html>
 <p>
-This subsequence is not directly specified in 1711 as it provides
-a side calculation pertaining to generalization of the staging 
-sequences for any number of boilers and stages provided by the 
-user.
+This example validates
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Capacities\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Capacities</a>.
 </p>
-<p>
-Based on:
-</p>
-<ul>
-<li>
-the current boiler stage <code>u</code> index
-</li>
-<li>
-the next available higher boiler stage <code>uUp</code> index
-</li>
-<li>
-the next available lower boiler stage <code>uDown</code> index
-</li>
-<li>
-boolean inputs that determine if the current stage is 
-any of the following: the highest <code>uHigh</code> or the 
-lowest <code>uLow</code> available boiler stage
-</li>
-</ul>
-<p>
-the subsequence selects from the design stage capacity <code>uDesCap</code>
-and the minimal stage capacity <code>uMinCap</code> vectors 
-the following variables and outputs them:
-</p>
-<ul>
-<li>
-the design capacities of the current <code>yDes</code>, first available higher
-<code>yUpDes</code> and first available lower stage <code>yDowDes</code>
-</li>
-<li>
-the minimal capacity of the current <code>yMin</code> and first available higher 
-stage <code>yUpMin</code>
-</li>
-</ul>
-<p>
-for the purpose of calculations involved in staging the plant up and down.
-</p>
-<p>
-For numerical reasons and to ensure expected behavior in corner cases such as 
-when the plant operates at the highest or the lowest available stage, the
-sequence implements the following:
-</p>
-<p>
-<ul>
-<li>
-if operating at the lowest available boiler stage, the minimal capacity
-of that stage is returned as the stage down design capacity.
-</li>
-<li>
-if operating at the stage 0, the minimal and design capacity
-of that stage, as well as the stage down design capacity
-equals a small value, to avoid downstream division 0.
-</li>
-<li>
-if operating at the highest stage, the design and minimal stage up conditionals
-are set to a value significantly larger than the design capacity of the highest
-stage. This ensures numerical stability and satisfies the staging down conditionals.
-</li>
-</ul>
-</p>
-<p align=\"center\">
-<img alt=\"Validation plot for Capacities\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/Subsequences/Capacities.png\"/>
-<br/>
-Validation plot generated from model <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences.Validation.Capacities\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences.Validation.Capacities</a>.
-</p>
-</html>",
-revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 June 1, 2020, by Karthik Devaprasad:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+Icon(graphics={
+        Ellipse(lineColor = {75,138,73},
+                fillColor={255,255,255},
+                fillPattern = FillPattern.Solid,
+                extent = {{-100,-100},{100,100}}),
+        Polygon(lineColor = {0,0,255},
+                fillColor = {75,138,73},
+                pattern = LinePattern.None,
+                fillPattern = FillPattern.Solid,
+                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
+Diagram(coordinateSystem(preserveAspectRatio=false,
+  extent={{-180,-120},{180,140}})));
 end Capacities;

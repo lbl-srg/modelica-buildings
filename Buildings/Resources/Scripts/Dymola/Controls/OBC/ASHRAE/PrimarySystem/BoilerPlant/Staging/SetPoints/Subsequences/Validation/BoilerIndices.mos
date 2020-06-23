@@ -1,4 +1,4 @@
-simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences.Validation.BoilerIndices", method="Dassl", stopTime=10, tolerance=1e-06, resultFile="BoilerIndices");
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.BoilerIndices", method="Dassl", stopTime=10, tolerance=1e-06, resultFile="BoilerIndices");
 
 createPlot(id=1, position={20, 10, 800, 700}, subPlot=1, y={"boiInd.nSta", "boiInd.nBoi", "boiInd.u"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
 createPlot(id=1, position={20, 10, 800, 700}, subPlot=2, y={"boiInd.yBoi[1]", "boiInd.yBoi[2]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
@@ -29,4 +29,4 @@ createPlot(id=7, position={50, 40, 800, 700}, subPlot=3, y={"boiInd6.yBoi[1]", "
 createPlot(id=8, position={880, 40, 800, 700}, subPlot=1, y={"boiInd7.nSta", "boiInd7.nBoi", "boiInd7.u"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
 createPlot(id=8, position={880, 40, 800, 700}, subPlot=2, y={"boiInd7.staMat[5, 1]", "boiInd7.staMat[5, 2]", "boiInd7.staMat[5, 3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
 createPlot(id=8, position={880, 40, 800, 700}, subPlot=3, y={"boiInd7.yBoi[1]", "boiInd7.yBoi[2]", "boiInd7.yBoi[3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
-ExportPlotAsImage("./Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/Subsequences/BoilerIndices.png", 7, true, false);
+//ExportPlotAsImage("./Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/BoilerIndices.png", 7, true, false);

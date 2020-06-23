@@ -1,338 +1,408 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences.Validation;
-model Change
-  "Validates boiler stage status setpoint signal generation for boiler plants"
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences;
+block Change
+  "Calculates the boiler stage signal"
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences.Change
-    cha(
-    final nSta=10,
-    iniSta=0,
-    delayStaCha=600)
-    "Controls for stage up signal variations"
-    annotation (Placement(transformation(extent={{-40,180},{-20,200}})));
+  parameter Integer nSta = 3
+    "Number of boiler stages";
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences.Change
-    cha1(
-    final nSta=10,
-    iniSta=7,
-    delayStaCha=600)
-    "Controls for stage down signal variations"
-    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+  parameter Real iniSta = 1
+    "Initial boiler plant stage";
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences.Change
-    cha2(
-    nSta=10,
-    iniSta=3,
-    delayStaCha=600)
-    "Controls for stage up/stage down signal interaction"
-    annotation (Placement(transformation(extent={{-40,-180},{-20,-160}})));
+  parameter Real delStaCha(
+    final unit="s",
+    final displayUnit="s",
+    final quantity="Time") = 600
+    "Hold period for each stage change";
 
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
-    final trueHoldDuration=10,
-    final falseHoldDuration=0)
-    "Short true hold to have stage change edge signals be better visible"
-    annotation (Placement(transformation(extent={{0,120},{20,140}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla
+    "Plant enable signal"
+    annotation (Placement(transformation(extent={{-480,140},{-440,180}}),
+      iconTransformation(extent={{-140,60},{-100,100}})));
 
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol1(
-    final trueHoldDuration=10,
-    final falseHoldDuration=0)
-    "Short true hold to have stage change edge signals be better visible"
-    annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uUp
+    "Stage up signal"
+    annotation (Placement(transformation(extent={{-480,-60},{-440,-20}}),
+      iconTransformation(extent={{-140,-60},{-100,-20}})));
 
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol2(
-    final trueHoldDuration=10,
-    final falseHoldDuration=0)
-    "Short true hold to have stage change edge signals be better visible"
-    annotation (Placement(transformation(extent={{0,-240},{20,-220}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDow
+    "Stage down signal"
+    annotation (Placement(transformation(extent={{-480,-160},{-440,-120}}),
+      iconTransformation(extent={{-140,-100},{-100,-60}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uAvaUp(
+    final min=0,
+    final max=nSta)
+    "Next available stage up"
+    annotation (Placement(transformation(extent={{-480,80},{-440,120}}),
+      iconTransformation(extent={{-140,20},{-100,60}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uAvaDow(
+    final min=0,
+    final max=nSta)
+    "Next available stage down"
+    annotation (Placement(transformation(extent={{-480,0},{-440,40}}),
+      iconTransformation(extent={{-140,-20},{-100,20}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
+    "Boiler stage change edge signal"
+    annotation (Placement(transformation(extent={{440,-20},{480,20}}),
+      iconTransformation(extent={{100,-60},{140,-20}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput ySta(
+    final min=0,
+    final max = nSta)
+    "Boiler stage integer setpoint"
+    annotation (Placement(
+      transformation(extent={{440,140},{480,180}}),
+      iconTransformation(extent={{100,20},{140,60}})));
 
 protected
-  parameter Modelica.SIunits.Temperature TChiWatSupSet = 285.15
-  "Chilled water supply set temperature";
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+    final k=iniSta)
+    "Initial boiler stage"
+    annotation (Placement(transformation(extent={{262,210},{282,230}})));
 
-  parameter Modelica.SIunits.Temperature aveTChiWatRet = 288.15
-  "Average measured chilled water return temperature";
+  Buildings.Controls.OBC.CDL.Logical.Or or2
+    "Logical or"
+    annotation (Placement(transformation(extent={{-380,-100},{-360,-80}})));
 
-  parameter Modelica.SIunits.Time minStaRuntime = 900
-    "Minimum stage runtime";
+  Buildings.Controls.OBC.CDL.Logical.Edge edg1
+    "Boolean signal change"
+    annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
 
-  parameter Modelica.SIunits.VolumeFlowRate aveVChiWat_flow = 0.05
-    "Average measured chilled water flow rate";
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam
+    "Triggered sampler"
+    annotation (Placement(transformation(extent={{140,50},{160,70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timeTable(final table=
-       [0,0; 600,0; 600,1; 1200,1; 1200,0; 2500,0; 2500,1; 3700,1; 3700,0; 4300,
-        0; 4300,1; 4500,1; 4500,0; 6000,0; 6000,1; 9200,1; 9200,0; 12000,0;
-        12000,1; 14000,1; 14000,0])
-    "Stage up signal for the first exampe and stage down signal for the second example from the top"
-    annotation (Placement(transformation(extent={{-160,220},{-140,240}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
-    final threshold=0.5) "Greater than threshold"
-    annotation (Placement(transformation(extent={{-120,220},{-100,240}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch switch1
+    "Switch"
+    annotation (Placement(transformation(extent={{-200,50},{-180,70}})));
 
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
     "Type converter"
-    annotation (Placement(transformation(extent={{20,180},{40,200}})));
-
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol(
-    final samplePeriod=1) "Zero order hold"
-    annotation (Placement(transformation(extent={{60,180},{80,200}})));
+    annotation (Placement(transformation(extent={{-320,10},{-300,30}})));
 
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     "Type converter"
-    annotation (Placement(transformation(extent={{100,180},{120,200}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Add addInt(
-    final k1=+1) "Adder"
-    annotation (Placement(transformation(extent={{140,200},{160,220}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Add addInt1(
-    final k2=-1) "Adder"
-    annotation (Placement(transformation(extent={{140,160},{160,180}})));
+    annotation (Placement(transformation(extent={{400,150},{420,170}})));
 
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea1
     "Type converter"
-    annotation (Placement(transformation(extent={{20,0},{40,20}})));
+    annotation (Placement(transformation(extent={{-320,90},{-300,110}})));
 
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol1(
-    final samplePeriod=1) "Zero order hold"
-    annotation (Placement(transformation(extent={{60,0},{80,20}})));
+  Buildings.Controls.OBC.CDL.Logical.Latch lat(
+    final pre_y_start=true)
+    "Latch"
+    annotation (Placement(transformation(extent={{-320,50},{-300,70}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1
-    "Type converter"
-    annotation (Placement(transformation(extent={{100,0},{120,20}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold holIniSta(
+    final trueHoldDuration=delStaCha,
+    final falseHoldDuration=0)
+    "Holds stage switched to initial upon plant start"
+    annotation (Placement(transformation(extent={{-320,150},{-300,170}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Add addInt2(
-    final k1=+1) "Adder"
-    annotation (Placement(transformation(extent={{140,20},{160,40}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch switch2
+    "Switch"
+    annotation (Placement(transformation(extent={{340,190},{360,210}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Add addInt3(
-    final k2=-1) "Addder"
-    annotation (Placement(transformation(extent={{140,-20},{160,0}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or1
+    "Logical or"
+    annotation (Placement(transformation(extent={{120,-60},{140,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timeTable2(final
-      table=[0,0; 800,0; 800,1; 2700,1; 2700,0; 4500,0; 4500,1; 5200,1; 5200,0;
-        6000,0; 6000,1; 6900,1; 6900,0; 7800,0; 7800,1; 8700,1; 8700,0; 12000,0;
-        12000,1; 14000,1; 14000,0])
-    "Stage up signal, if simultaneous stage up and down signals are generated the plant will stage down"
-    annotation (Placement(transformation(extent={{-160,-140},{-140,-120}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr2(
-    final threshold=0.5) "Greater threshold"
-    annotation (Placement(transformation(extent={{-120,-140},{-100,-120}})));
-
-  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea2
-    "Type converter"
+  Buildings.Controls.OBC.CDL.Logical.Edge edg2
+    "Boolean signal change"
     annotation (Placement(transformation(extent={{20,-180},{40,-160}})));
 
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol2(
-    final samplePeriod=1) "Zero order hold"
-    annotation (Placement(transformation(extent={{60,-180},{80,-160}})));
+  Buildings.Controls.OBC.CDL.Logical.And and2
+    "Ensures the stage is changed at high load increases/decreases where a stage
+    up or a stage down signal is uninterrupted after a single stage change as 
+    another one is needed right away"
+    annotation (Placement(transformation(extent={{80,-180},{100,-160}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt2
-    "Type converter"
-    annotation (Placement(transformation(extent={{100,-180},{120,-160}})));
+  Buildings.Controls.OBC.CDL.Logical.Timer tim(
+    final accumulate=false)
+    "Timer"
+    annotation (Placement(transformation(extent={{-20,-240},{0,-220}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Add addInt4(
-    final k1=+1) "Adder"
-    annotation (Placement(transformation(extent={{140,-160},{160,-140}})));
+  Buildings.Controls.OBC.CDL.Logical.And and1
+    "Ensures the stage is changed at high load increases/decreases where a stage
+    up or a stage down signal is uninterrupted after a single stage change as 
+    another one is needed right away"
+    annotation (Placement(transformation(extent={{-80,-200},{-60,-180}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Add addInt5(
-    final k2=-1) "Adder"
-    annotation (Placement(transformation(extent={{140,-200},{160,-180}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre pre
+    "Previous value"
+    annotation (Placement(transformation(extent={{60,-240},{80,-220}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr3(
-    final threshold=0.5) "Greater than threshold"
-    annotation (Placement(transformation(extent={{-120,-180},{-100,-160}})));
+  Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr(
+    final threshold=delStaCha)
+    "Less equal threshold"
+    annotation (Placement(transformation(extent={{20,-240},{40,-220}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noStaChaSig(
-    final k=false)
-    "No stage change signal"
-    annotation (Placement(transformation(extent={{-200,100},{-180,120}})));
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam1
+    "Triggered sampler"
+    annotation (Placement(transformation(extent={{240,0},{260,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timeTable1(final
-      table=[0,0; 1600,0; 1600,1; 2400,1; 2400,0; 3700,0; 3700,1; 5900,1; 5900,
-        0; 6900,0; 6900,1; 7800,1; 7800,0; 12000,0; 12000,1; 14000,1; 14000,0])
-    "Stage down signal"
-    annotation (Placement(transformation(extent={{-160,-180},{-140,-160}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Max maxInt "Maximum"
-    annotation (Placement(transformation(extent={{180,140},{200,160}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Max maxInt1 "Maximum"
-    annotation (Placement(transformation(extent={{180,-40},{200,-20}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Max maxInt2 "Maximum"
-    annotation (Placement(transformation(extent={{180,-220},{200,-200}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant step(final k=1)
-    "Assuming that the next available stage is always the next stage"
-    annotation (Placement(transformation(extent={{100,220},{120,240}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant step1(final k=1)
-    "Assuming that the next available stage is always the next stage"
-    annotation (Placement(transformation(extent={{100,40},{120,60}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant step2(final k=1)
-    "Assuming that the next available stage is always the next stage"
-    annotation (Placement(transformation(extent={{100,-140},{120,-120}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant u3(final k=0)
-    "Chiller stage"
-    annotation (Placement(transformation(extent={{140,120},{160,140}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant u4(final k=0)
-    "Chiller stage"
-    annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant u5(final k=0)
-    "Chiller stage"
-    annotation (Placement(transformation(extent={{140,-240},{160,-220}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timeTable3(
-    final table=[0,0; 10,0; 10,1; 11000,1; 11000,0; 12000,0; 12000,1; 14000,1;
-        14000,0])
-    "Plant enable"
-    annotation (Placement(transformation(extent={{-200,20},{-180,40}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
+    "Boolean to Real conversion"
+    annotation (Placement(transformation(extent={{200,0},{220,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
-    final threshold=0.5) "Greater than threshold"
-    annotation (Placement(transformation(extent={{-160,20},{-140,40}})));
+    final threshold=0.5)
+    "Check if plant is still enabled"
+    annotation (Placement(transformation(extent={{280,0},{300,20}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Latch lat1
+    "Ensures initial stage is held until the first stage change signal after the
+    initial stage phase is over"
+    annotation (Placement(transformation(extent={{102,150},{122,170}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and3
+    "And"
+    annotation (Placement(transformation(extent={{280,90},{300,110}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Not not2
+    "Not"
+    annotation (Placement(transformation(extent={{340,10},{360,30}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and5
+    "And"
+    annotation (Placement(transformation(extent={{400,-10},{420,10}})));
+
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold staChaHol1(
+    final trueHoldDuration=delStaCha,
+    final falseHoldDuration=0)
+    "Ensures stage change delay is kept at long stage up or down signals that
+    cause multiple consecutive stage changes "
+    annotation (Placement(transformation(extent={{-20,-180},{0,-160}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Edge edg
+    "Detects plant start"
+    annotation (Placement(transformation(extent={{-380,150},{-360,170}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Not not3
+    "Logical not"
+    annotation (Placement(transformation(extent={{-220,-70},{-200,-50}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And3 and6
+    "Logical not"
+    annotation (Placement(transformation(extent={{-160,-90},{-140,-70}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Or or3
+    "Logical or"
+    annotation (Placement(transformation(extent={{220,-60},{240,-40}})));
+
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
+    "Detects plant disable"
+    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
+
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold staChaHol2(
+    final trueHoldDuration=0,
+    final falseHoldDuration=delStaCha)
+    "Stage change hold"
+    annotation (Placement(transformation(extent={{120,-20},{140,0}})));
+
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold staChaHol3(
+    final trueHoldDuration=delStaCha,
+    final falseHoldDuration=0)
+    "Stage change hold"
+    annotation (Placement(transformation(extent={{340,-118},{360,-98}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Not not1
+    "Logical not"
+    annotation (Placement(transformation(extent={{378,-118},{398,-98}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Pre pre1
+    "Previous value"
+    annotation (Placement(transformation(extent={{406,-118},{426,-98}})));
+
 equation
-  connect(timeTable.y[1], greThr.u)
-    annotation (Line(points={{-138,230},{-122,230}}, color={0,0,127}));
-  connect(cha.ySta, intToRea.u) annotation (Line(points={{-18,194},{0,194},{0,
-          190},{18,190}},
-                     color={255,127,0}));
-  connect(intToRea.y, zerOrdHol.u)
-    annotation (Line(points={{42,190},{58,190}}, color={0,0,127}));
-  connect(zerOrdHol.y, reaToInt.u)
-    annotation (Line(points={{82,190},{98,190}}, color={0,0,127}));
-  connect(reaToInt.y, addInt.u2) annotation (Line(points={{122,190},{130,190},{
-          130,204},{138,204}},
-                           color={255,127,0}));
-  connect(reaToInt.y, addInt1.u1) annotation (Line(points={{122,190},{130,190},
-          {130,176},{138,176}},color={255,127,0}));
-  connect(step.y, addInt.u1) annotation (Line(points={{122,230},{130,230},{130,
-          216},{138,216}},
-                      color={255,127,0}));
-  connect(step.y, addInt1.u2) annotation (Line(points={{122,230},{126,230},{126,
-          164},{138,164}}, color={255,127,0}));
-  connect(addInt.y, cha.uAvaUp) annotation (Line(points={{162,210},{170,210},{170,
-          250},{-50,250},{-50,194},{-42,194}}, color={255,127,0}));
-  connect(cha1.ySta, intToRea1.u) annotation (Line(points={{-18,14},{0,14},{0,
-          10},{18,10}},
-                     color={255,127,0}));
-  connect(intToRea1.y, zerOrdHol1.u)
-    annotation (Line(points={{42,10},{58,10}},   color={0,0,127}));
-  connect(zerOrdHol1.y, reaToInt1.u)
-    annotation (Line(points={{82,10},{98,10}},   color={0,0,127}));
-  connect(reaToInt1.y, addInt2.u2) annotation (Line(points={{122,10},{130,10},{
-          130,24},{138,24}},color={255,127,0}));
-  connect(reaToInt1.y, addInt3.u1) annotation (Line(points={{122,10},{130,10},{
-          130,-4},{138,-4}},    color={255,127,0}));
-  connect(step1.y, addInt2.u1) annotation (Line(points={{122,50},{130,50},{130,
-          36},{138,36}},
-                     color={255,127,0}));
-  connect(step1.y, addInt3.u2) annotation (Line(points={{122,50},{126,50},{126,
-          -16},{138,-16}},
-                      color={255,127,0}));
-  connect(addInt2.y, cha1.uAvaUp) annotation (Line(points={{162,30},{170,30},{170,
-          70},{-50,70},{-50,14},{-42,14}}, color={255,127,0}));
-  connect(timeTable2.y[1], greThr2.u)
-    annotation (Line(points={{-138,-130},{-122,-130}}, color={0,0,127}));
-  connect(cha2.ySta, intToRea2.u) annotation (Line(points={{-18,-166},{0,-166},
-          {0,-170},{18,-170}},color={255,127,0}));
-  connect(intToRea2.y, zerOrdHol2.u)
-    annotation (Line(points={{42,-170},{58,-170}}, color={0,0,127}));
-  connect(zerOrdHol2.y, reaToInt2.u)
-    annotation (Line(points={{82,-170},{98,-170}}, color={0,0,127}));
-  connect(reaToInt2.y, addInt4.u2) annotation (Line(points={{122,-170},{130,
-          -170},{130,-156},{138,-156}},
-                                  color={255,127,0}));
-  connect(reaToInt2.y, addInt5.u1) annotation (Line(points={{122,-170},{130,
-          -170},{130,-184},{138,-184}},
-                                  color={255,127,0}));
-  connect(step2.y, addInt4.u1) annotation (Line(points={{122,-130},{130,-130},{
-          130,-144},{138,-144}},
-                             color={255,127,0}));
-  connect(step2.y, addInt5.u2) annotation (Line(points={{122,-130},{126,-130},{
-          126,-196},{138,-196}},
-                             color={255,127,0}));
-  connect(addInt4.y, cha2.uAvaUp) annotation (Line(points={{162,-150},{170,-150},
-          {170,-110},{-50,-110},{-50,-166},{-42,-166}}, color={255,127,0}));
-  connect(noStaChaSig.y, cha.uDow) annotation (Line(points={{-178,110},{-170,110},
-          {-170,182},{-42,182}}, color={255,0,255}));
-  connect(noStaChaSig.y, cha1.uUp) annotation (Line(points={{-178,110},{-170,110},
-          {-170,60},{-80,60},{-80,6},{-42,6}},     color={255,0,255}));
-  connect(greThr.y, cha.uUp) annotation (Line(points={{-98,230},{-70,230},{-70,186},
-          {-42,186}}, color={255,0,255}));
-  connect(greThr2.y, cha2.uUp) annotation (Line(points={{-98,-130},{-80,-130},{
-          -80,-174},{-42,-174}},
+  connect(reaToInt.y,ySta)
+    annotation (Line(points={{422,160},{460,160}}, color={255,127,0}));
+  connect(switch1.y,triSam. u)
+    annotation (Line(points={{-178,60},{138,60}},  color={0,0,127}));
+  connect(intToRea1.y,switch1. u1) annotation (Line(points={{-298,100},{-220,100},
+          {-220,68},{-202,68}}, color={0,0,127}));
+  connect(intToRea.y,switch1. u3) annotation (Line(points={{-298,20},{-220,20},{
+          -220,52},{-202,52}},  color={0,0,127}));
+  connect(edg.y,holIniSta. u)
+    annotation (Line(points={{-358,160},{-322,160}},
+                                                  color={255,0,255}));
+  connect(triSam.y,switch2. u3) annotation (Line(points={{162,60},{170,60},{170,
+          192},{338,192}},     color={0,0,127}));
+  connect(edg2.y,and2. u1) annotation (Line(points={{42,-170},{78,-170}},
                              color={255,0,255}));
-  connect(greThr3.y, cha2.uDow) annotation (Line(points={{-98,-170},{-90,-170},
-          {-90,-178},{-42,-178}},color={255,0,255}));
-  connect(greThr.y, cha1.uDow) annotation (Line(points={{-98,230},{-64,230},{-64,
-          2},{-42,2}},     color={255,0,255}));
-  connect(timeTable1.y[1], greThr3.u)
-    annotation (Line(points={{-138,-170},{-122,-170}}, color={0,0,127}));
-  connect(cha.y, truFalHol.u) annotation (Line(points={{-18,186},{-10,186},{-10,
-          130},{-2,130}}, color={255,0,255}));
-  connect(cha1.y, truFalHol1.u) annotation (Line(points={{-18,6},{-10,6},{-10,
-          -50},{-2,-50}}, color={255,0,255}));
-  connect(cha2.y, truFalHol2.u) annotation (Line(points={{-18,-174},{-10,-174},
-          {-10,-230},{-2,-230}},color={255,0,255}));
-  connect(addInt1.y, maxInt.u1) annotation (Line(points={{162,170},{170,170},{
-          170,156},{178,156}}, color={255,127,0}));
-  connect(maxInt.u2, u3.y) annotation (Line(points={{178,144},{170,144},{170,
-          130},{162,130}}, color={255,127,0}));
-  connect(maxInt.y, cha.uAvaDow) annotation (Line(points={{202,150},{210,150},{210,
-          110},{-50,110},{-50,190},{-42,190}},     color={255,127,0}));
-  connect(addInt3.y, maxInt1.u1) annotation (Line(points={{162,-10},{170,-10},{
-          170,-24},{178,-24}}, color={255,127,0}));
-  connect(u4.y, maxInt1.u2) annotation (Line(points={{162,-50},{170,-50},{170,
-          -36},{178,-36}}, color={255,127,0}));
-  connect(maxInt1.y, cha1.uAvaDow) annotation (Line(points={{202,-30},{208,-30},
-          {208,-70},{-50,-70},{-50,10},{-42,10}}, color={255,127,0}));
-  connect(addInt5.y, maxInt2.u1) annotation (Line(points={{162,-190},{170,-190},
-          {170,-204},{178,-204}}, color={255,127,0}));
-  connect(u5.y, maxInt2.u2) annotation (Line(points={{162,-230},{170,-230},{170,
-          -216},{178,-216}}, color={255,127,0}));
-  connect(maxInt2.y, cha2.uAvaDow) annotation (Line(points={{202,-210},{208,
-          -210},{208,-252},{-50,-252},{-50,-170},{-42,-170}}, color={255,127,0}));
-  connect(timeTable3.y[1], greThr1.u)
-    annotation (Line(points={{-178,30},{-162,30}}, color={0,0,127}));
-  connect(greThr1.y, cha.uPla) annotation (Line(points={{-138,30},{-130,30},{-130,
-          198},{-42,198}},      color={255,0,255}));
-  connect(greThr1.y, cha1.uPla) annotation (Line(points={{-138,30},{-130,30},{-130,
-          18},{-42,18}},    color={255,0,255}));
-  connect(greThr1.y, cha2.uPla) annotation (Line(points={{-138,30},{-88,30},{
-          -88,-162},{-42,-162}}, color={255,0,255}));
-annotation (
- experiment(StopTime=14000.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/Subsequences/Validation/Change.mos"
-    "Simulate and plot"),
-  Documentation(info="<html>
-<p>
-This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences.Change\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences.Change</a>.
-</p>
-</html>", revisions="<html>
-<ul>
-<li>
-May 31, 2020, by Karthik Devaprasad:<br/>
-First implementation.
-</li>
-</ul>
-</html>"),
-Icon(graphics={
-        Ellipse(lineColor = {75,138,73},
-                fillColor={255,255,255},
-                fillPattern = FillPattern.Solid,
-                extent = {{-100,-100},{100,100}}),
-        Polygon(lineColor = {0,0,255},
-                fillColor = {75,138,73},
-                pattern = LinePattern.None,
-                fillPattern = FillPattern.Solid,
-                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-220,-280},{220,300}})));
+  connect(and2.y,or1. u2) annotation (Line(points={{102,-170},{110,-170},{110,-58},
+          {118,-58}},                   color={255,0,255}));
+  connect(tim.y,lesEquThr. u) annotation (Line(points={{2,-230},{18,-230}},
+                                 color={0,0,127}));
+  connect(lesEquThr.y,pre. u) annotation (Line(points={{42,-230},{58,-230}},
+                      color={255,0,255}));
+  connect(pre.y,and1. u2) annotation (Line(points={{82,-230},{100,-230},{100,-260},
+          {-100,-260},{-100,-198},{-82,-198}},
+                                        color={255,0,255}));
+  connect(and1.y,tim. u) annotation (Line(points={{-58,-190},{-40,-190},{-40,-230},
+          {-22,-230}},       color={255,0,255}));
+  connect(triSam1.u,booToRea. y)
+    annotation (Line(points={{238,10},{222,10}},   color={0,0,127}));
+  connect(triSam1.y,greThr1. u)
+    annotation (Line(points={{262,10},{278,10}},   color={0,0,127}));
+  connect(edg.y,lat1. u) annotation (Line(points={{-358,160},{-340,160},{-340,180},
+          {80,180},{80,160},{100,160}},
+                                 color={255,0,255}));
+  connect(switch2.y,reaToInt. u)
+    annotation (Line(points={{362,200},{380,200},{380,160},{398,160}},
+                                                 color={0,0,127}));
+  connect(greThr1.y,and3. u2) annotation (Line(points={{302,10},{320,10},{320,60},
+          {260,60},{260,92},{278,92}},       color={255,0,255}));
+  connect(and3.y,lat1. clr) annotation (Line(points={{302,100},{320,100},{320,140},
+          {80,140},{80,154},{100,154}},
+                                      color={255,0,255}));
+  connect(not2.y,and5. u1) annotation (Line(points={{362,20},{380,20},{380,0},{398,
+          0}},        color={255,0,255}));
+  connect(and1.y,staChaHol1. u) annotation (Line(points={{-58,-190},{-40,-190},{
+          -40,-170},{-22,-170}},
+                               color={255,0,255}));
+  connect(staChaHol1.y,edg2. u)
+    annotation (Line(points={{2,-170},{18,-170}},    color={255,0,255}));
+  connect(uUp, lat.u) annotation (Line(points={{-460,-40},{-380,-40},{-380,60},{
+          -322,60}}, color={255,0,255}));
+  connect(uDow, lat.clr) annotation (Line(points={{-460,-140},{-340,-140},{-340,
+          54},{-322,54}}, color={255,0,255}));
+  connect(uUp, or2.u1) annotation (Line(points={{-460,-40},{-400,-40},{-400,-90},
+          {-382,-90}}, color={255,0,255}));
+  connect(uDow, or2.u2) annotation (Line(points={{-460,-140},{-400,-140},{-400,-98},
+          {-382,-98}}, color={255,0,255}));
+  connect(uAvaUp, intToRea1.u)
+    annotation (Line(points={{-460,100},{-322,100}}, color={255,127,0}));
+  connect(uAvaDow, intToRea.u)
+    annotation (Line(points={{-460,20},{-322,20}}, color={255,127,0}));
+  connect(holIniSta.y, not3.u) annotation (Line(points={{-298,160},{-230,160},{-230,
+          -60},{-222,-60}},      color={255,0,255}));
+  connect(not3.y, and6.u1) annotation (Line(points={{-198,-60},{-180,-60},{-180,
+          -72},{-162,-72}},                       color={255,0,255}));
+  connect(or2.y, and6.u2) annotation (Line(points={{-358,-90},{-180,-90},{-180,
+          -80},{-162,-80}}, color={255,0,255}));
+  connect(and6.y, and1.u1) annotation (Line(points={{-138,-80},{-100,-80},{-100,
+          -190},{-82,-190}},  color={255,0,255}));
+  connect(and6.y, and2.u2) annotation (Line(points={{-138,-80},{-80,-80},{-80,-140},
+          {60,-140},{60,-178},{78,-178}},    color={255,0,255}));
+  connect(and6.y, edg1.u)
+    annotation (Line(points={{-138,-80},{-2,-80}}, color={255,0,255}));
+  connect(uPla, booToRea.u) annotation (Line(points={{-460,160},{-400,160},{-400,
+          120},{40,120},{40,10},{198,10}},      color={255,0,255}));
+  connect(or3.y, triSam1.trigger) annotation (Line(points={{242,-50},{250,-50},
+          {250,-1.8}}, color={255,0,255}));
+  connect(uPla, falEdg.u) annotation (Line(points={{-460,160},{-420,160},{-420,-20},
+          {0,-20},{0,-30},{38,-30}},      color={255,0,255}));
+  connect(falEdg.y, or3.u1) annotation (Line(points={{62,-30},{210,-30},{210,
+          -50},{218,-50}}, color={255,0,255}));
+  connect(uPla, edg.u)
+    annotation (Line(points={{-460,160},{-382,160}}, color={255,0,255}));
+  connect(lat.y, switch1.u2)
+    annotation (Line(points={{-298,60},{-202,60}}, color={255,0,255}));
+  connect(and3.u1, and6.y) annotation (Line(points={{278,100},{-100,100},{-100,-80},
+          {-138,-80}}, color={255,0,255}));
+  connect(and5.y, y)
+    annotation (Line(points={{422,0},{460,0}}, color={255,0,255}));
+  connect(lat1.y, switch2.u2) annotation (Line(points={{124,160},{160,160},{160,
+          200},{338,200}}, color={255,0,255}));
+  connect(lat1.y, not2.u) annotation (Line(points={{124,160},{330,160},{330,20},
+          {338,20}}, color={255,0,255}));
+  connect(or1.y, staChaHol2.u) annotation (Line(points={{142,-50},{152,-50},{152,
+          -24},{100,-24},{100,-10},{118,-10}}, color={255,0,255}));
+  connect(staChaHol2.y, triSam.trigger) annotation (Line(points={{142,-10},{150,
+          -10},{150,48.2}}, color={255,0,255}));
+  connect(edg1.y, or1.u1) annotation (Line(points={{22,-80},{40,-80},{40,-50},{118,
+          -50}}, color={255,0,255}));
+  connect(staChaHol2.y, and5.u2) annotation (Line(points={{142,-10},{270,-10},{270,
+          -8},{398,-8}}, color={255,0,255}));
+  connect(edg1.y, or3.u2) annotation (Line(points={{22,-80},{210,-80},{210,-58},
+          {218,-58}}, color={255,0,255}));
+  connect(and5.y, staChaHol3.u) annotation (Line(points={{422,0},{426,0},{426,
+          -82},{282,-82},{282,-108},{338,-108}}, color={255,0,255}));
+  connect(staChaHol3.y, not1.u)
+    annotation (Line(points={{362,-108},{376,-108}}, color={255,0,255}));
+  connect(not1.y, pre1.u)
+    annotation (Line(points={{400,-108},{404,-108}}, color={255,0,255}));
+  connect(pre1.y, and6.u3) annotation (Line(points={{428,-108},{428,-286},{-170,
+          -286},{-170,-88},{-162,-88}}, color={255,0,255}));
+  connect(con.y, switch2.u1) annotation (Line(points={{284,220},{310,220},{310,208},
+          {338,208}}, color={0,0,127}));
+  annotation (defaultComponentName = "cha",
+    Icon(graphics={
+      Rectangle(
+        extent={{-100,-100},{100,100}},
+        lineColor={0,0,127},
+        fillColor={255,255,255},
+        fillPattern=FillPattern.Solid),
+      Text(
+        extent={{-112,150},{108,112}},
+        lineColor={0,0,255},
+        textString="%name")}),
+    Diagram(
+      coordinateSystem(preserveAspectRatio=false,
+      extent={{-440,-300},{440,300}})),
+    Documentation(info="<html>
+    <p>
+    This subsequence is not directly specified in 1711 as it provides a side
+    calculation pertaining to generalization of the staging sequences for any
+    number of boilers and stages provided by the user.
+    </p>
+    <p>This subsequence is used to generate the boiler stage setpoint 
+    <span style=\"font-family: monospace;\">ySta</span> and a boolean vector of
+    boiler status setpoint indices <span style=\"font-family: monospace;\">y</span>
+    for the <span style=\"font-family: monospace;\">ySta</span> stage. </p>
+    <p>The inputs to the subsequece are: </p>
+    <ul>
+    <li>
+    Plant enable status <span style=\"font-family: monospace;\">uPla</span> that
+    is generated by <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.PlantEnable\">Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.PlantEnable</a> subsequence. 
+    </li>
+    <li>
+    Stage up <span style=\"font-family: monospace;\">uUp</span> and down 
+    <span style=\"font-family: monospace;\">uDow</span> boolean signals that are
+    generated by <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Up\">Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Up</a>
+    and <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Down\">Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Down</a> subsequences, respectively.
+    </li>
+    <li>
+    Integer index of next available higher <span style=\"font-family: monospace;\">uAvaUp</span>
+    and lower <span style=\"font-family: monospace;\">uAvaDow</span> boiler stage,
+    as calculated by
+    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Status\">Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Status</a>
+    subsequence.
+    </li>
+    </ul>
+    <p>
+    If stage down and stage up happen at the same time for any faulty reason the
+    staging down is performed.
+    </p>
+    <p>
+    If stage down or stage up signal is held for a time longer than <code>delStaCha</code>
+    multiple consecutive stage change signals are issued.
+    </p>
+    <p>
+    At plant enable the intial stage is held for at least <code>delStaCha</code>
+    and until any stage up or down signal is generated.
+    </p>
+    <p>
+    Per 1711 March 2020 Draft 5.3.3.10.1, each stage shall have a minimum
+    runtime of <span style=\"font-family: monospace;\">delStaCha</span>. 
+    </p>
+    <p align=\"center\">
+    <img alt=\"Validation plot for Change\"
+    src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/Change.png\"/>
+    <br/>
+    Validation plot generated from model <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.Change\">
+    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.Change</a>.
+    </p>
+    </html>",
+    revisions="<html>
+    <ul>
+    <li>
+    May 29, 2020, by Karthik Devaprasad:<br/>
+    First implementation.
+    </li>
+    </ul>
+    </html>"));
 end Change;

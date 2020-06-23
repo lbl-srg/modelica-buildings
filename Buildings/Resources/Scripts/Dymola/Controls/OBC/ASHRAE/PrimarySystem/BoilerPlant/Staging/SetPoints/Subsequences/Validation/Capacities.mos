@@ -1,4 +1,4 @@
-simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences.Validation.Capacities", method="Dassl", stopTime=10, tolerance=1e-06, resultFile="Capacities");
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.Capacities", method="Dassl", stopTime=10, tolerance=1e-06, resultFile="Capacities");
 
 createPlot(id=1, position={20, 10, 1200, 650}, subPlot=1, y={"staCap0.uDesCap[1]", "staCap0.uDesCap[2]", "staCap0.uDesCap[3]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
 createPlot(id=1, position={20, 10, 1200, 650}, subPlot=2, y={"staCap0.uMinCap[1]", "staCap0.uMinCap[2]", "staCap0.uMinCap[3]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
@@ -18,4 +18,4 @@ createPlot(id=4, position={20, 10, 1200, 650}, subPlot=3, y={"staCap2.yDes", "st
 createPlot(id=5, position={20, 10, 1200, 650}, subPlot=1, y={"staCap3.uLow", "staCap3.uHig"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
 createPlot(id=5, position={20, 10, 1200, 650}, subPlot=2, y={"staCap3.nSta", "staCap3.u", "staCap3.uUp", "staCap3.uDown"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {77, 25, 0}});
 createPlot(id=5, position={20, 10, 1200, 650}, subPlot=3, y={"staCap3.yDes", "staCap3.yDowDes", "staCap3.yUpDes", "staCap3.yMin", "staCap3.yUpMin"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {77, 25, 0}, {255, 0, 43}});
-ExportPlotAsImage("./Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/Subsequences/Capacities.png", 3, true, false);
+//ExportPlotAsImage("./Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/Capacities.png", 3, true, false);
