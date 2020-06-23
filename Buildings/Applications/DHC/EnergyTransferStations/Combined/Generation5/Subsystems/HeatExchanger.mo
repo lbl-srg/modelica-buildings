@@ -2,9 +2,9 @@ within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Su
 model HeatExchanger
   "Base subsystem for interconnection with district system based on intermediary heat exchanger"
   extends Fluid.Interfaces.PartialFourPortInterface(
-    final m1_flow_nominal=abs(QHex_flow_nominal / cp1_default /
+    final m1_flow_nominal=abs(QHex_flow_nominal / 4200 /
                               (T_b1Hex_nominal - T_a1Hex_nominal)),
-    final m2_flow_nominal=abs(QHex_flow_nominal / cp2_default /
+    final m2_flow_nominal=abs(QHex_flow_nominal / 4200 /
                               (T_b2Hex_nominal - T_a2Hex_nominal)));
   parameter Boolean have_val1Hex
     "Set to true in case of control valve on district side, false in case of a pump"
@@ -172,23 +172,6 @@ model HeatExchanger
     final nin=if have_val1Hex then 1 else 2)
     "Total pump power"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
-protected
-  final parameter Medium1.ThermodynamicState sta1_default = Medium1.setState_pTX(
-    T=Medium1.T_default,
-    p=Medium1.p_default,
-    X=Medium1.X_default[1:Medium1.nXi])
-    "Medium state at default properties";
-  final parameter Modelica.SIunits.SpecificHeatCapacity cp1_default=
-    Medium1.specificHeatCapacityCp(sta1_default)
-    "Specific heat capacity of the fluid";
-  final parameter Medium2.ThermodynamicState sta2_default = Medium2.setState_pTX(
-    T=Medium2.T_default,
-    p=Medium2.p_default,
-    X=Medium2.X_default[1:Medium2.nXi])
-    "Medium state at default properties";
-  final parameter Modelica.SIunits.SpecificHeatCapacity cp2_default=
-    Medium2.specificHeatCapacityCp(sta2_default)
-    "Specific heat capacity of the fluid";
 equation
   if not have_val1Hex then
     connect(senT1HexWatLvg.port_b, port_b1)

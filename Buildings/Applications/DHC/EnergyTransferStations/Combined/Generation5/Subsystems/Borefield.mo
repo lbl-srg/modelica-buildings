@@ -12,8 +12,7 @@ model Borefield "Auxiliary subsystem with geothermal borefield"
     "Wall heat transfer"
     annotation (choicesAllMatching=true);
 
-  parameter Fluid.Geothermal.Borefields.Data.Borefield.Template dat(
-    conDat(final dp_nominal=0))
+  parameter Fluid.Geothermal.Borefields.Data.Borefield.Template dat
     "Borefield parameters"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
@@ -102,6 +101,13 @@ model Borefield "Auxiliary subsystem with geothermal borefield"
     final spePumBorMin=spePumBorMin)
     "Controller"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
+initial equation
+  assert(abs(dat.conDat.dp_nominal) < Modelica.Constants.eps,
+    "In " + getInstanceName() +
+    ": dp_nominal in the parameter record should be set to zero as the nominal
+    pressure drop is lumped in the valve model. Use the exposed parameter
+    dp_nominal instead.",
+    level = AssertionLevel.warning);
 equation
   connect(pum.port_b, senTEnt.port_a)
     annotation (Line(points={{-30,0},{-20,0}}, color={0,127,255}));
