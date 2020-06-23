@@ -1,12 +1,13 @@
-within Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Validation;
+within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation;
 model ModeAndSetPoints
   "Validation models of reseting the zone setpoint temperature"
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints setPoi(
-      cooAdj=true, heaAdj=true) "Output resetted zone setpoint remperature"
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.ModeAndSetPoints
+    setPoi(cooAdj=true, heaAdj=true)
+    "Output resetted zone setpoint remperature"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints setPoi1(
-      have_occSen=true, have_winSen=true)
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.ModeAndSetPoints
+    setPoi1(have_occSen=true, have_winSen=true)
     "Output resetted zone setpoint remperature"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
 
@@ -41,12 +42,13 @@ model ModeAndSetPoints
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant occSen2(k=true)
     "Occupancy sensor"
     annotation (Placement(transformation(extent={{-46,-40},{-26,-20}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints setPoi3(
-      have_occSen=true, have_winSen=true)
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.ModeAndSetPoints
+    setPoi3(have_occSen=true, have_winSen=true)
     "Output resetted zone setpoint remperature"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints setPoi2(
-      cooAdj=true, heaAdj=true) "Output resetted zone setpoint remperature"
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.ModeAndSetPoints
+    setPoi2(cooAdj=true, heaAdj=true)
+    "Output resetted zone setpoint remperature"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
 
 equation
@@ -57,41 +59,41 @@ equation
     annotation (Line(points={{-24,10},{-16,10},{-16,77},{18,77}},
       color={0,0,127}));
 
-  connect(occSen2.y, setPoi3.uOccSen) annotation (Line(points={{-24,-30},{-2,-30},
-          {-2,-56},{18,-56}},      color={255,0,255}));
+  connect(occSen2.y, setPoi3.uOccSen) annotation (Line(points={{-24,-30},{-2,
+          -30},{-2,-59},{18,-59}}, color={255,0,255}));
   connect(winSta2.y, setPoi3.uWinSta) annotation (Line(points={{-24,-70},{-2,-70},
           {-2,-59},{18,-59}},      color={255,0,255}));
-  connect(setPoi3.TZon, TZon2.y) annotation (Line(points={{18,-47},{6,-47},{6,-6},
-          {-20,-6},{-20,-8},{-60,-8},{-60,10},{-66,10}},     color={0,0,127}));
-  connect(setPoi2.TZon, TZon2.y) annotation (Line(points={{18,-7},{6,-7},{6,-6},
+  connect(setPoi3.TZon, TZon2.y) annotation (Line(points={{18,-48},{6,-48},{6,
+          -6},{-20,-6},{-20,-8},{-60,-8},{-60,10},{-66,10}}, color={0,0,127}));
+  connect(setPoi2.TZon, TZon2.y) annotation (Line(points={{18,-8},{6,-8},{6,-6},
           {-20,-6},{-20,-8},{-60,-8},{-60,10},{-66,10}},     color={0,0,127}));
   connect(cooSetAdj.y, setPoi2.setAdj) annotation (Line(points={{-24,50},{-20,50},
           {-20,0},{10,0},{10,-10},{18,-10}},   color={0,0,127}));
   connect(heaSetAdj.y, setPoi2.heaSetAdj) annotation (Line(points={{-24,10},{12,
           10},{12,-13},{18,-13}},    color={0,0,127}));
   connect(TZon1.y, setPoi.TZon) annotation (Line(points={{-66,50},{-60,50},{-60,
-          83},{18,83}},     color={0,0,127}));
-  connect(setPoi1.TZon, setPoi.TZon) annotation (Line(points={{18,43},{-12,43},{
-          -12,32},{-60,32},{-60,83},{18,83}},  color={0,0,127}));
+          82},{18,82}},     color={0,0,127}));
+  connect(setPoi1.TZon, setPoi.TZon) annotation (Line(points={{18,42},{-12,42},
+          {-12,32},{-60,32},{-60,82},{18,82}}, color={0,0,127}));
   connect(occSch.tNexOcc, setPoi.tNexOcc)
-    annotation (Line(points={{-69,88},{-26,88},{-26,89},{18,89}},
+    annotation (Line(points={{-69,88},{-26,88},{-26,78},{18,78}},
                                                 color={0,0,127}));
   connect(occSch.tNexOcc, setPoi1.tNexOcc) annotation (Line(points={{-69,88},{4,
-          88},{4,49},{18,49}},    color={0,0,127}));
-  connect(setPoi2.tNexOcc, setPoi1.tNexOcc) annotation (Line(points={{18,-1},{4,
-          -1},{4,49},{18,49}},    color={0,0,127}));
-  connect(setPoi3.tNexOcc, setPoi1.tNexOcc) annotation (Line(points={{18,-41},{4,
-          -41},{4,49},{18,49}},    color={0,0,127}));
-  connect(occSch.occupied, setPoi.uOcc) annotation (Line(points={{-69,76},{-26,76},
-          {-26,86.025},{18,86.025}},         color={255,0,255}));
-  connect(occSch.occupied, setPoi1.uOcc) annotation (Line(points={{-69,76},{-6,76},
-          {-6,46.025},{18,46.025}},        color={255,0,255}));
-  connect(occSch.occupied, setPoi2.uOcc) annotation (Line(points={{-69,76},{-6,76},
-          {-6,-3.975},{18,-3.975}},          color={255,0,255}));
-  connect(occSch.occupied, setPoi3.uOcc) annotation (Line(points={{-69,76},{-6,76},
-          {-6,-43.975},{18,-43.975}},        color={255,0,255}));
-  connect(occSen1.y, setPoi1.uOccSen) annotation (Line(points={{-66,-30},{-58,-30},
-          {-58,-14},{-10,-14},{-10,34},{18,34}},      color={255,0,255}));
+          88},{4,38},{18,38}},    color={0,0,127}));
+  connect(setPoi2.tNexOcc, setPoi1.tNexOcc) annotation (Line(points={{18,-12},{
+          4,-12},{4,38},{18,38}}, color={0,0,127}));
+  connect(setPoi3.tNexOcc, setPoi1.tNexOcc) annotation (Line(points={{18,-52},{
+          4,-52},{4,38},{18,38}},  color={0,0,127}));
+  connect(occSch.occupied, setPoi.uOcc) annotation (Line(points={{-69,76},{-26,
+          76},{-26,80},{18,80}},             color={255,0,255}));
+  connect(occSch.occupied, setPoi1.uOcc) annotation (Line(points={{-69,76},{-6,
+          76},{-6,40},{18,40}},            color={255,0,255}));
+  connect(occSch.occupied, setPoi2.uOcc) annotation (Line(points={{-69,76},{-6,
+          76},{-6,-10},{18,-10}},            color={255,0,255}));
+  connect(occSch.occupied, setPoi3.uOcc) annotation (Line(points={{-69,76},{-6,
+          76},{-6,-50},{18,-50}},            color={255,0,255}));
+  connect(occSen1.y, setPoi1.uOccSen) annotation (Line(points={{-66,-30},{-58,
+          -30},{-58,-14},{-10,-14},{-10,31},{18,31}}, color={255,0,255}));
   connect(winSta1.y, setPoi1.uWinSta) annotation (Line(points={{-66,-70},{-60,-70},
           {-60,-48},{0,-48},{0,31},{18,31}},      color={255,0,255}));
 annotation (experiment(StopTime=86400.0, Tolerance=1e-06),

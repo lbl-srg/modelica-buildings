@@ -33,9 +33,10 @@ model OperationMode "Validate block for selecting operation mode"
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant uWinSta(final k=false)
     "Window on/off status"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},origin={-90,-50})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode opeModSel(final
-      have_winSen=true, final numZon=1) "Operation mode selection"
-    annotation (Placement(transformation(extent={{90,80},{110,100}})));
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode
+    opeModSel(final have_winSen=true, final numZon=1)
+    "Operation mode selection"
+    annotation (Placement(transformation(extent={{100,84},{120,116}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqual greEqu
     "True when zone occupied heating setpoint temperature is larger than zone temperature"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
@@ -68,15 +69,17 @@ equation
   connect(sin1.y, addPar.u)
     annotation (Line(points={{-78,10},{-62,10}},  color={0,0,127}));
   connect(cooDowTim.y, opeModSel.maxCooDowTim) annotation (Line(points={{-78,110},
-          {24,110},{24,98},{88,98}}, color={0,0,127}));
-  connect(warUpTim.y, opeModSel.maxWarUpTim) annotation (Line(points={{-78,80},{
-          -60,80},{-60,96},{88,96}}, color={0,0,127}));
+          {98,110}},                 color={0,0,127}));
+  connect(warUpTim.y, opeModSel.maxWarUpTim) annotation (Line(points={{-78,80},
+          {-60,80},{-60,106},{98,106}},
+                                     color={0,0,127}));
   connect(TZonHeaSetOcc.y, greEqu.u1)
     annotation (Line(points={{-78,40},{-2,40}},   color={0,0,127}));
   connect(addPar.y, greEqu.u2) annotation (Line(points={{-38,10},{-20,10},{-20,32},
           {-2,32}},  color={0,0,127}));
   connect(greEqu.y, opeModSel.uOccHeaHig) annotation (Line(points={{22,40},{30,
-          40},{30,94},{88,94}}, color={255,0,255}));
+          40},{30,104},{98,104}},
+                                color={255,0,255}));
   connect(addPar.y, greEqu1.u1) annotation (Line(points={{-38,10},{-20,10},{-20,
           -10},{-2,-10}},
                      color={0,0,127}));
@@ -84,7 +87,8 @@ equation
           {-40,-18},{-2,-18}},
                              color={0,0,127}));
   connect(greEqu1.y, opeModSel.uHigOccCoo) annotation (Line(points={{22,-10},{
-          34,-10},{34,92},{88,92}}, color={255,0,255}));
+          34,-10},{34,108},{98,108}},
+                                    color={255,0,255}));
   connect(uWinSta.y, opeModSel.uWinSta) annotation (Line(points={{-78,-50},{38,-50},
           {38,90},{88,90}},        color={255,0,255}));
   connect(TZonHeaSetUno.y, greEqu2.u1)
@@ -94,14 +98,14 @@ equation
                       color={0,0,127}));
   connect(greEqu2.y, booToInt.u)
     annotation (Line(points={{22,-80},{38,-80}},   color={255,0,255}));
-  connect(booToInt.y, opeModSel.totColZon) annotation (Line(points={{62,-80},{68,
-          -80},{68,88},{88,88}},       color={255,127,0}));
+  connect(booToInt.y, opeModSel.totColZon) annotation (Line(points={{62,-80},{
+          68,-80},{68,100},{98,100}},  color={255,127,0}));
   connect(greEqu2.y, opeModSel.unoHeaHigMin) annotation (Line(points={{22,-80},{
           30,-80},{30,-60},{60,-60},{60,86},{88,86}},      color={255,0,255}));
   connect(addPar.y, opeModSel.TZonMax) annotation (Line(points={{-38,10},{42,10},
-          {42,84},{88,84}},color={0,0,127}));
+          {42,94},{98,94}},color={0,0,127}));
   connect(addPar.y, opeModSel.TZonMin) annotation (Line(points={{-38,10},{42,10},
-          {42,82},{88,82}},color={0,0,127}));
+          {42,92},{98,92}},color={0,0,127}));
   connect(addPar.y, greEqu3.u1) annotation (Line(points={{-38,10},{-20,10},{-20,
           -120},{-2,-120}},
                       color={0,0,127}));
@@ -112,12 +116,12 @@ equation
     annotation (Line(points={{22,-120},{38,-120}}, color={255,0,255}));
   connect(greEqu3.y, opeModSel.maxHigUnoCoo) annotation (Line(points={{22,-120},
           {30,-120},{30,-100},{80,-100},{80,78},{88,78}},    color={255,0,255}));
-  connect(booToInt1.y, opeModSel.totHotZon) annotation (Line(points={{62,-120},{
-          74,-120},{74,80},{88,80}},   color={255,127,0}));
-  connect(occSch.occupied, opeModSel.uOcc) annotation (Line(points={{-79,144},{80,
-          144},{80,102},{88,102}},    color={255,0,255}));
+  connect(booToInt1.y, opeModSel.totHotZon) annotation (Line(points={{62,-120},
+          {74,-120},{74,90},{98,90}},  color={255,127,0}));
+  connect(occSch.occupied, opeModSel.uOcc) annotation (Line(points={{-79,144},{
+          80,144},{80,114},{98,114}}, color={255,0,255}));
   connect(occSch.tNexOcc, opeModSel.tNexOcc) annotation (Line(points={{-79,156},
-          {-40,156},{-40,114},{60,114},{60,100},{88,100}},
+          {-40,156},{-40,114},{60,114},{60,112},{98,112}},
                                                      color={0,0,127}));
 
 annotation (

@@ -105,43 +105,43 @@ block GroupStatus "Block that outputs the zone group status"
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yColZon
     "Total number of cold zones"
     annotation (Placement(transformation(extent={{100,0},{140,40}}),
-      iconTransformation(extent={{100,-10},{140,30}})));
+      iconTransformation(extent={{100,0},{140,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySetBac
     "Run setback mode"
     annotation (Placement(transformation(extent={{100,-40},{140,0}}),
-      iconTransformation(extent={{100,-30},{140,10}})));
+      iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yEndSetBac
     "True when the group should end setback mode"
     annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
-      iconTransformation(extent={{100,-50},{140,-10}})));
+      iconTransformation(extent={{100,-40},{140,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotZon
     "Total number of hot zones"
     annotation (Placement(transformation(extent={{100,-110},{140,-70}}),
-      iconTransformation(extent={{100,-90},{140,-50}})));
+      iconTransformation(extent={{100,-70},{140,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySetUp
     "Run setup mode"
     annotation (Placement(transformation(extent={{100,-150},{140,-110}}),
-      iconTransformation(extent={{100,-110},{140,-70}})));
+      iconTransformation(extent={{100,-90},{140,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yEndSetUp
     "True when the group should end setup mode"
     annotation (Placement(transformation(extent={{100,-200},{140,-160}}),
-      iconTransformation(extent={{100,-130},{140,-90}})));
+      iconTransformation(extent={{100,-110},{140,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TZonMax(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Maximum zone temperature in the zone group"
     annotation (Placement(transformation(extent={{100,-240},{140,-200}}),
-      iconTransformation(extent={{100,-160},{140,-120}})));
+      iconTransformation(extent={{100,-150},{140,-110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TZonMin(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Minimum zone temperature in the zone group"
     annotation (Placement(transformation(extent={{100,-280},{140,-240}}),
-      iconTransformation(extent={{100,-180},{140,-140}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yWin
-    "True when there is any zone with opening window"
+      iconTransformation(extent={{100,-170},{140,-130}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yOpeWin
+    "Total number of open windows"
     annotation (Placement(transformation(extent={{100,-320},{140,-280}}),
       iconTransformation(extent={{100,-210},{140,-170}})));
 
@@ -199,7 +199,7 @@ protected
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant totZon(
     final k=numZon) "Total number of zones"
-    annotation (Placement(transformation(extent={{-78,110},{-58,130}})));
+    annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea "Convert integer to real"
     annotation (Placement(transformation(extent={{-40,110},{-20,130}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum sumUnoCoo(
@@ -239,9 +239,12 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Or groOcc
     "Check if the group should be in occupied mode according to the schedule or the zone override"
     annotation (Placement(transformation(extent={{40,270},{60,290}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr winSta(
-    final nu=numZon)
-    "Check if there is any window is open"
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt2[numZon]
+    "Convert boolean to integer"
+    annotation (Placement(transformation(extent={{-60,-310},{-40,-290}})));
+  Buildings.Controls.OBC.CDL.Integers.MultiSum totOpeWin(
+    final nin=numZon)
+    "Total number of opening windows"
     annotation (Placement(transformation(extent={{40,-310},{60,-290}})));
 
 equation
@@ -291,7 +294,7 @@ equation
   connect(booToInt1.y, totHotZon.u)
     annotation (Line(points={{-58,-90},{38,-90}}, color={255,0,255}));
   connect(totZon.y, intToRea.u)
-    annotation (Line(points={{-56,120},{-42,120}}, color={255,127,0}));
+    annotation (Line(points={{-58,120},{-42,120}}, color={255,127,0}));
   connect(sumTem.y, difUnoHea.u2)
     annotation (Line(points={{-58,-200},{-40,-200},{-40,-32}}, color={0,0,127}));
   connect(sumTem.y, difUnoCoo.u1) annotation (Line(points={{-58,-200},{-40,-200},
@@ -338,10 +341,12 @@ equation
           color={255,0,255}));
   connect(tNexOcc, minToNexOcc.u)
     annotation (Line(points={{-120,220},{38,220}},color={0,0,127}));
-  connect(winSta.y, yWin)
-    annotation (Line(points={{62,-300},{120,-300}}, color={255,0,255}));
-  connect(uWin, winSta.u)
-    annotation (Line(points={{-120,-300},{38,-300}},color={255,0,255}));
+  connect(uWin, booToInt2.u) annotation (Line(points={{-120,-300},{-62,-300}},
+                             color={255,0,255}));
+  connect(totOpeWin.y, yOpeWin)
+    annotation (Line(points={{62,-300},{120,-300}}, color={255,127,0}));
+  connect(booToInt2.y, totOpeWin.u)
+    annotation (Line(points={{-38,-300},{38,-300}}, color={255,127,0}));
 
 annotation (
   defaultComponentName = "zonGroSta",
@@ -360,7 +365,7 @@ annotation (
           pattern=LinePattern.Dash,
           textString="uCooTim"),
         Text(
-          extent={{62,18},{98,6}},
+          extent={{62,28},{98,16}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yColZon"),
@@ -405,22 +410,22 @@ annotation (
           pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
-          extent={{64,-152},{98,-166}},
+          extent={{64,-142},{98,-156}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonMin"),
         Text(
-          extent={{62,-132},{98,-146}},
+          extent={{62,-122},{98,-136}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonMax"),
         Text(
-          extent={{54,-102},{98,-118}},
+          extent={{54,-82},{98,-98}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="yEndSetUp"),
         Text(
-          extent={{46,-20},{98,-36}},
+          extent={{46,-10},{98,-26}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="yEndSetBac"),
@@ -445,7 +450,7 @@ annotation (
           pattern=LinePattern.Dash,
           textString="yWarTim"),
         Text(
-          extent={{64,-62},{98,-76}},
+          extent={{64,-42},{98,-56}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yHotZon"),
@@ -460,12 +465,12 @@ annotation (
           pattern=LinePattern.Dash,
           textString="THeaSetOff"),
         Text(
-          extent={{58,-2},{100,-14}},
+          extent={{58,8},{100,-4}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="ySetBac"),
         Text(
-          extent={{62,-86},{102,-96}},
+          extent={{62,-66},{102,-76}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="ySetUp"),
@@ -500,10 +505,10 @@ annotation (
           pattern=LinePattern.Dash,
           textString="uWin"),
         Text(
-          extent={{70,-184},{100,-196}},
-          lineColor={255,0,255},
+          extent={{64,-182},{98,-196}},
+          lineColor={255,127,0},
           pattern=LinePattern.Dash,
-          textString="yWin")}),
+          textString="yOpeWin")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-320},{100,320}})),
 Documentation(info="<html>
 <p>
@@ -625,7 +630,7 @@ value,
 <code>TZonMin</code>: minimum zone temperature in the zone group,
 </li>
 <li>
-<code>yWin</code>: check if there is any zone with opening window.
+<code>yOpeWin</code>: total number of opening windows.
 </li>
 </ul>
 </html>",revisions="<html>

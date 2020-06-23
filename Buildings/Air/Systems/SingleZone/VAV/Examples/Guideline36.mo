@@ -20,8 +20,7 @@ model Guideline36
     TZonHeaOff=288.15,
     TZonCooOn=298.15,
     TSupSetMax=323.15,
-    TSupSetMin=285.15)
-    "VAV controller"
+    TSupSetMin=285.15) "VAV controller"
     annotation (Placement(transformation(extent={{-120,-28},{-80,20}})));
   Controls.OBC.CDL.Continuous.Hysteresis hysChiPla(
     uLow=-1,
