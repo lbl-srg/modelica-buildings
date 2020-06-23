@@ -2,8 +2,7 @@ compareVars :=
   {
     "staDow.uCapReq",
     "staDow.uCapMin",
-    "staDow.VHotWat_flow",
-    "staDow.VMinSet_flow",
+    "staDow.uPumSpe",
     "staDow.TPriHotWatRet",
     "staDow.TSecHotWatRet",
     "staDow.faiSafCon.yFaiCon",
