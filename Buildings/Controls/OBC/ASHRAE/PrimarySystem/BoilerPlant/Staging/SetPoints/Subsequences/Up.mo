@@ -26,12 +26,6 @@ block Up
     "Enable delay for heating capacity and heating requirement"
     annotation(Dialog(group="Efficiency condition"));
 
-  parameter Real delFaiCon(
-    final unit="s",
-    final displayUnit="s") = 900
-    "Enable delay for temperature"
-    annotation(Dialog(group="Failsafe condition"));
-
   parameter Real TDif(
     final unit="K",
     final displayUnit="K",
@@ -47,6 +41,12 @@ block Up
     "Temperature deadband for hysteresis loop in failsafe condition"
     annotation (Dialog(tab="Advanced",
       group="Failsafe condition"));
+
+  parameter Real delFaiCon(
+    final unit="s",
+    final displayUnit="s") = 900
+    "Enable delay for temperature"
+    annotation(Dialog(group="Failsafe condition"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uAvaCur
     "Current stage availability status"

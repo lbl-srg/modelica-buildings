@@ -45,20 +45,6 @@ block Down
     "Hysteresis deadband normalized signals"
     annotation(Dialog(tab="Advanced"));
 
-  parameter Real dFloRatLow(
-    final unit="m3/s",
-    final displayUnit="m3/s",
-    final quantity="VolumeFlowRate") = -0.1
-    "Lower hysteresis deadband limit for flow-rate condition"
-    annotation(Dialog(tab="Advanced"));
-
-  parameter Real dFloRatHig(
-    final unit="m3/s",
-    final displayUnit="m3/s",
-    final quantity="VolumeFlowRate") = 0.1
-    "Higher hysteresis deadband limit for flow-rate condition"
-    annotation(Dialog(tab="Advanced"));
-
   parameter Real delBypVal(
     final unit="s",
     final displayUnit="s",
@@ -72,7 +58,11 @@ block Down
 
   parameter Real bypValClo = 0
     "Adjustment for signal received when bypass valve is closed"
-    annotation(Dialog(tab="Advanced"));
+    annotation (
+      Evaluate=true,
+      Dialog(
+        enable=primaryOnly,
+        tab="Advanced"));
 
   parameter Real TCirDif(
     final unit="K",
