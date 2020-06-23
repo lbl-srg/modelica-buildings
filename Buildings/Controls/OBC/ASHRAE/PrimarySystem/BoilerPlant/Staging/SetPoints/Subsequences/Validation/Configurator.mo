@@ -1,370 +1,156 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences;
-block Configurator "Configures boiler staging"
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation;
+model Configurator "Validate boiler staging configurator subsequence"
 
-  parameter Integer nSta = 3
-    "Number of boiler stages";
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Configurator
+    conf(
+    final nSta=5,
+    final nBoi=3,
+    final boiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler,
+                  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.nonCondensingBoiler,
+                  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler},
+    final staMat={{1,0,0},{0,1,0},{1,1,0},{0,1,1},{1,1,1}},
+    final boiDesCap={100,150,250},
+    final boiFirMin={0.4,0.2,0.3})
+    "Validation scenario-1"
+    annotation (Placement(transformation(extent={{20,90},{40,110}})));
 
-  parameter Integer nBoi = 2
-    "Number of boilers";
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Configurator
+    conf1(
+    final nSta=5,
+    final nBoi=3,
+    final boiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler,
+                  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.nonCondensingBoiler,
+                  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler},
+    final staMat={{1,0,0},{0,1,0},{1,1,0},{0,1,1},{1,1,1}},
+    final boiDesCap={100,150,250},
+    final boiFirMin={0.4,0.2,0.3})
+    "Validation scenario-2"
+    annotation (Placement(transformation(extent={{20,50},{40,70}})));
 
-  parameter Integer boiTyp[nBoi]={
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler,
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.nonCondensingBoiler}
-    "Boiler type. Recommended staging order: ToBeFixed";
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Configurator
+    conf2(
+    final nSta=5,
+    final nBoi=3,
+    final boiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler,
+                  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.nonCondensingBoiler,
+                  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler},
+    final staMat={{1,0,0},{0,1,0},{1,1,0},{0,1,1},{1,1,1}},
+    final boiDesCap={100,150,250},
+    final boiFirMin={0.4,0.2,0.3})
+    "Validation scenario-3"
+    annotation (Placement(transformation(extent={{20,10},{40,30}})));
 
-  parameter Integer staMat[nSta, nBoi] = {{1,0},{0,1},{1,1}}
-    "Staging matrix with stage as row index and boiler as column index";
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Configurator
+    conf3(
+    final nSta=5,
+    final nBoi=3,
+    final boiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler,
+                  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.nonCondensingBoiler,
+                  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler},
+    final staMat={{1,0,0},{0,1,0},{1,1,0},{0,1,1},{1,1,1}},
+    final boiDesCap={100,150,250},
+    final boiFirMin={0.4,0.2,0.3})
+    "Validation scenario-4"
+    annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
 
-  parameter Real boiDesCap[nBoi](
-    final unit="W",
-    final displayUnit="W",
-    final quantity="Power")
-    "Design boiler capacities vector";
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Configurator
+    conf4(
+    final nSta=5,
+    final nBoi=3,
+    final boiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler,
+                  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.nonCondensingBoiler,
+                  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler},
+    final staMat={{1,0,0},{0,1,0},{1,1,0},{0,1,1},{1,1,1}},
+    final boiDesCap={100,150,250},
+    final boiFirMin={0.4,0.2,0.3})
+    "Validation scenario-5"
+    annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 
-  parameter Real boiFirMin[nBoi](
-    final unit="1",
-    final displayUnit="1",
-    final quantity="Power")
-    "Boiler minimum firing ratios vector";
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Configurator
+    conf5(
+    final nSta=5,
+    final nBoi=3,
+    final boiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler,
+                  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.nonCondensingBoiler,
+                  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler},
+    final staMat={{1,0,0},{0,1,0},{1,1,0},{0,1,1},{1,1,1}},
+    final boiDesCap={100,150,250},
+    final boiFirMin={0.4,0.2,0.3})
+    "Validation scenario-6"
+    annotation (Placement(transformation(extent={{20,-110},{40,-90}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uBoiAva[nBoi]
-    "Boiler availability status vector"
-    annotation (Placement(transformation(extent={{-260,-60},{-220,-20}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+protected
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant boiAva[3](
+    final k={true,true,true})
+    "Boiler availability array"
+    annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yAva[nSta]
-    "Stage availability status vector"
-    annotation (Placement(transformation(extent={{220,-100},{260,-60}}),
-      iconTransformation(extent={{100,-100},{140,-60}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant boiAva1[3](
+    final k={false,true,true})
+    "Boiler availability array"
+    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yTyp[nSta](
-    final max=fill(nSta, nSta))
-    "Boiler stage types vector"
-    annotation (Placement(transformation(extent={{220,-140},{260,-100}}),
-      iconTransformation(extent={{100,-60},{140,-20}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant boiAva3[3](
+    final k={true,true,false})
+    "Boiler availability array"
+    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDesCap[nSta](
-    final unit=fill("W", nSta),
-    final quantity=fill("Power", nSta))
-    "Stage design capacities vector"
-    annotation (Placement(transformation(extent={{220,0},{260,40}}),
-      iconTransformation(extent={{100,60},{140,100}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant boiAva4[3](
+    final k={true,false,false})
+    "Boiler availability array"
+    annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMinCap[nSta](
-    final unit=fill("W", nSta),
-    final quantity=fill("Power", nSta))
-    "Minimum stage capacities vector"
-    annotation (Placement(transformation(extent={{220,-40},{260,0}}),
-      iconTransformation(extent={{100,20},{140,60}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant boiAva5[3](
+    final k={false,false,false})
+    "Boiler availability array"
+    annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
 
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMes1(
-    final message="The boilers must be tagged in order of design capacity if unequally sized")
-    "Asserts whether boilers are tagged in ascending order with regards to capacity"
-    annotation (Placement(transformation(extent={{60,150},{80,170}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant boiAva2[3](
+    final k={false,false,true})
+    "Boiler availability array"
+    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add1[nBoi](
-    final k1=fill(1, nBoi),
-    final k2=fill(-1, nBoi))
-    "Subtracts signals"
-    annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax(
-    nin=nBoi)
-    "Maximum value in a vector input"
-    annotation (Placement(transformation(extent={{-60,150},{-40,170}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Abs abs
-    "Absolute values"
-    annotation (Placement(transformation(extent={{-20,150},{0,170}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr1(
-    final threshold=0.5)
-    "Less threshold"
-    annotation (Placement(transformation(extent={{20,150},{40,170}})));
-
-//protected
-  final parameter Integer boiTypMat[nSta, nBoi] = {boiTyp[i] for i in 1:nBoi, j in 1:nSta}
-    "Boiler type array expanded to allow for element-wise multiplication with the
-    staging matrix";
-
-  final parameter Real boiFirMinVal[nSta, nBoi] = {boiFirMin[i] for i in 1:nBoi, j in 1:nSta}
-    "Boiler minimum firing ratio array expanded for element-wise multiplication
-    with the staging matrix";
-
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant boiDesCaps[nBoi](
-    final k=boiDesCap)
-    "Design boiler capacities vector"
-    annotation (Placement(transformation(extent={{-200,100},{-180,120}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant boiFirMinMat[nSta,nBoi](
-    final k=boiFirMinVal)
-    "Boiler minimum firing ratios matrix"
-    annotation (Placement(transformation(extent={{-200,60},{-180,80}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.MatrixGain staDesCaps(
-    final K=staMat)
-    "Matrix gain for design capacities"
-    annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.MatrixGain sumNumBoi(
-    final K=staMat)
-    "Outputs the total boiler count per stage vector"
-    annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.MatrixGain sumNumAvaBoi(
-    final K=staMat)
-    "Outputs the available boiler count per stage vector"
-    annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneVec[nBoi](
-    final k=fill(1, nBoi))
-    "Mocks a case with all boilers available"
-    annotation (Placement(transformation(extent={{-200,10},{-180,30}})));
-
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nBoi]
-    "Type converter"
-    annotation (Placement(transformation(extent={{-200,-50},{-180,-30}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Add add2[nSta](
-    final k2=fill(-1, nSta))
-    "Subtracts count of available boilers from the design count, at each stage"
-    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr[nSta](
-    final threshold=fill(0.5, nSta))
-    "Checks if the count of available boilers in each stage equals the design count"
-    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant boiStaMat[nSta,nBoi](
-    final k=staMat)
-    "Staging matrix"
-    annotation (Placement(transformation(extent={{-200,-100},{-180,-80}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staType[nSta,nBoi](
-    final k=boiTypMat)
-    "Boiler stage type matrix"
-    annotation (Placement(transformation(extent={{-200,-160},{-180,-140}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Product pro[nSta,nBoi]
-    "Element-wise product"
-    annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.MatrixMax matMax(
-    final nRow=nSta,
-    final nCol=nBoi)
-    "Row-wise matrix maximum"
-    annotation (Placement(transformation(extent={{-100,-130},{-80,-110}})));
-
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt[nSta]
-    "Type converter"
-    annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Sort sort(
-    final nin=nSta)
-    "Vector sort"
-    annotation (Placement(transformation(extent={{20,-180},{40,-160}})));
-
-  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea1[nSta]
-    "Type converter"
-    annotation (Placement(transformation(extent={{-20,-180},{0,-160}})));
-
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1[nSta]
-    "Type converter"
-    annotation (Placement(transformation(extent={{60,-180},{80,-160}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Equal intEqu[nSta]
-    "Integer equality"
-    annotation (Placement(transformation(extent={{100,-160},{120,-140}})));
-
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
-    final message="It could be that the chillers are not being staged in an order 
-    recommended by ASHRAE RP1711 or Guideline 36. 
-    Please make sure to follow the recommendation that is:
-    any positive displacement machines first, 
-    any variable speed centrifugal next and any constant speed centrifugal last.")
-    annotation (Placement(transformation(extent={{180,-160},{200,-140}})));
-
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(
-    final nu=nSta)
-    "Logical and with a vector input"
-    annotation (Placement(transformation(extent={{140,-160},{160,-140}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Product pro1[nSta,nBoi]
-    "Element-wise product"
-    annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.MatrixMax matMax1(
-    final rowMax=true,
-    final nRow=nSta,
-    final nCol=nBoi)
-    "Find highest BFirMin in each stage"
-    annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Product pro2[nSta]
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Sort sort1(
-    final nin=nBoi)
-    annotation (Placement(transformation(extent={{-140,160},{-120,180}})));
 equation
-  connect(boiDesCaps.y, staDesCaps.u)
-    annotation (Line(points={{-178,110},{-142,110}},
-      color={0,0,127}));
-  connect(uBoiAva, booToRea.u)
-    annotation (Line(points={{-240,-40},{-202,-40}},
-      color={255,0,255}));
-  connect(booToRea.y,sumNumAvaBoi. u)
-    annotation (Line(points={{-178,-40},{-142,-40}},
-      color={0,0,127}));
-  connect(sumNumBoi.y, add2.u1)
-    annotation (Line(points={{-118,20},{-100,20},{-100,-4},{-82,-4}},
-      color={0,0,127}));
-  connect(sumNumAvaBoi.y, add2.u2)
-    annotation (Line(points={{-118,-40},{-100.5,-40},{-100.5,-16},{-82,-16}},
-      color={0,0,127}));
-  connect(add2.y,lesThr. u)
-    annotation (Line(points={{-58,-10},{-42,-10}},
-      color={0,0,127}));
-  connect(lesThr.y, yAva)
-    annotation (Line(points={{-18,-10},{60,-10},{60,-80},{240,-80}},
-      color={255,0,255}));
-  connect(pro.y,matMax. u)
-    annotation (Line(points={{-118,-120},{-102,-120}},
-      color={0,0,127}));
-  connect(matMax.y,reaToInt. u)
-    annotation (Line(points={{-78,-120},{-62,-120}},
-      color={0,0,127}));
-  connect(reaToInt.y, yTyp)
-    annotation (Line(points={{-38,-120},{240,-120}},
-      color={255,127,0}));
-  connect(reaToInt.y, intToRea1.u)
-    annotation (Line(points={{-38,-120},{-30,-120},{-30,-170},{-22,-170}},
-      color={255,127,0}));
-  connect(intToRea1.y, sort.u)
-    annotation (Line(points={{2,-170},{18,-170}},
-      color={0,0,127}));
-  connect(sort.y, reaToInt1.u)
-    annotation (Line(points={{42,-170},{58,-170}},
-      color={0,0,127}));
-  connect(reaToInt.y,intEqu. u1)
-    annotation (Line(points={{-38,-120},{90,-120},{90,-150},{98,-150}},
-      color={255,127,0}));
-  connect(reaToInt1.y,intEqu. u2)
-    annotation (Line(points={{82,-170},{90,-170},{90,-158},{98,-158}},
-      color={255,127,0}));
-  connect(mulAnd.y, assMes.u)
-    annotation (Line(points={{162,-150},{178,-150}},
-      color={255,0,255}));
-  connect(intEqu.y, mulAnd.u)
-    annotation (Line(points={{122,-150},{138,-150}},
-      color={255,0,255}));
-  connect(staDesCaps.y, yDesCap)
-    annotation (Line(points={{-118,110},{100,110},{100,20},{240,20}},
-      color={0,0,127}));
-  connect(oneVec.y,sumNumBoi. u)
-    annotation (Line(points={{-178,20},{-142,20}},
-      color={0,0,127}));
-  connect(boiStaMat.y, pro.u1)
-    annotation (Line(points={{-178,-90},{-160,-90},{-160,-114},{-142,-114}},
-      color={0,0,127}));
-  connect(staType.y, pro.u2)
-    annotation (Line(points={{-178,-150},{-160,-150},{-160,-126},{-142,-126}},
-      color={0,0,127}));
-  connect(boiFirMinMat.y, pro1.u1)
-    annotation (Line(points={{-178,70},{-170,70},{-170,76},{-162,76}},
-      color={0,0,127}));
-  connect(pro1.u2, boiStaMat.y)
-    annotation (Line(points={{-162,64},{-170,64},{-170,-90},{-178,-90}},
-      color={0,0,127}));
-  connect(pro1.y, matMax1.u)
-    annotation (Line(points={{-138,70},{-122,70}},
-      color={0,0,127}));
-  connect(matMax1.y, pro2.u2)
-    annotation (Line(points={{-98,70},{-90,70},{-90,64},{-82,64}},
-      color={0,0,127}));
-  connect(staDesCaps.y, pro2.u1)
-    annotation (Line(points={{-118,110},{-90,110},{-90,76},{-82,76}},
-      color={0,0,127}));
-  connect(pro2.y, yMinCap)
-    annotation (Line(points={{-58,70},{80,70},{80,-20},{240,-20}},
-      color={0,0,127}));
-
-  connect(boiDesCaps.y, add1.u2) annotation (Line(points={{-178,110},{-160,110},
-          {-160,154},{-102,154}}, color={0,0,127}));
-  connect(sort1.y, add1.u1) annotation (Line(points={{-118,170},{-110,170},
-          {-110,166},{-102,166}}, color={0,0,127}));
-  connect(add1.y, multiMax.u) annotation (Line(points={{-78,160},{-70,160},
-          {-70,160},{-62,160}}, color={0,0,127}));
-  connect(multiMax.y, abs.u)
-    annotation (Line(points={{-38,160},{-22,160}}, color={0,0,127}));
-  connect(abs.y, lesThr1.u)
-    annotation (Line(points={{2,160},{18,160}}, color={0,0,127}));
-  connect(lesThr1.y, assMes1.u)
-    annotation (Line(points={{42,160},{58,160}}, color={255,0,255}));
-  connect(sort1.u, boiDesCaps.y) annotation (Line(points={{-142,170},{-160,
-          170},{-160,110},{-178,110}}, color={0,0,127}));
-  annotation (defaultComponentName = "conf",
-    Icon(graphics={
-           Rectangle(extent={{-100,-100},{100,100}},
-                     lineColor={0,0,127},
-                     fillColor={255,255,255},
-                     fillPattern=FillPattern.Solid),
-                Text(extent={{-120,146},{100,108}},
-                     lineColor={0,0,255},
-                     textString="%name")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false,
-      extent={{-220,-200},{220,200}})),
-    Documentation(info="<html>
-      <p>
-      This subsequence is not directly specified in 1711 as it provides
-      a side calculation pertaining to generalization of the staging 
-      sequences for any number of boilers and stages provided by the 
-      user.
-      </p>
-      <p>
-      Given the staging matrix input parameter <code>staMat</code> the staging
-      configurator calculates:
-      </p>
-      <ul>
-      <li>
-      Stage availability vector <code>yAva</code> from the boiler availability
-      <code>uBoiAva</code> input vector according to RP-1711 March 2020 Draft
-      section 5.3.3.9.
-      </li>
-      <li>
-      Design stage capacity vector <code>yDesCap</code> from the design boiler
-      capacity vector input parameter <code>boiDesCap</code>.
-      </li>
-      <li>
-      Minimum stage capacity vector <code>yMinCap</code> from the boiler minimum
-      firing rate input parameter <code>boiMinCap</code> according to section
-      5.3.3.8, 1711 March 2020 Draft.
-      </li>
-      <li>
-      Stage type vector <code>yTyp</code> from the boiler type vector input
-      parameter <code>boiTyp</code>. Boiler types are defined in
-      <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes\">
-      Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes</a>.<br/>
-      Stage type is based on the boiler types in that stage, and is classified
-      as:
-      <ol>
-      <li>
-      non-condensing, if any of the boilers in that stage are non-condensing boilers.
-      </li>
-      <li>
-      condensing, if all the boilers in that stage are condensing boilers.
-      </li>
-      </ol>
-      This stage type is used to determine the stage up and down conditions to apply.
-      </li>
-      </ul>
-      </html>",
-      revisions="<html>
-      <ul>
-      <li>
-      May 20, 2020, by Karthik Devaprasad:<br/>
-      First implementation.
-      </li>
-      </ul>
-      </html>"));
+  connect(boiAva.y, conf.uBoiAva)
+    annotation (Line(points={{-18,100},{18,100}}, color={255,0,255}));
+  connect(boiAva1.y, conf1.uBoiAva)
+    annotation (Line(points={{-18,60},{18,60}}, color={255,0,255}));
+  connect(boiAva2.y, conf2.uBoiAva)
+    annotation (Line(points={{-18,20},{18,20}}, color={255,0,255}));
+  connect(boiAva3.y, conf3.uBoiAva)
+    annotation (Line(points={{-18,-20},{18,-20}}, color={255,0,255}));
+  connect(boiAva4.y, conf4.uBoiAva)
+    annotation (Line(points={{-18,-60},{18,-60}}, color={255,0,255}));
+  connect(boiAva5.y, conf5.uBoiAva)
+    annotation (Line(points={{-18,-100},{18,-100}}, color={255,0,255}));
+annotation (
+  experiment(StopTime=10.0, Tolerance=1e-06),
+  __Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/Validation/Configurator.mos"
+        "Simulate and plot"),
+  Documentation(info="<html>
+    <p>
+    This example validates
+    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Configurator\">
+    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Configurator</a>.
+    </p>
+    </html>", revisions="<html>
+    <ul>
+    <li>
+    May 21, 2020, by Karthik Devaprasad:<br/>
+    First implementation.
+    </li>
+    </ul>
+    </html>"),
+  Icon(graphics={
+       Ellipse(lineColor = {75,138,73},
+               fillColor={255,255,255},
+               fillPattern = FillPattern.Solid,
+               extent = {{-100,-100},{100,100}}),
+       Polygon(lineColor = {0,0,255},
+               fillColor = {75,138,73},
+               pattern = LinePattern.None,
+               fillPattern = FillPattern.Solid,
+               points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),Diagram(
+       coordinateSystem(preserveAspectRatio=false, extent={{-60,-120},{60,120}})));
 end Configurator;

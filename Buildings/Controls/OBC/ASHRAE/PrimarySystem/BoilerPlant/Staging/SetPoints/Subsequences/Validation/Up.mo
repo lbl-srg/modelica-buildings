@@ -1,273 +1,291 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences;
-block Up
-  "Generates a stage up signal"
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation;
+model Up
+  "Validate model for stage up conditions sequence"
 
-  parameter Integer nSta = 5
-    "Number of stages in the boiler plant";
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Up
+    staUp(
+    final nSta=2,
+    final fraNonConBoi=0.9,
+    final fraConBoi=1.5,
+    final delEffCon=600,
+    final delFaiCon=900,
+    final sigDif=0.1,
+    final TDif=10,
+    final TDifHys=1)
+    "Scenario testing activation by efficiency condition"
+    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
 
-  parameter Real perNonConBoi = 0.9
-    "Percentage value of stage design capacity at which the efficiency condition
-    is satisfied for non-condensing boilers"
-    annotation(Dialog(group="Efficiency condition"));
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Up
+    staUp1(
+    final nSta=2,
+    final fraNonConBoi=0.9,
+    final fraConBoi=1.5,
+    final delEffCon=600,
+    final delFaiCon=900,
+    final sigDif=0.1,
+    final TDif=10,
+    final TDifHys=1)
+    "Scenario testing activation by failsafe condition"
+    annotation (Placement(transformation(extent={{30,-10},{50,10}})));
 
-  parameter Real perConBoi = 1.5
-    "Percentage value of B-Stage minimum at which the efficiency condition is
-    satisfied for condensing boilers"
-    annotation(Dialog(group="Efficiency condition"));
-
-  parameter Real sigDif = 0.1
-    "Signal hysteresis deadband"
-    annotation (Dialog(tab="Advanced",
-      group="Efficiency condition"));
-
-  parameter Real delayEffCon(
-    final unit="s",
-    final displayUnit="s") = 600
-    "Enable delay for heating capacity and heating requirement"
-    annotation(Dialog(group="Efficiency condition"));
-
-  parameter Real delayFaiCon(
-    final unit="s",
-    final displayUnit="s") = 900
-    "Enable delay for temperature"
-    annotation(Dialog(group="Failsafe condition"));
-
-  parameter Real TDif(
-    final unit="K",
-    final displayUnit="K",
-    final quantity="ThermodynamicTemperature") = 10
-    "Required temperature difference between setpoint and measured temperature
-    for failsafe condition"
-    annotation(Dialog(group="Failsafe condition"));
-
-  parameter Real TDifHys(
-    final unit="K",
-    final displayUnit="K",
-    final quantity="ThermodynamicTemperature") = 1
-    "Temperature deadband for hysteresis loop in failsafe condition"
-    annotation (Dialog(tab="Advanced",
-      group="Failsafe condition"));
-
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uAvaCur
-    "Current stage availability status"
-    annotation (Placement(transformation(extent={{-140,-160},{-100,-120}}),
-      iconTransformation(extent={{-140,-110},{-100,-70}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uTyp[nSta]
-    "Boiler-type vector specifying boiler-type in each stage"
-    annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
-      iconTransformation(extent={{-140,-30},{-100,10}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uAvaUp
-    "Index of next available higher stage"
-    annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
-      iconTransformation(extent={{-140,-50},{-100,-10}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatSupSet(
-    final unit="K",
-    final quantity="ThermodynamicTemperature")
-    "Hot water supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
-      iconTransformation(extent={{-140,-70},{-100,-30}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatSup(
-    final unit="K",
-    final quantity="ThermodynamicTemperature")
-    "Measured hot water supply temperature"
-    annotation (Placement(transformation(extent={{-140,-130},{-100,-90}}),
-      iconTransformation(extent={{-140,-90},{-100,-50}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uQUpMin(
-    final unit="W",
-    final displayUnit="W",
-    final quantity="Power")
-    "Minimum heating capacity of next available stage"
-    annotation (Placement(transformation(extent={{-140,50},{-100,90}}),
-      iconTransformation(extent={{-140,30},{-100,70}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uQDes(
-    final unit="W",
-    final displayUnit="W",
-    final quantity="Power")
-    "Design heating capacity of the current stage"
-    annotation (Placement(transformation(extent={{-140,80},{-100,120}}),
-      iconTransformation(extent={{-140,50},{-100,90}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uQReq(
-    final unit="W",
-    final displayUnit="W",
-    final quantity="Power")
-    "Calculated heating capacity requirement"
-    annotation (Placement(transformation(extent={{-140,110},{-100,150}}),
-      iconTransformation(extent={{-140,70},{-100,110}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHotWatFloRat(
-    final unit="m3/s",
-    final displayUnit="m3/s",
-    final quantity="VolumeFlowRate")
-    "Measured hot water flow rate"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
-      iconTransformation(extent={{-140,10},{-100,50}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uUpMinFloSet(
-    final unit="m3/s",
-    final displayUnit="m3/s",
-    final quantity="VolumeFlowRate")
-    "Minimum flow setpoint for next available higher stage"
-    annotation (Placement(transformation(extent={{-140,-10},{-100,30}}),
-        iconTransformation(extent={{-140,-10},{-100,30}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yStaUp
-    "Stage up signal"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
-      iconTransformation(extent={{100,-20},{140,20}})));
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Up
+    staUp2(
+    final nSta=2,
+    final fraNonConBoi=0.9,
+    final fraConBoi=1.5,
+    final delEffCon=600,
+    final delFaiCon=900,
+    final sigDif=0.1,
+    final TDif=10,
+    final TDifHys=1)
+    "Scenario testing activation due to current stage unavailability"
+    annotation (Placement(transformation(extent={{160,-10},{180,10}})));
 
 protected
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences.EfficiencyCondition effCon(
-    final nSta=nSta,
-    final perNonConBoi=perNonConBoi,
-    final perConBoi=perConBoi,
-    final sigDif=sigDif,
-    final delayQReq=delayEffCon)
-    "Efficiency condition for staging up"
-    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con6(
+    final k=true)
+    annotation (Placement(transformation(extent={{-180,-190},{-160,-170}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences.FailsafeCondition faiSafCon(
-    final delayEna=delayFaiCon,
-    final TDif=TDif,
-    final TDifHys=TDifHys)
-    "Failsafe condition for staging up and down"
-    annotation (Placement(transformation(extent={{-60,-102},{-40,-84}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con7(
+    final k=true)
+    annotation (Placement(transformation(extent={{-50,-190},{-30,-170}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Not not1
-    "Logical not"
-    annotation (Placement(transformation(extent={{-60,-150},{-40,-130}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
+    final period=600)
+    annotation (Placement(transformation(extent={{80,-190},{100,-170}})));
 
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nu=3)
-    "Logical Or"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+    final k=1)
+    "Constant source"
+    annotation (Placement(transformation(extent={{-180,130},{-160,150}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
+    final k=1)
+    "Constant source"
+    annotation (Placement(transformation(extent={{-180,90},{-160,110}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul3(
+    final amplitude=1.2*0.1,
+    final period=5*10*60,
+    final offset=1 - 1.1*0.1)
+    "Pulse source"
+    annotation (Placement(transformation(extent={{-180,50},{-160,70}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4(
+    final k=1)
+    "Constant source"
+    annotation (Placement(transformation(extent={{-180,10},{-160,30}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conIntp[2](
+    final k={1,1})
+    "Constant source"
+    annotation (Placement(transformation(extent={{-180,-30},{-160,-10}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
+    final k=2)
+    "Constant source"
+    annotation (Placement(transformation(extent={{-180,-70},{-160,-50}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2(
+    final k=80)
+    "Constant input"
+    annotation (Placement(transformation(extent={{-180,-110},{-160,-90}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3(
+    final k=1.6)
+    "Constant source"
+    annotation (Placement(transformation(extent={{-180,170},{-160,190}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con5(
+    final k=82)
+    "Constant input"
+    annotation (Placement(transformation(extent={{-180,-150},{-160,-130}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con8(
+    final k=1)
+    "Constant source"
+    annotation (Placement(transformation(extent={{-50,130},{-30,150}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con9(
+    final k=1)
+    "Constant source"
+    annotation (Placement(transformation(extent={{-50,90},{-30,110}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con10(
+    final k=1)
+    "Constant source"
+    annotation (Placement(transformation(extent={{-50,10},{-30,30}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conIntp1[2](
+    final k={1,1})
+    "Constant source"
+    annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
+    final k=2)
+    "Constant source"
+    annotation (Placement(transformation(extent={{-50,-70},{-30,-50}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con12(
+    final k=1.3)
+    "Constant source"
+    annotation (Placement(transformation(extent={{-50,170},{-30,190}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con15(
+    final k=1)
+    "Constant source"
+    annotation (Placement(transformation(extent={{80,130},{100,150}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con16(
+    final k=1)
+    "Constant source"
+    annotation (Placement(transformation(extent={{80,90},{100,110}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con17(
+    final k=1)
+    "Constant source"
+    annotation (Placement(transformation(extent={{80,10},{100,30}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conIntp2[2](
+    final k={1,1})
+    "Constant source"
+    annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2(
+    final k=2)
+    "Constant source"
+    annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con18(
+    final k=80)
+    "Constant input"
+    annotation (Placement(transformation(extent={{80,-110},{100,-90}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con19(
+    final k=1.3)
+    "Constant source"
+    annotation (Placement(transformation(extent={{80,170},{100,190}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con20(
+    final k=82)
+    "Constant input"
+    annotation (Placement(transformation(extent={{80,-150},{100,-130}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con21(
+    final k=1.1)
+    "Constant source"
+    annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con13(
+    final k=80)
+    "Constant input"
+    annotation (Placement(transformation(extent={{-50,-110},{-30,-90}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul(
+    final amplitude=-11.2,
+    final period=2.5*900,
+    final offset=81.1)
+    "Pulse input"
+    annotation (Placement(transformation(extent={{-50,-150},{-30,-130}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con11(
+    final k=1.1)
+    "Constant source"
+    annotation (Placement(transformation(extent={{80,50},{100,70}})));
 
 equation
-  connect(effCon.uQReq, uQReq)
-    annotation (Line(points={{-62,49},{-64,49},{-64,130},{-120,130}},
-      color={0,0,127}));
-  connect(effCon.uQDes, uQDes)
-    annotation (Line(points={{-62,46},{-72,46},{-72,100},{-120,100}},
-      color={0,0,127}));
-  connect(effCon.uQUpMin, uQUpMin)
-    annotation (Line(points={{-62,43},{-80,43},{-80,70},{-120,70}},
-      color={0,0,127}));
-  connect(effCon.uHotWatFloRat, uHotWatFloRat)
-    annotation (Line(points={{-62,40},{-120,40}},
-      color={0,0,127}));
-  connect(effCon.uTyp, uTyp)
-    annotation (Line(points={{-62,34},{-72,34},{-72,-20},{-120,-20}},
-      color={255,127,0}));
-  connect(effCon.uAvaUp, uAvaUp)
-    annotation (Line(points={{-62,31},{-64,31},{-64,-50},{-120,-50}},
-      color={255,127,0}));
-  connect(faiSafCon.TSupSet, THotWatSupSet)
-    annotation (Line(points={{-62,-89},{-80,-89},{-80,-80},{-120,-80}},
-      color={0,0,127}));
-  connect(faiSafCon.TSup, THotWatSup)
-    annotation (Line(points={{-62,-99},{-80,-99},{-80,-110},{-120,-110}},
-      color={0,0,127}));
-  connect(mulOr.y, yStaUp)
-    annotation (Line(points={{62,0},{120,0}},
-      color={255,0,255}));
-  connect(effCon.yEffCon, mulOr.u[1])
-    annotation (Line(points={{-38,40},{10,40},{10,4.66667},{38,4.66667}},
-      color={255,0,255}));
-  connect(faiSafCon.y, mulOr.u[2])
-    annotation (Line(points={{-38,-94},{0,-94},{0,0},{38,0}},
-      color={255,0,255}));
-  connect(not1.u, uAvaCur)
-    annotation (Line(points={{-62,-140},{-120,-140}},
-      color={255,0,255}));
-  connect(not1.y, mulOr.u[3])
-    annotation (Line(points={{-38,-140},{10,-140},{10,-4.66667},{38,-4.66667}},
-      color={255,0,255}));
-  connect(effCon.uUpMinFloSet, uUpMinFloSet) annotation (Line(points={{-62,37},{
-          -80,37},{-80,10},{-120,10}}, color={0,0,127}));
-
-  annotation (defaultComponentName = "staUp",
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
-         graphics={
-           Rectangle(
-             extent={{-100,-100},{100,100}},
-             lineColor={0,0,127},
-             fillColor={255,255,255},
-             fillPattern=FillPattern.Solid),
-           Text(
-             extent={{-120,146},{100,108}},
-             lineColor={0,0,255},
-             textString="%name"),
-           Rectangle(extent={{-80,-10},{-20,-22}}, lineColor={0,0,127}),
-           Rectangle(extent={{-80,-28},{-20,-40}}, lineColor={0,0,127}),
-           Rectangle(extent={{-76,-22},{-72,-28}}, lineColor={0,0,127}),
-           Rectangle(extent={{-28,-22},{-24,-28}}, lineColor={0,0,127}),
-           Rectangle(extent={{20,-10},{80,-22}}, lineColor={0,0,127}),
-           Rectangle(extent={{20,-28},{80,-40}}, lineColor={0,0,127}),
-           Rectangle(extent={{24,-22},{28,-28}}, lineColor={0,0,127}),
-           Rectangle(extent={{72,-22},{76,-28}}, lineColor={0,0,127}),
-           Rectangle(extent={{20,30},{80,18}}, lineColor={0,0,127}),
-           Rectangle(extent={{20,12},{80,0}}, lineColor={0,0,127}),
-           Rectangle(extent={{24,18},{28,12}}, lineColor={0,0,127}),
-           Rectangle(extent={{72,18},{76,12}}, lineColor={0,0,127}),
-           Line(points={{130,-48}}, color={0,0,127})}),
-    Diagram(coordinateSystem(preserveAspectRatio=false,
-      extent={{-100,-160},{100,160}})),
-    Documentation(info="<html>
-      <p>
-      Outputs a boolean stage up signal <code>y</code> based on the 
-      various plant operation conditions that get provided as input signals. 
-      Implemented according to 1711 March 2020 Draft, section 5.3.3.10.
-      and applies to all boiler plants defined in RP-1711.
-      </p>
-      <p>
-      The stage up signal becomes <code>true</code> when:
-      </p>
-      <ul>
-      <li>
-      Current stage becomes unavailable, or
-      </li>
-      <li>
-      Efficiency condition is true, or
-      </li>
-      <li>
-      Failsafe condition is true.
-      </li>
-      </ul>
-      <p align=\"center\">
-      <img alt=\"Validation plot for EfficiencyCondition1\"
-      src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/Subsequences/Up1.png\"/>
-      <br/>
-      Validation plot generated from model <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences.Validation.Up\">
-      Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences.Validation.Up</a> with the block being activated by the efficiency condition.
-      </p>
-      <p align=\"center\">
-      <img alt=\"Validation plot for EfficiencyCondition1\"
-      src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/Subsequences/Up2.png\"/>
-      <br/>
-      Validation plot generated from model <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences.Validation.Up\">
-      Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences.Validation.Up</a> with the block being activated by the failsafe condition.
-      </p>
-      <p align=\"center\">
-      <img alt=\"Validation plot for EfficiencyCondition1\"
-      src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/Subsequences/Up3.png\"/>
-      <br/>
-      Validation plot generated from model <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences.Validation.Up\">
-      Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Subsequences.Validation.Up</a> with the block being activated by the unavailabaility
-      of current stage.
-      </p>
-      </html>",
-      revisions="<html>
-      <ul>
-      <li>
-      May 25, 2020, by Karthik Devaprasad:<br/>
-      First implementation.
-      </li>
-      </ul>
-      </html>"));
+  connect(staUp.uCapDes, con.y) annotation (Line(points={{-102,7},{-114,7},{-114,
+          140},{-158,140}}, color={0,0,127}));
+  connect(con1.y, staUp.uCapUpMin) annotation (Line(points={{-158,100},{-120,100},
+          {-120,5},{-102,5}}, color={0,0,127}));
+  connect(pul3.y, staUp.VHotWat_flow) annotation (Line(points={{-158,60},{-126,60},
+          {-126,3},{-102,3}}, color={0,0,127}));
+  connect(con4.y, staUp.VUpMinSet_flow) annotation (Line(points={{-158,20},{-132,
+          20},{-132,1},{-102,1}}, color={0,0,127}));
+  connect(conIntp.y, staUp.uTyp) annotation (Line(points={{-158,-20},{-132,-20},
+          {-132,-1},{-102,-1}}, color={255,127,0}));
+  connect(conInt.y, staUp.uAvaUp) annotation (Line(points={{-158,-60},{-126,-60},
+          {-126,-3},{-102,-3}}, color={255,127,0}));
+  connect(con2.y, staUp.THotWatSupSet) annotation (Line(points={{-158,-100},{-120,
+          -100},{-120,-5},{-102,-5}}, color={0,0,127}));
+  connect(con3.y, staUp.uCapReq) annotation (Line(points={{-158,180},{-110,180},
+          {-110,9},{-102,9}}, color={0,0,127}));
+  connect(con5.y, staUp.THotWatSup) annotation (Line(points={{-158,-140},{-114,-140},
+          {-114,-7},{-102,-7}}, color={0,0,127}));
+  connect(con6.y, staUp.uAvaCur) annotation (Line(points={{-158,-180},{-110,-180},
+          {-110,-9},{-102,-9}}, color={255,0,255}));
+  connect(staUp1.uCapDes, con8.y) annotation (Line(points={{28,7},{16,7},{16,140},
+          {-28,140}}, color={0,0,127}));
+  connect(con9.y, staUp1.uCapUpMin) annotation (Line(points={{-28,100},{10,100},
+          {10,5},{28,5}}, color={0,0,127}));
+  connect(con10.y, staUp1.VUpMinSet_flow) annotation (Line(points={{-28,20},{-2,
+          20},{-2,1},{28,1}}, color={0,0,127}));
+  connect(conIntp1.y, staUp1.uTyp) annotation (Line(points={{-28,-20},{-2,-20},{
+          -2,-1},{28,-1}}, color={255,127,0}));
+  connect(conInt1.y, staUp1.uAvaUp) annotation (Line(points={{-28,-60},{4,-60},{
+          4,-3},{28,-3}}, color={255,127,0}));
+  connect(con12.y, staUp1.uCapReq) annotation (Line(points={{-28,180},{20,180},{
+          20,9},{28,9}}, color={0,0,127}));
+  connect(con7.y, staUp1.uAvaCur) annotation (Line(points={{-28,-180},{20,-180},
+          {20,-9},{28,-9}}, color={255,0,255}));
+  connect(staUp2.uCapDes, con15.y) annotation (Line(points={{158,7},{146,7},{146,
+          140},{102,140}}, color={0,0,127}));
+  connect(con16.y, staUp2.uCapUpMin) annotation (Line(points={{102,100},{140,100},
+          {140,5},{158,5}}, color={0,0,127}));
+  connect(con17.y, staUp2.VUpMinSet_flow) annotation (Line(points={{102,20},{128,
+          20},{128,1},{158,1}}, color={0,0,127}));
+  connect(conIntp2.y, staUp2.uTyp) annotation (Line(points={{102,-20},{128,-20},
+          {128,-1},{158,-1}}, color={255,127,0}));
+  connect(conInt2.y, staUp2.uAvaUp) annotation (Line(points={{102,-60},{134,-60},
+          {134,-3},{158,-3}}, color={255,127,0}));
+  connect(con18.y, staUp2.THotWatSupSet) annotation (Line(points={{102,-100},{140,
+          -100},{140,-5},{158,-5}}, color={0,0,127}));
+  connect(con19.y, staUp2.uCapReq) annotation (Line(points={{102,180},{150,180},
+          {150,9},{158,9}}, color={0,0,127}));
+  connect(con20.y, staUp2.THotWatSup) annotation (Line(points={{102,-140},{146,-140},
+          {146,-7},{158,-7}}, color={0,0,127}));
+  connect(con21.y, staUp1.VHotWat_flow)
+    annotation (Line(points={{-28,60},{4,60},{4,3},{28,3}}, color={0,0,127}));
+  connect(con13.y, staUp1.THotWatSupSet) annotation (Line(points={{-28,-100},{10,
+          -100},{10,-5},{28,-5}}, color={0,0,127}));
+  connect(pul.y, staUp1.THotWatSup) annotation (Line(points={{-28,-140},{16,-140},
+          {16,-7},{28,-7}}, color={0,0,127}));
+  connect(con11.y, staUp2.VHotWat_flow) annotation (Line(points={{102,60},{134,60},
+          {134,3},{158,3}}, color={0,0,127}));
+  connect(booPul.y, staUp2.uAvaCur) annotation (Line(points={{102,-180},{150,-180},
+          {150,-9},{158,-9}}, color={255,0,255}));
+annotation (
+  experiment(
+      StopTime=7200,
+      Interval=1,
+      Tolerance=1e-06),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/Validation/Up.mos"
+    "Simulate and plot"),
+  Documentation(info="<html>
+    <p>
+    This example validates
+    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Up\">
+    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Up</a>.
+    </p>
+    </html>", revisions="<html>
+    <ul>
+    <li>
+    May 26, 2020, by Karthik Devaprasad:<br/>
+    First implementation.
+    </li>
+    </ul>
+    </html>"),
+  Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
+     graphics={
+        Ellipse(lineColor = {75,138,73},
+                fillColor={255,255,255},
+                fillPattern = FillPattern.Solid,
+                extent = {{-100,-100},{100,100}}),
+        Polygon(lineColor = {0,0,255},
+                fillColor = {75,138,73},
+                pattern = LinePattern.None,
+                fillPattern = FillPattern.Solid,
+                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
+  Diagram(coordinateSystem(preserveAspectRatio=false,
+    extent={{-200,-200},{200,200}})));
 end Up;
