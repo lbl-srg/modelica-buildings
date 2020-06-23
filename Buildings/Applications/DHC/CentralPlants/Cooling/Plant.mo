@@ -83,24 +83,26 @@ model Plant "District cooling plant model"
     "Type of mass balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
-  Medium.ThermodynamicState sta_a=
+  Medium.ThermodynamicState sta_a( T(start=273.15+16))=
       Medium.setState_phX(port_a.p,
                           noEvent(actualStream(port_a.h_outflow)),
                           noEvent(actualStream(port_a.Xi_outflow))) if
          show_T "Medium properties in port_a";
 
-  Medium.ThermodynamicState sta_b=
+  Medium.ThermodynamicState sta_b( T(start=273.15+7))=
       Medium.setState_phX(port_b.p,
                           noEvent(actualStream(port_b.h_outflow)),
                           noEvent(actualStream(port_b.Xi_outflow))) if
           show_T "Medium properties in port_b";
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium = Medium)
+  Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium = Medium,
+    m_flow(start = mCHW_flow_nominal))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{150,40},{170,60}}),
         iconTransformation(extent={{90,40},{110,60}})));
 
-  Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium = Medium)
+  Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium = Medium,
+    m_flow(start = -mCHW_flow_nominal))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{150,-60},{170,-40}}),
         iconTransformation(extent={{90,-60},{110,-40}})));
@@ -199,7 +201,7 @@ model Plant "District cooling plant model"
 
   Buildings.Applications.DHC.CentralPlants.Cooling.Controls.ChilledWaterPumpSpeed
     CHWPumCon(
-    tWai=tWai,
+    tWai=0,
     m_flow_nominal=mCHW_flow_nominal,
     dpSetPoi=dpSetPoi,
     controllerType=Modelica.Blocks.Types.SimpleController.PI) "Chilled water pump controller"

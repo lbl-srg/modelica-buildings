@@ -135,7 +135,11 @@ equation
           -22,18}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    experiment(StopTime=86400, Tolerance=1e-06),
+    experiment(
+      StartTime=15552000,
+      StopTime=15638400,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Dassl"),
     __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/CentralPlants/Cooling/Examples/CoolingPlantClosedLoop.mos"
         "Simulate and Plot"));
 end CoolingPlantClosedLoop;
