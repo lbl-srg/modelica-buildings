@@ -2,7 +2,7 @@ simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.S
 
 removePlots(false);
 createPlot(id=1, position={0, 0, 1660, 998}, y={"staDow.uCapReq", "staDow.uCapMin"}, range={0.0, 16000.0, 0.8, 1.4000000000000001}, grid=true, colors={{28,108,200}, {238,46,47}});
-createPlot(id=1, position={0, 0, 1660, 162}, y={"staDow.VHotWat_flow", "staDow.VMinSet_flow"}, range={0.0, 16000.0, 0.6000000000000001, 1.2000000000000002}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={0, 0, 1660, 162}, y={"staDow.uPumSpe"}, range={0.0, 16000.0, 0.6000000000000001, 1.2000000000000002}, grid=true, subPlot=2, colors={{28,108,200}});
 createPlot(id=1, position={0, 0, 1660, 162}, y={"staDow.TPriHotWatRet", "staDow.TSecHotWatRet"}, range={0.0, 16000.0, 78.0, 84.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
 createPlot(id=1, position={0, 0, 1660, 163}, y={"staDow.faiSafCon.yFaiCon"}, range={0.0, 16000.0, -0.5, 1.5}, grid=true, subPlot=4, colors={{28,108,200}});
 createPlot(id=1, position={0, 0, 1660, 162}, y={"staDow.uCapReq", "staDow.uCapDowDes"}, range={0.0, 16000.0, 1.0, 2.5}, grid=true, subPlot=5, colors={{28,108,200}, {238,46,47}});
