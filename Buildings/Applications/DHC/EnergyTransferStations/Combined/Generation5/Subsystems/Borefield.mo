@@ -150,5 +150,10 @@ equation
           lineColor={27,0,55},
           fillColor={170,213,255},
           fillPattern=FillPattern.Solid)}), Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})));
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
+    Documentation(info="<html>
+<p>
+from_dp is set to false to avoid non convergence issues.
+</p>
+</html>"));
 end Borefield;
