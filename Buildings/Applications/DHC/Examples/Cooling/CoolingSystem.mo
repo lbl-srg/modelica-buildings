@@ -1,5 +1,6 @@
 within Buildings.Applications.DHC.Examples.Cooling;
-model CoolingSystem "Example to test the district cooling network model"
+model CoolingSystem
+  "Example to test the district cooling network model"
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Water "Medium model for water";
@@ -82,7 +83,8 @@ model CoolingSystem "Example to test the district cooling network model"
     lEnd=50,
     dhDis={0.4,0.3,0.2},
     dhCon={0.1,0.1,0.1},
-    allowFlowReversal=allowFlowReversal)
+    allowFlowReversal=allowFlowReversal,
+    dhEnd=0.1)
     "Distribution branch 1"
     annotation (Placement(transformation(extent={{10,0},{50,20}})));
   Buildings.Applications.DHC.Examples.Cooling.BaseClasses.BuildingTimeSeriesCooling bld4(
@@ -147,7 +149,8 @@ model CoolingSystem "Example to test the district cooling network model"
     lEnd=50,
     dhDis={0.4,0.3,0.2},
     dhCon={0.1,0.1,0.1},
-    allowFlowReversal=allowFlowReversal)
+    allowFlowReversal=allowFlowReversal,
+    dhEnd=0.1)
     "Distribution branch 1"
     annotation (Placement(transformation(extent={{10,-80},{50,-60}})));
   Buildings.Applications.DHC.Examples.Cooling.BaseClasses.BuildingTimeSeriesCooling bld567[nBui](
