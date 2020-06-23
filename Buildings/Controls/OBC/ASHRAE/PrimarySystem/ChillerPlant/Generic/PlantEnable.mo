@@ -1,17 +1,24 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic;
 block PlantEnable "Sequence to enable and disable plant"
 
+  parameter Boolean have_WSE = true
+    "Flag to indicate if the plant has waterside economizer";
+
   parameter Real schTab[4,2] = [0,1; 6*3600,1; 19*3600,1; 24*3600,1]
     "Plant enabling schedule allowing operators to lock out the plant during off-hour";
 
   parameter Modelica.SIunits.Temperature TChiLocOut=277.5
     "Outdoor air lockout temperature below which the chiller plant should be disabled";
 
-  parameter Modelica.SIunits.Time plaThrTim = 15*60
-    "Threshold time to check status of chiller plant";
+  parameter Real plaThrTim(
+    final unit="s",
+    final quantity="Time")=15*60
+      "Threshold time to check status of chiller plant";
 
-  parameter Modelica.SIunits.Time reqThrTim = 3*60
-    "Threshold time to check current chiller plant request";
+  parameter Real reqThrTim(
+    final unit="s",
+    final quantity="Time")=3*60
+      "Threshold time to check current chiller plant request";
 
   parameter Integer ignReq = 0
     "Ignorable chiller plant requests";
@@ -170,21 +177,17 @@ equation
     annotation (Line(points={{62,-70},{80,-70},{80,-30},{20,-30},{20,-18},{38,-18}},
       color={255,0,255}));
   connect(not2.y, mulOr.u1)
-    annotation (Line(points={{2,-50},{20,-50},{20,-62},{38,-62}},
-                                                               color={255,0,255}));
+    annotation (Line(points={{2,-50},{20,-50},{20,-62},{38,-62}}, color={255,0,255}));
   connect(greEquThr2.y, mulOr.u2)
-    annotation (Line(points={{-38,-70},{38,-70}},
-                                                color={255,0,255}));
+    annotation (Line(points={{-38,-70},{38,-70}}, color={255,0,255}));
   connect(hasReq.y, not3.u)
     annotation (Line(points={{-118,90},{-20,90},{-20,70},{-180,70},{-180,-70},{-142,
           -70}},   color={255,0,255}));
   connect(not3.y, enaTim1.u)
-    annotation (Line(points={{-118,-70},{-102,-70}},
-                                                   color={255,0,255}));
+    annotation (Line(points={{-118,-70},{-102,-70}}, color={255,0,255}));
   connect(lat.y, pre1.u)
     annotation (Line(points={{122,80},{140,80},{140,140},{-190,140},{-190,120},{
-          -182,120}},
-                   color={255,0,255}));
+          -182,120}}, color={255,0,255}));
   connect(pre1.y, not1.u)
     annotation (Line(points={{-158,120},{-142,120}}, color={255,0,255}));
   connect(pre1.y, enaTim.u)
@@ -197,8 +200,7 @@ equation
     annotation (Line(points={{-158,-110},{-150,-110},{-150,-124},{-142,-124}},
       color={0,0,127}));
   connect(add2.y, hys.u)
-    annotation (Line(points={{-118,-130},{-102,-130}},
-                                                     color={0,0,127}));
+    annotation (Line(points={{-118,-130},{-102,-130}}, color={0,0,127}));
   connect(hys.y, mulOr.u3)
     annotation (Line(points={{-78,-130},{20,-130},{20,-78},{38,-78}},
       color={255,0,255}));
@@ -210,6 +212,7 @@ equation
       color={255,0,255}));
   connect(and2.y, lat.clr) annotation (Line(points={{62,-10},{80,-10},{80,74},{98,
           74}},     color={255,0,255}));
+
 annotation (
   defaultComponentName = "plaEna",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-180},{200,180}})),
@@ -243,7 +246,7 @@ annotation (
 <p>
 Block that generate chiller plant enable signals and output the initial plant stage,
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft 4 on January 7, 2019), section 5.2.2 and 
+Central Plants and Hydronic Systems (Draft 4 on January 7, 2019), section 5.2.2 and
 5.2.4.13 Table 2.
 </p>
 <p>
@@ -251,20 +254,20 @@ The chiller plant should be enabled and disabled according to following sequence
 </p>
 <ol>
 <li>
-An enabling schedule should be included to allow operators to lock out the 
+An enabling schedule should be included to allow operators to lock out the
 chiller plant during off-hour, e.g. to allow off-hour operation of HVAC systems
 except the chiller plant. The default schedule shall be 24/7 and be adjustable.
 </li>
 <li>
 The plant should be enabled in the lowest stage when the plant has been
-disabled for at least <code>plaThrTim</code>, e.g. 15 minutes and: 
+disabled for at least <code>plaThrTim</code>, e.g. 15 minutes and:
 <ul>
 <li>
 Number of chiller plant requests &gt; <code>ignReq</code> (<code>ignReq</code>
 should default to 0 and adjustable), and,
 </li>
 <li>
-Outdoor air temperature is greater than chiller lockout temperature, 
+Outdoor air temperature is greater than chiller lockout temperature,
 <code>TOut</code> &gt; <code>TChiLocOut</code>, and,
 </li>
 <li>
@@ -273,7 +276,7 @@ The chiller enable schedule is active.
 </ul>
 </li>
 <li>
-The plant should be disabled when it has been enabled for at least 
+The plant should be disabled when it has been enabled for at least
 <code>plaThrTim</code>, e.g. 15 minutes and:
 <ul>
 <li>

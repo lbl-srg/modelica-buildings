@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "wseOpe.uFanSpe",
+    "wseOpe.TChiWatSup",
+    "wseOpe.TChiWatSupSet",
+    "wseOpe.yFanSpe"
+  };

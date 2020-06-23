@@ -21,10 +21,14 @@ block Speed_primary_localDp
     annotation(Dialog(group="Speed controller"));
   parameter Real k=1 "Gain of controller"
     annotation(Dialog(group="Speed controller"));
-  parameter Modelica.SIunits.Time Ti=0.5 "Time constant of integrator block"
-    annotation(Dialog(group="Speed controller"));
-  parameter Modelica.SIunits.Time Td=0.1 "Time constant of derivative block"
-    annotation (Dialog(group="Speed controller",
+  parameter Real Ti(
+    final unit="s",
+    final quantity="Time")=0.5 "Time constant of integrator block"
+      annotation(Dialog(group="Speed controller"));
+  parameter Real Td(
+    final unit="s",
+    final quantity="Time")=0.1 "Time constant of derivative block"
+      annotation (Dialog(group="Speed controller",
       enable=
       controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
       controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
@@ -259,8 +263,8 @@ annotation (
 <p>
 Block that control speed of enabled chilled water pumps for primary-only plants where
 the remote pressure differential (DP) sensor(s) is not hardwired to the plant controller,
-but a local DP sensor is hardwired to the plant controller, 
-according to ASHRAE RP-1711 (Draft 6 on July 25, 2019), 
+but a local DP sensor is hardwired to the plant controller,
+according to ASHRAE RP-1711 (Draft 6 on July 25, 2019),
 section 5.2.6 Primary chilled water pumps, part 5.2.6.9, 5.2.6.8.10 and 5.2.6.11.
 </p>
 <ol>
@@ -268,15 +272,15 @@ section 5.2.6 Primary chilled water pumps, part 5.2.6.9, 5.2.6.8.10 and 5.2.6.11
 Remote DP shall be maintained at setpoint <code>dpChiWatSet</code> by a reverse
 acting PID loop running in the controller to which the remote sensor is wired.
 The loop output shall be a DP setpoint for the local primary loop DP sensor
-hardwired to the plant controller. Reset local DP from <code>minLocDp</code>, 
+hardwired to the plant controller. Reset local DP from <code>minLocDp</code>,
 e.g. 5 psi (34473.8 Pa), at 0% loop output to <code>maxLocDp</code> at 100%
 loop output.
 </li>
 <li>
 When any pump is proven on, pump speed shall be controlled by a reverse acting
 PID loop maintaining the local primary DP signal at the DP setpoint output
-from the remote sensor control loop. All pumps receive the same speed signal. 
-PID loop output shall be mapped from minimum pump speed (<code>minPumSpe</code>) 
+from the remote sensor control loop. All pumps receive the same speed signal.
+PID loop output shall be mapped from minimum pump speed (<code>minPumSpe</code>)
 at 0% to maximum pump speed (<code>maxPumSpe</code>) at 100%.
 </li>
 <li>
