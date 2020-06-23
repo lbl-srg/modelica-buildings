@@ -26,8 +26,8 @@ model Reservoir3Variable_TOUGH
 equation
   connect(Tml5.T, conMaiPum.TMix[1]) annotation (Line(points={{86.6,-100},{28,
           -100},{28,-182},{-36,-182},{-36,-225.333},{-22,-225.333}}, color={0,0,127},
-
       pattern=LinePattern.Dash));
+
   connect(Tml4.T, conMaiPum.TMix[2]) annotation (Line(points={{86.6,118},{26,118},
           {26,-180},{-30,-180},{-30,-224},{-22,-224}},      color={0,0,127},
       pattern=LinePattern.Dash));
@@ -61,8 +61,8 @@ equation
           __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/DistrictReservoirNetworks/Examples/Reservoir3Variable_TOUGH.mos"
         "Simulate and plot"),
     experiment(
-      StopTime=31536000,
-      __Dymola_NumberOfIntervals=8760,
+      StopTime=315360000,
+      __Dymola_NumberOfIntervals=87600,
       Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"));
+      __Dymola_Algorithm="Radau"));
 end Reservoir3Variable_TOUGH;
