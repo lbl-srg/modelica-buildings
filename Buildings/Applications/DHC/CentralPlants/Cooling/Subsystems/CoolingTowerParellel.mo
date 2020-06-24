@@ -95,18 +95,18 @@ model CoolingTowerParellel
     "Leaving water temperature"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
 
-  replaceable Fluid.HeatExchangers.CoolingTowers.Merkel cooTow[num]
+  replaceable Fluid.HeatExchangers.CoolingTowers.Merkel cooTow[num](
+     each final ratWatAir_nominal=ratWatAir_nominal,
+     each final TAirInWB_nominal=TAirInWB_nominal,
+     each final TWatIn_nominal=TWatIn_nominal,
+     each final TWatOut_nominal=TWatIn_nominal-dT_nominal,
+     each final PFan_nominal=PFan_nominal)
     constrainedby
     Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower(
      redeclare each final package Medium = Medium,
      each show_T=show_T,
      each final m_flow_nominal=m_flow_nominal,
      each final dp_nominal=dp_nominal,
-     each final ratWatAir_nominal=ratWatAir_nominal,
-     each final TAirInWB_nominal=TAirInWB_nominal,
-     each final TWatIn_nominal=TWatIn_nominal,
-     each final TWatOut_nominal=TWatIn_nominal-dT_nominal,
-     each final PFan_nominal=PFan_nominal,
      each final energyDynamics=energyDynamics)
     "Cooling tower type"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
