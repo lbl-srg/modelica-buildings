@@ -379,10 +379,12 @@ void generateFMU(
     }
     /* Continue building the command line */
     strcat(fulCmd, optionFlags);
+/*
     strcat(fulCmd, outputFlag);
     strcat(fulCmd, "\"");
     strcat(fulCmd, FMUPath);
     strcat(fulCmd, "\"");
+*/
     strcat(fulCmd, createFlag);
     strcat(fulCmd, "\"");
     strcat(fulCmd, modelicaBuildingsJsonFile);
