@@ -173,7 +173,7 @@ model CoolingTowerWithBypass "Cooling tower system with bypass valve"
     Ti=Ti) "Cooling tower fan speed controller"
     annotation (Placement(transformation(extent={{-12,50},{8,70}})));
 
-  Modelica.Blocks.Sources.RealExpression TLvgCooTow(y=cooTowSys.sta_b.T)
+  Modelica.Blocks.Sources.RealExpression TLvgCooTow(y=senTCWSup.T)
     "Condenser water temperature leaving the towers"
     annotation (Placement(transformation(extent={{-30,30},{-10,50}})));
 
