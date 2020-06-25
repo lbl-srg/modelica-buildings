@@ -1,5 +1,5 @@
 ﻿// Simulate
-simulateModel("Buildings.Applications.DHC.Examples.Cooling.CoolingSystem", stopTime=86400, tolerance=1e-06, resultFile="CoolingSystem");
+simulateModel("Buildings.Applications.DHC.Examples.Cooling.CoolingSystem", stopTime=86400, method="dassl", tolerance=1e-06, resultFile="CoolingSystem");
 // Plot commands
 removePlots(false);
 createPlot(id=1, 
