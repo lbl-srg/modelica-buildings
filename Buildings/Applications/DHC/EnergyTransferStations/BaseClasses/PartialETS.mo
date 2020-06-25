@@ -58,13 +58,13 @@ partial model PartialETS "Partial class for energy transfer station model"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
   parameter Modelica.SIunits.HeatFlowRate QChiWat_flow_nominal = 0
     "Design heat flow rate for chilled water production (<0)"
-    annotation (Dialog(group="Nominal conditions", enable=have_chiWat));
+    annotation (Dialog(group="Nominal condition", enable=have_chiWat));
   parameter Modelica.SIunits.HeatFlowRate QHeaWat_flow_nominal = 0
     "Design heat flow rate for heating water production (>0)"
-    annotation (Dialog(group="Nominal conditions", enable=have_heaWat));
+    annotation (Dialog(group="Nominal condition", enable=have_heaWat));
   parameter Modelica.SIunits.HeatFlowRate QHotWat_flow_nominal = 0
     "Design heat flow rate for hot water production (>0)"
-    annotation (Dialog(group="Nominal conditions", enable=have_hotWat));
+    annotation (Dialog(group="Nominal condition", enable=have_hotWat));
   // IO CONNECTORS
   Modelica.Fluid.Interfaces.FluidPorts_a ports_aHeaWat[nPorts_aHeaWat](
     redeclare each package Medium = MediumBui,
