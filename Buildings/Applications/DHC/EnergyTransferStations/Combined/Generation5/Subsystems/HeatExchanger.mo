@@ -49,7 +49,7 @@ model HeatExchanger
   parameter Real k[2] = {0.1, 0.2}
     "Gain schedule for controller (index 1 for heat rejection)"
     annotation (Dialog(group="Controls"));
-  parameter Modelica.SIunits.Time Ti=10
+  parameter Modelica.SIunits.Time Ti=120
     "Time constant of integrator block"
     annotation (Dialog(group="Controls"));
   // IO CONNECTORS
