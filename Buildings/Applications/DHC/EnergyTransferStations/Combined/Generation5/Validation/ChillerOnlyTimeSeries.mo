@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Validation;
-model ChillerTimeSeries
-  "Validation of the ETS model with heat recovery chiller"
+model ChillerOnlyTimeSeries
+  "Validation of the ETS model with heat recovery chiller and no borefield"
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Water "Medium model";
@@ -88,7 +88,8 @@ model ChillerTimeSeries
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={90,-40})));
-  EnergyTransferStations.Combined.Generation5.Chiller ets(
+  Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.ChillerBorefield
+    ets(
     redeclare final package MediumBui = Medium,
     redeclare final package MediumDis = Medium,
     QChiWat_flow_nominal=datChi.QEva_flow_nominal,
@@ -295,11 +296,11 @@ equation
   annotation (Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-300,-220},{300,220}})),
   __Dymola_Commands(file=
-"modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Combined/Generation5/Validation/ChillerTimeSeries.mos"
+"modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Combined/Generation5/Validation/ChillerOnlyTimeSeries.mos"
 "Simulate and plot"),
     experiment(
-      StopTime=12000000,
-      __Dymola_NumberOfIntervals=5000,
+      StartTime=10000000,
+      StopTime=15000000,
       Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"));
-end ChillerTimeSeries;
+      __Dymola_Algorithm="Dassl"));
+end ChillerOnlyTimeSeries;

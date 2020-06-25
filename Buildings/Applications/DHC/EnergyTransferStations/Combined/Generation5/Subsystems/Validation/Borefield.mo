@@ -9,7 +9,8 @@ model Borefield
   parameter Modelica.SIunits.Distance dxy = 6
     "Distance in x-axis (and y-axis) between borehole axes";
   final parameter Modelica.SIunits.Distance cooBor[nBorHol,2]=
-      BaseClasses.computeCoordinates(nBorHol, dxy) "Coordinates of boreholes";
+      .Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.computeCoordinates(
+                                     nBorHol, dxy) "Coordinates of boreholes";
   Generation5.Subsystems.Borefield borFie(
     redeclare final package Medium = Medium,
     final dat=datBorFie,

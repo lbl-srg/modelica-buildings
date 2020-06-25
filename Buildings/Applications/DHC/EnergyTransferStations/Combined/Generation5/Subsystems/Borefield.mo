@@ -100,7 +100,11 @@ model Borefield "Auxiliary subsystem with geothermal borefield"
     final TBorWatEntMax=TBorWatEntMax,
     final spePumBorMin=spePumBorMin)
     "Controller"
-    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
+    annotation (Placement(transformation(extent={{-70,50},{-50,70}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PPum(final unit="W")
+    "Pump power"
+    annotation (Placement(transformation(extent={{100,60},{140,100}}),
+      iconTransformation(extent={{100,60},{140,100}})));
 initial equation
   assert(abs(dat.conDat.dp_nominal) < Modelica.Constants.eps,
     "In " + getInstanceName() +
@@ -121,22 +125,25 @@ equation
     annotation (Line(points={{32,0},{40,0}}, color={0,127,255}));
   connect(spl.port_3, val.port_3) annotation (Line(points={{80,-10},{80,-40},{-80,
           -40},{-80,-10}}, color={0,127,255}));
-  connect(u, con.u) annotation (Line(points={{-120,80},{-80,80},{-80,66},{-62,
+  connect(u, con.u) annotation (Line(points={{-120,80},{-90,80},{-90,66},{-72,
           66}},
         color={0,0,127}));
   connect(yValIso, con.yValIso)
-    annotation (Line(points={{-120,40},{-80,40},{-80,60},{-62,60}},
+    annotation (Line(points={{-120,40},{-90,40},{-90,60},{-72,60}},
                                                   color={0,0,127}));
-  connect(con.yPum, pum.m_flow_in) annotation (Line(points={{-38,66},{0,66},{0,20},
-          {-40,20},{-40,12}}, color={0,0,127}));
-  connect(con.yValMix, val.y) annotation (Line(points={{-38,54},{-20,54},{-20,24},
-          {-80,24},{-80,12}}, color={0,0,127}));
+  connect(con.yPum, pum.m_flow_in) annotation (Line(points={{-48,66},{-40,66},{
+          -40,12}},           color={0,0,127}));
+  connect(con.yValMix, val.y) annotation (Line(points={{-48,54},{-46,54},{-46,
+          20},{-80,20},{-80,12}},
+                              color={0,0,127}));
   connect(port_a, val.port_1)
     annotation (Line(points={{-100,0},{-90,0}}, color={0,127,255}));
   connect(val.port_2, pum.port_a)
     annotation (Line(points={{-70,0},{-50,0}}, color={0,127,255}));
   connect(senTEnt.T, con.TBorWatEnt) annotation (Line(points={{-10,11},{-10,40},
-          {-70,40},{-70,54},{-62,54}}, color={0,0,127}));
+          {-80,40},{-80,54},{-72,54}}, color={0,0,127}));
+  connect(pum.P, PPum) annotation (Line(points={{-29,9},{-20,9},{-20,80},{120,
+          80}}, color={0,0,127}));
   annotation (
   defaultComponentName="borFie",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={

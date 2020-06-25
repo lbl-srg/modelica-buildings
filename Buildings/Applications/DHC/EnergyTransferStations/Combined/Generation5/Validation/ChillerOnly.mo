@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Validation;
-model Chiller
-  "Validation of the ETS model with heat recovery chiller"
+model ChillerOnly
+  "Validation of the ETS model with heat recovery chiller and no borefield"
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Water "Medium model";
@@ -71,7 +71,8 @@ model Chiller
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={90,-40})));
-  EnergyTransferStations.Combined.Generation5.Chiller ets(
+  Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.ChillerBorefield
+    ets(
     redeclare final package MediumBui = Medium,
     redeclare final package MediumDis = Medium,
     QChiWat_flow_nominal=datChi.QEva_flow_nominal,
@@ -89,8 +90,7 @@ model Chiller
     nPorts_aHeaWat=1,
     nPorts_bHeaWat=1,
     nPorts_bChiWat=1,
-    nPorts_aChiWat=1)
-    "ETS"
+    nPorts_aChiWat=1) "ETS"
     annotation (Placement(transformation(extent={{-10,-84},{50,-24}})));
   Fluid.Sources.Boundary_pT disWat(
     redeclare final package Medium = Medium,
@@ -242,16 +242,13 @@ equation
   connect(loaCooRat.y, gai4.u)
     annotation (Line(points={{259,60},{222,60}}, color={0,0,127}));
   connect(reqHea.y, ets.uHea) annotation (Line(points={{-128,-20},{-120,-20},{
-          -120,-46},{-14,-46}},
-                           color={255,0,255}));
+          -120,-46},{-14,-46}}, color={255,0,255}));
   connect(reqCoo.y, ets.uCoo) annotation (Line(points={{-128,-100},{-120,-100},
           {-120,-54},{-14,-54}},color={255,0,255}));
   connect(loaHeaRat.y, noLoaHea.u) annotation (Line(points={{-239,120},{-220,
-          120},{-220,-20},{-212,-20}},
-                                  color={0,0,127}));
+          120},{-220,-20},{-212,-20}}, color={0,0,127}));
   connect(loaCooRat.y, noLoaCoo.u) annotation (Line(points={{259,60},{240,60},{
-          240,-120},{-220,-120},{-220,-100},{-214,-100}},
-                                                      color={0,0,127}));
+          240,-120},{-220,-120},{-220,-100},{-214,-100}}, color={0,0,127}));
   connect(reqHea.u, truDelHea.y)
     annotation (Line(points={{-152,-20},{-158,-20}}, color={255,0,255}));
   connect(noLoaHea.y, truDelHea.u)
@@ -267,10 +264,10 @@ equation
   annotation (Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-300,-220},{300,220}})),
   __Dymola_Commands(file=
-"modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Combined/Generation5/Validation/Chiller.mos"
+"modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Combined/Generation5/Validation/ChillerOnly.mos"
 "Simulate and plot"),
     experiment(
       StopTime=20000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"));
-end Chiller;
+end ChillerOnly;
