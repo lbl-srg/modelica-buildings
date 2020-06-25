@@ -18,7 +18,7 @@ model Guideline36
     yMin=0.1,
     kHea=4,
     kMod=4,
-    have_occSen=true,
+    have_occSen=false,
     TZonHeaOff=288.15,
     TZonCooOn=298.15,
     TSupSetMax=323.15,
@@ -77,22 +77,15 @@ equation
   connect(hvac.TMix, controller.TMix) annotation (Line(points={{1,-4},{14,-4},{14,
           -46},{-128,-46},{-128,-4.92308},{-122,-4.92308}},
                                                    color={0,0,127}));
-  connect(occSch.tNexOcc, controller.tNexOcc) annotation (Line(points={{-159,56},
-          {-150,56},{-150,15.3846},{-122,15.3846}},
+  connect(occSch.tNexOcc, controller.tNexOcc) annotation (Line(points={{-159,16},
+          {-150,16},{-150,15.3846},{-122,15.3846}},
                                           color={0,0,127}));
-  connect(controller.uOcc, occSch.occupied) annotation (Line(points={{-122,6.15385},
-          {-152,6.15385},{-152,44},{-159,44}},
+  connect(controller.uOcc, occSch.occupied) annotation (Line(points={{-122,
+          6.15385},{-152,6.15385},{-152,4},{-159,4}},
                                         color={255,0,255}));
-  connect(uWin.y, controller.uWin) annotation (Line(points={{-159,-50},{-148,-50},
-          {-148,-12.3077},{-122,-12.3077}},
+  connect(uWin.y, controller.uWin) annotation (Line(points={{-159,-30},{-148,
+          -30},{-148,-12.3077},{-122,-12.3077}},
                                        color={255,0,255}));
-  connect(occSch.occupied, occPer.u) annotation (Line(points={{-159,44},{-152,
-          44},{-152,0},{-190,0},{-190,-80},{-182,-80}},   color={255,0,255}));
-  connect(occPer.y, ppl.u)
-    annotation (Line(points={{-159,-80},{-155.2,-80}}, color={0,0,127}));
-  connect(ppl.y, controller.nOcc) annotation (Line(points={{-141.4,-80},{-138,-80},
-          {-138,-8.61538},{-122,-8.61538}},
-                                     color={0,0,127}));
   connect(controller.TZonCooSet, errTRooCoo.u2) annotation (Line(points={{-78,-4},
           {-74,-4},{-74,-40},{-120,-40},{-120,-110},{-100,-110},{-100,-98}},
         color={0,0,127}));
