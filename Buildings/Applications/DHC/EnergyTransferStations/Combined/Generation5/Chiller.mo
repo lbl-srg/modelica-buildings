@@ -76,9 +76,10 @@ model Chiller "ETS model for 5GDHC systems with heat recovery chiller"
   parameter Modelica.SIunits.PressureDifference dpEva_nominal(displayUnit="Pa")
     "Nominal pressure drop accross evaporator"
     annotation (Dialog(group="Chiller"));
-  parameter Fluid.Chillers.Data.ElectricEIR.Generic datChi
+  replaceable parameter Fluid.Chillers.Data.ElectricEIR.Generic datChi
     "Chiller performance data"
     annotation (Dialog(group="Chiller"),
+      choicesAllMatching=true,
       Placement(transformation(extent={{-10,222},{10,242}})));
 
   final parameter Modelica.SIunits.Volume VTanHeaWat=

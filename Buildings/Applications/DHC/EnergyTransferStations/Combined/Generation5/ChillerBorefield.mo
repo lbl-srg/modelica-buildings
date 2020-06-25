@@ -5,9 +5,11 @@ model ChillerBorefield
     nSouAmb=2,
     colAmbWat(mCon_flow_nominal={m2Hex_flow_nominal, borFie.m_flow_nominal}));
 
-  parameter Fluid.Geothermal.Borefields.Data.Borefield.Template datBorFie
-    "Borefield parameters" annotation (Dialog(group="Borefield"), Placement(
-        transformation(extent={{20,222},{40,242}})));
+  parameter Fluid.Geothermal.Borefields.Data.Borefield.Template
+    datBorFie
+    "Borefield parameters"
+    annotation (Dialog(group="Borefield"),
+      Placement(transformation(extent={{20,222},{40,242}})));
   parameter Modelica.SIunits.Temperature TBorWatEntMax=313.15
     "Maximum value of borefield water entering temperature"
     annotation (Dialog(group="Borefield"));
