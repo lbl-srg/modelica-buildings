@@ -226,13 +226,11 @@ equation
   connect(booToRea.y, pro.u2) annotation (Line(points={{82,150},{100,150},{100,214},
           {118,214}},color={0,0,127}));
   connect(booToRea.y, pro1.u2) annotation (Line(points={{82,150},{100,150},{100,
-          174},{118,174}},
-                     color={0,0,127}));
+          174},{118,174}}, color={0,0,127}));
   connect(add.y, hys.u)
     annotation (Line(points={{-18,90},{-2,90}},color={0,0,127}));
   connect(add1.y, hys1.u)
-    annotation (Line(points={{-18,10},{-2,10}},
-                                              color={0,0,127}));
+    annotation (Line(points={{-18,10},{-2,10}}, color={0,0,127}));
   connect(uWin, not1.u)
     annotation (Line(points={{-180,150},{-42,150}},color={255,0,255}));
   connect(add2.y, hys2.u)
@@ -240,8 +238,7 @@ equation
   connect(add5.y, hys5.u)
     annotation (Line(points={{-18,-190},{-2,-190}},  color={0,0,127}));
   connect(not1.y, booToRea.u)
-    annotation (Line(points={{-18,150},{58,150}},
-                                                color={255,0,255}));
+    annotation (Line(points={{-18,150},{58,150}}, color={255,0,255}));
   connect(pro.y, yCooTim)
     annotation (Line(points={{142,220},{180,220}}, color={0,0,127}));
   connect(pro1.y, yWarTim)
@@ -272,7 +269,6 @@ equation
           -60,-236},{-42,-236}},color={0,0,127}));
   connect(add4.y, hys4.u)
     annotation (Line(points={{-18,-230},{-2,-230}},  color={0,0,127}));
-
   connect(occHeaSet.y, add.u1) annotation (Line(points={{-98,130},{-60,130},{-60,
           96},{-42,96}}, color={0,0,127}));
   connect(occCooSet.y, add1.u1) annotation (Line(points={{-98,50},{-60,50},{-60,
@@ -325,6 +321,7 @@ equation
           {118,-88}}, color={255,0,255}));
   connect(not1.y, and5.u2) annotation (Line(points={{-18,150},{40,150},{40,-208},
           {118,-208}}, color={255,0,255}));
+
 annotation (
   defaultComponentName = "zonSta",
    Icon(coordinateSystem(extent={{-100,-140},{100,140}}),
@@ -449,9 +446,10 @@ setpoint,
 </li>
 <li>
 <code>yEndSetBac</code>: if the zone temperature is higher than the unoccupied heating
-setpoint with the given limit <code></code>, then the zone should be out of the
+setpoint with the given limit <code>bouLim</code>, then the zone should be out of the
 setback mode,
 </li>
+<li>
 <code>TCooSetOff</code>: the zone unoccupied cooling setpoint,
 </li>
 <li>
@@ -460,7 +458,7 @@ setpoint,
 </li>
 <li>
 <code>yEndSetUp</code>: if the zone temperature is lower than the unoccupied cooling
-setpoint with the given limit <code></code>, then the zone should be out of the
+setpoint with the given limit <code>bouLim</code>, then the zone should be out of the
 setup mode.
 </li>
 </ul>

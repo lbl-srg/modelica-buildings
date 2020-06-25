@@ -227,7 +227,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.MultiMin minToNexOcc(
     final nin=numZon)
     "Minimum time to next occupied period"
-    annotation (Placement(transformation(extent={{40,210},{60,230}})));
+    annotation (Placement(transformation(extent={{-60,210},{-40,230}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr schOcc(
     final nu=numZon)
     "Check if the group should be in occupied mode according to the schedule"
@@ -246,6 +246,14 @@ protected
     final nin=numZon)
     "Total number of opening windows"
     annotation (Placement(transformation(extent={{40,-310},{60,-290}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
+    final realTrue=0,
+    final realFalse=1)
+    "When any zone becomes occpuied, output zero"
+    annotation (Placement(transformation(extent={{0,230},{20,250}})));
+  Buildings.Controls.OBC.CDL.Continuous.Product pro
+    "When it is occupied, output zero"
+    annotation (Placement(transformation(extent={{60,210},{80,230}})));
 
 equation
   connect(maxTem.y, TZonMax)
@@ -327,29 +335,35 @@ equation
       color={0,0,127}));
   connect(THeaSetOff, sumUnoHea.u)
     annotation (Line(points={{-120,-20},{-82,-20}}, color={0,0,127}));
-  connect(minToNexOcc.y, nexOcc)
-    annotation (Line(points={{62,220},{120,220}}, color={0,0,127}));
   connect(groOcc.y, uGroOcc) annotation (Line(points={{62,280},{120,280}},
           color={255,0,255}));
-  connect(oveRidOcc.y, groOcc.u1) annotation (Line(points={{-38,300},{0,300},{0,
-          280},{38,280}}, color={255,0,255}));
-  connect(schOcc.y, groOcc.u2) annotation (Line(points={{-38,260},{0,260},{0,272},
-          {38,272}}, color={255,0,255}));
+  connect(oveRidOcc.y, groOcc.u1) annotation (Line(points={{-38,300},{-20,300},{
+          -20,280},{38,280}}, color={255,0,255}));
+  connect(schOcc.y, groOcc.u2) annotation (Line(points={{-38,260},{-20,260},{-20,
+          272},{38,272}}, color={255,0,255}));
   connect(uOcc, schOcc.u) annotation (Line(points={{-120,260},{-62,260}},
           color={255,0,255}));
   connect(zonOcc, oveRidOcc.u) annotation (Line(points={{-120,300},{-62,300}},
           color={255,0,255}));
   connect(tNexOcc, minToNexOcc.u)
-    annotation (Line(points={{-120,220},{38,220}},color={0,0,127}));
+    annotation (Line(points={{-120,220},{-62,220}}, color={0,0,127}));
   connect(uWin, booToInt2.u) annotation (Line(points={{-120,-300},{-62,-300}},
-                             color={255,0,255}));
+          color={255,0,255}));
   connect(totOpeWin.y, yOpeWin)
     annotation (Line(points={{62,-300},{120,-300}}, color={255,127,0}));
   connect(booToInt2.y, totOpeWin.u)
     annotation (Line(points={{-38,-300},{38,-300}}, color={255,127,0}));
+  connect(schOcc.y, booToRea.u) annotation (Line(points={{-38,260},{-20,260},{-20,
+          240},{-2,240}}, color={255,0,255}));
+  connect(minToNexOcc.y, pro.u2) annotation (Line(points={{-38,220},{-20,220},{-20,
+          214},{58,214}}, color={0,0,127}));
+  connect(booToRea.y, pro.u1) annotation (Line(points={{22,240},{40,240},{40,226},
+          {58,226}}, color={0,0,127}));
+  connect(pro.y, nexOcc) annotation (Line(points={{82,220},{94,220},{94,220},{120,
+          220}}, color={0,0,127}));
 
 annotation (
-  defaultComponentName = "zonGroSta",
+  defaultComponentName = "groSta",
   Icon(coordinateSystem(extent={{-100,-200},{100,200}}),
        graphics={
         Rectangle(extent={{-100,-200},{100,200}},

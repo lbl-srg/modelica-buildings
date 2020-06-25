@@ -35,8 +35,8 @@ block ModeAndSetPoints "Output zone setpoint with operation mode selection"
     annotation (Dialog(tab="Setpoints adjustment", group="Adjustable settings"));
   parameter Boolean sinAdj=false
     "Flag, set to true if both cooling and heating setpoint are adjustable through a single common knob"
-    annotation (Dialog(tab="Setpoints adjustment", group="Adjustable settings"));
-  parameter Boolean ignDemLim=true
+    annotation (Dialog(tab="Setpoints adjustment", group="Adjustable settings", enable=not (cooAdj or heaAdj)));
+  parameter Boolean ignDemLim=false
     "Flag, set to true to exempt individual zone from demand limit setpoint adjustment"
     annotation (Dialog(tab="Setpoints adjustment", group="Adjustable settings"));
   parameter Real TZonCooOnMax(
@@ -54,12 +54,14 @@ block ModeAndSetPoints "Output zone setpoint with operation mode selection"
   parameter Real TZonHeaOnMax(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=295.15 "Maximum heating setpoint during on"
+    final quantity="ThermodynamicTemperature")=295.15
+    "Maximum heating setpoint during on"
     annotation (Dialog(tab="Setpoints adjustment", group="Limits"));
   parameter Real TZonHeaOnMin(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=291.15 "Minimum heating setpoint during on"
+    final quantity="ThermodynamicTemperature")=291.15
+    "Minimum heating setpoint during on"
     annotation (Dialog(tab="Setpoints adjustment", group="Limits"));
   parameter Real TZonCooSetWinOpe(
     final unit="K",
@@ -69,7 +71,7 @@ block ModeAndSetPoints "Output zone setpoint with operation mode selection"
   parameter Real TZonHeaSetWinOpe(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=277.15 "Heating setpoint when window is open"
+    final quantity="ThermodynamicTemperature")=277.15  "Heating setpoint when window is open"
     annotation (Dialog(tab="Setpoints adjustment", group="Limits"));
   parameter Real incTSetDem_1=0.56
     "Cooling setpoint increase value (degC) when cooling demand limit level 1 is imposed"
@@ -114,43 +116,53 @@ block ModeAndSetPoints "Output zone setpoint with operation mode selection"
     final quantity="Time")
     "Cool-down time retrieved from optimal cool-down block"
     annotation (Placement(transformation(extent={{-200,180},{-160,220}}),
-      iconTransformation(extent={{-140,70},{-100,110}})));
+      iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput warUpTim(
     final unit="s",
     final quantity="Time")
     "Warm-up time retrieved from optimal warm-up block"
     annotation (Placement(transformation(extent={{-200,150},{-160,190}}),
-      iconTransformation(extent={{-140,50},{-100,90}})));
+      iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin if have_winSen
     "Window status: true=open, false=close"
     annotation (Placement(transformation(extent={{-200,120},{-160,160}}),
-      iconTransformation(extent={{-140,20},{-100,60}})));
+      iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Zone temperature"
     annotation (Placement(transformation(extent={{-200,90},{-160,130}}),
-      iconTransformation(extent={{-140,0},{-100,40}})));
+      iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOcc
     "Zone occupancy status according to the schedule: true=occupied, false=unoccupied"
     annotation (Placement(transformation(extent={{-200,40},{-160,80}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+      iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tNexOcc(
     final unit="s",
     final quantity="Time") "Time to next occupied period"
     annotation (Placement(transformation(extent={{-200,0},{-160,40}}),
+      iconTransformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput setAdj if cooAdj or sinAdj
+    "Setpoint adjustment value"
+    annotation (Placement(transformation(extent={{-200,-60},{-160,-20}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uCooDemLimLev "Cooling demand limit level"
-    annotation (Placement(transformation(extent={{-200,-180},{-160,-140}}),
-      iconTransformation(extent={{-140,-70},{-100,-30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uHeaDemLimLev "Heating demand limit level"
-    annotation (Placement(transformation(extent={{-200,-220},{-160,-180}}),
-      iconTransformation(extent={{-140,-90},{-100,-50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput heaSetAdj if heaAdj
+    "Heating setpoint adjustment value"
+    annotation (Placement(transformation(extent={{-200,-100},{-160,-60}}),
+      iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOccSen if have_occSen
     "Occupancy sensor (occupied=true, unoccupied=false)"
-    annotation (Placement(transformation(extent={{-200,-120},{-160,-80}}),
-      iconTransformation(extent={{-140,-110},{-100,-70}})));
+    annotation (Placement(transformation(extent={{-200,-140},{-160,-100}}),
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uCooDemLimLev
+    "Cooling demand limit level"
+    annotation (Placement(transformation(extent={{-200,-180},{-160,-140}}),
+      iconTransformation(extent={{-140,-100},{-100,-60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uHeaDemLimLev
+    "Heating demand limit level"
+    annotation (Placement(transformation(extent={{-200,-220},{-160,-180}}),
+      iconTransformation(extent={{-140,-120},{-100,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yOpeMod "Operation mode"
     annotation (Placement(transformation(extent={{160,0},{200,40}}),
       iconTransformation(extent={{100,60},{140,100}})));
@@ -206,21 +218,21 @@ block ModeAndSetPoints "Output zone setpoint with operation mode selection"
     annotation (Placement(transformation(extent={{-80,80},{-60,108}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger colZon
     "Check if the zone is cold"
-    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
+    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger hotZon
     "Check if the zone is hot"
-    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
+    annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant winSta(
     final k=false) if not have_winSen
     "Assume window is closed when there is no windows status sensor"
-    annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
+    annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant occSta(
     final k=true) if not have_occSen
     "Assume the zone is occupied when there is no occupancy sensor"
-    annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
+    annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt
     "Boolean to integer"
-    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
+    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
 
 equation
   connect(zonSta.cooDowTim, cooDowTim) annotation (Line(points={{-82,102},{-110,
@@ -240,13 +252,13 @@ equation
   connect(zonSta.yOccHeaHig, opeModSel.uOccHeaHig) annotation (Line(points={{-58,
           100},{36,100},{36,24},{58,24}}, color={255,0,255}));
   connect(zonSta.yUnoHeaHig, colZon.u) annotation (Line(points={{-58,90},{-48,90},
-          {-48,-40},{-42,-40}}, color={255,0,255}));
-  connect(colZon.y, opeModSel.totColZon) annotation (Line(points={{-18,-40},{26,
-          -40},{26,20},{58,20}}, color={255,127,0}));
+          {-48,-50},{-42,-50}}, color={255,0,255}));
+  connect(colZon.y, opeModSel.totColZon) annotation (Line(points={{-18,-50},{26,
+          -50},{26,20},{58,20}}, color={255,127,0}));
   connect(zonSta.yHigUnoCoo, hotZon.u) annotation (Line(points={{-58,83},{-52,83},
-          {-52,-70},{-42,-70}}, color={255,0,255}));
-  connect(hotZon.y, opeModSel.totHotZon) annotation (Line(points={{-18,-70},{28,
-          -70},{28,10},{58,10}}, color={255,127,0}));
+          {-52,-80},{-42,-80}}, color={255,0,255}));
+  connect(hotZon.y, opeModSel.totHotZon) annotation (Line(points={{-18,-80},{28,
+          -80},{28,10},{58,10}}, color={255,127,0}));
   connect(zonSta.yUnoHeaHig, opeModSel.uSetBac) annotation (Line(points={{-58,90},
           {-28,90},{-28,18},{58,18}}, color={255,0,255}));
   connect(zonSta.yEndSetBac, opeModSel.uEndSetBac) annotation (Line(points={{-58,
@@ -274,17 +286,17 @@ equation
   connect(opeModSel.yOpeMod, TZonSet.uOpeMod) annotation (Line(points={{82,20},{
           92,20},{92,-107},{98,-107}}, color={255,127,0}));
   connect(TZonSet.uCooDemLimLev, uCooDemLimLev) annotation (Line(points={{98,-126},
-          {-6,-126},{-6,-160},{-180,-160}}, color={255,127,0}));
+          {-4,-126},{-4,-160},{-180,-160}}, color={255,127,0}));
   connect(TZonSet.uHeaDemLimLev, uHeaDemLimLev) annotation (Line(points={{98,-128},
           {0,-128},{0,-200},{-180,-200}}, color={255,127,0}));
   connect(uWin, TZonSet.uWinSta) annotation (Line(points={{-180,140},{-130,140},
           {-130,-133},{98,-133}}, color={255,0,255}));
-  connect(winSta.y, TZonSet.uWinSta) annotation (Line(points={{-98,-10},{-60,-10},
+  connect(winSta.y, TZonSet.uWinSta) annotation (Line(points={{-98,-20},{-60,-20},
           {-60,-133},{98,-133}},color={255,0,255}));
-  connect(TZonSet.uOccSen, uOccSen) annotation (Line(points={{98,-131},{-126,-131},
-          {-126,-100},{-180,-100}}, color={255,0,255}));
-  connect(occSta.y, TZonSet.uOccSen) annotation (Line(points={{-18,-100},{10,-100},
-          {10,-131},{98,-131}}, color={255,0,255}));
+  connect(TZonSet.uOccSen, uOccSen) annotation (Line(points={{98,-131},{-80,-131},
+          {-80,-120},{-180,-120}},  color={255,0,255}));
+  connect(occSta.y, TZonSet.uOccSen) annotation (Line(points={{-98,-180},{-80,-180},
+          {-80,-131},{98,-131}},color={255,0,255}));
   connect(opeModSel.yOpeMod, yOpeMod)
     annotation (Line(points={{82,20},{180,20}}, color={255,127,0}));
   connect(TZonSet.TZonCooSet, TZonCooSet) annotation (Line(points={{122,-112},{140,
@@ -292,11 +304,15 @@ equation
   connect(TZonSet.TZonHeaSet, TZonHeaSet) annotation (Line(points={{122,-120},{140,
           -120},{140,-160},{180,-160}}, color={0,0,127}));
   connect(winSta.y, booToInt.u)
-    annotation (Line(points={{-98,-10},{-42,-10}}, color={255,0,255}));
+    annotation (Line(points={{-98,-20},{-42,-20}}, color={255,0,255}));
   connect(uWin, booToInt.u) annotation (Line(points={{-180,140},{-130,140},{-130,
-          40},{-60,40},{-60,-10},{-42,-10}}, color={255,0,255}));
-  connect(booToInt.y, opeModSel.uOpeWin) annotation (Line(points={{-18,-10},{24,
-          -10},{24,22},{58,22}}, color={255,127,0}));
+          40},{-60,40},{-60,-20},{-42,-20}}, color={255,0,255}));
+  connect(booToInt.y, opeModSel.uOpeWin) annotation (Line(points={{-18,-20},{24,
+          -20},{24,22},{58,22}}, color={255,127,0}));
+  connect(TZonSet.setAdj, setAdj) annotation (Line(points={{98,-121},{-64,-121},
+          {-64,-40},{-180,-40}}, color={0,0,127}));
+  connect(TZonSet.heaSetAdj, heaSetAdj) annotation (Line(points={{98,-123},{-68,
+          -123},{-68,-80},{-180,-80}}, color={0,0,127}));
 
 annotation (defaultComponentName="modSetPoi",
   Diagram(coordinateSystem(extent={{-160,-220},{160,220}})),
@@ -311,76 +327,76 @@ annotation (defaultComponentName="modSetPoi",
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(
-          extent={{-96,-12},{-54,-26}},
+          extent={{-98,8},{-58,-6}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="tNexOcc"),
         Text(
-          extent={{-98,8},{-72,-4}},
+          extent={{-100,26},{-76,16}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uOcc"),
         Text(
-          extent={{-100,26},{-70,14}},
+          extent={{-100,46},{-74,34}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
           visible=cooAdj or sinAdj,
-          extent={{-100,12},{-56,-8}},
+          extent={{-100,-12},{-66,-24}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="setAdj"),
         Text(
           visible=heaAdj,
-          extent={{-98,-20},{-34,-40}},
+          extent={{-98,-32},{-52,-46}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="heaSetAdj"),
         Text(
           visible=have_occSen,
-          extent={{-96,-82},{-52,-98}},
+          extent={{-98,-52},{-58,-64}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uOccSen"),
         Text(
           visible=have_winSen,
-          extent={{-98,50},{-56,32}},
+          extent={{-100,66},{-74,54}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uWinSta"),
+          textString="uWin"),
         Text(
-          extent={{40,8},{96,-6}},
+          extent={{46,8},{96,-6}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonCooSet"),
         Text(
-          extent={{38,-72},{96,-88}},
+          extent={{44,-72},{96,-88}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonHeaSet"),
         Text(
-          extent={{46,90},{100,76}},
+          extent={{52,88},{100,76}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yOpeMod"),
         Text(
-          extent={{-98,98},{-42,84}},
+          extent={{-98,104},{-50,90}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="cooDowTim"),
         Text(
-          extent={{-100,78},{-44,64}},
+          extent={{-98,88},{-50,74}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="warUpTim"),
         Text(
-          extent={{-98,-38},{-24,-58}},
+          extent={{-98,-70},{-30,-84}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="uCooDemLimLev"),
         Text(
-          extent={{-98,-60},{-24,-80}},
+          extent={{-100,-90},{-30,-100}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="uHeaDemLimLev")}),

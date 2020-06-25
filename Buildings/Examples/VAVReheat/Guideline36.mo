@@ -86,24 +86,25 @@ model Guideline36
     "Replicate signal whether the outdoor airflow is required"
     annotation (Placement(transformation(extent={{460,550},{480,570}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneStatus zonSta[
-    numZon] "Check zone temperature status"
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneStatus zonSta[numZon]
+    "Check zone temperature status"
     annotation (Placement(transformation(extent={{-220,268},{-200,296}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.GroupStatus zonGroSta(final
-      numZon=numZon) "Check zone group status according to the zones status"
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.GroupStatus zonGroSta(
+    final numZon=numZon) "Check zone group status according to the zones status"
     annotation (Placement(transformation(extent={{-160,260},{-140,300}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode
     opeModSel(final numZon=numZon)
     annotation (Placement(transformation(extent={{-100,284},{-80,316}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures
-    TZonSet[numZon](final have_occSen=fill(false, numZon), final have_winSen=
-        fill(false, numZon))  "Zone setpoint"
+    TZonSet[numZon](
+    final have_occSen=fill(false, numZon),
+    final have_winSen=fill(false, numZon))  "Zone setpoint"
     annotation (Placement(transformation(extent={{-100,180},{-80,208}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant warCooTim[numZon](
-      final k=fill(1800, numZon)) "Warm up and cool down time"
+    final k=fill(1800, numZon)) "Warm up and cool down time"
     annotation (Placement(transformation(extent={{-300,370},{-280,390}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant falSta[numZon](final k=
-        fill(false, numZon))
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant falSta[numZon](
+    final k=fill(false, numZon))
     "All windows are closed, no zone has override switch"
     annotation (Placement(transformation(extent={{-300,330},{-280,350}})));
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(nout=numZon)
@@ -115,7 +116,8 @@ model Guideline36
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant demLimLev[numZon](
     final  k=fill(0, numZon)) "Demand limit level, assumes to be 0"
     annotation (Placement(transformation(extent={{-300,230},{-280,250}})));
-  Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep(final nout=numZon)
+  Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep(
+    final nout=numZon)
     "All zones in same operation mode"
     annotation (Placement(transformation(extent={{-140,220},{-120,240}})));
 

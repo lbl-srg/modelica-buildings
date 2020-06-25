@@ -7,6 +7,7 @@ model Guideline36
   parameter Modelica.SIunits.Temperature TSupChi_nominal=279.15
     "Design value for chiller leaving water temperature";
   Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller controller(
+    have_winSen=true,
     controllerTypeCoo=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     kCoo=1,
     yHeaMax=0.2,
@@ -16,7 +17,7 @@ model Guideline36
     yMin=0.1,
     kHea=4,
     kMod=4,
-    have_occSen=false,
+    have_occSen=true,
     TZonHeaOff=288.15,
     TZonCooOn=298.15,
     TSupSetMax=323.15,
@@ -71,28 +72,29 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(zon.TRooAir, controller.TZon) annotation (Line(points={{81,0},{110,0},
-          {110,-152},{-134,-152},{-134,10.7692},{-122,10.7692}},
+          {110,-152},{-134,-152},{-134,9.84615},{-122,9.84615}},
                                                        color={0,0,127}));
   connect(hvac.TSup, controller.TSup) annotation (Line(points={{1,-8},{10,-8},{10,
-          -50},{-130,-50},{-130,-0.307692},{-122,-0.307692}},
+          -50},{-130,-50},{-130,-1.23077},{-122,-1.23077}},
                                                  color={0,0,127}));
-  connect(hvac.TMix, controller.TMix) annotation (Line(points={{1,-4},{14,-4},{
-          14,-46},{-128,-46},{-128,-4},{-122,-4}}, color={0,0,127}));
+  connect(hvac.TMix, controller.TMix) annotation (Line(points={{1,-4},{14,-4},{14,
+          -46},{-128,-46},{-128,-4.92308},{-122,-4.92308}},
+                                                   color={0,0,127}));
   connect(occSch.tNexOcc, controller.tNexOcc) annotation (Line(points={{-159,56},
-          {-150,56},{-150,14.4615},{-122,14.4615}},
+          {-150,56},{-150,15.3846},{-122,15.3846}},
                                           color={0,0,127}));
-  connect(controller.uOcc, occSch.occupied) annotation (Line(points={{-122,7.07692},
-          {-152,7.07692},{-152,44},{-159,44}},
+  connect(controller.uOcc, occSch.occupied) annotation (Line(points={{-122,6.15385},
+          {-152,6.15385},{-152,44},{-159,44}},
                                         color={255,0,255}));
-  connect(uWin.y, controller.uWin) annotation (Line(points={{-159,-50},{-148,
-          -50},{-148,-11.3846},{-122,-11.3846}},
+  connect(uWin.y, controller.uWin) annotation (Line(points={{-159,-50},{-148,-50},
+          {-148,-12.3077},{-122,-12.3077}},
                                        color={255,0,255}));
   connect(occSch.occupied, occPer.u) annotation (Line(points={{-159,44},{-152,
           44},{-152,0},{-190,0},{-190,-80},{-182,-80}},   color={255,0,255}));
   connect(occPer.y, ppl.u)
     annotation (Line(points={{-159,-80},{-155.2,-80}}, color={0,0,127}));
   connect(ppl.y, controller.nOcc) annotation (Line(points={{-141.4,-80},{-138,-80},
-          {-138,-7.69231},{-122,-7.69231}},
+          {-138,-8.61538},{-122,-8.61538}},
                                      color={0,0,127}));
   connect(controller.TZonCooSet, errTRooCoo.u2) annotation (Line(points={{-78,-4},
           {-76,-4},{-76,-132},{-100,-132},{-100,-118}},
@@ -101,7 +103,7 @@ equation
           -48,5},{-48,4},{-58,4},{-58,-15.0769},{-78,-15.0769}},
                                                        color={0,0,127}));
   connect(hvac.TRet, controller.TCut) annotation (Line(points={{1,-6},{12,-6},{12,
-          -48},{-132,-48},{-132,3.38462},{-122,3.38462}},
+          -48},{-132,-48},{-132,2.46154},{-122,2.46154}},
                                                  color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-200,-160},{120,100}})),
     experiment(
