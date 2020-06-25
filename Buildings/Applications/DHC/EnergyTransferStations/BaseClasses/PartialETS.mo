@@ -173,7 +173,7 @@ revisions=
 "<html>
 <ul>
 <li>
-XXX, 2020, by Antoine Gautier:<br/>
+July xx, 2020, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>

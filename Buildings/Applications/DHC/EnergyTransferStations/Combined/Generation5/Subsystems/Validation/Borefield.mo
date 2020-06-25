@@ -82,5 +82,14 @@ equation
       StopTime=20000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
-    Icon(coordinateSystem(extent={{-120,-100},{100,100}})));
+    Icon(coordinateSystem(extent={{-120,-100},{100,100}})),
+  Documentation(
+revisions="<html>
+<ul>
+<li>
+July xx, 2020, by Antoine Gautier:<br/>
+First implementation
+</li>
+</ul>
+</html>"));
 end Borefield;

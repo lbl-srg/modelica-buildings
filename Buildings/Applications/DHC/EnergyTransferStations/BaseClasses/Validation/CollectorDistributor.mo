@@ -712,5 +712,14 @@ file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTrans
     experiment(
       StopTime=5000,
       Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"));
+      __Dymola_Algorithm="Cvode"),
+Documentation(
+revisions="<html>
+<ul>
+<li>
+July xx, 2020, by Antoine Gautier:<br/>
+First implementation
+</li>
+</ul>
+</html>"));
 end CollectorDistributor;

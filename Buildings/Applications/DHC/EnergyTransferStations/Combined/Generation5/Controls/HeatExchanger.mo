@@ -183,32 +183,13 @@ annotation (Diagram(
   coordinateSystem(preserveAspectRatio=false,
   extent={{-220,-160},{220,160}})),
   defaultComponentName="conHex",
-Documentation(info="<html>
-<p>
-This block computes the output integer <code>ModInd</code> which indicates the energy
-rejection index, i.e. heating or cooling energy is rejected and the control signals to turn
-on/off and modulates the followings.
-</p>
-<h4>Heat exchanger district pump</h4>
-<p>
-The exchanger district <code>pumHexDis</code> is a variable speed pump. It turns on if either
-the control signal of the isolation valve <code>uIsoCon</code> or <code>uIsoEva</code> and
-<code>rejFulLoa</code> are true, and the flow rate is modulated using a reverse acting PI loop
-to maintain the absolute measured temperature difference between <code>TDisHexEnt</code> and
-<code>TDisHexLvg</code> equals to <code>dTHex</code>.
-</p>
-</html>", revisions="<html>
+  Documentation(
+revisions="<html>
 <ul>
 <li>
-January 12, 2020, by Hagar Elarga:<br/>
-Updated the heat exchanger pump controller to operate only if reject full load signal
-is true.
+July xx, 2020, by Antoine Gautier:<br/>
+First implementation
 </li>
-<li>
-November 2, 2019, by Hagar Elarga:<br/>
-Added the three way valve controller and the documentation.
-</li>
-
 </ul>
 </html>"));
 end HeatExchanger;

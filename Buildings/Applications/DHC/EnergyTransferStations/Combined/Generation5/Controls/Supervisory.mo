@@ -173,21 +173,12 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
         defaultComponentName="conSup",
-        Documentation(info="<html>
-<p>
-The block implements the control sequence for the ETS chilled water and 
-heating water circuits.
-</p>
-</html>",
+Documentation(
 revisions="<html>
 <ul>
 <li>
-December 10, 2019, by Hagar Elarga:<br/>
-Added the documentation. 
-</li>
-<li>
-November 25, 2019, by Hagar Elarga:<br/>
-Removed the tank minimum charging flow signal because the primary pumps are constant speed.
+July xx, 2020, by Antoine Gautier:<br/>
+First implementation
 </li>
 </ul>
 </html>"));

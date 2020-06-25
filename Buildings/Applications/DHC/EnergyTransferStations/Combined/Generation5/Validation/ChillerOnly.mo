@@ -269,5 +269,14 @@ equation
     experiment(
       StopTime=20000,
       Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"));
+      __Dymola_Algorithm="Cvode"),
+  Documentation(
+revisions="<html>
+<ul>
+<li>
+July xx, 2020, by Antoine Gautier:<br/>
+First implementation
+</li>
+</ul>
+</html>"));
 end ChillerOnly;

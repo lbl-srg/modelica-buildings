@@ -50,5 +50,14 @@ equation
     experiment(StopTime=3, __Dymola_Algorithm="Dassl"),
     __Dymola_Commands(file=
 "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Combined/Generation5/Controls/Validation/LimPlay.mos"
-"Simulate and plot"));
+"Simulate and plot"),
+Documentation(
+revisions="<html>
+<ul>
+<li>
+July xx, 2020, by Antoine Gautier:<br/>
+First implementation
+</li>
+</ul>
+</html>"));
 end LimPlay;

@@ -216,23 +216,14 @@ equation
   connect(min1.y, y) annotation (Line(points={{-18,-120},{0,-120},{0,-100},{160,
           -100},{160,0},{200,0}}, color={0,0,127}));
    annotation (
- Documentation(info="<html>
-<p>
-Heat or cold rejection to ambient sources is only enabled if the antagonistic mode 
-is enabled (which implies that the antogonistic isolation valve is closed).
-</p>
-
-</html>", revisions="<html>
+       Diagram(coordinateSystem(extent={{-180,-200},{180,200}})),
+Documentation(
+revisions="<html>
 <ul>
 <li>
-November 25, 2019, by Hagar Elarga:<br/>
-Added the info section.
-</li>
-<li>
-March 21, 2019, by Jianjun Hu:<br/>
-First implementation.
+July xx, 2020, by Antoine Gautier:<br/>
+First implementation
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(extent={{-180,-200},{180,200}})));
+</html>"));
 end HotColdSide;

@@ -183,68 +183,12 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100}
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-160,-320},{160,100}})),
   defaultComponentName="con",
-Documentation(info="<html>
-<p>
-The block computes the control signals for
-</p>
-<h4>EIR Chiller status</h4>
-<p>
-The chiller compressor is constant speed and switched on or off based on either <code>reqHea</code> or
-<code>reqCoo</code> is true, the controller outputs the integer output
-<code>ychiMod</code> to switch on the chiller compressor.
-</p>
-<h4>Mixing valve at the evaporator inlet</h4>
-<p>
-The three-way valve on the evaporator side is controlled with
-a P or PI controller to track a constant, maximum water inlet temperature.
-</p>
-<h4>Mixing valve at the condenser inlet</h4>
-<p>
-The three-way valve at the condenser inlet is controlled with
-a P or PI controller to track a constant, minimum water inlet temperature.
-</p>
-<p>
-The block in addition, resets <code>TSetCoo</code> based on the thermal operational
-mode i.e. cooling only, heating only or
-simultaneous heating and cooling.
-</p>
-<h4>Reset of chilled water supply temperature</h4>
-<p>
-As shown in the control scheme below and during
-</p>
-<ol>
-  <li>
-  simultaneous heating and cooling and heating only operational modes, the control
-  sequence resets the cooling setpoint <code>TReSetCoo</code> till the leaving heating
-  water temperature from the condenser side meets the heating setpoint <code>TSetHea</code>
-  <p align=\"center\">
-  <img alt=\"Image PI controller to reset the TSetCoo\"
-  src=\"modelica://Buildings/Resources/Images/Applications/DHC/EnergyTransferStations/chillerControlDiagram.png\"/>
-  </p align=\"center\">
-  <p>
-  The required decrement in <code>TSetCoo</code> is estimated by a reverse acting PI
-  loop , with a reference set point of <code>TSetHea</code>
-   and measured temperature value of <code>TConLvg</code>. Hence, when the condenser
-   leaving water temperature is lower than <code>TSetHea</code>,
-  TSetCoo is decreased. The control mapping function is shown in
-  </p>
-  <p align=\"center\">
-  <img alt=\"Image Control Mapping function of resetting TsetCoo\"
-  src=\"modelica://Buildings/Resources/Images/Applications/DHC/EnergyTransferStations/chillerMappingFunction.png\"/>
-  </p align=\"center\">
-  </li>
-  <li>
-  cooling only operational mode, the leaving water form the chiller evaporator side
-  tracks the cooling setpoint <code>TSetCoo</code>
-   and the leaving water from the condenser floats depending on the entering water
-   temperature and flow rate.
-  </li>
-</ol>
-</html>", revisions="<html>
+  Documentation(
+revisions="<html>
 <ul>
 <li>
-November 25, 2019, by Hagar Elarga:<br/>
-First implementation.
+July xx, 2020, by Antoine Gautier:<br/>
+First implementation
 </li>
 </ul>
 </html>"));

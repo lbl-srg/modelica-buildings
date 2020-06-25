@@ -116,33 +116,12 @@ annotation (Diagram(
               coordinateSystem(preserveAspectRatio=false,
               extent={{-100,-100},{100,100}})),
               defaultComponentName="con",
-Documentation(info="<html>
-<p>
-This block computes the energy rejection index <code>yModInd</code>  i.e. heating or cooling energy is rejected and the control signals for
-the following equipment.
-</p>
-<h4>Borefield pump</h4>
-<p>
-The borefield pump <code>pumBor</code> is a variable speed pump.
-The flow rate is modulated
-using a reverse acting PI loop with a reference <code>dTBor</code> and the absolute
-measured temperature difference between <code>TBorEnt</code> and <code>TDisHexEnt</code>.
-The controller in addition switches between modulating the <code>pumBor</code> flow rate or
-run on maximum flow rate <code>rejFulLoa</code> is true.
-</p>
-<h4>Mixing valve</h4>
-<p>
-The controller of the three-way valve tracks a constant, minimum borefield water inlet temperature.
-</p>
-</html>", revisions="<html>
+Documentation(
+revisions="<html>
 <ul>
 <li>
-November 2, 2019, by Hagar Elarga:<br/>
-Added the three-way valve controller and the documentation.
-</li>
-<li>
-March 21, 2019, by Jianjun Hu:<br/>
-First implementation.
+July xx, 2020, by Antoine Gautier:<br/>
+First implementation
 </li>
 </ul>
 </html>"));

@@ -155,16 +155,13 @@ equation
   Icon(coordinateSystem(preserveAspectRatio=false)),
   Diagram(
     coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,140}})),
-    Documentation(info="<html>
-<p>
-This is an enhanced hysteresis controller allowing for proportional
-or proportional integral control when transitioning between <code>yMin</code>
-and <code>yMax</code>.
-It is also known as a play hysteresis operator.
-</p>
-<p>
-The controller is symmetric as the two P/PI controllers have the
-same parameters.
-</p>
+    Documentation(
+revisions="<html>
+<ul>
+<li>
+July xx, 2020, by Antoine Gautier:<br/>
+First implementation
+</li>
+</ul>
 </html>"));
 end LimPlay;

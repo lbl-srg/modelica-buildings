@@ -166,5 +166,14 @@ equation
   coordinateSystem(preserveAspectRatio=false, extent={{-200,-140},{200,140}})),
   __Dymola_Commands(file=
 "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Combined/Generation5/Subsystems/Validation/Chiller.mos"
-"Simulate and plot"));
+"Simulate and plot"),
+Documentation(
+revisions="<html>
+<ul>
+<li>
+July xx, 2020, by Antoine Gautier:<br/>
+First implementation
+</li>
+</ul>
+</html>"));
 end Chiller;

@@ -63,5 +63,14 @@ equation
   connect(uCoo, swiCoo.u2) annotation (Line(points={{-120,40},{-20,40},{-20,-60},
           {38,-60}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+Documentation(
+revisions="<html>
+<ul>
+<li>
+July xx, 2020, by Antoine Gautier:<br/>
+First implementation
+</li>
+</ul>
+</html>"));
 end Reset;

@@ -16,4 +16,14 @@ algorithm
       k := k + 1;
     end for;
   end for;
+annotation (
+  Documentation(
+revisions="<html>
+<ul>
+<li>
+July xx, 2020, by Antoine Gautier:<br/>
+First implementation
+</li>
+</ul>
+</html>"));
 end computeCoordinates;

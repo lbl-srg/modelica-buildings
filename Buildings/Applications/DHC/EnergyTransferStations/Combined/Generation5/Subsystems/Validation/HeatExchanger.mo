@@ -262,18 +262,27 @@ equation
           {-24,29},{-12,29}},color={255,0,255}));
   connect(or2.y, hexPum.uEnaHex) annotation (Line(points={{-148,100},{-24.0625,
           100},{-24.0625,23},{-24,23},{-24,-51},{-12,-51}}, color={255,0,255}));
-  connect(yValIsoCon.y, hexVal.yValIso[1]) annotation (Line(points={{-209,80},{
-          -32,80},{-32,22},{-12,22}}, color={0,0,127}));
-  connect(yValIsoCon.y, hexPum.yValIso[1]) annotation (Line(points={{-209,80},{
-          -32,80},{-32,-58},{-12,-58}}, color={0,0,127}));
-  connect(yValIsoEva.y, hexVal.yValIso[2]) annotation (Line(points={{-209,60},{
-          -36,60},{-36,24},{-12,24}}, color={0,0,127}));
-  connect(yValIsoEva.y, hexPum.yValIso[2]) annotation (Line(points={{-209,60},{
-          -36,60},{-36,-56},{-12,-56}}, color={0,0,127}));
+  connect(yValIsoCon.y, hexVal.yValIso[1]) annotation (Line(points={{-209,80},{-32,
+          80},{-32,17},{-12,17}},     color={0,0,127}));
+  connect(yValIsoCon.y, hexPum.yValIso[1]) annotation (Line(points={{-209,80},{-32,
+          80},{-32,-63},{-12,-63}},     color={0,0,127}));
+  connect(yValIsoEva.y, hexVal.yValIso[2]) annotation (Line(points={{-209,60},{-36,
+          60},{-36,19},{-12,19}},     color={0,0,127}));
+  connect(yValIsoEva.y, hexPum.yValIso[2]) annotation (Line(points={{-209,60},{-36,
+          60},{-36,-61},{-12,-61}},     color={0,0,127}));
   annotation (
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-240,-140},{240,140}})),
   __Dymola_Commands(file=
 "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Combined/Generation5/Subsystems/Validation/HeatExchanger.mos"
-"Simulate and plot"));
+"Simulate and plot"),
+Documentation(
+revisions="<html>
+<ul>
+<li>
+July xx, 2020, by Antoine Gautier:<br/>
+First implementation
+</li>
+</ul>
+</html>"));
 end HeatExchanger;

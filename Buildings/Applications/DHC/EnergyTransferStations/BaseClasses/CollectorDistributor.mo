@@ -16,5 +16,14 @@ model CollectorDistributor
 mDis_flow_nominal is not final as it can be set to a higher value than
 sum(mCon_flow_nominal) in case of U-tube with primary recirculation.
 </p>
+</html>"),
+Documentation(
+revisions="<html>
+<ul>
+<li>
+July xx, 2020, by Antoine Gautier:<br/>
+First implementation
+</li>
+</ul>
 </html>"));
 end CollectorDistributor;

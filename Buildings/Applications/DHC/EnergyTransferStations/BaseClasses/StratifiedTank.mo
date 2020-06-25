@@ -201,25 +201,12 @@ annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
           textString="%name")}),
   defaultComponentName="tan",
   Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
-Documentation(info="<html>
-<p>
-The model represents a four pipes stratified tank. An example of the cold buffer tank 
-connections is shown in the figure below
-</p>
-<p align=\"center\">
-<img alt=\"coolingBufferTank\"
-src=\"modelica://Buildings/Resources/Images/Applications/DHC/EnergyTransferStations/coolingBufferTank.png\"/>
-</p>
-</html>",revisions="<html>
+Documentation(
+revisions="<html>
 <ul>
 <li>
-January 1, 2020 by Hagar Elarga:<br/>
-Added the thermodynamic diagnostics for fluid ports a1 and b1 and 
-the documentation.
-</li>
-<li>
-by Michael Wetter:<br/>
-First implementation.
+July xx, 2020, by Antoine Gautier:<br/>
+First implementation
 </li>
 </ul>
 </html>"));
