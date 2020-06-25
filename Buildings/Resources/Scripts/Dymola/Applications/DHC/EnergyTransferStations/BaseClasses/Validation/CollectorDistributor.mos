@@ -10,8 +10,7 @@ createPlot(
     id=1,
     position={-3, 14, 539, 661},
     autoscale=true,
-    y={"senT1Sup.T", "senT1Ret.T", "senT2_1Sup.T", "senT2_1Ret.T", "senT2_2Sup.T",
-    "senT2_2Ret.T"},
+    y={"senT1Sup.T", "senT1Ret.T", "senT2_1Sup.T", "senT2_1Ret.T", "senT2_2Sup.T", "senT2_2Ret.T"},
     grid=true,
     filename="CollectorDistributor.mat");
 createPlot(

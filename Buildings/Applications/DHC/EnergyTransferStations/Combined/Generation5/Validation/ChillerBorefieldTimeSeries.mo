@@ -12,7 +12,7 @@ model ChillerBorefieldTimeSeries
     EnergyTransferStations.BaseClasses.computeCoordinates(nBorHol, dxy)
     "Coordinates of boreholes";
   parameter String filNam=
-    "modelica://Buildings/Applications/DHC/Loads/Examples/Resources/SwissResidential_20190916.mos"
+    "modelica://Buildings/Applications/DHC/Loads/Examples/Resources/SwissResidential_shiftCooling.mos"
     "File name with thermal loads as time series";
   parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal(
     max=-Modelica.Constants.eps)=
@@ -107,15 +107,15 @@ model ChillerBorefieldTimeSeries
     T_b1Hex_nominal=277.15,
     T_a2Hex_nominal=275.15,
     T_b2Hex_nominal=280.15,
+    have_borFie=true,
     dpCon_nominal=15E3,
     dpEva_nominal=15E3,
     datChi=datChi,
     datBorFie=datBorFie,
-    dp_nominal=5E4,
     nPorts_aHeaWat=1,
     nPorts_bHeaWat=1,
     nPorts_bChiWat=1,
-    nPorts_aChiWat=1)
+    nPorts_aChiWat=1) "ETS"
     annotation (Placement(transformation(extent={{-10,-84},{50,-24}})));
   Fluid.Sources.Boundary_pT disWat(
     redeclare final package Medium = Medium,
@@ -195,10 +195,10 @@ model ChillerBorefieldTimeSeries
     annotation (Placement(transformation(extent={{-150,-30},{-130,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Not reqCoo "Cooling request"
     annotation (Placement(transformation(extent={{-150,-110},{-130,-90}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDelHea(delayTime=120)
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDelHea(delayTime=300)
     "Delay signal indicating no load"
     annotation (Placement(transformation(extent={{-180,-30},{-160,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDelCoo(delayTime=120)
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDelCoo(delayTime=300)
     "Delay signal indicating no load"
     annotation (Placement(transformation(extent={{-180,-110},{-160,-90}})));
   Modelica.Blocks.Sources.CombiTimeTable loa(

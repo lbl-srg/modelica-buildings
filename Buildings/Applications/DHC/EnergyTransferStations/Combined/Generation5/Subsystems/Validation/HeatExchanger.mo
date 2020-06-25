@@ -56,8 +56,7 @@ model HeatExchanger
     duration=500,
     startTime=4500) "Secondary additional deltaT"
     annotation (Placement(transformation(extent={{-230,28},{-210,48}})));
-  Modelica.Blocks.Sources.BooleanExpression uColRej(y=time >= 1000 and time <
-        2000)
+  Modelica.Blocks.Sources.BooleanExpression uColRej(y=time >= 1000 and time < 3000)
     "Full cold rejection enabled signal"
     annotation (Placement(transformation(extent={{-230,90},{-210,110}})));
   Subsystems.HeatExchanger hexPum(
@@ -71,7 +70,8 @@ model HeatExchanger
     T_a1Hex_nominal=281.15,
     T_b1Hex_nominal=277.15,
     T_a2Hex_nominal=275.15,
-    T_b2Hex_nominal=279.15) "Heat exchanger with primary pump"
+    T_b2Hex_nominal=279.15,
+    dT2HexSet={8,5})        "Heat exchanger with primary pump"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     annotation (Placement(transformation(extent={{-160,-70},{-140,-50}})));
@@ -135,7 +135,8 @@ model HeatExchanger
     T_a1Hex_nominal=281.15,
     T_b1Hex_nominal=277.15,
     T_a2Hex_nominal=275.15,
-    T_b2Hex_nominal=279.15) "Heat exchanger with primary control valve"
+    T_b2Hex_nominal=279.15,
+    dT2HexSet={8,5})        "Heat exchanger with primary control valve"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   Fluid.Sources.Boundary_pT bou1Val(
     redeclare package Medium = Medium,
@@ -181,13 +182,22 @@ model HeatExchanger
         rotation=-90,
         origin={50,20})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
-    annotation (Placement(transformation(extent={{-170,90},{-150,110}})));
+    annotation (Placement(transformation(extent={{-160,90},{-140,110}})));
   Modelica.Blocks.Sources.RealExpression yValIsoCon(y=if time >= 2500 then 1
          else 0) "Condenser loop isolation valve opening"
     annotation (Placement(transformation(extent={{-230,70},{-210,90}})));
   Modelica.Blocks.Sources.RealExpression yValIsoEva(y=if time >= 500 then 1
          else 0) "Evaporator loop isolation valve opening"
     annotation (Placement(transformation(extent={{-230,50},{-210,70}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin1(
+    amplitude=0.5,
+    freqHz=1e-3,
+    offset=0.5) "Control signal"
+    annotation (Placement(transformation(extent={{-120,150},{-100,170}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch swi1
+    annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(k=0) "Zero"
+    annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
 equation
   connect(mulSum.y, bou1.T_in) annotation (Line(points={{148,-60},{132,-60},{132,
           -58},{122,-58}}, color={0,0,127}));
@@ -201,8 +211,8 @@ equation
           {-200,17},{-194,17}}, color={0,0,127}));
   connect(swi.y, bou2.T_in) annotation (Line(points={{-138,-60},{-130,-60},{
           -130,-58},{-122,-58}}, color={0,0,127}));
-  connect(uColRej.y, swi.u2) annotation (Line(points={{-209,100},{-180,100},{
-          -180,60},{-160,60},{-160,-40},{-170,-40},{-170,-60},{-162,-60}},
+  connect(uColRej.y, swi.u2) annotation (Line(points={{-209,100},{-180,100},{-180,
+          40},{-160,40},{-160,-40},{-170,-40},{-170,-60},{-162,-60}},
                                                   color={255,0,255}));
   connect(mulSum1.y, swi.u1) annotation (Line(points={{-170,18},{-166,18},{-166,
           -52},{-162,-52}}, color={0,0,127}));
@@ -252,16 +262,10 @@ equation
           26},{-20,40},{50,40},{50,30}}, color={0,127,255}));
   connect(senRelPre.port_b, senT1OutVal.port_a)
     annotation (Line(points={{50,10},{50,0},{60,0}}, color={0,127,255}));
-  connect(uColRej.y, or2.u2) annotation (Line(points={{-209,100},{-180,100},{
-          -180,92},{-172,92}},
-                         color={255,0,255}));
-  connect(uHeaRej.y, or2.u1) annotation (Line(points={{-209,120},{-176,120},{
-          -176,100},{-172,100}},
-                           color={255,0,255}));
-  connect(or2.y, hexVal.uEnaHex) annotation (Line(points={{-148,100},{-24,100},
-          {-24,29},{-12,29}},color={255,0,255}));
-  connect(or2.y, hexPum.uEnaHex) annotation (Line(points={{-148,100},{-24.0625,
-          100},{-24.0625,23},{-24,23},{-24,-51},{-12,-51}}, color={255,0,255}));
+  connect(uColRej.y, or2.u2) annotation (Line(points={{-209,100},{-180,100},{-180,
+          92},{-162,92}},color={255,0,255}));
+  connect(uHeaRej.y, or2.u1) annotation (Line(points={{-209,120},{-170,120},{-170,
+          100},{-162,100}},color={255,0,255}));
   connect(yValIsoCon.y, hexVal.yValIso[1]) annotation (Line(points={{-209,80},{-32,
           80},{-32,17},{-12,17}},     color={0,0,127}));
   connect(yValIsoCon.y, hexPum.yValIso[1]) annotation (Line(points={{-209,80},{-32,
@@ -270,12 +274,25 @@ equation
           60},{-36,19},{-12,19}},     color={0,0,127}));
   connect(yValIsoEva.y, hexPum.yValIso[2]) annotation (Line(points={{-209,60},{-36,
           60},{-36,-61},{-12,-61}},     color={0,0,127}));
+  connect(or2.y, swi1.u2)
+    annotation (Line(points={{-138,100},{-62,100}}, color={255,0,255}));
+  connect(sin1.y, swi1.u1) annotation (Line(points={{-98,160},{-80,160},{-80,108},
+          {-62,108}}, color={0,0,127}));
+  connect(zer.y, swi1.u3) annotation (Line(points={{-98,120},{-90,120},{-90,92},
+          {-62,92}}, color={0,0,127}));
+  connect(swi1.y, hexVal.u) annotation (Line(points={{-38,100},{-28,100},{-28,22},
+          {-12,22}}, color={0,0,127}));
+  connect(swi1.y, hexPum.u) annotation (Line(points={{-38,100},{-28,100},{-28,-58},
+          {-12,-58}}, color={0,0,127}));
   annotation (
   Diagram(
-  coordinateSystem(preserveAspectRatio=false, extent={{-240,-140},{240,140}})),
+  coordinateSystem(preserveAspectRatio=false, extent={{-240,-180},{240,180}})),
   __Dymola_Commands(file=
 "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Combined/Generation5/Subsystems/Validation/HeatExchanger.mos"
 "Simulate and plot"),
+    experiment(
+      StopTime=5000,
+      Tolerance=1e-06),
 Documentation(
 revisions="<html>
 <ul>

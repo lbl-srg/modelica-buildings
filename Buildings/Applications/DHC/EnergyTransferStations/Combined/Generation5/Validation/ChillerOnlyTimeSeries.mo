@@ -5,7 +5,7 @@ model ChillerOnlyTimeSeries
 
   package Medium = Buildings.Media.Water "Medium model";
   parameter String filNam=
-    "modelica://Buildings/Applications/DHC/Loads/Examples/Resources/SwissResidential_20190916.mos"
+    "modelica://Buildings/Applications/DHC/Loads/Examples/Resources/SwissResidential_shiftCooling.mos"
     "File name with thermal loads as time series";
   parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal(
     max=-Modelica.Constants.eps)=
@@ -187,10 +187,10 @@ model ChillerOnlyTimeSeries
     annotation (Placement(transformation(extent={{-150,-30},{-130,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Not reqCoo "Cooling request"
     annotation (Placement(transformation(extent={{-150,-110},{-130,-90}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDelHea(delayTime=120)
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDelHea(delayTime=300)
     "Delay signal indicating no load"
     annotation (Placement(transformation(extent={{-180,-30},{-160,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDelCoo(delayTime=120)
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDelCoo(delayTime=300)
     "Delay signal indicating no load"
     annotation (Placement(transformation(extent={{-180,-110},{-160,-90}})));
   Modelica.Blocks.Sources.CombiTimeTable loa(

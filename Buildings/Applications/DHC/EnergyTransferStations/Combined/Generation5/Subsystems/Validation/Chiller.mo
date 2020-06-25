@@ -167,6 +167,9 @@ equation
   __Dymola_Commands(file=
 "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Combined/Generation5/Subsystems/Validation/Chiller.mos"
 "Simulate and plot"),
+    experiment(
+      StopTime=5000,
+      Tolerance=1e-06),
 Documentation(
 revisions="<html>
 <ul>

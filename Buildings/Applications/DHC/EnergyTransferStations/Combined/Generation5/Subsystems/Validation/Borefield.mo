@@ -80,9 +80,7 @@ equation
 "Simulate and plot"),
     experiment(
       StopTime=20000,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
-    Icon(coordinateSystem(extent={{-120,-100},{100,100}})),
+      Tolerance=1e-06),
   Documentation(
 revisions="<html>
 <ul>
