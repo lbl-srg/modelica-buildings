@@ -3,11 +3,7 @@ partial model Writer "Block to write to an EnergyPlus actuator or schedule"
   extends Buildings.ThermalZones.EnergyPlus.BaseClasses.PartialEnergyPlusObject;
 
   parameter String name
-    "Name of an EnergyPlus variable (need not be present in the idf file)";
-
-  parameter Buildings.ThermalZones.EnergyPlus.Types.Units unit
-    "Unit of variable as used in Modelica"
-    annotation(choicesAllMatching = true);
+    "Name of schedule";
 
   parameter String componentName
     "Actuated component unique name in the EnergyPlus idf file";
@@ -17,6 +13,10 @@ partial model Writer "Block to write to an EnergyPlus actuator or schedule"
 
   parameter String controlType
     "Actuated component control type";
+
+  parameter Buildings.ThermalZones.EnergyPlus.Types.Units unit
+    "Unit of variable as used in Modelica"
+    annotation(choicesAllMatching = true);
 
 //  parameter Boolean useSamplePeriod = true
 //    "If true, sample at zone time step and at samplePeriod"
@@ -93,7 +93,8 @@ protected
       usePrecompiledFMU=usePrecompiledFMU,
       fmuName=fmuName,
       buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
-      verbosity=verbosity) "Class to communicate with EnergyPlus";
+      verbosity=verbosity)
+   "Class to communicate with EnergyPlus";
 
   //output Boolean sampleTrigger "True, if sample time instant";
 

@@ -1,6 +1,7 @@
 within Buildings.ThermalZones.EnergyPlus;
 model Actuator "Block to write to an EnergyPlus actuator"
   extends Buildings.ThermalZones.EnergyPlus.BaseClasses.Writer(
+    final name="",
     final objectType=1);
 
 initial equation
@@ -15,7 +16,7 @@ Block that writes to an EMS actuator object in EnergyPlus.
 <p>
 This model instantiates an FMU with the name <code>idfName</code> and
 writes at every EnergyPlus zone time step the value of the input <code>u</code>
-to an EnergyPlus EMS actuator with name <code>name</code>.
+to an EnergyPlus EMS actuator with name <code>variableName</code>.
 <!--
 If <code>useSamplePeriod = true</code>, then the value <code>u</code> is
 written at each multiple of <code>samplePeriod</code>, in addition to the EnergyPlus zone time step.

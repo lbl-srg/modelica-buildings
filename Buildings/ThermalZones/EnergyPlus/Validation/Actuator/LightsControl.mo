@@ -3,7 +3,6 @@ model LightsControl "Validation model for one actuator that controls the lights"
   extends Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone.OneZone;
 
   Buildings.ThermalZones.EnergyPlus.Actuator actLig(
-    name="fixme: not used",
     unit=Buildings.ThermalZones.EnergyPlus.Types.Units.Power,
     componentName="LIVING ZONE Lights",
     componentType="Lights",

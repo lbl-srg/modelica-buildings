@@ -37,7 +37,6 @@ model ShadeControl
     nPorts=2) "North zone"
     annotation (Placement(transformation(extent={{0,40},{40,80}})));
   Buildings.ThermalZones.EnergyPlus.Actuator actSha(
-    name="fixme: not used - Zn001_Wall001_Win001_Shading_Deploy_Status",
     unit=Buildings.ThermalZones.EnergyPlus.Types.Units.Normalized,
     componentName="Zn001:Wall001:Win001",
     componentType="Window Shading Control",
