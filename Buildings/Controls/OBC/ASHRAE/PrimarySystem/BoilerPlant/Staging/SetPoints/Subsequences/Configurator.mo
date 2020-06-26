@@ -1,18 +1,19 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences;
 block Configurator "Configures boiler staging"
 
-  parameter Integer nSta = 3
+  parameter Integer nSta = 5
     "Number of boiler stages";
 
-  parameter Integer nBoi = 2
+  parameter Integer nBoi = 3
     "Number of boilers";
 
   parameter Integer boiTyp[nBoi]={
     Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler,
+    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.nonCondensingBoiler,
     Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.nonCondensingBoiler}
-    "Boiler type. Recommended staging order: ToBeFixed";
+    "Boiler type. Recommended staging order: 1. condensing boilers, 2. non-codensing boilers";
 
-  parameter Integer staMat[nSta, nBoi] = {{1,0},{0,1},{1,1}}
+  parameter Integer staMat[nSta, nBoi] = {{1,0,0},{0,1,0},{1,1,0},{0,1,1},{1,1,1}}
     "Staging matrix with stage as row index and boiler as column index";
 
   parameter Real boiDesCap[nBoi](
@@ -180,6 +181,7 @@ protected
     recommended by ASHRAE RP1711 or Guideline 36. 
     Please make sure to follow the recommendation that is:
     any condensing boilers first, any non-condensing boilers last.")
+    "Asserts warning if boilers are not staged in recommended order by type"
     annotation (Placement(transformation(extent={{180,-160},{200,-140}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(
@@ -198,12 +200,15 @@ protected
     "Find highest BFirMin in each stage"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro2[nSta] "Product"
+  Buildings.Controls.OBC.CDL.Continuous.Product pro2[nSta]
+    "Product"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sort sort1(
-    final nin=nBoi) "Sort values"
+    final nin=nBoi)
+    "Sort values"
     annotation (Placement(transformation(extent={{-140,160},{-120,180}})));
+
 equation
   connect(boiDesCaps.y, staDesCaps.u)
     annotation (Line(points={{-178,110},{-142,110}},

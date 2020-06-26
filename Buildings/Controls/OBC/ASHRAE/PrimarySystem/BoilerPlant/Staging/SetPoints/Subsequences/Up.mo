@@ -127,7 +127,6 @@ block Up
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-
 protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.EfficiencyCondition effCon(
     final nSta=nSta,
@@ -224,7 +223,7 @@ equation
       extent={{-100,-180},{100,140}})),
     Documentation(info="<html>
       <p>
-      Outputs a boolean stage up signal <code>y</code> based on the 
+      Outputs a boolean stage up signal <code>yStaUp</code> based on the 
       various plant operation conditions that get provided as input signals. 
       Implemented according to 1711 March 2020 Draft, section 5.3.3.10.
       and applies to all boiler plants defined in RP-1711. Timer reset has been
