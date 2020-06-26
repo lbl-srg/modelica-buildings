@@ -338,6 +338,7 @@ void generateFMU(
   if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaFormatMessage("Entered generateFMU with FMUPath = %s.\n", FMUPath);
 
+
   if (usePrecompiledFMU){
     if( access( precompiledFMUPath, F_OK ) == -1 ) {
       ModelicaFormatError("Requested to use fmu '%s' which does not exist.", precompiledFMUPath);
@@ -379,12 +380,10 @@ void generateFMU(
     }
     /* Continue building the command line */
     strcat(fulCmd, optionFlags);
-/*
     strcat(fulCmd, outputFlag);
     strcat(fulCmd, "\"");
     strcat(fulCmd, FMUPath);
     strcat(fulCmd, "\"");
-*/
     strcat(fulCmd, createFlag);
     strcat(fulCmd, "\"");
     strcat(fulCmd, modelicaBuildingsJsonFile);
@@ -406,7 +405,7 @@ void generateFMU(
 
   retVal = system(fulCmd);
   /* Check if generated FMU indeed exists */
-  if( access( FMUPath, F_OK ) == -1 ) {
+  if( access( FMUPath, F_OK ) != 0 ) {
     ModelicaFormatError("Executing '%s' failed to generate fmu '%s'.", fulCmd, FMUPath);
   }
   if (retVal != 0){
