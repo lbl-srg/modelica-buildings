@@ -653,6 +653,7 @@ equation
         </p>
         <p>
         The implementation is according to ASHRAE RP1711 March 2020 draft, section 5.3.3.10.
+        Timer reset has been implemented according to 5.3.3.10.2.
         </p>
         <p align=\"center\">
         <img alt=\"Validation plot for EfficiencyCondition1\"

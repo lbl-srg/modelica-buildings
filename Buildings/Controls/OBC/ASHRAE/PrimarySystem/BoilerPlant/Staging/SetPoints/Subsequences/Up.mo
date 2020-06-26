@@ -176,9 +176,8 @@ equation
   connect(not1.u, uAvaCur)
     annotation (Line(points={{-62,-140},{-120,-140}},
       color={255,0,255}));
-  connect(faiSafCon.yFaiCon, mulOr.u[2]) annotation (Line(points={{-38,-90},{0,
-          -90},{0,0},{38,0}},
-                         color={255,0,255}));
+  connect(faiSafCon.yFaiCon, mulOr.u[2]) annotation (Line(points={{-38,-90},{0,-90},
+          {0,0},{38,0}}, color={255,0,255}));
   connect(not1.y, mulOr.u[3]) annotation (Line(points={{-38,-140},{10,-140},{10,
           -4.66667},{38,-4.66667}}, color={255,0,255}));
   connect(effCon.uCapReq, uCapReq) annotation (Line(points={{-62,49},{-64,49},{-64,
@@ -228,7 +227,8 @@ equation
       Outputs a boolean stage up signal <code>y</code> based on the 
       various plant operation conditions that get provided as input signals. 
       Implemented according to 1711 March 2020 Draft, section 5.3.3.10.
-      and applies to all boiler plants defined in RP-1711.
+      and applies to all boiler plants defined in RP-1711. Timer reset has been
+      implemented according to 5.3.3.10.2.
       </p>
       <p>
       The stage up signal <code>yStaUp</code> becomes <code>true</code> when:
