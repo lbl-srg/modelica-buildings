@@ -19,7 +19,7 @@ tar_fil="spawn.tar.gz"
 urllib.request.urlretrieve(src, tar_fil)
 
 # Find the name of the spawn executable
-fil_dic = {"bin/spawn": "", "README.md": "", "lib/libepfmi.so": "", "etc/Energy+.idd": ""}
+fil_dic = {"bin/spawn": "", "README.md": "", "lib/epfmi.so": "", "etc/Energy+.idd": ""}
 
 tar = tarfile.open(tar_fil)
 for key in fil_dic:
