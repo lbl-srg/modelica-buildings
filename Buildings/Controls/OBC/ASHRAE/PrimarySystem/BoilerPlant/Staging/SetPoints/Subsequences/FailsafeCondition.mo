@@ -119,7 +119,8 @@ annotation (defaultComponentName = "faiSafCon",
     <p>
     Failsafe condition used in staging up and down, implemented according to
     the specification provided in section 5.3.3.10, subsections 6.c, 8.c, 10.c
-    and 12.c in RP-1711, March 2020 Draft.
+    and 12.c in RP-1711, March 2020 Draft. Timer reset has been implemented
+    according to 5.3.3.10.2.
     </p>
     <p align=\"center\">
     <img alt=\"State-machine chart for FailsafeCondition\"

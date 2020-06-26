@@ -301,7 +301,8 @@ annotation (
     Efficiency condition used in staging up and down for boiler plants with both
     condensing and non-condensing boilers. Implemented according to the
     specification provided in 5.3.3.10, subsections 6.b, 8.b, 10.b and 12.b in
-    RP-1711, March 2020 Draft.
+    RP-1711, March 2020 Draft. Timer reset has been implemented according to
+    5.3.3.10.2.
     </p>
     <p align=\"center\">
     <img alt=\"State-machine chart for EfficiencyCondition for condensing boilers\"
