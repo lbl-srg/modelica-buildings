@@ -176,11 +176,10 @@ protected
     annotation (Placement(transformation(extent={{100,-160},{120,-140}})));
 
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
-    final message="It could be that the chillers are not being staged in an order 
+    final message="The boilers are not being staged in an order 
     recommended by ASHRAE RP1711 or Guideline 36. 
     Please make sure to follow the recommendation that is:
-    any positive displacement machines first, 
-    any variable speed centrifugal next and any constant speed centrifugal last.")
+    any condensing boilers first, any non-condensing boilers last.")
     annotation (Placement(transformation(extent={{180,-160},{200,-140}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(
