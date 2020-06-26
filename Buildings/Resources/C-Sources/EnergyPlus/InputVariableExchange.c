@@ -27,8 +27,8 @@ void InputVariableExchange(
   fmi2Status status;
 
   if (FMU_EP_VERBOSITY >= TIMESTEP)
-    ModelicaFormatMessage("Exchanging data with EnergyPlus: t = %.2f, initialCall = %d, mode = %s, zone = %s.\n",
-      time, initialCall, fmuModeToString(bui->mode), inpVar->modelicaNameInputVariable);
+    ModelicaFormatMessage("Exchanging data with EnergyPlus: t = %.2f, initialCall = %d, zone = %s,  building ptr at %p.\n",
+      time, initialCall, inpVar->modelicaNameInputVariable, bui);
 
   if (! inpVar->isInstantiated){
     /* This input variable has not been initialized because the simulator removed the call to initialize().
@@ -68,7 +68,6 @@ void InputVariableExchange(
     setFMUMode(bui, eventMode);
   }
 
-
   if ( (time - bui->time) > 0.001 ) {
     /* Real time advanced */
     advanceTime_completeIntegratorStep_enterEventMode(bui, inpVar->modelicaNameInputVariable, time);
@@ -93,5 +92,6 @@ void InputVariableExchange(
 
   /* Dummy output, used to enable forcing a direct dependency of outputs to inputs */
   *y = u;
+
   return;
 }
