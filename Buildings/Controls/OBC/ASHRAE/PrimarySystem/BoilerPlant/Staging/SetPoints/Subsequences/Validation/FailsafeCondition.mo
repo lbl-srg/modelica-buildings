@@ -8,7 +8,7 @@ block FailsafeCondition
     final TDif=10,
     final TDifHys=1)
     "Testing scenario with FailsafeCondition unmet"
-    annotation (Placement(transformation(extent={{-40,42},{-20,60}})));
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.FailsafeCondition
     faiSafCon1(
@@ -16,7 +16,7 @@ block FailsafeCondition
     final TDif=10,
     final TDifHys=1)
     "Testing scenario with FailsafeCondition met"
-    annotation (Placement(transformation(extent={{60,42},{80,60}})));
+    annotation (Placement(transformation(extent={{60,40},{80,60}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.FailsafeCondition
     faiSafCon2(
@@ -25,7 +25,7 @@ block FailsafeCondition
     final TDifHys=1)
     "Testing scenario exhibiting lower limit of hysteresis loop in sequence being
     unmet"
-    annotation (Placement(transformation(extent={{-40,-58},{-20,-40}})));
+    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.FailsafeCondition
     faiSafCon3(
@@ -34,19 +34,16 @@ block FailsafeCondition
     final TDifHys=1)
     "Testing scenario exhibitng lower limit of hysteresis loop in sequence being
     met"
-    annotation (Placement(transformation(extent={{60,-58},{80,-40}})));
+    annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.FailsafeCondition
     faiSafCon4(
     final delEna=900,
     final TDif=10,
     final TDifHys=1)
-    "Testing scenario with FailsafeCondition met"
-    annotation (Placement(transformation(extent={{140,42},{160,60}})));
+    "Testing scenario with timer reset"
+    annotation (Placement(transformation(extent={{140,40},{160,60}})));
 
-
-  CDL.Logical.Edge edg
-    annotation (Placement(transformation(extent={{110,10},{130,30}})));
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul(
     final amplitude=-10 + 1,
@@ -109,7 +106,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
     final width=0.05,
     final period=1000,
-    startTime=960)
+    final startTime=960)
+    "Boolean pulse signal"
     annotation (Placement(transformation(extent={{80,10},{100,30}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con6(
@@ -132,54 +130,59 @@ protected
     "Constant Boolean false"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
 
+  Buildings.Controls.OBC.CDL.Logical.Edge edg
+    "Rising edge detector"
+    annotation (Placement(transformation(extent={{110,10},{130,30}})));
+
 equation
   connect(con.y, faiSafCon.TSupSet)
-    annotation (Line(points={{-58,80},{-50,80},{-50,55.5},{-44,55.5}},
+    annotation (Line(points={{-58,80},{-50,80},{-50,55},{-42,55}},
       color={0,0,127}));
   connect(pul.y, faiSafCon.TSup)
-    annotation (Line(points={{-58,50},{-50,50},{-50,51},{-44,51}},
+    annotation (Line(points={{-58,50},{-50,50},{-50,50},{-42,50}},
       color={0,0,127}));
   connect(con1.y, faiSafCon1.TSupSet)
-    annotation (Line(points={{42,80},{50,80},{50,55.5},{56,55.5}},
+    annotation (Line(points={{42,80},{50,80},{50,55},{58,55}},
       color={0,0,127}));
   connect(pul1.y, faiSafCon1.TSup)
-    annotation (Line(points={{42,50},{50,50},{50,51},{56,51}},
+    annotation (Line(points={{42,50},{50,50},{50,50},{58,50}},
       color={0,0,127}));
   connect(con2.y,faiSafCon2.TSupSet)
-    annotation (Line(points={{-58,-20},{-50,-20},{-50,-44.5},{-44,-44.5}},
+    annotation (Line(points={{-58,-20},{-50,-20},{-50,-45},{-42,-45}},
       color={0,0,127}));
   connect(pul2.y,faiSafCon2.TSup)
-    annotation (Line(points={{-58,-50},{-50,-50},{-50,-49},{-44,-49}},
+    annotation (Line(points={{-58,-50},{-50,-50},{-50,-50},{-42,-50}},
       color={0,0,127}));
   connect(con3.y,faiSafCon3.TSupSet)
-    annotation (Line(points={{42,-20},{50,-20},{50,-44.5},{56,-44.5}},
+    annotation (Line(points={{42,-20},{50,-20},{50,-45},{58,-45}},
       color={0,0,127}));
   connect(pul3.y,faiSafCon3.TSup)
-    annotation (Line(points={{42,-50},{50,-50},{50,-49},{56,-49}},
+    annotation (Line(points={{42,-50},{50,-50},{50,-50},{58,-50}},
       color={0,0,127}));
-
   connect(con4.y,faiSafCon4. TSupSet)
-    annotation (Line(points={{122,80},{130,80},{130,55.5},{136,55.5}},
+    annotation (Line(points={{122,80},{130,80},{130,55},{138,55}},
       color={0,0,127}));
   connect(con5.y, faiSafCon4.TSup)
-    annotation (Line(points={{122,50},{130,50},{130,51},{136,51}},
-                                                 color={0,0,127}));
-  connect(con6.y, faiSafCon.uStaChaProEnd) annotation (Line(points={{-58,20},{
-          -50,20},{-50,46.5},{-44,46.5}},
-                                  color={255,0,255}));
-  connect(con7.y, faiSafCon2.uStaChaProEnd) annotation (Line(points={{-58,-80},
-          {-50,-80},{-50,-53.5},{-44,-53.5}},
-                                         color={255,0,255}));
-  connect(con8.y, faiSafCon1.uStaChaProEnd) annotation (Line(points={{42,20},{
-          50,20},{50,46.5},{56,46.5}},
-                                color={255,0,255}));
-  connect(con9.y, faiSafCon3.uStaChaProEnd) annotation (Line(points={{42,-80},{
-          50,-80},{50,-53.5},{56,-53.5}},
-                                   color={255,0,255}));
+    annotation (Line(points={{122,50},{130,50},{130,50},{138,50}},
+      color={0,0,127}));
+  connect(con6.y, faiSafCon.uStaChaProEnd)
+    annotation (Line(points={{-58,20},{-50,20},{-50,45},{-42,45}},
+      color={255,0,255}));
+  connect(con7.y, faiSafCon2.uStaChaProEnd)
+    annotation (Line(points={{-58,-80},{-50,-80},{-50,-55},{-42,-55}},
+      color={255,0,255}));
+  connect(con8.y, faiSafCon1.uStaChaProEnd)
+    annotation (Line(points={{42,20},{50,20},{50,45},{58,45}},
+      color={255,0,255}));
+  connect(con9.y, faiSafCon3.uStaChaProEnd)
+    annotation (Line(points={{42,-80},{50,-80},{50,-55},{58,-55}},
+      color={255,0,255}));
   connect(booPul.y, edg.u)
-    annotation (Line(points={{102,20},{108,20}}, color={255,0,255}));
-  connect(edg.y, faiSafCon4.uStaChaProEnd) annotation (Line(points={{132,20},{
-          134,20},{134,46.5},{136,46.5}}, color={255,0,255}));
+    annotation (Line(points={{102,20},{108,20}},
+      color={255,0,255}));
+  connect(edg.y, faiSafCon4.uStaChaProEnd)
+    annotation (Line(points={{132,20},{134,20},{134,45},{138,45}},
+      color={255,0,255}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false,
       extent={{-100,-100},{100,100}}),

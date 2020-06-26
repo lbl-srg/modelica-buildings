@@ -33,6 +33,12 @@ block EfficiencyCondition
     final quantity="Time") = 600
     "Enable delay for heating requirement condition";
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaChaProEnd
+    "Signal indicating end of stage change process"
+    annotation (Placement(transformation(extent={{-160,-200},{-120,-160}}),
+      iconTransformation(extent={{-140,70},{-100,110}},
+        rotation=90)));
+
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uTyp[nSta]
     "Vector of boiler types for all stages"
     annotation (Placement(transformation(extent={{-160,-120},{-120,-80}}),
@@ -85,7 +91,7 @@ block EfficiencyCondition
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yEffCon
     "Efficiency condition for boiler staging"
-    annotation (Placement(transformation(extent={{120,-20},{160,20}}),
+    annotation (Placement(transformation(extent={{160,-20},{200,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
@@ -105,12 +111,12 @@ protected
     final uLow=-sigDif,
     final uHigh=0)
     "Hysteresis loop for flow-rate condition"
-    annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
+    annotation (Placement(transformation(extent={{30,-60},{50,-40}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
     final k=true)
     "Constant boolean source"
-    annotation (Placement(transformation(extent={{0,-20},{20,0}})));
+    annotation (Placement(transformation(extent={{30,-20},{50,0}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
     final uLow=fraNonConBoi - sigDif,
@@ -124,18 +130,6 @@ protected
     "Hysteresis loop for heating capacity condition of condensing boilers"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
-    final delayTime=delCapReq,
-    final delayOnInit=true)
-    "Enable delay"
-    annotation (Placement(transformation(extent={{0,20},{20,40}})));
-
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1(
-    final delayTime=delCapReq,
-    final delayOnInit=true)
-    "Enable delay"
-    annotation (Placement(transformation(extent={{0,60},{20,80}})));
-
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nSta]
     "Convert integers in stage-type vector to real data-type"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
@@ -148,24 +142,55 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
     final threshold=1)
     "Check for non-condensing boilers"
-    annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
+    annotation (Placement(transformation(extent={{30,-110},{50,-90}})));
 
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi
     "Switch for heating capacity condition based on stage type"
-    annotation (Placement(transformation(extent={{40,40},{60,60}})));
+    annotation (Placement(transformation(extent={{100,40},{120,60}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and2
     "Logical And"
-    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
+    annotation (Placement(transformation(extent={{130,-10},{150,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1
     "Switch for flow-rate condition"
-    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
+    annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Add add1(
     final k2=-1)
     "Adder"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi2
+    "Feed false signal to reset timer when stage change is completed"
+    annotation (Placement(transformation(extent={{0,60},{20,80}})));
+
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi3
+    "Feed false signal to reset timer when stage change is completed"
+    annotation (Placement(transformation(extent={{0,20},{20,40}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Timer tim
+    "Time since condition has been met"
+    annotation (Placement(transformation(extent={{30,60},{50,80}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Timer tim1
+    "Time since condition has been met"
+    annotation (Placement(transformation(extent={{30,20},{50,40}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
+    final threshold=delCapReq)
+    "Compare time to enable delay"
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr1(
+    final threshold=delCapReq)
+    "Compare time to enable delay"
+    annotation (Placement(transformation(extent={{60,20},{80,40}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
+    final k=false)
+    "Constant Boolean False signal"
+    annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
 
 equation
   connect(div.u2,uCapUpMin)
@@ -183,7 +208,7 @@ equation
   connect(div2.u2, VUpMinSet_flow) annotation (Line(points={{-42,-56},{-50,-56},
           {-50,-60},{-140,-60}}, color={0,0,127}));
   connect(div2.y, hys.u)
-    annotation (Line(points={{-18,-50},{-2,-50}},
+    annotation (Line(points={{-18,-50},{28,-50}},
       color={0,0,127}));
   connect(div1.y, hys1.u)
     annotation (Line(points={{-58,70},{-42,70}},
@@ -191,12 +216,6 @@ equation
   connect(div.y, hys2.u)
     annotation (Line(points={{-58,30},{-42,30}},
       color={0,0,127}));
-  connect(truDel1.u, hys1.y)
-    annotation (Line(points={{-2,70},{-18,70}},
-      color={255,0,255}));
-  connect(truDel.u, hys2.y)
-    annotation (Line(points={{-2,30},{-18,30}},
-      color={255,0,255}));
   connect(intToRea.u, uTyp)
     annotation (Line(points={{-82,-100},{-140,-100}},
       color={255,127,0}));
@@ -207,39 +226,57 @@ equation
     annotation (Line(points={{-30,-112},{-30,-140},{-140,-140}},
       color={255,127,0}));
   connect(greThr.u, extIndSig.y)
-    annotation (Line(points={{-2,-100},{-18,-100}},
+    annotation (Line(points={{28,-100},{-18,-100}},
       color={0,0,127}));
   connect(greThr.y, logSwi.u2)
-    annotation (Line(points={{22,-100},{30,-100},{30,50},{38,50}},
-      color={255,0,255}));
-  connect(truDel.y, logSwi.u3)
-    annotation (Line(points={{22,30},{36,30},{36,42},{38,42}},
-      color={255,0,255}));
-  connect(truDel1.y, logSwi.u1)
-    annotation (Line(points={{22,70},{36,70},{36,58},{38,58}},
+    annotation (Line(points={{52,-100},{92,-100},{92,50},{98,50}},
       color={255,0,255}));
   connect(and2.y, yEffCon)
-    annotation (Line(points={{102,0},{140,0}},
+    annotation (Line(points={{152,0},{180,0}},
       color={255,0,255}));
   connect(logSwi.y, and2.u1)
-    annotation (Line(points={{62,50},{70,50},{70,0},{78,0}},
+    annotation (Line(points={{122,50},{126,50},{126,0},{128,0}},
       color={255,0,255}));
   connect(logSwi1.y, and2.u2)
-    annotation (Line(points={{62,-30},{70,-30},{70,-8},{78,-8}},
+    annotation (Line(points={{122,-30},{126,-30},{126,-8},{128,-8}},
       color={255,0,255}));
   connect(con1.y, logSwi1.u1)
-    annotation (Line(points={{22,-10},{36,-10},{36,-22},{38,-22}},
+    annotation (Line(points={{52,-10},{70,-10},{70,-22},{98,-22}},
       color={255,0,255}));
   connect(hys.y, logSwi1.u3)
-    annotation (Line(points={{22,-50},{36,-50},{36,-38},{38,-38}},
+    annotation (Line(points={{52,-50},{70,-50},{70,-38},{98,-38}},
       color={255,0,255}));
   connect(logSwi1.u2, greThr.y)
-    annotation (Line(points={{38,-30},{30,-30},{30,-100},{22,-100}},
+    annotation (Line(points={{98,-30},{92,-30},{92,-100},{52,-100}},
       color={255,0,255}));
   connect(div.u1, uCapReq) annotation (Line(points={{-82,36},{-100,36},{-100,60},
           {-140,60}}, color={0,0,127}));
   connect(div1.u1, uCapReq) annotation (Line(points={{-82,76},{-100,76},{-100,60},
           {-140,60}}, color={0,0,127}));
+  connect(logSwi2.y, tim.u)
+    annotation (Line(points={{22,70},{28,70}}, color={255,0,255}));
+  connect(tim1.y, greEquThr1.u)
+    annotation (Line(points={{52,30},{58,30}}, color={0,0,127}));
+  connect(tim.y, greEquThr.u)
+    annotation (Line(points={{52,70},{58,70}}, color={0,0,127}));
+  connect(logSwi3.y, tim1.u)
+    annotation (Line(points={{22,30},{28,30}}, color={255,0,255}));
+  connect(hys1.y, logSwi2.u3) annotation (Line(points={{-18,70},{-10,70},{-10,62},
+          {-2,62}}, color={255,0,255}));
+  connect(hys2.y, logSwi3.u3) annotation (Line(points={{-18,30},{-10,30},{-10,22},
+          {-2,22}}, color={255,0,255}));
+  connect(uStaChaProEnd, logSwi3.u2) annotation (Line(points={{-140,-180},{-6,-180},
+          {-6,30},{-2,30}}, color={255,0,255}));
+  connect(uStaChaProEnd, logSwi2.u2) annotation (Line(points={{-140,-180},{-6,-180},
+          {-6,70},{-2,70}}, color={255,0,255}));
+  connect(con.y, logSwi2.u1) annotation (Line(points={{-18,100},{-14,100},{-14,78},
+          {-2,78}}, color={255,0,255}));
+  connect(con.y, logSwi3.u1) annotation (Line(points={{-18,100},{-14,100},{-14,38},
+          {-2,38}}, color={255,0,255}));
+  connect(greEquThr.y, logSwi.u1) annotation (Line(points={{82,70},{86,70},{86,58},
+          {98,58}}, color={255,0,255}));
+  connect(greEquThr1.y, logSwi.u3) annotation (Line(points={{82,30},{86,30},{86,
+          42},{98,42}}, color={255,0,255}));
 
 annotation (
   defaultComponentName = "effCon",
@@ -257,7 +294,7 @@ annotation (
   Diagram(
     coordinateSystem(
       preserveAspectRatio=false,
-      extent={{-120,-160},{120,120}})),
+      extent={{-120,-200},{160,120}})),
   Documentation(
     info="<html>
     <p>

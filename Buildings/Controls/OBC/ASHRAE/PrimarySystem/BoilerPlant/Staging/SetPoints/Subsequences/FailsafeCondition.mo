@@ -48,7 +48,6 @@ block FailsafeCondition
     annotation (Placement(transformation(extent={{120,-20},{160,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-
 protected
   Buildings.Controls.OBC.CDL.Continuous.Add add2(
     final k2=-1)
@@ -61,14 +60,24 @@ protected
     "Hysteresis deadband to prevent cycling"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
 
-  CDL.Logical.Timer tim
+  Buildings.Controls.OBC.CDL.Logical.Timer tim
+    "Time since condition has been met"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  CDL.Continuous.GreaterEqualThreshold greEquThr(threshold=delEna)
+
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
+    final threshold=delEna)
+    "Compare time to enable delay"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
-  CDL.Logical.LogicalSwitch logSwi
+
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi
+    "Feed false signal to reset timer when stage change is completed"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  CDL.Logical.Sources.Constant con(k=false)
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
+    final k=false)
+    "Constant Boolean False signal"
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
+
 equation
   connect(add2.u2, TSup)
     annotation (Line(points={{-82,-6},{-90,-6},{-90,0},{-140,0}},
@@ -79,7 +88,6 @@ equation
   connect(add2.y, hys.u)
     annotation (Line(points={{-58,0},{-52,0}},
       color={0,0,127}));
-
   connect(tim.y, greEquThr.u)
     annotation (Line(points={{62,0},{78,0}}, color={0,0,127}));
   connect(greEquThr.y, yFaiCon)

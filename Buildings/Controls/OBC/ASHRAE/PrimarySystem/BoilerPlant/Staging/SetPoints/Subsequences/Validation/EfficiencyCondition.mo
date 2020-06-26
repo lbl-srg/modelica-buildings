@@ -22,6 +22,16 @@ block EfficiencyCondition
     "Testing efficiency condition for non-condensing boiler stage type"
     annotation (Placement(transformation(extent={{110,-10},{130,10}})));
 
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.EfficiencyCondition
+    effCon2(
+    final nSta=1,
+    final fraNonConBoi=0.9,
+    final fraConBoi=1.5,
+    final sigDif=0.1,
+    final delCapReq=600)
+    "Testing efficiency condition for non-condensing boiler stage type"
+    annotation (Placement(transformation(extent={{250,-10},{270,10}})));
+
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul(
     final amplitude=1.2*0.1,
@@ -101,12 +111,66 @@ protected
     "Constant source"
     annotation (Placement(transformation(extent={{10,-50},{30,-30}})));
 
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conIntp2[1](
+    final k={2})
+    "Constant source"
+    annotation (Placement(transformation(extent={{150,-90},{170,-70}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con6(
+    final k=1)
+    "Constant source"
+    annotation (Placement(transformation(extent={{150,70},{170,90}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con7(
+    final k=1)
+    "Constant source"
+    annotation (Placement(transformation(extent={{150,30},{170,50}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2(
+    final k=1)
+    "Constant source"
+    annotation (Placement(transformation(extent={{150,-130},{170,-110}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con8(
+    final k=1)
+    "Constant source"
+    annotation (Placement(transformation(extent={{150,-50},{170,-30}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con9(
+    final k=false)
+    "Constant Boolean false"
+    annotation (Placement(transformation(extent={{-130,-170},{-110,-150}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con10(
+    final k=false)
+    "Constant Boolean false"
+    annotation (Placement(transformation(extent={{10,-170},{30,-150}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
+    final width=0.05,
+    final period=1000,
+    final startTime=960)
+    annotation (Placement(transformation(extent={{150,-170},{170,-150}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Edge edg
+    annotation (Placement(transformation(extent={{180,-170},{200,-150}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con11(
+    final k=1.6)
+    "Constant source"
+    annotation (Placement(transformation(extent={{150,110},{170,130}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con12(
+    final k=1.1)
+    "Constant source"
+    annotation (Placement(transformation(extent={{150,-10},{170,10}})));
+
 equation
   connect(conIntp.y, effCon.uTyp)
     annotation (Line(points={{-108,-80},{-50,-80},{-50,-6},{-32,-6}},
       color={255,127,0}));
   connect(pul3.y, effCon.VHotWat_flow)
-    annotation (Line(points={{-108,0},{-32,0}},
+    annotation (Line(points={{-108,0},{-70,0},{-70,0},{-32,0}},
       color={0,0,127}));
   connect(pul.y, effCon.uCapReq)
     annotation (Line(points={{-108,120},{-40,120},{-40,9},{-32,9}},
@@ -121,7 +185,7 @@ equation
     annotation (Line(points={{32,-80},{90,-80},{90,-6},{108,-6}},
       color={255,127,0}));
   connect(pul2.y, effCon1.VHotWat_flow)
-    annotation (Line(points={{32,0},{108,0}},
+    annotation (Line(points={{32,0},{72,0},{72,0},{108,0}},
       color={0,0,127}));
   connect(pul1.y, effCon1.uCapReq)
     annotation (Line(points={{32,120},{100,120},{100,9},{108,9}},
@@ -144,7 +208,33 @@ equation
   connect(con5.y, effCon1.VUpMinSet_flow)
     annotation (Line(points={{32,-40},{80,-40},{80,-3},{108,-3}},
       color={0,0,127}));
-
+  connect(conIntp2.y,effCon2. uTyp)
+    annotation (Line(points={{172,-80},{230,-80},{230,-6},{248,-6}},
+      color={255,127,0}));
+  connect(con6.y,effCon2. uCapDes)
+    annotation (Line(points={{172,80},{230,80},{230,6},{248,6}},
+      color={0,0,127}));
+  connect(con7.y,effCon2. uCapUpMin)
+    annotation (Line(points={{172,40},{220,40},{220,3},{248,3}},
+      color={0,0,127}));
+  connect(conInt2.y,effCon2. uAvaUp)
+    annotation (Line(points={{172,-120},{240,-120},{240,-9},{248,-9}},
+      color={255,127,0}));
+  connect(con8.y,effCon2. VUpMinSet_flow)
+    annotation (Line(points={{172,-40},{220,-40},{220,-3},{248,-3}},
+      color={0,0,127}));
+  connect(con9.y, effCon.uStaChaProEnd) annotation (Line(points={{-108,-160},{-29,
+          -160},{-29,-12}}, color={255,0,255}));
+  connect(con10.y, effCon1.uStaChaProEnd) annotation (Line(points={{32,-160},{111,
+          -160},{111,-12}}, color={255,0,255}));
+  connect(booPul.y, edg.u)
+    annotation (Line(points={{172,-160},{178,-160}}, color={255,0,255}));
+  connect(edg.y, effCon2.uStaChaProEnd) annotation (Line(points={{202,-160},{251,
+          -160},{251,-12}}, color={255,0,255}));
+  connect(con11.y, effCon2.uCapReq) annotation (Line(points={{172,120},{240,120},
+          {240,9},{248,9}}, color={0,0,127}));
+  connect(con12.y, effCon2.VHotWat_flow)
+    annotation (Line(points={{172,0},{248,0}}, color={0,0,127}));
   annotation(Icon(coordinateSystem(preserveAspectRatio=false,
                                    extent={{-100,-100},{100,100}}),
              graphics={Ellipse(lineColor = {75,138,73},
@@ -157,7 +247,7 @@ equation
                                fillPattern = FillPattern.Solid,
                                points={{-36,60},{64,0},{-36,-60},{-36,60}})}),
     Diagram(coordinateSystem(preserveAspectRatio=false,
-                             extent={{-140,-140},{140,140}})),
+                             extent={{-140,-180},{280,140}})),
     experiment(
       StopTime=7200,
       Interval=1,
