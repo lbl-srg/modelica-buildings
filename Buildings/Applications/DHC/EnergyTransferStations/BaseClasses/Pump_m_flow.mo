@@ -1,12 +1,12 @@
 within Buildings.Applications.DHC.EnergyTransferStations.BaseClasses;
 model Pump_m_flow "Pump with prescribed mass flow rate"
   extends Buildings.Fluid.Movers.FlowControlled_m_flow(
-    per(final motorCooledByFluid=false),
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    final inputType=Buildings.Fluid.Types.InputType.Continuous,
-    final addPowerToMedium=false,
-    final nominalValuesDefineDefaultPressureCurve=true,
-    final use_inputFilter=false);
+    per(motorCooledByFluid=false),
+    inputType=Buildings.Fluid.Types.InputType.Continuous,
+    addPowerToMedium=false,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    nominalValuesDefineDefaultPressureCurve=true,
+    use_inputFilter=false);
   annotation (Icon(graphics={
         Ellipse(
           extent={{-58,58},{58,-58}},
