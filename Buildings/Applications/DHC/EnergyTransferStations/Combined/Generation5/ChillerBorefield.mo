@@ -88,10 +88,6 @@ equation
     annotation (Line(points={{10,0},{108,0},{108,-24}}, color={0,127,255}));
   connect(colChiWat.ports_bCon[2], chi.port_aChiWat) annotation (Line(points={{132,
           -24},{132,-12},{10,-12},{10,-12}}, color={0,127,255}));
-  connect(conSup.yHea, chi.uHea) annotation (Line(points={{-238,31},{-20,31},{-20,
-          -3},{-12,-3}}, color={255,0,255}));
-  connect(conSup.yCoo, chi.uCoo) annotation (Line(points={{-238,28},{-22,28},{-22,
-          -5},{-12,-5}}, color={255,0,255}));
   connect(conSup.THeaWatSupSet, chi.THeaWatSupSet) annotation (Line(points={{-238,
           16},{-24,16},{-24,-7},{-12,-7}}, color={0,0,127}));
   connect(conSup.TChiWatSupSet, chi.TChiWatSupSet) annotation (Line(points={{-238,
@@ -119,6 +115,12 @@ equation
     annotation (Line(points={{222,60},{258,60}}, color={0,0,127}));
   connect(chi.PChi, totPCoo.u[1]) annotation (Line(points={{12,-4},{20,-4},{20,20},
           {258,20}}, color={0,0,127}));
+  connect(uCoo, chi.uCoo) annotation (Line(points={{-320,60},{-20,60},{-20,-5},
+          {-12,-5}}, color={255,0,255}));
+  connect(uHea, conSup.uHea) annotation (Line(points={{-320,100},{-290,100},{
+          -290,30},{-262,30}}, color={255,0,255}));
+  connect(uHea, chi.uHea) annotation (Line(points={{-320,100},{-290,100},{-290,
+          62},{-18,62},{-18,-3},{-12,-3}}, color={255,0,255}));
 annotation (
         Diagram(coordinateSystem(preserveAspectRatio=false,
                   extent={{-300,-300},{300,300}}),
