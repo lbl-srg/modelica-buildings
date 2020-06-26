@@ -21,3 +21,9 @@ createPlot(id=3, position={95, 95, 1660, 196}, y={"staDow2.yStaDow"}, range={0.0
 //ExportPlotAsImage("./Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/Down1.png", 1, true, false);
 //ExportPlotAsImage("./Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/Down2.png", 2, true, false);
 //ExportPlotAsImage("./Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/Down3.png", 3, true, false);
+
+createPlot(id=4, position={95, 95, 1660, 998}, y={"staDow3.uCapReq", "staDow3.uCapMin"}, range={0.0, 16000.0, 0.9, 1.4}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=4, position={95, 95, 1660, 196}, y={"staDow3.uBypValPos"}, range={0.0, 16000.0, -0.2, 0.3}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=4, position={95, 95, 1660, 196}, y={"staDow3.faiSafCon.yFaiCon"}, range={0.0, 16000.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=4, position={95, 95, 1660, 196}, y={"staDow3.uCapReq", "staDow3.uCapDowDes"}, range={0.0, 16000.0, 1.0, 2.5}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}});
+createPlot(id=4, position={95, 95, 1660, 196}, y={"staDow3.yStaDow"}, range={0.0, 16000.0, -0.5, 1.5}, grid=true, subPlot=5, colors={{28,108,200}});

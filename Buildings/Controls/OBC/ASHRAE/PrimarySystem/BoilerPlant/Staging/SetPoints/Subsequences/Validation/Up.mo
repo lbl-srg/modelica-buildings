@@ -13,7 +13,7 @@ model Up
     final TDif=10,
     final TDifHys=1)
     "Scenario testing activation by efficiency condition"
-    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
+    annotation (Placement(transformation(extent={{-100,-16},{-80,16}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Up
     staUp1(
@@ -26,7 +26,7 @@ model Up
     final TDif=10,
     final TDifHys=1)
     "Scenario testing activation by failsafe condition"
-    annotation (Placement(transformation(extent={{30,-10},{50,10}})));
+    annotation (Placement(transformation(extent={{30,-16},{50,16}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Up
     staUp2(
@@ -39,19 +39,19 @@ model Up
     final TDif=10,
     final TDifHys=1)
     "Scenario testing activation due to current stage unavailability"
-    annotation (Placement(transformation(extent={{160,-10},{180,10}})));
+    annotation (Placement(transformation(extent={{160,-16},{180,16}})));
 
 protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con6(
-    final k=true)
+    final k=true) "Constant Boolean True signal"
     annotation (Placement(transformation(extent={{-180,-190},{-160,-170}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con7(
-    final k=true)
+    final k=true) "Constant Boolean True signal"
     annotation (Placement(transformation(extent={{-50,-190},{-30,-170}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
-    final period=600)
+    final period=600) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{80,-190},{100,-170}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
@@ -193,67 +193,95 @@ protected
     "Constant source"
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
 
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con14(
+    final k=false)
+    "Constant Boolean False signal"
+    annotation (Placement(transformation(extent={{-180,-230},{-160,-210}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con22(
+    final k=false)
+    "Constant Boolean False signal"
+    annotation (Placement(transformation(extent={{-50,-230},{-30,-210}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con23(
+    final k=false)
+    "Constant Boolean False signal"
+    annotation (Placement(transformation(extent={{80,-230},{100,-210}})));
+
 equation
-  connect(staUp.uCapDes, con.y) annotation (Line(points={{-102,7},{-114,7},{-114,
+  connect(staUp.uCapDes, con.y) annotation (Line(points={{-102,12},{-114,12},{-114,
           140},{-158,140}}, color={0,0,127}));
   connect(con1.y, staUp.uCapUpMin) annotation (Line(points={{-158,100},{-120,100},
-          {-120,5},{-102,5}}, color={0,0,127}));
+          {-120,9},{-102,9}}, color={0,0,127}));
   connect(pul3.y, staUp.VHotWat_flow) annotation (Line(points={{-158,60},{-126,60},
-          {-126,3},{-102,3}}, color={0,0,127}));
+          {-126,6},{-102,6}}, color={0,0,127}));
   connect(con4.y, staUp.VUpMinSet_flow) annotation (Line(points={{-158,20},{-132,
-          20},{-132,1},{-102,1}}, color={0,0,127}));
+          20},{-132,3},{-102,3}}, color={0,0,127}));
   connect(conIntp.y, staUp.uTyp) annotation (Line(points={{-158,-20},{-132,-20},
-          {-132,-1},{-102,-1}}, color={255,127,0}));
+          {-132,0},{-102,0}},   color={255,127,0}));
   connect(conInt.y, staUp.uAvaUp) annotation (Line(points={{-158,-60},{-126,-60},
           {-126,-3},{-102,-3}}, color={255,127,0}));
   connect(con2.y, staUp.THotWatSupSet) annotation (Line(points={{-158,-100},{-120,
-          -100},{-120,-5},{-102,-5}}, color={0,0,127}));
+          -100},{-120,-6},{-102,-6}}, color={0,0,127}));
   connect(con3.y, staUp.uCapReq) annotation (Line(points={{-158,180},{-110,180},
-          {-110,9},{-102,9}}, color={0,0,127}));
+          {-110,15},{-102,15}},
+                              color={0,0,127}));
   connect(con5.y, staUp.THotWatSup) annotation (Line(points={{-158,-140},{-114,-140},
-          {-114,-7},{-102,-7}}, color={0,0,127}));
+          {-114,-9},{-102,-9}}, color={0,0,127}));
   connect(con6.y, staUp.uAvaCur) annotation (Line(points={{-158,-180},{-110,-180},
-          {-110,-9},{-102,-9}}, color={255,0,255}));
-  connect(staUp1.uCapDes, con8.y) annotation (Line(points={{28,7},{16,7},{16,140},
+          {-110,-12},{-102,-12}},
+                                color={255,0,255}));
+  connect(staUp1.uCapDes, con8.y) annotation (Line(points={{28,12},{16,12},{16,140},
           {-28,140}}, color={0,0,127}));
   connect(con9.y, staUp1.uCapUpMin) annotation (Line(points={{-28,100},{10,100},
-          {10,5},{28,5}}, color={0,0,127}));
+          {10,9},{28,9}}, color={0,0,127}));
   connect(con10.y, staUp1.VUpMinSet_flow) annotation (Line(points={{-28,20},{-2,
-          20},{-2,1},{28,1}}, color={0,0,127}));
+          20},{-2,3},{28,3}}, color={0,0,127}));
   connect(conIntp1.y, staUp1.uTyp) annotation (Line(points={{-28,-20},{-2,-20},{
-          -2,-1},{28,-1}}, color={255,127,0}));
+          -2,0},{28,0}},   color={255,127,0}));
   connect(conInt1.y, staUp1.uAvaUp) annotation (Line(points={{-28,-60},{4,-60},{
           4,-3},{28,-3}}, color={255,127,0}));
   connect(con12.y, staUp1.uCapReq) annotation (Line(points={{-28,180},{20,180},{
-          20,9},{28,9}}, color={0,0,127}));
+          20,15},{28,15}},
+                         color={0,0,127}));
   connect(con7.y, staUp1.uAvaCur) annotation (Line(points={{-28,-180},{20,-180},
-          {20,-9},{28,-9}}, color={255,0,255}));
-  connect(staUp2.uCapDes, con15.y) annotation (Line(points={{158,7},{146,7},{146,
+          {20,-12},{28,-12}},
+                            color={255,0,255}));
+  connect(staUp2.uCapDes, con15.y) annotation (Line(points={{158,12},{146,12},{146,
           140},{102,140}}, color={0,0,127}));
   connect(con16.y, staUp2.uCapUpMin) annotation (Line(points={{102,100},{140,100},
-          {140,5},{158,5}}, color={0,0,127}));
+          {140,9},{158,9}}, color={0,0,127}));
   connect(con17.y, staUp2.VUpMinSet_flow) annotation (Line(points={{102,20},{128,
-          20},{128,1},{158,1}}, color={0,0,127}));
+          20},{128,3},{158,3}}, color={0,0,127}));
   connect(conIntp2.y, staUp2.uTyp) annotation (Line(points={{102,-20},{128,-20},
-          {128,-1},{158,-1}}, color={255,127,0}));
+          {128,0},{158,0}},   color={255,127,0}));
   connect(conInt2.y, staUp2.uAvaUp) annotation (Line(points={{102,-60},{134,-60},
           {134,-3},{158,-3}}, color={255,127,0}));
   connect(con18.y, staUp2.THotWatSupSet) annotation (Line(points={{102,-100},{140,
-          -100},{140,-5},{158,-5}}, color={0,0,127}));
+          -100},{140,-6},{158,-6}}, color={0,0,127}));
   connect(con19.y, staUp2.uCapReq) annotation (Line(points={{102,180},{150,180},
-          {150,9},{158,9}}, color={0,0,127}));
+          {150,15},{158,15}},
+                            color={0,0,127}));
   connect(con20.y, staUp2.THotWatSup) annotation (Line(points={{102,-140},{146,-140},
-          {146,-7},{158,-7}}, color={0,0,127}));
+          {146,-9},{158,-9}}, color={0,0,127}));
   connect(con21.y, staUp1.VHotWat_flow)
-    annotation (Line(points={{-28,60},{4,60},{4,3},{28,3}}, color={0,0,127}));
+    annotation (Line(points={{-28,60},{4,60},{4,6},{28,6}}, color={0,0,127}));
   connect(con13.y, staUp1.THotWatSupSet) annotation (Line(points={{-28,-100},{10,
-          -100},{10,-5},{28,-5}}, color={0,0,127}));
+          -100},{10,-6},{28,-6}}, color={0,0,127}));
   connect(pul.y, staUp1.THotWatSup) annotation (Line(points={{-28,-140},{16,-140},
-          {16,-7},{28,-7}}, color={0,0,127}));
+          {16,-9},{28,-9}}, color={0,0,127}));
   connect(con11.y, staUp2.VHotWat_flow) annotation (Line(points={{102,60},{134,60},
-          {134,3},{158,3}}, color={0,0,127}));
+          {134,6},{158,6}}, color={0,0,127}));
   connect(booPul.y, staUp2.uAvaCur) annotation (Line(points={{102,-180},{150,-180},
-          {150,-9},{158,-9}}, color={255,0,255}));
+          {150,-12},{158,-12}},
+                              color={255,0,255}));
+  connect(con14.y, staUp.uStaChaProEnd) annotation (Line(points={{-158,-220},{-106,
+          -220},{-106,-15},{-102,-15}}, color={255,0,255}));
+  connect(con22.y, staUp1.uStaChaProEnd) annotation (Line(points={{-28,-220},{24,
+          -220},{24,-15},{28,-15}}, color={255,0,255}));
+  connect(con23.y, staUp2.uStaChaProEnd) annotation (Line(points={{102,-220},{154,
+          -220},{154,-15},{158,-15}}, color={255,0,255}));
+
 annotation (
   experiment(
       StopTime=7200,
@@ -287,5 +315,5 @@ annotation (
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
   Diagram(coordinateSystem(preserveAspectRatio=false,
-    extent={{-200,-200},{200,200}})));
+    extent={{-200,-240},{200,200}})));
 end Up;

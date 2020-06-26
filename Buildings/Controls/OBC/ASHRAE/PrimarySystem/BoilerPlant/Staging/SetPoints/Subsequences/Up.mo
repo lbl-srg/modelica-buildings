@@ -48,15 +48,20 @@ block Up
     "Enable delay for temperature"
     annotation(Dialog(group="Failsafe condition"));
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaChaProEnd
+    "Signal indicating end of stage change process"
+    annotation (Placement(transformation(extent={{-140,-190},{-100,-150}}),
+      iconTransformation(extent={{-140,-170},{-100,-130}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uAvaCur
     "Current stage availability status"
     annotation (Placement(transformation(extent={{-140,-160},{-100,-120}}),
-      iconTransformation(extent={{-140,-110},{-100,-70}})));
+      iconTransformation(extent={{-140,-140},{-100,-100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uTyp[nSta]
     "Boiler-type vector specifying boiler-type in each stage"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
-      iconTransformation(extent={{-140,-30},{-100,10}})));
+      iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uAvaUp
     "Index of next available higher stage"
@@ -68,14 +73,14 @@ block Up
     final quantity="ThermodynamicTemperature")
     "Hot water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
-      iconTransformation(extent={{-140,-70},{-100,-30}})));
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatSup(
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "Measured hot water supply temperature"
     annotation (Placement(transformation(extent={{-140,-130},{-100,-90}}),
-      iconTransformation(extent={{-140,-90},{-100,-50}})));
+      iconTransformation(extent={{-140,-110},{-100,-70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCapUpMin(
     final unit="W",
@@ -83,7 +88,7 @@ block Up
     final quantity="Power")
     "Minimum heating capacity of next available stage"
     annotation (Placement(transformation(extent={{-140,50},{-100,90}}),
-      iconTransformation(extent={{-140,30},{-100,70}})));
+      iconTransformation(extent={{-140,70},{-100,110}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCapDes(
     final unit="W",
@@ -91,7 +96,7 @@ block Up
     final quantity="Power")
     "Design heating capacity of the current stage"
     annotation (Placement(transformation(extent={{-140,80},{-100,120}}),
-      iconTransformation(extent={{-140,50},{-100,90}})));
+      iconTransformation(extent={{-140,100},{-100,140}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCapReq(
     final unit="W",
@@ -99,7 +104,7 @@ block Up
     final quantity="Power")
     "Calculated heating capacity requirement"
     annotation (Placement(transformation(extent={{-140,110},{-100,150}}),
-      iconTransformation(extent={{-140,70},{-100,110}})));
+      iconTransformation(extent={{-140,130},{-100,170}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VHotWat_flow(
     final unit="m3/s",
@@ -107,7 +112,7 @@ block Up
     final quantity="VolumeFlowRate")
     "Measured hot water flow rate"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
-      iconTransformation(extent={{-140,10},{-100,50}})));
+      iconTransformation(extent={{-140,40},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VUpMinSet_flow(
     final unit="m3/s",
@@ -115,12 +120,13 @@ block Up
     final quantity="VolumeFlowRate")
     "Minimum flow setpoint for next available higher stage"
     annotation (Placement(transformation(extent={{-140,-10},{-100,30}}),
-      iconTransformation(extent={{-140,-10},{-100,30}})));
+      iconTransformation(extent={{-140,10},{-100,50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yStaUp
     "Stage up signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
+
 
 protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.EfficiencyCondition effCon(
@@ -137,7 +143,7 @@ protected
     final TDif=TDif,
     final TDifHys=TDifHys)
     "Failsafe condition for staging up and down"
-    annotation (Placement(transformation(extent={{-60,-102},{-40,-84}})));
+    annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Logical not"
@@ -156,10 +162,10 @@ equation
     annotation (Line(points={{-62,31},{-64,31},{-64,-50},{-120,-50}},
       color={255,127,0}));
   connect(faiSafCon.TSupSet, THotWatSupSet)
-    annotation (Line(points={{-62,-89},{-80,-89},{-80,-80},{-120,-80}},
+    annotation (Line(points={{-62,-85},{-80,-85},{-80,-80},{-120,-80}},
       color={0,0,127}));
   connect(faiSafCon.TSup, THotWatSup)
-    annotation (Line(points={{-62,-99},{-80,-99},{-80,-110},{-120,-110}},
+    annotation (Line(points={{-62,-90},{-80,-90},{-80,-110},{-120,-110}},
       color={0,0,127}));
   connect(mulOr.y, yStaUp)
     annotation (Line(points={{62,0},{120,0}},
@@ -170,9 +176,9 @@ equation
   connect(not1.u, uAvaCur)
     annotation (Line(points={{-62,-140},{-120,-140}},
       color={255,0,255}));
-
-  connect(faiSafCon.yFaiCon, mulOr.u[2]) annotation (Line(points={{-38,-94},{0,-94},
-          {0,0},{38,0}}, color={255,0,255}));
+  connect(faiSafCon.yFaiCon, mulOr.u[2]) annotation (Line(points={{-38,-90},{0,
+          -90},{0,0},{38,0}},
+                         color={255,0,255}));
   connect(not1.y, mulOr.u[3]) annotation (Line(points={{-38,-140},{10,-140},{10,
           -4.66667},{38,-4.66667}}, color={255,0,255}));
   connect(effCon.uCapReq, uCapReq) annotation (Line(points={{-62,49},{-64,49},{-64,
@@ -185,16 +191,21 @@ equation
     annotation (Line(points={{-62,40},{-120,40}}, color={0,0,127}));
   connect(effCon.VUpMinSet_flow, VUpMinSet_flow) annotation (Line(points={{-62,37},
           {-80,37},{-80,10},{-120,10}}, color={0,0,127}));
+  connect(uStaChaProEnd, faiSafCon.uStaChaProEnd) annotation (Line(points={{-120,
+          -170},{-70,-170},{-70,-95},{-62,-95}},     color={255,0,255}));
+  connect(uStaChaProEnd, effCon.uStaChaProEnd) annotation (Line(points={{-120,-170},
+          {-70,-170},{-70,-70},{-59,-70},{-59,28}}, color={255,0,255}));
+
   annotation (defaultComponentName = "staUp",
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
+    Icon(coordinateSystem(extent={{-100,-160},{100,160}}),
          graphics={
            Rectangle(
-             extent={{-100,-100},{100,100}},
+             extent={{-100,-160},{100,160}},
              lineColor={0,0,127},
              fillColor={255,255,255},
              fillPattern=FillPattern.Solid),
            Text(
-             extent={{-120,146},{100,108}},
+             extent={{-120,206},{100,168}},
              lineColor={0,0,255},
              textString="%name"),
            Rectangle(extent={{-80,-10},{-20,-22}}, lineColor={0,0,127}),
@@ -211,7 +222,7 @@ equation
            Rectangle(extent={{72,18},{76,12}}, lineColor={0,0,127}),
            Line(points={{130,-48}}, color={0,0,127})}),
     Diagram(coordinateSystem(preserveAspectRatio=false,
-      extent={{-100,-160},{100,160}})),
+      extent={{-100,-180},{100,140}})),
     Documentation(info="<html>
       <p>
       Outputs a boolean stage up signal <code>y</code> based on the 

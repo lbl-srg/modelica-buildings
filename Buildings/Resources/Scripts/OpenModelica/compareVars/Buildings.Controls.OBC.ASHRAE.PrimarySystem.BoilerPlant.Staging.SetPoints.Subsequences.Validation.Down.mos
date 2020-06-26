@@ -19,5 +19,12 @@ compareVars :=
     "staDow2.faiSafCon.yFaiCon",
     "staDow2.uCapReq",
     "staDow2.uCapDowDes",
-    "staDow2.yStaDow"
+    "staDow2.yStaDow",
+    "staDow3.uCapReq",
+    "staDow3.uCapMin",
+    "staDow3.uBypValPos",
+    "staDow3.faiSafCon.yFaiCon",
+    "staDow3.uCapReq",
+    "staDow3.uCapDowDes",
+    "staDow3.yStaDow"
   };
