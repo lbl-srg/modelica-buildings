@@ -218,8 +218,8 @@ equation
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/Actuator/ShadeControl.mos"
         "Simulate and plot"),
   experiment(
-      StartTime=8208000,
-      StopTime=8640000,
+      StartTime=8640000,
+      StopTime=8899200,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
     Diagram(coordinateSystem(extent={{-200,-160},{200,120}})),
