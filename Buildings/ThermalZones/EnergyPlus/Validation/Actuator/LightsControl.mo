@@ -1,6 +1,7 @@
 within Buildings.ThermalZones.EnergyPlus.Validation.Actuator;
 model LightsControl "Validation model for one actuator that controls the lights"
-  extends Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone.OneZone;
+  extends Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone.OneZone(building(
+        verbosity=Buildings.ThermalZones.EnergyPlus.Types.Verbosity.Fatal));
 
   Buildings.ThermalZones.EnergyPlus.Actuator actLig(
     unit=Buildings.ThermalZones.EnergyPlus.Types.Units.Power,
