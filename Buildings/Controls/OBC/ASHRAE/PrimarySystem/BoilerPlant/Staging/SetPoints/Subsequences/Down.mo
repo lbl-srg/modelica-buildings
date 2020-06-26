@@ -3,10 +3,9 @@ block Down
   "Generates a stage down signal"
 
   parameter Boolean primaryOnly = false
-    "Is the boiler plant a primary-only, condensing boiler plant?"
-    annotation(Dialog(group="Plant type"));
+    "Is the boiler plant a primary-only, condensing boiler plant?";
 
-  parameter Integer nSta = 1
+  parameter Integer nSta = 5
     "Number of stages";
 
   parameter Real fraMinFir = 1.10
@@ -110,6 +109,13 @@ block Down
     "Enable delay for the failsafe condition"
     annotation(Dialog(group="Failsafe condition parameters"));
 
+  parameter Real bMinPriPumSpeSta[nSta](
+    final unit="1",
+    final displayUnit="1",
+    final min=0,
+    final max=1) = {0,0,0,0,0}
+    "Minimum primary pump speed for the boiler plant stage";
+
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaChaProEnd
     "Signal indicating end of stage change process"
     annotation (Placement(transformation(extent={{-220,70},{-180,110}}),
@@ -120,7 +126,7 @@ block Down
     annotation (Placement(transformation(
         extent={{-220,130},{-180,170}},
         rotation=90,
-        origin={0,-20}),
+        origin={80,-20}),
       iconTransformation(extent={{-140,130},{-100,170}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uCur
@@ -128,7 +134,7 @@ block Down
     annotation (Placement(transformation(
         extent={{-220,90},{-180,130}},
         rotation=90,
-        origin={0,-20}),
+        origin={80,-20}),
       iconTransformation(extent={{-140,100},{-100,140}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatSupSet(
@@ -177,7 +183,7 @@ block Down
     final min=0,
     final max=1) if not primaryOnly
     "Pump speed signal"
-    annotation (Placement(transformation(extent={{-220,-100},{-180,-60}}),
+    annotation (Placement(transformation(extent={{-220,-80},{-180,-40}}),
       iconTransformation(extent={{-140,-110},{-100,-70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uBypValPos(
@@ -194,7 +200,7 @@ block Down
     final displayUnit="K",
     final quantity="ThermodynamicTemperature") if not primaryOnly
     "Measured primary hot water return temperature"
-    annotation (Placement(transformation(extent={{-220,-140},{-180,-100}}),
+    annotation (Placement(transformation(extent={{-222,-180},{-182,-140}}),
       iconTransformation(extent={{-140,-140},{-100,-100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSecHotWatRet(
@@ -202,7 +208,7 @@ block Down
     final displayUnit="K",
     final quantity="ThermodynamicTemperature") if not primaryOnly
     "Measured secondary hot water return temperature"
-    annotation (Placement(transformation(extent={{-220,-170},{-180,-130}}),
+    annotation (Placement(transformation(extent={{-222,-210},{-182,-170}}),
       iconTransformation(extent={{-140,-170},{-100,-130}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yStaDow
@@ -253,13 +259,13 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Add add4(
     final k2=-1) if not primaryOnly
     "Compare primary and secondary circuit return temperature"
-    annotation (Placement(transformation(extent={{-160,-140},{-140,-120}})));
+    annotation (Placement(transformation(extent={{-162,-190},{-142,-170}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys3(
     final uLow=TCirDif - dTemp,
     final uHigh=TCirDif) if not primaryOnly
     "Hysteresis loop"
-    annotation (Placement(transformation(extent={{-130,-140},{-110,-120}})));
+    annotation (Placement(transformation(extent={{-132,-190},{-112,-170}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and2 if not primaryOnly
     "Logical And"
@@ -280,12 +286,12 @@ protected
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndSig(
     final nin=nSta)
-    "Identify stage type of next available higher stage"
-    annotation (Placement(transformation(extent={{-100,-180},{-80,-160}})));
+    "Identify stage type of current stage"
+    annotation (Placement(transformation(extent={{-20,-180},{0,-160}})));
 
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nSta]
     "Integer to Real conversion"
-    annotation (Placement(transformation(extent={{-140,-180},{-120,-160}})));
+    annotation (Placement(transformation(extent={{-60,-180},{-40,-160}})));
 
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1 if not primaryOnly
     "Logical switch"
@@ -309,20 +315,20 @@ protected
     final uLow=sigDif,
     final uHigh=2*sigDif) if not primaryOnly
     "Hysteresis loop"
-    annotation (Placement(transformation(extent={{-160,-90},{-140,-70}})));
+    annotation (Placement(transformation(extent={{-146,-90},{-126,-70}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not4 if not primaryOnly
     "Logical Not"
-    annotation (Placement(transformation(extent={{-130,-90},{-110,-70}})));
+    annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
 
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     "Real to Integer conversion"
-    annotation (Placement(transformation(extent={{-60,-180},{-40,-160}})));
+    annotation (Placement(transformation(extent={{20,-180},{40,-160}})));
 
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(
     final threshold=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler)
     "Check for non-condensing boilers in stage"
-    annotation (Placement(transformation(extent={{-20,-180},{0,-160}})));
+    annotation (Placement(transformation(extent={{60,-180},{80,-160}})));
 
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi2
     "Feed false signal to reset timer when stage change is completed"
@@ -386,6 +392,21 @@ protected
     "Constant Boolean False signal"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
 
+  Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndSig1(
+    final nin=nSta) if not primaryOnly
+    "Identify stage type of current stage"
+    annotation (Placement(transformation(extent={{-140,-140},{-120,-120}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2[nSta](
+    final k=bMinPriPumSpeSta) if not primaryOnly
+    "Signal source for minimum primary pump speed for boiler plant stage"
+    annotation (Placement(transformation(extent={{-170,-140},{-150,-120}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Add add2(
+    final k2=-1) if not primaryOnly
+    "Compare pump speed signal and minimum pump speed for stage"
+    annotation (Placement(transformation(extent={{-174,-90},{-154,-70}})));
+
 equation
   connect(faiSafCon.TSupSet, THotWatSupSet) annotation (Line(points={{-162,135},
           {-170,135},{-170,150},{-200,150}}, color={0,0,127}));
@@ -408,20 +429,20 @@ equation
           130}},     color={255,0,255}));
   connect(and3.u2, or2.y) annotation (Line(points={{178,0},{134,0},{134,18},{82,
           18}}, color={255,0,255}));
-  connect(add4.u1, TPriHotWatRet) annotation (Line(points={{-162,-124},{-168,
-          -124},{-168,-120},{-200,-120}}, color={0,0,127}));
-  connect(add4.u2, TSecHotWatRet) annotation (Line(points={{-162,-136},{-168,
-          -136},{-168,-150},{-200,-150}}, color={0,0,127}));
+  connect(add4.u1, TPriHotWatRet) annotation (Line(points={{-164,-174},{-170,-174},
+          {-170,-160},{-202,-160}},       color={0,0,127}));
+  connect(add4.u2, TSecHotWatRet) annotation (Line(points={{-164,-186},{-170,-186},
+          {-170,-190},{-202,-190}},       color={0,0,127}));
   connect(hys3.u, add4.y)
-    annotation (Line(points={{-132,-130},{-138,-130}}, color={0,0,127}));
+    annotation (Line(points={{-134,-180},{-140,-180}}, color={0,0,127}));
   connect(logSwi.y, and3.u3) annotation (Line(points={{122,-40},{150,-40},{150,-8},
           {178,-8}}, color={255,0,255}));
-  connect(intToRea.u, uTyp) annotation (Line(points={{-142,-170},{-150,-170},{-150,
+  connect(intToRea.u, uTyp) annotation (Line(points={{-62,-170},{-70,-170},{-70,
           -220}}, color={255,127,0}));
   connect(intToRea.y, extIndSig.u)
-    annotation (Line(points={{-118,-170},{-102,-170}}, color={0,0,127}));
-  connect(uCur, extIndSig.index) annotation (Line(points={{-110,-220},{-110,-190},
-          {-90,-190},{-90,-182}}, color={255,127,0}));
+    annotation (Line(points={{-38,-170},{-22,-170}},   color={0,0,127}));
+  connect(uCur, extIndSig.index) annotation (Line(points={{-30,-220},{-30,-190},
+          {-10,-190},{-10,-182}}, color={255,127,0}));
   connect(con1.y, logSwi1.u1) annotation (Line(points={{122,-70},{132,-70},{132,
           -82},{138,-82}}, color={255,0,255}));
   connect(or1.y, logSwi1.u3) annotation (Line(points={{82,-98},{138,-98}},
@@ -440,24 +461,23 @@ equation
   connect(hys4.u, uBypValPos)
     annotation (Line(points={{-160,0},{-200,0}}, color={0,0,127}));
   connect(hys2.y, not4.u)
-    annotation (Line(points={{-138,-80},{-132,-80}},
+    annotation (Line(points={{-124,-80},{-122,-80}},
                                                    color={255,0,255}));
   connect(extIndSig.y, reaToInt.u)
-    annotation (Line(points={{-78,-170},{-62,-170}}, color={0,0,127}));
+    annotation (Line(points={{2,-170},{18,-170}},    color={0,0,127}));
   connect(intGreThr.u, reaToInt.y)
-    annotation (Line(points={{-22,-170},{-38,-170}}, color={255,127,0}));
-  connect(intGreThr.y, logSwi.u2) annotation (Line(points={{2,-170},{94,-170},{94,
-          -40},{98,-40}}, color={255,0,255}));
-  connect(intGreThr.y, logSwi1.u2) annotation (Line(points={{2,-170},{94,-170},{
-          94,-90},{138,-90}}, color={255,0,255}));
+    annotation (Line(points={{58,-170},{42,-170}},   color={255,127,0}));
+  connect(intGreThr.y, logSwi.u2) annotation (Line(points={{82,-170},{94,-170},{
+          94,-40},{98,-40}},
+                          color={255,0,255}));
+  connect(intGreThr.y, logSwi1.u2) annotation (Line(points={{82,-170},{94,-170},
+          {94,-90},{138,-90}},color={255,0,255}));
   connect(faiSafCon.yFaiCon, not1.u)
     annotation (Line(points={{-138,130},{-130,130},{-130,130},{-122,130}},
                                                      color={255,0,255}));
-  connect(hys2.u, uPumSpe)
-    annotation (Line(points={{-162,-80},{-200,-80}}, color={0,0,127}));
-  connect(not4.y, and2.u1) annotation (Line(points={{-108,-80},{-96,-80},{-96,-100},
+  connect(not4.y, and2.u1) annotation (Line(points={{-98,-80},{-96,-80},{-96,-100},
           {-92,-100}}, color={255,0,255}));
-  connect(hys3.y, and2.u2) annotation (Line(points={{-108,-130},{-96,-130},{-96,
+  connect(hys3.y, and2.u2) annotation (Line(points={{-110,-180},{-98,-180},{-98,
           -108},{-92,-108}},
                        color={255,0,255}));
   connect(uStaChaProEnd, faiSafCon.uStaChaProEnd) annotation (Line(points={{-200,
@@ -517,6 +537,16 @@ equation
   connect(con.y, logSwi4.u1) annotation (Line(points={{-58,110},{-56,110},{-56,-92},
           {-52,-92}}, color={255,0,255}));
 
+  connect(con2.y, extIndSig1.u)
+    annotation (Line(points={{-148,-130},{-142,-130}}, color={0,0,127}));
+  connect(uCur, extIndSig1.index) annotation (Line(points={{-30,-220},{-30,-190},
+          {-80,-190},{-80,-160},{-130,-160},{-130,-142}}, color={255,127,0}));
+  connect(hys2.u, add2.y)
+    annotation (Line(points={{-148,-80},{-152,-80}}, color={0,0,127}));
+  connect(uPumSpe, add2.u1) annotation (Line(points={{-200,-60},{-188,-60},{-188,
+          -74},{-176,-74}}, color={0,0,127}));
+  connect(extIndSig1.y, add2.u2) annotation (Line(points={{-118,-130},{-112,-130},
+          {-112,-110},{-178,-110},{-178,-86},{-176,-86}}, color={0,0,127}));
   annotation(defaultComponentName = "staDow",
     Icon(coordinateSystem(extent={{-100,-160},{100,190}}),
       graphics={
@@ -584,8 +614,8 @@ equation
         for a time period <code>delMinFir</code>, or
         </li>
         <li>
-        Primary circuit flow rate <code>VHotWat_flow</code> is at the minimum
-        allowed flow rate <code>VMinSet_flow</code> and primary circuit hot
+        Primary circuit pump speed <code>uPumSpe</code> is at the minimum
+        allowed flow rate <code>bMinPriPumSpeSta</code> and primary circuit hot
         water return temperature <code>TPriHotWatRet</code>
         <br>
         exceeds the secondary circuit hot water return temperature <code>TSecHotWatRet</code> by 

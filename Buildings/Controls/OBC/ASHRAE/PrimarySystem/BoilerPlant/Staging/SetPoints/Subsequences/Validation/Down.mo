@@ -17,7 +17,8 @@ model Down
     final delTRetDif=300,
     final dTemp=0.1,
     final TDif=10,
-    final delFaiCon=900)
+    final delFaiCon=900,
+    final bMinPriPumSpeSta={0})
     "Scenario testing sequence for condensing-type stage"
     annotation (Placement(transformation(extent={{-120,-16},{-100,19}})));
 
@@ -36,7 +37,8 @@ model Down
     final delTRetDif=300,
     final dTemp=0.1,
     final TDif=10,
-    final delFaiCon=900)
+    final delFaiCon=900,
+    final bMinPriPumSpeSta={0})
     "Scenario testing sequence for non-condensing-type stage"
     annotation (Placement(transformation(extent={{20,-16},{40,19}})));
 
@@ -54,7 +56,8 @@ model Down
     final TCirDif=3,
     final dTemp=0.1,
     final TDif=10,
-    final delFaiCon=900)
+    final delFaiCon=900,
+    final bMinPriPumSpeSta={0})
     "Scenario testing primary-only, condensing-type boiler plant"
     annotation (Placement(transformation(extent={{160,-16},{180,19}})));
 
@@ -72,7 +75,8 @@ model Down
     final TCirDif=3,
     final dTemp=0.1,
     final TDif=10,
-    final delFaiCon=900)
+    final delFaiCon=900,
+    final bMinPriPumSpeSta={0})
     "Scenario testing primary-only, condensing-type boiler plant"
     annotation (Placement(transformation(extent={{270,-16},{290,19}})));
 
