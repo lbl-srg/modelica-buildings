@@ -7,5 +7,8 @@ compareVars :=
     "effCon.yEffCon",
     "effCon1.uCapReq",
     "effCon1.uCapDes",
-    "effCon1.yEffCon"
+    "effCon1.yEffCon",
+    "effCon2.uCapReq",
+    "effCon2.uCapDes",
+    "effCon2.yEffCon"
   };
