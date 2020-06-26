@@ -8,7 +8,10 @@ block Down
   parameter Integer nSta = 5
     "Number of stages";
 
-  parameter Real fraMinFir = 1.10
+  parameter Real fraMinFir(
+    final unit="1",
+    final displayUnit="1",
+    final min=0) = 1.10
     "Fraction of boiler minimum firing ratio that required capacity needs to be
     for minimum firing ratio condition"
     annotation(Dialog(group="Minimum firing rate condition parameters"));
@@ -20,7 +23,11 @@ block Down
     "Delay for staging based on minimum firing rate of current stage"
     annotation(Dialog(group="Minimum firing rate condition parameters"));
 
-  parameter Real fraDesCap =  0.80
+  parameter Real fraDesCap(
+    final unit="1",
+    final displayUnit="1",
+    final min=0,
+    final max=1) =  0.80
     "Fraction of design capacity of next lower stage that heating capacity needs
     to be for lower design capacity ratio condition"
     annotation(Dialog(group="Stage design capacity condition parameters"));
@@ -40,7 +47,10 @@ block Down
     "Enable delay for lower stage design capacity ratio condition for condensing boilers"
     annotation(Dialog(group="Stage design capacity condition parameters"));
 
-  parameter Real sigDif = 0.01
+  parameter Real sigDif(
+    final unit="1",
+    final displayUnit="1",
+    final min=0) = 0.01
     "Hysteresis deadband normalized signals"
     annotation(Dialog(tab="Advanced"));
 

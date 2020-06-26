@@ -5,17 +5,27 @@ block Up
   parameter Integer nSta = 5
     "Number of stages in the boiler plant";
 
-  parameter Real fraNonConBoi = 0.9
+  parameter Real fraNonConBoi(
+    final unit="1",
+    final displayUnit="1",
+    final min=0,
+    final max=1) = 0.9
     "Fraction of stage design capacity at which the efficiency condition
     is satisfied for non-condensing boilers"
     annotation(Dialog(group="Efficiency condition"));
 
-  parameter Real fraConBoi = 1.5
+  parameter Real fraConBoi(
+    final unit="1",
+    final displayUnit="1",
+    final min=0) = 1.5
     "Fraction of stage minimum capacity at which the efficiency condition is
     satisfied for condensing boilers"
     annotation(Dialog(group="Efficiency condition"));
 
-  parameter Real sigDif = 0.1
+  parameter Real sigDif(
+    final unit="1",
+    final displayUnit="1",
+    final min=0) = 0.1
     "Signal hysteresis deadband"
     annotation (Dialog(tab="Advanced",
       group="Efficiency condition"));
