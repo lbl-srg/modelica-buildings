@@ -195,10 +195,10 @@ model ChillerBorefield
     annotation (Placement(transformation(extent={{-150,-30},{-130,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Not reqCoo "Cooling request"
     annotation (Placement(transformation(extent={{-150,-110},{-130,-90}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDelHea(delayTime=120)
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDelHea(delayTime=300)
     "Delay signal indicating no load"
     annotation (Placement(transformation(extent={{-180,-30},{-160,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDelCoo(delayTime=120)
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDelCoo(delayTime=300)
     "Delay signal indicating no load"
     annotation (Placement(transformation(extent={{-180,-110},{-160,-90}})));
 equation
