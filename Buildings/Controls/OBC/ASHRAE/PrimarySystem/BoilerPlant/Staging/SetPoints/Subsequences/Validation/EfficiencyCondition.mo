@@ -29,7 +29,7 @@ block EfficiencyCondition
     final fraConBoi=1.5,
     final sigDif=0.1,
     final delCapReq=600)
-    "Testing efficiency condition for non-condensing boiler stage type"
+    "Testing efficiency condition for non-condensing boiler stage type with timer reset"
     annotation (Placement(transformation(extent={{250,-10},{270,10}})));
 
 protected
