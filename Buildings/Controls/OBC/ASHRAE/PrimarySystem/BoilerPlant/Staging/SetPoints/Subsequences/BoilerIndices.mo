@@ -2,13 +2,13 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints
 block BoilerIndices
   "Returns boiler indices for the current stage"
 
-  parameter Integer nSta = 3
+  parameter Integer nSta = 5
     "Number of stages";
 
-  parameter Integer nBoi = 2
+  parameter Integer nBoi = 3
     "Number of boilers";
 
-  parameter Integer staMat[nSta, nBoi] = {{1,0},{0,1},{1,1}}
+  parameter Integer staMat[nSta, nBoi] = {{1,0,0},{0,1,0},{1,1,0},{0,1,1},{1,1,1}}
     "Staging matrix with stages in rows and boilers in columns";
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u(
