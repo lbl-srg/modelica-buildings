@@ -111,7 +111,6 @@ protected
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
 
 equation
-
   connect(boiAva.y, conf.uBoiAva)
     annotation (Line(points={{-18,100},{18,100}}, color={255,0,255}));
   connect(boiAva1.y, conf1.uBoiAva)
