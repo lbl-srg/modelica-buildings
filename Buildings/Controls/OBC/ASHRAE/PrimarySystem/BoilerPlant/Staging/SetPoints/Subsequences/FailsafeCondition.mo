@@ -2,12 +2,6 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints
 block FailsafeCondition
   "Failsafe condition used in staging up and down"
 
-  parameter Real delEna(
-    final unit="s",
-    final displayUnit="s",
-    final quantity="Time") = 900
-    "Enable delay";
-
   parameter Real TDif(
     final unit="K",
     final displayUnit="K",
@@ -22,12 +16,23 @@ block FailsafeCondition
     "Temperature deadband for hysteresis loop"
     annotation (Dialog(tab="Advanced"));
 
+  parameter Real delEna(
+    final unit="s",
+    final displayUnit="s",
+    final quantity="Time") = 900
+    "Enable delay";
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaChaProEnd
+    "Signal indicating end of stage change process"
+    annotation (Placement(transformation(extent={{-160,-70},{-120,-30}}),
+      iconTransformation(extent={{-140,-70},{-100,-30}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupSet(
     final unit="K",
     final displayUnit="K",
     final quantity="ThermodynamicTemperature")
     "Hot water supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-140,30},{-100,70}}),
+    annotation (Placement(transformation(extent={{-160,30},{-120,70}}),
       iconTransformation(extent={{-140,30},{-100,70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
@@ -35,12 +40,12 @@ block FailsafeCondition
     final displayUnit="K",
     final quantity="ThermodynamicTemperature")
     "Measured hot water supply temperature"
-    annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
-      iconTransformation(extent={{-140,-70},{-100,-30}})));
+    annotation (Placement(transformation(extent={{-160,-20},{-120,20}}),
+      iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yFaiCon
     "Failsafe condition for boiler staging"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+    annotation (Placement(transformation(extent={{120,-20},{160,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
@@ -53,32 +58,50 @@ protected
     final uLow=TDif - TDifHys,
     final uHigh=TDif)
     "Hysteresis deadband to prevent cycling"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
-    final delayTime=delEna,
-    final delayOnInit=true)
-    "Enable delay"
+  Buildings.Controls.OBC.CDL.Logical.Timer tim
+    "Time since condition has been met"
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
+    final threshold=delEna)
+    "Compare time to enable delay"
+    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
+
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi
+    "Feed false signal to reset timer when stage change is completed"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
+    final k=false)
+    "Constant Boolean False signal"
+    annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
 
 equation
   connect(add2.u2, TSup)
-    annotation (Line(points={{-82,-6},{-90,-6},{-90,-50},{-120,-50}},
+    annotation (Line(points={{-82,-6},{-90,-6},{-90,0},{-140,0}},
       color={0,0,127}));
   connect(add2.u1, TSupSet)
-    annotation (Line(points={{-82,6},{-90,6},{-90,50},{-120,50}},
+    annotation (Line(points={{-82,6},{-90,6},{-90,50},{-140,50}},
       color={0,0,127}));
   connect(add2.y, hys.u)
-    annotation (Line(points={{-58,0},{-42,0}},
+    annotation (Line(points={{-58,0},{-52,0}},
       color={0,0,127}));
-  connect(hys.y, truDel.u)
-    annotation (Line(points={{-18,0},{-2,0}},
-      color={255,0,255}));
-  connect(truDel.y, yFaiCon)
-    annotation (Line(points={{22,0},{120,0}}, color={255,0,255}));
-
+  connect(tim.y, greEquThr.u)
+    annotation (Line(points={{62,0},{78,0}}, color={0,0,127}));
+  connect(greEquThr.y, yFaiCon)
+    annotation (Line(points={{102,0},{140,0}}, color={255,0,255}));
+  connect(logSwi.y, tim.u)
+    annotation (Line(points={{22,0},{38,0}}, color={255,0,255}));
+  connect(uStaChaProEnd, logSwi.u2) annotation (Line(points={{-140,-50},{-10,-50},
+          {-10,0},{-2,0}}, color={255,0,255}));
+  connect(con.y, logSwi.u1) annotation (Line(points={{-28,30},{-20,30},{-20,8},{
+          -2,8}}, color={255,0,255}));
+  connect(hys.y, logSwi.u3) annotation (Line(points={{-28,0},{-20,0},{-20,-8},{-2,
+          -8}}, color={255,0,255}));
 annotation (defaultComponentName = "faiSafCon",
-  Icon(coordinateSystem(extent={{-100,-80},{100,100}}),
+  Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
     graphics={
       Rectangle(
         extent={{-100,-100},{100,100}},
@@ -91,12 +114,13 @@ annotation (defaultComponentName = "faiSafCon",
         textString="%name")}),
   Diagram(coordinateSystem(
     preserveAspectRatio=false,
-    extent={{-100,-100},{100,100}})),
+    extent={{-120,-120},{120,120}})),
   Documentation(info="<html>
     <p>
     Failsafe condition used in staging up and down, implemented according to
     the specification provided in section 5.3.3.10, subsections 6.c, 8.c, 10.c
-    and 12.c in RP-1711, March 2020 Draft.
+    and 12.c in RP-1711, March 2020 Draft. Timer reset has been implemented
+    according to 5.3.3.10.2.
     </p>
     <p align=\"center\">
     <img alt=\"State-machine chart for FailsafeCondition\"
