@@ -5,7 +5,7 @@ model Change
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Change
     cha(
     final nSta=10,
-    final iniSta=0,
+    final iniSta=1,
     final delStaCha=600)
     "Controls for stage up signal variations"
     annotation (Placement(transformation(extent={{-40,180},{-20,200}})));
@@ -43,6 +43,30 @@ model Change
     final falseHoldDuration=0)
     "Short true hold to have stage change edge signals be better visible"
     annotation (Placement(transformation(extent={{0,-240},{20,-220}})));
+
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol6(
+    final trueHoldDuration=10,
+    final falseHoldDuration=0)
+    "Short true hold to have stage change edge signals be better visible"
+    annotation (Placement(transformation(extent={{0,220},{20,240}})));
+
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol9(
+    final trueHoldDuration=10,
+    final falseHoldDuration=0)
+    "Short true hold to have stage change edge signals be better visible"
+    annotation (Placement(transformation(extent={{40,40},{60,60}})));
+
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol10(
+    final trueHoldDuration=10,
+    final falseHoldDuration=0)
+    "Short true hold to have stage change edge signals be better visible"
+    annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
+
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol11(
+    final trueHoldDuration=10,
+    final falseHoldDuration=0)
+    "Short true hold to have stage change edge signals be better visible"
+    annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timeTable(
@@ -208,12 +232,44 @@ protected
     "Greater than threshold"
     annotation (Placement(transformation(extent={{-160,20},{-140,40}})));
 
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
+    final delayTime=120)
+    "True delay to represent staging process"
+    annotation (Placement(transformation(extent={{70,-240},{90,-220}})));
+
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol3(
+    final trueHoldDuration=121,
+    final falseHoldDuration=0)
+    "True hold to represent staging process delay"
+    annotation (Placement(transformation(extent={{40,-240},{60,-220}})));
+
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol4(
+    final trueHoldDuration=121,
+    final falseHoldDuration=0)
+    "True hold to represent staging process delay"
+    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1(
+    final delayTime=120)
+    "True delay to represent staging process"
+    annotation (Placement(transformation(extent={{70,-60},{90,-40}})));
+
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol5(
+    final trueHoldDuration=121,
+    final falseHoldDuration=0)
+    "True hold to represent staging process delay"
+    annotation (Placement(transformation(extent={{40,120},{60,140}})));
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel2(
+    final delayTime=120)
+    "True delay to represent staging process"
+    annotation (Placement(transformation(extent={{70,120},{90,140}})));
+
 equation
   connect(timeTable.y[1], greThr.u)
     annotation (Line(points={{-138,230},{-122,230}}, color={0,0,127}));
-  connect(cha.ySta, intToRea.u) annotation (Line(points={{-18,194},{0,194},{0,
-          190},{18,190}},
-                     color={255,127,0}));
+  connect(cha.ySta, intToRea.u) annotation (Line(points={{-18,196},{0,196},{0,190},
+          {18,190}}, color={255,127,0}));
   connect(intToRea.y, zerOrdHol.u)
     annotation (Line(points={{42,190},{58,190}}, color={0,0,127}));
   connect(zerOrdHol.y, reaToInt.u)
@@ -230,9 +286,8 @@ equation
           164},{138,164}}, color={255,127,0}));
   connect(addInt.y, cha.uAvaUp) annotation (Line(points={{162,210},{170,210},{170,
           250},{-50,250},{-50,194},{-42,194}}, color={255,127,0}));
-  connect(cha1.ySta, intToRea1.u) annotation (Line(points={{-18,14},{0,14},{0,
-          10},{18,10}},
-                     color={255,127,0}));
+  connect(cha1.ySta, intToRea1.u) annotation (Line(points={{-18,16},{0,16},{0,10},
+          {18,10}},  color={255,127,0}));
   connect(intToRea1.y, zerOrdHol1.u)
     annotation (Line(points={{42,10},{58,10}},   color={0,0,127}));
   connect(zerOrdHol1.y, reaToInt1.u)
@@ -251,8 +306,8 @@ equation
           70},{-50,70},{-50,14},{-42,14}}, color={255,127,0}));
   connect(timeTable2.y[1], greThr2.u)
     annotation (Line(points={{-138,-130},{-122,-130}}, color={0,0,127}));
-  connect(cha2.ySta, intToRea2.u) annotation (Line(points={{-18,-166},{0,-166},
-          {0,-170},{18,-170}},color={255,127,0}));
+  connect(cha2.ySta, intToRea2.u) annotation (Line(points={{-18,-164},{0,-164},{
+          0,-170},{18,-170}}, color={255,127,0}));
   connect(intToRea2.y, zerOrdHol2.u)
     annotation (Line(points={{42,-170},{58,-170}}, color={0,0,127}));
   connect(zerOrdHol2.y, reaToInt2.u)
@@ -286,12 +341,12 @@ equation
           2},{-42,2}},     color={255,0,255}));
   connect(timeTable1.y[1], greThr3.u)
     annotation (Line(points={{-138,-170},{-122,-170}}, color={0,0,127}));
-  connect(cha.y, truFalHol.u) annotation (Line(points={{-18,186},{-10,186},{-10,
-          130},{-2,130}}, color={255,0,255}));
-  connect(cha1.y, truFalHol1.u) annotation (Line(points={{-18,6},{-10,6},{-10,
-          -50},{-2,-50}}, color={255,0,255}));
-  connect(cha2.y, truFalHol2.u) annotation (Line(points={{-18,-174},{-10,-174},
-          {-10,-230},{-2,-230}},color={255,0,255}));
+  connect(cha.yChaEdg, truFalHol.u) annotation (Line(points={{-18,188},{-10,188},
+          {-10,130},{-2,130}}, color={255,0,255}));
+  connect(cha1.yChaEdg, truFalHol1.u) annotation (Line(points={{-18,8},{-10,8},{
+          -10,-50},{-2,-50}}, color={255,0,255}));
+  connect(cha2.yChaEdg, truFalHol2.u) annotation (Line(points={{-18,-172},{-10,-172},
+          {-10,-230},{-2,-230}}, color={255,0,255}));
   connect(addInt1.y, maxInt.u1) annotation (Line(points={{162,170},{170,170},{
           170,156},{178,156}}, color={255,127,0}));
   connect(maxInt.u2, u3.y) annotation (Line(points={{178,144},{170,144},{170,
@@ -319,6 +374,32 @@ equation
   connect(greThr1.y, cha2.uPla) annotation (Line(points={{-138,30},{-88,30},{
           -88,-162},{-42,-162}}, color={255,0,255}));
 
+  connect(truDel.y, cha2.uStaChaProEnd) annotation (Line(points={{92,-230},{100,
+          -230},{100,-260},{-39,-260},{-39,-182}}, color={255,0,255}));
+  connect(truFalHol2.y, truFalHol3.u)
+    annotation (Line(points={{22,-230},{38,-230}}, color={255,0,255}));
+  connect(truDel.u, truFalHol3.y)
+    annotation (Line(points={{68,-230},{62,-230}}, color={255,0,255}));
+  connect(truFalHol1.y, truFalHol4.u)
+    annotation (Line(points={{22,-50},{38,-50}}, color={255,0,255}));
+  connect(truFalHol4.y, truDel1.u)
+    annotation (Line(points={{62,-50},{68,-50}}, color={255,0,255}));
+  connect(truDel1.y, cha1.uStaChaProEnd) annotation (Line(points={{92,-50},{100,
+          -50},{100,-80},{-39,-80},{-39,-2}}, color={255,0,255}));
+  connect(truFalHol.y, truFalHol5.u)
+    annotation (Line(points={{22,130},{38,130}}, color={255,0,255}));
+  connect(truFalHol5.y, truDel2.u)
+    annotation (Line(points={{62,130},{68,130}}, color={255,0,255}));
+  connect(truDel2.y, cha.uStaChaProEnd) annotation (Line(points={{92,130},{100,130},
+          {100,100},{-39,100},{-39,178}}, color={255,0,255}));
+  connect(cha.yChaUpEdg, truFalHol6.u) annotation (Line(points={{-18,192},{-10,192},
+          {-10,230},{-2,230}}, color={255,0,255}));
+  connect(truFalHol9.u, cha1.yChaDowEdg) annotation (Line(points={{38,50},{30,50},
+          {30,28},{12,28},{12,4},{-18,4}}, color={255,0,255}));
+  connect(truFalHol10.u, cha2.yChaUpEdg) annotation (Line(points={{-2,-130},{-10,
+          -130},{-10,-168},{-18,-168}}, color={255,0,255}));
+  connect(truFalHol11.u, cha2.yChaDowEdg) annotation (Line(points={{38,-130},{30,
+          -130},{30,-148},{10,-148},{10,-176},{-18,-176}}, color={255,0,255}));
 annotation (
  experiment(StopTime=14000.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/Validation/Change.mos"
@@ -337,7 +418,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-Icon(graphics={
+Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
+     graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
                 fillPattern = FillPattern.Solid,
