@@ -136,7 +136,7 @@ protected
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and3
-    "And"
+    "Logical And"
     annotation (Placement(transformation(extent={{280,60},{300,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Edge edg
@@ -171,9 +171,11 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(
     final nu=4)
+    "Ensure all conditions for stage change are satisfied"
     annotation (Placement(transformation(extent={{-160,-90},{-140,-70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Latch lat2(final pre_y_start=true)
+  Buildings.Controls.OBC.CDL.Logical.Latch lat2(
+    final pre_y_start=true)
     "Latch"
     annotation (Placement(transformation(extent={{-280,-190},{-260,-170}})));
 
