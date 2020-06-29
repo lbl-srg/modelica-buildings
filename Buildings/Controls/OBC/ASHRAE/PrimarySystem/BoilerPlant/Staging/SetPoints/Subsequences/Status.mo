@@ -202,7 +202,8 @@ protected
     "Zero"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And and4 "Logical And"
+  Buildings.Controls.OBC.CDL.Logical.And and4
+    "Logical And"
     annotation (Placement(transformation(extent={{220,70},{240,90}})));
 
 equation
