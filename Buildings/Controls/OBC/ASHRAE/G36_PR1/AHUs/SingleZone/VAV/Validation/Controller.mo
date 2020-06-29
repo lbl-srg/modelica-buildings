@@ -119,95 +119,149 @@ model Controller "Validation of the top-level controller"
     final duration=86400,
     final offset=273.15 + 24) "Terminal unit discharge air temperature"
     annotation (Placement(transformation(extent={{-180,-80},{-160,-60}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant demLim(
+    final k=0)
+    "Cooling and heating demand imit level"
+    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooWarTim(
+    final k=0)
+    "Cooldown and warm-up time"
+    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
 
 equation
   connect(TZon.y, conVAV.TZon) annotation (Line(points={{-158,80},{-20,80},{-20,
-          111.846},{18,111.846}}, color={0,0,127}));
+          110},{18,110}}, color={0,0,127}));
   connect(occSch.occupied, conVAV.uOcc) annotation (Line(points={{-99,48},{-74,
-          48},{-74,108.154},{18,108.154}},
+          48},{-74,107.231},{18,107.231}},
                                        color={255,0,255}));
   connect(occSch.tNexOcc, conVAV.tNexOcc) annotation (Line(points={{-99,60},{
-          -80,60},{-80,117.385},{18,117.385}},
+          -80,60},{-80,112.769},{18,112.769}},
                                            color={0,0,127}));
   connect(TCut.y, conVAV.TCut) annotation (Line(points={{-98,24},{-52,24},{-52,
-          104.462},{18,104.462}},
+          97.0769},{18,97.0769}},
                          color={0,0,127}));
   connect(nOcc.y, conVAV.nOcc) annotation (Line(points={{-98,-24},{-8,-24},{-8,
-          93.3846},{18,93.3846}},
+          91.5385},{18,91.5385}},
                          color={0,0,127}));
   connect(TOut.y, conVAV.TOut)
-    annotation (Line(points={{-158,120},{-20,120},{-20,120.154},{18,120.154}},
+    annotation (Line(points={{-158,120},{-20,120},{-20,121.077},{18,121.077}},
           color={0,0,127}));
   connect(TSup.y, conVAV.TSup) annotation (Line(points={{-158,40},{-140,40},{
-          -140,100.769},{18,100.769}},
+          -140,99.8462},{18,99.8462}},
                                   color={0,0,127}));
-  connect(win.y, conVAV1.uWin) annotation (Line(points={{-98,-120},{0,-120},{0,27.6923},
-          {18,27.6923}}, color={255,0,255}));
+  connect(win.y, conVAV1.uWin) annotation (Line(points={{-98,-120},{0,-120},{0,
+          26.7692},{18,26.7692}},
+                         color={255,0,255}));
   connect(occSch.tNexOcc, conVAV1.tNexOcc) annotation (Line(points={{-99,60},{
-          -20,60},{-20,55.3846},{18,55.3846}},
+          -20,60},{-20,50.7692},{18,50.7692}},
                                            color={0,0,127}));
   connect(occSch.occupied, conVAV1.uOcc)
-    annotation (Line(points={{-99,48},{-40,48},{-40,46.1538},{18,46.1538}},
+    annotation (Line(points={{-99,48},{-40,48},{-40,45.2308},{18,45.2308}},
           color={255,0,255}));
   connect(TOut1.y, conVAV1.TOut)
-    annotation (Line(points={{-158,4},{6,4},{6,58.1538},{18,58.1538}}, color={0,0,127}));
-  connect(TZon1.y, conVAV1.TZon) annotation (Line(points={{-158,-40},{-70,-40},
-          {-70,49.8462},{18,49.8462}},color={0,0,127}));
+    annotation (Line(points={{-158,4},{6,4},{6,59.0769},{18,59.0769}}, color={0,0,127}));
+  connect(TZon1.y, conVAV1.TZon) annotation (Line(points={{-158,-40},{-70,-40},{
+          -70,48},{18,48}}, color={0,0,127}));
   connect(TSup1.y, conVAV1.TSup) annotation (Line(points={{-158,-70},{-84,-70},
-          {-84,38.7692},{18,38.7692}},color={0,0,127}));
+          {-84,37.8462},{18,37.8462}},color={0,0,127}));
   connect(TCut.y, conVAV1.TCut) annotation (Line(points={{-98,24},{-52,24},{-52,
-          42.4615},{18,42.4615}}, color={0,0,127}));
+          35.0769},{18,35.0769}}, color={0,0,127}));
   connect(TSup1.y,conVAV2. TSup) annotation (Line(points={{-158,-70},{-84,-70},
-          {-84,-21.2308},{18,-21.2308}},color={0,0,127}));
+          {-84,-22.1538},{18,-22.1538}},color={0,0,127}));
   connect(occSch.occupied,conVAV2. uOcc) annotation (Line(points={{-99,48},{-74,
-          48},{-74,-13.8462},{18,-13.8462}},           color={255,0,255}));
+          48},{-74,-14.7692},{18,-14.7692}}, color={255,0,255}));
   connect(occSch.tNexOcc,conVAV2. tNexOcc) annotation (Line(points={{-99,60},{-80,
-          60},{-80,-4.61538},{18,-4.61538}}, color={0,0,127}));
+          60},{-80,-9.23077},{18,-9.23077}}, color={0,0,127}));
   connect(TCut.y,conVAV2. TCut) annotation (Line(points={{-98,24},{-52,24},{-52,
-          -17.5385},{18,-17.5385}}, color={0,0,127}));
-  connect(TZon1.y, conVAV2.TZon) annotation (Line(points={{-158,-40},{-70,-40},
-          {-70,-10.1538},{18,-10.1538}},color={0,0,127}));
-  connect(TOut2.y, conVAV2.TOut) annotation (Line(points={{-158,-100},{-40,-100},
-          {-40,-1.84615},{18,-1.84615}}, color={0,0,127}));
-  connect(win.y, conVAV3.uWin) annotation (Line(points={{-98,-120},{0,-120},{0,-92.3077},
-          {18,-92.3077}}, color={255,0,255}));
+          -24.9231},{18,-24.9231}}, color={0,0,127}));
+  connect(TZon1.y, conVAV2.TZon) annotation (Line(points={{-158,-40},{-70,-40},{
+          -70,-12},{18,-12}}, color={0,0,127}));
+  connect(TOut2.y, conVAV2.TOut) annotation (Line(points={{-158,-100},{-64,-100},
+          {-64,-0.923077},{18,-0.923077}}, color={0,0,127}));
+  connect(win.y, conVAV3.uWin) annotation (Line(points={{-98,-120},{0,-120},{0,
+          -93.2308},{18,-93.2308}},
+                          color={255,0,255}));
   connect(occSch.occupied, conVAV3.uOcc) annotation (Line(points={{-99,48},{-74,
-          48},{-74,-73.8462},{18,-73.8462}}, color={255,0,255}));
+          48},{-74,-74.7692},{18,-74.7692}}, color={255,0,255}));
   connect(TCut.y, conVAV3.TCut) annotation (Line(points={{-98,24},{-52,24},{-52,
-          -77.5385},{18,-77.5385}}, color={0,0,127}));
+          -84.9231},{18,-84.9231}}, color={0,0,127}));
   connect(TSup1.y, conVAV3.TSup) annotation (Line(points={{-158,-70},{-84,-70},
-          {-84,-81.2308},{18,-81.2308}},color={0,0,127}));
-  connect(TZon1.y, conVAV3.TZon) annotation (Line(points={{-158,-40},{-70,-40},
-          {-70,-70.1538},{18,-70.1538}},color={0,0,127}));
+          {-84,-82.1538},{18,-82.1538}},color={0,0,127}));
+  connect(TZon1.y, conVAV3.TZon) annotation (Line(points={{-158,-40},{-70,-40},{
+          -70,-72},{18,-72}}, color={0,0,127}));
   connect(occSch.tNexOcc, conVAV3.tNexOcc) annotation (Line(points={{-99,60},{
-          -80,60},{-80,-64.6154},{18,-64.6154}},
+          -80,60},{-80,-69.2308},{18,-69.2308}},
                                              color={0,0,127}));
   connect(TOut3.y, conVAV3.TOut) annotation (Line(points={{-158,-140},{8,-140},
-          {8,-61.8462},{18,-61.8462}},color={0,0,127}));
+          {8,-60.9231},{18,-60.9231}},color={0,0,127}));
   connect(nOcc.y, conVAV2.nOcc) annotation (Line(points={{-98,-24},{-8,-24},{-8,
-          -28.6154},{18,-28.6154}}, color={0,0,127}));
+          -30.4615},{18,-30.4615}}, color={0,0,127}));
+  connect(cooWarTim.y, conVAV.warUpTim) annotation (Line(points={{-18,20},{-14,
+          20},{-14,118.308},{18,118.308}},
+                                       color={0,0,127}));
+  connect(cooWarTim.y, conVAV.cooDowTim) annotation (Line(points={{-18,20},{-14,
+          20},{-14,115.538},{18,115.538}}, color={0,0,127}));
+  connect(cooWarTim.y, conVAV1.warUpTim) annotation (Line(points={{-18,20},{-14,
+          20},{-14,56.3077},{18,56.3077}}, color={0,0,127}));
+  connect(cooWarTim.y, conVAV1.cooDowTim) annotation (Line(points={{-18,20},{
+          -14,20},{-14,53.5385},{18,53.5385}},
+                                           color={0,0,127}));
+  connect(cooWarTim.y, conVAV2.warUpTim) annotation (Line(points={{-18,20},{-14,
+          20},{-14,-3.69231},{18,-3.69231}}, color={0,0,127}));
+  connect(cooWarTim.y, conVAV2.cooDowTim) annotation (Line(points={{-18,20},{-14,
+          20},{-14,-6.46154},{18,-6.46154}}, color={0,0,127}));
+  connect(cooWarTim.y, conVAV3.warUpTim) annotation (Line(points={{-18,20},{-14,
+          20},{-14,-63.6923},{18,-63.6923}}, color={0,0,127}));
+  connect(cooWarTim.y, conVAV3.cooDowTim) annotation (Line(points={{-18,20},{
+          -14,20},{-14,-66.4615},{18,-66.4615}},
+                                             color={0,0,127}));
+  connect(demLim.y, conVAV3.uHeaDemLimLev) annotation (Line(points={{-18,-50},{
+          -4,-50},{-4,-79.3846},{18,-79.3846}},
+                                             color={255,127,0}));
+  connect(demLim.y, conVAV3.uCooDemLimLev) annotation (Line(points={{-18,-50},{
+          -4,-50},{-4,-77.5385},{18,-77.5385}},
+                                             color={255,127,0}));
+  connect(demLim.y, conVAV2.uHeaDemLimLev) annotation (Line(points={{-18,-50},{
+          -4,-50},{-4,-19.3846},{18,-19.3846}},
+                                             color={255,127,0}));
+  connect(demLim.y, conVAV2.uCooDemLimLev) annotation (Line(points={{-18,-50},{
+          -4,-50},{-4,-17.5385},{18,-17.5385}},
+                                             color={255,127,0}));
+  connect(demLim.y, conVAV1.uHeaDemLimLev) annotation (Line(points={{-18,-50},{
+          -4,-50},{-4,40.6154},{18,40.6154}},
+                                           color={255,127,0}));
+  connect(demLim.y, conVAV1.uCooDemLimLev) annotation (Line(points={{-18,-50},{
+          -4,-50},{-4,42.4615},{18,42.4615}},
+                                           color={255,127,0}));
+  connect(demLim.y, conVAV.uCooDemLimLev) annotation (Line(points={{-18,-50},{
+          -4,-50},{-4,104.462},{18,104.462}},
+                                           color={255,127,0}));
+  connect(demLim.y, conVAV.uHeaDemLimLev) annotation (Line(points={{-18,-50},{
+          -4,-50},{-4,102.615},{18,102.615}},
+                                           color={255,127,0}));
 
 annotation (experiment(StopTime=86400, Interval=300, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/Validation/Controller.mos"
     "Simulate and plot"),
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-                                           Polygon(
+       Polygon(
           lineColor={0,0,255},
           fillColor={75,138,73},
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
           points={{-36,58},{64,-2},{-36,-62},{-36,58}}),
-                   Ellipse(
+       Ellipse(
           lineColor={75,138,73},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          extent={{-100,-100},{100,100}}), Polygon(
+          extent={{-100,-100},{100,100}}),
+       Polygon(
           lineColor={0,0,255},
           fillColor={75,138,73},
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
-          points={{-36,58},{64,-2},{-36,-62},{-36,58}})}),        Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-200,-160},{80,140}})),
+          points={{-36,58},{64,-2},{-36,-62},{-36,58}})}),
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-160},{80,140}})),
 Documentation(info="<html>
 <p>
 This example validates

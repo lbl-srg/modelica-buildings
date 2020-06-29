@@ -94,6 +94,12 @@ block ModeAndSetPoints "Output zone setpoint with operation mode selection"
   parameter Real bouLim=1
     "Threshold of temperature difference for indicating the end of setback or setup mode"
     annotation (Dialog(tab="Advanced"));
+  parameter Real uLow=-0.1
+    "Low limit of the hysteresis for checking temperature difference"
+    annotation (Dialog(tab="Advanced"));
+  parameter Real uHigh=0.1
+    "High limit of the hysteresis for checking temperature difference"
+    annotation (Dialog(tab="Advanced"));
   parameter Real preWarCooTim(
     final unit="s",
     final quantity="Time")=10800 "Maximum cool-down or warm-up time"
@@ -119,8 +125,7 @@ block ModeAndSetPoints "Output zone setpoint with operation mode selection"
       iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput warUpTim(
     final unit="s",
-    final quantity="Time")
-    "Warm-up time retrieved from optimal warm-up block"
+    final quantity="Time") "Warm-up time retrieved from optimal warm-up block"
     annotation (Placement(transformation(extent={{-200,150},{-160,190}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin if have_winSen
@@ -214,7 +219,9 @@ block ModeAndSetPoints "Output zone setpoint with operation mode selection"
     final TCooSetOcc=TCooSetOcc,
     final TCooSetUno=TCooSetUno,
     final bouLim=bouLim,
-    final have_winSen=have_winSen) "Zone temperature status"
+    final have_winSen=have_winSen,
+    final uLow=uLow,
+    final uHigh=uHigh) "Zone temperature status"
     annotation (Placement(transformation(extent={{-80,80},{-60,108}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger colZon
     "Check if the zone is cold"

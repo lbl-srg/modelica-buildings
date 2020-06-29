@@ -29,6 +29,12 @@ block ZoneStatus "Block that outputs zone temperature status"
     "Threshold of temperature difference for indicating the end of setback or setup mode";
   parameter Boolean have_winSen=false
     "Check if the zone has window status sensor";
+  parameter Real uLow=-0.1
+    "Low limit of the hysteresis for checking temperature difference"
+    annotation (Dialog(tab="Advanced"));
+  parameter Real uHigh=0.1
+    "High limit of the hysteresis for checking temperature difference"
+    annotation (Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput cooDowTim(
     final unit="s",
@@ -126,8 +132,8 @@ protected
     "Calculate difference between zone temperature and the occupied heating setpoint"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
-    final uLow=-0.1,
-    final uHigh=0.1)
+    final uLow=uLow,
+    final uHigh=uHigh)
     "Hysteresis that outputs if the system should run in warm-up mode"
     annotation (Placement(transformation(extent={{0,80},{20,100}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add1(
@@ -135,8 +141,8 @@ protected
     "Calculate difference between zone temperature and the occupied cooling setpoint"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
-    final uLow=-0.1,
-    final uHigh=0.1)
+    final uLow=uLow,
+    final uHigh=uHigh)
     "Hysteresis that outputs if the system should run in cool-down mode"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2(
@@ -144,8 +150,8 @@ protected
     "Calculate zone temperature difference to unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(
-    final uLow=-0.1,
-    final uHigh=0.1)
+    final uLow=uLow,
+    final uHigh=uHigh)
     "Hysteresis that outputs if the zone temperature is lower than unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add5(
@@ -153,8 +159,8 @@ protected
     "Calculate zone temperature difference to unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-40,-200},{-20,-180}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys5(
-    final uLow=-0.1,
-    final uHigh=0.1)
+    final uLow=uLow,
+    final uHigh=uHigh)
     "Hysteresis that outputs if the zone temperature is higher than unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{0,-200},{20,-180}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
@@ -186,8 +192,8 @@ protected
     "Calculate zone temperature difference to unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys3(
-    final uLow=-0.5*bouLim,
-    final uHigh=0.5*bouLim)
+    final uLow=0,
+    final uHigh=bouLim)
     "Hysteresis that outputs if the zone temperature is higher than its unoccupied heating setpoint by a given limit"
     annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add4(
@@ -195,8 +201,8 @@ protected
     "Calculate zone temperature difference to unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-40,-240},{-20,-220}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys4(
-    final uLow=-0.5*bouLim,
-    final uHigh=0.5*bouLim)
+    final uLow=0,
+    final uHigh=bouLim)
     "Hysteresis that outputs if the zone temperature is lower than its unoccupied cooling setpoint by a given limit"
     annotation (Placement(transformation(extent={{0,-240},{20,-220}})));
   Buildings.Controls.OBC.CDL.Logical.And and2

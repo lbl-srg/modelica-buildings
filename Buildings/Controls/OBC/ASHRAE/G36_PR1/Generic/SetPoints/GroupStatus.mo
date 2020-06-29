@@ -3,6 +3,12 @@ block GroupStatus "Block that outputs the zone group status"
 
   parameter Integer numZon(
     final min=1)=5 "number of zones in the zone group";
+  parameter Real uLow=-0.1
+    "Low limit of the hysteresis for checking temperature difference"
+    annotation (Dialog(tab="Advanced"));
+  parameter Real uHigh=0.1
+    "High limit of the hysteresis for checking temperature difference"
+    annotation (Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput zonOcc[numZon]
     "True when the zone is set to be occupied due to the override"
@@ -215,13 +221,13 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Division div2 "Average difference"
     annotation (Placement(transformation(extent={{20,-140},{40,-120}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
-    final uLow=-0.1,
-    final uHigh=0.1)
+    final uLow=uLow,
+    final uHigh=uHigh)
     "Hysteresis that outputs if the group should run in setback mode"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
-    final uLow=-0.1,
-    final uHigh=0.1)
+    final uLow=uLow,
+    final uHigh=uHigh)
     "Hysteresis that outputs if the group should run in setup mode"
     annotation (Placement(transformation(extent={{60,-140},{80,-120}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMin minToNexOcc(
