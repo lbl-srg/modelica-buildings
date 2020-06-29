@@ -150,9 +150,11 @@ protected
     final width=0.05,
     final period=1000,
     final startTime=960)
+    "Boolean pulse signal"
     annotation (Placement(transformation(extent={{150,-170},{170,-150}})));
 
   Buildings.Controls.OBC.CDL.Logical.Edge edg
+    "Edge detector"
     annotation (Placement(transformation(extent={{180,-170},{200,-150}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con11(
