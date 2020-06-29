@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints
 block Capacities
   "Returns design and minimal stage capacities for current and next available higher and lower stage"
 
-  parameter Integer nSta = 3
+  parameter Integer nSta = 5
     "Total number of stages";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLow
