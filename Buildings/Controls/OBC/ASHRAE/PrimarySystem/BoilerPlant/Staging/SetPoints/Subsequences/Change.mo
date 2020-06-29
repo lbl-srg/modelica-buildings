@@ -66,7 +66,7 @@ block Change
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput ySta(
     final min=0,
-    final max = nSta)
+    final max=nSta)
     "Boiler stage integer setpoint"
     annotation (Placement(transformation(extent={{440,130},{480,170}}),
       iconTransformation(extent={{100,40},{140,80}})));

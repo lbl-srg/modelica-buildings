@@ -14,7 +14,8 @@ block BoilerIndices
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u(
     final min=0,
     final max=nSta,
-    final start=0) "Current boiler stage"
+    final start=0)
+    "Current boiler stage"
     annotation (Placement(transformation(extent={{-240,0},{-200,40}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
 
@@ -107,6 +108,7 @@ equation
           -6},{18,-6}},         color={255,127,0}));
   connect(u, intRep.u) annotation (Line(points={{-220,20},{-182,20}},
                        color={255,127,0}));
+
   annotation (defaultComponentName = "boiInd",
         Icon(graphics={
         Rectangle(
