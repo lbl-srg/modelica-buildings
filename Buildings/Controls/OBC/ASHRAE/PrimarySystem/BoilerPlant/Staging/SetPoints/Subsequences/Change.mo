@@ -347,6 +347,11 @@ equation
     <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Status\">Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Status</a>
     subsequence.
     </li>
+    <li>
+    Signal indicating end of stage change process <span style=\"font-family: monospace;\">uStaChaProEnd</span>
+    from <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes\">Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes</a>
+    subsequences.
+    </li>
     </ul>
     <p>
     If stage down and stage up happen at the same time for any faulty reason the
