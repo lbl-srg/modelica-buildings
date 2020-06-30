@@ -62,7 +62,8 @@ block Economizer "Controller for economizer"
     Ti=Ti,
     Td=60,
     yMax=1,
-    yMin=0)
+    yMin=0,
+    reverseActing=false)
     "Control signal for outdoor damper to track freeze temperature setpoint"
     annotation (Placement(transformation(extent={{20,120},{40,140}})));
   Modelica.Blocks.Math.Min min
@@ -70,7 +71,7 @@ block Economizer "Controller for economizer"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Modelica.Blocks.Sources.Constant TFre(k=TFreSet)
     "Setpoint for freeze protection"
-    annotation (Placement(transformation(extent={{-20,100},{0,120}})));
+    annotation (Placement(transformation(extent={{-20,120},{0,140}})));
   Modelica.Blocks.Interfaces.RealOutput yRet
     "Control signal for return air damper" annotation (Placement(transformation(
           extent={{200,-10},{220,10}}), iconTransformation(extent={{200,-10},{
@@ -177,18 +178,18 @@ equation
       points={{41,-10},{60,-10},{60,-6},{78,-6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(yOATFre.u_s, TMix) annotation (Line(points={{18,130},{-32,130},{-80,
-          130},{-80,100},{-120,100}}, color={0,0,127}));
-  connect(TFre.y, yOATFre.u_m) annotation (Line(points={{1,110},{14,110},{30,
-          110},{30,118}}, color={0,0,127}));
   connect(yOATFre.y, min.u1) annotation (Line(points={{41,130},{48,130},{48,20},
           {10,20},{10,-4},{18,-4}}, color={0,0,127}));
   connect(yRet, invSig.y)
-    annotation (Line(points={{210,0},{191,0}}, color={0,0,127}));
+    annotation (Line(points={{210,0},{192,0}}, color={0,0,127}));
   connect(extractor.y, invSig.u)
     annotation (Line(points={{141,0},{168,0}}, color={0,0,127}));
   connect(extractor.y, yOA) annotation (Line(points={{141,0},{160,0},{160,80},{
           210,80}}, color={0,0,127}));
+  connect(TFre.y, yOATFre.u_s)
+    annotation (Line(points={{1,130},{18,130}}, color={0,0,127}));
+  connect(TMix, yOATFre.u_m)
+    annotation (Line(points={{-120,100},{30,100},{30,118}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,
             200}})),
