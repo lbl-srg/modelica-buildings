@@ -140,7 +140,6 @@ int GS_itr(PARA_DATA *para, REAL **var, REAL *x, REAL *flag, int num_swipe) {
             + b[IX(i, j, k)]) / ap[IX(i, j, k)]);
         }
   }
-  /*printf("residual in the solver is %f\n", check_residual(para, var, x));*/
   return 0;
 } /* End of GS_itr() */
 
@@ -185,7 +184,6 @@ int Jacobi_iter(PARA_DATA *para, REAL **var, REAL *x,REAL *flag, int num_swipe) 
   /****************************************************************************
   | Solve the space using Jacobi sovler for num_swipe * 6 = 30 times
   ****************************************************************************/
-  /*while (residual > 1e-6) {*/
   for (it = 0; it<num_swipe*6; it++) {
     /*-------------------------------------------------------------------------
     | Solve in X(1->imax), Y(1->jmax), Z(1->kmax)

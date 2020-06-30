@@ -25,8 +25,7 @@
 #include "uthash.h"
 
 /* Windows*/
-/*#ifdef _MSC_VER*/
-#ifdef _WIN32 
+#ifdef _MSC_VER
 #include <windows.h>
 #else
 /* Linux*/
@@ -55,7 +54,7 @@ typedef struct {
 } hashKey; /* hash key */
 
 typedef struct {
-  hashKey key;           /* we'll use this field as the key */
+  hashKey key; /* we'll use this field as the key */
   /* ... other data ... */
   UT_hash_handle hh; /* makes this structure hashable */
 } hashStruct; /* hash unit */

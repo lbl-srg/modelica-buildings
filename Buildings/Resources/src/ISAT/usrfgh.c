@@ -47,30 +47,29 @@ extern int useNumericalDifferentiation;  /* pass global variable */
 | \return No return needed
 ******************************************************************************/
 /* Windows*/
-/*#ifdef _MSC_VER*/
-#ifdef _WIN32 
+#ifdef _MSC_VER
 void USRFGH(int need[], int *nx, double x[], int *nf, int *nh, int iusr[], double rusr[], double f[], double** g, double h[]) {
 
-	if (need[1] == 1 && useNumericalDifferentiation == 1) {
-		need[1] = 0; /*disable g evaluation form solver*/
-		numericalDifferentiation(g);
-	}
+  if (need[1] == 1 && useNumericalDifferentiation == 1) {
+	need[1] = 0; /*disable g evaluation form solver*/
+	numericalDifferentiation(g);
+  }
 
-	ffd_ISAT(need, x, f, g, (void *)iusr);
+  ffd_ISAT(need, x, f, g, (void *)iusr);
 
-	return;
+  return;
 }
 /* Linux*/
 #else
 void usrfgh_(int need[], int *nx, double x[], int *nf, int *nh, int iusr[], double rusr[], double f[], double** g, double h[]) {
 
-	if (need[1] == 1 && useNumericalDifferentiation == 1) {
-		need[1] = 0; /*disable g evaluation from solver*/
-		numericalDifferentiation(g);
-	}
+  if (need[1] == 1 && useNumericalDifferentiation == 1) {
+	need[1] = 0; /*disable g evaluation from solver*/
+	numericalDifferentiation(g);
+  }
 
-	ffd_ISAT(need, x, f, g, (void *)iusr);
+  ffd_ISAT(need, x, f, g, (void *)iusr);
 
-	return;
+  return;
 }
 #endif

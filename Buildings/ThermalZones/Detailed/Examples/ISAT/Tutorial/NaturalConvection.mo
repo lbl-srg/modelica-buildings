@@ -187,7 +187,7 @@ equation
 <li>Set <span style=\"font-family: Courier New;\">TWesWal</span> to <i>274.15</i> Kelvin. </li>
 </ul></li>
 <li>Define the settings for the ISAT model: </li>
-<p><span style=\"font-family: Courier New;\">In the set.isat file, the parameters for the ISAT model can be defined:</span></p>
+<p>In the <span style=\"font-family: Courier New;\">set.isat</span> file, the parameters for the ISAT model can be defined:</p>
 <p>/********************************************************************************</p>
 <p>| Section 1: General settings of isat</p>
 <p>********************************************************************************/</p>
@@ -254,6 +254,17 @@ equation
 <p>/* outp.outp_weight: weights for error control, when outputs have different order of magnitudes */</p>
 <p>outp.outp_weight 1.0</p>
 <p>outp.outp_weight 10.0</p>
+<li>Note: the desired outputs of isat can be altered by changing the output sensors in section 3 of the set.isat file. The available default sensors include:</li>
+<li><ul>
+<li><span style=\"font-family: Courier New;\">temp_roo,</span> which outputs the average room temperature, </li>
+<li><span style=\"font-family: Courier New;\">temp_occ</span>, which outputs the average temperature of the occupied zone, </li>
+<li><span style=\"font-family: Courier New;\">vel_occ,</span> which outputs the average velocity of the occupied zone, </li>
+<li><span style=\"font-family: Courier New;\">temp_sen,</span> which outputs the temperature at a defined location (default is center of the room), </li>
+<li><span style=\"font-family: Courier New;\">vel_sen,</span> which outputs the velocity at the a defined location (default is center of the room). </li>
+</ul></li>
+<p>Furthermore, advanced users can modify the source code located in <span style=\"font-family: Courier New;\">Buildings/Resources/src/ISAT</span> to adjust the current sensors or add new ones.</p>
+<p>For example, in lines <span style=\"font-family: Courier New;\">324-326</span> and <span style=\"font-family: Courier New;\">344-346</span> in <span style=\"font-family: Courier New;\">utility_isat.c,</span> users can change the location of the temperature or velocity sensor.</p>
+<p>In addition, the occupied zones can be adjusted in the <span style=\"font-family: Courier New;\">average_room_temp</span> and <span style=\"font-family: Courier New;\">average_room_vel</span> functions in <span style=\"font-family: Courier New;\">utility_isat.c.</span></p>
 <li>Use the Simplified CFD Interface (SCI) to generate the input file for FFD. </li>
 <li><ul>
 <li>Use a 20 x 20 x 20 uniform grid. </li>

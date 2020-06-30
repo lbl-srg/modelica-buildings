@@ -43,19 +43,6 @@
 FILE *file_params;
 
 /****************************************************************************
-|  check the input forat as current FFD accepts a format excluding unused info
-|
-|  Specific method for advection will be selected according to the variable
-|  type.
-|
-| \param para Pointer to FFD parameters
-| \param var Pointer to FFD simulation variables
-|
-| \return 0 if no error occurred
-****************************************************************************/
-/*int check_input_format();*/
-
-/****************************************************************************
 |  Read the basic index information from input.cfd
 |
 |  Specific method for advection will be selected according to the variable

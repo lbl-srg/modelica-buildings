@@ -31,7 +31,7 @@
 | \return Interpolated value
 ****************************************************************************/
 REAL interpolation(PARA_DATA *para, REAL *d0, REAL x_1, REAL y_1, REAL z_1,
-                   int p, int q, int r) {
+   int p, int q, int r) {
   int imax = para->geom->imax, jmax = para->geom->jmax;
   int IMAX = imax+2, IJMAX = (imax+2)*(jmax+2);
 
@@ -68,7 +68,7 @@ REAL interpolation(PARA_DATA *para, REAL *d0, REAL x_1, REAL y_1, REAL z_1,
 | \return Interpolated value
 ****************************************************************************/
 REAL interpolation_bilinear(REAL x_1, REAL y_1, REAL z_1,
-                            REAL d000, REAL d010, REAL d100, REAL d110,
+							REAL d000, REAL d010, REAL d100, REAL d110,
                             REAL d001, REAL d011, REAL d101, REAL d111) {
   REAL x_0, y_0, z_0;
   REAL tmp0, tmp1;

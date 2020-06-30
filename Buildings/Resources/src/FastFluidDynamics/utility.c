@@ -27,7 +27,6 @@
 
 #include "utility.h"
 
-
 /****************************************************************************
 |  Check the residual of equation
 | 
@@ -57,10 +56,9 @@ REAL check_residual(PARA_DATA *para, REAL **var, REAL *x, REAL *flag) {
     count += 1;
 
     if (residual < tmp) residual = tmp;
-    END_FOR
+  END_FOR
 
-        /*return tmp/count;*/
-        return residual;
+	return residual;
 
 }/* End of check_residual( ) */
 
@@ -147,7 +145,6 @@ REAL outflow(PARA_DATA *para, REAL **var, REAL *psi, int **BINDEX) {
       if(k==kmax+1) mass_out += psi[IX(i,j,k)]*w[IX(i,j,k-1)]*(gx[IX(i,j,k)]
                           -gx[IX(i-1,j,k)])* (gy[IX(i,j,k)]-gy[IX(i,j-1,k)]);
     }
-
   }
 
   return mass_out;
@@ -229,7 +226,7 @@ REAL check_min(PARA_DATA *para, REAL *psi, int ci, int cj, int ck) {
         if(tmp>psi[IX(ci+i,cj+j,ck+k)]) tmp=psi[IX(ci+i,cj+j,ck+k)];
       }
 
- return tmp;
+  return tmp;
 
 }/* End of check_min( ) */
 
@@ -258,7 +255,7 @@ REAL check_max(PARA_DATA *para, REAL *psi, int ci, int cj, int ck) {
         if(tmp<psi[IX(ci+i,cj+j,ck+k)]) tmp=psi[IX(ci+i,cj+j,ck+k)];
       }
 
-return tmp;
+  return tmp;
 
 }/* End of check_max( ) */
 
@@ -620,8 +617,6 @@ REAL qwall(PARA_DATA *para, REAL **var,int **BINDEX) {
       ffd_log(msg, FFD_NORMAL);
   }
 
-  /*printf("Area is %f\n", A);*/
-
   return qwall;
 
 } /* End of qwall() */
@@ -638,9 +633,9 @@ void free_index(int **BINDEX) {
   if(BINDEX[0]) free(BINDEX[0]);
   if(BINDEX[1]) free(BINDEX[1]);
   if(BINDEX[2]) free(BINDEX[2]);
-		if(BINDEX[3]) free(BINDEX[3]);
-		if(BINDEX[4]) free(BINDEX[4]);
-		if(BINDEX[5]) free(BINDEX[5]);
+  if(BINDEX[3]) free(BINDEX[3]);
+  if(BINDEX[4]) free(BINDEX[4]);
+  if(BINDEX[5]) free(BINDEX[5]);
 } /* End of free_index () */
 
 /****************************************************************************
@@ -655,7 +650,7 @@ void free_data(REAL **var) {
   int nb_var = C2BC + 1;
   int i;
   for (i = 0; i < nb_var; i++) {
-      if (var[i]) free(var[i]);
+	if (var[i]) free(var[i]);
   }
 } /* End of free_data() */
 
@@ -807,9 +802,6 @@ int min_distance(PARA_DATA *para, REAL **var, int **BINDEX) {
   /* store the minimal value associated with (i,j,k) to global var */
   var[MIN_DISTANCE][IX(i, j, k)] = tmp;
 
-  /*printf("Distance [%d, %d, %d] is %f\n", i, j, k, tmp);*/
-
-
   END_FOR
   return 0;
 
@@ -943,7 +935,6 @@ REAL vol_outflow(PARA_DATA *para, REAL **var, int **BINDEX){
   }
 
   return mass_out;
-
 }
 
 /****************************************************************************
@@ -1019,33 +1010,33 @@ int check_tile_flowrate(PARA_DATA *para, REAL **var, int **BINDEX) {
       }
     }
     else if (flagp[IX(i, j, k)] == OUTLET) {
-      /* West or East Boundary */
-        A = area_yz(para, var, i, j, k);
+		/* West or East Boundary */
+		A = area_yz(para, var, i, j, k);
 
-        if (i > 0)
-          V_tmp = u[IX(i - 1, j, k)];
-        else
-          V_tmp = u[IX(i, j, k)];
+		if (i > 0)
+		  V_tmp = u[IX(i - 1, j, k)];
+		else
+		  V_tmp = u[IX(i, j, k)];
 
-        QPort[id] += V_tmp*A;
-    /* South and North Boundary */
-        A = area_zx(para, var, i, j, k);
+		QPort[id] += V_tmp*A;
+		/* South and North Boundary */
+		A = area_zx(para, var, i, j, k);
 
-        if (j > 0)
-          V_tmp = v[IX(i, j - 1, k)];
-        else
-          V_tmp = v[IX(i, j, k)];
+		if (j > 0)
+		  V_tmp = v[IX(i, j - 1, k)];
+		else
+		  V_tmp = v[IX(i, j, k)];
 
-        QPort[id] += V_tmp*A;
-    /* Ceiling and Floor Boundary */
-        A = area_xy(para, var, i, j, k);
+		QPort[id] += V_tmp*A;
+		/* Ceiling and Floor Boundary */
+		A = area_xy(para, var, i, j, k);
 
-        if (k >0 )
-          V_tmp = w[IX(i, j, k - 1)];
-        else
-          V_tmp = w[IX(i, j, k)];
+		if (k >0 )
+		  V_tmp = w[IX(i, j, k - 1)];
+		else
+		  V_tmp = w[IX(i, j, k)];
 
-        QPort[id] += V_tmp*A;
+		QPort[id] += V_tmp*A;
     }
     else if (flagp[IX(i, j, k)] == INLET) {
       Ayz = area_yz(para, var, i, j, k);

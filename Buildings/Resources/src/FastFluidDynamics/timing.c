@@ -29,16 +29,9 @@
 ****************************************************************************/
 void timing(PARA_DATA *para) {
   double cputime;
-  /*
-  if (para->mytime->step_current<200)
-    para->mytime->dt = 0.001;
-  else
-    para->mytime->dt = 0.01;
-    */
   para->mytime->t += para->mytime->dt;
   para->mytime->step_current += 1;
   para->mytime->t_end = clock();
-  /*printf ("the time end simulation is %lf\n", para->mytime->t_end);*/
 
   cputime= ((double) (clock() - para->mytime->t_start) / CLOCKS_PER_SEC);
 

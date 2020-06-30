@@ -142,24 +142,24 @@ int project(PARA_DATA *para, REAL **var, int **BINDEX) {
 | \return 0 if no error occurred
 ****************************************************************************/
 int check_mass_imbalance(PARA_DATA *para, REAL **var) {
-    int i, j, k;
-    int imax = para->geom->imax, jmax = para->geom->jmax;
-    int kmax = para->geom->kmax;
-    int IMAX = imax + 2, IJMAX = (imax + 2)*(jmax + 2);
-    REAL *u = var[VX], *v = var[VY], *w = var[VZ];
-    REAL *gx = var[GX], *gy = var[GY], *gz = var[GZ];
-    REAL *flagp = var[FLAGP];
-    REAL tmp = 0.0, imbalance = 0.0;
-    int count = 0;
+  int i, j, k;
+  int imax = para->geom->imax, jmax = para->geom->jmax;
+  int kmax = para->geom->kmax;
+  int IMAX = imax + 2, IJMAX = (imax + 2)*(jmax + 2);
+  REAL *u = var[VX], *v = var[VY], *w = var[VZ];
+  REAL *gx = var[GX], *gy = var[GY], *gz = var[GZ];
+  REAL *flagp = var[FLAGP];
+  REAL tmp = 0.0, imbalance = 0.0;
+  int count = 0;
 
-    FOR_EACH_CELL
-        if (flagp[IX(i, j, k)] >= 0) continue;
-        imbalance = (u[IX(i, j, k)] - u[IX(i - 1, j, k)]) / (gx[IX(i, j, k)] - gx[IX(i - 1, j, k)]) +
-                    (v[IX(i, j, k)] - v[IX(i, j - 1, k)]) / (gy[IX(i, j, k)] - gy[IX(i, j - 1, k)]) +
-                    (w[IX(i, j, k)] - w[IX(i, j, k - 1)]) / (gz[IX(i, j, k)] - gz[IX(i, j, k - 1)]);
-        tmp += imbalance*imbalance;
-        count += 1;
-    END_FOR
-    return sqrt(tmp/count);
+  FOR_EACH_CELL
+	if (flagp[IX(i, j, k)] >= 0) continue;
+	imbalance = (u[IX(i, j, k)] - u[IX(i - 1, j, k)]) / (gx[IX(i, j, k)] - gx[IX(i - 1, j, k)]) +
+				(v[IX(i, j, k)] - v[IX(i, j - 1, k)]) / (gy[IX(i, j, k)] - gy[IX(i, j - 1, k)]) +
+				(w[IX(i, j, k)] - w[IX(i, j, k - 1)]) / (gz[IX(i, j, k)] - gz[IX(i, j, k - 1)]);
+	tmp += imbalance*imbalance;
+	count += 1;
+  END_FOR
+  return sqrt(tmp/count);
 }
 

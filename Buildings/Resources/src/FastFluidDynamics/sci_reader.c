@@ -30,34 +30,6 @@ extern double ffdInput[];
 #endif
 
 /****************************************************************************
-|  check the input forat as current FFD accepts a format excluding unused info
-|
-| \return 0 if no error occurred
-****************************************************************************/
-/*
-int check_input_format() {
-  // Embed a python function in C to perform the edit for a file
-  // Inspired by online resource: https://stackoverflow.com/questions/12142174/run-a-python-script-with-arguments
-  // Check my Wiki Page: https://github.com/se-thermalanalytics/DC-DoE-CU-LBL-SE/wiki/Embed-python-script-in-C-codes
-  FILE* file;
-  int argc;
-  char * argv[1];
-
-  argc = 1;
-  argv[0] = "check_input.py";
-
-  // set up a python environment
-  Py_SetProgramName(argv[0]);
-  Py_Initialize();
-  PySys_SetArgv(argc, argv);
-  file = fopen(argv[0],"r");
-  PyRun_SimpleFile(file, argv[0]);
-  Py_Finalize();
-
-  return 0 ;
-}
-*/
-/****************************************************************************
 |  Read the basic index information from input.cfd
 |
 |  Specific method for advection will be selected according to the variable
@@ -69,17 +41,17 @@ int check_input_format() {
 | \return 0 if no error occurred
 ****************************************************************************/
 int read_sci_max(PARA_DATA* para, REAL** var) {
-	char string[400];
+  char string[400];
 
-	/* Open the file */
-#ifndef FFD_ISAT /*if no ISAT*/
-  if((file_params=fopen(para->inpu->parameter_file_name,"r")) == NULL) {
-			sprintf(msg, "read_sci_input(): Could not open the file \"%s\".",
-				para->inpu->parameter_file_name);
-			ffd_log(msg, FFD_ERROR);
-			return 1;
-  }
-#else /*if called by ISAT*/
+  /* Open the file */
+  #ifndef FFD_ISAT /*if no ISAT*/
+	if((file_params=fopen(para->inpu->parameter_file_name,"r")) == NULL) {
+		sprintf(msg, "read_sci_input(): Could not open the file \"%s\".",
+			para->inpu->parameter_file_name);
+		ffd_log(msg, FFD_ERROR);
+		return 1;
+	}
+  #else /*if called by ISAT*/
 	char filenametmp[400] = { 0 };
 	snprintf(filenametmp, sizeof(filenametmp), "%s%s", filepath, "input.cfd");
 	if ((file_params = fopen(filenametmp, "r")) == NULL) {
@@ -88,7 +60,7 @@ int read_sci_max(PARA_DATA* para, REAL** var) {
 		ffd_log(msg, FFD_ERROR);
 		return 1;
 	}
-#endif
+  #endif
 
   /* Get the first line for the length in X, Y and Z directions */
   fgets(string, 400, file_params);
@@ -120,27 +92,27 @@ int read_sci_max(PARA_DATA* para, REAL** var) {
 | \return 0 if no error occurred
 ****************************************************************************/
 int check_num_racks(PARA_DATA* para, REAL** var, int** BINDEX) {
-	char string[400];
-	int tmp = 0;
+  char string[400];
+  int tmp = 0;
 
-	/* Open the file */
-#ifndef FFD_ISAT /*if no ISAT*/
-		if ((file_params = fopen(para->inpu->parameter_file_name, "r")) == NULL) {
-			sprintf(msg, "read_sci_input(): Could not open the file \"%s\".",
-				para->inpu->parameter_file_name);
-			ffd_log(msg, FFD_ERROR);
-			return 1;
-		}
-#else /*if called by ISAT*/
-		char filenametmp[400] = { 0 };
-		snprintf(filenametmp, sizeof(filenametmp), "%s%s", filepath, "input.cfd");
-		if ((file_params = fopen(filenametmp, "r")) == NULL) {
-			sprintf(msg, "read_sci_input(): Could not open the file \"%s\".",
-				filenametmp);
-			ffd_log(msg, FFD_ERROR);
-			return 1;
-		}
-#endif
+  /* Open the file */
+  #ifndef FFD_ISAT /*if no ISAT*/
+	if ((file_params = fopen(para->inpu->parameter_file_name, "r")) == NULL) {
+		sprintf(msg, "read_sci_input(): Could not open the file \"%s\".",
+			para->inpu->parameter_file_name);
+		ffd_log(msg, FFD_ERROR);
+		return 1;
+	}
+  #else /*if called by ISAT*/
+	char filenametmp[400] = { 0 };
+	snprintf(filenametmp, sizeof(filenametmp), "%s%s", filepath, "input.cfd");
+	if ((file_params = fopen(filenametmp, "r")) == NULL) {
+		sprintf(msg, "read_sci_input(): Could not open the file \"%s\".",
+			filenametmp);
+		ffd_log(msg, FFD_ERROR);
+		return 1;
+	}
+  #endif
 
   /* Read line by line */
   while (fgets(string, 400, file_params) != NULL) {
@@ -167,27 +139,27 @@ int check_num_racks(PARA_DATA* para, REAL** var, int** BINDEX) {
 | \return 0 if no error occurred
 ****************************************************************************/
 int check_num_tiles(PARA_DATA* para, REAL** var, int** BINDEX) {
-	char string[400];
-	int tmp = 0;
+  char string[400];
+  int tmp = 0;
 
-	/* Open the file */
-#ifndef FFD_ISAT /*if no ISAT*/
-		if ((file_params = fopen(para->inpu->parameter_file_name, "r")) == NULL) {
-			sprintf(msg, "read_sci_input(): Could not open the file \"%s\".",
-				para->inpu->parameter_file_name);
-			ffd_log(msg, FFD_ERROR);
-			return 1;
-		}
-#else /*if called by ISAT*/
-		char filenametmp[400] = { 0 };
-		snprintf(filenametmp, sizeof(filenametmp), "%s%s", filepath, "input.cfd");
-		if ((file_params = fopen(filenametmp, "r")) == NULL) {
-			sprintf(msg, "read_sci_input(): Could not open the file \"%s\".",
-				filenametmp);
-			ffd_log(msg, FFD_ERROR);
-			return 1;
-		}
-#endif
+  /* Open the file */
+  #ifndef FFD_ISAT /*if no ISAT*/
+	if ((file_params = fopen(para->inpu->parameter_file_name, "r")) == NULL) {
+		sprintf(msg, "read_sci_input(): Could not open the file \"%s\".",
+			para->inpu->parameter_file_name);
+		ffd_log(msg, FFD_ERROR);
+		return 1;
+	}
+  #else /*if called by ISAT*/
+	char filenametmp[400] = { 0 };
+	snprintf(filenametmp, sizeof(filenametmp), "%s%s", filepath, "input.cfd");
+	if ((file_params = fopen(filenametmp, "r")) == NULL) {
+		sprintf(msg, "read_sci_input(): Could not open the file \"%s\".",
+			filenametmp);
+		ffd_log(msg, FFD_ERROR);
+		return 1;
+	}
+  #endif
 
   /* Read line by line */
   while(fgets(string, 400, file_params) != NULL) {
@@ -211,18 +183,18 @@ int check_num_tiles(PARA_DATA* para, REAL** var, int** BINDEX) {
 | \return 0 if no error occurred
 ****************************************************************************/
 int check_num_walls(PARA_DATA* para, REAL** var, int** BINDEX) {
-	char string[400];
-	int tmp1 = 0, tmp2 = 0, tmp3 = 0, tmp4 = 0, i;
+  char string[400];
+  int tmp1 = 0, tmp2 = 0, tmp3 = 0, tmp4 = 0, i;
 
-	/* Open the file */
-#ifndef FFD_ISAT /*if no ISAT*/
+  /* Open the file */
+  #ifndef FFD_ISAT /*if no ISAT*/
 	if ((file_params = fopen(para->inpu->parameter_file_name, "r")) == NULL) {
 		sprintf(msg, "read_sci_input(): Could not open the file \"%s\".",
 			para->inpu->parameter_file_name);
 		ffd_log(msg, FFD_ERROR);
 		return 1;
 	}
-#else /*if called by ISAT*/
+  #else /*if called by ISAT*/
 	char filenametmp[400] = { 0 };
 	snprintf(filenametmp, sizeof(filenametmp), "%s%s", filepath, "input.cfd");
 	if ((file_params = fopen(filenametmp, "r")) == NULL) {
@@ -231,45 +203,45 @@ int check_num_walls(PARA_DATA* para, REAL** var, int** BINDEX) {
 		ffd_log(msg, FFD_ERROR);
 		return 1;
 	}
-#endif
+  #endif
 
-	/* Ignore the first seven lines */
-	for (i = 0; i < 7; i++)
-		fgets(string, 400, file_params);
+  /* Ignore the first seven lines */
+  for (i = 0; i < 7; i++)
+  fgets(string, 400, file_params);
 
-	/* Ignore lines for inlet boundaries */
+  /* Ignore lines for inlet boundaries */
+  fgets(string, 400, file_params);
+  sscanf(string, "%d", &tmp1);
+  for (i = 0; i < tmp1; i++) {
 	fgets(string, 400, file_params);
-	sscanf(string, "%d", &tmp1);
-	for (i = 0; i < tmp1; i++) {
-		fgets(string, 400, file_params);
-		fgets(string, 400, file_params);
-	}
-
-	/* Ignore lines for outlet boundaries */
 	fgets(string, 400, file_params);
-	sscanf(string, "%d", &tmp2);
-	for (i = 0; i < tmp2; i++) {
-		fgets(string, 400, file_params);
-		fgets(string, 400, file_params);
-	}
+  }
 
-	/* Ignore lines for block boundaries */
+  /* Ignore lines for outlet boundaries */
+  fgets(string, 400, file_params);
+  sscanf(string, "%d", &tmp2);
+  for (i = 0; i < tmp2; i++) {
 	fgets(string, 400, file_params);
-	sscanf(string, "%d", &tmp3);
-	for (i = 0; i < tmp3; i++) {
-		fgets(string, 400, file_params);
-		fgets(string, 400, file_params);
-	}
-
-	/* Get the number of wall boundaries */
 	fgets(string, 400, file_params);
-	sscanf(string, "%d", &tmp4);
+  }
 
-	/* close the file */
-	fclose(file_params);
+  /* Ignore lines for block boundaries */
+  fgets(string, 400, file_params);
+  sscanf(string, "%d", &tmp3);
+  for (i = 0; i < tmp3; i++) {
+	fgets(string, 400, file_params);
+	fgets(string, 400, file_params);
+  }
 
-	/* return the number of wall boundaries */
-	return tmp4;
+  /* Get the number of wall boundaries */
+  fgets(string, 400, file_params);
+  sscanf(string, "%d", &tmp4);
+
+  /* close the file */
+  fclose(file_params);
+
+  /* return the number of wall boundaries */
+  return tmp4;
 }
 
 /****************************************************************************
@@ -316,381 +288,381 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
   REAL h_momentum = 0.1524; /* 0.1524 equals to 6 inches */
   REAL beta_tmp = 0.0; /* openting ratio of perforated tile */
 
-#ifdef FFD_ISAT  /*if called by ISAT*/
+  #ifdef FFD_ISAT  /*if called by ISAT*/
 		
-	 /* Declare and initialize variables */
-		int num_input = 0, num_inlet = 0, num_block = 0, num_wall = 0, dir_inlet = 0;
-		/* temperature, heat flux or velocity will be overwritten or not */
-		int inlet_temp_re[100] = { 0 };
-		int inlet_vel_re[100] = { 0 };
-		int block_re[100] = { 0 };
-		int wall_re[100] = { 0 };
-		/* temperature, heat flux or velocity will be overwritten by which isat input */
-		int inlet_temp_wh[100] = { 0 };
-		int inlet_vel_wh[100] = { 0 };
-		int block_wh[100] = { 0 };
-		int wall_wh[100] = { 0 };
-		/* Value of temperature, heat flux or velocity assigned by isat inputs */
-		REAL inlet_temp_value[100] = { 0 };
-		REAL inlet_vel_value[100] = { 0 };
-		REAL inlet_area_value[100] = { 0 };
-		REAL block_value[100] = { 0 };
-		REAL wall_value[100] = { 0 };
-		REAL default_mass_flowrate = 0;
-		REAL updated_mass_flowrate = 0;
-		int inlet_vel_re_sum = 0;
+	/* Declare and initialize variables */
+	int num_input = 0, num_inlet = 0, num_block = 0, num_wall = 0, dir_inlet = 0;
+	/* temperature, heat flux or velocity will be overwritten or not */
+	int inlet_temp_re[100] = { 0 };
+	int inlet_vel_re[100] = { 0 };
+	int block_re[100] = { 0 };
+	int wall_re[100] = { 0 };
+	/* temperature, heat flux or velocity will be overwritten by which isat input */
+	int inlet_temp_wh[100] = { 0 };
+	int inlet_vel_wh[100] = { 0 };
+	int block_wh[100] = { 0 };
+	int wall_wh[100] = { 0 };
+	/* Value of temperature, heat flux or velocity assigned by isat inputs */
+	REAL inlet_temp_value[100] = { 0 };
+	REAL inlet_vel_value[100] = { 0 };
+	REAL inlet_area_value[100] = { 0 };
+	REAL block_value[100] = { 0 };
+	REAL wall_value[100] = { 0 };
+	REAL default_mass_flowrate = 0;
+	REAL updated_mass_flowrate = 0;
+	int inlet_vel_re_sum = 0;
 
-		INPUT_TYPE inpu_name[10] = { sur_temp };
+	INPUT_TYPE inpu_name[10] = { sur_temp };
 
-		/* Open the set.isat file */
-		char tmp[400], tmp1[400];
-		char filenametmp[400];
-		snprintf(filenametmp, sizeof(filenametmp), "%s%s", filepath, "set.isat");
+	/* Open the set.isat file */
+	char tmp[400], tmp1[400];
+	char filenametmp[400];
+	snprintf(filenametmp, sizeof(filenametmp), "%s%s", filepath, "set.isat");
 
-		if ((file_params = fopen(filenametmp, "r")) == NULL) {
-			sprintf(msg, "read_sci_input(): Could not open the file \"%s\".",
-				filenametmp);
-			ffd_log(msg, FFD_ERROR);
-			return 1;
+	if ((file_params = fopen(filenametmp, "r")) == NULL) {
+		sprintf(msg, "read_sci_input(): Could not open the file \"%s\".",
+			filenametmp);
+		ffd_log(msg, FFD_ERROR);
+		return 1;
+	}
+	sprintf(msg, "read_sci_input(): Start to read the file %s", filenametmp);
+	ffd_log(msg, FFD_NORMAL);
+
+	/* Read the settings for inputs */
+	int next = 0;
+	while (next == 0) {
+		/*fgets(string, 400, file_params);*/
+		if (fgets(string, 400, file_params) == NULL)
+			next = 1;
+
+		if (EOF == sscanf(string, "%s", tmp)) {
+			continue;
 		}
-		sprintf(msg, "read_sci_input(): Start to read the file %s", filenametmp);
-		ffd_log(msg, FFD_NORMAL);
 
-		/* Read the settings for inputs */
-		int next = 0;
-		while (next == 0) {
-			/*fgets(string, 400, file_params);*/
-			if (fgets(string, 400, file_params) == NULL)
-				next = 1;
-
-			if (EOF == sscanf(string, "%s", tmp)) {
-				continue;
-			}
-
-			/* Read isat.num_input */
-			if (!strcmp(tmp, "isat.num_input")) {
-				sscanf(string, "%s%d", tmp, &num_input);
-				if (num_input < 11) {
-					sprintf(msg, "\t\t%s=%d", tmp, num_input);
-					ffd_log(msg, FFD_NORMAL);
-				}
-				else {
-					sprintf(msg, "read_isat_parameters(): the current version only supports no more than ten inputs");
-					ffd_log(msg, FFD_ERROR);
-					return 1;
-				}
-			}
-
-			/* Read inpu.inpu_name */
-			else if (!strcmp(tmp, "/*inpu.inpu_name:")) {
-				sprintf(msg, "\tRead input settings of isat and ffd:");
+		/* Read isat.num_input */
+		if (!strcmp(tmp, "isat.num_input")) {
+			sscanf(string, "%s%d", tmp, &num_input);
+			if (num_input < 11) {
+				sprintf(msg, "\t\t%s=%d", tmp, num_input);
 				ffd_log(msg, FFD_NORMAL);
-				for (i = 0; i < num_input; i++) {
-					fgets(string, 400, file_params);
-					sscanf(string, "%s", tmp);
-					if (!strcmp(tmp, "inpu.inpu_name")) {
-						sscanf(string, "%s%s", tmp, tmp1);
-						if (!strcmp(tmp1, "inlet_temp"))
-							inpu_name[i] = inlet_temp;
-						else if (!strcmp(tmp1, "inlet_mass"))
-							inpu_name[i] = inlet_mass;
-						else if (!strcmp(tmp1, "inlet_vel"))
-							inpu_name[i] = inlet_vel;
-						else if (!strcmp(tmp1, "block_temp"))
-							inpu_name[i] = block_temp;
-						else if (!strcmp(tmp1, "block_hea"))
-							inpu_name[i] = block_hea;
-						else if (!strcmp(tmp1, "rack_hea"))
-							inpu_name[i] = rack_hea;
-						else if (!strcmp(tmp1, "sur_temp"))
-							inpu_name[i] = sur_temp;
-						else if (!strcmp(tmp1, "sur_hea"))
-							inpu_name[i] = sur_hea;
-						else {
-							sprintf(msg, "read_isat_parameters(): %s is not valid input for %s", tmp1, tmp);
-							ffd_log(msg, FFD_ERROR);
-							return 1;
-						}
-						sprintf(msg, "\t\t%s[%d]=%s", tmp, i, tmp1);
-						ffd_log(msg, FFD_NORMAL);
-					} /*end of if (!strcmp(tmp, "inpu.inpu_name"))*/
+			}
+			else {
+				sprintf(msg, "read_isat_parameters(): the current version only supports no more than ten inputs");
+				ffd_log(msg, FFD_ERROR);
+				return 1;
+			}
+		}
+
+		/* Read inpu.inpu_name */
+		else if (!strcmp(tmp, "/*inpu.inpu_name:")) {
+			sprintf(msg, "\tRead input settings of isat and ffd:");
+			ffd_log(msg, FFD_NORMAL);
+			for (i = 0; i < num_input; i++) {
+				fgets(string, 400, file_params);
+				sscanf(string, "%s", tmp);
+				if (!strcmp(tmp, "inpu.inpu_name")) {
+					sscanf(string, "%s%s", tmp, tmp1);
+					if (!strcmp(tmp1, "inlet_temp"))
+						inpu_name[i] = inlet_temp;
+					else if (!strcmp(tmp1, "inlet_mass"))
+						inpu_name[i] = inlet_mass;
+					else if (!strcmp(tmp1, "inlet_vel"))
+						inpu_name[i] = inlet_vel;
+					else if (!strcmp(tmp1, "block_temp"))
+						inpu_name[i] = block_temp;
+					else if (!strcmp(tmp1, "block_hea"))
+						inpu_name[i] = block_hea;
+					else if (!strcmp(tmp1, "rack_hea"))
+						inpu_name[i] = rack_hea;
+					else if (!strcmp(tmp1, "sur_temp"))
+						inpu_name[i] = sur_temp;
+					else if (!strcmp(tmp1, "sur_hea"))
+						inpu_name[i] = sur_hea;
 					else {
-						sprintf(msg, "read_isat_parameters(): wrong format for %s, which should be inpu.inpu_name", tmp);
+						sprintf(msg, "read_isat_parameters(): %s is not valid input for %s", tmp1, tmp);
 						ffd_log(msg, FFD_ERROR);
 						return 1;
 					}
-				} /*End of for (i = 0; i < num_input; i++)*/
-			} /*End of else if (!strcmp(tmp, "/*inpu.inpu_name:"))*/
-
-			/* Read inpu.num_inlet */
-			else if (!strcmp(tmp, "inpu.num_inlet")) {
-				sscanf(string, "%s%d", tmp, &num_inlet);
-				sprintf(msg, "read_sci_input(): %s=%d", tmp, num_inlet);
-				ffd_log(msg, FFD_NORMAL);
-			}
-			/* Read inpu.num_block */
-			else if (!strcmp(tmp, "inpu.num_block")) {
-				sscanf(string, "%s%d", tmp, &num_block);
-				sprintf(msg, "read_sci_input(): %s=%d", tmp, num_block);
-				ffd_log(msg, FFD_NORMAL);
-			}
-			/* Read inpu.num_wall */
-			else if (!strcmp(tmp, "inpu.num_wall")) {
-				sscanf(string, "%s%d", tmp, &num_wall);
-				sprintf(msg, "read_sci_input(): %s=%d", tmp, num_wall);
-				ffd_log(msg, FFD_NORMAL);
-			}
-			/* Read inpu.dir_inlet */
-			else if (!strcmp(tmp, "inpu.dir_inlet")) {
-				if (num_inlet > 0) {
-				sscanf(string, "%s%d", tmp, &dir_inlet);
-				sprintf(msg, "read_sci_input(): %s=%d", tmp, dir_inlet);
-				ffd_log(msg, FFD_NORMAL);
-				}
-			}
-			/* Read inpu.inpu.default_mass_flowrate */
-			else if (!strcmp(tmp, "inpu.default_mass_flowrate")) {
-				if (num_inlet > 0) {
-					sscanf(string, "%s%lf", tmp, &default_mass_flowrate);
-					sprintf(msg, "read_sci_input(): %s=%lf", tmp, default_mass_flowrate);
+					sprintf(msg, "\t\t%s[%d]=%s", tmp, i, tmp1);
 					ffd_log(msg, FFD_NORMAL);
+				} /*end of if (!strcmp(tmp, "inpu.inpu_name"))*/
+				else {
+					sprintf(msg, "read_isat_parameters(): wrong format for %s, which should be inpu.inpu_name", tmp);
+					ffd_log(msg, FFD_ERROR);
+					return 1;
 				}
-			}
-			/* Read inpu.inlet_temp_re if inpu.num_inlet > 0 */
-			else if (!strcmp(tmp, "/*inlet_area_value:")) {
-				if (num_inlet > 0) {
-					for (i = 0; i < num_inlet; i++) {
-						fgets(string, 400, file_params);
-						sscanf(string, "%s", tmp);
-						if (!strcmp(tmp, "inpu.inlet_area_value")) {
-							sscanf(string, "%s%lf", tmp, &inlet_area_value[i]);
-							sprintf(msg, "read_sci_input(): %s[%d]=%lf", tmp, i, inlet_area_value[i]);
-							ffd_log(msg, FFD_NORMAL);
-						}
-						else {
-							sprintf(msg, "read_sci_input(): wrong format for %s, which should be inpu.inlet_temp_re", tmp);
-							ffd_log(msg, FFD_ERROR);
-							return 1;
-						} /* End of if (!strcmp(tmp, "inpu.inlet_temp_re")) */
-					} /* End of for (i = 0; i < num_input; i++) */
-				} /* End of if (num_input > 0) */
-			} /* End of else if (!strcmp(tmp, "/*inpu.inlet_temp_re:")) */
+			} /*End of for (i = 0; i < num_input; i++)*/
+		} /*End of else if (!strcmp(tmp, "/*inpu.inpu_name:"))*/
 
-			/* Read inpu.inlet_temp_re if inpu.num_inlet > 0 */
-			else if (!strcmp(tmp, "/*inpu.inlet_temp_re:")) {
-				if (num_inlet > 0) {
-					for (i = 0; i < num_inlet; i++) {
-						fgets(string, 400, file_params);
-						sscanf(string, "%s", tmp);
-						if (!strcmp(tmp, "inpu.inlet_temp_re")) {
-							sscanf(string, "%s%d", tmp, &inlet_temp_re[i]);
-							sprintf(msg, "read_sci_input(): %s[%d]=%d", tmp, i, inlet_temp_re[i]);
-							ffd_log(msg, FFD_NORMAL);
-						}
-						else {
-							sprintf(msg, "read_sci_input(): wrong format for %s, which should be inpu.inlet_temp_re", tmp);
-							ffd_log(msg, FFD_ERROR);
-							return 1;
-						} /* End of if (!strcmp(tmp, "inpu.inlet_temp_re")) */
-					} /* End of for (i = 0; i < num_input; i++) */
-				} /* End of if (num_input > 0) */
-			} /* End of else if (!strcmp(tmp, "/*inpu.inlet_temp_re:")) */
-			
-			/* Read inpu.inlet_vel_re if inpu.num_inlet > 0 */
-			else if (!strcmp(tmp, "/*inpu.inlet_vel_re:")) {
-				if (num_inlet > 0) {
-					for (i = 0; i < num_inlet; i++) {
-						fgets(string, 400, file_params);
-						sscanf(string, "%s", tmp);
-						if (!strcmp(tmp, "inpu.inlet_vel_re")) {
-							sscanf(string, "%s%d", tmp, &inlet_vel_re[i]);
-							sprintf(msg, "read_sci_input(): %s[%d]=%d", tmp, i, inlet_vel_re[i]);
-							ffd_log(msg, FFD_NORMAL);
-						}
-						else {
-							sprintf(msg, "read_sci_input(): wrong format for %s, which should be inpu.inlet_vel_re", tmp);
-							ffd_log(msg, FFD_ERROR);
-							return 1;
-						} /* End of if (!strcmp(tmp, "inpu.inlet_vel_re")) */
-					} /* End of for (i = 0; i < num_input; i++) */
-				} /* End of if (num_input > 0) */
-			} /* End of else if (!strcmp(tmp, "/*inpu.inlet_vel_re:")) */
-
-			/* Read inpu.inlet_temp_wh if inpu.num_inlet > 0 */
-			else if (!strcmp(tmp, "/*inpu.inlet_temp_wh:")) {
-				if (num_inlet > 0) {
-					for (i = 0; i < num_inlet; i++) {
-						fgets(string, 400, file_params);
-						sscanf(string, "%s", tmp);
-						if (!strcmp(tmp, "inpu.inlet_temp_wh")) {
-							sscanf(string, "%s%d", tmp, &inlet_temp_wh[i]);
-							sprintf(msg, "read_sci_input(): %s[%d]=%d", tmp, i, inlet_temp_wh[i]);
-							ffd_log(msg, FFD_NORMAL);
-						}
-						else {
-							sprintf(msg, "read_sci_input(): wrong format for %s, which should be inpu.inlet_temp_wh", tmp);
-							ffd_log(msg, FFD_ERROR);
-							return 1;
-						} /* End of if (!strcmp(tmp, "inpu.inlet_temp_wh")) */
-					} /* End of for (i = 0; i < num_input; i++) */
-				} /* End of if (num_input > 0) */
-			} /* End of else if (!strcmp(tmp, "/*inpu.inlet_temp_wh:")) */
-
-			/* Read inpu.inlet_u_wh if inpu.num_inlet > 0 */
-			else if (!strcmp(tmp, "/*inpu.inlet_vel_wh:")) {
-				if (num_inlet > 0) {
-					for (i = 0; i < num_inlet; i++) {
-						fgets(string, 400, file_params);
-						sscanf(string, "%s", tmp);
-						if (!strcmp(tmp, "inpu.inlet_vel_wh")) {
-							sscanf(string, "%s%d", tmp, &inlet_vel_wh[i]);
-							sprintf(msg, "read_sci_input(): %s[%d]=%d", tmp, i, inlet_vel_wh[i]);
-							ffd_log(msg, FFD_NORMAL);
-						}
-						else {
-							sprintf(msg, "read_sci_input(): wrong format for %s, which should be inpu.inlet_vel_wh", tmp);
-							ffd_log(msg, FFD_ERROR);
-							return 1;
-						} /* End of if (!strcmp(tmp, "inpu.inlet_vel_wh")) */
-					} /* End of for (i = 0; i < num_input; i++) */
-				} /* End of if (num_input > 0) */
-			} /* End of else if (!strcmp(tmp, "/*inpu.inlet_vel_wh:")) */
-
-			/* Read inpu.block_re if inpu.num_block > 0 */
-			else if (!strcmp(tmp, "/*inpu.block_re:")) {
-				if (num_block > 0) {
-					for (i = 0; i < num_block; i++) {
-						fgets(string, 400, file_params);
-						sscanf(string, "%s", tmp);
-						if (!strcmp(tmp, "inpu.block_re")) {
-							sscanf(string, "%s%d", tmp, &block_re[i]);
-							sprintf(msg, "read_sci_input(): %s[%d]=%d", tmp, i, block_re[i]);
-							ffd_log(msg, FFD_NORMAL);
-						}
-						else {
-							sprintf(msg, "read_sci_input(): wrong format for %s, which should be inpu.block_re", tmp);
-							ffd_log(msg, FFD_ERROR);
-							return 1;
-						} /* End of if (!strcmp(tmp, "inpu.block_re")) */
-					} /* End of for (i = 0; i < num_block; i++) */
-				} /* End of if (num_block > 0) */
-			} /* End of else if (!strcmp(tmp, "/*inpu.block_re:")) */
-
-			/* Read inpu.block_wh if inpu.num_block > 0 */
-			else if (!strcmp(tmp, "/*inpu.block_wh:")) {
-				if (num_block > 0) {
-					for (i = 0; i < num_block; i++) {
-						fgets(string, 400, file_params);
-						sscanf(string, "%s", tmp);
-						if (!strcmp(tmp, "inpu.block_wh")) {
-							sscanf(string, "%s%d", tmp, &block_wh[i]);
-							sprintf(msg, "read_sci_input(): %s[%d]=%d", tmp, i, block_wh[i]);
-							ffd_log(msg, FFD_NORMAL);
-						}
-						else {
-							sprintf(msg, "read_sci_input(): wrong format for %s, which should be inpu.block_wh", tmp);
-							ffd_log(msg, FFD_ERROR);
-							return 1;
-						} /* End of if (!strcmp(tmp, "inpu.block_wh")) */
-					} /* End of for (i = 0; i < num_block; i++) */
-				} /* End of if (num_block > 0) */
-			} /* End of else if (!strcmp(tmp, "/*inpu.block_wh:")) */
-
-			/* Read inpu.wall_re if inpu.num_wall > 0 */
-			else if (!strcmp(tmp, "/*inpu.wall_re:")) {
-				if (num_wall > 0) {
-					for (i = 0; i < num_wall; i++) {
-						fgets(string, 400, file_params);
-						sscanf(string, "%s", tmp);
-						if (!strcmp(tmp, "inpu.wall_re")) {
-							sscanf(string, "%s%d", tmp, &wall_re[i]);
-							sprintf(msg, "read_sci_input(): %s[%d]=%d", tmp, i, wall_re[i]);
-							ffd_log(msg, FFD_NORMAL);
-						}
-						else {
-							sprintf(msg, "read_sci_input(): wrong format for %s, which should be inpu.wall_re", tmp);
-							ffd_log(msg, FFD_ERROR);
-							return 1;
-						} /* End of if (!strcmp(tmp, "inpu.wall_re")) */
-					} /* End of for (i = 0; i < num_wall; i++) */
-				} /* End of if (num_wall > 0) */
-			} /* End of else if (!strcmp(tmp, "/*inpu.wall_re:")) */
-
-			/* Read inpu.wall_wh if inpu.num_wall > 0 */
-			else if (!strcmp(tmp, "/*inpu.wall_wh:")) {
-				if (num_wall > 0) {
-					for (i = 0; i < num_wall; i++) {
-						fgets(string, 400, file_params);
-						sscanf(string, "%s", tmp);
-						if (!strcmp(tmp, "inpu.wall_wh")) {
-							sscanf(string, "%s%d", tmp, &wall_wh[i]);
-							sprintf(msg, "read_sci_input(): %s[%d]=%d", tmp, i, wall_wh[i]);
-							ffd_log(msg, FFD_NORMAL);
-						}
-						else {
-							sprintf(msg, "read_sci_input(): wrong format for %s, which should be inpu.wall_wh", tmp);
-							ffd_log(msg, FFD_ERROR);
-							return 1;
-						} /* End of if (!strcmp(tmp, "inpu.wall_wh")) */
-					} /* End of for (i = 0; i < num_wall; i++) */
-				} /* End of if (num_wall > 0) */
-			} /* End of else if (!strcmp(tmp, "/*inpu.wall_wh:")) */
-		} /* End of while (next = 0)*/
-
-		fclose(file_params);
-
-		/* Assign value for inlet by isat inputs */
-		if (num_inlet != 0) {
-			for (i = 0; i < num_inlet; i++) {
-				if (inlet_temp_re[i] == 1)
-					inlet_temp_value[i] = ffdInput[inlet_temp_wh[i] - 1];
-				if (inlet_vel_re[i] == 1)
-					inlet_vel_value[i] = ffdInput[inlet_vel_wh[i] - 1] / inlet_area_value[i] / para->prob->rho;
-				 updated_mass_flowrate = updated_mass_flowrate + ffdInput[inlet_vel_wh[i] - 1];
-					sprintf(msg, "read_sci_input(): check %lf, %lf, %d", inlet_vel_value[i], ffdInput[inlet_vel_wh[i] - 1], inlet_vel_wh[i]);
-					ffd_log(msg, FFD_NORMAL);
+		/* Read inpu.num_inlet */
+		else if (!strcmp(tmp, "inpu.num_inlet")) {
+			sscanf(string, "%s%d", tmp, &num_inlet);
+			sprintf(msg, "read_sci_input(): %s=%d", tmp, num_inlet);
+			ffd_log(msg, FFD_NORMAL);
+		}
+		/* Read inpu.num_block */
+		else if (!strcmp(tmp, "inpu.num_block")) {
+			sscanf(string, "%s%d", tmp, &num_block);
+			sprintf(msg, "read_sci_input(): %s=%d", tmp, num_block);
+			ffd_log(msg, FFD_NORMAL);
+		}
+		/* Read inpu.num_wall */
+		else if (!strcmp(tmp, "inpu.num_wall")) {
+			sscanf(string, "%s%d", tmp, &num_wall);
+			sprintf(msg, "read_sci_input(): %s=%d", tmp, num_wall);
+			ffd_log(msg, FFD_NORMAL);
+		}
+		/* Read inpu.dir_inlet */
+		else if (!strcmp(tmp, "inpu.dir_inlet")) {
+			if (num_inlet > 0) {
+			sscanf(string, "%s%d", tmp, &dir_inlet);
+			sprintf(msg, "read_sci_input(): %s=%d", tmp, dir_inlet);
+			ffd_log(msg, FFD_NORMAL);
 			}
 		}
-		/* Assign value for block by isat inputs */
-		if (num_block != 0) {
-			for (i = 0; i < num_block; i++) {
-				if (block_re[i] == 1)
-					block_value[i] = ffdInput[block_wh[i] - 1];
+		/* Read inpu.inpu.default_mass_flowrate */
+		else if (!strcmp(tmp, "inpu.default_mass_flowrate")) {
+			if (num_inlet > 0) {
+				sscanf(string, "%s%lf", tmp, &default_mass_flowrate);
+				sprintf(msg, "read_sci_input(): %s=%lf", tmp, default_mass_flowrate);
+				ffd_log(msg, FFD_NORMAL);
 			}
 		}
-		/* Assign value for wall by isat inputs */
-		if (num_wall != 0) {
-			for (i = 0; i < num_wall; i++) {
-				if (wall_re[i] == 1)
-					wall_value[i] = ffdInput[wall_wh[i] - 1];
-			}
-		}
+		/* Read inpu.inlet_temp_re if inpu.num_inlet > 0 */
+		else if (!strcmp(tmp, "/*inlet_area_value:")) {
+			if (num_inlet > 0) {
+				for (i = 0; i < num_inlet; i++) {
+					fgets(string, 400, file_params);
+					sscanf(string, "%s", tmp);
+					if (!strcmp(tmp, "inpu.inlet_area_value")) {
+						sscanf(string, "%s%lf", tmp, &inlet_area_value[i]);
+						sprintf(msg, "read_sci_input(): %s[%d]=%lf", tmp, i, inlet_area_value[i]);
+						ffd_log(msg, FFD_NORMAL);
+					}
+					else {
+						sprintf(msg, "read_sci_input(): wrong format for %s, which should be inpu.inlet_temp_re", tmp);
+						ffd_log(msg, FFD_ERROR);
+						return 1;
+					} /* End of if (!strcmp(tmp, "inpu.inlet_temp_re")) */
+				} /* End of for (i = 0; i < num_input; i++) */
+			} /* End of if (num_input > 0) */
+		} /* End of else if (!strcmp(tmp, "/*inpu.inlet_temp_re:")) */
 
-#endif	
+		/* Read inpu.inlet_temp_re if inpu.num_inlet > 0 */
+		else if (!strcmp(tmp, "/*inpu.inlet_temp_re:")) {
+			if (num_inlet > 0) {
+				for (i = 0; i < num_inlet; i++) {
+					fgets(string, 400, file_params);
+					sscanf(string, "%s", tmp);
+					if (!strcmp(tmp, "inpu.inlet_temp_re")) {
+						sscanf(string, "%s%d", tmp, &inlet_temp_re[i]);
+						sprintf(msg, "read_sci_input(): %s[%d]=%d", tmp, i, inlet_temp_re[i]);
+						ffd_log(msg, FFD_NORMAL);
+					}
+					else {
+						sprintf(msg, "read_sci_input(): wrong format for %s, which should be inpu.inlet_temp_re", tmp);
+						ffd_log(msg, FFD_ERROR);
+						return 1;
+					} /* End of if (!strcmp(tmp, "inpu.inlet_temp_re")) */
+				} /* End of for (i = 0; i < num_input; i++) */
+			} /* End of if (num_input > 0) */
+		} /* End of else if (!strcmp(tmp, "/*inpu.inlet_temp_re:")) */
+		
+		/* Read inpu.inlet_vel_re if inpu.num_inlet > 0 */
+		else if (!strcmp(tmp, "/*inpu.inlet_vel_re:")) {
+			if (num_inlet > 0) {
+				for (i = 0; i < num_inlet; i++) {
+					fgets(string, 400, file_params);
+					sscanf(string, "%s", tmp);
+					if (!strcmp(tmp, "inpu.inlet_vel_re")) {
+						sscanf(string, "%s%d", tmp, &inlet_vel_re[i]);
+						sprintf(msg, "read_sci_input(): %s[%d]=%d", tmp, i, inlet_vel_re[i]);
+						ffd_log(msg, FFD_NORMAL);
+					}
+					else {
+						sprintf(msg, "read_sci_input(): wrong format for %s, which should be inpu.inlet_vel_re", tmp);
+						ffd_log(msg, FFD_ERROR);
+						return 1;
+					} /* End of if (!strcmp(tmp, "inpu.inlet_vel_re")) */
+				} /* End of for (i = 0; i < num_input; i++) */
+			} /* End of if (num_input > 0) */
+		} /* End of else if (!strcmp(tmp, "/*inpu.inlet_vel_re:")) */
+
+		/* Read inpu.inlet_temp_wh if inpu.num_inlet > 0 */
+		else if (!strcmp(tmp, "/*inpu.inlet_temp_wh:")) {
+			if (num_inlet > 0) {
+				for (i = 0; i < num_inlet; i++) {
+					fgets(string, 400, file_params);
+					sscanf(string, "%s", tmp);
+					if (!strcmp(tmp, "inpu.inlet_temp_wh")) {
+						sscanf(string, "%s%d", tmp, &inlet_temp_wh[i]);
+						sprintf(msg, "read_sci_input(): %s[%d]=%d", tmp, i, inlet_temp_wh[i]);
+						ffd_log(msg, FFD_NORMAL);
+					}
+					else {
+						sprintf(msg, "read_sci_input(): wrong format for %s, which should be inpu.inlet_temp_wh", tmp);
+						ffd_log(msg, FFD_ERROR);
+						return 1;
+					} /* End of if (!strcmp(tmp, "inpu.inlet_temp_wh")) */
+				} /* End of for (i = 0; i < num_input; i++) */
+			} /* End of if (num_input > 0) */
+		} /* End of else if (!strcmp(tmp, "/*inpu.inlet_temp_wh:")) */
+
+		/* Read inpu.inlet_u_wh if inpu.num_inlet > 0 */
+		else if (!strcmp(tmp, "/*inpu.inlet_vel_wh:")) {
+			if (num_inlet > 0) {
+				for (i = 0; i < num_inlet; i++) {
+					fgets(string, 400, file_params);
+					sscanf(string, "%s", tmp);
+					if (!strcmp(tmp, "inpu.inlet_vel_wh")) {
+						sscanf(string, "%s%d", tmp, &inlet_vel_wh[i]);
+						sprintf(msg, "read_sci_input(): %s[%d]=%d", tmp, i, inlet_vel_wh[i]);
+						ffd_log(msg, FFD_NORMAL);
+					}
+					else {
+						sprintf(msg, "read_sci_input(): wrong format for %s, which should be inpu.inlet_vel_wh", tmp);
+						ffd_log(msg, FFD_ERROR);
+						return 1;
+					} /* End of if (!strcmp(tmp, "inpu.inlet_vel_wh")) */
+				} /* End of for (i = 0; i < num_input; i++) */
+			} /* End of if (num_input > 0) */
+		} /* End of else if (!strcmp(tmp, "/*inpu.inlet_vel_wh:")) */
+
+		/* Read inpu.block_re if inpu.num_block > 0 */
+		else if (!strcmp(tmp, "/*inpu.block_re:")) {
+			if (num_block > 0) {
+				for (i = 0; i < num_block; i++) {
+					fgets(string, 400, file_params);
+					sscanf(string, "%s", tmp);
+					if (!strcmp(tmp, "inpu.block_re")) {
+						sscanf(string, "%s%d", tmp, &block_re[i]);
+						sprintf(msg, "read_sci_input(): %s[%d]=%d", tmp, i, block_re[i]);
+						ffd_log(msg, FFD_NORMAL);
+					}
+					else {
+						sprintf(msg, "read_sci_input(): wrong format for %s, which should be inpu.block_re", tmp);
+						ffd_log(msg, FFD_ERROR);
+						return 1;
+					} /* End of if (!strcmp(tmp, "inpu.block_re")) */
+				} /* End of for (i = 0; i < num_block; i++) */
+			} /* End of if (num_block > 0) */
+		} /* End of else if (!strcmp(tmp, "/*inpu.block_re:")) */
+
+		/* Read inpu.block_wh if inpu.num_block > 0 */
+		else if (!strcmp(tmp, "/*inpu.block_wh:")) {
+			if (num_block > 0) {
+				for (i = 0; i < num_block; i++) {
+					fgets(string, 400, file_params);
+					sscanf(string, "%s", tmp);
+					if (!strcmp(tmp, "inpu.block_wh")) {
+						sscanf(string, "%s%d", tmp, &block_wh[i]);
+						sprintf(msg, "read_sci_input(): %s[%d]=%d", tmp, i, block_wh[i]);
+						ffd_log(msg, FFD_NORMAL);
+					}
+					else {
+						sprintf(msg, "read_sci_input(): wrong format for %s, which should be inpu.block_wh", tmp);
+						ffd_log(msg, FFD_ERROR);
+						return 1;
+					} /* End of if (!strcmp(tmp, "inpu.block_wh")) */
+				} /* End of for (i = 0; i < num_block; i++) */
+			} /* End of if (num_block > 0) */
+		} /* End of else if (!strcmp(tmp, "/*inpu.block_wh:")) */
+
+		/* Read inpu.wall_re if inpu.num_wall > 0 */
+		else if (!strcmp(tmp, "/*inpu.wall_re:")) {
+			if (num_wall > 0) {
+				for (i = 0; i < num_wall; i++) {
+					fgets(string, 400, file_params);
+					sscanf(string, "%s", tmp);
+					if (!strcmp(tmp, "inpu.wall_re")) {
+						sscanf(string, "%s%d", tmp, &wall_re[i]);
+						sprintf(msg, "read_sci_input(): %s[%d]=%d", tmp, i, wall_re[i]);
+						ffd_log(msg, FFD_NORMAL);
+					}
+					else {
+						sprintf(msg, "read_sci_input(): wrong format for %s, which should be inpu.wall_re", tmp);
+						ffd_log(msg, FFD_ERROR);
+						return 1;
+					} /* End of if (!strcmp(tmp, "inpu.wall_re")) */
+				} /* End of for (i = 0; i < num_wall; i++) */
+			} /* End of if (num_wall > 0) */
+		} /* End of else if (!strcmp(tmp, "/*inpu.wall_re:")) */
+
+		/* Read inpu.wall_wh if inpu.num_wall > 0 */
+		else if (!strcmp(tmp, "/*inpu.wall_wh:")) {
+			if (num_wall > 0) {
+				for (i = 0; i < num_wall; i++) {
+					fgets(string, 400, file_params);
+					sscanf(string, "%s", tmp);
+					if (!strcmp(tmp, "inpu.wall_wh")) {
+						sscanf(string, "%s%d", tmp, &wall_wh[i]);
+						sprintf(msg, "read_sci_input(): %s[%d]=%d", tmp, i, wall_wh[i]);
+						ffd_log(msg, FFD_NORMAL);
+					}
+					else {
+						sprintf(msg, "read_sci_input(): wrong format for %s, which should be inpu.wall_wh", tmp);
+						ffd_log(msg, FFD_ERROR);
+						return 1;
+					} /* End of if (!strcmp(tmp, "inpu.wall_wh")) */
+				} /* End of for (i = 0; i < num_wall; i++) */
+			} /* End of if (num_wall > 0) */
+		} /* End of else if (!strcmp(tmp, "/*inpu.wall_wh:")) */
+	} /* End of while (next = 0)*/
+
+	fclose(file_params);
+
+	/* Assign value for inlet by isat inputs */
+	if (num_inlet != 0) {
+		for (i = 0; i < num_inlet; i++) {
+			if (inlet_temp_re[i] == 1)
+				inlet_temp_value[i] = ffdInput[inlet_temp_wh[i] - 1];
+			if (inlet_vel_re[i] == 1)
+				inlet_vel_value[i] = ffdInput[inlet_vel_wh[i] - 1] / inlet_area_value[i] / para->prob->rho;
+			 updated_mass_flowrate = updated_mass_flowrate + ffdInput[inlet_vel_wh[i] - 1];
+				sprintf(msg, "read_sci_input(): check %lf, %lf, %d", inlet_vel_value[i], ffdInput[inlet_vel_wh[i] - 1], inlet_vel_wh[i]);
+				ffd_log(msg, FFD_NORMAL);
+		}
+	}
+	/* Assign value for block by isat inputs */
+	if (num_block != 0) {
+		for (i = 0; i < num_block; i++) {
+			if (block_re[i] == 1)
+				block_value[i] = ffdInput[block_wh[i] - 1];
+		}
+	}
+	/* Assign value for wall by isat inputs */
+	if (num_wall != 0) {
+		for (i = 0; i < num_wall; i++) {
+			if (wall_re[i] == 1)
+				wall_value[i] = ffdInput[wall_wh[i] - 1];
+		}
+	}
+
+  #endif	
 	
   /* Open the parameter file */
-#ifndef FFD_ISAT /*if no ISAT*/
-		if ((file_params = fopen(para->inpu->parameter_file_name, "r")) == NULL) {
-			sprintf(msg, "read_sci_input(): Could not open the file \"%s\".",
-				para->inpu->parameter_file_name);
-			ffd_log(msg, FFD_ERROR);
-			return 1;
-		}
-		sprintf(msg, "read_sci_input(): Start to read sci input file %s",
+  #ifndef FFD_ISAT /*if no ISAT*/
+	if ((file_params = fopen(para->inpu->parameter_file_name, "r")) == NULL) {
+		sprintf(msg, "read_sci_input(): Could not open the file \"%s\".",
 			para->inpu->parameter_file_name);
-		ffd_log(msg, FFD_NORMAL);
-#else /*if called by ISAT*/
-		snprintf(filenametmp, sizeof(filenametmp), "%s%s", filepath, "input.cfd");
-		if ((file_params = fopen(filenametmp, "r")) == NULL) {
-			sprintf(msg, "read_sci_input(): Could not open the file \"%s\".",
-				filenametmp);
-			ffd_log(msg, FFD_ERROR);
-			return 1;
-		}
-		sprintf(msg, "read_sci_input(): Start to read sci input file %s",
+		ffd_log(msg, FFD_ERROR);
+		return 1;
+	}
+	sprintf(msg, "read_sci_input(): Start to read sci input file %s",
+		para->inpu->parameter_file_name);
+	ffd_log(msg, FFD_NORMAL);
+  #else /*if called by ISAT*/
+	snprintf(filenametmp, sizeof(filenametmp), "%s%s", filepath, "input.cfd");
+	if ((file_params = fopen(filenametmp, "r")) == NULL) {
+		sprintf(msg, "read_sci_input(): Could not open the file \"%s\".",
 			filenametmp);
-		ffd_log(msg, FFD_NORMAL);
-#endif
+		ffd_log(msg, FFD_ERROR);
+		return 1;
+	}
+	sprintf(msg, "read_sci_input(): Start to read sci input file %s",
+		filenametmp);
+	ffd_log(msg, FFD_NORMAL);
+  #endif
 
   /* Ignore the first and second lines */
   fgets(string, 400, file_params);
@@ -769,19 +741,19 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
 	  else
 		  x[IX(i, j, k)] = (REAL)0.5 * (gx[IX(i, j, k)] + gx[IX(i - 1, j, k)]);
 
-  if (j < 1)
-	  y[IX(i, j, k)] = 0;
-  else if (j > jmax)
-	  y[IX(i, j, k)] = Ly;
-  else
-	  y[IX(i, j, k)] = (REAL)0.5 * (gy[IX(i, j, k)] + gy[IX(i, j - 1, k)]);
+	  if (j < 1)
+		  y[IX(i, j, k)] = 0;
+	  else if (j > jmax)
+		  y[IX(i, j, k)] = Ly;
+	  else
+		  y[IX(i, j, k)] = (REAL)0.5 * (gy[IX(i, j, k)] + gy[IX(i, j - 1, k)]);
 
-  if (k < 1)
-	  z[IX(i, j, k)] = 0;
-  else if (k > kmax)
-	  z[IX(i, j, k)] = Lz;
-  else
-	  z[IX(i, j, k)] = (REAL)0.5 * (gz[IX(i, j, k)] + gz[IX(i, j, k - 1)]);
+	  if (k < 1)
+		  z[IX(i, j, k)] = 0;
+	  else if (k > kmax)
+		  z[IX(i, j, k)] = Lz;
+	  else
+		  z[IX(i, j, k)] = (REAL)0.5 * (gz[IX(i, j, k)] + gz[IX(i, j, k - 1)]);
   END_FOR
 
   /* Get the wall property */
@@ -863,7 +835,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
 			  U, V, W, TMP, MASS);
 		  ffd_log(msg, FFD_NORMAL);
 
-#ifdef FFD_ISAT
+          #ifdef FFD_ISAT
 				/* Overwrite value by ISAT inputs for inlets */
 				if (num_inlet > 0) {
 					if (inlet_temp_re[i])
@@ -884,7 +856,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
 					U, V, W, TMP, MASS);
 				ffd_log(msg, FFD_NORMAL);
 				}
-#endif			
+		  #endif			
 						
 		  /*.......................................................................
 		  | Assign the boundary conditions to cells
@@ -1030,24 +1002,24 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
 			  U, V, W, TMP, MASS);
 		  ffd_log(msg, FFD_NORMAL);
 
-#ifdef FFD_ISAT
-				/* Overwrite value by ISAT inputs for outlets */
-				if (para->bc->outlet_bc == PRESCRIBED_VALUE) {
-					if (num_inlet > 0) {
-						/*for (i = 0; i < num_inlet; i++) {
-							inlet_vel_re_sum = inlet_vel_re_sum + inlet_vel_re[i];
-						}*/
-						if (inlet_vel_re[0] > 0) {
-							U = U / default_mass_flowrate * updated_mass_flowrate;
-							V = V / default_mass_flowrate * updated_mass_flowrate;
-							W = W / default_mass_flowrate * updated_mass_flowrate;
-							sprintf(msg, "read_sci_input(): VX=%f, VY=%f, VZ=%f, T=%f, Xi=%f after overwrite.",
-								U, V, W, TMP, MASS);
-							ffd_log(msg, FFD_NORMAL);
-						}
+          #ifdef FFD_ISAT
+			/* Overwrite value by ISAT inputs for outlets */
+			if (para->bc->outlet_bc == PRESCRIBED_VALUE) {
+				if (num_inlet > 0) {
+					/*for (i = 0; i < num_inlet; i++) {
+						inlet_vel_re_sum = inlet_vel_re_sum + inlet_vel_re[i];
+					}*/
+					if (inlet_vel_re[0] > 0) {
+						U = U / default_mass_flowrate * updated_mass_flowrate;
+						V = V / default_mass_flowrate * updated_mass_flowrate;
+						W = W / default_mass_flowrate * updated_mass_flowrate;
+						sprintf(msg, "read_sci_input(): VX=%f, VY=%f, VZ=%f, T=%f, Xi=%f after overwrite.",
+							U, V, W, TMP, MASS);
+						ffd_log(msg, FFD_NORMAL);
 					}
 				}
-#endif
+			}
+          #endif
 
 		  if (EI == 0) {
 			  if (SI == 1) SI = 0;
@@ -1079,8 +1051,6 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
 				  para->geom->tile_putY = 1;
 			  else if (SK == EK)
 				  para->geom->tile_putZ = 1;
-			  /*printf("putX, putY, putZ is %d, %d, %d\n",para->geom->tile_putX,para->geom->tile_putY,para->geom->tile_putZ);*/
-			  /*getchar();*/
 		  }
 		  else {
 			  tile_or_outlet = OUTLET;
@@ -1120,7 +1090,6 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
 
 							  /* read the resistance parameter */
 							  tile_opening = var[TILE_OPEN_BC][IX(ii, ij, ik)];
-							  /*printf("is opening is %f\n", var[TILE_OPEN_BC][IX(ii, ij, ik)]);*/
 
 							  /* Calculate the resistance based on the paper
 								 @inproceedings{vangilder2015development,
@@ -1485,7 +1454,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
 		  sprintf(msg, "read_sci_input(): ThermalBC=%d, T/q_dot=%f", FLTMP, TMP);
 		  ffd_log(msg, FFD_NORMAL);
 
-#ifdef FFD_ISAT
+          #ifdef FFD_ISAT
 				/* Overwrite value by ISAT inputs for blocks */
 				if (num_block > 0) {
 					if (strstr(para->bc->blockName[i], "Rack") == NULL) {
@@ -1496,7 +1465,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
 							ffd_log(msg, FFD_NORMAL);
 						}
 				}
-#endif
+          #endif
 			
 		  /* Find the start and end in each direction of the object */
 		  if (SI == 1) {
@@ -1576,18 +1545,18 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
 				  sscanf(para->bc->blockName[i], "%s%d%f%f", rack_name_tmp, &para->bc->RackDir[id_rack], &para->bc->HeatDiss[id_rack], &para->bc->RackFlowRate[id_rack]);
 			  }
 				
-#ifdef FFD_ISAT
-					/* Overwrite value by ISAT inputs for racks */
-					if (num_block > 0) {
-						if (strstr(para->bc->blockName[i], "Rack") != NULL) {
-							if (block_re[i])
-								para->bc->HeatDiss[id_rack] = block_value[i];
-							sprintf(msg, "read_sci_input(): para->bc->HeatDiss[%d]=%lf after overwrite.",
-								id_rack, para->bc->HeatDiss[id_rack]);
-							ffd_log(msg, FFD_NORMAL);
-						}
+              #ifdef FFD_ISAT
+				/* Overwrite value by ISAT inputs for racks */
+				if (num_block > 0) {
+					if (strstr(para->bc->blockName[i], "Rack") != NULL) {
+						if (block_re[i])
+							para->bc->HeatDiss[id_rack] = block_value[i];
+						sprintf(msg, "read_sci_input(): para->bc->HeatDiss[%d]=%lf after overwrite.",
+							id_rack, para->bc->HeatDiss[id_rack]);
+						ffd_log(msg, FFD_NORMAL);
 					}
-#endif				
+				}
+              #endif				
 				
 			  /* store the rack name to global variable (maximum 100) */
 			  para->bc->rackName[id_rack] = (char*)malloc(100 * sizeof(char));
@@ -1860,7 +1829,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
 			  FLTMP, TMP);
 		  ffd_log(msg, FFD_NORMAL);
 
-#ifdef FFD_ISAT
+          #ifdef FFD_ISAT
 				/* Overwrite value by ISAT inputs for walls */
 				if (num_wall > 0) {
 					if (wall_re[i])
@@ -1869,7 +1838,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
 						FLTMP, TMP);
 					ffd_log(msg, FFD_NORMAL);
 				}
-#endif
+          #endif
 				
 		  /* Reset X index */
 		  if (SI == 1) { /* West */
@@ -1960,7 +1929,6 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
   *****************************************************************************/
   /* Discard the unused data */
   fgets(string, 400, file_params); /*maximum iteration*/
-  /*fgets(string, 400, file_params);*/ /*maximum iteration*/
   fgets(string, 400, file_params); /*convergence rate*/
   fgets(string, 400, file_params); /*Turbulence model*/
   fgets(string, 400, file_params); /*initial value*/
@@ -1973,12 +1941,6 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
 
   /* Discard setting for restarting the old FFD simulation */
   fgets(string, 400, file_params);
-  /*
-  sscanf(string,"%d", &para->inpu->read_old_ffd_file);
-  sprintf(msg, "read_sci_input(): para->inpu->read_old_ffd_file=%d",
-          para->inpu->read_old_ffd_file);
-  ffd_log(msg, FFD_NORMAL);
-  */
   /* Discard the unused data */
   fgets(string, 400, file_params); /*print frequency*/
   fgets(string, 400, file_params); /*Pressure variable Y/N*/
@@ -1986,37 +1948,6 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
 
   /* Discard physical properties */
   fgets(string, 400, file_params);
-  /*
-  sscanf(string,"%f %f %f %f %f %f %f %f %f", &para->prob->rho,
-         &para->prob->nu, &para->prob->cond,
-         &para->prob->gravx, &para->prob->gravy, &para->prob->gravz,
-         &para->prob->beta, &trefmax, &para->prob->Cp);
-
-  sprintf(msg, "read_sci_input(): para->prob->rho=%f", para->prob->rho);
-  ffd_log(msg, FFD_NORMAL);
-
-  sprintf(msg, "read_sci_input(): para->prob->nu=%f", para->prob->nu);
-  ffd_log(msg, FFD_NORMAL);
-
-  sprintf(msg, "read_sci_input(): para->prob->cond=%f", para->prob->cond);
-  ffd_log(msg, FFD_NORMAL);
-
-  sprintf(msg, "read_sci_input(): para->prob->gravx=%f", para->prob->gravx);
-  ffd_log(msg, FFD_NORMAL);
-
-  sprintf(msg, "read_sci_input(): para->prob->gravy=%f", para->prob->gravy);
-  ffd_log(msg, FFD_NORMAL);
-
-  sprintf(msg, "read_sci_input(): para->prob->gravz=%f", para->prob->gravz);
-  ffd_log(msg, FFD_NORMAL);
-
-  sprintf(msg, "read_sci_input(): para->prob->beta=%f", para->prob->beta);
-  ffd_log(msg, FFD_NORMAL);
-
-  //para->prob->trefmax=trefmax;
-  sprintf(msg, "read_sci_input(): para->prob->Cp=%f", para->prob->Cp);
-  ffd_log(msg, FFD_NORMAL);
-  */
 
   /* Read simulation time settings */
   fgets(string, 400, file_params);
@@ -2060,14 +1991,14 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
 } /* End of read_sci_input() */
 
 /*
-		* Read the file to identify the block cells in space
-		*
-		* @param para Pointer to FFD parameters
-		* @param var Pointer to FFD simulation variables
-		* @param BINDEX Pointer to boundary index
-		*
-		* @return 0 if no error occurred
-		*/
+	* Read the file to identify the block cells in space
+	*
+	* @param para Pointer to FFD parameters
+	* @param var Pointer to FFD simulation variables
+	* @param BINDEX Pointer to boundary index
+	*
+	* @return 0 if no error occurred
+	*/
 int read_sci_zeroone(PARA_DATA* para, REAL** var, int** BINDEX) {
 	int i, j, k;
 	int delcount = 0;
@@ -2079,7 +2010,7 @@ int read_sci_zeroone(PARA_DATA* para, REAL** var, int** BINDEX) {
 	int IMAX = imax + 2, IJMAX = (imax + 2) * (jmax + 2);
 	REAL* flagp = var[FLAGP];
 
-#ifndef FFD_ISAT  /*if no ISAT*/
+  #ifndef FFD_ISAT  /*if no ISAT*/
 	if ((file_params = fopen(para->inpu->block_file_name, "r")) == NULL) {
 		sprintf(msg, "read_sci_input():Could not open file \"%s\"!\n",
 			para->inpu->block_file_name);
@@ -2089,7 +2020,7 @@ int read_sci_zeroone(PARA_DATA* para, REAL** var, int** BINDEX) {
 	sprintf(msg, "read_sci_input(): start to read block information from \"%s\".",
 		para->inpu->block_file_name);
 	ffd_log(msg, FFD_NORMAL);
-#else /*if called by ISAT*/
+  #else /*if called by ISAT*/
 	char filenametmp[400];
 	snprintf(filenametmp, sizeof(filenametmp), "%s%s", filepath, "zeroone.dat");
 	if ((file_params = fopen(filenametmp, "r")) == NULL) {
@@ -2101,7 +2032,7 @@ int read_sci_zeroone(PARA_DATA* para, REAL** var, int** BINDEX) {
 	sprintf(msg, "read_sci_zeroone: start to read block information from %s",
 		filenametmp);
 	ffd_log(msg, FFD_NORMAL);
-#endif
+  #endif
 
 	for (k = 1;k <= kmax;k++)
 		for (j = 1;j <= jmax;j++)

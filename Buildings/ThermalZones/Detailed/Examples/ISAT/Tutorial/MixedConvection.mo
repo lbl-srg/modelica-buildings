@@ -208,7 +208,7 @@ equation
 <p><span style=\"font-family: Courier New;\">connect(bouIn.ports[1], roo.ports[1]);</span></p>
 <p><span style=\"font-family: Courier New;\">connect(bouOut.ports[1], roo.ports[2]);</span></p>
 <li>Define the settings for the ISAT model: </li>
-<p><span style=\"font-family: Courier New;\">In the set.isat file, the parameters for the ISAT model can be defined:</span></p>
+<p>In the <span style=\"font-family: Courier New;\">set.isat</span> file, the parameters for the ISAT model can be defined:</p>
 <p>/********************************************************************************</p>
 <p>| Section 1: General settings of isat</p>
 <p>********************************************************************************/</p>
@@ -284,18 +284,29 @@ equation
 <p>/********************************************************************************</p>
 <p>| Section 3: Output settings of isat and ffd</p>
 <p>********************************************************************************/</p>
-<p>/* outp.outp_name: names of outputs including temp_occ, vel_occ, temp_sen, vel_sen, temp_rack */</p>
+<p>/* outp.outp_name: names of outputs including temp_roo, temp_occ, vel_occ, temp_sen, vel_sen, temp_rack */</p>
 <p>outp.outp_name temp_roo</p>
 <p>outp.outp_name vel_sen</p>
 <p>/* outp.outp_weight: weights for error control, when outputs have different order of magnitudes */</p>
 <p>outp.outp_weight 1.0</p>
 <p>outp.outp_weight 10.0</p>
+<li>Note: the desired outputs of isat can be altered by changing the output sensors in section 3 of the set.isat file. The available default sensors include:</li>
+<li><ul>
+<li><span style=\"font-family: Courier New;\">temp_roo,</span> which outputs the average room temperature, </li>
+<li><span style=\"font-family: Courier New;\">temp_occ</span>, which outputs the average temperature of the occupied zone, </li>
+<li><span style=\"font-family: Courier New;\">vel_occ,</span> which outputs the average velocity of the occupied zone, </li>
+<li><span style=\"font-family: Courier New;\">temp_sen,</span> which outputs the temperature at a defined location (default is center of the room), </li>
+<li><span style=\"font-family: Courier New;\">vel_sen,</span> which outputs the velocity at the a defined location (default is center of the room). </li>
+</ul></li>
+<p>Furthermore, advanced users can modify the source code located in <span style=\"font-family: Courier New;\">Buildings/Resources/src/ISAT</span> to adjust the current sensors or add new ones.</p>
+<p>For example, in lines <span style=\"font-family: Courier New;\">324-326</span> and <span style=\"font-family: Courier New;\">344-346</span> in <span style=\"font-family: Courier New;\">utility_isat.c,</span> users can change the location of the temperature or velocity sensor.</p>
+<p>In addition, the occupied zones can be adjusted in the <span style=\"font-family: Courier New;\">average_room_temp</span> and <span style=\"font-family: Courier New;\">average_room_vel</span> functions in <span style=\"font-family: Courier New;\">utility_isat.c.</span></p>
 <li>Use the Simplified CFD Interface (SCI) to generate the input file for the FFD. </li>
 <li><ul>
 <li>Use a 20 X 20 X 20 stretched grid. </li>
 <li>Set the time step size of the FFD to <i>0.1</i> seconds. </li>
-<li>Generate the input files, which have by default the names <span style=\"font-family: Courier New;\">input.cfd</span> (mesh file) and <span style=\"font-family: Courier New;\">zeroone.dat</span> (obstacles file). </li>
-<li>Rename the files as Mixed<span style=\"font-family: Courier New;\">Convection.cfd</span> and Mixed<span style=\"font-family: Courier New;\">Convection.dat</span>, respectively. </li>
+<li>Generate the input files, which by default have the names <span style=\"font-family: Courier New;\">input.cfd</span> (mesh file) and <span style=\"font-family: Courier New;\">zeroone.dat</span> (obstacles file). </li>
+<li>Rename the files as <span style=\"font-family: Courier New;\">MixedConvection.cfd</span> and <span style=\"font-family: Courier New;\">MixedConvection.dat</span>, respectively. </li>
 </ul></li>
 <li>Revise the FFD parameter input file <span style=\"font-family: Courier New;\">MixedConvection.ffd</span> (an example file is available in <span style=\"font-family: Courier New;\">Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/Tutorial/MixedConvection/</span>): </li>
 <p><span style=\"font-family: Courier New;\">inpu.parameter_file_format SCI</span></p>
@@ -322,6 +333,7 @@ equation
 <li>Set the simulation stop time of the Modelica model to <span style=\"font-family: Courier New;\">180</span> seconds and choose, for example, the Radau solver. </li>
 <li>Translate the model and start the simulation. </li>
 <li>Post-process: the generation of FFD output file (plt or vtk) is blocked by default, the users should revise the codes to output. </li>
+</ol></li>
 </ol>
 </html>",revisions="<html>
 <ul>
@@ -330,7 +342,7 @@ equation
 </html>"),
     experiment(Tolerance=1e-06, StopTime=180),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/ISAT/Tutorial/MixedConvectionBox.mos"),
+          "Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/ISAT/Tutorial/MixedConvection.mos" "Simulate and plot"),
     Diagram(coordinateSystem(extent={{-80,-160},{200,120}}, preserveAspectRatio=false),
         graphics));
 end MixedConvection;
