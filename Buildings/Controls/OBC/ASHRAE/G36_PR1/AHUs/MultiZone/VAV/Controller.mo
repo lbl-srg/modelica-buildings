@@ -76,7 +76,7 @@ block Controller
     "Type of controller"
     annotation (Dialog(group="Economizer PID controller"));
 
-  parameter Real kMinOut(final unit="1")=0.05
+  parameter Real kMinOut(final unit="1")=0.1
     "Gain of controller for minimum outdoor air intake"
     annotation (Dialog(group="Economizer PID controller"));
 
