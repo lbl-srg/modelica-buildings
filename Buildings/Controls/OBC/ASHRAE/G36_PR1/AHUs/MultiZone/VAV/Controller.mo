@@ -76,7 +76,7 @@ block Controller
     "Type of controller"
     annotation (Dialog(group="Economizer PID controller"));
 
-  parameter Real kMinOut(final unit="1")=0.1
+  parameter Real kMinOut(final unit="1")=0.02
     "Gain of controller for minimum outdoor air intake"
     annotation (Dialog(group="Economizer PID controller"));
 
@@ -109,7 +109,7 @@ block Controller
     "Type of controller"
     annotation(Dialog(group="Economizer freeze protection", enable=use_TMix));
 
-  parameter Real kFre(final unit="1/K") = 0.1
+  parameter Real kFre(final unit="1/K") = 0.02
     "Gain for mixed air temperature tracking for freeze protection, used if use_TMix=true"
      annotation(Dialog(group="Economizer freeze protection", enable=use_TMix));
 
