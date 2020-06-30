@@ -56,6 +56,50 @@ partial model PartialOpenLoop
        + mSou_flow_nominal + mEas_flow_nominal + mNor_flow_nominal +
       mWes_flow_nominal) "Nominal mass flow rate";
 
+  parameter Real ratOAFlo_A(final unit="m3/(s.m2)") = 0.3e-3
+    "Outdoor airflow rate required per unit area";
+  parameter Real ratOAFlo_P = 2.5e-3
+    "Outdoor airflow rate required per person";
+  parameter Real ratP_A = 5.38e-2
+    "Occupant density";
+  parameter Real effZ(final unit="1") = 0.8
+    "Zone air distribution effectiveness (limiting value)";
+  parameter Real divP(final unit="1") = 0.7
+    "Occupant diversity ratio";
+  parameter Real ratVFloMin(final unit="1") = 0.3
+    "Zone air flow rate at heating design conditions (fractional)";
+  parameter Modelica.SIunits.VolumeFlowRate VCorOA_flow_nominal=
+    (ratOAFlo_P * ratP_A + ratOAFlo_A) * AFloCor / effZ
+    "Zone outdoor air flow rate";
+  parameter Modelica.SIunits.VolumeFlowRate VSouOA_flow_nominal=
+    (ratOAFlo_P * ratP_A + ratOAFlo_A) * AFloSou / effZ
+    "Zone outdoor air flow rate";
+  parameter Modelica.SIunits.VolumeFlowRate VEasOA_flow_nominal=
+    (ratOAFlo_P * ratP_A + ratOAFlo_A) * AFloEas / effZ
+    "Zone outdoor air flow rate";
+  parameter Modelica.SIunits.VolumeFlowRate VNorOA_flow_nominal=
+    (ratOAFlo_P * ratP_A + ratOAFlo_A) * AFloNor / effZ
+    "Zone outdoor air flow rate";
+  parameter Modelica.SIunits.VolumeFlowRate VWesOA_flow_nominal=
+    (ratOAFlo_P * ratP_A + ratOAFlo_A) * AFloWes / effZ
+    "Zone outdoor air flow rate";
+  parameter Modelica.SIunits.VolumeFlowRate Vou_flow_nominal=
+    (divP * ratOAFlo_P * ratP_A + ratOAFlo_A) * sum(
+      {AFloCor, AFloSou, AFloNor, AFloEas, AFloWes})
+    "System uncorrected outdoor air flow rate";
+  parameter Real fraOAMax(final unit="1")=max(
+    {VCorOA_flow_nominal, VSouOA_flow_nominal, VEasOA_flow_nominal,
+     VNorOA_flow_nominal, VWesOA_flow_nominal} ./ ratVFloMin ./ {
+     mCor_flow_nominal, mSou_flow_nominal, mEas_flow_nominal,
+     mNor_flow_nominal, mWes_flow_nominal} .* 1.2)
+    "Maximum zone outdoor air fraction";
+  parameter Real effVen(final unit="1") = 1 + Vou_flow_nominal /
+    m_flow_nominal * 1.2 - fraOAMax
+    "System ventilation efficiency";
+  parameter Modelica.SIunits.VolumeFlowRate Vot_flow_nominal=
+    Vou_flow_nominal / effVen
+    "System design outdoor air flow rate";
+
   parameter Modelica.SIunits.Angle lat=41.98*3.14159/180 "Latitude";
 
   parameter Modelica.SIunits.Temperature THeaOn=293.15
