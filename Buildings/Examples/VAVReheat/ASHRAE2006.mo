@@ -21,7 +21,7 @@ model ASHRAE2006
 
   Controls.Economizer conEco(
     dT=1,
-    VOut_flow_min=0.3*m_flow_nominal/1.2,
+    VOut_flow_min=Vot_flow_nominal,
     Ti=600,
     k=0.1) "Controller for economizer"
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
@@ -37,15 +37,25 @@ model ASHRAE2006
     annotation (Placement(transformation(extent={{160,-16},{180,4}})));
   Controls.CoolingCoilTemperatureSetpoint TSetCoo "Setpoint for cooling coil"
     annotation (Placement(transformation(extent={{-130,-212},{-110,-192}})));
-  Controls.RoomVAV conVAVCor "Controller for terminal unit corridor"
+  Controls.RoomVAV conVAVCor(
+    final ratVFloMin=ratVFloMin)
+    "Controller for terminal unit corridor"
     annotation (Placement(transformation(extent={{530,32},{550,52}})));
-  Controls.RoomVAV conVAVSou "Controller for terminal unit south"
+  Controls.RoomVAV conVAVSou(
+    final ratVFloMin=ratVFloMin)
+    "Controller for terminal unit south"
     annotation (Placement(transformation(extent={{700,30},{720,50}})));
-  Controls.RoomVAV conVAVEas "Controller for terminal unit east"
+  Controls.RoomVAV conVAVEas(
+    final ratVFloMin=ratVFloMin)
+    "Controller for terminal unit east"
     annotation (Placement(transformation(extent={{880,30},{900,50}})));
-  Controls.RoomVAV conVAVNor "Controller for terminal unit north"
+  Controls.RoomVAV conVAVNor(
+    final ratVFloMin=ratVFloMin)
+    "Controller for terminal unit north"
     annotation (Placement(transformation(extent={{1040,30},{1060,50}})));
-  Controls.RoomVAV conVAVWes "Controller for terminal unit west"
+  Controls.RoomVAV conVAVWes(
+    final ratVFloMin=ratVFloMin)
+    "Controller for terminal unit west"
     annotation (Placement(transformation(extent={{1240,28},{1260,48}})));
   Buildings.Controls.Continuous.LimPID heaCoiCon(
     yMax=1,
