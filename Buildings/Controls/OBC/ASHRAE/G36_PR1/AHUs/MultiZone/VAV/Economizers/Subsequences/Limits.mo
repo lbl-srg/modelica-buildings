@@ -19,12 +19,13 @@ block Limits
     annotation (Dialog(group="Controller"));
 
   parameter Real k(
-    final unit="1")=0.05 "Gain of damper limit controller"
+    final unit="1")=0.05
+    "Gain of damper limit controller"
     annotation (Dialog(group="Controller"));
 
   parameter Real Ti(
     final unit="s",
-    final quantity="Time")=1200
+    final quantity="Time")=120
     "Time constant of damper limit controller integrator block"
     annotation (Dialog(group="Controller",
     enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -251,7 +252,7 @@ equation
   connect(uFreProSta, intLesEqu.u1)
     annotation (Line(points={{-200,-140},{-122,-140}}, color={255,127,0}));
   connect(damLimCon.trigger, uSupFan)
-    annotation (Line(points={{-138,178},{-138,166},{-100,166},{-100,-100},{-200,
+    annotation (Line(points={{-136,178},{-136,166},{-100,166},{-100,-100},{-200,
           -100}},               color={255,0,255}));
   connect(uSupFan, and2.u1) annotation (Line(points={{-200,-100},{-140,-100},{-140,
           -100},{-82,-100}}, color={255,0,255}));

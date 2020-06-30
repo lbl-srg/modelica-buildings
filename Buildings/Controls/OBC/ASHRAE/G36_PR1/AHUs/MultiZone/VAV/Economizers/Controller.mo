@@ -38,7 +38,7 @@ block Controller "Multi zone VAV AHU economizer control sequence"
     annotation (Dialog(group="Minimum outdoor air"));
   parameter Real TiMinOut(
     final unit="s",
-    final quantity="Time")=1200
+    final quantity="Time")=120
     "Time constant of controller for minimum outdoor air intake"
     annotation (Dialog(group="Minimum outdoor air",
       enable=controllerTypeMinOut == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -131,7 +131,7 @@ block Controller "Multi zone VAV AHU economizer control sequence"
     final min=0,
     final max=1,
     final unit="1") = 0
-    "Physically fixed minimum position of the outdoor air damper" 
+    "Physically fixed minimum position of the outdoor air damper"
     annotation (Dialog(tab="Commissioning", group="Physical damper position limits"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTSup(final unit="1")

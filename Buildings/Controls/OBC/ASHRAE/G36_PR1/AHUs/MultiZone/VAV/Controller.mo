@@ -82,7 +82,7 @@ block Controller
 
   parameter Real TiMinOut(
     final unit="s",
-    final quantity="Time")=1200
+    final quantity="Time")=120
     "Time constant of controller for minimum outdoor air intake"
     annotation (Dialog(group="Economizer PID controller",
       enable=controllerTypeMinOut == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
