@@ -17,27 +17,37 @@ model Guideline36
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conVAVCor(
     V_flow_nominal=mCor_flow_nominal/1.2,
     AFlo=AFloCor,
-    final samplePeriod=samplePeriod) "Controller for terminal unit corridor"
+    final samplePeriod=samplePeriod,
+    final VDisSetMin_flow=VCorOA_flow_nominal)
+    "Controller for terminal unit corridor"
     annotation (Placement(transformation(extent={{530,32},{550,52}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conVAVSou(
     V_flow_nominal=mSou_flow_nominal/1.2,
     AFlo=AFloSou,
-    final samplePeriod=samplePeriod) "Controller for terminal unit south"
+    final samplePeriod=samplePeriod,
+    final VDisSetMin_flow=VSouOA_flow_nominal)
+    "Controller for terminal unit south"
     annotation (Placement(transformation(extent={{700,30},{720,50}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conVAVEas(
     V_flow_nominal=mEas_flow_nominal/1.2,
     AFlo=AFloEas,
-    final samplePeriod=samplePeriod) "Controller for terminal unit east"
+    final samplePeriod=samplePeriod,
+    final VDisSetMin_flow=VEasOA_flow_nominal)
+    "Controller for terminal unit east"
     annotation (Placement(transformation(extent={{880,30},{900,50}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conVAVNor(
     V_flow_nominal=mNor_flow_nominal/1.2,
     AFlo=AFloNor,
-    final samplePeriod=samplePeriod) "Controller for terminal unit north"
+    final samplePeriod=samplePeriod,
+    final VDisSetMin_flow=VNorOA_flow_nominal)
+    "Controller for terminal unit north"
     annotation (Placement(transformation(extent={{1040,30},{1060,50}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conVAVWes(
     V_flow_nominal=mWes_flow_nominal/1.2,
     AFlo=AFloWes,
-    final samplePeriod=samplePeriod) "Controller for terminal unit west"
+    final samplePeriod=samplePeriod,
+    final VDisSetMin_flow=VWesOA_flow_nominal)
+    "Controller for terminal unit west"
     annotation (Placement(transformation(extent={{1240,28},{1260,48}})));
   Modelica.Blocks.Routing.Multiplex5 TDis "Discharge air temperatures"
     annotation (Placement(transformation(extent={{220,360},{240,380}})));
@@ -315,9 +325,8 @@ equation
           {444,565.333},{444,560},{458,560}},color={255,0,255}));
   connect(booRep1.y, zonOutAirSet.uReqOutAir) annotation (Line(points={{482,560},
           {496,560},{496,460},{206,460},{206,593},{218,593}}, color={255,0,255}));
-  connect(flo.TRooAir, zonOutAirSet.TZon) annotation (Line(points={{1094.14,
-          491.333},{1164,491.333},{1164,660},{210,660},{210,590},{218,590}},
-                                                                    color={0,0,127}));
+  connect(flo.TRooAir, zonOutAirSet.TZon) annotation (Line(points={{1107.13,506},
+          {1164,506},{1164,660},{210,660},{210,590},{218,590}},     color={0,0,127}));
   connect(TDis.y, zonOutAirSet.TDis) annotation (Line(points={{241,370},{252,
           370},{252,414},{200,414},{200,587},{218,587}},
                                                     color={0,0,127}));
@@ -373,8 +382,8 @@ equation
           380},{-240,290},{-222,290}}, color={0,0,127}));
   connect(warCooTim.y, zonSta.warUpTim) annotation (Line(points={{-278,380},{-240,
           380},{-240,286},{-222,286}}, color={0,0,127}));
-  connect(flo.TRooAir, zonSta.TZon) annotation (Line(points={{1094.14,491.333},
-          {1164,491.333},{1164,660},{-250,660},{-250,274},{-222,274}}, color={0,
+  connect(flo.TRooAir, zonSta.TZon) annotation (Line(points={{1107.13,506},{
+          1164,506},{1164,660},{-250,660},{-250,274},{-222,274}},      color={0,
           0,127}));
   connect(zonSta.yCooTim, zonGroSta.uCooTim) annotation (Line(points={{-198,295},
           {-176,295},{-176,291},{-162,291}}, color={0,0,127}));
@@ -396,8 +405,8 @@ equation
     annotation (Line(points={{-198,271},{-162,271}}, color={255,0,255}));
   connect(zonSta.yEndSetUp, zonGroSta.uEndSetUp) annotation (Line(points={{-198,
           269},{-192,269},{-192,267},{-162,267}}, color={255,0,255}));
-  connect(flo.TRooAir, zonGroSta.TZon) annotation (Line(points={{1094.14,
-          491.333},{1164,491.333},{1164,660},{-250,660},{-250,263},{-162,263}},
+  connect(flo.TRooAir, zonGroSta.TZon) annotation (Line(points={{1107.13,506},{
+          1164,506},{1164,660},{-250,660},{-250,263},{-162,263}},
         color={0,0,127}));
   connect(falSta.y, zonGroSta.uWin) annotation (Line(points={{-278,340},{-172,
           340},{-172,261},{-162,261}}, color={255,0,255}));
