@@ -76,13 +76,13 @@ block Controller
     "Type of controller"
     annotation (Dialog(group="Economizer PID controller"));
 
-  parameter Real kMinOut(final unit="1")=0.03
+  parameter Real kMinOut(final unit="1")=0.05
     "Gain of controller for minimum outdoor air intake"
     annotation (Dialog(group="Economizer PID controller"));
 
   parameter Real TiMinOut(
     final unit="s",
-    final quantity="Time")=120
+    final quantity="Time")=60
     "Time constant of controller for minimum outdoor air intake"
     annotation (Dialog(group="Economizer PID controller",
       enable=controllerTypeMinOut == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -116,7 +116,7 @@ block Controller
   parameter Real TiFre(
     final unit="s",
     final quantity="Time",
-    final max=TiMinOut)=120
+    final max=TiMinOut)=30
     "Time constant of controller for mixed air temperature tracking for freeze protection. Require TiFre < TiMinOut"
      annotation(Dialog(group="Economizer freeze protection",
        enable=use_TMix
@@ -138,14 +138,6 @@ block Controller
      final quantity="ThermodynamicTemperature")= 279.15
     "Lower limit for mixed air temperature for freeze protection, used if use_TMix=true"
      annotation(Dialog(group="Economizer freeze protection", enable=use_TMix));
-
-  parameter Real yMinDamLim=0
-    "Lower limit of damper position limits control signal output"
-    annotation (Dialog(tab="Economizer", group="Damper limits"));
-
-  parameter Real yMaxDamLim=1
-    "Upper limit of damper position limits control signal output"
-    annotation (Dialog(tab="Economizer", group="Damper limits"));
 
   parameter Real retDamFulOpeTim(
     final unit="s",
