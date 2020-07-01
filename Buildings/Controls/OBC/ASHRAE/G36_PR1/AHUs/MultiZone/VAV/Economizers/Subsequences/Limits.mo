@@ -2,15 +2,13 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Economizers.Subs
 block Limits
   "Multi zone VAV AHU minimum outdoor air control - damper position limits"
 
-  constant Real yMin=-1 "Lower limit of control loop signal"
-    annotation (Dialog(tab="Commissioning", group="Controller"));
-  constant Real yMax=1 "Upper limit of control loop signal"
-    annotation (Dialog(tab="Commissioning", group="Controller"));
+  constant Real yMin=0 "Lower limit of control loop signal";
+  constant Real yMax=1 "Upper limit of control loop signal";
   parameter Real uRetDamMin(
     final min=yMin,
     final max=yMax,
     final unit="1") = 0.5
-    "Minimum control signal for the return air damper position limit"
+    "Loop signal value to start decreasing the maximum return air damper position"
     annotation (Dialog(tab="Commissioning", group="Controller"));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
