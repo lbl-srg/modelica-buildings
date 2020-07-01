@@ -116,7 +116,7 @@ block Controller
   parameter Real TiFre(
     final unit="s",
     final quantity="Time",
-    final max=TiMinOut)=30
+    final max=TiMinOut)=60
     "Time constant of controller for mixed air temperature tracking for freeze protection. Require TiFre < TiMinOut"
      annotation(Dialog(group="Economizer freeze protection",
        enable=use_TMix
