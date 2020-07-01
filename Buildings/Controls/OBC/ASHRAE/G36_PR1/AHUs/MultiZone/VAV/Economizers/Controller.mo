@@ -91,23 +91,30 @@ block Controller "Multi zone VAV AHU economizer control sequence"
     "Time horizon over which the outdoor air flow measurment is averaged";
   parameter Real uHeaMax=-0.25
     "Lower limit of controller input when outdoor damper opens for modulation control. Require -1 < uHeaMax < uCooMin < 1."
-    annotation (Dialog(tab="Commissioning", group="Controller"));
+    annotation (Dialog(tab="Commissioning", group="Supply air temperature control"));
   parameter Real uCooMin=+0.25
     "Upper limit of controller input when return damper is closed for modulation control. Require -1 < uHeaMax < uCooMin < 1."
-    annotation (Dialog(tab="Commissioning", group="Controller"));
+    annotation (Dialog(tab="Commissioning", group="Supply air temperature control"));
 
   parameter Real uOutDamMax(
     final min=-1,
     final max=1,
     final unit="1") = (uHeaMax + uCooMin)/2
     "Maximum loop signal for the OA damper to be fully open. Require -1 < uHeaMax < uOutDamMax <= uRetDamMin < uCooMin < 1."
-    annotation (Dialog(tab="Commissioning", group="Controller"));
+    annotation (Dialog(tab="Commissioning", group="Supply air temperature control"));
   parameter Real uRetDamMin(
     final min=-1,
     final max=1,
     final unit="1") = (uHeaMax + uCooMin)/2
     "Minimum loop signal for the RA damper to be fully open. Require -1 < uHeaMax < uOutDamMax <= uRetDamMin < uCooMin < 1."
-    annotation (Dialog(tab="Commissioning", group="Controller"));
+    annotation (Dialog(tab="Commissioning", group="Supply air temperature control"));
+
+  parameter Real uRetDamMinLim(
+    final min=0,
+    final max=1,
+    final unit="1") = 0.5
+    "Loop signal value to start decreasing the maximum return air damper position"
+  annotation (Dialog(tab="Commissioning", group="Minimum outdoor air control"));
 
   parameter Real retDamPhyPosMax(
     final min=0,
@@ -208,7 +215,7 @@ block Controller "Multi zone VAV AHU economizer control sequence"
     final k=kMinOut,
     final Ti=TiMinOut,
     final Td=TdMinOut,
-    final uRetDamMin=uRetDamMin,
+    final uRetDamMin=uRetDamMinLim,
     final controllerType=controllerTypeMinOut)
     "Multi zone VAV AHU economizer minimum outdoor air requirement damper limit sequence"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
