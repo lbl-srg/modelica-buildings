@@ -42,8 +42,11 @@ protected
   parameter Modelica.SIunits.Temperature aveTChiWatRet = 288.15
   "Average measured chilled water return temperature";
 
-  parameter Modelica.SIunits.Time minStaRuntime = 900
-    "Minimum stage runtime";
+  parameter Real minStaRuntime(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")=900
+      "Minimum stage runtime";
 
   parameter Modelica.SIunits.VolumeFlowRate aveVChiWat_flow = 0.05
     "Average measured chilled water flow rate";

@@ -5,8 +5,11 @@ block FailsafeCondition
   parameter Boolean serChi = false
     "true = series chillers plant; false = parallel chillers plant";
 
-  parameter Modelica.SIunits.Time faiSafTruDelay = 900
-    "Enable delay";
+  parameter Real faiSafTruDelay(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")=900
+      "Enable delay";
 
   parameter Modelica.SIunits.TemperatureDifference TDif = 1
     "Offset between the chilled water supply temperature and its setpoint";

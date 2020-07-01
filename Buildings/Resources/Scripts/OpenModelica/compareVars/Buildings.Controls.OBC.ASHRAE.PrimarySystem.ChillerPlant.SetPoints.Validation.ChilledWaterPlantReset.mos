@@ -2,12 +2,12 @@ compareVars :=
   {
     "plaRes.triRes.y",
     "plaRes.yChiWatPlaRes",
-    "plaRes.uStaCha",
+    "plaRes.chaPro",
     "plaRes.triSam.y",
     "plaRes.truHol.y",
     "devRes.triRes.y",
     "devRes.yChiWatPlaRes",
     "devRes.TChiWatSupResReq",
-    "devRes.uStaCha",
+    "devRes.chaPro",
     "devRes.triRes.uDevSta"
   };
