@@ -20,9 +20,10 @@ model ASHRAE2006
     annotation (Placement(transformation(extent={{-250,-352},{-230,-332}})));
 
   Controls.Economizer conEco(
+    have_reset=true,
     dT=1,
     VOut_flow_min=Vot_flow_nominal,
-    Ti=600,
+    Ti=120,
     k=0.1) "Controller for economizer"
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
   Controls.RoomTemperatureSetpoint TSetRoo(
@@ -122,17 +123,17 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(TRet.T, conEco.TRet) annotation (Line(
-      points={{100,151},{100,172},{-92,172},{-92,157.333},{-81.3333,157.333}},
+      points={{100,151},{100,172},{-92,172},{-92,158.667},{-81.3333,158.667}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(TMix.T, conEco.TMix) annotation (Line(
-      points={{40,-29},{40,168},{-90,168},{-90,153.333},{-81.3333,153.333}},
+      points={{40,-29},{40,168},{-90,168},{-90,155.333},{-81.3333,155.333}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(conEco.TSupHeaSet, TSupSetHea.y) annotation (Line(
-      points={{-81.3333,145.333},{-156,145.333},{-156,-120},{-140,-120},{-140,
+      points={{-81.3333,148.667},{-156,148.667},{-156,-120},{-140,-120},{-140,
           -162},{-159,-162}},
       color={0,0,127},
       smooth=Smooth.None,
@@ -159,8 +160,8 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(TSetCoo.TSet, conEco.TSupCooSet) annotation (Line(
-      points={{-109,-202},{-100,-202},{-100,-114},{-150,-114},{-150,141.333},{
-          -81.3333,141.333}},
+      points={{-109,-202},{-100,-202},{-100,-114},{-150,-114},{-150,145.333},{
+          -81.3333,145.333}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -175,7 +176,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(conEco.VOut_flow, VOut1.V_flow) annotation (Line(
-      points={{-81.3333,149.333},{-90,149.333},{-90,80},{-61,80},{-61,-20.9}},
+      points={{-81.3333,152},{-90,152},{-90,80},{-61,80},{-61,-20.9}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -323,6 +324,9 @@ equation
           56},{1140,74},{140,74},{140,-5.2},{158,-5.2}}, color={0,0,127}));
   connect(wes.y_actual, pSetDuc.u[5]) annotation (Line(points={{1332,56},{1338,
           56},{1338,74},{140,74},{140,-4.4},{158,-4.4}}, color={0,0,127}));
+  connect(modeSelector.yFan, conEco.u_fan) annotation (Line(points={{-179.545,
+          -310},{-160,-310},{-160,-280},{-200,-280},{-200,142},{-82.6667,142}},
+        color={255,0,255}));
   annotation (
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/ASHRAE2006.mos"

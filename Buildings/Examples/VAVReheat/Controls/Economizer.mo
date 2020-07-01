@@ -1,32 +1,39 @@
 within Buildings.Examples.VAVReheat.Controls;
 block Economizer "Controller for economizer"
   import Buildings.Examples.VAVReheat.Controls.OperationModes;
+  parameter Boolean have_reset = false
+    "Set to true to use an input signal for outdoor air control reset";
   parameter Modelica.SIunits.Temperature TFreSet=277.15
     "Lower limit for mixed air temperature for freeze protection";
   parameter Modelica.SIunits.TemperatureDifference dT(min=0.1) = 1
     "Temperture offset to activate economizer";
   parameter Modelica.SIunits.VolumeFlowRate VOut_flow_min(min=0)
     "Minimum outside air volume flow rate";
-
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u_fan if have_reset
+    "Supply fan command signal"
+    annotation (      Placement(transformation(extent={{-140,
+            -100},{-100,-60}}),
+      iconTransformation(extent={{-180,-110},{-100,-30}})));
   Modelica.Blocks.Interfaces.RealInput TSupHeaSet
     "Supply temperature setpoint for heating" annotation (Placement(
-        transformation(extent={{-140,-40},{-100,0}}), iconTransformation(extent=
-           {{-140,-40},{-100,0}})));
+        transformation(extent={{-140,10},{-100,50}}), iconTransformation(extent={{-140,10},
+            {-100,50}})));
   Modelica.Blocks.Interfaces.RealInput TSupCooSet
     "Supply temperature setpoint for cooling"
-    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
+    annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
+        iconTransformation(extent={{-140,-40},{-100,0}})));
   Modelica.Blocks.Interfaces.RealInput TMix "Measured mixed air temperature"
-    annotation (Placement(transformation(extent={{-140,80},{-100,120}}),
-        iconTransformation(extent={{-140,80},{-100,120}})));
+    annotation (Placement(transformation(extent={{-140,110},{-100,150}}),
+        iconTransformation(extent={{-140,110},{-100,150}})));
   ControlBus controlBus
     annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
   Modelica.Blocks.Interfaces.RealInput VOut_flow
     "Measured outside air flow rate" annotation (Placement(transformation(
-          extent={{-140,20},{-100,60}}), iconTransformation(extent={{-140,20},{
-            -100,60}})));
+          extent={{-140,60},{-100,100}}),iconTransformation(extent={{-140,60},{-100,
+            100}})));
   Modelica.Blocks.Interfaces.RealInput TRet "Return air temperature"
-    annotation (Placement(transformation(extent={{-140,140},{-100,180}}),
-        iconTransformation(extent={{-140,140},{-100,180}})));
+    annotation (Placement(transformation(extent={{-140,160},{-100,200}}),
+        iconTransformation(extent={{-140,160},{-100,200}})));
   Modelica.Blocks.Math.Gain gain(k=1/VOut_flow_min) "Normalize mass flow rate"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
   Buildings.Controls.Continuous.LimPID conV_flow(
@@ -34,7 +41,10 @@ block Economizer "Controller for economizer"
     Ti=Ti,
     yMax=0.995,
     yMin=0.005,
-    Td=60) "Controller for outside air flow rate"
+    Td=60,
+    reset=if have_reset then Buildings.Types.Reset.Parameter else
+      Buildings.Types.Reset.Disabled)
+    "Controller for outside air flow rate"
     annotation (Placement(transformation(extent={{-22,-20},{-2,0}})));
   Modelica.Blocks.Sources.Constant uni(k=1) "Unity signal"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
@@ -81,7 +91,7 @@ block Economizer "Controller for economizer"
     annotation (Placement(transformation(extent={{170,-10},{190,10}})));
 equation
   connect(VOut_flow, gain.u) annotation (Line(
-      points={{-120,40},{-92,40},{-92,-50},{-62,-50}},
+      points={{-120,80},{-92,80},{-92,-50},{-62,-50}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(gain.y, conV_flow.u_m) annotation (Line(
@@ -131,11 +141,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(TSupHeaSet, TSetMix.TSupHeaSet) annotation (Line(
-      points={{-120,-20},{-80,-20},{-80,80},{-22,80}},
+      points={{-120,30},{-80,30},{-80,80},{-22,80}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TSupCooSet, TSetMix.TSupCooSet) annotation (Line(
-      points={{-120,-80},{-72,-80},{-72,68},{-22,68}},
+      points={{-120,-20},{-72,-20},{-72,68},{-22,68}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(controlBus, TSetMix.controlBus) annotation (Line(
@@ -147,7 +157,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(yOATMix.TRet, TRet) annotation (Line(
-      points={{18,176},{-90,176},{-90,160},{-120,160}},
+      points={{18,176},{-90,176},{-90,180},{-120,180}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(controlBus.TOut, yOATMix.TOut) annotation (Line(
@@ -159,7 +169,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(yOATMix.TMix, TMix) annotation (Line(
-      points={{18,168},{-80,168},{-80,100},{-120,100}},
+      points={{18,168},{-80,168},{-80,130},{-120,130}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(yOATMix.TMixSet, TSetMix.TSet) annotation (Line(
@@ -189,12 +199,16 @@ equation
   connect(TFre.y, yOATFre.u_s)
     annotation (Line(points={{1,130},{18,130}}, color={0,0,127}));
   connect(TMix, yOATFre.u_m)
-    annotation (Line(points={{-120,100},{30,100},{30,118}}, color={0,0,127}));
+    annotation (Line(points={{-120,130},{-46,130},{-46,100},{30,100},{30,118}},
+                                                            color={0,0,127}));
+  connect(u_fan, conV_flow.trigger) annotation (Line(points={{-120,-80},{-20,
+          -80},{-20,-22}},
+                      color={255,0,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,
             200}})),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,
-            200}}), graphics={
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,200}}),
+                    graphics={
         Rectangle(
           extent={{-100,200},{200,-100}},
           lineColor={0,0,0},
