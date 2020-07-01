@@ -76,13 +76,13 @@ block Controller
     "Type of controller"
     annotation (Dialog(group="Economizer PID controller"));
 
-  parameter Real kMinOut(final unit="1")=0.05
+  parameter Real kMinOut(final unit="1")=0.03
     "Gain of controller for minimum outdoor air intake"
     annotation (Dialog(group="Economizer PID controller"));
 
   parameter Real TiMinOut(
     final unit="s",
-    final quantity="Time")=60
+    final quantity="Time")=120
     "Time constant of controller for minimum outdoor air intake"
     annotation (Dialog(group="Economizer PID controller",
       enable=controllerTypeMinOut == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
