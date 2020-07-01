@@ -10,16 +10,16 @@ model Derivative "Validation model for the Derivative block"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Derivative der1(
-    initType=Buildings.Controls.OBC.CDL.Types.Init.InitialOutput)
+    y_start=-10) "Approximate the derivative of the input"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
 equation
   connect(ramp1.y, cos1.u)
-    annotation (Line(points={{-39,0},{-12,0}},         color={0,0,127}));
+    annotation (Line(points={{-38,0},{-12,0}},         color={0,0,127}));
   connect(cos1.y, der1.u)
-    annotation (Line(points={{11,0},{38,0}},        color={0,0,127}));
+    annotation (Line(points={{12,0},{38,0}},        color={0,0,127}));
   annotation (
-  experiment(StopTime=5.0, Tolerance=1e-06),
+  experiment(StopTime=2.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/Derivative.mos"
         "Simulate and plot"),
     Documentation(info="<html>

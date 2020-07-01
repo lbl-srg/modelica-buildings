@@ -3,33 +3,25 @@ block Derivative "Block that approximates the derivative of the input"
   parameter Real k(unit="1") = 1 "Gains";
   parameter Modelica.SIunits.Time T(min=1E-60)=0.01
     "Time constant (T>0 required)";
-  parameter Buildings.Controls.OBC.CDL.Types.Init initType=Buildings.Controls.OBC.CDL.Types.Init.NoInit
-    "Type of initialization (1: no init, 2: initial state, 3: initial output)"
-    annotation(Evaluate=true, Dialog(group="Initialization"));
   parameter Real x_start=0 "Initial or guess value of state"
     annotation (Dialog(group="Initialization"));
   parameter Real y_start=0 "Initial value of output (= state)"
-    annotation(Dialog(enable=initType == Buildings.Controls.OBC.CDL.Types.Init.InitialOutput,
-                      group="Initialization"));
+    annotation(Dialog(group="Initialization"));
   Interfaces.RealInput u "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Interfaces.RealOutput y "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
-  output Real x(start=x_start) "State of block";
+  output Real x "State of block";
 
 protected
-  parameter Boolean zeroGain = abs(k) < 100*1E-15
+  parameter Boolean zeroGain = abs(k) < 1E-17
     "= true, if gain equals to zero";
 initial equation
-  if initType == Buildings.Controls.OBC.CDL.Types.Init.InitialState then
-    x = x_start;
-  elseif initType == Buildings.Controls.OBC.CDL.Types.Init.InitialOutput then
-    if zeroGain then
-       x = u;
-    else
-       y = y_start;
-    end if;
+  if zeroGain then
+     x = u;
+  else
+     x = u - T*y_start/k;
   end if;
 
 equation
@@ -42,19 +34,27 @@ annotation (
 <p>
 This blocks defines the transfer function between the
 input <code>u</code> and the output <code>y</code>
-(element-wise) as <i>approximated derivative</i>:
+as <i>approximated derivative</i>:
 </p>
 <pre>
              k * s
      y = ------------ * u
             T * s + 1
 </pre>
-
 <p>
 If <code>k=0</code>, the block reduces to <code>y=0</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 21, 2020, by Michael Wetter:<br/>
+Removed option to not set the initialization method or to set the initial state.
+The new implementation only allows to set the initial output, from which
+the initial state is computed.
+<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1887\">issue 1887</a>.
+</li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>
 Changed icon to display dynamically the output value.

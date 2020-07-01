@@ -27,37 +27,76 @@
     "model_name": "Buildings.Fluid.Examples.FlowSystem.Simplified2"
   },
   {
+    "jmodelica": {
+      "simulate": false
+    },
+    "optimica": {
+      "simulate": false
+    },
+  "model_name": "Buildings.ThermalZones.Detailed.Validation.SingleZoneFloorWithHeating"
+  },
+  {
+    "jmodelica": {
+        "translate": false
+    },
+    "model_name": "Buildings.Utilities.IO.Python36.Examples.KalmanFilter"
+  },
+  {
+    "jmodelica": {
+      "translate": false
+    },
+   "model_name": "Buildings.Utilities.IO.Python36.Examples.SimpleRoom"
+  },
+  {
+    "jmodelica": {
+        "translate": false
+    },
+    "optimica": {
+        "simulate": false
+    },
+ "model_name": "Buildings.Utilities.IO.Python36.Functions.Examples.Exchange"
+  },
+  {
+    "jmodelica": {
+      "translate": false
+    },
+    "model_name": "Buildings.Utilities.IO.Python36.Functions.Examples.ExchangeWithPassPythonObject"
+  },
+  {
+    "jmodelica": {
+        "translate": false
+    },
+    "optimica": {
+        "translate": false
+    },
+    "model_name": "Buildings.Obsolete.Utilities.IO.Python27.Examples.KalmanFilter"
+  },
+  {
+    "jmodelica": {
+      "translate": false
+    },
+    "optimica": {
+      "translate": false
+    },
+   "model_name": "Buildings.Obsolete.Utilities.IO.Python27.Examples.SimpleRoom"
+  },
+  {
        "jmodelica": {
-         "simulate": false
+         "translate": false
     },
        "optimica": {
          "translate": false
     },
-    "model_name": "Buildings.Utilities.IO.Python27.Functions.Examples.Exchange"
+    "model_name": "Buildings.Obsolete.Utilities.IO.Python27.Functions.Examples.Exchange"
   },
   {
+       "jmodelica": {
+         "translate": false
+    },
        "optimica": {
          "translate": false
     },
-    "model_name": "Buildings.Utilities.IO.Python27.Examples.KalmanFilter"
-  },
-  {
-       "optimica": {
-         "translate": false
-    },
-    "model_name": "Buildings.Utilities.IO.Python27.Functions.Examples.Exchange"
-  },
-  {
-       "optimica": {
-         "translate": false
-    },
-    "model_name": "Buildings.Utilities.IO.Python27.Functions.Examples.ExchangeWithPassPythonObject"
-  },
-  {
-       "optimica": {
-         "translate": false
-    },
-    "model_name": "Buildings.Utilities.IO.Python27.Examples.SimpleRoom"
+    "model_name": "Buildings.Obsolete.Utilities.IO.Python27.Functions.Examples.ExchangeWithPassPythonObject"
   },
   {
        "jmodelica": {
@@ -67,29 +106,5 @@
          "rtol": 1E-8
     },
     "model_name": "Buildings.Examples.DualFanDualDuct.ClosedLoop"
-  },
-  {
-       "optimica": {
-         "simulate": false
-    },
-    "model_name": "Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.MSLAIT2Nodes"
-  },
-  {
-       "optimica": {
-         "simulate": false
-    },
-    "model_name": "Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT"
-  },
-  {
-       "optimica": {
-         "simulate": false
-    },
-    "model_name": "Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.MSLAIT"
-  },
-  {
-       "optimica": {
-         "simulate": false
-    },
-    "model_name": "Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.Data.TestData"
   }
 ]

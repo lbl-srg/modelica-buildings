@@ -6,26 +6,25 @@ model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
     annualCoo(Min=-6.137*3.6e9, Max=-7.964*3.6e9, Mean=-6.832*3.6e9),
     peakHea(Min=3.437*1000, Max=4.354*1000, Mean=4.000*1000),
     peakCoo(Min=-5.965*1000, Max=-6.827*1000, Mean=-6.461*1000)));
-  Controls.Continuous.LimPID conHea(
-    Td=60,
-    initType=Modelica.Blocks.Types.InitPID.InitialState,
+  Buildings.Controls.OBC.CDL.Continuous.LimPID conHea(
+    k=0.1,
     Ti=300,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k=0.1) "Controller for heating"
+    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI)
+    "Controller for heating"
     annotation (Placement(transformation(extent={{-72,30},{-64,38}})));
-  Controls.Continuous.LimPID conCoo(
-    Td=60,
-    reverseAction=true,
-    initType=Modelica.Blocks.Types.InitPID.InitialState,
+  Buildings.Controls.OBC.CDL.Continuous.LimPID conCoo(
+    k=0.1,
     Ti=300,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k=0.1) "Controller for cooling"
+    reverseActing=false,
+    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI)
+    "Controller for cooling"
     annotation (Placement(transformation(extent={{-72,8},{-64,16}})));
-  Modelica.Blocks.Math.Gain gaiHea(k=1E6) "Gain for heating"
+  Buildings.Controls.OBC.CDL.Continuous.Gain gaiHea(k=1E6) "Gain for heating"
     annotation (Placement(transformation(extent={{-58,30},{-50,38}})));
-  Modelica.Blocks.Math.Gain gaiCoo(k=-1E6) "Gain for cooling"
+  Buildings.Controls.OBC.CDL.Continuous.Gain gaiCoo(k=-1E6) "Gain for cooling"
     annotation (Placement(transformation(extent={{-58,8},{-50,16}})));
-  Modelica.Blocks.Math.Sum sum1(nin=2)
+  Modelica.Blocks.Math.Sum sumHeaCoo(nin=2)
+    "Sum of heating and cooling heat flow rate"
     annotation (Placement(transformation(extent={{-20,20},{-12,28}})));
   Modelica.Blocks.Routing.Multiplex2 multiplex2
     annotation (Placement(transformation(extent={{-36,20},{-28,28}})));
@@ -66,51 +65,51 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(conHea.y,gaiHea. u) annotation (Line(
-      points={{-63.6,34},{-58.8,34}},
+      points={{-63.2,34},{-58.8,34}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conCoo.y,gaiCoo. u)  annotation (Line(
-      points={{-63.6,12},{-58.8,12}},
+      points={{-63.2,12},{-58.8,12}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(gaiHea.y,multiplex2. u1[1]) annotation (Line(
-      points={{-49.6,34},{-42,34},{-42,26.4},{-36.8,26.4}},
+      points={{-49.2,34},{-42,34},{-42,26.4},{-36.8,26.4}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(gaiCoo.y,multiplex2. u2[1]) annotation (Line(
-      points={{-49.6,12},{-42,12},{-42,21.6},{-36.8,21.6}},
+      points={{-49.2,12},{-42,12},{-42,21.6},{-36.8,21.6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(multiplex2.y,sum1.u) annotation (Line(
+  connect(multiplex2.y, sumHeaCoo.u) annotation (Line(
       points={{-27.6,24},{-20.8,24}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(sum1.y,preHea. Q_flow) annotation (Line(
+  connect(sumHeaCoo.y, preHea.Q_flow) annotation (Line(
       points={{-11.6,24},{-6,24}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(EHea.u,gaiHea. y) annotation (Line(
-      points={{-20.8,40},{-32,40},{-32,34},{-49.6,34}},
+      points={{-20.8,40},{-32,40},{-32,34},{-49.2,34}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(ECoo.u,gaiCoo. y) annotation (Line(
-      points={{-20.8,10},{-34,10},{-34,12},{-49.6,12}},
+      points={{-20.8,10},{-34,10},{-34,12},{-49.2,12}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TSetHea.y[1],conHea. u_s) annotation (Line(
-      points={{-83.6,34},{-72.8,34}},
+      points={{-83.2,34},{-72.8,34}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TSetCoo.y[1],conCoo. u_s) annotation (Line(
-      points={{-83.6,12},{-72.8,12}},
+      points={{-83.2,12},{-72.8,12}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(PCoo.u,gaiCoo. y) annotation (Line(
-      points={{-20.8,-4},{-42,-4},{-42,12},{-49.6,12}},
+      points={{-20.8,-4},{-42,-4},{-42,12},{-49.2,12}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(PHea.u,gaiHea. y) annotation (Line(
-      points={{-20.8,52},{-42,52},{-42,34},{-49.6,34}},
+      points={{-20.8,52},{-42,52},{-42,34},{-49.2,34}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(preHea.port, roo.heaPorAir) annotation (Line(
@@ -125,6 +124,10 @@ equation
       Tolerance=1e-06),
     Documentation(revisions="<html>
 <ul>
+<li>
+April 8, 2020, by Michael Wetter:<br/>
+Removed <code>initType</code> in PID controller.
+</li>
 <li>
 January 21, 2020, by Michael Wetter:<br/>
 Changed calculation of time averaged values to use

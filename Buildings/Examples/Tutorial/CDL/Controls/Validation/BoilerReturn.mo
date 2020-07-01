@@ -34,6 +34,5 @@ __Dymola_Commands(file=
         "Simulate and plot"),
     experiment(
       StopTime=3600,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"));
+      Tolerance=1e-06));
 end BoilerReturn;

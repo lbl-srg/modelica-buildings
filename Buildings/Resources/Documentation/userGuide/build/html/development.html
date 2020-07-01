@@ -404,18 +404,26 @@ than making the blocks smaller.</p></li>
 <li><p>For simple, small controllers, provide a unit test in a <code class="docutils literal notranslate"><span class="pre">Validation</span></code> or <code class="docutils literal notranslate"><span class="pre">Examples</span></code> package
 that is in the hierarchy one level below the implemented controller.
 See <a class="reference internal" href="#sec-val"><span class="std std-numref">Section 5.4</span></a> for unit test implementation.
-For equipment and system controllers, provide also a closed loop example outside of the
-<code class="docutils literal notranslate"><span class="pre">Buildings.Controls.OBC</span></code> package because some control logic errors may only be noticed
-when used in a closed loop test.</p></li>
+Because some control logic errors may only be noticed
+when used in a closed loop test,
+for equipment and system controllers, provide also closed loop examples that test the sequence
+for all modes of operation. If the closed loop examples include HVAC models, then put them
+outside of the <code class="docutils literal notranslate"><span class="pre">Buildings.Controls.OBC</span></code> package.
+Make sure sequences are tested for all modes of operation, and as applicable, for winter, shoulder
+and summer days.</p></li>
 </ol>
 </div>
 </div>
 <div class="section" id="validation">
 <span id="sec-val"></span><h2>5.4. Validation<a class="headerlink" href="#validation" title="Permalink to this headline">¶</a></h2>
-<p>All models that are implemented need to be validated for a range of
+<p>All models that are implemented need to be validated for all
 realistic operating modes.
 These validations need to be part of the
 <a class="reference external" href="https://github.com/lbl-srg/modelica-buildings/wiki/Unit-Tests">unit tests</a>.</p>
+<p>Add a couple of sentences that explain to others the intent of the unit test.
+For example, an air handler unit controller test could describe
+“This model verifies that as the cooling load of the room increases, the controller
+first increases the mass flow rate setpoint and then reduces the supply temperature setpoint.”</p>
 <p>For simple models, the validation can be against analytic solutions.
 This is for example done in
 <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances_Examples.html#Buildings.Fluid.FixedResistances.Examples.PressureDrop">Buildings.Fluid.FixedResistances.PressureDrop</a>
@@ -462,7 +470,7 @@ be read by the Modelica data reader.</p></li>
       
     </p>
     <p>
-        &copy; Copyright 2012-2019, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
+        &copy; Copyright 2012-2020, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
     </p>
   </div>

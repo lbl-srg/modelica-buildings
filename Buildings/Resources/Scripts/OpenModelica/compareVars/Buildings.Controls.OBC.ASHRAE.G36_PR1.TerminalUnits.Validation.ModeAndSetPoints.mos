@@ -1,16 +1,16 @@
 compareVars :=
   {
-    "setPoi.setAdj[1]",
-    "setPoi.heaSetAdj[1]",
+    "setPoi.setAdj",
+    "setPoi.heaSetAdj",
     "TZon1.y",
     "TZon2.y",
     "setPoi.TZonHeaOn",
     "setPoi.TZonCooOn",
-    "setPoi.TZonCooSet[1]",
-    "setPoi.TZonHeaSet[1]",
+    "setPoi.TZonCooSet",
+    "setPoi.TZonHeaSet",
     "setPoi.yOpeMod",
-    "setPoi1.uOccSen[1]",
-    "setPoi1.uWinSta[1]",
-    "setPoi1.TZonCooSet[1]",
-    "setPoi1.TZonHeaSet[1]"
+    "setPoi1.uOccSen",
+    "setPoi1.uWinSta",
+    "setPoi1.TZonCooSet",
+    "setPoi1.TZonHeaSet"
   };

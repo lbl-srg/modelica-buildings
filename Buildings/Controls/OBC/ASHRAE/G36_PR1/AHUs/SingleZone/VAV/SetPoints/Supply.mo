@@ -1,11 +1,17 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints;
 block Supply "Supply air set point for single zone VAV system"
 
-  parameter Modelica.SIunits.Temperature TSupSetMax
+  parameter Real TSupSetMax(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
     "Maximum supply air temperature for heating"
     annotation (Dialog(group="Temperatures"));
 
-  parameter Modelica.SIunits.Temperature TSupSetMin
+  parameter Real TSupSetMin(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
     "Minimum supply air temperature for cooling"
     annotation (Dialog(group="Temperatures"));
 
@@ -59,9 +65,9 @@ block Supply "Supply air set point for single zone VAV system"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(min=0, max=1, unit="1") "Fan speed"
   annotation (Placement(transformation(extent={{100,-80},{140,-40}})));
 
-  CDL.Interfaces.BooleanInput uFan "Supply fan status" annotation (Placement(
-        transformation(extent={{-140,-160},{-100,-120}}), iconTransformation(
-          extent={{-140,-120},{-100,-80}})));
+  CDL.Interfaces.BooleanInput uFan "Supply fan status"
+    annotation (Placement(transformation(extent={{-140,-160},{-100,-120}}),
+      iconTransformation(extent={{-140,-120},{-100,-80}})));
   CDL.Logical.Switch switch "Switch to assign control signal"
     annotation (Placement(transformation(extent={{72,-30},{92,-10}})));
   CDL.Continuous.Sources.Constant fanOff(k=0) "Fan off status"

@@ -126,10 +126,10 @@ The following conditions are applied in Modelica.:
 </p>
 <ul>
 <li>
-East wall: Fixed temperature at <i>T<sub>e</sub>=0</i>&circ;C,
+East wall: Fixed temperature at <i>T<sub>e</sub>=0</i>&deg;C,
 </li>
 <li>
-West wall: Fixed temperature at <i>T<sub>w</sub>=1</i>&circ;C,
+West wall: Fixed temperature at <i>T<sub>w</sub>=1</i>&deg;C,
 </li>
 <li>
 North &amp; South wall, Ceiling, Floor: Fixed heat flux at <i>0</i> W/m<sup>2</sup>.

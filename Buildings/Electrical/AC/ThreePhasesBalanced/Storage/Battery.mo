@@ -12,9 +12,11 @@ Documentation(info="<html>
 Simple model of a battery.
 </p>
 <p>
-This model takes as an input the power to be stored in the battery (if <i>P &gt; 0</i>)
-or to be extracted from the battery. This model takes into account the efficiency of the conversion
-between DC and AC <i>&eta;<sub>DCAC</sub></i>.
+This model takes as an input the power to be extracted from the AC line and
+stored in the battery (if <i>P &gt; 0</i>)
+or to be fed into the AC line after being extracted from the battery.
+The actual power stored or extracted in the battery differs from <i>P</i> due
+to AC/DC conversion losses and battery charge and discharge efficiencies.
 </p>
 <p>
 The output connector <code>SOC</code> is the state of charge of the battery.
@@ -26,8 +28,17 @@ provide a control so that only a reasonable amount of power is exchanged,
 and that the state of charge remains between zero and one.
 </p>
 </html>",
-        revisions="<html>
+revisions="<html>
 <ul>
+<li>
+April 2, 2020 by Michael Wetter:<br/>
+Corrected model and improved the documentation. The previous model extracted from
+the AC connector the input power <code>P</code> plus the AC/DC conversion losses, but <code>P</code>
+should be the power exchanged at the AC connector. Conversion losses are now only
+accounted for in the energy exchange at the battery.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1865\">issue 1865</a>.
+</li>
 <li>
 September 22, 2014, by Marco Bonvini:<br/>
 Added model and documentation

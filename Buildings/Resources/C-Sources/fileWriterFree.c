@@ -51,11 +51,10 @@ void fileWriterFree(void* ptrFileWriter){
   /* If this FileWriter writes in a CombiTimeTable format, prepend the required header
   now that we know how many lines have been written. */
   if (ID->isCombiTimeTable){
-    char* buf;
-    asprintf(&buf,"#1\ndouble csv(%i,%i)\n",ID->numRows,ID->numColumns);
+    char buf[255];
+    sprintf(buf,"#1\ndouble csv(%i,%i)\n",ID->numRows,ID->numColumns);
     prependString(ID->fileWriterName, buf);
-    free(buf);
-    }
+  }
 
   freeBase(ptrFileWriter);
 

@@ -26,7 +26,7 @@ protected
       "Number of samples used for averaging calculation";
   Integer index(start=0, fixed=true) "Index of the vector ySample";
   Real ySample[n](
-    start=vector(zeros(n,1)),
+    start=zeros(n),
     each fixed=true) "Vector of samples to be averaged";
 
 initial equation

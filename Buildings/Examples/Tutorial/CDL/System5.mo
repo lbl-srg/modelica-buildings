@@ -146,6 +146,5 @@ First implementation.
     experiment(
       StartTime=1296000,
       StopTime=1382400,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"));
+      Tolerance=1e-06));
 end System5;

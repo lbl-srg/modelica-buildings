@@ -1,14 +1,6 @@
 CheckBlackBodySkyTemperature
-CheckCeilingHeight
 CheckPressure
-CheckRadiation
-CheckRelativeHumidity
-CheckSkyCover
 CheckTemperature
-CheckWindDirection
-CheckWindSpeed
-ConvertRadiation
-ConvertRelativeHumidity
 ConvertTime
 ConvertTimeNegativeStart
 ConvertTimePositiveStart
@@ -17,5 +9,6 @@ GetAbsolutePath
 GetHeaderElement
 GetTimeSpanTMY3
 GetTimeSpanTMY3_NonzeroStart
+LimitMin
 LocalCivilTime
 SolarTime

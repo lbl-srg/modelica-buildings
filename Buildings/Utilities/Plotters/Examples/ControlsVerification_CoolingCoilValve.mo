@@ -82,7 +82,7 @@ model ControlsVerification_CoolingCoilValve
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
 
   Buildings.Utilities.Plotters.Examples.BaseClasses.CoolingCoilValve cooValSta(
-    reverseAction=true,
+    reverseActing=false,
     TSupHighLim(displayUnit="degC"),
     TSupHigLim(displayUnit="degC"),
     TOutDelta(displayUnit="degC"),

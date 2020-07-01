@@ -11,11 +11,13 @@ block Limiter "Limit the range of a signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 initial equation
-    assert(uMin < uMax, "uMin must be smaller than uMax. Check parameters.");
+  assert(uMin < uMax, "uMin must be smaller than uMax. Check parameters.");
 
 equation
-  y = homotopy(actual = smooth(0, noEvent(if u > uMax then uMax
-      else if u < uMin then uMin else u)), simplified=u);
+  y = homotopy(
+    actual = smooth(0, noEvent(
+      if u > uMax then uMax else if u < uMin then uMin else u)),
+    simplified=u);
    annotation (
 defaultComponentName="lim",
 Documentation(info="<html>

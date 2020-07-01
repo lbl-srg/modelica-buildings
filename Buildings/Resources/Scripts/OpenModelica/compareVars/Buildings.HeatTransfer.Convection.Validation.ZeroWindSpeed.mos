@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "nor.hF",
+    "wes.hF",
+    "sou.hF",
+    "eas.hF"
+  };

@@ -143,7 +143,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     "Supply air temperature setpoint for heating"
     annotation (Placement(transformation(extent={{-80,-180},{-60,-160}})));
   Buildings.Controls.Continuous.LimPID cooCoiCon(
-    reverseAction=true,
+    reverseActing=false,
     Td=60,
     initType=Modelica.Blocks.Types.InitPID.InitialState,
     yMax=1,
@@ -1280,6 +1280,5 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/D
         "Simulate and plot"),
     experiment(
       StopTime=172800,
-      Tolerance=1e-07,
-      __Dymola_Algorithm="Cvode"));
+      Tolerance=1e-07));
 end ClosedLoop;

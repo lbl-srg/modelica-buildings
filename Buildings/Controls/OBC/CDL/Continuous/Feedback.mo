@@ -45,7 +45,7 @@ Modelica Standard Library.
           fillPattern=FillPattern.Solid,
           extent={{-20,-20},{20,20}}),
         Line(points={{-100,0},{-20,0}},color={0,0,127}),
-        Line(points={{20,0},{80,0}}, color={0,0,127}),
+        Line(points={{20,0},{100,0}},color={0,0,127}),
         Line(points={{0,-20},{0,-100}},color={0,0,127}),
         Text(extent={{-14,-112},{74,-38}},
                                         textString="-"),

@@ -41,7 +41,7 @@ block CoolingCoilValve "Cooling coil valve position control sequence"
     "Recorded interval at which integration part of the output gets updated"
     annotation(Evaluate=true, Dialog(group="Controller"));
 
-  parameter Boolean reverseAction = true "Controller reverse action"
+  parameter Boolean reverseActing=false "Controller reverse action"
     annotation(Evaluate=true, Dialog(tab="Advanced", group="Controller"));
 
   parameter Real k(final unit="1/K") = alc_prop_k * alc_k_unit_conv
@@ -103,8 +103,7 @@ block CoolingCoilValve "Cooling coil valve position control sequence"
       iconTransformation(extent={{100,-10},{120,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID limPI(
-    final reverseAction=reverseAction,
-    final controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    final reverseActing=reverseActing,
     final k=k,
     final Ti = Ti,
     final yMax=1,
@@ -242,7 +241,7 @@ equation
         Text(
           extent={{80,-102},{120,-110}},
           lineColor={0,0,127},
-          textString="Limiter for 
+          textString="Limiter for
 low TSup"),
         Rectangle(
           extent={{-120,0},{-12,-120}},

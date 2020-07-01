@@ -844,5 +844,14 @@ Updated core zone geometry parameters related to
 room heat and mass balance.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+Model of a floor that consists
+of five thermal zones that are representative of one floor of the
+new construction medium office building for Chicago, IL,
+as described in the set of DOE Commercial Building Benchmarks.
+There are four perimeter zones and one core zone.
+The envelope thermal properties meet ASHRAE Standard 90.1-2004.
+</p>
 </html>"));
 end Floor;

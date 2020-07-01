@@ -11,6 +11,9 @@ partial model PartialCoolingCoilHumidifyingHeating "Partial AHU model "
     final computeFlowResistance1=true,
     final computeFlowResistance2=true);
 
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
+
   // Cooling coil
   parameter Boolean waterSideFlowDependent=true
     "Set to false to make water-side hA independent of mass flow rate"
@@ -51,9 +54,6 @@ partial model PartialCoolingCoilHumidifyingHeating "Partial AHU model "
   parameter Real kFixed(unit="", min=0) = m1_flow_nominal / sqrt(dp1_nominal)
     "Flow coefficient of fixed resistance that may be in series with valve, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)"
     annotation(Dialog(group="Valve"));
-
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   parameter Boolean use_inputFilterValve=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter for the water-side valve"
@@ -194,6 +194,11 @@ partial model PartialCoolingCoilHumidifyingHeating "Partial AHU model "
         rotation=270,
         origin={80,-10})));
 
+initial equation
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
+
 equation
   connect(port_a1, cooCoi.port_a1)
     annotation (Line(points={{-100,60},{50,60},{50,-48},{60,-48}},
@@ -227,10 +232,20 @@ equation
                  Text(extent={{58,-70},{84,-76}},lineColor={0,0,255},
                      textString="Airside",textStyle={TextStyle.Bold})}),
     Documentation(info="<html>
-<p>This model describes a partial air handling unit model, which contains a water-side valve, a cooling coil and a fan model.</p>
-<p>The valve and fan are partial models, and should be redeclared when used in the air handling unit model.</p>
+<p>
+This model describes a partial air handling unit model, which contains a water-side valve, a cooling coil and a fan model.
+</p>
+<p>
+The valve and fan are partial models, and should be redeclared when used in the air handling unit model.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
+</li>
 <li>May 12, 2017 by Yangyang Fu:<br/>
 First implementation.
 </li>
