@@ -161,21 +161,13 @@ protected
     "Adder"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi2
-    "Feed false signal to reset timer when stage change is completed"
-    annotation (Placement(transformation(extent={{0,60},{20,80}})));
-
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi3
-    "Feed false signal to reset timer when stage change is completed"
-    annotation (Placement(transformation(extent={{0,20},{20,40}})));
-
   Buildings.Controls.OBC.CDL.Logical.Timer tim
     "Time since condition has been met"
-    annotation (Placement(transformation(extent={{30,60},{50,80}})));
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Timer tim1
     "Time since condition has been met"
-    annotation (Placement(transformation(extent={{30,20},{50,40}})));
+    annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
     final threshold=delCapReq)
@@ -187,10 +179,19 @@ protected
     "Compare time to enable delay"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
-    final k=false)
-    "Constant Boolean False signal"
-    annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
+  Buildings.Controls.OBC.CDL.Logical.And and1
+    "Turn on timer when hysteresis turns on and reset it when hysteresis turns
+    off or stage change process is completed"
+    annotation (Placement(transformation(extent={{-10,60},{10,80}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and3
+    "Turn on timer when hysteresis turns on and reset it when hysteresis turns
+    off or stage change process is completed"
+    annotation (Placement(transformation(extent={{-10,20},{10,40}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Not not1
+    "Logical Not"
+    annotation (Placement(transformation(extent={{-40,-190},{-20,-170}})));
 
 equation
   connect(div.u2,uCapUpMin)
@@ -253,30 +254,28 @@ equation
           {-140,60}}, color={0,0,127}));
   connect(div1.u1, uCapReq) annotation (Line(points={{-82,76},{-100,76},{-100,60},
           {-140,60}}, color={0,0,127}));
-  connect(logSwi2.y, tim.u)
-    annotation (Line(points={{22,70},{28,70}}, color={255,0,255}));
   connect(tim1.y, greEquThr1.u)
-    annotation (Line(points={{52,30},{58,30}}, color={0,0,127}));
+    annotation (Line(points={{42,30},{58,30}}, color={0,0,127}));
   connect(tim.y, greEquThr.u)
-    annotation (Line(points={{52,70},{58,70}}, color={0,0,127}));
-  connect(logSwi3.y, tim1.u)
-    annotation (Line(points={{22,30},{28,30}}, color={255,0,255}));
-  connect(hys1.y, logSwi2.u3) annotation (Line(points={{-18,70},{-10,70},{-10,62},
-          {-2,62}}, color={255,0,255}));
-  connect(hys2.y, logSwi3.u3) annotation (Line(points={{-18,30},{-10,30},{-10,22},
-          {-2,22}}, color={255,0,255}));
-  connect(uStaChaProEnd, logSwi3.u2) annotation (Line(points={{-140,-180},{-6,-180},
-          {-6,30},{-2,30}}, color={255,0,255}));
-  connect(uStaChaProEnd, logSwi2.u2) annotation (Line(points={{-140,-180},{-6,-180},
-          {-6,70},{-2,70}}, color={255,0,255}));
-  connect(con.y, logSwi2.u1) annotation (Line(points={{-18,100},{-14,100},{-14,78},
-          {-2,78}}, color={255,0,255}));
-  connect(con.y, logSwi3.u1) annotation (Line(points={{-18,100},{-14,100},{-14,38},
-          {-2,38}}, color={255,0,255}));
+    annotation (Line(points={{42,70},{58,70}}, color={0,0,127}));
   connect(greEquThr.y, logSwi.u1) annotation (Line(points={{82,70},{86,70},{86,58},
           {98,58}}, color={255,0,255}));
   connect(greEquThr1.y, logSwi.u3) annotation (Line(points={{82,30},{86,30},{86,
           42},{98,42}}, color={255,0,255}));
+  connect(hys1.y, and1.u1)
+    annotation (Line(points={{-18,70},{-12,70}}, color={255,0,255}));
+  connect(and1.y, tim.u)
+    annotation (Line(points={{12,70},{18,70}}, color={255,0,255}));
+  connect(and3.y, tim1.u)
+    annotation (Line(points={{12,30},{18,30}}, color={255,0,255}));
+  connect(and3.u1, hys2.y)
+    annotation (Line(points={{-12,30},{-18,30}}, color={255,0,255}));
+  connect(not1.u, uStaChaProEnd)
+    annotation (Line(points={{-42,-180},{-140,-180}}, color={255,0,255}));
+  connect(not1.y, and3.u2) annotation (Line(points={{-18,-180},{-16,-180},{-16,22},
+          {-12,22}}, color={255,0,255}));
+  connect(not1.y, and1.u2) annotation (Line(points={{-18,-180},{-16,-180},{-16,62},
+          {-12,62}}, color={255,0,255}));
 
 annotation (
   defaultComponentName = "effCon",

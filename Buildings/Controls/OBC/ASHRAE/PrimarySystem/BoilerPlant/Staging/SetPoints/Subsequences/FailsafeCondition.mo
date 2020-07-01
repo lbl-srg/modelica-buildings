@@ -48,6 +48,7 @@ block FailsafeCondition
     annotation (Placement(transformation(extent={{120,-20},{160,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
+
 protected
   Buildings.Controls.OBC.CDL.Continuous.Add add2(
     final k2=-1)
@@ -58,9 +59,10 @@ protected
     final uLow=TDif - TDifHys,
     final uHigh=TDif)
     "Hysteresis deadband to prevent cycling"
-    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer tim
+  Buildings.Controls.OBC.CDL.Logical.Timer tim(
+    accumulate=false)
     "Time since condition has been met"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
@@ -69,14 +71,14 @@ protected
     "Compare time to enable delay"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi
-    "Feed false signal to reset timer when stage change is completed"
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not1
+    "Logical Not"
+    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
-    final k=false)
-    "Constant Boolean False signal"
-    annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
+  Buildings.Controls.OBC.CDL.Logical.And and2
+    "Turn on timer when hysteresis turns on and reset it when hysteresis turns
+    off or stage change process is completed"
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
 equation
   connect(add2.u2, TSup)
@@ -86,20 +88,21 @@ equation
     annotation (Line(points={{-82,6},{-90,6},{-90,50},{-140,50}},
       color={0,0,127}));
   connect(add2.y, hys.u)
-    annotation (Line(points={{-58,0},{-52,0}},
+    annotation (Line(points={{-58,0},{-42,0}},
       color={0,0,127}));
   connect(tim.y, greEquThr.u)
     annotation (Line(points={{62,0},{78,0}}, color={0,0,127}));
   connect(greEquThr.y, yFaiCon)
     annotation (Line(points={{102,0},{140,0}}, color={255,0,255}));
-  connect(logSwi.y, tim.u)
+  connect(not1.u, uStaChaProEnd)
+    annotation (Line(points={{-42,-50},{-140,-50}}, color={255,0,255}));
+  connect(hys.y, and2.u1)
+    annotation (Line(points={{-18,0},{-2,0}}, color={255,0,255}));
+  connect(not1.y, and2.u2) annotation (Line(points={{-18,-50},{-12,-50},{-12,-8},
+          {-2,-8}}, color={255,0,255}));
+  connect(and2.y, tim.u)
     annotation (Line(points={{22,0},{38,0}}, color={255,0,255}));
-  connect(uStaChaProEnd, logSwi.u2) annotation (Line(points={{-140,-50},{-10,-50},
-          {-10,0},{-2,0}}, color={255,0,255}));
-  connect(con.y, logSwi.u1) annotation (Line(points={{-28,30},{-20,30},{-20,8},{
-          -2,8}}, color={255,0,255}));
-  connect(hys.y, logSwi.u3) annotation (Line(points={{-28,0},{-20,0},{-20,-8},{-2,
-          -8}}, color={255,0,255}));
+
 annotation (defaultComponentName = "faiSafCon",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
     graphics={

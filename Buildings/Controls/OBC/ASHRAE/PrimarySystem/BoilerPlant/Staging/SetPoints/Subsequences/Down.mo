@@ -210,7 +210,7 @@ block Down
     final displayUnit="K",
     final quantity="ThermodynamicTemperature") if not primaryOnly
     "Measured primary hot water return temperature"
-    annotation (Placement(transformation(extent={{-222,-180},{-182,-140}}),
+    annotation (Placement(transformation(extent={{-220,-180},{-180,-140}}),
       iconTransformation(extent={{-140,-140},{-100,-100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSecHotWatRet(
@@ -218,7 +218,7 @@ block Down
     final displayUnit="K",
     final quantity="ThermodynamicTemperature") if not primaryOnly
     "Measured secondary hot water return temperature"
-    annotation (Placement(transformation(extent={{-222,-210},{-182,-170}}),
+    annotation (Placement(transformation(extent={{-220,-210},{-180,-170}}),
       iconTransformation(extent={{-140,-170},{-100,-130}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yStaDow
@@ -313,7 +313,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.Not not3
     "Logical Not"
-    annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
+    annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys4(
     final uLow=bypValClo,
@@ -340,10 +340,6 @@ protected
     "Check for non-condensing boilers in stage"
     annotation (Placement(transformation(extent={{60,-180},{80,-160}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi2
-    "Feed false signal to reset timer when stage change is completed"
-    annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
-
   Buildings.Controls.OBC.CDL.Logical.Timer tim
     "Time since condition has been met"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
@@ -358,17 +354,9 @@ protected
     "Compare time to enable delay"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi3 if primaryOnly
-    "Feed false signal to reset timer when stage change is completed"
-    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
-
   Buildings.Controls.OBC.CDL.Logical.Timer tim1 if primaryOnly
     "Time since condition has been met"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi4 if not primaryOnly
-    "Feed false signal to reset timer when stage change is completed"
-    annotation (Placement(transformation(extent={{-50,-110},{-30,-90}})));
 
   Buildings.Controls.OBC.CDL.Logical.Timer tim2 if not primaryOnly
     "Time since condition has been met"
@@ -384,10 +372,6 @@ protected
     "Compare time to enable delay"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi5
-    "Feed false signal to reset timer when stage change is completed"
-    annotation (Placement(transformation(extent={{-50,34},{-30,54}})));
-
   Buildings.Controls.OBC.CDL.Logical.Timer tim3
     "Time since condition has been met"
     annotation (Placement(transformation(extent={{-20,34},{0,54}})));
@@ -396,11 +380,6 @@ protected
     final threshold=delMinFir)
     "Compare time to enable delay"
     annotation (Placement(transformation(extent={{20,34},{40,54}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
-    final k=false)
-    "Constant Boolean False signal"
-    annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndSig1(
     final nin=nSta) if not primaryOnly
@@ -416,6 +395,30 @@ protected
     final k2=-1) if not primaryOnly
     "Compare pump speed signal and minimum pump speed for stage"
     annotation (Placement(transformation(extent={{-174,-90},{-154,-70}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and1
+    "Turn on timer when hysteresis turns on and reset it when hysteresis turns
+    off or stage change process is completed"
+    annotation (Placement(transformation(extent={{-50,34},{-30,54}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and4
+    "Turn on timer when hysteresis turns on and reset it when hysteresis turns
+    off or stage change process is completed"
+    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and5
+    "Turn on timer when hysteresis turns on and reset it when hysteresis turns
+    off or stage change process is completed"
+    annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and6
+    "Turn on timer when hysteresis turns on and reset it when hysteresis turns
+    off or stage change process is completed"
+    annotation (Placement(transformation(extent={{-50,-110},{-30,-90}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Not not5
+    "Logical Not"
+    annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
 
 equation
   connect(faiSafCon.TSupSet, THotWatSupSet) annotation (Line(points={{-162,135},
@@ -439,10 +442,10 @@ equation
           130}},     color={255,0,255}));
   connect(and3.u2, or2.y) annotation (Line(points={{178,0},{134,0},{134,18},{82,
           18}}, color={255,0,255}));
-  connect(add4.u1, TPriHotWatRet) annotation (Line(points={{-164,-174},{-170,-174},
-          {-170,-160},{-202,-160}},       color={0,0,127}));
-  connect(add4.u2, TSecHotWatRet) annotation (Line(points={{-164,-186},{-170,-186},
-          {-170,-190},{-202,-190}},       color={0,0,127}));
+  connect(add4.u1, TPriHotWatRet) annotation (Line(points={{-164,-174},{-170,
+          -174},{-170,-160},{-200,-160}}, color={0,0,127}));
+  connect(add4.u2, TSecHotWatRet) annotation (Line(points={{-164,-186},{-170,
+          -186},{-170,-190},{-200,-190}}, color={0,0,127}));
   connect(hys3.u, add4.y)
     annotation (Line(points={{-134,-180},{-140,-180}}, color={0,0,127}));
   connect(logSwi.y, and3.u3) annotation (Line(points={{122,-40},{150,-40},{150,-8},
@@ -466,8 +469,7 @@ equation
   connect(not2.u, hys.y)
     annotation (Line(points={{-92,44},{-98,44}}, color={255,0,255}));
   connect(hys1.y, not3.u)
-    annotation (Line(points={{-108,-40},{-102,-40}},
-                                                   color={255,0,255}));
+    annotation (Line(points={{-108,-40},{-92,-40}},color={255,0,255}));
   connect(hys4.u, uBypValPos)
     annotation (Line(points={{-160,0},{-200,0}}, color={0,0,127}));
   connect(hys2.y, not4.u)
@@ -492,10 +494,6 @@ equation
                        color={255,0,255}));
   connect(uStaChaProEnd, faiSafCon.uStaChaProEnd) annotation (Line(points={{-200,
           90},{-166,90},{-166,125},{-162,125}}, color={255,0,255}));
-  connect(not3.y, logSwi2.u3) annotation (Line(points={{-78,-40},{-76,-40},{-76,
-          -48},{-52,-48}}, color={255,0,255}));
-  connect(logSwi2.y, tim.u)
-    annotation (Line(points={{-28,-40},{-22,-40}}, color={255,0,255}));
   connect(tim.y, greEquThr.u) annotation (Line(points={{2,-40},{50,-40},{50,-20},
           {58,-20}}, color={0,0,127}));
   connect(greEquThr.y, logSwi.u1) annotation (Line(points={{82,-20},{90,-20},{90,
@@ -504,14 +502,6 @@ equation
           {2,-40}}, color={0,0,127}));
   connect(greEquThr1.y, logSwi.u3) annotation (Line(points={{82,-60},{90,-60},{90,
           -48},{98,-48}}, color={255,0,255}));
-  connect(hys4.y, logSwi3.u3) annotation (Line(points={{-136,0},{-100,0},{-100,-8},
-          {-52,-8}}, color={255,0,255}));
-  connect(logSwi3.y, tim1.u)
-    annotation (Line(points={{-28,0},{-22,0}}, color={255,0,255}));
-  connect(logSwi4.u3, and2.y) annotation (Line(points={{-52,-108},{-64,-108},{-64,
-          -100},{-68,-100}}, color={255,0,255}));
-  connect(logSwi4.y, tim2.u)
-    annotation (Line(points={{-28,-100},{-22,-100}}, color={255,0,255}));
   connect(greEquThr2.u, tim2.y) annotation (Line(points={{18,-106},{10,-106},{10,
           -100},{2,-100}}, color={0,0,127}));
   connect(greEquThr2.y, or1.u2)
@@ -520,43 +510,49 @@ equation
     annotation (Line(points={{2,0},{18,0}}, color={0,0,127}));
   connect(greEquThr3.y, or2.u2) annotation (Line(points={{42,0},{50,0},{50,10},{
           58,10}}, color={255,0,255}));
-  connect(not2.y, logSwi5.u3) annotation (Line(points={{-68,44},{-66,44},{-66,36},
-          {-52,36}}, color={255,0,255}));
-  connect(tim3.u, logSwi5.y)
-    annotation (Line(points={{-22,44},{-28,44}}, color={255,0,255}));
   connect(greEquThr4.u, tim3.y)
     annotation (Line(points={{18,44},{2,44}}, color={0,0,127}));
   connect(greEquThr4.y, or2.u1) annotation (Line(points={{42,44},{46,44},{46,18},
           {58,18}}, color={255,0,255}));
   connect(greEquThr4.y, or1.u1) annotation (Line(points={{42,44},{46,44},{46,-98},
           {58,-98}}, color={255,0,255}));
-  connect(uStaChaProEnd, logSwi5.u2) annotation (Line(points={{-200,90},{-60,90},
-          {-60,44},{-52,44}}, color={255,0,255}));
-  connect(uStaChaProEnd, logSwi3.u2) annotation (Line(points={{-200,90},{-60,90},
-          {-60,0},{-52,0}}, color={255,0,255}));
-  connect(uStaChaProEnd, logSwi2.u2) annotation (Line(points={{-200,90},{-60,90},
-          {-60,-40},{-52,-40}}, color={255,0,255}));
-  connect(uStaChaProEnd, logSwi4.u2) annotation (Line(points={{-200,90},{-60,90},
-          {-60,-100},{-52,-100}}, color={255,0,255}));
-  connect(con.y, logSwi5.u1) annotation (Line(points={{-58,110},{-56,110},{-56,52},
-          {-52,52}}, color={255,0,255}));
-  connect(con.y, logSwi3.u1) annotation (Line(points={{-58,110},{-56,110},{-56,8},
-          {-52,8}}, color={255,0,255}));
-  connect(con.y, logSwi2.u1) annotation (Line(points={{-58,110},{-56,110},{-56,-32},
-          {-52,-32}}, color={255,0,255}));
-  connect(con.y, logSwi4.u1) annotation (Line(points={{-58,110},{-56,110},{-56,-92},
-          {-52,-92}}, color={255,0,255}));
-
   connect(con2.y, extIndSig1.u)
     annotation (Line(points={{-148,-130},{-142,-130}}, color={0,0,127}));
   connect(uCur, extIndSig1.index) annotation (Line(points={{-30,-220},{-30,-190},
           {-80,-190},{-80,-160},{-130,-160},{-130,-142}}, color={255,127,0}));
   connect(hys2.u, add2.y)
     annotation (Line(points={{-148,-80},{-152,-80}}, color={0,0,127}));
-  connect(uPumSpe, add2.u1) annotation (Line(points={{-200,-60},{-188,-60},{-188,
-          -74},{-176,-74}}, color={0,0,127}));
+  connect(uPumSpe, add2.u1) annotation (Line(points={{-200,-60},{-176,-60},{
+          -176,-74}},       color={0,0,127}));
   connect(extIndSig1.y, add2.u2) annotation (Line(points={{-118,-130},{-112,-130},
           {-112,-110},{-178,-110},{-178,-86},{-176,-86}}, color={0,0,127}));
+  connect(tim3.u, and1.y)
+    annotation (Line(points={{-22,44},{-28,44}}, color={255,0,255}));
+  connect(and1.u1, not2.y)
+    annotation (Line(points={{-52,44},{-68,44}}, color={255,0,255}));
+  connect(tim1.u, and4.y)
+    annotation (Line(points={{-22,0},{-28,0}}, color={255,0,255}));
+  connect(and5.y, tim.u)
+    annotation (Line(points={{-28,-40},{-22,-40}}, color={255,0,255}));
+  connect(tim2.u, and6.y)
+    annotation (Line(points={{-22,-100},{-28,-100}}, color={255,0,255}));
+  connect(hys4.y, and4.u1)
+    annotation (Line(points={{-136,0},{-52,0}}, color={255,0,255}));
+  connect(not3.y, and5.u1)
+    annotation (Line(points={{-68,-40},{-52,-40}}, color={255,0,255}));
+  connect(and2.y, and6.u1)
+    annotation (Line(points={{-68,-100},{-52,-100}}, color={255,0,255}));
+  connect(not5.u, uStaChaProEnd)
+    annotation (Line(points={{-122,90},{-200,90}}, color={255,0,255}));
+  connect(not5.y, and1.u2) annotation (Line(points={{-98,90},{-60,90},{-60,36},{
+          -52,36}}, color={255,0,255}));
+  connect(not5.y, and4.u2) annotation (Line(points={{-98,90},{-60,90},{-60,-8},{
+          -52,-8}}, color={255,0,255}));
+  connect(not5.y, and5.u2) annotation (Line(points={{-98,90},{-60,90},{-60,-48},
+          {-52,-48}}, color={255,0,255}));
+  connect(not5.y, and6.u2) annotation (Line(points={{-98,90},{-60,90},{-60,-108},
+          {-52,-108}}, color={255,0,255}));
+
   annotation(defaultComponentName = "staDow",
     Icon(coordinateSystem(extent={{-100,-160},{100,190}}),
       graphics={
