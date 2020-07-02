@@ -18,35 +18,35 @@ model Guideline36
     V_flow_nominal=mCor_flow_nominal/1.2,
     AFlo=AFloCor,
     final samplePeriod=samplePeriod,
-    final VDisSetMin_flow=1.5*VCorOA_flow_nominal)
+    final VDisSetMin_flow=max(1.5*VCorOA_flow_nominal, 0.15*mCor_flow_nominal/1.2))
     "Controller for terminal unit corridor"
     annotation (Placement(transformation(extent={{530,32},{550,52}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conVAVSou(
     V_flow_nominal=mSou_flow_nominal/1.2,
     AFlo=AFloSou,
     final samplePeriod=samplePeriod,
-    final VDisSetMin_flow=1.5*VSouOA_flow_nominal)
+    final VDisSetMin_flow=max(1.5*VSouOA_flow_nominal, 0.15*mSou_flow_nominal/1.2))
     "Controller for terminal unit south"
     annotation (Placement(transformation(extent={{700,30},{720,50}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conVAVEas(
     V_flow_nominal=mEas_flow_nominal/1.2,
     AFlo=AFloEas,
     final samplePeriod=samplePeriod,
-    final VDisSetMin_flow=1.5*VEasOA_flow_nominal)
+    final VDisSetMin_flow=max(1.5*VEasOA_flow_nominal, 0.15*mEas_flow_nominal/1.2))
     "Controller for terminal unit east"
     annotation (Placement(transformation(extent={{880,30},{900,50}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conVAVNor(
     V_flow_nominal=mNor_flow_nominal/1.2,
     AFlo=AFloNor,
     final samplePeriod=samplePeriod,
-    final VDisSetMin_flow=1.5*VNorOA_flow_nominal)
+    final VDisSetMin_flow=max(1.5*VNorOA_flow_nominal, 0.15*mNor_flow_nominal/1.2))
     "Controller for terminal unit north"
     annotation (Placement(transformation(extent={{1040,30},{1060,50}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conVAVWes(
     V_flow_nominal=mWes_flow_nominal/1.2,
     AFlo=AFloWes,
     final samplePeriod=samplePeriod,
-    final VDisSetMin_flow=1.5*VWesOA_flow_nominal)
+    final VDisSetMin_flow=max(1.5*VWesOA_flow_nominal, 0.15*mWes_flow_nominal/1.2))
     "Controller for terminal unit west"
     annotation (Placement(transformation(extent={{1240,28},{1260,48}})));
   Modelica.Blocks.Routing.Multiplex5 TDis "Discharge air temperatures"
@@ -82,7 +82,7 @@ model Guideline36
     final AFlo=AFlo,
     final have_occSen=fill(false, numZon),
     final have_winSen=fill(false, numZon),
-    final desZonPop={0.05*AFlo[i] for i in 1:numZon},
+    final desZonPop={ratP_A*AFlo[i] for i in 1:numZon},
     final minZonPriFlo=minZonPriFlo)
     "Zone level calculation of the minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{220,580},{240,600}})));
