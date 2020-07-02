@@ -66,8 +66,6 @@ partial model PartialOpenLoop
     "Zone air distribution effectiveness (limiting value)";
   parameter Real divP(final unit="1") = 0.7
     "Occupant diversity ratio";
-  parameter Real ratVFloMin(final unit="1") = 0.3
-    "Zone air flow rate at heating design conditions (fractional)";
   parameter Modelica.SIunits.VolumeFlowRate VCorOA_flow_nominal=
     (ratOAFlo_P * ratP_A + ratOAFlo_A) * AFloCor / effZ
     "Zone outdoor air flow rate";
@@ -87,14 +85,8 @@ partial model PartialOpenLoop
     (divP * ratOAFlo_P * ratP_A + ratOAFlo_A) * sum(
       {AFloCor, AFloSou, AFloNor, AFloEas, AFloWes})
     "System uncorrected outdoor air flow rate";
-  parameter Real fraOAMax(final unit="1")=max(
-    {VCorOA_flow_nominal, VSouOA_flow_nominal, VEasOA_flow_nominal,
-     VNorOA_flow_nominal, VWesOA_flow_nominal} ./ ratVFloMin ./ {
-     mCor_flow_nominal, mSou_flow_nominal, mEas_flow_nominal,
-     mNor_flow_nominal, mWes_flow_nominal} .* 1.2)
-    "Maximum zone outdoor air fraction";
-  parameter Real effVen(final unit="1") = 1 + Vou_flow_nominal /
-    m_flow_nominal * 1.2 - fraOAMax
+  parameter Real effVen(final unit="1") = if divP < 0.6 then
+    0.88 * divP + 0.22 else 0.75
     "System ventilation efficiency";
   parameter Modelica.SIunits.VolumeFlowRate Vot_flow_nominal=
     Vou_flow_nominal / effVen
