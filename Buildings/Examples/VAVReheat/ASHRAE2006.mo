@@ -9,7 +9,7 @@ model ASHRAE2006
       final unit="K",
       displayUnit="degC",
       min=0), k=273.15 + 10) "Supply air temperature setpoint for heating"
-    annotation (Placement(transformation(extent={{-180,-172},{-160,-152}})));
+    annotation (Placement(transformation(extent={{-180,-170},{-160,-150}})));
   Controls.FanVFD conFanSup(xSet_nominal(displayUnit="Pa") = 410, r_N_min=
         yFanMin)
     "Controller for fan"
@@ -37,7 +37,7 @@ model ASHRAE2006
     pMin=50) "Duct static pressure setpoint"
     annotation (Placement(transformation(extent={{160,-16},{180,4}})));
   Controls.CoolingCoilTemperatureSetpoint TSetCoo "Setpoint for cooling coil"
-    annotation (Placement(transformation(extent={{-130,-212},{-110,-192}})));
+    annotation (Placement(transformation(extent={{-130,-210},{-110,-190}})));
   Controls.RoomVAV conVAVCor(
     final ratVFloMin=ratVFloMin)
     "Controller for terminal unit corridor"
@@ -90,7 +90,7 @@ model ASHRAE2006
     annotation (Placement(transformation(extent={{0,-180},{20,-160}})));
 equation
   connect(TSupSetHea.y, heaCoiCon.u_s) annotation (Line(
-      points={{-159,-162},{-96,-162},{-96,-202},{-82,-202}},
+      points={{-159,-160},{-92,-160},{-92,-202},{-82,-202}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(fanSup.port_b, dpDisSupFan.port_a) annotation (Line(
@@ -134,7 +134,7 @@ equation
       pattern=LinePattern.Dash));
   connect(conEco.TSupHeaSet, TSupSetHea.y) annotation (Line(
       points={{-81.3333,148.667},{-156,148.667},{-156,-120},{-140,-120},{-140,
-          -162},{-159,-162}},
+          -160},{-159,-160}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -155,23 +155,23 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(TSetCoo.TSet, cooCoiCon.u_s) annotation (Line(
-      points={{-109,-202},{-96,-202},{-96,-240},{-82,-240}},
+      points={{-109,-200},{-100,-200},{-100,-240},{-82,-240}},
       color={0,0,0},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(TSetCoo.TSet, conEco.TSupCooSet) annotation (Line(
-      points={{-109,-202},{-100,-202},{-100,-114},{-150,-114},{-150,145.333},{
+      points={{-109,-200},{-100,-200},{-100,-114},{-150,-114},{-150,145.333},{
           -81.3333,145.333}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(TSupSetHea.y, TSetCoo.TSetHea) annotation (Line(
-      points={{-159,-162},{-140,-162},{-140,-202},{-132,-202}},
+      points={{-159,-160},{-140,-160},{-140,-200},{-132,-200}},
       color={0,0,0},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(modeSelector.cb, TSetCoo.controlBus) annotation (Line(
-      points={{-196.818,-303.182},{-152,-303.182},{-152,-210},{-121.8,-210}},
+      points={{-196.818,-303.182},{-152,-303.182},{-152,-208},{-121.8,-208}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
