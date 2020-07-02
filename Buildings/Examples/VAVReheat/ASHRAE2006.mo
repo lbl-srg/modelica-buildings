@@ -38,24 +38,19 @@ model ASHRAE2006
     annotation (Placement(transformation(extent={{160,-16},{180,4}})));
   Controls.CoolingCoilTemperatureSetpoint TSetCoo "Setpoint for cooling coil"
     annotation (Placement(transformation(extent={{-130,-210},{-110,-190}})));
-  Controls.RoomVAV conVAVCor(
-    final ratVFloMin=ratVFloMin)
+  Controls.RoomVAV conVAVCor
     "Controller for terminal unit corridor"
     annotation (Placement(transformation(extent={{530,32},{550,52}})));
-  Controls.RoomVAV conVAVSou(
-    final ratVFloMin=ratVFloMin)
+  Controls.RoomVAV conVAVSou
     "Controller for terminal unit south"
     annotation (Placement(transformation(extent={{700,30},{720,50}})));
-  Controls.RoomVAV conVAVEas(
-    final ratVFloMin=ratVFloMin)
+  Controls.RoomVAV conVAVEas
     "Controller for terminal unit east"
     annotation (Placement(transformation(extent={{880,30},{900,50}})));
-  Controls.RoomVAV conVAVNor(
-    final ratVFloMin=ratVFloMin)
+  Controls.RoomVAV conVAVNor
     "Controller for terminal unit north"
     annotation (Placement(transformation(extent={{1040,30},{1060,50}})));
-  Controls.RoomVAV conVAVWes(
-    final ratVFloMin=ratVFloMin)
+  Controls.RoomVAV conVAVWes
     "Controller for terminal unit west"
     annotation (Placement(transformation(extent={{1240,28},{1260,48}})));
   Buildings.Controls.Continuous.LimPID heaCoiCon(
