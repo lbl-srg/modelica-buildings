@@ -29,11 +29,12 @@ equation
           6},{-12,6}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
+  experiment(StopTime=3600,  Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/Controls/Examples/SupplyAirTemperature.mos"
   "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model validates the supply air temperature control, as implemented in 
+This model validates the supply air temperature control, as implemented in
 <a href=\\\"modelica://Buildings.Examples.VAVReheat.Controls.SupplyAirTemperature\\\">
 Buildings.Examples.VAVReheat.Controls.SupplyAirTemperature</a>
 </p>
