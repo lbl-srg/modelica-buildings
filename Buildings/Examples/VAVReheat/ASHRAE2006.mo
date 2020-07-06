@@ -46,7 +46,7 @@ model ASHRAE2006
 
   Buildings.Controls.OBC.CDL.Logical.Or or2
     annotation (Placement(transformation(extent={{-60,-250},{-40,-230}})));
-  Controls.SupplyAirTemperatureControl conTSup
+  Controls.SupplyAirTemperature conTSup
     annotation (Placement(transformation(extent={{30,-230},{50,-210}})));
 equation
   connect(fanSup.port_b, dpDisSupFan.port_a) annotation (Line(
