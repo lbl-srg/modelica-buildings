@@ -35,7 +35,7 @@ equation
     Documentation(info="<html>
 <p>
 This model validates the supply air temperature control, as implemented in
-<a href=\\\"modelica://Buildings.Examples.VAVReheat.Controls.SupplyAirTemperature\\\">
+<a href=\"modelica://Buildings.Examples.VAVReheat.Controls.SupplyAirTemperature\">
 Buildings.Examples.VAVReheat.Controls.SupplyAirTemperature</a>
 </p>
 </html>"));

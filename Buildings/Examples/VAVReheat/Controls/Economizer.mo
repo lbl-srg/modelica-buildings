@@ -220,14 +220,13 @@ measurement
 Freeze protection, based on the mixed air temperature measurement
 </li>
 <li>
-Supply air cooling, based on the logic implemented in 
+Supply air cooling, based on the logic implemented in
 <a href=\"modelica://Buildings.Examples.VAVReheat.Controls.SupplyAirTemperature\">
 Buildings.Examples.VAVReheat.Controls.SupplyAirTemperature</a>,
 with the additional condition that when the outside air dry bulb is greater
 than the return air dry bulb, economizer cooling is disabled.
 </li>
 </ol>
-</p>
 </html>", revisions="<html>
 <ul>
 <li>

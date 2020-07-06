@@ -165,8 +165,8 @@ equation
             140}})),
     Documentation(info="<html>
 <p>
-This block implements the control logic for the supply air temperature, 
-as described in the control sequence VAV 2A2-21232 of the 
+This block implements the control logic for the supply air temperature,
+as described in the control sequence VAV 2A2-21232 of the
 Sequences of Operation for Common HVAC Systems (ASHRAE, 2006).
 </p>
 <p>
@@ -174,8 +174,8 @@ The heating coil valve, outdoor air damper, and cooling coil valve are modulated
 in sequence to maintain the supply air temperature set point.
 A deadband between heating and economizer cooling is also modeled.
 </p>
-<p> 
-Note that the economizer lockout when the outdoor air temperature 
+<p>
+Note that the economizer lockout when the outdoor air temperature
 is higher than the return air temperature is implemented in
 <a href=\"modelica://Buildings.Examples.VAVReheat.Controls.Economizer\">
 Buildings.Examples.VAVReheat.Controls.Economizer</a>.
@@ -192,5 +192,6 @@ ASHRAE, Atlanta, GA, 2006.
 July 6, 2020, by Antoine Gautier:<br/>
 First implementation.<br/>
 </li>
+</ul>
 </html>"));
 end SupplyAirTemperature;
