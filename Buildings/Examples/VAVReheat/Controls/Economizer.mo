@@ -4,7 +4,7 @@ block Economizer "Controller for economizer"
   parameter Modelica.SIunits.Temperature TFreSet=277.15
     "Lower limit for mixed air temperature for freeze protection";
   parameter Modelica.SIunits.TemperatureDifference dTLock(min=0.1) = 1
-    "Temperature difference between outdoor and return air for economizer lockout";
+    "Temperature difference between return and outdoor air for economizer lockout";
   parameter Modelica.SIunits.VolumeFlowRate VOut_flow_min(min=0)
     "Minimum outside air volume flow rate";
 
@@ -73,8 +73,8 @@ block Economizer "Controller for economizer"
   Buildings.Controls.OBC.CDL.Continuous.AddParameter invSig(p=1, k=-1)
     "Invert control signal for interlocked damper"
     annotation (Placement(transformation(extent={{170,-10},{190,10}})));
-  Modelica.Blocks.Logical.Hysteresis hysLoc(final uLow=-dTLock, final uHigh=-
-        dTLock + 0.5) "Hysteresis for economizer lockout"
+  Modelica.Blocks.Logical.Hysteresis hysLoc(final uLow=0, final uHigh=dTLock)
+                      "Hysteresis for economizer lockout"
     annotation (Placement(transformation(extent={{-30,110},{-10,130}})));
   Modelica.Blocks.Math.Feedback feedback
     annotation (Placement(transformation(extent={{-70,110},{-50,130}})));
