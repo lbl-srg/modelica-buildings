@@ -82,7 +82,7 @@ protected
     annotation (Placement(transformation(extent={{-380,-90},{-360,-70}})));
 
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam(
-    final y_start=iniSta)
+    final y_start=0)
     "Triggered sampler"
     annotation (Placement(transformation(extent={{130,140},{150,160}})));
 
