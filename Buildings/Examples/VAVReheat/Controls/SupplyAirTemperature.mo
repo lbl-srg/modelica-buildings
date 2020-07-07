@@ -29,7 +29,7 @@ block SupplyAirTemperature
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupSet
     "Supply air temperature set point"
-    annotation (Placement(transformation(extent={{-180,60},{-140,100}}),
+    annotation (Placement(transformation(extent={{-180,-60},{-140,-20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHea
     "Control signal for heating coil valve" annotation (Placement(
@@ -51,7 +51,8 @@ block SupplyAirTemperature
     final Td=Td,
     final yMax=1,
     final yMin=-1,
-    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
+    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
+    y_reset=limSupHea.k)
     "Supply temperature controller"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Line mapHea
@@ -97,9 +98,8 @@ block SupplyAirTemperature
 equation
   connect(TSup, con.u_s) annotation (Line(points={{-160,0},{-112,0}},
                color={0,0,127}));
-  connect(TSupSet, con.u_m) annotation (Line(points={{-160,80},{-120,80},{-120,-20},
-          {-100,-20},{-100,-12}},
-                                color={0,0,127}));
+  connect(TSupSet, con.u_m) annotation (Line(points={{-160,-40},{-100,-40},{-100,
+          -12}},                color={0,0,127}));
   connect(uEna, con.trigger) annotation (Line(points={{-160,-100},{-106,-100},{-106,
           -12}}, color={255,0,255}));
   connect(con.y, mapOA.u)
@@ -161,8 +161,7 @@ equation
   annotation (
   defaultComponentName="conTSup",
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{120,
-            140}})),
+        coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{120,140}})),
     Documentation(info="<html>
 <p>
 This block implements the control logic for the supply air temperature,
