@@ -30,9 +30,6 @@ model ASHRAE2006
     nin=5,
     pMin=50) "Duct static pressure setpoint"
     annotation (Placement(transformation(extent={{160,-16},{180,4}})));
-  Controls.SupplyAirTemperatureSetpoint TSupSet
-    "Set point for supply air temperature"
-    annotation (Placement(transformation(extent={{-140,-230},{-120,-210}})));
   Controls.RoomVAV conVAVCor "Controller for terminal unit corridor"
     annotation (Placement(transformation(extent={{530,32},{550,52}})));
   Controls.RoomVAV conVAVSou "Controller for terminal unit south"
@@ -48,6 +45,9 @@ model ASHRAE2006
     annotation (Placement(transformation(extent={{-60,-250},{-40,-230}})));
   Controls.SupplyAirTemperature conTSup
     annotation (Placement(transformation(extent={{30,-230},{50,-210}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSet(k=12 + 273.15)
+    "Supply air temperature set point"
+    annotation (Placement(transformation(extent={{-200,-230},{-180,-210}})));
 equation
   connect(fanSup.port_b, dpDisSupFan.port_a) annotation (Line(
       points={{320,-40},{320,0},{320,-10},{320,-10}},
@@ -104,11 +104,6 @@ equation
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
-  connect(modeSelector.cb, TSupSet.controlBus) annotation (Line(
-      points={{-196.818,-303.182},{-152,-303.182},{-152,-228},{-131.8,-228}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
   connect(conEco.VOut_flow, VOut1.V_flow) annotation (Line(
       points={{-81.3333,141.333},{-90,141.333},{-90,80},{-61,80},{-61,-20.9}},
       color={0,0,127},
@@ -252,12 +247,12 @@ equation
           157.333}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(TSupSet.TSet, conTSup.TSupSet) annotation (Line(
-      points={{-119,-220},{28,-220}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
   connect(or2.y, conTSup.uEna) annotation (Line(points={{-38,-240},{20,-240},{
           20,-226},{28,-226}}, color={255,0,255}));
+  connect(TSupSet.y, conTSup.TSupSet) annotation (Line(
+      points={{-178,-220},{28,-220}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-400},{1440,
             580}})),
@@ -363,5 +358,9 @@ This is for
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/ASHRAE2006.mos"
         "Simulate and plot"),
-    experiment(StopTime=172800, Tolerance=1e-06));
+    experiment(
+      StopTime=10000000,
+      __Dymola_NumberOfIntervals=5000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"));
 end ASHRAE2006;
