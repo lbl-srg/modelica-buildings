@@ -131,7 +131,7 @@ block Controller "Multi zone VAV AHU economizer control sequence"
     final min=0,
     final max=1,
     final unit="1") = 0
-    "Physically fixed minimum position of the outdoor air damper" 
+    "Physically fixed minimum position of the outdoor air damper"
     annotation (Dialog(tab="Commissioning", group="Physical damper position limits"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTSup(final unit="1")
