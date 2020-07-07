@@ -24,7 +24,7 @@ partial model PartialOpenLoop
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
       computeWetBulbTemperature=false,
       filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/DRYCOLD.mos"))
-    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
+    annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
   Modelica.Blocks.Continuous.Integrator EFan "Total fan energy"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
   Modelica.Blocks.Continuous.Integrator EHea "Total heating energy"
@@ -37,11 +37,11 @@ partial model PartialOpenLoop
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
 
   BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
-        transformation(extent={{-50,60},{-10,100}}), iconTransformation(extent=
+        transformation(extent={{-108,70},{-90,90}}), iconTransformation(extent=
             {{-250,-2},{-230,18}})));
 equation
   connect(weaDat.weaBus, weaBus) annotation (Line(
-      points={{-60,80},{-30,80}},
+      points={{-120,80},{-99,80}},
       color={255,204,51},
       thickness=0.5), Text(
       textString="%second",
@@ -54,11 +54,11 @@ equation
           6,-2},{10,-2},{40,-2}},  color={0,127,255}));
 
   connect(hvac.weaBus, weaBus) annotation (Line(
-      points={{-36,17.8},{-36,80},{-30,80}},
+      points={{-36,17.8},{-36,80},{-99,80}},
       color={255,204,51},
       thickness=0.5));
   connect(zon.weaBus, weaBus) annotation (Line(
-      points={{46,18},{42,18},{42,80},{-30,80}},
+      points={{46,18},{46,80},{-99,80}},
       color={255,204,51},
       thickness=0.5));
 
