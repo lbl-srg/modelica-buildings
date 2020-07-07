@@ -401,7 +401,7 @@ protected
     off or stage change process is completed"
     annotation (Placement(transformation(extent={{-50,34},{-30,54}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And and4
+  Buildings.Controls.OBC.CDL.Logical.And and4 if primaryOnly
     "Turn on timer when hysteresis turns on and reset it when hysteresis turns
     off or stage change process is completed"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
@@ -411,7 +411,7 @@ protected
     off or stage change process is completed"
     annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And and6
+  Buildings.Controls.OBC.CDL.Logical.And and6 if not primaryOnly
     "Turn on timer when hysteresis turns on and reset it when hysteresis turns
     off or stage change process is completed"
     annotation (Placement(transformation(extent={{-50,-110},{-30,-90}})));
