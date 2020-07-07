@@ -10,20 +10,26 @@ model CouplingRCZ6
     "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     "Weather data reader"
     annotation (Placement(transformation(extent={{60,20},{40,40}})));
-  BaseClasses.BuildingRCZ6 bui(nPorts_a=2, nPorts_b=2) "Building"
+  BaseClasses.BuildingRCZ6 bui(
+    nPorts_aHeaWat=1,
+    nPorts_aChiWat=1,
+    nPorts_bHeaWat=1,
+    nPorts_bChiWat=1) "Building"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
-  Buildings.Fluid.Sources.Boundary_pT sinHeaWat(redeclare package Medium =
-        Medium1, nPorts=1) "Sink for heating water" annotation (Placement(
-        transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=0,
-        origin={130,0})));
-  Buildings.Fluid.Sources.Boundary_pT sinChilWat(redeclare package Medium =
-        Medium1, nPorts=1) "Sink for chilled water" annotation (Placement(
-        transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=0,
-        origin={130,-60})));
+  Buildings.Fluid.Sources.Boundary_pT sinHeaWat(
+    redeclare final package Medium = Medium1, nPorts=1)
+    "Sink for heating water" annotation (Placement(
+      transformation(
+      extent={{10,-10},{-10,10}},
+      rotation=0,
+      origin={130,0})));
+  Buildings.Fluid.Sources.Boundary_pT sinChilWat(
+    redeclare final package Medium = Medium1, nPorts=1)
+    "Sink for chilled water" annotation (Placement(
+      transformation(
+      extent={{10,-10},{-10,10}},
+      rotation=0,
+      origin={130,-60})));
   Modelica.Blocks.Sources.RealExpression THeaWatSup(y=max(bui.terUni.T_aHeaWat_nominal))
     "Heating water supply temperature"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
@@ -50,22 +56,18 @@ equation
       points={{40,30},{30,30},{30,-22.8667},{50.0333,-22.8667}},
       color={255,204,51},
       thickness=0.5));
-  connect(bui.ports_b[1], sinHeaWat.ports[1]) annotation (Line(points={{60,
-          -36.6667},{100,-36.6667},{100,0},{120,0}},
-                                      color={0,127,255}));
-  connect(bui.ports_b[2], sinChilWat.ports[1]) annotation (Line(points={{60,
-          -35.3333},{100,-35.3333},{100,-60},{120,-60}},
-                                          color={0,127,255}));
   connect(supHeaWat.T_in, THeaWatSup.y) annotation (Line(points={{-42,4},{-60,4},
           {-60,0},{-79,0}}, color={0,0,127}));
-  connect(supHeaWat.ports[1], bui.ports_a[1]) annotation (Line(points={{-20,0},
-          {0,0},{0,-36.6667},{40,-36.6667}},
-                                   color={0,127,255}));
   connect(TChiWatSup.y, supChiWat.T_in) annotation (Line(points={{-79,-60},{-60,
           -60},{-60,-56},{-42,-56}}, color={0,0,127}));
-  connect(supChiWat.ports[1], bui.ports_a[2]) annotation (Line(points={{-20,-60},
-          {0,-60},{0,-35.3333},{40,-35.3333}},
-                                     color={0,127,255}));
+  connect(supHeaWat.ports[1], bui.ports_aHeaWat[1]) annotation (Line(points={{-20,
+          0},{20,0},{20,-32},{40,-32}}, color={0,127,255}));
+  connect(supChiWat.ports[1], bui.ports_aChiWat[1]) annotation (Line(points={{-20,
+          -60},{20,-60},{20,-36},{40,-36}}, color={0,127,255}));
+  connect(bui.ports_bHeaWat[1], sinHeaWat.ports[1]) annotation (Line(points={{60,
+          -32},{80,-32},{80,0},{120,0}}, color={0,127,255}));
+  connect(bui.ports_bChiWat[1], sinChilWat.ports[1]) annotation (Line(points={{60,
+          -36},{80,-36},{80,-60},{120,-60}}, color={0,127,255}));
   annotation (
   Documentation(info="<html>
 <p>

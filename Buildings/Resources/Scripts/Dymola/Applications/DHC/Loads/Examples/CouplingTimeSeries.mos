@@ -6,7 +6,7 @@ simulateModel("Buildings.Applications.DHC.Loads.Examples.CouplingTimeSeries",
     resultFile="CouplingTimeSeries");
 createPlot(
     id=1,
-    position={10, 20, 670, 900},
+    position={1, 20, 492, 682},
     y={"bui.maxTSet.y", "bui.minTSet.y", "bui.terUniCoo.TLoaODE.TAir", "bui.terUniHea.TLoaODE.TAir"},
     autoscale=true,
     grid=true
@@ -25,33 +25,38 @@ createPlot(
 );
 createPlot(
     id=2,
-    position={700, 20, 670, 900},
+    position={499, 20, 510, 682},
     y={"supHeaWat.T_in", "bui.terUniHea.T_aHeaWat_nominal"},
     autoscale=true,
     grid=true
 );
 createPlot(
     id=2,
-    y={"bui.disFloHea.mReq_flow[1]", "bui.disFloHea.mAct_flow[1].y", "bui.terUniHea.mHeaWat_flow_nominal"},
+    y={"bui.disFloHea.mReq_flow[1]", "bui.disFloHea.mAct_flow[1].y", "bui.disFloHea.m_flow_nominal"},
     grid=true,
     subPlot=2
 );
 createPlot(
     id=2,
-    y={"bui.terUniHea.QActHea_flow", "bui.terUniHea.QHea_flow_nominal"},
+    y={"bui.terUniHea.QActHea_flow"},
     grid=true,
     subPlot=3
 );
+plotExpression(
+    apply(CouplingTimeSeries.bui.terUniHea.facSca*CouplingTimeSeries.bui.terUniHea.QHea_flow_nominal),
+    false,
+    "facSca*QHea_flow_nominal",
+    2);
 createPlot(
     id=3,
-    position={1400, 20, 670, 900},
+    position={1016, 21, 485, 681},
     y={"supChiWat.T_in", "bui.terUniCoo.T_aChiWat_nominal"},
     autoscale=true,
     grid=true
 );
 createPlot(
     id=3,
-    y={"bui.disFloCoo.mReq_flow[1]", "bui.disFloCoo.mAct_flow[1].y", "bui.terUniCoo.mChiWat_flow_nominal"},
+    y={"bui.disFloCoo.mReq_flow[1]", "bui.disFloCoo.mAct_flow[1].y", "bui.disFloCoo.m_flow_nominal"},
     grid=true,
     subPlot=2
 );
@@ -61,5 +66,22 @@ createPlot(
     grid=true,
     subPlot=3
 );
-plotExpression(apply(-1*CouplingTimeSeries[end].bui.terUniCoo.QCoo_flow_nominal), false, "-1*bui.terUniCoo.QCoo_flow_nominal", 3);
-
+plotExpression(
+    apply(CouplingTimeSeries.bui.terUniCoo.facSca*CouplingTimeSeries.bui.terUniCoo.QCoo_flow_nominal),
+    false,
+    "facSca*QCoo_flow_nominal",
+    3);
+createPlot(
+    id=4,
+    position={75, 75, 542, 347},
+    y={"EHeaReq.y", "EHeaAct.y", "ECooReq.y", "ECooAct.y"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=4,
+    y={"QAveHeaReq_flow.y", "QAveHeaAct_flow.y", "QAveCooReq_flow.y", "QAveCooAct_flow.y"},
+    autoscale=true,
+    grid=true,
+    subPlot=2
+);

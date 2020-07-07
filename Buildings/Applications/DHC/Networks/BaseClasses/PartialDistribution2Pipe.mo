@@ -9,17 +9,24 @@ partial model PartialDistribution2Pipe
   parameter Integer iConDpSen(final max=nCon) = nCon
     "Index of the connection where the pressure drop is measured"
     annotation(Dialog(tab="General"), Evaluate=true);
-  parameter Boolean have_heaFloOut = false
+  parameter Boolean show_heaFlo = false
     "Set to true to output the heat flow rate transferred to each connected load"
     annotation(Evaluate=true);
-  parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal[nCon]
-    "Nominal mass flow rate in the distribution line before each connection"
+  parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal
+    "Nominal mass flow rate in the distribution line before the first connection"
     annotation(Dialog(tab="General", group="Nominal condition"));
   parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal[nCon]
     "Nominal mass flow rate in each connection line"
     annotation(Dialog(tab="General", group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mEnd_flow_nominal
+  parameter Modelica.SIunits.MassFlowRate mEnd_flow_nominal=
+    mDis_flow_nominal - sum(mCon_flow_nominal)
     "Nominal mass flow rate in the end of the distribution line"
+    annotation(Dialog(tab="General", group="Nominal condition"));
+  parameter Modelica.SIunits.MassFlowRate mDisCon_flow_nominal[nCon]=cat(
+    1,
+    {mDis_flow_nominal},
+    {mDis_flow_nominal - sum(mCon_flow_nominal[1:i]) for i in 1:(nCon-1)})
+    "Nominal mass flow rate in the distribution line before each connection"
     annotation(Dialog(tab="General", group="Nominal condition"));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
@@ -46,12 +53,12 @@ partial model PartialDistribution2Pipe
       iconTransformation(extent={{180,-80},{ 220,-40}})));
   Modelica.Blocks.Interfaces.RealOutput dp(
     final quantity="PressureDifference",
-    final unit="Pa", displayUnit="Pa")
+    final unit="Pa", displayUnit="Pa") if iConDpSen >= 0
     "Pressure difference at given location (measured)"
     annotation (Placement(transformation(extent={{100,20},{140,60}}),
       iconTransformation(extent={{200,20},{220,40}})));
   Modelica.Blocks.Interfaces.RealOutput Q_flow[nCon](
-    each final quantity="HeatFlowRate", each final unit="W") if have_heaFloOut
+    each final quantity="HeatFlowRate", each final unit="W") if show_heaFlo
     "Heat flow rate transferred to the connected load (>=0 for heating)"
     annotation (Placement(transformation(extent={{100,60},{140,100}}),
       iconTransformation(extent={{200,60},{220,80}})));
@@ -64,8 +71,8 @@ partial model PartialDistribution2Pipe
   // COMPONENTS
   replaceable BaseClasses.PartialConnection2Pipe con[nCon](
     redeclare each final package Medium = Medium,
-    each final have_heaFloOut=have_heaFloOut,
-    final mDis_flow_nominal=mDis_flow_nominal,
+    each final show_heaFlo=show_heaFlo,
+    final mDis_flow_nominal=mDisCon_flow_nominal,
     final mCon_flow_nominal=mCon_flow_nominal,
     each final allowFlowReversal=allowFlowReversal,
     each final energyDynamics=energyDynamics,
@@ -85,6 +92,10 @@ initial equation
   assert(iConDpSen <= nCon, "In " + getInstanceName() +
     ": iConDpSen = " + String(iConDpSen) + " whereas it must be lower than " +
     String(nCon) + ".");
+  assert(mDis_flow_nominal >= sum(mCon_flow_nominal), "In " + getInstanceName() +
+    ": mDis_flow_nominal = " + String(mDis_flow_nominal) +
+    " whereas it must be higher than sum(mCon_flow_nominal) = " +
+    String(sum(mCon_flow_nominal)) + ".");
 equation
   // Connecting outlets to inlets for all instances of connection component.
   if nCon >= 2 then
@@ -94,15 +105,14 @@ equation
     end for;
   end if;
   // Connecting dp sensor (needs to be explicit because con[iConDpSen] is
-  // undefined if iConDpSen == 0).
-  if iConDpSen == 0 then
-    connect(senRelPre.p_rel, dp)
-      annotation (Line(points={{-51,-30},{90,-30},{90,40}, {120,40}}, color={0,0,127}));
-  else
+  // undefined if iConDpSen <= 0).
+  if iConDpSen > 0 then
     connect(con[iConDpSen].dp, dp)
       annotation (Line(points={{11,4},{20,4},{20,20},{90,20},{90,40},{120,40}},
         color={0,0,127}));
   end if;
+  connect(senRelPre.p_rel, dp)
+    annotation (Line(points={{-51,-30},{90,-30},{90,40}, {120,40}}, color={0,0,127}));
   connect(con.port_bCon, ports_bCon)
     annotation (Line(points={{0,10},{0,40},{-80, 40},{-80,100}}, color={0,127,255}));
   connect(ports_aCon, con.port_aCon)
@@ -121,8 +131,6 @@ equation
     annotation (Line(points={{11,8},{16,8},{16,24},{86, 24},{86,80},{120,80}}, color={0,0,127}));
   connect(con.mCon_flow, mCon_flow)
     annotation (Line(points={{11,6},{18,6},{18,22}, {88,22},{88,60},{120,60}}, color={0,0,127}));
-  connect(port_aDisSup, port_aDisSup)
-    annotation (Line(points={{-100,0},{-100,0}}, color={0,127,255}));
   connect(port_aDisSup, senRelPre.port_a)
     annotation (Line(points={{-100,0},{-60,0},{-60,-20}}, color={0,127,255}));
   connect(senRelPre.port_b, port_bDisRet)
@@ -144,9 +152,9 @@ the supply and return line after the last connection.
 </p>
 <p>
 The parameter <code>iConDpSen</code> is provided to specify the index of the
-connection where the pressure drop is measured. 
+connection where the pressure drop is measured.
 Use zero for a sensor connected  to the supply pipe inlet and return pipe outlet.
-Use a negative value if no sensor is needed. 
+Use a negative value if no sensor is needed.
 </p>
 <p>
 Optionally the heat flow rate transferred to each connected load can be output.
