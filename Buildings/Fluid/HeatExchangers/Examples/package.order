@@ -15,4 +15,5 @@ WetCoilCounterFlowPControl
 WetCoilDiscretizedMassFlow
 WetCoilDiscretizedPControl
 WetCoilEffectivenessNTU
+WetCoilEffectivenessNTUValidation
 BaseClasses

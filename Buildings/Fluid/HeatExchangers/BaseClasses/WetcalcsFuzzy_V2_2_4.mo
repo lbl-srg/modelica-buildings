@@ -23,7 +23,7 @@ model WetcalcsFuzzy_V2_2_4 "Wet coil model using esilon_C.mo function"
   input Modelica.SIunits.MassFlowRate mAir_flow
     "Mass flow rate of air";
   input Modelica.SIunits.MassFlowRate mAirNonZer_flow
-    "None-zero Mass flow rate for water";  
+    "None-zero Mass flow rate for water";
   input Modelica.SIunits.SpecificHeatCapacity cpAir
     "Specific heat capacity of moist air at constant pressure";
   input Modelica.SIunits.Temperature TAirIn
@@ -107,7 +107,7 @@ equation
     hSatWatOut=-1;
     cpEff=2050;
     wetfraNonZero=-1;
-    
+
     UASta=-1;
     epsSta=-1;
     QTot_flow=-1;
@@ -136,7 +136,7 @@ equation
             x =   TWatOut - TWatIn - 0.2,
             deltax = 0.1); // It needs to be fixed. Q. Why it is so sensitive??
     //cpEff = 2050;
-    
+
 
     wetfraNonZero = 1-Buildings.Utilities.Math.Functions.spliceFunction(
         pos = 1-delta,
@@ -170,11 +170,11 @@ equation
 
     mAir_flow_NonZero=Buildings.Utilities.Math.Functions.smoothMax(x1=mAir_flow,x2=mAir_flow_nominal*delta,deltaX=mAir_flow_nominal*delta/2);
     NTUAirSta = UAAir*wetfraNonZero/(mAir_flow_NonZero*cpAir);
-    
 
-    hSatSurEff = hAirIn  +(hAirOut - hAirIn) /(1 - exp(-NTUAirSta));   
-    
-    
+
+    hSatSurEff = hAirIn  +(hAirOut - hAirIn) /(1 - exp(-NTUAirSta));
+
+
     hSatSurEffM.hSat=hSatSurEff;
     TAirOut = TSurEff +(TAirIn  - TSurEff)*exp(-NTUAirSta);
     QSen_flow= min(mAir_flow*cpAir*(TAirIn-TAirOut),QTot_flow);

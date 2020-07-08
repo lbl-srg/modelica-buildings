@@ -182,7 +182,7 @@ model DryWetCalcsFuzzy_V2_2_4
   mWat_flow_nominal=mWat_flow_nominal);
 
    //Buildings.Fluid.HeatExchangers.BaseClasses.WetcalcsFuzzy_V2_2_2 fullywet(
-  Buildings.Fluid.HeatExchangers.BaseClasses.WetcalcsFuzzy_V2_2_4 fullywet(       
+  Buildings.Fluid.HeatExchangers.BaseClasses.WetcalcsFuzzy_V2_2_4 fullywet(
    UAWat = UAWat,
   dryfra = 0,
   mWat_flow = mWat_flow,
@@ -216,7 +216,7 @@ model DryWetCalcsFuzzy_V2_2_4
   mWat_flow_nominal=mWat_flow_nominal);
 
    Modelica.SIunits.Temperature TWatOut(start=15+273.15)
-   "Water temperature at the heat exchanger outlet"; 
+   "Water temperature at the heat exchanger outlet";
    Buildings.Fluid.HeatExchangers.BaseClasses.WetcalcsFuzzy_V2_2_4 parwet(
    UAWat = UAWat,
    dryfra = dryfra,
@@ -288,10 +288,10 @@ equation
       TWatInParDry=TWatIn;
       TAirInParWet=TAirIn;
       dryfra  = if w_FD ==1 then 1-1E-3 else 1E-3;  // Used for only analysis purposes.
-      
+
       TSurTra = TDewIn.T;
-      parQTot_flow=0; 
-      parQSen_flow=0; 
+      parQTot_flow=0;
+      parQSen_flow=0;
       TWatOut= if w_FD ==1 then fullydry.TWatOut else fullywet.TWatOut; // Used for only analysis purposes.
      else
 
@@ -306,7 +306,7 @@ equation
      TWatOut=parwet.TWatOut;
   end if;
 
-  
+
   QTot_flow= -(w_FW*fullywet.QTot_flow+w_FD*fullydry.QTot_flow+w_PW*parQTot_flow)*Qfac;
   QSen_flow= -(w_FW*fullywet.QSen_flow+w_FD*fullydry.QTot_flow+w_PW*parQSen_flow)*Qfac;
   QLat_flow=QTot_flow-QSen_flow;// DK
