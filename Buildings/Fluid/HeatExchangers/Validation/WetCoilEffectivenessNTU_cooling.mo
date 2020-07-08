@@ -87,7 +87,7 @@ model WetCoilEffectivenessNTU_cooling
     offset=0.5,
     startTime=1000)
     annotation (Placement(transformation(extent={{-190,-100},{-170,-80}})));
-  WetEffectivenessNTU_Fuzzy_V2_2_2
+  WetEffectivenessNTU_Fuzzy_V2_2_4
                                  hexWetNtu(
     redeclare final package Medium1 = Medium1,
     redeclare final package Medium2 = Medium2,
@@ -97,8 +97,9 @@ model WetCoilEffectivenessNTU_cooling
     final dp1_nominal=0,
     final dp2_nominal=0,
     final UA_nominal=UA_nominal,
-    final allowFlowReversal1=false,
-    final allowFlowReversal2=false)
+    final allowFlowReversal1=true,
+    final allowFlowReversal2=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Coil"
     annotation (Placement(transformation(extent={{32,4},{52,-16}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai(k=hexWetNtu.m1_flow_nominal)

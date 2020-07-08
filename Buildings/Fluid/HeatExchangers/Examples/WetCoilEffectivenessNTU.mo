@@ -9,15 +9,15 @@ model WetCoilEffectivenessNTU
     sou_2(nPorts=1),
     sin_2(nPorts=1));
 
-  WetEffectivenessNTU_Fuzzy_V2_2_2
+  WetEffectivenessNTU_Fuzzy_V2_2_4
                                  hex(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     m1_flow_nominal=m1_flow_nominal,
     m2_flow_nominal=m2_flow_nominal,
     dp2_nominal(displayUnit="Pa") = 200,
-    allowFlowReversal1=false,
-    allowFlowReversal2=false,
+    allowFlowReversal1=true,
+    allowFlowReversal2=true,
     dp1_nominal(displayUnit="Pa") = 3000,
     UA_nominal=Q_flow_nominal/Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
         T_a1_nominal,
@@ -25,7 +25,8 @@ model WetCoilEffectivenessNTU
         T_a2_nominal,
         T_b2_nominal),
     show_T=true,
-    TWatOut_init=T_b1_nominal)
+    TWatOut_init=T_b1_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Heat exchanger"
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
   Sensors.RelativeHumidityTwoPort senRelHum(
