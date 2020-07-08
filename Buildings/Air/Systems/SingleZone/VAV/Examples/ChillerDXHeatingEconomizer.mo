@@ -66,7 +66,7 @@ equation
   connect(hvac.TSup, con.TSup) annotation (Line(points={{1,-8},{6,-8},{6,-36},{
           -110,-36},{-110,-9},{-102,-9}}, color={0,0,127}));
   connect(con.TOut, weaBus.TDryBul) annotation (Line(points={{-102,-2},{-108,-2},
-          {-108,60},{-30,60},{-30,80}}, color={0,0,127}), Text(
+          {-108,60},{-99,60},{-99,80}}, color={0,0,127}), Text(
       textString="%second",
       index=1,
       extent={{-6,3},{-6,3}},

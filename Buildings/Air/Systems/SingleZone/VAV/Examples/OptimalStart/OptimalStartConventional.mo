@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.Utilities.Examples;
+within Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart;
 model OptimalStartConventional
   "Example model using optimal start with a conventional controller for a single-zone system"
   extends Modelica.Icons.Example;
