@@ -42,7 +42,6 @@ model ClosedLoop_y "Flow machine with feedback control"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Buildings.Controls.Continuous.LimPID conPID(
     Td=1,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.5,
     Ti=15) annotation (Placement(transformation(extent={{0,100},{20,120}})));
   Modelica.Blocks.Math.Gain gain1(k=1/m_flow_nominal)

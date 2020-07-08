@@ -44,7 +44,7 @@ model ControllerHeatingFan "Controller for heating and cooling"
     final yMax=1,
     final yMin=minAirFlo,
     controllerType=Modelica.Blocks.Types.SimpleController.P,
-    final reverseAction=true)
+    final reverseActing=false)
     "Controller for fan"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
 

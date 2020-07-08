@@ -10,7 +10,7 @@ compareVars :=
     "setPoi.TZonHeaSet",
     "setPoi.yOpeMod",
     "setPoi1.uOccSen",
-    "setPoi1.uWinSta",
+    "setPoi1.uWin",
     "setPoi1.TZonCooSet",
     "setPoi1.TZonHeaSet"
   };
