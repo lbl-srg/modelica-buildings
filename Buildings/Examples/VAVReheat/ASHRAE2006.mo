@@ -22,9 +22,10 @@ model ASHRAE2006
     annotation (Placement(transformation(extent={{-250,-352},{-230,-332}})));
 
   Controls.Economizer conEco(
+    have_reset=true,
     dT=1,
-    VOut_flow_min=0.3*m_flow_nominal/1.2,
-    Ti=600,
+    VOut_flow_min=Vot_flow_nominal,
+    Ti=120,
     k=0.1) "Controller for economizer"
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
   Controls.RoomTemperatureSetpoint TSetRoo(
@@ -172,7 +173,7 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(conEco.yOA, eco.yOut) annotation (Line(
-      points={{-59.3333,152},{-10,152},{-10,-34}},
+      points={{-58.6667,152},{-10,152},{-10,-34}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -291,11 +292,11 @@ equation
   connect(gaiCooCoi.u, swiCooCoi.y) annotation (Line(points={{98,-248},{88,-248},
           {88,-248},{82,-248}}, color={0,0,127}));
   connect(eco.yExh, conEco.yOA) annotation (Line(
-      points={{-3,-34},{-2,-34},{-2,152},{-59.3333,152}},
+      points={{-3,-34},{-2,-34},{-2,152},{-58.6667,152}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(eco.yRet, conEco.yRet) annotation (Line(
-      points={{-16.8,-34},{-16.8,146.667},{-59.3333,146.667}},
+      points={{-16.8,-34},{-16.8,146.667},{-58.6667,146.667}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(freSta.y, or2.u1) annotation (Line(points={{22,-92},{22,-92},{40,-92},
@@ -315,6 +316,8 @@ equation
           56},{1140,74},{140,74},{140,-5.2},{158,-5.2}}, color={0,0,127}));
   connect(wes.y_actual, pSetDuc.u[5]) annotation (Line(points={{1332,56},{1338,
           56},{1338,74},{140,74},{140,-4.4},{158,-4.4}}, color={0,0,127}));
+  connect(or2.y, conEco.uRes) annotation (Line(points={{22,-170},{60,-170},{60,
+          120},{-73.3333,120},{-73.3333,137.333}}, color={255,0,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-400},{1440,
             580}})),
@@ -414,5 +417,9 @@ This is for
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/ASHRAE2006.mos"
         "Simulate and plot"),
-    experiment(StopTime=172800, Tolerance=1e-06));
+    experiment(
+      StartTime=15552000,
+      StopTime=16156800,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"));
 end ASHRAE2006;
