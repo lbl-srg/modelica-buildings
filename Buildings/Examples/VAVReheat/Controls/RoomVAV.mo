@@ -2,8 +2,10 @@ within Buildings.Examples.VAVReheat.Controls;
 block RoomVAV "Controller for room VAV box"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Real ratVFloMin=0.3
-    "VAV box minimum airflow ratio to the cooling maximum flow rate, typically between 0.3 to 0.5";
+  parameter Real ratVFloMin(final unit="1") = 0.3
+    "VAV box minimum airflow ratio";
+  parameter Real ratVFloHea(final unit="1") = ratVFloMin
+    "VAV box airflow ratio in heating mode";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController cooController=
       Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
     annotation (Dialog(group="Cooling controller"));
@@ -63,7 +65,7 @@ block RoomVAV "Controller for room VAV box"
     Ti=TiHea,
     controllerType=heaController,
     Ni=10)                        "Controller for heating"
-    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
+    annotation (Placement(transformation(extent={{30,-80},{50,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conCoo(
     yMax=yMax,
     Td=TdCoo,
@@ -75,48 +77,92 @@ block RoomVAV "Controller for room VAV box"
     "Controller for cooling (acts on damper)"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Line reqFlo "Required flow rate"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooMax(k=1)
     "Cooling maximum flow"
-    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minFlo(k=ratVFloMin)
-    "VAV box minimum flow"
+    annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minFloCoo(k=ratVFloMin)
+    "VAV box minimum flow in cooling mode"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conOne(k=1)
     "Constant 1"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conZer(k=0)
     "Constant 0"
-    annotation (Placement(transformation(extent={{-20,30},{0,50}})));
+    annotation (Placement(transformation(extent={{30,30},{50,50}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysWitHol(uLow=-dTHys, uHigh=
+       0) "Output true if room temperature below heating set point"
+    annotation (Placement(transformation(extent={{-10,110},{10,130}})));
+  Buildings.Controls.OBC.CDL.Continuous.Feedback dTHea
+    "Heating loop control error"
+    annotation (Placement(transformation(extent={{-50,110},{-30,130}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minFloHea(k=
+        ratVFloMinHea) "VAV box minimum flow in heating mode"
+    annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch swi
+    "Switch minimum air flow rate between heating and cooling mode"
+    annotation (Placement(transformation(extent={{-10,50},{10,70}})));
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes(message=
+    "The difference between cooling and heating set points must be greater than dTHys")
+    "Assert message"
+    annotation (Placement(transformation(extent={{30,-130},{50,-110}})));
+  Buildings.Controls.OBC.CDL.Continuous.Feedback dTSet
+    "Difference between cooling and heating set points"
+    annotation (Placement(transformation(extent={{-50,-130},{-30,-110}})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(threshold=dTHys)
+    "Test for overlap of heating and cooling set points "
+    annotation (Placement(transformation(extent={{-10,-130},{10,-110}})));
 protected
   parameter Real yMax=1 "Upper limit of PID control output";
   parameter Real yMin=0 "Lower limit of PID control output";
-
+  parameter Modelica.SIunits.TemperatureDifference dTHys(final min=0) = 0.5
+    "Hysteresis width for enabling cooling mode";
 equation
   connect(TRooCooSet, conCoo.u_s)
     annotation (Line(points={{-120,0},{-62,0}}, color={0,0,127}));
   connect(TRoo, conHea.u_m) annotation (Line(points={{-120,-70},{-80,-70},{-80,-90},
-          {50,-90},{50,-82}},        color={0,0,127}));
+          {40,-90},{40,-82}},        color={0,0,127}));
   connect(TRooHeaSet, conHea.u_s) annotation (Line(points={{-120,60},{-70,60},{-70,
-          -70},{38,-70}},      color={0,0,127}));
+          -70},{28,-70}},      color={0,0,127}));
   connect(conHea.y, yVal)
-    annotation (Line(points={{62,-70},{110,-70}},  color={0,0,127}));
+    annotation (Line(points={{52,-70},{110,-70}},  color={0,0,127}));
   connect(conZer.y, reqFlo.x1)
-    annotation (Line(points={{2,40},{10,40},{10,8},{18,8}}, color={0,0,127}));
-  connect(minFlo.y, reqFlo.f1) annotation (Line(points={{-38,40},{-30,40},{-30,4},
-          {18,4}}, color={0,0,127}));
-  connect(cooMax.y, reqFlo.f2) annotation (Line(points={{2,-40},{10,-40},{10,-8},
-          {18,-8}},color={0,0,127}));
-  connect(conOne.y, reqFlo.x2) annotation (Line(points={{-38,-40},{-30,-40},{-30,
-          -4},{18,-4}}, color={0,0,127}));
+    annotation (Line(points={{52,40},{60,40},{60,8},{68,8}},color={0,0,127}));
+  connect(cooMax.y, reqFlo.f2) annotation (Line(points={{52,-40},{60,-40},{60,-8},
+          {68,-8}},color={0,0,127}));
+  connect(conOne.y, reqFlo.x2) annotation (Line(points={{-38,-40},{20,-40},{20,-4},
+          {68,-4}},     color={0,0,127}));
   connect(conCoo.y, reqFlo.u)
-    annotation (Line(points={{-38,0},{18,0}}, color={0,0,127}));
-  connect(TRoo, conCoo.u_m) annotation (Line(points={{-120,-70},{-80,-70},{-80,
-          -20},{-50,-20},{-50,-12}}, color={0,0,127}));
+    annotation (Line(points={{-38,0},{68,0}}, color={0,0,127}));
+  connect(TRoo, conCoo.u_m) annotation (Line(points={{-120,-70},{-80,-70},{-80,-20.6836},
+          {-80,-20},{-50,-20},{-50,-12}},
+                                     color={0,0,127}));
   connect(reqFlo.y, yDam)
-    annotation (Line(points={{42,0},{72,0},{72,0},{110,0}}, color={0,0,127}));
+    annotation (Line(points={{92,0},{110,0}},               color={0,0,127}));
 
+  connect(TRooHeaSet, dTHea.u1) annotation (Line(points={{-120,60},{-70,60},{-70,
+          120},{-52,120}}, color={0,0,127}));
+  connect(dTHea.y, hysWitHol.u)
+    annotation (Line(points={{-28,120},{-12,120}}, color={0,0,127}));
+  connect(TRoo, dTHea.u2) annotation (Line(points={{-120,-70},{-80,-70},{-80,100},
+          {-40,100},{-40,108}}, color={0,0,127}));
+  connect(minFloCoo.y, swi.u3) annotation (Line(points={{-38,40},{-20,40},{-20,52},
+          {-12,52}}, color={0,0,127}));
+  connect(minFloHea.y, swi.u1) annotation (Line(points={{-38,80},{-20,80},{-20,68},
+          {-12,68}}, color={0,0,127}));
+  connect(hysWitHol.y, swi.u2) annotation (Line(points={{12,120},{20,120},{20,80},
+          {-16,80},{-16,60},{-12,60}}, color={255,0,255}));
+  connect(swi.y, reqFlo.f1)
+    annotation (Line(points={{12,60},{20,60},{20,4},{68,4}}, color={0,0,127}));
+  connect(TRooCooSet, dTSet.u1) annotation (Line(points={{-120,0},{-90,0},{-90,-120},
+          {-52,-120}}, color={0,0,127}));
+  connect(TRooHeaSet, dTSet.u2) annotation (Line(points={{-120,60},{-70,60},{-70,
+          -136},{-40,-136},{-40,-132}}, color={0,0,127}));
+  connect(dTSet.y, greThr.u)
+    annotation (Line(points={{-28,-120},{-12,-120}}, color={0,0,127}));
+  connect(greThr.y, assMes.u)
+    annotation (Line(points={{12,-120},{28,-120}}, color={255,0,255}));
 annotation (
   defaultComponentName="terCon",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
@@ -186,5 +232,5 @@ Removed blocks with blocks from CDL package.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-100,-100},{100,100}})));
+    Diagram(coordinateSystem(extent={{-100,-140},{100,140}})));
 end RoomVAV;
