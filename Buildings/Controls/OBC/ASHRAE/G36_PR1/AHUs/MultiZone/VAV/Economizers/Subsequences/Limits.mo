@@ -17,7 +17,7 @@ block Limits
     annotation (Dialog(group="Controller"));
 
   parameter Real k(
-    final unit="1")=0.03 "Gain of damper limit controller"
+    final unit="1")=0.1 "Gain of damper limit controller"
     annotation (Dialog(group="Controller"));
 
   parameter Real Ti(

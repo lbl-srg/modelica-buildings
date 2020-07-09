@@ -33,7 +33,7 @@ block Controller "Multi zone VAV AHU economizer control sequence"
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller" annotation (Dialog(group="Minimum outdoor air"));
 
-  parameter Real kMinOut(final unit="1")=0.03
+  parameter Real kMinOut(final unit="1")=0.1
     "Gain of controller for minimum outdoor air"
     annotation (Dialog(group="Minimum outdoor air"));
   parameter Real TiMinOut(
