@@ -292,21 +292,21 @@ block Controller
   parameter Real iniSetSupTem(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=supTemSetPoi.maxSet
+    final quantity="ThermodynamicTemperature")=TSupSetMax
     "Initial setpoint for supply temperature control"
     annotation (Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
 
   parameter Real maxSetSupTem(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=supTemSetPoi.TSupSetMax
+    final quantity="ThermodynamicTemperature")=TSupSetMax
     "Maximum setpoint for supply temperature control"
     annotation (Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
 
   parameter Real minSetSupTem(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=supTemSetPoi.TSupSetDes
+    final quantity="ThermodynamicTemperature")=TSupSetDes
     "Minimum setpoint for supply temperature control"
     annotation (Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
 
