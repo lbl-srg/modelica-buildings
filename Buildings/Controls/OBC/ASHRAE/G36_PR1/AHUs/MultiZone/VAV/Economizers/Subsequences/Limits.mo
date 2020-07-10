@@ -2,8 +2,6 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Economizers.Subs
 block Limits
   "Multi zone VAV AHU minimum outdoor air control - damper position limits"
 
-  constant Real yMin=0 "Lower limit of control loop signal";
-  constant Real yMax=1 "Upper limit of control loop signal";
   parameter Real uRetDamMin(
     final min=yMin,
     final max=yMax,
@@ -126,6 +124,8 @@ block Limits
     annotation (Placement(transformation(extent={{-140,180},{-120,200}})));
 
 protected
+  parameter Real yMin=0 "Lower limit of control loop signal";
+  parameter Real yMax=1 "Upper limit of control loop signal";
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPhyPosMinSig(
     final k=outDamPhyPosMin)
     "Physically fixed minimum position of the outdoor air damper. This is the initial position of the economizer damper"
