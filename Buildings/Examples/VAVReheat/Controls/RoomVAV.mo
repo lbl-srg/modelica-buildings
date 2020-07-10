@@ -94,7 +94,7 @@ block RoomVAV "Controller for room VAV box"
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysWitHol(
     final uLow=-dTHys,
-    final uHigh=0) if have_twoMax
+    final uHigh=0)
     "Output true if room temperature below heating set point"
     annotation (Placement(transformation(extent={{-10,130},{10,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Feedback dTHea
@@ -117,18 +117,11 @@ block RoomVAV "Controller for room VAV box"
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(threshold=dTHys)
     "Test for overlap of heating and cooling set points "
     annotation (Placement(transformation(extent={{-10,-130},{10,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant twoMin(
-    final k=have_twoMax) if not have_twoMax
-    "Output true in case of dual maximum logic"
-    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 protected
   parameter Real yMax=1 "Upper limit of PID control output";
   parameter Real yMin=0 "Lower limit of PID control output";
   parameter Modelica.SIunits.TemperatureDifference dTHys(final min=0) = 0.5
     "Hysteresis width for enabling cooling mode";
-  parameter Boolean have_twoMax=
-    abs(ratVFloMin - ratVFloHea) > Modelica.Constants.eps
-    "True in case of dual maximum logic";
 equation
   connect(TRooCooSet, conCoo.u_s)
     annotation (Line(points={{-120,0},{-62,0}}, color={0,0,127}));
@@ -175,8 +168,6 @@ equation
     annotation (Line(points={{-28,-120},{-12,-120}}, color={0,0,127}));
   connect(greThr.y, assMes.u)
     annotation (Line(points={{12,-120},{28,-120}}, color={255,0,255}));
-  connect(twoMin.y, swi.u2) annotation (Line(points={{-38,70},{-30,70},{-30,60},
-          {-12,60}}, color={255,0,255}));
 annotation (
   defaultComponentName="terCon",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
