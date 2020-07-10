@@ -260,6 +260,15 @@ air requirement and an override for freeze protection.
 </html>", revisions="<html>
 <ul>
 <li>
+July 10, 2020, by Antoine Gautier:<br/>
+Added optional reset signal.
+Corrected connections to <code>yOATFre</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2019\">#2019</a>
+and
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1995\">#1995</a>.
+</li>
+<li>
 December 20, 2016, by Michael Wetter:<br/>
 Added type conversion for enumeration when used as an array index.<br/>
 This is for

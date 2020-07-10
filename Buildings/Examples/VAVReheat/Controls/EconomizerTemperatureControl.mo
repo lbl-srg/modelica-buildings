@@ -135,6 +135,12 @@ measurement error in a real application.
 </html>", revisions="<html>
 <ul>
 <li>
+July 10, 2020, by Antoine Gautier:<br/>
+Added optional reset signal.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2019\">#2019</a>.
+</li>
+<li>
 April 1, 2016, by Michael Wetter:<br/>
 Added hysteresis to avoid too many events that stall the simulation.
 This is for

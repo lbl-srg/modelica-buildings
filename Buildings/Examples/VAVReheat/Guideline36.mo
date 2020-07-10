@@ -88,6 +88,7 @@ model Guideline36
     "Replicate real input"
     annotation (Placement(transformation(extent={{-120,320},{-100,340}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller conAHU(
+    kMinOut=0.03,
     final pMaxSet=410,
     final yFanMin=yFanMin,
     final VPriSysMax_flow=VPriSysMax_flow,
@@ -455,6 +456,12 @@ its input.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 10, 2020, by Antoine Gautier:<br/>
+Changed design and control parameters for outdoor air flow.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2019\">#2019</a>
+</li>
 <li>
 April 20, 2020, by Jianjun Hu:<br/>
 Exported actual VAV damper position as the measured input data for terminal controller.<br/>

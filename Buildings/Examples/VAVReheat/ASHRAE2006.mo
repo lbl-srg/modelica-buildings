@@ -379,11 +379,17 @@ ASHRAE, Atlanta, GA, 2006.
 </html>", revisions="<html>
 <ul>
 <li>
+July 10, 2020, by Antoine Gautier:<br/>
+Changed design and control parameters for outdoor air flow.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2019\">#2019</a>
+</li>
+<li>
 April 20, 2020, by Jianjun Hu:<br/>
 Exported actual VAV damper position as the measured input data for
 defining duct static pressure setpoint.<br/>
 This is
-for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1873\">issue #1873</a>
+for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1873\">#1873</a>
 </li>
 <li>
 May 19, 2016, by Michael Wetter:<br/>
@@ -417,9 +423,5 @@ This is for
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/ASHRAE2006.mos"
         "Simulate and plot"),
-    experiment(
-      StartTime=15552000,
-      StopTime=16156800,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"));
+    experiment(StopTime=172800, Tolerance=1e-06));
 end ASHRAE2006;

@@ -33,7 +33,7 @@ block Controller "Multi zone VAV AHU economizer control sequence"
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller" annotation (Dialog(group="Minimum outdoor air"));
 
-  parameter Real kMinOut(final unit="1")=0.1
+  parameter Real kMinOut(final unit="1")=0.05
     "Gain of controller for minimum outdoor air"
     annotation (Dialog(group="Minimum outdoor air"));
   parameter Real TiMinOut(
@@ -418,6 +418,12 @@ which may be revised in future versions, set
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 10, 2020, by Antoine Gautier:<br/>
+Changed default value of integral time for minimum outdoor air control.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2019\">#2019</a>.
+</li>
 <li>
 October 11, 2017, by Michael Wetter:<br/>
 Corrected implementation to use control loop signal as input.
