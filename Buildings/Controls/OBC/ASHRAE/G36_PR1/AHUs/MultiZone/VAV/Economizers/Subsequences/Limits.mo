@@ -6,7 +6,7 @@ block Limits
     final min=yMin,
     final max=yMax,
     final unit="1") = 0.5
-    "Minimum control signal for the return air damper position limit"
+    "Loop signal value to start decreasing the maximum return air damper position"
     annotation (Dialog(tab="Commissioning", group="Controller"));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
@@ -20,7 +20,7 @@ block Limits
 
   parameter Real Ti(
     final unit="s",
-    final quantity="Time")=1200
+    final quantity="Time")=120
     "Time constant of damper limit controller integrator block"
     annotation (Dialog(group="Controller",
     enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -124,7 +124,7 @@ block Limits
     annotation (Placement(transformation(extent={{-140,180},{-120,200}})));
 
 protected
-  parameter Real yMin=-1 "Lower limit of control loop signal"
+  parameter Real yMin=0 "Lower limit of control loop signal"
     annotation (Dialog(tab="Commissioning", group="Controller"));
   parameter Real yMax=1 "Upper limit of control loop signal"
     annotation (Dialog(tab="Commissioning", group="Controller"));
@@ -380,6 +380,13 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/Mul
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 10, 2020, by Antoine Gautier:<br/>
+Changed default value of integral time for minimum outdoor air control.
+Set <code>yMin</code> to 0.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2019\">#2019</a>.
+</li>
 <li>
 March 14, 2020, by Jianjun Hu:<br/>
 Replaced mulAnd by logic and block to avoid vector-valued calculation.<br/>
