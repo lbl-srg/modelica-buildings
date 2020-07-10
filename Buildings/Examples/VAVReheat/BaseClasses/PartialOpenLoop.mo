@@ -926,6 +926,12 @@ shading devices, Technical Report, Oct. 17, 2006.
 </html>", revisions="<html>
 <ul>
 <li>
+July 10, 2020, by Antoine Gautier:<br/>
+Added design parameters for outdoor air flow.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2019\">#2019</a>
+</li>
+<li>
 September 26, 2017, by Michael Wetter:<br/>
 Separated physical model from control to facilitate implementation of alternate control
 sequences.

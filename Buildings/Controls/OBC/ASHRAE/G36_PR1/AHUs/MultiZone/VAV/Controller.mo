@@ -76,7 +76,7 @@ block Controller
     "Type of controller"
     annotation (Dialog(group="Economizer PID controller"));
 
-  parameter Real kMinOut(final unit="1")=0.03
+  parameter Real kMinOut(final unit="1")=0.05
     "Gain of controller for minimum outdoor air intake"
     annotation (Dialog(group="Economizer PID controller"));
 
@@ -997,6 +997,12 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.SupplySignals
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 10, 2020, by Antoine Gautier:<br/>
+Changed default value of integral time for minimum outdoor air control.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2019\">#2019</a>.
+</li>
 <li>
 March 16, 2020, by Jianjun Hu:<br/>
 Reimplemented to add new block for specifying the minimum outdoor airfow setpoint.

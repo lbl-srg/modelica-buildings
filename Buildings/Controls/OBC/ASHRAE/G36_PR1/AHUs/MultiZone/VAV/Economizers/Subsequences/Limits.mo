@@ -17,7 +17,7 @@ block Limits
     annotation (Dialog(group="Controller"));
 
   parameter Real k(
-    final unit="1")=0.1 "Gain of damper limit controller"
+    final unit="1")=0.05 "Gain of damper limit controller"
     annotation (Dialog(group="Controller"));
 
   parameter Real Ti(
@@ -378,6 +378,13 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/Mul
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 10, 2020, by Antoine Gautier:<br/>
+Changed default value of integral time for minimum outdoor air control.
+Set <code>yMin</code> to 0.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2019\">#2019</a>.
+</li>
 <li>
 March 14, 2020, by Jianjun Hu:<br/>
 Replaced mulAnd by logic and block to avoid vector-valued calculation.<br/>
