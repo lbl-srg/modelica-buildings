@@ -3,11 +3,11 @@ block RoomVAV "Controller for room VAV box"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Real ratVFloMin(final unit="1") = 0.3
-    "VAV box minimum airflow ratio";
+    "Minimum airflow set point (ratio to nominal)";
   parameter Real ratVFloHea(final unit="1") = ratVFloMin
-    "VAV box airflow ratio in heating mode";
+    "Heating airflow set point (ratio to nominal)";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController cooController=
-      Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
     annotation (Dialog(group="Cooling controller"));
   parameter Real kCoo=0.1 "Gain of controller"
     annotation (Dialog(group="Cooling controller"));
@@ -204,41 +204,61 @@ annotation (
  Documentation(info="<html>
 <p>
 Controller for terminal VAV box with hot water reheat and pressure independent damper.
-It was implemented according to
-<a href=\"https://newbuildings.org/sites/default/files/A-11_LG_VAV_Guide_3.6.2.pdf\">
-[Advanced Variabled Air Volume System Design Guide]</a>, single maximum VAV reheat box
-control.
+It is based on the control logic \"dual maximum with constant volume heating\" as
+described in the Advanced VAV System Design Guide (EDR 2007).
+</p>
+<p>
+Two separate control loops, the cooling loop and the heating loop, are implemented
+to maintain space temperature within a temperature dead band (with a required minimum
+width of 0.5 K).
 The damper control signal <code>yDam</code> corresponds to the discharge air flow rate
-set-point, normalized to the nominal value.
+set point, normalized to the nominal value.
+The control signal for the reheat coil valve <code>yVal</code> corresponds to the
+fractional opening (1 corresponding to the valve fully open).
 </p>
 <ul>
 <li>
-In cooling demand, the damper control signal <code>yDam</code> is modulated between
-a minimum value <code>ratVFloMin</code> (typically between 30% and 50%) and 1
-(corresponding to the nominal value).
-The control signal for the reheat coil valve <code>yVal</code> is 0
-(corresponding to the valve fully closed).
+Inside the dead band, <code>yDam</code> is fixed at the minimum value <code>ratVFloMin</code>,
+and  <code>yVal</code> is 0.
 </li>
 <li>
-In heating demand, the damper control signal <code>yDam</code> is fixed at the minimum value
-<code>ratVFloMin</code>.
-The control signal for the reheat coil valve <code>yVal</code> is modulated between
-0 and 1 (corresponding to the valve fully open).
+In heating demand, <code>yDam</code> is fixed at the heating value <code>ratVFloHea</code>,
+and <code>yVal</code> is modulated between 0 and 1.
+</li>
+<li>
+In cooling demand, <code>yDam</code> is modulated between the minimum value 
+<code>ratVFloMin</code> and 1, and <code>yVal</code> is 0.
 </li>
 </ul>
-<p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/VAVReheat/vavBoxSingleMax.png\" border=\"1\"/>
+<p>
+Note that a single maximum control logic can be represented by simply setting
+<code>ratVFloHea</code> equal to <code>ratVFloMin</code> (default setting).
+</p>
+<p>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/VAVReheat/vavBoxDualMax.png\" border=\"1\"/>
+</p>
+<h4>References</h4>
+<p>
+EDR (Energy Design Resources).
+<i>Advanced Variable Air Volume System Design Guide</i>.
+Pacific Gas and Electric Company, 2007.
 </p>
 <br/>
 </html>", revisions="<html>
 <ul>
+<li>
+July 10, 2020, by Antoine Gautier:<br/>
+Implemented a dual maximum with constant volume heating control logic.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2028\">#2028</a>.
+</li>
 <li>
 April 24, 2020, by Jianjun Hu:<br/>
 Refactored the model to implement a single maximum control logic.
 The previous implementation led to a maximum air flow rate in heating demand.<br/>
 The input connector <code>TDis</code> is removed. This is non backward compatible.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1873\">issue 1873</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1873\">#1873</a>.
 </li>
 <li>
 September 20, 2017, by Michael Wetter:<br/>
