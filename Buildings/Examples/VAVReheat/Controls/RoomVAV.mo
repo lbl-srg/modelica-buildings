@@ -83,7 +83,7 @@ block RoomVAV "Controller for room VAV box"
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minFloCoo(
     final k=ratVFloMin)
-    "VAV box minimum flow in cooling mode"
+    "Minimum flow in cooling mode"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conOne(k=1)
     "Constant 1"
@@ -94,7 +94,7 @@ block RoomVAV "Controller for room VAV box"
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysWitHol(
     final uLow=-dTHys,
-    final uHigh=0) if have_twoMin
+    final uHigh=0) if have_twoMax
     "Output true if room temperature below heating set point"
     annotation (Placement(transformation(extent={{-10,130},{10,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Feedback dTHea
@@ -102,7 +102,7 @@ block RoomVAV "Controller for room VAV box"
     annotation (Placement(transformation(extent={{-50,130},{-30,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minFloHea(
     final k=ratVFloHea)
-    "VAV box minimum flow in heating mode"
+    "Minimum flow in heating mode"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     "Switch minimum air flow rate between heating and cooling mode"
@@ -117,18 +117,18 @@ block RoomVAV "Controller for room VAV box"
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(threshold=dTHys)
     "Test for overlap of heating and cooling set points "
     annotation (Placement(transformation(extent={{-10,-130},{10,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant twoMin(k=have_twoMin) if
-    not have_twoMin
-    "Output true in case of dual minimum logic"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant twoMin(
+    final k=have_twoMax) if not have_twoMax
+    "Output true in case of dual maximum logic"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 protected
   parameter Real yMax=1 "Upper limit of PID control output";
   parameter Real yMin=0 "Lower limit of PID control output";
   parameter Modelica.SIunits.TemperatureDifference dTHys(final min=0) = 0.5
     "Hysteresis width for enabling cooling mode";
-  parameter Boolean have_twoMin=
+  parameter Boolean have_twoMax=
     abs(ratVFloMin - ratVFloHea) > Modelica.Constants.eps
-    "True in case of dual minimum logic";
+    "True in case of dual maximum logic";
 equation
   connect(TRooCooSet, conCoo.u_s)
     annotation (Line(points={{-120,0},{-62,0}}, color={0,0,127}));
