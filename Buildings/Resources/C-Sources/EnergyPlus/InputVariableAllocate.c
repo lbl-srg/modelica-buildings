@@ -102,6 +102,8 @@ void* InputVariableAllocate(
   comVar = (FMUInputVariable*) malloc(sizeof(FMUInputVariable));
   if ( comVar == NULL )
     ModelicaError("Not enough memory in InputVariableAllocate.c. to allocate memory for data structure.");
+  comVar->isInstantiated = fmi2False;
+  comVar->isInitialized = fmi2False;
 
   /* Assign the Modelica instance name */
   mallocString(strlen(modelicaNameInputVariable)+1,
