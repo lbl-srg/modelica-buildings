@@ -123,6 +123,18 @@ int write_output_data(PARA_DATA *para, REAL **var, int **BINDEX) {
 					outp_name[i] = vel_sen;
 				else if (!strcmp(tmp1, "temp_rack"))
 					outp_name[i] = temp_rack;
+				else if (!strcmp(tmp1, "heat_wall1"))
+					outp_name[i] = heat_wall1;
+				else if (!strcmp(tmp1, "heat_wall2"))
+					outp_name[i] = heat_wall2;
+				else if (!strcmp(tmp1, "heat_wall3"))
+					outp_name[i] = heat_wall3;
+				else if (!strcmp(tmp1, "heat_wall4"))
+					outp_name[i] = heat_wall4;
+				else if (!strcmp(tmp1, "heat_wall5"))
+					outp_name[i] = heat_wall5;
+				else if (!strcmp(tmp1, "heat_wall6"))
+					outp_name[i] = heat_wall6;
 				else {
 					sprintf(msg, "write_output_data(): %s is not valid input for %s", tmp1, tmp);
 					ffd_log(msg, FFD_ERROR);
@@ -171,6 +183,36 @@ int write_output_data(PARA_DATA *para, REAL **var, int **BINDEX) {
 	}
 	else if (outp_name[i] == temp_rack) {
 		ffdOutput[i] = maximum_rack_temp(para, var);
+		sprintf(msg, "write_output_data(): ffdOutput[%d]=%lf", i, ffdOutput[i]);
+		ffd_log(msg, FFD_NORMAL);
+	}
+	else if (outp_name[i] == heat_wall1) {
+		ffdOutput[i] = para->bc->temHeaMean[0];
+		sprintf(msg, "write_output_data(): ffdOutput[%d]=%lf", i, ffdOutput[i]);
+		ffd_log(msg, FFD_NORMAL);
+	}
+	else if (outp_name[i] == heat_wall2) {
+		ffdOutput[i] = para->bc->temHeaMean[1];
+		sprintf(msg, "write_output_data(): ffdOutput[%d]=%lf", i, ffdOutput[i]);
+		ffd_log(msg, FFD_NORMAL);
+	}
+	else if (outp_name[i] == heat_wall3) {
+		ffdOutput[i] = para->bc->temHeaMean[2];
+		sprintf(msg, "write_output_data(): ffdOutput[%d]=%lf", i, ffdOutput[i]);
+		ffd_log(msg, FFD_NORMAL);
+	}
+	else if (outp_name[i] == heat_wall4) {
+		ffdOutput[i] = para->bc->temHeaMean[3];
+		sprintf(msg, "write_output_data(): ffdOutput[%d]=%lf", i, ffdOutput[i]);
+		ffd_log(msg, FFD_NORMAL);
+	}
+	else if (outp_name[i] == heat_wall5) {
+		ffdOutput[i] = para->bc->temHeaMean[4];
+		sprintf(msg, "write_output_data(): ffdOutput[%d]=%lf", i, ffdOutput[i]);
+		ffd_log(msg, FFD_NORMAL);
+	}
+	else if (outp_name[i] == heat_wall6) {
+		ffdOutput[i] = para->bc->temHeaMean[5];
 		sprintf(msg, "write_output_data(): ffdOutput[%d]=%lf", i, ffdOutput[i]);
 		ffd_log(msg, FFD_NORMAL);
 	}

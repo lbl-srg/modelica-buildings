@@ -35,12 +35,14 @@ extern int inlet_temp_re[];
 extern int inlet_vel_re[];
 extern int block_re[];
 extern int wall_re[];
+extern int wall_heat_re[];
 
 /* temperature, heat flux or velocity will be overwritten by which isat input */
 extern int inlet_temp_wh[];
 extern int inlet_vel_wh[];
 extern int block_wh[];
 extern int wall_wh[];
+extern int wall_heat_wh[];
 
 /*
 	* Read the coupled simulation parameters defined by Modelica
@@ -320,7 +322,17 @@ int write_cosim_data(PARA_DATA *para){
   | Set the time and space averaged temperature of space
   | Convert T from degC to K
   ****************************************************************************/
-  para->cosim->ffd->TRoo = 25.0; /*assumed a fixed value*/
+  for (i = 0; i<num_output; i++) {
+	  if (outp_name[i] = temp_roo) {
+		  para->cosim->ffd->TRoo = para->cosim->ffd->output[i];	 
+		  sprintf(comsg, "\tara->cosim->ffd->TRoo: %f",
+			  para->cosim->ffd->TRoo);
+		  cosim_log(comsg, COSIM_NORMAL);
+	  }
+	  else {
+		  para->cosim->ffd->TRoo = 25.0 + 273.15; /*assumed a fixed value if no info returned from isat outputs*/
+	  }
+  }
 
   /****************************************************************************
   | Set temperature of shading devices (currently not supported)
@@ -340,7 +352,7 @@ int write_cosim_data(PARA_DATA *para){
 	/*-------------------------------------------------------------------------
 	| Assign the temperature
 	-------------------------------------------------------------------------*/   
-	para->cosim->ffd->TPor[i] = 25.0; /*assumed a fixed value*/
+	para->cosim->ffd->TPor[i] = 25.0 + 273.15; /*assumed a fixed value*/
 
     for(j=0; j<para->cosim->para->nXi; j++) {
 		para->cosim->ffd->XiPor[i][j] = 0.01; /*assumed a fixed value*/
@@ -363,7 +375,15 @@ int write_cosim_data(PARA_DATA *para){
     }
     /* Set the heat flux*/
     else {
-		para->cosim->ffd->temHea[i] = 0.0; /*assumed a fixed value*/
+		if (wall_heat_re[i] == 1) {
+			para->cosim->ffd->temHea[i] = para->cosim->ffd->output[wall_heat_wh[i]-1];
+			sprintf(comsg, "\tpara->cosim->ffd->temHea[%d]: %f",
+				i, para->cosim->ffd->temHea[i]);
+			cosim_log(comsg, COSIM_NORMAL);
+		}
+		else {
+			para->cosim->ffd->temHea[i] = 0.0; /*assumed a fixed value*/
+		}
     }
   }
 
@@ -466,17 +486,17 @@ int surface_integrate(PARA_DATA *para, REAL **var, int **BINDEX) {
 	/*-------------------------------------------------------------------------
 	| Solid Wall
 	--------------------------------------------------------------------------*/
-	if (var[FLAGP][IX(i, j, k)] == SOLID) {
+	if (var[FLAGP][IX(i, j, k)] == SOLID && bcid >= para->bc->nb_block) {
 		switch (BINDEX[3][it]) {
 			/* FFD uses heat flux as BC to compute temperature*/
 			/* Then send Modelica the temperature*/
 		case 0:
-			para->bc->temHeaAve[bcid] += var[TEMP][IX(i, j, k)] * A_tmp;
+			para->bc->temHeaAve[bcid - para->bc->nb_block] += var[TEMP][IX(i, j, k)] * A_tmp;
 			break;
 			/* FFD uses temperature as BC to compute heat flux*/
 			/* Then send Modelica the heat flux*/
 		case 1:
-			para->bc->temHeaAve[bcid] += var[QFLUX][IX(i, j, k)] * A_tmp;
+			para->bc->temHeaAve[bcid - para->bc->nb_block] += var[QFLUX][IX(i, j, k)] * A_tmp;
 			break;
 		default:
 			sprintf(msg, "average_bc_area(): Thermal boundary (%d)"

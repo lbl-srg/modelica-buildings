@@ -236,6 +236,21 @@ int FFD_solver(PARA_DATA *para, REAL **var, int **BINDEX) {
 		}
 
 		if (para->outp->cal_mean == 1) {
+
+#ifdef FFD_ISAT  /*if called by ISAT*/
+			/* Integrate the data on the boundary surface*/
+			flag = surface_integrate(para, var, BINDEX);
+			if (flag != 0) {
+				ffd_log("FFD_solver(): "
+					"Could not average the data on boundary.",
+					FFD_ERROR);
+				return flag;
+			}
+			else if (para->outp->version == DEBUG)
+				ffd_log("FFD_solver(): completed surface integration",
+					FFD_NORMAL);
+#endif
+
 			flag = add_time_averaged_data(para, var);
 			if (flag != 0) {
 				ffd_log("FFD_solver(): Could not add the averaged data.",

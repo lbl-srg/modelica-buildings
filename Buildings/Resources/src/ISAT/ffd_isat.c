@@ -81,11 +81,13 @@ void isatab_(int *idtab, int *mode, const int *nx, double x[], const int *nf, co
   int inlet_vel_re[100] = { 0 };
   int block_re[100] = { 0 };
   int wall_re[100] = { 0 };
+  int wall_heat_re[10] = { 0 };
   /* temperature, heat flux or velocity will be overwritten by which isat input */
   int inlet_temp_wh[100] = { 0 };
   int inlet_vel_wh[100] = { 0 };
   int block_wh[100] = { 0 };
   int wall_wh[100] = { 0 };
+  int wall_heat_wh[10] = { 0 };
 
   char filepath[400] = { 0 };
   int readexisting = 1;
@@ -1009,6 +1011,18 @@ void read_isat_parameters() {
 					outp_name[i] = vel_sen;
 				else if (!strcmp(tmp1, "temp_rack"))
 					outp_name[i] = temp_rack;
+				else if (!strcmp(tmp1, "heat_wall1"))
+					outp_name[i] = heat_wall1;
+				else if (!strcmp(tmp1, "heat_wall2"))
+					outp_name[i] = heat_wall2;
+				else if (!strcmp(tmp1, "heat_wall3"))
+					outp_name[i] = heat_wall3;
+				else if (!strcmp(tmp1, "heat_wall4"))
+					outp_name[i] = heat_wall4;
+				else if (!strcmp(tmp1, "heat_wall5"))
+					outp_name[i] = heat_wall5;
+				else if (!strcmp(tmp1, "heat_wall6"))
+					outp_name[i] = heat_wall6;
 				else {
 					sprintf(logMsg, "read_isat_parameters(): %s is not valid input for %s", tmp1, tmp);
 					cosim_log(logMsg, COSIM_ERROR);
@@ -1043,6 +1057,40 @@ void read_isat_parameters() {
 		} /* End of for (i = 0; i < num_output; i++)*/
 	} /* End of else if (!strcmp(tmp, "/*outp.outp_weight:"))*/
 
+	else if (!strcmp(tmp, "/*outp.wall_heat_re:")) {
+		for (i = 0; i < para.cosim->para->nSur; i++) {
+			fgets(string, 400, file_params);
+			sscanf(string, "%s", tmp);
+			if (!strcmp(tmp, "outp.wall_heat_re")) {
+				sscanf(string, "%s%d", tmp, &wall_heat_re[i]);
+				sprintf(logMsg, "\t\t%s[%d]=%d", tmp, i, wall_heat_re[i]);
+				cosim_log(logMsg, COSIM_NORMAL);
+			}
+			else {
+				sprintf(logMsg, "read_isat_parameters(): wrong format for %s, which should be outp.wall_heat_re", tmp);
+				cosim_log(logMsg, COSIM_ERROR);
+				return 1;
+			} /* End of if (!strcmp(tmp, "outp.wall_heat_re:"))*/
+		} /* End of for (i = 0; i < para.cosim->para->nSur; i++)*/
+	} /* End of else if (!strcmp(tmp, "/*outp.wall_heat_re:"))*/
+
+	else if (!strcmp(tmp, "/*outp.wall_heat_wh:")) {
+		for (i = 0; i < para.cosim->para->nSur; i++) {
+			fgets(string, 400, file_params);
+			sscanf(string, "%s", tmp);
+			if (!strcmp(tmp, "outp.wall_heat_wh")) {
+				sscanf(string, "%s%d", tmp, &wall_heat_wh[i]);
+				sprintf(logMsg, "\t\t%s[%d]=%d", tmp, i, wall_heat_wh[i]);
+				cosim_log(logMsg, COSIM_NORMAL);
+			}
+			else {
+				sprintf(logMsg, "read_isat_parameters(): wrong format for %s, which should be outp.wall_heat_wh", tmp);
+				cosim_log(logMsg, COSIM_ERROR);
+				return 1;
+			} /* End of if (!strcmp(tmp, "outp.wall_heat_wh:"))*/
+		} /* End of for (i = 0; i < para.cosim->para->nSur; i++)*/
+	} /* End of else if (!strcmp(tmp, "/*outp.wall_heat_wh:"))*/
+
   } /* End of while (next = 0)*/
 
   fclose(file_params);
@@ -1059,7 +1107,7 @@ int cosim_loop() {
   float *input;
   int size = para.cosim->para->nSur + para.cosim->para->nPorts * 2 + para.cosim->para->nSou;
   para.cosim->ffd->input = (REAL*)malloc(size * sizeof(REAL));
-  para.cosim->ffd->output = (REAL*)malloc(2 * sizeof(REAL));
+  para.cosim->ffd->output = (REAL*)malloc(num_output * sizeof(REAL));
   flag = read_cosim_data(&para);
 
   for (i = 0; i < num_input; i++) {
@@ -1068,7 +1116,7 @@ int cosim_loop() {
 
   evaluate();
 
-  for (i = 0; i < num_input; i++) {
+  for (i = 0; i < num_output; i++) {
 	para.cosim->ffd->output[i] = fa[i] / outp_weight[i];
   }
 
@@ -1098,7 +1146,7 @@ int cosim_loop() {
 		}
 	
 	}
-	for (i = 0; i < num_input; i++) {
+	for (i = 0; i < num_output; i++) {
 		para.cosim->ffd->output[i] = fa[i] / outp_weight[i];
 	}
 
