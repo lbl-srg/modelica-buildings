@@ -108,6 +108,7 @@ First implementation.
 </html>"),
   Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{160,80}})),
-  __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingSpawnZ1.mos"
-        "Simulate and plot"));
+  __Dymola_Commands(file=
+"modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingSpawnZ1.mos"
+"Simulate and plot"));
 end CouplingSpawnZ1;
