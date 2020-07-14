@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses;
-partial block HotColdSide "State machine enabling production and ambient source systems"
+partial block SideHotCold "Base control block for hor or cold side"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Integer nSouAmb
@@ -50,11 +50,10 @@ partial block HotColdSide "State machine enabling production and ambient source 
       transformation(extent={{180,-140},{220,-100}}),
       iconTransformation(
         extent={{100,-90},{140,-50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y[nSouAmb](each final unit="1")
-    "Control output for ambient sources"
-    annotation (Placement(transformation(
-          extent={{180,-20},{220,20}}), iconTransformation(extent={{100,-30},{
-            140,10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yAmb[nSouAmb](each final
+      unit="1") "Control signal for ambient sources" annotation (Placement(
+        transformation(extent={{180,-20},{220,20}}), iconTransformation(extent={
+            {100,-30},{140,10}})));
 
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{-60,140},{-40,160}})));
@@ -64,8 +63,8 @@ partial block HotColdSide "State machine enabling production and ambient source 
   Modelica.StateGraph.TransitionWithSignal t1(enableTimer=true, waitTime=60)
     "Transition to enabled"
     annotation (Placement(transformation(extent={{50,130},{70,150}})));
-  Modelica.StateGraph.StepWithSignal run
-    "On/off command of heating or cooling system"
+  Modelica.StateGraph.StepWithSignal dem
+    "Heating or cooling demand from the tank"
     annotation (Placement(transformation(extent={{80,130},{100,150}})));
   Modelica.StateGraph.TransitionWithSignal t2(enableTimer=true, waitTime=120)
     "Transition to disabled"
@@ -77,7 +76,7 @@ partial block HotColdSide "State machine enabling production and ambient source 
     "Threshold comparison for disabling heating or cooling system"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHeaCoo
-    "Enabled signal for heating or cooling system"
+    "Tank in heating or cooling demand"
     annotation (Placement(transformation(extent={{180,80},{220,120}}),
       iconTransformation(extent={{100,30},{140,70}})));
   LimPlaySequence conPlaSeq(
@@ -149,9 +148,9 @@ initial equation
   assert(dTDea >= 0, "In " + getInstanceName() +
     ": dTDea (" + String(dTDea) + ") must be an absolute value.");
 equation
-  connect(t1.outPort, run.inPort[1])
+  connect(t1.outPort,dem. inPort[1])
     annotation (Line(points={{61.5,140},{79,140}},   color={0,0,0}));
-  connect(run.outPort[1], t2.inPort)
+  connect(dem.outPort[1], t2.inPort)
     annotation (Line(points={{100.5,140},{116,140}},color={0,0,0}));
   connect(enaHeaCoo.y, t1.condition) annotation (Line(points={{52,40},{60,40},{
           60,128}},
@@ -196,7 +195,7 @@ equation
         color={0,0,0}));
   connect(and2.y, yHeaCoo)
     annotation (Line(points={{172,100},{200,100}}, color={255,0,255}));
-  connect(run.active, and2.u2)
+  connect(dem.active, and2.u2)
     annotation (Line(points={{90,129},{90,92},{148,92}}, color={255,0,255}));
   connect(uHeaCoo, and2.u1) annotation (Line(points={{-200,180},{140,180},{140,100},
           {148,100}}, color={255,0,255}));
@@ -213,7 +212,7 @@ equation
     annotation (Line(points={{-18,-120},{38,-120}}, color={0,0,127}));
   connect(reaRep.y, min1.u1) annotation (Line(points={{-140,98},{-140,-100},{
           -60,-100},{-60,-114},{-42,-114}}, color={0,0,127}));
-  connect(min1.y, y) annotation (Line(points={{-18,-120},{0,-120},{0,-100},{160,
+  connect(min1.y, yAmb) annotation (Line(points={{-18,-120},{0,-120},{0,-100},{160,
           -100},{160,0},{200,0}}, color={0,0,127}));
    annotation (
        Diagram(coordinateSystem(extent={{-180,-200},{180,200}})),
@@ -225,5 +224,54 @@ July xx, 2020, by Antoine Gautier:<br/>
 First implementation
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This block serves as the base controller for the hot (or cold) side of the ETS.
+It provides the following control signals.
+</p>
+<ul>
+<li>
+Tank in demand <code>yHeaCoo</code><br/>
+The tank is in heating (resp. cooling) demand if
+<ul>
+<li>
+there is an actual heating (resp. cooling) demand yielded by the building 
+automation system, and
+</li>
+<li>
+the temperature measured at the top (resp. bottom) of the tank is below
+(resp. above) the set point for more than 60 s.
+</li>
+</ul>
+The tank demand transitions back to false when the maximum (resp. minimum) temperature
+between the top and the bottom of the tank is above (resp. below) the set point
+for more than 120 s (which indicates that the tank is fully loaded).  
+</li>
+<li>
+Control signal for ambient sources <code>y</code><br/>
+The systems serving as ambient sources are 
+<ul>
+<li>
+enabled if the demand signal from the other tank is false, and
+</li>
+<li>
+controlled in sequence with an instance of
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.LimPlaySequence\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.LimPlaySequence</a>
+limiting the increase (resp. decrease) in the temperature measured at the bottom 
+(resp. top) of the tank as illustrated on the figure below for the hot side.
+</li>
+</ul>
+</li>
+<li>
+Control signal for ambient loop isolation valve <code>yIsoAmb</code><br/>
+The valve is commanded to be fully open whenever the maximum of the 
+ambient source control signals is not zero.
+</li>
+</ul>
+<p>
+<img alt=\"Sequence chart for hot side\"
+src=\"modelica://Buildings/Resources/Images/Applications/DHC/EnergyTransferStations/Combined/Generation5/Controls/BaseClasses/HotColdSide.png\"/>
+</p>
 </html>"));
-end HotColdSide;
+end SideHotCold;

@@ -15,7 +15,21 @@ model Chiller "Base subsystem with heat recovery chiller"
   replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic dat
     "Chiller performance data"
     annotation (choicesAllMatching=true,
-      Placement(transformation(extent={{-160,-160},{-140,-140}})));
+      Placement(transformation(extent={{60,160},{80,180}})));
+  replaceable parameter Buildings.Fluid.Movers.Data.Generic perPumCon(
+    motorCooledByFluid=false)
+    constrainedby Buildings.Fluid.Movers.Data.Generic
+    "Record with performance data for condenser pump"
+    annotation (
+      choicesAllMatching=true,
+      Placement(transformation(extent={{100,160},{120,180}})));
+  replaceable parameter Buildings.Fluid.Movers.Data.Generic perPumEva(
+    motorCooledByFluid=false)
+    constrainedby Buildings.Fluid.Movers.Data.Generic
+    "Record with performance data for evaporator pump"
+    annotation (
+      choicesAllMatching=true,
+      Placement(transformation(extent={{140,160},{160,180}})));
   parameter Modelica.SIunits.PressureDifference dpCon_nominal(displayUnit="Pa")
     "Nominal pressure drop accross condenser"
     annotation (Dialog(group="Nominal condition"));
@@ -111,6 +125,7 @@ model Chiller "Base subsystem with heat recovery chiller"
   Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow
     pumCon(
     redeclare final package Medium = Medium,
+    final per=perPumCon,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=dat.mCon_flow_nominal,
     final dp_nominal=dpCon_nominal + dpValCon_nominal)
@@ -119,6 +134,7 @@ model Chiller "Base subsystem with heat recovery chiller"
   Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow
     pumEva(
     redeclare final package Medium = Medium,
+    final per=perPumEva,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=dat.mEva_flow_nominal,
     final dp_nominal=dpEva_nominal + dpValEva_nominal)
@@ -300,7 +316,7 @@ equation
           -140},{150,-140},{150,-146},{158,-146}}, color={0,0,127}));
   connect(pumCon.P, add2.u1) annotation (Line(points={{-89,69},{-60,69},{-60,-134},
           {158,-134}}, color={0,0,127}));
-  connect(con.yChi, booToRea.u) annotation (Line(points={{-48,148},{-40,148},{-40,
+  connect(con.yChi, booToRea.u) annotation (Line(points={{-48,148},{-36,148},{-36,
           180},{-58,180}}, color={255,0,255}));
   connect(booToRea.y, gai2.u) annotation (Line(points={{-82,180},{-120,180},{-120,
           0},{-100,0},{-100,-10}}, color={0,0,127}));
@@ -336,5 +352,22 @@ July xx, 2020, by Antoine Gautier:<br/>
 First implementation
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This is a model for a chiller system with constant speed evaporator and
+condenser pumps, and mixing valves modulated to maintain a minimum
+condenser inlet temperature (resp. maximum evaporator inlet temperature).
+</p>
+<p>
+The system is controlled based on the logic described in
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Chiller\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Chiller</a>.
+The pump flow rate is considered proportional to the pump speed 
+under the assumption of a constant flow resistance for both the condenser 
+and the evaporator loops. This assumption is justified
+by the connection of the loops to the buffer tanks, and the additional 
+assumption that the bypass branch of the mixing valves is balanced 
+with the direct branch.  
+</p>
 </html>"));
 end Chiller;

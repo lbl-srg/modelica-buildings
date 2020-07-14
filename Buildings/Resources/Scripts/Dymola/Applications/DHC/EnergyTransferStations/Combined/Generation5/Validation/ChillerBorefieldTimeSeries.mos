@@ -56,7 +56,7 @@ createPlot(id=3, y={"ets.hex.conHex.T1HexWatEnt", "ets.hex.conHex.T1HexWatLvg", 
     autoreplot=true,
     grid=true,
     color=true);
-createPlot(id=3, y={"ets.hex.conHex.con1Hex.u_s", "ets.hex.conHex.con1Hex.u_m"},
+createPlot(id=3, y={"ets.hex.conHex.absDelT2.y", "ets.hex.conHex.setAct.y"},
     subPlot=2,
     autoscale=true,
     autoerase=true,

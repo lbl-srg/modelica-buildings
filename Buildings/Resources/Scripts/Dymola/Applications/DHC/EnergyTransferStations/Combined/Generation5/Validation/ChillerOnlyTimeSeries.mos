@@ -4,8 +4,8 @@ removePlots(false);
 simulateModel("Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Validation.ChillerOnlyTimeSeries",
     method="Cvode",
     tolerance=1e-6,
-    startTime=1E7,
-    stopTime=1.5E7,
+    startTime=1.1E7,
+    stopTime=1.105E7,
     resultFile="ChillerOnlyTimeSeries");
 Advanced.FilenameInLegend = true;
 createPlot(id=1, position={4, 5, 546, 748}, y={"ets.tanHeaWat.TTop", "ets.tanHeaWat.TBot", "senTHeaWatSup.T", "senTHeaWatRet.T", "ets.conSup.THeaWatSupPreSet", "ets.conSup.THeaWatSupSet"},
@@ -21,7 +21,7 @@ createPlot(id=1, y={"ets.tanChiWat.TTop", "ets.tanChiWat.TBot", "senTChiWatSup.T
     autoreplot=true,
     grid=true,
     color=true);
-createPlot(id=1, y={"ets.conSup.yHea", "ets.conSup.yHeaRej", "ets.conSup.yCoo", "ets.conSup.yColRej"},
+createPlot(id=1, y={"ets.conSup.uHea", "ets.conSup.uCoo", "ets.conSup.yAmb[1]"},
     subPlot=3,
     autoscale=true,
     autoerase=true,
@@ -56,7 +56,7 @@ createPlot(id=3, y={"ets.hex.conHex.T1HexWatEnt", "ets.hex.conHex.T1HexWatLvg", 
     autoreplot=true,
     grid=true,
     color=true);
-createPlot(id=3, y={"ets.hex.conHex.con1Hex.u_s", "ets.hex.conHex.con1Hex.u_m"},
+createPlot(id=3, y={"ets.hex.conHex.absDelT2.y", "ets.hex.conHex.setAct.y"},
     subPlot=2,
     autoscale=true,
     autoerase=true,

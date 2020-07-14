@@ -22,7 +22,7 @@ model ChillerBorefield
       cooBor=cooBor,
       dp_nominal=0))
     "Borefield design data"
-    annotation (Placement(transformation(extent={{-160,182},{-140,202}})));
+    annotation (Placement(transformation(extent={{60,180},{80,200}})));
   parameter Fluid.Chillers.Data.ElectricEIR.Generic datChi(
     QEva_flow_nominal=-1e6,
     COP_nominal=2,
@@ -41,7 +41,7 @@ model ChillerBorefield
     TConEnt_nominal=313.15,
     TConEntMin=303.15,
     TConEntMax=333.15) "Chiller performance data"
-    annotation (Placement(transformation(extent={{-200,182},{-180,202}})));
+    annotation (Placement(transformation(extent={{20,180},{40,200}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupSet(
     k=45 + 273.15,
     y(final unit="K", displayUnit="degC"))

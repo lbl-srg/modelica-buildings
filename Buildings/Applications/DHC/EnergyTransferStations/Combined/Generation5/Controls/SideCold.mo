@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls;
-model ColdSide "State machine enabling production and ambient source systems"
-  extends BaseClasses.HotColdSide(
+model SideCold "Control block for cold side"
+  extends BaseClasses.SideHotCold(
     final reverseActing=true);
   Buildings.Controls.OBC.CDL.Continuous.Max max "Max"
     annotation (Placement(transformation(extent={{-90,-90},{-70,-70}})));
@@ -26,5 +26,13 @@ July xx, 2020, by Antoine Gautier:<br/>
 First implementation
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This block serves as the controller for the cold side of the ETS.
+See 
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold</a>
+for the description of the control logic.
+</p>
 </html>"));
-end ColdSide;
+end SideCold;

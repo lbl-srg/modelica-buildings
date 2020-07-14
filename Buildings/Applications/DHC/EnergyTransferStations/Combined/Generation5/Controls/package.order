@@ -1,11 +1,11 @@
 Borefield
 Chiller
-ColdSide
 HeatExchanger
-HotSide
 LimPlay
 LimPlaySequence
 Reset
+SideCold
+SideHot
 Supervisory
 BaseClasses
 Validation

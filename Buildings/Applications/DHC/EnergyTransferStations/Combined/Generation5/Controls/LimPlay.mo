@@ -163,5 +163,49 @@ July xx, 2020, by Antoine Gautier:<br/>
 First implementation
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This is a controller composed of two P or PI controllers and a hysteresis block.
+The width of the hysteresis <code>hys</code>, together with the set point input 
+signal <code>u_s</code> defines the set point tracked by each controller.
+</p>
+<ul>
+<li>
+The \"low\" controller tracks <code>u_s - hys / 2</code>.
+</li>
+<li>
+The \"high\" controller tracks <code>u_s + hys / 2</code>.
+</li>
+</ul>
+<p>
+The output of the main controller depends on the hysteresis operator applied to the
+outputs of the high and low controllers.
+</p>
+<ul>
+<li>
+When the two outputs reach their maximum value, the output is equal to the
+low controller output.
+</li>
+<li>
+When the two outputs reach their minimum value, the output is equal to the
+right controller output.
+</li>
+<li>
+In between, the output is equal to the output of the previously active controller.
+</li>
+<li>
+This logic is illustrated below and is reversed if <code>reverseActing</code> is true.
+</li>
+</ul>
+<p>
+<img alt=\"Sequence chart\"
+src=\"modelica://Buildings/Resources/Images/Applications/DHC/EnergyTransferStations/Combined/Generation5/Controls/LimPlay.png\"/>
+</p>
+<p>
+See
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Validation.LimPlay\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Validation.LimPlay</a>
+for an illustration of the control response.
+</p>
 </html>"));
 end LimPlay;

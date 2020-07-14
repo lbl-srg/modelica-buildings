@@ -13,10 +13,9 @@ model Borefield
                                      nBorHol, dxy) "Coordinates of boreholes";
   Generation5.Subsystems.Borefield borFie(
     redeclare final package Medium = Medium,
-    final dat=datBorFie,
+    final datBorFie=datBorFie,
     dp_nominal=5E4,
-    TBorWatEntMax=313.15)
-    "Subsystem with heat recovery chiller"
+    TBorWatEntMax=313.15) "Subsystem with heat recovery chiller"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Fluid.Sources.Boundary_pT conWat(
     redeclare package Medium = Medium,
@@ -43,8 +42,9 @@ model Borefield
       cooBor=cooBor,
       dp_nominal=0))
     "Borefield design data"
-    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Modelica.Blocks.Sources.TimeTable TInlVal(
+    y(final unit="K", displayUnit="degC"),
     table=[0,2; 2,2; 3,15; 7,15; 9,35; 10,45; 11,30; 20,30],
     timeScale=1000,
     offset=273.15) "Inlet temperature values"
@@ -89,5 +89,11 @@ July xx, 2020, by Antoine Gautier:<br/>
 First implementation
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This model validates 
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.Borefield\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.Borefield</a>.
+</p>
 </html>"));
 end Borefield;

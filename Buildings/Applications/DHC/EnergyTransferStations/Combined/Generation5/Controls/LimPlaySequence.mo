@@ -68,9 +68,11 @@ block LimPlaySequence "Play hysteresis controllers in sequence"
 protected
   final parameter Real sig = if reverseActing then -1 else 1
     "Sign of set-point offset";
-  Real uSet1 = u_s + sig * (dea[1] + 0.5 * hys[1])
-    "First set-point value (only half hysteresis)";
-  Real uSet[nCon] = uSet1 .+ sig * {(i - 1) * (dea[i] + hys[i]) for i in 1:nCon}
+  Real hysShi[nCon+1] = cat(1, {0}, hys)
+    "Hysteresis width array prepended by 0";
+  Real uSet[nCon] =  u_s .+ sig * {sum(
+    {dea[i] + (hysShi[i] + hysShi[i+1]) / 2 for i in 1:j}) for
+    j in 1:nCon}
     "Set-point values";
 equation
   connect(reaRep.y, conPla.u_m)
@@ -92,5 +94,31 @@ July xx, 2020, by Antoine Gautier:<br/>
 First implementation
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This controller is composed of a set of instances of 
+<a href=\\\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.LimPlay\\\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.LimPlay</a>
+connected in sequence and separated with a dead band.
+More precisely, the set point input signal of each controller is given by
+</p>
+<ul>
+<li>
+<code>u_s[1] = u_s + dea[1] + hys[1] / 2</code> 
+</li>
+<li>
+For <code>i > 1</code>: <code>u_s[i] = u_s[i-1] + dea[i] + (hys[i-1] + hys[i]) / 2</code>
+</li>
+</ul>
+<p>
+<img alt=\"Sequence chart\"
+src=\"modelica://Buildings/Resources/Images/Applications/DHC/EnergyTransferStations/Combined/Generation5/Controls/LimPlaySequence.png\"/>
+</p>
+<p>
+See
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Validation.LimPlaySequence\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Validation.LimPlaySequence</a>
+for an illustration of the control response.
+</p>
 </html>"));
 end LimPlaySequence;

@@ -20,42 +20,9 @@ model HeatExchanger
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-110,-62})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp T1(
-    offset=8 + 273.15,
-    y(final unit="K", displayUnit="degC"),
-    height=5,
-    duration=1000,
-    startTime=1000) "Primary temperature"
-    annotation (Placement(transformation(extent={{210,-90},{190,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp T2Col(
-    offset=6 + 273.15,
-    y(final unit="K", displayUnit="degC"),
-    height=10,
-    duration=1000,
-    startTime=2000) "Secondary temperature"
-    annotation (Placement(transformation(extent={{-230,-12},{-210,8}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp dT1(
-    offset=0,
-    y(final unit="K", displayUnit="degC"),
-    height=10,
-    duration=1000,
-    startTime=3000) "Primary additional deltaT"
-    annotation (Placement(transformation(extent={{210,-50},{190,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=2)
-    "Sum T and deltaT"
-    annotation (Placement(transformation(extent={{170,-70},{150,-50}})));
   Modelica.Blocks.Sources.BooleanExpression uHeaRej(y=time >= 3000)
     "Full heat rejection enabled signal"
     annotation (Placement(transformation(extent={{-230,110},{-210,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum1(nin=2)
-    "Sum T and deltaT"
-    annotation (Placement(transformation(extent={{-192,8},{-172,28}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp dT2Col(
-    y(final unit="K", displayUnit="degC"),
-    height=-10,
-    duration=500,
-    startTime=4500) "Secondary additional deltaT"
-    annotation (Placement(transformation(extent={{-230,28},{-210,48}})));
   Modelica.Blocks.Sources.BooleanExpression uColRej(y=time >= 1000 and time < 3000)
     "Full cold rejection enabled signal"
     annotation (Placement(transformation(extent={{-230,90},{-210,110}})));
@@ -75,22 +42,6 @@ model HeatExchanger
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     annotation (Placement(transformation(extent={{-160,-70},{-140,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp T2Hea(
-    offset=45 + 273.15,
-    y(final unit="K", displayUnit="degC"),
-    height=10,
-    duration=1000,
-    startTime=2000) "Secondary temperature"
-    annotation (Placement(transformation(extent={{-230,-130},{-210,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum2(nin=2)
-    "Sum T and deltaT"
-    annotation (Placement(transformation(extent={{-192,-110},{-172,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp dT2Hea(
-    y(final unit="K", displayUnit="degC"),
-    height=-30,
-    duration=500,
-    startTime=4500) "Secondary additional deltaT"
-    annotation (Placement(transformation(extent={{-230,-90},{-210,-70}})));
   Fluid.Sensors.TemperatureTwoPort senT1OutPum(
     redeclare final package Medium = Medium,
     m_flow_nominal=hexPum.m1_flow_nominal) "Primary outlet temperature"
@@ -198,30 +149,30 @@ model HeatExchanger
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(k=0) "Zero"
     annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
+  Modelica.Blocks.Sources.TimeTable TColVal(
+    y(final unit="K", displayUnit="degC"),
+    table=[0,6; 2,6; 3,16; 4.5,16; 5,6; 10,6],
+    timeScale=1000,
+    offset=273.15) "Cold side temperature values"
+    annotation (Placement(transformation(extent={{-230,-50},{-210,-30}})));
+  Modelica.Blocks.Sources.TimeTable THotVal(
+    y(final unit="K", displayUnit="degC"),
+    table=[0,45; 2,45; 3,55; 4.5,55; 5,25; 10,25],
+    timeScale=1000,
+    offset=273.15) "Hot side temperature values"
+    annotation (Placement(transformation(extent={{-230,-90},{-210,-70}})));
+  Modelica.Blocks.Sources.TimeTable TDisVal(
+    y(final unit="K", displayUnit="degC"),
+    table=[0,8; 1,8; 2,13; 3,18; 4,6; 5,18],
+    timeScale=1000,
+    offset=273.15) "District water temperature values"
+    annotation (Placement(transformation(extent={{170,-70},{150,-50}})));
 equation
-  connect(mulSum.y, bou1.T_in) annotation (Line(points={{148,-60},{132,-60},{132,
-          -58},{122,-58}}, color={0,0,127}));
-  connect(dT1.y, mulSum.u[1]) annotation (Line(points={{188,-40},{180,-40},{180,
-          -60},{176,-60},{176,-59},{172,-59}}, color={0,0,127}));
-  connect(T1.y, mulSum.u[2]) annotation (Line(points={{188,-80},{180,-80},{180,-61},
-          {172,-61}}, color={0,0,127}));
-  connect(T2Col.y, mulSum1.u[1]) annotation (Line(points={{-208,-2},{-200,-2},{
-          -200,19},{-194,19}}, color={0,0,127}));
-  connect(dT2Col.y, mulSum1.u[2]) annotation (Line(points={{-208,38},{-200,38},
-          {-200,17},{-194,17}}, color={0,0,127}));
   connect(swi.y, bou2.T_in) annotation (Line(points={{-138,-60},{-130,-60},{
           -130,-58},{-122,-58}}, color={0,0,127}));
   connect(uColRej.y, swi.u2) annotation (Line(points={{-209,100},{-180,100},{-180,
           40},{-160,40},{-160,-40},{-170,-40},{-170,-60},{-162,-60}},
                                                   color={255,0,255}));
-  connect(mulSum1.y, swi.u1) annotation (Line(points={{-170,18},{-166,18},{-166,
-          -52},{-162,-52}}, color={0,0,127}));
-  connect(T2Hea.y, mulSum2.u[1]) annotation (Line(points={{-208,-120},{-200,
-          -120},{-200,-99},{-194,-99}}, color={0,0,127}));
-  connect(dT2Hea.y, mulSum2.u[2]) annotation (Line(points={{-208,-80},{-200,-80},
-          {-200,-101},{-194,-101}}, color={0,0,127}));
-  connect(mulSum2.y, swi.u3) annotation (Line(points={{-170,-100},{-166,-100},{
-          -166,-68},{-162,-68}}, color={0,0,127}));
   connect(hexPum.port_b1, senT1OutPum.port_a) annotation (Line(points={{10,-54},
           {40,-54},{40,-80},{60,-80}}, color={0,127,255}));
   connect(senT1OutPum.port_b, bou1.ports[1]) annotation (Line(points={{80,-80},{
@@ -240,8 +191,6 @@ equation
           {20,-80},{20,-66},{10,-66}}, color={0,127,255}));
   connect(swi.y, bou2Val.T_in) annotation (Line(points={{-138,-60},{-130,-60},{-130,
           24},{-122,24}}, color={0,0,127}));
-  connect(mulSum.y, bou1Val.T_in) annotation (Line(points={{148,-60},{140,-60},{
-          140,44},{124,44}}, color={0,0,127}));
   connect(hexVal.port_a1, senT1InlVal.port_b) annotation (Line(points={{-10,26},
           {-20,26},{-20,40},{60,40}}, color={0,127,255}));
   connect(senT1InlVal.port_a, bou1Val.ports[1])
@@ -284,6 +233,14 @@ equation
           {-12,22}}, color={0,0,127}));
   connect(swi1.y, hexPum.u) annotation (Line(points={{-38,100},{-28,100},{-28,-58},
           {-12,-58}}, color={0,0,127}));
+  connect(TColVal.y, swi.u1) annotation (Line(points={{-209,-40},{-180,-40},{-180,
+          -52},{-162,-52}}, color={0,0,127}));
+  connect(THotVal.y, swi.u3) annotation (Line(points={{-209,-80},{-180,-80},{-180,
+          -68},{-162,-68}}, color={0,0,127}));
+  connect(TDisVal.y, bou1.T_in) annotation (Line(points={{149,-60},{140,-60},{140,
+          -58},{122,-58}}, color={0,0,127}));
+  connect(TDisVal.y, bou1Val.T_in) annotation (Line(points={{149,-60},{140,-60},
+          {140,44},{124,44}}, color={0,0,127}));
   annotation (
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-240,-180},{240,180}})),
@@ -301,5 +258,15 @@ July xx, 2020, by Antoine Gautier:<br/>
 First implementation
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This model validates 
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.HeatExchanger\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.HeatExchanger</a>
+in a configuration where the primary flow rate is modulated by means of a 
+two-way valve (see <code>hexVal</code>), and in a configuration where the 
+primary flow rate is modulated by means of a variable speed pump 
+(see <code>hexPum</code>).
+</p>
 </html>"));
 end HeatExchanger;

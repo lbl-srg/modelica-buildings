@@ -36,12 +36,22 @@ model ChillerBorefield
     "Chiller performance data"
     annotation (Dialog(group="Chiller"),
       choicesAllMatching=true,
-      Placement(transformation(extent={{-10,222},{10,242}})));
-
-  parameter Fluid.Geothermal.Borefields.Data.Borefield.Example datBorFie
-    "Borefield parameters"
-    annotation (Dialog(group="Borefield", enable=have_borFie),
       Placement(transformation(extent={{20,222},{40,242}})));
+  replaceable parameter Buildings.Fluid.Movers.Data.Generic perPumCon(
+    motorCooledByFluid=false)
+    constrainedby Buildings.Fluid.Movers.Data.Generic
+    "Record with performance data for condenser pump"
+    annotation (Dialog(group="Chiller"),
+      choicesAllMatching=true,
+      Placement(transformation(extent={{60,222},{80,242}})));
+  replaceable parameter Buildings.Fluid.Movers.Data.Generic perPumEva(
+    motorCooledByFluid=false)
+    constrainedby Buildings.Fluid.Movers.Data.Generic
+    "Record with performance data for evaporator pump"
+    annotation (Dialog(group="Chiller"),
+      choicesAllMatching=true,
+      Placement(transformation(extent={{100,222},{120,242}})));
+
   parameter Modelica.SIunits.Temperature TBorWatEntMax=313.15
     "Maximum value of borefield water entering temperature"
     annotation (Dialog(group="Borefield", enable=have_borFie));
@@ -51,9 +61,27 @@ model ChillerBorefield
   parameter Modelica.SIunits.Pressure dpBorFie_nominal(displayUnit="Pa") = 5E4
     "Pressure losses for the entire borefield (control valve excluded)"
     annotation (Dialog(group="Borefield", enable=have_borFie));
+  replaceable parameter Fluid.Geothermal.Borefields.Data.Borefield.Example
+    datBorFie
+    constrainedby Fluid.Geothermal.Borefields.Data.Borefield.Template
+    "Borefield parameters"
+    annotation (
+      Dialog(group="Borefield", enable=have_borFie),
+      choicesAllMatching=true,
+      Placement(transformation(extent={{140,222},{160,242}})));
+  replaceable parameter Buildings.Fluid.Movers.Data.Generic perPumBorFie(
+    motorCooledByFluid=false)
+    constrainedby Buildings.Fluid.Movers.Data.Generic
+    "Record with performance data for borefield pump"
+    annotation (
+      Dialog(group="Borefield", enable=have_borFie),
+      choicesAllMatching=true,
+      Placement(transformation(extent={{180,222},{200,242}})));
 
   replaceable Subsystems.Chiller chi(
     redeclare final package Medium = MediumBui,
+    final perPumCon=perPumCon,
+    final perPumEva=perPumEva,
     final dpCon_nominal=dpCon_nominal,
     final dpEva_nominal=dpEva_nominal,
     final dat=datChi)
@@ -64,14 +92,13 @@ model ChillerBorefield
 
   replaceable Subsystems.Borefield borFie(
     redeclare final package Medium = MediumBui,
-    final dat=datBorFie,
+    final datBorFie=datBorFie,
+    final perPum=perPumBorFie,
     final TBorWatEntMax=TBorWatEntMax,
     final spePumBorMin=spePumBorMin,
-    final dp_nominal=dpBorFie_nominal) if have_borFie
-    "Borefield"
-    annotation (
-      Dialog(group="Borefield", enable=have_borFie),
-      Placement(transformation(extent={{-80,-230},{-60,-210}})));
+    final dp_nominal=dpBorFie_nominal) if have_borFie "Borefield" annotation (
+      Dialog(group="Borefield", enable=have_borFie), Placement(transformation(
+          extent={{-80,-230},{-60,-210}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerPPum(final k=0) if
     not have_borFie "Zero power"
@@ -88,10 +115,10 @@ equation
     annotation (Line(points={{10,0},{108,0},{108,-24}}, color={0,127,255}));
   connect(colChiWat.ports_bCon[2], chi.port_aChiWat) annotation (Line(points={{132,
           -24},{132,-12},{10,-12},{10,-12}}, color={0,127,255}));
-  connect(conSup.THeaWatSupSet, chi.THeaWatSupSet) annotation (Line(points={{-238,
-          16},{-24,16},{-24,-7},{-12,-7}}, color={0,0,127}));
-  connect(conSup.TChiWatSupSet, chi.TChiWatSupSet) annotation (Line(points={{-238,
-          13},{-26,13},{-26,-9},{-12,-9}}, color={0,0,127}));
+  connect(conSup.THeaWatSupSet, chi.THeaWatSupSet) annotation (Line(points={{-238,18},
+          {-24,18},{-24,-7},{-12,-7}},     color={0,0,127}));
+  connect(conSup.TChiWatSupSet, chi.TChiWatSupSet) annotation (Line(points={{-238,14},
+          {-26,14},{-26,-9},{-12,-9}},     color={0,0,127}));
   connect(chi.PPum, totPPum.u[2]) annotation (Line(points={{12,-8},{20,-8},{20,-58},
           {258,-58},{258,-60}}, color={0,0,127}));
   connect(colAmbWat.ports_aCon[2], borFie.port_b) annotation (Line(points={{12,-116},
@@ -99,7 +126,7 @@ equation
   connect(colAmbWat.ports_bCon[2], borFie.port_a) annotation (Line(points={{-12,
           -116},{-14,-116},{-14,-140},{-100,-140},{-100,-220},{-80,-220}},
         color={0,127,255}));
-  connect(conSup.yAmb[1], borFie.u) annotation (Line(points={{-238,25},{-200,25},
+  connect(conSup.yAmb[1], borFie.u) annotation (Line(points={{-238,30},{-200,30},
           {-200,-212},{-82,-212}}, color={0,0,127}));
   connect(valIsoCon.y_actual, borFie.yValIso[1]) annotation (Line(points={{-55,
           -113},{-40,-113},{-40,-198},{-90,-198},{-90,-217},{-82,-217}}, color=
@@ -107,7 +134,7 @@ equation
   connect(valIsoEva.y_actual, borFie.yValIso[2]) annotation (Line(points={{55,-113},
           {40,-113},{40,-200},{-88,-200},{-88,-215},{-82,-215}},       color={0,
           0,127}));
-  connect(borFie.PPum, totPPum.u[3]) annotation (Line(points={{-58,-212},{240,-212},
+  connect(borFie.PPum, totPPum.u[3]) annotation (Line(points={{-58,-216},{240,-216},
           {240,-62},{258,-62},{258,-60}}, color={0,0,127}));
   connect(zerPPum.y, totPPum.u[3]) annotation (Line(points={{222,-80},{254,-80},
           {254,-62},{258,-62},{258,-60}}, color={0,0,127}));
@@ -137,5 +164,16 @@ July xx, 2020, by Antoine Gautier:<br/>
 First implementation
 </li>
 </ul>
+</html>", info="<html>
+
+<h4>Controls</h4>
+<p>
+The chiller is enabled by any of the input control signals 
+<code>uHea</code> or <code>uCoo</code>, typically provided by the building
+automation system (e.g., if the secondary pumps are proven on or if the maximum 
+of the terminal unit control signals is not zero).
+When enabled, the chiller is controlled to track the chilled water supply
+temperature set point, measured at the evaporator outlet.
+</p>
 </html>"));
 end ChillerBorefield;

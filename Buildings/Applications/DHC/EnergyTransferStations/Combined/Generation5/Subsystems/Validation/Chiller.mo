@@ -22,7 +22,7 @@ model Chiller
     TConEnt_nominal=313.15,
     TConEntMin=303.15,
     TConEntMax=333.15) "Chiller performance data"
-    annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
+    annotation (Placement(transformation(extent={{20,100},{40,120}})));
   Subsystems.Chiller chi(
     redeclare final package Medium = Medium,
     final dat=datChi,
@@ -55,20 +55,6 @@ model Chiller
     y(final unit="K", displayUnit="degC"))
     "Chilled water supply temperature set-point"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TChiWatRet(
-    offset=9 + 273.15,
-    y(final unit="K", displayUnit="degC"),
-    height=5,
-    duration=1000,
-    startTime=1000) "Chilled water return temperature"
-    annotation (Placement(transformation(extent={{190,-90},{170,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp THeaWatRet(
-    offset=44 + 273.15,
-    y(final unit="K", displayUnit="degC"),
-    height=-10,
-    duration=1000,
-    startTime=2000) "Heating water return temperature"
-    annotation (Placement(transformation(extent={{-190,-90},{-170,-70}})));
   Fluid.Sensors.TemperatureTwoPort senTHeaWatSup(redeclare final package
       Medium =
         Medium, m_flow_nominal=datChi.mCon_flow_nominal)
@@ -97,34 +83,25 @@ model Chiller
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={70,-80})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp dTChiWatRet(
-    offset=0,
-    y(final unit="K", displayUnit="degC"),
-    height=-3,
-    duration=1000,
-    startTime=3000) "Chilled water return additional deltaT"
-    annotation (Placement(transformation(extent={{190,-50},{170,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=2)
-    "Sum T and deltaT"
-    annotation (Placement(transformation(extent={{150,-70},{130,-50}})));
   Modelica.Blocks.Sources.BooleanExpression uHea(y=time < 4000)
     "Heating enabled signal"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum1(nin=2)
-    "Sum T and deltaT"
-    annotation (Placement(transformation(extent={{-152,-70},{-132,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp dTHeaWatRet(
-    y(final unit="K", displayUnit="degC"),
-    height=-20,
-    duration=500,
-    startTime=4500) "Heating water return additional deltaT"
-    annotation (Placement(transformation(extent={{-190,-50},{-170,-30}})));
   Modelica.Blocks.Sources.BooleanExpression uCoo(y=time >= 1000)
     "Cooling enabled signal"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
+  Modelica.Blocks.Sources.TimeTable THeaWatRet(
+    y(final unit="K", displayUnit="degC"),
+    table=[0,44; 2,44; 3,34; 4.5,34; 5,14; 10,14],
+    timeScale=1000,
+    offset=273.15) "Heating water return temperature values"
+    annotation (Placement(transformation(extent={{-190,-70},{-170,-50}})));
+  Modelica.Blocks.Sources.TimeTable TChiWatRet(
+    y(final unit="K", displayUnit="degC"),
+    table=[0,9; 1,9; 2,14; 3,14; 4,11; 5,11],
+    timeScale=1000,
+    offset=273.15) "Chilled water return temperature values"
+    annotation (Placement(transformation(extent={{160,-70},{140,-50}})));
 equation
-  connect(TChiWatSupSet.y, chi.TChiWatSupPreSet) annotation (Line(points={{-98,
-          0},{-32,0},{-32,-65},{-12,-65}}, color={0,0,127}));
   connect(THeaWatSupSet.y, chi.THeaWatSupSet) annotation (Line(points={{-98,40},
           {-28,40},{-28,-63},{-12,-63}}, color={0,0,127}));
   connect(chi.port_bHeaWat, senTHeaWatSup.port_a) annotation (Line(points={{-10,-56},
@@ -143,24 +120,16 @@ equation
           {40,-68},{40,-80},{60,-80}},      color={0,127,255}));
   connect(senTChiWatRet.port_a, evaWat.ports[2]) annotation (Line(points={{80,
           -80},{100,-80},{100,-64}}, color={0,127,255}));
-  connect(mulSum.y, evaWat.T_in) annotation (Line(points={{128,-60},{126,-60},{
-          126,-58},{122,-58}}, color={0,0,127}));
-  connect(dTChiWatRet.y, mulSum.u[1]) annotation (Line(points={{168,-40},{160,
-          -40},{160,-60},{156,-60},{156,-59},{152,-59}},
-                                     color={0,0,127}));
-  connect(TChiWatRet.y, mulSum.u[2]) annotation (Line(points={{168,-80},{160,
-          -80},{160,-61},{152,-61}}, color={0,0,127}));
-  connect(THeaWatRet.y, mulSum1.u[1]) annotation (Line(points={{-168,-80},{-160,
-          -80},{-160,-59},{-154,-59}},
-                            color={0,0,127}));
-  connect(mulSum1.y, conWat.T_in) annotation (Line(points={{-130,-60},{-128,-60},
-          {-128,-58},{-122,-58}}, color={0,0,127}));
-  connect(dTHeaWatRet.y, mulSum1.u[2]) annotation (Line(points={{-168,-40},{
-          -160,-40},{-160,-61},{-154,-61}}, color={0,0,127}));
   connect(uCoo.y, chi.uCoo) annotation (Line(points={{-99,80},{-24,80},{-24,-61},
           {-12,-61}}, color={255,0,255}));
   connect(uHea.y, chi.uHea) annotation (Line(points={{-99,100},{-20,100},{-20,-59},
           {-12,-59}},      color={255,0,255}));
+  connect(TChiWatSupSet.y, chi.TChiWatSupSet) annotation (Line(points={{-98,0},{
+          -34,0},{-34,-65},{-12,-65}}, color={0,0,127}));
+  connect(THeaWatRet.y, conWat.T_in) annotation (Line(points={{-169,-60},{-140,-60},
+          {-140,-58},{-122,-58}}, color={0,0,127}));
+  connect(TChiWatRet.y, evaWat.T_in) annotation (Line(points={{139,-60},{132,-60},
+          {132,-58},{122,-58}}, color={0,0,127}));
   annotation (
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-200,-140},{200,140}})),
@@ -178,5 +147,11 @@ July xx, 2020, by Antoine Gautier:<br/>
 First implementation
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This model validates 
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.Chiller\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.Chiller</a>.
+</p>
 </html>"));
 end Chiller;

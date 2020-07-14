@@ -6,7 +6,9 @@ model LimPlaySequence "Validation of play hysteresis in sequence"
     conPlaDirP(
     nCon=3,
     hys=fill(1, 3),
-    dea=fill(1, 3)) "Play hysteresis with P control, direct acting"
+    dea=fill(1, 3),
+    yMax={1,2,3},
+    yMin=-{1,2,3})  "Play hysteresis with P control, direct acting"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.TimeTable u_m(table=[0,0; 1,10; 2,10; 3,0])
     "Measurement values"

@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls;
-block HotSide "State machine enabling production and ambient source systems"
-  extends BaseClasses.HotColdSide(
+block SideHot "Control block for hot side"
+  extends BaseClasses.SideHotCold(
     final reverseActing=false);
   Buildings.Controls.OBC.CDL.Continuous.Min min
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
@@ -28,5 +28,13 @@ July xx, 2020, by Antoine Gautier:<br/>
 First implementation
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This block serves as the controller for the hot side of the ETS.
+See 
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold</a>
+for the description of the control logic.
+</p>
 </html>"));
-end HotSide;
+end SideHot;

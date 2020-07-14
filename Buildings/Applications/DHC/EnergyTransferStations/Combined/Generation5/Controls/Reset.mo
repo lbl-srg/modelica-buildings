@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls;
-model Reset "Supply temperature reset"
+model Reset "Supervisory supply temperature reset"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Modelica.SIunits.Temperature THeaWatSupSetMin(
@@ -44,7 +44,7 @@ model Reset "Supply temperature reset"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxSet(k=
         TChiWatSupSetMax) "Maximum value of CHW set-point"
-    annotation (Placement(transformation(extent={{-12,-90},{8,-70}})));
+    annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
 equation
   connect(TChiWatSupPreSet, swiCoo.u1) annotation (Line(points={{-120,-80},{-40,
           -80},{-40,-52},{38,-52}}, color={0,0,127}));
@@ -52,7 +52,7 @@ equation
           -40},{-60,68},{38,68}}, color={0,0,127}));
   connect(minSet.y, swiHea.u3) annotation (Line(points={{12,40},{20,40},{20,52},
           {38,52}}, color={0,0,127}));
-  connect(maxSet.y, swiCoo.u3) annotation (Line(points={{10,-80},{20,-80},{20,-68},
+  connect(maxSet.y, swiCoo.u3) annotation (Line(points={{12,-80},{20,-80},{20,-68},
           {38,-68}}, color={0,0,127}));
   connect(swiCoo.y, TChiWatSupSet)
     annotation (Line(points={{62,-60},{120,-60}}, color={0,0,127}));
@@ -72,5 +72,13 @@ July xx, 2020, by Antoine Gautier:<br/>
 First implementation
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This block implement the supervisory reset of the heating water 
+and chilled water supply temperature.
+The heating water (resp. chilled water) supply temperature is 
+reset down (resp. up) whenever the heating (resp. cooling) demand signal  
+yielded by the building automation system is false.
+</p>
 </html>"));
 end Reset;

@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Validation;
 model ChillerOnly
-  "Validation of the ETS model with heat recovery chiller and no borefield"
+  "Validation of the ETS model with heat recovery chiller"
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Water "Medium model";
@@ -28,7 +28,7 @@ model ChillerOnly
     TConEnt_nominal=313.15,
     TConEntMin=303.15,
     TConEntMax=333.15) "Chiller performance data"
-    annotation (Placement(transformation(extent={{-202,182},{-182,202}})));
+    annotation (Placement(transformation(extent={{20,180},{40,200}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupSet(
     k=45 + 273.15,
     y(final unit="K", displayUnit="degC"))

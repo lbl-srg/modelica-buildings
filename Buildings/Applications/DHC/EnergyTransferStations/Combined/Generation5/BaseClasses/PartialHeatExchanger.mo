@@ -55,6 +55,22 @@ model PartialHeatExchanger
   parameter Modelica.SIunits.TemperatureDifference dT2HexSet[2]
     "Secondary side deltaT set-point schedule (index 1 for heat rejection)"
     annotation (Dialog(group="District heat exchanger"));
+  replaceable parameter Buildings.Fluid.Movers.Data.Generic perPum1Hex(
+    motorCooledByFluid=false)
+    constrainedby Buildings.Fluid.Movers.Data.Generic
+    "Record with performance data for primary pump"
+    annotation (
+      Dialog(group="District heat exchanger", enable=not have_val1Hex),
+      choicesAllMatching=true,
+      Placement(transformation(extent={{-80,222},{-60,242}})));
+  replaceable parameter Buildings.Fluid.Movers.Data.Generic perPum2Hex(
+    motorCooledByFluid=false)
+    constrainedby Buildings.Fluid.Movers.Data.Generic
+    "Record with performance data for secondary pump"
+    annotation (
+      Dialog(group="District heat exchanger"),
+      choicesAllMatching=true,
+      Placement(transformation(extent={{-40,222},{-20,242}})));
 
   parameter Modelica.SIunits.Volume VTanHeaWat
     "Heating water tank volume"
@@ -80,24 +96,24 @@ model PartialHeatExchanger
     "Number of volume segments for tanks"
     annotation (Dialog(group="Buffer Tank"));
 
-  parameter Modelica.SIunits.TemperatureDifference dTHys = 2
+  parameter Modelica.SIunits.TemperatureDifference dTHys = 1.5
     "Temperature hysteresis for supervisory control"
     annotation (Dialog(group="Supervisory controller"));
-  parameter Modelica.SIunits.TemperatureDifference dTDea = 0
+  parameter Modelica.SIunits.TemperatureDifference dTDea = 0.5
     "Temperature dead band for supervisory control"
     annotation (Dialog(group="Supervisory controller"));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType[nSouAmb]=
     fill(Buildings.Controls.OBC.CDL.Types.SimpleController.PI, nSouAmb)
     "Type of controller"
     annotation (Dialog(group="Supervisory controller"));
-  parameter Real kHot[nSouAmb](each min=0)=fill(0.1, nSouAmb)
+  parameter Real kHot[nSouAmb](each min=0)=fill(0.05, nSouAmb)
     "Gain of controller on hot side"
     annotation (Dialog(group="Supervisory controller"));
-  parameter Real kCol[nSouAmb](each min=0)=fill(0.2, nSouAmb)
+  parameter Real kCol[nSouAmb](each min=0)=fill(0.1, nSouAmb)
     "Gain of controller on cold side"
     annotation (Dialog(group="Supervisory controller"));
   parameter Modelica.SIunits.Time Ti[nSouAmb](
-    each min=Buildings.Controls.OBC.CDL.Constants.small)=fill(300, nSouAmb)
+    each min=Buildings.Controls.OBC.CDL.Constants.small)=fill(600, nSouAmb)
     "Time constant of integrator block (hot and cold side)"
     annotation (Dialog(enable=Modelica.Math.BooleanVectors.anyTrue({
       controllerType[i] == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
@@ -163,6 +179,8 @@ model PartialHeatExchanger
   Subsystems.HeatExchanger hex(
     redeclare final package Medium1 = MediumDis,
     redeclare final package Medium2 = MediumBui,
+    final perPum1=perPum1Hex,
+    final perPum2=perPum2Hex,
     final allowFlowReversal1=allowFlowReversalDis,
     final allowFlowReversal2=allowFlowReversalBui,
     final have_val1Hex=have_val1Hex,
@@ -282,12 +300,12 @@ equation
           {108,-120},{108,-24}}, color={0,127,255}));
   connect(colAmbWat.port_aDisRet, colChiWat.ports_bCon[1]) annotation (Line(
         points={{20,-100},{132,-100},{132,-24}}, color={0,127,255}));
-  connect(conSup.yIsoEva, valIsoEva.y) annotation (Line(points={{-238,19},{-216,
-          19},{-216,-80},{60,-80},{60,-108}}, color={0,0,127}));
-  connect(conSup.yIsoCon, valIsoCon.y) annotation (Line(points={{-238,22},{-228,
-          22},{-228,22},{-220,22},{-220,-84},{-60,-84},{-60,-108}}, color={0,0,127}));
-  connect(conSup.yAmb[nSouAmb],hex. u) annotation (Line(points={{-238,25},{-200,
-          25},{-200,-256},{-12,-256}}, color={0,0,127}));
+  connect(conSup.yIsoEva, valIsoEva.y) annotation (Line(points={{-238,22},{-216,
+          22},{-216,-80},{60,-80},{60,-108}}, color={0,0,127}));
+  connect(conSup.yIsoCon, valIsoCon.y) annotation (Line(points={{-238,26},{-228,
+          26},{-228,22},{-220,22},{-220,-84},{-60,-84},{-60,-108}}, color={0,0,127}));
+  connect(conSup.yAmb[nSouAmb],hex. u) annotation (Line(points={{-238,30},{-200,
+          30},{-200,-256},{-12,-256}}, color={0,0,127}));
   connect(colChiWat.port_bDisRet, tanChiWat.port_aBot) annotation (Line(points={
           {140,-40},{180,-40},{180,100},{200,100}}, color={0,127,255}));
   connect(colChiWat.port_aDisSup, tanChiWat.port_bTop) annotation (Line(points={
@@ -329,6 +347,8 @@ nAuxHea and colHeaWat.mCon_flow_nominal must be updated if an additional heating
 
 nSouAmb and colAmbWat.mCon_flow_nominal must be updated if an additional ambient source is modeled.
 </p>
+
+
 </html>",
 revisions="<html>
 <ul>

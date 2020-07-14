@@ -2,11 +2,14 @@ within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Co
 model Chiller "Chiller controller"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Modelica.SIunits.Temperature TChiWatSupSetMin(displayUnit="degC")
+  parameter Modelica.SIunits.Temperature TChiWatSupSetMin=TChiWatSupSetMin(
+      displayUnit="degC")
     "Minimum value of chilled water supply temperature set-point";
-  parameter Modelica.SIunits.Temperature TConWatEntMin(displayUnit="degC")
+  parameter Modelica.SIunits.Temperature TConWatEntMin=TConWatEntMin(
+      displayUnit="degC")
     "Minimum value of condenser water entering temperature";
-  parameter Modelica.SIunits.Temperature TEvaWatEntMax(displayUnit="degC")
+  parameter Modelica.SIunits.Temperature TEvaWatEntMax=TEvaWatEntMax(
+      displayUnit="degC")
     "Maximum value of evaporator water entering temperature";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSupSet(
     final unit="K", displayUnit="degC")
@@ -122,11 +125,17 @@ model Chiller "Chiller controller"
     reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
     "Controller for HWS reset"
     annotation (Placement(transformation(extent={{-90,-130},{-70,-110}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch actVal
+    "Enable mixing valve control"
+    annotation (Placement(transformation(extent={{120,-210},{140,-230}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch actVal1
+    "Enable mixing valve control"
+    annotation (Placement(transformation(extent={{120,-270},{140,-290}})));
 equation
   connect(swi2.y,TChiWatSupSet)
     annotation (Line(points={{142,-40},{180,-40}},
                                                color={0,0,127}));
-  connect(x1.y, mapFun2.x1) annotation (Line(points={{52,-60},{60,-60},{60,-72},
+  connect(x1.y, mapFun2.x1) annotation (Line(points={{52,-60},{80,-60},{80,-72},
           {88,-72}}, color={0,0,127}));
   connect(x2.y, mapFun2.x2) annotation (Line(points={{52,-96},{60,-96},{60,-84},
           {88,-84}}, color={0,0,127}));
@@ -140,12 +149,8 @@ equation
                    color={255,0,255}));
   connect(TEvaWatEnt, conValEva.u_m) annotation (Line(points={{-180,-240},{60,-240},
           {60,-232}}, color={0,0,127}));
-  connect(conValEva.y,yValEva)
-    annotation (Line(points={{71,-220},{180,-220}}, color={0,0,127}));
   connect(TConWatEnt, conValCon.u_m) annotation (Line(points={{-180,-300},{60,-300},
           {60,-292}}, color={0,0,127}));
-  connect(conValCon.y,yValCon)
-    annotation (Line(points={{71,-280},{180,-280}}, color={0,0,127}));
   connect(heaOrCoo.y, conValEva.trigger) annotation (Line(points={{-78,0},{-40,0},
           {-40,-236},{52,-236},{52,-232}}, color={255,0,255}));
   connect(heaOrCoo.y, conValCon.trigger) annotation (Line(points={{-78,0},{-40,0},
@@ -166,8 +171,9 @@ equation
     annotation (Line(points={{-78,80},{-12,80}}, color={255,0,255}));
   connect(uCoo, cooOnl.u2) annotation (Line(points={{-180,40},{-20,40},{-20,72},
           {-12,72}},                   color={255,0,255}));
-  connect(minTChiWatSup.y, mapFun2.f2) annotation (Line(points={{52,-128},{80,-128},
-          {80,-88},{88,-88}}, color={0,0,127}));
+  connect(minTChiWatSup.y, mapFun2.f2) annotation (Line(points={{52,-128},{64,
+          -128},{64,-88},{88,-88}},
+                              color={0,0,127}));
   connect(THeaWatSupSet, conPID.u_s)
     annotation (Line(points={{-180,-120},{-92,-120}},  color={0,0,127}));
   connect(THeaWatSup, conPID.u_m) annotation (Line(points={{-180,-160},{-80,-160},
@@ -178,6 +184,22 @@ equation
           -140},{-86,-140},{-86,-132}},        color={255,0,255}));
   connect(TChiWatSupPreSet, mapFun2.f1) annotation (Line(points={{-180,-40},{20,
           -40},{20,-76},{88,-76}}, color={0,0,127}));
+  connect(conValEva.y, actVal.u1) annotation (Line(points={{71,-220},{100,-220},
+          {100,-228},{118,-228}}, color={0,0,127}));
+  connect(conValCon.y, actVal1.u1) annotation (Line(points={{71,-280},{100,-280},
+          {100,-288},{118,-288}}, color={0,0,127}));
+  connect(x1.y, actVal.u3) annotation (Line(points={{52,-60},{80,-60},{80,-212},
+          {118,-212}}, color={0,0,127}));
+  connect(x1.y, actVal1.u3) annotation (Line(points={{52,-60},{80,-60},{80,-272},
+          {118,-272}}, color={0,0,127}));
+  connect(heaOrCoo.y, actVal.u2) annotation (Line(points={{-78,0},{-40,0},{-40,
+          -200},{110,-200},{110,-220},{118,-220}}, color={255,0,255}));
+  connect(heaOrCoo.y, actVal1.u2) annotation (Line(points={{-78,0},{-40,0},{-40,
+          -200},{110,-200},{110,-280},{118,-280}}, color={255,0,255}));
+  connect(actVal.y, yValEva) annotation (Line(points={{142,-220},{150,-220},{
+          150,-220},{180,-220}}, color={0,0,127}));
+  connect(actVal1.y, yValCon)
+    annotation (Line(points={{142,-280},{180,-280}}, color={0,0,127}));
 annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),
   Diagram(
@@ -191,5 +213,28 @@ July xx, 2020, by Antoine Gautier:<br/>
 First implementation
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This is a controller for the chiller system, which includes the dedicated 
+condenser and evaporator pumps.
+</p>
+<p>
+The system is enabled if any of the input control signals <code>uHea</code>
+and <code>uCoo</code> is true.
+When enabled,
+<ul>
+<li>
+the condenser and evaporator pumps are operated at constant speed,
+</li>
+<li>
+the condenser (resp. evaporator) mixing valve is modulated with a PI
+loop controlling the minimum (resp. maximum) inlet temperature,
+</li>
+<li>
+the chilled water supply temperature is reset with a PI loop controlling
+the heating water supply temperature.
+</li>
+</ul>
+</p>
 </html>"));
 end Chiller;
