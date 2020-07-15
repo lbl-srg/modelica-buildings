@@ -28,7 +28,7 @@ createPlot(id=1, y={"ets.conSup.uHea", "ets.conSup.uCoo", "ets.conSup.yAmb[1]", 
     autoreplot=true,
     grid=true,
     color=true);
-createPlot(id=2, y={"ets.chi.pumCon.m_flow", "ets.chi.pumEva.m_flow", "ets.hex.pum1Hex.m_flow",  "ets.hex.pum2Hex.m_flow", "ets.m1Hex_flow_nominal", "ets.m2Hex_flow_nominal"},
+createPlot(id=2, y={"ets.chi.pumCon.m_flow", "ets.chi.pumEva.m_flow", "ets.hex.pum1Hex.m_flow",  "ets.hex.pum2Hex.m_flow", "ets.borFie.pum.m_flow", "ets.hex.m1_flow_nominal", "ets.hex.m2_flow_nominal", "ets.borFie.m_flow_nominal"},
     position={24, 27, 545, 747},
     autoscale=true,
     autoerase=true,

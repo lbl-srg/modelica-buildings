@@ -66,7 +66,7 @@ model Chiller "Chiller controller"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi2
     "Pass through maximum set-point value if cooling only, otherwise reset"
-    annotation (Placement(transformation(extent={{120,-50},{140,-30}})));
+    annotation (Placement(transformation(extent={{130,-30},{150,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Line mapFun2
     "Mapping function resetting heating water supply temperature"
     annotation (Placement(transformation(extent={{90,-90},{110,-70}})));
@@ -76,10 +76,6 @@ model Chiller "Chiller controller"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant x2(k=1)
     "PI maximum output"
     annotation (Placement(transformation(extent={{30,-106},{50,-86}})));
-  Buildings.Controls.OBC.CDL.Logical.Not notHea "Heating mode disabled"
-    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
-  Buildings.Controls.OBC.CDL.Logical.And cooOnl "Cooling only mode"
-    annotation (Placement(transformation(extent={{-10,70},{10,90}})));
   Buildings.Controls.Continuous.LimPID conValEva(
     final controllerType=Modelica.Blocks.Types.SimpleController.PI,
     final yMax=1,
@@ -133,20 +129,12 @@ model Chiller "Chiller controller"
     annotation (Placement(transformation(extent={{120,-270},{140,-290}})));
 equation
   connect(swi2.y,TChiWatSupSet)
-    annotation (Line(points={{142,-40},{180,-40}},
+    annotation (Line(points={{152,-40},{180,-40}},
                                                color={0,0,127}));
   connect(x1.y, mapFun2.x1) annotation (Line(points={{52,-60},{80,-60},{80,-72},
           {88,-72}}, color={0,0,127}));
   connect(x2.y, mapFun2.x2) annotation (Line(points={{52,-96},{60,-96},{60,-84},
           {88,-84}}, color={0,0,127}));
-  connect(TChiWatSupPreSet, swi2.u1) annotation (Line(points={{-180,-40},{60,-40},
-          {60,-32},{118,-32}},
-                       color={0,0,127}));
-  connect(uHea, notHea.u)
-    annotation (Line(points={{-180,80},{-102,80}}, color={255,0,255}));
-  connect(cooOnl.y, swi2.u2) annotation (Line(points={{12,80},{80,80},{80,-40},{
-          118,-40}},
-                   color={255,0,255}));
   connect(TEvaWatEnt, conValEva.u_m) annotation (Line(points={{-180,-240},{60,-240},
           {60,-232}}, color={0,0,127}));
   connect(TConWatEnt, conValCon.u_m) annotation (Line(points={{-180,-300},{60,-300},
@@ -161,16 +149,10 @@ equation
           0},{-102,0}}, color={255,0,255}));
   connect(uCoo,heaOrCoo. u2) annotation (Line(points={{-180,40},{-140,40},{-140,
           -8},{-102,-8}}, color={255,0,255}));
-  connect(mapFun2.y, swi2.u3) annotation (Line(points={{112,-80},{114,-80},{114,
-          -48},{118,-48}}, color={0,0,127}));
   connect(maxTEvaWatEnt.y, conValEva.u_s)
     annotation (Line(points={{12,-220},{48,-220}}, color={0,0,127}));
   connect(minTConWatEnt.y, conValCon.u_s)
     annotation (Line(points={{12,-280},{48,-280}}, color={0,0,127}));
-  connect(notHea.y, cooOnl.u1)
-    annotation (Line(points={{-78,80},{-12,80}}, color={255,0,255}));
-  connect(uCoo, cooOnl.u2) annotation (Line(points={{-180,40},{-20,40},{-20,72},
-          {-12,72}},                   color={255,0,255}));
   connect(minTChiWatSup.y, mapFun2.f2) annotation (Line(points={{52,-128},{64,
           -128},{64,-88},{88,-88}},
                               color={0,0,127}));
@@ -200,6 +182,12 @@ equation
           150,-220},{180,-220}}, color={0,0,127}));
   connect(actVal1.y, yValCon)
     annotation (Line(points={{142,-280},{180,-280}}, color={0,0,127}));
+  connect(TChiWatSupPreSet, swi2.u3) annotation (Line(points={{-180,-40},{100,
+          -40},{100,-32},{128,-32}}, color={0,0,127}));
+  connect(mapFun2.y, swi2.u1) annotation (Line(points={{112,-80},{120,-80},{120,
+          -48},{128,-48}}, color={0,0,127}));
+  connect(uHea, swi2.u2) annotation (Line(points={{-180,80},{120,80},{120,-40},
+          {128,-40}}, color={255,0,255}));
 annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),
   Diagram(
@@ -231,8 +219,8 @@ the condenser (resp. evaporator) mixing valve is modulated with a PI
 loop controlling the minimum (resp. maximum) inlet temperature,
 </li>
 <li>
-the chilled water supply temperature is reset with a PI loop controlling
-the heating water supply temperature.
+if there is an actual heating demand, the chilled water supply temperature 
+is reset with a PI loop controlling the heating water supply temperature.
 </li>
 </ul>
 </p>

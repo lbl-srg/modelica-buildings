@@ -115,7 +115,7 @@ model HeatExchanger
     annotation (Placement(transformation(extent={{-50,-110},{-30,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant speMin(final k=
         spePum2HexMin) "Minimum pump speed"
-    annotation (Placement(transformation(extent={{-10,150},{10,170}})));
+    annotation (Placement(transformation(extent={{40,150},{60,170}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swiOff2
     "Output zero if not enabled"
     annotation (Placement(transformation(extent={{140,130},{160,150}})));
@@ -124,18 +124,8 @@ model HeatExchanger
     annotation (Placement(transformation(extent={{90,130},{110,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(final k=1) "One"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hal(final k=0.5)
-    "Half control signal range"
-    annotation (Placement(transformation(extent={{-10,90},{10,110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yVal2Hex(final unit="1")
-    "District heat exchanger secondary valve control signal" annotation (
-      Placement(transformation(extent={{220,-80},{260,-40}}),
-        iconTransformation(extent={{100,-80},{140,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line mapVal
-    "Mapping function for valve opening"
-    annotation (Placement(transformation(extent={{90,70},{110,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0) "Zero"
-    annotation (Placement(transformation(extent={{90,-30},{110,-10}})));
+    annotation (Placement(transformation(extent={{88,70},{108,90}})));
 equation
   connect(delT2.y, absDelT2.u)
     annotation (Line(points={{-148,-20},{-92,-20}},    color={0,0,127}));
@@ -205,7 +195,7 @@ equation
           {88,132}}, color={0,0,127}));
   connect(u, mapSpe.u) annotation (Line(points={{-240,120},{-180,120},{-180,140},
           {88,140}}, color={0,0,127}));
-  connect(speMin.y, mapSpe.f1) annotation (Line(points={{12,160},{70,160},{70,
+  connect(speMin.y, mapSpe.f1) annotation (Line(points={{62,160},{70,160},{70,
           144},{88,144}}, color={0,0,127}));
   connect(mapSpe.y, swiOff2.u1) annotation (Line(points={{112,140},{120,140},{
           120,148},{138,148}}, color={0,0,127}));
@@ -213,24 +203,12 @@ equation
     annotation (Line(points={{32,20},{48,20}}, color={0,0,127}));
   connect(setAct.y, pro.u1) annotation (Line(points={{-28,-60},{-20,-60},{-20,
           26},{8,26}}, color={0,0,127}));
-  connect(hal.y, mapSpe.x1) annotation (Line(points={{12,100},{20,100},{20,148},
-          {88,148}}, color={0,0,127}));
-  connect(one.y, mapVal.f2) annotation (Line(points={{62,100},{70,100},{70,72},
-          {88,72}}, color={0,0,127}));
-  connect(hal.y, mapVal.x2) annotation (Line(points={{12,100},{20,100},{20,76},
-          {88,76}}, color={0,0,127}));
-  connect(u, mapVal.u) annotation (Line(points={{-240,120},{-180,120},{-180,140},
-          {80,140},{80,80},{88,80}}, color={0,0,127}));
-  connect(zer.y, mapVal.x1) annotation (Line(points={{112,-20},{120,-20},{120,
-          100},{74,100},{74,88},{88,88}}, color={0,0,127}));
-  connect(mapVal.y, yVal2Hex) annotation (Line(points={{112,80},{200,80},{200,
-          -60},{240,-60}}, color={0,0,127}));
-  connect(zer.y, mapVal.f1) annotation (Line(points={{112,-20},{120,-20},{120,
-          100},{74,100},{74,84},{88,84}}, color={0,0,127}));
-  connect(zer.y, swiOff2.u3) annotation (Line(points={{112,-20},{120,-20},{120,
+  connect(zer.y, swiOff2.u3) annotation (Line(points={{110,80},{120,80},{120,
           132},{138,132}}, color={0,0,127}));
-  connect(zer.y, swiOff1.u3) annotation (Line(points={{112,-20},{120,-20},{120,
-          12},{138,12}}, color={0,0,127}));
+  connect(zer.y, swiOff1.u3) annotation (Line(points={{110,80},{120,80},{120,12},
+          {138,12}},     color={0,0,127}));
+  connect(zer.y, mapSpe.x1) annotation (Line(points={{110,80},{120,80},{120,100},
+          {80,100},{80,148},{88,148}}, color={0,0,127}));
 annotation (Diagram(
   coordinateSystem(preserveAspectRatio=false,
   extent={{-220,-180},{220,180}})),

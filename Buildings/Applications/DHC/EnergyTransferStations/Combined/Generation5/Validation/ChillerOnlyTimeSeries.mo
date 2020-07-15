@@ -101,7 +101,6 @@ model ChillerOnlyTimeSeries
     T_b1Hex_nominal=277.15,
     T_a2Hex_nominal=275.15,
     T_b2Hex_nominal=280.15,
-    Ti={600},
     dpCon_nominal=15E3,
     dpEva_nominal=15E3,
     datChi=datChi,
