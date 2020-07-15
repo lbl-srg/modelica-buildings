@@ -91,7 +91,7 @@ model HeatExchanger
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   Fluid.Sources.Boundary_pT bou1Val(
     redeclare package Medium = Medium,
-    p=Medium.p_default + 10E3,
+    p=Medium.p_default + 30E3,
     use_T_in=true,
     nPorts=1) "Primary boundary conditions" annotation (Placement(
         transformation(

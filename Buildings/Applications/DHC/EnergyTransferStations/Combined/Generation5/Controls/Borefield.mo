@@ -16,11 +16,11 @@ model Borefield "Controller for borefield system"
     final controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti(displayUnit="s") = 120)
     "Mixing valve controller"
-    annotation (Placement(transformation(extent={{10,-70},{30,-50}})));
+    annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTBorWatEnt(
     y(final  unit="K", displayUnit="degC"), final k=TBorWatEntMax)
     "Maximum value of borefield water entering temperature"
-    annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
+    annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold opeVal(threshold=0.9)
     "True if at least one isolation valve is open"
     annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
@@ -33,15 +33,11 @@ model Borefield "Controller for borefield system"
   Buildings.Controls.OBC.CDL.Logical.Switch runBor
     "Enable borefield system pump"
     annotation (Placement(transformation(extent={{70,50},{90,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant off(final k=0)
-    "Zero representing off command"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0) "Zero"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max max1
-    "Maximum between control signal and minimum speed"
-    annotation (Placement(transformation(extent={{-10,50},{10,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minSpe(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant speMin(
     final k=spePumBorMin)     "Minimum pump speed"
-    annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
+    annotation (Placement(transformation(extent={{-50,70},{-30,90}})));
   Buildings.Controls.OBC.CDL.Logical.And enaBor "Borefield enabled signal"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIso[2]
@@ -68,13 +64,18 @@ model Borefield "Controller for borefield system"
   Buildings.Controls.OBC.CDL.Logical.Switch actVal
     "Enable mixing valve control"
     annotation (Placement(transformation(extent={{70,-50},{90,-70}})));
+  Buildings.Controls.OBC.CDL.Continuous.Line mapSpe
+    "Mapping function for pump speed"
+    annotation (Placement(transformation(extent={{-10,50},{10,70}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(final k=1) "One"
+    annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
 equation
 
   connect(multiMax1.y, opeVal.u)
     annotation (Line(points={{-68,-40},{-52,-40}}, color={0,0,127}));
   connect(yValIso, multiMax1.u)
     annotation (Line(points={{-120,-40},{-92,-40}}, color={0,0,127}));
-  connect(off.y,runBor. u3) annotation (Line(points={{12,20},{60,20},{60,52},{
+  connect(zer.y,runBor. u3) annotation (Line(points={{12,20},{60,20},{60,52},{
           68,52}},         color={0,0,127}));
   connect(u, enaSup.u) annotation (Line(points={{-120,60},{-90,60},{-90,0},{-52,
           0}},  color={0,0,127}));
@@ -84,31 +85,37 @@ equation
   connect(opeVal.y, enaBor.u2) annotation (Line(points={{-28,-40},{-20,-40},{
           -20,-28},{-12,-28}},
                         color={255,0,255}));
-  connect(enaBor.y, conMix.trigger) annotation (Line(points={{12,-20},{40,-20},
-          {40,-76},{14,-76},{14,-72}},
+  connect(enaBor.y, conMix.trigger) annotation (Line(points={{12,-20},{54,-20},
+          {54,-76},{24,-76},{24,-72}},
                               color={255,0,255}));
   connect(maxTBorWatEnt.y, conMix.u_s)
-    annotation (Line(points={{2,-60},{8,-60}},   color={0,0,127}));
-  connect(max1.y, runBor.u1) annotation (Line(points={{12,60},{20,60},{20,68},{
-          68,68}}, color={0,0,127}));
+    annotation (Line(points={{12,-60},{18,-60}}, color={0,0,127}));
   connect(runBor.y, yPum)
     annotation (Line(points={{92,60},{120,60}}, color={0,0,127}));
   connect(TBorWatEnt, conMix.u_m)
-    annotation (Line(points={{-120,-80},{20,-80},{20,-72}}, color={0,0,127}));
-  connect(enaBor.y, runBor.u2) annotation (Line(points={{12,-20},{40,-20},{40,
+    annotation (Line(points={{-120,-80},{30,-80},{30,-72}}, color={0,0,127}));
+  connect(enaBor.y, runBor.u2) annotation (Line(points={{12,-20},{54,-20},{54,
           60},{68,60}}, color={255,0,255}));
-  connect(minSpe.y, max1.u2) annotation (Line(points={{-28,40},{-20,40},{-20,54},
-          {-12,54}}, color={0,0,127}));
-  connect(u, max1.u1) annotation (Line(points={{-120,60},{-30,60},{-30,66},{-12,
-          66}}, color={0,0,127}));
-  connect(conMix.y, actVal.u1) annotation (Line(points={{32,-60},{50,-60},{50,
+  connect(conMix.y, actVal.u1) annotation (Line(points={{42,-60},{50,-60},{50,
           -68},{68,-68}}, color={0,0,127}));
   connect(actVal.y, yValMix)
     annotation (Line(points={{92,-60},{120,-60}}, color={0,0,127}));
-  connect(off.y, actVal.u3) annotation (Line(points={{12,20},{60,20},{60,-52},{
+  connect(zer.y, actVal.u3) annotation (Line(points={{12,20},{60,20},{60,-52},{
           68,-52}}, color={0,0,127}));
   connect(enaBor.y, actVal.u2) annotation (Line(points={{12,-20},{54,-20},{54,
           -60},{68,-60}}, color={255,0,255}));
+  connect(mapSpe.y, runBor.u1) annotation (Line(points={{12,60},{40,60},{40,68},
+          {68,68}}, color={0,0,127}));
+  connect(u, mapSpe.u)
+    annotation (Line(points={{-120,60},{-12,60}}, color={0,0,127}));
+  connect(speMin.y, mapSpe.f1) annotation (Line(points={{-28,80},{-20,80},{-20,
+          64},{-12,64}}, color={0,0,127}));
+  connect(one.y, mapSpe.f2) annotation (Line(points={{-28,40},{-20,40},{-20,52},
+          {-12,52}}, color={0,0,127}));
+  connect(one.y, mapSpe.x2) annotation (Line(points={{-28,40},{-20,40},{-20,56},
+          {-12,56}}, color={0,0,127}));
+  connect(zer.y, mapSpe.x1) annotation (Line(points={{12,20},{20,20},{20,80},{
+          -16,80},{-16,68},{-12,68}}, color={0,0,127}));
 annotation (Diagram(
               coordinateSystem(preserveAspectRatio=false,
               extent={{-100,-100},{100,100}})),

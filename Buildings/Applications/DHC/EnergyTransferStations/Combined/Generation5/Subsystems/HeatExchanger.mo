@@ -10,9 +10,6 @@ model HeatExchanger
   parameter Boolean have_val1Hex
     "Set to true in case of control valve on district side, false in case of a pump"
     annotation(Evaluate=true);
-  parameter Boolean have_val2Hex=false
-    "Set to true in case of control valve on secondary side"
-    annotation(Evaluate=true);
   replaceable parameter Buildings.Fluid.Movers.Data.Generic perPum1(
     motorCooledByFluid=false)
     constrainedby Buildings.Fluid.Movers.Data.Generic
@@ -41,7 +38,7 @@ model HeatExchanger
   parameter Modelica.SIunits.PressureDifference dpVal2Hex_nominal(displayUnit="Pa")=
     dp2Hex_nominal / 2
     "Nominal pressure drop of secondary control valve"
-    annotation(Dialog(enable=have_val2Hex, group="Nominal condition"));
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.HeatFlowRate QHex_flow_nominal
     "Nominal heat flow rate (from district to building)"
     annotation (Dialog(group="Nominal condition"));
@@ -57,13 +54,13 @@ model HeatExchanger
   parameter Modelica.SIunits.Temperature T_b2Hex_nominal
     "Nominal water outlet temperature on building side"
     annotation (Dialog(group="Nominal condition"));
-  parameter Real spePum1HexMin(final unit="1") = 0.1
+  parameter Real spePum1HexMin=0.1
     "Heat exchanger primary pump minimum speed (fractional)"
     annotation (Dialog(group="Controls", enable=not have_val1Hex));
   parameter Real yVal1HexMin(final unit="1") = 0.1
     "Minimum valve opening for temperature measurement (fractional)"
     annotation(Dialog(group="Controls", enable=have_val1Hex));
-  parameter Real spePum2HexMin(final unit="1") = 0.1
+  parameter Real spePum2HexMin=0.1
     "Heat exchanger secondary pump minimum speed (fractional)"
     annotation (Dialog(group="Controls"));
   parameter Modelica.SIunits.TemperatureDifference dT2HexSet[2]
@@ -91,7 +88,6 @@ model HeatExchanger
   // COMPONENTS
   Controls.HeatExchanger conHex(
     final have_val1Hex=have_val1Hex,
-    final have_val2Hex=have_val2Hex,
     final spePum1HexMin=spePum1HexMin,
     final spePum2HexMin=spePum2HexMin,
     final dT2HexSet=dT2HexSet,
@@ -107,7 +103,7 @@ model HeatExchanger
     final allowFlowReversal1=allowFlowReversal1,
     final allowFlowReversal2=allowFlowReversal2,
     final dp1_nominal=if have_val1Hex then 0 else dp1Hex_nominal,
-    final dp2_nominal=if have_val2Hex then 0 else dp2Hex_nominal,
+    final dp2_nominal=0,
     final m1_flow_nominal=m1_flow_nominal,
     final m2_flow_nominal=m2_flow_nominal,
     final Q_flow_nominal=QHex_flow_nominal,
@@ -135,7 +131,7 @@ model HeatExchanger
     redeclare final package Medium = Medium2,
     final per=perPum2,
     final m_flow_nominal=m2_flow_nominal,
-    final dp_nominal=dp2Hex_nominal,
+    final dp_nominal=dp2Hex_nominal + dpVal2Hex_nominal,
     final allowFlowReversal=allowFlowReversal2)
     "Secondary pump" annotation (
       Placement(transformation(
@@ -201,27 +197,27 @@ model HeatExchanger
     final nin=if have_val1Hex then 1 else 2)
     "Total pump power"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
-  Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear val2Hex(
+  Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valCon(
     redeclare final package Medium = Medium2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     from_dp=false,
     use_inputFilter=false,
     final m_flow_nominal=m2_flow_nominal,
     final dpValve_nominal=dpVal2Hex_nominal,
-    final dpFixed_nominal=fill(dp2Hex_nominal, 2)) if have_val2Hex
-    "Control valve for secondary side"
+    final dpFixed_nominal=fill(dp2Hex_nominal, 2))
+    "Control valve for minimum condenser water entering temperature"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={80,-80})));
+        origin={80,-60})));
   Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.Junction spl(
     redeclare final package Medium = Medium2,
-    final m_flow_nominal=m2_flow_nominal .* {1,-1,-1}) if have_val2Hex
+    final m_flow_nominal=m2_flow_nominal .* {1,-1,-1})
     "Flow splitter" annotation (Placement(
-    transformation(
-    extent={{-10,10},{10,-10}},
-    rotation=180,
-    origin={-40,-80})));
+      transformation(
+      extent={{10,-10},{-10,10}},
+      rotation=0,
+      origin={-60,-60})));
 equation
   if not have_val1Hex then
     connect(senT1HexWatLvg.port_b, port_b1)
@@ -229,12 +225,6 @@ equation
   else
     connect(port_a1, senT1HexWatEnt.port_a)
       annotation (Line(points={{-100,60},{-20,60},{-20,50}}, color={0,127,255}));
-  end if;
-  if not have_val2Hex then
-    connect(senT2HexWatLvg.port_b, port_b2) annotation (Line(points={{-20,-30},{-20,
-            -60},{-100,-60}}, color={0,127,255}));
-    connect(pum2Hex.port_a, port_a2)
-      annotation (Line(points={{50,-60},{100,-60}}, color={0,127,255}));
   end if;
   connect(gai2.y, pum2Hex.m_flow_in)
     annotation (Line(points={{40,106},{40,-48}},          color={0,0,127}));
@@ -262,10 +252,6 @@ equation
           {-10,120}},      color={0,0,127}));
   connect(gai1.y, pum1Hex.m_flow_in)
     annotation (Line(points={{-34,120},{-60,120},{-60,92}}, color={0,0,127}));
-  connect(senT2HexWatLvg.T, conHex.T2HexWatLvg) annotation (Line(points={{-31,-20},
-          {-80,-20},{-80,152},{-72,152}}, color={0,0,127}));
-  connect(senT2HexWatEnt.T, conHex.T2HexWatEnt) annotation (Line(points={{9,-40},
-          {-86,-40},{-86,157},{-72,157}}, color={0,0,127}));
   connect(pum1Hex.P, totPPum.u[2]) annotation (Line(points={{-49,89},{60,89},{60,
           0},{68,0}},             color={0,0,127}));
   connect(pum2Hex.P, totPPum.u[1]) annotation (Line(points={{29,-51},{28,-51},{28,
@@ -278,22 +264,24 @@ equation
     annotation (Line(points={{-48,160},{40,160},{40,130}}, color={0,0,127}));
   connect(u, conHex.u) annotation (Line(points={{-120,140},{-96,140},{-96,168},{
           -72,168}},  color={0,0,127}));
-  connect(port_a2, val2Hex.port_1) annotation (Line(points={{100,-60},{94,-60},
-          {94,-80},{90,-80}},color={0,127,255}));
-  connect(val2Hex.port_2, pum2Hex.port_a) annotation (Line(points={{70,-80},{60,
-          -80},{60,-60},{50,-60}}, color={0,127,255}));
-  connect(spl.port_3, val2Hex.port_3) annotation (Line(points={{-40,-90},{-40,
-          -100},{80,-100},{80,-90}},
-                               color={0,127,255}));
-  connect(spl.port_2, port_b2) annotation (Line(points={{-50,-80},{-60,-80},{
-          -60,-60},{-100,-60}},
-                            color={0,127,255}));
-  connect(senT2HexWatLvg.port_b, spl.port_1) annotation (Line(points={{-20,-30},
-          {-20,-80},{-30,-80}}, color={0,127,255}));
-  connect(conHex.yVal2Hex, val2Hex.y) annotation (Line(points={{-48,154},{64,
-          154},{64,-68},{80,-68}},     color={0,0,127}));
   connect(hex.port_b2, senT2HexWatLvg.port_a)
     annotation (Line(points={{-10,-6},{-20,-6},{-20,-10}}, color={0,127,255}));
+  connect(senT2HexWatLvg.T, conHex.T2HexWatLvg) annotation (Line(points={{-31,-20},
+          {-80,-20},{-80,152},{-72,152}}, color={0,0,127}));
+  connect(senT2HexWatEnt.T, conHex.T2HexWatEnt) annotation (Line(points={{9,-40},
+          {-86,-40},{-86,157},{-72,157}}, color={0,0,127}));
+  connect(port_a2, valCon.port_1)
+    annotation (Line(points={{100,-60},{90,-60}}, color={0,127,255}));
+  connect(pum2Hex.port_a, valCon.port_2)
+    annotation (Line(points={{50,-60},{70,-60}}, color={0,127,255}));
+  connect(senT2HexWatLvg.port_b, spl.port_1) annotation (Line(points={{-20,-30},
+          {-20,-60},{-50,-60}}, color={0,127,255}));
+  connect(spl.port_2, port_b2)
+    annotation (Line(points={{-70,-60},{-100,-60}}, color={0,127,255}));
+  connect(spl.port_3, valCon.port_3) annotation (Line(points={{-60,-70},{-60,-80},
+          {80,-80},{80,-70}}, color={0,127,255}));
+  connect(conHex.yVal2Hex, valCon.y) annotation (Line(points={{-48,154},{70,154},
+          {70,-40},{80,-40},{80,-48}}, color={0,0,127}));
   annotation (
   defaultComponentName="hex",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

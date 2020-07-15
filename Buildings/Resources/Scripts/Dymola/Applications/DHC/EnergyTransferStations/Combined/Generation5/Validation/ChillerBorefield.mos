@@ -20,7 +20,7 @@ createPlot(id=1, y={"ets.tanChiWat.TTop", "ets.tanChiWat.TBot", "senTChiWatSup.T
     autoreplot=true,
     grid=true,
     color=true);
-createPlot(id=1, y={"ets.conSup.yHea", "ets.conSup.yHeaRej", "ets.conSup.yCoo", "ets.conSup.yColRej"},
+createPlot(id=1, y={"ets.conSup.uHea", "ets.conSup.uCoo", "ets.conSup.yAmb[1]", "ets.conSup.yAmb[2]"},
     subPlot=3,
     autoscale=true,
     autoerase=true,
@@ -48,7 +48,7 @@ createPlot(id=2, y={"ets.chi.chi.PLR2"},
     autoreplot=true,
     grid=true,
     color=true);
-createPlot(id=3, y={"ets.hex.conHex.T1HexWatEnt", "ets.hex.conHex.T1HexWatLvg", "ets.hex.conHex.T2HexWatEnt", "ets.hex.conHex.T2HexWatLvg"},
+createPlot(id=3, y={"ets.hex.senT1HexWatEnt.T", "ets.hex.senT1HexWatLvg.T", "ets.hex.senT2HexWatEnt.T", "ets.hex.senT2HexWatLvg.T"},
     position={51, 53, 545, 518},
     autoscale=true,
     autoerase=true,

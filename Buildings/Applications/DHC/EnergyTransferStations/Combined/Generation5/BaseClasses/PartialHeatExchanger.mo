@@ -96,10 +96,10 @@ model PartialHeatExchanger
     "Number of volume segments for tanks"
     annotation (Dialog(group="Buffer Tank"));
 
-  parameter Modelica.SIunits.TemperatureDifference dTHys = 1.5
+  parameter Modelica.SIunits.TemperatureDifference dTHys = 2
     "Temperature hysteresis for supervisory control"
     annotation (Dialog(group="Supervisory controller"));
-  parameter Modelica.SIunits.TemperatureDifference dTDea = 0.5
+  parameter Modelica.SIunits.TemperatureDifference dTDea = 0
     "Temperature dead band for supervisory control"
     annotation (Dialog(group="Supervisory controller"));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType[nSouAmb]=
@@ -113,7 +113,7 @@ model PartialHeatExchanger
     "Gain of controller on cold side"
     annotation (Dialog(group="Supervisory controller"));
   parameter Modelica.SIunits.Time Ti[nSouAmb](
-    each min=Buildings.Controls.OBC.CDL.Constants.small)=fill(600, nSouAmb)
+    each min=Buildings.Controls.OBC.CDL.Constants.small)=fill(300, nSouAmb)
     "Time constant of integrator block (hot and cold side)"
     annotation (Dialog(enable=Modelica.Math.BooleanVectors.anyTrue({
       controllerType[i] == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
