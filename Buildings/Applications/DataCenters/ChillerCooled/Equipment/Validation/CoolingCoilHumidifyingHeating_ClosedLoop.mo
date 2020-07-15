@@ -51,9 +51,8 @@ model CoolingCoilHumidifyingHeating_ClosedLoop
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
   Buildings.Controls.Continuous.LimPID PID(
     yMax=1,
-    reverseAction=true,
+    reverseActing=false,
     Td=120,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     yMin=yValMin,
     k=0.5,
     Ti=60)
