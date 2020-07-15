@@ -97,6 +97,16 @@ void* OutputVariableAllocate(
   if ( comVar == NULL )
     ModelicaError("Not enough memory in OutputVariableAllocate.c. to allocate memory for data structure.");
 
+  /* Some tools such as OpenModelica may optimize the code resulting in initialize()
+    not being called. Hence, we set a flag so we can force it to be called in exchange()
+    in case it is not called in initialize().
+    This behavior was observed when simulating Buildings.ThermalZones.EnergyPlus.BaseClasses.Validation.FMUZoneAdapter
+  */
+  comVar->isInstantiated = fmi2False;
+  comVar->isInitialized = fmi2False;
+
+  comVar->valueReferenceIsSet = fmi2False;
+
   /* Assign the Modelica instance name */
   mallocString(strlen(modelicaNameOutputVariable)+1,
     "Not enough memory in OutputVariableAllocate.c. to allocate Modelica instance name.", &(comVar->modelicaNameOutputVariable));
@@ -157,14 +167,6 @@ void* OutputVariableAllocate(
           ModelicaFormatMessage("Assigning comVar->ptrBui = fmu with fmu at %p", fmu);
         }
         comVar->ptrBui = fmu;
-
-        /* Some tools such as OpenModelica may optimize the code resulting in initialize()
-           not being called. Hence, we set a flag so we can force it to be called in exchange()
-          in case it is not called in initialize().
-          This behavior was observed when simulating Buildings.ThermalZones.EnergyPlus.BaseClasses.Validation.FMUZoneAdapter
-        */
-        comVar->isInstantiated = fmi2False;
-        comVar->isInitialized = fmi2False;
 
         AddOutputVariableToBuilding(comVar);
       }
