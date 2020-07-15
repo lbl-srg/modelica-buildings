@@ -14,7 +14,9 @@ block EnableLag_primary_dP
   parameter Integer nPum_nominal(final max = nPum, final min = 1) = nPum
     "Total number of pumps that operate at design conditions"
     annotation (Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.VolumeFlowRate VChiWat_flow_nominal(
+  parameter Real VChiWat_flow_nominal(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate",
     final min=1e-6)=0.5
     "Total plant design chilled water flow rate"
     annotation (Dialog(group="Nominal conditions"));
@@ -29,11 +31,11 @@ block EnableLag_primary_dP
     annotation (Placement(transformation(extent={{-180,-20},{-140,20}}),
       iconTransformation(extent={{-140,-58},{-100,-18}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yUp
-    "Next lag pump status"
+    "Next lag pump status, a rising edge indicates that next lag pump should be enabled"
     annotation (Placement(transformation(extent={{140,20},{180,60}}),
       iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDown
-    "Last lag pump status"
+    "Last lag pump status, a falling edge indicates that last lag pump should be disabled"
     annotation (Placement(transformation(extent={{140,-100},{180,-60}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
 

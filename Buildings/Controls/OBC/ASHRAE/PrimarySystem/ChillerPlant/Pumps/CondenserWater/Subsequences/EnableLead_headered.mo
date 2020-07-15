@@ -5,7 +5,8 @@ block EnableLead_headered
     "Flag of waterside economizer: true=have WSE, false=no WSE";
   parameter Integer nChi=2 "Total number of chiller";
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseConIsoVal if have_WSE
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseConIsoVal 
+    if have_WSE
     "WSE condenser water isolation valve status"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
@@ -20,19 +21,20 @@ block EnableLead_headered
 protected
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch leaPumSta "Lead pump status"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(final k=false)
-    "Logical false"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
+    final k=false) "Logical false"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(final k=true)
-    "Logical true"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
+    final k=true) "Logical true"
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2 "Logical or"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(final k=false) if
-       not have_WSE
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(
+    final k=false) if not have_WSE
     "Logical false"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(final nu=nChi)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
+    final nu=nChi)
     "Check if there is any chiller enabled"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 
@@ -92,7 +94,7 @@ annotation (
 Block that enable and disable lead condenser water pump, for plants
 with headered condenser water pumps, 
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), 
+Central Plants and Hydronic Systems (Draft on March 2020), 
 section 5.2.9 Condenser water pumps, part 5.2.9.2-3.
 </p>
 <ol>
