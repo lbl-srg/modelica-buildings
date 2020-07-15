@@ -10,6 +10,13 @@ model LightsControl "Validation model for one actuator that controls the lights"
     controlType="Electric Power Level") "Actuator for lights"
     annotation (Placement(transformation(extent={{100,100},{120,120}})));
 
+  Buildings.ThermalZones.EnergyPlus.OutputVariable ligPow(
+    name="Lights Electric Power",
+    key="LIVING ZONE Lights",
+    y(final unit="W"))
+    "Block that reads output from EnergyPlus"
+    annotation (Placement(transformation(extent={{0,80},{20,100}})));
+
   Controls.OBC.CDL.Utilities.SunRiseSet sunRiseSet(
     lat=0.73268921998722,
     lon=-1.5344934783534,
@@ -82,7 +89,6 @@ equation
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/Actuator/LightsControl.mos"
         "Simulate and plot"),
   experiment(
-      StartTime=0,
       StopTime=172800,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
