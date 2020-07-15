@@ -1,6 +1,56 @@
 within Buildings.Controls.OBC.FDE.PackagedRTUs;
 block TSupSet
   "Calculates supply air temperature set point for packaged RTU factory controller serving terminal units"
+  parameter Real minSATset(
+   final unit="K",
+   final displayUnit="degC",
+   final quantity="ThermodynamicTemperature")=273.15+14
+   "Minimum supply air temperature reset value";
+  parameter Real maxSATset(
+   final unit="K",
+   final displayUnit="degC",
+   final quantity="ThermodynamicTemperature")=273.15+19
+   "Maximum supply air temperature reset value";
+  parameter Real HeatSet(
+   final unit="K",
+   final displayUnit="degC",
+   final quantity="ThermodynamicTemperature")=273.15+35
+  "Setback heating supply air temperature set point";
+  parameter Real TUpcntT(
+  min=0.1,
+  max=0.9)=0.15
+  "Minimum decimal percentage of terminal unit requests required for cool request reset";
+
+  // ---inputs---
+  input Buildings.Controls.OBC.CDL.Interfaces.RealInput highSpaceT(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
+    "Highest space temperature reported from all terminal units"
+    annotation (Placement(transformation(extent={{-142,-134},{-102,-94}})));
+  input Buildings.Controls.OBC.CDL.Interfaces.BooleanInput sbc
+    "True when setback cooling mode active"
+    annotation (Placement(
+        transformation(extent={{-142,-84},{-102,-44}})));
+  input Buildings.Controls.OBC.CDL.Interfaces.BooleanInput sbh
+    "True when setback heating mode active"
+    annotation (Placement(
+        transformation(extent={{-142,-182},{-102,-142}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput TotalTU
+    "Total number of terminal units"
+    annotation (Placement(transformation(extent={{-142,12},{-102,52}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput totCoolReqs
+    "Total terminal unit cooling requests"
+    annotation (Placement(transformation(extent={{-142,-24},{-102,16}})));
+
+  // ---output---
+  final Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySATset(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
+    "Calculated supply air temperature set point"
+    annotation (Placement(transformation(extent={{124,-182},{164,-142}})));
+
   Buildings.Controls.OBC.CDL.Continuous.LimPID conPI(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=3,
@@ -12,19 +62,18 @@ block TSupSet
     reset=Buildings.Controls.OBC.CDL.Types.Reset.Disabled)
     "Cooling requests PI calculation"
     annotation (Placement(transformation(extent={{-42,22},{-22,42}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line Treset(limitBelow=true,
-      limitAbove=true) "linear supply temperature set point reset"
+  Buildings.Controls.OBC.CDL.Continuous.Line Treset(
+    limitBelow=true,
+    limitAbove=true)
+    "Linear supply temperature set point reset"
     annotation (Placement(transformation(extent={{22,22},{42,42}})));
-    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant X1(k=0)
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant X1(k=0)
     "linear conversion constant"
     annotation (Placement(transformation(extent={{-16,74},{4,94}})));
-
-    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant X2(k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant X2(k=1)
     "linear conversion constant"
     annotation (Placement(transformation(extent={{-16,2},{4,22}})));
-            input Buildings.Controls.OBC.CDL.Interfaces.BooleanInput SBC
-    "true when setback cooling mode active" annotation (Placement(
-        transformation(extent={{-142,-84},{-102,-44}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     annotation (Placement(transformation(extent={{58,-74},{78,-54}})));
   Buildings.Controls.OBC.CDL.Continuous.Add subtract(k1=-1, k2=+1)
@@ -33,63 +82,26 @@ block TSupSet
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant fixedOffset(k=10)
     "fixed 10 degree offset from highest space temperature"
     annotation (Placement(transformation(extent={{-72,-104},{-52,-84}})));
-  input Buildings.Controls.OBC.CDL.Interfaces.RealInput highSpaceT(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
-    "highest space temperature reported from all terminal units"
-    annotation (Placement(transformation(extent={{-142,-134},{-102,-94}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi1
     annotation (Placement(transformation(extent={{90,-172},{110,-152}})));
-  input Buildings.Controls.OBC.CDL.Interfaces.BooleanInput SBH
-    "true when setback heating mode active" annotation (Placement(
-        transformation(extent={{-142,-182},{-102,-142}})));
-  final Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySATsetpoint(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
-    "calculated supply air temperature set point"
-    annotation (Placement(transformation(extent={{124,-182},{164,-142}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minPAR(k=
-        minSATset) "minimum supply air temperature set point"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minPAR(
+    k=minSATset)
+    "Minimum supply air temperature set point"
     annotation (Placement(transformation(extent={{-16,-32},{4,-12}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heatPAR(k=HeatSet)
-    "unoccupied mode supply air temperature heating set point"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heatPAR(
+    k=HeatSet)
+    "Unoccupied mode supply air temperature heating set point"
     annotation (Placement(transformation(extent={{42,-190},{62,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxPAR(k=
-        maxSATset) "maximum supply air temperature set point"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxPAR(
+    k=maxSATset)
+    "Maximum supply air temperature set point"
     annotation (Placement(transformation(extent={{-16,42},{4,62}})));
-  parameter Real minSATset(
-   final unit="K",
-   final displayUnit="degC",
-   final quantity="ThermodynamicTemperature")=273.15+14
-   "minimum supply air temperature reset value";
-  parameter Real maxSATset(
-   final unit="K",
-   final displayUnit="degC",
-   final quantity="ThermodynamicTemperature")=273.15+19
-   "maximum supply air temperature reset value";
-  parameter Real HeatSet(
-   final unit="K",
-   final displayUnit="degC",
-   final quantity="ThermodynamicTemperature")=273.15+35
-  "setback heating supply air temperature set point";
-  parameter Real TUpcntT(
-  min=0.1,
-  max=0.9)=0.15
-  "minimum decimal percentage of terminal unit requests required for cool request reset";
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
     annotation (Placement(transformation(extent={{-98,22},{-78,42}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai(k=TUpcntT)
     annotation (Placement(transformation(extent={{-72,22},{-52,42}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput TotalTU
-    "total number of terminal units"
-    annotation (Placement(transformation(extent={{-142,12},{-102,52}})));
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea1
     annotation (Placement(transformation(extent={{-72,-14},{-52,6}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput totCoolReqs
-    "total terminal unit cooling requests"
-    annotation (Placement(transformation(extent={{-142,-24},{-102,16}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
     annotation (Placement(transformation(extent={{-34,-74},{-14,-54}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2
@@ -110,9 +122,8 @@ equation
           -106},{-46,-114},{-122,-114}},color={0,0,127}));
   connect(swi.u3, subtract.y) annotation (Line(points={{56,-72},{0,-72},{0,-100},
           {-10,-100}},         color={0,0,127}));
-  connect(swi1.y, ySATsetpoint)
-    annotation (Line(points={{112,-162},{144,-162}},
-                                                color={0,0,127}));
+  connect(swi1.y, ySATset)
+    annotation (Line(points={{112,-162},{144,-162}}, color={0,0,127}));
   connect(Treset.f2, minPAR.y) annotation (Line(points={{20,24},{14,24},{14,-22},
           {6,-22}},   color={0,0,127}));
   connect(swi1.u3, heatPAR.y) annotation (Line(points={{88,-170},{82,-170},{82,
@@ -130,11 +141,11 @@ equation
     annotation (Line(points={{-74,-4},{-122,-4}}, color={255,127,0}));
   connect(conPI.u_m, intToRea1.y) annotation (Line(points={{-32,20},{-32,-4},
           {-50,-4}}, color={0,0,127}));
-  connect(SBC, not1.u)
+  connect(sbc, not1.u)
     annotation (Line(points={{-122,-64},{-36,-64}}, color={255,0,255}));
   connect(swi.u2, not1.y) annotation (Line(points={{56,-64},{-12,-64}},
                     color={255,0,255}));
-  connect(SBH, not2.u)
+  connect(sbh, not2.u)
     annotation (Line(points={{-122,-162},{-2,-162}},  color={255,0,255}));
   connect(swi1.u2, not2.y) annotation (Line(points={{88,-162},{22,-162}},
                            color={255,0,255}));

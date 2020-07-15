@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.FDE.PackagedRTUs.Validation;
 model BASControllerSimulation "Simulates operation of packaged RTU controller."
   BAScontroller bAScontroller(
     pBldgSPset=0.005,
-    pTotalTU=30,
+    pTotalTU=20,
     minSATset=285.15,
     maxSATset=297.15,
     HeatSet=308.15,
@@ -15,17 +15,17 @@ model BASControllerSimulation "Simulates operation of packaged RTU controller."
   Buildings.Controls.OBC.CDL.Integers.OnCounter OccReqGen(y_start=0)
     annotation (Placement(transformation(extent={{-60,44},{-48,56}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
-    width=0.125,
+    width=0.0125,
     period=1440,
     startTime=1220)
     annotation (Placement(transformation(extent={{-90,40},{-70,60}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
-    width=0.875,
+    width=0.00875,
     period=1440,
     startTime=2160)
     annotation (Placement(transformation(extent={{-90,6},{-70,26}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul2(
-    width=0.275,
+    width=0.00275,
     period=1440,
     startTime=440)
     annotation (Placement(transformation(extent={{-90,-26},{-70,-6}})));
@@ -53,19 +53,19 @@ model BASControllerSimulation "Simulates operation of packaged RTU controller."
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(k=false)
     annotation (Placement(transformation(extent={{-128,-72},{-108,-52}})));
 equation
-  connect(bAScontroller.Occ, OccGen.y) annotation (Line(points={{44,22},{
+  connect(bAScontroller.occ, OccGen.y) annotation (Line(points={{44,22},{
           -12,22},{-12,82},{-68,82}}, color={255,0,255}));
   connect(OccReqGen.trigger, booPul.y)
     annotation (Line(points={{-61.2,50},{-68,50}}, color={255,0,255}));
-  connect(bAScontroller.OccReq, OccReqGen.y) annotation (Line(points={{44,
+  connect(bAScontroller.occReq, OccReqGen.y) annotation (Line(points={{44,
           19},{-16,19},{-16,50},{-46.8,50}}, color={255,127,0}));
   connect(booPul1.y, SBCreqGen.trigger)
     annotation (Line(points={{-68,16},{-61.2,16}}, color={255,0,255}));
   connect(booPul2.y, SBHreqGen.trigger)
     annotation (Line(points={{-68,-16},{-61.2,-16}}, color={255,0,255}));
-  connect(SBCreqGen.y, bAScontroller.SBCreq) annotation (Line(points={{
+  connect(SBCreqGen.y,bAScontroller.sbcReq)  annotation (Line(points={{
           -46.8,16},{-12,16},{-12,13.2},{44,13.2}}, color={255,127,0}));
-  connect(SBHreqGen.y, bAScontroller.SBHreq) annotation (Line(points={{
+  connect(SBHreqGen.y,bAScontroller.sbhReq)  annotation (Line(points={{
           -46.8,-16},{-16,-16},{-16,10.2},{44,10.2}}, color={255,127,0}));
   connect(booPul3.y, totCoolReqsGen.trigger)
     annotation (Line(points={{-68,-48},{-61.2,-48}}, color={255,0,255}));

@@ -17,36 +17,85 @@ block BAScontroller
   final unit="K",
   final displayUnit="degC",
   final quantity="ThermodynamicTemperature")=14
-  "minimum supply air temperature reset value"
+  "Minimum supply air temperature reset value"
   annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
 
   parameter Real maxSATset(
   final unit="K",
   final displayUnit="degC",
   final quantity="ThermodynamicTemperature")=19
-  "maximum supply air temperature reset value"
+  "Maximum supply air temperature reset value"
   annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
 
   parameter Real HeatSet(
   final unit="K",
   final displayUnit="degC",
   final quantity="ThermodynamicTemperature")=35
-  "setback heating supply air temperature set point"
+  "Setback heating supply air temperature set point"
   annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
 
   parameter Real maxDDSPset(
   final unit="Pa",
   final displayUnit="Pa",
   final quantity="PressureDifference")=5e-3
-  "maximum down duct static pressure reset value"
+  "Maximum down duct static pressure reset value"
   annotation (Dialog(tab="Supply fan", group="Down duct pressure limits"));
 
   parameter Real minDDSPset(
   final unit="Pa",
   final displayUnit="Pa",
   final quantity="PressureDifference")=1.25e-3
-  "minimum down duct static pressure reset value"
+  "Minimum down duct static pressure reset value"
   annotation (Dialog(tab="Supply fan", group="Down duct pressure limits"));
+
+  // ---inputs---
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput occ
+    "True when occupied mode is active"
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput occReq
+    "Terminal unit occupancy requests"
+    annotation (Placement(transformation(extent={{-140,30},{-100,70}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput sbcReq
+    "Terminal unit setback cooling requests"
+    annotation (Placement(transformation(extent={{-140,-28},{-100,12}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput sbhReq
+    "Terminal unit setback heating requests"
+    annotation (Placement(
+        transformation(extent={{-140,-58},{-100,-18}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput totCoolReqs
+    "Total terminal unit cooling requests"
+    annotation (Placement(
+        transformation(extent={{-140,-88},{-100,-48}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput highSpaceT
+    "Highest space temperature reported from all terminal units"
+    annotation (Placement(transformation(extent={{-140,-124},{-100,-84}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mostOpenDam
+    "Most open damper position of all terminal units" annotation (
+      Placement(transformation(extent={{-140,-156},{-100,-116}})));
+
+  // ---outputs---
+  output Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yOcc
+    "True when occupied mode is active"
+    annotation (Placement(transformation(extent={{104,28},{144,68}})));
+  output Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySBC
+    "True when setback cooling mode is active"
+    annotation (Placement(transformation(extent={{104,-2},{144,38}})));
+  output Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySBH
+    "True when setback heating mode is active"
+    annotation (Placement(transformation(extent={{104,-36},{144,4}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMinOAflowSet
+    "active outside air flow set point sent to factory controller"
+    annotation (Placement(transformation(extent={{104,56},{144,96}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yBldgSPset
+    "Building static pressure set point"
+    annotation (Placement(transformation(extent={{104,-112},{144,-72}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDDSPset
+    "Calculated down duct static pressure set point"
+    annotation (
+      Placement(transformation(extent={{104,-154},{144,-114}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySATset
+    "Calculated supply air temperature set point"
+    annotation (Placement(transformation(extent={{104,-74},{144,-34}})));
 
   TSupSet tSupSet
     annotation (Placement(transformation(extent={{28,-2},{46,28}})));
@@ -56,94 +105,50 @@ block BAScontroller
     annotation (Placement(transformation(extent={{28,82},{40,92}})));
   DDSPset dDSPset
     annotation (Placement(transformation(extent={{-8,-142},{6,-126}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput Occ
-    "true when occupied mode is active"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput highSpaceT
-    "highest space temperature reported from all terminal units"
-    annotation (Placement(transformation(extent={{-140,-124},{-100,-84}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput mostOpenDam
-    "most open damper position of all terminal units" annotation (
-      Placement(transformation(extent={{-140,-156},{-100,-116}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMinOAflowSet
-    "active outside air flow set point sent to factory controller"
-    annotation (Placement(transformation(extent={{104,56},{144,96}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySATset
-    "calculated supply air temperature set point"
-    annotation (Placement(transformation(extent={{104,-74},{144,-34}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDDSPset
-    "calculated down duct static pressure set point" annotation (
-      Placement(transformation(extent={{104,-154},{144,-114}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant BldgSPset(k=
         pBldgSPset) "Building static pressure set point"
     annotation (Placement(transformation(extent={{30,-102},{50,-82}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yBldgSPset
-    "Connector of Real output signal"
-    annotation (Placement(transformation(extent={{104,-112},{144,-72}})));
-  output Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yOcc
-    "true when occupied mode is active"
-    annotation (Placement(transformation(extent={{104,28},{144,68}})));
-  output Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySBC
-    "true when setback cooling mode is active"
-    annotation (Placement(transformation(extent={{104,-2},{144,38}})));
-  output Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySBH
-    "true when setback heating mode is active"
-    annotation (Placement(transformation(extent={{104,-36},{144,4}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput SBCreq
-    "terminal unit setback cooling requests"
-    annotation (Placement(transformation(extent={{-140,-28},{-100,12}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput SBHreq
-    "terminal unit setback heating requests" annotation (Placement(
-        transformation(extent={{-140,-58},{-100,-18}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(k=pTotalTU)
     annotation (Placement(transformation(extent={{-96,12},{-76,32}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput OccReq
-    "terminal unit occupancy requests"
-    annotation (Placement(transformation(extent={{-140,30},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput totCoolReqs
-    "total terminal unit cooling requests" annotation (Placement(
-        transformation(extent={{-140,-88},{-100,-48}})));
+
 equation
-  connect(operatingMode.yOcc, minOAset.Occ) annotation (Line(points={{
-          -4.15385,52.8},{14,52.8},{14,88},{26,88}},
+  connect(operatingMode.yOcc,minOAset.occ)  annotation (Line(points={{-4.15385,
+          52.8},{14,52.8},{14,87.6},{26,87.6}},
                                             color={255,0,255}));
-  connect(operatingMode.ySBC, tSupSet.SBC) annotation (Line(points={{
-          -4.15385,44.6},{12,44.6},{12,12.4},{26.2,12.4}},
-                                                  color={255,0,255}));
-  connect(operatingMode.ySBH, tSupSet.SBH) annotation (Line(points={{
-          -4.15385,40.4},{8,40.4},{8,3.6},{26.2,3.6}},
-                                              color={255,0,255}));
-  connect(operatingMode.Occ, Occ) annotation (Line(points={{-27.5385,54.2},{-64,
+  connect(operatingMode.ySBC,tSupSet.sbc)  annotation (Line(points={{-4.15385,
+          43.2},{12,43.2},{12,11.6},{26.2,11.6}}, color={255,0,255}));
+  connect(operatingMode.ySBH,tSupSet.sbh)  annotation (Line(points={{-4.15385,
+          39},{8,39},{8,1.8},{26.2,1.8}},     color={255,0,255}));
+  connect(operatingMode.occ,occ)  annotation (Line(points={{-27.5385,54.2},{-64,
           54.2},{-64,80},{-120,80}}, color={255,0,255}));
   connect(tSupSet.highSpaceT, highSpaceT) annotation (Line(points={{26.2,
           6.6},{-20,6.6},{-20,-104},{-120,-104}}, color={0,0,127}));
   connect(dDSPset.mostOpenDam, mostOpenDam) annotation (Line(points={{-9.8,
           -135.6},{-54.9,-135.6},{-54.9,-136},{-120,-136}}, color={0,0,127}));
-  connect(minOAset.yminOAflowStpt, yMinOAflowSet) annotation (Line(points={{42,88},
-          {82,88},{82,76},{124,76}}, color={0,0,127}));
-  connect(tSupSet.ySATsetpoint, ySATset) annotation (Line(points={{47.8,
-          14.8},{55.1,14.8},{55.1,-54},{124,-54}},
-                                       color={0,0,127}));
-  connect(dDSPset.yDDSPstpt, yDDSPset) annotation (Line(points={{8,-133.6},{58,-133.6},
+  connect(minOAset.yMinOAflowSet, yMinOAflowSet) annotation (Line(points={{42,
+          87.6},{82,87.6},{82,76},{124,76}}, color={0,0,127}));
+  connect(tSupSet.ySATset, ySATset) annotation (Line(points={{47.9636,1.8},{
+          55.1,1.8},{55.1,-54},{124,-54}}, color={0,0,127}));
+  connect(dDSPset.yDDSPset, yDDSPset) annotation (Line(points={{8,-133.6},{58,-133.6},
           {58,-134},{124,-134}}, color={0,0,127}));
   connect(BldgSPset.y, yBldgSPset)
     annotation (Line(points={{52,-92},{124,-92}}, color={0,0,127}));
-  connect(operatingMode.ySBC, ySBC) annotation (Line(points={{-4.15385,44.6},
-          {82,44.6},{82,18},{124,18}},
+  connect(operatingMode.ySBC, ySBC) annotation (Line(points={{-4.15385,43.2},{
+          82,43.2},{82,18},{124,18}},
                              color={255,0,255}));
-  connect(operatingMode.ySBH, ySBH) annotation (Line(points={{-4.15385,40.4},
-          {8,40.4},{8,36},{76,36},{76,-16},{124,-16}},
+  connect(operatingMode.ySBH, ySBH) annotation (Line(points={{-4.15385,39},{8,
+          39},{8,36},{76,36},{76,-16},{124,-16}},
                                               color={255,0,255}));
   connect(operatingMode.yOcc, yOcc) annotation (Line(points={{-4.15385,52.8},
           {12,52.8},{12,52},{92,52},{92,48},{124,48}},
                                              color={255,0,255}));
-  connect(operatingMode.SBCreq, SBCreq) annotation (Line(points={{-27.5385,43.8},
-          {-60,43.8},{-60,-8},{-120,-8}},       color={255,127,0}));
-  connect(operatingMode.SBHreq, SBHreq) annotation (Line(points={{-27.5385,39.6},
-          {-50,39.6},{-50,-38},{-120,-38}},       color={255,127,0}));
+  connect(operatingMode.sbcReq,sbcReq)  annotation (Line(points={{-27.5385,42.4},
+          {-60,42.4},{-60,-8},{-120,-8}},       color={255,127,0}));
+  connect(operatingMode.sbhReq,sbhReq)  annotation (Line(points={{-27.5385,38.2},
+          {-50,38.2},{-50,-38},{-120,-38}},       color={255,127,0}));
   connect(operatingMode.TotalTU, conInt.y) annotation (Line(points={{-27.5385,
           48.2},{-68,48.2},{-68,22},{-74,22}},          color={255,127,0}));
-  connect(operatingMode.OccReq, OccReq) annotation (Line(
+  connect(operatingMode.occReq,occReq)  annotation (Line(
       points={{-27.5385,51.2},{-120,51.2},{-120,50}},
       color={255,127,0},
       smooth=Smooth.Bezier));

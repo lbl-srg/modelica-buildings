@@ -7,7 +7,7 @@ model MinOAsetSimulation
         2880)
     annotation (Placement(transformation(extent={{-54,10},{-34,30}})));
 equation
-  connect(minOAset.Occ, OccGen.y) annotation (Line(points={{20,11.6},{-6,11.6},
+  connect(minOAset.occ, OccGen.y) annotation (Line(points={{20,11.6},{-6,11.6},
           {-6,20},{-32,20}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Ellipse(lineColor = {75,138,73},
@@ -19,5 +19,12 @@ equation
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points={{-36,60},{64,0},{-36,-60},{-36,60}})}), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+This example simulates
+<a href=\"modelica://Buildings.Controls.OBC.FDE.PackagedRTUs.MinOAset\">
+Buildings.Controls.OBC.FDE.PackagedRTUs.MinOAset</a>.
+</p>
+</html>"));
 end MinOAsetSimulation;

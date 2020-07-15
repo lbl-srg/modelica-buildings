@@ -1,37 +1,47 @@
 within Buildings.Controls.OBC.FDE.PackagedRTUs;
-block MinOAset "minimum outside air flow set point"
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
-    annotation (Placement(transformation(extent={{-20,-14},{0,6}})));
-  input Buildings.Controls.OBC.CDL.Interfaces.BooleanInput Occ
-    "true when RTU mode is occupied"
-    annotation (Placement(transformation(extent={{-140,-24},{-100,16}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=0)
-    "set outside air flow set point to zero when not occupied mode"
-    annotation (Placement(transformation(extent={{-86,12},{-66,32}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yminOAflowStpt(unit=
-        "m3/s", quantity="VolumeFlowRate")
-    "active outside air flow set point sent to factory controller"
-    annotation (Placement(transformation(extent={{20,-24},{60,16}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minOAsetpoint(k=
-        minOAset)
-    annotation (Placement(transformation(extent={{-86,-50},{-66,-30}})));
-  parameter Real minOAset(
+block MinOAset
+  "Calculates minimum outside air flow set point for packaged RTU controller"
+ parameter Real minOAset(
   final unit="m3/s",
   final quantity="VolumeFlowRate")=0.8
-  "minimum outside air flow set point";
+  "Occupied mode minimum outside air flow set point";
+
+ // ---input---
+ input Buildings.Controls.OBC.CDL.Interfaces.BooleanInput occ
+   "Input true when RTU mode is occupied"
+   annotation (Placement(transformation(extent={{-140,-24},{-100,16}})));
+
+  // ---output---
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMinOAflowSet(
+    unit="m3/s",
+    quantity="VolumeFlowRate")
+    "The active outside air flow set point sent to the factory controller"
+    annotation (Placement(transformation(extent={{20,-24},{60,16}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minOAsetpoint(
+    k=minOAset)
+    annotation (Placement(transformation(extent={{-86,-50},{-66,-30}})));
+
+protected
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+    final k=0)
+    "Set the outside air flow set point to zero when not in occupied mode"
+    annotation (Placement(transformation(extent={{-86,12},{-66,32}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch swi
+    annotation (Placement(transformation(extent={{-20,-14},{0,6}})));
   CDL.Logical.Not not1
     annotation (Placement(transformation(extent={{-64,-14},{-44,6}})));
 equation
   connect(swi.u1, con.y) annotation (Line(points={{-22,4},{-38,4},{-38,22},{-64,
           22}},      color={0,0,127}));
-  connect(swi.y, yminOAflowStpt)
+  connect(swi.y, yMinOAflowSet)
     annotation (Line(points={{2,-4},{40,-4}}, color={0,0,127}));
   connect(minOAsetpoint.y, swi.u3) annotation (Line(points={{-64,-40},{-38,-40},
           {-38,-12},{-22,-12}},
                               color={0,0,127}));
   connect(swi.u2, not1.y)
     annotation (Line(points={{-22,-4},{-42,-4}}, color={255,0,255}));
-  connect(not1.u, Occ)
+  connect(not1.u,occ)
     annotation (Line(points={{-66,-4},{-120,-4}}, color={255,0,255}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-60},{20,
@@ -211,8 +221,7 @@ passed to the RTU set point.
 When the unit is not in occupied
 mode a value of 0 is passed
 for the outside air flow set
-point.",
-          horizontalAlignment=TextAlignment.Left)}),
+point.",  horizontalAlignment=TextAlignment.Left)}),
     Documentation(revisions="<html>
 <ul>
 <li>May 28, 2020, by Henry Nickels:<br>First implementation. </li>

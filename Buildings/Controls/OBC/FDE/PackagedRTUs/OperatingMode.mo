@@ -2,48 +2,53 @@ within Buildings.Controls.OBC.FDE.PackagedRTUs;
 block OperatingMode "Determine occupied or setback operating mode"
 
   parameter Real TUpcntM(
-  min=0.1,
-  max=0.9)=0.15
-  "minimum decimal percentage of terminal unit requests required for mode change";
+    min=0.1,
+    max=0.9,
+    final unit="1")=0.15
+    "Minimum decimal percentage of terminal unit requests required for mode change";
 
+  // --- inputs ---
+  input Buildings.Controls.OBC.CDL.Interfaces.BooleanInput occ
+    "True when occupied mode is active"
+    annotation (Placement(transformation(extent={{-140,62},{-100,102}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput occReq
+    "Terminal unit occupancy requests"
+    annotation (Placement(transformation(extent={{-140,32},{-100,72}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput TotalTU
+    "Total number of terminal units"
+    annotation (Placement(transformation(extent={{-140,2},{-100,42}})));
+   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput sbcReq
+    "Terminal unit setback cooling requests"
+    annotation (Placement(transformation(extent={{-140,-56},{-100,-16}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput sbhReq
+    "Terminal unit setback heating requests" annotation (Placement(
+        transformation(extent={{-140,-98},{-100,-58}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yOcc
+    "True when occupied mode is active"
+    annotation (Placement(transformation(extent={{164,48},{204,88}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySBC
+    "True when setback cooling mode is active"
+    annotation (Placement(transformation(extent={{164,-48},{204,-8}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySBH
+    "True when setback heating mode is active"
+    annotation (Placement(transformation(extent={{164,-90},{204,-50}})));
+
+  // --- outputs ---
   Buildings.Controls.OBC.CDL.Logical.Or or2
     annotation (Placement(transformation(extent={{42,58},{62,78}})));
-  input Buildings.Controls.OBC.CDL.Interfaces.BooleanInput Occ
-    "true when occupied mode is active"
-    annotation (Placement(transformation(extent={{-140,62},{-100,102}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yOcc
-    "true when occupied mode is active"
-    annotation (Placement(transformation(extent={{164,48},{204,88}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
     annotation (Placement(transformation(extent={{114,-38},{134,-18}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
     annotation (Placement(transformation(extent={{78,-20},{98,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySBC
-    "true when setback cooling mode is active"
-    annotation (Placement(transformation(extent={{164,-48},{204,-8}})));
   Buildings.Controls.OBC.CDL.Logical.And and1
     annotation (Placement(transformation(extent={{114,-80},{134,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySBH
-    "true when setback heating mode is active"
-    annotation (Placement(transformation(extent={{164,-90},{204,-50}})));
   Buildings.Controls.OBC.CDL.Integers.Greater intGre
     annotation (Placement(transformation(extent={{6,42},{26,62}})));
   Buildings.Controls.OBC.CDL.Integers.Greater intGre1
     annotation (Placement(transformation(extent={{8,-46},{28,-26}})));
   Buildings.Controls.OBC.CDL.Integers.Greater intGre2
     annotation (Placement(transformation(extent={{8,-88},{28,-68}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput OccReq
-    "terminal unit occupancy requests"
-    annotation (Placement(transformation(extent={{-140,32},{-100,72}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput TotalTU
-    "total number of terminal units"
-    annotation (Placement(transformation(extent={{-140,2},{-100,42}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput SBCreq
-    "terminal unit setback cooling requests"
-    annotation (Placement(transformation(extent={{-140,-56},{-100,-16}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput SBHreq
-    "terminal unit setback heating requests" annotation (Placement(
-        transformation(extent={{-140,-98},{-100,-58}})));
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
     annotation (Placement(transformation(extent={{-94,12},{-74,32}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai(k=TUpcntM)
@@ -51,7 +56,7 @@ block OperatingMode "Determine occupied or setback operating mode"
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     annotation (Placement(transformation(extent={{-38,12},{-18,32}})));
 equation
-  connect(or2.u1, Occ) annotation (Line(points={{40,68},{34,68},{34,82},{-120,82}},
+  connect(or2.u1,occ)  annotation (Line(points={{40,68},{34,68},{34,82},{-120,82}},
                       color={255,0,255}));
   connect(or2.y, yOcc)
     annotation (Line(points={{64,68},{184,68}},color={255,0,255}));
@@ -66,7 +71,7 @@ equation
           -28},{112,-28}},color={255,0,255}));
   connect(and1.y, ySBH)
     annotation (Line(points={{136,-70},{184,-70}},color={255,0,255}));
-  connect(intGre.u1, OccReq)
+  connect(intGre.u1,occReq)
     annotation (Line(points={{4,52},{-120,52}},   color={255,127,0}));
   connect(intGre.y, or2.u2) annotation (Line(points={{28,52},{34,52},{34,60},{40,
           60}}, color={255,0,255}));
@@ -74,9 +79,9 @@ equation
     annotation (Line(points={{112,-36},{30,-36}}, color={255,0,255}));
   connect(and1.u2, intGre2.y)
     annotation (Line(points={{112,-78},{30,-78}}, color={255,0,255}));
-  connect(intGre1.u1, SBCreq)
+  connect(intGre1.u1,sbcReq)
     annotation (Line(points={{6,-36},{-120,-36}},   color={255,127,0}));
-  connect(intGre2.u1, SBHreq)
+  connect(intGre2.u1,sbhReq)
     annotation (Line(points={{6,-78},{-120,-78}},   color={255,127,0}));
   connect(TotalTU, intToRea.u)
     annotation (Line(points={{-120,22},{-96,22}}, color={255,127,0}));

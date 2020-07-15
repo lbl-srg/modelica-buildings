@@ -1,6 +1,39 @@
 within Buildings.Controls.OBC.FDE.PackagedRTUs;
 block DDSPset
   "Down duct static pressure set point calculation based on terminal unit damper position"
+ parameter Real minDDSPset(
+   min=0,
+   final unit="Pa",
+   final quantity="PressureDifference")=1.25e-3
+  "Minimum down duct static pressure reset value"
+  annotation (Dialog(group="DDSP range"));
+
+ parameter Real maxDDSPset(
+   min=0,
+   final unit="Pa",
+   final quantity="PressureDifference")=5e-3
+  "Maximum down duct static pressure reset value"
+  annotation (Dialog(group="DDSP range"));
+
+ parameter Real DamSet(
+   min=0,
+   max=1,
+   final unit="1")=0.9
+   "DDSP terminal damper percent open set point";
+
+  // --- input---
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mostOpenDam
+    "Most open damper position of all terminal units"
+    annotation (Placement(transformation(extent={{-138,-16},{-98,24}})));
+
+  // ---output---
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDDSPset(
+    final unit="Pa",
+    final displayUnit="bar",
+    final quantity="Pressure")
+    "Calculated down duct static pressure set point"
+    annotation (Placement(transformation(extent={{40,4},{80,44}})));
+
   Buildings.Controls.OBC.CDL.Continuous.LimPID conPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=0.0000001,
@@ -11,36 +44,28 @@ block DDSPset
     reset=Buildings.Controls.OBC.CDL.Types.Reset.Disabled)
     "calculate reset value based on most open terminal unit damper position "
     annotation (Placement(transformation(extent={{-50,14},{-30,34}})));
-            Buildings.Controls.OBC.CDL.Interfaces.RealInput mostOpenDam
-    "most open damper position of all terminal units"
-    annotation (Placement(transformation(extent={{-138,-16},{-98,24}})));
   Buildings.Controls.OBC.CDL.Continuous.Line lin
     annotation (Placement(transformation(extent={{-4,14},{16,34}})));
-           Buildings.Controls.OBC.CDL.Continuous.Sources.Constant X1(k=0)
+
+protected
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant X1(k=0)
     "linear conversion constant (min)"
     annotation (Placement(transformation(extent={{-50,72},{-30,92}})));
-           Buildings.Controls.OBC.CDL.Continuous.Sources.Constant X2(k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant X2(k=1)
     "linear conversion constant (max)"
     annotation (Placement(transformation(extent={{-50,-28},{-30,-8}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDDSPstpt(
-    final unit="Pa",
-    final displayUnit="bar",
-    final quantity="Pressure")
-    "calculated down duct static pressure set point"
-    annotation (Placement(transformation(extent={{40,4},{80,44}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant DamSetpt(k=90)
-    "terminal unit damper set point 90 percent open"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant DamSetpt(
+    k=DamSet)
+    "The terminal unit damper percent open set point"
     annotation (Placement(transformation(extent={{-88,14},{-68,34}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxDDSPsetpt(k=
-        maxDDSPset) "maximum allowable set point reset value"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxDDSPsetpt(
+    k=maxDDSPset)
+    "maximum allowable set point reset value"
     annotation (Placement(transformation(extent={{-86,-50},{-66,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minDDSPsetpt(k=
         minDDSPset) "minimum reset value"
     annotation (Placement(transformation(extent={{-88,46},{-68,66}})));
-  parameter Real maxDDSPset=5e-3
-  "maximum down duct static pressure reset value";
-  parameter Real minDDSPset=1.25e-3
-  "minimum down duct static pressure reset value";
+
 equation
   connect(conPID.u_m, mostOpenDam)
     annotation (Line(points={{-40,12},{-40,4},{-118,4}}, color={0,0,127}));
@@ -50,7 +75,7 @@ equation
           {-6,32}}, color={0,0,127}));
   connect(X2.y, lin.x2) annotation (Line(points={{-28,-18},{-20,-18},{-20,
           20},{-6,20}}, color={0,0,127}));
-  connect(lin.y, yDDSPstpt)
+  connect(lin.y, yDDSPset)
     annotation (Line(points={{18,24},{60,24}}, color={0,0,127}));
   connect(conPID.u_s, DamSetpt.y)
     annotation (Line(points={{-52,24},{-66,24}}, color={0,0,127}));

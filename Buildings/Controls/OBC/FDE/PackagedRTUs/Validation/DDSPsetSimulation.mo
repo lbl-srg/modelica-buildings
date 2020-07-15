@@ -25,5 +25,12 @@ equation
                 fillPattern = FillPattern.Solid,
                 points={{-36,60},{64,0},{-36,-60},{-36,60}})}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
-    experiment(StopTime=5760, __Dymola_Algorithm="Dassl"));
+    experiment(StopTime=5760, __Dymola_Algorithm="Dassl"),
+    Documentation(info="<html>
+<p>
+This example simulates
+<a href=\"modelica://Buildings.Controls.OBC.FDE.PackagedRTUs.DDSPset\">
+Buildings.Controls.OBC.FDE.PackagedRTUs.DDSPset</a>.
+</p>
+</html>"));
 end DDSPsetSimulation;
