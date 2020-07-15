@@ -235,6 +235,9 @@ Buildings/Fluid/Actuators/Dampers/Examples/package.order
 Buildings/Fluid/Actuators/Dampers/Exponential.mo
 Buildings/Fluid/Actuators/Dampers/MixingBox.mo
 Buildings/Fluid/Actuators/Dampers/PressureIndependent.mo
+Buildings/Fluid/Actuators/Dampers/Validation/PressureIndependent.mo
+Buildings/Fluid/Actuators/Dampers/Validation/package.mo
+Buildings/Fluid/Actuators/Dampers/Validation/package.order
 Buildings/Fluid/Actuators/Dampers/package.mo
 Buildings/Fluid/Actuators/Dampers/package.order
 Buildings/Fluid/Actuators/Motors/Examples/IdealMotor.mo
@@ -1188,10 +1191,6 @@ Buildings/Media/Examples/BaseClasses/package.order
 Buildings/Media/Examples/PropyleneGlycolWaterDerivativeCheck.mo
 Buildings/Media/Examples/PropyleneGlycolWaterProperties.mo
 Buildings/Media/Examples/PropyleneGlycolWaterTemperatureEnthalpyInversion.mo
-Buildings/Media/Examples/SteamDerivativeCheck.mo
-Buildings/Media/Examples/SteamProperties.mo
-Buildings/Media/Examples/SteamSaturatedProperties.mo
-Buildings/Media/Examples/SteamTemperatureEnthalpyInversion.mo
 Buildings/Media/Examples/WaterDerivativeCheck.mo
 Buildings/Media/Examples/WaterProperties.mo
 Buildings/Media/Examples/WaterTemperatureEnthalpyInversion.mo
@@ -1235,7 +1234,6 @@ Buildings/Media/Specialized/Water/package.mo
 Buildings/Media/Specialized/Water/package.order
 Buildings/Media/Specialized/package.mo
 Buildings/Media/Specialized/package.order
-Buildings/Media/Steam.mo
 Buildings/Media/Water.mo
 Buildings/Media/package.mo
 Buildings/Media/package.order
@@ -1372,8 +1370,6 @@ Buildings/Resources/Images/Media/Antifreeze/PropyleneGlycolWaterError20degC.png
 Buildings/Resources/Images/Media/Antifreeze/PropyleneGlycolWaterProperties.pdf
 Buildings/Resources/Images/Media/Antifreeze/PropyleneGlycolWaterProperties.png
 Buildings/Resources/Images/Media/Antifreeze/propyleneGlycol.py
-Buildings/Resources/Images/Media/Steam/numericalError.pdf
-Buildings/Resources/Images/Media/Steam/numericalError.png
 Buildings/Resources/Images/Media/Water/plotCp.pdf
 Buildings/Resources/Images/Media/Water/plotCp.png
 Buildings/Resources/Images/Media/Water/plotCp.py
@@ -1477,6 +1473,7 @@ Buildings/Resources/Scripts/Dymola/Fluid/Actuators/BaseClasses/Examples/EqualPer
 Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/Damper.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/MixingBox.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/VAVBoxExponential.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Validation/PressureIndependent.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Motors/Examples/IdealMotor.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/ThreeWayValves.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/TwoWayValvePressureIndependent.mos
@@ -1796,10 +1793,6 @@ Buildings/Resources/Scripts/Dymola/Media/Examples/AirTemperatureEnthalpyInversio
 Buildings/Resources/Scripts/Dymola/Media/Examples/PropyleneGlycolWaterDerivativeCheck.mos
 Buildings/Resources/Scripts/Dymola/Media/Examples/PropyleneGlycolWaterProperties.mos
 Buildings/Resources/Scripts/Dymola/Media/Examples/PropyleneGlycolWaterTemperatureEnthalpyInversion.mos
-Buildings/Resources/Scripts/Dymola/Media/Examples/SteamDerivativeCheck.mos
-Buildings/Resources/Scripts/Dymola/Media/Examples/SteamProperties.mos
-Buildings/Resources/Scripts/Dymola/Media/Examples/SteamSaturatedProperties.mos
-Buildings/Resources/Scripts/Dymola/Media/Examples/SteamTemperatureEnthalpyInversion.mos
 Buildings/Resources/Scripts/Dymola/Media/Examples/WaterDerivativeCheck.mos
 Buildings/Resources/Scripts/Dymola/Media/Examples/WaterProperties.mos
 Buildings/Resources/Scripts/Dymola/Media/Examples/WaterTemperatureEnthalpyInversion.mos
@@ -1916,8 +1909,8 @@ Buildings/Resources/Scripts/Dymola/Utilities/Time/Validation/CalendarTimeMonths.
 Buildings/Resources/Scripts/Dymola/Utilities/Time/Validation/CalendarTimeMonthsMinus.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Time/Validation/CalendarTimeMonthsPlus.mos
 Buildings/Resources/Scripts/JModelica/buildingspy_to_csv.py
-Buildings/Resources/Scripts/travis/bin/dymola
-Buildings/Resources/Scripts/travis/bin/jm_ipython.sh
+Buildings/Resources/Scripts/travis/dymola/dymola
+Buildings/Resources/Scripts/travis/jmodelica/jm_ipython.sh
 Buildings/Resources/bin/ConvertWeatherData.jar
 Buildings/Resources/src/convertEPW/Makefile
 Buildings/Resources/src/convertEPW/doc/ConvertWeatherData.html

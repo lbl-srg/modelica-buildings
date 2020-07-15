@@ -83,6 +83,12 @@ are not implemented.
 </html>", revisions="<html>
 <ul>
 <li>
+April 6, 2020, by Filip Jorissen:<br/>
+Added arrows to the icon indicating the intended flow direction
+when <code>allowFlowReversal=false</code>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1336\">#1336</a>.
+</li>
+<li>
 January 18, 2019, by Jianjun Hu:<br/>
 Limited the media choice.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
@@ -141,10 +147,27 @@ are often iteration variables in nonlinear equation systems.
     Icon(coordinateSystem(
           preserveAspectRatio=true,
           extent={{-100,-100},{100,100}},
-          grid={1,1}), graphics={Text(
+          grid={1,1}), graphics={
+      Text(
           extent={{-151,147},{149,107}},
           lineColor={0,0,255},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},
-          textString="%name")}));
+          textString="%name"),
+      Polygon(
+          points={{-5,10},{25,10},{-5,-10},{-5,10}},
+          lineColor={0,128,255},
+          fillColor={0,128,255},
+          fillPattern=FillPattern.Solid,
+          visible=not allowFlowReversal1,
+          origin={75,50},
+          rotation=360),
+      Polygon(
+          points={{10,10},{-20,-10},{10,-10},{10,10}},
+          lineColor={0,128,255},
+          fillColor={0,128,255},
+          fillPattern=FillPattern.Solid,
+          visible=not allowFlowReversal2,
+          origin={-79,-50},
+          rotation=360)}));
 end PartialFourPort;

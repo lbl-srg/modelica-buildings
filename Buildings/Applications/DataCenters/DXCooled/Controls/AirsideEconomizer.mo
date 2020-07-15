@@ -30,7 +30,7 @@ model AirsideEconomizer "Controller for airside economizer"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   Buildings.Controls.Continuous.LimPID con(
-    reverseAction=true,
+    reverseActing=false,
     k=gai,
     yMin=minOAFra,
     final controllerType=Modelica.Blocks.Types.SimpleController.PI,

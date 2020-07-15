@@ -34,8 +34,7 @@ model Humidifier_u "Model that demonstrates the ideal humidifier model"
     Td=1,
     k=1,
     Ti=10,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    reverseAction=true) "Controller"
+    reverseActing=false) "Controller"
     annotation (Placement(transformation(extent={{40,140},{60,160}})));
   Buildings.Fluid.Humidifiers.Humidifier_u humDyn(
     redeclare package Medium = Medium,
@@ -53,8 +52,7 @@ model Humidifier_u "Model that demonstrates the ideal humidifier model"
     Td=1,
     Ti=10,
     k=0.1,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    reverseAction=true) "Controller"
+    reverseActing=false) "Controller"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
