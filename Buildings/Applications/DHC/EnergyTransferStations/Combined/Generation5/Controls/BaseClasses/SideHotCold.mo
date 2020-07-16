@@ -13,8 +13,8 @@ partial block SideHotCold
   parameter Boolean reverseActing = false
     "Set to true for control output increasing with decreasing measurement value";
 
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType[nSouAmb]=
-    fill(Buildings.Controls.OBC.CDL.Types.SimpleController.P, nSouAmb)
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.P
     "Type of controller"
     annotation(choices(
       choice=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
@@ -24,10 +24,9 @@ partial block SideHotCold
   parameter Modelica.SIunits.Time Ti[nSouAmb](
     each min=Buildings.Controls.OBC.CDL.Constants.small) = fill(0.5, nSouAmb)
     "Time constant of integrator block"
-    annotation (Dialog(enable=Modelica.Math.BooleanVectors.anyTrue({
-      controllerType[i] == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-      controllerType[i] == Buildings.Controls.OBC.CDL.Types.SimpleController.PID
-      for i in 1:nSouAmb})));
+    annotation (Dialog(enable=
+      controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
+      controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet(
     final unit="K",
@@ -53,7 +52,8 @@ partial block SideHotCold
         extent={{100,-90},{140,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yAmb[nSouAmb](each final
       unit="1") "Control signal for ambient sources" annotation (Placement(
-        transformation(extent={{180,-20},{220,20}}), iconTransformation(extent={
+        transformation(extent={{180,-100},{220,-60}}),
+                                                     iconTransformation(extent={
             {100,-30},{140,10}})));
 
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
@@ -81,16 +81,18 @@ partial block SideHotCold
     annotation (Placement(transformation(extent={{180,80},{220,120}}),
       iconTransformation(extent={{100,30},{140,70}})));
   LimPlaySequence conPlaSeq(
+    have_enaSig=true,
     final nCon=nSouAmb,
-    final hys=fill(dTHys, nSouAmb),
-    final dea=fill(dTDea, nSouAmb),
-    final yMin=fill(0, nSouAmb),
-    final yMax=fill(1, nSouAmb),
+    yThr=0.9,
+    final hys=dTHys,
+    final dea=dTDea,
+    final yMin=0,
+    final yMax=1,
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
     final reverseActing=reverseActing)
-    annotation (Placement(transformation(extent={{-100,-130},{-80,-110}})));
+    annotation (Placement(transformation(extent={{-70,-130},{-50,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(threshold=
         Modelica.Constants.eps) "At least one signal is non zero"
     annotation (Placement(transformation(extent={{80,-130},{100,-110}})));
@@ -125,8 +127,14 @@ partial block SideHotCold
   Buildings.Controls.OBC.CDL.Continuous.MultiMax mulMax(nin=nSouAmb)
     "Maximum of control signals for ambient sources"
     annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min min1[nSouAmb]
-    annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uMod "Rejection mode"
+    annotation (Placement(transformation(extent={{-220,120},{-180,160}}),
+        iconTransformation(extent={{-140,20},{-100,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput e(each final unit="1")
+    "Error" annotation (Placement(transformation(extent={{180,-20},{220,20}}),
+        iconTransformation(extent={{100,0},{140,40}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch swi
+    annotation (Placement(transformation(extent={{-90,-170},{-70,-150}})));
 initial equation
   assert(dTHys >= 0, "In " + getInstanceName() +
     ": dTHys (" + String(dTHys) + ") must be an absolute value.");
@@ -183,17 +191,25 @@ equation
   connect(uHeaCoo, and2.u1) annotation (Line(points={{-200,180},{140,180},{140,100},
           {148,100}}, color={255,0,255}));
   connect(TSet, conPlaSeq.u_s) annotation (Line(points={{-200,40},{-160,40},{
-          -160,-120},{-102,-120}},
+          -160,-120},{-72,-120}},
                               color={0,0,127}));
   connect(mulMax.y, greThr.u)
     annotation (Line(points={{62,-120},{78,-120}}, color={0,0,127}));
-  connect(min1.y, mulMax.u)
-    annotation (Line(points={{-18,-120},{38,-120}}, color={0,0,127}));
-  connect(min1.y, yAmb) annotation (Line(points={{-18,-120},{0,-120},{0,-80},{
-          160,-80},{160,0},{200,0}},
-                                 color={0,0,127}));
-  connect(conPlaSeq.y, min1.u2) annotation (Line(points={{-78,-120},{-60,-120},
-          {-60,-126},{-42,-126}}, color={0,0,127}));
+  connect(uMod, swi.u2) annotation (Line(points={{-200,140},{-140,140},{-140,
+          -160},{-92,-160}}, color={255,0,255}));
+  connect(TSet, swi.u3) annotation (Line(points={{-200,40},{-160,40},{-160,-168},
+          {-92,-168}}, color={0,0,127}));
+  connect(swi.y, conPlaSeq.u_m) annotation (Line(points={{-68,-160},{-60,-160},
+          {-60,-132}}, color={0,0,127}));
+  connect(conPlaSeq.y, mulMax.u)
+    annotation (Line(points={{-48,-120},{38,-120}}, color={0,0,127}));
+  connect(conPlaSeq.y, yAmb) annotation (Line(points={{-48,-120},{0,-120},{0,
+          -80},{200,-80}}, color={0,0,127}));
+  connect(proDis.y, e) annotation (Line(points={{2,0},{12,0},{12,-20},{160,-20},
+          {160,0},{200,0}}, color={0,0,127}));
+  connect(uMod, conPlaSeq.uEna) annotation (Line(points={{-200,140},{-200,
+          140.714},{-140,140.714},{-140,-140},{-64,-140},{-64,-132}}, color={
+          255,0,255}));
    annotation (
        Diagram(coordinateSystem(extent={{-180,-200},{180,200}})),
 Documentation(

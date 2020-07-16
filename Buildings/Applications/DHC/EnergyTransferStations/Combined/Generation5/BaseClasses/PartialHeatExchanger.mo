@@ -102,8 +102,8 @@ model PartialHeatExchanger
   parameter Modelica.SIunits.TemperatureDifference dTDea = 0
     "Temperature dead band for supervisory control"
     annotation (Dialog(group="Supervisory controller"));
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType[nSouAmb]=
-    fill(Buildings.Controls.OBC.CDL.Types.SimpleController.PI, nSouAmb)
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation (Dialog(group="Supervisory controller"));
   parameter Real kHot[nSouAmb](each min=0)=fill(0.05, nSouAmb)
@@ -115,10 +115,9 @@ model PartialHeatExchanger
   parameter Modelica.SIunits.Time Ti[nSouAmb](
     each min=Buildings.Controls.OBC.CDL.Constants.small)=fill(300, nSouAmb)
     "Time constant of integrator block (hot and cold side)"
-    annotation (Dialog(enable=Modelica.Math.BooleanVectors.anyTrue({
-      controllerType[i] == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-      controllerType[i] == Buildings.Controls.OBC.CDL.Types.SimpleController.PID
-      for i in 1:nSouAmb}),
+    annotation (Dialog(enable=
+      controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
+      controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
       group="Supervisory controller"));
   parameter Modelica.SIunits.Temperature THeaWatSupSetMin(displayUnit="degC")
     "Minimum value of heating water supply temperature set-point"
