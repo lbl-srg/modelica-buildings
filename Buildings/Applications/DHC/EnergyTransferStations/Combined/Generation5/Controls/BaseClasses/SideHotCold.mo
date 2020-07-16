@@ -29,6 +29,16 @@ partial block SideHotCold
       controllerType[i] == Buildings.Controls.OBC.CDL.Types.SimpleController.PID
       for i in 1:nSouAmb})));
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEna
+    "Heating or cooling mode enabled signal"
+    annotation (Placement(
+      transformation(extent={{-220,160},{-180,200}}), iconTransformation(
+        extent={{-140,60},{-100,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput yDemOpp
+    "Tank demand signal from opposite side"
+    annotation (Placement(
+      transformation(extent={{-220,120},{-180,160}}), iconTransformation(
+        extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet(
     final unit="K",
     displayUnit="degC")
@@ -50,11 +60,11 @@ partial block SideHotCold
     annotation (Placement(
       transformation(extent={{180,-140},{220,-100}}),
       iconTransformation(
-        extent={{100,-90},{140,-50}})));
+        extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yAmb[nSouAmb](each final
       unit="1") "Control signal for ambient sources" annotation (Placement(
-        transformation(extent={{180,-20},{220,20}}), iconTransformation(extent={
-            {100,-30},{140,10}})));
+        transformation(extent={{180,-20},{220,20}}), iconTransformation(extent={{100,-20},
+            {140,20}})));
 
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{-60,140},{-40,160}})));
@@ -76,10 +86,10 @@ partial block SideHotCold
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqual disHeaCoo
     "Threshold comparison for disabling heating or cooling system"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHeaCoo
-    "Tank in heating or cooling demand"
-    annotation (Placement(transformation(extent={{180,80},{220,120}}),
-      iconTransformation(extent={{100,30},{140,70}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDem
+    "Tank in heating or cooling demand" annotation (Placement(transformation(
+          extent={{180,80},{220,120}}), iconTransformation(extent={{100,40},{140,
+            80}})));
   LimPlaySequence conPlaSeq(
     final nCon=nSouAmb,
     final hys=fill(dTHys, nSouAmb),
@@ -116,10 +126,6 @@ partial block SideHotCold
     final realTrue=-1,
     final realFalse=1) "Output -1 if reverse acting, else 1"
     annotation (Placement(transformation(extent={{-70,70},{-50,90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaCoo
-    "Heating or cooling mode enabled signal" annotation (Placement(
-        transformation(extent={{-220,160},{-180,200}}), iconTransformation(
-          extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Logical.And and2 "And"
     annotation (Placement(transformation(extent={{150,90},{170,110}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMax mulMax(nin=nSouAmb)
@@ -127,6 +133,16 @@ partial block SideHotCold
     annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Min min1[nSouAmb]
     annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
+  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
+    final nout=nSouAmb)
+    "Replicate by the number of ambient sources" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-140,110})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea2
+    "Output 0 in case of no demand"
+    annotation (Placement(transformation(extent={{-170,130},{-150,150}})));
 initial equation
   assert(dTHys >= 0, "In " + getInstanceName() +
     ": dTHys (" + String(dTHys) + ") must be an absolute value.");
@@ -176,11 +192,11 @@ equation
   connect(t2.outPort, noDemand.inPort[1]) annotation (Line(points={{121.5,140},{
           132,140},{132,160},{-10,160},{-10,140.5},{-1,140.5}},
         color={0,0,0}));
-  connect(and2.y, yHeaCoo)
+  connect(and2.y, yDem)
     annotation (Line(points={{172,100},{200,100}}, color={255,0,255}));
   connect(dem.active, and2.u2)
     annotation (Line(points={{90,129},{90,92},{148,92}}, color={255,0,255}));
-  connect(uHeaCoo, and2.u1) annotation (Line(points={{-200,180},{140,180},{140,100},
+  connect(uEna, and2.u1) annotation (Line(points={{-200,180},{140,180},{140,100},
           {148,100}}, color={255,0,255}));
   connect(TSet, conPlaSeq.u_s) annotation (Line(points={{-200,40},{-160,40},{
           -160,-120},{-102,-120}},
@@ -194,6 +210,12 @@ equation
                                  color={0,0,127}));
   connect(conPlaSeq.y, min1.u2) annotation (Line(points={{-78,-120},{-60,-120},
           {-60,-126},{-42,-126}}, color={0,0,127}));
+  connect(yDemOpp, booToRea2.u) annotation (Line(points={{-200,140},{-186,140},{
+          -186,140},{-172,140}}, color={255,0,255}));
+  connect(booToRea2.y, reaRep.u) annotation (Line(points={{-148,140},{-140,140},
+          {-140,122}}, color={0,0,127}));
+  connect(reaRep.y, min1.u1) annotation (Line(points={{-140,98},{-140,-100},{-50,
+          -100},{-50,-114},{-42,-114}}, color={0,0,127}));
    annotation (
        Diagram(coordinateSystem(extent={{-180,-200},{180,200}})),
 Documentation(
