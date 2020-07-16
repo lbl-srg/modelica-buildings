@@ -50,6 +50,7 @@ model CoolingPlantClosedLoop
   parameter Modelica.SIunits.Power QCooLoa[:, :]= [0, -200E3; 6, -300E3; 12, -500E3; 18, -300E3; 24, -200E3]
     "Cooling load table matrix, negative";
 
+
   Buildings.Fluid.FixedResistances.Pipe pip(
     redeclare package Medium=Medium,
     m_flow_nominal=mCHW_flow_nominal,
@@ -57,7 +58,8 @@ model CoolingPlantClosedLoop
     thicknessIns=0.01,
     lambdaIns=0.04,
     length=100,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow(start=mCHW_flow_nominal))
     "Distribution pipe"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
 
