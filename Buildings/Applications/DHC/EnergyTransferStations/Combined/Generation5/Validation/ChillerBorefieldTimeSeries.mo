@@ -312,8 +312,7 @@ equation
 "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Combined/Generation5/Validation/ChillerBorefieldTimeSeries.mos"
 "Simulate and plot"),
     experiment(
-      StopTime=12000000,
-      __Dymola_NumberOfIntervals=5000,
+      StopTime=10000000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
  Documentation(

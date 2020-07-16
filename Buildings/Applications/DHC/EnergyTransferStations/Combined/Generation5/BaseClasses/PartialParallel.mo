@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.BaseClasses;
-model PartialHeatExchanger
-  "Partial ETS model with district heat exchanger"
+model PartialParallel
+  "Partial ETS model with district heat exchanger and parallel connection for production systems"
   extends DHC.EnergyTransferStations.BaseClasses.PartialETS(
     final have_heaWat=true,
     final have_chiWat=true,
@@ -55,6 +55,15 @@ model PartialHeatExchanger
   parameter Modelica.SIunits.TemperatureDifference dT2HexSet[2]
     "Secondary side deltaT set-point schedule (index 1 for heat rejection)"
     annotation (Dialog(group="District heat exchanger"));
+  parameter Real spePum1HexMin(final unit="1", min=0) = 0.1
+    "Heat exchanger primary pump minimum speed (fractional)"
+    annotation (Dialog(group="District heat exchanger", enable=not have_val1Hex));
+  parameter Real yVal1HexMin(final unit="1", min=0.01) = 0.1
+    "Minimum valve opening for temperature measurement (fractional)"
+    annotation(Dialog(group="District heat exchanger", enable=have_val1Hex));
+  parameter Real spePum2HexMin(final unit="1", min=0.01)= 0.1
+    "Heat exchanger secondary pump minimum speed (fractional)"
+    annotation (Dialog(group="District heat exchanger"));
   replaceable parameter Buildings.Fluid.Movers.Data.Generic perPum1Hex(
     motorCooledByFluid=false)
     constrainedby Buildings.Fluid.Movers.Data.Generic
@@ -96,10 +105,10 @@ model PartialHeatExchanger
     "Number of volume segments for tanks"
     annotation (Dialog(group="Buffer Tank"));
 
-  parameter Modelica.SIunits.TemperatureDifference dTHys = 2
+  parameter Modelica.SIunits.TemperatureDifference dTHys = 1.0
     "Temperature hysteresis for supervisory control"
     annotation (Dialog(group="Supervisory controller"));
-  parameter Modelica.SIunits.TemperatureDifference dTDea = 0
+  parameter Modelica.SIunits.TemperatureDifference dTDea = 0.5
     "Temperature dead band for supervisory control"
     annotation (Dialog(group="Supervisory controller"));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
@@ -190,7 +199,10 @@ model PartialHeatExchanger
     final T_b1Hex_nominal=T_b1Hex_nominal,
     final T_a2Hex_nominal=T_a2Hex_nominal,
     final T_b2Hex_nominal=T_b2Hex_nominal,
-    final dT2HexSet=dT2HexSet)
+    final dT2HexSet=dT2HexSet,
+    final spePum1HexMin=spePum1HexMin,
+    final yVal1HexMin=yVal1HexMin,
+    final spePum2HexMin=spePum2HexMin)
     "District heat exchanger"
     annotation (Placement(transformation(extent={{-10,-244},{10,-264}})));
 
@@ -357,4 +369,4 @@ First implementation
 </li>
 </ul>
 </html>"));
-end PartialHeatExchanger;
+end PartialParallel;

@@ -210,6 +210,7 @@ condenser and evaporator pumps.
 The system is enabled if any of the input control signals <code>uHea</code>
 and <code>uCoo</code> is true.
 When enabled,
+</p>
 <ul>
 <li>
 the condenser and evaporator pumps are operated at constant speed,
@@ -221,8 +222,26 @@ loop controlling the minimum (resp. maximum) inlet temperature,
 <li>
 if there is an actual heating demand, the chilled water supply temperature 
 is reset with a PI loop controlling the heating water supply temperature.
+This has two effects, which occur in sequence.
+<ol>
+<li>
+First a \"false load\" is generated on the evaporator: the part load ratio
+of the chiller increases, and so does the heat flow rate rejected by the 
+condenser. 
+This is true until the volume of the evaporator loop and the chilled 
+water tank is fully recirculated. 
 </li>
+<li>
+Then the temperature difference accross the evaporator reaches back its
+original value (for an unvarying building load). 
+However, the evaporator inlet temperature (corresponding to the tank top
+temperature) is now lowered. This will eventually trigger the cold 
+rejection by the cold side controller, see
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold</a>.
+The ambient sources are then used to \"false load\" the chiller.
+</li>
+</ol>
 </ul>
-</p>
 </html>"));
 end Chiller;

@@ -9,7 +9,7 @@ block LimPlaySequence "Play hysteresis controllers in sequence"
     "Number of controllers in sequence"
     annotation(Evaluate=true);
   parameter Real yThr = yMin
-    "Threshold value of controller i output for enabling i+1";
+    "Threshold value of controller (i) output for enabling (i+1)";
   parameter Real hys
     "Hysteresis of each controller (full width, absolute value)";
   parameter Real dea
@@ -35,7 +35,7 @@ block LimPlaySequence "Play hysteresis controllers in sequence"
     "Set to true for control output increasing with decreasing measurement value";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEna if have_enaSig
-    "Enabled signal"
+    "Enable signal"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
@@ -73,31 +73,34 @@ block LimPlaySequence "Play hysteresis controllers in sequence"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={0,-80})));
+        origin={0,-70})));
   Modelica.Blocks.Sources.RealExpression setOff[nCon](
     final y=uSet)
     "Set-point with offset"
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
-    final nout=nCon-1) if have_enaSig and nCon > 1
+    final nout=nCon-1) if have_enaSig and nCon > 1 "Replicate enable signal"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-80,-74})));
+        origin={-80,-70})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractSignal extSig(
     final nin=nCon,
     final nout=nCon - 1,
     final extract=1:nCon - 1) if   have_enaSig and nCon > 1
-    annotation (Placement(transformation(extent={{30,10},{50,30}})));
+    "Extract outputs from the first (nCon - 1) controller"
+    annotation (Placement(transformation(extent={{30,30},{50,50}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr[nCon - 1](
     each final threshold=yThr) if have_enaSig and nCon > 1
-    annotation (Placement(transformation(extent={{60,10},{80,30}})));
+    "Compare (i-1) controller output with threshold"
+    annotation (Placement(transformation(extent={{60,30},{80,50}})));
   Buildings.Controls.OBC.CDL.Logical.And and2[nCon - 1] if have_enaSig and nCon > 1
+    "True if enable signal is true and (i-1) controller output >= yThr"
     annotation (Placement(
       transformation(
       extent={{-10,-10},{10,10}},
       rotation=90,
-      origin={-80,-38})));
+      origin={-80,-40})));
 protected
   final parameter Real sig = if reverseActing then -1 else 1
     "Sign of set-point offset";
@@ -107,30 +110,31 @@ protected
     "Set-point values";
 equation
   connect(reaRep.y, conPla.u_m)
-    annotation (Line(points={{8.88178e-16,-68},{8.88178e-16,-34},{0,-34},{0,-12}},
+    annotation (Line(points={{8.88178e-16,-58},{8.88178e-16,-34},{0,-34},{0,-12}},
                                                color={0,0,127}));
   connect(setOff.y, conPla.u_s)
-    annotation (Line(points={{-59,0},{-12,0}}, color={0,0,127}));
+    annotation (Line(points={{-69,0},{-12,0}}, color={0,0,127}));
   connect(u_m, reaRep.u)
-    annotation (Line(points={{0,-120},{0,-92},{-6.66134e-16,-92}},
+    annotation (Line(points={{0,-120},{0,-82},{-6.66134e-16,-82}},
                                                 color={0,0,127}));
   connect(conPla.y, y)
     annotation (Line(points={{12,0},{120,0}}, color={0,0,127}));
   connect(uEna, booRep.u) annotation (Line(points={{-40,-120},{-40,-90},{-80,-90},
-          {-80,-86}}, color={255,0,255}));
+          {-80,-82}}, color={255,0,255}));
   connect(uEna, conPla[1].uEna) annotation (Line(points={{-40,-120},{-40,-20},{-6,
           -20},{-6,-12}}, color={255,0,255}));
   connect(extSig.y, greEquThr.u)
-    annotation (Line(points={{52,20},{58,20}}, color={0,0,127}));
+    annotation (Line(points={{52,40},{58,40}}, color={0,0,127}));
   connect(conPla.y, extSig.u)
-    annotation (Line(points={{12,0},{20,0},{20,20},{28,20}}, color={0,0,127}));
+    annotation (Line(points={{12,0},{20,0},{20,40},{28,40}}, color={0,0,127}));
   connect(booRep.y, and2.u1)
-    annotation (Line(points={{-80,-62},{-80,-50}}, color={255,0,255}));
-  connect(greEquThr.y, and2.u2) annotation (Line(points={{82,20},{90,20},{90,-60},
-          {-72,-60},{-72,-50}}, color={255,0,255}));
+    annotation (Line(points={{-80,-58},{-80,-52}}, color={255,0,255}));
+  connect(greEquThr.y, and2.u2) annotation (Line(points={{82,40},{90,40},{90,60},
+          {-60,60},{-60,-54},{-72,-54},{-72,-52}},
+                                color={255,0,255}));
   connect(and2[1:nCon-1].y, conPla[2:nCon].uEna)
-    annotation (Line(points={{-80,-26},{-80,-20},
-          {-6,-20},{-6,-12}}, color={255,0,255}));
+    annotation (Line(points={{-80,-28},{-80,-20},{-6,-20},{-6,-12}},
+                              color={255,0,255}));
   annotation (defaultComponentName="conPlaSeq",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
       coordinateSystem(preserveAspectRatio=false)),
@@ -155,7 +159,24 @@ More precisely, the set point input signal of each controller is given by
 <code>u_s[1] = u_s + dea[1] + hys[1] / 2</code> 
 </li>
 <li>
-For <code>i > 1</code>: <code>u_s[i] = u_s[i-1] + dea[i] + (hys[i-1] + hys[i]) / 2</code>
+For <code>i > 1</code>, <code>u_s[i] = u_s[i-1] + dea[i] + (hys[i-1] + hys[i]) / 2</code>
+</li>
+</ul>
+<p>
+Optionally, a boolean input signal can be used as an enable signal.
+</p>
+<ul>
+<li>
+When the enable signal is false, each controller output is zero. 
+</li>
+<li>
+When the enable signal is true, the first controller is enabled.
+The controller <code>i</code> (with <code>i > 1</code>) is enabled if 
+the control output of the controller <code>i-1</code> exceeds 
+the threshold value <code>yThr</code>.
+This allows enforcing a control in sequence of several systems.
+To disable this feature, simply set <code>yThr</code> equal to 
+<code>yMin</code> (the default).
 </li>
 </ul>
 <p>

@@ -151,13 +151,12 @@ equation
   connect(TChiWatBot, conColSid.TBot) annotation (Line(points={{-140,-80},{-60,
           -80},{-60,-58},{-12,-58}}, color={0,0,127}));
   connect(conHotSid.yAmb, max1.u1)
-    annotation (Line(points={{12,50},{28,50},{28,6},{32,6}}, color={0,0,127}));
-  connect(conColSid.yAmb, max1.u2) annotation (Line(points={{12,-50},{28,-50},{
-          28,-6},{32,-6}},
-                        color={0,0,127}));
-  connect(uHea, conHotSid.uEna) annotation (Line(points={{-140,110},{-56,110},{
-          -56,58},{-12,58}}, color={255,0,255}));
-  connect(uCoo, conColSid.uEna) annotation (Line(points={{-140,90},{-60,90},{
+    annotation (Line(points={{12,49},{28,49},{28,6},{32,6}}, color={0,0,127}));
+  connect(conColSid.yAmb, max1.u2) annotation (Line(points={{12,-51},{28,-51},{28,
+          -6},{32,-6}}, color={0,0,127}));
+  connect(uHea, conHotSid.uHeaCoo) annotation (Line(points={{-140,110},{-56,110},
+          {-56,58},{-12,58}}, color={255,0,255}));
+  connect(uCoo, conColSid.uHeaCoo) annotation (Line(points={{-140,90},{-60,90},{
           -60,-42},{-12,-42}}, color={255,0,255}));
   connect(TChiWatTop, conColSid.TTop) annotation (Line(points={{-140,-60},{-64,
           -60},{-64,-54},{-12,-54}}, color={0,0,127}));
@@ -182,8 +181,8 @@ equation
   connect(resTSup.TChiWatSupSet, conColSid.TSet) annotation (Line(points={{-58,
           -105},{-20,-105},{-20,-50},{-12,-50}},
                                            color={0,0,127}));
-  connect(conHotSid.yIsoAmb, yIsoCon) annotation (Line(points={{52,43},{84,43},
-          {84,80},{140,80}}, color={0,0,127}));
+  connect(conHotSid.yIsoAmb, yIsoCon) annotation (Line(points={{12,44},{84,44},{
+          84,80},{140,80}},  color={0,0,127}));
   connect(noHeaDem.y, cooOnl.u1)
     annotation (Line(points={{142,180},{158,180}}, color={255,0,255}));
   connect(noCooDem.y, heaOnl.u2) annotation (Line(points={{142,140},{144,140},{
@@ -205,16 +204,14 @@ equation
           {255,0,255}));
   connect(uCoo, cooOnl.u2) annotation (Line(points={{-140,90},{80,90},{80,140},
           {90,140},{90,166},{150,166},{150,172},{158,172}}, color={255,0,255}));
-  connect(conHotSid.e, heaRejDemDom.u2) annotation (Line(points={{52,52},{56,52},
+  connect(conHotSid.e, heaRejDemDom.u2) annotation (Line(points={{12,52},{56,52},
           {56,232},{78,232}}, color={0,0,127}));
-  connect(conColSid.e, heaRejDemDom.u1) annotation (Line(points={{52,-48},{58,
-          -48},{58,240},{78,240}}, color={0,0,127}));
+  connect(conColSid.e, heaRejDemDom.u1) annotation (Line(points={{12,-48},{58,-48},
+          {58,240},{78,240}},      color={0,0,127}));
   connect(heaRejRaw.y, heaRej.u)
     annotation (Line(points={{252,220},{258,220}}, color={255,0,255}));
   connect(heaRej.y, notHeaRej.u)
     annotation (Line(points={{282,220},{298,220}}, color={255,0,255}));
-  connect(heaRej.y, conHotSid.uMod) annotation (Line(points={{282,220},{294,220},
-          {294,72},{20,72},{20,54},{28,54}}, color={255,0,255}));
   connect(uHea, heaCoo.u1) annotation (Line(points={{-140,110},{0,110},{0,180},
           {80,180},{80,220},{158,220}}, color={255,0,255}));
   connect(uCoo, heaCoo.u2) annotation (Line(points={{-140,90},{80,90},{80,140},
@@ -235,8 +232,10 @@ equation
           240},{110,260},{118,260}}, color={255,0,255}));
   connect(noCooDem1.y, heaCoo2.u2) annotation (Line(points={{142,260},{156,260},
           {156,152},{198,152}}, color={255,0,255}));
-  connect(colRej.y, conColSid.uMod) annotation (Line(points={{342,140},{358,140},
-          {358,-20},{20,-20},{20,-46},{28,-46}}, color={255,0,255}));
+  connect(colRej.y, conColSid.uRej) annotation (Line(points={{342,140},{360,140},
+          {360,-20},{-20,-20},{-20,-46},{-12,-46}}, color={255,0,255}));
+  connect(heaRej.y, conHotSid.uRej) annotation (Line(points={{282,220},{288,220},
+          {288,68},{-20,68},{-20,54},{-12,54}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,
             120}})),

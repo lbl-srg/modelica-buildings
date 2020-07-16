@@ -54,13 +54,13 @@ model HeatExchanger
   parameter Modelica.SIunits.Temperature T_b2Hex_nominal
     "Nominal water outlet temperature on building side"
     annotation (Dialog(group="Nominal condition"));
-  parameter Real spePum1HexMin=0.1
+  parameter Real spePum1HexMin(final unit="1", min=0) = 0.1
     "Heat exchanger primary pump minimum speed (fractional)"
     annotation (Dialog(group="Controls", enable=not have_val1Hex));
-  parameter Real yVal1HexMin(final unit="1") = 0.1
+  parameter Real yVal1HexMin(final unit="1", min=0.01) = 0.1
     "Minimum valve opening for temperature measurement (fractional)"
     annotation(Dialog(group="Controls", enable=have_val1Hex));
-  parameter Real spePum2HexMin=0.1
+  parameter Real spePum2HexMin(final unit="1", min=0.01)= 0.1
     "Heat exchanger secondary pump minimum speed (fractional)"
     annotation (Dialog(group="Controls"));
   parameter Modelica.SIunits.TemperatureDifference dT2HexSet[2]

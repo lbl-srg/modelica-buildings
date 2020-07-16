@@ -70,5 +70,12 @@ equation
     experiment(StopTime=3, Tolerance=1e-06),
     __Dymola_Commands(file=
 "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Combined/Generation5/Controls/Validation/LimPlaySequence.mos"
-"Simulate and plot"));
+"Simulate and plot"),
+    Documentation(info="<html>
+<p>
+This model validates 
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.LimPlaySequence\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.LimPlaySequence</a>.
+</p>
+</html>"));
 end LimPlaySequence;

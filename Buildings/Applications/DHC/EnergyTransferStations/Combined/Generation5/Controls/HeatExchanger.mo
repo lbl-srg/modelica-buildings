@@ -6,13 +6,13 @@ model HeatExchanger
   parameter Boolean have_val1Hex
     "Set to true in case of control valve on district side, false in case of a pump"
     annotation(Evaluate=true);
-  parameter Real spePum1HexMin(final unit="1") = 0.1
+  parameter Real spePum1HexMin(final unit="1", min=0) = 0.1
     "Heat exchanger primary pump minimum speed (fractional)"
     annotation(Dialog(enable=not have_val1Hex));
-  parameter Real yVal1HexMin(final unit="1") = 0.1
+  parameter Real yVal1HexMin(final unit="1", min=0.01) = 0.1
     "Minimum valve opening for temperature measurement (fractional)"
     annotation(Dialog(enable=have_val1Hex));
-  parameter Real spePum2HexMin(final unit="1") = 0.1
+  parameter Real spePum2HexMin(final unit="1", min=0.01) = 0.1
     "Heat exchanger secondary pump minimum speed (fractional)";
   parameter Modelica.SIunits.TemperatureDifference dT2HexSet[2]
     "Secondary side deltaT set-point schedule (index 1 for heat rejection)";

@@ -86,6 +86,7 @@ model ChillerBorefield
         origin={90,-40})));
   Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.ChillerBorefield
     ets(
+    hex(show_T=true),
     redeclare final package MediumBui = Medium,
     redeclare final package MediumDis = Medium,
     QChiWat_flow_nominal=datChi.QEva_flow_nominal,
@@ -279,9 +280,9 @@ equation
 "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Combined/Generation5/Validation/ChillerBorefield.mos"
 "Simulate and plot"),
     experiment(
-      StopTime=20000,
+      StopTime=20000000,
       Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      __Dymola_Algorithm="Cvode"),
   Documentation(
 revisions="<html>
 <ul>

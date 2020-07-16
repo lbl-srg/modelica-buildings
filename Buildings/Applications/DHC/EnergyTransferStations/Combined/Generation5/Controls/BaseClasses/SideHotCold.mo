@@ -28,16 +28,14 @@ partial block SideHotCold
       controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
       controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEna
-    "Heating or cooling mode enabled signal"
-    annotation (Placement(
-      transformation(extent={{-220,160},{-180,200}}), iconTransformation(
-        extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput yDemOpp
-    "Tank demand signal from opposite side"
-    annotation (Placement(
-      transformation(extent={{-220,120},{-180,160}}), iconTransformation(
-        extent={{-140,20},{-100,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaCoo
+    "Enable signal for heating or cooling" annotation (Placement(transformation(
+          extent={{-220,160},{-180,200}}), iconTransformation(extent={{-140,60},
+            {-100,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uRej
+    "Enable signal for heat or cold rejection" annotation (Placement(
+        transformation(extent={{-220,120},{-180,160}}), iconTransformation(
+          extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet(
     final unit="K",
     displayUnit="degC")
@@ -133,9 +131,6 @@ partial block SideHotCold
   Buildings.Controls.OBC.CDL.Continuous.MultiMax mulMax(nin=nSouAmb)
     "Maximum of control signals for ambient sources"
     annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uMod "Rejection mode"
-    annotation (Placement(transformation(extent={{-220,120},{-180,160}}),
-        iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput e(each final unit="1")
     "Error" annotation (Placement(transformation(extent={{180,-20},{220,20}}),
         iconTransformation(extent={{100,0},{140,40}})));
@@ -194,15 +189,13 @@ equation
     annotation (Line(points={{172,100},{200,100}}, color={255,0,255}));
   connect(dem.active, and2.u2)
     annotation (Line(points={{90,129},{90,92},{148,92}}, color={255,0,255}));
-  connect(uEna, and2.u1) annotation (Line(points={{-200,180},{140,180},{140,100},
-          {148,100}}, color={255,0,255}));
+  connect(uHeaCoo, and2.u1) annotation (Line(points={{-200,180},{140,180},{140,
+          100},{148,100}}, color={255,0,255}));
   connect(TSet, conPlaSeq.u_s) annotation (Line(points={{-200,40},{-160,40},{
           -160,-120},{-72,-120}},
                               color={0,0,127}));
   connect(mulMax.y, greThr.u)
     annotation (Line(points={{62,-120},{78,-120}}, color={0,0,127}));
-  connect(uMod, swi.u2) annotation (Line(points={{-200,140},{-140,140},{-140,
-          -160},{-92,-160}}, color={255,0,255}));
   connect(TSet, swi.u3) annotation (Line(points={{-200,40},{-160,40},{-160,-168},
           {-92,-168}}, color={0,0,127}));
   connect(swi.y, conPlaSeq.u_m) annotation (Line(points={{-68,-160},{-60,-160},
@@ -213,9 +206,10 @@ equation
           -80},{200,-80}}, color={0,0,127}));
   connect(proDis.y, e) annotation (Line(points={{2,0},{12,0},{12,-20},{160,-20},
           {160,0},{200,0}}, color={0,0,127}));
-  connect(uMod, conPlaSeq.uEna) annotation (Line(points={{-200,140},{-200,
-          140.714},{-140,140.714},{-140,-140},{-64,-140},{-64,-132}}, color={
-          255,0,255}));
+  connect(uRej, swi.u2) annotation (Line(points={{-200,140},{-140,140},{-140,
+          -160},{-92,-160}}, color={255,0,255}));
+  connect(uRej, conPlaSeq.uEna) annotation (Line(points={{-200,140},{-140,140},
+          {-140,-140},{-64,-140},{-64,-132}}, color={255,0,255}));
    annotation (
        Diagram(coordinateSystem(extent={{-180,-200},{180,200}})),
 Documentation(

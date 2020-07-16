@@ -1,7 +1,7 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5;
 model ChillerBorefield
   "ETS model for 5GDHC systems with heat recovery chiller and optional borefield"
-  extends BaseClasses.PartialHeatExchanger(
+  extends BaseClasses.PartialParallel(
     final have_eleCoo=true,
     final have_fan=false,
     nSysHea=1,

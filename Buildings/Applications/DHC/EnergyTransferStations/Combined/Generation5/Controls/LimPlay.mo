@@ -28,7 +28,7 @@ block LimPlay "Play hysteresis controller with limited output"
     "Set to true for control output increasing with decreasing measurement value";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEna if have_enaSig
-    "Enabled signal"
+    "Enable signal"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
@@ -46,7 +46,7 @@ block LimPlay "Play hysteresis controller with limited output"
       rotation=270, origin={0,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Connector of actuator output signal"
-    annotation (Placement(transformation(extent={{180,-20},{220,20}}),
+    annotation (Placement(transformation(extent={{220,-20},{260,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conHig(
     final controllerType=controllerType,
@@ -107,18 +107,18 @@ block LimPlay "Play hysteresis controller with limited output"
   Buildings.Controls.OBC.CDL.Logical.Not not1
     annotation (Placement(transformation(extent={{90,50},{110,70}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi1
-    "Switch between high and low controller"
+    "Switch to measurement instead of set point if disabled"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-130,0})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2
-    "Switch between high and low controller"
-    annotation (Placement(transformation(extent={{140,-50},{160,-70}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch swi2 "Switch to off if disabled"
+    annotation (Placement(transformation(extent={{190,10},{210,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
-    final k=0)
-    annotation (Placement(transformation(extent={{98,-70},{118,-50}})));
+    final k=0) "Zero"
+    annotation (Placement(transformation(extent={{160,30},{180,50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant tru(
     final k=true) if not have_enaSig
+    "Always true (for the case where no enable signal is used)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-82,-120})));
@@ -185,23 +185,23 @@ equation
           {-56,-80},{-56,-52}}, color={255,0,255}));
   connect(uEna, conHig.trigger) annotation (Line(points={{-100,-160},{-100,20},{
           -56,20},{-56,28}}, color={255,0,255}));
-  connect(swi2.y, y) annotation (Line(points={{162,-60},{172,-60},{172,0},{200,0}},
+  connect(swi2.y, y) annotation (Line(points={{212,0},{240,0}},
         color={0,0,127}));
-  connect(swi.y, swi2.u1) annotation (Line(points={{162,0},{162,-80},{132,-80},{
-          132,-68},{138,-68}}, color={0,0,127}));
-  connect(zer.y, swi2.u3) annotation (Line(points={{120,-60},{124,-60},{124,-52},
-          {138,-52}}, color={0,0,127}));
-  connect(uEna, swi2.u2) annotation (Line(points={{-100,-160},{-100,-80},{128,-80},
-          {128,-60},{138,-60}}, color={255,0,255}));
-  connect(tru.y, swi2.u2) annotation (Line(points={{-82,-108},{-82,-100},{128,
-          -100},{128,-60},{138,-60}},
+  connect(swi.y, swi2.u1) annotation (Line(points={{162,0},{170,0},{170,-8},{
+          188,-8}},            color={0,0,127}));
+  connect(zer.y, swi2.u3) annotation (Line(points={{182,40},{184,40},{184,8},{
+          188,8}},    color={0,0,127}));
+  connect(uEna, swi2.u2) annotation (Line(points={{-100,-160},{-100,-80},{180,
+          -80},{180,0},{188,0}},color={255,0,255}));
+  connect(tru.y, swi2.u2) annotation (Line(points={{-82,-108},{-82,-100},{180,
+          -100},{180,0},{188,0}},
                       color={255,0,255}));
   connect(tru.y, swi1.u2) annotation (Line(points={{-82,-108},{-82,-100},{-160,
           -100},{-160,0},{-142,0}}, color={255,0,255}));
   annotation (defaultComponentName="conPla",
   Icon(coordinateSystem(preserveAspectRatio=false)),
   Diagram(
-    coordinateSystem(preserveAspectRatio=false, extent={{-180,-140},{180,140}})),
+    coordinateSystem(preserveAspectRatio=false, extent={{-180,-140},{220,140}})),
     Documentation(
 revisions="<html>
 <ul>
@@ -241,7 +241,18 @@ right controller output.
 In between, the output is equal to the output of the previously active controller.
 </li>
 <li>
-This logic is illustrated below and is reversed if <code>reverseActing</code> is true.
+This logic is illustrated below, and is reversed if <code>reverseActing</code> is true.
+</li>
+</ul>
+<p>
+Optionally, a Boolean input signal can be used as an enable signal.
+</p>
+<ul>
+<li>
+When the enable signal is false, the controller output is zero. 
+</li>
+<li>
+When the enable signal is true, the controller output is as described above.
 </li>
 </ul>
 <p>

@@ -101,6 +101,8 @@ model ChillerOnlyTimeSeries
     T_b1Hex_nominal=277.15,
     T_a2Hex_nominal=275.15,
     T_b2Hex_nominal=280.15,
+    kHot={0.1},
+    Ti={600},
     dpCon_nominal=15E3,
     dpEva_nominal=15E3,
     datChi=datChi,
@@ -299,8 +301,8 @@ equation
 "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Combined/Generation5/Validation/ChillerOnlyTimeSeries.mos"
 "Simulate and plot"),
     experiment(
-      StartTime=10000000,
-      StopTime=15000000,
+      StopTime=19000000,
+      __Dymola_NumberOfIntervals=5000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
  Documentation(

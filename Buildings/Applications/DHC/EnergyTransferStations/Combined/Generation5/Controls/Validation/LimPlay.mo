@@ -59,5 +59,11 @@ July xx, 2020, by Antoine Gautier:<br/>
 First implementation
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This model validates 
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.LimPlay\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.LimPlay</a>.
+</p>
 </html>"));
 end LimPlay;

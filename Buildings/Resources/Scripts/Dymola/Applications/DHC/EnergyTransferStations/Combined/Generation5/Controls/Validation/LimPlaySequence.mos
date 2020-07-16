@@ -16,9 +16,13 @@ createPlot(
     grid=true,
     subPlot=2);
 createPlot(
-    id=1,
-    x="u_m.y",
-    y={"conPlaDirPI.y[1]", "conPlaDirPI.y[2]", "conPlaDirPI.y[3]"},
+    id=2,
+    position={471, 6, 450, 532},
+    y={"conPlaDirPI.y[1]", "conPlaDirPI.y[2]", "conPlaDirPI.y[3]", "conPlaDirPIEna.y[1]", "conPlaDirPIEna.y[2]", "conPlaDirPIEna.y[3]"},
+    grid=true);
+createPlot(
+    id=2,
+    y={"u_m.y", "conPlaDirPI.setOff[1].y", "conPlaDirPI.setOff[2].y", "conPlaDirPI.setOff[3].y"},
     grid=true,
-    subPlot=3);
+    subPlot=2);
 
