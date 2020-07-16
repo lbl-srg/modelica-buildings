@@ -2,6 +2,9 @@ within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Co
 block LimPlay "Play hysteresis controller with limited output"
   extends Modelica.Blocks.Icons.Block;
 
+  parameter Boolean have_enaSig = false
+    "Set to true for conditionnally enabled controller"
+    annotation(Evaluate=true);
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
     Buildings.Controls.OBC.CDL.Types.SimpleController.P
     "Type of controller (P or PI)"
@@ -24,9 +27,17 @@ block LimPlay "Play hysteresis controller with limited output"
   parameter Boolean reverseActing = false
     "Set to true for control output increasing with decreasing measurement value";
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEna if have_enaSig
+    "Enabled signal"
+    annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={-100,-160}), iconTransformation(extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={-60,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_s
     "Connector of setpoint input signal"
-    annotation (Placement(transformation(extent={{-180,-20},{-140,20}}),
+    annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
       iconTransformation(extent={{-140,-20}, {-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_m
     "Connector of measurement input signal"
@@ -35,7 +46,7 @@ block LimPlay "Play hysteresis controller with limited output"
       rotation=270, origin={0,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Connector of actuator output signal"
-    annotation (Placement(transformation(extent={{140,-20},{180,20}}),
+    annotation (Placement(transformation(extent={{180,-20},{220,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conHig(
     final controllerType=controllerType,
@@ -43,118 +54,154 @@ block LimPlay "Play hysteresis controller with limited output"
     final yMax=yMax,
     final k=k,
     final Ti=Ti,
+    final reset=if have_enaSig then
+      Buildings.Controls.OBC.CDL.Types.Reset.Parameter else
+      Buildings.Controls.OBC.CDL.Types.Reset.Disabled,
     final reverseActing=reverseActing)
     "Controller with high offset set-point"
-    annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
+    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conLow(
     controllerType=controllerType,
     final yMin=yMin,
     final yMax=yMax,
     final k=k,
     final Ti=Ti,
+    final reset=if have_enaSig then
+      Buildings.Controls.OBC.CDL.Types.Reset.Parameter else
+      Buildings.Controls.OBC.CDL.Types.Reset.Disabled,
     final reverseActing=reverseActing)
     "Controller with low offset set-point"
-    annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
+    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysBlo(
     final uLow=2*yMin + Modelica.Constants.eps,
     final uHigh=2*yMax - Modelica.Constants.eps)
     "Hysteresis"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+    annotation (Placement(transformation(extent={{50,-10},{70,10}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addHig(
     final p=hys / 2,
     final k=1)
     "Positive set-point offset"
-    annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
+    annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addLow(
     final p=-hys / 2,
     final k=1)
     "Negative set-point offset"
-    annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
+    annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     "Switch between high and low controller"
-    annotation (Placement(transformation(extent={{110,10},{130,-10}})));
+    annotation (Placement(transformation(extent={{140,10},{160,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Min min1
     "Minimum value of controller outputs"
-    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
+    annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max1
     "Maximum value of controller outputs"
-    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
+    annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2
     "Sum of min and max values of controller outputs"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi
-    annotation (Placement(transformation(extent={{70,-11},{90,11}})));
+    annotation (Placement(transformation(extent={{100,-11},{120,11}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(k=reverseActing)
     "True if reverse acting"
-    annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
+    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
-    annotation (Placement(transformation(extent={{60,50},{80,70}})));
+    annotation (Placement(transformation(extent={{90,50},{110,70}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch swi1
+    "Switch between high and low controller"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-130,0})));
+  Buildings.Controls.OBC.CDL.Logical.Switch swi2
+    "Switch between high and low controller"
+    annotation (Placement(transformation(extent={{140,-50},{160,-70}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
+    final k=0)
+    annotation (Placement(transformation(extent={{98,-70},{118,-50}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant tru(
+    final k=true) if not have_enaSig
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-82,-120})));
 protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant cheYMinMax(final k=yMin
          < yMax)
     "Check for values of yMin and yMax"
-    annotation (Placement(transformation(extent={{60,-120},{80,-100}})));
+    annotation (Placement(transformation(extent={{60,100},{80,120}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMesYMinMax(message=
         "LimPID: Limits must be yMin < yMax")
     "Assertion on yMin and yMax"
-    annotation (Placement(transformation(extent={{100,-120},{120,-100}})));
+    annotation (Placement(transformation(extent={{100,100},{120,120}})));
 equation
-  connect(conLow.y, swi.u1) annotation (Line(points={{-68,-40},{100,-40},{100,
-          -8},{108,-8}},
-                     color={0,0,127}));
-  connect(conHig.y, swi.u3) annotation (Line(points={{-68,40},{100,40},{100,8},
-          {108,8}},color={0,0,127}));
-  connect(conHig.y, max1.u1) annotation (Line(points={{-68,40},{-50,40},{-50,26},
-          {-42,26}},color={0,0,127}));
-  connect(conLow.y, max1.u2) annotation (Line(points={{-68,-40},{-46,-40},{-46,
-          14},{-42,14}},
-                    color={0,0,127}));
-  connect(conHig.y, min1.u1) annotation (Line(points={{-68,40},{-50,40},{-50,
-          -14},{-42,-14}},
-                     color={0,0,127}));
-  connect(conLow.y, min1.u2) annotation (Line(points={{-68,-40},{-46,-40},{-46,
-          -26},{-42,-26}},
-                     color={0,0,127}));
+  connect(conLow.y, swi.u1) annotation (Line(points={{-38,-40},{130,-40},{130,-8},
+          {138,-8}}, color={0,0,127}));
+  connect(conHig.y, swi.u3) annotation (Line(points={{-38,40},{130,40},{130,8},{
+          138,8}}, color={0,0,127}));
+  connect(conHig.y, max1.u1) annotation (Line(points={{-38,40},{-20,40},{-20,26},
+          {-12,26}},color={0,0,127}));
+  connect(conLow.y, max1.u2) annotation (Line(points={{-38,-40},{-16,-40},{-16,14},
+          {-12,14}},color={0,0,127}));
+  connect(conHig.y, min1.u1) annotation (Line(points={{-38,40},{-20,40},{-20,-14},
+          {-12,-14}},color={0,0,127}));
+  connect(conLow.y, min1.u2) annotation (Line(points={{-38,-40},{-16,-40},{-16,-26},
+          {-12,-26}},color={0,0,127}));
   connect(max1.y, add2.u1)
-    annotation (Line(points={{-18,20},{-16,20},{-16,6},{-12,6}},
-                                                             color={0,0,127}));
-  connect(min1.y, add2.u2) annotation (Line(points={{-18,-20},{-16,-20},{-16,-6},
-          {-12,-6}},
-                color={0,0,127}));
+    annotation (Line(points={{12,20},{14,20},{14,6},{18,6}}, color={0,0,127}));
+  connect(min1.y, add2.u2) annotation (Line(points={{12,-20},{14,-20},{14,-6},{18,
+          -6}}, color={0,0,127}));
   connect(add2.y, hysBlo.u)
-    annotation (Line(points={{12,0},{18,0}}, color={0,0,127}));
+    annotation (Line(points={{42,0},{48,0}}, color={0,0,127}));
   connect(addHig.y, conHig.u_s)
-    annotation (Line(points={{-98,40},{-92,40}}, color={0,0,127}));
+    annotation (Line(points={{-68,40},{-62,40}}, color={0,0,127}));
   connect(addLow.y, conLow.u_s)
-    annotation (Line(points={{-98,-40},{-92,-40}}, color={0,0,127}));
-  connect(u_s, addHig.u) annotation (Line(points={{-160,0},{-130,0},{-130,40},{
-          -122,40}},
-                color={0,0,127}));
-  connect(u_s, addLow.u) annotation (Line(points={{-160,0},{-130,0},{-130,-40},
-          {-122,-40}},color={0,0,127}));
-  connect(u_m, conLow.u_m) annotation (Line(points={{0,-160},{0,-80},{-80,-80},
-          {-80,-52}},color={0,0,127}));
-  connect(u_m, conHig.u_m) annotation (Line(points={{0,-160},{0,-80},{-60,-80},
-          {-60,20},{-80,20},{-80,28}},color={0,0,127}));
+    annotation (Line(points={{-68,-40},{-62,-40}}, color={0,0,127}));
   connect(swi.u2, logSwi.y)
-    annotation (Line(points={{108,0},{92,0}},  color={255,0,255}));
-  connect(hysBlo.y, logSwi.u3) annotation (Line(points={{42,0},{50,0},{50,-8.8},
-          {68,-8.8}}, color={255,0,255}));
+    annotation (Line(points={{138,0},{122,0}}, color={255,0,255}));
+  connect(hysBlo.y, logSwi.u3) annotation (Line(points={{72,0},{80,0},{80,-8.8},
+          {98,-8.8}}, color={255,0,255}));
   connect(hysBlo.y, not1.u)
-    annotation (Line(points={{42,0},{50,0},{50,60},{58,60}},
+    annotation (Line(points={{72,0},{80,0},{80,60},{88,60}},
                                                       color={255,0,255}));
-  connect(not1.y, logSwi.u1) annotation (Line(points={{82,60},{120,60},{120,20},
-          {60,20},{60,8.8},{68,8.8}}, color={255,0,255}));
-  connect(con.y, logSwi.u2) annotation (Line(points={{42,-60},{60,-60},{60,0},{
-          68,0}}, color={255,0,255}));
+  connect(not1.y, logSwi.u1) annotation (Line(points={{112,60},{150,60},{150,20},
+          {90,20},{90,8.8},{98,8.8}}, color={255,0,255}));
+  connect(con.y, logSwi.u2) annotation (Line(points={{82,-60},{90,-60},{90,0},{98,
+          0}},    color={255,0,255}));
   connect(cheYMinMax.y,assMesYMinMax. u)
-    annotation (Line(points={{82,-110},{98,-110}},   color={255,0,255}));
-  connect(swi.y, y)
-    annotation (Line(points={{132,0},{160,0}}, color={0,0,127}));
+    annotation (Line(points={{82,110},{98,110}},     color={255,0,255}));
+  connect(u_s, swi1.u1) annotation (Line(points={{-200,0},{-170,0},{-170,8},{-142,
+          8}}, color={0,0,127}));
+  connect(swi1.y, addHig.u) annotation (Line(points={{-118,0},{-110,0},{-110,40},
+          {-92,40}}, color={0,0,127}));
+  connect(swi1.y, addLow.u) annotation (Line(points={{-118,0},{-110,0},{-110,-40},
+          {-92,-40}}, color={0,0,127}));
+  connect(uEna, swi1.u2) annotation (Line(points={{-100,-160},{-100,-80},{-160,-80},
+          {-160,0},{-142,0}}, color={255,0,255}));
+  connect(u_m, conLow.u_m) annotation (Line(points={{0,-160},{0,-60},{-50,-60},{
+          -50,-52}}, color={0,0,127}));
+  connect(u_m, swi1.u3) annotation (Line(points={{0,-160},{0,-60},{-150,-60},{-150,
+          -8},{-142,-8}}, color={0,0,127}));
+  connect(u_m, conHig.u_m) annotation (Line(points={{-0,-160},{-0,-60},{-32,-60},
+          {-32,20},{-50,20},{-50,28}}, color={0,0,127}));
+  connect(uEna, conLow.trigger) annotation (Line(points={{-100,-160},{-100,-80},
+          {-56,-80},{-56,-52}}, color={255,0,255}));
+  connect(uEna, conHig.trigger) annotation (Line(points={{-100,-160},{-100,20},{
+          -56,20},{-56,28}}, color={255,0,255}));
+  connect(swi2.y, y) annotation (Line(points={{162,-60},{172,-60},{172,0},{200,0}},
+        color={0,0,127}));
+  connect(swi.y, swi2.u1) annotation (Line(points={{162,0},{162,-80},{132,-80},{
+          132,-68},{138,-68}}, color={0,0,127}));
+  connect(zer.y, swi2.u3) annotation (Line(points={{120,-60},{124,-60},{124,-52},
+          {138,-52}}, color={0,0,127}));
+  connect(uEna, swi2.u2) annotation (Line(points={{-100,-160},{-100,-80},{128,-80},
+          {128,-60},{138,-60}}, color={255,0,255}));
+  connect(tru.y, swi2.u2) annotation (Line(points={{-82,-108},{-82,-100},{128,
+          -100},{128,-60},{138,-60}},
+                      color={255,0,255}));
+  connect(tru.y, swi1.u2) annotation (Line(points={{-82,-108},{-82,-100},{-160,
+          -100},{-160,0},{-142,0}}, color={255,0,255}));
   annotation (defaultComponentName="conPla",
   Icon(coordinateSystem(preserveAspectRatio=false)),
   Diagram(
-    coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,140}})),
+    coordinateSystem(preserveAspectRatio=false, extent={{-180,-140},{180,140}})),
     Documentation(
 revisions="<html>
 <ul>

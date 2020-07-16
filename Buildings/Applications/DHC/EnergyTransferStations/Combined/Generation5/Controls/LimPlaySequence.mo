@@ -2,34 +2,46 @@ within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Co
 block LimPlaySequence "Play hysteresis controllers in sequence"
   extends Modelica.Blocks.Icons.Block;
 
+  parameter Boolean have_enaSig = false
+    "Set to true for conditionnally enabled controller"
+    annotation(Evaluate=true);
   parameter Integer nCon = 1
     "Number of controllers in sequence"
     annotation(Evaluate=true);
-  parameter Real hys[nCon]
+  parameter Real yThr = yMin
+    "Threshold value of controller i output for enabling i+1";
+  parameter Real hys
     "Hysteresis of each controller (full width, absolute value)";
-  parameter Real dea[nCon]
+  parameter Real dea
     "Dead band between each controller (absolute value)";
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType[nCon]=
-    fill(Buildings.Controls.OBC.CDL.Types.SimpleController.P, nCon)
-        "Type of controller (P or PI)"
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.P
+    "Type of controller (P or PI)"
     annotation(choices(
       choice=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
       choice=Buildings.Controls.OBC.CDL.Types.SimpleController.PI));
-  parameter Real yMax[nCon] = fill(1, nCon)
+  parameter Real yMax = 1
     "Upper limit of output";
-  parameter Real yMin[nCon] = fill(0, nCon)
+  parameter Real yMin = 0
     "Lower limit of output";
   parameter Real k[nCon](each min=0) = fill(1, nCon)
     "Gain of controller";
   parameter Modelica.SIunits.Time Ti[nCon](
     each min=Buildings.Controls.OBC.CDL.Constants.small) = fill(0.5, nCon)
     "Time constant of integrator block"
-    annotation (Dialog(enable=Modelica.Math.BooleanVectors.anyTrue({
-      controllerType[i] == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-      for i in 1:nCon})));
+    annotation (Dialog(enable=
+      controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI));
   parameter Boolean reverseActing = false
     "Set to true for control output increasing with decreasing measurement value";
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEna if have_enaSig
+    "Enabled signal"
+    annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={-40,-120}),  iconTransformation(extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={-40,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_s
     "Connector of setpoint input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
@@ -45,12 +57,13 @@ block LimPlaySequence "Play hysteresis controllers in sequence"
       iconTransformation(extent={{100,-20},{140, 20}})));
 
   LimPlay conPla[nCon](
-    final controllerType=controllerType,
-    final yMax=yMax,
-    final yMin=yMin,
+    each final controllerType=controllerType,
+    each final yMax=yMax,
+    each final yMin=yMin,
+    each final have_enaSig=have_enaSig,
     final k=k,
     final Ti=Ti,
-    final hys=hys,
+    each final hys=hys,
     each final reverseActing=reverseActing)
     "Play hysteresis controller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -60,29 +73,64 @@ block LimPlaySequence "Play hysteresis controllers in sequence"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={0,-60})));
+        origin={0,-80})));
   Modelica.Blocks.Sources.RealExpression setOff[nCon](
     final y=uSet)
     "Set-point with offset"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+    final nout=nCon-1) if have_enaSig and nCon > 1
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-80,-74})));
+  Buildings.Controls.OBC.CDL.Routing.RealExtractSignal extSig(
+    final nin=nCon,
+    final nout=nCon - 1,
+    final extract=1:nCon - 1) if   have_enaSig and nCon > 1
+    annotation (Placement(transformation(extent={{30,10},{50,30}})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr[nCon - 1](
+    each final threshold=yThr) if have_enaSig and nCon > 1
+    annotation (Placement(transformation(extent={{60,10},{80,30}})));
+  Buildings.Controls.OBC.CDL.Logical.And and2[nCon - 1] if have_enaSig and nCon > 1
+    annotation (Placement(
+      transformation(
+      extent={{-10,-10},{10,10}},
+      rotation=90,
+      origin={-80,-38})));
 protected
   final parameter Real sig = if reverseActing then -1 else 1
     "Sign of set-point offset";
-  Real hysShi[nCon+1] = cat(1, {0}, hys)
-    "Hysteresis width array prepended by 0";
-  Real uSet[nCon] =  u_s .+ sig * {sum(
-    {dea[i] + (hysShi[i] + hysShi[i+1]) / 2 for i in 1:j}) for
-    j in 1:nCon}
+  Real uSet[nCon] =  cat(1,
+    {u_s + sig * (dea + hys/2)},
+    {u_s + sig * i * (dea + hys) - sig * hys/2 for i in 2:nCon})
     "Set-point values";
 equation
   connect(reaRep.y, conPla.u_m)
-    annotation (Line(points={{0,-48},{0,-12}}, color={0,0,127}));
+    annotation (Line(points={{8.88178e-16,-68},{8.88178e-16,-34},{0,-34},{0,-12}},
+                                               color={0,0,127}));
   connect(setOff.y, conPla.u_s)
     annotation (Line(points={{-59,0},{-12,0}}, color={0,0,127}));
   connect(u_m, reaRep.u)
-    annotation (Line(points={{0,-120},{0,-72}}, color={0,0,127}));
+    annotation (Line(points={{0,-120},{0,-92},{-6.66134e-16,-92}},
+                                                color={0,0,127}));
   connect(conPla.y, y)
     annotation (Line(points={{12,0},{120,0}}, color={0,0,127}));
+  connect(uEna, booRep.u) annotation (Line(points={{-40,-120},{-40,-90},{-80,-90},
+          {-80,-86}}, color={255,0,255}));
+  connect(uEna, conPla[1].uEna) annotation (Line(points={{-40,-120},{-40,-20},{-6,
+          -20},{-6,-12}}, color={255,0,255}));
+  connect(extSig.y, greEquThr.u)
+    annotation (Line(points={{52,20},{58,20}}, color={0,0,127}));
+  connect(conPla.y, extSig.u)
+    annotation (Line(points={{12,0},{20,0},{20,20},{28,20}}, color={0,0,127}));
+  connect(booRep.y, and2.u1)
+    annotation (Line(points={{-80,-62},{-80,-50}}, color={255,0,255}));
+  connect(greEquThr.y, and2.u2) annotation (Line(points={{82,20},{90,20},{90,-60},
+          {-72,-60},{-72,-50}}, color={255,0,255}));
+  connect(and2[1:nCon-1].y, conPla[2:nCon].uEna)
+    annotation (Line(points={{-80,-26},{-80,-20},
+          {-6,-20},{-6,-12}}, color={255,0,255}));
   annotation (defaultComponentName="conPlaSeq",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
       coordinateSystem(preserveAspectRatio=false)),

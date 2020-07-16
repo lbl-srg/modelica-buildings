@@ -9,8 +9,8 @@ model Supervisory "Supervisory controller"
     "Temperature hysteresis (absolute value)";
   parameter Modelica.SIunits.TemperatureDifference dTDea = 0
     "Temperature dead band (absolute value)";
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType[nSouAmb]=
-    fill(Buildings.Controls.OBC.CDL.Types.SimpleController.PI, nSouAmb)
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller";
   parameter Real kHot[nSouAmb](each min=0)=fill(0.1, nSouAmb)
     "Gain of controller on hot side";
@@ -19,10 +19,9 @@ model Supervisory "Supervisory controller"
   parameter Modelica.SIunits.Time Ti[nSouAmb](
     each min=Buildings.Controls.OBC.CDL.Constants.small)=fill(300, nSouAmb)
     "Time constant of integrator block (hot and cold side)"
-    annotation (Dialog(enable=Modelica.Math.BooleanVectors.anyTrue({
-      controllerType[i] == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-      controllerType[i] == Buildings.Controls.OBC.CDL.Types.SimpleController.PID
-      for i in 1:nSouAmb})));
+    annotation (Dialog(enable=
+      controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
+      controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Modelica.SIunits.Temperature THeaWatSupSetMin(
     displayUnit="degC")
     "Minimum value of heating water supply temperature set-point";
@@ -113,6 +112,37 @@ model Supervisory "Supervisory controller"
   Reset resTSup(final THeaWatSupSetMin=THeaWatSupSetMin, final TChiWatSupSetMax=
        TChiWatSupSetMax) "Supply temperature reset"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
+  Buildings.Controls.OBC.CDL.Continuous.Greater heaRejDemDom
+    annotation (Placement(transformation(extent={{80,230},{100,250}})));
+  Buildings.Controls.OBC.CDL.Logical.Not noHeaDem
+    annotation (Placement(transformation(extent={{120,170},{140,190}})));
+  Buildings.Controls.OBC.CDL.Logical.Not noCooDem
+    annotation (Placement(transformation(extent={{120,130},{140,150}})));
+  Buildings.Controls.OBC.CDL.Logical.And cooOnl
+    annotation (Placement(transformation(extent={{160,170},{180,190}})));
+  Buildings.Controls.OBC.CDL.Logical.And heaOnl
+    annotation (Placement(transformation(extent={{160,130},{180,150}})));
+  Buildings.Controls.OBC.CDL.Logical.And heaCoo
+    annotation (Placement(transformation(extent={{160,210},{180,230}})));
+  Buildings.Controls.OBC.CDL.Logical.And heaCoo1
+    annotation (Placement(transformation(extent={{200,210},{220,230}})));
+  Buildings.Controls.OBC.CDL.Logical.Or heaRejRaw
+    annotation (Placement(transformation(extent={{230,210},{250,230}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold heaRej(trueHoldDuration=300)
+    annotation (Placement(transformation(extent={{260,210},{280,230}})));
+  Buildings.Controls.OBC.CDL.Logical.Not notHeaRej
+    annotation (Placement(transformation(extent={{300,210},{320,230}})));
+  Buildings.Controls.OBC.CDL.Logical.Or cooRejRaw
+    annotation (Placement(transformation(extent={{230,130},{250,150}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold cooRejHol(trueHoldDuration=
+        300)
+    annotation (Placement(transformation(extent={{260,130},{280,150}})));
+  Buildings.Controls.OBC.CDL.Logical.And heaCoo2
+    annotation (Placement(transformation(extent={{200,150},{220,170}})));
+  Buildings.Controls.OBC.CDL.Logical.And colRej
+    annotation (Placement(transformation(extent={{320,130},{340,150}})));
+  Buildings.Controls.OBC.CDL.Logical.Not noCooDem1
+    annotation (Placement(transformation(extent={{120,250},{140,270}})));
 equation
   connect(THeaWatTop, conHotSid.TTop) annotation (Line(points={{-140,20},{-24,
           20},{-24,46},{-12,46}}, color={0,0,127}));
@@ -152,12 +182,61 @@ equation
   connect(resTSup.TChiWatSupSet, conColSid.TSet) annotation (Line(points={{-58,
           -105},{-20,-105},{-20,-50},{-12,-50}},
                                            color={0,0,127}));
-  connect(conHotSid.yIsoAmb, yIsoCon) annotation (Line(points={{12,44},{44,44},
-          {44,80},{140,80}}, color={0,0,127}));
-  connect(conHotSid.yDem, conColSid.yDemOpp) annotation (Line(points={{12,56},{
-          20,56},{20,-32},{-20,-32},{-20,-46},{-12,-46}}, color={255,0,255}));
-  connect(conColSid.yDem, conHotSid.yDemOpp) annotation (Line(points={{12,-44},
-          {16,-44},{16,22},{-16,22},{-16,54},{-12,54}}, color={255,0,255}));
+  connect(conHotSid.yIsoAmb, yIsoCon) annotation (Line(points={{52,43},{84,43},
+          {84,80},{140,80}}, color={0,0,127}));
+  connect(noHeaDem.y, cooOnl.u1)
+    annotation (Line(points={{142,180},{158,180}}, color={255,0,255}));
+  connect(noCooDem.y, heaOnl.u2) annotation (Line(points={{142,140},{144,140},{
+          144,132},{158,132}}, color={255,0,255}));
+  connect(heaRejDemDom.y, heaCoo1.u1) annotation (Line(points={{102,240},{192,
+          240},{192,220},{198,220}}, color={255,0,255}));
+  connect(heaCoo.y, heaCoo1.u2) annotation (Line(points={{182,220},{188,220},{
+          188,212},{198,212}}, color={255,0,255}));
+  connect(heaCoo1.y, heaRejRaw.u1)
+    annotation (Line(points={{222,220},{228,220}}, color={255,0,255}));
+  connect(cooOnl.y, heaRejRaw.u2) annotation (Line(points={{182,180},{224,180},
+          {224,212},{228,212}}, color={255,0,255}));
+  connect(uHea, noHeaDem.u) annotation (Line(points={{-140,110},{0,110},{0,180},
+          {118,180}}, color={255,0,255}));
+  connect(uCoo, noCooDem.u) annotation (Line(points={{-140,90},{80,90},{80,140},
+          {118,140}}, color={255,0,255}));
+  connect(uHea, heaOnl.u1) annotation (Line(points={{-140,110},{0,110},{0,
+          180.588},{80,180.588},{80,160},{150,160},{150,140},{158,140}}, color=
+          {255,0,255}));
+  connect(uCoo, cooOnl.u2) annotation (Line(points={{-140,90},{80,90},{80,140},
+          {90,140},{90,166},{150,166},{150,172},{158,172}}, color={255,0,255}));
+  connect(conHotSid.e, heaRejDemDom.u2) annotation (Line(points={{52,52},{56,52},
+          {56,232},{78,232}}, color={0,0,127}));
+  connect(conColSid.e, heaRejDemDom.u1) annotation (Line(points={{52,-48},{58,
+          -48},{58,240},{78,240}}, color={0,0,127}));
+  connect(heaRejRaw.y, heaRej.u)
+    annotation (Line(points={{252,220},{258,220}}, color={255,0,255}));
+  connect(heaRej.y, notHeaRej.u)
+    annotation (Line(points={{282,220},{298,220}}, color={255,0,255}));
+  connect(heaRej.y, conHotSid.uMod) annotation (Line(points={{282,220},{294,220},
+          {294,72},{20,72},{20,54},{28,54}}, color={255,0,255}));
+  connect(uHea, heaCoo.u1) annotation (Line(points={{-140,110},{0,110},{0,180},
+          {80,180},{80,220},{158,220}}, color={255,0,255}));
+  connect(uCoo, heaCoo.u2) annotation (Line(points={{-140,90},{80,90},{80,140},
+          {90,140},{90,212},{158,212}}, color={255,0,255}));
+  connect(cooRejRaw.y, cooRejHol.u)
+    annotation (Line(points={{252,140},{258,140}}, color={255,0,255}));
+  connect(heaCoo2.y, cooRejRaw.u1) annotation (Line(points={{222,160},{224,160},
+          {224,140},{228,140}}, color={255,0,255}));
+  connect(heaOnl.y, cooRejRaw.u2) annotation (Line(points={{182,140},{220,140},
+          {220,132},{228,132}}, color={255,0,255}));
+  connect(cooRejHol.y, colRej.u2) annotation (Line(points={{282,140},{300,140},
+          {300,132},{318,132}}, color={255,0,255}));
+  connect(notHeaRej.y, colRej.u1) annotation (Line(points={{322,220},{328,220},
+          {328,160},{312,160},{312,140},{318,140}}, color={255,0,255}));
+  connect(heaCoo.y, heaCoo2.u1) annotation (Line(points={{182,220},{188,220},{
+          188,160},{198,160}}, color={255,0,255}));
+  connect(heaRejDemDom.y, noCooDem1.u) annotation (Line(points={{102,240},{110,
+          240},{110,260},{118,260}}, color={255,0,255}));
+  connect(noCooDem1.y, heaCoo2.u2) annotation (Line(points={{142,260},{156,260},
+          {156,152},{198,152}}, color={255,0,255}));
+  connect(colRej.y, conColSid.uMod) annotation (Line(points={{342,140},{358,140},
+          {358,-20},{20,-20},{20,-46},{28,-46}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,
             120}})),
@@ -176,21 +255,21 @@ This block implements the supervisory control functions of the ETS.
 </p>
 <ul>
 <li>
-It controls the hot and cold sides based on the logic described in 
+It controls the hot and cold sides based on the logic described in
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold</a>.
-The systems serving as ambient sources for the ETS are controlled based on the 
+The systems serving as ambient sources for the ETS are controlled based on the
 maximum of the control signals yielded by the hot and cold side controllers.
 </li>
 <li>
-It resets the heating water and chilled water supply temperature 
-based on the logic described in 
+It resets the heating water and chilled water supply temperature
+based on the logic described in
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Reset\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Reset</a>.
-Note that this resetting logic is meant to optimize the lift of the chiller. 
-The heating water temperature may be reset up by 
+Note that this resetting logic is meant to optimize the lift of the chiller.
+The heating water temperature may be reset up by
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Chiller\">
-Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Chiller</a> 
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Chiller</a>
 to maintain the chilled water supply temperature. This second resetting logic
 is required for the heating function of the unit, but it has a negative impact on the lift.
 </li>

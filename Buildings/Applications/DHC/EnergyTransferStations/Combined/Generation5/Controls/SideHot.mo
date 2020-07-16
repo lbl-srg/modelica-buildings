@@ -15,9 +15,8 @@ equation
           -12}}, color={0,0,127}));
   connect(TTop, errEna.u2) annotation (Line(points={{-200,-80},{-120,-80},{-120,
           20},{-88,20},{-88,28}},   color={0,0,127}));
-  connect(TBot, conPlaSeq.u_m) annotation (Line(points={{-200,-140},{-90,-140},
-          {-90,-132}},
-                  color={0,0,127}));
+  connect(TBot, swi.u1) annotation (Line(points={{-200,-140},{-120,-140},{-120,
+          -152},{-92,-152}}, color={0,0,127}));
    annotation (
    defaultComponentName="conHot",
 Documentation(
