@@ -35,6 +35,10 @@ model HeatExchanger
     dp1Hex_nominal / 2
     "Nominal pressure drop of primary control valve"
     annotation(Dialog(enable=have_val1Hex, group="Nominal condition"));
+  parameter Modelica.SIunits.PressureDifference dpVal2Hex_nominal(displayUnit="Pa")=
+    dp2Hex_nominal / 2
+    "Nominal pressure drop of secondary control valve"
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.HeatFlowRate QHex_flow_nominal
     "Nominal heat flow rate (from district to building)"
     annotation (Dialog(group="Nominal condition"));
@@ -62,7 +66,7 @@ model HeatExchanger
   parameter Modelica.SIunits.TemperatureDifference dT2HexSet[2]
     "Secondary side deltaT set-point schedule (index 1 for heat rejection)"
     annotation (Dialog(group="Controls"));
-  parameter Real k[2]={0.05,0.2}
+  parameter Real k[2]={0.01,0.02}
     "Gain schedule for controller (index 1 for heat rejection)"
     annotation (Dialog(group="Controls"));
   parameter Modelica.SIunits.Time Ti=120
@@ -99,7 +103,7 @@ model HeatExchanger
     final allowFlowReversal1=allowFlowReversal1,
     final allowFlowReversal2=allowFlowReversal2,
     final dp1_nominal=if have_val1Hex then 0 else dp1Hex_nominal,
-    final dp2_nominal=dp2Hex_nominal,
+    final dp2_nominal=0,
     final m1_flow_nominal=m1_flow_nominal,
     final m2_flow_nominal=m2_flow_nominal,
     final Q_flow_nominal=QHex_flow_nominal,
@@ -127,7 +131,7 @@ model HeatExchanger
     redeclare final package Medium = Medium2,
     final per=perPum2,
     final m_flow_nominal=m2_flow_nominal,
-    final dp_nominal=dp2Hex_nominal,
+    final dp_nominal=dp2Hex_nominal + dpVal2Hex_nominal,
     final allowFlowReversal=allowFlowReversal2)
     "Secondary pump" annotation (
       Placement(transformation(
@@ -193,6 +197,26 @@ model HeatExchanger
     final nin=if have_val1Hex then 1 else 2)
     "Total pump power"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
+  Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear val2Hex(
+    redeclare final package Medium = Medium2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    from_dp=false,
+    use_inputFilter=false,
+    final m_flow_nominal=m2_flow_nominal,
+    final dpValve_nominal=dpVal2Hex_nominal,
+    final dpFixed_nominal=fill(dp2Hex_nominal, 2)) "Control valve" annotation (
+      Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={80,-60})));
+  Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.Junction spl(
+    redeclare final package Medium = Medium2,
+    final m_flow_nominal=m2_flow_nominal .* {1,-1,-1})
+    "Flow splitter" annotation (Placement(
+      transformation(
+      extent={{10,-10},{-10,10}},
+      rotation=0,
+      origin={-60,-60})));
 equation
   if not have_val1Hex then
     connect(senT1HexWatLvg.port_b, port_b1)
@@ -245,10 +269,18 @@ equation
           {-80,-20},{-80,152},{-72,152}}, color={0,0,127}));
   connect(senT2HexWatEnt.T, conHex.T2HexWatEnt) annotation (Line(points={{9,-40},
           {-86,-40},{-86,157},{-72,157}}, color={0,0,127}));
-  connect(pum2Hex.port_a, port_a2)
-    annotation (Line(points={{50,-60},{100,-60}}, color={0,127,255}));
-  connect(senT2HexWatLvg.port_b, port_b2) annotation (Line(points={{-20,-30},{
-          -20,-60},{-100,-60}}, color={0,127,255}));
+  connect(conHex.yVal2Hex, val2Hex.y) annotation (Line(points={{-48,154},{8,154},
+          {8,152},{68,152},{68,-38},{80,-38},{80,-48}}, color={0,0,127}));
+  connect(val2Hex.port_2, pum2Hex.port_a)
+    annotation (Line(points={{70,-60},{50,-60}}, color={0,127,255}));
+  connect(port_a2, val2Hex.port_1)
+    annotation (Line(points={{100,-60},{90,-60}}, color={0,127,255}));
+  connect(spl.port_1, senT2HexWatLvg.port_b) annotation (Line(points={{-50,-60},
+          {-20,-60},{-20,-30}}, color={0,127,255}));
+  connect(spl.port_2, port_b2)
+    annotation (Line(points={{-70,-60},{-100,-60}}, color={0,127,255}));
+  connect(spl.port_3, val2Hex.port_3) annotation (Line(points={{-60,-70},{-60,-80},
+          {80,-80},{80,-70}}, color={0,127,255}));
   annotation (
   defaultComponentName="hex",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

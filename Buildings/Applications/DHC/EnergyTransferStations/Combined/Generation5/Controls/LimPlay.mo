@@ -136,8 +136,6 @@ equation
           {-80,-52}},color={0,0,127}));
   connect(u_m, conHig.u_m) annotation (Line(points={{0,-160},{0,-80},{-60,-80},
           {-60,20},{-80,20},{-80,28}},color={0,0,127}));
-  connect(swi.y, y)
-    annotation (Line(points={{132,0},{160,0}}, color={0,0,127}));
   connect(swi.u2, logSwi.y)
     annotation (Line(points={{108,0},{92,0}},  color={255,0,255}));
   connect(hysBlo.y, logSwi.u3) annotation (Line(points={{42,0},{50,0},{50,-8.8},
@@ -151,6 +149,8 @@ equation
           68,0}}, color={255,0,255}));
   connect(cheYMinMax.y,assMesYMinMax. u)
     annotation (Line(points={{82,-110},{98,-110}},   color={255,0,255}));
+  connect(swi.y, y)
+    annotation (Line(points={{132,0},{160,0}}, color={0,0,127}));
   annotation (defaultComponentName="conPla",
   Icon(coordinateSystem(preserveAspectRatio=false)),
   Diagram(

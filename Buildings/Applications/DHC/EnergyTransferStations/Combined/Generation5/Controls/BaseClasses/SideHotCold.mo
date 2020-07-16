@@ -1,5 +1,6 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses;
-partial block SideHotCold "Base control block for hor or cold side"
+partial block SideHotCold
+  "Base control block for hor or cold side"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Integer nSouAmb
@@ -66,7 +67,7 @@ partial block SideHotCold "Base control block for hor or cold side"
   Modelica.StateGraph.StepWithSignal dem
     "Heating or cooling demand from the tank"
     annotation (Placement(transformation(extent={{80,130},{100,150}})));
-  Modelica.StateGraph.TransitionWithSignal t2(enableTimer=true, waitTime=120)
+  Modelica.StateGraph.TransitionWithSignal t2(enableTimer=true, waitTime=300)
     "Transition to disabled"
     annotation (Placement(transformation(extent={{110,130},{130,150}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqual enaHeaCoo
@@ -89,10 +90,7 @@ partial block SideHotCold "Base control block for hor or cold side"
     final k=k,
     final Ti=Ti,
     final reverseActing=reverseActing)
-    annotation (Placement(transformation(extent={{-90,-130},{-70,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax mulMax(nin=nSouAmb)
-    "Max of control signals"
-    annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
+    annotation (Placement(transformation(extent={{-100,-130},{-80,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(threshold=
         Modelica.Constants.eps) "At least one signal is non zero"
     annotation (Placement(transformation(extent={{80,-130},{100,-110}})));
@@ -124,23 +122,10 @@ partial block SideHotCold "Base control block for hor or cold side"
           extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Logical.And and2 "And"
     annotation (Placement(transformation(extent={{150,90},{170,110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uCooHea
-    "Enabled signal for antagonistic mode" annotation (Placement(transformation(
-          extent={{-220,120},{-180,160}}), iconTransformation(extent={{-140,20},
-            {-100,60}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea2
-    "Conversion of DI to AI"
-    annotation (Placement(transformation(extent={{-170,130},{-150,150}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
-    final nout=nSouAmb)
-    "Replicate signal"
-    annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-140,110})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiMax mulMax(nin=nSouAmb)
+    "Maximum of control signals for ambient sources"
+    annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Min min1[nSouAmb]
-    "Enable ambient sources only if antagonistic mode is enabled"
     annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
 initial equation
   assert(dTHys >= 0, "In " + getInstanceName() +
@@ -157,8 +142,6 @@ equation
                  color={255,0,255}));
   connect(disHeaCoo.y, t2.condition)
     annotation (Line(points={{52,0},{120,0},{120,128}}, color={255,0,255}));
-  connect(mulMax.y, greThr.u)
-    annotation (Line(points={{62,-120},{78,-120}}, color={0,0,127}));
   connect(greThr.y, booToRea.u) annotation (Line(points={{102,-120},{118,-120}},
                      color={255,0,255}));
   connect(booToRea.y, yIsoAmb) annotation (Line(points={{142,-120},{200,-120}},
@@ -200,20 +183,17 @@ equation
   connect(uHeaCoo, and2.u1) annotation (Line(points={{-200,180},{140,180},{140,100},
           {148,100}}, color={255,0,255}));
   connect(TSet, conPlaSeq.u_s) annotation (Line(points={{-200,40},{-160,40},{
-          -160,-120},{-92,-120}},
+          -160,-120},{-102,-120}},
                               color={0,0,127}));
-  connect(uCooHea, booToRea2.u)
-    annotation (Line(points={{-200,140},{-172,140}}, color={255,0,255}));
-  connect(booToRea2.y, reaRep.u) annotation (Line(points={{-148,140},{-140,140},
-          {-140,122}}, color={0,0,127}));
-  connect(conPlaSeq.y, min1.u2) annotation (Line(points={{-68,-120},{-60,-120},
-          {-60,-126},{-42,-126}}, color={0,0,127}));
+  connect(mulMax.y, greThr.u)
+    annotation (Line(points={{62,-120},{78,-120}}, color={0,0,127}));
   connect(min1.y, mulMax.u)
     annotation (Line(points={{-18,-120},{38,-120}}, color={0,0,127}));
-  connect(reaRep.y, min1.u1) annotation (Line(points={{-140,98},{-140,-100},{
-          -60,-100},{-60,-114},{-42,-114}}, color={0,0,127}));
-  connect(min1.y, yAmb) annotation (Line(points={{-18,-120},{0,-120},{0,-100},{160,
-          -100},{160,0},{200,0}}, color={0,0,127}));
+  connect(min1.y, yAmb) annotation (Line(points={{-18,-120},{0,-120},{0,-80},{
+          160,-80},{160,0},{200,0}},
+                                 color={0,0,127}));
+  connect(conPlaSeq.y, min1.u2) annotation (Line(points={{-78,-120},{-60,-120},
+          {-60,-126},{-42,-126}}, color={0,0,127}));
    annotation (
        Diagram(coordinateSystem(extent={{-180,-200},{180,200}})),
 Documentation(
@@ -252,7 +232,7 @@ Control signal for ambient sources <code>y</code><br/>
 The systems serving as ambient sources are 
 <ul>
 <li>
-enabled if the demand signal from the other tank is false, and
+enabled if the demand signal from the other tank is true, and
 </li>
 <li>
 controlled in sequence with an instance of
@@ -262,7 +242,6 @@ limiting the increase (resp. decrease) in the temperature measured at the bottom
 (resp. top) of the tank as illustrated on the figure below for the hot side.
 </li>
 </ul>
-</li>
 <li>
 Control signal for ambient loop isolation valve <code>yIsoAmb</code><br/>
 The valve is commanded to be fully open whenever the maximum of the 

@@ -33,9 +33,10 @@ model Borefield "Base subsystem with geothermal borefield"
   parameter Modelica.SIunits.Pressure dpValBorFie_nominal=dp_nominal / 2
     "Nominal pressure drop of control valve";
 
-  parameter Modelica.SIunits.Temperature TBorWatEntMax(displayUnit="degC")
+  parameter Modelica.SIunits.Temperature TBorWatEntMax=TBorWatEntMax(
+      displayUnit="degC")
     "Maximum value of borefield water entering temperature";
-  parameter Real spePumBorMin(final unit="1") = 0.1
+  parameter Real spePumBorMin=0.1
     "Borefield pump minimum speed";
 
   // IO VARIABLES

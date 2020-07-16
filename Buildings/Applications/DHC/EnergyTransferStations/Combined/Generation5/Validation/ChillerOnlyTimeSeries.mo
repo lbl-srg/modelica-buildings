@@ -302,7 +302,7 @@ equation
       StartTime=10000000,
       StopTime=15000000,
       Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      __Dymola_Algorithm="Cvode"),
  Documentation(
 revisions="<html>
 <ul>

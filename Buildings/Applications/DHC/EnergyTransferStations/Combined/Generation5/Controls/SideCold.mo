@@ -14,8 +14,8 @@ equation
           -120,20},{-88,20},{-88,28}},   color={0,0,127}));
   connect(TTop, max.u1) annotation (Line(points={{-200,-80},{-100,-80},{-100,
           -74},{-92,-74}},  color={0,0,127}));
-  connect(TTop, conPlaSeq.u_m) annotation (Line(points={{-200,-80},{-100,-80},{
-          -100,-140},{-80,-140},{-80,-132}},   color={0,0,127}));
+  connect(TTop, conPlaSeq.u_m) annotation (Line(points={{-200,-80},{-100,-80},{-100,
+          -140},{-80,-140},{-80,-132}}, color={0,0,127}));
   annotation (
   defaultComponentName="conCol",
 Documentation(
