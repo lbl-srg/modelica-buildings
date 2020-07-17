@@ -156,10 +156,10 @@ More precisely, the set point input signal of each controller is given by
 </p>
 <ul>
 <li>
-<code>u_s[1] = u_s + dea[1] + hys[1] / 2</code> 
+<code>u_s[1] = u_s + dea + hys / 2</code> 
 </li>
 <li>
-For <code>i > 1</code>, <code>u_s[i] = u_s[i-1] + dea[i] + (hys[i-1] + hys[i]) / 2</code>
+For <code>i > 1</code>, <code>u_s[i] = u_s[i-1] + dea + hys</code>
 </li>
 </ul>
 <p>
@@ -172,9 +172,11 @@ When the enable signal is false, each controller output is zero.
 <li>
 When the enable signal is true, the first controller is enabled.
 The controller <code>i</code> (with <code>i > 1</code>) is enabled if 
-the control output of the controller <code>i-1</code> exceeds 
+the output of the controller <code>i-1</code> exceeds 
 the threshold value <code>yThr</code>.
-This allows enforcing a control in sequence of several systems.
+This allows enforcing a control in sequence of several systems,
+independently from the other control parameters (such as the dead band, 
+the gain or the integral time constant).
 To disable this feature, simply set <code>yThr</code> equal to 
 <code>yMin</code> (the default).
 </li>

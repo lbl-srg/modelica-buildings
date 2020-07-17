@@ -12,8 +12,10 @@ model Borefield "Base subsystem with geothermal borefield"
     "Wall heat transfer"
     annotation (choicesAllMatching=true);
   replaceable parameter Fluid.Geothermal.Borefields.Data.Borefield.Example
-    datBorFie
-    constrainedby Fluid.Geothermal.Borefields.Data.Borefield.Template
+    datBorFie(conDat=
+      Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example())
+    constrainedby Fluid.Geothermal.Borefields.Data.Borefield.Template(
+      conDat(dp_nominal=0))
     "Borefield parameters"
     annotation (
       choicesAllMatching=true,

@@ -4,7 +4,7 @@ model ChillerBorefield
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Water "Medium model";
-  parameter Integer nBorHol = 100
+  parameter Integer nBorHol = 36
     "Number of boreholes (must be a square number)";
   parameter Modelica.SIunits.Distance dxy = 6
     "Distance in x-axis (and y-axis) between borehole axes";
@@ -17,10 +17,9 @@ model ChillerBorefield
   parameter Modelica.SIunits.MassFlowRate mChiWat_flow_nominal=
     0.9 * datChi.mEva_flow_nominal
     "Nominal chilled water mass flow rate";
-  parameter Fluid.Geothermal.Borefields.Data.Borefield.Example datBorFie(
-    conDat=Fluid.Geothermal.Borefields.Data.Configuration.Example(
-      cooBor=cooBor,
-      dp_nominal=0))
+  parameter Fluid.Geothermal.Borefields.Data.Borefield.Example datBorFie(conDat=
+        Fluid.Geothermal.Borefields.Data.Configuration.Example(dp_nominal=0,
+        cooBor=cooBor))
     "Borefield design data"
     annotation (Placement(transformation(extent={{60,180},{80,200}})));
   parameter Fluid.Chillers.Data.ElectricEIR.Generic datChi(

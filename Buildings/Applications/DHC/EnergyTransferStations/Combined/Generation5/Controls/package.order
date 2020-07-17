@@ -3,6 +3,8 @@ Chiller
 HeatExchanger
 LimPlay
 LimPlaySequence
+LimPIDSequence
+RejectionMode
 Reset
 SideCold
 SideHot
