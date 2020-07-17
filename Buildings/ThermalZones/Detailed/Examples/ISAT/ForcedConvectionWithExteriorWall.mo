@@ -137,6 +137,7 @@ equation
 <li>Ceiling</li>
 <li>Floor.</li>
 </ol>
+<p><br>Note that the heat flux through the wall should be defined as an ISAT output if that wall is an exterior wall. The sequence of the walls defined in the Modelica model should be identical with that in the ISAT-FFD input files Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/ForcedConvectionWithExteriorWall/input.cfd. The ISAT outputs heat_wall1, heat_wall2, ... heat_wall6 correspond to the first, second, ... sixth wall defined in the ISAT-FFD input files.</p>
 </html>", revisions="<html>
 <ul>
 <li>

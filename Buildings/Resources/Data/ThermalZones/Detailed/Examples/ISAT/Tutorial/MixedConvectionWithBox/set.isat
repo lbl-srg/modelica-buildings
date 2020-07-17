@@ -98,7 +98,7 @@ inpu.wall_wh 5
 /********************************************************************************
 | Section 3: Output settings of isat and ffd
 ********************************************************************************/
-/*outp.outp_name: names of outputs including temp_roo,temp_occ, vel_occ, temp_sen, vel_sen, temp_rack*/
+/*outp.outp_name: names of outputs including temp_occ, vel_occ, temp_sen, vel_sen, temp_rack, heat_wall1, heat_wall2, heat_wall3, heat_wall4, heat_wall5, heat_wall6*/
 outp.outp_name temp_roo
 outp.outp_name vel_sen
 /*outp.outp_weight: weights for error control, when outputs have different order of magnitudes*/
