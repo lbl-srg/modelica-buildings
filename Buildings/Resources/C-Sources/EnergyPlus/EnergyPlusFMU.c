@@ -147,6 +147,10 @@ void AddZoneToBuilding(FMUZone* ptrZone){
   fmu->zones[nZon] = ptrZone;
   /* Increment the count of zones to this building. */
   fmu->nZon++;
+
+  if (FMU_EP_VERBOSITY >= MEDIUM)
+    ModelicaFormatMessage("EnergyPlusFMU.c: nZon = %d, nInp = %d, nOut = %d",
+      fmu->nZon, fmu->nInputVariables, fmu->nOutputVariables);
 }
 
 void AddInputVariableToBuilding(FMUInputVariable* ptrVar){
@@ -176,6 +180,10 @@ void AddInputVariableToBuilding(FMUInputVariable* ptrVar){
   fmu->inputVariables[nInputVariables] = ptrVar;
   /* Increment the count of input variables of this building. */
   fmu->nInputVariables++;
+
+  if (FMU_EP_VERBOSITY >= MEDIUM)
+    ModelicaFormatMessage("EnergyPlusFMU.c: nZon = %d, nInp = %d, nOut = %d",
+      fmu->nZon, fmu->nInputVariables, fmu->nOutputVariables);
 }
 
 void AddOutputVariableToBuilding(FMUOutputVariable* ptrVar){
@@ -205,6 +213,10 @@ void AddOutputVariableToBuilding(FMUOutputVariable* ptrVar){
   fmu->outputVariables[nOutputVariables] = ptrVar;
   /* Increment the count of output variables of this building. */
   fmu->nOutputVariables++;
+
+  if (FMU_EP_VERBOSITY >= MEDIUM)
+    ModelicaFormatMessage("EnergyPlusFMU.c: nZon = %d, nInp = %d, nOut = %d",
+      fmu->nZon, fmu->nInputVariables, fmu->nOutputVariables);
 }
 
 FMUBuilding* getBuildingsFMU(size_t iFMU){
@@ -236,12 +248,13 @@ void FMUBuildingFree(FMUBuilding* ptrBui){
 
   if ( ptrBui != NULL ){
     if (FMU_EP_VERBOSITY >= MEDIUM)
-      ModelicaFormatMessage("In FMUBuildingFree, %p, nZon = %d, nOutVar = %d", ptrBui, ptrBui->nZon, ptrBui->nOutputVariables);
+      ModelicaFormatMessage("In FMUBuildingFree, %p, nZon = %d, nInpVar = %d, nOutVar = %d",
+      ptrBui, ptrBui->nZon, ptrBui->nInputVariables, ptrBui->nOutputVariables);
 
     /* Make sure no thermal zone or output variable uses this building */
-    if (ptrBui->nZon > 0 || ptrBui->nOutputVariables > 0){
+    if (ptrBui->nZon > 0 || ptrBui->nInputVariables > 0 || ptrBui->nOutputVariables > 0){
       if (FMU_EP_VERBOSITY >= MEDIUM)
-        ModelicaMessage("Exiting FMUBuildingFree without changes as zones or outputs uses this building.");
+        ModelicaMessage("Exiting FMUBuildingFree without changes as building is still used.");
       return;
     }
 
