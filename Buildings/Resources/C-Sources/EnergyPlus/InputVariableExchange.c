@@ -87,11 +87,11 @@ void InputVariableExchange(
 
   setVariables(bui, inpVar->modelicaNameInputVariable, inpVar->inputs);
 
-  if (FMU_EP_VERBOSITY >= TIMESTEP)
-    ModelicaFormatMessage("Returning from InputVariableExchange() for %s.\n", inpVar->modelicaNameInputVariable);
-
   /* Dummy output, used to enable forcing a direct dependency of outputs to inputs */
   *y = u;
+
+  if (FMU_EP_VERBOSITY >= TIMESTEP)
+    ModelicaFormatMessage("Returning from InputVariableExchange() for %s.\n", inpVar->modelicaNameInputVariable);
 
   return;
 }
