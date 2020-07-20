@@ -1,0 +1,18 @@
+﻿simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.CapacityRequirement", startTime=0,tolerance=1e-6, stopTime=7200, outputInterval=1, method="dassl", resultFile="CapacityRequirement1");
+removePlots(false);
+createPlot(id=1, position={0, 0, 1660, 998}, y={"capReq.TSupSet", "capReq.TRet"}, range={0.0, 7200.0, 310.0, 335.0}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={0, 0, 1660, 330}, y={"capReq.VHotWat_flow"}, range={0.0, 7200.0, 0.8500000000000001, 1.1500000000000001}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1660, 329}, y={"capReq.y"}, range={0.0, 7200.0, -20000000.0, 100000000.0}, grid=true, subPlot=3, colors={{28,108,200}});
+
+createPlot(id=2, position={0, 0, 1660, 998}, y={"capReq1.TSupSet", "capReq1.TRet"}, range={0.0, 7200.0, 310.0, 335.0}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={0, 0, 1660, 330}, y={"capReq1.VHotWat_flow"}, range={0.0, 7200.0, 0.8500000000000001, 1.1500000000000001}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=2, position={0, 0, 1660, 329}, y={"capReq1.y"}, range={0.0, 7200.0, -20000000.0, 100000000.0}, grid=true, subPlot=3, colors={{28,108,200}});
+
+createPlot(id=3, position={0, 0, 1660, 998}, y={"capReq2.TSupSet", "capReq2.TRet"}, range={0.0, 7200.0, 310.0, 335.0}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={0, 0, 1660, 330}, y={"capReq2.VHotWat_flow"}, range={0.0, 7200.0, 0.8500000000000001, 1.1500000000000001}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=3, position={0, 0, 1660, 329}, y={"capReq2.y"}, range={0.0, 7200.0, -20000000.0, 100000000.0}, grid=true, subPlot=3, colors={{28,108,200}});
+
+createPlot(id=4, position={0, 0, 1660, 998}, y={"capReq3.TSupSet", "capReq3.TRet"}, range={0.0, 7200.0, 310.0, 335.0}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=4, position={0, 0, 1660, 330}, y={"capReq3.VHotWat_flow"}, range={0.0, 7200.0, 0.8500000000000001, 1.1500000000000001}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=4, position={0, 0, 1660, 329}, y={"capReq3.y"}, range={0.0, 7200.0, -20000000.0, 100000000.0}, grid=true, subPlot=3, colors={{28,108,200}});
+//ExportPlotAsImage("./Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/CapacityRequirement.png", 4, true, false);
