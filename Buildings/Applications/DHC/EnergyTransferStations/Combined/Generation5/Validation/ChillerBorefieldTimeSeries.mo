@@ -4,8 +4,8 @@ model ChillerBorefieldTimeSeries
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Water "Medium model";
-  parameter Integer nBorHol = 36
-    "Number of boreholes (must be a square number)";
+  parameter Integer nBorHol = 64
+  "Number of boreholes (must be a square number)";
   parameter Modelica.SIunits.Distance dxy = 6
     "Distance in x-axis (and y-axis) between borehole axes";
   final parameter Modelica.SIunits.Distance cooBor[nBorHol,2]=
