@@ -249,7 +249,7 @@ model System6
     Ti=120,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=0.1,
-    reverseAction=true) "Controller for valve in boiler loop"
+    reverseActing=false) "Controller for valve in boiler loop"
     annotation (Placement(transformation(extent={{160,-270},{180,-250}})));
 //--------------------------------------------------------------------------------//
 
@@ -598,7 +598,7 @@ This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/673\"
 <li>
 July 2, 2015, by Michael Wetter:<br/>
 Changed control input for <code>conPIDBoi</code> and set
-<code>reverseAction=true</code>
+<code>reverseActing=false</code>
 to address issue
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/436\">#436</a>.
 </li>
