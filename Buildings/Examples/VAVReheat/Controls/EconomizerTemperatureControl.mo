@@ -8,8 +8,7 @@ block EconomizerTemperatureControl
     Ti=Ti,
     yMax=0.995,
     yMin=0.005,
-    Td=60,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI)
+    Td=60)
     "Controller for mixed air temperature"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   parameter Real k=1 "Gain of controller";
