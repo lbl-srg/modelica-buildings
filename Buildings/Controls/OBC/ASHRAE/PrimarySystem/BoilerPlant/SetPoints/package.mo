@@ -1,8 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant;
 package SetPoints "Control sequences for setpoint controllers"
 
-
-
 annotation (Icon(graphics={
         Rectangle(
           lineColor={200,200,200},
