@@ -9,9 +9,11 @@ model EnableLag_primary_dP
     "Enable lag pump for primary-only plants using differential pressure pump speed control"
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
 
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler nexLagPumTri "Next lag pump enabling trigger"
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler nexLagPumTri 
+    "Next lag pump enabling trigger"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler lasLagPumTri "Last lag pump disabling trigger"
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler lasLagPumTri 
+    "Last lag pump disabling trigger"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
 protected
