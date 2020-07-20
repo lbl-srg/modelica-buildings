@@ -1,44 +1,80 @@
 [
   {
-    "jmodelica": {
-      "solver": "Radau5ODE"
+      "jmodelica": {
+        "simulate": false
     },
-    "model_name": "Buildings.Airflow.Multizone.Examples.OneOpenDoor"
+      "optimica": {
+        "simulate": false
+    },
+    "model_name": "Buildings.Fluid.Examples.FlowSystem.Basic"
+  },
+  {
+      "jmodelica": {
+        "simulate": false
+    },
+      "optimica": {
+        "simulate": false
+    },
+    "model_name": "Buildings.Fluid.Examples.FlowSystem.Simplified1"
+  },
+  {
+      "jmodelica": {
+        "simulate": false
+    },
+      "optimica": {
+        "simulate": false
+    },
+    "model_name": "Buildings.Fluid.Examples.FlowSystem.Simplified2"
   },
   {
     "jmodelica": {
       "simulate": false
   },
-  "model_name": "Buildings.Fluid.Examples.FlowSystem.Basic"
-  },
-  {
-    "jmodelica": {
+    "optimica": {
       "simulate": false
   },
-  "model_name": "Buildings.Fluid.Examples.FlowSystem.Simplified1"
+  "model_name": "Buildings.ThermalZones.Detailed.Validation.SingleZoneFloorWithHeating"
   },
   {
-    "jmodelica": {
-      "simulate": false
-  },
-  "model_name": "Buildings.Fluid.Examples.FlowSystem.Simplified2"
-  },
-  {
-     "jmodelica": {
-       "simulate": false
-  },
-  "model_name": "Buildings.Utilities.IO.Python27.Functions.Examples.Exchange"
+       "jmodelica": {
+         "simulate": false
+    },
+       "optimica": {
+         "translate": false
+    },
+    "model_name": "Buildings.Utilities.IO.Python27.Functions.Examples.Exchange"
   },
   {
-     "jmodelica": {
-     "rtol": 1E-6
-  },
-  "model_name": "Buildings.Examples.VAVCO2.VAVSystemCTControl"
+       "optimica": {
+         "translate": false
+    },
+    "model_name": "Buildings.Utilities.IO.Python27.Examples.KalmanFilter"
   },
   {
-     "jmodelica": {
-       "rtol": 1E-8
+       "optimica": {
+         "translate": false
+    },
+    "model_name": "Buildings.Utilities.IO.Python27.Functions.Examples.Exchange"
   },
-  "model_name": "Buildings.Examples.DualFanDualDuct.ClosedLoop"
+  {
+       "optimica": {
+         "translate": false
+    },
+    "model_name": "Buildings.Utilities.IO.Python27.Functions.Examples.ExchangeWithPassPythonObject"
+  },
+  {
+       "optimica": {
+         "translate": false
+    },
+    "model_name": "Buildings.Utilities.IO.Python27.Examples.SimpleRoom"
+  },
+  {
+       "jmodelica": {
+         "rtol": 1E-8
+    },
+       "optimica": {
+         "rtol": 1E-8
+    },
+    "model_name": "Buildings.Examples.DualFanDualDuct.ClosedLoop"
   }
 ]

@@ -81,13 +81,7 @@ equation
   connect(EPum.y, EHVAC.u[4]) annotation (Line(points={{61,-130},{74,-130},{74,
           -75.25},{80,-75.25}}, color={0,0,127}));
   annotation (
-    experiment(
-      StopTime=504800,
-      Interval=3600,
-      Tolerance=1e-06),
-      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/Examples/ChillerDXHeatingEconomizer.mos"
-        "Simulate and plot"),
-     Documentation(info="<html>
+Documentation(info="<html>
 <p>
 The thermal zone is based on the BESTEST Case 600 envelope, while the HVAC
 system is based on a conventional VAV system with air cooled chiller and
@@ -95,6 +89,10 @@ economizer.  See documentation for the specific models for more information.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 27, 2019, by David Blum:<br/>
+Removed <code>experiment</code> annotation.
+</li>
 <li>
 July 29, 2019, by David Blum:<br/>
 First implementation.

@@ -34,13 +34,15 @@ model AirsideEconomizer
   Buildings.Fluid.Actuators.Dampers.MixingBox eco(
     redeclare package Medium = Medium,
     mOut_flow_nominal=mA_flow_nominal,
-    dpOut_nominal=20,
     mRec_flow_nominal=mA_flow_nominal,
-    dpRec_nominal=20,
     mExh_flow_nominal=mA_flow_nominal,
-    dpExh_nominal=20,
-    use_inputFilter=false)
-    "Airside economizer"
+    use_inputFilter=false,
+    dpDamExh_nominal=0.27,
+    dpDamOut_nominal=0.27,
+    dpDamRec_nominal=0.27,
+    dpFixExh_nominal=20,
+    dpFixOut_nominal=20,
+    dpFixRec_nominal=20) "Airside economizer"
     annotation (Placement(transformation(extent={{-20,-48},{0,-28}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemMixAir(
     redeclare package Medium = Medium,

@@ -11,24 +11,37 @@ block ActiveAirFlow
   parameter Boolean have_CO2Sen
     "Set to true if the zone has CO2 sensor"
     annotation(Dialog(group="Zone sensors"));
-  parameter Modelica.SIunits.VolumeFlowRate VDisCooSetMax_flow
+  parameter Real VDisCooSetMax_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")
     "Zone maximum cooling airflow setpoint"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.VolumeFlowRate VDisSetMin_flow
+  parameter Real VDisSetMin_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")
     "Zone minimum airflow setpoint"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.VolumeFlowRate VDisHeaSetMax_flow
+  parameter Real VDisHeaSetMax_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")
     "Zone maximum heating airflow setpoint"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.VolumeFlowRate VDisConMin_flow
+  parameter Real VDisConMin_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")
     "VAV box controllable minimum"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Area AFlo "Area of the zone"
+  parameter Real AFlo(
+    final unit="m2",
+    final quantity="Area") "Area of the zone"
     annotation(Dialog(group="Nominal condition"));
-  parameter Real VOutPerAre_flow(final unit = "m3/(s.m2)")=3e-4
+  parameter Real VOutPerAre_flow(
+    final unit = "m3/(s.m2)")=3e-4
     "Outdoor air rate per unit area"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.VolumeFlowRate VOutPerPer_flow=2.5e-3
+  parameter Real VOutPerPer_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")=2.5e-3
     "Outdoor air rate per person"
     annotation(Dialog(group="Nominal condition"));
   parameter Real CO2Set = 894 "CO2 setpoint in ppm"
@@ -51,44 +64,45 @@ block ActiveAirFlow
     annotation (Placement(transformation(extent={{-320,-130},{-280,-90}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VOccDisMin_flow(
-    min=0,
+    final min=0,
     final unit="m3/s",
-    quantity="VolumeFlowRate") "Occupied minimum airflow "
+    final quantity="VolumeFlowRate") "Occupied minimum airflow "
     annotation (Placement(transformation(extent={{280,-310},{320,-270}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VActCooMax_flow(
-    min=0,
+    final min=0,
     final unit="m3/s",
-    quantity="VolumeFlowRate") "Active cooling maximum"
+    final quantity="VolumeFlowRate") "Active cooling maximum"
     annotation (Placement(transformation(extent={{280,150},{320,190}}),
         iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VActCooMin_flow(
-    min=0,
+    final min=0,
     final unit="m3/s",
-    quantity="VolumeFlowRate") "Active cooling minimum"
-    annotation (Placement(transformation(extent={{280,110},{320,150}}),
+    final quantity="VolumeFlowRate") "Active cooling minimum"
+    annotation (Placement(transformation(extent={{280,120},{320,160}}),
         iconTransformation(extent={{100,30},{140,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VActMin_flow(
-    min=0,
+    final min=0,
     final unit="m3/s",
-    quantity="VolumeFlowRate") "Active minimum"
-    annotation (Placement(transformation(extent={{280,70},{320,110}}),
+    final quantity="VolumeFlowRate") "Active minimum"
+    annotation (Placement(transformation(extent={{280,90},{320,130}}),
         iconTransformation(extent={{100,0},{140,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VActHeaMin_flow(
-    min=0,
+    final min=0,
     final unit="m3/s",
-    quantity="VolumeFlowRate") "Active heating minimum"
-    annotation (Placement(transformation(extent={{280,30},{320,70}}),
+    final quantity="VolumeFlowRate") "Active heating minimum"
+    annotation (Placement(transformation(extent={{280,50},{320,90}}),
         iconTransformation(extent={{100,-30},{140,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VActHeaMax_flow(
-    min=0,
+    final min=0,
     final unit="m3/s",
-    quantity="VolumeFlowRate") "Active heating maximum"
-    annotation (Placement(transformation(extent={{280,-10},{320,30}}),
+    final quantity="VolumeFlowRate") "Active heating maximum"
+    annotation (Placement(transformation(extent={{280,10},{320,50}}),
         iconTransformation(extent={{100,-60},{140,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(k=VOutPerPer_flow) if have_occSen
-  "Outdoor air per person"
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai(
+    final k=VOutPerPer_flow) if have_occSen
+    "Outdoor air per person"
     annotation (Placement(transformation(extent={{-140,-330},{-120,-310}})));
   Buildings.Controls.OBC.CDL.Continuous.Add breZon if have_occSen
   "Breathing zone airflow"
@@ -102,9 +116,6 @@ block ActiveAirFlow
   Buildings.Controls.OBC.CDL.Continuous.Greater gre
     "Check if zone minimum airflow setpoint Vmin is less than the allowed controllable VDisConMin_flow"
     annotation (Placement(transformation(extent={{-20,-460},{0,-440}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(threshold=0) if have_occSen
-    "Check if the zone becomes unpopulated"
-    annotation (Placement(transformation(extent={{-140,-290},{-120,-270}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1
     "Check if zone minimum airflow setpoint VDisSetMin_flow is non-zero"
     annotation (Placement(transformation(extent={{-80,-410},{-60,-390}})));
@@ -126,59 +137,81 @@ block ActiveAirFlow
     annotation (Placement(transformation(extent={{80,-410},{100,-390}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 if have_winSen "Logical not"
     annotation (Placement(transformation(extent={{-240,-510},{-220,-490}})));
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+    final uLow=0.25, final uHigh=0.75) if have_occSen
+    "Check if the zone becomes unpopulated"
+    annotation (Placement(transformation(extent={{-140,-290},{-120,-270}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minZonAir1(final k=VDisSetMin_flow) if not have_CO2Sen
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minZonAir1(
+    final k=VDisSetMin_flow) if not have_CO2Sen
     "Zone minimum airflow setpoint"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxZonCooAir(final k=VDisCooSetMax_flow) if have_CO2Sen
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxZonCooAir(
+    final k=VDisCooSetMax_flow) if have_CO2Sen
     "Zone maximum cooling airflow setpoint"
     annotation (Placement(transformation(extent={{-80,-190},{-60,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant breZonAre(final k=VOutPerAre_flow*AFlo) if have_occSen
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant breZonAre(
+    final k=VOutPerAre_flow*AFlo) if have_occSen
     "Area component of the breathing zone outdoor airflow"
     annotation (Placement(transformation(extent={{-140,-370},{-120,-350}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conVolMin(final k=VDisConMin_flow)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conVolMin(
+    final k=VDisConMin_flow)
     "VAV box controllable minimum"
     annotation (Placement(transformation(extent={{-80,-440},{-60,-420}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minZonAir(final k=VDisSetMin_flow)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minZonAir(
+    final k=VDisSetMin_flow)
     "Zone minimum airflow setpoint"
     annotation (Placement(transformation(extent={{-240,-60},{-220,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setCO1(final k=CO2Set - 200) if have_CO2Sen
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setCO1(
+    final k=CO2Set - 200) if have_CO2Sen
     "CO2 setpoints minus 200"
     annotation (Placement(transformation(extent={{-240,-140},{-220,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setCO2(final k=CO2Set) if have_CO2Sen
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setCO2(
+    final k=CO2Set) if have_CO2Sen
     "CO2 setpoints"
     annotation (Placement(transformation(extent={{-240,-210},{-220,-190}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerFlo(final k=0)
     "Zero airflow when window is open"
     annotation (Placement(transformation(extent={{140,-540},{160,-520}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(final k=true) if not have_occSen "Constant true"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
+    final k=true) if not have_occSen "Constant true"
     annotation (Placement(transformation(extent={{-80,-270},{-60,-250}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(final k=true) if not have_winSen "Constant true"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
+    final k=true) if not have_winSen "Constant true"
     annotation (Placement(transformation(extent={{40,-490},{60,-470}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerCon(final k=0) "Output zero"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerCon(
+    final k=0) "Output zero"
     annotation (Placement(transformation(extent={{-240,-170},{-220,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerCon1(final k=0) if have_CO2Sen
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerCon1(
+    final k=0) if have_CO2Sen
     "Output zero"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerCon2(final k=0) if have_CO2Sen
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerCon2(
+    final k=0) if have_CO2Sen
     "Output zero"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerCon3(final k=0) if not have_occSen
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerCon3(
+    final k=0) if not have_occSen
     "Output zero"
     annotation (Placement(transformation(extent={{0,-350},{20,-330}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneCon(final k=1) if have_CO2Sen
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneCon(
+    final k=1) if have_CO2Sen
     "Output one"
     annotation (Placement(transformation(extent={{-240,-240},{-220,-220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneCon1(final k=1) if have_CO2Sen "Output one"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneCon1(
+    final k=1) if have_CO2Sen "Output one"
     annotation (Placement(transformation(extent={{-80,-160},{-60,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooMaxAir(final k=VDisCooSetMax_flow)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooMaxAir(
+    final k=VDisCooSetMax_flow)
     "Cooling maximum airflow"
     annotation (Placement(transformation(extent={{-240,-20},{-220,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaMaxAir(final k=VDisHeaSetMax_flow)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaMaxAir(
+    final k=VDisHeaSetMax_flow)
     "Heat maximum airflow"
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerCon6(final k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerCon6(
+    final k=0)
     "Output zero"
     annotation (Placement(transformation(extent={{-240,170},{-220,190}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
@@ -252,23 +285,25 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch swi28
     "Select heating maximum based on operation mode"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum actCooMaxAir(nin=3)
-    "Active cooling maximum airflow"
-    annotation (Placement(transformation(extent={{220,160},{240,180}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum actCooMinAir(nin=1)
-    "Active cooling minimum airflow"
-    annotation (Placement(transformation(extent={{220,130},{240,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum actMinAir(nin=1)
-    "Active minimum airflow"
-    annotation (Placement(transformation(extent={{220,100},{240,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum actHeaMinAir(nin=3)
-  "Active heating minimum airflow"
-    annotation (Placement(transformation(extent={{220,60},{240,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum actHeaMaxAir(nin=4)
-  "Active heating maximum airflow"
-    annotation (Placement(transformation(extent={{220,20},{240,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Max maxInp "Find greater input"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add2 "Add real input"
+    annotation (Placement(transformation(extent={{200,170},{220,190}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add actCooMaxAir
+    "Active cooling maximum airflow"
+    annotation (Placement(transformation(extent={{240,160},{260,180}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add1 "Add real input"
+    annotation (Placement(transformation(extent={{200,80},{220,100}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add actHeaMinAir
+    "Active heating minimum airflow"
+    annotation (Placement(transformation(extent={{240,60},{260,80}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add3 "Add real input"
+    annotation (Placement(transformation(extent={{180,40},{200,60}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add actHeaMaxAir1
+    "Active heating maximum airflow"
+    annotation (Placement(transformation(extent={{240,20},{260,40}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add4 "Add real input"
+    annotation (Placement(transformation(extent={{180,0},{200,20}})));
 
 equation
   connect(conVolMin.y, gre.u1)
@@ -319,9 +354,6 @@ equation
   connect(conInt.y, intEqu.u1)
     annotation (Line(points={{-218,-90},{-160,-90},{-160,-110},{-142,-110}},
       color={255,127,0}));
-  connect(nOcc, greThr.u)
-    annotation (Line(points={{-300,-280},{-142,-280}},
-      color={0,0,127}));
   connect(nOcc, gai.u)
     annotation (Line(points={{-300,-280},{-160,-280},{-160,-320},{-142,-320}},
       color={0,0,127}));
@@ -334,9 +366,6 @@ equation
   connect(breZon.y, swi.u3)
     annotation (Line(points={{-58,-340},{-20,-340},{-20,-288},{78,-288}},
       color={0,0,127}));
-  connect(greThr.y, swi.u2)
-    annotation (Line(points={{-118,-280},{78,-280}},
-      color={255,0,255}));
   connect(lin1.y, swi.u1)
     annotation (Line(points={{42,-120},{60,-120},{60,-272},{78,-272}},
       color={0,0,127}));
@@ -403,14 +432,13 @@ equation
       color={255,0,255}));
   connect(cooMaxAir.y, swi24.u1)
     annotation (Line(points={{-218,-10},{-204,-10},{-204,16},{-140,16},{-140,168},
-          {-102,168}},
-                   color={0,0,127}));
+      {-102,168}}, color={0,0,127}));
   connect(heaMaxAir.y, maxInp.u2)
     annotation (Line(points={{-158,-10},{-120,-10},{-120,-16},{-102,-16}},
       color={0,0,127}));
   connect(maxInp.y, swi28.u1)
-    annotation (Line(points={{-78,-10},{-60,-10},{-60,22},{-124,22},{-124,48},{-102,
-          48}},   color={0,0,127}));
+    annotation (Line(points={{-78,-10},{-60,-10},{-60,22},{-124,22},{-124,48},
+      {-102,48}},   color={0,0,127}));
   connect(zerCon6.y, swi24.u3)
     annotation (Line(points={{-218,180},{-120,180},{-120,152},{-102,152}},
       color={0,0,127}));
@@ -448,8 +476,7 @@ equation
     annotation (Line(points={{2,300},{38,300}}, color={255,127,0}));
   connect(cooMaxAir.y, swi4.u1)
     annotation (Line(points={{-218,-10},{-204,-10},{-204,16},{-140,16},{-140,308},
-          {-102,308}},
-                   color={0,0,127}));
+          {-102,308}}, color={0,0,127}));
   connect(heaMaxAir.y, swi8.u1)
     annotation (Line(points={{-158,-10},{-134,-10},{-134,278},{-102,278}},
       color={0,0,127}));
@@ -466,8 +493,7 @@ equation
       color={0,0,127}));
   connect(cooMaxAir.y, swi9.u1)
     annotation (Line(points={{-218,-10},{-204,-10},{-204,16},{-140,16},{-140,238},
-          {-102,238}},
-                   color={0,0,127}));
+          {-102,238}}, color={0,0,127}));
   connect(intEqu2.y, swi9.u2)
     annotation (Line(points={{-158,230},{-102,230}}, color={255,0,255}));
   connect(zerCon6.y, swi9.u3)
@@ -509,73 +535,60 @@ equation
   connect(cooMaxAir.y, swi23.u1)
     annotation (Line(points={{-218,-10},{-204,-10},{-204,16},{80,16},{80,208},{118,
           208}},  color={0,0,127}));
-  connect(swi24.y, actCooMaxAir.u[1])
-    annotation (Line(points={{-78,160},{60,160},{60,171.333},{218,171.333}},
-      color={0,0,127}));
-  connect(swi25.y, actCooMinAir.u[1])
-    annotation (Line(points={{-78,130},{60,130},{60,140},{218,140}},
-      color={0,0,127}));
-  connect(swi26.y, actMinAir.u[1])
-    annotation (Line(points={{-78,100},{60,100},{60,110},{218,110}},
-      color={0,0,127}));
-  connect(swi27.y, actHeaMinAir.u[1])
-    annotation (Line(points={{-78,70},{60,70},{60,71.3333},{218,71.3333}},
-      color={0,0,127}));
-  connect(swi28.y, actHeaMaxAir.u[1])
-    annotation (Line(points={{-78,40},{60,40},{60,31.5},{218,31.5}},
-      color={0,0,127}));
-  connect(swi4.y, actCooMaxAir.u[2])
-    annotation (Line(points={{-78,300},{-28,300},{-28,170},{218,170}},
-      color={0,0,127}));
-  connect(swi8.y, actHeaMaxAir.u[2])
-    annotation (Line(points={{-78,270},{-44,270},{-44,30.5},{218,30.5}},
-      color={0,0,127}));
-  connect(swi9.y, actCooMaxAir.u[3])
-    annotation (Line(points={{-78,230},{-48,230},{-48,168.667},{218,168.667}},
-      color={0,0,127}));
-  connect(swi17.y, actHeaMinAir.u[2])
-    annotation (Line(points={{142,300},{194,300},{194,70},{218,70}},
-      color={0,0,127}));
-  connect(swi18.y, actHeaMaxAir.u[3])
-    annotation (Line(points={{142,270},{190,270},{190,29.5},{218,29.5}},
-      color={0,0,127}));
-  connect(swi22.y, actHeaMinAir.u[3])
-    annotation (Line(points={{142,230},{172,230},{172,68.6667},{218,68.6667}},
-      color={0,0,127}));
-  connect(swi23.y, actHeaMaxAir.u[4])
-    annotation (Line(points={{142,200},{168,200},{168,28.5},{218,28.5}},
-      color={0,0,127}));
   connect(swi1.y, swi25.u1)
     annotation (Line(points={{222,-500},{240,-500},{240,-28},{-128,-28},{-128,138},
-          {-102,138}},
-                   color={0,0,127}));
+          {-102,138}}, color={0,0,127}));
   connect(swi1.y, swi26.u1)
     annotation (Line(points={{222,-500},{240,-500},{240,-28},{-128,-28},{-128,108},
-          {-102,108}},
-                   color={0,0,127}));
+          {-102,108}}, color={0,0,127}));
   connect(swi1.y, swi27.u1)
     annotation (Line(points={{222,-500},{240,-500},{240,-28},{-128,-28},{-128,78},
-          {-102,78}},
-                  color={0,0,127}));
+          {-102,78}}, color={0,0,127}));
   connect(swi1.y, maxInp.u1)
     annotation (Line(points={{222,-500},{240,-500},{240,-28},{-128,-28},{-128,-4},
-          {-102,-4}},
-                  color={0,0,127}));
+          {-102,-4}}, color={0,0,127}));
+  connect(nOcc, hys.u)
+    annotation (Line(points={{-300,-280},{-142,-280}}, color={0,0,127}));
+  connect(hys.y, swi.u2)
+    annotation (Line(points={{-118,-280},{78,-280}}, color={255,0,255}));
+  connect(add2.y, actCooMaxAir.u1) annotation (Line(points={{222,180},{230,180},
+          {230,176},{238,176}}, color={0,0,127}));
+  connect(swi4.y, add2.u1) annotation (Line(points={{-78,300},{-40,300},{-40,186},
+          {198,186}}, color={0,0,127}));
+  connect(swi9.y, add2.u2) annotation (Line(points={{-78,230},{-60,230},{-60,174},
+          {198,174}}, color={0,0,127}));
+  connect(swi24.y, actCooMaxAir.u2) annotation (Line(points={{-78,160},{100,160},
+          {100,164},{238,164}}, color={0,0,127}));
   connect(actCooMaxAir.y, VActCooMax_flow)
-    annotation (Line(points={{242,170},{300,170}},
-      color={0,0,127}));
-  connect(actCooMinAir.y, VActCooMin_flow)
-    annotation (Line(points={{242,140},{260,140},{260,130},{300,130}},
-      color={0,0,127}));
-  connect(actMinAir.y, VActMin_flow)
-    annotation (Line(points={{242,110},{260,110},{260,90},{300,90}},
-      color={0,0,127}));
+    annotation (Line(points={{262,170},{300,170}}, color={0,0,127}));
+  connect(swi25.y, VActCooMin_flow) annotation (Line(points={{-78,130},{100,130},
+          {100,140},{300,140}}, color={0,0,127}));
+  connect(swi26.y, VActMin_flow) annotation (Line(points={{-78,100},{100,100},{100,
+          110},{300,110}}, color={0,0,127}));
+  connect(swi17.y, add1.u1) annotation (Line(points={{142,300},{178,300},{178,96},
+          {198,96}}, color={0,0,127}));
+  connect(swi22.y, add1.u2) annotation (Line(points={{142,230},{166,230},{166,84},
+          {198,84}}, color={0,0,127}));
+  connect(swi27.y, actHeaMinAir.u2) annotation (Line(points={{-78,70},{220,70},{
+          220,64},{238,64}}, color={0,0,127}));
+  connect(add1.y, actHeaMinAir.u1) annotation (Line(points={{222,90},{230,90},{230,
+          76},{238,76}}, color={0,0,127}));
   connect(actHeaMinAir.y, VActHeaMin_flow)
-    annotation (Line(points={{242,70},{260,70},{260,50},{300,50}},
-      color={0,0,127}));
-  connect(actHeaMaxAir.y, VActHeaMax_flow)
-    annotation (Line(points={{242,30},{256,30},{256,10},{300,10}},
-      color={0,0,127}));
+    annotation (Line(points={{262,70},{300,70}}, color={0,0,127}));
+  connect(swi8.y, add3.u1) annotation (Line(points={{-78,270},{-50,270},{-50,56},
+          {178,56}}, color={0,0,127}));
+  connect(swi28.y, add3.u2) annotation (Line(points={{-78,40},{-50,40},{-50,44},
+          {178,44}}, color={0,0,127}));
+  connect(swi18.y, add4.u1) annotation (Line(points={{142,270},{172,270},{172,16},
+          {178,16}}, color={0,0,127}));
+  connect(swi23.y, add4.u2) annotation (Line(points={{142,200},{160,200},{160,4},
+          {178,4}}, color={0,0,127}));
+  connect(actHeaMaxAir1.y, VActHeaMax_flow)
+    annotation (Line(points={{262,30},{300,30}}, color={0,0,127}));
+  connect(add3.y, actHeaMaxAir1.u1) annotation (Line(points={{202,50},{220,50},{
+          220,36},{238,36}}, color={0,0,127}));
+  connect(add4.y, actHeaMaxAir1.u2) annotation (Line(points={{202,10},{220,10},{
+          220,24},{238,24}}, color={0,0,127}));
 
 annotation (
   defaultComponentName="actAirSet_RehBox",
@@ -635,7 +648,7 @@ reset based on window status"),      Rectangle(
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None), Text(
-          extent={{92,20},{314,-24}},
+          extent={{32,18},{254,-26}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
@@ -658,11 +671,13 @@ according to operation modes")}),
           lineColor={0,0,0},
           textString="actAirSet"),
         Text(
+          visible=have_CO2Sen,
           extent={{-98,48},{-70,36}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="CO2"),
         Text(
+          visible=have_occSen,
           extent={{-98,-32},{-70,-44}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
@@ -673,6 +688,7 @@ according to operation modes")}),
           pattern=LinePattern.Dash,
           textString="uOpeMod"),
         Text(
+          visible=have_winSen,
           extent={{-98,-74},{-72,-84}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
@@ -776,6 +792,18 @@ not in occupied mode.
 <br/>
 </html>", revisions="<html>
 <ul>
+<li>
+March 11, 2020, by Jianjun Hu:<br/>
+Replaced multisum block with add blocks.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1830\">#1830</a>.
+</li>
+<li>
+February 27, 2020, by Jianjun Hu:<br/>
+Used hysteresis to check occupancy.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1788\">#1788</a>.
+</li>
 <li>
 September 7, 2017, by Jianjun Hu:<br/>
 First implementation.

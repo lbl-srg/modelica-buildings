@@ -183,7 +183,7 @@ capacity of copper.
 December 17, 2017, by Michael Wetter:<br/>
 Revised computation of heat loss.<br/>
 This is for
-<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/1100\">
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1100\">
 issue 1100</a>.
 </li>
 <li>

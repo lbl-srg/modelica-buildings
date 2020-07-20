@@ -44,8 +44,8 @@ protected
     annotation (Documentation(info="<html>
 <p>
 Performance data for the heating or cooling mode of the reverse heat pump
-<a href=\"modelica://Buildings.Fluid.HeatPumps.EquationFitReversable\">
-Buildings.Fluid.HeatPumps.EquationFitReversable</a>.
+<a href=\"modelica://Buildings.Fluid.HeatPumps.EquationFitReversible\">
+Buildings.Fluid.HeatPumps.EquationFitReversible</a>.
 </p>
 </html>"));
   end HeatingCoolingData;

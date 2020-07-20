@@ -202,7 +202,7 @@ model HeatingCoolingHotwaterTimeSeries_dT
     addPowerToMedium=false) "Pump for space heating heat pump"
     annotation (Placement(transformation(extent={{30,290},{50,310}})));
 
-  Buildings.Controls.SetPoints.HotWaterTemperatureReset TSupHeaSet(
+  Buildings.Controls.SetPoints.SupplyReturnTemperatureReset TSupHeaSet(
     TSup_nominal=THeaSup_nominal,
     TRet_nominal=THeaRet_nominal,
     TOut_nominal=TOut_nominal) "Set points for heating supply temperature"

@@ -1,14 +1,12 @@
 compareVars :=
   {
     "conSupFan.ySupFanSpe",
-    "conSupFan.sumVDis_flow",
     "conSupFan.ySupFan",
     "conSupFan.ducStaPre",
     "conSupFan.staPreSetRes.y",
     "conSupFan.staPreSetRes.numOfReq",
     "conSupFan.uOpeMod",
     "conSupFan1.ySupFanSpe",
-    "conSupFan1.sumVDis_flow",
     "conSupFan1.ySupFan",
     "conSupFan1.ducStaPre",
     "conSupFan1.staPreSetRes.y",

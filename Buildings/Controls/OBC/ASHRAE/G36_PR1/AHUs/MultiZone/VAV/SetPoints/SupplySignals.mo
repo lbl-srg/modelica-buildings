@@ -6,30 +6,40 @@ block SupplySignals "Multizone VAV AHU coil valve positions"
     "Type of controller for supply air temperature signal";
   parameter Real kTSup(final unit="1/K")=0.05
     "Gain of controller for supply air temperature signal";
-  parameter Modelica.SIunits.Time TiTSup=600
+  parameter Real TiTSup(
+    final unit="s",
+    final quantity="Time")=600
     "Time constant of integrator block for supply temperature control signal"
     annotation(Dialog(
       enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Modelica.SIunits.Time TdTSup=0.1
+  parameter Real TdTSup(
+    final unit="s",
+    final quantity="Time")=0.1
     "Time constant of derivative block for supply temperature control signal"
     annotation(Dialog(enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
                           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Real uHeaMax(min=-0.9)=-0.25
+  parameter Real uHeaMax(
+    final min=-0.9,
+    final unit="1")=-0.25
     "Upper limit of controller signal when heating coil is off. Require -1 < uHeaMax < uCooMin < 1.";
-  parameter Real uCooMin(max=0.9)=0.25
+  parameter Real uCooMin(
+    final max=0.9,
+    final unit="1")=0.25
     "Lower limit of controller signal when cooling coil is off. Require -1 < uHeaMax < uCooMin < 1.";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
         iconTransformation(extent={{-140,-70},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupSet(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Setpoint for supply air temperature"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}}),

@@ -47,8 +47,7 @@ This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1209\">Buil
 </html>"),
 experiment(
       StopTime=604800,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
   __Dymola_Commands(file=
   "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Validation/RoomWithLatentGain.mos"
   "Simulate and plot"),

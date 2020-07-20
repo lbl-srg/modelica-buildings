@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.Detailed.Examples.FFD.Tutorial;
-model NaturalConvection "Tutorial for Natural Convection case"
+model NaturalConvection "Tutorial for the natural convection case"
   extends Modelica.Icons.Example;
   package MediumA =
       Buildings.Media.Air (
@@ -42,6 +42,8 @@ model NaturalConvection "Tutorial for Natural Convection case"
    hRoo = 1,
    linearizeRadiation = false,
    useCFD = true,
+   haveSource=false,
+   nSou=0,
    sensorName = {"Occupied zone air temperature", "Velocity"},
    cfdFilNam = "modelica://Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/Tutorial/NaturalConvection.ffd",
    nConExt = nConExt,
@@ -126,10 +128,10 @@ The following conditions are applied in Modelica.:
 </p>
 <ul>
 <li>
-East wall: Fixed temperature at <i>T<sub>e</sub>=0</i>&circ;C,
+East wall: Fixed temperature at <i>T<sub>e</sub>=0</i>&deg;C,
 </li>
 <li>
-West wall: Fixed temperature at <i>T<sub>w</sub>=1</i>&circ;C,
+West wall: Fixed temperature at <i>T<sub>w</sub>=1</i>&deg;C,
 </li>
 <li>
 North &amp; South wall, Ceiling, Floor: Fixed heat flux at <i>0</i> W/m<sup>2</sup>.
@@ -320,7 +322,7 @@ Store <code>NaturalConvection.ffd</code>, <code>NaturalConvection.dat</code>, an
 at <code>Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/Tutorial</code>.
 </li>
 <li>
-Set simulation the stop time of the Modelica model <code>7200</code> seconds and choose for example the Radau solver.
+Set simulation the stop time of the Modelica model <code>7200</code> seconds and choose for example the CVode solver.
 </li>
 <li>
 Translate the model and start the simulation.

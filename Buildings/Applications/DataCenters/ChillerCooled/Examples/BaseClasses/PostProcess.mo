@@ -64,7 +64,7 @@ equation
   connect(sigCha.y, swiTim.trigger) annotation (Line(points={{201,160},{244,160},
           {244,184}},  color={255,0,255}));
   connect(conInt.y, swiTim.u)
-    annotation (Line(points={{201,196},{236,196}},   color={255,127,0}));
+    annotation (Line(points={{202,196},{236,196}},   color={255,127,0}));
   annotation (Diagram(coordinateSystem(extent={{-100,-200},{160,220}}),
         graphics={Rectangle(
           extent={{160,220},{320,-200}},
@@ -77,35 +77,28 @@ equation
           lineColor={0,0,0},
           pattern=LinePattern.Dash,
           lineThickness=0.5,
-          textStyle={TextStyle.Bold},
           textString="Post-processing"),
         Text(
-          extent={{324,146},{236,104}},
+          extent={{310,120},{254,108}},
           lineColor={0,0,0},
           pattern=LinePattern.Dot,
           fillColor={229,229,229},
           fillPattern=FillPattern.Solid,
-          fontSize=10,
-          textString="Economizing Hours",
-          textStyle={TextStyle.Bold,TextStyle.Italic}),
+          textString="Economizing Hours"),
         Text(
-          extent={{230,0},{324,-44}},
+          extent={{258,-6},{318,-52}},
           lineColor={0,0,0},
           pattern=LinePattern.Dot,
           fillColor={229,229,229},
           fillPattern=FillPattern.Solid,
-          fontSize=10,
-          textString="Energy Consumption",
-          textStyle={TextStyle.Bold,TextStyle.Italic}),
+          textString="Energy Consumption"),
         Text(
-          extent={{246,232},{334,190}},
+          extent={{262,224},{308,200}},
           lineColor={0,0,0},
           pattern=LinePattern.Dot,
           fillColor={229,229,229},
           fillPattern=FillPattern.Solid,
-          fontSize=10,
-          textString="Switch Times",
-          textStyle={TextStyle.Bold,TextStyle.Italic})}),
+          textString="Switch Times")}),
     Documentation(info="<html>
 <p>
 This partial model calculate performance metrics for a data center system.

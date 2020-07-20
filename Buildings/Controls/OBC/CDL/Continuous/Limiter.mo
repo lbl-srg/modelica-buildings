@@ -11,11 +11,13 @@ block Limiter "Limit the range of a signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 initial equation
-    assert(uMin < uMax, "uMin must be smaller than uMax. Check parameters.");
+  assert(uMin < uMax, "uMin must be smaller than uMax. Check parameters.");
 
 equation
-  y = homotopy(actual = smooth(0, noEvent(if u > uMax then uMax
-      else if u < uMin then uMin else u)), simplified=u);
+  y = homotopy(
+    actual = smooth(0, noEvent(
+      if u > uMax then uMax else if u < uMin then uMin else u)),
+    simplified=u);
    annotation (
 defaultComponentName="lim",
 Documentation(info="<html>
@@ -31,6 +33,10 @@ If <code>uMax &lt; uMin</code>, an error occurs and no output is produced.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
 <li>
 July 17, 2017, by Michael Wetter:<br/>
 Removed cyclical definition.
@@ -79,5 +85,9 @@ Icon(graphics={
     Text(
       extent={{-100,-98},{-18,-72}},
       lineColor={0,0,0},
-          textString="%uMin")}));
+          textString="%uMin"),
+    Text(
+      extent={{226,60},{106,10}},
+      lineColor={0,0,0},
+      textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}));
 end Limiter;

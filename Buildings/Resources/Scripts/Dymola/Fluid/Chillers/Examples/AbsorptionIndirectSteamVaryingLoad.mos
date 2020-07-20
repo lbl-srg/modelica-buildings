@@ -1,0 +1,6 @@
+simulateModel("Buildings.Fluid.Chillers.Examples.AbsorptionIndirectSteamVaryingLoad", stopTime=86400, method="Cvode", tolerance=1e-06, resultFile="AbsorptionIndirectSteamVaryingLoad");
+createPlot(id=1, position={15, 15, 1194, 955}, y={"chi.sta_a1.T", "chi.sta_b1.T", "chi.sta_a2.T", "chi.sta_b2.T"}, range={0.0, 90000.0, 0.0, 40.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, displayUnits={"degC", "degC", "degC", "degC"});
+createPlot(id=1, position={15, 15, 1194, 188}, y={"chi.QGen_flow", "chi.QEva_flow", "chi.QCon_flow"}, range={0.0, 90000.0, -50000.0, 50000.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1, position={15, 15, 1194, 187}, y={"chi.CR", "chi.PLR", "per.PLRMax", "per.PLRMin"}, range={0.0, 90000.0, -1.0, 2.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+createPlot(id=1, position={15, 15, 1194, 188}, y={"QEva_QGen.y"}, range={0.0, 90000.0, -1.0, 1.0}, grid=true, subPlot=4, colors={{28,108,200}});
+createPlot(id=1, position={15, 15, 1194, 188}, y={"QEva_P.y"}, range={0.0, 90000.0, -100.0, 100.0}, grid=true, subPlot=5, colors={{28,108,200}});

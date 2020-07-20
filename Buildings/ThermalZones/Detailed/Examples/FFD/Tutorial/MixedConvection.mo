@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.Detailed.Examples.FFD.Tutorial;
-model MixedConvection "Tutorial for Mixed Convection case"
+model MixedConvection "Tutorial for the mixed convection case"
   extends Modelica.Icons.Example;
   package MediumA = Buildings.Media.Air (
         T_default=283.15) "Medium model";
@@ -9,7 +9,7 @@ model MixedConvection "Tutorial for Mixed Convection case"
   parameter Integer nSurBou=6
     "Number of surface that are connected to the room air volume";
   parameter Integer nConExt=0
-    "Number of exterior constructions withour a window";
+    "Number of exterior constructions without a window";
   parameter Integer nConPar=0 "Number of partition constructions";
   Modelica.Blocks.Sources.Constant qRadGai_flow(k=0) "Radiative heat gain"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
@@ -39,6 +39,8 @@ model MixedConvection "Tutorial for Mixed Convection case"
     hRoo = 1,
     linearizeRadiation = false,
     useCFD = true,
+    haveSource=false,
+    nSou=0,
     sensorName = {"Occupied zone air temperature", "Velocity"},
     cfdFilNam = "modelica://Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/Tutorial/MixedConvection.ffd",
     nConExt = nConExt,
@@ -135,8 +137,8 @@ with the FFD program by simulating ventilation with mixed convection in an empty
 </p>
 <h4>Case Description</h4>
 <p>
-The temperature of the floor is fixed at <i>30</i>&circ;C and the temperature of the walls and the ceiling are fixed
-at <i>10</i>&circ;C. The supply air temperature is fixed at <i>10</i>&circ;C.
+The temperature of the floor is fixed at <i>30</i>&deg;C and the temperature of the walls and the ceiling are fixed
+at <i>10</i>&deg;C. The supply air temperature is fixed at <i>10</i>&deg;C.
 </p>
 <p>
 Figure (a) shows the schematic of the FFD simulation and Figure (b) shows the velocity vectors and temperatures on the X-Z plane at <i>Y = 0.5</i> m as simulated by the FFD.
@@ -352,7 +354,7 @@ Put the files <code>MixedConvection.ffd</code>, <code>MixedConvection.dat</code>
 directory <code>Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/Tutorial/</code>.
 </li>
 <li>
-Set the simulation stop time of the Modelica model to <code>180</code> seconds and choose, for example, the Radau solver.
+Set the simulation stop time of the Modelica model to <code>180</code> seconds and choose, for example, the CVode solver.
 </li>
 <li>
 Translate the model and start the simulation.
@@ -383,7 +385,8 @@ First implementation.
 </ul>
 </html>"),
     experiment(Tolerance=1e-06, StopTime=180),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/FFD/Tutorial/MixedConvection.mos"
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/FFD/Tutorial/MixedConvection.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(extent={{-80,-160},{200,120}}, preserveAspectRatio=false),
         graphics));

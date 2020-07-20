@@ -26,8 +26,8 @@ algorithm
     x=r_V,
     x1=per.r_V[i],
     x2=per.r_V[i + 1],
-    y1=per.r_V[i],
-    y2=per.r_V[i + 1],
+    y1=per.r_P[i],
+    y2=per.r_P[i + 1],
     y1d=d[i],
     y2d=d[i+1]);
   end if;
@@ -57,8 +57,15 @@ If the data <i>d</i> define a monotone decreasing sequence, then
 </html>", revisions="<html>
 <ul>
 <li>
+December, 22, 2019, by Kathryn Hinkelman:<br/>
+Corrected cubic hermite spline calculation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1691\">
+issue 1691</a>.
+</li>
+<li>
 June 4, 2016, by Michael Wetter:<br/>
-Change function from using <code>eta</code> to <code>r_P</code>.
+Change function from using <code>eta</code> to <code>r_P</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/522\">
 issue 522</a>.

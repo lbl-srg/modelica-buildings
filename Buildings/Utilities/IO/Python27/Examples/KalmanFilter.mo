@@ -65,7 +65,7 @@ the function <code>filter(u)</code> in the above Python file.
 The function <code>filter(u)</code> implements a Kalman filter that estimates and returns
 the state.
 The function saves its temporary variables to a file called
-<code>tmp-kalman.pkl</code>.
+<code>tmp-kalman.json</code>.
 </p>
 <p>
 When simulating this model, the figure below will be generated which

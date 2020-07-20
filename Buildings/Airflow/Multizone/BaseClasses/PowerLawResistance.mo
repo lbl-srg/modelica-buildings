@@ -5,6 +5,9 @@ partial model PowerLawResistance "Flow resistance that uses the power law"
     final m_flow_nominal=rho_default*k*dp_turbulent);
   extends Buildings.Airflow.Multizone.BaseClasses.ErrorControl;
 
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
+
   parameter Real m(min=0.5, max=1)
     "Flow exponent, m=0.5 for turbulent, m=1 for laminar";
   parameter Boolean useDefaultProperties=true
@@ -13,9 +16,6 @@ partial model PowerLawResistance "Flow resistance that uses the power law"
   parameter Modelica.SIunits.PressureDifference dp_turbulent(min=0, displayUnit="Pa") = 0.1
     "Pressure difference where laminar and turbulent flow relation coincide. Recommended = 0.1"
     annotation(Dialog(tab="Advanced"));
-
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   Modelica.SIunits.VolumeFlowRate V_flow
     "Volume flow rate through the component";
@@ -54,6 +54,10 @@ protected
     "Air mass exchanged (for purpose of error control only)";
 initial equation
   mExc=0;
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
+
 equation
   if forceErrorControlOnFlow then
     der(mExc) = port_a.m_flow;
@@ -127,6 +131,12 @@ The model is used as a base for the interzonal air flow models.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">Buildings, #1341</a>.
+</li>
 <li>
 June 24, 2018, by Michael Wetter:<br/>
 Removed parameter <code>A</code> because

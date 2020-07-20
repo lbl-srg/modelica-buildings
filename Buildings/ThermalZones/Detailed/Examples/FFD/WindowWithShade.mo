@@ -66,7 +66,7 @@ model WindowWithShade
     experiment(Tolerance=1e-06, StopTime=300),
     Documentation(info="<html>
 <p>This model tests the cosimulation of <a href=\"modelica://Buildings.ThermalZones.Detailed.CFD\">Buildings.ThermalZones.Detailed.CFD</a> with the FFD program by simulating natural convection in a room with only exterior walls and windows with shades. </p>
-<p>Figure (a) show the schematic of FFD simulation. The walls and the windows are exposed to the ambient environment. The wall is well insulated and the initial temperature is <i>20</i>&circ;C. The initial temperature for the room air is 17&circ;C.</p>
+<p>Figure (a) show the schematic of FFD simulation. The walls and the windows are exposed to the ambient environment. The wall is well insulated and the initial temperature is <i>20</i>&deg;C. The initial temperature for the room air is 17&deg;C.</p>
 <p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Examples/FFD/WindowWithShadeSchematic.png\" alt=\"image\"/> </p>
 <p align=\"center\">Figure (a) </p>
 <p>Figure (b) shows the velocity vectors and temperature contours in degree Celsius on the X-Z plane at <i>Y = 0.5</i> m, at <i>t = 300</i> s as simulated by the FFD. </p>

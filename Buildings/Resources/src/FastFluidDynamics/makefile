@@ -1,11 +1,11 @@
 #######################################################
 # LINUX OPERATING SYSTEMS
+#
+# Makefile to compile FFD code
+# Michael Wetter (MWetter@lbl.gov) October 24, 2012
 #######################################################
 SHELL = /bin/sh
 ARCH = $(shell getconf LONG_BIT)
-# Makefile to compile Python interface
-# Michael Wetter (MWetter@lbl.gov) October 24, 2012
-
 
 # Directory where executable will be copied to
 BINDIR = ../../Library/linux$(ARCH)

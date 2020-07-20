@@ -36,7 +36,11 @@ annotation (
         Line(
           points={{-100,60}},
           color={0,0,0},
-          thickness=1)}),
+          thickness=1),
+        Text(
+          extent={{226,60},{106,10}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}),
     Documentation(info="<html>
 <p>
 Block that outputs <code>y = avg(u1,u2)</code>,
@@ -45,6 +49,10 @@ where
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
 <li>
 March 15, 2017, by Jianjun Hu:<br/>
 First implementation, based on the implementation of the

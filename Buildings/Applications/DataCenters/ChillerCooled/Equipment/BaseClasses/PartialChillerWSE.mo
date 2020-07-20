@@ -17,6 +17,9 @@ partial model PartialChillerWSE
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.ThreeWayValveParameters(
      final activate_ThrWayVal=use_controller);
 
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
+
   //Chiller
   parameter Integer numChi(min=1) "Number of chillers"
     annotation(Dialog(group="Chiller"));
@@ -55,10 +58,6 @@ partial model PartialChillerWSE
   parameter Real yThrWayValWSE_start=0
     "Initial value of output from three-way bypass valve in WSE"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_controller and use_inputFilter));
-
-  // Advanced
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
@@ -270,6 +269,11 @@ partial model PartialChillerWSE
     "Temperature sensor"
     annotation (Placement(transformation(extent={{28,14},{8,34}})));
 
+initial equation
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
+
 equation
   for i in 1:numChi loop
   connect(chiPar.on[i], on[i])
@@ -471,6 +475,12 @@ inclduing chillers and integrated/non-integrated water-side economizers.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
+</li>
 <li>
 June 30, 2017, by Yangyang Fu:<br/>
 First implementation.

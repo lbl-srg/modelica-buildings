@@ -62,7 +62,11 @@ annotation (defaultComponentName="senMasFra",
           textString="X"),
         Line(points={{0,100},{0,70}}, color={0,0,127}),
         Line(points={{-100,0},{-70,0}}, color={0,128,255}),
-        Line(points={{70,0},{100,0}}, color={0,128,255})}),
+        Line(points={{70,0},{100,0}}, color={0,128,255}),
+        Text(
+         extent={{-20,120},{-140,70}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(X, leftjustified=false, significantDigits=3)))}),
   Documentation(info="<html>
 <p>
 This model outputs the mass fraction of the passing fluid.
@@ -76,6 +80,12 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 25, 2020, by Michael Wetter:<br/>
+Changed icon to display its operating state.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
+</li>
 <li>
 January 26, 2016, by Michael Wetter:<br/>
 Corrected wrong assignment

@@ -75,8 +75,9 @@ model ExteriorWallWithWindow "Test model for an exterior wall with a window"
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-74,-130})));
-  HeatTransfer.Radiosity.IndoorRadiosity indRad(A=AWin, linearize=
-        linearizeRadiation) "Model for indoor radiosity"
+  HeatTransfer.Radiosity.IndoorRadiosity indRad(
+    A=AWin,
+    linearize=linearizeRadiation) "Model for indoor radiosity"
     annotation (Placement(transformation(extent={{-122,-100},{-102,-80}})));
   Modelica.Blocks.Sources.Constant QAbs[1,size(glaSys.glass, 1)](each k=0)
     "Solar radiation absorbed by glass"
@@ -99,7 +100,7 @@ model ExteriorWallWithWindow "Test model for an exterior wall with a window"
 
   Buildings.HeatTransfer.Windows.BaseClasses.ShadeRadiation intShaRad[1](
     each thisSideHasShade=glaSys.haveInteriorShade,
-    each linearize=linearize,
+    each linearize=linearizeRadiation,
     each absIR_air=glaSys.shade.absIR_a,
     each absIR_glass=glaSys.shade.absIR_b,
     each tauIR_air=glaSys.shade.tauIR_a,
@@ -284,6 +285,12 @@ This model tests the exterior constructions with windows.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 18, 2020, by Michael Wetter:<br/>
+Corrected wrong parameter assignment.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1766\">#1766</a>.
+</li>
 <li>
 March 13, 2015, by Michael Wetter:<br/>
 Changed model for OpenModelica.

@@ -52,13 +52,13 @@ package Water "Package with model for liquid water with constant density"
       "Mass fraction as input signal connector";
 
   equation
-  assert(T >= T_min, "
-In "   + getInstanceName() + ": Temperature T exceeded its minimum allowed value of " + String(T_min-273.15)
-    + " degC (" + String(T_min) + " Kelvin)
+assert(T >= T_min, "
+  In " + getInstanceName() + ": Temperature T = " + String(T) + " K exceeded its minimum allowed value of " +
+  String(T_min-273.15) + " degC (" + String(T_min) + " Kelvin)
 as required from medium model \"" + mediumName + "\".");
-  assert(T <= T_max, "
-In "   + getInstanceName() + ": Temperature T exceeded its maximum allowed value of " + String(T_max-273.15)
-    + " degC (" + String(T_max) + " Kelvin)
+assert(T <= T_max, "
+  In " + getInstanceName() + ": Temperature T = " + String(T) + " K exceeded its maximum allowed value of " +
+  String(T_max-273.15) + " degC (" + String(T_max) + " Kelvin)
 as required from medium model \"" + mediumName + "\".");
 
     h = cp_const*(T-reference_T);

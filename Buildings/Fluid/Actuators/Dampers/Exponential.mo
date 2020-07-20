@@ -1,102 +1,74 @@
 within Buildings.Fluid.Actuators.Dampers;
-model Exponential "Air damper with exponential opening characteristics"
-  extends Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential(
-  final dp_nominal=(m_flow_nominal/kDam_default)^2,
-  dp(nominal=10),
-  final kFixed=0);
-protected
-   parameter Real kDam_default = sqrt(2*rho_default)*A/kThetaSqRt_default
-    "Flow coefficient for damper, k=m_flow/sqrt(dp), with unit=(kg*m)^(1/2)";
-   parameter Real kThetaSqRt_default(min=0)=
-     Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
-       y=1,
-       a=a,
-       b=b,
-       cL=cL,
-       cU=cU,
-       yL=yL,
-       yU=yU)
-    "Flow coefficient, kThetaSqRt = sqrt(pressure drop divided by dynamic pressure)";
-initial algorithm
-   assert(kThetaSqRt_default>0, "Flow coefficient must be strictly positive.");
-   annotation (
-defaultComponentName="dam",
+model Exponential
+  "Air damper with exponential opening characteristics"
+  extends Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential;
+equation
+  // Pressure drop calculation
+  if linearized then
+    m_flow*m_flow_nominal_pos = k^2*dp;
+  else
+    if homotopyInitialization then
+      if from_dp then
+        m_flow=homotopy(
+            actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+                  dp=dp, k=k,
+                  m_flow_turbulent=m_flow_turbulent),
+            simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
+      else
+        dp=homotopy(
+            actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+                  m_flow=m_flow, k=k,
+                  m_flow_turbulent=m_flow_turbulent),
+            simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
+        end if;  // from_dp
+    else // do not use homotopy
+      if from_dp then
+        m_flow=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+                  dp=dp, k=k, m_flow_turbulent=m_flow_turbulent);
+      else
+        dp=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+                  m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent);
+      end if;  // from_dp
+    end if; // homotopyInitialization
+  end if; // linearized
+annotation (
+defaultComponentName="damExp",
 Documentation(info="<html>
 <p>
-This model is an air damper with flow coefficient that is an exponential function
-of the opening angle. The model is as in ASHRAE 825-RP.
-A control signal of <code>y=0</code> means the damper is closed, and <code>y=1</code> means the damper
-is open. This is opposite of the implementation of ASHRAE 825-RP, but used here
-for consistency within this library.
+Model of two flow resistances in series:
 </p>
+<ul>
+<li>
+one resistance has a fixed flow coefficient;
+</li>
+<li>
+the other resistance represents a damper whose flow coefficient is an
+exponential function of the opening angle.
+</li>
+</ul>
 <p>
-For <code>yL &lt; y &lt; yU</code>, the damper characteristics is
+The lumped flow coefficient <i>k(y)</i> (function of the fractional opening
+<i>y</i>) is used to compute the mass flow rate versus pressure drop relation as:
 </p>
-<p align=\"center\" style=\"font-style:italic;\">
-  k<sub>d</sub>(y) = exp(a+b (1-y)).
-</p>
-<p>
-Outside this range, the damper characteristic is defined by a quadratic polynomial that
-matches the damper resistance at <code>y=0</code> and <code>y=yL</code> or <code>y=yU</code> and
-<code>y=1</code>, respectively. In addition, the polynomials are such that
-<i>k<sub>d</sub>(y)</i> is
-differentiable in <i>y</i> and the derivative is continuous.
-</p>
-<p>
-The damper characteristics <i>k<sub>d</sub>(y)</i> is then used to
-compute the flow coefficient <i>k(y)</i> as
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-k(y) = (2 &rho; &frasl; k<sub>d</sub>(y))<sup>1/2</sup> A,
-</p>
-<p>
-where <i>A</i> is the face area, which is computed using the nominal
-mass flow rate <code>m_flow_nominal</code>, the nominal velocity
-<code>v_nominal</code> and the density of the medium. The flow coefficient <i>k(y)</i>
-is used to compute the mass flow rate versus pressure
-drop relation as
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-  m = sign(&Delta;p) k(y)  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
+<p style=\"font-style:italic;\">
+  m&#775; = sign(&Delta;p) k(y)  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
 </p>
 <p>
 with regularization near the origin.
-</p>
 <p>
-ASHRAE 825-RP lists the following parameter values as typical:
-</p>
-<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr>
-<td></td><th>opposed blades</th><th>single blades</th>
-</tr>
-<tr>
-<td>yL</td><td>15/90</td><td>15/90</td>
-</tr>
-<tr>
-<td>yU</td><td>55/90</td><td>65/90</td>
-</tr>
-<tr>
-<td>k0</td><td>1E6</td><td>1E6</td>
-</tr>
-<tr>
-<td>k1</td><td>0.2 to 0.5</td><td>0.2 to 0.5</td>
-</tr>
-<tr>
-<td>a</td><td>-1.51</td><td>-1.51</td>
-</tr>
-<tr>
-<td>b</td><td>0.105*90</td><td>0.0842*90</td>
-</tr>
-</table>
-
-<h4>References</h4>
-<p>
-P. Haves, L. K. Norford, M. DeSimone and L. Mei,
-<i>A Standard Simulation Testbed for the Evaluation of Control Algorithms &amp; Strategies</i>,
-ASHRAE Final Report 825-RP, Atlanta, GA.
+For a description of the damper opening characteristics and typical
+parameter values, see the partial model
+<a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential\">
+Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 23, 2019, by Antoine Gautier:<br/>
+Added the pressure drop calculation as it is no longer in the base class.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1188\">#1188</a>.
+</li>
 <li>
 March 22, 2017, by Michael Wetter:<br/>
 Updated documentation.

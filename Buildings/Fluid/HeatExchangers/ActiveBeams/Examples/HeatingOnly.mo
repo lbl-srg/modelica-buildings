@@ -126,7 +126,7 @@ equation
 <p>
 This example tests the implementation of <a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating\">
 Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating</a>, but operates it only in heating mode.
-An air volume is maintained at a temperature above <i>22&circ;</i>C by a controller
+An air volume is maintained at a temperature above <i>22&deg;</i>C by a controller
 that regulates the water flow rate in the active beam.
 </p>
 </html>", revisions="<html>

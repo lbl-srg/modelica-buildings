@@ -2,8 +2,9 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints;
 block ExhaustDamper
   "Control of actuated exhaust air dampers without fans"
 
-  parameter Modelica.SIunits.PressureDifference dpBuiSet(
-    displayUnit="Pa",
+  parameter Real dpBuiSet(
+    final unit="Pa",
+    final quantity="PressureDifference",
     max=30) = 12
     "Building static pressure difference relative to ambient (positive to pressurize the building)";
   parameter Real k(min=0, unit="1") = 0.5

@@ -16,7 +16,7 @@ model VAVBranch "Supply branch of a VAV system"
   Buildings.Fluid.Actuators.Dampers.PressureIndependent vav(
     redeclare package Medium = MediumA,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal = 220 + 20,
+    dpDamper_nominal=220 + 20,
     allowFlowReversal=allowFlowReversal) "VAV box for room" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},

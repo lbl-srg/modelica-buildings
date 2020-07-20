@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "tow.sta_a.T",
+    "tow.sta_b.T",
+    "tow.TAir",
+    "conFan.u_s",
+    "conFan.u_m",
+    "onOffCon.u",
+    "onOffCon.reference"
+  };

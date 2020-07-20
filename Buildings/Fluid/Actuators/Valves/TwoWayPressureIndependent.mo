@@ -3,7 +3,7 @@ model TwoWayPressureIndependent "Model of a pressure-independent two way valve"
   extends Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve(
             final linearized = false,
             from_dp=true,
-            phi=l + y_actual*(1 - l));
+            phi=max(0, l + y_actual*(1 - l)));
 
   parameter Real l2(min=1e-10) = 0.01
     "Gain for mass flow increase if pressure is above nominal pressure"
@@ -219,6 +219,14 @@ can serve both puroposes.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 9, 2019, by Filip Jorissen:<br/>
+Guarded the computation of <code>phi</code> using
+<code>max(0, . )</code> to avoid
+negative phi.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1223\">
+issue 1223</a>.
+</li>
 <li>
 October 25, 2019, by Jianjun Hu:<br/>
 Removed icon graphics annotation. This is for

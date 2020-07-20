@@ -105,13 +105,13 @@ The splitter model has been configured as a steady-state model.
 January 18, 2017, by Michael Wetter:<br/>
 Changed <code>spl.m_flow_nominal</code>, boundary condition and enabled sensor dynamics.<br/>
 This is for
-<a href=\"modelica://https://github.com/ibpsa/modelica-ibpsa/issues/657\">issue 657</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/657\">issue 657</a>.
 </li>
 <li>
 October 14, 2016, by Michael Wetter:<br/>
 First implementation.<br/>
 This is for
-<a href=\"modelica://https://github.com/ibpsa/modelica-ibpsa/issues/451\">issue 451</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/451\">issue 451</a>.
 </li>
 </ul>
 </html>"));

@@ -151,7 +151,6 @@ equation
           pattern=LinePattern.None,
           lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
-          fontSize=12,
           textString="Simplified model of
 an HVAC system
 in Modelica that could
@@ -161,7 +160,6 @@ be exposed as an FMU"),
           pattern=LinePattern.None,
           lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
-          fontSize=12,
           textString="Simplified model of
 a thermal zone that
 may be in an FMU
@@ -191,6 +189,12 @@ connected to the adaptor <code>hvacAda</code>, rather than the volume <code>vol<
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 11, 2020, by Michael Wetter:<br/>
+Removed <code>fontSize</code> in annotation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1318\">#1318</a>.
+</li>
 <li>
 November 29, 2016, by Michael Wetter:<br/>
 Added separate signal for outdoor temperature used by HVAC system. This is

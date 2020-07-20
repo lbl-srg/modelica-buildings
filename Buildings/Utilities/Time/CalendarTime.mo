@@ -49,17 +49,24 @@ protected
   final constant Integer firstYear = 2010
     "First year that is supported, i.e. the first year in timeStampsNewYear[:]";
   final constant Integer lastYear = firstYear + size(timeStampsNewYear,1) - 1;
-  constant Modelica.SIunits.Time timeStampsNewYear[12] = {
+  constant Modelica.SIunits.Time timeStampsNewYear[22] = {
     1262304000.0, 1293840000.0, 1325376000.0,
     1356998400.0, 1388534400.0, 1420070400.0,
     1451606400.0, 1483228800.0, 1514764800.0,
-    1546300800.0, 1577836800.0, 1609459200.0}
-    "Epoch time stamps for new years day 2010 to 2021";
-  constant Boolean isLeapYear[11] = {
+    1546300800.0, 1577836800.0, 1609459200.0,
+    1640995200.0, 1672531200.0, 1704067200.0,
+    1735689600.0, 1767225600.0, 1798761600.0,
+    1830297600.0, 1861920000.0, 1893456000.0,
+    1924992000.0}
+    "Epoch time stamps for new years day 2010 to 2031";
+  constant Boolean isLeapYear[21] = {
     false, false, true, false,
     false, false, true, false,
-    false, false, true}
-    "List of leap years starting from firstYear (2010), up to and including 2020";
+    false, false, true, false,
+    false, false, true, false,
+    false, false, true, false,
+    false}
+    "List of leap years starting from firstYear (2010), up to and including 2030";
   final constant Integer dayInMonth[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}
     "Number of days in each month";
   parameter Modelica.SIunits.Time timOff(fixed=false) "Time offset";
@@ -271,6 +278,10 @@ equation
   Documentation(revisions="<html>
 <ul>
 <li>
+November 6, 2019, by Milica Grahovac:<br/>
+Extended functionality to year 2030.
+</li>
+<li>
 August 20, 2019, by Filip Jorissen:<br/>
 Revised implementation such that the meaning of <code>time</code> is better explained
 and unix time stamps are correctly defined with respect to GMT.
@@ -330,10 +341,10 @@ Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>
 must also be defined with GMT as the time stamp.
 
 The user can choose from new year, midnight for a number of years:
-2010 to 2020 and also 1970.
+2010 to 2030 and also 1970.
 The latter corresponds to a unix stamp of <i>0</i>.
 (Note that when choosing the reference time equal to 0 at 1970,
-the actual simulation time must be within the 2010-2020 range.
+the actual simulation time must be within the 2010-2030 range.
 For instance <code>startTime = 1262304000</code> corresponds
 to the simulation starting on the 1st of January 2010
 when setting <code>zerTim = ZeroTime.UnixTimeStamp</code>.

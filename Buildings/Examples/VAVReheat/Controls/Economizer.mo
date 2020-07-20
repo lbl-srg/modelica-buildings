@@ -242,7 +242,7 @@ air requirement and an override for freeze protection.
 December 20, 2016, by Michael Wetter:<br/>
 Added type conversion for enumeration when used as an array index.<br/>
 This is for
-<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/602\">#602</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/602\">#602</a>.
 </li>
 <li>
 April 26, 2016, by Michael Wetter:<br/>
