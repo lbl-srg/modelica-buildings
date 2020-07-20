@@ -247,9 +247,8 @@ equation
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,140}})),
   Documentation(info="<html>
     <p>
-    Block that generates boiler plant enable signal according to ASHRAE RP-1711
-    Advanced Sequences of Operation for HVAC Systems Phase II – Central Plants
-    and Hydronic Systems (March 23, 2020), section 5.3.2.1, 5.3.2.2, and 5.3.2.3.
+    Block that generates boiler plant enable signal according to sections 5.3.2.1,
+    5.3.2.2, and 5.3.2.3 in RP-1711, March 2020 draft.
     </p>
     <p>
     The boiler plant should be enabled and disabled according to the following
