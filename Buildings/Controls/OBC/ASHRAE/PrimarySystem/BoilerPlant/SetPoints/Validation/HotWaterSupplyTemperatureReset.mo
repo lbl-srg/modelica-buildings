@@ -186,7 +186,7 @@ protected
     annotation (Placement(transformation(extent={{-150,-30},{-130,-10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con10(
-    k=false)
+    final k=false)
     "Constant source"
     annotation (Placement(transformation(extent={{-150,-60},{-130,-40}})));
 

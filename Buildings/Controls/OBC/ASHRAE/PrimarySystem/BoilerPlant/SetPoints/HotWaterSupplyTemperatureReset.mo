@@ -174,7 +174,8 @@ protected
     "Trim and respond controller for non-condensing stage type"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Edge edg "Detect start of stage change process"
+  Buildings.Controls.OBC.CDL.Logical.Edge edg
+    "Detect start of stage change process"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol(duration=holTimVal)
@@ -185,13 +186,16 @@ protected
     "Retain last value before stage change initiates"
     annotation (Placement(transformation(extent={{50,40},{70,60}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi "Logical switch"
+  Buildings.Controls.OBC.CDL.Logical.Switch swi
+    "Logical switch"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(nu=nPum) "Check if any pumps are turned on"
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
+    final nu=nPum)
+    "Check if any pumps are turned on"
     annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.TrimAndRespond                               triRes1(
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.TrimAndRespond triRes1(
     final iniSet=TPlaHotWatSetMax,
     final minSet=THotWatSetMinConBoi,
     final maxSet=TPlaHotWatSetMax,
@@ -214,13 +218,15 @@ protected
     "Identify non-condensing boilers in plant"
     annotation (Placement(transformation(extent={{-80,-260},{-60,-240}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nBoi](final
-      realTrue=fill(0, nBoi), final realFalse=fill(1, nBoi))
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nBoi](
+    final realTrue=fill(0, nBoi),
+    final realFalse=fill(1, nBoi))
     "Generate binary vector to identify condensing boilers"
     annotation (Placement(transformation(extent={{-40,-240},{-20,-220}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1[nBoi](final
-      realTrue=fill(1, nBoi), final realFalse=fill(0, nBoi))
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1[nBoi](
+    final realTrue=fill(1, nBoi),
+    final realFalse=fill(0, nBoi))
     "Generate binary vector to identify non-condensing boilers"
     annotation (Placement(transformation(extent={{-40,-280},{-20,-260}})));
 
