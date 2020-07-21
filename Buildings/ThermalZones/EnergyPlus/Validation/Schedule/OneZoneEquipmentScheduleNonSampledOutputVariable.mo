@@ -1,7 +1,8 @@
 within Buildings.ThermalZones.EnergyPlus.Validation.Schedule;
 model OneZoneEquipmentScheduleNonSampledOutputVariable
   "Validation case with a schedule that is not sampled, and output reader of the energy affected by the scheduled value"
-  extends Buildings.ThermalZones.EnergyPlus.Validation.Schedule.OneZoneEquipmentScheduleNonSampled;
+  extends Buildings.ThermalZones.EnergyPlus.Validation.Schedule.OneZoneEquipmentScheduleNonSampled(building(
+        verbosity=Buildings.ThermalZones.EnergyPlus.Types.Verbosity.Debug));
   Buildings.ThermalZones.EnergyPlus.OutputVariable equEle(
     name="Zone Electric Equipment Electric Power",
     key="LIVING ZONE",
