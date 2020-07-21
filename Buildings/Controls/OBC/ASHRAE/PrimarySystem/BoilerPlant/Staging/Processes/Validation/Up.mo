@@ -770,8 +770,7 @@ protected
     annotation (Placement(transformation(extent={{390,0},{410,20}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt18[nSta](
-    final k={1,
-        1,1})
+    final k={1,1,1})
     "Stage typer vector"
     annotation (Placement(transformation(extent={{540,140},{560,160}})));
 

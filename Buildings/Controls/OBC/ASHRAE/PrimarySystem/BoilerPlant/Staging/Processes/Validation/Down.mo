@@ -112,20 +112,20 @@ model Down
     annotation (Placement(transformation(extent={{-160,-170},{-140,-130}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold yPumChaPro(
-    final
-      trueHoldDuration=10, final falseHoldDuration=0)
+    final trueHoldDuration=10,
+    final falseHoldDuration=0)
     "Hold true pulse signal for visualization"
     annotation (Placement(transformation(extent={{-120,150},{-100,170}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold yPumChaPro1(
-    final
-      trueHoldDuration=10, final falseHoldDuration=0)
+    final trueHoldDuration=10,
+    final falseHoldDuration=0)
     "Hold true pulse signal for visualization"
     annotation (Placement(transformation(extent={{250,150},{270,170}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold yPumChaPro4(
-    final
-      trueHoldDuration=10, final falseHoldDuration=0)
+    final trueHoldDuration=10,
+    final falseHoldDuration=0)
     "Hold true pulse signal for visualization"
     annotation (Placement(transformation(extent={{-120,-186},{-100,-166}})));
 
@@ -136,14 +136,14 @@ model Down
     annotation (Placement(transformation(extent={{-120,190},{-100,210}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold yStaChaPro1(
-    final
-      trueHoldDuration=10, final falseHoldDuration=0)
+    final trueHoldDuration=10,
+    final falseHoldDuration=0)
     "Hold true pulse signal for visualization"
     annotation (Placement(transformation(extent={{250,190},{270,210}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold yStaChaPro4(
-    final
-      trueHoldDuration=10, final falseHoldDuration=0)
+    final trueHoldDuration=10,
+    final falseHoldDuration=0)
     "Hold true pulse signal for visualization"
     annotation (Placement(transformation(extent={{-120,-146},{-100,-126}})));
 
@@ -271,8 +271,7 @@ model Down
     annotation (Placement(transformation(extent={{-130,60},{-110,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant uBoi1[nBoi](
-    final k={true,
-        true})
+    final k={true,true})
     "Initial boiler status"
     annotation (Placement(transformation(extent={{110,170},{130,190}})));
 
@@ -381,8 +380,7 @@ model Down
     annotation (Placement(transformation(extent={{240,60},{260,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant uBoi4[nBoi](
-    final k={true,
-        true})
+    final k={true,true})
     "Initial boiler status"
     annotation (Placement(transformation(extent={{-260,-166},{-240,-146}})));
 
@@ -448,8 +446,7 @@ model Down
     annotation (Placement(transformation(extent={{-370,-86},{-350,-66}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con22[nBoi](
-    final k={1,
-        1})
+    final k={1,1})
     "Initial isolation valve positions"
     annotation (Placement(transformation(extent={{-300,-56},{-280,-36}})));
 
@@ -480,8 +477,7 @@ model Down
     annotation (Placement(transformation(extent={{-300,-236},{-280,-216}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant  con24[nBoi](
-    final k={true,
-        true})
+    final k={true,true})
     "Initial boiler setpoints for stage 1"
     annotation (Placement(transformation(extent={{-334,-206},{-314,-186}})));
 
