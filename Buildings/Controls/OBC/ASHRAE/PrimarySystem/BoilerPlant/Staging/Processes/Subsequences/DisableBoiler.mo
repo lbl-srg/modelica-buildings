@@ -11,8 +11,6 @@ block DisableBoiler
     final displayUnit="s") = 300
     "Enabled boiler operation time to indicate if it is proven on";
 
-
-
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaDow
     "Stage-down command"
     annotation (Placement(transformation(extent={{-240,120},{-200,160}}),
@@ -62,6 +60,7 @@ protected
     annotation (Placement(transformation(extent={{100,190},{120,210}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and2
+    "Check for stage change sigal and upstream device status"
     annotation (Placement(transformation(extent={{-160,130},{-140,150}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(

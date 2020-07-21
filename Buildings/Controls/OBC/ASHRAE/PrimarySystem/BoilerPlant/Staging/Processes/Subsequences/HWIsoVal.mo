@@ -186,6 +186,7 @@ protected
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Edge edg
+    "Edge detector"
     annotation (Placement(transformation(extent={{-20,-150},{0,-130}})));
 
 equation

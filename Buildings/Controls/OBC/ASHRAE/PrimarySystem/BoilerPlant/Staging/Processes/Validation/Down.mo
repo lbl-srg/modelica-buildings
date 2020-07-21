@@ -523,9 +523,11 @@ model Down
     annotation (Placement(transformation(extent={{-90,-66},{-70,-46}})));
 
   Buildings.Controls.OBC.CDL.Logical.Switch swi2
+    "Pass different instances of measured flow-rate after stage change"
     annotation (Placement(transformation(extent={{-50,-46},{-30,-26}})));
 
   Buildings.Controls.OBC.CDL.Logical.Latch lat10
+    "Hold true signal after stage change"
     annotation (Placement(transformation(extent={{-130,-46},{-110,-26}})));
 
 equation

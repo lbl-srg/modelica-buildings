@@ -864,9 +864,11 @@ protected
     annotation (Placement(transformation(extent={{670,270},{690,290}})));
 
   Buildings.Controls.OBC.CDL.Logical.Switch swi2
+    "Pass different instances of measured flow-rate after stage change"
     annotation (Placement(transformation(extent={{710,290},{730,310}})));
 
   Buildings.Controls.OBC.CDL.Logical.Latch lat10
+    "Hold true signal after stage change"
     annotation (Placement(transformation(extent={{630,290},{650,310}})));
 
 equation
