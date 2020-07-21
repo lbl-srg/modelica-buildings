@@ -29,14 +29,20 @@ size_t AllocateBuildingDataStructure(
   const char* buildingsLibraryRoot){
 
   const size_t nFMU = getBuildings_nFMU();
+  const size_t strLenWea = strlen(weaName);
+
   if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaFormatMessage("AllocateBuildingDataStructure: Allocating data structure for building %lu with name %s", nFMU, modelicaNameBuilding);
 
-  /* Validate the input date */
+  /* Validate the input data */
   if (access(idfName, R_OK) != 0)
     ModelicaFormatError("Cannot read idf file '%s' specified in '%s': %s.", idfName, modelicaNameBuilding, strerror(errno));
   if (access(weaName, R_OK) != 0)
     ModelicaFormatError("Cannot read weather file '%s' specified in '%s': %s.", weaName, modelicaNameBuilding, strerror(errno));
+
+  if (strcmp(".mos", strrchr(weaName, '.')) != 0)
+    ModelicaFormatError("Obtained weather file '%s', but require .mos file rather than %s file to be specified in '%s'.",
+      weaName, strrchr(weaName, '.'), modelicaNameBuilding);
 
   /* Allocate memory */
   if (nFMU == 0)
@@ -75,8 +81,17 @@ size_t AllocateBuildingDataStructure(
   }
 
   /* Assign the weather name */
-  mallocString((strlen(weaName)+1), "Not enough memory in EnergyPlusFMU.c. to allocate weather.", &(Buildings_FMUS[nFMU]->weather));
+  mallocString((strLenWea+1), "Not enough memory in EnergyPlusFMU.c. to allocate weather.", &(Buildings_FMUS[nFMU]->weather));
   strcpy(Buildings_FMUS[nFMU]->weather, weaName);
+  /* Change ending from .mos to .epw */
+  Buildings_FMUS[nFMU]->weather[strLenWea-3] = 'e';
+  Buildings_FMUS[nFMU]->weather[strLenWea-2] = 'p';
+  Buildings_FMUS[nFMU]->weather[strLenWea-1] = 'w';
+
+  /* Make sure that .epw file is readable */
+  if (access(weaName, R_OK) != 0)
+    ModelicaFormatError("Cannot read weather file '%s' specified in '%s' through %s (obtained after changing extension): %s.",
+      Buildings_FMUS[nFMU]->weather, modelicaNameBuilding, weaName, strerror(errno));
 
   /* Set the model hash to null */
   Buildings_FMUS[nFMU]->modelHash = NULL;

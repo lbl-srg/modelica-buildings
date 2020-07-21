@@ -8,7 +8,7 @@ model FloorOpenLoop "Open loop model of one floor"
     "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf")
     "Name of the IDF file";
   parameter String weaName = Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw")
+    "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     "Name of the weather file";
 
   final parameter Modelica.SIunits.MassFlowRate mOut_flow = 2

@@ -14,7 +14,7 @@ protected
     annotation(HideResult=true);
 
   final parameter String idfName=building.idfName "Name of the IDF file that contains this zone";
-  final parameter String epWeaName=building.epWeaName "Name of the EnergyPlus weather file (with epw extension)";
+  final parameter String weaName=building.weaName "Name of the EnergyPlus weather file (but with mos extension)";
 
   final parameter Boolean usePrecompiledFMU = building.usePrecompiledFMU
     "Set to true to use pre-compiled FMU with name specified by fmuName"
