@@ -1,7 +1,7 @@
-HWIsoVal
 DisableBoiler
 EnableBoiler
+HWIsoVal
 NextBoiler
+ResetHotWaterSupplyTemperature
 ResetMinBypass
 Validation
-ResetHotWaterSupplyTemperature
