@@ -48,10 +48,8 @@ protected
     "Cooling state value"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID cooCoiPI(
-    reverseAction=true,
+    reverseActing=false,
     reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
-    yMax=1,
-    yMin=0,
     controllerType=controllerTypeCooCoi,
     k=kCooCoi,
     Ti=TiCooCoi,

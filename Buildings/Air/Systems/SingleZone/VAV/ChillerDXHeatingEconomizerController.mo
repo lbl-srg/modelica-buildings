@@ -131,7 +131,7 @@ model ChillerDXHeatingEconomizerController
     final yMax=1,
     final yMin=0,
     final k=kCoo,
-    final reverseAction=true)
+    final reverseActing=false)
     "Cooling coil valve controller"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
 

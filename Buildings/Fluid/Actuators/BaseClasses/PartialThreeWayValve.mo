@@ -61,6 +61,7 @@ protected
   Modelica.Blocks.Sources.Constant uni(final k=1)
     "Outputs one for bypass valve"
     annotation (Placement(transformation(extent={{-92,40},{-80,52}})));
+
 initial equation
   assert(homotopyInitialization, "In " + getInstanceName() +
     ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",

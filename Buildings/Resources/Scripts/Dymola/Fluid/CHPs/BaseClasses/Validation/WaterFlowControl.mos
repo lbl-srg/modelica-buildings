@@ -1,0 +1,8 @@
+simulateModel("Buildings.Fluid.CHPs.BaseClasses.Validation.WaterFlowControl",
+    method="cvode", stopTime=3000, tolerance=1e-06, resultFile="WaterFlowControl");
+createPlot(id=1, position={20, 20, 900, 1200}, subPlot=1, y={"conWat.opeMod"}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 20, 900, 1200}, subPlot=2, y={"conWat.PEle"}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 20, 900, 1200}, subPlot=3, y={"conWat.TWatIn"}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 20, 900, 1200}, subPlot=4, y={"conWat.mWatSet_flow"}, grid=true, colors={{28,108,200}});
+
+

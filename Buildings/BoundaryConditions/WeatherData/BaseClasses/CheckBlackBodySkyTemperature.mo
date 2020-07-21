@@ -2,28 +2,29 @@ within Buildings.BoundaryConditions.WeatherData.BaseClasses;
 block CheckBlackBodySkyTemperature
   "Check the validity of the black-body sky temperature data"
   extends Modelica.Blocks.Icons.Block;
-  Modelica.Blocks.Interfaces.RealInput TIn(
-    final quantity="ThermodynamicTemperature",
-    final unit="K",
-    displayUnit="degC") "Black-body sky temperature"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealOutput TOut(
-    final quantity="ThermodynamicTemperature",
-    final unit="K",
-    displayUnit="degC") "Black-body sky temperature"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   parameter Modelica.SIunits.Temperature TMin(displayUnit="degC") = 203.15
     "Minimum allowed temperature";
   parameter Modelica.SIunits.Temperature TMax(displayUnit="degC") = 343.15
     "Maximum allowed temperature";
 
+  Modelica.Blocks.Interfaces.RealInput TIn(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC") "Black-body sky temperature"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+
+  Modelica.Blocks.Interfaces.RealOutput TBlaSky(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC") "Black-body sky temperature"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+
 equation
-  TOut = TIn;
-  assert(TOut > TMin, "In " + getInstanceName() + ": Weather data black-body sky temperature out of bounds.\n" + "   TOut = " + String(
-    TOut));
-  assert(TOut < TMax, "In " + getInstanceName() + ": Weather data black-body sky temperature out of bounds.\n" + "   TOut = " + String(
-    TOut));
+  TBlaSky = TIn;
+  assert(noEvent(TIn > TMin and TIn < TMax),
+    "In " + getInstanceName() + ": Weather data black-body sky temperature out of bounds.\n" + "   TIn = " +
+     String(TIn));
 
   annotation (
     defaultComponentName="cheSkyBlaBodTem",
@@ -35,6 +36,11 @@ the simulation will stop with an error.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Added <code>noEvent</code> and removed output connector.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1340\">#1340</a>.
+</li>
 <li>
 January 31, 2020 by Filip Jorissen:<br/>
 Improved error message.
@@ -49,8 +55,27 @@ This was implemented to get the corrected documentation string in the weather bu
 </ul>
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics={Text(
-          extent={{56,12},{-68,-16}},
+            100}}), graphics={
+        Ellipse(
+          extent={{-20,-78},{20,-40}},
+          lineColor={99,17,20},
+          lineThickness=0.5,
+          fillColor={99,17,20},
+          fillPattern=FillPattern.Solid),
+        Line(points={{-40,40},{-12,40}}),
+        Line(points={{-40,10},{-12,10}}),
+        Line(points={{-40,-20},{-12,-20}}),
+        Rectangle(
+          extent={{-12,40},{12,-44}},
+          lineColor={99,17,20},
+          fillColor={99,17,20},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-12,40},{-12,60},{-10,66},{-6,68},{0,70},{6,68},{10,66},{12,
+              60},{12,40},{-12,40}},
           lineColor={0,0,0},
-          textString="TSkyBlaBod")}));
+          lineThickness=0.5),
+        Line(
+          points={{-12,40},{-12,-45}},
+          thickness=0.5)}));
 end CheckBlackBodySkyTemperature;

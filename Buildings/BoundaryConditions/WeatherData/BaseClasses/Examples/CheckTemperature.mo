@@ -1,15 +1,15 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model CheckTemperature "Test model for CheckTemperature"
   extends Modelica.Icons.Example;
-  Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckTemperature
+  Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckDryBulbTemperature
     cheTemDryBul "Check dry bulb temperature "
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckTemperature
+  Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckDewPointTemperature
     cheTemDewPoi "Check dew point temperature"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
   Buildings.Utilities.Time.ModelTime modTim
     "Block that outputs the model time"
-    annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
+    annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim(
     weaDatStaTim=0,
     weaDatEndTim=31536000)
@@ -33,7 +33,7 @@ protected
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
 equation
   connect(modTim.y, conTim.modTim) annotation (Line(
-      points={{-79,10},{-62,10}},
+      points={{-69,10},{-62,10}},
       color={0,0,127}));
   connect(conTim.calTim, datRea.u) annotation (Line(
       points={{-39,10},{-22,10}},

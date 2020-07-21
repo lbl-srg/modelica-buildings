@@ -5,7 +5,6 @@ block FanVFD "Controller for fan revolution"
   Buildings.Controls.Continuous.LimPID con(
     yMax=1,
     yMin=0,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Td=60,
     Ti=10) "Controller"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));

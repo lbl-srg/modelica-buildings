@@ -1,10 +1,12 @@
 within Buildings.Controls.OBC.Utilities;
 block OptimalStart
   "Block that outputs the optimal start time for an HVAC system before occupancy"
-  parameter Modelica.SIunits.Time tOptMax(
+  parameter Real tOptMax(
+    final quantity="Time",
+    final unit="s",
+    displayUnit="h",
     final min=0,
-    max=21600,
-    displayUnit="h") = 10800
+    max=21600) = 10800
     "Maximum optimal start time";
   parameter Integer nDay(min=1) = 3
     "Number of previous days used to compute the optimal start up time";
@@ -12,13 +14,22 @@ block OptimalStart
     "Set to true to compute optimal start for heating";
   parameter Boolean computeCooling = false
     "Set to true to compute optimal start for cooling";
-  parameter Modelica.SIunits.TemperatureDifference uLow(final min=0) = 0
+  parameter Real uLow(
+    final quantity="TemperatureDifference",
+    final unit="K",
+    final min=0) = 0
     "Threshold to determine if the zone temperature reaches the occupied setpoint,
      must be a non-negative number";
-  parameter Modelica.SIunits.TemperatureDifference uHigh(final min=0) = 0.5
+  parameter Real uHigh(
+    final quantity="TemperatureDifference",
+    final unit="K",
+    final min=0) = 0.5
     "Threshold to determine the need to start the HVAC system before occupancy,
      must be greater than uLow";
-  parameter Modelica.SIunits.Time thrOptOn(
+  parameter Real thrOptOn(
+    final quantity="Time",
+    final unit="s",
+    displayUnit="h",
     final min=0,
     max=10800) = 60
     "Threshold time, optimal start on signal becomes true when tOpt larger than thrOptOn";
@@ -83,7 +94,10 @@ block OptimalStart
     "Optimal start time for cooling system"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
 protected
-  parameter Modelica.SIunits.Time tOptDef = 3600
+  parameter Real tOptDef(
+     final quantity="Time",
+    final unit="s",
+    displayUnit="h") = 3600
     "Default optimal start time";
   Buildings.Controls.OBC.CDL.Continuous.Max max
     "Get the maximum optimal start time "

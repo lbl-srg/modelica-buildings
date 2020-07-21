@@ -12,16 +12,12 @@ model LimPIDInitialDerivativeOutput
   Buildings.Controls.OBC.CDL.Continuous.LimPID limPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
     k=3,
-    yMax=1,
-    yMin=0,
     yd_start=0.2)
             "PID controller"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID limPD(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PD,
     k=3,
-    yMax=1,
-    yMin=0,
     yd_start=0.2) "PD controller"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 

@@ -718,6 +718,7 @@ annotation (
           pattern=LinePattern.Dash,
           textString="maxHigUnoCoo"),
         Text(
+          visible=have_winSen,
           extent={{-98,8},{-68,-4}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,

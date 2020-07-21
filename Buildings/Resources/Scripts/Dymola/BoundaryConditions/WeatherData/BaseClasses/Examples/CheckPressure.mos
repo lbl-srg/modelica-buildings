@@ -2,7 +2,7 @@ removePlots();
 simulateModel("Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples.CheckPressure", startTime=0, tolerance=1e-6, stopTime=8640000, method="dassl", resultFile="CheckPressure");
 createPlot(id = 1,
  position = {7, 7, 746, 517},
- y = {"chePre.PIn","chePre.POut"},
+ y = {"chePre.PIn","chePre.pAtm"},
  range = {0, 90000.0, 100000.0, -20000.0},
  autoscale = true,
  autoerase = true,

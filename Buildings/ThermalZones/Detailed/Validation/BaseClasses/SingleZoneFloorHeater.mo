@@ -14,8 +14,7 @@ model SingleZoneFloorHeater
     unit="K",
     displayUnit="degC")
     "Room setpoint temperature" annotation (Placement(transformation(extent={{-140,
-            -80},{-100,-40}}),
-                            iconTransformation(extent={{-140,-80},{-100,-40}})));
+            -80},{-100,-40}}), iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yEHea(
     unit="J")
     "Heating energy"
@@ -24,20 +23,19 @@ model SingleZoneFloorHeater
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRooMea(
     unit="K",
     displayUnit="degC")
-    "Measured room temperature" annotation (Placement(transformation(extent={{-140,
-            -110},{-100,-70}}),iconTransformation(extent={{-140,-110},{-100,-70}})));
+    "Measured room temperature"
+    annotation (Placement(transformation(extent={{-140,-110},{-100,-70}}),
+    iconTransformation(extent={{-140,-110},{-100,-70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID conPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     Ti=900,
-    yMax=1,
-    yMin=0,
     u_s(unit="K", displayUnit="degC"),
     u_m(unit="K", displayUnit="degC")) "Controller for heater"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    each p=273.15 + 10,
-    each k=20,
+    p=273.15 + 10,
+    k=20,
     y(unit="K", displayUnit="degC"))
     "Compute the leaving water setpoint temperature"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
