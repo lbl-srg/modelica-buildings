@@ -84,7 +84,7 @@ protected
       modelicaNameBuilding=modelicaNameBuilding,
       modelicaNameInputVariable=modelicaNameInputVariable,
       idfName=idfName,
-      weaName=epWeaName,
+      weaName=weaName,
       writerName=name,
       componentName=componentName,
       componentType=componentType,

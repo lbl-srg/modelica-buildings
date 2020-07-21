@@ -29,7 +29,7 @@ protected
       modelicaNameBuilding=modelicaNameBuilding,
       modelicaNameOutputVariable=modelicaNameOutputVariable,
       idfName=idfName,
-      weaName=epWeaName,
+      weaName=weaName,
       componentName=name,
       componentKey=key,
       usePrecompiledFMU=usePrecompiledFMU,
