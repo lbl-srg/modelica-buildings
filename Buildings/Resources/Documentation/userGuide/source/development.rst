@@ -110,6 +110,7 @@ Type Declarations
    provide a value for the ``start`` and ``nominal`` attribute.
 #. Use types from ``Modelica.SIunits`` where possible.
 
+
 Equations and Algorithms
 ------------------------
 
@@ -191,6 +192,7 @@ Equations and Algorithms
    this function.
    See `implementation of function derivatives <Function-Derivatives>`__.
 
+
 Functions
 ---------
 
@@ -204,6 +206,7 @@ Functions
    processor cannot invert the linear equation, which can lead to
    coupled systems of equations. See
    ``Buildings.Fluid.BaseClasses.FlowModels`` for an example.
+
 
 Package order
 -------------
@@ -242,6 +245,7 @@ Package order
 
    The remaining classes are ordered as follows and inserted between the above list:
    First, models, blocks and records are listed, then functions, and then packages.
+
 
 Documentation
 -------------
@@ -394,6 +398,7 @@ Documentation
        </p>
 
 14. Always use lower case html tags.
+15. Provide a `reference` section if applicable.
 
 
 Adding a new class
@@ -444,7 +449,6 @@ that will be released with Buildings 6.0.0.
 thermodynamic calculations. The model shows that the cooling tower performance only depends on
 the control signal `y`, the air inlet temperature `TAir`, the water inlet temperature `TWatIn` and the
 water mass flow rate `mWat_flow`.
-
 
 
 Pressure drop
@@ -514,6 +518,10 @@ The following rules need to be followed, in addition to the guidelines described
 #. The naming of parameters, inputs, outputs and instances must follow the naming
    conventions in
    `Buildings.UsersGuide.Conventions <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html#Buildings.UsersGuide.Conventions>`_.
+   Aim to avoid providing duplicate information in the instance name, for example if the block is within the `Boilers` package, 
+   the instance name does not need to have `boi` in it. Ensure that the instance name is unambiguous when viewed in a top level 
+   controller model. At an advanced level consider whether the model can be reused in other application and encapsulate in the 
+   variable name only those aspects that are common among all potential or existing applications.
 
 #. Parameters that can be grouped together, such as parameters relating to temperature setpoints
    or to the configuration of the trim and respond logic, should be grouped together with the
@@ -524,13 +532,24 @@ The following rules need to be followed, in addition to the guidelines described
 
 #. In the code text the instances must be ordered as follows:
      - If an instance has a type associated with it, then list them in this order: `boolean`, `integer`, `real`.
-     - Instances of lower dimensionality should come first, though grouping based on model specific similarities may be prioritized
-     - Parameters 
-     - Interfaces: first inputs, then outputs, then ports),
-   followed by any blocks/instances, (protected sections, 
-   make sure to protect correct blocks-they won’t be accessible in the plots); 
-   Parameters and interfaces (inputs, outputs) should be ordered each by type, boolean first, integer second, real third. 
-   Any vector parameters should be listed after the
+     - Instances of lower dimensionality should come first, e.g. scalar values before arrays, 
+       though grouping based on model specific similarities may be prioritized
+     - Instances should be ordered as: parameters, interfaces: first inputs, then outputs, then ports,
+       followed by any blocks/instances
+     - Protected instances are below all the unprotected instances and follow the same instance ordering rules.
+
+#. Each block must have a ``defaultComponentName`` annotation and a ``%name`` at icon layer
+
+#. To aid readability, the formatting of the Modelica source code file must be consistent with other
+   implemented blocks, e.g., use two spaces for indentation (no tabulators),
+   assign each parameter value on a new line. It is recommended to add an empty line between instances.
+   See for example
+   `G36_PR1.AHUs.SingleZone.VAV.SetPoints.ExhaustDamper <https://github.com/lbl-srg/modelica-buildings/blob/94d5919dbe1b2f2e317e7b69800f3b3ad07be930/Buildings/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/SetPoints/ExhaustDamper.mo>`_.
+
+#. For parameters, where generally valid values can be provided, provide them
+   as default values.
+
+#. Note that the protected instances are not accessible with the plots used in the validation tests.
 
 #. Add comments to all the instances such as parameters, interfaces, blocks. The comments should be short and concise. The comments 
    should not contain redundant information and hard coded parameters. If the functionality of an instance is obvious the developer may use
@@ -542,18 +561,6 @@ The following rules need to be followed, in addition to the guidelines described
    need to be referenced using the html ``<code>...</code>`` element.
    In the ``info`` section, units need to be provided in SI units, or in dual units. For SI units,
    use Kelvin for temperature *differences* and degree Celsius for actual temperatures.
-
-#. Each block must have a ``defaultComponentName`` annotation.
-
-#. To aid readability, the formatting of the Modelica source code file must be consistent with other
-   implemented blocks, e.g., use two spaces for indentation (no tabulators),
-   assign each parameter value on a new line, list first all parameters, then all inputs, all
-   outputs, and finally all instances of other blocks.
-   See for example
-   `G36_PR1.AHUs.SingleZone.VAV.SetPoints.ExhaustDamper <https://github.com/lbl-srg/modelica-buildings/blob/94d5919dbe1b2f2e317e7b69800f3b3ad07be930/Buildings/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/SetPoints/ExhaustDamper.mo>`_.
-
-#. For parameters, where generally valid values can be provided, provide them
-   as default values.
 
 #. For PI controllers, normalize the inputs for setpoint and measured value so
    that the control error is of the order of one.
@@ -592,21 +599,21 @@ The following rules need to be followed, in addition to the guidelines described
 
     Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
       final unit="K",
-      displayUnit="degC") "Measured zone air temperature";
+      final displayUnit="degC") "Measured zone air temperature";
 
     Buildings.Controls.OBC.CDL.Interfaces.RealInput dTSup(
       final unit="K") "Temperature difference supply air minus exhaust air";
 
     Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDam(
-      min=0,
-      max=1,
+      final min=0,
+      final max=1,
       final unit="1") "Exhaust damper position";
-
-   Here, units are declared as ``final`` to avoid users to be able to change them, as
-   a change in unit may cause the control logic to be incorrect.
 
    Conversion of these units to non-SI units can be done programmatically by tools that
    process CDL.
+
+#. Units, quantities and value limits must be declared as ``final`` to avoid users to be able to change them, as
+   a change in unit may cause the control logic to be incorrect. Often display units are also declared as final.
 
 #. If the block diagram does not fit into the drawing pane, enlarge the drawing pane rather
    than making the blocks smaller.
@@ -626,7 +633,25 @@ The following rules need to be followed, in addition to the guidelines described
    Make sure sequences are tested for all modes of operation, and as applicable, for winter, shoulder
    and summer days.
 
+#. Perform code text and, if applicable, figure inspection to:
+      - ensure there are no remaining typos
+      - ensure no element `public` was added automatically after the `protected` code section
+      - 
 
+#. Use full paths to blocks, that is paths that start with `Buildings.Controls...`
+
+#. Final steps for a pull requests:
+      - make sure that the latest base branch is merged into the development branch
+      - after creating a pull request observe that the files changed pertain to the 
+        issue being addressed with the development branch
+
+#. For general rules on validation models see :numref:`sec_val`. Specifically for the 
+   sequence development ensure that:
+      - The instances of models being tested are listed at the top of the code text.
+      - Add a blank line at the end of each .mos script
+
+#. Run modelica-json$ node app.js -f Buildings/Controls/OBC/ASHRAE/PrimarySystem/{path to package} -o json -m modelica 
+   to catch some additional warnings such as missing block comments
 
 .. _sec_val:
 
