@@ -20,19 +20,9 @@
 #include "fmilib.h"
 #include "FMI2/fmi2FunctionTypes.h"
 
-void writeFormatLog(unsigned int level, const char *fmt, ...);
+void writeFormatLog(const char *fmt, ...);
 
-void writeLog(unsigned int level, const char* msg);
-
-void logStringArray(unsigned int level,
-                    const char* msg,
-                    const char** array,
-                    size_t n);
-
-void logValueReferenceArray(unsigned int level,
-                            const char* msg,
-                            const fmi2ValueReference* array,
-                            size_t n);
+void writeLog(const char* msg);
 
 void mallocSpawnReals(const size_t n, spawnReals** r);
 

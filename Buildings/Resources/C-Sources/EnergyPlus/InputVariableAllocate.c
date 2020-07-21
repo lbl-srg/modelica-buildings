@@ -20,13 +20,13 @@ FMUInputVariable* checkForDoubleInputVariableDeclaration(
     FMUInputVariable* ptrInpVar = (FMUInputVariable*)(fmuBld->inputVariables[iComVar]);
     if (!strcmp(fmiName, ptrInpVar->inputs->fmiNames[0])){
       if (FMU_EP_VERBOSITY >= MEDIUM){
-        ModelicaFormatMessage("*** Searched for input variable %s in building and found it.\n", fmiName);
+        writeFormatLog("*** Searched for input variable %s in building and found it.\n", fmiName);
       }
       return ptrInpVar;
     }
   }
   if (FMU_EP_VERBOSITY >= MEDIUM){
-     ModelicaFormatMessage("*** Searched for input variable %s in building but did not find it.\n", fmiName);
+     writeFormatLog("*** Searched for input variable %s in building but did not find it.\n", fmiName);
   }
   return NULL;
 }
@@ -75,7 +75,7 @@ void* InputVariableAllocate(
   FMUInputVariable* doubleInpVarSpec = NULL;
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("Entered InputVariableAllocate for zone %s.\n", modelicaNameInputVariable);
+    writeFormatLog("Entered InputVariableAllocate for zone %s.\n", modelicaNameInputVariable);
 
   checkAndSetVerbosity(verbosity);
 
@@ -86,18 +86,18 @@ void* InputVariableAllocate(
   setInputVariablePointerIfAlreadyInstanciated(modelicaNameInputVariable, &comVar);
   if (comVar != NULL){
     if (FMU_EP_VERBOSITY >= MEDIUM)
-      ModelicaFormatMessage("*** InputVariableAllocate called more than once for %s.\n", modelicaNameInputVariable);
+      writeFormatLog("*** InputVariableAllocate called more than once for %s.\n", modelicaNameInputVariable);
     /* Return pointer to this zone */
     return (void*) comVar;
   }
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("*** First call for this instance %s.\n", modelicaNameInputVariable);
+    writeFormatLog("*** First call for this instance %s.\n", modelicaNameInputVariable);
 
   /* ********************************************************************** */
   /* Initialize the input variable */
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("*** Initializing memory for input variable for %s.\n", modelicaNameInputVariable);
+    writeFormatLog("*** Initializing memory for input variable for %s.\n", modelicaNameInputVariable);
 
   comVar = (FMUInputVariable*) malloc(sizeof(FMUInputVariable));
   if ( comVar == NULL )
@@ -159,12 +159,12 @@ void* InputVariableAllocate(
   for(i = 0; i < nFMU; i++){
     FMUBuilding* fmu = getBuildingsFMU(i);
     if (FMU_EP_VERBOSITY >= MEDIUM){
-      ModelicaFormatMessage("*** Testing building %s in FMU %s for %s.\n", modelicaNameBuilding, fmu->fmuAbsPat, modelicaNameInputVariable);
+      writeFormatLog("*** Testing building %s in FMU %s for %s.\n", modelicaNameBuilding, fmu->fmuAbsPat, modelicaNameInputVariable);
     }
 
     if (strcmp(modelicaNameBuilding, fmu->modelicaNameBuilding) == 0){
       if (FMU_EP_VERBOSITY >= MEDIUM){
-        ModelicaMessage("*** Found a match.\n");
+        writeLog("*** Found a match.\n");
       }
       /* This is the same FMU as before. */
       doubleInpVarSpec = checkForDoubleInputVariableDeclaration(fmu, comVar->inputs->fmiNames[0]);
@@ -177,7 +177,7 @@ void* InputVariableAllocate(
       else{
         /* This input variable has not yet been added to this building */
         if (FMU_EP_VERBOSITY >= MEDIUM){
-          ModelicaFormatMessage("Assigning comVar->ptrBui = fmu with fmu at %p", fmu);
+          writeFormatLog("Assigning comVar->ptrBui = fmu with fmu at %p", fmu);
         }
         comVar->ptrBui = fmu;
 
@@ -202,16 +202,16 @@ void* InputVariableAllocate(
 
     if (FMU_EP_VERBOSITY >= MEDIUM){
       for(i = 0; i < getBuildings_nFMU(); i++){
-         ModelicaFormatMessage("InputVariableAllocate.c: Building %s is at pointer %p",
+         writeFormatLog("InputVariableAllocate.c: Building %s is at pointer %p",
            (getBuildingsFMU(i))->modelicaNameBuilding,
            getBuildingsFMU(i));
       }
-      ModelicaFormatMessage("Input variable ptr is at %p\n", comVar);
+      writeFormatLog("Input variable ptr is at %p\n", comVar);
     }
   }
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("Exiting allocation for %s with input variable ptr at %p", modelicaNameInputVariable, comVar);
+    writeFormatLog("Exiting allocation for %s with input variable ptr at %p", modelicaNameInputVariable, comVar);
   /* Return a pointer to this input variable */
   return (void*) comVar;
 }

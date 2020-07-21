@@ -22,7 +22,7 @@ void InputVariableInstantiate(
   FMUBuilding* bui = var->ptrBui;
 
   if (FMU_EP_VERBOSITY >= MEDIUM){
-    ModelicaFormatMessage("Entered InputVariableInstantiate for %s.\n",
+    writeFormatLog("Entered InputVariableInstantiate for %s.\n",
       var->modelicaNameInputVariable);
   }
   if (bui->fmu == NULL){

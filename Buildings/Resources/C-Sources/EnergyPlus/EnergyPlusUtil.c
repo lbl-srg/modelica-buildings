@@ -22,63 +22,36 @@
 #include <dlfcn.h>
 #endif
 
-void writeFormatLog(unsigned int level, const char *fmt, ...) {
+void writeFormatLog(const char *fmt, ...) {
   /*const char* prefix = "\033[1;33m*** Log\033[0m: ";*/
-  const char* prefix = "*** Log: ";
+//  const char* prefix = "*** Log: ";
   va_list args;
 
-  if (level <= FMU_EP_VERBOSITY){
-    fprintf(stdout, "%s", prefix);
-    va_start(args, fmt);
-    vprintf(fmt, args);
-    va_end(args);
-    fprintf(stdout, "%s", "\n");
-    fflush(stdout);
-    ModelicaFormatMessage(fmt, args);
-  }
+  freopen("output.txt", "a+", stdout);
+//  fprintf(stdout, "%s", prefix);
+  va_start(args, fmt);
+  vprintf(fmt, args);
+  va_end(args);
+  printf("%s", "\n");
+  fflush(stdout);
+  freopen("/dev/tty", "w", stdout); /*for gcc, ubuntu*/
+//  fprintf(stdout, "%s", "\n");
+//  fflush(stdout);
+//  ModelicaFormatMessage(fmt, args);
+
 }
 
-void writeLog(unsigned int level, const char* msg)
+void writeLog(const char* msg)
 {
-    if (level <= FMU_EP_VERBOSITY){
-      const char* prefix = "*** Log: ";
-      char* m;
-      mallocString((strlen(msg)+strlen(prefix)+1), "Failed to allocate string array in writeLog.", &m);
-      strcpy(m, prefix);
-      strcat(m, msg);
-      fprintf(stdout, "%s\n", m);
-      fflush(stdout);
-      ModelicaFormatMessage("%s", m);
-    }
-}
-
-void logStringArray(unsigned int level,
-                    const char* msg,
-                    const char** array,
-                    size_t n){
-  int i;
-  if (level <= FMU_EP_VERBOSITY){
-    writeLog(level, msg);
-    for(i = 0; i < n; i++)
-      writeLog(level, array[i]);
-    writeLog(level, "End of array.");
-  }
-}
-
-void logValueReferenceArray(unsigned int level,
-                            const char* msg,
-                            const fmi2ValueReference* array,
-                            size_t n){
-  int i;
-  if (level <= FMU_EP_VERBOSITY){
-    char res[100];
-    writeLog(level, msg);
-    for(i = 0; i < n; i++){
-      sprintf(res, "%d", array[i]);
-      writeLog(level, res);
-    }
-    writeLog(level, "End of array.");
-  }
+  writeFormatLog("%s\n", msg);
+//  const char* prefix = "*** Log: ";
+//  char* m;
+//  mallocString((strlen(msg)+strlen(prefix)+1), "Failed to allocate string array in writeLog.", &m);
+//  strcpy(m, prefix);
+//  strcat(m, msg);
+//  fprintf(stdout, "%s\n", m);
+//  fflush(stdout);
+//  ModelicaFormatMessage("%s", m);
 }
 
 
@@ -150,7 +123,7 @@ void setVariables(FMUBuilding* bui, const char* modelicaInstanceName, const spaw
   size_t i;
   fmi2_status_t status;
   if (FMU_EP_VERBOSITY >= TIMESTEP)
-    ModelicaFormatMessage("fmi2_import_set_real: Setting real variables in EnergyPlus for modelicaInstance %s, mode = %s.\n",
+    writeFormatLog("fmi2_import_set_real: Setting real variables in EnergyPlus for modelicaInstance %s, mode = %s.\n",
       modelicaInstanceName, fmuModeToString(bui->mode));
 
   for(i = 0; i < ptrReals->n; i++){
@@ -181,9 +154,9 @@ void stopIfResultsAreNaN(FMUBuilding* bui, const char* modelicaInstanceName, spa
       fmiVar = fmi2_import_get_variable_by_vr(bui->fmu, fmi2_base_type_real, ptrReals->valRefs[i]);
       varNam = fmi2_import_get_variable_name(fmiVar);
       if (isnan(ptrReals->valsSI[i])){
-        ModelicaFormatMessage("Received nan from EnergyPlus for %s at time = %.2f:\n", modelicaInstanceName, bui->time);
+        writeFormatLog("Received nan from EnergyPlus for %s at time = %.2f:\n", modelicaInstanceName, bui->time);
       }
-      ModelicaFormatMessage("  %s = %.2f\n", varNam, ptrReals->valsSI[i]);
+      writeFormatLog("  %s = %.2f\n", varNam, ptrReals->valsSI[i]);
     }
     ModelicaFormatError("Terminating simulation because EnergyPlus returned nan for %s. See Modelica log file for details.",
       fmi2_import_get_variable_name(fmi2_import_get_variable_by_vr(bui->fmu, fmi2_base_type_real, ptrReals->valRefs[i_nan])));
@@ -195,7 +168,7 @@ void getVariables(FMUBuilding* bui, const char* modelicaInstanceName, spawnReals
   size_t i;
   fmi2_status_t status;
   if (FMU_EP_VERBOSITY >= TIMESTEP)
-    ModelicaFormatMessage("fmi2_import_get_real: Getting real variables from EnergyPlus for object %s, mode = %s.\n",
+    writeFormatLog("fmi2_import_get_real: Getting real variables from EnergyPlus for object %s, mode = %s.\n",
       modelicaInstanceName, fmuModeToString(bui->mode));
   status = fmi2_import_get_real(bui->fmu, ptrReals->valRefs, ptrReals->n, ptrReals->valsEP);
   if (status != fmi2OK) {
@@ -223,7 +196,7 @@ double do_event_iteration(FMUBuilding* bui, const char* modelicaInstanceName){
   double tNext;
 
   if (FMU_EP_VERBOSITY >= TIMESTEP)
-    ModelicaFormatMessage("Entered do_event_iteration for %s, mode = %s\n",
+    writeFormatLog("Entered do_event_iteration for %s, mode = %s\n",
       modelicaInstanceName, fmuModeToString(bui->mode));
   /* Enter event mode if the FMU is in Continuous time mode
      because fmi2NewDiscreteStates can only be called in event mode */
@@ -232,7 +205,7 @@ double do_event_iteration(FMUBuilding* bui, const char* modelicaInstanceName){
       bui->time, modelicaInstanceName, fmuModeToString(bui->mode));
     /*
       if (FMU_EP_VERBOSITY >= TIMESTEP)
-      ModelicaFormatMessage("fmi2_import_enter_event_mode: Enter event mode in do_event_iteration for FMU %s\n", bui->modelicaNameBuilding);
+      writeFormatLog("fmi2_import_enter_event_mode: Enter event mode in do_event_iteration for FMU %s\n", bui->modelicaNameBuilding);
     status = fmi2_import_enter_event_mode(bui->fmu);
     if (status != fmi2_status_ok){
       ModelicaFormatError("Failed to enter event mode in do_event_iteration for FMU %s and modelicaInstance %s, returned status is %s.",
@@ -244,7 +217,7 @@ double do_event_iteration(FMUBuilding* bui, const char* modelicaInstanceName){
 /* *****************************************************************************
   if (bui->mode != initializationMode){
     if (FMU_EP_VERBOSITY >= TIMESTEP)
-      ModelicaFormatMessage("fmi2_import_enter_event_mode: Enter event mode in do_event_iteration for FMU %s\n", bui->modelicaNameBuilding);
+      writeFormatLog("fmi2_import_enter_event_mode: Enter event mode in do_event_iteration for FMU %s\n", bui->modelicaNameBuilding);
     status = fmi2_import_enter_event_mode(bui->fmu);
     if (status != fmi2_status_ok){
       ModelicaFormatError("Failed to enter event mode in do_event_iteration for FMU %s and modelicaInstance %s, returned status is %s.",
@@ -265,7 +238,7 @@ double do_event_iteration(FMUBuilding* bui, const char* modelicaInstanceName){
   while (eventInfo.newDiscreteStatesNeeded && !eventInfo.terminateSimulation && i < nMax) {
     i++;
     if (FMU_EP_VERBOSITY >= TIMESTEP)
-      ModelicaFormatMessage(
+      writeFormatLog(
         "fmi2_import_new_discrete_states: Doing event iteration with i = %lu, modelicaInstance = %s\n",
         i,
         modelicaInstanceName);
@@ -293,7 +266,7 @@ double do_event_iteration(FMUBuilding* bui, const char* modelicaInstanceName){
   else{
     tNext = eventInfo.nextEventTime;
     if (FMU_EP_VERBOSITY >= TIMESTEP)
-      ModelicaFormatMessage("Requested next event time at %.2f: %.2f;\t modelicaInstance = %s\n",
+      writeFormatLog("Requested next event time at %.2f: %.2f;\t modelicaInstance = %s\n",
         bui->time, tNext, modelicaInstanceName);
     if (tNext <= bui->time + 1E-6){
       ModelicaFormatError("EnergyPlus requested at time = %f a next event time of %f for modelicaInstance = %s. Zero time steps are not supported. Check with support.",
@@ -304,7 +277,7 @@ double do_event_iteration(FMUBuilding* bui, const char* modelicaInstanceName){
   /* THIS WAS WRONG: if newDiscreteStatesNeeded is false, the FMU is in continuous time mode
   setFMUMode(bui, continuousTimeMode); */
   if (FMU_EP_VERBOSITY >= TIMESTEP)
-    ModelicaFormatMessage("Exiting do_event_iteration for modelicaInstance %s, mode = %s with tNext = %.2f\n",
+    writeFormatLog("Exiting do_event_iteration for modelicaInstance %s, mode = %s with tNext = %.2f\n",
       modelicaInstanceName, fmuModeToString(bui->mode), tNext);
   return tNext;
 }
@@ -317,7 +290,7 @@ void advanceTime_completeIntegratorStep_enterEventMode(FMUBuilding* bui, const c
   fmi2Boolean terminateSimulation;
 
   if (FMU_EP_VERBOSITY >= TIMESTEP)
-    ModelicaFormatMessage("fmi2_import_enter_continuous_time_mode: ************ Setting EnergyPlus to continuous time mode at t = %.2f\n", time);
+    writeFormatLog("fmi2_import_enter_continuous_time_mode: ************ Setting EnergyPlus to continuous time mode at t = %.2f\n", time);
   status = fmi2_import_enter_continuous_time_mode(bui->fmu);
   if ( status != fmi2OK ) {
     ModelicaFormatError("Failed to set time in building FMU for %s, returned status is %s.",
@@ -326,7 +299,7 @@ void advanceTime_completeIntegratorStep_enterEventMode(FMUBuilding* bui, const c
   setFMUMode(bui, continuousTimeMode);
 
   if (FMU_EP_VERBOSITY >= TIMESTEP)
-    ModelicaFormatMessage("fmi2_import_set_time: Setting time in EnergyPlus to %.2f for %s.\n",
+    writeFormatLog("fmi2_import_set_time: Setting time in EnergyPlus to %.2f for %s.\n",
     time,
     modelicaInstanceName);
 
@@ -338,7 +311,7 @@ void advanceTime_completeIntegratorStep_enterEventMode(FMUBuilding* bui, const c
   }
 
   if (FMU_EP_VERBOSITY >= TIMESTEP)
-    ModelicaFormatMessage("fmi2_import_completed_integrator_step: Calling completed integrator step at t = %.2f\n", time);
+    writeFormatLog("fmi2_import_completed_integrator_step: Calling completed integrator step at t = %.2f\n", time);
   status = fmi2_import_completed_integrator_step(bui->fmu, fmi2_true, &enterEventMode, &terminateSimulation);
   if ( status != fmi2OK ) {
     ModelicaFormatError("Failed to complete integrator step in building FMU for %s, returned status is %s.",
@@ -356,7 +329,7 @@ void advanceTime_completeIntegratorStep_enterEventMode(FMUBuilding* bui, const c
   }
   /* Enter the FMU into event mode */
   if (FMU_EP_VERBOSITY >= TIMESTEP)
-    ModelicaFormatMessage(
+    writeFormatLog(
       "fmi2_import_enter_event_mode: Enter event mode for FMU %s, model %s\n",
       bui->modelicaNameBuilding, modelicaInstanceName);
   status = fmi2_import_enter_event_mode(bui->fmu);
@@ -373,7 +346,7 @@ void advanceTime_completeIntegratorStep_enterEventMode(FMUBuilding* bui, const c
 void setFMUMode(FMUBuilding* bui, FMUMode mode){
   if (FMU_EP_VERBOSITY >= MEDIUM){
     if (FMU_EP_VERBOSITY >= TIMESTEP || mode == instantiationMode || mode == initializationMode)
-    ModelicaFormatMessage("Switching %s to mode %s\n", bui->modelicaNameBuilding, fmuModeToString(mode));
+    writeFormatLog("Switching %s to mode %s\n", bui->modelicaNameBuilding, fmuModeToString(mode));
   }
   bui->mode = mode;
 }
@@ -445,7 +418,7 @@ void checkAndSetVerbosity(const int verbosity){
   }
   else{
     if (FMU_EP_VERBOSITY != verbosity){
-        ModelicaFormatMessage("Warning: Modelica objects declare different verbosity. Check parameter verbosity. Using highest declared value.\n");
+        writeFormatLog("Warning: Modelica objects declare different verbosity. Check parameter verbosity. Using highest declared value.\n");
     }
     if (verbosity > FMU_EP_VERBOSITY){
       FMU_EP_VERBOSITY = verbosity;
@@ -535,7 +508,7 @@ void getSimulationTemporaryDirectory(const char* modelicaNameBuilding, char** di
   const char* pre = "tmp-simulation-\0";
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("Entered getSimulationTemporaryDirectory.\n");
+    writeFormatLog("Entered getSimulationTemporaryDirectory.\n");
   /* Current directory */
   mallocString(lenCurDir, "Failed to allocate memory for current working directory in getSimulationTemporaryDirectory.", &curDir);
   memset(curDir, '\0', lenCurDir);
@@ -580,7 +553,7 @@ void fmilogger(jm_callbacks* c, jm_string module, jm_log_level_enu_t log_level, 
     ModelicaFormatError("Error in FMU: module = %s, log level = %d: %s", module, log_level, message);
   }
   else{
-    ModelicaFormatMessage("Message from FMU: module = %s, log level = %d: %s", module, log_level, message);
+    writeFormatLog("Message from FMU: module = %s, log level = %d: %s", module, log_level, message);
   }
 }
 
@@ -610,7 +583,7 @@ void buildVariableName(
   }
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("Built variable name '%s'.\n", *ptrFullName);
+    writeFormatLog("Built variable name '%s'.\n", *ptrFullName);
 
   return;
 }
@@ -684,14 +657,14 @@ void loadFMU_setupExperiment_enterInitializationMode(FMUBuilding* bui, double st
   /* Instantiate the FMU for this building */
   generateAndInstantiateBuilding(bui);
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("Instantiate building %s.\n", bui->modelicaNameBuilding);
+    writeFormatLog("Instantiate building %s.\n", bui->modelicaNameBuilding);
 
   bui->time = startTime;
   setFMUMode(bui, instantiationMode);
 
   /* This function can only be called once per building FMU */
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("fmi2_import_setup_experiment: Setting up experiment building %s at %p with startTime = %f.\n",
+    writeFormatLog("fmi2_import_setup_experiment: Setting up experiment building %s at %p with startTime = %f.\n",
       bui->modelicaNameBuilding, bui, startTime);
 
   /*ModelicaFormatError("********* Calling setting up experiment... for building at %p", bui->fmu);*/
@@ -705,7 +678,7 @@ void loadFMU_setupExperiment_enterInitializationMode(FMUBuilding* bui, double st
       0);                   /* stopTime */
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("fmi2_import_setup_experiment: Returned from setting up experiment with status %s.\n", fmi2_status_to_string(status));
+    writeFormatLog("fmi2_import_setup_experiment: Returned from setting up experiment with status %s.\n", fmi2_status_to_string(status));
 
   if( status != fmi2_status_ok ){
     ModelicaFormatError("Failed to setup experiment for FMU with name %s.",  bui->fmuAbsPat);
@@ -714,7 +687,7 @@ void loadFMU_setupExperiment_enterInitializationMode(FMUBuilding* bui, double st
   /* Enter initialization mode, because getting parameters is only
      allowed in the initialization mode, see FMU state diagram in standard */
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("fmi2_import_enter_initialization_mode: Enter initialization mode of FMU with name %s.\n",
+    writeFormatLog("fmi2_import_enter_initialization_mode: Enter initialization mode of FMU with name %s.\n",
       bui->fmuAbsPat);
   status = fmi2_import_enter_initialization_mode(bui->fmu);
   if( status != fmi2_status_ok ){

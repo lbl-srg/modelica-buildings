@@ -11,7 +11,7 @@
 
 void InputVariableFree(void* object){
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaMessage("Entered InputVariableFree.\n");
+    writeLog("Entered InputVariableFree.\n");
   if ( object != NULL ){
     FMUInputVariable* com = (FMUInputVariable*) object;
 
@@ -21,9 +21,9 @@ void InputVariableFree(void* object){
       FMUBuildingFree(com->ptrBui);
     }
     if (FMU_EP_VERBOSITY >= MEDIUM)
-      ModelicaMessage("Calling free in InputVariableFree.\n");
+      writeLog("Calling free in InputVariableFree.\n");
     free(com);
   }
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaMessage("Leaving InputVariableFree.c.\n");
+    writeLog("Leaving InputVariableFree.c.\n");
 }
