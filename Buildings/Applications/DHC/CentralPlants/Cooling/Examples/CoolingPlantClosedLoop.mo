@@ -16,7 +16,7 @@ model CoolingPlantClosedLoop
     "Nominal chilled water side pressure";
   parameter Modelica.SIunits.PressureDifference dpCW_nominal=46.2*1000
     "Nominal condenser water side pressure";
-  parameter Modelica.SIunits.Power QEva_nominal = mCHW_flow_nominal*4200*(6.67-18.56)
+  parameter Modelica.SIunits.Power QEva_nominal = mCHW_flow_nominal*cp*(7-16)
     "Nominal cooling capaciaty (Negative means cooling)";
   parameter Modelica.SIunits.MassFlowRate mMin_flow = 0.03
     "Minimum mass flow rate of single chiller";
@@ -45,9 +45,9 @@ model CoolingPlantClosedLoop
     "Nominal pressure drop of chilled water pumps";
 
   // building
-  parameter Modelica.SIunits.Power Q_flow_nominal=-500E3
+  parameter Modelica.SIunits.Power Q_flow_nominal=-691740
     "Nominal heat flow rate, negative";
-  parameter Modelica.SIunits.Power QCooLoa[:, :]= [0, -200E3; 6, -300E3; 12, -500E3; 18, -300E3; 24, -200E3]
+  parameter Modelica.SIunits.Power QCooLoa[:, :]= [0, -200E3; 6, -500E3; 12, -691740; 18, -500E3; 24, -200E3]
     "Cooling load table matrix, negative";
 
 
@@ -101,6 +101,7 @@ model CoolingPlantClosedLoop
     bui(
     redeclare package Medium=Medium,
     Q_flow_nominal=Q_flow_nominal,
+    use_inputFilter=false,
     mDis_flow_nominal=mCHW_flow_nominal,
     mByp_flow_nominal=0.1,
     QCooLoa=QCooLoa)
@@ -114,6 +115,12 @@ model CoolingPlantClosedLoop
   inner Modelica.Fluid.System system
     "System properties and default values"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
+
+protected
+  parameter Modelica.SIunits.SpecificHeatCapacity cp=
+   Medium.specificHeatCapacityCp(
+      Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default))
+    "Default specific heat capacity of medium";
 equation
   connect(weaDat.weaBus, weaBus) annotation (Line(
       points={{-60,-30},{-50,-30}},
@@ -138,8 +145,7 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(
-      StartTime=15552000,
-      StopTime=15638400,
+      StopTime=86400,
       Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"),
     __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/CentralPlants/Cooling/Examples/CoolingPlantClosedLoop.mos"

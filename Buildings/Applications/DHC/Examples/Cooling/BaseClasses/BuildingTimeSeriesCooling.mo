@@ -10,6 +10,9 @@ model BuildingTimeSeriesCooling
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+  parameter Boolean use_inputFilter=true
+    "= true, if speed is filtered with a 2nd order CriticalDamping filter"
+    annotation(Dialog(tab="Dynamics", group="Filtered speed"));
 
   // ets parameters
   parameter Modelica.SIunits.Temperature TSetDisRet = 273.15+16
@@ -24,7 +27,7 @@ model BuildingTimeSeriesCooling
 
   parameter Modelica.SIunits.MassFlowRate mBui_flow_nominal(
     final min=0,
-    final start=0.5)=Q_flow_nominal/(cp*(7 - 18))
+    final start=0.5)=Q_flow_nominal/(cp*(7 - 16))
     "Nominal mass flow rate of building cooling side"
     annotation (Dialog(group="Energy transfer station"));
 
@@ -151,6 +154,7 @@ model BuildingTimeSeriesCooling
     m_flow_nominal=mBui_flow_nominal,
     addPowerToMedium=false,
     nominalValuesDefineDefaultPressureCurve=true,
+    use_inputFilter=use_inputFilter,
     constantMassFlowRate=mBui_flow_nominal)
     "Building primary pump"
     annotation (Placement(transformation(extent={{10,-40},{-10,-20}})));
