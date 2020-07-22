@@ -28,7 +28,7 @@ Models, blocks and functions that are contributed need to adhere to the followin
 
    - the `Buildings library user guide <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html#Buildings.UsersGuide.Conventions>`_,
    - the `Modelica Standard Library user guide <https://simulationresearch.lbl.gov/modelica/releases/msl/3.2/help/Modelica_UsersGuide_Conventions.html#Modelica.UsersGuide.Conventions>`_, and
-   - the `Buildings` library :numref:`sec_sty_gui`.
+   - the `Style Guide` provided in subsections of :numref:`sec_sty_gui`
 
  * They need to be made available under the `Modelica Buildings Library license <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html#Buildings.UsersGuide.License>`_.
  * For models of thermofluid flow components, they need to be based on the base classes in
@@ -37,11 +37,15 @@ Models, blocks and functions that are contributed need to adhere to the followin
    Otherwise, it becomes difficult to ensure that the implementation is numerically robust.
 
 
-
 .. _sec_sty_gui:
 
+Style Guide
+-----------
+
+
 General
--------
+~~~~~~~
+
 
 1. Partial classes and base classes that are not of interest to the user
    should be stored in a subdirectory called ``BaseClasses``.
@@ -57,7 +61,8 @@ General
 
 
 Type Declarations
------------------
+~~~~~~~~~~~~~~~~~
+
 
 #. Declare all public parameters before protected ones. 
 #. Declare variables and final parameters that are not of interest to
@@ -112,7 +117,8 @@ Type Declarations
 
 
 Equations and Algorithms
-------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~
+
 
 #. Avoid events where possible.
 #. Only divide by quantities that cannot take on zero. For example, if
@@ -194,7 +200,8 @@ Equations and Algorithms
 
 
 Functions
----------
+~~~~~~~~~
+
 
 1. Use the ``smoothOrder`` annotation if a function is differentiable.
 2. If a function is invertible, also implement its inverse function and
@@ -209,7 +216,8 @@ Functions
 
 
 Package order
--------------
+~~~~~~~~~~~~~
+
 
 1. Packages are first sorted alphabetically by the function
    ``_sort_package_order``. That function is part of BuildingsPy
@@ -248,7 +256,8 @@ Package order
 
 
 Documentation
--------------
+~~~~~~~~~~~~~
+
 
 1.  Add a description string to all parameters and variables, including
     protected ones.
@@ -636,7 +645,6 @@ The following rules need to be followed, in addition to the guidelines described
 #. Perform code text and, if applicable, figure inspection to:
       - ensure there are no remaining typos
       - ensure no element `public` was added automatically after the `protected` code section
-      - 
 
 #. Use full paths to blocks, that is paths that start with `Buildings.Controls...`
 
@@ -647,8 +655,8 @@ The following rules need to be followed, in addition to the guidelines described
 
 #. For general rules on validation models see :numref:`sec_val`. Specifically for the 
    sequence development ensure that:
-      - The instances of models being tested are listed at the top of the code text.
-      - Add a blank line at the end of each .mos script
+      - the instances of models being tested are listed at the top of the code text
+      - add a blank line at the end of each .mos script
 
 #. Run modelica-json$ node app.js -f Buildings/Controls/OBC/ASHRAE/PrimarySystem/{path to package} -o json -m modelica 
    to catch some additional warnings such as missing block comments

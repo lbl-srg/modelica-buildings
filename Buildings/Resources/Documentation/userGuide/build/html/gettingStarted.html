@@ -4,7 +4,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>1. Getting Started &#8212; Buildings Library User Guide</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -97,8 +98,14 @@
 <li class="toctree-l1"><a class="reference internal" href="development.html">5. Development</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="development.html#contributing">5.1. Contributing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="development.html#guidelines-for-contributions">5.2. Guidelines for contributions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="development.html#adding-a-new-class">5.3. Adding a new class</a></li>
-<li class="toctree-l2"><a class="reference internal" href="development.html#validation">5.4. Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#general">5.3. General</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#type-declarations">5.4. Type Declarations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#equations-and-algorithms">5.5. Equations and Algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#functions">5.6. Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#package-order">5.7. Package order</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#documentation">5.8. Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#adding-a-new-class">5.9. Adding a new class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#validation-and-unit-tests">5.10. Validation and Unit Tests</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="help.html">6. Help</a></li>
@@ -176,9 +183,9 @@
 <h2>1.1. Literature for Users<a class="headerlink" href="#literature-for-users" title="Permalink to this headline">¶</a></h2>
 <p>The following books are useful for new users to get started:</p>
 <ul class="simple">
-<li><p>The online book with interactive examples of Michael Tiller at <a class="reference external" href="http://book.xogeny.com/">http://book.xogeny.com/</a>.</p></li>
-<li><p>The books by Michael Tiller <a class="reference internal" href="#til2001" id="id1"><span>[Til2001]</span></a> and Peter Fritzson (<a class="reference internal" href="#fri2011" id="id2"><span>[Fri2011]</span></a> and <a class="reference internal" href="#fri2004" id="id3"><span>[Fri2004]</span></a>).</p></li>
-<li><p>The tutorials that are listed at <a class="reference external" href="https://www.modelica.org/publications">https://www.modelica.org/publications</a>.</p></li>
+<li>The online book with interactive examples of Michael Tiller at <a class="reference external" href="http://book.xogeny.com/">http://book.xogeny.com/</a>.</li>
+<li>The books by Michael Tiller <a class="reference internal" href="#til2001" id="id1">[Til2001]</a> and Peter Fritzson (<a class="reference internal" href="#fri2011" id="id2">[Fri2011]</a> and <a class="reference internal" href="#fri2004" id="id3">[Fri2004]</a>).</li>
+<li>The tutorials that are listed at <a class="reference external" href="https://www.modelica.org/publications">https://www.modelica.org/publications</a>.</li>
 </ul>
 <p>Although the <a class="reference external" href="https://www.modelica.org/documents/ModelicaTutorial14.pdf">Modelica Language Tutorial</a> is for an older version (Modelica 1.4), it is still instructive and relevant to understand the concepts of the language.</p>
 <p>Links to papers that describe or used the <cite>Buildings</cite> library are available at <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/publications.html">https://simulationresearch.lbl.gov/modelica/publications.html</a>.
@@ -196,8 +203,8 @@ design and operation of building and community energy systems.</p>
 </div>
 <div class="section" id="literature-for-developers">
 <h2>1.2. Literature for Developers<a class="headerlink" href="#literature-for-developers" title="Permalink to this headline">¶</a></h2>
-<p>It is essential that users who develop new thermo-fluid models to  understand the concept of stream connectors. Stream connectors are explained in the Modelica language definition, available at <a class="reference external" href="https://www.modelica.org/documents">https://www.modelica.org/documents</a>, and in the paper Franke et al. <a class="reference internal" href="#fra2009a" id="id4"><span>[Fra2009a]</span></a>.
-The <cite>Buildings</cite> library uses similar modeling principles, and the same base classes, as the <cite>Modelica.Fluid</cite> library. Hence, we also recommend reading the paper about the standardization of thermo-fluid models in Modelica.Fluid <a class="reference internal" href="#fra2009b" id="id5"><span>[Fra2009b]</span></a>.</p>
+<p>It is essential that users who develop new thermo-fluid models to  understand the concept of stream connectors. Stream connectors are explained in the Modelica language definition, available at <a class="reference external" href="https://www.modelica.org/documents">https://www.modelica.org/documents</a>, and in the paper Franke et al. <a class="reference internal" href="#fra2009a" id="id4">[Fra2009a]</a>.
+The <cite>Buildings</cite> library uses similar modeling principles, and the same base classes, as the <cite>Modelica.Fluid</cite> library. Hence, we also recommend reading the paper about the standardization of thermo-fluid models in Modelica.Fluid <a class="reference internal" href="#fra2009b" id="id5">[Fra2009b]</a>.</p>
 <p>Xogeny’s <a class="reference external" href="http://modref.xogeny.com/">Modelica Web Reference</a> gives a concise overview, explanation and further links about the Modelica language.</p>
 </div>
 <div class="section" id="software-requirements">
@@ -209,34 +216,49 @@ The <cite>Buildings</cite> library uses similar modeling principles, and the sam
 <p>To start using Modelica, run the example models of the <cite>Buildings</cite> library. Make variations in these examples by changing values of model parameters or by replacing existing component models by new ones. The example models can be found in the packages <cite>Examples</cite>, and detailed tutorials with step-by-step instructions for how to build system models can be found in the <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Examples_Tutorial.html">Tutorial package</a>.</p>
 <p>Note that heat transfer models, which can be found in <cite>Buildings.HeatTransfer.*.Examples</cite> are easier to understand than fluid flow models because;</p>
 <ul class="simple">
-<li><p>handling fluid flow adds more complexity due to flow reversal (i.e., if the mass flow rate changes its direction),</p></li>
-<li><p>fluid flow models may need to handle multiple species such as air and water vapor, as well as trace substances such as CO2, and</p></li>
-<li><p>fluid flow models use packages that define medium models, such as dry air, moist air, water or other fluids.</p></li>
+<li>handling fluid flow adds more complexity due to flow reversal (i.e., if the mass flow rate changes its direction),</li>
+<li>fluid flow models may need to handle multiple species such as air and water vapor, as well as trace substances such as CO2, and</li>
+<li>fluid flow models use packages that define medium models, such as dry air, moist air, water or other fluids.</li>
 </ul>
 </div>
 <div class="section" id="references">
 <h2>1.5. References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
-<dl class="citation">
-<dt class="label" id="fri2004"><span class="brackets"><a class="fn-backref" href="#id3">Fri2004</a></span></dt>
-<dd><p>Peter Fritzson. <em>Principles of Object-Oriented Modeling and Simulation with Modelica 2.1.</em> John Wiley &amp; Sons, 2004.</p>
-</dd>
-<dt class="label" id="fri2011"><span class="brackets"><a class="fn-backref" href="#id2">Fri2011</a></span></dt>
-<dd><p>Peter Fritzson. <em>Introduction to Modeling and Simulation of Technical and Physical Systems with Modelica.</em> Wiley-IEEE Press, ISBN 978-1-1180-1068-6, 2011.</p>
-</dd>
-<dt class="label" id="fra2009a"><span class="brackets"><a class="fn-backref" href="#id4">Fra2009a</a></span></dt>
-<dd><ol class="upperalpha simple" start="18">
-<li><p>Franke, F. Casella, M. Otter, M. Sielemann, H. Elmqvist, S. E. Mattsson, and H. Olsson. <a class="reference external" href="https://www.modelica.org/events/modelica2009/Proceedings/memorystick/pages/papers/0078/0078.pdf">Stream connectors – an extension of modelica for device-oriented modeling of convective transport phenomena</a>. In F. Casella, editor, Proc. of the 7-th International Modelica Conference, Como, Italy, Sept. 2009.</p></li>
+<table class="docutils citation" frame="void" id="fri2004" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[Fri2004]</a></td><td>Peter Fritzson. <em>Principles of Object-Oriented Modeling and Simulation with Modelica 2.1.</em> John Wiley &amp; Sons, 2004.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="fri2011" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[Fri2011]</a></td><td>Peter Fritzson. <em>Introduction to Modeling and Simulation of Technical and Physical Systems with Modelica.</em> Wiley-IEEE Press, ISBN 978-1-1180-1068-6, 2011.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="fra2009a" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[Fra2009a]</a></td><td><ol class="first last upperalpha simple" start="18">
+<li>Franke, F. Casella, M. Otter, M. Sielemann, H. Elmqvist, S. E. Mattsson, and H. Olsson. <a class="reference external" href="https://www.modelica.org/events/modelica2009/Proceedings/memorystick/pages/papers/0078/0078.pdf">Stream connectors – an extension of modelica for device-oriented modeling of convective transport phenomena</a>. In F. Casella, editor, Proc. of the 7-th International Modelica Conference, Como, Italy, Sept. 2009.</li>
 </ol>
-</dd>
-<dt class="label" id="fra2009b"><span class="brackets"><a class="fn-backref" href="#id5">Fra2009b</a></span></dt>
-<dd><ol class="upperalpha simple" start="18">
-<li><p>Franke, F. Casella, M. Otter, K. Proelss, M. Sielemann, and M. Wetter. <a class="reference external" href="https://www.modelica.org/events/modelica2009/Proceedings/memorystick/pages/papers/0077/0077.pdf">Standardization of thermo-fluid modeling in Modelica.Fluid</a>.     In F. Casella, editor, Proc. of the 7-th International Modelica Conference, Como, Italy, Sept. 2009.</p></li>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="fra2009b" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id5">[Fra2009b]</a></td><td><ol class="first last upperalpha simple" start="18">
+<li>Franke, F. Casella, M. Otter, K. Proelss, M. Sielemann, and M. Wetter. <a class="reference external" href="https://www.modelica.org/events/modelica2009/Proceedings/memorystick/pages/papers/0077/0077.pdf">Standardization of thermo-fluid modeling in Modelica.Fluid</a>.     In F. Casella, editor, Proc. of the 7-th International Modelica Conference, Como, Italy, Sept. 2009.</li>
 </ol>
-</dd>
-<dt class="label" id="til2001"><span class="brackets"><a class="fn-backref" href="#id1">Til2001</a></span></dt>
-<dd><p>Michael M. Tiller. <em>Introduction to Physical Modeling with Modelica.</em> Kluwer Academic Publisher, 2001.</p>
-</dd>
-</dl>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="til2001" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[Til2001]</a></td><td>Michael M. Tiller. <em>Introduction to Physical Modeling with Modelica.</em> Kluwer Academic Publisher, 2001.</td></tr>
+</tbody>
+</table>
 </div>
 </div>
 
@@ -257,7 +279,7 @@ The <cite>Buildings</cite> library uses similar modeling principles, and the sam
     </p>
     <p>
         &copy; Copyright 2012-2020, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.<br/>
     </p>
   </div>
 </footer>
