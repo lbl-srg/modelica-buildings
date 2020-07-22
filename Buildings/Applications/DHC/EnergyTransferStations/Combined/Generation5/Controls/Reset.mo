@@ -19,7 +19,7 @@ model Reset "Supervisory supply temperature reset"
             50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSupPreSet(final unit="K",
       displayUnit="degC") "Heating water supply temperature set-point"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
+    annotation (Placement(transformation(extent={{-138,-20},{-98,20}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupPreSet(final unit="K",
       displayUnit="degC") "Chilled water supply temperature set-point"
@@ -36,34 +36,47 @@ model Reset "Supervisory supply temperature reset"
       Placement(transformation(extent={{100,-80},{140,-40}}),
         iconTransformation(extent={{100,-70},{140,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swiCoo "Switch"
-    annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
+    annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minSet(k=
         THeaWatSupSetMin) "Minimum value of HW set-point"
-    annotation (Placement(transformation(extent={{-10,30},{10,50}})));
+    annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swiHea "Switch"
-    annotation (Placement(transformation(extent={{40,50},{60,70}})));
+    annotation (Placement(transformation(extent={{0,50},{20,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxSet(k=
         TChiWatSupSetMax) "Maximum value of CHW set-point"
-    annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
+    annotation (Placement(transformation(extent={{-48,-90},{-28,-70}})));
+  Buildings.Controls.OBC.CDL.Continuous.SlewRateLimiter ramLim(raisingSlewRate=
+        0.1) "Limit the rate of change"
+    annotation (Placement(transformation(extent={{50,50},{70,70}})));
+  Buildings.Controls.OBC.CDL.Continuous.SlewRateLimiter ramLim1(raisingSlewRate
+      =0.1) "Limit the rate of change"
+    annotation (Placement(transformation(extent={{50,-70},{70,-50}})));
 equation
-  connect(TChiWatSupPreSet, swiCoo.u1) annotation (Line(points={{-120,-80},{-40,
-          -80},{-40,-52},{38,-52}}, color={0,0,127}));
-  connect(THeaWatSupPreSet, swiHea.u1) annotation (Line(points={{-120,-40},{-60,
-          -40},{-60,68},{38,68}}, color={0,0,127}));
-  connect(minSet.y, swiHea.u3) annotation (Line(points={{12,40},{20,40},{20,52},
-          {38,52}}, color={0,0,127}));
-  connect(maxSet.y, swiCoo.u3) annotation (Line(points={{12,-80},{20,-80},{20,-68},
-          {38,-68}}, color={0,0,127}));
-  connect(swiCoo.y, TChiWatSupSet)
-    annotation (Line(points={{62,-60},{120,-60}}, color={0,0,127}));
-  connect(swiHea.y, THeaWatSupSet)
-    annotation (Line(points={{62,60},{120,60}}, color={0,0,127}));
-  connect(uHea, swiHea.u2) annotation (Line(points={{-120,80},{-20,80},{-20,60},
-          {38,60}}, color={255,0,255}));
-  connect(uCoo, swiCoo.u2) annotation (Line(points={{-120,40},{-20,40},{-20,-60},
-          {38,-60}}, color={255,0,255}));
+  connect(TChiWatSupPreSet, swiCoo.u1) annotation (Line(points={{-120,-80},{-80,
+          -80},{-80,-52},{-2,-52}}, color={0,0,127}));
+  connect(THeaWatSupPreSet, swiHea.u1) annotation (Line(points={{-118,0},{-80,0},
+          {-80,68},{-2,68}},      color={0,0,127}));
+  connect(minSet.y, swiHea.u3) annotation (Line(points={{-28,40},{-20,40},{-20,
+          52},{-2,52}},
+                    color={0,0,127}));
+  connect(maxSet.y, swiCoo.u3) annotation (Line(points={{-26,-80},{-20,-80},{
+          -20,-68},{-2,-68}},
+                     color={0,0,127}));
+  connect(uHea, swiHea.u2) annotation (Line(points={{-120,80},{-60,80},{-60,60},
+          {-2,60}}, color={255,0,255}));
+  connect(uCoo, swiCoo.u2) annotation (Line(points={{-120,40},{-60,40},{-60,-60},
+          {-2,-60}}, color={255,0,255}));
+  connect(swiHea.y, ramLim.u)
+    annotation (Line(points={{22,60},{48,60}}, color={0,0,127}));
+  connect(ramLim.y, THeaWatSupSet)
+    annotation (Line(points={{72,60},{120,60}}, color={0,0,127}));
+  connect(swiCoo.y, ramLim1.u)
+    annotation (Line(points={{22,-60},{48,-60}}, color={0,0,127}));
+  connect(ramLim1.y, TChiWatSupSet)
+    annotation (Line(points={{72,-60},{120,-60}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})),
 Documentation(
 revisions="<html>
 <ul>
