@@ -23,35 +23,21 @@
 #endif
 
 void writeFormatLog(const char *fmt, ...) {
-  /*const char* prefix = "\033[1;33m*** Log\033[0m: ";*/
-//  const char* prefix = "*** Log: ";
   va_list args;
 
   freopen("output.txt", "a+", stdout);
-//  fprintf(stdout, "%s", prefix);
+
   va_start(args, fmt);
   vprintf(fmt, args);
   va_end(args);
   printf("%s", "\n");
   fflush(stdout);
   freopen("/dev/tty", "w", stdout); /*for gcc, ubuntu*/
-//  fprintf(stdout, "%s", "\n");
-//  fflush(stdout);
-//  ModelicaFormatMessage(fmt, args);
-
 }
 
 void writeLog(const char* msg)
 {
   writeFormatLog("%s\n", msg);
-//  const char* prefix = "*** Log: ";
-//  char* m;
-//  mallocString((strlen(msg)+strlen(prefix)+1), "Failed to allocate string array in ModelicaMessage.", &m);
-//  strcpy(m, prefix);
-//  strcat(m, msg);
-//  fprintf(stdout, "%s\n", m);
-//  fflush(stdout);
-//  ModelicaFormatMessage("%s", m);
 }
 
 
