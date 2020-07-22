@@ -363,8 +363,8 @@ void generateFMU(
     createFlag = " --create "; /* Flag for command */
     len = strlen(buildingsLibraryRoot) + strlen(cmd) + strlen(optionFlags)
       + strlen(outputFlag) + strlen("\"") + strlen(FMUPath) + strlen("\"")
-      + strlen(createFlag) + strlen("\"") + strlen(modelicaBuildingsJsonFile) + strlen("\"");
-      + strlen("\0");
+      + strlen(createFlag) + strlen("\"") + strlen(modelicaBuildingsJsonFile) + strlen("\"")
+      + 1;
 
     mallocString(len, "Failed to allocate memory in generateFMU().", &fulCmd);
     memset(fulCmd, '\0', len);
