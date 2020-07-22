@@ -1,9 +1,16 @@
-within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Validation;
-model ChillerOnlyTimeSeries
-  "Validation of the ETS model with heat recovery chiller"
+within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Examples;
+model ChillerBorefield
+  "Example of the ETS model with heat recovery chiller and borefield"
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Water "Medium model";
+  parameter Integer nBorHol = 64
+  "Number of boreholes (must be a square number)";
+  parameter Modelica.SIunits.Distance dxy = 6
+    "Distance in x-axis (and y-axis) between borehole axes";
+  final parameter Modelica.SIunits.Distance cooBor[nBorHol,2]=
+    EnergyTransferStations.BaseClasses.computeCoordinates(nBorHol, dxy)
+    "Coordinates of boreholes";
   parameter String filNam=
     "modelica://Buildings/Applications/DHC/Loads/Examples/Resources/SwissResidential_shiftCooling.mos"
     "File name with thermal loads as time series";
@@ -88,8 +95,7 @@ model ChillerOnlyTimeSeries
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={90,-40})));
-  Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.ChillerBorefield
-    ets(
+  EnergyTransferStations.Combined.Generation5.ChillerBorefield ets(
     redeclare final package MediumBui = Medium,
     redeclare final package MediumDis = Medium,
     QChiWat_flow_nominal=datChi.QEva_flow_nominal,
@@ -101,16 +107,17 @@ model ChillerOnlyTimeSeries
     T_b1Hex_nominal=277.15,
     T_a2Hex_nominal=275.15,
     T_b2Hex_nominal=280.15,
-    kHot={0.1},
-    Ti={600},
+    kHot={0.05,0.1},
+    have_borFie=true,
     dpCon_nominal=15E3,
     dpEva_nominal=15E3,
     datChi=datChi,
+    datBorFie=datBorFie,
     nPorts_aHeaWat=1,
     nPorts_bHeaWat=1,
     nPorts_bChiWat=1,
-    nPorts_aChiWat=1)
-    annotation (Placement(transformation(extent={{-10,-86},{50,-26}})));
+    nPorts_aChiWat=1) "ETS"
+    annotation (Placement(transformation(extent={{-8,-84},{52,-24}})));
   Fluid.Sources.Boundary_pT disWat(
     redeclare final package Medium = Medium,
     use_T_in=true,
@@ -206,42 +213,48 @@ model ChillerOnlyTimeSeries
     smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1)
     "Reader for thermal loads (y[1] is cooling load, y[2] is heating load)"
     annotation (Placement(transformation(extent={{-280,150},{-260,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain loaNorHea(final k=1/ets.QHeaWat_flow_nominal)
-    "Normalize by nominal" annotation (Placement(transformation(
+  Buildings.Controls.OBC.CDL.Continuous.Gain loaNorHea(
+    final k=1/ets.QHeaWat_flow_nominal) "Normalize by nominal"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-272,120})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain loaNorCoo(final k=1/ets.QChiWat_flow_nominal)
-    "Normalize by nominal" annotation (Placement(transformation(
+  Buildings.Controls.OBC.CDL.Continuous.Gain loaNorCoo(
+    final k=1/ets.QChiWat_flow_nominal) "Normalize by nominal"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-272,80})));
+  parameter Fluid.Geothermal.Borefields.Data.Borefield.Example datBorFie(
+    conDat=Fluid.Geothermal.Borefields.Data.Configuration.Example(
+      cooBor=cooBor,
+      dp_nominal=0))
+    "Borefield design data"
+    annotation (Placement(transformation(extent={{60,180},{80,200}})));
 equation
-  connect(senTHeaWatRet.port_b, ets.ports_aHeaWat[1]) annotation (Line(points={{-50,-40},
-          {-40,-40},{-40,-30},{-10,-30}},          color={0,127,255}));
-  connect(ets.ports_bChiWat[1], senTChiWatSup.port_a) annotation (Line(points={{50,-40},
-          {64,-40},{64,40},{80,40}},         color={0,127,255}));
-  connect(ets.ports_aChiWat[1], senTChiWatRet.port_b) annotation (Line(points={{-10,-40},
-          {-20,-40},{-20,0},{70,0},{70,-40},{80,-40}},          color={0,127,255}));
-  connect(TChiWatSupSet.y, ets.TChiWatSupSet) annotation (Line(points={{-118,
-          100},{-32,100},{-32,-72},{-14,-72}},
-                                         color={0,0,127}));
-  connect(THeaWatSupSet.y, ets.THeaWatSupSet) annotation (Line(points={{-118,
-          140},{-28,140},{-28,-64},{-14,-64}},
-                                          color={0,0,127}));
+  connect(senTHeaWatRet.port_b, ets.ports_aHeaWat[1]) annotation (
+      Line(points={{-50,-40},{-40,-40},{-40,-28},{-8,-28}},  color={0,127,255}));
+  connect(ets.ports_bChiWat[1], senTChiWatSup.port_a) annotation (
+      Line(points={{52,-38},{64,-38},{64,40},{80,40}}, color={0,127,255}));
+  connect(ets.ports_aChiWat[1], senTChiWatRet.port_b) annotation (
+      Line(points={{-8,-38},{-20,-38},{-20,0},{70,0},{70,-40},{80,-40}},  color=
+         {0,127,255}));
+  connect(TChiWatSupSet.y, ets.TChiWatSupSet) annotation (Line(
+        points={{-118,100},{-32,100},{-32,-70},{-12,-70}}, color={0,0,127}));
+  connect(THeaWatSupSet.y, ets.THeaWatSupSet) annotation (Line(
+        points={{-118,140},{-28,140},{-28,-62},{-12,-62}},     color={0,0,127}));
   connect(disWat.ports[1], ets.port_aDis) annotation (Line(points={{-100,-138},
-          {-100,-82},{-10,-82}},color={0,127,255}));
-  connect(ets.port_bDis, disWat.ports[2]) annotation (Line(points={{50,-82},{
-          160,-82},{160,-180},{-100,-180},{-100,-142}},
-                                                    color={0,127,255}));
+          {-100,-80},{-8,-80}},              color={0,127,255}));
+  connect(ets.port_bDis, disWat.ports[2]) annotation (Line(points={{52,-80},{
+          160,-80},{160,-180},{-100,-180},{-100,-142}},           color={0,127,255}));
   connect(TDisWatSup.y, disWat.T_in) annotation (Line(points={{-258,-140},{-172,
           -140},{-172,-136},{-122,-136}}, color={0,0,127}));
   connect(pumChiWat.port_a, senTChiWatSup.port_b)
     annotation (Line(points={{110,40},{100,40}},color={0,127,255}));
   connect(gai2.y, pumChiWat.m_flow_in)
     annotation (Line(points={{114,80},{120,80},{120,52}}, color={0,0,127}));
-  connect(ets.ports_bHeaWat[1], pumHeaWat.port_a) annotation (Line(points={{50,-30},
-          {60,-30},{60,40},{30,40}},  color={0,127,255}));
+  connect(ets.ports_bHeaWat[1], pumHeaWat.port_a) annotation (Line(
+        points={{52,-28},{60,-28},{60,40},{30,40}}, color={0,127,255}));
   connect(pumHeaWat.port_b, senTHeaWatSup.port_a)
     annotation (Line(points={{10,40},{-50,40}},  color={0,127,255}));
   connect(gai1.y, pumHeaWat.m_flow_in)
@@ -262,10 +275,9 @@ equation
   connect(heaWat.ports[1], pumHeaWat.port_a)
     annotation (Line(points={{40,24},{40,40},{30,40}}, color={0,127,255}));
   connect(reqHea.y, ets.uHea) annotation (Line(points={{-128,-20},{-120,-20},{
-          -120,-48},{-14,-48}},
-                           color={255,0,255}));
+          -120,-46},{-12,-46}},            color={255,0,255}));
   connect(reqCoo.y, ets.uCoo) annotation (Line(points={{-128,-100},{-120,-100},
-          {-120,-56},{-14,-56}},color={255,0,255}));
+          {-120,-54},{-12,-54}},             color={255,0,255}));
   connect(reqHea.u, truDelHea.y)
     annotation (Line(points={{-152,-20},{-158,-20}}, color={255,0,255}));
   connect(noLoaHea.y, truDelHea.u)
@@ -298,13 +310,11 @@ equation
   annotation (Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-300,-220},{300,220}})),
   __Dymola_Commands(file=
-"modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Combined/Generation5/Validation/ChillerOnlyTimeSeries.mos"
+"modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Combined/Generation5/Examples/ChillerBorefield.mos"
 "Simulate and plot"),
     experiment(
-      StopTime=19000000,
-      __Dymola_NumberOfIntervals=5000,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      StopTime=10000000,
+      Tolerance=1e-06),
  Documentation(
 revisions="<html>
 <ul>
@@ -314,4 +324,4 @@ First implementation
 </li>
 </ul>
 </html>"));
-end ChillerOnlyTimeSeries;
+end ChillerBorefield;

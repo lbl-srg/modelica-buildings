@@ -6,9 +6,9 @@ partial block SideHotCold
   parameter Integer nSouAmb
     "Number of ambient sources to control"
     annotation(Evaluate=true);
-  parameter Modelica.SIunits.TemperatureDifference dTHys = 2
+  parameter Modelica.SIunits.TemperatureDifference dTHys(min=0) = 1
     "Temperature hysteresis (full width, absolute value)";
-  parameter Modelica.SIunits.TemperatureDifference dTDea = 0
+  parameter Modelica.SIunits.TemperatureDifference dTDea(min=0) = 0.5
     "Temperature dead band (absolute value)";
   parameter Boolean reverseActing = false
     "Set to true for control output increasing with decreasing measurement value";
@@ -136,6 +136,9 @@ partial block SideHotCold
         iconTransformation(extent={{100,0},{140,40}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     annotation (Placement(transformation(extent={{-90,-170},{-70,-150}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant deaBan(k=if
+        reverseActing then -abs(dTDea) else abs(dTDea)) "Dead band"
+    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
 initial equation
   assert(dTHys >= 0, "In " + getInstanceName() +
     ": dTHys (" + String(dTHys) + ") must be an absolute value.");
@@ -161,8 +164,6 @@ equation
           {-72,0}},    color={0,0,127}));
   connect(zer.y, disHeaCoo.u1) annotation (Line(points={{2,-40},{20,-40},{20,0},
           {28,0}}, color={0,0,127}));
-  connect(zer.y, enaHeaCoo.u2) annotation (Line(points={{2,-40},{20,-40},{20,32},
-          {28,32}}, color={0,0,127}));
   connect(proEna.y, enaHeaCoo.u1)
     annotation (Line(points={{2,40},{28,40}},    color={0,0,127}));
   connect(proDis.y, disHeaCoo.u2) annotation (Line(points={{2,0},{12,0},{12,-8},
@@ -210,6 +211,8 @@ equation
           -160},{-92,-160}}, color={255,0,255}));
   connect(uRej, conPlaSeq.uEna) annotation (Line(points={{-200,140},{-140,140},
           {-140,-140},{-64,-140},{-64,-132}}, color={255,0,255}));
+  connect(deaBan.y, enaHeaCoo.u2) annotation (Line(points={{2,80},{20,80},{20,32},
+          {28,32}}, color={0,0,127}));
    annotation (
        Diagram(coordinateSystem(extent={{-180,-200},{180,200}})),
 Documentation(
@@ -227,7 +230,7 @@ It provides the following control signals.
 </p>
 <ul>
 <li>
-Tank in demand <code>yHeaCoo</code><br/>
+Tank in demand <code>yDem</code><br/>
 The tank is in heating (resp. cooling) demand if
 <ul>
 <li>
@@ -236,7 +239,8 @@ automation system, and
 </li>
 <li>
 the temperature measured at the top (resp. bottom) of the tank is below
-(resp. above) the set point for more than 60 s.
+(resp. above) the set point minus (resp. plus) the temperature dead band
+<code>dTDea</code> for more than 60 s.
 </li>
 </ul>
 The tank demand transitions back to false when the maximum (resp. minimum) temperature
