@@ -22,7 +22,7 @@ void OutputVariableInstantiate(
   FMUBuilding* bui = var->ptrBui;
 
   if (FMU_EP_VERBOSITY >= MEDIUM){
-    writeFormatLog("Entered OutputVariableInstantiate for %s.\n",
+    ModelicaFormatMessage("Entered OutputVariableInstantiate for %s.\n",
       var->modelicaNameOutputVariable);
   }
   if (bui->fmu == NULL){

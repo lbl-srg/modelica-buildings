@@ -20,13 +20,13 @@ FMUOutputVariable* checkForDoubleOutputVariableDeclaration(
     FMUOutputVariable* ptrOutVar = (FMUOutputVariable*)(fmuBld->outputVariables[iComVar]);
     if (!strcmp(fmiName, ptrOutVar->outputs->fmiNames[0])){
       if (FMU_EP_VERBOSITY >= MEDIUM){
-        writeFormatLog("*** Searched for output variable %s in building and found it.\n", fmiName);
+        ModelicaFormatMessage("*** Searched for output variable %s in building and found it.\n", fmiName);
       }
       return ptrOutVar;
     }
   }
   if (FMU_EP_VERBOSITY >= MEDIUM){
-     writeFormatLog("*** Searched for output variable %s in building but did not find it.\n", fmiName);
+     ModelicaFormatMessage("*** Searched for output variable %s in building but did not find it.\n", fmiName);
   }
   return NULL;
 }
@@ -72,7 +72,7 @@ void* OutputVariableAllocate(
   FMUOutputVariable* doubleOutVarSpec = NULL;
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    writeFormatLog("Entered OutputVariableAllocate for zone %s.\n", modelicaNameOutputVariable);
+    ModelicaFormatMessage("Entered OutputVariableAllocate for zone %s.\n", modelicaNameOutputVariable);
 
   checkAndSetVerbosity(verbosity);
 
@@ -80,18 +80,18 @@ void* OutputVariableAllocate(
   setOutputVariablePointerIfAlreadyInstantiated(modelicaNameOutputVariable, &comVar);
   if (comVar != NULL){
     if (FMU_EP_VERBOSITY >= MEDIUM)
-      writeFormatLog("*** OutputVariableAllocate called more than once for %s.\n", modelicaNameOutputVariable);
+      ModelicaFormatMessage("*** OutputVariableAllocate called more than once for %s.\n", modelicaNameOutputVariable);
     /* Return pointer to this zone */
     return (void*) comVar;
   }
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    writeFormatLog("*** First call for this instance %s.\n", modelicaNameOutputVariable);
+    ModelicaFormatMessage("*** First call for this instance %s.\n", modelicaNameOutputVariable);
 
   /* ********************************************************************** */
   /* Initialize the output variable */
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    writeFormatLog("*** Initializing memory for output variable for %s.\n", modelicaNameOutputVariable);
+    ModelicaFormatMessage("*** Initializing memory for output variable for %s.\n", modelicaNameOutputVariable);
 
   comVar = (FMUOutputVariable*) malloc(sizeof(FMUOutputVariable));
   if ( comVar == NULL )
@@ -138,12 +138,12 @@ void* OutputVariableAllocate(
   for(i = 0; i < nFMU; i++){
     FMUBuilding* fmu = getBuildingsFMU(i);
     if (FMU_EP_VERBOSITY >= MEDIUM){
-      writeFormatLog("*** Testing building %s in FMU %s for %s.\n", modelicaNameBuilding, fmu->fmuAbsPat, modelicaNameOutputVariable);
+      ModelicaFormatMessage("*** Testing building %s in FMU %s for %s.\n", modelicaNameBuilding, fmu->fmuAbsPat, modelicaNameOutputVariable);
     }
 
     if (strcmp(modelicaNameBuilding, fmu->modelicaNameBuilding) == 0){
       if (FMU_EP_VERBOSITY >= MEDIUM){
-        writeLog("*** Found a match.\n");
+        ModelicaMessage("*** Found a match.\n");
       }
       /* This is the same FMU as before. */
       doubleOutVarSpec = checkForDoubleOutputVariableDeclaration(fmu, comVar->outputs->fmiNames[0]);
@@ -152,7 +152,7 @@ void* OutputVariableAllocate(
         /* This output variable has already been specified. We can just point to the same
            data structure */
         if (FMU_EP_VERBOSITY >= MEDIUM){
-          writeFormatLog("Assigning comVar '%s' to previously used outvar at %p",
+          ModelicaFormatMessage("Assigning comVar '%s' to previously used outvar at %p",
           comVar->outputs->fmiNames[0],
           comVar);
         }
@@ -164,7 +164,7 @@ void* OutputVariableAllocate(
       else{
         /* This output variable has not yet been added to this building */
         if (FMU_EP_VERBOSITY >= MEDIUM){
-          writeFormatLog("Assigning comVar->ptrBui = fmu with fmu at %p", fmu);
+          ModelicaFormatMessage("Assigning comVar->ptrBui = fmu with fmu at %p", fmu);
         }
         comVar->ptrBui = fmu;
 
@@ -189,16 +189,16 @@ void* OutputVariableAllocate(
 
     if (FMU_EP_VERBOSITY >= MEDIUM){
       for(i = 0; i < getBuildings_nFMU(); i++){
-         writeFormatLog("OutputVariableAllocate.c: Building %s is at pointer %p",
+         ModelicaFormatMessage("OutputVariableAllocate.c: Building %s is at pointer %p",
            (getBuildingsFMU(i))->modelicaNameBuilding,
            getBuildingsFMU(i));
       }
-      writeFormatLog("Output variable ptr is at %p\n", comVar);
+      ModelicaFormatMessage("Output variable ptr is at %p\n", comVar);
     }
   }
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    writeFormatLog("Exiting allocation for %s with output variable ptr at %p", modelicaNameOutputVariable, comVar);
+    ModelicaFormatMessage("Exiting allocation for %s with output variable ptr at %p", modelicaNameOutputVariable, comVar);
   /* Return a pointer to this output variable */
   return (void*) comVar;
 }

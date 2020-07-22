@@ -44,7 +44,7 @@ void OutputVariableExchange(
   fmi2Status status;
 
   if (FMU_EP_VERBOSITY >= TIMESTEP)
-    writeFormatLog("Exchanging data with EnergyPlus: t = %.2f, initialCall = %d, mode = %s, output variable = %s, directDependency = %2.f, valueReference = %lu.\n",
+    ModelicaFormatMessage("Exchanging data with EnergyPlus: t = %.2f, initialCall = %d, mode = %s, output variable = %s, directDependency = %2.f, valueReference = %lu.\n",
       time, initialCall, fmuModeToString(bui->mode), outVar->modelicaNameOutputVariable, directDependency, outVar->outputs->valRefs[0]);
 
   if (! outVar->isInstantiated){
@@ -59,22 +59,22 @@ void OutputVariableExchange(
   if (initialCall){
     outVar->isInitialized = true; /* Set to true as it will be initialized right below */
     if (FMU_EP_VERBOSITY >= MEDIUM)
-      writeFormatLog("Initial call for output variable %s at %p with time = %.f\n", outVar->modelicaNameOutputVariable, outVar, time);
+      ModelicaFormatMessage("Initial call for output variable %s at %p with time = %.f\n", outVar->modelicaNameOutputVariable, outVar, time);
 
     if (outVar->printUnit){
       if (outVar->outputs->units[0]) /* modelDescription.xml defines unit */
-        writeFormatLog("Output %s.y has in Modelica the unit %s.\n",
+        ModelicaFormatMessage("Output %s.y has in Modelica the unit %s.\n",
           outVar->modelicaNameOutputVariable,
           fmi2_import_get_unit_name(outVar->outputs->units[0]));
       else
-        writeFormatLog("Output %s.y has same unit as EnergyPlus, but EnergyPlus does not define the unit of this output.\n",
+        ModelicaFormatMessage("Output %s.y has same unit as EnergyPlus, but EnergyPlus does not define the unit of this output.\n",
           outVar->modelicaNameOutputVariable);
       }
   }
   else
   {
     if (FMU_EP_VERBOSITY >= TIMESTEP)
-      writeFormatLog("Did not enter initialization mode for output variable %s., isInitialized = %d\n",
+      ModelicaFormatMessage("Did not enter initialization mode for output variable %s., isInitialized = %d\n",
         outVar->modelicaNameOutputVariable, outVar->isInitialized);
   }
 
@@ -82,7 +82,7 @@ void OutputVariableExchange(
      but the FMU is still in initializationMode */
   if ((!initialCall) && bui->mode == initializationMode){
     if (FMU_EP_VERBOSITY >= MEDIUM)
-      writeFormatLog(
+      ModelicaFormatMessage(
         "fmi2_import_exit_initialization_mode: Enter exit initialization mode of FMU in exchange() for output variable = %s.\n",
         outVar->modelicaNameOutputVariable);
     status = fmi2_import_exit_initialization_mode(bui->fmu);
@@ -103,7 +103,7 @@ void OutputVariableExchange(
   /* Get next event time, unless FMU is in initialization mode */
   if (bui->mode == initializationMode){
     if (FMU_EP_VERBOSITY >= MEDIUM)
-      writeFormatLog(
+      ModelicaFormatMessage(
         "Returning current time %.0f as tNext due to initializationMode for zone = %s\n",
         bui->time,
         outVar->modelicaNameOutputVariable);
@@ -111,7 +111,7 @@ void OutputVariableExchange(
   }
   else{
     if (FMU_EP_VERBOSITY >= TIMESTEP)
-      writeFormatLog("Calling do_event_iteration for output = %s\n", outVar->modelicaNameOutputVariable);
+      ModelicaFormatMessage("Calling do_event_iteration for output = %s\n", outVar->modelicaNameOutputVariable);
     *tNext = do_event_iteration(bui, outVar->modelicaNameOutputVariable);
   }
   /* Get output */
@@ -120,7 +120,7 @@ void OutputVariableExchange(
   *y = outVar->outputs->valsSI[0];
 
   if (FMU_EP_VERBOSITY >= TIMESTEP)
-    writeFormatLog("Returning from OutputVariablesExchange with nextEventTime = %.2f, y = %.2f, output variable = %s, mode = %s\n",
+    ModelicaFormatMessage("Returning from OutputVariablesExchange with nextEventTime = %.2f, y = %.2f, output variable = %s, mode = %s\n",
     *tNext, *y, outVar->modelicaNameOutputVariable, fmuModeToString(bui->mode));
 
   return;

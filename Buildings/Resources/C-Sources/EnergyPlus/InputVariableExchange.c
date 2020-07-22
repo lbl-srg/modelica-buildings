@@ -27,7 +27,7 @@ void InputVariableExchange(
   fmi2Status status;
 
   if (FMU_EP_VERBOSITY >= TIMESTEP)
-    writeFormatLog("Exchanging data with EnergyPlus: t = %.2f, initialCall = %d, zone = %s,  building ptr at %p.\n",
+    ModelicaFormatMessage("Exchanging data with EnergyPlus: t = %.2f, initialCall = %d, zone = %s,  building ptr at %p.\n",
       time, initialCall, inpVar->modelicaNameInputVariable, bui);
 
   if (! inpVar->isInstantiated){
@@ -43,12 +43,12 @@ void InputVariableExchange(
   if (initialCall){
     inpVar->isInitialized = true; /* Set to true as it will be initialized right below */
     if (FMU_EP_VERBOSITY >= MEDIUM)
-      writeFormatLog("Initial call for input variable %s with time = %.f\n", inpVar->modelicaNameInputVariable, time);
+      ModelicaFormatMessage("Initial call for input variable %s with time = %.f\n", inpVar->modelicaNameInputVariable, time);
   }
   else
   {
     if (FMU_EP_VERBOSITY >= TIMESTEP)
-      writeFormatLog("Did not enter initialization mode for input variable %s., isInitialized = %d\n",
+      ModelicaFormatMessage("Did not enter initialization mode for input variable %s., isInitialized = %d\n",
         inpVar->modelicaNameInputVariable, inpVar->isInitialized);
   }
 
@@ -56,7 +56,7 @@ void InputVariableExchange(
      but the FMU is still in initializationMode */
   if ((!initialCall) && bui->mode == initializationMode){
     if (FMU_EP_VERBOSITY >= MEDIUM)
-      writeFormatLog(
+      ModelicaFormatMessage(
         "fmi2_import_exit_initialization_mode: Enter exit initialization mode of FMU in InputVariableExchange() for input variable = %s.\n",
         inpVar->modelicaNameInputVariable);
     status = fmi2_import_exit_initialization_mode(bui->fmu);
@@ -80,7 +80,7 @@ void InputVariableExchange(
 
 
   if (FMU_EP_VERBOSITY >= TIMESTEP)
-    writeFormatLog(
+    ModelicaFormatMessage(
       "Input to fmu for input variable %s: u = %.2f\n",
       inpVar->modelicaNameInputVariable,
       inpVar->inputs->valsSI[0]);
@@ -91,7 +91,7 @@ void InputVariableExchange(
   *y = u;
 
   if (FMU_EP_VERBOSITY >= TIMESTEP)
-    writeFormatLog("Returning from InputVariableExchange() for %s.\n", inpVar->modelicaNameInputVariable);
+    ModelicaFormatMessage("Returning from InputVariableExchange() for %s.\n", inpVar->modelicaNameInputVariable);
 
   return;
 }

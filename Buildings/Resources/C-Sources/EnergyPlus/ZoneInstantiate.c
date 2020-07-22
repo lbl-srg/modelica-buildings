@@ -19,7 +19,7 @@ void setParametersInEnergyPlus(FMUZone* zone, double* parValues){
   fmi2Status status;
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    writeFormatLog("fmi2_import_set_real: Setting parameters in EnergyPlus zone %s.\n", zone->name);
+    ModelicaFormatMessage("fmi2_import_set_real: Setting parameters in EnergyPlus zone %s.\n", zone->name);
   status = fmi2_import_set_real(
     bui->fmu,
     zone->parInpValReferences,
@@ -47,7 +47,7 @@ void ZoneInstantiate(
   const char* modelicaName = zone->modelicaNameThermalZone;
 
   if (FMU_EP_VERBOSITY >= MEDIUM){
-    writeFormatLog("Entered ZoneInstantiate for %s.\n", modelicaName);
+    ModelicaFormatMessage("Entered ZoneInstantiate for %s.\n", modelicaName);
   }
   /* Fixme: Here, in Dymola, bui is NULL for FMUZoneAdapterZones2, but it was not NULL
      when leaving ZoneAllocate */
@@ -68,7 +68,7 @@ void ZoneInstantiate(
   }
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    writeFormatLog(
+    ModelicaFormatMessage(
       "fmi2_import_get_real: Getting parameters from EnergyPlus zone %s.\n",
       zone->modelicaNameThermalZone);
   getVariables(bui, modelicaName, zone->parameters);
