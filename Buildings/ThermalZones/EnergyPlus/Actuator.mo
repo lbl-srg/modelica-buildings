@@ -1,11 +1,63 @@
 within Buildings.ThermalZones.EnergyPlus;
 model Actuator "Block to write to an EnergyPlus actuator"
-  extends Buildings.ThermalZones.EnergyPlus.BaseClasses.Writer(
-    final name="",
-    final objectType=1);
+  extends Buildings.ThermalZones.EnergyPlus.BaseClasses.PartialEnergyPlusObject;
+
+  parameter String variableName
+    "Actuated component unique name in the EnergyPlus idf file";
+
+  parameter String componentType
+    "Actuated component type";
+
+  parameter String controlType
+    "Actuated component control type";
+
+  parameter Buildings.ThermalZones.EnergyPlus.Types.Units unit
+    "Unit of variable as used in Modelica"
+    annotation(choicesAllMatching = true);
+
+  Modelica.Blocks.Interfaces.RealInput u "Continuous input signal to be written to EnergyPlus"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+
+  Modelica.Blocks.Interfaces.RealOutput y "Value written to EnergyPlus (use for direct dependency of Actuators and Schedules)"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
+
+protected
+  constant String modelicaNameInputVariable = getInstanceName()
+    "Name of this instance"
+    annotation(HideResult=true);
+
+  Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUInputVariableClass adapter=
+      Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUInputVariableClass(
+      objectType=1,
+      modelicaNameBuilding=modelicaNameBuilding,
+      modelicaNameInputVariable=modelicaNameInputVariable,
+      idfName=idfName,
+      weaName=weaName,
+      writerName="",
+      variableName=variableName,
+      componentType=componentType,
+      controlType=controlType,
+      unit=Buildings.ThermalZones.EnergyPlus.BaseClasses.getUnitAsString(unit),
+      usePrecompiledFMU=usePrecompiledFMU,
+      fmuName=fmuName,
+      buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
+      verbosity=verbosity)
+   "Class to communicate with EnergyPlus";
 
 initial equation
   assert(not usePrecompiledFMU, "Use of pre-compiled FMU is not supported for block Actuator.");
+
+  Buildings.ThermalZones.EnergyPlus.BaseClasses.inputVariableInitialize(
+    adapter = adapter,
+    startTime = time);
+
+equation
+    y = Buildings.ThermalZones.EnergyPlus.BaseClasses.inputVariableExchange(
+      adapter,
+      initial(),
+      u,
+      round(time, 1E-3));
 
   annotation (
   defaultComponentName="act",

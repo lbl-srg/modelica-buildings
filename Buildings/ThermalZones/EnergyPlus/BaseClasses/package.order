@@ -3,7 +3,7 @@ FMUOutputVariableClass
 FMUZoneAdapter
 FMUZoneClass
 PartialEnergyPlusObject
-Writer
+getUnitAsString
 inputVariableExchange
 inputVariableInitialize
 outputVariableExchange
