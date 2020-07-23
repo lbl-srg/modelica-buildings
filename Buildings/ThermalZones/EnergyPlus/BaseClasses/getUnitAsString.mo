@@ -1,6 +1,7 @@
 within Buildings.ThermalZones.EnergyPlus.BaseClasses;
 function getUnitAsString "Return the unit enumeration as a string"
   extends Modelica.Icons.Function;
+
   input Buildings.ThermalZones.EnergyPlus.Types.Units unit "Unit as enumeration value";
   output String unitAsString "String representation of the unit";
 
@@ -43,7 +44,7 @@ algorithm
   annotation (Documentation(info="<html>
 <p>
 Function that returns the string representation of a unit enumeration from
-<a href=\\\"modelica://Buildings.ThermalZones.EnergyPlus.Types.Units\\\">Buildings.ThermalZones.EnergyPlus.Types.Units</a>.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Types.Units\">Buildings.ThermalZones.EnergyPlus.Types.Units</a>.
 </p>
 </html>", revisions="<html>
 <ul>

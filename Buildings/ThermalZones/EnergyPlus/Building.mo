@@ -9,7 +9,7 @@ model Building
 
   parameter String idfName "Name of the IDF file"
     annotation(Evaluate=true);
-  parameter String weaName "Name of the EnergyPlus weather file (mos file)"
+  parameter String weaName "Name of the weather file, in .mos format and with .mos extension (see info section)"
     annotation(Evaluate=true);
 
   parameter Boolean usePrecompiledFMU = false
@@ -110,6 +110,16 @@ is used to configure EnergyPlus.
 The instance must be placed in the model hierarchy at the same or at a higher level
 than the EnergyPlus objects that are related to the EnergyPlus idf file specified in
 this model through the parameter <code>idfName</code>.
+</p>
+<p>
+For the parameter <code>weaName</code>, the name of the Modelica weather file must be
+provided. This is the file that can be read, for example, with
+<a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">
+Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>.
+However, both weather files <code>.mos</code> and <code>.epw</code>
+must be provided in the same directory. When starting the simulation, EnergyPlus will
+be run with the weather file whose name is identical to <code>weaName</code>, but with the
+extension <code>.mos</code> replaced with <code>.epw</code>.
 </p>
 </html>", revisions="<html>
 <ul>

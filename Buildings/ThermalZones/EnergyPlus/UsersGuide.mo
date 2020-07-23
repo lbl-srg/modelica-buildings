@@ -12,13 +12,23 @@ To instanciate a building, proceed as follows:
 </p>
 <ol>
 <li>
-For each building, an instance of
+Create an instance of
 <a href=\"Buildings.ThermalZones.EnergyPlus.Building\">
-Buildings.ThermalZones.EnergyPlus.Building</a> needs to be made.
+Buildings.ThermalZones.EnergyPlus.Building</a> for each building.
 This instance is automatically named <code>building</code> and this
 name must not be changed.
-This allows to specify building-level parameters such as the
-EnergyPlus input file name and weather file name.
+</li>
+<li>
+In the instance <code>building</code>, specify building-level parameters such as the
+EnergyPlus input file name and weather file name.<br/>
+</li>
+<li>
+For the weather file, both <code>.mos</code> and <code>.epw</code> files
+must be provided in the same directory. The files must have the same name, except
+for the different extension.
+The <code>.epw</code> file will be used by the EnergyPlus envelope model, and the <code>.mos</code>
+file will be used by the Modelica model, and must be specified by the parameter <code>weaName</code>
+in the instance <code>building</code>.
 </li>
 <li>
 In the model that contains the instance <code>building</code>,
@@ -34,14 +44,6 @@ in the EnergyPlus input data file, and also assign the medium of the thermal zon
 as is done for any other fluid flow component.
 This instance will then connect the Modelica zone model with the
 EnergyPlus zone model.
-</li>
-<li>
-For the weather file, both <code>.mos</code> and <code>.epw</code> files
-must be provided in the same directory. The files must have the same name, except
-for the different extension.
-The <code>.epw</code> file will be used by the EnergyPlus envelope model, and the <code>.mos</code>
-file will be used by the Modelica model, and must be specified by the parameter <code>weaName</code>
-in the instance <code>building</code>.
 </li>
 </ol>
 <p>
@@ -123,7 +125,7 @@ collect2: error: ld returned 1 exit status
 <h5>Models with multiple thermal zones</h5>
 <p>
 For Dymola 2019FD01 and Dymola 2020, only one thermal zone can be in EnergyPlus.
-For Dymola 2020x, this limitation will be corrected if the flag
+For Dymola 2020x, this limitation is removed if the flag
 </p>
 <pre>
 Hidden.AvoidDoubleComputation=true
