@@ -104,7 +104,6 @@ typedef struct FMUInputVariable
   FMUBuilding* ptrBui;              /* Pointer to building with this input variable */
   char* modelicaNameInputVariable; /* Name of the Modelica instance of this zone */
   char* name;                       /* Name of this schedule or EMS actuator in the idf file */
-  char* variableName;              /* Variable name in the idf file if actuator, else void pointer */
   char* componentType;              /* Component type in the idf file if actuator, else void pointer */
   char* controlType;                /* Control type in the idf file if actuator, else void pointer */
   char* unit;                       /* Unit specified in the Modelica model */

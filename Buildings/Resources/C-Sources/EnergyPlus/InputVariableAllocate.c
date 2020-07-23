@@ -57,8 +57,7 @@ void* InputVariableAllocate(
   const char* modelicaNameInputVariable,
   const char* idfName,
   const char* weaName,
-  const char* writerName,
-  const char* variableName,
+  const char* name,
   const char* componentType,
   const char* controlType,
   const char* unit,
@@ -118,15 +117,12 @@ void* InputVariableAllocate(
     "Not enough memory in InputVariableAllocate.c. to allocate Modelica instance name.", &(comVar->modelicaNameInputVariable));
   strcpy(comVar->modelicaNameInputVariable, modelicaNameInputVariable);
 
-  mallocString(strlen(writerName)+1, "Not enough memory in InputVariableAllocate.c. to allocate input name.", &(comVar->name));
-  strcpy(comVar->name, writerName);
+  mallocString(strlen(name)+1, "Not enough memory in InputVariableAllocate.c. to allocate input name.", &(comVar->name));
+  strcpy(comVar->name, name);
 
   /* Assign the name, component type and control type */
   if (objectType == 1){
     /* This is an EMS actuator */
-    mallocString(strlen(variableName)+1, "Not enough memory in InputVariableAllocate.c. to allocate component name.", &(comVar->variableName));
-    strcpy(comVar->variableName, variableName);
-
     mallocString(strlen(componentType)+1, "Not enough memory in InputVariableAllocate.c. to allocate component type.", &(comVar->componentType));
     strcpy(comVar->componentType, componentType);
 
@@ -135,7 +131,6 @@ void* InputVariableAllocate(
   }
   else{
     /* This is a Schedule */
-    comVar->variableName = NULL;
     comVar->componentType = NULL;
     comVar->controlType = NULL;
   }
@@ -172,7 +167,7 @@ void* InputVariableAllocate(
       if (doubleInpVarSpec != NULL){
         ModelicaFormatError(
           "Modelica model specifies input '%s' twice, once in %s and once in %s, both belonging to building %s. Each input must only be specified once per building.",
-        variableName, modelicaNameInputVariable, doubleInpVarSpec->modelicaNameInputVariable, fmu->modelicaNameBuilding);
+        name, modelicaNameInputVariable, doubleInpVarSpec->modelicaNameInputVariable, fmu->modelicaNameBuilding);
       }
       else{
         /* This input variable has not yet been added to this building */

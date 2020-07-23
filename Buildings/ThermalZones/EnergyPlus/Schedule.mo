@@ -28,8 +28,7 @@ protected
       modelicaNameInputVariable=modelicaNameInputVariable,
       idfName=idfName,
       weaName=weaName,
-      writerName=name,
-      variableName="",
+      name=name,
       componentType="",
       controlType="",
       unit=Buildings.ThermalZones.EnergyPlus.BaseClasses.getUnitAsString(unit),
@@ -77,8 +76,7 @@ equation
 Block that writes to a schedule object in EnergyPlus.
 </p>
 <p>
-This model instantiates an FMU with the name <code>idfName</code> and
-writes at every EnergyPlus zone time step the value of the input <code>u</code>
+This model writes at every EnergyPlus zone time step the value of the input <code>u</code>
 to an EnergyPlus schedule with name <code>name</code>.
 If <code>useSamplePeriod = true</code>, then the value <code>u</code> is
 written at each multiple of <code>samplePeriod</code>, in addition to the EnergyPlus zone time step.

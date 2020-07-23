@@ -134,7 +134,7 @@ void buildJSONModelStructureForEnergyPlus(
         saveAppend(buffer, "    \"emsActuators\": [\n", size);
       }
       openJSONModelBracket(buffer, size);
-      buildJSONKeyValue(buffer, 4, "variableName", inpVars[i]->variableName, true, size);
+      buildJSONKeyValue(buffer, 4, "variableName", inpVars[i]->name, true, size);
       buildJSONKeyValue(buffer, 4, "componentType", inpVars[i]->componentType, true, size);
       buildJSONKeyValue(buffer, 4, "controlType", inpVars[i]->controlType, true, size);
       buildJSONKeyValue(buffer, 4, "unit", inpVars[i]->unit, true, size);

@@ -34,8 +34,7 @@ protected
       modelicaNameInputVariable=modelicaNameInputVariable,
       idfName=idfName,
       weaName=weaName,
-      writerName="",
-      variableName=variableName,
+      name=variableName,
       componentType=componentType,
       controlType=controlType,
       unit=Buildings.ThermalZones.EnergyPlus.BaseClasses.getUnitAsString(unit),
@@ -66,8 +65,7 @@ equation
 Block that writes to an EMS actuator object in EnergyPlus.
 </p>
 <p>
-This model instantiates an FMU with the name <code>idfName</code> and
-writes at every EnergyPlus zone time step the value of the input <code>u</code>
+This model writes at every EnergyPlus zone time step the value of the input <code>u</code>
 to an EnergyPlus EMS actuator with name <code>variableName</code>.
 <!--
 If <code>useSamplePeriod = true</code>, then the value <code>u</code> is
