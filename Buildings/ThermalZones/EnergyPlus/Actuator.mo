@@ -128,7 +128,7 @@ by specifying the Modelica instance
     variableName=\"LIVING ZONE Lights\",
     componentType=\"Lights\",
     controlType=\"Electric Power Level\",
-    unit=Buildings.ThermalZones.EnergyPlus.Types.Units.Power\)
+    unit=Buildings.ThermalZones.EnergyPlus.Types.Units.Power)
       \"Actuator for lights\";
 </pre>
 <p>
