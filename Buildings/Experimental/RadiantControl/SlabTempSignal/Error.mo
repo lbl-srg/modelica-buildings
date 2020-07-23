@@ -1,0 +1,68 @@
+within Buildings.Experimental.RadiantControl.SlabTempSignal;
+block Error "Determines difference between slab temperature and slab setpoint"
+  Controls.OBC.CDL.Continuous.ChangeSign           chaSig
+    "Negates slab setpoint"
+    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
+  Modelica.Blocks.Math.Add add "Slab temperature minus slab setpoint"
+    annotation (Placement(transformation(extent={{0,0},{20,20}})));
+  Controls.OBC.CDL.Interfaces.RealInput TSla "Slab temperature"
+    annotation (Placement(transformation(extent={{-140,-10},{-100,30}})));
+  Controls.OBC.CDL.Interfaces.RealInput TSlaSet "Slab temperature setpoint"
+    annotation (Placement(transformation(extent={{-140,-50},{-100,-10}})));
+  Controls.OBC.CDL.Interfaces.RealOutput slabTempError
+    "Difference between slab temp and setpoint"
+    annotation (Placement(transformation(extent={{100,-10},{140,30}})));
+equation
+  connect(chaSig.y,add. u2) annotation (Line(points={{-18,-30},{-18,4},{-2,
+          4}},                   color={0,0,127}));
+  connect(TSla, add.u1) annotation (Line(points={{-120,10},{-100,10},{-100,
+          16},{-2,16}}, color={0,0,127}));
+  connect(TSlaSet, chaSig.u)
+    annotation (Line(points={{-120,-30},{-42,-30}}, color={0,0,127}));
+  connect(add.y, slabTempError)
+    annotation (Line(points={{21,10},{120,10}}, color={0,0,127}));
+  annotation (Documentation(info="<html>
+<p>
+This calculates the slab error, ie the difference between the slab temperature and its setpoint. This term is what drives calls for heating or for cooling. 
+</p>
+</html>"),Icon(coordinateSystem(
+        preserveAspectRatio=true,
+        extent={{-100,-100},{100,100}}), graphics={
+        Text(
+          lineColor={0,0,255},
+          extent={{-150,110},{150,150}},
+          textString="%name"),  Rectangle(
+        extent={{-100,-100},{100,100}},
+        lineColor={0,0,127},
+        fillColor={255,255,255},
+        fillPattern=FillPattern.Solid),
+        Line(points={{-80,68},{-80,-80}}, color={192,192,192}),
+        Polygon(
+          points={{-80,90},{-88,68},{-72,68},{-80,90}},
+          lineColor={192,192,192},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Solid),
+        Line(points={{-90,-70},{82,-70}}, color={192,192,192}),
+        Polygon(
+          points={{90,-70},{68,-62},{68,-78},{90,-70}},
+          lineColor={192,192,192},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Solid),
+        Line(points={{-80,-70},{-40,-70},{31,38}}),
+        Text(
+          extent={{-150,-150},{150,-110}},
+          lineColor={0,0,0},
+          textString="duration=%duration"),
+        Line(points={{31,38},{86,38}}),
+        Text(
+        extent={{-56,90},{48,-88}},
+        lineColor={0,0,0},
+        fillColor={0,0,0},
+        fillPattern=FillPattern.Solid,
+        textString="E"),
+        Text(
+          extent={{226,60},{106,10}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}), Diagram(
+        coordinateSystem(preserveAspectRatio=false)));
+end Error;
