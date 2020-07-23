@@ -118,7 +118,7 @@ equation
             120}})),
     Documentation(info="<html>
 <p>
-This block computes the Boolean enable signal for heat and cold 
+This block computes the Boolean signals enabling heat and cold 
 rejection.
 </p>
 <p>
@@ -130,7 +130,7 @@ there is a heating demand, with no simultaneous cooling demand, or
 </li>
 <li>
 there is a simultaneous heating and cooling demand, and the temperature
-difference (negative) indicating a demand for heat or cold rejection (see
+difference (negative) representative of the demand for heat or cold rejection (see
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold</a>)
 is lower (higher in absolute value) for the chilled water tank than for 
@@ -146,7 +146,7 @@ there is a cooling demand, with no simultaneous heating demand, or
 </li>
 <li>
 there is a simultaneous heating and cooling demand, and the temperature
-difference (negative) indicating a demand for heat or cold rejection (see
+difference (negative) representative of the demand for heat or cold rejection (see
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold</a>)
 is lower (higher in absolute value) for the heating water tank than for 

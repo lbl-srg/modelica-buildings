@@ -1,10 +1,7 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls;
 model Supervisory "Supervisory controller"
-  extends Modelica.Blocks.Icons.Block;
+  extends BaseClasses.PartialSupervisory;
 
-  parameter Integer nSouAmb
-    "Number of ambient sources to control"
-    annotation(Evaluate=true);
   parameter Modelica.SIunits.TemperatureDifference dTHys(min=0) = 1
     "Temperature hysteresis (absolute value)";
   parameter Modelica.SIunits.TemperatureDifference dTDea(min=0) = 0.5
@@ -28,66 +25,6 @@ model Supervisory "Supervisory controller"
   parameter Modelica.SIunits.Temperature TChiWatSupSetMax=TChiWatSupSetMax(
       displayUnit="degC")
     "Maximum value of chilled water supply temperature set-point";
-
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHea
-    "Heating mode enabled signal" annotation (Placement(transformation(extent={{-160,90},
-            {-120,130}}), iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uCoo
-    "Cooling mode enabled signal" annotation (Placement(transformation(extent={{-160,70},
-            {-120,110}}), iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupPreSet(final unit="K",
-      displayUnit="degC") "Chilled water supply temperature set-point"
-    annotation (Placement(transformation(extent={{-160,-60},{-120,-20}}),
-        iconTransformation(extent={{-140,-40},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatTop(
-    final unit="K",displayUnit="degC")
-    "Chilled water temperature at tank top"
-    annotation (Placement(transformation(extent={{-160,-80},{-120,-40}}),
-      iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatBot(
-    final unit="K",displayUnit="degC")
-    "Chilled water temperature at tank bottom"
-    annotation (Placement(transformation(extent={{-160,-100},{-120,-60}}),
-       iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatTop(
-    final unit="K",displayUnit="degC")
-    "Heating water temperature at tank top"
-    annotation (Placement(transformation(extent={{-160,0},{-120,40}}),
-      iconTransformation(extent={{-140,0},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatBot(
-    final unit="K",displayUnit="degC")
-    "Heating water temperature at tank bottom"
-    annotation (Placement(transformation(extent={{-160,-20},{-120,20}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSupPreSet(
-    final unit="K", displayUnit="degC") "Heating water supply temperature set-point"
-    annotation (Placement(transformation(extent={{-160,20},{-120,60}}),
-        iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput THeaWatSupSet(
-    final unit="K", displayUnit="degC")
-    "Heating water supply temperature set-point after reset" annotation (
-      Placement(transformation(extent={{120,-90},{160,-50}}),
-        iconTransformation(extent={{100,-80},{140,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatSupSet(
-    final unit="K", displayUnit="degC")
-    "Chilled water supply temperature set-point after reset" annotation (
-      Placement(transformation(extent={{120,-130},{160,-90}}),
-        iconTransformation(extent={{100,-110},{140,-70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yIsoEva(
-    final unit="1")
-    "Evaporator to ambient loop isolation valve control signal" annotation (
-      Placement(transformation(extent={{120,-10},{160,30}}),iconTransformation(
-          extent={{100,-50},{140,-10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yIsoCon(
-    final unit="1") "Condenser to ambient loop isolation valve control signal"
-    annotation (
-      Placement(transformation(extent={{120,20},{160,60}}),  iconTransformation(
-          extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yAmb[nSouAmb](
-    each final unit="1") "Control output for ambient sources" annotation (
-      Placement(transformation(extent={{120,-50},{160,-10}}),
-                                                            iconTransformation(
-          extent={{100,10},{140,50}})));
 
   SideHot conHotSid(
     final nSouAmb=nSouAmb,
@@ -117,55 +54,16 @@ model Supervisory "Supervisory controller"
     final dTDea=dTDea)
     "Rejection mode selection"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHea
-    "Tank in heating demand"            annotation (Placement(transformation(
-          extent={{120,80},{160,120}}), iconTransformation(extent={{100,70},{140,
-            110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yCoo
-    "Tank in cooling demand" annotation (Placement(transformation(extent={{120,60},
-            {160,100}}), iconTransformation(extent={{100,40},{140,80}})));
 equation
-  connect(THeaWatTop, conHotSid.TTop) annotation (Line(points={{-140,20},{-24,
-          20},{-24,46},{-12,46}}, color={0,0,127}));
-  connect(THeaWatBot, conHotSid.TBot) annotation (Line(points={{-140,0},{-20,0},
-          {-20,42},{-12,42}},     color={0,0,127}));
-  connect(TChiWatBot, conColSid.TBot) annotation (Line(points={{-140,-80},{-60,
-          -80},{-60,-58},{-12,-58}}, color={0,0,127}));
   connect(conHotSid.yAmb, max1.u1)
     annotation (Line(points={{12,49},{28,49},{28,6},{38,6}}, color={0,0,127}));
   connect(conColSid.yAmb, max1.u2) annotation (Line(points={{12,-51},{28,-51},{28,
           -6},{38,-6}}, color={0,0,127}));
-  connect(uHea, conHotSid.uHeaCoo) annotation (Line(points={{-140,110},{-56,110},
-          {-56,58},{-12,58}}, color={255,0,255}));
-  connect(uCoo, conColSid.uHeaCoo) annotation (Line(points={{-140,90},{-60,90},{
-          -60,-42},{-12,-42}}, color={255,0,255}));
-  connect(TChiWatTop, conColSid.TTop) annotation (Line(points={{-140,-60},{-64,
-          -60},{-64,-54},{-12,-54}}, color={0,0,127}));
-  connect(uHea, resTSup.uHea) annotation (Line(points={{-140,110},{-100,110},{-100,
-          -92},{-82,-92}}, color={255,0,255}));
-  connect(uCoo, resTSup.uCoo) annotation (Line(points={{-140,90},{-104,90},{-104,
-          -97},{-82,-97}}, color={255,0,255}));
-  connect(THeaWatSupPreSet, resTSup.THeaWatSupPreSet) annotation (Line(points={{-140,40},
-          {-112,40},{-112,-103},{-82,-103}},          color={0,0,127}));
-  connect(TChiWatSupPreSet, resTSup.TChiWatSupPreSet) annotation (Line(points={{-140,
-          -40},{-116,-40},{-116,-108},{-82,-108}},      color={0,0,127}));
-  connect(resTSup.TChiWatSupSet, TChiWatSupSet) annotation (Line(points={{-58,-105},
-          {100,-105},{100,-110},{140,-110}},
-                                           color={0,0,127}));
-  connect(resTSup.THeaWatSupSet, THeaWatSupSet) annotation (Line(points={{-58,-95},
-          {100,-95},{100,-70},{140,-70}},
-                                        color={0,0,127}));
-  connect(conColSid.yIsoAmb, yIsoEva) annotation (Line(points={{12,-56},{70,-56},
-          {70,10},{140,10}},    color={0,0,127}));
-  connect(max1.y, yAmb) annotation (Line(points={{62,0},{100,0},{100,-30},{140,-30}},
-        color={0,0,127}));
   connect(resTSup.THeaWatSupSet, conHotSid.TSet) annotation (Line(points={{-58,-95},
           {-28,-95},{-28,50},{-12,50}}, color={0,0,127}));
   connect(resTSup.TChiWatSupSet, conColSid.TSet) annotation (Line(points={{-58,
           -105},{-20,-105},{-20,-50},{-12,-50}},
                                            color={0,0,127}));
-  connect(conHotSid.yIsoAmb, yIsoCon) annotation (Line(points={{12,44},{84,44},{
-          84,40},{140,40}},  color={0,0,127}));
   connect(conHotSid.e, rejMod.dTHeaWat) annotation (Line(points={{12,52},{16,52},
           {16,87},{38,87}}, color={0,0,127}));
   connect(conColSid.e, rejMod.dTChiWat) annotation (Line(points={{12,-48},{20,-48},
@@ -174,16 +72,44 @@ equation
           {70,68},{-20,68},{-20,54},{-12,54}}, color={255,0,255}));
   connect(rejMod.yColRej, conColSid.uRej) annotation (Line(points={{62,85},{80,85},
           {80,-20},{-20,-20},{-20,-46},{-12,-46}}, color={255,0,255}));
-  connect(conHotSid.yDem, yHea) annotation (Line(points={{12,56},{100,56},{100,100},
-          {140,100}}, color={255,0,255}));
-  connect(conColSid.yDem, yCoo) annotation (Line(points={{12,-44},{110,-44},{110,
-          80},{140,80}}, color={255,0,255}));
-  connect(TChiWatSupSet, TChiWatSupSet) annotation (Line(points={{140,-110},{134,
-          -110},{134,-110},{140,-110}}, color={0,0,127}));
   connect(conHotSid.yDem, rejMod.uHea) annotation (Line(points={{12,56},{26,56},
           {26,96.8},{38,96.8}}, color={255,0,255}));
   connect(conColSid.yDem, rejMod.uCoo) annotation (Line(points={{12,-44},{32,-44},
           {32,93},{38,93}}, color={255,0,255}));
+  connect(max1.y, yAmb)
+    annotation (Line(points={{62,0},{140,0}}, color={0,0,127}));
+  connect(conHotSid.yIsoAmb, yIsoCon) annotation (Line(points={{12,44},{40,44},{
+          40,40},{140,40}}, color={0,0,127}));
+  connect(conColSid.yIsoAmb, yIsoEva) annotation (Line(points={{12,-56},{100,-56},
+          {100,20},{140,20}}, color={0,0,127}));
+  connect(conHotSid.yDem, yHea) annotation (Line(points={{12,56},{100,56},{100,100},
+          {140,100}}, color={255,0,255}));
+  connect(conColSid.yDem, yCoo) annotation (Line(points={{12,-44},{90,-44},{90,80},
+          {140,80}}, color={255,0,255}));
+  connect(uHea, conHotSid.uHeaCoo) annotation (Line(points={{-140,110},{-40,110},
+          {-40,58},{-12,58}}, color={255,0,255}));
+  connect(uCoo, conColSid.uHeaCoo) annotation (Line(points={{-140,90},{-60,90},{
+          -60,-42},{-12,-42}}, color={255,0,255}));
+  connect(uCoo, resTSup.uCoo) annotation (Line(points={{-140,90},{-100,90},{-100,
+          -97},{-82,-97}}, color={255,0,255}));
+  connect(uHea, resTSup.uHea) annotation (Line(points={{-140,110},{-96,110},{-96,
+          -92},{-82,-92}}, color={255,0,255}));
+  connect(THeaWatSupPreSet, resTSup.THeaWatSupPreSet) annotation (Line(points={{
+          -140,40},{-106,40},{-106,-103},{-82,-103}}, color={0,0,127}));
+  connect(TChiWatSupPreSet, resTSup.TChiWatSupPreSet) annotation (Line(points={{
+          -140,-40},{-112,-40},{-112,-108},{-82,-108}}, color={0,0,127}));
+  connect(TChiWatTop, conColSid.TTop) annotation (Line(points={{-140,-60},{-40,-60},
+          {-40,-54},{-12,-54}}, color={0,0,127}));
+  connect(TChiWatBot, conColSid.TBot) annotation (Line(points={{-140,-80},{-16,-80},
+          {-16,-58},{-12,-58}}, color={0,0,127}));
+  connect(THeaWatTop, conHotSid.TTop) annotation (Line(points={{-140,20},{-20,20},
+          {-20,46},{-12,46}}, color={0,0,127}));
+  connect(THeaWatBot, conHotSid.TBot) annotation (Line(points={{-140,0},{-16,0},
+          {-16,42},{-12,42}}, color={0,0,127}));
+  connect(resTSup.THeaWatSupSet, THeaWatSupSet) annotation (Line(points={{-58,-95},
+          {108,-95},{108,-40},{140,-40}}, color={0,0,127}));
+  connect(resTSup.TChiWatSupSet, TChiWatSupSet) annotation (Line(points={{-58,-105},
+          {114,-105},{114,-60},{140,-60}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,
             120}})),
@@ -202,23 +128,30 @@ This block implements the supervisory control functions of the ETS.
 </p>
 <ul>
 <li>
-It controls the hot and cold sides based on the logic described in
+It provides the tank demand signals to enable the chiller system, 
+based on the logic described in
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold</a>.
-The systems serving as ambient sources for the ETS are controlled based on the
-maximum of the control signals yielded by the hot and cold side controllers.
 </li>
 <li>
 It resets the heating water and chilled water supply temperature
 based on the logic described in
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Reset\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Reset</a>.
-Note that this resetting logic is meant to optimize the lift of the chiller.
-The heating water temperature may be reset up by
+Note that this resetting logic is meant to operate the chiller at low lift.
+The chilled water supply temperature may be reset down by
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Chiller\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Chiller</a>
-to maintain the chilled water supply temperature. This second resetting logic
-is required for the heating function of the unit, but it has a negative impact on the lift.
+to maintain the heating water supply temperature set point. 
+This second resetting logic is required for the heating function of the unit, 
+but it has a negative impact on the lift.
+</li>
+<li>
+It controls the systems serving as ambient sources based on the logic described in
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold</a>.
+The systems are controlled based on the
+maximum of the control signals yielded by the hot side and cold side controllers.
 </li>
 </ul>
 </html>"));

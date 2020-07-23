@@ -4,13 +4,20 @@ model ChillerBorefield
   extends BaseClasses.PartialParallel(
     final have_eleCoo=true,
     final have_fan=false,
+    redeclare Controls.Supervisory conSup(
+      final controllerType=controllerType,
+      final kHot=kHot,
+      final kCol=kCol,
+      final Ti=Ti,
+      final dTHys=dTHys,
+      final dTDea=dTDea,
+      final THeaWatSupSetMin=THeaWatSupSetMin,
+      final TChiWatSupSetMax=TChiWatSupSetMax),
     nSysHea=1,
     nSouAmb=if have_borFie then 2 else 1,
     dT2HexSet=abs(T_b2Hex_nominal - T_a2Hex_nominal) .* {1 + 1/datChi.COP_nominal, 1},
     VTanHeaWat=datChi.PLRMin * datChi.mCon_flow_nominal * 5 * 60 / 1000,
     VTanChiWat=datChi.PLRMin * datChi.mEva_flow_nominal * 5 * 60 / 1000,
-    THeaWatSupSetMin=datChi.TConEntMin + 5,
-    TChiWatSupSetMax=datChi.TEvaLvgMax,
     colChiWat(mCon_flow_nominal=
       {colAmbWat.mDis_flow_nominal, datChi.mEva_flow_nominal}),
     colHeaWat(mCon_flow_nominal=
@@ -78,6 +85,38 @@ model ChillerBorefield
       choicesAllMatching=true,
       Placement(transformation(extent={{180,222},{200,242}})));
 
+  parameter Modelica.SIunits.TemperatureDifference dTHys = 1.0
+    "Temperature hysteresis for supervisory control"
+    annotation (Dialog(group="Supervisory controller"));
+  parameter Modelica.SIunits.TemperatureDifference dTDea = 0.5
+    "Temperature dead band for supervisory control"
+    annotation (Dialog(group="Supervisory controller"));
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
+    annotation (Dialog(group="Supervisory controller"));
+  parameter Real kHot[nSouAmb](each min=0)=fill(0.05, nSouAmb)
+    "Gain of controller on hot side"
+    annotation (Dialog(group="Supervisory controller"));
+  parameter Real kCol[nSouAmb](each min=0)=fill(0.1, nSouAmb)
+    "Gain of controller on cold side"
+    annotation (Dialog(group="Supervisory controller"));
+  parameter Modelica.SIunits.Time Ti[nSouAmb](
+    each min=Buildings.Controls.OBC.CDL.Constants.small)=fill(300, nSouAmb)
+    "Time constant of integrator block (hot and cold side)"
+    annotation (Dialog(enable=
+      controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
+      controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
+      group="Supervisory controller"));
+  parameter Modelica.SIunits.Temperature THeaWatSupSetMin(displayUnit="degC")=
+    datChi.TConEntMin + 5
+    "Minimum value of heating water supply temperature set-point"
+    annotation (Dialog(group="Supervisory controller"));
+  parameter Modelica.SIunits.Temperature TChiWatSupSetMax(displayUnit="degC")=
+    datChi.TEvaLvgMax
+    "Maximum value of chilled water supply temperature set-point"
+    annotation (Dialog(group="Supervisory controller"));
+
   replaceable Subsystems.Chiller chi(
     redeclare final package Medium = MediumBui,
     final perPumCon=perPumCon,
@@ -115,10 +154,10 @@ equation
     annotation (Line(points={{10,0},{108,0},{108,-24}}, color={0,127,255}));
   connect(colChiWat.ports_bCon[2], chi.port_aChiWat) annotation (Line(points={{132,
           -24},{132,-12},{10,-12},{10,-12}}, color={0,127,255}));
-  connect(conSup.THeaWatSupSet, chi.THeaWatSupSet) annotation (Line(points={{-238,16},
-          {-24,16},{-24,-7},{-12,-7}},     color={0,0,127}));
-  connect(conSup.TChiWatSupSet, chi.TChiWatSupSet) annotation (Line(points={{-238,13},
-          {-26,13},{-26,-9},{-12,-9}},     color={0,0,127}));
+  connect(conSup.THeaWatSupSet, chi.THeaWatSupSet) annotation (Line(points={{-238,19},
+          {-24,19},{-24,-7},{-12,-7}},     color={0,0,127}));
+  connect(conSup.TChiWatSupSet, chi.TChiWatSupSet) annotation (Line(points={{-238,17},
+          {-26,17},{-26,-9},{-12,-9}},     color={0,0,127}));
   connect(chi.PPum, totPPum.u[2]) annotation (Line(points={{12,-8},{20,-8},{20,-58},
           {258,-58},{258,-60}}, color={0,0,127}));
   connect(colAmbWat.ports_aCon[2], borFie.port_b) annotation (Line(points={{12,-116},
@@ -142,12 +181,12 @@ equation
     annotation (Line(points={{222,60},{258,60}}, color={0,0,127}));
   connect(chi.PChi, totPCoo.u[1]) annotation (Line(points={{12,-4},{20,-4},{20,20},
           {258,20}}, color={0,0,127}));
-  connect(uHea, conSup.uHea) annotation (Line(points={{-320,100},{-290,100},{
-          -290,30},{-262,30}}, color={255,0,255}));
+  connect(uHea, conSup.uHea) annotation (Line(points={{-320,100},{-290,100},{-290,
+          31},{-262,31}},      color={255,0,255}));
   connect(conSup.yHea, chi.uHea) annotation (Line(points={{-238,31},{-20,31},{
           -20,-3},{-12,-3}}, color={255,0,255}));
-  connect(conSup.yCoo, chi.uCoo) annotation (Line(points={{-238,28},{-22,28},{
-          -22,-5},{-12,-5}}, color={255,0,255}));
+  connect(conSup.yCoo, chi.uCoo) annotation (Line(points={{-238,29},{-22,29},{-22,
+          -5},{-12,-5}},     color={255,0,255}));
 annotation (
         Diagram(coordinateSystem(preserveAspectRatio=false,
                   extent={{-300,-300},{300,300}}),

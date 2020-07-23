@@ -20,7 +20,7 @@ createPlot(id=1, y={"ets.tanChiWat.TTop", "ets.tanChiWat.TBot", "senTChiWatSup.T
     autoreplot=true,
     grid=true,
     color=true);
-createPlot(id=1, y={"ets.conSup.uHea", "ets.conSup.uCoo", "ets.conSup.yAmb[1]", "ets.conSup.yAmb[2]"},
+createPlot(id=1, y={"ets.conSup.yHea", "ets.conSup.yCoo", "ets.conSup.yAmb[1]", "ets.conSup.yAmb[2]"},
     subPlot=3,
     autoscale=true,
     autoerase=true,

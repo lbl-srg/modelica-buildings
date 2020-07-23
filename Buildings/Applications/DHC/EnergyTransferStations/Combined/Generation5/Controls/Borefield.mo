@@ -149,9 +149,9 @@ First implementation
 </ul>
 </html>", info="<html>
 <p>
-This blocks implement the control logic for the borefield system.
+This block implements the control logic for the borefield system.
 The main control signal <code>u</code> is yielded by the hot side
-and cold side controllers, see
+or cold side controller, see
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold</a>.
 </p>
@@ -171,12 +171,15 @@ When the system is enabled,
 </p>
 <ul>
 <li>
-the pump speed is modulated by the input signal, constrained by the minimum
-pump speed,
+the input signal is mapped to modulate in sequence the mixing valve 
+(from full bypass to closed bypass for a control signal varying between 
+0% and 30%) and the pump speed (from the minimum to the maximum value 
+for a control signal varying between 30% and 100%),
 </li>
 <li>
-the mixing valve opening is modulated based on a PI loop controlling
-the maximum inlet temperature.
+a PI loop tracks the maximum inlet temperature, the minimum between this
+loop output and the previously mapped signal being used to modulate the 
+valve.
 </li>
 </ul>
 </html>"));

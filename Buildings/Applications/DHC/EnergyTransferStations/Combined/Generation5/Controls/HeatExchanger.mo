@@ -67,7 +67,7 @@ model HeatExchanger
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swiOff1
     "Output zero if not enabled"
-    annotation (Placement(transformation(extent={{140,-70},{160,-50}})));
+    annotation (Placement(transformation(extent={{160,-70},{180,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant min1(final k=if
     have_val1Hex then yVal1HexMin else spePum1HexMin)
     "Minimum pump speed or actuator opening"
@@ -81,7 +81,7 @@ model HeatExchanger
     annotation (Placement(transformation(extent={{-170,110},{-150,130}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
     "At least one valve is open and HX circuit is enabled"
-    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
+    annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold heaRej(threshold=0.9)
     "Heat rejection if condenser isolation valve is open"
     annotation (Placement(transformation(extent={{-170,70},{-150,90}})));
@@ -89,7 +89,7 @@ model HeatExchanger
     "Cold rejection if evaporator isolation valve is open"
     annotation (Placement(transformation(extent={{-170,30},{-150,50}})));
   Buildings.Controls.OBC.CDL.Logical.Or or1 "At least one valve is open "
-    annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
+    annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Product pro "Gain scheduling"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -129,7 +129,7 @@ model HeatExchanger
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(final k=1) "One"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0) "Zero"
-    annotation (Placement(transformation(extent={{10,30},{30,50}})));
+    annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hal(final k=0.3)
     "Control signal value for full opening of the valve"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
@@ -144,33 +144,33 @@ equation
   connect(T2HexWatLvg, delT2.u2) annotation (Line(points={{-240,-40},{-180,-40},
           {-180,-26},{-172,-26}}, color={0,0,127}));
   connect(swiOff1.y, y1Hex)
-    annotation (Line(points={{162,-60},{200,-60},{200,20},{240,20}},
+    annotation (Line(points={{182,-60},{200,-60},{200,20},{240,20}},
                                                  color={0,0,127}));
   connect(max1.y, swiOff1.u1) annotation (Line(points={{112,-60},{126,-60},{126,
-          -52},{138,-52}},
+          -52},{158,-52}},
                      color={0,0,127}));
   connect(u, greThr.u)
     annotation (Line(points={{-240,120},{-172,120}}, color={0,0,127}));
-  connect(greThr.y, and2.u1) annotation (Line(points={{-148,120},{-60,120},{-60,
-          60},{-42,60}},
+  connect(greThr.y, and2.u1) annotation (Line(points={{-148,120},{-80,120},{-80,
+          80},{-62,80}},
                      color={255,0,255}));
-  connect(and2.y, swiOff1.u2) annotation (Line(points={{-18,60},{132,60},{132,
-          -60},{138,-60}},
+  connect(and2.y, swiOff1.u2) annotation (Line(points={{-38,80},{140,80},{140,
+          -60},{158,-60}},
                     color={255,0,255}));
   connect(cooRej.y, or1.u2) annotation (Line(points={{-148,40},{-120,40},{-120,
-          52},{-102,52}},
+          52},{-112,52}},
                      color={255,0,255}));
-  connect(heaRej.y, or1.u1) annotation (Line(points={{-148,80},{-126,80},{-126,
-          60},{-102,60}},
+  connect(heaRej.y, or1.u1) annotation (Line(points={{-148,80},{-120,80},{-120,
+          60},{-112,60}},
                      color={255,0,255}));
-  connect(or1.y, and2.u2) annotation (Line(points={{-78,60},{-70,60},{-70,52},{
-          -42,52}},
+  connect(or1.y, and2.u2) annotation (Line(points={{-88,60},{-80,60},{-80,72},{
+          -62,72}},
                 color={255,0,255}));
   connect(yValIso[1], heaRej.u) annotation (Line(points={{-240,50},{-240,60},{-200,
           60},{-200,80},{-172,80}}, color={0,0,127}));
   connect(yValIso[2], cooRej.u) annotation (Line(points={{-240,70},{-240,60},{-200,
           60},{-200,40},{-172,40}}, color={0,0,127}));
-  connect(and2.y, con1Hex.trigger) annotation (Line(points={{-18,60},{40,60},{
+  connect(and2.y, con1Hex.trigger) annotation (Line(points={{-38,80},{40,80},{
           40,-80},{52,-80},{52,-72}},
                              color={255,0,255}));
   connect(pro1.y, con1Hex.u_m)
@@ -200,9 +200,6 @@ equation
   connect(min1.y, max1.u2) annotation (Line(points={{72,-140},{80,-140},{80,-66},
           {88,-66}},
                 color={0,0,127}));
-  connect(greThr.y, swiOff2.u2)
-    annotation (Line(points={{-148,120},{128,120},{128,140},{138,140}},
-                                                    color={255,0,255}));
   connect(swiOff2.y, yPum2Hex) annotation (Line(points={{162,140},{180,140},{
           180,-20},{240,-20}}, color={0,0,127}));
   connect(one.y, mapSpe.x2) annotation (Line(points={{62,100},{70,100},{70,136},
@@ -221,24 +218,26 @@ equation
   connect(setAct.y, pro.u1) annotation (Line(points={{-28,-60},{-20,-60},{-20,
           -54},{-12,-54}},
                        color={0,0,127}));
-  connect(zer.y, swiOff2.u3) annotation (Line(points={{32,40},{120,40},{120,132},
+  connect(zer.y, swiOff2.u3) annotation (Line(points={{12,40},{120,40},{120,132},
           {138,132}},      color={0,0,127}));
-  connect(zer.y, swiOff1.u3) annotation (Line(points={{32,40},{120,40},{120,-68},
-          {138,-68}},    color={0,0,127}));
+  connect(zer.y, swiOff1.u3) annotation (Line(points={{12,40},{120,40},{120,-68},
+          {158,-68}},    color={0,0,127}));
   connect(hal.y, mapSpe.x1) annotation (Line(points={{12,100},{20,100},{20,148},
           {88,148}}, color={0,0,127}));
   connect(u, mapVal.u) annotation (Line(points={{-240,120},{-180,120},{-180,140},
           {84,140},{84,100},{88,100}}, color={0,0,127}));
-  connect(zer.y, mapVal.x1) annotation (Line(points={{32,40},{80,40},{80,108},{
+  connect(zer.y, mapVal.x1) annotation (Line(points={{12,40},{80,40},{80,108},{
           88,108}}, color={0,0,127}));
-  connect(zer.y, mapVal.f1) annotation (Line(points={{32,40},{80,40},{80,104},{
+  connect(zer.y, mapVal.f1) annotation (Line(points={{12,40},{80,40},{80,104},{
           88,104}}, color={0,0,127}));
   connect(one.y, mapVal.f2) annotation (Line(points={{62,100},{70,100},{70,92},
           {88,92}}, color={0,0,127}));
-  connect(hal.y, mapVal.x2) annotation (Line(points={{12,100},{20,100},{20,80},
-          {84,80},{84,96},{88,96}}, color={0,0,127}));
+  connect(hal.y, mapVal.x2) annotation (Line(points={{12,100},{20,100},{20,84},
+          {84,84},{84,96},{88,96}}, color={0,0,127}));
   connect(mapVal.y, yVal2Hex) annotation (Line(points={{112,100},{210,100},{210,
           -60},{240,-60}}, color={0,0,127}));
+  connect(and2.y, swiOff2.u2) annotation (Line(points={{-38,80},{-20,80},{-20,
+          120},{130,120},{130,140},{138,140}}, color={255,0,255}));
 annotation (Diagram(
   coordinateSystem(preserveAspectRatio=false,
   extent={{-220,-180},{220,180}})),
@@ -253,34 +252,33 @@ First implementation
 </ul>
 </html>", info="<html>
 <p>
-This blocks implement the control logic for the district heat exchanger loop,
+This block implements the control logic for the district heat exchanger system,
 which realizes the interface between the building and the district systems.
 </p>
 <p>
-The secondary side (the building side) is controlled according to the logic 
-described in 
+The input signal <code>u</code> is yielded by the hot side or cold side controller, see
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold</a>.
-(The input signal <code>u</code> is simply constrained by the minimum secondary
-pump speed and propagated to the output signal <code>y2Hex</code>.)
-</p>
-<p>
-The primary side (the district side) is enabled to operate if 
+The primary and secondary circuits are enabled to operate if the input signal
+is greater than zero and the return position of one ambient loop isolation valve 
+is greater than 90%.
+When enabled,
 </p>
 <ul>
 <li>
-the secondary side is enabled to operate, and
+the secondary circuit is controlled based on the input signal <code>u</code>,
+which is mapped to modulate in sequence the mixing valve 
+(from full bypass to closed bypass for a control signal varying between 
+0% and 30%) and the pump speed (from the minimum to the maximum value 
+for a control signal varying between 30% and 100%),
 </li>
 <li>
-the return position of one ambient loop isolation valve is greater than 90%.
-</li>
-</ul>
-<p>
-When enabled, the primary pump speed (or valve opening) is modulated with 
+the primary pump speed (or valve opening) is modulated with 
 a PI loop controlling the temperature difference on the secondary side.
 A set point (and gain) scheduling logic is implemented to allow changing the
 control parameters based on the active rejection mode (heat or cold rejection) 
 of the ETS.
-</p>
+</li>
+</ul>
 </html>"));
 end HeatExchanger;

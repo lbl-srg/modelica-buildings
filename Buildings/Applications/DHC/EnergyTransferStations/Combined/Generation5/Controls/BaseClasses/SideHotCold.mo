@@ -252,7 +252,9 @@ Control signal for ambient sources <code>y</code><br/>
 The systems serving as ambient sources are
 <ul>
 <li>
-enabled if the demand signal from the other tank is true, and
+enabled if the corresponding rejection mode signal is true, see
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.RejectionMode\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.RejectionMode</a>,
 </li>
 <li>
 controlled in sequence with an instance of
@@ -265,7 +267,7 @@ limiting the increase (resp. decrease) in the temperature measured at the bottom
 <li>
 Control signal for ambient loop isolation valve <code>yIsoAmb</code><br/>
 The valve is commanded to be fully open whenever the maximum of the
-ambient source control signals is not zero.
+ambient source control signals is greater than zero.
 </li>
 </ul>
 <p>

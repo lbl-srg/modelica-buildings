@@ -44,12 +44,12 @@ model Reset "Supervisory supply temperature reset"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxSet(k=
         TChiWatSupSetMax) "Maximum value of CHW set-point"
-    annotation (Placement(transformation(extent={{-48,-90},{-28,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.SlewRateLimiter ramLim(raisingSlewRate=
-        0.1) "Limit the rate of change"
+    annotation (Placement(transformation(extent={{-50,-90},{-30,-70}})));
+  Buildings.Controls.OBC.CDL.Continuous.SlewRateLimiter ramLimHea(
+      raisingSlewRate=0.1) "Limit the rate of change"
     annotation (Placement(transformation(extent={{50,50},{70,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.SlewRateLimiter ramLim1(raisingSlewRate
-      =0.1) "Limit the rate of change"
+  Buildings.Controls.OBC.CDL.Continuous.SlewRateLimiter ramLimCoo(
+      raisingSlewRate=0.1) "Limit the rate of change"
     annotation (Placement(transformation(extent={{50,-70},{70,-50}})));
 equation
   connect(TChiWatSupPreSet, swiCoo.u1) annotation (Line(points={{-120,-80},{-80,
@@ -59,20 +59,20 @@ equation
   connect(minSet.y, swiHea.u3) annotation (Line(points={{-28,40},{-20,40},{-20,
           52},{-2,52}},
                     color={0,0,127}));
-  connect(maxSet.y, swiCoo.u3) annotation (Line(points={{-26,-80},{-20,-80},{
+  connect(maxSet.y, swiCoo.u3) annotation (Line(points={{-28,-80},{-20,-80},{
           -20,-68},{-2,-68}},
                      color={0,0,127}));
   connect(uHea, swiHea.u2) annotation (Line(points={{-120,80},{-60,80},{-60,60},
           {-2,60}}, color={255,0,255}));
   connect(uCoo, swiCoo.u2) annotation (Line(points={{-120,40},{-60,40},{-60,-60},
           {-2,-60}}, color={255,0,255}));
-  connect(swiHea.y, ramLim.u)
+  connect(swiHea.y, ramLimHea.u)
     annotation (Line(points={{22,60},{48,60}}, color={0,0,127}));
-  connect(ramLim.y, THeaWatSupSet)
+  connect(ramLimHea.y, THeaWatSupSet)
     annotation (Line(points={{72,60},{120,60}}, color={0,0,127}));
-  connect(swiCoo.y, ramLim1.u)
+  connect(swiCoo.y, ramLimCoo.u)
     annotation (Line(points={{22,-60},{48,-60}}, color={0,0,127}));
-  connect(ramLim1.y, TChiWatSupSet)
+  connect(ramLimCoo.y, TChiWatSupSet)
     annotation (Line(points={{72,-60},{120,-60}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
@@ -87,11 +87,14 @@ First implementation
 </ul>
 </html>", info="<html>
 <p>
-This block implement the supervisory reset of the heating water 
+This block implements the supervisory reset of the heating water 
 and chilled water supply temperature.
 The heating water (resp. chilled water) supply temperature is 
 reset down (resp. up) whenever the heating (resp. cooling) demand signal  
 yielded by the building automation system is false.
+This enables operating the chiller at a reduced lift whenever 
+there is no requirement on the water temperature supplied to the 
+building systems.
 </p>
 </html>"));
 end Reset;
