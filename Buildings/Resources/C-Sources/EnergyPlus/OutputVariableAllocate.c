@@ -56,7 +56,7 @@ void* OutputVariableAllocate(
   const char* modelicaNameOutputVariable,
   const char* idfName,
   const char* weaName,
-  const char* componentName,
+  const char* variableName,
   const char* componentKey,
   int usePrecompiledFMU,
   const char* fmuName,
@@ -113,8 +113,8 @@ void* OutputVariableAllocate(
   strcpy(comVar->modelicaNameOutputVariable, modelicaNameOutputVariable);
 
   /* Assign the name and key */
-  mallocString(strlen(componentName)+1, "Not enough memory in OutputVariableAllocate.c. to allocate output name.", &(comVar->name));
-  strcpy(comVar->name, componentName);
+  mallocString(strlen(variableName)+1, "Not enough memory in OutputVariableAllocate.c. to allocate output name.", &(comVar->name));
+  strcpy(comVar->name, variableName);
 
   mallocString(strlen(componentKey)+1, "Not enough memory in OutputVariableAllocate.c. to allocate output key.", &(comVar->key));
   strcpy(comVar->key, componentKey);

@@ -2,7 +2,7 @@ within Buildings.ThermalZones.EnergyPlus;
 model Schedule "Block to write to an EnergyPlus schedule"
   extends Buildings.ThermalZones.EnergyPlus.BaseClasses.Writer(
   final objectType=2,
-  final componentName="",
+  final variableName="",
   final componentType="",
   final controlType="");
 

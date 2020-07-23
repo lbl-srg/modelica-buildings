@@ -15,7 +15,7 @@ void* OutputVariableAllocate(
   const char* modelicaNameOutputVariable,
   const char* idfName,
   const char* weaName,
-  const char* componentName,
+  const char* variableName,
   const char* componentKey,
   int usePrecompiledFMU,
   const char* fmuName,

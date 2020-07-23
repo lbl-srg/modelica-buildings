@@ -5,7 +5,7 @@ partial model Writer "Block to write to an EnergyPlus actuator or schedule"
   parameter String name
     "Name of schedule";
 
-  parameter String componentName
+  parameter String variableName
     "Actuated component unique name in the EnergyPlus idf file";
 
   parameter String componentType
@@ -86,7 +86,7 @@ protected
       idfName=idfName,
       weaName=weaName,
       writerName=name,
-      componentName=componentName,
+      variableName=variableName,
       componentType=componentType,
       controlType=controlType,
       unit=unitAsString,

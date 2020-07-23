@@ -16,7 +16,7 @@ class FMUInputVariableClass
     input String idfName "Name of the IDF";
     input String weaName "Name of the weather file";
     input String writerName "EnergyPlus name of the actuator or schedule";
-    input String componentName "Actuated component unique name in the EnergyPlus idf file (not used for schedule)";
+    input String variableName "Actuated component unique name in the EnergyPlus idf file (not used for schedule)";
     input String componentType "Actuated component type (not used for schedule)";
     input String controlType   "Actuated component control type (not used for schedule)";
     input String unit "Unit of the input in Modelica";
@@ -35,7 +35,7 @@ class FMUInputVariableClass
       idfName,
       weaName,
       writerName,
-      componentName,
+      variableName,
       componentType,
       controlType,
       unit,

@@ -38,7 +38,7 @@ model ShadeControl
     annotation (Placement(transformation(extent={{0,40},{40,80}})));
   Buildings.ThermalZones.EnergyPlus.Actuator actSha(
     unit=Buildings.ThermalZones.EnergyPlus.Types.Units.Normalized,
-    componentName="Zn001:Wall001:Win001",
+    variableName="Zn001:Wall001:Win001",
     componentType="Window Shading Control",
     controlType="Control Status") "Actuator for window shade"
     annotation (Placement(transformation(extent={{170,-100},{190,-80}})));

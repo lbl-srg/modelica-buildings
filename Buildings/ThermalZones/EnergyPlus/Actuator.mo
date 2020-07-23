@@ -52,7 +52,7 @@ Next, instantiate the actuator in Modelica. For the above
   Buildings.ThermalZones.EnergyPlus.Actuator actSha(
     name =          \"Zn001_Wall001_Win001_Shading_Deploy_Status\",
     unit =          Buildings.ThermalZones.EnergyPlus.Types.Units.Normalized,
-    componentName = \"Zn001:Wall001:Win001\",
+    variableName = \"Zn001:Wall001:Win001\",
     componentType = \"Window Shading Control\",
     controlType =   \"Control Status\") \"Actuator for window shade\";
 </pre>
