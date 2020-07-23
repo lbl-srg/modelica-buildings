@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses;
-model PartialSupervisory "Partial model for supervisory controller"
+partial block PartialSupervisory "Partial model for supervisory controller"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Integer nSouAmb

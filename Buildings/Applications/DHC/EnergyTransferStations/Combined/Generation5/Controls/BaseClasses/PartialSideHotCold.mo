@@ -1,6 +1,5 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses;
-partial block SideHotCold
-  "Base control block for hor or cold side"
+partial block PartialSideHotCold "Base control block for hor or cold side"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Integer nSouAmb
@@ -275,4 +274,4 @@ ambient source control signals is greater than zero.
 src=\"modelica://Buildings/Resources/Images/Applications/DHC/EnergyTransferStations/Combined/Generation5/Controls/BaseClasses/HotColdSide.png\"/>
 </p>
 </html>"));
-end SideHotCold;
+end PartialSideHotCold;

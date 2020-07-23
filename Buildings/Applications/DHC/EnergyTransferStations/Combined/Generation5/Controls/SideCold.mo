@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls;
 model SideCold "Control block for cold side"
-  extends BaseClasses.SideHotCold(
+  extends BaseClasses.PartialSideHotCold(
     final reverseActing=true);
   Buildings.Controls.OBC.CDL.Continuous.Max max "Max"
     annotation (Placement(transformation(extent={{-90,-90},{-70,-70}})));

@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls;
 block SideHot "Control block for hot side"
-  extends BaseClasses.SideHotCold(
+  extends BaseClasses.PartialSideHotCold(
     final reverseActing=false);
   Buildings.Controls.OBC.CDL.Continuous.Min min
     annotation (Placement(transformation(extent={{-90,-90},{-70,-70}})));

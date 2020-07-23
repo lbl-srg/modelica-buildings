@@ -206,7 +206,8 @@ First implementation
 </html>", info="<html>
 
 <p>
-
+<img alt=\"Sequence chart\"
+src=\"modelica://Buildings/Resources/Images/Applications/DHC/EnergyTransferStations/Combined/Generation5/ChillerBorefield.png\"/>
 </p>
 </html>"));
 end ChillerBorefield;
