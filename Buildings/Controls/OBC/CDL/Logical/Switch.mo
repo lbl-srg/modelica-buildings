@@ -34,6 +34,12 @@ Otherwise, it outputs <code>y = u3</code>.
 </html>", revisions="<html>
 <ul>
 <li>
+July 17, 2020, by Jianjun Hu:<br/>
+Changed icon to display dynamically which input signal is being outputted.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2033\"># 2033</a>.
+</li>
+<li>
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the
 Modelica Standard Library.
@@ -57,9 +63,10 @@ Modelica Standard Library.
           color={0,0,127}),
         Line(points={{-40.0,12.0},{-40.0,-12.0}},
           color={255,0,255}),
-        Line(points={{-100.0,80.0},{-38.0,80.0}},
-          color={0,0,127}),
-        Line(points={{-38.0,80.0},{6.0,2.0}},
+        Line(points={{-100.0,80.0},{-40.0,80.0}}, color={0,0,127}),
+        Line(
+          points=DynamicSelect({{10,0},{-40,80}},
+                               {{10,0},if u2 then {-40,80} else {-40,-80}}),
           color={0,0,127},
           thickness=1.0),
         Ellipse(lineColor={0,0,255},
@@ -73,6 +80,16 @@ Modelica Standard Library.
           fillColor=DynamicSelect({235,235,235}, if u2 then {0,255,0}
                else {235,235,235}),
           fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-90,80},{-46,54}},
+          lineColor=DynamicSelect({0,0,0},
+                                  if u2 then {0,0,0} else {235,235,235}),
+          textString="true"),
+        Text(
+          extent={{-90,-46},{-38,-76}},
+          lineColor=DynamicSelect({0,0,0},
+                                  if u2 then {235,235,235} else {0,0,0}),
+          textString="false"),
         Text(
           extent={{-150,150},{150,110}},
           lineColor={0,0,255},
