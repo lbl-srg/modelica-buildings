@@ -620,10 +620,6 @@ The following rules need to be followed, in addition to the guidelines described
    Make sure sequences are tested for all modes of operation, and as applicable, for winter, shoulder
    and summer days.
 
-#. Perform code text and, if applicable, figure inspection to:
-      - ensure there are no remaining typos
-      - ensure no element `public` was added automatically after the `protected` code section.
-
 #. Use full paths to blocks, that is paths that start with `Buildings.Controls...`
 
 #. For general rules on validation models see :numref:`sec_val`. It is recommended to:
