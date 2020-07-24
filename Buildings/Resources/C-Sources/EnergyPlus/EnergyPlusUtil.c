@@ -24,15 +24,23 @@
 
 void writeFormatLog(const char *fmt, ...) {
   va_list args;
+  FILE *fp;
 
-  freopen("output.txt", "a+", stdout);
+  fp = freopen("output.txt", "a+", stdout);
+  if (fp == NULL){
+    ModelicaFormatError("Failed to open file 'output.txt': %s", strerror(errno));
+  }
 
   va_start(args, fmt);
   vprintf(fmt, args);
   va_end(args);
   printf("%s", "\n");
   fflush(stdout);
-  freopen("/dev/tty", "w", stdout); /*for gcc, ubuntu*/
+  fp = freopen("/dev/tty", "w", stdout); /*for gcc, ubuntu*/
+  if (fp == NULL){
+    ModelicaFormatError("Failed to open file '/dev/tty': %s", strerror(errno));
+  }
+
 }
 
 void writeLog(const char* msg)
