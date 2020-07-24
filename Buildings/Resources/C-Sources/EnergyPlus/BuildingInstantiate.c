@@ -285,10 +285,10 @@ void setValueReferences(FMUBuilding* fmuBui){
   size_t nv = fmi2_import_get_variable_list_size(vl);
 
 
+  /* Set value references for the zones by assigning the values obtained from the FMU */
   if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaFormatMessage("Setting variable references for zones.");
 
-  /* Set value references for the zones by assigning the values obtained from the FMU */
   for(i = 0; i < fmuBui->nZon; i++){
     zone = (FMUZone*) fmuBui->zones[i];
     setAttributesReal(fmuBui->fmuAbsPat, fmuBui->idfName, vl, vrl, nv, zone->parameters);
@@ -297,6 +297,9 @@ void setValueReferences(FMUBuilding* fmuBui){
   }
 
   /* Set value references for the input variables by assigning the values obtained from the FMU */
+  if (FMU_EP_VERBOSITY >= MEDIUM)
+    ModelicaFormatMessage("Setting variable references for input variables.");
+
   for(i = 0; i < fmuBui->nInputVariables; i++){
     inpVar = (FMUInputVariable*) fmuBui->inputVariables[i];
     setAttributesReal(fmuBui->fmuAbsPat, fmuBui->idfName, vl, vrl, nv, inpVar->inputs);
@@ -304,6 +307,9 @@ void setValueReferences(FMUBuilding* fmuBui){
   }
 
   /* Set value references for the output variables by assigning the values obtained from the FMU */
+  if (FMU_EP_VERBOSITY >= MEDIUM)
+    ModelicaFormatMessage("Setting variable references for output variables.");
+
   for(i = 0; i < fmuBui->nOutputVariables; i++){
     outVar = (FMUOutputVariable*) fmuBui->outputVariables[i];
     setAttributesReal(fmuBui->fmuAbsPat, fmuBui->idfName, vl, vrl, nv, outVar->outputs);
