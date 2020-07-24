@@ -198,8 +198,8 @@ protected
     annotation (Placement(transformation(extent={{-380,-140},{-360,-120}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
-    final k=0)
-    "Zero"
+    final k=1)
+    "Lowest allowed stage"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and4
