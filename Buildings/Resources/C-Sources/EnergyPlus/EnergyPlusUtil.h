@@ -20,6 +20,8 @@
 #include "fmilib.h"
 #include "FMI2/fmi2FunctionTypes.h"
 
+#define SPAWN_LOGGER_BUFFER_LENGTH 1000
+
 void writeFormatLog(const char *fmt, ...);
 
 void writeLog(const char* msg);

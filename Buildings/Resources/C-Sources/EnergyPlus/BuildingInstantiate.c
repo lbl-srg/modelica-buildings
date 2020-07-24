@@ -476,12 +476,13 @@ static void spawnLogger(
 {
   /* EnergyPlus has for category always "EnergyPlus message", so we don't report this here */
   int len;
-  const size_t BUFFER = 1000;
   const char* signature = "In %s: EnergyPlus %s->%s\n";
-  char msg[BUFFER];
+  char msg[SPAWN_LOGGER_BUFFER_LENGTH];
   va_list argp;
   va_start(argp, message);
-  len = jm_vsnprintf(msg, BUFFER, message, argp);
+  len = vsnprintf(msg, SPAWN_LOGGER_BUFFER_LENGTH, message, argp);
+  if (len < 0)
+    ModelicaFormatError("Failed to parse message '%s' from EnergyPlus.", message);
 
   if (status == fmi2_status_ok || status == fmi2_status_pending || status == fmi2_status_discard){
     if (FMU_EP_VERBOSITY >= QUIET)
@@ -551,7 +552,8 @@ void importEnergyPlusFMU(FMUBuilding* bui){
   callBackFunctions.logger = spawnLogger; /* fmilogger; */
   callBackFunctions.allocateMemory = calloc;
   callBackFunctions.freeMemory = free;
-  callBackFunctions.componentEnvironment = bui->fmu;
+  callBackFunctions.stepFinished = NULL; /* synchronous execution */
+  callBackFunctions.componentEnvironment = NULL;
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaFormatMessage("Loading dllfmu.");
