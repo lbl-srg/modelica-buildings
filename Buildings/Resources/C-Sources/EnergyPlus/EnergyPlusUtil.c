@@ -543,12 +543,14 @@ void getSimulationTemporaryDirectory(const char* modelicaNameBuilding, char** di
 }
 
 void fmilogger(jm_callbacks* c, jm_string module, jm_log_level_enu_t log_level, jm_string message){
+  printf("Message from FMU: This is a test.\n");
+  /*
   if (log_level == jm_log_level_error){
     ModelicaFormatError("Error in FMU: module = %s, log level = %d: %s", module, log_level, message);
   }
   else{
     ModelicaFormatMessage("Message from FMU: module = %s, log level = %d: %s", module, log_level, message);
-  }
+  }*/
 }
 
 void buildVariableName(

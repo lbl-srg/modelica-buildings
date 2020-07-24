@@ -125,6 +125,11 @@ size_t AllocateBuildingDataStructure(
   Buildings_FMUS[nFMU]->nOutputVariables = 0;
   Buildings_FMUS[nFMU]->outputVariables = NULL;
 
+  /* Set pointer to Modelica reporting functions */
+  Buildings_FMUS[nFMU]->modelica_message = &ModelicaMessage;
+  printf("*** ModelicaMessage is at %p!\n", &ModelicaMessage);
+
+
   /* Create the temporary directory */
   createDirectory(Buildings_FMUS[nFMU]->tmpDir);
 

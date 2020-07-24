@@ -66,6 +66,7 @@ typedef struct FMUBuilding
   fmi2Real time; /* Time that is set in the building fmu */
   FMUMode mode; /* Mode that the FMU is in */
   size_t iFMU; /* Number of this FMU */
+  void* (*modelica_message)(const char*);
 } FMUBuilding;
 
 
