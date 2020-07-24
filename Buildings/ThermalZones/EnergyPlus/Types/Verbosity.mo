@@ -1,38 +1,29 @@
 within Buildings.ThermalZones.EnergyPlus.Types;
 type Verbosity = enumeration(
-    Fatal "Fatal errors",
     Error "Errors",
     Warning "Warnings",
     Info "Information",
-    Verbose "Verbose, including calls in initialization and shut-down",
-    Debug "Output at each time step") "Enumeration for the day types" annotation (
+    Verbose "Verbose, log calls in initialization and shut-down",
+    Debug "Verbose, log everything at each time step") "Enumeration for logging" annotation (
     Documentation(info="<html>
 <p>
 Enumeration for the level of outputs written by EnergyPlus.
 The possible values are:
 </p>
-<ol>
-<li>
-Fatal
-</li>
-<li>
-Error
-</li>
-<li>
-Warning
-</li>
-<li>
-Info
-</li>
-<li>
-Verbose
-</li>
-<li>
-Debug
-</li>
-</ol>
+<table summary=\"log levels\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><th>Verbosity</th><th>Explanation</th></tr>
+<tr><td>Error</td><td>Logs EnergyPlus errors and fatal errors.</td></tr>
+<tr><td>Warning</td><td>Logs in addition EnergyPlus warnings.</td></tr>
+<tr><td>Info</td><td>Logs in addition EnergyPlus informational messages.</td></tr>
+<tr><td>Verbose</td><td>Logs in addition main C function calls during initialization and shut-down.</td></tr>
+<tr><td>Debug</td><td>Logs everything, including all calls during time steps which can give large log files.</td></tr>
+</table>
 </html>", revisions="<html>
 <ul>
+<li>
+July 23, 2020, by Michael Wetter:<br/>
+Revised implementation to combine errors and fatal errors, as they should both be reported always.
+</li>
 <li>
 September 25, 2019, by Michael Wetter:<br/>
 Revised implementation.

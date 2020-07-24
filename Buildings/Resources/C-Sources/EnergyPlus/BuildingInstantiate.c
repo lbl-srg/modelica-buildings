@@ -466,6 +466,38 @@ void setFMUDebugLevel(FMUBuilding* bui){
   free(categories);
 }
 
+/* Logger function used for Spawn */
+static void spawnLogger(
+  fmi2_component_environment_t env,
+  fmi2_string_t instanceName,
+  fmi2_status_t status,
+  fmi2_string_t category,
+  fmi2_string_t message, ...)
+{
+  /* EnergyPlus has for category always "EnergyPlus message", so we don't report this here */
+  int len;
+  const size_t BUFFER = 1000;
+  const char* signature = "In %s: EnergyPlus %s->%s\n";
+  char msg[BUFFER];
+  va_list argp;
+  va_start(argp, message);
+  len = jm_vsnprintf(msg, BUFFER, message, argp);
+
+  if (status == fmi2_status_ok || status == fmi2_status_pending || status == fmi2_status_discard){
+    if (FMU_EP_VERBOSITY >= QUIET)
+      ModelicaFormatMessage(signature, instanceName, "Info", msg);
+  }
+  else if (status == fmi2_status_warning){
+    if (FMU_EP_VERBOSITY >= WARNINGS)
+      ModelicaFormatMessage(signature, instanceName, fmi2_status_to_string(status), msg);
+  }
+  else{
+    /* This captures fmi2_status_error and fmi2_status_fatal.
+       They are written for any verbosity. */
+    ModelicaFormatMessage(signature, instanceName, fmi2_status_to_string(status), msg);
+  }
+}
+
 /* Import the EnergyPlus FMU
 */
 void importEnergyPlusFMU(FMUBuilding* bui){
@@ -516,7 +548,7 @@ void importEnergyPlusFMU(FMUBuilding* bui){
   fmi2_import_collect_model_counts(bui->fmu, &mc);
   printf("*** Number of discrete variables %lu.\n", mc.num_discrete);
  */
-  callBackFunctions.logger = fmi2_log_forwarding; /* fmilogger; */
+  callBackFunctions.logger = spawnLogger; /* fmilogger; */
   callBackFunctions.allocateMemory = calloc;
   callBackFunctions.freeMemory = free;
   callBackFunctions.componentEnvironment = bui->fmu;
