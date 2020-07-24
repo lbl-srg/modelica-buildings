@@ -14,8 +14,6 @@ welcome.
 Contributions are ideally made by first opening an issue at https://github.com/lbl-srg/modelica-buildings
 and by providing a pull request with the new code.
 
-
-
 .. _sec_dev_gui_con:
 
 Guidelines for contributions
@@ -36,16 +34,13 @@ Models, blocks and functions that are contributed need to adhere to the followin
    which are described in the `user guide <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Interfaces_UsersGuide.html#Buildings.Fluid.Interfaces.UsersGuide>`_ of this package.
    Otherwise, it becomes difficult to ensure that the implementation is numerically robust.
 
-
 .. _sec_sty_gui:
 
 Style Guide
 -----------
 
-
 General
 ~~~~~~~
-
 
 1. Partial classes and base classes that are not of interest to the user
    should be stored in a subdirectory called ``BaseClasses``.
@@ -59,10 +54,8 @@ General
 6. Models, functions and blocks must be implemented file-wise, i.e., 
    one model, function or block per file. An exception are the ``Buildings.Media`` packages.
 
-
 Type Declarations
 ~~~~~~~~~~~~~~~~~
-
 
 #. Declare all public parameters before protected ones. 
 #. Declare variables and final parameters that are not of interest to
@@ -115,10 +108,8 @@ Type Declarations
    provide a value for the ``start`` and ``nominal`` attribute.
 #. Use types from ``Modelica.SIunits`` where possible.
 
-
 Equations and Algorithms
 ~~~~~~~~~~~~~~~~~~~~~~~~
-
 
 #. Avoid events where possible.
 #. Only divide by quantities that cannot take on zero. For example, if
@@ -182,13 +173,13 @@ Equations and Algorithms
    differentiation. For example, in Dymola, if your model translation
    log shows
 
-   ::
+   .. code-block:: 
 
        Number of numerical Jacobians: 1
 
    (or any number other than zero), then enter on the command line
 
-   ::
+   .. code-block:: 
 
        Hidden.PrintFailureToDifferentiate = true;
 
@@ -198,10 +189,8 @@ Equations and Algorithms
    this function.
    See `implementation of function derivatives <Function-Derivatives>`__.
 
-
 Functions
 ~~~~~~~~~
-
 
 1. Use the ``smoothOrder`` annotation if a function is differentiable.
 2. If a function is invertible, also implement its inverse function and
@@ -214,10 +203,8 @@ Functions
    coupled systems of equations. See
    ``Buildings.Fluid.BaseClasses.FlowModels`` for an example.
 
-
 Package order
 ~~~~~~~~~~~~~
-
 
 1. Packages are first sorted alphabetically by the function
    ``_sort_package_order``. That function is part of BuildingsPy
@@ -254,10 +241,8 @@ Package order
    The remaining classes are ordered as follows and inserted between the above list:
    First, models, blocks and records are listed, then functions, and then packages.
 
-
 Documentation
 ~~~~~~~~~~~~~
-
 
 1.  Add a description string to all parameters and variables, including
     protected ones.
@@ -409,7 +394,6 @@ Documentation
 14. Always use lower case html tags.
 15. Provide a `reference` section if applicable.
 
-
 Adding a new class
 ------------------
 
@@ -421,7 +405,6 @@ See for example `Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor <http
 `Buildings.Fluid.Sensors <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors>`_.
 
 The next sections give guidance that is specific to the implementation of thermofluid flow devices, pressure drop models and control sequences.
-
 
 Thermofluid flow device
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -458,7 +441,6 @@ that will be released with Buildings 6.0.0.
 thermodynamic calculations. The model shows that the cooling tower performance only depends on
 the control signal `y`, the air inlet temperature `TAir`, the water inlet temperature `TWatIn` and the
 water mass flow rate `mWat_flow`.
-
 
 Pressure drop
 ~~~~~~~~~~~~~
@@ -512,7 +494,6 @@ to lump the pressure drop of the heating coil into the pressure drop model
 of the cooling coil.
 This often reduces the size of the system of nonlinear equations.
 
-
 Control Sequences using the Control Description Language
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -540,14 +521,13 @@ The following rules need to be followed, in addition to the guidelines described
    and this parameter and its value is of no interest to typical users.
 
 #. In the code text the instances must be ordered as follows:
-     - If an instance has a type associated with it, then list them in this order: `boolean`, `integer`, `real`.
+     - Instances should be ordered `Boolean` first, then `Integer`, then `Real`
+     - Instances should follow this order: parameters, inputs, outputs, other
+     - Protected instances are below all the unprotected instances and follow the same instance ordering rules
      - Instances of lower dimensionality should come first, e.g. scalar values before arrays, 
-       though grouping based on model specific similarities may be prioritized
-     - Instances should be ordered as: parameters, interfaces: first inputs, then outputs, then ports,
-       followed by any blocks/instances
-     - Protected instances are below all the unprotected instances and follow the same instance ordering rules.
+       though grouping based on model specific similarities may be prioritized.
 
-#. Each block must have a ``defaultComponentName`` annotation and a ``%name`` at icon layer
+#. Each block must have a ``defaultComponentName`` annotation and a ``%name`` label placed above the icon.
 
 #. To aid readability, the formatting of the Modelica source code file must be consistent with other
    implemented blocks, e.g., use two spaces for indentation (no tabulators),
@@ -558,12 +538,10 @@ The following rules need to be followed, in addition to the guidelines described
 #. For parameters, where generally valid values can be provided, provide them
    as default values.
 
-#. Note that the protected instances are not accessible with the plots used in the validation tests.
-
-#. Add comments to all the instances such as parameters, interfaces, blocks. The comments should be short and concise. The comments 
-   should not contain redundant information and hard coded parameters. If the functionality of an instance is obvious the developer may use
-   comments that closely resemble the class names, such as `Logical And`. 
-   Make sure comments are short and don’t contain any redundant information.
+#. Add comments to all instances. The comments should be concise. The comments 
+   should not contain redundant information and must not contain hard coded parameters as those can change. 
+   If the functionality of an instance is obvious the developer may use
+   comments that closely resemble the class names, such as `Logical And`.
 
 #. Each block must have an ``info`` section that explains its functionality.
    In this ``info`` section, names of ``parameters``, ``inputs`` and ``outputs``
@@ -622,7 +600,7 @@ The following rules need to be followed, in addition to the guidelines described
    process CDL.
 
 #. Units, quantities and value limits must be declared as ``final`` to avoid users to be able to change them, as
-   a change in unit may cause the control logic to be incorrect. Often display units are also declared as final.
+   a change in unit may cause the control logic to be incorrect.
 
 #. If the block diagram does not fit into the drawing pane, enlarge the drawing pane rather
    than making the blocks smaller.
@@ -644,22 +622,19 @@ The following rules need to be followed, in addition to the guidelines described
 
 #. Perform code text and, if applicable, figure inspection to:
       - ensure there are no remaining typos
-      - ensure no element `public` was added automatically after the `protected` code section
+      - ensure no element `public` was added automatically after the `protected` code section.
 
 #. Use full paths to blocks, that is paths that start with `Buildings.Controls...`
 
-#. Final steps for a pull requests:
-      - make sure that the latest base branch is merged into the development branch
-      - after creating a pull request observe that the files changed pertain to the 
-        issue being addressed with the development branch
+#. For general rules on validation models see :numref:`sec_val`. It is recommended to:
+      - list all instances of sequences or subsequences being tested at the top of the code text.
 
-#. For general rules on validation models see :numref:`sec_val`. Specifically for the 
-   sequence development ensure that:
-      - the instances of models being tested are listed at the top of the code text
-      - add a blank line at the end of each .mos script
+#. Run the following command to catch some additional warnings such as missing block comments:
 
-#. Run modelica-json$ node app.js -f Buildings/Controls/OBC/ASHRAE/PrimarySystem/{path to package} -o json -m modelica 
-   to catch some additional warnings such as missing block comments
+    .. code-block::
+
+       modelica-json$ node app.js -f Buildings/Controls/OBC/ASHRAE/PrimarySystem/{path to package} -o json -m modelica 
+   
 
 .. _sec_val:
 
@@ -673,9 +648,8 @@ The developer that introduces a new model, block or a function must:
    Unit tests should cover all branches of ``if-then`` constructs and 
    all realistic operating modes of the system represented by the model.
    See `unit test implementation <Unit-Tests>`__.
-2. Ensure that no unit test requires a numerical Jacobian. If a
-   numerical Jacobian is needed, improve the model.
-3. In the validation model info section add a couple of sentences that explain to others the intent of the unit test.
+
+2. In the validation model info section add a couple of sentences that explain to others the intent of the unit test.
    For example, an air handler unit controller test could describe
    "This model verifies that as the cooling load of the room increases, the controller
    first increases the mass flow rate setpoint and then reduces the supply temperature setpoint."
