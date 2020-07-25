@@ -16,7 +16,6 @@ model EquationFitReversible_CoolingClosedLoop
     redeclare package Medium2 = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    T1_start=281.4,
     per=per,
     scaling_factor=1)
    " Reversible water to water heat pump"
@@ -102,13 +101,12 @@ model EquationFitReversible_CoolingClosedLoop
     "Set point chilled water temperature"
     annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
   Sources.Boundary_pT pre(
-      redeclare package Medium = Medium,
-      nPorts=1)
-    "Pressure source"
+    redeclare package Medium = Medium,
+    nPorts=1) "Pressure source."
     annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
+        extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={-60,10})));
+        origin={60,50})));
 equation
   connect(souPum.ports[1], heaPum.port_a2)
    annotation (Line(points={{40,-50},{20,-50},{20,-26}},       color={0,127,255}));
@@ -128,7 +126,7 @@ equation
   connect(heaFlo.port, vol.heatPort)
    annotation (Line(points={{70,80},{80,80},{80,-2}},color={191,0,0}));
   connect(pum.port_a, vol.ports[1])
-   annotation (Line(points={{20,50},{58,50},{58,-10},{70,-10}},
+   annotation (Line(points={{20,50},{40,50},{40,-10},{70,-10}},
                                                              color={0,127,255}));
   connect(vol.ports[2], heaPum.port_b1)
    annotation (Line(points={{70,-14},{20,-14}},
@@ -145,9 +143,8 @@ equation
   connect(TLoaSet.y, heaPum.TSet)
    annotation (Line(points={{-68,40},{-26,40},{-26,-11},{-1.4,-11}},
                                                                 color={0,0,127}));
-  connect(heaPum.port_a1, pre.ports[1])
-   annotation (Line(points={{0,-14},{-32,-14},{-32,10},{-50,10}},
-                                                       color={0,127,255}));
+  connect(pum.port_a, pre.ports[1])
+    annotation (Line(points={{20,50},{50,50}}, color={0,127,255}));
      annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{120,100}}), graphics={
         Ellipse(lineColor = {75,138,73},
@@ -183,8 +180,8 @@ to the heatpump where it is cooled to meet the corresponding set point water tem
 <ul>
 <li>
 May 1, 2020, by Hagar Elarga:<br/>
-Corrected the <code>uMod</code> parameters and changed the <code>vol1</code> initial temperature <code>T1_start</code>
-condition accordingly.
+Corrected the <code>uMod</code> parameters and relocated the pressure source <code> pre</code> 
+to the pump suction side, i.e. maintain the pressure suction value at 3 bar to avoid cavitation.
 </li>
 <li>
 September 23, 2019, by Hagar Elarga:<br/>
