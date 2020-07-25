@@ -8,7 +8,7 @@ model OneZone "Validation model for one zone"
       "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/SingleFamilyHouse_TwoSpeed_ZoneAirBalance/SingleFamilyHouse_TwoSpeed_ZoneAirBalance.idf"),
     weaName = Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
-    usePrecompiledFMU=true,
+    usePrecompiledFMU=false,
     fmuName = Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/ThermalZones/EnergyPlus/FMUs/Zones1.fmu"),
     verbosity=Buildings.ThermalZones.EnergyPlus.Types.Verbosity.Warning,
     showWeatherData=false)
@@ -17,7 +17,7 @@ model OneZone "Validation model for one zone"
 
   Buildings.ThermalZones.EnergyPlus.ThermalZone zon(
     redeclare package Medium = Medium,
-    zoneName="Core_ZN",
+    zoneName="LIVING ZONE",
     nPorts = 2) "Thermal zone"
     annotation (Placement(transformation(extent={{0,-20},{40,20}})));
   Buildings.Fluid.FixedResistances.PressureDrop duc(
