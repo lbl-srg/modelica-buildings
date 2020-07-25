@@ -481,20 +481,18 @@ static void spawnLogger(
   fmi2_string_t message, ...)
 {
   /* EnergyPlus has for category always "EnergyPlus message", so we don't report this here */
-  /*
   int len;
   const char* signature = "In %s: EnergyPlus %s->%s\n";
   char msg[SPAWN_LOGGER_BUFFER_LENGTH];
   va_list argp;
   va_start(argp, message);
-*/
-  void* (*myMessage)(const char*);
+/*  void* (*myMessage)(const char*);
   myMessage = (((FMUBuilding*)env)->modelica_message);
   myMessage("This should write to ModelicaMessage.\n");
+  myMessage(message);
+  */
   /*  (*((FMUBuilding*)env)->modelica_message)("This is a test\n");*/
-  printf("Hello %p!\n", (void*)((FMUBuilding*)env)->modelica_message);
-  return;
-/*
+
   len = vsnprintf(msg, SPAWN_LOGGER_BUFFER_LENGTH, message, argp);
   if (len < 0)
     ModelicaFormatError("Failed to parse message '%s' from EnergyPlus.", message);
@@ -508,11 +506,10 @@ static void spawnLogger(
       ModelicaFormatMessage(signature, instanceName, fmi2_status_to_string(status), msg);
   }
   else{
-    // This captures fmi2_status_error and fmi2_status_fatal.
-    // They are written for any verbosity.
+    /* This captures fmi2_status_error and fmi2_status_fatal.
+       They are written for any verbosity. */
     ModelicaFormatMessage(signature, instanceName, fmi2_status_to_string(status), msg);
   }
-  */
 }
 
 /* Import the EnergyPlus FMU

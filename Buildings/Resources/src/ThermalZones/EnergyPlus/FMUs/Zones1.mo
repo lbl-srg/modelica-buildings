@@ -30,6 +30,7 @@ protected
     V =       Core_ZN_V,
     AFlo =    Core_ZN_AFlo,
     mSenFac = Core_ZN_mSenFac) "Room model";
+
 equation
   // Inputs for room
   core.T            = Core_ZN_T;

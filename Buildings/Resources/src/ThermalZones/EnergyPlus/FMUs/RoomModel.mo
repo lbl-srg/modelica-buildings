@@ -68,6 +68,7 @@ protected
 
 initial equation
   startTime = time;
+  assert(false, "*** Test warning written by " + getInstanceName() + ".\n", AssertionLevel.warning);
 equation
   sampleTrigger = sample(startTime, samplePeriod);
 

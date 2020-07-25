@@ -17,7 +17,7 @@ import sys
 #    import matplotlib.pyplot as plt
 
 debug_solver = False
-model="Zones3"
+model="Zones1"
 # Overwrite model with command line argument if specified
 if len(sys.argv) > 1:
   # If the argument is a file, then parse it to a model name
