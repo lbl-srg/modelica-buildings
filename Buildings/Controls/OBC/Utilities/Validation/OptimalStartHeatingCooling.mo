@@ -36,7 +36,7 @@ model OptimalStartHeatingCooling
   Buildings.Controls.OBC.CDL.Continuous.LimPID conPID1(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     Ti=3,
-    reverseAction=true) "PI control for space cooling"
+    reverseActing=false) "PI control for space cooling"
     annotation (Placement(transformation(extent={{180,0},{200,20}})));
   Buildings.Controls.SetPoints.OccupancySchedule occSch(
     occupancy=3600*{7,19},period=24*3600)

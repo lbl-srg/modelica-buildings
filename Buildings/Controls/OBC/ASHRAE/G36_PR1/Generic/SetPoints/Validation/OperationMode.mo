@@ -36,8 +36,10 @@ model OperationMode "Validate block for selecting operation mode"
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable occTim(
     final table=[0,0; occSta,1; occEnd,0; 24*3600,0],
     final smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)
+    "Occupancy schedule"
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.ModelTime modTim
+    "Standard time"
     annotation (Placement(transformation(extent={{-160,230},{-140,250}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
     final k=24*3600) "One day in second"

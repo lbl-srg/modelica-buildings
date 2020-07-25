@@ -71,7 +71,7 @@ partial model PartialControllerInterface
     "Initial value of output from the controller"
     annotation(Dialog(enable=(initType ==Modelica.Blocks.Types.InitPID.InitialOutput
               and use_controller),group="Initialization",tab="Controller"));
-  parameter Boolean reverseAction = true
+  parameter Boolean reverseActing=false
     "Set to true for throttling the water flow rate through a cooling coil controller"
     annotation(Dialog(tab="Controller",enable=use_controller));
   parameter Buildings.Types.Reset reset = Buildings.Types.Reset.Disabled

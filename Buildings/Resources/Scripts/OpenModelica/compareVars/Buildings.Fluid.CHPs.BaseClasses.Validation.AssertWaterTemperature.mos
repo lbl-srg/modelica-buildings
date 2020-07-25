@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "TWat.y[1]",
+    "per.TWatMax",
+    "assWatTem.assMes.u"
+  };
