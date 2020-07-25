@@ -18,7 +18,7 @@ model EquationFitReversible_CoolingClosedLoop
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     per=per,
     scaling_factor=1)
-   " Reversible water to water heat pump"
+   "Reversible water to water heat pump"
    annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
   Modelica.Blocks.Math.RealToInteger reaToInt
    "Real to integer conversion"
