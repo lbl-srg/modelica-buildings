@@ -75,7 +75,7 @@ model EquationFitReversible_EnergyPlus "Validation with EnergyPlus model"
     "EnergyPlus results: load side heat flow rate"
       annotation (Placement(transformation(extent={{-90,-82},{-70,-62}})));
   Modelica.Blocks.Sources.RealExpression P_EP(y=datRea.y[1])
-    "EnergyPlus results: load side heat flow rate"
+    "EnergyPlus results: Compressr power [W]"
       annotation (Placement(transformation(extent={{-90,-102},{-70,-82}})));
 equation
   connect(heaPum.port_a1,loaPum. ports[1])

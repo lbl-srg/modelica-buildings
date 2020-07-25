@@ -4,7 +4,7 @@ model EquationFitReversible_CoolingClosedLoop
  package Medium = Buildings.Media.Water "Medium model";
 
   parameter Data.EquationFitReversible.Trane_Axiom_EXW240 per
-   "Reverse heat pump performance data"
+   "Reversible heat pump performance data"
    annotation (Placement(transformation(extent={{-90,-80},{-70,-60}})));
   parameter Modelica.SIunits.MassFlowRate mSou_flow_nominal=per.hea.mSou_flow
    "Source heat exchanger nominal mass flow rate";
@@ -19,7 +19,7 @@ model EquationFitReversible_CoolingClosedLoop
     T1_start=281.4,
     per=per,
     scaling_factor=1)
-   "Water to Water heat pump"
+   " Reversible water to water heat pump"
    annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
   Modelica.Blocks.Math.RealToInteger reaToInt
    "Real to integer conversion"
@@ -183,7 +183,8 @@ to the heatpump where it is cooled to meet the corresponding set point water tem
 <ul>
 <li>
 May 1, 2020, by Hagar Elarga:<br/>
-Corrected the <code>uMod</code> parameters and changed the <code>vol</code>initial temperature condition accordingly.
+Corrected the <code>uMod</code> parameters and changed the <code>vol1</code> initial temperature <code>T1_start</code>
+condition accordingly.
 </li>
 <li>
 September 23, 2019, by Hagar Elarga:<br/>
