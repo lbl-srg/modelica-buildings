@@ -8,7 +8,9 @@ block ResetMinBypass
     final displayUnit="s") = 60
     "Enable delay after setpoint achieved";
 
-  parameter Real relFloDif=0.05
+  parameter Real relFloDif(
+    final unit="1",
+    final displayUnit="1")=0.05
     "Relative error to the setpoint for checking if it has achieved flow rate setpoint"
     annotation (Dialog(tab="Advanced"));
 
@@ -65,8 +67,7 @@ protected
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
-    final
-      threshold=delEna)
+    final threshold=delEna)
     "Check if it has been threshold time after new setpoint achieved"
     annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
 
@@ -83,7 +84,8 @@ protected
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=1e-6, final k=1)
+    final p=1e-6,
+    final k=1)
     "Add a small positive to avoid zero output"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
 

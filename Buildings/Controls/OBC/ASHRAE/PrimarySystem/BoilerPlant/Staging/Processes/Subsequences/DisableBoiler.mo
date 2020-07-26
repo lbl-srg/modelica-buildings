@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes
 block DisableBoiler
     "Sequence for disabling boiler in stage-down process"
 
-  parameter Integer nBoi
+  parameter Integer nBoi = 3
     "Total number of boilers";
 
   parameter Real proOnTim(
@@ -149,8 +149,7 @@ protected
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[nBoi](
-    final k=
-        boiInd)
+    final k=boiInd)
     "Boiler index array"
     annotation (Placement(transformation(extent={{-160,160},{-140,180}})));
 
@@ -565,7 +564,7 @@ Start the smaller boiler after the upstream device is proven functional(
 </li>
 <li>
 Wait 5 minutes (<code>proOnTim</code>) for the newly enabled boiler to prove that 
-it is operating correctly, then shut off the larger boiler and release the demand limit.
+it is operating correctly, then shut off the larger boiler.
 </li>
 </ul>
 <p>

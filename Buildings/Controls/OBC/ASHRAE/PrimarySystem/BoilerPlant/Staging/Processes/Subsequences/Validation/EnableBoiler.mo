@@ -14,11 +14,13 @@ model EnableBoiler
     "Enable additional boiler"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
 
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(trueHoldDuration=10)
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
+    final trueHoldDuration=10)
     "Hold pulse signal for visualization"
     annotation (Placement(transformation(extent={{-40,110},{-20,130}})));
 
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol1(trueHoldDuration=10)
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol1(
+    final trueHoldDuration=10)
     "Hold pulse signal for visualization"
     annotation (Placement(transformation(extent={{140,110},{160,130}})));
 
@@ -187,7 +189,7 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes.Subseq
 </html>", revisions="<html>
 <ul>
 <li>
-July 08, by Karthik Devaprasad:<br/>
+July 08, 2020 by Karthik Devaprasad:<br/>
 First implementation.
 </li>
 </ul>

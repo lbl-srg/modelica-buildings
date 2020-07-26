@@ -76,7 +76,7 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes.Subseq
 </html>", revisions="<html>
 <ul>
 <li>
-July 13, by Karthik Devaprasad:<br/>
+July 13, 2020 by Karthik Devaprasad:<br/>
 First implementation.
 </li>
 </ul>

@@ -871,7 +871,6 @@ protected
     annotation (Placement(transformation(extent={{630,290},{650,310}})));
 
 equation
-
   connect(uBoi.y, logSwi.u3) annotation (Line(points={{-238,180},{-230,180},{
           -230,192},{-222,192}},
                             color={255,0,255}));

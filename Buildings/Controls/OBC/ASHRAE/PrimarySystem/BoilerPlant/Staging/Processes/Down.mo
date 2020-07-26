@@ -8,7 +8,7 @@ block Down
 
   parameter Boolean isHeadered = true
     "True: Headered hot water pumps;
- False: Dedicated hot water pumps"
+    False: Dedicated hot water pumps"
     annotation (Dialog(group="Boiler plant parameters"));
 
   parameter Integer nBoi=3
@@ -282,7 +282,6 @@ protected
     annotation (Placement(transformation(extent={{-170,50},{-150,70}})));
 
 equation
-
   connect(lat.y, minBypRes.uUpsDevSta) annotation (Line(points={{-200,0},{-196,
           0},{-196,28},{-172,28}},
                                 color={255,0,255}));

@@ -211,7 +211,7 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes.Subseq
 </html>", revisions="<html>
 <ul>
 <li>
-July 10, by Karthik Devaprasad:<br/>
+July 10, 2020 by Karthik Devaprasad:<br/>
 First implementation.
 </li>
 </ul>

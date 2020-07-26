@@ -348,7 +348,7 @@ equation
           -200},{-40,-200},{-40,-170},{-58,-170}}, color={255,0,255}));
 
 annotation (
-  defaultComponentName="enaHotWatIsoVal",
+  defaultComponentName="hotWatIsoVal",
   Diagram(
     coordinateSystem(preserveAspectRatio=false,
     extent={{-160,-240},{180,240}}),

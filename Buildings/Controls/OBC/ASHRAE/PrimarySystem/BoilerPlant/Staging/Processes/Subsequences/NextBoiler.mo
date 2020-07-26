@@ -45,7 +45,7 @@ block NextBoiler
     annotation (Placement(transformation(extent={{220,-180},{260,-140}}),
       iconTransformation(extent={{100,-110},{140,-70}})));
 
-//protected
+protected
   parameter Integer boiInd[nBoi]={i for i in 1:nBoi}
     "Boiler index, {1,2,...,n}";
 

@@ -147,6 +147,7 @@ model Down
     "Hold true pulse signal for visualization"
     annotation (Placement(transformation(extent={{-120,-146},{-100,-126}})));
 
+protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant uBoi[nBoi](
     final k={true,true})
     "Initial boiler status"

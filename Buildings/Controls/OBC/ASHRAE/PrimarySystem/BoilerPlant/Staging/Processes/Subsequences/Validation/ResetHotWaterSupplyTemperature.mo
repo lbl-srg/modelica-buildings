@@ -29,6 +29,7 @@ model ResetHotWaterSupplyTemperature
     "Scenario testing reset for lag non-condensing boiler stage type"
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));
 
+protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
     final period=800)
     "Stage-up signal"
@@ -114,7 +115,7 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes.Subseq
 </html>", revisions="<html>
 <ul>
 <li>
-July 13, by Karthik Devaprasad:<br/>
+July 13, 2020 by Karthik Devaprasad:<br/>
 First implementation.
 </li>
 </ul>

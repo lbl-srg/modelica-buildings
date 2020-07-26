@@ -55,16 +55,16 @@ block ResetHotWaterSupplyTemperature
     annotation (Placement(transformation(extent={{160,10},{200,50}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And and1
-    "Ensure stage-completion signal is passed only when the stage-up signal is active"
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-
 protected
   parameter Integer boiStaInd[nSta]={i for i in 1:nSta}
     "Index vector of boiler plant stages";
 
+  Buildings.Controls.OBC.CDL.Logical.And and1
+    "Ensure stage-completion signal is passed only when the stage-up signal is active"
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr(
-    final threshold=2)
+    final threshold=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.nonCondensingBoiler)
     "Pass True if all preceding stages are condensing boiler type stages"
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
 
@@ -110,7 +110,7 @@ protected
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
-    final threshold=1)
+    final threshold=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler)
     "Identify if current stage setpoint is a non-condensing boiler stage"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 
@@ -242,7 +242,7 @@ This development is based on RP-1711, March 2020 draft, section 5.3.3.14, item 3
 </p>
 <p>
 When a stage-up command is received (<code>uStaUp</code> = true),
-the sequence checks if the hot water flow supply temperature <code>THotWatSup</code>
+the sequence checks if the hot water supply temperature <code>THotWatSup</code>
 has exceeded the minimum supply temperature for non-condensing boilers
 <code>TMinSupNonConBoi</code> or if the process time-out <code>delPro</code> has
 been exceeded since <code>uStaUp</code> became true. It will then set <code>yHotWatSupTemRes</code>

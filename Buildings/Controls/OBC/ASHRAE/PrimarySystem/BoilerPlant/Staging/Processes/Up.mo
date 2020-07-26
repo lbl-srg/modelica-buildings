@@ -313,7 +313,6 @@ protected
     annotation (Placement(transformation(extent={{-32,-120},{-12,-100}})));
 
 equation
-
   connect(nexBoi.yNexEnaBoi, enaHotWatIsoVal.nexChaBoi) annotation (Line(points={{-148,
           -51},{-90,-51},{-90,8},{-72,8}},       color={255,127,0}));
 
