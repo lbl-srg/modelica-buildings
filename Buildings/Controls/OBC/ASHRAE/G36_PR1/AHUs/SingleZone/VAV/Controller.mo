@@ -427,7 +427,7 @@ block Controller
     "Supply air set point and fan signal for single zone VAV system"
     annotation (Placement(transformation(extent={{40,180},{60,200}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID cooPI(
-    final reverseAction=true,
+    final reverseActing=false,
     final controllerType=controllerTypeCoo,
     final k=kCoo,
     final Ti=TiCoo,

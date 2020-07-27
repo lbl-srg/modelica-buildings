@@ -160,7 +160,7 @@ annotation (
 Block that outputs number of operating condenser water pumps and design pump speed 
 for current stage, 
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), 
+Central Plants and Hydronic Systems (Draft on March 2020), 
 section 5.2.9 Condenser water pumps, part 5.2.9.6. This sequence is for plants
 have variable speed condenser water pumps.
 </p>
