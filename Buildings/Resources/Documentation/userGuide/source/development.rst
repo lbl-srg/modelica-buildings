@@ -529,13 +529,16 @@ The following rules need to be followed, in addition to the guidelines described
    and is of no interest to typical users.
 
 #. In the source code, the instances must be ordered as follows:
+
      - First, list `Boolean` parameters,, then `Integer` parameters and then `Real` parameters.
      - Next, list inputs, then outputs, followed by blocks.
      - Protected instances are below all the public instances and follow the same instance ordering rules.
      - Within the above order, list scalar values before arrays,
-       but prioritize grouping based on model specific similarities.
+       but prioritize groupings based on model specific similarities.
 
 #. Each block must have a ``defaultComponentName`` annotation and a ``%name`` label placed above the icon.
+   See for example the `CDL.Continuous.Constant <https://github.com/lbl-srg/modelica-buildings/blob/64f35506a2b725e071a900a90e3fa3a291a48dca/Buildings/Controls/OBC/CDL/Continuous/Sources/Constant.mo#L21>`_
+   block.
 
 #. To aid readability, the formatting of the Modelica source code file must be consistent with other
    implemented blocks, e.g., use two spaces for indentation (no tabulators),
@@ -549,7 +552,7 @@ The following rules need to be followed, in addition to the guidelines described
 #. Add comments to all instances. The comments should be concise. The comments
    should not contain redundant information and must not contain hard coded parameters as those can change.
    If the functionality of an instance is obvious the developer may use
-   comments that closely resemble the class names, such as `Logical And`.
+   comments that closely resemble the class names, such as "Logical And".
 
 #. Each block must have an ``info`` section that explains its functionality.
    In this ``info`` section, names of ``parameters``, ``inputs`` and ``outputs``
@@ -616,7 +619,14 @@ The following rules need to be followed, in addition to the guidelines described
 
 #. The size of the icon should be such that it provides a good fit for all the input and output interfaces. The minimum
    recommended icon size is 100 by a 100. If there are many interfaces the icon size should be extended in vertical direction.
-   Icons should be symetrical with reference to the grid origin.
+   Icons should be symetrical with reference to the grid origin. E.g, the default specification is
+
+   .. code-block:: modelica
+
+      Icon(
+        coordinateSystem(
+          preserveAspectRatio=true,
+          extent={{-100,-100},{100,100}}))
 
 #. For simple, small controllers, provide a unit test in a ``Validation`` or ``Examples`` package
    that is in the hierarchy one level below the implemented controller.
@@ -624,21 +634,21 @@ The following rules need to be followed, in addition to the guidelines described
    Because some control logic errors may only be noticed
    when used in a closed loop test,
    for equipment and system controllers, provide also closed loop examples that test the sequence
-   for all modes of operation. If the closed loop examples include HVAC models, then put them
+   for all modes of operation. If the closed loop examples include HVAC models, put them
    outside of the ``Buildings.Controls.OBC`` package.
    Make sure sequences are tested for all modes of operation, and as applicable, for winter, shoulder
    and summer days.
 
 #. Use full paths to blocks, that is paths that start with ``Buildings.Controls...``.
 
-#. For general rules on validation models see :numref:`sec_val`. It is recommended to:
-      - list all instances of sequences or subsequences being tested at the top of the code text.
+#. For general rules on validation models see :numref:`sec_val`. Preferably,
+   list the block being tested at the top of the code, and list inputs to the block afterwards.
 
-#. Run the following command to catch some additional warnings such as missing block comments:
+#. Run the following command to detect various warnings, such as missing comments:
 
     .. code-block::
 
-       modelica-json$ node app.js -f Buildings/Controls/OBC/ASHRAE/PrimarySystem/{path to package} -o json -m modelica
+       $ node app.js -f Buildings/Controls/OBC/ASHRAE/PrimarySystem/{path to package} -o json -m cdl
 
 
 .. _sec_val:
@@ -652,9 +662,8 @@ The developer that introduces a new model, block or a function must:
    and run the unit tests.
    Unit tests should cover all branches of ``if-then`` constructs and
    all realistic operating modes of the system represented by the model.
-   See `unit test implementation <Unit-Tests>`__.
 
-2. In the validation model info section add a couple of sentences that explain to others the intent of the unit test.
+2. In the `info` section of the validation model, describe to others the intent of the unit test.
    For example, an air handler unit controller test could describe
    "This model verifies that as the cooling load of the room increases, the controller
    first increases the mass flow rate setpoint and then reduces the supply temperature setpoint."
@@ -666,10 +675,11 @@ For simple models, the validation can be against analytic solutions.
 This is for example done in
 `Buildings.Fluid.FixedResistances.PressureDrop <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances_Examples.html#Buildings.Fluid.FixedResistances.Examples.PressureDrop>`_
 which uses a regression tests that checks the correct relation between mass flow rate and pressure drop.
+
 For complex thermofluid flow devices, a comparative model validation needs to be done, for example
 by comparing the result of the Modelica model against the results from EnergyPlus.
 An example is
-`Buildings.Fluid.HeatExchangers.CoolingTowers.Validation.MerkelEnergyPlus`.
+``Buildings.Fluid.HeatExchangers.CoolingTowers.Validation.MerkelEnergyPlus``.
 For such validations, the following files also need to be added to the repository:
 
  - The EnergyPlus input data file. Please make sure it only requires a weather data file that already exists in the Buildings library.
@@ -683,4 +693,6 @@ For such validations, the following files also need to be added to the repositor
  - A Python script that converts the EnergyPlus output file to the data file that can
    be read by the Modelica data reader.
 
-See for example `Buildings/Resources/Data/Fluid/HeatExchangers/CoolingTowers/Validation` for an implementation.
+See for example
+`Buildings/Resources/Data/Fluid/HeatExchangers/CoolingTowers/Validation <https://github.com/lbl-srg/modelica-buildings/tree/master/Buildings/Resources/Data/Fluid/HeatExchangers/CoolingTowers/Validation/MerkelEnergyPlus>`_
+for an implementation.
