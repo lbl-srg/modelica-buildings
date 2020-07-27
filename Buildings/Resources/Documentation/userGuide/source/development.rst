@@ -532,8 +532,8 @@ The following rules need to be followed, in addition to the guidelines described
      - First, list `Boolean` parameters,, then `Integer` parameters and then `Real` parameters.
      - Next, list inputs, then outputs, followed by blocks.
      - Protected instances are below all the public instances and follow the same instance ordering rules.
-     - Instances of lower dimensionality should come first, e.g., scalar values before arrays,
-       though grouping based on model specific similarities may be prioritized.
+     - Within the above order, list scalar values before arrays,
+       but prioritize grouping based on model specific similarities.
 
 #. Each block must have a ``defaultComponentName`` annotation and a ``%name`` label placed above the icon.
 
@@ -629,7 +629,7 @@ The following rules need to be followed, in addition to the guidelines described
    Make sure sequences are tested for all modes of operation, and as applicable, for winter, shoulder
    and summer days.
 
-#. Use full paths to blocks, that is paths that start with `Buildings.Controls...`
+#. Use full paths to blocks, that is paths that start with ``Buildings.Controls...``.
 
 #. For general rules on validation models see :numref:`sec_val`. It is recommended to:
       - list all instances of sequences or subsequences being tested at the top of the code text.
