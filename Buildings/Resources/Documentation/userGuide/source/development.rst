@@ -36,7 +36,7 @@ Models, blocks and functions that are contributed need to adhere to the followin
 
 .. _sec_sty_gui:
 
-Style Guide
+Style guide
 -----------
 
 General
