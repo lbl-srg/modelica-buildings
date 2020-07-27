@@ -51,13 +51,13 @@ General
 4. Implement components of fluid flow systems by extending the partial
    classes in ``Buildings.Fluid.Interfaces``.
 5. Use the full package names when instantiating a class.
-6. Models, functions and blocks must be implemented file-wise, i.e., 
+6. Models, functions and blocks must be implemented file-wise, i.e.,
    one model, function or block per file. An exception are the ``Buildings.Media`` packages.
 
-Type Declarations
+Type declarations
 ~~~~~~~~~~~~~~~~~
 
-#. Declare all public parameters before protected ones. 
+#. Declare all public parameters before protected ones.
 #. Declare variables and final parameters that are not of interest to
    users as protected.
 #. Set default parameter values as follows:
@@ -73,9 +73,9 @@ Type Declarations
          parameter Real eps(start=0.8, min=0, max=1, unit="1")
            "Heat exchanger effectiveness";
 
-      Do not use ``parameter Real eps=0.8`` as this can lead to errors 
+      Do not use ``parameter Real eps=0.8`` as this can lead to errors
       that are difficult to detect if a modeller forgets to overwrite
-      the default value of ``0.8`` with the actual value. The model will simulate, 
+      the default value of ``0.8`` with the actual value. The model will simulate,
       but gives wrong results due to unsuited parameter values and there will be no warning.
       On the other hand, using ``parameter Real eps(start=0.8)`` will give a warning
       and hence users can assign better values.
@@ -108,7 +108,7 @@ Type Declarations
    provide a value for the ``start`` and ``nominal`` attribute.
 #. Use types from ``Modelica.SIunits`` where possible.
 
-Equations and Algorithms
+Equations and algorithms
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 #. Avoid events where possible.
@@ -128,17 +128,17 @@ Equations and Algorithms
    schematic modeling, do not add textual equations. For example, avoid
    the following, as on the graphical editor, the model looks appears
    to be singular:
-   
+
    .. code-block:: modelica
 
       model Avoid
         Modelica.Blocks.Continuous.Integrator integrator "Integrator"
           annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-        equation 
+        equation
         integrator.u = 1;
       end Avoid;
 
-   
+
 #. For computational efficiency, equations shall were possible be
    differentiable and have a continuous first derivative.
 #. Avoid equations where the first derivative with respect to another
@@ -149,7 +149,7 @@ Equations and Algorithms
    can cause instability in the solver.
    Note that this problem do not exist for constant functions,
    as their first derivate will replaced due to optimization within the
-   solver. 
+   solver.
 #. Do not replace an equation by a constant for a single value, unless
    the derivative of the original equation is zero for this value. For
    example, if computing a pressure drop ``dp`` may involve computing a
@@ -173,13 +173,13 @@ Equations and Algorithms
    differentiation. For example, in Dymola, if your model translation
    log shows
 
-   .. code-block:: 
+   .. code-block::
 
        Number of numerical Jacobians: 1
 
    (or any number other than zero), then enter on the command line
 
-   .. code-block:: 
+   .. code-block::
 
        Hidden.PrintFailureToDifferentiate = true;
 
@@ -494,7 +494,7 @@ to lump the pressure drop of the heating coil into the pressure drop model
 of the cooling coil.
 This often reduces the size of the system of nonlinear equations.
 
-Control Sequences using the Control Description Language
+Control sequences using the Control Description Language
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To implement reusable control sequences, such as done within
@@ -508,9 +508,9 @@ The following rules need to be followed, in addition to the guidelines described
 #. The naming of parameters, inputs, outputs and instances must follow the naming
    conventions in
    `Buildings.UsersGuide.Conventions <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html#Buildings.UsersGuide.Conventions>`_.
-   Aim to avoid providing duplicate information in the instance name, for example if the block is within the `Boilers` package, 
-   the instance name does not need to have `boi` in it. Ensure that the instance name is unambiguous when viewed in a top level 
-   controller model. At an advanced level consider whether the model can be reused in other application and encapsulate in the 
+   Aim to avoid providing duplicate information in the instance name, for example if the block is within the `Boilers` package,
+   the instance name does not need to have `boi` in it. Ensure that the instance name is unambiguous when viewed in a top level
+   controller model. At an advanced level consider whether the model can be reused in other application and encapsulate in the
    variable name only those aspects that are common among all potential or existing applications.
 
 #. Parameters that can be grouped together, such as parameters relating to temperature setpoints
@@ -524,7 +524,7 @@ The following rules need to be followed, in addition to the guidelines described
      - Instances should be ordered `Boolean` first, then `Integer`, then `Real`
      - Instances should follow this order: parameters, inputs, outputs, other
      - Protected instances are below all the unprotected instances and follow the same instance ordering rules
-     - Instances of lower dimensionality should come first, e.g. scalar values before arrays, 
+     - Instances of lower dimensionality should come first, e.g. scalar values before arrays,
        though grouping based on model specific similarities may be prioritized.
 
 #. Each block must have a ``defaultComponentName`` annotation and a ``%name`` label placed above the icon.
@@ -538,8 +538,8 @@ The following rules need to be followed, in addition to the guidelines described
 #. For parameters, where generally valid values can be provided, provide them
    as default values.
 
-#. Add comments to all instances. The comments should be concise. The comments 
-   should not contain redundant information and must not contain hard coded parameters as those can change. 
+#. Add comments to all instances. The comments should be concise. The comments
+   should not contain redundant information and must not contain hard coded parameters as those can change.
    If the functionality of an instance is obvious the developer may use
    comments that closely resemble the class names, such as `Logical And`.
 
@@ -605,7 +605,7 @@ The following rules need to be followed, in addition to the guidelines described
 #. If the block diagram does not fit into the drawing pane, enlarge the drawing pane rather
    than making the blocks smaller.
 
-#. The size of the icon should be such that it provides a good fit for all the input and output interfaces. The minimum 
+#. The size of the icon should be such that it provides a good fit for all the input and output interfaces. The minimum
    recommended icon size is 100 by a 100. If there are many interfaces the icon size should be extended in vertical direction.
    Icons should be symetrical with reference to the grid origin.
 
@@ -629,19 +629,19 @@ The following rules need to be followed, in addition to the guidelines described
 
     .. code-block::
 
-       modelica-json$ node app.js -f Buildings/Controls/OBC/ASHRAE/PrimarySystem/{path to package} -o json -m modelica 
-   
+       modelica-json$ node app.js -f Buildings/Controls/OBC/ASHRAE/PrimarySystem/{path to package} -o json -m modelica
+
 
 .. _sec_val:
 
-Validation and Unit Tests
+Validation and unit tests
 -------------------------
 
 The developer that introduces a new model, block or a function must:
 
 1. Implement at least one example or validation model that serves as a unit test for each model, block and function,
    and run the unit tests.
-   Unit tests should cover all branches of ``if-then`` constructs and 
+   Unit tests should cover all branches of ``if-then`` constructs and
    all realistic operating modes of the system represented by the model.
    See `unit test implementation <Unit-Tests>`__.
 
@@ -650,7 +650,7 @@ The developer that introduces a new model, block or a function must:
    "This model verifies that as the cooling load of the room increases, the controller
    first increases the mass flow rate setpoint and then reduces the supply temperature setpoint."
 
-The validation models are part of automated unit tests as described at the   
+The validation models are part of automated unit tests as described at the
 `unit tests wiki page <https://github.com/lbl-srg/modelica-buildings/wiki/Unit-Tests>`_.
 
 For simple models, the validation can be against analytic solutions.
