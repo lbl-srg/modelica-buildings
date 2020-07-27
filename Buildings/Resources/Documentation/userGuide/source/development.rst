@@ -24,8 +24,7 @@ Models, blocks and functions that are contributed need to adhere to the followin
  * They should be of general interest to other users and well documented and tested.
  * They need to follow the coding conventions described in
 
-   - the `Buildings library user guide <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html#Buildings.UsersGuide.Conventions>`_,
-   - the `Modelica Standard Library user guide <https://simulationresearch.lbl.gov/modelica/releases/msl/3.2/help/Modelica_UsersGuide_Conventions.html#Modelica.UsersGuide.Conventions>`_, and
+   - the `Buildings library user guide <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html#Buildings.UsersGuide.Conventions>`_ and
    - the `Style Guide` provided in subsections of :numref:`sec_sty_gui`
 
  * They need to be made available under the `Modelica Buildings Library license <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html#Buildings.UsersGuide.License>`_.
@@ -42,16 +41,16 @@ Style guide
 General
 ~~~~~~~
 
-1. Partial classes and base classes that are not of interest to the user
+1. Classes declared as ``partial`` and base classes that are not of interest to the user
    should be stored in a subdirectory called ``BaseClasses``.
    Each other class, except for constants, must have an icon.
 2. Examples and validation models should be in directories such as ``Valves.Examples`` and
    ``Valves.Validations``. A script for the regression tests must be added as described below.
 3. Do not copy sections of code. Use object inheritance.
-4. Implement components of fluid flow systems by extending the partial
+4. Implement components of fluid flow systems by extending the
    classes in ``Buildings.Fluid.Interfaces``.
 5. Use the full package names when instantiating a class.
-6. Models, functions and blocks must be implemented file-wise, i.e.,
+6. Models, functions and blocks must be implemented as
    one model, function or block per file. An exception are the ``Buildings.Media`` packages.
 
 Type declarations
@@ -88,7 +87,7 @@ Type declarations
          parameter Medium.MassFlowRate m_flow_small(min=0) = 1E-4*m_flow_nominal
          ...
 
-   #. If a parameter value should not be changed by a user,
+   #. If a parameter assignment should not be changed by a user,
       use the ``final`` keyword.
 
 #. For parameters and variables, provide values for the ``min`` and
@@ -106,7 +105,9 @@ Type declarations
 
 #. For any variable or parameter that may need to be solved numerically,
    provide a value for the ``start`` and ``nominal`` attribute.
-#. Use types from ``Modelica.SIunits`` where possible.
+#. Use types from ``Modelica.SIunits`` where possible,
+   except in the package ``Buildings.Controls.OBC`` where the units should be declared
+   as shown in :numref:`cod_uni_dec_cdl`.
 
 Equations and algorithms
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -123,7 +124,7 @@ Equations and algorithms
       assert(phi>=0, "In " + getInstanceName() + ": Relative humidity must not be negative.");
 
    Note the use of ``getInstanceName()``, which will write the instance name as part of the error message.
-   Otherwise, JModelica will not write the instance name.
+   Otherwise, OPTIMICA will not write the instance name.
 #. Use either graphical modeling or textual code. When using graphical
    schematic modeling, do not add textual equations. For example, avoid
    the following, as on the graphical editor, the model looks appears
@@ -142,22 +143,31 @@ Equations and algorithms
 #. For computational efficiency, equations shall were possible be
    differentiable and have a continuous first derivative.
 #. Avoid equations where the first derivative with respect to another
-   variable is zero. For example, if ``x, y``
-   are variables, and ``x = f(y)``, avoid ``y = 0`` for ``x<0`` and
-   ``y=x^2`` otherwise. The reason is that if a simulator tries to
-   solve ``0=f(x)``, then any value of ``x <= 0`` is a solution, which
+   variable is zero. For example, avoid
+
+   .. math::
+
+      f(x) = \begin{cases}
+        0, & \text{for } x < 0 \\
+        x^2, & \text{otherwise.}
+          \end{cases}
+
+   because any :math:`x \le 0` is a solution, which
    can cause instability in the solver.
-   Note that this problem do not exist for constant functions,
-   as their first derivate will replaced due to optimization within the
-   solver.
+   Note that this problem do not exist for functions that assign a value
+   to a constant as these will be evaluated during the model translation.
 #. Do not replace an equation by a constant for a single value, unless
    the derivative of the original equation is zero for this value. For
    example, if computing a pressure drop ``dp`` may involve computing a
    long equation, but one knows that the result is always zero if the
    volume flow rate ``V_flow`` is zero, one may be inclined to use a
    construct of the form
-   ``dp = smooth(1, if V_flow == 0 then 0 else f(V_flow));`` The
-   problem with this formulation is that for ``V_flow=0``, the
+
+   .. code-block:: modelica
+
+      dp = smooth(1, if V_flow == 0 then 0 else f(V_flow));
+
+   The problem with this formulation is that for ``V_flow=0``, the
    derivative is ``dp/dV_flow = 0``. However, the limit ``dp/dV_flow``,
    as ``|V_flow|`` tends to zero, may be non-zero. Hence, the first
    derivative has a discontinuity at ``V_flow=0``, which can cause a
@@ -187,7 +197,7 @@ Equations and algorithms
    Next, translate the model again to see what functions cannot be
    differentiated symbolically. Then, implement symbolic derivatives for
    this function.
-   See `implementation of function derivatives <Function-Derivatives>`__.
+   See `implementation of function derivatives <https://github.com/lbl-srg/modelica-buildings/wiki/Function-Derivatives>`__.
 
 Functions
 ~~~~~~~~~
@@ -208,7 +218,7 @@ Package order
 
 1. Packages are first sorted alphabetically by the function
    ``_sort_package_order``. That function is part of BuildingsPy
-   and is called by
+   and can be invoked as
 
    .. code-block:: python
 
@@ -278,9 +288,9 @@ Documentation
        where <i>a<sub>1</sub></i> is ...
 
     To denote time derivatives, such as for mass flow rate,
-    use <code>m&#775;</code>.
+    use ``<code>m&#775;</code>``.
 
-    To refer to parameters of the model, use the format
+    To refer to parameters of the model, use the ``<code>...</code>`` section as in
 
     .. code-block:: html
 
@@ -328,10 +338,7 @@ Documentation
     <a href="modelica://Buildings.Fluid.Sensors.Density">
     Buildings.Fluid.Sensors.Density</a>.
 
-8.  To refer to names of parameters or variables in the documentation
-    and revision sections, use the syntax ``<code>...</code>``. Do not
-    use ``<tt>...</tt>``.
-9.  Add a default component name, such as
+8.  Add a default component name, such as
 
     .. code-block:: modelica
 
@@ -339,14 +346,14 @@ Documentation
 
     to objects that will be used as drag and drop elements, as this
     automatically assigns them this name.
-10. Keep the line length to no more than around 80 characters.
-11. For complex packages, provide a User's Guide, and reference the
+9.  Keep the line length to no more than around 80 characters.
+10. For complex packages, provide a User's Guide, and reference the
     User's Guide in ``Buildings.UsersGuide``.
-12. Use the string ``fixme`` within development branches to mark passages
+11. Use the string ``fixme`` within development branches to mark passages
     that still need to be revised (e.g., to improve code or to fix bugs).
     Before merging a branch into the master, all ``fixme`` strings must
     be removed. Within the master branch, no ``fixme`` are allowed.
-13. A suggested template for the documentation of classes is below.
+12. A suggested template for the documentation of classes is below.
     Except for the short introduction, the sections are optional.
 
     .. code-block:: html
@@ -388,11 +395,11 @@ Documentation
        </p>
        <h4>References</h4>
        <p>
-       xxx
+       Add references, if applicable.
        </p>
 
-14. Always use lower case html tags.
-15. Provide a `reference` section if applicable.
+13. Always use lower case html tags.
+
 
 Adding a new class
 ------------------
@@ -508,23 +515,24 @@ The following rules need to be followed, in addition to the guidelines described
 #. The naming of parameters, inputs, outputs and instances must follow the naming
    conventions in
    `Buildings.UsersGuide.Conventions <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html#Buildings.UsersGuide.Conventions>`_.
-   Aim to avoid providing duplicate information in the instance name, for example if the block is within the `Boilers` package,
-   the instance name does not need to have `boi` in it. Ensure that the instance name is unambiguous when viewed in a top level
-   controller model. At an advanced level consider whether the model can be reused in other application and encapsulate in the
-   variable name only those aspects that are common among all potential or existing applications.
+   Avoid providing duplicate information in the instance name, for example if the block is within the ``Boilers`` package,
+   the instance name must not contain ``boi``. Ensure that the instance name is unambiguous when viewed in a top level
+   controller block.
+   Consider whether the block can be used to control other equipment as well, and if so, make sure the instance name
+   is also applicable for these applications.
 
 #. Parameters that can be grouped together, such as parameters relating to temperature setpoints
    or to the configuration of the trim and respond logic, should be grouped together with the
    ``Dialog(group=STRING))`` annotation. See for example
    `G36_PR1.TerminalUnits.Controller <https://github.com/lbl-srg/modelica-buildings/blob/94d5919dbe1b2f2e317e7b69800f3b3ad07be930/Buildings/Controls/OBC/ASHRAE/G36_PR1/TerminalUnits/Controller.mo>`_.
    Do not use ``Dialog(tab=STRING))``, unless the parameter is declared with a default value
-   and this parameter and its value is of no interest to typical users.
+   and is of no interest to typical users.
 
-#. In the code text the instances must be ordered as follows:
-     - Instances should be ordered `Boolean` first, then `Integer`, then `Real`
-     - Instances should follow this order: parameters, inputs, outputs, other
-     - Protected instances are below all the unprotected instances and follow the same instance ordering rules
-     - Instances of lower dimensionality should come first, e.g. scalar values before arrays,
+#. In the source code, the instances must be ordered as follows:
+     - First, list `Boolean` parameters,, then `Integer` parameters and then `Real` parameters.
+     - Next, list inputs, then outputs, followed by blocks.
+     - Protected instances are below all the public instances and follow the same instance ordering rules.
+     - Instances of lower dimensionality should come first, e.g., scalar values before arrays,
        though grouping based on model specific similarities may be prioritized.
 
 #. Each block must have a ``defaultComponentName`` annotation and a ``%name`` label placed above the icon.
@@ -582,19 +590,20 @@ The following rules need to be followed, in addition to the guidelines described
    in which graphical annotations are omitted.
 
    .. code-block:: modelica
+      :caption: Unit declaration for CDL.
+      :name: cod_uni_dec_cdl
 
+      Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
+        final unit="K",
+        displayUnit="degC") "Measured zone air temperature";
 
-    Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
-      final unit="K",
-      final displayUnit="degC") "Measured zone air temperature";
+      Buildings.Controls.OBC.CDL.Interfaces.RealInput dTSup(
+        final unit="K") "Temperature difference supply air minus exhaust air";
 
-    Buildings.Controls.OBC.CDL.Interfaces.RealInput dTSup(
-      final unit="K") "Temperature difference supply air minus exhaust air";
-
-    Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDam(
-      final min=0,
-      final max=1,
-      final unit="1") "Exhaust damper position";
+      Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDam(
+        final min=0,
+        final max=1,
+        final unit="1") "Exhaust damper position";
 
    Conversion of these units to non-SI units can be done programmatically by tools that
    process CDL.
