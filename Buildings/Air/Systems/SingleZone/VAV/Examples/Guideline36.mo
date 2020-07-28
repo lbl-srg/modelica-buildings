@@ -29,7 +29,8 @@ model Guideline36
     yDam_VOutMin_minSpe=0.2304,
     yDam_VOutMin_maxSpe=0.02304,
     yDam_VOutDes_minSpe=0.4,
-    yDam_VOutDes_maxSpe=0.04) "VAV controller"
+    yDam_VOutDes_maxSpe=0.04)
+    "VAV controller"
     annotation (Placement(transformation(extent={{-120,-28},{-80,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysChiPla(
     uLow=-1,
@@ -65,8 +66,7 @@ equation
   connect(TSetSupChiConst.y, hvac.TSetChi) annotation (Line(points={{-59,-130},
           {-46,-130},{-46,-18},{-42,-18}},
                                      color={0,0,127}));
-  connect(errTRooCoo.y, hysChiPla.u)
-    annotation (Line(points={{-91,-90},{-82,-90}},   color={0,0,127}));
+  connect(errTRooCoo.y, hysChiPla.u)   annotation (Line(points={{-91,-90},{-82,-90}},   color={0,0,127}));
   connect(zon.TRooAir, errTRooCoo.u1) annotation (Line(points={{81,0},{110,0},{110,
           -152},{-134,-152},{-134,-90},{-108,-90}},       color={0,0,127}));
   connect(hysChiPla.y, hvac.chiOn) annotation (Line(points={{-58,-90},{-50,-90},
@@ -108,7 +108,7 @@ equation
           -58,-15.0769},{-58,5},{-42,5}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-200,-160},{120,100}})),
     experiment(
-      StopTime=604800,
+      StopTime=864000,
       Interval=3600,
       Tolerance=1e-06),
       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/Examples/Guideline36.mos"

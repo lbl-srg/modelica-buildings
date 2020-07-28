@@ -35,15 +35,15 @@ model ControllerHeatingFan "Controller for heating coil and fan signal"
     final quantity="Time")=900
     "Time constant of integrator block for fan signal"
     annotation(Dialog(group="Fan signal",
-    enable=controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-        or controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    enable=controllerTypeFan == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+        or controllerTypeFan == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real TdFan(
     final unit="s",
     final quantity="Time")=0.1
     "Time constant of derivative block for fan signal"
     annotation (Dialog(group="Fan signal",
-      enable=controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-          or controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+      enable=controllerTypeFan == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+          or controllerTypeFan == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real minAirFlo(
     final min=0,
     final max=1,

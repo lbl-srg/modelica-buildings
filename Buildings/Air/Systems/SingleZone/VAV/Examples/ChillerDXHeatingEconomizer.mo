@@ -48,13 +48,10 @@ model ChillerDXHeatingEconomizer
     "Occupancy schedule"
     annotation (Placement(transformation(extent={{-152,-44},{-132,-24}})));
 equation
-  connect(TSetRooHea.y[1], con.TSetRooHea)
-    annotation (Line(points={{-130,50},{-110,50},{-110,8.6},{-101.4,8.6}},
+  connect(TSetRooHea.y[1], con.TSetRooHea)   annotation (Line(points={{-130,50},{-110,50},{-110,8.6},{-101.4,8.6}},
                                                    color={0,0,127}));
-  connect(TSetRooCoo.y[1], con.TSetRooCoo)
-    annotation (Line(points={{-130,20},{-116,20},{-116,5.8},{-101.4,5.8}},
+  connect(TSetRooCoo.y[1], con.TSetRooCoo)    annotation (Line(points={{-130,20},{-116,20},{-116,5.8},{-101.4,5.8}},
                                                                        color={0,0,127}));
-
   connect(hvac.uFan, con.yFan) annotation (Line(points={{-42,18},{-60,18},{-60,9},
           {-79,9}}, color={0,0,127}));
   connect(hvac.uHea, con.yHea) annotation (Line(points={{-42,12},{-58,12},{-58,
@@ -92,7 +89,7 @@ equation
       horizontalAlignment=TextAlignment.Right));
   annotation (
     experiment(
-      StopTime=604800,
+      StopTime=504800,
       Interval=3600,
       Tolerance=1e-06),
       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/Examples/ChillerDXHeatingEconomizer.mos"

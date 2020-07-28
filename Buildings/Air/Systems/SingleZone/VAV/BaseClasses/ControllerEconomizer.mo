@@ -14,19 +14,20 @@ model ControllerEconomizer "Controller for economizer"
     final quantity="Time")=900
     "Time constant of integrator block for economizer control signal"
     annotation(Dialog(group="Economizer control signal",
-    enable=controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-        or controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    enable=controllerTypeEco == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+        or controllerTypeEco == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real TdEco(
     final unit="s",
     final quantity="Time")=0.1
     "Time constant of derivative block for economizer control signal"
     annotation (Dialog(group="Economizer control signal",
-      enable=controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-          or controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+      enable=controllerTypeEco == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+          or controllerTypeEco == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   Modelica.Blocks.Interfaces.RealInput TMixSet(
     final unit="K",
-    final displayUnit="degC")
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
     "Mixed air setpoint temperature"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
   Modelica.Blocks.Interfaces.RealInput TMix(

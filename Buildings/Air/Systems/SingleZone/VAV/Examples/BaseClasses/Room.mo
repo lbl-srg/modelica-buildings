@@ -118,24 +118,28 @@ model Room
     stateAtSurface_a=false,
     stateAtSurface_b=true,
     T_a_start=283.15,
-    T_b_start=283.75) "2 m deep soil (per definition on p.4 of ASHRAE 140-2007)"
+    T_b_start=283.75)
+    "2 m deep soil (per definition on p.4 of ASHRAE 140-2007)"
     annotation (Placement(transformation(
         extent={{12.5,-12.5},{-7.5,7.5}},
         rotation=-90,
         origin={70.5,-47.5})));
   Modelica.Fluid.Interfaces.FluidPort_a supplyAir(redeclare final package
-      Medium = MediumA) "Supply air"
+      Medium = MediumA)
+    "Supply air"
     annotation (Placement(transformation(extent={{-210,10},{-190,30}}),
         iconTransformation(extent={{-210,10},{-190,30}})));
   Modelica.Fluid.Interfaces.FluidPort_b returnAir(redeclare final package
-      Medium = MediumA) "Return air"
+      Medium = MediumA)
+    "Return air"
     annotation (Placement(transformation(extent={{-210,-30},{-190,-10}}),
         iconTransformation(extent={{-210,-30},{-190,-10}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus
     "Weather data bus"
     annotation (Placement(transformation(extent={{-148,172},{-132,188}}),
         iconTransformation(extent={{-148,172},{-132,188}})));
-  Modelica.Blocks.Interfaces.RealOutput TRooAir "Room air temperature"
+  Modelica.Blocks.Interfaces.RealOutput TRooAir
+    "Room air temperature"
     annotation (Placement(transformation(extent={{200,-10},{220,10}}),
         iconTransformation(extent={{200,-10},{220,10}})));
   Buildings.ThermalZones.Detailed.MixedAir roo(
@@ -175,16 +179,21 @@ model Room
     steadyStateWindow=false)
     "Room model for Case 600"
     annotation (Placement(transformation(extent={{34,-26},{86,26}})));
-  Modelica.Blocks.Sources.Constant qConGai_flow(k=192/48) "Convective heat gain"
+  Modelica.Blocks.Sources.Constant qConGai_flow(k=192/48)
+    "Convective heat gain"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
-  Modelica.Blocks.Sources.Constant qRadGai_flow(k=288/48) "Radiative heat gain"
+  Modelica.Blocks.Sources.Constant qRadGai_flow(k=288/48)
+    "Radiative heat gain"
     annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
-  Modelica.Blocks.Routing.Multiplex3 mul "Multiplex"
+  Modelica.Blocks.Routing.Multiplex3 mul
+    "Multiplex"
     annotation (Placement(transformation(extent={{0,80},{22,102}})));
-  Modelica.Blocks.Sources.Constant qLatGai_flow(k=96/48) "Latent heat gain"
+  Modelica.Blocks.Sources.Constant qLatGai_flow(k=96/48)
+    "Latent heat gain"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TSoi[nConBou](
-    each T= 283.15) "Boundary condition for construction"
+    each T= 283.15)
+    "Boundary condition for construction"
     annotation (Placement(transformation(
         extent={{0,0},{-20,20}},
         origin={140,-80})));
@@ -194,7 +203,7 @@ model Room
     nPorts=1,
     use_m_flow_in=true)
     "Sink model for air infiltration"
-           annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
+    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Modelica.Blocks.Sources.Constant InfiltrationRate(k=48*2.7*0.5/3600)
     "0.41 ACH adjusted for the altitude (0.5 at sea level)"
     annotation (Placement(transformation(extent={{-180,-94},{-160,-74}})));
