@@ -6,7 +6,6 @@ model PIDHysteresisTimer
   Buildings.Controls.Continuous.PIDHysteresisTimer con(
     yMin=0.3,
     minOffTime=10000,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=60,
     Td=10)
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));

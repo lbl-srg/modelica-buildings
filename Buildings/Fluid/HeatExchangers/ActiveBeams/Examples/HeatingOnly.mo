@@ -36,10 +36,8 @@ model HeatingOnly
   Buildings.Controls.Continuous.LimPID conPID(
     yMax=0.094,
     Td=0,
-    reverseAction=false,
     Ti=100,
-    k=0.1,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI) "Controller"
+    k=0.1) "Controller"
          annotation (Placement(transformation(extent={{-70,-20},{-50,0}})));
   Buildings.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = MediumW,
@@ -133,7 +131,7 @@ that regulates the water flow rate in the active beam.
 <ul>
 <li>
 May 15, 2019, by Jianjun Hu:<br/>
-Replaced fluid source. This is for 
+Replaced fluid source. This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
 </li>
 <li>

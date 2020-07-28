@@ -48,7 +48,6 @@ partial model Heater "Base class for example model for the heater and cooler"
     y(final unit="K", displayUnit="degC")) "Setpoint for room temperature"
     annotation (Placement(transformation(extent={{-90,20},{-70,40}})));
   Controls.Continuous.LimPID conPI(
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=1,
     yMax=1,
     yMin=0,
@@ -133,7 +132,7 @@ and it also is required to account for a variation of density of the fluid.
 <ul>
 <li>
 May 15, 2019, by Jianjun Hu:<br/>
-Replaced fluid source. This is for 
+Replaced fluid source. This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
 </li>
 <li>
