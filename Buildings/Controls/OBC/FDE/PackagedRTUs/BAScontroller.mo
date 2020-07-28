@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.FDE.PackagedRTUs;
 block BAScontroller
-  "building automation system portion of packaged RTU control"
+  "Building automation system portion of packaged RTU control"
 
   parameter Real pBldgSPset(
   final unit="Pa",
@@ -51,120 +51,189 @@ block BAScontroller
   // ---inputs---
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput occ
     "True when occupied mode is active"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
+        iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput occReq
     "Terminal unit occupancy requests"
-    annotation (Placement(transformation(extent={{-140,30},{-100,70}})));
+    annotation (Placement(transformation(extent={{-140,34},{-100,74}}),
+        iconTransformation(extent={{-140,34},{-100,74}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput sbcReq
     "Terminal unit setback cooling requests"
-    annotation (Placement(transformation(extent={{-140,-28},{-100,12}})));
+    annotation (Placement(transformation(extent={{-140,8},{-100,48}}),
+        iconTransformation(extent={{-140,8},{-100,48}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput sbhReq
     "Terminal unit setback heating requests"
     annotation (Placement(
-        transformation(extent={{-140,-58},{-100,-18}})));
+        transformation(extent={{-140,-20},{-100,20}}), iconTransformation(
+          extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput totCoolReqs
     "Total terminal unit cooling requests"
     annotation (Placement(
-        transformation(extent={{-140,-88},{-100,-48}})));
+        transformation(extent={{-140,-48},{-100,-8}}), iconTransformation(
+          extent={{-140,-48},{-100,-8}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput highSpaceT
     "Highest space temperature reported from all terminal units"
-    annotation (Placement(transformation(extent={{-140,-124},{-100,-84}})));
+    annotation (Placement(transformation(extent={{-140,-74},{-100,-34}}),
+        iconTransformation(extent={{-140,-74},{-100,-34}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mostOpenDam
     "Most open damper position of all terminal units" annotation (
-      Placement(transformation(extent={{-140,-156},{-100,-116}})));
+      Placement(transformation(extent={{-140,-100},{-100,-60}}),
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
 
   // ---outputs---
-  output Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yOcc
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yOcc
     "True when occupied mode is active"
-    annotation (Placement(transformation(extent={{104,28},{144,68}})));
-  output Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySBC
+    annotation (Placement(transformation(extent={{100,32},{140,72}}),
+        iconTransformation(extent={{100,32},{140,72}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySBC
     "True when setback cooling mode is active"
-    annotation (Placement(transformation(extent={{104,-2},{144,38}})));
-  output Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySBH
+    annotation (Placement(transformation(extent={{100,6},{140,46}}),
+        iconTransformation(extent={{100,6},{140,46}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySBH
     "True when setback heating mode is active"
-    annotation (Placement(transformation(extent={{104,-36},{144,4}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMinOAflowSet
     "active outside air flow set point sent to factory controller"
-    annotation (Placement(transformation(extent={{104,56},{144,96}})));
+    annotation (Placement(transformation(extent={{100,58},{140,98}}),
+        iconTransformation(extent={{100,58},{140,98}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yBldgSPset
     "Building static pressure set point"
-    annotation (Placement(transformation(extent={{104,-112},{144,-72}})));
+    annotation (Placement(transformation(extent={{100,-72},{140,-32}}),
+        iconTransformation(extent={{100,-72},{140,-32}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDDSPset
     "Calculated down duct static pressure set point"
     annotation (
-      Placement(transformation(extent={{104,-154},{144,-114}})));
+      Placement(transformation(extent={{100,-98},{140,-58}}),
+        iconTransformation(extent={{100,-98},{140,-58}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySATset
     "Calculated supply air temperature set point"
-    annotation (Placement(transformation(extent={{104,-74},{144,-34}})));
+    annotation (Placement(transformation(extent={{100,-46},{140,-6}}),
+        iconTransformation(extent={{100,-46},{140,-6}})));
 
-  TSupSet tSupSet
+  Buildings.Controls.OBC.FDE.PackagedRTUs.TSupSet tSupSet
     annotation (Placement(transformation(extent={{28,-2},{46,28}})));
-  OperatingMode operatingMode
+  Buildings.Controls.OBC.FDE.PackagedRTUs.OperatingMode operatingMode
     annotation (Placement(transformation(extent={{-26,36},{-6,56}})));
-  MinOAset minOAset
-    annotation (Placement(transformation(extent={{28,82},{40,92}})));
-  DDSPset dDSPset
-    annotation (Placement(transformation(extent={{-8,-142},{6,-126}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant BldgSPset(k=
-        pBldgSPset) "Building static pressure set point"
-    annotation (Placement(transformation(extent={{30,-102},{50,-82}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(k=pTotalTU)
-    annotation (Placement(transformation(extent={{-96,12},{-76,32}})));
+  Buildings.Controls.OBC.FDE.PackagedRTUs.MinOAset minOAset
+    annotation (Placement(transformation(extent={{28,74},{40,84}})));
+  Buildings.Controls.OBC.FDE.PackagedRTUs.DDSPset dDSPset
+    annotation (Placement(transformation(extent={{-10,-88},{4,-72}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant BldgSPset(
+    final k=pBldgSPset)
+    "Building static pressure set point"
+    annotation (Placement(transformation(extent={{30,-62},{50,-42}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
+    final k=pTotalTU)
+    annotation (Placement(transformation(extent={{-94,6},{-74,26}})));
 
 equation
-  connect(operatingMode.yOcc,minOAset.occ)  annotation (Line(points={{-4.15385,
-          52.8},{14,52.8},{14,87.6},{26,87.6}},
-                                            color={255,0,255}));
-  connect(operatingMode.ySBC,tSupSet.sbc)  annotation (Line(points={{-4.15385,
-          43.2},{12,43.2},{12,11.6},{26.2,11.6}}, color={255,0,255}));
-  connect(operatingMode.ySBH,tSupSet.sbh)  annotation (Line(points={{-4.15385,
-          39},{8,39},{8,1.8},{26.2,1.8}},     color={255,0,255}));
-  connect(operatingMode.occ,occ)  annotation (Line(points={{-27.5385,54.2},{-64,
-          54.2},{-64,80},{-120,80}}, color={255,0,255}));
-  connect(tSupSet.highSpaceT, highSpaceT) annotation (Line(points={{26.2,
-          6.6},{-20,6.6},{-20,-104},{-120,-104}}, color={0,0,127}));
-  connect(dDSPset.mostOpenDam, mostOpenDam) annotation (Line(points={{-9.8,
-          -135.6},{-54.9,-135.6},{-54.9,-136},{-120,-136}}, color={0,0,127}));
-  connect(minOAset.yMinOAflowSet, yMinOAflowSet) annotation (Line(points={{42,
-          87.6},{82,87.6},{82,76},{124,76}}, color={0,0,127}));
-  connect(tSupSet.ySATset, ySATset) annotation (Line(points={{47.9636,1.8},{
-          55.1,1.8},{55.1,-54},{124,-54}}, color={0,0,127}));
-  connect(dDSPset.yDDSPset, yDDSPset) annotation (Line(points={{8,-133.6},{58,-133.6},
-          {58,-134},{124,-134}}, color={0,0,127}));
+  connect(operatingMode.yOcc,minOAset.occ)  annotation (Line(points={{-4,51.4},{
+          12,51.4},{12,78.8},{26.8,78.8}},  color={255,0,255}));
+  connect(operatingMode.ySBC,tSupSet.sbc)  annotation (Line(points={{-4,46},{12,
+          46},{12,13.6},{26.2,13.6}},             color={255,0,255}));
+  connect(operatingMode.ySBH,tSupSet.sbh)  annotation (Line(points={{-4,41},{8,41},
+          {8,8.2},{26.2,8.2}},                color={255,0,255}));
+  connect(operatingMode.occ,occ)  annotation (Line(points={{-28,52},{-64,52},{-64,
+          80},{-120,80}},            color={255,0,255}));
+  connect(tSupSet.highSpaceT, highSpaceT) annotation (Line(points={{26.2,2.8},{-20,
+          2.8},{-20,-54},{-120,-54}},             color={0,0,127}));
+  connect(dDSPset.mostOpenDam, mostOpenDam) annotation (Line(points={{-11.4,-80},
+          {-120,-80}},                                      color={0,0,127}));
+  connect(minOAset.yMinOAflowSet, yMinOAflowSet) annotation (Line(points={{36.64,
+          78.8},{82,78.8},{82,78},{120,78}}, color={0,0,127}));
+  connect(tSupSet.ySATset, ySATset) annotation (Line(points={{47.8,13},{55.1,13},
+          {55.1,-26},{120,-26}},           color={0,0,127}));
+  connect(dDSPset.yDDSPset, yDDSPset) annotation (Line(points={{1.9,-78.08},{58,
+          -78.08},{58,-78},{120,-78}},
+                                 color={0,0,127}));
   connect(BldgSPset.y, yBldgSPset)
-    annotation (Line(points={{52,-92},{124,-92}}, color={0,0,127}));
-  connect(operatingMode.ySBC, ySBC) annotation (Line(points={{-4.15385,43.2},{
-          82,43.2},{82,18},{124,18}},
-                             color={255,0,255}));
-  connect(operatingMode.ySBH, ySBH) annotation (Line(points={{-4.15385,39},{8,
-          39},{8,36},{76,36},{76,-16},{124,-16}},
-                                              color={255,0,255}));
-  connect(operatingMode.yOcc, yOcc) annotation (Line(points={{-4.15385,52.8},
-          {12,52.8},{12,52},{92,52},{92,48},{124,48}},
-                                             color={255,0,255}));
-  connect(operatingMode.sbcReq,sbcReq)  annotation (Line(points={{-27.5385,42.4},
-          {-60,42.4},{-60,-8},{-120,-8}},       color={255,127,0}));
-  connect(operatingMode.sbhReq,sbhReq)  annotation (Line(points={{-27.5385,38.2},
-          {-50,38.2},{-50,-38},{-120,-38}},       color={255,127,0}));
-  connect(operatingMode.TotalTU, conInt.y) annotation (Line(points={{-27.5385,
-          48.2},{-68,48.2},{-68,22},{-74,22}},          color={255,127,0}));
+    annotation (Line(points={{52,-52},{120,-52}}, color={0,0,127}));
+  connect(operatingMode.ySBC, ySBC) annotation (Line(points={{-4,46},{82,46},{82,
+          26},{120,26}},     color={255,0,255}));
+  connect(operatingMode.ySBH, ySBH) annotation (Line(points={{-4,41},{8,41},{8,36},
+          {76,36},{76,0},{120,0}},            color={255,0,255}));
+  connect(operatingMode.yOcc, yOcc) annotation (Line(points={{-4,51.4},{12,51.4},
+          {12,52},{92,52},{92,52},{120,52}}, color={255,0,255}));
+  connect(operatingMode.sbcReq,sbcReq)  annotation (Line(points={{-28,43},{-60,43},
+          {-60,28},{-120,28}},                  color={255,127,0}));
+  connect(operatingMode.sbhReq,sbhReq)  annotation (Line(points={{-28,40},{-50,40},
+          {-50,0},{-120,0}},                      color={255,127,0}));
+  connect(operatingMode.TotalTU, conInt.y) annotation (Line(points={{-28,46},{-68,
+          46},{-68,16},{-72,16}},                       color={255,127,0}));
   connect(operatingMode.occReq,occReq)  annotation (Line(
-      points={{-27.5385,51.2},{-120,51.2},{-120,50}},
+      points={{-28,49},{-120,49},{-120,54}},
       color={255,127,0},
       smooth=Smooth.Bezier));
-  connect(tSupSet.totCoolReqs, totCoolReqs) annotation (Line(points={{26.2,
-          17.6},{-40,17.6},{-40,-68},{-120,-68}}, color={255,127,0}));
-  connect(tSupSet.TotalTU, conInt.y) annotation (Line(points={{26.2,21.2},{
-          -68,21.2},{-68,22},{-74,22}}, color={255,127,0}));
-  annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-160},{
-            100,100}}), graphics={Rectangle(extent={{-98,100},{98,-160}},
+  connect(tSupSet.totCoolReqs, totCoolReqs) annotation (Line(points={{26.2,19},{
+          -40,19},{-40,-28},{-120,-28}},          color={255,127,0}));
+  connect(tSupSet.TotalTU, conInt.y) annotation (Line(points={{26.2,24.4},{-68,24.4},
+          {-68,16},{-72,16}},           color={255,127,0}));
+  annotation (defaultComponentName="conBAS",
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}), graphics={Rectangle(extent={{-100,100},{100,-100}},
             lineColor={179,151,128},
           radius=10),                Text(
-          extent={{-90,40},{90,-64}},
-          lineColor={179,151,128},
-          textString="BAS",
-          textStyle={TextStyle.Bold})}),
+          extent={{-90,184},{90,80}},
+          lineColor={28,108,200},
+          textStyle={TextStyle.Bold},
+          textString="%name"),
+        Text(
+          extent={{-116,88},{-54,72}},
+          lineColor={217,67,180},
+          textString="occ"),
+        Text(
+          extent={{-94,66},{-54,42}},
+          lineColor={244,125,35},
+          textString="occReq"),
+        Text(
+          extent={{-96,36},{-52,20}},
+          lineColor={244,125,35},
+          textString="sbcReq"),
+        Text(
+          extent={{-96,8},{-52,-8}},
+          lineColor={244,125,35},
+          textString="sbhReq"),
+        Text(
+          extent={{-94,-16},{-26,-40}},
+          lineColor={244,125,35},
+          textString="totCoolReqs"),
+        Text(
+          extent={{-96,-44},{-34,-64}},
+          lineColor={0,0,255},
+          textString="highSpaceT"),
+        Text(
+          extent={{-96,-72},{-52,-88}},
+          lineColor={0,0,255},
+          textString="sbhReq"),
+        Text(
+          extent={{20,90},{94,68}},
+          lineColor={0,0,255},
+          textString="yMinOAflowSet"),
+        Text(
+          extent={{48,60},{110,44}},
+          lineColor={217,67,180},
+          textString="yOcc"),
+        Text(
+          extent={{46,34},{108,18}},
+          lineColor={217,67,180},
+          textString="ySBC"),
+        Text(
+          extent={{46,8},{108,-8}},
+          lineColor={217,67,180},
+          textString="ySBH"),
+        Text(
+          extent={{44,-16},{98,-32}},
+          lineColor={0,0,255},
+          textString="ySATset"),
+        Text(
+          extent={{24,-42},{94,-64}},
+          lineColor={0,0,255},
+          textString="yBldgSPset"),
+        Text(
+          extent={{32,-68},{94,-88}},
+          lineColor={0,0,255},
+          textString="yDDSPset")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-160},
             {100,100}})),
     Documentation(info="<html>
@@ -216,5 +285,9 @@ See
 Buildings.Controls.OBC.FDE.PackagedRTUs.MinOAset</a>
 for more details.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>May 28, 2020, by Henry Nickels:<br>First implementation. </li>
+</ul>
 </html>"));
 end BAScontroller;

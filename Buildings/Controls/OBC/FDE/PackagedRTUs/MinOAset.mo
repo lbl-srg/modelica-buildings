@@ -7,209 +7,94 @@ block MinOAset
   "Occupied mode minimum outside air flow set point";
 
  // ---input---
- input Buildings.Controls.OBC.CDL.Interfaces.BooleanInput occ
+ Buildings.Controls.OBC.CDL.Interfaces.BooleanInput occ
    "Input true when RTU mode is occupied"
-   annotation (Placement(transformation(extent={{-140,-24},{-100,16}})));
+   annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
+        iconTransformation(extent={{-140,-20},{-100,20}})));
 
   // ---output---
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMinOAflowSet(
     unit="m3/s",
     quantity="VolumeFlowRate")
     "The active outside air flow set point sent to the factory controller"
-    annotation (Placement(transformation(extent={{20,-24},{60,16}})));
+    annotation (Placement(transformation(extent={{104,-20},{144,20}}),
+        iconTransformation(extent={{104,-20},{144,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minOAsetpoint(
     k=minOAset)
-    annotation (Placement(transformation(extent={{-86,-50},{-66,-30}})));
+    annotation (Placement(transformation(extent={{-52,24},{-32,44}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
     final k=0)
     "Set the outside air flow set point to zero when not in occupied mode"
-    annotation (Placement(transformation(extent={{-86,12},{-66,32}})));
+    annotation (Placement(transformation(extent={{-50,-48},{-30,-28}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
-    annotation (Placement(transformation(extent={{-20,-14},{0,6}})));
-  CDL.Logical.Not not1
-    annotation (Placement(transformation(extent={{-64,-14},{-44,6}})));
+    annotation (Placement(transformation(extent={{4,-10},{24,10}})));
 equation
-  connect(swi.u1, con.y) annotation (Line(points={{-22,4},{-38,4},{-38,22},{-64,
-          22}},      color={0,0,127}));
+  connect(yMinOAflowSet, yMinOAflowSet)
+    annotation (Line(points={{124,0},{124,0}}, color={0,0,127}));
   connect(swi.y, yMinOAflowSet)
-    annotation (Line(points={{2,-4},{40,-4}}, color={0,0,127}));
-  connect(minOAsetpoint.y, swi.u3) annotation (Line(points={{-64,-40},{-38,-40},
-          {-38,-12},{-22,-12}},
-                              color={0,0,127}));
-  connect(swi.u2, not1.y)
-    annotation (Line(points={{-22,-4},{-42,-4}}, color={255,0,255}));
-  connect(not1.u,occ)
-    annotation (Line(points={{-66,-4},{-120,-4}}, color={255,0,255}));
-  annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-60},{20,
-            40}}), graphics={Rectangle(extent={{-100,40},{20,-60}},
+    annotation (Line(points={{26,0},{124,0}}, color={0,0,127}));
+  connect(con.y, swi.u3) annotation (Line(points={{-28,-38},{-20,-38},{-20,-8},
+          {2,-8}}, color={0,0,127}));
+  connect(minOAsetpoint.y, swi.u1) annotation (Line(points={{-30,34},{-20,34},{
+          -20,8},{2,8}}, color={0,0,127}));
+  connect(occ, swi.u2)
+    annotation (Line(points={{-120,0},{2,0}}, color={255,0,255}));
+  annotation (defaultComponentName="MinOAset",
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics={Rectangle(extent={{-100,100},{100,-100}},
             lineColor={179,151,128},
           radius=20),                Text(
-          extent={{-60,-38},{-16,-66}},
+          extent={{-22,124},{22,96}},
           lineColor={28,108,200},
           lineThickness=0.5,
           fillColor={179,151,128},
           fillPattern=FillPattern.Solid,
-          textString="MinOAset"),
-        Line(points={{-76,-12},{-60,-12},{-4,-12}}, color={179,151,128},
+          textString="%name"),
+        Line(points={{-42,18},{-26,18},{30,18}},    color={179,151,128},
           thickness=0.5),
-        Line(points={{-76,-44},{-60,-44},{-4,-44}}, color={179,151,128},
+        Line(points={{-42,-14},{-26,-14},{30,-14}}, color={179,151,128},
           thickness=0.5),
-        Line(points={{-76,-12},{-74,-14},{-62,-28}}, color={179,151,128},
+        Line(points={{-42,18},{-40,16},{-28,2}},     color={179,151,128},
           thickness=0.5),
-        Line(points={{-76,-44},{-62,-28}}, color={179,151,128},
+        Line(points={{-42,-14},{-28,2}},   color={179,151,128},
           thickness=0.5),
-        Ellipse(extent={{-18,-26},{-14,-30}}, lineColor={179,151,128},
+        Ellipse(extent={{16,4},{20,0}},       lineColor={179,151,128},
           lineThickness=0.5,
           fillColor={179,151,128},
           fillPattern=FillPattern.Solid),
-        Line(points={{-14,-26},{-6,-16}}, color={179,151,128},
+        Line(points={{20,4},{28,14}},     color={179,151,128},
           thickness=0.5),
-        Line(points={{-26,-40},{-18,-30}}, color={179,151,128},
+        Line(points={{8,-10},{16,0}},      color={179,151,128},
           thickness=0.5),
-        Rectangle(extent={{-50,-14},{-46,-42}}, lineColor={179,151,128},
+        Rectangle(extent={{-16,16},{-12,-12}},  lineColor={179,151,128},
           lineThickness=0.5,
           fillColor={179,151,128},
           fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-7.5,0.5},{7.5,-0.5}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.VerticalCylinder,
-          origin={-79.5,27.5},
-          rotation=90),
-        Rectangle(
-          extent={{-7.5,0.5},{7.5,-0.5}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.VerticalCylinder,
-          origin={-73.5,27.5},
-          rotation=90),
-        Rectangle(
-          extent={{-7.5,0.5},{7.5,-0.5}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.VerticalCylinder,
-          origin={-67.5,27.5},
-          rotation=90),
-        Rectangle(
-          extent={{-7.5,0.5},{7.5,-0.5}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.VerticalCylinder,
-          origin={-61.5,27.5},
-          rotation=90),
-        Rectangle(
-          extent={{-7.5,0.5},{7.5,-0.5}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.VerticalCylinder,
-          origin={-55.5,27.5},
-          rotation=90),
-        Rectangle(
-          extent={{-7.5,0.5},{7.5,-0.5}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.VerticalCylinder,
-          origin={-49.5,27.5},
-          rotation=90),
-        Rectangle(
-          extent={{-7.5,0.5},{7.5,-0.5}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.VerticalCylinder,
-          origin={-43.5,27.5},
-          rotation=90),
-        Rectangle(
-          extent={{-7.5,0.5},{7.5,-0.5}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.VerticalCylinder,
-          origin={-37.5,27.5},
-          rotation=90),
-        Rectangle(
-          extent={{-7.5,0.5},{7.5,-0.5}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.VerticalCylinder,
-          origin={-31.5,27.5},
-          rotation=90),
-        Rectangle(
-          extent={{-7.5,0.5},{7.5,-0.5}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.VerticalCylinder,
-          origin={-25.5,27.5},
-          rotation=90),
-        Rectangle(
-          extent={{-7.5,0.5},{7.5,-0.5}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.VerticalCylinder,
-          origin={-19.5,27.5},
-          rotation=90),
-        Rectangle(
-          extent={{-7.5,0.5},{7.5,-0.5}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.VerticalCylinder,
-          origin={-13.5,27.5},
-          rotation=90),
-        Rectangle(
-          extent={{-7.5,0.5},{7.5,-0.5}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.VerticalCylinder,
-          origin={-7.5,27.5},
-          rotation=90),
-        Rectangle(
-          extent={{-7.5,0.5},{7.5,-0.5}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.VerticalCylinder,
-          origin={-1.5,27.5},
-          rotation=90),
-        Rectangle(
-          extent={{-1,42},{1,-42}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.HorizontalCylinder,
-          origin={-40,35},
-          rotation=90),
-        Rectangle(
-          extent={{-11,1},{11,-1}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.VerticalCylinder,
-          origin={-29,7},
-          rotation=90),
-        Line(points={{-30,18},{-34,8},{-30,8}}, color={179,151,128},
-          thickness=0.5),
         Text(
-          extent={{-100,4},{-78,-6}},
+          extent={{-98,6},{-76,-4}},
           lineColor={217,67,180},
           lineThickness=0.5,
           fillPattern=FillPattern.VerticalCylinder,
           fillColor={179,151,128},
           textString="Occ"),
         Text(
-          extent={{-14,10},{18,-8}},
+          extent={{50,14},{96,-12}},
           lineColor={0,0,0},
           lineThickness=0.5,
           fillPattern=FillPattern.VerticalCylinder,
           fillColor={179,151,128},
           textString="yminOAflowStpt")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-60},
-            {20,40}}), graphics={Rectangle(
-          extent={{-100,40},{20,-60}},
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}}), graphics={Rectangle(
+          extent={{-100,100},{100,-100}},
           lineColor={179,151,128},
           lineThickness=0.5,
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid), Text(
-          extent={{-30,-26},{10,-54}},
+          extent={{24,-30},{64,-58}},
           lineColor={0,0,0},
           lineThickness=0.5,
           fillColor={215,215,215},
@@ -221,7 +106,15 @@ passed to the RTU set point.
 When the unit is not in occupied
 mode a value of 0 is passed
 for the outside air flow set
-point.",  horizontalAlignment=TextAlignment.Left)}),
+point.",  horizontalAlignment=TextAlignment.Left),
+        Text(
+          extent={{-14,12},{-2,10}},
+          lineColor={162,29,33},
+          textString="true"),
+        Text(
+          extent={{-12,-10},{0,-12}},
+          lineColor={162,29,33},
+          textString="false")}),
     Documentation(revisions="<html>
 <ul>
 <li>May 28, 2020, by Henry Nickels:<br>First implementation. </li>

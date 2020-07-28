@@ -22,34 +22,40 @@ block TSupSet
   "Minimum decimal percentage of terminal unit requests required for cool request reset";
 
   // ---inputs---
-  input Buildings.Controls.OBC.CDL.Interfaces.RealInput highSpaceT(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput highSpaceT(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Highest space temperature reported from all terminal units"
-    annotation (Placement(transformation(extent={{-142,-134},{-102,-94}})));
-  input Buildings.Controls.OBC.CDL.Interfaces.BooleanInput sbc
+    annotation (Placement(transformation(extent={{-140,-88},{-100,-48}}),
+        iconTransformation(extent={{-140,-88},{-100,-48}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput sbc
     "True when setback cooling mode active"
     annotation (Placement(
-        transformation(extent={{-142,-84},{-102,-44}})));
-  input Buildings.Controls.OBC.CDL.Interfaces.BooleanInput sbh
+        transformation(extent={{-140,-16},{-100,24}}), iconTransformation(
+          extent={{-140,-16},{-100,24}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput sbh
     "True when setback heating mode active"
     annotation (Placement(
-        transformation(extent={{-142,-182},{-102,-142}})));
+        transformation(extent={{-140,-52},{-100,-12}}), iconTransformation(
+          extent={{-140,-52},{-100,-12}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput TotalTU
     "Total number of terminal units"
-    annotation (Placement(transformation(extent={{-142,12},{-102,52}})));
+    annotation (Placement(transformation(extent={{-140,56},{-100,96}}),
+        iconTransformation(extent={{-140,56},{-100,96}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput totCoolReqs
     "Total terminal unit cooling requests"
-    annotation (Placement(transformation(extent={{-142,-24},{-102,16}})));
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
+        iconTransformation(extent={{-140,20},{-100,60}})));
 
   // ---output---
-  final Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySATset(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySATset(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Calculated supply air temperature set point"
-    annotation (Placement(transformation(extent={{124,-182},{164,-142}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID conPI(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
@@ -68,18 +74,21 @@ block TSupSet
     "Linear supply temperature set point reset"
     annotation (Placement(transformation(extent={{22,22},{42,42}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant X1(k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant X1(
+    final k=0)
     "linear conversion constant"
     annotation (Placement(transformation(extent={{-16,74},{4,94}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant X2(k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant X2(
+    final k=1)
     "linear conversion constant"
     annotation (Placement(transformation(extent={{-16,2},{4,22}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
-    annotation (Placement(transformation(extent={{58,-74},{78,-54}})));
+    annotation (Placement(transformation(extent={{58,-52},{78,-32}})));
   Buildings.Controls.OBC.CDL.Continuous.Add subtract(k1=-1, k2=+1)
     "subtract offset from input"
     annotation (Placement(transformation(extent={{-32,-110},{-12,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant fixedOffset(k=10)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant fixedOffset(
+    final k=10)
     "fixed 10 degree offset from highest space temperature"
     annotation (Placement(transformation(extent={{-72,-104},{-52,-84}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi1
@@ -89,21 +98,22 @@ block TSupSet
     "Minimum supply air temperature set point"
     annotation (Placement(transformation(extent={{-16,-32},{4,-12}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heatPAR(
-    k=HeatSet)
+    final k=HeatSet)
     "Unoccupied mode supply air temperature heating set point"
     annotation (Placement(transformation(extent={{42,-190},{62,-170}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxPAR(
-    k=maxSATset)
+    final k=maxSATset)
     "Maximum supply air temperature set point"
     annotation (Placement(transformation(extent={{-16,42},{4,62}})));
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
     annotation (Placement(transformation(extent={{-98,22},{-78,42}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(k=TUpcntT)
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai(
+    k=TUpcntT)
     annotation (Placement(transformation(extent={{-72,22},{-52,42}})));
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea1
     annotation (Placement(transformation(extent={{-72,-14},{-52,6}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
-    annotation (Placement(transformation(extent={{-34,-74},{-14,-54}})));
+    annotation (Placement(transformation(extent={{-46,-52},{-26,-32}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2
     annotation (Placement(transformation(extent={{0,-172},{20,-152}})));
 equation
@@ -114,16 +124,17 @@ equation
   connect(X2.y, Treset.x2) annotation (Line(points={{6,12},{10,12},{10,28},{20,28}},
                 color={0,0,127}));
   connect(Treset.y, swi.u1)
-    annotation (Line(points={{44,32},{52,32},{52,-56},{56,-56}},
+    annotation (Line(points={{44,32},{52,32},{52,-34},{56,-34}},
                                                             color={0,0,127}));
   connect(fixedOffset.y, subtract.u1)
     annotation (Line(points={{-50,-94},{-34,-94}}, color={0,0,127}));
-  connect(subtract.u2, highSpaceT) annotation (Line(points={{-34,-106},{-46,
-          -106},{-46,-114},{-122,-114}},color={0,0,127}));
-  connect(swi.u3, subtract.y) annotation (Line(points={{56,-72},{0,-72},{0,-100},
+  connect(subtract.u2, highSpaceT) annotation (Line(points={{-34,-106},{-46,-106},
+          {-46,-68},{-120,-68}},        color={0,0,127}));
+  connect(swi.u3, subtract.y) annotation (Line(points={{56,-50},{0,-50},{0,-100},
           {-10,-100}},         color={0,0,127}));
   connect(swi1.y, ySATset)
-    annotation (Line(points={{112,-162},{144,-162}}, color={0,0,127}));
+    annotation (Line(points={{112,-162},{116,-162},{116,0},{120,0}},
+                                                     color={0,0,127}));
   connect(Treset.f2, minPAR.y) annotation (Line(points={{20,24},{14,24},{14,-22},
           {6,-22}},   color={0,0,127}));
   connect(swi1.u3, heatPAR.y) annotation (Line(points={{88,-170},{82,-170},{82,
@@ -132,198 +143,96 @@ equation
   connect(maxPAR.y, Treset.f1) annotation (Line(points={{6,52},{10,52},{10,36},{
           20,36}},   color={0,0,127}));
   connect(TotalTU, intToRea.u)
-    annotation (Line(points={{-122,32},{-100,32}},color={255,127,0}));
+    annotation (Line(points={{-120,76},{-110,76},{-110,32},{-100,32}},
+                                                  color={255,127,0}));
   connect(intToRea.y,gai. u)
     annotation (Line(points={{-76,32},{-74,32}}, color={0,0,127}));
   connect(conPI.u_s, gai.y)
     annotation (Line(points={{-44,32},{-50,32}}, color={0,0,127}));
   connect(intToRea1.u, totCoolReqs)
-    annotation (Line(points={{-74,-4},{-122,-4}}, color={255,127,0}));
+    annotation (Line(points={{-74,-4},{-98,-4},{-98,40},{-120,40}},
+                                                  color={255,127,0}));
   connect(conPI.u_m, intToRea1.y) annotation (Line(points={{-32,20},{-32,-4},
           {-50,-4}}, color={0,0,127}));
   connect(sbc, not1.u)
-    annotation (Line(points={{-122,-64},{-36,-64}}, color={255,0,255}));
-  connect(swi.u2, not1.y) annotation (Line(points={{56,-64},{-12,-64}},
+    annotation (Line(points={{-120,4},{-78,4},{-78,-42},{-48,-42}},
+                                                    color={255,0,255}));
+  connect(swi.u2, not1.y) annotation (Line(points={{56,-42},{-24,-42}},
                     color={255,0,255}));
   connect(sbh, not2.u)
-    annotation (Line(points={{-122,-162},{-2,-162}},  color={255,0,255}));
+    annotation (Line(points={{-120,-32},{-88,-32},{-88,-162},{-2,-162}},
+                                                      color={255,0,255}));
   connect(swi1.u2, not2.y) annotation (Line(points={{88,-162},{22,-162}},
                            color={255,0,255}));
-  connect(swi.y, swi1.u1) annotation (Line(points={{80,-64},{84,-64},{84,-154},
+  connect(swi.y, swi1.u1) annotation (Line(points={{80,-42},{84,-42},{84,-154},
           {88,-154}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},
-            {120,100}}),           graphics={
-        Rectangle(extent={{-94,94},{114,-194}},lineColor={179,151,128},
+  annotation (defaultComponentName="TSupSet",
+        Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}}),
+            graphics={
+        Rectangle(extent={{-100,100},{100,-100}},
+          lineColor={179,151,128},
           radius=30),
         Text(
-          extent={{-30,-156},{54,-200}},
+          extent={{-38,138},{46,94}},
           lineColor={28,108,200},
           fillColor={179,151,128},
           fillPattern=FillPattern.Solid,
-          textString="TSupSet"),
+          textString="%name"),
         Rectangle(
-          extent={{64,54},{68,-142}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.VerticalCylinder),
-        Rectangle(
-          extent={{28,52},{64,50}},
+          extent={{-34,2},{32,-2}},
           lineColor={179,151,128},
           fillColor={179,151,128},
           fillPattern=FillPattern.HorizontalCylinder),
-        Rectangle(
-          extent={{46,44},{64,42}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.HorizontalCylinder),
-        Rectangle(
-          extent={{46,34},{64,32}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.HorizontalCylinder),
-        Rectangle(
-          extent={{46,24},{64,22}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.HorizontalCylinder),
-        Rectangle(
-          extent={{28,16},{64,14}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.HorizontalCylinder),
-        Rectangle(
-          extent={{46,8},{64,6}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.HorizontalCylinder),
-        Rectangle(
-          extent={{46,-2},{64,-4}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.HorizontalCylinder),
-        Rectangle(
-          extent={{46,-12},{64,-14}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.HorizontalCylinder),
-        Rectangle(
-          extent={{28,-22},{64,-24}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.HorizontalCylinder),
-        Rectangle(
-          extent={{46,-30},{64,-32}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.HorizontalCylinder),
-        Rectangle(
-          extent={{46,-40},{64,-42}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.HorizontalCylinder),
-        Rectangle(
-          extent={{46,-50},{64,-52}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.HorizontalCylinder),
-        Rectangle(
-          extent={{28,-62},{64,-64}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.HorizontalCylinder),
-        Rectangle(
-          extent={{46,-70},{64,-72}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.HorizontalCylinder),
-        Rectangle(
-          extent={{46,-80},{64,-82}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.HorizontalCylinder),
-        Rectangle(
-          extent={{46,-90},{64,-92}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.HorizontalCylinder),
-        Rectangle(
-          extent={{28,-100},{64,-102}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.HorizontalCylinder),
-        Rectangle(
-          extent={{46,-108},{64,-110}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.HorizontalCylinder),
-        Rectangle(
-          extent={{46,-118},{64,-120}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.HorizontalCylinder),
-        Rectangle(
-          extent={{46,-128},{64,-130}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.HorizontalCylinder),
-        Rectangle(
-          extent={{28,-138},{64,-140}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.HorizontalCylinder),
-        Rectangle(
-          extent={{-50,-10},{16,-14}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.HorizontalCylinder),
-        Line(points={{16,-10},{-16,2},{-16,-10}}, color={179,151,128},
+        Line(points={{32,2},{0,14},{0,2}},        color={179,151,128},
           thickness=0.5),
         Text(
-          extent={{-90,40},{-44,22}},
+          extent={{-92,84},{-46,66}},
           lineColor={244,125,35},
           lineThickness=0.5,
           fillPattern=FillPattern.VerticalCylinder,
           fillColor={179,151,128},
           textString="TotalTU"),
         Text(
-          extent={{-90,10},{-26,-14}},
+          extent={{-96,52},{-32,28}},
           lineColor={244,125,35},
           lineThickness=0.5,
           fillPattern=FillPattern.VerticalCylinder,
           fillColor={179,151,128},
           textString="totCoolReqs"),
         Text(
-          extent={{-100,-46},{-44,-66}},
+          extent={{-106,14},{-50,-6}},
           lineColor={217,67,180},
           lineThickness=0.5,
           fillPattern=FillPattern.VerticalCylinder,
           fillColor={179,151,128},
           textString="SBC"),
         Text(
-          extent={{-100,-152},{-44,-172}},
+          extent={{-106,-24},{-50,-44}},
           lineColor={217,67,180},
           lineThickness=0.5,
           fillPattern=FillPattern.VerticalCylinder,
           fillColor={179,151,128},
           textString="SBH"),
         Text(
-          extent={{-86,-100},{-26,-126}},
+          extent={{-94,-56},{-34,-82}},
           lineColor={0,0,255},
           lineThickness=0.5,
           fillPattern=FillPattern.VerticalCylinder,
           fillColor={179,151,128},
           textString="highSpaceT"),
         Text(
-          extent={{72,-146},{118,-176}},
+          extent={{48,16},{94,-14}},
           lineColor={0,0,0},
           lineThickness=0.5,
           fillPattern=FillPattern.VerticalCylinder,
           fillColor={179,151,128},
-          textString="ySATsetpoint")}),                          Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{120,100}}),
+          textString="ySATsetpoint")}),
+      Diagram(
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Rectangle(
-          extent={{-100,100},{120,-42}},
+          extent={{-382,126},{-182,-16}},
           lineColor={179,151,128},
           lineThickness=0.5,
           fillColor={215,215,215},
@@ -341,7 +250,7 @@ based on the total number
 of terminal unit cooling requests.",
           horizontalAlignment=TextAlignment.Left),
         Rectangle(
-          extent={{-100,-48},{120,-124}},
+          extent={{-390,-58},{-190,-110}},
           lineColor={179,151,128},
           lineThickness=0.5,
           fillColor={215,215,215},
@@ -359,7 +268,7 @@ terminal unit space temperature
 minus a constant 10 degrees.",
           horizontalAlignment=TextAlignment.Left),
         Rectangle(
-          extent={{-100,-132},{120,-200}},
+          extent={{-366,-142},{-166,-210}},
           lineColor={179,151,128},
           lineThickness=0.5,
           fillColor={215,215,215},

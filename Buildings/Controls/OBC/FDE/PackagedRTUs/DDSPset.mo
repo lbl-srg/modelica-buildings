@@ -4,14 +4,14 @@ block DDSPset
  parameter Real minDDSPset(
    min=0,
    final unit="Pa",
-   final quantity="PressureDifference")=1.25e-3
+   final quantity="PressureDifference")=125
   "Minimum down duct static pressure reset value"
   annotation (Dialog(group="DDSP range"));
 
  parameter Real maxDDSPset(
    min=0,
    final unit="Pa",
-   final quantity="PressureDifference")=5e-3
+   final quantity="PressureDifference")=500
   "Maximum down duct static pressure reset value"
   annotation (Dialog(group="DDSP range"));
 
@@ -22,9 +22,13 @@ block DDSPset
    "DDSP terminal damper percent open set point";
 
   // --- input---
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput mostOpenDam
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mostOpenDam(
+    min=0,
+    max=1,
+    final unit="1")
     "Most open damper position of all terminal units"
-    annotation (Placement(transformation(extent={{-138,-16},{-98,24}})));
+    annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
+        iconTransformation(extent={{-140,-40},{-100,0}})));
 
   // ---output---
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDDSPset(
@@ -32,7 +36,8 @@ block DDSPset
     final displayUnit="bar",
     final quantity="Pressure")
     "Calculated down duct static pressure set point"
-    annotation (Placement(transformation(extent={{40,4},{80,44}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID conPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
@@ -43,231 +48,120 @@ block DDSPset
     reverseAction=true,
     reset=Buildings.Controls.OBC.CDL.Types.Reset.Disabled)
     "calculate reset value based on most open terminal unit damper position "
-    annotation (Placement(transformation(extent={{-50,14},{-30,34}})));
+    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Line lin
-    annotation (Placement(transformation(extent={{-4,14},{16,34}})));
+    annotation (Placement(transformation(extent={{46,-10},{66,10}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant X1(k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant X1(
+    final k=0)
     "linear conversion constant (min)"
-    annotation (Placement(transformation(extent={{-50,72},{-30,92}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant X2(k=1)
+    annotation (Placement(transformation(extent={{-50,70},{-30,90}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant X2(
+    final k=1)
     "linear conversion constant (max)"
-    annotation (Placement(transformation(extent={{-50,-28},{-30,-8}})));
+    annotation (Placement(transformation(extent={{-50,-54},{-30,-34}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant DamSetpt(
-    k=DamSet)
+    final k=DamSet)
     "The terminal unit damper percent open set point"
-    annotation (Placement(transformation(extent={{-88,14},{-68,34}})));
+    annotation (Placement(transformation(extent={{-88,-10},{-68,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxDDSPsetpt(
-    k=maxDDSPset)
+    final k=maxDDSPset)
     "maximum allowable set point reset value"
-    annotation (Placement(transformation(extent={{-86,-50},{-66,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minDDSPsetpt(k=
-        minDDSPset) "minimum reset value"
-    annotation (Placement(transformation(extent={{-88,46},{-68,66}})));
+    annotation (Placement(transformation(extent={{-50,-92},{-30,-72}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minDDSPsetpt(
+    final k=minDDSPset) "minimum reset value"
+    annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
 
 equation
   connect(conPID.u_m, mostOpenDam)
-    annotation (Line(points={{-40,12},{-40,4},{-118,4}}, color={0,0,127}));
+    annotation (Line(points={{-40,-12},{-40,-20},{-90.5469,-20},{-120,-20}},
+                                                         color={0,0,127}));
   connect(conPID.y, lin.u)
-    annotation (Line(points={{-28,24},{-6,24}}, color={0,0,127}));
-  connect(X1.y, lin.x1) annotation (Line(points={{-28,82},{-12,82},{-12,32},
-          {-6,32}}, color={0,0,127}));
-  connect(X2.y, lin.x2) annotation (Line(points={{-28,-18},{-20,-18},{-20,
-          20},{-6,20}}, color={0,0,127}));
+    annotation (Line(points={{-28,0},{44,0}},   color={0,0,127}));
+  connect(X1.y, lin.x1) annotation (Line(points={{-28,80},{-14,80},{-14,8},{44,8}},
+                    color={0,0,127}));
+  connect(X2.y, lin.x2) annotation (Line(points={{-28,-44},{-18,-44},{-18,-4},{
+          44,-4}},      color={0,0,127}));
   connect(lin.y, yDDSPset)
-    annotation (Line(points={{18,24},{60,24}}, color={0,0,127}));
+    annotation (Line(points={{68,0},{120,0}},  color={0,0,127}));
   connect(conPID.u_s, DamSetpt.y)
-    annotation (Line(points={{-52,24},{-66,24}}, color={0,0,127}));
-  connect(lin.f2, maxDDSPsetpt.y) annotation (Line(points={{-6,16},{-12,16},
-          {-12,-40},{-64,-40}}, color={0,0,127}));
-  connect(minDDSPsetpt.y, lin.f1) annotation (Line(points={{-66,56},{-20,56},
-          {-20,28},{-6,28}}, color={0,0,127}));
-  annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-60},{40,
+    annotation (Line(points={{-52,0},{-66,0}},   color={0,0,127}));
+  connect(lin.f2, maxDDSPsetpt.y) annotation (Line(points={{44,-8},{-14,-8},{
+          -14,-82},{-28,-82}},  color={0,0,127}));
+  connect(minDDSPsetpt.y, lin.f1) annotation (Line(points={{-28,40},{-20,40},{-20,
+          4},{44,4}},        color={0,0,127}));
+  annotation (defaultComponentName="DDSPset",
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={
-        Rectangle(extent={{-94,98},{32,-58}}, lineColor={179,151,128},
+        Rectangle(extent={{-100,100},{100,-100}},
+                                              lineColor={179,151,128},
           radius=20),                                                  Text(
-          extent={{-48,-30},{-2,-58}},
+          extent={{-20,126},{26,98}},
           lineColor={28,108,200},
           fillColor={179,151,128},
           fillPattern=FillPattern.Solid,
-          textString="DDSPset"),
-        Line(points={{-36,20},{-26,10}}, color={179,151,128},
+          textString="%name"),
+        Line(points={{0,6},{10,-4}},     color={179,151,128},
           thickness=0.5),
-        Line(points={{-36,4},{-26,-6}}, color={179,151,128},
+        Line(points={{0,-10},{10,-20}}, color={179,151,128},
           thickness=0.5),
-        Line(points={{-26,10},{-36,4}}, color={179,151,128},
+        Line(points={{10,-4},{0,-10}},  color={179,151,128},
           thickness=0.5),
-        Line(points={{-26,-6},{-36,-12}}, color={179,151,128},
+        Line(points={{10,-20},{0,-26}},   color={179,151,128},
           thickness=0.5),
-        Line(points={{-36,20},{-20,20},{6,20}}, color={179,151,128},
+        Line(points={{0,6},{16,6},{42,6}},      color={179,151,128},
           thickness=0.5),
-        Line(points={{-36,-12},{-20,-12},{6,-12}}, color={179,151,128},
+        Line(points={{0,-26},{16,-26},{42,-26}},   color={179,151,128},
           thickness=0.5),
-        Line(points={{6,20},{8,18},{20,4}}, color={179,151,128},
+        Line(points={{42,6},{44,4},{56,-10}},
+                                            color={179,151,128},
           thickness=0.5),
-        Line(points={{6,-12},{20,4}}, color={179,151,128},
+        Line(points={{42,-26},{56,-10}},
+                                      color={179,151,128},
           thickness=0.5),
-        Line(points={{-46,20},{-36,10}}, color={179,151,128},
+        Line(points={{-10,6},{0,-4}},    color={179,151,128},
           thickness=0.5),
-        Line(points={{-46,4},{-36,-6}}, color={179,151,128},
+        Line(points={{-10,-10},{0,-20}},color={179,151,128},
           thickness=0.5),
-        Line(points={{-36,10},{-46,4}}, color={179,151,128},
+        Line(points={{0,-4},{-10,-10}}, color={179,151,128},
           thickness=0.5),
-        Line(points={{-36,-6},{-46,-12}}, color={179,151,128},
+        Line(points={{0,-20},{-10,-26}},  color={179,151,128},
           thickness=0.5),
-        Line(points={{-46,20},{-74,20},{-80,20}}, color={179,151,128},
+        Line(points={{-10,6},{-38,6},{-44,6}},    color={179,151,128},
           thickness=0.5),
-        Line(points={{-46,-12},{-74,-12},{-80,-12}}, color={179,151,128},
+        Line(points={{-10,-26},{-38,-26},{-44,-26}}, color={179,151,128},
           thickness=0.5),
-        Rectangle(extent={{-24,30},{-2,22}}, lineColor={179,151,128},
+        Rectangle(extent={{12,16},{34,8}},   lineColor={179,151,128},
           lineThickness=0.5,
           fillColor={179,151,128},
           fillPattern=FillPattern.Solid),
-        Line(points={{-18,22},{-18,12}}, color={179,151,128},
+        Line(points={{18,8},{18,-2}},    color={179,151,128},
           thickness=0.5),
-        Line(points={{-2,28},{4,28}}, color={179,151,128},
-          thickness=0.5),
-        Rectangle(
-          extent={{-7.5,0.5},{7.5,-0.5}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.VerticalCylinder,
-          origin={-69.5,79.5},
-          rotation=90),
-        Rectangle(
-          extent={{-7.5,0.5},{7.5,-0.5}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.VerticalCylinder,
-          origin={-63.5,79.5},
-          rotation=90),
-        Rectangle(
-          extent={{-7.5,0.5},{7.5,-0.5}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.VerticalCylinder,
-          origin={-57.5,79.5},
-          rotation=90),
-        Rectangle(
-          extent={{-7.5,0.5},{7.5,-0.5}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.VerticalCylinder,
-          origin={-51.5,79.5},
-          rotation=90),
-        Rectangle(
-          extent={{-7.5,0.5},{7.5,-0.5}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.VerticalCylinder,
-          origin={-45.5,79.5},
-          rotation=90),
-        Rectangle(
-          extent={{-7.5,0.5},{7.5,-0.5}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.VerticalCylinder,
-          origin={-39.5,79.5},
-          rotation=90),
-        Rectangle(
-          extent={{-7.5,0.5},{7.5,-0.5}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.VerticalCylinder,
-          origin={-33.5,79.5},
-          rotation=90),
-        Rectangle(
-          extent={{-7.5,0.5},{7.5,-0.5}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.VerticalCylinder,
-          origin={-27.5,79.5},
-          rotation=90),
-        Rectangle(
-          extent={{-7.5,0.5},{7.5,-0.5}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.VerticalCylinder,
-          origin={-21.5,79.5},
-          rotation=90),
-        Rectangle(
-          extent={{-7.5,0.5},{7.5,-0.5}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.VerticalCylinder,
-          origin={-15.5,79.5},
-          rotation=90),
-        Rectangle(
-          extent={{-7.5,0.5},{7.5,-0.5}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.VerticalCylinder,
-          origin={-9.5,79.5},
-          rotation=90),
-        Rectangle(
-          extent={{-7.5,0.5},{7.5,-0.5}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.VerticalCylinder,
-          origin={-3.5,79.5},
-          rotation=90),
-        Rectangle(
-          extent={{-7.5,0.5},{7.5,-0.5}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.VerticalCylinder,
-          origin={2.5,79.5},
-          rotation=90),
-        Rectangle(
-          extent={{-7.5,0.5},{7.5,-0.5}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.VerticalCylinder,
-          origin={8.5,79.5},
-          rotation=90),
-        Rectangle(
-          extent={{-1,42},{1,-42}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.HorizontalCylinder,
-          origin={-30,87},
-          rotation=90),
-        Rectangle(
-          extent={{-18,1},{18,-1}},
-          lineColor={179,151,128},
-          fillColor={179,151,128},
-          fillPattern=FillPattern.VerticalCylinder,
-          origin={-47,50},
-          rotation=90),
-        Line(points={{22,-8},{1.95996e-38,-3.20085e-22},{4,-8}},
-                                                  color={179,151,128},
-          origin={-56,46},
-          rotation=90,
+        Line(points={{34,14},{40,14}},color={179,151,128},
           thickness=0.5),
         Text(
-          extent={{10,32},{38,18}},
+          extent={{68,8},{96,-6}},
           lineColor={0,0,0},
           lineThickness=0.5,
           fillPattern=FillPattern.VerticalCylinder,
           fillColor={179,151,128},
           textString="yDDSPstpt"),
         Text(
-          extent={{-90,10},{-52,-2}},
+          extent={{-96,-14},{-58,-26}},
           lineColor={0,0,255},
           lineThickness=0.5,
           fillPattern=FillPattern.VerticalCylinder,
           fillColor={179,151,128},
           textString="mostOpenDam")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-60},
-            {40,100}}), graphics={Rectangle(
-          extent={{-100,100},{40,-60}},
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}}), graphics={Rectangle(
+          extent={{-100,100},{100,-100}},
           lineColor={179,151,128},
           lineThickness=0.5,
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid), Text(
-          extent={{-6,2},{34,-26}},
+          extent={{42,-18},{78,-46}},
           lineColor={0,0,0},
           lineThickness=0.5,
           fillColor={215,215,215},
