@@ -31,14 +31,22 @@ design and operation of building and community energy systems.
 Spoken tutorials for beginners are available at https://spoken-tutorial.org/tutorial-search/?search_foss=OpenModelica&search_language=English.
 
 
+Running the First Simulations
+-----------------------------
 
-Literature for Developers
--------------------------
+To start using Modelica, run some of the example models of the `Buildings` library.
+Make variations in these examples by changing values of model parameters
+or by replacing existing component models by new ones.
+The example models can be found in the packages `Examples`.
 
-It is essential that users who develop new thermo-fluid models to  understand the concept of stream connectors. Stream connectors are explained in the Modelica language definition, available at https://www.modelica.org/documents, and in the paper Franke et al. [Fra2009a]_.
-The `Buildings` library uses similar modeling principles, and the same base classes, as the `Modelica.Fluid` library. Hence, we also recommend reading the paper about the standardization of thermo-fluid models in Modelica.Fluid [Fra2009b]_.
+Study the detailed tutorials with step-by-step instructions for how to build system models,
+which can be found in the `Tutorial package <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Examples_Tutorial.html>`_.
 
-The `Modelica Web Reference <https://webref.modelica.university>`_ gives a concise overview, explanation and further links about the Modelica language.
+Note that heat transfer models, which can be found in `Buildings.HeatTransfer.*.Examples` are easier to understand than fluid flow models because;
+
+* handling fluid flow adds more complexity due to flow reversal (i.e., if the mass flow rate changes its direction),
+* fluid flow models may need to handle multiple species such as air and water vapor, as well as trace substances such as CO2, and
+* fluid flow models use packages that define medium models, such as dry air, moist air, water or other fluids.
 
 
 Software Requirements
@@ -47,16 +55,19 @@ Software Requirements
 Check the software requirements for the different versions of the Buildings library at https://simulationresearch.lbl.gov/modelica/download.html
 
 
-Running the First Simulations
------------------------------
+Literature for Developers
+-------------------------
 
-To start using Modelica, run the example models of the `Buildings` library. Make variations in these examples by changing values of model parameters or by replacing existing component models by new ones. The example models can be found in the packages `Examples`, and detailed tutorials with step-by-step instructions for how to build system models can be found in the `Tutorial package <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Examples_Tutorial.html>`_.
+See the `developer guide <Development>`_ of the `Buildings` library for conventions and guidelines.
 
-Note that heat transfer models, which can be found in `Buildings.HeatTransfer.*.Examples` are easier to understand than fluid flow models because;
+It is essential that users who develop new thermo-fluid models to understand the concept of stream connectors.
+Stream connectors are explained in the Modelica language definition, available at https://www.modelica.org/documents,
+and in the paper Franke et al. [Fra2009a]_.
+The `Buildings` library uses similar modeling principles, and the same base classes, as the `Modelica.Fluid` library.
+Hence, we also recommend reading the paper about the standardization of thermo-fluid models in Modelica.Fluid [Fra2009b]_.
 
-* handling fluid flow adds more complexity due to flow reversal (i.e., if the mass flow rate changes its direction),
-* fluid flow models may need to handle multiple species such as air and water vapor, as well as trace substances such as CO2, and
-* fluid flow models use packages that define medium models, such as dry air, moist air, water or other fluids.
+The `Modelica Web Reference <https://webref.modelica.university>`_ gives a concise overview, explanation and further links about the Modelica language.
+
 
 
 References
