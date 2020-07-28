@@ -38,40 +38,40 @@ partial model PartialOpenLoop
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
 
   BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
-        transformation(extent={{-108,70},{-90,90}}), iconTransformation(extent=
+        transformation(extent={{-88,70},{-70,90}}),  iconTransformation(extent=
             {{-250,-2},{-230,18}})));
 equation
   connect(weaDat.weaBus, weaBus) annotation (Line(
-      points={{-120,80},{-99,80}},
+      points={{-120,80},{-79,80}},
       color={255,204,51},
       thickness=0.5), Text(
       textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
 
-  connect(hvac.supplyAir, zon.supplyAir) annotation (Line(points={{0,8},{10,8},
+  connect(hvac.supplyAir, zon.supplyAir) annotation (Line(points={{0.2,8},{10,8},
           {10,2},{40,2}},          color={0,127,255}));
-  connect(hvac.returnAir, zon.returnAir) annotation (Line(points={{0,0},{6,0},{
-          6,-2},{10,-2},{40,-2}},  color={0,127,255}));
+  connect(hvac.returnAir, zon.returnAir) annotation (Line(points={{0.2,0},{6,0},
+          {6,-2},{10,-2},{40,-2}}, color={0,127,255}));
 
   connect(hvac.weaBus, weaBus) annotation (Line(
-      points={{-36,17.8},{-36,80},{-99,80}},
+      points={{-35.8,17.8},{-35.8,80},{-79,80}},
       color={255,204,51},
       thickness=0.5));
   connect(zon.weaBus, weaBus) annotation (Line(
-      points={{46,18},{46,80},{-99,80}},
+      points={{46,18},{46,80},{-79,80}},
       color={255,204,51},
       thickness=0.5));
 
-  connect(hvac.PFan, EFan.u) annotation (Line(points={{1,18},{24,18},{24,-40},{
-          38,-40}},  color={0,0,127}));
-  connect(hvac.QHea_flow, EHea.u) annotation (Line(points={{1,16},{22,16},{22,
+  connect(hvac.PFan, EFan.u) annotation (Line(points={{1.2,18},{24,18},{24,-40},
+          {38,-40}}, color={0,0,127}));
+  connect(hvac.QHea_flow, EHea.u) annotation (Line(points={{1.2,16},{22,16},{22,
           -70},{38,-70}},
                      color={0,0,127}));
-  connect(hvac.PCoo, ECoo.u) annotation (Line(points={{1,14},{20,14},{20,-100},
+  connect(hvac.PCoo, ECoo.u) annotation (Line(points={{1.2,14},{20,14},{20,-100},
           {38,-100}},color={0,0,127}));
-  connect(hvac.PPum, EPum.u) annotation (Line(points={{1,12},{18,12},{18,-130},{
-          38,-130}},   color={0,0,127}));
+  connect(hvac.PPum, EPum.u) annotation (Line(points={{1.2,12},{18,12},{18,-130},
+          {38,-130}},  color={0,0,127}));
 
   connect(EFan.y, EHVAC.u[1]) annotation (Line(points={{61,-40},{70,-40},{70,
           -64.75},{80,-64.75}}, color={0,0,127}));

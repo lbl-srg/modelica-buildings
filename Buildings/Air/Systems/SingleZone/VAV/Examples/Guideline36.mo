@@ -7,7 +7,7 @@ model Guideline36
 
   parameter Modelica.SIunits.Temperature TSupChi_nominal=279.15
     "Design value for chiller leaving water temperature";
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller controller(
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller con(
     have_winSen=true,
     controllerTypeCoo=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     kCoo=4,
@@ -27,8 +27,7 @@ model Guideline36
     yDam_VOutMin_minSpe=0.2304,
     yDam_VOutMin_maxSpe=0.02304,
     yDam_VOutDes_minSpe=0.4,
-    yDam_VOutDes_maxSpe=0.04)
-    "VAV controller"
+    yDam_VOutDes_maxSpe=0.04) "VAV controller"
     annotation (Placement(transformation(extent={{-120,-28},{-80,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysChiPla(
     uLow=-1,
@@ -55,66 +54,56 @@ protected
     annotation (Placement(transformation(extent={{-80,-140},{-60,-120}})));
 
 equation
-  connect(controller.yFan, hvac.uFan) annotation (Line(points={{-78,7.07692},{-62,
-          7.07692},{-62,18},{-42,18}},
-                              color={0,0,127}));
-  connect(controller.yHeaCoi, hvac.uHea) annotation (Line(points={{-78,-9.53846},
-          {-60,-9.53846},{-60,12},{-42,12}},
-                              color={0,0,127}));
-  connect(controller.yOutDamPos, hvac.uEco) annotation (Line(points={{-78,-19.6923},
-          {-56,-19.6923},{-56,-2},{-42,-2}},
-                                 color={0,0,127}));
-  connect(TSetSupChiConst.y, hvac.TSetChi) annotation (Line(points={{-59,-130},{
-          -46,-130},{-46,-16},{-42,-16},{-42,-15}},
+  connect(con.yFan, hvac.uFan) annotation (Line(points={{-78,7.07692},{-62,
+          7.07692},{-62,18},{-42,18}}, color={0,0,127}));
+  connect(con.yHeaCoi, hvac.uHea) annotation (Line(points={{-78,-9.53846},{-60,
+          -9.53846},{-60,12},{-42,12}}, color={0,0,127}));
+  connect(con.yOutDamPos, hvac.uEco) annotation (Line(points={{-78,-19.6923},{-56,
+          -19.6923},{-56,-2},{-42,-2}}, color={0,0,127}));
+  connect(TSetSupChiConst.y, hvac.TSetChi) annotation (Line(points={{-59,-130},
+          {-46,-130},{-46,-18},{-42,-18}},
                                      color={0,0,127}));
   connect(errTRooCoo.y, hysChiPla.u)
     annotation (Line(points={{-91,-90},{-82,-90}},   color={0,0,127}));
   connect(zon.TRooAir, errTRooCoo.u1) annotation (Line(points={{81,0},{110,0},{110,
           -152},{-134,-152},{-134,-90},{-108,-90}},       color={0,0,127}));
-  connect(hysChiPla.y, hvac.chiOn) annotation (Line(points={{-58,-90},{-48,-90},
-          {-48,-10},{-42,-10}},       color={255,0,255}));
-  connect(weaBus.TDryBul, controller.TOut) annotation (Line(
-      points={{-99,80},{-99,60},{-140,60},{-140,19.0769},{-122,19.0769}},
+  connect(hysChiPla.y, hvac.chiOn) annotation (Line(points={{-58,-90},{-50,-90},
+          {-50,-10},{-42,-10}},       color={255,0,255}));
+  connect(weaBus.TDryBul, con.TOut) annotation (Line(
+      points={{-79,80},{-79,60},{-140,60},{-140,19.0769},{-122,19.0769}},
       color={255,204,51},
       thickness=0.5), Text(
       textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(zon.TRooAir, controller.TZon) annotation (Line(points={{81,0},{110,0},
-          {110,-152},{-134,-152},{-134,8},{-122,8}},   color={0,0,127}));
-  connect(hvac.TSup, controller.TSup) annotation (Line(points={{1,-8},{10,-8},{10,
-          -50},{-130,-50},{-130,-2.15385},{-122,-2.15385}},
-                                                 color={0,0,127}));
-  connect(hvac.TMix, controller.TMix) annotation (Line(points={{1,-4},{14,-4},{14,
-          -46},{-128,-46},{-128,-7.69231},{-122,-7.69231}},
-                                                   color={0,0,127}));
-  connect(occSch.tNexOcc, controller.tNexOcc) annotation (Line(points={{-159,16},
-          {-150,16},{-150,10.7692},{-122,10.7692}},
-                                          color={0,0,127}));
-  connect(controller.uOcc, occSch.occupied) annotation (Line(points={{-122,5.23077},
-          {-152,5.23077},{-152,4},{-159,4}},
-                                        color={255,0,255}));
-  connect(uWin.y, controller.uWin) annotation (Line(points={{-159,-80},{-136,
-          -80},{-136,-13.2308},{-122,-13.2308}},
-                                       color={255,0,255}));
-  connect(controller.TZonCooSet, errTRooCoo.u2) annotation (Line(points={{-78,-4},
-          {-74,-4},{-74,-40},{-120,-40},{-120,-110},{-100,-110},{-100,-98}},
-        color={0,0,127}));
-  connect(hvac.uCooVal, controller.yCooCoi) annotation (Line(points={{-42,5},{
-          -48,5},{-48,4},{-58,4},{-58,-15.0769},{-78,-15.0769}},
-                                                       color={0,0,127}));
-  connect(hvac.TRet, controller.TCut) annotation (Line(points={{1,-6},{12,-6},{12,
-          -48},{-132,-48},{-132,-4.92308},{-122,-4.92308}},
-                                                 color={0,0,127}));
-  connect(demLim.y, controller.uCooDemLimLev) annotation (Line(points={{-158,-40},
-          {-138,-40},{-138,2.46154},{-122,2.46154}}, color={255,127,0}));
-  connect(demLim.y, controller.uHeaDemLimLev) annotation (Line(points={{-158,-40},
-          {-138,-40},{-138,0.615385},{-122,0.615385}}, color={255,127,0}));
-  connect(cooWarTim.y, controller.warUpTim) annotation (Line(points={{-158,50},{
-          -142,50},{-142,16.3077},{-122,16.3077}}, color={0,0,127}));
-  connect(cooWarTim.y, controller.cooDowTim) annotation (Line(points={{-158,50},
-          {-142,50},{-142,13.5385},{-122,13.5385}}, color={0,0,127}));
+  connect(zon.TRooAir, con.TZon) annotation (Line(points={{81,0},{110,0},{110,-152},
+          {-134,-152},{-134,8},{-122,8}}, color={0,0,127}));
+  connect(hvac.TSup, con.TSup) annotation (Line(points={{1.2,-8},{10,-8},{10,
+          -50},{-130,-50},{-130,-2.15385},{-122,-2.15385}}, color={0,0,127}));
+  connect(hvac.TMix, con.TMix) annotation (Line(points={{1.2,-4},{14,-4},{14,
+          -46},{-128,-46},{-128,-7.69231},{-122,-7.69231}}, color={0,0,127}));
+  connect(occSch.tNexOcc, con.tNexOcc) annotation (Line(points={{-159,16},{-150,
+          16},{-150,10.7692},{-122,10.7692}}, color={0,0,127}));
+  connect(con.uOcc, occSch.occupied) annotation (Line(points={{-122,5.23077},{-152,
+          5.23077},{-152,4},{-159,4}}, color={255,0,255}));
+  connect(uWin.y, con.uWin) annotation (Line(points={{-159,-80},{-136,-80},{
+          -136,-13.2308},{-122,-13.2308}}, color={255,0,255}));
+  connect(con.TZonCooSet, errTRooCoo.u2) annotation (Line(points={{-78,-4},{-74,
+          -4},{-74,-40},{-120,-40},{-120,-110},{-100,-110},{-100,-98}}, color={
+          0,0,127}));
+  connect(hvac.TRet, con.TCut) annotation (Line(points={{1.2,-6},{12,-6},{12,
+          -48},{-132,-48},{-132,-4.92308},{-122,-4.92308}}, color={0,0,127}));
+  connect(demLim.y, con.uCooDemLimLev) annotation (Line(points={{-158,-40},{-138,
+          -40},{-138,2.46154},{-122,2.46154}}, color={255,127,0}));
+  connect(demLim.y, con.uHeaDemLimLev) annotation (Line(points={{-158,-40},{-138,
+          -40},{-138,0.615385},{-122,0.615385}}, color={255,127,0}));
+  connect(cooWarTim.y, con.warUpTim) annotation (Line(points={{-158,50},{-142,
+          50},{-142,16.3077},{-122,16.3077}}, color={0,0,127}));
+  connect(cooWarTim.y, con.cooDowTim) annotation (Line(points={{-158,50},{-142,
+          50},{-142,13.5385},{-122,13.5385}}, color={0,0,127}));
+  connect(con.yCooCoi, hvac.uCooVal) annotation (Line(points={{-78,-15.0769},{
+          -58,-15.0769},{-58,5},{-42,5}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-200,-160},{120,100}})),
     experiment(
       StopTime=504800,

@@ -2,9 +2,27 @@ within Buildings.Air.Systems.SingleZone.VAV.BaseClasses;
 model ControllerEconomizer "Controller for economizer"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Real kEco(min=Modelica.Constants.small) = 1
-    "Gain of controller"
-    annotation(Dialog(group="Control gain"));
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeEco=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
+    annotation(Dialog(group="Economizer control signal"));
+  parameter Real kEco(final unit="1/K")=0.1
+    "Gain for economizer control signal"
+    annotation(Dialog(group="Economizer control signal"));
+  parameter Real TiEco(
+    final unit="s",
+    final quantity="Time")=900
+    "Time constant of integrator block for economizer control signal"
+    annotation(Dialog(group="Economizer control signal",
+    enable=controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+        or controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Real TdEco(
+    final unit="s",
+    final quantity="Time")=0.1
+    "Time constant of derivative block for economizer control signal"
+    annotation (Dialog(group="Economizer control signal",
+      enable=controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+          or controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   Modelica.Blocks.Interfaces.RealInput TMixSet(
     final unit="K",

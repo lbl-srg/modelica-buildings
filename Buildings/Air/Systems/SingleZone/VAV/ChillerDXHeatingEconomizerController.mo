@@ -18,21 +18,100 @@ model ChillerDXHeatingEconomizerController
   parameter Modelica.SIunits.Temperature TSetSupAir "Cooling supply air temperature setpoint"
     annotation(Dialog(group="Air design"));
 
-  parameter Real kHea(min=Modelica.Constants.small) = 2
-    "Gain of heating controller"
-    annotation(Dialog(group="Control gain"));
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeHea=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
+    annotation(Dialog(group="Heating coil signal"));
+  parameter Real kHea(final unit="1/K")=0.1
+    "Gain for heating coil control signal"
+    annotation(Dialog(group="Heating coil signal"));
+  parameter Real TiHea(
+    final unit="s",
+    final quantity="Time")=900
+    "Time constant of integrator block for heating coil control signal"
+    annotation(Dialog(group="Heating coil signal",
+    enable=controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+        or controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Real TdHea(
+    final unit="s",
+    final quantity="Time")=0.1
+    "Time constant of derivative block for heating coil control signal"
+    annotation (Dialog(group="Heating coil signal",
+      enable=controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+          or controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Real kCoo(min=Modelica.Constants.small)=1
-    "Gain of controller for cooling valve"
-    annotation(Dialog(group="Control gain"));
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCoo=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
+    annotation(Dialog(group="Cooling coil signal"));
+  parameter Real kCoo(final unit="1/K")=1
+    "Gain for cooling coil control signal"
+    annotation(Dialog(group="Cooling coil signal"));
+  parameter Real TiCoo(final unit="s")=900
+    "Time constant of integrator block for cooling coil control signal"
+    annotation(Dialog(group="Cooling coil signal",
+    enable=controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+        or controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Real TdCoo(final unit="s")=0.1
+    "Time constant of derivative block for cooling coil control signal"
+    annotation (Dialog(group="Cooling coil signal",
+    enable=controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+        or controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Real kFan(min=Modelica.Constants.small) = 0.5
-    "Gain of controller for fan"
-    annotation(Dialog(group="Control gain"));
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeFan=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
+    annotation(Dialog(group="Fan control signal"));
+  parameter Real kFan(final unit="1/K")=1
+    "Gain for fan signal"
+    annotation(Dialog(group="Fan control signal"));
+  parameter Real TiFan(
+    final unit="s",
+    final quantity="Time")=900
+    "Time constant of integrator block for fan signal"
+    annotation(Dialog(group="Fan control signal",
+    enable=controllerTypeFan == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+        or controllerTypeFan == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Real TdFan(
+    final unit="s",
+    final quantity="Time")=0.1
+    "Time constant of derivative block for fan signal"
+    annotation (Dialog(group="Fan control signal",
+    enable=controllerTypeFan == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+        or controllerTypeFan == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Real kEco(min=Modelica.Constants.small) = 4
-    "Gain of controller for economizer"
-    annotation(Dialog(group="Control gain"));
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeEco=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
+    annotation(Dialog(group="Economizer control signal"));
+  parameter Real kEco(final unit="1/K")=0.1
+    "Gain for economizer control signal"
+    annotation(Dialog(group="Economizer control signal"));
+  parameter Real TiEco(
+    final unit="s",
+    final quantity="Time")=900
+    "Time constant of integrator block for economizer control signal"
+    annotation(Dialog(group="Economizer control signal",
+    enable=controllerTypeEco == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+        or controllerTypeEco == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Real TdEco(
+    final unit="s",
+    final quantity="Time")=0.1
+    "Time constant of derivative block for economizer control signal"
+    annotation (Dialog(group="Economizer control signal",
+      enable=controllerTypeEco == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+          or controllerTypeEco == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
+  //parameter Real kHea(min=Modelica.Constants.small) = 2
+  //  "Gain of heating controller"
+
+  //parameter Real kFan(min=Modelica.Constants.small) = 0.5
+  //  "Gain of controller for fan"
+  //  annotation(Dialog(group="Control gain"));
+
+  //parameter Real kEco(min=Modelica.Constants.small) = 4
+  //  "Gain of controller for economizer"
+  //  annotation(Dialog(group="Control gain"));
 
   Modelica.Blocks.Interfaces.RealInput TRoo(
     final unit="K",
@@ -52,7 +131,7 @@ model ChillerDXHeatingEconomizerController
         origin={-120,60}), iconTransformation(
         extent={{14,-14},{-14,14}},
         rotation=180,
-        origin={-114,56})));
+        origin={-114,58})));
   Modelica.Blocks.Interfaces.RealInput TSetRooHea(
     final unit="K",
     displayUnit="degC")
@@ -62,14 +141,14 @@ model ChillerDXHeatingEconomizerController
         origin={-120,100}), iconTransformation(
         extent={{14,-14},{-14,14}},
         rotation=180,
-        origin={-114,84})));
+        origin={-114,86})));
 
   Modelica.Blocks.Interfaces.RealInput TMix(
     final unit="K",
     displayUnit="degC")
     "Measured mixed air temperature"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
-        iconTransformation(extent={{-128,14},{-100,42}})));
+        iconTransformation(extent={{-128,16},{-100,44}})));
 
   Modelica.Blocks.Interfaces.RealInput TSup(
     final unit="K",
@@ -86,32 +165,37 @@ model ChillerDXHeatingEconomizerController
         iconTransformation(extent={{-128,-44},{-100,-16}})));
 
   Modelica.Blocks.Interfaces.RealOutput yHea(final unit="1") "Control signal for heating coil"
-    annotation (Placement(transformation(extent={{100,50},{120,70}})));
+    annotation (Placement(transformation(extent={{100,44},{120,64}}),
+        iconTransformation(extent={{100,44},{120,64}})));
 
   Modelica.Blocks.Interfaces.RealOutput yFan(final unit="1") "Control signal for fan"
     annotation (Placement(transformation(extent={{100,80},{120,100}})));
 
   Modelica.Blocks.Interfaces.RealOutput yOutAirFra(final unit="1")
     "Control signal for outside air fraction"
-    annotation (Placement(transformation(extent={{100,20},{120,40}})));
+    annotation (Placement(transformation(extent={{100,10},{120,30}}),
+        iconTransformation(extent={{100,10},{120,30}})));
 
   Modelica.Blocks.Interfaces.RealOutput yCooCoiVal(final unit="1")
     "Control signal for cooling coil valve"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-30},{120,-10}}),
+        iconTransformation(extent={{100,-30},{120,-10}})));
 
   Modelica.Blocks.Interfaces.RealOutput TSetSupChi(
     final unit="K",
     displayUnit="degC")
     "Set point for chiller leaving water temperature"
-    annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
+    annotation (Placement(transformation(extent={{100,-100},{120,-80}}),
+        iconTransformation(extent={{100,-100},{120,-80}})));
 
   Modelica.Blocks.Interfaces.BooleanOutput chiOn "On signal for chiller"
-    annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
+    annotation (Placement(transformation(extent={{100,-64},{120,-44}}),
+        iconTransformation(extent={{100,-64},{120,-44}})));
 
   BaseClasses.ControllerHeatingFan conSup(
     minAirFlo = minAirFlo,
     kHea = kHea,
-    kFan = kFan) "Heating coil, cooling coil and fan controller"
+    kFan = kFan) "Heating coil and fan controller"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
   BaseClasses.ControllerEconomizer conEco(
     final kEco = kEco)
@@ -141,7 +225,7 @@ model ChillerDXHeatingEconomizerController
   Controls.OBC.CDL.Interfaces.BooleanInput           uOcc
     "Current occupancy period, true if it is in occupant period"
     annotation (Placement(transformation(extent={{-140,-30},{-100,10}}),
-        iconTransformation(extent={{-156,-30},{-100,26}})));
+        iconTransformation(extent={{-156,-28},{-100,28}})));
   Controls.OBC.CDL.Continuous.Sources.Constant con(k=0)
     "Zero outside air fraction"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
@@ -150,9 +234,10 @@ model ChillerDXHeatingEconomizerController
   Controls.OBC.CDL.Continuous.Hysteresis hysHea(uLow=0.01, uHigh=0.05)
     "Hysteresis for heating"
     annotation (Placement(transformation(extent={{-30,120},{-10,140}})));
-  Modelica.Blocks.MathBoolean.Or orFan(nu=3)
+  Controls.OBC.CDL.Logical.MultiOr
+                                 orFan(nu=3)
     "Switch fan on if heating, cooling, or occupied"
-    annotation (Placement(transformation(extent={{40,100},{60,120}})));
+    annotation (Placement(transformation(extent={{40,94},{60,114}})));
   Modelica.Blocks.Logical.And and1
     annotation (Placement(transformation(extent={{70,-40},{90,-20}})));
 protected
@@ -195,16 +280,16 @@ equation
   connect(conEco.TOut, TOut) annotation (Line(points={{39,65},{4,65},{4,66},{
           -18,66},{-18,8},{-92,8},{-92,-40},{-120,-40}},
                                            color={0,0,127}));
-  connect(conSup.yHea, yHea) annotation (Line(points={{-39,86},{80,86},{80,60},
-          {110,60}},color={0,0,127}));
-  connect(conEco.yOutAirFra, yOutAirFra) annotation (Line(points={{61,70},{80,
-          70},{80,30},{110,30}},
-                             color={0,0,127}));
+  connect(conSup.yHea, yHea) annotation (Line(points={{-39,86},{80,86},{80,54},{
+          110,54}}, color={0,0,127}));
+  connect(conEco.yOutAirFra, yOutAirFra) annotation (Line(points={{61,70},{80,70},
+          {80,20},{110,20}}, color={0,0,127}));
   connect(conCooVal.y, yCooCoiVal)
-    annotation (Line(points={{21,-20},{40,-20},{40,0},{110,0}},
+    annotation (Line(points={{21,-20},{40,-20},{40,-20},{110,-20}},
                                               color={0,0,127}));
   connect(TSetSupChiConst.y, TSetSupChi)
-    annotation (Line(points={{61,-80},{110,-80}}, color={0,0,127}));
+    annotation (Line(points={{61,-80},{86,-80},{86,-90},{110,-90}},
+                                                  color={0,0,127}));
   connect(conCooVal.u_m, TSup)
     annotation (Line(points={{10,-32},{10,-110},{-120,-110}},
                                                             color={0,0,127}));
@@ -230,28 +315,29 @@ equation
   connect(conSup.yHea, hysHea.u) annotation (Line(points={{-39,86},{-34,86},{
           -34,130},{-32,130}},                     color={0,0,127}));
   connect(swiFan.u2, orFan.y)
-    annotation (Line(points={{68,130},{64,130},{64,110},{61.5,110}},
+    annotation (Line(points={{68,130},{64,130},{64,104},{62,104}},
                                                    color={255,0,255}));
   connect(hysHea.y, orFan.u[1]) annotation (Line(points={{-8,130},{24,130},{24,
-          114.667},{40,114.667}},
+          108.667},{38,108.667}},
                               color={255,0,255}));
-  connect(hysChiPla.y, orFan.u[2]) annotation (Line(points={{52,-40},{60,-40},{
-          60,52},{24,52},{24,110},{40,110}},
+  connect(hysChiPla.y, orFan.u[2]) annotation (Line(points={{52,-40},{60,-40},{60,
+          52},{24,52},{24,104},{38,104}},
                                      color={255,0,255}));
-  connect(uOcc, orFan.u[3]) annotation (Line(points={{-120,-10},{-68,-10},{-68,
-          0},{-14,0},{-14,102},{14,102},{14,105.333},{40,105.333}},
-                                              color={255,0,255}));
   connect(conEco.TMixSet, conCooVal.u_s) annotation (Line(points={{39,78},{-10,
           78},{-10,-20},{-2,-20}}, color={0,0,127}));
   connect(hysChiPla.y, and1.u2)
     annotation (Line(points={{52,-40},{60,-40},{60,-38},{68,-38}},
                                                  color={255,0,255}));
-  connect(and1.y, chiOn) annotation (Line(points={{91,-30},{96,-30},{96,-40},{
-          110,-40}}, color={255,0,255}));
+  connect(and1.y, chiOn) annotation (Line(points={{91,-30},{96,-30},{96,-54},{110,
+          -54}},     color={255,0,255}));
   connect(conEco.yCoiSta, and1.u1) annotation (Line(points={{61,62},{64,62},{64,
           -30},{68,-30}}, color={255,0,255}));
-  annotation (Icon(coordinateSystem(extent={{-100,-120},{100,140}}),
-                   graphics={Line(points={{-100,-100},{0,2},{-100,100}}, color=
+  connect(uOcc, orFan.u[3]) annotation (Line(points={{-120,-10},{-68,-10},{-68,
+          0},{-14,0},{-14,99.3333},{38,99.3333}},
+                                               color={255,0,255}));
+  annotation (
+  defaultComponentName="conChiDXHeaEco",
+  Icon(graphics={Line(points={{-100,-100},{0,2},{-100,100}}, color=
               {0,0,0})}), Documentation(info="<html>
 <p>
 This is the controller for the VAV system with economizer, heating coil and cooling coil.

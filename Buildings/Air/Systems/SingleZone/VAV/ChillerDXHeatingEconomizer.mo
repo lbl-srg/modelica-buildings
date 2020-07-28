@@ -15,13 +15,13 @@ model ChillerDXHeatingEconomizer
   parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal "Design airflow rate of system"
     annotation(Dialog(group="Air design"));
 
-  parameter Modelica.SIunits.Power QHea_flow_nominal(min=0) "Design heating capacity of heating coil"
+  parameter Modelica.SIunits.Power QHea_flow_nominal(min=0) "Design capacity of heating coil"
     annotation(Dialog(group="Heating design"));
 
   parameter Real etaHea_nominal(min=0, max=1, unit="1") "Design heating efficiency of the heating coil"
     annotation(Dialog(group="Heating design"));
 
-  parameter Modelica.SIunits.Power QCoo_flow_nominal(max=0) "Design heating capacity of cooling coil"
+  parameter Modelica.SIunits.Power QCoo_flow_nominal(max=0) "Design capacity of cooling coil"
     annotation(Dialog(group="Cooling design"));
 
   parameter Modelica.SIunits.PressureDifference dp_nominal(displayUnit="Pa") = 500
@@ -37,67 +37,73 @@ model ChillerDXHeatingEconomizer
     "Design condenser air flow";
 
   Modelica.Blocks.Interfaces.BooleanInput chiOn "On signal for chiller plant"
-    annotation (Placement(transformation(extent={{-240,-160},{-200,-120}})));
+    annotation (Placement(transformation(extent={{-240,-140},{-200,-100}}),
+        iconTransformation(extent={{-240,-140},{-200,-100}})));
 
   Modelica.Blocks.Interfaces.RealInput uFan(
     final unit="1") "Fan control signal"
-    annotation (Placement(transformation(extent={{-240,120},{-200,160}})));
+    annotation (Placement(transformation(extent={{-240,140},{-200,180}}),
+        iconTransformation(extent={{-240,140},{-200,180}})));
   Modelica.Blocks.Interfaces.RealInput uHea(
     final unit="1") "Control input for heater"
-    annotation (Placement(transformation(extent={{-240,60},{-200,100}})));
+    annotation (Placement(transformation(extent={{-240,80},{-200,120}}),
+        iconTransformation(extent={{-240,80},{-200,120}})));
   Modelica.Blocks.Interfaces.RealInput uCooVal(final unit="1")
     "Control signal for cooling valve"
-    annotation (Placement(transformation(extent={{-240,-10},{-200,30}})));
+    annotation (Placement(transformation(extent={{-240,10},{-200,50}}),
+        iconTransformation(extent={{-240,10},{-200,50}})));
   Modelica.Blocks.Interfaces.RealInput TSetChi(
     final unit="K",
     displayUnit="degC")
     "Set point for leaving chilled water temperature"
-    annotation (Placement(transformation(extent={{-240,-210},{-200,-170}})));
+    annotation (Placement(transformation(extent={{-240,-220},{-200,-180}}),
+        iconTransformation(extent={{-240,-220},{-200,-180}})));
   Modelica.Blocks.Interfaces.RealInput uEco "Control signal for economizer"
-    annotation (Placement(transformation(extent={{-240,-80},{-200,-40}})));
+    annotation (Placement(transformation(extent={{-240,-60},{-200,-20}}),
+        iconTransformation(extent={{-240,-60},{-200,-20}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a supplyAir(
     redeclare final package Medium = MediumA) "Supply air"
-    annotation (Placement(transformation(extent={{190,30},{210,50}}),
-        iconTransformation(extent={{190,30},{210,50}})));
+    annotation (Placement(transformation(extent={{192,50},{212,70}}),
+        iconTransformation(extent={{192,50},{212,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b returnAir(
     redeclare final package Medium = MediumA) "Return air"
-    annotation (Placement(transformation(extent={{190,-50},{210,-30}}),
-        iconTransformation(extent={{190,-50},{210,-30}})));
+    annotation (Placement(transformation(extent={{192,-30},{212,-10}}),
+        iconTransformation(extent={{192,-30},{212,-10}})));
 
   Modelica.Blocks.Interfaces.RealOutput PFan(final unit="W")
     "Electrical power consumed by the supply fan"
-    annotation (Placement(transformation(extent={{200,130},{220,150}}),
-        iconTransformation(extent={{200,130},{220,150}})));
+    annotation (Placement(transformation(extent={{202,150},{222,170}}),
+        iconTransformation(extent={{202,150},{222,170}})));
 
   Modelica.Blocks.Interfaces.RealOutput QHea_flow(final unit="W")
     "Electrical power consumed by the heating equipment" annotation (Placement(
-        transformation(extent={{200,110},{220,130}}), iconTransformation(extent={{200,110},
-            {220,130}})));
+        transformation(extent={{202,130},{222,150}}), iconTransformation(extent={{202,130},
+            {222,150}})));
 
   Modelica.Blocks.Interfaces.RealOutput PCoo(final unit="W")
     "Electrical power consumed by the cooling equipment" annotation (Placement(
-        transformation(extent={{200,90},{220,110}}), iconTransformation(extent={{200,90},
-            {220,110}})));
+        transformation(extent={{202,110},{222,130}}),iconTransformation(extent={{202,110},
+            {222,130}})));
   Modelica.Blocks.Interfaces.RealOutput PPum(final unit="W")
     "Electrical power consumed by the pumps"
-    annotation (Placement(transformation(extent={{200,70},{220,90}}),
-        iconTransformation(extent={{200,70},{220,90}})));
+    annotation (Placement(transformation(extent={{202,90},{222,110}}),
+        iconTransformation(extent={{202,90},{222,110}})));
 
   Modelica.Blocks.Interfaces.RealOutput TMix(final unit="K", displayUnit="degC")
-    "Mixed air temperature" annotation (Placement(transformation(extent={{200,-90},
-            {220,-70}}), iconTransformation(extent={{200,-90},{220,-70}})));
+    "Mixed air temperature" annotation (Placement(transformation(extent={{202,-70},
+            {222,-50}}), iconTransformation(extent={{202,-70},{222,-50}})));
 
   Modelica.Blocks.Interfaces.RealOutput TSup(
     final unit="K",
     displayUnit="degC") "Supply air temperature after coils"
-    annotation (Placement(transformation(extent={{200,-130},{220,-110}}),
-        iconTransformation(extent={{200,-130},{220,-110}})));
+    annotation (Placement(transformation(extent={{202,-110},{222,-90}}),
+        iconTransformation(extent={{202,-110},{222,-90}})));
 
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather bus"
   annotation (Placement(
         transformation(extent={{-200,20},{-160,60}}),   iconTransformation(
-          extent={{-170,128},{-150,148}})));
+          extent={{-168,148},{-148,168}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTSup(
     m_flow_nominal=mAir_flow_nominal,
@@ -263,8 +269,8 @@ model ChillerDXHeatingEconomizer
     redeclare package Medium = MediumA) "Return air temperature sensor"
     annotation (Placement(transformation(extent={{-20,-50},{-40,-30}})));
   Modelica.Blocks.Interfaces.RealOutput TRet(final unit="K", displayUnit="degC")
-    "Return air temperature" annotation (Placement(transformation(extent={{200,
-            -110},{220,-90}}), iconTransformation(extent={{200,-110},{220,-90}})));
+    "Return air temperature" annotation (Placement(transformation(extent={{202,-90},
+            {222,-70}}),       iconTransformation(extent={{202,-90},{222,-70}})));
   Fluid.Sensors.TraceSubstancesTwoPort senTraSub(redeclare package Medium =
         MediumA, m_flow_nominal=mAir_flow_nominal,
     tau=0)
@@ -272,10 +278,10 @@ model ChillerDXHeatingEconomizer
 equation
   connect(fanSup.port_b, totalRes.port_a)
     annotation (Line(points={{-10,40},{10,40}},  color={0,127,255}));
-  connect(fanSup.P, PFan) annotation (Line(points={{-9,49},{-6,49},{-6,140},{210,
-          140}},             color={0,0,127}));
-  connect(eff.y, QHea_flow) annotation (Line(points={{141,120},{210,120}},
-                      color={0,0,127}));
+  connect(fanSup.P, PFan) annotation (Line(points={{-9,49},{-6,49},{-6,160},{212,
+          160}},             color={0,0,127}));
+  connect(eff.y, QHea_flow) annotation (Line(points={{141,120},{176,120},{176,140},
+          {212,140}}, color={0,0,127}));
   connect(weaBus, out.weaBus) annotation (Line(
       points={{-180,40},{-140,40},{-140,40.2}},
       color={255,204,51},
@@ -311,9 +317,9 @@ equation
       extent={{-6,3},{-6,3}}));
 
   connect(pumChiWat.P, PPum) annotation (Line(points={{111,-79},{111,-52},{180,-52},
-          {180,80},{210,80}},      color={0,0,127}));
+          {180,100},{212,100}},    color={0,0,127}));
   connect(chi.P, PCoo) annotation (Line(points={{89,-177},{84,-177},{84,-128},{98,
-          -128},{98,-50},{178,-50},{178,100},{210,100}},
+          -128},{98,-50},{178,-50},{178,120},{212,120}},
         color={0,0,127}));
   connect(ideVal.port_2, chi.port_a2)
     annotation (Line(points={{86,0.2},{86,-162},{90,-162}},
@@ -326,8 +332,8 @@ equation
           -162}},              color={0,127,255}));
   connect(totalRes.port_b, heaCoi.port_a)
     annotation (Line(points={{30,40},{52,40}}, color={0,127,255}));
-  connect(senTSup.port_b, supplyAir) annotation (Line(points={{148,40},{200,40}},
-                              color={0,127,255}));
+  connect(senTSup.port_b, supplyAir) annotation (Line(points={{148,40},{174,40},
+          {174,60},{202,60}}, color={0,127,255}));
   connect(gaiFan.y, fanSup.m_flow_in)
     annotation (Line(points={{-59,140},{-20,140},{-20,52}}, color={0,0,127}));
 
@@ -432,105 +438,109 @@ protected
 equation
   connect(booToInt.y, pumChiWat.m_flow_in)
     annotation (Line(points={{81,-90},{108,-90}}, color={0,0,127}));
-  connect(booToInt.u, chiOn) annotation (Line(points={{58,-90},{40,-90},{40,-140},
-          {-220,-140}}, color={255,0,255}));
-  connect(chiOn, chi.on) annotation (Line(points={{-220,-140},{40,-140},{40,-188},
+  connect(booToInt.u, chiOn) annotation (Line(points={{58,-90},{40,-90},{40,-120},
+          {-220,-120}}, color={255,0,255}));
+  connect(chiOn, chi.on) annotation (Line(points={{-220,-120},{40,-120},{40,-188},
           {120,-188},{120,-171},{112,-171}}, color={255,0,255}));
   connect(gaiFan.u, uFan)
-    annotation (Line(points={{-82,140},{-220,140}}, color={0,0,127}));
-  connect(heaCoi.u, uHea) annotation (Line(points={{50,46},{40,46},{40,80},{-220,
-          80}}, color={0,0,127}));
+    annotation (Line(points={{-82,140},{-152,140},{-152,160},{-220,160}},
+                                                    color={0,0,127}));
+  connect(heaCoi.u, uHea) annotation (Line(points={{50,46},{40,46},{40,100},{-220,
+          100}},color={0,0,127}));
   connect(ideVal.y, uCooVal)
-    annotation (Line(points={{69,10},{-220,10}}, color={0,0,127}));
+    annotation (Line(points={{69,10},{-76,10},{-76,30},{-220,30}},
+                                                 color={0,0,127}));
   connect(chi.TSet, TSetChi) annotation (Line(points={{112,-165},{124,-165},{124,
-          -190},{-220,-190}}, color={0,0,127}));
-  connect(senTMixAir.T, TMix) annotation (Line(points={{-50,51},{-50,70},{188,
-          70},{188,-80},{210,-80}}, color={0,0,127}));
-  connect(senTSup.T, TSup) annotation (Line(points={{138,51},{138,64},{170,64},
-          {170,-120},{210,-120}},color={0,0,127}));
+          -200},{-220,-200}}, color={0,0,127}));
+  connect(senTMixAir.T, TMix) annotation (Line(points={{-50,51},{-50,70},{188,70},
+          {188,-60},{212,-60}},     color={0,0,127}));
+  connect(senTSup.T, TSup) annotation (Line(points={{138,51},{138,64},{170,64},{
+          170,-100},{212,-100}}, color={0,0,127}));
   connect(out.ports[2], ideEco.port_1) annotation (Line(points={{-120,40},{-120,
           40},{-99.8,40}},             color={0,127,255}));
   connect(ideEco.port_2, senTMixAir.port_a)
     annotation (Line(points={{-80.2,40},{-60,40}}, color={0,127,255}));
-  connect(uEco, ideEco.y) annotation (Line(points={{-220,-60},{-148,-60},{-148,70},
+  connect(uEco, ideEco.y) annotation (Line(points={{-220,-40},{-148,-40},{-148,70},
           {-90,70},{-90,57}}, color={0,0,127}));
   connect(ideEco.port_3, senTRetAir.port_b) annotation (Line(points={{-90,36},{
           -90,-40},{-40,-40}}, color={0,127,255}));
   connect(senTRetAir.port_b, out.ports[3]) annotation (Line(points={{-40,-40},{
           -112,-40},{-112,36},{-120,36},{-120,37.3333}}, color={0,127,255}));
-  connect(TRet, senTRetAir.T) annotation (Line(points={{210,-100},{174,-100},{
-          174,-20},{-30,-20},{-30,-29}}, color={0,0,127}));
+  connect(TRet, senTRetAir.T) annotation (Line(points={{212,-80},{174,-80},{174,
+          -20},{-30,-20},{-30,-29}},     color={0,0,127}));
   connect(senTRetAir.port_a, senTraSub.port_b)
     annotation (Line(points={{-20,-40},{20,-40}}, color={0,127,255}));
   connect(senTraSub.port_a, returnAir)
-    annotation (Line(points={{40,-40},{200,-40}}, color={0,127,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-240},
-            {200,160}}), graphics={
+    annotation (Line(points={{40,-40},{120,-40},{120,-20},{202,-20}},
+                                                  color={0,127,255}));
+  annotation (defaultComponentName="chiDXHeaEco",
+  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-220},
+            {200,180}}), graphics={
         Rectangle(
-          extent={{-202,160},{200,-240}},
+          extent={{-200,180},{202,-220}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{180,40},{-160,0}},
+          extent={{182,60},{-158,20}},
           lineColor={175,175,175},
           fillColor={175,175,175},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-32,36},{-4,22}},
+          extent={{-30,56},{-2,42}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{180,-72},{-160,-112}},
+          extent={{182,-52},{-158,-92}},
           lineColor={175,175,175},
           fillColor={175,175,175},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-80,0},{-120,-72}},
+          extent={{-78,20},{-118,-52}},
           lineColor={175,175,175},
           fillColor={175,175,175},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{-48,36},{-14,2}},
+          extent={{-46,56},{-12,22}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{-38,26},{-24,12}},
+          extent={{-36,46},{-22,32}},
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{40,40},{54,0}},
+          extent={{42,60},{56,20}},
           lineColor={255,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Backward),
         Rectangle(
-          extent={{102,40},{116,0}},
+          extent={{104,60},{118,20}},
           lineColor={0,0,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Backward),
         Rectangle(
-          extent={{42,54},{52,46}},
+          extent={{44,74},{54,66}},
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Backward),
         Rectangle(
-          extent={{38,56},{56,54}},
+          extent={{40,76},{58,74}},
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Backward),
-        Line(points={{44,56},{44,60}}, color={0,0,0}),
-        Line(points={{50,56},{50,60}}, color={0,0,0}),
-        Line(points={{48,40},{48,48}}, color={0,0,0}),
+        Line(points={{46,76},{46,80}}, color={0,0,0}),
+        Line(points={{52,76},{52,80}}, color={0,0,0}),
+        Line(points={{50,60},{50,68}}, color={0,0,0}),
         Rectangle(
-          extent={{-140,40},{-126,0}},
+          extent={{-138,60},{-124,20}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Backward),
         Rectangle(
-          extent={{-140,-72},{-126,-112}},
+          extent={{-138,-52},{-124,-92}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Backward),
@@ -539,23 +549,23 @@ equation
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Backward,
-          origin={-100,-37},
+          origin={-98,-17},
           rotation=90),
-        Line(points={{200,100},{86,100},{86,46}},   color={0,0,127}),
-        Line(points={{198,118},{48,118},{48,68}}, color={0,0,127}),
-        Line(points={{198,140},{-30,140},{-30,50}}, color={0,0,127}),
-        Line(points={{104,0},{104,-66}}, color={0,0,255}),
-        Line(points={{114,0},{114,-66}}, color={0,0,255}),
-        Line(points={{104,-26},{114,-26}}, color={0,0,255}),
+        Line(points={{202,120},{88,120},{88,66}},   color={0,0,127}),
+        Line(points={{200,138},{50,138},{50,88}}, color={0,0,127}),
+        Line(points={{200,160},{-28,160},{-28,70}}, color={0,0,127}),
+        Line(points={{106,20},{106,-46}},color={0,0,255}),
+        Line(points={{116,20},{116,-46}},color={0,0,255}),
+        Line(points={{106,-6},{116,-6}},   color={0,0,255}),
         Polygon(
           points={{-3,4},{-3,-4},{3,0},{-3,4}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          origin={115,-24},
+          origin={117,-4},
           rotation=-90),
         Polygon(
-          points={{110,-22},{110,-30},{116,-26},{110,-22}},
+          points={{112,-2},{112,-10},{118,-6},{112,-2}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
@@ -564,48 +574,51 @@ equation
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          origin={115,-28}),
-        Line(points={{116,-26},{122,-26}}, color={0,0,0}),
-        Line(points={{122,-24},{122,-30}}, color={0,0,0}),
+          origin={117,-8}),
+        Line(points={{118,-6},{124,-6}},   color={0,0,0}),
+        Line(points={{124,-4},{124,-10}},  color={0,0,0}),
         Ellipse(
-          extent={{96,-124},{124,-152}},
+          extent={{98,-104},{126,-132}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{110,-124},{98,-144},{122,-144},{110,-124}},
+          points={{112,-104},{100,-124},{124,-124},{112,-104}},
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
-        Line(points={{114,-116},{114,-124}},
+        Line(points={{116,-96},{116,-104}},
                                          color={0,0,255}),
-        Line(points={{104,-116},{104,-124}},
+        Line(points={{106,-96},{106,-104}},
                                          color={0,0,255}),
         Ellipse(
-          extent={{84,-148},{110,-158}},
+          extent={{86,-128},{112,-138}},
           lineColor={0,0,0},
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{110,-148},{136,-158}},
+          extent={{112,-128},{138,-138}},
           lineColor={0,0,0},
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{108,-48},{120,-58}},
+          extent={{110,-28},{122,-38}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{114,-48},{110,-56},{118,-56},{114,-48}},
+          points={{116,-28},{112,-36},{120,-36},{116,-28}},
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
-        Line(points={{200,80},{132,80},{132,46}},   color={0,0,127}),
-        Line(points={{124,-54},{132,-54},{132,-4}}, color={0,0,127}),
-        Line(points={{92,-136},{86,-136},{86,-4}},  color={0,0,127})}),
-                                                                 Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-200,-240},{200,160}})),
+        Line(points={{202,100},{134,100},{134,66}}, color={0,0,127}),
+        Line(points={{126,-34},{134,-34},{134,16}}, color={0,0,127}),
+        Line(points={{94,-116},{88,-116},{88,16}},  color={0,0,127}),
+                                        Text(
+        extent={{-154,260},{164,196}},
+        textString="%name",
+        lineColor={0,0,255})}),                                  Diagram(
+        coordinateSystem(preserveAspectRatio=false, extent={{-200,-220},{200,180}})),
       Documentation(info="<html>
 <p>
 This is a conventional single zone VAV HVAC system model. The system contains

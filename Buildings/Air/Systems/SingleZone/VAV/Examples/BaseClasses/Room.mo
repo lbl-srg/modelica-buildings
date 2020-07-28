@@ -228,7 +228,8 @@ model Room
     nPorts=1)   "Source model for air infiltration"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
-  Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses.InternalLoads intLoad
+  Controls.OBC.CDL.Continuous.Sources.TimeTable                           intLoad(table=[0,
+        0.1; 8*3600,0.1; 8*3600,1.0; 18*3600,1.0; 18*3600,0.1; 24*3600,0.1])
     "Internal loads"
     annotation (Placement(transformation(extent={{-120,150},{-100,170}})));
   Modelica.Blocks.Sources.Constant CO2_flow_per(k=1.023e-5) "Latent heat gain"
@@ -304,8 +305,8 @@ equation
           -70,76},{-42,76}}, color={0,0,127}));
   connect(qConGai_flow.y, pro3.u1) annotation (Line(points={{-99,100},{-94,100},
           {-94,96},{-82,96}}, color={0,0,127}));
-  connect(intLoad.y[1], pro2.u2) annotation (Line(points={{-99,160},{-90,160},{
-          -90,64},{-42,64}}, color={0,0,127}));
+  connect(intLoad.y[1], pro2.u2) annotation (Line(points={{-98,160},{-90,160},{-90,
+          64},{-42,64}},     color={0,0,127}));
   connect(pro1.y, mul.u1[1]) annotation (Line(points={{-19,130},{-12,130},{-12,
           98.7},{-2.2,98.7}}, color={0,0,127}));
   connect(pro3.y, mul.u2[1]) annotation (Line(points={{-59,90},{-58,90},{-58,91},
@@ -331,10 +332,10 @@ equation
         color={0,127,255}));
   connect(InfiltrationRate.y, product.u1)
     annotation (Line(points={{-159,-84},{-122,-84}}, color={0,0,127}));
-  connect(intLoad.y[1], pro1.u2) annotation (Line(points={{-99,160},{-90,160},{
-          -90,124},{-42,124}}, color={0,0,127}));
+  connect(intLoad.y[1], pro1.u2) annotation (Line(points={{-98,160},{-90,160},{-90,
+          124},{-42,124}},     color={0,0,127}));
   connect(pro3.u2, intLoad.y[1]) annotation (Line(points={{-82,84},{-90,84},{-90,
-          160},{-99,160}}, color={0,0,127}));
+          160},{-98,160}}, color={0,0,127}));
   connect(CO2_flow_per.y, pro4.u2)
     annotation (Line(points={{-19,24},{-2,24}}, color={0,0,127}));
   connect(desOcc.y, numOcc.u1) annotation (Line(points={{-99,190},{0,190},{0,
@@ -349,7 +350,9 @@ equation
           {-12,54},{-12,36},{-2,36}}, color={0,0,127}));
   connect(pro4.y, roo.C_flow[1]) annotation (Line(points={{21,30},{26,30},{26,
           3.64},{31.92,3.64}}, color={0,0,127}));
-annotation (Documentation(info="<html>
+  annotation (
+defaultComponentName="roo",
+Documentation(info="<html>
 <p>
 This is a single zone model based on the envelope of the BESTEST Case 600
 building, though it has some modifications.  Supply and return air ports are
@@ -396,5 +399,9 @@ First implementation.
           extent={{148,70},{156,-70}},
           lineColor={95,95,95},
           fillColor={170,213,255},
-          fillPattern=FillPattern.Solid)}));
+          fillPattern=FillPattern.Solid),
+                                        Text(
+        extent={{-156,234},{160,172}},
+        textString="%name",
+        lineColor={0,0,255})}));
 end Room;

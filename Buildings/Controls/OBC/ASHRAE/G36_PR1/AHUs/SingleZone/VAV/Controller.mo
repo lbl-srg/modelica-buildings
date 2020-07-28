@@ -4,28 +4,16 @@ block Controller
 
   parameter Boolean have_winSen "Check if the zone has window status sensor";
   parameter Boolean have_occSen  "Set to true if zones have occupancy sensor";
-  parameter Real TZonHeaOn(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=293.15
+  parameter Real TZonHeaOn=293.15
     "Heating setpoint during on"
     annotation (Dialog(group="Zone setpoints"));
-  parameter Real TZonHeaOff(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=285.15
+  parameter Real TZonHeaOff=285.15
     "Heating setpoint during off"
     annotation (Dialog(group="Zone setpoints"));
-  parameter Real TZonCooOn(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=297.15
+  parameter Real TZonCooOn=297.15
     "Cooling setpoint during on"
     annotation (Dialog(group="Zone setpoints"));
-  parameter Real TZonCooOff(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=303.15
+  parameter Real TZonCooOff=303.15
     "Cooling setpoint during off"
     annotation (Dialog(group="Zone setpoints"));
 
@@ -75,22 +63,22 @@ block Controller
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCooCoi=
     Buildings.Controls.OBC.CDL.Types.SimpleController.P
     "Type of controller"
-    annotation(Dialog(group="Cooling coil loop signal"));
+    annotation(Dialog(group="Cooling coil signal"));
   parameter Real kCooCoi(final unit="1/K")=1.0
-    "Gain for cooling coil control loop signal"
-    annotation(Dialog(group="Cooling coil loop signal"));
+    "Gain for cooling coil control signal"
+    annotation(Dialog(group="Cooling coil signal"));
   parameter Real TiCooCoil(
     final unit="s",
     final quantity="Time")=900
-    "Time constant of integrator block for cooling coil control loop signal"
-    annotation(Dialog(group="Cooling coil loop signal",
+    "Time constant of integrator block for cooling coil control signal"
+    annotation(Dialog(group="Cooling coil signal",
     enable=controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
         or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real TdCooCoil(
     final unit="s",
     final quantity="Time")=0.1
-    "Time constant of derivative block for cooling coil control loop signal"
-    annotation (Dialog(group="Cooling coil loop signal",
+    "Time constant of derivative block for cooling coil control signal"
+    annotation (Dialog(group="Cooling coil signal",
       enable=controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
@@ -210,10 +198,7 @@ block Controller
        enable=use_TMix and
            (controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
            or controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Real TFreSet(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=277.15
+  parameter Real TFreSet=277.15
     "Lower limit for mixed air temperature for freeze protection, used if use_TMix=true"
      annotation(Dialog(tab="Economizer", group="Freeze protection", enable=use_TMix));
 
@@ -287,35 +272,17 @@ block Controller
   parameter Boolean ignDemLim=false
     "Flag, set to true to exempt individual zone from demand limit setpoint adjustment"
     annotation (Dialog(tab="Adjust temperature setpoint", group="General"));
-  parameter Real TZonCooOnMax(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=300.15 "Maximum cooling setpoint during on"
+  parameter Real TZonCooOnMax=300.15                  "Maximum cooling setpoint during on"
     annotation (Dialog(tab="Adjust temperature setpoint", group="Limits"));
-  parameter Real TZonCooOnMin(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=295.15 "Minimum cooling setpoint during on"
+  parameter Real TZonCooOnMin=295.15                  "Minimum cooling setpoint during on"
     annotation (Dialog(tab="Adjust temperature setpoint", group="Limits"));
-  parameter Real TZonHeaOnMax(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=295.15 "Maximum heating setpoint during on"
+  parameter Real TZonHeaOnMax=295.15                  "Maximum heating setpoint during on"
     annotation (Dialog(tab="Adjust temperature setpoint", group="Limits"));
-  parameter Real TZonHeaOnMin(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=291.15 "Minimum heating setpoint during on"
+  parameter Real TZonHeaOnMin=291.15                  "Minimum heating setpoint during on"
     annotation (Dialog(tab="Adjust temperature setpoint", group="Limits"));
-  parameter Real TZonCooSetWinOpe(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=322.15 "Cooling setpoint when window is open"
+  parameter Real TZonCooSetWinOpe=322.15              "Cooling setpoint when window is open"
     annotation (Dialog(tab="Adjust temperature setpoint", group="Limits"));
-  parameter Real TZonHeaSetWinOpe(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=277.15 "Heating setpoint when window is open"
+  parameter Real TZonHeaSetWinOpe=277.15              "Heating setpoint when window is open"
     annotation (Dialog(tab="Adjust temperature setpoint", group="Limits"));
   parameter Real incTSetDem_1=0.56
     "Cooling setpoint increase value (degC) when cooling demand limit level 1 is imposed"
@@ -760,7 +727,7 @@ annotation (defaultComponentName="conVAV",
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(
-          extent={{-220,340},{200,260}},
+          extent={{-204,354},{216,274}},
           textString="%name",
           lineColor={0,0,255}),
         Text(
