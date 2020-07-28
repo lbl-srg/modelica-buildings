@@ -251,7 +251,7 @@ For example, for a heat exchanger, use</p>
 </pre></div>
 </div>
 <p>Do not use <code class="docutils literal notranslate"><span class="pre">parameter</span> <span class="pre">Real</span> <span class="pre">eps=0.8</span></code> as this can lead to errors
-that are difficult to detect if a modeller forgets to overwrite
+that are difficult to detect if a modeler forgets to overwrite
 the default value of <code class="docutils literal notranslate"><span class="pre">0.8</span></code> with the actual value. The model will simulate,
 but gives wrong results due to unsuited parameter values and there will be no warning.
 On the other hand, using <code class="docutils literal notranslate"><span class="pre">parameter</span> <span class="pre">Real</span> <span class="pre">eps(start=0.8)</span></code> will give a warning
@@ -273,7 +273,7 @@ use the <code class="docutils literal notranslate"><span class="pre">final</span
 Be aware, that these bounds are not enforced by the simulator.
 If the <code class="docutils literal notranslate"><span class="pre">min</span></code> and <code class="docutils literal notranslate"><span class="pre">max</span></code> attribute are set, each violation of these bounds
 during the simulation may raise a warning.</p>
-<p>Simulators may allow to supress these warnings. In Dymola, violation of
+<p>Simulators may allow to suppress these warnings. In Dymola, violation of
 bounds can be checked using</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Advanced</span><span class="o">.</span><span class="n">AssertAllInsideMinMax</span><span class="o">=</span><span class="n">true</span><span class="p">;</span>
 </pre></div>
@@ -476,7 +476,7 @@ package. For example, use</p>
 </div>
 <p>To create new figures, put the source file for the figure,
 preferably in <code class="docutils literal notranslate"><span class="pre">svg</span></code> format, in the same directory as the <code class="docutils literal notranslate"><span class="pre">png</span></code>
-file. <code class="docutils literal notranslate"><span class="pre">svg</span></code> files can be created with <a class="reference external" href="http://inkscape.org/">http://inkscape.org/</a>, which
+file. <code class="docutils literal notranslate"><span class="pre">svg</span></code> files can be created with <a class="reference external" href="https://inkscape.org/">https://inkscape.org/</a>, which
 works on any operating system. See for example the file in
 <code class="docutils literal notranslate"><span class="pre">Resources/Images/Examples/Tutorial/SpaceCooling/schematics.svg</span></code>.</p>
 </li>
@@ -775,7 +775,7 @@ a change in unit may cause the control logic to be incorrect.</p></li>
 than making the blocks smaller.</p></li>
 <li><p>The size of the icon should be such that it provides a good fit for all the input and output interfaces. The minimum
 recommended icon size is 100 by a 100. If there are many interfaces the icon size should be extended in vertical direction.
-Icons should be symetrical with reference to the grid origin. E.g, the default specification is</p>
+Icons should be symmetrical with reference to the grid origin. E.g, the default specification is</p>
 <div class="highlight-modelica notranslate"><div class="highlight"><pre><span></span><span class="n">Icon</span><span class="p">(</span>
   <span class="n">coordinateSystem</span><span class="p">(</span>
     <span class="n">preserveAspectRatio</span><span class="o">=</span><span class="kc">true</span><span class="p">,</span>
@@ -793,9 +793,8 @@ for all modes of operation. If the closed loop examples include HVAC models, put
 outside of the <code class="docutils literal notranslate"><span class="pre">Buildings.Controls.OBC</span></code> package.
 Make sure sequences are tested for all modes of operation, and as applicable, for winter, shoulder
 and summer days.</p></li>
-<li><p>Use full paths to blocks, that is paths that start with <code class="docutils literal notranslate"><span class="pre">Buildings.Controls...</span></code>.</p></li>
-<li><p>For general rules on validation models see <a class="reference internal" href="#sec-val"><span class="std std-numref">Section 5.5</span></a>. Preferably,
-list the block being tested at the top of the code, and list inputs to the block afterwards.</p></li>
+<li><p>For general rules on validation models see <a class="reference internal" href="#sec-val"><span class="std std-numref">Section 5.5</span></a>. If there are multiple instances of
+the validated block, preferably list them together as opposed to far apart in the Modelica file.</p></li>
 <li><p>Run the following command to detect various warnings, such as missing comments:</p>
 <blockquote>
 <div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ node app.js -f Buildings/Controls/OBC/ASHRAE/PrimarySystem/{path to package} -o json -m cdl

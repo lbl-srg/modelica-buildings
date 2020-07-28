@@ -73,7 +73,7 @@ Type declarations
            "Heat exchanger effectiveness";
 
       Do not use ``parameter Real eps=0.8`` as this can lead to errors
-      that are difficult to detect if a modeller forgets to overwrite
+      that are difficult to detect if a modeler forgets to overwrite
       the default value of ``0.8`` with the actual value. The model will simulate,
       but gives wrong results due to unsuited parameter values and there will be no warning.
       On the other hand, using ``parameter Real eps(start=0.8)`` will give a warning
@@ -96,7 +96,7 @@ Type declarations
    If the ``min`` and ``max`` attribute are set, each violation of these bounds
    during the simulation may raise a warning.
 
-   Simulators may allow to supress these warnings. In Dymola, violation of
+   Simulators may allow to suppress these warnings. In Dymola, violation of
    bounds can be checked using
 
    .. code-block::
@@ -323,7 +323,7 @@ Documentation
 
     To create new figures, put the source file for the figure,
     preferably in ``svg`` format, in the same directory as the ``png``
-    file. ``svg`` files can be created with http://inkscape.org/, which
+    file. ``svg`` files can be created with https://inkscape.org/, which
     works on any operating system. See for example the file in
     ``Resources/Images/Examples/Tutorial/SpaceCooling/schematics.svg``.
 4.  Add author information to the ``revision`` section.
@@ -619,7 +619,7 @@ The following rules need to be followed, in addition to the guidelines described
 
 #. The size of the icon should be such that it provides a good fit for all the input and output interfaces. The minimum
    recommended icon size is 100 by a 100. If there are many interfaces the icon size should be extended in vertical direction.
-   Icons should be symetrical with reference to the grid origin. E.g, the default specification is
+   Icons should be symmetrical with reference to the grid origin. E.g, the default specification is
 
    .. code-block:: modelica
 
@@ -639,10 +639,8 @@ The following rules need to be followed, in addition to the guidelines described
    Make sure sequences are tested for all modes of operation, and as applicable, for winter, shoulder
    and summer days.
 
-#. Use full paths to blocks, that is paths that start with ``Buildings.Controls...``.
-
-#. For general rules on validation models see :numref:`sec_val`. Preferably,
-   list the block being tested at the top of the code, and list inputs to the block afterwards.
+#. For general rules on validation models see :numref:`sec_val`. If there are multiple instances of
+   the validated block, preferably list them together as opposed to far apart in the Modelica file.
 
 #. Run the following command to detect various warnings, such as missing comments:
 
