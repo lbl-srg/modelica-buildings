@@ -96,7 +96,7 @@ model ChillerDXHeatingEconomizer
 
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather bus"
   annotation (Placement(
-        transformation(extent={{-200,20},{-160,60}}),   iconTransformation(
+        transformation(extent={{-200,20},{-160,60}}), iconTransformation(
           extent={{-170,128},{-150,148}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTSup(
