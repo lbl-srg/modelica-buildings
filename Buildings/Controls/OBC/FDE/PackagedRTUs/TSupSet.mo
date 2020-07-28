@@ -288,15 +288,18 @@ heating set point.")}),
 <ul>
 <li>June 11, 2020, by Henry Nickels:<br>Reversed logic to logical switches.</li>
 <li>May 29, 2020, by Henry Nickels:<br>Internalize min, max, and heat setpoints as parameters.</li>
-<li>May 28, 2020, by Henry Nickels:<br>Removed CDN and WUP inputs as they were redundant to SBC and SBH. Changed cooling reset set point to percentage of total terminal units. </li>
+<li>May 28, 2020, by Henry Nickels:<br>Removed CDN and WUP inputs as they were
+redundant to SBC and SBH. Changed cooling reset set point to percentage of total terminal units. </li>
 <li>May 22, 2020, by Henry Nickels:<br>First implementation. </li>
 </ul>
 </html>",
       info="<html>
-<p>Calculation of the supply air temperature set point performed by the BAS and transmitted to the factory controller. </p>
+      <p>Calculation of the supply air temperature set point performed by the BAS and 
+      transmitted to the factory controller. </p>
 <h4>Cooling Requests Reset</h4>
 <p>During normal occupied mode operation, the supply air temperature set point is reset between minimum (<span style=\"font-family: Courier New;\">minSATsp</span>) and maximum (<span style=\"font-family: Courier New;\">maxSATsp</span>) values based on terminal unit cooling requests. </p>
-<p>The total number of terminal unit cooling requests (<span style=\"font-family: Courier New;\">totCoolReqs</span>) is a network input that totalizes all requests from terminal units. The cooling request set point is calculated as a percentage of the total number of terminal units (<span style=\"font-family: Courier New;\">TotalTU</span>) served by the RTU (e.g. 15&percnt; of 80 terminal units = 12 cool request set point). The set point and requests are evaluated by a PI loop which outputs a value that increases from 0-1 as cooling requests increase.</p>
+<p>The total number of terminal unit cooling requests (<span style=\"font-family: Courier New;\">totCoolReqs</span>) is a network input that totalizes all requests from terminal units. The cooling request set point is calculated as a percentage of the total number of terminal units 
+(<span style=\"font-family: Courier New;\">TotalTU</span>) served by the RTU (e.g. 15% of 80 terminal units = 12 cool request set point). The set point and requests are evaluated by a PI loop which outputs a value that increases from 0-1 as cooling requests increase.</p>
 <p>The PI loop output is input to a linear converter that outputs the reset set point (<span style=\"font-family: Courier New;\">ySATsetpoint</span>).</p>
 <h4>Setback Cooling</h4>
 <p>During setback cooling mode (<span style=\"font-family: Courier New;\">SBC</span>) the supply air temperature set point is calculated from the highest space temperature (<span style=\"font-family: Courier New;\">highSpaceT</span>) less a fixed offset of ten degrees. (e.g. highest reported space temperature of (25 degC + 273.15K) &ndash; 10 = (15 degC + 273.15K) supply temperature set point). The fixed value offset should be based on the unit cooling capacity per hour. </p>
