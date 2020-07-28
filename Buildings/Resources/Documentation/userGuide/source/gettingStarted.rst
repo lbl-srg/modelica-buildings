@@ -10,7 +10,7 @@ Literature for Users
 --------------------
 The following books are useful for new users to get started:
 
-* The online book with interactive examples of Michael Tiller at http://book.xogeny.com/.
+* The online book with interactive examples of Michael Tiller at https://mbe.modelica.university/.
 * The books by Michael Tiller [Til2001]_ and Peter Fritzson ([Fri2011]_ and [Fri2004]_).
 * The tutorials that are listed at https://www.modelica.org/publications.
 
@@ -28,7 +28,7 @@ It also contains numerous examples that apply these technologies to the
 design and operation of building and community energy systems.
 
 
-Spoken tutorials for beginners are available at http://spoken-tutorial.org/tutorial-search/?search_foss=OpenModelica&search_language=English.
+Spoken tutorials for beginners are available at https://spoken-tutorial.org/tutorial-search/?search_foss=OpenModelica&search_language=English.
 
 
 
@@ -38,7 +38,7 @@ Literature for Developers
 It is essential that users who develop new thermo-fluid models to  understand the concept of stream connectors. Stream connectors are explained in the Modelica language definition, available at https://www.modelica.org/documents, and in the paper Franke et al. [Fra2009a]_.
 The `Buildings` library uses similar modeling principles, and the same base classes, as the `Modelica.Fluid` library. Hence, we also recommend reading the paper about the standardization of thermo-fluid models in Modelica.Fluid [Fra2009b]_.
 
-The `Modelica Web Reference <https://webref.modelica.university`_ gives a concise overview, explanation and further links about the Modelica language.
+The `Modelica Web Reference <https://webref.modelica.university>`_ gives a concise overview, explanation and further links about the Modelica language.
 
 
 Software Requirements
@@ -66,8 +66,12 @@ References
 
 .. [Fri2011] Peter Fritzson. *Introduction to Modeling and Simulation of Technical and Physical Systems with Modelica.* Wiley-IEEE Press, ISBN 978-1-1180-1068-6, 2011.
 
-.. [Fra2009a] R. Franke, F. Casella, M. Otter, M. Sielemann, H. Elmqvist, S. E. Mattsson, and H. Olsson. `Stream connectors – an extension of modelica for device-oriented modeling of convective transport phenomena <https://www.modelica.org/events/modelica2009/Proceedings/memorystick/pages/papers/0078/0078.pdf>`_. In F. Casella, editor, Proc. of the 7-th International Modelica Conference, Como, Italy, Sept. 2009.
+.. [Fra2009a] R. Franke, F. Casella, M. Otter, M. Sielemann, H. Elmqvist, S. E. Mattsson, and H. Olsson.
+              `Stream connectors – an extension of modelica for device-oriented modeling of convective transport phenomena <http://dx.doi.org/10.3384/ecp09430078>`_.
+              In F. Casella, editor, Proc. of the 7-th International Modelica Conference, Como, Italy, Sept. 2009.
 
-.. [Fra2009b] R. Franke, F. Casella, M. Otter, K. Proelss, M. Sielemann, and M. Wetter. `Standardization of thermo-fluid modeling in Modelica.Fluid     <https://www.modelica.org/events/modelica2009/Proceedings/memorystick/pages/papers/0077/0077.pdf>`_.     In F. Casella, editor, Proc. of the 7-th International Modelica Conference, Como, Italy, Sept. 2009.
+.. [Fra2009b] R. Franke, F. Casella, M. Otter, K. Proelss, M. Sielemann, and M. Wetter. `Standardization of thermo-fluid modeling in Modelica.Fluid
+              <http://dx.doi.org/10.3384/ecp09430077>`_.
+              In F. Casella, editor, Proc. of the 7-th International Modelica Conference, Como, Italy, Sept. 2009.
 
 .. [Til2001] Michael M. Tiller. *Introduction to Physical Modeling with Modelica.* Kluwer Academic Publisher, 2001.
