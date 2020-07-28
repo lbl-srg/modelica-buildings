@@ -234,6 +234,12 @@ block Controller "Head pressure controller"
     "Current condenser water pump speed"
     annotation (Placement(transformation(extent={{-840,-520},{-800,-480}}),
       iconTransformation(extent={{-140,-130},{-100,-90}})));
+  CDL.Interfaces.RealOutput                        yValPos(
+    final min=0,
+    final max=1,
+    final unit="1") "Chilled water minimum flow bypass valve position"
+    annotation (Placement(transformation(extent={{802,-462},{842,-422}}),
+      iconTransformation(extent={{100,-20},{140,20}})));
 equation
   connect(staSetCon.uPla, plaEna.yPla) annotation (Line(points={{-167.6,116.562},
           {-380,116.562},{-380,-358},{-498,-358},{-498,-359},{-615.9,-359}},
@@ -464,6 +470,9 @@ equation
       Line(points={{-270,558},{298,558},{298,436},{316,436}}, color={0,0,127}));
   connect(uChiAva, staSetCon.uChiAva) annotation (Line(points={{-820,-110},{
           -668,-110},{-668,128.188},{-167.6,128.188}}, color={255,0,255}));
+  connect(minBypValCon.yValPos, yValPos) annotation (Line(points={{-426,-100},{
+          -362,-100},{-362,-258},{220,-258},{220,-442},{822,-442}}, color={0,0,
+          127}));
 annotation (
   defaultComponentName="chiPlaCon",
   Icon(coordinateSystem(extent={{-800,-740},{800,740}}),
