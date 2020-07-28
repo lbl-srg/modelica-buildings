@@ -73,6 +73,8 @@ Buildings/BoundaryConditions/SolarGeometry/BaseClasses/WallSolarAzimuth.mo
 Buildings/BoundaryConditions/SolarGeometry/BaseClasses/ZenithAngle.mo
 Buildings/BoundaryConditions/SolarGeometry/BaseClasses/package.mo
 Buildings/BoundaryConditions/SolarGeometry/BaseClasses/package.order
+Buildings/BoundaryConditions/SolarGeometry/BaseClasses/solarAzimuthNoEvent.mo
+Buildings/BoundaryConditions/SolarGeometry/BaseClasses/solarAzimuthWithEvent.mo
 Buildings/BoundaryConditions/SolarGeometry/Examples/IncidenceAngle.mo
 Buildings/BoundaryConditions/SolarGeometry/Examples/ZenithAngle.mo
 Buildings/BoundaryConditions/SolarGeometry/Examples/package.mo
