@@ -6,9 +6,7 @@ model Room
 
   parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal
     "Design airflow rate of system";
-
   parameter Modelica.SIunits.Angle lat "Building latitude";
-
   parameter Modelica.SIunits.Angle S_=
     Buildings.Types.Azimuth.S "Azimuth for south walls";
   parameter Modelica.SIunits.Angle E_=
@@ -53,7 +51,6 @@ model Room
         nStaRef=Buildings.ThermalZones.Detailed.Validation.BESTEST.nStaRef)})
     "Exterior wall"
     annotation (Placement(transformation(extent={{100,80},{114,94}})));
-
   parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic matFlo(
     final nLay= 2,
     absIR_a=0.9,
@@ -81,7 +78,6 @@ model Room
     c=800,
     d=1500) "Soil properties"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
-
   parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic roof(
     nLay=3,
     absIR_a=0.9,
@@ -109,12 +105,12 @@ model Room
         nStaRef=Buildings.ThermalZones.Detailed.Validation.BESTEST.nStaRef)})
     "Roof"
     annotation (Placement(transformation(extent={{140,80},{154,94}})));
-
   parameter Buildings.ThermalZones.Detailed.Validation.BESTEST.Data.Win600 window600(
     UFra=3,
     haveExteriorShade=false,
     haveInteriorShade=false) "Window"
     annotation (Placement(transformation(extent={{120,80},{134,94}})));
+
   Buildings.HeatTransfer.Conduction.SingleLayer soi(
     A=48,
     material=soil,
@@ -127,7 +123,6 @@ model Room
         extent={{12.5,-12.5},{-7.5,7.5}},
         rotation=-90,
         origin={70.5,-47.5})));
-
   Modelica.Fluid.Interfaces.FluidPort_a supplyAir(redeclare final package
       Medium = MediumA) "Supply air"
     annotation (Placement(transformation(extent={{-210,10},{-190,30}}),
@@ -136,16 +131,13 @@ model Room
       Medium = MediumA) "Return air"
     annotation (Placement(transformation(extent={{-210,-30},{-190,-10}}),
         iconTransformation(extent={{-210,-30},{-190,-10}})));
-
   Buildings.BoundaryConditions.WeatherData.Bus weaBus
     "Weather data bus"
     annotation (Placement(transformation(extent={{-148,172},{-132,188}}),
         iconTransformation(extent={{-148,172},{-132,188}})));
-
   Modelica.Blocks.Interfaces.RealOutput TRooAir "Room air temperature"
     annotation (Placement(transformation(extent={{200,-10},{220,10}}),
         iconTransformation(extent={{200,-10},{220,10}})));
-
   Buildings.ThermalZones.Detailed.MixedAir roo(
     redeclare package Medium = MediumA,
     use_C_flow=true,
@@ -183,16 +175,12 @@ model Room
     steadyStateWindow=false)
     "Room model for Case 600"
     annotation (Placement(transformation(extent={{34,-26},{86,26}})));
-
   Modelica.Blocks.Sources.Constant qConGai_flow(k=192/48) "Convective heat gain"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
-
   Modelica.Blocks.Sources.Constant qRadGai_flow(k=288/48) "Radiative heat gain"
     annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
-
   Modelica.Blocks.Routing.Multiplex3 mul "Multiplex"
     annotation (Placement(transformation(extent={{0,80},{22,102}})));
-
   Modelica.Blocks.Sources.Constant qLatGai_flow(k=96/48) "Latent heat gain"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TSoi[nConBou](
@@ -200,7 +188,6 @@ model Room
     annotation (Placement(transformation(
         extent={{0,0},{-20,20}},
         origin={140,-80})));
-
   Fluid.Sources.MassFlowSource_WeatherData sinInf(
     redeclare package Medium = MediumA,
     C=fill(0.0004, 1),
@@ -216,45 +203,50 @@ model Room
   Buildings.Fluid.Sensors.Density density(redeclare package Medium = MediumA)
     "Air density inside the building"
     annotation (Placement(transformation(extent={{0,-100},{-20,-80}})));
-
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTZon
     "Zone air temperature sensor"
     annotation (Placement(transformation(extent={{160,-10},{180,10}})));
-
   Fluid.Sources.MassFlowSource_WeatherData souInf(
     redeclare package Medium = MediumA,
     use_m_flow_in=true,
     C=fill(0.0004, 1),
-    nPorts=1)   "Source model for air infiltration"
+    nPorts=1)
+    "Source model for air infiltration"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-
-  Controls.OBC.CDL.Continuous.Sources.TimeTable                           intLoad(table=[0,
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable intLoad(table=[0,
         0.1; 8*3600,0.1; 8*3600,1.0; 18*3600,1.0; 18*3600,0.1; 24*3600,0.1])
     "Internal loads"
     annotation (Placement(transformation(extent={{-120,150},{-100,170}})));
-  Modelica.Blocks.Sources.Constant CO2_flow_per(k=1.023e-5) "Latent heat gain"
+  Modelica.Blocks.Sources.Constant CO2_flow_per(k=1.023e-5)
+    "Latent heat gain"
     annotation (Placement(transformation(extent={{-40,14},{-20,34}})));
   Modelica.Blocks.Logical.GreaterThreshold greThr(threshold=0.1)
+    "Greater than"
     annotation (Placement(transformation(extent={{-60,150},{-40,170}})));
   Modelica.Blocks.Sources.Constant desOcc(k=2)
+    "Design number of occupants"
     annotation (Placement(transformation(extent={{-120,180},{-100,200}})));
   Modelica.Blocks.Math.Product numOcc
+    "Number of occupants in the zone"
     annotation (Placement(transformation(extent={{10,150},{30,170}})));
   Modelica.Blocks.Math.BooleanToReal booToRea
+    "Convert Boolean to Real signal"
     annotation (Placement(transformation(extent={{-30,150},{-10,170}})));
 protected
-  Modelica.Blocks.Math.Product pro1 "Product for internal gain"
+  Modelica.Blocks.Math.Product pro1
+    "Product for internal gain"
     annotation (Placement(transformation(extent={{-40,120},{-20,140}})));
-  Modelica.Blocks.Math.Product pro2 "Product for internal gain"
+  Modelica.Blocks.Math.Product pro2
+    "Product for internal gain"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  Modelica.Blocks.Math.Product pro3 "Product for internal gain"
+  Modelica.Blocks.Math.Product pro3
+    "Product for internal gain"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-
-  Modelica.Blocks.Math.Gain gaiInf(final k=-1) "Gain for infiltration"
+  Modelica.Blocks.Math.Gain gaiInf(final k=-1)
+    "Gain for infiltration"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
-
-protected
-  Modelica.Blocks.Math.Product pro4 "Product for internal gain"
+  Modelica.Blocks.Math.Product pro4
+    "Product for internal gain"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
 equation
   connect(mul.y, roo.qGai_flow) annotation (Line(
@@ -277,7 +269,6 @@ equation
       points={{68,-40},{68,-20.8},{67.8,-20.8}},
       color={191,0,0},
       smooth=Smooth.None));
-
   connect(sinInf.ports[1], roo.ports[2]) annotation (Line(points={{-20,-10},{14,
           -10},{14,-15.08},{40.5,-15.08}},color={0,127,255}));
   connect(weaBus,sinInf. weaBus) annotation (Line(
@@ -294,7 +285,6 @@ equation
       textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-
   connect(senTZon.T, TRooAir) annotation (Line(points={{180,0},{210,0}},
                     color={0,0,127}));
   connect(senTZon.port, roo.heaPorAir) annotation (Line(points={{160,0},{58.7,0}},
@@ -319,8 +309,7 @@ equation
       thickness=0.5));
   connect(souInf.ports[1], roo.ports[3]) annotation (Line(points={{-20,-50},{-6,
           -50},{-6,-13},{40.5,-13}},      color={0,127,255}));
-  connect(product.y, gaiInf.u)
-    annotation (Line(points={{-99,-90},{-82,-90}},     color={0,0,127}));
+  connect(product.y, gaiInf.u)    annotation (Line(points={{-99,-90},{-82,-90}},     color={0,0,127}));
   connect(gaiInf.y, souInf.m_flow_in) annotation (Line(points={{-59,-90},{-46,-90},
           {-46,-42},{-40,-42}},          color={0,0,127}));
   connect(product.y, sinInf.m_flow_in) annotation (Line(points={{-99,-90},{-92,-90},
@@ -330,18 +319,15 @@ equation
   connect(returnAir, roo.ports[5]) annotation (Line(points={{-200,-20},{-114,-20},
           {-114,42},{-2,42},{-2,-8.84},{40.5,-8.84}},
         color={0,127,255}));
-  connect(InfiltrationRate.y, product.u1)
-    annotation (Line(points={{-159,-84},{-122,-84}}, color={0,0,127}));
+  connect(InfiltrationRate.y, product.u1)   annotation (Line(points={{-159,-84},{-122,-84}}, color={0,0,127}));
   connect(intLoad.y[1], pro1.u2) annotation (Line(points={{-98,160},{-90,160},{-90,
           124},{-42,124}},     color={0,0,127}));
   connect(pro3.u2, intLoad.y[1]) annotation (Line(points={{-82,84},{-90,84},{-90,
           160},{-98,160}}, color={0,0,127}));
-  connect(CO2_flow_per.y, pro4.u2)
-    annotation (Line(points={{-19,24},{-2,24}}, color={0,0,127}));
+  connect(CO2_flow_per.y, pro4.u2)    annotation (Line(points={{-19,24},{-2,24}}, color={0,0,127}));
   connect(desOcc.y, numOcc.u1) annotation (Line(points={{-99,190},{0,190},{0,
           166},{8,166}}, color={0,0,127}));
-  connect(greThr.y, booToRea.u)
-    annotation (Line(points={{-39,160},{-32,160}}, color={255,0,255}));
+  connect(greThr.y, booToRea.u)    annotation (Line(points={{-39,160},{-32,160}}, color={255,0,255}));
   connect(booToRea.y, numOcc.u2) annotation (Line(points={{-9,160},{0,160},{0,
           154},{8,154}}, color={0,0,127}));
   connect(greThr.u, pro2.u2) annotation (Line(points={{-62,160},{-90,160},{-90,
@@ -366,6 +352,12 @@ the <code>Schedules</code> and <code>Constructions</code> packages.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 21, 2020, by Kun Zhang:<br/>
+Replaced the internal gain block from BaseClasses by directly using the block 
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable\">
+Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable</a>.
+</li>
 <li>
 June 21, 2017, by Michael Wetter:<br/>
 Refactored implementation.

@@ -3,44 +3,48 @@ model ChillerDXHeatingEconomizer
   "Variable air volume flow system with single themal zone and conventional control"
   extends Modelica.Icons.Example;
   extends
-    Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses.PartialOpenLoop;
+    Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses.PartialOpenLoop(
+    hvac(QCoo_flow_nominal=-10000));
   parameter Modelica.SIunits.Temperature TSupChi_nominal=279.15
     "Design value for chiller leaving water temperature";
 
   ChillerDXHeatingEconomizerController con(
     minAirFlo=0.1,
     minOAFra=0.4,
+    controllerTypeHea=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
+    controllerTypeCoo=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
+    kCoo=1,
+    TiCoo=120,
+    controllerTypeFan=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     kFan=4,
+    controllerTypeEco=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     kEco=4,
     kHea=4,
     TSupChi_nominal=TSupChi_nominal,
     TSetSupAir=286.15) "Controller for single zone VAV system"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
 
-  Controls.OBC.CDL.Continuous.Sources.TimeTable
-                                         TSetRooHea(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable TSetRooHea(
     table=[
       0,       15 + 273.15;
       8*3600,  20 + 273.15;
       18*3600, 15 + 273.15;
       24*3600, 15 + 273.15],
-    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
-    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
+    smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
+    extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic)
     "Heating setpoint for room temperature"
     annotation (Placement(transformation(extent={{-152,40},{-132,60}})));
-  Controls.OBC.CDL.Continuous.Sources.TimeTable
-                                         TSetRooCoo(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable TSetRooCoo(
     table=[
       0,       30 + 273.15;
       8*3600,  25 + 273.15;
       18*3600, 30 + 273.15;
       24*3600, 30 + 273.15],
-    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
-    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
+    smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
+    extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic)
     "Cooling setpoint for room temperature"
     annotation (Placement(transformation(extent={{-152,10},{-132,30}})));
-
-  Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{8,18})
+  Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{8,18})
     "Occupancy schedule"
     annotation (Placement(transformation(extent={{-152,-44},{-132,-24}})));
 equation
@@ -88,7 +92,7 @@ equation
       horizontalAlignment=TextAlignment.Right));
   annotation (
     experiment(
-      StopTime=504800,
+      StopTime=604800,
       Interval=3600,
       Tolerance=1e-06),
       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/Examples/ChillerDXHeatingEconomizer.mos"
@@ -102,8 +106,13 @@ with conventional single-maximum control sequence.
 </html>", revisions="<html>
 <ul>
 <li>
+July 27, 2020, by Kun Zhang:<br/>
+Changed parameters of PID controllers.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1608\">issue 1608</a>.
+</li>
+<li>
 August 3, 2019, by David Blum:<br/>
-Update to using <a href=\"modelica://Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses.PartialOpenLoop\">
+Updated to using <a href=\"modelica://Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses.PartialOpenLoop\">
 Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses.PartialOpenLoop</a>.
 </li>
 <li>

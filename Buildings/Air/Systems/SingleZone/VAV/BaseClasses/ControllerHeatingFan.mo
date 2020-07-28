@@ -23,12 +23,11 @@ model ControllerHeatingFan "Controller for heating coil and fan signal"
     annotation (Dialog(group="Heating coil signal",
       enable=controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeFan=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation(Dialog(group="Fan signal"));
-  parameter Real kFan(final unit="1/K")=1
+  parameter Real kFan(final unit="1/K")=0.1
     "Gain for fan signal"
     annotation(Dialog(group="Fan signal"));
   parameter Real TiFan(
@@ -45,41 +44,47 @@ model ControllerHeatingFan "Controller for heating coil and fan signal"
     annotation (Dialog(group="Fan signal",
       enable=controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-
   parameter Real minAirFlo(
-    min=0,
-    max=1,
-    unit="1")
+    final min=0,
+    final max=1,
+    final unit="1")
     "Minimum airflow rate of system";
 
   Modelica.Blocks.Interfaces.RealInput TSetRooCoo(
     final unit="K",
-    displayUnit="degC") "Zone cooling setpoint"
+    final displayUnit="degC") "Zone cooling setpoint"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Modelica.Blocks.Interfaces.RealInput TRoo(
     final unit="K",
-    displayUnit="degC")
+    final displayUnit="degC")
     "Zone temperature measurement"
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
   Modelica.Blocks.Interfaces.RealInput TSetRooHea(
     final unit="K",
-    displayUnit="degC") "Zone heating setpoint"
+    final displayUnit="degC") "Zone heating setpoint"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
-  Modelica.Blocks.Interfaces.RealOutput yFan(final unit="1") "Control signal for fan"
+  Modelica.Blocks.Interfaces.RealOutput yFan(
+    final unit="1")
+    "Control signal for fan"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
-  Modelica.Blocks.Interfaces.RealOutput yHea(final unit="1")
+  Modelica.Blocks.Interfaces.RealOutput yHea(
+    final unit="1")
     "Control signal for heating coil"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
   Controls.Continuous.LimPID conHeaCoi(
+    final controllerType=controllerTypeHea,
     final k=kHea,
-    controllerType=Modelica.Blocks.Types.SimpleController.P)
+    final Ti=TiHea,
+    final Td=TdHea)
     "Controller for heating coil"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   Controls.Continuous.LimPID conFan(
+    final controllerType=controllerTypeFan,
     final k=kFan,
+    final Ti=TiFan,
+    final Td=TdFan,
     final yMax=1,
     final yMin=minAirFlo,
-    controllerType=Modelica.Blocks.Types.SimpleController.P,
     final reverseActing=false)
     "Controller for fan"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
@@ -110,6 +115,10 @@ Controller for heating coil and fan speed.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 21, 2020, by Kun Zhang:<br/>
+Exposed PID control parameters to allow users to tune for their specific systems.
+</li>
 <li>
 June 21, 2017, by Michael Wetter:<br/>
 Refactored implementation.

@@ -3,17 +3,19 @@ model Guideline36
   "Variable air volume flow system with single themal zone and ASHRAE Guideline 36 sequence control"
   extends Modelica.Icons.Example;
   extends
-    Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses.PartialOpenLoop;
-
+    Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses.PartialOpenLoop(
+    hvac(QCoo_flow_nominal=-10000));
   parameter Modelica.SIunits.Temperature TSupChi_nominal=279.15
     "Design value for chiller leaving water temperature";
+
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller con(
     have_winSen=true,
-    controllerTypeCoo=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
+    TZonHeaOn=293.15,
+    TZonCooOff=303.15,
     kCoo=4,
+    kCooCoi=1,
     yHeaMax=0.2,
     AFlo=48,
-    controllerTypeMod=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     VOutMin_flow=0.0144,
     VOutDes_flow=0.025,
     yMin=0.1,
@@ -106,7 +108,7 @@ equation
           -58,-15.0769},{-58,5},{-42,5}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-200,-160},{120,100}})),
     experiment(
-      StopTime=504800,
+      StopTime=604800,
       Interval=3600,
       Tolerance=1e-06),
       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/Examples/Guideline36.mos"
@@ -119,6 +121,11 @@ with ASHRAE Guideline 36 control sequence.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 27, 2020, by Kun Zhang:<br/>
+Changed parameters of PID and design outdoor airflow and damper parameters.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1608\">issue 1608</a>.
+</li>
 <li>
 June 22, 2020, by Michael Wetter:<br/>
 Removed non-used occupant density.

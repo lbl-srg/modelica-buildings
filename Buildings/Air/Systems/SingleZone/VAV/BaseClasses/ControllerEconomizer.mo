@@ -26,81 +26,85 @@ model ControllerEconomizer "Controller for economizer"
 
   Modelica.Blocks.Interfaces.RealInput TMixSet(
     final unit="K",
-    displayUnit="degC")
+    final displayUnit="degC")
     "Mixed air setpoint temperature"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
   Modelica.Blocks.Interfaces.RealInput TMix(
     final unit="K",
-    displayUnit="degC")
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
     "Measured mixed air temperature"
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
-
   Modelica.Blocks.Interfaces.RealInput TOut(
     final unit="K",
-    displayUnit="degC")
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
     "Measured outside air temperature"
     annotation (Placement(
         transformation(extent={{-120,-60},{-100,-40}})));
   Modelica.Blocks.Interfaces.BooleanInput cooSta "Cooling status"
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
-
   Modelica.Blocks.Interfaces.RealInput TRet(
     final unit="K",
-    displayUnit="degC")
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
     "Return air temperature"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
-
   Modelica.Blocks.Interfaces.RealInput minOAFra(
-    min = 0,
-    max = 1,
+    final min = 0,
+    final max = 1,
     final unit="1")
     "Minimum outside air fraction"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
 
-  Modelica.Blocks.Interfaces.RealOutput yOutAirFra(final unit="1")
+  Modelica.Blocks.Interfaces.RealOutput yOutAirFra(
+    final unit="1")
     "Control signal for outside air fraction"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-  Modelica.Blocks.Nonlinear.VariableLimiter Limiter(strict=true)
+  Modelica.Blocks.Nonlinear.VariableLimiter Limiter(
+    final strict=true)
     "Signal limiter"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Modelica.Blocks.Sources.Constant const(final k=1)
+  Modelica.Blocks.Sources.Constant const(
+    final k=1)
     "Constant output signal with value 1"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
-
   Modelica.Blocks.Logical.Switch switch1 "Switch to select control output"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
-
-  Modelica.Blocks.MathBoolean.And and1(final nu=3) "Logical and"
+  Modelica.Blocks.MathBoolean.And and1(
+    final nu=3) "Logical and"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Controls.Continuous.LimPID con(
+    final controllerType=controllerTypeEco,
     final k=kEco,
+    final Ti=TiEco,
+    final Td=TdEco,
     final reverseActing=false,
     final yMax=Modelica.Constants.inf,
-    final yMin=-Modelica.Constants.inf,
-    controllerType=Modelica.Blocks.Types.SimpleController.P)
+    final yMin=-Modelica.Constants.inf)
     "Controller"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
   Modelica.Blocks.Math.Feedback feedback "Control error"
     annotation (Placement(transformation(extent={{-50,-38},{-30,-18}})));
   Buildings.Controls.OBC.CDL.Continuous.HysteresisWithHold hysTMix(
-    uLow=-0.5,
-    uHigh=0.5,
-    trueHoldDuration=60*15)
+    final uLow=-0.5,
+    final uHigh=0.5,
+    final trueHoldDuration=60*15)
     "Hysteresis with delay for mixed air temperature"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
-
   Modelica.Blocks.Math.Feedback feedback1
     annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
   Buildings.Controls.OBC.CDL.Continuous.HysteresisWithHold hysCooPot(
-    uHigh=0.5,
-    uLow=0,
-    trueHoldDuration=60*15)
+    final uHigh=0.5,
+    final uLow=0,
+    final trueHoldDuration=60*15)
     "Hysteresis with delay to check for cooling potential of outside air"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Controls.OBC.CDL.Continuous.Hysteresis                   hysChiPla(uLow=0.95,
-      uHigh=0.98)
-             "Hysteresis with delay to switch on cooling"
+  Controls.OBC.CDL.Continuous.Hysteresis hysChiPla(
+    final uLow=0.95,
+    final uHigh=0.98)
+    "Hysteresis with delay to switch on cooling"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
   Modelica.Blocks.Logical.Or or1 "Saturated ecnomizer or no economizer"
     annotation (Placement(transformation(extent={{70,-90},{90,-70}})));
@@ -159,12 +163,18 @@ equation
           {30,-70},{30,-90},{38,-90}}, color={255,0,255}));
   connect(hysChiPla.y, or1.u1) annotation (Line(points={{82,-50},{88,-50},{88,
           -64},{62,-64},{62,-80},{68,-80}}, color={255,0,255}));
-  annotation (    Documentation(info="<html>
+  annotation (
+  defaultComponentName="conEco",
+  Documentation(info="<html>
 <p>
 Economizer controller.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 21, 2020, by Kun Zhang:<br/>
+Exposed PID control parameters to allow users to tune for their specific systems.
+</li>
 <li>
 June 21, 2017, by Michael Wetter:<br/>
 Refactored implementation.

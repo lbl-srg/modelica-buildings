@@ -25,6 +25,7 @@ partial model PartialOpenLoop
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
       computeWetBulbTemperature=false,
       filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/DRYCOLD.mos"))
+    "Weather data"
     annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
   Modelica.Blocks.Continuous.Integrator EFan "Total fan energy"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
@@ -37,7 +38,8 @@ partial model PartialOpenLoop
   Modelica.Blocks.Continuous.Integrator EPum "Total pump energy"
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
 
-  BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
+  BoundaryConditions.WeatherData.Bus weaBus "Weather bus"
+                                            annotation (Placement(
         transformation(extent={{-88,70},{-70,90}}),  iconTransformation(extent=
             {{-250,-2},{-230,18}})));
 equation
