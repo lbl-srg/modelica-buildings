@@ -338,7 +338,7 @@ block SetpointController
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.CapacityRequirement capReq(
     final avePer = avePer,
     final holPer = delayStaCha) "Capacity requirement"
-    annotation (Placement(transformation(extent={{-322,300},{-302,320}})));
+    annotation (Placement(transformation(extent={{-320,300},{-300,320}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Capacities cap(
     final nSta=nSta) "Design and minimum capacities for relevant chiller stages"
@@ -398,12 +398,14 @@ equation
           color={255,0,255}));
   connect(conf.yAva, sta.uAva) annotation (Line(points={{-338,-178},{-332,-178},
           {-332,-216},{-322,-216}},color={255,0,255}));
-  connect(TChiWatSupSet, capReq.TChiWatSupSet) annotation (Line(points={{-422,370},
-          {-370,370},{-370,319},{-324,319}}, color={0,0,127}));
-  connect(TChiWatRet, capReq.TChiWatRet) annotation (Line(points={{-422,300},{-374,
-          300},{-374,314},{-324,314}}, color={0,0,127}));
+  connect(TChiWatSupSet, capReq.TChiWatSupSet) annotation (Line(points={{-422,
+          370},{-370,370},{-370,319},{-322,319}},
+                                             color={0,0,127}));
+  connect(TChiWatRet, capReq.TChiWatRet) annotation (Line(points={{-422,300},{
+          -374,300},{-374,314},{-322,314}},
+                                       color={0,0,127}));
   connect(VChiWat_flow, capReq.VChiWat_flow) annotation (Line(points={{-422,270},
-          {-370,270},{-370,309},{-324,309}}, color={0,0,127}));
+          {-370,270},{-370,309},{-322,309}}, color={0,0,127}));
   connect(conf.yDesCap, cap.uDesCap) annotation (Line(points={{-338,-162},{-322,
           -162},{-322,-161},{-272,-161}}, color={0,0,127}));
   connect(conf.yMinCap, cap.uMinCap) annotation (Line(points={{-338,-166},{-312,
@@ -414,7 +416,7 @@ equation
           {-282,-173},{-272,-173}}, color={255,127,0}));
   connect(sta.yHig, cap.uHig) annotation (Line(points={{-298,-211},{-280,-211},
           {-280,-176},{-272,-176}},color={255,0,255}));
-  connect(capReq.y, PLRs.uCapReq) annotation (Line(points={{-300,310},{-194,310},
+  connect(capReq.y, PLRs.uCapReq) annotation (Line(points={{-298,310},{-194,310},
           {-194,-176},{-184,-176}},
                                   color={0,0,127}));
   connect(cap.yDes, PLRs.uCapDes) annotation (Line(points={{-248,-162},{-234,
@@ -504,8 +506,8 @@ equation
           {-102,-116}}, color={255,127,0}));
   connect(uSta, staDow.u) annotation (Line(points={{-420,-60},{-328,-60},{-328,-239},
           {-102,-239}}, color={255,127,0}));
-  connect(chaPro, capReq.chaPro) annotation (Line(points={{-420,-140},{-350,-140},
-          {-350,302},{-324,302}},       color={255,0,255}));
+  connect(chaPro, capReq.chaPro) annotation (Line(points={{-420,-140},{-350,
+          -140},{-350,302},{-322,302}}, color={255,0,255}));
   connect(sta.yAvaUp, cha.uAvaUp) annotation (Line(points={{-298,-203},{-292,-203},
           {-292,-148},{-40,-148},{-40,-164},{-22,-164}}, color={255,127,0}));
   connect(sta.yAvaDow, cha.uAvaDow) annotation (Line(points={{-298,-206},{-290,-206},
