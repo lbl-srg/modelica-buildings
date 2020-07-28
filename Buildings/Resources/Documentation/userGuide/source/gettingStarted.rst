@@ -27,8 +27,6 @@ as well as tools for workflow automation.
 It also contains numerous examples that apply these technologies to the
 design and operation of building and community energy systems.
 
-An interactive web-based tour of Modelica is available at
-http://modelica.university/res/lesson/training.json.
 
 Spoken tutorials for beginners are available at http://spoken-tutorial.org/tutorial-search/?search_foss=OpenModelica&search_language=English.
 
@@ -40,11 +38,12 @@ Literature for Developers
 It is essential that users who develop new thermo-fluid models to  understand the concept of stream connectors. Stream connectors are explained in the Modelica language definition, available at https://www.modelica.org/documents, and in the paper Franke et al. [Fra2009a]_.
 The `Buildings` library uses similar modeling principles, and the same base classes, as the `Modelica.Fluid` library. Hence, we also recommend reading the paper about the standardization of thermo-fluid models in Modelica.Fluid [Fra2009b]_.
 
-Xogeny's `Modelica Web Reference <http://modref.xogeny.com/>`_ gives a concise overview, explanation and further links about the Modelica language.
+The `Modelica Web Reference <https://webref.modelica.university`_ gives a concise overview, explanation and further links about the Modelica language.
 
 
 Software Requirements
 ---------------------
+
 Check the software requirements for the different versions of the Buildings library at https://simulationresearch.lbl.gov/modelica/download.html
 
 
@@ -72,5 +71,3 @@ References
 .. [Fra2009b] R. Franke, F. Casella, M. Otter, K. Proelss, M. Sielemann, and M. Wetter. `Standardization of thermo-fluid modeling in Modelica.Fluid     <https://www.modelica.org/events/modelica2009/Proceedings/memorystick/pages/papers/0077/0077.pdf>`_.     In F. Casella, editor, Proc. of the 7-th International Modelica Conference, Como, Italy, Sept. 2009.
 
 .. [Til2001] Michael M. Tiller. *Introduction to Physical Modeling with Modelica.* Kluwer Academic Publisher, 2001.
-
-.. ###############################################################################################################
