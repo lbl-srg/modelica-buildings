@@ -5,7 +5,7 @@ block EnableChiller "Sequence for enabling chiller"
   parameter Real proOnTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h") = 300
+    displayUnit="h") = 300
     "Enabled chiller operation time to indicate if it is proven on";
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexEnaChi

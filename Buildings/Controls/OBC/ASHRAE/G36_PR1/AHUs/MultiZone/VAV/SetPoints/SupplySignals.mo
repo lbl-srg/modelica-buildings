@@ -32,14 +32,14 @@ block SupplySignals "Multizone VAV AHU coil valve positions"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
         iconTransformation(extent={{-140,-70},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupSet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Setpoint for supply air temperature"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}}),

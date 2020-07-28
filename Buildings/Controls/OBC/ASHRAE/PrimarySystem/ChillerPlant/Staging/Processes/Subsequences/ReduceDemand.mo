@@ -7,7 +7,7 @@ block ReduceDemand "Sequence for reducing operating chiller demand"
   parameter Real holChiDemTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h") = 300
+    displayUnit="h") = 300
     "Maximum time to wait for the actual demand less than percentage of current load";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDemLim

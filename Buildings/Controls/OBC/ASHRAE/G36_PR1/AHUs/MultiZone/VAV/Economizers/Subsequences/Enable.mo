@@ -7,7 +7,7 @@ block Enable
     annotation(Dialog(group="Conditional"));
   parameter Real delTOutHis(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference")=1
     "Delta between the temperature hysteresis high and low limit"
     annotation(Dialog(tab="Advanced", group="Hysteresis"));
@@ -30,7 +30,7 @@ block Enable
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-320,250},{-280,290}}),
@@ -43,7 +43,7 @@ block Enable
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOutCut(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
     "OA temperature high limit cutoff. For differential dry bulb temeprature condition use return air temperature measurement"
     annotation (Placement(transformation(extent={{-320,210},{-280,250}}),
@@ -127,7 +127,7 @@ block Enable
 protected
   final parameter Real TOutHigLimCutHig(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference")= 0
     "Hysteresis high limit cutoff";
   final parameter Real TOutHigLimCutLow = TOutHigLimCutHig - delTOutHis

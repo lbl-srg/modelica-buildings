@@ -6,7 +6,7 @@ block CHWIsoVal "Sequence of enable or disable chilled water isolation valve"
   parameter Real chaChiWatIsoTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")
+    displayUnit="h")
     "Time to slowly change isolation valve, should be determined in the field";
   parameter Real iniValPos
     "Initial valve position, if it needs to turn on chiller, the value should be 0";

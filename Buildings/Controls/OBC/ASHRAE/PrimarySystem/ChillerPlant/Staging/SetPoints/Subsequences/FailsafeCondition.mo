@@ -8,7 +8,7 @@ block FailsafeCondition
   parameter Real faiSafTruDelay(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=900
+    displayUnit="h")=900
       "Enable delay";
 
   parameter Modelica.SIunits.TemperatureDifference TDif = 1
