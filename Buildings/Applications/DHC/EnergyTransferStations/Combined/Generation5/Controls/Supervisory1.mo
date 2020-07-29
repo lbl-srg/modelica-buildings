@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls;
-model Supervisory "Supervisory controller"
+model Supervisory1 "Supervisory controller"
   extends BaseClasses.PartialSupervisory;
 
   parameter Modelica.SIunits.TemperatureDifference dTHys(min=0) = 1
@@ -155,4 +155,4 @@ maximum of the control signals yielded by the hot side and cold side controllers
 </li>
 </ul>
 </html>"));
-end Supervisory;
+end Supervisory1;

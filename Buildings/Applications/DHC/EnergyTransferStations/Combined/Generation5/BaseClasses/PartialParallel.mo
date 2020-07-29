@@ -228,7 +228,7 @@ equation
   connect(hex.PPum, totPPum.u[1])
     annotation (Line(points={{12,-254},{36,-254},{36,-60},{258,-60}},           color={0,0,127}));
   connect(THeaWatSupSet, conSup.THeaWatSupPreSet)
-    annotation (Line(points={{-320,-60},{-280,-60},{-280,25},{-262,25}},  color={0,0,127}));
+    annotation (Line(points={{-320,-60},{-268,-60},{-268,25},{-262,25}},  color={0,0,127}));
   connect(port_aDis,hex. port_a1)
     annotation (Line(points={{-300,-260},{-10,-260}}, color={0,127,255}));
   connect(hex.port_b1, port_bDis)

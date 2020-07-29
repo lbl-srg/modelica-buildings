@@ -4,7 +4,7 @@ model ChillerBorefield
   extends BaseClasses.PartialParallel(
     final have_eleCoo=true,
     final have_fan=false,
-    redeclare Controls.Supervisory conSup(
+    redeclare Controls.Supervisory1 conSup(
       final controllerType=controllerType,
       final kHot=kHot,
       final kCol=kCol,
@@ -15,16 +15,16 @@ model ChillerBorefield
       final TChiWatSupSetMax=TChiWatSupSetMax),
     nSysHea=1,
     nSouAmb=if have_borFie then 2 else 1,
-    dT2HexSet=abs(T_b2Hex_nominal - T_a2Hex_nominal) .* {1 + 1/datChi.COP_nominal, 1},
-    VTanHeaWat=datChi.PLRMin * datChi.mCon_flow_nominal * 5 * 60 / 1000,
-    VTanChiWat=datChi.PLRMin * datChi.mEva_flow_nominal * 5 * 60 / 1000,
-    colChiWat(mCon_flow_nominal=
-      {colAmbWat.mDis_flow_nominal, datChi.mEva_flow_nominal}),
-    colHeaWat(mCon_flow_nominal=
-      {colAmbWat.mDis_flow_nominal, datChi.mCon_flow_nominal}),
-    colAmbWat(mCon_flow_nominal=if have_borFie then
-      {hex.m2_flow_nominal, datBorFie.conDat.mBorFie_flow_nominal} else
-      {hex.m2_flow_nominal}),
+    dT2HexSet=abs(T_b2Hex_nominal - T_a2Hex_nominal) .* {1 + 1/datChi.COP_nominal,
+        1},
+    VTanHeaWat=datChi.PLRMin*datChi.mCon_flow_nominal*5*60/1000,
+    VTanChiWat=datChi.PLRMin*datChi.mEva_flow_nominal*5*60/1000,
+    colChiWat(mCon_flow_nominal={colAmbWat.mDis_flow_nominal,datChi.mEva_flow_nominal}),
+
+    colHeaWat(mCon_flow_nominal={colAmbWat.mDis_flow_nominal,datChi.mCon_flow_nominal}),
+
+    colAmbWat(mCon_flow_nominal=if have_borFie then {hex.m2_flow_nominal,
+          datBorFie.conDat.mBorFie_flow_nominal} else {hex.m2_flow_nominal}),
     totPPum(nin=3),
     totPHea(nin=1),
     totPCoo(nin=1));
@@ -155,9 +155,9 @@ equation
   connect(colChiWat.ports_bCon[2], chi.port_aChiWat) annotation (Line(points={{132,
           -24},{132,-12},{10,-12},{10,-12}}, color={0,127,255}));
   connect(conSup.THeaWatSupSet, chi.THeaWatSupSet) annotation (Line(points={{-238,19},
-          {-24,19},{-24,-7},{-12,-7}},     color={0,0,127}));
+          {-24,19},{-24,-6},{-12,-6}},     color={0,0,127}));
   connect(conSup.TChiWatSupSet, chi.TChiWatSupSet) annotation (Line(points={{-238,17},
-          {-26,17},{-26,-9},{-12,-9}},     color={0,0,127}));
+          {-26,17},{-26,-8},{-12,-8}},     color={0,0,127}));
   connect(chi.PPum, totPPum.u[2]) annotation (Line(points={{12,-8},{20,-8},{20,-58},
           {258,-58},{258,-60}}, color={0,0,127}));
   connect(colAmbWat.ports_aCon[2], borFie.port_b) annotation (Line(points={{12,-116},
@@ -184,9 +184,9 @@ equation
   connect(uHea, conSup.uHea) annotation (Line(points={{-320,100},{-290,100},{-290,
           31},{-262,31}},      color={255,0,255}));
   connect(conSup.yHea, chi.uHea) annotation (Line(points={{-238,31},{-20,31},{
-          -20,-3},{-12,-3}}, color={255,0,255}));
-  connect(conSup.yCoo, chi.uCoo) annotation (Line(points={{-238,29},{-22,29},{-22,
-          -5},{-12,-5}},     color={255,0,255}));
+          -20,-2},{-12,-2}}, color={255,0,255}));
+  connect(conSup.yCoo, chi.uCoo) annotation (Line(points={{-238,29},{-22,29},{
+          -22,-4},{-12,-4}}, color={255,0,255}));
 annotation (
         Diagram(coordinateSystem(preserveAspectRatio=false,
                   extent={{-300,-300},{300,300}}),
