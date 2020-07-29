@@ -22,18 +22,6 @@ block ProportionalRegulator
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=TRetSet, final k=-1)
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Limiter lim(
-    final uMax=TRetSet - TRetMinAll, final uMin=0)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(
-    final k=1/(TRetSet - TRetMinAll))
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRegSig(
     final unit="1",
     final displayUnit="1",
@@ -42,6 +30,24 @@ block ProportionalRegulator
     "Regulation signal from P-only loop for condensation control"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
+
+protected
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
+    final p=TRetSet,
+    final k=-1)
+    "Compare hot water return temperature and minimum return temperature"
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Limiter lim(
+    final uMax=TRetSet - TRetMinAll,
+    final uMin=0)
+    "Limit input for calculating control signal"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai(
+    final k=1/(TRetSet - TRetMinAll))
+    "Calculate control signal"
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
 equation
   connect(addPar.u, THotWatRet)

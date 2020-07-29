@@ -2,19 +2,13 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.Subsequ
 model PumpSpeedLimits
     "Validation model for PumpSpeedLimits sequence"
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
-    amplitude=0.6,
-    freqHz=1/60,
-    offset=0.50)
-    "Sine input"
-    annotation (Placement(transformation(extent={{-30,-30},{-10,-10}})));
-
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.Subsequences.PumpSpeedLimits
     pumSpeLim(
     final variablePrimary=true,
     final nSta=1,
     final minSecPumSpe=0.1,
     final minPriPumSpeSta={0.2})
+    "Testing scenario with variable primary pumps"
     annotation (Placement(transformation(extent={{10,10},{30,30}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.Subsequences.PumpSpeedLimits
@@ -23,7 +17,16 @@ model PumpSpeedLimits
     final nSta=1,
     final minSecPumSpe=0.1,
     final minPriPumSpeSta={0.2})
+    "Testing scenario with fixed-speed primary pumps"
     annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
+
+protected
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
+    final amplitude=0.6,
+    final freqHz=1/60,
+    final offset=0.50)
+    "Sine input"
+    annotation (Placement(transformation(extent={{-30,-30},{-10,-10}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
     final k=1)
@@ -31,7 +34,6 @@ model PumpSpeedLimits
     annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
 
 equation
-
   connect(conInt.y, pumSpeLim.uCurSta) annotation (Line(points={{-8,20},{0,20},
           {0,25},{8,25}}, color={255,127,0}));
   connect(sin.y, pumSpeLim.uRegSig) annotation (Line(points={{-8,-20},{0,-20},{

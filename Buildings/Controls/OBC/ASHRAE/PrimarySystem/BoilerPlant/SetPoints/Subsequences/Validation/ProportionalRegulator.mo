@@ -3,14 +3,17 @@ model ProportionalRegulator
     "Validation model for ProportionalRegulator sequence"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.Subsequences.ProportionalRegulator
-    proReg(TRetSet=60, TRetMinAll=57.2)
+    proReg(
+    final TRetSet=60,
+    final TRetMinAll=57.2)
     "Test model for ProportionalRegulator"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
+protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
-    amplitude=5,
-    freqHz=1/60,
-    offset=60)
+    final amplitude=5,
+    final freqHz=1/60,
+    final offset=60)
     "Sine input"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
 
@@ -31,8 +34,7 @@ equation
                   pattern = LinePattern.None,
                   fillPattern = FillPattern.Solid,
                   points={{-36,60},{64,0},{-36,-60},{-36,60}})}),
-    Diagram(coordinateSystem(
-      preserveAspectRatio=false)),
+    Diagram(coordinateSystem(preserveAspectRatio=false)),
     experiment(
       StopTime=60,
       Interval=1,
