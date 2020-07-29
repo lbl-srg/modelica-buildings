@@ -26,23 +26,21 @@ model Supervisory1 "Supervisory controller"
       displayUnit="degC")
     "Maximum value of chilled water supply temperature set-point";
 
-  SideHot conHotSid(
+  SideHot1 conHotSid(
     final nSouAmb=nSouAmb,
     final dTHys=dTHys,
     final dTDea=dTDea,
     final controllerType=controllerType,
     final k=kHot,
-    final Ti=Ti)
-    "Hot side controller"
+    final Ti=Ti) "Hot side controller"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
-  SideCold conColSid(
+  SideCold1 conColSid(
     final nSouAmb=nSouAmb,
     final dTHys=dTHys,
     final dTDea=dTDea,
     final controllerType=controllerType,
     final k=kCol,
-    final Ti=Ti)
-    "Cold side controller"
+    final Ti=Ti) "Cold side controller"
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max1[nSouAmb]
     "Maximum of output control signals"
