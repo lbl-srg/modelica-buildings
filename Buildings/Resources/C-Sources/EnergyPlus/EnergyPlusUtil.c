@@ -82,7 +82,8 @@ void logValueReferenceArray(unsigned int level,
 }
 
 
-void printBacktrace(){
+void printBacktrace(){ /* Does nothing on Windows */
+#ifdef __linux__
   void* callstack[128];
   int i, frames = backtrace(callstack, 128);
   char** strs = backtrace_symbols(callstack, frames);
@@ -90,6 +91,7 @@ void printBacktrace(){
     printf("%s\n", strs[i]);
   }
   free(strs);
+#endif
 }
 
 void mallocString(const size_t nChar, const char *error_message, char** str){

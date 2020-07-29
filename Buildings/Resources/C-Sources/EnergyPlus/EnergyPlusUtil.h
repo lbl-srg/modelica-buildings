@@ -10,11 +10,24 @@
 #include "BuildingInstantiate.h"
 
 #include <stdio.h>
+#ifdef _MSC_VER
+#include <windows.h>
+#define R_OK 4
+#define W_OK 2
+#define X_OK 1
+#define F_OK 0
+#else
 #include <unistd.h>
 #include <execinfo.h>
+#endif
+
+#ifdef __linux__
+#include <execinfo.h>
+#endif
+
 #include <sys/types.h> /* To create directory */
 #include <sys/stat.h>  /* To create directory */
-#include <unistd.h>    /* To use stat to check for directory */
+/* #include <unistd.h> */   /* To use stat to check for directory */
 #include <errno.h>
 
 #include "fmilib.h"

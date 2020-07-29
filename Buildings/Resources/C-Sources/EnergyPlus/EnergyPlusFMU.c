@@ -13,7 +13,11 @@
 
 #include <stdlib.h>
 #include <string.h>
+#ifdef _MSC_VER
+#include <windows.h>
+#else
 #include <unistd.h>
+#endif
 
 
 static unsigned int Buildings_nFMU = 0;     /* Number of FMUs */
