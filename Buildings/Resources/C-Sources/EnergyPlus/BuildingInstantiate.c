@@ -423,12 +423,12 @@ void generateFMU(
 
 /* Set the categories to be logged.
    Note that EnergyPlus has the following levels:
-      <Category name="logLevel1" description="logLevel1 - fatal error" />
-		  <Category name="logLevel2" description="logLevel2 - error" />
-		  <Category name="logLevel3" description="logLevel3 - warning" />
-		  <Category name="logLevel4" description="logLevel4 - info" />
-		  <Category name="logLevel5" description="logLevel5 - verbose" />
-		  <Category name="logLevel6" description="logLevel6 - debug" />
+      std::map<EnergyPlus::Error, fmi2Status> logLevelMap = {
+        {EnergyPlus::Error::Info, fmi2OK},
+        {EnergyPlus::Error::Warning, fmi2Warning},
+        {EnergyPlus::Error::Severe, fmi2Error},
+        {EnergyPlus::Error::Fatal, fmi2Fatal}
+      };
    FMU_EP_VERBOSITY is 1, 2, 3 up to and including 6
 */
 void setFMUDebugLevel(FMUBuilding* bui){
@@ -492,7 +492,6 @@ static void spawnLogger(
   myMessage(message);
   */
   /*  (*((FMUBuilding*)env)->modelica_message)("This is a test\n");*/
-
   len = vsnprintf(msg, SPAWN_LOGGER_BUFFER_LENGTH, message, argp);
   if (len < 0)
     ModelicaFormatError("Failed to parse message '%s' from EnergyPlus.", message);
