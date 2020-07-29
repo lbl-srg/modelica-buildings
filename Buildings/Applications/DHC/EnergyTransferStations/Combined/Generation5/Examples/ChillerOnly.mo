@@ -11,7 +11,7 @@ model ChillerOnly
     ets(kHot={0.1}, Ti={600}));
 
   parameter String filNam=
-    "modelica://Buildings/Applications/DHC/Loads/Examples/Resources/SwissResidential_shiftCooling.mos"
+    "modelica://Buildings/Applications/DHC/Loads/Examples/Resources/MediumOffice-90.1-2010-5A.mos"
     "File name with thermal loads as time series";
   Modelica.Blocks.Sources.CombiTimeTable loa(
     tableOnFile=true,
