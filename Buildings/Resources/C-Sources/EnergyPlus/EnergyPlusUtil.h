@@ -27,7 +27,7 @@
 
 #include <sys/types.h> /* To create directory */
 #include <sys/stat.h>  /* To create directory */
-//#include <unistd.h>    /* To use stat to check for directory */
+/* #include <unistd.h> */   /* To use stat to check for directory */
 #include <errno.h>
 
 #include "fmilib.h"
