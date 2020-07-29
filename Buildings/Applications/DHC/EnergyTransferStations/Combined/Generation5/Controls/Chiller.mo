@@ -2,59 +2,57 @@ within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Co
 model Chiller "Chiller controller"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Boolean have_resSup = false
-    "Set to true in case of a reset signal from the supervisory controller"
+  parameter Boolean have_res = true
+    "Set to true in case of internal reset of chilled water supply temperature"
     annotation(Evaluate=true);
-  parameter Modelica.SIunits.Temperature TChiWatSupSetMin=TChiWatSupSetMin(
-      displayUnit="degC")
-    "Minimum value of chilled water supply temperature set-point";
-  parameter Modelica.SIunits.Temperature TConWatEntMin=TConWatEntMin(
-      displayUnit="degC")
+  parameter Modelica.SIunits.Temperature TChiWatSupSetMin(
+    displayUnit="degC") = 2 + 273.15
+    "Minimum value of chilled water supply temperature set point"
+    annotation(Dialog(enable=have_res));
+  parameter Modelica.SIunits.Temperature TConWatEntMin(
+    displayUnit="degC")
     "Minimum value of condenser water entering temperature";
-  parameter Modelica.SIunits.Temperature TEvaWatEntMax=TEvaWatEntMax(
-      displayUnit="degC")
+  parameter Modelica.SIunits.Temperature TEvaWatEntMax(
+    displayUnit="degC")
     "Maximum value of evaporator water entering temperature";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uCoo
-    "Cooling mode enabled signal" annotation (Placement(transformation(extent={
+    "Cooling mode enabled signal"
+    annotation (Placement(transformation(extent={
             {-200,20},{-160,60}}), iconTransformation(extent={{-140,40},{-100,
             80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHea
-    "Heating mode enabled signal" annotation (Placement(transformation(extent={
+    "Heating mode enabled signal"
+    annotation (Placement(transformation(extent={
             {-200,60},{-160,100}}), iconTransformation(extent={{-140,60},{-100,
             100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSupSet(
-    final unit="K", displayUnit="degC") if not have_resSup
-    "Heating water supply temperature set-point"
-    annotation (Placement(transformation(extent={{-200,-140},{-160,-100}}),
-      iconTransformation(extent={{-140,-10},{-100,30}})));
+    final unit="K", displayUnit="degC") if have_res
+    "Heating water supply temperature set point"
+    annotation (Placement(transformation(extent={{-200,-100},{-160,-60}}),
+      iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupPreSet(
     final unit="K", displayUnit="degC")
-    "Chilled water supply temperature set-point"
+    "Chilled water supply temperature set point"
     annotation (Placement(transformation(extent={{-200,-60},{-160,-20}}),
-      iconTransformation(extent={{-140,-30},{-100,10}})));
+      iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSup(
-    final unit="K", displayUnit="degC") if not have_resSup
+    final unit="K", displayUnit="degC") if have_res
     "Heating water supply temperature"
-    annotation (Placement(transformation(extent={{-200,-180},{-160,-140}}),
-      iconTransformation(extent={{-140,-50},{-100,-10}})));
+    annotation (Placement(transformation(extent={{-200,-140},{-160,-100}}),
+      iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatEnt(
     final unit="K", displayUnit="degC")
     "Condenser water entering temperature"
     annotation (Placement(transformation(extent={{-200,-320},{-160,-280}}),
-      iconTransformation(extent={{-140,-90},{-100,-50}})));
+      iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TEvaWatEnt(
     final unit="K", displayUnit="degC")
-    "Evaporator water entering temperature"
+   "Evaporator water entering temperature"
     annotation (Placement(transformation(extent={{-200,-260},{-160,-220}}),
-      iconTransformation(extent={{-140,-70},{-100,-30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uRes(final unit="1") if
-       have_resSup
-    "Reset signal from supervisory controller"
-    annotation (Placement(transformation(extent={{-200,-100},{-160,-60}}),
-        iconTransformation(extent={{-140,10},{-100,50}})));
+      iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatSupSet(
     final unit="K", displayUnit="degC")
-    "Chilled water supply temperature set-point"
+    "Chilled water supply temperature set point"
     annotation (Placement(transformation(extent={{160,-60},{200,-20}}),
       iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValCon
@@ -76,7 +74,7 @@ model Chiller "Chiller controller"
   Buildings.Controls.OBC.CDL.Logical.Switch swi2
     "Pass through maximum set-point value if cooling only, otherwise reset"
     annotation (Placement(transformation(extent={{130,-30},{150,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line mapFun2
+  Buildings.Controls.OBC.CDL.Continuous.Line mapFun2 if have_res
     "Mapping function resetting heating water supply temperature"
     annotation (Placement(transformation(extent={{90,-90},{110,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant x1(k=0)
@@ -122,21 +120,29 @@ model Chiller "Chiller controller"
     final k=TConWatEntMin)
     "Minimum value of condenser water entering temperature"
     annotation (Placement(transformation(extent={{-10,-290},{10,-270}})));
-
   Buildings.Controls.OBC.CDL.Continuous.LimPID conPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=1,
     Ti=60,
-    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
+    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter) if have_res
     "Controller for HWS reset"
-    annotation (Placement(transformation(extent={{-90,-130},{-70,-110}})));
+    annotation (Placement(transformation(extent={{-90,-90},{-70,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Switch actVal
     "Enable mixing valve control"
     annotation (Placement(transformation(extent={{120,-210},{140,-230}})));
   Buildings.Controls.OBC.CDL.Logical.Switch actVal1
     "Enable mixing valve control"
     annotation (Placement(transformation(extent={{120,-270},{140,-290}})));
-
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant tru(k=false) if
+                                                             not have_res
+    "Always true"
+    annotation (Placement(transformation(extent={{30,-30},{50,-10}})));
+  Modelica.Blocks.Routing.BooleanPassThrough booThr if have_res
+    "Pass through uHea if have_res"
+    annotation (Placement(transformation(extent={{30,70},{50,90}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dum(k=0) if not have_res
+    "Dummy u2 value if not have_res"
+    annotation (Placement(transformation(extent={{30,-170},{50,-150}})));
 equation
   connect(swi2.y,TChiWatSupSet)
     annotation (Line(points={{152,-40},{180,-40}},
@@ -157,7 +163,7 @@ equation
           60}}, color={255,0,255}));
   connect(uHea,heaOrCoo. u1) annotation (Line(points={{-180,80},{-140,80},{-140,
           0},{-102,0}}, color={255,0,255}));
-  connect(uCoo,heaOrCoo. u2) annotation (Line(points={{-180,40},{-140,40},{-140,
+  connect(uCoo,heaOrCoo. u2) annotation (Line(points={{-180,40},{-120,40},{-120,
           -8},{-102,-8}}, color={255,0,255}));
   connect(maxTEvaWatEnt.y, conValEva.u_s)
     annotation (Line(points={{12,-220},{48,-220}}, color={0,0,127}));
@@ -167,13 +173,13 @@ equation
           -128},{64,-88},{88,-88}},
                               color={0,0,127}));
   connect(THeaWatSupSet, conPID.u_s)
-    annotation (Line(points={{-180,-120},{-92,-120}},  color={0,0,127}));
-  connect(THeaWatSup, conPID.u_m) annotation (Line(points={{-180,-160},{-80,-160},
-          {-80,-132}},        color={0,0,127}));
-  connect(conPID.y, mapFun2.u) annotation (Line(points={{-68,-120},{20,-120},{20,
-          -80},{88,-80}},    color={0,0,127}));
+    annotation (Line(points={{-180,-80},{-92,-80}},    color={0,0,127}));
+  connect(THeaWatSup, conPID.u_m) annotation (Line(points={{-180,-120},{-80,-120},
+          {-80,-92}},         color={0,0,127}));
+  connect(conPID.y, mapFun2.u) annotation (Line(points={{-68,-80},{88,-80}},
+                             color={0,0,127}));
   connect(uHea, conPID.trigger) annotation (Line(points={{-180,80},{-140,80},{-140,
-          -140},{-86,-140},{-86,-132}},        color={255,0,255}));
+          -100},{-86,-100},{-86,-92}},         color={255,0,255}));
   connect(TChiWatSupPreSet, mapFun2.f1) annotation (Line(points={{-180,-40},{20,
           -40},{20,-76},{88,-76}}, color={0,0,127}));
   connect(conValEva.y, actVal.u1) annotation (Line(points={{71,-220},{100,-220},
@@ -196,10 +202,14 @@ equation
           -40},{100,-32},{128,-32}}, color={0,0,127}));
   connect(mapFun2.y, swi2.u1) annotation (Line(points={{112,-80},{120,-80},{120,
           -48},{128,-48}}, color={0,0,127}));
-  connect(uHea, swi2.u2) annotation (Line(points={{-180,80},{120,80},{120,-40},
+  connect(tru.y, swi2.u2) annotation (Line(points={{52,-20},{110,-20},{110,-40},
           {128,-40}}, color={255,0,255}));
-  connect(uRes, mapFun2.u)
-    annotation (Line(points={{-180,-80},{88,-80}}, color={0,0,127}));
+  connect(uHea, booThr.u)
+    annotation (Line(points={{-180,80},{28,80}}, color={255,0,255}));
+  connect(booThr.y, swi2.u2) annotation (Line(points={{51,80},{120,80},{120,-40},
+          {128,-40}}, color={255,0,255}));
+  connect(dum.y, swi2.u1) annotation (Line(points={{52,-160},{120,-160},{120,-48},
+          {128,-48}}, color={0,0,127}));
 annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),
   Diagram(

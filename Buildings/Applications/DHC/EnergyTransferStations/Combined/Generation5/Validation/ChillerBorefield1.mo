@@ -1,24 +1,12 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Validation;
-model ChillerOnly
+model ChillerBorefield1
   "Validation of the ETS model with heat recovery chiller"
-  extends BaseClasses.PartialChillerBorefield;
+  extends ChillerBorefield(
+    redeclare Combined.Generation5.ChillerBorefield1 ets);
 
-  Modelica.Blocks.Sources.TimeTable loaHeaRat(
-    table=[0,0.1; 1, 0.1; 4,1; 7,0.2; 9, 0.5; 10,0; 11,0], timeScale=1000)
-    "Heating load (ratio to nominal)"
-    annotation (Placement(transformation(extent={{-290,110},{-270,130}})));
-  Modelica.Blocks.Sources.TimeTable loaCooRat(
-    table=[0,0; 3,0; 4,0.1; 6,0.1; 8, 1; 15,0.5; 16,0.5], timeScale=1000)
-    "Cooling load (ratio to nominal)"
-    annotation (Placement(transformation(extent={{310,110},{290,130}})));
-equation
-  connect(loaHeaRat.y, heaLoaNor.u) annotation (Line(points={{-269,120},{-260,120},
-          {-260,60},{-252,60}}, color={0,0,127}));
-  connect(loaCooRat.y, loaCooNor.u) annotation (Line(points={{289,120},{280,120},
-          {280,60},{272,60}}, color={0,0,127}));
   annotation (
   __Dymola_Commands(file=
-"modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Combined/Generation5/Validation/ChillerOnly.mos"
+"modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Combined/Generation5/Validation/ChillerBorefield1.mos"
 "Simulate and plot"),
     experiment(
       StopTime=20000,
@@ -64,4 +52,4 @@ no variation of the performance at part load is considered).
 </li>
 </ul>
 </html>"));
-end ChillerOnly;
+end ChillerBorefield1;

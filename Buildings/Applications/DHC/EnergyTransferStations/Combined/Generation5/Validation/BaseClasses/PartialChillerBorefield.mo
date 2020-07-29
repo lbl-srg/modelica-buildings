@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Validation.BaseClasses;
-model PartialChillerBorefield
+partial model PartialChillerBorefield
   "Partial validation of the ETS model with heat recovery chiller and optional borefield"
   extends Modelica.Icons.Example;
 
@@ -55,34 +55,37 @@ model PartialChillerBorefield
     y(final unit="K", displayUnit="degC"))
     "Chilled water supply temperature set-point"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
-  Fluid.Sensors.TemperatureTwoPort senTHeaWatSup(redeclare final package Medium =
-        Medium, m_flow_nominal=datChi.mCon_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort senTHeaWatSup(
+    redeclare package Medium = Medium,
+    m_flow_nominal=datChi.mCon_flow_nominal)
     "Heating water supply temperature" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-60,40})));
-  Fluid.Sensors.TemperatureTwoPort senTChiWatSup(redeclare final package Medium =
-        Medium, m_flow_nominal=datChi.mEva_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort senTChiWatSup(
+    redeclare package Medium = Medium,
+    m_flow_nominal=datChi.mEva_flow_nominal)
     "Chilled water supply temperature" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={90,40})));
-  Fluid.Sensors.TemperatureTwoPort senTHeaWatRet(redeclare final package Medium =
-        Medium, m_flow_nominal=datChi.mCon_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort senTHeaWatRet(
+    redeclare final package Medium = Medium,
+    m_flow_nominal=datChi.mCon_flow_nominal)
     "Heating water return temperature" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-60,-40})));
-  Fluid.Sensors.TemperatureTwoPort senTChiWatRet(redeclare final package Medium =
-        Medium, m_flow_nominal=datChi.mEva_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort senTChiWatRet(
+    redeclare final package Medium = Medium,
+    m_flow_nominal=datChi.mEva_flow_nominal)
     "Chilled water return temperature" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={90,-40})));
-  Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.ChillerBorefield
-    ets(
-    redeclare final package MediumBui = Medium,
-    redeclare final package MediumDis = Medium,
+  replaceable Combined.Generation5.ChillerBorefield ets(
+    redeclare package MediumBui = Medium,
+    redeclare package MediumDis = Medium,
     QChiWat_flow_nominal=QCoo_flow_nominal,
     QHeaWat_flow_nominal=QHea_flow_nominal,
     dp1Hex_nominal=20E3,
@@ -98,10 +101,11 @@ model PartialChillerBorefield
     nPorts_aHeaWat=1,
     nPorts_bHeaWat=1,
     nPorts_bChiWat=1,
-    nPorts_aChiWat=1) "ETS"
+    nPorts_aChiWat=1)
+    "ETS"
     annotation (Placement(transformation(extent={{-10,-84},{50,-24}})));
   Fluid.Sources.Boundary_pT disWat(
-    redeclare final package Medium = Medium,
+    redeclare package Medium = Medium,
     use_T_in=true,
     nPorts=2)
     "District water boundary conditions"
@@ -116,7 +120,7 @@ model PartialChillerBorefield
     annotation (Placement(transformation(extent={{-250,-150},{-230,-130}})));
   Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow
     pumChiWat(
-    redeclare final package Medium = Medium,
+    redeclare package Medium = Medium,
     final m_flow_nominal=mChiWat_flow_nominal,
     dp_nominal=100E3) "Chilled water distribution pump"
     annotation (Placement(transformation(extent={{110,30},{130,50}})));
@@ -128,7 +132,7 @@ model PartialChillerBorefield
     annotation (Placement(transformation(extent={{50,70},{30,90}})));
   Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow
     pumHeaWat(
-    redeclare final package Medium = Medium,
+    redeclare package Medium = Medium,
     final m_flow_nominal=mHeaWat_flow_nominal,
     dp_nominal=100E3) "Heating water distribution pump"
     annotation (Placement(transformation(extent={{30,30},{10,50}})));
@@ -136,7 +140,7 @@ model PartialChillerBorefield
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=45 + 273.15,
     final prescribedHeatFlowRate=true,
-    redeclare final package Medium = Medium,
+    redeclare package Medium = Medium,
     V=10,
     final mSenFac=1,
     final m_flow_nominal=mHeaWat_flow_nominal,
@@ -155,7 +159,7 @@ model PartialChillerBorefield
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=7 + 273.15,
     final prescribedHeatFlowRate=true,
-    redeclare final package Medium = Medium,
+    redeclare package Medium = Medium,
     V=10,
     final mSenFac=1,
     final m_flow_nominal=mChiWat_flow_nominal,

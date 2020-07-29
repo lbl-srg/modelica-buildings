@@ -1,13 +1,13 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Subsystems;
 model Borefield "Base subsystem with geothermal borefield"
-  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(final
-      m_flow_nominal=datBorFie.conDat.mBorFie_flow_nominal);
+  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+    final m_flow_nominal=datBorFie.conDat.mBorFie_flow_nominal);
 
   replaceable model BoreFieldType = Fluid.Geothermal.Borefields.OneUTube
     constrainedby Fluid.Geothermal.Borefields.BaseClasses.PartialBorefield(
-      redeclare final package Medium = Medium,
-      final allowFlowReversal=allowFlowReversal,
-      final borFieDat=datBorFie,
+      redeclare package Medium = Medium,
+      allowFlowReversal=allowFlowReversal,
+      borFieDat=datBorFie,
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Wall heat transfer"
     annotation (choicesAllMatching=true);

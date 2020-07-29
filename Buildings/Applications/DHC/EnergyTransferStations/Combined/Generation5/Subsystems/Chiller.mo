@@ -9,8 +9,8 @@ model Chiller "Base subsystem with heat recovery chiller"
         property_T=293.15,
         X_a=0.40) "Propylene glycol water, 40% mass fraction")));
 
-  parameter Boolean have_resSup = false
-    "Set to true in case of a reset signal from the supervisory controller"
+  parameter Boolean have_res = true
+    "Set to true in case of internal reset of chilled water supply temperature"
     annotation(Evaluate=true);
   parameter Boolean allowFlowReversal = false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
@@ -67,18 +67,13 @@ model Chiller "Base subsystem with heat recovery chiller"
     "Cooling mode enabled signal"
     annotation (Placement(transformation(extent={{-240,148},{-200,188}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uRes(final unit="1") if
-    have_resSup
-    "Reset signal from supervisory controller"
-    annotation (Placement(transformation(extent={{-240,90},{-200,130}}),
-        iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(final unit="K",
       displayUnit="degC")
     "Chilled water supply temperature set-point (may be reset down)"
     annotation (Placement(transformation(extent={{-240,108},{-200,148}}),
         iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSupSet(
-    final unit="K", displayUnit="degC") if not have_resSup
+    final unit="K", displayUnit="degC") if have_res
     "Heating water supply temperature set-point"
     annotation (Placement(transformation(extent={{-240,128},{-200,168}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
@@ -152,6 +147,7 @@ model Chiller "Base subsystem with heat recovery chiller"
         rotation=0,
         origin={-100,-60})));
   Controls.Chiller con(
+    final have_res=have_res,
     final TChiWatSupSetMin=TChiWatSupSetMin,
     final TConWatEntMin=TConWatEntMin,
     final TEvaWatEntMax=TEvaWatEntMax)
@@ -280,15 +276,15 @@ equation
           146},{-72,146}},
                        color={255,0,255}));
   connect(TChiWatSupSet, con.TChiWatSupPreSet) annotation (Line(points={{-220,128},
-          {-186,128},{-186,139},{-72,139}},      color={0,0,127}));
+          {-186,128},{-186,142},{-72,142}},      color={0,0,127}));
   connect(senTConEnt.T, con.TConWatEnt) annotation (Line(points={{-31,40},{-78,40},
-          {-78,133},{-72,133}},              color={0,0,127}));
+          {-78,136},{-72,136}},              color={0,0,127}));
   connect(senTEvaEnt.T, con.TEvaWatEnt) annotation (Line(points={{9,-40},{-80,-40},
-          {-80,135},{-72,135}},              color={0,0,127}));
+          {-80,138},{-72,138}},              color={0,0,127}));
   connect(THeaWatSupSet, con.THeaWatSupSet) annotation (Line(points={{-220,148},
-          {-192,148},{-192,141},{-72,141}},  color={0,0,127}));
+          {-192,148},{-192,144},{-72,144}},  color={0,0,127}));
   connect(senTConLvg.T, con.THeaWatSup) annotation (Line(points={{9,20},{-82,20},
-          {-82,137},{-72,137}},              color={0,0,127}));
+          {-82,140},{-72,140}},              color={0,0,127}));
   connect(splConMix.port_2, port_bHeaWat) annotation (Line(points={{130,60},{140,
           60},{140,100},{-180,100},{-180,60},{-200,60}},
                                   color={0,127,255}));
@@ -333,8 +329,6 @@ equation
     annotation (Line(points={{-100,102},{-100,72}}, color={0,0,127}));
   connect(booToRea.y, gai1.u) annotation (Line(points={{-82,180},{-100,180},{-100,
           126}}, color={0,0,127}));
-  connect(uRes, con.uRes) annotation (Line(points={{-220,110},{-180,110},{-180,143},
-          {-72,143}}, color={0,0,127}));
 annotation (
   defaultComponentName="chi",
     Icon(graphics={

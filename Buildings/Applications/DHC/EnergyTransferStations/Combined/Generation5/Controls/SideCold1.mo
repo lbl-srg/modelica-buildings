@@ -2,8 +2,10 @@ within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Co
 model SideCold1 "Control block for cold side"
   extends BaseClasses.PartialSideHotCold(
     final reverseActing=true);
+  parameter Modelica.SIunits.TemperatureDifference dTHys(min=0) = 1
+    "Temperature hysteresis (full width, absolute value)";
   Buildings.Controls.OBC.CDL.Continuous.Max max "Maximum tank temperature"
-    annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
+    annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
   LimPlaySequence conPlaSeq(
     have_enaSig=true,
     final nCon=nSouAmb,
@@ -33,16 +35,16 @@ model SideCold1 "Control block for cold side"
         transformation(extent={{-220,120},{-180,160}}), iconTransformation(
           extent={{-140,20},{-100,60}})));
 equation
-  connect(max.u2, TBot) annotation (Line(points={{-92,-66},{-120,-66},{-120,
+  connect(max.u2, TBot) annotation (Line(points={{-92,-46},{-120,-46},{-120,
           -140},{-200,-140}},
                             color={0,0,127}));
-  connect(max.y, errDis.u2) annotation (Line(points={{-68,-60},{-60,-60},{-60,
+  connect(max.y, errDis.u2) annotation (Line(points={{-68,-40},{-60,-40},{-60,
           -12}}, color={0,0,127}));
   connect(TBot, errEna.u2) annotation (Line(points={{-200,-140},{-120,-140},{
           -120,20},{-80,20},{-80,28}},   color={0,0,127}));
-  connect(TTop, max.u1) annotation (Line(points={{-200,-60},{-100,-60},{-100,
-          -54},{-92,-54}},  color={0,0,127}));
-  connect(TTop, swi.u1) annotation (Line(points={{-200,-60},{-100,-60},{-100,
+  connect(TTop, max.u1) annotation (Line(points={{-200,-40},{-100,-40},{-100,
+          -34},{-92,-34}},  color={0,0,127}));
+  connect(TTop, swi.u1) annotation (Line(points={{-200,-40},{-100,-40},{-100,
           -172},{-92,-172}}, color={0,0,127}));
   connect(greThr.y,booToRea. u) annotation (Line(points={{102,-140},{118,-140}},
                      color={255,0,255}));
@@ -82,7 +84,37 @@ This block serves as the controller for the cold side of the ETS.
 See 
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold</a>
-for the description of the control logic.
+for the computation of the demand signal <code>yDem</code>.
+The other control signals are computed as follows.
+</p>
+<ul>
+<li>
+Control signals for ambient sources <code>yAmb</code> (array)<br/>
+The systems serving as ambient sources are
+<ul>
+<li>
+enabled if the cold rejection mode signal is true, see
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.RejectionMode\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.RejectionMode</a>,
+</li>
+<li>
+controlled in sequence with an instance of
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.LimPlaySequence\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.LimPlaySequence</a>
+limiting the decrease in the temperature measured at the top of the tank as 
+illustrated on the figure below.
+</li>
+</ul>
+<li>
+Control signals for the evaporato loop isolation valve <code>yIsoAmb</code><br/>
+
+The valve is commanded to be fully open whenever the maximum of the
+ambient source control signals is greater than zero.
+</li>
+</ul>
+<p>
+<img alt=\"Sequence chart for hot side\"
+src=\"modelica://Buildings/Resources/Images/Applications/DHC/EnergyTransferStations/Combined/Generation5/Controls/BaseClasses/HotColdSide.png\"/>
 </p>
 </html>"));
 end SideCold1;

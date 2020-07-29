@@ -5,8 +5,6 @@ partial block PartialSideHotCold "Base control block for hor or cold side"
   parameter Integer nSouAmb
     "Number of ambient sources to control"
     annotation(Evaluate=true);
-  parameter Modelica.SIunits.TemperatureDifference dTHys(min=0) = 1
-    "Temperature hysteresis (full width, absolute value)";
   parameter Modelica.SIunits.TemperatureDifference dTDea(min=0) = 0.5
     "Temperature dead band (absolute value)";
   parameter Boolean reverseActing = false
@@ -18,10 +16,10 @@ partial block PartialSideHotCold "Base control block for hor or cold side"
     annotation(choices(
       choice=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
       choice=Buildings.Controls.OBC.CDL.Types.SimpleController.PI));
-  parameter Real k[nSouAmb](each min=0) = fill(1, nSouAmb)
+  parameter Real k(min=0) = 1
     "Gain of controller";
-  parameter Modelica.SIunits.Time Ti[nSouAmb](
-    each min=Buildings.Controls.OBC.CDL.Constants.small) = fill(0.5, nSouAmb)
+  parameter Modelica.SIunits.Time Ti(
+    min=Buildings.Controls.OBC.CDL.Constants.small) = 0.5
     "Time constant of integrator block"
     annotation (Dialog(enable=
       controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
@@ -40,7 +38,7 @@ partial block PartialSideHotCold "Base control block for hor or cold side"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TTop(
     final unit="K",
     displayUnit="degC") "Temperature at top of tank"
-    annotation (Placement(transformation(extent={{-220,-80},{-180,-40}}),
+    annotation (Placement(transformation(extent={{-220,-60},{-180,-20}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TBot(
     final unit="K",
@@ -55,10 +53,8 @@ partial block PartialSideHotCold "Base control block for hor or cold side"
         extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yAmb[nSouAmb](each final
       unit="1") "Control signal for ambient sources" annotation (Placement(
-        transformation(extent={{180,-100},{220,-60}}),
-                                                     iconTransformation(extent={
+        transformation(extent={{180,-100},{220,-60}}), iconTransformation(extent={
             {100,-30},{140,10}})));
-
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{-100,140},{-80,160}})));
   Modelica.StateGraph.InitialStep noDemand(nIn=2)
@@ -110,11 +106,6 @@ partial block PartialSideHotCold "Base control block for hor or cold side"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant deaBan(k=if
         reverseActing then -abs(dTDea) else abs(dTDea)) "Dead band"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-initial equation
-  assert(dTHys >= 0, "In " + getInstanceName() +
-    ": dTHys (" + String(dTHys) + ") must be an absolute value.");
-  assert(dTDea >= 0, "In " + getInstanceName() +
-    ": dTDea (" + String(dTDea) + ") must be an absolute value.");
 equation
   connect(t1.outPort,dem. inPort[1])
     annotation (Line(points={{21.5,140},{39,140}},   color={0,0,0}));
@@ -159,8 +150,8 @@ equation
     annotation (Line(points={{50,129},{50,92},{108,92}}, color={255,0,255}));
   connect(uHeaCoo, and2.u1) annotation (Line(points={{-200,180},{100,180},{100,
           100},{108,100}}, color={255,0,255}));
-  connect(proDis.y, e) annotation (Line(points={{2,0},{12,0},{12,-20},{160,-20},
-          {160,0},{200,0}}, color={0,0,127}));
+  connect(proDis.y, e) annotation (Line(points={{2,0},{12,0},{12,-20},{170,-20},
+          {170,0},{200,0}}, color={0,0,127}));
   connect(deaBan.y, enaHeaCoo.u2) annotation (Line(points={{2,80},{10,80},{10,
           32},{28,32}},
                     color={0,0,127}));
@@ -196,34 +187,16 @@ the temperature measured at the top (resp. bottom) of the tank is below
 </ul>
 The tank demand transitions back to false when the maximum (resp. minimum) temperature
 between the top and the bottom of the tank is above (resp. below) the set point
-for more than 120 s (which indicates that the tank is fully loaded).
+for more than 60 s (which indicates that the tank is fully loaded).
 </li>
 <li>
-Control signal for ambient sources <code>y</code><br/>
-The systems serving as ambient sources are
-<ul>
-<li>
-enabled if the corresponding rejection mode signal is true, see
-<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.RejectionMode\">
-Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.RejectionMode</a>,
+Control signals for ambient sources <code>yAmb</code> (array)<br/>
+Blocks that extend this base controller must compute this signals.
 </li>
 <li>
-controlled in sequence with an instance of
-<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.LimPlaySequence\">
-Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.LimPlaySequence</a>
-limiting the increase (resp. decrease) in the temperature measured at the bottom
-(resp. top) of the tank as illustrated on the figure below for the hot side.
+Control signals for condenser and evaporator loops isolation valves <code>yIsoAmb</code><br/>
+Blocks that extend this base controller must compute this signals.
 </li>
 </ul>
-<li>
-Control signal for ambient loop isolation valve <code>yIsoAmb</code><br/>
-The valve is commanded to be fully open whenever the maximum of the
-ambient source control signals is greater than zero.
-</li>
-</ul>
-<p>
-<img alt=\"Sequence chart for hot side\"
-src=\"modelica://Buildings/Resources/Images/Applications/DHC/EnergyTransferStations/Combined/Generation5/Controls/BaseClasses/HotColdSide.png\"/>
-</p>
 </html>"));
 end PartialSideHotCold;

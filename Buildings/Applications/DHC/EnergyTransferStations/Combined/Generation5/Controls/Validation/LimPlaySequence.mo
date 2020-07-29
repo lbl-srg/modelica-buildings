@@ -27,8 +27,8 @@ model LimPlaySequence "Validation of play hysteresis in sequence"
     hys=1,
     dea=1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    k=fill(0.2, 3),
-    Ti=fill(2, 3)) "Play hysteresis with PI control, direct acting"
+    k=0.2,
+    Ti=2) "Play hysteresis with PI control, direct acting"
     annotation (Placement(transformation(extent={{70,30},{90,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant u_s1(k=10) "Set-point"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
@@ -40,8 +40,8 @@ model LimPlaySequence "Validation of play hysteresis in sequence"
     hys=1,
     dea=1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    k=fill(0.2, 3),
-    Ti=fill(2, 3)) "Play hysteresis with PI control, direct acting"
+    k=0.2,
+    Ti=2) "Play hysteresis with PI control, direct acting"
     annotation (Placement(transformation(extent={{50,60},{70,80}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant tru(k=true)
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));

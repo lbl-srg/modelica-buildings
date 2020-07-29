@@ -16,8 +16,8 @@ block LimPIDEnable "PID controller with enable signal"
     annotation (Dialog(enable=
       controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
       controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Real yMax = 1 "Upper limit of output";
   parameter Real yMin = 0 "Lower limit of output";
+  parameter Real yMax = 1 "Upper limit of output";
   parameter Boolean reverseActing = true
     "Set to true for reverse acting, or false for direct acting control action";
 
@@ -57,7 +57,8 @@ block LimPIDEnable "PID controller with enable signal"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi1
     annotation (Placement(transformation(extent={{72,-10},{92,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=0) "Zero"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant valDis(final k=0)
+    "Value when disabled"
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
 equation
   connect(conPID.u_s, swi.y)
@@ -78,8 +79,8 @@ equation
     annotation (Line(points={{94,0},{120,0}}, color={0,0,127}));
   connect(uEna, swi1.u2) annotation (Line(points={{-60,-120},{-60,-20},{60,-20},
           {60,0},{70,0}}, color={255,0,255}));
-  connect(con.y, swi1.u3) annotation (Line(points={{52,-40},{64,-40},{64,-8},{70,
-          -8}}, color={0,0,127}));
+  connect(valDis.y, swi1.u3) annotation (Line(points={{52,-40},{64,-40},{64,-8},
+          {70,-8}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end LimPIDEnable;

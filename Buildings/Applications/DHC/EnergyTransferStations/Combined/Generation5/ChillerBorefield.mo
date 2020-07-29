@@ -4,15 +4,16 @@ model ChillerBorefield
   extends BaseClasses.PartialParallel(
     final have_eleCoo=true,
     final have_fan=false,
-    redeclare Controls.Supervisory1 conSup(
+    redeclare replaceable Controls.Supervisory conSup(
       final controllerType=controllerType,
       final kHot=kHot,
       final kCol=kCol,
       final Ti=Ti,
-      final dTHys=dTHys,
       final dTDea=dTDea,
       final THeaWatSupSetMin=THeaWatSupSetMin,
-      final TChiWatSupSetMax=TChiWatSupSetMax),
+      final TChiWatSupSetMax=TChiWatSupSetMax,
+      final TChiWatSupSetMin=TChiWatSupSetMin)
+      constrainedby Controls.BaseClasses.PartialSupervisory,
     nSysHea=1,
     nSouAmb=if have_borFie then 2 else 1,
     dT2HexSet=abs(T_b2Hex_nominal - T_a2Hex_nominal) .* {1 + 1/datChi.COP_nominal,
@@ -20,9 +21,7 @@ model ChillerBorefield
     VTanHeaWat=datChi.PLRMin*datChi.mCon_flow_nominal*5*60/1000,
     VTanChiWat=datChi.PLRMin*datChi.mEva_flow_nominal*5*60/1000,
     colChiWat(mCon_flow_nominal={colAmbWat.mDis_flow_nominal,datChi.mEva_flow_nominal}),
-
     colHeaWat(mCon_flow_nominal={colAmbWat.mDis_flow_nominal,datChi.mCon_flow_nominal}),
-
     colAmbWat(mCon_flow_nominal=if have_borFie then {hex.m2_flow_nominal,
           datBorFie.conDat.mBorFie_flow_nominal} else {hex.m2_flow_nominal}),
     totPPum(nin=3),
@@ -85,9 +84,6 @@ model ChillerBorefield
       choicesAllMatching=true,
       Placement(transformation(extent={{180,222},{200,242}})));
 
-  parameter Modelica.SIunits.TemperatureDifference dTHys = 1.0
-    "Temperature hysteresis for supervisory control"
-    annotation (Dialog(group="Supervisory controller"));
   parameter Modelica.SIunits.TemperatureDifference dTDea = 0.5
     "Temperature dead band for supervisory control"
     annotation (Dialog(group="Supervisory controller"));
@@ -95,14 +91,14 @@ model ChillerBorefield
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation (Dialog(group="Supervisory controller"));
-  parameter Real kHot[nSouAmb](each min=0)=fill(0.05, nSouAmb)
+  parameter Real kHot(min=0)=0.05
     "Gain of controller on hot side"
     annotation (Dialog(group="Supervisory controller"));
-  parameter Real kCol[nSouAmb](each min=0)=fill(0.1, nSouAmb)
+  parameter Real kCol(min=0)=0.1
     "Gain of controller on cold side"
     annotation (Dialog(group="Supervisory controller"));
-  parameter Modelica.SIunits.Time Ti[nSouAmb](
-    each min=Buildings.Controls.OBC.CDL.Constants.small)=fill(300, nSouAmb)
+  parameter Modelica.SIunits.Time Ti(
+    min=Buildings.Controls.OBC.CDL.Constants.small)=300
     "Time constant of integrator block (hot and cold side)"
     annotation (Dialog(enable=
       controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
@@ -110,15 +106,20 @@ model ChillerBorefield
       group="Supervisory controller"));
   parameter Modelica.SIunits.Temperature THeaWatSupSetMin(displayUnit="degC")=
     datChi.TConEntMin + 5
-    "Minimum value of heating water supply temperature set-point"
+    "Minimum value of heating water supply temperature set point"
     annotation (Dialog(group="Supervisory controller"));
   parameter Modelica.SIunits.Temperature TChiWatSupSetMax(displayUnit="degC")=
     datChi.TEvaLvgMax
-    "Maximum value of chilled water supply temperature set-point"
+    "Maximum value of chilled water supply temperature set point"
+    annotation (Dialog(group="Supervisory controller"));
+  parameter Modelica.SIunits.Temperature TChiWatSupSetMin(displayUnit="degC")=
+    datChi.TEvaLvgMin
+    "Minimum value of chilled water supply temperature set point"
     annotation (Dialog(group="Supervisory controller"));
 
   replaceable Subsystems.Chiller chi(
     redeclare final package Medium = MediumBui,
+    have_res=false,
     final perPumCon=perPumCon,
     final perPumEva=perPumEva,
     final dpCon_nominal=dpCon_nominal,
@@ -135,12 +136,15 @@ model ChillerBorefield
     final perPum=perPumBorFie,
     final TBorWatEntMax=TBorWatEntMax,
     final spePumBorMin=spePumBorMin,
-    final dp_nominal=dpBorFie_nominal) if have_borFie "Borefield" annotation (
+    final dp_nominal=dpBorFie_nominal) if have_borFie
+    "Borefield"
+    annotation (
       Dialog(group="Borefield", enable=have_borFie), Placement(transformation(
           extent={{-80,-230},{-60,-210}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerPPum(final k=0) if
-    not have_borFie "Zero power"
+    not have_borFie
+    "Zero power"
     annotation (Placement(transformation(extent={{200,-90},{220,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerPHea(final k=0)
     "Zero power"
@@ -154,8 +158,6 @@ equation
     annotation (Line(points={{10,0},{108,0},{108,-24}}, color={0,127,255}));
   connect(colChiWat.ports_bCon[2], chi.port_aChiWat) annotation (Line(points={{132,
           -24},{132,-12},{10,-12},{10,-12}}, color={0,127,255}));
-  connect(conSup.THeaWatSupSet, chi.THeaWatSupSet) annotation (Line(points={{-238,19},
-          {-24,19},{-24,-6},{-12,-6}},     color={0,0,127}));
   connect(conSup.TChiWatSupSet, chi.TChiWatSupSet) annotation (Line(points={{-238,17},
           {-26,17},{-26,-8},{-12,-8}},     color={0,0,127}));
   connect(chi.PPum, totPPum.u[2]) annotation (Line(points={{12,-8},{20,-8},{20,-58},

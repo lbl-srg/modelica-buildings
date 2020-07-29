@@ -24,10 +24,10 @@ block LimPlaySequence "Play hysteresis controllers in sequence"
     "Upper limit of output";
   parameter Real yMin = 0
     "Lower limit of output";
-  parameter Real k[nCon](each min=0) = fill(1, nCon)
+  parameter Real k(min=0) = 1
     "Gain of controller";
-  parameter Modelica.SIunits.Time Ti[nCon](
-    each min=Buildings.Controls.OBC.CDL.Constants.small) = fill(0.5, nCon)
+  parameter Modelica.SIunits.Time Ti(
+    min=Buildings.Controls.OBC.CDL.Constants.small) = 0.5
     "Time constant of integrator block"
     annotation (Dialog(enable=
       controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI));
@@ -61,8 +61,8 @@ block LimPlaySequence "Play hysteresis controllers in sequence"
     each final yMax=yMax,
     each final yMin=yMin,
     each final have_enaSig=have_enaSig,
-    final k=k,
-    final Ti=Ti,
+    each final k=k,
+    each final Ti=Ti,
     each final hys=hys,
     each final reverseActing=reverseActing)
     "Play hysteresis controller"

@@ -9,12 +9,12 @@ model Supervisory1 "Supervisory controller"
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller";
-  parameter Real kHot[nSouAmb](each min=0)=fill(0.1, nSouAmb)
+  parameter Real kHot(min=0)=0.1
     "Gain of controller on hot side";
-  parameter Real kCol[nSouAmb](each min=0)=fill(0.2, nSouAmb)
+  parameter Real kCol(min=0)=0.2
     "Gain of controller on cold side";
-  parameter Modelica.SIunits.Time Ti[nSouAmb](
-    each min=Buildings.Controls.OBC.CDL.Constants.small)=fill(300, nSouAmb)
+  parameter Modelica.SIunits.Time Ti(
+    min=Buildings.Controls.OBC.CDL.Constants.small)=300
     "Time constant of integrator block (hot and cold side)"
     annotation (Dialog(enable=
       controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
@@ -32,7 +32,8 @@ model Supervisory1 "Supervisory controller"
     final dTDea=dTDea,
     final controllerType=controllerType,
     final k=kHot,
-    final Ti=Ti) "Hot side controller"
+    final Ti=Ti)
+    "Hot side controller"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
   SideCold1 conColSid(
     final nSouAmb=nSouAmb,
@@ -40,7 +41,8 @@ model Supervisory1 "Supervisory controller"
     final dTDea=dTDea,
     final controllerType=controllerType,
     final k=kCol,
-    final Ti=Ti) "Cold side controller"
+    final Ti=Ti)
+    "Cold side controller"
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max1[nSouAmb]
     "Maximum of output control signals"
