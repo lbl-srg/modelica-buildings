@@ -408,14 +408,14 @@ ASHRAE, Atlanta, GA, 2006.
 July 10, 2020, by Antoine Gautier:<br/>
 Changed design and control parameters for outdoor air flow.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2019\">#2019</a>
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2019\">#2019</a>.
 </li>
 <li>
 April 20, 2020, by Jianjun Hu:<br/>
 Exported actual VAV damper position as the measured input data for
 defining duct static pressure setpoint.<br/>
 This is
-for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1873\">#1873</a>
+for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1873\">#1873</a>.
 </li>
 <li>
 May 19, 2016, by Michael Wetter:<br/>
