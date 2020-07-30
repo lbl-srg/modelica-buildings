@@ -48,13 +48,12 @@ model SideCold "Control block for cold side"
     "Convert DO to AO signal"
     annotation (Placement(transformation(extent={{130,-130},{150,-110}})));
   LimPIDEnable conTChiWatSup(
-    final k=k*2,
+    final k=k*5,
     final Ti=Ti/2,
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     final yMin=-1,
     final yMax=0,
-    final reverseActing=false)
-                              "Controller for CHWST"
+    final reverseActing=true) "Controller for CHWST"
     annotation (Placement(transformation(extent={{-110,-170},{-90,-150}})));
   Buildings.Controls.OBC.CDL.Continuous.Line mapFunTChiSupSet
     "Mapping function for CHWST reset"
@@ -63,7 +62,7 @@ model SideCold "Control block for cold side"
     y(final unit="K", displayUnit="degC"), final k=TChiWatSupSetMin)
     "Minimum value of chilled water supply temperature"
     annotation (Placement(transformation(extent={{50,-70},{70,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(p=nSouAmb, k=-
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(p=nSouAmb, k=
         nSouAmb) "One minus control loop output"
     annotation (Placement(transformation(extent={{-70,-170},{-50,-150}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max1 "CHWST reset signal"

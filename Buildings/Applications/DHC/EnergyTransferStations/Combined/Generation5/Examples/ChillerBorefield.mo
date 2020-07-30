@@ -2,8 +2,7 @@ within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Ex
 model ChillerBorefield
   "Example of the ETS model with heat recovery chiller and borefield"
   extends ChillerOnly(
-    ets(have_borFie=true, datBorFie=datBorFie,
-      kHot={0.05,0.1}, Ti=fill(300, 2)));
+    ets(have_borFie=true, datBorFie=datBorFie));
 
   parameter Integer nBorHol = 64
   "Number of boreholes (must be a square number)";
