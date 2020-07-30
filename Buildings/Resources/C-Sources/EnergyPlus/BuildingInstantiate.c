@@ -556,7 +556,7 @@ void importEnergyPlusFMU(FMUBuilding* bui){
   fmi2_import_collect_model_counts(bui->fmu, &mc);
   printf("*** Number of discrete variables %lu.\n", mc.num_discrete);
  */
-  callBackFunctions.logger = spawnLogger; /* fmilogger; */
+  callBackFunctions.logger = spawnLogger;
   callBackFunctions.allocateMemory = calloc;
   callBackFunctions.freeMemory = free;
   callBackFunctions.stepFinished = NULL; /* synchronous execution */

@@ -36,8 +36,6 @@ void getVariables(FMUBuilding* bui, const char* modelicaInstanceName, spawnReals
 
 double do_event_iteration(FMUBuilding* bui, const char* modelicaInstanceName);
 
-void fmilogger(jm_callbacks* c, jm_string module, jm_log_level_enu_t log_level, jm_string message);
-
 void saveAppend(char* *buffer, const char *toAdd, size_t *bufLen);
 
 void saveAppendJSONElements(char* *buffer, const char* values[], size_t n, size_t* bufLen);
