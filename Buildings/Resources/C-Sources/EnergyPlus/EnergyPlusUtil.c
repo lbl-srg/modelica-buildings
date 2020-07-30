@@ -22,17 +22,28 @@
 #include <dlfcn.h>
 #endif
 
+/* This write statement is experimental to flush the write statements
+   to a file. It is useful to debug if segmentation faults happen.
+*/
 void writeFormatLog(const char *fmt, ...) {
   va_list args;
+  FILE *fp;
 
-  freopen("output.txt", "a+", stdout);
+  fp = freopen("output.txt", "a+", stdout);
+  if (fp == NULL){
+    ModelicaFormatError("Failed to open file 'output.txt': %s", strerror(errno));
+  }
 
   va_start(args, fmt);
   vprintf(fmt, args);
   va_end(args);
   printf("%s", "\n");
   fflush(stdout);
-  freopen("/dev/tty", "w", stdout); /*for gcc, ubuntu*/
+  fp = freopen("/dev/tty", "w", stdout); /*for gcc, ubuntu*/
+  if (fp == NULL){
+    ModelicaFormatError("Failed to open file '/dev/tty': %s", strerror(errno));
+  }
+
 }
 
 void writeLog(const char* msg)
@@ -532,15 +543,6 @@ void getSimulationTemporaryDirectory(const char* modelicaNameBuilding, char** di
   replaceChar(*dirNam, ']', '_');
   free(curDir);
   return;
-}
-
-void fmilogger(jm_callbacks* c, jm_string module, jm_log_level_enu_t log_level, jm_string message){
-  if (log_level == jm_log_level_error){
-    ModelicaFormatError("Error in FMU: module = %s, log level = %d: %s", module, log_level, message);
-  }
-  else{
-    ModelicaFormatMessage("Message from FMU: module = %s, log level = %d: %s", module, log_level, message);
-  }
 }
 
 void buildVariableName(

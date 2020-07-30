@@ -20,6 +20,8 @@
 #include "fmilib.h"
 #include "FMI2/fmi2FunctionTypes.h"
 
+#define SPAWN_LOGGER_BUFFER_LENGTH 1000
+
 void writeFormatLog(const char *fmt, ...);
 
 void writeLog(const char* msg);
@@ -33,8 +35,6 @@ void setVariables(FMUBuilding* bui, const char* modelicaInstanceName, const spaw
 void getVariables(FMUBuilding* bui, const char* modelicaInstanceName, spawnReals* ptrReals);
 
 double do_event_iteration(FMUBuilding* bui, const char* modelicaInstanceName);
-
-void fmilogger(jm_callbacks* c, jm_string module, jm_log_level_enu_t log_level, jm_string message);
 
 void saveAppend(char* *buffer, const char *toAdd, size_t *bufLen);
 

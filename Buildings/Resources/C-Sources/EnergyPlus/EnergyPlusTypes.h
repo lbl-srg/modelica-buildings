@@ -37,7 +37,7 @@ static char* SEPARATOR = "/";
 typedef enum {instantiationMode, initializationMode, eventMode, continuousTimeMode} FMUMode;
 
 static int FMU_EP_VERBOSITY = 1; /* Verbosity */
-enum verbosity {QUIET = 4, MEDIUM = 5, TIMESTEP = 6};
+enum verbosity {ERRORS = 1, WARNINGS = 2, QUIET = 3, MEDIUM = 4, TIMESTEP = 5};
 
 typedef struct FMUBuilding
 {

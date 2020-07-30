@@ -285,10 +285,10 @@ void setValueReferences(FMUBuilding* fmuBui){
   size_t nv = fmi2_import_get_variable_list_size(vl);
 
 
+  /* Set value references for the zones by assigning the values obtained from the FMU */
   if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaFormatMessage("Setting variable references for zones.");
 
-  /* Set value references for the zones by assigning the values obtained from the FMU */
   for(i = 0; i < fmuBui->nZon; i++){
     zone = (FMUZone*) fmuBui->zones[i];
     setAttributesReal(fmuBui->fmuAbsPat, fmuBui->idfName, vl, vrl, nv, zone->parameters);
@@ -297,6 +297,9 @@ void setValueReferences(FMUBuilding* fmuBui){
   }
 
   /* Set value references for the input variables by assigning the values obtained from the FMU */
+  if (FMU_EP_VERBOSITY >= MEDIUM)
+    ModelicaFormatMessage("Setting variable references for input variables.");
+
   for(i = 0; i < fmuBui->nInputVariables; i++){
     inpVar = (FMUInputVariable*) fmuBui->inputVariables[i];
     setAttributesReal(fmuBui->fmuAbsPat, fmuBui->idfName, vl, vrl, nv, inpVar->inputs);
@@ -304,6 +307,9 @@ void setValueReferences(FMUBuilding* fmuBui){
   }
 
   /* Set value references for the output variables by assigning the values obtained from the FMU */
+  if (FMU_EP_VERBOSITY >= MEDIUM)
+    ModelicaFormatMessage("Setting variable references for output variables.");
+
   for(i = 0; i < fmuBui->nOutputVariables; i++){
     outVar = (FMUOutputVariable*) fmuBui->outputVariables[i];
     setAttributesReal(fmuBui->fmuAbsPat, fmuBui->idfName, vl, vrl, nv, outVar->outputs);
@@ -417,12 +423,12 @@ void generateFMU(
 
 /* Set the categories to be logged.
    Note that EnergyPlus has the following levels:
-      <Category name="logLevel1" description="logLevel1 - fatal error" />
-		  <Category name="logLevel2" description="logLevel2 - error" />
-		  <Category name="logLevel3" description="logLevel3 - warning" />
-		  <Category name="logLevel4" description="logLevel4 - info" />
-		  <Category name="logLevel5" description="logLevel5 - verbose" />
-		  <Category name="logLevel6" description="logLevel6 - debug" />
+      std::map<EnergyPlus::Error, fmi2Status> logLevelMap = {
+        {EnergyPlus::Error::Info, fmi2OK},
+        {EnergyPlus::Error::Warning, fmi2Warning},
+        {EnergyPlus::Error::Severe, fmi2Error},
+        {EnergyPlus::Error::Fatal, fmi2Fatal}
+      };
    FMU_EP_VERBOSITY is 1, 2, 3 up to and including 6
 */
 void setFMUDebugLevel(FMUBuilding* bui){
@@ -464,6 +470,40 @@ void setFMUDebugLevel(FMUBuilding* bui){
   }
   /* Free storage */
   free(categories);
+}
+
+/* Logger function used for Spawn */
+static void spawnLogger(
+  fmi2_component_environment_t env,
+  fmi2_string_t instanceName,
+  fmi2_status_t status,
+  fmi2_string_t category,
+  fmi2_string_t message, ...)
+{
+  /* EnergyPlus has for category always "EnergyPlus message", so we don't report this here */
+  int len;
+  const char* signature = "In %s: EnergyPlus %s: %s\n";
+  char msg[SPAWN_LOGGER_BUFFER_LENGTH];
+  va_list argp;
+  va_start(argp, message);
+
+  len = vsnprintf(msg, SPAWN_LOGGER_BUFFER_LENGTH, message, argp);
+  if (len < 0)
+    ModelicaFormatError("Failed to parse message '%s' from EnergyPlus.", message);
+
+  if (status == fmi2_status_ok || status == fmi2_status_pending || status == fmi2_status_discard){
+    if (FMU_EP_VERBOSITY >= QUIET)
+      ModelicaFormatMessage(signature, instanceName, "Info", msg);
+  }
+  else if (status == fmi2_status_warning){
+    if (FMU_EP_VERBOSITY >= WARNINGS)
+      ModelicaFormatMessage(signature, instanceName, fmi2_status_to_string(status), msg);
+  }
+  else{
+    /* This captures fmi2_status_error and fmi2_status_fatal.
+       They are written for any verbosity. */
+    ModelicaFormatMessage(signature, instanceName, fmi2_status_to_string(status), msg);
+  }
 }
 
 /* Import the EnergyPlus FMU
@@ -516,10 +556,11 @@ void importEnergyPlusFMU(FMUBuilding* bui){
   fmi2_import_collect_model_counts(bui->fmu, &mc);
   printf("*** Number of discrete variables %lu.\n", mc.num_discrete);
  */
-  callBackFunctions.logger = fmi2_log_forwarding; /* fmilogger; */
+  callBackFunctions.logger = spawnLogger;
   callBackFunctions.allocateMemory = calloc;
   callBackFunctions.freeMemory = free;
-  callBackFunctions.componentEnvironment = bui->fmu;
+  callBackFunctions.stepFinished = NULL; /* synchronous execution */
+  callBackFunctions.componentEnvironment = bui;
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaFormatMessage("Loading dllfmu.");
