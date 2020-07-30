@@ -642,6 +642,11 @@ void createDirectory(const char* dirName){
 void loadFMU_setupExperiment_enterInitializationMode(FMUBuilding* bui, double startTime){
   fmi2_status_t status;
 
+  /* Make sure startTime is positive */
+  if (startTime < 0){
+    ModelicaFormatError(" Negative simulation start time is not yet supported. See https://github.com/lbl-srg/modelica-buildings/issues/1938");
+  }
+
   /* Instantiate the FMU for this building */
   generateAndInstantiateBuilding(bui);
   if (FMU_EP_VERBOSITY >= MEDIUM)
