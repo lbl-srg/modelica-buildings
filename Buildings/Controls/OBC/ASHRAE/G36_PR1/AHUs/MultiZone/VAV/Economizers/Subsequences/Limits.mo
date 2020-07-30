@@ -124,10 +124,8 @@ block Limits
     annotation (Placement(transformation(extent={{-140,180},{-120,200}})));
 
 protected
-  parameter Real yMin=0 "Lower limit of control loop signal"
-    annotation (Dialog(tab="Commissioning", group="Controller"));
-  parameter Real yMax=1 "Upper limit of control loop signal"
-    annotation (Dialog(tab="Commissioning", group="Controller"));
+  parameter Real yMin=0 "Lower limit of control loop signal";
+  parameter Real yMax=1 "Upper limit of control loop signal";
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPhyPosMinSig(
     final k=outDamPhyPosMin)
     "Physically fixed minimum position of the outdoor air damper. This is the initial position of the economizer damper"
