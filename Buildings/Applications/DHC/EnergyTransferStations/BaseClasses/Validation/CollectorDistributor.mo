@@ -711,8 +711,7 @@ file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTrans
 "Simulate and plot"),
     experiment(
       StopTime=5000,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
 Documentation(
 revisions="<html>
 <ul>

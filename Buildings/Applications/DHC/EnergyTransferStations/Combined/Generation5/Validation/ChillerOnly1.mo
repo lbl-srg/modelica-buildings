@@ -8,11 +8,9 @@ model ChillerOnly1
   __Dymola_Commands(file=
 "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Combined/Generation5/Validation/ChillerOnly1.mos"
 "Simulate and plot"),
-    experiment(
-      StopTime=20000,
-      __Dymola_NumberOfIntervals=5000,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+  experiment(
+    StopTime=20000,
+    Tolerance=1e-06),
   Documentation(
 revisions="<html>
 <ul>

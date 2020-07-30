@@ -51,7 +51,10 @@ equation
     __Dymola_Commands(file=
 "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Combined/Generation5/Controls/Validation/LimPlay.mos"
 "Simulate and plot"),
-Documentation(
+  experiment(
+    StopTime=3,
+    Tolerance=1e-06),
+  Documentation(
 revisions="<html>
 <ul>
 <li>

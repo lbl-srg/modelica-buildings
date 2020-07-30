@@ -103,7 +103,7 @@ model Chiller
     annotation (Placement(transformation(extent={{160,-70},{140,-50}})));
 equation
   connect(THeaWatSupSet.y, chi.THeaWatSupSet) annotation (Line(points={{-98,40},
-          {-28,40},{-28,-63},{-12,-63}}, color={0,0,127}));
+          {-28,40},{-28,-62},{-12,-62}}, color={0,0,127}));
   connect(chi.port_bHeaWat, senTHeaWatSup.port_a) annotation (Line(points={{-10,-56},
           {-40,-56},{-40,-40},{-70,-40}},      color={0,127,255}));
   connect(senTHeaWatSup.port_b, conWat.ports[1]) annotation (Line(points={{-90,-40},
@@ -120,12 +120,12 @@ equation
           {40,-68},{40,-80},{60,-80}},      color={0,127,255}));
   connect(senTChiWatRet.port_a, evaWat.ports[2]) annotation (Line(points={{80,
           -80},{100,-80},{100,-64}}, color={0,127,255}));
-  connect(uCoo.y, chi.uCoo) annotation (Line(points={{-99,80},{-24,80},{-24,-61},
-          {-12,-61}}, color={255,0,255}));
-  connect(uHea.y, chi.uHea) annotation (Line(points={{-99,100},{-20,100},{-20,-59},
-          {-12,-59}},      color={255,0,255}));
+  connect(uCoo.y, chi.uCoo) annotation (Line(points={{-99,80},{-24,80},{-24,-60},
+          {-12,-60}}, color={255,0,255}));
+  connect(uHea.y, chi.uHea) annotation (Line(points={{-99,100},{-20,100},{-20,-58},
+          {-12,-58}},      color={255,0,255}));
   connect(TChiWatSupSet.y, chi.TChiWatSupSet) annotation (Line(points={{-98,0},{
-          -34,0},{-34,-65},{-12,-65}}, color={0,0,127}));
+          -34,0},{-34,-64},{-12,-64}}, color={0,0,127}));
   connect(THeaWatRet.y, conWat.T_in) annotation (Line(points={{-169,-60},{-140,-60},
           {-140,-58},{-122,-58}}, color={0,0,127}));
   connect(TChiWatRet.y, evaWat.T_in) annotation (Line(points={{139,-60},{132,-60},
@@ -136,9 +136,9 @@ equation
   __Dymola_Commands(file=
 "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Combined/Generation5/Subsystems/Validation/Chiller.mos"
 "Simulate and plot"),
-    experiment(
-      StopTime=5000,
-      Tolerance=1e-06),
+  experiment(
+    StopTime=5000,
+    Tolerance=1e-06),
 Documentation(
 revisions="<html>
 <ul>

@@ -22,7 +22,11 @@ model ChillerBorefield
   __Dymola_Commands(file=
 "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Combined/Generation5/Examples/ChillerBorefield.mos"
 "Simulate and plot"),
- Documentation(
+  experiment(
+    StartTime=6.5E6,
+    StopTime=7E6,
+    Tolerance=1e-06),
+  Documentation(
 revisions="<html>
 <ul>
 <li>
