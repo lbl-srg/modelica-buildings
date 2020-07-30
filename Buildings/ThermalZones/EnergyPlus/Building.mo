@@ -35,11 +35,28 @@ model Building
   parameter Boolean printUnits = true "Set to true to print units of OutputVariable instances to log file"
     annotation(Dialog(group="Diagnostics"));
 
+  parameter Boolean generatePortableFMU = false
+    "Set to true to include all binaries in the EnergyPlus FMU to allow simulation of without a Buildings library installation (increases translation time)"
+    annotation(Dialog(tab="Advanced"));
+
   BoundaryConditions.WeatherData.Bus weaBus if
         showWeatherData "Weather data bus"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
 protected
+  Binaries binaries if generatePortableFMU "Record with binaries";
+  record Binaries
+  final parameter String spawnLinuxExecutable=
+      Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/bin/spawn-linux64/bin/spawn")
+      "Binary for Linux 64, specified so it is packed into the FMU";
+  final parameter String spawnLinuxLibrary=
+      Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Library/linux64/libepfmi-9.0.1.so")
+    "Library for Linux 64, specified so it is packed into the FMU";
+  final parameter String fmiLinuxLibrary=
+      Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Library/linux64/libfmilib_shared.so")
+    "Library for Linux 64, specified so it is packed into the FMU";
+  end Binaries;
+
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     final filNam = weaName,
     final computeWetBulbTemperature=computeWetBulbTemperature) if
