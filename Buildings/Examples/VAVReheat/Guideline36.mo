@@ -7,8 +7,10 @@ model Guideline36
   parameter Modelica.SIunits.VolumeFlowRate VPriSysMax_flow=m_flow_nominal/1.2
     "Maximum expected system primary airflow rate at design stage";
   parameter Modelica.SIunits.VolumeFlowRate minZonPriFlo[numZon]={
-      mCor_flow_nominal,mSou_flow_nominal,mEas_flow_nominal,mNor_flow_nominal,
-      mWes_flow_nominal}/1.2 "Minimum expected zone primary flow rate";
+    conVAVCor.VDisSetMin_flow, conVAVSou.VDisSetMin_flow,
+    conVAVEas.VDisSetMin_flow, conVAVNor.VDisSetMin_flow,
+    conVAVWes.VDisSetMin_flow}
+    "Minimum expected zone primary flow rate";
   parameter Modelica.SIunits.Time samplePeriod=120
     "Sample period of component, set to the same value as the trim and respond that process yPreSetReq";
   parameter Modelica.SIunits.PressureDifference dpDisRetMax=40
@@ -17,27 +19,37 @@ model Guideline36
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conVAVCor(
     V_flow_nominal=mCor_flow_nominal/1.2,
     AFlo=AFloCor,
-    final samplePeriod=samplePeriod) "Controller for terminal unit corridor"
+    final samplePeriod=samplePeriod,
+    final VDisSetMin_flow=max(1.5*VCorOA_flow_nominal, 0.15*mCor_flow_nominal/1.2))
+    "Controller for terminal unit corridor"
     annotation (Placement(transformation(extent={{530,32},{550,52}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conVAVSou(
     V_flow_nominal=mSou_flow_nominal/1.2,
     AFlo=AFloSou,
-    final samplePeriod=samplePeriod) "Controller for terminal unit south"
+    final samplePeriod=samplePeriod,
+    final VDisSetMin_flow=max(1.5*VSouOA_flow_nominal, 0.15*mSou_flow_nominal/1.2))
+    "Controller for terminal unit south"
     annotation (Placement(transformation(extent={{700,30},{720,50}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conVAVEas(
     V_flow_nominal=mEas_flow_nominal/1.2,
     AFlo=AFloEas,
-    final samplePeriod=samplePeriod) "Controller for terminal unit east"
+    final samplePeriod=samplePeriod,
+    final VDisSetMin_flow=max(1.5*VEasOA_flow_nominal, 0.15*mEas_flow_nominal/1.2))
+    "Controller for terminal unit east"
     annotation (Placement(transformation(extent={{880,30},{900,50}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conVAVNor(
     V_flow_nominal=mNor_flow_nominal/1.2,
     AFlo=AFloNor,
-    final samplePeriod=samplePeriod) "Controller for terminal unit north"
+    final samplePeriod=samplePeriod,
+    final VDisSetMin_flow=max(1.5*VNorOA_flow_nominal, 0.15*mNor_flow_nominal/1.2))
+    "Controller for terminal unit north"
     annotation (Placement(transformation(extent={{1040,30},{1060,50}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conVAVWes(
     V_flow_nominal=mWes_flow_nominal/1.2,
     AFlo=AFloWes,
-    final samplePeriod=samplePeriod) "Controller for terminal unit west"
+    final samplePeriod=samplePeriod,
+    final VDisSetMin_flow=max(1.5*VWesOA_flow_nominal, 0.15*mWes_flow_nominal/1.2))
+    "Controller for terminal unit west"
     annotation (Placement(transformation(extent={{1240,28},{1260,48}})));
   Modelica.Blocks.Routing.Multiplex5 TDis "Discharge air temperatures"
     annotation (Placement(transformation(extent={{220,270},{240,290}})));
@@ -76,17 +88,19 @@ model Guideline36
     "Replicate real input"
     annotation (Placement(transformation(extent={{-120,320},{-100,340}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller conAHU(
+    kMinOut=0.03,
     final pMaxSet=410,
     final yFanMin=yFanMin,
     final VPriSysMax_flow=VPriSysMax_flow,
-    final peaSysPop=1.2*sum({0.05*AFlo[i] for i in 1:numZon})) "AHU controller"
+    final peaSysPop=divP*sum({ratP_A*AFlo[i] for i in 1:numZon}))
+    "AHU controller"
     annotation (Placement(transformation(extent={{340,512},{420,640}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Zone
     zonOutAirSet[numZon](
     final AFlo=AFlo,
     final have_occSen=fill(false, numZon),
     final have_winSen=fill(false, numZon),
-    final desZonPop={0.05*AFlo[i] for i in 1:numZon},
+    final desZonPop={ratP_A*AFlo[i] for i in 1:numZon},
     final minZonPriFlo=minZonPriFlo)
     "Zone level calculation of the minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{220,580},{240,600}})));
@@ -442,6 +456,12 @@ its input.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 10, 2020, by Antoine Gautier:<br/>
+Changed design and control parameters for outdoor air flow.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2019\">#2019</a>
+</li>
 <li>
 April 20, 2020, by Jianjun Hu:<br/>
 Exported actual VAV damper position as the measured input data for terminal controller.<br/>
