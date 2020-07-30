@@ -482,7 +482,7 @@ static void spawnLogger(
 {
   /* EnergyPlus has for category always "EnergyPlus message", so we don't report this here */
   int len;
-  const char* signature = "In %s: EnergyPlus %s->%s\n";
+  const char* signature = "In %s: EnergyPlus %s: %s\n";
   char msg[SPAWN_LOGGER_BUFFER_LENGTH];
   va_list argp;
   va_start(argp, message);
