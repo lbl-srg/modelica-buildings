@@ -486,12 +486,7 @@ static void spawnLogger(
   char msg[SPAWN_LOGGER_BUFFER_LENGTH];
   va_list argp;
   va_start(argp, message);
-/*  void* (*myMessage)(const char*);
-  myMessage = (((FMUBuilding*)env)->modelica_message);
-  myMessage("This should write to ModelicaMessage.\n");
-  myMessage(message);
-  */
-  /*  (*((FMUBuilding*)env)->modelica_message)("This is a test\n");*/
+
   len = vsnprintf(msg, SPAWN_LOGGER_BUFFER_LENGTH, message, argp);
   if (len < 0)
     ModelicaFormatError("Failed to parse message '%s' from EnergyPlus.", message);
