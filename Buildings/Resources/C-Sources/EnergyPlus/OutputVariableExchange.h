@@ -14,6 +14,7 @@
 void OutputVariableExchange(
   void* object,
   int initialCall,
+  double directDependency,
   double time,
   double* y,
   double* tNext);

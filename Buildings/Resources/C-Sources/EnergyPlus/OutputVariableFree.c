@@ -13,22 +13,22 @@ void OutputVariableFree(void* object){
   if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaMessage("Entered OutputVariableFree.\n");
   if ( object != NULL ){
-    FMUOutputVariable* outVar = (FMUOutputVariable*) object;
+    FMUOutputVariable* com = (FMUOutputVariable*) object;
 
     /* Check if there in another Modelica instance that uses this output variable */
-    outVar->count = outVar->count - 1;
-    if (outVar->count > 0){
+    com->count = com->count - 1;
+    if (com->count > 0){
       return;
     }
 
     /* The building may not have been instanciated yet if there was an error during instantiation */
-    if (outVar->ptrBui != NULL){
-      outVar->ptrBui->nOutputVariables--;
-      FMUBuildingFree(outVar->ptrBui);
+    if (com->ptrBui != NULL){
+      com->ptrBui->nOutputVariables--;
+      FMUBuildingFree(com->ptrBui);
     }
     if (FMU_EP_VERBOSITY >= MEDIUM)
       ModelicaMessage("Calling free in OutputVariableFree.\n");
-    free(outVar);
+    free(com);
   }
   if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaMessage("Leaving OutputVariableFree.c.\n");

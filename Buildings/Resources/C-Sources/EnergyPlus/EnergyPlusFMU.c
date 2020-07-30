@@ -33,14 +33,20 @@ size_t AllocateBuildingDataStructure(
   const char* buildingsLibraryRoot){
 
   const size_t nFMU = getBuildings_nFMU();
+  const size_t strLenWea = strlen(weaName);
+
   if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaFormatMessage("AllocateBuildingDataStructure: Allocating data structure for building %lu with name %s", nFMU, modelicaNameBuilding);
 
-  /* Validate the input date */
+  /* Validate the input data */
   if (access(idfName, R_OK) != 0)
     ModelicaFormatError("Cannot read idf file '%s' specified in '%s': %s.", idfName, modelicaNameBuilding, strerror(errno));
   if (access(weaName, R_OK) != 0)
     ModelicaFormatError("Cannot read weather file '%s' specified in '%s': %s.", weaName, modelicaNameBuilding, strerror(errno));
+
+  if (strcmp(".mos", strrchr(weaName, '.')) != 0)
+    ModelicaFormatError("Obtained weather file '%s', but require .mos file rather than %s file to be specified in '%s'.",
+      weaName, strrchr(weaName, '.'), modelicaNameBuilding);
 
   /* Allocate memory */
   if (nFMU == 0)
@@ -79,8 +85,17 @@ size_t AllocateBuildingDataStructure(
   }
 
   /* Assign the weather name */
-  mallocString((strlen(weaName)+1), "Not enough memory in EnergyPlusFMU.c. to allocate weather.", &(Buildings_FMUS[nFMU]->weather));
+  mallocString((strLenWea+1), "Not enough memory in EnergyPlusFMU.c. to allocate weather.", &(Buildings_FMUS[nFMU]->weather));
   strcpy(Buildings_FMUS[nFMU]->weather, weaName);
+  /* Change ending from .mos to .epw */
+  Buildings_FMUS[nFMU]->weather[strLenWea-3] = 'e';
+  Buildings_FMUS[nFMU]->weather[strLenWea-2] = 'p';
+  Buildings_FMUS[nFMU]->weather[strLenWea-1] = 'w';
+
+  /* Make sure that .epw file is readable */
+  if (access(weaName, R_OK) != 0)
+    ModelicaFormatError("Cannot read weather file '%s' specified in '%s' through %s (obtained after changing extension): %s.",
+      Buildings_FMUS[nFMU]->weather, modelicaNameBuilding, weaName, strerror(errno));
 
   /* Set the model hash to null */
   Buildings_FMUS[nFMU]->modelHash = NULL;
@@ -105,6 +120,10 @@ size_t AllocateBuildingDataStructure(
   /* Initialize thermal zone data */
   Buildings_FMUS[nFMU]->nZon = 0;
   Buildings_FMUS[nFMU]->zones = NULL;
+
+  /* Initialize input variable data */
+  Buildings_FMUS[nFMU]->nInputVariables = 0;
+  Buildings_FMUS[nFMU]->inputVariables = NULL;
 
   /* Initialize output variable data */
   Buildings_FMUS[nFMU]->nOutputVariables = 0;
@@ -147,14 +166,53 @@ void AddZoneToBuilding(FMUZone* ptrZone){
   fmu->zones[nZon] = ptrZone;
   /* Increment the count of zones to this building. */
   fmu->nZon++;
+
+  if (FMU_EP_VERBOSITY >= MEDIUM)
+    ModelicaFormatMessage("EnergyPlusFMU.c: nZon = %d, nInp = %d, nOut = %d",
+      fmu->nZon, fmu->nInputVariables, fmu->nOutputVariables);
 }
 
-void AddOutputVariableToBuilding(FMUOutputVariable* ptrOutVar){
-  FMUBuilding* fmu = ptrOutVar->ptrBui;
+void AddInputVariableToBuilding(FMUInputVariable* ptrVar){
+  FMUBuilding* fmu = ptrVar->ptrBui;
+  const size_t nInputVariables = fmu->nInputVariables;
+
+  if (FMU_EP_VERBOSITY >= MEDIUM)
+    ModelicaFormatMessage("EnergyPlusFMU.c: Adding input variable %lu with name %s",
+      nInputVariables+1,
+      ptrVar->modelicaNameInputVariable);
+
+  if (nInputVariables == 0){
+    fmu->inputVariables=malloc(sizeof(FMUInputVariable *));
+    if ( fmu->inputVariables== NULL )
+      ModelicaError("Not enough memory in EnergyPlusFMU.c. to allocate input variables.");
+  }
+  else{
+    /* We already have nInputVariables > 0 input variables. */
+
+    /* Increment size of vector that contains the input variables. */
+    fmu->inputVariables = realloc(fmu->inputVariables, (nInputVariables + 1) * sizeof(FMUInputVariable*));
+    if (fmu->inputVariables == NULL){
+      ModelicaError("Not enough memory in EnergyPlusFMU.c. to allocate memory for fmu->inputVariables.");
+    }
+  }
+  /* Assign the input variable */
+  fmu->inputVariables[nInputVariables] = ptrVar;
+  /* Increment the count of input variables of this building. */
+  fmu->nInputVariables++;
+
+  if (FMU_EP_VERBOSITY >= MEDIUM)
+    ModelicaFormatMessage("EnergyPlusFMU.c: nZon = %d, nInp = %d, nOut = %d",
+      fmu->nZon, fmu->nInputVariables, fmu->nOutputVariables);
+}
+
+void AddOutputVariableToBuilding(FMUOutputVariable* ptrVar){
+  FMUBuilding* fmu = ptrVar->ptrBui;
   const size_t nOutputVariables = fmu->nOutputVariables;
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("EnergyPlusFMU.c: Adding output variable %lu with name %s", nOutputVariables+1, ptrOutVar->modelicaNameOutputVariable);
+    ModelicaFormatMessage("EnergyPlusFMU.c: Adding output variable %lu with name %s",
+      nOutputVariables+1,
+      ptrVar->modelicaNameOutputVariable);
 
   if (nOutputVariables == 0){
     fmu->outputVariables=malloc(sizeof(FMUOutputVariable *));
@@ -171,9 +229,13 @@ void AddOutputVariableToBuilding(FMUOutputVariable* ptrOutVar){
     }
   }
   /* Assign the output variable */
-  fmu->outputVariables[nOutputVariables] = ptrOutVar;
+  fmu->outputVariables[nOutputVariables] = ptrVar;
   /* Increment the count of output variables of this building. */
   fmu->nOutputVariables++;
+
+  if (FMU_EP_VERBOSITY >= MEDIUM)
+    ModelicaFormatMessage("EnergyPlusFMU.c: nZon = %d, nInp = %d, nOut = %d",
+      fmu->nZon, fmu->nInputVariables, fmu->nOutputVariables);
 }
 
 FMUBuilding* getBuildingsFMU(size_t iFMU){
@@ -205,12 +267,13 @@ void FMUBuildingFree(FMUBuilding* ptrBui){
 
   if ( ptrBui != NULL ){
     if (FMU_EP_VERBOSITY >= MEDIUM)
-      ModelicaFormatMessage("In FMUBuildingFree, %p, nZon = %d, nOutVar = %d", ptrBui, ptrBui->nZon, ptrBui->nOutputVariables);
+      ModelicaFormatMessage("In FMUBuildingFree, %p, nZon = %d, nInpVar = %d, nOutVar = %d",
+      ptrBui, ptrBui->nZon, ptrBui->nInputVariables, ptrBui->nOutputVariables);
 
     /* Make sure no thermal zone or output variable uses this building */
-    if (ptrBui->nZon > 0 || ptrBui->nOutputVariables > 0){
+    if (ptrBui->nZon > 0 || ptrBui->nInputVariables > 0 || ptrBui->nOutputVariables > 0){
       if (FMU_EP_VERBOSITY >= MEDIUM)
-        ModelicaMessage("Exiting FMUBuildingFree without changes as zones or outputs uses this building.");
+        ModelicaMessage("Exiting FMUBuildingFree without changes as building is still used.");
       return;
     }
 

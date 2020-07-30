@@ -25,11 +25,15 @@ bool allOutputVariablesAreInitialized(FMUBuilding* bui){
 }
 */
 
-/* Exchange data between Modelica output variable block and EnergyPlus output variable
+/* Exchange data between Modelica output variable block and EnergyPlus output variable.
+
+   The argument directDependency is a dummy variable needed
+   to force Modelica tools to call outputs after an input has been set.
 */
 void OutputVariableExchange(
   void* object,
   int initialCall,
+  double directDependency,
   double time,
   double* y,
   double* tNext){
@@ -40,8 +44,8 @@ void OutputVariableExchange(
   fmi2Status status;
 
   if (FMU_EP_VERBOSITY >= TIMESTEP)
-    ModelicaFormatMessage("Exchanging data with EnergyPlus: t = %.2f, initialCall = %d, mode = %s, output variable = %s, valueReference = %lu.\n",
-      time, initialCall, fmuModeToString(bui->mode), outVar->modelicaNameOutputVariable, outVar->outputs->valRefs[0]);
+    ModelicaFormatMessage("Exchanging data with EnergyPlus: t = %.2f, initialCall = %d, mode = %s, output variable = %s, directDependency = %2.f, valueReference = %lu.\n",
+      time, initialCall, fmuModeToString(bui->mode), outVar->modelicaNameOutputVariable, directDependency, outVar->outputs->valRefs[0]);
 
   if (! outVar->isInstantiated){
     /* In the first call, the output variable is not yet initialized.
@@ -61,7 +65,7 @@ void OutputVariableExchange(
       if (outVar->outputs->units[0]) /* modelDescription.xml defines unit */
         ModelicaFormatMessage("Output %s.y has in Modelica the unit %s.\n",
           outVar->modelicaNameOutputVariable,
-          fmi2_import_get_unit_name(outVar->outputs->units[0]));      
+          fmi2_import_get_unit_name(outVar->outputs->units[0]));
       else
         ModelicaFormatMessage("Output %s.y has same unit as EnergyPlus, but EnergyPlus does not define the unit of this output.\n",
           outVar->modelicaNameOutputVariable);
@@ -113,7 +117,7 @@ void OutputVariableExchange(
   /* Get output */
   getVariables(bui, outVar->modelicaNameOutputVariable, outVar->outputs);
 
-  *y = outVar->outputs->valsEP[0];
+  *y = outVar->outputs->valsSI[0];
 
   if (FMU_EP_VERBOSITY >= TIMESTEP)
     ModelicaFormatMessage("Returning from OutputVariablesExchange with nextEventTime = %.2f, y = %.2f, output variable = %s, mode = %s\n",

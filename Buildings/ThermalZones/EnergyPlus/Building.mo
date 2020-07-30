@@ -9,7 +9,7 @@ model Building
 
   parameter String idfName "Name of the IDF file"
     annotation(Evaluate=true);
-  parameter String weaName "Name of the EnergyPlus weather file (mos file)"
+  parameter String weaName "Name of the weather file, in .mos format and with .mos extension (see info section)"
     annotation(Evaluate=true);
 
   parameter Boolean usePrecompiledFMU = false
@@ -35,43 +35,35 @@ model Building
   parameter Boolean printUnits = true "Set to true to print units of OutputVariable instances to log file"
     annotation(Dialog(group="Diagnostics"));
 
+  parameter Boolean generatePortableFMU = false
+    "Set to true to include all binaries in the EnergyPlus FMU to allow simulation of without a Buildings library installation (increases translation time)"
+    annotation(Dialog(tab="Advanced"));
+
   BoundaryConditions.WeatherData.Bus weaBus if
         showWeatherData "Weather data bus"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
-  final parameter String epWeaName=
-      Modelica.Utilities.Strings.replace(
-          string=weaName,
-          searchString=".mos",
-          replaceString=".epw",
-          startIndex=weaStrLen-4,
-          replaceAll=false,
-          caseSensitive=true)
-      "EnergyPlus weather data file name (with epw extension)"
-      annotation(Evaluate=true);
-
 protected
+  Binaries binaries if generatePortableFMU "Record with binaries";
+  record Binaries
+  final parameter String spawnLinuxExecutable=
+      Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/bin/spawn-linux64/bin/spawn")
+      "Binary for Linux 64, specified so it is packed into the FMU";
+  final parameter String spawnLinuxLibrary=
+      Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Library/linux64/libepfmi-9.0.1.so")
+    "Library for Linux 64, specified so it is packed into the FMU";
+  final parameter String fmiLinuxLibrary=
+      Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Library/linux64/libfmilib_shared.so")
+    "Library for Linux 64, specified so it is packed into the FMU";
+  end Binaries;
+
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     final filNam = weaName,
     final computeWetBulbTemperature=computeWetBulbTemperature) if
        showWeatherData
       "Weather data reader"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  parameter Integer weaStrLen = Modelica.Utilities.Strings.length(weaName)
-    "Length of weather data file";
-  parameter String weaFilExt = Modelica.Utilities.Strings.substring(string=weaName, startIndex=weaStrLen-3, endIndex=weaStrLen)
-    "Extension of weather data file";
-  Boolean weaFilEndsInEpw = Modelica.Utilities.Strings.isEqual(".epw", weaFilExt)
-    "Flag, true if weaName ends in .epw";
-initial equation
-  if  weaFilEndsInEpw then
-    Modelica.Utilities.Streams.error(
-      "Received 'weaName = " + weaName + "' in '" + modelicaNameBuilding
-      + "'.\nWeather data file must end in '.mos'.\nModelica will rename the file to '.epw' when it calls EnergyPlus.");
-  else
-    assert(Modelica.Utilities.Strings.isEqual(".mos", weaFilExt),
-      "Weather data file in '" + modelicaNameBuilding + "' must end in '.mos', received '" + weaName + "'.");
-  end if;
+
 equation
   connect(weaDat.weaBus, weaBus) annotation (Line(
       points={{10,0},{100,0}},
@@ -135,6 +127,16 @@ is used to configure EnergyPlus.
 The instance must be placed in the model hierarchy at the same or at a higher level
 than the EnergyPlus objects that are related to the EnergyPlus idf file specified in
 this model through the parameter <code>idfName</code>.
+</p>
+<p>
+For the parameter <code>weaName</code>, the name of the Modelica weather file must be
+provided. This is the file that can be read, for example, with
+<a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">
+Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>.
+However, both weather files <code>.mos</code> and <code>.epw</code>
+must be provided in the same directory. When starting the simulation, EnergyPlus will
+be run with the weather file whose name is identical to <code>weaName</code>, but with the
+extension <code>.mos</code> replaced with <code>.epw</code>.
 </p>
 </html>", revisions="<html>
 <ul>

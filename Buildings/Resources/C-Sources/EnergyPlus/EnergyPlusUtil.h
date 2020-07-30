@@ -33,19 +33,11 @@
 #include "fmilib.h"
 #include "FMI2/fmi2FunctionTypes.h"
 
-void writeFormatLog(unsigned int level, const char *fmt, ...);
+#define SPAWN_LOGGER_BUFFER_LENGTH 1000
 
-void writeLog(unsigned int level, const char* msg);
+void writeFormatLog(const char *fmt, ...);
 
-void logStringArray(unsigned int level,
-                    const char* msg,
-                    const char** array,
-                    size_t n);
-
-void logValueReferenceArray(unsigned int level,
-                            const char* msg,
-                            const fmi2ValueReference* array,
-                            size_t n);
+void writeLog(const char* msg);
 
 void mallocSpawnReals(const size_t n, spawnReals** r);
 
@@ -56,8 +48,6 @@ void setVariables(FMUBuilding* bui, const char* modelicaInstanceName, const spaw
 void getVariables(FMUBuilding* bui, const char* modelicaInstanceName, spawnReals* ptrReals);
 
 double do_event_iteration(FMUBuilding* bui, const char* modelicaInstanceName);
-
-void fmilogger(jm_callbacks* c, jm_string module, jm_log_level_enu_t log_level, jm_string message);
 
 void saveAppend(char* *buffer, const char *toAdd, size_t *bufLen);
 
@@ -74,6 +64,7 @@ char* getFileNameWithoutExtension(const char* idfName);
 void getSimulationTemporaryDirectory(const char* modelicaNameBuilding, char** dirNam);
 
 void buildVariableName(
+  const char* modelicaInstanceName,
   const char* firstPart,
   const char* secondPart,
   char* *ptrFullName);

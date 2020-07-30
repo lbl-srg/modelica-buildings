@@ -22,63 +22,33 @@
 #include <dlfcn.h>
 #endif
 
-void writeFormatLog(unsigned int level, const char *fmt, ...) {
-  /*const char* prefix = "\033[1;33m*** Log\033[0m: ";*/
-  const char* prefix = "*** Log: ";
+/* This write statement is experimental to flush the write statements
+   to a file. It is useful to debug if segmentation faults happen.
+*/
+void writeFormatLog(const char *fmt, ...) {
   va_list args;
+  FILE *fp;
 
-  if (level <= FMU_EP_VERBOSITY){
-    fprintf(stdout, "%s", prefix);
-    va_start(args, fmt);
-    vprintf(fmt, args);
-    va_end(args);
-    fprintf(stdout, "%s", "\n");
-    fflush(stdout);
-    ModelicaFormatMessage(fmt, args);
+  fp = freopen("output.txt", "a+", stdout);
+  if (fp == NULL){
+    ModelicaFormatError("Failed to open file 'output.txt': %s", strerror(errno));
   }
+
+  va_start(args, fmt);
+  vprintf(fmt, args);
+  va_end(args);
+  printf("%s", "\n");
+  fflush(stdout);
+  fp = freopen("/dev/tty", "w", stdout); /*for gcc, ubuntu*/
+  if (fp == NULL){
+    ModelicaFormatError("Failed to open file '/dev/tty': %s", strerror(errno));
+  }
+
 }
 
-void writeLog(unsigned int level, const char* msg)
+void writeLog(const char* msg)
 {
-    if (level <= FMU_EP_VERBOSITY){
-      const char* prefix = "*** Log: ";
-      char* m;
-      mallocString((strlen(msg)+strlen(prefix)+1), "Failed to allocate string array in writeLog.", &m);
-      strcpy(m, prefix);
-      strcat(m, msg);
-      fprintf(stdout, "%s\n", m);
-      fflush(stdout);
-      ModelicaFormatMessage("%s", m);
-    }
-}
-
-void logStringArray(unsigned int level,
-                    const char* msg,
-                    const char** array,
-                    size_t n){
-  int i;
-  if (level <= FMU_EP_VERBOSITY){
-    writeLog(level, msg);
-    for(i = 0; i < n; i++)
-      writeLog(level, array[i]);
-    writeLog(level, "End of array.");
-  }
-}
-
-void logValueReferenceArray(unsigned int level,
-                            const char* msg,
-                            const fmi2ValueReference* array,
-                            size_t n){
-  int i;
-  if (level <= FMU_EP_VERBOSITY){
-    char res[100];
-    writeLog(level, msg);
-    for(i = 0; i < n; i++){
-      sprintf(res, "%d", array[i]);
-      writeLog(level, res);
-    }
-    writeLog(level, "End of array.");
-  }
+  writeFormatLog("%s\n", msg);
 }
 
 
@@ -577,30 +547,30 @@ void getSimulationTemporaryDirectory(const char* modelicaNameBuilding, char** di
   return;
 }
 
-void fmilogger(jm_callbacks* c, jm_string module, jm_log_level_enu_t log_level, jm_string message){
-  if (log_level == jm_log_level_error){
-    ModelicaFormatError("Error in FMU: module = %s, log level = %d: %s", module, log_level, message);
-  }
-  else{
-    ModelicaFormatMessage("Message from FMU: module = %s, log level = %d: %s", module, log_level, message);
-  }
-}
-
 void buildVariableName(
+  const char* modelicaInstanceName,
   const char* firstPart,
   const char* secondPart,
   char* *ptrFullName){
   size_t i;
   size_t len;
 
-  len = strlen(firstPart) + 1 + strlen(secondPart);
+  len = strlen(modelicaInstanceName) + 1 + strlen(firstPart);
+  /* For a schedule, the 2nd part is NULL */
+  if (secondPart != NULL){
+    len += 1 + strlen(secondPart);
+  }
 
   mallocString(len+1, "Failed to allocate memory for ptrFullName in EnergyPlusUtil.c.", ptrFullName);
   /* Copy the string */
   memset(*ptrFullName, '\0', len+1);
-  strcpy(*ptrFullName, firstPart);
-  strcat(*ptrFullName, "_");
-  strcat(*ptrFullName, secondPart);
+  strcpy(*ptrFullName, modelicaInstanceName);
+  strcat(*ptrFullName, ":");
+  strcat(*ptrFullName, firstPart);
+  if (secondPart != NULL){
+    strcat(*ptrFullName, "_");
+    strcat(*ptrFullName, secondPart);
+  }
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaFormatMessage("Built variable name '%s'.\n", *ptrFullName);
@@ -674,18 +644,24 @@ void createDirectory(const char* dirName){
 void loadFMU_setupExperiment_enterInitializationMode(FMUBuilding* bui, double startTime){
   fmi2_status_t status;
 
+  /* Make sure startTime is positive */
+  if (startTime < 0){
+    ModelicaFormatError(" Negative simulation start time is not yet supported. See https://github.com/lbl-srg/modelica-buildings/issues/1938");
+  }
+
   /* Instantiate the FMU for this building */
   generateAndInstantiateBuilding(bui);
   if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaFormatMessage("Instantiate building %s.\n", bui->modelicaNameBuilding);
 
-  if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("fmi2_import_setup_experiment: Setting up experiment building %s at %p with startTime = %f.\n",
-      bui->modelicaNameBuilding, bui, startTime);
   bui->time = startTime;
   setFMUMode(bui, instantiationMode);
 
   /* This function can only be called once per building FMU */
+  if (FMU_EP_VERBOSITY >= MEDIUM)
+    ModelicaFormatMessage("fmi2_import_setup_experiment: Setting up experiment building %s at %p with startTime = %f.\n",
+      bui->modelicaNameBuilding, bui, startTime);
+
   /*ModelicaFormatError("********* Calling setting up experiment... for building at %p", bui->fmu);*/
 
   status = fmi2_import_setup_experiment(
@@ -695,7 +671,9 @@ void loadFMU_setupExperiment_enterInitializationMode(FMUBuilding* bui, double st
       startTime,            /* startTime */
       fmi2False,            /* stopTimeDefined */
       0);                   /* stopTime */
-/*  ModelicaFormatError("********* Returned from setting up experiment... for %s", bui->modelicaNameBuilding);*/
+
+  if (FMU_EP_VERBOSITY >= MEDIUM)
+    ModelicaFormatMessage("fmi2_import_setup_experiment: Returned from setting up experiment with status %s.\n", fmi2_status_to_string(status));
 
   if( status != fmi2_status_ok ){
     ModelicaFormatError("Failed to setup experiment for FMU with name %s.",  bui->fmuAbsPat);
