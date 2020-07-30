@@ -150,8 +150,8 @@ the illuminance in a room that changes instantaneously when the window blind is 
 the <code>Zone Electric Equipment Electric Power</code> which changes instantaneously
 when a schedule value switches it on
 (see
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Validation.Schedule.OneZoneEquipmentScheduleNonSampledOutputVariable\">
-Buildings.ThermalZones.EnergyPlus.Validation.Schedule.OneZoneEquipmentScheduleNonSampledOutputVariable</a>).
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Validation.Schedule.EquipmentScheduleOutputVariable\">
+Buildings.ThermalZones.EnergyPlus.Validation.Schedule.EquipmentScheduleOutputVariable</a>).
 For such variables, set <code>isDirectDependent=true</code>.
 In contrast, an output variables does not depend directly on an input variable if
 it is a continuous time state, or if it only depends on time such as weather data.
@@ -173,8 +173,8 @@ or
 Buildings.ThermalZones.EnergyPlus.Schedule</a>
 on which this output directly depends on.
 See for example
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Validation.Schedule.OneZoneEquipmentScheduleNonSampledOutputVariable\">
-Buildings.ThermalZones.EnergyPlus.Validation.Schedule.OneZoneEquipmentScheduleNonSampledOutputVariable</a>.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Validation.Schedule.EquipmentScheduleOutputVariable\">
+Buildings.ThermalZones.EnergyPlus.Validation.Schedule.EquipmentScheduleOutputVariable</a>.
 If the output depends on multiple inputs, just multiply these inputs before connecting their product
 to the connector <code>directDependency</code>. What the value is is irrelevant,
 but a Modelica code generator will then understand that first the input needs to be sent

@@ -1,7 +1,7 @@
 within Buildings.ThermalZones.EnergyPlus.Validation.Schedule;
-model OneZoneEquipmentScheduleNonSampledOutputVariable
+model EquipmentScheduleOutputVariable
   "Validation case with a schedule that is not sampled, and output reader of the energy affected by the scheduled value"
-  extends Buildings.ThermalZones.EnergyPlus.Validation.Schedule.OneZoneEquipmentScheduleNonSampled;
+  extends Buildings.ThermalZones.EnergyPlus.Validation.Schedule.EquipmentSchedule;
   Buildings.ThermalZones.EnergyPlus.OutputVariable equEle(
     name="Zone Electric Equipment Electric Power",
     key="LIVING ZONE",
@@ -42,9 +42,9 @@ First implementation.
 </li>
 </ul>
 </html>"),
- __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/Schedule/OneZoneEquipmentScheduleNonSampledOutputVariable.mos"
+ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/Schedule/EquipmentScheduleOutputVariable.mos"
         "Simulate and plot"),
 experiment(
       StopTime=172800,
       Tolerance=1e-06));
-end OneZoneEquipmentScheduleNonSampledOutputVariable;
+end EquipmentScheduleOutputVariable;

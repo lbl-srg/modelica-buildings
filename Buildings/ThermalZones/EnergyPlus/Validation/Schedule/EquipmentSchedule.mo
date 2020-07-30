@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.EnergyPlus.Validation.Schedule;
-model OneZoneEquipmentScheduleNonSampled
+model EquipmentSchedule
   "Validation case with a schedule that is not sampled, e.g., updates only at the EnergyPlus zone time step"
   extends Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone.OneZone;
 
@@ -30,9 +30,9 @@ First implementation.
 </li>
 </ul>
 </html>"),
- __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/Schedule/OneZoneEquipmentScheduleNonSampled.mos"
+ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/Schedule/EquipmentSchedule.mos"
         "Simulate and plot"),
 experiment(
       StopTime=172800,
       Tolerance=1e-06));
-end OneZoneEquipmentScheduleNonSampled;
+end EquipmentSchedule;
