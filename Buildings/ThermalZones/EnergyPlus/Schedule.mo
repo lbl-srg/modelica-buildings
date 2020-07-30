@@ -84,11 +84,10 @@ the entry <code>Timestep,6;</code> and the input <code>u</code> to this block is
 <p>
 <table summary=\"example for input\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><th>Model time (min)</th>       <th>Input u</th>     </tr>
-<tr><td>0</td>   <td>0</td>       </tr>
-<tr><td>5</td>   <td>1</td>       </tr>
-<tr><td>10</td>   <td>2</td>       </tr>
-<tr><td>15</td>   <td>3</td>       </tr>
-<tr><td>20</td>   <td>4</td>       </tr>
+<tr><td>0...5</td>   <td>0</td>       </tr>
+<tr><td>5...15</td>   <td>1</td>       </tr>
+<tr><td>15...20</td>   <td>2</td>       </tr>
+<tr><td>20</td>   <td>3</td>       </tr>
 </table>
 </p>
 <p>
@@ -98,12 +97,9 @@ then EnergyPlus will receive the inputs
 <table summary=\"example for input\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><th>Model time (min)</th>       <th>Input u</th>     </tr>
 <tr><td>0</td>   <td>0</td>       </tr>
-<tr><td>10</td>   <td>2</td>       </tr>
-<tr><td>20</td>   <td>4</td>       </tr>
+<tr><td>10</td>   <td>1</td>       </tr>
+<tr><td>20</td>   <td>3</td>       </tr>
 </table>
-</p>
-<p>
-All other values are ignored.
 </p>
 <p>
 The parameter <code>unit</code> specifies the unit of the signal <code>u</code>.
