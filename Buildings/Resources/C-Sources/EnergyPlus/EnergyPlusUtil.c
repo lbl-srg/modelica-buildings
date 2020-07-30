@@ -22,6 +22,9 @@
 #include <dlfcn.h>
 #endif
 
+/* This write statement is experimental to flush the write statements
+   to a file. It is useful to debug if segmentation faults happen.
+*/
 void writeFormatLog(const char *fmt, ...) {
   va_list args;
   FILE *fp;
