@@ -7,11 +7,11 @@ partial block PartialSupervisory "Partial model for supervisory controller"
     annotation(Evaluate=true);
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHea
-    "Heating mode enabled signal" annotation (Placement(transformation(extent={{-160,90},
-            {-120,130}}), iconTransformation(extent={{-140,70},{-100,110}})));
+    "Heating mode enabled signal" annotation (Placement(transformation(extent={{-160,80},
+            {-120,120}}), iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uCoo
-    "Cooling mode enabled signal" annotation (Placement(transformation(extent={{-160,70},
-            {-120,110}}), iconTransformation(extent={{-140,50},{-100,90}})));
+    "Cooling mode enabled signal" annotation (Placement(transformation(extent={{-160,60},
+            {-120,100}}), iconTransformation(extent={{-140,50},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupPreSet(final unit="K",
       displayUnit="degC") "Chilled water supply temperature set-point"
     annotation (Placement(transformation(extent={{-160,-60},{-120,-20}}),
